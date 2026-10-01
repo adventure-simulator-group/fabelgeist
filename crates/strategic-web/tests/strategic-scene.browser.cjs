@@ -80,7 +80,11 @@ async function serve() {
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client.js") {
       response.setHeader("Content-Type", "text/javascript");
       const street = {height: 30, width: services.length * 20, bays: services.map((id, index) => ({id, width: index % 2 ? 18 : 24}))};
-      response.end(`export default async function(){}; export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})}`); return;
+      response.end(`export default async function(){}; export function wasm_generation_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})}`); return;
+    }
+    if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client_bg.wasm") {
+      response.setHeader("Content-Type", "application/wasm");
+      response.end(Buffer.from([0, 97, 115, 109, 1, 0, 0, 0])); return;
     }
     let file;
     if (url.pathname.startsWith("/static/")) file = path.join(root, "crates/strategic-web/static", url.pathname.slice(8));
@@ -93,7 +97,10 @@ async function serve() {
         fs.writeFileSync(path.join(reviewRoot, "missing-assets.json"), JSON.stringify(missing, null, 2));
         response.statusCode = 404; response.end(); return;
       }
-      fs.createReadStream(file).pipe(response); return;
+      if (process.env.STRATEGIC_STARTUP_PROFILE === "1" && url.pathname.startsWith("/static/") && file.endsWith(".js")) {
+        response.end(require("./strategic-startup-profile.cjs").rewrite(path.basename(file), fs.readFileSync(file, "utf8")));
+      } else fs.createReadStream(file).pipe(response);
+      return;
     }
     response.setHeader("Content-Type", "text/html"); response.setHeader("X-Strategic-Response", "root");
     response.setHeader("X-Strategic-Script-Profile", "strategic"); response.setHeader("X-Strategic-Canonical-Url", url.pathname);
@@ -112,7 +119,7 @@ test("one canvas retains street, portraits and character views across warm navig
   const warnings = [];
   const output = path.join(reviewRoot, peoplePerPlace > 2 ? "stress" : ""); fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, "equipment-diagnostics.log"), "");
-  let telemetry;
+  let telemetry, initialLoad;
   let rejectFatal;
   const fatal = new Promise((_, reject) => { rejectFatal = reject; });
   fatal.catch(() => {});
@@ -153,15 +160,55 @@ test("one canvas retains street, portraits and character views across warm navig
       assert(adapter, "The benchmark requires an actual WebGPU adapter");
       fs.writeFileSync(path.join(output, "adapter.json"), JSON.stringify({...adapter, browser: browser.version(), captured: new Date().toISOString()}, null, 2));
     }
+    const startup = process.env.STRATEGIC_STARTUP_PROFILE === "1"
+      ? await require("./strategic-startup-profile.cjs").attach(page, output) : null;
+    await startup?.start();
     await page.goto(`${origin}${town}/places/${process.env.STRATEGIC_PROFILE_PLACE || 'inn'}`);
     await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
     telemetry = setInterval(async () => {
-      const state = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics, probe: window.renderProbe?.status?.(),
+      const state = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics, generation: window.strategicGenerationMetrics, probe: window.renderProbe?.status?.(),
         status: document.querySelector('#strategic-scene-status')?.textContent })).catch(error => ({ error: error.message }));
       fs.writeFileSync(path.join(output, "live-state.json"), JSON.stringify(state, null, 2));
     }, 5000);
     const ready = () => Promise.race([fatal, page.waitForFunction(() => document.body.hasAttribute("data-strategic-scene-ready"), null, { timeout: realRenderer ? 1_500_000 : 15_000 })]);
     await ready();
+    await startup?.stop("cold-startup");
+    if (process.env.STRATEGIC_RELOAD_BENCHMARK === "1") {
+      await page.evaluate(() => window.strategicGenerationCacheSettled);
+      initialLoad = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics,
+        generation: window.strategicGenerationMetrics }));
+      initialLoad.storage = await page.evaluate(() => new Promise((resolve, reject) => {
+        const request = indexedDB.open("fabelgeist-generated-assets", 1);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          const db = request.result, tx = db.transaction("products", "readonly");
+          const totals = { records: 0, bytes: 0, decodedBytes: 0 };
+          tx.oncomplete = () => { db.close(); resolve(totals); };
+          tx.onerror = () => reject(tx.error);
+          const cursor = tx.objectStore("products").openCursor();
+          cursor.onsuccess = () => {
+            if (!cursor.result) return;
+            const record = cursor.result.value;
+            totals.records++; totals.bytes += record.size;
+            totals.decodedBytes += record.decodedSize;
+            cursor.result.continue();
+          };
+        };
+      }));
+      fs.writeFileSync(path.join(output, "initial-load.json"), JSON.stringify(initialLoad, null, 2));
+      if (process.env.STRATEGIC_RELOAD_CLEAR_CACHE === "1") {
+        await page.evaluate(() => new Promise((resolve, reject) => {
+          const request = indexedDB.deleteDatabase("fabelgeist-generated-assets");
+          request.onsuccess = resolve; request.onerror = () => reject(request.error);
+          request.onblocked = () => reject(new Error("Generated cache is still open"));
+        }));
+      }
+      await startup?.start();
+      await page.reload(); await ready();
+      await startup?.stop("reload-startup");
+      await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
+    }
+    const generationAtReady = await page.evaluate(() => window.strategicGenerationMetrics);
     assert.equal(await page.locator("canvas").count(), 1, "all views share one DOM canvas");
     if (!realRenderer) {
       await page.waitForFunction(() => {
@@ -307,7 +354,9 @@ test("one canvas retains street, portraits and character views across warm navig
       await page.waitForFunction(count => window.commands.filter(command => command.type === "sync-strategic-view").length > count, before);
       assert.equal(await page.evaluate(() => window.originalCanvas === document.querySelector("#game-canvas")), true);
     }
-    fs.writeFileSync(path.join(output, realRenderer ? "benchmark.json" : "bridge.json"), JSON.stringify({ sceneFixture, samples, steadyFrames, missing, errors, metrics: await page.evaluate(() => window.strategicRendererMetrics) }, null, 2));
+    const generation = await page.evaluate(() => window.strategicGenerationMetrics);
+    assert.deepEqual(generation, generationAtReady, "warm navigation schedules no new generation");
+    fs.writeFileSync(path.join(output, realRenderer ? "benchmark.json" : "bridge.json"), JSON.stringify({ sceneFixture, samples, steadyFrames, missing, errors, initialLoad, metrics: await page.evaluate(() => window.strategicRendererMetrics), generation }, null, 2));
     const production = path.join(output, "fixtures/inventory.html");
     if (realRenderer && fs.existsSync(production)) {
       await page.setViewportSize({width: 1440, height: 1000});

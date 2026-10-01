@@ -21,10 +21,7 @@ fn roof_polygon_bounds(polygon: &[Vec3]) -> ResolvedBounds {
     ResolvedBounds { min, max }
 }
 
-pub(crate) fn roof_face_polygons(
-    roof: RoofPiece,
-    shed_high_side: Option<Direction>,
-) -> Vec<Vec<Vec3>> {
+pub(crate) fn roof_face_polygons(roof: RoofPiece, high_side: Option<Direction>) -> Vec<Vec<Vec3>> {
     let hx = roof.size.x * 0.5 + roof.eave_metres;
     let hz = roof.size.y * 0.5 + roof.eave_metres;
     let y = roof.base_height_metres;
@@ -62,7 +59,7 @@ pub(crate) fn roof_face_polygons(
                 RidgeAxis::X => hz * 2.0,
             } * pitch.tan();
             match roof.ridge_axis {
-                RidgeAxis::Z if shed_high_side == Some(Direction::West) => vec![vec![
+                RidgeAxis::Z if high_side == Some(Direction::West) => vec![vec![
                     corners[0] + Vec3::Y * rise,
                     corners[3] + Vec3::Y * rise,
                     corners[2],
@@ -74,7 +71,7 @@ pub(crate) fn roof_face_polygons(
                     corners[2] + Vec3::Y * rise,
                     corners[1] + Vec3::Y * rise,
                 ]],
-                RidgeAxis::X if shed_high_side == Some(Direction::South) => vec![vec![
+                RidgeAxis::X if high_side == Some(Direction::South) => vec![vec![
                     corners[0] + Vec3::Y * rise,
                     corners[1] + Vec3::Y * rise,
                     corners[2],

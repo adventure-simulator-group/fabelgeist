@@ -1,4 +1,5 @@
 // Layout and semantic identity bridge for the single persistent Bevy canvas.
+import { prepareGeneratedScene } from "./strategic-generation.js";
 const kinds = { "public-square": "square", residences: "residence", keep: "keep",
   merchants: "market", weapons: "smith", armor: "armor", clothing: "tailor",
   herbalist: "apothecary", books: "books", inn: "inn", religion: "church",
@@ -77,7 +78,9 @@ export function installStrategicScene(command, runtimePromise) {
     try {
       const response = await (window.strategicFetch || fetch)(`/api/scene-assets${settlement ? `?settlement=${encodeURIComponent(settlement)}` : ""}`, { headers: { Accept: "application/json" } });
       if (!response.ok) throw new Error(`Could not prepare tactical scene (${response.status})`);
-      command({ type: "prepare-strategic-scene", location, input_json: await response.text() });
+      const input = await response.text();
+      await prepareGeneratedScene(await runtimePromise, input);
+      command({ type: "prepare-strategic-scene", location, input_json: input });
       sceneLocation = location;
     } catch (error) { sceneError = true; fail(error); }
     finally { scenePending = false; schedule(); }

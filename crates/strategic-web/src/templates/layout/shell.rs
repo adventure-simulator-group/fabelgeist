@@ -102,7 +102,7 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             }
             @if scripts == ScriptProfile::Strategic {
                 script src="/static/strategic-navigation.js?v=places-scroll-1" defer {}
-                script type="module" src="/static/strategic-renderer.js?v=tactical-city-3" {}
+                script type="module" src="/static/strategic-renderer.js?v=generated-assets-1" {}
                 script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
                 script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}
                 script src="/static/journal-tab.js?v=journal-tab-1" defer {}

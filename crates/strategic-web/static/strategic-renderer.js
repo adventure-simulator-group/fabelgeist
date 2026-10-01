@@ -1,4 +1,4 @@
-import { installStrategicScene } from "./strategic-scene.js?v=shared-street-1";
+import { installStrategicScene } from "./strategic-scene.js?v=generated-assets-1";
 const surface = document.querySelector("#strategic-render-surface");
 const canvas = surface?.querySelector("#game-canvas");
 let runtimePromise;
@@ -164,7 +164,16 @@ const forgeHostContains = (event) => {
 if (surface && canvas) {
   runtimePromise = import("/tactical/wasm/adventuresim-tactical-client.js")
     .then(async (runtime) => {
-      await runtime.default();
+      const response = await fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm");
+      if (!response.ok) throw new Error(`tactical runtime: HTTP ${response.status}`);
+      // The executable identifies generator source, dependencies and format.
+      const [generationModule, binaryDigest] = await Promise.all([
+        WebAssembly.compileStreaming(response.clone()),
+        response.arrayBuffer().then(bytes => crypto.subtle.digest("SHA-256", bytes)),
+      ]);
+      const generationRevision = Array.from(new Uint8Array(binaryDigest),
+        byte => byte.toString(16).padStart(2, "0")).join("");
+      await runtime.default({ module_or_path: generationModule });
       const [graphics, audio] = await Promise.all([
         fetch("/tactical/assets/config/tactical-graphics.yaml"),
         fetch("/tactical/assets/config/tactical-audio.yaml"),
@@ -172,7 +181,7 @@ if (surface && canvas) {
       if (!graphics.ok) throw new Error(`tactical graphics config: HTTP ${graphics.status}`);
       if (!audio.ok) throw new Error(`tactical audio config: HTTP ${audio.status}`);
       runtime.wasm_boot(await graphics.text(), await audio.text());
-      return runtime;
+      return { ...runtime, generationModule, generationRevision };
     })
     .catch((error) => {
       console.error("persistent Bevy renderer unavailable", error);

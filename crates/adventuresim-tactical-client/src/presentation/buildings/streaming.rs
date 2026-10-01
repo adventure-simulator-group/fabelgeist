@@ -246,5 +246,7 @@ pub(super) fn present(
         // Promoted venues may leave recipes with no remaining facade instance.
         // Drop those temporary CPU plans once all city meshes are resident.
         assets.cache.recipes.clear();
+        #[cfg(target_family = "wasm")]
+        super::super::generation::release_unused_facades();
     }
 }

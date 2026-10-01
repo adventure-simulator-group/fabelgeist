@@ -158,7 +158,7 @@ pub struct SceneFurnitureGroup(pub FurnitureGroup);
 #[reflect(Component, Serialize, Deserialize)]
 pub struct SceneVistaFurniture(pub Vec<GeneratedFurniture>);
 
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct FurnitureLayout {
     pub instances: Vec<GeneratedFurniture>,
     /// Accepted scenery beyond tactical world bounds; never receives physics.

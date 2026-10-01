@@ -20,7 +20,7 @@ pub struct SceneBoundary {
     pub boundary: CityBoundary,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct GeneratedBoundary {
     pub scene: SceneBoundary,
     pub elevation_metres: f32,
