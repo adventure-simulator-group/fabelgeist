@@ -175,44 +175,12 @@ fn fill(armor: &mut GeneratedArmor, vertices: Range<usize>, joint: u32) {
     armor.joint_weights[vertices].fill([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
 }
 
-/// Torso metal has coherent plate ownership. Each horizontal articulated
-/// course follows its nearest spine anchor; a solid cuirass follows the chest.
-pub(crate) fn breastplate(
-    joint_names: &[String],
-    joints: &[[f32; 8]],
-    armor: &mut GeneratedArmor,
-) -> Result<()> {
+/// The cuirass follows the chest as one rigid assembly. Separate horizontal
+/// courses retain their constructed overlaps. Independent course motion needs
+/// armor pivots and lap constraints; body-spine joints are not those pivots.
+pub(crate) fn breastplate(joint_names: &[String], armor: &mut GeneratedArmor) -> Result<()> {
     let chest = joint_index(joint_names, "c_spine3")?;
-    if armor.components.is_empty() {
-        fill(armor, 0..armor.positions.len(), chest);
-        return Ok(());
-    }
-    let anchors = ["c_spine0", "c_spine1", "c_spine2", "c_spine3"]
-        .map(|name| joint_index(joint_names, name))
-        .into_iter()
-        .collect::<Result<Vec<_>>>()?;
-    let courses = armor
-        .components
-        .iter()
-        .map(|c| c.vertices.clone())
-        .collect::<Vec<_>>();
-    for vertices in courses {
-        let height = armor.positions[vertices.clone()]
-            .iter()
-            .map(|p| p[1])
-            .sum::<f32>()
-            / vertices.len() as f32;
-        let joint = anchors
-            .iter()
-            .copied()
-            .min_by(|a, b| {
-                (joints[*a as usize][1] - height)
-                    .abs()
-                    .total_cmp(&(joints[*b as usize][1] - height).abs())
-            })
-            .expect("four spine anchors");
-        fill(armor, vertices, joint);
-    }
+    fill(armor, 0..armor.positions.len(), chest);
     Ok(())
 }
 

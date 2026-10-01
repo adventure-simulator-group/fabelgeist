@@ -276,7 +276,7 @@ pub async fn generate_breastplate_on_device_async(
         .map(|morph| morph.name.clone())
         .collect::<Vec<_>>();
     let mut armor = breastplate.read_async(gpu, input.domain, &names).await?;
-    crate::skin_rules::breastplate(input.joint_names, input.global_joint_states, &mut armor)?;
+    crate::skin_rules::breastplate(input.joint_names, &mut armor)?;
     Ok(armor)
 }
 

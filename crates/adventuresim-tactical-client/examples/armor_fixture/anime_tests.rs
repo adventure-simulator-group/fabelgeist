@@ -130,9 +130,14 @@ fn anime_courses_are_closed_rigid_and_keep_morph_correspondence() -> Result<()> 
                 "course boundary must close"
             );
         }
-        assert!(
-            owners.len() > 1,
-            "articulated courses must follow distinct spine anchors"
+        assert_eq!(
+            owners.len(),
+            1,
+            "body-spine pivots must not pull course laps apart"
+        );
+        assert_eq!(
+            body.joint_names[*owners.first().unwrap() as usize],
+            "c_spine3"
         );
         body = original;
     }

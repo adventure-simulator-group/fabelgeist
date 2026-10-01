@@ -933,6 +933,10 @@ construction parameters, independent of decorative fluting. The
 wearer fitting and no equipment morph targets. Course attachment and overlap
 under torso motion require body-visible review; mesh closure alone is not a
 clearance or articulation guarantee.
+The current animation binding carries the cuirass as one rigid chest assembly,
+preserving the course overlaps. Independent course rotation or sliding requires
+an equipment rig with constrained lap pivots; assigning separate body-spine
+joints opens gaps and is not used.
 
 Construction references are the Philadelphia Museum of Art's
 [arming doublet, 1977-167-240, c. 1550–1650](https://www.philamuseum.org/objects/71390),
