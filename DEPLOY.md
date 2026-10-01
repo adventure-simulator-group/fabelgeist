@@ -32,8 +32,8 @@ environment variables take precedence. Everything is optional:
 
 ```bash
 HCLOUD_TOKEN=...               # absent: deploy to an existing box instead
-HCLOUD_LOCATION=ash
-HCLOUD_SERVER_TYPE=cx43        # game default: cx43 in fsn1; showcase: cpx11 in ash
+HCLOUD_LOCATION=hil
+HCLOUD_SERVER_TYPE=cpx31       # game default: cpx31 in hil; showcase: cpx11 in ash
 HCLOUD_IMAGE=ubuntu-24.04
 HCLOUD_SERVER_NAME=...         # reuse a server that exists under another name
 HCLOUD_SSH_CIDR=203.0.113.10/32    # absent: your detected public IP, else anywhere
@@ -141,9 +141,11 @@ contact so a fresh box does not stop the script with a prompt.
 ## Private test game
 
 `test.fabelgeist.com` runs on a dedicated x86-64 Debian/Ubuntu server. The
-recommended inexpensive starting point is a Hetzner CX43 in Falkenstein
-(`HCLOUD_SERVER_TYPE=cx43`, `HCLOUD_LOCATION=fsn1`). Its shared CPUs and European
-location suit functional testing; they are not a performance or latency promise.
+selected location is Hetzner Hillsboro, Oregon
+(`HCLOUD_SERVER_TYPE=cpx31`, `HCLOUD_LOCATION=hil`). Confirm the current plan price
+and account budget before provisioning: the June 2026 US price is $73.49/month
+before IPv4 and tax ([official price list](https://docs.hetzner.com/general/infrastructure-and-availability/price-adjustment/)).
+Shared CPUs suit functional testing; they are not a performance or latency promise.
 The setup installs the pinned Rust and SpacetimeDB versions, the Wasm build tools,
 and Caddy. The first build can take substantially longer than later builds.
 

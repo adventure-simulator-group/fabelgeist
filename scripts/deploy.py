@@ -53,7 +53,7 @@ TARGETS = ("showcase", "game")
 
 # Hetzner sizes per target. The showcase is static files; the game compiles
 # Bevy in release on the box and needs the memory for it.
-SERVER_TYPES = {"showcase": "cpx11", "game": "cx43"}
+SERVER_TYPES = {"showcase": "cpx11", "game": "cpx31"}
 
 GAME_UNITS = ("fabelgeist-stdb", "fabelgeist-web", "fabelgeist-dispatcher")
 HCLOUD_API = "https://api.hetzner.cloud/v1"
@@ -214,7 +214,7 @@ def ensure_firewall(name: str) -> dict:
 
 
 def create_server(name: str, ssh_key: dict, firewall: dict, server_type: str) -> dict:
-    location = os.environ.get("HCLOUD_LOCATION", "fsn1" if server_type == SERVER_TYPES["game"] else "ash")
+    location = os.environ.get("HCLOUD_LOCATION", "hil" if server_type == SERVER_TYPES["game"] else "ash")
     image = os.environ.get("HCLOUD_IMAGE", "ubuntu-24.04")
     log(f"Creating Hetzner server {name}: {server_type}, {image}, {location}")
     data = hcloud(
