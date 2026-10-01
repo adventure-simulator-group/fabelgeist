@@ -41,6 +41,7 @@ pub mod metal;
 pub(crate) mod mitten;
 pub(crate) mod part;
 pub(crate) mod placement;
+mod puff_and_slash;
 pub(crate) mod recipe;
 pub(crate) mod shell_plan;
 pub mod staging;
@@ -59,6 +60,7 @@ pub use gorget::record_gorget_plates;
 pub use helmet::{generate_helmet_on, record_helmet};
 pub use limb::{generate_limb_armor_on, record_limb_armor};
 pub use part::{BuiltPart, PartSlots};
+pub use puff_and_slash::record_puff_and_slash;
 pub use recipe::frame_words;
 pub use staging::{Staged, StagedResults, Staging};
 

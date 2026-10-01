@@ -18,6 +18,7 @@ pub(crate) enum ArmorHarness {
     Underlayers,
     Mail,
     Padded,
+    Puffed,
     WearerFit,
     CloseHelmet,
     MuseumHenry,
@@ -29,6 +30,7 @@ impl ArmorHarness {
         let items: &'static [&'static str] = match self {
             Self::CloseHelmet => &["close_helmet"],
             Self::WearerFit => &["gorget", "cuirass", "vambrace"],
+            Self::Puffed => &["puffed_sleeve", "puffed_hose"],
             Self::MuseumHenry => museum::HENRY_ITEMS,
             Self::MuseumNuremberg => museum::NUREMBERG_ITEMS,
             Self::Plate | Self::PlateTassets | Self::PlateUnderlayers => &[

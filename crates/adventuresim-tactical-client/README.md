@@ -266,12 +266,19 @@ cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output tar
 
 Use `--armor-harness close-helmet` to generate the close helmet through
 normal gameplay equipment loading. Capture waits for fitted geometry,
-materials, wearer skin bindings, and the absence of equipment morph targets. Front and side views follow the head at inspection distance; the
+materials, wearer skin bindings, and the absence of equipment morph targets.
+Front and side views follow the head at inspection distance; the
 gameplay view keeps its usual framing. `armor-readiness.json` records the
 resolved parts and weights. `--scenario ordinary-camera-pitch` exercises
 lowered-guard idle and head pitch; `--scenario raised-guard-stationary-turn`
 exercises guard and turning. Add `--hidden` for automated captures without a
 visible desktop window.
+
+Use `--armor-harness puffed` for paired puff-and-slash sleeves and hose. Their
+ring and panel geometry, anatomical section fitting, shell extrusion, and skin
+correspondence run on the client GPU. Component materials retain the authored
+outer fabric and undercloth colors. Worn parts share the evaluated wearer rig;
+carried or dropped material parts retain one common item origin.
 
 Use `--asset-root` when invoking it outside the repository root,
 `--scenario steady-walk-2.0` for a focused iteration, and

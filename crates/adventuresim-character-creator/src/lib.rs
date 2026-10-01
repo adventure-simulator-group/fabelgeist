@@ -31,6 +31,7 @@ pub mod device_head_frame;
 pub mod device_helmet;
 pub mod device_limb;
 pub mod device_piece;
+mod device_puff;
 mod device_sabaton;
 pub mod device_torso;
 mod device_torso_wgsl;

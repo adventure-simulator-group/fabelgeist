@@ -330,8 +330,8 @@ fn record_recipe(
         ParametricDesign::Underlayer(_) | ParametricDesign::TrunkHose(_) => {
             anyhow::bail!("underlayers are cut from the body, not recorded as parts")
         }
-        ParametricDesign::PuffAndSlash(_) => {
-            anyhow::bail!("puff-and-slash garments are not yet fitted on the device")
+        ParametricDesign::PuffAndSlash(puff) => {
+            wearer.record_fitted_puff(batch, puff, armor_recipes::fit_region(design, placement)?)
         }
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
@@ -403,6 +403,15 @@ pub fn assemble_recipe(
         morphs: targets,
         components: base.components,
     };
+    if let ParametricDesign::PuffAndSlash(puff) = design {
+        for component in &mut armor.components {
+            component.material = match component.role {
+                ArmorComponentRole::Undercloth => Some(puff.undercloth_color.material()),
+                ArmorComponentRole::OuterFabric => Some(puff.outer_color.material()),
+                _ => component.material,
+            };
+        }
+    }
     crate::skin_rules::attach(
         design,
         fitted.placement,
