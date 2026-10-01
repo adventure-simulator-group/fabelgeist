@@ -19,12 +19,15 @@ fn sized_church_and_workplace_recipes_survive_distant_transport_with_playable_ge
                 BuildingProgram::validated_settlement(archetype, usage, 42, Some(size)).unwrap();
             let orientation = BuildingOrientation::from_radians(0.37).unwrap();
             let centre_metres = Vec2::new(80.0, 35.0);
-            let playable = prepare_buildings(&[TacticalBuildingPlacement {
-                id: 1,
-                program: program.clone(),
-                centre_metres,
-                orientation,
-            }])
+            let playable = prepare_buildings(
+                &[TacticalBuildingPlacement {
+                    id: 1,
+                    program: program.clone(),
+                    centre_metres,
+                    orientation,
+                }],
+                &mut crate::scene_input::GeneratedBuildingRecipes::default(),
+            )
             .unwrap()
             .pop()
             .unwrap();

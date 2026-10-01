@@ -62,7 +62,11 @@ fn fixture() -> (
         },
     )
     .collect();
-    let buildings = super::super::buildings::prepare_buildings(&input.buildings).unwrap();
+    let buildings = super::super::buildings::prepare_buildings(
+        &input.buildings,
+        &mut crate::scene_input::GeneratedBuildingRecipes::default(),
+    )
+    .unwrap();
     let terrain = SceneTerrain::from_heightmap(81, 81, 2.0, vec![0.0; 81 * 81]).unwrap();
     let ground = SceneGround::uniform_for_terrain(
         &terrain,

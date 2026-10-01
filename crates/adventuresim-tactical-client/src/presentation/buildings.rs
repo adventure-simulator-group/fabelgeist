@@ -13,6 +13,8 @@ mod boundaries;
 mod gpu;
 mod kit;
 mod materials;
+#[cfg(any(target_family = "wasm", test))]
+mod prepared;
 pub(in crate::presentation) mod signs;
 mod streaming;
 pub(crate) use materials::TacticalBuildingMaterials;
@@ -57,6 +59,28 @@ struct CompiledBuildingBatch {
     triangles: usize,
     transform: Mat4,
     uv_offset: Vec2,
+}
+
+impl CompiledBuildingBatch {
+    fn from_recipe(
+        batch: &LodMesh,
+        origin: Vec3,
+        detail: BuildingDetail,
+        meshes: &mut Assets<Mesh>,
+    ) -> Self {
+        let mut mesh = recipe_mesh(batch, origin);
+        if detail != BuildingDetail::Dynamic {
+            // GPU assembly owns storage-buffer uploads for these vertices.
+            mesh.asset_usage = RenderAssetUsages::MAIN_WORLD;
+        }
+        Self {
+            material: batch.material,
+            mesh: meshes.add(mesh),
+            triangles: batch.indices.len() / 3,
+            transform: Mat4::IDENTITY,
+            uv_offset: Vec2::ZERO,
+        }
+    }
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -219,6 +243,17 @@ fn cached_building_levels(
         &generated
     };
     let plan = &geometry.plan;
+    #[cfg(target_family = "wasm")]
+    if detail == BuildingDetail::Dynamic && prepared.is_some() {
+        let meshes_ready = super::generation::take_venue_geometry(program)?;
+        return Ok(self::prepared::install(
+            cache,
+            program,
+            meshes_ready,
+            geometry,
+            meshes,
+        ));
+    }
     let collision = &geometry.collision;
     let local_origin = collision.bounds.centre();
     let floor_offset_metres = local_origin.y - collision.bounds.min.y;
@@ -240,21 +275,7 @@ fn cached_building_levels(
     let compile_batches = |source: &[LodMesh], meshes: &mut Assets<Mesh>| {
         source
             .iter()
-            .map(|batch| {
-                let mut mesh = recipe_mesh(batch, local_origin);
-                if detail != BuildingDetail::Dynamic {
-                    // GPU assembly uploads these vertices through its own
-                    // storage buffers; Bevy must not upload a second copy.
-                    mesh.asset_usage = RenderAssetUsages::MAIN_WORLD;
-                }
-                CompiledBuildingBatch {
-                    material: batch.material,
-                    mesh: meshes.add(mesh),
-                    triangles: batch.indices.len() / 3,
-                    transform: Mat4::IDENTITY,
-                    uv_offset: Vec2::ZERO,
-                }
-            })
+            .map(|batch| CompiledBuildingBatch::from_recipe(batch, local_origin, detail, meshes))
             .collect()
     };
     let mut compiled = CompiledBuildingLevels {

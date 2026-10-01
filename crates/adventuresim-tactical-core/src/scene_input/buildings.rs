@@ -1,7 +1,8 @@
 use adventuresim_building_generator::{
     BuildingArchetype, BuildingCollision, BuildingPlan, BuildingProgram,
-    compile_building_collision, generate,
 };
+#[cfg(test)]
+use adventuresim_building_generator::{compile_building_collision, generate};
 use bevy::{math::Vec2, prelude::Component};
 use serde::{Deserialize, Serialize};
 
@@ -230,22 +231,28 @@ pub(super) fn validate_distant_building_placements(
 
 pub(super) fn prepare_buildings(
     placements: &[TacticalBuildingPlacement],
+    recipes: &mut super::GeneratedBuildingRecipes,
 ) -> Result<Vec<GeneratedBuilding>, SceneInputError> {
     placements
         .iter()
         .cloned()
         .map(|placement| {
-            let plan = generate(&placement.program).map_err(|error| {
-                SceneInputError::Validation(format!(
-                    "building {} program is invalid: {error}",
-                    placement.id
-                ))
-            })?;
-            let collision = compile_building_collision(&plan);
+            let recipe = recipes
+                .take(&placement.program)
+                .map(Ok)
+                .unwrap_or_else(|| {
+                    super::GeneratedBuildingRecipe::generate(placement.program.clone())
+                })
+                .map_err(|error| {
+                    SceneInputError::Validation(format!(
+                        "building {} program is invalid: {error}",
+                        placement.id
+                    ))
+                })?;
             Ok(GeneratedBuilding {
                 placement,
-                plan,
-                collision,
+                plan: recipe.plan,
+                collision: recipe.collision,
                 pad_elevation_metres: 0.0,
             })
         })

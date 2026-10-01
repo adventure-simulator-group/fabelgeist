@@ -37,6 +37,15 @@ fn distant_furniture_uses_only_visible_prototypes_and_their_scaled_doors() {
     for program in programs {
         assert!(recipes.take(&program).is_some());
     }
+    let mut reused = GeneratedBuildingRecipes::default();
+    reused.sites = recipes.sites.clone();
+    let retained = collect(&input, &[], &mut reused).unwrap();
+    for (actual, expected) in retained.iter().zip(&sites) {
+        assert_eq!(actual.half_extents, expected.half_extents);
+        assert_eq!(actual.routes, expected.routes);
+        assert!(reused.take(&actual.placement.program).is_none());
+    }
+    recipes.sites.clear();
     assert!(
         recipes.is_empty(),
         "furniture generated an occupied distant recipe"

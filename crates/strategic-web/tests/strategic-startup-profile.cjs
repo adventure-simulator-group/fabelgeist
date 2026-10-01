@@ -45,7 +45,15 @@ exports.attach = async (page, output) => {
   if (process.env.STRATEGIC_STARTUP_WORKERS === "1")
     await require("./startup-worker-profile.cjs").attach(page, cdp, output);
   return {
-    async start() { await browserTrace?.start(); await cdp.send("Profiler.start"); },
+    async start() {
+      await page.evaluate(() => {
+        if (window.startupProfile) {
+          window.startupProfile.events.length = 0;
+          window.startupProfile.active = true;
+        }
+      });
+      await browserTrace?.start(); await cdp.send("Profiler.start");
+    },
     async stop(name) {
       const { profile } = await cdp.send("Profiler.stop");
       const trace = await page.evaluate(() => { window.startupProfile.active = false; return ({ ...window.startupProfile,
@@ -95,8 +103,8 @@ const transforms = {
       'runtime = value; window.startupProfile.readStatus = () => runtime.wasm_strategic_status(); schedule();'],
     ['command({ type: "sync-strategic-view", view: { ...view, revision: ++revision } });',
       'window.startupProfile.mark("view-command", {revision: revision + 1, place: view.active_place}); command({ type: "sync-strategic-view", view: { ...view, revision: ++revision } });', true],
-    ['await prepareGeneratedScene(await runtimePromise, input);',
-      'window.startupProfile.mark("scene-response"); await prepareGeneratedScene(await runtimePromise, input); window.startupProfile.mark("generation-ready");'],
+    ['await prepareGeneratedScene(await runtimePromise, input, venues);',
+      'window.startupProfile.mark("scene-response"); await prepareGeneratedScene(await runtimePromise, input, venues); window.startupProfile.mark("generation-ready");'],
     ['metrics.state = state;',
       'metrics.state = state; { const {daylight, view_lighting, street, ...brief} = state; window.startupProfile.mark("readiness", brief); }'],
   ],
@@ -106,9 +114,13 @@ const transforms = {
     ['runtime.wasm_receive_job(job, bytes);',
       'runtime.wasm_receive_job(job, bytes); window.startupProfile.mark("receive", {start: receiveStarted, duration: performance.now() - receiveStarted, bytes: bytes.byteLength});'],
     ['metrics.workerMilliseconds += milliseconds;',
-      'metrics.workerMilliseconds += milliseconds; { const parsed = JSON.parse(job); window.startupProfile.mark("worker-job", {type: parsed.Scene ? "scene" : "building", archetype: parsed.Building?.archetype, milliseconds, bytes: bytes.byteLength}); }'],
+      'metrics.workerMilliseconds += milliseconds; { const parsed = JSON.parse(job); window.startupProfile.mark("worker-job", {type: parsed.Scene ? "scene" : parsed.Venue ? "venue" : "building", archetype: (parsed.Building || parsed.Venue)?.archetype, milliseconds, bytes: bytes.byteLength}); }'],
   ],
   "strategic-generation-cache.js": [
+    ['if (error?.name !== "TimeoutError") disabled = true;',
+      'window.startupProfile.mark("cache-transaction-error", {mode, error: String(error)}); if (error?.name !== "TimeoutError") disabled = true;'],
+    ['})().catch(() => { disabled = true; });',
+      '})().catch(error => { window.startupProfile.mark("cache-write-error", {error: String(error)}); disabled = true; });'],
     ['async function decode(record) {',
       'async function decode(record) { const started = performance.now();'],
     ['return bytes;',

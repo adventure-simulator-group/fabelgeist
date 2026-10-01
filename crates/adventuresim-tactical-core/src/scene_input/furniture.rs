@@ -19,6 +19,7 @@ mod reservations;
 mod sites;
 pub use collision::furniture_collider;
 pub use interior::InteriorBuildingLayout;
+pub use sites::FurnitureSiteRecipe;
 #[cfg(test)]
 mod tests;
 
@@ -169,6 +170,14 @@ pub struct FurnitureLayout {
 }
 
 impl FurnitureLayout {
+    /// Install a worker-prepared layout with the destination's physical placement.
+    pub fn install_interior(
+        &mut self,
+        building: &GeneratedBuilding,
+        layout: adventuresim_building_generator::interior::InteriorLayout,
+    ) {
+        interior::install(self, building, layout);
+    }
     pub fn furnish_interiors(
         &mut self,
         buildings: &[GeneratedBuilding],

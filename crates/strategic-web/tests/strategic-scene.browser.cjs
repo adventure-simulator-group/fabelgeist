@@ -17,6 +17,8 @@ const personId = (place, offset = 0) => String(100 + services.indexOf(place) * p
 const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities", "workspace", "portraits", "chat-dock", "readability", "strategic-scene"];
 
 function fixture(url) {
+  const settlement = url.pathname.split("/settlement/")[1]?.split("/")[0] || "scene-review";
+  const town = `/locations/settlement/${settlement}`;
   if (url.pathname === "/journal") return `<!doctype html><html><head><title>Journal</title></head><body>
     <div id="strategic-render-surface"><canvas id="game-canvas"></canvas></div>
     <!-- strategic-page-start --><div id="strategic-page" data-strategic-workspace data-script-profile="strategic" data-page-title="Journal">
@@ -29,7 +31,7 @@ function fixture(url) {
   return `<!doctype html><html><head>${styles.map(style => `<link rel="stylesheet" href="/static/css/${style}.css">`).join("")}<title>Scene review</title></head><body>
     <div id="strategic-render-surface"><canvas id="game-canvas"></canvas></div>
     <!-- strategic-page-start --><div id="strategic-page" class="app" data-strategic-workspace data-script-profile="strategic" data-page-title="Scene review" data-path="${url.pathname}">
-    <header class="top-bar settlement-top-bar" data-environment="settlement"><nav class="settlement-services" data-settlement-id="scene-review">${nav}</nav></header>
+    <header class="top-bar settlement-top-bar" data-environment="settlement"><nav class="settlement-services" data-settlement-id="${settlement}">${nav}</nav></header>
     <div class="main-grid"><aside class="left-sidebar">Character details</aside>
     <main class="center-content settlement-main ${selected === "map" ? "settlement-map-main" : ""}">
     ${selected === "map" ? '<div id="map-fixture">Map remains HTML</div>' : `<div class="party-portrait-overlay">${portraits}</div><section class="visual-stage npc-description-stage"><h2>${selected}</h2><p>Resident's description</p></section>`}
@@ -47,7 +49,15 @@ async function serve() {
     const url = new URL(request.url, "http://localhost"); requests.push(url.pathname);
     if (url.pathname === "/api/scene-assets") {
       response.setHeader("Content-Type", "application/json");
-      response.end(fs.readFileSync(path.resolve(root, sceneFixture))); return;
+      let input = fs.readFileSync(path.resolve(root, sceneFixture), "utf8");
+      if (url.searchParams.get("settlement") === "travel-destination") {
+        // A distinct terrain/scene with validated occupied building layouts.
+        // Preserve full-width seeds; do not parse this document through JS numbers.
+        input = input.replace(/("seed"\s*:\s*)(\d+)/,
+          (_, prefix, seed) => prefix + BigInt.asUintN(64, BigInt(seed) + 1n))
+          .replace(/("scene_key"\s*:\s*)"[^"]+"/, '$1"travel-destination"');
+      }
+      response.end(input); return;
     }
     if (url.pathname === "/api/scene-equipment") {
       response.setHeader("Content-Type", "application/json");
@@ -80,7 +90,7 @@ async function serve() {
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client.js") {
       response.setHeader("Content-Type", "text/javascript");
       const street = {height: 30, width: services.length * 20, bays: services.map((id, index) => ({id, width: index % 2 ? 18 : 24}))};
-      response.end(`export default async function(){}; export function wasm_generation_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})}`); return;
+      response.end(`export default async function(){}; export function wasm_begin_generation(){} export function wasm_generation_jobs(){return "[]";} export function wasm_venue_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})}`); return;
     }
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client_bg.wasm") {
       response.setHeader("Content-Type", "application/wasm");
@@ -89,6 +99,8 @@ async function serve() {
     let file;
     if (url.pathname.startsWith("/static/")) file = path.join(root, "crates/strategic-web/static", url.pathname.slice(8));
     if (url.pathname.startsWith("/tactical/")) file = path.join(root, "crates/adventuresim-stdb-module/static", url.pathname.slice(10));
+    if (process.env.STRATEGIC_WASM_DIR && url.pathname.startsWith("/tactical/wasm/"))
+      file = path.join(root, process.env.STRATEGIC_WASM_DIR, path.basename(url.pathname));
     if (file) {
       const type = { ".js": "text/javascript", ".css": "text/css", ".wasm": "application/wasm", ".json": "application/json" }[path.extname(file)] || "application/octet-stream";
       response.setHeader("Content-Type", type); response.setHeader("Cache-Control", "public, max-age=3600");
@@ -113,7 +125,7 @@ async function serve() {
 test("one canvas retains street, portraits and character views across warm navigation", { timeout: realRenderer ? 1_800_000 : 60_000 }, async () => {
   const { server, requests, missing, origin } = await serve();
   const browser = await chromium.launch({ headless: true,
-    channel: realRenderer && process.platform === "win32" ? "msedge" : undefined,
+    channel: process.platform === "win32" ? "msedge" : undefined,
     args: realRenderer ? ["--enable-unsafe-webgpu"] : [] });
   const errors = [], samples = [];
   const warnings = [];
@@ -173,6 +185,11 @@ test("one canvas retains street, portraits and character views across warm navig
     const ready = () => Promise.race([fatal, page.waitForFunction(() => document.body.hasAttribute("data-strategic-scene-ready"), null, { timeout: realRenderer ? 1_500_000 : 15_000 })]);
     await ready();
     await startup?.stop("cold-startup");
+    if (process.env.STRATEGIC_TRAVEL_BENCHMARK === "1") {
+      await require("./strategic-travel-benchmark.cjs").run(page, output, ready, startup);
+      assert.deepEqual(errors, []);
+      return;
+    }
     if (process.env.STRATEGIC_RELOAD_BENCHMARK === "1") {
       await page.evaluate(() => window.strategicGenerationCacheSettled);
       initialLoad = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics,

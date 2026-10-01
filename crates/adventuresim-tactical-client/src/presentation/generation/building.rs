@@ -10,6 +10,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize)]
 pub(in crate::presentation) struct PreparedFacade {
     pub program: BuildingProgram,
+    pub site: adventuresim_tactical_core::scene_input::furniture::FurnitureSiteRecipe,
     pub local_origin: Vec3,
     pub floor_offset_metres: f32,
     pub sign_sites: Vec<(SignMount, SignSite)>,
@@ -34,6 +35,10 @@ impl PreparedFacade {
             Vec::new()
         };
         Ok(Self {
+            site: adventuresim_tactical_core::scene_input::furniture::FurnitureSiteRecipe::new(
+                &recipe.plan,
+                recipe.collision.bounds,
+            ),
             shell: compile_program_shell(&program)
                 .unwrap_or_else(|| compile_building_lod(&recipe.plan, BuildingLodLevel::Shell))
                 .meshes,

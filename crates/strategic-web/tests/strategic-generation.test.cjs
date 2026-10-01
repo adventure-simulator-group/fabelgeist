@@ -47,3 +47,34 @@ test("no jobs start no workers", async () => {
     createWorker() { throw new Error("unnecessary worker"); }, hardwareConcurrency: 1,
   }), 0);
 });
+
+test("a miss generates while an unrelated cache read is still pending", async () => {
+  const { generateJobs } = await pool;
+  const mock = workers();
+  let releaseRead;
+  const reading = new Promise(resolve => { releaseRead = resolve; });
+  const results = [];
+  const running = generateJobs({}, [1, 2], (job) => {
+    results.push(job);
+    releaseRead(null);
+  }, { createWorker: mock.createWorker, hardwareConcurrency: 3,
+    resolveJob: job => job === 1 ? job : reading });
+  assert.equal(await running, 1);
+  assert.deepEqual(results, [1]);
+  assert.ok(mock.instances.every(worker => worker.terminated));
+});
+
+test("cache hits need no worker and dependency failures close the pool", async () => {
+  const { generateJobs } = await pool;
+  const cached = workers();
+  assert.equal(await generateJobs({}, [1, 2], () => { throw Error("cached delivery"); }, {
+    createWorker: cached.createWorker, hardwareConcurrency: 3, resolveJob: () => null,
+  }), 0);
+  assert.equal(cached.instances.length, 0);
+  const mock = workers();
+  await assert.rejects(generateJobs({}, [1], () => {}, {
+    createWorker: mock.createWorker, hardwareConcurrency: 3,
+    dependencies() { throw Error("missing dependency"); },
+  }), /missing dependency/);
+  assert.ok(mock.instances.every(worker => worker.terminated));
+});

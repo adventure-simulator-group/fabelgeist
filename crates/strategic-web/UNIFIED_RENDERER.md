@@ -15,13 +15,15 @@ logical core for the document where available. They share the compiled Wasm
 module, but each owns its generation memory. Workers never boot Bevy, create a
 canvas, or request a GPU device. They terminate after preparation.
 
-The static tactical scene and each distinct background exterior prototype are
-independent jobs. Workers return locally generated CBOR products through
-transferable buffers while the renderer loads textures. Rust parses the original
-scene JSON and verifies each returned product against its requested identity.
-Temporary building-plan memoization stays in the scene worker; final facade
-geometry and component placements come from the building workers. Playable venue
-installation, render assets, and GPU upload remain in the persistent application.
+Occupied building plans, interiors, detail meshes, LODs, and tangents are
+independent jobs alongside the distinct background exterior prototypes. Terrain
+generation then consumes their prepared plans and compact doorway/footprint
+records. Workers return locally generated CBOR products through transferable
+buffers while the renderer loads textures. Occupied mesh vertex and index arrays
+use packed byte strings, avoiding scalar-by-scalar decoding on the main thread.
+Rust parses the original scene JSON and verifies each returned product against
+its requested identity. Entity installation, render assets, and GPU upload
+remain in the persistent application.
 
 Readiness requires all generation jobs, installation, and existing asset gates.
 A failed worker or invalid product fails loading explicitly. Warm venue and
@@ -53,12 +55,21 @@ Opening and reading storage use a two-second deadline. Background writes and
 eviction have a separate thirty-second deadline because their completion events
 can queue behind generation frames. If a deadline fires after an IndexedDB
 transaction has finished, its queued completion event resolves the operation.
+An aborted transaction deadline affects that operation only; subsequent reads
+and background writes remain available. Storage failures such as denied access
+or exhausted quota still disable the cache for that preparation.
 
-Cache reads have bounded concurrency; workers start only for misses. A fully
-cached scene starts no generation workers. Render-asset installation, texture
+Cache reads have bounded concurrency; each miss starts its worker without waiting
+for unrelated reads. Resident exterior meshes skip their disk products entirely.
+Up to 64 previous occupied-building semantic recipes remain available alongside
+the current city's newly prepared recipes; their installed meshes stay in the
+renderer's building asset cache. A fully cached scene starts no generation
+workers. Render-asset installation, texture
 residency, GPU uploads, equipment, and portrait preparation still run, so a cache
 hit is not equivalent to whole-game readiness. Generation metrics distinguish
-hits, misses, read time, decoding, worker time, and complete preparation time.
+hits, misses, summed lookup duration, decoding, worker time, and complete
+preparation time. Concurrent lookup and worker durations are not additive elapsed
+time. Worker count includes instances started in both preparation phases.
 
 Installation also reuses deterministic intermediate values within the document.
 A building chooses its material palette once per assembly traversal and shares
@@ -77,6 +88,8 @@ This avoids repeatedly hashing the same identity for individual visual fields.
 Tuft density, representation, coverage, and fade distances remain unchanged.
 Street and yard meshes query a bounds hierarchy over the presented terrain
 triangles before clipping, preserving terrain seams and exact surface heights.
+Street traffic clearance uses cached road directions and a spatial index for
+market bounds, avoiding repeated normalization and unrelated market scans.
 
 ## Presentation and authority
 
@@ -206,11 +219,11 @@ instances compile only the render data they consume; indoor lighting fields
 and dynamic opening sets belong to detailed playable instances. LOD passes
 reuse their solid compiler's geometry index across all selected solids.
 
-Distant furniture-site preparation shares one generated recipe per complete
-building program inside its generation job. The browser scene worker releases
-this temporary memoization after exporting the static scene; separate building
-workers generate facade products concurrently. This duplicates some planning
-in exchange for parallelism and avoids transferring every full distant plan.
+Distant furniture-site preparation consumes compact physical footprints and
+doorway reservations produced with the facade meshes. Those records remain
+resident across city changes, avoiding another round of distant building plans.
+Occupied plans are transferred to terrain generation after their independent
+worker jobs finish, so pad preparation and mesh compilation share the same plan.
 Native preparation can hand its recipe memoization directly to venue promotion
 and mesh compilation. Unused prepared facade products are released after city
 installation. Compiler memoization never enters a scene document or replication.
@@ -229,21 +242,25 @@ then Bevy's 2D pass composites them onto the same canvas. The street has one
 camera and one target, shared by every building. These views
 remain still between changes. Their cameras stop rendering once assets and
 pipelines settle; the central conversation view stays live. A changed
-outfit, camera framing, viewport size or retained location invalidates the
-corresponding capture. Scrolling repositions retained images without rebuilding
-geometry.
+outfit, camera framing, or viewport size invalidates the corresponding capture.
+Return trips can reuse completed captures when the location and complete scene
+digest, including its environment, match. The inactive-city cache holds at most
+two cities and 64 MiB of image pixels; unfinished captures are discarded.
+Scrolling repositions retained images without rebuilding geometry.
 When the layout supplies a portrait size, cold readiness includes portraits for
 residents of unvisited venues at those dimensions. A pool of at most two snapshot
 camera entities captures these images and stays inactive between captures.
 New and reused capture cameras receive the tactical environment before camera
 preparation and render extraction, avoiding an initial frame with default
 rendering settings and its unnecessary pipeline specializations.
-Initial scene mesh draws wait for CPU installation and the final atmosphere
+Each city's initial mesh draws wait for CPU installation and the final atmosphere
 environment. Cameras, lighting preparation, asset uploads, and character pose
 initialization continue during this wait. This avoids specializing meshes for
-temporary lighting. The gate opens permanently after initial installation, so
-later weather changes do not blank retained views. GPU preparation, snapshot
-completion, and settled-frame checks still follow before reporting readiness.
+temporary lighting. The gate stays open for that city after installation, so
+later weather changes do not blank retained views. A replacement city resets the
+gate before it can inherit the previous city's ready state. GPU preparation,
+snapshot completion, and settled-frame checks still follow before reporting
+readiness.
 Completed images remain resident. This also avoids exhausting Bevy's limited
 distance-visibility camera table with inactive cameras. A later layout requiring
 different dimensions still creates a new capture when that portrait is shown.
@@ -425,6 +442,18 @@ animation-frame callbacks: the window event loop can render from other callbacks
 after navigation.
 When a production inventory fixture is present, `location-replacement.json`
 also records the cost and requests for replacing the retained settlement.
+
+Set `STRATEGIC_TRAVEL_BENCHMARK=1` with `STRATEGIC_RENDER_BENCHMARK=1` to
+measure A → B → A without reloading the document or recreating the renderer.
+The destination varies terrain seed and scene identity while retaining validated
+building layouts. This isolates scene replacement and cross-city asset reuse;
+it does not measure a completely different set of occupied building programs.
+`travel.json` records elapsed arrival time and generation metrics separately.
+The usual missing-asset assertion still applies after results are recorded.
+
+Preparing a destination before arrival requires a server-authorized scene input.
+The current scene endpoint only serves the character's current settlement, so
+the client does not bypass that rule to speculate about future destinations.
 
 ### Draw and timing measurements
 

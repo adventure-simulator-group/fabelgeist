@@ -13,7 +13,8 @@ test("local products survive reload and invalidate on input, revision, or corrup
     } else { response.setHeader("Content-Type", "text/html"); response.end("<!doctype html><title>Cache test</title>"); }
   });
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: true,
+    ...(process.platform === "win32" ? { channel: "msedge" } : {}) });
   try {
     const page = await browser.newPage();
     await page.goto(`http://127.0.0.1:${server.address().port}`);
@@ -85,6 +86,29 @@ test("local products survive reload and invalidate on input, revision, or corrup
         window.setTimeout = originalTimer; IDBTransaction.prototype.abort = originalAbort;
         await cache.close();
       }
+    }), true);
+    assert.deepEqual(pageErrors, []);
+    assert.equal(await page.evaluate(async () => {
+      const { openGeneratedCache } = await import("/cache.js");
+      const cache = await openGeneratedCache("recover-read-timeout");
+      const originalTimer = window.setTimeout, originalAbort = IDBTransaction.prototype.abort;
+      let aborted = false;
+      window.setTimeout = (callback, delay, ...args) => {
+        if (delay === 2_000) { queueMicrotask(callback); return 0; }
+        return originalTimer(callback, delay, ...args);
+      };
+      IDBTransaction.prototype.abort = function () {
+        originalAbort.call(this); aborted = true;
+      };
+      try { await cache.get("missing"); }
+      finally { window.setTimeout = originalTimer; IDBTransaction.prototype.abort = originalAbort; }
+      // A timed-out read must not disable persistence for the rest of the city.
+      cache.put("after-timeout", new Uint8Array([7, 8]));
+      await cache.close();
+      const reopened = await openGeneratedCache("recover-read-timeout");
+      const restored = await reopened.get("after-timeout");
+      await reopened.close();
+      return aborted && restored?.[0] === 7 && restored?.[1] === 8;
     }), true);
     assert.deepEqual(pageErrors, []);
   } finally { await browser.close(); await new Promise(resolve => server.close(resolve)); }

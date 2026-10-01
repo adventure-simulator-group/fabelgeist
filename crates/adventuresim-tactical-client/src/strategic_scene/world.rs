@@ -88,6 +88,7 @@ fn prepare(
     #[cfg(not(target_family = "wasm"))]
     let mut generated = input.generate().map_err(|e| e.to_string())?;
     retained.venues = buildings::prepare_venues(input, view, &mut generated, &mut retained.street)?;
+    retained.digest = generated.digest.clone();
     let root = commands
         .spawn((SceneRoot, Transform::default(), Visibility::Inherited))
         .id();

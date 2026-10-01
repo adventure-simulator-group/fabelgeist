@@ -35,6 +35,7 @@ clap.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 ciborium = "0.2"
+bytemuck = { version = "1", features = ["extern_crate_alloc"] }
 serde-saphyr.workspace = true
 postcard.workspace = true
 tracing.workspace = true

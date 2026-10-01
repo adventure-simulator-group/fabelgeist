@@ -44,6 +44,7 @@ struct SceneMesh;
 #[derive(Resource, Default)]
 struct RetainedScene {
     location: String,
+    digest: String,
     root: Option<Entity>,
     venues: HashMap<PlaceId, Venue>,
     street: Option<street::Street>,
