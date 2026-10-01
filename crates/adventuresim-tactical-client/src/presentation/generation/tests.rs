@@ -3,6 +3,53 @@ use adventuresim_building_generator::BuildingArchetype;
 static TEST_PRODUCTS: Mutex<()> = Mutex::new(());
 
 #[test]
+fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
+    let _guard = TEST_PRODUCTS.lock().unwrap();
+    clear_residency();
+    let input_json = include_str!("../../../../../assets/tactical-scenes/sparse-woodland.json");
+    let input: TacticalSceneInput = serde_json::from_str(input_json).unwrap();
+    let graphics = include_str!("../../../../../assets/config/tactical-graphics.yaml");
+    for job in jobs(input_json).unwrap() {
+        receive(&job, &generate(&job, &dependencies(&job).unwrap()).unwrap()).unwrap();
+    }
+    let requests = landscape::jobs(input_json, graphics).unwrap();
+    assert_eq!(requests.len(), 2);
+    for job in requests {
+        receive(&job, &generate(&job, &dependencies(&job).unwrap()).unwrap()).unwrap();
+    }
+    let digest = input.digest().unwrap();
+    let grass = landscape::grass(&digest).unwrap();
+    let expected_scene = input.generate().unwrap();
+    let expected = crate::presentation::vista::grass::PreparedGrass::new(
+        &input,
+        &expected_scene.terrain,
+        &expected_scene.ground,
+        &crate::presentation::config::TacticalGraphicsConfig::parse(graphics).unwrap(),
+    );
+    for (actual, expected) in [
+        (grass.playable.to_batches(), expected.playable.to_batches()),
+        (grass.vista.to_batches(), expected.vista.to_batches()),
+    ] {
+        for (a, b) in actual.iter().flatten().zip(expected.iter().flatten()) {
+            assert_eq!(
+                bytemuck::cast_slice::<_, u8>(a),
+                bytemuck::cast_slice::<_, u8>(b)
+            );
+        }
+    }
+    assert!(landscape::jobs(input_json, graphics).unwrap().is_empty());
+    let changed = graphics.replace("density_scale: 1.0", "density_scale: 0.5");
+    assert_ne!(graphics, changed);
+    assert_eq!(landscape::jobs(input_json, &changed).unwrap().len(), 2);
+    assert!(
+        landscape::grass(&digest).is_none(),
+        "old-quality placements must not be used"
+    );
+    clear_residency();
+    assert!(landscape::ground(&digest).is_none());
+}
+
+#[test]
 fn massive_city_workers_prepare_only_shared_exteriors() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency();

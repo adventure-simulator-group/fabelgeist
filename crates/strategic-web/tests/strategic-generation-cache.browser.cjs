@@ -29,7 +29,13 @@ test("local products survive reload and invalidate on input, revision, or corrup
       const { openGeneratedCache } = await import("/cache.js");
       const cache = await openGeneratedCache("generator-A");
       const hit = Array.from(await cache.get("seed:18446744073709551615"));
-      const changedInput = await cache.get("seed:18446744073709551614");
+      const originalGet = IDBObjectStore.prototype.get;
+      let missReads = 0, changedInput;
+      IDBObjectStore.prototype.get = function (...args) {
+        missReads++; return originalGet.apply(this, args);
+      };
+      try { changedInput = await cache.get("seed:18446744073709551614"); }
+      finally { IDBObjectStore.prototype.get = originalGet; }
       const changed = await openGeneratedCache("generator-B");
       const changedRevision = await changed.get("seed:18446744073709551615");
       await changed.close();
@@ -50,9 +56,9 @@ test("local products survive reload and invalidate on input, revision, or corrup
       await repaired.remove("seed:18446744073709551615");
       const removed = await repaired.get("seed:18446744073709551615");
       await repaired.close();
-      return { hit, changedInput, changedRevision, corrupted, regenerated, removed };
+      return { hit, changedInput, missReads, changedRevision, corrupted, regenerated, removed };
     });
-    assert.deepEqual(result, { hit: [1, 2, 3], changedInput: undefined, changedRevision: undefined,
+    assert.deepEqual(result, { hit: [1, 2, 3], changedInput: undefined, missReads: 0, changedRevision: undefined,
       corrupted: undefined, regenerated: [4, 5], removed: undefined });
     assert.equal(await page.evaluate(async () => {
       const { openGeneratedCache } = await import("/cache.js");
@@ -69,6 +75,8 @@ test("local products survive reload and invalidate on input, revision, or corrup
     page.on("pageerror", error => pageErrors.push(error.message));
     assert.equal(await page.evaluate(async () => {
       const { openGeneratedCache } = await import("/cache.js");
+      const seed = await openGeneratedCache("delayed-completion");
+      seed.put("present", new Uint8Array([2])); await seed.close();
       const cache = await openGeneratedCache("delayed-completion");
       const originalTimer = window.setTimeout, originalAbort = IDBTransaction.prototype.abort;
       let attemptedAbort = false;
@@ -81,7 +89,7 @@ test("local products survive reload and invalidate on input, revision, or corrup
       IDBTransaction.prototype.abort = () => {
         attemptedAbort = true; throw new DOMException("finished", "InvalidStateError");
       };
-      try { return await cache.get("missing") === undefined && attemptedAbort; }
+      try { return (await cache.get("present"))?.[0] === 2 && attemptedAbort; }
       finally {
         window.setTimeout = originalTimer; IDBTransaction.prototype.abort = originalAbort;
         await cache.close();
@@ -90,6 +98,8 @@ test("local products survive reload and invalidate on input, revision, or corrup
     assert.deepEqual(pageErrors, []);
     assert.equal(await page.evaluate(async () => {
       const { openGeneratedCache } = await import("/cache.js");
+      const seed = await openGeneratedCache("recover-read-timeout");
+      seed.put("present", new Uint8Array([2])); await seed.close();
       const cache = await openGeneratedCache("recover-read-timeout");
       const originalTimer = window.setTimeout, originalAbort = IDBTransaction.prototype.abort;
       let aborted = false;
@@ -100,7 +110,7 @@ test("local products survive reload and invalidate on input, revision, or corrup
       IDBTransaction.prototype.abort = function () {
         originalAbort.call(this); aborted = true;
       };
-      try { await cache.get("missing"); }
+      try { await cache.get("present"); }
       finally { window.setTimeout = originalTimer; IDBTransaction.prototype.abort = originalAbort; }
       // A timed-out read must not disable persistence for the rest of the city.
       cache.put("after-timeout", new Uint8Array([7, 8]));

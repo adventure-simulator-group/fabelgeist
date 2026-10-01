@@ -1,4 +1,4 @@
-import { generateJobs } from "./strategic-generation-pool.js";
+import { createGenerationPool } from "./strategic-generation-pool.js";
 import { openGeneratedCache } from "./strategic-generation-cache.js";
 
 export async function prepareGeneratedScene(runtime, input, venues) {
@@ -17,11 +17,12 @@ export async function prepareGeneratedScene(runtime, input, venues) {
     metrics.receiveMilliseconds += performance.now() - receiveStarted;
   };
   const cache = await openGeneratedCache(runtime.generationRevision);
+  const pool = createGenerationPool(runtime.generationModule);
   try {
     // A cache miss starts generation immediately; unrelated cache reads must
     // not postpone the destination's critical scene job. Workers are lazy, so
     // a completely cached destination never instantiates another Wasm runtime.
-    const run = async jobs => generateJobs(runtime.generationModule, jobs,
+    const run = async jobs => pool.run(jobs,
       (job, bytes, milliseconds) => {
         receive(job, bytes);
         metrics.workerMilliseconds += milliseconds;
@@ -51,8 +52,12 @@ export async function prepareGeneratedScene(runtime, input, venues) {
     const scenes = jobs.filter(job => Object.hasOwn(JSON.parse(job), "Scene"));
     metrics.workers = await run([...venueJobs, ...jobs.filter(job => !scenes.includes(job))]);
     metrics.workers += await run(scenes);
+    const landscapeJobs = JSON.parse(runtime.wasm_landscape_jobs(input, runtime.generationGraphicsConfig));
+    metrics.jobs += landscapeJobs.length;
+    metrics.workers += await run(landscapeJobs);
     metrics.milliseconds = performance.now() - started;
   } finally {
+    pool.close();
     // Storage is optional and does not delay asset readiness.
     window.strategicGenerationCacheSettled = cache.close();
   }

@@ -86,17 +86,13 @@ exports.attach = async (page, output) => {
 };
 
 const transforms = {
-  "strategic-generation-pool.js": [
-    ['for (const worker of workers) worker.terminate();',
-      'if (window.stopStartupWorkers) await window.stopStartupWorkers(); for (const worker of workers) worker.terminate();'],
-  ],
   "strategic-renderer.js": [
     ['const response = await fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm");',
       'window.startupProfile.mark("wasm-fetch-start"); const response = await fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm"); window.startupProfile.mark("wasm-headers");'],
     ['await runtime.default({ module_or_path: generationModule });',
       'window.startupProfile.mark("wasm-compile-hash-done"); await runtime.default({ module_or_path: generationModule }); window.startupProfile.mark("wasm-initialized");'],
-    ['runtime.wasm_boot(await graphics.text(), await audio.text());',
-      'window.startupProfile.mark("boot-start"); runtime.wasm_boot(await graphics.text(), await audio.text()); window.startupProfile.mark("boot-end");'],
+    ['runtime.wasm_boot(generationGraphicsConfig, await audio.text());',
+      'window.startupProfile.mark("boot-start"); runtime.wasm_boot(generationGraphicsConfig, await audio.text()); window.startupProfile.mark("boot-end");'],
   ],
   "strategic-scene.js": [
     ['runtime = value; schedule();',
@@ -109,12 +105,14 @@ const transforms = {
       'metrics.state = state; { const {daylight, view_lighting, street, ...brief} = state; window.startupProfile.mark("readiness", brief); }'],
   ],
   "strategic-generation.js": [
+    ['pool.close();',
+      'if (window.stopStartupWorkers) await window.stopStartupWorkers(); pool.close();'],
     ['const started = performance.now();',
       'const started = performance.now(); window.startupProfile.mark("generation-start");'],
     ['runtime.wasm_receive_job(job, bytes);',
       'runtime.wasm_receive_job(job, bytes); window.startupProfile.mark("receive", {start: receiveStarted, duration: performance.now() - receiveStarted, bytes: bytes.byteLength});'],
     ['metrics.workerMilliseconds += milliseconds;',
-      'metrics.workerMilliseconds += milliseconds; { const parsed = JSON.parse(job); window.startupProfile.mark("worker-job", {type: parsed.Scene ? "scene" : parsed.Venue ? "venue" : "building", archetype: (parsed.Building || parsed.Venue)?.archetype, milliseconds, bytes: bytes.byteLength}); }'],
+      'metrics.workerMilliseconds += milliseconds; { const parsed = JSON.parse(job); window.startupProfile.mark("worker-job", {type: parsed.Scene ? "scene" : parsed.Ground ? "ground" : parsed.Grass ? "grass" : parsed.Venue ? "venue" : "building", archetype: (parsed.Building || parsed.Venue)?.archetype, milliseconds, bytes: bytes.byteLength}); }'],
   ],
   "strategic-generation-cache.js": [
     ['if (error?.name !== "TimeoutError") disabled = true;',

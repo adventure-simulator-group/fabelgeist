@@ -22,7 +22,7 @@ mod travel;
 // A newly active view needs visibility, material specialization and render-world
 // preparation before its image contains geometry, even with resident assets.
 const CAPTURE_SETTLED_FRAMES: usize = 4;
-const CONCURRENT_CAPTURES: usize = 2;
+const CONCURRENT_CAPTURES: usize = 4;
 const COMPOSITOR_ORDER: isize = 256;
 
 fn compositor_camera(active: bool) -> Camera {

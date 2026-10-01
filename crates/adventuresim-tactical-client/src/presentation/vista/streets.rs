@@ -6,6 +6,7 @@ mod activity;
 mod material;
 mod mesh;
 mod partition;
+pub(in crate::presentation) mod prepared;
 pub(crate) mod streaming;
 mod support;
 mod traffic;
@@ -51,27 +52,19 @@ impl CityGroundAssets<'_> {
         images: &mut Assets<Image>,
     ) {
         let streets = &bundle.streets;
-        let yards = &bundle.yards;
-        let groups = &bundle.furniture_groups;
-        // Local footprint coordinates bound shader work independently of city size.
-        let mut builders: [CitySurfaceMeshBuilder; 5] = Default::default();
-        let beds = yards
-            .iter()
-            .filter(|yard| yard.surface == CityYardSurface::KitchenGarden)
-            .map(|yard| yard.corners_metres)
-            .collect::<Vec<_>>();
-        let bed_index = partition::SpatialIndex::new(&beds, |bed| partition::bounds(*bed));
-        let group_index = partition::SpatialIndex::new(groups, |group| {
-            partition::bounds(group.footprint.corners())
+        #[cfg(target_family = "wasm")]
+        let prepared =
+            crate::presentation::generation::landscape::ground(&environment.scene_digest);
+        #[cfg(not(target_family = "wasm"))]
+        let prepared: Option<std::sync::Arc<prepared::PreparedCityGround>> = None;
+        let prepared = prepared.unwrap_or_else(|| {
+            std::sync::Arc::new(prepared::PreparedCityGround::new(
+                &bundle.streets,
+                &bundle.yards,
+                &bundle.furniture_groups,
+                support,
+            ))
         });
-        for yard in yards.iter().copied() {
-            let kind = CityGroundKind::from(yard.surface);
-            builders[kind.index()].append_yard(yard, &bed_index, support, &group_index);
-        }
-        for street in streets.iter().copied() {
-            let kind = CityGroundKind::from(street.surface());
-            builders[kind.index()].append_street(street, support, &group_index);
-        }
         let network = self
             .streaming
             .is_none()
@@ -82,39 +75,38 @@ impl CityGroundAssets<'_> {
             .then(|| traffic::TrafficMask::neutral(images));
         let mut masks = std::collections::BTreeMap::new();
         let mut triangle_count = 0;
-        for (builder, kind) in builders.into_iter().zip(CityGroundKind::ALL) {
-            for (tile, mesh) in builder.build() {
-                let mask = masks.entry(tile).or_insert_with(|| match &network {
-                    Some(network) => traffic::TrafficMask::bake(network, tile, images),
-                    None => neutral.as_ref().expect("streaming neutral mask").clone(),
-                });
-                triangle_count += mesh_triangle_count(&mesh);
-                let mut entity = commands.spawn((
-                    Name::new(format!("City ground {kind:?}")),
-                    VistaTerrain(0),
-                    NotShadowCaster,
-                    Mesh3d(meshes.add(mesh)),
-                    MeshMaterial3d(self.materials.add(kind.material(
-                        environment.weather,
-                        &self.textures,
-                        mask,
-                    ))),
-                    Transform::default(),
-                ));
-                if self.streaming.is_some() {
-                    entity.insert(streaming::StreamedTrafficTile(tile));
-                }
-                if kind.is_yard() {
-                    entity.insert(CityYardPresentation);
-                } else {
-                    entity.insert(CityStreetPresentation);
-                }
+        for (tile, kind, mesh, triangles) in prepared.meshes(meshes) {
+            let mask = masks.entry(*tile).or_insert_with(|| match &network {
+                Some(network) => traffic::TrafficMask::bake(network, *tile, images),
+                None => neutral.as_ref().expect("streaming neutral mask").clone(),
+            });
+            triangle_count += triangles;
+            let mut entity = commands.spawn((
+                Name::new(format!("City ground {kind:?}")),
+                VistaTerrain(0),
+                NotShadowCaster,
+                Mesh3d(mesh.clone()),
+                MeshMaterial3d(self.materials.add(kind.material(
+                    environment.weather,
+                    &self.textures,
+                    mask,
+                ))),
+                Transform::default(),
+            ));
+            if self.streaming.is_some() {
+                entity.insert(streaming::StreamedTrafficTile(*tile));
+            }
+            if kind.is_yard() {
+                entity.insert(CityYardPresentation);
+            } else {
+                entity.insert(CityStreetPresentation);
             }
         }
         if let Some(neutral) = neutral {
             commands.insert_resource(streaming::CityTrafficResidency::new(
                 streets.clone(),
                 neutral,
+                prepared.traffic.clone(),
             ));
         }
         info!(traffic_tiles = masks.len(), wheel_segments = network.as_ref().map_or(0, traffic::TrafficNetwork::stroke_count), triangles = triangle_count, scene = %environment.scene_digest, "Clipped city ground to canonical terrain triangles");

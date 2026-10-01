@@ -2,14 +2,14 @@
 const MAX_GENERATION_WORKERS = 4;
 const JOB_TIMEOUT_MS = 180_000;
 
-export async function generateJobs(module, jobs, receive, options = {}) {
+export function createGenerationPool(module, options = {}) {
   const createWorker = options.createWorker || (() => new Worker(
     new URL("./strategic-generation-worker.js", import.meta.url), { type: "module" }));
-  const concurrency = Math.min(jobs.length, MAX_GENERATION_WORKERS,
+  const concurrency = Math.min(MAX_GENERATION_WORKERS,
     Math.max(1, (options.hardwareConcurrency ?? navigator.hardwareConcurrency ?? 2) - 1));
   const workers = [];
   const pending = new Set();
-  let cursor = 0, failed = false;
+  let closed = false, running = false;
   function exchange(worker, message) {
     return new Promise((resolve, reject) => {
       const finish = (error, result) => {
@@ -33,25 +33,38 @@ export async function generateJobs(module, jobs, receive, options = {}) {
       catch (error) { finish(error); }
     });
   }
-  try {
-    await Promise.all(Array.from({ length: concurrency }, async () => {
-      let worker;
-      while (!failed && cursor < jobs.length) {
-        const candidate = jobs[cursor++];
-        const job = options.resolveJob ? await options.resolveJob(candidate) : candidate;
-        if (failed || job == null) continue;
-        if (!worker) {
-          worker = createWorker(); workers.push(worker);
-          await exchange(worker, { module });
+  async function run(jobs, receive, jobOptions = {}) {
+    if (closed || running) throw new Error("Scene generation pool is not available");
+    running = true;
+    let cursor = 0, failed = false, created = 0;
+    try {
+      await Promise.all(Array.from({ length: Math.min(jobs.length, concurrency) }, async (_, index) => {
+        let worker = workers[index];
+        while (!failed && cursor < jobs.length) {
+          const candidate = jobs[cursor++];
+          const job = jobOptions.resolveJob ? await jobOptions.resolveJob(candidate) : candidate;
+          if (failed || closed || job == null) continue;
+          if (!worker) {
+            worker = createWorker(); workers[index] = worker; created++;
+            await exchange(worker, { module });
+          }
+          const dependencies = jobOptions.dependencies?.(job);
+          const result = await exchange(worker, { job, dependencies });
+          await receive(job, result.bytes, result.milliseconds);
         }
-        const dependencies = options.dependencies?.(job);
-        const result = await exchange(worker, { job, dependencies });
-        await receive(job, result.bytes, result.milliseconds);
-      }
-    }).map(promise => promise.catch(error => { failed = true; throw error; })));
-  } finally {
-    for (const cancel of pending) cancel();
-    for (const worker of workers) worker.terminate();
+      }).map(promise => promise.catch(error => { failed = true; throw error; })));
+    } catch (error) {
+      close(); throw error;
+    } finally {
+      running = false;
+    }
+    return created;
   }
-  return workers.length;
+  function close() {
+    closed = true;
+    for (const cancel of pending) cancel();
+    for (const worker of workers.filter(Boolean)) worker.terminate();
+    workers.length = 0;
+  }
+  return { run, close };
 }

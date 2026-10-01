@@ -17,6 +17,7 @@ mod config;
 mod demo_lifecycle;
 #[cfg(any(target_family = "wasm", test))]
 pub(crate) mod generation;
+mod packed;
 pub(crate) use demo_lifecycle::{clear_demo_scene, clear_scene_entities};
 pub(crate) use vista::streets::streaming::StreamCityTraffic;
 mod closure_meshes;
