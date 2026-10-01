@@ -458,6 +458,7 @@ fn fit_exhibits(
                     &design,
                     placement,
                     &[],
+                    &[],
                 )
                 .map_err(|error| format!("{error:#}"))
             })

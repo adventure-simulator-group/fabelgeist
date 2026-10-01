@@ -101,7 +101,7 @@ fn review_record(
     placement: &str,
     design: &ItemDesign,
 ) -> Result<serde_json::Value> {
-    let armor = parametric_equipment::fitted_item(model, body, design, placement, &[])?;
+    let armor = parametric_equipment::fitted_item(model, body, design, placement, &[], &[])?;
     let mut record = serde_json::json!({
         "id":item.id,"placement":placement,"positions":armor.positions,"normals":armor.normals,
         "indices":armor.indices,"components":armor.components,

@@ -14,9 +14,10 @@ mod tests;
 
 #[derive(Component, Clone, Debug, PartialEq, Eq, Hash)]
 pub(in crate::equipment) struct FitKey {
-    shape: BodyShapeKey,
-    item: String,
-    placement: String,
+    pub(super) shape: BodyShapeKey,
+    pub(super) item: String,
+    pub(super) placement: String,
+    pub(super) layers: Vec<layers::LayerSelection>,
 }
 
 impl FitKey {
@@ -65,6 +66,10 @@ impl FitKey {
             shape,
             item: presentation.item_id.clone(),
             placement,
+            layers: previous
+                .filter(|_| !fitted_to_owner)
+                .map(|key| key.layers.clone())
+                .unwrap_or_default(),
         })
     }
 }
@@ -142,6 +147,18 @@ impl RuntimeEquipmentBodyCache {
             .clone()
             .expect("prepared breastplate");
         let request = key.clone();
+        let supports = key
+            .support_keys()
+            .expect("validated layer graph")
+            .iter()
+            .map(|key| {
+                self.models[key]
+                    .as_ref()
+                    .expect("prepared support fit")
+                    .generated
+                    .clone()
+            })
+            .collect::<Vec<_>>();
         self.pending = Some(PendingFit {
             key,
             task: AsyncComputeTaskPool::get().spawn(async move {
@@ -152,6 +169,7 @@ impl RuntimeEquipmentBodyCache {
                     &request.placement,
                     &bracer,
                     &breastplate,
+                    &supports.iter().map(Arc::as_ref).collect::<Vec<_>>(),
                 )
                 .await;
                 info!(
@@ -182,6 +200,7 @@ impl RuntimeEquipmentBodyCache {
                 ),
                 parts: equipment_parts(&generated, &key.item, meshes, materials),
                 rigid_center: referenced_center(&generated),
+                generated: Arc::new(generated),
             })
             .map_err(|error| format!("{error:#}"));
         if let Err(error) = &result {
@@ -251,6 +270,14 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
     characters: Query<(&CharacterId, Option<&CharacterSkeletalProportions>)>,
 ) {
     cache.finish(&mut meshes, &mut materials);
+    let outfits = layers::outfits(presentations.iter().filter_map(|(_, presentation, ..)| {
+        let (owner, scene, _, slot) = items.get(presentation.item).ok()?;
+        let owner = owner.filter(|_| !scene && holding_side(slot).is_none())?;
+        Some((
+            owner.0,
+            layers::LayerSelection::new(&presentation.item_id, &presentation.placement_id),
+        ))
+    }));
     for (entity, presentation, current, resolved, children) in &presentations {
         if cache.failed {
             commands
@@ -269,7 +296,7 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
         };
         let fitted_to_owner = !scene && holding_side(slot).is_none() && owner.is_some();
         let previous = last_fit.map(|fit| &fit.0).or(current);
-        let Some(key) = FitKey::for_presentation(
+        let Some(mut key) = FitKey::for_presentation(
             canonical,
             presentation,
             previous,
@@ -279,6 +306,26 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
         ) else {
             continue;
         };
+        if fitted_to_owner {
+            let outfit = &outfits[&owner.expect("fitted owner").0];
+            match outfit {
+                Ok(outfit) => {
+                    key.layers =
+                        outfit.ancestors(&layers::LayerSelection::new(&key.item, &key.placement))
+                }
+                Err(error) => {
+                    if !resolved {
+                        error!("invalid equipment fit order: {error}");
+                    }
+                    commands.entity(entity).remove::<FitKey>().insert((
+                        ProceduralEquipmentFailed,
+                        ProceduralEquipmentResolved,
+                        Visibility::Hidden,
+                    ));
+                    continue;
+                }
+            }
+        }
         cache.use_clock = cache.use_clock.wrapping_add(1);
         let clock = cache.use_clock;
         cache.last_used.insert(key.clone(), clock);
@@ -286,39 +333,70 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
             continue;
         }
         if current != Some(&key) {
-            if let Some(children) = children {
-                for child in children.iter() {
-                    if parts.contains(child) {
-                        commands.entity(child).despawn();
-                    }
-                }
-            }
-            commands
-                .entity(entity)
-                .insert(key.clone())
-                .remove::<(ProceduralEquipmentResolved, ProceduralEquipmentFailed)>();
-            commands
-                .entity(presentation.item)
-                .insert(LastFit(key.clone()))
-                .remove::<EquipmentAttachmentSockets>();
+            key.install(&mut commands, entity, presentation, children, &parts);
         }
-        if let Some(result) = cache.models.get(&key) {
+        cache.resolve(key, entity, presentation, &mut commands, &mut bindposes);
+    }
+    cache.trim();
+}
+
+impl RuntimeEquipmentBodyCache {
+    fn resolve(
+        &mut self,
+        key: FitKey,
+        entity: Entity,
+        presentation: &RuntimeEquipmentPresentation,
+        commands: &mut Commands,
+        bindposes: &mut Assets<SkinnedMeshInverseBindposes>,
+    ) {
+        if let Some(result) = self.models.get(&key) {
             let Ok(model) = result else {
                 commands
                     .entity(entity)
                     .insert((ProceduralEquipmentResolved, ProceduralEquipmentFailed));
-                continue;
+                return;
             };
-            let body = &cache.bodies[&key.shape];
-            model.attach(&mut commands, entity, presentation, body);
-        } else if cache.pending.is_none() {
-            match cache.prepare_shape(&key.shape, &mut bindposes) {
-                Ok(()) => cache.start(key),
+            let body = &self.bodies[&key.shape];
+            model.attach(commands, entity, presentation, body);
+        } else if self.pending.is_none() {
+            let result = self.next_fit(&key).and_then(|next| {
+                self.prepare_shape(&next.shape, bindposes)?;
+                self.start(next);
+                Ok(())
+            });
+            match result {
+                Ok(()) => {}
                 Err(error) => {
-                    cache.models.insert(key, Err(format!("{error:#}")));
+                    self.models.insert(key, Err(format!("{error:#}")));
                 }
             }
         }
     }
-    cache.trim();
+}
+
+impl FitKey {
+    fn install(
+        &self,
+        commands: &mut Commands,
+        entity: Entity,
+        presentation: &RuntimeEquipmentPresentation,
+        children: Option<&Children>,
+        parts: &Query<(), With<ProceduralEquipmentPart>>,
+    ) {
+        if let Some(children) = children {
+            for child in children.iter() {
+                if parts.contains(child) {
+                    commands.entity(child).despawn();
+                }
+            }
+        }
+        commands
+            .entity(entity)
+            .insert(self.clone())
+            .remove::<(ProceduralEquipmentResolved, ProceduralEquipmentFailed)>();
+        commands
+            .entity(presentation.item)
+            .insert(LastFit(self.clone()))
+            .remove::<EquipmentAttachmentSockets>();
+    }
 }

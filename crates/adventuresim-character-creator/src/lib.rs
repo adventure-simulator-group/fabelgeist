@@ -4,6 +4,7 @@ pub mod armor_design_input;
 pub mod armor_design_output;
 pub mod armor_frames;
 mod armor_gpu;
+pub mod armor_layer;
 pub mod device_body;
 mod device_boot_layers;
 pub mod device_bracer;
@@ -51,6 +52,7 @@ pub use clothing_material::pbr as equipment_pbr;
 pub mod decoration;
 pub mod design_input;
 pub mod equipment_catalog;
+pub mod equipment_layers;
 #[cfg(feature = "offline-creator")]
 pub mod export;
 pub mod inventory;

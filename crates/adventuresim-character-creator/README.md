@@ -918,7 +918,13 @@ The neutral plate fixture reserves space for these defaults through its cuirass,
 gorget, fauld, and spaulder clearance parameters. Cuirass section fitting
 preserves the requested front and back clearance after seating its returns.
 Increasing garment thickness still requires checking the assembled kit; changing
-an underlayer does not automatically refit every equipped plate.
+an underlayer invalidates dependent runtime fits. The shared layer plan orders
+generation from inner to outer surfaces, honors explicit `layers_over`
+declarations, and rejects contradictory or cyclic outfits. Puffed garments seat
+against the completed lower surfaces; each remaining plate fitter must consume
+those surfaces before assembled-kit clearance can be claimed. Carried and dropped
+items retain the physical fit of their last wearer. Studio morph fits require the
+matching lower-surface realization rather than substituting its neutral shape.
 
 Construction references are the Philadelphia Museum of Art's
 [arming doublet, 1977-167-240, c. 1550–1650](https://www.philamuseum.org/objects/71390),

@@ -101,6 +101,7 @@ fn main() -> Result<()> {
                 placement,
                 &bracer,
                 &breastplate,
+                &[],
             ));
             report(item, round, 0, started, result)?;
         }
@@ -180,6 +181,7 @@ fn gorget_fits_sparse_body_sections() -> Result<()> {
             "worn",
             &bracer,
             &breastplate,
+            &[],
         ))?;
         assert!(armor.morphs.is_empty());
         assert!(!armor.indices.is_empty());
@@ -226,6 +228,7 @@ fn puffed_garments_fit_sparse_wearers_without_morph_targets() -> Result<()> {
                     side,
                     &bracer,
                     &breastplate,
+                    &[],
                 ))
                 .with_context(|| format!("{item} {side} at {scale:?}"))?;
                 assert!(armor.morphs.is_empty());
@@ -298,6 +301,7 @@ fn puffed_garment_extremes_are_closed_finite_shells() -> Result<()> {
             &[],
             &design,
             "left",
+            &[],
         )?;
         assert!(piece.endpoints.is_empty());
         let part = piece.base;
@@ -326,5 +330,49 @@ fn puffed_garment_extremes_are_closed_finite_shells() -> Result<()> {
             "open or reversed shell at {puff_count} puffs, {slash_count} slashes"
         );
     }
+    Ok(())
+}
+
+#[test]
+fn puffed_sleeve_seats_over_generated_padding() -> Result<()> {
+    let (body, _) = armor_fixture::load(&std::fs::read(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../assets/animations/biped/unarmed/base.glb"
+    ))?)?;
+    let bracer = load_bracer_design(None)?;
+    let breastplate = load_breastplate_design(None)?;
+    let fit = |item, layers| {
+        pollster::block_on(runtime_equipment::generate(
+            &body,
+            item,
+            "left",
+            &bracer,
+            &breastplate,
+            layers,
+        ))
+    };
+    let padding = fit("quilted_sleeve", &[])?;
+    let bare = fit("puffed_sleeve", &[])?;
+    let clothed = fit("puffed_sleeve", &[&padding])?;
+    assert_eq!(bare.indices, clothed.indices);
+    let maximum_shift = bare
+        .positions
+        .iter()
+        .zip(&clothed.positions)
+        .map(|(a, b)| bevy::math::Vec3::from(*a).distance(bevy::math::Vec3::from(*b)))
+        .fold(0.0_f32, f32::max);
+    assert!(
+        maximum_shift > 0.001,
+        "lower padding must affect the fit: {maximum_shift} m"
+    );
+    assert!(
+        clothed
+            .positions
+            .iter()
+            .chain(&clothed.normals)
+            .flatten()
+            .all(|v| v.is_finite())
+    );
+    assert!(clothed.morphs.is_empty());
     Ok(())
 }

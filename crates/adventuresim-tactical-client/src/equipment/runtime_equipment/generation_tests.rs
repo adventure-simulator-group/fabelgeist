@@ -40,6 +40,7 @@ fn character_key(id: u64) -> FitKey {
         ),
         item: "vambrace".into(),
         placement: "left".into(),
+        layers: Vec::new(),
     }
 }
 
@@ -77,6 +78,7 @@ fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_weare
         cache.models.insert(
             key,
             Ok(CachedEquipment {
+                generated: Arc::new(empty_armor()),
                 parts: vec![CachedPart {
                     mesh: app
                         .world_mut()
@@ -110,6 +112,7 @@ fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_weare
         .id();
     app.update();
     assert_presentation(app.world_mut(), true, false);
+    assert_invalid_outfit_recovers(&mut app);
     assert_eq!(
         app.world().get::<LastFit>(item).unwrap().0,
         character_key(1)
@@ -184,6 +187,49 @@ fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_weare
             .pending
             .is_none()
     );
+}
+
+fn assert_invalid_outfit_recovers(app: &mut App) {
+    let root = app
+        .world_mut()
+        .query_filtered::<Entity, With<RuntimeEquipmentPresentation>>()
+        .single(app.world())
+        .unwrap();
+    app.world_mut()
+        .get_mut::<RuntimeEquipmentPresentation>(root)
+        .unwrap()
+        .placement_id = "invalid-placement".into();
+    app.update();
+    assert!(app.world().get::<ProceduralEquipmentFailed>(root).is_some());
+    assert_eq!(
+        app.world().get::<Visibility>(root),
+        Some(&Visibility::Hidden)
+    );
+    app.world_mut()
+        .get_mut::<RuntimeEquipmentPresentation>(root)
+        .unwrap()
+        .placement_id = "left".into();
+    app.update();
+    assert!(app.world().get::<ProceduralEquipmentFailed>(root).is_none());
+    assert_presentation(app.world_mut(), true, false);
+}
+
+fn empty_armor() -> GeneratedArmor {
+    GeneratedArmor {
+        design_hash: [0; 32],
+        surface_domain: String::new(),
+        positions: vec![],
+        normals: vec![],
+        texcoords: vec![],
+        joint_indices: vec![],
+        joint_weights: vec![],
+        indices: vec![],
+        faces: vec![],
+        trim: None,
+        grids: vec![],
+        morphs: vec![],
+        components: vec![],
+    }
 }
 
 fn actor(world: &mut World, id: u64) -> Entity {

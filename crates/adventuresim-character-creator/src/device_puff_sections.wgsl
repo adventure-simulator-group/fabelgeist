@@ -10,6 +10,19 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     let first = section * params.capacity;
     var count = 0u;
     for (var face = 0u; face < params.face_count; face++) {
+        // A lower sleeve's torso branch must not inflate its armhole fit.
+        // Ownership was filtered on the host; this spatial test uses the
+        // fitted device frame, before any triangle is clipped into a band.
+        if (face >= params.body_face_count) {
+            let layer_support_envelope_scale = 1.8;
+            let radial_limit = max(f.half_extents.x, f.half_extents.z) * layer_support_envelope_scale;
+            var nearby = false;
+            for (var corner = 0u; corner < 3u; corner++) {
+                let p = host_local(f, positions_at(faces[face * 3u + corner]));
+                nearby = nearby || (p.y >= extent.x - HALF_WIDTH && p.y <= extent.y + HALF_WIDTH && length(p.xz) <= radial_limit);
+            }
+            if (!nearby) { continue; }
+        }
         for (var corner = 0u; corner < 3u; corner++) {
             let a = host_local(f, positions_at(faces[face * 3u + corner]));
             let b = host_local(f, positions_at(faces[face * 3u + (corner + 1u) % 3u]));

@@ -14,6 +14,7 @@ use fabelgeist_armor::{
 use fabelgeist_compute::KernelBatch;
 
 use crate::armor_frames::{FitRegion, Wearer};
+use crate::armor_layer::ArmorLayerSurface;
 use crate::armor_recipes::{self, ParametricDesign};
 use crate::device_body::DeviceBody;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -107,7 +108,7 @@ pub fn fit_piece(
     body: &FitBody<'_>,
     wearer: &Realization<'_>,
     morphs: &[(&str, Realization<'_>)],
-    record: impl Fn(&DeviceWearer, &mut KernelBatch) -> Result<DeviceRecording>,
+    record: impl Fn(&DeviceWearer, &mut KernelBatch, Option<&str>) -> Result<DeviceRecording>,
 ) -> Result<DevicePiece> {
     pollster::block_on(fit_piece_async(gpu, body, wearer, morphs, record))
 }
@@ -117,7 +118,7 @@ pub async fn fit_piece_async(
     body: &FitBody<'_>,
     wearer: &Realization<'_>,
     morphs: &[(&str, Realization<'_>)],
-    record: impl Fn(&DeviceWearer, &mut KernelBatch) -> Result<DeviceRecording>,
+    record: impl Fn(&DeviceWearer, &mut KernelBatch, Option<&str>) -> Result<DeviceRecording>,
 ) -> Result<DevicePiece> {
     let realizations = std::iter::once(wearer)
         .chain(morphs.iter().map(|(_, morph)| morph))
@@ -134,14 +135,15 @@ pub async fn fit_piece_async(
     // within a batch, and a piece and its morphs together can exceed it.
     let mut recordings = Vec::with_capacity(bodies.len());
     let mut skin = None;
-    for (device, host) in bodies.iter().copied().zip(&hosts) {
+    for (index, (device, host)) in bodies.iter().copied().zip(&hosts).enumerate() {
         let mut batch = gpu.batch("fitted armor");
         let wearer = DeviceWearer {
             gpu,
             body: device,
             host,
         };
-        let mut recording = record(&wearer, &mut batch)?;
+        let target = index.checked_sub(1).map(|i| morphs[i].0);
+        let mut recording = record(&wearer, &mut batch, target)?;
         recording.part.record_shells(gpu, &mut batch)?;
         if skin.is_none() {
             skin = Some(Correspondence::record(
@@ -222,9 +224,10 @@ pub fn fit_recipe(
     morphs: &[(&str, Realization<'_>)],
     design: &ParametricDesign,
     placement: &str,
+    layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
     pollster::block_on(fit_recipe_async(
-        gpu, body, wearer, morphs, design, placement,
+        gpu, body, wearer, morphs, design, placement, layers,
     ))
 }
 
@@ -235,10 +238,15 @@ pub async fn fit_recipe_async(
     morphs: &[(&str, Realization<'_>)],
     design: &ParametricDesign,
     placement: &str,
+    layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
     let fit = async |design: &ParametricDesign| {
-        fit_piece_async(gpu, body, wearer, morphs, |device, batch| {
-            record_recipe(device, batch, design, placement)
+        fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {
+            let surfaces = layers
+                .iter()
+                .map(|armor| ArmorLayerSurface::from_generated(armor, target))
+                .collect::<Result<Vec<_>>>()?;
+            record_recipe(device, batch, design, placement, &surfaces)
         })
         .await
     };
@@ -304,6 +312,7 @@ fn record_recipe(
     batch: &mut KernelBatch,
     design: &ParametricDesign,
     placement: &str,
+    layers: &[ArmorLayerSurface<'_>],
 ) -> Result<DeviceRecording> {
     match design {
         ParametricDesign::Helmet(HelmetDesign::CloseHelmet(d)) => {
@@ -330,9 +339,12 @@ fn record_recipe(
         ParametricDesign::Underlayer(_) | ParametricDesign::TrunkHose(_) => {
             anyhow::bail!("underlayers are cut from the body, not recorded as parts")
         }
-        ParametricDesign::PuffAndSlash(puff) => {
-            wearer.record_fitted_puff(batch, puff, armor_recipes::fit_region(design, placement)?)
-        }
+        ParametricDesign::PuffAndSlash(puff) => wearer.record_fitted_puff(
+            batch,
+            puff,
+            armor_recipes::fit_region(design, placement)?,
+            layers,
+        ),
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
         }

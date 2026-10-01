@@ -137,6 +137,7 @@ impl EquipmentExporter<'_> {
             design,
             &placement.id,
             &self.morphs.samples,
+            &[],
         )?;
         let parametric_coverage = match design {
             ItemDesign::Vambrace(design) => design.coverage.unit(),

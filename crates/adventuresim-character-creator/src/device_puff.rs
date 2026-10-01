@@ -5,7 +5,8 @@ use anyhow::Result;
 use fabelgeist_armor::{PuffAndSlashDesign, PuffAndSlashKind, gpu::record_puff_and_slash};
 use fabelgeist_compute::KernelBatch;
 
-use crate::armor_frames::FitRegion;
+use crate::armor_frames::{FitRegion, Wearer};
+use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::DeviceWearer;
 use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
 use crate::device_piece::DeviceRecording;
@@ -25,19 +26,11 @@ impl DeviceWearer<'_> {
         batch: &mut KernelBatch,
         design: &PuffAndSlashDesign,
         region: FitRegion,
+        layers: &[ArmorLayerSurface<'_>],
     ) -> Result<DeviceRecording> {
         let frame = self.record_frame(batch, region)?;
-        let mut owned = vec![false; self.host.positions.len()];
-        for index in self.host.support_indices(region)? {
-            owned[index] = true;
-        }
-        let faces = self
-            .host
-            .faces
-            .iter()
-            .copied()
-            .filter(|face| face.iter().any(|&index| owned[index as usize]))
-            .collect::<Vec<_>>();
+        let support = PuffSupport::new(self.host, region, layers)?;
+        let faces = &support.faces;
         anyhow::ensure!(
             !faces.is_empty(),
             "puff-and-slash garment has no limb support"
@@ -45,6 +38,7 @@ impl DeviceWearer<'_> {
         let gpu = self.gpu;
         let part = record_puff_and_slash(gpu, batch, design, &frame.frame)?;
         let faces_buffer = gpu.upload(&faces)?;
+        let positions = gpu.upload(&support.positions)?;
         let capacity = faces.len() as u32 * SAMPLES_PER_TRIANGLE + 1;
         let samples = gpu.scratch(
             u64::from(capacity) * u64::from(SECTION_COUNT) * 8,
@@ -62,10 +56,10 @@ impl DeviceWearer<'_> {
             "const SECTIONS: u32 = {SECTION_COUNT}u;\nconst RADII: u32 = {SECTION_RADII}u;\nconst SECTION_WORDS: u32 = {SECTION_WORDS}u;\nconst HALF_WIDTH: f32 = {SECTION_HALF_WIDTH_M};\nconst TAPER_COURSES: f32 = {FULLNESS_TAPER_COURSES};\n{}",
             include_str!("device_puff.wgsl")
         );
-        let words = fit_parameters(design, capacity, faces.len() as u32, part.carrier_count());
+        let words = fit_parameters(design, capacity, &support, part.carrier_count());
         let buffers = [
             read("fit", &frame.frame),
-            read("positions", &self.body.positions),
+            read("positions", &positions),
             read_u32("faces", &faces_buffer),
             write("samples", &samples),
             write("hulls", &hulls),
@@ -103,13 +97,14 @@ impl DeviceWearer<'_> {
 fn fit_parameters(
     design: &PuffAndSlashDesign,
     capacity: u32,
-    faces: u32,
+    support: &PuffSupport,
     carriers: u32,
-) -> [Word; 9] {
+) -> [Word; 10] {
     let sleeve = design.kind == PuffAndSlashKind::Sleeve;
     [
         Word::U("capacity", capacity),
-        Word::U("face_count", faces),
+        Word::U("face_count", support.faces.len() as u32),
+        Word::U("body_face_count", support.body_faces),
         Word::U("count", carriers),
         Word::U(
             "taper",
@@ -131,4 +126,53 @@ fn fit_parameters(
             design.clearance.metres() + 2.0 * design.thickness.metres(),
         ),
     ]
+}
+
+struct PuffSupport {
+    positions: Vec<[f32; 3]>,
+    faces: Vec<[u32; 3]>,
+    body_faces: u32,
+}
+
+impl PuffSupport {
+    fn new(
+        wearer: &Wearer<'_>,
+        region: FitRegion,
+        layers: &[ArmorLayerSurface<'_>],
+    ) -> Result<Self> {
+        let mut owned = vec![false; wearer.positions.len()];
+        for index in wearer.support_indices(region)? {
+            owned[index] = true;
+        }
+        let mut faces = wearer
+            .faces
+            .iter()
+            .copied()
+            .filter(|face| face.iter().any(|&i| owned[i as usize]))
+            .collect::<Vec<_>>();
+        let body_faces = faces.len() as u32;
+        let mut positions = wearer.positions.to_vec();
+        for layer in layers {
+            let mut owned = vec![false; layer.positions.len()];
+            for index in
+                wearer.support_indices_for(region, layer.joint_indices, layer.joint_weights)?
+            {
+                owned[index] = true;
+            }
+            for face in layer
+                .faces
+                .iter()
+                .filter(|face| face.iter().all(|&i| owned[i as usize]))
+            {
+                let first = positions.len() as u32;
+                positions.extend(face.map(|i| layer.positions[i as usize]));
+                faces.push([first, first + 1, first + 2]);
+            }
+        }
+        Ok(Self {
+            positions,
+            faces,
+            body_faces,
+        })
+    }
 }

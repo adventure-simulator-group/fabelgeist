@@ -1,6 +1,7 @@
 use super::*;
 mod body;
 mod generation;
+mod layers;
 mod meshes;
 mod rig;
 mod sockets;
@@ -100,6 +101,7 @@ pub(super) fn prepare_runtime_equipment_body(
 
 #[derive(Clone)]
 struct CachedEquipment {
+    generated: Arc<GeneratedArmor>,
     parts: Vec<CachedPart>,
     rigid_center: Vec3,
     sockets: BTreeMap<String, Transform>,

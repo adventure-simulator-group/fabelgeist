@@ -1249,15 +1249,21 @@ fn update_item_placeholders(
         &mut Visibility,
         Option<&ChildOf>,
         Has<ProceduralEquipmentResolved>,
+        Has<ProceduralEquipmentFailed>,
     )>,
 ) {
-    for (entity, placeholder, mut transform, mut visibility, parent, procedural) in
+    for (entity, placeholder, mut transform, mut visibility, parent, procedural, failed) in
         &mut placeholders
     {
         let Ok((item_transform, owner, slot, topology, scene)) = items.get(placeholder.0) else {
             commands.entity(entity).despawn();
             continue;
         };
+        if failed {
+            *visibility = Visibility::Hidden;
+            commands.entity(entity).remove::<HeldWeaponConstraint>();
+            continue;
+        }
         if scene {
             if parent.is_some() {
                 commands.entity(entity).remove::<ChildOf>();

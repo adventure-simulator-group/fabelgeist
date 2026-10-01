@@ -32,9 +32,10 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
             ("leather_boot", "left"),
         ] {
             let started = web_time::Instant::now();
-            let armor = runtime_equipment::generate(&body, item, placement, &bracer, &breastplate)
-                .await
-                .with_context(|| format!("fitting {item}, round {round}"))?;
+            let armor =
+                runtime_equipment::generate(&body, item, placement, &bracer, &breastplate, &[])
+                    .await
+                    .with_context(|| format!("fitting {item}, round {round}"))?;
             anyhow::ensure!(
                 armor.morphs.is_empty(),
                 "runtime equipment generated morph targets"

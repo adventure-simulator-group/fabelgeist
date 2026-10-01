@@ -83,9 +83,18 @@ pub async fn generate(
     placement: &str,
     bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
+    layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     if is_runtime_armor(item_id) {
-        generate_runtime_armor(body, item_id, placement, bracer_design, breastplate_design).await
+        generate_runtime_armor(
+            body,
+            item_id,
+            placement,
+            bracer_design,
+            breastplate_design,
+            layers,
+        )
+        .await
     } else {
         generate_runtime_clothing(body, item_id, placement)
     }
@@ -100,6 +109,7 @@ pub async fn generate_runtime_armor(
     placement: &str,
     bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
+    layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     body.validate()?;
     let gpu = crate::armor_gpu::armor_gpu_async().await?;
@@ -113,7 +123,7 @@ pub async fn generate_runtime_armor(
         None => {
             let design = armor_recipes::recipe(item_id)
                 .with_context(|| format!("no runtime armor recipe for {item_id}"))?;
-            generate_parametric(gpu, body, &design, placement).await
+            generate_parametric(gpu, body, &design, placement, layers).await
         }
     }
 }
@@ -179,6 +189,7 @@ async fn generate_parametric(
     body: &RuntimeBody,
     design: &ParametricDesign,
     placement: &str,
+    layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     match design {
         ParametricDesign::Underlayer(_) | ParametricDesign::TrunkHose(_) => {
@@ -210,6 +221,7 @@ async fn generate_parametric(
                 &[],
                 design,
                 placement,
+                layers,
             )
             .await?;
             device_fit::assemble_recipe(
