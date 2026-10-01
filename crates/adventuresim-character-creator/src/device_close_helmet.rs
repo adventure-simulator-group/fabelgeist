@@ -122,7 +122,7 @@ fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 2]> {
 const BAND_SPAN: &str = r#"
 // The height band `band` spans, in the head frame.
 fn band_span(band: u32) -> vec2<f32> {
-    let above = bitcast<f32>(0x7f800000u);
+    let above = MAX_FINITE;
     let chin = -half_height();
     let front_hem = host_sub(host_mul(-half_height(), NECK_HEM_HEAD_RATIO), design[NECK_LENGTH]);
     switch band {

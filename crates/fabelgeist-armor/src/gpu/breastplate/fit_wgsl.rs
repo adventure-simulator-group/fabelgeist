@@ -151,7 +151,7 @@ fn center_of(i: u32) -> vec3<f32> {
 // The torso's radial extent: the nearest torso crossing along a horizontal ray from
 // the section centre.
 fn body_radius(origin: vec3<f32>, direction: vec3<f32>) -> f32 {
-    var nearest = bitcast<f32>(0x7f800000u);
+    var nearest = MAX_FINITE;
     for (var f = 0u; f < params.torso_count; f = f + 1u) {
         let a = body_local_at(torso_faces[f * 3u]);
         let b = body_local_at(torso_faces[f * 3u + 1u]);

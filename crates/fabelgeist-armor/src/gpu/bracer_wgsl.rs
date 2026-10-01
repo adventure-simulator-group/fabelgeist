@@ -130,7 +130,7 @@ fn main() {
         fail(STATUS_INVALID_SURFACE);
         return;
     }
-    let infinity = bitcast<f32>(0x7f800000u);
+    let infinity = MAX_FINITE;
     var axial_sum = 0.0;
     var position_sum = vec3<f32>(0.0);
     var lowest = vec3<f32>(infinity);

@@ -18,7 +18,9 @@ pub(crate) const HOST: &str = r#"
 // The word of a fit that is nonzero once the fit has failed.
 const FIT_FAILED: u32 = 15u;
 const FLT_EPSILON: f32 = 1.1920929e-7;
-const INFINITY: f32 = 3.4028235e38;
+// Exact largest finite f32. A rounded decimal above this value is rejected
+// by browser WGSL parsers even when a native backend rounds it down.
+const INFINITY: f32 = MAX_FINITE;
 
 fn host_dot(a: vec3<f32>, b: vec3<f32>) -> f32 {
     return (a.x * b.x + a.y * b.y) + a.z * b.z;

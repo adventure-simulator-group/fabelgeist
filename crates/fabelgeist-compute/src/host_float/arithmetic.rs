@@ -7,7 +7,7 @@
 pub(super) const ARITHMETIC: &str = r#"
 // The largest finite float. Beyond it -- and for NaN -- a quotient or root
 // is the device's own, which is the host's special value too.
-const HOST_FLOAT_MAX: f32 = 3.40282347e38f;
+const HOST_FLOAT_MAX: f32 = 0x1.fffffep+127f;
 // How many units in the last place a quotient or root may walk. The
 // device's division and square root are within a few units of the nearest.
 const HOST_FLOAT_WALK: u32 = 4u;
