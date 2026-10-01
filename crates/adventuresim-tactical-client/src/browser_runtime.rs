@@ -54,7 +54,7 @@ enum BrowserCommand {
     ZoomForge {
         delta: f32,
     },
-    HideStrategicScene,
+    HideForgePreview,
     EnterTactical {
         server_addr: String,
         character_id: u64,
@@ -211,7 +211,7 @@ fn drain_browser_commands(
             }
             BrowserCommand::ShowStrategicScene { scene } => {
                 *mode = BrowserMode::Strategic;
-                despawn_strategic_scene(&mut commands, &scene_entities);
+                despawn_forge_preview(&mut commands, &scene_entities);
                 match scene {
                     StrategicScene::Forge {
                         catalog_id,
@@ -238,9 +238,8 @@ fn drain_browser_commands(
                     apply_preview_view(&preview_view, &mut root);
                 }
             }
-            BrowserCommand::HideStrategicScene => {
-                commands.remove_resource::<crate::strategic_scene::protocol::StrategicView>();
-                despawn_strategic_scene(&mut commands, &scene_entities);
+            BrowserCommand::HideForgePreview => {
+                despawn_forge_preview(&mut commands, &scene_entities);
                 *preview_view = ForgePreviewView::default();
             }
             BrowserCommand::EnterTactical {
@@ -249,7 +248,7 @@ fn drain_browser_commands(
             } => {
                 commands.queue(crate::strategic_scene::release_scene);
                 commands.remove_resource::<crate::strategic_scene::protocol::StrategicView>();
-                despawn_strategic_scene(&mut commands, &scene_entities);
+                despawn_forge_preview(&mut commands, &scene_entities);
                 if clients.is_empty() {
                     args.id = character_id;
                     args.server_addr.clone_from(&server_addr);
@@ -279,7 +278,7 @@ fn pending_commands() -> Vec<BrowserCommand> {
         .unwrap_or_default()
 }
 
-fn despawn_strategic_scene(
+fn despawn_forge_preview(
     commands: &mut Commands,
     scene_entities: &Query<Entity, With<StrategicSceneEntity>>,
 ) {

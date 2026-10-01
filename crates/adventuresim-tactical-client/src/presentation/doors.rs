@@ -37,7 +37,11 @@ pub(in crate::presentation) fn on_scene_door_added(
     commands.entity(event.entity).insert((
         PresentedDoorLeaf,
         Mesh3d(cache.door(door.size_metres, &mut meshes)),
-        MeshMaterial3d(materials.get_for_building(door.building_id, BuildingLodMaterial::Timber)),
+        MeshMaterial3d(
+            materials
+                .for_building(door.building_id)
+                .get(BuildingLodMaterial::Timber),
+        ),
         Visibility::default(),
         GrabTargetOutline(event.entity),
         OutlineVolume {

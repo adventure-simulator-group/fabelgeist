@@ -173,7 +173,7 @@ impl Observation<'_, '_> {
             };
             assert_eq!(
                 material.0,
-                self.palette.get_for_building(building.id, batch.material),
+                self.palette.for_building(building.id).get(batch.material),
                 "capture bypassed production building material binding"
             );
             rendered_buildings
@@ -190,7 +190,8 @@ impl Observation<'_, '_> {
             assert_eq!(
                 material.0,
                 self.palette
-                    .get_for_building(window.building_id, window.leaf.material())
+                    .for_building(window.building_id)
+                    .get(window.leaf.material())
             );
             let glass = self
                 .materials
@@ -214,7 +215,8 @@ impl Observation<'_, '_> {
             assert_eq!(
                 material.0,
                 self.palette
-                    .get_for_building(door.building_id, BuildingLodMaterial::Timber)
+                    .for_building(door.building_id)
+                    .get(BuildingLodMaterial::Timber)
             );
         }
         for (&id, expected) in &requirements.signs {

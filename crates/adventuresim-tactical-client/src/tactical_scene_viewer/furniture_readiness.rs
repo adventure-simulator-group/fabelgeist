@@ -85,7 +85,7 @@ impl Observation<'_, '_> {
                 let Ok(instance) = self.furniture.get(parent.parent()) else {
                     return false;
                 };
-                if handle.0 != self.palette.get_for_building(instance.id.0, batch.material) {
+                if handle.0 != self.palette.for_building(instance.id.0).get(batch.material) {
                     return false;
                 }
                 self.materials.get(&handle.0).is_some_and(|material| {

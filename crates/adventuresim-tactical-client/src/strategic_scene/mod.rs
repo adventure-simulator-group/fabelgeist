@@ -76,7 +76,6 @@ impl Plugin for StrategicScenePlugin {
                     sync_room_lights,
                     views::sync_views,
                     shadows::sync_character_shadows,
-                    views::sync_environment,
                 )
                     .chain()
                     .before(crate::equipment::visuals::EquipmentVisualSystems),

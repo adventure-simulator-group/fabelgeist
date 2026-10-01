@@ -34,7 +34,11 @@ fn on_scene_window_added(
     commands.entity(event.entity).insert((
         PresentedWindowCasement,
         Mesh3d(body.mesh.clone()),
-        MeshMaterial3d(materials.get_for_building(window.building_id, window.leaf.material())),
+        MeshMaterial3d(
+            materials
+                .for_building(window.building_id)
+                .get(window.leaf.material()),
+        ),
         Visibility::default(),
         super::building_lod_visibility(super::BuildingRenderLevel::Lod0),
         building_closures::PresentedBuildingClosureMesh::new(window.building_id, window.opening_id),
@@ -53,7 +57,11 @@ fn on_scene_window_added(
         {
             parent.spawn((
                 Mesh3d(batch.mesh.clone()),
-                MeshMaterial3d(materials.get_for_building(window.building_id, batch.material)),
+                MeshMaterial3d(
+                    materials
+                        .for_building(window.building_id)
+                        .get(batch.material),
+                ),
                 Transform::IDENTITY,
                 super::building_lod_visibility(super::BuildingRenderLevel::Lod0),
                 building_closures::PresentedBuildingClosureMesh::new(

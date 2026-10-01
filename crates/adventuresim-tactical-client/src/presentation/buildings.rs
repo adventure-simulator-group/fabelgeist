@@ -298,6 +298,7 @@ fn spawn_building_levels(
     compiled: &CompiledBuildingLevels,
     materials: &TacticalBuildingMaterials,
 ) {
+    let palette = materials.for_building(building_id);
     for (level, batches) in [
         (BuildingRenderLevel::Lod0, &compiled.lod0),
         (BuildingRenderLevel::Lod1, &compiled.lod1),
@@ -313,7 +314,7 @@ fn spawn_building_levels(
                 },
                 Mesh3d(batch.mesh.clone()),
                 Transform::from_matrix(batch.transform),
-                MeshMaterial3d(materials.get_for_building(building_id, batch.material)),
+                MeshMaterial3d(palette.get(batch.material)),
                 if matches!(
                     (compiled.detail, level),
                     (BuildingDetail::Facade, BuildingRenderLevel::Lod1)

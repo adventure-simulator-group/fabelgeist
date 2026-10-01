@@ -13,11 +13,12 @@ const command = (payload) => runtimePromise
   .catch((error) => console.error("strategic renderer command failed", error));
 
 const hide = () => {
+  const hadForge = Boolean(host);
   host?.removeAttribute("data-renderer-ready");
   host = undefined;
   currentForgeDesign = undefined;
   orbitingForge = false;
-  command({ type: "hide-strategic-scene" });
+  if (hadForge) command({ type: "hide-forge-preview" });
 };
 
 const mount = () => {

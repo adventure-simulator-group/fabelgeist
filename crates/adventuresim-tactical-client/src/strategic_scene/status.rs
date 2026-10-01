@@ -18,11 +18,16 @@ const SETTLED_RENDER_FRAMES: usize = 4;
 #[derive(Resource, Default)]
 pub(super) struct SceneAssetsReady(pub bool);
 
+/// CPU installation and final lighting, independent of mesh pipeline preparation.
+#[derive(Resource, Default)]
+pub(super) struct SceneInstallationReady(pub bool);
+
 #[derive(Default, Serialize)]
 struct Status {
     revision: u64,
     ready: bool,
     assets_ready: bool,
+    installed_ready: bool,
     snapshots_pending: usize,
     settled_render_frames: usize,
     buildings: usize,
@@ -42,8 +47,19 @@ struct Status {
     error: Option<String>,
 }
 
+impl Status {
+    fn publish(self) {
+        *STATUS
+            .get_or_init(|| Mutex::new(String::new()))
+            .lock()
+            .expect("renderer status lock") =
+            serde_json::to_string(&self).expect("renderer status serializes");
+    }
+}
+
 pub(super) fn install(app: &mut App) {
     app.init_resource::<SceneAssetsReady>()
+        .init_resource::<SceneInstallationReady>()
         .init_resource::<SceneAssetFailure>()
         .add_systems(
             Last,
@@ -103,7 +119,10 @@ pub(super) fn update_status(
     equipment: super::equipment_readiness::EquipmentReadiness,
     items: Query<Entity, With<super::equipment::SceneEquipment>>,
     mut settled: Local<usize>,
-    mut assets_ready: ResMut<SceneAssetsReady>,
+    (mut assets_ready, mut installed_ready): (
+        ResMut<SceneAssetsReady>,
+        ResMut<SceneInstallationReady>,
+    ),
     cache: Res<super::cached_views::CachedViews>,
     city: Option<Res<crate::presentation::PendingCityBuildings>>,
     terrain: Query<(), With<crate::presentation::PendingTerrainPresentation>>,
@@ -124,7 +143,7 @@ pub(super) fn update_status(
     if view.as_ref().is_some_and(|view| view.is_changed()) {
         *settled = 0;
     }
-    let complete = view.as_ref().is_some_and(|view| {
+    let installed = view.as_ref().is_some_and(|view| {
         scene.location == view.location
             && scene.next_place == view.places.len()
             && scene.pending.is_empty()
@@ -133,15 +152,17 @@ pub(super) fn update_status(
         && posed == loaded
         && equipment_ready
         && textures_ready
-        && waiting == 0
         && city.as_ref().is_none_or(|city| city.finished())
-        && city
-            .as_ref()
-            .is_none_or(|city| city.total == 0 || crate::presentation::city_gpu_ready())
         && terrain.is_empty()
         && sky.is_ready(&settings)
         && failure.0.is_none()
         && scene.error.is_none();
+    installed_ready.0 = installed;
+    let complete = installed
+        && waiting == 0
+        && city
+            .as_ref()
+            .is_none_or(|city| city.total == 0 || crate::presentation::city_gpu_ready());
     assets_ready.0 = complete;
     if complete && cache.is_ready() {
         *settled += 1;
@@ -154,6 +175,7 @@ pub(super) fn update_status(
         revision: view.as_ref().map_or(0, |view| view.revision),
         ready: *settled >= SETTLED_RENDER_FRAMES,
         assets_ready: complete,
+        installed_ready: installed,
         snapshots_pending: cache.pending_captures(),
         settled_render_frames: *settled,
         buildings: scene.next_place,
@@ -180,9 +202,5 @@ pub(super) fn update_status(
             })
             .or_else(|| equipment_state.err().map(str::to_owned)),
     };
-    *STATUS
-        .get_or_init(|| Mutex::new(String::new()))
-        .lock()
-        .expect("renderer status lock") =
-        serde_json::to_string(&status).expect("renderer status serializes");
+    status.publish();
 }

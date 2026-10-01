@@ -14,6 +14,8 @@ use bevy::{
 };
 use std::collections::HashMap;
 
+#[cfg(test)]
+mod environment_tests;
 mod preload;
 
 // A newly active view needs visibility, material specialization and render-world
@@ -106,7 +108,10 @@ struct SnapshotCamera;
 pub(super) fn install(app: &mut App) {
     app.init_resource::<CachedViews>().add_systems(
         PostUpdate,
-        settle
+        // Capture cameras are spawned here. Apply their final environment before
+        // camera preparation/extraction can specialize transient default pipelines.
+        (settle, super::views::sync_environment)
+            .chain()
             .before(bevy::camera::CameraUpdateSystems)
             .before(bevy::transform::TransformSystems::Propagate),
     );

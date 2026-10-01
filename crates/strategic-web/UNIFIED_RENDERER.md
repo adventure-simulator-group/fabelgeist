@@ -5,6 +5,8 @@ device and asset store. Soft navigation replaces `#strategic-page` while
 retaining that runtime. The map remains in its existing HTML renderer.
 HTML-only pages such as the journal hide the retained scene; returning to a
 venue reuses its scene document, roster and equipment.
+Forge teardown removes only the forge preview. The strategic scene bridge owns
+view visibility and retains the current view across ordinary page replacement.
 
 ## Client generation workers
 
@@ -47,11 +49,22 @@ budget after each preparation; products larger than 128 MiB are not stored.
 Oldest writes are evicted first. These records never contain live tactical tick
 state.
 
+Opening and reading storage use a two-second deadline. Background writes and
+eviction have a separate thirty-second deadline because their completion events
+can queue behind generation frames. If a deadline fires after an IndexedDB
+transaction has finished, its queued completion event resolves the operation.
+
 Cache reads have bounded concurrency; workers start only for misses. A fully
 cached scene starts no generation workers. Render-asset installation, texture
 residency, GPU uploads, equipment, and portrait preparation still run, so a cache
 hit is not equivalent to whole-game readiness. Generation metrics distinguish
 hits, misses, read time, decoding, worker time, and complete preparation time.
+
+Installation also reuses deterministic intermediate values within the document.
+A building chooses its material palette once per assembly traversal and shares
+it across modular components. Ground-mask rasterization computes each noise
+lattice corner once, then interpolates the same values for neighboring pixels.
+Neither changes the generated appearance or requires stored render products.
 
 ## Presentation and authority
 
@@ -185,6 +198,15 @@ geometry.
 When the layout supplies a portrait size, cold readiness includes portraits for
 residents of unvisited venues at those dimensions. A pool of at most two snapshot
 camera entities captures these images and stays inactive between captures.
+New and reused capture cameras receive the tactical environment before camera
+preparation and render extraction, avoiding an initial frame with default
+rendering settings and its unnecessary pipeline specializations.
+Initial scene mesh draws wait for CPU installation and the final atmosphere
+environment. Cameras, lighting preparation, asset uploads, and character pose
+initialization continue during this wait. This avoids specializing meshes for
+temporary lighting. The gate opens permanently after initial installation, so
+later weather changes do not blank retained views. GPU preparation, snapshot
+completion, and settled-frame checks still follow before reporting readiness.
 Completed images remain resident. This also avoids exhausting Bevy's limited
 distance-visibility camera table with inactive cameras. A later layout requiring
 different dimensions still creates a new capture when that portrait is shown.
@@ -368,6 +390,39 @@ When a production inventory fixture is present, `location-replacement.json`
 also records the cost and requests for replacing the retained settlement.
 
 ### Draw and timing measurements
+
+For startup CPU attribution, set `STRATEGIC_STARTUP_PROFILE=1` alongside
+`STRATEGIC_RENDER_BENCHMARK=1`. Add `STRATEGIC_RELOAD_BENCHMARK=1` to capture
+both empty-cache startup and the subsequent cached reload. The test server
+instruments its JavaScript responses without modifying production files or
+disabling the browser HTTP cache. Captures contain DevTools CPU samples, resource
+timings, long tasks, generation stages, and readiness milestones.
+
+```sh
+node crates/strategic-web/tests/summarize-startup-profile.cjs target/strategic-scene-review
+```
+
+CPU sampling adds overhead; use separate unprofiled runs for latency comparisons.
+Summary buckets are disjoint, while inclusive function costs overlap. Asynchronous
+cache-read and decompression spans also overlap and must not be added as elapsed
+time. Browser idle samples do not identify GPU wait time. The gap between asset
+readiness and snapshot readiness includes capture scheduling and rendering; it
+is not a measurement of portrait generation alone. Asset readiness can become
+false again while new capture pipelines compile, so first-observed milestones
+are not boundaries between independent, nonoverlapping phases.
+
+Startup profiles also record WebGPU pipeline-creation calls and sampled queue
+completion callbacks. Callback latency includes main-thread scheduling and
+earlier queued work; synchronous pipeline-creation calls can return before the
+browser/backend finishes preparing the pipeline.
+
+Add `STRATEGIC_STARTUP_GPU_TIMESTAMPS=1` to sample pass timestamps in every eighth
+command encoder, with at most two readbacks outstanding. This opt-in diagnostic
+requires timestamp-query support and observes submissions outside animation
+callbacks too. Pass durations exclude the diagnostic's query-copy/readback work;
+the samples do not cover every pass or measure the whole GPU workload. Run
+`node --test crates/strategic-web/tests/startup-gpu-timestamps.browser.cjs` to
+verify sampling against known WebGPU passes.
 
 Set `STRATEGIC_GPU_PROFILE=1` alongside `STRATEGIC_RENDER_BENCHMARK=1` to
 capture steady frames. Use a fresh browser run for each location, setting

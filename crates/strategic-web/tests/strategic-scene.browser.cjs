@@ -211,6 +211,22 @@ test("one canvas retains street, portraits and character views across warm navig
     const generationAtReady = await page.evaluate(() => window.strategicGenerationMetrics);
     assert.equal(await page.locator("canvas").count(), 1, "all views share one DOM canvas");
     if (!realRenderer) {
+      // Forge teardown must not discard the retained strategic view on ordinary
+      // page navigation. Exercise the actual mount/unmount handlers.
+      await page.evaluate(() => {
+        const host = document.createElement("section"); host.dataset.bevyScene = "forge";
+        document.querySelector("#strategic-page").append(host);
+        document.dispatchEvent(new Event("strategic-page-mounted"));
+      });
+      await page.locator('[data-bevy-scene="forge"][data-renderer-ready]').waitFor();
+      await page.evaluate(() => {
+        document.dispatchEvent(new Event("strategic-page-unmounting"));
+        document.querySelector('[data-bevy-scene="forge"]').remove();
+        document.dispatchEvent(new Event("strategic-page-mounted"));
+      });
+      await ready();
+      assert.equal(await page.evaluate(() => window.commands.filter(command => command.type === "hide-forge-preview").length), 1);
+      assert.equal(await page.evaluate(() => window.commands.some(command => command.type === "hide-strategic-scene")), false);
       await page.waitForFunction(() => {
         const links = [...document.querySelectorAll('.settlement-services [data-building-id]:not([data-building-id="map"])')];
         const view = window.commands.filter(command => command.type === "sync-strategic-view").at(-1).view;
@@ -282,6 +298,7 @@ test("one canvas retains street, portraits and character views across warm navig
           maxHeight: style.maxHeight, transform: style.transform, clip: document.querySelector('#strategic-render-surface').style.clipPath};
       })), null, 2));
     const coldRequests = requests.length;
+    if (process.env.STRATEGIC_NAVIGATION_PROFILE === "1") await startup?.beginNavigation();
     for (const place of [...services, "inn"]) {
       const started = performance.now();
       await page.locator(`[data-building-id="${place}"]`).click();
@@ -302,6 +319,7 @@ test("one canvas retains street, portraits and character views across warm navig
           await page.evaluate(() => window.strategicRendererMetrics.state), null, 2));
       }
     }
+    if (process.env.STRATEGIC_NAVIGATION_PROFILE === "1") await startup?.endNavigation();
     assert.equal(requests.slice(coldRequests).filter(url => url.startsWith("/tactical/")).length, 0, "warm navigation loads no renderer assets");
     assert.equal(requests.slice(coldRequests).filter(url => url.startsWith("/api/scene-equipment")).length, 0, "warm navigation reuses equipment appearances");
     assert.equal(requests.slice(coldRequests).filter(url => url === "/api/scene-assets").length, 0, "warm navigation reuses tactical scene document");
