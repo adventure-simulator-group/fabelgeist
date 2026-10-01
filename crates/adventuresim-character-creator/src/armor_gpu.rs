@@ -1,6 +1,6 @@
 //! The one armor compute device this process generates on.
 
-use std::sync::{Condvar, Mutex, OnceLock};
+use std::sync::{Condvar, Mutex};
 
 use fabelgeist_armor::ArmorGpu;
 
@@ -10,10 +10,19 @@ use fabelgeist_armor::ArmorGpu;
 /// fraction of a second, and every fitted piece in every thread wants the
 /// same kernels, so the process keeps one.
 pub fn armor_gpu() -> anyhow::Result<&'static ArmorGpu> {
-    static GPU: OnceLock<Result<ArmorGpu, String>> = OnceLock::new();
-    GPU.get_or_init(|| ArmorGpu::open().map_err(|error| error.to_string()))
-        .as_ref()
-        .map_err(|error| anyhow::anyhow!("opening the armor GPU: {error}"))
+    pollster::block_on(armor_gpu_async())
+}
+
+pub async fn armor_gpu_async() -> anyhow::Result<&'static ArmorGpu> {
+    static GPU: async_lock::OnceCell<Result<ArmorGpu, String>> = async_lock::OnceCell::new();
+    GPU.get_or_init(|| async {
+        ArmorGpu::open_async()
+            .await
+            .map_err(|error| error.to_string())
+    })
+    .await
+    .as_ref()
+    .map_err(|error| anyhow::anyhow!("opening the armor GPU: {error}"))
 }
 
 /// Pieces fitted on the armor device at once.

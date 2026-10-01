@@ -26,6 +26,7 @@ mod device_garment_tube;
 mod device_gorget;
 mod device_gorget_bib;
 mod device_gorget_cage;
+mod device_gorget_sections;
 pub mod device_head_frame;
 pub mod device_helmet;
 pub mod device_limb;

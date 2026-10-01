@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>Runtime armor WebGPU probe</title>
+<style>body{font:16px system-ui;margin:32px}pre{white-space:pre-wrap}</style>
+<h1>Runtime armor WebGPU probe</h1><p id="status">Loading local Wasm module...</p><pre id="results"></pre>
+<script type="module">
+const status=document.querySelector('#status'),output=document.querySelector('#results');
+try {
+ const {default:init,fit_probe}=await import('./armor_browser_probe.js');
+ await init(); status.textContent='Generating equipment twice on WebGPU...';
+ const body=new Uint8Array(await (await fetch('./body.glb')).arrayBuffer());
+ output.textContent=await fit_probe(body);
+ status.textContent=`PASS: ${JSON.parse(output.textContent).length} generations; finite, indexed geometry; zero morph targets.`;
+} catch(error){status.textContent='FAIL';output.textContent=String(error);}
+</script>

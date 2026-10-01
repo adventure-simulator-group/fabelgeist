@@ -112,7 +112,7 @@ jobs:
         run: |
           python3 -B -m unittest scripts.test_check_deterministic_rng
           python3 scripts/check_deterministic_rng.py
-          cargo install wasm-bindgen-cli --version 0.2.108 --locked
+          cargo install wasm-bindgen-cli --version 0.2.126 --locked
           python3 scripts/test_determinism.py
       - name: Run Clippy with warnings denied
         run: |

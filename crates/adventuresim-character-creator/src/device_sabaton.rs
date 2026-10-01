@@ -111,15 +111,19 @@ impl DeviceWearer<'_> {
         }
         let frame = frame.clone();
         Ok(Box::new(move |gpu| {
-            if gpu.read::<u32>(&status)?[0] & TRIM_EXCEEDS_FOOT == 0 {
-                return Ok(());
-            }
-            let length = frame.read(gpu)?.half_extents[2];
-            Err(GenerateError::SabatonTrimExceedsFoot {
-                cutaway_m: cutaway,
-                available_span_m: length * TRIMMABLE_FOOT_SHARE,
-            }
-            .into())
+            let status = status.clone();
+            let frame = frame.clone();
+            Box::pin(async move {
+                if gpu.read_async::<u32>(&status).await?[0] & TRIM_EXCEEDS_FOOT == 0 {
+                    return Ok(());
+                }
+                let length = frame.read_async(gpu).await?.half_extents[2];
+                Err(GenerateError::SabatonTrimExceedsFoot {
+                    cutaway_m: cutaway,
+                    available_span_m: length * TRIMMABLE_FOOT_SHARE,
+                }
+                .into())
+            })
         }))
     }
 }

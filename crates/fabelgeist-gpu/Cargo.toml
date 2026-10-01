@@ -14,7 +14,7 @@ indexmap = { "version" = "2.12.1", "features" = ["serde"] }
 serde = { "version" = "1", "features" = ["derive"] }
 strum = { "version" = "0.27.2", "features" = ["derive"] }
 regex = { "version" = "1.12.3" }
-naga = { "version" = "30.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
+naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
 async-lock = { "version" = "3.4.0" }
 futures-channel = { "version" = "0.3" }
 fabelgeist-timer = { "path" = "../fabelgeist-timer" }
@@ -27,11 +27,11 @@ tokio = { "version" = "1", "features" = ["full"] }
 serde_json = { "version" = "1.0", "features" = ["preserve_order"] }
 
 [target."cfg(not(target_arch = \"wasm32\"))".dependencies]
-wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"] }
+wgpu = { "version" = "29.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"] }
 pollster = { "version" = "0.4" }
 
 [target."cfg(target_arch = \"wasm32\")".dependencies]
-wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl", "fragile-send-sync-non-atomic-wasm"] }
+wgpu = { "version" = "29.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl", "fragile-send-sync-non-atomic-wasm"] }
 wasm-bindgen-futures = { "version" = "0.4" }
 web-sys = { "version" = "0.3", "features" = ["Window", "console", "OffscreenCanvas", "Performance", "PerformanceTiming"] }
 

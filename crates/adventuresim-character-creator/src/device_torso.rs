@@ -191,6 +191,14 @@ pub fn generate_breastplate_on_device(
     design: &BreastplateDesign,
     input: TorsoSurfaceInput<'_>,
 ) -> Result<GeneratedArmor> {
+    pollster::block_on(generate_breastplate_on_device_async(gpu, design, input))
+}
+
+pub async fn generate_breastplate_on_device_async(
+    gpu: &ArmorGpu,
+    design: &BreastplateDesign,
+    input: TorsoSurfaceInput<'_>,
+) -> Result<GeneratedArmor> {
     if let Some(option) = design.device_unsupported() {
         return Err(fabelgeist_armor::GenerateError::NotOnDevice(option).into());
     }
@@ -264,13 +272,13 @@ pub fn generate_breastplate_on_device(
         batch.submit();
     }
 
-    torso_failure(gpu.read::<u32>(&status)?[0])?;
+    torso_failure(gpu.read_async::<u32>(&status).await?[0])?;
     let names = input
         .morphs
         .iter()
         .map(|morph| morph.name.clone())
         .collect::<Vec<_>>();
-    Ok(breastplate.read(gpu, input.domain, &names)?)
+    Ok(breastplate.read_async(gpu, input.domain, &names).await?)
 }
 
 /// The torso's failure, if its status bits hold one.

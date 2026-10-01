@@ -1,5 +1,54 @@
 # Fabelgeist tactical client
 
+## Runtime equipment fitting
+
+Armor and clothing are generated locally from each wearer's evaluated, unposed
+body. Identity and skeletal fit morphs are evaluated on the body once; skeletal
+proportion offsets then place its vertices and fitting landmarks. Equipment
+contains no body-shape morph targets. Its inverse bind poses belong to that
+wearer's rest skeleton, so animation does not apply proportion changes twice.
+
+The client queues fitting outside frame updates on native builds and awaits
+WebGPU initialization and readback in the browser. The compute device creates
+no canvas; Bevy renders the resulting geometry in the existing game canvas.
+Offline exporters retain their reusable morph-equipped asset workflow.
+Compute and rendering dependencies must use the same `wgpu` release: linking
+two releases into the browser client duplicates their vendored WebGPU bindings.
+
+Fits are cached by item design, anatomical placement, and evaluated body shape.
+The last 128 variants remain available across travel; live entities retain their
+own mesh handles after cache eviction. Changing wearer or proportions requests a
+new fit. Holding or dropping a previously fitted item preserves its shape and
+anatomical placement across placeholder rebuilds. Carried and dropped meshes
+are centered rigid objects; only worn equipment binds to the wearer's skeleton.
+
+Measure fitting separately from rendering with the real canonical body:
+
+```powershell
+cargo run -p adventuresim-tactical-client --example runtime_equipment_bench -- assets/animations/biped/unarmed/base.glb 3
+```
+
+The JSON records separate device opening, first use, and repeated fits. The
+vambrace and breastplate comparisons use the same batched readback for one body
+and the full set of body morph endpoints; they isolate morph generation cost.
+The browser probe example exercises the same asynchronous runtime generator.
+Build it with `cargo build -p adventuresim-tactical-client --example
+armor_browser_probe --target wasm32-unknown-unknown --no-default-features`.
+Run the matching `wasm-bindgen` CLI with `--target web` into an output directory,
+copy `examples/armor_browser_probe.html` there as `index.html`, and copy
+`assets/animations/biped/unarmed/base.glb` from the repository as `body.glb`.
+Serve that directory on localhost. The page reports geometry validity and
+first-use versus repeated generation timings for seven equipment types.
+Gorget section measurements intersect body triangles, so fitting does not
+require dense vertices near each anatomical measurement plane.
+
+`animation-viewer --armor-harness wearer-fit` renders a gorget, cuirass, and
+paired vambraces on the actual animated wearer for fitting inspection.
+Full catalog readiness remains incomplete: device builders explicitly reject
+pauldrons, wrapped tassets, and anime breastplates, and puff-and-slash fitting
+is not implemented. Those recipes fail readiness instead of loading served
+equipment meshes or silently substituting another design.
+
 ## Browser release builds
 
 `just build-wasm` keeps the gameplay client on the workspace `release` profile
@@ -215,10 +264,9 @@ Run it from the repository root:
 cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output target/animation-captures/locomotion-review
 ```
 
-Use `--armor-harness close-helmet` to equip the installed close helmet through
-normal gameplay equipment loading. Capture waits for the separate skull, bevor,
-and visor meshes, their materials, wearer skin bindings, and all 57 morph
-weights. Front and side views follow the head at inspection distance; the
+Use `--armor-harness close-helmet` to generate the close helmet through
+normal gameplay equipment loading. Capture waits for fitted geometry,
+materials, wearer skin bindings, and the absence of equipment morph targets. Front and side views follow the head at inspection distance; the
 gameplay view keeps its usual framing. `armor-readiness.json` records the
 resolved parts and weights. `--scenario ordinary-camera-pitch` exercises
 lowered-guard idle and head pitch; `--scenario raised-guard-stationary-turn`

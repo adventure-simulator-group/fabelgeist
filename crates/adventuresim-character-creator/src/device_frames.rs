@@ -72,7 +72,11 @@ impl DeviceFrame {
 
     /// Read the frame back, for the stages that use it on the host.
     pub fn read(&self, gpu: &ArmorGpu) -> Result<fabelgeist_armor::PartFrame> {
-        let words: Vec<f32> = gpu.read(&self.frame)?;
+        pollster::block_on(self.read_async(gpu))
+    }
+
+    pub async fn read_async(&self, gpu: &ArmorGpu) -> Result<fabelgeist_armor::PartFrame> {
+        let words: Vec<f32> = gpu.read_async(&self.frame).await?;
         Ok(fabelgeist_armor::PartFrame {
             origin: [words[0], words[1], words[2]],
             axes: [
@@ -140,11 +144,15 @@ impl DeviceWearer<'_> {
     /// Fit `region`'s frame and read it back, for the stages that use it on
     /// the host. Stalls on the device.
     pub fn read_frame(&self, region: FitRegion) -> Result<fabelgeist_armor::PartFrame> {
+        pollster::block_on(self.read_frame_async(region))
+    }
+
+    pub async fn read_frame_async(&self, region: FitRegion) -> Result<fabelgeist_armor::PartFrame> {
         let mut batch = self.gpu.batch("armor frame");
         let frame = self.record_frame(&mut batch, region)?;
         batch.submit();
-        frame.check(self.gpu, region)?;
-        frame.read(self.gpu)
+        DeviceFrame::check_status(self.gpu.read_async::<u32>(&frame.status).await?[0], region)?;
+        frame.read_async(self.gpu).await
     }
 
     /// Record the fitting of `region`'s frame.

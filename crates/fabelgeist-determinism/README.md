@@ -53,7 +53,7 @@ terrain interpolation, physics, and rendering have no bitwise guarantee.
 Shader-only noise remains a separately owned rendering algorithm.
 
 Run `just test-determinism` with Node, the wasm32 Rust target, and
-wasm-bindgen-cli 0.2.108 installed. No browser bundle is added to the product.
+wasm-bindgen-cli 0.2.126 installed. No browser bundle is added to the product.
 
 Before migrating a caller, classify its calculation as sampling, seed
 derivation, spatial noise, or a domain transformation. Preserve spatial and

@@ -2,7 +2,7 @@
 
 use anyhow::Result;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Side {
     Left,
     Right,
@@ -33,7 +33,7 @@ impl Side {
     }
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FitRegion {
     Head,
     Neck,

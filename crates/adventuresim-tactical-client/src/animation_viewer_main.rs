@@ -49,7 +49,7 @@ struct Args {
     #[arg(long)]
     body_proportions: Option<PathBuf>,
 
-    /// Equip installed procedural assets for a complete armor capture fixture.
+    /// Generate and equip a catalog armor fixture on the captured wearer.
     #[arg(long, value_enum)]
     armor_harness: Option<animation_viewer::ArmorHarness>,
 

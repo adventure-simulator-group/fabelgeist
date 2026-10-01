@@ -33,8 +33,8 @@ pub(crate) use procedural::{
     ArmIkState, BoneRole, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidBone,
     HumanoidIkTargets, HumanoidRig, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState,
     LocomotionHeightState, MhrBone, ProceduralAnimationClock, RaisedFootworkState,
-    authored_bind_global, locomotion_support_weights, measured_ankle_sole_offset_metres,
-    sole_contact_tolerance_metres,
+    authored_bind_global, cache_humanoid_rigs, locomotion_support_weights,
+    measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
 };
 const HUMANOID_UNARMED_PACK: &str = "humanoid_unarmed";
 const HUMANOID_2H_CLOSE_PACK: &str = "humanoid_2h_close";

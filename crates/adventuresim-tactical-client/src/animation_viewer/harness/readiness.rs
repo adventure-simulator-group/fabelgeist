@@ -88,9 +88,15 @@ impl EquipmentVisualStatus<'_, '_> {
                 return EquipmentVisualState::Failed;
             }
             if required.morph_targets.is_some_and(|count| {
-                mesh.morph_target_names().is_none_or(|names| names.len() != count)
-                    || !matches!(morphs, Some(MeshMorphWeights::Value { weights })
-                        if weights.len() == count && weights.iter().all(|weight| weight.is_finite()))
+                mesh.morph_target_names().map_or(0, <[String]>::len) != count
+                    || match morphs {
+                        None => count != 0,
+                        Some(MeshMorphWeights::Value { weights }) => {
+                            weights.len() != count
+                                || weights.iter().any(|weight| !weight.is_finite())
+                        }
+                        Some(_) => true,
+                    }
             }) {
                 return EquipmentVisualState::Loading;
             }

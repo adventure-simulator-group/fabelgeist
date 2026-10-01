@@ -387,7 +387,39 @@ impl DeviceBracer {
         domain: &str,
         morphs: &[String],
     ) -> Result<GeneratedArmor, GenerateError> {
-        let status = gpu.read::<u32>(&self.layout.status)?[0];
+        pollster::block_on(self.read_async(gpu, domain, morphs))
+    }
+
+    pub async fn read_async(
+        &self,
+        gpu: &ArmorGpu,
+        domain: &str,
+        morphs: &[String],
+    ) -> Result<GeneratedArmor, GenerateError> {
+        let mut staging = super::Staging::new();
+        let status_slot = staging.stage(&self.layout.status);
+        let meshes = std::iter::once(&self.base)
+            .chain(&self.morphs)
+            .collect::<Vec<_>>();
+        let slots = meshes
+            .iter()
+            .map(|mesh| {
+                [
+                    staging.stage(&mesh.normals.status),
+                    staging.stage(&mesh.positions),
+                    staging.stage(&mesh.normals.normals),
+                ]
+            })
+            .collect::<Vec<_>>();
+        let attributes = [
+            &self.texcoords,
+            &self.joint_indices,
+            &self.joint_weights,
+            &self.layout.indices,
+        ]
+        .map(|buffer| staging.stage(buffer));
+        let results = gpu.read_staged_async(staging).await?;
+        let status = results.status(status_slot);
         if status & STATUS_EMPTY_CONTOUR != 0 {
             return Err(GenerateError::EmptySelection);
         }
@@ -398,22 +430,22 @@ impl DeviceBracer {
             return Err(GenerateError::InvalidSurface);
         }
         let vertex_count = self.layout.vertex_count() as usize;
-        let read_mesh = |mesh: &BracerMesh| -> Result<MeshSurface, GenerateError> {
-            if gpu.read::<u32>(&mesh.normals.status)?[0] != 0 {
+        let read_mesh = |slots: [super::Staged; 3]| -> Result<MeshSurface, GenerateError> {
+            if results.status(slots[0]) != 0 {
                 return Err(GenerateError::Degenerate);
             }
             Ok((
-                read_prefix(gpu, &mesh.positions, vertex_count)?,
-                read_prefix(gpu, &mesh.normals.normals, vertex_count)?,
+                results.prefix(slots[1], vertex_count),
+                results.prefix(slots[2], vertex_count),
             ))
         };
-        let (positions, normals) = read_mesh(&self.base)?;
-        let morphs = self
-            .morphs
+        let (positions, normals) = read_mesh(slots[0])?;
+        let morphs = slots
             .iter()
+            .skip(1)
             .zip(morphs)
             .map(|(target, name)| {
-                let (target_positions, target_normals) = read_mesh(target)?;
+                let (target_positions, target_normals) = read_mesh(*target)?;
                 Ok(ArmorMorph {
                     name: name.clone(),
                     position_deltas: deltas(&positions, &target_positions),
@@ -428,31 +460,16 @@ impl DeviceBracer {
             surface_domain: domain.to_owned(),
             positions,
             normals,
-            texcoords: read_prefix(gpu, &self.texcoords, vertex_count)?,
-            joint_indices: read_prefix(gpu, &self.joint_indices, vertex_count)?,
-            joint_weights: read_prefix(gpu, &self.joint_weights, vertex_count)?,
-            indices: read_prefix(
-                gpu,
-                &self.layout.indices,
-                self.layout.triangle_count as usize * 3,
-            )?,
+            texcoords: results.prefix(attributes[0], vertex_count),
+            joint_indices: results.prefix(attributes[1], vertex_count),
+            joint_weights: results.prefix(attributes[2], vertex_count),
+            indices: results.prefix(attributes[3], self.layout.triangle_count as usize * 3),
             faces: self.layout.faces(),
             trim: None,
             grids: vec![self.layout.grid()],
             morphs,
         })
     }
-}
-
-/// The first `count` items of a buffer, which may be padded.
-pub(crate) fn read_prefix<T: bytemuck::AnyBitPattern>(
-    gpu: &ArmorGpu,
-    buffer: &Buffer,
-    count: usize,
-) -> Result<Vec<T>, GenerateError> {
-    let mut items: Vec<T> = gpu.read(buffer)?;
-    items.truncate(count);
-    Ok(items)
 }
 
 pub(crate) fn deltas(base: &[[f32; 3]], target: &[[f32; 3]]) -> Vec<[f32; 3]> {

@@ -16,4 +16,11 @@ pub struct DeviceRecording {
 }
 
 /// Reads a fit's status back and turns a raised failure into its error.
-pub type DeviceCheck = Box<dyn Fn(&ArmorGpu) -> anyhow::Result<()>>;
+pub type DeviceCheck = Box<
+    dyn for<'a> Fn(
+            &'a ArmorGpu,
+        ) -> std::pin::Pin<
+            Box<dyn std::future::Future<Output = anyhow::Result<()>> + Send + 'a>,
+        > + Send
+        + Sync,
+>;

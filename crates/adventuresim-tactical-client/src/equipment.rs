@@ -15,9 +15,8 @@ use adventuresim_weapon_model::{
     generate_holder_icon, generate_icon,
 };
 use bevy::{
-    asset::{LoadState, RenderAssetUsages},
+    asset::RenderAssetUsages,
     camera::visibility::NoFrustumCulling,
-    gltf::{Gltf, GltfAssetLabel, GltfMesh, GltfNode, GltfSkin},
     mesh::{
         Indices, PrimitiveTopology,
         skinning::{SkinnedMesh, SkinnedMeshInverseBindposes},
@@ -32,21 +31,13 @@ use serde::Deserialize;
 mod grab_world;
 mod icons;
 use icons::*;
-mod model_loading;
-mod morphs;
-#[cfg(not(target_family = "wasm"))]
 mod runtime_equipment;
-use model_loading::{procedural_presentation, resolve_procedural_equipment_models};
-#[cfg(not(target_family = "wasm"))]
 use runtime_equipment::{RuntimeEquipmentBodyCache, generate_runtime_equipment_models};
 mod placeholder_visual;
 #[derive(Component)]
 pub(crate) struct RuntimeEquipmentPresentation {
-    #[cfg(not(target_family = "wasm"))]
     pub(super) item: Entity,
-    #[cfg(not(target_family = "wasm"))]
     pub(super) item_id: String,
-    #[cfg(not(target_family = "wasm"))]
     pub(super) placement_id: String,
 }
 
@@ -73,7 +64,6 @@ const PICKUP_RANGE_M: f32 = 2.0;
 const INVALID_FLASH_SECS: f32 = 0.18;
 const TACTICAL_WEAPON_ICON_SIZE: u16 = 64;
 const TACTICAL_WEAPON_ICON_SUPERSAMPLING: u8 = 4;
-const EQUIPMENT_SOCKET_NODE_PREFIX: &str = "equipment_socket_";
 const EQUIPMENT_ICON_SLUGS: [&str; 56] = [
     "ancient-sword",
     "arm-bandage",
@@ -288,21 +278,13 @@ fn procedural_equipment_asset_path(file: &str) -> String {
 }
 
 #[derive(Component)]
-pub(crate) struct ProceduralEquipmentPresentation {
-    asset_path: String,
-}
-
-#[derive(Component)]
-struct ProceduralEquipmentRequest(Handle<Gltf>);
-
-#[derive(Component)]
 pub(crate) struct ProceduralEquipmentResolved;
 
 #[derive(Component)]
 pub(crate) struct ProceduralEquipmentFailed;
 
 #[derive(Component)]
-struct ItemFallback(Entity);
+struct ItemFallback;
 
 #[derive(Component, Default)]
 struct EquipmentAttachmentSockets(BTreeMap<String, Transform>);
@@ -1131,14 +1113,9 @@ fn spawn_item_placeholders(
             // root hidden avoids a one-frame flash at the world origin.
             Visibility::Hidden,
         ));
-        // The web build has no armor device to fit runtime equipment on.
-        #[cfg(not(target_family = "wasm"))]
         if let Some(presentation) = runtime_equipment::presentation(item, properties, topology) {
             root_commands.insert(presentation);
             continue;
-        }
-        if let Some(presentation) = procedural_presentation(properties, topology) {
-            root_commands.insert(presentation);
         }
         let root = root_commands.id();
         let (generated, part_name) = if let Some(holder) =
@@ -1176,18 +1153,6 @@ fn spawn_item_placeholders(
                 &mut materials,
             );
         }
-    }
-}
-
-fn request_procedural_equipment_models(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-    pending: Query<(Entity, &ProceduralEquipmentPresentation), Without<ProceduralEquipmentRequest>>,
-) {
-    for (entity, presentation) in &pending {
-        commands.entity(entity).insert(ProceduralEquipmentRequest(
-            asset_server.load(&presentation.asset_path),
-        ));
     }
 }
 
@@ -1300,7 +1265,7 @@ fn update_item_placeholders(
             *transform = *item_transform;
             *visibility = Visibility::Inherited;
             commands.entity(entity).remove::<HeldWeaponConstraint>();
-        } else if procedural {
+        } else if procedural && holding_side(slot).is_none() {
             let rig_scene = resolve_character_location(topology, &topologies)
                 .and(owner)
                 .and_then(|owner| rigs.get(owner.0).ok())

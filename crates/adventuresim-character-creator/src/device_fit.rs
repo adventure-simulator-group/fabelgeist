@@ -109,6 +109,16 @@ pub fn fit_piece(
     morphs: &[(&str, Realization<'_>)],
     record: impl Fn(&DeviceWearer, &mut KernelBatch) -> Result<DeviceRecording>,
 ) -> Result<DevicePiece> {
+    pollster::block_on(fit_piece_async(gpu, body, wearer, morphs, record))
+}
+
+pub async fn fit_piece_async(
+    gpu: &ArmorGpu,
+    body: &FitBody<'_>,
+    wearer: &Realization<'_>,
+    morphs: &[(&str, Realization<'_>)],
+    record: impl Fn(&DeviceWearer, &mut KernelBatch) -> Result<DeviceRecording>,
+) -> Result<DevicePiece> {
     let realizations = std::iter::once(wearer)
         .chain(morphs.iter().map(|(_, morph)| morph))
         .collect::<Vec<_>>();
@@ -152,9 +162,10 @@ pub fn fit_piece(
         &skin.expect("the wearer is always fitted"),
         &names,
     )
+    .await
 }
 
-fn read(
+async fn read(
     gpu: &ArmorGpu,
     recordings: &[DeviceRecording],
     skin: &Correspondence,
@@ -173,7 +184,7 @@ fn read(
         })
         .collect::<Vec<_>>();
     let skin_slots = skin.stage(&mut staging);
-    let results = gpu.read_staged(staging)?;
+    let results = gpu.read_staged_async(staging).await?;
     let mut parts = Vec::with_capacity(recordings.len());
     for (index, (recording, (frames, part))) in recordings.iter().zip(slots).enumerate() {
         for ((_, region), frame) in recording.frames.iter().zip(frames) {
@@ -184,7 +195,7 @@ fn read(
             i => format!("fitting armor morph {}", names[i - 1]),
         };
         for check in &recording.checks {
-            check(gpu).with_context(context)?;
+            check(gpu).await.with_context(context)?;
         }
         parts.push(
             recording
@@ -212,16 +223,30 @@ pub fn fit_recipe(
     design: &ParametricDesign,
     placement: &str,
 ) -> Result<DevicePiece> {
-    let fit = |design: &ParametricDesign| {
-        fit_piece(gpu, body, wearer, morphs, |device, batch| {
+    pollster::block_on(fit_recipe_async(
+        gpu, body, wearer, morphs, design, placement,
+    ))
+}
+
+pub async fn fit_recipe_async(
+    gpu: &ArmorGpu,
+    body: &FitBody<'_>,
+    wearer: &Realization<'_>,
+    morphs: &[(&str, Realization<'_>)],
+    design: &ParametricDesign,
+    placement: &str,
+) -> Result<DevicePiece> {
+    let fit = async |design: &ParametricDesign| {
+        fit_piece_async(gpu, body, wearer, morphs, |device, batch| {
             record_recipe(device, batch, design, placement)
         })
+        .await
     };
     let ParametricDesign::WaistAssembly(waist) = design else {
-        return fit(design);
+        return fit(design).await;
     };
-    let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone()))?;
-    let tassets = fit(&ParametricDesign::Garment(waist.tassets.clone()))?;
+    let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone())).await?;
+    let tassets = fit(&ParametricDesign::Garment(waist.tassets.clone())).await?;
     Ok(suspended_waist(fauld, tassets))
 }
 

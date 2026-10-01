@@ -122,6 +122,7 @@ dependencies = [
  "adventuresim-core",
  "adventuresim-world-schema",
  "anyhow",
+ "async-lock",
  "base64 0.22.1",
  "bevy",
  "bevy_egui",
@@ -142,6 +143,7 @@ dependencies = [
  "fabelgeist-shell",
  "gltf",
  "image",
+ "pollster",
  "rand 0.9.5",
  "rayon",
  "serde",
@@ -4927,7 +4929,7 @@ dependencies = [
  "bytemuck",
  "serde",
  "thiserror 2.0.20",
- "wgpu 30.0.1",
+ "wgpu 29.0.4",
 ]
 
 [[package]]
@@ -4940,13 +4942,13 @@ dependencies = [
  "fabelgeist-math",
  "futures-channel",
  "indexmap",
- "naga 30.0.1",
+ "naga 29.0.4",
  "pollster",
  "regex",
  "serde",
  "strum 0.27.2",
  "wasm-bindgen-futures",
- "wgpu 30.0.1",
+ "wgpu 29.0.4",
 ]
 
 [[package]]
@@ -5027,7 +5029,7 @@ dependencies = [
  "fabelgeist-timer",
  "futures-channel",
  "indexmap",
- "naga 30.0.1",
+ "naga 29.0.4",
  "parking_lot",
  "pollster",
  "regex",
@@ -5035,7 +5037,7 @@ dependencies = [
  "strum 0.27.2",
  "wasm-bindgen-futures",
  "web-sys",
- "wgpu 30.0.1",
+ "wgpu 29.0.4",
 ]
 
 [[package]]
@@ -5044,7 +5046,7 @@ version = "0.1.0"
 dependencies = [
  "bytemuck",
  "serde",
- "wgpu 30.0.1",
+ "wgpu 29.0.4",
 ]
 
 [[package]]
@@ -5057,7 +5059,7 @@ dependencies = [
  "indexmap",
  "serde",
  "strum 0.27.2",
- "wgpu 30.0.1",
+ "wgpu 29.0.4",
 ]
 
 [[package]]
@@ -7112,7 +7114,6 @@ dependencies = [
  "naga-types",
  "num-traits",
  "once_cell",
- "pp-rs",
  "rustc-hash 1.1.0",
  "spirv",
  "thiserror 2.0.20",
@@ -11046,6 +11047,7 @@ dependencies = [
  "smallvec",
  "static_assertions",
  "wasm-bindgen",
+ "wasm-bindgen-futures",
  "web-sys",
  "wgpu-core 29.0.4",
  "wgpu-hal 29.0.4",
@@ -11108,7 +11110,7 @@ dependencies = [
  "smallvec",
  "thiserror 2.0.20",
  "wgpu-core-deps-apple 29.0.4",
- "wgpu-core-deps-wasm 29.0.4",
+ "wgpu-core-deps-wasm",
  "wgpu-core-deps-windows-linux-android 29.0.4",
  "wgpu-hal 29.0.4",
  "wgpu-naga-bridge 29.0.4",
@@ -11143,7 +11145,6 @@ dependencies = [
  "thiserror 2.0.20",
  "wgpu-core-deps-apple 30.0.1",
  "wgpu-core-deps-emscripten",
- "wgpu-core-deps-wasm 30.0.1",
  "wgpu-core-deps-windows-linux-android 30.0.1",
  "wgpu-hal 30.0.1",
  "wgpu-naga-bridge 30.0.1",
@@ -11184,15 +11185,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "af1fb1798be2a912497d4c224f72d39bb0cb34af50e8bcc29865bc339c943059"
 dependencies = [
  "wgpu-hal 29.0.4",
-]
-
-[[package]]
-name = "wgpu-core-deps-wasm"
-version = "30.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d260ca2ca8adc654f513a869bf3cac0b47f5b8d3f87803d6942015f8de597aae"
-dependencies = [
- "wgpu-hal 30.0.1",
 ]
 
 [[package]]

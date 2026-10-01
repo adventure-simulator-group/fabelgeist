@@ -1,10 +1,11 @@
 use super::*;
 mod body;
+mod generation;
+mod rig;
 mod sockets;
 use body::try_build_runtime_body;
 
 use adventuresim_character_creator::{
-    bracer::ForearmMorphSample,
     design_input::{load_bracer_design, load_breastplate_design},
     runtime_equipment::RuntimeBody,
 };
@@ -16,16 +17,21 @@ use bevy::{
 use fabelgeist_armor::GeneratedArmor;
 
 mod morphs;
-use morphs::runtime_body_morphs;
+use generation::{FitKey, FittedBody, PendingFit};
+use morphs::BodyShapeKey;
+use std::sync::Arc;
 
 #[derive(Resource, Default)]
 pub(super) struct RuntimeEquipmentBodyCache {
-    pub(super) body: Option<RuntimeBody>,
-    pub(super) inverse_bindposes: Option<Handle<SkinnedMeshInverseBindposes>>,
+    body: Option<body::CanonicalBody>,
     pub(super) bracer_design: Option<fabelgeist_armor::BracerDesign>,
     pub(super) breastplate_design: Option<fabelgeist_armor::BreastplateDesign>,
     pub(super) failed: bool,
-    models: HashMap<(String, String), CachedEquipment>,
+    bodies: HashMap<BodyShapeKey, FittedBody>,
+    models: HashMap<FitKey, Result<CachedEquipment, String>>,
+    pending: Option<PendingFit>,
+    use_clock: u64,
+    last_used: HashMap<FitKey, u64>,
 }
 
 #[expect(clippy::too_many_arguments)]
@@ -60,10 +66,7 @@ pub(super) fn prepare_runtime_equipment_body(
         };
 
         match body {
-            Ok((body, inverse_bindposes_handle)) => {
-                cache.body = Some(body);
-                cache.inverse_bindposes = Some(inverse_bindposes_handle);
-            }
+            Ok(body) => cache.body = Some(body),
             Err(error) => {
                 error!("failed to prepare the runtime armor body: {error:#}");
                 cache.failed = true;
@@ -100,81 +103,7 @@ struct CachedEquipment {
     sockets: BTreeMap<String, Transform>,
 }
 
-pub(super) fn generate_runtime_equipment_models(
-    mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
-    mut cache: ResMut<RuntimeEquipmentBodyCache>,
-    pending: Query<(Entity, &RuntimeEquipmentPresentation), Without<ProceduralEquipmentResolved>>,
-) {
-    let mut generated_this_frame = false;
-    for (entity, presentation) in &pending {
-        if cache.failed {
-            commands
-                .entity(entity)
-                .insert((ProceduralEquipmentFailed, ProceduralEquipmentResolved));
-            continue;
-        }
-        if cache.body.is_none()
-            || cache.bracer_design.is_none()
-            || cache.breastplate_design.is_none()
-        {
-            return;
-        }
-        let key = (
-            presentation.item_id.clone(),
-            presentation.placement_id.clone(),
-        );
-        if !cache.models.contains_key(&key) {
-            // Share fitted base meshes across wearers; their morph weights and
-            // skeleton bindings remain per instance. Bound cold generation work.
-            if generated_this_frame {
-                continue;
-            }
-            generated_this_frame = true;
-            match cache.generate(presentation, &mut meshes, &mut materials) {
-                Ok(model) => {
-                    cache.models.insert(key.clone(), model);
-                }
-                Err(error) => {
-                    error!(item = %presentation.item_id, "failed to generate runtime equipment: {error:#}");
-                    commands
-                        .entity(entity)
-                        .insert((ProceduralEquipmentFailed, ProceduralEquipmentResolved));
-                    continue;
-                }
-            }
-        }
-        let model = &cache.models[&key];
-        if !model.sockets.is_empty() {
-            commands
-                .entity(presentation.item)
-                .insert(EquipmentAttachmentSockets(model.sockets.clone()));
-        }
-        let part = ProceduralEquipmentPart::new(
-            presentation.item,
-            cache
-                .inverse_bindposes
-                .as_ref()
-                .expect("prepared bind poses")
-                .clone(),
-            cache
-                .body
-                .as_ref()
-                .expect("prepared body")
-                .joint_names
-                .clone(),
-        );
-        commands.entity(entity).with_child(part.render_bundle(
-            format!("Runtime equipment {}", presentation.item_id),
-            model.mesh.clone(),
-            model.material.clone(),
-        ));
-        commands
-            .entity(entity)
-            .insert((ProceduralEquipmentResolved, Visibility::Inherited));
-    }
-}
+pub(super) use generation::generate_runtime_equipment_models;
 
 /// The presentation of an item generated on the armor device, if it is one.
 pub(super) fn presentation(
@@ -194,44 +123,8 @@ pub(super) fn presentation(
     })
 }
 
-impl RuntimeEquipmentBodyCache {
-    fn generate(
-        &self,
-        presentation: &RuntimeEquipmentPresentation,
-        meshes: &mut Assets<Mesh>,
-        materials: &mut Assets<StandardMaterial>,
-    ) -> anyhow::Result<CachedEquipment> {
-        use adventuresim_character_creator::runtime_equipment as generator;
-        let body = self.body.as_ref().context("runtime body not prepared")?;
-        let generated = if generator::is_runtime_armor(&presentation.item_id) {
-            generator::generate_runtime_armor(
-                body,
-                &presentation.item_id,
-                &presentation.placement_id,
-                self.bracer_design
-                    .as_ref()
-                    .context("bracer design missing")?,
-                self.breastplate_design
-                    .as_ref()
-                    .context("breastplate design missing")?,
-            )?
-        } else {
-            generator::generate_runtime_clothing(
-                body,
-                &presentation.item_id,
-                &presentation.placement_id,
-            )?
-        };
-        Ok(CachedEquipment {
-            sockets: sockets::garment_sockets(body, &generated, &presentation.item_id),
-            mesh: runtime_equipment_mesh(&generated, meshes),
-            material: runtime_equipment_material(&presentation.item_id, materials),
-        })
-    }
-}
-
 fn runtime_equipment_mesh(armor: &GeneratedArmor, meshes: &mut Assets<Mesh>) -> Handle<Mesh> {
-    let mut mesh = Mesh::new(
+    let mesh = Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::default(),
     )
@@ -260,32 +153,6 @@ fn runtime_equipment_mesh(armor: &GeneratedArmor, meshes: &mut Assets<Mesh>) -> 
     )
     .with_inserted_indices(Indices::U32(armor.indices.clone()));
 
-    let morphs = armor
-        .morphs
-        .iter()
-        .flat_map(|morph| {
-            morph
-                .position_deltas
-                .iter()
-                .zip(&morph.normal_deltas)
-                .map(|(position, normal)| {
-                    MorphAttributes::new(
-                        Vec3::from_array(*position),
-                        Vec3::from_array(*normal),
-                        Vec3::ZERO,
-                    )
-                })
-        })
-        .collect::<Vec<_>>();
-    let names = armor
-        .morphs
-        .iter()
-        .map(|morph| morph.name.clone())
-        .collect::<Vec<_>>();
-    if !morphs.is_empty() {
-        mesh.set_morph_targets(morphs);
-        mesh.set_morph_target_names(names);
-    }
     meshes.add(mesh)
 }
 

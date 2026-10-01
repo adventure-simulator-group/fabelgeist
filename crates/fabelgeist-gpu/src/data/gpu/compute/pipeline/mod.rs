@@ -50,6 +50,8 @@ impl ComputePipeline {
         entry_point: &str,
         blocking_validation: bool,
     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
+        #[cfg(target_arch = "wasm32")]
+        let _ = blocking_validation;
         use std::collections::hash_map::DefaultHasher;
         use std::hash::{Hash, Hasher};
 

@@ -8,7 +8,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 [dependencies]
 serde = { "version" = "1", "features" = ["derive"], "optional" = true }
 bytemuck = { "version" = "1.16", "features" = ["derive"], "optional" = true }
-wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"], "optional" = true }
+wgpu = { "version" = "29.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"], "optional" = true }
 thiserror = { "version" = "2.0.18" }
 
 [dev-dependencies]

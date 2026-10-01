@@ -29,7 +29,7 @@ use fabelgeist_gpu::prelude::Buffer;
 
 use super::anatomy::{DeviceSurface, STATUS_DEGENERATE};
 use super::body::GpuBody;
-use super::bracer::{deltas, read_prefix};
+use super::bracer::deltas;
 use super::{ArmorGpu, device_error};
 use crate::{
     ArmorMorph, BreastplateDesign, GenerateError, GeneratedArmor, breastplate_design_hash,
@@ -169,7 +169,34 @@ impl DeviceBreastplate {
         domain: &str,
         morphs: &[String],
     ) -> Result<GeneratedArmor, GenerateError> {
-        let status = gpu.read::<u32>(&self.status)?[0];
+        pollster::block_on(self.read_async(gpu, domain, morphs))
+    }
+
+    pub async fn read_async(
+        &self,
+        gpu: &ArmorGpu,
+        domain: &str,
+        morphs: &[String],
+    ) -> Result<GeneratedArmor, GenerateError> {
+        let mut staging = super::Staging::new();
+        let status_slot = staging.stage(&self.status);
+        let meshes = std::iter::once((&self.shell.positions, &self.shell.normals)).chain(
+            self.morphs
+                .iter()
+                .map(|(positions, normals)| (positions, normals)),
+        );
+        let slots = meshes
+            .map(|(positions, normals)| {
+                [
+                    staging.stage(&normals.status),
+                    staging.stage(positions),
+                    staging.stage(&normals.normals),
+                ]
+            })
+            .collect::<Vec<_>>();
+        let skin_slot = staging.stage(&self.skin);
+        let results = gpu.read_staged_async(staging).await?;
+        let status = results.status(status_slot);
         if status & STATUS_DEGENERATE != 0 {
             return Err(GenerateError::Degenerate);
         }
@@ -177,23 +204,23 @@ impl DeviceBreastplate {
             return Err(GenerateError::InvalidSurface);
         }
         let count = self.shell.count() as usize;
-        let read_mesh = |positions: &Buffer, normals: &VertexNormals| {
-            if gpu.read::<u32>(&normals.status)?[0] != 0 {
+        let read_mesh = |slots: [super::Staged; 3]| {
+            if results.status(slots[0]) != 0 {
                 return Err(GenerateError::Degenerate);
             }
             Ok::<_, GenerateError>((
-                read_prefix::<[f32; 3]>(gpu, positions, count)?,
-                read_prefix::<[f32; 3]>(gpu, &normals.normals, count)?,
+                results.prefix::<[f32; 3]>(slots[1], count),
+                results.prefix::<[f32; 3]>(slots[2], count),
             ))
         };
-        let (positions, normals) = read_mesh(&self.shell.positions, &self.shell.normals)?;
-        let skin: Vec<[u32; SKIN_WORDS as usize]> = read_prefix(gpu, &self.skin, count)?;
-        let morphs = self
-            .morphs
+        let (positions, normals) = read_mesh(slots[0])?;
+        let skin: Vec<[u32; SKIN_WORDS as usize]> = results.prefix(skin_slot, count);
+        let morphs = slots
             .iter()
+            .skip(1)
             .zip(morphs)
-            .map(|((target, target_normals), name)| {
-                let (direct, target_normals) = read_mesh(target, target_normals)?;
+            .map(|(target, name)| {
+                let (direct, target_normals) = read_mesh(*target)?;
                 Ok(ArmorMorph {
                     name: name.clone(),
                     position_deltas: deltas(&positions, &direct),

@@ -68,12 +68,12 @@ pub(super) fn sync_render_bindings(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut parts: Query<EquipmentRenderState>,
-    items: Query<(Option<&ItemOf>, Has<TacticalSceneItem>)>,
+    items: Query<(Option<&ItemOf>, Option<&EquipSlot>, Has<TacticalSceneItem>)>,
 ) {
     for (entity, part, current_mesh, skin, current_sources, mut visibility) in &mut parts {
-        let worn = items
-            .get(part.item)
-            .is_ok_and(|(owner, scene)| owner.is_some() && !scene);
+        let worn = items.get(part.item).is_ok_and(|(owner, slot, scene)| {
+            owner.is_some() && !scene && holding_side(slot).is_none()
+        });
         if worn && skin.is_none() {
             visibility.set_if_neq(Visibility::Hidden);
             continue;
@@ -96,6 +96,7 @@ pub(super) fn sync_render_bindings(
                 let mut unbound = source.clone();
                 unbound.remove_attribute(Mesh::ATTRIBUTE_JOINT_INDEX);
                 unbound.remove_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT);
+                center_unbound_mesh(&mut unbound);
                 sources.unbound = Some(meshes.add(unbound));
                 sources_changed = true;
             }
@@ -113,6 +114,37 @@ pub(super) fn sync_render_bindings(
         }
         visibility.set_if_neq(Visibility::Inherited);
     }
+}
+
+/// Fitted geometry uses body coordinates. Rigid carried/world geometry uses
+/// its own center, excluding unused body vertices left by clothing cutouts.
+fn center_unbound_mesh(mesh: &mut Mesh) {
+    let Some(positions) = mesh
+        .attribute(Mesh::ATTRIBUTE_POSITION)
+        .and_then(bevy::mesh::VertexAttributeValues::as_float3)
+    else {
+        return;
+    };
+    let indices: Box<dyn Iterator<Item = usize>> = match mesh.indices() {
+        Some(indices) => Box::new(indices.iter()),
+        None => Box::new(0..positions.len()),
+    };
+    let (min, max) = indices.fold(
+        (Vec3::splat(f32::INFINITY), Vec3::splat(f32::NEG_INFINITY)),
+        |(min, max), index| {
+            let position = Vec3::from_array(positions[index]);
+            (min.min(position), max.max(position))
+        },
+    );
+    let center = (min + max) * 0.5;
+    if !center.is_finite() {
+        return;
+    }
+    let centered: Vec<_> = positions
+        .iter()
+        .map(|position| (Vec3::from_array(*position) - center).to_array())
+        .collect();
+    mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, centered);
 }
 
 #[cfg(test)]

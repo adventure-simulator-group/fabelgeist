@@ -12,7 +12,7 @@ bytemuck = { "version" = "1.16" }
 indexmap = { "version" = "2.12.1", "features" = ["serde"] }
 serde = { "version" = "1", "features" = ["derive"] }
 strum = { "version" = "0.27.2", "features" = ["derive"] }
-wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"] }
+wgpu = { "version" = "29.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"] }
 
 [dev-dependencies]
 tokio = { "version" = "1", "features" = ["full"] }

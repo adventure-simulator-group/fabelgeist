@@ -44,6 +44,13 @@ impl StagedResults {
         bytemuck::pod_collect_to_vec(&self.bytes[staged.0])
     }
 
+    /// Typed prefix, excluding storage allocation padding.
+    pub fn prefix<T: bytemuck::Pod>(&self, staged: Staged, count: usize) -> Vec<T> {
+        let mut values = self.get(staged);
+        values.truncate(count);
+        values
+    }
+
     /// The first word of a staged status buffer.
     pub fn status(&self, staged: Staged) -> u32 {
         self.get::<u32>(staged)[0]
@@ -54,10 +61,17 @@ impl ArmorGpu {
     /// Read every staged buffer back with one mapping, after everything
     /// submitted so far.
     pub fn read_staged(&self, staging: Staging) -> Result<StagedResults, GenerateError> {
+        pollster::block_on(self.read_staged_async(staging))
+    }
+
+    pub async fn read_staged_async(
+        &self,
+        staging: Staging<'_>,
+    ) -> Result<StagedResults, GenerateError> {
         let mut batch = self.batch("armor readback");
         let readback = Readback::record(self.context(), &mut batch, &staging.buffers);
         batch.submit();
-        let bytes = pollster::block_on(readback.read(self.context())).map_err(device_error)?;
+        let bytes = readback.read(self.context()).await.map_err(device_error)?;
         Ok(StagedResults { bytes })
     }
 }

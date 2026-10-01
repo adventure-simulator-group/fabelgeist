@@ -15,6 +15,9 @@ tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep
 remote-types = ["debug"]
 
 [dependencies]
+adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
+fabelgeist-armor = { path = "../fabelgeist-armor" }
+
 adventuresim-procedural-materials.workspace = true
 anyhow = "1"
 bevy.workspace = true
@@ -51,10 +54,6 @@ bevy_eidolon.workspace = true
 
 [target."cfg(not(target_family = \"wasm\"))".dependencies]
 bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }
-# Runtime equipment is fitted on the armor device, whose readback blocks and
-# so is native-only.
-adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
-fabelgeist-armor = { path = "../fabelgeist-armor" }
 
 [target."cfg(target_family = \"wasm\")".dependencies]
 bevy = { workspace = true, default-features = false, features = [
@@ -77,6 +76,7 @@ bevy = { workspace = true, default-features = false, features = [
 ] }
 console_error_panic_hook.workspace = true
 wasm-bindgen.workspace = true
+wasm-bindgen-futures = "0.4"
 
 [lints]
 workspace = true
@@ -111,3 +111,7 @@ name = "tactical-sky-viewer"
 path = "src/tactical_sky_viewer_main.rs"
 doc = false
 required-features = ["debug"]
+
+[dev-dependencies]
+gltf = { version = "1.4", default-features = false, features = ["utils", "names"] }
+pollster = "0.4"

@@ -15,6 +15,7 @@ use crate::device_garment::JOINTS;
 use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
 use crate::device_gorget_bib::{MEASURE, SMOOTH};
 use crate::device_gorget_cage::{BIB_COLUMNS, BIB_ROWS, CAGE, GORGET_FIT_WORDS, layout};
+use crate::device_gorget_sections::BANDS;
 use crate::device_piece::DeviceRecording;
 
 /// Collar and bib proportions, as fractions of the neck's height.
@@ -173,6 +174,7 @@ impl DeviceWearer<'_> {
                 &format!("{}{}{SECTIONS}{entry}", layout(), wgsl::ORDERED_FLOAT),
                 &[
                     read("points", &samples),
+                    read_u32("faces", &self.body.faces),
                     read_u32("planes", &planes),
                     write("fit", fit),
                 ],
@@ -309,8 +311,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 /// Section readers shared by the band and cage kernels.
 const SECTIONS: &str = r#"
 const MINIMUM_SECTION_SAMPLES: u32 = 4u;
-const SECTION_HALF_BAND_M: f32 = 0.006;
-const MAXIMUM_SECTION_HALF_BAND_M: f32 = 0.018;
 
 struct Section {
     low: vec3<f32>,
@@ -333,85 +333,6 @@ fn plane_at(plane: u32, z: f32) -> f32 {
 }
 "#;
 
-/// One invocation per broad section: the bounds of the samples in a thin band
-/// about a height, or of the four nearest in a wider one.
-const BANDS: &str = r#"
-fn in_reach(p: vec3<f32>, y: f32, half_width: f32) -> bool {
-    return abs(p.x) <= half_width && abs(p.y - y) <= MAXIMUM_SECTION_HALF_BAND_M;
-}
-
-@compute @workgroup_size(1)
-fn main(@builtin(workgroup_id) group: vec3<u32>) {
-    let band = group.x;
-    let height = fit[HEIGHT];
-    let lower = plane_section(1u);
-    var y = height * params.shoulder_ratio;
-    var half_width = INFINITY;
-    if (band > 0u) {
-        let t = f32((band - 1u) % 3u) * 0.5;
-        half_width = height * params.sagittal_ratio;
-        if (band < 4u) {
-            let start = plane_at(1u, lower.high.z);
-            y = start + (fit[HEM] - start) * t;
-        } else {
-            let start = plane_at(1u, lower.low.z);
-            y = start + (fit[HEM + 2u] - start) * t;
-        }
-    }
-    let count = arrayLength(&points) / 3u;
-    var low = vec3<f32>(INFINITY);
-    var high = vec3<f32>(-INFINITY);
-    var nearby = 0u;
-    var close = 0u;
-    for (var v = 0u; v < count; v = v + 1u) {
-        let p = points_at(v);
-        if (!in_reach(p, y, half_width)) {
-            continue;
-        }
-        nearby = nearby + 1u;
-        if (abs(p.y - y) <= SECTION_HALF_BAND_M) {
-            close = close + 1u;
-            low = min(low, p);
-            high = max(high, p);
-        }
-    }
-    if (nearby < MINIMUM_SECTION_SAMPLES) {
-        fit[FIT_FAILED] = 1.0;
-    } else if (close < MINIMUM_SECTION_SAMPLES) {
-        // The nearest by height, ties to the lowest vertex.
-        low = vec3<f32>(INFINITY);
-        high = vec3<f32>(-INFINITY);
-        var last_distance = -1.0;
-        var last = 0u;
-        for (var k = 0u; k < MINIMUM_SECTION_SAMPLES; k = k + 1u) {
-            var best_distance = INFINITY;
-            var best = 0u;
-            for (var v = 0u; v < count; v = v + 1u) {
-                let p = points_at(v);
-                if (!in_reach(p, y, half_width)) {
-                    continue;
-                }
-                let d = abs(p.y - y);
-                let after = d > last_distance || (d == last_distance && v > last);
-                if (after && d < best_distance) {
-                    best_distance = d;
-                    best = v;
-                }
-            }
-            low = min(low, points_at(best));
-            high = max(high, points_at(best));
-            last_distance = best_distance;
-            last = best;
-        }
-    }
-    let at = BANDS + band * 6u;
-    for (var axis = 0u; axis < 3u; axis = axis + 1u) {
-        fit[at + axis] = low[axis];
-        fit[at + 3u + axis] = high[axis];
-    }
-}
-"#;
-
 /// The collar cage from the plane and band sections: the collar's centre and
 /// radii, the bib's outer widths, and its front and back depths.
 const CAGE_SETUP: &str = r#"
@@ -431,6 +352,16 @@ fn main() {
     let lower = plane_section(1u);
     if (!neck.valid || !lower.valid) {
         fit[FIT_FAILED] = 1.0;
+    }
+    // One invocation validates all sections after their dispatch completes.
+    for (var band = 0u; band < BAND_COUNT; band += 1u) {
+        let low = band_low(band);
+        let high = band_high(band);
+        if (!all(abs(low) < vec3<f32>(INFINITY)) ||
+            !all(abs(high) < vec3<f32>(INFINITY)) || high.z <= low.z) {
+            fit[FIT_FAILED] = 1.0;
+            return;
+        }
     }
     let center = vec2<f32>((neck.low.x + neck.high.x) * 0.5, (neck.low.z + neck.high.z) * 0.5);
     fit[CENTER] = center.x;

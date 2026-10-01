@@ -31,8 +31,18 @@ pub fn fit_underlayer(
     body: &UnderlayerBody<'_>,
     morphs: &[(&str, BodyShape<'_>)],
 ) -> Result<GeneratedArmor> {
+    pollster::block_on(fit_underlayer_async(gpu, design, placement, body, morphs))
+}
+
+pub async fn fit_underlayer_async(
+    gpu: &ArmorGpu,
+    design: &UnderlayerDesign,
+    placement: &str,
+    body: &UnderlayerBody<'_>,
+    morphs: &[(&str, BodyShape<'_>)],
+) -> Result<GeneratedArmor> {
     let shapes = morphs.iter().map(|(_, shape)| *shape).collect::<Vec<_>>();
-    let fitted = device_underlayer::fit(
+    let fitted = device_underlayer::fit_async(
         gpu,
         design,
         placement,
@@ -40,7 +50,8 @@ pub fn fit_underlayer(
         body.domain,
         body.proportions,
         &shapes,
-    )?;
+    )
+    .await?;
     let base = fitted.base;
     let (vertex_count, index_count) = (base.positions.len(), fitted.indices.len());
     let targets = morphs
@@ -98,6 +109,16 @@ pub fn fit_trunk_hose(
     body: &UnderlayerBody<'_>,
     morphs: &[(&str, BodyShape<'_>)],
 ) -> Result<GeneratedArmor> {
+    pollster::block_on(fit_trunk_hose_async(gpu, design, placement, body, morphs))
+}
+
+pub async fn fit_trunk_hose_async(
+    gpu: &ArmorGpu,
+    design: &TrunkHoseDesign,
+    placement: &str,
+    body: &UnderlayerBody<'_>,
+    morphs: &[(&str, BodyShape<'_>)],
+) -> Result<GeneratedArmor> {
     design.validate().map_err(anyhow::Error::new)?;
     let carrier = UnderlayerDesign {
         kind: UnderlayerKind::MailBrayette,
@@ -109,7 +130,7 @@ pub fn fit_trunk_hose(
         patch_width: Millimeters(80),
         cuts: Vec::new(),
     };
-    let mut armor = fit_underlayer(gpu, &carrier, placement, body, morphs)?;
+    let mut armor = fit_underlayer_async(gpu, &carrier, placement, body, morphs).await?;
     armor.design_hash = fabelgeist_armor::parametric_design_hash(&serde_json::to_vec(design)?);
     apply_trunk_hose_panes(&mut armor, design);
     Ok(armor)

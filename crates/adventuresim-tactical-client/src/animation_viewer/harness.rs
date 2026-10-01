@@ -18,6 +18,7 @@ pub(crate) enum ArmorHarness {
     Underlayers,
     Mail,
     Padded,
+    WearerFit,
     CloseHelmet,
     MuseumHenry,
     MuseumNuremberg,
@@ -27,6 +28,7 @@ impl ArmorHarness {
     fn item_ids(self) -> impl Iterator<Item = &'static str> {
         let items: &'static [&'static str] = match self {
             Self::CloseHelmet => &["close_helmet"],
+            Self::WearerFit => &["gorget", "cuirass", "vambrace"],
             Self::MuseumHenry => museum::HENRY_ITEMS,
             Self::MuseumNuremberg => museum::NUREMBERG_ITEMS,
             Self::Plate | Self::PlateTassets | Self::PlateUnderlayers => &[
@@ -85,25 +87,9 @@ impl ArmorHarness {
     }
 
     fn visual_requirements(self) -> EquipmentVisualRequirements {
-        match self {
-            Self::CloseHelmet => EquipmentVisualRequirements {
-                names: &["skull", "bevor", "visor"],
-                morph_targets: Some(
-                    adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
-                        + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len(),
-                ),
-            },
-            Self::Underlayers
-            | Self::PlateUnderlayers
-            | Self::MuseumHenry
-            | Self::MuseumNuremberg => EquipmentVisualRequirements {
-                names: &[],
-                morph_targets: Some(
-                    adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
-                        + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len(),
-                ),
-            },
-            _ => EquipmentVisualRequirements::default(),
+        EquipmentVisualRequirements {
+            names: &[],
+            morph_targets: Some(0),
         }
     }
 
@@ -172,7 +158,7 @@ impl ArmorCapture {
     pub(super) fn new(harness: Option<ArmorHarness>, output: PathBuf) -> Self {
         if let Some(harness) = harness {
             let pieces = harness.placements().map(|(item, placement)| serde_json::json!({"item_id": item.id, "placement_id": placement.id})).collect::<Vec<_>>();
-            let manifest = serde_json::json!({"harness": harness, "pieces": pieces, "renderer": "gameplay_equipment_glb_skin_morph", "identity": "deterministic_character_id_variation"});
+            let manifest = serde_json::json!({"harness": harness, "pieces": pieces, "renderer": "gameplay_equipment_runtime_wearer_fit", "identity": "deterministic_character_id_variation"});
             fs::write(
                 output.join("armor-fixture.json"),
                 serde_json::to_vec_pretty(&manifest).expect("serialize armor fixture"),
