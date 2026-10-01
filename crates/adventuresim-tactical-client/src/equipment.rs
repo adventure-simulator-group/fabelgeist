@@ -1502,6 +1502,7 @@ mod tests {
                 item,
                 inverse_bindposes: Handle::default(),
                 joint_names: vec!["root".into(), "c_spine0".into()],
+                rigid_center: Vec3::ZERO,
             })
             .id();
 

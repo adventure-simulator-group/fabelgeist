@@ -180,8 +180,8 @@ impl RuntimeEquipmentBodyCache {
                     &generated,
                     &key.item,
                 ),
-                mesh: runtime_equipment_mesh(&generated, meshes),
-                material: runtime_equipment_material(&key.item, materials),
+                parts: equipment_parts(&generated, &key.item, meshes, materials),
+                rigid_center: referenced_center(&generated),
             })
             .map_err(|error| format!("{error:#}"));
         if let Err(error) = &result {
@@ -204,16 +204,19 @@ impl CachedEquipment {
                 .entity(presentation.item)
                 .insert(EquipmentAttachmentSockets(self.sockets.clone()));
         }
-        let part = ProceduralEquipmentPart::new(
-            presentation.item,
-            body.inverse_bindposes.clone(),
-            body.body.joint_names.clone(),
-        );
-        commands.entity(entity).with_child(part.render_bundle(
-            format!("Runtime equipment {}", presentation.item_id),
-            self.mesh.clone(),
-            self.material.clone(),
-        ));
+        for (index, mesh_part) in self.parts.iter().enumerate() {
+            let part = ProceduralEquipmentPart::new(
+                presentation.item,
+                body.inverse_bindposes.clone(),
+                body.body.joint_names.clone(),
+                self.rigid_center,
+            );
+            commands.entity(entity).with_child(part.render_bundle(
+                format!("Runtime equipment {} part {index}", presentation.item_id),
+                mesh_part.mesh.clone(),
+                mesh_part.material.clone(),
+            ));
+        }
         commands
             .entity(entity)
             .insert((ProceduralEquipmentResolved, Visibility::Inherited));

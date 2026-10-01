@@ -77,11 +77,14 @@ fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_weare
         cache.models.insert(
             key,
             Ok(CachedEquipment {
-                mesh: app
-                    .world_mut()
-                    .resource_mut::<Assets<Mesh>>()
-                    .add(fixture_mesh()),
-                material: default(),
+                parts: vec![CachedPart {
+                    mesh: app
+                        .world_mut()
+                        .resource_mut::<Assets<Mesh>>()
+                        .add(fixture_mesh()),
+                    material: default(),
+                }],
+                rigid_center: Vec3::new(2.0, 3.0, 0.0),
                 sockets: default(),
             }),
         );

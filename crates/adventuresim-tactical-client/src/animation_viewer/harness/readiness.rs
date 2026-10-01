@@ -198,7 +198,12 @@ mod tests {
             entities.push(
                 world
                     .spawn((
-                        ProceduralEquipmentPart::new(item, default(), vec!["c_head".into()]),
+                        ProceduralEquipmentPart::new(
+                            item,
+                            default(),
+                            vec!["c_head".into()],
+                            Vec3::ZERO,
+                        ),
                         Name::new(*name),
                         Mesh3d(mesh.clone()),
                         crate::presentation::interior_lighting::InteriorMaterialSource(

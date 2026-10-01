@@ -6,6 +6,7 @@ pub(crate) struct ProceduralEquipmentPart {
     pub(crate) item: Entity,
     pub(super) inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
     pub(crate) joint_names: Vec<String>,
+    pub(super) rigid_center: Vec3,
 }
 
 impl ProceduralEquipmentPart {
@@ -13,11 +14,13 @@ impl ProceduralEquipmentPart {
         item: Entity,
         inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
         joint_names: Vec<String>,
+        rigid_center: Vec3,
     ) -> Self {
         Self {
             item,
             inverse_bindposes,
             joint_names,
+            rigid_center,
         }
     }
 
@@ -96,7 +99,7 @@ pub(super) fn sync_render_bindings(
                 let mut unbound = source.clone();
                 unbound.remove_attribute(Mesh::ATTRIBUTE_JOINT_INDEX);
                 unbound.remove_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT);
-                center_unbound_mesh(&mut unbound);
+                center_unbound_mesh(&mut unbound, part.rigid_center);
                 sources.unbound = Some(meshes.add(unbound));
                 sources_changed = true;
             }
@@ -118,25 +121,13 @@ pub(super) fn sync_render_bindings(
 
 /// Fitted geometry uses body coordinates. Rigid carried/world geometry uses
 /// its own center, excluding unused body vertices left by clothing cutouts.
-fn center_unbound_mesh(mesh: &mut Mesh) {
+fn center_unbound_mesh(mesh: &mut Mesh, center: Vec3) {
     let Some(positions) = mesh
         .attribute(Mesh::ATTRIBUTE_POSITION)
         .and_then(bevy::mesh::VertexAttributeValues::as_float3)
     else {
         return;
     };
-    let indices: Box<dyn Iterator<Item = usize>> = match mesh.indices() {
-        Some(indices) => Box::new(indices.iter()),
-        None => Box::new(0..positions.len()),
-    };
-    let (min, max) = indices.fold(
-        (Vec3::splat(f32::INFINITY), Vec3::splat(f32::NEG_INFINITY)),
-        |(min, max), index| {
-            let position = Vec3::from_array(positions[index]);
-            (min.min(position), max.max(position))
-        },
-    );
-    let center = (min + max) * 0.5;
     if !center.is_finite() {
         return;
     }
@@ -175,6 +166,7 @@ mod tests {
                     item,
                     inverse_bindposes: default(),
                     joint_names: vec!["pelvis".into()],
+                    rigid_center: Vec3::ZERO,
                 },
                 Mesh3d(original.clone()),
                 Visibility::Hidden,

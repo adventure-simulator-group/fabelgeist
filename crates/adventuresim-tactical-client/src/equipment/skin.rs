@@ -71,6 +71,7 @@ mod tests {
                 item,
                 inverse_bindposes: bindposes.clone(),
                 joint_names: vec!["l_upleg".into()],
+                rigid_center: Vec3::ZERO,
             })
             .id();
         world

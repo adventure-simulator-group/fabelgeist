@@ -1,9 +1,11 @@
 use super::*;
 mod body;
 mod generation;
+mod meshes;
 mod rig;
 mod sockets;
 use body::try_build_runtime_body;
+use meshes::{CachedPart, equipment_parts, referenced_center};
 
 use adventuresim_character_creator::{
     design_input::{load_bracer_design, load_breastplate_design},
@@ -98,8 +100,8 @@ pub(super) fn prepare_runtime_equipment_body(
 
 #[derive(Clone)]
 struct CachedEquipment {
-    mesh: Handle<Mesh>,
-    material: Handle<StandardMaterial>,
+    parts: Vec<CachedPart>,
+    rigid_center: Vec3,
     sockets: BTreeMap<String, Transform>,
 }
 
@@ -121,71 +123,4 @@ pub(super) fn presentation(
             .and_then(|topology| topology.placement_id.clone())
             .unwrap_or_else(|| "worn".into()),
     })
-}
-
-fn runtime_equipment_mesh(armor: &GeneratedArmor, meshes: &mut Assets<Mesh>) -> Handle<Mesh> {
-    let mesh = Mesh::new(
-        PrimitiveTopology::TriangleList,
-        RenderAssetUsages::default(),
-    )
-    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, armor.positions.clone())
-    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, armor.normals.clone())
-    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, armor.texcoords.clone())
-    .with_inserted_attribute(
-        Mesh::ATTRIBUTE_JOINT_INDEX,
-        VertexAttributeValues::Uint16x4(
-            armor
-                .joint_indices
-                .iter()
-                .zip(armor.joint_weights.iter())
-                .map(|(joint, weight)| strongest_four(*joint, *weight).0)
-                .collect::<Vec<[u16; 4]>>(),
-        ),
-    )
-    .with_inserted_attribute(
-        Mesh::ATTRIBUTE_JOINT_WEIGHT,
-        armor
-            .joint_weights
-            .iter()
-            .zip(armor.joint_indices.iter())
-            .map(|(weights, joints)| strongest_four(*joints, *weights).1)
-            .collect::<Vec<[f32; 4]>>(),
-    )
-    .with_inserted_indices(Indices::U32(armor.indices.clone()));
-
-    meshes.add(mesh)
-}
-
-fn runtime_equipment_material(
-    item_id: &str,
-    materials: &mut Assets<StandardMaterial>,
-) -> Handle<StandardMaterial> {
-    let material =
-        adventuresim_character_creator::runtime_equipment::runtime_equipment_material(item_id)
-            .unwrap_or_else(|| panic!("runtime armor material missing for {item_id}"));
-    let (base_color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
-    materials.add(StandardMaterial {
-        base_color: Color::srgba(base_color[0], base_color[1], base_color[2], base_color[3]),
-        metallic,
-        perceptual_roughness: roughness,
-        ..default()
-    })
-}
-
-fn strongest_four(joints: [u32; 8], weights: [f32; 8]) -> ([u16; 4], [f32; 4]) {
-    let mut combined = std::collections::BTreeMap::<u32, f32>::new();
-    for (joint, weight) in joints.into_iter().zip(weights) {
-        *combined.entry(joint).or_default() += weight;
-    }
-    let mut influences = combined.into_iter().collect::<Vec<_>>();
-    influences.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));
-    influences.truncate(4);
-    let sum = influences.iter().map(|(_, weight)| *weight).sum::<f32>();
-    let mut result_joints = [0; 4];
-    let mut result_weights = [0.0; 4];
-    for (index, (joint, weight)) in influences.into_iter().enumerate() {
-        result_joints[index] = joint as u16;
-        result_weights[index] = weight / sum;
-    }
-    (result_joints, result_weights)
 }
