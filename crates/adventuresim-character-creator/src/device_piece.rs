@@ -19,8 +19,10 @@ pub struct DeviceRecording {
 pub enum DeviceCheck {
     Device(DeviceValidation),
     /// Validate the finished shell already staged with the rest of the part.
-    Mesh(Box<dyn Fn(&BuiltPart) -> anyhow::Result<()> + Send + Sync>),
+    Mesh(MeshValidation),
 }
+
+pub type MeshValidation = Box<dyn Fn(&BuiltPart) -> anyhow::Result<()> + Send + Sync>;
 
 pub type DeviceValidation = Box<
     dyn for<'a> Fn(
