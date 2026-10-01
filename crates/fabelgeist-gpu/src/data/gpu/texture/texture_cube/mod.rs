@@ -1,5 +1,7 @@
 use std::sync::Arc;
 
+mod image_data;
+
 use anyhow::Result;
 
 use crate::{
@@ -204,6 +206,10 @@ impl TextureCube {
         Ok(tex)
     }
 
+    #[expect(
+        clippy::too_many_arguments,
+        reason = "the cubemap boundary names its six independently optional faces"
+    )]
     pub fn from_textures(
         context: &WgpuContext,
         right: Option<TextureView>,
@@ -332,65 +338,7 @@ impl TextureCube {
         }
 
         let pixel_size = self.format.pixel_size();
-        let raw_data = &image.data;
-        let converted_data: Vec<u8> = match self.format {
-            TextureFormat::Rgba8Unorm | TextureFormat::Bgra8Unorm => raw_data
-                .chunks_exact(4)
-                .flat_map(|rgba| {
-                    let mut out = [0u8; 4];
-                    for c in 0..3 {
-                        let f = rgba[c] as f32 / 255.0;
-                        let linear = if f <= 0.04045 {
-                            f / 12.92
-                        } else {
-                            ((f + 0.055) / 1.055).powf(2.4)
-                        };
-                        out[c] = (linear.clamp(0.0, 1.0) * 255.0) as u8;
-                    }
-                    out[3] = rgba[3];
-                    if matches!(self.format, TextureFormat::Bgra8Unorm) {
-                        out.swap(0, 2);
-                    }
-                    out
-                })
-                .collect(),
-            TextureFormat::Rgba8UnormSrgb | TextureFormat::Bgra8UnormSrgb => {
-                if matches!(self.format, TextureFormat::Bgra8UnormSrgb) {
-                    raw_data
-                        .chunks_exact(4)
-                        .flat_map(|rgba| [rgba[2], rgba[1], rgba[0], rgba[3]])
-                        .collect()
-                } else {
-                    raw_data.to_vec()
-                }
-            }
-            TextureFormat::Rgba32Float => {
-                let mut floats = Vec::with_capacity((self.size * self.size * 4) as usize);
-                for rgba in raw_data.chunks_exact(4) {
-                    for c in 0..3 {
-                        let f = rgba[c] as f32 / 255.0;
-                        let linear = if f <= 0.04045 {
-                            f / 12.92
-                        } else {
-                            ((f + 0.055) / 1.055).powf(2.4)
-                        };
-                        floats.push(linear);
-                    }
-                    floats.push(rgba[3] as f32 / 255.0);
-                }
-                bytemuck::cast_slice(&floats).to_vec()
-            }
-            _ => {
-                if pixel_size == 4 {
-                    raw_data.to_vec()
-                } else {
-                    return Err(anyhow::anyhow!(
-                        "Unsupported image conversion to format: {:?}",
-                        self.format
-                    ));
-                }
-            }
-        };
+        let converted_data = image_data::convert_face_pixels(image, self.format)?;
 
         context.queue.write_texture(
             wgpu::TexelCopyTextureInfo {
@@ -429,44 +377,43 @@ impl TextureCube {
             .as_ref()
             .ok_or_else(|| anyhow::anyhow!("Target TextureCube is not initialized"))?;
 
-        if let Some(src_texture) = &texture.texture {
-            if texture.size.0 == self.size
-                && texture.size.1 == self.size
-                && texture.format == self.format
-                && texture.layer.is_none()
-            {
-                let mut encoder =
-                    context
-                        .device
-                        .create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                            label: Some("TextureCube Set Side Copy Encoder"),
-                        });
-                encoder.copy_texture_to_texture(
-                    wgpu::TexelCopyTextureInfo {
-                        texture: src_texture,
-                        mip_level: 0,
-                        origin: wgpu::Origin3d::ZERO,
-                        aspect: wgpu::TextureAspect::All,
+        if let Some(src_texture) = &texture.texture
+            && texture.size.0 == self.size
+            && texture.size.1 == self.size
+            && texture.format == self.format
+            && texture.layer.is_none()
+        {
+            let mut encoder =
+                context
+                    .device
+                    .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                        label: Some("TextureCube Set Side Copy Encoder"),
+                    });
+            encoder.copy_texture_to_texture(
+                wgpu::TexelCopyTextureInfo {
+                    texture: src_texture,
+                    mip_level: 0,
+                    origin: wgpu::Origin3d::ZERO,
+                    aspect: wgpu::TextureAspect::All,
+                },
+                wgpu::TexelCopyTextureInfo {
+                    texture: dst_texture,
+                    mip_level: 0,
+                    origin: wgpu::Origin3d {
+                        x: 0,
+                        y: 0,
+                        z: face.index(),
                     },
-                    wgpu::TexelCopyTextureInfo {
-                        texture: dst_texture,
-                        mip_level: 0,
-                        origin: wgpu::Origin3d {
-                            x: 0,
-                            y: 0,
-                            z: face.index(),
-                        },
-                        aspect: wgpu::TextureAspect::All,
-                    },
-                    wgpu::Extent3d {
-                        width: self.size,
-                        height: self.size,
-                        depth_or_array_layers: 1,
-                    },
-                );
-                context.queue.submit(Some(encoder.finish()));
-                return Ok(());
-            }
+                    aspect: wgpu::TextureAspect::All,
+                },
+                wgpu::Extent3d {
+                    width: self.size,
+                    height: self.size,
+                    depth_or_array_layers: 1,
+                },
+            );
+            context.queue.submit(Some(encoder.finish()));
+            return Ok(());
         }
 
         self.blit_texture_to_face(context, face, texture)
@@ -625,7 +572,7 @@ impl TextureCube {
             let mut pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                 label: Some("TextureCube Blit Render Pass"),
                 color_attachments: &[Some(wgpu::RenderPassColorAttachment {
-                    view: &target_view,
+                    view: target_view,
                     resolve_target: None,
                     ops: wgpu::Operations {
                         load: wgpu::LoadOp::Load,
@@ -878,7 +825,7 @@ impl TextureCube {
             });
             pass.set_pipeline(&pipeline);
             pass.set_bind_group(0, &bind_group, &[]);
-            let workgroup_count = (self.size + 7) / 8;
+            let workgroup_count = self.size.div_ceil(8);
             pass.dispatch_workgroups(workgroup_count, workgroup_count, 1);
         }
 
@@ -1044,7 +991,7 @@ impl TextureCube {
             });
             pass.set_pipeline(&pipeline);
             pass.set_bind_group(0, &bind_group, &[]);
-            let workgroup_count = (self.size + 7) / 8;
+            let workgroup_count = self.size.div_ceil(8);
             pass.dispatch_workgroups(workgroup_count, workgroup_count, 6);
         }
 

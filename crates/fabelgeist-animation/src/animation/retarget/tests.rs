@@ -521,7 +521,7 @@ fn scale_normalization_follows_the_rigs_proportions() {
     // A pelvis lift of 0.1 source units becomes 0.2 target units.
     let mut source_pose = rest_pose(&source);
     let hips = source.find_joint_by_name("a:hips").unwrap();
-    source_pose[hips].translation = source_pose[hips].translation + Vec3::new(0.0, 0.1, 0.0);
+    source_pose[hips].translation += Vec3::new(0.0, 0.1, 0.0);
 
     let result = retargeter.pose(&source_pose);
     let target_hips = target.find_joint_by_name("b:hips").unwrap();
@@ -555,7 +555,7 @@ fn limb_translations_are_ignored_so_proportions_survive() {
     // A source clip that stretches the forearm must not stretch the target.
     let mut source_pose = rest_pose(&source);
     let forearm = source.find_joint_by_name("a:lowerarm_l").unwrap();
-    source_pose[forearm].translation = source_pose[forearm].translation * 3.0;
+    source_pose[forearm].translation *= 3.0;
 
     let result = retargeter.pose(&source_pose);
     let target_forearm = target.find_joint_by_name("b:lowerarm_l").unwrap();
@@ -585,7 +585,7 @@ fn root_motion_is_separated_from_the_pose_and_scaled() {
 
     let hips = source.find_joint_by_name("a:hips").unwrap();
     let mut source_pose = rest_pose(&source);
-    source_pose[hips].translation = source_pose[hips].translation + Vec3::new(1.0, 0.2, 0.0);
+    source_pose[hips].translation += Vec3::new(1.0, 0.2, 0.0);
     source_pose[hips].rotation = quat(Vec3::new(0.0, 1.0, 0.0), 90.0);
 
     let (locals, locomotion) = retargeter.pose_with_root(&source_pose);

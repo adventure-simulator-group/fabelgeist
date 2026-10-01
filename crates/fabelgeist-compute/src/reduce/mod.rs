@@ -167,17 +167,16 @@ fn main(
             .global_variables
             .iter()
             .find(|(_, v)| v.name.as_deref() == Some("output"))
+            && let wgpu::naga::TypeInner::Array { base, .. } = module.types[var.ty].inner
         {
-            if let wgpu::naga::TypeInner::Array { base, .. } = module.types[var.ty].inner {
-                let mut layouter = wgpu::naga::proc::Layouter::default();
-                let _ = layouter.update(wgpu::naga::proc::GlobalCtx {
-                    types: &module.types,
-                    constants: &module.constants,
-                    overrides: &module.overrides,
-                    global_expressions: &module.global_expressions,
-                });
-                element_size = layouter[base].size as u64;
-            }
+            let mut layouter = wgpu::naga::proc::Layouter::default();
+            let _ = layouter.update(wgpu::naga::proc::GlobalCtx {
+                types: &module.types,
+                constants: &module.constants,
+                overrides: &module.overrides,
+                global_expressions: &module.global_expressions,
+            });
+            element_size = layouter[base].size as u64;
         }
 
         let shader = ComputeShader::new(context, full_code)?;
@@ -216,11 +215,9 @@ impl Reduce {
             fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(b) => {
                 (b.size / element_size.max(1)).max(1) as u32
             }
-            fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => {
-                (t.size.0 * t.size.1) as u32
-            }
+            fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => t.size.0 * t.size.1,
             fabelgeist_gpu::data::gpu::resource::GpuResource::Texture3d(t) => {
-                (t.size.0 * t.size.1 * t.size.2) as u32
+                t.size.0 * t.size.1 * t.size.2
             }
         };
 
@@ -232,8 +229,8 @@ impl Reduce {
         }
 
         // Prepare auxiliary buffers
-        let first_pass_output_count = (current_element_count + 63) / 64;
-        let first_pass_output_size = (first_pass_output_count as u64 * element_size) as u64;
+        let first_pass_output_count = current_element_count.div_ceil(64);
+        let first_pass_output_size = first_pass_output_count as u64 * element_size;
 
         fn ensure_buffer(
             ctx: &WgpuContext,
@@ -261,11 +258,11 @@ impl Reduce {
         ensure_buffer(context, &mut scratchpad.a, first_pass_output_size)?;
 
         if first_pass_output_count > 1 {
-            let second_pass_output_count = (first_pass_output_count + 63) / 64;
+            let second_pass_output_count = first_pass_output_count.div_ceil(64);
             ensure_buffer(
                 context,
                 &mut scratchpad.b,
-                (second_pass_output_count as u64 * element_size) as u64,
+                second_pass_output_count as u64 * element_size,
             )?;
         }
 
@@ -279,7 +276,7 @@ impl Reduce {
         let mut current_buffer: Option<fabelgeist_gpu::data::gpu::Buffer> = None;
 
         while current_element_count > 1 {
-            let workgroup_count = (current_element_count + 63) / 64;
+            let workgroup_count = current_element_count.div_ceil(64);
 
             let output_buffer = if pass_idx % 2 == 0 {
                 scratchpad.a.as_ref().unwrap()

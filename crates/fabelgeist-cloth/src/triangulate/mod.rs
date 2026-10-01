@@ -116,7 +116,7 @@ pub(crate) fn triangulate_with_segments(
     target_edge: f32,
     segments: &[usize],
 ) -> PanelMesh {
-    if outline.len() < 3 || !(target_edge > 0.0) {
+    if outline.len() < 3 || target_edge <= 0.0 || target_edge.is_nan() {
         return PanelMesh::default();
     }
 

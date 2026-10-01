@@ -59,72 +59,6 @@ impl Venue {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn camp_has_no_settlement_street() {
-        let input: TacticalSceneInput = serde_json::from_str(include_str!(
-            "../../../../assets/tactical-scenes/flat-dry-grassland.json"
-        ))
-        .unwrap();
-        let view = serde_json::from_value(serde_json::json!({
-            "revision": 1, "location": "camp", "places": [{"id": "camp", "kind": "camp"}],
-            "people": [], "active_place": "camp", "selected": null, "street": null,
-            "stage": null, "forge": null, "portraits": []
-        }))
-        .unwrap();
-        let mut generated = input.generate().unwrap();
-        let mut street = None;
-        let venues = prepare_venues(&input, &view, &mut generated, &mut street).unwrap();
-        assert!(street.is_none());
-        assert_eq!(venues.len(), 1);
-    }
-
-    #[test]
-    fn interior_and_frontage_use_the_tactical_placement_without_scaling() {
-        let input: adventuresim_tactical_core::prelude::TacticalSceneInput = serde_json::from_str(
-            include_str!("../../../../assets/tactical-scenes/massive-city.json"),
-        )
-        .unwrap();
-        let placement = input.buildings[0].clone();
-        let plan = adventuresim_building_generator::generate(&placement.program).unwrap();
-        let collision = adventuresim_building_generator::compile_building_collision(&plan);
-        let building = GeneratedBuilding {
-            placement,
-            plan,
-            collision,
-            pad_elevation_metres: 0.0,
-        };
-        let layout = adventuresim_building_generator::interior::furnish(
-            &building.plan,
-            &building.placement.program,
-        )
-        .unwrap();
-        let venue = Venue::from_building(&building, &layout).unwrap();
-        let pose = transform(&building);
-        let field = crate::presentation::interior_lighting::InteriorField::from_plan(
-            &building.plan,
-            Vec3::ZERO,
-        );
-        assert_eq!(pose.scale, Vec3::ONE);
-        let local = pose
-            .compute_affine()
-            .inverse()
-            .transform_point3(venue.anchor)
-            + building.collision.bounds.centre();
-        let bounds = building.collision.bounds;
-        assert!(local.x >= bounds.min.x && local.x <= bounds.max.x);
-        assert!(local.z >= bounds.min.z && local.z <= bounds.max.z);
-        assert!(local.y >= -0.001 && local.y < 0.3, "floor: {local:?}");
-        assert!(
-            field.daylight_at(local + Vec3::Y) > 0.0,
-            "selected room must receive actual daylight: {local:?}"
-        );
-        assert!((venue.approach.y - building.pad_elevation_metres - 1.7).abs() < 0.01);
-    }
-}
-
 pub(super) fn prepare_venues(
     input: &TacticalSceneInput,
     view: &super::protocol::StrategicView,
@@ -236,4 +170,70 @@ fn select_buildings(
         }
     }
     Ok((promoted, selected))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn camp_has_no_settlement_street() {
+        let input: TacticalSceneInput = serde_json::from_str(include_str!(
+            "../../../../assets/tactical-scenes/flat-dry-grassland.json"
+        ))
+        .unwrap();
+        let view = serde_json::from_value(serde_json::json!({
+            "revision": 1, "location": "camp", "places": [{"id": "camp", "kind": "camp"}],
+            "people": [], "active_place": "camp", "selected": null, "street": null,
+            "stage": null, "forge": null, "portraits": []
+        }))
+        .unwrap();
+        let mut generated = input.generate().unwrap();
+        let mut street = None;
+        let venues = prepare_venues(&input, &view, &mut generated, &mut street).unwrap();
+        assert!(street.is_none());
+        assert_eq!(venues.len(), 1);
+    }
+
+    #[test]
+    fn interior_and_frontage_use_the_tactical_placement_without_scaling() {
+        let input: adventuresim_tactical_core::prelude::TacticalSceneInput = serde_json::from_str(
+            include_str!("../../../../assets/tactical-scenes/massive-city.json"),
+        )
+        .unwrap();
+        let placement = input.buildings[0].clone();
+        let plan = adventuresim_building_generator::generate(&placement.program).unwrap();
+        let collision = adventuresim_building_generator::compile_building_collision(&plan);
+        let building = GeneratedBuilding {
+            placement,
+            plan,
+            collision,
+            pad_elevation_metres: 0.0,
+        };
+        let layout = adventuresim_building_generator::interior::furnish(
+            &building.plan,
+            &building.placement.program,
+        )
+        .unwrap();
+        let venue = Venue::from_building(&building, &layout).unwrap();
+        let pose = transform(&building);
+        let field = crate::presentation::interior_lighting::InteriorField::from_plan(
+            &building.plan,
+            Vec3::ZERO,
+        );
+        assert_eq!(pose.scale, Vec3::ONE);
+        let local = pose
+            .compute_affine()
+            .inverse()
+            .transform_point3(venue.anchor)
+            + building.collision.bounds.centre();
+        let bounds = building.collision.bounds;
+        assert!(local.x >= bounds.min.x && local.x <= bounds.max.x);
+        assert!(local.z >= bounds.min.z && local.z <= bounds.max.z);
+        assert!(local.y >= -0.001 && local.y < 0.3, "floor: {local:?}");
+        assert!(
+            field.daylight_at(local + Vec3::Y) > 0.0,
+            "selected room must receive actual daylight: {local:?}"
+        );
+        assert!((venue.approach.y - building.pad_elevation_metres - 1.7).abs() < 0.01);
+    }
 }

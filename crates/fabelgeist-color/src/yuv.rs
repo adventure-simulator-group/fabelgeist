@@ -87,8 +87,8 @@ impl ChromaSubsampling {
     pub const fn chroma_dimensions(&self, width: usize, height: usize) -> (usize, usize) {
         match self {
             Self::Yuv444 => (width, height),
-            Self::Yuv422 => ((width + 1) / 2, height),
-            Self::Yuv420 => ((width + 1) / 2, (height + 1) / 2),
+            Self::Yuv422 => (width.div_ceil(2), height),
+            Self::Yuv420 => (width.div_ceil(2), height.div_ceil(2)),
             Self::Yuv400 => (0, 0),
         }
     }
@@ -194,6 +194,10 @@ pub fn nv12_to_rgba8(
 }
 
 /// Converts an I420 buffer (planar Y, U, V) to RGBA8.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the planar image boundary takes separate Y, U and V buffers with shared format metadata"
+)]
 pub fn i420_to_rgba8(
     y_plane: &[u8],
     u_plane: &[u8],
@@ -205,7 +209,7 @@ pub fn i420_to_rgba8(
     dst_rgba: &mut [u8],
 ) {
     let (r_cr, g_cb, g_cr, b_cb) = standard.ycbcr_to_rgb_factors();
-    let chroma_w = (width + 1) / 2;
+    let chroma_w = width.div_ceil(2);
 
     for y_idx in 0..height {
         let uv_row = y_idx / 2;
@@ -326,6 +330,10 @@ pub fn rgba8_to_nv12(
 }
 
 /// Converts RGBA8 buffer into an I420 planar buffer (Y plane, U plane, V plane).
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the planar image boundary takes separate Y, U and V buffers with shared format metadata"
+)]
 pub fn rgba8_to_i420(
     rgba: &[u8],
     width: usize,
@@ -337,7 +345,7 @@ pub fn rgba8_to_i420(
     v_dst: &mut [u8],
 ) {
     let (kr, kg, kb) = standard.luma_coefficients();
-    let chroma_w = (width + 1) / 2;
+    let chroma_w = width.div_ceil(2);
 
     for y_idx in 0..height {
         let y_row_offset = y_idx * width;

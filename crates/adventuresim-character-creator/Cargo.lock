@@ -172,6 +172,7 @@ dependencies = [
 name = "adventuresim-dialogue"
 version = "0.1.0"
 dependencies = [
+ "adventuresim-world-schema",
  "serde",
  "serde_json",
  "sha2",
@@ -207,7 +208,8 @@ dependencies = [
  "serde",
  "serde_json",
  "sha2",
- "spacetimedb",
+ "spacetimedb-lib",
+ "strum 0.28.0",
 ]
 
 [[package]]
@@ -4942,7 +4944,7 @@ dependencies = [
  "pollster",
  "regex",
  "serde",
- "strum",
+ "strum 0.27.2",
  "wasm-bindgen-futures",
  "wgpu 30.0.1",
 ]
@@ -5030,7 +5032,7 @@ dependencies = [
  "pollster",
  "regex",
  "serde",
- "strum",
+ "strum 0.27.2",
  "wasm-bindgen-futures",
  "web-sys",
  "wgpu 30.0.1",
@@ -5054,7 +5056,7 @@ dependencies = [
  "fabelgeist-gpu",
  "indexmap",
  "serde",
- "strum",
+ "strum 0.27.2",
  "wgpu 30.0.1",
 ]
 
@@ -9582,29 +9584,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "spacetimedb"
-version = "2.6.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6eff5017248ff2e35e03564df947fdf3e963f7198be6ae1d9e894c2efb2ea15"
-dependencies = [
- "anyhow",
- "bytemuck",
- "bytes",
- "derive_more 0.99.20",
- "getrandom 0.2.17",
- "http",
- "log",
- "rand 0.8.8",
- "scoped-tls",
- "serde_json",
- "spacetimedb-bindings-macro",
- "spacetimedb-bindings-sys",
- "spacetimedb-lib",
- "spacetimedb-primitives",
- "spacetimedb-query-builder",
-]
-
-[[package]]
 name = "spacetimedb-bindings-macro"
 version = "2.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -9616,15 +9595,6 @@ dependencies = [
  "quote",
  "spacetimedb-primitives",
  "syn 2.0.119",
-]
-
-[[package]]
-name = "spacetimedb-bindings-sys"
-version = "2.6.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dbe5f9d71d59bdb93d81a7a61eee75ac2f1f88f91e139a7e263261f9dbf316de"
-dependencies = [
- "spacetimedb-primitives",
 ]
 
 [[package]]
@@ -9660,15 +9630,6 @@ dependencies = [
  "enum-as-inner",
  "itertools 0.12.1",
  "nohash-hasher",
-]
-
-[[package]]
-name = "spacetimedb-query-builder"
-version = "2.6.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1f283c4797961d9a94f623ee4c66e6a94d30861b6380a49a27ac2d9568e17125"
-dependencies = [
- "spacetimedb-lib",
 ]
 
 [[package]]
@@ -9810,7 +9771,16 @@ version = "0.27.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "af23d6f6c1a224baef9d3f61e287d2761385a5b88fdab4eb4c6f11aeb54c4bcf"
 dependencies = [
- "strum_macros",
+ "strum_macros 0.27.2",
+]
+
+[[package]]
+name = "strum"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9628de9b8791db39ceda2b119bbe13134770b56c138ec1d3af810d045c04f9bd"
+dependencies = [
+ "strum_macros 0.28.0",
 ]
 
 [[package]]
@@ -9818,6 +9788,18 @@ name = "strum_macros"
 version = "0.27.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7695ce3845ea4b33927c055a39dc438a45b059f7c1b3d91d38d10355fb8cbca7"
+dependencies = [
+ "heck 0.5.0",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
+
+[[package]]
+name = "strum_macros"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ab85eea0270ee17587ed4156089e10b9e6880ee688791d45a905f5b1ca36f664"
 dependencies = [
  "heck 0.5.0",
  "proc-macro2",

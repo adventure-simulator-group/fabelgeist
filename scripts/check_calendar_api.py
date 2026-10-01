@@ -111,12 +111,12 @@ RAW_MINUTE_ROUND_TRIP = re.compile(
 )
 RAW_DAY_ADVANCE = re.compile(
     r"\.(?:saturating|checked)_add_minutes\(\s*(?:(?:u64::from\([^)]*\)|\d+)"
-    r"\s*\*\s*)?(?:adventuresim_world_schema::calendar::)?MINUTES_PER_DAY",
+    r"\s*\*\s*)?(?:adventuresim_world_schema::calendar::)?MINUTES_PER_DAY\b(?!\s*/(?![/*]))",
     re.DOTALL,
 )
 RAW_DAY_RETREAT = re.compile(
     r"\.saturating_sub_minutes\(\s*(?:(?:u64::from\([^)]*\)|\d+)"
-    r"\s*\*\s*)?(?:adventuresim_world_schema::calendar::)?MINUTES_PER_DAY"
+    r"\s*\*\s*)?(?:adventuresim_world_schema::calendar::)?MINUTES_PER_DAY\b(?!\s*/(?![/*]))"
 )
 RAW_YEAR_ADVANCE = re.compile(
     r"\.(?:saturating|checked)_add_minutes\(\s*(?:(?:u64::from\([^)]*\)|\d+)"

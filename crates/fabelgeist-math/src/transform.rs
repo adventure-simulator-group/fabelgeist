@@ -55,7 +55,7 @@ impl Transform {
 
     pub fn look_at(eye: Vec3, target: Vec3, up: Vec3) -> Self {
         let view_mat = Mat4::look_at(eye, target, up);
-        let world_mat = view_mat.inverse().unwrap_or(Mat4::identity());
+        let world_mat = view_mat.inverse().unwrap_or_default();
         Self::from_mat4(world_mat)
     }
 
@@ -178,7 +178,7 @@ impl Transform {
 
     pub fn inverse(&self) -> Self {
         let mat = self.to_mat4();
-        let inv_mat = mat.inverse().unwrap_or(Mat4::identity());
+        let inv_mat = mat.inverse().unwrap_or_default();
         Self::from_mat4(inv_mat)
     }
 

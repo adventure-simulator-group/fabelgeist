@@ -34,7 +34,7 @@ impl MeshNeighborhood {
         match topology {
             PrimitiveTopology::PointList => {}
             PrimitiveTopology::LineList => {
-                for chunk in indices.chunks_exact(2) {
+                for chunk in indices.as_chunks::<2>().0 {
                     add_edge(&mut adjacency, chunk[0], chunk[1]);
                 }
             }
@@ -44,7 +44,7 @@ impl MeshNeighborhood {
                 }
             }
             PrimitiveTopology::TriangleList => {
-                for chunk in indices.chunks_exact(3) {
+                for chunk in indices.as_chunks::<3>().0 {
                     add_edge(&mut adjacency, chunk[0], chunk[1]);
                     add_edge(&mut adjacency, chunk[1], chunk[2]);
                     add_edge(&mut adjacency, chunk[2], chunk[0]);
@@ -60,8 +60,7 @@ impl MeshNeighborhood {
         }
 
         let mut buffer_data = vec![0u32; vertex_count as usize * (1 + max_neighbors)];
-        for i in 0..vertex_count as usize {
-            let neighbors_set = &adjacency[i];
+        for (i, neighbors_set) in adjacency.iter().enumerate() {
             let count = neighbors_set.len().min(max_neighbors);
 
             let base_offset = i * (1 + max_neighbors);

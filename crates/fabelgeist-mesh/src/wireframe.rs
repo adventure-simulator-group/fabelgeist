@@ -31,7 +31,7 @@ impl MeshWireframe {
         match topology {
             PrimitiveTopology::PointList => {}
             PrimitiveTopology::LineList => {
-                for chunk in indices.chunks_exact(2) {
+                for chunk in indices.as_chunks::<2>().0 {
                     add_edge(&mut unique_edges, chunk[0], chunk[1]);
                 }
             }
@@ -41,7 +41,7 @@ impl MeshWireframe {
                 }
             }
             PrimitiveTopology::TriangleList => {
-                for chunk in indices.chunks_exact(3) {
+                for chunk in indices.as_chunks::<3>().0 {
                     add_edge(&mut unique_edges, chunk[0], chunk[1]);
                     add_edge(&mut unique_edges, chunk[1], chunk[2]);
                     add_edge(&mut unique_edges, chunk[2], chunk[0]);
@@ -99,7 +99,7 @@ impl MeshWireframe {
         match topology {
             PrimitiveTopology::PointList => {}
             PrimitiveTopology::LineList => {
-                for chunk in indices.chunks_exact(2) {
+                for chunk in indices.as_chunks::<2>().0 {
                     add_edge(&mut neighbors, chunk[0], chunk[1]);
                 }
             }
@@ -109,7 +109,7 @@ impl MeshWireframe {
                 }
             }
             PrimitiveTopology::TriangleList => {
-                for chunk in indices.chunks_exact(3) {
+                for chunk in indices.as_chunks::<3>().0 {
                     add_edge(&mut neighbors, chunk[0], chunk[1]);
                     add_edge(&mut neighbors, chunk[1], chunk[2]);
                     add_edge(&mut neighbors, chunk[2], chunk[0]);

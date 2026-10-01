@@ -929,7 +929,6 @@ pub(in crate::presentation) fn update_tactical_clouds(
             bake_state.elapsed_seconds = 0.0;
             bake_state.end_ready = false;
 
-            let wind_velocity = cloud_wind_velocity(environment);
             if let Some(prebaked) = prebaked.as_deref() {
                 let initial = image_from_rgba8(prebaked.rgba8);
                 if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
@@ -942,6 +941,7 @@ pub(in crate::presentation) fn update_tactical_clouds(
             bake_state.key = Some(bake_key.clone());
             #[cfg(not(target_family = "wasm"))]
             {
+                let wind_velocity = cloud_wind_velocity(environment);
                 bake_state.pending = Some(spawn_cloud_bake(CloudBakeRequest {
                     key: bake_key.clone(),
                     endpoint: u64::from(prebaked.is_some()),

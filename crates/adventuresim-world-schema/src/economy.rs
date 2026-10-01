@@ -3,7 +3,8 @@ use crate::*;
 
 /// Versioned, immutable settlement economy computed at world-build time.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum ProsperityTier {
     Subsistence,
     Modest,
@@ -13,7 +14,8 @@ pub enum ProsperityTier {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SettlementService {
     GeneralStore,
     Inn,
@@ -29,14 +31,16 @@ pub enum SettlementService {
 
 /// A public settlement service that can authorize a rest or downtime action.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SettlementActionService {
     Inn,
     Temple,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum StockCategory {
     Grain,
     Dairy,
@@ -58,7 +62,8 @@ pub enum StockCategory {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum ProfileFactProvenance {
     ImportedEvidence,
     DerivedFromCanonicalEvidence,
@@ -66,7 +71,8 @@ pub enum ProfileFactProvenance {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SettlementStock {
     pub category: StockCategory,
     /// Stable 1..=5 relative abundance, not mutable shop quantity.
@@ -75,7 +81,8 @@ pub struct SettlementStock {
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SettlementEconomyProfile {
     pub rules_version: u32,
     pub prosperity_score: u16,

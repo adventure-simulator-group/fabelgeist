@@ -4,7 +4,8 @@ use crate::{SettlementService, StockCategory};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(rename_all = "snake_case")]
 pub enum BuildingUse {
     Dwelling,

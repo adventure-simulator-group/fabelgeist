@@ -253,19 +253,13 @@ pub fn convert_pixels(
         | (PixelFormat::Rgba8Unorm, PixelFormat::Bgra8Unorm)
         | (PixelFormat::Rgba8UnormSrgb, PixelFormat::Bgra8UnormSrgb) => {
             let expected = num_pixels * 4;
-            if src.len() < expected {
-                return Err(ConversionError::SourceBufferTooSmall {
-                    expected,
-                    actual: src.len(),
-                });
-            }
-            if dst.len() < expected {
-                return Err(ConversionError::DestinationBufferTooSmall {
-                    expected,
-                    actual: dst.len(),
-                });
-            }
-            for (s, d) in src.chunks_exact(4).zip(dst.chunks_exact_mut(4)) {
+            check_buffer_lengths(src, dst, expected, expected)?;
+            for (s, d) in src
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .zip(dst.as_chunks_mut::<4>().0.iter_mut())
+            {
                 d[0] = s[2];
                 d[1] = s[1];
                 d[2] = s[0];
@@ -275,19 +269,13 @@ pub fn convert_pixels(
         }
         (PixelFormat::Rgba8Unorm, PixelFormat::Rgba8UnormSrgb) => {
             let expected = num_pixels * 4;
-            if src.len() < expected {
-                return Err(ConversionError::SourceBufferTooSmall {
-                    expected,
-                    actual: src.len(),
-                });
-            }
-            if dst.len() < expected {
-                return Err(ConversionError::DestinationBufferTooSmall {
-                    expected,
-                    actual: dst.len(),
-                });
-            }
-            for (s, d) in src.chunks_exact(4).zip(dst.chunks_exact_mut(4)) {
+            check_buffer_lengths(src, dst, expected, expected)?;
+            for (s, d) in src
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .zip(dst.as_chunks_mut::<4>().0.iter_mut())
+            {
                 d[0] = crate::transfer::linear_to_srgb_u8(s[0] as f32 / 255.0);
                 d[1] = crate::transfer::linear_to_srgb_u8(s[1] as f32 / 255.0);
                 d[2] = crate::transfer::linear_to_srgb_u8(s[2] as f32 / 255.0);
@@ -297,19 +285,13 @@ pub fn convert_pixels(
         }
         (PixelFormat::Bgra8Unorm, PixelFormat::Rgba8UnormSrgb) => {
             let expected = num_pixels * 4;
-            if src.len() < expected {
-                return Err(ConversionError::SourceBufferTooSmall {
-                    expected,
-                    actual: src.len(),
-                });
-            }
-            if dst.len() < expected {
-                return Err(ConversionError::DestinationBufferTooSmall {
-                    expected,
-                    actual: dst.len(),
-                });
-            }
-            for (s, d) in src.chunks_exact(4).zip(dst.chunks_exact_mut(4)) {
+            check_buffer_lengths(src, dst, expected, expected)?;
+            for (s, d) in src
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .zip(dst.as_chunks_mut::<4>().0.iter_mut())
+            {
                 d[0] = crate::transfer::linear_to_srgb_u8(s[2] as f32 / 255.0);
                 d[1] = crate::transfer::linear_to_srgb_u8(s[1] as f32 / 255.0);
                 d[2] = crate::transfer::linear_to_srgb_u8(s[0] as f32 / 255.0);
@@ -319,19 +301,13 @@ pub fn convert_pixels(
         }
         (PixelFormat::Rgba8UnormSrgb, PixelFormat::Rgba8Unorm) => {
             let expected = num_pixels * 4;
-            if src.len() < expected {
-                return Err(ConversionError::SourceBufferTooSmall {
-                    expected,
-                    actual: src.len(),
-                });
-            }
-            if dst.len() < expected {
-                return Err(ConversionError::DestinationBufferTooSmall {
-                    expected,
-                    actual: dst.len(),
-                });
-            }
-            for (s, d) in src.chunks_exact(4).zip(dst.chunks_exact_mut(4)) {
+            check_buffer_lengths(src, dst, expected, expected)?;
+            for (s, d) in src
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .zip(dst.as_chunks_mut::<4>().0.iter_mut())
+            {
                 d[0] = (crate::transfer::srgb_to_linear(s[0] as f32 / 255.0).clamp(0.0, 1.0)
                     * 255.0)
                     .round() as u8;
@@ -360,7 +336,10 @@ pub fn convert_pixels(
                     actual: dst.len(),
                 });
             }
-            for (s, d) in src[..expected_src].iter().zip(dst.chunks_exact_mut(4)) {
+            for (s, d) in src[..expected_src]
+                .iter()
+                .zip(dst.as_chunks_mut::<4>().0.iter_mut())
+            {
                 d[0] = *s;
                 d[1] = *s;
                 d[2] = *s;
@@ -383,7 +362,10 @@ pub fn convert_pixels(
                     actual: dst.len(),
                 });
             }
-            for (s, d) in src[..expected_src].iter().zip(dst.chunks_exact_mut(4)) {
+            for (s, d) in src[..expected_src]
+                .iter()
+                .zip(dst.as_chunks_mut::<4>().0.iter_mut())
+            {
                 let gray = crate::transfer::linear_to_srgb_u8(*s as f32 / 255.0);
                 d[0] = gray;
                 d[1] = gray;
@@ -425,6 +407,27 @@ pub fn convert_pixels(
             dst: dst_format,
         }),
     }
+}
+
+fn check_buffer_lengths(
+    src: &[u8],
+    dst: &[u8],
+    expected_src: usize,
+    expected_dst: usize,
+) -> Result<(), ConversionError> {
+    if src.len() < expected_src {
+        return Err(ConversionError::SourceBufferTooSmall {
+            expected: expected_src,
+            actual: src.len(),
+        });
+    }
+    if dst.len() < expected_dst {
+        return Err(ConversionError::DestinationBufferTooSmall {
+            expected: expected_dst,
+            actual: dst.len(),
+        });
+    }
+    Ok(())
 }
 
 #[cfg(test)]

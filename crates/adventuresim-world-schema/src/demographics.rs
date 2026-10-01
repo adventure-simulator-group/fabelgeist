@@ -16,7 +16,8 @@ use serde::{Deserialize, Serialize};
     strum::IntoStaticStr,
     strum::VariantArray,
 )]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(rename_all = "snake_case")]
 #[strum(serialize_all = "snake_case")]
 pub enum Sex {
@@ -42,7 +43,8 @@ impl Sex {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(rename_all = "snake_case")]
 pub enum Culture {
     German,

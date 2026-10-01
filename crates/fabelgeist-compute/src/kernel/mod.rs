@@ -10,7 +10,7 @@
 //! primitive.
 //!
 //! The second half matters more than the first. Every other primitive here
-//! calls [`ComputePass::new`], which finishes an encoder and submits it. A
+//! calls [`ComputePass::dispatch`], which finishes an encoder and submits it. A
 //! cloth step is hundreds of dispatches (substeps x constraint colours), and
 //! hundreds of submits per frame is a lost frame. [`KernelBatch`] records into
 //! a single encoder and submits once.
@@ -119,7 +119,7 @@ impl Kernel {
         parameters: PassParameters,
         groups: [u32; 3],
     ) -> Result<()> {
-        ComputePass::new(
+        ComputePass::dispatch(
             context,
             self.pipeline.clone(),
             parameters,

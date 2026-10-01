@@ -8,84 +8,6 @@ pub(in crate::interior) struct Occupancy<'a> {
     swept: Vec<Vec<Option<Rect>>>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    fn reference(nav: &Navigation, placements: &[InteriorPlacement]) -> Vec<Option<usize>> {
-        let mut parents = vec![None; nav.nodes.len()];
-        let blocked = |index: usize| {
-            placements.iter().any(|p| {
-                p.storey == nav.nodes[index].storey
-                    && p.footprint()
-                        .expanded(PERSON_RADIUS)
-                        .contains(nav.nodes[index].position_metres)
-            })
-        };
-        let mut queue = VecDeque::new();
-        if !blocked(nav.entry) {
-            parents[nav.entry] = Some(nav.entry);
-            queue.push_back(nav.entry);
-        }
-        while let Some(index) = queue.pop_front() {
-            for &next in &nav.edges[index] {
-                if blocked(next) || parents[next].is_some() {
-                    continue;
-                }
-                let a = nav.nodes[index];
-                let b = nav.nodes[next];
-                let swept = Rect::new(
-                    (a.position_metres + b.position_metres) * 0.5,
-                    (a.position_metres - b.position_metres).abs() * 0.5
-                        + Vec2::splat(PERSON_RADIUS),
-                );
-                if a.storey == b.storey
-                    && placements
-                        .iter()
-                        .any(|p| p.storey == a.storey && p.footprint().overlaps(swept))
-                {
-                    continue;
-                }
-                parents[next] = Some(index);
-                queue.push_back(next);
-            }
-        }
-        parents
-    }
-
-    #[test]
-    fn incremental_candidates_preserve_paths_and_rejected_overlap_restores_graph() {
-        use adventuresim_world_schema::settlement_buildings::BuildingUse;
-        let program = crate::BuildingProgram::validated_settlement(
-            crate::settlement_archetype(BuildingUse::Hospital),
-            BuildingUse::Hospital,
-            42,
-            None,
-        )
-        .unwrap();
-        let plan = crate::generate(&program).unwrap();
-        let layout = crate::interior::furnish(&plan, &program).unwrap();
-        let nav = Navigation::new(&plan).unwrap();
-        let mut occupancy = Occupancy::new(&nav);
-        for length in 1..=layout.placements.len() {
-            let candidate = &layout.placements[length - 1..length];
-            occupancy.add(candidate);
-            let expected = reference(&nav, &layout.placements[..length]);
-            assert_eq!(occupancy.flood().parents, expected);
-            let duplicate = occupancy.add(candidate);
-            occupancy.remove(duplicate);
-            assert_eq!(occupancy.flood().parents, expected);
-        }
-        let mut obstruction = layout.placements[0].clone();
-        obstruction.storey = nav.nodes[nav.entry].storey;
-        obstruction.centre_metres = nav.nodes[nav.entry].position_metres;
-        let change = occupancy.add(&[obstruction]);
-        assert!(occupancy.flood().parents.iter().all(Option::is_none));
-        occupancy.remove(change);
-        assert!(occupancy.flood().parents[nav.entry].is_some());
-    }
-}
-
 pub(in crate::interior) struct Change {
     nodes: Vec<usize>,
     edges: Vec<(usize, usize)>,
@@ -178,5 +100,83 @@ impl<'a> Occupancy<'a> {
             parents,
             entry: self.nav.entry,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn reference(nav: &Navigation, placements: &[InteriorPlacement]) -> Vec<Option<usize>> {
+        let mut parents = vec![None; nav.nodes.len()];
+        let blocked = |index: usize| {
+            placements.iter().any(|p| {
+                p.storey == nav.nodes[index].storey
+                    && p.footprint()
+                        .expanded(PERSON_RADIUS)
+                        .contains(nav.nodes[index].position_metres)
+            })
+        };
+        let mut queue = VecDeque::new();
+        if !blocked(nav.entry) {
+            parents[nav.entry] = Some(nav.entry);
+            queue.push_back(nav.entry);
+        }
+        while let Some(index) = queue.pop_front() {
+            for &next in &nav.edges[index] {
+                if blocked(next) || parents[next].is_some() {
+                    continue;
+                }
+                let a = nav.nodes[index];
+                let b = nav.nodes[next];
+                let swept = Rect::new(
+                    (a.position_metres + b.position_metres) * 0.5,
+                    (a.position_metres - b.position_metres).abs() * 0.5
+                        + Vec2::splat(PERSON_RADIUS),
+                );
+                if a.storey == b.storey
+                    && placements
+                        .iter()
+                        .any(|p| p.storey == a.storey && p.footprint().overlaps(swept))
+                {
+                    continue;
+                }
+                parents[next] = Some(index);
+                queue.push_back(next);
+            }
+        }
+        parents
+    }
+
+    #[test]
+    fn incremental_candidates_preserve_paths_and_rejected_overlap_restores_graph() {
+        use adventuresim_world_schema::settlement_buildings::BuildingUse;
+        let program = crate::BuildingProgram::validated_settlement(
+            crate::settlement_archetype(BuildingUse::Hospital),
+            BuildingUse::Hospital,
+            42,
+            None,
+        )
+        .unwrap();
+        let plan = crate::generate(&program).unwrap();
+        let layout = crate::interior::furnish(&plan, &program).unwrap();
+        let nav = Navigation::new(&plan).unwrap();
+        let mut occupancy = Occupancy::new(&nav);
+        for length in 1..=layout.placements.len() {
+            let candidate = &layout.placements[length - 1..length];
+            occupancy.add(candidate);
+            let expected = reference(&nav, &layout.placements[..length]);
+            assert_eq!(occupancy.flood().parents, expected);
+            let duplicate = occupancy.add(candidate);
+            occupancy.remove(duplicate);
+            assert_eq!(occupancy.flood().parents, expected);
+        }
+        let mut obstruction = layout.placements[0].clone();
+        obstruction.storey = nav.nodes[nav.entry].storey;
+        obstruction.centre_metres = nav.nodes[nav.entry].position_metres;
+        let change = occupancy.add(&[obstruction]);
+        assert!(occupancy.flood().parents.iter().all(Option::is_none));
+        occupancy.remove(change);
+        assert!(occupancy.flood().parents[nav.entry].is_some());
     }
 }

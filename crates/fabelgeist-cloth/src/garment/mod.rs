@@ -20,19 +20,10 @@ use crate::triangulate::{PanelMesh, triangulate_with_segments};
 /// Rotation is XYZ Euler angles in degrees, applied X then Y then Z, which is
 /// the convention sewing-pattern formats tend to use. The panel's own plane is
 /// XY, so an unrotated panel faces +Z.
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct Placement {
     pub translation: Vec3,
     pub rotation: Vec3,
-}
-
-impl Default for Placement {
-    fn default() -> Self {
-        Self {
-            translation: Vec3::default(),
-            rotation: Vec3::default(),
-        }
-    }
 }
 
 impl Placement {
@@ -232,7 +223,7 @@ pub fn build(
     if panels.is_empty() {
         return Ok(GarmentMesh::default());
     }
-    if !(target_edge > 0.0) {
+    if target_edge <= 0.0 || target_edge.is_nan() {
         return Err(anyhow!("target edge must be positive, got {target_edge}"));
     }
 

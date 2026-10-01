@@ -231,10 +231,11 @@ pub fn truth(rectified: &Rectified, scene: &Scene) -> Truth {
                 continue;
             }
             let mut apart = px - right[0];
-            if let Grid::Panorama { longitude, .. } = rectified.rectification.grid {
-                if (longitude[1] - longitude[0]) > 1.9 * PI && apart < -(w as f32) * 0.5 {
-                    apart += w as f32;
-                }
+            if let Grid::Panorama { longitude, .. } = rectified.rectification.grid
+                && (longitude[1] - longitude[0]) > 1.9 * PI
+                && apart < -(w as f32) * 0.5
+            {
+                apart += w as f32;
             }
             disparity[index] = apart;
         }

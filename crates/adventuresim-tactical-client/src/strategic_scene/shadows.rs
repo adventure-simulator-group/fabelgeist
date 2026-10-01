@@ -5,6 +5,10 @@ use bevy::{camera::visibility::RenderLayers, light::NotShadowCaster, prelude::*}
 #[derive(Component)]
 pub(super) struct InactiveCharacterShadow;
 
+#[expect(
+    clippy::type_complexity,
+    reason = "the query reads render layers and shadow ownership together"
+)]
 pub(super) fn sync_character_shadows(
     mut commands: Commands,
     cameras: Query<(&Camera, &RenderLayers), With<StrategicCamera>>,

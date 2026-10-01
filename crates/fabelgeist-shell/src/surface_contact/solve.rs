@@ -267,13 +267,12 @@ fn resolve(
             .dot(contact.normal);
         if relative < 0.0 {
             for (i, w) in ids.into_iter().zip(contact.weights) {
-                velocities[i] =
-                    velocities[i] - contact.normal * (relative * w * masses[i] / denominator);
+                velocities[i] -= contact.normal * (relative * w * masses[i] / denominator);
             }
         }
     }
     for (i, w) in ids.into_iter().zip(contact.weights) {
-        positions[i] = positions[i] + contact.normal * (depth * w * masses[i] / denominator);
+        positions[i] += contact.normal * (depth * w * masses[i] / denominator);
     }
     1
 }

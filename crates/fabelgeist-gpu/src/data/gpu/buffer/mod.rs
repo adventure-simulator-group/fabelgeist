@@ -2,6 +2,8 @@ use crate::globals::WgpuContext;
 use anyhow::{Result, anyhow};
 use std::sync::Arc;
 
+mod readback;
+
 #[derive(Clone, Debug)]
 pub struct Buffer {
     pub buffer: Arc<wgpu::Buffer>,
@@ -221,6 +223,7 @@ impl Buffer {
     }
     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
         let size = self.size;
+        let readback = readback::Readback::<T>::new(size)?;
         let is_mappable = self.usage.contains(wgpu::BufferUsages::MAP_READ);
 
         let (target_buffer, needs_unmap) = if is_mappable {
@@ -289,26 +292,11 @@ impl Buffer {
             .map_err(|_| anyhow!("Mapping channel closed"))?
             .map_err(|_| anyhow!("GPU Mapping error"))?;
 
-        // Pre-allocate the result vector before mapping/getting range!
-        // This prevents WebAssembly memory growth from detaching/invalidating the mapped range buffer view.
-        let t_size = std::mem::size_of::<T>();
-        let len_t = (size as usize) / t_size;
-        let mut result = Vec::with_capacity(len_t);
-        unsafe {
-            result.set_len(len_t);
-        }
-
-        // 4. Get data and unmap
+        // Allocate before obtaining the mapped view so WASM memory growth
+        // cannot detach it; initialize typed values only after copying bytes.
         let slice = target_buffer.slice(..);
         let data = slice.get_mapped_range()?;
-
-        unsafe {
-            std::ptr::copy_nonoverlapping(
-                data.as_ptr(),
-                result.as_mut_ptr() as *mut u8,
-                size as usize,
-            );
-        }
+        let result = readback.copy_from(&data);
         drop(data);
 
         if needs_unmap {
@@ -318,7 +306,7 @@ impl Buffer {
             target_buffer.unmap();
         }
 
-        Ok(result)
+        result
     }
     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
         let bytes = bytemuck::cast_slice(data);

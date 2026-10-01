@@ -16,6 +16,10 @@ struct Counts {
     unique_meshes: usize,
 }
 
+#[expect(
+    clippy::type_complexity,
+    reason = "the hierarchy query groups the component tags used to classify scene parts"
+)]
 pub(super) fn census(
     scene: Res<RetainedScene>,
     ready: Res<SceneAssetsReady>,

@@ -306,6 +306,63 @@ fn deactivate(commands: &mut Commands, camera: Entity) {
     });
 }
 
+fn settle(
+    mut commands: Commands,
+    mut cached: ResMut<CachedViews>,
+    ready: Res<super::status::SceneAssetsReady>,
+    mut cameras: Query<
+        (&mut Camera, &bevy::camera::visibility::VisibleEntities),
+        With<SnapshotCamera>,
+    >,
+) {
+    // Inactive Camera entities still consume Bevy's limited distance-visibility
+    // slots. Reuse a bounded pair for captures, retaining completed images.
+    let cached = &mut *cached;
+    let mut active = 0;
+    for frame in cached.frames.values_mut() {
+        if frame.remaining == 0 {
+            if let Some(camera) = frame.camera.take() {
+                if let Ok((mut view, _)) = cameras.get_mut(camera) {
+                    view.is_active = false;
+                }
+                cached.free_cameras.push(camera);
+            }
+            continue;
+        }
+        let Some(camera) = frame.camera else {
+            continue;
+        };
+        active += 1;
+        if !ready.0 && frame.remaining > 0 {
+            frame.remaining = CAPTURE_SETTLED_FRAMES;
+        }
+        if let Ok((mut camera, visible)) = cameras.get_mut(camera) {
+            // Do not redraw every snapshot throughout city generation. The live
+            // view warms shared assets; snapshot pipelines settle when first used.
+            camera.is_active = ready.0;
+            if camera.is_active {
+                if frame.remaining == 1 {
+                    info!(
+                        meshes = visible.len(std::any::TypeId::of::<Mesh3d>()),
+                        "strategic snapshot captured"
+                    );
+                }
+                frame.remaining = frame.remaining.saturating_sub(1);
+            }
+        }
+    }
+    if ready.0 {
+        for frame in cached
+            .frames
+            .values_mut()
+            .filter(|frame| frame.remaining > 0 && frame.camera.is_none())
+            .take(CONCURRENT_CAPTURES.saturating_sub(active))
+        {
+            frame.start_capture(&mut commands, cached.free_cameras.pop());
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -455,62 +512,5 @@ mod tests {
         let camera = app.world().get::<Camera>(compositor).unwrap();
         assert_eq!(camera.physical_target_size(), Some(size));
         assert!(!camera.is_active);
-    }
-}
-
-fn settle(
-    mut commands: Commands,
-    mut cached: ResMut<CachedViews>,
-    ready: Res<super::status::SceneAssetsReady>,
-    mut cameras: Query<
-        (&mut Camera, &bevy::camera::visibility::VisibleEntities),
-        With<SnapshotCamera>,
-    >,
-) {
-    // Inactive Camera entities still consume Bevy's limited distance-visibility
-    // slots. Reuse a bounded pair for captures, retaining completed images.
-    let cached = &mut *cached;
-    let mut active = 0;
-    for frame in cached.frames.values_mut() {
-        if frame.remaining == 0 {
-            if let Some(camera) = frame.camera.take() {
-                if let Ok((mut view, _)) = cameras.get_mut(camera) {
-                    view.is_active = false;
-                }
-                cached.free_cameras.push(camera);
-            }
-            continue;
-        }
-        let Some(camera) = frame.camera else {
-            continue;
-        };
-        active += 1;
-        if !ready.0 && frame.remaining > 0 {
-            frame.remaining = CAPTURE_SETTLED_FRAMES;
-        }
-        if let Ok((mut camera, visible)) = cameras.get_mut(camera) {
-            // Do not redraw every snapshot throughout city generation. The live
-            // view warms shared assets; snapshot pipelines settle when first used.
-            camera.is_active = ready.0;
-            if camera.is_active {
-                if frame.remaining == 1 {
-                    info!(
-                        meshes = visible.len(std::any::TypeId::of::<Mesh3d>()),
-                        "strategic snapshot captured"
-                    );
-                }
-                frame.remaining = frame.remaining.saturating_sub(1);
-            }
-        }
-    }
-    if ready.0 {
-        for frame in cached
-            .frames
-            .values_mut()
-            .filter(|frame| frame.remaining > 0 && frame.camera.is_none())
-            .take(CONCURRENT_CAPTURES.saturating_sub(active))
-        {
-            frame.start_capture(&mut commands, cached.free_cameras.pop());
-        }
     }
 }

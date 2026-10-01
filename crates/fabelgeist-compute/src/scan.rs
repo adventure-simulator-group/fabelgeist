@@ -160,7 +160,7 @@ impl Scan {
         }
 
         let block_size = 256;
-        let num_blocks = (num_elements + block_size - 1) / block_size;
+        let num_blocks = num_elements.div_ceil(block_size);
 
         // Output buffer
         let output = fabelgeist_gpu::data::gpu::Buffer::new(
@@ -187,7 +187,7 @@ impl Scan {
             )?;
             parameters.insert("aux", aux);
 
-            fabelgeist_gpu::data::gpu::ComputePass::new(
+            fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                 context,
                 scan_blocks_pipeline,
                 parameters,
@@ -211,7 +211,7 @@ impl Scan {
             parameters_p1.insert("output", output.clone());
             parameters_p1.insert("aux", aux.clone());
 
-            fabelgeist_gpu::data::gpu::ComputePass::new(
+            fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                 context,
                 scan_blocks_pipeline.clone(),
                 parameters_p1,
@@ -225,7 +225,7 @@ impl Scan {
             let mut current_num_blocks = num_blocks;
 
             while current_num_blocks > 1 {
-                let next_num_blocks = (current_num_blocks + block_size - 1) / block_size;
+                let next_num_blocks = current_num_blocks.div_ceil(block_size);
                 let next_aux = fabelgeist_gpu::data::gpu::Buffer::new(
                     context,
                     (next_num_blocks as u64) * 4,
@@ -251,7 +251,7 @@ impl Scan {
                 parameters_p2.insert("output", scanned_aux.clone());
                 parameters_p2.insert("aux", next_aux.clone());
 
-                fabelgeist_gpu::data::gpu::ComputePass::new(
+                fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                     context,
                     scan_blocks_pipeline.clone(),
                     parameters_p2,
@@ -278,7 +278,7 @@ impl Scan {
                     parameters_p3.insert("output", output.clone());
                     parameters_p3.insert("aux", current_aux.clone());
 
-                    fabelgeist_gpu::data::gpu::ComputePass::new(
+                    fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                         context,
                         add_aux_pipeline.clone(),
                         parameters_p3,
@@ -292,7 +292,7 @@ impl Scan {
                     parameters_p3.insert("aux", current_aux.clone());
 
                     let target_blocks = (target.size / 4) as u32;
-                    fabelgeist_gpu::data::gpu::ComputePass::new(
+                    fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                         context,
                         add_aux_pipeline.clone(),
                         parameters_p3,

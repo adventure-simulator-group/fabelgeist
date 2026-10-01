@@ -13,69 +13,6 @@ pub(in crate::presentation) struct PreparedCityGround {
     pub(super) traffic: streaming::RetainedTrafficMasks,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn ground_transport_preserves_geometry_and_return_visit_reuses_mesh_handles() {
-        let terrain = SceneTerrain::from_heightmap(
-            3,
-            3,
-            8.0,
-            vec![0.0, 1.0, 2.0, 1.0, 2.0, 3.0, 2.0, 3.0, 4.0],
-        )
-        .unwrap();
-        let mut support = GroundSupport::default();
-        support.add_mesh(
-            &crate::presentation::terrain::urban_playable_mesh(&terrain, None),
-            Vec3::ZERO,
-        );
-        let street = CityStreetPatch::Corridor {
-            start_metres: Vec2::new(-6.0, 0.0),
-            end_metres: Vec2::new(6.0, 0.0),
-            half_width_metres: 2.0,
-            surface: CityStreetSurface::Fieldstone,
-        };
-        let prepared = PreparedCityGround::new(&[street], &[], &[], &support);
-        let mut bytes = Vec::new();
-        ciborium::into_writer(&prepared, &mut bytes).unwrap();
-        let restored: PreparedCityGround = ciborium::from_reader(bytes.as_slice()).unwrap();
-        let mut assets = Assets::<Mesh>::default();
-        let original = prepared.meshes(&mut assets);
-        let decoded = restored.meshes(&mut assets);
-        assert!(!original.is_empty());
-        assert_eq!(original.len(), decoded.len());
-        for (a, b) in original.iter().zip(decoded) {
-            let a = assets.get(&a.2).unwrap();
-            let b = assets.get(&b.2).unwrap();
-            for attribute in [
-                Mesh::ATTRIBUTE_POSITION,
-                Mesh::ATTRIBUTE_NORMAL,
-                Mesh::ATTRIBUTE_UV_0,
-                Mesh::ATTRIBUTE_UV_1,
-                Mesh::ATTRIBUTE_COLOR,
-            ] {
-                assert_eq!(
-                    a.attribute(attribute).unwrap().get_bytes(),
-                    b.attribute(attribute).unwrap().get_bytes()
-                );
-            }
-        }
-        let handles = decoded.iter().map(|b| b.2.clone()).collect::<Vec<_>>();
-        let count = assets.len();
-        assert_eq!(
-            restored
-                .meshes(&mut assets)
-                .iter()
-                .map(|b| b.2.clone())
-                .collect::<Vec<_>>(),
-            handles
-        );
-        assert_eq!(assets.len(), count, "return creates no new ground meshes");
-    }
-}
-
 impl PreparedCityGround {
     pub(super) fn new(
         streets: &[CityStreetPatch],
@@ -176,5 +113,68 @@ impl PreparedCityGround {
                 })
                 .collect()
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn ground_transport_preserves_geometry_and_return_visit_reuses_mesh_handles() {
+        let terrain = SceneTerrain::from_heightmap(
+            3,
+            3,
+            8.0,
+            vec![0.0, 1.0, 2.0, 1.0, 2.0, 3.0, 2.0, 3.0, 4.0],
+        )
+        .unwrap();
+        let mut support = GroundSupport::default();
+        support.add_mesh(
+            &crate::presentation::terrain::urban_playable_mesh(&terrain, None),
+            Vec3::ZERO,
+        );
+        let street = CityStreetPatch::Corridor {
+            start_metres: Vec2::new(-6.0, 0.0),
+            end_metres: Vec2::new(6.0, 0.0),
+            half_width_metres: 2.0,
+            surface: CityStreetSurface::Fieldstone,
+        };
+        let prepared = PreparedCityGround::new(&[street], &[], &[], &support);
+        let mut bytes = Vec::new();
+        ciborium::into_writer(&prepared, &mut bytes).unwrap();
+        let restored: PreparedCityGround = ciborium::from_reader(bytes.as_slice()).unwrap();
+        let mut assets = Assets::<Mesh>::default();
+        let original = prepared.meshes(&mut assets);
+        let decoded = restored.meshes(&mut assets);
+        assert!(!original.is_empty());
+        assert_eq!(original.len(), decoded.len());
+        for (a, b) in original.iter().zip(decoded) {
+            let a = assets.get(&a.2).unwrap();
+            let b = assets.get(&b.2).unwrap();
+            for attribute in [
+                Mesh::ATTRIBUTE_POSITION,
+                Mesh::ATTRIBUTE_NORMAL,
+                Mesh::ATTRIBUTE_UV_0,
+                Mesh::ATTRIBUTE_UV_1,
+                Mesh::ATTRIBUTE_COLOR,
+            ] {
+                assert_eq!(
+                    a.attribute(attribute).unwrap().get_bytes(),
+                    b.attribute(attribute).unwrap().get_bytes()
+                );
+            }
+        }
+        let handles = decoded.iter().map(|b| b.2.clone()).collect::<Vec<_>>();
+        let count = assets.len();
+        assert_eq!(
+            restored
+                .meshes(&mut assets)
+                .iter()
+                .map(|b| b.2.clone())
+                .collect::<Vec<_>>(),
+            handles
+        );
+        assert_eq!(assets.len(), count, "return creates no new ground meshes");
     }
 }

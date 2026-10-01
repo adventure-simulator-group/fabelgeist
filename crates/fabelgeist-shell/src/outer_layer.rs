@@ -76,7 +76,7 @@ impl OuterLayer {
             if let Some((corrected, normal)) = self.correction(*point) {
                 *point = corrected;
                 let incoming = velocities[i].dot(normal).min(0.0);
-                velocities[i] = velocities[i] - normal * incoming;
+                velocities[i] -= normal * incoming;
                 changed = true;
             }
         }

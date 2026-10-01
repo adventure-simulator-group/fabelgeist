@@ -15,6 +15,8 @@ on:
       - "rust-quality-baseline.toml"
       - "justfile"
       - "scripts/dev_stack.py"
+      - "scripts/check_calendar_api.py"
+      - "scripts/test_check_calendar_api.py"
       - "scripts/tests/test_dev_stack.py"
       - "scripts/tests/test_building_review_boundary.py"
       - "scripts/capture*review.py"
@@ -35,6 +37,8 @@ on:
       - "rust-quality-baseline.toml"
       - "justfile"
       - "scripts/dev_stack.py"
+      - "scripts/check_calendar_api.py"
+      - "scripts/test_check_calendar_api.py"
       - "scripts/tests/test_dev_stack.py"
       - "scripts/tests/test_building_review_boundary.py"
       - "scripts/capture*review.py"
@@ -90,12 +94,20 @@ jobs:
         run: python3 -m unittest scripts.tests.test_building_review_boundary
       - name: Verify generated SpacetimeDB bindings
         run: python3 scripts/dev_stack.py verify-bindings
+      - name: Test shared schema and GPU readback boundaries
+        run: |
+          cargo test --package adventuresim-world-schema --all-features
+          cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
       - name: Check semantic values and Rust growth
         run: |
           cargo test --package fabelgeist-rust-quality
           cargo run --package fabelgeist-rust-quality -- check .
+      - name: Check calendar API ownership
+        run: |
+          python3 -m unittest scripts.test_check_calendar_api
+          python3 scripts/check_calendar_api.py
       - name: Lint tactical client WASM target
-        run: cargo clippy --package adventuresim-tactical-client --lib --target wasm32-unknown-unknown -- -D warnings
+        run: cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings
       - name: Test native and WASM deterministic draws
         run: |
           python3 -B -m unittest scripts.test_check_deterministic_rng

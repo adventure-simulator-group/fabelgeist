@@ -134,7 +134,7 @@ impl Mat4 {
     }
 
     pub fn look_at(eye: Vec3, target: Vec3, up: Vec3) -> Self {
-        let diff = target.sub(eye);
+        let diff = target - eye;
         let f = if diff.length_squared() < 1e-8 {
             Vec3::new(0.0, 0.0, -1.0)
         } else {

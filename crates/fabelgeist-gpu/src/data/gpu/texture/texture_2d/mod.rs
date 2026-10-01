@@ -278,7 +278,7 @@ impl Texture2d {
 
         encoder.copy_texture_to_buffer(
             wgpu::TexelCopyTextureInfo {
-                texture: &texture,
+                texture,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
@@ -368,50 +368,6 @@ impl Texture2d {
     /// so uploading a picture and reading it back returns the picture. A float
     /// texture is narrowed to eight bits, which is the one lossy step, and a
     /// single-channel one is spread across the three.
-    pub async fn read_image(&self, context: &WgpuContext) -> Result<Image> {
-        let (width, height) = self.size;
-        if width == 0 || height == 0 {
-            return Ok(Image::default());
-        }
-
-        let raw_data = self.read::<u8>(context).await?;
-        let narrow = |value: f32| (value.clamp(0.0, 1.0) * 255.0).round() as u8;
-
-        let rgba_data = match self.format {
-            TextureFormat::Rgba8Unorm | TextureFormat::Rgba8UnormSrgb => raw_data,
-            TextureFormat::Bgra8Unorm | TextureFormat::Bgra8UnormSrgb => raw_data
-                .chunks_exact(4)
-                .flat_map(|bgra| [bgra[2], bgra[1], bgra[0], bgra[3]])
-                .collect(),
-            TextureFormat::Rgba32Float => bytemuck::cast_slice::<u8, f32>(&raw_data)
-                .iter()
-                .map(|&channel| narrow(channel))
-                .collect(),
-            TextureFormat::R32Float => bytemuck::cast_slice::<u8, f32>(&raw_data)
-                .iter()
-                .flat_map(|&value| {
-                    let grey = narrow(value);
-                    [grey, grey, grey, 255]
-                })
-                .collect(),
-            TextureFormat::R8Unorm => raw_data
-                .iter()
-                .flat_map(|&value| [value, value, value, 255])
-                .collect(),
-            _ => {
-                if self.format.pixel_size() == 4 {
-                    raw_data
-                } else {
-                    anyhow::bail!(
-                        "a {:?} texture cannot be read back as an image",
-                        self.format
-                    );
-                }
-            }
-        };
-
-        Image::from_pixels(rgba_data, width, height)
-    }
     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
         let (width, height) = self.size;
         let texture = self
@@ -423,7 +379,7 @@ impl Texture2d {
 
         context.queue.write_texture(
             wgpu::TexelCopyTextureInfo {
-                texture: &texture,
+                texture,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
@@ -608,7 +564,7 @@ impl Texture2d {
                     label: Some("Texture2d Clear Depth Pass"),
                     color_attachments: &[],
                     depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
-                        view: &view,
+                        view,
                         depth_ops: Some(wgpu::Operations {
                             load: wgpu::LoadOp::Clear(depth_clear_value),
                             store: wgpu::StoreOp::Store,
@@ -642,7 +598,7 @@ impl Texture2d {
                 let _rp = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                     label: Some("Texture2d Clear Pass"),
                     color_attachments: &[Some(wgpu::RenderPassColorAttachment {
-                        view: &view,
+                        view,
                         depth_slice: None,
                         resolve_target: None,
                         ops: wgpu::Operations {
@@ -697,7 +653,13 @@ mod tests {
         ] {
             let texture = Texture2d::create_from_image(&context, image.clone(), format)?;
             let read = texture.read_image(&context).await?;
-            let out: Vec<u8> = read.data.chunks_exact(4).map(|pixel| pixel[0]).collect();
+            let out: Vec<u8> = read
+                .data
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .map(|pixel| pixel[0])
+                .collect();
             let moved: Vec<usize> = (0..256)
                 .filter(|&level| out[level] != level as u8)
                 .collect();

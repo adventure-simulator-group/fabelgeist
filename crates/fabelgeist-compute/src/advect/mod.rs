@@ -12,22 +12,20 @@ pub struct AdvectSignature {
     pub dimension: u32, // 2 or 3
 }
 
+type AdvectPipelineCache = HashMap<
+    (
+        ResourceDescriptor,
+        ResourceDescriptor,
+        ResourceDescriptor,
+        u32,
+    ),
+    Arc<ComputePipeline>,
+>;
+
 #[derive(Clone, Debug)]
 pub struct AdvectDefinition {
     pub mode: u32,
-    pub cache: Arc<
-        RwLock<
-            HashMap<
-                (
-                    ResourceDescriptor,
-                    ResourceDescriptor,
-                    ResourceDescriptor,
-                    u32,
-                ),
-                Arc<ComputePipeline>,
-            >,
-        >,
-    >,
+    pub cache: Arc<RwLock<AdvectPipelineCache>>,
 }
 
 impl AdvectDefinition {
@@ -303,14 +301,16 @@ impl Advect {
         parameters.insert("dt", dt);
 
         let (wg_x, wg_y, wg_z) = match output {
-            GpuResource::Texture2d(t) => ((t.size.0 + 15) / 16, (t.size.1 + 15) / 16, 1),
-            GpuResource::Texture3d(t) => {
-                ((t.size.0 + 7) / 8, (t.size.1 + 7) / 8, (t.size.2 + 3) / 4)
-            }
+            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+            GpuResource::Texture3d(t) => (
+                t.size.0.div_ceil(8),
+                t.size.1.div_ceil(8),
+                t.size.2.div_ceil(4),
+            ),
             _ => unreachable!(),
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::new(
+        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
             context,
             pipeline.as_ref().clone(),
             parameters,

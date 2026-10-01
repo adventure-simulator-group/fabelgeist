@@ -564,7 +564,7 @@ ceiling = 1098
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/clouds.rs"
-ceiling = 1021
+ceiling = 1014
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs"
@@ -660,7 +660,7 @@ ceiling = 1413
 
 [[files]]
 path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
-ceiling = 1123
+ceiling = 1116
 
 [[files]]
 path = "crates/adventuresim-world-import/src/bin/build-strategic-map/tiles.rs"
@@ -708,27 +708,19 @@ ceiling = 841
 
 [[files]]
 path = "crates/adventuresim-world-schema/src/language.rs"
-ceiling = 568
+ceiling = 533
 
 [[files]]
 path = "crates/adventuresim-world-schema/src/lib.rs"
-ceiling = 3801
+ceiling = 3587
 
 [[files]]
 path = "crates/fabelgeist-animation/src/animation/retarget/retargeter.rs"
 ceiling = 711
 
 [[files]]
-path = "crates/fabelgeist-compute/src/dual_contouring/mod.rs"
-ceiling = 698
-
-[[files]]
-path = "crates/fabelgeist-compute/src/map/mod.rs"
-ceiling = 502
-
-[[files]]
 path = "crates/fabelgeist-compute/src/stencil.rs"
-ceiling = 927
+ceiling = 924
 
 [[files]]
 path = "crates/fabelgeist-compute/src/stereo/rig.rs"
@@ -756,11 +748,11 @@ ceiling = 624
 
 [[files]]
 path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs"
-ceiling = 579
+ceiling = 538
 
 [[files]]
 path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
-ceiling = 955
+ceiling = 901
 
 [[files]]
 path = "crates/strategic-web/src/live.rs"
@@ -2433,7 +2425,7 @@ ceiling = 101
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/clouds.rs"
 item = "update_tactical_clouds"
-ceiling = 162
+ceiling = 159
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs"
@@ -2758,7 +2750,7 @@ ceiling = 111
 [[functions]]
 path = "crates/fabelgeist-color/src/conversion.rs"
 item = "convert_pixels"
-ceiling = 255
+ceiling = 237
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/advect/mod.rs"
@@ -2771,7 +2763,7 @@ item = "DistanceFieldJfa::distance_field_3d"
 ceiling = 105
 
 [[functions]]
-path = "crates/fabelgeist-compute/src/dual_contouring/mod.rs"
+path = "crates/fabelgeist-compute/src/dual_contouring/execution.rs"
 item = "DualContouring::execute_internal"
 ceiling = 174
 
@@ -2783,12 +2775,12 @@ ceiling = 442
 [[functions]]
 path = "crates/fabelgeist-compute/src/gather/mod.rs"
 item = "GatherDefinition::build_pipeline"
-ceiling = 175
+ceiling = 174
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/map/mod.rs"
 item = "MapDefinition::build_pipeline"
-ceiling = 234
+ceiling = 233
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/marching_cubes/mod.rs"
@@ -2818,12 +2810,12 @@ ceiling = 104
 [[functions]]
 path = "crates/fabelgeist-compute/src/reduce/mod.rs"
 item = "Reduce::execute"
-ceiling = 133
+ceiling = 131
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/reduce/mod.rs"
 item = "ReduceDefinition::get_or_create_pipeline"
-ceiling = 121
+ceiling = 120
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/scan.rs"
@@ -2833,7 +2825,7 @@ ceiling = 135
 [[functions]]
 path = "crates/fabelgeist-compute/src/scatter.rs"
 item = "ScatterDefinition::build_pipeline"
-ceiling = 161
+ceiling = 160
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/simplex_noise.rs"
@@ -2843,7 +2835,7 @@ ceiling = 129
 [[functions]]
 path = "crates/fabelgeist-compute/src/stencil.rs"
 item = "StencilDefinition::build_pipeline"
-ceiling = 580
+ceiling = 579
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/stencil.rs"
@@ -2918,12 +2910,12 @@ ceiling = 122
 [[functions]]
 path = "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs"
 item = "create_bind_groups"
-ceiling = 280
+ceiling = 278
 
 [[functions]]
 path = "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs"
 item = "ComputePass::record"
-ceiling = 413
+ceiling = 410
 
 [[functions]]
 path = "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs"
@@ -2944,11 +2936,6 @@ ceiling = 149
 path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
 item = "TextureCube::render_shader_raw"
 ceiling = 142
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
-item = "TextureCube::set_side_image"
-ceiling = 104
 
 [[functions]]
 path = "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs"
