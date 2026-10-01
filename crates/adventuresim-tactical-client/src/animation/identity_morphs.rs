@@ -8,21 +8,41 @@ use bevy::mesh::morph::MorphWeights;
 
 use super::*;
 
+#[expect(
+    clippy::type_complexity,
+    reason = "change-aware appearance inputs and disjoint read/write access to morph weights"
+)]
 pub(super) fn sync_character_morphs(
     roots: Query<(Entity, &AnimationRigScene)>,
     characters: Query<(
-        &CharacterId,
-        Option<&CharacterSkeletalProportions>,
-        Option<&SkeletalProportionReference>,
+        Ref<CharacterId>,
+        Option<Ref<CharacterSkeletalProportions>>,
+        Option<Ref<SkeletalProportionReference>>,
     )>,
     children: Query<&Children>,
     meshes: Res<Assets<Mesh>>,
-    mut morphs: Query<&mut MorphWeights>,
+    mut morph_queries: ParamSet<(Query<&mut MorphWeights>, Query<(), Added<MorphWeights>>)>,
+    mut removed_proportions: RemovedComponents<CharacterSkeletalProportions>,
+    mut removed_references: RemovedComponents<SkeletalProportionReference>,
 ) {
+    let removed: HashSet<_> = removed_proportions
+        .read()
+        .chain(removed_references.read())
+        .collect();
+    let new_morphs = !morph_queries.p1().is_empty();
+    let mut morphs = morph_queries.p0();
     for (root, owner) in &roots {
         let Ok((character_id, explicit, reference)) = characters.get(owner.0) else {
             continue;
         };
+        if !new_morphs
+            && !removed.contains(&owner.0)
+            && !character_id.is_changed()
+            && !explicit.as_ref().is_some_and(|value| value.is_changed())
+            && !reference.as_ref().is_some_and(|value| value.is_changed())
+        {
+            continue;
+        }
         let identity = CharacterMorphWeights::from_character_id(character_id.0);
         let proportions = explicit
             .map(|p| p.0)
@@ -103,5 +123,16 @@ mod tests {
                 .weights()
         );
         assert_eq!(app.world().resource::<Assets<Mesh>>().len(), 1);
+        let rig = app.world().get::<ChildOf>(bodies[0]).unwrap().parent();
+        let owner = app.world().get::<AnimationRigScene>(rig).unwrap().0;
+        app.world_mut().entity_mut(owner).insert(CharacterId(99));
+        app.update();
+        assert_ne!(
+            app.world()
+                .get::<MorphWeights>(bodies[0])
+                .unwrap()
+                .weights()[0],
+            first[0]
+        );
     }
 }

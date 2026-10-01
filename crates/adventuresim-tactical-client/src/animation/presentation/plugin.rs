@@ -1,5 +1,12 @@
 use super::*;
 
+/// A presentation-only character sharing the tactical rig without player controls.
+#[derive(Component)]
+#[require(SkeletonState)]
+pub(crate) struct StrategicModel;
+
+pub(crate) type AnimatedActors = Or<(With<Player>, With<StrategicModel>)>;
+
 impl Plugin for TacticalAnimationPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<AnimationPackCatalog>()

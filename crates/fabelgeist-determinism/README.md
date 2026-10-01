@@ -6,6 +6,10 @@ use explicit fixed-width little-endian encoding. BLAKE3's derive-key context
 is `fabelgeist.determinism.seed.v1`; the first eight digest bytes initialize
 `rand_xoshiro::SplitMix64::from_seed` directly. No warm-up draw is discarded.
 
+Seed derivation clones a shared immutable BLAKE3 context initializer. Numeric
+fields stream directly into the hash without temporary allocations; their
+length framing and output are identical to byte-field derivation.
+
 `StreamId` names belong to their domain owners. Entity identity, semantic
 event ordinal, and spatial coordinates are context, not numeric stream salts.
 Stable ordinals describe authored slots or events, never incidental iteration

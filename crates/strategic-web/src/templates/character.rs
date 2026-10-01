@@ -129,9 +129,10 @@ pub fn character_switcher_options(
                         method="post" data-hard-navigation {
                         button type="submit"
                             class=(if current { "character-switcher-option is-current" } else { "character-switcher-option" })
+                            data-character-id=(character.id)
                             aria-current=(if current { "true" } else { "false" }) {
                             span class="character-switcher-option-portrait" aria-hidden="true" {
-                                (character.name.chars().next().unwrap_or('?'))
+                                span data-bevy-character=(character.id) { (character.name.chars().next().unwrap_or('?')) }
                             }
                             span class="character-switcher-option-copy" {
                                 strong { (&character.name) }

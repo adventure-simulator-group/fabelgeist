@@ -63,10 +63,10 @@ pub(in crate::presentation) use instanced_understory::{
 };
 
 pub(in crate::presentation) use grass::{
-    FAR_LOD_GAP_FILL_FRACTION, GrassCommunity, GrassCommunityProfile, GrassMeshLod, GrassSpecies,
-    NEAR_TO_FAR_SWARD_FADE_END_METRES, NEAR_TO_FAR_SWARD_FADE_START_METRES,
-    TERMINAL_SWARD_FADE_END_METRES, TERMINAL_SWARD_FADE_START_METRES, grass_community_at,
-    grass_lod_visibility,
+    FAR_LOD_GAP_FILL_FRACTION, GrassCommunity, GrassCommunityField, GrassCommunityProfile,
+    GrassMeshLod, GrassSpecies, NEAR_TO_FAR_SWARD_FADE_END_METRES,
+    NEAR_TO_FAR_SWARD_FADE_START_METRES, TERMINAL_SWARD_FADE_END_METRES,
+    TERMINAL_SWARD_FADE_START_METRES, grass_lod_visibility,
 };
 use litter::{
     DRY_LEAF_MESH_VARIANTS, TWIG_MESH_VARIANTS, dry_leaf_patch_mesh, forest_floor_leaf_material,

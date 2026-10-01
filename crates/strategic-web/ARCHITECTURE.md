@@ -34,10 +34,13 @@ an inn's fitted timber panels and an armoury's worked iron can all be elaborate
 without sharing a church window. Repeated architectural motifs must still
 leave a plain, uninterrupted surface for reading and editing.
 
-A Place Facade depicts the place. Its separate semantic icon identifies the
-service. Keep both independent of the active state, available actions and
-time-of-day lighting. A facade is navigation artwork, not a photograph or a
-promise that the rendered scene reproduces a surviving building.
+The place navigation shows perspective views of the actual tactical city
+buildings, with visible names beneath them. Preserve their physical dimensions
+and locations. Keep the buildings independent of the active state and actions.
+These generated scenes do not claim to reconstruct surviving buildings.
+
+The [shared renderer contract](UNIFIED_RENDERER.md) describes the canvas,
+character views, HTML boundary and navigation benchmark.
 
 ## Treatments by place
 

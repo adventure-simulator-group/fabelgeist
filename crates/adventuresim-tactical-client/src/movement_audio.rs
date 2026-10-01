@@ -45,7 +45,7 @@ type GroundedDiveAudioQuery<'world, 'state> = Query<
         &'static SkeletonState,
         Option<&'static mut MovementAudioState>,
     ),
-    Changed<SkeletonState>,
+    (With<Player>, Changed<SkeletonState>),
 >;
 
 fn spawn_wind_loop(mut commands: Commands, asset_server: Res<AssetServer>) {
@@ -84,7 +84,7 @@ fn update_wind_volume(
 fn play_locomotion_audio(
     mut commands: Commands,
     mut events: MessageReader<LocomotionPresentationEvent>,
-    characters: Query<(&GlobalTransform, &SkeletonState, &CharacterId)>,
+    characters: Query<(&GlobalTransform, &SkeletonState, &CharacterId), With<Player>>,
     grounds: Query<&SceneGround>,
     understory: Query<(&GlobalTransform, &GroundScatterLayer)>,
     asset_server: Res<AssetServer>,
@@ -309,4 +309,44 @@ fn sound_seed(sequence: u64, position: Vec3) -> Seed {
             u64::from(position.z.to_bits()),
         ],
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn strategic_display_models_do_not_acquire_tactical_audio_state() {
+        let mut app = App::new();
+        app.add_plugins((MinimalPlugins, AssetPlugin::default()))
+            .insert_resource(
+                TacticalAudioConfig::parse(include_str!(
+                    "../../../assets/config/tactical-audio.yaml"
+                ))
+                .unwrap(),
+            )
+            .add_systems(Update, play_grounded_dive_impacts);
+        let display = app
+            .world_mut()
+            .spawn((
+                CharacterId(1),
+                GlobalTransform::default(),
+                SkeletonState::default(),
+            ))
+            .id();
+        let tactical = app
+            .world_mut()
+            .spawn((
+                Player {
+                    name: "Combatant".into(),
+                },
+                GlobalTransform::default(),
+            ))
+            .id();
+
+        app.update();
+
+        assert!(app.world().get::<MovementAudioState>(display).is_none());
+        assert!(app.world().get::<MovementAudioState>(tactical).is_some());
+    }
 }

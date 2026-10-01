@@ -1,0 +1,62 @@
+/* Bevy paints only these measured windows; labels and actions stay in HTML. */
+#strategic-render-surface { z-index: 110; background: transparent; clip-path: inset(100%); }
+body[data-tactical-active] #strategic-render-surface { clip-path: none !important; }
+#strategic-page:has(.character-action-overlay:not([hidden]), .party-offer:not([hidden])) { z-index: 120; }
+#strategic-scene-status {
+  position: fixed; z-index: 120; left: 50%; top: 45%; transform: translateX(-50%);
+  padding: .7rem 1rem; background: #181713; color: #f4ead5;
+  border: 1px solid #97866a; pointer-events: none;
+}
+#strategic-page .settlement-top-bar[data-environment="settlement"] {
+  display: block; height: 304px; min-height: 304px; padding: 64px 0 0;
+}
+#strategic-page .settlement-top-bar[data-environment="settlement"] .settlement-location { position: absolute; top: .5rem; left: .75rem; }
+#strategic-page .settlement-top-bar[data-environment="settlement"] .top-bar-right { position: absolute; top: .5rem; right: .75rem; width: auto; }
+#strategic-page .settlement-top-bar[data-environment="settlement"]::before { display: none; }
+#strategic-page .settlement-services,
+#strategic-page[data-architectural-family] .settlement-services {
+  display: flex; flex-wrap: nowrap; gap: 0; justify-content: flex-start;
+  overflow-x: auto; overflow-y: hidden; min-width: 0; height: 230px;
+  padding: 0; flex: 0 0 auto;
+}
+#strategic-page .settlement-top-bar[data-environment="settlement"] .settlement-services .nav-tab,
+#strategic-page[data-architectural-family] .settlement-services .nav-tab {
+  flex: 0 0 var(--street-bay-width, 112px); width: var(--street-bay-width, 112px); height: 230px; min-width: 0;
+  background: transparent; padding: 0; border-radius: 0;
+  transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s;
+}
+#strategic-page .settlement-top-bar .settlement-services .nav-tab[data-building-id="map"] { flex-basis: 56px; min-width: 56px; width: 56px; }
+#strategic-page .settlement-services :is(.service-tab-building, .service-tab-icon, .topbar-scene-effect-plane) { display: none; }
+#strategic-page .settlement-services .service-tab-label {
+  bottom: 0; left: 2px; right: 2px; max-width: none; min-height: 30px;
+  display: grid; align-items: center; background: #181713;
+}
+#strategic-page .settlement-services .nav-tab:focus-visible { outline: 2px solid #f4d09b; outline-offset: -2px; }
+body:has(#strategic-render-surface) #strategic-page [data-bevy-character] {
+  display: block; width: 100%; height: 100%; border-radius: 0;
+  background: transparent; color: transparent; overflow: hidden;
+}
+#strategic-page .bevy-scene-window {
+  display: block; width: 100%; max-width: none; flex: 1 1 auto;
+  min-height: 160px; position: relative;
+}
+#strategic-page .npc-description-stage > .visual-stage-placeholder { display: none; }
+#strategic-page .npc-description-stage { justify-content: flex-start; }
+#strategic-page .npc-description-stage :is(h2, p) {
+  flex: 0 0 auto; background: #181713; color: #f4ead5; margin: 0; padding: .35rem .6rem;
+}
+#strategic-page .forge-description-stage[data-renderer-ready] > .bevy-scene-window { visibility: visible; }
+#strategic-page .forge-description-stage[data-scene-mode="character"] > :is(h2, p) { visibility: visible; }
+#strategic-page :is(.party-member-stage, .settlement-overview) > .bevy-scene-window {
+  position: absolute; top: 10rem; bottom: calc(var(--chat-panel-height, 16rem) + 1.5rem);
+  left: 1rem; width: calc(100% - 2rem);
+}
+#strategic-page :is(.party-member-stage, .settlement-overview):has(.bevy-scene-window) > .service-visual { display: none; }
+#strategic-page .fireplace-stage > .bevy-scene-window { flex: 0 0 200px; }
+@media (max-width: 1100px) {
+  #strategic-page .settlement-services { width: 100%; }
+  #strategic-page .npc-description-stage { position: relative; inset: auto; min-height: 260px; margin: 1rem; }
+  #strategic-page :is(.party-member-stage, .settlement-overview) > .bevy-scene-window {
+    position: relative; inset: auto; min-height: 240px; margin: 1rem;
+  }
+}

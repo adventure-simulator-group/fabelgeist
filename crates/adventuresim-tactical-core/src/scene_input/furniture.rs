@@ -169,7 +169,7 @@ pub struct FurnitureLayout {
 }
 
 impl FurnitureLayout {
-    pub(super) fn furnish_interiors(
+    pub fn furnish_interiors(
         &mut self,
         buildings: &[GeneratedBuilding],
     ) -> Result<(), super::SceneInputError> {
@@ -183,8 +183,9 @@ pub(super) fn generate(
     terrain: &SceneTerrain,
     ground: &SceneGround,
     obstacles: &[GeneratedObstacle],
+    recipes: &mut super::GeneratedBuildingRecipes,
 ) -> Result<FurnitureLayout, super::SceneInputError> {
-    let sites = sites::collect(input, buildings)?;
+    let sites = sites::collect(input, buildings, recipes)?;
     Ok(placement::generate(
         input, &sites, terrain, ground, obstacles,
     ))

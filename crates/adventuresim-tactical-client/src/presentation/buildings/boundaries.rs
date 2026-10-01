@@ -1,5 +1,7 @@
 use super::*;
 use adventuresim_tactical_core::prelude::{CityBoundaryMaterial, SceneBoundary};
+mod batching;
+use batching::BoundaryBatches;
 
 pub(super) fn on_boundary(
     event: On<Add, SceneBoundary>,
@@ -9,11 +11,19 @@ pub(super) fn on_boundary(
     materials: Res<TacticalBuildingMaterials>,
 ) -> Result {
     let boundary = boundaries.get(event.entity)?;
+    let mut batches = BoundaryBatches::default();
+    fixed(&mut batches, boundary, 0.0, &materials);
     commands
         .entity(event.entity)
         .insert(Visibility::default())
         .with_children(|parent| {
-            fixed(parent, boundary, &mut meshes, &materials);
+            for batch in batches.finish() {
+                parent.spawn((
+                    Mesh3d(meshes.add(batch.mesh)),
+                    MeshMaterial3d(batch.material),
+                    Transform::from_translation(batch.origin),
+                ));
+            }
         });
     Ok(())
 }
@@ -24,6 +34,7 @@ pub(super) fn on_vista(
     mut meshes: ResMut<Assets<Mesh>>,
     materials: Res<TacticalBuildingMaterials>,
 ) {
+    let mut batches = BoundaryBatches::default();
     for compound in &bundle.compounds {
         let Some(front) = bundle
             .distant_buildings
@@ -37,6 +48,12 @@ pub(super) fn on_vista(
             front_building_id: front.id,
             boundary: compound.boundary.clone(),
         };
+        fixed(
+            &mut batches,
+            &boundary,
+            front.base_elevation_metres,
+            &materials,
+        );
         commands
             .spawn((
                 DistantCityBuildingPresentation,
@@ -44,7 +61,6 @@ pub(super) fn on_vista(
                 Transform::from_xyz(0.0, front.base_elevation_metres, 0.0),
             ))
             .with_children(|parent| {
-                fixed(parent, &boundary, &mut meshes, &materials);
                 let door = compound.boundary.gate.door(compound.id);
                 parent.spawn((
                     Mesh3d(meshes.add(super::super::recipe_mesh::metric_cuboid(door.size_metres))),
@@ -56,12 +72,28 @@ pub(super) fn on_vista(
                 ));
             });
     }
+    let members = batches.members;
+    let batches = batches.finish();
+    info!(
+        members,
+        batches = batches.len(),
+        "City fixed boundary batches"
+    );
+    for batch in batches {
+        commands.spawn((
+            Name::new("City fixed boundary batch"),
+            DistantCityBuildingPresentation,
+            Mesh3d(meshes.add(batch.mesh)),
+            MeshMaterial3d(batch.material),
+            Transform::from_translation(batch.origin),
+        ));
+    }
 }
 
 fn fixed(
-    parent: &mut ChildSpawnerCommands,
+    batches: &mut BoundaryBatches,
     boundary: &SceneBoundary,
-    meshes: &mut Assets<Mesh>,
+    elevation: f32,
     materials: &TacticalBuildingMaterials,
 ) {
     for member in boundary.boundary.fixed_members() {
@@ -72,11 +104,10 @@ fn fixed(
             CityBoundaryMaterial::Timber => BuildingLodMaterial::Timber,
             CityBoundaryMaterial::Iron => BuildingLodMaterial::Iron,
         };
-        parent.spawn((
-            Mesh3d(meshes.add(super::super::recipe_mesh::metric_cuboid(member.size_metres))),
-            MeshMaterial3d(materials.get_for_building(boundary.front_building_id, material)),
-            Transform::from_translation(member.centre_metres)
-                .with_rotation(Quat::from_rotation_y(member.yaw_radians)),
-        ));
+        batches.insert(
+            member,
+            elevation,
+            materials.get_for_building(boundary.front_building_id, material),
+        );
     }
 }

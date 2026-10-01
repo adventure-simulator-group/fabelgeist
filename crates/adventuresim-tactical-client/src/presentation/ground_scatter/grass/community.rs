@@ -69,6 +69,7 @@ impl GrassCommunityProfile {
         }
     }
 
+    #[cfg(test)]
     fn select(self, site_hash: u64) -> GrassCommunity {
         // Stable low-frequency pseudo-fields stand in for finer soil data we
         // do not yet have. They modulate, but never invent, a habitat that the
@@ -101,6 +102,7 @@ impl GrassCommunityProfile {
     }
 }
 
+#[cfg(test)]
 pub(in crate::presentation) fn grass_community_at(
     point: Vec2,
     seed: u64,
@@ -136,4 +138,122 @@ pub(in crate::presentation) fn grass_community_at(
         }
     }
     profile.select(nearest_hash)
+}
+
+/// Temporary habitat lattice shared by all tufts sampled during a scatter pass.
+/// Site positions and random fields depend on the seed, never the local profile.
+pub(in crate::presentation) struct GrassCommunityField {
+    seed: u64,
+    sites: std::collections::BTreeMap<(i32, i32), CommunitySite>,
+    neighbourhood: Option<(bevy::math::IVec2, [CommunitySite; 9])>,
+}
+
+#[derive(Clone, Copy)]
+struct CommunitySite {
+    position: Vec2,
+    modulation: [f32; GrassCommunity::COUNT],
+    selection: fabelgeist_determinism::Seed,
+}
+
+impl CommunitySite {
+    fn new(cell: bevy::math::IVec2, seed: u64) -> Self {
+        let hash = streams::COMMUNITY
+            .seed(seed, &[cell.x as u32 as u64, cell.y as u32 as u64])
+            .to_u64();
+        Self {
+            position: (cell.as_vec2()
+                + Vec2::new(
+                    0.18 + streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+                    0.18 + streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+                ))
+                * COMMUNITY_CELL_SIZE_METRES,
+            modulation: [
+                0.76 + streams::FERTILITY.rng(hash, &[]).inclusive_unit_f32() * 0.48,
+                0.68 + streams::EXPOSURE.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+                0.68 + streams::MOISTURE.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+            ],
+            selection: streams::COMMUNITY_SPECIES.seed(hash, &[]),
+        }
+    }
+    fn select(self, profile: GrassCommunityProfile) -> GrassCommunity {
+        let weights = core::array::from_fn::<_, { GrassCommunity::COUNT }, _>(|i| {
+            (profile.weights[i]
+                * self.modulation[i]
+                * adventuresim_world_schema::BASIS_POINTS_PER_WHOLE as f32)
+                .round() as u64
+        });
+        GrassCommunity::ALL[self
+            .selection
+            .rng()
+            .weighted_index(&weights)
+            .expect("a grass habitat always has a positive mesic weight")]
+    }
+}
+
+const COMMUNITY_CELL_SIZE_METRES: f32 = 24.0;
+
+impl GrassCommunityField {
+    pub(in crate::presentation) fn new(seed: u64) -> Self {
+        Self {
+            seed,
+            sites: Default::default(),
+            neighbourhood: None,
+        }
+    }
+
+    pub(in crate::presentation) fn at(
+        &mut self,
+        point: Vec2,
+        profile: GrassCommunityProfile,
+    ) -> GrassCommunity {
+        let cell = (point / COMMUNITY_CELL_SIZE_METRES).floor().as_ivec2();
+        if self
+            .neighbourhood
+            .as_ref()
+            .is_none_or(|(previous, _)| *previous != cell)
+        {
+            let sites = std::array::from_fn(|i| {
+                let candidate = cell + bevy::math::IVec2::new(i as i32 % 3 - 1, i as i32 / 3 - 1);
+                *self
+                    .sites
+                    .entry((candidate.x, candidate.y))
+                    .or_insert_with(|| CommunitySite::new(candidate, self.seed))
+            });
+            self.neighbourhood = Some((cell, sites));
+        }
+        let sites = &self.neighbourhood.as_ref().unwrap().1;
+        let mut nearest = &sites[0];
+        let mut distance = f32::INFINITY;
+        for site in sites {
+            let candidate = point.distance_squared(site.position);
+            if candidate < distance {
+                distance = candidate;
+                nearest = site;
+            }
+        }
+        nearest.select(profile)
+    }
+}
+
+#[test]
+fn cached_habitat_matches_uncached_across_cells_seeds_and_profiles() {
+    for seed in [0, 42, u64::MAX] {
+        let mut field = GrassCommunityField::new(seed);
+        for z in -16..=16 {
+            for x in -16..=16 {
+                let point = Vec2::new(x as f32 * 6.0, z as f32 * 6.0);
+                for profile in [
+                    GrassCommunityProfile::from_site_drivers(0.0, 0.0),
+                    GrassCommunityProfile::from_site_drivers(1.0, 0.4),
+                    GrassCommunityProfile::from_site_drivers(0.3, 0.9),
+                ] {
+                    assert_eq!(
+                        field.at(point, profile),
+                        grass_community_at(point, seed, profile)
+                    );
+                }
+            }
+        }
+        assert!(field.sites.len() < 200);
+    }
 }

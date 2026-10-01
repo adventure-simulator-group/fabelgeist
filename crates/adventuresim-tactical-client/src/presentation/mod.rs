@@ -15,8 +15,9 @@ mod cloud_bake_assets;
 mod clouds;
 mod config;
 mod demo_lifecycle;
-pub(crate) use demo_lifecycle::clear_demo_scene;
+pub(crate) use demo_lifecycle::{clear_demo_scene, clear_scene_entities};
 pub(crate) use vista::streets::streaming::StreamCityTraffic;
+mod closure_meshes;
 mod doors;
 mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
@@ -29,7 +30,7 @@ mod materials;
 mod obstacles;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
-mod recipe_mesh;
+pub(crate) mod recipe_mesh;
 mod sky;
 mod terrain;
 mod vista;
@@ -42,8 +43,10 @@ use adventuresim_procedural_textures::LeafTextureSet;
 pub(crate) use adventuresim_procedural_textures::ProceduralTextureAssets;
 #[cfg(test)]
 use adventuresim_procedural_textures::generate_procedural_textures;
+pub(crate) use atmosphere::AtmosphereIblCache;
 use atmosphere::*;
 pub(crate) use buildings::BuildingRenderLevel;
+pub(crate) use buildings::city_gpu_ready;
 use buildings::*;
 use clouds::*;
 pub(crate) use doors::{DoorPresentationPlugin, GrabTargetOutline};
@@ -55,6 +58,7 @@ use obstacles::tree::*;
 use procedural::*;
 use procedural_texture_setup::setup_procedural_texture_assets;
 use sky::*;
+pub(crate) use terrain::PendingTerrainPresentation;
 use terrain::*;
 use vista::*;
 use volumetric::*;
@@ -77,7 +81,8 @@ fn mesh_triangle_count(mesh: &Mesh) -> usize {
 // This facade is compiled independently by several binaries, so each binary
 // uses only the subset of the stable presentation interface that it needs.
 pub(crate) use buildings::{
-    PendingCityBuildings, PresentedBuildingMesh, PresentedSign, TacticalBuildingMaterials,
+    PendingCityBuildings, PreparedBuildingGeometry, PresentedBuildingMesh, PresentedSign,
+    TacticalBuildingMaterials, TacticalBuildingMeshCache,
 };
 pub(crate) use cloud_bake_assets::PrebakedCloudEnvironment;
 #[cfg(test)]

@@ -1,6 +1,6 @@
 use super::*;
 use adventuresim_building_generator::{
-    CollisionCuboid, ResolvedItemId, interior::standing_path_clear,
+    CollisionCuboid, ResolvedItemId, interior::StandingClearance,
 };
 use bevy::math::{Quat, Vec3};
 
@@ -71,14 +71,12 @@ pub(in crate::city_layout::compiled) fn validate(
         member.centre.z = centre.y;
         member.yaw_radians -= compound.plot.orientation.yaw_radians();
     }
-    if compound.access.iter().any(|route| {
-        !standing_path_clear(
-            &fixed,
-            local(route.start_metres),
-            local(route.end_metres),
-            0.0,
-        )
-    }) {
+    let clearance = StandingClearance::new(&fixed, 0.0);
+    if compound
+        .access
+        .iter()
+        .any(|route| !clearance.is_clear(local(route.start_metres), local(route.end_metres)))
+    {
         return Err(CityCompileError::Compound {
             property: compound.id,
             issue: CompoundIssue::GateBlocksOpenPassage,
@@ -102,14 +100,12 @@ fn validate_building_routes(
                 .world_to_local(point - placement.centre_metres)
                 + Vec2::new(origin.x, origin.z)
         };
-        if compound.access.iter().any(|route| {
-            !standing_path_clear(
-                &recipe.collision.cuboids,
-                local(route.start_metres),
-                local(route.end_metres),
-                0.0,
-            )
-        }) {
+        let clearance = StandingClearance::new(&recipe.collision.cuboids, 0.0);
+        if compound
+            .access
+            .iter()
+            .any(|route| !clearance.is_clear(local(route.start_metres), local(route.end_metres)))
+        {
             return Err(CityCompileError::Compound {
                 property: compound.id,
                 issue: CompoundIssue::AccessBlocked {

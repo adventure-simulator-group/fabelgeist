@@ -80,6 +80,15 @@ mod player;
     reason = "the gameplay binary shares presentation review data with the native capture viewers"
 )]
 mod presentation;
+#[cfg(any(target_family = "wasm", test))]
+#[cfg_attr(
+    not(target_family = "wasm"),
+    expect(
+        dead_code,
+        reason = "native tests exercise the browser scene boundary without installing its renderer"
+    )
+)]
+mod strategic_scene;
 mod targeting;
 mod ui;
 #[cfg(target_family = "wasm")]
@@ -207,6 +216,13 @@ pub fn wasm_boot(graphics_yaml: String, audio_yaml: String) {
 #[wasm_bindgen]
 pub fn wasm_command(command: String) -> Result<(), JsValue> {
     browser_runtime::queue_json(&command).map_err(|error| JsValue::from_str(&error))
+}
+
+/// Renderer readiness and bounded diagnostics for the persistent strategic scene.
+#[cfg(target_family = "wasm")]
+#[wasm_bindgen]
+pub fn wasm_strategic_status() -> String {
+    strategic_scene::status::json()
 }
 
 #[cfg(target_family = "wasm")]

@@ -164,9 +164,6 @@ pub(super) struct CityBuildingAssets<'w> {
     materials: Res<'w, TacticalBuildingMaterials>,
     cache: ResMut<'w, TacticalBuildingMeshCache>,
     signs: signs::SignAssets<'w>,
-    server: Res<'w, AssetServer>,
-    prepared: Res<'w, Assets<prepared::PreparedCityAsset>>,
-    residency: ResMut<'w, PreparedCityAssets>,
 }
 
 impl CityBuildingAssets<'_> {
@@ -177,22 +174,13 @@ impl CityBuildingAssets<'_> {
         establishment: Option<&SceneEstablishment>,
         detail: BuildingDetail,
     ) -> Result<bool> {
-        let compiled = if matches!(detail, BuildingDetail::Facade | BuildingDetail::Shell) {
-            let Some(compiled) =
-                self.residency
-                    .get(&self.server, &self.prepared, &placement.program(), detail)?
-            else {
-                return Ok(false);
-            };
-            compiled
-        } else {
-            cached_building_levels(
-                &mut self.cache,
-                &placement.program(),
-                detail,
-                &mut self.meshes,
-            )?
-        };
+        let compiled = cached_building_levels(
+            &mut self.cache,
+            &placement.program(),
+            detail,
+            &mut self.meshes,
+            None,
+        )?;
         let mut entity = commands.spawn((
             Name::new(format!("Distant city building {}", placement.id)),
             DistantCityBuildingPresentation,
@@ -204,9 +192,6 @@ impl CityBuildingAssets<'_> {
             )
             .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians())),
         ));
-        if detail == BuildingDetail::Shell {
-            entity.insert(super::city_detail::StreamedCityBuilding::new(*placement));
-        }
         entity.with_children(|parent| {
             spawn_building_levels(
                 parent,
@@ -240,15 +225,27 @@ pub(super) fn present(
     let Some(mut pending) = pending else {
         return;
     };
+    if pending.finished() {
+        if !assets.cache.recipes.is_empty() {
+            assets.cache.recipes.clear();
+        }
+        return;
+    }
     if let Some(camera) = cameras.iter().next() {
         pending.prioritize(camera.translation().xz());
     }
+    let detail = BuildingDetail::Facade;
     pending.advance(|pending| {
         assets.spawn(
             &mut commands,
             &pending.placement,
             pending.establishment.as_ref(),
-            BuildingDetail::Shell,
+            detail,
         )
     });
+    if pending.finished() {
+        // Promoted venues may leave recipes with no remaining facade instance.
+        // Drop those temporary CPU plans once all city meshes are resident.
+        assets.cache.recipes.clear();
+    }
 }

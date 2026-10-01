@@ -71,7 +71,7 @@ struct TerrainPlanCache {
 /// At most two plans run concurrently and successful normalized routes are
 /// cached for the life of the immutable terrain package.
 pub struct TerrainPlanner {
-    pack: Arc<adventuresim_terrain::TerrainPack>,
+    pub(super) pack: Arc<adventuresim_terrain::TerrainPack>,
     permits: Arc<tokio::sync::Semaphore>,
     cache: Mutex<TerrainPlanCache>,
 }

@@ -1,6 +1,6 @@
 #define_import_path fabelgeist::interior_lighting
 
-#import bevy_pbr::{pbr_types::PbrInput, mesh_view_bindings::view}
+#import bevy_pbr::{pbr_types::PbrInput, mesh_view_bindings::view, pbr_functions::apply_pbr_lighting}
 
 struct InteriorSample {
     positive: vec4<f32>,
@@ -16,6 +16,7 @@ struct InteriorBuilding {
 }
 struct InteriorField {
     daylight: vec4<f32>,
+    outdoor_irradiance: vec4<f32>,
     counts: vec4<u32>,
     buildings: array<InteriorBuilding, 16>,
     samples: array<InteriorSample>,
@@ -28,8 +29,7 @@ fn sample_index(building: InteriorBuilding, cell: vec3<u32>) -> u32 {
     return dims.w + (cell.y * dims.z + cell.z) * dims.x + cell.x;
 }
 
-fn interior_irradiance(world_position: vec3<f32>, normal: vec3<f32>) -> vec3<f32> {
-    if interior.daylight.w == 0.0 { return vec3(0.0); }
+fn interior_irradiance(world_position: vec3<f32>, normal: vec3<f32>) -> vec4<f32> {
     // Sample on the visible side of walls and floors, not inside their solid thickness.
     let surface_offset_metres = 0.04;
     let position_on_surface = world_position + normal * surface_offset_metres;
@@ -67,14 +67,32 @@ fn interior_irradiance(world_position: vec3<f32>, normal: vec3<f32>) -> vec3<f32
         }
         let n = normalize((building.local_from_world * vec4(normal, 0.0)).xyz);
         let lobes = select(negative, positive, n >= vec3(0.0));
-        return interior.daylight.rgb * dot(lobes, n * n);
+        return vec4(interior.daylight.rgb * dot(lobes, n * n), 1.0);
     }
-    return vec3(0.0);
+    return vec4(0.0);
 }
 
-fn interior_diffuse(pbr: PbrInput) -> vec3<f32> {
-    let inverse_pi = 0.31830988618;
-    return interior_irradiance(pbr.world_position.xyz, pbr.N)
-        * pbr.material.base_color.rgb * (1.0 - pbr.material.metallic)
-        * pbr.diffuse_occlusion * inverse_pi * view.exposure;
+// Room daylight replaces unoccluded outdoor diffuse IBL/ambient light.
+// Direct lights retain Bevy's shadows. Exterior pixels retain ordinary PBR.
+fn apply_interior_lighting(input: PbrInput) -> vec4<f32> {
+    let sample = interior_irradiance(input.world_position.xyz, input.N);
+    var pbr = input;
+    var diffuse = vec3(0.0);
+    if sample.w != 0.0 {
+        let inverse_pi = 0.31830988618;
+        diffuse = sample.rgb * pbr.material.base_color.rgb
+            * (1.0 - pbr.material.metallic) * pbr.diffuse_occlusion
+            * inverse_pi * view.exposure;
+        pbr.diffuse_occlusion = vec3(0.0);
+        // A room has no local reflection probe yet. Attenuate the outdoor probe by
+        // the field's irradiance relative to its outdoor reference, preserving
+        // material roughness/Fresnel while preventing bright sky through walls.
+        let reference = max(max(interior.outdoor_irradiance.r, interior.outdoor_irradiance.g), interior.outdoor_irradiance.b);
+        let received = max(max(sample.r, sample.g), sample.b);
+        pbr.specular_occlusion *= clamp(received / max(reference, 0.0001), 0.0, 1.0);
+    }
+    // Keep the full PBR shader outside the room/exterior branch so it has one
+    // call site even for pixels spanning an entrance.
+    let lit = apply_pbr_lighting(pbr);
+    return vec4(lit.rgb + diffuse, lit.a);
 }

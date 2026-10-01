@@ -1,4 +1,5 @@
 use super::*;
+use crate::presentation::TacticalGameplayCamera;
 use adventuresim_building_generator::{
     BuildingArchetype, BuildingProgram, Cell, Direction, Opening, OpeningKind, Room, RoomKind,
     StoreyPlan, WallSegment, generate,
@@ -89,15 +90,18 @@ fn resident_fields_are_bounded_and_removed_buildings_leave_no_light() {
     let buffer = app
         .world_mut()
         .resource_mut::<Assets<ShaderBuffer>>()
-        .add(ShaderBuffer::from(data.clone()));
+        .add(ShaderBuffer::from(data.for_upload()));
     app.insert_resource(InteriorLightingGpu {
         buffer,
         data,
         selection: Vec::new(),
         _shader: Handle::default(),
     });
-    app.world_mut()
-        .spawn((TacticalGameplayCamera, GlobalTransform::default()));
+    app.world_mut().spawn((
+        Camera3d::default(),
+        Camera::default(),
+        GlobalTransform::default(),
+    ));
     let field = test_field();
     let mut buildings = Vec::new();
     for index in 0..20 {
@@ -110,9 +114,42 @@ fn resident_fields_are_bounded_and_removed_buildings_leave_no_light() {
                 .id(),
         );
     }
+    let distant_position = Vec3::X * 1_000.0;
+    let distant_field = app
+        .world_mut()
+        .spawn((field, GlobalTransform::from_translation(distant_position)))
+        .id();
+    buildings.push(distant_field);
+    let second_view = app
+        .world_mut()
+        .spawn((
+            Camera3d::default(),
+            Camera::default(),
+            GlobalTransform::from_translation(distant_position),
+        ))
+        .id();
     app.update();
     let count = app.world().resource::<InteriorLightingGpu>().data.counts.x;
     assert!(count > 0 && count < buildings.len() as u32);
+    assert!(
+        app.world()
+            .resource::<InteriorLightingGpu>()
+            .selection
+            .iter()
+            .any(|(entity, _)| *entity == distant_field)
+    );
+    app.world_mut()
+        .get_mut::<Camera>(second_view)
+        .unwrap()
+        .is_active = false;
+    app.update();
+    assert!(
+        !app.world()
+            .resource::<InteriorLightingGpu>()
+            .selection
+            .iter()
+            .any(|(entity, _)| *entity == distant_field)
+    );
     for building in buildings {
         app.world_mut().despawn(building);
     }
@@ -120,6 +157,19 @@ fn resident_fields_are_bounded_and_removed_buildings_leave_no_light() {
     let gpu = app.world().resource::<InteriorLightingGpu>();
     assert_eq!(gpu.data.counts.x, 0);
     assert!(gpu.selection.is_empty());
+    let buffers = app.world().resource::<Assets<ShaderBuffer>>();
+    let size = buffers
+        .get(&gpu.buffer)
+        .unwrap()
+        .data
+        .as_ref()
+        .unwrap()
+        .len();
+    assert_eq!(
+        size,
+        GpuField::default().for_upload().size().get() as usize,
+        "material bindings must keep the same GPU allocation when fields leave"
+    );
 }
 
 #[test]
@@ -140,6 +190,7 @@ fn exposure_adapts_during_pause_recovers_outdoors_and_preserves_night() {
             (
                 update_presented_celestial_lighting,
                 exposure::adapt_exposure,
+                exposure::expose_fixed_views,
             )
                 .chain(),
         );
@@ -160,13 +211,21 @@ fn exposure_adapts_during_pause_recovers_outdoors_and_preserves_night() {
             Exposure::SUNLIGHT,
         ))
         .id();
+    let composed = app
+        .world_mut()
+        .spawn((
+            exposure::FixedViewExposure,
+            GlobalTransform::from_translation(Vec3::new(0.75, 1.5, 2.25) - Vec3::splat(2.0)),
+            Exposure::SUNLIGHT,
+        ))
+        .id();
     let step = |app: &mut App| {
         app.world_mut()
             .resource_mut::<Time<Real>>()
             .advance_by(Duration::from_secs_f32(1.0 / 60.0));
         app.update();
     };
-    for _ in 0..600 {
+    for _ in 0..900 {
         step(&mut app);
     }
     let baseline = app
@@ -177,6 +236,10 @@ fn exposure_adapts_during_pause_recovers_outdoors_and_preserves_night() {
         .unwrap()
         .exposure_ev100;
     assert!(app.world().get::<Exposure>(camera).unwrap().ev100 < baseline - 1.0);
+    assert_eq!(
+        app.world().get::<Exposure>(camera).unwrap().ev100,
+        app.world().get::<Exposure>(composed).unwrap().ev100
+    );
     assert_eq!(app.world().resource::<Time<Virtual>>().elapsed_secs(), 0.0);
     app.world_mut()
         .entity_mut(camera)
@@ -185,6 +248,7 @@ fn exposure_adapts_during_pause_recovers_outdoors_and_preserves_night() {
         step(&mut app);
     }
     assert_eq!(app.world().get::<Exposure>(camera).unwrap().ev100, baseline);
+    assert!(app.world().get::<Exposure>(composed).unwrap().ev100 < baseline - 1.0);
     environment.absolute_minute = environment.absolute_minute.saturating_add_minutes(12 * 60);
     app.world_mut().entity_mut(scene).insert(environment);
     app.world_mut()

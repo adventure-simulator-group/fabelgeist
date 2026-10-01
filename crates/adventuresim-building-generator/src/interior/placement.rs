@@ -30,7 +30,9 @@ pub fn furnish(
                     }
                     let previous = layout.placements.len();
                     layout.placements.extend(group);
-                    if footprints_valid(plan, &nav, &layout.placements).is_err() {
+                    if super::footprints::validate(plan, &nav, &layout.placements, previous)
+                        .is_err()
+                    {
                         layout.placements.truncate(previous);
                         continue;
                     }
@@ -69,74 +71,13 @@ pub fn validate_layout(
     layout: &InteriorLayout,
 ) -> Result<Vec<FurnitureAccessPath>, InteriorLayoutError> {
     let nav = Navigation::new(plan)?;
-    footprints_valid(plan, &nav, &layout.placements)?;
+    super::footprints::validate(plan, &nav, &layout.placements, 0)?;
     if layout.placements.is_empty() {
         return Err(InteriorLayoutError::EmptyLayout);
     }
     let flood = nav.flood(&layout.placements);
     nav.verify_rooms(&flood)?;
     nav.access_paths(&layout.placements, &flood)
-}
-
-pub(super) fn footprints_valid(
-    plan: &BuildingPlan,
-    nav: &Navigation,
-    placements: &[InteriorPlacement],
-) -> Result<(), InteriorLayoutError> {
-    for (index, p) in placements.iter().enumerate() {
-        let error = InteriorLayoutError::InvalidPlacement { index };
-        if p.key.interior_spec().is_none() || !p.centre_metres.is_finite() {
-            return Err(error);
-        }
-        let floor = nav
-            .floors
-            .iter()
-            .find(|f| f.level == p.storey)
-            .ok_or_else(|| error.clone())?;
-        let room = plan
-            .storeys
-            .iter()
-            .find(|s| s.level == p.storey)
-            .and_then(|s| s.rooms.iter().find(|r| r.id == p.room_id))
-            .ok_or_else(|| error.clone())?;
-        let footprint = p.footprint();
-        let elevation = floor
-            .height_at(p.centre_metres)
-            .ok_or_else(|| error.clone())?;
-        if !floor.supports(footprint, elevation)
-            || !floor.placement_clear(
-                footprint,
-                elevation,
-                p.key.interior_spec().unwrap().size_metres.y,
-            )
-        {
-            return Err(error);
-        }
-        if !footprint.inside_room(room)
-            || floor
-                .obstacles
-                .iter()
-                .chain(&floor.reserved)
-                .any(|o| o.overlaps(footprint))
-            || placements[..index]
-                .iter()
-                .any(|q| q.storey == p.storey && q.footprint().overlaps(footprint))
-        {
-            return Err(error);
-        }
-        for &face in p.key.interior_spec().unwrap().required_faces {
-            let access = p.access_rect(face);
-            if !access.inside_room(room)
-                || floor.obstacles.iter().any(|o| o.overlaps(access))
-                || placements.iter().enumerate().any(|(j, q)| {
-                    j != index && q.storey == p.storey && q.footprint().overlaps(access)
-                })
-            {
-                return Err(InteriorLayoutError::InaccessibleFurniture { index });
-            }
-        }
-    }
-    Ok(())
 }
 
 pub(super) fn candidates(

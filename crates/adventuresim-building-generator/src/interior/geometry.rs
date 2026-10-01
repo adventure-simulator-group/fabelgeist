@@ -17,18 +17,24 @@ pub(super) struct Rect {
 pub(super) struct FloorFootprint {
     centre: Vec2,
     half: Vec2,
-    yaw: f32,
+    inverse_sine: f32,
+    inverse_cosine: f32,
 }
 impl FloorFootprint {
     pub fn from_solid(solid: &crate::ResolvedSolid) -> Self {
         Self {
             centre: Vec2::new(solid.centre.x, solid.centre.z),
             half: Vec2::new(solid.size.x, solid.size.z) * 0.5,
-            yaw: solid.yaw_radians,
+            inverse_sine: (-solid.yaw_radians).sin(),
+            inverse_cosine: (-solid.yaw_radians).cos(),
         }
     }
     pub fn contains(self, point: Vec2) -> bool {
-        Rect::new(Vec2::ZERO, self.half).contains(local_rotate(point - self.centre, -self.yaw))
+        let point = point - self.centre;
+        Rect::new(Vec2::ZERO, self.half).contains(Vec2::new(
+            self.inverse_cosine * point.x + self.inverse_sine * point.y,
+            -self.inverse_sine * point.x + self.inverse_cosine * point.y,
+        ))
     }
 }
 impl Rect {

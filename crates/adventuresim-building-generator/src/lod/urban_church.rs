@@ -6,13 +6,14 @@ pub(super) fn append_buttresses(lod: &mut BuildingLod, plan: &BuildingPlan) {
     if plan.church.is_none() {
         return;
     }
+    let compiler = crate::detail::SolidDetailCompiler::new(plan);
     for solid in plan
         .resolved_geometry
         .solids
         .iter()
         .filter(|solid| solid.role == SolidRole::WallButtress)
     {
-        exterior::append_outward_solid(lod, plan, solid, None);
+        exterior::append_outward_solid(lod, plan, &compiler, solid, None);
     }
 }
 

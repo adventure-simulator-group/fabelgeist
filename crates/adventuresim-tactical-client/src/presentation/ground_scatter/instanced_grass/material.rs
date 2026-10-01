@@ -11,6 +11,7 @@ use bevy::{
 use bevy_eidolon::prelude::InstancedMaterial;
 
 const GRASS_INSTANCED_SHADER: &str = "shaders/tactical_grass_instanced.wgsl";
+const GRASS_CULL_SHADER: &str = "shaders/tactical_grass_cull.wgsl";
 
 #[derive(Asset, TypePath, AsBindGroup, Debug, Clone)]
 #[uniform(0, TacticalGrassInstancedUniform)]
@@ -51,6 +52,10 @@ impl From<&TacticalGrassInstancedMaterial> for TacticalGrassInstancedUniform {
 }
 
 impl InstancedMaterial for TacticalGrassInstancedMaterial {
+    fn cull_shader() -> ShaderRef {
+        GRASS_CULL_SHADER.into()
+    }
+
     fn vertex_shader() -> ShaderRef {
         GRASS_INSTANCED_SHADER.into()
     }

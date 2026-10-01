@@ -1,6 +1,8 @@
 //! Optional attic windows selected against the generated end-truss volumes.
 use super::*;
 use geo::{Area, BooleanOps};
+mod obstacles;
+use obstacles::OpeningObstacles;
 
 const CLEAR_WIDTH_METRES: f32 = 0.70;
 const CLEAR_HEIGHT_METRES: f32 = 1.00;
@@ -71,6 +73,7 @@ impl Candidate {
             })
             .cloned()
             .collect::<Vec<_>>();
+        let obstacles = OpeningObstacles::new(&builder.members, &builder.geometry.solids);
         for head in heads {
             let half_span = tie.start.distance(tie.end) * 0.5;
             let steps = (half_span / CANDIDATE_STEP_METRES) as usize;
@@ -94,7 +97,7 @@ impl Candidate {
                             - base,
                         head: head.clone(),
                     };
-                    if candidate.fits(builder, face) {
+                    if candidate.fits(&obstacles, face) {
                         return Some(candidate);
                     }
                 }
@@ -103,7 +106,7 @@ impl Candidate {
         None
     }
 
-    fn fits(&self, builder: &TimberFrameBuilder<'_>, face: &RoofEnclosureFace) -> bool {
+    fn fits(&self, obstacles: &OpeningObstacles<'_>, face: &RoofEnclosureFace) -> bool {
         // Include the complete new frame, which projects beyond the plaster face
         // and bears on the tie upper face. Only the typed tie/head contacts may overlap.
         let tie_plane = Vec2::new(self.tie.start.x, self.tie.start.z).dot(self.frame.outward);
@@ -133,25 +136,7 @@ impl Candidate {
         {
             return false;
         }
-        if builder
-            .members
-            .iter()
-            .filter(|member| member.id != self.tie.id && member.id != self.head.id)
-            .any(|member| {
-                builder
-                    .geometry
-                    .solids
-                    .iter()
-                    .find(|solid| solid.id == member.solid)
-                    .is_some_and(|solid| {
-                        crate::solid_overlap::overlaps_bounds(
-                            solid,
-                            bounds,
-                            CONTACT_TOLERANCE_METRES,
-                        )
-                    })
-            })
-        {
+        if obstacles.intersects(bounds, self.tie.id, self.head.id) {
             return false;
         }
         let tangent = face.tangent();

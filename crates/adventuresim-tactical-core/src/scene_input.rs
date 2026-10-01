@@ -47,7 +47,9 @@ pub use descriptor::{
 };
 mod generated;
 mod generation;
+mod recipes;
 pub use generated::{GeneratedTacticalScene, SceneRepairReport};
+pub use recipes::{GeneratedBuildingRecipe, GeneratedBuildingRecipes};
 pub mod furniture;
 
 pub use buildings::{

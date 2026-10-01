@@ -43,6 +43,36 @@ mod tests {
     };
 
     #[test]
+    fn runtime_and_authoring_share_construction_results() {
+        use adventuresim_world_schema::settlement_buildings::BuildingUse;
+        let mut heated = BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 3);
+        heated.domestic_heating = Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove);
+        let programs = [
+            heated,
+            BuildingProgram::validated_settlement(
+                crate::settlement_archetype(BuildingUse::Inn), BuildingUse::Inn, 47, None,
+            ).unwrap(),
+            BuildingProgram::validated_settlement(
+                crate::settlement_archetype(BuildingUse::GeneralShop), BuildingUse::GeneralShop, 42, None,
+            ).unwrap(),
+        ];
+        for program in programs {
+            let document = BuildingDocument {
+                schema_version: BUILDING_DOCUMENT_SCHEMA_VERSION,
+                program,
+                edits: Vec::new(),
+            };
+            match (generate(&document.program), generate_document(&document)) {
+                (Ok(runtime), Ok(authored)) => {
+                    assert_eq!(serde_json::to_value(runtime).unwrap(), serde_json::to_value(authored).unwrap());
+                }
+                (Err(runtime), Err(authored)) => assert_eq!(runtime, authored),
+                other => panic!("runtime and audited authoring construction differ: {other:?}"),
+            }
+        }
+    }
+
+    #[test]
     fn fixture_seed_matrix_generates_audit_clean_buildings() {
         // Exercise seeds selected to cover zero, adjacent values, the curated
         // proof seeds, large values, and wrapping arithmetic boundaries.
@@ -56,14 +86,14 @@ mod tests {
                 });
                 assert!(
                     crate::audit_plan(&plan).is_empty(),
-                    "{archetype:?} seed {seed} escaped the public boundary with audit issues"
+                    "{archetype:?} seed {seed} has audit issues"
                 );
             }
         }
     }
 
     #[test]
-    fn invalid_generated_plan_is_rejected_at_the_public_boundary() {
+    fn authoring_audit_rejects_an_invalid_generated_plan() {
         let mut plan = generate_unchecked(
             &BuildingProgram::fixture(BuildingArchetype::TownHouse, 42),
             &[],

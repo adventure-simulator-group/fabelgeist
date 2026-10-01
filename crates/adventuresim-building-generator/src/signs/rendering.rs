@@ -55,6 +55,8 @@ pub struct ShopSignRenderCache {
     paint: HashMap<SignPaintKey, Handle<StandardMaterial>>,
     backing: HashMap<SignFinish, Handle<StandardMaterial>>,
     iron: Option<Handle<StandardMaterial>>,
+    cuboid: Option<Handle<Mesh>>,
+    face: Option<Handle<Mesh>>,
 }
 
 #[derive(Eq, Hash, PartialEq)]
@@ -84,17 +86,20 @@ impl ShopSignRenderCache {
         let paint = self.painted_material(sign, board, detail, materials, images);
         let backing = self.backing_material(sign.finish, materials);
         let iron = self.iron_material(materials);
+        // Dimensions belong to instance transforms. One box serves every board
+        // and bracket, allowing ordinary PBR and shadow passes to instance them.
+        let cuboid = self
+            .cuboid
+            .get_or_insert_with(|| meshes.add(Cuboid::default()))
+            .clone();
         let mut parts = Vec::new();
         if detail != SignDetail::Lettering {
             parts.push(SignRenderPart {
-                mesh: meshes.add(Cuboid::new(
-                    board.size.x,
-                    board.size.y,
-                    super::site::PANEL_THICKNESS_METRES,
-                )),
+                mesh: cuboid.clone(),
                 material: backing,
                 transform: Transform::from_translation(board.centre - origin)
-                    .with_rotation(board.rotation),
+                    .with_rotation(board.rotation)
+                    .with_scale(board.size.extend(super::site::PANEL_THICKNESS_METRES)),
                 lettering: false,
             });
         }
@@ -108,64 +113,84 @@ impl ShopSignRenderCache {
                 board.rotation * Quat::from_rotation_y(side as f32 * std::f32::consts::PI);
             let centre = board.centre + rotation * Vec3::Z * super::site::PAINT_OFFSET_METRES;
             parts.push(SignRenderPart {
-                mesh: meshes.add(face_mesh(board.size)),
+                mesh: self
+                    .face
+                    .get_or_insert_with(|| meshes.add(face_mesh(Vec2::ONE)))
+                    .clone(),
                 material: paint.as_ref().unwrap().clone(),
-                transform: Transform::from_translation(centre - origin).with_rotation(rotation),
+                transform: Transform::from_translation(centre - origin)
+                    .with_rotation(rotation)
+                    .with_scale(board.size.extend(1.0)),
                 lettering: true,
             });
         }
         if detail == SignDetail::Lettering {
             return parts;
         }
-        let mut metal = |centre: Vec3, size: Vec3, rotation: Quat| {
-            parts.push(SignRenderPart {
-                mesh: meshes.add(Cuboid::from_size(size)),
-                material: iron.clone(),
-                transform: Transform::from_translation(centre - origin).with_rotation(rotation),
-                lettering: false,
-            })
-        };
-        let top = site.mounting.contact + site.outward * MOUNTING_PLATE_THICKNESS_METRES;
-        let hanger_height = top.y - board.centre.y - board.size.y * 0.5;
-        let bracket_rotation = Quat::from_rotation_arc(Vec3::Z, site.outward);
-        let length = (board.centre - top).dot(site.outward)
-            + match sign.mount {
-                SignMount::Wall => 0.0,
-                SignMount::Projecting => board.size.x * 0.5 + BRACKET_WIDTH_METRES,
-            };
-        metal(
-            top + site.outward * length * 0.5,
-            Vec3::new(BRACKET_WIDTH_METRES, BRACKET_WIDTH_METRES, length),
-            bracket_rotation,
-        );
-        if sign.mount == SignMount::Wall {
-            metal(
-                board.centre + Vec3::Y * (board.size.y * 0.5 + hanger_height),
-                Vec3::new(board.size.x, BRACKET_WIDTH_METRES, BRACKET_WIDTH_METRES),
-                board.rotation,
-            );
-        }
-        metal(
-            site.mounting.contact + site.outward * MOUNTING_PLATE_THICKNESS_METRES * 0.5,
-            Vec3::new(
-                site.mounting.size.x,
-                site.mounting.size.y,
-                MOUNTING_PLATE_THICKNESS_METRES,
-            ),
-            bracket_rotation,
-        );
-        for side in [-0.35, 0.35] {
-            let position = board.centre
-                + board.rotation * Vec3::X * (board.size.x * side)
-                + Vec3::Y * (board.size.y * 0.5 + hanger_height * 0.5);
-            metal(
-                position,
-                Vec3::new(0.025, hanger_height, 0.025),
-                Quat::IDENTITY,
-            );
-        }
+        parts.extend(bracket_parts(sign.mount, site, board, origin, cuboid, iron));
         parts
     }
+}
+
+fn bracket_parts(
+    mount: SignMount,
+    site: SignSite,
+    board: SignBoard,
+    origin: Vec3,
+    cuboid: Handle<Mesh>,
+    iron: Handle<StandardMaterial>,
+) -> Vec<SignRenderPart> {
+    let mut parts = Vec::new();
+    let mut metal = |centre: Vec3, size: Vec3, rotation: Quat| {
+        parts.push(SignRenderPart {
+            mesh: cuboid.clone(),
+            material: iron.clone(),
+            transform: Transform::from_translation(centre - origin)
+                .with_rotation(rotation)
+                .with_scale(size),
+            lettering: false,
+        })
+    };
+    let top = site.mounting.contact + site.outward * MOUNTING_PLATE_THICKNESS_METRES;
+    let hanger_height = top.y - board.centre.y - board.size.y * 0.5;
+    let bracket_rotation = Quat::from_rotation_arc(Vec3::Z, site.outward);
+    let length = (board.centre - top).dot(site.outward)
+        + match mount {
+            SignMount::Wall => 0.0,
+            SignMount::Projecting => board.size.x * 0.5 + BRACKET_WIDTH_METRES,
+        };
+    metal(
+        top + site.outward * length * 0.5,
+        Vec3::new(BRACKET_WIDTH_METRES, BRACKET_WIDTH_METRES, length),
+        bracket_rotation,
+    );
+    if mount == SignMount::Wall {
+        metal(
+            board.centre + Vec3::Y * (board.size.y * 0.5 + hanger_height),
+            Vec3::new(board.size.x, BRACKET_WIDTH_METRES, BRACKET_WIDTH_METRES),
+            board.rotation,
+        );
+    }
+    metal(
+        site.mounting.contact + site.outward * MOUNTING_PLATE_THICKNESS_METRES * 0.5,
+        Vec3::new(
+            site.mounting.size.x,
+            site.mounting.size.y,
+            MOUNTING_PLATE_THICKNESS_METRES,
+        ),
+        bracket_rotation,
+    );
+    for side in [-0.35, 0.35] {
+        let position = board.centre
+            + board.rotation * Vec3::X * (board.size.x * side)
+            + Vec3::Y * (board.size.y * 0.5 + hanger_height * 0.5);
+        metal(
+            position,
+            Vec3::new(0.025, hanger_height, 0.025),
+            Quat::IDENTITY,
+        );
+    }
+    parts
 }
 
 fn face_mesh(size: Vec2) -> Mesh {
@@ -237,6 +262,41 @@ mod tests {
             },
         );
         assert!(board.iter().all(|part| !part.lettering));
+        assert!(board.iter().all(|part| part.mesh == board[0].mesh));
+        let changed_site = SignSite {
+            panel_size: Vec2::new(0.85, 0.42),
+            ..site
+        };
+        let origin = Vec3::new(2.0, 0.0, 3.0);
+        let other_board = cache.compile(
+            &sign,
+            changed_site,
+            origin,
+            SignDetail::Board,
+            SignRenderAssets {
+                meshes: &mut meshes,
+                materials: &mut materials,
+                images: &mut images,
+            },
+        );
+        assert!(other_board.iter().all(|part| part.mesh == board[0].mesh));
+        let geometry = changed_site.board(sign.mount);
+        let corner = other_board[0].transform.transform_point(Vec3::splat(0.5));
+        let expected = geometry.centre - origin
+            + geometry.rotation
+                * geometry
+                    .size
+                    .extend(super::super::site::PANEL_THICKNESS_METRES)
+                * 0.5;
+        assert!(
+            corner.distance(expected) < 0.00001,
+            "shared geometry preserves physical dimensions"
+        );
+        assert_eq!(
+            meshes.len(),
+            1,
+            "boards and brackets reuse one unit cube across dimensions"
+        );
         assert_eq!(images.len(), 0);
         let letters = cache.compile(
             &sign,
@@ -252,6 +312,8 @@ mod tests {
         assert_eq!(letters.len(), 2);
         assert_eq!(images.len(), 1);
         assert_eq!(letters[0].material, letters[1].material);
+        assert_eq!(letters[0].mesh, letters[1].mesh);
+        assert_eq!(meshes.len(), 2, "all lettering faces share one unit quad");
         let first = letters[0].transform.rotation * Vec3::Z;
         let second = letters[1].transform.rotation * Vec3::Z;
         assert!(first.dot(second) < -0.99);

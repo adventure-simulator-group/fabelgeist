@@ -77,6 +77,8 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             link rel="stylesheet" href="/static/css/legends.css?v=1";
             link rel="stylesheet" href="/static/css/stats.css?v=1";
 
+            link rel="stylesheet" href="/static/css/strategic-scene.css?v=2";
+
             // Datastar
             script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js" {}
             script {
@@ -100,7 +102,7 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             }
             @if scripts == ScriptProfile::Strategic {
                 script src="/static/strategic-navigation.js?v=places-scroll-1" defer {}
-                script type="module" src="/static/strategic-renderer.js?v=model-owned-forge-controls-1" {}
+                script type="module" src="/static/strategic-renderer.js?v=tactical-city-3" {}
                 script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
                 script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}
                 script src="/static/journal-tab.js?v=journal-tab-1" defer {}
@@ -114,7 +116,7 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             script src="/static/party-recruitment.js?v=party-recruitment-live-3" defer {}
             script src="/static/physiology-dialog.js?v=visual-notebook-2" defer {}
                 script src="/static/service-quests.js?v=location-urls-1" defer {}
-                script src="/static/dialogue-client.js?v=location-urls-1" defer {}
+                script src="/static/dialogue-client.js?v=scene-equipment-2" defer {}
                 script src="/static/physical-evidence.js?v=location-urls-1" defer {}
                 script src="/static/developer-quest-editor.js?v=scenario-gallery-1" defer {}
                 script src="/static/chat-resize.js?v=counterparty-portraits-1" defer {}

@@ -102,7 +102,7 @@ fn interior_narrow_inn_ground_room_cannot_combine_full_counter_and_dining_group(
             },
         )
         .into_iter()
-        .filter(|group| super::placement::footprints_valid(&plan, &nav, group).is_ok())
+        .filter(|group| super::footprints::validate(&plan, &nav, group, 0).is_ok())
         .collect::<Vec<_>>()
     };
     let tables = eligible(FurnitureKind::DiningTable, FurniturePosition::Centre);
@@ -112,7 +112,7 @@ fn interior_narrow_inn_ground_room_cannot_combine_full_counter_and_dining_group(
         for counter in &counters {
             let mut pair = table.clone();
             pair.extend_from_slice(counter);
-            assert!(super::placement::footprints_valid(&plan, &nav, &pair).is_err());
+            assert!(super::footprints::validate(&plan, &nav, &pair, 0).is_err());
         }
     }
     let layout = furnish(&plan, &program).unwrap();

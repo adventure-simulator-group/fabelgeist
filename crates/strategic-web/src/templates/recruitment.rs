@@ -332,7 +332,7 @@ fn role_requests_detail(
                             button type="button" class="role-applicant-portrait" data-select-role-applicant
                                 aria-label=(format!("Inspect {}", applicant.character.name)) {
                                 span class="party-portrait-initial" {
-                                    span class="party-portrait-face" { (applicant.character.name.chars().next().unwrap_or('?')) }
+                                    span class="party-portrait-face" data-bevy-character=(applicant.character.id) { (applicant.character.name.chars().next().unwrap_or('?')) }
                                     span class="party-portrait-name" { (&applicant.character.name) }
                                 }
                             }

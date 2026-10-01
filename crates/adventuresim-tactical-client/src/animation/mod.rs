@@ -75,7 +75,10 @@ fn animation_asset_path(path: &str) -> String {
 }
 
 mod presentation;
-pub(crate) use presentation::*;
+pub(crate) use presentation::{
+    plugin::{AnimatedActors, StrategicModel},
+    *,
+};
 
 /// Runtime switch for terrain height, slope, and pelvis conformity. This is on
 /// by default; debug builds expose F8 to compare against authored FK.
@@ -429,7 +432,7 @@ fn evaluate_skeletons(
             Option<&mut AnimationPlayback>,
             Option<&pose_buffer::CharacterLocomotionStrides>,
         ),
-        With<Player>,
+        AnimatedActors,
     >,
     weapons: Query<(&WeaponItem, &ItemProperties)>,
     equip_slots: Query<&EquipSlot>,

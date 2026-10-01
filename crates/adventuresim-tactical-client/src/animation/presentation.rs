@@ -1,4 +1,4 @@
-mod plugin;
+pub(super) mod plugin;
 use super::*;
 
 mod attack;
@@ -405,7 +405,7 @@ pub(super) fn update_presented_skeletons(
     procedural_clock: Res<ProceduralAnimationClock>,
     authored_strides: Res<AuthoredLocomotionStrides>,
     character_strides: Query<&pose_buffer::CharacterLocomotionStrides>,
-    mut players: Query<(Entity, &SkeletonState, Option<&mut PresentedSkeleton>), With<Player>>,
+    mut players: Query<(Entity, &SkeletonState, Option<&mut PresentedSkeleton>), AnimatedActors>,
 ) {
     for (entity, authoritative, presented) in &mut players {
         let Some(mut presented) = presented else {

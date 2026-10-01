@@ -1,22 +1,25 @@
 //! Cheap room-bounded indirect daylight, shared by architecture and moving PBR surfaces.
 mod exposure;
-pub(crate) use exposure::InteriorExposure;
+pub(crate) use exposure::{FixedViewExposure, InteriorExposure};
 mod field;
 mod material;
 mod shutters;
 #[cfg(test)]
 mod tests;
 
-use super::{PresentedCelestialLighting, TacticalGameplayCamera};
+use super::PresentedCelestialLighting;
 use adventuresim_building_generator::CELL_SIZE_METRES;
 use bevy::{
     prelude::*,
     render::{render_resource::ShaderType, storage::ShaderBuffer},
 };
-pub(super) use field::InteriorField;
+pub(crate) use field::InteriorField;
 pub(crate) use material::{InteriorMaterial, InteriorMaterialSource};
 
 const MAX_LIT_BUILDINGS: usize = 16;
+// Two MiB of samples keep the GPU allocation (and material bindings) stable
+// as nearby buildings enter and leave the daylight field.
+const MAX_GPU_SAMPLES: usize = 65_536;
 const FIELD_DISTANCE_METRES: f32 = 100.0;
 const DAYLIGHT_IRRADIANCE: f32 = 12_000.0;
 const DAYLIGHT_START_ALTITUDE_DEGREES: f32 = -8.0;
@@ -52,6 +55,7 @@ impl GpuBuilding {
 #[derive(Clone, Debug, PartialEq, ShaderType)]
 struct GpuField {
     daylight: Vec4,
+    outdoor_irradiance: Vec4,
     counts: UVec4,
     buildings: [GpuBuilding; MAX_LIT_BUILDINGS],
     #[shader(size(runtime))]
@@ -62,10 +66,21 @@ impl Default for GpuField {
     fn default() -> Self {
         Self {
             daylight: Vec4::ZERO,
+            outdoor_irradiance: Vec4::ZERO,
             counts: UVec4::ZERO,
             buildings: [GpuBuilding::default(); MAX_LIT_BUILDINGS],
             samples: vec![field::LightSample::default()],
         }
+    }
+}
+
+impl GpuField {
+    fn for_upload(&self) -> Self {
+        let mut padded = self.clone();
+        padded
+            .samples
+            .resize(MAX_GPU_SAMPLES, field::LightSample::default());
+        padded
     }
 }
 
@@ -77,6 +92,35 @@ pub(crate) struct InteriorLightingGpu {
     _shader: Handle<Shader>,
 }
 
+impl InteriorLightingGpu {
+    pub(crate) fn daylight(&self) -> Vec4 {
+        self.data.daylight
+    }
+
+    pub(crate) fn sample_at(&self, position: Vec3) -> Vec3 {
+        for building in self.data.buildings.iter().take(self.data.counts.x as usize) {
+            let local = building.local_from_world.transform_point3(position);
+            let cell = (local - building.origin_and_cell.truncate())
+                / Vec3::new(
+                    building.origin_and_cell.w,
+                    building.height.x,
+                    building.origin_and_cell.w,
+                );
+            let dimensions = building.dimensions_and_offset;
+            if cell.cmplt(Vec3::ZERO).any() || cell.cmpge(dimensions.truncate().as_vec3()).any() {
+                continue;
+            }
+            let cell = cell.floor().as_uvec3();
+            let index = dimensions.w + (cell.y * dimensions.z + cell.z) * dimensions.x + cell.x;
+            let sample = self.data.samples[index as usize];
+            if sample.positive.w > 0.0 {
+                return sample.positive.truncate() + sample.negative.truncate();
+            }
+        }
+        Vec3::ZERO
+    }
+}
+
 pub(super) struct InteriorLightingPlugin;
 
 impl Plugin for InteriorLightingPlugin {
@@ -85,7 +129,7 @@ impl Plugin for InteriorLightingPlugin {
         let buffer = app
             .world_mut()
             .resource_mut::<Assets<ShaderBuffer>>()
-            .add(ShaderBuffer::from(data.clone()));
+            .add(ShaderBuffer::from(data.for_upload()));
         let shader = app
             .world_mut()
             .resource_mut::<Assets<Shader>>()
@@ -108,6 +152,7 @@ impl Plugin for InteriorLightingPlugin {
                 shutters::update_shutter_light.before(upload_field),
                 upload_field,
                 exposure::adapt_exposure,
+                exposure::expose_fixed_views,
                 material::prepare_materials,
             )
                 .after(bevy::transform::TransformSystems::Propagate),
@@ -127,35 +172,52 @@ fn daylight_response(celestial: &PresentedCelestialLighting) -> Vec4 {
 }
 
 fn upload_field(
-    camera: Option<Single<&GlobalTransform, With<TacticalGameplayCamera>>>,
+    cameras: Query<(&GlobalTransform, &Camera), With<Camera3d>>,
     fields: Query<(Entity, Ref<InteriorField>, &GlobalTransform)>,
     celestial: Res<PresentedCelestialLighting>,
     mut gpu: ResMut<InteriorLightingGpu>,
     mut buffers: ResMut<Assets<ShaderBuffer>>,
 ) {
+    let daylight = daylight_response(&celestial);
     let mut data = GpuField {
-        daylight: daylight_response(&celestial),
+        daylight,
+        outdoor_irradiance: daylight
+            * (bevy::light::light_consts::lux::RAW_SUNLIGHT / DAYLIGHT_IRRADIANCE),
         ..default()
     };
-    if let Some(camera) = camera {
-        let camera_position = camera.translation();
+    let positions = cameras
+        .iter()
+        .filter(|(_, camera)| camera.is_active)
+        .map(|(transform, _)| transform.translation())
+        .collect::<Vec<_>>();
+    if !positions.is_empty() {
         let mut nearby: Vec<_> = fields
             .iter()
             .filter_map(|(entity, field, transform)| {
-                let local = transform
-                    .affine()
-                    .inverse()
-                    .transform_point3(camera_position)
-                    - field.origin;
                 let size = field.dimensions.as_vec3()
                     * Vec3::new(CELL_SIZE_METRES, field.storey_height, CELL_SIZE_METRES);
-                let distance = (local - local.clamp(Vec3::ZERO, size)).length_squared();
+                let inverse = transform.affine().inverse();
+                let distance = positions
+                    .iter()
+                    .map(|position| {
+                        let local = inverse.transform_point3(*position) - field.origin;
+                        (local - local.clamp(Vec3::ZERO, size)).length_squared()
+                    })
+                    .fold(f32::INFINITY, f32::min);
                 (distance <= FIELD_DISTANCE_METRES * FIELD_DISTANCE_METRES)
                     .then_some((distance, entity, field, transform))
             })
             .collect();
         nearby.sort_by(|a, b| a.0.total_cmp(&b.0).then(a.1.cmp(&b.1)));
         nearby.truncate(MAX_LIT_BUILDINGS);
+        let mut sample_count = data.samples.len();
+        nearby.retain(|entry| {
+            let fits = sample_count + entry.2.samples.len() <= MAX_GPU_SAMPLES;
+            if fits {
+                sample_count += entry.2.samples.len();
+            }
+            fits
+        });
         // Stable ordering avoids re-uploading every sample when the camera moves
         // between two buildings that are already resident.
         nearby.sort_by_key(|entry| entry.1);
@@ -181,7 +243,7 @@ fn upload_field(
     }
     if data != gpu.data {
         if let Some(mut buffer) = buffers.get_mut(&gpu.buffer) {
-            buffer.set_data(data.clone());
+            buffer.set_data(data.for_upload());
         }
         gpu.data = data;
     }

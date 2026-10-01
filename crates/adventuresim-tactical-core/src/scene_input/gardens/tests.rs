@@ -8,6 +8,16 @@ fn fixture() -> TacticalSceneInput {
 }
 
 #[test]
+fn explicit_garden_audit_checks_detailed_geometry() {
+    let input = fixture();
+    let mut generated = input.generate().unwrap();
+    input.audit_garden_clearance(&generated).unwrap();
+    generated.buildings[0].placement.centre_metres =
+        input.gardens[0].cultivated_bounds.centre_metres;
+    assert!(input.audit_garden_clearance(&generated).is_err());
+}
+
+#[test]
 fn garden_input_rejects_missing_ownership_and_escape_from_property() {
     let input = fixture();
     input.validate().unwrap();

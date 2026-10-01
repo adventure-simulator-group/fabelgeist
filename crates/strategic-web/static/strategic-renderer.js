@@ -1,3 +1,4 @@
+import { installStrategicScene } from "./strategic-scene.js?v=shared-street-1";
 const surface = document.querySelector("#strategic-render-surface");
 const canvas = surface?.querySelector("#game-canvas");
 let runtimePromise;
@@ -174,11 +175,12 @@ if (surface && canvas) {
       return runtime;
     })
     .catch((error) => {
-      console.warn("persistent Bevy renderer unavailable; retaining HTML fallback", error);
+      console.error("persistent Bevy renderer unavailable", error);
       throw error;
     });
   runtimePromise.catch(() => hide());
   mount();
+  installStrategicScene(command, runtimePromise);
   document.addEventListener("strategic-page-mounted", mount);
   document.addEventListener("strategic-page-unmounting", hide);
   document.addEventListener("strategic-live-regions-refreshed", (event) => {
@@ -188,6 +190,7 @@ if (surface && canvas) {
   document.addEventListener("input", (event) => {
     const root = event.target.closest?.("[data-forge-customization]");
     if (!root || !event.target.matches("[data-forge-path]")) return;
+    document.dispatchEvent(new Event("strategic-forge-selected"));
     const design = forgeDesigns.get(root);
     const value = event.target.type === "range" ? Number(event.target.value) : event.target.value;
     setPath(design, JSON.parse(event.target.dataset.forgePath), value);
@@ -196,7 +199,10 @@ if (surface && canvas) {
   });
   document.addEventListener("change", (event) => {
     const root = event.target.closest?.("[data-forge-customization]");
-    if (root && event.target.matches("[data-forge-catalog]")) loadForgeChassis(root, event.target.value);
+    if (root && event.target.matches("[data-forge-catalog]")) {
+      document.dispatchEvent(new Event("strategic-forge-selected"));
+      loadForgeChassis(root, event.target.value);
+    }
   });
   document.addEventListener("pointerdown", (event) => {
     if (event.button !== 1 || !forgeHostContains(event)) return;
@@ -227,6 +233,7 @@ if (surface && canvas) {
     if (!link) return;
     event.preventDefault();
     document.body.setAttribute("data-tactical-active", "");
+    document.dispatchEvent(new Event("strategic-tactical-started"));
     command({
       type: "enter-tactical",
       server_addr: link.dataset.serverAddr,
@@ -238,5 +245,6 @@ if (surface && canvas) {
     document.body.removeAttribute("data-tactical-active");
     command({ type: "exit-tactical" });
     mount();
+    document.dispatchEvent(new Event("strategic-tactical-ended"));
   });
 }

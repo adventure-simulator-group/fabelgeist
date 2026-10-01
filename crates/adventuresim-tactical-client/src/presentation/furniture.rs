@@ -14,6 +14,13 @@ pub(crate) use visibility::InteriorFurnitureExhibition;
 const SMALL_FURNITURE_FADE_METRES: std::ops::Range<f32> = 180.0..230.0;
 const STALL_FADE_METRES: std::ops::Range<f32> = 350.0..450.0;
 
+pub(super) fn outdoor_range(kind: FurnitureKind) -> std::ops::Range<f32> {
+    match kind {
+        FurnitureKind::CanvasStall => STALL_FADE_METRES,
+        _ => SMALL_FURNITURE_FADE_METRES,
+    }
+}
+
 #[derive(Component)]
 pub(crate) struct PresentedFurnitureMesh {
     pub(crate) material: BuildingLodMaterial,
@@ -68,10 +75,7 @@ fn on_furniture_added(
         FurnitureLocation::Interior { .. } => None,
         FurnitureLocation::Outdoor { .. } => Some(VisibilityRange {
             start_margin: 0.0..0.0,
-            end_margin: match instance.key.kind() {
-                FurnitureKind::CanvasStall => STALL_FADE_METRES,
-                _ => SMALL_FURNITURE_FADE_METRES,
-            },
+            end_margin: outdoor_range(instance.key.kind()),
             use_aabb: false,
         }),
     };
@@ -98,7 +102,7 @@ fn on_furniture_added(
 }
 
 #[derive(Component)]
-struct VistaFurniturePresentation;
+pub(super) struct VistaFurniturePresentation;
 fn on_vista_furniture(
     bundle: On<SceneVistaBundle>,
     mut commands: Commands,

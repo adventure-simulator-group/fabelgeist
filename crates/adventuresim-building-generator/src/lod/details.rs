@@ -122,6 +122,7 @@ pub(super) fn append_gable_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
     let Some(frame) = &plan.timber_frame else {
         return;
     };
+    let compiler = crate::detail::SolidDetailCompiler::new(plan);
     for roof in plan
         .roof_assemblies
         .iter()
@@ -143,7 +144,7 @@ pub(super) fn append_gable_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
                 };
                 // Keep the exterior face's authored finish and metric grain at
                 // distance, including beside an aperture's retained full solids.
-                for mesh in crate::compile_solid_detail(plan, solid).meshes {
+                for mesh in compiler.compile(solid).meshes {
                     for quad in mesh.vertices.as_chunks::<4>().0 {
                         if quad[0].normal.dot(outward) > 0.999 {
                             lod.mesh_mut(mesh.material).push_quad(

@@ -107,7 +107,9 @@ pub fn build_imported_scene(
         )
         .map_err(|error| error.to_string())?
         .ok_or("mission coordinate is outside the final terrain pack")?;
-    let seed = deterministic_seed(mission_id);
+    // A settlement is the same physical place before and after enrollment in
+    // a tactical instance. Mission identity must not change its terrain assets.
+    let seed = deterministic_seed(settlement.map_or(mission_id, |site| site.id.as_str()));
     let playable = sample_grid(
         pack,
         GridSampleRequest {
@@ -692,6 +694,21 @@ mod tests {
             Some(&settlement),
         )
         .unwrap();
+        let next_mission = build_imported_scene(
+            &pack,
+            "mission:another-city-visit",
+            "city",
+            505_000_000,
+            105_000_000,
+            123_456,
+            123_456,
+            Some(&settlement),
+        )
+        .unwrap();
+        assert_eq!(
+            input, next_mission,
+            "preparation and tactical enrollment share scene geometry"
+        );
         assert_eq!(input.absolute_elevation_metres, 321);
         assert!(!input.distant_buildings.is_empty());
         assert!(!input.compounds.is_empty());

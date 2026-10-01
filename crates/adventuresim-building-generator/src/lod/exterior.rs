@@ -126,6 +126,7 @@ fn facade_contexts(
 pub(super) fn append_outward_solid(
     lod: &mut BuildingLod,
     plan: &BuildingPlan,
+    compiler: &crate::detail::SolidDetailCompiler<'_>,
     solid: &ResolvedSolid,
     wall: Option<&WallAssembly>,
 ) {
@@ -135,7 +136,7 @@ pub(super) fn append_outward_solid(
         OUTWARD_FACE_DOT_MINIMUM
     };
     let outward = wall.map(|wall| Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y));
-    for mesh in crate::detail::compile_solid_detail(plan, solid).meshes {
+    for mesh in compiler.compile(solid).meshes {
         let target = lod.mesh_mut(mesh.material);
         for triangle in mesh.indices.as_chunks::<3>().0 {
             let vertices = triangle.map(|index| mesh.vertices[index as usize]);

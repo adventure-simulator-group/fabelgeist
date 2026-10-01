@@ -16,7 +16,7 @@ pub(super) struct LightSample {
 }
 
 #[derive(Component, Clone)]
-pub(in crate::presentation) struct InteriorField {
+pub(crate) struct InteriorField {
     pub origin: Vec3,
     pub dimensions: UVec3,
     pub storey_height: f32,
@@ -26,6 +26,25 @@ pub(in crate::presentation) struct InteriorField {
 }
 
 impl InteriorField {
+    /// Available diffuse daylight for choosing a readable, physically lit viewpoint.
+    #[cfg(test)]
+    pub(crate) fn daylight_at(&self, local_position: Vec3) -> f32 {
+        self.sample(local_position).map_or(0.0, |sample| {
+            (sample.positive.truncate() + sample.negative.truncate()).element_sum()
+        })
+    }
+
+    pub(crate) fn directional_daylight_at(&self, local_position: Vec3, normal: Vec3) -> f32 {
+        self.sample(local_position).map_or(0.0, |sample| {
+            let lobes = Vec3::select(
+                normal.cmpge(Vec3::ZERO),
+                sample.positive.truncate(),
+                sample.negative.truncate(),
+            );
+            lobes.dot(normal * normal)
+        })
+    }
+
     pub fn from_plan(plan: &BuildingPlan, local_origin: Vec3) -> Self {
         let cells: Vec<_> = plan
             .storeys
