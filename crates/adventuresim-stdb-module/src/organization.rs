@@ -14,6 +14,10 @@ use crate::{
     strategic::strategic_gateway_authority__view,
 };
 
+/// Dues and accrual lifecycle, separate from the canonical organization role.
+/// `status` checkpoints dues settlement; current eligibility also checks the
+/// paid-through deadline at the actor's personal date. Payment and settlement
+/// refresh the checkpoint, while role changes use the social-role authority.
 #[derive(Clone, Debug)]
 #[table(accessor = organization_membership)]
 pub struct OrganizationMembership {
@@ -30,6 +34,9 @@ pub struct OrganizationMembership {
     pub practice_minutes_accrued: u64,
 }
 
+/// The organization a character elects to present publicly. Effective recognition
+/// joins current membership and location; this selection is not membership itself.
+/// Present/clear reducers own the choice, and dues reconciliation clears lapses.
 #[derive(Clone, Debug)]
 #[table(accessor = organization_presentation, public)]
 pub struct OrganizationPresentation {

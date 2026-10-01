@@ -429,7 +429,7 @@ pub(crate) fn materialize_generated_problem(
                         String::new()
                     }
                 },
-                |outbreak| crate::disease::disease_key(outbreak.disease).into(),
+                |outbreak| outbreak.disease.stable_id().into(),
             ),
             starts_at,
             ends_at,

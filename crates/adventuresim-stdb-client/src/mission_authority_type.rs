@@ -24,7 +24,6 @@ pub struct MissionAuthority {
     pub committed_capture_custody_version: Option<u32>,
     pub scene_key: String,
     pub hostile_version: u16,
-    pub enemy_count: u32,
     pub enemy_character_ids: Vec<u64>,
     pub contacted_before_combat: bool,
     pub enemy_difficulty: i32,
@@ -57,7 +56,6 @@ pub struct MissionAuthorityCols {
         __sdk::__query_builder::Col<MissionAuthority, Option<u32>>,
     pub scene_key: __sdk::__query_builder::Col<MissionAuthority, String>,
     pub hostile_version: __sdk::__query_builder::Col<MissionAuthority, u16>,
-    pub enemy_count: __sdk::__query_builder::Col<MissionAuthority, u32>,
     pub enemy_character_ids: __sdk::__query_builder::Col<MissionAuthority, Vec<u64>>,
     pub contacted_before_combat: __sdk::__query_builder::Col<MissionAuthority, bool>,
     pub enemy_difficulty: __sdk::__query_builder::Col<MissionAuthority, i32>,
@@ -96,7 +94,6 @@ impl __sdk::__query_builder::HasCols for MissionAuthority {
             ),
             scene_key: __sdk::__query_builder::Col::new(table_name, "scene_key"),
             hostile_version: __sdk::__query_builder::Col::new(table_name, "hostile_version"),
-            enemy_count: __sdk::__query_builder::Col::new(table_name, "enemy_count"),
             enemy_character_ids: __sdk::__query_builder::Col::new(
                 table_name,
                 "enemy_character_ids",

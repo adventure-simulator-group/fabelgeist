@@ -2,7 +2,12 @@
 
 mod calendar;
 mod client;
+mod item_kind;
+mod resident_presentation;
+pub(crate) use resident_presentation::npc_presentation_id;
+mod preparation;
 mod queries;
+pub(crate) use preparation::{ingredient_preparation_action, parse_ingredient_preparation_action};
 mod types;
 
 pub(crate) use calendar::{calendar_countdown_days, calendar_minute};

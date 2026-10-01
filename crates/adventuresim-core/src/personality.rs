@@ -3,6 +3,9 @@
 use adventuresim_world_schema::Sex;
 use serde::{Deserialize, Serialize};
 
+mod virtue;
+pub use virtue::ChivalricVirtue;
+
 macro_rules! personality_enum {
     ($name:ident { $($variant:ident),+ $(,)? }) => {
         #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]

@@ -51,6 +51,9 @@ pub enum ResidenceHoldingStatus {
 /// number of purchased holdings; a renter may have at most one active rental.
 /// The stable ID includes the owner-local acquisition ordinal so buying the
 /// same tier in the same settlement twice never overwrites history.
+/// Lifecycle owners update the current legal status together with transition
+/// history. Historical eligibility folds transitions at the observer minute;
+/// billing deadlines checkpoint processed charges, rather than elapsed time.
 #[derive(Clone, Debug)]
 #[table(accessor = residence_holding)]
 pub struct ResidenceHolding {
@@ -970,14 +973,7 @@ fn supported_occupant_counts_at(
         if !admitted {
             continue;
         }
-        let effective_age = crate::relationship::effective_age_years(ctx, character_id, due_minute)
-            .or_else(|| {
-                ctx.db
-                    .character()
-                    .id()
-                    .find(character_id)
-                    .map(|character| character.age_years)
-            });
+        let effective_age = crate::relationship::effective_age_years(ctx, character_id, due_minute);
         let underage =
             effective_age.is_some_and(|age| age < adventuresim_core::courtship::ADULT_AGE_YEARS);
         if underage {

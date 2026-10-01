@@ -2,17 +2,19 @@ mod occupancy;
 mod origin;
 include!("character/name_types.rs");
 include!("character/name_identity.rs");
+include!("character/name_reducers.rs");
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
+mod tactical_assignment;
 use adventuresim_world_schema::calendar::StrategicMinute;
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
 
 use adventuresim_core::{
     attribute::PlayerAttributeValues,
+    equipment::LoadoutSlot,
     item_catalog::{EquipmentChannel, ParentRequirement},
     organization::OrganizationMembershipStatus,
-    starting_character::{
-        StartingAgeTier, StartingCharacterSpec, StartingInclination, StartingPersonalityTrait,
-        StartingPresentation, StartingSlot,
-    },
+    starting_character::{StartingAgeTier, StartingCharacterSpec, StartingPersonalityTrait},
 };
 use fabelgeist_determinism::StreamId;
 use spacetimedb::{
@@ -64,17 +66,25 @@ pub struct Character {
     #[primary_key]
     pub id: u64,
     /// Private full-table scan seam used only by trusted projections.
+    /// Creation derives this index adapter from `id`; deletion removes both.
     #[index(btree)]
     pub scan_id: u64,
+    /// Persisted native-everyday projection; only the semantic name authority
+    /// initializes or refreshes durable names (see `assign_character_name_identity`).
     pub name: String,
+    /// Progression owns XP; award paths refresh the derived level with it.
     pub xp: u32,
     pub level: u32,
     pub current_settlement_id: Option<String>,
+    /// Membership mutations refresh this traversal pointer from party rows.
     pub party_id: Option<String>,
+    /// Sole tactical assignment authority; zero means unassigned. Enrollment
+    /// protects active servers, and leave/teardown clears this field.
     #[index(btree)]
     pub server: Identity,
-    pub in_server: bool,
     pub temporary: bool,
+    /// Bounded chronology projection initialized with birth facts and refreshed
+    /// by personal-clock lifecycle settlement. Resident age bands derive from it.
     #[default(25)]
     pub age_years: u16,
     /// Strategic life state. Death transitions are intentionally deferred to the
@@ -244,10 +254,6 @@ pub struct StartingCharacterClaim {
     pub character_id: u64,
     #[index(btree)]
     pub owner_key: String,
-    pub generator_version: u16,
-    pub seed: String,
-    pub age_tier: StartingAgeTier,
-    pub slot: u8,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -1249,10 +1255,11 @@ pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
     assign_generated_historical_name_for_age(
         ctx,
         CharacterId::new(id),
-        NameSeed::new(id),
+        NameStableSeed::new(id),
         StrategicMinute::new(0),
         None,
-    )?;
+    )
+    .map_err(|error| error.to_string())?;
     Ok(())
 }
 
@@ -1316,7 +1323,7 @@ pub fn create_starting_character(
         if claim.owner_key != owner_key {
             return Err("candidate was already claimed by a different browser owner".into());
         }
-        if existing.id == spec.id && existing.name == spec.name {
+        if existing.id == spec.id {
             crate::browser_session::grant_browser_character_internal(
                 ctx,
                 &owner_key,
@@ -1337,10 +1344,6 @@ pub fn create_starting_character(
             request_key: request_key.clone(),
             character_id: spec.id,
             owner_key: owner_key.clone(),
-            generator_version,
-            seed,
-            age_tier,
-            slot,
         });
     crate::browser_session::grant_browser_character_internal(
         ctx,
@@ -1375,7 +1378,7 @@ pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Resu
         if claim.owner_key != owner_key {
             return Err("default character belongs to a different browser owner".into());
         }
-        if existing.id == spec.id && existing.name == spec.name {
+        if existing.id == spec.id {
             crate::browser_session::grant_browser_character_internal(
                 ctx,
                 &owner_key,
@@ -1396,10 +1399,6 @@ pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Resu
             request_key: request_key.clone(),
             character_id: spec.id,
             owner_key: owner_key.clone(),
-            generator_version: version,
-            seed: owner_key.clone(),
-            age_tier: StartingAgeTier::Adult,
-            slot: 0,
         });
     crate::browser_session::grant_browser_character_internal(
         ctx,
@@ -2075,7 +2074,9 @@ pub(crate) fn insert_starting_character(
 ) -> Result<(), String> {
     insert_character_with_origin(
         ctx,
-        spec.name.clone(),
+        spec.native_everyday_name()
+            .map_err(|error| error.to_string())?
+            .into_string(),
         spec.id,
         CharacterCreationOptions {
             origin_settlement_id: None,
@@ -2200,7 +2201,6 @@ pub(crate) fn insert_character_with_origin(
         current_settlement_id: (!options.field_actor).then(|| start_settlement.id.clone()),
         party_id: None,
         server: Identity::ZERO,
-        in_server: false,
         temporary,
         age_years: starting.map_or_else(
             || npc_life.map_or(25, |facts| facts.age_years),
@@ -2522,17 +2522,8 @@ pub(crate) fn insert_character_with_origin(
             }
         }
         personality.sex = starting.personality.sex;
-        personality.presentation = match starting.personality.presentation {
-            StartingPresentation::Man => crate::personality::Presentation::Man,
-            StartingPresentation::Ambiguous => crate::personality::Presentation::Ambiguous,
-            StartingPresentation::Woman => crate::personality::Presentation::Woman,
-        };
-        personality.inclination = match starting.personality.inclination {
-            StartingInclination::Men => crate::personality::Inclination::Men,
-            StartingInclination::Either => crate::personality::Inclination::Either,
-            StartingInclination::Women => crate::personality::Inclination::Women,
-            StartingInclination::Neither => crate::personality::Inclination::Neither,
-        };
+        personality.presentation = starting.personality.presentation;
+        personality.inclination = starting.personality.inclination;
         // Starting-character preview traits become score endpoints; the
         // gateway row is only their derived visible projection.
         crate::personality::initialize_personality_from_visible(ctx, personality);
@@ -2547,7 +2538,8 @@ pub(crate) fn insert_character_with_origin(
     }
 
     if !temporary {
-        assign_character_name_identity(ctx, CharacterId::new(character.id), initial_name_identity)?;
+        assign_character_name_identity(ctx, CharacterId::new(character.id), initial_name_identity)
+            .map_err(|error| error.to_string())?;
     }
 
     // Newborns receive the full durable character component surface, but no
@@ -2576,12 +2568,12 @@ pub(crate) fn insert_character_with_origin(
         add_inventory_item(ctx, character.id, "bandage", 3);
         add_and_equip_basic_clothing(ctx, character.id)?;
         for (item, slot) in [
-            ("buckler", StartingSlot::LeftHand),
-            ("katzbalger", StartingSlot::RightHand),
-            ("arming_cap", StartingSlot::Head),
-            ("arming_doublet", StartingSlot::Chest),
-            ("padded_chausses", StartingSlot::LeftLeg),
-            ("padded_chausses", StartingSlot::RightLeg),
+            ("buckler", LoadoutSlot::LeftHand),
+            ("katzbalger", LoadoutSlot::RightHand),
+            ("arming_cap", LoadoutSlot::Head),
+            ("arming_doublet", LoadoutSlot::Chest),
+            ("padded_chausses", LoadoutSlot::LeftLeg),
+            ("padded_chausses", LoadoutSlot::RightLeg),
         ] {
             add_and_equip_starting_item(ctx, character.id, item, slot)?;
         }
@@ -2926,7 +2918,7 @@ fn equip_equipment_internal(
                 definition.equipment_placements.len()
             )
         })?;
-    if definition.kind == crate::item::PersistedItemKind::Weapon {
+    if definition.kind == crate::item::CatalogItemKind::Weapon {
         match adventuresim_core::item_catalog::weapon_carry(&inventory.item_id) {
             Some(adventuresim_core::item_catalog::WeaponCarry::HandOnly)
                 if !hand_only_placement_is_held_root(placement) =>
@@ -3339,23 +3331,11 @@ fn select_sheath_compatible_parent_placement(
 fn starting_item_placement_index(
     ctx: &ReducerContext,
     item_id: &str,
-    slot: StartingSlot,
+    slot: LoadoutSlot,
 ) -> Result<u16, String> {
     use adventuresim_core::item_catalog::EquipmentLocation;
 
-    let location = match slot {
-        StartingSlot::LeftHand => EquipmentLocation::LeftHand,
-        StartingSlot::RightHand => EquipmentLocation::RightHand,
-        StartingSlot::LeftArm => EquipmentLocation::LeftArm,
-        StartingSlot::RightArm => EquipmentLocation::RightArm,
-        StartingSlot::LeftLeg => EquipmentLocation::LeftLeg,
-        StartingSlot::RightLeg => EquipmentLocation::RightLeg,
-        StartingSlot::LeftFoot => EquipmentLocation::LeftFoot,
-        StartingSlot::RightFoot => EquipmentLocation::RightFoot,
-        StartingSlot::Head => EquipmentLocation::Head,
-        StartingSlot::Chest => EquipmentLocation::Chest,
-        StartingSlot::Stomach => EquipmentLocation::Stomach,
-    };
+    let location = EquipmentLocation::from(slot);
     let definition = ctx
         .db
         .item()
@@ -3369,7 +3349,7 @@ fn starting_item_placement_index(
             placement.parents.is_empty()
                 && placement.occupancy.iter().any(|requirement| {
                     requirement.location == location
-                        && (!matches!(slot, StartingSlot::LeftHand | StartingSlot::RightHand)
+                        && (!matches!(slot, LoadoutSlot::LeftHand | LoadoutSlot::RightHand)
                             || requirement.channel == EquipmentChannel::Held)
                 })
         })
@@ -3381,7 +3361,7 @@ fn add_and_equip_starting_item(
     ctx: &ReducerContext,
     character_id: u64,
     item_id: &str,
-    slot: StartingSlot,
+    slot: LoadoutSlot,
 ) -> Result<(), String> {
     let id = add_inventory_item(ctx, character_id, item_id, 1)
         .ok_or_else(|| "Can't add item to inventory".to_string())?;
@@ -3405,10 +3385,10 @@ pub(crate) fn add_and_equip_basic_clothing(
     character_id: u64,
 ) -> Result<(), String> {
     for (item, slot) in [
-        ("linen_tunic", StartingSlot::Chest),
-        ("linen_breeches", StartingSlot::LeftLeg),
-        ("leather_boot", StartingSlot::LeftFoot),
-        ("leather_boot", StartingSlot::RightFoot),
+        ("linen_tunic", LoadoutSlot::Chest),
+        ("linen_breeches", LoadoutSlot::LeftLeg),
+        ("leather_boot", LoadoutSlot::LeftFoot),
+        ("leather_boot", LoadoutSlot::RightFoot),
     ] {
         add_and_equip_starting_item(ctx, character_id, item, slot)?;
     }
@@ -3422,7 +3402,7 @@ pub(crate) fn add_and_equip_basic_clothing(
 pub(crate) fn replace_development_loadout(
     ctx: &ReducerContext,
     character_id: u64,
-    loadout: &[(&str, StartingSlot)],
+    loadout: &[(&str, LoadoutSlot)],
 ) -> Result<(), String> {
     for inventory_item_id in equipped_wearable_ids(ctx, character_id) {
         unequip_wearable(ctx, inventory_item_id);
@@ -3653,14 +3633,7 @@ mod starting_character_boundary_tests {
             .unwrap();
         assert!(generic.contains("assign_generated_historical_name"));
 
-        let governance = crate::production_source(include_str!("strategic/governance.rs"));
-        let rename = governance
-            .split("pub fn update_character")
-            .nth(1)
-            .unwrap()
-            .split("pub(crate) fn create_solo_party_for_character")
-            .next()
-            .unwrap();
+        let rename = crate::production_source(include_str!("character/name_reducers.rs"));
         assert!(rename.contains("assign_authored_character_name"));
     }
 

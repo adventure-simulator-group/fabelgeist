@@ -288,13 +288,7 @@ pub(crate) fn build_strategic_encounter(
     let choices =
         adventuresim_core::encounter::available_choices(awareness, archetype, party_speed)
             .into_iter()
-            .map(|choice| match choice {
-                adventuresim_core::encounter::EncounterChoice::Sneak => "sneak",
-                adventuresim_core::encounter::EncounterChoice::Detour => "detour",
-                adventuresim_core::encounter::EncounterChoice::Attack => "attack",
-                adventuresim_core::encounter::EncounterChoice::Run => "run",
-                adventuresim_core::encounter::EncounterChoice::Surrender => "surrender",
-            })
+            .map(|choice| choice.stable_id())
             .map(str::to_string)
             .collect::<Vec<_>>();
     let archetype_name = match archetype {
@@ -708,13 +702,7 @@ fn commit_encounter_scan(
         encounter.party_speed_m_per_minute,
     )
     .into_iter()
-    .map(|choice| match choice {
-        adventuresim_core::encounter::EncounterChoice::Sneak => "sneak",
-        adventuresim_core::encounter::EncounterChoice::Detour => "detour",
-        adventuresim_core::encounter::EncounterChoice::Attack => "attack",
-        adventuresim_core::encounter::EncounterChoice::Run => "run",
-        adventuresim_core::encounter::EncounterChoice::Surrender => "surrender",
-    })
+    .map(|choice| choice.stable_id())
     .map(str::to_string)
     .collect();
     encounter.run_ineligibility = (!run_eligible).then(|| {
@@ -758,37 +746,6 @@ fn commit_encounter_scan(
         ctx.db.strategic_encounter().insert(encounter);
     }
     Ok(())
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum ParsedEncounterChoice {
-    Sneak,
-    Detour,
-    Attack,
-    Run,
-    Surrender,
-}
-
-impl ParsedEncounterChoice {
-    fn parse(value: &str) -> Result<Self, String> {
-        match value {
-            "sneak" => Ok(Self::Sneak),
-            "detour" => Ok(Self::Detour),
-            "attack" => Ok(Self::Attack),
-            "run" => Ok(Self::Run),
-            "surrender" => Ok(Self::Surrender),
-            _ => Err("Unknown encounter choice".into()),
-        }
-    }
-    const fn label(self) -> &'static str {
-        match self {
-            Self::Sneak => "sneak",
-            Self::Detour => "detour",
-            Self::Attack => "attack",
-            Self::Run => "run",
-            Self::Surrender => "surrender",
-        }
-    }
 }
 
 fn encounter_loss_preview(ctx: &ReducerContext, party_id: &str) -> Vec<StrategicEncounterLoss> {
@@ -962,17 +919,14 @@ fn encounter_core_terrain(value: &str) -> adventuresim_core::encounter::Encounte
 fn advance_encounter_penalty(
     ctx: &ReducerContext,
     encounter: &mut StrategicEncounter,
-    choice: ParsedEncounterChoice,
+    choice: EncounterChoice,
 ) -> Result<(), String> {
-    use adventuresim_core::encounter::EncounterChoice;
-    let core_choice = match choice {
-        ParsedEncounterChoice::Detour => EncounterChoice::Detour,
-        ParsedEncounterChoice::Run => EncounterChoice::Run,
-        _ => return Ok(()),
-    };
+    if !matches!(choice, EncounterChoice::Detour | EncounterChoice::Run) {
+        return Ok(());
+    }
     let minutes = adventuresim_core::encounter::penalty_minutes(
         encounter_core_terrain(&encounter.terrain),
-        core_choice,
+        choice,
     );
     advance_party_journey_delay(ctx, &encounter.party_id, minutes)?;
     encounter.penalty_minutes = minutes;
@@ -1035,21 +989,13 @@ fn commit_autoresolve_outcome(
                 BodyPart::Stomach => adventuresim_core::physiology::BodyRegion::Abdomen,
                 BodyPart::Head => adventuresim_core::physiology::BodyRegion::Head,
             };
-            let projectile = exchange.projectile_kind.map(|kind| match kind {
-                adventuresim_core::autoresolve::CombatProjectileKind::Arrowhead => {
-                    crate::surgery::ProjectileKind::Arrowhead
-                }
-                adventuresim_core::autoresolve::CombatProjectileKind::Ball => {
-                    crate::surgery::ProjectileKind::Ball
-                }
-            });
             crate::surgery::commit_hit_injury(
                 ctx,
                 member.id,
                 limb,
                 exchange.cut_damage,
                 exchange.blunt_damage,
-                projectile,
+                exchange.projectile_kind,
             )?;
         }
         crate::condition::apply_blood_loss(ctx, member.id, member.blood_loss_fraction)?;
@@ -1213,8 +1159,8 @@ pub fn resolve_strategic_encounter(
                 .into(),
         );
     }
-    let parsed = ParsedEncounterChoice::parse(&choice)?;
-    if delegated_recovery && parsed == ParsedEncounterChoice::Attack {
+    let parsed = EncounterChoice::from_str(&choice).map_err(|error| error.to_string())?;
+    if delegated_recovery && parsed == EncounterChoice::Attack {
         return Err(
             "A delegated evacuation actor may choose only a protective encounter response".into(),
         );
@@ -1236,13 +1182,13 @@ pub fn resolve_strategic_encounter(
     if !encounter
         .available_choices
         .iter()
-        .any(|available| available == parsed.label())
+        .any(|available| available == parsed.stable_id())
     {
         return Err("That choice is not available for this encounter".into());
     }
-    encounter.selected_choice = Some(parsed.label().into());
+    encounter.selected_choice = Some(parsed.stable_id().into());
     match parsed {
-        ParsedEncounterChoice::Sneak => {
+        EncounterChoice::Sneak => {
             let enemy_stealth =
                 u16::from(parse_threat(&encounter.archetype)?.profile().combat.stealth);
             if adventuresim_core::encounter::sneak_succeeds(
@@ -1261,8 +1207,8 @@ pub fn resolve_strategic_encounter(
                 )?);
             }
         }
-        ParsedEncounterChoice::Detour | ParsedEncounterChoice::Run => {
-            if parsed == ParsedEncounterChoice::Run
+        EncounterChoice::Detour | EncounterChoice::Run => {
+            if parsed == EncounterChoice::Run
                 && encounter.party_speed_m_per_minute <= encounter.enemy_speed_m_per_minute
             {
                 return Err("The party is not fast enough to run".into());
@@ -1270,7 +1216,7 @@ pub fn resolve_strategic_encounter(
             advance_encounter_penalty(ctx, &mut encounter, parsed)?;
             encounter.outcome = Some("avoided".into());
         }
-        ParsedEncounterChoice::Attack => {
+        EncounterChoice::Attack => {
             let opening = match (encounter.party_aware, encounter.enemy_aware) {
                 (true, false) => BattleOpening::AlliesSurprise,
                 (false, true) => BattleOpening::EnemiesSurprise,
@@ -1280,7 +1226,7 @@ pub fn resolve_strategic_encounter(
                 ctx, &encounter, seed, opening,
             )?);
         }
-        ParsedEncounterChoice::Surrender => {
+        EncounterChoice::Surrender => {
             let current = encounter_loss_preview(ctx, &party_id);
             if current != encounter.loss_preview {
                 encounter.selected_choice = None;

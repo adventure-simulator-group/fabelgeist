@@ -50,12 +50,6 @@ pub struct CombatWeapon {
     pub ranged_force_joules: f32,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize)]
-pub enum CombatProjectileKind {
-    Arrowhead,
-    Ball,
-}
-
 #[derive(Clone, Debug)]
 pub struct CombatEquipment {
     pub weapon: Option<CombatWeapon>,
@@ -63,7 +57,7 @@ pub struct CombatEquipment {
     pub ranged_weapon: Option<CombatWeapon>,
     pub melee_weapon_id: Option<u64>,
     pub ranged_weapon_id: Option<u64>,
-    pub ranged_projectile_kind: Option<CombatProjectileKind>,
+    pub ranged_projectile_kind: Option<ProjectileKind>,
     pub defense_item_id: Option<u64>,
     pub ammunition: u32,
     pub holding_side: BodySide,

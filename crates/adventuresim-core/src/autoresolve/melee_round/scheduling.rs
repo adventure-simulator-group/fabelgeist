@@ -63,7 +63,7 @@ fn schedule_attacker(
 ) -> Option<ScheduledMeleeAttack> {
     if attackers[index].is_defeated()
         || side_defeated(defenders)
-        || preferred_attack_mode(&attackers[index]) != AttackMode::Melee
+        || preferred_attack_mode(&attackers[index]) != BattleAttackKind::Melee
     {
         return None;
     }

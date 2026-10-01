@@ -435,7 +435,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
         case_id: manifest.public_case_id.clone(),
         provenance_kind: InvestigationProvenanceKind::Generated,
         generated_case_id: manifest.canonical_case_id.clone(),
-        method: action_method(generated.kind).into(),
+        method: generated.kind.stable_id().into(),
         version: 0,
         target_kind: generated.target_kind,
         target_id: generated.target_id.clone(),

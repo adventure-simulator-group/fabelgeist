@@ -26,6 +26,7 @@ const SYNOPTIC_TIME_INTERVALS: i64 = 4;
 
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
 pub enum Precipitation {
     #[default]
     Clear,
@@ -96,6 +97,9 @@ impl Default for AtmosphericSnapshot {
     }
 }
 
+/// Captured calculation for one version, interval, and position cell. Journeys
+/// and incidents can retain this result; current queries sample the weather
+/// owner again, and route caches include its weather and interval inputs.
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub struct WeatherSnapshot {
     pub rules_version: u16,

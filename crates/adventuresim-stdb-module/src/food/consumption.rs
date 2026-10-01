@@ -59,7 +59,7 @@ pub(crate) fn expose_food_water_dysentery(
         &episodes,
         DiseaseId::Dysentery,
         minute,
-        immunity,
+        immunity
     );
     let seed = disease::outbreak_exposure_seed(character_id, exposure_id);
     let protected_dose = crate::disease::protected_point_exposure(
@@ -361,7 +361,7 @@ pub fn eat_food(
         .id()
         .find(character_id)
         .ok_or("Character not found")?;
-    if actor.in_server {
+    if actor.has_tactical_server_assignment() {
         return Err("Eating is unavailable during a tactical encounter".into());
     }
     consume_food_amount(ctx, character_id, inventory_item_id, f32::MAX, true)?;

@@ -138,7 +138,7 @@ fn fireplace_container_retrieval_rejects_tactical_actors() {
         .nth(1)
         .and_then(|tail| tail.split("fn preparation_skill_check").next())
         .expect("container retrieval reducer");
-    assert!(retrieval.contains("if actor.in_server"));
+    assert!(retrieval.contains("if actor.has_tactical_server_assignment()"));
     assert!(retrieval.contains("Cooking is unavailable during a tactical encounter"));
 }
 

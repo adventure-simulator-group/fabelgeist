@@ -881,7 +881,7 @@ pub(crate) fn require_no_unresolved_encounter(
             .party_id()
             .filter(&party_id.to_string())
             .any(|occurrence| {
-                occurrence.open && party_at_bound_road_challenge(ctx, party, &occurrence)
+                occurrence.is_open() && party_at_bound_road_challenge(ctx, party, &occurrence)
             })
     });
     if unresolved_encounter(ctx, party_id).is_some() || narrative_pending {

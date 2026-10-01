@@ -20,7 +20,6 @@ pub struct TreatmentActionReceipt {
     pub use_soap: bool,
     pub context_ref: Option<String>,
     pub expected_membership_revision: Option<u32>,
-    pub completed: bool,
 }
 
 impl __sdk::InModule for TreatmentActionReceipt {
@@ -42,7 +41,6 @@ pub struct TreatmentActionReceiptCols {
     pub context_ref: __sdk::__query_builder::Col<TreatmentActionReceipt, Option<String>>,
     pub expected_membership_revision:
         __sdk::__query_builder::Col<TreatmentActionReceipt, Option<u32>>,
-    pub completed: __sdk::__query_builder::Col<TreatmentActionReceipt, bool>,
 }
 
 impl __sdk::__query_builder::HasCols for TreatmentActionReceipt {
@@ -62,7 +60,6 @@ impl __sdk::__query_builder::HasCols for TreatmentActionReceipt {
                 table_name,
                 "expected_membership_revision",
             ),
-            completed: __sdk::__query_builder::Col::new(table_name, "completed"),
         }
     }
 }

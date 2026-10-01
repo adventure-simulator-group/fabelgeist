@@ -646,8 +646,9 @@ mod tests {
     #[test]
     fn canonical_longsword_glances_off_munition_plate() {
         let player = crate::starting_character::default_character("combat-matchups");
+        let player_name = player.native_everyday_name().unwrap();
         let player_body = MatchupCombatant {
-            name: &player.name,
+            name: player_name.as_str(),
             weight_kg: 70.0,
             will_check: player.skills.will,
         };
@@ -719,12 +720,13 @@ mod tests {
         }
 
         let player = crate::starting_character::default_character("combat-matchups");
+        let player_name = player.native_everyday_name().unwrap();
         assert_eq!(
-            player.name,
+            player.native_everyday_name().unwrap().into_string(),
             crate::starting_character::default_character_name()
         );
         let player_body = MatchupCombatant {
-            name: &player.name,
+            name: player_name.as_str(),
             weight_kg: 70.0,
             will_check: player.skills.will,
         };

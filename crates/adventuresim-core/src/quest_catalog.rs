@@ -660,6 +660,13 @@ impl Catalog {
     pub fn description(&self, id: &str) -> Option<&DescriptionDefinition> {
         self.descriptions.get(id)
     }
+    /// Complete authored report population in document order. Consumers derive
+    /// views from this owner; named report IDs do not define a second roster.
+    pub fn descriptions(&self) -> impl Iterator<Item = &DescriptionDefinition> {
+        self.documents
+            .iter()
+            .flat_map(|document| &document.descriptions)
+    }
     pub fn template(&self, id: &str) -> Option<&TemplateDefinition> {
         self.templates.get(id)
     }
@@ -855,6 +862,76 @@ pub fn catalog() -> &'static Catalog {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn added_threats_reach_gameplay_loot_reference_validation() {
+        let mut documents = catalog().documents.clone();
+        let mut added = catalog().monster("bandit").unwrap().clone();
+        added.id = "authority_added_threat".into();
+        added.combat.loot_item_id = Some("authority_missing_loot".into());
+        for relation in documents
+            .iter_mut()
+            .flat_map(|document| &mut document.relations)
+        {
+            if let Some(mut candidate) = relation
+                .candidates
+                .iter()
+                .find(|candidate| candidate.id == "bandit")
+                .cloned()
+            {
+                candidate.id = added.id.clone();
+                relation.candidates.push(candidate);
+            }
+        }
+        documents[0].monsters.push(added);
+        let expanded = Catalog::compile(documents).unwrap();
+        assert!(
+            expanded
+                .monsters()
+                .any(|monster| monster.id == "authority_added_threat")
+        );
+        let error = crate::item_references::validate_gameplay_references(&expanded).unwrap_err();
+        assert_eq!(error.ids, ["authority_missing_loot"]);
+        let mut documents = expanded.documents;
+        documents[0]
+            .monsters
+            .last_mut()
+            .unwrap()
+            .combat
+            .loot_item_id = Some("knife".into());
+        let repaired = Catalog::compile(documents).unwrap();
+        assert!(crate::item_references::validate_gameplay_references(&repaired).is_ok());
+    }
+
+    #[test]
+    fn added_authored_reports_reach_bestiary_quality_validation() {
+        use crate::bestiary::{ReportDescription, validate_report_descriptions};
+        let mut documents = catalog().documents.clone();
+        documents[0].descriptions.push(DescriptionDefinition {
+            id: "authority_unsupported_report".into(),
+            text: "an indistinct shape".into(),
+        });
+        // An unreferenced description is structurally valid catalog content.
+        // Bestiary quality admission must still check its cause support.
+        let expanded = Catalog::compile(documents).unwrap();
+        let reports = expanded
+            .descriptions()
+            .map(|description| ReportDescription::try_new(&description.id).unwrap());
+        let diagnostics = validate_report_descriptions(reports);
+        assert_eq!(diagnostics.len(), 1, "{diagnostics:?}");
+        assert_eq!(
+            diagnostics[0].message,
+            "description authority_unsupported_report is not ambiguous"
+        );
+        assert!(
+            validate_report_descriptions(
+                catalog()
+                    .descriptions()
+                    .map(|description| ReportDescription::try_new(&description.id).unwrap())
+            )
+            .is_empty()
+        );
+    }
 
     #[test]
     fn embedded_catalog_compiles_and_is_sorted_by_lookup_key() {

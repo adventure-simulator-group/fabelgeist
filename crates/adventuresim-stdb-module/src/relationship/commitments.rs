@@ -44,7 +44,7 @@ fn transition_commitment_terminal(
     reason: CommitmentTerminalReason,
     minute: StrategicMinute,
 ) -> Result<ExclusiveCommitment, String> {
-    commitment.parsed_state()?;
+    commitment.parsed_state().map_err(|error| error.to_string())?;
     if commitment.status != CommitmentStatus::Reserved {
         return Ok(commitment);
     }
@@ -149,7 +149,7 @@ pub(crate) fn settle_relationship_lifecycle_for_death(
         .collect::<Vec<_>>();
     courtships.sort_by(|left, right| left.id.cmp(&right.id));
     for mut courtship in courtships {
-        courtship.parsed_state()?;
+        courtship.parsed_state().map_err(|error| error.to_string())?;
         courtship.status = CourtshipStatus::Ended;
         courtship.resolved_minute = Some(death_minute);
         courtship.terminal_reason = Some(CourtshipTerminalReason::PartnerUnavailable);
@@ -167,7 +167,7 @@ pub(crate) fn settle_relationship_lifecycle_for_death(
         (left.conceived_minute, left.id.as_str()).cmp(&(right.conceived_minute, right.id.as_str()))
     });
     for mut pregnancy in pregnancies {
-        pregnancy.parsed_state()?;
+        pregnancy.parsed_state().map_err(|error| error.to_string())?;
         pregnancy.status = PregnancyStatus::Ended;
         pregnancy.resolved_minute = Some(death_minute);
         ctx.db.pregnancy().id().update(pregnancy.clone());

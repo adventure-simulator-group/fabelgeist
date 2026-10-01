@@ -4,6 +4,8 @@
 //! retries cannot change which journey/seed encounters a party. Mount support
 //! is intentionally represented as a speed input; absent mounts are neutral.
 
+mod choice;
+pub use choice::{EncounterChoice, EncounterChoiceParseError};
 mod receipt;
 use crate::bestiary::{ActivityTime, Habitat, ThreatId, select_habitat_relation};
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
@@ -81,15 +83,6 @@ pub enum Awareness {
     PartyOnly,
     EnemyOnly,
     Both,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum EncounterChoice {
-    Sneak,
-    Detour,
-    Attack,
-    Run,
-    Surrender,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

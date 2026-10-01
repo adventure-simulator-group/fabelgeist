@@ -866,13 +866,13 @@ fn spawn_connected_player(
                 .collect(),
         });
         match item.item.kind {
-            PersistedItemKind::Simple
-            | PersistedItemKind::Container
-            | PersistedItemKind::Currency
-            | PersistedItemKind::Ingredient
-            | PersistedItemKind::Medication
-            | PersistedItemKind::Food => {}
-            PersistedItemKind::Weapon => {
+            CatalogItemKind::Simple
+            | CatalogItemKind::Container
+            | CatalogItemKind::Currency
+            | CatalogItemKind::Ingredient
+            | CatalogItemKind::Medication
+            | CatalogItemKind::Food => {}
+            CatalogItemKind::Weapon => {
                 let equipment = adventuresim_core::item_catalog::definition(&item.item.id)
                     .and_then(|definition| definition.equipment.as_ref())
                     .expect("validated tactical weapon has equipment metadata");
@@ -911,8 +911,8 @@ fn spawn_connected_player(
                     ranged: item.item.ranged,
                 });
             }
-            PersistedItemKind::Armor | PersistedItemKind::Clothing => {}
-            PersistedItemKind::Shield => {
+            CatalogItemKind::Armor | CatalogItemKind::Clothing => {}
+            CatalogItemKind::Shield => {
                 item_cmd.insert(ShieldItem {
                     block: item.item.block,
                 });

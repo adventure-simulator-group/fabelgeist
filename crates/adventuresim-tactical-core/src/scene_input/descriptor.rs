@@ -75,4 +75,24 @@ mod tests {
 
         assert!(input.validate().is_err());
     }
+
+    #[test]
+    fn recaptured_operator_names_require_fresh_branding() {
+        use adventuresim_building_generator::signs::ShopName;
+        use adventuresim_world_schema::person_names::RenderedPersonalName;
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../assets/tactical-scenes/massive-city.json");
+        let original = TacticalSceneInput::load(&path).unwrap();
+        let mut next = original.clone();
+        let establishment = next.establishments.first_mut().unwrap();
+        establishment.operator_name = RenderedPersonalName::new("New Operator").unwrap();
+        assert!(next.validate().is_err());
+        let establishment = next.establishments.first_mut().unwrap();
+        establishment.shop_name = ShopName::for_operator(
+            &establishment.operator_name,
+            establishment.business_id.key.usage,
+        );
+        assert!(next.validate().is_ok());
+        assert!(original.validate().is_ok());
+    }
 }

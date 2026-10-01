@@ -243,7 +243,8 @@ fn assign_household_surnames(
                 .into(),
             birth_year,
             None,
-        )?;
+        )
+        .map_err(|error| error.to_string())?;
         let surname = identity
             .surname_id
             .ok_or("Generated household identity has no hereditary surname")?;

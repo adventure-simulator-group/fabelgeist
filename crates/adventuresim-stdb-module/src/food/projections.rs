@@ -299,7 +299,7 @@ pub fn backend_ingredient_preparation_plans(
         .filter(0u64..)
         .filter(|actor| {
             actor.alive
-                && !actor.in_server
+                && !actor.has_tactical_server_assignment()
                 && actor.current_settlement_id.is_some()
                 && !actor.party_id.as_deref().is_some_and(|party_id| {
                     ctx.db
@@ -320,7 +320,7 @@ pub fn backend_ingredient_preparation_plans(
                                     .party_id()
                                     .filter(&party_id.to_string())
                                     .any(|challenge| {
-                                        challenge.open
+                                        challenge.is_open()
                                             && crate::strategic::party_at_bound_road_challenge_view(
                                                 ctx, &party, &challenge,
                                             )
@@ -395,7 +395,7 @@ pub fn backend_ingredient_preparation_plans(
                         (
                             IngredientPreparationAction::Cut,
                             Skill::Knife,
-                            herbalism::PhysicalPreparation::Cut,
+                            IngredientPreparationAction::Cut,
                             "Cut",
                             tool_binding,
                         )
@@ -403,7 +403,7 @@ pub fn backend_ingredient_preparation_plans(
                     Some((
                         IngredientPreparationAction::Grind,
                         Skill::Bludgeon,
-                        herbalism::PhysicalPreparation::Ground,
+                        IngredientPreparationAction::Grind,
                         "Ground",
                         grinding_tool.clone(),
                     )),
@@ -413,7 +413,7 @@ pub fn backend_ingredient_preparation_plans(
                     Some((
                         IngredientPreparationAction::Grind,
                         Skill::Bludgeon,
-                        herbalism::PhysicalPreparation::Ground,
+                        IngredientPreparationAction::Grind,
                         "Ground",
                         grinding_tool.clone(),
                     )),

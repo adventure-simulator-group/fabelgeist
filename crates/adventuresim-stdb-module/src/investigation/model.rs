@@ -874,6 +874,8 @@ pub struct InvestigationLead {
 #[table(accessor = case_site_authority)]
 pub struct CaseSiteAuthority {
     #[primary_key]
+    /// Primitive index adapter, derived from `id` by site materialization.
+    /// Claims validate equality before consuming the site.
     pub id_key: String,
     pub id: CaseSiteId,
     #[index(btree)]
@@ -923,10 +925,12 @@ pub struct InvestigationActionCapability {
     /// manual semantics when their generation authority is damaged or absent.
     pub provenance_kind: InvestigationProvenanceKind,
     pub generated_case_id: String,
+    /// Canonical action key captured by issuance and parsed at admission.
     pub method: String,
     pub version: u32,
     pub target_kind: action::InvestigationTargetKind,
     pub target_id: String,
+    /// Captured environment key; generated bindings pin it to the manifest.
     pub target_terrain: String,
     pub seed: u64,
     pub evidence_age_origin_minute: StrategicMinute,
@@ -978,6 +982,7 @@ pub struct InvestigationActionAttempt {
     pub capability_id: String,
     pub owner_character_id: u64,
     pub expected_version: u32,
+    /// Immutable admitted request key retained for exact attempt retries.
     pub method: String,
     pub started_at: StrategicMinute,
     pub completed_at: StrategicMinute,
@@ -1113,7 +1118,7 @@ pub(crate) fn set_character_case_site(
             .character_context_membership()
             .location_id()
             .filter(&previous_site.to_owned())
-            .filter(|membership| membership.active)
+            .filter(|membership| membership.is_open())
         {
             crate::social::close_physiology_presence_between(
                 ctx,

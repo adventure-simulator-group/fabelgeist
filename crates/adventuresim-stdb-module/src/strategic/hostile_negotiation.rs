@@ -36,7 +36,7 @@ pub struct BackendHostileNegotiation {
     pub spokesman_id: u64,
     pub context_ref: String,
     pub expected_revision: u32,
-    pub decision: crate::world_actor::BackendContextualDecision,
+    pub decision: crate::world_actor::InteractionPresentationDecision,
     pub latest_response: Option<String>,
 }
 
@@ -397,7 +397,7 @@ pub fn backend_hostile_negotiations(ctx: &ViewContext) -> Vec<BackendHostileNego
             spokesman_id: spokesman.character_id,
             context_ref: HOSTILE_NEGOTIATION_CONTEXT_REF.into(),
             expected_revision: spokesman.revision,
-            decision: crate::world_actor::BackendContextualDecision::Request,
+            decision: crate::world_actor::InteractionPresentationDecision::Request,
             latest_response,
         });
     }

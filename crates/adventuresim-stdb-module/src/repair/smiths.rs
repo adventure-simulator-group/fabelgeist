@@ -39,13 +39,13 @@ pub(crate) fn ensure_settlement_smith(
 pub(super) fn service_skill(
     ctx: &ReducerContext,
     settlement_id: &str,
-    kind: PersistedItemKind,
+    kind: CatalogItemKind,
 ) -> Result<u8, String> {
     use adventuresim_world_schema::SettlementService as S;
     let specialist = match kind {
-        PersistedItemKind::Weapon | PersistedItemKind::Shield => S::Weaponsmith,
-        PersistedItemKind::Armor => S::Armorer,
-        PersistedItemKind::Clothing => S::Tailor,
+        CatalogItemKind::Weapon | CatalogItemKind::Shield => S::Weaponsmith,
+        CatalogItemKind::Armor => S::Armorer,
+        CatalogItemKind::Clothing => S::Tailor,
         _ => return Err("This service does not repair that item kind".into()),
     };
     if crate::strategic::require_settlement_service(ctx, settlement_id, specialist).is_err() {
@@ -53,9 +53,9 @@ pub(super) fn service_skill(
     }
     let service = ensure_settlement_smith(ctx, settlement_id);
     match kind {
-        PersistedItemKind::Weapon | PersistedItemKind::Shield => Ok(service.weaponsmith_skill),
-        PersistedItemKind::Armor => Ok(service.armourer_skill),
-        PersistedItemKind::Clothing => Ok(service.tailor_skill),
+        CatalogItemKind::Weapon | CatalogItemKind::Shield => Ok(service.weaponsmith_skill),
+        CatalogItemKind::Armor => Ok(service.armourer_skill),
+        CatalogItemKind::Clothing => Ok(service.tailor_skill),
         _ => Err("This service does not repair that item kind".into()),
     }
 }

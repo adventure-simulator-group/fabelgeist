@@ -2,37 +2,10 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
+mod age;
+pub use age::AgeBand;
 mod demographics;
 pub use demographics::settlement_building_seed;
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum AgeBand {
-    Child,
-    Adolescent,
-    Adult,
-    Elder,
-}
-
-impl AgeBand {
-    pub const fn stable_id(self) -> &'static str {
-        match self {
-            Self::Child => "child",
-            Self::Adolescent => "adolescent",
-            Self::Adult => "adult",
-            Self::Elder => "elder",
-        }
-    }
-
-    const fn decision_context(self) -> &'static str {
-        match self {
-            Self::Child => "Child",
-            Self::Adolescent => "Adolescent",
-            Self::Adult => "Adult",
-            Self::Elder => "Elder",
-        }
-    }
-}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -73,7 +46,7 @@ impl Profession {
         }
     }
 
-    const fn decision_context(self) -> &'static str {
+    pub const fn stable_variant_id(self) -> &'static str {
         match self {
             Self::Artisan => "Artisan",
             Self::Householder => "Householder",
@@ -480,7 +453,7 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, S
     let (build, build_decision) = choose(
         &input.seed,
         PopulationRelation::BuildForProfession,
-        profession.decision_context(),
+        profession.stable_variant_id(),
         &input.available_bridges,
         &[
             candidate("slender", 30),
@@ -501,7 +474,7 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, S
     let (hair, hair_decision) = choose(
         &input.seed,
         PopulationRelation::HairForAge,
-        age.decision_context(),
+        age.stable_variant_id(),
         &input.available_bridges,
         &[
             candidate("brown hair", 45),
@@ -516,8 +489,8 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, S
         PopulationRelation::HouseholdForAgeProfession,
         &format!(
             "{}:{}",
-            age.decision_context(),
-            profession.decision_context()
+            age.stable_variant_id(),
+            profession.stable_variant_id()
         ),
         &input.available_bridges,
         &[

@@ -10,7 +10,7 @@ pub(crate) fn character_alive_at(
             .character_birth()
             .character_id()
             .find(character_id)
-            .is_none_or(|birth| minute.is_at_or_after_signed_birth(birth.birth_minute))
+            .is_some_and(|birth| minute.is_at_or_after_signed_birth(birth.birth_minute))
         && ctx
             .db
             .character_death()

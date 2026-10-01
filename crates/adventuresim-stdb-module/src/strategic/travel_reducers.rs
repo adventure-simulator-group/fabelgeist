@@ -83,11 +83,7 @@ fn authoritative_straight_line_case_route(
         origin_microdegrees.longitude().get(),
         0,
     );
-    let precipitation = match weather.precipitation {
-        adventuresim_core::weather::Precipitation::Clear => JourneyPrecipitation::Clear,
-        adventuresim_core::weather::Precipitation::Rain => JourneyPrecipitation::Rain,
-        adventuresim_core::weather::Precipitation::Snow => JourneyPrecipitation::Snow,
-    };
+    let precipitation = weather.precipitation;
     let package_digest = authoritative_case_route_binding_digest(
         departure_minute,
         &points[0],
@@ -821,9 +817,7 @@ pub fn set_party_travel_itinerary(
         return Err("Daily walking time must be between 0 and 24 hours".into());
     }
     let Some(journey_start) =
-        adventuresim_core::strategic_time::StrategicMinuteOfDay::new(
-            journey_start_minute_of_day,
-        )
+        adventuresim_core::strategic_time::StrategicMinuteOfDay::new(journey_start_minute_of_day)
     else {
         return Err("Journey departure time must be within one day".into());
     };

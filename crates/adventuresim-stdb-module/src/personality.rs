@@ -1,7 +1,7 @@
 use crate::strategic::strategic_gateway_authority__view;
 pub use adventuresim_core::personality::{
-    Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
-    Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance, Transparency,
+    ChivalricVirtue, Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve,
+    Outlook, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance, Transparency,
 };
 use adventuresim_world_schema::Sex;
 use fabelgeist_determinism::DeterministicRng;
@@ -66,21 +66,12 @@ pub enum MutablePersonalityAxis {
     SelfKnowledge,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum ChivalricVirtue {
-    Courage,
-    Mercy,
-    Faith,
-    Justice,
-    Courtesy,
-    Loyalty,
-    Prudence,
-    Honesty,
-}
-
 /// Sole durable authority for the thirteen mutable behavioral axes. Values
 /// are signed fixed point in `-10_000..=10_000`; zero is dispositionally
 /// neutral and the endpoints express the full authored trait potency.
+/// Continuous behavioral authority. Visible trait labels are lossy projections;
+/// axis/deed writes call `write_projection`, preserving hidden score progress.
+/// Demographic fields remain owned by CharacterPersonality.
 #[derive(Clone, Debug)]
 #[table(accessor = character_personality_scores)]
 pub struct CharacterPersonalityScores {

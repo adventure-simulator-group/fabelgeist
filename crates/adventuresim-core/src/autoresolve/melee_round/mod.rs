@@ -108,7 +108,7 @@ fn record_melee_result(
         round,
         attacker.id,
         defender.id,
-        AttackMode::Melee,
+        BattleAttackKind::Melee,
         attacker.equipment.melee_weapon_id,
         None,
         melee_defender_contact_item_id(result, response, &defender.equipment),
@@ -442,12 +442,12 @@ mod tests {
         let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
         assert_eq!(
             movement_intent(&fighter.combatant, 0.01, parameters),
-            MovementIntent::Retreat
+            MeleeMovementAction::Retreat
         );
         let preferred = preferred_melee_measure(&fighter.combatant, parameters);
         assert_eq!(
             movement_intent(&fighter.combatant, preferred, parameters),
-            MovementIntent::Hold
+            MeleeMovementAction::Hold
         );
     }
 
@@ -464,11 +464,11 @@ mod tests {
         let reach = melee_effective_reach(&fighter);
         assert_eq!(
             movement_intent(&fighter, reach, parameters),
-            MovementIntent::Hold
+            MeleeMovementAction::Hold
         );
         assert_eq!(
             movement_intent(&fighter, reach + 0.01, parameters),
-            MovementIntent::Close
+            MeleeMovementAction::Close
         );
     }
 
@@ -492,11 +492,11 @@ mod tests {
         long.equipment.weapon = long.equipment.melee_weapon;
         assert_eq!(
             movement_intent(&short, 1.2, parameters),
-            MovementIntent::Close
+            MeleeMovementAction::Close
         );
         assert_eq!(
             movement_intent(&long, 0.9, parameters),
-            MovementIntent::Retreat
+            MeleeMovementAction::Retreat
         );
     }
 
@@ -520,11 +520,11 @@ mod tests {
         assert!((preferred - expected).abs() < 1.0e-6);
         assert_eq!(
             movement_intent(&polearm, 1.8, parameters),
-            MovementIntent::Retreat
+            MeleeMovementAction::Retreat
         );
         assert_eq!(
             movement_intent(&polearm, preferred, parameters),
-            MovementIntent::Hold
+            MeleeMovementAction::Hold
         );
 
         let opponent = Combatant::new(1);

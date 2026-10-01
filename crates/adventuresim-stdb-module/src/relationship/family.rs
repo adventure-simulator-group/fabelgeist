@@ -92,10 +92,8 @@ pub fn set_seeded_character_birth_from_age(
 }
 
 pub fn effective_age_years(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) -> Option<u16> {
-    let character = ctx.db.character().id().find(character_id)?;
-    let Some(birth) = ctx.db.character_birth().character_id().find(character_id) else {
-        return Some(character.age_years);
-    };
+    ctx.db.character().id().find(character_id)?;
+    let birth = ctx.db.character_birth().character_id().find(character_id)?;
     Some(minute.age_years_since_signed_birth(birth.birth_minute))
 }
 

@@ -13,7 +13,12 @@ use adventuresim_core::courtship::{
     uncovered_minute_spans,
 };
 use adventuresim_core::strategic_schedule::{DailySchedule, restorative_leisure_spans};
+use adventuresim_core::strategic_state::vocabulary::{
+    CommitmentStatus, CommitmentTerminalReason, CourtshipKind, CourtshipSecrecyReason,
+    CourtshipStatus, CourtshipTerminalReason, MarriageStatus, PregnancyStatus,
+};
 use adventuresim_world_schema::calendar::StrategicMinute;
+use adventuresim_world_schema::person_names::NameStableSeed;
 use adventuresim_world_schema::{Sex, calendar::MINUTES_PER_DAY};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
@@ -21,7 +26,6 @@ use crate::character::{character, character__view, character_death};
 use crate::character_skills;
 use crate::condition::morale_event as _;
 use crate::continuity::{EstateDispositionStatus, estate_disposition};
-use crate::corpse::strategic_corpse;
 use crate::personality::{
     Courtship as PersonalityCourtship, Inclination, Presentation, character_personality,
 };
@@ -32,6 +36,8 @@ use crate::strategic::{settlement, strategic_gateway_authority__view};
 use crate::time::{character_time, character_time__view};
 use std::collections::BTreeSet;
 
+#[cfg(feature = "authority-tests")]
+mod leisure_authority_tests;
 mod newborn_residence;
 use newborn_residence::attach_newborn_residence;
 
@@ -44,6 +50,8 @@ include!("family.rs");
 include!("commitments.rs");
 include!("marriage.rs");
 include!("reproduction.rs");
+#[cfg(feature = "authority-tests")]
+include!("authority_tests.rs");
 include!("lifecycle.rs");
 include!("socializing.rs");
 include!("courtship_discovery.rs");

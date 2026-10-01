@@ -25,10 +25,7 @@ fn preparation_request_id(
     hash.update(food_lot_id.to_le_bytes());
     hash.update(material_object_id.to_le_bytes());
     hash.update(revision.to_le_bytes());
-    hash.update([match action {
-        IngredientPreparationAction::Cut => 1,
-        IngredientPreparationAction::Grind => 2,
-    }]);
+    hash.update([action.stable_code()]);
     hash.update(attempt_generation.to_le_bytes());
     hash.update((canonical_place.len() as u64).to_le_bytes());
     hash.update(canonical_place.as_bytes());
@@ -327,10 +324,7 @@ fn preparation_material_receipt(
         )
         .map_err(|error| format!("Invalid preparation conservation: {error:?}"))?,
         herbalism::PreparationMaterialReceipt {
-            action: match action {
-                IngredientPreparationAction::Cut => herbalism::PreparationAction::Cut,
-                IngredientPreparationAction::Grind => herbalism::PreparationAction::Grind,
-            },
+            action,
         },
     )
     .map_err(|error| format!("Ingredient conservation failed: {error:?}"))
@@ -380,7 +374,7 @@ fn load_preparation_authority(
     if crate::inventory_container::ancestry_reaches_fireplace(ctx, object.id) {
         return Err("Ingredient lot is not in carried preparation custody".into());
     }
-    let (skill, physical, next, prefix, tool_binding) = match action {
+    let (skill, next, prefix, tool_binding) = match action {
         IngredientPreparationAction::Cut => {
             if lot.preparation != FoodPreparation::Raw {
                 return Err("Only a raw ingredient can be cut".into());
@@ -390,7 +384,6 @@ fn load_preparation_authority(
             )?;
             (
                 Skill::Knife,
-                herbalism::PhysicalPreparation::Cut,
                 FoodPreparation::Cut,
                 "Cut",
                 tool_binding,
@@ -402,7 +395,6 @@ fn load_preparation_authority(
             }
             (
                 Skill::Bludgeon,
-                herbalism::PhysicalPreparation::Ground,
                 FoodPreparation::Ground,
                 "Ground",
                 grinding_tool_binding(ctx, actor.id),
@@ -410,7 +402,7 @@ fn load_preparation_authority(
         }
     };
     let duration = herbalism::physical_preparation_minutes(
-        physical,
+        action,
         preparation_skill_check(ctx, actor.id, skill)?,
         tool_binding != "hands",
     );
@@ -504,10 +496,7 @@ fn build_preparation_planner(
             provenance: PlanProvenance {
                 request_id: ActionRequestId::try_new(request_id)
                     .map_err(|_| "Ingredient preparation request is malformed")?,
-                action_id: ActionDefinitionId::try_new(match action {
-                    IngredientPreparationAction::Cut => "ingredient-preparation:cut",
-                    IngredientPreparationAction::Grind => "ingredient-preparation:grind",
-                })
+                action_id: ActionDefinitionId::try_new(action.definition_id())
                 .map_err(|_| "Ingredient preparation definition is malformed")?,
                 input_digest: SnapshotDigest(digest),
                 authority_binding: AuthorityBinding(digest),
@@ -525,10 +514,7 @@ fn build_preparation_planner(
             revision_current: true,
             transition_allowed: true,
             required_tool_available: true,
-            action: match action {
-                IngredientPreparationAction::Cut => herbalism::PreparationAction::Cut,
-                IngredientPreparationAction::Grind => herbalism::PreparationAction::Grind,
-            },
+            action,
             expected_revision: authority.lot.material_revision,
             next_display_name: format!("{prefix} {base_name}"),
         },
@@ -644,9 +630,6 @@ fn preparation_authority_digest_parts(
     }
     frame(material_source_digest.as_bytes());
     frame(material_current_digest.as_bytes());
-    frame(&[match action {
-        IngredientPreparationAction::Cut => 1,
-        IngredientPreparationAction::Grind => 2,
-    }]);
+    frame(&[action.stable_code()]);
     hash.finalize().into()
 }

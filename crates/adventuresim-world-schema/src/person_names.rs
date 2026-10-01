@@ -5,6 +5,10 @@ use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 use std::sync::OnceLock;
 
+mod error;
+mod identity_validation;
+pub use error::NameCatalogError;
+
 mod name_catalog_schema {
     include!("name_catalog_schema.rs");
 }
@@ -255,35 +259,6 @@ impl NameReligiousTradition {
     }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub enum NameCatalogError {
-    NoMatchingRepertoire,
-    EmptyEligibleNames,
-    InvalidRenderedName,
-    MissingCatalogEntry(String),
-    Sampling(String),
-}
-
-impl std::fmt::Display for NameCatalogError {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::NoMatchingRepertoire => formatter.write_str("no matching name repertoire"),
-            Self::EmptyEligibleNames => {
-                formatter.write_str("name repertoire has no eligible entries")
-            }
-            Self::InvalidRenderedName => formatter.write_str(
-                "rendered personal name must be nonempty, bounded, trimmed, and control-free",
-            ),
-            Self::MissingCatalogEntry(id) => {
-                write!(formatter, "name catalog entry {id} is missing")
-            }
-            Self::Sampling(error) => write!(formatter, "could not sample name catalog: {error}"),
-        }
-    }
-}
-
-impl std::error::Error for NameCatalogError {}
-
 pub fn catalog_digest() -> &'static str {
     NAME_CATALOG_DIGEST
 }
@@ -371,6 +346,7 @@ pub fn render_personal_name(
     register: NameRegister,
     sex: Sex,
 ) -> Result<RenderedPersonalName, NameCatalogError> {
+    identity.validate()?;
     let catalog = catalog();
     let given = match &identity.given {
         GivenNameResolution::Authored { full_name } => {

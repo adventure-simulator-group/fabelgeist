@@ -10,6 +10,8 @@ use crate::{inventory_item, party_inventory_item};
 pub const SMITHING_MATERIAL_IDS: [&str; 4] =
     ["steel_stock", "leather_stock", "brass_stock", "wood_stock"];
 
+/// Remaining material in one stable personal inventory row. Row quantity stays
+/// one; consumption owns this fraction and transfer moves it between holders.
 #[derive(Clone, Debug)]
 #[table(accessor = inventory_item_amount, public)]
 pub struct InventoryItemAmount {
@@ -18,6 +20,8 @@ pub struct InventoryItemAmount {
     pub remaining_fraction_micros: u32,
 }
 
+/// Party-held counterpart of the same remaining material authority. Transfer
+/// deletes the source amount before inserting the destination in one transaction.
 #[derive(Clone, Debug)]
 #[table(accessor = party_item_amount, public)]
 pub struct PartyItemAmount {
@@ -27,7 +31,7 @@ pub struct PartyItemAmount {
 }
 
 pub fn is_measured_definition(definition: &crate::Item) -> bool {
-    definition.kind == crate::PersistedItemKind::Food
+    definition.kind == crate::CatalogItemKind::Food
         || definition.alcohol_serving_ml > 0
         || definition.id == adventuresim_core::item_references::SOFT_SOAP_ID
         || SMITHING_MATERIAL_IDS.contains(&definition.id.as_str())
@@ -207,7 +211,7 @@ mod tests {
     #[test]
     fn only_divisible_consumable_definitions_are_measured() {
         let food = crate::Item {
-            kind: crate::PersistedItemKind::Food,
+            kind: crate::CatalogItemKind::Food,
             ..crate::Item::default()
         };
         let alcohol = crate::Item {
@@ -220,7 +224,7 @@ mod tests {
         };
         let sword = crate::Item {
             id: "sword".into(),
-            kind: crate::PersistedItemKind::Weapon,
+            kind: crate::CatalogItemKind::Weapon,
             ..crate::Item::default()
         };
         let steel = crate::Item {

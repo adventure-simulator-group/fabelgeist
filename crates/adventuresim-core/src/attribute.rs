@@ -1,3 +1,6 @@
+mod simple;
+pub use simple::SimpleAttribute;
+
 use crate::body::{BodyPart, LimbWeights, PlayerBody};
 use serde::{Deserialize, Serialize};
 
@@ -86,30 +89,14 @@ pub enum LimbAttribute {
     Agility,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, enum_assoc::Assoc)]
-#[func(pub fn body_part(&self) -> BodyPart)]
-pub enum SimpleAttribute {
-    /// Heart strength, lung capacity, endurance for traveling.
-    #[assoc(body_part = BodyPart::Chest)]
-    Endurance,
-    /// Liver, spleen, immune system, toxin filtering.
-    #[assoc(body_part = BodyPart::Stomach)]
-    Immunity,
-    /// Digestive system, food tolerance.
-    #[assoc(body_part = BodyPart::Stomach)]
-    Gut,
-    /// Deep thinking; learning speed and mastery cap for intellectual skills.
-    #[assoc(body_part = BodyPart::Head)]
-    Intelligence,
-    /// Quick decisions; learning speed and mastery cap for instinctive skills.
-    #[assoc(body_part = BodyPart::Head)]
-    Instinct,
-    /// Visual acuity.
-    #[assoc(body_part = BodyPart::Head)]
-    Eyesight,
-    /// Auditory perception.
-    #[assoc(body_part = BodyPart::Head)]
-    Hearing,
+impl SimpleAttribute {
+    pub const fn body_part(&self) -> BodyPart {
+        match self {
+            Self::Endurance => BodyPart::Chest,
+            Self::Immunity | Self::Gut => BodyPart::Stomach,
+            Self::Intelligence | Self::Instinct | Self::Eyesight | Self::Hearing => BodyPart::Head,
+        }
+    }
 }
 
 /// Trait for accessing player attribute values.

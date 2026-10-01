@@ -124,23 +124,6 @@ pub(super) fn equipment_location_wire_label(location: CoreEquipmentLocation) -> 
     }
 }
 
-pub(super) fn item_kind_tag(kind: crate::spacetimedb::CatalogItemKind) -> &'static str {
-    use crate::spacetimedb::CatalogItemKind;
-
-    match kind {
-        CatalogItemKind::Simple => "simple",
-        CatalogItemKind::Weapon => "weapon",
-        CatalogItemKind::Armor => "armor",
-        CatalogItemKind::Shield => "shield",
-        CatalogItemKind::Clothing => "clothing",
-        CatalogItemKind::Container => "container",
-        CatalogItemKind::Currency => "currency",
-        CatalogItemKind::Ingredient => "ingredient",
-        CatalogItemKind::Medication => "medication",
-        CatalogItemKind::Food => "food",
-    }
-}
-
 pub(super) fn slot_wire_label(slot: crate::spacetimedb::Slot) -> &'static str {
     use crate::spacetimedb::Slot;
 

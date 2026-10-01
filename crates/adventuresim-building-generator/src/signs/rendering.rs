@@ -51,6 +51,9 @@ impl SignRenderPart {
 }
 
 #[derive(Resource, Default)]
+/// Derived material handles keyed by captured name, font, finish, emblem, and
+/// texture height. Changing inputs selects a fresh key; dropping the scene
+/// drops its cache. Backing and iron entries depend only on their finishes.
 pub struct ShopSignRenderCache {
     paint: HashMap<SignPaintKey, Handle<StandardMaterial>>,
     backing: HashMap<SignFinish, Handle<StandardMaterial>>,

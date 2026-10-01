@@ -11,6 +11,7 @@ pub const POPPY_TINCTURE_HERB_GRAMS: u32 = 50;
 pub const POPPY_TINCTURE_SPIRIT_ML: u32 = 150;
 
 use crate::{
+    ingredient_preparation::IngredientPreparationAction,
     material::{
         DomainConservationPolicy, DomainContaminant, DomainMaterialComponent,
         DomainMaterialProcess, DomainMaterialReceipt, DomainPreparation,
@@ -31,12 +32,6 @@ use crate::{
     },
     strategic_place::StrategicPlaceId,
 };
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum PreparationAction {
-    Cut,
-    Grind,
-}
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum IngredientMaterialPreparation {}
@@ -67,13 +62,13 @@ impl DomainConservationPolicy for PreparationConservationPolicy {}
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct PreparationMaterialReceipt {
-    pub action: PreparationAction,
+    pub action: IngredientPreparationAction,
 }
 impl DomainMaterialReceipt for PreparationMaterialReceipt {}
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct PreparationMaterialPresentation {
-    pub action: PreparationAction,
+    pub action: IngredientPreparationAction,
     pub expected_revision: u64,
 }
 impl PublicMaterialPresentation for PreparationMaterialPresentation {}
@@ -113,7 +108,7 @@ pub enum PreparationPlanEffect {
         requested_minutes: u64,
     },
     CommitPreparation {
-        action: PreparationAction,
+        action: IngredientPreparationAction,
         expected_revision: u64,
         next_display_name: String,
     },
@@ -122,7 +117,7 @@ impl DomainEffect for PreparationPlanEffect {}
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct PreparationPublicPreview {
-    pub action: PreparationAction,
+    pub action: IngredientPreparationAction,
     pub expected_revision: u64,
     pub duration_minutes: u32,
 }
@@ -204,7 +199,7 @@ pub struct PreparationPlanAuthority {
     pub revision_current: bool,
     pub transition_allowed: bool,
     pub required_tool_available: bool,
-    pub action: PreparationAction,
+    pub action: IngredientPreparationAction,
     pub expected_revision: u64,
     pub next_display_name: String,
 }
@@ -292,27 +287,21 @@ pub fn build_preparation_plan(authority: PreparationPlanAuthority) -> Preparatio
     )
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum PhysicalPreparation {
-    Cut,
-    Ground,
-}
-
 pub fn physical_preparation_minutes(
-    preparation: PhysicalPreparation,
+    preparation: IngredientPreparationAction,
     governing_check: f32,
     has_grinding_tool: bool,
 ) -> u32 {
     let base = match preparation {
-        PhysicalPreparation::Cut => BASE_CUT_MINUTES,
-        PhysicalPreparation::Ground => BASE_GRIND_MINUTES,
+        IngredientPreparationAction::Cut => BASE_CUT_MINUTES,
+        IngredientPreparationAction::Grind => BASE_GRIND_MINUTES,
     };
     let check = if governing_check.is_finite() {
         governing_check.clamp(0.0, 5.0)
     } else {
         0.0
     };
-    let tool = if preparation == PhysicalPreparation::Ground && has_grinding_tool {
+    let tool = if preparation == IngredientPreparationAction::Grind && has_grinding_tool {
         GRINDING_TOOL_TIME_FACTOR
     } else {
         1.0
@@ -329,15 +318,16 @@ mod tests {
     #[test]
     fn grinding_tool_halves_time_and_skill_uses_canonical_check() {
         assert_eq!(
-            physical_preparation_minutes(PhysicalPreparation::Ground, 0.0, false),
+            physical_preparation_minutes(IngredientPreparationAction::Grind, 0.0, false),
             20
         );
         assert_eq!(
-            physical_preparation_minutes(PhysicalPreparation::Ground, 0.0, true),
+            physical_preparation_minutes(IngredientPreparationAction::Grind, 0.0, true),
             10
         );
         assert!(
-            physical_preparation_minutes(PhysicalPreparation::Cut, 5.0, false) < BASE_CUT_MINUTES
+            physical_preparation_minutes(IngredientPreparationAction::Cut, 5.0, false)
+                < BASE_CUT_MINUTES
         );
     }
 
@@ -393,7 +383,7 @@ mod tests {
             revision_current: true,
             transition_allowed: true,
             required_tool_available: true,
-            action: PreparationAction::Cut,
+            action: IngredientPreparationAction::Cut,
             expected_revision: 1,
             next_display_name: "Cut willow bark".into(),
         }) else {

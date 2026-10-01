@@ -46,8 +46,8 @@ pub use rest::{RestSummary, SoapRestPreview, rest_result_page};
 pub(crate) use social::settlement_chat_area_with_info;
 pub use social::{SocialFeedback, SocialPresentation, party_social_dialog};
 pub use trade::{
-    MerchantShop, live_merchant_shop_page, merchants_page, party_discard_page,
-    party_inventory_page, party_pool_page,
+    Storefront, StorefrontPresentation, live_merchant_shop_page, merchants_page,
+    party_discard_page, party_inventory_page, party_pool_page,
 };
 pub(in crate::templates) use trade::{
     inventory_footer_controls, item_name_with_food_lot, item_name_with_quality, transfer_glyph,

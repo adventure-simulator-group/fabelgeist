@@ -354,7 +354,7 @@ pub fn select_browser_character(
         .ok_or("Character time record not found")?
         .minutes;
     if !character.alive
-        || effective_age_years(ctx, character_id, minute).unwrap_or(character.age_years)
+        || effective_age_years(ctx, character_id, minute).unwrap_or(0)
             < adventuresim_core::courtship::ADULT_AGE_YEARS
     {
         return Err("Only living adult characters can be selected".into());

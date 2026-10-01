@@ -1800,10 +1800,7 @@ pub fn schema_json(witness_candidates: &[qg::WitnessCandidate]) -> Value {
         .documents
         .iter()
         .flat_map(|document| &document.circumstances);
-    let descriptions = catalog
-        .documents
-        .iter()
-        .flat_map(|document| &document.descriptions);
+    let descriptions = catalog.descriptions();
     let options = |values: Vec<(String, String)>| {
         values
             .into_iter()

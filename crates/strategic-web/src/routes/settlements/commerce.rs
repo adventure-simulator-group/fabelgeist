@@ -116,5 +116,5 @@ pub(super) async fn inn(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Inn).await
+    merchant_shop(state, id, session, Storefront::Inn).await
 }

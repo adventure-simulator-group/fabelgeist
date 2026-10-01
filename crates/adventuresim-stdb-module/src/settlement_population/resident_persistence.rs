@@ -10,7 +10,7 @@ struct PreparedResident {
     input: GenerationInput,
     profile: population::GeneratedPopulationProfile,
     provider: bool,
-    age_band: NpcAgeBand,
+    age_band: AgeBand,
     stable_seed: u64,
 }
 
@@ -24,16 +24,11 @@ impl PreparedResident {
             service_id: draft.service.clone(),
             profession_override: provider.then(|| draft.profession.clone()),
             local_role: draft.role.clone(),
-            age: draft.exact_age.map(|age| match age {
-                0..=12 => AgeBand::Child,
-                13..=17 => AgeBand::Adolescent,
-                18..=59 => AgeBand::Adult,
-                _ => AgeBand::Elder,
-            }),
+            age: draft.exact_age.map(AgeBand::for_years),
             available_bridges: BTreeSet::from(RESIDENT_BRIDGES),
         };
         let profile = population::generate(&input)?;
-        let age_band = age(profile.age);
+        let age_band = profile.age;
         Ok(Self {
             input,
             profile,
@@ -45,10 +40,10 @@ impl PreparedResident {
 
     fn exact_age(&self, draft: &ResidentDraft) -> u16 {
         draft.exact_age.unwrap_or(match self.age_band {
-            NpcAgeBand::Child => 8,
-            NpcAgeBand::Adolescent => 15,
-            NpcAgeBand::Adult => 30,
-            NpcAgeBand::Elder => 68,
+            AgeBand::Child => 8,
+            AgeBand::Adolescent => 15,
+            AgeBand::Adult => 30,
+            AgeBand::Elder => 68,
         })
     }
 }
@@ -129,7 +124,8 @@ fn insert_identity(
         prepared.stable_seed.into(),
         birth_year,
         draft.inherited_surname.clone(),
-    )?;
+    )
+    .map_err(|error| error.to_string())?;
     let name = adventuresim_world_schema::person_names::render_personal_name(
         &identity,
         identity.native_culture,
@@ -159,7 +155,8 @@ fn insert_identity(
         &life,
         &personality,
     )?;
-    crate::character::assign_character_name_identity(ctx, draft.character_id().into(), identity)?;
+    crate::character::assign_character_name_identity(ctx, draft.character_id().into(), identity)
+        .map_err(|error| error.to_string())?;
     ctx.db.npc_policy().insert(NpcPolicy {
         character_id: draft.character_id(),
         home_settlement_id: settlement_id.into(),
@@ -210,7 +207,7 @@ fn insert_profile(
             hair: prepared.profile.hair.clone(),
             facial_hair: if draft.sex == Sex::Male
                 && resident_random(&draft.seed, ResidentEntropyStream::FacialHair).index(3) == 0
-                && !matches!(prepared.age_band, NpcAgeBand::Child)
+                && !matches!(prepared.age_band, AgeBand::Child)
             {
                 "a neatly kept beard".into()
             } else {
@@ -295,7 +292,6 @@ pub(super) fn insert_resident_draft(
         .settlement_resident_seed_explanation()
         .insert(SettlementResidentSeedExplanation {
             character_id: draft.character_id(),
-            seed: draft.seed,
             relations_json,
         });
     Ok(())

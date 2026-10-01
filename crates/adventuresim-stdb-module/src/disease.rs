@@ -1,6 +1,9 @@
 //! Durable strategic disease facts and authoritative treatment.
 
 mod administration_adapter;
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
+mod exposure_sources;
 mod fixture_administrations;
 mod interval;
 use administration_adapter::administration;
@@ -617,7 +620,7 @@ fn derive_possible_diseases(
             let differentiated = (0.5 + (fit - mean) * 2.2).clamp(0.0, 1.0);
             let likelihood = 0.5 + (differentiated - 0.5) * reliability;
             BackendPhysiologyDifferential {
-                disease_id: disease_key(definition.id).to_owned(),
+                disease_id: definition.id.stable_id().to_owned(),
                 label: definition.period_name.to_owned(),
                 likelihood_bps: (likelihood
                     * f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE))
@@ -817,32 +820,6 @@ fn notice(
     Ok(())
 }
 
-#[derive(Clone, Copy, Debug, SpacetimeType)]
-pub enum DiseaseTerminalCause {
-    Respiratory,
-    Circulatory,
-    Homeostatic,
-    Neurologic,
-}
-
-pub(crate) fn parse_id(value: &str) -> Result<DiseaseId, String> {
-    match value {
-        "influenza" => Ok(DiseaseId::Influenza),
-        "dysentery" => Ok(DiseaseId::Dysentery),
-        "typhus" => Ok(DiseaseId::Typhus),
-        "tetanus" => Ok(DiseaseId::Tetanus),
-        "erysipelas" => Ok(DiseaseId::Erysipelas),
-        "smallpox" => Ok(DiseaseId::Smallpox),
-        "plague" => Ok(DiseaseId::Plague),
-        "consumption" => Ok(DiseaseId::Consumption),
-        "mahrdruck" => Ok(DiseaseId::Mahrdruck),
-        "shroud_fever" => Ok(DiseaseId::ShroudFever),
-        "bilwisschuss" => Ok(DiseaseId::Bilwisschuss),
-        "kobeldunst" => Ok(DiseaseId::Kobeldunst),
-        _ => Err("Unknown disease".into()),
-    }
-}
-
 pub(crate) fn episode(row: &InfectionEpisodeRow) -> Result<InfectionEpisode, String> {
     if row.ruleset_version != physiology::PHYSIOLOGY_RULESET_VERSION {
         return Err(format!(
@@ -859,7 +836,10 @@ pub(crate) fn episode(row: &InfectionEpisodeRow) -> Result<InfectionEpisode, Str
     Ok(InfectionEpisode {
         id: row.id,
         character_id: row.character_id,
-        disease_id: parse_id(&row.disease_id)?,
+        disease_id: row
+            .disease_id
+            .parse::<DiseaseId>()
+            .map_err(|error| error.to_string())?,
         contracted_at: adventuresim_world_schema::calendar::StrategicMinute::new(
             (row.contracted_at).get(),
         ),
@@ -1249,55 +1229,17 @@ pub fn plan_party_disease_interval(
             continue;
         };
         if let Some(settlement_id) = character.current_settlement_id {
-            let mut outbreaks = ctx
-                .db
-                .settlement_outbreak()
-                .settlement_id()
-                .filter(&settlement_id)
-                .map(|row| {
-                    (
-                        row.id,
-                        row.disease_id,
-                        row.start_minute,
-                        row.end_minute,
-                        row.intensity,
-                        false,
-                    )
-                })
-                .collect::<Vec<_>>();
-            outbreaks
-                .sort_by(|left, right| (left.2, left.0.as_str()).cmp(&(right.2, right.0.as_str())));
-            let scope_key = format!("settlement:{settlement_id}");
-            let mut problems = ctx
-                .db
-                .local_problem_authority()
-                .scope_key()
-                .filter(&scope_key)
-                .filter(|row| {
-                    !row.disease_id.is_empty()
-                        && row.disease_intensity > 0
-                        && row.mitigation_bps < adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
-                })
-                .collect::<Vec<_>>();
-            problems.sort_by(|left, right| left.id.cmp(&right.id));
-            problems.truncate(adventuresim_core::local_problem::MAX_ACTIVE_PER_SCOPE);
-            let sources = outbreaks.into_iter().chain(problems.into_iter().map(|row| {
-                (
-                    row.id,
-                    row.disease_id,
-                    row.starts_at,
-                    row.ends_at
-                        .min(row.resolved_at.unwrap_or(StrategicMinute::MAX)),
-                    adventuresim_core::local_problem::mitigated_disease_exposure(
-                        row.disease_intensity,
-                        adventuresim_world_schema::UnitBasisPoints::new(row.mitigation_bps)
-                            .expect("filtered mitigation is a unit basis-point value"),
-                    ),
-                    true,
-                )
-            }));
-            for (source_id, disease_key, source_start, source_end, intensity, scoped) in sources {
-                let disease_id = parse_id(&disease_key)?;
+            for source in
+                exposure_sources::SettlementExposureSource::for_settlement(ctx, &settlement_id)?
+            {
+                let exposure_sources::SettlementExposureSource {
+                    id: source_id,
+                    disease_id,
+                    start: source_start,
+                    end: source_end,
+                    intensity,
+                    scoped,
+                } = source;
                 let from = start.max(source_start);
                 let to = end.min(source_end);
                 let definition = disease::definition(disease_id);
@@ -1599,7 +1541,10 @@ fn outbreak_episodes_through(
         (left.start_minute, left.id.as_str()).cmp(&(right.start_minute, right.id.as_str()))
     });
     for outbreak in outbreaks {
-        let disease_id = parse_id(&outbreak.disease_id)?;
+        let disease_id = outbreak
+            .disease_id
+            .parse::<DiseaseId>()
+            .map_err(|error| error.to_string())?;
         let overlap_from = from.max(outbreak.start_minute);
         let overlap_to = to.min(outbreak.end_minute);
         if overlap_to <= overlap_from {
@@ -1654,7 +1599,10 @@ fn outbreak_episodes_through(
         {
             continue;
         }
-        let disease_id = parse_id(&problem.disease_id)?;
+        let disease_id = problem
+            .disease_id
+            .parse::<DiseaseId>()
+            .map_err(|error| error.to_string())?;
         let intensity = adventuresim_core::local_problem::mitigated_disease_exposure(
             problem.disease_intensity,
             adventuresim_world_schema::UnitBasisPoints::new(problem.mitigation_bps)
@@ -1707,7 +1655,7 @@ fn persist_acquisition_episodes(
     episodes: impl IntoIterator<Item = InfectionEpisode>,
 ) -> Result<(), String> {
     for episode in episodes {
-        let disease_id = disease_key(episode.disease_id);
+        let disease_id = episode.disease_id.stable_id();
         if !ctx
             .db
             .infection_episode()
@@ -2104,23 +2052,6 @@ pub fn finish_disease_interval(
     Ok(())
 }
 
-pub(crate) fn disease_key(id: DiseaseId) -> &'static str {
-    match id {
-        DiseaseId::Influenza => "influenza",
-        DiseaseId::Dysentery => "dysentery",
-        DiseaseId::Typhus => "typhus",
-        DiseaseId::Tetanus => "tetanus",
-        DiseaseId::Erysipelas => "erysipelas",
-        DiseaseId::Smallpox => "smallpox",
-        DiseaseId::Plague => "plague",
-        DiseaseId::Consumption => "consumption",
-        DiseaseId::Mahrdruck => "mahrdruck",
-        DiseaseId::ShroudFever => "shroud_fever",
-        DiseaseId::Bilwisschuss => "bilwisschuss",
-        DiseaseId::Kobeldunst => "kobeldunst",
-    }
-}
-
 fn private_variation(
     ctx: &ReducerContext,
     patient_id: u64,
@@ -2407,7 +2338,7 @@ pub fn record_committed_cut(
             ctx.db.infection_episode().insert(InfectionEpisodeRow {
                 id: 0,
                 character_id,
-                disease_id: disease_key(disease_id).to_owned(),
+                disease_id: disease_id.stable_id().to_owned(),
                 contracted_at: at,
                 ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
                 phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
@@ -2448,7 +2379,7 @@ pub fn record_standing_cut_exposure(
             ctx.db.infection_episode().insert(InfectionEpisodeRow {
                 id: 0,
                 character_id,
-                disease_id: disease_key(disease_id).to_owned(),
+                disease_id: disease_id.stable_id().to_owned(),
                 contracted_at,
                 ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
                 phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
@@ -2627,7 +2558,7 @@ pub(crate) fn seed_sick_character(ctx: &ReducerContext) -> Result<(), String> {
         ctx.db.infection_episode().insert(InfectionEpisodeRow {
             id: 0,
             character_id: id,
-            disease_id: disease_key(disease_id).to_owned(),
+            disease_id: disease_id.stable_id().to_owned(),
             contracted_at: StrategicMinute::new(FIXTURE_NOW).saturating_sub_minutes(age),
             ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
             phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
@@ -2740,8 +2671,8 @@ pub fn purchase_from_herbalist(
             .find(item_id)
             .ok_or("Herbalist item not found")?;
         let permitted = match definition.kind {
-            crate::PersistedItemKind::Ingredient => true,
-            crate::PersistedItemKind::Medication => {
+            crate::CatalogItemKind::Ingredient => true,
+            crate::CatalogItemKind::Medication => {
                 physiology::intervention_profile(item_id, 1).is_some()
             }
             _ => false,
@@ -2751,7 +2682,7 @@ pub fn purchase_from_herbalist(
                 &economy,
                 adventuresim_core::settlement_economy::Storefront::Herbalist,
                 item_id,
-                crate::item::economy_catalog_kind(definition.kind),
+                definition.kind.economy_kind(),
             )
         {
             return Err("This herbalist does not stock that item".into());
@@ -2796,8 +2727,10 @@ mod herbalist_purchase_source_tests {
             .split("fn party_contact_episodes_through")
             .next()
             .unwrap();
-        assert!(plan.contains("settlement_outbreak"));
-        assert!(plan.contains("local_problem_authority"));
+        assert!(plan.contains("SettlementExposureSource::for_settlement"));
+        let sources = include_str!("disease/exposure_sources.rs");
+        assert!(sources.contains("settlement_outbreak"));
+        assert!(sources.contains("local_problem_authority"));
         assert!(plan.contains("blood_exposure_attempts_through"));
         assert!(plan.contains("resolve_acquisition_timeline"));
         let clip = source
@@ -2954,15 +2887,6 @@ mod fantastic_differential_tests {
         let own = visible_sequence_fit(&visible, id);
         let ordinary = visible_sequence_fit(&visible, DiseaseId::Dysentery);
         assert!(own > ordinary, "{own} <= {ordinary}");
-    }
-
-    #[test]
-    fn canonical_disease_keys_round_trip_for_every_authored_disease() {
-        for definition in adventuresim_core::disease::STARTER_DISEASES {
-            let key = disease_key(definition.id);
-            assert_eq!(parse_id(key), Ok(definition.id), "{key}");
-        }
-        assert_eq!(disease_key(DiseaseId::ShroudFever), "shroud_fever");
     }
 
     #[test]

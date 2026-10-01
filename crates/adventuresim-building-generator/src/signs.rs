@@ -30,6 +30,9 @@ pub const SIGN_MAX_PROJECTION_METRES: f32 = 1.5;
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub struct EstablishmentId(pub u64);
 
+/// Derived branding from a captured operator projection and business use.
+/// Scene validation enforces the derivation; replacing scene input replaces
+/// branding. This does not rename the operator or supply personal identity.
 #[derive(Clone, Debug, Eq, PartialEq, Hash, Serialize, Deserialize)]
 pub struct ShopName {
     pub proprietor: String,

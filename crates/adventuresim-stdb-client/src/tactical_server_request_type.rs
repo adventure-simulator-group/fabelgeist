@@ -20,7 +20,6 @@ pub struct TacticalServerRequest {
     pub settlement: Option<TacticalSettlementSnapshot>,
     pub absolute_minute: StrategicMinute,
     pub lunar_phase_minute: StrategicMinute,
-    pub expected_party_members: u32,
     pub authorized_party_member_ids: Vec<u64>,
     pub required_enemy_kills: u32,
     pub enemy_difficulty: i32,
@@ -50,7 +49,6 @@ pub struct TacticalServerRequestCols {
         __sdk::__query_builder::Col<TacticalServerRequest, Option<TacticalSettlementSnapshot>>,
     pub absolute_minute: __sdk::__query_builder::Col<TacticalServerRequest, StrategicMinute>,
     pub lunar_phase_minute: __sdk::__query_builder::Col<TacticalServerRequest, StrategicMinute>,
-    pub expected_party_members: __sdk::__query_builder::Col<TacticalServerRequest, u32>,
     pub authorized_party_member_ids: __sdk::__query_builder::Col<TacticalServerRequest, Vec<u64>>,
     pub required_enemy_kills: __sdk::__query_builder::Col<TacticalServerRequest, u32>,
     pub enemy_difficulty: __sdk::__query_builder::Col<TacticalServerRequest, i32>,
@@ -75,10 +73,6 @@ impl __sdk::__query_builder::HasCols for TacticalServerRequest {
             settlement: __sdk::__query_builder::Col::new(table_name, "settlement"),
             absolute_minute: __sdk::__query_builder::Col::new(table_name, "absolute_minute"),
             lunar_phase_minute: __sdk::__query_builder::Col::new(table_name, "lunar_phase_minute"),
-            expected_party_members: __sdk::__query_builder::Col::new(
-                table_name,
-                "expected_party_members",
-            ),
             authorized_party_member_ids: __sdk::__query_builder::Col::new(
                 table_name,
                 "authorized_party_member_ids",

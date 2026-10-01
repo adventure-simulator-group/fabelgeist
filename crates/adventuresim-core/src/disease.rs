@@ -11,43 +11,8 @@ use serde::{Deserialize, Serialize};
 pub const DISEASE_RULESET_VERSION: u16 = 1;
 pub const PHYSIOLOGY_VITALS_THRESHOLD: f32 = 2.0;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum DiseaseId {
-    Influenza,
-    Dysentery,
-    Typhus,
-    Tetanus,
-    Erysipelas,
-    Smallpox,
-    Plague,
-    Consumption,
-    Mahrdruck,
-    ShroudFever,
-    Bilwisschuss,
-    Kobeldunst,
-}
-
-impl DiseaseId {
-    /// Stable variant code used by deterministic coordinates that historically
-    /// embedded the Rust variant spelling.
-    pub const fn stable_variant_id(self) -> &'static str {
-        match self {
-            Self::Influenza => "Influenza",
-            Self::Dysentery => "Dysentery",
-            Self::Typhus => "Typhus",
-            Self::Tetanus => "Tetanus",
-            Self::Erysipelas => "Erysipelas",
-            Self::Smallpox => "Smallpox",
-            Self::Plague => "Plague",
-            Self::Consumption => "Consumption",
-            Self::Mahrdruck => "Mahrdruck",
-            Self::ShroudFever => "ShroudFever",
-            Self::Bilwisschuss => "Bilwisschuss",
-            Self::Kobeldunst => "Kobeldunst",
-        }
-    }
-}
+mod identity;
+pub use identity::{DiseaseId, ParseDiseaseIdError};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DiseaseStage {

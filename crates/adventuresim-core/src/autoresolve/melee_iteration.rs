@@ -25,7 +25,10 @@ pub struct MeleeIterationBuild {
 
 pub fn melee_iteration_roster() -> Result<(MeleeIterationBuild, Vec<MeleeIterationBuild>), String> {
     let john_spec = crate::starting_character::default_character("melee-iteration");
-    let john_name = john_spec.name.clone();
+    let john_name = john_spec
+        .native_everyday_name()
+        .map_err(|error| error.to_string())?
+        .into_string();
     let john = build_from_spec(
         "john",
         &john_name,
@@ -142,7 +145,6 @@ fn purpose_build(
     };
     let spec = StartingCharacterSpec {
         id: stable_id(key),
-        name: name.into(),
         name_identity: PersonalNameIdentity::authored(name, Culture::German),
         age_years: 28,
         background: description.into(),

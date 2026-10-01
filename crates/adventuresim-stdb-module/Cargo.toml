@@ -8,6 +8,10 @@ crate-type = ["cdylib", "rlib"]
 test = false
 doctest = false
 
+[features]
+# Guarded fault injection for the disposable persistence acceptance runner.
+authority-tests = []
+
 [dependencies]
 adventuresim-core = { workspace = true, features = ["spacetimedb"] }
 adventuresim-dialogue.workspace = true

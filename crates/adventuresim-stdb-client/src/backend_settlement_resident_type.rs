@@ -4,8 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
-use super::npc_age_band_type::NpcAgeBand;
-use super::npc_presentation_type::NpcPresentation;
+use super::age_band_type::AgeBand;
+use super::presentation_type::Presentation;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -13,8 +13,8 @@ pub struct BackendSettlementResident {
     pub character_id: u64,
     pub home_settlement_id: String,
     pub name: String,
-    pub age_band: NpcAgeBand,
-    pub presentation: NpcPresentation,
+    pub age_band: AgeBand,
+    pub presentation: Presentation,
     pub height: String,
     pub build: String,
     pub hair: String,
@@ -41,8 +41,8 @@ pub struct BackendSettlementResidentCols {
     pub character_id: __sdk::__query_builder::Col<BackendSettlementResident, u64>,
     pub home_settlement_id: __sdk::__query_builder::Col<BackendSettlementResident, String>,
     pub name: __sdk::__query_builder::Col<BackendSettlementResident, String>,
-    pub age_band: __sdk::__query_builder::Col<BackendSettlementResident, NpcAgeBand>,
-    pub presentation: __sdk::__query_builder::Col<BackendSettlementResident, NpcPresentation>,
+    pub age_band: __sdk::__query_builder::Col<BackendSettlementResident, AgeBand>,
+    pub presentation: __sdk::__query_builder::Col<BackendSettlementResident, Presentation>,
     pub height: __sdk::__query_builder::Col<BackendSettlementResident, String>,
     pub build: __sdk::__query_builder::Col<BackendSettlementResident, String>,
     pub hair: __sdk::__query_builder::Col<BackendSettlementResident, String>,

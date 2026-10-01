@@ -104,10 +104,18 @@ fn journal_case_resolution(ctx: &ViewContext, public_case_id: &str) -> (String, 
     let canonical_case_id = match canonical_matches.as_slice() {
         [canonical] => canonical.clone(),
         [] => public_case_id.to_owned(),
-        _ => return (crate::strategic::CaseStatus::Open.stable_id().into(), StrategicMinute::ZERO),
+        _ => {
+            return (
+                crate::strategic::CaseStatus::Open.stable_id().into(),
+                StrategicMinute::ZERO,
+            );
+        }
     };
     let Some(case) = ctx.db.case_authority().id().find(canonical_case_id.clone()) else {
-        return (crate::strategic::CaseStatus::Open.stable_id().into(), StrategicMinute::ZERO);
+        return (
+            crate::strategic::CaseStatus::Open.stable_id().into(),
+            StrategicMinute::ZERO,
+        );
     };
     let status = case.resolution_status.stable_id();
     let resolved_at = ctx
@@ -126,7 +134,8 @@ pub fn backend_investigation_cases(ctx: &ViewContext) -> Vec<BackendInvestigatio
     }
     let journal = backend_investigation_journal(ctx);
     let leads = backend_investigation_leads(ctx);
-    let mut cases: BTreeMap<(u64, String), (StrategicMinute, String, StrategicMinute)> = BTreeMap::new();
+    let mut cases: BTreeMap<(u64, String), (StrategicMinute, String, StrategicMinute)> =
+        BTreeMap::new();
     for (owner_character_id, case_id, summary, recorded_at) in journal.into_iter().map(|row| {
         (
             row.owner_character_id,
@@ -444,7 +453,7 @@ pub fn backend_investigation_actions(ctx: &ViewContext) -> Vec<BackendInvestigat
         .filter(0u64..)
         .filter(|capability| capability.active)
         .filter_map(|capability| {
-            let kind = parse_action_kind(&capability.method).ok()?;
+            let kind = capability.method.parse::<InvestigationActionKind>().ok()?;
             if capability_has_successful_attempt_view(ctx, &capability.id)
                 || !capability_has_live_support_view(ctx, &capability, kind)
             {
@@ -693,7 +702,7 @@ fn generated_pattern_authority(
     let (expected_known_prerequisites, expected_safe_result) =
         generated_capability_safe_text(&manifest, generated);
     let expected_terrain = generated_action_terrain(&manifest, generated);
-    if capability.method != action_method(generated.kind)
+    if capability.method != generated.kind.stable_id()
         || capability.target_kind != generated.target_kind
         || capability.target_id != generated.target_id
         || capability.target_terrain != expected_terrain.stable_id()
@@ -1051,7 +1060,7 @@ fn tracking_capability_chain_is_coherent(
         let Some(predecessor) = capability_by_id(&capability.required_action_id) else {
             return false;
         };
-        let Ok(predecessor_kind) = parse_action_kind(&predecessor.method) else {
+        let Ok(predecessor_kind) = predecessor.method.parse::<InvestigationActionKind>() else {
             return false;
         };
         if predecessor.owner_character_id != capability.owner_character_id

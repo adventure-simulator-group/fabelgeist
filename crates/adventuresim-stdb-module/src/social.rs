@@ -1,5 +1,12 @@
 //! Durable strategic relationships and authoritative social actions.
 
+#[cfg(feature = "authority-tests")]
+mod action_authority_tests;
+mod admission;
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
+#[cfg(feature = "authority-tests")]
+mod automatic_authority_tests;
 mod discovery;
 mod draws;
 use adventuresim_core::skill::Skill;
@@ -7,15 +14,15 @@ use adventuresim_core::social::{
     AFFINITY_MAX, AFFINITY_MIN, AutomaticSocialCandidate, CasualChatDisposition, CasualChatInput,
     ClaimAssessmentDirection, ClaimChallengeApproach, ClaimChallengeInput, PersonalityAxis,
     SOCIAL_COOLDOWN_MINUTES, SOCIAL_RESPONSE_MINUTES, SocialActionKind, SocialAttempt, SocialTopic,
-    actor_allows_social_action, actor_allows_social_prayer, affinity_gain, assess_testimony_claim,
-    axis_for_topic, bedside_reassurance_approach, bedside_reassurance_resolution_profile,
-    canonical_cooldown_id, canonical_pair, choose_automatic_social_action,
-    command_gravitas_modifier, diagnosed_axis, diagnosis_for_axis, discovery_training_split,
-    flirt_charm_modifier, humor_charm_modifier, incompatible_flirt_outcome, prayer_approach,
-    prayer_resolution_profile, realized_affinity_delta, resolve_casual_chat,
-    resolve_claim_challenge, resolve_social_attempt, resolve_social_attempt_with_profile,
-    self_knowledge_insight_modifier, settle_affinity, should_replace_belief,
-    social_source_eligible, topic_for_source_kind,
+    WitnessClaimResolution, actor_allows_social_action, actor_allows_social_prayer, affinity_gain,
+    assess_testimony_claim, axis_for_topic, bedside_reassurance_approach,
+    bedside_reassurance_resolution_profile, canonical_cooldown_id, canonical_pair,
+    choose_automatic_social_action, command_gravitas_modifier, diagnosed_axis, diagnosis_for_axis,
+    discovery_training_split, flirt_charm_modifier, humor_charm_modifier,
+    incompatible_flirt_outcome, prayer_approach, prayer_resolution_profile,
+    realized_affinity_delta, resolve_casual_chat, resolve_claim_challenge, resolve_social_attempt,
+    resolve_social_attempt_with_profile, self_knowledge_insight_modifier, settle_affinity,
+    should_replace_belief, social_source_eligible, topic_for_source_kind,
 };
 use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
@@ -178,6 +185,10 @@ pub struct BackendSettlementResidentRelationship {
 
 /// Private authority for social actions scoped to one live dialogue encounter.
 /// Hidden concern state never crosses the gateway.
+/// Concern presence is captured from the referred witness at session binding.
+/// `bound_released` checkpoints emission and passive assessment once per
+/// session; durable learned testimony survives that session and serves later
+/// investigation, so it cannot replace this session-local completion state.
 #[derive(Clone, Debug)]
 #[table(accessor = dialogue_witness_capability)]
 pub struct DialogueWitnessCapability {
@@ -193,6 +204,8 @@ pub struct DialogueWitnessCapability {
 }
 
 /// Private observer authority for one heard, proposition-granular claim.
+/// Heard text and responses are immutable snapshots. Resolution presence owns
+/// admission; captured feedback does not track later relationship changes.
 #[derive(Clone, Debug)]
 #[table(accessor = dialogue_witness_claim)]
 pub struct DialogueWitnessClaim {
@@ -214,12 +227,12 @@ pub struct DialogueWitnessClaim {
     pub demeanor_truth_signal: f32,
     pub assessment_direction: String,
     pub assessment_strength: f32,
-    pub resolved: bool,
-    pub outcome: String,
-    pub affinity_delta: f32,
+    pub resolution: Option<WitnessClaimResolution>,
 }
 
 /// Durable idempotency receipt for a dialogue-scoped witness social action.
+/// `action_kind` captures the canonical `ClaimChallengeApproach` request key;
+/// exact retries compare the immutable capture before mutable admission checks.
 #[derive(Clone, Debug)]
 #[table(accessor = witness_social_action_receipt)]
 pub struct WitnessSocialActionReceipt {
@@ -248,9 +261,7 @@ pub struct BackendDialogueWitnessClaim {
     pub bluff_response: Option<String>,
     pub assessment_direction: String,
     pub assessment_strength: f32,
-    pub resolved: bool,
-    pub outcome: String,
-    pub affinity_delta: f32,
+    pub resolution: Option<WitnessClaimResolution>,
 }
 
 fn relationship_band(value: f32) -> AffinityBand {
@@ -422,9 +433,7 @@ pub fn backend_dialogue_witness_claims(ctx: &ViewContext) -> Vec<BackendDialogue
                 bluff_response: claim.bluff_response,
                 assessment_direction: claim.assessment_direction,
                 assessment_strength: claim.assessment_strength.clamp(0.0, 1.0),
-                resolved: claim.resolved,
-                outcome: claim.outcome,
-                affinity_delta: claim.affinity_delta,
+                resolution: claim.resolution,
             })
         })
         .collect()
@@ -947,9 +956,7 @@ fn persist_claim_assessments(
                 demeanor_truth_signal: claim.demeanor_truth_signal,
                 assessment_direction: assessment_direction(assessment.direction).into(),
                 assessment_strength: assessment.strength,
-                resolved: false,
-                outcome: String::new(),
-                affinity_delta: 0.0,
+                resolution: None,
             });
     }
     Ok(())
@@ -1011,30 +1018,13 @@ fn passively_assess_released_testimony(
     )
 }
 
-fn witness_approach(value: &str) -> Result<ClaimChallengeApproach, String> {
-    match value {
-        "charm" => Ok(ClaimChallengeApproach::Charm),
-        "command" => Ok(ClaimChallengeApproach::Command),
-        "bluff" => Ok(ClaimChallengeApproach::Bluff),
-        _ => Err("Unknown witness approach".into()),
-    }
-}
-
-fn witness_approach_skill(approach: ClaimChallengeApproach) -> Skill {
-    match approach {
-        ClaimChallengeApproach::Charm => Skill::Charm,
-        ClaimChallengeApproach::Command => Skill::Command,
-        ClaimChallengeApproach::Bluff => Skill::Deception,
-    }
-}
-
 fn require_witness_social_action(
     ctx: &ReducerContext,
     observer_character_id: u64,
     session_id: &str,
     action_id: &str,
     expected_revision: u64,
-    action_kind: &str,
+    approach: ClaimChallengeApproach,
     challenge_token: &str,
 ) -> Result<
     (
@@ -1081,7 +1071,7 @@ fn require_witness_social_action(
     if claim.session_id != session_id
         || claim.observer_character_id != observer_character_id
         || claim.resident_character_id != capability.resident_character_id
-        || claim.resolved
+        || claim.resolution.is_some()
         || !ctx
             .db
             .dialogue_event()
@@ -1091,11 +1081,10 @@ fn require_witness_social_action(
     {
         return Err("Witness claim challenge is unavailable".into());
     }
-    let response_is_authored = match action_kind {
-        "charm" => claim.charm_response.is_some(),
-        "command" => claim.command_response.is_some(),
-        "bluff" => claim.bluff_response.is_some(),
-        _ => false,
+    let response_is_authored = match approach {
+        ClaimChallengeApproach::Charm => claim.charm_response.is_some(),
+        ClaimChallengeApproach::Command => claim.command_response.is_some(),
+        ClaimChallengeApproach::Bluff => claim.bluff_response.is_some(),
     };
     if !response_is_authored {
         return Err("That response is not authored for this claim".into());
@@ -1182,23 +1171,21 @@ pub fn approach_dialogue_witness(
     )? {
         return Ok(());
     }
-    let approach = witness_approach(&approach_kind)?;
+    let approach = approach_kind
+        .parse::<ClaimChallengeApproach>()
+        .map_err(|error| error.to_string())?;
     let (session, mut capability, mut claim) = require_witness_social_action(
         ctx,
         observer_character_id,
         &session_id,
         &action_id,
         expected_revision,
-        &approach_kind,
+        approach,
         &challenge_token,
     )?;
     let resident_id = capability.resident_character_id;
     let affinity = current_affinity(ctx, resident_id, observer_character_id);
-    let skill_check = crate::condition::mental_check(
-        ctx,
-        observer_character_id,
-        witness_approach_skill(approach),
-    )?;
+    let skill_check = crate::condition::mental_check(ctx, observer_character_id, approach.skill())?;
     let npc = ctx
         .db
         .settlement_resident_profile()
@@ -1260,14 +1247,10 @@ pub fn approach_dialogue_witness(
         morale_source_kind,
     )?;
     let released = outcome.succeeded && capability.has_bound_concern && !capability.bound_released;
-    claim.outcome = if outcome.succeeded {
-        "useful_answer"
-    } else {
-        "did_not_yield"
-    }
-    .into();
-    claim.affinity_delta = affinity_delta;
-    claim.resolved = true;
+    claim.resolution = Some(WitnessClaimResolution::from_challenge(
+        outcome,
+        affinity_delta,
+    ));
     ctx.db
         .dialogue_witness_claim()
         .challenge_token()
@@ -1433,6 +1416,9 @@ pub fn backend_social_addresses(ctx: &ViewContext) -> Vec<SocialAddress> {
         .collect()
 }
 
+/// Row existence owns opt-in for this actor/target pair. Disabling deletes it;
+/// party and death lifecycle cleanup removes invalid pairs. Browser views derive
+/// checked state from presence and keep living/same-party authorization filters.
 #[derive(Clone, Debug)]
 #[table(accessor = automatic_social_chat)]
 pub struct AutomaticSocialChat {
@@ -1442,7 +1428,6 @@ pub struct AutomaticSocialChat {
     pub actor_id: u64,
     #[index(btree)]
     pub target_id: u64,
-    pub enabled: bool,
 }
 
 #[view(accessor = backend_automatic_social_chats, public)]
@@ -1454,7 +1439,6 @@ pub fn backend_automatic_social_chats(ctx: &ViewContext) -> Vec<AutomaticSocialC
         .automatic_social_chat()
         .actor_id()
         .filter(0u64..)
-        .filter(|row| row.enabled)
         .filter(|row| {
             let Some(actor) = ctx.db.character().id().find(row.actor_id) else {
                 return false;
@@ -1543,7 +1527,6 @@ pub fn set_automatic_social_chat(
         id: id.clone(),
         actor_id,
         target_id,
-        enabled: true,
     };
     if ctx.db.automatic_social_chat().id().find(&id).is_some() {
         ctx.db.automatic_social_chat().id().update(row);
@@ -1564,22 +1547,21 @@ pub(crate) fn prune_invalid_automatic_social_chats(ctx: &ReducerContext) {
         .filter(0u64..)
         .collect::<Vec<_>>()
     {
-        let valid = row.enabled
-            && ctx
-                .db
-                .character()
-                .id()
-                .find(row.actor_id)
-                .is_some_and(|actor| {
-                    actor.alive
-                        && actor.party_id.is_some()
-                        && ctx
-                            .db
-                            .character()
-                            .id()
-                            .find(row.target_id)
-                            .is_some_and(|target| target.alive && actor.party_id == target.party_id)
-                });
+        let valid = ctx
+            .db
+            .character()
+            .id()
+            .find(row.actor_id)
+            .is_some_and(|actor| {
+                actor.alive
+                    && actor.party_id.is_some()
+                    && ctx
+                        .db
+                        .character()
+                        .id()
+                        .find(row.target_id)
+                        .is_some_and(|target| target.alive && actor.party_id == target.party_id)
+            });
         if !valid {
             ctx.db.automatic_social_chat().id().delete(&row.id);
         }
@@ -2009,36 +1991,6 @@ pub(crate) fn close_physiology_presence_between(ctx: &ReducerContext, left_id: u
     }
 }
 
-fn parse_action(value: &str) -> Result<SocialActionKind, String> {
-    match value {
-        "reflect" => Ok(SocialActionKind::Reflect),
-        "listen" => Ok(SocialActionKind::Listen),
-        "commiserate" => Ok(SocialActionKind::Commiserate),
-        "pray" => Ok(SocialActionKind::Pray),
-        "reassure" => Ok(SocialActionKind::Reassure),
-        "lighten_mood" => Ok(SocialActionKind::LightenMood),
-        "command" => Ok(SocialActionKind::Rally),
-        "deception" => Ok(SocialActionKind::Reframe),
-        "flirt" => Ok(SocialActionKind::Flirt),
-        _ => Err("Unknown social action".into()),
-    }
-}
-
-fn social_action_skill(action: SocialActionKind, shares_concern: bool) -> Skill {
-    match action {
-        SocialActionKind::Reflect => Skill::Insight,
-        SocialActionKind::Listen => Skill::Insight,
-        SocialActionKind::Commiserate if shares_concern => Skill::Insight,
-        SocialActionKind::Commiserate => Skill::Deception,
-        SocialActionKind::Pray => Skill::Religion,
-        SocialActionKind::Reassure => Skill::Physiology,
-        SocialActionKind::LightenMood => Skill::Charm,
-        SocialActionKind::Rally => Skill::Command,
-        SocialActionKind::Reframe => Skill::Deception,
-        SocialActionKind::Flirt => Skill::Charm,
-    }
-}
-
 fn automatic_personality_fit(
     personality: &crate::personality::CharacterPersonality,
     action: SocialActionKind,
@@ -2288,11 +2240,7 @@ fn automatic_social_action(
                 Err(_) => continue,
             }
         } else {
-            crate::condition::mental_check(
-                ctx,
-                actor_id,
-                social_action_skill(action, shares_concern),
-            )?
+            crate::condition::mental_check(ctx, actor_id, action.skill(shares_concern))?
         };
         if action == SocialActionKind::Rally {
             unscaled_skill_check +=
@@ -2623,24 +2571,8 @@ fn perform_social_action_authoritative(
     action_kind: String,
     consume_time: bool,
 ) -> Result<(), String> {
-    let action = parse_action(&action_kind)?;
+    let action = admission::admit_social_action(ctx, actor_id, target_id, &action_kind)?;
     let is_self = actor_id == target_id;
-    if is_self != (action == SocialActionKind::Reflect) {
-        return Err("Reflect is self-only; other social actions require a companion".into());
-    }
-    let actor = ctx
-        .db
-        .character()
-        .id()
-        .find(actor_id)
-        .ok_or("Actor not found")?;
-    let target = ctx
-        .db
-        .character()
-        .id()
-        .find(target_id)
-        .ok_or("Target not found")?;
-    validate_social_pair(ctx, &actor, &target, is_self)?;
     if consume_time && !is_self {
         crate::time::synchronize_party_activity_time(ctx, &[actor_id, target_id], actor_id)?;
     }
@@ -2716,7 +2648,7 @@ fn perform_social_action_authoritative(
     let mut skill_check = if let Some((religion, _)) = prayer {
         target_religion_check(ctx, actor_id, religion)?
     } else {
-        let skill = social_action_skill(action, actor_shares_concern);
+        let skill = action.skill(actor_shares_concern);
         crate::condition::mental_check(ctx, actor_id, skill)?
     };
     if action == SocialActionKind::Rally {
@@ -2984,7 +2916,7 @@ pub(crate) fn apply_automatic_social_chats(
             sources.sort_by(|left, right| left.id.cmp(&right.id));
             (
                 preference.target_id,
-                preference.enabled && pair_available,
+                pair_available,
                 sources.first().map(|source| source.id.clone()),
             )
         })
@@ -2993,7 +2925,7 @@ pub(crate) fn apply_automatic_social_chats(
         discretionary_minutes,
         candidates
             .iter()
-            .map(|(target_id, enabled, source)| (*target_id, *enabled, source.is_some())),
+            .map(|(target_id, available, source)| (*target_id, *available, source.is_some())),
         MAX_AUTOMATIC_SOCIAL_ATTEMPTS_PER_DOWNTIME,
     );
 
@@ -3396,11 +3328,11 @@ mod contract_tests {
 
     #[test]
     fn prayer_contract_is_typed_and_zealotry_is_an_actor_gate() {
-        assert_eq!(parse_action("pray"), Ok(SocialActionKind::Pray));
         assert_eq!(
-            social_action_skill(SocialActionKind::Pray, false),
-            Skill::Religion
+            "pray".parse::<SocialActionKind>(),
+            Ok(SocialActionKind::Pray)
         );
+        assert_eq!(SocialActionKind::Pray.skill(false), Skill::Religion);
         assert!(!actor_allows_social_prayer(conviction_code(
             crate::personality::Conviction::Zealous
         )));
@@ -3421,11 +3353,11 @@ mod contract_tests {
 
     #[test]
     fn bedside_reassurance_uses_physiology_without_personality_discovery() {
-        assert_eq!(parse_action("reassure"), Ok(SocialActionKind::Reassure));
         assert_eq!(
-            social_action_skill(SocialActionKind::Reassure, false),
-            Skill::Physiology
+            "reassure".parse::<SocialActionKind>(),
+            Ok(SocialActionKind::Reassure)
         );
+        assert_eq!(SocialActionKind::Reassure.skill(false), Skill::Physiology);
         assert!(discovery::axes(SocialActionKind::Reassure, SocialTopic::Injury, false).is_empty());
 
         let source = crate::production_source(include_str!("social.rs"));
@@ -3622,7 +3554,7 @@ mod contract_tests {
             .split("pub struct SocialActionCooldown")
             .next()
             .expect("view boundary");
-        assert!(view.contains(".filter(|row| row.enabled)"));
+        assert!(view.contains(".automatic_social_chat()"));
         assert!(view.contains("actor.party_id == target.party_id"));
         assert!(source.contains("pub(crate) fn prune_invalid_automatic_social_chats"));
     }
@@ -3685,7 +3617,7 @@ mod contract_tests {
         let assessment = source
             .split("fn persist_claim_assessments")
             .nth(1)
-            .and_then(|tail| tail.split("fn witness_approach").next())
+            .and_then(|tail| tail.split("fn require_witness_social_action").next())
             .expect("passive witness assessment");
         assert!(assessment.contains("mental_check(ctx, observer_character_id, Skill::Insight)"));
         assert!(assessment.contains("ctx.random::<u64>()"));
@@ -3744,7 +3676,7 @@ mod contract_tests {
         assert!(requirement.contains("expected_revision"));
         assert!(requirement.contains("witness_social_action_receipt"));
         assert!(requirement.contains("challenge_token"));
-        assert!(requirement.contains("claim.resolved"));
+        assert!(requirement.contains("claim.resolution.is_some()"));
         assert!(source.contains("Witness social action ID conflicts with another request"));
         let finish = source
             .split("fn finish_witness_social_action")
@@ -3827,8 +3759,9 @@ mod contract_tests {
         assert!(approach.contains("claim.claim_is_factually_accurate"));
         assert!(approach.contains("capability.bound_released = true"));
         assert!(approach.contains("passively_assess_released_testimony"));
-        assert!(approach.contains("claim.resolved = true"));
-        assert!(approach.contains("claim.affinity_delta = affinity_delta"));
+        assert!(
+            approach.contains("claim.resolution = Some(WitnessClaimResolution::from_challenge(")
+        );
         assert!(approach.contains("current_morale"));
     }
 
@@ -3862,6 +3795,6 @@ mod contract_tests {
         assert!(reducer.contains("resolve_claim_challenge"));
         assert!(reducer.contains("outcome.succeeded && capability.has_bound_concern"));
         assert!(reducer.contains("release_referred_withheld_testimony"));
-        assert!(reducer.contains("\"did_not_yield\""));
+        assert!(reducer.contains("WitnessClaimResolution::from_challenge"));
     }
 }
