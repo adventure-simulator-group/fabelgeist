@@ -7,6 +7,10 @@ use std::path::PathBuf;
 #[command(name = "strategic-web")]
 #[command(about = "Strategic layer web server for Fabelgeist")]
 pub struct Config {
+    /// HTTPS origin through which browsers reach private tactical listeners.
+    #[arg(long, env = "TACTICAL_PROXY_ORIGIN")]
+    pub tactical_proxy_origin: Option<crate::tactical_proxy::TacticalProxyOrigin>,
+
     /// SpacetimeDB host URL
     #[arg(
         long,
@@ -77,6 +81,16 @@ pub struct Config {
 }
 
 impl Config {
+    pub fn session_codec(&self) -> anyhow::Result<crate::session::SessionCodec> {
+        if self.tactical_proxy_origin.is_some() && !self.strategic_session_cookie_secure {
+            anyhow::bail!("a tactical HTTPS proxy requires secure strategic session cookies");
+        }
+        Ok(crate::session::SessionCodec::from_base64url(
+            &self.strategic_session_secret,
+            self.strategic_session_cookie_secure,
+        )?)
+    }
+
     pub fn validated_bind_address(&self) -> Result<std::net::SocketAddr, String> {
         let address: std::net::SocketAddr = self
             .bind_address
@@ -97,6 +111,7 @@ mod tests {
 
     fn config(bind_address: &str, allow: bool) -> Config {
         Config {
+            tactical_proxy_origin: None,
             spacetimedb_host: String::new(),
             spacetimedb_database: String::new(),
             spacetimedb_token: None,
@@ -108,6 +123,15 @@ mod tests {
             tactical_static_dir: String::new(),
             strategic_map_bundle_dir: PathBuf::new(),
         }
+    }
+
+    #[test]
+    fn public_tactical_proxy_requires_secure_browser_cookies() {
+        let mut config = config("127.0.0.1:8080", false);
+        config.tactical_proxy_origin = Some("https://test.fabelgeist.com".parse().unwrap());
+        assert!(config.session_codec().is_err());
+        config.strategic_session_cookie_secure = true;
+        assert!(config.session_codec().is_ok());
     }
 
     #[test]

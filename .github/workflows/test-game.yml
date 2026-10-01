@@ -1,0 +1,86 @@
+name: Deploy test game
+
+on:
+  workflow_run:
+    workflows: ["Rust quality"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-game-deployment
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository &&
+       github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    environment:
+      name: test-game
+      url: https://test.fabelgeist.com
+    env:
+      DEPLOY_HOST: ${{ vars.TEST_DEPLOY_HOST }}
+      DEPLOY_USER: ${{ vars.TEST_DEPLOY_USER || 'root' }}
+      DEPLOY_ROOT: /opt/fabelgeist-test
+      SERVICE_USER: fabelgeist-test
+      TEST_USER: tester
+      TEST_PASSWORD_HASH: ${{ secrets.TEST_PASSWORD_HASH }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || 'main' }}
+      - name: Confirm the commit is still main
+        id: revision
+        run: |
+          latest="$(git ls-remote origin refs/heads/main | cut -f1)"
+          if [ "$latest" = "$(git rev-parse HEAD)" ]; then
+            echo 'current=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'current=false' >> "$GITHUB_OUTPUT"
+            echo 'Skipping a completed check for a superseded main commit.'
+          fi
+      - name: Check deployment tooling
+        if: steps.revision.outputs.current == 'true'
+        run: python3 -B -m unittest scripts.tests.test_deploy -v
+      - name: Install deployment SSH credentials
+        if: steps.revision.outputs.current == 'true'
+        env:
+          SSH_KEY: ${{ secrets.TEST_DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.TEST_DEPLOY_KNOWN_HOSTS }}
+        run: |
+          test -n "$DEPLOY_HOST"
+          test -n "$SSH_KEY"
+          test -n "$KNOWN_HOSTS"
+          test -n "$TEST_PASSWORD_HASH"
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$SSH_KEY" > "$HOME/.ssh/id_ed25519"
+          printf '%s\n' "$KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/id_ed25519" "$HOME/.ssh/known_hosts"
+      - name: Deploy the checked main commit
+        if: steps.revision.outputs.current == 'true'
+        run: |
+          revision="$(git rev-parse HEAD)"
+          python3 scripts/deploy.py test.fabelgeist.com --target game --ref "$revision"
+      - name: Verify HTTPS and the deployed commit
+        if: steps.revision.outputs.current == 'true'
+        env:
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        run: |
+          test -n "$TEST_PASSWORD"
+          curl --fail --silent --show-error --user "$TEST_USER:$TEST_PASSWORD" https://test.fabelgeist.com/static/deploy.json > /tmp/deployed.json
+          python3 - <<'PYTHON'
+          import json, subprocess
+          with open('/tmp/deployed.json') as stream:
+              deployed = json.load(stream)
+          expected = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+          if deployed['commit'] != expected:
+              raise SystemExit('the test site is serving a different commit')
+          PYTHON

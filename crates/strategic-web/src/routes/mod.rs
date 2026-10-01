@@ -25,13 +25,12 @@ use clock::current_time;
 pub mod settlements;
 pub(crate) mod travel;
 mod weapon_icons;
-use crate::live::LiveState;
-use crate::session::{Session, SessionCodec};
+use crate::session::Session;
 use crate::spacetimedb::{
     BackendCaseSitePin, BackendCharacterCaseSiteLocation, CaseSiteId, CharacterAttributes,
     CharacterLimbs, CharacterSkills, CharacterStrategicCondition, CharacterTime, CharacterView,
     PartyActionRequestView, PartyJourney, PartyJourneyRouteView, PartyMember, PartyView,
-    SettlementView, SpacetimeClient, sql_string_literal,
+    SettlementView, sql_string_literal,
 };
 use adventuresim_world_schema::calendar::StrategicMinute;
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
@@ -46,15 +45,8 @@ use axum::{
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-/// Application state shared across routes
-#[derive(Clone)]
-pub struct AppState {
-    pub db: SpacetimeClient,
-    pub live: LiveState,
-    pub strategic_map: Option<std::sync::Arc<crate::strategic_map::StrategicMap>>,
-    pub terrain: Option<std::sync::Arc<travel::TerrainPlanner>>,
-    pub session_codec: std::sync::Arc<SessionCodec>,
-}
+mod state;
+pub(crate) use state::AppState;
 
 pub(crate) use party_actions::PartyAction;
 

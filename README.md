@@ -11,3 +11,5 @@
 *   [Project repository](https://github.com/adventure-simulator-group/fabelgeist)
 *   [Contribute on GitHub](https://github.com/adventure-simulator-group/fabelgeist/issues)
 *   [AGPLv3 license](LICENSE)
+
+See [Deployment](DEPLOY.md) for the showcase and private game test environment.
