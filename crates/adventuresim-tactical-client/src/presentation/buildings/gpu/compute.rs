@@ -190,9 +190,10 @@ fn initialize(mut commands: Commands, cache: Res<PipelineCache>, server: Res<Ass
                 uniform_buffer::<ViewParameters>(true),
                 storage_buffer_read_only::<assembly::Building>(false),
                 storage_buffer::<u32>(false),
-                storage_buffer_read_only::<UVec4>(false),
+                storage_buffer_read_only::<assembly::DrawRange>(false),
                 storage_buffer::<UVec2>(false),
                 storage_buffer::<UVec4>(false),
+                storage_buffer_read_only::<u32>(false),
             ),
         ),
     );
@@ -255,7 +256,8 @@ fn prepare(
     let layout = cache.get_bind_group_layout(&pipelines.layout);
     let mut bindings = Vec::new();
     for (batch, scratch) in scene.batches.iter().zip(&scratch.batches) {
-        let Some(source) = buffers.get(&batch.source) else {
+        let (Some(source), Some(owners)) = (buffers.get(&batch.source), buffers.get(&batch.owners))
+        else {
             return;
         };
         bindings.push(device.create_bind_group(
@@ -268,6 +270,7 @@ fn prepare(
                 source.buffer.as_entire_binding(),
                 scratch.visible.as_entire_binding(),
                 scratch.indirect.as_entire_binding(),
+                owners.buffer.as_entire_binding(),
             )),
         ));
     }

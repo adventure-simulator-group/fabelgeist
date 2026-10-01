@@ -29,9 +29,11 @@ pub(super) fn parts(world: &mut World) -> Vec<Part> {
                 .map(|material| material.0.clone())
                 .or_else(|| interior.map(|material| material.0.clone()))?;
             Some(Part {
-                entity,
+                entity: Some(entity),
                 root: parent.parent(),
                 transform: transform.to_matrix(),
+                local_transform: Mat4::IDENTITY,
+                uv_offset: Vec2::ZERO,
                 mesh: mesh.0.clone(),
                 material,
                 level: 2,

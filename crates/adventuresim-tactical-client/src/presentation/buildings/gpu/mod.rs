@@ -5,6 +5,7 @@ mod draw;
 mod geometry;
 mod material;
 mod scratch;
+pub(super) use assembly::PendingGpuBuildings;
 
 use bevy::{
     prelude::*,
@@ -25,6 +26,7 @@ pub(super) fn is_ready() -> bool {
 pub(super) fn reset(world: &mut World) {
     READY.store(false, Ordering::Relaxed);
     world.insert_resource(CityGpuScene::default());
+    world.insert_resource(PendingGpuBuildings::default());
 }
 
 pub(super) const TRIANGLES_PER_CLUSTER: usize = 64;
@@ -34,6 +36,7 @@ pub(super) const MAX_CITY_VIEWS: usize = 64;
 
 #[derive(Clone)]
 struct GpuBatch {
+    pub owners: Handle<ShaderBuffer>,
     pub material: Handle<material::CityMaterial>,
     pub source: Handle<ShaderBuffer>,
     pub vertices: Handle<ShaderBuffer>,
@@ -55,6 +58,7 @@ pub(super) struct CityGpuPlugin;
 impl Plugin for CityGpuPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<CityGpuScene>()
+            .init_resource::<PendingGpuBuildings>()
             .add_plugins((
                 MaterialPlugin::<material::CityMaterial>::default(),
                 ExtractResourcePlugin::<CityGpuScene>::default(),

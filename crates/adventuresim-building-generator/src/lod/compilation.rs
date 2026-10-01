@@ -12,6 +12,13 @@ pub fn compile_static_building_lod(plan: &BuildingPlan, level: BuildingLodLevel)
     compile(plan, level, &crate::detail::dynamic_closure_solids(plan))
 }
 
+pub(crate) fn compile_components(
+    plan: &BuildingPlan,
+    excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
+) -> BuildingLod {
+    compile(plan, BuildingLodLevel::Facade, excluded)
+}
+
 fn compile(
     plan: &BuildingPlan,
     level: BuildingLodLevel,

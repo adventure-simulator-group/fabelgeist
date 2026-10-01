@@ -3,7 +3,7 @@
 #ifndef PREPASS_PIPELINE
 #import bevy_pbr::{pbr_types, pbr_functions::{apply_pbr_lighting, main_pass_post_lighting_processing, calculate_view}, mesh_types::MESH_FLAGS_SHADOW_RECEIVER_BIT}
 #endif
-struct Building { transform: mat4x4<f32>, bounds: vec4<f32>, levels: vec4<u32> }
+struct Building { transform: mat4x4<f32>, bounds: vec4<f32>, levels: vec4<u32>, uv_offset: vec4<f32> }
 struct Surface { color: vec4<f32>, properties: vec4<f32>, uv_scale_offset: vec4<f32> }
 @group(3) @binding(0) var<uniform> surface: Surface;
 @group(3) @binding(1) var albedo: texture_2d<f32>;
@@ -13,9 +13,11 @@ struct Surface { color: vec4<f32>, properties: vec4<f32>, uv_scale_offset: vec4<
 @group(2) @binding(0) var<storage, read> vertices: array<vec4<f32>>;
 @group(2) @binding(1) var<storage, read> buildings: array<Building>;
 @group(2) @binding(2) var<storage, read> visible: array<vec2<u32>>;
-@group(2) @binding(3) var<storage, read> ranges: array<vec4<u32>>;
+struct DrawRange { geometry: vec4<u32>, instances: vec4<u32> }
+@group(2) @binding(3) var<storage, read> ranges: array<DrawRange>;
 
 @group(2) @binding(4) var<storage, read> indices: array<u32>;
+@group(2) @binding(5) var<storage, read> owners: array<u32>;
 
 struct CityVertex {
     @builtin(position) position: vec4<f32>,
@@ -29,8 +31,10 @@ struct CityVertex {
 @vertex
 fn vertex(@builtin(vertex_index) index: u32, @builtin(instance_index) instance: u32) -> CityVertex {
     let cluster = visible[instance];
-    let job = ranges[cluster.x];
-    let local_index = cluster.y + index;
+    let range = ranges[cluster.x];
+    let job = range.geometry;
+    let owner = owners[cluster.y / range.instances.y];
+    let local_index = (cluster.y % range.instances.y) * range.instances.z + index;
     var out: CityVertex;
     if local_index >= job.z {
         out.position = vec4(2.0, 2.0, 2.0, 1.0);
@@ -40,10 +44,16 @@ fn vertex(@builtin(vertex_index) index: u32, @builtin(instance_index) instance: 
     let p = vertices[start];
     let n = vertices[start+1u];
     let t = vertices[start+2u];
-    let transform = buildings[job.x].transform;
+    var transform = buildings[owner].transform;
+    var uv_offset = vec2(0.0);
+    if (job.w & 512u) != 0u {
+        let component = buildings[job.w >> 10u];
+        transform = transform * component.transform;
+        uv_offset = component.uv_offset.xy;
+    }
     out.visibility = 1.0;
 #ifndef PREPASS_PIPELINE
-    let object = buildings[job.x];
+    let object = buildings[owner];
     if object.levels.y == 1u {
         out.visibility = 1.0 - smoothstep(bitcast<f32>(object.levels.z), bitcast<f32>(object.levels.w), distance(object.bounds.xyz, view.world_position.xyz));
     }
@@ -52,7 +62,7 @@ fn vertex(@builtin(vertex_index) index: u32, @builtin(instance_index) instance: 
     out.position = view.clip_from_world * out.world_position;
     out.normal = normalize((transform * vec4(n.xyz, 0.0)).xyz);
     out.tangent = vec4(normalize((transform * vec4(t.xyz, 0.0)).xyz), t.w);
-    out.uv = vec2(p.w, n.w) * surface.uv_scale_offset.xy + surface.uv_scale_offset.zw;
+    out.uv = (vec2(p.w, n.w) + uv_offset) * surface.uv_scale_offset.xy + surface.uv_scale_offset.zw;
     return out;
 }
 

@@ -1,12 +1,69 @@
 use super::*;
 
 #[test]
-fn repeated_buildings_share_geometry_and_release_per_part_render_entities() {
+fn components_share_geometry_and_pose_but_follow_their_buildings_lod() {
+    let mut world = World::new();
+    world.init_resource::<Assets<Mesh>>();
+    let mesh = world
+        .resource_mut::<Assets<Mesh>>()
+        .add(Cuboid::new(1.0, 2.0, 3.0));
+    let mut parts = Vec::new();
+    for x in [0.0, 30.0] {
+        let root = world.spawn_empty().id();
+        for level in [1, 2] {
+            parts.push(Part {
+                entity: None,
+                root,
+                transform: Mat4::from_translation(Vec3::X * x),
+                local_transform: if level == 1 {
+                    Mat4::from_translation(Vec3::Y * 5.0)
+                } else {
+                    Mat4::IDENTITY
+                },
+                uv_offset: Vec2::new(0.5, 0.25),
+                mesh: mesh.clone(),
+                material: Handle::default(),
+                level,
+                fade: None,
+            });
+        }
+    }
+    let packed = pack(&world, parts.iter().cloned());
+    let owners: Vec<_> = packed
+        .buildings
+        .iter()
+        .filter(|record| record.levels.y != COMPONENT_RECORD)
+        .collect();
+    assert_eq!(owners.len(), 2);
+    assert!(owners.iter().all(|record| record.levels.x == 6));
+    assert_eq!(owners[0].bounds.w, owners[1].bounds.w);
+    assert!(owners[0].bounds.w > 5.0);
+    assert_eq!(
+        packed.buildings.len(),
+        4,
+        "two shared component poses, not one per placement"
+    );
+    assert_eq!(packed.geometry.pages[0].vertices.len(), 24 * 3);
+    let jobs = &packed.batches.values().next().unwrap().1;
+    for job in jobs {
+        let component = &packed.buildings[(job.w >> COMPONENT_INDEX_SHIFT) as usize];
+        assert_eq!(component.levels.y, COMPONENT_RECORD);
+        assert_eq!(
+            component.uv_offset.truncate().truncate(),
+            Vec2::new(0.5, 0.25)
+        );
+        assert_eq!(packed.buildings[job.x as usize].levels.x, 6);
+    }
+}
+
+#[test]
+fn queued_buildings_share_geometry_without_per_part_render_entities() {
     let mut world = World::new();
     world.init_resource::<Assets<Mesh>>();
     world.init_resource::<Assets<StandardMaterial>>();
     world.init_resource::<Assets<material::CityMaterial>>();
     world.init_resource::<Assets<ShaderBuffer>>();
+    world.init_resource::<PendingGpuBuildings>();
     let mut mesh = Mesh::from(Cuboid::new(2.0, 3.0, 4.0));
     // Repeated indexed triangles span 66 draw clusters, including a partial
     // final cluster, without adding unique geometry.
@@ -24,30 +81,32 @@ fn repeated_buildings_share_geometry_and_release_per_part_render_entities() {
         .add(StandardMaterial::default());
     for x in [0.0, 20.0] {
         let root = world.spawn_empty().id();
-        for level in [BuildingRenderLevel::Lod1, BuildingRenderLevel::Lod2] {
-            world.spawn((
-                ChildOf(root),
-                GlobalTransform::from_translation(Vec3::new(x, 0.0, 0.0)),
-                Mesh3d(mesh.clone()),
-                MeshMaterial3d(material.clone()),
-                PresentedBuildingMesh {
-                    scope: BuildingPresentationScope::DistantCity,
+        for level in [1, 2 | FACADE_OVERLAY_FLAG] {
+            world
+                .resource_mut::<PendingGpuBuildings>()
+                .parts
+                .push(Part {
+                    entity: None,
+                    root,
+                    transform: Mat4::from_translation(Vec3::new(x, 0.0, 0.0)),
+                    local_transform: Mat4::IDENTITY,
+                    uv_offset: Vec2::ZERO,
+                    mesh: mesh.clone(),
+                    material: material.clone(),
                     level,
-                    material: if matches!(level, BuildingRenderLevel::Lod2) {
-                        adventuresim_building_generator::BuildingLodMaterial::FacadeDetails
-                    } else {
-                        adventuresim_building_generator::BuildingLodMaterial::Timber
-                    },
-                    triangles: 4_161,
-                },
-            ));
+                    fade: None,
+                });
         }
     }
+    assert_eq!(world.query::<&Mesh3d>().iter(&world).count(), 0);
+    let packed = pack(&world, world.resource::<PendingGpuBuildings>().iter(None));
+    assert_eq!(packed.buildings[1].bounds.x, 20.0);
+    assert_eq!(packed.buildings[0].levels.x, 6);
     assemble(&mut world);
     let scene = world.resource::<CityGpuScene>();
     assert_eq!(scene.count, 2);
     assert_eq!(scene.batches.len(), 1);
-    assert_eq!(scene.batches[0].ranges, 4);
+    assert_eq!(scene.batches[0].ranges, 2);
     assert_eq!(scene.batches[0].capacity, 264);
     let source = world
         .resource::<Assets<ShaderBuffer>>()
@@ -57,13 +116,13 @@ fn repeated_buildings_share_geometry_and_release_per_part_render_entities() {
         .as_ref()
         .unwrap();
     let overlay_ranges = source
-        .chunks_exact(size_of::<UVec4>())
+        .chunks_exact(size_of::<DrawRange>())
         .filter(|range| {
             u32::from_le_bytes(range[12..16].try_into().unwrap()) & FACADE_OVERLAY_FLAG != 0
         })
         .count();
     assert_eq!(
-        overlay_ranges, 2,
+        overlay_ranges, 1,
         "shadow policy preserves each range's surface role"
     );
     assert_eq!(
@@ -75,8 +134,8 @@ fn repeated_buildings_share_geometry_and_release_per_part_render_entities() {
             .as_ref()
             .unwrap()
             .len(),
-        4 * size_of::<UVec4>(),
-        "source records scale with mesh ranges, not triangle clusters"
+        2 * size_of::<DrawRange>(),
+        "source records share placement lists across geometry ranges"
     );
     let vertices = world
         .resource::<Assets<ShaderBuffer>>()
@@ -87,10 +146,33 @@ fn repeated_buildings_share_geometry_and_release_per_part_render_entities() {
         24 * 3 * size_of::<Vec4>(),
         "one canonical cube, even across two buildings and two LODs"
     );
-    assert_eq!(
-        world.query::<&PresentedBuildingMesh>().iter(&world).count(),
-        0
-    );
+    assert!(world.resource::<PendingGpuBuildings>().parts.is_empty());
+    let batches = world.query::<&Mesh3d>().iter(&world).count();
+    assemble(&mut world);
+    assert_eq!(world.query::<&Mesh3d>().iter(&world).count(), batches);
+}
+
+#[test]
+fn replacing_city_discards_unpublished_instances() {
+    let mut world = World::new();
+    let root = world.spawn_empty().id();
+    world.insert_resource(PendingGpuBuildings {
+        parts: vec![Part {
+            entity: None,
+            root,
+            transform: Mat4::IDENTITY,
+            local_transform: Mat4::IDENTITY,
+            uv_offset: Vec2::ZERO,
+            mesh: Handle::default(),
+            material: Handle::default(),
+            level: 1,
+            fade: None,
+        }],
+        ..Default::default()
+    });
+    super::super::reset(&mut world);
+    assert!(world.resource::<PendingGpuBuildings>().parts.is_empty());
+    assert_eq!(world.resource::<CityGpuScene>().count, 0);
 }
 
 #[test]
@@ -145,7 +227,7 @@ fn only_static_outdoor_props_enter_shared_gpu_geometry() {
         parts.iter().map(|part| part.root).collect::<Vec<_>>(),
         roots[..2]
     );
-    let packed = pack(&world, &parts);
+    let packed = pack(&world, parts.iter().cloned());
     assert_eq!(packed.buildings.len(), 2);
     assert_eq!(packed.geometry.pages[0].vertices.len(), 24 * 3);
     assert_eq!(packed.geometry.pages[0].indices.len(), 36);

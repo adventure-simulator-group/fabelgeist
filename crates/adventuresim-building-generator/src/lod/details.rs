@@ -160,7 +160,7 @@ pub(super) fn append_gable_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
     }
 }
 
-fn opening_atlas_interval(kind: OpeningUse) -> (f32, f32) {
+pub(super) fn opening_atlas_interval(kind: OpeningUse) -> (f32, f32) {
     match kind {
         OpeningUse::Window => (0.25, 0.375),
         OpeningUse::Door => (0.375, 0.5),

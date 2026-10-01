@@ -31,7 +31,9 @@ use cuboids::{
 use cuboids::{is_fachwerk_member_role, render_cuboid_placement};
 pub(crate) use masonry_surfaces::resolve as resolve_masonry_surfaces;
 mod heating;
+mod kit;
 pub(crate) use heating::compile_heating_lod;
+pub use kit::{BuildingKit, TimberComponent, TimberInstance};
 mod materials;
 mod solids;
 mod stove_tiles;

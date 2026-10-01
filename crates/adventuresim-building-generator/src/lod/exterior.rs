@@ -5,6 +5,23 @@ use crate::{ResolvedSolid, WallAssembly};
 const EXTERIOR_FACE_DOT_TOLERANCE: f32 = 0.001;
 const OUTWARD_FACE_DOT_MINIMUM: f32 = 0.5;
 
+pub(crate) fn component_solids(
+    plan: &BuildingPlan,
+) -> std::collections::BTreeSet<crate::ResolvedItemId> {
+    if plan.church.is_some() || plan.small_church.is_some() || !super::closures::exact_facade(plan)
+    {
+        return Default::default();
+    }
+    facade_contexts(
+        &super::compilation::retained_facade_runs(plan),
+        plan,
+        &Default::default(),
+    )
+    .0
+    .into_keys()
+    .collect()
+}
+
 pub(super) fn append_facades(
     lod: &mut BuildingLod,
     plan: &BuildingPlan,

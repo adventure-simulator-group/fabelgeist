@@ -21,7 +21,10 @@ fn roof_polygon_bounds(polygon: &[Vec3]) -> ResolvedBounds {
     ResolvedBounds { min, max }
 }
 
-fn roof_face_polygons(roof: RoofPiece, shed_high_side: Option<Direction>) -> Vec<Vec<Vec3>> {
+pub(crate) fn roof_face_polygons(
+    roof: RoofPiece,
+    shed_high_side: Option<Direction>,
+) -> Vec<Vec<Vec3>> {
     let hx = roof.size.x * 0.5 + roof.eave_metres;
     let hz = roof.size.y * 0.5 + roof.eave_metres;
     let y = roof.base_height_metres;
@@ -420,9 +423,7 @@ fn roof_underside_height_at(assembly: &RoofAssembly, point: Vec2) -> Option<f32>
             .iter()
             .map(|vertex| Vec2::new(vertex.x, vertex.z))
             .collect::<Vec<_>>();
-        plan_point_in_convex_polygon(point, &projected).then(|| {
-            face.underside_height_at(point)
-        })
+        plan_point_in_convex_polygon(point, &projected).then(|| face.underside_height_at(point))
     })
 }
 

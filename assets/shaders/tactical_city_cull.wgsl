@@ -1,17 +1,20 @@
-struct Building { transform: mat4x4<f32>, bounds: vec4<f32>, levels: vec4<u32> }
+struct Building { transform: mat4x4<f32>, bounds: vec4<f32>, levels: vec4<u32>, uv_offset: vec4<f32> }
 struct ViewParameters { clip_from_world: mat4x4<f32>, camera: vec4<f32>, projection: vec4<f32>, counts: vec4<u32>, policy: vec4<u32>, far_plane: vec4<f32> }
 struct DrawArgs { vertices: u32, instances: atomic<u32>, first_vertex: u32, first_instance: u32 }
 @group(0) @binding(0) var<uniform> params: ViewParameters;
 @group(0) @binding(1) var<storage, read> buildings: array<Building>;
 @group(0) @binding(2) var<storage, read_write> selection: array<u32>;
-@group(0) @binding(3) var<storage, read> source: array<vec4<u32>>;
+struct DrawRange { geometry: vec4<u32>, instances: vec4<u32> }
+@group(0) @binding(3) var<storage, read> source: array<DrawRange>;
 @group(0) @binding(4) var<storage, read_write> visible: array<vec2<u32>>;
 @group(0) @binding(5) var<storage, read_write> draws: array<DrawArgs>;
+@group(0) @binding(6) var<storage, read> owners: array<u32>;
 
 @compute @workgroup_size(64)
 fn select_buildings(@builtin(global_invocation_id) id: vec3<u32>) {
     if id.x >= params.counts.x { return; }
     let building = buildings[id.x];
+    if building.levels.y == 2u { return; } // Canonical component transform, not a visibility owner.
     let out_index = params.counts.z * params.counts.x + id.x;
     let previous = select(0u, selection[out_index], params.projection.w > 0.5);
     selection[out_index] = 0u;
@@ -61,13 +64,17 @@ fn compact_ranges(@builtin(global_invocation_id) id: vec3<u32>,
                   @builtin(num_workgroups) groups: vec3<u32>) {
     let range = id.y * groups.x * 64u + id.x;
     if range >= arrayLength(&source) { return; }
-    let job = source[range];
+    let entry = source[range];
+    let job = entry.geometry;
     if params.policy.x != 0u && (job.w & FACADE_OVERLAY_FLAG) != 0u { return; }
-    if (selection[params.counts.z * params.counts.x + job.x] & (1u << (job.w & LOD_LEVEL_MASK))) == 0u { return; }
-    let cluster_count = (job.z + 191u) / 192u;
-    let output_start = atomicAdd(&draws[params.counts.w].instances, cluster_count);
-    for (var cluster = 0u; cluster < cluster_count; cluster += 1u) {
-        let index = params.counts.w * params.counts.y + output_start + cluster;
-        visible[index] = vec2(range, cluster * 192u);
+    let cluster_count = entry.instances.y;
+    for (var placement = job.x; placement < job.x + entry.instances.x; placement += 1u) {
+        let owner = owners[placement];
+        if (selection[params.counts.z * params.counts.x + owner] & (1u << (job.w & LOD_LEVEL_MASK))) == 0u { continue; }
+        let output_start = atomicAdd(&draws[params.counts.w].instances, cluster_count);
+        for (var cluster = 0u; cluster < cluster_count; cluster += 1u) {
+            let index = params.counts.w * params.counts.y + output_start + cluster;
+            visible[index] = vec2(range, placement * cluster_count + cluster);
+        }
     }
 }
