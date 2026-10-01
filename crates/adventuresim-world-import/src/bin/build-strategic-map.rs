@@ -5,7 +5,7 @@ use std::{
 };
 
 use adventuresim_world_import::hyde_crop_cells;
-use adventuresim_world_schema::calendar::{CalendarYear, WORLD_START_YEAR};
+use adventuresim_world_schema::calendar::WORLD_START_YEAR;
 use adventuresim_world_schema::{CompiledWorld, PLAYABLE_BOUNDS, TravelEdgeProvenance};
 use clap::Parser;
 use raster::{ElevationLayer, ForestLayer, MapRasterLayers};
@@ -1250,7 +1250,10 @@ mod tests {
             ("toyear".into(), "1545".into()),
         ]);
         assert!(active(&row, WORLD_START_YEAR));
-        assert!(!active(&row, CalendarYear::new(1545).unwrap()));
+        assert!(!active(
+            &row,
+            adventuresim_world_schema::calendar::CalendarYear::new(1545).unwrap()
+        ));
     }
 
     #[test]

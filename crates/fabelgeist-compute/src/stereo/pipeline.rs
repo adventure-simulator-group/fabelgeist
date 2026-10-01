@@ -175,8 +175,8 @@ pub fn invert_rigid(m: &Matrix4) -> Matrix4 {
             out[r][c] = m[c][r];
         }
     }
-    for r in 0..3 {
-        out[r][3] = -(0..3).map(|c| out[r][c] * m[c][3]).sum::<f32>();
+    for row in &mut out[..3] {
+        row[3] = -(0..3).map(|c| row[c] * m[c][3]).sum::<f32>();
     }
     out
 }

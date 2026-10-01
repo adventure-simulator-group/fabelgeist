@@ -106,9 +106,11 @@ impl MeshData {
         let count = self.indices.as_ref().map_or(n, Vec::len);
         match self.topology {
             PrimitiveTopology::TriangleList => {
-                ensure!(count % 3 == 0, "triangle list needs triples")
+                ensure!(count.is_multiple_of(3), "triangle list needs triples")
             }
-            PrimitiveTopology::LineList => ensure!(count % 2 == 0, "line list needs pairs"),
+            PrimitiveTopology::LineList => {
+                ensure!(count.is_multiple_of(2), "line list needs pairs")
+            }
             _ => {}
         }
         Ok(())
@@ -123,7 +125,9 @@ impl MeshData {
             .unwrap_or_else(|| (0..self.positions.len() as u32).collect());
         let triangles = match self.topology {
             PrimitiveTopology::TriangleList => indices
-                .chunks_exact(3)
+                .as_chunks::<3>()
+                .0
+                .iter()
                 .map(|t| [t[0], t[1], t[2]])
                 .collect(),
             PrimitiveTopology::TriangleStrip => indices

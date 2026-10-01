@@ -7,7 +7,7 @@ use fabelgeist_gpu::data::gpu::texture::Texture3d;
 pub struct DistanceField;
 
 impl DistanceField {
-    pub fn new(context: &WgpuContext, size: Vec3) -> Result<Texture3d> {
+    pub fn create_texture(context: &WgpuContext, size: Vec3) -> Result<Texture3d> {
         Texture3d::new(
             context,
             size,
@@ -186,7 +186,7 @@ impl DistanceField {
         let input_res = GpuResource::Texture3d(temp_tex);
         let io_res = GpuResource::Texture3d(io.clone());
 
-        let mut final_params = parameters.unwrap_or_else(PassParameters::new);
+        let mut final_params = parameters.unwrap_or_default();
         final_params.insert("smin_k", k);
 
         Map::execute_with_parameters(

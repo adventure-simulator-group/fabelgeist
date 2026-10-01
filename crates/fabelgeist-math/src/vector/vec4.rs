@@ -35,31 +35,6 @@ impl Vec4 {
         (self.x, self.y, self.z, self.w)
     }
 
-    /// Add two Vec4 values.
-    pub fn add(a: Self, b: Self) -> Self {
-        Self::new(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w)
-    }
-
-    /// Subtract two Vec4 values.
-    pub fn sub(a: Self, b: Self) -> Self {
-        Self::new(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w)
-    }
-
-    /// Multiply a Vec4 by a scalar.
-    pub fn mul(value: Self, scalar: f32) -> Self {
-        Self::new(
-            value.x * scalar,
-            value.y * scalar,
-            value.z * scalar,
-            value.w * scalar,
-        )
-    }
-
-    /// Negate a Vec4.
-    pub fn neg(value: Self) -> Self {
-        Self::new(-value.x, -value.y, -value.z, -value.w)
-    }
-
     pub fn dot(self, other: Self) -> f32 {
         self.x * other.x + self.y * other.y + self.z * other.z + self.w * other.w
     }
@@ -184,5 +159,52 @@ impl From<Vec4> for wgpu::Color {
 impl std::fmt::Display for Vec4 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "({}, {}, {}, {})", self.x, self.y, self.z, self.w)
+    }
+}
+
+impl std::ops::Add for Vec4 {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Self::new(
+            self.x + other.x,
+            self.y + other.y,
+            self.z + other.z,
+            self.w + other.w,
+        )
+    }
+}
+
+impl std::ops::Sub for Vec4 {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self {
+        Self::new(
+            self.x - other.x,
+            self.y - other.y,
+            self.z - other.z,
+            self.w - other.w,
+        )
+    }
+}
+
+impl std::ops::Mul<f32> for Vec4 {
+    type Output = Self;
+
+    fn mul(self, scalar: f32) -> Self {
+        Self::new(
+            self.x * scalar,
+            self.y * scalar,
+            self.z * scalar,
+            self.w * scalar,
+        )
+    }
+}
+
+impl std::ops::Neg for Vec4 {
+    type Output = Self;
+
+    fn neg(self) -> Self {
+        Self::new(-self.x, -self.y, -self.z, -self.w)
     }
 }

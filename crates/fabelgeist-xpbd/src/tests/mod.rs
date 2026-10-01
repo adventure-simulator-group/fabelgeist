@@ -45,10 +45,10 @@ impl Reference {
                     continue;
                 }
                 let mut velocity = self.velocities[index] + settings.gravity * substep;
-                velocity = velocity * (-settings.damping * substep).exp();
+                velocity *= (-settings.damping * substep).exp();
                 let speed = velocity.length();
                 if speed > settings.max_speed && speed > 0.0 {
-                    velocity = velocity * (settings.max_speed / speed);
+                    velocity *= settings.max_speed / speed;
                 }
                 self.velocities[index] = velocity;
                 self.positions[index] += velocity * substep;
@@ -108,6 +108,10 @@ fn chain(links: usize, spacing: f32) -> (Vec<Vec3>, Vec<f32>, Vec<[u32; 2]>, Vec
     (positions, inverse_masses, edges, rest_lengths)
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the fixture supplies initial particle state and solver settings independently"
+)]
 async fn run(
     positions: &[Vec3],
     inverse_masses: &[f32],

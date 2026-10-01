@@ -37,23 +37,21 @@ pub struct StencilSignature {
     pub param_names: Vec<String>,
 }
 
+type StencilPipelineCache = HashMap<
+    (
+        ResourceDescriptor,                // input_res
+        ResourceDescriptor,                // output_res
+        Vec<(String, ResourceDescriptor)>, // secondary_resources
+        u32,                               // boundary_mode
+    ),
+    Arc<(ComputePipeline, u64, u64)>,
+>;
+
 #[derive(Clone, Debug)]
 pub struct StencilDefinition {
     pub code: String,
     pub boundary_mode: u32,
-    pub cache: Arc<
-        RwLock<
-            HashMap<
-                (
-                    ResourceDescriptor,                // input_res
-                    ResourceDescriptor,                // output_res
-                    Vec<(String, ResourceDescriptor)>, // secondary_resources
-                    u32,                               // boundary_mode
-                ),
-                Arc<(ComputePipeline, u64, u64)>,
-            >,
-        >,
-    >,
+    pub cache: Arc<RwLock<StencilPipelineCache>>,
 }
 
 impl Default for StencilDefinition {
@@ -389,11 +387,11 @@ impl StencilDefinition {
             full_code.push_str(get_coord_2d);
             full_code.push_str(get_coord_3d);
             full_code.push_str(get_coord_4d);
-            full_code.push_str("\n");
+            full_code.push('\n');
         }
 
         full_code.push_str(&preprocessed_user_code);
-        full_code.push_str("\n");
+        full_code.push('\n');
 
         match output_res {
             ResourceDescriptor::Buffer(_) => {
@@ -833,17 +831,16 @@ impl StencilDefinition {
                 .global_variables
                 .iter()
                 .find(|(_, v)| v.name.as_deref() == Some(var_name))
+                && let wgpu::naga::TypeInner::Array { base, .. } = module.types[var.ty].inner
             {
-                if let wgpu::naga::TypeInner::Array { base, .. } = module.types[var.ty].inner {
-                    let mut layouter = wgpu::naga::proc::Layouter::default();
-                    let _ = layouter.update(wgpu::naga::proc::GlobalCtx {
-                        types: &module.types,
-                        constants: &module.constants,
-                        overrides: &module.overrides,
-                        global_expressions: &module.global_expressions,
-                    });
-                    return layouter[base].size as u64;
-                }
+                let mut layouter = wgpu::naga::proc::Layouter::default();
+                let _ = layouter.update(wgpu::naga::proc::GlobalCtx {
+                    types: &module.types,
+                    constants: &module.constants,
+                    overrides: &module.overrides,
+                    global_expressions: &module.global_expressions,
+                });
+                return layouter[base].size as u64;
             }
             0
         };
@@ -927,8 +924,7 @@ impl Stencil {
         let output_descriptor =
             ResourceDescriptor::from_resource(output, sig.output_element_type.clone());
 
-        let mut parameters = extra_parameters
-            .unwrap_or_else(fabelgeist_gpu::data::gpu::parameters::PassParameters::new);
+        let mut parameters = extra_parameters.unwrap_or_default();
 
         let mut secondary_resources = HashMap::new();
         for (name, val) in &parameters.parameters {
@@ -988,14 +984,16 @@ impl Stencil {
         }
 
         let (wg_x, wg_y, wg_z) = match output {
-            GpuResource::Buffer(_) => ((output_num_elements as u32 + 63) / 64, 1, 1),
-            GpuResource::Texture2d(t) => ((t.size.0 + 15) / 16, (t.size.1 + 15) / 16, 1),
-            GpuResource::Texture3d(t) => {
-                ((t.size.0 + 7) / 8, (t.size.1 + 7) / 8, (t.size.2 + 3) / 4)
-            }
+            GpuResource::Buffer(_) => ((output_num_elements as u32).div_ceil(64), 1, 1),
+            GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
+            GpuResource::Texture3d(t) => (
+                t.size.0.div_ceil(8),
+                t.size.1.div_ceil(8),
+                t.size.2.div_ceil(4),
+            ),
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::new(
+        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
             context,
             pipeline.clone(),
             parameters,
@@ -1106,8 +1104,8 @@ mod tests {
         Stencil::execute(
             &context,
             &definition,
-            &GpuResource::Texture2d(input_texture.into()),
-            &GpuResource::Texture2d(output_texture.clone().into()),
+            &GpuResource::Texture2d(input_texture),
+            &GpuResource::Texture2d(output_texture.clone()),
         )?;
 
         let result = output_texture.read::<f32>(&context).await?;

@@ -700,8 +700,8 @@ mod tests {
             "city",
             505_000_000,
             105_000_000,
-            123_456,
-            123_456,
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
             Some(&settlement),
         )
         .unwrap();

@@ -27,7 +27,8 @@ pub const fn is_sunday_day_index(day_index: u64) -> bool {
 
 /// A positive calendar year. There is no year zero in this calendar.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(try_from = "i32", into = "i32")]
 pub struct CalendarYear {
     year: i32,
@@ -82,7 +83,8 @@ impl From<CalendarYear> for i32 {
 #[derive(
     Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
 )]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(transparent)]
 pub struct StrategicMinute {
     minutes: u64,

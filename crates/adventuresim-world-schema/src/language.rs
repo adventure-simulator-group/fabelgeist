@@ -25,7 +25,8 @@ pub struct LanguageDescriptor {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum OralLanguage {
     EastCentral,
     WestCentral,
@@ -135,7 +136,8 @@ impl OralLanguage {
 }
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct OralLanguageHours {
     pub east_central: f32,
     pub west_central: f32,
@@ -333,7 +335,8 @@ pub fn party_oral_training_gains_capped(
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum WrittenLanguage {
     German,
     Low,
@@ -426,7 +429,8 @@ impl WrittenLanguage {
 }
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct WrittenLanguageHours {
     pub german: f32,
     pub low: f32,
@@ -489,7 +493,8 @@ impl WrittenLanguageHours {
 }
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SettlementLanguageProfile {
     pub east_central_bp: u16,
     pub west_central_bp: u16,

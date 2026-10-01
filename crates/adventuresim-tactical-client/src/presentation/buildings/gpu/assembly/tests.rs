@@ -120,7 +120,9 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
         .as_ref()
         .unwrap();
     let overlay_ranges = source
-        .chunks_exact(size_of::<DrawRange>())
+        .as_chunks::<{ size_of::<DrawRange>() }>()
+        .0
+        .iter()
         .filter(|range| {
             u32::from_le_bytes(range[12..16].try_into().unwrap()) & FACADE_OVERLAY_FLAG != 0
         })

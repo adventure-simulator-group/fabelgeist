@@ -258,11 +258,15 @@ impl TextureView {
         let rgba_data = match self.format {
             TextureFormat::Rgba8UnormSrgb => raw_data,
             TextureFormat::Bgra8UnormSrgb => raw_data
-                .chunks_exact(4)
+                .as_chunks::<4>()
+                .0
+                .iter()
                 .flat_map(|bgra| [bgra[2], bgra[1], bgra[0], bgra[3]])
                 .collect(),
             TextureFormat::Rgba8Unorm => raw_data
-                .chunks_exact(4)
+                .as_chunks::<4>()
+                .0
+                .iter()
                 .flat_map(|rgba| {
                     [
                         linear_to_srgb(rgba[0] as f32 / 255.0),

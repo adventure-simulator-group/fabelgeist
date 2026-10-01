@@ -58,26 +58,6 @@ impl Vec3 {
         (self.x, self.y, self.z)
     }
 
-    /// Add two Vec3 values.
-    pub fn add(a: Self, b: Self) -> Self {
-        Self::new(a.x + b.x, a.y + b.y, a.z + b.z)
-    }
-
-    /// Subtract two Vec3 values.
-    pub fn sub(self, other: Self) -> Self {
-        Self::new(self.x - other.x, self.y - other.y, self.z - other.z)
-    }
-
-    /// Multiply a Vec3 by a scalar.
-    pub fn mul(value: Self, scalar: f32) -> Self {
-        Self::new(value.x * scalar, value.y * scalar, value.z * scalar)
-    }
-
-    /// Negate a Vec3.
-    pub fn neg(value: Self) -> Self {
-        Self::new(-value.x, -value.y, -value.z)
-    }
-
     pub fn dot(self, other: Self) -> f32 {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
@@ -231,12 +211,6 @@ impl Vec3 {
         }
     }
 
-    /// Component-wise division. Dividing by a zero component yields an
-    /// infinity, which is what slab-based ray tests want.
-    pub fn div(self, other: Self) -> Self {
-        Self::new(self.x / other.x, self.y / other.y, self.z / other.z)
-    }
-
     pub fn is_finite(self) -> bool {
         self.x.is_finite() && self.y.is_finite() && self.z.is_finite()
     }
@@ -276,5 +250,14 @@ impl std::ops::SubAssign for Vec3 {
 impl std::ops::MulAssign<f32> for Vec3 {
     fn mul_assign(&mut self, scalar: f32) {
         *self = *self * scalar;
+    }
+}
+
+impl std::ops::Div for Vec3 {
+    type Output = Self;
+
+    /// Component-wise division, preserving IEEE infinity for zero divisors.
+    fn div(self, other: Self) -> Self {
+        Self::new(self.x / other.x, self.y / other.y, self.z / other.z)
     }
 }

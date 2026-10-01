@@ -3,7 +3,6 @@ use std::sync::Arc;
 
 use crate::data::gpu::texture::TextureFormat;
 
-#[cfg(feature = "image-io")]
 use crate::globals::WgpuContext;
 
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -68,7 +67,9 @@ impl Image {
         Ok(match format {
             TextureFormat::Rgba8Unorm | TextureFormat::Rgba8UnormSrgb => pixels.clone(),
             TextureFormat::Bgra8Unorm | TextureFormat::Bgra8UnormSrgb => pixels
-                .chunks_exact(4)
+                .as_chunks::<4>()
+                .0
+                .iter()
                 .flat_map(|rgba| [rgba[2], rgba[1], rgba[0], rgba[3]])
                 .collect(),
             TextureFormat::Rgba32Float => {
@@ -89,6 +90,55 @@ impl Image {
                 }
             }
         })
+    }
+}
+
+impl super::Texture2d {
+    pub async fn read_image(&self, context: &WgpuContext) -> Result<Image> {
+        let (width, height) = self.size;
+        if width == 0 || height == 0 {
+            return Ok(Image::default());
+        }
+
+        let raw_data = self.read::<u8>(context).await?;
+        let narrow = |value: f32| (value.clamp(0.0, 1.0) * 255.0).round() as u8;
+
+        let rgba_data = match self.format {
+            TextureFormat::Rgba8Unorm | TextureFormat::Rgba8UnormSrgb => raw_data,
+            TextureFormat::Bgra8Unorm | TextureFormat::Bgra8UnormSrgb => raw_data
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .flat_map(|bgra| [bgra[2], bgra[1], bgra[0], bgra[3]])
+                .collect(),
+            TextureFormat::Rgba32Float => bytemuck::cast_slice::<u8, f32>(&raw_data)
+                .iter()
+                .map(|&channel| narrow(channel))
+                .collect(),
+            TextureFormat::R32Float => bytemuck::cast_slice::<u8, f32>(&raw_data)
+                .iter()
+                .flat_map(|&value| {
+                    let grey = narrow(value);
+                    [grey, grey, grey, 255]
+                })
+                .collect(),
+            TextureFormat::R8Unorm => raw_data
+                .iter()
+                .flat_map(|&value| [value, value, value, 255])
+                .collect(),
+            _ => {
+                if self.format.pixel_size() == 4 {
+                    raw_data
+                } else {
+                    anyhow::bail!(
+                        "a {:?} texture cannot be read back as an image",
+                        self.format
+                    );
+                }
+            }
+        };
+
+        Image::from_pixels(rgba_data, width, height)
     }
 }
 

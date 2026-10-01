@@ -234,8 +234,8 @@ impl GpuMesh {
 
         parameters.insert("out_pos".to_string(), buf(out_pos_buf.clone()));
 
-        let workgroups = (pos_core.size as u32 / 12 + 63) / 64;
-        ComputePass::new(
+        let workgroups = (pos_core.size as u32 / 12).div_ceil(64);
+        ComputePass::dispatch(
             context,
             pipeline.clone(),
             PassParameters::from(parameters),

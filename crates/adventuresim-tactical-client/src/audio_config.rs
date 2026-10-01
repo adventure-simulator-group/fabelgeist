@@ -4,6 +4,7 @@ use std::path::Path;
 use bevy::prelude::Resource;
 use serde::Deserialize;
 
+#[cfg(not(target_family = "wasm"))]
 const MAX_AUDIO_CONFIG_BYTES: u64 = 32 * 1024;
 
 #[derive(Debug, Clone, Deserialize, Resource)]

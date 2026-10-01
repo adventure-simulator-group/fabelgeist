@@ -294,6 +294,10 @@ fn map(val: u32) -> u32 {
 
 pub struct MarchingCubes;
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "surface extraction passes grid, threshold, output bounds and world transform to the GPU"
+)]
 impl MarchingCubes {
     pub fn execute(
         context: &WgpuContext,
@@ -444,8 +448,8 @@ impl MarchingCubes {
         deinterleave_params.insert("out_positions", PassParameter::from(out_positions.clone()));
         deinterleave_params.insert("out_normals", PassParameter::from(out_normals.clone()));
 
-        let workgroups_x = (max_vertices + 63) / 64;
-        fabelgeist_gpu::data::gpu::ComputePass::new(
+        let workgroups_x = max_vertices.div_ceil(64);
+        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
             context,
             definition.deinterleave_pipeline.clone(),
             deinterleave_params,

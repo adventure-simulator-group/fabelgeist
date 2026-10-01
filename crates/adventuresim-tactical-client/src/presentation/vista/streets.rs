@@ -52,19 +52,20 @@ impl CityGroundAssets<'_> {
         images: &mut Assets<Image>,
     ) {
         let streets = &bundle.streets;
-        #[cfg(target_family = "wasm")]
-        let prepared =
-            crate::presentation::generation::landscape::ground(&environment.scene_digest);
-        #[cfg(not(target_family = "wasm"))]
-        let prepared: Option<std::sync::Arc<prepared::PreparedCityGround>> = None;
-        let prepared = prepared.unwrap_or_else(|| {
+        let build_ground = || {
             std::sync::Arc::new(prepared::PreparedCityGround::new(
                 &bundle.streets,
                 &bundle.yards,
                 &bundle.furniture_groups,
                 support,
             ))
-        });
+        };
+        #[cfg(target_family = "wasm")]
+        let prepared =
+            crate::presentation::generation::landscape::ground(&environment.scene_digest)
+                .unwrap_or_else(build_ground);
+        #[cfg(not(target_family = "wasm"))]
+        let prepared = build_ground();
         let network = self
             .streaming
             .is_none()

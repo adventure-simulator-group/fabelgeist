@@ -78,8 +78,8 @@ impl OuterLayer {
                     for i in 0..3 {
                         let vertex = face[i] as usize;
                         let share = weights[i] * masses[vertex] / denominator;
-                        positions[vertex] = positions[vertex] + normal * (depth * share);
-                        velocities[vertex] = velocities[vertex] - normal * (incoming * share);
+                        positions[vertex] += normal * (depth * share);
+                        velocities[vertex] -= normal * (incoming * share);
                     }
                     changed = true;
                 }

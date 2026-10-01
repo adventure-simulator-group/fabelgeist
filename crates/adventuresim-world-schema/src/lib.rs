@@ -29,132 +29,8 @@ pub const CURRENT_INFERENCE_RULES_VERSION: u32 = 10;
 pub const MAX_EDGE_GEOMETRY_POINTS: usize = 512;
 pub const MAX_WORLD_GEOMETRY_POINTS: usize = 200_000;
 pub const MAX_SOURCES_MARKDOWN_CHARS: usize = 32_768;
-/// The basis-point representation of one whole (100%).
-pub const BASIS_POINTS_PER_WHOLE: u16 = 10_000;
-
-/// A validated fraction of one whole, represented in basis points.
-#[derive(
-    Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
-)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
-#[serde(transparent)]
-pub struct UnitBasisPoints {
-    basis_points: u16,
-}
-
-impl UnitBasisPoints {
-    pub const ZERO: Self = Self { basis_points: 0 };
-    pub const WHOLE: Self = Self {
-        basis_points: BASIS_POINTS_PER_WHOLE,
-    };
-
-    pub const fn new(value: u16) -> Option<Self> {
-        if value <= BASIS_POINTS_PER_WHOLE {
-            Some(Self {
-                basis_points: value,
-            })
-        } else {
-            None
-        }
-    }
-
-    pub const fn saturating(value: u16) -> Self {
-        Self {
-            basis_points: if value > BASIS_POINTS_PER_WHOLE {
-                BASIS_POINTS_PER_WHOLE
-            } else {
-                value
-            },
-        }
-    }
-
-    pub fn from_unit_f32(value: f32) -> Option<Self> {
-        if !value.is_finite() || !(0.0..=1.0).contains(&value) {
-            return None;
-        }
-        Self::new((value * f32::from(BASIS_POINTS_PER_WHOLE)).round() as u16)
-    }
-
-    pub fn from_unit_f64(value: f64) -> Option<Self> {
-        if !value.is_finite() || !(0.0..=1.0).contains(&value) {
-            return None;
-        }
-        Self::new((value * f64::from(BASIS_POINTS_PER_WHOLE)).round() as u16)
-    }
-
-    pub fn from_ratio_floor(numerator: u64, denominator: u64) -> Option<Self> {
-        if denominator == 0 {
-            return None;
-        }
-        let value = u128::from(numerator).saturating_mul(u128::from(BASIS_POINTS_PER_WHOLE))
-            / u128::from(denominator);
-        Some(Self::saturating(value.min(u128::from(u16::MAX)) as u16))
-    }
-
-    pub const fn get(self) -> u16 {
-        self.basis_points
-    }
-
-    pub const fn complement(self) -> Self {
-        Self {
-            basis_points: BASIS_POINTS_PER_WHOLE - self.basis_points,
-        }
-    }
-
-    pub fn as_unit_f32(self) -> f32 {
-        f32::from(self.basis_points) / f32::from(BASIS_POINTS_PER_WHOLE)
-    }
-
-    pub fn as_unit_f64(self) -> f64 {
-        f64::from(self.basis_points) / f64::from(BASIS_POINTS_PER_WHOLE)
-    }
-
-    pub const fn scale_u32_floor(self, whole: u32) -> u32 {
-        ((whole as u64 * self.basis_points as u64) / BASIS_POINTS_PER_WHOLE as u64) as u32
-    }
-
-    pub const fn scale_u64_floor(self, whole: u64) -> u64 {
-        ((whole as u128 * self.basis_points as u128) / BASIS_POINTS_PER_WHOLE as u128) as u64
-    }
-}
-
-/// A validated signed fraction of one whole, represented in basis points.
-#[derive(
-    Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
-)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
-#[serde(transparent)]
-pub struct SignedUnitBasisPoints {
-    basis_points: i16,
-}
-
-impl SignedUnitBasisPoints {
-    pub const MIN: Self = Self {
-        basis_points: -(BASIS_POINTS_PER_WHOLE as i16),
-    };
-    pub const MAX: Self = Self {
-        basis_points: BASIS_POINTS_PER_WHOLE as i16,
-    };
-    pub const ZERO: Self = Self { basis_points: 0 };
-
-    pub const fn new(value: i16) -> Option<Self> {
-        if value >= Self::MIN.basis_points && value <= Self::MAX.basis_points {
-            Some(Self {
-                basis_points: value,
-            })
-        } else {
-            None
-        }
-    }
-
-    pub const fn get(self) -> i16 {
-        self.basis_points
-    }
-
-    pub fn as_unit_f32(self) -> f32 {
-        f32::from(self.basis_points) / f32::from(BASIS_POINTS_PER_WHOLE)
-    }
-}
+mod basis_points;
+pub use basis_points::{BASIS_POINTS_PER_WHOLE, SignedUnitBasisPoints, UnitBasisPoints};
 
 /// Authoritative MVP playable area in `[west, south, east, north]` order.
 ///
@@ -169,21 +45,6 @@ pub const PLAYABLE_SOURCE_TILE_BOUNDS: [i16; 4] = [8, 50, 12, 53];
 #[cfg(test)]
 mod playable_bounds_tests {
     use super::*;
-
-    #[test]
-    fn basis_point_units_own_bounds_conversions_and_scaling() {
-        let quarter = UnitBasisPoints::from_unit_f32(0.25).unwrap();
-        assert_eq!(quarter.get(), 2_500);
-        assert_eq!(quarter.as_unit_f32(), 0.25);
-        assert_eq!(quarter.complement().get(), 7_500);
-        assert_eq!(quarter.scale_u32_floor(10), 2);
-        assert_eq!(UnitBasisPoints::new(BASIS_POINTS_PER_WHOLE + 1), None);
-        assert_eq!(
-            SignedUnitBasisPoints::new(-10_000),
-            Some(SignedUnitBasisPoints::MIN)
-        );
-        assert!(SignedUnitBasisPoints::new(-10_001).is_none());
-    }
 
     #[test]
     fn playable_bounds_include_requested_landmarks_and_reject_external_points() {
@@ -215,274 +76,12 @@ pub fn valid_bounded_source_text(value: &str, max_bytes: usize) -> bool {
     !value.is_empty() && value == value.trim() && value.len() <= max_bytes && !value.contains('\0')
 }
 
-/// Practical ceiling for direct or transferred Bestiary study.
-///
-/// The shared skill curve remains asymptotic, but this bound prevents several
-/// correlated fields from adding up to knowledge beyond the authored mastery
-/// range.
-pub const BESTIARY_MASTERY_HOURS: f32 = 5_000.0;
-
-#[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
-#[serde(rename_all = "snake_case")]
-pub enum BestiaryCategory {
-    Beast,
-    Undead,
-    Human,
-    Werekin,
-    Elf,
-    Dwarf,
-    Fey,
-    Spirit,
-    Greenskin,
-    Insectoid,
-    Draconid,
-    Construct,
-    Wildmen,
-}
-
-impl BestiaryCategory {
-    pub const ALL: [Self; 13] = [
-        Self::Beast,
-        Self::Undead,
-        Self::Human,
-        Self::Werekin,
-        Self::Elf,
-        Self::Dwarf,
-        Self::Fey,
-        Self::Spirit,
-        Self::Greenskin,
-        Self::Insectoid,
-        Self::Draconid,
-        Self::Construct,
-        Self::Wildmen,
-    ];
-
-    pub const fn id(self) -> &'static str {
-        match self {
-            Self::Beast => "beast",
-            Self::Undead => "undead",
-            Self::Human => "human",
-            Self::Werekin => "werekin",
-            Self::Elf => "elf",
-            Self::Dwarf => "dwarf",
-            Self::Fey => "fey",
-            Self::Spirit => "spirit",
-            Self::Greenskin => "greenskin",
-            Self::Insectoid => "insectoid",
-            Self::Draconid => "draconid",
-            Self::Construct => "construct",
-            Self::Wildmen => "wildmen",
-        }
-    }
-
-    pub const fn label(self) -> &'static str {
-        match self {
-            Self::Beast => "Beast",
-            Self::Undead => "Undead",
-            Self::Human => "Human",
-            Self::Werekin => "Werekin",
-            Self::Elf => "Elf",
-            Self::Dwarf => "Dwarf",
-            Self::Fey => "Fey",
-            Self::Spirit => "Spirit",
-            Self::Greenskin => "Greenskin",
-            Self::Insectoid => "Insectoid",
-            Self::Draconid => "Draconid",
-            Self::Construct => "Construct",
-            Self::Wildmen => "Wildmen",
-        }
-    }
-
-    pub fn from_id(id: &str) -> Option<Self> {
-        Self::ALL.into_iter().find(|category| category.id() == id)
-    }
-
-    pub const fn index(self) -> usize {
-        match self {
-            Self::Beast => 0,
-            Self::Undead => 1,
-            Self::Human => 2,
-            Self::Werekin => 3,
-            Self::Elf => 4,
-            Self::Dwarf => 5,
-            Self::Fey => 6,
-            Self::Spirit => 7,
-            Self::Greenskin => 8,
-            Self::Insectoid => 9,
-            Self::Draconid => 10,
-            Self::Construct => 11,
-            Self::Wildmen => 12,
-        }
-    }
-
-    /// Transfer represents shared diagnostic knowledge, not possible tag
-    /// combinations. The matrix is deliberately conservative and symmetric.
-    pub const fn correlation(self, other: Self) -> f32 {
-        const C: [[f32; 13]; 13] = [
-            [
-                1.0, 0.05, 0.10, 0.70, 0.10, 0.05, 0.20, 0.15, 0.10, 0.15, 0.30, 0.02, 0.35,
-            ],
-            [
-                0.05, 1.0, 0.35, 0.15, 0.30, 0.25, 0.15, 0.55, 0.25, 0.10, 0.10, 0.10, 0.20,
-            ],
-            [
-                0.10, 0.35, 1.0, 0.35, 0.40, 0.40, 0.15, 0.20, 0.30, 0.05, 0.05, 0.15, 0.65,
-            ],
-            [
-                0.70, 0.15, 0.35, 1.0, 0.25, 0.20, 0.30, 0.15, 0.20, 0.05, 0.10, 0.02, 0.40,
-            ],
-            [
-                0.10, 0.30, 0.40, 0.25, 1.0, 0.35, 0.35, 0.20, 0.25, 0.05, 0.05, 0.15, 0.20,
-            ],
-            [
-                0.05, 0.25, 0.40, 0.20, 0.35, 1.0, 0.15, 0.10, 0.25, 0.05, 0.05, 0.30, 0.15,
-            ],
-            [
-                0.20, 0.15, 0.15, 0.30, 0.35, 0.15, 1.0, 0.45, 0.15, 0.25, 0.20, 0.10, 0.30,
-            ],
-            [
-                0.15, 0.55, 0.20, 0.15, 0.20, 0.10, 0.45, 1.0, 0.10, 0.10, 0.10, 0.20, 0.20,
-            ],
-            [
-                0.10, 0.25, 0.30, 0.20, 0.25, 0.25, 0.15, 0.10, 1.0, 0.05, 0.10, 0.15, 0.25,
-            ],
-            [
-                0.15, 0.10, 0.05, 0.05, 0.05, 0.05, 0.25, 0.10, 0.05, 1.0, 0.15, 0.10, 0.10,
-            ],
-            [
-                0.30, 0.10, 0.05, 0.10, 0.05, 0.05, 0.20, 0.10, 0.10, 0.15, 1.0, 0.10, 0.10,
-            ],
-            [
-                0.02, 0.10, 0.15, 0.02, 0.15, 0.30, 0.10, 0.20, 0.15, 0.10, 0.10, 1.0, 0.05,
-            ],
-            [
-                0.35, 0.20, 0.65, 0.40, 0.20, 0.15, 0.30, 0.20, 0.25, 0.10, 0.10, 0.05, 1.0,
-            ],
-        ];
-        C[self.index()][other.index()]
-    }
-}
-
-#[derive(Clone, Copy, Debug, Default, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
-pub struct BestiaryHours {
-    pub beast: f32,
-    pub undead: f32,
-    pub human: f32,
-    pub werekin: f32,
-    pub elf: f32,
-    pub dwarf: f32,
-    pub fey: f32,
-    pub spirit: f32,
-    pub greenskin: f32,
-    pub insectoid: f32,
-    pub draconid: f32,
-    pub construct: f32,
-    pub wildmen: f32,
-}
-
-impl BestiaryHours {
-    pub fn direct_values(self) -> impl Iterator<Item = (BestiaryCategory, f32)> {
-        BestiaryCategory::ALL
-            .into_iter()
-            .map(move |category| (category, self.direct(category)))
-    }
-
-    pub fn direct_fields_valid(self, maximum: f32) -> bool {
-        maximum.is_finite()
-            && maximum >= 0.0
-            && self
-                .direct_values()
-                .all(|(_, hours)| hours.is_finite() && (0.0..=maximum).contains(&hours))
-    }
-
-    pub fn direct(self, category: BestiaryCategory) -> f32 {
-        match category {
-            BestiaryCategory::Beast => self.beast,
-            BestiaryCategory::Undead => self.undead,
-            BestiaryCategory::Human => self.human,
-            BestiaryCategory::Werekin => self.werekin,
-            BestiaryCategory::Elf => self.elf,
-            BestiaryCategory::Dwarf => self.dwarf,
-            BestiaryCategory::Fey => self.fey,
-            BestiaryCategory::Spirit => self.spirit,
-            BestiaryCategory::Greenskin => self.greenskin,
-            BestiaryCategory::Insectoid => self.insectoid,
-            BestiaryCategory::Draconid => self.draconid,
-            BestiaryCategory::Construct => self.construct,
-            BestiaryCategory::Wildmen => self.wildmen,
-        }
-    }
-
-    pub fn direct_mut(&mut self, category: BestiaryCategory) -> &mut f32 {
-        match category {
-            BestiaryCategory::Beast => &mut self.beast,
-            BestiaryCategory::Undead => &mut self.undead,
-            BestiaryCategory::Human => &mut self.human,
-            BestiaryCategory::Werekin => &mut self.werekin,
-            BestiaryCategory::Elf => &mut self.elf,
-            BestiaryCategory::Dwarf => &mut self.dwarf,
-            BestiaryCategory::Fey => &mut self.fey,
-            BestiaryCategory::Spirit => &mut self.spirit,
-            BestiaryCategory::Greenskin => &mut self.greenskin,
-            BestiaryCategory::Insectoid => &mut self.insectoid,
-            BestiaryCategory::Draconid => &mut self.draconid,
-            BestiaryCategory::Construct => &mut self.construct,
-            BestiaryCategory::Wildmen => &mut self.wildmen,
-        }
-    }
-
-    pub fn effective(self, category: BestiaryCategory) -> f32 {
-        // Bestiary leaves are trained: correlation cannot bootstrap a target
-        // category which has never received formal/direct study.
-        if self.direct(category) <= 0.0 {
-            return 0.0;
-        }
-        BestiaryCategory::ALL
-            .into_iter()
-            .map(|studied| {
-                let direct = self.direct(studied);
-                (if direct.is_finite() {
-                    direct.max(0.0)
-                } else {
-                    0.0
-                }) * category.correlation(studied)
-            })
-            .sum::<f32>()
-    }
-
-    pub fn maximum_effective(self) -> f32 {
-        BestiaryCategory::ALL
-            .into_iter()
-            .map(|category| self.effective(category))
-            .fold(0.0, f32::max)
-    }
-
-    /// Average correlated coverage across the complete Bestiary family.
-    pub fn aggregate_effective(self) -> f32 {
-        BestiaryCategory::ALL
-            .into_iter()
-            .map(|category| self.effective(category))
-            .sum::<f32>()
-            / BestiaryCategory::ALL.len() as f32
-    }
-
-    pub fn total_direct(self) -> f32 {
-        self.direct_values()
-            .map(|(_, hours)| {
-                if hours.is_finite() {
-                    hours.max(0.0)
-                } else {
-                    0.0
-                }
-            })
-            .sum()
-    }
-}
+mod bestiary;
+pub use bestiary::{BESTIARY_MASTERY_HOURS, BestiaryCategory, BestiaryHours};
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum OfficialReligion {
     RomanCatholic,
     Lutheran,
@@ -562,7 +161,8 @@ impl OfficialReligion {
 }
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct ReligionHours {
     pub roman_catholic: f32,
     pub lutheran: f32,
@@ -664,7 +264,8 @@ impl ReligionHours {
 }
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct ReligionMinutes {
     pub roman_catholic: u16,
     pub lutheran: u16,
@@ -723,7 +324,8 @@ impl ReligionMinutes {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum CatholicLutheranChurch {
     RomanCatholic,
     Lutheran,
@@ -739,7 +341,8 @@ impl CatholicLutheranChurch {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum CatholicReformedChurch {
     RomanCatholic,
     Reformed,
@@ -755,7 +358,8 @@ impl CatholicReformedChurch {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum LutheranReformedChurch {
     Lutheran,
     Reformed,
@@ -773,7 +377,8 @@ impl LutheranReformedChurch {
 /// A bounded set of legally recognized western confessions and the church
 /// currently represented by the settlement's single-church gameplay model.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum WesternChristianArrangement {
     CatholicLutheran { church: CatholicLutheranChurch },
     CatholicReformed { church: CatholicReformedChurch },
@@ -793,7 +398,8 @@ impl WesternChristianArrangement {
 /// Official legal status reconstructed for the territory, not a claim about
 /// every inhabitant's private belief.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SettlementReligiousStatus {
     Established {
         religion: OfficialReligion,
@@ -845,7 +451,8 @@ impl SettlementReligiousStatus {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct PalmerDroughtSeverityIndex {
     milli_units: i16,
 }
@@ -903,7 +510,8 @@ impl<'de> Deserialize<'de> for PalmerDroughtSeverityIndex {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SummerHydroclimate {
     ExtremeDrought,
     SevereDrought,
@@ -917,7 +525,8 @@ pub enum SummerHydroclimate {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct DroughtHistory {
     current_summer: PalmerDroughtSeverityIndex,
     twenty_year_mean: PalmerDroughtSeverityIndex,
@@ -1020,14 +629,16 @@ impl<'de> Deserialize<'de> for DroughtHistory {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum DroughtProfile {
     Reconstructed(DroughtHistory),
     Inferred(DroughtHistory),
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum PotentialVegetationClass {
     WoodlandAndForest,
     HeathlandAndShrub,
@@ -1038,7 +649,8 @@ pub enum PotentialVegetationClass {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SuitabilityBasisPoints {
     basis_points: u16,
 }
@@ -1071,7 +683,8 @@ impl<'de> Deserialize<'de> for SuitabilityBasisPoints {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct PotentialVegetationPosterior {
     pub woodland_and_forest: SuitabilityBasisPoints,
     pub heathland_and_shrub: SuitabilityBasisPoints,
@@ -1106,7 +719,8 @@ impl PotentialVegetationPosterior {
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum PotentialVegetation {
     Posterior(PotentialVegetationPosterior),
     Categorical(PotentialVegetationClass),
@@ -1126,7 +740,8 @@ pub const MAX_MODELED_TREE_SPECIES: usize = 12;
 pub const MAX_INFERRED_TREE_SPECIES: usize = 4;
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct TreeSpeciesId {
     scientific_name: String,
 }
@@ -1177,7 +792,8 @@ impl<'de> Deserialize<'de> for TreeSpeciesId {
 }
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct HabitatSuitability {
     score: u16,
 }
@@ -1214,14 +830,16 @@ impl<'de> Deserialize<'de> for HabitatSuitability {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum NativeRangeEvidence {
     WithinNativeRange,
     OutsideNativeRange,
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct ModeledTreeSpecies {
     pub species: TreeSpeciesId,
     pub suitability: HabitatSuitability,
@@ -1229,7 +847,8 @@ pub struct ModeledTreeSpecies {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct ModeledTreeSpeciesProfile {
     candidates: Vec<ModeledTreeSpecies>,
 }
@@ -1276,7 +895,8 @@ impl<'de> Deserialize<'de> for ModeledTreeSpeciesProfile {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct InferredTreeSpeciesProfile {
     species: Vec<TreeSpeciesId>,
 }
@@ -1314,14 +934,16 @@ impl<'de> Deserialize<'de> for InferredTreeSpeciesProfile {
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum TreeSpeciesProfile {
     Modeled(ModeledTreeSpeciesProfile),
     Inferred(InferredTreeSpeciesProfile),
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum MineralSoilTexture {
     Coarse,
     Medium,
@@ -1331,7 +953,8 @@ pub enum MineralSoilTexture {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct MineralSoil {
     pub texture: MineralSoilTexture,
     pub depth: SoilDepth,
@@ -1341,7 +964,8 @@ pub struct MineralSoil {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct OrganicSoil {
     pub depth: SoilDepth,
     pub available_water: AvailableWaterCapacity,
@@ -1349,13 +973,15 @@ pub struct OrganicSoil {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct RockOutcropSoil {
     pub stones: StoneContentPercent,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct OtherNonTexturedSoil {
     pub depth: SoilDepth,
     pub available_water: AvailableWaterCapacity,
@@ -1364,7 +990,8 @@ pub struct OtherNonTexturedSoil {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SoilSubstrate {
     Mineral(MineralSoil),
     Organic(OrganicSoil),
@@ -1373,7 +1000,8 @@ pub enum SoilSubstrate {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SoilDepth {
     Shallow,
     Moderate,
@@ -1382,7 +1010,8 @@ pub enum SoilDepth {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum AvailableWaterCapacity {
     VeryLow,
     Low,
@@ -1392,7 +1021,8 @@ pub enum AvailableWaterCapacity {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum TopsoilOrganicCarbon {
     VeryLow,
     Low,
@@ -1401,7 +1031,8 @@ pub enum TopsoilOrganicCarbon {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SoilWaterRegime {
     UsuallyDry,
     SeasonallyWet,
@@ -1410,7 +1041,8 @@ pub enum SoilWaterRegime {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum AgriculturalLimitation {
     None,
     Gravelly,
@@ -1430,7 +1062,8 @@ pub enum AgriculturalLimitation {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct StoneContentPercent {
     percent: u8,
 }
@@ -1465,7 +1098,8 @@ impl<'de> Deserialize<'de> for StoneContentPercent {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SoilProperties {
     pub substrate: SoilSubstrate,
     pub water_regime: SoilWaterRegime,
@@ -1473,7 +1107,8 @@ pub struct SoilProperties {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum WrbReferenceGroup {
     Albeluvisol,
     Acrisol,
@@ -1510,7 +1145,8 @@ pub enum WrbReferenceGroup {
 
 /// A bounded probability or confidence value in basis points.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SoilBasisPoints {
     value: u16,
 }
@@ -1542,7 +1178,8 @@ impl<'de> Deserialize<'de> for SoilBasisPoints {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SoilAcidity {
     StronglyAcid,
     Acid,
@@ -1551,7 +1188,8 @@ pub enum SoilAcidity {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum CationExchangeCapacity {
     VeryLow,
     Low,
@@ -1561,7 +1199,8 @@ pub enum CationExchangeCapacity {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SoilFertility {
     VeryLow,
     Low,
@@ -1571,7 +1210,8 @@ pub enum SoilFertility {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SoilEvidence {
     SoilGridsPrediction,
     DeterministicInference,
@@ -1596,7 +1236,8 @@ pub struct SoilPrediction {
 
 /// Canonical soil after predictions are resolved against geology and hydrology.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SoilProfile {
     pub wrb_group: WrbReferenceGroup,
     pub parent_material: SurfaceLithology,
@@ -1609,7 +1250,8 @@ pub struct SoilProfile {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct CanopyDensity {
     percent: u8,
 }
@@ -1645,7 +1287,8 @@ impl<'de> Deserialize<'de> for CanopyDensity {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum DominantLeafType {
     Broadleaf,
     Coniferous,
@@ -1653,14 +1296,16 @@ pub enum DominantLeafType {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct Woodland {
     pub density: CanopyDensity,
     pub dominant: DominantLeafType,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum ForestCover {
     Open,
     Wooded(Woodland),
@@ -1670,34 +1315,40 @@ pub enum ForestCover {
 /// This is deliberately distinct from [`PotentialVegetation`], which describes
 /// the modern-climate ecological envelope in the absence of historical land use.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct BuiltSettlementCover {
     pub built_fraction: LandUseFraction,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct CroplandCover {
     pub cultivated_fraction: LandUseFraction,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct PastureCover {
     pub grazing_fraction: LandUseFraction,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct HistoricalWoodland {
     pub canopy: CanopyDensity,
     pub dominant: DominantLeafType,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct HistoricalWetland {
     pub water_regime: SoilWaterRegime,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum DirectHistoricalVegetationCover {
     BuiltSettlement(BuiltSettlementCover),
     Cropland(CroplandCover),
@@ -1705,7 +1356,8 @@ pub enum DirectHistoricalVegetationCover {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum DerivedHistoricalVegetationCover {
     Woodland(HistoricalWoodland),
     HeathAndShrub,
@@ -1716,7 +1368,8 @@ pub enum DerivedHistoricalVegetationCover {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum FallbackHistoricalVegetationCover {
     Woodland(HistoricalWoodland),
     HeathAndShrub,
@@ -1725,38 +1378,44 @@ pub enum FallbackHistoricalVegetationCover {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum DirectHistoricalVegetationMethod {
     Hyde35DominantLandUse,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum DerivedHistoricalVegetationMethod {
     MultiSourceRulesV4,
     MultiSourceRulesV4TieBreak,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum FallbackHistoricalVegetationMethod {
     PotentialEnvelopeV4,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct DirectHistoricalVegetation {
     pub cover: DirectHistoricalVegetationCover,
     pub method: DirectHistoricalVegetationMethod,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct DerivedHistoricalVegetation {
     pub cover: DerivedHistoricalVegetationCover,
     pub method: DerivedHistoricalVegetationMethod,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct FallbackHistoricalVegetation {
     pub cover: FallbackHistoricalVegetationCover,
     pub method: FallbackHistoricalVegetationMethod,
@@ -1765,7 +1424,8 @@ pub struct FallbackHistoricalVegetation {
 /// Closed evidence-bearing reconstruction. Variant-specific methods prevent a
 /// serialized confidence blob or an incompatible evidence/method combination.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum HistoricalVegetation {
     Direct(DirectHistoricalVegetation),
     Derived(DerivedHistoricalVegetation),
@@ -1842,7 +1502,8 @@ pub enum HistoricalVegetationEvidence {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct LandUseFraction {
     basis_points: u16,
 }
@@ -1880,7 +1541,8 @@ impl<'de> Deserialize<'de> for LandUseFraction {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum HumanLandUseIntensity {
     Wild,
     Sparse,
@@ -1890,7 +1552,8 @@ pub enum HumanLandUseIntensity {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct LandUseProfile {
     cropland: LandUseFraction,
     grazing: LandUseFraction,
@@ -1971,7 +1634,8 @@ impl<'de> Deserialize<'de> for LandUseProfile {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct ElevationMeters {
     meters: i16,
 }
@@ -2026,7 +1690,8 @@ impl<'de> Deserialize<'de> for ElevationMeters {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum ElevationBand {
     BelowSeaLevel,
     Lowland,
@@ -2091,7 +1756,8 @@ impl fmt::Display for InvalidLanguageCode {
 impl std::error::Error for InvalidLanguageCode {}
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(rename_all = "lowercase")]
 pub enum TravelEdgeKind {
     Land,
@@ -2101,7 +1767,8 @@ pub enum TravelEdgeKind {
 /// Whether an active strategic connection is directly documented or a
 /// conservative gap-fill inferred by the versioned world compiler.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(rename_all = "snake_case")]
 pub enum TravelEdgeProvenance {
     DocumentedViabundus,
@@ -2110,7 +1777,8 @@ pub enum TravelEdgeProvenance {
 
 /// A bounded, deterministic WGS84 point in canonical offline edge geometry.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct TravelGeometryPoint {
     pub longitude_e7: i32,
     pub latitude_e7: i32,
@@ -2150,7 +1818,8 @@ impl TravelEdgeKind {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(rename_all = "lowercase")]
 pub enum EdgeEndpoint {
     From,
@@ -2159,7 +1828,8 @@ pub enum EdgeEndpoint {
 }
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct WaterDistanceMeters {
     meters: u16,
 }
@@ -2198,7 +1868,8 @@ impl<'de> Deserialize<'de> for WaterDistanceMeters {
 }
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct StrahlerOrder {
     order: u8,
 }
@@ -2237,7 +1908,8 @@ impl<'de> Deserialize<'de> for StrahlerOrder {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum FlowPersistence {
     Perennial,
     Intermittent,
@@ -2245,7 +1917,8 @@ pub enum FlowPersistence {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct RiverAccess {
     pub distance: WaterDistanceMeters,
     pub order: StrahlerOrder,
@@ -2253,7 +1926,8 @@ pub struct RiverAccess {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct RiverAndCanalAccess {
     pub river: RiverAccess,
     pub canal_distance: WaterDistanceMeters,
@@ -2261,14 +1935,16 @@ pub struct RiverAndCanalAccess {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum FlowingWaterAccess {
     River(RiverAccess),
     RiverAndCanal(RiverAndCanalAccess),
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum InlandWaterSize {
     Pond,
     Lake,
@@ -2276,21 +1952,24 @@ pub enum InlandWaterSize {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct InlandWaterAccess {
     pub distance: WaterDistanceMeters,
     pub size: InlandWaterSize,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum MarineWaterAccess {
     Tidal(WaterDistanceMeters),
     OpenCoast(WaterDistanceMeters),
 }
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SettlementHydrology {
     pub flowing: Option<FlowingWaterAccess>,
     pub inland: Option<InlandWaterAccess>,
@@ -2298,7 +1977,8 @@ pub struct SettlementHydrology {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum ProductionScale {
     Marginal,
     Local,
@@ -2306,7 +1986,8 @@ pub enum ProductionScale {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum AgriculturalCommodity {
     Grain,
     Flax,
@@ -2315,14 +1996,16 @@ pub enum AgriculturalCommodity {
     Hides,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum FishCommodity {
     Freshwater,
     Estuarine,
     Marine,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum QuarryCommodity {
     Limestone,
     Chalk,
@@ -2335,18 +2018,21 @@ pub enum QuarryCommodity {
     OtherHardStone,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum MinedCommodity {
     Coal,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum PotteryCommodity {
     Clay,
     Earthenware,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum ForestCommodity {
     Hardwood,
     Softwood,
@@ -2354,14 +2040,16 @@ pub enum ForestCommodity {
     Fuelwood,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum SaltSource {
     Evaporite,
     SalineSoil,
     CoastalBrine,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum ConstructionCommodity {
     DimensionStone,
     Sand,
@@ -2374,7 +2062,8 @@ pub enum ConstructionCommodity {
 macro_rules! commodity_industry_record {
     ($name:ident, $field:ident, $commodity:ty) => {
         #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-        #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+        #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+        #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
         pub struct $name {
             pub $field: $commodity,
             pub scale: ProductionScale,
@@ -2390,12 +2079,14 @@ commodity_industry_record!(ForestryIndustry, commodity, ForestCommodity);
 commodity_industry_record!(SaltmakingIndustry, source, SaltSource);
 commodity_industry_record!(ConstructionIndustry, commodity, ConstructionCommodity);
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct PeatCuttingIndustry {
     pub scale: ProductionScale,
 }
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct CharcoalBurningIndustry {
     pub scale: ProductionScale,
 }
@@ -2403,7 +2094,8 @@ pub struct CharcoalBurningIndustry {
 /// Evidence-bearing production output. Commodity domains are nested in their
 /// industries, so impossible industry/commodity pairs cannot be represented.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum DerivedIndustry {
     Agriculture(AgricultureIndustry),
     Fishing(FishingIndustry),
@@ -2437,7 +2129,8 @@ impl DerivedIndustry {
 /// Restricted last-resort outputs. A fallback cannot claim arbitrary scale,
 /// deposits, or unsupported metal production.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum FallbackIndustry {
     FreshwaterFishing,
     GrazingDairy,
@@ -2447,14 +2140,16 @@ pub enum FallbackIndustry {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum IndustryEvidence {
     Derived(DerivedIndustry),
     Fallback(FallbackIndustry),
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct InferredIndustryProfile {
     outputs: Vec<IndustryEvidence>,
 }
@@ -2986,7 +2681,8 @@ impl SettlementHydrology {
 }
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct EdgeProgressPermille {
     permille: u16,
 }
@@ -3022,7 +2718,8 @@ impl<'de> Deserialize<'de> for EdgeProgressPermille {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum CrossingWatercourse {
     River(RiverWatercourse),
     Canal(CanalWatercourse),
@@ -3030,27 +2727,31 @@ pub enum CrossingWatercourse {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct RiverWatercourse {
     pub order: StrahlerOrder,
     pub persistence: FlowPersistence,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct CanalWatercourse {
     pub navigable: bool,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum CrossingTraversal {
     Bridge,
     Ford,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct LandWaterCrossing {
     pub position: EdgeProgressPermille,
     pub watercourse: CrossingWatercourse,
@@ -3058,7 +2759,8 @@ pub struct LandWaterCrossing {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum FerryWaterway {
     River(RiverWatercourse),
     InlandWater,
@@ -3067,35 +2769,40 @@ pub enum FerryWaterway {
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum TravelRoute {
     Land(LandRoute),
     Ferry(FerryRoute),
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct LandRoute {
     pub bridge: Option<EdgeEndpoint>,
     pub water_crossings: Vec<LandWaterCrossing>,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct FerryRoute {
     pub waterway: FerryWaterway,
 }
 
 /// One bounded sample of a route's straight endpoint-to-endpoint DEM profile.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct RouteElevationSample {
     pub progress: EdgeProgressPermille,
     pub elevation: ElevationMeters,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct RouteElevationProfile {
     samples: Vec<RouteElevationSample>,
 }
@@ -3207,7 +2914,8 @@ impl<'de> Deserialize<'de> for RouteElevationProfile {
 macro_rules! bounded_route_metric {
     ($name:ident, $field:ident, $inner:ty, $min:expr, $max:expr) => {
         #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-        #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+        #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+        #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
         pub struct $name {
             $field: $inner,
         }
@@ -3250,7 +2958,8 @@ bounded_route_metric!(RouteRoughnessMeters, meters, u16, 0, 9_500);
 bounded_route_metric!(RouteReliefMeters, meters, u16, 0, 9_500);
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum DominantAspect {
     Flat,
     North,
@@ -3264,7 +2973,8 @@ pub enum DominantAspect {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum RouteLandformKind {
     Ridge,
     Valley,
@@ -3272,14 +2982,16 @@ pub enum RouteLandformKind {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct LocatedRouteLandform {
     pub progress: EdgeProgressPermille,
     pub kind: RouteLandformKind,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum RouteTerrainClass {
     Flat,
     Rolling,
@@ -3288,7 +3000,8 @@ pub enum RouteTerrainClass {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum RouteWaterFeatureKind {
     River,
     Canal,
@@ -3299,14 +3012,16 @@ pub enum RouteWaterFeatureKind {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct RouteWaterAdjacency {
     pub feature: RouteWaterFeatureKind,
     pub distance: WaterDistanceMeters,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum RouteRiskSeverity {
     Low,
     Medium,
@@ -3314,7 +3029,8 @@ pub enum RouteRiskSeverity {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum RouteSeasonalHazard {
     SpringFlood,
     AutumnMud,
@@ -3323,14 +3039,16 @@ pub enum RouteSeasonalHazard {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct RouteSeasonalRisk {
     pub hazard: RouteSeasonalHazard,
     pub severity: RouteRiskSeverity,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum RouteEncounterTag {
     Flat,
     Rolling,
@@ -3356,7 +3074,8 @@ pub enum RouteEncounterTag {
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct RouteTerrain {
     pub elevation_profile: RouteElevationProfile,
     pub ascent: RouteVerticalMeters,
@@ -4095,7 +3814,8 @@ pub struct CompiledWorld {
 }
 
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct WorldNodeImport {
     pub id: u64,
     pub parent_node_id: Option<u64>,
@@ -4109,7 +3829,8 @@ pub struct WorldNodeImport {
 }
 
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct TravelEdgeImport {
     pub id: u64,
     pub from_node_id: u64,
@@ -4132,7 +3853,8 @@ pub struct TravelEdgeImport {
 /// Bounded reducer transport projection. Offline geometry is deliberately
 /// omitted after compiled-artifact validation because runtime tables do not use it.
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct TravelEdgeLoad {
     pub id: u64,
     pub from_node_id: u64,
@@ -4149,7 +3871,8 @@ pub struct TravelEdgeLoad {
 }
 
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SettlementImport {
     pub id: String,
     pub source_node_id: u64,
@@ -4219,19 +3942,18 @@ mod tests {
     use std::str::FromStr;
 
     use super::{
-        AgriculturalCommodity, AgricultureIndustry, BASIS_POINTS_PER_WHOLE, BestiaryCategory,
-        BestiaryHours, CanopyDensity, DerivedIndustry, DroughtHistory, ElevationBand,
-        ElevationMeters, FishCommodity, FishingIndustry, ForestCommodity, ForestCover,
-        ForestryIndustry, GeologicUnitId, HabitatSuitability, HumanLandUseIntensity,
-        IndustryEvidence, InferredIndustryProfile, InferredTreeSpeciesProfile, LandUseFraction,
-        LandUseProfile, LanguageCode, MinedCommodity, MiningIndustry, ModeledTreeSpecies,
-        ModeledTreeSpeciesProfile, NativeRangeEvidence, OfficialReligion,
-        PalmerDroughtSeverityIndex, PotentialVegetation, PotentialVegetationClass,
-        PotentialVegetationPosterior, PotteryCommodity, PotteryIndustry, ProductionScale,
-        QuarryCommodity, QuarryingIndustry, ReligionHours, ReligionMinutes, SaltSource,
-        SaltmakingIndustry, SettlementEconomyProfile, SettlementReligiousStatus, SoilBasisPoints,
-        StockCategory, StoneContentPercent, SuitabilityBasisPoints, SummerHydroclimate,
-        TreeSpeciesId, infer_settlement_economy,
+        AgriculturalCommodity, AgricultureIndustry, BASIS_POINTS_PER_WHOLE, CanopyDensity,
+        DerivedIndustry, DroughtHistory, ElevationBand, ElevationMeters, FishCommodity,
+        FishingIndustry, ForestCommodity, ForestCover, ForestryIndustry, GeologicUnitId,
+        HabitatSuitability, HumanLandUseIntensity, IndustryEvidence, InferredIndustryProfile,
+        InferredTreeSpeciesProfile, LandUseFraction, LandUseProfile, LanguageCode, MinedCommodity,
+        MiningIndustry, ModeledTreeSpecies, ModeledTreeSpeciesProfile, NativeRangeEvidence,
+        OfficialReligion, PalmerDroughtSeverityIndex, PotentialVegetation,
+        PotentialVegetationClass, PotentialVegetationPosterior, PotteryCommodity, PotteryIndustry,
+        ProductionScale, QuarryCommodity, QuarryingIndustry, ReligionHours, ReligionMinutes,
+        SaltSource, SaltmakingIndustry, SettlementEconomyProfile, SettlementReligiousStatus,
+        SoilBasisPoints, StockCategory, StoneContentPercent, SuitabilityBasisPoints,
+        SummerHydroclimate, TreeSpeciesId, infer_settlement_economy,
     };
 
     #[test]
@@ -4339,61 +4061,6 @@ mod tests {
         // never recursively feed another tradition.
         assert!((hours.effective(OfficialReligion::RomanCatholic) - 1.08).abs() < 0.0001);
         assert_eq!(hours.total_direct(), 1.1);
-    }
-
-    #[test]
-    fn bestiary_correlations_are_symmetric_nonrecursive_and_direct_gated() {
-        for left in BestiaryCategory::ALL {
-            assert_eq!(left.correlation(left), 1.0);
-            for right in BestiaryCategory::ALL {
-                assert_eq!(left.correlation(right), right.correlation(left));
-            }
-        }
-        assert!(
-            BestiaryCategory::Wildmen.correlation(BestiaryCategory::Human)
-                > BestiaryCategory::Wildmen.correlation(BestiaryCategory::Fey)
-        );
-        let hours = BestiaryHours {
-            human: 1_000.0,
-            ..Default::default()
-        };
-        assert_eq!(hours.effective(BestiaryCategory::Wildmen), 0.0);
-        assert_eq!(hours.effective(BestiaryCategory::Human), 1_000.0);
-        assert!(hours.aggregate_effective() > 0.0);
-        assert!(hours.aggregate_effective() < hours.maximum_effective());
-
-        let mastered = BestiaryHours {
-            beast: super::BESTIARY_MASTERY_HOURS,
-            werekin: super::BESTIARY_MASTERY_HOURS,
-            wildmen: super::BESTIARY_MASTERY_HOURS,
-            ..Default::default()
-        };
-        assert!(mastered.effective(BestiaryCategory::Beast) >= super::BESTIARY_MASTERY_HOURS);
-    }
-
-    #[test]
-    fn bestiary_direct_fields_reject_nonfinite_negative_or_overmastery_values() {
-        assert!(
-            BestiaryHours {
-                wildmen: 100.0,
-                ..Default::default()
-            }
-            .direct_fields_valid(super::BESTIARY_MASTERY_HOURS)
-        );
-        for invalid in [
-            -1.0,
-            f32::NAN,
-            f32::INFINITY,
-            super::BESTIARY_MASTERY_HOURS + 1.0,
-        ] {
-            assert!(
-                !BestiaryHours {
-                    wildmen: invalid,
-                    ..Default::default()
-                }
-                .direct_fields_valid(super::BESTIARY_MASTERY_HOURS)
-            );
-        }
     }
 
     #[test]
@@ -5102,7 +4769,8 @@ pub struct SettlementAliasImport {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(rename_all = "lowercase")]
 pub enum SettlementDescriptionKind {
     Settlement,

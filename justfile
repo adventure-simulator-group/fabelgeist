@@ -751,7 +751,7 @@ lint: verify-db-client
     @{{ python_bin }} scripts/check_deterministic_rng.py
     @{{ python_bin }} scripts/check_calendar_api.py
     @cargo run --package fabelgeist-rust-quality -- check .
-    @cargo clippy --package adventuresim-tactical-client --lib --target wasm32-unknown-unknown -- -D warnings
+    @cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings
     @cargo clippy --workspace --all-targets --all-features -- -D warnings
     @cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
     @cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings

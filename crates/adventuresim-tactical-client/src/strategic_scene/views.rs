@@ -210,6 +210,55 @@ pub(super) fn focused_layers(
     layers
 }
 
+/// Copy the tactical camera's actual sky, exposure and post-processing state.
+/// The gameplay marker remains unique for input and environment bake systems.
+#[expect(
+    clippy::type_complexity,
+    reason = "Camera appearance is inherited from the single tactical camera"
+)]
+pub(super) fn sync_environment(
+    mut commands: Commands,
+    source: Query<
+        (
+            Ref<bevy::camera::Exposure>,
+            Ref<bevy::core_pipeline::tonemapping::Tonemapping>,
+            Ref<bevy::pbr::DistanceFog>,
+            Ref<Msaa>,
+            Ref<bevy::light::ShadowFilteringMethod>,
+            Option<Ref<EnvironmentMapLight>>,
+            Option<Ref<bevy::pbr::AtmosphereSettings>>,
+        ),
+        With<crate::presentation::TacticalGameplayCamera>,
+    >,
+    targets: Query<(Entity, Ref<StrategicCamera>)>,
+) {
+    let Ok((exposure, tone, fog, msaa, shadows, environment, atmosphere)) = source.single() else {
+        return;
+    };
+    let changed = exposure.is_changed()
+        || tone.is_changed()
+        || fog.is_changed()
+        || msaa.is_changed()
+        || shadows.is_changed()
+        || environment.as_ref().is_some_and(|value| value.is_changed())
+        || atmosphere.as_ref().is_some_and(|value| value.is_changed());
+    for (entity, marker) in &targets {
+        // A reused snapshot camera reinserts its marker and camera defaults.
+        // Restore the final settings before extraction, just as for a new view.
+        if !changed && !marker.is_changed() {
+            continue;
+        }
+        let mut target = commands.entity(entity);
+        target.insert((*exposure, *tone, (*fog).clone(), *msaa, *shadows));
+        if let Some(environment) = &environment {
+            target.insert((**environment).clone());
+        }
+        if let Some(atmosphere) = &atmosphere {
+            target.insert((**atmosphere).clone());
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -340,54 +389,5 @@ mod tests {
         assert!(focus.intersects(&RenderLayers::layer(ROOM_LAYER + 1)));
         assert!(!focus.intersects(&RenderLayers::layer(ROOM_LAYER + 2)));
         assert!(focused_layers(&scene, None).intersects(&RenderLayers::layer(ROOM_LAYER + 2)));
-    }
-}
-
-/// Copy the tactical camera's actual sky, exposure and post-processing state.
-/// The gameplay marker remains unique for input and environment bake systems.
-#[expect(
-    clippy::type_complexity,
-    reason = "Camera appearance is inherited from the single tactical camera"
-)]
-pub(super) fn sync_environment(
-    mut commands: Commands,
-    source: Query<
-        (
-            Ref<bevy::camera::Exposure>,
-            Ref<bevy::core_pipeline::tonemapping::Tonemapping>,
-            Ref<bevy::pbr::DistanceFog>,
-            Ref<Msaa>,
-            Ref<bevy::light::ShadowFilteringMethod>,
-            Option<Ref<EnvironmentMapLight>>,
-            Option<Ref<bevy::pbr::AtmosphereSettings>>,
-        ),
-        With<crate::presentation::TacticalGameplayCamera>,
-    >,
-    targets: Query<(Entity, Ref<StrategicCamera>)>,
-) {
-    let Ok((exposure, tone, fog, msaa, shadows, environment, atmosphere)) = source.single() else {
-        return;
-    };
-    let changed = exposure.is_changed()
-        || tone.is_changed()
-        || fog.is_changed()
-        || msaa.is_changed()
-        || shadows.is_changed()
-        || environment.as_ref().is_some_and(|value| value.is_changed())
-        || atmosphere.as_ref().is_some_and(|value| value.is_changed());
-    for (entity, marker) in &targets {
-        // A reused snapshot camera reinserts its marker and camera defaults.
-        // Restore the final settings before extraction, just as for a new view.
-        if !changed && !marker.is_changed() {
-            continue;
-        }
-        let mut target = commands.entity(entity);
-        target.insert((*exposure, *tone, (*fog).clone(), *msaa, *shadows));
-        if let Some(environment) = &environment {
-            target.insert((**environment).clone());
-        }
-        if let Some(atmosphere) = &atmosphere {
-            target.insert((**atmosphere).clone());
-        }
     }
 }

@@ -11,6 +11,20 @@ from scripts import check_calendar_api
 
 
 class CalendarApiGuardTests(unittest.TestCase):
+    def test_partial_day_durations_are_not_whole_day_advances(self):
+        for operation in ("saturating_add_minutes", "checked_add_minutes", "saturating_sub_minutes"):
+            for prefix in ("", "adventuresim_world_schema::calendar::"):
+                with self.subTest(operation=operation, prefix=prefix):
+                    self.assertEqual(
+                        self.check_fixture(f"let noon = now.{operation}({prefix}MINUTES_PER_DAY / 2);"),
+                        (0, ""),
+                    )
+                    result, errors = self.check_fixture(
+                        f"let tomorrow = now.{operation}({prefix}MINUTES_PER_DAY /* one day */);"
+                    )
+                    self.assertEqual(result, 1)
+                    self.assertIn("calendar days", errors)
+
     def check_fixture(self, rust: str, browser: str = "") -> tuple[int, str]:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

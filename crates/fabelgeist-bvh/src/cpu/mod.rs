@@ -251,8 +251,8 @@ impl Bvh {
     /// the caller runs the exact test, which for a triangle or a particle is
     /// not a box test anyway. Use [`Bvh::query_aabb`] when the box test *is*
     /// the exact test.
-    pub fn candidates_aabb(&self, query: &Aabb, mut visit: impl FnMut(u32)) {
-        self.walk(|node| node.bounds.overlaps(query), |index| visit(index));
+    pub fn candidates_aabb(&self, query: &Aabb, visit: impl FnMut(u32)) {
+        self.walk(|node| node.bounds.overlaps(query), visit);
     }
 
     /// Call `visit` with every primitive whose own box overlaps `query`.
@@ -269,11 +269,11 @@ impl Bvh {
     /// Call `visit` with every primitive in a leaf whose node box is within
     /// `radius` of `point`. Over-reports, for the same reason as
     /// [`Bvh::candidates_aabb`].
-    pub fn candidates_point(&self, point: Vec3, radius: f32, mut visit: impl FnMut(u32)) {
+    pub fn candidates_point(&self, point: Vec3, radius: f32, visit: impl FnMut(u32)) {
         let radius_squared = radius * radius;
         self.walk(
             |node| node.bounds.distance_squared(point) <= radius_squared,
-            |index| visit(index),
+            visit,
         );
     }
 
@@ -338,11 +338,11 @@ impl Bvh {
         self.walk(
             |node| ray.hits(&node.bounds, limit.get()).is_some(),
             |index| {
-                if let Some(distance) = hit(index, limit.get()) {
-                    if distance < limit.get() {
-                        limit.set(distance);
-                        best = Some((index, distance));
-                    }
+                if let Some(distance) = hit(index, limit.get())
+                    && distance < limit.get()
+                {
+                    limit.set(distance);
+                    best = Some((index, distance));
                 }
             },
         );

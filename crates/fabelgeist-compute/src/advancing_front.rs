@@ -27,6 +27,10 @@ impl AdvancingFront {
     ///
     /// `max_vertices` follows the Marching Cubes API: it bounds both projected
     /// front candidates and emitted triangle vertices (indices).
+    #[expect(
+        clippy::too_many_arguments,
+        reason = "surface extraction passes grid, threshold, output bounds and world transform to the GPU"
+    )]
     pub fn execute(
         context: &WgpuContext,
         definition: &AdvancingFrontDefinition,

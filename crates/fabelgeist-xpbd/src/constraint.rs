@@ -64,7 +64,7 @@ impl ConstraintSet {
         if arity == 0 {
             return Err(anyhow!("ConstraintSet: arity must be at least one"));
         }
-        if particles.len() % arity != 0 {
+        if !particles.len().is_multiple_of(arity) {
             return Err(anyhow!(
                 "ConstraintSet: {} indices is not a whole number of arity-{arity} constraints",
                 particles.len()
@@ -221,7 +221,7 @@ impl ConstraintSet {
     ) -> Result<()> {
         let name = name.into();
         let count = self.constraint_count();
-        if count > 0 && values.len() % count != 0 {
+        if count > 0 && !values.len().is_multiple_of(count) {
             return Err(anyhow!(
                 "ConstraintSet `{}`: attachment `{name}` has {} values, which is not a whole number per constraint ({count})",
                 self.name,

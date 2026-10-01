@@ -68,11 +68,13 @@ impl Broadcast {
         }
 
         let wg_x = match output {
-            GpuResource::Buffer(b) => ((b.size / 4) as u32 + 63) / 64,
+            GpuResource::Buffer(b) => ((b.size / 4) as u32).div_ceil(64),
             _ => 1,
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::new(context, pipeline, parameters, wg_x, 1, 1)?;
+        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+            context, pipeline, parameters, wg_x, 1, 1,
+        )?;
 
         Ok(())
     }

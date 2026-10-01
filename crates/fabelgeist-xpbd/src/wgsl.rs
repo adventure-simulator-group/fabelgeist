@@ -214,10 +214,6 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
 }
 "#;
 
-/// Zero the multipliers. XPBD accumulates `lambda` across the iterations of
-/// one substep and resets it at the start of the next -- that reset is what
-/// makes the compliance behave like a real stiffness rather than drifting.
-
 /// Spring constraints with viscous damping and compression/rebound bump stops.
 pub const SPRING: &str = r#"
 @group(0) @binding(1) var<storage, read_write> lambdas: array<f32>;
@@ -272,6 +268,9 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
 }
 "#;
 
+/// Zero the multipliers. XPBD accumulates `lambda` across the iterations of
+/// one substep and resets it at the start of the next -- that reset is what
+/// makes the compliance behave like a real stiffness rather than drifting.
 pub const CLEAR_LAMBDAS: &str = r#"
 @group(0) @binding(0) var<storage, read_write> lambdas: array<f32>;
 

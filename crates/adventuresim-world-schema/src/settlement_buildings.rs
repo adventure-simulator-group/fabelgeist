@@ -22,7 +22,8 @@ pub const MAX_SERVICE_BUILDINGS: usize = 4_096;
 /// transported state must use [`BusinessId`], which supplies the settlement
 /// scope explicitly.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct BusinessKey {
     pub usage: BuildingUse,
     pub ordinal: u32,
@@ -30,7 +31,8 @@ pub struct BusinessKey {
 
 /// Globally scoped identity of one generated economic service establishment.
 #[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct BusinessId {
     pub settlement_id: String,
     pub key: BusinessKey,

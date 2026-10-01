@@ -204,7 +204,7 @@ pub fn linear_to_pq(linear: f32) -> f32 {
 // ARIB STD-B67 / BT.2100 (HLG) constants
 const HLG_A: f32 = 0.17883277;
 const HLG_B: f32 = 0.28466892; // 1.0 - 4.0 * HLG_A
-const HLG_C: f32 = 0.55991073; // 0.5 - HLG_A * (4.0 * HLG_A).ln()
+const HLG_C: f32 = 0.559_910_7; // 0.5 - HLG_A * (4.0 * HLG_A).ln()
 
 /// Converts an HLG (ITU-R BT.2100) encoded value in [0.0, 1.0] to normalized linear scene light.
 #[inline]
