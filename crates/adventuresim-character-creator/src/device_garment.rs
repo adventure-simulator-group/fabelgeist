@@ -6,11 +6,7 @@
 //! kernels read the frame where the fit was written; fitting kernels read the
 //! rest. Nothing is read back until the finished part is.
 
-use std::collections::HashSet;
-use std::sync::{LazyLock, Mutex};
-
 use anyhow::{Context, Result};
-use fabelgeist_armor::gpu::body::Correspondence;
 use fabelgeist_armor::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
@@ -206,41 +202,7 @@ impl DeviceWearer<'_> {
         design: &GarmentArmorDesign,
         placement: &str,
     ) -> Result<DeviceRecording> {
-        if let Some(option) = design.device_unsupported() {
-            return Err(fabelgeist_armor::GenerateError::NotOnDevice(option).into());
-        }
-        self.compile_garment_kernels(design, placement)?;
         self.record_garment(batch, design, placement)
-    }
-
-    /// Compile every kernel a garment kind uses before its first real
-    /// recording in this process.
-    ///
-    /// A kernel writes each dispatch's uniforms into a ring of slots as the
-    /// dispatch is recorded, and the ring wraps for whichever thread records
-    /// next. A batch that stalls between its first dispatch and its submit --
-    /// as one does while a large shader compiles on first use -- can have its
-    /// early slots overwritten by other threads fitting meanwhile. Recording
-    /// the garment once into a batch that is never submitted compiles it all
-    /// up front, so real batches record without stalling.
-    fn compile_garment_kernels(&self, design: &GarmentArmorDesign, placement: &str) -> Result<()> {
-        static COMPILED: LazyLock<Mutex<HashSet<Kind>>> = LazyLock::new(Mutex::default);
-        if COMPILED.lock().unwrap().contains(&design.kind) {
-            return Ok(());
-        }
-        let gpu = self.gpu;
-        let mut unsubmitted = gpu.batch("garment kernels");
-        let mut recording = self.record_garment(&mut unsubmitted, design, placement)?;
-        recording.part.record_shells(gpu, &mut unsubmitted)?;
-        Correspondence::record(
-            gpu,
-            &mut unsubmitted,
-            self.body,
-            recording.part.positions(),
-            recording.part.vertex_count(),
-        )?;
-        COMPILED.lock().unwrap().insert(design.kind);
-        Ok(())
     }
 
     fn record_garment(
@@ -249,6 +211,12 @@ impl DeviceWearer<'_> {
         design: &GarmentArmorDesign,
         placement: &str,
     ) -> Result<DeviceRecording> {
+        if matches!(
+            design.plate_shape,
+            fabelgeist_armor::GarmentPlateShape::WrappedTassets(_)
+        ) {
+            return self.record_wrapped_tassets(batch, design, &[], None);
+        }
         match design.kind {
             Kind::Brigandine | Kind::JackOfPlates | Kind::MailShirt | Kind::ArmingDoublet => {
                 self.record_fitted_torso(batch, design)

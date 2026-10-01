@@ -14,6 +14,9 @@ use std::time::Instant;
 #[path = "armor_fixture/anime_tests.rs"]
 mod anime_tests;
 mod armor_fixture;
+#[cfg(test)]
+#[path = "armor_fixture/pauldron_tests.rs"]
+mod pauldron_tests;
 
 fn main() -> Result<()> {
     let path = std::env::args()
@@ -379,3 +382,7 @@ fn puffed_sleeve_seats_over_generated_padding() -> Result<()> {
     assert!(clothed.morphs.is_empty());
     Ok(())
 }
+
+#[cfg(test)]
+#[path = "armor_fixture/tasset_tests.rs"]
+mod tasset_tests;

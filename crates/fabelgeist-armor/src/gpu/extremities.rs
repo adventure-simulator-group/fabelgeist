@@ -57,7 +57,6 @@ pub(crate) fn shape(
     design: &LimbArmorDesign,
 ) -> Result<ExtremityShape, GenerateError> {
     design.validate()?;
-    crate::device_support::on_device(design.device_unsupported())?;
     match design {
         LimbArmorDesign::MittenGauntlet(d) => super::mitten::gauntlet(gpu, d),
         LimbArmorDesign::Sabaton(d) => super::footwear::sabaton(gpu, d),

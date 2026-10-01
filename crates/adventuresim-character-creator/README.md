@@ -575,19 +575,27 @@ describes anime torso courses, wrapping tassets, independent pauldron wings,
 joint extensions, besagews, buffes and bellows visors, with primary historical
 references and construction limits.
 
-### Options not yet built on the device
+### Device construction and remaining work
 
-Armor is fitted and thickened on the armor device. These recipe options parse,
-validate and appear in the controls, but the device does not build them yet;
-fitting a design that uses one fails with an error naming it, rather than
-building the piece without it:
+The device constructs puff-and-slash clothing, anime breastplate courses,
+pauldrons, and wrapped tassets. Runtime generation fits only the current wearer;
+the studio can still request explicit morph realizations.
 
-- pauldrons;
-- wrapped tassets and anime breastplates;
-- puff-and-slash sleeves and hose.
+Wrapped tassets retain separate thigh carriers, medial trimming, shaped hems,
+and sloped suspension. Convex triangle-band sections support the final shaped
+height. Upper courses seat over completed lower equipment; a waist assembly
+fits them at its fauld's suspension height before generating the mesh. The
+inner-boundary solve runs once per plate row and is shared by its columns.
+
+The pauldron port is not ready for production promotion. Its generated plates
+are closed and body-fitted, but the current chest/arm binding separates the cap
+from the arm lames in raised-guard poses. Individual plate identities are kept
+for a constrained equipment rig. Breastplate courses currently move together
+as one rigid chest assembly. These bindings do not establish collision-free
+articulation.
 
 Fastenings, dense bake sources (`--armor-bake-source`), runtime levels of
-detail and generated fluting normal maps are not built on the device either.
+detail and generated fluting normal maps remain outside device construction.
 
 Metal recipes expose construction-specific shape controls. Helmet crowns have
 fullness, ridge height and optional fluting; sallets add face-opening width and
@@ -964,15 +972,19 @@ arrangement, not a claim that the game's padded hose replicates that garment.
 
 ## Full pauldrons
 
-The armor device does not build pauldrons yet; see
-[Options not yet built on the device](#options-not-yet-built-on-the-device).
-This section describes the recipe and the construction it will produce.
+The device builds a shared shoulder saddle, seats it against the wearer's body
+and completed lower plates, then cuts its overlapping closed courses. The
+runtime builds only the current wearer's fit, with no equipment morph targets.
+`animation-viewer --armor-harness pauldron` exercises both shoulders over a
+cuirass. Rigid attachment is separate from fitting: the cap hangs from the chest
+and distal lames follow the upper arm. This is not a constrained armor rig;
+posed overlap and body clearance remain acceptance concerns.
 
 `pauldron` is a separate catalog choice from the smaller `spaulder`. A formed
 shoulder plate has independent front and rear wing reach and drop, proximal
 neck lames, and a narrowing stack of upper-arm lames. These are closed plate
-shells with authored physical rims, automatic material UVs, baked normal/AO
-maps, and optional fluting and texture trim.
+shells with authored physical rims and optional fluting. Material baking and
+texture trim are separate authoring capabilities.
 
 The construction follows the broad wings and articulated upper-arm coverage
 of the Met's [Italian pauldrons, ca. 1560, 14.25.827a-d](https://www.metmuseum.org/art/collection/search/22301).
@@ -986,12 +998,11 @@ review export, and equipment export. `plate_clearance` sets separation from
 those surfaces; `arm_allowance` reserves room for the rerebrace. Padding
 clearance and plate gauge remain separate controls. Changing a supporting
 recipe refits the wings; the resulting assembly still requires checking. The
-support envelope omits torso fluting and reserves its relief height, so that
-a smooth shoulder plate does not inherit its neighbor's decorative ridges.
-Lame spacing reserves the selected wall thickness and flute relief. The shared
-fitted carrier preserves overlaps before extrusion. The chest-facing wings
-blend into the upper-arm attachment across the crown to accommodate shoulder
-width. This deformation does not simulate sliding rivets or individual lames.
+device projects against completed lower-layer triangles and smooths its shared
+clearance field before cutting plates. Each plate receives one rigid owner;
+metal no longer deforms through a blend of chest and arm skin weights. This
+preserves plate shape but requires a constrained equipment rig to keep the
+moving plates overlapped. The current binding does not meet that posed gate.
 
 The plate animation-viewer fixture uses full pauldrons. For automated unposed
 body, self, and neighboring-piece intersection checks:

@@ -197,14 +197,20 @@ async fn read(
             i => format!("fitting armor morph {}", names[i - 1]),
         };
         for check in &recording.checks {
-            check(gpu).await.with_context(context)?;
+            if let crate::device_piece::DeviceCheck::Device(check) = check {
+                check(gpu).await.with_context(context)?;
+            }
         }
-        parts.push(
-            recording
-                .part
-                .finish(&results, part)
-                .with_context(context)?,
-        );
+        let part = recording
+            .part
+            .finish(&results, part)
+            .with_context(context)?;
+        for check in &recording.checks {
+            if let crate::device_piece::DeviceCheck::Mesh(check) = check {
+                check(&part).with_context(context)?;
+            }
+        }
+        parts.push(part);
     }
     let mut parts = parts.into_iter();
     let base = parts.next().expect("the wearer is always fitted");
@@ -254,13 +260,52 @@ pub async fn fit_recipe_async(
         return fit(design).await;
     };
     let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone())).await?;
-    let tassets = fit(&ParametricDesign::Garment(waist.tassets.clone())).await?;
-    Ok(suspended_waist(fauld, tassets))
+    let tassets = if matches!(
+        waist.tassets.plate_shape,
+        fabelgeist_armor::GarmentPlateShape::WrappedTassets(_)
+    ) {
+        fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {
+            let lower = match target {
+                None => &fauld.base,
+                Some(name) => {
+                    &fauld.endpoints[morphs
+                        .iter()
+                        .position(|(n, _)| *n == name)
+                        .context("missing suspended fauld realization")?]
+                }
+            };
+            let top = lower
+                .positions
+                .iter()
+                .map(|p| p[1])
+                .fold(f32::INFINITY, f32::min)
+                - TASSET_SUSPENSION_GAP_M;
+            let mut surfaces = layers
+                .iter()
+                .map(|armor| ArmorLayerSurface::from_generated(armor, target))
+                .collect::<Result<Vec<_>>>()?;
+            surfaces.push(ArmorLayerSurface {
+                positions: &lower.positions,
+                faces: lower.indices.as_chunks::<3>().0,
+                joint_indices: &fauld.skin.joint_indices,
+                joint_weights: &fauld.skin.joint_weights,
+            });
+            device.record_wrapped_tassets(batch, &waist.tassets, &surfaces, Some(top))
+        })
+        .await?
+    } else {
+        fit(&ParametricDesign::Garment(waist.tassets.clone())).await?
+    };
+    Ok(suspended_waist(fauld, tassets, &waist.tassets))
 }
 
 /// Hang the tassets below the fauld's hem on every realization, and join
 /// both as one waist defense with a component each.
-fn suspended_waist(fauld: DevicePiece, tassets: DevicePiece) -> DevicePiece {
+fn suspended_waist(
+    fauld: DevicePiece,
+    tassets: DevicePiece,
+    design: &fabelgeist_armor::GarmentArmorDesign,
+) -> DevicePiece {
     let join = |mut fauld: BuiltPart, mut tassets: BuiltPart| {
         let hem = fauld
             .positions
@@ -272,7 +317,16 @@ fn suspended_waist(fauld: DevicePiece, tassets: DevicePiece) -> DevicePiece {
             .iter()
             .map(|p| p[1])
             .fold(f32::NEG_INFINITY, f32::max);
-        let shift = (hem - TASSET_SUSPENSION_GAP_M - top).min(0.0);
+        // Wrapped carriers were fitted at the actual suspension height; moving
+        // them afterward would invalidate anatomical support at shaped edges.
+        let shift = if matches!(
+            design.plate_shape,
+            fabelgeist_armor::GarmentPlateShape::WrappedTassets(_)
+        ) {
+            0.0
+        } else {
+            (hem - TASSET_SUSPENSION_GAP_M - top).min(0.0)
+        };
         for point in &mut tassets.positions {
             point[1] += shift;
         }
@@ -320,6 +374,12 @@ fn record_recipe(
         }
         ParametricDesign::Helmet(HelmetDesign::MailCoif(d)) => wearer.record_fitted_coif(batch, d),
         ParametricDesign::Helmet(helmet) => wearer.record_helmet(batch, helmet),
+        ParametricDesign::Limb(LimbArmorDesign::Pauldron(d)) => wearer.record_fitted_pauldron(
+            batch,
+            d,
+            armor_recipes::fit_region(design, placement)?,
+            layers,
+        ),
         ParametricDesign::Limb(limb) => {
             let region = armor_recipes::fit_region(design, placement)?;
             if matches!(
@@ -332,6 +392,14 @@ fn record_recipe(
             } else {
                 wearer.record_fitted_limb(batch, limb, region)
             }
+        }
+        ParametricDesign::Garment(garment)
+            if matches!(
+                garment.plate_shape,
+                fabelgeist_armor::GarmentPlateShape::WrappedTassets(_)
+            ) =>
+        {
+            wearer.record_wrapped_tassets(batch, garment, layers, None)
         }
         ParametricDesign::Garment(garment) => {
             wearer.record_fitted_garment(batch, garment, placement)

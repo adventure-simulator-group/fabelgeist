@@ -20,6 +20,7 @@ pub(crate) enum ArmorHarness {
     Padded,
     Puffed,
     Anime,
+    Pauldron,
     WearerFit,
     CloseHelmet,
     MuseumHenry,
@@ -33,6 +34,7 @@ impl ArmorHarness {
             Self::WearerFit => &["gorget", "cuirass", "vambrace"],
             Self::Puffed => &["puffed_sleeve", "puffed_hose"],
             Self::Anime => &["breastplate"],
+            Self::Pauldron => &["cuirass", "pauldron"],
             Self::MuseumHenry => museum::HENRY_ITEMS,
             Self::MuseumNuremberg => museum::NUREMBERG_ITEMS,
             Self::Plate | Self::PlateTassets | Self::PlateUnderlayers => &[
@@ -128,6 +130,16 @@ pub(super) fn equipment_cache(
     }
 }
 
+impl crate::equipment::RuntimeEquipmentBodyCache {
+    /// A validated recipe chosen before this review fixture generates any fit.
+    fn with_breastplate(design: fabelgeist_armor::BreastplateDesign) -> anyhow::Result<Self> {
+        fabelgeist_armor::validate_breastplate(&design)?;
+        let mut cache = Self::default();
+        cache.breastplate_design = Some(design);
+        Ok(cache)
+    }
+}
+
 #[derive(Component)]
 pub(super) struct CapturedArmor;
 
@@ -161,7 +173,7 @@ impl ArmorCapture {
                 HELMET_REVIEW_DISTANCE_METRES,
                 0.0,
             )
-        } else if matches!(harness, ArmorHarness::Anime) {
+        } else if matches!(harness, ArmorHarness::Anime | ArmorHarness::Pauldron) {
             (
                 head? - Vec3::Y * TORSO_FOCUS_BELOW_HEAD_METRES,
                 TORSO_REVIEW_DISTANCE_METRES,

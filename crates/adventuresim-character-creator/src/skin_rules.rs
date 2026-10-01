@@ -29,7 +29,12 @@ pub fn attach(
 ) -> Result<()> {
     let (joint, roles): (_, &[_]) = match design {
         ParametricDesign::WaistAssembly(_) => return waist(joint_names, joints, armor),
-        ParametricDesign::Garment(garment) if garment.kind == GarmentArmorKind::Fauld => {
+        ParametricDesign::Garment(garment)
+            if matches!(
+                garment.kind,
+                GarmentArmorKind::Fauld | GarmentArmorKind::Tassets
+            ) =>
+        {
             return waist(joint_names, joints, armor);
         }
         ParametricDesign::Helmet(HelmetDesign::ArmingCap(_) | HelmetDesign::MailCoif(_)) => {
@@ -42,6 +47,7 @@ pub fn attach(
             return Ok(());
         }
         ParametricDesign::Limb(limb) => match limb {
+            LimbArmorDesign::Pauldron(_) => return pauldron(placement, joint_names, armor),
             LimbArmorDesign::Couter(_) => (
                 limb_joint(placement, "lowarm")?,
                 &[
@@ -94,6 +100,30 @@ pub fn attach(
         .collect::<Vec<_>>();
     for vertices in plates {
         fill(armor, vertices, anchor);
+    }
+    Ok(())
+}
+
+/// The broad saddle hangs from the chest; distal lames follow the upper arm.
+/// Each remains rigid. This ownership alone is not an overlap constraint.
+fn pauldron(placement: &str, names: &[String], armor: &mut GeneratedArmor) -> Result<()> {
+    let cap = joint_index(names, "c_spine3")?;
+    let arm = joint_index(names, &limb_joint(placement, "uparm")?)?;
+    let parts = armor
+        .components
+        .iter()
+        .map(|part| (part.role, part.vertices.clone()))
+        .collect::<Vec<_>>();
+    for (role, vertices) in parts {
+        fill(
+            armor,
+            vertices,
+            if role == ArmorComponentRole::JointExtension {
+                arm
+            } else {
+                cap
+            },
+        );
     }
     Ok(())
 }

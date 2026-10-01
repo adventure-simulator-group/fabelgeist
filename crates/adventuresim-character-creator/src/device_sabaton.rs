@@ -110,7 +110,7 @@ impl DeviceWearer<'_> {
                 .map_err(device_error)?;
         }
         let frame = frame.clone();
-        Ok(Box::new(move |gpu| {
+        Ok(DeviceCheck::Device(Box::new(move |gpu| {
             let status = status.clone();
             let frame = frame.clone();
             Box::pin(async move {
@@ -124,7 +124,7 @@ impl DeviceWearer<'_> {
                 }
                 .into())
             })
-        }))
+        })))
     }
 }
 

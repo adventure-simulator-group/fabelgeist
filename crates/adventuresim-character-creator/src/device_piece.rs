@@ -1,6 +1,6 @@
 //! What recording a fitted piece on the device leaves behind.
 
-use fabelgeist_armor::{ArmorGpu, DevicePart};
+use fabelgeist_armor::{ArmorGpu, BuiltPart, DevicePart};
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::DeviceFrame;
@@ -16,7 +16,13 @@ pub struct DeviceRecording {
 }
 
 /// Reads a fit's status back and turns a raised failure into its error.
-pub type DeviceCheck = Box<
+pub enum DeviceCheck {
+    Device(DeviceValidation),
+    /// Validate the finished shell already staged with the rest of the part.
+    Mesh(Box<dyn Fn(&BuiltPart) -> anyhow::Result<()> + Send + Sync>),
+}
+
+pub type DeviceValidation = Box<
     dyn for<'a> Fn(
             &'a ArmorGpu,
         ) -> std::pin::Pin<

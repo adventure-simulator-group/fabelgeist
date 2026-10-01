@@ -37,7 +37,7 @@ impl DeviceWearer<'_> {
         );
         let gpu = self.gpu;
         let part = record_puff_and_slash(gpu, batch, design, &frame.frame)?;
-        let faces_buffer = gpu.upload(&faces)?;
+        let faces_buffer = gpu.upload(faces)?;
         let positions = gpu.upload(&support.positions)?;
         let capacity = faces.len() as u32 * SAMPLES_PER_TRIANGLE + 1;
         let samples = gpu.scratch(
@@ -53,12 +53,9 @@ impl DeviceWearer<'_> {
             "limb sections",
         )?;
         let source = format!(
-            "const SECTIONS: u32 = {SECTION_COUNT}u;\nconst RADII: u32 = {SECTION_RADII}u;\nconst SECTION_WORDS: u32 = {SECTION_WORDS}u;\nconst HALF_WIDTH: f32 = {SECTION_HALF_WIDTH_M};\nconst TAPER_COURSES: f32 = {FULLNESS_TAPER_COURSES};\n{}",
-            format!(
-                "{}\n{}",
-                include_str!("device_section_hull.wgsl"),
-                include_str!("device_puff.wgsl")
-            )
+            "const SECTIONS: u32 = {SECTION_COUNT}u;\nconst RADII: u32 = {SECTION_RADII}u;\nconst SECTION_WORDS: u32 = {SECTION_WORDS}u;\nconst HALF_WIDTH: f32 = {SECTION_HALF_WIDTH_M};\nconst TAPER_COURSES: f32 = {FULLNESS_TAPER_COURSES};\n{}\n{}",
+            include_str!("device_section_hull.wgsl"),
+            include_str!("device_puff.wgsl")
         );
         let words = fit_parameters(design, capacity, &support, part.carrier_count());
         let buffers = [

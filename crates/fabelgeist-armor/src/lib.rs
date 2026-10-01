@@ -31,7 +31,6 @@ pub use surface_grid::SurfaceGrid;
 pub mod trim;
 pub use trim::{ArmorSurface, ArmorTrim, TrimBand, TrimError};
 mod design;
-mod device_support;
 pub use components::{ArmorComponent, ArmorComponentMaterial, ArmorComponentRole, ArmorHinge};
 mod error;
 mod fauld_chart;

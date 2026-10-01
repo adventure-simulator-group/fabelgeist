@@ -233,7 +233,7 @@ fn layer_checks(garments: Vec<DevicePart>) -> Vec<DeviceCheck> {
     garments
         .into_iter()
         .map(|garment| -> DeviceCheck {
-            Box::new(move |gpu| {
+            DeviceCheck::Device(Box::new(move |gpu| {
                 let status = garment.status().clone();
                 Box::pin(async move {
                     anyhow::ensure!(
@@ -242,7 +242,7 @@ fn layer_checks(garments: Vec<DevicePart>) -> Vec<DeviceCheck> {
                     );
                     Ok(())
                 })
-            })
+            }))
         })
         .collect()
 }

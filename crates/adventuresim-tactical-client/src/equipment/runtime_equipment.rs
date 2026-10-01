@@ -35,27 +35,13 @@ use std::sync::Arc;
 pub(crate) struct RuntimeEquipmentBodyCache {
     body: Option<body::CanonicalBody>,
     pub(super) bracer_design: Option<fabelgeist_armor::BracerDesign>,
-    pub(super) breastplate_design: Option<fabelgeist_armor::BreastplateDesign>,
+    pub(crate) breastplate_design: Option<fabelgeist_armor::BreastplateDesign>,
     pub(super) failed: bool,
     bodies: HashMap<BodyShapeKey, FittedBody>,
     models: HashMap<FitKey, Result<CachedEquipment, String>>,
     pending: Option<PendingFit>,
     use_clock: u64,
     last_used: HashMap<FitKey, u64>,
-}
-
-impl RuntimeEquipmentBodyCache {
-    /// Start a fresh cache with a validated torso recipe. Existing physical
-    /// fits are never reinterpreted when a review fixture chooses a design.
-    pub(crate) fn with_breastplate(
-        design: fabelgeist_armor::BreastplateDesign,
-    ) -> anyhow::Result<Self> {
-        fabelgeist_armor::validate_breastplate(&design)?;
-        Ok(Self {
-            breastplate_design: Some(design),
-            ..default()
-        })
-    }
 }
 
 #[expect(clippy::too_many_arguments)]
