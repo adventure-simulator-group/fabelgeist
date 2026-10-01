@@ -18,7 +18,13 @@ impl Plugin for BuildingPresentationPlugin {
             .add_observer(super::on_scene_vista_buildings)
             .add_observer(super::boundaries::on_boundary)
             .add_observer(super::boundaries::on_vista)
-            .add_systems(Update, (super::streaming::present, update_lettering));
+            .add_systems(Update, super::streaming::present)
+            // Scene replacement applies deferred despawns in Update. Lettering
+            // must inspect the surviving signs before attaching new children.
+            .add_systems(
+                PostUpdate,
+                update_lettering.before(bevy::transform::TransformSystems::Propagate),
+            );
     }
 }
 
