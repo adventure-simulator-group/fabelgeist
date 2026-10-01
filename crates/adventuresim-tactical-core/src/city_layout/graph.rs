@@ -69,6 +69,22 @@ pub(super) struct StreetGraph {
 }
 
 impl StreetGraph {
+    /// Complete nearby blocks before opening scattered residential frontages.
+    pub(super) fn development_order(&self) -> BTreeMap<BlockId, usize> {
+        let mut blocks = self.blocks.iter().collect::<Vec<_>>();
+        blocks.sort_by(|a, b| {
+            a.centre()
+                .length_squared()
+                .total_cmp(&b.centre().length_squared())
+                .then(a.id.cmp(&b.id))
+        });
+        blocks
+            .into_iter()
+            .enumerate()
+            .map(|(rank, block)| (block.id, rank))
+            .collect()
+    }
+
     pub(super) fn segment(
         &mut self,
         points: [Vec2; 2],

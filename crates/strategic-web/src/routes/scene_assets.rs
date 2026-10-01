@@ -120,6 +120,11 @@ async fn scene_assets(
     .await
     .map_err(unavailable)?
     .map_err(unavailable)?;
+    if let Some(catalog) = &input.properties {
+        super::settlement_properties::ensure_catalog(&state, catalog)
+            .await
+            .map_err(unavailable)?;
+    }
     Ok(Json(input))
 }
 

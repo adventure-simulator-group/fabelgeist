@@ -56,7 +56,7 @@ pub use adventuresim_stdb_client::{
     PartyJoinRequest, PartyJourney, PartyLeaderVote, PartyMember, PartyStake, Precipitation,
     ProjectileKind, RecruitmentOffer, RecruitmentOfferStatus, ReligiousDemand, RepairOrder,
     ResidenceTenure, RetainedProjectile, SavedRecruitmentRole, ScheduleAllocation, SettlementAlias,
-    SettlementCategory, SettlementDescription, SettlementDescriptionKind, SettlementResidenceOffer,
+    SettlementCategory, SettlementDescription, SettlementDescriptionKind,
     SettlementResidentPresence, SettlementSmith, SocialAddress, SocialBelief, SocialChatOutcome,
     SocialChatTargetKind, StrategicEncounter, StrategicEncounterStatus, WeaponHolderInstance,
     WeaponInstance, WorldClock,

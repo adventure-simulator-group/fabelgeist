@@ -8,6 +8,15 @@ pub enum CityHouseClass {
 }
 
 impl CityHouseClass {
+    pub const fn housing_tier(self) -> adventuresim_core::courtship::HousingTier {
+        use adventuresim_core::courtship::HousingTier;
+        match self {
+            Self::Cottage => HousingTier::Cheap,
+            Self::CraftTownHouse | Self::HallHouse => HousingTier::Moderate,
+            Self::MerchantHouse => HousingTier::Fancy,
+        }
+    }
+
     pub const fn archetype(self) -> adventuresim_building_generator::BuildingArchetype {
         use adventuresim_building_generator::BuildingArchetype;
         match self {

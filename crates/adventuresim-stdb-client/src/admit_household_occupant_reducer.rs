@@ -7,7 +7,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub(super) struct AdmitHouseholdOccupantArgs {
-    pub owner_character_id: u64,
+    pub holder_character_id: u64,
     pub holding_id: String,
     pub occupant_id: u64,
 }
@@ -15,7 +15,7 @@ pub(super) struct AdmitHouseholdOccupantArgs {
 impl From<AdmitHouseholdOccupantArgs> for super::Reducer {
     fn from(args: AdmitHouseholdOccupantArgs) -> Self {
         Self::AdmitHouseholdOccupant {
-            owner_character_id: args.owner_character_id,
+            holder_character_id: args.holder_character_id,
             holding_id: args.holding_id,
             occupant_id: args.occupant_id,
         }
@@ -39,11 +39,11 @@ pub trait admit_household_occupant {
     /// /// Use [`admit_household_occupant:admit_household_occupant_then`] to run a callback after the reducer completes.
     fn admit_household_occupant(
         &self,
-        owner_character_id: u64,
+        holder_character_id: u64,
         holding_id: String,
         occupant_id: u64,
     ) -> __sdk::Result<()> {
-        self.admit_household_occupant_then(owner_character_id, holding_id, occupant_id, |_, _| {})
+        self.admit_household_occupant_then(holder_character_id, holding_id, occupant_id, |_, _| {})
     }
 
     /// Request that the remote module invoke the reducer `admit_household_occupant` to run as soon as possible,
@@ -54,7 +54,7 @@ pub trait admit_household_occupant {
     ///  and its status can be observed with the `callback`.
     fn admit_household_occupant_then(
         &self,
-        owner_character_id: u64,
+        holder_character_id: u64,
         holding_id: String,
         occupant_id: u64,
 
@@ -69,7 +69,7 @@ pub trait admit_household_occupant {
 impl admit_household_occupant for super::RemoteReducers {
     fn admit_household_occupant_then(
         &self,
-        owner_character_id: u64,
+        holder_character_id: u64,
         holding_id: String,
         occupant_id: u64,
 
@@ -81,7 +81,7 @@ impl admit_household_occupant for super::RemoteReducers {
     ) -> __sdk::Result<()> {
         self.imp.invoke_reducer_with_callback(
             AdmitHouseholdOccupantArgs {
-                owner_character_id,
+                holder_character_id,
                 holding_id,
                 occupant_id,
             },

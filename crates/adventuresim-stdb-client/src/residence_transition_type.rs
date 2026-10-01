@@ -12,7 +12,7 @@ use super::strategic_minute_type::StrategicMinute;
 pub struct ResidenceTransition {
     pub id: String,
     pub holding_id: String,
-    pub owner_character_id: u64,
+    pub holder_character_id: u64,
     pub affected_character_id: u64,
     pub kind: ResidenceTransitionKind,
     pub minute: StrategicMinute,
@@ -28,7 +28,7 @@ impl __sdk::InModule for ResidenceTransition {
 pub struct ResidenceTransitionCols {
     pub id: __sdk::__query_builder::Col<ResidenceTransition, String>,
     pub holding_id: __sdk::__query_builder::Col<ResidenceTransition, String>,
-    pub owner_character_id: __sdk::__query_builder::Col<ResidenceTransition, u64>,
+    pub holder_character_id: __sdk::__query_builder::Col<ResidenceTransition, u64>,
     pub affected_character_id: __sdk::__query_builder::Col<ResidenceTransition, u64>,
     pub kind: __sdk::__query_builder::Col<ResidenceTransition, ResidenceTransitionKind>,
     pub minute: __sdk::__query_builder::Col<ResidenceTransition, StrategicMinute>,
@@ -40,7 +40,10 @@ impl __sdk::__query_builder::HasCols for ResidenceTransition {
         ResidenceTransitionCols {
             id: __sdk::__query_builder::Col::new(table_name, "id"),
             holding_id: __sdk::__query_builder::Col::new(table_name, "holding_id"),
-            owner_character_id: __sdk::__query_builder::Col::new(table_name, "owner_character_id"),
+            holder_character_id: __sdk::__query_builder::Col::new(
+                table_name,
+                "holder_character_id",
+            ),
             affected_character_id: __sdk::__query_builder::Col::new(
                 table_name,
                 "affected_character_id",
@@ -56,9 +59,9 @@ impl __sdk::__query_builder::HasCols for ResidenceTransition {
 /// Provides typed access to indexed columns for query building.
 pub struct ResidenceTransitionIxCols {
     pub affected_character_id: __sdk::__query_builder::IxCol<ResidenceTransition, u64>,
+    pub holder_character_id: __sdk::__query_builder::IxCol<ResidenceTransition, u64>,
     pub holding_id: __sdk::__query_builder::IxCol<ResidenceTransition, String>,
     pub id: __sdk::__query_builder::IxCol<ResidenceTransition, String>,
-    pub owner_character_id: __sdk::__query_builder::IxCol<ResidenceTransition, u64>,
 }
 
 impl __sdk::__query_builder::HasIxCols for ResidenceTransition {
@@ -69,12 +72,12 @@ impl __sdk::__query_builder::HasIxCols for ResidenceTransition {
                 table_name,
                 "affected_character_id",
             ),
+            holder_character_id: __sdk::__query_builder::IxCol::new(
+                table_name,
+                "holder_character_id",
+            ),
             holding_id: __sdk::__query_builder::IxCol::new(table_name, "holding_id"),
             id: __sdk::__query_builder::IxCol::new(table_name, "id"),
-            owner_character_id: __sdk::__query_builder::IxCol::new(
-                table_name,
-                "owner_character_id",
-            ),
         }
     }
 }

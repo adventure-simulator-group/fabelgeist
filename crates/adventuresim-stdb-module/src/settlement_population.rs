@@ -456,7 +456,7 @@ pub fn ensure_settlement_population(
             .update(representative);
     }
     crate::relationship::ensure_seeded_family_households(ctx, settlement_id, &household_groups)?;
-    Ok(())
+    crate::residence::bind_generated_households(ctx, settlement_id)
 }
 pub fn npc_is_present(
     ctx: &ReducerContext,

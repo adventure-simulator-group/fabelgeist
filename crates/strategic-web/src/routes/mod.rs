@@ -20,6 +20,7 @@ mod party_actions;
 pub mod quests;
 mod scene_assets;
 mod scene_equipment;
+mod settlement_properties;
 mod vicinity;
 use clock::current_time;
 pub mod settlements;

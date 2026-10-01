@@ -35,6 +35,7 @@ pub struct ReconnectCapability {
 /// Vista samples intentionally bypass ordinary ECS component replication.
 #[derive(Debug, Clone, Event, Serialize, Deserialize)]
 pub struct SceneVistaBundle {
+    pub properties: Option<adventuresim_core::settlement_property::GeneratedHomeCatalog>,
     pub scene_digest: String,
     /// Half-width and half-depth of the authoritative playable heightfield.
     /// Presentation-only vista rings clip exactly to this rectangle.

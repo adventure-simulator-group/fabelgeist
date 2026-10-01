@@ -17,6 +17,7 @@ impl Plugin for SceneGeometryPlugin {
 
 pub(crate) fn vista_bundle(input: &TacticalSceneInput) -> Option<SceneVistaBundle> {
     Some(SceneVistaBundle {
+        properties: input.properties.clone(),
         scene_digest: input.digest().expect("loaded scene input was validated"),
         playable_half_extent_metres: Vec2::new(
             f32::from(input.playable.width.saturating_sub(1)) * input.playable.spacing_metres * 0.5,

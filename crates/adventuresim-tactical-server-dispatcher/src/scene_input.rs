@@ -134,6 +134,16 @@ pub fn build_imported_scene(
             .flatten()
     });
     let input = TacticalSceneInput {
+        properties: settlement
+            .map(|profile| {
+                crate::settlement_properties::generated_homes(
+                    &profile.id,
+                    profile.population_level,
+                    profile.population_estimate,
+                    &profile.economy,
+                )
+            })
+            .transpose()?,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
         seed,
@@ -643,12 +653,15 @@ mod tests {
             .landform
             .expect("terrain-pack feature should produce a scarp");
         assert!((1_050..=1_180).contains(&landform.origin_cm[1]));
+        // Detail is added to the absolute f32 elevation before removing the
+        // scene datum. Include one rounding interval at that elevation.
+        let rounding_metres = input.absolute_elevation_metres as f32 * f32::EPSILON;
         assert!(
             input
                 .playable
                 .heights_metres
                 .iter()
-                .all(|height| height.abs() <= 0.45)
+                .all(|height| height.abs() <= HILLY_DETAIL_AMPLITUDE_METRES + rounding_metres)
         );
         let center = input.playable.environment[50 * 101 + 50];
         assert_eq!(center.surface, TacticalSurface::DeepWoods);

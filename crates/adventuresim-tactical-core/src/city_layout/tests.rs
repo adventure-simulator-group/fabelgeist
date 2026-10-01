@@ -35,9 +35,11 @@ fn population_is_represented_by_physical_house_capacity() {
         let lots = CitySite::central_german_market_town()
             .generate(42, population, &economy())
             .lots;
+        let mut market = adventuresim_core::settlement_property::HousingMarketReserve::default();
         let capacity = lots
             .iter()
             .filter(|lot| lot.service.is_none())
+            .filter(|lot| !market.reserve(lot.house_class.housing_tier()))
             .map(|lot| lot.house_class.resident_capacity())
             .sum::<u32>();
         assert!(
@@ -45,6 +47,7 @@ fn population_is_represented_by_physical_house_capacity() {
             "population={population} capacity={capacity} lots={}",
             lots.len()
         );
+        assert!(market.complete());
         assert!(capacity < population + 30);
     }
 }

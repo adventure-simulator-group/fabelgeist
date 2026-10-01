@@ -177,17 +177,15 @@ impl CityBuildingAssets<'_> {
         establishment: Option<&SceneEstablishment>,
         detail: BuildingDetail,
     ) -> Result<bool> {
-        let program = placement.exterior_program();
-        let scale = placement.exterior_scale(&program);
+        let program = placement.occupied_program();
         let compiled =
             cached_building_levels(&mut self.cache, &program, detail, &mut self.meshes, None)?;
         let transform = Transform::from_xyz(
             placement.centre_metres.x,
-            placement.base_elevation_metres + compiled.floor_offset_metres * scale,
+            placement.base_elevation_metres + compiled.floor_offset_metres,
             placement.centre_metres.y,
         )
-        .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians()))
-        .with_scale(Vec3::splat(scale));
+        .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians()));
         let mut entity = commands.spawn((
             Name::new(format!("Distant city building {}", placement.id)),
             DistantCityBuildingPresentation,
