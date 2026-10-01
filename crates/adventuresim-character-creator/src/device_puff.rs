@@ -54,7 +54,11 @@ impl DeviceWearer<'_> {
         )?;
         let source = format!(
             "const SECTIONS: u32 = {SECTION_COUNT}u;\nconst RADII: u32 = {SECTION_RADII}u;\nconst SECTION_WORDS: u32 = {SECTION_WORDS}u;\nconst HALF_WIDTH: f32 = {SECTION_HALF_WIDTH_M};\nconst TAPER_COURSES: f32 = {FULLNESS_TAPER_COURSES};\n{}",
-            include_str!("device_puff.wgsl")
+            format!(
+                "{}\n{}",
+                include_str!("device_section_hull.wgsl"),
+                include_str!("device_puff.wgsl")
+            )
         );
         let words = fit_parameters(design, capacity, &support, part.carrier_count());
         let buffers = [
