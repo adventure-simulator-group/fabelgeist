@@ -26,28 +26,8 @@ pub fn establish_pregnancy(
     {
         return Err("Pregnancy requires a valid conception settlement".into());
     }
-    let birth_residence_holding_id = [mother_id, father_id].into_iter().find_map(|parent_id| {
-        ctx.db
-            .residence_transition()
-            .iter()
-            .filter(|transition| {
-                transition.affected_character_id == parent_id
-                    && transition.minute <= conceived_minute
-                    && matches!(
-                        transition.kind,
-                        ResidenceTransitionKind::OccupantAdmitted
-                            | ResidenceTransitionKind::OccupantRemoved
-                    )
-            })
-            .max_by_key(|transition| {
-                (
-                    transition.minute,
-                    matches!(transition.kind, ResidenceTransitionKind::OccupantAdmitted),
-                )
-            })
-            .filter(|transition| transition.kind == ResidenceTransitionKind::OccupantAdmitted)
-            .map(|transition| transition.holding_id)
-    });
+    let birth_residence_holding_id = [mother_id, father_id].into_iter().find_map(|parent_id|
+        crate::residence::occupant_holding_id_at(ctx, parent_id, conceived_minute));
     let seeds = deterministic_child_seeds(
         &mother_id.to_string(),
         &father_id.to_string(),

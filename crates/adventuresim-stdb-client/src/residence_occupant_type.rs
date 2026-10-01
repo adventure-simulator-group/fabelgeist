@@ -10,7 +10,8 @@ use super::strategic_minute_type::StrategicMinute;
 #[sats(crate = __lib)]
 pub struct ResidenceOccupant {
     pub character_id: u64,
-    pub holding_id: String,
+    pub holding_id: Option<String>,
+    pub property_id: String,
     pub admitted_minute: StrategicMinute,
 }
 
@@ -23,7 +24,8 @@ impl __sdk::InModule for ResidenceOccupant {
 /// Provides typed access to columns for query building.
 pub struct ResidenceOccupantCols {
     pub character_id: __sdk::__query_builder::Col<ResidenceOccupant, u64>,
-    pub holding_id: __sdk::__query_builder::Col<ResidenceOccupant, String>,
+    pub holding_id: __sdk::__query_builder::Col<ResidenceOccupant, Option<String>>,
+    pub property_id: __sdk::__query_builder::Col<ResidenceOccupant, String>,
     pub admitted_minute: __sdk::__query_builder::Col<ResidenceOccupant, StrategicMinute>,
 }
 
@@ -33,6 +35,7 @@ impl __sdk::__query_builder::HasCols for ResidenceOccupant {
         ResidenceOccupantCols {
             character_id: __sdk::__query_builder::Col::new(table_name, "character_id"),
             holding_id: __sdk::__query_builder::Col::new(table_name, "holding_id"),
+            property_id: __sdk::__query_builder::Col::new(table_name, "property_id"),
             admitted_minute: __sdk::__query_builder::Col::new(table_name, "admitted_minute"),
         }
     }
@@ -43,7 +46,7 @@ impl __sdk::__query_builder::HasCols for ResidenceOccupant {
 /// Provides typed access to indexed columns for query building.
 pub struct ResidenceOccupantIxCols {
     pub character_id: __sdk::__query_builder::IxCol<ResidenceOccupant, u64>,
-    pub holding_id: __sdk::__query_builder::IxCol<ResidenceOccupant, String>,
+    pub property_id: __sdk::__query_builder::IxCol<ResidenceOccupant, String>,
 }
 
 impl __sdk::__query_builder::HasIxCols for ResidenceOccupant {
@@ -51,7 +54,7 @@ impl __sdk::__query_builder::HasIxCols for ResidenceOccupant {
     fn ix_cols(table_name: &'static str) -> Self::IxCols {
         ResidenceOccupantIxCols {
             character_id: __sdk::__query_builder::IxCol::new(table_name, "character_id"),
-            holding_id: __sdk::__query_builder::IxCol::new(table_name, "holding_id"),
+            property_id: __sdk::__query_builder::IxCol::new(table_name, "property_id"),
         }
     }
 }

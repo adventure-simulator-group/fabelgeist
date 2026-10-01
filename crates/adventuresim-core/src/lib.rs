@@ -69,6 +69,7 @@ pub mod rights;
 pub mod road_encounter_catalog;
 pub mod settlement_economy;
 pub mod settlement_population;
+pub mod settlement_property;
 pub mod simulation_security;
 pub mod skeletal_fit;
 pub mod skill;

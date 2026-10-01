@@ -179,6 +179,7 @@ dependencies = [
  "sha2",
  "spacetimedb",
  "spacetimedb-sats",
+ "thiserror 2.0.20",
 ]
 
 [[package]]
@@ -353,6 +354,7 @@ name = "adventuresim-tactical-netcode"
 version = "0.1.0"
 dependencies = [
  "adventuresim-building-generator",
+ "adventuresim-core",
  "adventuresim-tactical-core",
  "aeronet",
  "aeronet_replicon",

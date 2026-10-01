@@ -105,7 +105,7 @@ pub fn settle_due_weddings(
             .residence_holding()
             .iter()
             .filter(|holding| {
-                [first.id, second.id].contains(&holding.owner_character_id)
+                [first.id, second.id].contains(&holding.holder_character_id)
                     && holding.settlement_id == commitment.ceremony_settlement_id
                     && holding.acquired_minute <= effective_minute
                     && holding
@@ -215,7 +215,7 @@ pub fn settle_due_weddings(
                 commitment.effective_minute,
                 role,
             );
-            crate::residence::move_residence_occupant_effective(
+            crate::residence::move_residence_occupant_at(
                 ctx,
                 &residence_holding_id,
                 character_id,

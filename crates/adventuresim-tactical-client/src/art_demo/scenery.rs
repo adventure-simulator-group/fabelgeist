@@ -73,6 +73,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
             groups: generated.furniture.groups,
         });
     world.trigger(SceneVistaBundle {
+        properties: input.properties.clone(),
         scene_digest: generated.digest,
         playable_half_extent_metres: half_extent,
         distant_buildings,

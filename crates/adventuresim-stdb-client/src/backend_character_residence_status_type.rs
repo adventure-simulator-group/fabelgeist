@@ -11,9 +11,10 @@ use super::strategic_minute_type::StrategicMinute;
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct BackendCharacterResidenceStatus {
+    pub property_id: String,
     pub character_id: u64,
     pub holding_id: String,
-    pub owner_character_id: u64,
+    pub holder_character_id: u64,
     pub settlement_id: String,
     pub tier: HousingTier,
     pub tenure: ResidenceTenure,
@@ -33,9 +34,10 @@ impl __sdk::InModule for BackendCharacterResidenceStatus {
 ///
 /// Provides typed access to columns for query building.
 pub struct BackendCharacterResidenceStatusCols {
+    pub property_id: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, String>,
     pub character_id: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, u64>,
     pub holding_id: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, String>,
-    pub owner_character_id: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, u64>,
+    pub holder_character_id: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, u64>,
     pub settlement_id: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, String>,
     pub tier: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, HousingTier>,
     pub tenure: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, ResidenceTenure>,
@@ -54,9 +56,13 @@ impl __sdk::__query_builder::HasCols for BackendCharacterResidenceStatus {
     type Cols = BackendCharacterResidenceStatusCols;
     fn cols(table_name: &'static str) -> Self::Cols {
         BackendCharacterResidenceStatusCols {
+            property_id: __sdk::__query_builder::Col::new(table_name, "property_id"),
             character_id: __sdk::__query_builder::Col::new(table_name, "character_id"),
             holding_id: __sdk::__query_builder::Col::new(table_name, "holding_id"),
-            owner_character_id: __sdk::__query_builder::Col::new(table_name, "owner_character_id"),
+            holder_character_id: __sdk::__query_builder::Col::new(
+                table_name,
+                "holder_character_id",
+            ),
             settlement_id: __sdk::__query_builder::Col::new(table_name, "settlement_id"),
             tier: __sdk::__query_builder::Col::new(table_name, "tier"),
             tenure: __sdk::__query_builder::Col::new(table_name, "tenure"),

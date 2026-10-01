@@ -76,12 +76,9 @@ pub struct TacticalBuildingPlacement {
     pub orientation: BuildingOrientation,
 }
 
-/// Compact presentation-only building outside the authoritative tactical area.
-///
-/// The compact occupied recipe supports promotion into a playable venue. Display
-/// uses a bounded exterior family and prosperity palette instead of compiling a
-/// distinct mesh for each occupation and service size. Distant instances never
-/// receive authoritative collision or tactical simulation state.
+/// Compact physical program outside the active tactical area. All visual detail
+/// levels compile this occupied recipe at its original dimensions. Meshes remain
+/// shared by equal programs; distant instances receive no tactical tick state.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct DistantBuildingPlacement {

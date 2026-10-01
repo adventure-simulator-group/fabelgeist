@@ -628,7 +628,7 @@ ceiling = 959
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/scene_input.rs"
-ceiling = 1010
+ceiling = 958
 
 [[files]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
@@ -779,10 +779,6 @@ path = "crates/strategic-web/src/routes/settlements/camp.rs"
 ceiling = 1062
 
 [[files]]
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
-ceiling = 819
-
-[[files]]
 path = "crates/strategic-web/src/routes/settlements/party/cooking.rs"
 ceiling = 790
 
@@ -837,10 +833,6 @@ ceiling = 1466
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/character_skills.rs"
 ceiling = 2395
-
-[[files]]
-path = "crates/strategic-web/src/templates/settlement/chrome.rs"
-ceiling = 763
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/social.rs"
@@ -3031,11 +3023,6 @@ ceiling = 123
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/medical.rs"
-item = "settlement_resident_place"
-ceiling = 189
-
-[[functions]]
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
 item = "show_settlement_location"
 ceiling = 106
 
@@ -3218,11 +3205,6 @@ ceiling = 302
 path = "crates/strategic-web/src/templates/settlement/character_skills.rs"
 item = "skills_table"
 ceiling = 196
-
-[[functions]]
-path = "crates/strategic-web/src/templates/settlement/chrome.rs"
-item = "residence_offer_panel"
-ceiling = 180
 
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/chrome.rs"
@@ -11712,63 +11694,63 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "ResidenceOperation::parse"
 fingerprint = "string:buy"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "ResidenceOperation::parse"
 fingerprint = "string:designate"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "ResidenceOperation::parse"
 fingerprint = "string:recover"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "ResidenceOperation::parse"
 fingerprint = "string:relinquish"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "ResidenceOperation::parse"
 fingerprint = "string:rent"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "ResidenceTier::parse"
 fingerprint = "string:cheap"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "ResidenceTier::parse"
 fingerprint = "string:current"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "ResidenceTier::parse"
 fingerprint = "string:fancy"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "ResidenceTier::parse"
 fingerprint = "string:moderate"
 occurrences = 1
@@ -11782,63 +11764,63 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "residence_notice"
 fingerprint = "string:bought"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "residence_notice"
 fingerprint = "string:designated"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "residence_notice"
 fingerprint = "string:funds"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "residence_notice"
 fingerprint = "string:location"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "residence_notice"
 fingerprint = "string:overdue"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "residence_notice"
 fingerprint = "string:recovered"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "residence_notice"
 fingerprint = "string:relinquished"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "residence_notice"
 fingerprint = "string:rented"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "residence_notice"
 fingerprint = "string:unavailable"
 occurrences = 1
@@ -11859,14 +11841,14 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "settlement_resident_place"
 fingerprint = "string:keep"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
+path = "crates/strategic-web/src/routes/settlements/residences.rs"
 item = "settlement_resident_place"
 fingerprint = "string:residences"
 occurrences = 1

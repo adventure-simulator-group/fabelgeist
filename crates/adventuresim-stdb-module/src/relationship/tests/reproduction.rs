@@ -15,9 +15,7 @@ fn birth_uses_reserved_identity_and_constructs_age_zero() {
     assert!(birth.contains("household_id_at(ctx, mother.id, pregnancy.due_minute)"));
     assert!(birth.contains("attach_newborn_residence("));
     let housing = crate::production_source(include_str!("../newborn_residence.rs"));
-    assert!(housing.contains("occupant_holding_id_at("));
-    assert!(housing.contains("holding_active_at("));
-    assert!(housing.contains("move_residence_occupant_effective"));
+    assert!(housing.contains("inherit_parent_home_at("));
     assert!(!birth.contains("pregnancy.birth_residence_holding_id"));
     assert!(!birth.contains("child.age_years = 0"));
     assert!(birth.contains("active_pregnancy()"));

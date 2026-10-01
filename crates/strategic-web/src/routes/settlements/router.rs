@@ -248,7 +248,7 @@ use crate::spacetimedb::{
     PartyStake, PartyView, Personality, RecruitmentOffer, RecruitmentOfferStatus,
     RecruitmentRoleView, ReligionHoursExt, ReligiousDemand, RepairOrder, RetainedProjectile,
     RoleRequirements, ScheduleAllocation, SettlementAlias, SettlementDescription,
-    SettlementResidenceOffer, SettlementSmith, SettlementView, SocialAddress, SocialBelief,
+    SettlementSmith, SettlementView, SocialAddress, SocialBelief,
     SocialChatOutcome, StrategicEncounter, StrategicEncounterStatus, TravelEdgeView,
 };
 use crate::spacetimedb::{party_by_id, settlement_by_id, sql_string_literal};

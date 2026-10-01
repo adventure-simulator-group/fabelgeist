@@ -29,7 +29,7 @@ use crate::continuity::{EstateDispositionStatus, estate_disposition};
 use crate::personality::{
     Courtship as PersonalityCourtship, Inclination, Presentation, character_personality,
 };
-use crate::residence::{ResidenceTransitionKind, residence_holding, residence_transition};
+use crate::residence::residence_holding;
 use crate::settlement_population::{npc_is_present, settlement_resident_presence};
 use crate::social::{CharacterAffinity, character_affinity};
 use crate::strategic::{settlement, strategic_gateway_authority__view};

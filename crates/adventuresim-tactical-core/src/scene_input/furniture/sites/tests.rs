@@ -2,7 +2,7 @@ use super::*;
 use crate::scene_input::GeneratedBuildingRecipes;
 
 #[test]
-fn distant_furniture_uses_only_visible_prototypes_and_their_scaled_doors() {
+fn distant_furniture_reserves_the_occupied_footprint_and_unscaled_doors() {
     let input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../../assets/tactical-scenes/massive-city.json"
     ))
@@ -11,11 +11,10 @@ fn distant_furniture_uses_only_visible_prototypes_and_their_scaled_doors() {
     let sites = collect(&input, &[], &mut recipes).unwrap();
     let mut programs = Vec::new();
     for (site, distant) in sites.iter().zip(&input.distant_buildings) {
-        let program = distant.exterior_program();
-        let scale = distant.exterior_scale(&program);
+        let program = distant.occupied_program();
         let generated = recipes.get_or_generate(&program).unwrap();
         let bounds = generated.collision.bounds;
-        assert_eq!(site.half_extents, bounds.plan_half_extents() * scale);
+        assert_eq!(site.half_extents, bounds.plan_half_extents());
         assert_eq!(site.placement.program.usage, distant.usage);
         let origin = Vec2::new(bounds.centre().x, bounds.centre().z);
         for door in generated.plan.opening_assemblies.iter().filter(|opening| {
@@ -23,9 +22,8 @@ fn distant_furniture_uses_only_visible_prototypes_and_their_scaled_doors() {
         }) {
             let approach = distant.centre_metres
                 + distant.orientation.local_to_world(
-                    (door.frame.origin - origin
-                        + door.frame.outward * reservations::DOOR_APPROACH_METRES * 0.5)
-                        * scale,
+                    door.frame.origin - origin
+                        + door.frame.outward * reservations::DOOR_APPROACH_METRES * 0.5,
                 );
             assert!(site.routes.iter().any(|route| route.contains(approach)));
         }
@@ -33,7 +31,7 @@ fn distant_furniture_uses_only_visible_prototypes_and_their_scaled_doors() {
             programs.push(program);
         }
     }
-    assert!(programs.len() <= adventuresim_building_generator::BuildingArchetype::ALL.len() * 3);
+    assert!(programs.len() < input.distant_buildings.len());
     for program in programs {
         assert!(recipes.take(&program).is_some());
     }

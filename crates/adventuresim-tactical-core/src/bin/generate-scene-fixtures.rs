@@ -298,6 +298,7 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
     );
     city.level_vista(&mut vista, 0.0);
     TacticalSceneInput {
+        properties: None,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
         seed: fixture.seed,
