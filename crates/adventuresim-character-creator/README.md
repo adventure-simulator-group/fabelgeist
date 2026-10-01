@@ -926,6 +926,14 @@ those surfaces before assembled-kit clearance can be claimed. Carried and droppe
 items retain the physical fit of their last wearer. Studio morph fits require the
 matching lower-surface realization rather than substituting its neutral shape.
 
+Articulated breastplates resample the fitted front and rear torso into separate
+closed horizontal courses on the GPU. Chevron slopes, overlap, and lap lift are
+construction parameters, independent of decorative fluting. The
+`animation-viewer --armor-harness anime` fixture exercises this path with runtime
+wearer fitting and no equipment morph targets. Course attachment and overlap
+under torso motion require body-visible review; mesh closure alone is not a
+clearance or articulation guarantee.
+
 Construction references are the Philadelphia Museum of Art's
 [arming doublet, 1977-167-240, c. 1550–1650](https://www.philamuseum.org/objects/71390),
 and the Met's German sixteenth-century

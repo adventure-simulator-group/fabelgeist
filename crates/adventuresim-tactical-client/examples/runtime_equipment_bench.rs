@@ -10,6 +10,9 @@ use adventuresim_character_creator::{
 use anyhow::{Context, Result};
 use std::time::Instant;
 
+#[cfg(test)]
+#[path = "armor_fixture/anime_tests.rs"]
+mod anime_tests;
 mod armor_fixture;
 
 fn main() -> Result<()> {

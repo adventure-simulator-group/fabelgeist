@@ -31,17 +31,14 @@ use serde::Deserialize;
 mod grab_world;
 mod icons;
 use icons::*;
-mod runtime_equipment;
-use runtime_equipment::{RuntimeEquipmentBodyCache, generate_runtime_equipment_models};
+pub(crate) mod runtime_equipment;
+pub(crate) use runtime_equipment::RuntimeEquipmentBodyCache;
+#[cfg(test)]
+use runtime_equipment::RuntimeEquipmentPresentation;
+use runtime_equipment::generate_runtime_equipment_models;
 mod placeholder_update;
 mod placeholder_visual;
 use placeholder_update::update_item_placeholders;
-#[derive(Component)]
-pub(crate) struct RuntimeEquipmentPresentation {
-    pub(super) item: Entity,
-    pub(super) item_id: String,
-    pub(super) placement_id: String,
-}
 
 mod render_binding;
 mod skin;

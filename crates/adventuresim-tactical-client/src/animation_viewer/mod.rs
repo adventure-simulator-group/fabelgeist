@@ -106,6 +106,7 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         .insert_resource(combat_config)
         .insert_resource(CaptureBodyProportions(body_proportions))
         .insert_resource(harness::ArmorCapture::new(armor_harness, output.clone()))
+        .insert_resource(harness::equipment_cache(armor_harness))
         .register_asset_source("workspace", workspace_asset_source)
         // The live debug client registers the same default through
         // `DebugPlugin`. The fixture does not install that input/network

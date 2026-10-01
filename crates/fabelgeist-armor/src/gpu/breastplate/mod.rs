@@ -13,6 +13,7 @@
 //! vertex on the symmetry plane chooses its side of the back's atlas seam by
 //! those roundings.
 
+mod anime;
 mod carrier_wgsl;
 mod finish_wgsl;
 mod fit;
@@ -32,8 +33,8 @@ use super::body::GpuBody;
 use super::bracer::deltas;
 use super::{ArmorGpu, device_error};
 use crate::{
-    ArmorMorph, BreastplateDesign, GenerateError, GeneratedArmor, breastplate_design_hash,
-    validate_breastplate,
+    ArmorMorph, BreastplateConstruction, BreastplateDesign, GenerateError, GeneratedArmor,
+    breastplate_design_hash, validate_breastplate,
 };
 use kernels::{Params, dispatch};
 use plates::{Plates, Shell};
@@ -72,6 +73,7 @@ pub struct DeviceBreastplate {
     base_body: Buffer,
     status: Buffer,
     morphs: Vec<(Buffer, VertexNormals)>,
+    articulation: Option<anime::Articulation>,
 }
 
 impl DeviceBreastplate {
@@ -100,15 +102,38 @@ impl DeviceBreastplate {
             &extrusions,
             &shell,
         )?;
+        let (shell, skin, articulation) = match &design.construction {
+            BreastplateConstruction::Solid => (shell, correspondence.skin, None),
+            BreastplateConstruction::Anime(design) => {
+                let articulated = anime::Articulation::record(
+                    gpu,
+                    batch,
+                    design,
+                    shell,
+                    anime::CourseInputs {
+                        plates: &plates,
+                        frame: &fitted.plate,
+                        skin: &correspondence.skin,
+                        status,
+                    },
+                )?;
+                (
+                    articulated.shell,
+                    articulated.skin,
+                    Some(articulated.correspondence),
+                )
+            }
+        };
         Ok(Self {
             design: design.clone(),
             shell,
-            skin: correspondence.skin,
+            skin,
             morph_samples: correspondence.morph_samples,
             body_faces: torso.body.faces.clone(),
             base_body: torso.body.positions.clone(),
             status: status.clone(),
             morphs: Vec::new(),
+            articulation,
         })
     }
 
@@ -120,7 +145,10 @@ impl DeviceBreastplate {
         batch: &mut KernelBatch,
         body: &Buffer,
     ) -> Result<(), GenerateError> {
-        let shell = &self.shell;
+        let shell = self
+            .articulation
+            .as_ref()
+            .map_or(&self.shell, |a| &a.source);
         let count = shell.count();
         let positions = gpu.scratch(count as u64 * 12, "breastplate morph positions")?;
         dispatch(
@@ -145,6 +173,12 @@ impl DeviceBreastplate {
             ],
             count,
         )?;
+        let positions = match &self.articulation {
+            Some(articulation) => articulation.record_morph(gpu, batch, &self.shell, &positions)?,
+            None => positions,
+        };
+        let shell = &self.shell;
+        let count = shell.count();
         let mut normals =
             VertexNormals::new(gpu.context(), count, shell.triangles()).map_err(device_error)?;
         gpu.normals(NormalWeighting::Area)
@@ -230,7 +264,10 @@ impl DeviceBreastplate {
             })
             .collect::<Result<Vec<_>, GenerateError>>()?;
         Ok(GeneratedArmor {
-            components: Vec::new(),
+            components: self
+                .articulation
+                .as_ref()
+                .map_or_else(Vec::new, |a| a.components.clone()),
             design_hash: breastplate_design_hash(&self.design)?,
             surface_domain: domain.to_owned(),
             positions,

@@ -1,4 +1,11 @@
 use super::*;
+#[derive(Component)]
+pub(crate) struct RuntimeEquipmentPresentation {
+    pub(super) item: Entity,
+    pub(super) item_id: String,
+    pub(super) placement_id: String,
+}
+
 mod body;
 mod generation;
 mod layers;
@@ -25,7 +32,7 @@ use morphs::BodyShapeKey;
 use std::sync::Arc;
 
 #[derive(Resource, Default)]
-pub(super) struct RuntimeEquipmentBodyCache {
+pub(crate) struct RuntimeEquipmentBodyCache {
     body: Option<body::CanonicalBody>,
     pub(super) bracer_design: Option<fabelgeist_armor::BracerDesign>,
     pub(super) breastplate_design: Option<fabelgeist_armor::BreastplateDesign>,
@@ -35,6 +42,20 @@ pub(super) struct RuntimeEquipmentBodyCache {
     pending: Option<PendingFit>,
     use_clock: u64,
     last_used: HashMap<FitKey, u64>,
+}
+
+impl RuntimeEquipmentBodyCache {
+    /// Start a fresh cache with a validated torso recipe. Existing physical
+    /// fits are never reinterpreted when a review fixture chooses a design.
+    pub(crate) fn with_breastplate(
+        design: fabelgeist_armor::BreastplateDesign,
+    ) -> anyhow::Result<Self> {
+        fabelgeist_armor::validate_breastplate(&design)?;
+        Ok(Self {
+            breastplate_design: Some(design),
+            ..default()
+        })
+    }
 }
 
 #[expect(clippy::too_many_arguments)]

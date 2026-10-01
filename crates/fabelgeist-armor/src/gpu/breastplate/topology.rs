@@ -55,6 +55,8 @@ pub(crate) fn chart_columns(rear: bool, design: &BreastplateDesign) -> Vec<f32> 
 #[derive(Clone, Debug)]
 pub(crate) struct MidTopology {
     pub columns: Vec<f32>,
+    pub rows: usize,
+    pub skirt: bool,
     pub faces: Vec<[u32; 3]>,
     pub skirt_face_start: usize,
     /// Vertices on the medial crease, and right of it, when the design has
@@ -64,6 +66,34 @@ pub(crate) struct MidTopology {
 }
 
 impl MidTopology {
+    /// A separate articulated course, with its own closed boundary.
+    pub(super) fn course(rear: bool, columns: Vec<f32>, rows: usize, ridge: bool) -> Self {
+        let width = columns.len();
+        let ids = (0..rows)
+            .map(|r| (0..width).map(|c| (r * width + c) as u32).collect())
+            .collect::<Vec<Vec<u32>>>();
+        let mut faces = Vec::new();
+        grid_faces(&mut faces, &ids, rear);
+        let coords = (0..rows).flat_map(|_| columns.iter().copied());
+        Self {
+            rows,
+            skirt: false,
+            skirt_face_start: faces.len(),
+            faces,
+            medial_crease: if ridge {
+                coords.clone().map(|u| u.abs() < 1e-6).collect()
+            } else {
+                Vec::new()
+            },
+            crease_right: if ridge {
+                coords.map(|u| u > 1e-6).collect()
+            } else {
+                Vec::new()
+            },
+            columns,
+        }
+    }
+
     pub(crate) fn new(rear: bool, columns: Vec<f32>, design: &BreastplateDesign) -> Self {
         let width = columns.len();
         let main_ids = (0..V_SAMPLES)
@@ -92,6 +122,8 @@ impl MidTopology {
         };
         Self {
             columns,
+            rows: V_SAMPLES + SKIRT_SAMPLES - 1,
+            skirt: true,
             faces,
             skirt_face_start,
             medial_crease,
@@ -128,15 +160,17 @@ impl MidTopology {
     }
 
     pub(crate) fn vertex_count(&self) -> usize {
-        (V_SAMPLES + SKIRT_SAMPLES - 1) * self.width()
+        self.rows * self.width()
     }
 
     /// The mid vertices as one grid from the top of the plate down: the
     /// main rows from the neck to the waist seam, then the skirt's.
     fn rows_downward(&self) -> impl Iterator<Item = u32> + '_ {
         let width = self.width() as u32;
-        let main = (0..V_SAMPLES as u32).rev();
-        let skirt = (1..SKIRT_SAMPLES as u32).map(|row| V_SAMPLES as u32 + row - 1);
+        let main_rows = if self.skirt { V_SAMPLES } else { self.rows };
+        let skirt_rows = if self.skirt { SKIRT_SAMPLES } else { 1 };
+        let main = (0..main_rows as u32).rev();
+        let skirt = (1..skirt_rows as u32).map(move |row| main_rows as u32 + row - 1);
         main.chain(skirt)
             .flat_map(move |row| (0..width).map(move |column| row * width + column))
     }
@@ -183,7 +217,7 @@ impl SolidTopology {
         let mut welded = (0..count * 2).collect::<Vec<_>>();
         let mut skirt_inner = vec![0u32; main_columns];
         let mut skirt_outer = vec![0u32; main_columns];
-        for index in 0..main_columns {
+        for index in 0..if mid.skirt { main_columns } else { 0 } {
             skirt_inner[index] = sources.len() as u32;
             sources.push(index as u32);
             welded.push(index as u32);
@@ -226,7 +260,7 @@ impl SolidTopology {
         }
         validate_closed_shell(indices.as_chunks::<3>().0, &welded)?;
         let grid = SurfaceGrid {
-            rows: (V_SAMPLES + SKIRT_SAMPLES - 1) as u32,
+            rows: mid.rows as u32,
             columns: main_columns as u32,
             cyclic: false,
             vertices: mid.rows_downward().map(|mid| mid + count).collect(),

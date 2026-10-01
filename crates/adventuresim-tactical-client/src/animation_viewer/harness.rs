@@ -19,6 +19,7 @@ pub(crate) enum ArmorHarness {
     Mail,
     Padded,
     Puffed,
+    Anime,
     WearerFit,
     CloseHelmet,
     MuseumHenry,
@@ -31,6 +32,7 @@ impl ArmorHarness {
             Self::CloseHelmet => &["close_helmet"],
             Self::WearerFit => &["gorget", "cuirass", "vambrace"],
             Self::Puffed => &["puffed_sleeve", "puffed_hose"],
+            Self::Anime => &["breastplate"],
             Self::MuseumHenry => museum::HENRY_ITEMS,
             Self::MuseumNuremberg => museum::NUREMBERG_ITEMS,
             Self::Plate | Self::PlateTassets | Self::PlateUnderlayers => &[
@@ -111,6 +113,21 @@ impl ArmorHarness {
     }
 }
 
+pub(super) fn equipment_cache(
+    harness: Option<ArmorHarness>,
+) -> crate::equipment::RuntimeEquipmentBodyCache {
+    if matches!(harness, Some(ArmorHarness::Anime)) {
+        let mut design =
+            adventuresim_character_creator::design_input::load_breastplate_design(None)
+                .expect("authored breastplate recipe");
+        design.construction = fabelgeist_armor::BreastplateConstruction::Anime(Default::default());
+        crate::equipment::RuntimeEquipmentBodyCache::with_breastplate(design)
+            .expect("articulated breastplate fixture")
+    } else {
+        default()
+    }
+}
+
 #[derive(Component)]
 pub(super) struct CapturedArmor;
 
@@ -136,10 +153,18 @@ impl ArmorCapture {
         const REVIEW_CAMERA_ELEVATION_METRES: f32 = 0.2;
         const HELMET_REVIEW_DISTANCE_METRES: f32 = 0.72;
         const HELMET_FOCUS_ABOVE_HEAD_METRES: f32 = 0.07;
+        const TORSO_FOCUS_BELOW_HEAD_METRES: f32 = 0.30;
+        const TORSO_REVIEW_DISTANCE_METRES: f32 = 1.15;
         let (focus, distance, elevation) = if matches!(harness, ArmorHarness::CloseHelmet) {
             (
                 head? + Vec3::Y * HELMET_FOCUS_ABOVE_HEAD_METRES,
                 HELMET_REVIEW_DISTANCE_METRES,
+                0.0,
+            )
+        } else if matches!(harness, ArmorHarness::Anime) {
+            (
+                head? - Vec3::Y * TORSO_FOCUS_BELOW_HEAD_METRES,
+                TORSO_REVIEW_DISTANCE_METRES,
                 0.0,
             )
         } else {

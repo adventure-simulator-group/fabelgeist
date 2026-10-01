@@ -199,9 +199,6 @@ pub async fn generate_breastplate_on_device_async(
     design: &BreastplateDesign,
     input: TorsoSurfaceInput<'_>,
 ) -> Result<GeneratedArmor> {
-    if let Some(option) = design.device_unsupported() {
-        return Err(fabelgeist_armor::GenerateError::NotOnDevice(option).into());
-    }
     input.check()?;
     let landmarks = input.landmarks()?;
     let support_joints = input.joints_named(|name| SUPPORT_JOINTS.contains(&name));
@@ -278,7 +275,9 @@ pub async fn generate_breastplate_on_device_async(
         .iter()
         .map(|morph| morph.name.clone())
         .collect::<Vec<_>>();
-    Ok(breastplate.read_async(gpu, input.domain, &names).await?)
+    let mut armor = breastplate.read_async(gpu, input.domain, &names).await?;
+    crate::skin_rules::breastplate(input.joint_names, input.global_joint_states, &mut armor)?;
+    Ok(armor)
 }
 
 /// The torso's failure, if its status bits hold one.

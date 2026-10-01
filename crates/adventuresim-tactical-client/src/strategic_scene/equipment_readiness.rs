@@ -1,7 +1,7 @@
 //! Readiness covers generated geometry and wearer bindings, not just the body rig.
 use crate::equipment::{
     ItemPlaceholder, ProceduralEquipmentFailed, ProceduralEquipmentPart,
-    ProceduralEquipmentResolved, RuntimeEquipmentPresentation,
+    ProceduralEquipmentResolved, runtime_equipment::RuntimeEquipmentPresentation,
 };
 use bevy::ecs::system::SystemParam;
 use bevy::prelude::*;
