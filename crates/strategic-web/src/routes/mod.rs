@@ -749,13 +749,13 @@ fn terrain_route_json(
     };
     let precipitation = match weather.precipitation {
         adventuresim_core::weather::Precipitation::Clear => {
-            adventuresim_stdb_client::JourneyPrecipitation::Clear
+            adventuresim_stdb_client::Precipitation::Clear
         }
         adventuresim_core::weather::Precipitation::Rain => {
-            adventuresim_stdb_client::JourneyPrecipitation::Rain
+            adventuresim_stdb_client::Precipitation::Rain
         }
         adventuresim_core::weather::Precipitation::Snow => {
-            adventuresim_stdb_client::JourneyPrecipitation::Snow
+            adventuresim_stdb_client::Precipitation::Snow
         }
     };
     let precipitation = serde_json::to_value(spacetimedb_sats::serde::SerdeWrapper::from_ref(

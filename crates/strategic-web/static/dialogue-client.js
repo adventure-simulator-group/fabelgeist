@@ -460,11 +460,11 @@
     echo.className = "dialogue-claim-echo";
     echo.textContent = `You: “${claim.value}?”`;
     panel.append(echo);
-    if (claim.resolved) {
+    if (claim.resolution) {
       const feedback = document.createElement("p");
       feedback.className = "dialogue-claim-feedback";
       feedback.setAttribute("role", "status");
-      feedback.textContent = `${claim.outcome === "useful_answer" ? "They offer a useful answer." : "They do not yield on that point."} ${affinityFeedback(claim.affinity_delta)}`;
+      feedback.textContent = `${claim.resolution.outcome === "useful_answer" ? "They offer a useful answer." : "They do not yield on that point."} ${affinityFeedback(claim.resolution.affinity_delta)}`;
       panel.append(feedback);
       return panel;
     }

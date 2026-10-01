@@ -118,10 +118,7 @@ pub(super) fn discard_inventory_rail(
 }
 
 pub(super) fn ingredient_preparation_form_id(plan: &BackendIngredientPreparationPlan) -> String {
-    let action = match plan.action {
-        IngredientPreparationAction::Cut => "cut",
-        IngredientPreparationAction::Grind => "grind",
-    };
+    let action = crate::spacetimedb::ingredient_preparation_action(plan.action).stable_id();
     format!(
         "ingredient-preparation-{}-{}-{}-{action}",
         plan.actor_character_id, plan.inventory_scope, plan.inventory_item_id
@@ -132,10 +129,7 @@ pub(super) fn ingredient_preparation_submission_form(
     plan: &BackendIngredientPreparationPlan,
     return_to: &str,
 ) -> Markup {
-    let action = match plan.action {
-        IngredientPreparationAction::Cut => "cut",
-        IngredientPreparationAction::Grind => "grind",
-    };
+    let action = crate::spacetimedb::ingredient_preparation_action(plan.action).stable_id();
     html! {
         form id=(ingredient_preparation_form_id(plan)) method="post" action="/api/inventory/prepare"
             class="inventory-edge-action" hidden {

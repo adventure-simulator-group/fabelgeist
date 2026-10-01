@@ -253,7 +253,7 @@ use crate::spacetimedb::{
 };
 use crate::spacetimedb::{party_by_id, settlement_by_id, sql_string_literal};
 use crate::templates::settlement::{
-    ActivityPreviewRates, CampTravelDestination, ChildPresentation, LocationView, MerchantShop,
+    ActivityPreviewRates, CampTravelDestination, ChildPresentation, LocationView, Storefront,
     RelationshipPresentation, RestServiceKind, RestSummary, SoapRestPreview, SocialPresentation,
     WeddingPresentation, camp_page, live_merchant_shop_page, merchants_page, party_discard_page,
     party_inventory_page, party_personal_page, party_pool_page, party_social_dialog,

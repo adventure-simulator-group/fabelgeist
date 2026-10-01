@@ -23,46 +23,13 @@ use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view
 use std::collections::BTreeSet;
 use std::ops::Deref;
 
-#[derive(Clone, Copy, Debug, SpacetimeType)]
-pub enum NpcAgeBand {
-    Child,
-    Adolescent,
-    Adult,
-    Elder,
-}
-
-impl NpcAgeBand {
-    pub(crate) const fn stable_id(self) -> &'static str {
-        match self {
-            Self::Child => "child",
-            Self::Adolescent => "adolescent",
-            Self::Adult => "adult",
-            Self::Elder => "elder",
-        }
-    }
-
-    pub(crate) const fn stable_variant_id(self) -> &'static str {
-        match self {
-            Self::Child => "Child",
-            Self::Adolescent => "Adolescent",
-            Self::Adult => "Adult",
-            Self::Elder => "Elder",
-        }
-    }
-}
-#[derive(Clone, Copy, Debug, SpacetimeType)]
-pub enum NpcPresentation {
-    Man,
-    Ambiguous,
-    Woman,
-}
-
 #[derive(Clone, Debug)]
 #[table(accessor = settlement_resident_profile)]
 pub struct SettlementResidentProfile {
     #[primary_key]
     pub character_id: u64,
-    /// Bounded traversal key for the fail-closed gateway view.
+    /// Bounded traversal key for the fail-closed gateway view. Constructors
+    /// derive this from `character_id`; the pair is deleted as one row.
     #[index(btree)]
     pub projection_id: u64,
     #[index(btree)]
@@ -90,7 +57,7 @@ pub struct SettlementResidentProfile {
 pub struct ResolvedSettlementResident {
     pub profile: SettlementResidentProfile,
     pub name: String,
-    pub age_band: NpcAgeBand,
+    pub age_band: AgeBand,
     pub sex: adventuresim_world_schema::Sex,
     pub presentation: crate::personality::Presentation,
 }
@@ -121,12 +88,7 @@ pub fn resolve_settlement_resident(
     Some(ResolvedSettlementResident {
         profile,
         name: character.name,
-        age_band: match character.age_years {
-            0..=12 => NpcAgeBand::Child,
-            13..=17 => NpcAgeBand::Adolescent,
-            18..=59 => NpcAgeBand::Adult,
-            _ => NpcAgeBand::Elder,
-        },
+        age_band: AgeBand::for_years(character.age_years),
         sex: personality.sex,
         presentation: personality.presentation,
     })
@@ -150,12 +112,7 @@ pub fn resolve_settlement_resident_view(
     Some(ResolvedSettlementResident {
         profile,
         name: character.name,
-        age_band: match character.age_years {
-            0..=12 => NpcAgeBand::Child,
-            13..=17 => NpcAgeBand::Adolescent,
-            18..=59 => NpcAgeBand::Adult,
-            _ => NpcAgeBand::Elder,
-        },
+        age_band: AgeBand::for_years(character.age_years),
         sex: personality.sex,
         presentation: personality.presentation,
     })
@@ -171,8 +128,8 @@ pub struct BackendSettlementResident {
     pub character_id: u64,
     pub home_settlement_id: String,
     pub name: String,
-    pub age_band: NpcAgeBand,
-    pub presentation: NpcPresentation,
+    pub age_band: AgeBand,
+    pub presentation: Presentation,
     pub height: String,
     pub build: String,
     pub hair: String,
@@ -198,23 +155,13 @@ fn project_backend_settlement_resident(
         .character_personality()
         .character_id()
         .find(profile.character_id)?;
-    let age_band = match character.age_years {
-        0..=12 => NpcAgeBand::Child,
-        13..=17 => NpcAgeBand::Adolescent,
-        18..=59 => NpcAgeBand::Adult,
-        _ => NpcAgeBand::Elder,
-    };
-    let presentation = match personality.presentation {
-        Presentation::Man => NpcPresentation::Man,
-        Presentation::Ambiguous => NpcPresentation::Ambiguous,
-        Presentation::Woman => NpcPresentation::Woman,
-    };
+    let age_band = AgeBand::for_years(character.age_years);
     Some(BackendSettlementResident {
         character_id: profile.character_id,
         home_settlement_id: profile.home_settlement_id,
         name: character.name,
         age_band,
-        presentation,
+        presentation: personality.presentation,
         height: profile.height,
         build: profile.build,
         hair: profile.hair,
@@ -289,7 +236,7 @@ pub struct SettlementResidentPresence {
 pub struct SettlementResidentSeedExplanation {
     #[primary_key]
     pub character_id: u64,
-    pub seed: String,
+    /// Immutable generation provenance; the input inside this JSON owns its seed.
     pub relations_json: String,
 }
 
@@ -306,6 +253,8 @@ pub struct SettlementBusinessOperator {
     pub operator_character_id: u64,
 }
 
+/// Immutable historical inputs and decisions; never refreshed from current
+/// character state. Current resident views join Character and personality.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 struct PersistedGenerationExplanation {
     input: GenerationInput,
@@ -382,14 +331,6 @@ impl<'a> PopulationLocation<'a> {
 
 fn location_context(location: &str) -> Result<LocationContext, String> {
     Ok(PopulationLocation::parse(location)?.context())
-}
-fn age(value: AgeBand) -> NpcAgeBand {
-    match value {
-        AgeBand::Child => NpcAgeBand::Child,
-        AgeBand::Adolescent => NpcAgeBand::Adolescent,
-        AgeBand::Adult => NpcAgeBand::Adult,
-        AgeBand::Elder => NpcAgeBand::Elder,
-    }
 }
 fn profession(value: Profession) -> &'static str {
     match value {
@@ -478,6 +419,8 @@ fn ensure_business_operator_row(
     Ok(())
 }
 
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
 mod resident_persistence;
 use resident_persistence::insert_resident_draft;
 

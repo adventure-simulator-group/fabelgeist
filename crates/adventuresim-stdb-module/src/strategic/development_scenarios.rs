@@ -618,16 +618,16 @@ pub fn backend_development_quests(ctx: &ViewContext) -> Vec<BackendDevelopmentQu
             continue;
         };
         rows.push(BackendDevelopmentQuest {
+            status: if challenge.is_open() {
+                "open".into()
+            } else {
+                "resolved".into()
+            },
             scenario_slug: scenario_slug.clone(),
             quest_kind: "road encounter".into(),
             subject_id: challenge.id,
             canonical_case_id: challenge.case_id,
             title: challenge.catalog_id,
-            status: if challenge.open {
-                "open".into()
-            } else {
-                "resolved".into()
-            },
             incident_count: 0,
             public_awareness_bps: 0,
             supports_incident_action: false,

@@ -361,8 +361,8 @@ pub struct QuestCounterparty {
     pub contact_ref: String,
     pub revision: u32,
     pub membership_revision: u32,
-    pub contact_decision: crate::spacetimedb::BackendContextualDecision,
-    pub treatment_decision: crate::spacetimedb::BackendContextualDecision,
+    pub contact_decision: crate::spacetimedb::InteractionPresentationDecision,
+    pub treatment_decision: crate::spacetimedb::InteractionPresentationDecision,
     pub treatment_limb_slug: Option<String>,
 }
 
@@ -373,7 +373,7 @@ fn quest_counterparty_strip(case_site_id: &str, counterparties: &[QuestCounterpa
                 div class="scene-interactable scene-interactable--person counterparty-portrait" {
                     span class="scene-interactable-visual" aria-hidden="true" { "?" }
                     span class="scene-interactable-label" { (&counterparty.character.name) }
-                    @if counterparty.contact_decision == crate::spacetimedb::BackendContextualDecision::Request {
+                    @if counterparty.contact_decision == crate::spacetimedb::InteractionPresentationDecision::Request {
                       form method="post" action=(crate::location_urls::patterns::CONTACT_QUEST_COUNTERPARTY.url([&case_site_id])) {
                         input type="hidden" name="target_id" value=(counterparty.character.id);
                         input type="hidden" name="contact_ref" value=(&counterparty.contact_ref);
@@ -383,12 +383,12 @@ fn quest_counterparty_strip(case_site_id: &str, counterparties: &[QuestCounterpa
                       }
                     } @else {
                       button type="button" class="btn btn-secondary btn-small" disabled {
-                        (if counterparty.contact_decision == crate::spacetimedb::BackendContextualDecision::Refused { "Refused" } else { "Unavailable" })
+                        (if counterparty.contact_decision == crate::spacetimedb::InteractionPresentationDecision::Refused { "Refused" } else { "Unavailable" })
                       }
                     }
                     @if counterparty.character.alive && counterparty.treatment_limb_slug.is_some() && matches!(counterparty.treatment_decision,
-                        crate::spacetimedb::BackendContextualDecision::Request
-                        | crate::spacetimedb::BackendContextualDecision::EmergencyTreatment) {
+                        crate::spacetimedb::InteractionPresentationDecision::Request
+                        | crate::spacetimedb::InteractionPresentationDecision::EmergencyTreatment) {
                         form method="post" action=(crate::location_urls::patterns::BANDAGE_QUEST_COUNTERPARTY.url([&case_site_id])) {
                             input type="hidden" name="patient_id" value=(counterparty.character.id);
                             input type="hidden" name="limb_slug" value=(counterparty.treatment_limb_slug.as_deref().unwrap_or_default());
@@ -396,12 +396,12 @@ fn quest_counterparty_strip(case_site_id: &str, counterparties: &[QuestCounterpa
                             input type="hidden" name="context_ref" value=(&counterparty.contact_ref);
                             input type="hidden" name="expected_membership_revision" value=(counterparty.membership_revision);
                             button type="submit" class="btn btn-secondary btn-small" {
-                              (if counterparty.treatment_decision == crate::spacetimedb::BackendContextualDecision::EmergencyTreatment { "Emergency treatment" } else { "Request treatment" })
+                              (if counterparty.treatment_decision == crate::spacetimedb::InteractionPresentationDecision::EmergencyTreatment { "Emergency treatment" } else { "Request treatment" })
                             }
                         }
                     } @else {
                       button type="button" class="btn btn-secondary btn-small" disabled {
-                        (if counterparty.treatment_decision == crate::spacetimedb::BackendContextualDecision::Refused { "Refused" } else { "Unavailable" })
+                        (if counterparty.treatment_decision == crate::spacetimedb::InteractionPresentationDecision::Refused { "Refused" } else { "Unavailable" })
                       }
                     }
                 }
@@ -642,8 +642,9 @@ mod tests {
                 contact_ref: "claim-a".into(),
                 revision: 3,
                 membership_revision: 2,
-                contact_decision: crate::spacetimedb::BackendContextualDecision::Request,
-                treatment_decision: crate::spacetimedb::BackendContextualDecision::Unavailable,
+                contact_decision: crate::spacetimedb::InteractionPresentationDecision::Request,
+                treatment_decision:
+                    crate::spacetimedb::InteractionPresentationDecision::Unavailable,
                 treatment_limb_slug: None,
             },
             QuestCounterparty {
@@ -651,8 +652,8 @@ mod tests {
                 contact_ref: "claim-b".into(),
                 revision: 7,
                 membership_revision: 4,
-                contact_decision: crate::spacetimedb::BackendContextualDecision::Refused,
-                treatment_decision: crate::spacetimedb::BackendContextualDecision::Request,
+                contact_decision: crate::spacetimedb::InteractionPresentationDecision::Refused,
+                treatment_decision: crate::spacetimedb::InteractionPresentationDecision::Request,
                 treatment_limb_slug: Some("right-leg".into()),
             },
             QuestCounterparty {
@@ -660,9 +661,9 @@ mod tests {
                 contact_ref: "claim-c".into(),
                 revision: 9,
                 membership_revision: 6,
-                contact_decision: crate::spacetimedb::BackendContextualDecision::Unavailable,
+                contact_decision: crate::spacetimedb::InteractionPresentationDecision::Unavailable,
                 treatment_decision:
-                    crate::spacetimedb::BackendContextualDecision::EmergencyTreatment,
+                    crate::spacetimedb::InteractionPresentationDecision::EmergencyTreatment,
                 treatment_limb_slug: Some("chest".into()),
             },
         ];

@@ -163,6 +163,15 @@ fn public_intervention_score_is_deterministic_and_penalizes_adverse_effects() {
     let first = public_intervention_score(&differential, &helpful);
     assert_eq!(first, public_intervention_score(&differential, &helpful));
     assert!(first > 0);
+    // Unknown keys cannot dilute a known public differential's likelihood.
+    let mut mixed = differential.clone();
+    mixed.push(BackendPhysiologyDifferential {
+        disease_id: "ShroudFever".into(),
+        label: "unknown disease".into(),
+        likelihood_bps: u16::MAX,
+    });
+    assert_eq!(public_intervention_score(&mixed, &helpful), first);
+    assert_eq!(public_intervention_score(&mixed[1..], &helpful), 0);
     assert!(public_intervention_score(&differential, &adverse) < first);
 }
 
@@ -284,13 +293,13 @@ fn owned_supported_medicine_does_not_require_a_storefront_quote() {
 
 #[test]
 fn disposable_disease_fixture_is_validated_and_parameterized() {
-    let source = include_str!("../../../../adventuresim-stdb-module/src/simulation.rs");
+    let source = include_str!("../../../../adventuresim-stdb-module/src/simulation/disease_fixture.rs");
     let fixture = source
         .split("pub fn seed_simulation_disease")
         .nth(1)
         .expect("disease fixture");
     assert!(fixture.contains("disease_id: String"));
-    assert!(fixture.contains("parse_id(&disease_id)"));
+    assert!(fixture.contains("parse::<adventuresim_core::disease::DiseaseId>()"));
     assert!(fixture.contains("definition(disease)"));
     assert!(!fixture.contains("DiseaseId::Influenza"));
 }

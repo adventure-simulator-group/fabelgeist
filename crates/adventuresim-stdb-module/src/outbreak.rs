@@ -2,6 +2,8 @@
 //!
 //! Canonical disease, source and remediation facts never cross a public view.
 
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
 mod patient_chronology;
 mod water_time;
 use patient_chronology::resolve_patient_death;
@@ -11,6 +13,7 @@ use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, Table, ViewContext, reducer, table};
 use std::str::FromStr;
 
+use adventuresim_core::disease::DiseaseId;
 use adventuresim_core::{
     material::{Microliters, Milliliters},
     strategic_place::{StrategicFixtureId, StrategicPlaceId},
@@ -72,7 +75,8 @@ pub struct OutbreakPatientAuthority {
     pub patient_character_id: u64,
     #[unique]
     pub episode_id: u64,
-    pub context_active: bool,
+    /// Pending recovery/death cleanup. Context release can precede healing;
+    /// observer presence uses chronology instead of this latest-state checkpoint.
     pub health_active: bool,
     pub corpse_id: Option<String>,
     pub autopsy_evidence_id: Option<String>,
@@ -1047,7 +1051,7 @@ pub(crate) fn materialize_generated_outbreak(
     let patient_presentation_place =
         StrategicPlaceId::case_site(outbreak.patient_presentation_site.0.clone())
             .map_err(|_| "Outbreak patient case-site identity is malformed")?;
-    let disease_id = crate::disease::disease_key(outbreak.disease).to_string();
+    let disease_id = outbreak.disease.stable_id().to_string();
     let transmission_route = outbreak.transmission_route.stable_id().to_owned();
     let source_json =
         serde_json::to_string(&outbreak.source).map_err(|_| "Could not encode outbreak source")?;
@@ -1249,7 +1253,7 @@ pub(crate) fn materialize_generated_outbreak(
             .immunity;
         if let Some(existing) = ctx.db.infection_episode().id().find(exposure.episode_id) {
             if existing.character_id != exposure.patient_character_id
-                || existing.disease_id != crate::disease::disease_key(outbreak.disease)
+                || existing.disease_id != outbreak.disease.stable_id()
                 || existing.contracted_at != exposure.exposed_at
                 || existing.ruleset_version
                     != adventuresim_core::physiology::PHYSIOLOGY_RULESET_VERSION
@@ -1264,7 +1268,7 @@ pub(crate) fn materialize_generated_outbreak(
                 .insert(crate::disease::InfectionEpisodeRow {
                     id: exposure.episode_id,
                     character_id: exposure.patient_character_id,
-                    disease_id: crate::disease::disease_key(outbreak.disease).into(),
+                    disease_id: outbreak.disease.stable_id().into(),
                     contracted_at: exposure.exposed_at,
                     ruleset_version: adventuresim_core::physiology::PHYSIOLOGY_RULESET_VERSION,
                     phenotype_key_version: adventuresim_core::physiology::PHENOTYPE_KEY_VERSION,
@@ -1334,7 +1338,6 @@ pub(crate) fn materialize_generated_outbreak(
                     .ok_or("Outbreak patient lost its authored ordinal")?,
             )
             .map_err(|_| "Outbreak patient ordinal exceeds its bounded roster")?,
-            active: patient_active,
             entered_at: exposure.became_symptomatic_at,
             left_at: (!patient_active).then_some(
                 resolved_exposure
@@ -1352,7 +1355,7 @@ pub(crate) fn materialize_generated_outbreak(
             .character_id()
             .filter(exposure.patient_character_id)
             .any(|existing| {
-                existing.active
+                existing.is_open()
                     && existing.role == crate::world_actor::CharacterContextRole::Patient
                     && existing.context_id != generated.canonical_case_id
             })
@@ -1408,7 +1411,6 @@ pub(crate) fn materialize_generated_outbreak(
                 case_id: generated.canonical_case_id.clone(),
                 patient_character_id: exposure.patient_character_id,
                 episode_id: exposure.episode_id,
-                context_active: patient_active,
                 health_active: patient_active,
                 corpse_id,
                 autopsy_evidence_id,
@@ -1512,14 +1514,13 @@ fn deactivate_outbreak_patient_contexts(
     at_minute: StrategicMinute,
 ) {
     crate::world_actor::deactivate_context_roster_at(ctx, case_id, at_minute);
-    for mut patient in ctx
+    for patient in ctx
         .db
         .outbreak_patient_authority()
         .case_id()
         .filter(&case_id.to_string())
         .collect::<Vec<_>>()
     {
-        patient.context_active = false;
         if let Some(mut presence) = ctx
             .db
             .settlement_resident_presence()
@@ -1532,7 +1533,6 @@ fn deactivate_outbreak_patient_contexts(
                 .character_id()
                 .update(presence);
         }
-        ctx.db.outbreak_patient_authority().id().update(patient);
     }
 }
 
@@ -1564,7 +1564,7 @@ pub(crate) fn patient_presence_suppression_at(
         if episode.character_id != character_id || episode.disease_id != authority.disease_id {
             return None;
         }
-        let disease_id = crate::disease::parse_id(&episode.disease_id).ok()?;
+        let disease_id = episode.disease_id.parse::<DiseaseId>().ok()?;
         let definition = adventuresim_core::disease::definition(disease_id);
         let recovery_minute = episode
             .contracted_at
@@ -1626,7 +1626,7 @@ pub(crate) fn patient_presence_suppression_at_view(
         if episode.character_id != character_id || episode.disease_id != authority.disease_id {
             return None;
         }
-        let disease_id = crate::disease::parse_id(&episode.disease_id).ok()?;
+        let disease_id = episode.disease_id.parse::<DiseaseId>().ok()?;
         let definition = adventuresim_core::disease::definition(disease_id);
         let recovery_minute = episode
             .contracted_at
@@ -1714,9 +1714,8 @@ pub(crate) fn refresh_patient_context_after_time_write(
             .id()
             .find(patient.episode_id)
             .and_then(|episode| {
-                crate::disease::parse_id(&episode.disease_id)
-                    .ok()
-                    .map(|id| (episode, id))
+                let id = episode.disease_id.parse::<DiseaseId>().ok()?;
+                Some((episode, id))
             })
             .is_some_and(|(episode, disease_id)| {
                 let definition = adventuresim_core::disease::definition(disease_id);
@@ -1731,25 +1730,18 @@ pub(crate) fn refresh_patient_context_after_time_write(
         if alive && !recovered {
             continue;
         }
-        patient.context_active = false;
         patient.health_active = false;
         let membership_id = format!(
             "context:{}:patient:{}",
             patient.case_id, patient.patient_character_id
         );
-        if let Some(mut membership) = ctx
+        if let Some(membership) = ctx
             .db
             .character_context_membership()
             .id()
             .find(&membership_id)
         {
-            membership.active = false;
-            membership.left_at = Some(minute.max(membership.entered_at));
-            membership.revision = membership.revision.saturating_add(1);
-            ctx.db
-                .character_context_membership()
-                .id()
-                .update(membership);
+            crate::world_actor::close_context_membership_at(ctx, membership, minute);
         }
         ctx.db.outbreak_patient_authority().id().update(patient);
         released_any = true;
@@ -2110,7 +2102,7 @@ mod tests {
                     .next()
             })
             .expect("context deactivation");
-        assert!(deactivate.contains("patient.context_active = false"));
+        assert!(deactivate.contains("deactivate_context_roster_at(ctx, case_id, at_minute)"));
         assert!(!deactivate.contains("patient.health_active = false"));
         assert!(!deactivate.contains("health_suppressed = false"));
         assert!(source.contains("character_kinship()"));

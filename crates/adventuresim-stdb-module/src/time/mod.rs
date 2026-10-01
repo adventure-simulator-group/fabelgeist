@@ -4,6 +4,7 @@ use adventuresim_core::strategic_schedule::{
     apply_organization_training, apply_religion_training, apply_schedule_training,
     settlement_activity_outcome,
 };
+use adventuresim_core::strategic_state::vocabulary::MarriageStatus;
 use adventuresim_core::strategic_time::{
     MAX_SETTLEMENT_REST_MINUTES, allocated_schedule_minutes,
     official_minute as calculate_official_minute,
@@ -24,7 +25,7 @@ use crate::personality::{
     Sociability as CharacterSociability, Transparency, character_personality,
 };
 use crate::relationship::{
-    MarriageStatus, character_kinship as _, household_member as _, marriage as _, npc_policy as _,
+    character_kinship as _, household_member as _, marriage as _, npc_policy as _,
     socializing_receipt as _,
 };
 use crate::strategic::{

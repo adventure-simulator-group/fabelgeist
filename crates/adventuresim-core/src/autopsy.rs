@@ -396,7 +396,7 @@ pub fn bestiary_finding(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::autoresolve::{CombatBody, CombatProjectileKind};
+    use crate::{autoresolve::CombatBody, projectile::ProjectileKind};
 
     #[test]
     fn custody_is_dynamic_from_discovery_while_decomposition_uses_death() {
@@ -492,7 +492,7 @@ mod tests {
             health_damage: 0.3,
             cut_damage: 0.2,
             blunt_damage: 0.1,
-            projectile_kind: Some(CombatProjectileKind::Arrowhead),
+            projectile_kind: Some(ProjectileKind::Arrowhead),
             contact_stress: 42.0,
             armor_impact: None,
             melee_telemetry: None,

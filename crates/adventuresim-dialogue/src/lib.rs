@@ -7,12 +7,15 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::sync::OnceLock;
 
 mod authoring_schema;
+mod prompt;
+pub use prompt::{Choice, Prompt};
 mod condition_validation;
 use condition_validation::validate_condition_roles;
 #[cfg(test)]
 mod catalog_revision;
 pub use authoring_schema::{
     Condition, FactKey, FactValue, PromptMode, ResolutionPolicy, TopicCategory,
+    policy::DialoguePolicyParseError,
 };
 
 include!(concat!(env!("OUT_DIR"), "/dialogue_catalog.rs"));
@@ -330,39 +333,6 @@ impl RuntimeBindings {
             source_refs,
         })
     }
-}
-
-#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
-pub struct Prompt {
-    pub id: String,
-    pub respondent: String,
-    pub mode: PromptMode,
-    #[serde(default = "one_usize")]
-    pub min_choices: usize,
-    #[serde(default = "one_usize")]
-    pub max_choices: usize,
-    #[serde(default = "first_response")]
-    pub resolution: ResolutionPolicy,
-    pub choices: Vec<Choice>,
-}
-fn one_usize() -> usize {
-    1
-}
-fn first_response() -> ResolutionPolicy {
-    ResolutionPolicy::FirstResponse
-}
-
-#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
-pub struct Choice {
-    pub id: String,
-    pub label: String,
-    #[serde(default)]
-    pub effects: Vec<Effect>,
-    /// Authored transcript turns appended after this choice wins resolution.
-    #[serde(default)]
-    pub result_turns: Vec<Turn>,
 }
 
 /// Closed, auditable effect vocabulary. Clients submit only response/choice IDs.

@@ -5,6 +5,7 @@ use adventuresim_world_schema::{BestiaryCategory, BestiaryHours};
 use fabelgeist_determinism::DeterministicRng;
 use serde::Serialize;
 
+mod classification;
 #[cfg(test)]
 mod incapacitation_tests;
 mod joint_melee;
@@ -17,6 +18,8 @@ mod model;
 mod power;
 mod threat;
 
+use crate::projectile::ProjectileKind;
+pub use classification::{BattleAttackKind, MeleeMovementAction};
 use joint_melee::*;
 use melee_defense::*;
 use melee_exchange::*;
@@ -508,28 +511,12 @@ pub struct BattleLogEntry {
     /// used by strategic bruising/fracture/wound generation.
     pub cut_damage: f32,
     pub blunt_damage: f32,
-    pub projectile_kind: Option<CombatProjectileKind>,
+    pub projectile_kind: Option<ProjectileKind>,
     /// Pre-absorption contact force; remains positive when armor absorbs all
     /// health damage.
     pub contact_stress: f32,
     pub armor_impact: Option<ArmorImpact>,
     pub melee_telemetry: Option<MeleeContactTelemetry>,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum BattleAttackKind {
-    Melee,
-    Ranged,
-}
-
-impl std::fmt::Display for BattleAttackKind {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        formatter.write_str(match self {
-            Self::Melee => "melee",
-            Self::Ranged => "ranged",
-        })
-    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
@@ -611,14 +598,6 @@ pub enum MeleeTimelineKind {
     AttackTransformed,
     Contact,
     Terminal,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum MeleeMovementAction {
-    Close,
-    Retreat,
-    Hold,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
@@ -745,19 +724,13 @@ impl MeleeTimelineEvent {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum AttackMode {
-    Melee,
-    Ranged,
-}
-
 #[derive(Clone, Copy)]
 struct PendingAttack {
     attacker_index: usize,
     target_index: usize,
     result: AttackResult,
     part: BodyPart,
-    mode: AttackMode,
+    mode: BattleAttackKind,
     phase: &'static str,
     round: usize,
 }
@@ -799,9 +772,9 @@ impl BattleRecorder {
         round: usize,
         attacker_id: u64,
         defender_id: u64,
-        mode: AttackMode,
+        mode: BattleAttackKind,
         weapon_inventory_item_id: Option<u64>,
-        projectile_kind: Option<CombatProjectileKind>,
+        projectile_kind: Option<ProjectileKind>,
         defender_contact_item_id: Option<u64>,
         defender_response: MeleeResponseChoice,
         part: BodyPart,
@@ -810,8 +783,8 @@ impl BattleRecorder {
         melee_telemetry: Option<MeleeContactTelemetry>,
     ) {
         match mode {
-            AttackMode::Melee => self.summary.melee_attacks += 1,
-            AttackMode::Ranged => self.summary.ranged_attacks += 1,
+            BattleAttackKind::Melee => self.summary.melee_attacks += 1,
+            BattleAttackKind::Ranged => self.summary.ranged_attacks += 1,
         }
         if effect.hit {
             self.summary.hits += 1;
@@ -851,10 +824,7 @@ impl BattleRecorder {
             round,
             attacker_id,
             defender_id,
-            attack_kind: match mode {
-                AttackMode::Melee => BattleAttackKind::Melee,
-                AttackMode::Ranged => BattleAttackKind::Ranged,
-            },
+            attack_kind: mode,
             weapon_inventory_item_id,
             defender_contact_item_id,
             defender_response,
@@ -863,8 +833,8 @@ impl BattleRecorder {
             health_damage: effect.health_damage,
             cut_damage,
             blunt_damage,
-            projectile_kind: (mode == AttackMode::Ranged)
-                .then_some(projectile_kind.unwrap_or(CombatProjectileKind::Arrowhead)),
+            projectile_kind: (mode == BattleAttackKind::Ranged)
+                .then_some(projectile_kind.unwrap_or(ProjectileKind::Arrowhead)),
             contact_stress: match result {
                 AttackResult::ToDefender { contact_force, .. } => contact_force.max(0.0),
                 AttackResult::ToAttacker { contact_force, .. } => contact_force.max(0.0),
@@ -1117,10 +1087,14 @@ fn apply_pending_attacks(
             defenders[attack.target_index].id,
             attack.mode,
             match attack.mode {
-                AttackMode::Melee => attackers[attack.attacker_index].equipment.melee_weapon_id,
-                AttackMode::Ranged => attackers[attack.attacker_index].equipment.ranged_weapon_id,
+                BattleAttackKind::Melee => {
+                    attackers[attack.attacker_index].equipment.melee_weapon_id
+                }
+                BattleAttackKind::Ranged => {
+                    attackers[attack.attacker_index].equipment.ranged_weapon_id
+                }
             },
-            (attack.mode == AttackMode::Ranged)
+            (attack.mode == BattleAttackKind::Ranged)
                 .then_some(
                     attackers[attack.attacker_index]
                         .equipment
@@ -1234,7 +1208,7 @@ fn opening_volley_plans(
         .iter()
         .map(|attacker| {
             if attacker.is_defeated()
-                || preferred_attack_mode(attacker) != AttackMode::Ranged
+                || preferred_attack_mode(attacker) != BattleAttackKind::Ranged
                 || closing_melee_count == 0
             {
                 return OpeningVolleyPlan::default();
@@ -1339,7 +1313,7 @@ fn take_opening_volley_step(
             0,
             attackers[attacker_index].id,
             defenders[target_index].id,
-            AttackMode::Ranged,
+            BattleAttackKind::Ranged,
             attackers[attacker_index].equipment.ranged_weapon_id,
             attackers[attacker_index].equipment.ranged_projectile_kind,
             defender_contact_item_id(result, &defenders[target_index].equipment),
@@ -1409,7 +1383,7 @@ fn plan_ranged_round(
                 target_index,
                 result,
                 part,
-                mode: AttackMode::Ranged,
+                mode: BattleAttackKind::Ranged,
                 phase: "main",
                 round,
             });
@@ -1457,11 +1431,11 @@ fn apply_attack_result(
     }
 }
 
-fn preferred_attack_mode(attacker: &Combatant) -> AttackMode {
+fn preferred_attack_mode(attacker: &Combatant) -> BattleAttackKind {
     if attacker.can_attack_ranged() {
-        AttackMode::Ranged
+        BattleAttackKind::Ranged
     } else {
-        AttackMode::Melee
+        BattleAttackKind::Melee
     }
 }
 
@@ -2370,10 +2344,10 @@ mod tests {
     fn ranged_combatants_switch_to_their_melee_weapon_when_ammunition_runs_out() {
         let mut hybrid = fighter(1, 3.0, true);
         hybrid.equipment.melee_weapon = fighter(9, 3.0, false).equipment.melee_weapon;
-        assert_eq!(preferred_attack_mode(&hybrid), AttackMode::Ranged);
+        assert_eq!(preferred_attack_mode(&hybrid), BattleAttackKind::Ranged);
 
         hybrid.equipment.ammunition = 0;
-        assert_eq!(preferred_attack_mode(&hybrid), AttackMode::Melee);
+        assert_eq!(preferred_attack_mode(&hybrid), BattleAttackKind::Melee);
     }
 
     #[test]
@@ -2395,9 +2369,9 @@ mod tests {
             0,
             1,
             2,
-            AttackMode::Ranged,
+            BattleAttackKind::Ranged,
             Some(101),
-            Some(CombatProjectileKind::Arrowhead),
+            Some(ProjectileKind::Arrowhead),
             None,
             MeleeResponseChoice::None,
             BodyPart::Chest,
@@ -2410,7 +2384,7 @@ mod tests {
             1,
             1,
             2,
-            AttackMode::Melee,
+            BattleAttackKind::Melee,
             Some(202),
             None,
             None,
@@ -2447,7 +2421,7 @@ mod tests {
             1,
             1,
             2,
-            AttackMode::Melee,
+            BattleAttackKind::Melee,
             Some(202),
             None,
             defender_contact_item_id(result, &defender),

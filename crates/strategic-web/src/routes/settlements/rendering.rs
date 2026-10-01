@@ -1,3 +1,4 @@
+use crate::templates::settlement::StorefrontPresentation;
 use adventuresim_world_schema::calendar::StrategicMinute;
 
 pub(super) type ServiceRenderer = fn(
@@ -20,7 +21,7 @@ pub(super) async fn merchant_shop(
     state: AppState,
     id: String,
     session: Session,
-    shop: MerchantShop,
+    shop: Storefront,
 ) -> Html<String> {
     let db = &state.db;
     let settlement_literal = sql_string_literal(&id);
@@ -108,10 +109,10 @@ pub(super) async fn merchant_shop(
         &party_members,
         &pooled,
         &items,
-        !matches!(shop, MerchantShop::Herbalist),
+        !matches!(shop, Storefront::Herbalist),
     )
     .await;
-    let (inn_rest_default, inn_soap_preview) = if matches!(shop, MerchantShop::Inn) {
+    let (inn_rest_default, inn_soap_preview) = if matches!(shop, Storefront::Inn) {
         let (limbs, stats, condition) = tokio::join!(
             query_single::<CharacterLimbs>(
                 &state,

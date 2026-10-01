@@ -69,6 +69,8 @@ pub struct StrategicCorpse {
     #[index(btree)]
     pub discovering_party_id: String,
     pub subject_character_id: Option<u64>,
+    /// Discovery/death snapshot owned by corpse creation. Later personal
+    /// identity changes do not rewrite this historical label.
     pub display_name: String,
     pub creature_kind: String,
     pub settlement_id: String,

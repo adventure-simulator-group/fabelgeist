@@ -231,18 +231,20 @@ async fn candidate_roster(Query(query): Query<CandidateQuery>) -> Response {
         }
     };
     let selected = query.selected.filter(|slot| *slot < candidates.len() as u8);
-    Html(
-        character_candidates_page(
-            version,
-            seed,
-            age,
-            &candidates,
-            selected,
-            query.view == Some(CandidateView::Inventory),
-        )
-        .into_string(),
-    )
-    .into_response()
+    match character_candidates_page(
+        version,
+        seed,
+        age,
+        &candidates,
+        selected,
+        query.view == Some(CandidateView::Inventory),
+    ) {
+        Ok(markup) => Html(markup.into_string()).into_response(),
+        Err(error) => {
+            tracing::error!(%error, "could not render candidate identity");
+            StatusCode::INTERNAL_SERVER_ERROR.into_response()
+        }
+    }
 }
 
 async fn confirm_candidate(

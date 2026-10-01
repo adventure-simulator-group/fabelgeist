@@ -548,17 +548,17 @@ impl LiveRunner {
         item: &Item,
     ) -> Option<(String, u64, u64)> {
         let (storefront, service_id, location_id) = match item.kind {
-            PersistedItemKind::Weapon | PersistedItemKind::Shield => (
+            CatalogItemKind::Weapon | CatalogItemKind::Shield => (
                 adventuresim_core::settlement_economy::Storefront::Weapons,
                 "weapons",
                 "forge",
             ),
-            PersistedItemKind::Armor => (
+            CatalogItemKind::Armor => (
                 adventuresim_core::settlement_economy::Storefront::Armor,
                 "armor",
                 "armoury",
             ),
-            PersistedItemKind::Clothing => (
+            CatalogItemKind::Clothing => (
                 adventuresim_core::settlement_economy::Storefront::Clothing,
                 "clothing",
                 "tailor",

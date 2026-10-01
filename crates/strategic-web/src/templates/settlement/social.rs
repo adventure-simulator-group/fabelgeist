@@ -421,7 +421,7 @@ pub fn party_social_dialog(
                                       @let tooltip = if let Some(reason) = disabled_reason {
                                           format!("{}\nUnavailable: {}", description, reason)
                                       } else {
-                                          format!("{}\nTakes {} minutes.\n{} · {} risk", description, adventuresim_core::social::SOCIAL_RESPONSE_MINUTES, action.skill_name(action_shares_concern), if risk >= 0.6 { "high" } else if risk >= 0.3 { "moderate" } else { "low" })
+                                          format!("{}\nTakes {} minutes.\n{} · {} risk", description, adventuresim_core::social::SOCIAL_RESPONSE_MINUTES, action.skill(action_shares_concern).label(), if risk >= 0.6 { "high" } else if risk >= 0.3 { "moderate" } else { "low" })
                                       };
                                     form method="post" action=(&social_href) {
                                         input type="hidden" name="source_id" value=(&source.id);
@@ -1135,8 +1135,14 @@ mod tests {
                 .iter()
                 .any(|(_, action, _)| *action == SocialActionKind::Rally)
         );
-        assert_eq!(SocialActionKind::Commiserate.skill_name(false), "Deception");
-        assert_eq!(SocialActionKind::Reassure.skill_name(false), "Physiology");
+        assert_eq!(
+            SocialActionKind::Commiserate.skill(false).label(),
+            "Deception"
+        );
+        assert_eq!(
+            SocialActionKind::Reassure.skill(false).label(),
+            "Physiology"
+        );
         for topic in [
             SocialTopic::Injury,
             SocialTopic::Fatigue,

@@ -90,7 +90,7 @@ pub fn backend_authority_arrest_actions(
                 .filter(incident.instigator_id)
                 .filter(|stack| {
                     ctx.db.item().id().find(&stack.item_id).is_some_and(|item| {
-                        item.kind == crate::item::PersistedItemKind::Currency
+                        item.kind == crate::item::CatalogItemKind::Currency
                     })
                 })
                 .map(|stack| u64::from(stack.quantity))

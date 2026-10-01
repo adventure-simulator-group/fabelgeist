@@ -4,42 +4,28 @@ use super::super::service::service_page;
 use super::*;
 use super::{equipment::*, inventory::*, repairs::*};
 
-/// The currently available merchant storefronts. They share trade mechanics,
-/// but each storefront limits the stock shown on its left-hand side.
-#[derive(Clone, Copy)]
-pub enum MerchantShop {
-    General,
-    Weapons,
-    Armor,
-    Clothing,
-    Herbalist,
-    Inn,
-    Books,
+/// Web presentation and inventory-panel policy for canonical storefronts.
+pub trait StorefrontPresentation {
+    fn available_at(self, settlement: &SettlementView) -> bool;
+    fn stocks_at(
+        self,
+        settlement: &SettlementView,
+        item: &crate::spacetimedb::CatalogItemView,
+    ) -> bool;
+    fn title(self) -> &'static str;
+    fn stocks(self, item: &crate::spacetimedb::CatalogItemView) -> bool;
+    fn shows_inventory(self, item: &crate::spacetimedb::CatalogItemView) -> bool;
 }
-impl MerchantShop {
-    pub fn storefront(self) -> adventuresim_core::settlement_economy::Storefront {
-        use adventuresim_core::settlement_economy::Storefront as S;
-        match self {
-            Self::General => S::General,
-            Self::Weapons => S::Weapons,
-            Self::Armor => S::Armor,
-            Self::Clothing => S::Clothing,
-            Self::Herbalist => S::Herbalist,
-            Self::Inn => S::Inn,
-            Self::Books => S::Books,
-        }
-    }
 
-    pub fn available_at(self, settlement: &SettlementView) -> bool {
-        adventuresim_core::settlement_economy::storefront_available(
-            &settlement.economy,
-            self.storefront(),
-        ) || (matches!(self, Self::Weapons)
-            && adventuresim_core::organization::organization_service_chapter(
-                &settlement.id,
-                self.service_id(),
-            )
-            .is_some())
+impl StorefrontPresentation for Storefront {
+    fn available_at(self, settlement: &SettlementView) -> bool {
+        adventuresim_core::settlement_economy::storefront_available(&settlement.economy, self)
+            || (matches!(self, Self::Weapons)
+                && adventuresim_core::organization::organization_service_chapter(
+                    &settlement.id,
+                    self.service_id(),
+                )
+                .is_some())
     }
 
     fn stocks_at(
@@ -47,24 +33,11 @@ impl MerchantShop {
         settlement: &SettlementView,
         item: &crate::spacetimedb::CatalogItemView,
     ) -> bool {
-        use adventuresim_core::settlement_economy::CatalogKind as C;
-        let kind = match item.kind {
-            crate::spacetimedb::CatalogItemKind::Simple => C::Simple,
-            crate::spacetimedb::CatalogItemKind::Weapon => C::Weapon,
-            crate::spacetimedb::CatalogItemKind::Armor => C::Armor,
-            crate::spacetimedb::CatalogItemKind::Shield => C::Shield,
-            crate::spacetimedb::CatalogItemKind::Clothing => C::Clothing,
-            crate::spacetimedb::CatalogItemKind::Container => C::Simple,
-            crate::spacetimedb::CatalogItemKind::Currency => C::Currency,
-            crate::spacetimedb::CatalogItemKind::Ingredient => C::Ingredient,
-            crate::spacetimedb::CatalogItemKind::Medication => C::Medication,
-            crate::spacetimedb::CatalogItemKind::Food => C::Food,
-        };
         let stocked = adventuresim_core::settlement_economy::storefront_stocks(
             &settlement.economy,
-            self.storefront(),
+            self,
             &item.id,
-            kind,
+            item.kind.economy_kind(),
         );
         stocked
             && (!matches!(self, Self::Books)
@@ -76,17 +49,6 @@ impl MerchantShop {
                         })
                     },
                 ))
-    }
-    pub fn service_id(self) -> &'static str {
-        match self {
-            Self::General => "merchants",
-            Self::Weapons => "weapons",
-            Self::Armor => "armor",
-            Self::Clothing => "clothing",
-            Self::Herbalist => "herbalist",
-            Self::Inn => "inn",
-            Self::Books => "books",
-        }
     }
 
     fn title(self) -> &'static str {
@@ -101,7 +63,7 @@ impl MerchantShop {
         }
     }
 
-    pub(super) fn stocks(self, item: &crate::spacetimedb::CatalogItemView) -> bool {
+    fn stocks(self, item: &crate::spacetimedb::CatalogItemView) -> bool {
         let kind = item.kind;
         match self {
             Self::General => !matches!(
@@ -181,7 +143,7 @@ pub fn live_merchant_shop_page(
     personal_targets: &[InventoryQuantityTarget],
     party_targets: &[InventoryQuantityTarget],
     pooled: &[PartyInventoryItem],
-    shop: MerchantShop,
+    shop: Storefront,
     shared_language: f32,
     problem_buy_bps: i32,
     problem_sell_penalty_bps: i32,
@@ -197,29 +159,29 @@ pub fn live_merchant_shop_page(
     let title = shop.title();
     let service_id = shop.service_id();
     // Herbalist purchases use a separate reducer and retain their specialized quote.
-    let trade_language = if matches!(shop, MerchantShop::Herbalist) {
+    let trade_language = if matches!(shop, Storefront::Herbalist) {
         1.0
     } else {
         shared_language
     };
     let smith_skill = smith
         .map(|smith| {
-            if matches!(shop, MerchantShop::Armor) {
+            if matches!(shop, Storefront::Armor) {
                 smith.armourer_skill
-            } else if matches!(shop, MerchantShop::Clothing) {
+            } else if matches!(shop, Storefront::Clothing) {
                 smith.tailor_skill
             } else {
                 smith.weaponsmith_skill
             }
         })
         .unwrap_or(0);
-    let player_footer = if matches!(shop, MerchantShop::Herbalist | MerchantShop::Weapons) {
+    let player_footer = if matches!(shop, Storefront::Herbalist | Storefront::Weapons) {
         html! {}
     } else {
         inventory_footer_controls_with_leading(
             matches!(
                 shop,
-                MerchantShop::Weapons | MerchantShop::Armor | MerchantShop::Clothing
+                Storefront::Weapons | Storefront::Armor | Storefront::Clothing
             )
             .then(|| repair_all_control(settlement, service_id)),
             "sell",
@@ -232,10 +194,10 @@ pub fn live_merchant_shop_page(
         .filter(|item| shop.stocks_at(settlement, item))
         .collect::<Vec<_>>();
     let content = html! {
-        aside class=(if matches!(shop, MerchantShop::Inn) { "left-sidebar smith-wares-column service-left-sidebar" } else { "left-sidebar smith-wares-column" }) {
-        div class=(if matches!(shop, MerchantShop::Inn) { "service-left-stack" } else { "merchant-stock-stack" }) {
-        div class=(if matches!(shop, MerchantShop::Inn) { "service-inventory-area" } else { "merchant-stock-area" }) {
-        @if matches!(shop, MerchantShop::Weapons) {
+        aside class=(if matches!(shop, Storefront::Inn) { "left-sidebar smith-wares-column service-left-sidebar" } else { "left-sidebar smith-wares-column" }) {
+        div class=(if matches!(shop, Storefront::Inn) { "service-left-stack" } else { "merchant-stock-stack" }) {
+        div class=(if matches!(shop, Storefront::Inn) { "service-inventory-area" } else { "merchant-stock-area" }) {
+        @if matches!(shop, Storefront::Weapons) {
             section class="sidebar-section forge-customization" data-forge-customization data-live-preserve="forge-customization" {
                 h2 { "Forge a weapon" }
                 form method="post" action=(crate::location_urls::patterns::FORGE_WEAPON.url([&settlement.id])) {
@@ -250,13 +212,13 @@ pub fn live_merchant_shop_page(
                 }
             }
         }
-        @if !matches!(shop, MerchantShop::Weapons) {
-        (sidebar_section(if matches!(shop, MerchantShop::Herbalist) { "Existing preparations and ingredients" } else if matches!(shop, MerchantShop::Inn) { "Cooking supplies" } else { "Merchant stock" }, html! {
+        @if !matches!(shop, Storefront::Weapons) {
+        (sidebar_section(if matches!(shop, Storefront::Herbalist) { "Existing preparations and ingredients" } else if matches!(shop, Storefront::Inn) { "Cooking supplies" } else { "Merchant stock" }, html! {
             div class="smith-wares-scroll" {
             @if stocked_items.is_empty() {
                 (empty_state("No stock is available here.", None, None))
             } @else {
-            (trade_inventory_table("merchant-left", if matches!(shop, MerchantShop::Weapons) { InventoryColumnSet::Weapons } else if matches!(shop, MerchantShop::Armor) { InventoryColumnSet::Armor } else { InventoryColumnSet::Basic }, false, false, false, html! {
+            (trade_inventory_table("merchant-left", if matches!(shop, Storefront::Weapons) { InventoryColumnSet::Weapons } else if matches!(shop, Storefront::Armor) { InventoryColumnSet::Armor } else { InventoryColumnSet::Basic }, false, false, false, html! {
                 @for item in stocked_items.iter().copied() {
                     @let is_currency = item.kind == crate::spacetimedb::CatalogItemKind::Currency;
                     @let intervention = adventuresim_core::physiology::intervention_profile(&item.id, 1);
@@ -271,7 +233,7 @@ pub fn live_merchant_shop_page(
                 }
             }))
             (inventory_footer_controls("buy", "Buy to targets", "Buy everything"))
-            @if matches!(shop, MerchantShop::Herbalist) {
+            @if matches!(shop, Storefront::Herbalist) {
                 p class="small-copy text-muted" { "Pre-existing preparations are sold into personal inventory for versioned administration. Physiology does not craft them; #214 owns preparation." }
             }
             }
@@ -279,29 +241,29 @@ pub fn live_merchant_shop_page(
         }))
         }
         }
-        @if matches!(shop, MerchantShop::Inn) {
+        @if matches!(shop, Storefront::Inn) {
             section class="inn-rest-panel" aria-label="Inn lodging and rest" {
                 (rest_service_menu("Inn", &settlement.id, RestServiceKind::Inn, rest_default_minutes, None, soap_preview))
             }
         }
         }
-        @if matches!(shop, MerchantShop::Weapons | MerchantShop::Armor | MerchantShop::Clothing) {
+        @if matches!(shop, Storefront::Weapons | Storefront::Armor | Storefront::Clothing) {
             (repair_custody_panel(settlement, shop, repair_orders, conditions, items, now_minutes, smith_skill))
         }
         }
-        main class="center-content settlement-main" { (party_portrait_overlay(party_members, Some(character), &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None)) (npc_portrait_strip(&settlement.id, npc_location_id(service_id))) @if matches!(shop, MerchantShop::Weapons) { (forge_description_stage(title, "Forge preview loading")) } @else { (npc_description_stage(title, "Merchant counter and attending craftsperson")) } (settlement_resident_chat_area(title, Some(character), &settlement.id, npc_location_id(service_id), Some(service_id))) form # "merchant-offer" class="party-offer" action=(if matches!(shop, MerchantShop::Herbalist) { crate::location_urls::patterns::PURCHASE_FROM_HERBALIST.url([&settlement.id]) } else { crate::location_urls::patterns::FINALIZE_MERCHANT_OFFER.url([&settlement.id, &(crate::location_urls::service_place(service_id).id())]) }) method="post" hidden role="dialog" aria-modal="true" aria-label="Confirm merchant offer" tabindex="-1" { span class="party-offer-summary" { "Review and submit the staged trade." } input type="hidden" name="return_to" value=(crate::location_urls::service_path(&settlement.id, service_id)); input type="hidden" name="inventory_scope" value="player"; button type="button" class="party-offer-cancel" data-cancel-trade="merchant" { "Cancel" } button type="submit" disabled { "Offer" } } }
+        main class="center-content settlement-main" { (party_portrait_overlay(party_members, Some(character), &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None)) (npc_portrait_strip(&settlement.id, npc_location_id(service_id))) @if matches!(shop, Storefront::Weapons) { (forge_description_stage(title, "Forge preview loading")) } @else { (npc_description_stage(title, "Merchant counter and attending craftsperson")) } (settlement_resident_chat_area(title, Some(character), &settlement.id, npc_location_id(service_id), Some(service_id))) form # "merchant-offer" class="party-offer" action=(if matches!(shop, Storefront::Herbalist) { crate::location_urls::patterns::PURCHASE_FROM_HERBALIST.url([&settlement.id]) } else { crate::location_urls::patterns::FINALIZE_MERCHANT_OFFER.url([&settlement.id, &(crate::location_urls::service_place(service_id).id())]) }) method="post" hidden role="dialog" aria-modal="true" aria-label="Confirm merchant offer" tabindex="-1" { span class="party-offer-summary" { "Review and submit the staged trade." } input type="hidden" name="return_to" value=(crate::location_urls::service_path(&settlement.id, service_id)); input type="hidden" name="inventory_scope" value="player"; button type="button" class="party-offer-cancel" data-cancel-trade="merchant" { "Cancel" } button type="submit" disabled { "Offer" } } }
         aside class="right-sidebar inventory-owner-panel" data-inventory-tabs {
             nav class="inventory-owner-tabs" aria-label="Trading inventory" {
                 button type="button" class="inventory-owner-tab active" data-inventory-tab="player" { "Player" }
-                @if !matches!(shop, MerchantShop::Herbalist | MerchantShop::Weapons) {
+                @if !matches!(shop, Storefront::Herbalist | Storefront::Weapons) {
                     button type="button" class="inventory-owner-tab" data-inventory-tab="party" { "Party" }
                 }
             }
             div data-inventory-pane="player" {
             div class="sidebar-section" {
                 (encumbrance_inventory_rail(html! {
-                (trade_inventory_table("merchant-player-right", if matches!(shop, MerchantShop::Armor) { InventoryColumnSet::Armor } else { InventoryColumnSet::Basic }, true, !matches!(shop, MerchantShop::Weapons), matches!(shop, MerchantShop::Armor | MerchantShop::Clothing), html! {
-                    @for item in inventory.iter().filter(|item| items.iter().find(|definition| definition.id == item.item_id).is_some_and(|definition| if matches!(shop, MerchantShop::Weapons) { matches!(definition.id.as_str(), "steel_stock" | "leather_stock" | "brass_stock" | "wood_stock") } else { shop.shows_inventory(definition) })) {
+                (trade_inventory_table("merchant-player-right", if matches!(shop, Storefront::Armor) { InventoryColumnSet::Armor } else { InventoryColumnSet::Basic }, true, !matches!(shop, Storefront::Weapons), matches!(shop, Storefront::Armor | Storefront::Clothing), html! {
+                    @for item in inventory.iter().filter(|item| items.iter().find(|definition| definition.id == item.item_id).is_some_and(|definition| if matches!(shop, Storefront::Weapons) { matches!(definition.id.as_str(), "steel_stock" | "leather_stock" | "brass_stock" | "wood_stock") } else { shop.shows_inventory(definition) })) {
                         @let definition = items.iter().find(|definition| definition.id == item.item_id);
                         @let food_lot = food_lots.iter().find(|lot| lot.inventory_item_id == Some(item.id));
                         @let food_display_name = food_lot.map_or_else(|| item_display_name(&item.item_id), |lot| lot.display_name.clone());
@@ -314,11 +276,11 @@ pub fn live_merchant_shop_page(
                         @let condition = conditions.iter().find(|condition| condition.inventory_item_id == item.id);
                         @let repair_skill = smith_skill;
                         @let durable_item = definition.is_some_and(|definition| definition.repairable);
-                        @let service_matches = definition.is_some_and(|definition| if matches!(shop, MerchantShop::Armor) { definition.kind == crate::spacetimedb::CatalogItemKind::Armor } else if matches!(shop, MerchantShop::Clothing) { definition.kind == crate::spacetimedb::CatalogItemKind::Clothing } else { matches!(definition.kind, crate::spacetimedb::CatalogItemKind::Weapon | crate::spacetimedb::CatalogItemKind::Shield) });
+                        @let service_matches = definition.is_some_and(|definition| if matches!(shop, Storefront::Armor) { definition.kind == crate::spacetimedb::CatalogItemKind::Armor } else if matches!(shop, Storefront::Clothing) { definition.kind == crate::spacetimedb::CatalogItemKind::Clothing } else { matches!(definition.kind, crate::spacetimedb::CatalogItemKind::Weapon | crate::spacetimedb::CatalogItemKind::Shield) });
                         @let can_sell = !is_currency && !is_equipped;
                         td class="inventory-item-type" { (item_type_icon(&item.item_id)) }
-                        td class="inventory-item-name" { (item_name_with_food_lot(&item.item_id, &food_display_name, definition, food_lot)) @if !matches!(shop, MerchantShop::Herbalist | MerchantShop::Weapons) && (can_sell || service_matches) { (merchant_sell_repair_controls(item.id, &item.item_id, sell_price, item.quantity, target, can_sell, service_matches.then(|| repair_submit_control(settlement, service_id, item.id, condition, repair_skill)))) } }
-                        td class="inventory-count" { @if matches!(shop, MerchantShop::Weapons) { (format!("{:.3} kg", measured_fraction.map_or(0.0, adventuresim_core::inventory_measurement::ConsumableFractionMicros::as_unit_f32) * definition.map_or(0.0, |definition| definition.weight))) } @else { (quantity_target_control(item.quantity, target, &item.item_id, false)) } } td class="inventory-equipped" { (equipment_control(item, definition, is_equipped, true, equip)) } td class="inventory-durability" { @if durable_item { (condition_bar(condition, service_matches.then_some(repair_skill))) } @else { "—" } } td class="inventory-weight" { (merchant_inventory_weight(definition, food_lot)) } td class="inventory-gold" { (sell_price) }
+                        td class="inventory-item-name" { (item_name_with_food_lot(&item.item_id, &food_display_name, definition, food_lot)) @if !matches!(shop, Storefront::Herbalist | Storefront::Weapons) && (can_sell || service_matches) { (merchant_sell_repair_controls(item.id, &item.item_id, sell_price, item.quantity, target, can_sell, service_matches.then(|| repair_submit_control(settlement, service_id, item.id, condition, repair_skill)))) } }
+                        td class="inventory-count" { @if matches!(shop, Storefront::Weapons) { (format!("{:.3} kg", measured_fraction.map_or(0.0, adventuresim_core::inventory_measurement::ConsumableFractionMicros::as_unit_f32) * definition.map_or(0.0, |definition| definition.weight))) } @else { (quantity_target_control(item.quantity, target, &item.item_id, false)) } } td class="inventory-equipped" { (equipment_control(item, definition, is_equipped, true, equip)) } td class="inventory-durability" { @if durable_item { (condition_bar(condition, service_matches.then_some(repair_skill))) } @else { "—" } } td class="inventory-weight" { (merchant_inventory_weight(definition, food_lot)) } td class="inventory-gold" { (sell_price) }
                     }}
                     @for target in personal_targets.iter().filter(|target| target.quantity > 0 && !inventory.iter().any(|item| item.item_id == target.item_id) && items.iter().find(|definition| definition.id == target.item_id).is_some_and(|definition| shop.shows_inventory(definition))) {
                         @let definition = items.iter().find(|definition| definition.id == target.item_id);
@@ -340,10 +302,10 @@ pub fn live_merchant_shop_page(
                 }, player_footer, personal_encumbrance))
             }
             }
-            @if !matches!(shop, MerchantShop::Herbalist | MerchantShop::Weapons) { div data-inventory-pane="party" hidden {
+            @if !matches!(shop, Storefront::Herbalist | Storefront::Weapons) { div data-inventory-pane="party" hidden {
             div class="sidebar-section" {
                 (encumbrance_inventory_rail(html! {
-                (trade_inventory_table("merchant-party-right", if matches!(shop, MerchantShop::Weapons) { InventoryColumnSet::Weapons } else if matches!(shop, MerchantShop::Armor) { InventoryColumnSet::Armor } else { InventoryColumnSet::Basic }, true, false, false, html! {
+                (trade_inventory_table("merchant-party-right", if matches!(shop, Storefront::Weapons) { InventoryColumnSet::Weapons } else if matches!(shop, Storefront::Armor) { InventoryColumnSet::Armor } else { InventoryColumnSet::Basic }, true, false, false, html! {
                     @for item in pooled.iter().filter(|item| items.iter().find(|definition| definition.id == item.item_id).is_some_and(|definition| shop.shows_inventory(definition))) {
                         @let definition = items.iter().find(|definition| definition.id == item.item_id);
                         @let food_lot = food_lots.iter().find(|lot| lot.party_inventory_item_id == Some(item.id));
@@ -509,10 +471,10 @@ mod tests {
         guildhall.id = "viabundus-0".into();
         guildhall.economy =
             adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder();
-        assert!(MerchantShop::Weapons.available_at(&guildhall));
+        assert!(Storefront::Weapons.available_at(&guildhall));
 
         guildhall.id = "settlement-without-weapons-chapter".into();
-        assert!(!MerchantShop::Weapons.available_at(&guildhall));
+        assert!(!Storefront::Weapons.available_at(&guildhall));
     }
 
     #[test]
@@ -588,8 +550,8 @@ mod tests {
             kind: CatalogItemKind::Medication,
             ..Default::default()
         };
-        assert!(MerchantShop::Herbalist.stocks(&ingredient));
-        assert!(MerchantShop::Herbalist.stocks(&medication));
+        assert!(Storefront::Herbalist.stocks(&ingredient));
+        assert!(Storefront::Herbalist.stocks(&medication));
         let apple = crate::spacetimedb::CatalogItemView {
             id: "apple".into(),
             kind: CatalogItemKind::Food,
@@ -604,10 +566,10 @@ mod tests {
             kind: CatalogItemKind::Ingredient,
             ..Default::default()
         };
-        assert!(MerchantShop::Inn.stocks(&apple));
-        assert!(MerchantShop::Inn.stocks(&honey));
-        assert!(MerchantShop::Inn.stocks(&pan));
-        assert!(!MerchantShop::Inn.stocks(&medication));
+        assert!(Storefront::Inn.stocks(&apple));
+        assert!(Storefront::Inn.stocks(&honey));
+        assert!(Storefront::Inn.stocks(&pan));
+        assert!(!Storefront::Inn.stocks(&medication));
         assert!(!adventuresim_core::physiology::INTERVENTION_PROFILES.is_empty());
         let definition = crate::spacetimedb::CatalogItemView {
             id: "black_death_tonic".into(),
@@ -666,7 +628,7 @@ mod tests {
             )
             .into_string()
         };
-        let merchant = render(MerchantShop::Weapons);
+        let merchant = render(Storefront::Weapons);
         assert!(merchant.contains("data-bevy-scene=\"forge\""));
         assert!(merchant.contains("data-forge-customization"));
         assert!(
@@ -686,7 +648,7 @@ mod tests {
         );
         assert!(!merchant.contains(">10.0 / 100.0 kg<"));
 
-        let armourer = render(MerchantShop::Armor);
+        let armourer = render(Storefront::Armor);
         assert!(armourer.contains("data-inventory-pane=\"party\""));
         assert!(
             armourer.contains(
@@ -695,7 +657,7 @@ mod tests {
         );
         assert!(!armourer.contains(">30.0 / 200.0 kg<"));
 
-        let herbalist = render(MerchantShop::Herbalist);
+        let herbalist = render(Storefront::Herbalist);
         assert!(
             herbalist.contains("aria-valuetext=\"Weight 10.0 / 100.0 kilograms; Penalty -10.0%\"")
         );
@@ -703,7 +665,7 @@ mod tests {
         assert!(!herbalist.contains("data-inventory-pane=\"party\""));
         assert!(!herbalist.contains("Weight 30.0 / 200.0 kilograms"));
 
-        let inn = render(MerchantShop::Inn);
+        let inn = render(Storefront::Inn);
         assert!(inn.contains("Cooking supplies"));
         assert!(inn.contains("aria-label=\"Inn rest service\""));
         assert!(inn.contains("action=\"/locations/settlement/viabundus-1/places/inn/offer\""));
@@ -750,7 +712,7 @@ mod tests {
             &[],
             &[],
             &[],
-            MerchantShop::Inn,
+            Storefront::Inn,
             1.0,
             0,
             0,

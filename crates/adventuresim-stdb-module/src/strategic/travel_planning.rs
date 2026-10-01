@@ -151,7 +151,7 @@ fn validate_journey_route_payload(
         || route.intensity_bps > adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
         || route.ground_moisture_bps > adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
         || route.snow_cover_bps > adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
-        || (route.precipitation == JourneyPrecipitation::Clear && route.intensity_bps != 0)
+        || (route.precipitation == Precipitation::Clear && route.intensity_bps != 0)
     {
         return Err("Terrain route has an invalid weather departure snapshot".into());
     }

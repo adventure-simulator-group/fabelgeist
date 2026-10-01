@@ -4,18 +4,12 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
-use super::starting_age_tier_type::StartingAgeTier;
-
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct StartingCharacterClaim {
     pub request_key: String,
     pub character_id: u64,
     pub owner_key: String,
-    pub generator_version: u16,
-    pub seed: String,
-    pub age_tier: StartingAgeTier,
-    pub slot: u8,
 }
 
 impl __sdk::InModule for StartingCharacterClaim {
@@ -29,10 +23,6 @@ pub struct StartingCharacterClaimCols {
     pub request_key: __sdk::__query_builder::Col<StartingCharacterClaim, String>,
     pub character_id: __sdk::__query_builder::Col<StartingCharacterClaim, u64>,
     pub owner_key: __sdk::__query_builder::Col<StartingCharacterClaim, String>,
-    pub generator_version: __sdk::__query_builder::Col<StartingCharacterClaim, u16>,
-    pub seed: __sdk::__query_builder::Col<StartingCharacterClaim, String>,
-    pub age_tier: __sdk::__query_builder::Col<StartingCharacterClaim, StartingAgeTier>,
-    pub slot: __sdk::__query_builder::Col<StartingCharacterClaim, u8>,
 }
 
 impl __sdk::__query_builder::HasCols for StartingCharacterClaim {
@@ -42,10 +32,6 @@ impl __sdk::__query_builder::HasCols for StartingCharacterClaim {
             request_key: __sdk::__query_builder::Col::new(table_name, "request_key"),
             character_id: __sdk::__query_builder::Col::new(table_name, "character_id"),
             owner_key: __sdk::__query_builder::Col::new(table_name, "owner_key"),
-            generator_version: __sdk::__query_builder::Col::new(table_name, "generator_version"),
-            seed: __sdk::__query_builder::Col::new(table_name, "seed"),
-            age_tier: __sdk::__query_builder::Col::new(table_name, "age_tier"),
-            slot: __sdk::__query_builder::Col::new(table_name, "slot"),
         }
     }
 }

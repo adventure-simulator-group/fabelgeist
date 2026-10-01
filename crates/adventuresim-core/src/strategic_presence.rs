@@ -4,6 +4,9 @@
 //! being joined through feature-specific strings or upgraded from a coarse
 //! settlement to an exact venue without explicit evidence.
 
+mod context;
+pub use context::{CharacterContextRole, ContextualDecisionState, InteractionPresentationDecision};
+
 use crate::strategic_place::{PlaceIdentityError, StrategicPlaceId};
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 

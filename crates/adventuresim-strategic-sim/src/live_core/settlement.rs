@@ -2,14 +2,14 @@ use adventuresim_core::surgery::SurgeryProcedure;
 
 pub(super) fn repair_service_for_kind(
     services: &[SettlementService],
-    kind: PersistedItemKind,
+    kind: CatalogItemKind,
 ) -> Option<&'static str> {
     let required_specialist = match kind {
-        PersistedItemKind::Weapon | PersistedItemKind::Shield => {
+        CatalogItemKind::Weapon | CatalogItemKind::Shield => {
             (SettlementService::Weaponsmith, "weapons")
         }
-        PersistedItemKind::Armor => (SettlementService::Armorer, "armor"),
-        PersistedItemKind::Clothing => (SettlementService::Tailor, "clothing"),
+        CatalogItemKind::Armor => (SettlementService::Armorer, "armor"),
+        CatalogItemKind::Clothing => (SettlementService::Tailor, "clothing"),
         _ => return None,
     };
     services
@@ -452,7 +452,7 @@ impl LiveRunner {
         // present in visible settlement stock.
         if !observable_herbalist_stocks_medication(
             true,
-            preparation.kind == PersistedItemKind::Medication,
+            preparation.kind == CatalogItemKind::Medication,
             settlement
                 .economy
                 .stock
@@ -1820,11 +1820,11 @@ impl LiveRunner {
                     continue;
                 };
                 let skill = match definition.kind {
-                    PersistedItemKind::Weapon | PersistedItemKind::Shield => {
+                    CatalogItemKind::Weapon | CatalogItemKind::Shield => {
                         smith.weaponsmith_skill
                     }
-                    PersistedItemKind::Armor => smith.armourer_skill,
-                    PersistedItemKind::Clothing => smith.tailor_skill,
+                    CatalogItemKind::Armor => smith.armourer_skill,
+                    CatalogItemKind::Clothing => smith.tailor_skill,
                     _ => continue,
                 };
                 let Some(condition) = self

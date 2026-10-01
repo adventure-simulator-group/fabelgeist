@@ -18,7 +18,7 @@ pub(super) fn movement_intent(
     combatant: &Combatant,
     distance: f32,
     parameters: crate::combat::AutoresolveParameters,
-) -> MovementIntent {
+) -> MeleeMovementAction {
     let reach = melee_effective_reach(combatant);
     let preferred = preferred_melee_measure(combatant, parameters);
     let head_length = combatant.equipment.weapon_striking_head_length();
@@ -31,13 +31,13 @@ pub(super) fn movement_intent(
         || combatant.equipment.weapon_reach() >= parameters.long_weapon_measure_threshold_metres
             && distance < preferred
     {
-        MovementIntent::Retreat
+        MeleeMovementAction::Retreat
     } else if distance > reach
         || combatant.melee_attack_started_at_seconds.is_some() && distance >= preferred
     {
-        MovementIntent::Close
+        MeleeMovementAction::Close
     } else {
-        MovementIntent::Hold
+        MeleeMovementAction::Hold
     }
 }
 
@@ -57,7 +57,7 @@ pub(in crate::autoresolve) fn preview_melee_pair_movement(
     second: &Combatant,
     elapsed: f32,
     parameters: crate::combat::AutoresolveParameters,
-) -> (OpposedMovement, MovementIntent, MovementIntent) {
+) -> (OpposedMovement, MeleeMovementAction, MeleeMovementAction) {
     let surface = first
         .melee_engagement_distance_metres
         .min(second.melee_engagement_distance_metres)
@@ -131,14 +131,6 @@ pub(in crate::autoresolve) fn preferred_melee_measure(
     )
 }
 
-fn movement_action(intent: MovementIntent) -> MeleeMovementAction {
-    match intent {
-        MovementIntent::Close => MeleeMovementAction::Close,
-        MovementIntent::Hold => MeleeMovementAction::Hold,
-        MovementIntent::Retreat => MeleeMovementAction::Retreat,
-    }
-}
-
 fn movement_phase(combatant: &Combatant, time: f32) -> MeleeTimelinePhase {
     if combatant.melee_attack_started_at_seconds.is_some() {
         MeleeTimelinePhase::Windup
@@ -155,7 +147,7 @@ fn record_movement(
     target_id: u64,
     movement: OpposedMovement,
     axis: AxisMotion,
-    intent: MovementIntent,
+    intent: MeleeMovementAction,
     time: f32,
 ) {
     let phase = movement_phase(combatant, time);
@@ -164,7 +156,7 @@ fn record_movement(
     event.target_id = Some(target_id);
     event.engagement_distance_before_metres = Some(movement.distance_before_metres);
     event.engagement_distance_after_metres = Some(movement.distance_after_metres);
-    event.movement_action = Some(movement_action(intent));
+    event.movement_action = Some(intent);
     event.movement_elapsed_seconds = Some(movement.elapsed_seconds);
     event.movement_displacement_metres = Some(axis.displacement_metres);
     event.movement_velocity_before_metres_per_second = Some(axis.velocity_before_metres_per_second);

@@ -309,6 +309,8 @@ pub struct Entry {
     pub decoded_sha256: String,
 }
 
+/// Bounded decoded chunks owned by the immutable package. Cache clocks select
+/// eviction order; they are not world time or an independent terrain version.
 struct Cache {
     clock: u64,
     bytes: usize,

@@ -2,9 +2,9 @@
 // WILL NOT BE SAVED. MODIFY TABLES IN YOUR MODULE SOURCE CODE INSTEAD.
 
 #![allow(unused, clippy::all)]
+use super::age_band_type::AgeBand;
 use super::backend_settlement_resident_type::BackendSettlementResident;
-use super::npc_age_band_type::NpcAgeBand;
-use super::npc_presentation_type::NpcPresentation;
+use super::presentation_type::Presentation;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_settlement_residents`.

@@ -1,5 +1,8 @@
 // Owns the cohesive food-lot, contamination, preparation-receipt, and fireplace schema.
 /// Public, inspectable description of one non-fungible inventory batch.
+/// Cooking/harvesting captures ingredient provenance and material totals;
+/// consumption and preparation owners conserve/update the remaining material.
+/// Current catalog recipes cannot reconstruct an already cooked batch.
 #[derive(Clone, Debug)]
 #[table(accessor = food_lot, public)]
 pub struct FoodLot {
@@ -103,6 +106,10 @@ pub struct FireplaceStation {
     pub instrument_return_custody: Option<crate::PersistedOperationalCustody>,
 }
 
+/// Immutable cooking input snapshot pinned when ingredients enter the fireplace.
+/// Retrieval derives readiness and resulting food from elapsed personal time,
+/// consumes this row, and transfers the captured provenance into the new lot.
+/// Later catalog, contributor-name, or inventory changes cannot rewrite the dish.
 #[derive(Clone, Debug)]
 #[table(accessor = fireplace_dish)]
 pub struct FireplaceDish {

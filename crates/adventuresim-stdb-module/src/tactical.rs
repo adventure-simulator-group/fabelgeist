@@ -12,8 +12,8 @@ pub(crate) use request::{tactical_party_roster, tactical_settlement_snapshot};
 
 use crate::repair::{ItemCondition, item_condition__view};
 use crate::{
-    Character, CharacterAttributes, CharacterLimbs, CharacterSkills, CharacterStats, Item,
-    PersistedItemKind,
+    CatalogItemKind, Character, CharacterAttributes, CharacterLimbs, CharacterSkills,
+    CharacterStats, Item,
     character::{character, character_equipped_item, equipment_occupancy},
     character__view, character_attributes__view, character_equipped_item__view,
     character_limbs__view, character_skills__view, character_stats__view,
@@ -118,8 +118,6 @@ pub struct TacticalServerRequest {
     /// Canonical minute used only for lunar phase. Wilderness time of day may
     /// advance while this value remains fixed for the entire excursion.
     pub lunar_phase_minute: StrategicMinute,
-    /// Living strategic party members bound when the mission is requested.
-    pub expected_party_members: u32,
     /// Immutable participant authority captured with the mission request.
     pub authorized_party_member_ids: Vec<u64>,
     pub required_enemy_kills: u32,
@@ -146,7 +144,6 @@ pub struct TacticalServer {
     pub party_id: String,
     pub addr: String,
     pub cert_digest: String,
-    pub expected_party_members: u32,
     pub authorized_party_member_ids: Vec<u64>,
     pub required_enemy_kills: u32,
     pub enemy_difficulty: i32,
@@ -513,7 +510,7 @@ pub fn enter_mission(
     // An unassigned character may join. An assignment to this server is an
     // idempotent retry, and a stale assignment whose server no longer exists
     // may be reclaimed. Never steal a character from another active server.
-    if character.in_server
+    if character.has_tactical_server_assignment()
         && character.server != server
         && ctx
             .db
@@ -563,7 +560,6 @@ pub fn enter_mission(
     }
 
     character.server = server.identity;
-    character.in_server = true;
     ctx.db.character().id().update(character);
 
     Ok(())
@@ -592,7 +588,7 @@ fn leave_mission_for_server(
     mut character: Character,
     server: Identity,
 ) -> Result<(), String> {
-    if !character.in_server || character.server != server {
+    if !character.has_tactical_server_assignment() || character.server != server {
         return Err("Only the character's owning tactical server can remove it".into());
     }
     let character_id = character.id;
@@ -601,7 +597,6 @@ fn leave_mission_for_server(
         crate::character::delete_temporary_character(ctx, character)?;
     } else {
         log::info!("Leaving mission for character #{character_id}: resetting server info..");
-        character.in_server = false;
         character.server = Identity::ZERO;
         ctx.db.character().id().update(character);
     }
@@ -756,7 +751,8 @@ pub fn request_tactical_server(
         &case_site,
         &scene_key,
     )?;
-    if mission.status != crate::strategic::MissionAttemptStatus::Bound {
+    if mission.status != adventuresim_core::strategic_state::vocabulary::MissionAttemptStatus::Bound
+    {
         return Err("Tactical request requires a newly bound mission attempt".into());
     }
     let hostile_group_id = mission
@@ -826,13 +822,13 @@ pub fn request_tactical_server(
         return Err("Party quest already has a pending or active tactical server".into());
     }
 
-    let enemy_character_ids = mission.enemy_character_ids.clone();
-    if enemy_character_ids.len() != mission.enemy_count as usize {
-        return Err("Tactical mission roster does not match bound mission authority".into());
-    }
+    let enemy_roster = mission
+        .enemy_roster(ctx)
+        .map_err(|error| error.to_string())?;
     log::info!("Tactical server for '{mission_id}' requested");
-    let (authorized_party_member_ids, expected_party_members) =
-        tactical_party_roster(ctx, &party_id)?;
+    let authorized_party_member_ids = tactical_party_roster(ctx, &party_id)
+        .map_err(|error| error.to_string())?
+        .into_member_ids();
     let settlement = tactical_settlement_snapshot(ctx, &case_site)?;
     ctx.db
         .tactical_server_request_authority()
@@ -847,16 +843,15 @@ pub fn request_tactical_server(
             settlement,
             absolute_minute,
             lunar_phase_minute,
-            expected_party_members,
             authorized_party_member_ids,
-            required_enemy_kills: mission.enemy_count,
+            required_enemy_kills: enemy_roster.enemy_count().get(),
             enemy_difficulty: mission.enemy_difficulty,
             enemy_combat_scale_bps: mission.enemy_combat_scale_bps,
             countermeasure_multiplier_bps: u32::from(
                 adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
             ),
             normalized_combat_power: mission.normalized_combat_power,
-            enemy_character_ids,
+            enemy_character_ids: enemy_roster.into_enemy_ids(),
             party_has_surprise: !mission.contacted_before_combat,
         });
 
@@ -918,7 +913,6 @@ pub fn create_tactical_server_for_request(
         request.mission_id,
         request.scene_key,
         request.party_id,
-        request.expected_party_members,
         request.authorized_party_member_ids,
         request.required_enemy_kills,
         request.enemy_difficulty,
@@ -945,7 +939,6 @@ fn insert_tactical_server(
     mission_id: String,
     scene_key: String,
     party_id: String,
-    expected_party_members: u32,
     authorized_party_member_ids: Vec<u64>,
     required_enemy_kills: u32,
     enemy_difficulty: i32,
@@ -957,16 +950,10 @@ fn insert_tactical_server(
     addr: String,
     cert_digest: String,
 ) -> Result<(), String> {
-    if authorized_party_member_ids.len() != expected_party_members as usize
-        || authorized_party_member_ids
-            .iter()
-            .copied()
-            .collect::<HashSet<_>>()
-            .len()
-            != authorized_party_member_ids.len()
-    {
-        return Err("Tactical participant authority is inconsistent".into());
-    }
+    let authorized_party_member_ids =
+        adventuresim_core::mission::TacticalPartyRoster::try_from(authorized_party_member_ids)
+            .map_err(|error| error.to_string())?
+            .into_member_ids();
     if let Some(_previous) = ctx
         .db
         .tactical_server_authority()
@@ -997,7 +984,6 @@ fn insert_tactical_server(
         party_id,
         addr,
         cert_digest,
-        expected_party_members,
         authorized_party_member_ids,
         required_enemy_kills,
         enemy_difficulty,
@@ -1062,7 +1048,7 @@ fn validate_tactical_receipt(
             .id()
             .find(consequence.character_id)
             .ok_or("Tactical receipt character not found")?;
-        let assigned_elsewhere_active = character.in_server
+        let assigned_elsewhere_active = character.has_tactical_server_assignment()
             && character.server != server.identity
             && ctx
                 .db
@@ -1124,15 +1110,15 @@ fn validate_tactical_receipt(
             .ok_or("Tactical equipment contact item definition not found")?;
         let valid_role = match contact.role {
             TacticalEquipmentContactRole::AttackerWeapon => {
-                held && definition.kind == PersistedItemKind::Weapon
+                held && definition.kind == CatalogItemKind::Weapon
             }
             TacticalEquipmentContactRole::DefenderEquipment => {
                 (held
                     && matches!(
                         definition.kind,
-                        PersistedItemKind::Weapon | PersistedItemKind::Shield
+                        CatalogItemKind::Weapon | CatalogItemKind::Shield
                     ))
-                    || (worn && definition.kind == PersistedItemKind::Armor)
+                    || (worn && definition.kind == CatalogItemKind::Armor)
             }
         };
         if !valid_role {
@@ -1494,7 +1480,7 @@ mod authority_tests {
     }
 
     #[test]
-    fn strategic_request_binds_expected_party_members_into_the_server() {
+    fn strategic_request_binds_captured_party_members_into_the_server() {
         let source = crate::production_source(include_str!("tactical.rs"));
         for schema in ["TacticalServerRequest", "TacticalServer"] {
             let body = source
@@ -1502,7 +1488,7 @@ mod authority_tests {
                 .nth(1)
                 .and_then(|tail| tail.split('}').next())
                 .expect("schema body");
-            assert!(body.contains("pub expected_party_members: u32"));
+            assert!(!body.contains("expected_party_members"));
             assert!(body.contains("pub authorized_party_member_ids: Vec<u64>"));
         }
         let create = source
@@ -1510,7 +1496,6 @@ mod authority_tests {
             .nth(1)
             .and_then(|tail| tail.split("/// Creates a new").next())
             .expect("create reducer");
-        assert!(create.contains("request.expected_party_members"));
         assert!(create.contains("request.authorized_party_member_ids"));
     }
 

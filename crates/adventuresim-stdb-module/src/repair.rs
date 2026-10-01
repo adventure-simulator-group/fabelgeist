@@ -13,7 +13,7 @@ use crate::character::{character, character_equipped_item, equipment_occupancy};
 use crate::item::{inventory_item, item};
 use crate::simulation::simulation_character;
 use crate::time::character_time;
-use crate::{InventoryItem, PersistedItemKind, inventory_object};
+use crate::{CatalogItemKind, InventoryItem, inventory_object};
 
 pub const REPAIR_MINUTES_PER_FULL_ITEM: u64 = 2 * MINUTES_PER_DAY;
 
@@ -92,20 +92,20 @@ fn repair_service(value: &str) -> Result<adventuresim_core::durability::RepairSe
         .ok_or_else(|| "Unknown repair service".into())
 }
 
-fn repair_kind(kind: PersistedItemKind) -> Option<adventuresim_core::durability::RepairItemKind> {
+fn repair_kind(kind: CatalogItemKind) -> Option<adventuresim_core::durability::RepairItemKind> {
     use adventuresim_core::durability::RepairItemKind;
     match kind {
-        PersistedItemKind::Weapon => Some(RepairItemKind::Weapon),
-        PersistedItemKind::Shield => Some(RepairItemKind::Shield),
-        PersistedItemKind::Armor => Some(RepairItemKind::Armor),
-        PersistedItemKind::Clothing => Some(RepairItemKind::Clothing),
+        CatalogItemKind::Weapon => Some(RepairItemKind::Weapon),
+        CatalogItemKind::Shield => Some(RepairItemKind::Shield),
+        CatalogItemKind::Armor => Some(RepairItemKind::Armor),
+        CatalogItemKind::Clothing => Some(RepairItemKind::Clothing),
         _ => None,
     }
 }
 
 fn service_matches(
     service: adventuresim_core::durability::RepairService,
-    kind: PersistedItemKind,
+    kind: CatalogItemKind,
 ) -> bool {
     repair_kind(kind).is_some_and(|kind| service.matches(kind))
 }
@@ -529,7 +529,7 @@ pub(crate) fn field_repair(
             .find(id)
             .and_then(|inventory| ctx.db.item().id().find(&inventory.item_id))
             .map(|item| item.kind);
-        let eligible_skill = if item_kind == Some(PersistedItemKind::Clothing) {
+        let eligible_skill = if item_kind == Some(CatalogItemKind::Clothing) {
             tailoring
         } else {
             smithing
@@ -652,9 +652,9 @@ mod tests {
 
     #[test]
     fn repair_service_kinds_remain_explicit() {
-        assert!(repair_kind(PersistedItemKind::Clothing).is_some());
-        assert!(repair_kind(PersistedItemKind::Weapon).is_some());
-        assert!(repair_kind(PersistedItemKind::Medication).is_none());
+        assert!(repair_kind(CatalogItemKind::Clothing).is_some());
+        assert!(repair_kind(CatalogItemKind::Weapon).is_some());
+        assert!(repair_kind(CatalogItemKind::Medication).is_none());
     }
 
     #[test]
@@ -662,14 +662,14 @@ mod tests {
         let weapons = repair_service("weapons").unwrap();
         let armor = repair_service("armor").unwrap();
         let clothing = repair_service("clothing").unwrap();
-        assert!(service_matches(weapons, PersistedItemKind::Weapon));
-        assert!(service_matches(weapons, PersistedItemKind::Shield));
-        assert!(!service_matches(weapons, PersistedItemKind::Armor));
-        assert!(!service_matches(weapons, PersistedItemKind::Clothing));
-        assert!(service_matches(armor, PersistedItemKind::Armor));
-        assert!(!service_matches(armor, PersistedItemKind::Clothing));
-        assert!(service_matches(clothing, PersistedItemKind::Clothing));
-        assert!(!service_matches(clothing, PersistedItemKind::Weapon));
+        assert!(service_matches(weapons, CatalogItemKind::Weapon));
+        assert!(service_matches(weapons, CatalogItemKind::Shield));
+        assert!(!service_matches(weapons, CatalogItemKind::Armor));
+        assert!(!service_matches(weapons, CatalogItemKind::Clothing));
+        assert!(service_matches(armor, CatalogItemKind::Armor));
+        assert!(!service_matches(armor, CatalogItemKind::Clothing));
+        assert!(service_matches(clothing, CatalogItemKind::Clothing));
+        assert!(!service_matches(clothing, CatalogItemKind::Weapon));
         assert!(repair_service("smith").is_err());
     }
 

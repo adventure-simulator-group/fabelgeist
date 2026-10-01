@@ -596,7 +596,7 @@ fn dialogue_fact_context(
                     .into_iter()
                     .filter_map(|row| ctx.db.inventory_item().id().find(row.inventory_item_id))
                     .filter_map(|inventory| ctx.db.item().id().find(&inventory.item_id))
-                    .find(|item| item.kind == crate::item::PersistedItemKind::Clothing);
+                    .find(|item| item.kind == crate::item::CatalogItemKind::Clothing);
                 if let Some(item) = clothing {
                     result.facts.insert(
                         FactKey::ParticipantClothingCategory {
@@ -1101,7 +1101,7 @@ fn dialogue_address_title(ctx: &ReducerContext, character_id: u64) -> Result<Str
 }
 
 fn dialogue_pair_is_intimate(ctx: &ReducerContext, left: u64, right: u64) -> bool {
-    use crate::relationship::{CourtshipStatus, KinshipKind};
+    use crate::relationship::KinshipKind;
     let immediate_kin = ctx
         .db
         .character_kinship()

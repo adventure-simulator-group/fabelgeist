@@ -30,7 +30,7 @@ pub fn blood_exposure_attempts_through(
         })
         .map(|definition| definition.id)
     {
-        let key = format!("{character_id}:{}", crate::disease::disease_key(disease_id));
+        let key = format!("{character_id}:{}", disease_id.stable_id());
         let checkpoint = ctx.db.blood_exposure_checkpoint().id().find(&key);
         let start = from.saturating_add_minutes(1).max(
             checkpoint.as_ref().map_or(StrategicMinute::ZERO, |row| row.evaluated_through.saturating_add_minutes(1)),
@@ -78,7 +78,7 @@ pub fn blood_exposure_attempts_through(
             }
             let seed = adventuresim_core::disease::outbreak_exposure_seed(
                 character_id,
-                &format!("blood:{}:{minute}", crate::disease::disease_key(disease_id)),
+                &format!("blood:{}:{minute}", disease_id.stable_id()),
             );
             attempts.push(adventuresim_core::disease::AcquisitionAttempt::exposure(
                 adventuresim_core::disease::InfectionEpisode {
@@ -128,7 +128,7 @@ fn persist_blood_checkpoint(
     let row = BloodExposureCheckpoint {
         id: key,
         character_id,
-        disease_id: crate::disease::disease_key(disease_id).into(),
+        disease_id: disease_id.stable_id().into(),
         evaluated_through: to,
     };
     if existed {

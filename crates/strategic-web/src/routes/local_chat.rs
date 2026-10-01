@@ -396,8 +396,8 @@ mod tests {
     use adventuresim_world_schema::calendar::StrategicMinute;
 
     use crate::spacetimedb::{
-        BackendLocalChatMessage, BackendSettlementResident, NpcAgeBand, NpcPresentation,
-        SettlementCategory, SettlementResidentPresence,
+        AgeBand, BackendLocalChatMessage, BackendSettlementResident, SettlementCategory,
+        SettlementResidentPresence,
     };
 
     #[test]
@@ -501,8 +501,8 @@ mod tests {
             character_id: 41,
             home_settlement_id: "riverdale".into(),
             name: "Innkeeper".into(),
-            age_band: NpcAgeBand::Adult,
-            presentation: NpcPresentation::Ambiguous,
+            age_band: AgeBand::Adult,
+            presentation: adventuresim_stdb_client::Presentation::Ambiguous,
             height: String::new(),
             build: String::new(),
             hair: String::new(),

@@ -20,24 +20,13 @@ fn main() {
         return;
     }
     let catalog = adventuresim_core::item_catalog::catalog();
-    let mut references = adventuresim_core::item_references::REQUIRED_GAMEPLAY_ITEM_IDS.to_vec();
-    references.extend(adventuresim_core::strategic_currency::CURRENCY_IDS);
-    references.extend(
-        adventuresim_core::physiology::INTERVENTION_PROFILES
-            .iter()
-            .map(|profile| profile.preparation_id),
-    );
-    references.extend(
-        adventuresim_core::bestiary::ALL_THREATS
-            .iter()
-            .filter_map(|id| {
-                adventuresim_core::bestiary::profile(*id)
-                    .combat
-                    .loot_item_id
-            }),
-    );
-    if let Err(missing) = adventuresim_core::item_catalog::validate_references(references) {
-        panic!("missing required gameplay item references: {missing:?}");
+    if let Err(missing) = adventuresim_core::item_references::validate_gameplay_references(
+        adventuresim_core::quest_catalog::catalog(),
+    ) {
+        panic!(
+            "missing required gameplay item references: {:?}",
+            missing.ids
+        );
     }
     println!(
         "items: {} definitions, revision {}",

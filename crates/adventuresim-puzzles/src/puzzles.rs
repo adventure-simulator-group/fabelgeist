@@ -1,3 +1,4 @@
+use super::WitnessPath;
 use fabelgeist_determinism::DeterministicRng;
 use serde::{Deserialize, Serialize};
 
@@ -320,25 +321,6 @@ impl Witness {
             Self::Crown => "Crown",
             Self::Hart => "Hart",
             Self::Moon => "Moon",
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-pub enum WitnessPath {
-    Ash,
-    Moon,
-    Thorn,
-}
-
-impl WitnessPath {
-    pub const ALL: [Self; 3] = [Self::Ash, Self::Moon, Self::Thorn];
-
-    pub const fn label(self) -> &'static str {
-        match self {
-            Self::Ash => "Ash path",
-            Self::Moon => "Moon path",
-            Self::Thorn => "Thorn path",
         }
     }
 }

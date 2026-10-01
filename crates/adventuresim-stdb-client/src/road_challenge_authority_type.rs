@@ -29,7 +29,6 @@ pub struct RoadChallengeAuthority {
     pub latitude_e_7: i32,
     pub trigger: NarrativeEncounterTrigger,
     pub revision: u32,
-    pub open: bool,
     pub resolved_choice: Option<String>,
     pub resolved_deed: Option<String>,
     pub virtue_exemplified: Option<ChivalricVirtue>,
@@ -63,7 +62,6 @@ pub struct RoadChallengeAuthorityCols {
     pub latitude_e_7: __sdk::__query_builder::Col<RoadChallengeAuthority, i32>,
     pub trigger: __sdk::__query_builder::Col<RoadChallengeAuthority, NarrativeEncounterTrigger>,
     pub revision: __sdk::__query_builder::Col<RoadChallengeAuthority, u32>,
-    pub open: __sdk::__query_builder::Col<RoadChallengeAuthority, bool>,
     pub resolved_choice: __sdk::__query_builder::Col<RoadChallengeAuthority, Option<String>>,
     pub resolved_deed: __sdk::__query_builder::Col<RoadChallengeAuthority, Option<String>>,
     pub virtue_exemplified:
@@ -107,7 +105,6 @@ impl __sdk::__query_builder::HasCols for RoadChallengeAuthority {
             latitude_e_7: __sdk::__query_builder::Col::new(table_name, "latitude_e_7"),
             trigger: __sdk::__query_builder::Col::new(table_name, "trigger"),
             revision: __sdk::__query_builder::Col::new(table_name, "revision"),
-            open: __sdk::__query_builder::Col::new(table_name, "open"),
             resolved_choice: __sdk::__query_builder::Col::new(table_name, "resolved_choice"),
             resolved_deed: __sdk::__query_builder::Col::new(table_name, "resolved_deed"),
             virtue_exemplified: __sdk::__query_builder::Col::new(table_name, "virtue_exemplified"),

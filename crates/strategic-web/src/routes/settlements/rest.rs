@@ -610,7 +610,7 @@ pub(super) async fn weapons(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Weapons).await
+    merchant_shop(state, id, session, Storefront::Weapons).await
 }
 
 #[derive(Deserialize)]
@@ -655,7 +655,7 @@ pub(super) async fn armor(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Armor).await
+    merchant_shop(state, id, session, Storefront::Armor).await
 }
 
 pub(super) async fn clothing(
@@ -663,7 +663,7 @@ pub(super) async fn clothing(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Clothing).await
+    merchant_shop(state, id, session, Storefront::Clothing).await
 }
 
 pub(super) async fn herbalist(
@@ -671,7 +671,7 @@ pub(super) async fn herbalist(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Herbalist).await
+    merchant_shop(state, id, session, Storefront::Herbalist).await
 }
 
 pub(super) async fn bookstore(
@@ -679,7 +679,7 @@ pub(super) async fn bookstore(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Books).await
+    merchant_shop(state, id, session, Storefront::Books).await
 }
 
 pub(super) async fn purchase_from_herbalist(

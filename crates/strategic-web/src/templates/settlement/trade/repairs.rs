@@ -1,7 +1,7 @@
 //! Repair eligibility, submission, custody, and completion presentation.
 
 use super::*;
-use super::{inventory::*, merchant::MerchantShop};
+use super::{Storefront, inventory::*};
 
 pub(super) fn merchant_sell_repair_controls(
     id: u64,
@@ -118,7 +118,7 @@ pub(super) fn repair_submit_control(
 
 pub(super) fn repair_custody_panel(
     settlement: &SettlementView,
-    shop: MerchantShop,
+    shop: Storefront,
     orders: &[crate::spacetimedb::RepairOrder],
     conditions: &[crate::spacetimedb::ItemCondition],
     items: &[crate::spacetimedb::CatalogItemView],
@@ -146,8 +146,8 @@ pub(super) fn repair_custody_panel(
         section class="repair-custody-panel" aria-label="Items entrusted for repair"
             data-repair-custody-service=(service_id) hidden {
             header class="repair-custody-header" {
-                h3 { @if matches!(shop, MerchantShop::Clothing) { "In the tailor's care" } @else { "In the smith's care" } }
-                @let craft = if matches!(shop, MerchantShop::Clothing) { "Tailoring" } else { "Smithing" };
+                h3 { @if matches!(shop, Storefront::Clothing) { "In the tailor's care" } @else { "In the smith's care" } }
+                @let craft = if matches!(shop, Storefront::Clothing) { "Tailoring" } else { "Smithing" };
                 span class="repair-custody-skill" title=(format!("{craft} {smith_skill}")) {
                     (stat_icon(craft, "skills", if craft == "Tailoring" { "sewing-needle" } else { "smithing" }, false))
                     (skill_rank_bar(f32::from(smith_skill), f32::from(smith_skill), &format!("{craft} {smith_skill}"), SkillRankBarOptions::default()))
@@ -411,7 +411,7 @@ mod tests {
         ];
         let weapons = repair_custody_panel(
             &settlement(),
-            MerchantShop::Weapons,
+            Storefront::Weapons,
             &orders,
             &[],
             &items,
@@ -421,7 +421,7 @@ mod tests {
         .into_string();
         let armor = repair_custody_panel(
             &settlement(),
-            MerchantShop::Armor,
+            Storefront::Armor,
             &orders,
             &[],
             &items,

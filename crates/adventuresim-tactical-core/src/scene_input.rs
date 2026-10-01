@@ -99,6 +99,9 @@ pub struct EnvironmentalSample {
     pub surface: TacticalSurface,
 }
 
+/// Captured scene transport vocabulary. The dispatcher exhaustively adapts
+/// terrain-pack routing cells; tactical consumers use the immutable snapshot
+/// without depending on the terrain package runtime or updating routing data.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum TacticalSurface {

@@ -14,7 +14,6 @@ fn sampler_fixture() -> (MissionAuthority, Vec<MissionOutcomeCandidate>) {
         committed_capture_custody_version: None,
         scene_key: "crypt".into(),
         hostile_version: 1,
-        enemy_count: 1,
         enemy_character_ids: vec![90],
         contacted_before_combat: false,
         enemy_difficulty: 1,

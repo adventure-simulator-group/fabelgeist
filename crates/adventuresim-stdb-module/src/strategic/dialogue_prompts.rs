@@ -5,7 +5,7 @@ fn resolved_prompt_choices(
     prompt: &adventuresim_dialogue::Prompt,
 ) -> Result<
     (
-        DialoguePromptMode,
+        PromptMode,
         Vec<adventuresim_dialogue::Choice>,
         u32,
         u32,
@@ -14,7 +14,7 @@ fn resolved_prompt_choices(
 > {
     if prompt.id != "request-organization-promotion" {
         return Ok((
-            DialoguePromptMode::from_authored(&prompt.mode),
+            prompt.mode,
             prompt.choices.clone(),
             prompt.min_choices as u32,
             prompt.max_choices as u32,
@@ -75,7 +75,7 @@ fn resolved_prompt_choices(
     if choices.len() < 2 {
         return Err("Promotion prompt has no selectable authored transition".into());
     }
-    Ok((DialoguePromptMode::Single, choices, 1, 1))
+    Ok((PromptMode::Single, choices, 1, 1))
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -328,7 +328,7 @@ pub fn choose_dialogue_topic(
                 prompt_id: prompt.id.clone(),
                 mode: mode.stable_id().into(),
                 respondent_role: prompt.respondent.clone(),
-                resolution_policy: DialogueResolutionPolicy::from_authored(&prompt.resolution)
+                resolution_policy: prompt.resolution
                     .stable_id()
                     .into(),
                 choices_json: serde_json::to_string(&choices)
@@ -431,8 +431,7 @@ pub fn answer_dialogue_prompt(
         serde_json::from_str(&choice_ids_json).map_err(|_| "Invalid dialogue choices")?;
     let allowed: Vec<adventuresim_dialogue::Choice> =
         serde_json::from_str(&prompt.choices_json).map_err(|_| "Invalid authoritative choices")?;
-    let prompt_mode = DialoguePromptMode::parse(&prompt.mode)?;
-    let resolution_policy = DialogueResolutionPolicy::parse(&prompt.resolution_policy)?;
+    let (prompt_mode, resolution_policy) = prompt.policies().map_err(|error| error.to_string())?;
     let unique: std::collections::BTreeSet<_> = chosen.iter().collect();
     if chosen.len() != unique.len()
         || chosen.len() < prompt.min_choices as usize
@@ -440,7 +439,7 @@ pub fn answer_dialogue_prompt(
         || chosen
             .iter()
             .any(|id| !allowed.iter().any(|choice| &choice.id == id))
-        || (prompt_mode != DialoguePromptMode::Multi && chosen.len() != 1)
+        || (prompt_mode != PromptMode::Multi && chosen.len() != 1)
     {
         return Err("Invalid dialogue answer".into());
     }
@@ -486,23 +485,23 @@ pub fn answer_dialogue_prompt(
         }
     }
     let winning = match resolution_policy {
-        DialogueResolutionPolicy::FirstResponse => ballots.first().cloned(),
-        DialogueResolutionPolicy::Majority => vote_counts
+        ResolutionPolicy::FirstResponse => ballots.first().cloned(),
+        ResolutionPolicy::Majority => vote_counts
             .iter()
             .filter(|(_, count)| **count > respondent_count / 2)
             .map(|(choice, _)| vec![choice.clone()])
             .next(),
-        DialogueResolutionPolicy::Unanimous
+        ResolutionPolicy::Unanimous
             if answer_count >= respondent_count
                 && ballots.windows(2).all(|pair| pair[0] == pair[1]) =>
         {
             ballots.first().cloned()
         }
-        DialogueResolutionPolicy::AllRespondents if answer_count >= respondent_count => vote_counts
+        ResolutionPolicy::AllRespondents if answer_count >= respondent_count => vote_counts
             .iter()
             .max_by_key(|(choice, count)| (**count, std::cmp::Reverse((*choice).clone())))
             .map(|(choice, _)| vec![choice.clone()]),
-        DialogueResolutionPolicy::Unanimous | DialogueResolutionPolicy::AllRespondents => None,
+        ResolutionPolicy::Unanimous | ResolutionPolicy::AllRespondents => None,
     };
     if let Some(winning) = winning {
         let topic = adventuresim_dialogue::find_conversation(&session.conversation_id)

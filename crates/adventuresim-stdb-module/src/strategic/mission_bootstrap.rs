@@ -37,7 +37,7 @@ pub fn report_contract(
         .id()
         .find(&contract_id)
         .ok_or("Quest not found")?;
-    quest.parsed_state()?;
+    quest.parsed_state().map_err(|error| error.to_string())?;
     if quest.status != ContractStatus::ReadyToReport
         || quest.accepted_by.as_ref() != Some(&party_id)
     {
@@ -210,10 +210,8 @@ pub fn autoresolve_mission(
             )
         })
         .collect::<Result<Vec<_>, String>>()?;
-    let enemy_ids = mission.enemy_character_ids.clone();
-    if enemy_ids.len() != mission.enemy_count as usize {
-        return Err("Mission hostile roster no longer matches its bound snapshot".into());
-    }
+    let enemy_ids = mission.enemy_roster(ctx)
+        .map_err(|error| error.to_string())?.into_enemy_ids();
     let enemies = enemy_ids
         .into_iter()
         .map(|enemy_id| {
@@ -291,7 +289,7 @@ pub fn cancel_mission_request(
         .id()
         .find(&mission_id)
         .ok_or("Mission authority not found")?;
-    mission.parsed_state()?;
+    mission.parsed_state().map_err(|error| error.to_string())?;
     if mission.party_id != party_id {
         return Err("Mission request belongs to another party".into());
     }
@@ -320,7 +318,7 @@ pub fn cancel_mission_request(
         .mission_id()
         .delete(&mission_id);
     mission.status = MissionAttemptStatus::Cancelled;
-    mission.parsed_state()?;
+    mission.parsed_state().map_err(|error| error.to_string())?;
     ctx.db.mission_authority().id().update(mission);
     Ok(())
 }
@@ -353,7 +351,7 @@ pub fn bootstrap_development_world(
 /// Reject a dev-bootstrap call whose token does not match the compiled
 /// capability. Shared by every split bootstrap reducer so the granular seed
 /// path is gated exactly like [`bootstrap_development_world`].
-fn require_dev_bootstrap_token(bootstrap_token: &str) -> Result<(), String> {
+pub(crate) fn require_dev_bootstrap_token(bootstrap_token: &str) -> Result<(), String> {
     if !adventuresim_core::simulation_security::simulation_bootstrap_authorized(
         COMPILED_DEV_BOOTSTRAP_TOKEN,
         bootstrap_token,
@@ -493,18 +491,18 @@ pub fn dev_bootstrap_gallery_validate(
 /// disposable, so this may replace the seeded character's equipped roots
 /// without affecting strategic state or player data.
 fn configure_diagnostic_player(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    use adventuresim_core::starting_character::StartingSlot;
+    use adventuresim_core::equipment::LoadoutSlot;
 
-    const LONGSWORD_LOADOUT: &[(&str, StartingSlot)] = &[
-        ("linen_tunic", StartingSlot::Chest),
-        ("linen_breeches", StartingSlot::LeftLeg),
-        ("leather_boot", StartingSlot::LeftFoot),
-        ("leather_boot", StartingSlot::RightFoot),
-        ("morion", StartingSlot::Head),
-        ("breastplate", StartingSlot::Chest),
-        ("vambrace", StartingSlot::LeftArm),
-        ("vambrace", StartingSlot::RightArm),
-        ("longsword", StartingSlot::RightHand),
+    const LONGSWORD_LOADOUT: &[(&str, LoadoutSlot)] = &[
+        ("linen_tunic", LoadoutSlot::Chest),
+        ("linen_breeches", LoadoutSlot::LeftLeg),
+        ("leather_boot", LoadoutSlot::LeftFoot),
+        ("leather_boot", LoadoutSlot::RightFoot),
+        ("morion", LoadoutSlot::Head),
+        ("breastplate", LoadoutSlot::Chest),
+        ("vambrace", LoadoutSlot::LeftArm),
+        ("vambrace", LoadoutSlot::RightArm),
+        ("longsword", LoadoutSlot::RightHand),
     ];
 
     crate::character::replace_development_loadout(ctx, character_id, LONGSWORD_LOADOUT)
@@ -731,35 +729,10 @@ pub fn seed_standalone_tactical_mission(
     let mission = if let Some(existing) = ctx.db.mission_authority().id().find(&mission_id) {
         existing
     } else {
-        let enemy_combat_scale_bps = group.combat_scale_bps;
-        let normalized_combat_power = group.normalized_combat_power;
-        ctx.db.mission_authority().insert(MissionAuthority {
-            id: mission_id.clone(),
-            party_id: party_id.clone(),
-            case_site_id: Some(case_site.id.clone()),
-            hostile_group_id: Some(hostile_group_id.clone()),
-            observer_character_id: character_id,
-            case_id: case_id.clone(),
-            outcome_entropy: ctx.random(),
-            status: MissionAttemptStatus::Bound,
-            committed_resolution: None,
-            committed_capture_subject_id: None,
-            committed_capture_custody_version: None,
-            scene_key: scene_key.clone(),
-            hostile_version: group.escalation_incident_ordinal,
-            enemy_count: group.enemy_count,
-            enemy_character_ids: crate::world_actor::context_character_ids(ctx, &hostile_group_id),
-            contacted_before_combat: crate::world_actor::party_contacted_context(
-                ctx,
-                &party_id,
-                &hostile_group_id,
-            ),
-            enemy_difficulty: group.base_difficulty,
-            enemy_combat_scale_bps,
-            normalized_combat_power,
-            drop_item_id: group.drop_item_id.clone(),
-            drop_quantity: group.drop_quantity,
-        })
+        let snapshot = MissionAuthority::capture(ctx, &mission_id, &party_id,
+            character_id, &case_site, &group, &scene_key)
+            .map_err(|error| error.to_string())?;
+        ctx.db.mission_authority().insert(snapshot)
     };
     if mission.hostile_group_id.as_deref() != Some(&hostile_group_id) {
         return Err("Standalone mission resolved to an unexpected hostile group".into());
@@ -789,9 +762,12 @@ pub fn seed_standalone_tactical_mission(
                 capture_custody_version: None,
             });
     }
-    let (authorized_party_member_ids, expected_party_members) =
-        crate::tactical::tactical_party_roster(ctx, &party_id)?;
+    let enemy_roster = mission.enemy_roster(ctx).map_err(|error| error.to_string())?;
+    let authorized_party_member_ids = crate::tactical::tactical_party_roster(ctx, &party_id)
+        .map_err(|error| error.to_string())?
+        .into_member_ids();
     let settlement = crate::tactical::tactical_settlement_snapshot(ctx, &case_site)?;
+    let environment_minutes = party_wilderness_environment_minutes(&party);
     ctx.db
         .tactical_server_request_authority()
         .insert(crate::tactical::TacticalServerRequest {
@@ -803,20 +779,19 @@ pub fn seed_standalone_tactical_mission(
             longitude_e7: case_site.longitude_e7,
             latitude_e7: case_site.latitude_e7,
             settlement,
-            absolute_minute: party_wilderness_environment_minutes(&party)
+            absolute_minute: environment_minutes
                 .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.0),
-            lunar_phase_minute: party_wilderness_environment_minutes(&party)
+            lunar_phase_minute: environment_minutes
                 .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.1),
-            expected_party_members,
             authorized_party_member_ids,
-            required_enemy_kills,
+            required_enemy_kills: enemy_roster.enemy_count().get(),
             enemy_difficulty: mission.enemy_difficulty,
             enemy_combat_scale_bps: mission.enemy_combat_scale_bps,
             countermeasure_multiplier_bps: u32::from(
                 adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
             ),
             normalized_combat_power: mission.normalized_combat_power,
-            enemy_character_ids: mission.enemy_character_ids.clone(),
+            enemy_character_ids: enemy_roster.into_enemy_ids(),
             party_has_surprise: !mission.contacted_before_combat,
         });
     ctx.db
@@ -2761,9 +2736,10 @@ mod developer_quest_source_tests {
     #[test]
     fn developer_witness_projection_matches_core_for_every_presentation() {
         use crate::personality::Presentation;
+        use adventuresim_core::settlement_population::AgeBand;
         use adventuresim_world_schema::Sex;
         use crate::settlement_population::{
-            NpcAgeBand, ResolvedSettlementResident, SettlementResidentPresence,
+            ResolvedSettlementResident, SettlementResidentPresence,
             SettlementResidentProfile,
         };
         use adventuresim_core::quest_generation::{
@@ -2805,7 +2781,7 @@ mod developer_quest_source_tests {
                     conversation_id: "local-resident".into(),
                 },
                 name: "Visible Witness".into(),
-                age_band: NpcAgeBand::Adult,
+                age_band: AgeBand::Adult,
                 sex: Sex::Female,
                 presentation,
             };

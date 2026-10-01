@@ -1,30 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{MAX_MINIMIZATION_SUBSETS, ORDERED_SIGIL_COUNT, ORDERED_SIGIL_RULES_VERSION};
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-pub enum Sigil {
-    Crown,
-    Hart,
-    Moon,
-    Rose,
-    Sword,
-}
-
-impl Sigil {
-    pub const ALL: [Self; ORDERED_SIGIL_COUNT] =
-        [Self::Crown, Self::Hart, Self::Moon, Self::Rose, Self::Sword];
-
-    pub const fn label(self) -> &'static str {
-        match self {
-            Self::Crown => "Crown",
-            Self::Hart => "Hart",
-            Self::Moon => "Moon",
-            Self::Rose => "Rose",
-            Self::Sword => "Sword",
-        }
-    }
-}
+use super::{MAX_MINIMIZATION_SUBSETS, ORDERED_SIGIL_COUNT, ORDERED_SIGIL_RULES_VERSION, Sigil};
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum OrderedSigilClue {

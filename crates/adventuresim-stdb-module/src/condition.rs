@@ -83,6 +83,9 @@ pub struct MoraleEvent {
 }
 
 /// Refreshable server-authoritative projection used by strategic clients.
+/// Durable needs, wounds, illness, and morale stimuli own its inputs; condition
+/// refresh and chronological settlement update this query projection together
+/// with dependent capability. It does not store live tactical impairment.
 #[derive(Clone, Debug, PartialEq)]
 #[table(accessor = character_strategic_condition)]
 pub struct CharacterStrategicCondition {

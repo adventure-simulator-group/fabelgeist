@@ -14,7 +14,6 @@ pub struct DiscoveredOffense {
     pub settlement_id: String,
     pub kind: String,
     pub severity: u8,
-    pub execution_eligible: bool,
     pub occurred_at_minute: StrategicMinute,
     pub settled: bool,
 }
@@ -32,7 +31,6 @@ pub struct DiscoveredOffenseCols {
     pub settlement_id: __sdk::__query_builder::Col<DiscoveredOffense, String>,
     pub kind: __sdk::__query_builder::Col<DiscoveredOffense, String>,
     pub severity: __sdk::__query_builder::Col<DiscoveredOffense, u8>,
-    pub execution_eligible: __sdk::__query_builder::Col<DiscoveredOffense, bool>,
     pub occurred_at_minute: __sdk::__query_builder::Col<DiscoveredOffense, StrategicMinute>,
     pub settled: __sdk::__query_builder::Col<DiscoveredOffense, bool>,
 }
@@ -46,7 +44,6 @@ impl __sdk::__query_builder::HasCols for DiscoveredOffense {
             settlement_id: __sdk::__query_builder::Col::new(table_name, "settlement_id"),
             kind: __sdk::__query_builder::Col::new(table_name, "kind"),
             severity: __sdk::__query_builder::Col::new(table_name, "severity"),
-            execution_eligible: __sdk::__query_builder::Col::new(table_name, "execution_eligible"),
             occurred_at_minute: __sdk::__query_builder::Col::new(table_name, "occurred_at_minute"),
             settled: __sdk::__query_builder::Col::new(table_name, "settled"),
         }
