@@ -6,7 +6,7 @@ import { execFileSync } from "node:child_process";
 import { reviewCases, adversarialReviewCases } from "./src/review-cases.js";
 
 // Optional Playwright dependency is confined to capture tooling; the modeler
-// itself still runs with Node and WebGL alone.
+// renderer uses WebGL and the shared Rust kernel through WebAssembly.
 const options = {};
 for (let index = 2; index < process.argv.length; index += 2) {
   const key = process.argv[index], value = process.argv[index + 1];
@@ -32,6 +32,22 @@ try {
   const page = await browser.newPage({ viewport: manifest.viewport, deviceScaleFactor: 1 });
   await page.addInitScript((fixtures) => { window.reviewFixtures = fixtures; }, cases);
   const errors = [];
+  const kernelSnapshots = [];
+  await mkdir(resolve(output, "source", "kernel"), { recursive: true });
+  page.on("response", (response) => {
+    const resource = new URL(response.url()).pathname;
+    if (!/^\/kernel\/weapon-kernel(?:_bg\.wasm|\.js)$/.test(resource)) return;
+    kernelSnapshots.push((async () => {
+      const bytes = await response.body();
+      const name = resource.slice(1);
+      const hash = createHash("sha256").update(bytes).digest("hex");
+      if (manifest.sources[name] && manifest.sources[name] !== hash) {
+        throw new Error(`Kernel changed during capture: ${resource}`);
+      }
+      manifest.sources[name] = hash;
+      await writeFile(resolve(output, "source", name), bytes);
+    })().catch((error) => errors.push(error.message)));
+  });
   page.on("pageerror", (error) => errors.push(error.message));
   for (const lod of (options.lods ?? "low,medium,high").split(",")) {
     for (const view of (options.views ?? "front-whole,oblique-detail,back-whole").split(",")) {
@@ -42,6 +58,10 @@ try {
         await page.locator('body[data-ready="true"]').waitFor();
         await page.evaluate(() => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done))));
         const result = await page.evaluate(() => window.reviewManifest);
+        await Promise.all(kernelSnapshots);
+        if (!manifest.sources["kernel/weapon-kernel_bg.wasm"]) {
+          throw new Error("Capture did not retain the loaded weapon kernel");
+        }
         const file = `${lod}-${view}-${batch}.png`;
         await page.screenshot({ path: resolve(output, file), fullPage: true });
         manifest.captures.push({ file, ...result });

@@ -10,9 +10,16 @@ const WELL_LIT_SAMPLE: f32 = 0.4;
 const EXPOSURE_SETTLED_TOLERANCE_STOPS: f32 = 0.005;
 
 #[derive(Resource, Default)]
-pub(super) struct InteriorExposure {
+pub(crate) struct InteriorExposure {
     compensation: f32,
     scene: Option<Entity>,
+    settled: bool,
+}
+
+impl InteriorExposure {
+    pub(crate) fn is_settled(&self) -> bool {
+        self.scene.is_none() || self.settled
+    }
 }
 
 fn approach(current: f32, target: f32, elapsed: f32) -> f32 {
@@ -65,6 +72,7 @@ pub(super) fn adapt_exposure(
         }
     }
     state.compensation = approach(state.compensation, target, time.delta_secs());
+    state.settled = state.compensation == target;
     exposure.ev100 = snapshot.exposure_ev100
         - state
             .compensation

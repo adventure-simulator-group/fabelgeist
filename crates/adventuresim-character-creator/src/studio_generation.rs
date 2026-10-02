@@ -84,7 +84,7 @@ pub(super) fn regenerate_mesh(
             mail_maps.material(
                 &mut images,
                 material,
-                catalog.design(&piece.item_id).as_ref(),
+                catalog.design(&piece.item_id, &piece.placement_id).as_ref(),
             ),
         ) {
             studio.status = format!("Armor preview failed: {error:#}");

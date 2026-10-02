@@ -1,21 +1,17 @@
 fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
     let Some(church) = &plan.church else {
-        if plan.archetype == BuildingArchetype::Cathedral {
+        if matches!(plan.archetype, BuildingArchetype::Cathedral | BuildingArchetype::ParishChurch) && plan.small_church.is_none() {
             issues.push(issue(
                 "missing_church_program",
-                "cathedral has no authoritative church assembly".to_owned(),
+                "church has no authoritative physical assembly".to_owned(),
             ));
         }
         return;
     };
     let program = church.program;
-    if plan.archetype != BuildingArchetype::Cathedral
-        || program.liturgical_east != Direction::East
-        || program.nave_bays != 4
-        || program.transept_bays != 1
-        || program.choir_bays != 2
-        || program.apse_sides != 5
-        || program.aisles != 3
+    if !matches!(plan.archetype, BuildingArchetype::Cathedral | BuildingArchetype::ParishChurch)
+        || program != crate::ChurchProgram::URBAN_BRICK_BASILICA
+        || plan.small_church.is_some()
     {
         issues.push(issue(
             "invalid_church_program",

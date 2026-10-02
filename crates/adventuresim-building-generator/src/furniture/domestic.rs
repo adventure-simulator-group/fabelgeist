@@ -2,6 +2,7 @@
 use super::{FurnitureKey, FurnitureKind, builder::Builder};
 use bevy::math::Vec3;
 
+mod bedding;
 mod beds;
 mod cabinets;
 mod seating;
@@ -50,14 +51,7 @@ fn legs(builder: &mut Builder, size: Vec3, height: f32, thickness: f32) {
     }
 }
 
-/// Close-jointed boards make the surface readable without adding tabletop contents.
+/// Close-jointed working boards retain their authored contact/repair treatment.
 fn boards(builder: &mut Builder, centre: Vec3, size: Vec3) {
-    let count = (size.z / 0.18).ceil() as usize;
-    let pitch = size.z / count as f32;
-    for index in 0..count {
-        builder.timber(
-            centre + Vec3::Z * (-size.z * 0.5 + (index as f32 + 0.5) * pitch),
-            Vec3::new(size.x, size.y, pitch - 0.003),
-        );
-    }
+    super::finish::boards(builder, centre, size);
 }

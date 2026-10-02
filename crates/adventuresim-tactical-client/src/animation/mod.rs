@@ -402,16 +402,9 @@ pub(crate) struct AuthoredBindTransform {
     pub(super) local: Transform,
 }
 
-#[derive(Component, Debug, Clone, Copy)]
-pub(super) struct ImpactReaction {
-    pub(super) remaining: f32,
-    pub(super) velocity_change: Vec3,
-    pub(super) body_part: BodyPart,
-}
-
-mod full_ragdoll;
+pub(crate) mod bouncy_bones;
 mod loading;
-pub(crate) mod secondary_physics;
+mod ragdoll;
 use loading::*;
 
 #[expect(
@@ -758,28 +751,18 @@ fn combat_cycle_ik_weights(phase: f32) -> Vec2 {
     }
 }
 
-fn on_successful_attack(event: On<SuccessfulAttackResponse>, mut commands: Commands) {
-    if event.impact_velocity_change.length_squared() > f32::EPSILON {
-        commands
-            .entity(event.impact_recipient)
-            .insert(ImpactReaction {
-                remaining: 0.22,
-                velocity_change: event.impact_velocity_change,
-                body_part: event.body_part,
-            });
-    }
-}
-
-fn tick_impact_reactions(
-    mut commands: Commands,
-    time: Res<Time>,
-    mut reactions: Query<(Entity, &mut ImpactReaction)>,
+/// A server-confirmed hit kicks the struck bone's spring on the recipient.
+fn on_successful_attack(
+    event: On<SuccessfulAttackResponse>,
+    mut kicks: MessageWriter<bouncy_bones::BoneKick>,
 ) {
-    for (entity, mut reaction) in &mut reactions {
-        reaction.remaining -= time.delta_secs();
-        if reaction.remaining <= 0.0 {
-            commands.entity(entity).remove::<ImpactReaction>();
-        }
+    if event.impact_velocity_change.length_squared() > f32::EPSILON {
+        kicks.write(bouncy_bones::BoneKick {
+            owner: event.impact_recipient,
+            role: bouncy_bones::impact_bone_role(event.body_part),
+            impulse: event.impact_velocity_change
+                * runtime_animation_config().bouncy_bones.impact_impulse_scale,
+        });
     }
 }
 

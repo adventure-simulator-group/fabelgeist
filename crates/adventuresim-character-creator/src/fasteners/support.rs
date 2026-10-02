@@ -1,8 +1,8 @@
 //! Plate attachment anchors and neighboring support for taut leather closures.
 use super::{StrapDesign, section};
 use crate::armor_frames::FitRegion;
-use adventuresim_armor_model::{PartFrame, PartMesh};
-use anyhow::{Result, ensure};
+use adventuresim_armor_model::{ArmorComponentRole, PartFrame, PartMesh};
+use anyhow::{Context, Result, ensure};
 
 const ADJACENT_PLATE_ALLOWANCE_M: f32 = 0.002;
 const ELBOW_ATTACHMENT_ALLOWANCE_M: f32 = 0.004;
@@ -16,9 +16,24 @@ pub(super) fn local_mesh(
     design: &StrapDesign,
 ) -> Result<PartMesh> {
     let mut metal = section::local_points(&plate.positions, frame);
-    let mut metal_faces = plate.indices.as_chunks::<3>().0.to_vec();
+    // A besagew hangs in front of the arm retention assembly. It is neither
+    // a load-bearing band support nor an anchor. Enclosing its height slices
+    // would switch the band between the disc's inner and outer layers as the
+    // arm changes length. Fit the band to the attached plates and inner limb
+    // assembly; validate the separate suspended layer on the finished mesh.
+    let mut metal_faces = if plate.components.is_empty() {
+        plate.indices.as_chunks::<3>().0.to_vec()
+    } else {
+        plate
+            .components
+            .iter()
+            .filter(|part| part.role != ArmorComponentRole::Besagew)
+            .flat_map(|part| plate.indices[part.indices.clone()].as_chunks::<3>().0)
+            .copied()
+            .collect()
+    };
     if design.underarm_drop.0 > 0 {
-        validate_anchors(&metal, &metal_faces, design)?;
+        validate_anchors(&metal, attachment_faces(plate)?, design)?;
     }
     if let Some(support) = support {
         let offset = metal.len() as u32;
@@ -55,11 +70,32 @@ pub(super) fn local_mesh(
     Ok(mesh)
 }
 
+/// A separate armpit disc cannot supply the shoulder strap's attachment.
+/// Unpartitioned meshes consist of the sole plate supplied by the caller.
+pub(super) fn attachment_faces(plate: &PartMesh) -> Result<&[[u32; 3]]> {
+    let indices = if plate.components.is_empty() {
+        plate.indices.as_slice()
+    } else {
+        let attachment = plate
+            .components
+            .iter()
+            .find(|part| part.role == ArmorComponentRole::Plate)
+            .context("retention closure requires its main plate attachment")?;
+        &plate.indices[attachment.indices.clone()]
+    };
+    Ok(indices.as_chunks::<3>().0)
+}
+
 fn validate_anchors(points: &[[f32; 3]], faces: &[[u32; 3]], design: &StrapDesign) -> Result<()> {
-    let low = points.iter().map(|p| p[1]).fold(f32::INFINITY, f32::min);
-    let high = points
+    let low = faces
         .iter()
-        .map(|p| p[1])
+        .flatten()
+        .map(|v| points[*v as usize][1])
+        .fold(f32::INFINITY, f32::min);
+    let high = faces
+        .iter()
+        .flatten()
+        .map(|v| points[*v as usize][1])
         .fold(f32::NEG_INFINITY, f32::max);
     for band in 0..design.count {
         let fraction = design.height.unit()

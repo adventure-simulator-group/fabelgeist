@@ -1,5 +1,53 @@
 # Third-party notices
 
+## Art demo museum photographs
+
+`assets/art-demo/references/` contains CC0 photographs from the Metropolitan
+Museum of Art. Each image's museum and object record are recorded in
+`assets/art-demo/catalog.json`.
+See [museum photograph attribution](assets/art-demo/ATTRIBUTION.md) for the
+object list and source licensing policies.
+
+## Heraldic lion artwork
+
+`crates/adventuresim-heraldry/references/German_Lion_1530.svg` is *Lion Rampant
+Or (16th century German)* by Tom Lemmens (Tom-L, 2013), after Rinaldum (2009),
+licensed under Creative Commons Attribution-ShareAlike 3.0 Unported. It is a
+modern redraw based on BSB Cod.icon. 391, southern Germany, c. 1530. The
+vendored SVG is unmodified. Fabelgeist contributors adapt anatomy, tinctures,
+painted tones, line widths, tails and heraldic composition. Adapted
+lion artwork remains under CC BY-SA 3.0; this does not relicense the software.
+
+- Source and contributor history:
+  <https://commons.wikimedia.org/wiki/File:Lion_Rampant_Or_(16th_century_German).svg>
+- Rinaldum's original:
+  <https://commons.wikimedia.org/wiki/File:H%C3%A9raldique_meuble_lion_rampant_02.svg>
+- License: <https://creativecommons.org/licenses/by-sa/3.0/>
+- [Asset details, construction and modifications](crates/adventuresim-heraldry/references/ATTRIBUTION.md)
+- SHA-256:
+  `206a2186210fd5957c6dd9749dd6d0ffedcb82ebff7eb5eee126d26b5a2ca672`
+
+## Heraldic eagle artwork
+
+`crates/adventuresim-heraldry/references/eagles/` includes *Arms of the King of
+the Romans (c.1433-1486)* and *Arms of the Holy Roman Emperor
+(c.1433-c.1450)* by Tom Lemmens (Tom-L) and Heralder, under
+[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The originals
+are retained unchanged. Adapted artwork remains under that license.
+
+- [Single eagle source](https://commons.wikimedia.org/wiki/File:Arms_of_the_King_of_the_Romans_(c.1433-1486).svg)
+- [Double eagle source](https://commons.wikimedia.org/wiki/File:Arms_of_the_Holy_Roman_Emperor_(c.1433-c.1450).svg)
+- [Historical provenance, hashes and construction](crates/adventuresim-heraldry/references/EAGLES.md)
+- [Single eagle credit and modifications](crates/adventuresim-heraldry/references/eagles/single.credit.txt)
+- [Double eagle credit and modifications](crates/adventuresim-heraldry/references/eagles/double.credit.txt)
+
+Fabelgeist contributors remove the source shields, identify tongue paths,
+recolor, separate painted tones, alter line widths and asymmetry, reflect,
+compose and render the artwork on physical materials. The double eagle is
+based on the Wernigerode armorial, c. 1475–1500; its modern halos differ from
+the manuscript's head crowns. The single is a modern adaptation in that style.
+Credits and license notices accompany derived exports.
+
 ## Bevy PBR shader
 
 `assets/shaders/tactical_interior_material.wgsl` adapts Bevy 0.19.1's
@@ -7,6 +55,17 @@
 retained in `assets/shaders/BEVY_LICENSE_MIT.txt`.
 
 - Source: <https://github.com/bevyengine/bevy/blob/v0.19.1/crates/bevy_pbr/src/render/pbr.wgsl>
+
+`assets/shaders/tactical_atmosphere_functions.wgsl`,
+`tactical_atmosphere_sky_view_lut.wgsl` and
+`tactical_atmosphere_render_sky.wgsl` adapt Bevy 0.19.1's atmosphere
+shaders under the same MIT license. They correct the forward lookup-coordinate
+mapping, sky lookup texel-centre generation and planet-ground sampling radius.
+They also match atmospheric transport to each anti-aliasing depth sample.
+The Bruneton-derived segment sampling function retains its additional notice in
+`assets/shaders/BRUNETON_LICENSE.txt`.
+
+- Sources: <https://github.com/bevyengine/bevy/tree/v0.19.1/crates/bevy_pbr/src/atmosphere>
 
 ## Meta Momentum Human Rig
 
@@ -179,3 +238,26 @@ in `crates/adventuresim-building-generator/assets/fonts/`.
   <https://github.com/google/fonts/blob/main/ofl/unifrakturcook/UnifrakturCook-Bold.ttf>
 - UnifrakturCook SHA-256:
   `ea002fa9c65f1a612af100e00d87ab65f16381f450020ec3d021f3dbf79a6dcd`
+
+## Historical paint measurements and colorimetry
+
+`crates/adventuresim-heraldry/references/data/measured-paint-data.json` contains
+selected measurements by Anna Sofia Reichert, Ana Belén López-Baldomero,
+Francisco Moronta-Montero, Ana López-Montes, Eva María Valero and Carolina
+Cardell, from [their 2025 dataset, version 3](https://doi.org/10.6084/m9.figshare.28639103.v3),
+under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Changes: selected
+gum-Arabic/parchment specimens, retained 400–780 nm at 5 nm spacing, normalized
+metadata, and recomputed spatial standard deviations from source pixel cubes.
+
+The same file separately contains adapted CIE 1931 2° observer and D65
+illuminant tables by the International Commission on Illumination (CIE),
+under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Sources:
+[observer](https://doi.org/10.25039/CIE.DS.xvudnb9b) and
+[illuminant](https://doi.org/10.25039/CIE.DS.hjfjmt59). Changes: selected
+400–780 nm rows at 5 nm spacing. These adapted tables retain CC BY-SA 4.0;
+the pigment measurements retain their separate CC BY 4.0 notice.
+
+Source metadata, specimen paths and checksums accompany the data. Exports
+using measured paints carry these credits and license links. These licenses
+apply to the identified data, not the generator's software. No endorsement is
+implied. See the crate's `references/MEASURED_PAINT.md` for calibration limits.

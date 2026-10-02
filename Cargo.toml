@@ -10,10 +10,14 @@ members = [
   "crates/adventuresim-terrain",
   "crates/adventuresim-armor-model",
   "crates/adventuresim-weapon-model",
+  "crates/adventuresim-weapon-model-browser",
   "crates/adventuresim-building-generator",
+  "crates/adventuresim-plant-generator",
   "crates/adventuresim-procedural-textures",
   "crates/adventuresim-procedural-materials",
   "crates/adventuresim-texture-studio",
+  "crates/adventuresim-heraldry",
+  "crates/adventuresim-heraldry-studio",
   "crates/adventuresim-stdb-module",
   "crates/adventuresim-stdb-client",
   "crates/adventuresim-tactical-core",
@@ -51,6 +55,7 @@ license = "GPL-3.0"
 [workspace.dependencies]
 ab_glyph = "0.2.32"
 adventuresim-procedural-materials = { path = "crates/adventuresim-procedural-materials" }
+adventuresim-heraldry = { path = "crates/adventuresim-heraldry" }
 adventuresim-tactical-netcode = { version = "0.1.0", default-features = false }
 adventuresim-tactical-core = { version = "0.1.0" }
 adventuresim-stdb-client = { version = "0.1.0" }
@@ -62,6 +67,7 @@ adventuresim-world-schema = { version = "0.1.0", path = "crates/adventuresim-wor
 adventuresim-armor-model = { version = "0.1.0", path = "crates/adventuresim-armor-model" }
 adventuresim-weapon-model = { version = "0.1.0", path = "crates/adventuresim-weapon-model" }
 adventuresim-building-generator = { version = "0.1.0", path = "crates/adventuresim-building-generator" }
+adventuresim-plant-generator = { version = "0.1.0", path = "crates/adventuresim-plant-generator" }
 adventuresim-procedural-textures = { version = "0.1.0", path = "crates/adventuresim-procedural-textures" }
 
 fabelgeist-math = { version = "0.1.0", path = "crates/fabelgeist-math" }
@@ -114,6 +120,7 @@ serde = { version = "1", default-features = false, features = [
   "derive",
 ] }
 serde_json = "1"
+serde_path_to_error = "0.1.20"
 serde-saphyr = "1.0.1"
 postcard = { version = "1.1", default-features = false, features = ["alloc"] }
 sha2 = "0.10"
@@ -177,21 +184,18 @@ bevy_eidolon = { git = "https://github.com/barsoosayque/bevy_eidolon", branch = 
 [profile.win-dev]
 inherits = "dev"
 
-# The browser bundle, built by `scripts/build_wasm.py`. Plain `release` leaves
-# `lto = false` and 16 codegen units, which for this workspace emitted a ~98 MB
-# code section: the browser then pays for it twice, once compiling the module
-# and again running baseline-tier code until background tier-up catches up.
-# Cross-crate LTO and a single codegen unit are kept off `release` itself so
-# native release builds and the scene-viewer benchmarks keep their current
-# codegen and compile times.
-[profile.wasm-release]
-inherits = "release"
-lto = "thin"
-codegen-units = 1
-
 [profile.dev.package."*"]
 opt-level = 3
 
 [profile.dev]
 opt-level = 1
 strip = "debuginfo"
+
+# Keep the ordinary release profile unchanged. The art demo pays the longer
+# link once in exchange for substantially less code to download and compile.
+[profile.wasm-release]
+inherits = "release"
+codegen-units = 1
+lto = "fat"
+opt-level = "z"
+strip = "symbols"

@@ -1,6 +1,5 @@
 //! Editable construction controls for selected catalog armor.
 use super::{EquipmentCatalog, Studio};
-use adventuresim_armor_model::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use adventuresim_character_creator::armor_recipes::ParametricDesign;
 use bevy_egui::egui;
 use std::ops::RangeInclusive;
@@ -26,35 +25,22 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
         .filter(|item| studio.recipe.clothing.iter().any(|c| c.item_id == item.id))
         .filter_map(|item| {
             catalog
-                .design(&item.id)
+                .default_design(&item.id)
                 .map(|design| (item.id.clone(), item.display_name.clone(), design))
         })
         .collect::<Vec<_>>();
     for (id, label, mut design) in selected {
         let changed = ui
-            .collapsing(format!("{label} shape"), |ui| match &mut design {
-                ParametricDesign::Limb(d) => limb::show(ui, d),
-                ParametricDesign::Helmet(d) => helmet::show(ui, d),
-                ParametricDesign::Garment(d) => garment(ui, d),
-                ParametricDesign::Underlayer(d) => underlayer(ui, d),
-                ParametricDesign::WaistAssembly(d) => {
-                    let fauld = ui
-                        .collapsing("Fauld", |ui| garment(ui, &mut d.fauld))
-                        .body_returned
-                        .unwrap_or(false);
-                    let tassets = ui
-                        .collapsing("Tassets", |ui| garment(ui, &mut d.tassets))
-                        .body_returned
-                        .unwrap_or(false);
-                    fauld || tassets
-                }
+            .collapsing(format!("{label} default shape"), |ui| {
+                controls(ui, &mut design)
             })
             .body_returned
             .unwrap_or(false);
         if changed {
-            catalog.1.insert(id, design);
+            catalog.1.defaults.insert(id.clone(), design.clone());
             studio.dirty = true;
         }
+        placement_controls(ui, catalog, studio, &id, &label, &design);
     }
     super::fastener_controls::show(ui, catalog, studio);
     for (label, path) in [
@@ -73,6 +59,89 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
             Ok(()) => "Saved armor shapes and fastenings".into(),
             Err(error) => format!("Could not save armor designs: {error}"),
         };
+    }
+}
+
+fn controls(ui: &mut egui::Ui, design: &mut ParametricDesign) -> bool {
+    match design {
+        ParametricDesign::Limb(d) => limb::show(ui, d),
+        ParametricDesign::Helmet(d) => helmet::show(ui, d),
+        ParametricDesign::Garment(d) => super::garment_controls::show(ui, d),
+        ParametricDesign::Underlayer(d) => underlayer(ui, d),
+        ParametricDesign::WaistAssembly(d) => {
+            let fauld = ui
+                .collapsing("Fauld", |ui| {
+                    super::garment_controls::show(ui, &mut d.fauld)
+                })
+                .body_returned
+                .unwrap_or(false);
+            let tassets = ui
+                .collapsing("Tassets", |ui| {
+                    super::garment_controls::show(ui, &mut d.tassets)
+                })
+                .body_returned
+                .unwrap_or(false);
+            fauld || tassets
+        }
+    }
+}
+
+fn placement_controls(
+    ui: &mut egui::Ui,
+    catalog: &mut EquipmentCatalog,
+    studio: &mut Studio,
+    id: &str,
+    label: &str,
+    default: &ParametricDesign,
+) {
+    use adventuresim_character_creator::armor_design_input::ArmorPlacement;
+    let placements = studio
+        .recipe
+        .clothing
+        .iter()
+        .filter(|c| c.item_id == id)
+        .filter_map(|c| ArmorPlacement::parse(&c.placement_id))
+        .collect::<std::collections::BTreeSet<_>>();
+    for placement in placements {
+        let mut specific = catalog
+            .1
+            .placements
+            .get(id)
+            .and_then(|p| p.get(&placement))
+            .is_some();
+        let toggle = ui.checkbox(
+            &mut specific,
+            format!("Customize {label} {}", placement.as_str()),
+        );
+        if toggle.changed() {
+            if specific {
+                catalog
+                    .1
+                    .placements
+                    .entry(id.into())
+                    .or_default()
+                    .insert(placement, default.clone());
+            } else if let Some(choices) = catalog.1.placements.get_mut(id) {
+                choices.remove(&placement);
+                if choices.is_empty() {
+                    catalog.1.placements.remove(id);
+                }
+            }
+            studio.dirty = true;
+        }
+        if let Some(design) = catalog
+            .1
+            .placements
+            .get_mut(id)
+            .and_then(|p| p.get_mut(&placement))
+        {
+            studio.dirty |= ui
+                .collapsing(format!("{label} {} shape", placement.as_str()), |ui| {
+                    controls(ui, design)
+                })
+                .body_returned
+                .unwrap_or(false);
+        }
     }
 }
 
@@ -137,86 +206,4 @@ fn underlayer(
         );
     }
     changed
-}
-
-fn garment(ui: &mut egui::Ui, d: &mut GarmentArmorDesign) -> bool {
-    let mut changed = false;
-    for (value, range, label) in [
-        (&mut d.length.0, 500..=1300, "Length"),
-        (&mut d.clearance.0, 1..=40, "Padding clearance (mm)"),
-        (&mut d.wall_thickness.0, 1..=16, "Thickness (mm)"),
-    ] {
-        changed |= number(ui, value, range, label);
-    }
-    if matches!(
-        d.kind,
-        GarmentArmorKind::Brigandine
-            | GarmentArmorKind::JackOfPlates
-            | GarmentArmorKind::Fauld
-            | GarmentArmorKind::Tassets
-            | GarmentArmorKind::Gorget
-            | GarmentArmorKind::MailSkirt
-            | GarmentArmorKind::PaddedSkirt
-    ) {
-        changed |= number(ui, &mut d.flare.0, 0..=500, "Hem flare");
-    }
-    if matches!(
-        d.kind,
-        GarmentArmorKind::ArmingDoublet
-            | GarmentArmorKind::Brigandine
-            | GarmentArmorKind::JackOfPlates
-            | GarmentArmorKind::MailShirt
-    ) {
-        changed |= number(ui, &mut d.waist.0, 800..=1100, "Waist width");
-    }
-    match &mut d.plate_shape {
-        GarmentPlateShape::None => return changed,
-        GarmentPlateShape::Fauld {
-            front_arch,
-            waist_rise,
-        } => {
-            changed |= number(ui, &mut waist_rise.0, 0..=80, "Waist rise (mm)");
-            changed |= number(ui, &mut front_arch.0, 0..=350, "Front arch")
-        }
-        GarmentPlateShape::Tassets {
-            inner_cutaway,
-            hem_point,
-            width,
-            gap,
-            hem_roundness,
-        } => {
-            changed |= number(ui, &mut inner_cutaway.0, 0..=400, "Inner cutaway");
-            changed |= number(ui, &mut hem_point.0, 0..=200, "Hem point");
-            changed |= number(ui, &mut width.0, 700..=1150, "Plate width");
-            changed |= number(ui, &mut gap.0, 100..=400, "Separation");
-            changed |= number(ui, &mut hem_roundness.0, 0..=300, "Hem roundness");
-        }
-        GarmentPlateShape::Gorget {
-            neck_clearance,
-            collar_slope,
-            collar_height,
-            hem_flatness,
-            rear_hem_flatness,
-            rear_sweep,
-            front_depth,
-            back_depth,
-            front_width,
-            back_width,
-        } => {
-            changed |= number(ui, &mut neck_clearance.0, 2..=15, "Neck clearance (mm)");
-            changed |= number(ui, &mut collar_slope.0, 0..=1000, "Collar slope");
-            changed |= number(ui, &mut collar_height.0, 500..=2000, "Collar height");
-            changed |= number(ui, &mut hem_flatness.0, 0..=1000, "Front hem flatness");
-            changed |= number(ui, &mut rear_hem_flatness.0, 0..=1000, "Rear hem flatness");
-            changed |= number(ui, &mut rear_sweep.0, 0..=1000, "Rearward shoulder sweep");
-            changed |= number(ui, &mut front_depth.0, 600..=1500, "Front depth");
-            changed |= number(ui, &mut back_depth.0, 600..=1500, "Rear depth");
-            changed |= number(ui, &mut front_width.0, 500..=1300, "Front bib width");
-            changed |= number(ui, &mut back_width.0, 500..=1300, "Rear bib width");
-        }
-    }
-    changed |= ui
-        .add(egui::Slider::new(&mut d.lame_count, 1..=8).text("Lames"))
-        .changed();
-    changed | crate::fluting_controls::show(ui, &mut d.fluting)
 }

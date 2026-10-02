@@ -11,8 +11,8 @@ use adventuresim_tactical_netcode::{
     prelude::{EquipmentAction, EquipmentActionRequest, EquipmentHand},
 };
 use adventuresim_weapon_model::{
-    ICON_RENDERER_VERSION, MaterialClass, WeaponIconSpec, decode, generate, generate_holder_icon,
-    generate_icon,
+    ICON_RENDERER_VERSION, Material as WeaponMaterial, WeaponIconSpec, decode, generate,
+    generate_holder_icon, generate_icon,
 };
 use bevy::{
     asset::{LoadState, RenderAssetUsages},
@@ -30,6 +30,8 @@ use bevy_mod_outline::{OutlineMode, OutlinePlugin, OutlineVolume};
 use serde::Deserialize;
 
 mod grab_world;
+mod icons;
+use icons::*;
 mod model_loading;
 mod morphs;
 use model_loading::resolve_procedural_equipment_models;
@@ -182,12 +184,13 @@ struct CachedWeapon {
 struct WeaponMeshCache {
     weapons: HashMap<WeaponMeshCacheKey, CachedWeapon>,
     holders: HashMap<WeaponMeshCacheKey, CachedWeapon>,
-    materials: HashMap<MaterialClass, Handle<StandardMaterial>>,
+    materials: HashMap<WeaponMaterial, Handle<StandardMaterial>>,
 }
 
 #[derive(Resource, Default)]
 struct WeaponIconCache {
     icons: HashMap<WeaponIconCacheKey, Handle<Image>>,
+    armor: HashMap<String, Handle<Image>>,
 }
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
@@ -639,126 +642,6 @@ fn hud_layers(
     output
 }
 
-fn cached_weapon_icon(
-    appearance: &WeaponAppearance,
-    cache: &mut WeaponIconCache,
-    images: &mut Assets<Image>,
-) -> Option<Handle<Image>> {
-    if appearance.recipe.len() > 16 * 1024
-        || appearance.generator_version != adventuresim_weapon_model::GENERATOR_VERSION
-    {
-        return None;
-    }
-    let design = decode(&appearance.recipe).ok()?;
-    if adventuresim_weapon_model::design_hash(&design).0 != appearance.design_hash {
-        return None;
-    }
-    let key = WeaponIconCacheKey {
-        source: IconSource::Weapon,
-        generator_version: appearance.generator_version,
-        renderer_version: ICON_RENDERER_VERSION,
-        design_hash: appearance.design_hash,
-        size: TACTICAL_WEAPON_ICON_SIZE,
-        supersampling: TACTICAL_WEAPON_ICON_SUPERSAMPLING,
-    };
-    if let Some(cached) = cache.icons.get(&key) {
-        return Some(cached.clone());
-    }
-    let icon = generate_icon(
-        &design,
-        WeaponIconSpec {
-            size: TACTICAL_WEAPON_ICON_SIZE,
-            supersampling: TACTICAL_WEAPON_ICON_SUPERSAMPLING,
-        },
-    )
-    .ok()?;
-    let rgba = icon
-        .alpha
-        .into_iter()
-        .flat_map(|alpha| [255, 255, 255, alpha])
-        .collect();
-    let handle = images.add(Image::new(
-        Extent3d {
-            width: u32::from(TACTICAL_WEAPON_ICON_SIZE),
-            height: u32::from(TACTICAL_WEAPON_ICON_SIZE),
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        rgba,
-        TextureFormat::Rgba8UnormSrgb,
-        RenderAssetUsages::MAIN_WORLD | RenderAssetUsages::RENDER_WORLD,
-    ));
-    cache.icons.insert(key, handle.clone());
-    Some(handle)
-}
-
-fn cached_holder_icon(
-    appearance: &WeaponHolderAppearance,
-    cache: &mut WeaponIconCache,
-    images: &mut Assets<Image>,
-) -> Option<Handle<Image>> {
-    if appearance.recipe.len() > 16 * 1024
-        || appearance.generator_version != adventuresim_weapon_model::HOLDER_GENERATOR_VERSION
-    {
-        return None;
-    }
-    let design = adventuresim_weapon_model::decode_holder(&appearance.recipe).ok()?;
-    if adventuresim_weapon_model::holder_design_hash(&design).0 != appearance.design_hash {
-        return None;
-    }
-    let key = WeaponIconCacheKey {
-        source: IconSource::Holder,
-        generator_version: appearance.generator_version,
-        renderer_version: ICON_RENDERER_VERSION,
-        design_hash: appearance.design_hash,
-        size: TACTICAL_WEAPON_ICON_SIZE,
-        supersampling: TACTICAL_WEAPON_ICON_SUPERSAMPLING,
-    };
-    if let Some(cached) = cache.icons.get(&key) {
-        return Some(cached.clone());
-    }
-    let icon = generate_holder_icon(
-        &design,
-        WeaponIconSpec {
-            size: TACTICAL_WEAPON_ICON_SIZE,
-            supersampling: TACTICAL_WEAPON_ICON_SUPERSAMPLING,
-        },
-    )
-    .ok()?;
-    let rgba = icon
-        .alpha
-        .into_iter()
-        .flat_map(|alpha| [255, 255, 255, alpha])
-        .collect();
-    let handle = images.add(Image::new(
-        Extent3d {
-            width: u32::from(TACTICAL_WEAPON_ICON_SIZE),
-            height: u32::from(TACTICAL_WEAPON_ICON_SIZE),
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        rgba,
-        TextureFormat::Rgba8UnormSrgb,
-        RenderAssetUsages::MAIN_WORLD | RenderAssetUsages::RENDER_WORLD,
-    ));
-    cache.icons.insert(key, handle.clone());
-    Some(handle)
-}
-
-fn equipment_icon_image(
-    entity: Option<Entity>,
-    fallback_slug: &str,
-    size: egui::Vec2,
-    procedural: &HashMap<Entity, egui::TextureId>,
-    atlas: egui::TextureId,
-) -> egui::Image<'static> {
-    if let Some(texture) = entity.and_then(|entity| procedural.get(&entity)).copied() {
-        egui::Image::new((texture, size))
-    } else {
-        egui::Image::new((atlas, size)).uv(icon_uv(fallback_slug))
-    }
-}
-
 #[expect(
     clippy::too_many_arguments,
     reason = "Bevy injects HUD contexts, icon stores, player equipment, appearances, and grab state independently"
@@ -789,23 +672,19 @@ fn draw_slot_hud(
     });
     let atlas = icon_atlas.get_or_insert_with(|| asset_server.load("tactical-equipment-icons.png"));
     let atlas_texture = contexts.add_image(EguiTextureHandle::Weak(atlas.id()));
-    let mut procedural_textures = weapon_appearances
-        .iter()
-        .filter_map(|(entity, appearance)| {
-            let handle = cached_weapon_icon(appearance, &mut weapon_icon_cache, &mut images)?;
-            let texture = contexts.add_image(EguiTextureHandle::Weak(handle.id()));
-            Some((entity, texture))
-        })
-        .collect::<HashMap<_, _>>();
-    procedural_textures.extend(
-        holder_appearances
-            .iter()
-            .filter_map(|(entity, appearance)| {
-                let handle = cached_holder_icon(appearance, &mut weapon_icon_cache, &mut images)?;
-                let texture = contexts.add_image(EguiTextureHandle::Weak(handle.id()));
-                Some((entity, texture))
-            }),
+    let mut procedural_textures = procedural_textures(
+        &mut contexts,
+        &mut weapon_icon_cache,
+        &mut images,
+        &weapon_appearances,
+        &holder_appearances,
     );
+    procedural_textures.extend(weapon_icon_cache.armor_textures(
+        &items,
+        &scene_items,
+        &asset_server,
+        &mut contexts,
+    ));
     let Ok(context) = contexts.ctx_mut() else {
         return;
     };
@@ -1056,7 +935,7 @@ fn draw_slot_hud(
 }
 
 fn weapon_material(
-    class: MaterialClass,
+    class: WeaponMaterial,
     cache: &mut WeaponMeshCache,
     materials: &mut Assets<StandardMaterial>,
 ) -> Handle<StandardMaterial> {
@@ -1065,31 +944,21 @@ fn weapon_material(
         .entry(class)
         .or_insert_with(|| {
             let base_color = match class {
-                MaterialClass::Wood => Color::srgb(0.30, 0.18, 0.09),
-                MaterialClass::Leather => Color::srgb(0.16, 0.09, 0.05),
-                MaterialClass::DarkLeather => Color::srgb(0.055, 0.045, 0.038),
-                MaterialClass::Brass => Color::srgb(0.58, 0.42, 0.13),
-                MaterialClass::Steel => Color::srgb(0.55, 0.58, 0.60),
-                MaterialClass::DarkSteel => Color::srgb(0.22, 0.24, 0.26),
+                WeaponMaterial::Wood => Color::srgb(0.30, 0.18, 0.09),
+                WeaponMaterial::Leather => Color::srgb(0.16, 0.09, 0.05),
+                WeaponMaterial::DarkLeather => Color::srgb(0.055, 0.045, 0.038),
+                WeaponMaterial::Brass => Color::srgb(0.58, 0.42, 0.13),
+                WeaponMaterial::Steel => Color::srgb(0.55, 0.58, 0.60),
+                WeaponMaterial::DarkSteel => Color::srgb(0.22, 0.24, 0.26),
+                material => {
+                    let [r, g, b] = material.color().map(|n| n as f32);
+                    Color::srgb(r, g, b)
+                }
             };
             materials.add(StandardMaterial {
                 base_color,
-                metallic: if matches!(
-                    class,
-                    MaterialClass::Brass | MaterialClass::Steel | MaterialClass::DarkSteel
-                ) {
-                    0.82
-                } else {
-                    0.0
-                },
-                perceptual_roughness: if matches!(
-                    class,
-                    MaterialClass::Brass | MaterialClass::Steel | MaterialClass::DarkSteel
-                ) {
-                    0.34
-                } else {
-                    0.76
-                },
+                metallic: if class.is_metal() { 0.82 } else { 0.0 },
+                perceptual_roughness: if class.is_metal() { 0.34 } else { 0.76 },
                 ..default()
             })
         })
@@ -1102,7 +971,7 @@ fn cached_weapon(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
 ) -> Option<CachedWeapon> {
-    if appearance.recipe.len() > 16 * 1024 {
+    if appearance.recipe.len() > adventuresim_weapon_model::MAX_ENCODED_RECIPE_BYTES {
         return None;
     }
     if appearance.generator_version != adventuresim_weapon_model::GENERATOR_VERSION {
@@ -1155,7 +1024,7 @@ fn cached_holder(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
 ) -> Option<CachedWeapon> {
-    if appearance.recipe.len() > 16 * 1024
+    if appearance.recipe.len() > adventuresim_weapon_model::MAX_ENCODED_RECIPE_BYTES
         || appearance.generator_version != adventuresim_weapon_model::HOLDER_GENERATOR_VERSION
     {
         return None;
@@ -1665,6 +1534,14 @@ mod tests {
                 assert!(
                     asset_root.join("equipment/procedural").join(file).is_file(),
                     "manifest asset {file} should exist"
+                );
+                let portrait = format!("icons/{}.png", file.strip_suffix(".glb").unwrap());
+                assert!(
+                    asset_root
+                        .join("equipment/procedural")
+                        .join(portrait)
+                        .is_file(),
+                    "manifest asset {file} must ship its portrait"
                 );
             }
         }

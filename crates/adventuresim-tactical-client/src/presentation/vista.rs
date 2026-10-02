@@ -6,7 +6,7 @@ use super::*;
 use adventuresim_tactical_core::vista_surface::*;
 use fabelgeist_determinism::splitmix64;
 
-mod streets;
+pub(super) mod streets;
 mod surface;
 pub(super) mod tree_cards;
 
@@ -48,6 +48,7 @@ pub(super) fn on_scene_vista_bundle(
     mut tree_materials: tree_cards::VistaTreeMaterials,
     mut images: ResMut<Assets<Image>>,
     mut vista_tree_cache: ResMut<VistaTreePresentationCache>,
+    prepared_tree_impostors: PreparedTreeImpostors,
     mut city_ground: streets::CityGroundAssets,
 ) {
     let started = web_time::Instant::now();
@@ -78,10 +79,7 @@ pub(super) fn on_scene_vista_bundle(
         .unwrap_or(Color::srgb_u8(37, 61, 4));
     let material = materials.add(vista_material(weather, vista_grass_color));
     if playable_scene.is_none() {
-        warn!(
-            scene_digest = %bundle.scene_digest,
-            "Tactical vista arrived before its authoritative playable terrain; edge stitching is unavailable"
-        );
+        warn!(scene_digest = %bundle.scene_digest, "Vista arrived before playable terrain");
     }
     let mut inner_half_extent = bundle.playable_half_extent_metres;
     for (index, lod) in visible_lods.iter().copied().enumerate() {
@@ -121,6 +119,7 @@ pub(super) fn on_scene_vista_bundle(
                 &mut tree_materials,
                 &mut images,
                 &mut vista_tree_cache,
+                prepared_tree_impostors.get(),
             );
         }
         inner_half_extent = Vec2::new(
@@ -200,7 +199,7 @@ fn spawn_near_vista_details(
         meshes,
         grass_materials,
         grass,
-        urban_ground,
+        &urban_ground,
     );
     spawn_vista_rocks(
         commands,
@@ -224,7 +223,7 @@ struct VistaTuftPlacement<'a> {
     playable_half_extent: Vec2,
     playable_terrain: &'a SceneTerrain,
     playable_ground: &'a SceneGround,
-    urban_ground: UrbanGround<'a>,
+    urban_ground: &'a UrbanGround,
     profile: GrassCommunityProfile,
     community_seed: u64,
     /// How far past the playable rectangle this sward reaches, in metres.
@@ -325,7 +324,7 @@ fn spawn_near_vista_scatter(
     meshes: &mut Assets<Mesh>,
     grass_materials: &mut Assets<TacticalGrassInstancedMaterial>,
     grass: &crate::presentation::config::GrassConfig,
-    urban_ground: UrbanGround<'_>,
+    urban_ground: &UrbanGround,
 ) {
     if !grass.enabled {
         return;
@@ -443,7 +442,7 @@ fn stitched_vista_topology_coverage(
     playable_half_extent: Vec2,
     playable_ground: &SceneGround,
     point: Vec2,
-    urban_ground: UrbanGround<'_>,
+    urban_ground: &UrbanGround,
 ) -> f32 {
     if urban_ground.suppresses_grass(point) {
         return 0.0;
@@ -704,6 +703,7 @@ fn spawn_vista_trees(
     materials: &mut tree_cards::VistaTreeMaterials<'_>,
     images: &mut Assets<Image>,
     cache: &mut VistaTreePresentationCache,
+    prepared: Option<&PreparedTreeImpostorAsset>,
 ) {
     let width = usize::from(lod.width);
     let depth = usize::from(lod.depth);
@@ -750,14 +750,9 @@ fn spawn_vista_trees(
                 let Some(height) = presented_height_at(lod, world, coarser_lod) else {
                     continue;
                 };
-                // Vista stands share one calibrated whole-tree atlas. Scale,
-                // rotation-independent view selection, and placement still
-                // break repetition without baking during every source cell.
+                // One calibrated whole-tree atlas avoids baking for every source cell.
                 let variant_seed = splitmix64(0x6f61_6b00);
-                let species =
-                    environment.map_or(TreePresentationSpecies::EnglishOak, |environment| {
-                        tree_species_for_site(Vec3::new(local.x, 0.0, local.y), environment)
-                    });
+                let species = vista_tree_species(environment, local);
                 let cached = ensure_vista_tree_variant(
                     variant_seed,
                     0.5,
@@ -766,6 +761,7 @@ fn spawn_vista_trees(
                     &mut materials.impostor,
                     images,
                     cache,
+                    prepared,
                 );
                 // Each atlas represents the visible crown mass of a small
                 // stand at regional distance, not a survey-accurate stem.
@@ -1627,7 +1623,7 @@ mod tests {
                 Vec2::splat(10.0),
                 &ground,
                 Vec2::new(x, 0.0),
-                UrbanGround::new(&[], &[]),
+                &UrbanGround::new(&[], &[]),
             )
         };
         let boundary = coverage(10.0);
@@ -1651,7 +1647,7 @@ mod tests {
                 Vec2::splat(10.0),
                 &ground,
                 Vec2::new(22.0, 0.0),
-                UrbanGround::new(&street, &[]),
+                &UrbanGround::new(&street, &[]),
             ),
             0.0
         );

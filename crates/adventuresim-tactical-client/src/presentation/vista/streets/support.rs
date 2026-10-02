@@ -4,12 +4,12 @@ use super::*;
 use bevy::mesh::VertexAttributeValues;
 use std::collections::BTreeMap;
 
-const SUPPORT_CHUNK_METRES: f32 = 32.0;
 const CLIP_EPSILON: f32 = 0.00001;
 
 #[derive(Clone, Default)]
 pub(in crate::presentation::vista) struct GroundSupport {
     chunks: BTreeMap<(i32, i32), SupportChunk>,
+    maximum_triangle_reach_metres: f32,
 }
 
 #[derive(Clone)]
@@ -43,7 +43,15 @@ impl GroundSupport {
                 continue;
             }
             let centre = (triangle[0] + triangle[1] + triangle[2]) / 3.0;
-            let key = (centre.xz() / SUPPORT_CHUNK_METRES).floor().as_ivec2();
+            self.maximum_triangle_reach_metres = self.maximum_triangle_reach_metres.max(
+                triangle
+                    .into_iter()
+                    .map(|point| (point.xz() - centre.xz()).abs().max_element())
+                    .fold(0.0, f32::max),
+            );
+            let key = (centre.xz() / partition::SPATIAL_CELL_METRES)
+                .floor()
+                .as_ivec2();
             let chunk = self
                 .chunks
                 .entry((key.x, key.y))
@@ -67,7 +75,17 @@ impl GroundSupport {
         let maximum = corners
             .into_iter()
             .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
-        for chunk in self.chunks.values().filter(|chunk| {
+        let reach = Vec2::splat(self.maximum_triangle_reach_metres);
+        let key_minimum = ((minimum - reach) / partition::SPATIAL_CELL_METRES)
+            .floor()
+            .as_ivec2();
+        let key_maximum = ((maximum + reach) / partition::SPATIAL_CELL_METRES)
+            .floor()
+            .as_ivec2();
+        let chunks = (key_minimum.x..=key_maximum.x).flat_map(|x| {
+            (key_minimum.y..=key_maximum.y).filter_map(move |y| self.chunks.get(&(x, y)))
+        });
+        for chunk in chunks.filter(|chunk| {
             chunk.maximum.cmpge(minimum).all() && chunk.minimum.cmple(maximum).all()
         }) {
             for &triangle in &chunk.triangles {
@@ -148,6 +166,34 @@ pub(super) fn footprint_uv(corners: [Vec2; 4], point: Vec2) -> Vec2 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn triangle_reaching_across_a_chunk_boundary_remains_queryable() {
+        let mut mesh = Mesh::new(
+            PrimitiveTopology::TriangleList,
+            RenderAssetUsages::MAIN_WORLD,
+        );
+        mesh.insert_attribute(
+            Mesh::ATTRIBUTE_POSITION,
+            vec![[-1.0, 0.0, -2.0], [-1.0, 0.0, 2.0], [100.0, 0.0, -2.0]],
+        );
+        mesh.insert_indices(Indices::U32(vec![0, 1, 2]));
+        let mut support = GroundSupport::default();
+        support.add_mesh(&mesh, Vec3::ZERO);
+        let mut triangles = Vec::new();
+
+        support.clip(
+            [
+                Vec2::new(-0.5, -0.5),
+                Vec2::new(0.5, -0.5),
+                Vec2::new(0.5, 0.5),
+                Vec2::new(-0.5, 0.5),
+            ],
+            |triangle| triangles.push(triangle),
+        );
+
+        assert!(!triangles.is_empty());
+    }
 
     #[test]
     fn retained_vista_triangle_diagonal_is_preserved_and_vertical_skirts_are_excluded() {

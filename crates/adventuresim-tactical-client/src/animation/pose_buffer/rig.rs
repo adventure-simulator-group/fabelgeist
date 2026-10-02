@@ -113,6 +113,8 @@ impl PoseBufferRig {
             plan: None,
             active: false,
             frozen: false,
+            settled: true,
+            physics_owned: false,
         }
     }
 }

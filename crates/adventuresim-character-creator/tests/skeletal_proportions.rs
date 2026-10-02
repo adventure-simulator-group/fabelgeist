@@ -81,7 +81,7 @@ fn skeletal_proportions_match_mhr_joints_and_skinned_vertices_in_motion() {
     let model = Mhr::from_files(
         &assets,
         MhrConfig {
-            lod: 1,
+            lod: fabelgeist_mhr::MIN_LOD,
             pose_correctives: false,
         },
         &Device::default(),

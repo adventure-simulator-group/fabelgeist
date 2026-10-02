@@ -3,6 +3,7 @@ use super::*;
 use adventuresim_core::item_catalog::{self, EquipmentPlacement, ItemDefinition};
 use clap::ValueEnum;
 mod material;
+mod museum;
 mod readiness;
 mod skinning;
 mod topology;
@@ -18,12 +19,16 @@ pub(crate) enum ArmorHarness {
     Mail,
     Padded,
     CloseHelmet,
+    MuseumHenry,
+    MuseumNuremberg,
 }
 
 impl ArmorHarness {
     fn item_ids(self) -> impl Iterator<Item = &'static str> {
         let items: &'static [&'static str] = match self {
             Self::CloseHelmet => &["close_helmet"],
+            Self::MuseumHenry => museum::HENRY_ITEMS,
+            Self::MuseumNuremberg => museum::NUREMBERG_ITEMS,
             Self::Plate | Self::PlateTassets | Self::PlateUnderlayers => &[
                 "morion",
                 "gorget",
@@ -88,7 +93,10 @@ impl ArmorHarness {
                         + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len(),
                 ),
             },
-            Self::Underlayers | Self::PlateUnderlayers => EquipmentVisualRequirements {
+            Self::Underlayers
+            | Self::PlateUnderlayers
+            | Self::MuseumHenry
+            | Self::MuseumNuremberg => EquipmentVisualRequirements {
                 names: &[],
                 morph_targets: Some(
                     adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
@@ -164,7 +172,7 @@ impl ArmorCapture {
     pub(super) fn new(harness: Option<ArmorHarness>, output: PathBuf) -> Self {
         if let Some(harness) = harness {
             let pieces = harness.placements().map(|(item, placement)| serde_json::json!({"item_id": item.id, "placement_id": placement.id})).collect::<Vec<_>>();
-            let manifest = serde_json::json!({"harness": harness, "pieces": pieces, "renderer": "gameplay_equipment_glb_skin_morph"});
+            let manifest = serde_json::json!({"harness": harness, "pieces": pieces, "renderer": "gameplay_equipment_glb_skin_morph", "identity": "deterministic_character_id_variation"});
             fs::write(
                 output.join("armor-fixture.json"),
                 serde_json::to_vec_pretty(&manifest).expect("serialize armor fixture"),
@@ -325,7 +333,13 @@ mod tests {
                 TacticalEquipmentAnchor::ItemAttachment { parent, attachment_point_id }
                     if *parent == doublet && attachment_point_id == "mail_voiders"
             ));
-            assert_eq!(harness.visual_requirements().morph_targets, Some(47));
+            assert_eq!(
+                harness.visual_requirements().morph_targets,
+                Some(
+                    adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
+                        + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len()
+                )
+            );
             let mut knees = 0;
             for (_, _, topology, owner) in items
                 .iter(&world)
@@ -420,6 +434,8 @@ mod tests {
             (ArmorHarness::Underlayers, 8),
             (ArmorHarness::PlateUnderlayers, 29),
             (ArmorHarness::CloseHelmet, 1),
+            (ArmorHarness::MuseumHenry, 21),
+            (ArmorHarness::MuseumNuremberg, 26),
         ] {
             let mut graph = EquipmentGraph::default();
             let mut previous = Vec::new();
@@ -456,7 +472,9 @@ mod tests {
                             parents,
                         },
                     )
-                    .unwrap();
+                    .unwrap_or_else(|error| {
+                        panic!("{harness:?} {}/{}: {error}", item.id, placement.id)
+                    });
                 previous.push((item, entity, placement));
             }
             assert_eq!(graph.nodes.len(), count);

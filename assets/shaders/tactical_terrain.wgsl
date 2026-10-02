@@ -50,8 +50,6 @@ var litter_surface: texture_2d<f32>;
 var litter_surface_sampler: sampler;
 @group(#{MATERIAL_BIND_GROUP}) @binding(107)
 var litter_normal_map: texture_2d<f32>;
-@group(#{MATERIAL_BIND_GROUP}) @binding(108)
-var litter_normal_sampler: sampler;
 @group(#{MATERIAL_BIND_GROUP}) @binding(109)
 var blood_mask: texture_2d<f32>;
 @group(#{MATERIAL_BIND_GROUP}) @binding(110)
@@ -62,8 +60,6 @@ var cliff_height: texture_2d<f32>;
 var cliff_height_sampler: sampler;
 @group(#{MATERIAL_BIND_GROUP}) @binding(113)
 var cliff_arm: texture_2d<f32>;
-@group(#{MATERIAL_BIND_GROUP}) @binding(114)
-var cliff_arm_sampler: sampler;
 
 fn decode_surface_height_ao(p: vec4<f32>) -> vec2<f32> {
     return vec2<f32>(dot(p.rg, vec2<f32>(256.0 / 257.0, 1.0 / 257.0)), p.b);
@@ -89,9 +85,9 @@ fn cliff_triplanar_height(uvs: mat3x2<f32>, weights: vec3<f32>) -> f32 {
 }
 
 fn cliff_triplanar_arm(uvs: mat3x2<f32>, weights: vec3<f32>) -> vec3<f32> {
-    return textureSample(cliff_arm, cliff_arm_sampler, uvs[0]).rgb * weights.x
-        + textureSample(cliff_arm, cliff_arm_sampler, uvs[1]).rgb * weights.y
-        + textureSample(cliff_arm, cliff_arm_sampler, uvs[2]).rgb * weights.z;
+    return textureSample(cliff_arm, cliff_height_sampler, uvs[0]).rgb * weights.x
+        + textureSample(cliff_arm, cliff_height_sampler, uvs[1]).rgb * weights.y
+        + textureSample(cliff_arm, cliff_height_sampler, uvs[2]).rgb * weights.z;
 }
 
 // Bedding and foliation are evaluated once in continuous scene space. The
@@ -226,7 +222,7 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     );
     let litter_normal_xz = textureSample(
         litter_normal_map,
-        litter_normal_sampler,
+        litter_surface_sampler,
         litter_parallax_uv,
     ).rg * 2.0 - 1.0;
     let height_metres = (soil_sample.r - 0.5) * terrain.soil_detail.y;

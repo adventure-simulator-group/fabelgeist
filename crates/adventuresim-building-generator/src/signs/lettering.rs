@@ -50,9 +50,10 @@ impl SignTexture {
                 rgba[index + 3] = 255;
             }
         }
+        let emblem_width = paint_emblem(sign.emblem, width, height, &mut rgba, ink);
         let face = sign.font.face();
         let full = sign.name.text();
-        let usable_width = width as f32 - TEXTURE_PADDING * 2.0;
+        let usable_width = width as f32 - TEXTURE_PADDING * 2.0 - emblem_width;
         let usable_height = height as f32 - TEXTURE_PADDING * 2.0;
         let single_px = MAX_LETTER_HEIGHT.min(usable_height);
         let lines = if line_width(&face, &full, single_px) <= usable_width {
@@ -93,7 +94,10 @@ impl SignTexture {
             + line_gap * (lines.len() - 1) as f32;
         let mut top = (height as f32 - total_height) * 0.5;
         for (glyphs, (min, max)) in shaped {
-            let offset = point((width as f32 - (max.x - min.x)) * 0.5 - min.x, top - min.y);
+            let offset = point(
+                (width as f32 + emblem_width - (max.x - min.x)) * 0.5 - min.x,
+                top - min.y,
+            );
             top += max.y - min.y + line_gap;
             for mut glyph in glyphs {
                 glyph.position += offset;
@@ -162,4 +166,30 @@ fn ink_bounds(face: &FontRef<'_>, glyphs: &[Glyph]) -> (ab_glyph::Point, ab_glyp
 fn line_width(face: &FontRef<'_>, text: &str, px: f32) -> f32 {
     let (min, max) = ink_bounds(face, &layout(face, text, px));
     max.x - min.x
+}
+
+fn paint_emblem(
+    emblem: Option<TradeEmblem>,
+    width: u32,
+    height: u32,
+    rgba: &mut [u8],
+    ink: [u8; 3],
+) -> f32 {
+    const EMBLEM_WIDTH_FRACTION: f32 = 0.30;
+    const EMBLEM_HEIGHT_FRACTION: f32 = 0.70;
+    let Some(emblem) = emblem else {
+        return 0.0;
+    };
+    let size = (width as f32 * EMBLEM_WIDTH_FRACTION).min(height as f32 * EMBLEM_HEIGHT_FRACTION);
+    let centre = Vec2::new(TEXTURE_PADDING + size * 0.5, height as f32 * 0.5);
+    for y in 0..height {
+        for x in 0..(TEXTURE_PADDING + size).ceil() as u32 {
+            let p = (Vec2::new(x as f32 + 0.5, y as f32 + 0.5) - centre) / (size * 0.5);
+            if emblem.covers(p) {
+                let index = ((y * width + x) * 4) as usize;
+                rgba[index..index + 3].copy_from_slice(&ink);
+            }
+        }
+    }
+    size + TEXTURE_PADDING * 0.5
 }

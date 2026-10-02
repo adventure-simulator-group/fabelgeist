@@ -3,7 +3,6 @@
 use super::*;
 use adventuresim_character_creator::clothing::ClothingShell;
 use adventuresim_core::character_morph::{IDENTITY_MORPH_STEP, IdentityMorph};
-use adventuresim_core::character_proportions::BodyProportion;
 use adventuresim_core::skeletal_fit::SkeletalFitMorph;
 
 pub(super) struct MorphDelta {
@@ -84,7 +83,7 @@ impl CharacterMorphs {
             let mut sample_recipe = recipe.clone();
             sample_recipe
                 .proportions
-                .set(BodyProportion::SpineLength, target.endpoint())
+                .set(target.proportion(), target.endpoint())
                 .map_err(anyhow::Error::msg)?;
             let sample = generate_character(model, &sample_recipe)?;
             body.push(MorphDelta {
@@ -152,7 +151,9 @@ fn remove_skeletal_translation(
         return;
     }
     for ((delta, indices), weights) in deltas.iter_mut().zip(indices).zip(weights) {
-        for (&joint, &weight) in indices.iter().zip(weights) {
+        let (indices, weights) =
+            adventuresim_character_creator::export::skinning::strongest_four(*indices, *weights);
+        for (&joint, &weight) in indices.iter().zip(&weights) {
             if weight == 0.0 {
                 continue;
             }
@@ -293,5 +294,44 @@ mod tests {
         );
         assert!((deltas[0][1] - 0.02).abs() < 1e-6);
         assert!((deltas[0][1] + 0.1 - 0.12).abs() < 1e-6);
+    }
+
+    #[test]
+    fn flexible_fit_reconstructs_the_direct_endpoint_with_exported_influences() {
+        let indices = [0, 1, 2, 3, 4, 5, 6, 7];
+        let weights = [0.04, 0.21, 0.12, 0.06, 0.27, 0.14, 0.10, 0.06];
+        let reference: Vec<_> = (0..8).map(|joint| [joint as f32 * 0.02; 8]).collect();
+        let states: Vec<_> = reference
+            .iter()
+            .enumerate()
+            .map(|(joint, state)| {
+                let mut state = *state;
+                state[0] += joint as f32 * 0.03;
+                state[1] -= (joint as f32 * 0.7).sin() * 0.05;
+                state
+            })
+            .collect();
+        let direct = [0.07, -0.12, 0.02];
+        let mut residual = [direct];
+        let sample = ForearmMorphSample {
+            name: SkeletalFitMorph::ShortLowerLeg.name().into(),
+            positions: vec![],
+            normals: vec![],
+            global_joint_states: states.clone(),
+        };
+        remove_skeletal_translation(&mut residual, &sample, &reference, &[indices], &[weights]);
+        let (exported_indices, exported_weights) =
+            adventuresim_character_creator::export::skinning::strongest_four(indices, weights);
+        for axis in 0..3 {
+            let runtime = residual[0][axis]
+                + exported_indices
+                    .iter()
+                    .zip(exported_weights)
+                    .map(|(joint, weight)| {
+                        weight * (states[*joint as usize][axis] - reference[*joint as usize][axis])
+                    })
+                    .sum::<f32>();
+            assert!((runtime - direct[axis]).abs() < 1e-6);
+        }
     }
 }

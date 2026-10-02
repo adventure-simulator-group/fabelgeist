@@ -198,6 +198,9 @@ mod tests {
             distant_furniture: vec![],
             lods: vec![],
             yards: vec![],
+            parishes: Vec::new(),
+            compounds: Vec::new(),
+            gardens: Vec::new(),
             streets: vec![CityStreetPatch::Corridor {
                 start_metres: Vec2::new(-3.0, 0.0),
                 end_metres: Vec2::new(3.0, 0.0),

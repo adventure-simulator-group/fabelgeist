@@ -49,6 +49,7 @@ impl BuildingProgram {
             roof_pitch_degrees: 55.0,
             roof_demonstrator: None,
             church_program: None,
+            domestic_heating: None,
         }
     }
 
@@ -82,6 +83,7 @@ impl BuildingProgram {
             roof_pitch_degrees: 50.0,
             roof_demonstrator: None,
             church_program: None,
+            domestic_heating: Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove),
         }
     }
 
@@ -112,6 +114,7 @@ impl BuildingProgram {
             roof_pitch_degrees: 53.0,
             roof_demonstrator: None,
             church_program: None,
+            domestic_heating: Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove),
         }
     }
 
@@ -171,6 +174,7 @@ impl BuildingProgram {
             roof_pitch_degrees: 57.0,
             roof_demonstrator: None,
             church_program: None,
+            domestic_heating: None,
         }
     }
 }

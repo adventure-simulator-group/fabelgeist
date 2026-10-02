@@ -1,7 +1,7 @@
 """Check exported boots against the supported leg garments in reference space.
 
 blender --background --python scripts/check_boot_layering.py -- ASSETS OUTPUT.json
-Checks neutral, all 47 morph endpoints and three identity blends. Triangle
+Checks neutral, all morph endpoints and three identity blends. Triangle
 intersection tests do not establish clearance under skeletal animation.
 """
 import argparse
@@ -14,7 +14,7 @@ import numpy as np
 from mathutils.bvhtree import BVHTree
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from check_parametric_armor_assets import EXPECTED_TARGETS, Glb
+from check_parametric_armor_assets import EXPECTED_TARGETS, SKELETAL_FIT_TARGETS, Glb
 
 
 def read(path):
@@ -40,12 +40,12 @@ def main():
         for side in ("left", "right")
         for kind in ("leather_boot", "mail_chausses", "padded_chausses")
     }
-    samples = [("neutral", np.zeros(47))]
-    samples.extend((f"endpoint-{i}", weights) for i, weights in enumerate(np.eye(47)))
+    samples = [("neutral", np.zeros(len(EXPECTED_TARGETS)))]
+    samples.extend((f"endpoint-{i}", weights) for i, weights in enumerate(np.eye(len(EXPECTED_TARGETS))))
     samples.extend([
-        ("positive", np.r_[np.full(45, .35), 0, 0]),
-        ("negative", np.r_[np.full(45, -.35), 0, 0]),
-        ("mixed", np.r_[[.35 if i % 2 else -.35 for i in range(45)], 0, 0]),
+        ("positive", np.r_[np.full(45, .35), np.zeros(len(SKELETAL_FIT_TARGETS))]),
+        ("negative", np.r_[np.full(45, -.35), np.zeros(len(SKELETAL_FIT_TARGETS))]),
+        ("mixed", np.r_[[.35 if i % 2 else -.35 for i in range(45)], np.zeros(len(SKELETAL_FIT_TARGETS))]),
     ])
     results = []
     for name, weights in samples:

@@ -17,12 +17,14 @@ def capture(profile, title, *, evidence_name="building-presentation.json", revie
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True, help="Fresh capture directory")
     parser.add_argument("--skip-build", action="store_true")
+    parser.add_argument("--settle-frames", type=int, default=480,
+                        help="Render settling frames, including interior eye adaptation")
     parser.add_argument("--scene-input", type=Path, help="Explicit deterministic input variant")
     parser.add_argument("--view", action="append", default=[], help="Capture a named view (repeatable)")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     if not args.skip_build:
-        subprocess.run(["cargo", "build", "-p", "adventuresim-tactical-client", "--bin", "tactical-scene-viewer", "--offline"], cwd=root, check=True)
+        subprocess.run(["cargo", "build", "-p", "adventuresim-tactical-client", "--bin", "tactical-scene-viewer", "--features", "debug", "--offline"], cwd=root, check=True)
     executable = root / "target/debug" / ("tactical-scene-viewer.exe" if os.name == "nt" else "tactical-scene-viewer")
     output = args.output.resolve()
     if output.exists():
@@ -32,7 +34,8 @@ def capture(profile, title, *, evidence_name="building-presentation.json", revie
         runner = Path(runtime) / executable.name
         shutil.copy2(executable, runner)
         selector = ["--scene-input", str(args.scene_input.resolve())] if args.scene_input else ["--fixture", profile]
-        command = [str(runner), *selector, "--profile", profile, "--output", str(output)]
+        command = [str(runner), *selector, "--profile", profile, "--output", str(output),
+                   "--settle-frames", str(args.settle_frames)]
         for view in args.view:
             command += ["--view", view]
         provenance = source_identity()

@@ -1,6 +1,7 @@
 import importlib.util
 import inspect
 import json
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -17,7 +18,10 @@ SPEC.loader.exec_module(MODULE)
 
 class CaptureTacticalScenesTests(unittest.TestCase):
     def test_expected_camera_version_matches_scene_capture_contract(self):
-        self.assertEqual(MODULE.EXPECTED_CAMERA_VERSION, 9)
+        native_source = SCRIPT.parent.parent / "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs"
+        match = re.search(r"const CAMERA_VERSION: u\d+ = (\d+);", native_source.read_text(encoding="utf-8"))
+        self.assertIsNotNone(match)
+        self.assertEqual(MODULE.EXPECTED_CAMERA_VERSION, int(match[1]))
 
     def test_source_identity_includes_all_viewer_modules(self):
         self.assertIn(
@@ -88,9 +92,9 @@ class CaptureTacticalScenesTests(unittest.TestCase):
                         "camera_exposure_ev100": 14.7,
                         "camera_tonemapping": "AcesFitted",
                         "ambient_color": [1.0, 1.0, 1.0, 1.0],
-                        "ambient_brightness": 10500.0,
-                        "expected_ambient_brightness": 10500.0,
-                        "ambient_policy": "atmosphere_ibl_plus_bounded_multibounce",
+                        "ambient_brightness": 0.0,
+                        "expected_ambient_brightness": 0.0,
+                        "ambient_policy": "atmosphere_ibl",
                     },
                     "requested_matches_observed": True,
                 },
@@ -128,7 +132,7 @@ class CaptureTacticalScenesTests(unittest.TestCase):
                         ("rock-detail",), "source-id", "head",
                     )
 
-            for wrong_ambient in (0.0, 0.6):
+            for wrong_ambient in (10_500.0, 0.6):
                 broken = json.loads(json.dumps(manifest))
                 broken["presentation_features"]["observed"]["ambient_brightness"] = wrong_ambient
                 manifest_path.write_text(json.dumps(broken), encoding="utf-8")
@@ -144,7 +148,7 @@ class CaptureTacticalScenesTests(unittest.TestCase):
                 "moon_altitude_degrees": -20.0,
                 "lunar_illumination": 0.0,
             }
-            night["presentation_features"]["observed"]["ambient_brightness"] = 10500.0
+            night["presentation_features"]["observed"]["ambient_brightness"] = 0.6
             manifest_path.write_text(json.dumps(night), encoding="utf-8")
             with self.assertRaises(ValueError):
                 MODULE.validated_child_manifest(

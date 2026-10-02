@@ -1,3 +1,6 @@
+mod batching;
+use batching::append_litter_batch;
+
 use adventuresim_tactical_core::prelude::{GroundCover, SceneGround, SceneTerrain};
 use bevy::{
     asset::RenderAssetUsages,
@@ -326,39 +329,6 @@ fn leaf_litter_proximity(ground: &SceneGround, grid_x: usize, grid_z: usize) -> 
         }
     }
     (1.0 - nearest / WOODLAND_FLOOR_TRANSITION_METRES).clamp(0.0, 1.0)
-}
-
-fn append_litter_batch(
-    meshes: &bevy::prelude::Assets<Mesh>,
-    source: &Handle<Mesh>,
-    mut transform: Transform,
-    cell_size: f32,
-    batches: &mut BTreeMap<(i32, i32), LitterBatch>,
-    kind: BatchKind,
-) {
-    let cell = (
-        (transform.translation.x / cell_size).floor() as i32,
-        (transform.translation.z / cell_size).floor() as i32,
-    );
-    transform.translation.x -= cell.0 as f32 * cell_size;
-    transform.translation.z -= cell.1 as f32 * cell_size;
-    let Some(source) = meshes.get(source) else {
-        return;
-    };
-    let transformed = source.clone().transformed_by(transform);
-    let batch = batches.entry(cell).or_default();
-    let slot = match kind {
-        BatchKind::Leaves => &mut batch.leaves,
-        BatchKind::Twigs => &mut batch.twigs,
-        BatchKind::Plants => &mut batch.plants,
-    };
-    if let Some(batch) = slot {
-        batch
-            .merge(&transformed)
-            .expect("litter variants share one vertex contract");
-    } else {
-        *slot = Some(transformed);
-    }
 }
 
 pub(super) const DRY_LEAF_MESH_VARIANTS: u64 = 4;
@@ -732,7 +702,7 @@ impl GroundLitterMeshData {
     fn into_mesh(self) -> Mesh {
         let mut mesh = Mesh::new(
             PrimitiveTopology::TriangleList,
-            RenderAssetUsages::RENDER_WORLD,
+            RenderAssetUsages::MAIN_WORLD,
         );
         mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, self.positions);
         mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, self.normals);

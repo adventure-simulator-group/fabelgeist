@@ -1,5 +1,5 @@
 import { PRESETS, copyPreset, controlVisible, getControlValue, setControlValue } from "./presets.js";
-import { validateWeapon } from "./mesh.js";
+import { validateWeapon } from "./kernel.js";
 
 // Store the seed and exact definitions with captures: future changes to control
 // ranges must not silently change an already reviewed specimen.

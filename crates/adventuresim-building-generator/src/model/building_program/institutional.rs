@@ -45,15 +45,25 @@ impl BuildingProgram {
             roof_pitch_degrees: 54.0,
             roof_demonstrator: None,
             church_program: None,
+            domestic_heating: None,
         }
     }
 
     pub(super) fn cathedral(seed: u64) -> Self {
-        let archetype = BuildingArchetype::Cathedral;
+        Self::urban_basilica(BuildingArchetype::Cathedral, None, None, seed)
+    }
+
+    /// One frozen physical programme shared by distinct ecclesiastical uses.
+    pub(crate) fn urban_basilica(
+        archetype: BuildingArchetype,
+        usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
+        service_size: Option<crate::ServiceBuildingSize>,
+        seed: u64,
+    ) -> Self {
         Self {
             archetype,
-            usage: None,
-            service_size: None,
+            usage,
+            service_size,
             seed,
             footprint: Footprint::Rectangle {
                 width: 28,
@@ -78,6 +88,7 @@ impl BuildingProgram {
             roof_pitch_degrees: 58.0,
             roof_demonstrator: None,
             church_program: Some(ChurchProgram::URBAN_BRICK_BASILICA),
+            domestic_heating: None,
         }
     }
 }

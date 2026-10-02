@@ -1,10 +1,60 @@
 # Fabelgeist tactical client
 
+## Browser release builds
+
+`just build-wasm` keeps the gameplay client on the workspace `release` profile
+and builds the art demo separately with the size-oriented `wasm-release`
+profile and no default features. The demo therefore excludes client audio and
+debug tooling without removing either from ordinary client builds. The build
+requires the exact `wasm-bindgen` version in `Cargo.lock` and the Binaryen
+version pinned in the root `package-lock.json`; run `npm ci` to install the
+latter.
+
+The build applies `wasm-opt -Oz` only to the art demo after `wasm-bindgen` and
+writes raw, gzip level 6, and Brotli level 11 sizes to
+`crates/adventuresim-stdb-module/static/wasm/bundle-sizes.json`. In the browser,
+the developer console's `[art-demo startup]` record separates module download
+from Wasm compilation and initialization, making a cold-cache startup directly
+repeatable in browser developer tools.
+
+Outdoor PBR lighting uses Bevy's live atmosphere for sunlight transmission,
+horizon occlusion, the solar disc and aerial perspective. Generated sky
+radiance supplies diffuse and specular environment lighting at intensity one;
+there is no added global ambient visibility floor. The environment map is
+cached only after GPU completion and invalidated by scene, weather, time,
+selected atmosphere, its position/scale, or scattering-medium changes. Camera
+exposure does not invalidate unexposed sky radiance. Probe retirement runs
+after Bevy's deferred preparation commands. The live atmosphere remains enabled
+after the environment bake.
+
+The pinned Bevy 0.19.1 atmosphere shaders use local, source-attributed
+corrections: generation samples texel centres, and the forward/inverse lookup
+coordinate maps agree. Canonical shader handles and imports stay intact, so
+visible sky and environment baking use the same mapping. A shader reload
+invalidates the bake; capture readiness waits for the corrected GPU pipelines.
+The analytic planet ground samples sunlight transmission at its surface
+radius, retaining the dependence on solar angle.
+With multisample anti-aliasing, atmospheric scattering and transmission use
+each sample's depth and viewport position, so mixed terrain/sky pixels receive
+the corresponding transport before color resolution.
+
+This environment map samples the atmospheric medium; the separate animated
+cloud renderer is not included in it. Cloud radiance, cloud beam transmission,
+and scene bounce lighting require further transport integration. The existing
+weather source attenuation is an approximation, not a full cloud-scattering
+solution.
+
 The tactical client renders transient server-authoritative combat state with
 Bevy. Skeletal animation is presentation-only: the server replicates compact
 `SkeletonState` posture, locomotion, stance, action, and timing coordinates;
 the client selects and blends authored poses, then applies procedural look and
 terrain leg IK.
+
+The equipment HUD shows procedural weapons, holders, and armor as color
+portraits on black squares. Weapon recipes render into a transient image cache;
+armor loads the baked portrait for its manifest placement. See the
+[portrait workflow](../adventuresim-weapon-model/README.md#equipment-portraits)
+for lighting and regeneration commands.
 
 EGUI renders the centered incapacitation wheel without taking pointer input.
 The segmented arc surrounds the retained Bevy UI crosshair, starts at 12
@@ -167,7 +217,7 @@ cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output tar
 
 Use `--armor-harness close-helmet` to equip the installed close helmet through
 normal gameplay equipment loading. Capture waits for the separate skull, bevor,
-and visor meshes, their materials, wearer skin bindings, and all 47 morph
+and visor meshes, their materials, wearer skin bindings, and all 57 morph
 weights. Front and side views follow the head at inspection distance; the
 gameplay view keeps its usual framing. `armor-readiness.json` records the
 resolved parts and weights. `--scenario ordinary-camera-pitch` exercises
@@ -417,3 +467,20 @@ The core owns the clipped vista cells and vertex-height policy used by both
 placement and terrain rendering, including seams and LOD morphs.
 `python scripts/capture_furniture_review.py --output target/furniture-review`
 captures the production implementation with GPU residency and material checks.
+
+## Art-demo cloud assets
+
+The fixed city and oak exhibits embed deterministic initial cloud-shell bakes,
+so selecting either exhibit performs no procedural cloud bake on the browser
+main thread. Each bake has a generated `.scene-digest` identity; the exhibit
+refuses stale output rather than silently baking during navigation. Regenerate
+and verify both assets after changing cloud bake logic or either tactical-scene
+fixture:
+
+```sh
+cargo test -p adventuresim-tactical-client --bin art-demo \
+  regenerate_art_demo_cloud_assets -- --ignored --nocapture
+```
+
+Production tactical scenes do not use these assets and retain runtime cloud
+animation.

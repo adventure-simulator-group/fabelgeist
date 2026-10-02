@@ -53,7 +53,14 @@ impl BuildingProgram {
             if let Some(size) = size {
                 program = program.with_service_size(size);
             }
-            match crate::generate(&program) {
+            let generated = crate::generate(&program).and_then(|plan| {
+                if plan.domestic_heating.is_some() {
+                    crate::interior::validate_circulation(&plan)
+                        .map_err(crate::GenerationError::BlockedDomesticCirculation)?;
+                }
+                Ok(plan)
+            });
+            match generated {
                 Ok(_) => return Ok(program),
                 Err(error) => {
                     first_error.get_or_insert(error);
@@ -71,6 +78,14 @@ impl BuildingProgram {
         });
         if let Some(usage) = usage {
             program.assign_use(usage);
+        }
+        if usage == Some(BuildingUse::Dwelling)
+            && matches!(
+                archetype,
+                BuildingArchetype::TownHouse | BuildingArchetype::FachwerkMerchantHouse
+            )
+        {
+            program.domestic_heating = Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove);
         }
         if matches!(
             archetype,
@@ -113,6 +128,9 @@ impl BuildingProgram {
 
     fn assign_use(&mut self, usage: BuildingUse) {
         use BuildingUse::*;
+        if usage != Dwelling {
+            self.domestic_heating = None;
+        }
         let (main, secondary) = match usage {
             MarketHall => (RoomKind::GreatHall, RoomKind::Storage),
             Stable => (RoomKind::Stalls, RoomKind::Storage),

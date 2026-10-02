@@ -87,10 +87,7 @@ mod tests {
             .spawn((
                 SceneFurniture {
                     id: FurnitureInstanceId(id),
-                    key: FurnitureKey {
-                        kind: FurnitureKind::Bed,
-                        variant: FurnitureVariant::Compact,
-                    },
+                    key: FurnitureKey::natural(FurnitureKind::Bed, FurnitureVariant::Compact),
                     location: FurnitureLocation::Interior {
                         building_id: 1,
                         room_id: 2,

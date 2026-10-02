@@ -159,7 +159,10 @@ pub fn facade_atlas() -> Image {
             let color = match x {
                 0..=63 if (x + y / 2) % 13 < 3 => [45, 24, 13, 255],
                 0..=63 => [91, 50, 25, 255],
-                64..=95 => [53, 102, 123, 255],
+                // Opaque distant proxy for dim interiors behind leaded glass.
+                // Desaturated grey-green avoids a blue panel at the LOD handoff.
+                64..=95 if (x - 64) % 8 == 0 || y % 12 == 0 => [36, 35, 30, 255],
+                64..=95 => [78, 85, 76, 255],
                 96..=127 => [94, 48, 23, 255],
                 128..=159 => [70, 38, 22, 255],
                 160..=191 => [30, 28, 24, 255],

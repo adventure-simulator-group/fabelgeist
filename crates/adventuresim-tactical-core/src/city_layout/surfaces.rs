@@ -3,14 +3,13 @@
 use std::collections::BTreeSet;
 
 use bevy::{math::Vec2, prelude::Reflect};
-use fabelgeist_determinism::mix64;
 use serde::{Deserialize, Serialize};
 
 use super::*;
 
-const YARD_SURFACE_DOMAIN: u64 = 0x7961_7264_5f73_7572;
-pub const MAX_CITY_STREET_PATCHES: usize = 2 * STREET_LINE_COUNT * (STREET_LINE_COUNT - 1) + 1;
-pub const MAX_CITY_YARD_PATCHES: usize = BLOCK_COUNT * BLOCK_COUNT;
+const SURFACE_EDGE_TOLERANCE_METRES: f32 = 0.001;
+pub const MAX_CITY_STREET_PATCHES: usize = 12_000;
+pub const MAX_CITY_YARD_PATCHES: usize = MAX_CITY_LOTS * 3;
 
 /// Historically plausible surface treatment for one part of the urban street network.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Reflect, Serialize, Deserialize)]
@@ -67,7 +66,7 @@ impl CityStreetPatch {
                     / displacement.length_squared())
                 .clamp(0.0, 1.0);
                 point.distance_squared(start_metres + displacement * fraction)
-                    <= half_width_metres * half_width_metres
+                    <= (half_width_metres + SURFACE_EDGE_TOLERANCE_METRES).powi(2)
             }
             Self::Market { corners_metres, .. } => convex_quad_contains(corners_metres, point),
         }
@@ -83,7 +82,8 @@ impl CityStreetPatch {
             } => {
                 start_metres.is_finite()
                     && end_metres.is_finite()
-                    && start_metres.distance_squared(end_metres) > 1.0
+                    && start_metres.distance_squared(end_metres).is_finite()
+                    && start_metres.distance_squared(end_metres) > 0.0
                     && half_width_metres.is_finite()
                     && (1.0..=20.0).contains(&half_width_metres)
             }
@@ -119,85 +119,23 @@ impl CityYardPatch {
     }
 }
 
-pub(super) fn city_yard_patches(
-    seed: u64,
-    nodes: [[Vec2; STREET_LINE_COUNT]; STREET_LINE_COUNT],
-    developed_blocks: &BTreeSet<u64>,
-) -> Vec<CityYardPatch> {
-    let patches = city_blocks(nodes)
-        .filter(|block| developed_blocks.contains(&block.key()))
-        .map(|block| {
-            let surface_key = mix64(seed ^ YARD_SURFACE_DOMAIN ^ block.key());
-            let radial_band = (block.centre().length() / NOMINAL_BLOCK_METRES) as u32;
-            let surface = if radial_band >= 3 && surface_key.is_multiple_of(7) {
-                CityYardSurface::KitchenGarden
-            } else {
-                CityYardSurface::PackedEarth
-            };
-            CityYardPatch {
-                corners_metres: block.corners,
-                surface,
-            }
-        })
-        .collect::<Vec<_>>();
-    debug_assert!(patches.len() <= MAX_CITY_YARD_PATCHES);
+pub(super) fn city_yard_patches(lots: &[CandidateLot]) -> Vec<CityYardPatch> {
+    let mut patches = Vec::new();
+    for candidate in lots {
+        let lot = candidate.lot;
+        patches.push(CityYardPatch {
+            corners_metres: plots::corners(plots::reservation(lot)),
+            surface: CityYardSurface::PackedEarth,
+        });
+    }
     patches
 }
 
 pub(super) fn city_street_patches(
-    nodes: [[Vec2; STREET_LINE_COUNT]; STREET_LINE_COUNT],
-    developed_blocks: &BTreeSet<u64>,
+    graph: &StreetGraph,
+    developed_blocks: &BTreeSet<BlockId>,
 ) -> Vec<CityStreetPatch> {
-    let mut edges = BTreeSet::<(usize, usize, usize, usize)>::new();
-    for key in developed_blocks {
-        let row = (key >> 32) as usize;
-        let column = (*key as u32) as usize;
-        // Join every developed frontage to the market even when service plots
-        // precede residential infill on the edge of a small settlement.
-        let (market_row, market_column) = CENTRAL_MARKET_BLOCK;
-        for step in column.min(market_column)..column.max(market_column) {
-            edges.insert((row, step, row, step + 1));
-        }
-        for step in row.min(market_row)..row.max(market_row) {
-            edges.insert((step, market_column, step + 1, market_column));
-        }
-        edges.extend([
-            (row, column, row, column + 1),
-            (row, column + 1, row + 1, column + 1),
-            (row + 1, column, row + 1, column + 1),
-            (row, column, row + 1, column),
-        ]);
-    }
-    let mut patches = edges
-        .into_iter()
-        .map(|(start_row, start_column, end_row, end_column)| {
-            let line_index = if start_row == end_row {
-                start_row
-            } else {
-                start_column
-            };
-            CityStreetPatch::Corridor {
-                start_metres: nodes[start_row][start_column],
-                end_metres: nodes[end_row][end_column],
-                half_width_metres: street_half_width(line_index),
-                surface: street_surface(line_index),
-            }
-        })
-        .collect::<Vec<_>>();
-    if !developed_blocks.is_empty() {
-        let (row, column) = CENTRAL_MARKET_BLOCK;
-        patches.push(CityStreetPatch::Market {
-            corners_metres: [
-                nodes[row][column],
-                nodes[row][column + 1],
-                nodes[row + 1][column + 1],
-                nodes[row + 1][column],
-            ],
-            surface: CityStreetSurface::Fieldstone,
-        });
-    }
-    debug_assert!(patches.len() <= MAX_CITY_STREET_PATCHES);
-    patches
+    graph.developed_streets(developed_blocks)
 }
 
 fn convex_quad_contains(corners: [Vec2; 4], point: Vec2) -> bool {

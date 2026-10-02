@@ -133,40 +133,12 @@ function mergeParts(parts) {
   return merged;
 }
 
-const BOW_STRING_PARTS = new Set([
-  "upper bowstring control span", "lower bowstring control span",
-  "served nocking control span", "upper bowstring end loop", "lower bowstring end loop",
-  "left crossbow string control span", "right crossbow string control span",
-  "served crossbow nocking span", "left crossbow string end loop", "right crossbow string end loop",
-  "wheellock wheel and axle", "wheellock cock and pyrite jaws", "wheellock pan cover",
-  "wheellock safety catch", "firearm trigger and sear", "matchlock serpentine and jaws",
-  "matchlock pan cover", "matchlock linkage and trigger",
-]);
-const isSemanticPart = (part) => BOW_STRING_PARTS.has(part.label) || (Array.isArray(part.animationPivot) && part.animationPivot.length === 3 && part.animationPivot.every(Number.isFinite));
-
-export function automaticGripPoint(resolvedDefinition) {
-  const frames = resolvedDefinition?._frames ?? {};
-  if (frames["shield.grip"]) return [...frames["shield.grip"]];
-  if (Number.isFinite(resolvedDefinition?.gripClearance) && frames["grip.base"] && frames["grip.top"]) {
-    const base = frames["grip.base"], top = frames["grip.top"];
-    const direction = base.map((value, axis) => value - top[axis]);
-    const length = Math.hypot(...direction);
-    return top.map((value, axis) => value + direction[axis] * (resolvedDefinition.gripClearance / length));
-  }
-  if (frames["grip.center"]) return [...frames["grip.center"]];
-  const bottom = frames["shaft.bottom"], top = frames["shaft.top"];
-  if (bottom && top) {
-    const length = Math.hypot(...top.map((value, axis) => value - bottom[axis]));
-    const amount = Math.min(0.45, Math.max(0.18, length * 0.2)) / (length || 1);
-    return bottom.map((value, axis) => value + (top[axis] - value) * amount);
-  }
-  return [...(frames["weapon.root"] ?? [0, 0, 0])];
-}
+const isSemanticPart = part => part.animationChannel !== undefined;
 
 export function buildSkinnedWeaponGlb(baseGlb, mesh, options = {}) {
   const attachment = options.attachment ?? "r_weapon";
   const name = options.name ?? "weapon";
-  const gripPoint = options.gripPoint ?? [0, 0, 0];
+  const gripPoint = options.gripPoint ?? mesh.physical.controlPoint;
   const semanticStringParts = (mesh?.parts ?? []).filter(isSemanticPart);
   const skinnedMesh = semanticStringParts.length ? mergeParts(mesh.parts.filter((part) => !isSemanticPart(part))) : mesh;
   if (!skinnedMesh?.positions?.length || skinnedMesh.positions.length !== skinnedMesh.normals?.length || skinnedMesh.positions.length !== skinnedMesh.colors?.length) {
@@ -253,7 +225,7 @@ export function buildSkinnedWeaponGlb(baseGlb, mesh, options = {}) {
   document.asset = { ...document.asset, generator: "Fabelgeist weapon modeler" };
   document.extras = { ...(document.extras ?? {}), adventuresim_weapon: {
     name, attachment, grip_point: gripPoint, skinned: true,
-    animation_contract: semanticNodes.length ? (semanticStringParts.some((part) => /wheellock|matchlock|firearm trigger/.test(part.label)) ? "firearm-lock-nodes-v2" : semanticStringParts.some((part) => part.label === "ball pouch hinged flap") ? "pouch-flap-node-v1" : semanticStringParts.some((part) => part.label.includes("crossbow")) ? "crossbow-string-nodes-v1" : "bow-string-nodes-v1") : undefined,
+    animation_contract: semanticNodes.length ? (semanticStringParts.some((part) => part.animationChannel === "firearmLock") ? "firearm-lock-nodes-v2" : semanticStringParts.some((part) => part.animationChannel === "pouchFlap") ? "pouch-flap-node-v1" : semanticStringParts.some((part) => part.animationChannel === "crossbowString") ? "crossbow-string-nodes-v1" : "bow-string-nodes-v1") : undefined,
     semantic_nodes: semanticStringParts.map((part) => part.label),
   } };
 

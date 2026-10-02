@@ -15,6 +15,13 @@ pub(in crate::tactical_scene_viewer) struct BuildingReviewPlugin;
 impl Plugin for BuildingReviewPlugin {
     fn build(&self, app: &mut App) {
         crate::tactical_scene_viewer::gpu_readiness::GpuReadiness::install(app);
+        app.add_systems(
+            Update,
+            (
+                super::lod::select.after(crate::presentation::BuildingClosureVisibility),
+                super::openings::select_pose,
+            ),
+        );
         app.init_resource::<Readiness>().add_systems(
             Last,
             observe.before(crate::tactical_scene_viewer::capture_views),
@@ -33,14 +40,18 @@ pub(in crate::tactical_scene_viewer) fn ready(
     state: Option<Res<SceneCaptureState>>,
     requirements: Option<Res<ReviewRequirements>>,
     readiness: Option<Res<Readiness>>,
+    exposure: Option<Res<crate::presentation::interior_lighting::InteriorExposure>>,
 ) -> bool {
     requirements.is_none()
         || state.is_none_or(|state| state.phase == CapturePhase::Configure)
-        || readiness.is_some_and(|readiness| readiness.ready)
+        || (readiness.is_some_and(|readiness| readiness.ready)
+            && exposure.is_none_or(|exposure| exposure.is_settled()))
 }
 
 #[derive(SystemParam)]
 struct Observation<'w, 's> {
+    gardens: super::gardens::GardenObservation<'w, 's>,
+    boundaries: Query<'w, 's, &'static adventuresim_tactical_core::prelude::SceneBoundary>,
     buildings: Query<'w, 's, &'static SceneBuilding>,
     batches: Query<
         'w,
@@ -120,7 +131,9 @@ impl Observation<'_, '_> {
     }
 
     fn check(&self, requirements: &ReviewRequirements) -> bool {
-        if self.buildings.iter().count() != requirements.buildings
+        if self.gardens.check(&self.gpu).is_err()
+            || self.buildings.iter().count() != requirements.buildings
+            || self.boundaries.iter().count() != requirements.boundaries
             || self.doors.iter().count() != requirements.doors
             || self.windows.iter().count() != requirements.windows
         {
@@ -147,7 +160,9 @@ impl Observation<'_, '_> {
                     .parents
                     .get(parent.parent())
                     .is_ok_and(|grandparent| self.signs.contains(grandparent.parent()));
-            if is_sign && !self.assets_ready(mesh, material) {
+            if (is_sign || self.boundaries.contains(parent.parent()))
+                && !self.assets_ready(mesh, material)
+            {
                 return false;
             }
         }
@@ -175,12 +190,16 @@ impl Observation<'_, '_> {
             assert_eq!(
                 material.0,
                 self.palette
-                    .get_for_building(window.building_id, BuildingLodMaterial::Glass)
+                    .get_for_building(window.building_id, window.leaf.material())
             );
             let glass = self
                 .materials
                 .get(&material.0)
                 .expect("ready glass material");
+            if window.leaf == adventuresim_building_generator::WindowLeafKind::TimberShutter {
+                assert_eq!(glass.specular_transmission, 0.0, "closed shutter is opaque");
+                continue;
+            }
             assert_eq!(
                 glass.base_color_texture.as_ref(),
                 Some(&self.textures.window_glass.transmittance),
@@ -210,6 +229,7 @@ impl Observation<'_, '_> {
             assert_eq!(presented.sign.font, expected.sign.font);
             assert_eq!(presented.sign.mount, expected.sign.mount);
             assert_eq!(presented.sign.finish, expected.sign.finish);
+            assert_eq!(presented.sign.emblem, expected.sign.emblem);
             assert_eq!(
                 presented.site.mounting.contact,
                 expected.site.mounting.contact
@@ -249,7 +269,16 @@ fn observe(
             .get_or_insert(time.elapsed_secs_f64());
         assert!(
             time.elapsed_secs_f64() - since < MAX_ASSET_WAIT_SECONDS,
-            "building review timed out waiting for production geometry, textures or lettering"
+            "building review timed out: gardens={:?}; buildings={}/{}; boundaries={}/{}; doors={}/{}; windows={}/{}",
+            observation.gardens.check(&observation.gpu),
+            observation.buildings.iter().count(),
+            requirements.buildings,
+            observation.boundaries.iter().count(),
+            requirements.boundaries,
+            observation.doors.iter().count(),
+            requirements.doors,
+            observation.windows.iter().count(),
+            requirements.windows
         );
         return;
     }

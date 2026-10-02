@@ -33,6 +33,7 @@ pub(super) fn thumb_frame(wearer: &Wearer<'_>, side: Side) -> Result<PartFrame> 
     let dorsal = normalize(subtract(dorsal_axis, scale(axial, dot(dorsal_axis, axial))));
     let across = cross(axial, dorsal);
     let mut frame = PartFrame {
+        detail: wearer.detail,
         origin: scale(add(root, tip), 0.5),
         axes: [across, axial, dorsal],
         half_extents: [

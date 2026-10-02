@@ -3,6 +3,7 @@ fn resolve_roof_abutment_contours(
     walls: &[crate::WallAssembly],
     geometry: &mut ResolvedGeometry,
 ) {
+    let contacts = roof_contacts::RoofContacts::new(walls, &geometry.solids);
     for assembly in assemblies {
         for (kind_slot, (edge_kind, abutment_kind)) in [
             (RoofEdgeKind::WallAbutment, RoofAbutmentKind::Wall),
@@ -163,46 +164,8 @@ fn resolve_roof_abutment_contours(
                     // adjoining wall-face assemblies.  Declare every measured
                     // positive interface instead of assigning the whole strip
                     // to whichever face happened to win the nearest-host query.
-                    let weather_ids = [apron, upstand, counter];
-                    let rotated_half_extents = |solid: &ResolvedSolid| {
-                        let cosine = solid.yaw_radians.cos().abs();
-                        let sine = solid.yaw_radians.sin().abs();
-                        Vec3::new(
-                            (solid.size.x * cosine + solid.size.z * sine) * 0.5,
-                            solid.size.y * 0.5,
-                            (solid.size.x * sine + solid.size.z * cosine) * 0.5,
-                        )
-                    };
-                    let bonded_hosts = walls
-                        .iter()
-                        .filter(|candidate| {
-                            // Jambs, heads, and spandrels remain pieces of the
-                            // authoritative wall owner even though they are not
-                            // included in `host_solids`.  Bind weathering to
-                            // every resolved piece it physically contacts.
-                            geometry
-                                .solids
-                                .iter()
-                                .filter(|solid| solid.owner == candidate.owner)
-                                .any(|host_solid| {
-                                    let host_half = rotated_half_extents(host_solid);
-                                    weather_ids.iter().any(|weather_id| {
-                                        let weather = geometry
-                                            .solids
-                                            .iter()
-                                            .find(|solid| solid.id == *weather_id)
-                                            .expect("new roof weathering solid must resolve");
-                                        let weather_half = rotated_half_extents(weather);
-                                        let overlap_min = (host_solid.centre - host_half)
-                                            .max(weather.centre - weather_half);
-                                        let overlap_max = (host_solid.centre + host_half)
-                                            .min(weather.centre + weather_half);
-                                        (overlap_max - overlap_min).min_element() > 0.025
-                                    })
-                                })
-                        })
-                        .map(|candidate| candidate.owner)
-                        .collect::<BTreeSet<_>>();
+                    let weathering = &geometry.solids[geometry.solids.len() - 3..];
+                    let bonded_hosts = contacts.touching(weathering);
                     for bonded_owner in bonded_hosts {
                         geometry.junction_bonds.push(JunctionBond {
                             id: ResolvedItemId(

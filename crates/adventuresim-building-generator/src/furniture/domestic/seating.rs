@@ -38,9 +38,11 @@ pub(super) fn assemble(builder: &mut Builder, kind: FurnitureKind, size: Vec3) {
                 Vec3::new(size.x - 0.1, back_height, 0.05),
             );
         }
-        builder.timber(
+        builder.handled_timber(
             Vec3::new(0.0, size.y - 0.06, back_z),
             Vec3::new(size.x, 0.12, 0.07),
+            Vec3::Y,
+            [0.22, 0.10, 0.78, 0.9],
         );
     }
 }

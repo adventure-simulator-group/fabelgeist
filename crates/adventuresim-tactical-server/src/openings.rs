@@ -7,10 +7,13 @@ use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
 use bevy::prelude::*;
 
+#[path = "boundaries.rs"]
+mod boundaries;
 #[path = "doors.rs"]
 mod doors;
 #[path = "windows.rs"]
 mod windows;
+pub(crate) use boundaries::{on_scene_boundary_added, spawn_generated_boundaries};
 
 pub(crate) use doors::DoorGrabber;
 pub(crate) use windows::WindowGrabber;

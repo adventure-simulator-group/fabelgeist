@@ -37,7 +37,7 @@ fn empty_room() -> BuildingPlan {
 }
 fn placement(kind: FurnitureKind, variant: FurnitureVariant) -> InteriorPlacement {
     InteriorPlacement {
-        key: FurnitureKey { kind, variant },
+        key: FurnitureKey::natural(kind, variant),
         room_id: 0,
         storey: 0,
         centre_metres: Vec2::new(4.5, 7.5),
@@ -121,7 +121,8 @@ fn interior_checks_tall_furniture_above_person_head_height() {
         ..Default::default()
     };
     validate_layout(&plan, &layout).unwrap();
-    layout.placements[0].key.variant = FurnitureVariant::Broad;
+    layout.placements[0].key =
+        FurnitureKey::natural(layout.placements[0].key.kind(), FurnitureVariant::Broad);
     assert!(matches!(
         validate_layout(&plan, &layout),
         Err(InteriorLayoutError::InvalidPlacement { index: 0 })

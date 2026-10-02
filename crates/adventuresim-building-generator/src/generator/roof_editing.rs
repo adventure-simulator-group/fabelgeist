@@ -14,15 +14,15 @@ pub fn set_roof_pitch(
         .iter_mut()
         .find(|roof| roof.id == id)
         .ok_or(RoofEditError::MissingAssembly)?;
-    if !assembly.children.is_empty() || assembly.parent.is_some() {
-        return Err(RoofEditError::TopologyEvent);
-    }
     let old_pitch = assembly
         .faces
         .first()
         .map_or(pitch_degrees, |face| face.pitch_degrees);
     if (old_pitch - pitch_degrees).abs() < 0.0001 {
         return Ok(());
+    }
+    if !assembly.children.is_empty() || assembly.parent.is_some() || assembly.enclosure_faces.iter().any(|face| !face.inset_walls.is_empty()) || plan.domestic_heating.as_ref().is_some_and(|h| h.roof.roof == id) {
+        return Err(RoofEditError::TopologyEvent);
     }
     let old_tan = old_pitch.to_radians().tan();
     if old_tan.abs() <= 0.0001 {
@@ -91,13 +91,12 @@ pub fn set_roof_pitch(
             }
         }
     }
-    for enclosure in &mut assembly.enclosure_faces {
-        for point in &mut enclosure.polygon {
-            if point.y > min_y + 0.01 {
-                point.y = scale_y(point.y);
-            }
-        }
-    }
+    gable_enclosure::update_pitch(
+        &mut assembly.enclosure_faces, &assembly.faces,
+        assembly.source_piece_index.filter(|_| assembly.kind == RoofKind::Gable)
+            .map(|index| plan.roofs[index]),
+        &plan.wall_assemblies, min_y, scale_y,
+    );
     for edge in &mut assembly.edges {
         edge.start.y = scale_y(edge.start.y);
         edge.end.y = scale_y(edge.end.y);

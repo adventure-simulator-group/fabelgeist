@@ -52,9 +52,18 @@ impl SignRenderPart {
 
 #[derive(Resource, Default)]
 pub struct ShopSignRenderCache {
-    paint: HashMap<(ShopName, SignFont, SignFinish, u32), Handle<StandardMaterial>>,
+    paint: HashMap<SignPaintKey, Handle<StandardMaterial>>,
     backing: HashMap<SignFinish, Handle<StandardMaterial>>,
     iron: Option<Handle<StandardMaterial>>,
+}
+
+#[derive(Eq, Hash, PartialEq)]
+struct SignPaintKey {
+    name: ShopName,
+    font: SignFont,
+    finish: SignFinish,
+    emblem: Option<TradeEmblem>,
+    texture_height: u32,
 }
 
 impl ShopSignRenderCache {

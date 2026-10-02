@@ -1,5 +1,6 @@
 //! A directional cage seats both bibs while preserving their lateral outlines.
 //! Directional sections preserve lateral trim independently of render tessellation.
+use adventuresim_armor_model::gorget_bib_direction;
 use std::f32::consts::TAU;
 
 const ROWS: usize = 17;
@@ -28,7 +29,7 @@ impl BibFit {
                 let t = row as f32 / (ROWS - 1) as f32;
                 let angle = TAU * column as f32 / (COLUMNS - 1) as f32;
                 let p = point(t, angle);
-                let direction = direction(angle);
+                let direction = gorget_bib_direction(angle);
                 let query = [p[0], p[1] * direction[2] - p[2] * direction[1]];
                 let upper_height = point(0.0, angle)[1];
                 let origin = p[1] * direction[1] + p[2] * direction[2];
@@ -81,7 +82,7 @@ impl BibFit {
             )
         });
         let distance = cubic(values, row.fract());
-        direction(angle).map(|axis| axis * distance)
+        gorget_bib_direction(angle).map(|axis| axis * distance)
     }
 }
 
@@ -124,15 +125,6 @@ fn cubic(p: [f32; 4], t: f32) -> f32 {
         + (t3 - 2.0 * t2 + t) * a * delta
         + (-2.0 * t3 + 3.0 * t2) * p[2]
         + (t3 - t2) * b * delta
-}
-
-/// Lift over the trapezius at the sides, transitioning into anterior/posterior depth.
-/// This preserves the authored lateral trim instead of inflating it to the shoulder.
-fn direction(angle: f32) -> [f32; 3] {
-    let up = angle.sin().powi(2);
-    let back = angle.cos();
-    let length = up.hypot(back);
-    [0.0, up / length, back / length]
 }
 
 /// Intersect a depth ray after rotating the triangle into its directional section.

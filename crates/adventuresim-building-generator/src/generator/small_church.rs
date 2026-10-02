@@ -97,7 +97,8 @@ struct Dimensions {
 
 impl Dimensions {
     fn from_program(program: &BuildingProgram) -> Option<Self> {
-        if program.archetype != BuildingArchetype::ParishChurch {
+        if program.archetype != BuildingArchetype::ParishChurch || program.church_program.is_some()
+        {
             return None;
         }
         let kind = SmallChurchKind::from_use(program.usage?)?;

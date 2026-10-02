@@ -64,15 +64,15 @@ impl Default for BracerDesign {
 }
 
 impl BracerDesign {
-    pub(crate) fn columns(&self) -> Vec<f32> {
-        const BASE_SEGMENTS: usize = 32;
+    pub(crate) fn columns(&self, detail: crate::ArmorDetail) -> Vec<f32> {
+        let base_segments = detail.segments(32, 12);
         let mut columns = self.fluting.as_ref().map_or_else(
             || {
-                (0..=BASE_SEGMENTS)
-                    .map(|i| i as f32 / BASE_SEGMENTS as f32)
+                (0..=base_segments)
+                    .map(|i| i as f32 / base_segments as f32)
                     .collect()
             },
-            |fluting| fluting.columns(BASE_SEGMENTS),
+            |fluting| fluting.columns(base_segments),
         );
         columns.pop();
         columns
@@ -135,6 +135,7 @@ pub struct SurfaceMorph {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct AnatomicalSurface {
+    pub detail: crate::ArmorDetail,
     pub domain: String,
     pub vertices: Vec<SurfaceVertex>,
     pub faces: Vec<[u32; 3]>,
@@ -279,6 +280,7 @@ pub struct TorsoUpperRigAnchors {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct TorsoSurface {
+    pub detail: crate::ArmorDetail,
     pub domain: String,
     /// Model-space direction from the spine toward the anterior torso.
     pub front: [f32; 3],
@@ -322,6 +324,9 @@ pub struct ArmorMorph {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GeneratedArmor {
+    /// Interior and return faces used for physical fitting and dense bakes.
+    /// Runtime renders the authored exterior as a two-sided sheet.
+    pub construction_faces: Vec<std::ops::Range<usize>>,
     /// Outer-sheet rim segments in the generated vertex index domain.
     pub plate_edges: Vec<[u32; 2]>,
     pub components: Vec<crate::ArmorComponent>,

@@ -12,6 +12,7 @@ fn spawn_resolved_roof(
     palette: &RenderPalette,
     roof: &RoofAssembly,
     geometry: &adventuresim_building_generator::ResolvedGeometry,
+    walls: &[adventuresim_building_generator::WallAssembly],
     origin: Vec2,
     removed_items: &std::collections::HashSet<u64>,
     lighting_calibration: bool,
@@ -62,7 +63,7 @@ fn spawn_resolved_roof(
     for enclosure in &roof.enclosure_faces {
         let mesh = world
             .resource_mut::<Assets<Mesh>>()
-            .add(roof_enclosure_prism_mesh(enclosure));
+            .add(roof_enclosure_prism_mesh(enclosure, walls));
         let material = if cutaway_material {
             &palette.cutaway
         } else {
@@ -104,8 +105,8 @@ fn spawn_resolved_roof(
     let _ = geometry;
 }
 
-fn roof_enclosure_prism_mesh(enclosure: &RoofEnclosureFace) -> Mesh {
-    let faces = adventuresim_building_generator::tessellate_roof_enclosure(enclosure)
+fn roof_enclosure_prism_mesh(enclosure: &RoofEnclosureFace, walls: &[adventuresim_building_generator::WallAssembly]) -> Mesh {
+    let faces = adventuresim_building_generator::tessellate_roof_enclosure(enclosure, walls)
         .into_iter()
         .map(|triangle| triangle.positions.to_vec())
         .collect::<Vec<_>>();

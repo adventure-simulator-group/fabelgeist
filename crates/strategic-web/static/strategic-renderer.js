@@ -34,13 +34,6 @@ const mount = () => {
   });
 };
 
-const enumOptions = {
-  material: ["Wood", "Leather", "DarkLeather", "Brass", "Steel", "DarkSteel"],
-  role: ["Structure", "Grip", "Guard", "Socket", "Head"],
-  section: ["Flat", "Diamond", "Fullered"],
-  profile: ["Straight", "Spear", "Cleaver", "Curved"],
-};
-
 const titleize = (value) => value.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 const setPath = (object, path, value) => {
   const parent = path.slice(0, -1).reduce((current, key) => current[key], object);
@@ -50,7 +43,7 @@ const setPath = (object, path, value) => {
 const appendField = (container, key, value, path, constraints) => {
   const label = document.createElement("label");
   const name = document.createElement("span");
-  name.textContent = titleize(key);
+  name.textContent = constraints.get(path.join("."))?.label || titleize(key);
   label.append(name);
   let input;
   if (typeof value === "number") {
@@ -63,9 +56,9 @@ const appendField = (container, key, value, path, constraints) => {
     const output = document.createElement("output");
     output.textContent = value;
     label.append(output);
-  } else if (typeof value === "string" && enumOptions[key]) {
+  } else if (typeof value === "string" && constraints.get(path.join("."))?.options) {
     input = document.createElement("select");
-    for (const optionValue of enumOptions[key]) {
+    for (const optionValue of constraints.get(path.join(".")).options) {
       input.add(new Option(optionValue, optionValue, false, optionValue === value));
     }
   } else return;
@@ -77,7 +70,7 @@ const appendField = (container, key, value, path, constraints) => {
 const appendObjectFields = (container, object, path, constraints) => {
   for (const [key, value] of Object.entries(object)) {
     if (key === "id" || key === "catalog_id" || key === "role" || (key === "component" && path.includes("attachment"))) continue;
-    if (value && typeof value === "object" && !Array.isArray(value)) {
+    if (value && typeof value === "object") {
       appendObjectFields(container, value, [...path, key], constraints);
     } else {
       appendField(container, key, value, [...path, key], constraints);
@@ -89,13 +82,13 @@ const renderForgeEditor = (root, design) => {
   const editor = root.querySelector("[data-forge-editor]");
   const constraints = forgeConstraints.get(root) || new Map();
   editor.replaceChildren();
-  design.components.forEach((component, index) => {
+  design.recipe.components.forEach((component, index) => {
     const group = document.createElement("details");
     group.open = index < 2;
     const summary = document.createElement("summary");
     summary.textContent = titleize(component.id);
     group.append(summary);
-    appendObjectFields(group, component, ["components", index], constraints);
+    appendObjectFields(group, component, ["recipe", "components", index], constraints);
     editor.append(group);
   });
 };

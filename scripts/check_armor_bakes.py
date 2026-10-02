@@ -18,13 +18,17 @@ def audit(source, current):
     for a, b in zip(before.doc["meshes"], after.doc["meshes"]):
         assert a.get("extras") == b.get("extras") and a.get("weights") == b.get("weights")
         for old, new in zip(a["primitives"], b["primitives"]):
-            np.testing.assert_array_equal(before.array(old["indices"]), after.array(new["indices"]))
+            old_corners = before.array(old["indices"]).flatten()
+            new_corners = after.array(new["indices"]).flatten()
+            assert len(old_corners) == len(new_corners), "triangle count changed"
             for name, index in old["attributes"].items():
                 if name not in {"NORMAL", "TANGENT"}:
-                    np.testing.assert_array_equal(before.array(index), after.array(new["attributes"][name]))
+                    np.testing.assert_array_equal(before.array(index)[old_corners],
+                                                  after.array(new["attributes"][name])[new_corners], err_msg=name)
             assert len(old.get("targets", [])) == len(new.get("targets", []))
             for a_target, b_target in zip(old.get("targets", []), new.get("targets", [])):
-                np.testing.assert_array_equal(before.array(a_target["POSITION"]), after.array(b_target["POSITION"]))
+                np.testing.assert_array_equal(before.array(a_target["POSITION"])[old_corners],
+                                              after.array(b_target["POSITION"])[new_corners])
             if retains_body_uvs(current):
                 continue
             normal = after.array(new["attributes"]["NORMAL"])

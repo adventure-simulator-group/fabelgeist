@@ -222,6 +222,7 @@ pub fn generate_coif_with_drape(
         head[1] * super::shapes::BROW_HEIGHT,
         head[1],
         design,
+        frame.detail,
         drape,
     )?
     .transformed(frame))

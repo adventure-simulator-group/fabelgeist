@@ -68,20 +68,9 @@ def build(path, detail, color=None):
                 sampler = nodes.new("ShaderNodeTexImage")
                 sampler.image = bpy.data.images.load(str((path.parent / image["uri"]).resolve()))
                 sampler.image.colorspace_settings.name = "Non-Color"
-                # Direct GLB tangents use glTF's downwards V. Blender's UV layer
-                # has upwards V, so invert the tangent-space green component.
-                split, combine = nodes.new("ShaderNodeSeparateXYZ"), nodes.new("ShaderNodeCombineXYZ")
-                invert = nodes.new("ShaderNodeMath")
-                invert.operation = "SUBTRACT"
-                invert.inputs[0].default_value = 1
-                links.new(sampler.outputs["Color"], split.inputs[0])
-                links.new(split.outputs["X"], combine.inputs["X"])
-                links.new(split.outputs["Y"], invert.inputs[1])
-                links.new(invert.outputs[0], combine.inputs["Y"])
-                links.new(split.outputs["Z"], combine.inputs["Z"])
                 normal = nodes.new("ShaderNodeNormalMap")
                 normal.uv_map = "armor_material"
-                links.new(combine.outputs[0], normal.inputs["Color"])
+                links.new(sampler.outputs["Color"], normal.inputs["Color"])
                 links.new(normal.outputs["Normal"], shader.inputs["Normal"])
             data.materials.append(material)
             objects.append(obj)

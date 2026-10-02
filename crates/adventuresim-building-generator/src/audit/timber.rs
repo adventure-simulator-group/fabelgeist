@@ -1,20 +1,5 @@
 fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
-    let expected = match plan.archetype {
-        BuildingArchetype::TownHouse => Some(crate::TimberFrameProgramKind::NarrowUrbanTownHouse),
-        BuildingArchetype::HallHouse => {
-            Some(crate::TimberFrameProgramKind::NorthernTwoPostHallHouse)
-        }
-        BuildingArchetype::FachwerkCottage => {
-            Some(crate::TimberFrameProgramKind::DirectRoofCottage)
-        }
-        BuildingArchetype::FachwerkMerchantHouse => {
-            Some(crate::TimberFrameProgramKind::JettiedMerchantHouse)
-        }
-        BuildingArchetype::RenaissanceTownHall => {
-            Some(crate::TimberFrameProgramKind::CivicMasonryTimberHall)
-        }
-        _ => None,
-    };
+    let expected = plan.archetype.timber_frame_program();
     let Some(expected) = expected else {
         if plan.timber_frame.is_some() {
             issues.push(issue(
@@ -142,10 +127,8 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                             (interface.bounds.min + interface.bounds.max) * 0.5;
                                         let point = Vec2::new(centre.x, centre.z);
                                         roof_face_contains_plan_point_inclusive(face, point)
-                                            && roof_face_height(face, point).is_some_and(|height| {
-                                                let underside = height
-                                                    - face.plane.normal.normalize_or_zero().y
-                                                        * face.thickness_metres;
+                                            && roof_face_height(face, point).is_some_and(|_| {
+                                                let underside = face.underside_height_at(point);
                                                 underside >= interface.bounds.min.y - 0.002
                                                     && underside <= interface.bounds.max.y + 0.002
                                             })
@@ -1523,7 +1506,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 && ground_route_has_door
                 && jetty_count == 0
         }
-        crate::TimberFrameProgramKind::DirectRoofCottage => {
+        crate::TimberFrameProgramKind::DirectRoofCottage | crate::TimberFrameProgramKind::CourtyardStorageRange => {
             jetty_count == 0
                 && frame
                     .facades
@@ -1533,7 +1516,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 && ground_route_has_door
         }
         crate::TimberFrameProgramKind::JettiedMerchantHouse => {
-            jetty_count >= 1 && ground_route_has_door
+            jetty_count >= 1 && ground_route_has_door && frame.masonry_bearing_interfaces.len() >= 4
         }
         crate::TimberFrameProgramKind::CivicMasonryTimberHall => {
             lines

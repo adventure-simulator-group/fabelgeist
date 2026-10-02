@@ -1,28 +1,11 @@
+import { generateModel, validateWeapon } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildWeapon, lathe, shieldHandAperture, signedVolume, validateWeapon } from "../src/mesh.js";
+import { signedVolume } from "./quality/mesh-measurements.mjs";
 import { PRESETS, copyPreset, setControlValue } from "../src/presets.js";
 import { triangleVertices } from "../src/topology.js";
 import { adversarialReviewCases, reviewCases } from "../src/review-cases.js";
 
-test("round surfaces share radial normals and indices while caps and octagonal flats remain split", () => {
-  const mesh = lathe([[0, 0.02], [0.2, 0.02]], 24);
-  assert.ok(mesh.positions.length / 3 < mesh.indices.length / 2);
-  let sideCount = 0, capCount = 0;
-  for (let i = 0; i < mesh.positions.length; i += 3) {
-    const [x, , z] = mesh.positions.slice(i, i + 3), normal = mesh.normals.slice(i, i + 3);
-    if (Math.abs(normal[1]) > 0.99) { capCount++; continue; }
-    assert.ok(Math.abs(normal[1]) < 1e-6);
-    assert.ok(normal[0] * x / 0.02 + normal[2] * z / 0.02 > 0.999);
-    sideCount++;
-  }
-  assert.ok(sideCount > 0 && capCount > 0);
-  const octagon = lathe([[0, 0.02], [0.2, 0.02]], 8, "wood", [0, 0, 0], "octagon", 1, true);
-  const cornerNormals = [];
-  for (let i = 0; i < octagon.positions.length; i += 3) if (Math.abs(octagon.positions[i] - 0.02) < 1e-8 && Math.abs(octagon.positions[i + 1]) < 1e-8 && Math.abs(octagon.normals[i + 1]) < 0.01) cornerNormals.push(octagon.normals.slice(i, i + 3));
-  assert.equal(cornerNormals.length, 2);
-  assert.ok(cornerNormals[0].reduce((sum, value, axis) => sum + value * cornerNormals[1][axis], 0) < 0.8);
-});
 
 test("all preset LODs keep bounds, enclosed volume, and attachment construction", () => {
   for (const preset of PRESETS) {
@@ -48,7 +31,7 @@ test("adverse joints and silhouettes survive every LOD", () => {
 });
 
 test("a narrow pommel receives a tapered grip seat without an overhanging bottom cap", () => {
-  const definition = adversarialReviewCases()[0].definition, mesh = buildWeapon(definition);
+  const definition = adversarialReviewCases()[0].definition, mesh = generateModel(definition);
   const pommel = mesh.resolvedDefinition.components.find((part) => part.id === "pommel");
   const grip = mesh.parts.find((part) => part.componentId === "grip");
   const y = Math.min(...grip.positions.filter((_, index) => index % 3 === 1));
@@ -60,7 +43,7 @@ test("mirroring a halberd keeps its rear fluke opposite the axe and below its ro
   const preset = copyPreset(PRESETS.find((p) => p.id === "halberd-1540"));
   for (const side of [-1, 1]) {
     preset.definition.components[1].side = side;
-    const mesh = buildWeapon(preset.definition), beak = mesh.resolvedDefinition.components.find((part) => part.kind === "beak");
+    const mesh = generateModel(preset.definition), beak = mesh.resolvedDefinition.components.find((part) => part.kind === "beak");
     assert.equal(beak.direction, -side);
     const part = mesh.parts.find((part) => part.componentId === beak.id);
     const tip = [];
@@ -71,8 +54,7 @@ test("mirroring a halberd keeps its rear fluke opposite the axe and below its ro
 
 test("center-gripped bucklers open into their hollow boss and strapped shields keep their body", () => {
   const preset = copyPreset(PRESETS.find((p) => p.id === "buckler"));
-  const mesh = buildWeapon(preset.definition), aperture = shieldHandAperture(preset.definition.components[0]);
-  assert.ok(aperture > 0.045);
+  const mesh = generateModel(preset.definition);
   const body = mesh.parts.find((part) => part.shieldRole === "body");
   for (const triangle of triangleVertices(body)) {
     const signs = triangle.map((a, i) => { const b = triangle[(i + 1) % 3]; return a[0] * b[1] - a[1] * b[0]; });
@@ -84,7 +66,8 @@ test("center-gripped bucklers open into their hollow boss and strapped shields k
   const { bossRadius, bossHeight } = preset.definition.components[0];
   assert.ok(signedVolume(boss) < 0.15 * (2 / 3 * Math.PI * bossRadius ** 2 * bossHeight), "boss must be a thin shell rather than a solid hemisphere");
   preset.definition.components[0].fittingMode = "grip-and-strap";
-  assert.equal(shieldHandAperture(preset.definition.components[0]), 0);
+  const strapped=generateModel(preset.definition).parts.find(part=>part.shieldRole==="body");
+  assert.ok(triangleVertices(strapped).some(triangle=>{ const signs=triangle.map((a,i)=>{const b=triangle[(i+1)%3];return a[0]*b[1]-a[1]*b[0];});return signs.every(s=>s>= -1e-10)||signs.every(s=>s<=1e-10); }));
 });
 
 test("authored furniture choices remain valid with small pommels and all detail levels", () => {

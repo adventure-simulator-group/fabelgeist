@@ -257,10 +257,11 @@ pub(super) fn structured_samples(
         .map(|vertex| vertex.position)
         .collect::<Vec<_>>();
     let (start, end) = design.axial_interval();
-    let columns = design.columns();
-    let mut samples = Vec::with_capacity((ALONG + 1) * columns.len());
-    for ring in 0..=ALONG {
-        let factor = ring as f32 / ALONG as f32;
+    let columns = design.columns(surface.detail);
+    let along = surface.detail.segments(ALONG, 2);
+    let mut samples = Vec::with_capacity((along + 1) * columns.len());
+    for ring in 0..=along {
+        let factor = ring as f32 / along as f32;
         // Exact extrema can collapse to one source vertex. This sub-pixel
         // inset retains the intended full span while guaranteeing a loop.
         let axial = (start + (end - start) * factor).clamp(1e-4, 1.0 - 1e-4);
@@ -283,15 +284,17 @@ pub(super) fn displaced(
     positions: &[[f32; 3]],
     normals: &[[f32; 3]],
     design: &BracerDesign,
+    detail: crate::ArmorDetail,
 ) -> Result<Vec<[f32; 3]>, GenerateError> {
     let outer = design.clearance.metres() + design.wall_thickness.metres();
     let inner = design.clearance.metres();
-    let columns = design.columns();
+    let columns = design.columns(detail);
+    let along = detail.segments(ALONG, 2);
     let point = |(index, sample): (usize, &Sample), offset: f32| {
         let offset = offset
             + design.relief(
                 columns[index % columns.len()],
-                (index / columns.len()) as f32 / ALONG as f32,
+                (index / columns.len()) as f32 / along as f32,
             );
         let normal = normalized(sample_vec3(sample, normals)).ok_or(GenerateError::Degenerate)?;
         Ok(add(sample_vec3(sample, positions), scale(normal, offset)))

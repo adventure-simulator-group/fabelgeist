@@ -3,7 +3,7 @@
 use bevy::{math::primitives::Cuboid, prelude::*};
 use bevy_mod_outline::{OutlineMode, OutlineVolume};
 
-use super::{BuildingRenderLevel, SceneDoor, TacticalBuildingMaterials, building_lod_visibility};
+use super::{SceneDoor, TacticalBuildingMaterials, building_closures};
 use adventuresim_building_generator::BuildingLodMaterial;
 
 #[derive(Component)]
@@ -17,6 +17,10 @@ pub(crate) struct DoorPresentationPlugin;
 impl Plugin for DoorPresentationPlugin {
     fn build(&self, app: &mut App) {
         app.add_observer(on_scene_door_added);
+        app.add_systems(
+            Update,
+            building_closures::sync.in_set(building_closures::BuildingClosureVisibility),
+        );
     }
 }
 
@@ -33,7 +37,6 @@ pub(in crate::presentation) fn on_scene_door_added(
         Mesh3d(meshes.add(Cuboid::from_size(door.size_metres))),
         MeshMaterial3d(materials.get_for_building(door.building_id, BuildingLodMaterial::Timber)),
         Visibility::default(),
-        building_lod_visibility(BuildingRenderLevel::Lod0),
         GrabTargetOutline(event.entity),
         OutlineVolume {
             visible: false,
@@ -42,5 +45,13 @@ pub(in crate::presentation) fn on_scene_door_added(
         },
         OutlineMode::FloodFlat,
     ));
+    if !adventuresim_tactical_core::city_layout::CityGate::owns_opening(
+        adventuresim_building_generator::OpeningAssemblyId(door.opening_id),
+    ) {
+        commands.entity(event.entity).insert((
+            super::building_lod_visibility(super::BuildingRenderLevel::Lod0),
+            building_closures::PresentedBuildingClosureMesh::new(door.building_id, door.opening_id),
+        ));
+    }
     Ok(())
 }

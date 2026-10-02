@@ -3,21 +3,22 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 import argparse
+import gzip
 import json
+from pathlib import Path
 import shutil
 import subprocess
 import sys
+import time
+import tomllib
 
 
 ROOT = Path(__file__).resolve().parents[1]
 STATIC_DIR = ROOT / "crates" / "adventuresim-stdb-module" / "static"
 WASM_DIR = STATIC_DIR / "wasm"
 ASSET_DIR = STATIC_DIR / "assets"
-BUNDLE = WASM_DIR / "adventuresim-tactical-client_bg.wasm"
-# Cross-crate LTO and a single codegen unit; see `[profile.wasm-release]`.
-CARGO_PROFILE = "wasm-release"
+WASM_OPT_VERSION = "123"
 
 
 def run(command: list[str], *, check: bool = True) -> int:
@@ -25,51 +26,6 @@ def run(command: list[str], *, check: bool = True) -> int:
     if check and result.returncode:
         raise subprocess.CalledProcessError(result.returncode, command)
     return result.returncode
-
-
-def target_dir() -> Path:
-    """Resolve cargo's target directory.
-
-    Do not assume ``ROOT/target``: a global cargo config or ``CARGO_TARGET_DIR``
-    can redirect it elsewhere (this environment points it at a shared cache), in
-    which case the built .wasm is not under the repo at all.
-    """
-    out = subprocess.run(
-        ["cargo", "metadata", "--format-version", "1", "--no-deps"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    return Path(json.loads(out.stdout)["target_directory"])
-
-
-def optimize(*, keep_names: bool) -> None:
-    """Run binaryen over the wasm-bindgen output.
-
-    rustc emits per-codegen-unit code that LTO alone does not clean up, and the
-    browser pays for every surplus byte twice: once compiling the module and
-    again running baseline-tier code while background tier-up works through it.
-    Binaryen is a whole-module pass, so it belongs after wasm-bindgen has
-    finished rewriting the module, not before.
-    """
-    wasm_opt = shutil.which("wasm-opt")
-    if wasm_opt is None:
-        raise OSError(
-            "Missing wasm-opt. It ships with binaryen, which the Nix dev shell "
-            "provides; pass --skip-wasm-opt to build without it."
-        )
-    before = BUNDLE.stat().st_size
-    optimized = BUNDLE.with_suffix(".opt.wasm")
-    print(f"Optimizing wasm ({before} bytes)...")
-    command = [wasm_opt, "-O2", str(BUNDLE), "-o", str(optimized)]
-    if keep_names:
-        # Binaryen drops the name section unless debug info is requested.
-        command.append("-g")
-    run(command)
-    optimized.replace(BUNDLE)
-    after = BUNDLE.stat().st_size
-    print(f"  {before} -> {after} bytes ({100 * (before - after) / before:.1f}% smaller)")
 
 
 def sync_assets() -> None:
@@ -83,66 +39,70 @@ def sync_assets() -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--keep-name-section",
-        action="store_true",
-        help=(
-            "keep wasm function names, for readable panic traces at the cost "
-            "of roughly doubling the module"
-        ),
-    )
-    parser.add_argument(
-        "--skip-wasm-opt",
-        action="store_true",
-        help="skip the binaryen pass, for faster iteration on an unshipped build",
-    )
+    parser.add_argument("--bindgen", default="wasm-bindgen",
+                        help="Path to the wasm-bindgen CLI matching Cargo.lock")
+    parser.add_argument("--wasm-opt", default=str(ROOT / "node_modules" / ".bin" / "wasm-opt"),
+                        help=f"Path to wasm-opt version {WASM_OPT_VERSION}")
+    parser.add_argument("--keep-name-section", action="store_true",
+                        help="Keep wasm function names for readable panic traces")
     args = parser.parse_args(argv)
-    wasm_bindgen = shutil.which("wasm-bindgen")
+    lock = tomllib.loads((ROOT / "Cargo.lock").read_text(encoding="utf-8"))
+    expected = next(p["version"] for p in lock["package"] if p["name"] == "wasm-bindgen")
+    wasm_bindgen = shutil.which(args.bindgen)
     if wasm_bindgen is None:
-        print("Missing wasm-bindgen. Install with: cargo install wasm-bindgen-cli", file=sys.stderr)
+        print(f"Missing wasm-bindgen. Install wasm-bindgen-cli --version {expected}",
+              file=sys.stderr)
+        return 1
+    wasm_opt = shutil.which(args.wasm_opt)
+    if wasm_opt is None:
+        print("Missing pinned wasm-opt. Run npm ci.", file=sys.stderr)
         return 1
     try:
+        actual = subprocess.check_output([wasm_bindgen, "--version"], text=True).strip().split()[-1]
+        if actual != expected:
+            print(f"wasm-bindgen CLI {actual} does not match Rust {expected}. "
+                  f"Install wasm-bindgen-cli --version {expected}, or pass --bindgen PATH.",
+                  file=sys.stderr)
+            return 1
+        wasm_opt_version = subprocess.check_output(
+            [wasm_opt, "--version"], text=True
+        ).strip().split()[2]
+        if wasm_opt_version != WASM_OPT_VERSION:
+            print(f"wasm-opt {wasm_opt_version} does not match pinned "
+                  f"version {WASM_OPT_VERSION}. Run npm ci.", file=sys.stderr)
+            return 1
         print("Building WASM client...")
-        # The Nix toolchain already provides the wasm32 target (see
-        # rust-toolchain.toml). Only nudge rustup when it's actually installed;
-        # otherwise `subprocess.run` raises FileNotFoundError and the build dies
-        # on a target that's already present.
         if shutil.which("rustup"):
             run(["rustup", "target", "add", "wasm32-unknown-unknown"], check=False)
-        # `--no-default-features` drops the `debug` feature. It pulls
-        # `bevy/bevy_remote`, the ECS/render debug-name machinery, and Avian's
-        # `PhysicsDebugPlugin`, which rebuilds collider gizmo geometry every
-        # frame. None of it is reachable from the browser client.
-        run([
-            "cargo", "build",
-            "--package", "adventuresim-tactical-client",
-            "--target", "wasm32-unknown-unknown",
-            "--profile", CARGO_PROFILE,
-            "--no-default-features",
-        ])
-        wasm = (
-            target_dir()
-            / "wasm32-unknown-unknown"
-            / CARGO_PROFILE
-            / "adventuresim-tactical-client.wasm"
-        )
+        started = time.perf_counter()
+        common = ["cargo", "build", "--package", "adventuresim-tactical-client",
+                  "--target", "wasm32-unknown-unknown"]
+        # Preserve the ordinary tactical client's release build exactly. Build
+        # the demo separately so Cargo cannot unify gameplay-only features into
+        # its size-oriented binary.
+        run([*common, "--bin", "adventuresim-tactical-client", "--release"])
+        run([*common, "--bin", "art-demo", "--profile", "wasm-release",
+             "--no-default-features"])
+        build_seconds = time.perf_counter() - started
         WASM_DIR.mkdir(parents=True, exist_ok=True)
         print("Generating JS bindings...")
-        bindgen = [
-            wasm_bindgen, "--out-dir", str(WASM_DIR), "--target", "web", "--no-typescript",
-        ]
-        if not args.keep_name_section:
-            # The name section is about half the module and the browser pays
-            # for it twice: in the download and again when devtools indexes
-            # the module as a source, which is what makes Firefox report the
-            # page as slow. Pass --keep-name-section when a panic trace needs
-            # readable frames.
-            bindgen.extend(["--remove-name-section", "--remove-producers-section"])
-        run([*bindgen, str(wasm)])
-        if args.skip_wasm_opt:
-            print("Skipping wasm-opt.")
-        else:
-            optimize(keep_names=args.keep_name_section)
+        for binary in ("adventuresim-tactical-client", "art-demo"):
+            profile = "wasm-release" if binary == "art-demo" else "release"
+            source = (ROOT / "target" / "wasm32-unknown-unknown" /
+                      profile / f"{binary}.wasm")
+            bindgen = [
+                wasm_bindgen, "--out-dir", str(WASM_DIR), "--target", "web", "--no-typescript",
+            ]
+            if not args.keep_name_section:
+                bindgen.extend(["--remove-name-section", "--remove-producers-section"])
+            run([*bindgen, str(source)])
+            if binary == "art-demo":
+                generated = WASM_DIR / "art-demo_bg.wasm"
+                optimized = generated.with_stem("art-demo_bg-optimized")
+                run([wasm_opt, "--all-features", "-Oz", "--strip-debug",
+                     "--strip-producers",
+                     str(generated), "-o", str(optimized)])
+                optimized.replace(generated)
         print("Syncing browser assets...")
         sync_assets()
     except (OSError, subprocess.CalledProcessError) as error:
@@ -151,6 +111,24 @@ def main(argv: list[str] | None = None) -> int:
     print(f"WASM built to {WASM_DIR}")
     for path in sorted(WASM_DIR.iterdir()):
         print(f"  {path.name}: {path.stat().st_size} bytes")
+    sizes = {"build_seconds": round(build_seconds, 3), "bundles": {}}
+    for path in sorted(WASM_DIR.glob("*_bg.wasm")):
+        data = path.read_bytes()
+        brotli_data = subprocess.check_output([
+            "node", "-e",
+            "const fs=require('fs'),z=require('zlib');process.stdout.write("
+            "z.brotliCompressSync(fs.readFileSync(process.argv[1]),{params:{"
+            "[z.constants.BROTLI_PARAM_QUALITY]:11}}))",
+            str(path),
+        ])
+        sizes["bundles"][path.name] = {
+            "raw_bytes": len(data),
+            "gzip_bytes": len(gzip.compress(data, compresslevel=6, mtime=0)),
+            "brotli_bytes": len(brotli_data),
+        }
+    report = WASM_DIR / "bundle-sizes.json"
+    report.write_text(json.dumps(sizes, indent=2) + "\n", encoding="utf-8")
+    print(f"  {report.name}: raw/gzip-6/brotli-11 measurements")
     return 0
 
 

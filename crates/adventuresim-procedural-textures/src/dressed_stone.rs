@@ -9,7 +9,7 @@ use super::{
 
 pub(crate) mod weathering;
 
-pub const DRESSED_STONE_TEXTURE_SIZE: u32 = 2048;
+pub const DRESSED_STONE_TEXTURE_SIZE: u32 = 1024;
 pub const DRESSED_STONE_TILE_METRES: f32 = 7.2;
 pub const DRESSED_STONE_HEIGHT_RANGE_METRES: f32 = 0.024;
 

@@ -7,6 +7,7 @@ use super::view_specs::{CaptureViewSpec, TREE_COLD_TRAVERSAL_VIEWS};
 
 #[derive(Clone, Serialize)]
 pub(super) struct CaptureRecord {
+    pub(super) botanical_lods: Vec<super::plant_lods::Observation>,
     pub(super) view: String,
     pub(super) label: String,
     pub(super) screenshot: String,
@@ -113,6 +114,8 @@ pub(super) struct ObstacleSummary {
 pub(super) struct FoliageSummary {
     pub(super) grass_clumps: usize,
     pub(super) understory_clumps: usize,
+    pub(super) botanical_lod_entities: usize,
+    pub(super) botanical_specimens: usize,
     pub(super) dry_leaf_patches: usize,
     pub(super) twig_patches: usize,
     pub(super) loose_stone_patches: usize,
@@ -581,6 +584,7 @@ mod tests {
 
     fn capture(view: &str, foreground_pixel_bps: u16, detail_pixel_bps: u16) -> CaptureRecord {
         CaptureRecord {
+            botanical_lods: Vec::new(),
             view: view.into(),
             label: view.into(),
             screenshot: format!("{view}.png"),

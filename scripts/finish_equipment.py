@@ -11,7 +11,11 @@ def main():
     parser.add_argument("directory", type=Path)
     parser.add_argument("--stage", choices=["uv", "bake", "trim", "all"], default="all")
     parser.add_argument("--finish-recipe", type=Path, default=Path("assets_src/equipment/armor-finishes.json"))
+    parser.add_argument("--source-directory", type=Path,
+                        help="Matching dense review JSON for the normal bake")
     args = parser.parse_args()
+    if args.stage in {"bake", "all"} and args.source_directory is None:
+        parser.error("--source-directory is required for dense-to-runtime baking")
     blender = os.environ.get("BLENDER_BIN") or shutil.which("blender")
     if not blender and args.stage != "trim":
         parser.error("Set BLENDER_BIN to the Blender executable for equipment UV unwrapping")
@@ -19,8 +23,9 @@ def main():
                "trim": [], "all": ["unwrap_armor.py", "bake_armor.py"]}[args.stage]
     for name in scripts:
         script = Path(__file__).with_name(name)
+        source_args = ["--source-directory", str(args.source_directory)] if name == "bake_armor.py" else []
         subprocess.run([blender, "--background", "--python-exit-code", "1", "--python",
-                        str(script), "--", str(args.directory)], check=True)
+                        str(script), "--", str(args.directory), *source_args], check=True)
 
     if args.stage in {"trim", "all"}:
         import sys

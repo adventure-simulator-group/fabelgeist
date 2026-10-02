@@ -7,8 +7,9 @@ repository.workspace = true
 license.workspace = true
 
 [features]
-default = ["debug"]
+default = ["debug", "client-audio"]
 debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
+client-audio = ["bevy/audio"]
 tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
 # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
 remote-types = ["debug"]
@@ -26,11 +27,14 @@ adventuresim-weapon-model.workspace = true
 adventuresim-world-schema.workspace = true
 adventuresim-building-generator = { workspace = true, features = ["sign-render"] }
 adventuresim-procedural-textures.workspace = true
+adventuresim-plant-generator.workspace = true
 fabelgeist-determinism.workspace = true
+flate2.workspace = true
 clap.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 serde-saphyr.workspace = true
+postcard.workspace = true
 tracing.workspace = true
 web-time.workspace = true
 todo-or-die = { version = "0.1.2", features = ["crate"] }
@@ -58,7 +62,6 @@ bevy = { workspace = true, default-features = false, features = [
     "ui_bevy_render",
     "scene",
     "picking",
-    "audio",
     "jpeg",
     "png",
     "smaa_luts",
@@ -77,6 +80,11 @@ path = "src/lib.rs"
 
 [[bin]]
 name = "adventuresim-tactical-client"
+doc = false
+
+[[bin]]
+name = "art-demo"
+path = "src/art_demo_main.rs"
 doc = false
 
 [[bin]]

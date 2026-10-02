@@ -24,7 +24,7 @@ use bevy::{
 };
 use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
 
-use crate::presentation::{bps, grass_cover_mask_pixels, splitmix64, stable_text_seed, unit_hash};
+use crate::presentation::{bps, splitmix64, stable_text_seed, unit_hash};
 
 use super::{
     GrassInteractor, GroundScatterLayer,
@@ -35,6 +35,7 @@ use super::{
     grass_pigment, grass_scatter_density,
 };
 
+use super::cover_mask::CoverageMask;
 mod diagnostics;
 mod material;
 pub(crate) use diagnostics::GrassTriangleCount;
@@ -327,41 +328,8 @@ pub(super) fn fitted_batch_aabb(instances: &[InstanceData], footprint: f32) -> A
     }
 }
 
-/// CPU-side sampler over the same feathered cover mask the legacy renderer
-/// binds as a texture.
-struct CoverageMask {
-    width: usize,
-    height: usize,
-    pixels: Vec<u8>,
-    ground_width: f32,
-    ground_depth: f32,
-}
-
-impl CoverageMask {
-    fn new(ground: &SceneGround, seed: u64) -> Self {
-        let (width, height, pixels) = grass_cover_mask_pixels(ground, seed);
-        Self {
-            width: width as usize,
-            height: height as usize,
-            pixels,
-            ground_width: ground.width(),
-            ground_depth: ground.depth(),
-        }
-    }
-
-    fn coverage_byte(&self, world: Vec2) -> u8 {
-        let u = (world.x / self.ground_width + 0.5).clamp(0.0, 1.0);
-        let v = (world.y / self.ground_depth + 0.5).clamp(0.0, 1.0);
-        let x = ((u * self.width as f32) as usize).min(self.width - 1);
-        let y = ((v * self.height as f32) as usize).min(self.height - 1);
-        self.pixels[y * self.width + x]
-    }
-}
-
-/// Per-site sampling behind the tuft lattice. The playable scene answers from
-/// its authoritative terrain and cover mask; the vista rings answer from the
-/// coarse vista heightfield and its stitched coverage. Everything downstream -
-/// the lattice walk, the species split, the batching - is shared.
+/// Site sampling shared by playable terrain and vista heightfields. Both use
+/// the same lattice walk, species selection, and batching below.
 pub(in crate::presentation) trait TuftPlacement {
     /// Inclusive cell range to walk, in whole `cell_spacing` steps.
     fn lattice_bounds(&self, cell_spacing: f32) -> (IVec2, IVec2);

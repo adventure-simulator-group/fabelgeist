@@ -25,6 +25,7 @@ pub(super) fn audit_positive_bearing(
             | SolidRole::FrameGableMember
             | SolidRole::FrameDormerTrimmer
             | SolidRole::FrameOrnament
+            | SolidRole::DomesticHeating
             | SolidRole::WorkplacePart
     );
     let has_bearing = interfaces.iter().any(|bearing| {

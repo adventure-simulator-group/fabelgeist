@@ -1,6 +1,6 @@
 use super::*;
 
-pub(in crate::tactical_scene_viewer) const PARISH_REVIEW_VIEWS: [CaptureViewSpec; 37] = [
+pub(in crate::tactical_scene_viewer) const PARISH_REVIEW_VIEWS: [CaptureViewSpec; 38] = [
     CaptureViewSpec::new(
         "warmup",
         "Production building material warmup",
@@ -257,6 +257,7 @@ pub(in crate::tactical_scene_viewer) const PARISH_REVIEW_VIEWS: [CaptureViewSpec
         58.0,
         100,
     )
+    .building_lod(super::super::building_review::ReviewLod::Detail)
     .vista(),
     CaptureViewSpec::new(
         "parish-large-chancel-side",
@@ -286,15 +287,25 @@ pub(in crate::tactical_scene_viewer) const PARISH_REVIEW_VIEWS: [CaptureViewSpec
         "parish-large-facade",
         "Parish church large facade",
         CapturePose::CityExterior { camera: 34 },
-        12.0,
+        58.0,
         100,
     )
+    .building_lod(super::super::building_review::ReviewLod::Facade)
     .vista(),
     CaptureViewSpec::new(
         "parish-large-distant",
         "Parish church large distant",
         CapturePose::CityExterior { camera: 35 },
-        12.0,
+        58.0,
+        100,
+    )
+    .building_lod(super::super::building_review::ReviewLod::Shell)
+    .vista(),
+    CaptureViewSpec::new(
+        "parish-large-portal",
+        "Principal parish west portal and approach",
+        CapturePose::CityExterior { camera: 36 },
+        58.0,
         100,
     )
     .vista(),

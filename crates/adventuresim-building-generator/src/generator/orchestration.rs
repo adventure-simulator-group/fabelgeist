@@ -2,6 +2,7 @@ fn generate_unchecked(
     program: &BuildingProgram,
     edits: &[BuildingEdit],
 ) -> Result<BuildingPlan, GenerationError> {
+    program.validate_church_program()?;
     program.validate_workplace_edits(edits)?;
     let (storeys, straight_stair_core) = occupied_storeys::generate_storeys(program, edits)?;
 
@@ -41,33 +42,26 @@ fn generate_unchecked(
         &projected_defenses,
         &mut resolved_geometry,
     );
-    let workplace = crate::workplace::resolve_workplace(program, &mut wall_assemblies, &mut resolved_geometry);
+    let workplace =
+        crate::workplace::resolve_workplace(program, &mut wall_assemblies, &mut resolved_geometry);
     let small_church = small_church::resolve(program, &mut wall_assemblies, &mut resolved_geometry);
-    if program.archetype == BuildingArchetype::Cathedral {
-        suppress_cathedral_legacy_storey_walls(
-            &mut wall_assemblies,
-            &mut opening_assemblies,
-            &mut resolved_geometry,
-        );
-        resolve_cathedral_bell_stage(
-            &square_towers,
-            &mut wall_assemblies,
-            &mut opening_assemblies,
-            &mut resolved_geometry,
-        );
-    }
-    let mut church = if program.archetype == BuildingArchetype::Cathedral {
-        Some(resolve_church_assembly(
-            program,
-            &mut wall_assemblies,
-            &mut opening_assemblies,
-            &mut stairs,
-            &mut resolved_geometry,
-        ))
-    } else {
-        None
-    };
-    fortified_envelope::resolve(program, &towers, &crowns, &projected_defenses, &mut wall_assemblies, &mut opening_assemblies, &mut resolved_geometry);
+    let mut church = urban_church::resolve(
+        program,
+        &square_towers,
+        &mut wall_assemblies,
+        &mut opening_assemblies,
+        &mut stairs,
+        &mut resolved_geometry,
+    );
+    fortified_envelope::resolve(
+        program,
+        &towers,
+        &crowns,
+        &projected_defenses,
+        &mut wall_assemblies,
+        &mut opening_assemblies,
+        &mut resolved_geometry,
+    );
     let artillery_castle = resolve_artillery_castle(
         program,
         &towers,
@@ -76,46 +70,29 @@ fn generate_unchecked(
         &mut resolved_geometry,
     );
 
-    let mut roof_assemblies = resolve_roof_assemblies(
+    let (roof_assemblies, timber_frame) = framed_roofs::resolve(
         program,
+        edits,
         &roofs,
         &roof_dormers,
         &towers,
         &square_towers,
-        &stairs,
-        &wall_assemblies,
-        &opening_assemblies,
-        &mut resolved_geometry,
-    );
-    resolve_roof_child_front_openings(
-        program,
-        &roof_dormers,
-        &mut roof_assemblies,
+        &mut stairs,
         &mut wall_assemblies,
         &mut opening_assemblies,
         &mut resolved_geometry,
-    );
-    let timber_frame = resolve_timber_frame_assembly(
-        program,
-        edits,
-        &mut wall_assemblies,
-        &opening_assemblies,
-        &roofs,
-        &roof_dormers,
-        &mut stairs,
-        &mut roof_assemblies,
-        &mut resolved_geometry,
-    );
+    )?;
     // Corner bonds must be resolved against the final timber-infill depth,
     // after the semantic frame has replaced the exterior structural layer.
-    resolve_storey_wall_corner_bonds(&wall_assemblies, &mut resolved_geometry);
+    wall_corner_bonds::resolve(&wall_assemblies, &mut resolved_geometry);
     if let Some(church) = &mut church {
         church.roof_assemblies = roof_assemblies.iter().map(|roof| roof.id).collect();
     }
 
-    Ok(church_ground::resolve(crate::spiral_stairs::resolve(BuildingPlan {
+    let mut plan = church_ground::resolve(crate::spiral_stairs::resolve(BuildingPlan {
         archetype: program.archetype,
         workplace,
+        domestic_heating: None,
         seed: program.seed,
         footprint: program.footprint,
         storey_height_metres: program.storey_height_metres,
@@ -147,19 +124,11 @@ fn generate_unchecked(
         church,
         small_church,
         timber_frame,
-        castle_phase: if program.archetype == BuildingArchetype::ArtilleryRondelCastle {
-            Some(crate::CastleConstructionPhase::ArtilleryRetrofit1544)
-        } else {
-            matches!(
-                program.archetype,
-                BuildingArchetype::CastleGatehouse
-                    | BuildingArchetype::CourtyardCastle
-                    | BuildingArchetype::WalledKeep
-            )
-            .then_some(crate::CastleConstructionPhase::InheritedMedieval)
-        },
+        castle_phase: crate::CastleConstructionPhase::for_archetype(program.archetype),
         artillery_castle,
-    })))
+    }));
+    crate::heating::resolve(program, &mut plan)?;
+    Ok(plan)
 }
 
 fn apply_opening_edits(

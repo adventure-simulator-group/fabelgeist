@@ -89,6 +89,9 @@ fn allocate_storey(
             })?;
         reservations.extend(keep_cells.into_iter().map(|cell| (cell, room_index)));
     }
+    if heated_rooms::applies(program, level) {
+        heated_rooms::reserve(program, level, footprint_cells, &mut reservations)?;
+    }
     let assignments = allocate_rooms(
         footprint_cells,
         width,
@@ -116,6 +119,9 @@ fn allocate_storey(
         level,
         straight_stair_core,
     )?;
+    if heated_rooms::applies(program, level) {
+        heated_rooms::doorway(storey_program, &walls, &mut openings);
+    }
     apply_opening_edits(storey_program, level as u16, &walls, &mut openings, edits)?;
     Ok(StoreyPlan {
         level: level as u16,

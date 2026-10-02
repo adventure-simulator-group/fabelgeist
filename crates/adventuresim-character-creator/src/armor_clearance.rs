@@ -52,9 +52,7 @@ impl PlateFit<'_> {
     }
 }
 
-#[path = "plate_section.rs"]
-mod plate_section;
-use plate_section::PlateSection as Section;
+use crate::plate_section::PlateSection as Section;
 
 pub fn fit(
     mesh: &PartMesh,
@@ -78,8 +76,8 @@ pub fn fit(
         );
     }
     let points = support
-        .into_iter()
-        .map(|i| local(&frame, wearer.positions[i]))
+        .iter()
+        .map(|i| local(&frame, wearer.positions[*i]))
         .collect::<Vec<_>>();
     ensure!(
         !points.is_empty(),
@@ -91,18 +89,30 @@ pub fn fit(
         STATION_HALF_WIDTH_M
     };
     let [low, high] = style.axial_span(frame.half_extents[1]);
+    let mut owned = vec![false; wearer.positions.len()];
+    for index in support {
+        owned[index] = true;
+    }
+    let triangles: Vec<_> = wearer
+        .faces
+        .iter()
+        .filter(|face| face.iter().any(|index| owned[*index as usize]))
+        .map(|face| face.map(|index| local(&frame, wearer.positions[index as usize])))
+        .collect();
     let sections: Vec<_> = (0..STATIONS)
         .map(|i| {
-            Section::measured(
-                &points,
-                frame.half_extents[1] * (low + (high - low) * i as f32 / (STATIONS - 1) as f32),
-                half_width,
-            )
+            let y = frame.half_extents[1] * (low + (high - low) * i as f32 / (STATIONS - 1) as f32);
+            if matches!(style, PlateFit::Rerebrace(_)) {
+                Section::measured_surface(&triangles, y, half_width)
+                    .ok_or_else(|| anyhow::anyhow!("upper-arm section has no surface support"))
+            } else {
+                Ok(Section::measured(&points, y, half_width))
+            }
         })
-        .collect();
+        .collect::<Result<_>>()?;
     let gap = clearance.metres() + thickness.metres() + FIT_MARGIN_M;
     let mut carrier = 0;
-    Ok(mesh.refit_surfaces(|positions| {
+    Ok(mesh.refit_surfaces(|positions, _| {
         // The gauntlet constructor emits its cuff before the finger lames.
         let cuff_room = match style {
             PlateFit::Mitten { cuff_clearance, .. } if carrier == 0 => cuff_clearance.metres(),

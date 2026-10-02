@@ -73,7 +73,7 @@ mod tests {
         let b = dir.join("bracer.json");
         let c = dir.join("breastplate.json");
         std::fs::write(&a, b"original").unwrap();
-        let catalog = ArmorDesigns::new();
+        let catalog = ArmorDesigns::default();
         let bracer = BracerDesign {
             center_ridge: adventuresim_armor_model::Millimeters(4),
             ..Default::default()
@@ -107,6 +107,7 @@ mod tests {
         assert!(
             crate::armor_design_input::load(Some(&a))
                 .unwrap()
+                .defaults
                 .is_empty()
         );
         for path in [a, b, c] {

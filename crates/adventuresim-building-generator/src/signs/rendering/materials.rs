@@ -12,13 +12,15 @@ impl ShopSignRenderCache {
         if detail == SignDetail::Board {
             return None;
         }
-        let key = (
-            sign.name.clone(),
-            sign.font,
-            sign.finish,
-            (board.size.y / board.size.x * crate::signs::lettering::TEXTURE_WIDTH as f32).round()
-                as u32,
-        );
+        let key = SignPaintKey {
+            name: sign.name.clone(),
+            font: sign.font,
+            finish: sign.finish,
+            emblem: sign.emblem,
+            texture_height: (board.size.y / board.size.x
+                * crate::signs::lettering::TEXTURE_WIDTH as f32)
+                .round() as u32,
+        };
         if self.paint.len() >= MAX_CACHED_SIGN_TEXTURES && !self.paint.contains_key(&key) {
             self.paint.clear();
         }

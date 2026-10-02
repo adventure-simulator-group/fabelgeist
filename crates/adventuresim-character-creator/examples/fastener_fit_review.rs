@@ -34,6 +34,7 @@ fn main() -> Result<()> {
     let body: Body = serde_json::from_slice(&std::fs::read(&args[0])?)?;
     let plate: Plate = serde_json::from_slice(&std::fs::read(&args[1])?)?;
     let wearer = Wearer {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         positions: &body.positions,
         normals: &body.normals,
         faces: &body.faces,

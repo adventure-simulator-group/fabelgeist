@@ -32,9 +32,9 @@ use crate::animation::{
     LegIkDiagnostics, LegIkState, LocomotionBodyResponseState, LocomotionHeightState,
     LocomotionPresentationEvent, LocomotionPresentationEventKind, PresentedSkeleton,
     ProceduralAnimationClock, RaisedFootworkState, TacticalAnimationPlugin, TerrainIkEnabled,
+    bouncy_bones::BouncyBonesTelemetry,
     capture_animation_target_id, capture_entity_id, locomotion_support_weights,
     measured_ankle_sole_offset_metres,
-    secondary_physics::SecondaryPhysicsTelemetry,
     semantic_route::{SemanticRoutePath, SemanticRouteTrace},
     sole_contact_tolerance_metres,
 };

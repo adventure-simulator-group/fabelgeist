@@ -1,5 +1,6 @@
+import { generateModel } from "../../src/kernel.js";
 import { readFileSync, writeFileSync } from "node:fs";
-import { buildWeapon } from "../../src/mesh.js";
+
 import { auditPart } from "./audit.mjs";
 import { closestSurfaces } from "./geometry.mjs";
 
@@ -7,7 +8,7 @@ const [rowsPath,id,output]=process.argv.slice(2);
 if(!output)throw new Error("usage: node tests/quality/gaps.mjs cases.jsonl case-id output.json");
 const row=readFileSync(rowsPath,"utf8").trim().split("\n").map(JSON.parse).find(r=>r.id===id);
 if(!row?.contactGroups)throw new Error("requires a recorded default case with contact groups");
-const mesh=buildWeapon(row.definition,{lod:row.lod}),audits=mesh.parts.map(p=>auditPart(p,{intersections:false})),gaps=[];
+const mesh=generateModel(row.definition,{lod:row.lod}),audits=mesh.parts.map(p=>auditPart(p,{intersections:false})),gaps=[];
 for(let i=0;i<row.contactGroups.length;i++)for(let j=i+1;j<row.contactGroups.length;j++){
   let nearest={metres:Infinity};
   for(const a of row.contactGroups[i])for(const b of row.contactGroups[j]){

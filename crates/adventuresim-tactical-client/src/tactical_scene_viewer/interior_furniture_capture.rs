@@ -9,6 +9,7 @@ use super::{
     view_specs::{CapturePose, CaptureViewSpec},
 };
 
+mod finishes;
 mod rooms;
 
 pub(super) const PROFILE: &str = "interior-furniture-catalog";
@@ -22,7 +23,7 @@ const CATALOG_FOV_DEGREES: f32 = 48.0;
 const ROOM_FOV_DEGREES: f32 = 78.0;
 const CATALOG_FRAMING_MARGIN: f32 = 1.1;
 
-const CATALOG: [(&str, &str); 34] = [
+const CATALOG: [(&str, &str); FurnitureKind::INTERIOR.len()] = [
     ("dining-table", "Trestle dining tables"),
     ("bench", "Joined benches"),
     ("chair", "Joined chairs"),
@@ -57,9 +58,20 @@ const CATALOG: [(&str, &str); 34] = [
     ("cask-rack", "Empty cask racks"),
     ("hay-rack", "Empty hay racks"),
     ("feed-trough", "Empty feed troughs"),
+    ("candle-stand", "Socket candles on iron stands"),
+    ("spinning-stool", "Distaff and drop spindle"),
+    ("balance-table", "Beam balance with pans and weights"),
+    ("reckoning-table", "Line reckoning with counters"),
+    ("treadle-loom", "Hand-operated treadle looms"),
+    ("printing-press", "Wooden screw printing presses"),
+    ("type-case", "Compositor's partitioned type cases"),
+    ("baptismal-font", "Octagonal hollow stone font"),
+    ("pulpit", "Pulpit with integral stair"),
+    ("bima", "Reading platform with steps"),
+    ("torah-shrine", "Torah shrine with textile screen"),
 ];
 
-const ROOM_USES: [BuildingUse; 11] = [
+const ROOM_USES: [BuildingUse; 16] = [
     BuildingUse::Dwelling,
     BuildingUse::Inn,
     BuildingUse::GeneralShop,
@@ -71,8 +83,13 @@ const ROOM_USES: [BuildingUse; 11] = [
     BuildingUse::Castle,
     BuildingUse::Dwelling,
     BuildingUse::Cathedral,
+    BuildingUse::Weaver,
+    BuildingUse::PrintingHouse,
+    BuildingUse::WeighHouse,
+    BuildingUse::Weaver,
+    BuildingUse::Dwelling,
 ];
-const ROOM_LABELS: [(&str, &str); 11] = [
+const ROOM_LABELS: [(&str, &str); ROOM_USES.len()] = [
     ("house", "Furnished dwelling"),
     ("inn", "Furnished inn"),
     ("shop", "Furnished shop"),
@@ -84,12 +101,24 @@ const ROOM_LABELS: [(&str, &str); 11] = [
     ("keep-upper", "Keep upper floor and spiral landing"),
     ("bedroom", "Dwelling upper bedchamber"),
     ("cathedral", "Furnished cathedral nave"),
+    ("weaver", "Loom and domestic spinning workshop"),
+    ("printing-house", "Press and composing workshop"),
+    ("weigh-house", "Weighing and line reckoning"),
+    (
+        "loom-operation",
+        "Loom seat, treadles and operator approach",
+    ),
+    (
+        "spinning-operation",
+        "Spinning seat and drawing-fibre workspace",
+    ),
 ];
 
-pub(super) const VIEWS: [CaptureViewSpec; 36] = catalog_views();
-pub(super) const ROOM_VIEWS: [CaptureViewSpec; 12] = room_views();
+pub(super) const VIEWS: [CaptureViewSpec; CATALOG.len() + 2 + finishes::LABELS.len()] =
+    catalog_views();
+pub(super) const ROOM_VIEWS: [CaptureViewSpec; ROOM_LABELS.len() + 1] = room_views();
 
-const fn catalog_views() -> [CaptureViewSpec; 36] {
+const fn catalog_views() -> [CaptureViewSpec; CATALOG.len() + 2 + finishes::LABELS.len()] {
     let warmup = CaptureViewSpec::new(
         "warmup",
         "Production furniture catalog warmup",
@@ -99,7 +128,7 @@ const fn catalog_views() -> [CaptureViewSpec; 36] {
     )
     .warmup()
     .vista();
-    let mut views = [warmup; 36];
+    let mut views = [warmup; CATALOG.len() + 2 + finishes::LABELS.len()];
     let mut index = 0;
     while index < CATALOG.len() {
         views[index + 1] = CaptureViewSpec::new(
@@ -115,19 +144,36 @@ const fn catalog_views() -> [CaptureViewSpec; 36] {
         .settled_readback_pair();
         index += 1;
     }
-    views[35] = CaptureViewSpec::new(
+    views[CATALOG.len() + 1] = CaptureViewSpec::new(
         "joined-counters",
         "Contiguous counter runs with corner and endcaps",
-        CapturePose::CityExterior { camera: 34 },
+        CapturePose::CityExterior {
+            camera: CATALOG.len() as u8,
+        },
         CATALOG_FOV_DEGREES,
         100,
     )
     .vista()
     .settled_readback_pair();
+    let mut finish = 0;
+    while finish < finishes::LABELS.len() {
+        views[CATALOG.len() + 2 + finish] = CaptureViewSpec::new(
+            finishes::LABELS[finish].0,
+            finishes::LABELS[finish].1,
+            CapturePose::CityExterior {
+                camera: (CATALOG.len() + 1 + finish) as u8,
+            },
+            CATALOG_FOV_DEGREES,
+            100,
+        )
+        .vista()
+        .settled_readback_pair();
+        finish += 1;
+    }
     views
 }
 
-const fn room_views() -> [CaptureViewSpec; 12] {
+const fn room_views() -> [CaptureViewSpec; ROOM_LABELS.len() + 1] {
     let warmup = CaptureViewSpec::new(
         "warmup",
         "Production furnished room warmup",
@@ -136,7 +182,7 @@ const fn room_views() -> [CaptureViewSpec; 12] {
         100,
     )
     .warmup();
-    let mut views = [warmup; 12];
+    let mut views = [warmup; ROOM_LABELS.len() + 1];
     let mut index = 0;
     while index < ROOM_LABELS.len() {
         views[index + 1] = CaptureViewSpec::new(
@@ -179,7 +225,7 @@ pub(super) fn setup_catalog(
             (index % CATALOG_COLUMNS) as f32 - 2.0,
             (index / CATALOG_COLUMNS) as f32 - 3.0,
         ) * CATALOG_BAY_SPACING_METRES;
-        let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey { kind, variant });
+        let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey::natural(kind, variant));
         let sizes = keys.map(|key| key.interior_spec().unwrap().size_metres);
         let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);
         for (variant, key) in keys.into_iter().enumerate() {
@@ -215,9 +261,10 @@ pub(super) fn setup_catalog(
         cameras.push(catalog_camera(kind, envelope, ground));
     }
     cameras.push(joined_counters(layout, terrain));
+    cameras.extend(finishes::stage(layout, terrain));
     expect_furniture(commands, layout);
     std::fs::write(output.join("interior-catalog.json"), serde_json::to_vec_pretty(
-            &serde_json::json!({ "left_variant": "Compact", "right_variant": "Broad",
+            &serde_json::json!({ "left_variant": "Compact", "right_variant": "Broad", "finish_order": ["natural", "handled", "repaired", "painted"],
             "instances": layout.instances, "note": "Production furniture models staged as catalog specimens; building_id zero is reserved for these captures." })).unwrap())
         .expect("write catalog specimen evidence");
     Some(cameras)
@@ -282,20 +329,14 @@ fn envelope_corners(size: Vec3) -> [Vec3; 8] {
 fn joined_counters(layout: &mut FurnitureLayout, terrain: &SceneTerrain) -> BuildingReviewCamera {
     use FurnitureKind::*;
     let variant = FurnitureVariant::Broad;
-    let size = FurnitureKey {
-        kind: Counter,
-        variant,
-    }
-    .interior_spec()
-    .unwrap()
-    .size_metres;
-    let corner = FurnitureKey {
-        kind: CounterCorner,
-        variant,
-    }
-    .interior_spec()
-    .unwrap()
-    .size_metres;
+    let size = FurnitureKey::natural(Counter, variant)
+        .interior_spec()
+        .unwrap()
+        .size_metres;
+    let corner = FurnitureKey::natural(CounterCorner, variant)
+        .interior_spec()
+        .unwrap()
+        .size_metres;
     let first = (corner.x + size.x) * 0.5;
     let second = first + size.x;
     let bay = Vec2::new(80.0, 60.0);
@@ -315,11 +356,13 @@ fn joined_counters(layout: &mut FurnitureLayout, terrain: &SceneTerrain) -> Buil
         let point = bay - local;
         layout.instances.push(GeneratedFurniture {
             scene: SceneFurniture {
-                id: FurnitureInstanceId(CATALOG_INSTANCE_ID_BASE + 68 + index as u64),
-                key: FurnitureKey { kind, variant },
+                id: FurnitureInstanceId(
+                    CATALOG_INSTANCE_ID_BASE + (CATALOG.len() * 2 + index) as u64,
+                ),
+                key: FurnitureKey::natural(kind, variant),
                 location: FurnitureLocation::Interior {
                     building_id: 0,
-                    room_id: 34,
+                    room_id: CATALOG.len() as u16,
                     storey: 0,
                 },
             },
@@ -358,13 +401,16 @@ pub(super) fn setup_rooms(
             let selection = match index {
                 0 | 1 => rooms::RoomSelection::Role(RoomKind::CommonRoom),
                 2 => rooms::RoomSelection::Role(RoomKind::Shop),
-                3 => rooms::RoomSelection::Role(RoomKind::Workshop),
+                3 | 11 | 12 => rooms::RoomSelection::Role(RoomKind::Workshop),
                 4 | 10 => rooms::RoomSelection::Role(RoomKind::Nave),
                 5 => rooms::RoomSelection::Role(RoomKind::Ward),
                 6 => rooms::RoomSelection::Role(RoomKind::Guardroom),
                 7 => rooms::RoomSelection::Role(RoomKind::Storage),
                 8 => rooms::RoomSelection::UpperKeep,
                 9 => rooms::RoomSelection::Bedroom,
+                13 => rooms::RoomSelection::Role(RoomKind::CountingRoom),
+                14 => rooms::RoomSelection::Operating(FurnitureKind::TreadleLoom),
+                15 => rooms::RoomSelection::Operating(FurnitureKind::SpinningStool),
                 _ => unreachable!("every authored room view has a semantic selection"),
             };
             rooms::camera(building, layout, selection)
@@ -399,7 +445,7 @@ mod tests {
     fn catalog_framing_contains_every_variant_envelope_corner() {
         for kind in FurnitureKind::INTERIOR {
             let sizes = FurnitureVariant::ALL.map(|variant| {
-                FurnitureKey { kind, variant }
+                FurnitureKey::natural(kind, variant)
                     .interior_spec()
                     .unwrap()
                     .size_metres

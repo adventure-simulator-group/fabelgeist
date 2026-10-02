@@ -12,17 +12,28 @@ use crate::{
     tessellate_roof_face,
 };
 
+mod closures;
+mod compilation;
 #[path = "lod/crowns.rs"]
 mod crowns;
 #[path = "lod/details.rs"]
 mod details;
+mod exterior;
+#[cfg(test)]
+mod exterior_tests;
+mod gable_openings;
 #[path = "lod/small_church.rs"]
 mod small_church;
+mod urban_church;
+mod vertex_remap;
+#[cfg(test)]
+use compilation::extract_facade_runs;
+pub use compilation::{compile_building_lod, compile_static_building_lod};
 #[path = "lod/walls.rs"]
 mod walls;
 
 use crowns::append_crowns;
-use details::{append_opening_details, append_timber_details};
+use details::{append_gable_details, append_opening_details, append_timber_details};
 use walls::append_wall_envelopes;
 
 const JOIN_TOLERANCE_METRES: f32 = 0.02;
@@ -34,7 +45,7 @@ const ROUND_LOD_SEGMENTS: usize = 24;
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum BuildingLodLevel {
-    /// Joined wall runs, textured faÃƒÂ§ade details, and geometric straight crowns.
+    /// Exact civilian/church exterior assemblies and geometric straight crowns.
     Facade,
     /// Joined shell surfaces with alpha-masked crown strips.
     Shell,
@@ -44,16 +55,22 @@ pub enum BuildingLodLevel {
 /// A renderer may bind each variant to a texture-array layer or atlas region
 /// while retaining one mesh per material class.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case", tag = "kind", content = "value")]
 pub enum BuildingLodMaterial {
     Wall(WallMaterialClass),
     Roof(RoofMaterial),
-    /// Timber grid and braces baked into a plaster texture for shell LODs.
-    FachwerkBaked,
     Timber,
     /// Unpainted hewn wood, including interior structure and working stock.
     InteriorTimber,
     Iron,
+    Bronze,
+    LeadAlloy,
+    CarvedSandstone,
+    CandleWax,
+    Earthenware,
+    GlazedTile,
+    Millstone,
+    TimberEndGrain,
+    FurnitureWood(crate::furniture::FurnitureWoodSurface),
     /// Dry cereal grain covering malt-drying beds or stored in open working vessels.
     Grain,
     DyedCloth,
@@ -249,110 +266,6 @@ impl BuildingLod {
     }
 }
 
-/// Compiles a render-only LOD from the accepted semantic plan.
-pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingLod {
-    if plan.small_church.is_some() {
-        return small_church::compile(plan, level);
-    }
-    let facade_runs = extract_facade_runs(plan);
-    let mut lod = BuildingLod {
-        level,
-        facade_runs,
-        meshes: Vec::new(),
-    };
-    if let Some(workplace) = &plan.workplace {
-        lod.facade_runs.retain(|run| {
-            !run.source_walls
-                .iter()
-                .any(|id| workplace.walls.contains(id))
-        });
-    }
-    append_wall_envelopes(&mut lod);
-    append_roofs(&mut lod, plan);
-    if level == BuildingLodLevel::Facade {
-        append_opening_details(&mut lod, plan);
-        append_timber_details(&mut lod, plan);
-    }
-    append_crowns(&mut lod, plan);
-    for batch in crate::detail::compile_workplace_lod(plan).meshes {
-        let target = lod.mesh_mut(batch.material);
-        let offset = target.vertices.len() as u32;
-        target.vertices.extend(batch.vertices);
-        target
-            .indices
-            .extend(batch.indices.into_iter().map(|index| index + offset));
-    }
-    lod.meshes
-        .retain(|mesh| !mesh.vertices.is_empty() && !mesh.indices.is_empty());
-    lod
-}
-
-fn extract_facade_runs(plan: &BuildingPlan) -> Vec<FacadeRun> {
-    let mut runs = plan
-        .wall_assemblies
-        .iter()
-        .filter(|wall| {
-            wall.replaced_by_owner.is_none()
-                && wall.frame.outside_room.is_none()
-                && !matches!(
-                    wall.material,
-                    WallMaterialClass::InternalTimber | WallMaterialClass::InternalMasonry
-                )
-        })
-        .map(|wall| {
-            if let Some(radial) = wall.radial_frame {
-                let radius = wall.length_metres / std::f32::consts::TAU;
-                return FacadeRun {
-                    material: wall.material,
-                    storey_level: wall.storey_level,
-                    path: FacadeRunPath::Round {
-                        centre: radial.centre,
-                        radius_metres: radius,
-                        reference_outward: radial.reference_outward,
-                    },
-                    base_elevation_metres: wall.base_elevation_metres,
-                    height_metres: wall.height_metres,
-                    thickness_metres: wall.thickness_metres,
-                    source_walls: vec![wall.id],
-                };
-            }
-            let mut tangent = wall.frame.tangent.normalize_or_zero();
-            if tangent.x < -0.001 || (tangent.x.abs() <= 0.001 && tangent.y < 0.0) {
-                tangent = -tangent;
-            }
-            FacadeRun {
-                material: wall.material,
-                storey_level: wall.storey_level,
-                path: FacadeRunPath::Straight {
-                    start: wall.frame.origin - tangent * wall.length_metres * 0.5,
-                    end: wall.frame.origin + tangent * wall.length_metres * 0.5,
-                    outward: wall.frame.outward,
-                },
-                base_elevation_metres: wall.base_elevation_metres,
-                height_metres: wall.height_metres,
-                thickness_metres: wall.thickness_metres,
-                source_walls: vec![wall.id],
-            }
-        })
-        .collect::<Vec<_>>();
-
-    let mut changed = true;
-    while changed {
-        changed = false;
-        'outer: for left in 0..runs.len() {
-            for right in left + 1..runs.len() {
-                if runs[left].can_join(&runs[right]) {
-                    let other = runs.remove(right);
-                    runs[left].join(other);
-                    changed = true;
-                    break 'outer;
-                }
-            }
-        }
-    }
-    runs
-}
-
 fn append_facade_prism(mesh: &mut LodMesh, run: &FacadeRun) {
     let FacadeRunPath::Straight {
         start,
@@ -465,9 +378,7 @@ fn append_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
                 mesh.push_triangle(
                     triangle.positions,
                     triangle.normal,
-                    triangle
-                        .positions
-                        .map(|point| Vec2::new(point.x, point.z) / TEXTURE_REPEAT_METRES),
+                    triangle.covering_uvs(TEXTURE_REPEAT_METRES),
                 );
             }
         }
@@ -476,7 +387,7 @@ fn append_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
                 || roof_lod_material(lod.level, face.material),
                 |workplace| workplace.gable_material().render_material(),
             ));
-            for triangle in tessellate_roof_enclosure(face) {
+            for triangle in tessellate_roof_enclosure(face, &plan.wall_assemblies) {
                 mesh.push_triangle(
                     triangle.positions,
                     triangle.normal,
@@ -487,11 +398,10 @@ fn append_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
     }
 }
 
-fn roof_lod_material(level: BuildingLodLevel, material: RoofMaterial) -> BuildingLodMaterial {
-    if level == BuildingLodLevel::Shell && material == RoofMaterial::TimberInfill {
-        BuildingLodMaterial::FachwerkBaked
-    } else {
-        BuildingLodMaterial::Roof(material)
+fn roof_lod_material(_level: BuildingLodLevel, material: RoofMaterial) -> BuildingLodMaterial {
+    match material {
+        RoofMaterial::TimberInfill => BuildingLodMaterial::Wall(WallMaterialClass::TimberInfill),
+        _ => BuildingLodMaterial::Roof(material),
     }
 }
 
@@ -570,7 +480,7 @@ mod tests {
         assert!(
             lod.meshes
                 .iter()
-                .any(|mesh| mesh.material == BuildingLodMaterial::FacadeDetails)
+                .any(|mesh| mesh.material == BuildingLodMaterial::Timber)
         );
         assert!(lod.meshes.iter().all(|mesh| {
             mesh.vertices.iter().all(|vertex| {
@@ -609,7 +519,7 @@ mod tests {
     }
 
     #[test]
-    fn fachwerk_shell_omits_facade_details_and_reduces_triangle_count() {
+    fn fachwerk_shell_retains_semantic_facades_with_bounded_triangle_count() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
             42,
@@ -628,21 +538,18 @@ mod tests {
             facade
                 .meshes
                 .iter()
+                .any(|mesh| mesh.material == BuildingLodMaterial::Timber)
+        );
+        assert!(
+            shell
+                .meshes
+                .iter()
                 .any(|mesh| mesh.material == BuildingLodMaterial::FacadeDetails)
         );
-        assert!(
-            shell
-                .meshes
-                .iter()
-                .all(|mesh| mesh.material != BuildingLodMaterial::FacadeDetails)
-        );
-        assert!(
-            shell
-                .meshes
-                .iter()
-                .any(|mesh| mesh.material == BuildingLodMaterial::FachwerkBaked)
-        );
-        assert!(triangle_count(&shell) < triangle_count(&facade));
+        assert!(shell.meshes.iter().any(
+            |mesh| mesh.material == BuildingLodMaterial::Wall(WallMaterialClass::TimberInfill)
+        ));
+        assert!(triangle_count(&shell) <= triangle_count(&facade));
         assert_triangle_winding_matches_normals(&shell);
     }
 

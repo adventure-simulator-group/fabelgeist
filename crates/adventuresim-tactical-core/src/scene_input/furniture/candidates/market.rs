@@ -79,10 +79,8 @@ pub(in crate::scene_input::furniture) fn market(input: &TacticalSceneInput) -> M
     let row_depth = FurnitureVariant::ALL
         .into_iter()
         .map(|variant| {
-            let (min, max) = reservation_bounds(FurnitureKey {
-                kind: FurnitureKind::CanvasStall,
-                variant,
-            });
+            let (min, max) =
+                reservation_bounds(FurnitureKey::natural(FurnitureKind::CanvasStall, variant));
             max.y - min.y
         })
         .fold(0.0_f32, f32::max);

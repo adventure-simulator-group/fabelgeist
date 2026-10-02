@@ -64,6 +64,7 @@ pub enum StructuralNodeKind {
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum SolidRole {
+    DomesticHeating,
     WorkplacePart,
     LoadBearing,
     Breastwork,
@@ -112,6 +113,11 @@ pub enum SolidRole {
     ChurchCrossingArch,
     ChurchBellFloor,
     ChurchBellFrame,
+    ChurchBellFitting,
+    ChurchBellAxle,
+    ChurchBellHeadstock,
+    ChurchBellBearing,
+    ChurchBellCrown,
     ChurchBell,
     ChurchGuard,
     ChurchStairNewel,
@@ -239,6 +245,10 @@ pub enum VoidRole {
 #[serde(rename_all = "snake_case", tag = "kind")]
 pub enum ResolvedSolidShape {
     Cuboid,
+    /// Open-mouthed cast bell with a closed crown; dimensions are its envelope.
+    BellShell,
+    /// Round journal with length on local X and diameter on local Y/Z.
+    CylinderAlongX,
     SegmentalArchRing {
         clear_span_metres: f32,
         spring_height_metres: f32,

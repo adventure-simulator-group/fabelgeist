@@ -19,8 +19,22 @@ impl EquipmentCatalog {
             .and_then(|e| e.material)
             .with_context(|| format!("equipment {id} has no material"))
     }
-    pub(super) fn design(&self, id: &str) -> Option<armor_recipes::ParametricDesign> {
+    pub(super) fn design(
+        &self,
+        id: &str,
+        placement: &str,
+    ) -> Option<armor_recipes::ParametricDesign> {
+        let placement =
+            adventuresim_character_creator::armor_design_input::ArmorPlacement::parse(placement)?;
         self.1
+            .selected(id, placement)
+            .cloned()
+            .or_else(|| armor_recipes::recipe(id))
+    }
+
+    pub(super) fn default_design(&self, id: &str) -> Option<armor_recipes::ParametricDesign> {
+        self.1
+            .defaults
             .get(id)
             .cloned()
             .or_else(|| armor_recipes::recipe(id))

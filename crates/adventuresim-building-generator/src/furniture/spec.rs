@@ -13,13 +13,14 @@ pub enum FurnitureAccessFace {
 pub struct InteriorFurnitureSpec {
     pub size_metres: Vec3,
     pub required_faces: &'static [FurnitureAccessFace],
+    pub working_depth_metres: f32,
 }
 
 impl InteriorFurnitureSpec {
     pub const ACCESS_DEPTH_METRES: f32 = 0.75;
     pub fn access_bounds(self, face: FurnitureAccessFace) -> CollisionBounds {
         let half = self.size_metres * 0.5;
-        let depth = Self::ACCESS_DEPTH_METRES;
+        let depth = self.working_depth_metres;
         let (min, max) = match face {
             FurnitureAccessFace::Front => (
                 Vec3::new(-half.x, 0.0, -half.z - depth),
@@ -81,6 +82,17 @@ impl FurnitureKey {
             CaskRack => ([1.2, 1.4, 0.75], [1.8, 1.6, 0.85], &[Front]),
             HayRack => ([1.2, 1.2, 0.55], [1.8, 1.3, 0.65], &[Front]),
             FeedTrough => ([1.2, 0.55, 0.55], [1.8, 0.6, 0.6], &[Front]),
+            CandleStand => ([0.42, 1.15, 0.42], [0.5, 1.4, 0.5], &[Front]),
+            SpinningStool => ([0.65, 1.25, 0.55], [0.75, 1.4, 0.6], &[Front]),
+            BalanceTable => ([1.2, 1.6, 0.7], [1.65, 1.85, 0.8], &[Front, Back]),
+            ReckoningTable => ([1.1, 0.8, 0.7], [1.5, 0.8, 0.85], &[Front]),
+            TreadleLoom => ([1.5, 1.85, 2.5], [1.9, 2.05, 2.9], &[Front, Back]),
+            PrintingPress => ([1.4, 2.1, 2.2], [1.6, 2.3, 2.6], &[Front, Right]),
+            TypeCase => ([1.05, 1.05, 0.7], [1.5, 1.05, 0.85], &[Front]),
+            BaptismalFont => ([1.02, 0.89, 1.02], [1.02, 0.89, 1.02], &[Front]),
+            Pulpit => ([1.2, 2.05, 2.65], [1.4, 2.05, 2.85], &[Front]),
+            Bima => ([2.0, 1.2, 2.0], [2.2, 1.2, 2.2], &[Front]),
+            TorahShrine => ([1.3, 1.95, 0.5], [1.6, 2.1, 0.6], &[Front]),
             Barrel | CargoStack | TableBenchSet | CanvasStall | HitchingTrough => return None,
         };
         Some(InteriorFurnitureSpec {
@@ -89,6 +101,11 @@ impl FurnitureKey {
                 FurnitureVariant::Broad => broad,
             }),
             required_faces,
+            working_depth_metres: match self.kind {
+                TreadleLoom | PrintingPress => 1.1,
+                SpinningStool => 1.0,
+                _ => InteriorFurnitureSpec::ACCESS_DEPTH_METRES,
+            },
         })
     }
 }

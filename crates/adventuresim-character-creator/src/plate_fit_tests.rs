@@ -6,6 +6,7 @@ use adventuresim_armor_model::{
 
 fn fitted(design: &LimbArmorDesign) -> PartMesh {
     let frame = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0; 3],
         axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents: [0.06, 0.20, 0.045],
@@ -27,7 +28,7 @@ fn fitted(design: &LimbArmorDesign) -> PartMesh {
         .collect::<Vec<_>>();
     let mesh = generate_limb_armor(design, &frame)
         .unwrap()
-        .refit_surfaces(|p| fit_carrier(p, &frame, region, &sections, 0.012, style))
+        .refit_surfaces(|p, _| fit_carrier(p, &frame, region, &sections, 0.012, style))
         .unwrap();
     mesh.normals().unwrap();
     mesh

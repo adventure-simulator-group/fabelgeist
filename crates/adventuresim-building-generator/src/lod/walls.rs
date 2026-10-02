@@ -69,15 +69,10 @@ pub(super) fn append_wall_envelopes(lod: &mut BuildingLod) {
 }
 
 fn wall_lod_material(
-    level: crate::BuildingLodLevel,
+    _level: crate::BuildingLodLevel,
     material: crate::WallMaterialClass,
 ) -> BuildingLodMaterial {
-    if level == crate::BuildingLodLevel::Shell && material == crate::WallMaterialClass::TimberInfill
-    {
-        BuildingLodMaterial::FachwerkBaked
-    } else {
-        BuildingLodMaterial::Wall(material)
-    }
+    BuildingLodMaterial::Wall(material)
 }
 
 fn wall_footprint(run: &FacadeRun) -> Polygon<f32> {

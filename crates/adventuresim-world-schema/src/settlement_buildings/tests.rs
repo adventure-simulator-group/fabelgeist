@@ -29,7 +29,7 @@ fn capacities_cover_each_eligible_catchment_without_an_unnecessary_last_building
             let buildings = demand
                 .buildings
                 .iter()
-                .filter(|b| b.usage == usage)
+                .filter(|b| b.usage() == usage)
                 .collect::<Vec<_>>();
             assert_eq!(
                 !buildings.is_empty(),
@@ -38,18 +38,30 @@ fn capacities_cover_each_eligible_catchment_without_an_unnecessary_last_building
             if buildings.is_empty() {
                 continue;
             }
-            if definition.singleton {
+            if matches!(
+                definition.demand,
+                BuildingDemandPolicy::SettlementInstitution(_)
+            ) {
                 assert_eq!(buildings.len(), 1);
                 continue;
             }
-            let capacity: u32 = buildings.iter().map(|b| b.capacity.0).sum();
+            let BuildingDemandPolicy::ServiceCatchment(range) = definition.demand else {
+                continue;
+            };
+            let capacities = buildings
+                .iter()
+                .map(|b| match b {
+                    BuildingDemand::Service { capacity, .. } => capacity.0,
+                    _ => panic!("service policy emitted an institutional request"),
+                })
+                .collect::<Vec<_>>();
+            let capacity: u32 = capacities.iter().sum();
             assert!(capacity >= population);
-            assert!(capacity - buildings.last().unwrap().capacity.0 < population);
+            assert!(capacity - capacities.last().unwrap() < population);
             assert!(
-                buildings
+                capacities
                     .iter()
-                    .all(|b| b.capacity.0 >= definition.capacity.minimum.0
-                        && b.capacity.0 <= definition.capacity.maximum.0)
+                    .all(|capacity| *capacity >= range.minimum.0 && *capacity <= range.maximum.0)
             );
         }
     }
@@ -63,7 +75,7 @@ fn specialist_presence_is_owned_by_the_economy() {
         !village_plan
             .buildings
             .iter()
-            .any(|b| b.usage == BuildingUse::Weaponsmith)
+            .any(|b| b.usage() == BuildingUse::Weaponsmith)
     );
     let mut town = economy(8_000, 4);
     assert!(town.has_service(SettlementService::Weaponsmith));
@@ -71,7 +83,7 @@ fn specialist_presence_is_owned_by_the_economy() {
         SettlementBuildingDemand::new(42, 8_000, &town)
             .buildings
             .iter()
-            .any(|b| b.usage == BuildingUse::Weaponsmith)
+            .any(|b| b.usage() == BuildingUse::Weaponsmith)
     );
     town.services
         .retain(|s| *s != SettlementService::Weaponsmith);
@@ -79,7 +91,7 @@ fn specialist_presence_is_owned_by_the_economy() {
         !SettlementBuildingDemand::new(42, 8_000, &town)
             .buildings
             .iter()
-            .any(|b| b.usage == BuildingUse::Weaponsmith)
+            .any(|b| b.usage() == BuildingUse::Weaponsmith)
     );
 }
 
@@ -93,19 +105,23 @@ fn parish_growth_is_deterministic_and_does_not_duplicate_cathedrals() {
     let churches = |plan: &SettlementBuildingDemand| {
         plan.buildings
             .iter()
-            .filter(|b| b.usage == BuildingUse::ParishChurch)
+            .filter(|b| b.usage() == BuildingUse::ParishChurch)
             .copied()
             .collect::<Vec<_>>()
     };
     let smaller = churches(&small);
     let larger = churches(&large);
     assert!(smaller.len() > 1);
-    assert_eq!(smaller, larger[..smaller.len()]);
+    assert!(larger.len() > smaller.len());
+    assert_eq!(
+        large.parishes.iter().map(|p| p.population.0).sum::<u32>(),
+        8_000
+    );
     assert!(
         !large
             .buildings
             .iter()
-            .any(|b| b.usage == BuildingUse::Cathedral)
+            .any(|b| b.usage() == BuildingUse::Cathedral)
     );
 }
 
@@ -120,4 +136,81 @@ fn empty_and_extreme_populations_are_bounded_and_shortfalls_are_explicit() {
     let extreme = SettlementBuildingDemand::new(42, u32::MAX, &economy);
     assert_eq!(extreme.buildings.len(), MAX_SERVICE_BUILDINGS);
     assert!(!extreme.shortfalls.is_empty());
+}
+
+#[test]
+fn parish_programmes_keep_population_roles_and_physical_scale_separate() {
+    let economy = economy(30_000, 4);
+    for population in [0, 250, 900, 3_001, 30_000] {
+        let plan = SettlementBuildingDemand::new(42, population, &economy);
+        assert_eq!(
+            plan.parishes.iter().map(|p| p.population.0).sum::<u32>(),
+            population
+        );
+        for parish in &plan.parishes {
+            let roles = plan
+                .buildings
+                .iter()
+                .filter_map(|request| match request {
+                    BuildingDemand::Parish {
+                        parish: owner,
+                        role,
+                    } if *owner == parish.id => Some(*role),
+                    _ => None,
+                })
+                .collect::<Vec<_>>();
+            assert_eq!(
+                roles
+                    .iter()
+                    .filter(|role| matches!(role, ParishBuildingRole::Church(_)))
+                    .count(),
+                1
+            );
+            assert_eq!(
+                roles
+                    .iter()
+                    .filter(|role| **role == ParishBuildingRole::Residence)
+                    .count(),
+                1
+            );
+            assert_eq!(
+                roles.contains(&ParishBuildingRole::TownSchool),
+                parish.id.0 == 0 && population >= 800
+            );
+            if population < 1_500 {
+                assert_eq!(parish.church_scale, ChurchBuildingScale::Village);
+            }
+        }
+    }
+    let normal = SettlementBuildingDemand::new(42, 30_000, &economy);
+    let church_rich = SettlementBuildingDemand::with_parish_policy(
+        42,
+        30_000,
+        &economy,
+        AuthoredParishPolicy {
+            target_population: std::num::NonZeroU32::new(1_000).unwrap(),
+        },
+    );
+    assert_eq!(normal.parishes.len(), 10);
+    assert_eq!(church_rich.parishes.len(), 30);
+    assert_eq!(
+        church_rich
+            .parishes
+            .iter()
+            .map(|p| p.population.0)
+            .sum::<u32>(),
+        30_000
+    );
+    let mut secular = economy;
+    secular
+        .services
+        .retain(|service| *service != SettlementService::Temple);
+    let plan = SettlementBuildingDemand::new(42, 30_000, &secular);
+    assert!(plan.parishes.is_empty());
+    assert!(
+        !plan
+            .buildings
+            .iter()
+            .any(|b| matches!(b, BuildingDemand::Parish { .. }))
+    );
 }

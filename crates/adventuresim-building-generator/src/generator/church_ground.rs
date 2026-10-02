@@ -1,4 +1,4 @@
-//! Occupied cathedral rooms and continuous paving follow the resolved church envelope.
+//! Occupied church rooms and continuous paving follow the resolved church envelope.
 use super::*;
 use geo::{Contains, Point};
 
@@ -77,7 +77,18 @@ impl Envelope {
             let offset =
                 wall.frame.outward * (wall.thickness_metres * 0.5 + FRAME_ROOM_SAMPLE_METRES);
             wall.frame.inside_room = self.room(wall.frame.origin - offset);
-            wall.frame.outside_room = self.room(wall.frame.origin + offset);
+            // Authored exterior walls include transept returns that straddle a
+            // ground-room boundary; clerestories sit above the aisle roofs.
+            // A midpoint floor sample cannot classify these weather faces.
+            wall.frame.outside_room = if matches!(
+                wall.source,
+                crate::WallSourceId::ChurchArcade { .. }
+                    | crate::WallSourceId::ChurchExterior { .. }
+            ) {
+                None
+            } else {
+                self.room(wall.frame.origin + offset)
+            };
         }
         for opening in &mut plan.opening_assemblies {
             let wall = plan
@@ -85,10 +96,8 @@ impl Envelope {
                 .iter()
                 .find(|w| w.id == opening.host_wall)
                 .expect("church opening belongs to a resolved wall");
-            let offset =
-                opening.frame.outward * (wall.thickness_metres * 0.5 + FRAME_ROOM_SAMPLE_METRES);
-            opening.frame.inside_room = self.room(opening.frame.origin - offset);
-            opening.frame.outside_room = self.room(opening.frame.origin + offset);
+            opening.frame.inside_room = wall.frame.inside_room;
+            opening.frame.outside_room = wall.frame.outside_room;
         }
     }
     fn room(&self, point: Vec2) -> Option<u16> {

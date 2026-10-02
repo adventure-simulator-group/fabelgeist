@@ -10,8 +10,8 @@ use bevy::{
     color::{ColorToComponents, LinearRgba},
     mesh::{Indices, PrimitiveTopology},
     prelude::{
-        Asset, Assets, Color, Commands, Component, Handle, Mesh, Mesh3d, Name, Reflect, Transform,
-        Vec2, Vec3, Vec4, Visibility,
+        Asset, Assets, Color, Commands, Component, Handle, Mesh, Mesh3d, Name, Quat, Reflect,
+        Transform, Vec2, Vec3, Vec4, Visibility,
     },
     render::render_resource::{
         AsBindGroup, RenderPipelineDescriptor, SpecializedMeshPipelineError,
@@ -155,128 +155,8 @@ impl PebbleDensity {
     }
 }
 
-pub(super) fn spawn(
-    commands: &mut Commands,
-    meshes: &mut Assets<Mesh>,
-    pebble_materials: &mut Assets<TacticalPebbleMaterial>,
-    billboard_materials: &mut Assets<TacticalPebbleBillboardMaterial>,
-    terrain: &SceneTerrain,
-    ground: &SceneGround,
-    base_seed: u64,
-) {
-    let half_extent = ground.grid_scale() * 0.5;
-    let mut hero_meshes = Vec::new();
-    let mut near_meshes = Vec::new();
-    let mut billboard_meshes = Vec::new();
-    let mut pebble_counts = Vec::new();
-    for density in PebbleDensity::ALL {
-        for variant in 0..MESH_VARIANTS {
-            let seed = splitmix64(0x7065_6262_6c65_0000 ^ variant);
-            let hero = pebble_patch_mesh(seed, PebbleMeshLod::Hero, half_extent, density);
-            pebble_counts.push(hero.count_vertices() / HERO_PEBBLE_VERTICES);
-            hero_meshes.push(meshes.add(hero));
-            near_meshes.push(meshes.add(pebble_patch_mesh(
-                seed,
-                PebbleMeshLod::Near,
-                half_extent,
-                density,
-            )));
-            billboard_meshes.push(meshes.add(pebble_billboard_patch_mesh(
-                seed,
-                half_extent,
-                density,
-            )));
-        }
-    }
-    let stone_material = pebble_materials.add(TacticalPebbleMaterial::new(rock_color(
-        RockLithology::Granite,
-    )));
-    let woodland_stone_material =
-        pebble_materials.add(TacticalPebbleMaterial::new(Color::srgb_u8(104, 91, 70)));
-    let billboard_material = billboard_materials.add(TacticalPebbleBillboardMaterial {
-        color: Vec4::from_array(
-            rock_color(RockLithology::Granite)
-                .to_linear()
-                .to_f32_array(),
-        ),
-        lighting: Vec3::new(0.35, 0.86, 0.25).normalize().extend(1.0),
-        ambient: Vec4::new(1.0, 1.0, 1.0, 0.28),
-    });
-
-    let variant_count = PebbleDensity::ALL.len() * MESH_VARIANTS as usize;
-    let mut per_variant: Vec<Vec<InstanceData>> = vec![Vec::new(); variant_count];
-    for (index, sample) in ground.samples().iter().enumerate() {
-        if !matches!(
-            sample.cover,
-            GroundCover::LooseStone | GroundCover::LeafLitter
-        ) {
-            continue;
-        }
-        let grid_x = index % ground.grid_width();
-        let grid_z = index / ground.grid_width();
-        let position = Vec2::new(
-            grid_x as f32 * ground.grid_scale() - ground.width() * 0.5,
-            grid_z as f32 * ground.grid_scale() - ground.depth() * 0.5,
-        );
-        let (Some(height), Some(normal)) =
-            (terrain.height_at(position), terrain.normal_at(position))
-        else {
-            continue;
-        };
-        if normal.y < 0.72 {
-            continue;
-        }
-        let hash = splitmix64(base_seed ^ index as u64 ^ 0x7374_6f6e_655f_7363);
-        let woodland = sample.cover == GroundCover::LeafLitter;
-        let density = if woodland {
-            // Every woodland cell gets a sparse candidate patch. Individual
-            // survival still leaves irregular gaps, but keeping the patches
-            // continuous yields roughly one visible 3--8 cm stone per square
-            // metre instead of making rocks disappear from review frames.
-            PebbleDensity::Woodland
-        } else {
-            let coverage = scree_patch_coverage(base_seed, position, normal);
-            if coverage >= 0.61 {
-                PebbleDensity::Dense
-            } else if coverage >= 0.34 {
-                PebbleDensity::Sparse
-            } else {
-                continue;
-            }
-        };
-        let variant = density.asset_offset() + (hash % MESH_VARIANTS) as usize;
-        // Instances carry yaw and uniform scale only, so a patch stands plumb
-        // rather than tilting into the terrain normal the per-entity renderer
-        // used. At a 3--8 cm diameter that tilt is below one pixel well before
-        // the hero band ends, and the slope rejection above already keeps
-        // patches off ground steep enough for it to read.
-        per_variant[variant].push(InstanceData {
-            position: Vec3::new(
-                position.x,
-                height + if woodland { -0.006 } else { 0.006 },
-                position.y,
-            ),
-            scale: if woodland { 0.58 } else { 1.0 },
-            rotation: unit_hash(splitmix64(hash ^ 0x55d8_093b)) * core::f32::consts::TAU,
-            seed: (hash & 0xffff_ffff) as u32,
-            ..Default::default()
-        });
-    }
-
-    batches::spawn(
-        commands,
-        batches::PebbleBatchAssets {
-            hero: &hero_meshes,
-            near: &near_meshes,
-            billboard: &billboard_meshes,
-            pebble_counts: &pebble_counts,
-            stone: stone_material,
-            woodland_stone: woodland_stone_material,
-            billboard_material,
-        },
-        per_variant,
-    );
-}
+mod spawn;
+pub(super) use spawn::spawn;
 
 fn pebble_lod_visibility(lod: PebbleMeshLod) -> VisibilityRange {
     match lod {

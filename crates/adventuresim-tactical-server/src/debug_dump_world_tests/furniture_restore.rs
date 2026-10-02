@@ -19,10 +19,7 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
             orientation: BuildingOrientation::IDENTITY,
         },
     };
-    let key = FurnitureKey {
-        kind: FurnitureKind::Barrel,
-        variant: FurnitureVariant::Compact,
-    };
+    let key = FurnitureKey::natural(FurnitureKind::Barrel, FurnitureVariant::Compact);
     let scene = SceneFurniture {
         id: FurnitureInstanceId(92),
         key,

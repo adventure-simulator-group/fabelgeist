@@ -5,13 +5,19 @@ use crate::SettlementEconomyProfile;
 use fabelgeist_determinism::mix64;
 
 mod catalog;
+mod parish;
 pub use catalog::{BuildingDefinition, BuildingDistrict, BuildingEligibility, BuildingUse};
+pub use parish::{
+    AuthoredParishPolicy, ChurchBuildingScale, ParishBuildingRole, ParishId, ParishPopulation,
+    ParishProgramme, ParishProminence,
+};
+use serde::{Deserialize, Serialize};
 
 const CAPACITY_DOMAIN: u64 = 0x6361_7061_6369_7479;
 pub const MAX_SERVICE_BUILDINGS: usize = 4_096;
 
 /// Approximate people served, distinct from residents housed.
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct ServiceCapacity(pub u32);
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -36,24 +42,103 @@ impl CapacityRange {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub struct BuildingDemand {
-    pub usage: BuildingUse,
-    pub ordinal: u32,
-    pub capacity: ServiceCapacity,
+pub enum BuildingDemandPolicy {
+    ServiceCatchment(CapacityRange),
+    SettlementInstitution(CivicInstitution),
+    ParishChurch,
+    ParishResidence,
+    ParishSchool,
+    EvidenceOnly,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub enum CivicInstitution {
+    TownHall,
+    WeighHouse,
+    Prison,
+}
+
+impl CivicInstitution {
+    pub const fn usage(self) -> BuildingUse {
+        match self {
+            Self::TownHall => BuildingUse::TownHall,
+            Self::WeighHouse => BuildingUse::WeighHouse,
+            Self::Prison => BuildingUse::Prison,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub enum BuildingDemand {
+    Service {
+        usage: BuildingUse,
+        ordinal: u32,
+        capacity: ServiceCapacity,
+    },
+    Civic(CivicInstitution),
+    Parish {
+        parish: ParishId,
+        role: ParishBuildingRole,
+    },
+}
+
+impl BuildingDemand {
+    pub const fn usage(self) -> BuildingUse {
+        match self {
+            Self::Service { usage, .. } => usage,
+            Self::Civic(institution) => institution.usage(),
+            Self::Parish { role, .. } => role.usage(),
+        }
+    }
+
+    pub const fn ordinal(self) -> u32 {
+        match self {
+            Self::Service { ordinal, .. } => ordinal,
+            Self::Civic(_) => 0,
+            Self::Parish { parish, .. } => parish.0,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub enum DemandShortfall {
+    Service {
+        usage: BuildingUse,
+        capacity: ServiceCapacity,
+    },
+    Civic(CivicInstitution),
+    Parish(ParishPopulation),
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct SettlementBuildingDemand {
     pub buildings: Vec<BuildingDemand>,
+    pub parishes: Vec<ParishProgramme>,
     /// Explicit unmet demand when the bounded plan is exhausted.
-    pub shortfalls: Vec<(BuildingUse, ServiceCapacity)>,
+    pub shortfalls: Vec<DemandShortfall>,
 }
 
 impl SettlementBuildingDemand {
     pub fn new(seed: u64, population: u32, economy: &SettlementEconomyProfile) -> Self {
+        Self::with_parish_policy(
+            seed,
+            population,
+            economy,
+            AuthoredParishPolicy::CENTRAL_GERMAN_MARKET_TOWN,
+        )
+    }
+
+    pub fn with_parish_policy(
+        seed: u64,
+        population: u32,
+        economy: &SettlementEconomyProfile,
+        policy: AuthoredParishPolicy,
+    ) -> Self {
+        let (parishes, buildings, shortfalls) = parish::plan(population, economy, policy);
         let mut plan = Self {
-            buildings: Vec::new(),
-            shortfalls: Vec::new(),
+            buildings,
+            parishes,
+            shortfalls,
         };
         if population == 0 {
             return plan;
@@ -63,27 +148,38 @@ impl SettlementBuildingDemand {
             if !definition.eligible(population, economy) {
                 continue;
             }
+            let range = match definition.demand {
+                BuildingDemandPolicy::ServiceCatchment(range) => range,
+                BuildingDemandPolicy::SettlementInstitution(institution) => {
+                    if plan.buildings.len() < MAX_SERVICE_BUILDINGS {
+                        plan.buildings.push(BuildingDemand::Civic(institution));
+                    } else {
+                        plan.shortfalls.push(DemandShortfall::Civic(institution));
+                    }
+                    continue;
+                }
+                _ => continue,
+            };
             let mut covered = 0_u32;
             let mut ordinal = 0_u32;
             while covered < population {
                 if plan.buildings.len() == MAX_SERVICE_BUILDINGS {
-                    plan.shortfalls
-                        .push((usage, ServiceCapacity(population - covered)));
+                    plan.shortfalls.push(DemandShortfall::Service {
+                        usage,
+                        capacity: ServiceCapacity(population - covered),
+                    });
                     break;
                 }
-                let capacity = definition.capacity.sample(
+                let capacity = range.sample(
                     seed ^ CAPACITY_DOMAIN ^ (usage as u64).rotate_left(23) ^ u64::from(ordinal),
                 );
-                plan.buildings.push(BuildingDemand {
+                plan.buildings.push(BuildingDemand::Service {
                     usage,
                     ordinal,
                     capacity,
                 });
                 covered = covered.saturating_add(capacity.0);
                 ordinal += 1;
-                if definition.singleton {
-                    break;
-                }
             }
         }
         plan

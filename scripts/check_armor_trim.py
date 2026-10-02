@@ -4,6 +4,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 from armor_glb import Asset
+from trim_armor import band_styles, color
 
 
 def texture_uri(asset, texture):
@@ -44,7 +45,12 @@ def audit(source, finished):
                 if channel == 'baseColorTexture':
                     # Colors are unlit palette entries, never AO or highlight ramps.
                     colors=np.unique(image.reshape(-1,3),axis=0)
-                    assert len(colors)==2, f'albedo must contain only base steel and trim colors: {len(colors)}'
+                    base = np.array(previous.get('pbrMetallicRoughness', {}).get('baseColorFactor', [1, 1, 1, 1]))[:3]
+                    base = np.where(base <= .0031308, base * 12.92, 1.055 * base ** (1/2.4) - .055)
+                    styles = [trim, *band_styles(trim)]
+                    palette = [base, *(color(style['color']) for style in styles if style['pattern'] != 'none')]
+                    allowed = {tuple(np.uint8(np.clip(value, 0, 1) * 255 + .5)) for value in palette}
+                    assert all(tuple(value) in allowed for value in colors), 'albedo contains colors outside its unlit palette'
             assert pbr['baseColorFactor']==[1,1,1,1]
             assert pbr['metallicFactor']==pbr['roughnessFactor']==1
             count+=1

@@ -322,8 +322,10 @@ pub(super) fn build_pair(
     align_back_lap_width(&mut back, &front, wearer, design);
     // Restore the enclosure with a smooth profile after seating the lap.
     section_clearance_fit(&mut back, true, wearer, design)?;
-    upper_extrusion(&mut front)?;
+    rim_extrusion(&mut front)?;
+    rim_extrusion(&mut back)?;
     front = refine_front(front, wearer, design)?;
+    front.front_neckline_extrusion(wearer.frame)?;
     apply_fluting(&mut front, design)?;
     Ok((front, back))
 }

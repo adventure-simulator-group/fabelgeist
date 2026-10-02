@@ -732,7 +732,7 @@ pub(super) fn capture_frame(
     mut commands: Commands,
     mut sequence: ResMut<CaptureSequence>,
     pose_buffer_metrics: Res<PoseBufferMetrics>,
-    secondary_physics_telemetry: Res<SecondaryPhysicsTelemetry>,
+    bouncy_bones_telemetry: Res<BouncyBonesTelemetry>,
     terrain_ik: Res<TerrainIkEnabled>,
     subjects: Query<
         (
@@ -917,15 +917,8 @@ pub(super) fn capture_frame(
             body_acceleration: (subject_global.rotation().inverse() * skeleton.world_acceleration)
                 .to_array(),
             world_acceleration: skeleton.world_acceleration.to_array(),
-            secondary_upper_body_bone_count: secondary_physics_telemetry
-                .simulated_upper_body_bones,
-            secondary_upper_body_mean_blend_weight: secondary_physics_telemetry
-                .mean_upper_body_blend_weight,
-            secondary_upper_body_maximum_pose_lag_degrees: secondary_physics_telemetry
-                .maximum_pose_lag_degrees,
-            secondary_upper_body_maximum_inertial_acceleration_radians_per_second_squared:
-                secondary_physics_telemetry
-                    .maximum_inertial_acceleration_radians_per_second_squared,
+            bouncy_active_springs: bouncy_bones_telemetry.active_springs,
+            bouncy_maximum_deflection_radians: bouncy_bones_telemetry.maximum_deflection_radians,
             // Raised guard owns its visual contacts locally. Segment its
             // diagnostics by the sequence that actually changed the rendered
             // support foot, not by the replicated locomotion cadence.

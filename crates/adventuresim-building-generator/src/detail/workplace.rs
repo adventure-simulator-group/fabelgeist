@@ -12,6 +12,7 @@ impl crate::WorkplaceMaterial {
             Self::ProcessLiquid => BuildingLodMaterial::ProcessLiquid,
             Self::HempRope => BuildingLodMaterial::HempRope,
             Self::DressedStone => BuildingLodMaterial::DressedStone,
+            Self::Millstone => BuildingLodMaterial::Millstone,
             Self::Masonry => BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry),
             Self::Iron => BuildingLodMaterial::Iron,
         }

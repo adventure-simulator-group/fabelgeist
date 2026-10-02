@@ -1,5 +1,9 @@
 use super::*;
 
+/// Shared mesh overlap at timber joints, preserved through render LOD changes.
+pub(crate) const TIMBER_SEAM_COVER_METRES: f32 = 0.008;
+pub(crate) const MINIMUM_TIMBER_MEMBER_LENGTH_METRES: f32 = 0.05;
+
 /// Visible plaster finish offset from the exposed timber face.
 pub(crate) const TIMBER_INFILL_FINISH_SETBACK_METRES: f32 = 0.008;
 /// Facade-space overlap of plaster beneath timber and opening trim.
@@ -48,6 +52,21 @@ pub enum TimberFrameProgramKind {
     DirectRoofCottage,
     JettiedMerchantHouse,
     CivicMasonryTimberHall,
+    CourtyardStorageRange,
+}
+
+impl BuildingArchetype {
+    pub(crate) fn timber_frame_program(self) -> Option<TimberFrameProgramKind> {
+        Some(match self {
+            Self::TownHouse => TimberFrameProgramKind::NarrowUrbanTownHouse,
+            Self::HallHouse => TimberFrameProgramKind::NorthernTwoPostHallHouse,
+            Self::FachwerkCottage => TimberFrameProgramKind::DirectRoofCottage,
+            Self::FachwerkMerchantHouse => TimberFrameProgramKind::JettiedMerchantHouse,
+            Self::RenaissanceTownHall => TimberFrameProgramKind::CivicMasonryTimberHall,
+            Self::StorageRange => TimberFrameProgramKind::CourtyardStorageRange,
+            _ => return None,
+        })
+    }
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]

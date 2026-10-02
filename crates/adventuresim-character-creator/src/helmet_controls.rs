@@ -1,8 +1,7 @@
 //! Helmet controls distinguish bowls, integrated faces and attached plates.
 use super::number;
 use adventuresim_armor_model::{
-    CloseHelmetDesign, HelmetCrown, HelmetDesign as H, HelmetFit, SalletDesign, VentSides,
-    VisorBreaths,
+    CloseHelmetDesign, HelmetCrown, HelmetDesign as H, HelmetFit, SalletDesign,
 };
 use bevy_egui::egui;
 
@@ -32,26 +31,8 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut H) -> bool {
             (&mut d.nape_flare.0, 0..=12, "Nape flare (mm)"),
         ],
         H::Burgonet(d) => {
-            ui.label("Cheek fluting");
-            changed |= crate::fluting_controls::show(ui, &mut d.cheek_fluting);
-            vec![
-                (&mut d.nape_depth.0, 650..=1400, "Nape depth"),
-                (&mut d.nape_taper.0, 550..=1000, "Nape taper"),
-                (&mut d.chin_tab.0, 0..=35, "Chin tab (mm)"),
-                (&mut d.nape_recession.0, 0..=30, "Nape recession (mm)"),
-                (&mut d.peak_length.0, 20..=65, "Peak reach (mm)"),
-                (&mut d.peak_drop.0, 0..=20, "Peak drop (mm)"),
-                (&mut d.comb_height.0, 0..=60, "Comb height (mm)"),
-                (&mut d.cheek_depth.0, 750..=1150, "Cheek depth"),
-                (
-                    &mut d.neck_guard_fraction.0,
-                    200..=550,
-                    "Separate neck guard length",
-                ),
-                (&mut d.cheek_width.0, 750..=1250, "Cheek coverage"),
-                (&mut d.cheek_taper.0, 800..=1050, "Cheek taper"),
-                (&mut d.neck_flare.0, 5..=40, "Nape flare (mm)"),
-            ]
+            changed |= crate::buffe_controls::burgonet(ui, d);
+            Vec::new()
         }
         H::Sallet(d) => {
             changed |= sallet(ui, d);
@@ -148,11 +129,13 @@ fn close(ui: &mut egui::Ui, d: &mut CloseHelmetDesign) -> bool {
     let original = *d;
     let mut changed = false;
     for (value, range, label) in [
-        (&mut d.neck_length.0, 0..=45, "Neck extension (mm)"),
+        (&mut d.neck_length.0, 0..=45, "Maximum neck extension (mm)"),
         (&mut d.throat_flare.0, 0..=15, "Throat flange (mm)"),
         (&mut d.back_flare.0, 0..=20, "Rear neck flange (mm)"),
         (&mut d.back_edge_lift.0, 10..=45, "Rear neck edge lift (mm)"),
         (&mut d.sight_ledge.0, 0..=12, "Eye ledge (mm)"),
+        (&mut d.brow_overlap.0, 8..=40, "Visor brow overlap (mm)"),
+        (&mut d.brow_peak.0, 0..=30, "Visor brow peak (mm)"),
         (&mut d.face_clearance.0, 3..=20, "Face clearance (mm)"),
         (&mut d.temple_clearance.0, 3..=15, "Temple clearance (mm)"),
         (&mut d.jaw_width.0, 700..=1000, "Jaw breadth"),
@@ -172,7 +155,8 @@ fn close(ui: &mut egui::Ui, d: &mut CloseHelmetDesign) -> bool {
     }
     ui.label("Visor fluting");
     changed |= crate::fluting_controls::show(ui, &mut d.visor_fluting);
-    changed |= breaths(ui, &mut d.breaths);
+    changed |= crate::bellows_controls::show(ui, &mut d.bellows);
+    changed |= crate::visor_breath_controls::show(ui, &mut d.breaths, 450..=850);
     if changed && let Err(error) = H::CloseHelmet(*d).validate() {
         *d = original;
         ui.colored_label(
@@ -181,45 +165,5 @@ fn close(ui: &mut egui::Ui, d: &mut CloseHelmetDesign) -> bool {
         );
         return false;
     }
-    changed
-}
-
-fn breaths(ui: &mut egui::Ui, d: &mut VisorBreaths) -> bool {
-    let mut changed = false;
-    ui.label("Visor breaths");
-    changed |= ui
-        .add(egui::Slider::new(&mut d.count_per_row, 0..=8).text("Slits per row"))
-        .changed();
-    changed |= ui
-        .add(egui::Slider::new(&mut d.rows, 1..=2).text("Rows"))
-        .changed();
-    ui.horizontal(|ui| {
-        ui.label("Breath sides");
-        for (side, label) in [
-            (VentSides::Both, "Both"),
-            (VentSides::Left, "Left"),
-            (VentSides::Right, "Right"),
-        ] {
-            changed |= ui.selectable_value(&mut d.sides, side, label).changed();
-        }
-    });
-    for (value, range, label) in [
-        (&mut d.width.0, 2..=6, "Slit width (mm)"),
-        (&mut d.length.0, 8..=20, "Slit length (mm)"),
-        (&mut d.span.0, 20..=60, "Pattern span (mm)"),
-        (&mut d.row_spacing.0, 14..=25, "Row spacing (mm)"),
-        (&mut d.center_offset.0, 10..=100, "Pattern offset (mm)"),
-        (&mut d.height.0, 450..=850, "Pattern height"),
-        (&mut d.rounding.0, 0..=1000, "Slit roundness"),
-    ] {
-        changed |= number(ui, value, range, label);
-    }
-    changed |= ui
-        .add(
-            egui::Slider::new(&mut d.inclination.0, -90..=90)
-                .text("Slit angle")
-                .suffix("°"),
-        )
-        .changed();
     changed
 }

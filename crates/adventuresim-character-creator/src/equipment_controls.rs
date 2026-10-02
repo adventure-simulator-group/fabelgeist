@@ -94,7 +94,13 @@ pub(super) fn breastplate(ui: &mut egui::Ui, studio: &mut Studio) {
             )
             .changed();
         changed |= ui
-            .add(egui::Slider::new(&mut design.waist_width.0, 750..=1_200).text("Waist width"))
+            .add(
+                egui::Slider::new(
+                    &mut design.waist_width.0,
+                    BreastplateDesign::WAIST_WIDTH_RANGE,
+                )
+                .text("Waist width"),
+            )
             .changed();
         changed |= ui
             .add(egui::Slider::new(&mut design.plate_length.0, 650..=1_150).text("Plate length"))
@@ -117,13 +123,7 @@ pub(super) fn breastplate(ui: &mut egui::Ui, studio: &mut Studio) {
                     .suffix(" mm"),
             )
             .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.wall_thickness.0, 1..=20)
-                    .text("Wall thickness")
-                    .suffix(" mm"),
-            )
-            .changed();
+        changed |= crate::anime_controls::show(ui, design);
         changed |= ui
             .add(
                 egui::Slider::new(&mut design.front_clearance.0, 4..=30)

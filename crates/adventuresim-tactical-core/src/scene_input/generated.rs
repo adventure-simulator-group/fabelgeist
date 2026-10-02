@@ -12,6 +12,8 @@ pub struct GeneratedTacticalScene {
     pub obstacles: Vec<GeneratedObstacle>,
     pub terrain_patch: Option<SceneTerrainPatch>,
     pub buildings: Vec<GeneratedBuilding>,
+    pub boundaries: Vec<super::GeneratedBoundary>,
+    pub gardens: Vec<super::GeneratedGarden>,
     pub furniture: FurnitureLayout,
     pub repairs: SceneRepairReport,
 }

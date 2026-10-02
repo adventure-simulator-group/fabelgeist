@@ -29,6 +29,7 @@ impl Wearer<'_> {
             outward = outward.map(|v| -v);
         }
         let mut frame = PartFrame {
+            detail: self.detail,
             origin,
             axes: [outward, axial, posterior],
             half_extents: [0.0; 3],
@@ -108,6 +109,7 @@ mod tests {
 
         fn wearer(&self) -> Wearer<'_> {
             Wearer {
+                detail: adventuresim_armor_model::ArmorDetail::BakeSource,
                 faces: &[],
                 positions: &self.positions,
                 normals: &self.positions,

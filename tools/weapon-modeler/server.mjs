@@ -18,11 +18,18 @@ const types = {
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".mjs": "text/javascript; charset=utf-8",
+  ".wasm": "application/wasm",
 };
 
 createServer(async (request, response) => {
   try {
     const pathname = new URL(request.url ?? "/", "http://localhost").pathname;
+    if (request.method === "GET" && /^\/kernel\/weapon-kernel(?:_bg\.wasm|\.js)$/.test(pathname)) {
+      const file = join(repository, "target", "weapon-modeler-kernel", "web", pathname.split("/").at(-1));
+      response.writeHead(200, { "Cache-Control": "no-store", "Content-Type": types[extname(file)] });
+      response.end(await readFile(file));
+      return;
+    }
     if (request.method === "GET" && pathname === "/api/rig") {
       let rig;
       for (const candidate of rigCandidates) {

@@ -8,14 +8,18 @@ pub(super) fn generate(
     brow: f32,
     half_height: f32,
     d: &BurgonetDesign,
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
-    const RADIAL_ROWS: usize = 16;
+    let radial_rows = detail.segments(16, 3);
+    let mut d = *d;
+    d.cheek_fluting = detail.fluting(d.cheek_fluting.as_ref()).cloned();
+    let columns = detail.segments(48, 8);
     let width = radii[2] * 0.38 * d.cheek_width.unit();
     let height = half_height * 0.46 * d.cheek_depth.unit();
     let center = [brow - half_height * 0.40, radii[2] * 0.10];
     let root = [center[0] - height * 0.65, center[1] + width * 0.55];
     let mut columns = d.cheek_fluting.as_ref().map_or_else(
-        || (0..=48).map(|i| i as f32 / 48.0).collect(),
+        || (0..=columns).map(|i| i as f32 / columns as f32).collect(),
         |p| p.columns(48),
     );
     columns.pop();
@@ -34,8 +38,8 @@ pub(super) fn generate(
     let separation = d.fit.wall_thickness.metres() * 2.0;
     surface.relief[pole as usize] = separation;
     let mut previous: Vec<u32> = Vec::new();
-    for row in 1..=RADIAL_ROWS {
-        let v = row as f32 / RADIAL_ROWS as f32;
+    for row in 1..=radial_rows {
+        let v = row as f32 / radial_rows as f32;
         let mut ring = Vec::new();
         for u in &columns {
             let mapped = d

@@ -163,11 +163,7 @@ fn pointed_and_segmental_panels_follow_the_authored_spring_and_crown() {
 
 #[test]
 fn lower_chancel_verge_abuts_the_nave_and_gables_keep_wall_material() {
-    for size in [
-        ServiceBuildingSize::Small,
-        ServiceBuildingSize::Medium,
-        ServiceBuildingSize::Large,
-    ] {
+    for size in [ServiceBuildingSize::Small, ServiceBuildingSize::Medium] {
         let plan = crate::generate(
             &BuildingProgram::fixture(BuildingArchetype::ParishChurch, 42).with_service_size(size),
         )

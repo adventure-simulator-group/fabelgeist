@@ -41,7 +41,7 @@ pub(super) fn fit(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<Pa
         gap,
         waist_y: waist - frame.origin[1],
     };
-    Ok(mesh.refit_surfaces(|positions| cage.fit(positions))?)
+    Ok(mesh.refit_surfaces(|positions, _| cage.fit(positions))?)
 }
 
 struct TorsoCage<'a> {

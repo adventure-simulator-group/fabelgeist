@@ -1,4 +1,4 @@
-//! Authenticated, transient per-instance weapon silhouettes.
+//! Authenticated, transient per-instance equipment portraits.
 
 use std::{
     collections::HashMap,
@@ -451,9 +451,9 @@ mod tests {
     }
 
     #[test]
-    fn inventory_browser_progressively_replaces_only_instanced_melee_icons() {
+    fn inventory_browser_loads_instanced_weapons_and_baked_armor_portraits() {
         let script = include_str!("../../static/inventory-browser.js");
-        assert!(script.contains("hydrateProceduralWeaponIcons"));
+        assert!(script.contains("hydrateProceduralEquipmentIcons"));
         assert!(script.contains(".inventory-item-label[data-item-melee=\"true\"]"));
         assert!(script.contains(".inventory-item-label[data-item-weapon-holder=\"true\"]"));
         assert!(script.contains("/api/weapon-icons/${scope}/${rowId}.png"));

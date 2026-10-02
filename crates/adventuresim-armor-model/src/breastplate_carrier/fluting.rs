@@ -4,9 +4,14 @@ use super::*;
 const FLUTE_PROFILE_SEGMENTS: usize = 8;
 const CHART_MERGE_TOLERANCE: f32 = 5e-4;
 
-pub(super) fn chart_columns(rear: bool, design: &BreastplateDesign) -> Vec<f32> {
-    let mut columns: Vec<_> = (0..U_SAMPLES)
-        .map(|i| -1.0 + 2.0 * i as f32 / (U_SAMPLES - 1) as f32)
+pub(super) fn chart_columns(
+    rear: bool,
+    design: &BreastplateDesign,
+    detail: crate::ArmorDetail,
+) -> Vec<f32> {
+    let u_samples = detail.segments(U_SAMPLES - 1, 6) + 1;
+    let mut columns: Vec<_> = (0..u_samples)
+        .map(|i| -1.0 + 2.0 * i as f32 / (u_samples - 1) as f32)
         .collect();
     if let Some(pattern) = design.fluting.as_ref().filter(|_| !rear) {
         let pitch = 2.0 * pattern.spread.unit() / f32::from(pattern.count.0);
@@ -49,7 +54,7 @@ pub(super) fn apply_fluting(
     let Some(pattern) = &design.fluting else {
         return Ok(());
     };
-    let columns = chart_columns(false, design);
+    let columns = chart_columns(false, design, crate::ArmorDetail::BakeSource);
     let smooth_normals = mesh
         .extrusion_normals
         .clone()
@@ -149,7 +154,7 @@ pub(super) fn refine_front(
         Some(normals) => normals.clone(),
         None => vertex_normals(&coarse.positions, &coarse.faces)?,
     };
-    let columns = chart_columns(false, design);
+    let columns = chart_columns(false, design, crate::ArmorDetail::BakeSource);
     let mut mesh = build_mid(false, wearer, design)?;
     let mut samples = Vec::with_capacity(mesh.positions.len());
     for row in 0..V_SAMPLES {
@@ -208,7 +213,7 @@ mod tests {
                 let pattern = design.fluting.as_mut().unwrap();
                 pattern.count.0 = count;
                 pattern.width.0 = width;
-                let columns = chart_columns(false, &design);
+                let columns = chart_columns(false, &design, crate::ArmorDetail::BakeSource);
                 let grid: Vec<_> = (0..V_SAMPLES)
                     .map(|row| {
                         columns

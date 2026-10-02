@@ -50,6 +50,9 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
         BuildingUse::Warehouse,
         BuildingUse::Castle,
         BuildingUse::Cathedral,
+        BuildingUse::Weaver,
+        BuildingUse::PrintingHouse,
+        BuildingUse::WeighHouse,
     ]
     .into_iter()
     .enumerate()
@@ -65,6 +68,9 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
         centre_metres: match usage {
             BuildingUse::Castle => Vec2::new(0.0, 90.0),
             BuildingUse::Cathedral => Vec2::new(0.0, -90.0),
+            BuildingUse::Weaver => Vec2::new(170.0, -90.0),
+            BuildingUse::PrintingHouse => Vec2::new(170.0, 0.0),
+            BuildingUse::WeighHouse => Vec2::new(170.0, 90.0),
             _ => Vec2::new(
                 (index % 4) as f32 * 50.0 - 75.0,
                 (index / 4) as f32 * 80.0 - 40.0,
@@ -75,13 +81,13 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
     .collect()
 }
 
-/// The catalog's five-by-seven pairs and ten building samples fit this flat yard.
+/// The catalog pairs and occupied household/trade samples share this flat yard.
 pub(super) fn yards() -> Vec<CityYardPatch> {
     vec![CityYardPatch {
         corners_metres: [
             Vec2::new(-120.0, -120.0),
-            Vec2::new(120.0, -120.0),
-            Vec2::new(120.0, 120.0),
+            Vec2::new(220.0, -120.0),
+            Vec2::new(220.0, 120.0),
             Vec2::new(-120.0, 120.0),
         ],
         surface: CityYardSurface::PackedEarth,

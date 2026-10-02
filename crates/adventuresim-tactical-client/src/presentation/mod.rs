@@ -11,20 +11,26 @@
 
 mod atmosphere;
 mod buildings;
+mod cloud_bake_assets;
 mod clouds;
 mod config;
+mod demo_lifecycle;
+pub(crate) use demo_lifecycle::clear_demo_scene;
+pub(crate) use vista::streets::streaming::StreamCityTraffic;
 mod doors;
 mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
+mod building_closures;
 mod celestial_materials;
 mod environment;
 pub(crate) mod ground_scatter;
+pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
 pub(crate) mod interior_lighting;
 use celestial_materials::update_celestial_material_lighting;
 mod materials;
 mod obstacles;
 mod procedural;
-mod procedural_texture_setup;
+pub(crate) mod procedural_texture_setup;
 mod recipe_mesh;
 mod sky;
 mod terrain;
@@ -32,12 +38,14 @@ mod vista;
 mod volumetric;
 mod weather;
 mod windows;
+pub(crate) use building_closures::{BuildingClosureVisibility, PresentedBuildingClosureMesh};
 
 use adventuresim_procedural_textures::LeafTextureSet;
 pub(crate) use adventuresim_procedural_textures::ProceduralTextureAssets;
 #[cfg(test)]
 use adventuresim_procedural_textures::generate_procedural_textures;
 use atmosphere::*;
+pub(crate) use buildings::BuildingRenderLevel;
 use buildings::*;
 use clouds::*;
 pub(crate) use doors::{DoorPresentationPlugin, GrabTargetOutline};
@@ -70,32 +78,38 @@ fn mesh_triangle_count(mesh: &Mesh) -> usize {
 
 // This facade is compiled independently by several binaries, so each binary
 // uses only the subset of the stable presentation interface that it needs.
-pub(crate) use buildings::{PresentedBuildingMesh, PresentedSign, TacticalBuildingMaterials};
+pub(crate) use buildings::{
+    PendingCityBuildings, PresentedBuildingMesh, PresentedSign, TacticalBuildingMaterials,
+};
+pub(crate) use cloud_bake_assets::PrebakedCloudEnvironment;
+#[cfg(test)]
+pub(crate) use clouds::bake_environment_rgba8;
 pub(crate) use clouds::{
     TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
     TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,
 };
-pub(crate) use environment::{
-    TacticalCameraSetup, TacticalGameplayCamera, scene_ambient_light, scene_ibl_visibility_floor,
-};
+pub(crate) use environment::{TacticalCameraSetup, TacticalGameplayCamera};
 pub(crate) use ground_scatter::{
     GrassInteractor, GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundLitterDiagnostics,
-    GroundScatterLayer, LooseStonePebblePatch, UnderstoryReviewSpecimen,
-    WoodyUnderstoryPresentationCache, spawn_understory_review_specimens,
+    GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, PlantLodInstance,
+    UnderstoryReviewSpecimen, WoodyUnderstoryPresentationCache, spawn_understory_review_specimens,
 };
 pub(crate) use obstacles::oak_review_terminal_specimen;
 pub(crate) use obstacles::rock::ProceduralRockVisual;
 pub(crate) use obstacles::tree::TreeImpostorProvenance;
+#[cfg(test)]
+pub(crate) use obstacles::tree::prepare_art_demo_tree_impostor_asset;
 pub(crate) use obstacles::tree::{
     PlayableTreeAggregateWood, PlayableTreeBuds, PlayableTreeCanopyCard,
     PlayableTreeDetailedLeaves, PlayableTreeDetailedTrunk, PlayableTreeDetailedWood,
-    PlayableTreeMidTrunk, PlayableTreeTrunk, PresentedTree, TacticalTreeAggregateBarkMaterial,
-    TacticalTreeBarkMaterial, TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial,
-    TreeAssetResidencyDiagnostics, TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod,
-    TreeLodCluster, TreeLodRenderOverride, TreeTrunkLod, oak_aggregate_bark_material,
-    oak_bark_material, oak_leaf_material,
+    PlayableTreeMidTrunk, PlayableTreeTrunk, PreparedTreeImpostorAsset, PreparedTreeImpostorAssets,
+    PresentedTree, TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial,
+    TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial, TreeAssetResidencyDiagnostics,
+    TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod, TreeLodCluster, TreeLodRenderOverride,
+    TreePresentationSpecies, TreeTrunkLod, oak_aggregate_bark_material, oak_bark_material,
+    oak_leaf_material, oak_root_exposure_for_site, tree_species_for_site,
 };
-pub(crate) use sky::AtmosphereIblAmbientHandoff;
+pub(crate) use sky::AtmosphereIblStatus;
 pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
 pub(crate) use terrain::{
     DETAIL_PATCH_SPACING_METRES, TerrainDetailPatch, TerrainMaterialPresentation,
@@ -181,8 +195,7 @@ impl Default for TacticalPresentationPlugin {
 
 fn tactical_global_ambient_light() -> GlobalAmbientLight {
     GlobalAmbientLight {
-        color: Color::srgb(0.36, 0.48, 0.72),
-        brightness: 0.6,
+        brightness: 0.0,
         ..default()
     }
 }
@@ -192,7 +205,9 @@ impl Plugin for TacticalPresentationPlugin {
         // GPU-instanced grass renders through bevy_eidolon on native and wasm
         // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
         // multi-draw-indirect on the browser backend).
-        app.add_plugins(ground_scatter::InstancedGrassPlugin);
+        app.add_plugins(ground_scatter::InstancedGrassPlugin)
+            .add_observer(ground_scatter::gardens::on_garden)
+            .add_observer(ground_scatter::gardens::on_vista);
         app.add_plugins(materials::TacticalMaterialsPlugin)
             .add_plugins(interior_lighting::InteriorLightingPlugin)
             // Tactical play uses one compact close-range cascade for whichever
@@ -205,8 +220,7 @@ impl Plugin for TacticalPresentationPlugin {
                 config: self.config.clone(),
             })
             .init_resource::<TacticalCameraSetup>()
-            // The sky observer preserves this low, cool floor at night and restores
-            // physically scaled diffuse sky irradiance during daylight.
+            // Generated sky radiance owns ambient illumination.
             .insert_resource(tactical_global_ambient_light())
             .add_systems(
                 Startup,
@@ -224,13 +238,16 @@ impl Plugin for TacticalPresentationPlugin {
             .init_resource::<TreePresentationCache>()
             .init_resource::<TreeAssetResidencyDiagnostics>()
             .init_resource::<VistaTreePresentationCache>()
+            .init_resource::<PreparedTreeImpostorAssets>()
+            .init_asset::<PreparedTreeImpostorAsset>()
+            .init_asset_loader::<PreparedTreeImpostorLoader>()
             .init_resource::<ActiveVistaSurface>()
             .init_resource::<TreeLodRenderOverride>()
             .init_resource::<TacticalTreeBenchmarkIsolation>()
             .init_resource::<ActiveTacticalScene>()
             .init_resource::<PresentedCelestialLighting>()
-            .init_resource::<FrozenAtmosphereStatus>()
-            .init_resource::<AtmosphereIblAmbientHandoff>()
+            .init_resource::<AtmosphereIblCache>()
+            .init_resource::<AtmosphereIblStatus>()
             .init_resource::<TacticalCloudCaptureOverride>()
             .init_resource::<TacticalCloudBenchmarkIsolation>()
             .init_resource::<WeatherOcclusionState>()
@@ -263,9 +280,6 @@ impl Plugin for TacticalPresentationPlugin {
                     update_tactical_clouds.after(update_presented_celestial_lighting),
                     update_tactical_cloud_offscreen_target,
                     update_global_ambient_policy.after(apply_presented_celestial_lighting),
-                    freeze_initialized_atmosphere
-                        .after(update_global_ambient_policy)
-                        .after(update_presented_celestial_lighting),
                     apply_active_environment_fog.after(refresh_active_tactical_scene),
                     apply_active_scene_weather
                         .after(refresh_active_tactical_scene)
@@ -283,7 +297,14 @@ impl Plugin for TacticalPresentationPlugin {
             .add_plugins(BuildingPresentationPlugin)
             .add_plugins(furniture::FurniturePresentationPlugin)
             .add_plugins(terrain::UrbanGroundCoveragePlugin)
-            .add_observer(on_scene_vista_bundle);
+            .add_observer(on_scene_vista_bundle)
+            .add_systems(Update, vista::streets::streaming::update)
+            // Bevy prepares probe components with deferred commands in Update.
+            // Retire probes only after those inserts have been applied.
+            .add_systems(
+                PostUpdate,
+                cache_initialized_atmosphere.after(bevy::transform::TransformSystems::Propagate),
+            );
     }
 
     fn finish(&self, app: &mut App) {

@@ -225,24 +225,31 @@ replace-world-runtime:
 # Download and verify Meta MHR v1.0.1 into the ignored authoring cache.
 init-mhr-assets:
     @{{ python_bin }} scripts/init_mhr_assets.py
-init-mhr-lod1-correctives:
-    @{{ python_bin }} scripts/init_mhr_assets.py --lod1-correctives
+init-mhr-lod4-correctives:
+    @{{ python_bin }} scripts/init_mhr_assets.py --lod4-correctives
 verify-mhr-assets:
     @{{ python_bin }} scripts/init_mhr_assets.py --verify-only
 # Open the MHR creator on the canonical zero-coefficient base body.
 character-creator:
     @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml
 generate-procedural-equipment output:
-    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 1 --recipe assets_src/characters/mhr_base.json --armor-designs assets_src/equipment/armor-designs.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json --equipment-output {{ quote(output) }}
-    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }}
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 4 --recipe assets_src/characters/mhr_base.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json --equipment-output {{ quote(output) }}
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --armor-bake-source --armor-review-dir target/equipment-bake-source --lod 4 --recipe assets_src/characters/mhr_base.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --source-directory target/equipment-bake-source
+    @just equipment-icons {{ quote(output) }}
+
+# Bake color armor portraits after geometry, textures, and edge finishes are final.
+equipment-icons output:
+    @cargo run -p adventuresim-weapon-model --example export_icon_environment -- assets/equipment/icon-studio.hdr
+    @{{ python_bin }} scripts/bake_equipment_icons.py {{ quote(output) }}
 
 # Unwrap existing generated assets without rebuilding their shapes or rigs.
 unwrap-equipment output:
     @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage uv
 
 # Bake surface detail into the material atlas of an unwrapped equipment export.
-bake-equipment output:
-    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage bake
+bake-equipment output source:
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage bake --source-directory {{ quote(source) }}
 # Apply the authored texture-only plate edge finishes.
 trim-equipment output:
     @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage trim
@@ -252,7 +259,7 @@ weapon-modeler:
     @npm --prefix tools/weapon-modeler start
 # Export the zero-coefficient MHR base to an explicit staging path.
 export-mhr-base output:
-    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --export-only --lod 1 --recipe assets_src/characters/mhr_base.json --glb {{ quote(output) }}
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --export-only --lod 4 --recipe assets_src/characters/mhr_base.json --glb {{ quote(output) }}
 # Publish every currently authored motion as a mesh-free runtime animation.
 prepare-animation-assets:
     @{{ python_bin }} scripts/prepare_animation_assets.py
@@ -588,8 +595,8 @@ certs sans="127.0.0.1,localhost":
     @{{ python_bin }} utils/generate_certificates.py {{ quote(sans) }}
 
 # Windows tactical development recipe
-# Runs the strategic stack in WSL, then stages and runs the tactical server and
-# client 0 as native Windows executables (GPU accelerated, no WSLg/UDP issues).
+# Runs an isolated tactical database in WSL, then stages and runs the tactical
+# server and client as native Windows executables (GPU accelerated, no WSLg).
 win-dev:
     @{{ python_bin }} scripts/just_tasks.py win-dev
 
@@ -683,6 +690,38 @@ test: test-chat test-schedule test-dev-stack build-strategic
 # Rebuild committed full-resolution runtime textures, all or one recipe slug.
 bake-procedural-textures recipe="all":
     @cargo run -p adventuresim-procedural-textures --bin bake-procedural-textures -- {{ recipe }}
+
+# Edit shared botanical recipes and orbit their production meshes.
+plant-studio family="flowers":
+    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }}
+
+# Capture a flower (0..4) or fungus (0..3), with a settled image pair.
+plant-capture preset="0" view="full" output="target/plant-captures/specimen" family="flowers" lod="high":
+    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }} --preset {{ preset }} --view {{ view }} --lod {{ lod }} --output {{ quote(output) }}
+
+# Build and serve the art demo, Texture Studio and Heraldry Studio on one local site. No database or game server.
+showcase port="8090":
+    @{{ python_bin }} scripts/showcase.py --port {{ port }}
+
+# Serve the previous showcase build without rebuilding.
+showcase-serve port="8090":
+    @{{ python_bin }} scripts/showcase.py --port {{ port }} --skip-build
+
+# Build the showcase site into target/showcase/site and exit.
+showcase-build:
+    @{{ python_bin }} scripts/showcase.py --build-only --no-open
+
+# Deploy to a VPS at this domain: `showcase` (default) publishes the art demo and studios as static files, `game` the playable stack. See DEPLOY.md.
+deploy domain target="showcase" *args="":
+    @{{ python_bin }} scripts/deploy.py {{ quote(domain) }} --target {{ target }} {{ args }}
+
+# Swap the live showcase back to the previous upload.
+rollback domain:
+    @{{ python_bin }} scripts/deploy.py {{ quote(domain) }} --rollback
+
+# Provision and configure the VPS (Caddy, firewall) without deploying anything.
+vps-setup domain target="showcase":
+    @{{ python_bin }} scripts/deploy.py {{ quote(domain) }} --target {{ target }} --setup-only
 
 fmt:
     @cargo fmt --all

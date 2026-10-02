@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{LeafSpecies, SurfaceTextureSet, TextureParameters, TextureRecipeId};
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum MapChannel {
     Albedo,

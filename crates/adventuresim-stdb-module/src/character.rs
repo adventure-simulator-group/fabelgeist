@@ -2609,11 +2609,8 @@ pub(crate) fn insert_character_with_origin(
         for (item, slot) in [
             ("buckler", StartingSlot::LeftHand),
             ("katzbalger", StartingSlot::RightHand),
-            ("quilted_sleeve", StartingSlot::LeftArm),
-            ("quilted_sleeve", StartingSlot::RightArm),
             ("arming_cap", StartingSlot::Head),
             ("arming_doublet", StartingSlot::Chest),
-            ("padded_skirt", StartingSlot::Stomach),
             ("padded_chausses", StartingSlot::LeftLeg),
             ("padded_chausses", StartingSlot::RightLeg),
         ] {

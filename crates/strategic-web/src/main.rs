@@ -3,6 +3,7 @@
 //! An SSR, HATEOAS-style web UI for the Fabelgeist strategic layer.
 //! Uses Axum + Maud + Datastar with SpacetimeDB as the backend.
 
+mod art_demo;
 mod config;
 mod live;
 mod medical;
@@ -141,14 +142,7 @@ async fn main() -> anyhow::Result<()> {
     };
     let app = build_router(state);
 
-    // Add static file serving
-    let static_path = PathBuf::from(&config.static_dir);
-    let app = app.nest_service("/static", ServeDir::new(static_path));
-    let tactical_static_path = PathBuf::from(&config.tactical_static_dir);
-    let app = app.nest_service("/tactical", ServeDir::new(tactical_static_path));
-
-    // Add health check before the outer request tracing layer so it is logged too.
-    let app = app.route("/health", axum::routing::get(health_check));
+    let app = public_routes(app, &config);
 
     let app = app
         .layer(axum::middleware::from_fn_with_state(
@@ -170,6 +164,16 @@ async fn main() -> anyhow::Result<()> {
     axum::serve(listener, app).await?;
 
     Ok(())
+}
+
+fn public_routes(app: axum::Router, config: &Config) -> axum::Router {
+    app.nest_service("/static", ServeDir::new(PathBuf::from(&config.static_dir)))
+        .nest_service(
+            "/tactical",
+            ServeDir::new(PathBuf::from(&config.tactical_static_dir)),
+        )
+        .merge(art_demo::routes())
+        .route("/health", axum::routing::get(health_check))
 }
 
 async fn health_check() -> &'static str {

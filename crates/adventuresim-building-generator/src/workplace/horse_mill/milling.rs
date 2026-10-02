@@ -67,13 +67,13 @@ pub(super) fn stone_and_hopper(a: &mut Assembly<'_>, p: Vec2) {
 }
 
 fn stone_disc(a: &mut Assembly<'_>, p: Vec2, y: f32, height: f32) {
-    // Faceted dressed stone uses the same authoritative cuboids in detail, LOD and collision.
+    // Grinding surfaces are a single stone, not wall masonry with mortar joints.
     for slice in 0..9 {
         let z = (slice as f32 - 4.0) * 0.15;
         let half_width = (0.72_f32.powi(2) - z.powi(2)).sqrt();
         a.part(
             WorkplaceFeature::Millstone,
-            WorkplaceMaterial::DressedStone,
+            WorkplaceMaterial::Millstone,
             Vec3::new(p.x, y, p.y + z),
             Vec3::new(half_width * 2.0, height, 0.15),
             true,

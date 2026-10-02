@@ -16,10 +16,18 @@ pub(super) fn table(builder: &mut Builder, size: Vec3, kind: FurnitureKind) {
     } else {
         size.z
     };
-    builder.timber(
-        Vec3::Y * (size.y - thickness * 0.5),
-        Vec3::new(size.x, thickness, top_depth),
-    );
+    if kind == FurnitureKind::Workbench {
+        super::super::finish::boards(
+            builder,
+            Vec3::Y * (size.y - thickness * 0.5),
+            Vec3::new(size.x, thickness, top_depth),
+        );
+    } else {
+        builder.timber(
+            Vec3::Y * (size.y - thickness * 0.5),
+            Vec3::new(size.x, thickness, top_depth),
+        );
+    }
     for sign in [-1.0, 1.0] {
         builder.timber(
             Vec3::new(0.0, leg_height - 0.065, sign * (size.z - 0.12) * 0.5),
@@ -32,13 +40,16 @@ pub(super) fn table(builder: &mut Builder, size: Vec3, kind: FurnitureKind) {
     }
     match kind {
         FurnitureKind::Workbench => {
-            builder.timber(Vec3::Y * 0.23, Vec3::new(size.x - 0.1, 0.05, size.z - 0.1));
+            builder.natural_timber(Vec3::Y * 0.23, Vec3::new(size.x - 0.1, 0.05, size.z - 0.1));
             // A fixed wooden vice jaw sits below the working surface, within
             // the top's footprint, joined to the apron by its iron screw.
-            builder.timber(
-                Vec3::new(-size.x * 0.28, size.y - 0.2, -size.z * 0.5 + 0.055),
-                Vec3::new(0.3, 0.25, 0.11),
-            );
+            let jaw_centre = Vec3::new(-size.x * 0.28, size.y - 0.2, -size.z * 0.5 + 0.055);
+            let jaw_size = Vec3::new(0.3, 0.25, 0.11);
+            if builder.wood_state == super::super::FurnitureWoodState::Painted {
+                builder.natural_timber(jaw_centre, jaw_size);
+            } else {
+                builder.handled_timber(jaw_centre, jaw_size, -Vec3::Z, [0.12, 0.12, 0.88, 0.88]);
+            }
             builder.cuboid(
                 BuildingLodMaterial::Iron,
                 Vec3::new(-size.x * 0.28, size.y - 0.23, -size.z * 0.5 + 0.08),

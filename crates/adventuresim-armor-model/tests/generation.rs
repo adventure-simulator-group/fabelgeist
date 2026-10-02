@@ -56,10 +56,55 @@ fn cylinder_surface(radius: f32) -> AnatomicalSurface {
         normals: vertices.iter().map(|vertex| vertex.normal).collect(),
     };
     AnatomicalSurface {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         domain: "test_body_v1".into(),
         vertices,
         faces,
         morphs: vec![morph],
+    }
+}
+
+#[test]
+fn native_lods_keep_rims_and_morphs_when_exporting_plate_exteriors() {
+    use adventuresim_armor_model::{ArmorComponent, ArmorComponentRole, ArmorDetail, ArmorLod};
+    let mut surface = cylinder_surface(0.045);
+    let dense = generate_bracer(&BracerDesign::default(), &surface).unwrap();
+    let mut previous_count = dense.indices.len();
+    for lod in [ArmorLod::Lod4, ArmorLod::Lod5, ArmorLod::Lod6] {
+        surface.detail = ArmorDetail::Runtime(lod);
+        let mut shell = generate_bracer(&BracerDesign::default(), &surface).unwrap();
+        assert_closed(&shell.positions, &shell.indices);
+        assert!(shell.indices.len() <= previous_count);
+        previous_count = shell.indices.len();
+        shell.components.push(ArmorComponent {
+            role: ArmorComponentRole::Plate,
+            vertices: 0..shell.positions.len(),
+            indices: 0..shell.indices.len(),
+            hinge: None,
+            material: None,
+        });
+        assert_eq!(shell.clone().for_rendering(ArmorDetail::BakeSource), shell);
+        let rendered = shell.clone().for_rendering(surface.detail);
+        assert!(rendered.indices.len() < shell.indices.len());
+        assert_eq!(rendered.positions, shell.positions);
+        assert_eq!(rendered.normals, shell.normals);
+        assert_eq!(rendered.texcoords, shell.texcoords);
+        assert_eq!(rendered.joint_indices, shell.joint_indices);
+        assert_eq!(rendered.joint_weights, shell.joint_weights);
+        assert_eq!(rendered.morphs, shell.morphs);
+        assert_eq!(rendered.plate_edges, shell.plate_edges);
+        assert_eq!(rendered.components[0].indices, 0..rendered.indices.len());
+        for [a, b] in &rendered.plate_edges {
+            assert!(
+                rendered
+                    .indices
+                    .as_chunks::<3>()
+                    .0
+                    .iter()
+                    .any(|face| { face.contains(a) && face.contains(b) }),
+                "runtime export lost an authored rim"
+            );
+        }
     }
 }
 

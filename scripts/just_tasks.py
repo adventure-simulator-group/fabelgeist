@@ -503,9 +503,67 @@ def kill_windows_tactical_processes() -> None:
         )
 
 
+def read_env_file(path: Path) -> dict[str, str]:
+    values: dict[str, str] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line and not line.lstrip().startswith("#") and "=" in line:
+            key, value = line.split("=", 1)
+            values[key] = value
+    return values
+
+
+def windows_tactical_commands(
+    stage: Path,
+    values: dict[str, str],
+    asset_root: str,
+) -> tuple[list[str], list[str], dict[str, str]]:
+    required = {
+        "TACTICAL_SPACETIMEDB_URL",
+        "TACTICAL_SPACETIMEDB_MODULE",
+        "TACTICAL_PORT",
+        "TACTICAL_MISSION_ID",
+        "TACTICAL_SCENE_KEY",
+        "TACTICAL_CHARACTER_ID",
+        "TACTICAL_ENEMY_FIXTURE",
+        "ADVENTURESIM_TACTICAL_CLAIM",
+    }
+    missing = sorted(required - values.keys())
+    if missing:
+        raise RuntimeError(f"isolated tactical environment is missing: {', '.join(missing)}")
+    server = [
+        str(stage / "adventuresim-tactical-server.exe"),
+        "--addr", f"127.0.0.1:{values['TACTICAL_PORT']}",
+        "--mission-id", values["TACTICAL_MISSION_ID"],
+        "--scene-key", values["TACTICAL_SCENE_KEY"],
+        "--scene-input", values.get("TACTICAL_SCENE_INPUT", "dense-woodland"),
+        "--enemy-fixture", values["TACTICAL_ENEMY_FIXTURE"],
+        "--spacetimedb-url", values["TACTICAL_SPACETIMEDB_URL"],
+        "--spacetimedb-module", values["TACTICAL_SPACETIMEDB_MODULE"],
+        "--expected-party-members", "1",
+        "--required-enemy-kills", "1",
+        "--enemy-combat-scale-bps", "10000",
+        "--no-timeout",
+    ]
+    client = [
+        str(stage / "adventuresim-tactical-client.exe"),
+        "--id", values["TACTICAL_CHARACTER_ID"],
+        "--server-addr", f"127.0.0.1:{values['TACTICAL_PORT']}",
+        "--asset-root", asset_root,
+    ]
+    environment = os.environ.copy()
+    environment["ADVENTURESIM_TACTICAL_CLAIM"] = values["ADVENTURESIM_TACTICAL_CLAIM"]
+    forwarded = environment.get("WSLENV", "").split(":")
+    if not any(entry.partition("/")[0] == "ADVENTURESIM_TACTICAL_CLAIM" for entry in forwarded):
+        forwarded.append("ADVENTURESIM_TACTICAL_CLAIM")
+    environment["WSLENV"] = ":".join(entry for entry in forwarded if entry)
+    return server, client, environment
+
+
 def win_dev() -> int:
     if not Path("/mnt/c").is_dir() or shutil.which("cmd.exe") is None:
         raise RuntimeError("win-dev must run inside WSL with Windows interop enabled")
+    if spacetime_version_check():
+        return 1
     executable("x86_64-w64-mingw32-gcc", "Missing MinGW linker: install gcc-mingw-w64-x86-64")
     target = "x86_64-pc-windows-gnu"
     installed = subprocess.run(
@@ -518,40 +576,68 @@ def win_dev() -> int:
             return 1
     kill_windows_tactical_processes()
     time.sleep(0.5)
-    print("Starting strategic development stack...")
-    dev = subprocess.Popen([executable("just"), "dev"], cwd=ROOT, start_new_session=True)
+    for package in ("adventuresim-tactical-server", "adventuresim-tactical-client"):
+        print(f"Building {package} (Windows)...")
+        if run([
+            executable("cargo"), "build", "--package", package, "--bin", package,
+            "--features", "debug", "--target", target, "--profile", "win-dev",
+        ]):
+            return 1
+    stage = Path(os.environ.get("ADVENTURESIM_WIN_DEV_STAGE", "/mnt/e/adventure-sim-dev"))
+    stage.mkdir(parents=True, exist_ok=True)
+    output = ROOT / "target" / target / "win-dev"
+    shutil.copy2(output / "adventuresim-tactical-server.exe", stage)
+    shutil.copy2(output / "adventuresim-tactical-client.exe", stage)
+    sync_tree(ROOT / "assets", stage / "assets", clear=True)
+    sync_tree(ROOT / "content", stage / "content", clear=True)
+    for assets in (ROOT / "crates").glob("*/assets"):
+        sync_tree(assets, stage / "assets", clear=False)
+
+    tactical_env = ROOT / ".env.tactical"
+    tactical_env.unlink(missing_ok=True)
+    print("Starting isolated tactical database...")
+    isolated = subprocess.Popen([
+        sys.executable, str(ROOT / "scripts" / "dev_stack.py"), "run-profile",
+        "--mode", "tactical", "tactical-dev", "23200",
+    ], cwd=ROOT, start_new_session=True)
     try:
-        if not wait_for_port(8080, 300, dev):
-            raise RuntimeError("Strategic development stack exited or timed out before becoming ready")
-        for package in ("adventuresim-tactical-server", "adventuresim-tactical-client"):
-            print(f"Building {package} (Windows)...")
-            if run([executable("cargo"), "build", "-p", package, "--features", "debug", "--target", target, "--profile", "win-dev"]):
-                return 1
-        stage = Path("/mnt/e/adventure-sim-dev")
-        stage.mkdir(parents=True, exist_ok=True)
-        output = ROOT / "target" / target / "win-dev"
-        shutil.copy2(output / "adventuresim-tactical-server.exe", stage)
-        shutil.copy2(output / "adventuresim-tactical-client.exe", stage)
-        sync_tree(ROOT / "assets", stage / "assets", clear=True)
-        for assets in (ROOT / "crates").glob("*/assets"):
-            sync_tree(assets, stage / "assets", clear=False)
-        server = subprocess.Popen([
-            str(stage / "adventuresim-tactical-server.exe"), "--addr", "0.0.0.0:6000",
-            "--mission-id", "test-mission", "--scene-key", "woodland", "--spacetimedb-url",
-            SPACETIME_URL, "--spacetimedb-module", SPACETIME_DATABASE,
-            "--expected-party-members", "1", "--bots", "3", "--no-timeout",
-        ], cwd=stage)
+        deadline = time.monotonic() + 1200
+        while not tactical_env.is_file():
+            if isolated.poll() is not None:
+                raise RuntimeError(f"isolated tactical database exited with code {isolated.returncode}")
+            if time.monotonic() >= deadline:
+                raise RuntimeError("isolated tactical database timed out before becoming ready")
+            time.sleep(0.1)
+        server_command, client_command, server_environment = windows_tactical_commands(
+            stage,
+            read_env_file(tactical_env),
+            subprocess.check_output(
+                [executable("wslpath"), "-w", str(stage / "assets")], text=True
+            ).strip(),
+        )
+        server = subprocess.Popen(
+            server_command,
+            cwd=stage,
+            env=server_environment,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+        )
         time.sleep(3)
-        client = subprocess.Popen([
-            str(stage / "adventuresim-tactical-client.exe"), "--id", "0", "--server-addr", "127.0.0.1:6000",
-        ], cwd=stage)
+        if server.poll() is not None:
+            raise RuntimeError(f"native Windows tactical server exited with code {server.returncode}")
+        client = subprocess.Popen(
+            client_command,
+            cwd=stage,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+        )
         return client.wait() if server.poll() is None else server.returncode or 1
     finally:
         print("\nShutting down...")
         kill_windows_tactical_processes()
-        if dev.poll() is None:
-            os.killpg(dev.pid, signal.SIGTERM)
-        dev.wait()
+        if isolated.poll() is None:
+            os.killpg(isolated.pid, signal.SIGTERM)
+        isolated.wait()
 
 
 def parser() -> argparse.ArgumentParser:

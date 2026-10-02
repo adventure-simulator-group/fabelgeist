@@ -6,17 +6,29 @@
 
 mod arch_geometry;
 mod audit;
+mod axle;
+mod bell;
+mod church_programme;
 mod collision;
 mod detail;
 mod doors;
+#[cfg(test)]
+mod enclosure_tests;
 pub mod furniture;
+mod gable_frame;
 mod generator;
+mod geometry_index;
+mod heating;
 pub mod interior;
 mod lod;
+mod member_uv;
 mod model;
+pub mod prepared;
+mod roof_enclosure;
 mod roof_tessellation;
 mod settlement;
 pub mod signs;
+mod solid_overlap;
 pub mod spiral_stairs;
 mod windows;
 mod workplace;
@@ -32,17 +44,30 @@ pub use collision::{
 };
 pub use detail::{
     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, compile_building_detail,
-    compile_static_building_detail,
+    compile_solid_detail, compile_static_building_detail,
 };
 pub use doors::{DoorSpec, compile_operable_doors};
 pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};
 pub use generator::{GenerationError, edit_document, generate, generate_document, set_roof_pitch};
+pub use heating::{
+    DomesticHeatingPlan, DomesticHeatingProgramme, HeatingFloorPenetration, HeatingPart,
+    HeatingPartKind, HeatingPassage, HeatingPassageKind, HeatingRoofPenetration, HeatingRoom,
+};
 pub use lod::{
     BuildingLod, BuildingLodLevel, BuildingLodMaterial, FacadeRun, FacadeRunPath, LodMesh,
-    LodVertex, compile_building_lod,
+    LodVertex, compile_building_lod, compile_static_building_lod,
 };
 pub use model::*;
 pub use roof_tessellation::{
     RoofSurface, RoofSurfaceTriangle, tessellate_roof_enclosure, tessellate_roof_face,
 };
-pub use windows::{WindowBarSpec, WindowSpec, compile_operable_windows, compile_window_bars};
+pub use windows::{
+    WindowBarSpec, WindowLeafKind, WindowSpec, compile_operable_windows, compile_window_bars,
+    compile_window_leaf,
+};
+
+#[cfg(test)]
+mod mixed_construction_tests;
+
+#[cfg(test)]
+mod storage_range_tests;

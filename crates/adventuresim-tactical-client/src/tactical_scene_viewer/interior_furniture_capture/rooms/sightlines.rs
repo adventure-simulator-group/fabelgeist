@@ -23,6 +23,8 @@ pub(super) struct Subject {
     pub points: Vec<Vec3>,
     pub importance: f32,
     pub signature: bool,
+    pub front_view: Option<(Vec3, Vec3)>,
+    pub working_points: Vec<Vec3>,
 }
 
 struct PreparedBlocker {
@@ -144,7 +146,19 @@ pub(super) fn choose(
                     .filter(|point| in_frame(**point, eye, forward))
                     .count();
                 let fraction = framed as f32 / subject.points.len() as f32;
-                signature_visible |= subject.signature && fraction >= 0.4;
+                signature_visible |= subject.signature
+                    && subject.working_points.iter().all(|point| {
+                        clear_line(eye, *point, subject.owner, &blockers)
+                            && in_frame(*point, eye, forward)
+                    })
+                    && subject
+                        .front_view
+                        .is_none_or(|(centre, outward)| (eye - centre).dot(outward) > 0.0)
+                    && fraction >= 0.5
+                    && subject
+                        .points
+                        .iter()
+                        .all(|point| in_frame(*point, eye, forward));
                 // Saturate the distance reward: retain a room ensemble instead of
                 // selecting an extreme close-up of one large foreground object.
                 let distance = eye.distance(subject.points[0]);
@@ -254,6 +268,8 @@ mod tests {
             points: vec![Vec3::new(3.0, 0.8, 0.0)],
             importance: 4.0,
             signature: true,
+            front_view: None,
+            working_points: Vec::new(),
         };
         let blocker = Blocker {
             owner: Owner::Architecture(ResolvedItemId(1)),

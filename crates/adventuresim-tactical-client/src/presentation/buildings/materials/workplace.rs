@@ -9,6 +9,14 @@ pub(super) struct WorkplaceMaterials {
     pub(super) hide: Handle<StandardMaterial>,
     pub(super) process_liquid: Handle<StandardMaterial>,
     pub(super) hemp_rope: Handle<StandardMaterial>,
+    pub(super) carved_sandstone: Handle<StandardMaterial>,
+    pub(super) lead_alloy: Handle<StandardMaterial>,
+    pub(super) bronze: Handle<StandardMaterial>,
+    pub(super) candle_wax: Handle<StandardMaterial>,
+    pub(super) earthenware: Handle<StandardMaterial>,
+    pub(super) glazed_tile: Handle<StandardMaterial>,
+    pub(super) millstone: Handle<StandardMaterial>,
+    pub(super) timber_end_grain: Handle<StandardMaterial>,
 }
 
 impl WorkplaceMaterials {
@@ -18,6 +26,7 @@ impl WorkplaceMaterials {
             materials.add(StandardMaterial {
                 base_color: Color::srgb(surface.srgb[0], surface.srgb[1], surface.srgb[2]),
                 perceptual_roughness: surface.perceptual_roughness,
+                metallic: surface.metallic,
                 ..default()
             })
         };
@@ -28,6 +37,14 @@ impl WorkplaceMaterials {
             hide: finish(BuildingLodMaterial::Hide),
             process_liquid: finish(BuildingLodMaterial::ProcessLiquid),
             hemp_rope: finish(BuildingLodMaterial::HempRope),
+            carved_sandstone: finish(BuildingLodMaterial::CarvedSandstone),
+            lead_alloy: finish(BuildingLodMaterial::LeadAlloy),
+            bronze: finish(BuildingLodMaterial::Bronze),
+            candle_wax: finish(BuildingLodMaterial::CandleWax),
+            earthenware: finish(BuildingLodMaterial::Earthenware),
+            glazed_tile: finish(BuildingLodMaterial::GlazedTile),
+            millstone: finish(BuildingLodMaterial::Millstone),
+            timber_end_grain: finish(BuildingLodMaterial::TimberEndGrain),
         }
     }
 }

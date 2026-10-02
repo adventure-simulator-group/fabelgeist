@@ -1,6 +1,6 @@
 //! Sampling support bounds for finite stamps and cut-board anatomy.
 pub(super) fn bounds(path: &str, name: &str) -> Option<(f64, f64)> {
-    if path.starts_with("/rock/facets/") || path.starts_with("/surface/plates/") {
+    if path.starts_with("/rock/facets/") {
         return Some(match name {
             "cells" => (1.0, 64.0),
             _ => (0.0, 1.0),

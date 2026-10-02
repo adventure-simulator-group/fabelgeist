@@ -1,9 +1,10 @@
 //! Bowl and crest share one carrier; flute meridians radiate from the temples.
-use super::geometry::{AROUND, Surface};
+use super::geometry::Surface;
 use crate::HelmetCrown;
 use std::f32::consts::{FRAC_PI_2, PI};
 
 struct CrownChart<'a> {
+    around: usize,
     radii: [f32; 3],
     brow: f32,
     style: &'a HelmetCrown,
@@ -11,16 +12,16 @@ struct CrownChart<'a> {
 }
 impl CrownChart<'_> {
     fn latitudes(&self) -> Vec<(f32, usize)> {
-        let mut values = (1..AROUND / 2)
-            .map(|row| (row as f32 / (AROUND / 2) as f32 * PI, row))
+        let mut values = (1..self.around / 2)
+            .map(|row| (row as f32 / (self.around / 2) as f32 * PI, row))
             .collect::<Vec<_>>();
         if self.crest > 0.0 {
             // Extra columns fit inside the two central regular intervals for every head.
             for width in [self.half_width(), self.base_width()] {
                 let angle = (width / self.radii[0]).asin();
                 values.extend([
-                    (FRAC_PI_2 - angle, AROUND / 4),
-                    (FRAC_PI_2 + angle, AROUND / 4),
+                    (FRAC_PI_2 - angle, self.around / 4),
+                    (FRAC_PI_2 + angle, self.around / 4),
                 ]);
             }
             values.sort_by(|a, b| a.0.total_cmp(&b.0));
@@ -67,11 +68,15 @@ impl Surface {
         style: &HelmetCrown,
         crest: f32,
     ) -> Vec<u32> {
+        let mut style = *style;
+        style.fluting = self.detail.fluting(style.fluting.as_ref()).cloned();
+        let style = &style;
         let start = self.positions.len();
         let first_index = self.indices.len();
         let fan = style.fluting.is_some() || crest > 0.0;
         let rim = if fan {
             self.fan_dome(&CrownChart {
+                around: self.around,
                 radii,
                 brow,
                 style,
@@ -96,13 +101,17 @@ impl Surface {
     fn fan_dome(&mut self, chart: &CrownChart<'_>) -> Vec<u32> {
         let pattern = chart.style.fluting.as_ref();
         let columns = pattern.map_or_else(
-            || (0..=40).map(|i| i as f32 / 40.0).collect(),
+            || {
+                (0..=self.detail.segments(40, 4))
+                    .map(|i| i as f32 / self.detail.segments(40, 4) as f32)
+                    .collect()
+            },
             |p| p.columns(40),
         );
         let latitudes = chart.latitudes();
-        let rim = (0..AROUND)
+        let rim = (0..self.around)
             .map(|i| {
-                let angle = i as f32 / AROUND as f32 * 2.0 * PI;
+                let angle = i as f32 / self.around as f32 * 2.0 * PI;
                 self.vertex([
                     chart.radii[0] * angle.sin(),
                     chart.brow,
@@ -110,18 +119,18 @@ impl Surface {
                 ])
             })
             .collect::<Vec<_>>();
-        let first = rim[AROUND / 4];
+        let first = rim[self.around / 4];
         let mut rings: Vec<Vec<u32>> = Vec::new();
         for (latitude, rim_row) in &latitudes {
             let v = latitude.sin();
             let mut ring = Vec::new();
             for (column, u) in columns.iter().enumerate() {
                 let angle = pattern.map_or(*u, |p| p.fan_coordinate(*u, v)) * PI;
-                let front = (AROUND + AROUND / 4 - rim_row) % AROUND;
+                let front = (self.around + self.around / 4 - rim_row) % self.around;
                 let id = if column == 0 {
                     rim[front]
                 } else if column + 1 == columns.len() {
-                    rim[(AROUND + AROUND / 2 - front) % AROUND]
+                    rim[(self.around + self.around / 2 - front) % self.around]
                 } else {
                     self.vertex(chart.point(*latitude, angle))
                 };
@@ -149,7 +158,7 @@ impl Surface {
             }
             rings.push(ring);
         }
-        let last = rim[AROUND * 3 / 4];
+        let last = rim[self.around * 3 / 4];
         for pair in rings.last().expect("crown rings").windows(2) {
             self.indices.extend([pair[0], last, pair[1]]);
         }

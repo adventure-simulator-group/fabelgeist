@@ -6,15 +6,24 @@ use crate::{CollisionBounds, CollisionCuboid, LodMesh};
 use bevy::{math::Vec3, prelude::Reflect};
 use serde::{Deserialize, Serialize};
 
-mod builder;
+mod apparatus;
+pub(crate) mod builder;
 mod containers;
 mod domestic;
+mod finish;
 mod horse_stop;
+mod key;
+pub use finish::FurnitureWoodSurface;
+pub use key::{FinishableFurnitureKind, FurnitureKey, FurnitureWoodState};
 mod seating;
 mod spec;
 mod stall;
 mod trade;
+mod turned;
+mod worship;
 pub use spec::{FurnitureAccessFace, InteriorFurnitureSpec};
+#[cfg(test)]
+mod finish_tests;
 #[cfg(test)]
 mod tests;
 
@@ -62,6 +71,17 @@ pub enum FurnitureKind {
     CaskRack,
     HayRack,
     FeedTrough,
+    CandleStand,
+    SpinningStool,
+    BalanceTable,
+    ReckoningTable,
+    TreadleLoom,
+    PrintingPress,
+    TypeCase,
+    BaptismalFont,
+    Pulpit,
+    Bima,
+    TorahShrine,
 }
 
 impl FurnitureKind {
@@ -72,7 +92,7 @@ impl FurnitureKind {
         Self::CanvasStall,
         Self::HitchingTrough,
     ];
-    pub const INTERIOR: [Self; 34] = [
+    pub const INTERIOR: [Self; 45] = [
         Self::DiningTable,
         Self::Bench,
         Self::Chair,
@@ -107,8 +127,19 @@ impl FurnitureKind {
         Self::CaskRack,
         Self::HayRack,
         Self::FeedTrough,
+        Self::CandleStand,
+        Self::SpinningStool,
+        Self::BalanceTable,
+        Self::ReckoningTable,
+        Self::TreadleLoom,
+        Self::PrintingPress,
+        Self::TypeCase,
+        Self::BaptismalFont,
+        Self::Pulpit,
+        Self::Bima,
+        Self::TorahShrine,
     ];
-    pub const ALL: [Self; 39] = [
+    pub const ALL: [Self; 50] = [
         Self::Barrel,
         Self::CargoStack,
         Self::TableBenchSet,
@@ -148,6 +179,17 @@ impl FurnitureKind {
         Self::CaskRack,
         Self::HayRack,
         Self::FeedTrough,
+        Self::CandleStand,
+        Self::SpinningStool,
+        Self::BalanceTable,
+        Self::ReckoningTable,
+        Self::TreadleLoom,
+        Self::PrintingPress,
+        Self::TypeCase,
+        Self::BaptismalFont,
+        Self::Pulpit,
+        Self::Bima,
+        Self::TorahShrine,
     ];
 }
 
@@ -164,45 +206,20 @@ impl FurnitureVariant {
     pub const ALL: [Self; 2] = [Self::Compact, Self::Broad];
 }
 
-#[derive(
-    Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize, Reflect,
-)]
-#[serde(deny_unknown_fields)]
-pub struct FurnitureKey {
-    pub kind: FurnitureKind,
-    pub variant: FurnitureVariant,
-}
-
 impl FurnitureKey {
-    pub const ALL: [Self; FurnitureKind::ALL.len() * FurnitureVariant::ALL.len()] = {
-        let mut keys = [Self {
-            kind: FurnitureKind::Barrel,
-            variant: FurnitureVariant::Compact,
-        }; FurnitureKind::ALL.len() * FurnitureVariant::ALL.len()];
-        let mut kind = 0;
-        while kind < FurnitureKind::ALL.len() {
-            let mut variant = 0;
-            while variant < FurnitureVariant::ALL.len() {
-                keys[kind * FurnitureVariant::ALL.len() + variant] = Self {
-                    kind: FurnitureKind::ALL[kind],
-                    variant: FurnitureVariant::ALL[variant],
-                };
-                variant += 1;
-            }
-            kind += 1;
-        }
-        keys
-    };
-
     /// All authored recipes share one immutable cache, independent of placement seed.
     pub fn recipe(self) -> &'static FurnitureRecipe {
         static RECIPES: OnceLock<[FurnitureRecipe; FurnitureKey::ALL.len()]> = OnceLock::new();
         let recipes = RECIPES.get_or_init(|| Self::ALL.map(Self::compile));
-        &recipes[self.kind as usize * FurnitureVariant::ALL.len() + self.variant as usize]
+        &recipes[Self::ALL
+            .iter()
+            .position(|key| *key == self)
+            .expect("validated furniture recipe key")]
     }
 
     fn compile(self) -> FurnitureRecipe {
         let mut builder = builder::Builder::default();
+        builder.wood_state = self.wood_state;
         match self.kind {
             FurnitureKind::Barrel => containers::barrel(&mut builder, self.variant),
             FurnitureKind::CargoStack => containers::cargo(&mut builder, self.variant),
@@ -243,14 +260,28 @@ impl FurnitureKey {
             FurnitureKind::CaskRack => trade::assemble(&mut builder, self),
             FurnitureKind::HayRack => trade::assemble(&mut builder, self),
             FurnitureKind::FeedTrough => trade::assemble(&mut builder, self),
+            FurnitureKind::BaptismalFont
+            | FurnitureKind::Pulpit
+            | FurnitureKind::Bima
+            | FurnitureKind::TorahShrine => worship::assemble(&mut builder, self),
+            FurnitureKind::CandleStand
+            | FurnitureKind::SpinningStool
+            | FurnitureKind::BalanceTable
+            | FurnitureKind::ReckoningTable
+            | FurnitureKind::TreadleLoom
+            | FurnitureKind::PrintingPress
+            | FurnitureKind::TypeCase => apparatus::assemble(&mut builder, self),
         }
+        let mut recipe = builder.finish();
         if let Some(spec) = self.interior_spec() {
             for &face in spec.required_faces {
-                let bounds = spec.access_bounds(face);
-                builder.clearance(FurnitureClearanceKind::Access, bounds.min, bounds.max);
+                recipe.clearances.push(FurnitureClearance {
+                    kind: FurnitureClearanceKind::Access,
+                    bounds: spec.access_bounds(face),
+                });
             }
         }
-        builder.finish()
+        recipe
     }
 }
 

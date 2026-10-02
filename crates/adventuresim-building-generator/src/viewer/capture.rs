@@ -341,6 +341,7 @@ fn capture_when_ready(
                         && manifest.focus_kind != Some("resolved_roof"))
                         .then_some(manifest.focused_bounds_fraction),
                     0.12,
+                    manifest.surface_sample_polygon.as_ref(),
                 )
             };
             manifest.median_luminance_percent = luminance.median;

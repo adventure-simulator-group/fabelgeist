@@ -145,9 +145,12 @@ fn fragment(
         discard;
     }
 
+    let uv_dx = dpdx(in.uv);
+    let uv_dy = dpdy(in.uv);
     var albedo = textureSample(front_albedo, front_albedo_sampler, in.uv).rgb;
     if !is_front {
-        albedo = textureSample(back_albedo, back_albedo_sampler, in.uv).rgb;
+        // Face selection can diverge within a fragment quad on WebGPU.
+        albedo = textureSampleGrad(back_albedo, back_albedo_sampler, in.uv, uv_dx, uv_dy).rgb;
     }
     // Deterministic per-leaf pigments (berries, senescent tints) ride the
     // vertex colour lane, exactly like the tree leaf-card shader.

@@ -49,7 +49,7 @@ def render(report: dict) -> str:
             px, py = point([lot["centre"][0] + cosine*x + sine*y, lot["centre"][1] - sine*x + cosine*y])
             points.append(f"{px:.2f},{py:.2f}")
         colour = '#c8bea9' if lot["use"] is None else PALETTE.get(lot["use"], '#9b7250')
-        title = escape(f'{lot["label"]} · {lot["archetype"]} · service capacity {lot["capacity"] or 0} · residents {lot["residents"]}')
+        title = escape(f'{lot["label"]} · {lot["archetype"]} · programme {lot["programme"]} · residents {lot["residents"]}')
         svg.append(f'<polygon points="{" ".join(points)}" fill="{colour}" stroke="#f7f3e9" stroke-width="0.4"><title>{title}</title></polygon>')
     svg.append('<text x="950" y="155" font-size="19">Generated inventory</text>')
     for index, (label, count) in enumerate(sorted(counts.items())):
