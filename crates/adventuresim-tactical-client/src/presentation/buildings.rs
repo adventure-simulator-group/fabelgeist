@@ -96,7 +96,7 @@ struct CompiledBuildingLevels {
     interior: Option<super::interior_lighting::InteriorField>,
     program: BuildingProgram,
     detail: BuildingDetail,
-    floor_offset_metres: f32,
+
     local_origin: Vec3,
     sign_sites: Vec<(
         adventuresim_building_generator::signs::SignMount,
@@ -256,7 +256,6 @@ fn cached_building_levels(
     }
     let collision = &geometry.collision;
     let local_origin = collision.bounds.centre();
-    let floor_offset_metres = local_origin.y - collision.bounds.min.y;
     let kit = (detail != BuildingDetail::Dynamic)
         .then(|| adventuresim_building_generator::BuildingKit::new(plan));
     let detail_meshes = match detail {
@@ -288,7 +287,6 @@ fn cached_building_levels(
             .then(|| super::interior_lighting::InteriorField::from_plan(plan, local_origin)),
         program: program.clone(),
         detail,
-        floor_offset_metres,
         local_origin,
         sign_sites: if program
             .usage

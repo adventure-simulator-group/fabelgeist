@@ -57,24 +57,30 @@ impl CityBoundary {
                 });
             }
         }
-        for side in [-1.0, 1.0] {
-            let centre = self.gate.centre_metres
-                + self.gate.orientation.local_to_world(
-                    Vec2::X * side * (self.gate.width_metres + GATE_POST_WIDTH_METRES) * 0.5,
-                );
-            let height = self.gate.height_metres + GATE_POST_HEAD_METRES;
-            members.push(CityBoundaryMember {
-                centre_metres: Vec3::new(centre.x, height * 0.5, centre.y),
-                size_metres: Vec3::new(GATE_POST_WIDTH_METRES, height, GATE_POST_WIDTH_METRES),
-                yaw_radians: self.gate.orientation.yaw_radians(),
-                material: CityBoundaryMaterial::Masonry,
-            });
+        for side in [PropertySide::Left, PropertySide::Right] {
+            members.push(self.gate.post(side));
         }
         members
     }
 }
 
 impl CityGate {
+    /// Fixed post geometry at the property's architectural ground datum.
+    /// Support planning and enclosure presentation share these dimensions.
+    pub fn post(self, side: PropertySide) -> CityBoundaryMember {
+        let centre = self.centre_metres
+            + self.orientation.local_to_world(
+                Vec2::X * side.sign() * (self.width_metres + GATE_POST_WIDTH_METRES) * 0.5,
+            );
+        let height = self.height_metres + GATE_POST_HEAD_METRES;
+        CityBoundaryMember {
+            centre_metres: Vec3::new(centre.x, height * 0.5, centre.y),
+            size_metres: Vec3::new(GATE_POST_WIDTH_METRES, height, GATE_POST_WIDTH_METRES),
+            yaw_radians: self.orientation.yaw_radians(),
+            material: CityBoundaryMaterial::Masonry,
+        }
+    }
+
     pub fn owns_opening(opening: OpeningAssemblyId) -> bool {
         opening.0 & BOUNDARY_GATE_OPENING_DOMAIN == BOUNDARY_GATE_OPENING_DOMAIN
     }

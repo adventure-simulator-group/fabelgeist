@@ -47,7 +47,7 @@ impl ReviewView {
             self.offset.is_finite() && self.offset.length() > 0.1,
             "invalid camera displacement"
         );
-        let transform = super::super::buildings::building_transform(building);
+        let transform = building.transform();
         let world_target = transform.transform_point(target - bounds.centre());
         let offset = if let ReviewTarget::Opening(target) = self.target {
             let (_, tangent, outward) = target.frame(&building.plan);
@@ -119,7 +119,7 @@ impl ReviewView {
                 assert!(point.is_finite(), "invalid plot review target");
                 Vec3::new(
                     bounds.centre().x + point.x,
-                    bounds.min.y + point.y,
+                    point.y,
                     bounds.centre().z + point.z,
                 )
             }
@@ -164,5 +164,49 @@ impl ReviewView {
                 )
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use adventuresim_building_generator::{BuildingArchetype, BuildingProgram};
+    use adventuresim_tactical_core::scene_input::{
+        BuildingOrientation, GeneratedBuildingRecipe, TacticalBuildingPlacement,
+    };
+    use adventuresim_world_schema::settlement_buildings::BuildingUse;
+
+    #[test]
+    fn plot_camera_height_is_above_architectural_ground_not_buried_slab() {
+        let program = BuildingProgram::validated_settlement(
+            BuildingArchetype::TownHouse,
+            BuildingUse::Dwelling,
+            6_514_374_187_028_306_242,
+            None,
+        )
+        .unwrap();
+        let recipe = GeneratedBuildingRecipe::generate(program.clone()).unwrap();
+        assert!(recipe.collision.bounds.min.y < 0.0);
+        let building = GeneratedBuilding {
+            placement: TacticalBuildingPlacement {
+                id: 304,
+                program,
+                centre_metres: Vec2::new(9.5, -8.5),
+                orientation: BuildingOrientation::from_radians(0.73).unwrap(),
+            },
+            plan: recipe.plan,
+            collision: recipe.collision,
+            pad_elevation_metres: -2.0,
+        };
+        let view = ReviewView {
+            slug: "floor-contact".into(),
+            building: 304,
+            target: ReviewTarget::PlotPoint(Vec3::new(0.0, 0.05, -7.5)),
+            offset: Vec3::new(0.0, 0.6, -2.0),
+            openings: default(),
+        };
+        let camera = view.camera(&[building], &BTreeMap::new());
+        assert!((camera.target.y - (-1.95)).abs() < 0.000_01);
+        assert!((camera.position.y - (-1.35)).abs() < 0.000_01);
     }
 }

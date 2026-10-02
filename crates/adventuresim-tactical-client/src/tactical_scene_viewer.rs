@@ -26,6 +26,7 @@ use bevy::{
 };
 use serde::Serialize;
 
+mod benchmark_progress;
 mod building_review;
 mod buildings;
 mod camera_obstruction;
@@ -652,34 +653,6 @@ struct ScenePerformanceDiagnostics<'w> {
     cloud_animation: Res<'w, TacticalCloudAnimationStatus>,
 }
 
-impl ScenePerformanceBenchmarkState {
-    fn new(sample_frames: u32) -> Self {
-        let selected_mode = std::env::var("TACTICAL_BENCH_ONLY_MODE")
-            .ok()
-            .map(|requested| {
-                SCENE_PERFORMANCE_MODES
-                    .iter()
-                    .position(|mode| mode.name == requested)
-                    .unwrap_or_else(|| panic!("unknown benchmark mode {requested:?}"))
-            });
-        let mode = selected_mode.unwrap_or(0);
-        Self {
-            sample_frames,
-            mode,
-            configured_mode: None,
-            warmup_remaining: SCENE_PERFORMANCE_WARMUP_FRAMES * 2,
-            samples_ms: Vec::with_capacity(sample_frames as usize),
-            render_diagnostic_samples: BTreeMap::new(),
-            playable_tree_count: None,
-            playable_leaf_entities: None,
-            vista_tree_entities: None,
-            scene_entity_counts: None,
-            results: Vec::with_capacity(SCENE_PERFORMANCE_MODES.len()),
-            stop_after_mode: selected_mode.unwrap_or(SCENE_PERFORMANCE_MODES.len() - 1),
-        }
-    }
-}
-
 #[derive(Serialize)]
 struct ScenePerformanceBenchmarkResult {
     #[serde(skip)]
@@ -945,7 +918,10 @@ pub(crate) fn run(
     } else if tree_lighting_benchmarking {
         app.add_systems(Last, benchmark_tree_lighting);
     } else if scene_performance_benchmarking {
-        app.add_systems(Last, benchmark_scene_performance);
+        app.add_systems(
+            Last,
+            (benchmark_scene_performance, benchmark_progress::report),
+        );
     } else {
         app.add_systems(
             Last,

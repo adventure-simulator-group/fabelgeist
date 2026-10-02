@@ -34,7 +34,7 @@ pub(super) fn install(
         )),
         program: program.clone(),
         detail: BuildingDetail::Dynamic,
-        floor_offset_metres: origin.y - recipe.collision.bounds.min.y,
+
         local_origin: origin,
         sign_sites: if program
             .usage

@@ -1,5 +1,5 @@
 //! One full-size frontage in the retained city, viewed through one perspective camera.
-use super::{buildings, protocol::PlaceId};
+use super::protocol::PlaceId;
 use adventuresim_building_generator::OpeningUse;
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
@@ -69,7 +69,7 @@ impl Street {
             });
             let mut width = MINIMUM_BAY_METRES;
             if let Some(building) = building {
-                let before = buildings::transform(building);
+                let before = building.transform();
                 let outward = building
                     .plan
                     .opening_assemblies
@@ -93,10 +93,7 @@ impl Street {
                 building.placement.centre_metres =
                     Vec2::new(street.width + width * 0.5, front_z - size.z * 0.5);
                 building.pad_elevation_metres = elevation;
-                moves.insert(
-                    building.placement.id,
-                    (before, buildings::transform(building)),
-                );
+                moves.insert(building.placement.id, (before, building.transform()));
             }
             street.bays.push(StreetBay {
                 id: place.id.0.clone(),
@@ -107,7 +104,7 @@ impl Street {
         for building in &mut generated.buildings {
             if let Some((_, after)) = moves.get_mut(&building.placement.id) {
                 building.placement.centre_metres.x -= street.width * 0.5;
-                *after = buildings::transform(building);
+                *after = building.transform();
             }
         }
         for furniture in &mut generated.furniture.instances {
@@ -234,13 +231,13 @@ mod tests {
         let originals: HashMap<_, _> = generated
             .buildings
             .iter()
-            .map(|b| (b.placement.id, buildings::transform(b)))
+            .map(|b| (b.placement.id, b.transform()))
             .collect();
         let furniture = generated.furniture.instances.clone();
         let street = Street::arrange(&input, &places, &selected, &mut generated);
         let mut previous_right = -street.width * 0.5;
         for building in &generated.buildings {
-            let pose = buildings::transform(building);
+            let pose = building.transform();
             assert_eq!(pose.scale, Vec3::ONE);
             let extent = building.collision.bounds.max - building.collision.bounds.min;
             let size = (pose.rotation * Vec3::X * extent.x).abs()

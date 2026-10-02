@@ -97,8 +97,7 @@ pub(crate) fn spawn_generated_buildings(
     establishments: &[SceneEstablishment],
 ) {
     for building in buildings {
-        let collision_centre = building.collision.bounds.centre();
-        let local_floor_offset = collision_centre.y - building.collision.bounds.min.y;
+        let transform = building.transform();
         let mut entity = commands.spawn((
             Name::new(format!("Tactical building {}", building.placement.id)),
             SceneBuilding {
@@ -106,14 +105,7 @@ pub(crate) fn spawn_generated_buildings(
                 program: building.placement.program,
                 orientation: building.placement.orientation,
             },
-            Transform::from_xyz(
-                building.placement.centre_metres.x,
-                building.pad_elevation_metres + local_floor_offset,
-                building.placement.centre_metres.y,
-            )
-            .with_rotation(Quat::from_rotation_y(
-                building.placement.orientation.yaw_radians(),
-            )),
+            transform,
         ));
         if let Some(establishment) = establishments
             .iter()

@@ -44,9 +44,8 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
             + Vec2::new(origin.x, origin.z);
         assert!(local.distance(placement.centre_metres) < 0.0001);
         assert!(
-            (instance.position_metres.y - 4.2 + building.collision.bounds.min.y
-                - furniture_floor_height(&building.plan, placement))
-            .abs()
+            (instance.position_metres.y - 4.2 - furniture_floor_height(&building.plan, placement))
+                .abs()
                 < 0.0001
         );
         let world_front = instance.orientation.local_to_world(-Vec2::Y);

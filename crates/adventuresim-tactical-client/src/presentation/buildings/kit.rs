@@ -90,7 +90,7 @@ pub(super) fn install_facade(
         interior: None,
         program: prepared.program,
         detail: BuildingDetail::Facade,
-        floor_offset_metres: prepared.floor_offset_metres,
+
         local_origin: prepared.local_origin,
         sign_sites: prepared.sign_sites,
         lod0: Vec::new(),

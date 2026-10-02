@@ -10,6 +10,7 @@ use super::{GeneratedObstacle, SceneInputError, invalid};
 use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
 mod exterior;
 mod pads;
+mod placement;
 pub use exterior::DistantBuildingVariant;
 pub(super) use pads::level_building_pads;
 

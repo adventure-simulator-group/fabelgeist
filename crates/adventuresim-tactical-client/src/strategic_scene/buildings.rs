@@ -13,25 +13,13 @@ pub(super) struct Venue {
     pub positions: Vec<Transform>,
 }
 
-pub(super) fn transform(building: &GeneratedBuilding) -> Transform {
-    let bounds = building.collision.bounds;
-    Transform::from_xyz(
-        building.placement.centre_metres.x,
-        building.pad_elevation_metres + bounds.centre().y - bounds.min.y,
-        building.placement.centre_metres.y,
-    )
-    .with_rotation(Quat::from_rotation_y(
-        building.placement.orientation.yaw_radians(),
-    ))
-}
-
 impl Venue {
     pub(super) fn from_building(
         building: &GeneratedBuilding,
         layout: &InteriorLayout,
     ) -> Result<Self, String> {
         let bounds = building.collision.bounds;
-        let transform = transform(building);
+        let transform = building.transform();
         let positions = super::staging::positions(building, layout);
         let anchor = positions
             .first()
@@ -215,7 +203,7 @@ mod tests {
         )
         .unwrap();
         let venue = Venue::from_building(&building, &layout).unwrap();
-        let pose = transform(&building);
+        let pose = building.transform();
         let field = crate::presentation::interior_lighting::InteriorField::from_plan(
             &building.plan,
             Vec3::ZERO,

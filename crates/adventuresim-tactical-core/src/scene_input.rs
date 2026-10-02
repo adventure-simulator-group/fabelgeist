@@ -75,7 +75,8 @@ const MAX_VISTA_LEVELS: usize = 8;
 const MAX_VISTA_SAMPLES: usize = 2_000_000;
 const MAX_TEMPLATE_BYTES: usize = 128;
 const MAX_SOURCE_ID_BYTES: usize = 128;
-const MAX_PLAYABLE_GRADE: f32 = 0.65;
+/// Repair grade of the procedural ground surface, distinct from motor limits.
+pub const MAX_PLAYABLE_GRADE: f32 = 0.65;
 const AUTHORITATIVE_DETAIL_SPACING_METRES: f32 = 0.5;
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;

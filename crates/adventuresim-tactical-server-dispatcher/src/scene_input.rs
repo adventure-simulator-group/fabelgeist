@@ -18,6 +18,8 @@ use std::collections::BTreeMap;
 use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
 
 mod geological_landforms;
+mod terrain_capture;
+pub use terrain_capture::ImportedTerrainCapture;
 
 const PLAYABLE_SIDE: u16 = 101;
 const PLAYABLE_SPACING_METRES: f32 = 1.0;

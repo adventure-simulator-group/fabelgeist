@@ -84,6 +84,15 @@ pub struct CityAccessSegment {
     pub half_width_metres: f32,
 }
 
+impl CityAccessSegment {
+    /// Endpoint agreement for the generated property access graph.
+    pub const JOIN_TOLERANCE_METRES: f32 = 0.02;
+
+    pub fn ends_at(self, point: Vec2) -> bool {
+        self.end_metres.distance(point) <= Self::JOIN_TOLERANCE_METRES
+    }
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, Reflect)]
 #[serde(deny_unknown_fields)]
 pub struct CityBoundarySegment {

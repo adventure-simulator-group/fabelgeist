@@ -93,7 +93,7 @@ pub(super) fn camera(
             building.placement.id, building.placement.program.usage
         )
     });
-    let transform = super::super::buildings::building_transform(building);
+    let transform = building.transform();
     let origin = building.collision.bounds.centre();
     BuildingReviewCamera {
         position: transform.transform_point(eye - origin),

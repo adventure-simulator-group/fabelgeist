@@ -35,7 +35,7 @@ pub(super) fn capture_cameras(
     let (focus, facade_target, street) = focus_candidates
         .into_iter()
         .find_map(|focus| {
-            let transform = super::buildings::building_transform(focus);
+            let transform = focus.transform();
             let width = f32::from(focus.placement.program.footprint.dimensions().0)
                 * adventuresim_building_generator::CELL_SIZE_METRES;
             let target = transform.transform_point(

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 use crate::{BuildingPlan, ResolvedItemId, ResolvedSolid, compile_window_bars};
 
 mod gable;
+mod ground_contact;
 mod intersection;
 
 #[cfg(test)]
@@ -75,6 +76,25 @@ impl CollisionCuboid {
 pub struct BuildingCollision {
     pub bounds: CollisionBounds,
     pub cuboids: Vec<CollisionCuboid>,
+}
+
+impl BuildingCollision {
+    /// Conservative envelope of fixed geometry intersecting architectural Y=0.
+    /// Upper-storey projections and roofs must not reserve ground in a passage.
+    /// This is an envelope for support planning, not a claim that every point
+    /// in it is a structural bearing. Buried slabs intersecting the floor datum
+    /// remain included. Geometry wholly below the datum is excluded.
+    pub fn ground_floor_contact_bounds(&self) -> Option<CollisionBounds> {
+        self.cuboids
+            .iter()
+            .copied()
+            .map(CollisionCuboid::bounds)
+            .filter(|bounds| bounds.min.y <= 0.0 && bounds.max.y >= 0.0)
+            .reduce(|a, b| CollisionBounds {
+                min: a.min.min(b.min),
+                max: a.max.max(b.max),
+            })
+    }
 }
 
 /// Compiles static collision from authoritative wall hosts and walkable timber
@@ -229,6 +249,34 @@ fn collision_bounds(plan: &BuildingPlan, cuboids: &[CollisionCuboid]) -> Collisi
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn ground_contact_excludes_projections_but_keeps_buried_slabs() {
+        use super::*;
+        let part = |centre, size| CollisionCuboid {
+            source: ResolvedItemId(1),
+            centre,
+            size,
+            yaw_radians: 0.0,
+            crossfall_radians: 0.0,
+            longfall_radians: 0.0,
+        };
+        let collision = BuildingCollision {
+            bounds: CollisionBounds {
+                min: Vec3::splat(-10.0),
+                max: Vec3::splat(10.0),
+            },
+            cuboids: vec![
+                part(Vec3::new(0.0, -0.08, 0.0), Vec3::new(6.0, 0.16, 8.0)),
+                part(Vec3::new(0.0, 4.0, 0.0), Vec3::new(10.0, 1.0, 12.0)),
+                part(Vec3::new(0.0, -2.0, 0.0), Vec3::splat(1.0)),
+            ],
+        };
+        let contact = collision.ground_floor_contact_bounds().unwrap();
+        assert_eq!(contact.min, Vec3::new(-3.0, -0.16, -4.0));
+        assert_eq!(contact.max, Vec3::new(3.0, 0.0, 4.0));
+        assert!(collision.bounds.max.x > contact.max.x);
+    }
+
     #[test]
     fn pitched_and_rolled_collision_bounds_contain_all_transformed_corners() {
         use super::*;

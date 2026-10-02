@@ -12,7 +12,7 @@ pub(in crate::presentation) struct PreparedFacade {
     pub program: BuildingProgram,
     pub site: adventuresim_tactical_core::scene_input::furniture::FurnitureSiteRecipe,
     pub local_origin: Vec3,
-    pub floor_offset_metres: f32,
+
     pub sign_sites: Vec<(SignMount, SignSite)>,
     pub facade: Vec<LodMesh>,
     pub shell: Vec<LodMesh>,
@@ -48,7 +48,7 @@ impl PreparedFacade {
                 .into_iter()
                 .filter(|instance| instance.facade)
                 .collect(),
-            floor_offset_metres: local_origin.y - recipe.collision.bounds.min.y,
+
             local_origin,
             sign_sites,
             program,
