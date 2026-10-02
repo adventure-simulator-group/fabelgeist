@@ -9,8 +9,9 @@ pub const INN_GOLD_PER_DAY: u32 = adventuresim_core::strategic_economy::INN_FULL
 const MIN_SETTLEMENT_REST_MINUTES: u64 = 60;
 /// The current authoritative strategic time. `official_minutes` is absolute;
 /// calendar presentation wraps it into years without making comparisons wrap.
-/// The wall-clock epoch anchors calculation; `refresh_clock` alone refreshes
-/// the stored minute projection after initialization.
+/// The wall-clock epoch anchors calculation. Ordinary gameplay refreshes the
+/// stored minute projection through `refresh_clock`. Capability-owned disposable
+/// simulations also shift the epoch and stored minute together.
 #[derive(Clone, Debug)]
 #[table(accessor = world_clock, public)]
 pub struct WorldClock {
