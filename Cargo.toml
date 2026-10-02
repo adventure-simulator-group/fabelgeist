@@ -45,6 +45,7 @@ members = [
   "crates/fabelgeist-armor",
 ]
 exclude = [
+  "vendor/bevy_ahoy",
   "wiki",
   "utils",
   "crates/adventuresim-character-creator",
@@ -104,7 +105,7 @@ avian3d = { version = "0.7.0", default-features = false, features = [
   "default-collider",
   "xpbd_joints",
 ] }
-bevy_ahoy = { version = "0.2.0", default-features = false, features = [
+bevy_ahoy = { version = "=0.2.0", path = "vendor/bevy_ahoy", default-features = false, features = [
   "serialize",
 ] }
 bevy_enhanced_input = { version = "0.26.0", default-features = false, features = [

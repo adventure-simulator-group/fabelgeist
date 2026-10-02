@@ -1,5 +1,14 @@
 # Third-party notices
 
+## bevy_ahoy character controller
+
+`vendor/bevy_ahoy/` retains Jan Hohenheim's bevy_ahoy 0.2.0 source under
+MIT OR Apache-2.0. Both licenses accompany the source. The local correction
+changes the speculative stair-support query, using the existing contact skin
+without increasing character travel or changing authored movement limits.
+
+See [source provenance and patch contract](vendor/bevy_ahoy/UPSTREAM.md).
+
 ## Art demo museum photographs
 
 `assets/art-demo/references/` contains CC0 photographs from the Metropolitan
