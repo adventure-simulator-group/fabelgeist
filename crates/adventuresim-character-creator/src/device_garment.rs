@@ -12,6 +12,7 @@ use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 
 use crate::armor_frames::FitRegion;
+use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
 use crate::device_garment_kernel::{
     Access, Bound, Grid, Word, atomic, dispatch, read, read_u32, write,
@@ -201,21 +202,13 @@ impl DeviceWearer<'_> {
         batch: &mut KernelBatch,
         design: &GarmentArmorDesign,
         placement: &str,
-    ) -> Result<DeviceRecording> {
-        self.record_garment(batch, design, placement)
-    }
-
-    fn record_garment(
-        &self,
-        batch: &mut KernelBatch,
-        design: &GarmentArmorDesign,
-        placement: &str,
+        layers: &[ArmorLayerSurface<'_>],
     ) -> Result<DeviceRecording> {
         if matches!(
             design.plate_shape,
             fabelgeist_armor::GarmentPlateShape::WrappedTassets(_)
         ) {
-            return self.record_wrapped_tassets(batch, design, &[], None);
+            return self.record_wrapped_tassets(batch, design, layers, None);
         }
         match design.kind {
             Kind::Brigandine | Kind::JackOfPlates | Kind::MailShirt | Kind::ArmingDoublet => {
@@ -227,7 +220,7 @@ impl DeviceWearer<'_> {
             Kind::MailSkirt | Kind::PaddedSkirt | Kind::Fauld | Kind::Tassets => {
                 self.record_fitted_skirt(batch, design)
             }
-            Kind::Gorget => self.record_fitted_gorget(batch, design),
+            Kind::Gorget => self.record_fitted_gorget(batch, design, layers),
         }
     }
 

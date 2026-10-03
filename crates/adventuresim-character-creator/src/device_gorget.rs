@@ -10,16 +10,15 @@ use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 
 use crate::armor_frames::FitRegion;
+use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::DeviceWearer;
 use crate::device_garment::JOINTS;
 use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
-use crate::device_gorget_bib::{MEASURE, SMOOTH};
-use crate::device_gorget_cage::{BIB_COLUMNS, BIB_ROWS, CAGE, GORGET_FIT_WORDS, layout};
+use crate::device_gorget_cage::{CAGE, GORGET_FIT_WORDS, layout};
 use crate::device_gorget_sections::BANDS;
 use crate::device_piece::DeviceRecording;
 
 /// Collar and bib proportions, as fractions of the neck's height.
-const COLLAR_HEIGHT_NECK_RATIO: f32 = 0.20;
 const COLLAR_BASE_NECK_RATIO: f32 = 0.58;
 const COLLAR_MAX_PITCH: f32 = 0.45;
 const FRONT_BIB_DROP_NECK_RATIO: f32 = 0.48;
@@ -39,6 +38,7 @@ impl DeviceWearer<'_> {
         &self,
         batch: &mut KernelBatch,
         design: &GarmentArmorDesign,
+        layers: &[ArmorLayerSurface<'_>],
     ) -> Result<DeviceRecording> {
         design.validate()?;
         ensure!(
@@ -79,7 +79,8 @@ impl DeviceWearer<'_> {
                 Word::U("crown", self.joint_slot("c_head")?),
                 Word::F(
                     "top_ratio",
-                    COLLAR_BASE_NECK_RATIO + COLLAR_HEIGHT_NECK_RATIO * collar_height.unit(),
+                    COLLAR_BASE_NECK_RATIO
+                        + fabelgeist_armor::GORGET_COLLAR_HEIGHT_NECK_RATIO * collar_height.unit(),
                 ),
                 Word::F("base_ratio", COLLAR_BASE_NECK_RATIO),
                 Word::F("pitch", COLLAR_MAX_PITCH * collar_slope.unit()),
@@ -107,7 +108,7 @@ impl DeviceWearer<'_> {
             Word::F("sagittal_ratio", SAGITTAL_SECTION_HALF_WIDTH_NECK_RATIO),
         ];
         let samples = self.record_gorget_sections(batch, &fit, &words)?;
-        self.record_bib_fit(batch, &fit, &samples, clearance)?;
+        self.record_gorget_support(batch, &fit, &samples, clearance, collar_padding, layers)?;
         let cage = format!(
             "{}fn cage_word(i: u32) -> f32 {{\n    return frames[i];\n}}\n{CAGE}",
             layout()
@@ -183,41 +184,6 @@ impl DeviceWearer<'_> {
             )?;
         }
         Ok(samples)
-    }
-
-    /// Record the bib's seating: rays from the unseated bib to the body in
-    /// each directional section, then the smoothing of their offsets.
-    fn record_bib_fit(
-        &self,
-        batch: &mut KernelBatch,
-        fit: &Buffer,
-        samples: &Buffer,
-        padding: f32,
-    ) -> Result<()> {
-        let cage = format!("fn cage_word(i: u32) -> f32 {{\n    return fit[i];\n}}\n{CAGE}");
-        dispatch(
-            self,
-            batch,
-            &format!("{}{cage}{MEASURE}", layout()),
-            &[
-                read_u32("faces", &self.body.faces),
-                read("points", samples),
-                write("fit", fit),
-            ],
-            &[
-                Word::U("faces_count", self.body.face_count),
-                Word::F("padding", padding),
-            ],
-            Grid::Items((BIB_ROWS - 1) * BIB_COLUMNS),
-        )?;
-        dispatch(
-            self,
-            batch,
-            &format!("{}{SMOOTH}", layout()),
-            &[write("fit", fit)],
-            &[],
-            Grid::Items(BIB_ROWS * BIB_COLUMNS),
-        )
     }
 }
 

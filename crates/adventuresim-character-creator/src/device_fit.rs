@@ -335,6 +335,7 @@ fn suspended_waist(
             vertices: 0..part.positions.len(),
             indices: 0..part.indices.len(),
             hinge: None,
+            mount: None,
             material: None,
         };
         fauld.components = vec![whole(&fauld, ArmorComponentRole::Fauld)];
@@ -402,7 +403,7 @@ fn record_recipe(
             wearer.record_wrapped_tassets(batch, garment, layers, None)
         }
         ParametricDesign::Garment(garment) => {
-            wearer.record_fitted_garment(batch, garment, placement)
+            wearer.record_fitted_garment(batch, garment, placement, layers)
         }
         ParametricDesign::Underlayer(_) | ParametricDesign::TrunkHose(_) => {
             anyhow::bail!("underlayers are cut from the body, not recorded as parts")

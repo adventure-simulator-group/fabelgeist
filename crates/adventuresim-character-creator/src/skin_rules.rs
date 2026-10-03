@@ -37,6 +37,12 @@ pub fn attach(
         {
             return waist(joint_names, joints, armor);
         }
+        ParametricDesign::Garment(garment) if garment.kind == GarmentArmorKind::Gorget => {
+            // A gorget is seated on the cuirass. Its formed bib and collar
+            // sheets share that rigid support; nearby clavicle and neck skin
+            // must not fold metal or move the bib through its lower plate.
+            ("c_spine3".into(), &[ArmorComponentRole::Plate])
+        }
         ParametricDesign::Helmet(HelmetDesign::ArmingCap(_) | HelmetDesign::MailCoif(_)) => {
             return Ok(());
         }
@@ -251,11 +257,35 @@ mod tests {
             vertices,
             indices: 0..0,
             hinge: None,
+            mount: None,
             material: None,
         }
     }
 
     const RIGID: [f32; 8] = [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+
+    #[test]
+    fn gorget_sheets_share_the_cuirass_support_and_spare_flexible_components() {
+        let mut gorget = armor(vec![
+            component(ArmorComponentRole::Plate, 0..1),
+            component(ArmorComponentRole::Plate, 1..3),
+            component(ArmorComponentRole::LeatherStraps, 3..4),
+        ]);
+        let flexible = (gorget.joint_indices[3], gorget.joint_weights[3]);
+        let design = ParametricDesign::Garment(fabelgeist_armor::GarmentArmorDesign::new(
+            GarmentArmorKind::Gorget,
+        ));
+        attach(&design, "worn", &names(), &[], &mut gorget).unwrap();
+        let mut cuirass = armor(Vec::new());
+        breastplate(&names(), &mut cuirass).unwrap();
+        assert!(
+            gorget.joint_indices[..3]
+                .iter()
+                .all(|i| *i == cuirass.joint_indices[0])
+        );
+        assert_eq!(gorget.joint_weights[..3], [RIGID; 3]);
+        assert_eq!((gorget.joint_indices[3], gorget.joint_weights[3]), flexible);
+    }
 
     #[test]
     fn solid_helmets_follow_the_head_and_cloth_headwear_keeps_its_skin() {

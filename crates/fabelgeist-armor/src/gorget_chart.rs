@@ -2,6 +2,12 @@
 //! meridian stays fixed from neck to hem.
 use std::f32::consts::TAU;
 
+/// Fraction of the formed bib chart occupied by its integral collar band.
+pub const GORGET_FORMED_COLLAR_FRACTION: f32 = 1.0 / 3.0;
+
+/// The authored collar height, relative to the neck-to-head landmark span.
+pub const GORGET_COLLAR_HEIGHT_NECK_RATIO: f32 = 0.20;
+
 /// The chart angle of a physical angle around the neck, used to sample
 /// anatomical sections at uniform angular resolution.
 pub fn gorget_control_angle(physical: f32, sweep: crate::Permille) -> f32 {

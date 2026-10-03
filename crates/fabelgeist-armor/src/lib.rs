@@ -24,10 +24,12 @@ mod pierced_plate_domain;
 mod plate_fluting;
 pub use plate_fluting::{FluteCount, PlateFluting};
 mod components;
+mod plate_mount;
+pub use plate_mount::{PlateCourse, PlateGridEnd, PlateJointMotion, PlateMount, PlateParent};
 mod plate_face;
 pub use plate_face::PlateFace;
 mod surface_grid;
-pub use surface_grid::SurfaceGrid;
+pub use surface_grid::{SurfaceColumn, SurfaceEdgeDistance, SurfaceGrid, SurfaceSample};
 pub mod trim;
 pub use trim::{ArmorSurface, ArmorTrim, TrimBand, TrimError};
 mod design;
@@ -45,7 +47,9 @@ pub use gpu::{
 mod garment_plate_design;
 mod gorget_chart;
 pub use garment_plate_design::GarmentPlateShape;
-pub use gorget_chart::gorget_control_angle;
+pub use gorget_chart::{
+    GORGET_COLLAR_HEIGHT_NECK_RATIO, GORGET_FORMED_COLLAR_FRACTION, gorget_control_angle,
+};
 mod besagew;
 mod helmets;
 mod limb_armor;
@@ -77,11 +81,11 @@ pub use joint_extension::JointExtension;
 pub use waist_armor::{TASSET_SUSPENSION_GAP_M, WaistArmorDesign};
 
 pub use design::*;
-pub use error::GenerateError;
+pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 17;
+pub const GENERATOR_VERSION: u16 = 20;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
@@ -123,10 +127,11 @@ pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignErro
     if !(700..=1_300).contains(&design.neck_width.0)
         || !(600..=1_400).contains(&design.neck_depth.0)
         || !(700..=1_300).contains(&design.arm_opening_depth.0)
+        || !BreastplateDesign::ARM_OPENING_WIDTH_RANGE.contains(&design.arm_opening_width.0)
         || !BreastplateDesign::WAIST_WIDTH_RANGE.contains(&design.waist_width.0)
         || !(700..=1100).contains(&design.back_depth.0)
         || !(650..=1_150).contains(&design.plate_length.0)
-        || !(850..=1_080).contains(&design.side_return.0)
+        || !BreastplateDesign::SIDE_RETURN_RANGE.contains(&design.side_return.0)
         || !(500..=1_600).contains(&design.skirt_length.0)
         || design.skirt_flare.0 > 70
         || !(1..=20).contains(&design.wall_thickness.0)

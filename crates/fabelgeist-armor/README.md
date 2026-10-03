@@ -116,9 +116,9 @@ so closely overlapping plates each keep their own face.
 Pauldrons, wrapped tassets, puff-and-slash clothing and anime breastplates have
 device construction. The character creator measures their wearer and completed
 lower layers on the client. Invalid support fails generation rather than
-silently substituting another design. Posed pauldron articulation remains
-unresolved: rigid chest and arm attachments separate in the tested guard pose.
-Anime courses currently share one rigid chest attachment. See the
+silently substituting another design. The tactical client uses ordinary skeletal
+attachment without a runtime plate solver. Valid unposed geometry does not
+establish animation clearance or constrained plate articulation. See the
 [creator guide](../adventuresim-character-creator/README.md#device-construction-and-remaining-work)
 for the current acceptance limits.
 

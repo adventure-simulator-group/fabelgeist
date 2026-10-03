@@ -44,10 +44,17 @@ require dense vertices near each anatomical measurement plane.
 
 `animation-viewer --armor-harness wearer-fit` renders a gorget, cuirass, and
 paired vambraces on the actual animated wearer for fitting inspection.
-Full catalog readiness remains incomplete: device builders explicitly reject
-pauldrons, wrapped tassets, and anime breastplates, and puff-and-slash fitting
-is not implemented. Those recipes fail readiness instead of loading served
-equipment meshes or silently substituting another design.
+Device builders generate pauldrons, wrapped tassets, anime breastplates, and
+puff-and-slash clothing as well. Unsupported recipes fail readiness instead of
+loading served equipment meshes or silently substituting another design.
+
+Generated equipment uses ordinary skeletal attachment during animation. Metal
+parts retain their authored rigid joint ownership; cuirass courses share one
+chest attachment, and pauldron distal lames follow the upper arm. There is no
+runtime plate solver, body collision mesh, or per-frame contact search in this
+generation path. Generation-time layer fitting and closed-shell validation do
+not establish collision-free animation. Independent plate articulation and
+contact correction are separate work.
 
 ## Browser release builds
 

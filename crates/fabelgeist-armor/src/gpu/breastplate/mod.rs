@@ -14,15 +14,34 @@
 //! those roundings.
 
 mod anime;
+mod anime_layout;
+mod anime_sampling;
+mod arm_trim;
 mod carrier_wgsl;
+mod clip_carrier;
+#[cfg(test)]
+mod clip_tests;
+mod construction_columns;
+mod course_clip;
+mod course_coordinates;
+mod course_flare;
+mod cut_frame;
+mod cut_resolution;
 mod finish_wgsl;
 mod fit;
+#[cfg(test)]
+mod fit_tests;
 mod fit_wgsl;
 mod kernels;
+mod miter;
 mod plates;
+#[cfg(test)]
+mod shape_tests;
 mod shape_wgsl;
 mod skin_wgsl;
+mod solid_grid;
 mod topology;
+mod trimmed_carrier;
 mod wearer_wgsl;
 
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
@@ -77,33 +96,47 @@ pub struct DeviceBreastplate {
 }
 
 impl DeviceBreastplate {
-    /// Record the breastplate fitted to `torso`. Failures raise bits in
-    /// `status`, which [`DeviceBreastplate::read`] reports.
-    pub fn record(
+    /// Fit and triangulate the breastplate on `torso`. Submitted stages are
+    /// read before triangulation; final device failures are reported by
+    /// [`DeviceBreastplate::read`].
+    pub async fn record(
         gpu: &ArmorGpu,
-        batch: &mut KernelBatch,
+        mut batch: KernelBatch<'_>,
         design: &BreastplateDesign,
-        torso: TorsoBody,
+        torso: TorsoBody<'_>,
         status: &Buffer,
     ) -> Result<Self, GenerateError> {
         validate_breastplate(design)?;
         if torso.torso_faces.is_empty() || torso.eligible.len() != torso.torso_faces.len() {
             return Err(GenerateError::InvalidSurface);
         }
-        let plates = Plates::new(gpu, design)?;
-        let fitted = fit::record_fitted(gpu, batch, design, &torso, &plates, status)?;
-        let extrusions = plates.record_extrusions(gpu, batch, &fitted.plate, status)?;
-        let shell = plates.record_shell(gpu, batch, &fitted.plate, &extrusions)?;
+        let mut plates = Plates::new(gpu, design)?;
+        let fitted = fit::record_fitted(gpu, &mut batch, design, &torso, &plates, status)?;
+        let mut extrusions = plates.record_extrusions(gpu, &mut batch, &fitted.plate, status)?;
+        batch.submit();
+        plates.remesh(gpu, status, &mut extrusions).await?;
+        let mut batch = gpu.batch("triangulated breastplate");
+        extrusions.record_miters(gpu, &mut batch, &plates, status)?;
+        let shell = plates.record_shell(
+            gpu,
+            &mut batch,
+            &fitted.plate,
+            &extrusions,
+            &design.construction,
+        )?;
         let correspondence = plates.record_correspondence(
             gpu,
-            batch,
+            &mut batch,
             &torso,
             (&fitted.plate, &fitted.body_local),
             &extrusions,
             &shell,
         )?;
         let (shell, skin, articulation) = match &design.construction {
-            BreastplateConstruction::Solid => (shell, correspondence.skin, None),
+            BreastplateConstruction::Solid => {
+                batch.submit();
+                (shell, correspondence.skin, None)
+            }
             BreastplateConstruction::Anime(design) => {
                 let articulated = anime::Articulation::record(
                     gpu,
@@ -116,7 +149,8 @@ impl DeviceBreastplate {
                         skin: &correspondence.skin,
                         status,
                     },
-                )?;
+                )
+                .await?;
                 (
                     articulated.shell,
                     articulated.skin,

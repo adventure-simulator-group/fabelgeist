@@ -83,13 +83,28 @@ pub(super) fn breastplate(ui: &mut egui::Ui, design: &mut BreastplateDesign) -> 
         )
         .changed();
     changed |= ui
+        .add(
+            egui::Slider::new(
+                &mut design.arm_opening_width.0,
+                fabelgeist_armor::BreastplateDesign::ARM_OPENING_WIDTH_RANGE,
+            )
+            .text("Arm opening width"),
+        )
+        .changed();
+    changed |= ui
         .add(egui::Slider::new(&mut design.waist_width.0, 750..=1_200).text("Waist width"))
         .changed();
     changed |= ui
         .add(egui::Slider::new(&mut design.plate_length.0, 650..=1_150).text("Plate length"))
         .changed();
     changed |= ui
-        .add(egui::Slider::new(&mut design.side_return.0, 850..=1_080).text("Side return"))
+        .add(
+            egui::Slider::new(
+                &mut design.side_return.0,
+                BreastplateDesign::SIDE_RETURN_RANGE,
+            )
+            .text("Side return"),
+        )
         .changed();
     changed |= crate::breastplate_controls::shape(ui, design);
     changed |= ui

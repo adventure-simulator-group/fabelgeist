@@ -17,6 +17,9 @@ mod armor_fixture;
 #[cfg(test)]
 #[path = "armor_fixture/pauldron_tests.rs"]
 mod pauldron_tests;
+#[cfg(test)]
+#[path = "armor_fixture/shell_validation.rs"]
+mod shell_validation;
 
 fn main() -> Result<()> {
     let path = std::env::args()

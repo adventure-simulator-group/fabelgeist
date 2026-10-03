@@ -155,12 +155,7 @@ fn a_piece_without_a_grid_cannot_take_plates() {
         Err(ConstructionError::NoSurfaceGrid)
     );
     let mut piece = sleeve(false);
-    piece.grids = vec![SurfaceGrid {
-        rows: 1,
-        columns: 4,
-        cyclic: false,
-        vertices: vec![0, 1, 2, 3],
-    }];
+    piece.grids = vec![SurfaceGrid::regular(1, 4, false, vec![0, 1, 2, 3])];
     assert_eq!(
         piece.constructed(&Construction::Scale(Tiling::scale())),
         Err(ConstructionError::NoSurfaceGrid)

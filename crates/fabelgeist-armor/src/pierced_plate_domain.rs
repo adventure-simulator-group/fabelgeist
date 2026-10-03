@@ -141,7 +141,7 @@ fn edges(polygon: &[[f64; 2]]) -> impl Iterator<Item = (&[f64; 2], &[f64; 2])> {
         .take(polygon.len())
 }
 
-fn inside(p: [f64; 2], polygon: &[[f64; 2]]) -> bool {
+pub(crate) fn inside(p: [f64; 2], polygon: &[[f64; 2]]) -> bool {
     let mut result = false;
     for (a, b) in edges(polygon) {
         if (a[1] > p[1]) != (b[1] > p[1])

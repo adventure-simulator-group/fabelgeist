@@ -96,6 +96,7 @@ fn fabric_component(
         vertices: 0..vertex_count,
         indices: 0..index_count,
         hinge: None,
+        mount: None,
         material: Some(design.color.material()),
     }]
 }
@@ -177,6 +178,7 @@ fn apply_trunk_hose_panes(armor: &mut GeneratedArmor, design: &TrunkHoseDesign) 
         vertices: 0..armor.positions.len(),
         indices,
         hinge: None,
+        mount: None,
         material: Some(color.material()),
     })
     .collect();

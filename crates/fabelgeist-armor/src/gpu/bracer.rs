@@ -66,12 +66,12 @@ impl Layout {
 
     /// The outer wall: its rings along the forearm, closed around it.
     fn grid(&self) -> SurfaceGrid {
-        SurfaceGrid {
-            rows: ALONG + 1,
-            columns: self.around,
-            cyclic: true,
-            vertices: (0..self.sample_count()).collect(),
-        }
+        SurfaceGrid::regular(
+            ALONG + 1,
+            self.around,
+            true,
+            (0..self.sample_count()).collect(),
+        )
     }
 
     /// The plate face of each triangle `bracer_wgsl::INDICES` writes: per

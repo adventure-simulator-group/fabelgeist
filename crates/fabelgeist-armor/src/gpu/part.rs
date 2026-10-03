@@ -336,9 +336,7 @@ impl BuiltPart {
                 component
             }));
         self.grids.extend(other.grids.into_iter().map(|mut grid| {
-            for vertex in &mut grid.vertices {
-                *vertex += offset;
-            }
+            grid.remap_vertices(|vertex| vertex + vertices as u32);
             grid
         }));
     }

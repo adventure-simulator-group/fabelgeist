@@ -3,7 +3,10 @@ use super::chart::{ChartBoundary, ChartKernel, PlateChart};
 use super::part::Extrusion;
 use super::recipe::PartRecipe;
 use super::{ArmorGpu, DevicePart, device_error, wgsl};
-use crate::{ArmorComponentRole, GenerateError, LimbArmorDesign, PauldronDesign};
+use crate::{
+    ArmorComponentRole, GenerateError, LimbArmorDesign, PauldronDesign, Permille, PlateCourse,
+    PlateGridEnd, PlateJointMotion, PlateMount, PlateParent,
+};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
@@ -116,7 +119,16 @@ impl DevicePauldronCarrier {
             chart(d, MAIN_ROWS, [0.0, neck + NECK_OVERLAP], 0.0, None),
             kernel.clone(),
         )?;
-        recipe.component(ArmorComponentRole::Plate, None);
+        recipe.mounted_component(
+            ArmorComponentRole::Plate,
+            PlateMount {
+                course: PlateCourse(0),
+                parent: None,
+                incoming: PlateGridEnd::Last,
+                motion: PlateJointMotion::Hinge,
+                follow: Permille(0),
+            },
+        );
         for i in 0..d.upper_lames {
             let step = d.outline.upper_span.unit() / f32::from(d.upper_lames);
             let start = neck + f32::from(i) * step;
@@ -130,7 +142,19 @@ impl DevicePauldronCarrier {
                 ),
                 kernel.clone(),
             )?;
-            recipe.component(ArmorComponentRole::Plate, None);
+            recipe.mounted_component(
+                ArmorComponentRole::Plate,
+                PlateMount {
+                    course: PlateCourse(u16::from(i) + 1),
+                    parent: Some(PlateParent {
+                        course: PlateCourse(u16::from(i)),
+                        edge: PlateGridEnd::Last,
+                    }),
+                    incoming: PlateGridEnd::First,
+                    motion: PlateJointMotion::Hinge,
+                    follow: Permille(0),
+                },
+            );
         }
         for i in 0..d.lower_lames {
             recipe.push_chart(
@@ -147,7 +171,23 @@ impl DevicePauldronCarrier {
                 ),
                 kernel.clone(),
             )?;
-            recipe.component(ArmorComponentRole::JointExtension, None);
+            recipe.mounted_component(
+                ArmorComponentRole::JointExtension,
+                PlateMount {
+                    course: PlateCourse(u16::from(d.upper_lames) + u16::from(i) + 1),
+                    parent: Some(PlateParent {
+                        course: PlateCourse(if i == 0 {
+                            0
+                        } else {
+                            u16::from(d.upper_lames) + u16::from(i)
+                        }),
+                        edge: PlateGridEnd::First,
+                    }),
+                    incoming: PlateGridEnd::Last,
+                    motion: PlateJointMotion::Flexible,
+                    follow: Permille(Permille::ONE.0 * u16::from(i + 1) / u16::from(d.lower_lames)),
+                },
+            );
         }
         recipe.record(gpu, batch, &design_words(d), &[&self.frame_points])
     }
