@@ -4,9 +4,9 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
-use super::backend_contextual_decision_type::BackendContextualDecision;
 use super::character_context_kind_type::CharacterContextKind;
 use super::character_context_role_type::CharacterContextRole;
+use super::interaction_presentation_decision_type::InteractionPresentationDecision;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -21,8 +21,8 @@ pub struct BackendContextCharacter {
     pub alive: bool,
     pub revision: u32,
     pub membership_revision: u32,
-    pub contact_decision: BackendContextualDecision,
-    pub treatment_decision: BackendContextualDecision,
+    pub contact_decision: InteractionPresentationDecision,
+    pub treatment_decision: InteractionPresentationDecision,
     pub treatment_limb_slug: Option<String>,
 }
 
@@ -45,9 +45,9 @@ pub struct BackendContextCharacterCols {
     pub revision: __sdk::__query_builder::Col<BackendContextCharacter, u32>,
     pub membership_revision: __sdk::__query_builder::Col<BackendContextCharacter, u32>,
     pub contact_decision:
-        __sdk::__query_builder::Col<BackendContextCharacter, BackendContextualDecision>,
+        __sdk::__query_builder::Col<BackendContextCharacter, InteractionPresentationDecision>,
     pub treatment_decision:
-        __sdk::__query_builder::Col<BackendContextCharacter, BackendContextualDecision>,
+        __sdk::__query_builder::Col<BackendContextCharacter, InteractionPresentationDecision>,
     pub treatment_limb_slug: __sdk::__query_builder::Col<BackendContextCharacter, Option<String>>,
 }
 

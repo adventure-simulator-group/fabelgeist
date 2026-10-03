@@ -202,7 +202,7 @@ fn gardens_are_owned_connected_and_preserve_accepted_plants_across_partition() {
             Err(GardenIssue::DisconnectedTendingLane)
         );
     }
-    for extent in [None, Some(96.0)] {
+    for extent in [None, Some(50.0)] {
         assert_eq!(
             compiled.clone().partition(extent).unwrap().gardens,
             compiled.gardens

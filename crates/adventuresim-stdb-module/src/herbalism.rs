@@ -33,6 +33,9 @@ pub struct TinctureProcess {
     /// Shared chronology keeps elapsed maturation invariant across custody transfers.
     pub started_at_world_minute: StrategicMinute,
     pub ready_at_world_minute: StrategicMinute,
+    /// Materialization checkpoint: `materialize_mature_tincture` installs the
+    /// pinned medicinal component and flips this once. Time eligibility alone
+    /// does not prove that the component has been installed.
     pub matured: bool,
     #[index(btree)]
     pub preparer_character_id: u64,
@@ -338,7 +341,7 @@ pub fn start_poppy_tincture(
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let actor = crate::character::require_living_character(ctx, character_id)?;
-    if actor.in_server {
+    if actor.has_tactical_server_assignment() {
         return Err("Tincturing is unavailable during a tactical encounter".into());
     }
     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;

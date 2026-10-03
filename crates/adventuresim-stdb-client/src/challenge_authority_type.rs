@@ -24,7 +24,6 @@ pub struct ChallengeAuthority {
     pub puzzle_json: String,
     pub presenter_catalog_id: ChallengePresenterCatalogId,
     pub revision: u32,
-    pub open: bool,
     pub solved_at_minute: Option<StrategicMinute>,
 }
 
@@ -50,7 +49,6 @@ pub struct ChallengeAuthorityCols {
     pub presenter_catalog_id:
         __sdk::__query_builder::Col<ChallengeAuthority, ChallengePresenterCatalogId>,
     pub revision: __sdk::__query_builder::Col<ChallengeAuthority, u32>,
-    pub open: __sdk::__query_builder::Col<ChallengeAuthority, bool>,
     pub solved_at_minute: __sdk::__query_builder::Col<ChallengeAuthority, Option<StrategicMinute>>,
 }
 
@@ -92,7 +90,6 @@ impl __sdk::__query_builder::HasCols for ChallengeAuthority {
                 "presenter_catalog_id",
             ),
             revision: __sdk::__query_builder::Col::new(table_name, "revision"),
-            open: __sdk::__query_builder::Col::new(table_name, "open"),
             solved_at_minute: __sdk::__query_builder::Col::new(table_name, "solved_at_minute"),
         }
     }

@@ -26,28 +26,8 @@ pub fn establish_pregnancy(
     {
         return Err("Pregnancy requires a valid conception settlement".into());
     }
-    let birth_residence_holding_id = [mother_id, father_id].into_iter().find_map(|parent_id| {
-        ctx.db
-            .residence_transition()
-            .iter()
-            .filter(|transition| {
-                transition.affected_character_id == parent_id
-                    && transition.minute <= conceived_minute
-                    && matches!(
-                        transition.kind,
-                        ResidenceTransitionKind::OccupantAdmitted
-                            | ResidenceTransitionKind::OccupantRemoved
-                    )
-            })
-            .max_by_key(|transition| {
-                (
-                    transition.minute,
-                    matches!(transition.kind, ResidenceTransitionKind::OccupantAdmitted),
-                )
-            })
-            .filter(|transition| transition.kind == ResidenceTransitionKind::OccupantAdmitted)
-            .map(|transition| transition.holding_id)
-    });
+    let birth_residence_holding_id = [mother_id, father_id].into_iter().find_map(|parent_id|
+        crate::residence::occupant_holding_id_at(ctx, parent_id, conceived_minute));
     let seeds = deterministic_child_seeds(
         &mother_id.to_string(),
         &father_id.to_string(),
@@ -104,36 +84,18 @@ fn conception_parents(
     second_id: u64,
     trial_minute: StrategicMinute,
 ) -> Result<Option<(u64, u64)>, String> {
-    let first = ctx
+    ctx
         .db
         .character()
         .id()
         .find(first_id)
         .ok_or("First spouse not found")?;
-    let second = ctx
+    ctx
         .db
         .character()
         .id()
         .find(second_id)
         .ok_or("Second spouse not found")?;
-    let alive_at = |character_id: u64, alive_now: bool| {
-        alive_now
-            || ctx.db.strategic_corpse().iter().any(|corpse| {
-                corpse.subject_character_id == Some(character_id)
-                    && corpse.death_minute > trial_minute
-            })
-    };
-    let adult_at = |character_id: u64, age_years: u16| {
-        age_years >= ADULT_AGE_YEARS
-            && ctx
-                .db
-                .pregnancy()
-                .iter()
-                .find(|pregnancy| pregnancy.birth_character_id == Some(character_id))
-                .is_none_or(|birth| {
-                    birth.due_minute.saturating_add_years(ADULT_AGE_YEARS) <= trial_minute
-                })
-    };
     let married_at_trial = ctx.db.marriage().iter().any(|marriage| {
         ((marriage.first_character_id == first_id && marriage.second_character_id == second_id)
             || (marriage.first_character_id == second_id
@@ -143,10 +105,10 @@ fn conception_parents(
                 .resolved_minute
                 .is_none_or(|resolved| resolved > trial_minute)
     });
-    if !alive_at(first_id, first.alive)
-        || !alive_at(second_id, second.alive)
-        || !adult_at(first_id, first.age_years)
-        || !adult_at(second_id, second.age_years)
+    if !character_alive_at(ctx, first_id, trial_minute)
+        || !character_alive_at(ctx, second_id, trial_minute)
+        || effective_age_years(ctx, first_id, trial_minute).is_none_or(|age| age < ADULT_AGE_YEARS)
+        || effective_age_years(ctx, second_id, trial_minute).is_none_or(|age| age < ADULT_AGE_YEARS)
         || !married_at_trial
     {
         return Ok(None);
@@ -299,7 +261,6 @@ fn settle_spouse_leisure_pair(
                 second_character_id: second_id,
                 conserved_joint_minutes: 0,
                 next_trial_ordinal: 0,
-                total_joint_minutes: 0,
             });
         let plan = conception_quantum_plan(
             ConceptionQuantumState {
@@ -353,7 +314,6 @@ fn settle_spouse_leisure_pair(
         }
         accrual.conserved_joint_minutes = plan.state.conserved_joint_minutes;
         accrual.next_trial_ordinal = plan.state.next_trial_ordinal;
-        accrual.total_joint_minutes = accrual.total_joint_minutes.saturating_add(joint);
         if ctx
             .db
             .spouse_leisure_accrual()
@@ -546,9 +506,9 @@ pub fn settle_due_births(
             crate::character::CharacterId::new(father.id),
             crate::character::CharacterId::new(mother.id),
             pregnancy.due_minute,
-            crate::character::NameSeed::new(pregnancy.child_name_seed),
+            NameStableSeed::new(pregnancy.child_name_seed),
             pregnancy.child_sex,
-        )?;
+        ).map_err(|error| error.to_string())?;
         initialize_npc_policy(
             ctx,
             child_id,
@@ -668,7 +628,7 @@ fn household_id_at(
 }
 
 fn validate_due_birth(ctx: &ReducerContext, pregnancy: &Pregnancy) -> Result<(), String> {
-    pregnancy.parsed_state()?;
+    pregnancy.parsed_state().map_err(|error| error.to_string())?;
     if pregnancy.status != PregnancyStatus::Active {
         return Err("Pregnancy is not active".into());
     }

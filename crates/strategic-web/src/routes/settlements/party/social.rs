@@ -175,7 +175,7 @@ pub(super) async fn party_social(
             .await
             .ok()
             .flatten()
-            .is_some_and(|row| row.enabled)
+            .is_some()
     };
     let relationship_answer = state
         .db

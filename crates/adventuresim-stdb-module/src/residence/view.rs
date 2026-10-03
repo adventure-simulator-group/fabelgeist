@@ -4,8 +4,9 @@ fn view_character_ids_for_holding(ctx: &ViewContext, holding: &ResidenceHolding)
     let mut character_ids = ctx
         .db
         .residence_occupant()
-        .holding_id()
-        .filter(&holding_id)
+        .property_id()
+        .filter(&holding.property_id)
+        .filter(|row| row.holding_id.as_deref() == Some(holding_id.as_str()))
         .filter(|row| {
             ctx.db
                 .character_time()
@@ -18,11 +19,11 @@ fn view_character_ids_for_holding(ctx: &ViewContext, holding: &ResidenceHolding)
         })
         .map(|row| row.character_id)
         .collect::<Vec<_>>();
-    // Legal ownership must remain visible to the owner even after a
+    // Legal tenure must remain visible to the holder even after a
     // different holding becomes primary and moves their occupancy.
     // Otherwise an unoccupied property continues billing privately
     // but cannot be inspected or managed through the gateway.
-    character_ids.push(holding.owner_character_id);
+    character_ids.push(holding.holder_character_id);
     character_ids.extend(
         ctx.db
             .primary_residence()
@@ -47,6 +48,9 @@ fn view_character_ids_for_holding(ctx: &ViewContext, holding: &ResidenceHolding)
             .filter(&holding_id)
             .map(|transition| transition.affected_character_id),
     );
+    character_ids.extend(ctx.db.property_occupancy_transition().property_id().filter(&holding.property_id)
+        .filter(|event| event.holding_id.as_deref() == Some(holding_id.as_str()))
+        .map(|event| event.character_id));
     character_ids.sort_unstable();
     character_ids.dedup();
     character_ids

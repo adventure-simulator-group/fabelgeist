@@ -12,9 +12,11 @@ use crate::{
 use std::collections::{BTreeMap, BTreeSet};
 
 mod armor;
+mod loadout;
 mod parametric_weapon;
 
 pub use armor::*;
+pub use loadout::LoadoutSlot;
 pub use parametric_weapon::*;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

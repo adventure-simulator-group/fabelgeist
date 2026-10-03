@@ -76,25 +76,6 @@ fn compare_public_chart_rank(
         .then_with(|| left_id.cmp(right_id))
 }
 
-fn public_disease_id(value: &str) -> Option<adventuresim_core::disease::DiseaseId> {
-    use adventuresim_core::disease::DiseaseId;
-    match value {
-        "influenza" => Some(DiseaseId::Influenza),
-        "dysentery" => Some(DiseaseId::Dysentery),
-        "typhus" => Some(DiseaseId::Typhus),
-        "tetanus" => Some(DiseaseId::Tetanus),
-        "erysipelas" => Some(DiseaseId::Erysipelas),
-        "smallpox" => Some(DiseaseId::Smallpox),
-        "plague" => Some(DiseaseId::Plague),
-        "consumption" => Some(DiseaseId::Consumption),
-        "mahrdruck" => Some(DiseaseId::Mahrdruck),
-        "shroud_fever" => Some(DiseaseId::ShroudFever),
-        "bilwisschuss" => Some(DiseaseId::Bilwisschuss),
-        "kobeldunst" => Some(DiseaseId::Kobeldunst),
-        _ => None,
-    }
-}
-
 /// Score only the observer-safe weighted differential and public generic
 /// preparation profiles. Positive values mean expected meter relief exceeds
 /// direct and adverse meter burden. Quantization makes tie-breaking replayable.
@@ -106,7 +87,7 @@ fn public_intervention_score(
     use adventuresim_core::physiology::{METER_COUNT, Meter};
     let total_likelihood = differential
         .iter()
-        .filter(|row| public_disease_id(&row.disease_id).is_some())
+        .filter(|row| row.disease_id.parse::<adventuresim_core::disease::DiseaseId>().is_ok())
         .map(|row| u64::from(row.likelihood_bps))
         .sum::<u64>();
     if total_likelihood == 0 {
@@ -114,7 +95,7 @@ fn public_intervention_score(
     }
     let mut expected_loss = [0.0_f64; METER_COUNT];
     for row in differential {
-        let Some(disease_id) = public_disease_id(&row.disease_id) else {
+        let Ok(disease_id) = row.disease_id.parse::<adventuresim_core::disease::DiseaseId>() else {
             continue;
         };
         let weight = f64::from(row.likelihood_bps) / total_likelihood as f64;

@@ -1447,15 +1447,15 @@ fn projected_route_thermal_safe(
 fn specialist_repair_services_only_route_matching_item_kinds() {
     let services = [SettlementService::Weaponsmith];
     assert_eq!(
-        settlement::repair_service_for_kind(&services, PersistedItemKind::Weapon),
+        settlement::repair_service_for_kind(&services, CatalogItemKind::Weapon),
         Some("weapons")
     );
     assert_eq!(
-        settlement::repair_service_for_kind(&services, PersistedItemKind::Armor),
+        settlement::repair_service_for_kind(&services, CatalogItemKind::Armor),
         None
     );
     assert_eq!(
-        settlement::repair_service_for_kind(&services, PersistedItemKind::Clothing),
+        settlement::repair_service_for_kind(&services, CatalogItemKind::Clothing),
         None
     );
 }
@@ -1464,15 +1464,15 @@ fn specialist_repair_services_only_route_matching_item_kinds() {
 fn general_blacksmith_routes_every_repairable_item_kind() {
     let services = [SettlementService::GeneralBlacksmith];
     assert_eq!(
-        settlement::repair_service_for_kind(&services, PersistedItemKind::Weapon),
+        settlement::repair_service_for_kind(&services, CatalogItemKind::Weapon),
         Some("weapons")
     );
     assert_eq!(
-        settlement::repair_service_for_kind(&services, PersistedItemKind::Armor),
+        settlement::repair_service_for_kind(&services, CatalogItemKind::Armor),
         Some("armor")
     );
     assert_eq!(
-        settlement::repair_service_for_kind(&services, PersistedItemKind::Clothing),
+        settlement::repair_service_for_kind(&services, CatalogItemKind::Clothing),
         Some("clothing")
     );
 }

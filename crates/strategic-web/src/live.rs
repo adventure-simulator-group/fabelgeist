@@ -180,6 +180,8 @@ pub struct CacheStatus {
     pub rows: u64,
 }
 
+/// Subscription-owned rows are usable only after application. Connection and
+/// failure clear readiness; row events invalidate render revisions.
 #[derive(Default)]
 struct CacheLifecycle {
     ready: AtomicBool,

@@ -487,16 +487,6 @@ pub(crate) fn normalize_and_elect_party_leader(
     Ok(())
 }
 
-#[reducer]
-pub fn update_character(ctx: &ReducerContext, id: u64, name: String) -> Result<(), String> {
-    crate::character::require_living_character(ctx, id)?;
-    crate::character::assign_authored_character_name(
-        ctx,
-        crate::character::CharacterId::new(id),
-        name,
-    )
-}
-
 pub(crate) fn create_solo_party_for_character(
     ctx: &ReducerContext,
     character_id: u64,

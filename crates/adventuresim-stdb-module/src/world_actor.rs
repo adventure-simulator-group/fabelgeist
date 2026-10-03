@@ -31,30 +31,9 @@ pub enum CharacterContextKind {
     RoadEncounter,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum CharacterContextRole {
-    Counterparty,
-    Patient,
-    Bystander,
-}
-
-/// Sanitized authored answer for a contextual interaction. The authoritative
-/// reducer may still return `Unavailable` when presence or privacy no longer
-/// matches the projected row.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum ContextualDecisionState {
-    Allowed,
-    Refused,
-    Unavailable,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum BackendContextualDecision {
-    Request,
-    Refused,
-    Unavailable,
-    EmergencyTreatment,
-}
+pub use adventuresim_core::strategic_presence::{
+    CharacterContextRole, ContextualDecisionState, InteractionPresentationDecision,
+};
 
 /// A Character's role and presence in a strategic context. Hostility is
 /// deliberately contextual; it is never intrinsic Character state.
@@ -72,7 +51,6 @@ pub struct CharacterContextMembership {
     pub context_kind: CharacterContextKind,
     pub role: CharacterContextRole,
     pub ordinal: u16,
-    pub active: bool,
     pub entered_at: StrategicMinute,
     pub left_at: Option<StrategicMinute>,
     pub revision: u32,
@@ -80,6 +58,13 @@ pub struct CharacterContextMembership {
     /// Explicit treatment answer. Narrow emergency bandaging is evaluated live
     /// and is not copied into contextual authority.
     pub treatment_decision: ContextualDecisionState,
+}
+
+impl CharacterContextMembership {
+    /// The interval owns closure. Open membership has no separate status column.
+    pub fn is_open(&self) -> bool {
+        self.left_at.is_none()
+    }
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -97,13 +82,15 @@ pub struct BackendContextCharacter {
     pub alive: bool,
     pub revision: u32,
     pub membership_revision: u32,
-    pub contact_decision: BackendContextualDecision,
-    pub treatment_decision: BackendContextualDecision,
+    pub contact_decision: InteractionPresentationDecision,
+    pub treatment_decision: InteractionPresentationDecision,
     pub treatment_limb_slug: Option<String>,
 }
 
-/// Party-scoped awareness/contact authority. `context_id` remains private;
-/// callers address it through a public context reference and target Character.
+/// Row existence records completed party contact and mutual awareness. Contact
+/// commits this authority with encounter awareness and an immutable retry receipt
+/// in one transaction. `context_id` remains private; callers use a public context
+/// reference and target Character. Mission snapshots derive surprise from presence.
 #[derive(Clone, Debug)]
 #[table(accessor = party_context_contact_authority)]
 pub struct PartyContextContactAuthority {
@@ -114,8 +101,6 @@ pub struct PartyContextContactAuthority {
     pub context_id: String,
     pub location_id: String,
     pub revision: u32,
-    pub contacted: bool,
-    pub mutual_awareness: bool,
 }
 
 #[derive(Clone, Debug)]
@@ -157,7 +142,7 @@ pub fn backend_context_characters(ctx: &ViewContext) -> Vec<BackendContextCharac
         if !matches!(
             row.context_kind,
             CharacterContextKind::CaseSite | CharacterContextKind::HostileGroup
-        ) && !row.active
+        ) && !row.is_open()
         {
             continue;
         }
@@ -210,7 +195,7 @@ pub fn backend_context_characters(ctx: &ViewContext) -> Vec<BackendContextCharac
                 .road_challenge_authority()
                 .gateway_bucket()
                 .filter(0u8)
-                .filter(|challenge| challenge.id == row.context_id && challenge.open)
+                .filter(|challenge| challenge.id == row.context_id && challenge.is_open())
                 .map(|challenge| (challenge.party_id, challenge.id, character.alive))
                 .collect(),
         };
@@ -240,11 +225,6 @@ pub fn backend_context_characters(ctx: &ViewContext) -> Vec<BackendContextCharac
                         },
                         |contact| contact.revision,
                     )
-            };
-            let presented = |decision| match decision {
-                ContextualDecisionState::Allowed => BackendContextualDecision::Request,
-                ContextualDecisionState::Refused => BackendContextualDecision::Refused,
-                ContextualDecisionState::Unavailable => BackendContextualDecision::Unavailable,
             };
             let treatment_limb = adventuresim_core::physiology::BodyRegion::ALL
                 .into_iter()
@@ -292,14 +272,14 @@ pub fn backend_context_characters(ctx: &ViewContext) -> Vec<BackendContextCharac
                 alive: alive_at_frontier,
                 revision,
                 membership_revision: row.revision,
-                contact_decision: presented(row.contact_decision),
+                contact_decision: row.contact_decision.presentation(),
                 treatment_decision: if row.treatment_decision
                     == ContextualDecisionState::Unavailable
                     && emergency_bandage
                 {
-                    BackendContextualDecision::EmergencyTreatment
+                    InteractionPresentationDecision::EmergencyTreatment
                 } else {
-                    presented(row.treatment_decision)
+                    row.treatment_decision.presentation()
                 },
                 treatment_limb_slug: treatment_limb.map(|limb| limb.slug().to_owned()),
             });
@@ -334,7 +314,7 @@ pub(crate) fn party_contacted_context(
         .party_context_contact_authority()
         .id()
         .find(party_context_contact_id(party_id, context_id))
-        .is_some_and(|contact| contact.contacted && contact.mutual_awareness)
+        .is_some()
 }
 
 pub(crate) fn context_members(
@@ -346,7 +326,7 @@ pub(crate) fn context_members(
         .character_context_membership()
         .context_id()
         .filter(&context_id.to_string())
-        .filter(|row| context_membership_interval_is_well_formed(row) && row.active)
+        .filter(|row| context_membership_interval_is_well_formed(row) && row.is_open())
         .collect::<Vec<_>>();
     rows.sort_by_key(|row| row.ordinal);
     rows
@@ -413,10 +393,11 @@ pub(crate) fn materialize_context_roster(
         crate::character::assign_generated_historical_name_for_age(
             ctx,
             crate::character::CharacterId::new(id),
-            crate::character::NameSeed::new(id),
+            adventuresim_world_schema::person_names::NameStableSeed::new(id),
             entered_at,
             None,
-        )?;
+        )
+        .map_err(|error| error.to_string())?;
         ctx.db
             .character_context_membership()
             .insert(CharacterContextMembership {
@@ -427,7 +408,6 @@ pub(crate) fn materialize_context_roster(
                 context_kind: kind,
                 role: CharacterContextRole::Counterparty,
                 ordinal,
-                active: true,
                 entered_at,
                 left_at: None,
                 revision: 1,
@@ -475,7 +455,6 @@ pub(crate) fn rebind_road_cast_to_strategic_encounter(
             context_kind: CharacterContextKind::StrategicEncounter,
             role: CharacterContextRole::Counterparty,
             ordinal,
-            active: true,
             entered_at,
             left_at: None,
             revision: 1,
@@ -507,6 +486,11 @@ include!("world_actor/presence.rs");
 
 include!("world_actor/roster.rs");
 
+#[cfg(feature = "authority-tests")]
+include!("world_actor/authority_tests.rs");
+#[cfg(feature = "authority-tests")]
+include!("world_actor/contact_authority_tests.rs");
+
 /// Materialize every individualized mortal in a compiled road cast as an
 /// ordinary, fully componentized Character. Cast order is the stable identity
 /// coordinate; narrative collectives and explicitly blocked figures never
@@ -517,15 +501,7 @@ pub(crate) fn materialize_road_encounter_cast(
     definition: &adventuresim_core::road_encounter_catalog::EncounterDefinition,
     absolute_minute: StrategicMinute,
 ) -> Result<Vec<u64>, String> {
-    use adventuresim_core::road_encounter_catalog::{
-        AuthoredInteractionDecision, CharacterCastRole, SpeakerBacking,
-    };
-
-    let decision = |value: AuthoredInteractionDecision| match value {
-        AuthoredInteractionDecision::Allowed => ContextualDecisionState::Allowed,
-        AuthoredInteractionDecision::Refused => ContextualDecisionState::Refused,
-        AuthoredInteractionDecision::Unavailable => ContextualDecisionState::Unavailable,
-    };
+    use adventuresim_core::road_encounter_catalog::SpeakerBacking;
 
     let mut materialized = Vec::new();
     for (cast_ordinal, speaker) in definition.cast.iter().enumerate() {
@@ -541,11 +517,7 @@ pub(crate) fn materialize_road_encounter_cast(
             .map_err(|_| "Road encounter cast exceeds the supported roster size")?;
         let membership_id = format!("context:{context_id}:{ordinal}");
         let character_id = field_character_id(context_id, ordinal);
-        let expected_role = match role {
-            CharacterCastRole::Counterparty => CharacterContextRole::Counterparty,
-            CharacterCastRole::Patient => CharacterContextRole::Patient,
-            CharacterCastRole::Bystander => CharacterContextRole::Bystander,
-        };
+        let expected_role = *role;
         let existing_membership = ctx
             .db
             .character_context_membership()
@@ -561,9 +533,9 @@ pub(crate) fn materialize_road_encounter_cast(
                     || membership.role != expected_role
                     || membership.ordinal != ordinal
                     || !context_membership_interval_is_well_formed(&membership)
-                    || !membership.active
-                    || membership.contact_decision != decision(*contact_decision)
-                    || membership.treatment_decision != decision(*treatment_decision)
+                    || !membership.is_open()
+                    || membership.contact_decision != *contact_decision
+                    || membership.treatment_decision != *treatment_decision
                     || character.name != speaker.name
                 {
                     return Err(
@@ -595,12 +567,11 @@ pub(crate) fn materialize_road_encounter_cast(
                 context_kind: CharacterContextKind::RoadEncounter,
                 role: expected_role,
                 ordinal,
-                active: true,
                 entered_at: absolute_minute,
                 left_at: None,
                 revision: 1,
-                contact_decision: decision(*contact_decision),
-                treatment_decision: decision(*treatment_decision),
+                contact_decision: *contact_decision,
+                treatment_decision: *treatment_decision,
             });
         if expected_role == CharacterContextRole::Patient {
             crate::surgery::seed_field_cut(
@@ -610,7 +581,7 @@ pub(crate) fn materialize_road_encounter_cast(
                 0.35,
                 absolute_minute,
             );
-            if *treatment_decision == AuthoredInteractionDecision::Unavailable {
+            if *treatment_decision == ContextualDecisionState::Unavailable {
                 crate::condition::apply_blood_loss(ctx, character_id, 0.30)?;
             }
         }
@@ -654,7 +625,7 @@ pub(crate) fn characters_are_contextually_present(
         .filter(target_id)
         .filter(|row| {
             context_membership_interval_is_well_formed(row)
-                && (row.active
+                && (row.is_open()
                     || matches!(
                         row.context_kind,
                         CharacterContextKind::CaseSite | CharacterContextKind::HostileGroup
@@ -712,7 +683,7 @@ pub(crate) fn characters_are_contextually_present(
                                 .find(&row.context_id)
                                 .is_some_and(|challenge| {
                                     challenge.party_id == *party_id
-                                        && challenge.open
+                                        && challenge.is_open()
                                         && crate::strategic::party_at_bound_road_challenge(
                                             ctx, &party, &challenge,
                                         )
@@ -749,7 +720,7 @@ fn contextual_membership_is_visible(
     ) {
         context_membership_valid_at(membership, actor_minute)
     } else {
-        context_membership_interval_is_well_formed(membership) && membership.active
+        context_membership_interval_is_well_formed(membership) && membership.is_open()
     }) && characters_are_contextually_present(ctx, actor_id, membership.character_id)
         && match membership.context_kind {
             CharacterContextKind::CaseSite => crate::outbreak::case_patient_visible_to_character(
@@ -900,7 +871,7 @@ fn contextual_treatment_decision_with_emergency(
             ) {
                 context_membership_valid_at(membership, actor_minute)
             } else {
-                context_membership_interval_is_well_formed(membership) && membership.active
+                context_membership_interval_is_well_formed(membership) && membership.is_open()
             }
         })
         .collect::<Vec<_>>();
@@ -1044,7 +1015,7 @@ pub fn contact_context_character(
             ) {
                 context_membership_valid_at(row, actor_minute)
             } else {
-                context_membership_interval_is_well_formed(row) && row.active
+                context_membership_interval_is_well_formed(row) && row.is_open()
             }) && match row.context_kind {
                 CharacterContextKind::StrategicEncounter => row.context_id == contact_ref,
                 CharacterContextKind::CaseSite | CharacterContextKind::HostileGroup => {
@@ -1157,8 +1128,6 @@ pub fn contact_context_character(
         context_id: membership.context_id.clone(),
         location_id: membership.location_id.clone(),
         revision: resulting_revision,
-        contacted: true,
-        mutual_awareness: true,
     };
     if existing_contact.is_some() {
         ctx.db
@@ -1202,7 +1171,6 @@ mod tests {
             context_kind: kind,
             role: CharacterContextRole::Patient,
             ordinal: 0,
-            active: true,
             entered_at: StrategicMinute::new(1),
             left_at: None,
             revision: 4,
@@ -1212,22 +1180,11 @@ mod tests {
     }
 
     #[test]
-    fn context_intervals_reject_malformed_active_and_chronology_shapes() {
+    fn context_intervals_reject_reversed_chronology() {
         let entered = StrategicMinute::new(10);
-        assert!(context_interval_is_well_formed(true, entered, None));
-        assert!(context_interval_is_well_formed(
-            false,
-            entered,
-            Some(entered)
-        ));
+        assert!(context_interval_is_well_formed(entered, None));
+        assert!(context_interval_is_well_formed(entered, Some(entered)));
         assert!(!context_interval_is_well_formed(
-            true,
-            entered,
-            Some(StrategicMinute::new(11))
-        ));
-        assert!(!context_interval_is_well_formed(false, entered, None));
-        assert!(!context_interval_is_well_formed(
-            false,
             entered,
             Some(StrategicMinute::new(9))
         ));

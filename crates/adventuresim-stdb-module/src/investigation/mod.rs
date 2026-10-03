@@ -18,10 +18,21 @@ pub(crate) const INVESTIGATION_SOURCE: &str = concat!(
     include_str!("projections/site_context.rs"),
     include_str!("capabilities.rs"),
     include_str!("actions.rs"),
+    include_str!("actions/result_provenance.rs"),
+    include_str!("actions/route_admission.rs"),
     include_str!("sites.rs"),
     include_str!("sites/provenance.rs"),
     include_str!("claims.rs"),
 );
+
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
+
+#[path = "actions/result_provenance.rs"]
+mod result_provenance;
+#[path = "actions/route_admission.rs"]
+mod route_admission;
+use action::{InvestigationActionKind, Terrain};
 
 mod geometry;
 use geometry::coordinate_area_contains_e7;

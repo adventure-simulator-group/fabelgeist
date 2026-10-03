@@ -339,7 +339,9 @@ class WorkflowTests(unittest.TestCase):
         with mock.patch.object(dev_stack, "listener_process_snapshot", return_value=listener), \
              mock.patch.object(dev_stack, "identity_matches", return_value=True):
             self.assertEqual(dev_stack.reset_publish(capability), 0)
+            self.assertEqual(dev_stack.reset_publish(capability, build_options="--features authority-tests"), 0)
         command = run_checked.call_args.args[0]
+        self.assertIn("--build-options=--features authority-tests", command)
         self.assertIn("--delete-data=always", command)
         self.assertIn("--yes", command)
 

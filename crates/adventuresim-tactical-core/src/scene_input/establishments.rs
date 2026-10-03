@@ -6,6 +6,8 @@ use adventuresim_world_schema::person_names::RenderedPersonalName;
 use adventuresim_world_schema::settlement_buildings::BusinessId;
 
 /// Immutable operator and display identity for one business in a tactical scene.
+/// The mission snapshot owns `operator_name`; validation requires `shop_name`
+/// to match that captured name and building use. Later missions recapture it.
 #[derive(Clone, Debug, Eq, PartialEq, Component, Serialize, Deserialize)]
 #[component(immutable)]
 #[serde(deny_unknown_fields)]

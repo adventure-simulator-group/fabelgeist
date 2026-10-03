@@ -1,6 +1,6 @@
 //! Shared inventory rows, quantities, encumbrance, names, and footer controls.
 
-use super::equipment::{item_kind_tag, slot_wire_label};
+use super::equipment::slot_wire_label;
 use super::*;
 
 pub(in crate::templates::settlement) fn item_weight(
@@ -141,7 +141,7 @@ pub(super) fn item_name_with_display_quality(
         span class=(quality.map_or_else(|| "inventory-item-label".to_string(), |quality| format!("inventory-item-label item-quality-{quality}"))) title=[label]
             data-item-name=(item_id)
             data-equipment-portrait=[crate::templates::equipment_icons::portrait(item_id)]
-            data-item-kind=[definition.map(|item| item_kind_tag(item.kind))]
+            data-item-kind=[definition.map(|item| item.kind.stable_id())]
             data-item-melee=[definition.map(|item| item.melee)]
             data-item-weapon-holder=[matches!(item_id, "scabbard" | "weapon_loop").then_some("true")]
             data-item-ranged=[definition.map(|item| item.ranged)]
@@ -292,7 +292,7 @@ mod tests {
                 CatalogItemKind::Medication,
                 CatalogItemKind::Food,
             ]
-            .map(item_kind_tag),
+            .map(crate::spacetimedb::CatalogItemKind::stable_id),
             [
                 "simple",
                 "weapon",

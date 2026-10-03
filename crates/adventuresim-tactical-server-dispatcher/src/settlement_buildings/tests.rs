@@ -102,15 +102,10 @@ fn missing_estimate_uses_the_shared_population_level_fallback() {
 
 #[test]
 fn dense_city_layout_passes_tactical_pad_validation() {
-    let mut layout = place_settlement_buildings(&settlement("dense", 40_000), 50.0).unwrap();
-    // This fixture exercises the playable pads without a distant vista.
-    layout.compounds.retain(|compound| {
-        layout
-            .playable
-            .iter()
-            .any(|building| building.id == compound.front_building_id)
-    });
+    let layout = place_settlement_buildings(&settlement("dense", 40_000), 50.0).unwrap();
+    // Keep complete property metadata while exercising only playable pads.
     let mut input = TacticalSceneInput {
+        properties: None,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
         seed: 42,
@@ -135,9 +130,20 @@ fn dense_city_layout_passes_tactical_pad_validation() {
         compounds: layout.compounds,
         gardens: layout.gardens,
         buildings: layout.playable,
-        distant_buildings: Vec::new(),
+        distant_buildings: layout.distant,
         establishments: Vec::new(),
-        vista: VistaSample::default(),
+        vista: VistaSample {
+            lods: vec![VistaLod {
+                level: 1,
+                spacing_metres: 1_000.0,
+                width: 41,
+                depth: 41,
+                origin_east_metres: 0.0,
+                origin_north_metres: 0.0,
+                heights_metres: vec![0.0; 41 * 41],
+                environment: vec![EnvironmentalSample::default(); 41 * 41],
+            }],
+        },
         weather: adventuresim_core::weather::weather_at(
             42,
             adventuresim_world_schema::calendar::StrategicMinute::new(1),

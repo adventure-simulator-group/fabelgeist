@@ -159,9 +159,9 @@ fn main() {
             let claim_hash = Sha256::digest(claim.as_bytes()).to_vec();
             let mission_id = request.mission_id.clone();
             let scene_key = request.scene_key.clone();
-            let expected_party_members = request.expected_party_members.to_string();
-            let required_enemy_kills = request.required_enemy_kills.to_string();
-            let enemy_combat_scale_bps = request.enemy_combat_scale_bps.to_string();
+            let Some(launch) = launch_arguments(request) else {
+                return;
+            };
             let scene_input =
                 match materialize_requested_scene(&terrain_clone, &scene_input_dir, request) {
                     Ok(path) => path.to_string_lossy().into_owned(),
@@ -194,11 +194,11 @@ fn main() {
                                 "--scene-input",
                                 &scene_input,
                                 "--expected-party-members",
-                                &expected_party_members,
+                                &launch.expected_party_members,
                                 "--required-enemy-kills",
-                                &required_enemy_kills,
+                                &launch.required_enemy_kills,
                                 "--enemy-combat-scale-bps",
-                                &enemy_combat_scale_bps,
+                                &launch.enemy_combat_scale_bps,
                                 "--addr",
                                 &SocketAddr::new(host, port).to_string(),
                                 "--spacetimedb-url",
@@ -303,6 +303,29 @@ fn materialize_requested_scene(
         profile.as_ref(),
     )?;
     scene_input::materialize_scene_input(directory, &request.mission_id, &input)
+}
+
+/// Scalar CLI arguments are projections of this captured request.
+struct TacticalLaunchArguments {
+    expected_party_members: String,
+    required_enemy_kills: String,
+    enemy_combat_scale_bps: String,
+}
+
+fn launch_arguments(request: &TacticalServerRequest) -> Option<TacticalLaunchArguments> {
+    match adventuresim_core::mission::TacticalPartyRoster::try_from(
+        request.authorized_party_member_ids.clone(),
+    ) {
+        Ok(roster) => Some(TacticalLaunchArguments {
+            expected_party_members: roster.expected_members().to_string(),
+            required_enemy_kills: request.required_enemy_kills.to_string(),
+            enemy_combat_scale_bps: request.enemy_combat_scale_bps.to_string(),
+        }),
+        Err(error) => {
+            error!(mission_id = %request.mission_id, %error, "Invalid tactical party roster");
+            None
+        }
+    }
 }
 
 #[cfg(test)]

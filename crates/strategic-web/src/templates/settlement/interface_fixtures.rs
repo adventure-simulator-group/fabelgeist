@@ -220,7 +220,7 @@ fn export_interface_review_fixtures() {
                 &candidates,
                 Some(0),
                 false,
-            ),
+            ).unwrap(),
         ),
         (
             "roster",

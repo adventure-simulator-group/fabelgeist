@@ -2,6 +2,7 @@
 
 mod exposure_windows;
 
+use adventuresim_core::disease::DiseaseId;
 use adventuresim_core::filth::{
     self, Deposit, DiseaseSnapshot, FilthOrigin, FilthSubstance, SoapSource, SoapStackId, WashStack,
 };
@@ -243,7 +244,10 @@ pub fn deposit(
             .map_or(3.0, |attributes| attributes.immunity);
         let mut seen = std::collections::BTreeSet::new();
         for episode in ctx.db.infection_episode().character_id().filter(source) {
-            let disease_id = crate::disease::parse_id(&episode.disease_id)?;
+            let disease_id = episode
+                .disease_id
+                .parse::<DiseaseId>()
+                .map_err(|error| error.to_string())?;
             if !adventuresim_core::disease::definition(disease_id)
                 .supports(adventuresim_core::disease::TransmissionVector::Blood)
                 || episode.contracted_at > at
@@ -272,7 +276,7 @@ pub fn deposit(
                 .insert(FilthDiseaseSnapshot {
                     id: 0,
                     filth_id: row.id,
-                    disease_id: crate::disease::disease_key(disease_id).into(),
+                    disease_id: disease_id.stable_id().into(),
                     episode_id: episode.id,
                 });
         }
@@ -315,12 +319,15 @@ pub(crate) fn deposits(ctx: &ReducerContext, character_id: u64) -> Result<Vec<De
                 .filth_id()
                 .filter(row.id)
                 .map(|s| {
-                    crate::disease::parse_id(&s.disease_id).map(|disease_id| DiseaseSnapshot {
-                        disease_id,
-                        episode_id: s.episode_id,
-                    })
+                    s.disease_id
+                        .parse::<DiseaseId>()
+                        .map(|disease_id| DiseaseSnapshot {
+                            disease_id,
+                            episode_id: s.episode_id,
+                        })
                 })
-                .collect::<Result<Vec<_>, _>>()?;
+                .collect::<Result<Vec<_>, _>>()
+                .map_err(|error| error.to_string())?;
             let source_character_id = ctx
                 .db
                 .filth_provenance()

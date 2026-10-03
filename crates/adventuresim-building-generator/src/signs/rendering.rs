@@ -51,6 +51,10 @@ impl SignRenderPart {
 }
 
 #[derive(Resource, Default)]
+/// Derived material handles keyed by captured name, font, finish, emblem, and
+/// texture height. Changing inputs selects a fresh key. The cache survives scene
+/// replacement as a Bevy resource; backing materials are keyed by finish and
+/// iron is shared.
 pub struct ShopSignRenderCache {
     paint: HashMap<SignPaintKey, Handle<StandardMaterial>>,
     backing: HashMap<SignFinish, Handle<StandardMaterial>>,

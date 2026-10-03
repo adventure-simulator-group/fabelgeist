@@ -1,6 +1,9 @@
 //! Private transactional occurrence authority and consequence adapters.
 //! Receipts remain private and are recorded after consequences succeed.
 
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
+
 use adventuresim_core::world_event::{
     WORLD_EVENT_SCHEMA_REVISION, WorldEventActor, WorldEventConsequence, WorldEventEnvelope,
     WorldEventOffenseKind as ExistingOffenseKind, WorldEventPayloadRef, WorldEventPlace,
@@ -673,7 +676,6 @@ fn preflight_consequences(
                         && existing.settlement_id == *settlement_id
                         && existing.kind == kind
                         && existing.severity == (*severity).clamp(1, 5)
-                        && !existing.execution_eligible
                         && existing.occurred_at_minute == *minute
                     // `settled` is mutable downstream legal state, not authored identity.
                 }),

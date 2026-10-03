@@ -523,7 +523,7 @@ fn play(puzzle: PuzzleAuthority) -> Result<(), String> {
 fn parse_sigil(value: &str) -> Result<Sigil, String> {
     Sigil::ALL
         .into_iter()
-        .find(|sigil| sigil.label().eq_ignore_ascii_case(value))
+        .find(|sigil| sigil.stable_id().eq_ignore_ascii_case(value))
         .ok_or_else(|| format!("unknown sigil: {value}"))
 }
 
@@ -531,11 +531,8 @@ fn parse_path(value: &str) -> Result<WitnessPath, String> {
     WitnessPath::ALL
         .into_iter()
         .find(|path| {
-            path.label().eq_ignore_ascii_case(value)
-                || path
-                    .label()
-                    .trim_end_matches(" path")
-                    .eq_ignore_ascii_case(value)
+            path.stable_id()
+                .eq_ignore_ascii_case(value.to_ascii_lowercase().trim_end_matches(" path"))
         })
         .ok_or_else(|| format!("unknown path: {value}"))
 }
@@ -554,4 +551,18 @@ fn parse_provision(available: &[ProvisionId], value: &str) -> Result<ProvisionId
         .copied()
         .find(|item| item.label().eq_ignore_ascii_case(value))
         .ok_or_else(|| format!("unknown provision: {value}"))
+}
+
+#[cfg(test)]
+mod choice_tests {
+    use super::*;
+
+    #[test]
+    fn command_line_choices_keep_case_insensitivity_and_path_suffix() {
+        assert_eq!(parse_sigil("cRoWn"), Ok(Sigil::Crown));
+        assert_eq!(parse_path("MOON PATH"), Ok(WitnessPath::Moon));
+        assert_eq!(parse_path("thorn"), Ok(WitnessPath::Thorn));
+        assert!(parse_sigil("unknown").is_err());
+        assert!(parse_path("moon road").is_err());
+    }
 }

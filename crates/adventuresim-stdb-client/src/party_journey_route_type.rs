@@ -4,10 +4,10 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
-use super::journey_precipitation_type::JourneyPrecipitation;
 use super::journey_route_leg_type::JourneyRouteLeg;
 use super::journey_route_point_type::JourneyRoutePoint;
 use super::journey_terrain_span_type::JourneyTerrainSpan;
+use super::precipitation_type::Precipitation;
 use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
@@ -18,7 +18,7 @@ pub struct PartyJourneyRoute {
     pub package_digest: String,
     pub weather_rules_version: u16,
     pub weather_interval_start: StrategicMinute,
-    pub precipitation: JourneyPrecipitation,
+    pub precipitation: Precipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,
     pub snow_cover_bps: u16,
@@ -42,7 +42,7 @@ pub struct PartyJourneyRouteCols {
     pub package_digest: __sdk::__query_builder::Col<PartyJourneyRoute, String>,
     pub weather_rules_version: __sdk::__query_builder::Col<PartyJourneyRoute, u16>,
     pub weather_interval_start: __sdk::__query_builder::Col<PartyJourneyRoute, StrategicMinute>,
-    pub precipitation: __sdk::__query_builder::Col<PartyJourneyRoute, JourneyPrecipitation>,
+    pub precipitation: __sdk::__query_builder::Col<PartyJourneyRoute, Precipitation>,
     pub intensity_bps: __sdk::__query_builder::Col<PartyJourneyRoute, u16>,
     pub ground_moisture_bps: __sdk::__query_builder::Col<PartyJourneyRoute, u16>,
     pub snow_cover_bps: __sdk::__query_builder::Col<PartyJourneyRoute, u16>,

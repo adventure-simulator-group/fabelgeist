@@ -1232,7 +1232,9 @@ def tactical_profile_cache_is_valid(
     )
 
 
-def reset_publish(capability: ResetCapability) -> int:
+def reset_publish(
+    capability: ResetCapability, *, build_options: str | None = None
+) -> int:
     if not capability.lock.held:
         raise ValueError("isolated reset requires the held profile lifecycle lock")
     values = profile_values(capability.profile, capability.base_port)
@@ -1246,6 +1248,8 @@ def reset_publish(capability: ResetCapability) -> int:
         "spacetime", "publish", "--delete-data=always", "--yes",
         "--server", capability.server, capability.database,
     ]
+    if build_options is not None:
+        command.append(f"--build-options={build_options}")
     result = run_checked(command, MODULE_DIR)
     write_console(result.stdout)
     if result.returncode:

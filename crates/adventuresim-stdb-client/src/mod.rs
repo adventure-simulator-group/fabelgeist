@@ -19,6 +19,7 @@ pub mod admit_household_occupant_reducer;
 pub mod adopt_development_scenarios_reducer;
 pub mod advance_simulation_world_time_reducer;
 pub mod affinity_band_type;
+pub mod age_band_type;
 pub mod agricultural_commodity_type;
 pub mod agricultural_limitation_type;
 pub mod agriculture_industry_type;
@@ -37,10 +38,12 @@ pub mod autopsy_action_receipt_type;
 pub mod autoresolve_mission_reducer;
 pub mod autoresolve_report_table;
 pub mod autoresolve_report_type;
+pub mod available_residence_property_type;
 pub mod available_water_capacity_type;
 pub mod backend_authority_arrest_action_type;
 pub mod backend_authority_arrest_actions_table;
 pub mod backend_automatic_social_chats_table;
+pub mod backend_available_residence_properties_table;
 pub mod backend_bestiary_deduction_type;
 pub mod backend_bestiary_deductions_table;
 pub mod backend_browser_character_access_table;
@@ -77,7 +80,6 @@ pub mod backend_characters_table;
 pub mod backend_committed_cuts_table;
 pub mod backend_context_character_type;
 pub mod backend_context_characters_table;
-pub mod backend_contextual_decision_type;
 pub mod backend_contract_type;
 pub mod backend_contracts_table;
 pub mod backend_corpse_type;
@@ -116,6 +118,8 @@ pub mod backend_hostile_negotiation_type;
 pub mod backend_hostile_negotiations_table;
 pub mod backend_hostile_surrender_type;
 pub mod backend_hostile_surrenders_table;
+pub mod backend_household_property_occupancies_table;
+pub mod backend_household_property_occupancy_type;
 pub mod backend_ingredient_preparation_plan_type;
 pub mod backend_ingredient_preparation_plans_table;
 pub mod backend_investigation_action_outcome_type;
@@ -196,6 +200,7 @@ pub mod case_reputation_participant_type;
 pub mod case_site_authority_type;
 pub mod case_site_id_type;
 pub mod case_status_type;
+pub mod catalog_item_kind_type;
 pub mod catholic_lutheran_church_type;
 pub mod catholic_reformed_church_type;
 pub mod cation_exchange_capacity_type;
@@ -423,6 +428,7 @@ pub mod forest_cover_type;
 pub mod forestry_industry_type;
 pub mod forge_weapon_reducer;
 pub mod generated_problem_incident_type;
+pub mod generated_resident_home_type;
 pub mod geologic_age_evidence_type;
 pub mod geologic_era_type;
 pub mod geologic_lithology_evidence_type;
@@ -443,6 +449,7 @@ pub mod hostile_surrender_mode_type;
 pub mod hostile_surrender_outcome_type;
 pub mod hostile_surrender_receipt_type;
 pub mod household_member_type;
+pub mod household_property_occupancy_type;
 pub mod household_role_type;
 pub mod household_type;
 pub mod housing_tier_type;
@@ -471,6 +478,7 @@ pub mod ingredient_preparation_receipt_type;
 pub mod inland_water_access_type;
 pub mod inland_water_size_type;
 pub mod inspect_physical_evidence_reducer;
+pub mod interaction_presentation_decision_type;
 pub mod intervention_route_type;
 pub mod inventory_containment_table;
 pub mod inventory_containment_type;
@@ -524,7 +532,6 @@ pub mod join_organization_reducer;
 pub mod journey_camp_interval_type;
 pub mod journey_case_site_endpoint_type;
 pub mod journey_endpoint_type;
-pub mod journey_precipitation_type;
 pub mod journey_route_leg_type;
 pub mod journey_route_plan_type;
 pub mod journey_route_point_type;
@@ -595,13 +602,11 @@ pub mod native_range_evidence_type;
 pub mod negotiate_hostile_withdrawal_reducer;
 pub mod nerve_type;
 pub mod npc_adventuring_party_authority_type;
-pub mod npc_age_band_type;
 pub mod npc_causal_schedule_type;
 pub mod npc_policy_decision_outcome_type;
 pub mod npc_policy_decision_phase_type;
 pub mod npc_policy_decision_receipt_type;
 pub mod npc_policy_type;
-pub mod npc_presentation_type;
 pub mod objective_continuity_guard_type;
 pub mod objective_continuity_kind_type;
 pub mod occupancy_requirement_type;
@@ -667,7 +672,6 @@ pub mod persisted_food_water_payload_ref_type;
 pub mod persisted_foraging_event_source_type;
 pub mod persisted_foraging_payload_ref_type;
 pub mod persisted_generated_finale_event_source_type;
-pub mod persisted_item_kind_type;
 pub mod persisted_operational_custody_type;
 pub mod persisted_world_event_actor_type;
 pub mod persisted_world_event_envelope_type;
@@ -690,6 +694,7 @@ pub mod potential_vegetation_type;
 pub mod pottery_commodity_type;
 pub mod pottery_industry_type;
 pub mod pour_tincture_spirit_into_container_reducer;
+pub mod precipitation_type;
 pub mod pregnancy_status_type;
 pub mod pregnancy_type;
 pub mod prepare_development_courtship_reducer;
@@ -701,6 +706,8 @@ pub mod production_scale_type;
 pub mod profile_fact_provenance_type;
 pub mod projectile_kind_type;
 pub mod promote_organization_membership_reducer;
+pub mod property_occupancy_kind_type;
+pub mod property_occupancy_transition_type;
 pub mod prosperity_tier_type;
 pub mod public_threat_disclosure_type;
 pub mod purchase_from_herbalist_reducer;
@@ -721,6 +728,7 @@ pub mod recruitment_source_id_type;
 pub mod refresh_capabilities_reducer;
 pub mod refresh_strategic_condition_reducer;
 pub mod refresh_tincture_reducer;
+pub mod register_settlement_properties_reducer;
 pub mod register_strategic_gateway_reducer;
 pub mod reject_party_join_request_reducer;
 pub mod religion_hours_type;
@@ -825,6 +833,10 @@ pub mod settlement_import_type;
 pub mod settlement_language_profile_type;
 pub mod settlement_outbreak_table;
 pub mod settlement_outbreak_type;
+pub mod settlement_property_manifest_table;
+pub mod settlement_property_manifest_type;
+pub mod settlement_property_table;
+pub mod settlement_property_type;
 pub mod settlement_religious_status_type;
 pub mod settlement_residence_offer_table;
 pub mod settlement_residence_offer_type;
@@ -957,6 +969,8 @@ pub mod weapon_instance_type;
 pub mod weapon_skill_distribution_type;
 pub mod western_christian_arrangement_type;
 pub mod withdraw_party_inventory_item_reducer;
+pub mod witness_claim_outcome_type;
+pub mod witness_claim_resolution_type;
 pub mod witness_social_action_receipt_type;
 pub mod woodland_type;
 pub mod world_clock_table;
@@ -983,6 +997,7 @@ pub use admit_household_occupant_reducer::admit_household_occupant;
 pub use adopt_development_scenarios_reducer::adopt_development_scenarios;
 pub use advance_simulation_world_time_reducer::advance_simulation_world_time;
 pub use affinity_band_type::AffinityBand;
+pub use age_band_type::AgeBand;
 pub use agricultural_commodity_type::AgriculturalCommodity;
 pub use agricultural_limitation_type::AgriculturalLimitation;
 pub use agriculture_industry_type::AgricultureIndustry;
@@ -1001,10 +1016,12 @@ pub use autopsy_action_receipt_type::AutopsyActionReceipt;
 pub use autoresolve_mission_reducer::autoresolve_mission;
 pub use autoresolve_report_table::*;
 pub use autoresolve_report_type::AutoresolveReport;
+pub use available_residence_property_type::AvailableResidenceProperty;
 pub use available_water_capacity_type::AvailableWaterCapacity;
 pub use backend_authority_arrest_action_type::BackendAuthorityArrestAction;
 pub use backend_authority_arrest_actions_table::*;
 pub use backend_automatic_social_chats_table::*;
+pub use backend_available_residence_properties_table::*;
 pub use backend_bestiary_deduction_type::BackendBestiaryDeduction;
 pub use backend_bestiary_deductions_table::*;
 pub use backend_browser_character_access_table::*;
@@ -1041,7 +1058,6 @@ pub use backend_characters_table::*;
 pub use backend_committed_cuts_table::*;
 pub use backend_context_character_type::BackendContextCharacter;
 pub use backend_context_characters_table::*;
-pub use backend_contextual_decision_type::BackendContextualDecision;
 pub use backend_contract_type::BackendContract;
 pub use backend_contracts_table::*;
 pub use backend_corpse_type::BackendCorpse;
@@ -1080,6 +1096,8 @@ pub use backend_hostile_negotiation_type::BackendHostileNegotiation;
 pub use backend_hostile_negotiations_table::*;
 pub use backend_hostile_surrender_type::BackendHostileSurrender;
 pub use backend_hostile_surrenders_table::*;
+pub use backend_household_property_occupancies_table::*;
+pub use backend_household_property_occupancy_type::BackendHouseholdPropertyOccupancy;
 pub use backend_ingredient_preparation_plan_type::BackendIngredientPreparationPlan;
 pub use backend_ingredient_preparation_plans_table::*;
 pub use backend_investigation_action_outcome_type::BackendInvestigationActionOutcome;
@@ -1160,6 +1178,7 @@ pub use case_reputation_participant_type::CaseReputationParticipant;
 pub use case_site_authority_type::CaseSiteAuthority;
 pub use case_site_id_type::CaseSiteId;
 pub use case_status_type::CaseStatus;
+pub use catalog_item_kind_type::CatalogItemKind;
 pub use catholic_lutheran_church_type::CatholicLutheranChurch;
 pub use catholic_reformed_church_type::CatholicReformedChurch;
 pub use cation_exchange_capacity_type::CationExchangeCapacity;
@@ -1387,6 +1406,7 @@ pub use forest_cover_type::ForestCover;
 pub use forestry_industry_type::ForestryIndustry;
 pub use forge_weapon_reducer::forge_weapon;
 pub use generated_problem_incident_type::GeneratedProblemIncident;
+pub use generated_resident_home_type::GeneratedResidentHome;
 pub use geologic_age_evidence_type::GeologicAgeEvidence;
 pub use geologic_era_type::GeologicEra;
 pub use geologic_lithology_evidence_type::GeologicLithologyEvidence;
@@ -1407,6 +1427,7 @@ pub use hostile_surrender_mode_type::HostileSurrenderMode;
 pub use hostile_surrender_outcome_type::HostileSurrenderOutcome;
 pub use hostile_surrender_receipt_type::HostileSurrenderReceipt;
 pub use household_member_type::HouseholdMember;
+pub use household_property_occupancy_type::HouseholdPropertyOccupancy;
 pub use household_role_type::HouseholdRole;
 pub use household_type::Household;
 pub use housing_tier_type::HousingTier;
@@ -1435,6 +1456,7 @@ pub use ingredient_preparation_receipt_type::IngredientPreparationReceipt;
 pub use inland_water_access_type::InlandWaterAccess;
 pub use inland_water_size_type::InlandWaterSize;
 pub use inspect_physical_evidence_reducer::inspect_physical_evidence;
+pub use interaction_presentation_decision_type::InteractionPresentationDecision;
 pub use intervention_route_type::InterventionRoute;
 pub use inventory_containment_table::*;
 pub use inventory_containment_type::InventoryContainment;
@@ -1488,7 +1510,6 @@ pub use join_organization_reducer::join_organization;
 pub use journey_camp_interval_type::JourneyCampInterval;
 pub use journey_case_site_endpoint_type::JourneyCaseSiteEndpoint;
 pub use journey_endpoint_type::JourneyEndpoint;
-pub use journey_precipitation_type::JourneyPrecipitation;
 pub use journey_route_leg_type::JourneyRouteLeg;
 pub use journey_route_plan_type::JourneyRoutePlan;
 pub use journey_route_point_type::JourneyRoutePoint;
@@ -1559,13 +1580,11 @@ pub use native_range_evidence_type::NativeRangeEvidence;
 pub use negotiate_hostile_withdrawal_reducer::negotiate_hostile_withdrawal;
 pub use nerve_type::Nerve;
 pub use npc_adventuring_party_authority_type::NpcAdventuringPartyAuthority;
-pub use npc_age_band_type::NpcAgeBand;
 pub use npc_causal_schedule_type::NpcCausalSchedule;
 pub use npc_policy_decision_outcome_type::NpcPolicyDecisionOutcome;
 pub use npc_policy_decision_phase_type::NpcPolicyDecisionPhase;
 pub use npc_policy_decision_receipt_type::NpcPolicyDecisionReceipt;
 pub use npc_policy_type::NpcPolicy;
-pub use npc_presentation_type::NpcPresentation;
 pub use objective_continuity_guard_type::ObjectiveContinuityGuard;
 pub use objective_continuity_kind_type::ObjectiveContinuityKind;
 pub use occupancy_requirement_type::OccupancyRequirement;
@@ -1631,7 +1650,6 @@ pub use persisted_food_water_payload_ref_type::PersistedFoodWaterPayloadRef;
 pub use persisted_foraging_event_source_type::PersistedForagingEventSource;
 pub use persisted_foraging_payload_ref_type::PersistedForagingPayloadRef;
 pub use persisted_generated_finale_event_source_type::PersistedGeneratedFinaleEventSource;
-pub use persisted_item_kind_type::PersistedItemKind;
 pub use persisted_operational_custody_type::PersistedOperationalCustody;
 pub use persisted_world_event_actor_type::PersistedWorldEventActor;
 pub use persisted_world_event_envelope_type::PersistedWorldEventEnvelope;
@@ -1654,6 +1672,7 @@ pub use potential_vegetation_type::PotentialVegetation;
 pub use pottery_commodity_type::PotteryCommodity;
 pub use pottery_industry_type::PotteryIndustry;
 pub use pour_tincture_spirit_into_container_reducer::pour_tincture_spirit_into_container;
+pub use precipitation_type::Precipitation;
 pub use pregnancy_status_type::PregnancyStatus;
 pub use pregnancy_type::Pregnancy;
 pub use prepare_development_courtship_reducer::prepare_development_courtship;
@@ -1665,6 +1684,8 @@ pub use production_scale_type::ProductionScale;
 pub use profile_fact_provenance_type::ProfileFactProvenance;
 pub use projectile_kind_type::ProjectileKind;
 pub use promote_organization_membership_reducer::promote_organization_membership;
+pub use property_occupancy_kind_type::PropertyOccupancyKind;
+pub use property_occupancy_transition_type::PropertyOccupancyTransition;
 pub use prosperity_tier_type::ProsperityTier;
 pub use public_threat_disclosure_type::PublicThreatDisclosure;
 pub use purchase_from_herbalist_reducer::purchase_from_herbalist;
@@ -1685,6 +1706,7 @@ pub use recruitment_source_id_type::RecruitmentSourceId;
 pub use refresh_capabilities_reducer::refresh_capabilities;
 pub use refresh_strategic_condition_reducer::refresh_strategic_condition;
 pub use refresh_tincture_reducer::refresh_tincture;
+pub use register_settlement_properties_reducer::register_settlement_properties;
 pub use register_strategic_gateway_reducer::register_strategic_gateway;
 pub use reject_party_join_request_reducer::reject_party_join_request;
 pub use religion_hours_type::ReligionHours;
@@ -1789,6 +1811,10 @@ pub use settlement_import_type::SettlementImport;
 pub use settlement_language_profile_type::SettlementLanguageProfile;
 pub use settlement_outbreak_table::*;
 pub use settlement_outbreak_type::SettlementOutbreak;
+pub use settlement_property_manifest_table::*;
+pub use settlement_property_manifest_type::SettlementPropertyManifest;
+pub use settlement_property_table::*;
+pub use settlement_property_type::SettlementProperty;
 pub use settlement_religious_status_type::SettlementReligiousStatus;
 pub use settlement_residence_offer_table::*;
 pub use settlement_residence_offer_type::SettlementResidenceOffer;
@@ -1921,6 +1947,8 @@ pub use weapon_instance_type::WeaponInstance;
 pub use weapon_skill_distribution_type::WeaponSkillDistribution;
 pub use western_christian_arrangement_type::WesternChristianArrangement;
 pub use withdraw_party_inventory_item_reducer::withdraw_party_inventory_item;
+pub use witness_claim_outcome_type::WitnessClaimOutcome;
+pub use witness_claim_resolution_type::WitnessClaimResolution;
 pub use witness_social_action_receipt_type::WitnessSocialActionReceipt;
 pub use woodland_type::Woodland;
 pub use world_clock_table::*;
@@ -1982,7 +2010,7 @@ pub enum Reducer {
         dose_milliunits: u32,
     },
     AdmitHouseholdOccupant {
-        owner_character_id: u64,
+        holder_character_id: u64,
         holding_id: String,
         occupant_id: u64,
     },
@@ -2073,8 +2101,7 @@ pub enum Reducer {
     },
     BuyResidence {
         character_id: u64,
-        settlement_id: String,
-        tier: HousingTier,
+        property_id: String,
     },
     CancelMissionRequest {
         character_id: u64,
@@ -2501,6 +2528,9 @@ pub enum Reducer {
         character_id: u64,
         object_id: u64,
     },
+    RegisterSettlementProperties {
+        catalog_json: String,
+    },
     RegisterStrategicGateway {
         terrain_package_digest: Option<String>,
         terrain_schema: u32,
@@ -2514,7 +2544,7 @@ pub enum Reducer {
         holding_id: String,
     },
     RemoveHouseholdOccupant {
-        owner_character_id: u64,
+        holder_character_id: u64,
         holding_id: String,
         occupant_id: u64,
     },
@@ -2533,8 +2563,7 @@ pub enum Reducer {
     },
     RentResidence {
         character_id: u64,
-        settlement_id: String,
-        tier: HousingTier,
+        property_id: String,
     },
     ReplaceItemAtPlacement {
         character_id: u64,
@@ -3005,6 +3034,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::RefreshCapabilities { .. } => "refresh_capabilities",
             Reducer::RefreshStrategicCondition { .. } => "refresh_strategic_condition",
             Reducer::RefreshTincture { .. } => "refresh_tincture",
+            Reducer::RegisterSettlementProperties { .. } => "register_settlement_properties",
             Reducer::RegisterStrategicGateway { .. } => "register_strategic_gateway",
             Reducer::RejectPartyJoinRequest { .. } => "reject_party_join_request",
             Reducer::RelinquishResidence { .. } => "relinquish_residence",
@@ -3164,11 +3194,11 @@ impl __sdk::Reducer for Reducer {
                 dose_milliunits: dose_milliunits.clone(),
 }),
             Reducer::AdmitHouseholdOccupant{
-                owner_character_id,
+                holder_character_id,
                 holding_id,
                 occupant_id,
 }             => __sats::bsatn::to_vec(&admit_household_occupant_reducer::AdmitHouseholdOccupantArgs {
-                owner_character_id: owner_character_id.clone(),
+                holder_character_id: holder_character_id.clone(),
                 holding_id: holding_id.clone(),
                 occupant_id: occupant_id.clone(),
 }),
@@ -3328,12 +3358,10 @@ impl __sdk::Reducer for Reducer {
 }),
             Reducer::BuyResidence{
                 character_id,
-                settlement_id,
-                tier,
+                property_id,
 }             => __sats::bsatn::to_vec(&buy_residence_reducer::BuyResidenceArgs {
                 character_id: character_id.clone(),
-                settlement_id: settlement_id.clone(),
-                tier: tier.clone(),
+                property_id: property_id.clone(),
 }),
             Reducer::CancelMissionRequest{
                 character_id,
@@ -4102,6 +4130,11 @@ impl __sdk::Reducer for Reducer {
                 character_id: character_id.clone(),
                 object_id: object_id.clone(),
 }),
+            Reducer::RegisterSettlementProperties{
+                catalog_json,
+}             => __sats::bsatn::to_vec(&register_settlement_properties_reducer::RegisterSettlementPropertiesArgs {
+                catalog_json: catalog_json.clone(),
+}),
             Reducer::RegisterStrategicGateway{
                 terrain_package_digest,
                 terrain_schema,
@@ -4124,11 +4157,11 @@ impl __sdk::Reducer for Reducer {
                 holding_id: holding_id.clone(),
 }),
             Reducer::RemoveHouseholdOccupant{
-                owner_character_id,
+                holder_character_id,
                 holding_id,
                 occupant_id,
 }             => __sats::bsatn::to_vec(&remove_household_occupant_reducer::RemoveHouseholdOccupantArgs {
-                owner_character_id: owner_character_id.clone(),
+                holder_character_id: holder_character_id.clone(),
                 holding_id: holding_id.clone(),
                 occupant_id: occupant_id.clone(),
 }),
@@ -4157,12 +4190,10 @@ impl __sdk::Reducer for Reducer {
 }),
             Reducer::RentResidence{
                 character_id,
-                settlement_id,
-                tier,
+                property_id,
 }             => __sats::bsatn::to_vec(&rent_residence_reducer::RentResidenceArgs {
                 character_id: character_id.clone(),
-                settlement_id: settlement_id.clone(),
-                tier: tier.clone(),
+                property_id: property_id.clone(),
 }),
             Reducer::ReplaceItemAtPlacement{
                 character_id,
@@ -4800,6 +4831,7 @@ pub struct DbUpdate {
     autoresolve_report: __sdk::TableUpdate<AutoresolveReport>,
     backend_authority_arrest_actions: __sdk::TableUpdate<BackendAuthorityArrestAction>,
     backend_automatic_social_chats: __sdk::TableUpdate<AutomaticSocialChat>,
+    backend_available_residence_properties: __sdk::TableUpdate<AvailableResidenceProperty>,
     backend_bestiary_deductions: __sdk::TableUpdate<BackendBestiaryDeduction>,
     backend_browser_character_access: __sdk::TableUpdate<BackendBrowserCharacterAccess>,
     backend_case_battles: __sdk::TableUpdate<BackendCaseBattle>,
@@ -4846,6 +4878,7 @@ pub struct DbUpdate {
     backend_forage_receipts: __sdk::TableUpdate<BackendForageReceipt>,
     backend_hostile_negotiations: __sdk::TableUpdate<BackendHostileNegotiation>,
     backend_hostile_surrenders: __sdk::TableUpdate<BackendHostileSurrender>,
+    backend_household_property_occupancies: __sdk::TableUpdate<BackendHouseholdPropertyOccupancy>,
     backend_ingredient_preparation_plans: __sdk::TableUpdate<BackendIngredientPreparationPlan>,
     backend_investigation_action_outcomes: __sdk::TableUpdate<BackendInvestigationActionOutcome>,
     backend_investigation_actions: __sdk::TableUpdate<BackendInvestigationAction>,
@@ -4914,6 +4947,8 @@ pub struct DbUpdate {
     settlement_alias: __sdk::TableUpdate<SettlementAlias>,
     settlement_description: __sdk::TableUpdate<SettlementDescription>,
     settlement_outbreak: __sdk::TableUpdate<SettlementOutbreak>,
+    settlement_property: __sdk::TableUpdate<SettlementProperty>,
+    settlement_property_manifest: __sdk::TableUpdate<SettlementPropertyManifest>,
     settlement_residence_offer: __sdk::TableUpdate<SettlementResidenceOffer>,
     settlement_resident_presence: __sdk::TableUpdate<SettlementResidentPresence>,
     settlement_smith: __sdk::TableUpdate<SettlementSmith>,
@@ -4950,6 +4985,13 @@ impl TryFrom<__ws::v2::TransactionUpdate> for DbUpdate {
                 "backend_automatic_social_chats" => {
                     db_update.backend_automatic_social_chats.append(
                         backend_automatic_social_chats_table::parse_table_update(table_update)?,
+                    )
+                }
+                "backend_available_residence_properties" => {
+                    db_update.backend_available_residence_properties.append(
+                        backend_available_residence_properties_table::parse_table_update(
+                            table_update,
+                        )?,
                     )
                 }
                 "backend_bestiary_deductions" => db_update.backend_bestiary_deductions.append(
@@ -5124,6 +5166,13 @@ impl TryFrom<__ws::v2::TransactionUpdate> for DbUpdate {
                 "backend_hostile_surrenders" => db_update.backend_hostile_surrenders.append(
                     backend_hostile_surrenders_table::parse_table_update(table_update)?,
                 ),
+                "backend_household_property_occupancies" => {
+                    db_update.backend_household_property_occupancies.append(
+                        backend_household_property_occupancies_table::parse_table_update(
+                            table_update,
+                        )?,
+                    )
+                }
                 "backend_ingredient_preparation_plans" => {
                     db_update.backend_ingredient_preparation_plans.append(
                         backend_ingredient_preparation_plans_table::parse_table_update(
@@ -5353,6 +5402,12 @@ impl TryFrom<__ws::v2::TransactionUpdate> for DbUpdate {
                 "settlement_outbreak" => db_update
                     .settlement_outbreak
                     .append(settlement_outbreak_table::parse_table_update(table_update)?),
+                "settlement_property" => db_update
+                    .settlement_property
+                    .append(settlement_property_table::parse_table_update(table_update)?),
+                "settlement_property_manifest" => db_update.settlement_property_manifest.append(
+                    settlement_property_manifest_table::parse_table_update(table_update)?,
+                ),
                 "settlement_residence_offer" => db_update.settlement_residence_offer.append(
                     settlement_residence_offer_table::parse_table_update(table_update)?,
                 ),
@@ -5604,6 +5659,18 @@ impl __sdk::DbUpdate for DbUpdate {
                 &self.settlement_outbreak,
             )
             .with_updates_by_pk(|row| &row.id);
+        diff.settlement_property = cache
+            .apply_diff_to_table::<SettlementProperty>(
+                "settlement_property",
+                &self.settlement_property,
+            )
+            .with_updates_by_pk(|row| &row.id);
+        diff.settlement_property_manifest = cache
+            .apply_diff_to_table::<SettlementPropertyManifest>(
+                "settlement_property_manifest",
+                &self.settlement_property_manifest,
+            )
+            .with_updates_by_pk(|row| &row.settlement_id);
         diff.settlement_residence_offer = cache
             .apply_diff_to_table::<SettlementResidenceOffer>(
                 "settlement_residence_offer",
@@ -5661,6 +5728,11 @@ impl __sdk::DbUpdate for DbUpdate {
             "backend_automatic_social_chats",
             &self.backend_automatic_social_chats,
         );
+        diff.backend_available_residence_properties = cache
+            .apply_diff_to_table::<AvailableResidenceProperty>(
+                "backend_available_residence_properties",
+                &self.backend_available_residence_properties,
+            );
         diff.backend_bestiary_deductions = cache.apply_diff_to_table::<BackendBestiaryDeduction>(
             "backend_bestiary_deductions",
             &self.backend_bestiary_deductions,
@@ -5851,6 +5923,11 @@ impl __sdk::DbUpdate for DbUpdate {
             "backend_hostile_surrenders",
             &self.backend_hostile_surrenders,
         );
+        diff.backend_household_property_occupancies = cache
+            .apply_diff_to_table::<BackendHouseholdPropertyOccupancy>(
+                "backend_household_property_occupancies",
+                &self.backend_household_property_occupancies,
+            );
         diff.backend_ingredient_preparation_plans = cache
             .apply_diff_to_table::<BackendIngredientPreparationPlan>(
                 "backend_ingredient_preparation_plans",
@@ -5995,6 +6072,9 @@ impl __sdk::DbUpdate for DbUpdate {
                 "backend_automatic_social_chats" => db_update
                     .backend_automatic_social_chats
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
+                "backend_available_residence_properties" => db_update
+                    .backend_available_residence_properties
+                    .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
                 "backend_bestiary_deductions" => db_update
                     .backend_bestiary_deductions
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
@@ -6132,6 +6212,9 @@ impl __sdk::DbUpdate for DbUpdate {
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
                 "backend_hostile_surrenders" => db_update
                     .backend_hostile_surrenders
+                    .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
+                "backend_household_property_occupancies" => db_update
+                    .backend_household_property_occupancies
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
                 "backend_ingredient_preparation_plans" => db_update
                     .backend_ingredient_preparation_plans
@@ -6333,6 +6416,12 @@ impl __sdk::DbUpdate for DbUpdate {
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
                 "settlement_outbreak" => db_update
                     .settlement_outbreak
+                    .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
+                "settlement_property" => db_update
+                    .settlement_property
+                    .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
+                "settlement_property_manifest" => db_update
+                    .settlement_property_manifest
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
                 "settlement_residence_offer" => db_update
                     .settlement_residence_offer
@@ -6401,6 +6490,9 @@ impl __sdk::DbUpdate for DbUpdate {
                 "backend_automatic_social_chats" => db_update
                     .backend_automatic_social_chats
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
+                "backend_available_residence_properties" => db_update
+                    .backend_available_residence_properties
+                    .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
                 "backend_bestiary_deductions" => db_update
                     .backend_bestiary_deductions
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
@@ -6538,6 +6630,9 @@ impl __sdk::DbUpdate for DbUpdate {
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
                 "backend_hostile_surrenders" => db_update
                     .backend_hostile_surrenders
+                    .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
+                "backend_household_property_occupancies" => db_update
+                    .backend_household_property_occupancies
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
                 "backend_ingredient_preparation_plans" => db_update
                     .backend_ingredient_preparation_plans
@@ -6740,6 +6835,12 @@ impl __sdk::DbUpdate for DbUpdate {
                 "settlement_outbreak" => db_update
                     .settlement_outbreak
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
+                "settlement_property" => db_update
+                    .settlement_property
+                    .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
+                "settlement_property_manifest" => db_update
+                    .settlement_property_manifest
+                    .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
                 "settlement_residence_offer" => db_update
                     .settlement_residence_offer
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
@@ -6801,6 +6902,7 @@ pub struct AppliedDiff<'r> {
     autoresolve_report: __sdk::TableAppliedDiff<'r, AutoresolveReport>,
     backend_authority_arrest_actions: __sdk::TableAppliedDiff<'r, BackendAuthorityArrestAction>,
     backend_automatic_social_chats: __sdk::TableAppliedDiff<'r, AutomaticSocialChat>,
+    backend_available_residence_properties: __sdk::TableAppliedDiff<'r, AvailableResidenceProperty>,
     backend_bestiary_deductions: __sdk::TableAppliedDiff<'r, BackendBestiaryDeduction>,
     backend_browser_character_access: __sdk::TableAppliedDiff<'r, BackendBrowserCharacterAccess>,
     backend_case_battles: __sdk::TableAppliedDiff<'r, BackendCaseBattle>,
@@ -6851,6 +6953,8 @@ pub struct AppliedDiff<'r> {
     backend_forage_receipts: __sdk::TableAppliedDiff<'r, BackendForageReceipt>,
     backend_hostile_negotiations: __sdk::TableAppliedDiff<'r, BackendHostileNegotiation>,
     backend_hostile_surrenders: __sdk::TableAppliedDiff<'r, BackendHostileSurrender>,
+    backend_household_property_occupancies:
+        __sdk::TableAppliedDiff<'r, BackendHouseholdPropertyOccupancy>,
     backend_ingredient_preparation_plans:
         __sdk::TableAppliedDiff<'r, BackendIngredientPreparationPlan>,
     backend_investigation_action_outcomes:
@@ -6924,6 +7028,8 @@ pub struct AppliedDiff<'r> {
     settlement_alias: __sdk::TableAppliedDiff<'r, SettlementAlias>,
     settlement_description: __sdk::TableAppliedDiff<'r, SettlementDescription>,
     settlement_outbreak: __sdk::TableAppliedDiff<'r, SettlementOutbreak>,
+    settlement_property: __sdk::TableAppliedDiff<'r, SettlementProperty>,
+    settlement_property_manifest: __sdk::TableAppliedDiff<'r, SettlementPropertyManifest>,
     settlement_residence_offer: __sdk::TableAppliedDiff<'r, SettlementResidenceOffer>,
     settlement_resident_presence: __sdk::TableAppliedDiff<'r, SettlementResidentPresence>,
     settlement_smith: __sdk::TableAppliedDiff<'r, SettlementSmith>,
@@ -6969,6 +7075,11 @@ impl<'r> __sdk::AppliedDiff<'r> for AppliedDiff<'r> {
         callbacks.invoke_table_row_callbacks::<AutomaticSocialChat>(
             "backend_automatic_social_chats",
             &self.backend_automatic_social_chats,
+            event,
+        );
+        callbacks.invoke_table_row_callbacks::<AvailableResidenceProperty>(
+            "backend_available_residence_properties",
+            &self.backend_available_residence_properties,
             event,
         );
         callbacks.invoke_table_row_callbacks::<BackendBestiaryDeduction>(
@@ -7199,6 +7310,11 @@ impl<'r> __sdk::AppliedDiff<'r> for AppliedDiff<'r> {
         callbacks.invoke_table_row_callbacks::<BackendHostileSurrender>(
             "backend_hostile_surrenders",
             &self.backend_hostile_surrenders,
+            event,
+        );
+        callbacks.invoke_table_row_callbacks::<BackendHouseholdPropertyOccupancy>(
+            "backend_household_property_occupancies",
+            &self.backend_household_property_occupancies,
             event,
         );
         callbacks.invoke_table_row_callbacks::<BackendIngredientPreparationPlan>(
@@ -7510,6 +7626,16 @@ impl<'r> __sdk::AppliedDiff<'r> for AppliedDiff<'r> {
         callbacks.invoke_table_row_callbacks::<SettlementOutbreak>(
             "settlement_outbreak",
             &self.settlement_outbreak,
+            event,
+        );
+        callbacks.invoke_table_row_callbacks::<SettlementProperty>(
+            "settlement_property",
+            &self.settlement_property,
+            event,
+        );
+        callbacks.invoke_table_row_callbacks::<SettlementPropertyManifest>(
+            "settlement_property_manifest",
+            &self.settlement_property_manifest,
             event,
         );
         callbacks.invoke_table_row_callbacks::<SettlementResidenceOffer>(
@@ -8234,6 +8360,7 @@ impl __sdk::SpacetimeModule for RemoteModule {
         autoresolve_report_table::register_table(client_cache);
         backend_authority_arrest_actions_table::register_table(client_cache);
         backend_automatic_social_chats_table::register_table(client_cache);
+        backend_available_residence_properties_table::register_table(client_cache);
         backend_bestiary_deductions_table::register_table(client_cache);
         backend_browser_character_access_table::register_table(client_cache);
         backend_case_battles_table::register_table(client_cache);
@@ -8280,6 +8407,7 @@ impl __sdk::SpacetimeModule for RemoteModule {
         backend_forage_receipts_table::register_table(client_cache);
         backend_hostile_negotiations_table::register_table(client_cache);
         backend_hostile_surrenders_table::register_table(client_cache);
+        backend_household_property_occupancies_table::register_table(client_cache);
         backend_ingredient_preparation_plans_table::register_table(client_cache);
         backend_investigation_action_outcomes_table::register_table(client_cache);
         backend_investigation_actions_table::register_table(client_cache);
@@ -8347,6 +8475,8 @@ impl __sdk::SpacetimeModule for RemoteModule {
         settlement_alias_table::register_table(client_cache);
         settlement_description_table::register_table(client_cache);
         settlement_outbreak_table::register_table(client_cache);
+        settlement_property_table::register_table(client_cache);
+        settlement_property_manifest_table::register_table(client_cache);
         settlement_residence_offer_table::register_table(client_cache);
         settlement_resident_presence_table::register_table(client_cache);
         settlement_smith_table::register_table(client_cache);
@@ -8367,6 +8497,7 @@ impl __sdk::SpacetimeModule for RemoteModule {
         "autoresolve_report",
         "backend_authority_arrest_actions",
         "backend_automatic_social_chats",
+        "backend_available_residence_properties",
         "backend_bestiary_deductions",
         "backend_browser_character_access",
         "backend_case_battles",
@@ -8413,6 +8544,7 @@ impl __sdk::SpacetimeModule for RemoteModule {
         "backend_forage_receipts",
         "backend_hostile_negotiations",
         "backend_hostile_surrenders",
+        "backend_household_property_occupancies",
         "backend_ingredient_preparation_plans",
         "backend_investigation_action_outcomes",
         "backend_investigation_actions",
@@ -8480,6 +8612,8 @@ impl __sdk::SpacetimeModule for RemoteModule {
         "settlement_alias",
         "settlement_description",
         "settlement_outbreak",
+        "settlement_property",
+        "settlement_property_manifest",
         "settlement_residence_offer",
         "settlement_resident_presence",
         "settlement_smith",

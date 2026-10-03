@@ -1,15 +1,13 @@
 /// Context interval, occupancy, and observer visibility rules.
 fn context_interval_is_well_formed(
-    active: bool,
     entered_at: StrategicMinute,
     left_at: Option<StrategicMinute>,
 ) -> bool {
-    active == left_at.is_none() && left_at.is_none_or(|left_at| left_at >= entered_at)
+    left_at.is_none_or(|left_at| left_at >= entered_at)
 }
 
 pub(crate) fn context_membership_interval_is_well_formed(row: &CharacterContextMembership) -> bool {
     context_interval_is_well_formed(
-        row.active,
         row.entered_at,
         row.left_at,
     )
@@ -138,7 +136,7 @@ pub(crate) fn character_alive_at_for_view(
             .character_birth()
             .character_id()
             .find(character_id)
-            .is_none_or(|birth| minute.is_at_or_after_signed_birth(birth.birth_minute))
+            .is_some_and(|birth| minute.is_at_or_after_signed_birth(birth.birth_minute))
         && ctx
             .db
             .character_death()

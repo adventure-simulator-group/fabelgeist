@@ -230,78 +230,6 @@ pub struct DialoguePrompt {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-enum DialoguePromptMode {
-    YesNo,
-    Single,
-    Multi,
-}
-
-impl DialoguePromptMode {
-    const fn stable_id(self) -> &'static str {
-        match self {
-            Self::YesNo => "YesNo",
-            Self::Single => "Single",
-            Self::Multi => "Multi",
-        }
-    }
-
-    fn from_authored(value: &adventuresim_dialogue::PromptMode) -> Self {
-        match value {
-            adventuresim_dialogue::PromptMode::YesNo => Self::YesNo,
-            adventuresim_dialogue::PromptMode::Single => Self::Single,
-            adventuresim_dialogue::PromptMode::Multi => Self::Multi,
-        }
-    }
-
-    fn parse(value: &str) -> Result<Self, String> {
-        match value {
-            "YesNo" => Ok(Self::YesNo),
-            "Single" => Ok(Self::Single),
-            "Multi" => Ok(Self::Multi),
-            _ => Err("Dialogue prompt has an unknown mode".into()),
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-enum DialogueResolutionPolicy {
-    FirstResponse,
-    Unanimous,
-    Majority,
-    AllRespondents,
-}
-
-impl DialogueResolutionPolicy {
-    const fn stable_id(self) -> &'static str {
-        match self {
-            Self::FirstResponse => "FirstResponse",
-            Self::Unanimous => "Unanimous",
-            Self::Majority => "Majority",
-            Self::AllRespondents => "AllRespondents",
-        }
-    }
-
-    fn from_authored(value: &adventuresim_dialogue::ResolutionPolicy) -> Self {
-        match value {
-            adventuresim_dialogue::ResolutionPolicy::FirstResponse => Self::FirstResponse,
-            adventuresim_dialogue::ResolutionPolicy::Unanimous => Self::Unanimous,
-            adventuresim_dialogue::ResolutionPolicy::Majority => Self::Majority,
-            adventuresim_dialogue::ResolutionPolicy::AllRespondents => Self::AllRespondents,
-        }
-    }
-
-    fn parse(value: &str) -> Result<Self, String> {
-        match value {
-            "FirstResponse" => Ok(Self::FirstResponse),
-            "Unanimous" => Ok(Self::Unanimous),
-            "Majority" => Ok(Self::Majority),
-            "AllRespondents" => Ok(Self::AllRespondents),
-            _ => Err("Dialogue prompt has an unknown resolution policy".into()),
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 enum DialoguePromptState {
     Open,
     Resolved,
@@ -769,8 +697,8 @@ fn require_navigable_npc_place(
 #[cfg(test)]
 mod stable_dialogue_schema_tests {
     use super::{
-        DialoguePromptMode, DialoguePromptState, DialogueResolutionPolicy, DialogueSessionState,
-        ParsedDialogueSessionId, CorpsePermissionTopicId,
+        CorpsePermissionTopicId, DialoguePromptState, DialogueSessionState,
+        ParsedDialogueSessionId, PromptMode, ResolutionPolicy,
     };
 
     #[test]
@@ -790,26 +718,26 @@ mod stable_dialogue_schema_tests {
     #[test]
     fn prompt_codes_reject_prose_and_suffix_matches() {
         for (value, expected) in [
-            ("YesNo", DialoguePromptMode::YesNo),
-            ("Single", DialoguePromptMode::Single),
-            ("Multi", DialoguePromptMode::Multi),
+            ("YesNo", PromptMode::YesNo),
+            ("Single", PromptMode::Single),
+            ("Multi", PromptMode::Multi),
         ] {
-            assert_eq!(DialoguePromptMode::parse(value).unwrap(), expected);
+            assert_eq!(PromptMode::parse(value).unwrap(), expected);
             assert_eq!(expected.stable_id(), value);
         }
         for value in ["yes/no", "PrefixYesNo", "SingleChoice", "MultiSuffix"] {
-            assert!(DialoguePromptMode::parse(value).is_err());
+            assert!(PromptMode::parse(value).is_err());
         }
         for (value, expected) in [
-            ("FirstResponse", DialogueResolutionPolicy::FirstResponse),
-            ("Unanimous", DialogueResolutionPolicy::Unanimous),
-            ("Majority", DialogueResolutionPolicy::Majority),
-            ("AllRespondents", DialogueResolutionPolicy::AllRespondents),
+            ("FirstResponse", ResolutionPolicy::FirstResponse),
+            ("Unanimous", ResolutionPolicy::Unanimous),
+            ("Majority", ResolutionPolicy::Majority),
+            ("AllRespondents", ResolutionPolicy::AllRespondents),
         ] {
-            assert_eq!(DialogueResolutionPolicy::parse(value).unwrap(), expected);
+            assert_eq!(ResolutionPolicy::parse(value).unwrap(), expected);
             assert_eq!(expected.stable_id(), value);
         }
-        assert!(DialogueResolutionPolicy::parse("FirstResponseWins").is_err());
+        assert!(ResolutionPolicy::parse("FirstResponseWins").is_err());
         assert_eq!(
             DialoguePromptState::parse("resolved")
                 .unwrap()

@@ -1,6 +1,6 @@
 {
-  "schema_version": 24,
-  "generation_version": 52,
+  "schema_version": 25,
+  "generation_version": 54,
   "seed": 47124,
   "scene_key": "city",
   "source": {
@@ -851,19 +851,19 @@
     {
       "corners_metres": [
         [
-          -27.250002,
+          -27.249998,
           -9.5
         ],
         [
-          -10.750002,
+          -10.749998,
           -9.5
         ],
         [
-          -10.750002,
+          -10.749998,
           21.5
         ],
         [
-          -27.250002,
+          -27.249998,
           21.5
         ]
       ],
@@ -873,19 +873,19 @@
       "corners_metres": [
         [
           10.75,
-          -9.5
+          -9.499998
         ],
         [
           27.25,
-          -9.5
+          -9.499998
         ],
         [
           27.25,
-          21.5
+          21.500002
         ],
         [
           10.75,
-          21.5
+          21.500002
         ]
       ],
       "surface": "packed_earth"
@@ -899,8 +899,8 @@
       "rear_building_id": 16385,
       "plot": {
         "centre_metres": [
-          -19.000002,
-          6.0
+          -18.999998,
+          5.9999995
         ],
         "dimensions_metres": [
           16.5,
@@ -922,18 +922,18 @@
       "access": [
         {
           "start_metres": [
-            -25.350002,
+            -25.349998,
             -9.75
           ],
           "end_metres": [
-            -25.350002,
+            -25.349998,
             11.25
           ],
           "half_width_metres": 0.4
         },
         {
           "start_metres": [
-            -25.350002,
+            -25.349998,
             11.25
           ],
           "end_metres": [
@@ -955,7 +955,7 @@
         },
         {
           "start_metres": [
-            -25.350002,
+            -25.349998,
             11.25
           ],
           "end_metres": [
@@ -984,16 +984,16 @@
               8.249999
             ],
             "end_metres": [
-              -11.880001,
-              20.699997
+              -11.88,
+              20.699999
             ],
             "height_metres": 1.8,
             "thickness_metres": 0.3
           },
           {
             "start_metres": [
-              -11.880001,
-              20.699997
+              -11.88,
+              20.699999
             ],
             "end_metres": [
               -26.45,
@@ -1018,7 +1018,7 @@
         "gate": {
           "hinge": "right",
           "centre_metres": [
-            -25.350002,
+            -25.349998,
             -8.25
           ],
           "orientation": 0.0,
@@ -1034,7 +1034,7 @@
       "plot": {
         "centre_metres": [
           19.0,
-          6.0
+          6.0000014
         ],
         "dimensions_metres": [
           16.5,
@@ -1045,7 +1045,7 @@
       "court": {
         "centre_metres": [
           19.0,
-          11.25
+          11.249998
         ],
         "dimensions_metres": [
           14.0,
@@ -1057,17 +1057,17 @@
         {
           "start_metres": [
             25.349998,
-            -9.75
+            -9.750003
           ],
           "end_metres": [
-            25.349998,
+            25.35,
             11.25
           ],
           "half_width_metres": 0.4
         },
         {
           "start_metres": [
-            25.349998,
+            25.35,
             11.25
           ],
           "end_metres": [
@@ -1083,29 +1083,29 @@
           ],
           "end_metres": [
             18.75,
-            8.190002
+            8.189999
           ],
           "half_width_metres": 0.4
         },
         {
           "start_metres": [
-            25.349998,
+            25.35,
             11.25
           ],
           "end_metres": [
             18.25,
-            11.25
+            11.249996
           ],
           "half_width_metres": 0.4
         },
         {
           "start_metres": [
             18.25,
-            11.25
+            11.249996
           ],
           "end_metres": [
             18.25,
-            14.348801
+            14.348803
           ],
           "half_width_metres": 0.4
         }
@@ -1114,11 +1114,23 @@
         "walls": [
           {
             "start_metres": [
-              11.879997,
-              8.25
+              11.879999,
+              8.249998
             ],
             "end_metres": [
-              11.879998,
+              11.88,
+              20.700005
+            ],
+            "height_metres": 1.8,
+            "thickness_metres": 0.3
+          },
+          {
+            "start_metres": [
+              11.88,
+              20.700005
+            ],
+            "end_metres": [
+              26.45,
               20.699997
             ],
             "height_metres": 1.8,
@@ -1126,24 +1138,12 @@
           },
           {
             "start_metres": [
-              11.879998,
+              26.45,
               20.699997
             ],
             "end_metres": [
-              26.449997,
-              20.699997
-            ],
-            "height_metres": 1.8,
-            "thickness_metres": 0.3
-          },
-          {
-            "start_metres": [
-              26.449997,
-              20.699997
-            ],
-            "end_metres": [
-              26.449997,
-              -8.25
+              26.45,
+              -8.249996
             ],
             "height_metres": 1.8,
             "thickness_metres": 0.3
@@ -1153,7 +1153,7 @@
           "hinge": "left",
           "centre_metres": [
             25.349998,
-            -8.25
+            -8.250003
           ],
           "orientation": 0.0,
           "width_metres": 1.6,
@@ -1391,7 +1391,7 @@
         "domestic_heating": null
       },
       "centre_metres": [
-        17.5,
+        17.499998,
         17.25
       ],
       "orientation": 0.0
@@ -1402,14 +1402,14 @@
         "archetype": "fachwerk-merchant-house",
         "usage": "dwelling",
         "service_size": null,
-        "seed": 10260084739764594709,
+        "seed": 7989866213631017260,
         "footprint": {
           "rectangle": {
             "width": 8,
             "depth": 11
           }
         },
-        "storey_height_metres": 3.082007,
+        "storey_height_metres": 2.8664336,
         "storeys": [
           {
             "rooms": [
@@ -1535,7 +1535,7 @@
         "wall_style": "timber_frame",
         "timber_frame_style": "early_modern_ornate",
         "upper_storey_projection_metres": 0.28,
-        "roof_pitch_degrees": 55.536797,
+        "roof_pitch_degrees": 55.428055,
         "roof_demonstrator": null,
         "church_program": null,
         "domestic_heating": "hearth_and_rear_fed_stove"
@@ -1549,6 +1549,7 @@
   ],
   "distant_buildings": [],
   "establishments": [],
+  "properties": null,
   "vista": {
     "lods": [
       {

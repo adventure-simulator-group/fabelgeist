@@ -687,3 +687,88 @@ kind = "boundary_adapter"
 path = "crates/strategic-web/src/templates/architecture.rs"
 item = "SettlementPresentation::from_active_service"
 reason = "Converts the existing serialized layout service IDs into canonical typed physical places at the template boundary."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/character/authority_tests.rs"
+reason = "Feature-gated and bootstrap-capability-guarded fault injection for isolated persistence acceptance checks."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/food/authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/social/authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/surgery/authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/relationship/leisure_authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/world_actor/contact_authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/item/authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/social/automatic_authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/strategic/challenge_state/authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/world_event/authority_tests.rs"
+reason = "Feature-gated, bootstrap-capability-guarded behavioral checks in an isolated disposable database."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/strategic/outcome_fact_authority_tests.rs"
+reason = "Bootstrap-token-guarded isolated outcome payload and retry acceptance fixtures."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs"
+reason = "Bootstrap-token-guarded isolated outbreak lifecycle acceptance fixtures."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/disease/authority_tests.rs"
+reason = "Feature-gated bootstrap-capability-guarded disease storage and rollback acceptance fixtures."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/social/action_authority_tests.rs"
+reason = "Feature-gated bootstrap-capability-guarded social request and execution acceptance fixtures."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-stdb-module/src/investigation/authority_tests.rs"
+reason = "Feature-gated bootstrap-capability-guarded investigation storage, snapshot, and prerequisite acceptance fixtures."

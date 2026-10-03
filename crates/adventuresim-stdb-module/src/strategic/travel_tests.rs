@@ -1,12 +1,10 @@
 #[cfg(test)]
 mod departure_invariant_tests {
-    use adventuresim_world_schema::calendar::StrategicMinute;
     use super::{
-        CaseSiteId, JourneyCaseSiteEndpoint, JourneyEndpoint, JourneyPrecipitation,
-        JourneyRoutePlan, JourneyRoutePoint, JourneySettlementEndpoint, JourneyTerrainKind,
-        JourneyTerrainSpan, JourneyTerrainWeights, Party, PartyJourneyRoute,
-        DEFAULT_JOURNEY_START_MINUTE_OF_DAY, DEFAULT_WALKING_MINUTES_PER_DAY,
-        authoritative_case_route_binding_digest,
+        CaseSiteId, DEFAULT_JOURNEY_START_MINUTE_OF_DAY, DEFAULT_WALKING_MINUTES_PER_DAY,
+        JourneyCaseSiteEndpoint, JourneyEndpoint, JourneyRoutePlan, JourneyRoutePoint,
+        JourneySettlementEndpoint, JourneyTerrainKind, JourneyTerrainSpan, JourneyTerrainWeights,
+        Party, PartyJourneyRoute, Precipitation, authoritative_case_route_binding_digest,
         authoritative_straight_line_case_route, common_movement_prefix, core_encounter_terrain,
         departure_requires_ready_party, departure_snapshot_allows_travel,
         encode_position_e7, journey_elapsed_after_delay, party_can_continue_travel,
@@ -16,6 +14,7 @@ mod departure_invariant_tests {
         validate_journey_route_payload, validate_route_departure_weather_interval,
         zero_boundary_requires_settlement,
     };
+    use adventuresim_world_schema::calendar::StrategicMinute;
 
     #[test]
     fn authoritative_case_route_binding_has_a_fixed_versioned_vector() {
@@ -332,7 +331,10 @@ mod departure_invariant_tests {
         let between = camp_source
             .split("pub(crate) fn party_journey_is_between_camps")
             .nth(1)
-            .and_then(|tail| tail.split("pub(crate) fn current_journey_camp_place").next())
+            .and_then(|tail| {
+                tail.split("pub(crate) fn current_journey_camp_place")
+                    .next()
+            })
             .expect("between-camps journey predicate");
         assert!(between.contains("party_journey_is_active"));
         assert!(between.contains("!journey"));
@@ -385,7 +387,7 @@ mod departure_invariant_tests {
             package_digest: "a".repeat(64),
             weather_rules_version: adventuresim_core::weather::WEATHER_RULES_VERSION,
             weather_interval_start: StrategicMinute::ZERO,
-            precipitation: JourneyPrecipitation::Clear,
+            precipitation: Precipitation::Clear,
             intensity_bps: 0,
             ground_moisture_bps: 0,
             snow_cover_bps: 0,
@@ -467,7 +469,7 @@ mod departure_invariant_tests {
         assert!(validate_journey_route_payload(&bad, (10.0, 53.0), (10.01, 53.0)).is_err());
 
         let mut bad = route.clone();
-        bad.precipitation = JourneyPrecipitation::Clear;
+        bad.precipitation = Precipitation::Clear;
         bad.intensity_bps = 1;
         assert!(validate_journey_route_payload(&bad, (10.0, 53.0), (10.01, 53.0)).is_err());
 

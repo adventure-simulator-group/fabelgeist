@@ -5,6 +5,10 @@
     reason = "runtime deserialization validates the complete schema without reading every field"
 )]
 
+#[path = "authoring_schema/policy.rs"]
+pub mod policy;
+pub use policy::{PromptMode, ResolutionPolicy};
+
 use adventuresim_world_schema::Sex;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
@@ -104,22 +108,6 @@ pub struct AuthoringPrompt {
     pub choices: Vec<AuthoringChoice>,
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum PromptMode {
-    YesNo,
-    Single,
-    Multi,
-}
-
-#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum ResolutionPolicy {
-    FirstResponse,
-    Unanimous,
-    Majority,
-    AllRespondents,
-}
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct AuthoringChoice {

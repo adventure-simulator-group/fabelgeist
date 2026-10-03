@@ -12,7 +12,7 @@ fn wedding_contract_uses_effective_history_and_records_one_dowry_outcome() {
     assert!(wedding.contains("character_alive_at"));
     assert!(wedding.contains("holding.acquired_minute <= effective_minute"));
     assert!(wedding.contains("resolved > effective_minute"));
-    assert!(wedding.contains("move_residence_occupant_effective"));
+    assert!(wedding.contains("move_residence_occupant_at"));
     assert!(wedding.contains("dowry_escrow()"));
     assert!(wedding.contains("dowry_outcome()"));
     assert!(wedding.contains("commitment_id()"));

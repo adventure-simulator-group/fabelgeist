@@ -19,7 +19,9 @@ pub struct CaseAuthority {
 
 /// Immutable private replay authority for one generated case. The manifest and
 /// factor trace include canonical truth and must never be exposed by a public
-/// table or view.
+/// table or view. Indexed metadata is derived at materialization and remains
+/// immutable with the manifest; `validate_quest_generation_authority` checks
+/// their agreement before replay-sensitive consumption.
 #[derive(Clone, Debug)]
 #[table(accessor = quest_generation_authority)]
 pub struct QuestGenerationAuthority {
@@ -168,22 +170,16 @@ impl ContractAuthority {
     /// Parse the flattened row before lifecycle-sensitive reducer logic uses it.
     pub fn parsed_state(
         &self,
-    ) -> Result<adventuresim_core::strategic_state::ContractState, String> {
-        use adventuresim_core::strategic_state::FlatContractStatus as Flat;
-        let status = match self.status {
-            ContractStatus::Offered => Flat::Offered,
-            ContractStatus::Accepted => Flat::Accepted,
-            ContractStatus::ReadyToReport => Flat::ReadyToReport,
-            ContractStatus::Paid => Flat::Paid,
-            ContractStatus::Withdrawn => Flat::Withdrawn,
-        };
+    ) -> Result<
+        adventuresim_core::strategic_state::ContractState,
+        adventuresim_core::strategic_state::StateParseError,
+    > {
         adventuresim_core::strategic_state::ContractState::parse(
-            status,
+            self.status,
             self.accepted_by.clone(),
             self.accepted_at_minute,
             self.paid_at_minute,
         )
-        .map_err(|error| error.to_string())
     }
 }
 
@@ -298,6 +294,8 @@ pub fn backend_contracts(ctx: &ViewContext) -> Vec<BackendContract> {
 }
 
 #[derive(Clone, Debug)]
+/// Terminal case result. Finale execution is owned by its immutable receipt,
+/// not a second mutable checkpoint on this outcome.
 #[table(accessor = case_outcome)]
 pub struct CaseOutcome {
     #[primary_key]
@@ -307,10 +305,11 @@ pub struct CaseOutcome {
     pub winning_path_index: Option<u16>,
     pub resolved_at_minute: StrategicMinute,
     pub selected_finale_id: String,
-    pub finale_executed: bool,
 }
 
 #[derive(Clone, Debug)]
+/// The fact payload owns semantic content; indexed identity columns adapt its
+/// keys for storage. `ingest_case_outcome_fact` creates them together.
 #[table(accessor = case_outcome_fact)]
 pub struct CaseOutcomeFact {
     #[primary_key]
@@ -322,7 +321,6 @@ pub struct CaseOutcomeFact {
     #[unique]
     pub source_id: String,
     pub fact_json: String,
-    pub happened_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -348,6 +346,8 @@ pub enum ObjectiveContinuityKind {
 
 /// Private continuous-history guard. A deadline is satisfiable only when this
 /// row has remained unbroken from `started_at_minute` through the deadline.
+/// `completed` checkpoints the committed outcome fact; reaching the deadline
+/// alone cannot prove that ingestion and its effects have completed.
 #[derive(Clone, Debug)]
 #[table(accessor = objective_continuity_guard)]
 pub struct ObjectiveContinuityGuard {
@@ -382,6 +382,8 @@ pub struct CaseFinaleAuthority {
 }
 
 #[derive(Clone, Debug)]
+/// Immutable execution receipt, inserted with effects by `execute_case_finale`.
+/// Presence owns completed execution and exact retries reuse it without effects.
 #[table(accessor = case_finale_execution)]
 pub struct CaseFinaleExecution {
     #[primary_key]
@@ -544,6 +546,7 @@ pub struct Party {
     pub current_settlement_id: Option<String>,
     pub current_case_site_id: Option<CaseSiteId>,
     pub active_contract_id: Option<String>,
+    /// Living membership projection maintained by party governance refresh.
     pub is_solo: bool,
     /// The fatigue level at which the first tiring party member makes camp.
     #[default(50u8)]
@@ -812,7 +815,7 @@ pub struct JourneyRoutePlan {
     pub package_digest: String,
     pub weather_rules_version: u16,
     pub weather_interval_start: StrategicMinute,
-    pub precipitation: JourneyPrecipitation,
+    pub precipitation: Precipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,
     pub snow_cover_bps: u16,
@@ -821,13 +824,6 @@ pub struct JourneyRoutePlan {
     pub points: Vec<JourneyRoutePoint>,
     pub spans: Vec<JourneyTerrainSpan>,
     pub return_route: Option<JourneyRouteLeg>,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum JourneyPrecipitation {
-    Clear,
-    Rain,
-    Snow,
 }
 
 #[derive(Clone, Debug)]
@@ -840,7 +836,7 @@ pub struct PartyJourneyRoute {
     pub package_digest: String,
     pub weather_rules_version: u16,
     pub weather_interval_start: StrategicMinute,
-    pub precipitation: JourneyPrecipitation,
+    pub precipitation: Precipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,
     pub snow_cover_bps: u16,
@@ -1080,6 +1076,9 @@ pub fn set_inventory_quantity_target(
     Ok(())
 }
 
+/// Member contribution entitlement, owned by inventory-trade transactions.
+/// Deposits credit it; withdrawals and stake-funded purchases debit it. It is
+/// distinct from the current item or coin count in the pooled inventory.
 #[derive(Clone, Debug)]
 #[table(accessor = party_stake, public)]
 pub struct PartyStake {
@@ -1093,6 +1092,9 @@ pub struct PartyStake {
     pub value: u64,
 }
 
+/// Communal unallocated value, owned by inventory-trade transactions.
+/// Reward/reserve credits and final disband settlement maintain this ledger;
+/// it is distinct from member stakes and current physical currency stacks.
 #[derive(Clone, Debug)]
 #[table(accessor = party_inventory_state, public)]
 pub struct PartyInventoryState {
@@ -1223,8 +1225,8 @@ pub struct MissionAuthority {
     pub scene_key: String,
     /// Immutable combat/loot snapshot captured when this mission binds.
     pub hostile_version: u16,
-    pub enemy_count: u32,
-    /// Immutable exact roster captured at bind time.
+    /// Immutable exact roster captured at bind time; it owns bound cardinality.
+    /// Live hostile-group escalation never changes this snapshot.
     pub enemy_character_ids: Vec<u64>,
     /// Immutable awareness snapshot. Contact removes the party's opening surprise.
     pub contacted_before_combat: bool,
@@ -1239,52 +1241,21 @@ impl MissionAuthority {
     /// Parse the flattened storage representation into its valid sum type.
     pub fn parsed_state(
         &self,
-    ) -> Result<adventuresim_core::strategic_state::MissionAttemptState, String> {
-        use adventuresim_core::strategic_state::{
-            FlatMissionState, FlatMissionStatus as Status, FlatResolution as Resolution,
-        };
-        adventuresim_core::strategic_state::MissionAttemptState::parse(FlatMissionState {
-            status: match self.status {
-                MissionAttemptStatus::Bound => Status::Bound,
-                MissionAttemptStatus::Committed => Status::Committed,
-                MissionAttemptStatus::Failed => Status::Failed,
-                MissionAttemptStatus::Cancelled => Status::Cancelled,
+    ) -> Result<
+        adventuresim_core::strategic_state::MissionAttemptState,
+        adventuresim_core::strategic_state::StateParseError,
+    > {
+        adventuresim_core::strategic_state::MissionAttemptState::parse(
+            adventuresim_core::strategic_state::FlatMissionState {
+                status: self.status,
+                case_site_id: self.case_site_id.clone(),
+                hostile_group_id: self.hostile_group_id.clone(),
+                resolution: self.committed_resolution,
+                subject_id: self.committed_capture_subject_id.clone(),
+                custody_version: self.committed_capture_custody_version,
             },
-            case_site_id: self.case_site_id.clone(),
-            hostile_group_id: self.hostile_group_id.clone(),
-            resolution: self
-                .committed_resolution
-                .map(|resolution| match resolution {
-                    HostileResolutionKind::Defeated => Resolution::Defeated,
-                    HostileResolutionKind::DrivenOff => Resolution::DrivenOff,
-                    HostileResolutionKind::Surrendered => Resolution::Surrendered,
-                    HostileResolutionKind::Captured => Resolution::Captured,
-                    HostileResolutionKind::CaptureTargetKilled => Resolution::CaptureTargetKilled,
-                }),
-            subject_id: self.committed_capture_subject_id.clone(),
-            custody_version: self.committed_capture_custody_version,
-        })
-        .map_err(|error| error.to_string())
+        )
     }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum MissionAttemptStatus {
-    Bound,
-    Committed,
-    Failed,
-    Cancelled,
-}
-
-#[derive(
-    Clone, Copy, Debug, PartialEq, Eq, SpacetimeType, serde::Serialize, serde::Deserialize,
-)]
-pub enum HostileResolutionKind {
-    Defeated,
-    DrivenOff,
-    Surrendered,
-    Captured,
-    CaptureTargetKilled,
 }
 
 /// Private observer-authorized approach authority. These rows are exact,

@@ -4,6 +4,7 @@
 //! defined here are deliberately narrower presentation or joined-query views;
 //! none duplicate a persisted row.
 
+use super::item_kind::catalog_item_kind;
 pub use adventuresim_core::{
     capability::RoleRequirements,
     investigation_action::{InvestigationActionAvailability, InvestigationActionUnavailableReason},
@@ -11,6 +12,7 @@ pub use adventuresim_core::{
         EquipmentBodyPart, EquipmentChannel, EquipmentLocation, OccupancyRequirement,
         ParentRequirement, Slot,
     },
+    item_classification::CatalogItemKind,
     personality::{
         Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
         Personality, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance,
@@ -25,37 +27,36 @@ use adventuresim_core::{
 };
 use adventuresim_stdb_client as sats;
 pub use adventuresim_stdb_client::{
-    AffinityBand, AlcoholConsumption, AutomaticSocialChat, AutoresolveReport,
+    AffinityBand, AgeBand, AlcoholConsumption, AutomaticSocialChat, AutoresolveReport,
     BackendBestiaryDeduction, BackendBrowserCharacterAccess, BackendCaseSitePin, BackendChallenge,
     BackendCharacterCaseSiteLocation, BackendCharacterRelationshipStatus,
-    BackendCharacterResidenceStatus, BackendContextCharacter, BackendContextualDecision,
-    BackendContract, BackendCorpse, BackendDevelopmentQuest, BackendDevelopmentScenario,
-    BackendDialogueEvent, BackendDialogueParticipant, BackendDialoguePrompt,
-    BackendDialogueSession, BackendDialogueTopicOption, BackendDialogueWitnessClaim,
-    BackendFamilyChild, BackendFireplaceDish, BackendFireplaceStation, BackendForageAttemptState,
-    BackendForageReceipt, BackendHostileNegotiation, BackendHostileSurrender,
-    BackendIngredientPreparationPlan, BackendInvestigationAction, BackendInvestigationCaseSummary,
-    BackendInvestigationJournalEntry, BackendInvestigationLead, BackendLocalChatMessage,
-    BackendLocalProblemTradeEffect, BackendOrganizationMembership, BackendPhysicalEvidence,
-    BackendPhysicalEvidenceInspection, BackendPhysiologyAdministration, BackendPhysiologyChart,
-    BackendRoadChallenge, BackendSettlementResident, BackendSettlementResidentRelationship,
-    BackendSocialChatReceipt, BackendTinctureStatus, BattleLootItem, BattleResult,
-    ChallengePresenterCatalogId, CharacterAffinity, CharacterAttributes, CharacterCapability,
-    CharacterCondition, CharacterDeath, CharacterFamiliarity, CharacterFilth, CharacterLimbs,
-    CharacterMoraleSource, CharacterNeeds, CharacterSettlementReputation, CharacterSkills,
-    CharacterStats, CharacterStrategicCondition, CharacterTime, CharacterTrainingSchedule,
-    ChildActivityFocus, ChildStage, ContainerLiquid, ContractStatus, CourtshipKind,
-    DestinationKnowledgeStage, EquipmentAnchorKind, EquipmentOccupancy, FamiliarityBand, FoodLot,
-    HostileSurrenderMode, HousingTier, IngredientPreparationAction, InventoryContainment,
-    InventoryItem, InventoryItemAmount, InventoryLocation, InventoryObject,
-    InventoryQuantityTarget, ItemCondition, JourneyCampInterval, JourneyEndpoint,
-    JourneyPrecipitation, JourneyRouteLeg, JourneyRoutePoint, JourneyTerrainKind,
-    JourneyTerrainSpan, LimbInjury, MoraleBand, NpcAgeBand, NpcPresentation,
+    BackendCharacterResidenceStatus, BackendContextCharacter, BackendContract, BackendCorpse,
+    BackendDevelopmentQuest, BackendDevelopmentScenario, BackendDialogueEvent,
+    BackendDialogueParticipant, BackendDialoguePrompt, BackendDialogueSession,
+    BackendDialogueTopicOption, BackendDialogueWitnessClaim, BackendFamilyChild,
+    BackendFireplaceDish, BackendFireplaceStation, BackendForageAttemptState, BackendForageReceipt,
+    BackendHostileNegotiation, BackendHostileSurrender, BackendIngredientPreparationPlan,
+    BackendInvestigationAction, BackendInvestigationCaseSummary, BackendInvestigationJournalEntry,
+    BackendInvestigationLead, BackendLocalChatMessage, BackendLocalProblemTradeEffect,
+    BackendOrganizationMembership, BackendPhysicalEvidence, BackendPhysicalEvidenceInspection,
+    BackendPhysiologyAdministration, BackendPhysiologyChart, BackendRoadChallenge,
+    BackendSettlementResident, BackendSettlementResidentRelationship, BackendSocialChatReceipt,
+    BackendTinctureStatus, BattleLootItem, BattleResult, ChallengePresenterCatalogId,
+    CharacterAffinity, CharacterAttributes, CharacterCapability, CharacterCondition,
+    CharacterDeath, CharacterFamiliarity, CharacterFilth, CharacterLimbs, CharacterMoraleSource,
+    CharacterNeeds, CharacterSettlementReputation, CharacterSkills, CharacterStats,
+    CharacterStrategicCondition, CharacterTime, CharacterTrainingSchedule, ChildActivityFocus,
+    ChildStage, ContainerLiquid, ContractStatus, CourtshipKind, DestinationKnowledgeStage,
+    EquipmentAnchorKind, EquipmentOccupancy, FamiliarityBand, FoodLot, HostileSurrenderMode,
+    HousingTier, IngredientPreparationAction, InteractionPresentationDecision,
+    InventoryContainment, InventoryItem, InventoryItemAmount, InventoryLocation, InventoryObject,
+    InventoryQuantityTarget, ItemCondition, JourneyCampInterval, JourneyEndpoint, JourneyRouteLeg,
+    JourneyRoutePoint, JourneyTerrainKind, JourneyTerrainSpan, LimbInjury, MoraleBand,
     OrganizationMembershipStatus, OrganizationPresentation, PartyInventoryItem, PartyItemAmount,
-    PartyJoinRequest, PartyJourney, PartyLeaderVote, PartyMember, PartyStake, ProjectileKind,
-    RecruitmentOffer, RecruitmentOfferStatus, ReligiousDemand, RepairOrder, ResidenceTenure,
-    RetainedProjectile, SavedRecruitmentRole, ScheduleAllocation, SettlementAlias,
-    SettlementCategory, SettlementDescription, SettlementDescriptionKind, SettlementResidenceOffer,
+    PartyJoinRequest, PartyJourney, PartyLeaderVote, PartyMember, PartyStake, Precipitation,
+    ProjectileKind, RecruitmentOffer, RecruitmentOfferStatus, ReligiousDemand, RepairOrder,
+    ResidenceTenure, RetainedProjectile, SavedRecruitmentRole, ScheduleAllocation, SettlementAlias,
+    SettlementCategory, SettlementDescription, SettlementDescriptionKind,
     SettlementResidentPresence, SettlementSmith, SocialAddress, SocialBelief, SocialChatOutcome,
     SocialChatTargetKind, StrategicEncounter, StrategicEncounterStatus, WeaponHolderInstance,
     WeaponInstance, WorldClock,
@@ -101,21 +102,15 @@ pub enum AlgebraicType {
     Value(Value),
 }
 
-pub(crate) const fn npc_age_band_id(value: NpcAgeBand) -> &'static str {
+pub(crate) const fn npc_age_band_id(value: AgeBand) -> &'static str {
+    use adventuresim_core::settlement_population::AgeBand as DomainAgeBand;
     match value {
-        NpcAgeBand::Child => "child",
-        NpcAgeBand::Adolescent => "adolescent",
-        NpcAgeBand::Adult => "adult",
-        NpcAgeBand::Elder => "elder",
+        AgeBand::Child => DomainAgeBand::Child,
+        AgeBand::Adolescent => DomainAgeBand::Adolescent,
+        AgeBand::Adult => DomainAgeBand::Adult,
+        AgeBand::Elder => DomainAgeBand::Elder,
     }
-}
-
-pub(crate) const fn npc_presentation_id(value: NpcPresentation) -> &'static str {
-    match value {
-        NpcPresentation::Man => "man",
-        NpcPresentation::Ambiguous => "ambiguous",
-        NpcPresentation::Woman => "woman",
-    }
+    .stable_id()
 }
 
 fn sats_to_serde<T, U>(value: &T) -> serde_json::Result<U>
@@ -378,7 +373,6 @@ impl From<sats::Character> for CharacterView {
             current_settlement_id,
             party_id,
             server: _,
-            in_server: _,
             temporary,
             age_years,
             alive,
@@ -676,7 +670,7 @@ pub struct PartyJourneyRouteView {
     pub package_digest: String,
     pub weather_rules_version: u16,
     pub weather_interval_start: StrategicMinute,
-    pub precipitation: JourneyPrecipitation,
+    pub precipitation: Precipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,
     pub snow_cover_bps: u16,
@@ -853,7 +847,6 @@ impl From<sats::TacticalServer> for MissionServerView {
             party_id,
             addr,
             cert_digest,
-            expected_party_members: _,
             authorized_party_member_ids: _,
             required_enemy_kills: _,
             enemy_difficulty: _,
@@ -952,20 +945,6 @@ pub struct CatalogEquipmentAttachmentPoint {
     pub capacity: u16,
     pub order: u16,
     pub accepts_tags: Vec<String>,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum CatalogItemKind {
-    Simple,
-    Weapon,
-    Armor,
-    Shield,
-    Clothing,
-    Container,
-    Currency,
-    Ingredient,
-    Medication,
-    Food,
 }
 
 #[derive(Debug, Clone)]
@@ -1453,21 +1432,6 @@ fn core_melee_style(value: sats::MeleeAttackStyle) -> MeleeAttackStyle {
     match value {
         sats::MeleeAttackStyle::Swing => MeleeAttackStyle::Swing,
         sats::MeleeAttackStyle::Stab => MeleeAttackStyle::Stab,
-    }
-}
-
-fn catalog_item_kind(value: sats::PersistedItemKind) -> CatalogItemKind {
-    match value {
-        sats::PersistedItemKind::Simple => CatalogItemKind::Simple,
-        sats::PersistedItemKind::Weapon => CatalogItemKind::Weapon,
-        sats::PersistedItemKind::Armor => CatalogItemKind::Armor,
-        sats::PersistedItemKind::Shield => CatalogItemKind::Shield,
-        sats::PersistedItemKind::Clothing => CatalogItemKind::Clothing,
-        sats::PersistedItemKind::Container => CatalogItemKind::Container,
-        sats::PersistedItemKind::Currency => CatalogItemKind::Currency,
-        sats::PersistedItemKind::Ingredient => CatalogItemKind::Ingredient,
-        sats::PersistedItemKind::Medication => CatalogItemKind::Medication,
-        sats::PersistedItemKind::Food => CatalogItemKind::Food,
     }
 }
 
@@ -2177,7 +2141,7 @@ mod tests {
             weight: 1.25,
             exterior_volume_ml: 900,
             slot: sats::Slot::AnyHolding,
-            kind: sats::PersistedItemKind::Weapon,
+            kind: sats::CatalogItemKind::Weapon,
             equipment_placements: vec![sats::PersistedEquipmentPlacement {
                 id: "right_hand".into(),
                 occupancy: vec![sats::OccupancyRequirement {
@@ -2257,7 +2221,6 @@ mod tests {
             current_settlement_id: Some("lubeck".into()),
             party_id: Some("party:7".into()),
             server: sats::spacetimedb_sdk::Identity::ZERO,
-            in_server: true,
             temporary: false,
             age_years: 24,
             alive: true,
@@ -2362,7 +2325,7 @@ mod tests {
             package_digest: "a".repeat(64),
             weather_rules_version: 2,
             weather_interval_start: sats::StrategicMinute { minutes: 10 },
-            precipitation: sats::JourneyPrecipitation::Rain,
+            precipitation: sats::Precipitation::Rain,
             intensity_bps: 100,
             ground_moisture_bps: 200,
             snow_cover_bps: 300,
@@ -2402,7 +2365,6 @@ mod tests {
             party_id: "party:7".into(),
             addr: "127.0.0.1:3000".into(),
             cert_digest: "cert".into(),
-            expected_party_members: 2,
             authorized_party_member_ids: vec![7, 8],
             required_enemy_kills: 3,
             enemy_difficulty: 4,
@@ -2429,7 +2391,6 @@ mod tests {
             latitude_e_7: 200,
             absolute_minute: adventuresim_stdb_client::StrategicMinute { minutes: 300 },
             lunar_phase_minute: sats::StrategicMinute { minutes: 400 },
-            expected_party_members: 2,
             authorized_party_member_ids: vec![7, 8],
             required_enemy_kills: 9,
             enemy_difficulty: 10,

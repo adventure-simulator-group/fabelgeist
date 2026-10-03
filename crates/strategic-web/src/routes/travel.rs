@@ -61,6 +61,8 @@ impl TerrainPlanKey {
     }
 }
 
+/// Derived routes for one immutable terrain package. Keys include weather
+/// and skill inputs; bounded eviction or dropping the planner invalidates them.
 #[derive(Default)]
 struct TerrainPlanCache {
     plans: HashMap<TerrainPlanKey, adventuresim_terrain::RoutePlan>,

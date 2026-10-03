@@ -1,6 +1,5 @@
 //! Plot ownership reserves the side passage and rear court before packing buildings.
 use super::*;
-use std::collections::BTreeMap;
 
 pub(super) const SIDE_PASSAGE_METRES: f32 = 2.0;
 pub(super) const REAR_COURT_METRES: f32 = 6.0;
@@ -55,36 +54,6 @@ pub(super) fn inside_block(lot: CityBuildingLot, block: CityBlock) -> bool {
             tangent.perp_dot(point - start) + STREET_EDGE_TOLERANCE_METRES >= widths[edge]
         })
     })
-}
-
-pub(super) fn remove_overlapping_candidates(candidates: Vec<CandidateLot>) -> Vec<CandidateLot> {
-    let mut accepted = Vec::<CandidateLot>::new();
-    let mut buckets = BTreeMap::<(i32, i32), Vec<usize>>::new();
-    for candidate in candidates {
-        let plot = reservation(candidate.lot);
-        let (min, max) = corners(plot).into_iter().fold(
-            (Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)),
-            |(min, max), p| (min.min(p), max.max(p)),
-        );
-        let min = (min / SPATIAL_BUCKET_METRES).floor().as_ivec2();
-        let max = (max / SPATIAL_BUCKET_METRES).floor().as_ivec2();
-        let cells = (min.x..=max.x)
-            .flat_map(|x| (min.y..=max.y).map(move |y| (x, y)))
-            .collect::<Vec<_>>();
-        if cells
-            .iter()
-            .filter_map(|cell| buckets.get(cell))
-            .flatten()
-            .any(|&index| lots_overlap(plot, reservation(accepted[index].lot)))
-        {
-            continue;
-        }
-        for cell in cells {
-            buckets.entry(cell).or_default().push(accepted.len());
-        }
-        accepted.push(candidate);
-    }
-    accepted
 }
 
 pub(super) fn lots_overlap(first: CityBuildingLot, second: CityBuildingLot) -> bool {

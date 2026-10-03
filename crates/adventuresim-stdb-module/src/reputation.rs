@@ -11,6 +11,9 @@ use spacetimedb::{ReducerContext, Table, table};
 
 use crate::{backend_case_battle_authority, battle_participant, settlement, travel_edge};
 
+/// Terminal local projection of authoritative action events. `record_event`
+/// updates event and affected aggregates in the reducer transaction; aggregates
+/// never act as new spreading sources. Character deletion removes both records.
 #[derive(Clone, Debug)]
 #[table(accessor = character_settlement_reputation, public)]
 pub struct CharacterSettlementReputation {
@@ -53,8 +56,6 @@ pub struct DiscoveredOffense {
     pub settlement_id: String,
     pub kind: String,
     pub severity: u8,
-    /// Current implemented offenses are fine/arrest eligible, never capital.
-    pub execution_eligible: bool,
     pub occurred_at_minute: StrategicMinute,
     pub settled: bool,
 }
@@ -144,6 +145,8 @@ pub(crate) fn snapshot_case_resolution_participant(
     }
 }
 
+/// Record fine/arrest offenses. Capital punishment has no implemented policy;
+/// eligibility is not an independently authored per-offense fact.
 pub fn record_discovered_offense(
     ctx: &ReducerContext,
     id: String,
@@ -160,7 +163,6 @@ pub fn record_discovered_offense(
             settlement_id: settlement_id.to_owned(),
             kind: kind.to_owned(),
             severity: severity.clamp(1, 5),
-            execution_eligible: false,
             occurred_at_minute,
             settled: false,
         });

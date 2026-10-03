@@ -1,6 +1,6 @@
 {
-  "schema_version": 24,
-  "generation_version": 52,
+  "schema_version": 25,
+  "generation_version": 54,
   "seed": 47127,
   "scene_key": "city",
   "source": {
@@ -837,11 +837,11 @@
       "shape": "corridor",
       "start_metres": [
         -45.0,
-        -6.2500005
+        -6.2499976
       ],
       "end_metres": [
         45.0,
-        -6.2500005
+        -6.2499976
       ],
       "half_width_metres": 3.5,
       "surface": "compacted_earth"
@@ -850,11 +850,11 @@
       "shape": "corridor",
       "start_metres": [
         -45.0,
-        63.75
+        63.750004
       ],
       "end_metres": [
         45.0,
-        63.75
+        63.750004
       ],
       "half_width_metres": 3.5,
       "surface": "compacted_earth"
@@ -864,20 +864,20 @@
     {
       "corners_metres": [
         [
-          -5.25,
-          -6.0
+          -5.250001,
+          -5.9999986
         ],
         [
-          7.25,
-          -6.0
+          7.249999,
+          -5.9999986
         ],
         [
-          7.25,
-          12.0
+          7.249999,
+          12.000002
         ],
         [
-          -5.25,
-          12.0
+          -5.250001,
+          12.000002
         ]
       ],
       "surface": "packed_earth"
@@ -885,20 +885,20 @@
     {
       "corners_metres": [
         [
-          2.2500002,
-          6.9
+          2.2500021,
+          6.900002
         ],
         [
-          4.75,
-          6.9
+          4.750002,
+          6.900002
         ],
         [
-          4.75,
-          8.1
+          4.750002,
+          8.100002
         ],
         [
-          2.2500002,
-          8.1
+          2.2500021,
+          8.100002
         ]
       ],
       "surface": "kitchen_garden"
@@ -906,20 +906,20 @@
     {
       "corners_metres": [
         [
-          2.2500005,
-          9.9
+          2.2499986,
+          9.9000025
         ],
         [
-          4.7500005,
-          9.9
+          4.7499986,
+          9.9000025
         ],
         [
-          4.7500005,
-          11.1
+          4.7499986,
+          11.100003
         ],
         [
-          2.2500005,
-          11.1
+          2.2499986,
+          11.100003
         ]
       ],
       "surface": "kitchen_garden"
@@ -927,19 +927,19 @@
     {
       "corners_metres": [
         [
-          -5.25,
+          -5.250001,
           64.0
         ],
         [
-          7.25,
+          7.249999,
           64.0
         ],
         [
-          7.25,
+          7.249999,
           82.0
         ],
         [
-          -5.25,
+          -5.250001,
           82.0
         ]
       ],
@@ -948,20 +948,20 @@
     {
       "corners_metres": [
         [
-          2.2500002,
+          2.2500021,
           76.9
         ],
         [
-          4.75,
+          4.750002,
           76.9
         ],
         [
-          4.75,
-          78.1
+          4.750002,
+          78.100006
         ],
         [
-          2.2500002,
-          78.1
+          2.2500021,
+          78.100006
         ]
       ],
       "surface": "kitchen_garden"
@@ -969,20 +969,20 @@
     {
       "corners_metres": [
         [
-          2.2500005,
+          2.2499986,
           79.9
         ],
         [
-          4.7500005,
+          4.7499986,
           79.9
         ],
         [
-          4.7500005,
-          81.1
+          4.7499986,
+          81.100006
         ],
         [
-          2.2500005,
-          81.1
+          2.2499986,
+          81.100006
         ]
       ],
       "surface": "kitchen_garden"
@@ -992,12 +992,12 @@
   "compounds": [],
   "gardens": [
     {
-      "owner": 37,
-      "front_building_id": 37,
+      "owner": 30,
+      "front_building_id": 30,
       "plot": {
         "centre_metres": [
-          1.0000001,
-          3.0
+          0.99999917,
+          3.0000014
         ],
         "dimensions_metres": [
           12.5,
@@ -1007,7 +1007,7 @@
       },
       "cultivated_bounds": {
         "centre_metres": [
-          3.934025e-7,
+          5.9604645e-7,
           9.0
         ],
         "dimensions_metres": [
@@ -1019,8 +1019,8 @@
       "beds": [
         {
           "centre_metres": [
-            3.5000002,
-            7.5
+            3.5000021,
+            7.500002
           ],
           "dimensions_metres": [
             2.5,
@@ -1030,8 +1030,8 @@
         },
         {
           "centre_metres": [
-            3.5000005,
-            10.5
+            3.4999986,
+            10.500003
           ],
           "dimensions_metres": [
             2.5,
@@ -1043,45 +1043,45 @@
       "access": [
         {
           "start_metres": [
+            6.25,
+            -6.2499976
+          ],
+          "end_metres": [
             6.2499995,
-            -6.2500005
+            9.000001
+          ],
+          "half_width_metres": 0.4
+        },
+        {
+          "start_metres": [
+            6.2499995,
+            9.000001
           ],
           "end_metres": [
-            6.2500005,
+            5.9604645e-7,
             9.0
           ],
           "half_width_metres": 0.4
         },
         {
           "start_metres": [
-            6.2500005,
-            9.0
+            3.5762787e-7,
+            7.599999
           ],
           "end_metres": [
-            3.934025e-7,
-            9.0
-          ],
-          "half_width_metres": 0.4
-        },
-        {
-          "start_metres": [
-            3.322065e-7,
-            7.5999985
-          ],
-          "end_metres": [
-            4.9393884e-7,
-            11.300003
+            -7.1525574e-7,
+            11.300002
           ],
           "half_width_metres": 0.4
         }
       ],
       "plants": [
         {
-          "id": 37,
+          "id": 30,
           "specimen": "common_hazel",
           "centre_metres": [
-            -3.7499995,
-            10.0
+            -3.7499962,
+            10.000002
           ],
           "orientation": 0.0,
           "scale": 0.75
@@ -1093,7 +1093,7 @@
       "front_building_id": 10032,
       "plot": {
         "centre_metres": [
-          1.0000001,
+          0.99999917,
           73.0
         ],
         "dimensions_metres": [
@@ -1104,7 +1104,7 @@
       },
       "cultivated_bounds": {
         "centre_metres": [
-          3.934025e-7,
+          5.9604645e-7,
           79.0
         ],
         "dimensions_metres": [
@@ -1116,7 +1116,7 @@
       "beds": [
         {
           "centre_metres": [
-            3.5000002,
+            3.5000021,
             77.5
           ],
           "dimensions_metres": [
@@ -1127,7 +1127,7 @@
         },
         {
           "centre_metres": [
-            3.5000005,
+            3.4999986,
             80.5
           ],
           "dimensions_metres": [
@@ -1140,33 +1140,33 @@
       "access": [
         {
           "start_metres": [
+            6.25,
+            63.750004
+          ],
+          "end_metres": [
             6.2499995,
-            63.75
-          ],
-          "end_metres": [
-            6.2500005,
             79.0
           ],
           "half_width_metres": 0.4
         },
         {
           "start_metres": [
-            6.2500005,
+            6.2499995,
             79.0
           ],
           "end_metres": [
-            3.934025e-7,
+            5.9604645e-7,
             79.0
           ],
           "half_width_metres": 0.4
         },
         {
           "start_metres": [
-            3.322065e-7,
+            3.5762787e-7,
             77.6
           ],
           "end_metres": [
-            4.9393884e-7,
+            -7.1525574e-7,
             81.3
           ],
           "half_width_metres": 0.4
@@ -1177,7 +1177,7 @@
           "id": 10032,
           "specimen": "common_hazel",
           "centre_metres": [
-            -3.7499995,
+            -3.7499962,
             80.0
           ],
           "orientation": 0.0,
@@ -1188,19 +1188,19 @@
   ],
   "buildings": [
     {
-      "id": 37,
+      "id": 30,
       "program": {
         "archetype": "fachwerk-cottage",
         "usage": "dwelling",
         "service_size": null,
-        "seed": 10192903604835745920,
+        "seed": 101,
         "footprint": {
           "rectangle": {
             "width": 7,
             "depth": 8
           }
         },
-        "storey_height_metres": 2.9373953,
+        "storey_height_metres": 2.701447,
         "storeys": [
           {
             "rooms": [
@@ -1245,7 +1245,7 @@
         "wall_style": "timber_frame",
         "timber_frame_style": "northern_close_studded",
         "upper_storey_projection_metres": 0.0,
-        "roof_pitch_degrees": 56.701557,
+        "roof_pitch_degrees": 56.320816,
         "roof_demonstrator": null,
         "church_program": null,
         "domestic_heating": "hearth_and_rear_fed_stove"
@@ -1260,20 +1260,21 @@
   "distant_buildings": [
     {
       "id": 10032,
+      "prosperity": "Comfortable",
       "archetype": "fachwerk-cottage",
       "usage": "dwelling",
       "service_size": null,
-      "seed": 10192903604835745920,
+      "seed": 101,
       "centre_metres": [
         0.0,
         70.0
       ],
-      "prosperity": "Comfortable",
       "base_elevation_metres": 0.0,
       "orientation": 0.0
     }
   ],
   "establishments": [],
+  "properties": null,
   "vista": {
     "lods": [
       {

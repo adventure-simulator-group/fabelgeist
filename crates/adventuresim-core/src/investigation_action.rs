@@ -4,6 +4,11 @@
 //! private target to an opaque capability and supplies only authoritative
 //! environmental and party inputs.
 
+mod vocabulary;
+pub use vocabulary::{
+    InvestigationActionKind, ParseInvestigationActionKindError, ParseTerrainError, Terrain,
+};
+
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
 use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
@@ -24,20 +29,6 @@ use crate::{
     },
     strategic_place::StrategicPlaceId,
 };
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum InvestigationActionKind {
-    InspectSite,
-    SearchArea,
-    FollowTracks,
-    ReacquireTracks,
-    LocateContact,
-    Watch,
-    Patrol,
-    LayAmbush,
-    ApproachLead,
-}
 
 /// Stable observer-facing result of evaluating whether an investigation action
 /// can begin now.
@@ -246,34 +237,6 @@ pub fn tracking_route_edge_is_coherent(
                 ))
         }
         _ => false,
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum Terrain {
-    Road,
-    Settlement,
-    Plains,
-    Forest,
-    Hills,
-    Marsh,
-    Ruins,
-    Underground,
-}
-
-impl Terrain {
-    pub const fn stable_id(self) -> &'static str {
-        match self {
-            Self::Road => "road",
-            Self::Settlement => "settlement",
-            Self::Plains => "plains",
-            Self::Forest => "forest",
-            Self::Hills => "hills",
-            Self::Marsh => "marsh",
-            Self::Ruins => "ruins",
-            Self::Underground => "underground",
-        }
     }
 }
 

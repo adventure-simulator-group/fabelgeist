@@ -223,26 +223,8 @@ pub fn sanitize(
     }
 }
 
-fn disease_id_from_public_key(key: &str) -> Option<DiseaseId> {
-    Some(match key {
-        "influenza" => DiseaseId::Influenza,
-        "dysentery" => DiseaseId::Dysentery,
-        "typhus" => DiseaseId::Typhus,
-        "tetanus" => DiseaseId::Tetanus,
-        "erysipelas" => DiseaseId::Erysipelas,
-        "smallpox" => DiseaseId::Smallpox,
-        "plague" => DiseaseId::Plague,
-        "consumption" => DiseaseId::Consumption,
-        "mahrdruck" => DiseaseId::Mahrdruck,
-        "shroud_fever" => DiseaseId::ShroudFever,
-        "bilwisschuss" => DiseaseId::Bilwisschuss,
-        "kobeldunst" => DiseaseId::Kobeldunst,
-        _ => return None,
-    })
-}
-
 fn typical_disease_effects(public_disease_key: &str) -> Vec<String> {
-    let Some(disease_id) = disease_id_from_public_key(public_disease_key) else {
+    let Ok(disease_id) = public_disease_key.parse::<DiseaseId>() else {
         return Vec::new();
     };
     let elemental = elemental_association(disease_id).map(|association| {
@@ -492,7 +474,9 @@ mod tests {
             assert!(!effects.is_empty(), "{disease_key}");
             assert!(effects.len() <= 5, "{disease_key}: {effects:?}");
         }
-        assert!(typical_disease_effects("unknown").is_empty());
+        for invalid in ["unknown", "ShroudFever", "shroud-fever", ""] {
+            assert!(typical_disease_effects(invalid).is_empty());
+        }
     }
 
     #[test]

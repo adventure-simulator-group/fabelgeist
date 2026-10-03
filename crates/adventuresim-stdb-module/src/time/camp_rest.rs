@@ -91,7 +91,7 @@ pub fn rest_at_camp(
                             .road_challenge_authority()
                             .party_id()
                             .filter(&party_id)
-                            .any(|occurrence| occurrence.open),
+                            .any(|occurrence| occurrence.is_open()),
                     },
                 )
             })

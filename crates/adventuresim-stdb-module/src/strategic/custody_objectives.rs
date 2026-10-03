@@ -1023,7 +1023,6 @@ pub(crate) fn ingest_case_outcome_fact(
         party_id: party_id.to_string(),
         source_id: source_id.to_string(),
         fact_json: encoded,
-        happened_at_minute: fact.happened_at,
     });
 
     let facts = ctx
@@ -1095,7 +1094,6 @@ pub(crate) fn ingest_case_outcome_fact(
         winning_path_index,
         resolved_at_minute: now,
         selected_finale_id: selected_finale_id.clone(),
-        finale_executed: false,
     });
     if !selected_finale_id.is_empty() {
         execute_case_finale(
@@ -1239,10 +1237,6 @@ fn execute_case_finale(
         party_id: party_id.to_string(),
         executed_at_minute: now,
     });
-    if let Some(mut outcome) = ctx.db.case_outcome().case_id().find(&case.id) {
-        outcome.finale_executed = true;
-        ctx.db.case_outcome().case_id().update(outcome);
-    }
     Ok(())
 }
 
@@ -1668,39 +1662,9 @@ pub(crate) fn ensure_bound_mission_authority(
         .id()
         .find(&hostile_group_id)
         .ok_or("Bound hostile group disappeared")?;
-    let enemy_combat_scale_bps = hostile_group.combat_scale_bps;
-    let normalized_combat_power = hostile_group.normalized_combat_power;
-    let enemy_character_ids = crate::world_actor::context_character_ids(ctx, &hostile_group_id);
-    if enemy_character_ids.len() != hostile_group.enemy_count as usize {
-        return Err("Hostile group roster does not match group count".into());
-    }
-    let authority = MissionAuthority {
-        id: mission_id.to_string(),
-        party_id: party_id.to_string(),
-        case_site_id: Some(case_site.id.clone()),
-        hostile_group_id: Some(hostile_group_id.clone()),
-        observer_character_id,
-        case_id: case.id.clone(),
-        outcome_entropy: ctx.random(),
-        status: MissionAttemptStatus::Bound,
-        committed_resolution: None,
-        committed_capture_subject_id: None,
-        committed_capture_custody_version: None,
-        scene_key: scene_key.to_string(),
-        hostile_version: hostile_group.escalation_incident_ordinal,
-        enemy_count: hostile_group.enemy_count,
-        enemy_character_ids,
-        contacted_before_combat: crate::world_actor::party_contacted_context(
-            ctx,
-            party_id,
-            &hostile_group_id,
-        ),
-        enemy_difficulty: hostile_group.base_difficulty,
-        enemy_combat_scale_bps,
-        normalized_combat_power,
-        drop_item_id: hostile_group.drop_item_id.clone(),
-        drop_quantity: hostile_group.drop_quantity,
-    };
+    let authority = MissionAuthority::capture(ctx, mission_id, party_id,
+        observer_character_id, case_site, &hostile_group, scene_key)
+        .map_err(|error| error.to_string())?;
     ctx.db.mission_authority().insert(authority.clone());
     for (index, capability) in tactical_capabilities.into_iter().enumerate() {
         ctx.db

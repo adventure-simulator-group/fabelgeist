@@ -1,4 +1,6 @@
-use adventuresim_puzzles::{PuzzleProjection, PuzzleSubmission};
+use adventuresim_puzzles::{
+    ParseSigilError, PuzzleProjection, PuzzleSubmission, Sigil, WitnessPath,
+};
 use axum::{
     Form, Router,
     extract::{Path, State},
@@ -13,7 +15,7 @@ use super::AppState;
 use crate::{
     session::Session,
     spacetimedb::{BackendChallenge, CharacterView, sql_string_literal},
-    templates::challenge::{parse_form_sigils, parse_sigil, parse_witness_path, puzzle_page},
+    templates::challenge::puzzle_page,
 };
 
 pub fn routes() -> Router<AppState> {
@@ -129,6 +131,17 @@ struct ChallengeForm {
     provision_6: Option<String>,
 }
 
+fn parse_form_sigils(values: [&str; 5]) -> Result<[Sigil; 5], ParseSigilError> {
+    let [first, second, third, fourth, fifth] = values;
+    Ok([
+        first.parse()?,
+        second.parse()?,
+        third.parse()?,
+        fourth.parse()?,
+        fifth.parse()?,
+    ])
+}
+
 fn submission_for(
     projection: &PuzzleProjection,
     form: &ChallengeForm,
@@ -144,13 +157,18 @@ fn submission_for(
                 required(&form.sigil_2)?,
                 required(&form.sigil_3)?,
                 required(&form.sigil_4)?,
-            ])?,
+            ])
+            .map_err(|_| "Choose one of the named sigils")?,
         }),
         PuzzleProjection::TruthfulWitnesses(_) => Ok(PuzzleSubmission::TruthfulWitnesses {
-            safe_path: parse_witness_path(required(&form.safe_path)?)?,
+            safe_path: required(&form.safe_path)?
+                .parse::<WitnessPath>()
+                .map_err(|_| "Choose one of the named paths")?,
         }),
         PuzzleProjection::RuneTransformation(_) => Ok(PuzzleSubmission::RuneTransformation {
-            result: parse_sigil(required(&form.rune_result)?)?,
+            result: required(&form.rune_result)?
+                .parse::<Sigil>()
+                .map_err(|_| "Choose one of the named sigils")?,
         }),
         PuzzleProjection::LogicGrid(puzzle) => {
             let tokens = [
@@ -265,6 +283,78 @@ mod tests {
     use adventuresim_puzzles::{PuzzleAuthority, PuzzleKind};
 
     #[test]
+    fn every_rendered_fixed_choice_is_accepted_by_the_form_boundary() {
+        use adventuresim_core::errantry::FeyPresenterCatalogId;
+        for kind in [
+            PuzzleKind::OrderedSigils,
+            PuzzleKind::RuneTransformation,
+            PuzzleKind::TruthfulWitnesses,
+        ] {
+            let projection = PuzzleAuthority::generate(kind, 43).projection();
+            let markup = puzzle_page(
+                "challenge:test",
+                "case:test",
+                FeyPresenterCatalogId::LadyBeneathThornV1,
+                0,
+                &projection,
+                false,
+                None,
+                None,
+                None,
+                None,
+                "Ada",
+            )
+            .into_string();
+            let choices: Vec<_> = markup
+                .split("<option value=\"")
+                .skip(1)
+                .map(|option| option.split('"').next().unwrap())
+                .filter(|value| !value.is_empty())
+                .collect();
+            assert!(!choices.is_empty());
+            for value in choices {
+                let mut form = ChallengeForm::default();
+                match kind {
+                    PuzzleKind::OrderedSigils => {
+                        form.sigil_0 = Some(value.into());
+                        form.sigil_1 = Some(value.into());
+                        form.sigil_2 = Some(value.into());
+                        form.sigil_3 = Some(value.into());
+                        form.sigil_4 = Some(value.into());
+                    }
+                    PuzzleKind::RuneTransformation => form.rune_result = Some(value.into()),
+                    PuzzleKind::TruthfulWitnesses => form.safe_path = Some(value.into()),
+                    _ => unreachable!(),
+                }
+                let submission = submission_for(&projection, &form).unwrap();
+                match submission {
+                    PuzzleSubmission::OrderedSigils { ordering } => {
+                        assert_eq!(ordering[0].stable_id(), value)
+                    }
+                    PuzzleSubmission::RuneTransformation { result } => {
+                        assert_eq!(result.stable_id(), value)
+                    }
+                    PuzzleSubmission::TruthfulWitnesses { safe_path } => {
+                        assert_eq!(safe_path.stable_id(), value)
+                    }
+                    _ => unreachable!(),
+                }
+            }
+            let malformed = ChallengeForm {
+                sigil_0: Some("unknown".into()),
+                sigil_1: Some("Crown".into()),
+                sigil_2: Some("Hart".into()),
+                sigil_3: Some("Moon".into()),
+                sigil_4: Some("Sword".into()),
+                safe_path: Some("Moon path".into()),
+                rune_result: Some("unknown".into()),
+                ..ChallengeForm::default()
+            };
+            assert!(submission_for(&projection, &malformed).is_err());
+        }
+    }
+
+    #[test]
     fn route_is_server_rendered_post_redirect_get() {
         let source = include_str!("challenges.rs");
         let production = source.split("#[cfg(test)]").next().unwrap();
@@ -308,7 +398,7 @@ mod tests {
             PuzzleAuthority::generate(PuzzleKind::TruthfulWitnesses, 2).projection();
         assert!(submission_for(&witness_projection, &ordered).is_err());
         let witness = ChallengeForm {
-            safe_path: Some("Moon path".into()),
+            safe_path: Some("Moon".into()),
             sigil_0: None,
             sigil_1: None,
             sigil_2: None,

@@ -320,7 +320,7 @@ fn expected_location(
         .id()
         .find(character_id)
         .ok_or("Character not found")?;
-    if actor.in_server {
+    if actor.has_tactical_server_assignment() {
         return Err("Foraging is unavailable during a tactical encounter".into());
     }
     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;

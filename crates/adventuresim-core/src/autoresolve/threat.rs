@@ -127,7 +127,7 @@ fn threat_weapon(profile: crate::bestiary::CombatProfile) -> CombatWeapon {
 fn equip_threat_weapon(combatant: &mut Combatant, weapon: CombatWeapon, ranged: bool) {
     if ranged {
         combatant.equipment.ranged_weapon = Some(weapon);
-        combatant.equipment.ranged_projectile_kind = Some(CombatProjectileKind::Arrowhead);
+        combatant.equipment.ranged_projectile_kind = Some(ProjectileKind::Arrowhead);
         combatant.equipment.melee_weapon = Some(
             super::melee_iteration::authored_melee_weapon(
                 crate::item_catalog::definition("knife").expect("catalog knife"),

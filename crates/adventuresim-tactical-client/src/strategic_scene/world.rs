@@ -122,6 +122,7 @@ fn prepare(
         street.clear_foreground_canopy(&mut lods);
     }
     commands.trigger(SceneVistaBundle {
+        properties: input.properties.clone(),
         scene_digest: generated.digest,
         playable_half_extent_metres: half_extent,
         distant_buildings: input

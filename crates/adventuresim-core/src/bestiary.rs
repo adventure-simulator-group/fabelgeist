@@ -2,6 +2,9 @@
 //! investigation-facing evidence. Stable IDs, never display text, drive rules.
 
 pub use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, BestiaryCategory, BestiaryHours};
+mod report_quality;
+pub(crate) use report_quality::validate_report_descriptions;
+
 use core::str::FromStr;
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, sync::OnceLock};
@@ -12,34 +15,8 @@ pub struct ThreatId {
     bytes: [u8; 63],
 }
 
-pub const ALL_THREATS: &[ThreatId] = &[
-    ThreatId::Bandit,
-    ThreatId::Deserter,
-    ThreatId::Poacher,
-    ThreatId::Smuggler,
-    ThreatId::Cultist,
-    ThreatId::GraveRobber,
-    ThreatId::TownWatch,
-    ThreatId::ArmedRetainer,
-    ThreatId::AngryMob,
-    ThreatId::Wolf,
-    ThreatId::Boar,
-    ThreatId::Bear,
-    ThreatId::FeralDog,
-    ThreatId::TrainedDog,
-    ThreatId::Goblin,
-    ThreatId::Orc,
-    ThreatId::Skeleton,
-    ThreatId::Ghoul,
-    ThreatId::Revenant,
-    ThreatId::Werewolf,
-    ThreatId::Alp,
-    ThreatId::Kobold,
-    ThreatId::WildMan,
-    ThreatId::SpectralHound,
-    ThreatId::Nachzehrer,
-];
-
+/// Transient ID view of the authored roster. Named constants reference particular
+/// threats; complete-population consumers always enumerate the catalog.
 fn catalog_threats() -> Vec<ThreatId> {
     crate::quest_catalog::catalog()
         .monsters()
@@ -507,6 +484,8 @@ pub fn profiles_for_category(category: BestiaryCategory) -> Vec<CategorizedThrea
 
 /// Returns the startup-compiled, YAML-authoritative threat profile.
 pub fn profile(id: ThreatId) -> ThreatProfile {
+    // Process-lifetime cache compiled once from the immutable embedded catalog.
+    // A new process/catalog build creates a fresh cache; consumers cannot mutate it.
     static PROFILES: OnceLock<BTreeMap<ThreatId, ThreatProfile>> = OnceLock::new();
     *PROFILES
         .get_or_init(|| {
@@ -991,16 +970,6 @@ pub fn rank_candidates_in_region(
     ranked
 }
 
-pub const ALL_REPORTS: &[ReportDescription] = &[
-    ReportDescription::ArmedPeople,
-    ReportDescription::SmallUprightFigures,
-    ReportDescription::LargeUprightBeast,
-    ReportDescription::GauntHuman,
-    ReportDescription::WalkingDead,
-    ReportDescription::LargeAnimal,
-    ReportDescription::DoglikeBeast,
-    ReportDescription::UnseenNightVisitor,
-];
 const ALL_HABITATS: &[Habitat] = &[
     Habitat::Road,
     Habitat::Open,
@@ -1187,28 +1156,11 @@ pub fn validate_catalog() -> Vec<BestiaryCatalogDiagnostic> {
             }
         }
     }
-    for report in ALL_REPORTS {
-        let cardinality = ambiguous_description_cardinality(*report);
-        if cardinality < 2 {
-            errors.push(BestiaryCatalogDiagnostic {
-                message: format!("description {report:?} is not ambiguous"),
-            });
-        }
-        let marginals = distribution_summary(*report, RegionalContext::NorthernGermany1544);
-        if marginals
-            .iter()
-            .any(|item| item.curated_basis_points > 9_500)
-        {
-            errors.push(BestiaryCatalogDiagnostic {
-                message: format!("description {report:?} is over-dominant"),
-            });
-        }
-        if cardinality > 1 && distinguishing_clue_set_count(*report) < 2 {
-            errors.push(BestiaryCatalogDiagnostic {
-                message: format!("description {report:?} lacks distinguishing clues"),
-            });
-        }
-    }
+    errors.extend(validate_report_descriptions(
+        crate::quest_catalog::catalog()
+            .descriptions()
+            .map(|description| catalog_report(&description.id)),
+    ));
     errors
 }
 
@@ -1377,7 +1329,7 @@ mod tests {
     #[test]
     fn identification_and_location_challenges_exist() {
         assert!(
-            ALL_THREATS
+            catalog_threats()
                 .iter()
                 .filter(|id| {
                     let i = profile(**id).investigation;
@@ -1469,9 +1421,9 @@ mod tests {
             .any(|item| item.message.contains("over-dominant"))
         );
         assert!(
-            ALL_REPORTS
-                .iter()
-                .all(|report| ambiguous_description_cardinality(*report) >= 2)
+            crate::quest_catalog::catalog()
+                .descriptions()
+                .all(|report| ambiguous_description_cardinality(catalog_report(&report.id)) >= 2)
         );
     }
 
@@ -1486,7 +1438,7 @@ mod tests {
 
     #[test]
     fn initial_negotiation_slice_is_authored_only_for_bandits_and_smugglers() {
-        let negotiable = ALL_THREATS
+        let negotiable = catalog_threats()
             .iter()
             .copied()
             .filter(|threat| profile(*threat).negotiation.negotiable)
@@ -1596,9 +1548,13 @@ mod tests {
         unsupported.protection = Protection::Armored;
         assert!(has_unsupported_layered_protection(unsupported));
         assert!(
-            ALL_THREATS
+            catalog_threats()
                 .iter()
                 .all(|id| !has_unsupported_layered_protection(profile(*id).combat))
         );
     }
 }
+
+#[cfg(test)]
+#[path = "bestiary/catalog_tests.rs"]
+mod catalog_tests;

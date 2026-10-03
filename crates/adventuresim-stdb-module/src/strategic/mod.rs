@@ -6,9 +6,22 @@
 //! ordinary child modules elsewhere; these ordered files preserve the exact
 //! reducer/view/table ABI while keeping each gameplay domain navigable.
 
+use adventuresim_core::encounter::EncounterChoice;
+use adventuresim_core::strategic_state::vocabulary::{
+    CourtshipStatus, HostileResolutionKind, MissionAttemptStatus,
+};
+use adventuresim_core::weather::Precipitation;
+use adventuresim_dialogue::{PromptMode, ResolutionPolicy};
+use std::str::FromStr;
+mod challenge_state;
+mod dialogue_policy;
+mod mission_roster;
+#[cfg(feature = "authority-tests")]
+mod outcome_fact_authority_tests;
 #[cfg(test)]
 use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use adventuresim_world_schema::calendar::StrategicMinute;
+pub use challenge_state::*;
 
 #[cfg(test)]
 pub(crate) const STRATEGIC_SOURCE: &str = concat!(
@@ -37,6 +50,7 @@ pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("tactical_enemy_fixture.rs"),
     include_str!("mission_bootstrap.rs"),
     include_str!("challenges.rs"),
+    include_str!("challenge_state.rs"),
 );
 
 include!("autoresolve.rs");

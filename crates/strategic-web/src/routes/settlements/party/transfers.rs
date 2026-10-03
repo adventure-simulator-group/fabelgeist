@@ -162,7 +162,7 @@ pub(super) async fn merchants(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::General).await
+    merchant_shop(state, id, session, Storefront::General).await
 }
 
 pub(super) async fn finalize_merchant_offer(

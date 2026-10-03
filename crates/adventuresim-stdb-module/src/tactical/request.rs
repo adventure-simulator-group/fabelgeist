@@ -7,6 +7,8 @@ use crate::{
     strategic::settlement,
 };
 
+/// Mission-lifetime display snapshot of the Character projection at capture.
+/// Later requests recapture names; an active scene never observes a rename.
 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
 pub struct TacticalBusinessOperator {
     pub business_id: adventuresim_world_schema::settlement_buildings::BusinessId,
@@ -14,6 +16,9 @@ pub struct TacticalBusinessOperator {
     pub operator_name: String,
 }
 
+/// Immutable mission input, captured with the request and consumed by the
+/// dispatcher. Scene validation checks derived shop brands against these
+/// operator names and building uses; no live settlement refresh occurs.
 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
 pub struct TacticalSettlementSnapshot {
     pub id: String,
@@ -88,17 +93,13 @@ pub(crate) fn tactical_settlement_snapshot(
 pub(crate) fn tactical_party_roster(
     ctx: &ReducerContext,
     party_id: &str,
-) -> Result<(Vec<u64>, u32), String> {
-    let members = crate::strategic::living_party_member_ids(ctx, party_id);
-    let count =
-        u32::try_from(members.len()).map_err(|_| "Party is too large for tactical enrollment")?;
-    if count == 0 {
-        return Err("A tactical mission requires at least one living party member".into());
-    }
-    if count as usize > adventuresim_core::mission::MAX_TACTICAL_RECEIPT_PARTICIPANTS {
-        return Err("Party exceeds the tactical receipt participant limit".into());
-    }
-    Ok((members, count))
+) -> Result<
+    adventuresim_core::mission::TacticalPartyRoster,
+    adventuresim_core::mission::TacticalRosterError,
+> {
+    adventuresim_core::mission::TacticalPartyRoster::try_from(
+        crate::strategic::living_party_member_ids(ctx, party_id),
+    )
 }
 
 #[cfg(test)]

@@ -18,12 +18,13 @@ pub(super) fn fixture() -> Fixture {
 }
 
 pub(super) fn layout() -> CitySceneLayout {
+    let mut economy = adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder();
+    economy.services = vec![
+        adventuresim_world_schema::SettlementService::Inn,
+        adventuresim_world_schema::SettlementService::Temple,
+    ];
     let mut city = CitySite::central_german_market_town()
-        .generate(
-            42,
-            900,
-            &adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
-        )
+        .generate(42, 900, &economy)
         .compile(42)
         .expect("garden review city compiles");
     let mut garden = city.gardens.remove(0);

@@ -4,8 +4,16 @@
 //! Tactical positions and ticks remain transient; only committed hit outcomes
 //! cross into these rows.
 
+#[cfg(feature = "authority-tests")]
+#[path = "surgery/authority_tests.rs"]
+mod authority_tests;
+#[cfg(feature = "authority-tests")]
+#[path = "surgery/projectile_authority_tests.rs"]
+mod projectile_authority_tests;
+
 use adventuresim_core::physiology::BodyRegion;
 use adventuresim_core::prelude::*;
+pub use adventuresim_core::projectile::ProjectileKind;
 #[cfg(test)]
 use adventuresim_core::surgery::untreated_cut_progress;
 use adventuresim_core::surgery::{
@@ -15,7 +23,7 @@ pub use adventuresim_core::surgery::{
     UNTREATED_CUT_BLOOD_LOSS_PER_DAY, UNTREATED_CUT_DETERIORATION_PER_DAY, projectile_extraction_dc,
 };
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
-use spacetimedb::{ReducerContext, SpacetimeType, Table, reducer, table};
+use spacetimedb::{ReducerContext, Table, reducer, table};
 
 use crate::character::character;
 use crate::{
@@ -29,6 +37,8 @@ pub const STITCH_HEALING_BONUS_PER_LEVEL: f32 = 0.006;
 pub const RETAINED_PROJECTILE_HEALING_MULTIPLIER: f32 = 0.60;
 pub const FRACTURE_SINGLE_HIT_THRESHOLD: f32 = 0.18;
 pub const STANDING_INFECTION_CHECK_EXPOSURE: f32 = 0.05;
+/// Immutable committed treatment request. Existence proves application;
+/// interrupted waits return before insertion and may be attempted again.
 #[derive(Clone, Debug)]
 #[table(accessor = treatment_action_receipt)]
 pub struct TreatmentActionReceipt {
@@ -43,7 +53,6 @@ pub struct TreatmentActionReceipt {
     pub use_soap: bool,
     pub context_ref: Option<String>,
     pub expected_membership_revision: Option<u32>,
-    pub completed: bool,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -81,18 +90,11 @@ fn treatment_receipt_disposition(
         && existing.use_soap == use_soap
         && existing.context_ref.as_deref() == context_ref
         && existing.expected_membership_revision == expected_membership_revision
-        && existing.completed
     {
         TreatmentReceiptDisposition::ExactReplay
     } else {
         TreatmentReceiptDisposition::Collision
     }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum ProjectileKind {
-    Arrowhead,
-    Ball,
 }
 
 #[derive(Clone, Debug)]
@@ -1163,7 +1165,6 @@ pub fn treat_limb(
             use_soap,
             context_ref,
             expected_membership_revision,
-            completed: true,
         });
     Ok(())
 }
@@ -1234,7 +1235,6 @@ mod tests {
             use_soap: true,
             context_ref: Some("road:1".into()),
             expected_membership_revision: Some(4),
-            completed: true,
         };
         let disposition = |existing, token: &str, soap| {
             treatment_receipt_disposition(
@@ -1261,13 +1261,6 @@ mod tests {
         assert_eq!(
             disposition(None, "token-b", true),
             TreatmentReceiptDisposition::New
-        );
-
-        let mut incomplete = receipt.clone();
-        incomplete.completed = false;
-        assert_eq!(
-            disposition(Some(&incomplete), "token-a", true),
-            TreatmentReceiptDisposition::Collision
         );
     }
 

@@ -80,9 +80,9 @@ fn validate_canonical_courtship_pair(
     )?;
     if !suitor.alive
         || !partner.alive
-        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(suitor.age_years)
+        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
-        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(partner.age_years)
+        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
     {
         return Err(CourtshipPairError::rejected(
@@ -163,7 +163,7 @@ fn establish_courtship(
     let (first_character_id, second_character_id) = canonical_pair(suitor_id, partner_id);
     let id = format!("courtship:{first_character_id}:{second_character_id}");
     if let Some(existing) = ctx.db.courtship().id().find(&id) {
-        existing.parsed_state()?;
+        existing.parsed_state().map_err(|error| error.to_string())?;
         return match (existing.status, existing.kind == kind) {
             (CourtshipStatus::Active | CourtshipStatus::Exposed, true) => Ok(()),
             (CourtshipStatus::Active | CourtshipStatus::Exposed, false) => {
@@ -245,7 +245,7 @@ fn establish_courtship(
                 continue;
             };
             if !character_alive_at(ctx, observer_id, minute)
-                || effective_age_years(ctx, observer_id, minute).unwrap_or(observer.age_years)
+                || effective_age_years(ctx, observer_id, minute).unwrap_or(0)
                     < ADULT_AGE_YEARS
                 || observer.current_settlement_id != pair_settlement
             {
@@ -313,9 +313,9 @@ pub(crate) fn establish_npc_courtship_and_wedding(
     let effective_minute = suitor_time.max(partner_time);
     if !suitor.alive
         || !partner.alive
-        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(suitor.age_years)
+        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
-        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(partner.age_years)
+        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
         || suitor.current_settlement_id.is_none()
         || suitor.current_settlement_id != partner.current_settlement_id
@@ -637,7 +637,7 @@ pub fn cancel_wedding(
         .id()
         .find(&commitment_id)
         .ok_or("Commitment not found")?;
-    commitment.parsed_state()?;
+    commitment.parsed_state().map_err(|error| error.to_string())?;
     if actor_id != commitment.first_character_id && actor_id != commitment.second_character_id {
         return Err("Only a participant can cancel this wedding".into());
     }
@@ -673,7 +673,7 @@ pub fn expire_wedding_reservation(
         .id()
         .find(commitment_id.to_owned())
         .ok_or("Commitment not found")?;
-    commitment.parsed_state()?;
+    commitment.parsed_state().map_err(|error| error.to_string())?;
     transition_commitment_terminal(
         ctx,
         commitment,

@@ -16,7 +16,6 @@ pub struct CaseOutcome {
     pub winning_path_index: Option<u16>,
     pub resolved_at_minute: StrategicMinute,
     pub selected_finale_id: String,
-    pub finale_executed: bool,
 }
 
 impl __sdk::InModule for CaseOutcome {
@@ -33,7 +32,6 @@ pub struct CaseOutcomeCols {
     pub winning_path_index: __sdk::__query_builder::Col<CaseOutcome, Option<u16>>,
     pub resolved_at_minute: __sdk::__query_builder::Col<CaseOutcome, StrategicMinute>,
     pub selected_finale_id: __sdk::__query_builder::Col<CaseOutcome, String>,
-    pub finale_executed: __sdk::__query_builder::Col<CaseOutcome, bool>,
 }
 
 impl __sdk::__query_builder::HasCols for CaseOutcome {
@@ -46,7 +44,6 @@ impl __sdk::__query_builder::HasCols for CaseOutcome {
             winning_path_index: __sdk::__query_builder::Col::new(table_name, "winning_path_index"),
             resolved_at_minute: __sdk::__query_builder::Col::new(table_name, "resolved_at_minute"),
             selected_finale_id: __sdk::__query_builder::Col::new(table_name, "selected_finale_id"),
-            finale_executed: __sdk::__query_builder::Col::new(table_name, "finale_executed"),
         }
     }
 }

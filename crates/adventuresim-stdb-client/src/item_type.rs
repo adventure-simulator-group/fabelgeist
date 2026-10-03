@@ -4,10 +4,10 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::catalog_item_kind_type::CatalogItemKind;
 use super::melee_attack_style_type::MeleeAttackStyle;
 use super::persisted_equipment_attachment_point_type::PersistedEquipmentAttachmentPoint;
 use super::persisted_equipment_placement_type::PersistedEquipmentPlacement;
-use super::persisted_item_kind_type::PersistedItemKind;
 use super::slot_type::Slot;
 use super::weapon_skill_distribution_type::WeaponSkillDistribution;
 
@@ -18,7 +18,7 @@ pub struct Item {
     pub weight: f32,
     pub exterior_volume_ml: u32,
     pub slot: Slot,
-    pub kind: PersistedItemKind,
+    pub kind: CatalogItemKind,
     pub equipment_placements: Vec<PersistedEquipmentPlacement>,
     pub attachment_tags: Vec<String>,
     pub attachment_points: Vec<PersistedEquipmentAttachmentPoint>,
@@ -68,7 +68,7 @@ pub struct ItemCols {
     pub weight: __sdk::__query_builder::Col<Item, f32>,
     pub exterior_volume_ml: __sdk::__query_builder::Col<Item, u32>,
     pub slot: __sdk::__query_builder::Col<Item, Slot>,
-    pub kind: __sdk::__query_builder::Col<Item, PersistedItemKind>,
+    pub kind: __sdk::__query_builder::Col<Item, CatalogItemKind>,
     pub equipment_placements: __sdk::__query_builder::Col<Item, Vec<PersistedEquipmentPlacement>>,
     pub attachment_tags: __sdk::__query_builder::Col<Item, Vec<String>>,
     pub attachment_points:

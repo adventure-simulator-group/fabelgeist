@@ -408,9 +408,7 @@ fn circumstance_candidates(demo: WitnessDemographic) -> Vec<Candidate<Circumstan
 
 fn description_candidates(cause: CanonicalCause) -> Vec<Candidate<ReportDescription>> {
     crate::quest_catalog::catalog()
-        .documents
-        .iter()
-        .flat_map(|document| &document.descriptions)
+        .descriptions()
         .map(|authored| {
             let report =
                 ReportDescription::try_new(&authored.id).expect("validated open description ID");
@@ -470,9 +468,7 @@ fn description_candidates(cause: CanonicalCause) -> Vec<Candidate<ReportDescript
 
 fn report_id(v: ReportDescription) -> &'static str {
     crate::quest_catalog::catalog()
-        .documents
-        .iter()
-        .flat_map(|document| &document.descriptions)
+        .descriptions()
         .find(|item| item.id == v.as_str())
         .expect("generated description exists")
         .id

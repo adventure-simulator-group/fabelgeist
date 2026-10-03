@@ -13,7 +13,7 @@ pub(super) fn equipment_utility(profile: &AgentProfile, item: &Item) -> Option<f
     let preference = &profile.equipment;
     let armor = matches!(
         item.kind,
-        PersistedItemKind::Armor | PersistedItemKind::Clothing
+        CatalogItemKind::Armor | CatalogItemKind::Clothing
     );
     let compatible = match preference.style {
         EquipmentStyle::Unarmored => !armor && item.melee && item.weight <= 2.5,
@@ -454,9 +454,9 @@ fn run_core_loop_inner(
                         .is_some_and(|item| {
                             matches!(
                                 item.kind,
-                                PersistedItemKind::Weapon
-                                    | PersistedItemKind::Armor
-                                    | PersistedItemKind::Shield
+                                CatalogItemKind::Weapon
+                                    | CatalogItemKind::Armor
+                                    | CatalogItemKind::Shield
                             )
                         })
             })

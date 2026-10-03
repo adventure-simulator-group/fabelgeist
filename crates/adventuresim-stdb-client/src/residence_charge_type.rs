@@ -12,7 +12,7 @@ use super::strategic_minute_type::StrategicMinute;
 pub struct ResidenceCharge {
     pub id: String,
     pub holding_id: String,
-    pub owner_character_id: u64,
+    pub holder_character_id: u64,
     pub due_minute: StrategicMinute,
     pub base_housing_amount: u64,
     pub adult_necessities_amount: u64,
@@ -34,7 +34,7 @@ impl __sdk::InModule for ResidenceCharge {
 pub struct ResidenceChargeCols {
     pub id: __sdk::__query_builder::Col<ResidenceCharge, String>,
     pub holding_id: __sdk::__query_builder::Col<ResidenceCharge, String>,
-    pub owner_character_id: __sdk::__query_builder::Col<ResidenceCharge, u64>,
+    pub holder_character_id: __sdk::__query_builder::Col<ResidenceCharge, u64>,
     pub due_minute: __sdk::__query_builder::Col<ResidenceCharge, StrategicMinute>,
     pub base_housing_amount: __sdk::__query_builder::Col<ResidenceCharge, u64>,
     pub adult_necessities_amount: __sdk::__query_builder::Col<ResidenceCharge, u64>,
@@ -52,7 +52,10 @@ impl __sdk::__query_builder::HasCols for ResidenceCharge {
         ResidenceChargeCols {
             id: __sdk::__query_builder::Col::new(table_name, "id"),
             holding_id: __sdk::__query_builder::Col::new(table_name, "holding_id"),
-            owner_character_id: __sdk::__query_builder::Col::new(table_name, "owner_character_id"),
+            holder_character_id: __sdk::__query_builder::Col::new(
+                table_name,
+                "holder_character_id",
+            ),
             due_minute: __sdk::__query_builder::Col::new(table_name, "due_minute"),
             base_housing_amount: __sdk::__query_builder::Col::new(
                 table_name,
@@ -82,21 +85,21 @@ impl __sdk::__query_builder::HasCols for ResidenceCharge {
 ///
 /// Provides typed access to indexed columns for query building.
 pub struct ResidenceChargeIxCols {
+    pub holder_character_id: __sdk::__query_builder::IxCol<ResidenceCharge, u64>,
     pub holding_id: __sdk::__query_builder::IxCol<ResidenceCharge, String>,
     pub id: __sdk::__query_builder::IxCol<ResidenceCharge, String>,
-    pub owner_character_id: __sdk::__query_builder::IxCol<ResidenceCharge, u64>,
 }
 
 impl __sdk::__query_builder::HasIxCols for ResidenceCharge {
     type IxCols = ResidenceChargeIxCols;
     fn ix_cols(table_name: &'static str) -> Self::IxCols {
         ResidenceChargeIxCols {
+            holder_character_id: __sdk::__query_builder::IxCol::new(
+                table_name,
+                "holder_character_id",
+            ),
             holding_id: __sdk::__query_builder::IxCol::new(table_name, "holding_id"),
             id: __sdk::__query_builder::IxCol::new(table_name, "id"),
-            owner_character_id: __sdk::__query_builder::IxCol::new(
-                table_name,
-                "owner_character_id",
-            ),
         }
     }
 }

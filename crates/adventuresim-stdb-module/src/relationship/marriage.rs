@@ -83,9 +83,9 @@ pub fn settle_due_weddings(
             )?;
             continue;
         }
-        if effective_age_years(ctx, first.id, effective_minute).unwrap_or(first.age_years)
+        if effective_age_years(ctx, first.id, effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
-            || effective_age_years(ctx, second.id, effective_minute).unwrap_or(second.age_years)
+            || effective_age_years(ctx, second.id, effective_minute).unwrap_or(0)
                 < ADULT_AGE_YEARS
         {
             transition_commitment_terminal(
@@ -105,7 +105,7 @@ pub fn settle_due_weddings(
             .residence_holding()
             .iter()
             .filter(|holding| {
-                [first.id, second.id].contains(&holding.owner_character_id)
+                [first.id, second.id].contains(&holding.holder_character_id)
                     && holding.settlement_id == commitment.ceremony_settlement_id
                     && holding.acquired_minute <= effective_minute
                     && holding
@@ -215,7 +215,7 @@ pub fn settle_due_weddings(
                 commitment.effective_minute,
                 role,
             );
-            crate::residence::move_residence_occupant_effective(
+            crate::residence::move_residence_occupant_at(
                 ctx,
                 &residence_holding_id,
                 character_id,
@@ -409,7 +409,7 @@ pub fn end_marriage(
         .id()
         .find(&marriage_id)
         .ok_or("Marriage not found")?;
-    marriage.parsed_state()?;
+    marriage.parsed_state().map_err(|error| error.to_string())?;
     if actor_id != marriage.first_character_id && actor_id != marriage.second_character_id {
         return Err("Only a spouse can end this marriage".into());
     }

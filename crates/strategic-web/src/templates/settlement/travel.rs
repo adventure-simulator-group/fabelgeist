@@ -20,9 +20,8 @@ use crate::location_urls::patterns as paths;
 use crate::routes::travel::{TravelDestination, TravelProvisionForecast};
 use crate::spacetimedb::{
     BackendContract, BackendRoadChallenge, ChallengePresenterCatalogId, CharacterView,
-    JourneyEndpointExt, JourneyPrecipitation, JourneyTerrainKind, PartyJourney,
-    PartyJourneyRouteView, PartyView, SettlementView, StrategicEncounter, StrategicEncounterStatus,
-    calendar_minute,
+    JourneyEndpointExt, JourneyTerrainKind, PartyJourney, PartyJourneyRouteView, PartyView,
+    Precipitation, SettlementView, StrategicEncounter, StrategicEncounterStatus, calendar_minute,
 };
 use crate::templates::{
     camp_location_layout_with_session, decorative_game_icon, empty_state, game_icon,
@@ -1013,7 +1012,7 @@ fn generic_road_encounter(challenge: &BackendRoadChallenge) -> Markup {
                   div class="scene-interactable scene-interactable--person counterparty-portrait" data-character-id=(character.character_id) {
                     span class="scene-interactable-visual" aria-hidden="true" { "?" }
                     span class="scene-interactable-label" { (&character.name) }
-                    @if character.contact_decision == adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Request {
+                    @if character.contact_decision == adventuresim_core::strategic_presence::InteractionPresentationDecision::Request {
                       form action=(paths::CONTACT_CAMP_COUNTERPARTY.pattern()) method="post" {
                         input type="hidden" name="target_id" value=(character.character_id);
                         input type="hidden" name="contact_ref" value=(&challenge.id);
@@ -1024,14 +1023,14 @@ fn generic_road_encounter(challenge: &BackendRoadChallenge) -> Markup {
                     } @else {
                       button type="button" class="btn btn-secondary btn-small" disabled {
                         (match character.contact_decision {
-                            adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Refused => "Refused",
+                            adventuresim_core::strategic_presence::InteractionPresentationDecision::Refused => "Refused",
                             _ => "Unavailable",
                         })
                       }
                     }
                     @if character.treatment_limb_slug.is_some() && matches!(character.treatment_decision,
-                        adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Request
-                        | adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::EmergencyTreatment) {
+                        adventuresim_core::strategic_presence::InteractionPresentationDecision::Request
+                        | adventuresim_core::strategic_presence::InteractionPresentationDecision::EmergencyTreatment) {
                       form action=(paths::BANDAGE_CAMP_COUNTERPARTY.pattern()) method="post" {
                         input type="hidden" name="patient_id" value=(character.character_id);
                         input type="hidden" name="limb_slug" value=(character.treatment_limb_slug.as_deref().unwrap_or_default());
@@ -1039,13 +1038,13 @@ fn generic_road_encounter(challenge: &BackendRoadChallenge) -> Markup {
                         input type="hidden" name="context_ref" value=(&challenge.id);
                         input type="hidden" name="expected_membership_revision" value=(character.membership_revision);
                         button type="submit" class="btn btn-secondary btn-small" {
-                          (if character.treatment_decision == adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::EmergencyTreatment { "Emergency treatment" } else { "Request treatment" })
+                          (if character.treatment_decision == adventuresim_core::strategic_presence::InteractionPresentationDecision::EmergencyTreatment { "Emergency treatment" } else { "Request treatment" })
                         }
                       }
                     } @else {
                       button type="button" class="btn btn-secondary btn-small" disabled {
                         (match character.treatment_decision {
-                            adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Refused => "Refused",
+                            adventuresim_core::strategic_presence::InteractionPresentationDecision::Refused => "Refused",
                             _ => "Unavailable",
                         })
                       }
@@ -1175,9 +1174,9 @@ fn strategic_encounter_panel(
 
 fn journey_weather_status(route: &PartyJourneyRouteView) -> Markup {
     let (weather, icon) = match route.precipitation {
-        JourneyPrecipitation::Clear => ("Clear", "sun"),
-        JourneyPrecipitation::Rain => ("Rain", "water-drop"),
-        JourneyPrecipitation::Snow => ("Snow", "water-drop"),
+        Precipitation::Clear => ("Clear", "sun"),
+        Precipitation::Rain => ("Rain", "water-drop"),
+        Precipitation::Snow => ("Snow", "water-drop"),
     };
     let ground = if route.snow_cover_bps >= 6_000 {
         "deep snow"
@@ -1257,7 +1256,7 @@ mod tests {
             package_digest: "a".repeat(64),
             weather_rules_version: 1,
             weather_interval_start: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
-            precipitation: JourneyPrecipitation::Rain,
+            precipitation: Precipitation::Rain,
             intensity_bps: 8_000,
             ground_moisture_bps: 8_000,
             snow_cover_bps: 0,

@@ -23,6 +23,8 @@ use axum::{
 use serde::{Deserialize, Serialize, Serializer};
 use serde_json::json;
 
+mod claims;
+use claims::{ClaimView, claim_view, witness_approach};
 mod router;
 pub use router::routes;
 
@@ -324,18 +326,6 @@ struct FragmentView {
     claim: Option<ClaimView>,
 }
 #[derive(Serialize)]
-struct ClaimView {
-    challenge_token: String,
-    charm_response: Option<String>,
-    command_response: Option<String>,
-    bluff_response: Option<String>,
-    assessment_direction: String,
-    assessment_strength: f32,
-    resolved: bool,
-    outcome: String,
-    affinity_delta: f32,
-}
-#[derive(Serialize)]
 struct TopicView {
     id: String,
     label: String,
@@ -440,15 +430,15 @@ mod npc_navigation_tests {
         SocialChatOutcome, npc_location_is_navigable, npc_matches_location_binding,
         npc_presence_contains, npc_social_revision, romantic_rejection_message,
     };
-    use crate::spacetimedb::{NpcAgeBand, NpcPresentation, SettlementCategory};
+    use crate::spacetimedb::{AgeBand, SettlementCategory};
 
     fn npc(id: u64, organization_id: &str, conversation_id: &str) -> BackendSettlementResident {
         BackendSettlementResident {
             character_id: id,
             home_settlement_id: "viabundus-0".into(),
             name: "Greta Test".into(),
-            age_band: NpcAgeBand::Adult,
-            presentation: NpcPresentation::Woman,
+            age_band: AgeBand::Adult,
+            presentation: adventuresim_stdb_client::Presentation::Woman,
             height: "average".into(),
             build: "sturdy".into(),
             hair: "brown hair".into(),
@@ -1340,30 +1330,6 @@ async fn chat_with_npc(
     ))
 }
 
-fn claim_view(
-    event_sequence: u32,
-    claim_order: u32,
-    displayed_text: &str,
-    claims: &[BackendDialogueWitnessClaim],
-) -> Option<ClaimView> {
-    let claim = claims.iter().find(|claim| {
-        claim.event_sequence == event_sequence
-            && claim.claim_order == claim_order
-            && claim.displayed_text == displayed_text
-    })?;
-    Some(ClaimView {
-        challenge_token: claim.challenge_token.clone(),
-        charm_response: claim.charm_response.clone(),
-        command_response: claim.command_response.clone(),
-        bluff_response: claim.bluff_response.clone(),
-        assessment_direction: claim.assessment_direction.clone(),
-        assessment_strength: claim.assessment_strength.clamp(0.0, 1.0),
-        resolved: claim.resolved,
-        outcome: claim.outcome.clone(),
-        affinity_delta: claim.affinity_delta,
-    })
-}
-
 async fn build_view(
     state: &AppState,
     character_id: u64,
@@ -1823,44 +1789,6 @@ async fn join(
     ))
 }
 
-#[derive(Deserialize)]
-struct WitnessApproachRequest {
-    session_id: String,
-    challenge_token: String,
-    approach: String,
-    action_id: String,
-    expected_revision: u64,
-}
-
-async fn witness_approach(
-    State(state): State<AppState>,
-    session: Session,
-    Json(request): Json<WitnessApproachRequest>,
-) -> Result<Json<ConversationView>, StatusCode> {
-    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
-    if !matches!(request.approach.as_str(), "charm" | "command" | "bluff") {
-        return Err(StatusCode::BAD_REQUEST);
-    }
-    state
-        .db
-        .call(
-            "approach_dialogue_witness",
-            &[
-                json!(character_id),
-                json!(&request.session_id),
-                json!(&request.challenge_token),
-                json!(request.approach),
-                json!(request.action_id),
-                json!(request.expected_revision),
-            ],
-        )
-        .await
-        .map_err(|_| StatusCode::CONFLICT)?;
-    Ok(Json(
-        build_view(&state, character_id, &request.session_id).await?,
-    ))
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1884,7 +1812,7 @@ mod tests {
         assert_eq!(view.display_name, "Marta");
     }
 
-    fn claim(text: &str, order: u32) -> BackendDialogueWitnessClaim {
+    pub(super) fn claim(text: &str, order: u32) -> BackendDialogueWitnessClaim {
         BackendDialogueWitnessClaim {
             observer_character_id: 7,
             session_id: "dialogue:7:test".into(),
@@ -1898,9 +1826,7 @@ mod tests {
             bluff_response: Some(format!("Bluff {order}")),
             assessment_direction: "likely_true".into(),
             assessment_strength: 0.5,
-            resolved: false,
-            outcome: String::new(),
-            affinity_delta: 0.0,
+            resolution: None,
         }
     }
 

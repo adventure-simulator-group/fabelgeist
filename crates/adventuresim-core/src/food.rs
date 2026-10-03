@@ -191,13 +191,6 @@ pub enum FoodPreparation {
     Baked,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
-pub enum IngredientPreparationAction {
-    Cut,
-    Grind,
-}
-
 /// Flavor potency in mass-equivalent kilograms. A value of 0.1 means enough
 /// of that flavor to season 0.1 kg of food at the shared objective target.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Serialize, Deserialize)]

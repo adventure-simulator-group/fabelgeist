@@ -63,7 +63,7 @@ async fn query(State(spy): State<Spy>, body: String) -> Json<Value> {
     } else if body.contains("backend_characters") {
         json!({"id":7, "scan_id":7, "name":"Ada", "xp":0, "level":1,
             "current_settlement_id":{"none":[]}, "party_id":{"none":[]},
-            "server":["0x0"], "in_server":false, "temporary":false, "age_years":30,
+            "server":["0x0"], "temporary":false, "age_years":30,
             "alive":true, "party_treatment_decision":{"Allowed":[]}})
     } else if body.contains("backend_character_case_site_locations") {
         json!({"character_id":7, "case_site_id":{"value":"site:clearing"}})

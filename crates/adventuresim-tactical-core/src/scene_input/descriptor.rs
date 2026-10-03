@@ -1,8 +1,8 @@
 //! Versioned scene document shared by production dispatch and capture tools.
 use super::*;
 
-pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 24;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 52;
+pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 25;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 54;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -28,6 +28,7 @@ pub struct TacticalSceneInput {
     pub buildings: Vec<TacticalBuildingPlacement>,
     pub distant_buildings: Vec<DistantBuildingPlacement>,
     pub establishments: Vec<SceneEstablishment>,
+    pub properties: Option<adventuresim_core::settlement_property::GeneratedHomeCatalog>,
     pub vista: VistaSample,
     pub weather: WeatherSnapshot,
 }
@@ -74,5 +75,25 @@ mod tests {
             .proprietor = "Fabricated Proprietor’s".into();
 
         assert!(input.validate().is_err());
+    }
+
+    #[test]
+    fn recaptured_operator_names_require_fresh_branding() {
+        use adventuresim_building_generator::signs::ShopName;
+        use adventuresim_world_schema::person_names::RenderedPersonalName;
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../assets/tactical-scenes/massive-city.json");
+        let original = TacticalSceneInput::load(&path).unwrap();
+        let mut next = original.clone();
+        let establishment = next.establishments.first_mut().unwrap();
+        establishment.operator_name = RenderedPersonalName::new("New Operator").unwrap();
+        assert!(next.validate().is_err());
+        let establishment = next.establishments.first_mut().unwrap();
+        establishment.shop_name = ShopName::for_operator(
+            &establishment.operator_name,
+            establishment.business_id.key.usage,
+        );
+        assert!(next.validate().is_ok());
+        assert!(original.validate().is_ok());
     }
 }
