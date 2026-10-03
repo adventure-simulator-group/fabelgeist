@@ -40,6 +40,7 @@ fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
                 vertices: 0..3,
                 indices: 0..3,
                 hinge: None,
+                mount: None,
                 material: Some(red),
             },
             ArmorComponent {
@@ -47,6 +48,7 @@ fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
                 vertices: 3..6,
                 indices: 3..6,
                 hinge: None,
+                mount: None,
                 material: Some(gold),
             },
         ],
