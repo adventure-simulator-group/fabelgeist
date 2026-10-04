@@ -1,5 +1,8 @@
-//! Select canonical owned terrain or sampled natural terrain for a vista ring.
+//! Select the physical surface for vista meshes and scenery placement.
 use super::*;
+
+const MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y: f32 = 0.72;
+const VISTA_SCENERY_NORMAL_SAMPLE_DISTANCE_METRES: f32 = 2.0;
 
 pub(super) fn vista_lod_meshes_with_morph(
     lod: &VistaLod,
@@ -46,3 +49,90 @@ pub(super) fn vista_lod_meshes_with_morph(
         weather,
     )
 }
+
+pub(super) fn vista_scatter_transform(
+    lod: &VistaLod,
+    coarser_lod: Option<&VistaLod>,
+    playable_terrain: &SceneTerrain,
+    playable_half_extent: Vec2,
+    point: Vec2,
+    hash: u64,
+    lift: f32,
+) -> Option<Transform> {
+    let (height, normal) = scenery_surface(
+        lod,
+        coarser_lod,
+        playable_terrain,
+        playable_half_extent,
+        point,
+    )?;
+    if normal.y < MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y {
+        return None;
+    }
+    Some(
+        Transform::from_xyz(point.x, height + lift, point.y).with_rotation(
+            Quat::from_rotation_arc(Vec3::Y, normal)
+                * Quat::from_rotation_y(
+                    streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,
+                ),
+        ),
+    )
+}
+
+pub(super) fn tree_root_height(
+    terrain: &SceneTerrain,
+    lod: &VistaLod,
+    coarser: Option<&VistaLod>,
+    world: Vec2,
+) -> Option<f32> {
+    if terrain.property_surface().is_some() {
+        return terrain
+            .surface_below(Vec3::new(world.x, f32::INFINITY, world.y))
+            .map(|(height, _)| height);
+    }
+    presented_height_at(lod, world, coarser)
+}
+
+/// Owned scenery uses the same highest exterior support as the rendered ground.
+/// Sampled scenes retain their stitched heightfield and finite-difference normal.
+fn scenery_surface(
+    lod: &VistaLod,
+    coarser_lod: Option<&VistaLod>,
+    playable_terrain: &SceneTerrain,
+    playable_half_extent: Vec2,
+    point: Vec2,
+) -> Option<(f32, Vec3)> {
+    if playable_terrain.property_surface().is_some() {
+        return playable_terrain.surface_below(Vec3::new(point.x, f32::INFINITY, point.y));
+    }
+    let origin = Vec2::new(
+        lod.origin_east_metres as f32,
+        lod.origin_north_metres as f32,
+    );
+    let local = point - origin;
+    let height = presented_vista_vertex_height(
+        lod,
+        coarser_lod,
+        Some(playable_terrain),
+        local,
+        playable_half_extent,
+    )?;
+    let delta = VISTA_SCENERY_NORMAL_SAMPLE_DISTANCE_METRES;
+    let at = |offset: Vec2| {
+        presented_vista_vertex_height(
+            lod,
+            coarser_lod,
+            Some(playable_terrain),
+            local + offset,
+            playable_half_extent,
+        )
+        .unwrap_or(height)
+    };
+    let tangent_x = Vec3::new(delta * 2.0, at(Vec2::X * delta) - at(-Vec2::X * delta), 0.0);
+    let tangent_z = Vec3::new(0.0, at(Vec2::Y * delta) - at(-Vec2::Y * delta), delta * 2.0);
+    let normal = tangent_z.cross(tangent_x).normalize_or_zero();
+    Some((height, normal))
+}
+
+#[cfg(test)]
+mod tests;
