@@ -289,20 +289,40 @@ programme never searches for a different valid recipe. Facade meshes remain in
 the existing presentation caches; this memo stores only programmes, collision
 geometry, thresholds and measured envelopes.
 
-`validate-city-support --world WORLD.json --scene-input target/city.json
---terrain-stages target/city-stages.json --policy-fixture POLICY.json --output
-target/support-report.json --surface-output target/city-support.json`
-reconstructs the exact production layout and checks both compounds and single
-properties. It rejects an input whose programmes, membership, streets or
-horizontal placements differ from that reconstruction. Accepted composed
-geometry can be emitted for independent inspection. Its report includes
-compilation and query timings, serialized bytes and unchanged source-vertex
-checks. `--support-projection-output` writes compact plans only after exact
-reconstruction passes. A rejected reconstruction exits with failure and writes a
-separate `.rejected.json` diagnostic beside that requested path. These native
-component measurements do not establish full producer, browser worker, renderer
-or complete-city acceptance. Gardens and enclosures require their corresponding
-support handoff and complete movement checks.
+Inspect a current geographic export through the production reconstruction path.
+The scene and terrain stages must come from the same `export-city-scene` run:
+
+```sh
+cargo run -p adventuresim-tactical-server-dispatcher \
+  --example compare-city-terrain -- \
+  --scene-input target/city.json \
+  --terrain-stages target/city-stages.json \
+  --output target/city-terrain-report.json \
+  --physical-surface-output target/city-bearing-surface.json \
+  --collision-probes
+```
+
+This command verifies scene/stage provenance and reconstructs the scene's
+accepted support projection through `generate_unfurnished`, retaining its bound
+floor elevations. It reports complete triangle comparisons for playable building
+footprints, garden measurements and enclosure geometry. `--building-id` restricts
+building comparisons to exact playable identities. The surface output contains
+physical bearing triangles, excluding buried foundation bottoms and vertical
+retaining faces. Optional collision probes materialize production colliders and
+report corner ray, nearest-point and cylinder observations separately.
+
+A successful exit establishes reconstruction and completion of these
+measurements; inspect their coverage and reported constraints. It does not
+certify every distant building, occupied route, gate sweep, player traversal,
+capacity, renderer view or performance budget. Use the corresponding producer,
+movement and presentation acceptance checks for those contracts.
+
+The `validate-city-support` example is a separate support-planning experiment.
+It recompiles unseated placements and compares complete placement values before
+planning; geographic exports with nonzero grounded floors fail that comparison.
+It is not the verification path for current exported scenes. Its component
+reports and candidate projections do not establish production installation or
+complete-city acceptance.
 
 Access acceptance must exercise `AdventureSimulatorPhysicsPlugin` with the
 production humanoid collider and authored movement configuration. Individual
