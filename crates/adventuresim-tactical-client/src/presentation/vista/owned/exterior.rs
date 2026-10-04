@@ -54,15 +54,27 @@ impl<'a> GroundPresentation<'a> {
         }
     }
 
-    pub(super) fn triangles(&self) -> impl Iterator<Item = [Vec3; 3]> + '_ {
+    pub(super) fn triangles(
+        &self,
+        transition_collar: Option<TerrainTransitionCollar>,
+    ) -> impl Iterator<Item = [Vec3; 3]> + '_ {
+        // Match collision ownership using the original face centroid, before
+        // reversing winding or clipping faces into presentation rectangles.
+        let retained = move |triangle: &[Vec3; 3]| {
+            !transition_collar.is_some_and(|collar| {
+                collar.cuts_out((triangle.iter().copied().sum::<Vec3>() / 3.0).xz())
+            })
+        };
         self.surface
             .natural_triangles
             .iter()
+            .filter(move |triangle| retained(triangle))
             .map(|[a, b, c]| [*a, *c, *b])
             .chain(
                 self.foundations
                     .iter()
-                    .flat_map(|f| f.mesh.cut_faces.iter().copied()),
+                    .flat_map(|f| f.mesh.cut_faces.iter().copied())
+                    .filter(move |triangle| retained(triangle)),
             )
             .chain(self.foundations.iter().flat_map(|visible| {
                 let foundation = visible.mesh;

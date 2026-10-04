@@ -19,17 +19,42 @@ impl Plugin for UrbanGroundCoveragePlugin {
     }
 }
 
+/// Accepted owned surfaces retain vertical steps and multiple support levels;
+/// streets also require canonical fine terrain beneath their clipped geometry.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(super) enum GroundTopology {
+    Canonical,
+    Sampled,
+}
+
+impl GroundTopology {
+    pub(super) fn for_scene(
+        terrain: &SceneTerrain,
+        environment: &SceneEnvironment,
+        vista: &ActiveVistaSurface,
+    ) -> Self {
+        if terrain.property_surface().is_some() || vista.is_urban_scene(&environment.scene_digest) {
+            Self::Canonical
+        } else {
+            Self::Sampled
+        }
+    }
+}
+
 #[derive(Component)]
 struct GroundCoverage {
     revision: u64,
-    urban: bool,
+    topology: GroundTopology,
 }
 
 pub(in crate::presentation) fn urban_playable_mesh(
     terrain: &SceneTerrain,
     landform: Option<&TerrainLandformRecipe>,
 ) -> Mesh {
-    if let Some(mesh) = super::super::vista::owned::playable_mesh(terrain) {
+    if let Some(mesh) = super::super::vista::owned::playable_mesh(
+        terrain,
+        landform.map(|recipe| recipe.transition_collar()),
+    ) {
         return mesh;
     }
     landform.map_or_else(
@@ -69,8 +94,12 @@ fn update_coverage(
         let Ok((terrain, environment, landform)) = scenes.get(source.0) else {
             continue;
         };
-        let urban = vista.is_urban_scene(&environment.scene_digest);
-        let cutout = if urban { 0.0 } else { 1.0 };
+        let topology = GroundTopology::for_scene(terrain, environment, &vista);
+        let cutout = if topology == GroundTopology::Canonical {
+            0.0
+        } else {
+            1.0
+        };
         if materials
             .get(&material.0)
             .is_some_and(|material| material.extension.detail_patch.x != cutout)
@@ -78,11 +107,11 @@ fn update_coverage(
         {
             material.extension.detail_patch.x = cutout;
         }
-        let changed = previous.map_or(urban, |previous| {
-            previous.urban != urban || previous.revision != vista.revision()
+        let changed = previous.map_or(topology == GroundTopology::Canonical, |previous| {
+            previous.topology != topology || previous.revision != vista.revision()
         });
         if changed {
-            let replacement = if urban {
+            let replacement = if topology == GroundTopology::Canonical {
                 urban_playable_mesh(terrain, landform)
             } else {
                 landform.map_or_else(
@@ -94,18 +123,20 @@ fn update_coverage(
             mesh.0 = meshes.add(replacement);
             commands.entity(entity).insert(GroundCoverage {
                 revision: vista.revision(),
-                urban,
+                topology,
             });
-            if urban {
+            if topology == GroundTopology::Canonical {
                 info!(triangles = triangle_count.0, scene = %environment.scene_digest, "Retained canonical urban terrain topology");
             }
         }
     }
     for (source, mut visibility) in &mut details {
-        let Ok((_, environment, _)) = scenes.get(source.0) else {
+        let Ok((terrain, environment, _)) = scenes.get(source.0) else {
             continue;
         };
-        let desired = if vista.is_urban_scene(&environment.scene_digest) {
+        let desired = if GroundTopology::for_scene(terrain, environment, &vista)
+            == GroundTopology::Canonical
+        {
             Visibility::Hidden
         } else {
             Visibility::Inherited
@@ -268,3 +299,6 @@ mod tests {
         );
     }
 }
+
+#[cfg(test)]
+mod owned_tests;

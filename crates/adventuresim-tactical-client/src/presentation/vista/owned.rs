@@ -9,12 +9,15 @@ mod tests;
 
 /// The fine material covers its original rectangle. The complete accepted
 /// surface, including distant properties, is partitioned into vista chunks.
-pub(in crate::presentation) fn playable_mesh(terrain: &SceneTerrain) -> Option<Mesh> {
+pub(in crate::presentation) fn playable_mesh(
+    terrain: &SceneTerrain,
+    transition_collar: Option<TerrainTransitionCollar>,
+) -> Option<Mesh> {
     let surface = terrain.property_surface()?;
     let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
     let presentation = GroundPresentation::in_rectangles(surface, &[[-half, half]]);
     let triangles = presentation
-        .triangles()
+        .triangles(transition_collar)
         .flat_map(|triangle| clip::PreparedTriangle::new(triangle).in_rectangle(-half, half));
     let mut mesh = triangle_mesh(triangles);
     let positions = mesh
@@ -37,6 +40,7 @@ pub(super) fn vista_meshes(
     coarser: Option<&VistaLod>,
     environment: Option<&SceneEnvironment>,
     weather: WeatherSnapshot,
+    transition_collar: Option<TerrainTransitionCollar>,
 ) -> Vec<Mesh> {
     let surface = terrain
         .property_surface()
@@ -75,7 +79,7 @@ pub(super) fn vista_meshes(
     let presentation = GroundPresentation::in_rectangles(surface, &regions);
     // One source-ordered pass preserves each rectangle's triangle order while
     // avoiding repeated face filtering and bound calculations.
-    for triangle in presentation.triangles() {
+    for triangle in presentation.triangles(transition_collar) {
         let prepared = clip::PreparedTriangle::new(triangle);
         for rectangle in chunks.iter_mut().flatten() {
             rectangle.positions.extend(
@@ -143,3 +147,6 @@ fn position_mesh(positions: Vec<[f32; 3]>) -> Mesh {
     mesh.insert_indices(Indices::U32(indices));
     mesh.with_computed_area_weighted_normals()
 }
+
+#[cfg(test)]
+mod landform_tests;

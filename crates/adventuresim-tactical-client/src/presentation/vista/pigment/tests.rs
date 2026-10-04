@@ -104,6 +104,7 @@ fn required_owned_mesh_pigments_preserve_uncached_vertex_bytes() {
                 coarser,
                 playable,
                 environment.weather,
+                None,
             );
             for mesh in meshes {
                 let positions = mesh

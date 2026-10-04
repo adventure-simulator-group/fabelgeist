@@ -80,7 +80,7 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         .generate_unfurnished(GeneratedBuildingRecipes::default())
         .unwrap();
     let terrain = &generated.terrain;
-    let mut meshes = vec![playable_mesh(terrain).unwrap()];
+    let mut meshes = vec![playable_mesh(terrain, None).unwrap()];
     let mut inner = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
     let environment = input.environment_snapshot(generated.digest);
     for (i, lod) in input.vista.lods.iter().enumerate() {
@@ -91,6 +91,7 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
             Some(terrain),
             Some(&environment),
             environment.weather,
+            None,
         ));
         inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
             * lod.spacing_metres
@@ -179,7 +180,7 @@ fn repeated_traversal_meshes(
             let triangles = cell_rectangles_outside_inner_rectangle(minimum, maximum, inner)
                 .into_iter()
                 .flat_map(|[x0, x1, z0, z1]| {
-                    presentation.triangles().flat_map(move |triangle| {
+                    presentation.triangles(None).flat_map(move |triangle| {
                         clip::PreparedTriangle::new(triangle)
                             .in_rectangle(Vec2::new(x0, z0), Vec2::new(x1, z1))
                     })
@@ -239,6 +240,7 @@ fn required_owned_partitions_preserve_ordered_mesh_bytes() {
                 coarser,
                 playable,
                 environment.weather,
+                None,
             );
             assert_eq!(
                 actual.len(),

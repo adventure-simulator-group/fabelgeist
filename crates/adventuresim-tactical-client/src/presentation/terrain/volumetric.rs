@@ -97,7 +97,7 @@ pub(super) fn spawn_base_and_fault(
     });
     let material = materials.add(material);
     let playable_mesh = if terrain.property_surface().is_some() {
-        super::urban::urban_playable_mesh(terrain, None)
+        super::urban::urban_playable_mesh(terrain, landform)
     } else {
         transition_collar.map_or_else(
             || terrain.coarse_mesh(),

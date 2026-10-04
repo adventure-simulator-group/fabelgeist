@@ -287,7 +287,9 @@ pub(in crate::presentation) fn update_terrain_detail_patch(
         let Ok((terrain, environment, landform)) = scenes.get(source.0) else {
             continue;
         };
-        if vista.is_urban_scene(&environment.scene_digest) {
+        if urban::GroundTopology::for_scene(terrain, environment, &vista)
+            == urban::GroundTopology::Canonical
+        {
             continue;
         }
         let Some(mut mesh) = meshes.get_mut(&mesh_handle.0) else {

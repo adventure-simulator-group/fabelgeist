@@ -4,6 +4,8 @@ mod pigment;
 use pigment::{VistaVertexColors, vista_sward_coverage};
 #[cfg(test)]
 use pigment::{presented_color, stitch_vista_color_to_playable_edge, vista_sample_color};
+mod ground;
+use ground::vista_lod_meshes_with_morph;
 pub(super) mod owned;
 pub(super) mod pending;
 mod streams;
@@ -92,6 +94,7 @@ pub(super) fn on_scene_vista_bundle(
             playable_terrain,
             (index == 0).then_some(playable_environment).flatten(),
             weather,
+            landform.map(|recipe| recipe.transition_collar()),
         );
         if meshes_for_lod.is_empty() {
             warn!(level = lod.level, "Rejected malformed tactical vista LOD");
@@ -629,50 +632,7 @@ pub(super) fn vista_lod_meshes(lod: &VistaLod, inner_half_extent: Vec2) -> Vec<M
         None,
         None,
         clear_vista_weather(),
-    )
-}
-
-fn vista_lod_meshes_with_morph(
-    lod: &VistaLod,
-    inner_half_extent: Vec2,
-    coarser_lod: Option<&VistaLod>,
-    playable_terrain: Option<&SceneTerrain>,
-    playable_environment: Option<&SceneEnvironment>,
-    weather: WeatherSnapshot,
-) -> Vec<Mesh> {
-    let width = usize::from(lod.width);
-    let depth = usize::from(lod.depth);
-    if width < 2
-        || depth < 2
-        || width.checked_mul(depth).is_none_or(|samples| {
-            lod.heights_metres.len() != samples || lod.environment.len() != samples
-        })
-        || !lod.spacing_metres.is_finite()
-        || lod.spacing_metres <= 0.0
-    {
-        return Vec::new();
-    }
-    if let Some(terrain) = playable_terrain
-        && terrain.property_surface().is_some()
-    {
-        return owned::vista_meshes(
-            terrain,
-            lod,
-            inner_half_extent,
-            coarser_lod,
-            playable_environment,
-            weather,
-        );
-    }
-    natural::sampled_vista_lod_meshes_with_morph(
-        lod,
-        inner_half_extent,
-        coarser_lod,
-        playable_terrain.filter(|terrain| {
-            inner_half_extent == Vec2::new(terrain.width(), terrain.depth()) * 0.5
-        }),
-        playable_environment,
-        weather,
+        None,
     )
 }
 
@@ -995,6 +955,7 @@ mod tests {
             Some(&terrain),
             None,
             clear_vista_weather(),
+            None,
         );
         let mut east_edge = Vec::new();
         for mesh in meshes {
@@ -1330,6 +1291,7 @@ mod furniture_support_tests {
             Some(&terrain),
             None,
             clear_vista_weather(),
+            None,
         );
         let mut checked = 0;
         for mesh in meshes {

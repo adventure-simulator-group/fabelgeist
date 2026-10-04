@@ -98,6 +98,7 @@ impl PreparedCityGround {
                 (index == 0).then_some(terrain),
                 (index == 0).then_some(&environment),
                 environment.weather,
+                input.landform.map(|recipe| recipe.transition_collar()),
             ) {
                 support.add_mesh(&mesh, origin);
             }

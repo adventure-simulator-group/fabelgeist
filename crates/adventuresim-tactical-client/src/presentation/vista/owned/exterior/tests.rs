@@ -71,7 +71,7 @@ fn region_selection_preserves_crossing_cut_faces_and_complete_boundary_cells() {
     let selected = GroundPresentation::in_rectangles(&surface, &regions);
     let clipped = |presentation: &GroundPresentation<'_>| {
         presentation
-            .triangles()
+            .triangles(None)
             .flat_map(|triangle| {
                 super::super::clip::PreparedTriangle::new(triangle)
                     .in_rectangle(regions[0][0], regions[0][1])
@@ -96,7 +96,7 @@ fn coincident_internal_sides_are_removed_without_changing_bearings_or_closed_cel
         let original = serde_json::to_vec(&surface).unwrap();
         let all: Vec<_> = surface.presentation_triangles().collect();
         let presentation = GroundPresentation::new(&surface);
-        let visible: Vec<_> = presentation.triangles().collect();
+        let visible: Vec<_> = presentation.triangles(None).collect();
         assert_eq!(all.len(), 16);
         assert_eq!(visible.len(), 12, "only the shared side pair is removed");
         assert!(visible.iter().all(|face| all.contains(face)));
@@ -135,12 +135,21 @@ fn separate_owners_different_terraces_and_unmatched_faces_are_retained() {
         foundation(41, &cells[..1]),
         foundation(42, &cells[1..]),
     ]);
-    assert_eq!(GroundPresentation::new(&separate).triangles().count(), 16);
+    assert_eq!(
+        GroundPresentation::new(&separate).triangles(None).count(),
+        16
+    );
     let stepped = [cells[0], cells[1].map(|p| p + Vec3::Y)];
     let stepped = surface(vec![foundation(41, &stepped)]);
-    assert_eq!(GroundPresentation::new(&stepped).triangles().count(), 16);
+    assert_eq!(
+        GroundPresentation::new(&stepped).triangles(None).count(),
+        16
+    );
     let unmatched = surface(vec![foundation(41, &cells[..1])]);
-    assert_eq!(GroundPresentation::new(&unmatched).triangles().count(), 8);
+    assert_eq!(
+        GroundPresentation::new(&unmatched).triangles(None).count(),
+        8
+    );
 }
 
 #[test]
@@ -148,11 +157,16 @@ fn duplicate_or_ambiguous_side_occurrences_cannot_hide_geometry() {
     let cells = adjacent_cells();
     let same_direction = surface(vec![foundation(41, &[cells[0], cells[0]])]);
     assert_eq!(
-        GroundPresentation::new(&same_direction).triangles().count(),
+        GroundPresentation::new(&same_direction)
+            .triangles(None)
+            .count(),
         16
     );
     let ambiguous = surface(vec![foundation(41, &[cells[0], cells[1], cells[0]])]);
-    assert_eq!(GroundPresentation::new(&ambiguous).triangles().count(), 24);
+    assert_eq!(
+        GroundPresentation::new(&ambiguous).triangles(None).count(),
+        24
+    );
 }
 
 #[test]
@@ -164,7 +178,7 @@ fn source_and_cut_faces_are_retained_bit_for_bit() {
         .natural_triangles
         .push([Vec3::ZERO, Vec3::X, Vec3::Z]);
     let presentation = GroundPresentation::new(&source);
-    let triangles: Vec<_> = presentation.triangles().collect();
+    let triangles: Vec<_> = presentation.triangles(None).collect();
     assert_eq!(triangles[0], [Vec3::ZERO, Vec3::Z, Vec3::X]);
     assert_eq!(triangles[1], source.foundations[0].cut_faces[0]);
 }
