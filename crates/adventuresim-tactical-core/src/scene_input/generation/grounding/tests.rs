@@ -141,3 +141,47 @@ fn occupied_inputs_reject_missing_stale_and_mismatched_support_without_fallback(
             .is_err()
     );
 }
+
+#[test]
+fn prepared_support_phase_matches_full_generation_and_rejects_removed_members() {
+    let input = TacticalSceneInput::load(std::path::Path::new(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../assets/tactical-scenes/garden-review.json"
+    )))
+    .unwrap();
+    let prepared = input
+        .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())
+        .unwrap();
+    let complete = input
+        .generate_unfurnished(GeneratedBuildingRecipes::default())
+        .unwrap();
+    assert_eq!(
+        serde_json::to_vec(&prepared.terrain).unwrap(),
+        serde_json::to_vec(&complete.terrain).unwrap()
+    );
+    assert_eq!(
+        serde_json::to_vec(&prepared.ground).unwrap(),
+        serde_json::to_vec(&complete.ground).unwrap()
+    );
+    assert_eq!(
+        serde_json::to_vec(&prepared.repairs).unwrap(),
+        serde_json::to_vec(&complete.repairs).unwrap()
+    );
+    assert!(prepared.terrain.property_surface().is_some());
+    let mut incomplete = input.clone();
+    assert!(incomplete.distant_buildings.pop().is_some());
+    let rejection = incomplete.prepare_supported_terrain(&mut GeneratedBuildingRecipes::default());
+    assert_eq!(
+        rejection.unwrap_err().to_string(),
+        "scene input is invalid: garden owner must reference an occupied front building"
+    );
+    let mut mismatched = input;
+    mismatched.distant_buildings[0].base_elevation_metres += 0.01;
+    let rejection = mismatched.prepare_supported_terrain(&mut GeneratedBuildingRecipes::default());
+    assert!(
+        matches!(&rejection,
+        Err(SceneInputError::GroundingProjection(error))
+            if matches!(**error, crate::city_layout::CityGroundingProjectionError::PlacementMismatch)),
+        "specific placement rejection: {rejection:?}"
+    );
+}

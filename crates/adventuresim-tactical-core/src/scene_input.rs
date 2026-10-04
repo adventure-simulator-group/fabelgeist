@@ -56,7 +56,7 @@ use detail_obstacles::{TerrainDetailObstacles, TerrainRockInfluence};
 mod generated;
 mod generation;
 mod validation;
-pub use generation::UngradedSceneTerrain;
+pub use generation::{SupportedSceneTerrain, UngradedSceneTerrain};
 mod recipes;
 pub use generated::{GeneratedTacticalScene, SceneRepairReport};
 pub use recipes::{GeneratedBuildingRecipe, GeneratedBuildingRecipes};

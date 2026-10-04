@@ -2,6 +2,7 @@
 
 use super::{camera::OrbitView, exhibits::ExhibitId};
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipes, SupportedSceneTerrain};
 use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
 use bevy::prelude::*;
 
@@ -13,7 +14,7 @@ struct PreparedSceneryInput {
 
 pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     let PreparedSceneryInput {
-        mut input,
+        input,
         furniture: prepared_furniture,
         cloud_asset_digest,
     } = prepare_input(id)?;
@@ -23,12 +24,11 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     // Building-anchored furniture is prepared alongside the city offline.
     // Keep its accepted instances and reservations instead of regenerating
     // from a scene stripped of the buildings that own those activity groups.
-    let parishes = std::mem::take(&mut input.parishes);
-    let compounds = std::mem::take(&mut input.compounds);
-    let gardens = std::mem::take(&mut input.gardens);
-    let distant_buildings = std::mem::take(&mut input.distant_buildings);
-    let generated = input.generate().map_err(|error| error.to_string())?;
-    let environment = input.environment_snapshot(generated.digest.clone());
+    let generated = input
+        .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())
+        .map_err(|error| error.to_string())?;
+    let digest = input.digest().map_err(|error| error.to_string())?;
+    let environment = input.environment_snapshot(digest.clone());
     let (asset_scene_digest, rgba8): (&str, &'static [u8]) = if id == ExhibitId::Oak {
         (
             include_str!("../../../../assets/clouds/art-demo/oak.scene-digest").trim(),
@@ -72,25 +72,20 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     world.flush();
     let furniture =
         prepared_furniture.unwrap_or_else(|| super::district::PreparedOutdoorFurniture {
-            instances: generated
-                .furniture
-                .instances
-                .into_iter()
-                .chain(generated.furniture.distant_instances)
-                .collect(),
-            groups: generated.furniture.groups,
+            instances: Vec::new(),
+            groups: Vec::new(),
         });
     world.trigger(SceneVistaBundle {
         properties: input.properties.clone(),
-        scene_digest: generated.digest,
+        scene_digest: digest,
         playable_half_extent_metres: half_extent,
-        distant_buildings,
+        distant_buildings: input.distant_buildings,
         establishments: input.establishments,
         streets: input.streets,
         yards: input.yards,
-        parishes,
-        compounds,
-        gardens,
+        parishes: input.parishes,
+        compounds: input.compounds,
+        gardens: input.gardens,
         furniture_groups: furniture.groups,
         distant_furniture: furniture.instances,
         lods: input.vista.lods,
@@ -113,9 +108,8 @@ fn prepare_input(id: ExhibitId) -> Result<PreparedSceneryInput, String> {
     };
     let mut input: TacticalSceneInput =
         serde_json::from_str(json).map_err(|error| error.to_string())?;
-    // City curation replaces its layout and later moves vista-only collections
-    // out before tactical generation. Clouds depend on the authored fixture's
-    // environment, so key their offline bake before those city transformations.
+    // Clouds use the authored fixture's environment. Key their offline bake
+    // before installing the separately prepared, fully bound city layout.
     let cloud_asset_digest = input.digest().map_err(|error| error.to_string())?;
     let prepared_furniture = if id == ExhibitId::City {
         let furniture = super::district::curate(&mut input)?;
@@ -133,7 +127,7 @@ fn prepare_input(id: ExhibitId) -> Result<PreparedSceneryInput, String> {
 fn spawn_oak(
     world: &mut World,
     input: &TacticalSceneInput,
-    generated: &GeneratedTacticalScene,
+    generated: &SupportedSceneTerrain,
     environment: &SceneEnvironment,
 ) -> Result<(), String> {
     let terrain = &generated.terrain;
@@ -153,7 +147,7 @@ fn spawn_oak(
 
 fn oak_exhibit_site(
     input: &TacticalSceneInput,
-    generated: &GeneratedTacticalScene,
+    generated: &SupportedSceneTerrain,
     environment: &SceneEnvironment,
 ) -> Option<(Vec2, Vec3)> {
     let terrain = &generated.terrain;
@@ -246,10 +240,13 @@ mod tests {
     #[test]
     fn fixed_oak_exhibit_has_every_matching_prebaked_impostor() {
         let prepared = prepare_input(ExhibitId::Oak).unwrap();
-        let generated = prepared.input.generate().unwrap();
+        let generated = prepared
+            .input
+            .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())
+            .unwrap();
         let environment = prepared
             .input
-            .environment_snapshot(generated.digest.clone());
+            .environment_snapshot(prepared.input.digest().unwrap());
         let (_, root) = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
         let asset = crate::presentation::PreparedTreeImpostorAsset::decode(include_bytes!(
             "../../../../assets/art-demo/oak.tree-impostors"
@@ -291,10 +288,13 @@ mod tests {
     #[ignore = "offline asset generator performs all deterministic tree impostor bakes"]
     fn regenerate_art_demo_tree_impostors() {
         let prepared = prepare_input(ExhibitId::Oak).unwrap();
-        let generated = prepared.input.generate().unwrap();
+        let generated = prepared
+            .input
+            .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())
+            .unwrap();
         let environment = prepared
             .input
-            .environment_snapshot(generated.digest.clone());
+            .environment_snapshot(prepared.input.digest().unwrap());
         let (_, root) = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
         let asset = crate::presentation::prepare_art_demo_tree_impostor_asset(root, &environment);
         let bytes = asset.compressed_bytes();
@@ -314,8 +314,10 @@ mod tests {
             "../../../../assets/tactical-scenes/sparse-woodland.json"
         ))
         .unwrap();
-        let generated = input.generate().unwrap();
-        let environment = input.environment_snapshot(generated.digest.clone());
+        let generated = input
+            .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())
+            .unwrap();
+        let environment = input.environment_snapshot(input.digest().unwrap());
         let mut world = World::new();
         world.init_resource::<OrbitView>();
         spawn_oak(&mut world, &input, &generated, &environment).unwrap();

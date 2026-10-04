@@ -4,7 +4,9 @@ use fabelgeist_determinism::StreamId;
 mod geographic;
 mod grounding;
 mod support_obstacles;
+mod supported;
 pub use geographic::UngradedSceneTerrain;
+pub use supported::SupportedSceneTerrain;
 
 impl TacticalSceneInput {
     pub fn generate(&self) -> Result<GeneratedTacticalScene, SceneInputError> {
@@ -20,31 +22,13 @@ impl TacticalSceneInput {
         &self,
         mut building_recipes: GeneratedBuildingRecipes,
     ) -> Result<GeneratedTacticalScene, SceneInputError> {
-        self.validate()?;
-        let UngradedSceneTerrain {
-            mut terrain,
+        let SupportedSceneTerrain {
+            terrain,
             ground,
             buildings,
-            mut obstacles,
-            mut repairs,
-        } = self.prepare_geographic_terrain(&mut building_recipes)?;
-        buildings::validate_building_pads(&buildings)?;
-        compounds::validate_generated(&self.compounds, &buildings, &self.streets)?;
-        if let Some(projection) = &self.grounding {
-            let source = crate::city_layout::grounding::GeographicSurface::from_presented_scene(
-                &terrain,
-                &self.vista,
-            )
-            .ok_or_else(|| {
-                SceneInputError::Validation("geographic support source is invalid".into())
-            })?;
-            let support = projection.reconstruct(&source, &self.physical_placements())?;
-            terrain = terrain.with_property_surface(support);
-        }
-        // Geographic preparation is already bound. Exclude physical obstacles
-        // intersecting accepted construction/access, without resampling source
-        // relief or choosing a different property floor.
-        support_obstacles::remove(self, &terrain, &mut obstacles, &mut repairs);
+            obstacles,
+            repairs,
+        } = self.prepare_supported_terrain(&mut building_recipes)?;
         let terrain_patch = crate::scene_fault::generate(self.landform, &terrain)?;
         let furniture = furniture::generate(
             self,
