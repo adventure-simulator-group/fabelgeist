@@ -1,21 +1,25 @@
-# Managed by scripts/deploy.py (game target). Restored from the easy-deploy branch.
-
-www.{{DOMAIN}} {
-    redir https://{{DOMAIN}}{uri} permanent
-}
-
+# Private game testing. Backends listen only on loopback.
 {{DOMAIN}} {
     encode zstd gzip
+    basic_auth {
+        {{TEST_USER}} {{TEST_PASSWORD_HASH}}
+    }
+    header Cache-Control "no-store"
 
-    # Tactical mission sockets. The dispatcher binds each spawned server on
-    # loopback 6000+ and registers wss://{{DOMAIN}}/t<port> as its public
-    # address, so the browser client reaches it over the same TLS cert.
-    # The port range is pinned deliberately: an open {re.*} port capture here
-    # would proxy /t3000 straight into SpacetimeDB.
-    @tactical path_regexp tactical ^/t(6[0-9]{3})$
-    reverse_proxy @tactical 127.0.0.1:{re.tactical.1}
-
-    # strategic-web serves its own static and tactical asset trees, so
-    # everything else is one hop. It binds loopback only.
-    reverse_proxy 127.0.0.1:8080
+    # Only mission listeners can be reached through this port capture.
+    # Requiring this origin also prevents other sites opening tester sockets.
+    @tactical {
+        path_regexp tactical ^/t(600[1-9]|60[1-9][0-9]|6[1-9][0-9]{2})$
+        header Origin https://{{DOMAIN}}
+    }
+    @reserved path_regexp reserved ^/t[0-9]+$
+    route {
+        reverse_proxy @tactical 127.0.0.1:{re.tactical.1} {
+            header_up -Authorization
+        }
+        respond @reserved "Mission connection unavailable" 403
+        reverse_proxy 127.0.0.1:8080 {
+            header_up -Authorization
+        }
+    }
 }

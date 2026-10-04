@@ -76,6 +76,7 @@ async fn witness_http_admits_canonical_keys_and_rejects_unknown_keys_before_disp
         axum::serve(listener, mock).await.unwrap();
     });
     let state = AppState {
+        tactical_proxy_origin: None,
         db: crate::spacetimedb::SpacetimeClient::new(&address, "test").unwrap(),
         live: crate::live::LiveState::connect(&address, "test", None).unwrap(),
         strategic_map: None,

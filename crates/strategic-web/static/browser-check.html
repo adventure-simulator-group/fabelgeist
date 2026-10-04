@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fabelgeist browser check</title>
+<style>
+body { background:#161616; color:#eee; font:17px system-ui; max-width:42rem; margin:4rem auto; padding:1rem; }
+li { margin:1rem 0; } a { color:#c8b991; }
+</style>
+<h1>Browser check</h1>
+<ul id="checks"><li>Checking browser capabilities…</li></ul>
+<p><a href="/">Return to the game</a></p>
+<script type="module">
+const checks = document.querySelector('#checks');
+checks.replaceChildren();
+const report = (label, message) => {
+    const line = document.createElement('li');
+    line.textContent = `${label}: ${message}`;
+    checks.append(line);
+};
+report('Secure connection', window.isSecureContext ? 'available' : 'HTTPS is required');
+const wasm = [0, 97, 115, 109, 1, 0, 0, 0];
+report('WebAssembly', typeof WebAssembly === 'object' && WebAssembly.validate(new Uint8Array(wasm)) ? 'available' : 'unavailable');
+if (!navigator.gpu) {
+    report('WebGPU', 'unavailable in this browser or context');
+} else {
+    try {
+        const adapter = await navigator.gpu.requestAdapter();
+        report('WebGPU adapter', adapter ? 'available' : 'no usable GPU adapter');
+        if (adapter) {
+            const device = await adapter.requestDevice();
+            report('WebGPU device', 'available');
+            device.destroy();
+        }
+    } catch (error) { report('WebGPU', error.message); }
+}
+</script>
+</html>
