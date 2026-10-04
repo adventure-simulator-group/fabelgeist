@@ -3,8 +3,8 @@
 //! Solid helmets move with the head alone, so jaw and neck deformation cannot
 //! bend them. Joint cops and their distal courses follow the lower limb, and
 //! rerebraces, spaulders and cuisses the upper limb, so limb motion and twist
-//! weights cannot shear their plates. Body proportions still refit every plate
-//! through its morph targets. Each lame of a fauld hangs from the pelvis and
+//! weights cannot shear their plates. Body proportions refit every plate before
+//! attachment. Each lame of a fauld hangs from the pelvis and
 //! each tasset from its own hip; a besagew hangs from the chest in front of
 //! the shoulder. Arming caps, mail coifs and textiles keep the body's flexible
 //! skin.
@@ -53,7 +53,15 @@ pub fn attach(
             return Ok(());
         }
         ParametricDesign::Limb(limb) => match limb {
-            LimbArmorDesign::Pauldron(_) => return pauldron(placement, joint_names, armor),
+            // Keep the fitted saddle and courses coherent until an equipment
+            // rig supplies independent plate transforms.
+            LimbArmorDesign::Pauldron(_) => (
+                limb_joint(placement, "uparm")?,
+                &[
+                    ArmorComponentRole::Plate,
+                    ArmorComponentRole::JointExtension,
+                ],
+            ),
             LimbArmorDesign::Couter(_) => (
                 limb_joint(placement, "lowarm")?,
                 &[
@@ -106,30 +114,6 @@ pub fn attach(
         .collect::<Vec<_>>();
     for vertices in plates {
         fill(armor, vertices, anchor);
-    }
-    Ok(())
-}
-
-/// The broad saddle hangs from the chest; distal lames follow the upper arm.
-/// Each remains rigid. This ownership alone is not an overlap constraint.
-fn pauldron(placement: &str, names: &[String], armor: &mut GeneratedArmor) -> Result<()> {
-    let cap = joint_index(names, "c_spine3")?;
-    let arm = joint_index(names, &limb_joint(placement, "uparm")?)?;
-    let parts = armor
-        .components
-        .iter()
-        .map(|part| (part.role, part.vertices.clone()))
-        .collect::<Vec<_>>();
-    for (role, vertices) in parts {
-        fill(
-            armor,
-            vertices,
-            if role == ArmorComponentRole::JointExtension {
-                arm
-            } else {
-                cap
-            },
-        );
     }
     Ok(())
 }

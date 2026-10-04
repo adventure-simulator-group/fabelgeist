@@ -68,19 +68,10 @@ fn pauldron_shared_saddle_fits_body_and_completed_cuirass() -> Result<()> {
                 .unwrap() as u32;
             for armor in [&bare, &dressed] {
                 for component in &armor.components {
-                    let anchor =
-                        if component.role == fabelgeist_armor::ArmorComponentRole::JointExtension {
-                            owner
-                        } else {
-                            body.joint_names
-                                .iter()
-                                .position(|name| name == "c_spine3")
-                                .unwrap() as u32
-                        };
                     assert!(
                         armor.joint_indices[component.vertices.clone()]
                             .iter()
-                            .all(|j| *j == [anchor; 8])
+                            .all(|j| *j == [owner; 8])
                     );
                 }
                 assert!(

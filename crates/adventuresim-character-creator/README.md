@@ -976,8 +976,8 @@ The device builds a shared shoulder saddle, seats it against the wearer's body
 and completed lower plates, then cuts its overlapping closed courses. The
 runtime builds only the current wearer's fit, with no equipment morph targets.
 `animation-viewer --armor-harness pauldron` exercises both shoulders over a
-cuirass. Rigid attachment is separate from fitting: the cap hangs from the chest
-and distal lames follow the upper arm. This is not a constrained armor rig;
+cuirass. Rigid attachment is separate from fitting: the cap and lames move as one
+rigid upper-arm assembly. This is not a constrained armor rig;
 posed overlap and body clearance remain acceptance concerns.
 
 `pauldron` is a separate catalog choice from the smaller `spaulder`. A formed
