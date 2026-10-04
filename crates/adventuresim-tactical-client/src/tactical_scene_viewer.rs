@@ -21,7 +21,7 @@ use bevy::{
     pbr::{AtmosphereSettings, wireframe::WireframePlugin},
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
-    window::{ExitCondition, PresentMode, WindowResolution},
+    window::{ExitCondition, PresentMode},
     winit::WinitPlugin,
 };
 use serde::Serialize;
@@ -99,7 +99,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 47;
+const CAPTURE_PROFILE_VERSION: u16 = 48;
 const PLANT_REVIEW_PROFILE: &str = "plant-review";
 const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
 const PLANT_LOD_REVIEW_PROFILE: &str = "plant-lod-review";
@@ -786,11 +786,10 @@ pub(crate) fn run(
         _ => unreachable!("argument parser enforces one scene input"),
     };
     let camera_contract = fixed_city_cameras::Contract::load(city_cameras, profile);
-    let mut input = TacticalSceneInput::load(&input_path)
+    let input = TacticalSceneInput::load(&input_path)
         .unwrap_or_else(|error| panic!("failed to load {}: {error}", input_path.display()));
-    camera_contract.promote(&mut input);
-    let generated = input
-        .generate()
+    let generated = camera_contract
+        .generate(&input)
         .unwrap_or_else(|error| panic!("failed to generate tactical scene: {error}"));
     let mut environment = input.environment_snapshot(generated.digest.clone());
     if let Some(canopy_bps) = canopy_bps {
@@ -853,11 +852,7 @@ pub(crate) fn run(
         .set(WindowPlugin {
             primary_window: (!scene_performance_benchmarking).then(|| Window {
                 visible: false,
-                resolution: WindowResolution::new(
-                    capture_resolution::physical_pixels(profile).x,
-                    capture_resolution::physical_pixels(profile).y,
-                )
-                .with_scale_factor_override(1.0),
+                resolution: capture_resolution::window_resolution(profile),
                 present_mode: PresentMode::AutoNoVsync,
                 resizable: false,
                 decorations: false,
@@ -891,6 +886,7 @@ pub(crate) fn run(
     .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
     .insert_resource(SceneSetup(Some(setup)));
     app.insert_resource(camera_contract);
+    app.add_systems(PostStartup, capture_resolution::apply.after(setup_scene));
     furniture_readiness::install(&mut app, profile);
     if terrain_wireframe {
         app.add_plugins(WireframePlugin::default())
@@ -1754,6 +1750,7 @@ fn setup_scene(
         terrain_patch,
         building_recipes: _,
     } = generated;
+    let distant_buildings = buildings::distant_placements(&input, &buildings);
     let terrain_summary = TerrainSummary::new(&input, &terrain);
     let (
         vista_diameter_metres,
@@ -1808,7 +1805,7 @@ fn setup_scene(
     .unwrap_or_else(|| {
         city_capture::capture_cameras(
             &buildings,
-            &input.distant_buildings,
+            &distant_buildings,
             &input.streets,
             &terrain,
             &profile,
@@ -2146,7 +2143,7 @@ fn setup_scene(
             terrain_summary.width_metres * 0.5,
             terrain_summary.depth_metres * 0.5,
         ),
-        distant_buildings: input.distant_buildings.clone(),
+        distant_buildings,
         establishments: input.establishments.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),

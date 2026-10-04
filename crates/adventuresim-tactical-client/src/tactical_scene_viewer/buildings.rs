@@ -2,6 +2,21 @@ use adventuresim_building_generator::BuildingCollision;
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
+/// Select each physical building once across playable and distant presentation.
+pub(super) fn distant_placements(
+    input: &TacticalSceneInput,
+    buildings: &[GeneratedBuilding],
+) -> Vec<DistantBuildingPlacement> {
+    let playable: std::collections::BTreeSet<_> =
+        buildings.iter().map(|b| b.placement.id).collect();
+    input
+        .distant_buildings
+        .iter()
+        .filter(|b| !playable.contains(&b.id))
+        .copied()
+        .collect()
+}
+
 pub(super) fn spawn_boundaries(commands: &mut Commands, boundaries: Vec<GeneratedBoundary>) {
     for boundary in boundaries {
         let door = boundary

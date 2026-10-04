@@ -35,7 +35,7 @@ SKY_MINUTES = {"sun": 172 * 1440 + 12 * 60, "sun-detail": 172 * 1440 + 19 * 60,
                "twilight": 80 * 1440 + 18 * 60,
                "moon": NAMED_TIMES["moonlit"], "stars": 637_860}
 EXPECTED_PIPELINE = "tactical_scene_native_capture_v6"
-EXPECTED_PROFILE_VERSION = 47
+EXPECTED_PROFILE_VERSION = 48
 EXPECTED_CAMERA_VERSION = 31
 EXPECTED_GENERATION_VERSION = 70
 EXPECTED_RESOLUTION = [1280, 720]

@@ -137,6 +137,7 @@ class CaptureTacticalScenesTests(unittest.TestCase):
                                   ("generation_version", 59),
                                   ("camera_version", 30),
                                   ("capture_profile_version", 43),
+                                  ("capture_profile_version", 47),
                                   ("scene_source", {"kind": "synthetic_fixture", "id": "wrong"}),
                                  ("resolution", [1, 1]),
                                  ("presentation_features", {"celestial": False})):

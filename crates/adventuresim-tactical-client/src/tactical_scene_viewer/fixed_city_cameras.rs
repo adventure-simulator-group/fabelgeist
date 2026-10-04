@@ -1,4 +1,4 @@
-//! Frozen absolute poses keep terrain comparisons independent of generation.
+//! Frozen poses and presentation selection retain accepted geographic support.
 use super::{capture_state::BuildingReviewCamera, capture_state::SceneCaptureState};
 use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
@@ -6,6 +6,8 @@ use std::path::PathBuf;
 
 pub(crate) const PROFILE: &str = "terrain-grounding";
 const CONTRACT_VERSION: u16 = 2;
+
+mod promotion;
 
 #[derive(Clone, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -70,28 +72,6 @@ impl Contract {
             document
         });
         Self(document)
-    }
-
-    pub(super) fn promote(
-        &self,
-        input: &mut adventuresim_tactical_core::scene_input::TacticalSceneInput,
-    ) {
-        let Some(document) = &self.0 else { return };
-        let requested: std::collections::BTreeSet<_> =
-            document.playable_building_ids.iter().copied().collect();
-        assert_eq!(requested.len(), document.playable_building_ids.len());
-        for id in requested {
-            if input.buildings.iter().any(|building| building.id == id) {
-                continue;
-            }
-            let index = input
-                .distant_buildings
-                .iter()
-                .position(|building| building.id == id)
-                .expect("explicit capture member must exist");
-            let distant = input.distant_buildings.remove(index);
-            input.buildings.push(distant.into());
-        }
     }
 }
 
@@ -222,44 +202,6 @@ mod tests {
             }
             .validate()
         );
-    }
-
-    #[test]
-    fn explicit_capture_promotion_preserves_complete_physical_bindings() {
-        use adventuresim_tactical_core::scene_input::TacticalSceneInput;
-        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../../assets/tactical-scenes/massive-city.json");
-        let mut input = TacticalSceneInput::load(&path).unwrap();
-        let original = input.clone();
-        let member = *input.distant_buildings.last().unwrap();
-        let contract = Contract(Some(Document {
-            version: CONTRACT_VERSION,
-            exterior: Vec::new(),
-            benchmark: None,
-            playable_building_ids: vec![member.id],
-        }));
-        contract.promote(&mut input);
-        let promoted = input.buildings.iter().find(|b| b.id == member.id).unwrap();
-        assert_eq!(*promoted, member.into());
-        assert!(!input.distant_buildings.iter().any(|b| b.id == member.id));
-        let placements = |input: &TacticalSceneInput| {
-            input
-                .buildings
-                .iter()
-                .cloned()
-                .chain(input.distant_buildings.iter().copied().map(Into::into))
-                .collect::<Vec<_>>()
-        };
-        let mut before = placements(&original);
-        let mut after = placements(&input);
-        before.sort_by_key(|b| b.id);
-        after.sort_by_key(|b| b.id);
-        assert_eq!(before, after);
-        assert_eq!(original.grounding, input.grounding);
-        assert_eq!(original.compounds, input.compounds);
-        assert_eq!(original.gardens, input.gardens);
-        assert_eq!(original.properties, input.properties);
-        input.validate().unwrap();
     }
 
     #[test]

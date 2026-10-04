@@ -513,4 +513,9 @@ dimensions. Other capture profiles retain their standard 1280 × 720 images;
 scene-performance measurements use a separate 2560 × 1440 offscreen target.
 Cameras, time, weather, exposure and physical member selection must be fixed
 when comparing terrain support across generated products and building LODs.
+Explicit capture members are prepared for playable presentation only after the
+unchanged input has reconstructed its accepted terrain. Their exact programmes,
+placements and floor elevations are retained, and their distant drawing entries
+are suppressed. The saved input and scene digest identify the authoritative
+source; `fixed-camera-contract.json` records this presentation selection.
 Ordinary images and wireframe/collision diagnostics are separate evidence.
