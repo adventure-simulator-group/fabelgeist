@@ -7,6 +7,7 @@ use adventuresim_tactical_core::{
         subdivide_playable_boundary_rectangle,
     },
 };
+use bevy::math::Vec3Swizzles;
 
 pub(crate) fn extrema(
     lod: &VistaLod,
@@ -14,6 +15,28 @@ pub(crate) fn extrema(
     terrain: &SceneTerrain,
     corners: [Vec2; 4],
 ) -> Value {
+    let mut result = Intersection::default();
+    for triangle in triangles(lod, coarser, terrain, corners) {
+        let points = triangle.map(|p| p.xz());
+        let polygon = clip(points.to_vec(), &corners);
+        result.area_m2 += area(&polygon);
+        for point in polygon {
+            result.observe(point, height_in_triangle(triangle, point));
+        }
+    }
+    json!({"required_footprint_area_m2":area(&corners),"clipped_vista_area_m2":result.area_m2,
+        "intersection_vertices":result.vertices,
+        "minimum_metres":result.low.map(|(_,h)|h),"minimum_location":result.low.map(|(p,_)|p),
+        "maximum_metres":result.high.map(|(_,h)|h),"maximum_location":result.high.map(|(p,_)|p),
+        "method":"Production clipped vista triangles with playable-boundary subdivision and LOD vertex morph. Area coverage is reported explicitly; playable terrain and other LODs are not substituted."})
+}
+
+pub(crate) fn triangles(
+    lod: &VistaLod,
+    coarser: Option<&VistaLod>,
+    terrain: &SceneTerrain,
+    corners: [Vec2; 4],
+) -> Vec<[bevy::math::Vec3; 3]> {
     let origin = Vec2::new(
         lod.origin_east_metres as f32,
         lod.origin_north_metres as f32,
@@ -35,7 +58,7 @@ pub(crate) fn extrema(
         .ceil())
     .min(size);
     let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
-    let mut result = Intersection::default();
+    let mut result = Vec::new();
     for z in min.y as usize..max.y as usize {
         for x in min.x as usize..max.x as usize {
             let a = (Vec2::new(x as f32, z as f32) - size * 0.5) * lod.spacing_metres;
@@ -61,29 +84,27 @@ pub(crate) fn extrema(
                     };
                     // Vista uses the a--c diagonal, unlike the playable field.
                     for indices in [[0, 1, 2], [0, 2, 3]] {
-                        let triangle = indices.map(|i| quad[i]);
-                        let polygon = clip(triangle.to_vec(), corners);
-                        result.area_m2 += area(&polygon);
-                        for point in polygon {
-                            let u = (point.x - x0) / (x1 - x0);
-                            let v = (point.y - z0) / (z1 - z0);
-                            let height = if indices[1] == 1 {
-                                heights[0] * (1.0 - u) + heights[1] * (u - v) + heights[2] * v
-                            } else {
-                                heights[0] * (1.0 - v) + heights[3] * (v - u) + heights[2] * u
-                            };
-                            result.observe(point + origin, height);
-                        }
+                        result.push(indices.map(|i| {
+                            let point = quad[i] + origin;
+                            bevy::math::Vec3::new(point.x, heights[i], point.y)
+                        }));
                     }
                 }
             }
         }
     }
-    json!({"required_footprint_area_m2":area(&corners),"clipped_vista_area_m2":result.area_m2,
-        "intersection_vertices":result.vertices,
-        "minimum_metres":result.low.map(|(_,h)|h),"minimum_location":result.low.map(|(p,_)|p),
-        "maximum_metres":result.high.map(|(_,h)|h),"maximum_location":result.high.map(|(p,_)|p),
-        "method":"Production clipped vista triangles with playable-boundary subdivision and LOD vertex morph. Area coverage is reported explicitly; playable terrain and other LODs are not substituted."})
+    result
+}
+
+pub(crate) fn height_in_triangle(triangle: [bevy::math::Vec3; 3], point: Vec2) -> f32 {
+    let [a, b, c] = triangle;
+    let ab = b.xz() - a.xz();
+    let ac = c.xz() - a.xz();
+    let ap = point - a.xz();
+    let determinant = ab.perp_dot(ac);
+    let u = ap.perp_dot(ac) / determinant;
+    let v = ab.perp_dot(ap) / determinant;
+    a.y + (b.y - a.y) * u + (c.y - a.y) * v
 }
 
 #[derive(Default)]

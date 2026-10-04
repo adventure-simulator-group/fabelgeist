@@ -1,14 +1,10 @@
 //! Compare one level courtyard with stepped terraces and a central landing.
 //! This is a decision experiment, not runtime grading or acceptance geometry.
-use adventuresim_tactical_core::city_layout::{CityAccessSegment, CityCompound};
+use adventuresim_tactical_core::city_layout::CityCompound;
 use bevy::math::Vec2;
 use serde_json::{Value, json};
-
-/// Reserves a landing at each route end equal to the route's half-width.
-/// Existing motor limits still need verification against generated triangles.
-fn ramp_length(route: &CityAccessSegment) -> f32 {
-    (route.start_metres.distance(route.end_metres) - route.half_width_metres * 2.0).max(0.0)
-}
+#[path = "gate_approach.rs"]
+mod gate_approach;
 
 pub(super) fn compare(
     compound: &CityCompound,
@@ -28,13 +24,13 @@ pub(super) fn compare(
     };
     let front_route = route_to(front_threshold)?;
     let rear_route = route_to(rear_threshold)?;
-    if ramp_length(front_route) <= 0.0 || ramp_length(rear_route) <= 0.0 {
-        return None;
-    }
+    let stairs = super::solutions::stair_limits();
+    let front_run = stairs.available_run_metres(front_route)?;
+    let rear_run = stairs.available_run_metres(rear_route)?;
     let court_source = terrain_height(compound.court.centre_metres)?;
     let rear_source = terrain_height(rear_threshold)?;
-    let front_reach = ramp_length(front_route) * maximum_grade;
-    let rear_reach = ramp_length(rear_route) * maximum_grade;
+    let front_reach = front_run * maximum_grade;
+    let rear_reach = rear_run * maximum_grade;
     let court = court_source.clamp(front_floor - front_reach, front_floor + front_reach);
     let rear = rear_source.clamp(court - rear_reach, court + rear_reach);
     let candidate = |name: &str, levels: [f32; 3]| {
@@ -45,10 +41,10 @@ pub(super) fn compare(
             "front_court_rear_elevations_m": levels,
             "front_route":front_route,
             "rear_route":rear_route,
-            "front_effective_ramp_length_m":ramp_length(front_route),
-            "rear_effective_ramp_length_m":ramp_length(rear_route),
-            "front_ramp_grade":(levels[0]-levels[1]).abs()/ramp_length(front_route),
-            "rear_ramp_grade":(levels[2]-levels[1]).abs()/ramp_length(rear_route),
+            "front_available_flight_run_m":front_run,
+            "rear_available_flight_run_m":rear_run,
+            "front_mean_flight_grade":(levels[0]-levels[1]).abs()/front_run,
+            "rear_mean_flight_grade":(levels[2]-levels[1]).abs()/rear_run,
             "central_landing_elevation_m":levels[1],
             "entire_court_is_level":levels[0] == levels[1] && levels[1] == levels[2],
             "court_requires_terraced_surface":levels[0] != levels[1] || levels[1] != levels[2],
@@ -57,8 +53,10 @@ pub(super) fn compare(
     };
     Some(json!({
         "maximum_candidate_grade": maximum_grade,
+        "stair_limits": stairs,
         "source_court_elevation_m":court_source,
         "source_rear_threshold_elevation_m":rear_source,
+        "gate_approach":gate_approach::inspect(compound, front_floor, court, &terrain_height, maximum_grade)?,
         "candidates":[candidate("level_courtyard_and_both_buildings",[front_floor;3]),
             candidate("stepped_court_with_level_central_landing",[front_floor,court,rear])],
     }))
@@ -78,8 +76,11 @@ mod tests {
 
     impl Fixture {
         fn load() -> Self {
-            let value: Value =
-                serde_json::from_str(include_str!("fixtures/goslar-1238.json")).unwrap();
+            let value: Value = serde_json::from_str(include_str!(concat!(
+                env!("CARGO_MANIFEST_DIR"),
+                "/../../assets/tactical-grounding/goslar-1238.json"
+            )))
+            .unwrap();
             Self {
                 compound: serde_json::from_value(value["compound"].clone()).unwrap(),
                 front_threshold: serde_json::from_value(value["front_threshold"].clone()).unwrap(),
@@ -135,15 +136,15 @@ mod tests {
                 "an access ramp crosses the reserved court rather than bypassing it"
             );
         }
-        for key in ["front_ramp_grade", "rear_ramp_grade"] {
+        for key in ["front_mean_flight_grade", "rear_mean_flight_grade"] {
             assert!(terraced[key].as_f64().unwrap() <= 0.650_001);
         }
         let route_length = fixture.compound.access[2]
             .start_metres
             .distance(fixture.compound.access[2].end_metres);
         assert!(
-            terraced["front_effective_ramp_length_m"].as_f64().unwrap()
-                < f64::from(route_length) - 0.79
+            terraced["front_available_flight_run_m"].as_f64().unwrap()
+                <= f64::from(route_length) - 0.999
         );
         let mut reversed = fixture.compound.clone();
         reversed.access.reverse();

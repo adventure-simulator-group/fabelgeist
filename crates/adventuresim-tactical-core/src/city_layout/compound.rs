@@ -24,6 +24,10 @@ pub struct CityPlotBounds {
 }
 
 impl CityPlotBounds {
+    /// Roundoff of bounded near-city f32 world poses, not extra owned land.
+    /// Translation independently rounds a plot and its coincident child edge.
+    pub const COORDINATE_TOLERANCE_METRES: f64 = 0.001;
+
     pub fn corners(self) -> [Vec2; 4] {
         [
             Vec2::new(-1.0, -1.0),
@@ -40,11 +44,18 @@ impl CityPlotBounds {
     }
 
     pub fn contains(self, point: Vec2) -> bool {
-        self.orientation
-            .world_to_local(point - self.centre_metres)
-            .abs()
-            .cmple(self.dimensions_metres * 0.5)
-            .all()
+        let delta = point.as_dvec2() - self.centre_metres.as_dvec2();
+        let (sine, cosine) = f64::from(self.orientation.yaw_radians()).sin_cos();
+        bevy::math::DVec2::new(
+            cosine * delta.x - sine * delta.y,
+            sine * delta.x + cosine * delta.y,
+        )
+        .abs()
+        .cmple(
+            self.dimensions_metres.as_dvec2() * 0.5
+                + bevy::math::DVec2::splat(Self::COORDINATE_TOLERANCE_METRES),
+        )
+        .all()
     }
 
     pub fn is_valid(self) -> bool {
@@ -90,6 +101,32 @@ impl CityAccessSegment {
 
     pub fn ends_at(self, point: Vec2) -> bool {
         self.end_metres.distance(point) <= Self::JOIN_TOLERANCE_METRES
+    }
+
+    pub fn contains_centreline(self, point: Vec2) -> bool {
+        let delta = self.end_metres - self.start_metres;
+        if delta.length_squared() <= f32::EPSILON {
+            return false;
+        }
+        let fraction = (point - self.start_metres).dot(delta) / delta.length_squared();
+        (0.0..=1.0).contains(&fraction)
+            && point.distance(self.start_metres + delta * fraction) <= Self::JOIN_TOLERANCE_METRES
+    }
+}
+
+/// Carry the owned route while keeping its first hook on the original street.
+pub(super) fn translate_property_access(
+    access: &mut [CityAccessSegment],
+    delta: Vec2,
+    tangent: Vec2,
+) {
+    for (index, segment) in access.iter_mut().enumerate() {
+        segment.start_metres += if index == 0 {
+            tangent * delta.dot(tangent)
+        } else {
+            delta
+        };
+        segment.end_metres += delta;
     }
 }
 

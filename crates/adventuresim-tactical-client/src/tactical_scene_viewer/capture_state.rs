@@ -80,7 +80,7 @@ pub(super) struct SceneCaptureState {
     pub(super) expected_trees: usize,
     pub(super) expected_rocks: usize,
     pub(super) expects_grass: bool,
-    pub(super) vista_lods_supplied: usize,
+    pub(super) vista_contract: super::vista_validation::VistaCaptureContract,
     pub(super) vista_diameter_metres: f32,
     pub(super) vista_minimum_metres: f32,
     pub(super) vista_peak_metres: f32,

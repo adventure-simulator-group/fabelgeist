@@ -1,4 +1,5 @@
 // Disposable, locally generated static assets. Never stores simulation state.
+import { createDeferredWrites } from "./strategic-generation-write-queue.js";
 const DATABASE = "fabelgeist-generated-assets";
 const STORE = "products";
 const CACHE_FORMAT = "gzip-cbor-v1";
@@ -8,6 +9,9 @@ const STORAGE_TIMEOUT_MS = 2_000;
 const WRITE_TIMEOUT_MS = 30_000;
 const MAX_CACHE_BYTES = 512 * 1024 * 1024;
 const MAX_PRODUCT_BYTES = 128 * 1024 * 1024;
+const MAX_PENDING_WRITE_BYTES = 512 * 1024 * 1024;
+const MAX_PENDING_PRODUCTS = 512;
+const CACHE_WRITE_CONCURRENCY = 2;
 const digest = async bytes => Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)),
   byte => byte.toString(16).padStart(2, "0")).join("");
 
@@ -33,7 +37,6 @@ async function decode(record) {
 
 export async function openGeneratedCache(revision, storage) {
   let database, disabled = false;
-  const writes = new Set();
   try {
     storage ??= globalThis.indexedDB;
     if (!storage) disabled = true;
@@ -94,6 +97,7 @@ export async function openGeneratedCache(revision, storage) {
     request.onsuccess = () => done(new Set(request.result));
   });
   async function remove(job) {
+    deferred.remove(job);
     const id = await key(job);
     await transaction("readwrite", store => store.delete(id));
     storedKeys?.delete(id);
@@ -116,6 +120,22 @@ export async function openGeneratedCache(revision, storage) {
       };
     });
   }
+  async function write(job, bytes) {
+    if (disabled || bytes.byteLength > MAX_PRODUCT_BYTES) return;
+    try {
+      const compressed = new Uint8Array(await new Response(new Blob([bytes]).stream()
+        .pipeThrough(new CompressionStream("gzip"))).arrayBuffer());
+      const [id, checksum] = await Promise.all([key(job), digest(compressed)]);
+      await transaction("readwrite", store => store.put({ key: id, revision,
+        bytes: compressed, checksum, size: compressed.byteLength,
+        decodedSize: bytes.byteLength, used: Date.now() }));
+      storedKeys?.add(id);
+    } catch { disabled = true; }
+  }
+  const deferred = createDeferredWrites(write, {
+    maximumBytes: MAX_PENDING_WRITE_BYTES, maximumProductBytes: MAX_PRODUCT_BYTES,
+    maximumProducts: MAX_PENDING_PRODUCTS, concurrency: CACHE_WRITE_CONCURRENCY,
+  });
   return {
     async get(job) {
       if (disabled) return undefined;
@@ -134,22 +154,11 @@ export async function openGeneratedCache(revision, storage) {
       try { return await decode(record); }
       catch { await remove(job); return undefined; }
     },
-    put(job, bytes) {
-      if (disabled || bytes.byteLength > MAX_PRODUCT_BYTES) return;
-      const write = (async () => {
-        const compressed = new Uint8Array(await new Response(new Blob([bytes]).stream()
-          .pipeThrough(new CompressionStream("gzip"))).arrayBuffer());
-        const [id, checksum] = await Promise.all([key(job), digest(compressed)]);
-        await transaction("readwrite", store => store.put({ key: id, revision,
-          bytes: compressed, checksum, size: compressed.byteLength,
-          decodedSize: bytes.byteLength, used: Date.now() }));
-        storedKeys?.add(id);
-      })().catch(() => { disabled = true; });
-      writes.add(write); write.finally(() => writes.delete(write));
-    },
+    // Consumes the transferred worker buffer after authoritative receipt.
+    put(job, bytes) { if (!disabled) deferred.put(job, bytes); },
     remove,
     async close() {
-      await Promise.all(writes); await prune(); database?.close(); disabled = true;
+      await deferred.close(); await prune(); database?.close(); disabled = true;
     },
   };
 }

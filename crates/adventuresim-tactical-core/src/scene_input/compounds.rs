@@ -9,7 +9,7 @@ const MAX_PROPERTY_ACCESS_SEGMENTS: usize = 16;
 const MAX_PROPERTY_WALL_SEGMENTS: usize = 16;
 const MAX_ACCESS_HALF_WIDTH_METRES: f32 = 2.0;
 
-/// Immutable enclosure anchored at its property's level ground elevation.
+/// Immutable enclosure anchored at its accepted gate landing elevation.
 /// Horizontal coordinates remain in the scene's shared settlement frame.
 #[derive(Clone, Debug, PartialEq, Component, Serialize, Deserialize)]
 #[component(immutable)]
@@ -18,6 +18,7 @@ pub struct SceneBoundary {
     pub property_id: CityPropertyId,
     pub front_building_id: u64,
     pub boundary: CityBoundary,
+    pub fixed_support: crate::city_layout::grounding::BoundarySupportMesh,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -126,25 +127,55 @@ fn validate_geometry(compound: &CityCompound) -> Result<(), SceneInputError> {
     Ok(())
 }
 
+impl GeneratedBoundary {
+    /// Project the complete enclosure atomically from its exact accepted owner.
+    /// No member floor, neighbouring support or sampled-terrain fallback exists.
+    pub fn project(
+        compound: &CityCompound,
+        terrain: &SceneTerrain,
+    ) -> Result<Self, SceneInputError> {
+        use crate::city_layout::grounding::enclosure::{
+            BoundarySupportConstraint, BoundarySupportElement,
+        };
+        use crate::city_layout::grounding::{BoundarySupportError, BoundarySupportMesh};
+        let foundation = terrain.property_foundation(compound.id).ok_or_else(|| {
+            BoundarySupportError::new(
+                compound,
+                BoundarySupportElement::Owner,
+                BoundarySupportConstraint::OwnerBinding,
+                compound.plot.centre_metres,
+                1.0,
+                0.0,
+            )
+        })?;
+        let policy = crate::city_layout::CompoundGradingPolicy::bounded_settlement();
+        let (fixed_support, elevation) =
+            BoundarySupportMesh::project(compound, foundation, policy.limits, policy.embedment)?;
+        Ok(Self {
+            scene: SceneBoundary {
+                property_id: compound.id,
+                front_building_id: compound.front_building_id,
+                boundary: compound.boundary.clone(),
+                fixed_support,
+            },
+            elevation_metres: elevation.metres(),
+        })
+    }
+}
+
 pub(super) fn generate(
     compounds: &[CityCompound],
     buildings: &[GeneratedBuilding],
-) -> Vec<GeneratedBoundary> {
+    terrain: &SceneTerrain,
+) -> Result<Vec<GeneratedBoundary>, SceneInputError> {
     compounds
         .iter()
-        .filter_map(|compound| {
-            let front = buildings
+        .filter(|compound| {
+            buildings
                 .iter()
-                .find(|b| b.placement.id == compound.front_building_id)?;
-            Some(GeneratedBoundary {
-                scene: SceneBoundary {
-                    property_id: compound.id,
-                    front_building_id: compound.front_building_id,
-                    boundary: compound.boundary.clone(),
-                },
-                elevation_metres: front.pad_elevation_metres,
-            })
+                .any(|b| b.placement.id == compound.front_building_id)
         })
+        .map(|compound| GeneratedBoundary::project(compound, terrain))
         .collect()
 }
 

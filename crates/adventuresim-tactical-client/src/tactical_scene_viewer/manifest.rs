@@ -192,8 +192,7 @@ pub(super) struct ValidationSummary {
     pub(super) forest_floor_scatter_present_when_trees: bool,
     pub(super) understory_present_when_expected: bool,
     pub(super) loose_stone_scatter_present_when_expected: bool,
-    pub(super) vista_has_three_lods: bool,
-    pub(super) vista_reaches_fifty_kilometres: bool,
+    pub(super) vista_matches_declared_rings: bool,
     pub(super) vista_has_no_colliders: bool,
     pub(super) precipitation_particles_present_when_expected: bool,
     pub(super) fixture_feature_expectation_met: bool,
@@ -504,8 +503,7 @@ pub(super) fn validation_passes(validation: &ValidationSummary) -> bool {
         && validation.forest_floor_scatter_present_when_trees
         && validation.understory_present_when_expected
         && validation.loose_stone_scatter_present_when_expected
-        && validation.vista_has_three_lods
-        && validation.vista_reaches_fifty_kilometres
+        && validation.vista_matches_declared_rings
         && validation.vista_has_no_colliders
         && validation.precipitation_particles_present_when_expected
         && validation.fixture_feature_expectation_met
@@ -572,8 +570,7 @@ mod tests {
             forest_floor_scatter_present_when_trees: true,
             understory_present_when_expected: true,
             loose_stone_scatter_present_when_expected: true,
-            vista_has_three_lods: true,
-            vista_reaches_fifty_kilometres: true,
+            vista_matches_declared_rings: true,
             vista_has_no_colliders: true,
             precipitation_particles_present_when_expected: true,
             fixture_feature_expectation_met: true,

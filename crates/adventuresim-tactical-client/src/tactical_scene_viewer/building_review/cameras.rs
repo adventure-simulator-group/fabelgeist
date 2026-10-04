@@ -189,6 +189,7 @@ mod tests {
         assert!(recipe.collision.bounds.min.y < 0.0);
         let building = GeneratedBuilding {
             placement: TacticalBuildingPlacement {
+                base_elevation_metres: -2.0,
                 id: 304,
                 program,
                 centre_metres: Vec2::new(9.5, -8.5),
@@ -196,7 +197,6 @@ mod tests {
             },
             plan: recipe.plan,
             collision: recipe.collision,
-            pad_elevation_metres: -2.0,
         };
         let view = ReviewView {
             slug: "floor-contact".into(),

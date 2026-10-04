@@ -45,7 +45,38 @@ const MAX_ACCESS_HALF_WIDTH_METRES: f32 = 2.0;
 const MAX_STREET_APPROACH_METRES: f32 = 6.0;
 const MAX_PLANT_SCALE: f32 = 2.0;
 
+/// Exact working rectangles and wind-expanded planting hulls, not a plot box.
+pub(in crate::city_layout) struct GardenClearanceGeometry {
+    pub working: Vec<CityPlotBounds>,
+    pub plants: Vec<Vec<Vec2>>,
+}
+
 impl CityGarden {
+    pub(in crate::city_layout) fn translate(&mut self, delta: Vec2, tangent: Vec2) {
+        self.plot.centre_metres += delta;
+        self.cultivated_bounds.centre_metres += delta;
+        for bed in &mut self.beds {
+            bed.centre_metres += delta;
+        }
+        for plant in &mut self.plants {
+            plant.centre_metres += delta;
+        }
+        super::super::compound::translate_property_access(&mut self.access, delta, tangent);
+    }
+
+    pub(in crate::city_layout) fn clearance_geometry(
+        &self,
+    ) -> Result<GardenClearanceGeometry, GardenIssue> {
+        let mut working = self.beds.clone();
+        for segment in &self.access {
+            working.push(corridor(*segment).ok_or(GardenIssue::InvalidAccess)?);
+        }
+        Ok(GardenClearanceGeometry {
+            working,
+            plants: self.plants.iter().map(|plant| plant.world_hull()).collect(),
+        })
+    }
+
     /// Includes projections and eaves; this is deliberately conservative in height.
     pub fn clears_building(&self, envelope: CityPlotBounds) -> bool {
         // Validated garden geometry stays in the plot, except its bounded

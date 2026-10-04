@@ -37,8 +37,11 @@ impl Venue {
         // A standing-eye perspective from the real approach, with the entire facade in view.
         let distance = (bounds.max - bounds.min).xz().max_element() * 0.8 + 4.0;
         let target = transform.translation;
-        let eye =
-            Vec3::new(target.x, building.pad_elevation_metres + 1.7, target.z) + outward * distance;
+        let eye = Vec3::new(
+            target.x,
+            building.placement.base_elevation_metres + 1.7,
+            target.z,
+        ) + outward * distance;
         Ok(Self {
             anchor,
             approach: eye,
@@ -144,15 +147,9 @@ fn select_buildings(
                     .get_or_generate(&program)
                     .map_err(|e| e.to_string())?;
                 promoted.push(GeneratedBuilding {
-                    placement: TacticalBuildingPlacement {
-                        id,
-                        program,
-                        centre_metres: placement.centre_metres,
-                        orientation: placement.orientation,
-                    },
+                    placement: (*placement).into(),
                     plan: recipe.plan.clone(),
                     collision: recipe.collision.clone(),
-                    pad_elevation_metres: placement.base_elevation_metres,
                 });
             }
         }
@@ -195,7 +192,6 @@ mod tests {
             placement,
             plan,
             collision,
-            pad_elevation_metres: 0.0,
         };
         let layout = adventuresim_building_generator::interior::furnish(
             &building.plan,
@@ -222,6 +218,6 @@ mod tests {
             field.daylight_at(local + Vec3::Y) > 0.0,
             "selected room must receive actual daylight: {local:?}"
         );
-        assert!((venue.approach.y - building.pad_elevation_metres - 1.7).abs() < 0.01);
+        assert!((venue.approach.y - building.placement.base_elevation_metres - 1.7).abs() < 0.01);
     }
 }

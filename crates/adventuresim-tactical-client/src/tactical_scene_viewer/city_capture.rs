@@ -285,6 +285,7 @@ mod tests {
 
     fn house(id: u64, centre: Vec2, orientation: BuildingOrientation) -> GeneratedBuilding {
         let placement = TacticalBuildingPlacement {
+            base_elevation_metres: 3.0,
             id,
             program: BuildingProgram::fixture(BuildingArchetype::TownHouse, 42),
             centre_metres: centre,
@@ -295,7 +296,6 @@ mod tests {
             placement,
             collision: compile_building_collision(&plan),
             plan,
-            pad_elevation_metres: 3.0,
         }
     }
 

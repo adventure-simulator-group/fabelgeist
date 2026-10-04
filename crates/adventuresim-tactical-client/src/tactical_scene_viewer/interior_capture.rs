@@ -184,6 +184,7 @@ mod tests {
             .into_iter()
             .enumerate()
             .map(|(index, archetype)| TacticalBuildingPlacement {
+                base_elevation_metres: 0.0,
                 id: index as u64 + 1,
                 program: BuildingProgram::fixture(archetype, 42),
                 centre_metres: Vec2::new(index as f32 * 30.0, 0.0),
@@ -199,7 +200,6 @@ mod tests {
                     placement,
                     plan,
                     collision,
-                    pad_elevation_metres: 0.0,
                 }
             })
             .collect::<Vec<_>>();

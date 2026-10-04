@@ -70,8 +70,13 @@ pub(in super::super) fn build_envelope(a: &mut Assembly<'_>, program: &BuildingP
         timber,
     );
     a.passage(
+        WorkplacePassagePurpose::GroundFloorCirculation,
         Vec3::new(w * 0.5 - 1.5, 0.18, 0.0),
         Vec3::new(w * 0.5 + 1.5, 2.4, d - 0.35),
     );
-    a.passage(Vec3::new(w + 0.35, 0.05, 0.0), Vec3::new(w + 1.85, 2.4, d));
+    a.passage(
+        WorkplacePassagePurpose::OutdoorRoute,
+        Vec3::new(w + 0.35, 0.05, 0.0),
+        Vec3::new(w + 1.85, 2.4, d),
+    );
 }

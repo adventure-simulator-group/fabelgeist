@@ -29,6 +29,9 @@ pub(in crate::presentation) fn urban_playable_mesh(
     terrain: &SceneTerrain,
     landform: Option<&TerrainLandformRecipe>,
 ) -> Mesh {
+    if let Some(mesh) = super::super::vista::owned::playable_mesh(terrain) {
+        return mesh;
+    }
     landform.map_or_else(
         || terrain.mesh(),
         |recipe| terrain.mesh_with_transition(recipe.transition_collar()),

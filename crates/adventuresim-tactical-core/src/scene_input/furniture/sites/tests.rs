@@ -1,5 +1,6 @@
 use super::*;
 use crate::scene_input::GeneratedBuildingRecipes;
+use bevy::math::Vec3Swizzles;
 
 #[test]
 fn distant_furniture_reserves_the_occupied_footprint_and_unscaled_doors() {
@@ -48,4 +49,52 @@ fn distant_furniture_reserves_the_occupied_footprint_and_unscaled_doors() {
         recipes.is_empty(),
         "furniture generated an occupied distant recipe"
     );
+}
+
+#[test]
+fn carpenter_passage_reserves_the_reported_exterior_approach() {
+    let fixture: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../../../../assets/tactical-grounding/carpenter-passage-access.json"
+    ))
+    .unwrap();
+    let placement: TacticalBuildingPlacement =
+        serde_json::from_value(fixture["placement"].clone()).unwrap();
+    let recipe =
+        crate::scene_input::GeneratedBuildingRecipe::generate(placement.program.clone()).unwrap();
+    let site =
+        FurnitureSiteRecipe::new(&recipe.plan, recipe.collision.bounds).place(placement.clone());
+    let contact: Vec2 = serde_json::from_value(fixture["blocked_contact_metres"].clone()).unwrap();
+    assert_eq!(placement.id, 9);
+    assert!(
+        !site.routes.iter().any(|route| route.contains(contact)),
+        "fixture must retain the missing recipe-only exterior reservation"
+    );
+    let surface: crate::city_layout::grounding::PropertySupportSurface =
+        serde_json::from_value(fixture["surface"].clone()).unwrap();
+    surface.validate_encoded().unwrap();
+    assert_eq!(surface.member_building_ids(), [placement.id]);
+    let routes: Vec<_> = surface
+        .doorway_approaches()
+        .iter()
+        .copied()
+        .map(FurnitureFootprint::accepted_approach)
+        .collect();
+    assert!(routes.iter().any(|route| route.contains(contact)));
+    for entrance in adventuresim_building_generator::compile_ground_entrances(&recipe.plan) {
+        let start = placement.centre_metres
+            + placement
+                .orientation
+                .local_to_world(entrance.threshold_metres - recipe.collision.bounds.centre().xz());
+        let outside = start
+            + placement.orientation.local_to_world(entrance.outward)
+                * reservations::DOOR_APPROACH_METRES
+                * 0.5;
+        assert!(routes.iter().any(|route| route.contains(outside)));
+    }
+    assert!(
+        !routes
+            .iter()
+            .any(|route| route.contains(Vec2::splat(10000.0)))
+    );
+    assert_eq!(site.placement, placement);
 }

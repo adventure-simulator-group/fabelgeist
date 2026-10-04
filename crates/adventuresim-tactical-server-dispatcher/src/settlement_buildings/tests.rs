@@ -105,6 +105,7 @@ fn dense_city_layout_passes_tactical_pad_validation() {
     let layout = place_settlement_buildings(&settlement("dense", 40_000), 50.0).unwrap();
     // Keep complete property metadata while exercising only playable pads.
     let mut input = TacticalSceneInput {
+        grounding: None,
         properties: None,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
@@ -124,13 +125,13 @@ fn dense_city_layout_passes_tactical_pad_validation() {
             environment: vec![EnvironmentalSample::default(); 101 * 101],
         },
         landform: None,
-        streets: layout.streets,
-        yards: layout.yards,
-        parishes: layout.parishes,
-        compounds: layout.compounds,
-        gardens: layout.gardens,
-        buildings: layout.playable,
-        distant_buildings: layout.distant,
+        streets: layout.streets.clone(),
+        yards: layout.yards.clone(),
+        parishes: layout.parishes.clone(),
+        compounds: layout.compounds.clone(),
+        gardens: layout.gardens.clone(),
+        buildings: layout.playable.clone(),
+        distant_buildings: layout.distant.clone(),
         establishments: Vec::new(),
         vista: VistaSample {
             lods: vec![VistaLod {
@@ -152,6 +153,12 @@ fn dense_city_layout_passes_tactical_pad_validation() {
             0,
         ),
     };
+    input = input
+        .ground_generated_city(
+            &layout,
+            adventuresim_tactical_core::city_layout::CompoundGradingPolicy::bounded_settlement(),
+        )
+        .expect("complete flat city retains accepted property support");
     input.validate().unwrap();
     let generated = input.generate().unwrap();
     assert_eq!(generated.buildings.len(), input.buildings.len());

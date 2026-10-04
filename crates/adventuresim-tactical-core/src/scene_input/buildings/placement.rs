@@ -9,7 +9,7 @@ impl GeneratedBuilding {
     pub fn transform(&self) -> Transform {
         Transform::from_xyz(
             self.placement.centre_metres.x,
-            self.pad_elevation_metres + self.collision.bounds.centre().y,
+            self.placement.base_elevation_metres + self.collision.bounds.centre().y,
             self.placement.centre_metres.y,
         )
         .with_rotation(Quat::from_rotation_y(
@@ -29,6 +29,45 @@ mod tests {
     };
     use adventuresim_world_schema::settlement_buildings::BuildingUse;
     use bevy::math::{Vec2, Vec3, Vec3Swizzles};
+
+    #[test]
+    fn distant_promotion_and_preparation_preserve_the_bound_floor_and_program() {
+        use crate::scene_input::{DistantBuildingPlacement, GeneratedBuildingRecipes};
+        use adventuresim_world_schema::ProsperityTier;
+        for floor in [-4.75, 9.5] {
+            let distant = DistantBuildingPlacement {
+                id: 1238,
+                prosperity: ProsperityTier::Wealthy,
+                archetype: BuildingArchetype::FachwerkMerchantHouse,
+                usage: Some(BuildingUse::Dwelling),
+                service_size: None,
+                seed: 7_989_866_213_631_017_260,
+                centre_metres: Vec2::new(-321.574_13, -345.572_57),
+                base_elevation_metres: floor,
+                orientation: BuildingOrientation::from_radians(-0.197_395_56).unwrap(),
+            };
+            let placement = TacticalBuildingPlacement::from(distant);
+            assert_eq!(placement.program, distant.occupied_program());
+            assert_eq!(placement.centre_metres, distant.centre_metres);
+            assert_eq!(placement.orientation, distant.orientation);
+            assert_eq!(placement.id, distant.id);
+            assert_eq!(placement.base_elevation_metres, floor);
+            let generated = super::super::prepare_buildings(
+                std::slice::from_ref(&placement),
+                &mut GeneratedBuildingRecipes::default(),
+            )
+            .unwrap();
+            assert_eq!(generated[0].placement, placement);
+            let origin = generated[0].collision.bounds.centre();
+            let world_floor = generated[0]
+                .transform()
+                .transform_point(-Vec3::Y * origin.y);
+            assert!((world_floor.y - floor).abs() < 0.000_01);
+            let mut invalid = placement;
+            invalid.base_elevation_metres = f32::NAN;
+            assert!(super::super::validate_building_placements(&[invalid]).is_err());
+        }
+    }
 
     #[test]
     fn buried_floor_slabs_do_not_raise_bearings_or_thresholds() {
@@ -56,6 +95,7 @@ mod tests {
             let recipe = GeneratedBuildingRecipe::generate(program.clone()).unwrap();
             let building = GeneratedBuilding {
                 placement: TacticalBuildingPlacement {
+                    base_elevation_metres: base,
                     id,
                     program,
                     centre_metres: Vec2::new(-28.5, 20.37),
@@ -63,7 +103,6 @@ mod tests {
                 },
                 plan: recipe.plan,
                 collision: recipe.collision,
-                pad_elevation_metres: base,
             };
             assert!(
                 building.collision.bounds.min.y < 0.0,

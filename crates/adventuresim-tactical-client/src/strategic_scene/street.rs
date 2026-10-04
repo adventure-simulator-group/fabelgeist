@@ -92,7 +92,7 @@ impl Street {
                 building.placement.orientation = orientation;
                 building.placement.centre_metres =
                     Vec2::new(street.width + width * 0.5, front_z - size.z * 0.5);
-                building.pad_elevation_metres = elevation;
+                building.placement.base_elevation_metres = elevation;
                 moves.insert(building.placement.id, (before, building.transform()));
             }
             street.bays.push(StreetBay {
@@ -207,7 +207,6 @@ mod tests {
                     placement: placement.clone(),
                     plan,
                     collision,
-                    pad_elevation_metres: 0.0,
                 }
             })
             .collect();

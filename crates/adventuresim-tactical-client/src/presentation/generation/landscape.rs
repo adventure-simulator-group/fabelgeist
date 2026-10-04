@@ -5,8 +5,6 @@ use crate::presentation::vista::streets::prepared::PreparedCityGround;
 use adventuresim_tactical_core::{prelude::SceneTerrain, scene_input::furniture::FurnitureGroup};
 use std::sync::Arc;
 
-pub(super) const RETAINED_LANDSCAPE_SCENES: usize = 3;
-
 #[derive(Serialize, Deserialize)]
 pub(super) struct GroundDependencies {
     pub terrain: SceneTerrain,
@@ -81,7 +79,7 @@ pub(super) fn jobs(input_json: &str, graphics: &str) -> Result<Vec<String>, Stri
 pub(super) fn retain(ground: GroundProduct) {
     let mut products = products();
     products.ground.push(ground);
-    if products.ground.len() > RETAINED_LANDSCAPE_SCENES {
+    if products.ground.len() > RETAINED_SCENE_PRODUCTS {
         products.ground.remove(0);
     }
 }

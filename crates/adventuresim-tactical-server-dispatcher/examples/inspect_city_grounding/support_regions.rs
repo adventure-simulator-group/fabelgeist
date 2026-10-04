@@ -130,17 +130,15 @@ mod tests {
 
     #[test]
     fn goslar_1238_post_reaches_the_contact_envelope_despite_hinge_clearance() {
-        let fixture: Value =
-            serde_json::from_str(include_str!("fixtures/goslar-1238.json")).unwrap();
+        let fixture: Value = serde_json::from_str(include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../assets/tactical-grounding/goslar-1238.json"
+        )))
+        .unwrap();
         let compound: CityCompound = serde_json::from_value(fixture["compound"].clone()).unwrap();
         let front: DistantBuildingPlacement =
             serde_json::from_value(fixture["front_distant_placement"].clone()).unwrap();
-        let placement = TacticalBuildingPlacement {
-            id: front.id,
-            program: front.occupied_program(),
-            centre_metres: front.centre_metres,
-            orientation: front.orientation,
-        };
+        let placement = TacticalBuildingPlacement::from(front);
         let recipe = GeneratedBuildingRecipe::generate(placement.program.clone()).unwrap();
         let report = describe(&compound, &placement, &recipe).unwrap();
         assert_eq!(report["property_id"], 1238);

@@ -4,6 +4,7 @@ use adventuresim_building_generator::{
     BuildingCollision, BuildingPlan, compile_building_collision, generate as generate_building,
 };
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::scene_input::compile_tactical_building_collider;
 use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
 use bevy::prelude::*;
 
@@ -65,30 +66,9 @@ pub(crate) fn on_scene_building_added(
         Replicated,
         RigidBody::Static,
         CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-        tactical_building_collider(&collision),
+        compile_tactical_building_collider(&collision),
     ));
     Ok(())
-}
-
-fn tactical_building_collider(collision: &BuildingCollision) -> Collider {
-    let local_origin = collision.bounds.centre();
-    Collider::compound(
-        collision
-            .cuboids
-            .iter()
-            .map(|cuboid| {
-                let translation = cuboid.centre - local_origin;
-                let rotation = Quat::from_rotation_y(cuboid.yaw_radians)
-                    * Quat::from_rotation_x(cuboid.crossfall_radians)
-                    * Quat::from_rotation_z(cuboid.longfall_radians);
-                (
-                    translation,
-                    rotation,
-                    Collider::cuboid(cuboid.size.x, cuboid.size.y, cuboid.size.z),
-                )
-            })
-            .collect(),
-    )
 }
 
 pub(crate) fn spawn_generated_buildings(

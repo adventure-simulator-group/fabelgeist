@@ -12,6 +12,11 @@ mod church_programme;
 mod collision;
 mod detail;
 mod doors;
+mod entrances;
+pub use entrances::{
+    BuildingEntrance, BuildingEntranceId, BuildingEntranceSupport, PassageEntranceSide,
+    compile_ground_entrances,
+};
 #[cfg(test)]
 mod enclosure_tests;
 pub mod furniture;
@@ -34,12 +39,13 @@ mod workplace;
 pub use settlement::{ServiceBuildingSize, settlement_archetype};
 pub use workplace::{
     WorkplaceFeature, WorkplaceKind, WorkplaceMaterial, WorkplacePart, WorkplacePassage,
-    WorkplacePlan, WorkplaceSurface,
+    WorkplacePassageId, WorkplacePassagePurpose, WorkplacePlan, WorkplaceSurface,
 };
 
 pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};
 pub use collision::{
-    BuildingCollision, CollisionBounds, CollisionCuboid, compile_building_collision,
+    BuildingCollision, CollisionBounds, CollisionCuboid, GroundFloorFootprint,
+    compile_building_collision,
 };
 pub use detail::{
     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, BuildingKit, TimberComponent,

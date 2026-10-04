@@ -2,7 +2,7 @@
 
 This directory contains the crates.io release of
 [Jan Hohenheim's bevy_ahoy](https://github.com/janhohenheim/bevy_ahoy), version
-0.2.0, with one local correction in `src/kcc.rs::step_move`.
+0.2.0, with local corrections to stair support and platform point motion.
 
 - Upstream revision recorded by the release's `.cargo_vcs_info.json`:
   `630a4573725242d23260ca6c18602d037cb713c5`.
@@ -28,8 +28,35 @@ character travel does not include that offset. Existing upward clearance,
 forward ledge clearance, walkable slope, step height, contact skin, collider,
 gravity and motor settings remain authoritative.
 
+Source-clipped convex foundation cells can report a separating corner normal
+instead of their gently inclined bearing face. `src/kcc/stair.rs` confirms that
+face with a vertical ray just inside the existing contact envelope, on the same
+body and within one existing skin width of the original contact height. The
+vertical ray covers both signs of that existing contact-height interval; a
+rounded shape contact can lie a few micrometres above the bearing face. The
+same walkable-slope limit applies to the physical face. This does not replace
+clearance casts, enlarge the step limit, change actual travel or permit a
+steep physical bearing. The exact rotated Goslar property 2 stair cells provide
+a regression alongside a steep-face negative control.
+
 The owning integration regressions are in the tactical core's
 `city_layout/grounding/tests/movement.rs`. They exercise the production physics
 plugin from rest on an ordinary step and both directions of a terraced property,
 alongside rejection of excessive risers and insufficient headroom. A passing
 controller check does not establish complete geographic city acceptance.
+
+## Platform point motion
+
+`src/kcc.rs::calculate_platform_movement` previously transformed the contact
+point into platform-local coordinates and back to world coordinates, then
+subtracted the original point. Single-precision cancellation could produce
+nonzero movement on static generated terrain. The motor could repeatedly brake
+that opposing drift to rest instead of starting along a garden lane.
+
+`src/kcc/platform.rs` computes the same rigid-body displacement as linear travel
+plus angular travel of the point relative to the platform centre. Stationary
+platforms contribute exactly zero movement. Translation and world angular
+velocity retain their physical meaning; this changes no authored motor limits.
+Unit regressions cover static geographic offsets, translation and rotation.
+The garden controller regression exercises the observed Goslar property 964
+route against the exact composed terrain and fixed neighboring geometry.

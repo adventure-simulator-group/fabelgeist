@@ -27,6 +27,7 @@ pub(super) fn smithy(a: &mut Assembly<'_>, w: f32, d: f32) {
     );
     chimney(a, Vec2::new(p.x, p.y + 0.7), 3.1, 4.1);
     a.passage(
+        WorkplacePassagePurpose::ServiceClearance,
         Vec3::new(p.x - 0.3, 1.12, p.y + 0.4),
         Vec3::new(p.x + 0.3, 7.1, p.y + 1.0),
     );
@@ -93,6 +94,7 @@ pub(super) fn bakehouse(a: &mut Assembly<'_>, w: f32, d: f32) {
     }
     chimney(a, Vec2::new(p.x, p.y + 1.05), 2.5, 3.5);
     a.passage(
+        WorkplacePassagePurpose::ServiceClearance,
         Vec3::new(p.x - 0.3, 1.52, p.y + 0.75),
         Vec3::new(p.x + 0.3, 5.9, p.y + 1.35),
     );

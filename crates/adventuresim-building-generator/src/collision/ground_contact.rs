@@ -83,6 +83,18 @@ mod tests {
             .fold(f32::NEG_INFINITY, f32::max);
         assert!(max - min < 1.0, "the floor cuts only the lower tip");
         assert!(solid.bounds().max.z - solid.bounds().min.z > 2.0);
+        let collision = BuildingCollision {
+            bounds: solid.bounds(),
+            cuboids: vec![solid],
+        };
+        let contact = collision.ground_floor_contact_bounds().unwrap();
+        let expected_half_depth = 2.0_f32.sqrt() - 1.0;
+        assert!((contact.min.z + expected_half_depth).abs() < 0.000001);
+        assert!((contact.max.z - expected_half_depth).abs() < 0.000001);
+        assert_eq!(contact.min.y, 0.0);
+        assert_eq!(contact.max.y, 0.0);
+        assert_eq!(contact.min.x, -1.0);
+        assert_eq!(contact.max.x, 1.0);
     }
 
     #[test]

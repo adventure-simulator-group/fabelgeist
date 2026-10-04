@@ -639,28 +639,6 @@ fn setup_stdb_callbacks(conn: Res<SpacetimeDb>) {
     conn.subscribe_connected_players();
 }
 
-/// Fires whenever `SceneTerrain` lands on any entity - via fresh procedural
-/// generation in `on_server_started` or a loaded world dump
-/// (`load_world_dump`). Derives the physics collider from the heightmap and
-/// adds the replication marker, since `avian3d::Collider` isn't reflectable
-/// and so never survives a dump on its own; a dump only needs to carry the
-/// "core" `SceneId`/`SceneTerrain`/`Transform`.
-fn on_scene_terrain_added(
-    event: On<Add, SceneTerrain>,
-    mut commands: Commands,
-    query: Query<(&SceneTerrain, Option<&TerrainLandformRecipe>)>,
-) -> Result {
-    let (terrain, recipe) = query.get(event.entity)?;
-    let collider = terrain_collision::collider(terrain, recipe)?;
-    commands.entity(event.entity).insert((
-        Replicated,
-        RigidBody::Static,
-        CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-        collider,
-    ));
-    Ok(())
-}
-
 fn on_server_started(
     args: Res<Args>,
     scene_input: Res<LoadedSceneInput>,
@@ -717,10 +695,7 @@ fn on_server_started(
         );
         openings::spawn_generated_boundaries(&mut commands, generated.boundaries);
         for garden in generated.gardens {
-            commands.spawn((
-                garden.scene,
-                Transform::from_xyz(0.0, garden.elevation_metres, 0.0),
-            ));
+            commands.spawn((garden, Transform::default()));
         }
         furniture::spawn(&mut commands, generated.furniture);
         terrain_collision::spawn_scene(

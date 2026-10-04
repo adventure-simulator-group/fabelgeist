@@ -78,6 +78,7 @@ pub(super) fn granary(a: &mut Assembly<'_>, w: f32, d: f32) {
         );
         let z = loft_start - 4.8 + step as f32 * (4.8 / 18.0);
         a.passage(
+            WorkplacePassagePurpose::UpperCirculation,
             Vec3::new(w - 1.55, rise + 0.03, z + 0.01),
             Vec3::new(w - 0.45, rise + 2.0, z + 4.8 / 18.0 - 0.01),
         );

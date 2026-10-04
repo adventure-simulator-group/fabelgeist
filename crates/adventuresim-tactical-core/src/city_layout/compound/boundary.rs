@@ -13,7 +13,7 @@ const WALL_CAP_OVERHANG_METRES: f32 = 0.025;
 const GATE_OPEN_ANGLE_RADIANS: f32 = core::f32::consts::FRAC_PI_2;
 const GATE_HINGE_CLEARANCE_METRES: f32 = 0.025;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub enum CityBoundaryMaterial {
     Masonry,
     Timber,

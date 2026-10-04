@@ -96,10 +96,14 @@ pub(super) fn spawn_base_and_fault(
         materials.add(fault_material)
     });
     let material = materials.add(material);
-    let playable_mesh = transition_collar.map_or_else(
-        || terrain.coarse_mesh(),
-        |collar| terrain.coarse_mesh_with_transition(collar),
-    );
+    let playable_mesh = if terrain.property_surface().is_some() {
+        super::urban::urban_playable_mesh(terrain, None)
+    } else {
+        transition_collar.map_or_else(
+            || terrain.coarse_mesh(),
+            |collar| terrain.coarse_mesh_with_transition(collar),
+        )
+    };
     let triangle_count = mesh_triangle_count(&playable_mesh);
     commands.spawn((
         Name::new(format!("{} terrain mesh", id.0)),

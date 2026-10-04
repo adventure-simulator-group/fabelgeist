@@ -69,6 +69,15 @@ enum BuildingFixture {
 }
 
 fn main() {
+    if let Some(path) = std::env::args()
+        .skip_while(|arg| arg != "--support-source")
+        .nth(1)
+    {
+        let path = PathBuf::from(path);
+        let input = support::ground_source_fixture(&path);
+        write_fixture(&path, &input, false);
+        return;
+    }
     let check = std::env::args().any(|argument| argument == "--check");
     let repository = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let output = repository.join("assets/tactical-scenes");
@@ -88,23 +97,30 @@ fn main() {
         .filter(|fixture| requested.as_ref().is_none_or(|name| fixture.name == name))
     {
         let input = build_fixture(fixture);
-        input.validate().expect(fixture.name);
-        let json = serde_json::to_string_pretty(&input).expect("serialize fixture") + "\n";
         let path = output.join(format!("{}.json", fixture.name));
-        if check {
-            assert_eq!(
-                fs::read_to_string(path).expect("read fixture"),
-                json,
-                "fixture {} is stale",
-                fixture.name
-            );
-        } else {
-            if fs::read(&path).ok().as_deref() != Some(json.as_bytes()) {
-                let temporary = path.with_extension("json.tmp");
-                fs::write(&temporary, json).expect("write fixture");
-                fs::rename(temporary, path).expect("replace fixture atomically");
-            }
-        }
+        write_fixture(&path, &input, check);
+    }
+}
+
+fn write_fixture(path: &std::path::Path, input: &TacticalSceneInput, check: bool) {
+    input.validate().expect("accepted scene fixture");
+    let json = serde_json::to_string(input).expect("serialize fixture") + "\n";
+    assert!(
+        json.len() as u64 <= adventuresim_tactical_core::scene_input::MAX_SCENE_INPUT_BYTES,
+        "fixture {} exceeds the scene-input payload bound",
+        path.display()
+    );
+    if check {
+        assert_eq!(
+            std::fs::read_to_string(path).expect("read fixture"),
+            json,
+            "fixture {} is stale",
+            path.display()
+        );
+    } else if fs::read(path).ok().as_deref() != Some(json.as_bytes()) {
+        let temporary = path.with_extension("json.tmp");
+        fs::write(&temporary, json).expect("write fixture");
+        fs::rename(temporary, path).expect("replace fixture atomically");
     }
 }
 
@@ -267,8 +283,12 @@ const fn fixture(
     }
 }
 
+#[path = "generate_scene_fixtures/support.rs"]
+mod support;
+
 fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
-    let city = fixture_buildings(fixture.buildings);
+    let mut city = fixture_buildings(fixture.buildings);
+    support::declare_catalogue_properties(&mut city);
     let establishments =
         city.businesses
             .iter()
@@ -291,13 +311,13 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
                 }
             })
             .collect();
-    let mut vista = vista(
+    let vista = vista(
         fixture.vista,
         fixture.environment,
         (fixture.terrain)(0.0, 0.0),
     );
-    city.level_vista(&mut vista, 0.0);
-    TacticalSceneInput {
+    let input = TacticalSceneInput {
+        grounding: None,
         properties: None,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
@@ -317,17 +337,23 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
             fixture.environment,
         ),
         landform: fixture.landform,
-        streets: city.streets,
-        yards: city.yards,
-        parishes: city.parishes,
-        compounds: city.compounds,
-        gardens: city.gardens,
-        buildings: city.playable,
-        distant_buildings: city.distant,
+        streets: city.streets.clone(),
+        yards: city.yards.clone(),
+        parishes: city.parishes.clone(),
+        compounds: city.compounds.clone(),
+        gardens: city.gardens.clone(),
+        buildings: city.playable.clone(),
+        distant_buildings: city.distant.clone(),
         establishments,
         vista,
         weather: fixture.weather,
-    }
+    };
+    input
+        .ground_generated_city(
+            &city,
+            adventuresim_tactical_core::city_layout::CompoundGradingPolicy::bounded_settlement(),
+        )
+        .unwrap_or_else(|error| panic!("fixture {}: {error}", fixture.name))
 }
 
 fn fixture_buildings(
@@ -401,6 +427,7 @@ fn building(
     orientation: BuildingOrientation,
 ) -> TacticalBuildingPlacement {
     TacticalBuildingPlacement {
+        base_elevation_metres: 0.0,
         id,
         program: BuildingProgram::fixture(archetype, seed),
         centre_metres,

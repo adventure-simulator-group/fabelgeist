@@ -67,10 +67,11 @@ impl PreparedCityGround {
         maximum_lods: usize,
     ) -> Self {
         let mut support = GroundSupport::default();
-        support.add_mesh(
-            &crate::presentation::terrain::urban_playable_mesh(terrain, input.landform.as_ref()),
-            Vec3::ZERO,
-        );
+        if let Some(surface) = terrain.property_surface() {
+            support.add_triangles(surface.presentation_triangles(), Vec3::ZERO);
+        } else {
+            support.add_mesh(&terrain.mesh(), Vec3::ZERO);
+        }
         let environment = input.environment_snapshot(input.digest().expect("validated scene"));
         let lods = input
             .vista
@@ -79,7 +80,12 @@ impl PreparedCityGround {
             .take(maximum_lods)
             .collect::<Vec<_>>();
         let mut inner = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
-        for (index, lod) in lods.iter().copied().enumerate() {
+        for (index, lod) in lods
+            .iter()
+            .copied()
+            .enumerate()
+            .filter(|_| terrain.property_surface().is_none())
+        {
             let origin = Vec3::new(
                 lod.origin_east_metres as f32,
                 0.0,

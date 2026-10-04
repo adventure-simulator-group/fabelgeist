@@ -11,6 +11,8 @@ use serde_json::{Value, json};
 use std::path::PathBuf;
 #[path = "inspect_city_grounding/footprint.rs"]
 mod footprint;
+#[path = "inspect_city_grounding/solutions.rs"]
+mod solutions;
 #[path = "inspect_city_grounding/support_regions.rs"]
 mod support_regions;
 #[path = "inspect_city_grounding/terraces.rs"]
@@ -63,7 +65,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             &building.placement.program,
             building.placement.centre_metres,
             building.placement.orientation,
-            building.pad_elevation_metres,
+            building.placement.base_elevation_metres,
             "playable",
         )?);
     }
@@ -180,6 +182,23 @@ impl Inspection {
             footprint::vista_extrema(lod, vista.lods.get(1), &raw, compound.plot.corners());
         comparison["source_front_contact_triangle_extrema"] =
             footprint::vista_extrema(lod, vista.lods.get(1), &raw, contact.corners());
+        let rear_placement = member_placement(input, compound.rear_building_id)?;
+        let rear_recipe = recipes.get_or_generate(&rear_placement.program)?;
+        let rear_contact = support_regions::contact_region(&rear_placement, rear_recipe)
+            .ok_or("compound rear member has no contact region")?;
+        let proposed = comparison["candidates"][1]["front_court_rear_elevations_m"]
+            .as_array()
+            .ok_or("missing proposed terrace levels")?;
+        let proposed = [0, 1, 2].map(|i| proposed[i].as_f64().unwrap() as f32);
+        comparison["support_solution_comparison"] = solutions::compare(
+            compound,
+            [(contact, front), (rear_contact, rear)],
+            proposed,
+            &footprint::vista_triangles(lod, vista.lods.get(1), &raw, compound.plot.corners()),
+            height,
+            adventuresim_tactical_core::scene_input::MAX_PLAYABLE_GRADE,
+        )
+        .ok_or("missing exact gate route or source coverage for support comparison")?;
         Ok(Some(comparison))
     }
 }
@@ -193,9 +212,10 @@ fn threshold(
     let placement = member_placement(input, id)?;
     let recipe = recipes.get_or_generate(&placement.program)?;
     let doors = adventuresim_building_generator::compile_operable_doors(&recipe.plan);
-    let door = doors
-        .iter()
-        .find(|door| door.outward == outward)
+    let mut matches = doors.iter().filter(|door| door.outward == outward);
+    let door = matches
+        .next()
+        .filter(|_| matches.next().is_none())
         .ok_or("property member has no required external door")?;
     let local = door.hinge_centre.xz() + door.tangent * door.size_metres.x * 0.5
         - recipe.collision.bounds.centre().xz();
@@ -206,25 +226,19 @@ fn member_placement(
     input: &TacticalSceneInput,
     id: u64,
 ) -> Result<TacticalBuildingPlacement, Box<dyn std::error::Error>> {
-    let (program, centre, orientation) = input
+    input
         .buildings
         .iter()
         .find(|b| b.id == id)
-        .map(|b| (b.program.clone(), b.centre_metres, b.orientation))
+        .cloned()
         .or_else(|| {
             input
                 .distant_buildings
                 .iter()
                 .find(|b| b.id == id)
-                .map(|b| (b.occupied_program(), b.centre_metres, b.orientation))
+                .map(|b| (*b).into())
         })
-        .ok_or("property member is absent")?;
-    Ok(TacticalBuildingPlacement {
-        id,
-        program,
-        centre_metres: centre,
-        orientation,
-    })
+        .ok_or_else(|| "property member is absent".into())
 }
 
 #[expect(
@@ -268,20 +282,16 @@ fn inspect(
             })
         })
         .collect::<Vec<_>>();
-    let thresholds = recipe
-        .plan
-        .opening_assemblies
+    let thresholds = adventuresim_building_generator::compile_operable_doors(&recipe.plan)
         .iter()
-        .filter(|opening| {
-            opening.frame.outside_room.is_none()
-                && matches!(
-                    opening.use_kind,
-                    adventuresim_building_generator::OpeningUse::Door
-                        | adventuresim_building_generator::OpeningUse::Gate
-                )
-        })
-        .map(|opening| {
-            let point = world(opening.frame.origin);
+        .map(|door| {
+            let opening = recipe
+                .plan
+                .opening_assemblies
+                .iter()
+                .find(|opening| opening.id == door.opening)
+                .expect("compiled door identifies its source opening");
+            let point = world(door.closed_centre.xz());
             json!({"id":opening.id, "point":point,
                 "sill_elevation":opening.sill_elevation_metres + offset,
                 "terrain_elevation":height(point)})

@@ -64,7 +64,8 @@ pub struct CityGarden {
     pub plants: Vec<GardenPlantPlacement>,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
+#[serde(rename_all = "snake_case")]
 pub enum GardenIssue {
     MissingOwner,
     DuplicateProperty,

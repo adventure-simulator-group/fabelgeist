@@ -457,6 +457,25 @@ turning continuity and axle variation. Ground meshes sample the same presented
 terrain surface; material relief does not change tactical collision or create
 physical ruts.
 
+Vista construction shades each environmental sample once for its exact weather
+snapshot, then interpolates those linear colours across terrain vertices and
+LOD seams. The temporary sample fields stay local to one ring construction and
+follow the scene sample bounds. Geometry, colour interpolation order, substrate
+pigments and distant sward coverage remain unchanged. Playable-edge pigment is
+prepared once with the same scene environment.
+
+Whole foundations are selected conservatively against each ring’s output
+rectangles before internal sides are matched. Their bounds include closed-cell
+vertices and exposed cut faces. Every intersecting property retains its
+original face order and exact clipping; the physical support and collision
+representation remain complete. Selection stays local to preparation.
+
+The vista partitioner scans ordered accepted faces once per ring and prepares
+each face's rectangle bounds once. Per-rectangle buffers retain source triangle
+order; complete chunks retain clipping, normals, pigments and mesh indices.
+These buffers contain only current mesh output and are released after
+preparation. They do not retain another terrain or collision representation.
+
 Outdoor furniture arrives as compact immutable recipe references and normal
 entity transforms. Shared mesh handles and the building material palette
 render each accepted instance. Small furniture fades over 180-230 metres;
@@ -484,3 +503,14 @@ cargo test -p adventuresim-tactical-client --bin art-demo \
 
 Production tactical scenes do not use these assets and retain runtime cloud
 animation.
+
+## Terrain comparison captures
+
+The `terrain-grounding` capture profile requires explicit frozen world-space
+cameras through `--city-cameras`. It renders at 2240 × 1260 physical pixels,
+independent of desktop scaling. The image manifest reports those same physical
+dimensions. Other capture profiles retain their standard 1280 × 720 images;
+scene-performance measurements use a separate 2560 × 1440 offscreen target.
+Cameras, time, weather, exposure and physical member selection must be fixed
+when comparing terrain support across generated products and building LODs.
+Ordinary images and wireframe/collision diagnostics are separate evidence.

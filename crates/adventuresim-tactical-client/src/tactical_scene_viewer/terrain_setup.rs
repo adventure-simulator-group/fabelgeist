@@ -8,22 +8,29 @@ pub(super) fn spawn(
     terrain: SceneTerrain,
     terrain_patch: Option<&SceneTerrainPatch>,
 ) {
-    let collider = terrain_patch.map_or_else(
-        || terrain.collider(),
-        |patch| patch.collider_with_terrain(&terrain),
+    let colliders = terrain_patch.map_or_else(
+        || terrain.colliders(),
+        |patch| patch.colliders_with_terrain(&terrain),
     );
     let mut terrain_entity = commands.spawn((
         Name::new("Captured tactical terrain"),
         SceneId(input.scene_key.clone()),
         environment,
         ground,
-        RigidBody::Static,
-        CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-        collider,
         terrain,
         Transform::default(),
     ));
     if let Some(landform) = input.landform {
         terrain_entity.insert(landform);
     }
+    terrain_entity.with_children(|parent| {
+        for collider in colliders {
+            parent.spawn((
+                RigidBody::Static,
+                CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
+                collider,
+                Transform::IDENTITY,
+            ));
+        }
+    });
 }

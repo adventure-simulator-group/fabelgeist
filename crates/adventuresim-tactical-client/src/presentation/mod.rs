@@ -17,7 +17,7 @@ mod config;
 mod demo_lifecycle;
 #[cfg(any(target_family = "wasm", test))]
 pub(crate) mod generation;
-mod packed;
+
 pub(crate) use demo_lifecycle::{clear_demo_scene, clear_scene_entities};
 pub(crate) use vista::streets::streaming::StreamCityTraffic;
 mod closure_meshes;
@@ -211,9 +211,10 @@ impl Plugin for TacticalPresentationPlugin {
         // GPU-instanced grass renders through bevy_eidolon on native and wasm
         // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
         // multi-draw-indirect on the browser backend).
-        app.add_plugins(ground_scatter::InstancedGrassPlugin)
-            .add_observer(ground_scatter::gardens::on_garden)
-            .add_observer(ground_scatter::gardens::on_vista);
+        app.add_plugins((
+            ground_scatter::InstancedGrassPlugin,
+            ground_scatter::gardens::GardenPresentationPlugin,
+        ));
         app.add_plugins(materials::TacticalMaterialsPlugin)
             .add_plugins(interior_lighting::InteriorLightingPlugin)
             // Tactical play uses one compact close-range cascade for whichever
@@ -248,6 +249,7 @@ impl Plugin for TacticalPresentationPlugin {
             .init_asset::<PreparedTreeImpostorAsset>()
             .init_asset_loader::<PreparedTreeImpostorLoader>()
             .init_resource::<ActiveVistaSurface>()
+            .init_resource::<vista::pending::PendingVista>()
             .init_resource::<TreeLodRenderOverride>()
             .init_resource::<TacticalTreeBenchmarkIsolation>()
             .init_resource::<ActiveTacticalScene>()
@@ -262,6 +264,7 @@ impl Plugin for TacticalPresentationPlugin {
                 (
                     (
                         present_pending_terrain,
+                        vista::pending::present_ready_vista,
                         update_terrain_detail_patch,
                         present_ground_scatter,
                     )

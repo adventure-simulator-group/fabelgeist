@@ -36,6 +36,7 @@ pub(super) fn brewery(a: &mut Assembly<'_>, w: f32, d: f32) {
     // Broad masonry shoulders around an open firing mouth, with a continuous rear flue.
     hearth(a, Vec2::new(w + 3.6, d - 1.65), 4.25);
     a.passage(
+        WorkplacePassagePurpose::OutdoorRoute,
         Vec3::new(w + 2.2, 0.05, d - 3.0),
         Vec3::new(w + 5.0, 2.3, d - 2.85),
     );

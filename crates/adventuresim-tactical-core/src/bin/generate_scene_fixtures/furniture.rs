@@ -37,6 +37,7 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
     .enumerate()
     .map(
         |(index, (usage, centre_metres, yaw))| TacticalBuildingPlacement {
+            base_elevation_metres: 0.0,
             id: index as u64 + 1,
             program: BuildingProgram::validated_settlement(
                 settlement_archetype(usage),

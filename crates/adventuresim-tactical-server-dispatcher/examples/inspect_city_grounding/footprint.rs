@@ -4,7 +4,9 @@ use bevy::math::Vec2;
 use serde_json::{Value, json};
 #[path = "footprint/vista.rs"]
 mod vista;
-pub(super) use vista::extrema as vista_extrema;
+pub(super) use vista::{
+    extrema as vista_extrema, height_in_triangle, triangles as vista_triangles,
+};
 
 pub(super) fn terrain_extrema(terrain: &SceneTerrain, corners: [Vec2; 4]) -> Value {
     let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
@@ -36,7 +38,7 @@ pub(super) fn terrain_extrema(terrain: &SceneTerrain, corners: [Vec2; 4]) -> Val
             let d = a + Vec2::Y * terrain.grid_scale();
             // SceneTerrain and Avian subdivide across b--d, not a--c.
             for triangle in [[a, b, d], [b, c, d]] {
-                for point in clip(triangle.to_vec(), corners) {
+                for point in clip(triangle.to_vec(), &corners) {
                     let Some(height) = terrain.height_at(point) else {
                         continue;
                     };
@@ -62,7 +64,7 @@ pub(super) fn terrain_extrema(terrain: &SceneTerrain, corners: [Vec2; 4]) -> Val
     })
 }
 
-fn clip(mut polygon: Vec<Vec2>, corners: [Vec2; 4]) -> Vec<Vec2> {
+pub(super) fn clip(mut polygon: Vec<Vec2>, corners: &[Vec2]) -> Vec<Vec2> {
     for index in 0..corners.len() {
         let a = corners[index];
         let edge = corners[(index + 1) % corners.len()] - a;

@@ -38,11 +38,10 @@ type ReviewGeometry = (
 pub(super) fn select(
     mut commands: Commands,
     state: Option<Res<SceneCaptureState>>,
-    requirements: Option<Res<ReviewRequirements>>,
     mut recorded: Local<std::collections::BTreeSet<usize>>,
     mut geometry: Query<ReviewGeometry>,
 ) {
-    let (Some(state), Some(requirements)) = (state, requirements) else {
+    let Some(state) = state else {
         return;
     };
     let view = state.views[state.view];
@@ -83,7 +82,7 @@ pub(super) fn select(
         && recorded.insert(state.view)
     {
         std::fs::write(
-            requirements
+            state
                 .output
                 .join(format!("{}.building-lod.json", view.slug)),
             serde_json::to_vec_pretty(&serde_json::json!({

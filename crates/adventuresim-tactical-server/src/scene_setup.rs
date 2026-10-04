@@ -6,7 +6,7 @@ pub(crate) struct SceneGeometryPlugin;
 
 impl Plugin for SceneGeometryPlugin {
     fn build(&self, app: &mut App) {
-        app.add_observer(super::on_scene_terrain_added)
+        app.add_observer(super::terrain_collision::on_scene_terrain_added)
             .add_observer(super::openings::on_scene_building_added)
             .add_observer(super::openings::on_scene_boundary_added)
             .add_observer(super::furniture::on_furniture_added)

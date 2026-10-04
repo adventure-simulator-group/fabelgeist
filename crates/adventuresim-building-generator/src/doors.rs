@@ -28,6 +28,29 @@ pub struct DoorSpec {
     pub open_angle_radians: f32,
 }
 
+impl DoorSpec {
+    /// Furthest horizontal leaf corner from the hinge. Rotation preserves this
+    /// radius, including a hinge offset from the edge or centre of the leaf.
+    pub fn horizontal_sweep_radius_metres(self) -> f32 {
+        let rotation = Quat::from_rotation_y(self.closed_yaw_radians);
+        let arm = self.closed_centre - self.hinge_centre;
+        [-1.0, 1.0]
+            .into_iter()
+            .flat_map(|x| [-1.0, 1.0].map(|z| (x, z)))
+            .map(|(x, z)| {
+                let point = arm
+                    + rotation
+                        * Vec3::new(
+                            x * self.size_metres.x * 0.5,
+                            0.0,
+                            z * self.size_metres.z * 0.5,
+                        );
+                Vec2::new(point.x, point.z).length()
+            })
+            .fold(0.0, f32::max)
+    }
+}
+
 /// Compiles independently simulated leaves for operable exterior doors.
 pub fn compile_operable_doors(plan: &BuildingPlan) -> Vec<DoorSpec> {
     let solids = plan
@@ -111,6 +134,38 @@ mod tests {
             let closed_arm = Vec3::new(door.tangent.x, 0.0, door.tangent.y);
             let open_arm = Quat::from_rotation_y(door.open_angle_radians) * closed_arm;
             assert!(Vec2::new(open_arm.x, open_arm.z).dot(-door.outward) > 0.0);
+        }
+    }
+
+    #[test]
+    fn sweep_radius_bounds_rotated_leaf_corners_with_offset_hinges() {
+        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+        for mut door in compile_operable_doors(&plan) {
+            door.hinge_centre += Vec3::new(0.03, 0.0, -0.02);
+            let radius = door.horizontal_sweep_radius_metres();
+            let mut furthest = 0.0_f32;
+            for angle in [0.0, 0.3, door.open_angle_radians] {
+                let pivot = Quat::from_rotation_y(angle);
+                let leaf = Quat::from_rotation_y(door.closed_yaw_radians + angle);
+                let centre = door.hinge_centre + pivot * (door.closed_centre - door.hinge_centre);
+                for x in [-1.0, 1.0] {
+                    for z in [-1.0, 1.0] {
+                        let point = centre
+                            + leaf
+                                * Vec3::new(
+                                    x * door.size_metres.x * 0.5,
+                                    0.0,
+                                    z * door.size_metres.z * 0.5,
+                                );
+                        let distance =
+                            Vec2::new(point.x - door.hinge_centre.x, point.z - door.hinge_centre.z)
+                                .length();
+                        assert!(distance <= radius + 0.000_01);
+                        furthest = furthest.max(distance);
+                    }
+                }
+            }
+            assert!((radius - furthest).abs() < 0.000_01);
         }
     }
 }

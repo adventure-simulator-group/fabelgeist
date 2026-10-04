@@ -3,7 +3,7 @@ use super::*;
 
 /// Serializes only the "core" reflectable character/level components (see
 /// [`on_player_added`](player_projection::on_player_added) and
-/// [`on_scene_terrain_added`] for the corresponding derive-the-rest hooks)
+/// [`terrain_collision::on_scene_terrain_added`] for the corresponding derive-the-rest hooks)
 /// on every entity to a `.scn.ron` file under `world_dumps/`.
 ///
 /// Deliberately an *allowlist*, not "every reflected component/resource on

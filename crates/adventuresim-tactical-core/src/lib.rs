@@ -10,6 +10,7 @@ pub mod combat;
 pub mod combat_config;
 pub mod doors;
 mod erosional_terrain;
+pub mod geometry_transport;
 pub mod inventory;
 mod inventory_armor;
 mod marching_tetrahedra;
@@ -107,8 +108,8 @@ pub mod prelude {
         SceneFurniture, SceneFurnitureGroup, SceneVistaFurniture, furniture_collider,
     };
     pub use crate::scene_input::{
-        BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GeneratedBoundary,
-        GeneratedBuilding, GeneratedGarden, GeneratedObstacle, GeneratedTacticalScene,
+        BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GardenPlantSupport,
+        GeneratedBoundary, GeneratedBuilding, GeneratedObstacle, GeneratedTacticalScene,
         ROCK_RADIUS_METRES, RockArchetype, RockLithology, RockRecipe, SceneBoundary, SceneBuilding,
         SceneDoor, SceneEnvironment, SceneEnvironmentFixture, SceneEstablishment, SceneGarden,
         SceneInputError, SceneObstacle, SceneRepairReport, SceneSource, SceneWindow,

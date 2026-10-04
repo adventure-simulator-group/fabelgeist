@@ -33,7 +33,7 @@ impl StreetClass {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) struct CityBlock {
     pub(super) id: BlockId,
     pub(super) corners: [Vec2; 4],

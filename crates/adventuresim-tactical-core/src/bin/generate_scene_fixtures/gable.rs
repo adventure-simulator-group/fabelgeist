@@ -28,6 +28,7 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
             .into_iter()
             .enumerate()
             .map(move |(column, seed)| TacticalBuildingPlacement {
+                base_elevation_metres: 0.0,
                 id: (row * 3 + column + 1) as u64,
                 program: BuildingProgram::fixture(archetype, seed),
                 centre_metres: Vec2::new((column as f32 - 1.0) * 40.0, row as f32 * 45.0 - 22.5),

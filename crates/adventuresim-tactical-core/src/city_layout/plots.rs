@@ -3,7 +3,7 @@ use super::*;
 
 pub(super) const SIDE_PASSAGE_METRES: f32 = 2.0;
 pub(super) const REAR_COURT_METRES: f32 = 6.0;
-const STREET_EDGE_TOLERANCE_METRES: f32 = 0.01;
+pub(super) const STREET_EDGE_TOLERANCE_METRES: f32 = 0.01;
 
 pub(super) fn reservation(lot: CityBuildingLot) -> CityBuildingLot {
     let apron = if lot.service.is_some() {

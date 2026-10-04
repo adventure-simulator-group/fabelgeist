@@ -51,7 +51,11 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
         CitySite::central_german_market_town().generate(42, 900, &super::super::tests::economy());
     let front_count = city.lots.len();
     let merchant_count = city.lots.iter().filter(|lot| lot.has_rear_range()).count();
-    let compiled = city.compile(42).unwrap();
+    let mut compiled = city.compile(42).unwrap();
+    // Transport independent floor bindings; this test does not grade terrain.
+    for building in &mut compiled.buildings {
+        building.base_elevation_metres = (building.id % 17) as f32 * 0.375 - 3.0;
+    }
     assert!(merchant_count > 0);
     assert_eq!(compiled.compounds.len(), merchant_count);
     for hinge in [PropertySide::Left, PropertySide::Right] {
@@ -93,9 +97,16 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
             .find(|b| b.id == distant.id)
             .unwrap();
         assert_eq!(distant.occupied_program(), original.program);
+        assert_eq!(TacticalBuildingPlacement::from(distant), *original);
         assert_eq!(distant.prosperity, compiled.prosperity);
     }
     let partition = compiled.clone().partition(Some(50.0)).unwrap();
+    for building in &partition.playable {
+        assert_eq!(
+            compiled.buildings.iter().find(|b| b.id == building.id),
+            Some(building)
+        );
+    }
     for compound in compiled.compounds {
         let front = partition
             .playable

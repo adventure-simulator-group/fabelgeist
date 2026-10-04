@@ -37,41 +37,54 @@ fn compound_loaded_scene_rejects_broken_membership_and_authority() {
     assert!(malformed.validate().is_err());
 }
 
+fn rebind(mut input: TacticalSceneInput) -> TacticalSceneInput {
+    use crate::city_layout::{CitySceneLayout, CompoundGradingPolicy};
+    let layout = CitySceneLayout {
+        playable: input.buildings.clone(),
+        distant: input.distant_buildings.clone(),
+        compounds: input.compounds.clone(),
+        gardens: input.gardens.clone(),
+        streets: input.streets.clone(),
+        yards: input.yards.clone(),
+        parishes: input.parishes.clone(),
+        ..Default::default()
+    };
+    input.grounding = None;
+    input
+        .ground_generated_city(&layout, CompoundGradingPolicy::bounded_settlement())
+        .unwrap()
+}
+
 #[test]
-fn compound_levels_court_routes_and_both_members_together_on_sloped_ground() {
+fn sloped_compound_enclosures_bind_to_accepted_soil_without_rewriting_source_samples() {
     let mut input = fixture();
     for (i, height) in input.playable.heights_metres.iter_mut().enumerate() {
-        *height = (i / usize::from(input.playable.width)) as f32 * 0.25;
+        *height = (i / usize::from(input.playable.width)) as f32 * 0.08;
+    }
+    let source = input.playable.clone();
+    let original = input.buildings.clone();
+    let input = rebind(input);
+    assert_eq!(input.playable, source);
+    for (before, after) in original.iter().zip(&input.buildings) {
+        assert_eq!(before.id, after.id);
+        assert_eq!(before.program, after.program);
+        assert_eq!(before.centre_metres, after.centre_metres);
+        assert_eq!(before.orientation, after.orientation);
     }
     let generated = input.generate().unwrap();
     assert_eq!(generated.buildings.len(), 4);
     assert_eq!(generated.boundaries.len(), 2);
+    assert_eq!(generated.repairs.levelled_building_samples, 0);
     for compound in &input.compounds {
-        let elevation = generated
+        let boundary = generated
             .boundaries
             .iter()
             .find(|boundary| boundary.scene.property_id == compound.id)
-            .unwrap()
-            .elevation_metres;
-        assert!(
-            generated
-                .buildings
-                .iter()
-                .filter(|b| [compound.front_building_id, compound.rear_building_id]
-                    .contains(&b.placement.id))
-                .all(|b| b.pad_elevation_metres == elevation)
-        );
-        for route in &compound.access {
-            for fraction in [0.25, 0.5, 0.75, 1.0] {
-                let p = route.start_metres.lerp(route.end_metres, fraction);
-                assert!(
-                    (generated.terrain.height_at(p).unwrap() - elevation).abs() < 0.03,
-                    "courtyard route is not level at {p:?}"
-                );
-            }
-        }
+            .unwrap();
+        let projected = GeneratedBoundary::project(compound, &generated.terrain).unwrap();
+        assert_eq!(boundary.scene, projected.scene);
+        assert_eq!(boundary.elevation_metres, projected.elevation_metres);
         for item in &generated.furniture.instances {
-            // Upper-room furniture cannot obstruct this ground-level route.
             if matches!(item.scene.location, FurnitureLocation::Interior { storey, .. } if storey > 0)
             {
                 continue;
@@ -83,7 +96,7 @@ fn compound_levels_court_routes_and_both_members_together_on_sloped_ground() {
                     .clamp(0.0, 1.0);
                 assert!(
                     point.distance(route.start_metres + delta * t) >= route.half_width_metres,
-                    "furniture {item:?} blocks property {:?} route {route:?}",
+                    "furniture {item:?} blocks property {:?}",
                     compound.id
                 );
             }
@@ -102,7 +115,7 @@ fn compound_rejects_a_loaded_route_ending_short_of_the_actual_store_door() {
 }
 
 #[test]
-fn adjacent_compound_walls_remain_grounded_after_terrain_refinement() {
+fn adjacent_compounds_keep_separate_support_owners_after_terrain_refinement() {
     let mut input = fixture();
     // This proof intentionally builds a touching pair from one source property.
     input.compounds.truncate(1);
@@ -142,20 +155,26 @@ fn adjacent_compound_walls_remain_grounded_after_terrain_refinement() {
     for (i, height) in input.playable.heights_metres.iter_mut().enumerate() {
         *height = (i % usize::from(input.playable.width)) as f32 * 1.25;
     }
+    let input = rebind(input);
     let generated = input.generate().unwrap();
     assert_eq!(generated.boundaries.len(), 2);
-    assert_eq!(
-        generated.boundaries[0].elevation_metres,
-        generated.boundaries[1].elevation_metres
+    assert_ne!(
+        generated.boundaries[0].scene.property_id,
+        generated.boundaries[1].scene.property_id
     );
-    for boundary in &generated.boundaries {
-        for member in boundary.scene.boundary.fixed_members() {
-            let point = Vec2::new(member.centre_metres.x, member.centre_metres.z);
-            assert!(
-                (generated.terrain.height_at(point).unwrap() - boundary.elevation_metres).abs()
-                    < 0.01,
-                "boundary is detached from the refined ground at {point:?}"
-            );
-        }
+    for compound in &input.compounds {
+        let boundary = generated
+            .boundaries
+            .iter()
+            .find(|b| b.scene.property_id == compound.id)
+            .unwrap();
+        let exact = GeneratedBoundary::project(compound, &generated.terrain).unwrap();
+        assert_eq!(exact.scene, boundary.scene);
+        assert_eq!(exact.elevation_metres, boundary.elevation_metres);
+        let foundation = generated.terrain.property_foundation(compound.id).unwrap();
+        assert_eq!(
+            foundation.member_building_ids,
+            [compound.front_building_id, compound.rear_building_id]
+        );
     }
 }

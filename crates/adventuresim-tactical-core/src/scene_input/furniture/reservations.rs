@@ -102,6 +102,18 @@ pub(super) fn routes(
     for building in buildings {
         routes.extend(building.routes.iter().copied());
     }
+    if let Some(projection) = &input.grounding {
+        // The accepted approach can include a property setback as well as the
+        // bounded street apron. Reserve the actual grading contract, including
+        // entrances expressed as workplace passages without a door assembly.
+        routes.extend(projection.surfaces().iter().flat_map(|surface| {
+            surface
+                .doorway_approaches()
+                .iter()
+                .copied()
+                .map(FurnitureFootprint::accepted_approach)
+        }));
+    }
     for compound in &input.compounds {
         routes.extend(compound.access.iter().map(|access| {
             route(
@@ -168,6 +180,14 @@ pub(super) fn obstacles(
 }
 
 impl FurnitureFootprint {
+    pub(super) fn accepted_approach(region: crate::city_layout::CityPlotBounds) -> Self {
+        Self {
+            centre_metres: region.centre_metres,
+            half_extents_metres: region.dimensions_metres * 0.5 + Vec2::splat(DOOR_SHOULDER_METRES),
+            orientation: region.orientation,
+        }
+    }
+
     fn gate_sweep(compound: &crate::city_layout::CityCompound) -> Self {
         let gate = compound.boundary.gate.door(compound.id);
         let hinge = Vec2::new(gate.hinge_centre.x, gate.hinge_centre.z);

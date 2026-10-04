@@ -7,7 +7,9 @@ use std::sync::{Mutex, OnceLock};
 
 mod building;
 pub(crate) mod landscape;
-use super::packed;
+use adventuresim_tactical_core::geometry_transport::binary as packed;
+mod residency;
+mod scene;
 pub(super) mod venue;
 pub(super) use building::PreparedFacade;
 pub(super) use venue::VenueGeometry;
@@ -35,7 +37,7 @@ enum GenerationJob {
 
 #[derive(Serialize, Deserialize)]
 enum GenerationProduct {
-    Scene(Box<GeneratedTacticalScene>),
+    Scene(Box<scene::SceneProduct>),
     Building(Box<PreparedFacade>),
     Venue(Box<venue::PreparedVenue>),
     Grass(Box<landscape::GrassProduct>),
@@ -58,6 +60,7 @@ struct PreparedProducts {
     placements: Vec<adventuresim_tactical_core::scene_input::TacticalBuildingPlacement>,
 }
 const RETAINED_VENUE_RECIPES: usize = 64;
+const RETAINED_SCENE_PRODUCTS: usize = 3;
 static PRODUCTS: OnceLock<Mutex<PreparedProducts>> = OnceLock::new();
 
 fn products() -> std::sync::MutexGuard<'static, PreparedProducts> {
@@ -68,14 +71,8 @@ fn products() -> std::sync::MutexGuard<'static, PreparedProducts> {
 }
 
 pub(crate) fn take_scene(input: &TacticalSceneInput) -> Result<GeneratedTacticalScene, String> {
-    let digest = input.digest().map_err(|error| error.to_string())?;
-    let mut products = products();
-    let index = products
-        .scenes
-        .iter()
-        .position(|scene| scene.digest == digest)
-        .ok_or("scene generation was not completed before installation")?;
-    let mut scene = products.scenes.swap_remove(index);
+    let products = products();
+    let mut scene = products.scene_for_installation(input)?;
     for placement in &products.placements {
         if !scene
             .buildings
@@ -92,13 +89,15 @@ pub(crate) fn take_scene(input: &TacticalSceneInput) -> Result<GeneratedTactical
                 .iter()
                 .find(|b| b.id == placement.id)
                 .ok_or("promoted venue has no distant placement")?;
+            if *placement != (*distant).into() {
+                return Err("promoted venue changed its physical placement or program".into());
+            }
             scene
                 .buildings
                 .push(adventuresim_tactical_core::scene_input::GeneratedBuilding {
                     placement: placement.clone(),
                     plan: venue.recipe.plan.clone(),
                     collision: venue.recipe.collision.clone(),
-                    pad_elevation_metres: distant.base_elevation_metres,
                 });
         }
     }
@@ -258,14 +257,19 @@ fn jobs(input_json: &str) -> Result<Vec<String>, String> {
     let input: TacticalSceneInput = serde_json::from_str(input_json).map_err(|e| e.to_string())?;
     input.validate().map_err(|e| e.to_string())?;
     let mut programs = Vec::new();
-    let resident = products().resident_facades.clone();
+    let mut products = products();
+    let scene_prepared = products.scene_is_prepared(&input)?;
+    let resident = products.resident_facades.clone();
+    drop(products);
     for placement in &input.distant_buildings {
         let program = placement.occupied_program();
         if !programs.contains(&program) && !resident.contains(&program) {
             programs.push(program);
         }
     }
-    std::iter::once(GenerationJob::Scene(Box::new(input)))
+    (!scene_prepared)
+        .then(|| GenerationJob::Scene(Box::new(input)))
+        .into_iter()
         .chain(
             programs
                 .into_iter()
@@ -302,11 +306,11 @@ fn generate(job_json: &str, dependencies: &[u8]) -> Result<Vec<u8>, String> {
             for recipe in dependencies.playable {
                 recipes.insert(recipe);
             }
-            GenerationProduct::Scene(Box::new(
+            GenerationProduct::Scene(Box::new(scene::SceneProduct::from_generated(
                 input
                     .generate_unfurnished(recipes)
                     .map_err(|e| e.to_string())?,
-            ))
+            )))
         }
         GenerationJob::Building(program) => {
             GenerationProduct::Building(Box::new(PreparedFacade::generate(*program)?))
@@ -330,7 +334,7 @@ fn receive(job_json: &str, bytes: &[u8]) -> Result<(), String> {
         {
             let mut products = products();
             products.grass.push(*grass);
-            if products.grass.len() > landscape::RETAINED_LANDSCAPE_SCENES {
+            if products.grass.len() > RETAINED_SCENE_PRODUCTS {
                 products.grass.remove(0);
             }
         }
@@ -342,9 +346,11 @@ fn receive(job_json: &str, bytes: &[u8]) -> Result<(), String> {
             landscape::retain(*ground);
         }
         (GenerationJob::Scene(input), GenerationProduct::Scene(scene))
-            if input.digest().map_err(|e| e.to_string())? == scene.digest =>
+            if input.digest().map_err(|e| e.to_string())? == scene.digest() =>
         {
-            products().scenes.push(*scene);
+            let mut products = products();
+            let scene = scene.restore(&input, &products)?;
+            products.retain_scene(scene);
         }
         (GenerationJob::Building(program), GenerationProduct::Building(facade))
             if *program == facade.program =>

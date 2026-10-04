@@ -17,49 +17,40 @@ pub(super) fn fixture() -> Fixture {
 }
 
 pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
-    [
-        BuildingArchetype::FachwerkCottage,
-        BuildingArchetype::HallHouse,
+    let mut buildings = [
+        (BuildingArchetype::FachwerkCottage, 42),
+        (BuildingArchetype::FachwerkCottage, 47),
+        (BuildingArchetype::FachwerkCottage, 101),
+        (BuildingArchetype::HallHouse, 42),
+        (BuildingArchetype::HallHouse, 47),
+        (BuildingArchetype::HallHouse, 101),
+        (BuildingArchetype::HallHouse, u64::MAX),
+        (BuildingArchetype::TownHouse, 11),
+        (BuildingArchetype::FachwerkMerchantHouse, 0),
     ]
     .into_iter()
     .enumerate()
-    .flat_map(|(row, archetype)| {
-        [42, 47, 101]
-            .into_iter()
-            .enumerate()
-            .map(move |(column, seed)| TacticalBuildingPlacement {
-                id: (row * 3 + column + 1) as u64,
-                program: BuildingProgram::fixture(archetype, seed),
-                centre_metres: Vec2::new((column as f32 - 1.0) * 40.0, row as f32 * 45.0 - 22.5),
-                orientation: BuildingOrientation::IDENTITY,
-            })
-    })
-    .chain(std::iter::once(TacticalBuildingPlacement {
-        id: 7,
-        program: BuildingProgram::fixture(BuildingArchetype::HallHouse, u64::MAX),
-        centre_metres: Vec2::ZERO,
-        orientation: BuildingOrientation::IDENTITY,
-    }))
-    .chain(
-        [
-            (8, BuildingArchetype::TownHouse, 11, -25.0),
-            (9, BuildingArchetype::FachwerkMerchantHouse, 0, 25.0),
-        ]
-        .into_iter()
-        .map(|(id, archetype, seed, x)| {
-            let mut program = BuildingProgram::fixture(archetype, seed);
+    .map(|(index, (archetype, seed))| {
+        let mut program = BuildingProgram::fixture(archetype, seed);
+        if matches!(
+            archetype,
+            BuildingArchetype::TownHouse | BuildingArchetype::FachwerkMerchantHouse
+        ) {
             program.domestic_heating = Some(
                 adventuresim_building_generator::DomesticHeatingProgramme::HearthAndRearFedStove,
             );
-            TacticalBuildingPlacement {
-                id,
-                program,
-                centre_metres: Vec2::new(x, 67.5),
-                orientation: BuildingOrientation::IDENTITY,
-            }
-        }),
-    )
-    .collect()
+        }
+        TacticalBuildingPlacement {
+            base_elevation_metres: 0.0,
+            id: index as u64 + 1,
+            program,
+            centre_metres: Vec2::ZERO,
+            orientation: BuildingOrientation::IDENTITY,
+        }
+    })
+    .collect::<Vec<_>>();
+    super::support::arrange_catalogue_grid(&mut buildings, 3);
+    buildings
 }
 
 #[cfg(test)]
@@ -69,7 +60,28 @@ mod tests {
     #[test]
     fn upper_heating_specimens_have_bare_playable_ground_beneath_them() {
         let input = super::super::build_fixture(fixture());
+        assert_eq!(input.buildings.len(), 9);
+        let programmes = input
+            .buildings
+            .iter()
+            .map(|b| (b.id, b.program.clone()))
+            .collect::<Vec<_>>();
+        assert_eq!(programmes[7].0, 8);
+        assert_eq!(programmes[7].1.archetype, BuildingArchetype::TownHouse);
+        assert_eq!(programmes[7].1.seed, 11);
+        assert_eq!(programmes[8].0, 9);
+        assert_eq!(
+            programmes[8].1.archetype,
+            BuildingArchetype::FachwerkMerchantHouse
+        );
+        assert_eq!(programmes[8].1.seed, 0);
         let generated = input.generate().unwrap();
+        for building in &generated.buildings {
+            assert_eq!(
+                building.placement.program,
+                programmes[(building.placement.id - 1) as usize].1
+            );
+        }
         for building in generated.buildings.iter().filter(|b| b.placement.id >= 8) {
             let half = building.collision.bounds.plan_half_extents();
             for z in [-0.9, 0.0, 0.9] {

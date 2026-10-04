@@ -41,12 +41,7 @@ impl VenueRequest {
                 continue;
             }
             if let Some(distant) = input.distant_buildings.iter().find(|p| p.id == id) {
-                placements.push(TacticalBuildingPlacement {
-                    id,
-                    program: distant.occupied_program(),
-                    centre_metres: distant.centre_metres,
-                    orientation: distant.orientation,
-                });
+                placements.push((*distant).into());
             }
         }
         placements

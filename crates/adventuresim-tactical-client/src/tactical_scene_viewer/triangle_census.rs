@@ -11,7 +11,7 @@ use bevy::{
 use bevy_eidolon::prelude::InstanceMaterialData;
 use serde::Serialize;
 
-use super::{VIEW_HEIGHT, VIEW_WIDTH, capture_state::SceneCaptureState};
+use super::{capture_resolution, capture_state::SceneCaptureState};
 use crate::presentation::ground_scatter::instanced_grass::GrassTriangleCount;
 use crate::presentation::{
     GroundScatterLayer, PresentedBuildingMesh, TacticalGameplayCamera, TerrainDetailPatch,
@@ -276,7 +276,7 @@ fn terrain_wireframe_report(
         pipeline: "tactical_terrain_wireframe_v1",
         fixture: capture.fixture.clone(),
         screenshot: "terrain-wireframe.png",
-        resolution: [VIEW_WIDTH, VIEW_HEIGHT],
+        resolution: capture_resolution::physical_pixels(&capture.profile).to_array(),
         camera_translation: camera.1.translation.to_array(),
         camera_target: capture.ground_eye_target.to_array(),
         vertical_fov_degrees: 80.0,

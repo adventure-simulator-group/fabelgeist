@@ -181,9 +181,25 @@ pub struct WorkplacePart {
     pub silhouette: bool,
 }
 
-/// Clear space is a geometric contract, including the open passage between independent bays.
+/// Stable identity of one authored clear passage in an occupied workplace.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct WorkplacePassageId(pub u32);
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum WorkplacePassagePurpose {
+    GroundFloorCirculation,
+    OutdoorRoute,
+    UpperCirculation,
+    ServiceClearance,
+}
+
+/// Authored clearance volume with a stable identity and explicit use.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct WorkplacePassage {
+    pub id: WorkplacePassageId,
+    pub purpose: WorkplacePassagePurpose,
     pub min: Vec3,
     pub max: Vec3,
 }

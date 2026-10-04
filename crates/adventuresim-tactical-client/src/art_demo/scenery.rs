@@ -50,17 +50,25 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     if id == ExhibitId::Oak {
         spawn_oak(world, &input, &generated, &environment)?;
     }
-    let collider = generated.terrain.collider();
-    world.spawn((
-        SceneId(input.scene_key.clone()),
-        environment,
-        generated.ground,
-        generated.terrain,
-        RigidBody::Static,
-        CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-        collider,
-        Transform::IDENTITY,
-    ));
+    let colliders = generated.terrain.colliders();
+    world
+        .spawn((
+            SceneId(input.scene_key.clone()),
+            environment,
+            generated.ground,
+            generated.terrain,
+            Transform::IDENTITY,
+        ))
+        .with_children(|parent| {
+            for collider in colliders {
+                parent.spawn((
+                    RigidBody::Static,
+                    CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
+                    collider,
+                    Transform::IDENTITY,
+                ));
+            }
+        });
     world.flush();
     let furniture =
         prepared_furniture.unwrap_or_else(|| super::district::PreparedOutdoorFurniture {

@@ -76,7 +76,7 @@ mod tests {
                     && lot.service_size() == Some(ServiceBuildingSize::Large)
             })
             .unwrap();
-        let recipe = RecipePalette::default().front(42, lot).unwrap();
+        let recipe = CityRecipePalette::default().front(42, lot).unwrap();
         lot.centre_metres = Vec2::ZERO;
         for yaw in [0.0, core::f32::consts::FRAC_PI_2, 0.37] {
             lot.orientation = BuildingOrientation::from_radians(yaw).unwrap();
@@ -113,6 +113,7 @@ mod tests {
                 render_min: recipe.render_min,
                 render_max: recipe.render_max,
                 doors: recipe.doors.clone(),
+                ground_entrances: recipe.ground_entrances.clone(),
             };
             let door = blocked
                 .doors

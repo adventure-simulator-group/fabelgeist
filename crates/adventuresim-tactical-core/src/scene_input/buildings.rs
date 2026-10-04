@@ -8,11 +8,11 @@ use serde::{Deserialize, Serialize};
 
 use super::{GeneratedObstacle, SceneInputError, invalid};
 use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
+mod collision;
 mod exterior;
-mod pads;
 mod placement;
+pub use collision::compile_tactical_building_collider;
 pub use exterior::DistantBuildingVariant;
-pub(super) use pads::level_building_pads;
 
 pub(crate) const MAX_TACTICAL_BUILDINGS: usize = 64;
 const LEVEL_MARGIN_METRES: f32 = 1.5;
@@ -74,6 +74,9 @@ pub struct TacticalBuildingPlacement {
     pub id: u64,
     pub program: BuildingProgram,
     pub centre_metres: Vec2,
+    /// Scene elevation of architectural Y=0, retained through detail changes.
+    /// Buried slabs and footings extend below this datum.
+    pub base_elevation_metres: f32,
     pub orientation: BuildingOrientation,
 }
 
@@ -105,6 +108,18 @@ impl DistantBuildingPlacement {
             program = program.with_service_size(size);
         }
         program
+    }
+}
+
+impl From<DistantBuildingPlacement> for TacticalBuildingPlacement {
+    fn from(placement: DistantBuildingPlacement) -> Self {
+        Self {
+            id: placement.id,
+            program: placement.occupied_program(),
+            centre_metres: placement.centre_metres,
+            base_elevation_metres: placement.base_elevation_metres,
+            orientation: placement.orientation,
+        }
     }
 }
 
@@ -148,7 +163,6 @@ pub struct GeneratedBuilding {
     pub placement: TacticalBuildingPlacement,
     pub plan: BuildingPlan,
     pub collision: BuildingCollision,
-    pub pad_elevation_metres: f32,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -178,14 +192,6 @@ impl BuildingPad {
             .cmple(self.half_extents + Vec2::splat(LEVEL_MARGIN_METRES + TERRACE_APRON_METRES))
             .all()
     }
-
-    fn blend_weight(self, point: Vec2) -> f32 {
-        let core = self.half_extents + Vec2::splat(LEVEL_MARGIN_METRES);
-        let outside = (self.local_offset(point).abs() - core).max(Vec2::ZERO);
-        let distance = outside.length();
-        let linear = (1.0 - distance / TERRACE_APRON_METRES).clamp(0.0, 1.0);
-        linear * linear * (3.0 - 2.0 * linear)
-    }
 }
 
 pub(super) fn validate_building_placements(
@@ -199,7 +205,10 @@ pub(super) fn validate_building_placements(
         if placement.id == 0 || !ids.insert(placement.id) {
             return invalid("building identity is zero or duplicated");
         }
-        if !placement.centre_metres.is_finite() || !placement.orientation.is_valid() {
+        if !placement.centre_metres.is_finite()
+            || !placement.base_elevation_metres.is_finite()
+            || !placement.orientation.is_valid()
+        {
             return invalid("building placement is invalid");
         }
     }
@@ -251,7 +260,6 @@ pub(super) fn prepare_buildings(
                 placement,
                 plan: recipe.plan,
                 collision: recipe.collision,
-                pad_elevation_metres: 0.0,
             })
         })
         .collect()

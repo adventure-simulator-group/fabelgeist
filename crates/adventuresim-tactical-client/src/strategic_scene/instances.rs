@@ -146,11 +146,7 @@ pub(super) fn spawn_props(
         ));
     }
     for garden in generated.gardens.drain(..) {
-        commands.spawn((
-            garden.scene,
-            Transform::from_translation(Vec3::Y * garden.elevation_metres),
-            ChildOf(root),
-        ));
+        commands.spawn((garden, Transform::default(), ChildOf(root)));
     }
     for furniture in &generated.furniture.instances {
         commands.spawn((

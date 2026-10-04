@@ -20,6 +20,9 @@ use crate::{
     CharacterLook, MantleOutput, MantleState, input::AccumulatedInput, prelude::*,
 };
 
+mod platform;
+mod stair;
+
 pub struct AhoyKccPlugin {
     pub schedule: Interned<dyn ScheduleLabel>,
 }
@@ -529,7 +532,14 @@ fn step_move(
     let hit = cast_move(cast_dir * cast_len, move_and_slide, ctx, &mut support_probe);
 
     // If we either fall or slide down, use the direct move-and-slide instead
-    if !hit.is_some_and(|h| h.normal1.y >= ctx.cfg.min_walk_cos) {
+    if !hit.is_some_and(|h| {
+        stair::has_walkable_support(
+            h,
+            ctx.velocity.0.with_y(0.0).normalize_or_zero(),
+            move_and_slide,
+            &ctx.cfg,
+        )
+    }) {
         transform.translation = down_position;
         ctx.velocity.0 = down_velocity;
         ctx.output.touching_entities = down_touching_entities;
@@ -1304,23 +1314,14 @@ fn calculate_platform_movement(
     let platform_ang_vel = platform.ang_vel.map(|v| v.0).unwrap_or(Vec3::ZERO);
 
     let ground_com = (platform.rot.0 * platform_com) + platform.pos.0;
-    let platform_transform = Transform::IDENTITY
-        .with_translation(ground_com)
-        .with_rotation(platform.rot.0);
-    let next_platform_transform = Transform::IDENTITY
-        .with_translation(ground_com + platform_lin_vel * time.delta_secs())
-        .with_rotation(
-            Quat::from_scaled_axis(platform_ang_vel * time.delta_secs()) * platform.rot.0,
-        );
     let mut touch_point = transform.translation;
     touch_point.y = ground.y;
-
-    let platform_movement = next_platform_transform.transform_point(
-        platform_transform
-            .compute_affine()
-            .inverse()
-            .transform_point3(touch_point),
-    ) - touch_point;
+    let platform_movement = platform::point_displacement(
+        touch_point - ground_com,
+        platform_lin_vel,
+        platform_ang_vel,
+        time.delta_secs(),
+    );
 
     ctx.state.platform_velocity = platform_movement / time.delta_secs();
     ctx.state.platform_angular_velocity = platform_ang_vel;

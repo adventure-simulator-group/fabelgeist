@@ -24,11 +24,13 @@ pub(super) fn drying_kiln(a: &mut Assembly<'_>, p: Vec2) {
     }
     hood_course(a, p, Vec2::new(1.18, 1.48), 3.2, 0.6);
     a.passage(
+        WorkplacePassagePurpose::ServiceClearance,
         Vec3::new(p.x - 0.25, 0.05, p.y - 1.32),
         Vec3::new(p.x + 0.25, 0.8, p.y + 0.85),
     );
     // A reserved continuous vertical vent between the grate bars also guards later roof edits.
     a.passage(
+        WorkplacePassagePurpose::ServiceClearance,
         Vec3::new(p.x - 0.12, 0.8, p.y - 0.1),
         Vec3::new(p.x + 0.12, 4.0, p.y + 0.1),
     );

@@ -7,24 +7,7 @@ pub(crate) fn on_scene_boundary_added(
     boundaries: Query<(&SceneBoundary, &Transform)>,
 ) -> Result {
     let (boundary, transform) = boundaries.get(event.entity)?;
-    let collider = Collider::compound(
-        boundary
-            .boundary
-            .fixed_members()
-            .iter()
-            .map(|member| {
-                (
-                    member.centre_metres,
-                    Quat::from_rotation_y(member.yaw_radians),
-                    Collider::cuboid(
-                        member.size_metres.x,
-                        member.size_metres.y,
-                        member.size_metres.z,
-                    ),
-                )
-            })
-            .collect(),
-    );
+    let collider = boundary.fixed_support.collider();
     doors::spawn_door(
         &mut commands,
         event.entity,

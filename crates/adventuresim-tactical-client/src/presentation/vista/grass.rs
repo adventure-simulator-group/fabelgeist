@@ -109,6 +109,14 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
     }
 
     fn height(&self, centre: Vec2) -> Option<f32> {
+        if self.playable_terrain.property_surface().is_some() {
+            let (height, normal) = self.playable_terrain.surface_below(Vec3::new(
+                centre.x,
+                f32::INFINITY,
+                centre.y,
+            ))?;
+            return (normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(height);
+        }
         let origin = Vec2::new(
             self.lod.origin_east_metres as f32,
             self.lod.origin_north_metres as f32,
@@ -313,3 +321,6 @@ fn scatter(
 
     batches
 }
+
+#[cfg(test)]
+mod tests;

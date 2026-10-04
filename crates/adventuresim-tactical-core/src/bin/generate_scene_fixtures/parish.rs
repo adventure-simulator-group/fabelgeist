@@ -35,6 +35,7 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
             .into_iter()
             .enumerate()
             .map(move |(column, size)| TacticalBuildingPlacement {
+                base_elevation_metres: 0.0,
                 id: (row * 3 + column + 1) as u64,
                 program: BuildingProgram::settlement(
                     BuildingArchetype::ParishChurch,

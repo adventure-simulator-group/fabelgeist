@@ -280,7 +280,7 @@ fn catalog_camera(kind: FurnitureKind, size: Vec3, ground: Vec3) -> BuildingRevi
     let right = Vec3::Y.cross(outward).normalize();
     let up = outward.cross(right);
     let tangent_y = (CATALOG_FOV_DEGREES.to_radians() * 0.5).tan();
-    let tangent_x = tangent_y * super::VIEW_WIDTH as f32 / super::VIEW_HEIGHT as f32;
+    let tangent_x = tangent_y * super::capture_resolution::CAPTURE_ASPECT_RATIO;
     let target = ground + Vec3::Y * size.y * 0.5;
     // Fit every envelope corner in the actual perspective frustum, including tall beds' feet.
     let distance = envelope_corners(size)
@@ -468,8 +468,9 @@ mod tests {
                 );
                 assert!(
                     local.x.abs()
-                        < -local.z * tangent * super::super::VIEW_WIDTH as f32
-                            / super::super::VIEW_HEIGHT as f32,
+                        < -local.z
+                            * tangent
+                            * super::super::capture_resolution::CAPTURE_ASPECT_RATIO,
                     "{kind:?} horizontal clipping"
                 );
             }

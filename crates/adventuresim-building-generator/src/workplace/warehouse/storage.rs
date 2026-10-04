@@ -59,15 +59,18 @@ pub(super) fn storage_floors(a: &mut Assembly<'_>, w: f32, d: f32) {
             true,
         );
         a.passage(
+            WorkplacePassagePurpose::UpperCirculation,
             Vec3::new(w - 1.55, rise + 0.03, front + 0.01),
             Vec3::new(w - 0.45, rise + 2.0, front + step_depth - 0.01),
         );
     }
     a.passage(
+        WorkplacePassagePurpose::UpperCirculation,
         Vec3::new(w * 0.5 - 1.5, UPPER_FLOOR_METRES + 0.04, 0.5),
         Vec3::new(w * 0.5 + 1.5, 5.5, d - 0.4),
     );
     a.passage(
+        WorkplacePassagePurpose::UpperCirculation,
         Vec3::new(w * 0.5, UPPER_FLOOR_METRES + 0.04, landing + 0.05),
         Vec3::new(w - 0.4, 5.5, d - 0.4),
     );

@@ -596,7 +596,7 @@ ceiling = 539
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-ceiling = 900
+ceiling = 678
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
@@ -628,7 +628,7 @@ ceiling = 959
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/scene_input.rs"
-ceiling = 958
+ceiling = 868
 
 [[files]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
@@ -2480,11 +2480,6 @@ ceiling = 116
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
 item = "on_scene_vista_bundle"
 ceiling = 124
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-item = "vista_lod_meshes_with_morph"
-ceiling = 133
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/volumetric.rs"
@@ -13922,7 +13917,7 @@ occurrences = 1
 
 [[findings]]
 rule = "semantic-family:e7-coordinates"
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
+path = "crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs"
 item = "vista_sample_color"
 fingerprint = "10000000"
 occurrences = 1

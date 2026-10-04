@@ -27,6 +27,14 @@ impl CityHouseClass {
         }
     }
 
+    pub fn from_archetype(
+        archetype: adventuresim_building_generator::BuildingArchetype,
+    ) -> Option<Self> {
+        Self::ALL
+            .into_iter()
+            .find(|class| class.archetype() == archetype)
+    }
+
     pub const ALL: [Self; 4] = [
         Self::Cottage,
         Self::CraftTownHouse,

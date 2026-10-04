@@ -1,6 +1,10 @@
 use super::*;
 use bevy::math::Vec2;
 use fabelgeist_determinism::StreamId;
+mod geographic;
+mod grounding;
+mod support_obstacles;
+pub use geographic::UngradedSceneTerrain;
 
 impl TacticalSceneInput {
     pub fn generate(&self) -> Result<GeneratedTacticalScene, SceneInputError> {
@@ -17,66 +21,30 @@ impl TacticalSceneInput {
         mut building_recipes: GeneratedBuildingRecipes,
     ) -> Result<GeneratedTacticalScene, SceneInputError> {
         self.validate()?;
-        let (grid_width, grid_depth, grid_spacing, mut heights, mut environment) =
-            upsample_playable_grid(&self.playable);
-        let mut repairs = prepare_terrain(
-            self,
-            grid_width,
-            grid_depth,
-            grid_spacing,
-            &mut heights,
-            &mut environment,
-        );
-        let mut buildings = buildings::prepare_buildings(&self.buildings, &mut building_recipes)?;
+        let UngradedSceneTerrain {
+            mut terrain,
+            ground,
+            buildings,
+            mut obstacles,
+            mut repairs,
+        } = self.prepare_geographic_terrain(&mut building_recipes)?;
         buildings::validate_building_pads(&buildings)?;
         compounds::validate_generated(&self.compounds, &buildings, &self.streets)?;
-        let garden_anchors = gardens::terrain_anchors(self)?;
-        let (building_pads, levelled_building_samples) = buildings::level_building_pads(
-            grid_width,
-            grid_depth,
-            grid_spacing,
-            &mut heights,
-            &mut buildings,
-            self,
-            &garden_anchors,
-        )?;
-        repairs.levelled_building_samples = levelled_building_samples;
-        let coarse_terrain =
-            SceneTerrain::from_heightmap(grid_width, grid_depth, grid_spacing, heights)
-                .ok_or_else(|| {
-                    SceneInputError::Validation("playable heightmap is invalid".into())
-                })?;
-        let mut obstacles = generated_obstacles(self);
-        remove_reserved_obstacles(self, &mut obstacles, &mut repairs);
-        remove_building_obstacles(
-            self,
-            &coarse_terrain,
-            &building_pads,
-            &mut obstacles,
-            &mut repairs,
-        );
-        let ground = build_scene_ground(
-            grid_width,
-            grid_depth,
-            grid_spacing,
-            &environment,
-            &coarse_terrain,
-            &obstacles,
-            self.playable.spacing_metres,
-            &buildings,
-            &self.streets,
-            &self.yards,
-        )?;
-        let terrain = refine_authoritative_terrain(
-            self.seed,
-            &coarse_terrain,
-            &ground,
-            &obstacles,
-            self.playable.spacing_metres,
-            self.weather.ground_moisture_bps,
-            &building_pads,
-        )?;
-        gardens::validate_surface(self, &terrain, &buildings)?;
+        if let Some(projection) = &self.grounding {
+            let source = crate::city_layout::grounding::GeographicSurface::from_presented_scene(
+                &terrain,
+                &self.vista,
+            )
+            .ok_or_else(|| {
+                SceneInputError::Validation("geographic support source is invalid".into())
+            })?;
+            let support = projection.reconstruct(&source, &self.physical_placements())?;
+            terrain = terrain.with_property_surface(support);
+        }
+        // Geographic preparation is already bound. Exclude physical obstacles
+        // intersecting accepted construction/access, without resampling source
+        // relief or choosing a different property floor.
+        support_obstacles::remove(self, &terrain, &mut obstacles, &mut repairs);
         let terrain_patch = crate::scene_fault::generate(self.landform, &terrain)?;
         let furniture = furniture::generate(
             self,
@@ -86,14 +54,16 @@ impl TacticalSceneInput {
             &obstacles,
             &mut building_recipes,
         )?;
+        let gardens = gardens::generate(&self.gardens, &buildings, &terrain)?;
+        let boundaries = compounds::generate(&self.compounds, &buildings, &terrain)?;
         Ok(GeneratedTacticalScene {
             digest: self.digest()?,
             terrain,
             ground,
             obstacles,
             terrain_patch,
-            boundaries: compounds::generate(&self.compounds, &buildings),
-            gardens: gardens::generate(&self.gardens, &buildings),
+            boundaries,
+            gardens,
             buildings,
             building_recipes,
             furniture,
@@ -109,17 +79,17 @@ fn prepare_terrain(
     spacing: f32,
     heights: &mut [f32],
     environment: &mut [EnvironmentalSample],
-) -> SceneRepairReport {
+) -> Result<SceneRepairReport, SceneInputError> {
     let upsampled_height_samples = heights
         .len()
         .saturating_sub(input.playable.heights_metres.len())
         as u32;
     let microrelief_adjusted_samples =
         add_authoritative_microrelief(input.seed, width, depth, spacing, heights, environment);
-    let mut repairs = repair_playable_terrain(width, depth, spacing, heights, environment);
+    let mut repairs = repair_playable_terrain(width, depth, spacing, heights, environment)?;
     repairs.upsampled_height_samples = upsampled_height_samples;
     repairs.microrelief_adjusted_samples = microrelief_adjusted_samples;
-    repairs
+    Ok(repairs)
 }
 
 fn generated_obstacles(input: &TacticalSceneInput) -> Vec<GeneratedObstacle> {

@@ -196,8 +196,17 @@ impl Assembly<'_> {
         self.plan.walls.push(id);
     }
 
-    pub fn passage(&mut self, min: Vec3, max: Vec3) {
-        self.plan.passages.push(WorkplacePassage { min, max });
+    pub fn passage(&mut self, purpose: WorkplacePassagePurpose, min: Vec3, max: Vec3) {
+        let id = WorkplacePassageId(
+            u32::try_from(self.plan.passages.len())
+                .expect("bounded workplace passage count fits u32"),
+        );
+        self.plan.passages.push(WorkplacePassage {
+            id,
+            purpose,
+            min,
+            max,
+        });
     }
 }
 

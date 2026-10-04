@@ -1,7 +1,6 @@
 //! UI-independent property catalogue from the production frontage planner.
 use adventuresim_core::{
-    reputation::effective_population,
-    settlement_property::{GeneratedHome, GeneratedHomeCatalog, HousingMarketReserve, PropertyId},
+    reputation::effective_population, settlement_property::GeneratedHomeCatalog,
 };
 use adventuresim_tactical_core::city_layout::CitySite;
 use adventuresim_world_schema::SettlementEconomyProfile;
@@ -21,37 +20,13 @@ pub fn generated_homes(
     {
         return Err("Generated settlement property capacity is incomplete".into());
     }
-    let mut market = HousingMarketReserve::default();
-    let homes = layout
-        .lots
-        .into_iter()
-        .filter(|lot| lot.service.is_none())
-        .map(|lot| {
-            let tier = lot.house_class.housing_tier();
-            Ok(GeneratedHome {
-                id: PropertyId::new(settlement_id, lot.id).map_err(|error| error.to_string())?,
-                building_id: lot.id,
-                tier,
-                resident_capacity: lot.house_class.resident_capacity(),
-                market_reserve: market.reserve(tier),
-                east_metres: lot.centre_metres.x,
-                north_metres: lot.centre_metres.y,
-                yaw_radians: lot.orientation.yaw_radians(),
-                width_metres: lot.footprint_metres.x,
-                depth_metres: lot.footprint_metres.y,
-            })
-        })
-        .collect::<Result<Vec<_>, String>>()?;
-    let catalog = GeneratedHomeCatalog {
-        settlement_id: settlement_id.to_owned(),
-        seed,
-        population,
-        homes,
-    };
-    catalog
-        .validate(settlement_id, population)
-        .map_err(|error| error.to_string())?;
-    Ok(catalog)
+    layout
+        .compile(seed)
+        .map_err(|error| error.to_string())?
+        .partition(None)
+        .map_err(|error| error.to_string())?
+        .generated_homes(settlement_id, population)
+        .map_err(|error| error.to_string())
 }
 
 #[cfg(test)]

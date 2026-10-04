@@ -21,6 +21,7 @@ fn sized_church_and_workplace_recipes_survive_distant_transport_with_playable_ge
             let centre_metres = Vec2::new(80.0, 35.0);
             let playable = prepare_buildings(
                 &[TacticalBuildingPlacement {
+                    base_elevation_metres: 0.0,
                     id: 1,
                     program: program.clone(),
                     centre_metres,

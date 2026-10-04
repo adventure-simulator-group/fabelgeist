@@ -41,6 +41,7 @@ fn parish_scene_round_trip_preserves_population_and_near_far_ownership() {
         .unwrap();
     let church = input.distant_buildings.remove(church_index);
     input.buildings.push(TacticalBuildingPlacement {
+        base_elevation_metres: 0.0,
         id: church.id,
         program: church.occupied_program(),
         centre_metres: church.centre_metres,
