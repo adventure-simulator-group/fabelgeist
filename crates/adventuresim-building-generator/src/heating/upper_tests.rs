@@ -40,9 +40,7 @@ fn upper_appliance_preserves_roof_structure_and_furnished_access_on_every_floor(
     for storey in &plan.storeys {
         assert!(layout.placements.iter().any(|p| p.storey == storey.level));
     }
-    let mut unheated = program;
-    unheated.domestic_heating = None;
-    let baseline = generate(&unheated).unwrap();
+    let baseline = crate::generator::generate_structure(&program, &[]).unwrap();
     for member in plan
         .timber_frame
         .as_ref()
@@ -293,5 +291,56 @@ fn occupied_recipe_catalogue_selects_buildable_upper_heating() {
             );
             crate::interior::furnish(&plan, &program).unwrap();
         }
+    }
+}
+
+#[test]
+fn shipped_upper_heating_programmes_remain_structurally_valid_and_accessible() {
+    for (archetype, seed) in [
+        (BuildingArchetype::TownHouse, 11),
+        (BuildingArchetype::FachwerkMerchantHouse, 0),
+    ] {
+        let mut program = BuildingProgram::fixture(archetype, seed);
+        program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
+        let plan = generate(&program).unwrap();
+        assert_eq!(plan.archetype, archetype);
+        assert_eq!(plan.seed, seed);
+        assert_eq!(plan.footprint, program.footprint);
+        assert_eq!(plan.storey_height_metres, program.storey_height_metres);
+        let heating = plan.domestic_heating.as_ref().unwrap();
+        assert_eq!(
+            heating.programme,
+            DomesticHeatingProgramme::HearthAndRearFedStove
+        );
+        assert_eq!(heating.kitchen.storey_level, 1);
+        assert!(audit_plan(&plan).is_empty());
+        crate::interior::validate_circulation(&plan).unwrap();
+        let furniture = crate::interior::furnish(&plan, &program).unwrap();
+        for storey in &plan.storeys {
+            assert!(
+                furniture
+                    .placements
+                    .iter()
+                    .any(|placement| placement.storey == storey.level)
+            );
+        }
+    }
+}
+
+#[test]
+fn exact_merchant_programme_retains_upper_pantry_access() {
+    for seed in [
+        6_006_670_756_388_891_727,
+        7_989_866_213_631_017_260,
+        269_418_199_818_528_039,
+    ] {
+        let program = BuildingProgram::settlement(
+            BuildingArchetype::FachwerkMerchantHouse,
+            Some(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling),
+            seed,
+        );
+        let plan = generate(&program).unwrap();
+        crate::interior::validate_circulation(&plan).unwrap();
+        crate::interior::furnish(&plan, &program).unwrap();
     }
 }

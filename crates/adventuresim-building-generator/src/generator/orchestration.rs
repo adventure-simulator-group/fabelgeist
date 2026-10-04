@@ -2,6 +2,15 @@ fn generate_unchecked(
     program: &BuildingProgram,
     edits: &[BuildingEdit],
 ) -> Result<BuildingPlan, GenerationError> {
+    let mut plan = generate_structure(program, edits)?;
+    crate::heating::resolve(program, &mut plan)?;
+    Ok(plan)
+}
+
+pub(crate) fn generate_structure(
+    program: &BuildingProgram,
+    edits: &[BuildingEdit],
+) -> Result<BuildingPlan, GenerationError> {
     program.validate_church_program()?;
     program.validate_workplace_edits(edits)?;
     let (storeys, straight_stair_core) = occupied_storeys::generate_storeys(program, edits)?;
@@ -12,7 +21,7 @@ fn generate_unchecked(
     let gatehouse_assemblies = derive_gatehouse_assemblies(program);
     let towers = derive_towers(program, &gatehouse_assemblies, &curtain_walls);
     let square_towers = derive_square_towers(program);
-    let mut stairs = derive_stairs(program, &storeys, &towers, straight_stair_core.as_ref());
+    let stairs = derive_stairs(program, &storeys, &towers, straight_stair_core.as_ref());
     let battlements = derive_battlements(program);
     let wall_walks = derive_wall_walks(program, &battlements, &towers);
     let crowns = derive_crowns(program, &battlements, &towers);
@@ -36,62 +45,15 @@ fn generate_unchecked(
         &bartizans,
         &mut resolved_geometry,
     );
-    let (mut wall_assemblies, mut opening_assemblies) = resolve_storey_wall_assemblies(
+    let (wall_assemblies, opening_assemblies) = resolve_storey_wall_assemblies(
         program,
         &storeys,
         &projected_defenses,
         &mut resolved_geometry,
     );
-    let workplace =
-        crate::workplace::resolve_workplace(program, &mut wall_assemblies, &mut resolved_geometry);
-    let small_church = small_church::resolve(program, &mut wall_assemblies, &mut resolved_geometry);
-    let mut church = urban_church::resolve(
-        program,
-        &square_towers,
-        &mut wall_assemblies,
-        &mut opening_assemblies,
-        &mut stairs,
-        &mut resolved_geometry,
-    );
-    fortified_envelope::resolve(
-        program,
-        &towers,
-        &crowns,
-        &projected_defenses,
-        &mut wall_assemblies,
-        &mut opening_assemblies,
-        &mut resolved_geometry,
-    );
-    let artillery_castle = resolve_artillery_castle(
-        program,
-        &towers,
-        &mut wall_assemblies,
-        &mut opening_assemblies,
-        &mut resolved_geometry,
-    );
-
-    let (roof_assemblies, timber_frame) = framed_roofs::resolve(
-        program,
-        edits,
-        &roofs,
-        &roof_dormers,
-        &towers,
-        &square_towers,
-        &mut stairs,
-        &mut wall_assemblies,
-        &mut opening_assemblies,
-        &mut resolved_geometry,
-    )?;
-    // Corner bonds must be resolved against the final timber-infill depth,
-    // after the semantic frame has replaced the exterior structural layer.
-    wall_corner_bonds::resolve(&wall_assemblies, &mut resolved_geometry);
-    if let Some(church) = &mut church {
-        church.roof_assemblies = roof_assemblies.iter().map(|roof| roof.id).collect();
-    }
-
-    let mut plan = church_ground::resolve(crate::spiral_stairs::resolve(BuildingPlan {
+    let plan = BuildingPlan {
         archetype: program.archetype,
-        workplace,
+        workplace: None,
         domestic_heating: None,
         seed: program.seed,
         footprint: program.footprint,
@@ -105,7 +67,7 @@ fn generate_unchecked(
         opening_assemblies,
         roofs,
         roof_dormers,
-        roof_assemblies,
+        roof_assemblies: Vec::new(),
         towers,
         square_towers,
         stairs,
@@ -121,14 +83,13 @@ fn generate_unchecked(
         gate_defenses,
         gatehouse_assemblies,
         bartizans,
-        church,
-        small_church,
-        timber_frame,
+        church: None,
+        small_church: None,
+        timber_frame: None,
         castle_phase: crate::CastleConstructionPhase::for_archetype(program.archetype),
-        artillery_castle,
-    }));
-    crate::heating::resolve(program, &mut plan)?;
-    Ok(plan)
+        artillery_castle: None,
+    };
+    plan.resolve_architectural_envelope(program, edits)
 }
 
 fn apply_opening_edits(

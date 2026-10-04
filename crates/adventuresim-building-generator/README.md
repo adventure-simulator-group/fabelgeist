@@ -101,9 +101,18 @@ clear the pier and flue; mineral cover slabs close each floor perimeter, with
 inner masonry ledges and outer bearing on the retained deck. A flue crossing
 another occupied floor has a widened masonry shoulder below that junction.
 
+Heated town and merchant houses reserve a complete rear kitchen/Stube bay,
+with storage below the masonry pier and above the kitchen where the flue
+crosses another occupied floor. Inter-room doors remain beside that bay. The
+adjacent pantry reserves a full shared rear boundary, placing its kitchen door
+behind the hearth rather than at the end of a narrow cell notch.
+Reserving isolated cells does not establish a continuous clear support route.
 Heated upper floors use full joist bays within the existing maximum pitch,
-with deterministic set-out variants. Placement checks the complete timber
-sections and retains finished joists, girders and roof members. Deck pieces
+with a fixed 0.08-metre set-out that aligns the masonry clearance with the
+unchanged roof frame. This is an authored construction dimension. Seeded
+set-out variation must not put a joist into the required bearing clearance.
+Placement checks the complete timber sections and retains finished joists,
+girders and roof members. Deck pieces
 receive measured contacts to their actual joists after cutting. Unbuildable
 room, floor or roof arrangements return `InvalidDomesticHeating`; they do not
 silently lose structural members. `SOURCES.md` distinguishes historical evidence
@@ -114,7 +123,8 @@ python scripts/capture_heating_review.py --skip-build --settle-frames 24 --outpu
 ```
 
 The `heating-review` fixture covers both building families at seeds 42, 47 and
-101, plus the deep-hearth hall at seed `u64::MAX`.
+101, the deep-hearth hall at seed `u64::MAX`, TownHouse building 8 at seed
+11, and merchant-house building 9 at seed 0 with upper heating.
 Cameras follow the resolved hearth, stove and roof junction. Matched distance
 views check representation continuity; interiors retain production lighting
 and the complete building geometry.
