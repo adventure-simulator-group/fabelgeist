@@ -318,11 +318,13 @@ capacity, renderer view or performance budget. Use the corresponding producer,
 movement and presentation acceptance checks for those contracts.
 
 The `validate-city-support` example is a separate support-planning experiment.
-It recompiles unseated placements and compares complete placement values before
-planning; geographic exports with nonzero grounded floors fail that comparison.
-It is not the verification path for current exported scenes. Its component
-reports and candidate projections do not establish production installation or
-complete-city acceptance.
+It validates the current scene's floor bindings against its accepted support
+projection, then recompiles the imported settlement's unseated layout. Programme,
+identity, horizontal transform, compound, garden, street, yard and parish values
+must match before replanning support against the supplied geographic source and
+engineering bounds. Floor elevations are checked separately because seating is
+the support planner's responsibility. Its component reports and candidate
+projections do not establish production installation or complete-city acceptance.
 
 Access acceptance must exercise `AdventureSimulatorPhysicsPlugin` with the
 production humanoid collider and authored movement configuration. Individual

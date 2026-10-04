@@ -36,13 +36,50 @@ pub(super) fn reproduce(
     };
     let extent = f32::from(input.playable.width - 1) * input.playable.spacing_metres * 0.5;
     let layout = place_settlement_buildings(&profile, extent)?;
-    if layout.playable != input.buildings
-        || layout.distant != input.distant_buildings
+    verify(input, &layout)?;
+    Ok(layout)
+}
+
+fn verify(
+    input: &TacticalSceneInput,
+    layout: &CitySceneLayout,
+) -> Result<(), Box<dyn std::error::Error>> {
+    // Check published floors against their accepted projection before excluding
+    // them from the comparison with the compiler's unseated placements.
+    input.validate()?;
+    let playable_matches = layout.playable.len() == input.buildings.len()
+        && layout
+            .playable
+            .iter()
+            .zip(&input.buildings)
+            .all(|(raw, seated)| {
+                let mut expected = raw.clone();
+                expected.base_elevation_metres = seated.base_elevation_metres;
+                expected == *seated
+            });
+    let distant_matches = layout.distant.len() == input.distant_buildings.len()
+        && layout
+            .distant
+            .iter()
+            .zip(&input.distant_buildings)
+            .all(|(raw, seated)| {
+                let mut expected = *raw;
+                expected.base_elevation_metres = seated.base_elevation_metres;
+                expected == *seated
+            });
+    if !playable_matches
+        || !distant_matches
         || layout.compounds != input.compounds
         || layout.gardens != input.gardens
         || layout.streets != input.streets
+        || layout.yards != input.yards
+        || layout.parishes != input.parishes
     {
         return Err("recreated programmes, membership or horizontal placement differs from the frozen input".into());
     }
-    Ok(layout)
+    Ok(())
 }
+
+#[cfg(test)]
+#[path = "layout/tests.rs"]
+mod tests;
