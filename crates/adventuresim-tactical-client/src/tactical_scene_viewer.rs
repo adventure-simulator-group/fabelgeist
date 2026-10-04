@@ -2170,7 +2170,7 @@ fn setup_scene(
         input_path,
         output,
         digest,
-        seed: input.seed,
+        seed: input.seed.to_u64(),
         absolute_minute,
         latitude_microdegrees,
         longitude_microdegrees,

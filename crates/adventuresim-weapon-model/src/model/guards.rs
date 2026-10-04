@@ -1,5 +1,6 @@
 //! Connected hilt bars, rings, plates and terminal furniture.
 use super::*;
+use crate::ConstructionError;
 use std::f64::consts::{PI, TAU};
 
 pub(super) fn section(value: Option<GuardSection>) -> Section {
@@ -67,7 +68,7 @@ pub(super) fn guard(
     r: &ResolvedComponent,
     p: &GuardParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, String> {
+) -> Result<Vec<PartSource>, ConstructionError> {
     let height = p.height.get();
     let thickness = p.thickness.get();
     let material = r.component.material.unwrap_or(Material::Steel);
@@ -112,7 +113,7 @@ pub(super) fn guard(
             Some(profile::terminal_profile(
                 p.terminal_profile
                     .as_ref()
-                    .ok_or("profile terminal needs stations")?,
+                    .ok_or(ConstructionError::ProfileTerminalNeedsStations)?,
                 tangent,
                 end,
                 &parts[0].solid,
@@ -158,7 +159,7 @@ pub(super) fn assembly(
     r: &ResolvedComponent,
     p: &GuardAssemblyParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, String> {
+) -> Result<Vec<PartSource>, ConstructionError> {
     let mut parts = Vec::new();
     for (index, member) in p.members.iter().enumerate() {
         let anchors: Vec<_> = member
@@ -168,11 +169,11 @@ pub(super) fn assembly(
                 p.nodes
                     .get(name)
                     .map(|point| point.map(Metres::get))
-                    .ok_or_else(|| format!("missing member node {name}"))
+                    .ok_or_else(|| ConstructionError::MissingMemberNode { node: name.clone() })
             })
             .collect::<Result<_, _>>()?;
         if anchors.len() < 2 {
-            return Err("member needs at least two named nodes".into());
+            return Err(ConstructionError::MemberNeedsTwoNamedNodes);
         }
         let samples = detail.samples(5, 3);
         let mut points = Vec::new();

@@ -1,5 +1,12 @@
 //! Authoritative measured food lots and immediate free-form cooking.
 
+mod creation_error;
+mod fireplace_error;
+pub(crate) use fireplace_error::FireplaceCustodyError;
+mod mutation_error;
+pub(crate) use creation_error::FoodLotCreationError;
+pub(crate) use mutation_error::FoodLotMutationError;
+
 use adventuresim_core::{
     disease::{self, DiseaseId},
     durability::{DamageBins, effective_weapon_stat},
@@ -43,7 +50,11 @@ include!("model.rs");
 include!("ingredient_preparation.rs");
 include!("preparation_authority.rs");
 include!("projections.rs");
+include!("lot_creation.rs");
 include!("lot_inventory.rs");
+include!("lot_transfer.rs");
+include!("lot_provenance.rs");
+include!("fireplace_admission.rs");
 include!("fireplace_custody.rs");
 include!("cooking.rs");
 include!("consumption.rs");
@@ -56,7 +67,11 @@ pub(crate) const FOOD_SOURCE: &str = concat!(
     include_str!("ingredient_preparation.rs"),
     include_str!("preparation_authority.rs"),
     include_str!("projections.rs"),
+    include_str!("lot_creation.rs"),
     include_str!("lot_inventory.rs"),
+    include_str!("lot_transfer.rs"),
+    include_str!("lot_provenance.rs"),
+    include_str!("fireplace_admission.rs"),
     include_str!("fireplace_custody.rs"),
     include_str!("cooking.rs"),
     include_str!("consumption.rs"),

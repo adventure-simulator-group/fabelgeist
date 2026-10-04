@@ -1,8 +1,8 @@
 // Owns pregnancy establishment, spouse-leisure conception, and birth settlement.
 pub fn establish_pregnancy(
     ctx: &ReducerContext,
-    mother_id: u64,
-    father_id: u64,
+    mother_id: adventuresim_core::identity::CharacterId,
+    father_id: adventuresim_core::identity::CharacterId,
     conceived_minute: StrategicMinute,
     birth_settlement_id: &str,
 ) -> Result<Pregnancy, String> {
@@ -10,12 +10,17 @@ pub fn establish_pregnancy(
         .db
         .active_pregnancy()
         .mother_id()
-        .find(mother_id)
+        .find(u64::from(mother_id))
         .and_then(|active| ctx.db.pregnancy().id().find(&active.pregnancy_id))
     {
         return Ok(existing);
     }
-    let ordinal = ctx.db.pregnancy().mother_id().filter(mother_id).count() as u64;
+    let ordinal = ctx
+        .db
+        .pregnancy()
+        .mother_id()
+        .filter(u64::from(mother_id))
+        .count() as u64;
     let due_minute = conceived_minute.saturating_add_minutes(GESTATION_MINUTES);
     if ctx
         .db
@@ -31,7 +36,8 @@ pub fn establish_pregnancy(
             .residence_transition()
             .iter()
             .filter(|transition| {
-                transition.affected_character_id == parent_id
+                adventuresim_core::identity::CharacterId::from(transition.affected_character_id)
+                    == parent_id
                     && transition.minute <= conceived_minute
                     && matches!(
                         transition.kind,
@@ -68,8 +74,8 @@ pub fn establish_pregnancy(
     let id = format!("pregnancy:{mother_id}:{ordinal}");
     let pregnancy = Pregnancy {
         id: id.clone(),
-        mother_id,
-        father_id,
+        mother_id: u64::from(mother_id),
+        father_id: u64::from(father_id),
         ordinal,
         conceived_minute,
         due_minute,
@@ -92,7 +98,7 @@ pub fn establish_pregnancy(
             reserved_minute: conceived_minute,
         });
     ctx.db.active_pregnancy().insert(ActivePregnancy {
-        mother_id,
+        mother_id: u64::from(mother_id),
         pregnancy_id: id,
     });
     Ok(pregnancy)
@@ -100,35 +106,45 @@ pub fn establish_pregnancy(
 
 fn conception_parents(
     ctx: &ReducerContext,
-    first_id: u64,
-    second_id: u64,
+    first_id: adventuresim_core::identity::CharacterId,
+    second_id: adventuresim_core::identity::CharacterId,
     trial_minute: StrategicMinute,
-) -> Result<Option<(u64, u64)>, String> {
-    ctx
-        .db
+) -> Result<
+    Option<(
+        adventuresim_core::identity::CharacterId,
+        adventuresim_core::identity::CharacterId,
+    )>,
+    String,
+> {
+    ctx.db
         .character()
         .id()
-        .find(first_id)
+        .find(u64::from(first_id))
         .ok_or("First spouse not found")?;
-    ctx
-        .db
+    ctx.db
         .character()
         .id()
-        .find(second_id)
+        .find(u64::from(second_id))
         .ok_or("Second spouse not found")?;
     let married_at_trial = ctx.db.marriage().iter().any(|marriage| {
-        ((marriage.first_character_id == first_id && marriage.second_character_id == second_id)
-            || (marriage.first_character_id == second_id
-                && marriage.second_character_id == first_id))
+        ((adventuresim_core::identity::CharacterId::from(marriage.first_character_id) == first_id
+            && adventuresim_core::identity::CharacterId::from(marriage.second_character_id)
+                == second_id)
+            || (adventuresim_core::identity::CharacterId::from(marriage.first_character_id)
+                == second_id
+                && adventuresim_core::identity::CharacterId::from(marriage.second_character_id)
+                    == first_id))
             && marriage.married_minute <= trial_minute
             && marriage
                 .resolved_minute
                 .is_none_or(|resolved| resolved > trial_minute)
     });
-    if !character_alive_at(ctx, first_id, trial_minute)
-        || !character_alive_at(ctx, second_id, trial_minute)
-        || effective_age_years(ctx, first_id, trial_minute).is_none_or(|age| age < ADULT_AGE_YEARS)
-        || effective_age_years(ctx, second_id, trial_minute).is_none_or(|age| age < ADULT_AGE_YEARS)
+    if !character_alive_at(ctx, (first_id).into(), trial_minute)
+        || !character_alive_at(ctx, (second_id).into(), trial_minute)
+        || effective_age_years(ctx, (first_id).into(), trial_minute)
+            .is_none_or(|age| age < ADULT_AGE_YEARS)
+        || effective_age_years(ctx, (second_id).into(), trial_minute)
+            .is_none_or(|age| age < ADULT_AGE_YEARS)
         || !married_at_trial
     {
         return Ok(None);
@@ -137,13 +153,13 @@ fn conception_parents(
         .db
         .character_personality()
         .character_id()
-        .find(first_id)
+        .find(u64::from(first_id))
         .ok_or("First spouse personality not found")?;
     let second_personality = ctx
         .db
         .character_personality()
         .character_id()
-        .find(second_id)
+        .find(u64::from(second_id))
         .ok_or("Second spouse personality not found")?;
     let (mother_id, father_id) = match (first_personality.sex, second_personality.sex) {
         (Sex::Female, Sex::Male) => (first_id, second_id),
@@ -155,8 +171,8 @@ fn conception_parents(
 
 fn refresh_spouse_pair_morale(
     ctx: &ReducerContext,
-    first_id: u64,
-    second_id: u64,
+    first_id: adventuresim_core::identity::CharacterId,
+    second_id: adventuresim_core::identity::CharacterId,
     joint_minutes: u64,
     minute: StrategicMinute,
 ) -> Result<(), String> {
@@ -174,14 +190,14 @@ fn refresh_spouse_pair_morale(
             .db
             .morale_event()
             .character_id()
-            .filter(character_id)
+            .filter(u64::from(character_id))
             .find(|event| event.source_id.as_deref() == Some(&source));
         let residence_source = format!("residence-leisure:{character_id}");
         let residence = ctx
             .db
             .morale_event()
             .character_id()
-            .filter(character_id)
+            .filter(u64::from(character_id))
             .find(|event| event.source_id.as_deref() == Some(&residence_source))
             .map_or(Default::default(), |event| {
                 adventuresim_core::courtship::RefreshableMorale {
@@ -203,37 +219,37 @@ fn refresh_spouse_pair_morale(
         );
         crate::condition::upsert_fixed_morale_event_without_refresh(
             ctx,
-            character_id,
+            (character_id).into(),
             adventuresim_core::morale::MoraleEventKind::SpouseLeisure,
             refreshed.milli_points as f32 / 1_000.0,
             minute,
             refreshed.expires_at_minute,
             &source,
         );
-        crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+        crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())?;
     }
     Ok(())
 }
 
 fn settle_spouse_leisure_pair(
     ctx: &ReducerContext,
-    first_id: u64,
-    second_id: u64,
+    first_id: adventuresim_core::identity::CharacterId,
+    second_id: adventuresim_core::identity::CharacterId,
 ) -> Result<(), String> {
-    let (first_id, second_id) = canonical_pair(first_id, second_id);
+    let (first_id, second_id) = (first_id.min(second_id), first_id.max(second_id));
     let pair_id = format!("spouse-leisure:{first_id}:{second_id}");
     let mut overlaps = Vec::new();
     for first in ctx
         .db
         .spouse_leisure_slice()
         .character_id()
-        .filter(first_id)
+        .filter(u64::from(first_id))
     {
         for second in ctx
             .db
             .spouse_leisure_slice()
             .character_id()
-            .filter(second_id)
+            .filter(u64::from(second_id))
         {
             let id = format!("spouse-overlap:{}:{}", first.id, second.id);
             if ctx.db.spouse_leisure_overlap().id().find(&id).is_some() {
@@ -277,8 +293,8 @@ fn settle_spouse_leisure_pair(
             .find(&pair_id)
             .unwrap_or(SpouseLeisureAccrual {
                 pair_id: pair_id.clone(),
-                first_character_id: first_id,
-                second_character_id: second_id,
+                first_character_id: u64::from(first_id),
+                second_character_id: u64::from(second_id),
                 conserved_joint_minutes: 0,
                 next_trial_ordinal: 0,
             });
@@ -314,7 +330,7 @@ fn settle_spouse_leisure_pair(
                     !ctx.db
                         .pregnancy()
                         .mother_id()
-                        .filter(mother_id)
+                        .filter(u64::from(mother_id))
                         .any(|pregnancy| {
                             pregnancy.conceived_minute <= minute && minute < pregnancy.due_minute
                         })
@@ -329,7 +345,13 @@ fn settle_spouse_leisure_pair(
                     succeeded,
                 });
             if succeeded && let Some((mother_id, father_id)) = parents {
-                establish_pregnancy(ctx, mother_id, father_id, minute, &location_id)?;
+                establish_pregnancy(
+                    ctx,
+                    (mother_id).into(),
+                    (father_id).into(),
+                    minute,
+                    &location_id,
+                )?;
             }
         }
         accrual.conserved_joint_minutes = plan.state.conserved_joint_minutes;
@@ -362,7 +384,7 @@ fn settle_spouse_leisure_pair(
 
 pub fn apply_spouse_leisure_conception(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     interval_start: StrategicMinute,
     interval_end: StrategicMinute,
     schedule: DailySchedule,
@@ -371,7 +393,9 @@ pub fn apply_spouse_leisure_conception(
         return Ok(());
     }
     let Some(marriage) = ctx.db.marriage().iter().find(|row| {
-        (row.first_character_id == character_id || row.second_character_id == character_id)
+        (adventuresim_core::identity::CharacterId::from(row.first_character_id) == character_id
+            || adventuresim_core::identity::CharacterId::from(row.second_character_id)
+                == character_id)
             && row.married_minute < interval_end
             && row
                 .resolved_minute
@@ -379,7 +403,9 @@ pub fn apply_spouse_leisure_conception(
     }) else {
         return Ok(());
     };
-    let spouse_id = if marriage.first_character_id == character_id {
+    let spouse_id = if adventuresim_core::identity::CharacterId::from(marriage.first_character_id)
+        == character_id
+    {
         marriage.second_character_id
     } else {
         marriage.first_character_id
@@ -393,7 +419,7 @@ pub fn apply_spouse_leisure_conception(
         .db
         .character()
         .id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character not found")?;
     let Some(location_id) = character.current_settlement_id else {
         return Ok(());
@@ -407,7 +433,7 @@ pub fn apply_spouse_leisure_conception(
             .db
             .spouse_leisure_slice()
             .character_id()
-            .filter(character_id)
+            .filter(u64::from(character_id))
             .filter(|slice| slice.location_id == location_id)
             .map(|slice| MinuteSpan {
                 start_minute: slice.start_minute,
@@ -428,14 +454,18 @@ pub fn apply_spouse_leisure_conception(
             );
             ctx.db.spouse_leisure_slice().insert(SpouseLeisureSlice {
                 id,
-                character_id,
+                character_id: u64::from(character_id),
                 start_minute: uncovered.start_minute,
                 end_minute: uncovered.end_minute,
                 location_id: location_id.clone(),
             });
         }
     }
-    settle_spouse_leisure_pair(ctx, character_id, spouse_id)
+    settle_spouse_leisure_pair(
+        ctx,
+        character_id,
+        adventuresim_core::identity::CharacterId::from(spouse_id),
+    )
 }
 
 /// Materialize due children as ordinary full Characters under NPC policy.
@@ -443,20 +473,20 @@ pub fn apply_spouse_leisure_conception(
 /// complete data/skills/needs surface and canonical family edges.
 pub fn settle_due_births(
     ctx: &ReducerContext,
-    mother_id: u64,
+    mother_id: adventuresim_core::identity::CharacterId,
     now: StrategicMinute,
 ) -> Result<(), String> {
     if let Some(pregnancy) = ctx
         .db
         .active_pregnancy()
         .mother_id()
-        .find(mother_id)
+        .find(u64::from(mother_id))
         .and_then(|active| ctx.db.pregnancy().id().find(&active.pregnancy_id))
         .filter(|pregnancy| {
             pregnancy.status == PregnancyStatus::Active && pregnancy.due_minute <= now
         })
     {
-        let mother_frontier = canonical_now(ctx, mother_id)?;
+        let mother_frontier = canonical_now(ctx, (mother_id).into())?;
         if mother_frontier < pregnancy.due_minute {
             // Normal causal advancement must reach the due minute. Do not
             // jump NPCs past daily needs, disease, training, or socializing.
@@ -467,7 +497,7 @@ pub fn settle_due_births(
         .db
         .active_pregnancy()
         .mother_id()
-        .find(mother_id)
+        .find(u64::from(mother_id))
         .and_then(|active| ctx.db.pregnancy().id().find(&active.pregnancy_id))
         .filter(|pregnancy| {
             pregnancy.status == PregnancyStatus::Active && pregnancy.due_minute <= now
@@ -522,13 +552,14 @@ pub fn settle_due_births(
         );
         crate::character::assign_newborn_historical_name(
             ctx,
-            crate::character::CharacterId::new(child_id),
-            crate::character::CharacterId::new(father.id),
-            crate::character::CharacterId::new(mother.id),
+            adventuresim_core::identity::CharacterId::from(child_id),
+            adventuresim_core::identity::CharacterId::from(father.id),
+            adventuresim_core::identity::CharacterId::from(mother.id),
             pregnancy.due_minute,
             NameStableSeed::new(pregnancy.child_name_seed),
             pregnancy.child_sex,
-        ).map_err(|error| error.to_string())?;
+        )
+        .map_err(|error| error.to_string())?;
         initialize_npc_policy(
             ctx,
             child_id,
@@ -648,7 +679,9 @@ fn household_id_at(
 }
 
 fn validate_due_birth(ctx: &ReducerContext, pregnancy: &Pregnancy) -> Result<(), String> {
-    pregnancy.parsed_state().map_err(|error| error.to_string())?;
+    pregnancy
+        .parsed_state()
+        .map_err(|error| error.to_string())?;
     if pregnancy.status != PregnancyStatus::Active {
         return Err("Pregnancy is not active".into());
     }
@@ -704,7 +737,7 @@ pub fn settle_due_births_global(
     due.truncate(limit);
     let count = due.len();
     for pregnancy in due {
-        settle_due_births(ctx, pregnancy.mother_id, now)?;
+        settle_due_births(ctx, (pregnancy.mother_id).into(), now)?;
     }
     Ok(count)
 }

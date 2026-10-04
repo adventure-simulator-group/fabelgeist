@@ -7,6 +7,7 @@
 
 /// Signed distance to each analytic shape, and the outward direction. Mirrors
 /// `Collider::signed_distance` on the host.
+use fabelgeist_gpu::prelude::ShaderSource;
 pub const SHAPES: &str = r#"
 struct Collider {
     data0: vec4<f32>,
@@ -144,8 +145,8 @@ fn collision_response(
 /// One thread per particle, looping over the colliders. There is no broad
 /// phase because there is nothing to gain from one: the list is a handful of
 /// shapes, and reading it is cheaper than culling it.
-pub fn analytic_source() -> String {
-    format!(
+pub fn analytic_source() -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read_write> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> previous: array<vec4<f32>>;
@@ -193,7 +194,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     positions[index] = vec4<f32>(position, entry.w);
 }}
 "#
-    )
+    ))
 }
 
 /// Resolve every particle against a triangle mesh, through the mesh's own BVH.
@@ -202,8 +203,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 /// which calls back into `bvh_hit` for every candidate triangle. WGSL has no
 /// closures, so the callback keeps its result in module-scope `var`s -- the
 /// kernel is one particle per thread, so there is nothing to share them with.
-pub fn mesh_source(traversal: &str) -> String {
-    format!(
+pub fn mesh_source(traversal: &str) -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read_write> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> previous: array<vec4<f32>>;
@@ -378,7 +379,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     positions[index] = vec4<f32>(position + correction, entry.w);
 }}
 "#
-    )
+    ))
 }
 
 /// Triangle bounds for the mesh BVH, expanded by the collision shell so that a

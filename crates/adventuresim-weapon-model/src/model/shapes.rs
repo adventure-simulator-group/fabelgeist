@@ -1,10 +1,11 @@
 //! Dispatch from typed manufacturing shapes to the shared solid constructors.
 use super::*;
+use crate::ConstructionError;
 
 pub(super) fn construct(
     resolved: &ResolvedComponent,
     detail: Detail,
-) -> Result<Vec<PartSource>, String> {
+) -> Result<Vec<PartSource>, ConstructionError> {
     ComponentConstructor { resolved, detail }.construct()
 }
 
@@ -13,7 +14,7 @@ struct ComponentConstructor<'a> {
     detail: Detail,
 }
 impl ComponentConstructor<'_> {
-    fn one(&self, solid: Solid) -> Result<Vec<PartSource>, String> {
+    fn one(&self, solid: Solid) -> Result<Vec<PartSource>, ConstructionError> {
         Ok(vec![PartSource::new(
             solid,
             self.resolved.component.material.unwrap_or(Material::Steel),
@@ -21,7 +22,7 @@ impl ComponentConstructor<'_> {
             &self.resolved.id,
         )])
     }
-    fn construct(&self) -> Result<Vec<PartSource>, String> {
+    fn construct(&self) -> Result<Vec<PartSource>, ConstructionError> {
         let resolved = self.resolved;
         let detail = self.detail;
         let c = &resolved.component;
@@ -105,7 +106,7 @@ impl ComponentConstructor<'_> {
                 .construct(resolved, detail),
         }
     }
-    fn socket(&self, p: &SocketParameters) -> Result<Vec<PartSource>, String> {
+    fn socket(&self, p: &SocketParameters) -> Result<Vec<PartSource>, ConstructionError> {
         let resolved = self.resolved;
         let detail = self.detail;
         let profile: Vec<_> = p
@@ -118,7 +119,7 @@ impl ComponentConstructor<'_> {
             return if let Some(wall) = p.wall {
                 let inner: Vec<_> = profile.iter().map(|p| p[1] - wall.get()).collect();
                 if inner.iter().any(|&r| r <= 0.0) {
-                    return Err("socket wall leaves no bore".into());
+                    return Err(ConstructionError::SocketWallLeavesNoBore);
                 }
                 let mut solid = Solid::hollow_profile(&profile, &inner, sides);
                 // Each authored flat has its own normal, including the bore.
@@ -134,7 +135,7 @@ impl ComponentConstructor<'_> {
             } else {
                 let wall = p
                     .wall
-                    .ok_or("crenellated socket needs a wall or receiver")?
+                    .ok_or(ConstructionError::CrenellatedSocketNeedsWallReceiver)?
                     .get();
                 profile.iter().map(|p| p[1] - wall).collect()
             };
@@ -143,7 +144,7 @@ impl ComponentConstructor<'_> {
                 .zip(&profile)
                 .any(|(&r, p)| r <= 0.0 || r >= p[1])
             {
-                return Err("socket wall leaves no bore".into());
+                return Err(ConstructionError::SocketWallLeavesNoBore);
             }
             return self.one(Solid::crenellated_socket(
                 &profile, &inner, crenels, detail,
@@ -159,7 +160,7 @@ impl ComponentConstructor<'_> {
         } else if let Some(wall) = p.wall {
             let inner: Vec<_> = profile.iter().map(|p| p[1] - wall.get()).collect();
             if inner.iter().any(|&r| r <= 0.0) {
-                return Err("socket wall leaves no bore".into());
+                return Err(ConstructionError::SocketWallLeavesNoBore);
             }
             self.one(Solid::hollow_socket(
                 &profile,
@@ -177,7 +178,7 @@ impl ComponentConstructor<'_> {
             )?)
         }
     }
-    fn grip(&self, p: &GripParameters) -> Result<Vec<PartSource>, String> {
+    fn grip(&self, p: &GripParameters) -> Result<Vec<PartSource>, ConstructionError> {
         let resolved = self.resolved;
         let c = &resolved.component;
         let detail = self.detail;
@@ -223,7 +224,7 @@ impl ComponentConstructor<'_> {
         }
         Ok(parts)
     }
-    fn oval_grip(&self, p: &OvalGripParameters) -> Result<Vec<PartSource>, String> {
+    fn oval_grip(&self, p: &OvalGripParameters) -> Result<Vec<PartSource>, ConstructionError> {
         let resolved = self.resolved;
         let detail = self.detail;
         let base = p.width.get() * p.bottom_scale.map_or(1.0, Ratio::get) / 2.0;
@@ -242,7 +243,7 @@ impl ComponentConstructor<'_> {
             detail,
         )?)
     }
-    fn slab_grip(&self, p: &SlabGripParameters) -> Result<Vec<PartSource>, String> {
+    fn slab_grip(&self, p: &SlabGripParameters) -> Result<Vec<PartSource>, ConstructionError> {
         let resolved = self.resolved;
         let c = &resolved.component;
         let detail = self.detail;
@@ -285,7 +286,7 @@ impl ComponentConstructor<'_> {
         }
         Ok(parts)
     }
-    fn collar(&self, p: &CollarParameters) -> Result<Vec<PartSource>, String> {
+    fn collar(&self, p: &CollarParameters) -> Result<Vec<PartSource>, ConstructionError> {
         let detail = self.detail;
         let w = p.width.get();
         let r = p.radius.get();
@@ -302,7 +303,7 @@ impl ComponentConstructor<'_> {
             detail,
         )?)
     }
-    fn sleeve(&self, p: &SleeveParameters) -> Result<Vec<PartSource>, String> {
+    fn sleeve(&self, p: &SleeveParameters) -> Result<Vec<PartSource>, ConstructionError> {
         let resolved = self.resolved;
         let detail = self.detail;
         let profile = [
@@ -329,7 +330,10 @@ impl ComponentConstructor<'_> {
             )?)
         }
     }
-    fn spatial_tube(&self, p: &SpatialTubeParameters) -> Result<Vec<PartSource>, String> {
+    fn spatial_tube(
+        &self,
+        p: &SpatialTubeParameters,
+    ) -> Result<Vec<PartSource>, ConstructionError> {
         let detail = self.detail;
         self.one(Solid::sweep(
             &p.points
@@ -345,7 +349,7 @@ impl ComponentConstructor<'_> {
             detail,
         )?)
     }
-    fn shaft(&self, p: &Shaft) -> Result<Vec<PartSource>, String> {
+    fn shaft(&self, p: &Shaft) -> Result<Vec<PartSource>, ConstructionError> {
         let detail = self.detail;
         let mut parts = self.one(Solid::lathe(
             &p.profile(),
@@ -362,7 +366,7 @@ impl ComponentConstructor<'_> {
         )?);
         Ok(parts)
     }
-    fn pick(&self, p: &PickParameters) -> Result<Vec<PartSource>, String> {
+    fn pick(&self, p: &PickParameters) -> Result<Vec<PartSource>, ConstructionError> {
         let detail = self.detail;
         self.one(
             Solid::lathe(
@@ -378,7 +382,7 @@ impl ComponentConstructor<'_> {
             ),
         )
     }
-    fn tube(&self, p: &TubeParameters) -> Result<Vec<PartSource>, String> {
+    fn tube(&self, p: &TubeParameters) -> Result<Vec<PartSource>, ConstructionError> {
         let detail = self.detail;
         self.one(guards::tube(
             &p.points

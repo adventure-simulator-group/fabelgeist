@@ -37,20 +37,20 @@ mod terrain_skill_tests {
 fn party_action_skills(
     ctx: &ReducerContext,
     party_id: &str,
-    actor_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
     terrain: action::Terrain,
 ) -> Result<action::SkillContribution, String> {
     let actor = ctx
         .db
         .character_skills()
         .character_id()
-        .find(actor_id)
+        .find(u64::from(actor_id))
         .ok_or("Character skills not found")?;
     let actor_attributes = ctx
         .db
         .character_attributes()
         .character_id()
-        .find(actor_id)
+        .find(u64::from(actor_id))
         .ok_or("Character attributes not found")?;
     let terrain_skill = investigation_terrain_skill(terrain);
     let terrain_bps = skill_bps(
@@ -63,8 +63,17 @@ fn party_action_skills(
         if member_id == actor_id {
             continue;
         }
-        if let Some(skills) = ctx.db.character_skills().character_id().find(member_id) {
-            let Some(attributes) = ctx.db.character_attributes().character_id().find(member_id)
+        if let Some(skills) = ctx
+            .db
+            .character_skills()
+            .character_id()
+            .find(u64::from(member_id))
+        {
+            let Some(attributes) = ctx
+                .db
+                .character_attributes()
+                .character_id()
+                .find(u64::from(member_id))
             else {
                 continue;
             };
@@ -90,7 +99,7 @@ fn actor_action_terrain(ctx: &ReducerContext, actor: &crate::Character) -> actio
     if actor.current_settlement_id.is_some() {
         return action::Terrain::Settlement;
     }
-    character_case_site_id(ctx, actor.id)
+    character_case_site_id(ctx, (actor.id).into())
         .and_then(|id| ctx.db.case_site_authority().id_key().find(&id))
         .and_then(|site| site.scene_key.parse::<Terrain>().ok())
         .unwrap_or(action::Terrain::Road)
@@ -113,7 +122,7 @@ fn actor_action_weather(
             .map(|coordinate| (coordinate.latitude().get(), coordinate.longitude().get()))
         })
         .or_else(|| {
-            character_case_site_id(ctx, actor.id)
+            character_case_site_id(ctx, (actor.id).into())
                 .and_then(|id| ctx.db.case_site_authority().id_key().find(&id))
                 .and_then(|site| {
                     if site.coordinates_are_geographic {
@@ -193,8 +202,10 @@ fn persist_action_result_lead(
                     || resolution.resulting_uncertainty_bps <= 1_500)
         };
     let site = if exact {
-        let site_id =
-            exact_site_id.map_or_else(|| capability.target_id.clone(), |site_id| site_id.0.clone());
+        let site_id = exact_site_id.map_or_else(
+            || capability.target_id.clone(),
+            |site_id| site_id.as_str().to_owned(),
+        );
         ctx.db.case_site_authority().id_key().find(&site_id)
     } else {
         None
@@ -263,7 +274,7 @@ fn persist_action_result_lead(
         for evidence_id in outputs.iter().filter_map(|output| match output {
             adventuresim_core::quest_generation::GeneratedActionOutput::Evidence {
                 evidence_id,
-            } => Some(&evidence_id.0),
+            } => Some(evidence_id.as_str()),
             _ => None,
         }) {
             let source_id = crate::outbreak::source_material_knowledge_provenance(
@@ -282,179 +293,6 @@ fn persist_action_result_lead(
         }
     }
     Ok(())
-}
-
-fn invalid_investigation_route_error() -> String {
-    adventuresim_core::reducer_error::coded_reducer_error(
-        adventuresim_core::reducer_error::ReducerErrorCode::InvestigationRouteInvalid,
-        "Investigation track origin no longer matches the projected route",
-    )
-}
-
-fn validate_tracking_action_origin(
-    ctx: &ReducerContext,
-    actor: &crate::Character,
-    capability: &InvestigationActionCapability,
-    kind: action::InvestigationActionKind,
-) -> Result<(), String> {
-    if !tracking_capability_chain_is_coherent(
-        capability,
-        kind,
-        |id| {
-            ctx.db
-                .investigation_action_capability()
-                .id()
-                .find(id.to_owned())
-        },
-        |id| {
-            ctx.db
-                .investigation_action_attempt()
-                .capability_id()
-                .filter(id)
-                .any(|attempt| attempt.success)
-        },
-    ) {
-        return Err(invalid_investigation_route_error());
-    }
-    let predecessor = ctx
-        .db
-        .investigation_action_capability()
-        .id()
-        .find(&capability.required_action_id)
-        .ok_or_else(invalid_investigation_route_error)?;
-    validate_action_position(
-        ctx,
-        actor,
-        &predecessor,
-        predecessor
-            .method
-            .parse::<InvestigationActionKind>()
-            .map_err(|error| error.to_string())?,
-    )
-}
-
-fn validate_action_position(
-    ctx: &ReducerContext,
-    actor: &crate::Character,
-    capability: &InvestigationActionCapability,
-    kind: action::InvestigationActionKind,
-) -> Result<(), String> {
-    let unavailable = |detail| {
-        adventuresim_core::reducer_error::coded_reducer_error(
-            adventuresim_core::reducer_error::ReducerErrorCode::InvestigationActionUnavailable,
-            detail,
-        )
-    };
-    match capability.target_kind {
-        action::InvestigationTargetKind::Contact => {
-            let resident_character_id = capability
-                .target_id
-                .parse::<u64>()
-                .map_err(|_| "Referred contact identity is invalid")?;
-            let presence = ctx
-                .db
-                .settlement_resident_presence()
-                .character_id()
-                .find(resident_character_id)
-                .ok_or_else(|| {
-                    unavailable("Referred contact no longer has an authoritative presence")
-                })?;
-            if actor.current_settlement_id.as_deref() != Some(presence.settlement_id.as_str()) {
-                return Err(unavailable("The referred contact is in another settlement"));
-            }
-            if kind == action::InvestigationActionKind::LocateContact {
-                let minute = character_strategic_minute(ctx, actor.id);
-                if !crate::settlement_population::npc_is_present(ctx, &presence, minute) {
-                    return Err(unavailable("The referred contact is not currently present"));
-                }
-            }
-            Ok(())
-        }
-        action::InvestigationTargetKind::Cohort => {
-            let target = ctx
-                .db
-                .investigation_pattern_target_authority()
-                .cohort_id()
-                .find(&capability.target_id)
-                .ok_or_else(|| {
-                    adventuresim_core::reducer_error::coded_reducer_error(
-                        adventuresim_core::reducer_error::ReducerErrorCode::VictimCohortStateChanged,
-                        "Victim cohort authority no longer exists",
-                    )
-                })?;
-            if target.case_id != capability.case_id {
-                return Err("Victim cohort belongs to another case".into());
-            }
-            let presence = ctx
-                .db
-                .settlement_resident_presence()
-                .character_id()
-                .find(target.resident_character_id)
-                .ok_or_else(|| {
-                    adventuresim_core::reducer_error::coded_reducer_error(
-                        adventuresim_core::reducer_error::ReducerErrorCode::VictimCohortStateChanged,
-                        "Victim cohort target is unavailable",
-                    )
-                })?;
-            if actor.current_settlement_id.as_deref() != Some(presence.settlement_id.as_str())
-                || presence.settlement_id != target.expected_settlement_id
-                || presence.location_id != target.expected_location
-                || presence.settlement_id != target.expected_settlement_id
-            {
-                return Err(adventuresim_core::reducer_error::coded_reducer_error(
-                    adventuresim_core::reducer_error::ReducerErrorCode::VictimCohortStateChanged,
-                    "Victim cohort target moved from the learned location",
-                ));
-            }
-            Ok(())
-        }
-        action::InvestigationTargetKind::Area => {
-            let area = ctx
-                .db
-                .investigation_area_authority()
-                .id()
-                .find(&capability.target_id)
-                .ok_or("Investigation area no longer exists")?;
-            let in_origin =
-                actor.current_settlement_id.as_deref() == Some(&area.origin_settlement_id);
-            let at_case_site = character_case_site_id(ctx, actor.id)
-                .and_then(|id| ctx.db.case_site_authority().id_key().find(&id))
-                .is_some_and(|site| {
-                    site.case_id == area.case_id
-                        && coordinate_area_contains_e7(
-                            area.center_longitude_e7,
-                            area.center_latitude_e7,
-                            area.radius_m,
-                            area.coordinates_are_geographic,
-                            site.longitude_e7,
-                            site.latitude_e7,
-                            site.coordinates_are_geographic,
-                        )
-                });
-            if !in_origin && !at_case_site {
-                return Err("The party is not near the approximate search area".into());
-            }
-            Ok(())
-        }
-        action::InvestigationTargetKind::Site => {
-            if matches!(
-                kind,
-                action::InvestigationActionKind::FollowTracks
-                    | action::InvestigationActionKind::ReacquireTracks
-            ) {
-                return validate_tracking_action_origin(ctx, actor, capability, kind);
-            }
-            if character_case_site_id(ctx, actor.id).as_deref()
-                == Some(capability.target_id.as_str())
-            {
-                return Ok(());
-            }
-            Err("The party must occupy the action's authoritative site".into())
-        }
-        action::InvestigationTargetKind::Tracks | action::InvestigationTargetKind::Route => {
-            validate_tracking_action_origin(ctx, actor, capability, kind)
-        }
-    }
 }
 
 fn validate_generated_pattern_condition(
@@ -579,7 +417,10 @@ fn validate_generated_pattern_condition(
                 age_band: target.age_band.clone(),
                 sex: target.sex,
                 profession: target.profession.clone(),
-                expected_settlement_id: target.expected_settlement_id.clone(),
+                expected_settlement_id: adventuresim_core::identity::SettlementId::try_new(
+                    target.expected_settlement_id.clone(),
+                )
+                .map_err(|error| error.to_string())?,
                 expected_location: target.expected_location.clone(),
                 expected_location_label: String::new(),
                 presence_version: target.presence_version,
@@ -630,126 +471,6 @@ fn validate_generated_pattern_condition(
         }
         _ => Ok(()),
     }
-}
-
-fn validate_live_action_prerequisites(
-    ctx: &ReducerContext,
-    actor: &crate::Character,
-    party_id: &str,
-    capability: &InvestigationActionCapability,
-    kind: action::InvestigationActionKind,
-) -> Result<Vec<u64>, String> {
-    if !tracking_capability_chain_is_coherent(
-        capability,
-        kind,
-        |id| {
-            ctx.db
-                .investigation_action_capability()
-                .id()
-                .find(id.to_owned())
-        },
-        |id| {
-            ctx.db
-                .investigation_action_attempt()
-                .capability_id()
-                .filter(id)
-                .any(|attempt| attempt.success)
-        },
-    ) {
-        return Err(invalid_investigation_route_error());
-    }
-    if !capability_has_live_support_reducer(ctx, capability, kind) {
-        return Err("The current journal no longer supports this investigation route".into());
-    }
-    require_party_ready(ctx, party_id)?;
-    require_no_unresolved_encounter(ctx, party_id)?;
-    let party = ctx
-        .db
-        .party_authority()
-        .id()
-        .find(party_id.to_string())
-        .ok_or("Party not found")?;
-    if party.camp_destination.is_some()
-        || party.camp_remaining_minutes > 0
-        || ctx
-            .db
-            .party_journey_authority()
-            .party_id()
-            .find(party_id.to_string())
-            .is_some()
-    {
-        return Err("Investigation cannot begin during a journey or camp".into());
-    }
-    let members = living_party_member_ids(ctx, party_id);
-    if members.len() < usize::from(action::prerequisites(kind).minimum_party_members) {
-        return Err("Not enough living party members for this action".into());
-    }
-    let actor_site = character_case_site_id(ctx, actor.id);
-    for member_id in &members {
-        let member = ctx
-            .db
-            .character()
-            .id()
-            .find(*member_id)
-            .ok_or("Party member no longer exists")?;
-        if member.current_settlement_id != actor.current_settlement_id
-            || character_case_site_id(ctx, *member_id) != actor_site
-        {
-            return Err("Every living party member must be co-located".into());
-        }
-    }
-    if !capability.required_action_id.is_empty() {
-        let predecessor = ctx
-            .db
-            .investigation_action_capability()
-            .id()
-            .find(&capability.required_action_id)
-            .ok_or("Required investigation lead no longer exists")?;
-        if predecessor.owner_character_id != capability.owner_character_id
-            || predecessor.case_id != capability.case_id
-            || !ctx
-                .db
-                .investigation_action_attempt()
-                .capability_id()
-                .filter(&predecessor.id)
-                .any(|attempt| attempt.success)
-        {
-            return Err("The preceding investigation lead is not complete".into());
-        }
-    }
-    let prereqs = action::prerequisites(kind);
-    let observer_case_id = reducer_action_public_case_id(ctx, capability)
-        .ok_or("Investigation action has no observer-safe case binding")?;
-    if prereqs.requires_contact_referral
-        && !ctx
-            .db
-            .investigation_lead()
-            .owner_character_id()
-            .filter(actor.id)
-            .any(|lead| lead_is_live_contact_referral(&lead, actor.id, &observer_case_id))
-    {
-        return Err("No live witness referral supports this action".into());
-    }
-    if prereqs.requires_approximate_destination
-        && capability.target_kind != action::InvestigationTargetKind::Area
-        && !ctx
-            .db
-            .investigation_lead()
-            .owner_character_id()
-            .filter(actor.id)
-            .any(|lead| {
-                lead.case_id == observer_case_id
-                    && lead.destination_stage == DestinationKnowledgeStage::ApproximateArea
-                    && lead.corrected_by.is_empty()
-            })
-    {
-        return Err("No current approximate destination supports this action".into());
-    }
-    if prereqs.requires_tracks && capability.required_action_id.is_empty() {
-        return Err("No authoritative track source supports this action".into());
-    }
-    validate_action_position(ctx, actor, capability, kind)?;
-    Ok(members)
 }
 
 fn case_objective_contains_custody_target(
@@ -1308,14 +1029,14 @@ fn reset_unsupported_capability_progress(
 )]
 fn site_bound_investigation_plan(
     ctx: &ReducerContext,
-    actor_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
     party_leader_id: u64,
     rights: &adventuresim_core::rights::PrivateRightsDecision<action::InvestigationRightsEvidence>,
     rights_question: &action::InvestigationRightsQuestion,
     capability: &InvestigationActionCapability,
     attempt_id: &str,
     started_at: StrategicMinute,
-    members: &[u64],
+    members: &[adventuresim_core::identity::CharacterId],
     resolution: action::Resolution,
     resolution_input: action::ResolutionInput,
 ) -> Result<Option<action::InvestigationPlanningOutcome>, String> {
@@ -1343,8 +1064,9 @@ fn site_bound_investigation_plan(
         return Ok(None);
     };
     let place = site.id.to_place();
-    let actor = CustodyCharacterId::try_new(actor_id)
-        .map_err(|_| "Investigation actor identity is malformed")?;
+    let actor =
+        CustodyCharacterId::try_from(adventuresim_core::identity::CharacterId::from(actor_id))
+            .map_err(|_| "Investigation actor identity is malformed")?;
     let coordinates = ActionCoordinates::try_new(
         actor,
         ActionTarget::Place(place.clone()),
@@ -1355,7 +1077,8 @@ fn site_bound_investigation_plan(
     .map_err(|_| "Investigation action coordinates are inconsistent")?;
     let requested = u64::from(resolution.cost.minutes);
     let safe = members.iter().try_fold(requested, |safe, member_id| {
-        crate::time::preview_travel_time(ctx, *member_id, requested).map(|value| safe.min(value))
+        crate::time::preview_travel_time(ctx, (*member_id).into(), requested)
+            .map(|value| safe.min(value))
     })?;
 
     let mut hasher = sha2::Sha256::new();
@@ -1380,7 +1103,7 @@ fn site_bound_investigation_plan(
     frame(capability.required_action_id.as_bytes());
     frame(capability.alternate_route_action_id.as_bytes());
     frame(&[u8::from(capability.active)]);
-    frame(&actor_id.to_le_bytes());
+    frame(&u64::from(actor_id).to_le_bytes());
     frame(&party_leader_id.to_le_bytes());
     frame(&started_at.get().to_le_bytes());
     frame(&requested.to_le_bytes());
@@ -1410,7 +1133,7 @@ fn site_bound_investigation_plan(
             .collect::<Vec<_>>(),
     );
     for member_id in members {
-        frame(&member_id.to_le_bytes());
+        frame(&u64::from(*member_id).to_le_bytes());
     }
     let input_digest: [u8; 32] = hasher.finalize().into();
     let mut binding_hasher = sha2::Sha256::new();
@@ -1433,7 +1156,7 @@ fn site_bound_investigation_plan(
     let member_ids = members
         .iter()
         .map(|id| {
-            CustodyCharacterId::try_new(*id)
+            CustodyCharacterId::try_from(*id)
                 .map_err(|_| "Investigation party identity is malformed".to_string())
         })
         .collect::<Result<Vec<_>, _>>()?;
@@ -1481,367 +1204,6 @@ fn private_interrupted_action_resolution_json(requested_minutes: u64) -> Result<
     .map_err(|_| "Interrupted investigation receipt could not be recorded".into())
 }
 
-pub(crate) fn perform_investigation_action_authorized(
-    ctx: &ReducerContext,
-    actor_id: u64,
-    action_id: String,
-    method: String,
-    expected_version: u32,
-    leader_approved: bool,
-) -> Result<(), String> {
-    require_strategic_character_authority(ctx, actor_id)?;
-    let attempt_id = inv::compound_id(&[
-        "attempt",
-        &action_id,
-        &actor_id.to_string(),
-        &expected_version.to_string(),
-    ]);
-    if let Some(attempt) = ctx.db.investigation_action_attempt().id().find(&attempt_id) {
-        return if attempt.owner_character_id == actor_id
-            && attempt.capability_id == action_id
-            && attempt.method == method
-            && attempt.expected_version == expected_version
-        {
-            Ok(())
-        } else {
-            Err("Investigation attempt id conflicts with an earlier action".into())
-        };
-    }
-    let actor = crate::character::require_living_character(ctx, actor_id)?;
-    let party_id = actor.party_id.clone().ok_or("Must be in a party")?;
-    let party = ctx
-        .db
-        .party_authority()
-        .id()
-        .find(&party_id)
-        .ok_or("Party not found")?;
-    let capability_row = ctx
-        .db
-        .investigation_action_capability()
-        .id()
-        .find(&action_id);
-    let rights_place = capability_row
-        .as_ref()
-        .filter(|capability| {
-            capability.owner_character_id == actor_id
-                && capability.target_kind == action::InvestigationTargetKind::Site
-                && capability.method == InvestigationActionKind::InspectSite.stable_id()
-        })
-        .and_then(|capability| exact_action_case_site_for_observer(ctx, capability))
-        .map(|matched| matched.site.id.to_place());
-    let rights_question = action::investigation_rights_question(
-        adventuresim_core::physical_object::CustodyCharacterId::try_new(actor_id)
-            .map_err(|_| "Investigation actor identity is malformed")?,
-        rights_place,
-    )
-    .map_err(|_| "Investigation rights question is inconsistent")?;
-    let rights = action::decide_investigation_rights(
-        &rights_question,
-        party.leader_id == actor_id,
-        leader_approved,
-        expected_version,
-    );
-    if rights.kind() != adventuresim_core::rights::RightsDecisionKind::Allowed {
-        return Err("Party leader approval is required".into());
-    }
-    let mut capability = capability_row.ok_or_else(|| {
-        adventuresim_core::reducer_error::coded_reducer_error(
-            adventuresim_core::reducer_error::ReducerErrorCode::InvestigationActionUnavailable,
-            "Investigation action is unavailable",
-        )
-    })?;
-    if capability.owner_character_id != actor_id
-        || !capability.active
-        || capability.method != method
-        || capability.version != expected_version
-    {
-        return Err(adventuresim_core::reducer_error::coded_reducer_error(
-            adventuresim_core::reducer_error::ReducerErrorCode::InvestigationActionStale,
-            "Investigation action is stale or belongs to another observer",
-        ));
-    }
-    if reissue_stale_custody_capability(ctx, &mut capability, &party_id)? {
-        return Ok(());
-    }
-    let route_admission::ValidatedActionRoute {
-        kind,
-        target_terrain,
-    } = route_admission::ValidatedActionRoute::from_capability(ctx, &capability)?;
-    let members = validate_live_action_prerequisites(ctx, &actor, &party_id, &capability, kind)?;
-    let Some(started_at) = synchronize_party_activity_time(ctx, &members, party.leader_id)? else {
-        return Ok(());
-    };
-    validate_generated_pattern_condition(ctx, &capability, kind, started_at)?;
-    let mut route_skills = party_action_skills(ctx, &party_id, actor_id, target_terrain)?;
-    if let Some(investigability) = generated_investigability(ctx, &capability) {
-        route_skills = apply_investigability_to_route_skills(route_skills, investigability);
-    }
-    let resolution_input = action::ResolutionInput {
-        seed: capability.seed,
-        attempt_index: expected_version,
-        kind,
-        terrain: actor_action_terrain(ctx, &actor),
-        target_terrain,
-        time_of_day: if (360..1_200).contains(&started_at.minute_of_day()) {
-            action::TimeOfDay::Day
-        } else {
-            action::TimeOfDay::Night
-        },
-        evidence_age_minutes: started_at.elapsed_since(capability.evidence_age_origin_minute),
-        current_uncertainty_bps: capability.uncertainty_bps,
-        skills: route_skills,
-        weather: actor_action_weather(ctx, &actor, started_at),
-    };
-    let bounded_progress =
-        capability_uses_bounded_progress(capability.provenance_kind, kind).then(|| {
-            let prior_failures = contiguous_failed_attempts(
-                &capability.id,
-                capability.owner_character_id,
-                &capability.method,
-                capability.version,
-                ctx.db
-                    .investigation_action_attempt()
-                    .capability_id()
-                    .filter(&capability.id),
-            );
-            action::resolve_with_bounded_progress(resolution_input, prior_failures)
-        });
-    let resolution = bounded_progress
-        .map(|progress| progress.resolution)
-        .unwrap_or_else(|| action::resolve(resolution_input));
-    let planned_site_action = site_bound_investigation_plan(
-        ctx,
-        actor_id,
-        party.leader_id,
-        &rights,
-        &rights_question,
-        &capability,
-        &attempt_id,
-        started_at,
-        &members,
-        resolution,
-        resolution_input,
-    )?;
-    // This is the final mutation-boundary validation. Browser previews and
-    // party votes are UX; only this transaction authorizes the shared time.
-    validate_live_action_prerequisites(ctx, &actor, &party_id, &capability, kind)?;
-    validate_generated_pattern_condition(ctx, &capability, kind, started_at)?;
-    let planned_site_action = match planned_site_action {
-        Some(adventuresim_core::strategic_action::PlanningOutcome::Ready(planned)) => {
-            let replanned = site_bound_investigation_plan(
-                ctx,
-                actor_id,
-                party.leader_id,
-                &rights,
-                &rights_question,
-                &capability,
-                &attempt_id,
-                started_at,
-                &members,
-                resolution,
-                resolution_input,
-            )?
-            .ok_or("Investigation site authority changed before commit")?;
-            let current_snapshot = match &replanned {
-                adventuresim_core::strategic_action::PlanningOutcome::Ready(plan) => {
-                    plan.snapshot()
-                }
-                adventuresim_core::strategic_action::PlanningOutcome::Rejected(_) => {
-                    return Err("Investigation prerequisites changed before commit".into());
-                }
-            };
-            let provenance = planned.provenance();
-            adventuresim_core::strategic_action::validate_commit(
-                &planned,
-                &replanned,
-                current_snapshot,
-                &adventuresim_core::strategic_action::CommitAttempt {
-                    request_id: provenance.request_id.clone(),
-                    action_id: provenance.action_id.clone(),
-                    authority_binding: provenance.authority_binding,
-                },
-                None,
-            )
-            .map_err(|_| "Investigation authority changed before commit")?;
-            Some(planned)
-        }
-        Some(adventuresim_core::strategic_action::PlanningOutcome::Rejected(_)) => {
-            return Err(adventuresim_core::reducer_error::coded_reducer_error(
-                adventuresim_core::reducer_error::ReducerErrorCode::InvestigationActionUnavailable,
-                "Investigation action is unavailable",
-            ));
-        }
-        None => None,
-    };
-
-    let (effect_members, effect_minutes, permits_resolution) =
-        if let Some(plan) = &planned_site_action {
-            let mut interval = None;
-            let mut commit = None;
-            for effect in plan.effects() {
-                match effect {
-                    adventuresim_core::strategic_action::ActionEffect::Domain(
-                        action::InvestigationPlanEffect::AttemptPartyInterval {
-                            member_ids,
-                            requested_minutes,
-                        },
-                    ) => interval = Some((member_ids, *requested_minutes)),
-                    adventuresim_core::strategic_action::ActionEffect::Domain(
-                        action::InvestigationPlanEffect::CommitResolution(value),
-                    ) => commit = Some(*value),
-                    _ => return Err("Investigation planner emitted an unsupported effect".into()),
-                }
-            }
-            let (member_ids, requested_minutes) =
-                interval.ok_or("Investigation planner omitted the party interval")?;
-            let effect_members = member_ids.iter().map(|id| id.get()).collect::<Vec<_>>();
-            if effect_members != members
-                || requested_minutes != u64::from(resolution.cost.minutes)
-                || commit.is_some_and(|value| value != resolution)
-            {
-                return Err("Investigation planner effects do not match domain authority".into());
-            }
-            (effect_members, requested_minutes, commit.is_some())
-        } else {
-            (members.clone(), u64::from(resolution.cost.minutes), true)
-        };
-    let mut interval_completed = true;
-    for member_id in &effect_members {
-        interval_completed &= advance_investigation_time(ctx, *member_id, effect_minutes)?;
-    }
-    if !interval_completed {
-        // Time, exposure, and death are already authoritative writes. Never
-        // roll them back merely because the planned action interval clipped.
-        let _ = crate::strategic::normalize_and_elect_party_leader(ctx, &party_id);
-        let _ = crate::strategic::reconcile_party_objective_continuity(ctx, &party_id);
-        let completed_at = effect_members
-            .iter()
-            .filter_map(|member_id| {
-                ctx.db
-                    .character_time()
-                    .character_id()
-                    .find(*member_id)
-                    .map(|time| time.minutes)
-            })
-            .max()
-            .unwrap_or(started_at);
-        ctx.db
-            .investigation_action_attempt()
-            .insert(InvestigationActionAttempt {
-                id: attempt_id.clone(),
-                capability_id: action_id.clone(),
-                owner_character_id: actor_id,
-                expected_version,
-                method: method.clone(),
-                started_at,
-                completed_at,
-                duration_minutes: completed_at
-                    .elapsed_since(started_at)
-                    .min(u64::from(u32::MAX)) as u32,
-                success: false,
-                resulting_uncertainty_bps: capability.uncertainty_bps,
-                private_resolution_json: private_interrupted_action_resolution_json(
-                    effect_minutes,
-                )?,
-            });
-        capability.version = capability.version.saturating_add(1);
-        capability.seed = ctx.random::<u64>();
-        ctx.db
-            .investigation_action_capability()
-            .id()
-            .update(capability);
-        return Ok(());
-    }
-    if !permits_resolution {
-        return Err("Investigation interval crossed a planned participant boundary".into());
-    }
-    crate::strategic::normalize_and_elect_party_leader(ctx, &party_id)?;
-    crate::strategic::reconcile_party_objective_continuity(ctx, &party_id)?;
-    if resolution.success {
-        commit_action_consequence(ctx, &capability, &party_id, &attempt_id)?;
-        commit_generated_remediation(ctx, &capability, &party_id, &attempt_id)?;
-    }
-    persist_action_result_lead(ctx, &capability, &attempt_id, &resolution)?;
-    let normalized_party = ctx
-        .db
-        .party_authority()
-        .id()
-        .find(&party_id)
-        .ok_or("Party disappeared after investigation interval")?;
-    crate::character::require_living_character(ctx, normalized_party.leader_id)?;
-    let completed_at = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(normalized_party.leader_id)
-        .ok_or("Party leader strategic clock disappeared")?
-        .minutes;
-    ctx.db
-        .investigation_action_attempt()
-        .insert(InvestigationActionAttempt {
-            id: attempt_id.clone(),
-            capability_id: action_id.clone(),
-            owner_character_id: actor_id,
-            expected_version,
-            method,
-            started_at,
-            completed_at,
-            duration_minutes: resolution.cost.minutes,
-            success: resolution.success,
-            resulting_uncertainty_bps: resolution.resulting_uncertainty_bps,
-            private_resolution_json: private_action_resolution_json(resolution, bounded_progress)?,
-        });
-    let outcome_case_id = capability.case_id.clone();
-    let safe_result_on_success = capability.safe_result_on_success.clone();
-    capability.version = capability.version.saturating_add(1);
-    capability.seed = ctx.random::<u64>();
-    capability.uncertainty_bps = resolution.resulting_uncertainty_bps;
-    capability.active = !resolution.success;
-    ctx.db
-        .investigation_action_capability()
-        .id()
-        .update(capability);
-    let alternate_available = activate_action_successors(
-        ctx,
-        &ctx.db
-            .investigation_action_capability()
-            .id()
-            .find(&action_id)
-            .ok_or("Investigation action disappeared")?,
-        resolution.success,
-    )?;
-    ctx.db
-        .investigation_action_outcome()
-        .insert(InvestigationActionOutcome {
-            id: generated_observer_id(ctx, &outcome_case_id, "outcome", &attempt_id)
-                .unwrap_or_else(|| inv::compound_id(&["outcome", &attempt_id])),
-            owner_character_id: actor_id,
-            case_id: outcome_case_id,
-            capability_id: action_id.clone(),
-            attempt_id: attempt_id.clone(),
-            safe_wording: if resolution.success {
-                if resolution.risk_triggered {
-                    format!(
-                        "{} The party was exposed to danger during the attempt.",
-                        safe_result_on_success
-                    )
-                } else {
-                    safe_result_on_success
-                }
-            } else if let Some(progress) = bounded_progress {
-                bounded_failure_wording(progress, alternate_available)
-            } else {
-                adventuresim_core::quest_generation::failed_action_outcome_wording(
-                    alternate_available,
-                )
-                .into()
-            },
-            recorded_at: completed_at,
-            official_recorded_at: official_minute(ctx),
-        });
-    Ok(())
-}
-
 #[reducer]
 pub fn perform_investigation_action(
     ctx: &ReducerContext,
@@ -1858,4 +1220,5 @@ pub fn perform_investigation_action(
         expected_version,
         false,
     )
+    .map_err(|error: InvestigationExecutionError| error.to_string())
 }

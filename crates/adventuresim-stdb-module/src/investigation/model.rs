@@ -590,7 +590,8 @@ pub fn inspect_physical_evidence(
     topic_id: String,
     action_id: String,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, character_id)?;
+    require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     if action_id.is_empty()
         || action_id.len() > 160
         || evidence_id.is_empty()
@@ -635,10 +636,12 @@ pub fn inspect_physical_evidence(
         &authority.authority_json,
     )
     .map_err(|_| "Physical evidence authority is invalid")?;
-    if generated.id.0 != authority.id || generated.proposition_id != authority.proposition_id {
+    if generated.id.as_str() != authority.id || generated.proposition_id != authority.proposition_id
+    {
         return Err("Physical evidence authority does not match its generated manifest".into());
     }
-    if character_case_site_id(ctx, actor.id).as_deref() != Some(generated.site_id.0.as_str()) {
+    if character_case_site_id(ctx, (actor.id).into()).as_deref() != Some(generated.site_id.as_str())
+    {
         return Err("The party must occupy the evidence's authoritative site".into());
     }
     let topic = generated
@@ -1041,13 +1044,13 @@ pub struct CharacterCaseSiteOccupancy {
 
 pub(crate) fn current_character_case_site_occupancy(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
 ) -> Option<CharacterCaseSiteOccupancy> {
     let mut rows = ctx
         .db
         .character_case_site_occupancy()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .filter(|row| row.left_at.is_none());
     let row = rows.next()?;
     rows.next().is_none().then_some(row)
@@ -1055,27 +1058,32 @@ pub(crate) fn current_character_case_site_occupancy(
 
 pub(crate) fn character_case_site_occupancy_at(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     minute: StrategicMinute,
 ) -> Option<CharacterCaseSiteOccupancy> {
     let mut rows = ctx
         .db
         .character_case_site_occupancy()
         .character_id()
-        .filter(character_id)
-        .filter(|row| row.entered_at <= minute && row.left_at.is_none_or(|left_at| left_at > minute));
+        .filter(u64::from(character_id))
+        .filter(|row| {
+            row.entered_at <= minute && row.left_at.is_none_or(|left_at| left_at > minute)
+        });
     let row = rows.next()?;
     rows.next().is_none().then_some(row)
 }
 
-pub(crate) fn character_case_site_id(ctx: &ReducerContext, character_id: u64) -> Option<String> {
-    current_character_case_site_occupancy(ctx, character_id)
+pub(crate) fn character_case_site_id(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) -> Option<String> {
+    current_character_case_site_occupancy(ctx, (character_id).into())
         .map(|row| row.case_site_id.into_string())
 }
 
 pub(crate) fn set_character_case_site(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     case_site_id: Option<String>,
 ) -> Result<(), String> {
     let case_site_id = match case_site_id {
@@ -1090,14 +1098,14 @@ pub(crate) fn set_character_case_site(
         .db
         .character_time()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .map(|row| row.minutes)
         .ok_or("Case-site transition requires CharacterTime authority")?;
     let mut current_rows = ctx
         .db
         .character_case_site_occupancy()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .filter(|row| row.left_at.is_none())
         .collect::<Vec<_>>();
     if current_rows.len() > 1 {
@@ -1122,14 +1130,14 @@ pub(crate) fn set_character_case_site(
         {
             crate::social::close_physiology_presence_between(
                 ctx,
-                character_id,
-                membership.character_id,
+                (character_id).into(),
+                (membership.character_id).into(),
             );
         }
     }
     crate::outbreak::record_case_site_presence_transition(
         ctx,
-        character_id,
+        (character_id).into(),
         case_site_id.as_ref().map(CaseSiteId::as_str),
     );
     if let Some(mut current) = current {
@@ -1144,7 +1152,7 @@ pub(crate) fn set_character_case_site(
                     "case-occupancy:{character_id}:{minute}:{}",
                     case_site_id.as_str()
                 ),
-                character_id,
+                character_id: u64::from(character_id),
                 gateway_bucket: 0,
                 case_site_id,
                 entered_at: minute,

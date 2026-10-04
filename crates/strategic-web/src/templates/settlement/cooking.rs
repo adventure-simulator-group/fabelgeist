@@ -243,8 +243,8 @@ pub(super) fn fireplace_inventory_row(
                 @if lot.is_some() && adventuresim_core::food::is_cookable_ingredient(item_id) {
                     button type="button" class="trade-transfer trade-transfer-left"
                         data-cooking-stage=(id) data-cooking-name=(&display) data-count=(amount_micros)
-                        data-mass=(format!("{:.4}", lot.map_or(0.0, |l| l.mass_kg))) data-safety=(adventuresim_core::food::definition(item_id).map_or(5, |f| f.cooking_minutes))
-                        data-culinary-fat=(adventuresim_core::food::definition(item_id).is_some_and(|f| f.culinary_fat))
+                        data-mass=(format!("{:.4}", lot.map_or(0.0, |l| l.mass_kg))) data-safety=(adventuresim_core::food::definition(&item_id.into()).map_or(5, |f| f.cooking_minutes))
+                        data-culinary-fat=(adventuresim_core::food::definition(&item_id.into()).is_some_and(|f| f.culinary_fat))
                         data-salty=(lot.map_or(0.0, |l| l.salty_kg)) data-spicy=(lot.map_or(0.0, |l| l.spicy_kg))
                         data-sweet=(lot.map_or(0.0, |l| l.sweet_kg)) data-sour=(lot.map_or(0.0, |l| l.sour_kg)) data-savory=(lot.map_or(0.0, |l| l.savory_kg))
                         data-dynamic-transfer data-default-transfer-mode="one" data-transfer-mode="one"

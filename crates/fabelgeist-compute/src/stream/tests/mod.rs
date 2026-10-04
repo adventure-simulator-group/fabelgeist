@@ -17,13 +17,25 @@ where
     let definition = StreamDefinition::new(&context, definition_code.to_string())?;
 
     // We'll use Buffer for stream components for now
-    let in_buf = Buffer::from_slice(&context, input_data, BufferDefinition::storage())?;
-    let counts_buf = Buffer::from_slice(&context, counts, BufferDefinition::storage())?;
-    let offsets_buf = Buffer::from_slice(&context, offsets, BufferDefinition::storage())?;
+    let in_buf = Buffer::from_upload(
+        &context,
+        BufferUpload::from_elements(input_data),
+        BufferDefinition::storage(),
+    )?;
+    let counts_buf = Buffer::from_upload(
+        &context,
+        BufferUpload::from_elements(counts),
+        BufferDefinition::storage(),
+    )?;
+    let offsets_buf = Buffer::from_upload(
+        &context,
+        BufferUpload::from_elements(offsets),
+        BufferDefinition::storage(),
+    )?;
     let out_buf = Buffer::new(
         &context,
-        std::mem::size_of_val(expected_output) as u64,
-        BufferDefinition::storage().with_copy_src(),
+        (std::mem::size_of_val(expected_output) as u64).into(),
+        BufferDefinition::storage().with_usage(BufferUse::CopySource),
     )?;
 
     Stream::execute(

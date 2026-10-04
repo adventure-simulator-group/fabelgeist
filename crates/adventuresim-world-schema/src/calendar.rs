@@ -4,12 +4,18 @@
 //! [`StrategicMinute`]. Transport adapters convert to raw integers only where
 //! their protocols require it.
 
+#[path = "calendar/duration.rs"]
+mod duration;
+pub use duration::StrategicDuration;
+#[path = "calendar/day.rs"]
+mod day;
+pub use day::{StrategicDayIndex, StrategicDays, StrategicWeekday};
 use serde::{Deserialize, Serialize};
 use std::fmt;
 
-pub const MINUTES_PER_DAY: u64 = 24 * 60;
+pub const MINUTES_PER_HOUR: u64 = 60;
+pub const MINUTES_PER_DAY: u64 = 24 * MINUTES_PER_HOUR;
 pub const DAYS_PER_WEEK: u64 = 7;
-const SUNDAY_INDEX: u64 = 6;
 pub const DAYS_PER_YEAR: u64 = 365;
 pub const MINUTES_PER_YEAR: u64 = DAYS_PER_YEAR * MINUTES_PER_DAY;
 /// Calendar year containing strategic minute zero.
@@ -20,15 +26,8 @@ pub const WORLD_START_MINUTE: StrategicMinute = StrategicMinute {
     minutes: WORLD_START_DAY_OF_YEAR * MINUTES_PER_DAY,
 };
 
-/// Whether a zero-based day index falls on Sunday.
-pub const fn is_sunday_day_index(day_index: u64) -> bool {
-    day_index % DAYS_PER_WEEK == SUNDAY_INDEX
-}
-
 /// A positive calendar year. There is no year zero in this calendar.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
-#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(try_from = "i32", into = "i32")]
 pub struct CalendarYear {
     year: i32,
@@ -66,12 +65,27 @@ impl CalendarYear {
 }
 
 impl TryFrom<i32> for CalendarYear {
-    type Error = &'static str;
+    type Error = InvalidCalendarYear;
 
     fn try_from(value: i32) -> Result<Self, Self::Error> {
-        Self::new(value).ok_or("calendar year must be positive")
+        Self::new(value).ok_or(InvalidCalendarYear)
     }
 }
+
+/// The strategic calendar has no zero or negative years.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct InvalidCalendarYear;
+
+impl fmt::Display for InvalidCalendarYear {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str("calendar year must be positive")
+    }
+}
+
+impl std::error::Error for InvalidCalendarYear {}
+
+#[cfg(feature = "spacetimedb")]
+crate::checked_sats::checked_numeric_product!(CalendarYear, year: i32);
 
 impl From<CalendarYear> for i32 {
     fn from(value: CalendarYear) -> Self {
@@ -250,8 +264,8 @@ impl StrategicMinute {
     }
 
     /// Zero-based day count since the calendar epoch.
-    pub const fn day_index(self) -> u64 {
-        self.minutes / MINUTES_PER_DAY
+    pub const fn day_index(self) -> StrategicDayIndex {
+        StrategicDayIndex::new(self.minutes / MINUTES_PER_DAY)
     }
 
     pub const fn period_index(self, period_minutes: u64) -> Option<u64> {
@@ -273,18 +287,7 @@ impl StrategicMinute {
     }
 
     pub const fn day_start(self) -> Self {
-        Self::new(self.day_index() * MINUTES_PER_DAY)
-    }
-
-    pub const fn day_start_for_index(day_index: u64) -> Self {
-        Self::new(day_index.saturating_mul(MINUTES_PER_DAY))
-    }
-
-    pub const fn checked_day_start_for_index(day_index: u64) -> Option<Self> {
-        match day_index.checked_mul(MINUTES_PER_DAY) {
-            Some(minutes) => Some(Self::new(minutes)),
-            None => None,
-        }
+        self.day_index().start()
     }
 
     /// Absolute start of a fixed-width period, if the width and result fit.
@@ -366,7 +369,11 @@ impl StrategicMinute {
     /// One-based day since the epoch, followed by clock hour and minute.
     pub const fn day_hour_minute(self) -> (u64, u64, u64) {
         let minute_of_day = self.minute_of_day() as u64;
-        (self.day_index() + 1, minute_of_day / 60, minute_of_day % 60)
+        (
+            self.day_index().get() + 1,
+            minute_of_day / 60,
+            minute_of_day % 60,
+        )
     }
 
     /// Start of the fixed-width interval containing this minute.
@@ -405,6 +412,32 @@ impl StrategicMinute {
 
 #[cfg(test)]
 mod tests {
+    #[cfg(feature = "spacetimedb")]
+    #[test]
+    fn database_year_decoding_rejects_year_zero_and_preserves_integer_bytes() {
+        use spacetimedb_lib::bsatn;
+        for year in [i32::MIN, -1, 0] {
+            let bytes = year.to_le_bytes();
+            assert!(bsatn::from_slice::<super::CalendarYear>(&bytes).is_err());
+            let mut input = bytes.as_slice();
+            assert!(
+                <super::CalendarYear as spacetimedb_lib::de::Deserialize>::validate(
+                    bsatn::Deserializer::new(&mut input)
+                )
+                .is_err()
+            );
+        }
+        for year in [1, 1544, i32::MAX] {
+            let value = super::CalendarYear::new(year).unwrap();
+            let bytes = bsatn::to_vec(&value).unwrap();
+            assert_eq!(bytes, year.to_le_bytes());
+            assert_eq!(
+                bsatn::from_slice::<super::CalendarYear>(&bytes).unwrap(),
+                value
+            );
+        }
+    }
+
     use super::*;
 
     #[test]
@@ -512,10 +545,10 @@ mod tests {
             750
         );
         assert_eq!(
-            StrategicMinute::checked_day_start_for_index(2),
+            StrategicDayIndex::new(2).checked_start(),
             Some(StrategicMinute::new(2 * MINUTES_PER_DAY))
         );
-        assert_eq!(StrategicMinute::checked_day_start_for_index(u64::MAX), None);
+        assert_eq!(StrategicDayIndex::MAX.checked_start(), None);
         assert_eq!(
             StrategicMinute::checked_period_start_for_index(2, 360),
             Some(StrategicMinute::new(720))
@@ -530,9 +563,9 @@ mod tests {
             365
         );
         assert_eq!(WORLD_START_MINUTE.day_of_year(), 232);
-        assert!(!is_sunday_day_index(0));
-        assert!(is_sunday_day_index(6));
-        assert!(is_sunday_day_index(13));
+        assert!(StrategicDayIndex::FIRST.weekday() != StrategicWeekday::Sunday);
+        assert!(StrategicDayIndex::new(6).weekday() == StrategicWeekday::Sunday);
+        assert!(StrategicDayIndex::new(13).weekday() == StrategicWeekday::Sunday);
         assert_eq!(
             StrategicMinute::ZERO
                 .saturating_add_years(16)

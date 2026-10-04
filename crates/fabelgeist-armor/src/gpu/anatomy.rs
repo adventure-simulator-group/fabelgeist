@@ -13,13 +13,14 @@
 //! walks the faces in order, 256 at a time, and compacts them with a
 //! prefix sum. Everything that follows reads counts from the device.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::collections::HashMap;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
 
-use super::{ArmorGpu, device_error, wgsl};
+use super::{ArmorGpu, wgsl};
 use crate::GenerateError;
 
 /// Words before the vertex list of a [`DeviceSurface`]: the vertex count,
@@ -89,8 +90,8 @@ pub struct DeviceSeams {
 impl DeviceSeams {
     pub fn new(gpu: &ArmorGpu, topology: &SeamTopology) -> Result<Self, GenerateError> {
         Ok(Self {
-            corner_pairs: gpu.upload(&topology.corner_pairs)?,
-            pairs: gpu.upload(&topology.pairs)?,
+            corner_pairs: gpu.upload(BufferUpload::from_elements(&topology.corner_pairs))?,
+            pairs: gpu.upload(BufferUpload::from_elements(&topology.pairs))?,
             face_count: topology.face_count,
             pair_count: topology.pair_count(),
         })
@@ -126,45 +127,48 @@ impl DeviceSurface {
     ) -> Result<Self, GenerateError> {
         let surface = Self {
             words: gpu.scratch(
-                (SURFACE_HEADER + 2 * seams.pair_count + 3 * seams.face_count) as u64 * 4,
-                "anatomical surface",
+                ((SURFACE_HEADER + 2 * seams.pair_count + 3 * seams.face_count) as u64 * 4).into(),
+                ("anatomical surface").into(),
             )?,
             vertex_capacity: seams.pair_count,
             face_capacity: seams.face_count,
         };
         // Each face's selection, then each pair's surface vertex.
         let selection = gpu.scratch(
-            (seams.face_count + seams.pair_count) as u64 * 4,
-            "selected faces and their vertices",
+            ((seams.face_count + seams.pair_count) as u64 * 4).into(),
+            ("selected faces and their vertices").into(),
         )?;
-        let first = gpu.scratch(seams.pair_count as u64 * 4, "first pair corners")?;
+        let first = gpu.scratch(
+            (seams.pair_count as u64 * 4).into(),
+            ("first pair corners").into(),
+        )?;
         let mut parameters = PassParameters::new();
-        parameters.insert("count", seams.face_count);
-        parameters.insert("faces_at", surface.faces_at());
-        parameters.insert("pad1", 0u32);
-        parameters.insert("pad2", 0u32);
-        parameters.insert("body_faces", body_faces.clone());
-        parameters.insert("support", support.clone());
-        parameters.insert("corner_pairs", seams.corner_pairs.clone());
-        parameters.insert("pairs", seams.pairs.clone());
-        parameters.insert("selected", selection);
-        parameters.insert("first", first);
-        parameters.insert("surface", surface.words.clone());
-        parameters.insert("status", status.clone());
+        parameters.insert("count".into(), (seams.face_count).into());
+        parameters.insert("faces_at".into(), (surface.faces_at()).into());
+        parameters.insert("pad1".into(), (0u32).into());
+        parameters.insert("pad2".into(), (0u32).into());
+        parameters.insert("body_faces".into(), (body_faces.clone()).into());
+        parameters.insert("support".into(), (support.clone()).into());
+        parameters.insert("corner_pairs".into(), (seams.corner_pairs.clone()).into());
+        parameters.insert("pairs".into(), (seams.pairs.clone()).into());
+        parameters.insert("selected".into(), (selection).into());
+        parameters.insert("first".into(), (first).into());
+        parameters.insert("surface".into(), (surface.words.clone()).into());
+        parameters.insert("status".into(), (status.clone()).into());
         let kernel = |entry: &str| -> Result<Arc<Kernel>, GenerateError> {
             gpu.cache()
-                .get(gpu.context(), &source(entry))
-                .map_err(device_error)
+                .get(gpu.context(), &ShaderSource::from(source(entry)))
+                .map_err(crate::GenerateError::from)
         };
         batch
-            .dispatch_items(&*kernel(MARK)?, &parameters, seams.face_count)
-            .map_err(device_error)?;
+            .dispatch_items(&*kernel(MARK)?, &parameters, (seams.face_count).into())
+            .map_err(crate::GenerateError::from)?;
         batch
-            .dispatch(&*kernel(COMPACT)?, &parameters, [1, 1, 1])
-            .map_err(device_error)?;
+            .dispatch(&*kernel(COMPACT)?, &parameters, ([1, 1, 1]).into())
+            .map_err(crate::GenerateError::from)?;
         batch
-            .dispatch_items(&*kernel(FACES)?, &parameters, seams.face_count)
-            .map_err(device_error)?;
+            .dispatch_items(&*kernel(FACES)?, &parameters, (seams.face_count).into())
+            .map_err(crate::GenerateError::from)?;
         Ok(surface)
     }
 }

@@ -26,7 +26,7 @@ fn attachment_target_accepts(
     let Ok((_, parent_properties, _, _, _, _, _, _)) = items.get(target.parent) else {
         return false;
     };
-    item_catalog::definition(&parent_properties.id)
+    item_catalog::definition(&(&parent_properties.id).into())
         .and_then(|definition| definition.equipment.as_ref())
         .and_then(|equipment| {
             equipment
@@ -54,7 +54,9 @@ pub(super) fn attachment_topology(
     if !parent_placement_allowed(item_id) {
         return None;
     }
-    let moving = item_catalog::definition(item_id)?.equipment.as_ref()?;
+    let moving = item_catalog::definition(&(item_id).into())?
+        .equipment
+        .as_ref()?;
     let mut available = Vec::<AttachmentTarget>::new();
     let mut explicitly_selected = Vec::<(Entity, String, u16)>::new();
     match selected {
@@ -137,7 +139,7 @@ fn append_empty_targets(
         if scene || owner.is_none_or(|owner| owner.0 != actor) {
             continue;
         }
-        let Some(parent_equipment) = item_catalog::definition(&parent_properties.id)
+        let Some(parent_equipment) = item_catalog::definition(&(&parent_properties.id).into())
             .and_then(|definition| definition.equipment.as_ref())
         else {
             continue;

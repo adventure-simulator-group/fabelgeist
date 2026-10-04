@@ -4,44 +4,11 @@
 //! rather than left to the device's built-in `dot` and `cross`, so threshold
 //! decisions do not depend on the device's evaluation order.
 
+use super::status::FitFailure;
+
 /// A named `f32` constant, exact to the bit.
 pub(super) fn constant(name: &str, value: f32) -> String {
     format!("const {name}: f32 = {value:?}f;\n")
-}
-
-/// Why an underlayer fit failed on the device; each is one status bit.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum FitFailure {
-    /// Too many vertices hash to one weld bucket to search.
-    CrowdedWeld = 1,
-    /// More coincident vertices than one physical vertex may gather.
-    LargeGroup = 2,
-    /// The prism checks of one compression pass did not settle.
-    Unsettled = 4,
-    /// An offset ray spans more grid cells than a unit direction can.
-    LongRay = 8,
-    /// A cut vertex has no skin influences.
-    NoInfluence = 16,
-}
-
-impl FitFailure {
-    pub(super) const ALL: [Self; 5] = [
-        Self::CrowdedWeld,
-        Self::LargeGroup,
-        Self::Unsettled,
-        Self::LongRay,
-        Self::NoInfluence,
-    ];
-
-    pub(super) fn message(self) -> &'static str {
-        match self {
-            Self::CrowdedWeld => "too many coincident body vertices share a weld bucket",
-            Self::LargeGroup => "too many coincident body vertices form one physical vertex",
-            Self::Unsettled => "the underlayer compression sweep did not settle",
-            Self::LongRay => "an underlayer offset direction is not a unit vector",
-            Self::NoInfluence => "cut vertex has no skin influences",
-        }
-    }
 }
 
 /// The status bits as WGSL constants, and `fail` to raise one.

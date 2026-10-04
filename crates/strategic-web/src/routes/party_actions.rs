@@ -3,7 +3,28 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 
-use crate::spacetimedb::RoleRequirements;
+use crate::spacetimedb::{
+    CaseSiteId, PartyView, RoleRequirements, SpacetimeClient, SpacetimeError,
+};
+use adventuresim_core::identity::CharacterId;
+mod error;
+mod execution;
+mod kind;
+mod location;
+mod payload;
+mod planning;
+pub(super) mod terrain_profile;
+pub(crate) use error::PartyActionError;
+pub(crate) use execution::{approve_party_action, execute_or_request_party_action};
+use kind::PartyActionKind;
+pub(crate) use location::{CaseSiteObservationError, character_case_site_id};
+pub(crate) use terrain_profile::party_terrain_profile;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) enum PartyReadinessRequirement {
+    Required,
+    Exempt,
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "action", rename_all = "snake_case")]
@@ -15,7 +36,7 @@ pub(crate) enum PartyAction {
         case_site_id: String,
     },
     RemovePartyMember {
-        character_id: u64,
+        character_id: CharacterId,
     },
     CreateRecruitmentRole {
         name: String,
@@ -77,40 +98,153 @@ pub(crate) enum PartyAction {
 }
 
 impl PartyAction {
-    pub(super) fn requires_ready_party(&self) -> bool {
-        matches!(
-            self,
-            Self::TravelToCaseSite { .. }
-                | Self::AutoresolveMission { .. }
-                | Self::RequestTacticalServer { .. }
-                | Self::PerformInvestigation { .. }
-        )
-    }
-
-    pub(super) fn kind(&self) -> String {
+    pub(super) fn readiness(
+        &self,
+        actor_site: Option<&CaseSiteId>,
+        party: &PartyView,
+    ) -> PartyReadinessRequirement {
         match self {
-            Self::TravelToSettlement { .. } | Self::TravelToCaseSite { .. } => "travel".into(),
-            Self::RemovePartyMember { .. } => "kick".into(),
-            Self::CreateRecruitmentRole { .. } => "add_role".into(),
-            Self::UpdateRecruitmentRole { .. } => "edit_role".into(),
-            Self::DeleteRecruitmentRole { .. } => "delete_role".into(),
-            Self::AcceptJoinRequest { .. } => "accept_join".into(),
-            Self::RejectJoinRequest { .. } => "reject_join".into(),
-            Self::AcceptContract { .. } => "accept_contract".into(),
-            Self::AbandonContract { .. } => "abandon_contract".into(),
-            Self::ReportContract { .. } => "report_contract".into(),
-            Self::AutoresolveMission { .. } => "autoresolve".into(),
-            Self::UpdatePartyCheckTargets { .. } => "party_checks".into(),
-            Self::SetInventoryQuantityTarget { .. } => "party_inventory".into(),
-            Self::DisbandParty { .. } => "disband_party".into(),
-            Self::RequestTacticalServer { .. } => "initiate_combat".into(),
-            Self::CancelMission { .. } => "cancel_mission".into(),
-            Self::PerformInvestigation { .. } => "investigate".into(),
+            Self::TravelToSettlement { .. }
+                if actor_site.is_some() && actor_site == party.current_case_site_id.as_ref() =>
+            {
+                PartyReadinessRequirement::Exempt
+            }
+            Self::TravelToSettlement { .. }
+            | Self::TravelToCaseSite { .. }
+            | Self::AutoresolveMission { .. }
+            | Self::RequestTacticalServer { .. }
+            | Self::PerformInvestigation { .. } => PartyReadinessRequirement::Required,
+            _ => PartyReadinessRequirement::Exempt,
         }
     }
 
-    pub(super) fn summary(&self) -> String {
+    fn kind(&self) -> PartyActionKind {
         match self {
+            Self::TravelToSettlement { .. } | Self::TravelToCaseSite { .. } => {
+                PartyActionKind::Travel
+            }
+            Self::RemovePartyMember { .. } => PartyActionKind::RemoveMember,
+            Self::CreateRecruitmentRole { .. } => PartyActionKind::CreateRole,
+            Self::UpdateRecruitmentRole { .. } => PartyActionKind::UpdateRole,
+            Self::DeleteRecruitmentRole { .. } => PartyActionKind::DeleteRole,
+            Self::AcceptJoinRequest { .. } => PartyActionKind::AcceptJoin,
+            Self::RejectJoinRequest { .. } => PartyActionKind::RejectJoin,
+            Self::AcceptContract { .. } => PartyActionKind::AcceptContract,
+            Self::AbandonContract { .. } => PartyActionKind::AbandonContract,
+            Self::ReportContract { .. } => PartyActionKind::ReportContract,
+            Self::AutoresolveMission { .. } => PartyActionKind::Autoresolve,
+            Self::UpdatePartyCheckTargets { .. } => PartyActionKind::CheckTargets,
+            Self::SetInventoryQuantityTarget { .. } => PartyActionKind::InventoryTarget,
+            Self::DisbandParty { .. } => PartyActionKind::Disband,
+            Self::RequestTacticalServer { .. } => PartyActionKind::TacticalServer,
+            Self::CancelMission { .. } => PartyActionKind::CancelMission,
+            Self::PerformInvestigation { .. } => PartyActionKind::Investigation,
+        }
+    }
+
+    pub(super) async fn execute(
+        &self,
+        actor_id: CharacterId,
+        db: &SpacetimeClient,
+    ) -> std::result::Result<(), PartyActionError> {
+        let (reducer, mut args): (&str, Vec<Value>) = match self {
+            Self::TravelToSettlement { settlement_id } => {
+                ("travel_to_settlement", vec![json!(settlement_id)])
+            }
+            Self::TravelToCaseSite { case_site_id } => (
+                "travel_to_case_site",
+                vec![json!({ "value": case_site_id })],
+            ),
+            Self::RemovePartyMember { character_id } => {
+                ("remove_party_member", vec![json!(character_id)])
+            }
+            Self::CreateRecruitmentRole {
+                name,
+                quantity,
+                requirements,
+                save_role,
+            } => (
+                "create_recruitment_role",
+                vec![
+                    json!(name),
+                    json!(quantity),
+                    json!(requirements),
+                    json!(save_role),
+                ],
+            ),
+            Self::UpdateRecruitmentRole {
+                role_id,
+                name,
+                quantity,
+                requirements,
+            } => (
+                "update_recruitment_role",
+                vec![
+                    json!(role_id),
+                    json!(name),
+                    json!(quantity),
+                    json!(requirements),
+                ],
+            ),
+            Self::DeleteRecruitmentRole { role_id } => {
+                ("delete_recruitment_role", vec![json!(role_id)])
+            }
+            Self::AcceptJoinRequest { request_id } => {
+                ("accept_party_join_request", vec![json!(request_id)])
+            }
+            Self::RejectJoinRequest { request_id } => {
+                ("reject_party_join_request", vec![json!(request_id)])
+            }
+            Self::AcceptContract { contract_id } => ("accept_contract", vec![json!(contract_id)]),
+            Self::AbandonContract { contract_id } => ("abandon_contract", vec![json!(contract_id)]),
+            Self::ReportContract { contract_id } => ("report_contract", vec![json!(contract_id)]),
+            Self::AutoresolveMission { mission_id } => {
+                ("autoresolve_mission", vec![json!(mission_id)])
+            }
+            Self::UpdatePartyCheckTargets {
+                physiology,
+                command,
+                religion,
+            } => (
+                "update_party_check_targets",
+                vec![json!(physiology), json!(command), json!(religion)],
+            ),
+            Self::SetInventoryQuantityTarget { item_id, quantity } => (
+                "set_inventory_quantity_target",
+                vec![json!(true), json!(item_id), json!(quantity)],
+            ),
+            Self::DisbandParty { party_id } => ("disband_party", vec![json!(party_id)]),
+            Self::RequestTacticalServer {
+                mission_id,
+                scene_key,
+            } => (
+                "request_tactical_server",
+                vec![json!(mission_id), json!(scene_key)],
+            ),
+            Self::CancelMission { mission_id } => {
+                ("cancel_mission_request", vec![json!(mission_id)])
+            }
+            Self::PerformInvestigation {
+                action_id,
+                method,
+                expected_version,
+            } => (
+                "perform_investigation_action",
+                vec![json!(action_id), json!(method), json!(expected_version)],
+            ),
+        };
+        args.insert(0, json!(actor_id));
+        db.call(reducer, &args)
+            .await
+            .map_err(|source: SpacetimeError| -> PartyActionError {
+                PartyActionError::reducer(actor_id, source)
+            })
+    }
+}
+
+impl std::fmt::Display for PartyAction {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let summary: String = match self {
             Self::TravelToSettlement { settlement_id, .. } => {
                 format!("Travel to settlement {settlement_id}")
             }
@@ -139,217 +273,10 @@ impl PartyAction {
             Self::PerformInvestigation { method, .. } => {
                 format!("Perform investigation action: {}", method.replace('_', " "))
             }
-        }
-    }
-
-    pub(super) fn reducer_call(&self, actor_id: u64) -> (&'static str, Vec<Value>) {
-        match self {
-            Self::TravelToSettlement { settlement_id } => (
-                "travel_to_settlement",
-                vec![json!(actor_id), json!(settlement_id)],
-            ),
-            Self::TravelToCaseSite { case_site_id } => (
-                "travel_to_case_site",
-                vec![json!(actor_id), json!({ "value": case_site_id })],
-            ),
-            Self::RemovePartyMember { character_id } => (
-                "remove_party_member",
-                vec![json!(actor_id), json!(character_id)],
-            ),
-            Self::CreateRecruitmentRole {
-                name,
-                quantity,
-                requirements,
-                save_role,
-            } => (
-                "create_recruitment_role",
-                vec![
-                    json!(actor_id),
-                    json!(name),
-                    json!(quantity),
-                    json!(requirements),
-                    json!(save_role),
-                ],
-            ),
-            Self::UpdateRecruitmentRole {
-                role_id,
-                name,
-                quantity,
-                requirements,
-            } => (
-                "update_recruitment_role",
-                vec![
-                    json!(actor_id),
-                    json!(role_id),
-                    json!(name),
-                    json!(quantity),
-                    json!(requirements),
-                ],
-            ),
-            Self::DeleteRecruitmentRole { role_id } => (
-                "delete_recruitment_role",
-                vec![json!(actor_id), json!(role_id)],
-            ),
-            Self::AcceptJoinRequest { request_id } => (
-                "accept_party_join_request",
-                vec![json!(actor_id), json!(request_id)],
-            ),
-            Self::RejectJoinRequest { request_id } => (
-                "reject_party_join_request",
-                vec![json!(actor_id), json!(request_id)],
-            ),
-            Self::AcceptContract { contract_id } => {
-                ("accept_contract", vec![json!(actor_id), json!(contract_id)])
-            }
-            Self::AbandonContract { contract_id } => (
-                "abandon_contract",
-                vec![json!(actor_id), json!(contract_id)],
-            ),
-            Self::ReportContract { contract_id } => {
-                ("report_contract", vec![json!(actor_id), json!(contract_id)])
-            }
-            Self::AutoresolveMission { mission_id } => (
-                "autoresolve_mission",
-                vec![json!(actor_id), json!(mission_id)],
-            ),
-            Self::UpdatePartyCheckTargets {
-                physiology,
-                command,
-                religion,
-            } => (
-                "update_party_check_targets",
-                vec![
-                    json!(actor_id),
-                    json!(physiology),
-                    json!(command),
-                    json!(religion),
-                ],
-            ),
-            Self::SetInventoryQuantityTarget { item_id, quantity } => (
-                "set_inventory_quantity_target",
-                vec![
-                    json!(actor_id),
-                    json!(true),
-                    json!(item_id),
-                    json!(quantity),
-                ],
-            ),
-            Self::DisbandParty { party_id } => {
-                ("disband_party", vec![json!(actor_id), json!(party_id)])
-            }
-            Self::RequestTacticalServer {
-                mission_id,
-                scene_key,
-            } => (
-                "request_tactical_server",
-                vec![json!(actor_id), json!(mission_id), json!(scene_key)],
-            ),
-            Self::CancelMission { mission_id } => (
-                "cancel_mission_request",
-                vec![json!(actor_id), json!(mission_id)],
-            ),
-            Self::PerformInvestigation {
-                action_id,
-                method,
-                expected_version,
-            } => (
-                "perform_investigation_action",
-                vec![
-                    json!(actor_id),
-                    json!(action_id),
-                    json!(method),
-                    json!(expected_version),
-                ],
-            ),
-        }
+        };
+        formatter.write_str(&summary)
     }
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn approval_rebinds_actor_from_the_typed_variant() {
-        let action = PartyAction::TravelToCaseSite {
-            case_site_id: "case-site-7".into(),
-        };
-        assert_eq!(
-            action.reducer_call(42),
-            (
-                "travel_to_case_site",
-                vec![json!(42), json!({ "value": "case-site-7" })]
-            )
-        );
-    }
-
-    #[test]
-    fn action_payload_round_trips() {
-        let action = PartyAction::CancelMission {
-            mission_id: "mission-3".into(),
-        };
-        let encoded = serde_json::to_string(&action).unwrap();
-        assert_eq!(
-            serde_json::from_str::<PartyAction>(&encoded).unwrap(),
-            action
-        );
-    }
-
-    #[test]
-    fn only_settlement_withdrawal_is_readiness_exempt() {
-        assert!(
-            !PartyAction::TravelToSettlement {
-                settlement_id: "ironforge".into()
-            }
-            .requires_ready_party()
-        );
-        assert!(
-            PartyAction::TravelToCaseSite {
-                case_site_id: "site:old-graveyard".into()
-            }
-            .requires_ready_party()
-        );
-        assert!(
-            PartyAction::PerformInvestigation {
-                action_id: "action:inspect".into(),
-                method: "inspect_site".into(),
-                expected_version: 1,
-            }
-            .requires_ready_party()
-        );
-    }
-
-    #[test]
-    fn recruitment_role_payload_keeps_the_id_and_embeds_weapon_precision_in_requirements() {
-        let requirements = RoleRequirements {
-            weapon_precision: adventuresim_core::capability::WEAPON_PRECISION_SWORD,
-            ..Default::default()
-        };
-        let edit = PartyAction::UpdateRecruitmentRole {
-            role_id: 17,
-            name: "Scout".into(),
-            quantity: 1,
-            requirements,
-        };
-        let delete = PartyAction::DeleteRecruitmentRole { role_id: 17 };
-        assert_eq!(edit.kind(), "edit_role");
-        assert_eq!(delete.kind(), "delete_role");
-        assert!(
-            serde_json::to_string(&edit)
-                .unwrap()
-                .contains("\"role_id\":17")
-        );
-        assert!(
-            serde_json::to_string(&delete)
-                .unwrap()
-                .contains("\"role_id\":17")
-        );
-        let (reducer, payload) = edit.reducer_call(42);
-        assert_eq!(reducer, "update_recruitment_role");
-        assert_eq!(payload.len(), 5);
-        assert_eq!(
-            payload[4]["weapon_precision"],
-            adventuresim_core::capability::WEAPON_PRECISION_SWORD
-        );
-    }
-}
+mod tests;

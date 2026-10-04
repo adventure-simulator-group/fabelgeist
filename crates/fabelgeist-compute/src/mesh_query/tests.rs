@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 
 /// Deterministic points in the unit cube, xorshift32 so that a failure is
 /// reproducible from the test name alone.
@@ -45,8 +46,15 @@ fn squared(a: [f32; 3], b: [f32; 3]) -> f32 {
     (0..3).map(|i| (a[i] - b[i]).powi(2)).sum()
 }
 
-fn buffer<T: bytemuck::NoUninit>(context: &WgpuContext, data: &[T]) -> Result<Buffer> {
-    Buffer::from_slice(context, data, BufferDefinition::storage().with_copy_src())
+fn buffer(
+    context: &WgpuContext,
+    data: BufferUpload<'_>,
+) -> std::result::Result<Buffer, BufferCreationError> {
+    Buffer::from_upload(
+        context,
+        data,
+        BufferDefinition::storage().with_usage(BufferUse::CopySource),
+    )
 }
 
 #[tokio::test]
@@ -57,11 +65,11 @@ async fn nearest_points_match_a_host_search() -> Result<()> {
     let targets = points(1_300, 7);
     let queries = points(700, 11);
     let hits = QueryHits::new(&context, queries.len() as u32)?;
-    let positions = buffer(&context, &targets)?;
+    let positions = buffer(&context, BufferUpload::from_elements(&targets))?;
     let mut batch = KernelBatch::new(&context);
     query.record_nearest_points(
         &mut batch,
-        &buffer(&context, &queries)?,
+        &buffer(&context, BufferUpload::from_elements(&queries))?,
         queries.len() as u32,
         PointTargets {
             positions: &positions,
@@ -92,12 +100,12 @@ async fn candidates_narrow_a_point_search() -> Result<()> {
     let queries = points(100, 5);
     let candidates: Vec<u32> = (0..600).filter(|i| i % 3 == 1).collect();
     let hits = QueryHits::new(&context, queries.len() as u32)?;
-    let positions = buffer(&context, &targets)?;
-    let candidate_buffer = buffer(&context, &candidates)?;
+    let positions = buffer(&context, BufferUpload::from_elements(&targets))?;
+    let candidate_buffer = buffer(&context, BufferUpload::from_elements(&candidates))?;
     let mut batch = KernelBatch::new(&context);
     query.record_nearest_points(
         &mut batch,
-        &buffer(&context, &queries)?,
+        &buffer(&context, BufferUpload::from_elements(&queries))?,
         queries.len() as u32,
         PointTargets {
             positions: &positions,
@@ -127,11 +135,11 @@ async fn ties_go_to_the_lowest_index() -> Result<()> {
     // Four copies of the same point, the first at index 1.
     let targets: [[f32; 3]; 5] = [[5.0, 5.0, 5.0], [0.0; 3], [0.0; 3], [1.0; 3], [0.0; 3]];
     let hits = QueryHits::new(&context, 1)?;
-    let positions = buffer(&context, &targets)?;
+    let positions = buffer(&context, BufferUpload::from_elements(&targets))?;
     let mut batch = KernelBatch::new(&context);
     query.record_nearest_points(
         &mut batch,
-        &buffer(&context, &[[0.1f32, 0.0, 0.0]])?,
+        &buffer(&context, BufferUpload::from_elements(&[[0.1f32, 0.0, 0.0]]))?,
         1,
         PointTargets {
             positions: &positions,
@@ -156,12 +164,12 @@ async fn closest_points_lie_on_the_surface() -> Result<()> {
         .map(|p| p.map(|x| 3.0 * x - 1.5))
         .collect();
     let hits = QueryHits::new(&context, queries.len() as u32)?;
-    let position_buffer = buffer(&context, &positions)?;
-    let triangle_buffer = buffer(&context, &triangles)?;
+    let position_buffer = buffer(&context, BufferUpload::from_elements(&positions))?;
+    let triangle_buffer = buffer(&context, BufferUpload::from_elements(&triangles))?;
     let mut batch = KernelBatch::new(&context);
     query.record_closest_triangles(
         &mut batch,
-        &buffer(&context, &queries)?,
+        &buffer(&context, BufferUpload::from_elements(&queries))?,
         queries.len() as u32,
         TriangleTargets {
             positions: &position_buffer,
@@ -193,13 +201,13 @@ async fn rays_find_the_first_and_last_crossing() -> Result<()> {
     let context = WgpuContext::new().await?;
     let query = MeshQuery::new(&context)?;
     let (positions, triangles) = sphere(32, 64);
-    let position_buffer = buffer(&context, &positions)?;
-    let triangle_buffer = buffer(&context, &triangles)?;
+    let position_buffer = buffer(&context, BufferUpload::from_elements(&positions))?;
+    let triangle_buffer = buffer(&context, BufferUpload::from_elements(&triangles))?;
     // From outside, straight through the centre.
     let origins = [[-3.0f32, 0.1, 0.05], [0.02, -4.0, 0.03], [5.0, 5.0, 5.0]];
     let directions = [[1.0f32, 0.0, 0.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]];
-    let origin_buffer = buffer(&context, &origins)?;
-    let direction_buffer = buffer(&context, &directions)?;
+    let origin_buffer = buffer(&context, BufferUpload::from_elements(&origins))?;
+    let direction_buffer = buffer(&context, BufferUpload::from_elements(&directions))?;
     for (crossing, expected) in [(Crossing::First, [2.0, 3.0]), (Crossing::Last, [4.0, 5.0])] {
         let hits = QueryHits::new(&context, 3)?;
         let mut batch = KernelBatch::new(&context);

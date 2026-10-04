@@ -29,6 +29,150 @@ SSR, HATEOAS-style web UI for the Fabelgeist strategic layer.
 - **Environmental shell**: dark neutral entry screens and location-aware
   strategic lighting
 
+## Generated-row admission
+
+A complete `SqlQuery` stays nominal through query execution and cardinality
+errors. Execution owns its statement for the lifetime of the request. Construct
+it where an authored or formatted statement becomes complete;
+convert to an owned HTTP body only in its provider adapter. There is no string
+dereference or raw statement accessor. Query builders' key parameters and SQL
+literal fragments still have raw-interface debt; statement ownership does not
+claim those identities are migrated.
+
+Character primary-key builders require the shared `CharacterId`, including the
+owner selector for a case-site pin. Generated row fields and native route or
+session values are admitted into that owner before query construction. The
+character identity owns its full unsigned storage word; zero does not establish
+existence or permission. Preserve the identity through internal query calls,
+and use its native conversion only at storage or protocol encoding. Other query
+keys and raw-ID helper interfaces remain migration debt.
+
+Shared character loaders and cache lookup also require `CharacterId`.
+Mutable access distinguishes a future subject clock from unavailable chronology;
+frontier alignment requires two known equal clocks. Observed life distinguishes
+a dead character from a missing row. Cross-character mutable facts fail closed,
+while unavailable death chronology preserves availability. Resident observation
+owns its subject and observer identities and the logged query-failure policy.
+Presentation-row scalar fields and other primitive helper interfaces remain
+migration debt.
+
+Chat authorization retains selected-character, observed-player and resident
+identities with each failed query stage. Resident and presence evidence uses
+the same typed subject key and preserves read order. Invalid subject spellings
+retain their integer-decoder causes. Authorization is checked again after the
+private message query; failures become HTTP text only at that response boundary.
+
+Vicinity resolution and forage hydration retain coordinate, terrain, query and
+attestation causes. Forage failures choose a closed feedback token; remote
+diagnostics cannot become redirect parameters or player feedback. URL feedback
+tokens are admitted against the existing allowlist. Terrain sampling preserves
+the center-cell authority, neighbor offsets and wet/coastal classification.
+Other route keys, raw quantities and serialized payload interfaces remain
+migration debt.
+
+Party readiness retains the observer and member identities through member
+projection, condition refresh, and condition lookup. Failures retain the query
+stage, member identity, and concrete query cause; the existing notices stay
+stable. Dead members remain in presentation and history without gating survivor
+actions.
+
+Party-action execution and approval retain shared `CharacterId` values. Queued
+intent retains its checked `PartyId` and closed request kind. Native view fields
+are admitted at their read boundary; typed identities continue through readiness,
+planning, reducer execution and temporary-captain approval. Request-kind tokens,
+action summaries and reducer arguments encode only at their storage/protocol
+boundary. A planned route owns its complete payload; approval uses that payload
+directly rather than extracting it from a positional argument array.
+
+Action, exact-site observation, terrain-profile and departure errors retain their
+query stages, actor/member identities and concrete provider causes. HTTP notices
+and logging format those errors. Coordinate admission distinguishes persisted
+coordinates from planner output while preserving the existing notices. Terrain
+planning failure still chooses the unplanned reducer; malformed queued payloads
+reach the authoritative approval reducer for validation. The profile is still
+loaded before a non-travel action bypasses terrain enrichment.
+
+Player chat requires aligned personal frontiers before spatial admission. Its
+presence decision requires matching settlement and exact-site authorities;
+two unknown locations do not authorize chat. Exact-site observation retains its
+typed cause through that decision and the enclosing chat authorization error.
+Other chat keys, native presentation fields and helper interfaces remain debt.
+
+Web forage correlation uses `ForageReceiptReference`. It admits exactly 64
+ASCII hexadecimal bytes and preserves accepted spelling, including uppercase.
+The reference owns character-scoped receipt queries and retains its string
+shape at reducer and redirect boundaries. It proves correlation syntax;
+selected-character and database authority still govern access. Issuance retains
+the existing SHA-256 framing, a wrapping process nonce and native UNIX
+nanoseconds with the same pre-epoch fallback. Terrain mixtures and neighboring
+interfaces remain migration debt.
+
+Forage attempt state enters the shared `ForageAttemptGeneration` owner before
+submission. Missing state uses its initial cursor. JSON remains a numeric scalar;
+the reducer owns stale-generation rejection and checked advancement, and exact
+receipt retries do not advance the cursor.
+
+Public forage receipt legality is admitted into the shared
+`ForagePublicLegalOutcome` before rendering or acknowledging the result. Its
+three exact wire words preserve the existing notices. Unknown words produce a
+classified receipt error with the selected actor and concrete decoder cause;
+feedback remains the existing unavailable notice. `ForageReceipt` also checks
+the response actor and request reference, equal yield column lengths, known
+catalog resources, positive quantities and unique resource entries. Completed
+harvests retain paired resources and core `ForageYieldQuantity`; interrupted
+receipts retain `StrategicDuration` and reject any harvest. Rendering accepts only an admitted
+receipt and preserves catalog labels, order, quantity and whole-hour display.
+
+Forage form admission retains submitted hours, ordered source tokens and the
+bounded return hint in separate owners. Submitted hours represent the full
+eight-bit wire range, including zero and values above 24; they do not authorize
+a plan. Source tokens retain unknown values, empty values and duplicates for
+the reducer's authoritative checks. Their collection enforces the same count
+and decoded UTF-8 byte limits. Form errors classify missing or duplicate scalar
+fields, size limits and numeric admission while retaining the parser cause.
+
+Completion navigation uses a checked `LocalReturnUrl` and a typed forage dialog
+destination. Local admission preserves accepted spelling, optional query and
+fragment, and rejects external authorities, backslashes and control characters.
+Forage hints resolve to the root when rejected. URI decoder causes remain
+inspectable; redirects and URL text are encoded at presentation boundaries.
+
+Other `PartyAction` fields, terrain quantities, coordinate tuples and several
+neighboring helper errors remain migration debt. Native presentation fields are
+not exemptions for internal domain interfaces.
+
+SQL responses decode through the generated SATS row types before explicit view
+projection. A query expecting one row rejects multiple rows; an empty result
+remains `None`. SQL row counts, column counts, product field counts, sum value
+counts, row/column addresses, and wire sum tags have distinct owners. Sum tags
+retain their complete wire width and must fit the host address before lookup.
+
+Failures distinguish HTTP transport, response JSON, remote rejection, SATS
+structure, generated-row decoding, row cardinality, and view projection. Keep
+native causes through each stage. Field projection identifies the generated
+field and separates encoding from admission into the domain schema. A failed
+remote body read retains its HTTP status and request operation with the native
+read cause.
+
+Decode reducer error codes only from reducer responses at admission. SQL and
+local schema failures must not acquire reducer semantics from their diagnostic
+text. Format diagnostics at logging and UI presentation boundaries; do not
+flatten them while composing query and projection operations.
+
+Required surgical reads retain their named dataset and underlying query cause.
+Patient and surgeon injury reads remain distinct diagnostic roles. Provision
+forecasts distinguish database, alcohol-interval, and custody admission failures
+and retain the original causes. Format these failures only when logging or
+constructing the HTTP notice.
+
+SQL metrics own request counts and cumulative elapsed microseconds separately.
+Snapshots are immutable; deltas saturate each quantity independently. Shared
+clients count attempted SQL sends, including failures, and record elapsed time
+from send to response headers. Reducer calls use the same latency warning policy
+but do not contribute to SQL counters. The warning admits 250 ms and above.
+Counters retain native unsigned wrapping, per-request microsecond truncation,
+and full-duration narrowing; snapshots do not reset shared accounting.
+
 ## Running Locally
 
 ### Prerequisites

@@ -26,7 +26,7 @@ pub fn authority_test_leisure_checkpoints(
                 location_id: "riverdale".into(),
             });
         }
-        settle_spouse_leisure_pair(ctx, first, second)?;
+        settle_spouse_leisure_pair(ctx, first.into(), second.into())?;
         let state = ctx
             .db
             .spouse_leisure_accrual()
@@ -53,7 +53,7 @@ pub fn authority_test_leisure_checkpoints(
         .iter()
         .filter(|row| row.pair_id == pair_id)
         .collect::<Vec<_>>();
-    settle_spouse_leisure_pair(ctx, second, first)?;
+    settle_spouse_leisure_pair(ctx, second.into(), first.into())?;
     let after = ctx
         .db
         .spouse_leisure_accrual()

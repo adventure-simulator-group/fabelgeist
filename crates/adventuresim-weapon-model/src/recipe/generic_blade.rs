@@ -1,5 +1,6 @@
 //! Continuous outline and terminal section of an asymmetric forged blade.
 use super::*;
+use crate::ConstructionError;
 use std::f64::consts::PI;
 
 /// Full thickness at the cutting edge before an authored point begins.
@@ -29,7 +30,7 @@ impl BladeParameters {
             .map(|p| p.start.get() * self.length.get())
     }
 
-    pub(crate) fn point_curve(&self) -> Result<Option<PointCurve>, String> {
+    pub(crate) fn point_curve(&self) -> Result<Option<PointCurve>, ConstructionError> {
         let Some(point) = &self.point else {
             return Ok(None);
         };

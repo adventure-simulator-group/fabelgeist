@@ -7,13 +7,13 @@ struct ActivityExecutionLocation {
 
 fn activity_execution_location(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
 ) -> Result<ActivityExecutionLocation, String> {
     let character = ctx
         .db
         .character()
         .id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character not found")?;
     if let Some(settlement_id) = character.current_settlement_id {
         let settlement = ctx
@@ -32,7 +32,7 @@ fn activity_execution_location(
         });
     }
     if let Some(occupancy) =
-        crate::investigation::current_character_case_site_occupancy(ctx, character_id)
+        crate::investigation::current_character_case_site_occupancy(ctx, (character_id).into())
     {
         let site = ctx
             .db
@@ -69,12 +69,13 @@ fn location_activity(activity: ImmediateActivity) -> Option<LocationActivity> {
 pub(crate) fn effective_location_schedule(
     schedule: &ScheduleAllocation,
     location: ActivityLocation,
-    redistribution_seed: u64,
+    redistribution_character: adventuresim_core::identity::CharacterId,
 ) -> ScheduleAllocation {
     let mut effective = schedule.clone();
-    let redistributed = adventuresim_core::strategic_schedule::ValidatedSchedule::try_from(core_schedule(schedule))
-        .expect("saved schedules are validated on write")
-        .effective_at(location, redistribution_seed);
+    let redistributed =
+        adventuresim_core::strategic_schedule::ValidatedSchedule::try_from(core_schedule(schedule))
+            .expect("saved schedules are validated on write")
+            .effective_at(location, redistribution_character);
     effective.combat_training_minutes = redistributed.combat_training_minutes;
     effective.carousing_minutes = redistributed.carousing_minutes;
     effective.socializing_minutes = redistributed.socializing_minutes;
@@ -87,42 +88,6 @@ pub(crate) fn effective_location_schedule(
     effective
 }
 
-fn default_schedule(character_id: u64) -> CharacterTrainingSchedule {
-    CharacterTrainingSchedule {
-        character_id,
-        downtime: ScheduleAllocation::default(),
-    }
-}
-
-fn ensure_character_time(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    let official_minutes = refresh_clock(ctx)?;
-    if ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .is_none()
-    {
-        ctx.db.character_time().insert(CharacterTime {
-            character_id,
-            scan_id: character_id,
-            minutes: official_minutes,
-        });
-    }
-    if ctx
-        .db
-        .character_training_schedule()
-        .character_id()
-        .find(character_id)
-        .is_none()
-    {
-        ctx.db
-            .character_training_schedule()
-            .insert(default_schedule(character_id));
-    }
-    Ok(())
-}
-
 fn validate_organization_schedule(
     ctx: &ReducerContext,
     character_id: u64,
@@ -133,15 +98,22 @@ fn validate_organization_schedule(
             .apprenticeship_organization_id
             .as_deref()
             .ok_or("Apprenticeship time requires an organization")?;
-        crate::organization::require_activity_membership(ctx, character_id, organization_id)?;
+        crate::organization::require_activity_membership(
+            ctx,
+            (character_id).into(),
+            organization_id,
+        )?;
     }
     if schedule.profession_practice_minutes > 0 {
         let organization_id = schedule
             .practice_organization_id
             .as_deref()
             .ok_or("Professional practice time requires an organization")?;
-        let row =
-            crate::organization::require_activity_membership(ctx, character_id, organization_id)?;
+        let row = crate::organization::require_activity_membership(
+            ctx,
+            (character_id).into(),
+            organization_id,
+        )?;
         let role = crate::organization::membership_role(ctx, &row)?;
         if !role.practice_allowed {
             return Err("This organization role does not permit independent practice".into());
@@ -154,7 +126,7 @@ fn validate_organization_schedule(
 /// saved allocations become leisure without mutating the player's saved plan.
 fn effective_organization_schedule(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     schedule: &ScheduleAllocation,
 ) -> ScheduleAllocation {
     let mut effective = schedule.clone();
@@ -163,8 +135,12 @@ fn effective_organization_schedule(
             .apprenticeship_organization_id
             .as_deref()
             .is_none_or(|organization_id| {
-                crate::organization::require_activity_membership(ctx, character_id, organization_id)
-                    .is_err()
+                crate::organization::require_activity_membership(
+                    ctx,
+                    (character_id).into(),
+                    organization_id,
+                )
+                .is_err()
             })
     {
         effective.apprenticeship_minutes = 0;
@@ -176,7 +152,7 @@ fn effective_organization_schedule(
             .and_then(|organization_id| {
                 let membership = crate::organization::require_activity_membership(
                     ctx,
-                    character_id,
+                    (character_id).into(),
                     organization_id,
                 )
                 .ok()?;
@@ -192,9 +168,9 @@ fn effective_organization_schedule(
 
 fn activity_training_profile(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
 ) -> Result<adventuresim_core::strategic_schedule::ActivityTrainingProfile, String> {
-    let equipment = StrategicEquipment::load(ctx, character_id);
+    let equipment = StrategicEquipment::load(ctx, (character_id).into());
     Ok(
         adventuresim_core::strategic_schedule::ActivityTrainingProfile {
             combat: equipment.combat_training_profile(),
@@ -204,7 +180,7 @@ fn activity_training_profile(
 
 fn apply_oral_language_training(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     languages: &mut adventuresim_world_schema::OralLanguageHours,
     language: OralLanguage,
     real_hours: f32,
@@ -213,7 +189,7 @@ fn apply_oral_language_training(
         .db
         .character_attributes()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .map_or(0.0, |attributes| attributes.instinct);
     adventuresim_core::skill::apply_language_training(
         languages.direct_mut(language),
@@ -225,7 +201,7 @@ fn apply_oral_language_training(
 
 fn apply_training(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     skills: &mut CharacterSkills,
     schedule: &ScheduleAllocation,
     elapsed: u64,
@@ -235,7 +211,7 @@ fn apply_training(
         .db
         .character_attributes()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character attributes not found while applying training")?;
     let mut hours = SkillHours {
         polearm: skills.polearm_hours,
@@ -275,7 +251,7 @@ fn apply_training(
         .db
         .character_personality()
         .character_id()
-        .find(character_id);
+        .find(u64::from(character_id));
     let sociability =
         personality.as_ref().map_or(
             SocializingSociability::Neutral,
@@ -301,7 +277,7 @@ fn apply_training(
         .db
         .character_condition()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .and_then(|condition| condition.religion_id)
         .as_deref()
         .and_then(OfficialReligion::from_id);
@@ -312,7 +288,7 @@ fn apply_training(
         schedule.prayer_minutes,
         &attributes,
     );
-    if let Some(character) = ctx.db.character().id().find(character_id)
+    if let Some(character) = ctx.db.character().id().find(u64::from(character_id))
         && let Some(settlement_id) = character.current_settlement_id
         && let Some(settlement) = ctx.db.settlement().id().find(&settlement_id)
     {
@@ -409,16 +385,25 @@ fn apply_training(
     if schedule.reading_minutes > 0 {
         let reading_hours =
             elapsed as f32 / MINUTES_PER_DAY as f32 * f32::from(schedule.reading_minutes) / 60.0;
-        excess += apply_reading_training(ctx, character_id, skills, reading_hours, &attributes)?;
+        excess += apply_reading_training(
+            ctx,
+            (character_id).into(),
+            skills,
+            reading_hours,
+            &attributes,
+        )?;
     }
     Ok(excess)
 }
 
-fn total_socializing_receipt_minutes(ctx: &ReducerContext, actor_id: u64) -> u64 {
+fn total_socializing_receipt_minutes(
+    ctx: &ReducerContext,
+    actor_id: adventuresim_core::identity::CharacterId,
+) -> u64 {
     ctx.db
         .socializing_receipt()
         .actor_id()
-        .filter(actor_id)
+        .filter(u64::from(actor_id))
         .fold(0_u64, |total, receipt| {
             total.saturating_add(receipt.minutes)
         })
@@ -638,7 +623,7 @@ fn apply_selected_book(
 
 fn apply_reading_training(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     skills: &mut CharacterSkills,
     mut real_hours: f32,
     attributes: &CharacterAttributes,
@@ -649,13 +634,13 @@ fn apply_reading_training(
         .db
         .character()
         .id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character disappeared while applying reading training")?;
     let personal = ctx
         .db
         .inventory_item()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .filter(|row| row.quantity > 0)
         .map(|row| row.item_id)
         .collect::<std::collections::BTreeSet<_>>();

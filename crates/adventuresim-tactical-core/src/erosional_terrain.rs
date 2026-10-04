@@ -1,6 +1,7 @@
 //! Three-dimensional erosion fields. Mapped lithology constrains a procedural
 //! landform; neither bedding nor an observed cliff is asserted by the recipe.
 
+use crate::volumetric_terrain::TerrainRecipeError;
 use bevy::math::{FloatExt, Vec2, Vec3, Vec3Swizzles};
 
 use crate::{
@@ -27,7 +28,7 @@ const CARBONATE_RESIDUAL_RELIEF_FRACTION: f32 = 0.05;
 pub(crate) fn patch(
     terrain: &SceneTerrain,
     recipe: TerrainLandformRecipe,
-) -> Result<SceneTerrainPatch, &'static str> {
+) -> Result<SceneTerrainPatch, TerrainRecipeError> {
     let spacing = f32::from(recipe.lod.voxel_cm()) / 100.0;
     let origin = Vec2::new(recipe.origin_cm[0] as f32, recipe.origin_cm[1] as f32) / 100.0;
     let radius = f32::from(recipe.half_length_cm.max(recipe.half_width_cm)) / 100.0 + 2.0;
@@ -49,7 +50,7 @@ pub(crate) fn patch(
     let top = maximum + spacing * SAMPLE_MARGIN_CELLS;
     let vertical = ((top - bottom) / spacing).ceil() as usize + 1;
     if side > MAX_GRID_SIDE || vertical > MAX_GRID_HEIGHT {
-        return Err("erosional patch voxel grid exceeds its bound");
+        return Err(TerrainRecipeError::ErosionVoxelGridBound);
     }
     marching_tetrahedra(
         [side, vertical, side],

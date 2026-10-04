@@ -218,7 +218,7 @@ fn decomposition_label(value: DecompositionBand) -> &'static str {
 }
 
 fn observer_party(ctx: &ReducerContext, actor_id: u64) -> Result<String, String> {
-    let actor = crate::character::require_living_character(ctx, actor_id)?;
+    let actor = crate::character::require_living_character(ctx, (actor_id).into())?;
     actor.party_id.ok_or("Character has no party".into())
 }
 
@@ -252,7 +252,7 @@ fn require_corpse_access(
     actor_id: u64,
     corpse_id: &str,
 ) -> Result<(StrategicCorpse, String, StrategicMinute), String> {
-    crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (actor_id).into())?;
     let party_id = observer_party(ctx, actor_id)?;
     let corpse = ctx
         .db
@@ -284,8 +284,9 @@ fn require_corpse_access(
     }
     let now = minute;
     let location = corpse_location(corpse.discovered_minute, now, corpse.buried, corpse.exhumed);
-    let actor_site = crate::investigation::current_character_case_site_occupancy(ctx, actor_id)
-        .map(|row| row.case_site_id);
+    let actor_site =
+        crate::investigation::current_character_case_site_occupancy(ctx, (actor_id).into())
+            .map(|row| row.case_site_id);
     let together = match location {
         CorpseLocation::Scene => actor_site
             .as_ref()
@@ -316,7 +317,7 @@ fn apply_unauthorized_consequences(
         crate::reputation::record_event(
             ctx,
             format!("unauthorized-autopsy:{action_id}"),
-            actor_id,
+            (actor_id).into(),
             &corpse.settlement_id,
             "unauthorized_autopsy",
             &corpse.id,
@@ -659,7 +660,7 @@ pub(crate) fn persist_autoresolve_enemy_corpses(
             .is_some_and(|row| row.alive);
         crate::character::transition_character_to_dead(
             ctx,
-            enemy.id,
+            (enemy.id).into(),
             crate::character::DeathCause::Combat,
             crate::character::DeathSource::Autoresolve,
             Some(source_id.into()),
@@ -815,7 +816,7 @@ fn persist_autopsy_demo_body(
 /// visual demo. Every wound is produced by ordinary strategic autoresolve;
 /// only custody time and identity are staged by the fixture.
 pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(), String> {
-    let actor = crate::character::require_living_character(ctx, actor_id)?;
+    let actor = crate::character::require_living_character(ctx, (actor_id).into())?;
     let settlement_id = actor
         .current_settlement_id
         .clone()
@@ -845,7 +846,7 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
         wildmen: 8_000.0,
     };
     ctx.db.character_skills().character_id().update(skills);
-    crate::capability::refresh_character_capability(ctx, actor_id)?;
+    crate::capability::refresh_character_capability(ctx, (actor_id).into())?;
     if !ctx
         .db
         .inventory_item()
@@ -853,7 +854,7 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
         .filter(actor_id)
         .any(|row| row.item_id == "surgery_kit")
     {
-        crate::add_inventory_item(ctx, actor_id, "surgery_kit", 1);
+        crate::add_inventory_item(ctx, actor_id.into(), &"surgery_kit".into(), 1.into());
     }
     let mut actor_time = ctx
         .db
@@ -1019,11 +1020,11 @@ pub(crate) fn materialize_corpse_family_bindings(
 /// separate cause or culprit clue is invented.
 pub(crate) fn persist_character_death_corpse(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     source_id: &str,
     death_minute: StrategicMinute,
 ) -> Result<(), String> {
-    let Some(subject) = ctx.db.character().id().find(character_id) else {
+    let Some(subject) = ctx.db.character().id().find(u64::from(character_id)) else {
         return Err("Dead character not found".into());
     };
     let corpse_id = format!("corpse:character:{character_id}");
@@ -1034,17 +1035,17 @@ pub(crate) fn persist_character_death_corpse(
         .db
         .character_limbs()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Dead character anatomy not found")?;
     let case_site_id =
-        crate::investigation::current_character_case_site_occupancy(ctx, character_id)
+        crate::investigation::current_character_case_site_occupancy(ctx, (character_id).into())
             .map(|row| row.case_site_id);
     let settlement_id = subject.current_settlement_id.clone().unwrap_or_default();
     ctx.db.strategic_corpse().insert(StrategicCorpse {
         id: corpse_id.clone(),
         source_id: source_id.into(),
         discovering_party_id: subject.party_id.clone().unwrap_or_default(),
-        subject_character_id: Some(character_id),
+        subject_character_id: Some(u64::from(character_id)),
         display_name: subject.name,
         creature_kind: "human".into(),
         settlement_id: settlement_id.clone(),
@@ -1079,7 +1080,7 @@ pub(crate) fn persist_character_death_corpse(
             .db
             .character_condition()
             .character_id()
-            .find(character_id)
+            .find(u64::from(character_id))
             .map_or(0.0, |row| {
                 if row.maximum_blood_ml > 0.0 {
                     (1.0 - row.current_blood_ml / row.maximum_blood_ml).clamp(0.0, 1.0)
@@ -1092,7 +1093,7 @@ pub(crate) fn persist_character_death_corpse(
         .db
         .limb_injury()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .enumerate()
     {
         ctx.db.corpse_injury().insert(CorpseInjury {
@@ -1106,7 +1107,7 @@ pub(crate) fn persist_character_death_corpse(
                 .db
                 .retained_projectile()
                 .character_id()
-                .filter(character_id)
+                .filter(u64::from(character_id))
                 .any(|projectile| projectile.limb == injury.limb),
             contact_stress: injury.fracture_damage,
         });
@@ -1154,7 +1155,8 @@ pub fn examine_corpse(
     expected_revision: u32,
     confirm_unauthorized: bool,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
         actor_id,
@@ -1211,7 +1213,7 @@ pub fn examine_corpse(
     } else {
         INTERNAL_EXAMINATION_MINUTES
     };
-    if !advance_character_wait_time(ctx, actor_id, duration)? {
+    if !advance_character_wait_time(ctx, (actor_id).into(), duration)? {
         return Ok(());
     }
     apply_unauthorized_consequences(
@@ -1271,7 +1273,8 @@ pub fn open_corpse(
     expected_revision: u32,
     confirm_unauthorized: bool,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
         actor_id,
@@ -1321,7 +1324,7 @@ pub fn open_corpse(
         );
     }
     let surgery = skill_check(ctx, actor_id, "surgery")?;
-    if !advance_character_wait_time(ctx, actor_id, OPEN_BODY_MINUTES)? {
+    if !advance_character_wait_time(ctx, (actor_id).into(), OPEN_BODY_MINUTES)? {
         return Ok(());
     }
     apply_unauthorized_consequences(
@@ -1348,7 +1351,7 @@ pub fn open_corpse(
     if exposure > 0 {
         crate::filth::deposit_now(
             ctx,
-            actor_id,
+            (actor_id).into(),
             adventuresim_core::filth::FilthSubstance::Blood,
             None,
             exposure,
@@ -1378,7 +1381,8 @@ pub fn exhume_corpse(
     expected_revision: u32,
     confirm_unauthorized: bool,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
         actor_id,
@@ -1423,7 +1427,7 @@ pub fn exhume_corpse(
             "Permission is missing; confirm the severe family penalty and settlement infamy".into(),
         );
     }
-    if !advance_character_wait_time(ctx, actor_id, EXHUMATION_MINUTES)? {
+    if !advance_character_wait_time(ctx, (actor_id).into(), EXHUMATION_MINUTES)? {
         return Ok(());
     }
     apply_unauthorized_consequences(
@@ -1462,7 +1466,8 @@ pub fn bury_corpse(
     action_id: String,
     expected_revision: u32,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
         actor_id,
@@ -1494,7 +1499,7 @@ pub fn bury_corpse(
     if corpse.revision != expected_revision {
         return Err("Corpse state changed; refresh before burying it".into());
     }
-    if !advance_character_wait_time(ctx, actor_id, BURIAL_MINUTES)? {
+    if !advance_character_wait_time(ctx, (actor_id).into(), BURIAL_MINUTES)? {
         return Ok(());
     }
     let completed_minute = now(ctx, actor_id)?;
@@ -1526,7 +1531,8 @@ pub fn burn_corpse(
     expected_revision: u32,
     confirm_destruction: bool,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     validate_client_action_id(&action_id)?;
     let receipt_id = action_receipt_id(
         actor_id,
@@ -1563,7 +1569,7 @@ pub fn burn_corpse(
             "Burning a victim cannot be authorized and will cause severe family affinity loss and settlement infamy; confirm the irreversible destruction".into(),
         );
     }
-    if !advance_character_wait_time(ctx, actor_id, CREMATION_MINUTES)? {
+    if !advance_character_wait_time(ctx, (actor_id).into(), CREMATION_MINUTES)? {
         return Ok(());
     }
     let completed_minute = now(ctx, actor_id)?;
@@ -1573,7 +1579,7 @@ pub fn burn_corpse(
             crate::reputation::record_event(
                 ctx,
                 format!("corpse-burning:{receipt_id}"),
-                actor_id,
+                (actor_id).into(),
                 &corpse.settlement_id,
                 "corpse_burning",
                 &corpse.id,
@@ -1671,10 +1677,12 @@ pub(crate) fn grant_permission_from_dialogue(
     if let Some(attempt) = ctx.db.corpse_permission_attempt().id().find(&attempt_id) {
         return Ok(attempt.granted);
     }
-    let affinity = current_affinity(ctx, resident_character_id, actor_id);
-    let (low_id, high_id) =
-        adventuresim_core::social::canonical_pair(actor_id, resident_character_id)
-            .ok_or("Permission petitioner and resident must differ")?;
+    let affinity = current_affinity(ctx, (resident_character_id).into(), (actor_id).into());
+    let (low_id, high_id) = adventuresim_core::social::canonical_pair(
+        (actor_id).into(),
+        (resident_character_id).into(),
+    )
+    .ok_or("Permission petitioner and resident must differ")?;
     let familiarity_minutes = ctx
         .db
         .character_familiarity()
@@ -1686,16 +1694,19 @@ pub(crate) fn grant_permission_from_dialogue(
         / (100 * 60))
         .min(u64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)))
         as u16;
-    let (fame, infamy) = crate::reputation::local_reputation(ctx, actor_id, &corpse.settlement_id);
+    let (fame, infamy) =
+        crate::reputation::local_reputation(ctx, (actor_id).into(), &corpse.settlement_id);
     let reputation_modifier =
         adventuresim_core::reputation::npc_reaction_modifier(fame, infamy, familiarity_bps);
     let skill_check = match approach {
         Approach::PersonalAppeal | Approach::GuildPetition => {
-            crate::condition::mental_check(ctx, actor_id, Skill::Charm)?
+            crate::condition::mental_check(ctx, (actor_id).into(), Skill::Charm)?
         }
-        Approach::Command => crate::condition::mental_check(ctx, actor_id, Skill::Command)?,
+        Approach::Command => {
+            crate::condition::mental_check(ctx, (actor_id).into(), Skill::Command)?
+        }
         Approach::ProfessionalOpinion => {
-            crate::condition::mental_check(ctx, actor_id, Skill::Physiology)?
+            crate::condition::mental_check(ctx, (actor_id).into(), Skill::Physiology)?
         }
         Approach::ReligiousPetition => {
             let religion_id = ctx
@@ -1707,7 +1718,7 @@ pub(crate) fn grant_permission_from_dialogue(
                 .religion_id;
             let religion = adventuresim_world_schema::OfficialReligion::from_id(&religion_id)
                 .ok_or("Settlement religion is unknown")?;
-            crate::social::target_religion_check(ctx, actor_id, religion)?
+            crate::social::target_religion_check(ctx, (actor_id).into(), religion)?
         }
     };
     let language_coefficient = ctx

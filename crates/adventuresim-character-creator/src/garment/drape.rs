@@ -152,7 +152,7 @@ fn simulate(
                         cancelled()?;
                         let open = (1.0 - step as f32 / closing).max(0.0);
                         seams.hold_open(&mut fit, open)?;
-                        fit.step(STEP_SECONDS).await?;
+                        fit.step(STEP_SECONDS.into()).await?;
                         if step % stages.preview_interval == 0 || step == steps {
                             let stage = DrapeStage::Sewing { step, of: steps };
                             output.show_unsewn(
@@ -178,7 +178,7 @@ fn simulate(
             for step in 0..=steps {
                 cancelled()?;
                 if step > 0 {
-                    fit.step(STEP_SECONDS).await?;
+                    fit.step(STEP_SECONDS.into()).await?;
                 }
                 if step % stages.preview_interval == 0 || step == steps {
                     let stage = DrapeStage::Settling { step, of: steps };
@@ -198,8 +198,8 @@ struct SeamClosure {
     /// Bend weights in colour order, as built and with every hinge across a
     /// seam slack. Such a hinge spans the open gap and would read it as a
     /// sharp crease, wrenching the panels round to flatten it.
-    bends: Vec<f32>,
-    open_bends: Vec<f32>,
+    bends: Vec<fabelgeist_shell::BendRecord>,
+    open_bends: Vec<fabelgeist_shell::BendRecord>,
 }
 
 impl SeamClosure {
@@ -220,21 +220,34 @@ impl SeamClosure {
                 sorted
             })
             .collect();
-        let open_bends: Vec<_> = mesh
-            .bends
-            .iter()
-            .zip(&mesh.bend_weights)
-            .map(|(bend, &weights)| {
-                let [a, b, wings @ ..] = bend.particles();
-                let within_the_mesh = wings.iter().all(|&wing| {
-                    let mut triangle = [a, b, wing];
-                    triangle.sort_unstable();
-                    triangles.contains(&triangle)
-                });
-                if within_the_mesh { weights } else { [0.0; 8] }
-            })
-            .collect();
-        let colour_order = |weights: &[[f32; 8]]| fit.cloth.bending.reorder(weights).concat();
+        let open_bends: Vec<_> =
+            mesh.bends
+                .iter()
+                .zip(&mesh.bend_weights)
+                .map(
+                    |(bend, &weights): (
+                        &fabelgeist_shell::BendQuad,
+                        &fabelgeist_shell::BendRecord,
+                    )|
+                     -> fabelgeist_shell::BendRecord {
+                        let [a, b, wings @ ..] = bend.particles();
+                        let within_the_mesh = wings.iter().all(|&wing| {
+                            let mut triangle = [a, b, wing];
+                            triangle.sort_unstable();
+                            triangles.contains(&triangle)
+                        });
+                        if within_the_mesh {
+                            weights
+                        } else {
+                            fabelgeist_shell::BendRecord::slack()
+                        }
+                    },
+                )
+                .collect();
+        let colour_order =
+            |weights: &[fabelgeist_shell::BendRecord]| -> Vec<fabelgeist_shell::BendRecord> {
+                fit.cloth.bending.reorder(weights)
+            };
         Self {
             gaps,
             bends: colour_order(&mesh.bend_weights),
@@ -243,22 +256,38 @@ impl SeamClosure {
     }
 
     /// Hold each seam open by `open` of its placed gap.
-    fn hold_open(&self, fit: &mut Fit, open: f32) -> Result<()> {
+    fn hold_open(
+        &self,
+        fit: &mut Fit,
+        open: f32,
+    ) -> std::result::Result<(), fabelgeist_shell::ConstraintAttachmentError> {
         self.set(fit, open, &self.open_bends)
     }
 
     /// Shut every seam and let the hinges across them bend the cloth.
-    fn shut(&self, fit: &mut Fit) -> Result<()> {
+    fn shut(
+        &self,
+        fit: &mut Fit,
+    ) -> std::result::Result<(), fabelgeist_shell::ConstraintAttachmentError> {
         self.set(fit, 0.0, &self.bends)
     }
 
-    fn set(&self, fit: &mut Fit, open: f32, bends: &[f32]) -> Result<()> {
+    fn set(
+        &self,
+        fit: &mut Fit,
+        open: f32,
+        bends: &[fabelgeist_shell::BendRecord],
+    ) -> std::result::Result<(), fabelgeist_shell::ConstraintAttachmentError> {
         let rest: Vec<f32> = self.gaps.iter().map(|gap| gap * open).collect();
         let rest = fit.cloth.seams.reorder(&rest);
-        fit.cloth
-            .seams
-            .attach(&fit.context, "rest_lengths", &rest)?;
-        fit.cloth.bending.attach_raw(&fit.context, "weights", bends)
+        fit.cloth.seams.attach(
+            &fit.context,
+            fabelgeist_shell::ConstraintAttachment::from_records("rest_lengths".into(), &rest),
+        )?;
+        fit.cloth.bending.attach(
+            &fit.context,
+            fabelgeist_shell::ConstraintAttachment::from_records("weights".into(), bends),
+        )
     }
 }
 

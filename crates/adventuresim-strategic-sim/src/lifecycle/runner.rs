@@ -224,19 +224,27 @@ impl ScenarioState {
 
 fn select_socializing_role<'a>(tiers: &[(&'a str, &[&'a str])]) -> Option<(&'a str, &'a str)> {
     tiers.iter().find_map(|(role, candidates)| {
-        select_daily_location_target("actor", "shared_place", 9, candidates.iter().copied())
-            .map(|target| (*role, target))
+        select_daily_location_target(
+            "actor",
+            "shared_place",
+            adventuresim_world_schema::calendar::StrategicDayIndex::new(9),
+            candidates.iter().copied(),
+        )
+        .map(|target| (*role, target))
     })
 }
 
 fn run_cadence(seed: u64, cadence: LifecycleCadence) -> Result<LifecycleReport, String> {
     let mut state = ScenarioState::new();
-    let horizon = StrategicMinute::day_start_for_index(HORIZON_DAYS);
+    let horizon = adventuresim_world_schema::calendar::StrategicDayIndex::new(HORIZON_DAYS).start();
     match cadence {
         LifecycleCadence::Whole => state.advance_to(horizon, seed),
         LifecycleCadence::Daily => {
             for day in 1..=HORIZON_DAYS {
-                state.advance_to(StrategicMinute::day_start_for_index(day), seed);
+                state.advance_to(
+                    adventuresim_world_schema::calendar::StrategicDayIndex::new(day).start(),
+                    seed,
+                );
             }
         }
     }
@@ -357,7 +365,7 @@ fn project_metrics(state: &ScenarioState) -> LifecycleMetrics {
                 == select_daily_location_target(
                     "actor",
                     "shared_place",
-                    9,
+                    adventuresim_world_schema::calendar::StrategicDayIndex::new(9),
                     courting.into_iter().rev(),
                 )
                 .unwrap_or("unavailable"),

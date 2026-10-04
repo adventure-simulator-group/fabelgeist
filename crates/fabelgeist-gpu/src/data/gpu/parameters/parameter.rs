@@ -1,3 +1,4 @@
+use super::{UniformNumber, UniformUnsigned};
 use crate::data::{
     gpu::buffer::Buffer,
     gpu::sampler::Sampler,
@@ -9,8 +10,8 @@ use crate::data::{
 
 #[derive(Clone, Debug)]
 pub enum PassParameter {
-    Number(f64),
-    Unsigned(u32),
+    Number(UniformNumber),
+    Unsigned(UniformUnsigned),
     Vec2(Vec2),
     Vec3(Vec3),
     Vec4(Vec4),
@@ -106,24 +107,24 @@ impl From<Transform> for PassParameter {
 
 impl From<f32> for PassParameter {
     fn from(value: f32) -> Self {
-        Self::Number(value as f64)
+        Self::Number(UniformNumber::from(value))
     }
 }
 
 impl From<f64> for PassParameter {
     fn from(value: f64) -> Self {
-        Self::Number(value)
+        Self::Number(UniformNumber::from(value))
     }
 }
 
 impl From<u32> for PassParameter {
     fn from(value: u32) -> Self {
-        Self::Unsigned(value)
+        Self::Unsigned(UniformUnsigned::from(value))
     }
 }
 
 impl From<i32> for PassParameter {
     fn from(value: i32) -> Self {
-        Self::Unsigned(value as u32)
+        Self::Unsigned(UniformUnsigned::from(value))
     }
 }

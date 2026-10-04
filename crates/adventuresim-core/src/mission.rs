@@ -14,14 +14,32 @@ pub const MAX_TACTICAL_DAMAGE_PER_HIT: f32 = 1.0;
 pub const MAX_TACTICAL_CONTACT_STRESS: f32 = 10_000.0;
 pub const MAX_TACTICAL_AMMUNITION_USED: u32 = 1_024;
 
+/// Invalid canonical identity for a mission authority.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct AuthorityIdError {
+    pub expected_prefix: &'static str,
+}
+
+impl fmt::Display for AuthorityIdError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            formatter,
+            "authority ID must be bounded canonical ASCII starting with {}",
+            self.expected_prefix
+        )
+    }
+}
+
+impl std::error::Error for AuthorityIdError {}
+
 macro_rules! authority_id {
     ($name:ident, $prefix:literal) => {
-        #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+        #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize)]
         #[serde(transparent)]
         pub struct $name(String);
 
         impl $name {
-            pub fn new(value: impl Into<String>) -> Result<Self, &'static str> {
+            pub fn new(value: impl Into<String>) -> Result<Self, AuthorityIdError> {
                 let value = value.into();
                 if value.len() > 128
                     || !value.starts_with($prefix)
@@ -32,7 +50,9 @@ macro_rules! authority_id {
                             || matches!(byte, b':' | b'-' | b'_')
                     })
                 {
-                    return Err("authority ID is not bounded canonical ASCII for its kind");
+                    return Err(AuthorityIdError {
+                        expected_prefix: $prefix,
+                    });
                 }
                 Ok(Self(value))
             }
@@ -43,6 +63,12 @@ macro_rules! authority_id {
 
             pub fn into_inner(self) -> String {
                 self.0
+            }
+        }
+
+        impl<'de> Deserialize<'de> for $name {
+            fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+                Self::new(String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
             }
         }
 
@@ -95,6 +121,19 @@ mod tests {
         assert!(MissionId::new("battle:1").is_err());
         assert!(MissionId::new("mission:UPPER").is_err());
         assert!(MissionId::new(format!("mission:{}", "x".repeat(129))).is_err());
+    }
+
+    #[test]
+    fn received_authority_ids_cannot_bypass_their_kind_or_bounds() {
+        for raw in ["", "battle:1", "mission:UPPER", "mission:", "mission:a\n"] {
+            let json = serde_json::to_string(raw).unwrap();
+            assert!(serde_json::from_str::<MissionId>(&json).is_err());
+        }
+        let id: MissionId = serde_json::from_str("\"mission:1\"").unwrap();
+        assert_eq!(serde_json::to_string(&id).unwrap(), "\"mission:1\"");
+        assert!(serde_json::from_str::<BattleId>("\"mission:1\"").is_err());
+        assert!(serde_json::from_str::<HostileGroupId>("\"outcome:1\"").is_err());
+        assert!(serde_json::from_str::<OutcomeSourceId>("\"hostile-group:1\"").is_err());
     }
 
     #[test]

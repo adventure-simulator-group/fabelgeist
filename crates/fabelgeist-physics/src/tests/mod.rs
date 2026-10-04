@@ -6,9 +6,10 @@ use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 use fabelgeist_xpbd::{Particles, Solver, SolverSettings};
 
+use crate::Collisions;
 use crate::collider::{Collider, Shape};
 use crate::mesh::{MeshCollider, MeshSurface};
-use crate::{Collisions, HookChain};
+use fabelgeist_xpbd::{HookChain, SolverBuildError, SubstepCount, SubstepDuration};
 
 /// A UV sphere, and the analytic surface it approximates.
 fn sphere_mesh(rings: usize, segments: usize, radius: f32) -> (Vec<Vec3>, Vec<[u32; 3]>) {
@@ -145,19 +146,19 @@ impl Harness {
         })
     }
 
-    fn solver(&self, settings: SolverSettings) -> Result<Solver> {
+    fn solver(&self, settings: SolverSettings) -> std::result::Result<Solver, SolverBuildError> {
         Solver::with_cache(&self.context, &self.cache, settings)
     }
 
-    fn collisions(&self) -> Result<Collisions> {
+    fn collisions(&self) -> std::result::Result<Collisions, crate::CollisionBuildError> {
         Collisions::new(&self.context, &self.cache)
     }
 }
 
-fn settings(substeps: u32) -> SolverSettings {
+fn settings(substeps: SubstepCount) -> SolverSettings {
     SolverSettings {
         substeps,
-        damping: 1.0,
+        damping: 1.0.into(),
         ..Default::default()
     }
 }
@@ -168,8 +169,11 @@ async fn particles_settle_on_the_ground() -> Result<()> {
     let positions: Vec<Vec3> = (0..64)
         .map(|i| Vec3::new(i as f32 * 0.01, 1.0, 0.0))
         .collect();
-    let particles =
-        Particles::from_positions(&harness.context, &positions, &vec![1.0; positions.len()])?;
+    let particles = Particles::from_positions(
+        &harness.context,
+        &positions,
+        &vec![1.0.into(); positions.len()],
+    )?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(
@@ -177,14 +181,14 @@ async fn particles_settle_on_the_ground() -> Result<()> {
         vec![Collider::ground(0.0).with_thickness(0.01)],
     )?;
 
-    let solver = harness.solver(settings(10))?;
+    let solver = harness.solver(settings(10.into()))?;
     for _ in 0..180 {
         solver.step(
             &harness.context,
             &particles,
             &mut [],
             &mut collisions,
-            1.0 / 60.0,
+            (1.0 / 60.0).into(),
         )?;
     }
 
@@ -216,8 +220,11 @@ async fn particles_stay_outside_a_sphere() -> Result<()> {
             positions.push(Vec3::new(x as f32 * 0.05, 1.5, z as f32 * 0.05));
         }
     }
-    let particles =
-        Particles::from_positions(&harness.context, &positions, &vec![1.0; positions.len()])?;
+    let particles = Particles::from_positions(
+        &harness.context,
+        &positions,
+        &vec![1.0.into(); positions.len()],
+    )?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(
@@ -228,14 +235,14 @@ async fn particles_stay_outside_a_sphere() -> Result<()> {
         ],
     )?;
 
-    let solver = harness.solver(settings(15))?;
+    let solver = harness.solver(settings(15.into()))?;
     for _ in 0..150 {
         solver.step(
             &harness.context,
             &particles,
             &mut [],
             &mut collisions,
-            1.0 / 60.0,
+            (1.0 / 60.0).into(),
         )?;
     }
 
@@ -265,7 +272,7 @@ async fn friction_holds_a_particle_on_a_slope() -> Result<()> {
     let mut travelled = Vec::new();
     for friction in [0.0f32, 0.8] {
         let start = Vec3::new(0.0, 0.02, 0.0);
-        let particles = Particles::from_positions(&harness.context, &[start], &[1.0])?;
+        let particles = Particles::from_positions(&harness.context, &[start], &[1.0.into()])?;
 
         let mut collisions = harness.collisions()?;
         collisions.set_colliders(
@@ -278,8 +285,8 @@ async fn friction_holds_a_particle_on_a_slope() -> Result<()> {
         )?;
 
         let solver = harness.solver(SolverSettings {
-            substeps: 20,
-            damping: 0.0,
+            substeps: 20.into(),
+            damping: 0.0.into(),
             ..Default::default()
         })?;
         for _ in 0..120 {
@@ -288,7 +295,7 @@ async fn friction_holds_a_particle_on_a_slope() -> Result<()> {
                 &particles,
                 &mut [],
                 &mut collisions,
-                1.0 / 60.0,
+                (1.0 / 60.0).into(),
             )?;
         }
 
@@ -324,8 +331,11 @@ async fn particles_stay_outside_a_mesh() -> Result<()> {
             positions.push(Vec3::new(x as f32 * 0.05, 1.2, z as f32 * 0.05));
         }
     }
-    let particles =
-        Particles::from_positions(&harness.context, &positions, &vec![1.0; positions.len()])?;
+    let particles = Particles::from_positions(
+        &harness.context,
+        &positions,
+        &vec![1.0.into(); positions.len()],
+    )?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(&harness.context, vec![Collider::ground(-1.0)])?;
@@ -341,14 +351,14 @@ async fn particles_stay_outside_a_mesh() -> Result<()> {
         },
     )?));
 
-    let solver = harness.solver(settings(20))?;
+    let solver = harness.solver(settings(20.into()))?;
     for _ in 0..200 {
         solver.step(
             &harness.context,
             &particles,
             &mut [],
             &mut collisions,
-            1.0 / 60.0,
+            (1.0 / 60.0).into(),
         )?;
     }
 
@@ -383,7 +393,7 @@ async fn a_moving_mesh_still_collides() -> Result<()> {
     let (base_positions, triangles) = sphere_mesh(16, 32, radius);
 
     let start = Vec3::new(0.0, 0.5, 0.0);
-    let particles = Particles::from_positions(&harness.context, &[start], &[1.0])?;
+    let particles = Particles::from_positions(&harness.context, &[start], &[1.0.into()])?;
 
     let mut collisions = harness.collisions()?;
     let mut mesh = MeshCollider::new(
@@ -408,14 +418,14 @@ async fn a_moving_mesh_still_collides() -> Result<()> {
     let final_offset = Vec3::new(0.0, 0.2, 0.0);
 
     collisions.set_mesh(Some(mesh));
-    let solver = harness.solver(settings(20))?;
+    let solver = harness.solver(settings(20.into()))?;
     for _ in 0..120 {
         solver.step(
             &harness.context,
             &particles,
             &mut [],
             &mut collisions,
-            1.0 / 60.0,
+            (1.0 / 60.0).into(),
         )?;
     }
 
@@ -450,7 +460,7 @@ async fn a_particle_started_inside_is_pushed_out() -> Result<()> {
 
     // Well inside, but off-centre so there is a nearest surface to leave by.
     let start = Vec3::new(0.15, 0.05, 0.0);
-    let particles = Particles::from_positions(&harness.context, &[start], &[1.0])?;
+    let particles = Particles::from_positions(&harness.context, &[start], &[1.0.into()])?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_mesh(Some(MeshCollider::new(
@@ -477,9 +487,9 @@ async fn a_particle_started_inside_is_pushed_out() -> Result<()> {
 
     // And once out, an ordinary run keeps it out.
     let solver = harness.solver(SolverSettings {
-        substeps: 20,
-        gravity: Vec3::default(),
-        damping: 5.0,
+        substeps: 20.into(),
+        gravity: Vec3::default().into(),
+        damping: 5.0.into(),
         ..Default::default()
     })?;
     for _ in 0..120 {
@@ -488,7 +498,7 @@ async fn a_particle_started_inside_is_pushed_out() -> Result<()> {
             &particles,
             &mut [],
             &mut collisions,
-            1.0 / 60.0,
+            (1.0 / 60.0).into(),
         )?;
     }
 
@@ -505,19 +515,19 @@ async fn a_particle_started_inside_is_pushed_out() -> Result<()> {
 async fn pinned_particles_ignore_collision() -> Result<()> {
     let harness = Harness::new().await?;
     let start = Vec3::new(0.0, -1.0, 0.0);
-    let particles = Particles::from_positions(&harness.context, &[start], &[0.0])?;
+    let particles = Particles::from_positions(&harness.context, &[start], &[0.0.into()])?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
-    let solver = harness.solver(settings(10))?;
+    let solver = harness.solver(settings(10.into()))?;
     for _ in 0..60 {
         solver.step(
             &harness.context,
             &particles,
             &mut [],
             &mut collisions,
-            1.0 / 60.0,
+            (1.0 / 60.0).into(),
         )?;
     }
 
@@ -567,25 +577,28 @@ async fn updating_collider_counts_is_rejected() -> Result<()> {
 async fn a_hook_chain_runs_every_hook() -> Result<()> {
     let harness = Harness::new().await?;
     let particles =
-        Particles::from_positions(&harness.context, &[Vec3::new(0.0, 1.0, 0.0)], &[1.0])?;
+        Particles::from_positions(&harness.context, &[Vec3::new(0.0, 1.0, 0.0)], &[1.0.into()])?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
     let mut calls = 0usize;
-    let solver = harness.solver(settings(4))?;
+    let solver = harness.solver(settings(4.into()))?;
     {
-        let mut counter = |_: &mut KernelBatch, _: &Particles, _: f32| {
+        let mut counter = |_: &mut KernelBatch,
+                           _: &Particles,
+                           _: SubstepDuration|
+         -> std::result::Result<(), std::convert::Infallible> {
             calls += 1;
             Ok(())
         };
-        let mut chain = HookChain::new(vec![&mut collisions, &mut counter]);
+        let mut chain = HookChain::new(&mut collisions, &mut counter);
         solver.step(
             &harness.context,
             &particles,
             &mut [],
             &mut chain,
-            1.0 / 60.0,
+            (1.0 / 60.0).into(),
         )?;
     }
     assert_eq!(calls, 4);

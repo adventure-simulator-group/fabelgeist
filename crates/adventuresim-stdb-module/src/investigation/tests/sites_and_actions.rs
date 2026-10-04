@@ -218,11 +218,14 @@ fn generated_case_site_presentation_is_validated_and_action_only() {
     let projected_type = source
         .split("pub struct BackendCaseSitePin")
         .nth(1)
-        .and_then(|tail| tail.split("pub struct BackendCharacterCaseSiteLocation").next())
+        .and_then(|tail| {
+            tail.split("pub struct BackendCharacterCaseSiteLocation")
+                .next()
+        })
         .expect("case-site pin projection type");
     for required in [
         "validate_quest_generation_authority",
-        "canonical_case_site_place(&generated_site.id.0)",
+        "canonical_case_site_place(generated_site.id.as_str())",
         ".map(|generated| (generated, site.id.to_place()))",
         "generated == persisted",
         "generated_site.safe_label != site.name",
@@ -299,7 +302,7 @@ fn exact_witness_belief_projects_a_pin_without_route_completion() {
 #[test]
 fn source_has_authorization_idempotency_and_no_implicit_sharing() {
     let source = INVESTIGATION_SOURCE;
-    assert!(source.contains("require_strategic_gateway(ctx)?"));
+    assert!(source.split_whitespace().collect::<String>().contains("require_strategic_gateway(ctx).map_err(|error:crate::strategic::GatewayAdmissionError|error.to_string())?"));
     assert!(source.contains("different payload"));
     assert!(source.contains("co-located member"));
     assert!(source.contains("share_investigation_belief"));
@@ -450,7 +453,10 @@ fn corrected_exact_site_knowledge_is_not_live_action_support() {
     let legacy_site_lookup = source
         .split("pub(crate) fn exact_case_site_for_observer_at")
         .nth(1)
-        .and_then(|tail| tail.split("pub(crate) fn case_site_presence_for_observer").next())
+        .and_then(|tail| {
+            tail.split("pub(crate) fn case_site_presence_for_observer")
+                .next()
+        })
         .expect("stable travel and pin exact-site helper");
     assert!(legacy_site_lookup.contains("observer_character_id: u64"));
     assert!(legacy_site_lookup.contains("case_site_id: &str"));
@@ -545,16 +551,12 @@ fn corrected_contact_referral_is_not_live_at_any_action_boundary() {
         .and_then(|tail| tail.split("fn complete_referred_contact_action").next())
         .expect("recovery contact support");
     assert!(recovery.contains("lead_is_live_contact_referral"));
-    let execution = source
+    let execution = include_str!("../actions/live_prerequisites.rs")
         .split("fn validate_live_action_prerequisites")
         .nth(1)
-        .and_then(|tail| {
-            tail.split("fn case_objective_contains_custody_target")
-                .next()
-        })
         .expect("execution contact support");
     assert!(execution.contains("lead_is_live_contact_referral"));
-    assert!(execution.contains("No live witness referral supports this action"));
+    assert!(execution.contains("InvestigationAdmissionError::NoLiveContactReferral"));
 }
 
 #[test]
@@ -593,13 +595,9 @@ fn generated_live_support_uses_the_observer_safe_case_alias_at_every_boundary() 
     assert!(recovery.contains("&observer_case_id"));
     assert!(recovery.contains("lead.case_id == observer_case_id"));
 
-    let execution = source
+    let execution = include_str!("../actions/live_prerequisites.rs")
         .split("fn validate_live_action_prerequisites")
         .nth(1)
-        .and_then(|tail| {
-            tail.split("fn case_objective_contains_custody_target")
-                .next()
-        })
         .expect("action execution prerequisites");
     assert!(execution.contains("reducer_action_public_case_id(ctx, capability)"));
     assert!(execution.contains("&observer_case_id"));
@@ -625,10 +623,13 @@ fn generated_live_support_uses_the_observer_safe_case_alias_at_every_boundary() 
         .expect("pattern reducer support");
     assert!(pattern_recovery.contains("reducer_action_public_case_id(ctx, capability)"));
     assert!(pattern_recovery.contains("&observer_case_id"));
-    let pattern_execution = source
+    let pattern_execution = include_str!("../actions.rs")
         .split("fn validate_generated_pattern_condition")
         .nth(1)
-        .and_then(|tail| tail.split("fn validate_live_action_prerequisites").next())
+        .and_then(|tail| {
+            tail.split("fn case_objective_contains_custody_target")
+                .next()
+        })
         .expect("pattern execution support");
     assert!(pattern_execution.contains("reducer_action_public_case_id(ctx, capability)"));
     assert!(pattern_execution.contains("&observer_case_id"));
@@ -748,7 +749,10 @@ fn nighttime_projection_wait_is_exact_and_bounded() {
     assert_eq!(night_window_wait_minutes(StrategicMinute::new(360)), 840);
     assert_eq!(night_window_wait_minutes(StrategicMinute::new(1_199)), 1);
     assert_eq!(night_window_wait_minutes(StrategicMinute::new(1_200)), 0);
-    assert_eq!(night_window_wait_minutes(StrategicMinute::new(1_440 + 600)), 600);
+    assert_eq!(
+        night_window_wait_minutes(StrategicMinute::new(1_440 + 600)),
+        600
+    );
 
     let blocked = projected_action_availability(true, None, false, 37);
     assert_eq!(
@@ -811,10 +815,9 @@ fn locate_contact_projection_mirrors_public_scheduled_presence() {
     assert!(projection.contains("InvestigationActionUnavailableReason::ContactScheduleWindow"));
     assert!(projection.contains("InvestigationActionUnavailableReason::ContactNotPresent"));
 
-    let reducer = source
+    let reducer = include_str!("../actions/position.rs")
         .split("fn validate_action_position")
         .nth(1)
-        .and_then(|tail| tail.split("fn validate_generated_pattern_condition").next())
         .expect("reducer contact presence validation");
     assert!(reducer.contains("InvestigationActionKind::LocateContact"));
     assert!(reducer.contains("npc_is_present"));
@@ -913,14 +916,23 @@ fn progressed_single_patrol_frontier_is_valid_after_public_night_wait() {
         "A single investigation entry must be an exact referred contact"
     );
 
-    let source = INVESTIGATION_SOURCE;
-    let execution = source
+    let execution = include_str!("../actions/execution.rs")
         .split("pub(crate) fn perform_investigation_action_authorized")
         .nth(1)
-        .and_then(|tail| tail.split("pub fn perform_investigation_action").next())
         .expect("authorized action execution");
-    assert!(execution.contains("validate_action_route_graph("));
+    let admission = execution
+        .find("route_admission::ValidatedActionRoute::from_capability(ctx, &capability)?")
+        .expect("execution admits the stored route");
+    let prerequisites = execution
+        .find("validate_live_action_prerequisites(")
+        .expect("execution checks current prerequisites");
+    assert!(admission < prerequisites);
+    let route_admission = include_str!("../actions/route_admission.rs");
+    assert!(route_admission.contains(
+        "validate_action_route_graph(ctx, capability.owner_character_id, &capability.case_id)?"
+    ));
     assert!(!execution.contains("validate_newly_issued_action_route_graph("));
+    assert!(!route_admission.contains("validate_newly_issued_action_route_graph("));
 }
 
 #[test]
@@ -1024,10 +1036,7 @@ fn case_site_disclosure_ids_reject_prefix_spoofs_and_malformed_revisions() {
         Some(CaseSiteDisclosureLeadId::Base)
     );
     assert_eq!(
-        CaseSiteDisclosureLeadId::parse(
-            "case-site-disclosure:7:site:ford:revision:00000042",
-            base,
-        ),
+        CaseSiteDisclosureLeadId::parse("case-site-disclosure:7:site:ford:revision:00000042", base,),
         Some(CaseSiteDisclosureLeadId::Revision(42))
     );
     for spoof in [
@@ -1038,6 +1047,10 @@ fn case_site_disclosure_ids_reject_prefix_spoofs_and_malformed_revisions() {
         "case-site-disclosure:7:site:ford:revision:0000004x",
         "case-site-disclosure:7:site:ford:revision:00000042:extra",
     ] {
-        assert_eq!(CaseSiteDisclosureLeadId::parse(spoof, base), None, "{spoof}");
+        assert_eq!(
+            CaseSiteDisclosureLeadId::parse(spoof, base),
+            None,
+            "{spoof}"
+        );
     }
 }

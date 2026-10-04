@@ -1,7 +1,8 @@
 //! Barrel walls, sealed breeches and stock-end construction.
 use super::*;
+use crate::ConstructionError;
 impl Assembly<'_> {
-    pub(super) fn stock_pommel(&mut self, p: &FirearmParameters) -> Result<(), String> {
+    pub(super) fn stock_pommel(&mut self, p: &FirearmParameters) -> Result<(), ConstructionError> {
         let r = self.resolved;
         let detail = self.detail;
         if p.stock_style == FirearmStockStyle::Pistol {
@@ -42,7 +43,11 @@ impl Assembly<'_> {
 
         Ok(())
     }
-    pub(super) fn barrels(&mut self, p: &FirearmParameters, centers: &[f64]) -> Result<(), String> {
+    pub(super) fn barrels(
+        &mut self,
+        p: &FirearmParameters,
+        centers: &[f64],
+    ) -> Result<(), ConstructionError> {
         let detail = self.detail;
         let start = p.length.get() - p.barrel_length.get();
         let outer = p.bore.get() / 2.0 + p.barrel_wall.get();
@@ -57,7 +62,7 @@ impl Assembly<'_> {
                 p.barrel_length.get()
             } else {
                 p.secondary_barrel_length
-                    .ok_or("double barrel needs secondary length")?
+                    .ok_or(ConstructionError::DoubleBarrelNeedsSecondaryLength)?
                     .get()
             };
             let end = start + length;

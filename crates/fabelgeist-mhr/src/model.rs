@@ -1,16 +1,26 @@
 //! The MHR body model: identity, pose and expression parameters in, posed
 //! mesh vertices and a skeleton state out.
 
-use std::path::{Path, PathBuf};
+mod assets;
+mod error;
+mod input;
+mod loading;
+pub use assets::{MhrAsset, MhrAssetDirectory, MhrAssetDirectoryError, MhrAssetReadError};
+pub use error::{MhrLoadError, MhrModelLayoutError};
+pub use input::{
+    ExpressionCoefficientCount, IdentityCoefficientCount, MhrEvaluationError, ModelBatchSize,
+    PoseParameterCount,
+};
+use input::{ExpressionLayout, IdentityLayout, IdentityRows, PoseLayout};
 
-use anyhow::{Context, Result, bail};
 use burn::tensor::ops::IndexingUpdateOp;
 use burn::tensor::{Device, Int, Tensor, TensorData};
 
 use crate::character::{Character, PARAMETERS_PER_JOINT};
 use crate::correctives::PoseCorrectives;
-use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
+use crate::model_def::ParameterTransform;
 use crate::skel_state;
+use crate::{PoseCorrectiveAvailability, PoseCorrectivePolicy};
 
 /// Shape coefficients: 20 body, 20 head, 5 hands.
 pub const NUM_IDENTITY_BLEND_SHAPES: usize = 45;
@@ -18,31 +28,6 @@ pub const NUM_IDENTITY_BLEND_SHAPES: usize = 45;
 pub const NUM_FACE_EXPRESSION_BLEND_SHAPES: usize = 72;
 /// Total blend shapes carried by an MHR rig.
 pub const NUM_BLEND_SHAPES: usize = NUM_IDENTITY_BLEND_SHAPES + NUM_FACE_EXPRESSION_BLEND_SHAPES;
-
-/// Supported runtime body detail, 4 (densest) through 6.
-pub const MIN_LOD: u8 = 4;
-pub const MAX_LOD: u8 = 6;
-
-const MODEL_DEFINITION: &str = "compact_v6_1.model";
-const CORRECTIVE_ACTIVATION: &str = "corrective_activation.npz";
-
-/// How to load a model.
-#[derive(Debug, Clone, Copy)]
-pub struct MhrConfig {
-    pub lod: u8,
-    /// Load the pose-corrective network. It dominates both load time and
-    /// memory (2.5 GiB of coefficients at LOD 0), so it can be turned off.
-    pub pose_correctives: bool,
-}
-
-impl Default for MhrConfig {
-    fn default() -> Self {
-        Self {
-            lod: MIN_LOD,
-            pose_correctives: true,
-        }
-    }
-}
 
 /// One forward pass.
 pub struct MhrOutput {
@@ -62,14 +47,14 @@ pub struct MhrOutput {
 pub struct Mhr {
     /// Topology and names, kept on the host for lookups and the normal pass.
     pub character: Character,
-    pub parameter_transform: ParameterTransform,
+    parameter_transform: ParameterTransform,
     device: Device,
 
     /// `[model parameters, joints * 7]`, transposed for a right-hand matmul.
     transform: Tensor<2>,
     /// Constant joint-parameter offsets, or `None` when the rig has none.
     offsets: Option<Tensor<2>>,
-    num_model_parameters: usize,
+    num_model_parameters: PoseParameterCount,
 
     /// `[1, joints, 3]` and `[1, joints, 4]`.
     joint_translation_offsets: Tensor<3>,
@@ -97,168 +82,30 @@ pub struct Mhr {
     correctives: Option<PoseCorrectives>,
 }
 
-/// Accepts either the asset directory itself or its parent.
-fn resolve_asset_dir(path: &Path) -> Result<PathBuf> {
-    if path.join(MODEL_DEFINITION).is_file() {
-        return Ok(path.to_path_buf());
-    }
-    let nested = path.join("assets");
-    if nested.join(MODEL_DEFINITION).is_file() {
-        return Ok(nested);
-    }
-    bail!(
-        "no MHR assets in {}: expected {MODEL_DEFINITION} there or under assets/",
-        path.display()
-    )
-}
-
 impl Mhr {
-    /// Loads MHR through `fabelgeist-fs`, including `prism://project`, HTTP/blob,
-    /// browser File System Access handles, and native filesystem paths.
-    pub async fn from_uri(asset_dir: &str, config: MhrConfig, device: &Device) -> Result<Self> {
-        if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
-            bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
-        }
-        let base = asset_dir.trim_end_matches(['/', '\\']);
-        let read_asset = |name: String| async move {
-            let direct = format!("{base}/{name}");
-            match fabelgeist_fs::read_bytes(&direct).await {
-                Ok(bytes) => Ok(bytes),
-                Err(direct_error) => {
-                    let nested = format!("{base}/assets/{name}");
-                    fabelgeist_fs::read_bytes(&nested).await.map_err(|nested_error| {
-                        anyhow::anyhow!(
-                            "could not read MHR asset {name:?} from {direct} ({direct_error:#}) or {nested} ({nested_error:#})"
-                        )
-                    })
-                }
-            }
-        };
-
-        let fbx = read_asset(format!("lod{}.fbx", config.lod)).await?;
-        let definition = String::from_utf8(read_asset(MODEL_DEFINITION.into()).await?)
-            .map_err(|error| anyhow::anyhow!("MHR model definition is not UTF-8: {error}"))?;
-        let corrective_archives = if config.pose_correctives {
-            Some((
-                read_asset(CORRECTIVE_ACTIVATION.into()).await?,
-                read_asset(format!("corrective_blendshapes_lod{}.npz", config.lod)).await?,
-            ))
-        } else {
-            None
-        };
-
-        Self::from_asset_bytes(&fbx, &definition, corrective_archives, config, device)
-    }
-
-    /// Loads a model from an MHR asset directory (the unpacked `assets.zip`).
-    pub fn from_files(
-        asset_dir: impl AsRef<Path>,
-        config: MhrConfig,
-        device: &Device,
-    ) -> Result<Self> {
-        if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
-            bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
-        }
-        let dir = resolve_asset_dir(asset_dir.as_ref())?;
-
-        let fbx_path = dir.join(format!("lod{}.fbx", config.lod));
-        let fbx =
-            std::fs::read(&fbx_path).with_context(|| format!("reading {}", fbx_path.display()))?;
-        let character = Character::from_fbx_bytes(&fbx, true)
-            .with_context(|| format!("loading {}", fbx_path.display()))?;
-        let definition_path = dir.join(MODEL_DEFINITION);
-        let definition = std::fs::read_to_string(&definition_path)
-            .with_context(|| format!("reading {}", definition_path.display()))?;
-        let correctives = if config.pose_correctives {
-            PoseCorrectives::load(
-                &dir.join(CORRECTIVE_ACTIVATION),
-                &dir.join(format!("corrective_blendshapes_lod{}.npz", config.lod)),
-                character.skeleton.len(),
-                character.mesh.vertices.len(),
-                device,
-            )
-            .context("loading the pose-corrective network")?
-        } else {
-            None
-        };
-        Self::from_loaded_assets(character, &definition, correctives, device)
-    }
-
-    /// Loads MHR from asset bytes, allowing browsers and virtual filesystems to
-    /// provide the same FBX/model/NPZ inputs as the native filesystem loader.
-    pub fn from_asset_bytes(
-        fbx: &[u8],
-        definition: &str,
-        corrective_archives: Option<(Vec<u8>, Vec<u8>)>,
-        config: MhrConfig,
-        device: &Device,
-    ) -> Result<Self> {
-        if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
-            bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
-        }
-        let character = Character::from_fbx_bytes(fbx, true).context("loading the MHR FBX")?;
-        let correctives = if config.pose_correctives {
-            let (activation, basis) = corrective_archives
-                .context("pose correctives requested but their NPZ archives were not provided")?;
-            PoseCorrectives::from_bytes(
-                activation,
-                basis,
-                character.skeleton.len(),
-                character.mesh.vertices.len(),
-                device,
-            )
-            .context("loading the pose-corrective network")?
-        } else {
-            None
-        };
-
-        Self::from_loaded_assets(character, definition, correctives, device)
-    }
-
-    fn from_loaded_assets(
-        character: Character,
-        definition: &str,
-        correctives: Option<PoseCorrectives>,
-        device: &Device,
-    ) -> Result<Self> {
-        let mut parameter_transform = parse_model_definition(definition, &character.skeleton)
-            .context("parsing the MHR model definition")?;
-        let num_model_parameters = parameter_transform.num_parameters();
-        // momentum appends one model parameter per identity blend shape when a
-        // blend shape is attached to the character.
-        append_blend_shape_parameters(&mut parameter_transform, NUM_IDENTITY_BLEND_SHAPES);
-        Self::new(
-            character,
-            parameter_transform,
-            num_model_parameters,
-            correctives,
-            device,
-        )
+    /// Admitted host transform, immutable after its device projection is built.
+    pub fn parameter_transform(&self) -> &ParameterTransform {
+        &self.parameter_transform
     }
 
     fn new(
         character: Character,
         parameter_transform: ParameterTransform,
-        num_model_parameters: usize,
+        num_model_parameters: PoseParameterCount,
         correctives: Option<PoseCorrectives>,
         device: &Device,
-    ) -> Result<Self> {
+    ) -> Result<Self, MhrModelLayoutError> {
         let joints = character.skeleton.len();
         let vertices = character.mesh.vertices.len();
 
-        if character.blend_shapes.len() != NUM_BLEND_SHAPES {
-            bail!(
-                "rig has {} blend shapes, expected {NUM_IDENTITY_BLEND_SHAPES} identity plus \
-                 {NUM_FACE_EXPRESSION_BLEND_SHAPES} expression",
-                character.blend_shapes.len()
-            );
-        }
+        character.blend_shapes.len().admit_for_model()?;
 
         // Transposed so a forward pass is `parameters @ transform`.
-        let columns = parameter_transform.num_parameters();
-        let mut transform = vec![0.0f32; num_model_parameters * joints * PARAMETERS_PER_JOINT];
+        let columns = usize::from(parameter_transform.num_parameters());
+        let model_columns = usize::from(num_model_parameters);
+        let mut transform = vec![0.0f32; model_columns * joints * PARAMETERS_PER_JOINT];
         for row in 0..joints * PARAMETERS_PER_JOINT {
-            for column in 0..num_model_parameters {
+            for column in 0..model_columns {
                 transform[column * joints * PARAMETERS_PER_JOINT + row] =
                     parameter_transform.transform[row * columns + column];
             }
@@ -338,10 +185,7 @@ impl Mhr {
         Ok(Self {
             device: device.clone(),
             transform: Tensor::from_data(
-                TensorData::new(
-                    transform,
-                    [num_model_parameters, joints * PARAMETERS_PER_JOINT],
-                ),
+                TensorData::new(transform, [model_columns, joints * PARAMETERS_PER_JOINT]),
                 device,
             ),
             offsets,
@@ -397,12 +241,15 @@ impl Mhr {
 
     /// Number of pose/scale parameters the model takes, excluding the blend
     /// shape coefficients momentum appends to the parameter vector.
-    pub fn num_model_parameters(&self) -> usize {
+    pub fn num_model_parameters(&self) -> PoseParameterCount {
         self.num_model_parameters
     }
 
-    pub fn has_pose_correctives(&self) -> bool {
-        self.correctives.is_some()
+    pub fn pose_corrective_availability(&self) -> PoseCorrectiveAvailability {
+        match self.correctives {
+            Some(_) => PoseCorrectiveAvailability::Available,
+            None => PoseCorrectiveAvailability::Unavailable,
+        }
     }
 
     pub fn device(&self) -> &Device {
@@ -410,8 +257,11 @@ impl Mhr {
     }
 
     /// Zero parameters for a batch, i.e. the rest pose.
-    pub fn zero_parameters(&self, batch: usize) -> Tensor<2> {
-        Tensor::zeros([batch, self.num_model_parameters], &self.device)
+    pub fn zero_parameters(&self, batch: ModelBatchSize) -> Tensor<2> {
+        Tensor::zeros(
+            [usize::from(batch), usize::from(self.num_model_parameters)],
+            &self.device,
+        )
     }
 
     /// Runs the model.
@@ -424,8 +274,13 @@ impl Mhr {
         identity: Tensor<2>,
         model_parameters: Tensor<2>,
         expression: Option<Tensor<2>>,
-    ) -> Result<MhrOutput> {
-        self.forward_with(identity, model_parameters, expression, true)
+    ) -> std::result::Result<MhrOutput, MhrEvaluationError> {
+        self.forward_with(
+            identity,
+            model_parameters,
+            expression,
+            PoseCorrectivePolicy::Enabled,
+        )
     }
 
     /// As [`Mhr::forward`], but able to skip the pose correctives.
@@ -434,46 +289,25 @@ impl Mhr {
         identity: Tensor<2>,
         model_parameters: Tensor<2>,
         expression: Option<Tensor<2>>,
-        apply_correctives: bool,
-    ) -> Result<MhrOutput> {
-        let batch = model_parameters.dims()[0];
+        apply_correctives: PoseCorrectivePolicy,
+    ) -> std::result::Result<MhrOutput, MhrEvaluationError> {
+        let pose_layout = PoseLayout::from(model_parameters.dims());
+        let batch = pose_layout.batch;
         let joints = self.num_joints();
         let vertices = self.num_vertices();
-
-        let [identity_rows, identity_columns] = identity.dims();
-        if identity_columns != NUM_IDENTITY_BLEND_SHAPES {
-            bail!(
-                "identity coefficients have {identity_columns} columns, expected {NUM_IDENTITY_BLEND_SHAPES}"
-            );
-        }
-        if identity_rows != batch && identity_rows != 1 {
-            bail!("identity coefficients have {identity_rows} rows, expected {batch} or 1");
-        }
-        if model_parameters.dims()[1] != self.num_model_parameters {
-            bail!(
-                "model parameters have {} columns, expected {}",
-                model_parameters.dims()[1],
-                self.num_model_parameters
-            );
-        }
+        let identity_rows = IdentityLayout::from(identity.dims()).admit(batch)?;
+        pose_layout.admit(self.num_model_parameters)?;
 
         // Rest shape: mean plus identity and expression offsets.
-        let identity = if identity_rows == batch {
-            identity
-        } else {
-            identity.expand([batch, NUM_IDENTITY_BLEND_SHAPES])
+        let identity = match identity_rows {
+            IdentityRows::Exact => identity,
+            IdentityRows::Broadcast => {
+                identity.expand([usize::from(batch), NUM_IDENTITY_BLEND_SHAPES])
+            }
         };
         let mut rest = self.base_shape.clone() + identity.matmul(self.identity_basis.clone());
         if let Some(expression) = expression {
-            let [rows, columns] = expression.dims();
-            if columns != NUM_FACE_EXPRESSION_BLEND_SHAPES {
-                bail!(
-                    "expression coefficients have {columns} columns, expected {NUM_FACE_EXPRESSION_BLEND_SHAPES}"
-                );
-            }
-            if rows != batch {
-                bail!("expression coefficients have {rows} rows, expected {batch}");
-            }
+            ExpressionLayout::from(expression.dims()).admit(batch)?;
             rest = rest + expression.matmul(self.expression_basis.clone());
         }
 
@@ -488,16 +322,19 @@ impl Mhr {
         let mut joint_parameters = (model_parameters.unsqueeze_dim::<3>(2)
             * self.transform.clone().unsqueeze::<3>())
         .sum_dim(1)
-        .reshape([batch, joints * PARAMETERS_PER_JOINT]);
+        .reshape([usize::from(batch), joints * PARAMETERS_PER_JOINT]);
         if let Some(offsets) = &self.offsets {
             joint_parameters = joint_parameters + offsets.clone();
         }
-        let joint_parameters = joint_parameters.reshape([batch, joints, PARAMETERS_PER_JOINT]);
+        let joint_parameters =
+            joint_parameters.reshape([usize::from(batch), joints, PARAMETERS_PER_JOINT]);
 
         let skeleton_state = self.skeleton_state(joint_parameters.clone());
 
-        let mut rest = rest.reshape([batch, vertices, 3]);
-        if apply_correctives && let Some(correctives) = &self.correctives {
+        let mut rest = rest.reshape([usize::from(batch), vertices, 3]);
+        if apply_correctives == PoseCorrectivePolicy::Enabled
+            && let Some(correctives) = &self.correctives
+        {
             rest = rest + correctives.forward(joint_parameters);
         }
 

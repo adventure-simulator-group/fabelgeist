@@ -122,7 +122,10 @@ impl DeviceBreastplate {
     ) -> Result<(), GenerateError> {
         let shell = &self.shell;
         let count = shell.count();
-        let positions = gpu.scratch(count as u64 * 12, "breastplate morph positions")?;
+        let positions = gpu.scratch(
+            (count as u64 * 12).into(),
+            ("breastplate morph positions").into(),
+        )?;
         dispatch(
             gpu,
             batch,
@@ -143,7 +146,7 @@ impl DeviceBreastplate {
                 ("base", &shell.positions),
                 ("positions", &positions),
             ],
-            count,
+            (count).into(),
         )?;
         let mut normals =
             VertexNormals::new(gpu.context(), count, shell.triangles()).map_err(device_error)?;

@@ -1,7 +1,14 @@
 //! Framework-independent arithmetic for measured inventory definitions.
 //!
-//! The persistent inventory schema is not implemented yet. This module is the
-//! small arithmetic boundary reducers can adopt if that work is revived.
+//! Inventory reducers retain these quantities while native row fields encode
+//! their counts and measured fractions at the storage boundary.
+
+mod grant;
+pub use grant::{InventoryGrantQuantity, InventoryRowAllocation};
+mod error;
+pub use error::MeasurementError;
+mod amount;
+pub use amount::MeasuredItemAmountMicros;
 
 use std::num::NonZeroU32;
 
@@ -166,21 +173,6 @@ pub struct MeasuredInventoryRow {
 pub struct EffectiveTotals {
     pub mass: u64,
     pub value: u64,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum MeasurementError {
-    ZeroCapacity,
-    NonContainerHasTare,
-    MeasuredRowIsNotSingleton,
-    BulkLotMustBeMeasuredSingleton,
-    MissingInstanceBasis,
-    UnexpectedInstanceBasis,
-    AmountExceedsCapacity,
-    FractionExceedsWhole,
-    InvalidFractionScale,
-    InvalidPricingFactor,
-    Overflow,
 }
 
 impl MeasurementProfile {

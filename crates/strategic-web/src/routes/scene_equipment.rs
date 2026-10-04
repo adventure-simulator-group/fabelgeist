@@ -1,5 +1,6 @@
 //! Read-only visible equipment for retained strategic character models.
 use super::AppState;
+use crate::spacetimedb::SqlQuery;
 use crate::{
     session::Session,
     spacetimedb::{
@@ -46,7 +47,7 @@ async fn equipment(
     let actor = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            &spacetimedb::character_by_id(actor),
+            spacetimedb::character_by_id(actor.into()),
         )
         .await
         .map_err(unavailable)?
@@ -58,8 +59,8 @@ async fn equipment(
         .join(" OR ");
     let characters = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(&format!(
-            "SELECT * FROM character WHERE {condition}"
+        .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(SqlQuery::from(
+            format!("SELECT * FROM character WHERE {condition}"),
         ))
         .await
         .map_err(unavailable)?;
@@ -71,10 +72,10 @@ async fn equipment(
     {
         let requests = state
             .db
-            .query_sats::<adventuresim_stdb_client::PartyJoinRequest>(&format!(
+            .query_sats::<adventuresim_stdb_client::PartyJoinRequest>(SqlQuery::from(format!(
                 "SELECT * FROM party_join_request WHERE party_id = {}",
                 spacetimedb::sql_string_literal(party)
-            ))
+            )))
             .await
             .map_err(unavailable)?;
         grants.extend(
@@ -103,16 +104,21 @@ async fn appearances(
         .map(|id| format!("character_id = {id}"))
         .collect::<Vec<_>>()
         .join(" OR ");
-    let worn_sql = format!("SELECT * FROM character_equipped_item WHERE {condition}");
-    let inventory_sql = format!("SELECT * FROM inventory_item WHERE {condition}");
-    let occupancy_sql = format!("SELECT * FROM equipment_occupancy WHERE {condition}");
+    let worn_sql = SqlQuery::from(format!(
+        "SELECT * FROM character_equipped_item WHERE {condition}"
+    ));
+    let inventory_sql = SqlQuery::from(format!("SELECT * FROM inventory_item WHERE {condition}"));
+    let occupancy_sql = SqlQuery::from(format!(
+        "SELECT * FROM equipment_occupancy WHERE {condition}"
+    ));
+
     let (worn, inventory, occupancies, objects) = tokio::join!(
-        state.db.query_sats::<CharacterEquippedItem>(&worn_sql),
-        state.db.query_sats::<InventoryItem>(&inventory_sql),
-        state.db.query_sats::<EquipmentOccupancy>(&occupancy_sql),
+        state.db.query_sats::<CharacterEquippedItem>(worn_sql),
+        state.db.query_sats::<InventoryItem>(inventory_sql),
+        state.db.query_sats::<EquipmentOccupancy>(occupancy_sql),
         state
             .db
-            .query_sats::<InventoryObject>("SELECT * FROM inventory_object"),
+            .query_sats::<InventoryObject>("SELECT * FROM inventory_object".into()),
     );
     let (mut worn, inventory, mut occupancies, objects) = (
         worn.map_err(unavailable)?,
@@ -178,11 +184,13 @@ async fn recipes(
     if condition.is_empty() {
         return Ok((vec![], vec![]));
     }
-    let weapon_sql = format!("SELECT * FROM weapon_instance WHERE {condition}");
-    let holder_sql = format!("SELECT * FROM weapon_holder_instance WHERE {condition}");
+    let weapon_sql = SqlQuery::from(format!("SELECT * FROM weapon_instance WHERE {condition}"));
+    let holder_sql = SqlQuery::from(format!(
+        "SELECT * FROM weapon_holder_instance WHERE {condition}"
+    ));
     let (weapons, holders) = tokio::join!(
-        state.db.query_sats::<WeaponInstance>(&weapon_sql),
-        state.db.query_sats::<WeaponHolderInstance>(&holder_sql)
+        state.db.query_sats::<WeaponInstance>(weapon_sql),
+        state.db.query_sats::<WeaponHolderInstance>(holder_sql)
     );
     Ok((weapons.map_err(unavailable)?, holders.map_err(unavailable)?))
 }

@@ -1,6 +1,10 @@
+use crate::{ArealDensityValidity, ParticleArealDensity, ParticleInverseMass, ParticleMass};
 use crate::{BendQuad, SelfCollision, topology};
-use anyhow::{Result, ensure};
 use fabelgeist_math::Vec3;
+
+mod error;
+mod validation;
+pub use error::{ShellConstraintFamily, ShellMeshError, ShellParticleReference};
 
 /// Rest geometry and constraints, independent of any garment or material model.
 #[derive(Clone, Debug, Default)]
@@ -10,12 +14,15 @@ pub struct ShellMesh {
     pub edges: Vec<[u32; 2]>,
     pub rest_lengths: Vec<f32>,
     pub bends: Vec<BendQuad>,
-    pub bend_weights: Vec<[f32; 8]>,
+    pub bend_weights: Vec<crate::BendRecord>,
     pub seams: Vec<[u32; 2]>,
-    pub masses: Vec<f32>,
+    pub masses: Vec<ParticleMass>,
 }
 impl ShellMesh {
-    pub fn from_mesh(mesh: &fabelgeist_mesh::MeshData, areal_density: f32) -> Result<Self> {
+    pub fn from_mesh(
+        mesh: &fabelgeist_mesh::MeshData,
+        areal_density: ParticleArealDensity,
+    ) -> Result<Self, ShellMeshError> {
         let triangles = mesh.triangles()?;
         let positions = mesh
             .positions
@@ -24,22 +31,25 @@ impl ShellMesh {
             .collect();
         Self::new(positions, triangles, areal_density)
     }
-    pub fn new(positions: Vec<Vec3>, triangles: Vec<[u32; 3]>, areal_density: f32) -> Result<Self> {
-        ensure!(
-            areal_density.is_finite() && areal_density > 0.0,
-            "areal density must be positive"
-        );
-        ensure!(
-            positions.iter().all(|p| p.is_finite()),
-            "non-finite shell position"
-        );
-        ensure!(
-            triangles
-                .iter()
-                .flatten()
-                .all(|i| (*i as usize) < positions.len()),
-            "shell triangle index out of bounds"
-        );
+    pub fn new(
+        positions: Vec<Vec3>,
+        triangles: Vec<[u32; 3]>,
+        areal_density: ParticleArealDensity,
+    ) -> Result<Self, ShellMeshError> {
+        if areal_density.validity() != ArealDensityValidity::PositiveFinite {
+            return Err(ShellMeshError::ArealDensity {
+                density: areal_density,
+            });
+        }
+        validation::validate_positions(&positions)?;
+        for &index in triangles.iter().flatten() {
+            if (index as usize) >= positions.len() {
+                return Err(ShellMeshError::TriangleIndex {
+                    index: index.into(),
+                    particles: positions.len().into(),
+                });
+            }
+        }
         let topology = topology::build(&triangles);
         let rest_lengths = topology
             .edges
@@ -50,14 +60,10 @@ impl ShellMesh {
         let mut bend_weights = Vec::new();
         for bend in topology.bends {
             let points = bend.particles().map(|i| positions[i as usize]);
-            if let Some(k) = topology::bending_weights(points) {
-                let rest = points
-                    .iter()
-                    .zip(k)
-                    .fold(Vec3::default(), |s, (p, w)| s + *p * w)
-                    .length();
+            let points = crate::BendPoints::from(points);
+            if let Ok(weights) = crate::BendWeights::for_points(points) {
                 bends.push(bend);
-                bend_weights.push([k[0], k[1], k[2], k[3], rest, 0.0, 0.0, 0.0]);
+                bend_weights.push(weights.observed_rest(points));
             }
         }
         let masses = topology::vertex_masses(&positions, &triangles, areal_density);
@@ -72,54 +78,18 @@ impl ShellMesh {
             masses,
         })
     }
-    pub fn validate(&self) -> Result<()> {
-        let n = self.positions.len();
-        ensure!(
-            n > 0 && n <= u32::MAX as usize,
-            "invalid shell particle count"
-        );
-        ensure!(
-            self.positions.iter().all(|p| p.is_finite()),
-            "non-finite shell position"
-        );
-        ensure!(
-            self.masses.len() == n && self.masses.iter().all(|m| m.is_finite() && *m >= 0.0),
-            "invalid shell masses"
-        );
-        ensure!(
-            self.edges.len() == self.rest_lengths.len()
-                && self.bends.len() == self.bend_weights.len(),
-            "constraint data length mismatch"
-        );
-        ensure!(
-            self.triangles
-                .iter()
-                .flatten()
-                .chain(self.edges.iter().flatten())
-                .chain(self.seams.iter().flatten())
-                .all(|i| (*i as usize) < n),
-            "shell index out of bounds"
-        );
-        ensure!(
-            self.bends
-                .iter()
-                .flat_map(|b| b.particles())
-                .all(|i| (i as usize) < n),
-            "bend index out of bounds"
-        );
-        ensure!(
-            self.rest_lengths.iter().all(|v| v.is_finite() && *v >= 0.0)
-                && self.bend_weights.iter().flatten().all(|v| v.is_finite()),
-            "invalid shell rest data"
-        );
-        Ok(())
-    }
-    pub fn inverse_masses(&self) -> Vec<f32> {
+    pub fn inverse_masses(&self) -> Vec<ParticleInverseMass> {
         topology::inverse_masses(&self.masses)
     }
     pub fn adjacency(&self) -> Vec<Vec<u32>> {
         let mut edges = self.edges.clone();
         edges.extend_from_slice(&self.seams);
-        SelfCollision::adjacency(self.positions.len(), &edges)
+        SelfCollision::adjacency(
+            fabelgeist_xpbd::ParticleInputCount::from(self.positions.len()),
+            &edges,
+        )
     }
 }
+
+#[cfg(test)]
+mod tests;

@@ -9,6 +9,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 fabelgeist-math = { "default-features" = false, "features" = ["wgpu"], "path" = "../fabelgeist-math" }
 fabelgeist-color = { "features" = ["wgpu"], "path" = "../fabelgeist-color" }
 anyhow = { "version" = "1.0" }
+thiserror = { workspace = true }
 bytemuck = { "version" = "1.16", "features" = ["derive"] }
 indexmap = { "version" = "2.12.1", "features" = ["serde"] }
 serde = { "version" = "1", "features" = ["derive"] }

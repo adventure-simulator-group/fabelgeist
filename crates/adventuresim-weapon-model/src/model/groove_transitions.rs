@@ -1,5 +1,6 @@
 //! Resolve reduced groove fans at their actual float32 envelope cutoffs.
 use super::*;
+use crate::ConstructionError;
 
 pub(super) fn refine(
     stations: &mut Vec<f64>,
@@ -7,7 +8,7 @@ pub(super) fn refine(
     minimum_envelope: f64,
     ring: &impl Fn(f64, f64) -> Vec<Point>,
     detail: Detail,
-) -> Result<(), String> {
+) -> Result<(), ConstructionError> {
     let mut cutoffs: Vec<_> = fuller
         .grooves
         .iter()
@@ -44,7 +45,7 @@ pub(super) fn refine(
         construction_budget((next.len() * ring(0.0, minimum_envelope).len() * 2) as f64)?;
         *stations = next;
     }
-    Err("groove transition exceeds its bounded cutoff refinement".into())
+    Err(ConstructionError::GrooveTransitionExceedsBoundedCutoffRefinement)
 }
 
 fn check_interval(
@@ -53,7 +54,7 @@ fn check_interval(
     minimum_envelope: f64,
     ring: &impl Fn(f64, f64) -> Vec<Point>,
     detail: Detail,
-) -> Result<(), String> {
+) -> Result<(), ConstructionError> {
     let [left, right] = [ring(a, minimum_envelope), ring(b, minimum_envelope)];
     let [raw_left, raw_right] = [ring(a, 0.0), ring(b, 0.0)];
     for side in 0..left.len() {

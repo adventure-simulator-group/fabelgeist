@@ -103,7 +103,7 @@ fn precision_changes_concentration_and_resistance_monotonically() {
 
 #[test]
 fn condition_scales_custom_geometry_once() {
-    let base = crate::item_catalog::weapon_precision("arming_sword").unwrap();
+    let base = crate::item_catalog::weapon_precision(&"arming_sword".into()).unwrap();
     let geometry =
         crate::equipment::ParametricWeaponCombatGeometry::new(1.0, 1.0, 0.8, 0.7, 0.2, 0.4, 2.0)
             .unwrap();

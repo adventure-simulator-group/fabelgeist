@@ -34,9 +34,12 @@ pub fn authority_test_mission_roster(
     ctx.db.case_site_authority().id_key().update(site.clone());
     party.current_case_site_id = Some(site.id.clone());
     party.camp_destination = None;
-    party.wilderness_canonical_anchor_minute = Some(crate::time::refresh_clock(ctx)?);
+    party.wilderness_canonical_anchor_minute = Some(
+        crate::time::refresh_clock(ctx)
+            .map_err(|error: crate::time::WorldClockError| error.to_string())?,
+    );
     ctx.db.party_authority().id().update(party.clone());
-    crate::investigation::set_character_case_site(ctx, actor, Some(site.id.to_string()))?;
+    crate::investigation::set_character_case_site(ctx, (actor).into(), Some(site.id.to_string()))?;
     let id = "mission:authority-roster-normal";
     let mission =
         ensure_bound_mission_authority(ctx, id, &party.id, actor, &site, &site.scene_key)?;
@@ -192,7 +195,8 @@ pub fn authority_test_finale_receipts(
         party_id: party_id.into(),
         status: CaseStatus::Resolved,
         winning_path_index: None,
-        resolved_at_minute: crate::time::refresh_clock(ctx)?,
+        resolved_at_minute: crate::time::refresh_clock(ctx)
+            .map_err(|error: crate::time::WorldClockError| error.to_string())?,
         selected_finale_id: id.clone(),
     });
     for _ in 0..2 {

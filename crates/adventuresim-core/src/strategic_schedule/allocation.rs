@@ -217,7 +217,11 @@ impl ValidatedSchedule {
     /// Calculate against the supplied context without consuming caller RNG or
     /// changing the saved allocation. Callers resolve current organization
     /// eligibility before constructing this value. The seed is character ID.
-    pub fn effective_at(self, location: ActivityLocation, seed: u64) -> DailySchedule {
+    pub fn effective_at(
+        self,
+        location: ActivityLocation,
+        character_id: crate::identity::CharacterId,
+    ) -> DailySchedule {
         let available = [
             true,
             location.allows(LocationActivity::Carousing),
@@ -246,7 +250,8 @@ impl ValidatedSchedule {
             }
         });
         if weights.iter().any(|weight| *weight != 0) {
-            let mut random = StreamId::new("schedule.redistribution").rng(seed, &[]);
+            let mut random =
+                StreamId::new("schedule.redistribution").rng(u64::from(character_id), &[]);
             for _ in 0..segments {
                 let selected = random
                     .weighted_index(&weights)
@@ -297,9 +302,9 @@ mod tests {
         let location = ActivityLocation::Settlement { has_inn: false };
         let mut labor = 0_u64;
         let mut social = 0_u64;
-        for seed in 0..4_000 {
-            let preview = validated.effective_at(location, seed);
-            assert_eq!(preview, validated.effective_at(location, seed));
+        for character_id in (0..4_000).map(crate::identity::CharacterId::from) {
+            let preview = validated.effective_at(location, character_id);
+            assert_eq!(preview, validated.effective_at(location, character_id));
             assert_eq!(preview.allocated_minutes(), 300);
             assert_eq!(preview.reading_minutes, 30);
             assert_eq!(preview.raiding, 0);
@@ -324,8 +329,14 @@ mod tests {
             ..Default::default()
         };
         let validated = ValidatedSchedule::try_from(proposed).unwrap();
-        let preview = validated.effective_at(ActivityLocation::NamedOutdoorLocation, 7);
-        let execution = validated.effective_at(ActivityLocation::Settlement { has_inn: false }, 7);
+        let preview = validated.effective_at(
+            ActivityLocation::NamedOutdoorLocation,
+            crate::identity::CharacterId::from(7),
+        );
+        let execution = validated.effective_at(
+            ActivityLocation::Settlement { has_inn: false },
+            crate::identity::CharacterId::from(7),
+        );
         assert_eq!(preview, proposed);
         assert_eq!(
             execution,

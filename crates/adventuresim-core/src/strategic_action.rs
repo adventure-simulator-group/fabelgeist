@@ -5,7 +5,14 @@
 //! construct plans here, and apply effects transactionally only after a fresh
 //! replan passes [`validate_commit`]. A plan is evidence, never authority.
 
-use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
+mod commit_error;
+mod time;
+pub use time::{ScheduledInterruption, TimeBoundaries, TimeOutcome, TimeResolution, resolve_time};
+
+use adventuresim_world_schema::{
+    BASIS_POINTS_PER_WHOLE,
+    calendar::{StrategicDuration, StrategicMinute},
+};
 use std::{collections::BTreeSet, fmt, num::NonZeroU64};
 
 use crate::{
@@ -335,82 +342,6 @@ pub enum DurationError {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub struct ScheduledInterruption<I: DomainInterruption> {
-    pub at_minute: StrategicMinute,
-    pub cause: I,
-}
-
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub struct TimeBoundaries<I: DomainInterruption> {
-    pub terminal_minute: Option<StrategicMinute>,
-    pub interruption: Option<ScheduledInterruption<I>>,
-}
-
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub enum TimeOutcome<I: DomainInterruption> {
-    Completed,
-    TerminalBoundary,
-    Interrupted(I),
-    /// The requested positive duration cannot fit in the strategic clock.
-    ClockExhausted,
-}
-
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub struct TimeResolution<I: DomainInterruption> {
-    pub start_minute: StrategicMinute,
-    pub requested_minutes: u64,
-    pub elapsed_minutes: u64,
-    pub end_minute: StrategicMinute,
-    pub outcome: TimeOutcome<I>,
-}
-
-impl<I: DomainInterruption> TimeResolution<I> {
-    /// Only this outcome permits a domain to emit completion-only effects.
-    pub const fn permits_completion_effects(&self) -> bool {
-        matches!(self.outcome, TimeOutcome::Completed)
-    }
-}
-
-pub fn resolve_time<I: DomainInterruption>(
-    current_minute: StrategicMinute,
-    duration: RequestedDuration,
-    boundaries: &TimeBoundaries<I>,
-) -> TimeResolution<I> {
-    let requested_end = current_minute.checked_add_minutes(duration.minutes());
-    let latest_representable_end = requested_end.unwrap_or(StrategicMinute::MAX);
-    let terminal = boundaries
-        .terminal_minute
-        .map(|minute| minute.max(current_minute));
-    let interruption = boundaries
-        .interruption
-        .as_ref()
-        .map(|value| (value.at_minute.max(current_minute), value.cause.clone()));
-    let (end_minute, outcome) = match (terminal, interruption) {
-        (Some(terminal), Some((at, cause))) if at < terminal && at <= latest_representable_end => {
-            (at, TimeOutcome::Interrupted(cause))
-        }
-        (Some(terminal), _) if terminal <= latest_representable_end => {
-            (terminal, TimeOutcome::TerminalBoundary)
-        }
-        (None, Some((at, cause))) if at <= latest_representable_end => {
-            (at, TimeOutcome::Interrupted(cause))
-        }
-        _ => match requested_end {
-            Some(end) if end == StrategicMinute::MAX => (end, TimeOutcome::ClockExhausted),
-            Some(end) => (end, TimeOutcome::Completed),
-            None => (StrategicMinute::MAX, TimeOutcome::ClockExhausted),
-        },
-    };
-    TimeResolution {
-        start_minute: current_minute,
-        requested_minutes: duration.minutes(),
-        elapsed_minutes: end_minute.elapsed_since(current_minute),
-        end_minute,
-        outcome,
-    }
-}
-
-#[derive(Clone, Debug, Eq, PartialEq)]
 pub enum ActionEffect<E: DomainEffect> {
     AdvanceActorTime {
         actor: CustodyCharacterId,
@@ -524,7 +455,7 @@ pub struct PlanInput<
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct PublicActionPlan<P: PublicPreview> {
     pub request_id: ActionRequestId,
-    pub elapsed_minutes: u64,
+    pub elapsed_minutes: StrategicDuration,
     pub completed: bool,
     pub preview: P,
 }
@@ -793,7 +724,7 @@ mod tests {
         CalculatedAction {
             effects: vec![ActionEffect::Domain(Effect::InspectEvidence(9))],
             public_preview: Preview {
-                elapsed: time.elapsed_minutes,
+                elapsed: time.elapsed_minutes.get(),
             },
         }
     }
@@ -909,7 +840,7 @@ mod tests {
                 interruption: None,
             },
         );
-        assert_eq!(whole.elapsed_minutes, 5);
+        assert_eq!(whole.elapsed_minutes.get(), 5);
         assert_eq!(whole.end_minute, StrategicMinute::MAX);
         assert_eq!(whole.outcome, TimeOutcome::ClockExhausted);
         assert!(!whole.permits_completion_effects());
@@ -931,8 +862,8 @@ mod tests {
             },
         );
         assert_eq!(
-            first.elapsed_minutes + second.elapsed_minutes,
-            whole.elapsed_minutes
+            first.elapsed_minutes.get() + second.elapsed_minutes.get(),
+            whole.elapsed_minutes.get()
         );
         assert_eq!(first.outcome, TimeOutcome::ClockExhausted);
         assert!(!first.permits_completion_effects());
@@ -947,7 +878,7 @@ mod tests {
                 interruption: None,
             },
         );
-        assert_eq!(at_maximum.elapsed_minutes, 0);
+        assert_eq!(at_maximum.elapsed_minutes.get(), 0);
         assert_eq!(at_maximum.outcome, TimeOutcome::ClockExhausted);
     }
 
@@ -964,7 +895,7 @@ mod tests {
         let PlanningOutcome::Ready(ref plan) = planned else {
             panic!()
         };
-        assert_eq!(plan.time.elapsed_minutes, 25);
+        assert_eq!(plan.time.elapsed_minutes.get(), 25);
         assert_eq!(plan.public_plan().preview.elapsed, 25);
         let attempt = CommitAttempt {
             request_id: plan.provenance.request_id.clone(),
@@ -991,7 +922,7 @@ mod tests {
             RequestedDuration::try_new(60).unwrap(),
             &terminal,
         );
-        assert_eq!(resolved.elapsed_minutes, 0);
+        assert_eq!(resolved.elapsed_minutes.get(), 0);
         assert_eq!(resolved.end_minute, StrategicMinute::new(100));
         assert_eq!(resolved.outcome, TimeOutcome::TerminalBoundary);
     }
@@ -1091,7 +1022,7 @@ mod tests {
         let changed = build_plan(input(snap), |_, time| CalculatedAction {
             effects: vec![],
             public_preview: Preview {
-                elapsed: time.elapsed_minutes,
+                elapsed: time.elapsed_minutes.get(),
             },
         });
         assert_eq!(
@@ -1185,14 +1116,14 @@ mod tests {
             CustodyTransfer::try_new(
                 object_id,
                 self_custody.clone(),
-                OperationalCustody::character(7).unwrap(),
+                OperationalCustody::character((7).into()).unwrap(),
             ),
             Err(CustodyIdentityError::SelfContainment)
         );
         assert_eq!(
             CustodyTransfer::try_new(
                 object_id,
-                OperationalCustody::character(7).unwrap(),
+                OperationalCustody::character((7).into()).unwrap(),
                 self_custody,
             ),
             Err(CustodyIdentityError::SelfContainment)
@@ -1200,7 +1131,7 @@ mod tests {
 
         let valid = CustodyTransfer::try_new(
             object_id,
-            OperationalCustody::character(7).unwrap(),
+            OperationalCustody::character((7).into()).unwrap(),
             OperationalCustody::party("party-red").unwrap(),
         )
         .unwrap();

@@ -2,13 +2,13 @@ use super::*;
 
 pub(super) fn wearable_protection_for_part(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     part: BodyPart,
 ) -> Vec<adventuresim_core::equipment::WearableProtection> {
     ctx.db
         .character_equipped_item()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .filter_map(|equipped| {
             let inventory = ctx
                 .db
@@ -77,7 +77,9 @@ pub(super) fn armor_material(
         .inventory_item()
         .id()
         .find(inventory_item_id)
-        .and_then(|inventory| adventuresim_core::item_catalog::definition(&inventory.item_id))
+        .and_then(|inventory| {
+            adventuresim_core::item_catalog::definition(&(&inventory.item_id).into())
+        })
         .and_then(|definition| definition.equipment.as_ref())
         .and_then(|equipment| equipment.material)
 }
@@ -93,7 +95,7 @@ pub(super) fn equipped_armor_coverage(
         .character_equipped_item()
         .inventory_item_id()
         .find(inventory_item_id)?;
-    let definition = adventuresim_core::item_catalog::definition(&inventory.item_id)?;
+    let definition = adventuresim_core::item_catalog::definition(&(&inventory.item_id).into())?;
     let equipment = definition.equipment.as_ref()?;
     let placement = equipment
         .placements

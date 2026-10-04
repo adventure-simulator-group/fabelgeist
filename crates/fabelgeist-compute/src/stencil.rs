@@ -1,3 +1,4 @@
+mod prepared_entry;
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
@@ -39,10 +40,10 @@ pub struct StencilSignature {
 
 type StencilPipelineCache = HashMap<
     (
-        ResourceDescriptor,                // input_res
-        ResourceDescriptor,                // output_res
-        Vec<(String, ResourceDescriptor)>, // secondary_resources
-        u32,                               // boundary_mode
+        ResourceDescriptor,                           // input_res
+        ResourceDescriptor,                           // output_res
+        Vec<(PassParameterName, ResourceDescriptor)>, // secondary_resources
+        u32,                                          // boundary_mode
     ),
     Arc<(ComputePipeline, u64, u64)>,
 >;
@@ -239,56 +240,11 @@ impl StencilDefinition {
         context: &WgpuContext,
         input_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
-        secondary_resources: &HashMap<String, ResourceDescriptor>,
+        secondary_resources: &HashMap<PassParameterName, ResourceDescriptor>,
     ) -> Result<(ComputePipeline, u64, u64)> {
         let sig = Self::parse_signature(&self.code)?;
-        let mut preprocessed_user_code = self.code.clone();
-
-        if sig.is_neighborhood {
-            let re_neighbors = regex::Regex::new(
-                r"Neighbors([1-4])D\s*<\s*([a-zA-Z0-9_]+(?:\s*<\s*[a-zA-Z0-9_]+\s*>)?)\s*>",
-            )?;
-            preprocessed_user_code = re_neighbors
-                .replace_all(&preprocessed_user_code, |caps: &regex::Captures| {
-                    let d = &caps[1];
-                    let ty = &caps[2];
-                    let ty_sanitized = sanitize_type_name(ty);
-                    format!("Neighbors{}D_{}", d, ty_sanitized)
-                })
-                .into_owned();
-        } else {
-            let mut new_args = Vec::new();
-            for arg in &sig.param_names {
-                let is_resource = arg == "input" || secondary_resources.contains_key(arg);
-
-                if is_resource {
-                    continue;
-                }
-
-                // Keep index, size, or uniform params in the signature
-                if arg == "index" {
-                    new_args.push(format!(
-                        "index: {}",
-                        sig.index_type.as_deref().unwrap_or("u32")
-                    ));
-                } else if arg == "size" {
-                    new_args.push(format!(
-                        "size: {}",
-                        sig.size_type.as_deref().unwrap_or("u32")
-                    ));
-                } else if let Some((_, ty)) = sig.user_params.iter().find(|(n, _)| n == arg) {
-                    new_args.push(format!("{}: {}", arg, ty.as_str()));
-                }
-            }
-
-            let re_sig = regex::Regex::new(r"(?s)fn\s+stencil\s*\(([^)]*)\)")?;
-            preprocessed_user_code = re_sig
-                .replace(
-                    &preprocessed_user_code,
-                    format!("fn stencil({})", new_args.join(", ")),
-                )
-                .to_string();
-        }
+        let preprocessed_user_code =
+            prepared_entry::PreparedStencilEntry::new(self, &sig, secondary_resources)?;
 
         let mut full_code = String::new();
 
@@ -333,7 +289,7 @@ impl StencilDefinition {
         let mut resource_params = Vec::new();
 
         for (name, ty) in &sig.user_params {
-            if secondary_resources.contains_key(name) {
+            if secondary_resources.contains_key(&PassParameterName::from(name.as_str())) {
                 resource_params.push((name.clone(), ty.clone()));
             } else {
                 uniform_params.push((name.clone(), ty.clone()));
@@ -341,7 +297,7 @@ impl StencilDefinition {
         }
 
         for (name, _ty) in &resource_params {
-            let res_desc = &secondary_resources[name];
+            let res_desc = &secondary_resources[&PassParameterName::from(name.as_str())];
             full_code.push_str(&res_desc.to_wgsl_input_binding(0, current_binding, name));
             current_binding += 1;
         }
@@ -390,7 +346,7 @@ impl StencilDefinition {
             full_code.push('\n');
         }
 
-        full_code.push_str(&preprocessed_user_code);
+        full_code.push_str(&format!("{preprocessed_user_code}"));
         full_code.push('\n');
 
         match output_res {
@@ -779,7 +735,8 @@ impl StencilDefinition {
                     }
                 }
             } else {
-                let is_stripped = name == "input" || secondary_resources.contains_key(name);
+                let is_stripped = name == "input"
+                    || secondary_resources.contains_key(&PassParameterName::from(name.as_str()));
 
                 if !is_stripped {
                     stencil_call_args.push(name.clone());
@@ -818,10 +775,8 @@ impl StencilDefinition {
         }
         full_code.push_str("}\n");
 
-        let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
-            wgpu::naga::ShaderStage::Compute,
-        )?;
+        let full_code = ShaderSource::from(full_code);
+        let module = full_code.parse(wgpu::naga::ShaderStage::Compute)?;
 
         let mut input_size = 0;
         let mut output_size = 0;
@@ -853,7 +808,7 @@ impl StencilDefinition {
         }
 
         let shader = ComputeShader::new(context, full_code)?;
-        let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
+        let pipeline = ComputePipeline::new(context, shader)?;
         Ok((pipeline, input_size, output_size))
     }
 
@@ -862,9 +817,9 @@ impl StencilDefinition {
         context: &WgpuContext,
         input_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
-        secondary_resources: &HashMap<String, ResourceDescriptor>,
+        secondary_resources: &HashMap<PassParameterName, ResourceDescriptor>,
     ) -> Result<Arc<(ComputePipeline, u64, u64)>> {
-        let mut sec_res_sorted: Vec<(String, ResourceDescriptor)> = secondary_resources
+        let mut sec_res_sorted: Vec<(PassParameterName, ResourceDescriptor)> = secondary_resources
             .iter()
             .map(|(k, v)| (k.clone(), v.clone()))
             .collect();
@@ -926,26 +881,9 @@ impl Stencil {
 
         let mut parameters = extra_parameters.unwrap_or_default();
 
-        let mut secondary_resources = HashMap::new();
-        for (name, val) in &parameters.parameters {
-            match val {
-                fabelgeist_gpu::data::gpu::parameters::PassParameter::Buffer(_) => {
-                    if let Some((_, param_ty)) = sig.user_params.iter().find(|(n, _)| n == name) {
-                        secondary_resources
-                            .insert(name.clone(), ResourceDescriptor::Buffer(param_ty.clone()));
-                    }
-                }
-                fabelgeist_gpu::data::gpu::parameters::PassParameter::Texture2d(t) => {
-                    secondary_resources
-                        .insert(name.clone(), ResourceDescriptor::Texture2d(t.format));
-                }
-                fabelgeist_gpu::data::gpu::parameters::PassParameter::Texture3d(t) => {
-                    secondary_resources
-                        .insert(name.clone(), ResourceDescriptor::Texture3d(t.format));
-                }
-                _ => {}
-            }
-        }
+        let secondary_resources =
+            crate::parameter_types::ShaderParameterTypes::from(sig.user_params.as_slice())
+                .resources(&parameters);
 
         let pipeline_info = definition.get_or_create_pipeline(
             context,
@@ -958,28 +896,28 @@ impl Stencil {
         // Output resource determines grid size
         let output_num_elements: u64 = match output {
             GpuResource::Buffer(b) => {
-                parameters.insert("output", b.clone());
-                b.size / output_size.max(&1)
+                parameters.insert("output".into(), (b.clone()).into());
+                u64::from(b.length()) / output_size.max(&1)
             }
             GpuResource::Texture2d(t) => {
-                parameters.insert("output", t.clone());
+                parameters.insert("output".into(), (t.clone()).into());
                 (t.size.0 * t.size.1) as u64
             }
             GpuResource::Texture3d(t) => {
-                parameters.insert("output", t.clone());
+                parameters.insert("output".into(), (t.clone()).into());
                 (t.size.0 * t.size.1 * t.size.2) as u64
             }
         };
 
         match input {
             GpuResource::Buffer(b) => {
-                parameters.insert("input", b.clone());
+                parameters.insert("input".into(), (b.clone()).into());
             }
             GpuResource::Texture2d(t) => {
-                parameters.insert("input", t.clone());
+                parameters.insert("input".into(), (t.clone()).into());
             }
             GpuResource::Texture3d(t) => {
-                parameters.insert("input", t.clone());
+                parameters.insert("input".into(), (t.clone()).into());
             }
         }
 
@@ -997,9 +935,7 @@ impl Stencil {
             context,
             pipeline.clone(),
             parameters,
-            wg_x,
-            wg_y,
-            wg_z,
+            fabelgeist_gpu::prelude::WorkgroupGrid::from((wg_x, wg_y, wg_z)),
         )?;
 
         Ok(())
@@ -1125,25 +1061,25 @@ mod tests {
         let input_data = vec![1.0f32, 2.0f32, 3.0f32, 4.0f32];
         let weights_data = vec![2.0f32];
 
-        let input_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_slice(
+        let input_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_upload(
             &context,
-            &input_data,
+            BufferUpload::from_elements(&input_data),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage(),
         )?;
         let output_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::new(
             &context,
-            16,
+            (16u64).into(),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage(),
         )?;
 
-        let weights_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_slice(
+        let weights_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_upload(
             &context,
-            &weights_data,
+            BufferUpload::from_elements(&weights_data),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage(),
         )?;
 
         let mut params = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-        params.insert("weights", weights_buf);
+        params.insert("weights".into(), (weights_buf).into());
 
         Stencil::execute_with_parameters(
             &context,

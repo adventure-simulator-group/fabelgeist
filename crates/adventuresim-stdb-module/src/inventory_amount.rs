@@ -1,5 +1,9 @@
 //! Authoritative fixed-point remaining amounts for divisible inventory rows.
 
+mod error;
+pub(crate) use error::InventoryAmountError;
+
+use adventuresim_core::{identity::InventoryItemId, item_catalog::ItemDefinitionId};
 use spacetimedb::{ReducerContext, Table, table};
 
 use adventuresim_core::inventory_measurement::ConsumableFractionMicros;
@@ -37,11 +41,11 @@ pub fn is_measured_definition(definition: &crate::Item) -> bool {
         || SMITHING_MATERIAL_IDS.contains(&definition.id.as_str())
 }
 
-pub fn is_measured_item(ctx: &ReducerContext, item_id: &str) -> bool {
+pub fn is_measured_item(ctx: &ReducerContext, item_id: &ItemDefinitionId) -> bool {
     ctx.db
         .item()
         .id()
-        .find(item_id.to_owned())
+        .find(item_id.to_string())
         .is_some_and(|definition| is_measured_definition(&definition))
         || adventuresim_core::food::definition(item_id).is_some()
 }
@@ -89,9 +93,9 @@ pub fn party_fraction(
 
 pub fn consume_personal(
     ctx: &ReducerContext,
-    inventory_item_id: u64,
+    inventory_item_id: InventoryItemId,
     requested_fraction: ConsumableFractionMicros,
-) -> Result<ConsumableFractionMicros, String> {
+) -> Result<ConsumableFractionMicros, InventoryAmountError> {
     if requested_fraction.is_zero() {
         return Ok(ConsumableFractionMicros::ZERO);
     }
@@ -99,8 +103,8 @@ pub fn consume_personal(
         .db
         .inventory_item_amount()
         .inventory_item_id()
-        .find(inventory_item_id)
-        .ok_or("Measured personal item state is missing")?;
+        .find(inventory_item_id.get())
+        .ok_or(InventoryAmountError::MissingPersonal(inventory_item_id))?;
     let available = persisted_fraction(state.remaining_fraction_micros);
     let consumed = requested_fraction.min(available);
     let remaining = available
@@ -111,8 +115,8 @@ pub fn consume_personal(
         ctx.db
             .inventory_item_amount()
             .inventory_item_id()
-            .delete(inventory_item_id);
-        ctx.db.inventory_item().id().delete(inventory_item_id);
+            .delete(inventory_item_id.get());
+        ctx.db.inventory_item().id().delete(inventory_item_id.get());
     } else {
         ctx.db
             .inventory_item_amount()
@@ -124,9 +128,9 @@ pub fn consume_personal(
 
 pub fn consume_party(
     ctx: &ReducerContext,
-    party_inventory_item_id: u64,
+    party_inventory_item_id: InventoryItemId,
     requested_fraction: ConsumableFractionMicros,
-) -> Result<ConsumableFractionMicros, String> {
+) -> Result<ConsumableFractionMicros, InventoryAmountError> {
     if requested_fraction.is_zero() {
         return Ok(ConsumableFractionMicros::ZERO);
     }
@@ -134,8 +138,8 @@ pub fn consume_party(
         .db
         .party_item_amount()
         .party_inventory_item_id()
-        .find(party_inventory_item_id)
-        .ok_or("Measured party item state is missing")?;
+        .find(party_inventory_item_id.get())
+        .ok_or(InventoryAmountError::MissingParty(party_inventory_item_id))?;
     let available = persisted_fraction(state.remaining_fraction_micros);
     let consumed = requested_fraction.min(available);
     let remaining = available
@@ -146,11 +150,11 @@ pub fn consume_party(
         ctx.db
             .party_item_amount()
             .party_inventory_item_id()
-            .delete(party_inventory_item_id);
+            .delete(party_inventory_item_id.get());
         ctx.db
             .party_inventory_item()
             .id()
-            .delete(party_inventory_item_id);
+            .delete(party_inventory_item_id.get());
     } else {
         ctx.db
             .party_item_amount()
@@ -162,21 +166,21 @@ pub fn consume_party(
 
 pub fn move_personal_to_party(
     ctx: &ReducerContext,
-    inventory_item_id: u64,
-    party_inventory_item_id: u64,
-) -> Result<(), String> {
+    inventory_item_id: InventoryItemId,
+    party_inventory_item_id: InventoryItemId,
+) -> Result<(), InventoryAmountError> {
     let state = ctx
         .db
         .inventory_item_amount()
         .inventory_item_id()
-        .find(inventory_item_id)
-        .ok_or("Measured personal item state is missing")?;
+        .find(inventory_item_id.get())
+        .ok_or(InventoryAmountError::MissingPersonal(inventory_item_id))?;
     ctx.db
         .inventory_item_amount()
         .inventory_item_id()
-        .delete(inventory_item_id);
+        .delete(inventory_item_id.get());
     ctx.db.party_item_amount().insert(PartyItemAmount {
-        party_inventory_item_id,
+        party_inventory_item_id: party_inventory_item_id.get(),
         remaining_fraction_micros: state.remaining_fraction_micros,
     });
     Ok(())
@@ -184,21 +188,21 @@ pub fn move_personal_to_party(
 
 pub fn move_party_to_personal(
     ctx: &ReducerContext,
-    party_inventory_item_id: u64,
-    inventory_item_id: u64,
-) -> Result<(), String> {
+    party_inventory_item_id: InventoryItemId,
+    inventory_item_id: InventoryItemId,
+) -> Result<(), InventoryAmountError> {
     let state = ctx
         .db
         .party_item_amount()
         .party_inventory_item_id()
-        .find(party_inventory_item_id)
-        .ok_or("Measured party item state is missing")?;
+        .find(party_inventory_item_id.get())
+        .ok_or(InventoryAmountError::MissingParty(party_inventory_item_id))?;
     ctx.db
         .party_item_amount()
         .party_inventory_item_id()
-        .delete(party_inventory_item_id);
+        .delete(party_inventory_item_id.get());
     ctx.db.inventory_item_amount().insert(InventoryItemAmount {
-        inventory_item_id,
+        inventory_item_id: inventory_item_id.get(),
         remaining_fraction_micros: state.remaining_fraction_micros,
     });
     Ok(())

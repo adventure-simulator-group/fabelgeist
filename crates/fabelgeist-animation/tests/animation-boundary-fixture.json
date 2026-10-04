@@ -1,0 +1,275 @@
+{
+  "clip": {
+    "duration": 1.0,
+    "name": "clip:α \u0000",
+    "tracks": [
+      {
+        "joint": "joint:β \u0000"
+      }
+    ]
+  },
+  "failure": "rig profile \"failure\" requires joints the skeleton does not have: Head (expected cranium | skull)",
+  "recipe": {
+    "name": " profile:α \u0000 ->  profile:α \u0000",
+    "settings": {
+      "root_motion": {
+        "Extract": {
+          "horizontal": true,
+          "vertical": false,
+          "yaw": true
+        }
+      },
+      "scale": {
+        "Auto": "PelvisToHead"
+      },
+      "strict": false,
+      "translation": "PelvisOnly",
+      "up": "Y"
+    },
+    "source": {
+      "joints": {
+        "HandLeft": {
+          "names": [
+            "ns:Left_Arm"
+          ],
+          "required": false
+        },
+        "LowerArmLeft": {
+          "names": [
+            "missing|LEFT.ARM"
+          ],
+          "required": false
+        },
+        "UpperArmLeft": {
+          "names": [
+            "LeftArm"
+          ],
+          "required": true
+        }
+      },
+      "name": " profile:α \u0000",
+      "reference": "Bind",
+      "root": "Pelvis"
+    },
+    "target": {
+      "joints": {
+        "HandLeft": {
+          "names": [
+            "ns:Left_Arm"
+          ],
+          "required": false
+        },
+        "LowerArmLeft": {
+          "names": [
+            "missing|LEFT.ARM"
+          ],
+          "required": false
+        },
+        "UpperArmLeft": {
+          "names": [
+            "LeftArm"
+          ],
+          "required": true
+        }
+      },
+      "name": " profile:α \u0000",
+      "reference": "Bind",
+      "root": "Pelvis"
+    }
+  },
+  "report": "profile:  profile:α \u0000 ->  profile:α \u0000\nsource rig:  profile:α \u0000 (3 joints)\ntarget rig:  profile:α \u0000 (3 joints)\n\nUpperArmLeft:\n  source = LeftArm\n  target = LeftArm\nLowerArmLeft:\n  source = ns:Left_Arm\n  target = ns:Left_Arm\nHandLeft:\n  source = ns:Left_Arm\n  target = ns:Left_Arm\n",
+  "skeleton": {
+    "joints": [
+      {
+        "enabled": true,
+        "index": 0,
+        "inverse_bind_matrix": {
+          "columns": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "joint_index": 0,
+        "local_transform": {
+          "position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          }
+        },
+        "name": "ns:Left_Arm",
+        "parent_index": null,
+        "radius": 0.15000000596046448,
+        "shape_type": "Capsule",
+        "smoothstep_end": 0.20000000298023224,
+        "smoothstep_start": 0.0
+      },
+      {
+        "enabled": true,
+        "index": 1,
+        "inverse_bind_matrix": {
+          "columns": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "joint_index": 1,
+        "local_transform": {
+          "position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          }
+        },
+        "name": "LeftArm",
+        "parent_index": null,
+        "radius": 0.15000000596046448,
+        "shape_type": "Capsule",
+        "smoothstep_end": 0.20000000298023224,
+        "smoothstep_start": 0.0
+      },
+      {
+        "enabled": true,
+        "index": 2,
+        "inverse_bind_matrix": {
+          "columns": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "joint_index": 2,
+        "local_transform": {
+          "position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          }
+        },
+        "name": "ns:Left_Arm",
+        "parent_index": null,
+        "radius": 0.15000000596046448,
+        "shape_type": "Capsule",
+        "smoothstep_end": 0.20000000298023224,
+        "smoothstep_start": 0.0
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    }
+  },
+  "slots": [
+    1,
+    0,
+    0
+  ]
+}

@@ -5,15 +5,16 @@
 //! helmet's profile by one invocation. Which skin belongs to the head and
 //! neck is a matter of skin weights alone, so the host lists it once.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use anyhow::Result;
 use fabelgeist_armor::gpu::{
-    CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, device_error, record_close_helmet, wgsl,
+    CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, record_close_helmet, wgsl,
 };
 use fabelgeist_armor::{ArmorGpu, CloseHelmetDesign};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -66,8 +67,8 @@ impl DeviceWearer<'_> {
         let support = self.head_and_neck_support(FitRegion::Neck)?;
         let wall = design.fit.wall_thickness.metres();
         let fit = gpu.scratch(
-            ((FIT_PROFILE_WORD + CLOSE_HELMET_PROFILE_WORDS) * 4) as u64,
-            "close helmet fit",
+            (((FIT_PROFILE_WORD + CLOSE_HELMET_PROFILE_WORDS) * 4) as u64).into(),
+            ("close helmet fit").into(),
         )?;
         let mut bands = Vec::with_capacity(BANDS * BAND_WORDS);
         for _ in 0..BANDS {
@@ -76,16 +77,19 @@ impl DeviceWearer<'_> {
             bands.extend([0, 0]);
         }
         let mut parameters = PassParameters::new();
-        parameters.insert("count", support.len() as u32);
+        parameters.insert("count".into(), (support.len() as u32).into());
         for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad, 0u32);
+            parameters.insert(pad.into(), (0u32).into());
         }
-        parameters.insert("positions", self.body.positions.clone());
-        parameters.insert("support", gpu.upload(&support)?);
-        parameters.insert("frame", frame.frame.clone());
+        parameters.insert("positions".into(), (self.body.positions.clone()).into());
         parameters.insert(
-            "design",
-            gpu.upload(&[
+            "support".into(),
+            (gpu.upload(BufferUpload::from_elements(&support))?).into(),
+        );
+        parameters.insert("frame".into(), (frame.frame.clone()).into());
+        parameters.insert(
+            "design".into(),
+            (gpu.upload(BufferUpload::from_elements(&[
                 design.neck_length.metres(),
                 design.back_edge_lift.metres(),
                 design.fit.clearance.metres() + wall,
@@ -93,18 +97,22 @@ impl DeviceWearer<'_> {
                 wall,
                 design.temple_clearance.metres(),
                 0.0,
-            ])?,
+            ]))?)
+            .into(),
         );
-        parameters.insert("bands", gpu.upload(&bands)?);
-        parameters.insert("fit", fit.clone());
-        parameters.insert("status", frame.status.clone());
+        parameters.insert(
+            "bands".into(),
+            (gpu.upload(BufferUpload::from_elements(&bands))?).into(),
+        );
+        parameters.insert("fit".into(), (fit.clone()).into());
+        parameters.insert("status".into(), (frame.status.clone()).into());
         let [measure, profile] = kernels(gpu)?;
         batch
-            .dispatch_items(&measure, &parameters, support.len() as u32)
-            .map_err(device_error)?;
+            .dispatch_items(&measure, &parameters, (support.len() as u32).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         batch
-            .dispatch(&profile, &parameters, [1, 1, 1])
-            .map_err(device_error)?;
+            .dispatch(&profile, &parameters, ([1, 1, 1]).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         Ok(fit)
     }
 }
@@ -113,7 +121,7 @@ fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 2]> {
     let compile = |entry: &str| {
         gpu.cache()
             .get(gpu.context(), &source(entry))
-            .map_err(device_error)
+            .map_err(fabelgeist_armor::GenerateError::from)
     };
     Ok([compile(MEASURE)?, compile(PROFILE)?])
 }
@@ -174,8 +182,8 @@ fn band_span(band: u32) -> vec2<f32> {
 
 "#;
 
-fn source(entry: &str) -> String {
-    format!(
+fn source(entry: &str) -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> support: array<u32>;
@@ -247,7 +255,7 @@ fn half_height() -> f32 {{
         bands = BANDS,
         band_words = BAND_WORDS,
         profile = FIT_PROFILE_WORD,
-    )
+    ))
 }
 
 /// Each supported sample, in the head frame, widens every band it lies in.

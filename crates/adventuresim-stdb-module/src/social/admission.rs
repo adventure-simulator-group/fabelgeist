@@ -3,8 +3,8 @@ use super::*;
 
 pub(super) fn admit_social_action(
     ctx: &ReducerContext,
-    actor_id: u64,
-    target_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
     action_key: &str,
 ) -> Result<SocialActionKind, String> {
     let action = action_key
@@ -18,13 +18,13 @@ pub(super) fn admit_social_action(
         .db
         .character()
         .id()
-        .find(actor_id)
+        .find(u64::from(actor_id))
         .ok_or("Actor not found")?;
     let target = ctx
         .db
         .character()
         .id()
-        .find(target_id)
+        .find(u64::from(target_id))
         .ok_or("Target not found")?;
     validate_social_pair(ctx, &actor, &target, is_self)?;
     Ok(action)

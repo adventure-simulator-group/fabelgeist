@@ -1,5 +1,6 @@
 use super::*;
 use crate::prelude::FurnitureLocation;
+use crate::scene_input::SceneValidationError;
 use bevy::math::Vec2;
 
 fn fixture() -> TacticalSceneInput {
@@ -96,9 +97,15 @@ fn compound_rejects_a_loaded_route_ending_short_of_the_actual_store_door() {
     let mut input = fixture();
     input.compounds[0].access.last_mut().unwrap().end_metres += Vec2::X;
     let result = input.generate();
-    assert!(
-        matches!(result, Err(SceneInputError::Validation(message)) if message.contains("MissingRangeDoor"))
-    );
+    assert!(matches!(
+        result,
+        Err(SceneInputError::Validation(SceneValidationError::City(
+            crate::city_layout::CityCompileError::Compound {
+                issue: crate::city_layout::CompoundIssue::MissingRangeDoor,
+                ..
+            }
+        )))
+    ));
 }
 
 #[test]

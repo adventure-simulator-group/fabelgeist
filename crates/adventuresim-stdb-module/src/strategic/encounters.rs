@@ -88,11 +88,16 @@ fn journey_coordinates_are_geographic(ctx: &ReducerContext, journey: &PartyJourn
 fn party_encumbrance_remaining_basis_points(
     ctx: &ReducerContext,
     party_id: &str,
-    member_ids: &[u64],
+    member_ids: &[adventuresim_core::identity::CharacterId],
 ) -> Result<u32, String> {
     let personal_burden: f32 = member_ids
         .iter()
-        .flat_map(|member_id| ctx.db.inventory_item().character_id().filter(*member_id))
+        .flat_map(|member_id| {
+            ctx.db
+                .inventory_item()
+                .character_id()
+                .filter(u64::from(*member_id))
+        })
         .map(|row| {
             if let Some(lot) = crate::food::personal_lot(ctx, row.id) {
                 return lot.mass_kg.max(0.0);
@@ -127,11 +132,16 @@ fn party_encumbrance_remaining_basis_points(
                 .db
                 .character_attributes()
                 .character_id()
-                .find(*member_id)
+                .find(u64::from(*member_id))
             else {
                 return 0.0;
             };
-            let Some(limbs) = ctx.db.character_limbs().character_id().find(*member_id) else {
+            let Some(limbs) = ctx
+                .db
+                .character_limbs()
+                .character_id()
+                .find(u64::from(*member_id))
+            else {
                 return 0.0;
             };
             let adjusted_leg_strength = (attributes.left_leg_strength * limbs.left_leg_health
@@ -141,7 +151,7 @@ fn party_encumbrance_remaining_basis_points(
                 .db
                 .character_strategic_condition()
                 .character_id()
-                .find(*member_id)
+                .find(u64::from(*member_id))
                 .map_or(0.0, |condition| {
                     carrying_capacity_multiplier_for_condition(condition.status)
                 });
@@ -156,7 +166,7 @@ fn party_encumbrance_remaining_basis_points(
                 .db
                 .character_condition()
                 .character_id()
-                .find(*member_id)
+                .find(u64::from(*member_id))
                 .ok_or_else(|| format!("Character {member_id} has no body-mass authority"))?;
             adventuresim_core::physiology::BodyMassKg::try_new(condition.body_weight_kg)
                 .map(adventuresim_core::physiology::BodyMassKg::kilograms)
@@ -186,7 +196,10 @@ fn carrying_capacity_multiplier_for_condition(
     }
 }
 
-fn current_party_fatigue_percent(ctx: &ReducerContext, member_ids: &[u64]) -> u8 {
+fn current_party_fatigue_percent(
+    ctx: &ReducerContext,
+    member_ids: &[adventuresim_core::identity::CharacterId],
+) -> u8 {
     member_ids
         .iter()
         .filter_map(|member_id| {
@@ -194,9 +207,17 @@ fn current_party_fatigue_percent(ctx: &ReducerContext, member_ids: &[u64]) -> u8
                 .db
                 .character_attributes()
                 .character_id()
-                .find(*member_id)?;
-            let limbs = ctx.db.character_limbs().character_id().find(*member_id)?;
-            let stats = ctx.db.character_stats().character_id().find(*member_id)?;
+                .find(u64::from(*member_id))?;
+            let limbs = ctx
+                .db
+                .character_limbs()
+                .character_id()
+                .find(u64::from(*member_id))?;
+            let stats = ctx
+                .db
+                .character_stats()
+                .character_id()
+                .find(u64::from(*member_id))?;
             let capacity = attributes
                 .attr_by_parts(SimpleAttribute::Endurance, &limbs)
                 .max(0.01)
@@ -218,7 +239,7 @@ pub(crate) fn advance_party_journey_delay(
     minutes: u64,
 ) -> Result<(), String> {
     for member_id in living_party_member_ids(ctx, party_id) {
-        if !advance_travel_time(ctx, member_id, minutes)? {
+        if !advance_travel_time(ctx, (member_id).into(), minutes)? {
             return Err(
                 "Every living party member must be able to complete the travel delay".into(),
             );
@@ -344,16 +365,23 @@ pub(crate) fn build_strategic_encounter(
     Ok(encounter)
 }
 
-fn whole_party_sneak_score(ctx: &ReducerContext, member_ids: &[u64]) -> u16 {
+fn whole_party_sneak_score(
+    ctx: &ReducerContext,
+    member_ids: &[adventuresim_core::identity::CharacterId],
+) -> u16 {
     member_ids
         .iter()
         .filter_map(|member_id| {
-            let skills = ctx.db.character_skills().character_id().find(*member_id)?;
+            let skills = ctx
+                .db
+                .character_skills()
+                .character_id()
+                .find(u64::from(*member_id))?;
             let attributes = ctx
                 .db
                 .character_attributes()
                 .character_id()
-                .find(*member_id)?;
+                .find(u64::from(*member_id))?;
             let training = adventuresim_core::prelude::Skill::Stealth
                 .capped_training_rank(skills.stealth_hours, &attributes);
             Some((training.max(0.0) * 100.0).round() as u16)
@@ -392,7 +420,11 @@ fn maybe_interrupt_travel(
     ),
     String,
 > {
-    require_no_unresolved_encounter(ctx, party_id)?;
+    require_no_unresolved_encounter(
+        ctx,
+        &adventuresim_core::identity::PartyId::try_new(party_id.to_owned())
+            .map_err(crate::strategic::PendingEncounterError::PartyIdentity)?,
+    )?;
     let Some(journey) = ctx
         .db
         .party_journey_authority()
@@ -452,7 +484,7 @@ fn maybe_interrupt_travel(
             ctx.db
                 .character_capability()
                 .character_id()
-                .find(**id)
+                .find(u64::from(**id))
                 .is_some_and(|capability| capability.melee || capability.ranged)
         })
         .count()
@@ -591,7 +623,7 @@ fn maybe_interrupt_travel(
 fn advance_party_movement_until_encounter(
     ctx: &ReducerContext,
     party_id: &str,
-    traveler_ids: &[u64],
+    traveler_ids: &[adventuresim_core::identity::CharacterId],
     proposed_leg_minutes: u64,
 ) -> Result<
     (
@@ -661,7 +693,7 @@ fn commit_encounter_scan(
             ctx.db
                 .character_capability()
                 .character_id()
-                .find(**id)
+                .find(u64::from(**id))
                 .is_some_and(|capability| capability.melee || capability.ranged)
         })
         .count()
@@ -849,8 +881,8 @@ fn commit_encounter_surrender(
     }
     reconcile_party_pool_ledger(ctx, party_id)?;
     for member_id in living_party_member_ids(ctx, party_id) {
-        crate::capability::refresh_character_capability(ctx, member_id)?;
-        crate::condition::refresh_character_strategic_condition(ctx, member_id)?;
+        crate::capability::refresh_character_capability(ctx, (member_id).into())?;
+        crate::condition::refresh_character_strategic_condition(ctx, (member_id).into())?;
     }
     Ok(())
 }
@@ -940,7 +972,7 @@ fn commit_autoresolve_outcome(
     ctx: &ReducerContext,
     source_id: &str,
     party_id: &str,
-    member_ids: &[u64],
+    member_ids: &[adventuresim_core::identity::CharacterId],
     defeat_morale_penalty: f32,
     outcome: &adventuresim_core::autoresolve::BattleOutcome,
 ) -> Result<(), String> {
@@ -948,21 +980,29 @@ fn commit_autoresolve_outcome(
     for member_id in member_ids {
         crate::filth::deposit_now(
             ctx,
-            *member_id,
+            (*member_id).into(),
             adventuresim_core::filth::FilthSubstance::Dirt,
             None,
             adventuresim_core::filth::COMBAT_DIRT,
         )?;
     }
     for exchange in &outcome.log {
-        if exchange.cut_damage > 0.0 && member_ids.contains(&exchange.attacker_id) {
+        if exchange.cut_damage > 0.0
+            && member_ids.contains(&adventuresim_core::identity::CharacterId::from(
+                exchange.attacker_id,
+            ))
+        {
             crate::filth::deposit_now(
                 ctx,
-                exchange.attacker_id,
+                (exchange.attacker_id).into(),
                 adventuresim_core::filth::FilthSubstance::Blood,
                 member_ids
-                    .contains(&exchange.defender_id)
-                    .then_some(exchange.defender_id),
+                    .contains(&adventuresim_core::identity::CharacterId::from(
+                        exchange.defender_id,
+                    ))
+                    .then_some(adventuresim_core::identity::CharacterId::from(
+                        exchange.defender_id,
+                    )),
                 (exchange.cut_damage * 35.0).ceil().clamp(1.0, 15.0) as u16,
             )?;
         }
@@ -998,14 +1038,14 @@ fn commit_autoresolve_outcome(
                 exchange.projectile_kind,
             )?;
         }
-        crate::condition::apply_blood_loss(ctx, member.id, member.blood_loss_fraction)?;
-        crate::capability::refresh_character_capability(ctx, member.id)?;
+        crate::condition::apply_blood_loss(ctx, (member.id).into(), member.blood_loss_fraction)?;
+        crate::capability::refresh_character_capability(ctx, (member.id).into())?;
     }
     if outcome.resolution != BattleResolution::AlliesVictory {
         for member_id in member_ids {
             crate::condition::record_morale_event(
                 ctx,
-                *member_id,
+                (*member_id).into(),
                 adventuresim_core::morale::MoraleEventKind::Defeat,
                 -defeat_morale_penalty,
                 Some(source_id.to_string()),
@@ -1025,16 +1065,17 @@ fn resolve_random_encounter_battle(
     let allies = member_ids
         .iter()
         .map(|id| {
-            let condition = crate::condition::refresh_character_strategic_condition(ctx, *id)?;
-            crate::capability::load_combatant(
+            let condition =
+                crate::condition::refresh_character_strategic_condition(ctx, (*id).into())?;
+            Ok(crate::capability::load_combatant(
                 ctx,
-                *id,
+                (*id).into(),
                 condition.incapacitation,
                 condition.pain,
                 condition.blood_loss,
-            )
+            )?)
         })
-        .collect::<Result<Vec<_>, String>>()?;
+        .collect::<Result<Vec<_>, crate::condition::StrategicConditionError>>()?;
     let difficulty = i32::from(encounter.enemy_count.max(1));
     let enemy_ids = crate::world_actor::context_character_ids(ctx, &encounter.encounter_id);
     if enemy_ids.len() != encounter.enemy_count as usize {
@@ -1087,7 +1128,7 @@ fn resolve_random_encounter_battle(
         for member_id in &member_ids {
             crate::condition::record_morale_event(
                 ctx,
-                *member_id,
+                (*member_id).into(),
                 adventuresim_core::morale::MoraleEventKind::Victory,
                 5.0 + f32::from(encounter.enemy_count),
                 Some(encounter.encounter_id.clone()),
@@ -1112,7 +1153,8 @@ pub fn resolve_strategic_encounter(
     expected_revision: u32,
     action_id: String,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, character_id)?;
+    require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Strategic encounter action ID is invalid".into());
     }
@@ -1138,7 +1180,8 @@ pub fn resolve_strategic_encounter(
             Err("Conflicting strategic encounter retry".into())
         };
     }
-    crate::character::require_living_character(ctx, character_id)?;
+    crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let character = ctx
         .db
         .character()
@@ -1165,7 +1208,13 @@ pub fn resolve_strategic_encounter(
             "A delegated evacuation actor may choose only a protective encounter response".into(),
         );
     }
-    let mut encounter = unresolved_encounter(ctx, &party_id).ok_or("No unresolved encounter")?;
+    let mut encounter = unresolved_encounter(
+        ctx,
+        &adventuresim_core::identity::PartyId::try_new(party_id.clone()).map_err(|source| {
+            crate::strategic::PendingEncounterError::PartyIdentity(source).to_string()
+        })?,
+    )
+    .ok_or("No unresolved encounter")?;
     if encounter.encounter_id != encounter_id {
         return Err("Strategic encounter identity is stale".into());
     }
@@ -1275,196 +1324,4 @@ pub fn resolve_strategic_encounter(
             outcome: encounter.outcome.unwrap_or_else(|| "resolved".into()),
         });
     Ok(())
-}
-
-fn redirect_camped_party_to_settlement(
-    ctx: &ReducerContext,
-    party: &mut Party,
-    destination: &Settlement,
-    route: Option<JourneyRoutePlan>,
-) -> Result<(), String> {
-    let mut journey = ctx
-        .db
-        .party_journey_authority()
-        .party_id()
-        .find(&party.id)
-        .ok_or("Camp journey not found")?;
-    let redirect_departure_minute = living_party_member_ids(ctx, &party.id)
-        .into_iter()
-        .filter_map(|member_id| ctx.db.character_time().character_id().find(member_id))
-        .map(|time| time.minutes)
-        .max()
-        .unwrap_or(journey.departure_minute);
-    let travel_minutes = if let Some(route) = route.as_ref() {
-        validate_camp_redirect_weather_interval(route, redirect_departure_minute)?;
-        let current_route = ctx
-            .db
-            .party_journey_route_authority()
-            .party_id()
-            .find(&party.id)
-            .ok_or("Camp has no persisted terrain route")?;
-        let origin = route_position_at_minute(&current_route, journey.completed_movement_minutes)
-            .ok_or("Camp route position is unavailable")?;
-        validate_journey_route(
-            ctx,
-            route,
-            origin,
-            (destination.coord_x, destination.coord_y),
-        )?;
-        route.minutes
-    } else {
-        camp_redirect_minutes(&journey, &destination.id)
-            .ok_or("That settlement is not an endpoint of this camp journey")?
-    };
-    if travel_minutes == 0 {
-        return Err("The party is already at that journey endpoint".into());
-    }
-
-    journey.origin = JourneyEndpoint::Camp(party.id.clone());
-    journey.destination = JourneyEndpoint::Settlement(JourneySettlementEndpoint {
-        id: destination.id.clone(),
-        name: destination.name.clone(),
-    });
-    journey.total_movement_minutes = travel_minutes;
-    journey.completed_movement_minutes = 0;
-    journey.departure_minute = redirect_departure_minute;
-    journey.completed_elapsed_minutes = 0;
-    journey.reached_camp_movement_minutes.clear();
-    journey.actual_camp_intervals.clear();
-    journey.forecast_camp_intervals.clear();
-    ctx.db.party_journey_authority().party_id().update(journey);
-    if ctx
-        .db
-        .party_journey_route_authority()
-        .party_id()
-        .find(&party.id)
-        .is_some()
-    {
-        ctx.db
-            .party_journey_route_authority()
-            .party_id()
-            .delete(&party.id);
-    }
-    if let Some(route) = route {
-        ctx.db
-            .party_journey_route_authority()
-            .insert(PartyJourneyRoute {
-                party_id: party.id.clone(),
-                gateway_bucket: 0,
-                package_digest: route.package_digest,
-                weather_rules_version: route.weather_rules_version,
-                weather_interval_start: route.weather_interval_start,
-                precipitation: route.precipitation,
-                intensity_bps: route.intensity_bps,
-                ground_moisture_bps: route.ground_moisture_bps,
-                snow_cover_bps: route.snow_cover_bps,
-                distance_m: route.distance_m,
-                minutes: route.minutes,
-                points: route.points,
-                spans: route.spans,
-                return_route: route.return_route,
-            });
-    }
-
-    party.current_settlement_id = None;
-    party.current_case_site_id = None;
-    party.camp_destination = Some(JourneyEndpoint::Settlement(JourneySettlementEndpoint {
-        id: destination.id.clone(),
-        name: destination.name.clone(),
-    }));
-    party.camp_remaining_minutes = travel_minutes;
-    ctx.db.party_authority().id().update(party.clone());
-    refresh_party_journey_forecast(ctx, &party.id)?;
-    Ok(())
-}
-
-fn revalidate_party_after_departure_sync(
-    ctx: &ReducerContext,
-    party_id: &str,
-    leader_id: u64,
-    expected_settlement_id: Option<&str>,
-    expected_quest_location_id: Option<&str>,
-    expected_active_contract_id: Option<&str>,
-    allow_incapacitated_case_site_withdrawal: bool,
-) -> Result<Party, String> {
-    let party = ctx
-        .db
-        .party_authority()
-        .id()
-        .find(party_id.to_string())
-        .ok_or("Party changed during departure synchronization")?;
-    let party_matches = party.leader_id == leader_id
-        && party.camp_destination.is_none()
-        && party.current_settlement_id.as_deref() == expected_settlement_id
-        && party.current_case_site_id.as_deref() == expected_quest_location_id
-        && !expected_active_contract_id
-            .is_some_and(|id| party.active_contract_id.as_deref() != Some(id));
-    let pending_incident_sites: Vec<_> = ctx
-        .db
-        .strategic_incident()
-        .party_id()
-        .filter(party_id)
-        .filter(|incident| incident.status == IncidentStatus::Pending)
-        .map(|incident| incident.case_site_id.into_string())
-        .collect();
-    if !departure_snapshot_allows_travel(
-        party_matches,
-        true,
-        pending_incident_allows_departure(
-            expected_quest_location_id,
-            pending_incident_sites.iter().map(String::as_str),
-        ),
-    ) {
-        return Err("Travel was interrupted while the party synchronized its clocks".into());
-    }
-    let members = living_party_member_ids(ctx, party_id);
-    let members_match = !members.is_empty()
-        && !members.iter().any(|id| {
-            ctx.db.character().id().find(*id).is_none_or(|member| {
-                member.current_settlement_id.as_deref() != expected_settlement_id
-                    || crate::investigation::character_case_site_id(ctx, member.id).as_deref()
-                        != expected_quest_location_id
-            })
-        });
-    if !departure_snapshot_allows_travel(true, members_match, true) {
-        return Err("A party member changed location during departure synchronization".into());
-    }
-    if departure_requires_ready_party(
-        expected_settlement_id,
-        expected_quest_location_id,
-        allow_incapacitated_case_site_withdrawal,
-    ) {
-        require_party_ready(ctx, party_id)?;
-    }
-    Ok(party)
-}
-
-fn departure_requires_ready_party(
-    expected_settlement_id: Option<&str>,
-    expected_case_site_id: Option<&str>,
-    allow_incapacitated_case_site_withdrawal: bool,
-) -> bool {
-    !(allow_incapacitated_case_site_withdrawal
-        && expected_settlement_id.is_none()
-        && expected_case_site_id.is_some())
-}
-
-fn departure_snapshot_allows_travel(
-    party_matches: bool,
-    members_match: bool,
-    incident_snapshot_allows_departure: bool,
-) -> bool {
-    party_matches && members_match && incident_snapshot_allows_departure
-}
-
-fn pending_incident_allows_departure<'a>(
-    expected_case_site_id: Option<&str>,
-    pending_case_site_ids: impl Iterator<Item = &'a str>,
-) -> bool {
-    let mut pending = pending_case_site_ids;
-    match (pending.next(), pending.next()) {
-        (None, _) => true,
-        (Some(site), None) => expected_case_site_id == Some(site),
-        (Some(_), Some(_)) => false,
-    }
 }

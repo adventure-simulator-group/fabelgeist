@@ -1,5 +1,6 @@
 //! Flat spiral strips follow the shaft taper and lift over crossing strips.
 use super::*;
+use crate::ConstructionError;
 use std::f64::consts::{PI, TAU};
 
 pub(super) fn parts(
@@ -7,7 +8,7 @@ pub(super) fn parts(
     id: &str,
     label: &str,
     detail: Detail,
-) -> Result<Vec<PartSource>, String> {
+) -> Result<Vec<PartSource>, ConstructionError> {
     let mut parts = Vec::new();
     for (index, wrapping) in shaft.wrappings.iter().flatten().enumerate() {
         if let Some(underlay) = &wrapping.underlay {
@@ -51,7 +52,7 @@ fn strip(
     wrap: &ShaftWrapping,
     direction: f64,
     detail: Detail,
-) -> Result<Solid, String> {
+) -> Result<Solid, ConstructionError> {
     let start = wrap.start.get() + wrap.width.get() / 2.0;
     let end = wrap.start.get() + wrap.length.get() - wrap.width.get() / 2.0;
     let turns = (end - start) / wrap.pitch.get();

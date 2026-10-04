@@ -41,7 +41,7 @@ pub(crate) fn validate(
 pub(crate) fn effective(
     schedule: &ScheduleAllocation,
     location: ActivityLocation,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
 ) -> Result<ScheduleAllocation, ScheduleParseError> {
     let core = ValidatedSchedule::try_from(core_allocation(schedule))?
         .effective_at(location, character_id);
@@ -85,7 +85,7 @@ impl SchedulePreview {
     pub fn calculate(
         schedule: &ScheduleAllocation,
         location: ActivityLocation,
-        character_id: u64,
+        character_id: adventuresim_core::identity::CharacterId,
     ) -> Result<Self, ScheduleParseError> {
         let effective = ValidatedSchedule::try_from(core_allocation(schedule))?
             .effective_at(location, character_id);

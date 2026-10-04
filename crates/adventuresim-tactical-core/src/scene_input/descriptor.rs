@@ -10,7 +10,7 @@ pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 pub struct TacticalSceneInput {
     pub schema_version: u16,
     pub generation_version: u16,
-    pub seed: u64,
+    pub seed: fabelgeist_determinism::Seed,
     pub scene_key: String,
     pub source: SceneSource,
     pub latitude_microdegrees: i32,

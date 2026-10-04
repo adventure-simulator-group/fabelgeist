@@ -1,3 +1,4 @@
+use adventuresim_core::mission::MissionId;
 use adventuresim_world_schema::calendar::StrategicMinute;
 use sha2::{Digest, Sha256};
 use spacetimedb::{
@@ -5,7 +6,9 @@ use spacetimedb::{
 };
 use std::collections::HashSet;
 
+mod claim_release;
 mod request;
+pub use claim_release::revoke_tactical_server_claim;
 
 pub use request::{TacticalBusinessOperator, TacticalSettlementSnapshot};
 pub(crate) use request::{tactical_party_roster, tactical_settlement_snapshot};
@@ -213,7 +216,8 @@ pub fn authorize_tactical_server_claim(
     mission_id: String,
     claim_hash: Vec<u8>,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     if claim_hash.len() != 32 {
         return Err("Tactical claim hash must be SHA-256".into());
     }
@@ -239,31 +243,6 @@ pub fn authorize_tactical_server_claim(
         mission_id,
         claim_hash,
     });
-    Ok(())
-}
-
-/// Release an unconsumed claim after the trusted dispatcher fails to start
-/// its child process. Consumed claims and active servers have no row to revoke.
-#[reducer]
-pub fn revoke_tactical_server_claim(
-    ctx: &ReducerContext,
-    mission_id: String,
-) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
-    adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
-    if ctx
-        .db
-        .tactical_server_request_authority()
-        .mission_id()
-        .find(&mission_id)
-        .is_none()
-    {
-        return Err("Tactical server request is no longer pending".into());
-    }
-    ctx.db
-        .tactical_server_claim()
-        .mission_id()
-        .delete(&mission_id);
     Ok(())
 }
 
@@ -499,7 +478,8 @@ pub fn enter_mission(
     if ctx.sender() != server {
         return Err("Only the owning tactical server can enroll characters".into());
     }
-    crate::character::require_living_character(ctx, character_id)?;
+    crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     // Check character exists
     let mut character = ctx
         .db
@@ -696,9 +676,11 @@ pub fn request_tactical_server(
     mission_id: String,
     scene_key: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
-    adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    MissionId::new(mission_id.clone()).map_err(|error| error.to_string())?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let party_id = character.party_id.ok_or("Character has no party")?;
     let party = ctx
         .db
@@ -843,7 +825,10 @@ pub fn request_tactical_server(
             settlement,
             absolute_minute,
             lunar_phase_minute,
-            authorized_party_member_ids,
+            authorized_party_member_ids: authorized_party_member_ids
+                .into_iter()
+                .map(u64::from)
+                .collect(),
             required_enemy_kills: enemy_roster.enemy_count().get(),
             enemy_difficulty: mission.enemy_difficulty,
             enemy_combat_scale_bps: mission.enemy_combat_scale_bps,
@@ -872,7 +857,7 @@ pub fn create_tactical_server_for_request(
     addr: String,
     cert_digest: String,
 ) -> Result<(), String> {
-    adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
+    MissionId::new(mission_id.clone()).map_err(|error| error.to_string())?;
     let claim_row = ctx
         .db
         .tactical_server_claim()
@@ -913,7 +898,11 @@ pub fn create_tactical_server_for_request(
         request.mission_id,
         request.scene_key,
         request.party_id,
-        request.authorized_party_member_ids,
+        request
+            .authorized_party_member_ids
+            .into_iter()
+            .map(adventuresim_core::identity::CharacterId::from)
+            .collect(),
         request.required_enemy_kills,
         request.enemy_difficulty,
         request.enemy_combat_scale_bps,
@@ -939,7 +928,7 @@ fn insert_tactical_server(
     mission_id: String,
     scene_key: String,
     party_id: String,
-    authorized_party_member_ids: Vec<u64>,
+    authorized_party_member_ids: Vec<adventuresim_core::identity::CharacterId>,
     required_enemy_kills: u32,
     enemy_difficulty: i32,
     enemy_combat_scale_bps: u32,
@@ -984,7 +973,10 @@ fn insert_tactical_server(
         party_id,
         addr,
         cert_digest,
-        authorized_party_member_ids,
+        authorized_party_member_ids: authorized_party_member_ids
+            .into_iter()
+            .map(u64::from)
+            .collect(),
         required_enemy_kills,
         enemy_difficulty,
         enemy_combat_scale_bps,
@@ -1200,7 +1192,7 @@ fn apply_tactical_receipt(
         }
         crate::condition::apply_blood_loss(
             ctx,
-            consequence.character_id,
+            (consequence.character_id).into(),
             consequence.blood_loss_fraction,
         )?;
         crate::strategic::consume_autoresolve_ammunition(
@@ -1208,10 +1200,10 @@ fn apply_tactical_receipt(
             consequence.character_id,
             consequence.ammunition_used,
         );
-        crate::capability::refresh_character_capability(ctx, consequence.character_id)?;
+        crate::capability::refresh_character_capability(ctx, (consequence.character_id).into())?;
         crate::filth::deposit_now(
             ctx,
-            consequence.character_id,
+            (consequence.character_id).into(),
             adventuresim_core::filth::FilthSubstance::Dirt,
             None,
             1,
@@ -1277,7 +1269,7 @@ fn end_tactical_server_by_instance(
         for character in connected.iter().filter(|character| !character.temporary) {
             crate::condition::record_morale_event(
                 ctx,
-                character.id,
+                (character.id).into(),
                 adventuresim_core::morale::MoraleEventKind::Defeat,
                 -5.0,
                 Some(server.mission_id.clone()),
@@ -1437,7 +1429,7 @@ mod authority_tests {
             .nth(1)
             .and_then(|tail| tail.split("#[reducer]").next())
             .expect("request reducer");
-        assert!(request.contains("require_strategic_character_authority(ctx, character_id)?"));
+        assert!(request.split_whitespace().collect::<String>().contains("require_strategic_character_authority(ctx,(character_id).into()).map_err(|error:crate::strategic::StrategicCharacterAuthorityError|error.to_string())?"));
     }
 
     #[test]
@@ -1472,7 +1464,7 @@ mod authority_tests {
     #[test]
     fn claim_is_gateway_authorized_hashed_and_consumed_once() {
         let source = crate::production_source(include_str!("tactical.rs"));
-        assert!(source.contains("require_strategic_gateway(ctx)?"));
+        assert!(source.split_whitespace().collect::<String>().contains("require_strategic_gateway(ctx).map_err(|error:crate::strategic::GatewayAdmissionError|error.to_string())?"));
         assert!(source.contains("Sha256::digest(claim.as_bytes())"));
         assert!(source.contains(".tactical_server_claim()"));
         assert!(source.contains(".delete(&mission_id)"));

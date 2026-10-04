@@ -1,97 +1,154 @@
 //! Anatomical garment regions mapped to the body skeleton.
 use super::Region;
+use fabelgeist_rig::{RigJointMembership, RigJointName, RigJointOrdinal};
+use std::collections::HashSet;
 
-#[derive(Clone, Copy)]
 pub(super) struct RegionRig {
-    pub(super) proximal: &'static str,
-    pub(super) distal: &'static str,
-    pub(super) joint: fn(&str) -> bool,
+    pub(super) proximal: RigJointName,
+    pub(super) distal: RigJointName,
+    region: Region,
 }
 
 pub(super) fn region_rig(region: Region) -> RegionRig {
-    match region {
-        Region::Head => RegionRig {
-            proximal: "c_neck",
-            distal: "c_head",
-            joint: |name| {
-                matches!(name, "c_head" | "c_jaw" | "l_eye" | "r_eye")
-                    || name.starts_with("c_tongue")
-            },
-        },
-        Region::Neck => RegionRig {
-            proximal: "c_spine3",
-            distal: "c_neck",
-            joint: |name| name == "c_neck" || name.starts_with("c_neck_twist"),
-        },
-        Region::Chest => RegionRig {
-            proximal: "c_spine2",
-            distal: "c_neck",
-            joint: |name| matches!(name, "c_spine2" | "c_spine3" | "l_clavicle" | "r_clavicle"),
-        },
-        Region::LeftAxilla => limb_rig("l_clavicle", "l_uparm", |name| name == "l_clavicle"),
-        Region::RightAxilla => limb_rig("r_clavicle", "r_uparm", |name| name == "r_clavicle"),
-        Region::Stomach => RegionRig {
-            proximal: "c_spine0",
-            distal: "c_spine2",
-            joint: |name| matches!(name, "c_spine0" | "c_spine1"),
-        },
-        Region::Groin => RegionRig {
-            proximal: "c_spine1",
-            distal: "c_spine0",
-            joint: |name| matches!(name, "c_spine0" | "l_upleg" | "r_upleg"),
-        },
-        Region::LeftUpperArm => limb_rig("l_uparm", "l_lowarm", left_upper_arm),
-        Region::LeftForearm => limb_rig("l_lowarm", "l_wrist", left_forearm),
-        Region::RightUpperArm => limb_rig("r_uparm", "r_lowarm", right_upper_arm),
-        Region::RightForearm => limb_rig("r_lowarm", "r_wrist", right_forearm),
-        Region::LeftThigh => limb_rig("l_upleg", "l_lowleg", left_thigh),
-        Region::LeftLowerLeg => limb_rig("l_lowleg", "l_foot", left_lower_leg),
-        Region::RightThigh => limb_rig("r_upleg", "r_lowleg", right_thigh),
-        Region::RightLowerLeg => limb_rig("r_lowleg", "r_foot", right_lower_leg),
-    }
-}
-
-const fn limb_rig(
-    proximal: &'static str,
-    distal: &'static str,
-    joint: fn(&str) -> bool,
-) -> RegionRig {
+    let (proximal, distal) = match region {
+        Region::Head => (RigJointName::C_NECK, RigJointName::C_HEAD),
+        Region::Neck => (RigJointName::C_SPINE3, RigJointName::C_NECK),
+        Region::Chest => (RigJointName::C_SPINE2, RigJointName::C_NECK),
+        Region::LeftAxilla => (RigJointName::L_CLAVICLE, RigJointName::L_UPARM),
+        Region::RightAxilla => (RigJointName::R_CLAVICLE, RigJointName::R_UPARM),
+        Region::Stomach => (RigJointName::C_SPINE0, RigJointName::C_SPINE2),
+        Region::Groin => (RigJointName::C_SPINE1, RigJointName::C_SPINE0),
+        Region::LeftUpperArm => (RigJointName::L_UPARM, RigJointName::L_LOWARM),
+        Region::LeftForearm => (RigJointName::L_LOWARM, RigJointName::L_WRIST),
+        Region::RightUpperArm => (RigJointName::R_UPARM, RigJointName::R_LOWARM),
+        Region::RightForearm => (RigJointName::R_LOWARM, RigJointName::R_WRIST),
+        Region::LeftThigh => (RigJointName::L_UPLEG, RigJointName::L_LOWLEG),
+        Region::LeftLowerLeg => (RigJointName::L_LOWLEG, RigJointName::L_FOOT),
+        Region::RightThigh => (RigJointName::R_UPLEG, RigJointName::R_LOWLEG),
+        Region::RightLowerLeg => (RigJointName::R_LOWLEG, RigJointName::R_FOOT),
+    };
     RegionRig {
         proximal,
         distal,
-        joint,
+        region,
     }
 }
 
-fn left_upper_arm(name: &str) -> bool {
-    name == "l_uparm" || name.starts_with("l_uparm_twist")
-}
-fn left_forearm(name: &str) -> bool {
-    name == "l_lowarm" || name.starts_with("l_lowarm_twist")
-}
-fn right_upper_arm(name: &str) -> bool {
-    name == "r_uparm" || name.starts_with("r_uparm_twist")
-}
-fn right_forearm(name: &str) -> bool {
-    name == "r_lowarm" || name.starts_with("r_lowarm_twist")
-}
-fn left_thigh(name: &str) -> bool {
-    name == "l_upleg" || name.starts_with("l_upleg_twist")
-}
-fn left_lower_leg(name: &str) -> bool {
-    name == "l_lowleg" || name.starts_with("l_lowleg_twist")
-}
-fn right_thigh(name: &str) -> bool {
-    name == "r_upleg" || name.starts_with("r_upleg_twist")
-}
-fn right_lower_leg(name: &str) -> bool {
-    name == "r_lowleg" || name.starts_with("r_lowleg_twist")
+impl RegionRig {
+    pub(super) fn skin_joints(rigs: &[Self], names: &[RigJointName]) -> HashSet<RigJointOrdinal> {
+        names
+            .iter()
+            .enumerate()
+            .filter_map(
+                |(slot, name): (usize, &RigJointName)| -> Option<RigJointOrdinal> {
+                    rigs.iter()
+                        .any(|rig: &Self| -> bool {
+                            rig.membership(name) == RigJointMembership::Included
+                        })
+                        .then_some(RigJointOrdinal::from(slot))
+                },
+            )
+            .collect()
+    }
+
+    pub(super) fn membership(&self, name: &RigJointName) -> RigJointMembership {
+        let included = match self.region {
+            Region::Head => {
+                [
+                    RigJointName::C_HEAD,
+                    RigJointName::C_JAW,
+                    RigJointName::L_EYE,
+                    RigJointName::R_EYE,
+                ]
+                .contains(name)
+                    || name.family_prefix(&RigJointName::C_TONGUE) == RigJointMembership::Included
+            }
+            Region::Neck => name.skin_family(&RigJointName::C_NECK) == RigJointMembership::Included,
+            Region::Chest => [
+                RigJointName::C_SPINE2,
+                RigJointName::C_SPINE3,
+                RigJointName::L_CLAVICLE,
+                RigJointName::R_CLAVICLE,
+            ]
+            .contains(name),
+            Region::LeftAxilla => name == &RigJointName::L_CLAVICLE,
+            Region::RightAxilla => name == &RigJointName::R_CLAVICLE,
+            Region::Stomach => [RigJointName::C_SPINE0, RigJointName::C_SPINE1].contains(name),
+            Region::Groin => [
+                RigJointName::C_SPINE0,
+                RigJointName::L_UPLEG,
+                RigJointName::R_UPLEG,
+            ]
+            .contains(name),
+            Region::LeftUpperArm
+            | Region::LeftForearm
+            | Region::RightUpperArm
+            | Region::RightForearm
+            | Region::LeftThigh
+            | Region::LeftLowerLeg
+            | Region::RightThigh
+            | Region::RightLowerLeg => {
+                name.skin_family(&self.proximal) == RigJointMembership::Included
+            }
+        };
+        RigJointMembership::from(included)
+    }
 }
 
-pub(super) fn waist_surface_joint(name: &str) -> bool {
-    matches!(
-        name,
-        "root" | "c_spine0" | "c_spine1" | "l_upleg" | "r_upleg"
-    ) || name.starts_with("l_upleg_twist")
-        || name.starts_with("r_upleg_twist")
+/// Waist support includes thigh twists, but deliberately excludes spine twists.
+/// Socket export and cloth fitting share this exact skin-selection policy.
+pub(crate) fn waist_surface_joint(name: &RigJointName) -> RigJointMembership {
+    RigJointMembership::from(
+        [
+            RigJointName::ROOT,
+            RigJointName::C_SPINE0,
+            RigJointName::C_SPINE1,
+        ]
+        .contains(name)
+            || name.skin_family(&RigJointName::L_UPLEG) == RigJointMembership::Included
+            || name.skin_family(&RigJointName::R_UPLEG) == RigJointMembership::Included,
+    )
+}
+
+/// Ordered-rig slots admitted into the waist support selection.
+pub(super) fn waist_joints(names: &[RigJointName]) -> HashSet<RigJointOrdinal> {
+    names
+        .iter()
+        .enumerate()
+        .filter_map(
+            |(slot, name): (usize, &RigJointName)| -> Option<RigJointOrdinal> {
+                (waist_surface_joint(name) == RigJointMembership::Included)
+                    .then_some(RigJointOrdinal::from(slot))
+            },
+        )
+        .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn skin_queries_preserve_head_prefix_axilla_exactness_and_waist_twist_exclusions() {
+        assert_eq!(
+            region_rig(Region::Head).membership(&RigJointName::from("c_tongue_helper")),
+            RigJointMembership::Included
+        );
+        assert_eq!(
+            region_rig(Region::LeftAxilla).membership(&RigJointName::from("l_clavicle_twist")),
+            RigJointMembership::Excluded
+        );
+        assert_eq!(
+            region_rig(Region::LeftUpperArm).membership(&RigJointName::from("l_uparm_twisted")),
+            RigJointMembership::Included
+        );
+        assert_eq!(
+            waist_surface_joint(&RigJointName::from("l_upleg_twist2_proc")),
+            RigJointMembership::Included
+        );
+        assert_eq!(
+            waist_surface_joint(&RigJointName::from("c_spine0_twist")),
+            RigJointMembership::Excluded
+        );
+    }
 }

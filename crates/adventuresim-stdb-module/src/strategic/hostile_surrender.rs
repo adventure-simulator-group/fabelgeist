@@ -173,7 +173,7 @@ fn resolve_hostile_surrender(
     ctx: &ReducerContext,
     request: SurrenderRequest,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, request.actor_id)?;
+    require_strategic_character_authority(ctx, (request.actor_id).into())?;
     if request.action_id.is_empty() || request.action_id.len() > 160 {
         return Err("Hostile surrender action ID is invalid".into());
     }
@@ -211,17 +211,24 @@ fn resolve_hostile_surrender(
         .find(&site.case_id)
         .ok_or("Surrender case authority is unavailable")?;
     let profile = parse_threat(&group.enemy_type)?.profile();
-    let language =
-        crate::character::shared_language_coefficient(ctx, request.actor_id, request.spokesman_id);
-    let affinity = crate::social::current_affinity(ctx, request.spokesman_id, request.actor_id);
+    let language = crate::character::shared_language_coefficient(
+        ctx,
+        (request.actor_id).into(),
+        (request.spokesman_id).into(),
+    );
+    let affinity = crate::social::current_affinity(
+        ctx,
+        (request.spokesman_id).into(),
+        (request.actor_id).into(),
+    );
     let social_ability = crate::condition::mental_check(
         ctx,
-        request.actor_id,
+        (request.actor_id).into(),
         adventuresim_core::skill::Skill::Charm,
     )?
     .max(crate::condition::mental_check(
         ctx,
-        request.actor_id,
+        (request.actor_id).into(),
         adventuresim_core::skill::Skill::Command,
     )?);
     let assessment = adventuresim_core::strategic_action::assess_hostile_surrender(
@@ -286,7 +293,12 @@ fn resolve_hostile_surrender(
                 .into(),
         )
     } else {
-        crate::social::put_affinity(ctx, request.spokesman_id, request.actor_id, affinity - 1.0);
+        crate::social::put_affinity(
+            ctx,
+            (request.spokesman_id).into(),
+            (request.actor_id).into(),
+            affinity - 1.0,
+        );
         (
             HostileSurrenderOutcome::Refused,
             "The hostile spokesman refuses your surrender demand. The group remains active and every approach remains available."

@@ -6,9 +6,10 @@
 //! accessors for buffers of packed points -- and records the dispatch.
 
 use anyhow::Result;
-use fabelgeist_armor::gpu::{device_error, wgsl};
+use fabelgeist_armor::gpu::wgsl;
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::PassParameterName;
+use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
 
 use crate::device_frames::DeviceWearer;
 
@@ -126,9 +127,9 @@ pub(crate) enum Word {
 #[derive(Clone, Copy)]
 pub(crate) enum Grid {
     /// One per item, in workgroups of 64.
-    Items(u32),
+    Items(fabelgeist_gpu::prelude::InvocationCount),
     /// One single-invocation workgroup per item.
-    Singles(u32),
+    Singles(fabelgeist_gpu::prelude::InvocationCount),
 }
 
 /// Compile and record one garment kernel: its bindings and uniform block
@@ -150,7 +151,10 @@ pub(crate) fn dispatch(
             "@group(0) @binding({binding}) var<storage, {};\n",
             bound.kind.declaration().replace("{}", bound.name)
         ));
-        parameters.insert(bound.name, bound.buffer.clone());
+        parameters.insert(
+            PassParameterName::from(bound.name),
+            (bound.buffer.clone()).into(),
+        );
     }
     source.push_str("struct Params {\n");
     let mut members = words.to_vec();
@@ -163,11 +167,11 @@ pub(crate) fn dispatch(
         match *word {
             Word::U(name, value) => {
                 source.push_str(&format!("    {name}: u32,\n"));
-                parameters.insert(name, value);
+                parameters.insert(name.into(), (value).into());
             }
             Word::F(name, value) => {
                 source.push_str(&format!("    {name}: f32,\n"));
-                parameters.insert(name, value);
+                parameters.insert(name.into(), (value).into());
             }
         }
     }
@@ -197,13 +201,13 @@ pub(crate) fn dispatch(
     };
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &source)
-        .map_err(device_error)?;
+        .get(gpu.context(), &ShaderSource::from(source))
+        .map_err(fabelgeist_armor::GenerateError::from)?;
     match grid {
         Grid::Items(count) => batch.dispatch_items(&kernel, &parameters, count),
-        Grid::Singles(count) => batch.dispatch(&kernel, &parameters, [count, 1, 1]),
+        Grid::Singles(count) => batch.dispatch(&kernel, &parameters, count.single_workgroups()),
     }
-    .map_err(device_error)?;
+    .map_err(fabelgeist_armor::GenerateError::from)?;
     Ok(())
 }
 

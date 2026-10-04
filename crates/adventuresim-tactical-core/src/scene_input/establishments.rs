@@ -1,4 +1,5 @@
 use super::*;
+use crate::scene_input::SceneValidationError;
 use std::collections::{BTreeMap, BTreeSet};
 
 use adventuresim_building_generator::signs::ShopName;
@@ -40,28 +41,28 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
             || establishment.operator_character_id == 0
             || establishment.operator_name.as_str().is_empty()
         {
-            return invalid("establishment identity or operator is empty");
+            return invalid(SceneValidationError::EstablishmentIdentity);
         }
         if !building_ids.insert(establishment.building_id)
             || !business_ids.insert(&establishment.business_id)
             || !operator_ids.insert(establishment.operator_character_id)
         {
-            return invalid("establishment building, business, or operator is duplicated");
+            return invalid(SceneValidationError::EstablishmentDuplicate);
         }
         if settlement_id
             .replace(&establishment.business_id.settlement_id)
             .is_some_and(|expected| expected != establishment.business_id.settlement_id)
         {
-            return invalid("establishments cross settlement boundaries");
+            return invalid(SceneValidationError::EstablishmentSettlement);
         }
         let Some(usage) = buildings.get(&establishment.building_id).copied().flatten() else {
-            return invalid("establishment references an unknown business building");
+            return invalid(SceneValidationError::EstablishmentBuilding);
         };
         if usage != establishment.business_id.key.usage {
-            return invalid("establishment business use does not match its building");
+            return invalid(SceneValidationError::EstablishmentUsage);
         }
         if establishment.shop_name != ShopName::for_operator(&establishment.operator_name, usage) {
-            return invalid("establishment shop name does not match its operator and building use");
+            return invalid(SceneValidationError::EstablishmentShopName);
         }
     }
     Ok(())

@@ -1,7 +1,11 @@
 //! Trigger guards, barrel bands, sights and stock decoration.
 use super::*;
+use crate::ConstructionError;
 impl Assembly<'_> {
-    pub(super) fn trigger_and_ramrod(&mut self, p: &FirearmParameters) -> Result<(), String> {
+    pub(super) fn trigger_and_ramrod(
+        &mut self,
+        p: &FirearmParameters,
+    ) -> Result<(), ConstructionError> {
         let detail = self.detail;
         let start = p.length.get() - p.barrel_length.get();
         let furniture = p
@@ -45,7 +49,11 @@ impl Assembly<'_> {
 
         Ok(())
     }
-    pub(super) fn bands(&mut self, p: &FirearmParameters, centers: &[f64]) -> Result<(), String> {
+    pub(super) fn bands(
+        &mut self,
+        p: &FirearmParameters,
+        centers: &[f64],
+    ) -> Result<(), ConstructionError> {
         let start = p.length.get() - p.barrel_length.get();
         let outer = p.bore.get() / 2.0 + p.barrel_wall.get();
         let furniture = p
@@ -80,7 +88,11 @@ impl Assembly<'_> {
 
         Ok(())
     }
-    pub(super) fn sights(&mut self, p: &FirearmParameters, centers: &[f64]) -> Result<(), String> {
+    pub(super) fn sights(
+        &mut self,
+        p: &FirearmParameters,
+        centers: &[f64],
+    ) -> Result<(), ConstructionError> {
         let detail = self.detail;
         let start = p.length.get() - p.barrel_length.get();
         let outer = p.bore.get() / 2.0 + p.barrel_wall.get();
@@ -117,7 +129,7 @@ impl Assembly<'_> {
 
         Ok(())
     }
-    pub(super) fn facing(&mut self, p: &FirearmParameters) -> Result<(), String> {
+    pub(super) fn facing(&mut self, p: &FirearmParameters) -> Result<(), ConstructionError> {
         let detail = self.detail;
         let stations = stations(p);
         let start = p.length.get() - p.barrel_length.get();

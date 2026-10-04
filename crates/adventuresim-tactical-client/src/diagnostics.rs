@@ -154,8 +154,8 @@ struct ScriptedInput {
     look: Vec2,
     weapon_guard: WeaponGuardState,
     pace: MovementPace,
-    posture_sequence: u32,
-    jump_sequence: u32,
+    posture_sequence: PostureSequence,
+    jump_sequence: JumpSequence,
     started: bool,
     exit_after_script: bool,
     finished_elapsed: Option<f32>,
@@ -282,8 +282,8 @@ impl Plugin for DiagnosticPlugin {
                 look: Vec2::ZERO,
                 weapon_guard: WeaponGuardState::Lowered,
                 pace: MovementPace::Sprint,
-                posture_sequence: 0,
-                jump_sequence: 0,
+                posture_sequence: 0.into(),
+                jump_sequence: 0.into(),
                 started: false,
                 exit_after_script: self.exit_after_script,
                 finished_elapsed: None,
@@ -606,10 +606,10 @@ fn drive_scripted_input(
                     | ScriptCommand::TogglePosture { .. }
             )
         {
-            script.posture_sequence = script.posture_sequence.wrapping_add(1);
+            script.posture_sequence = script.posture_sequence.next();
         }
         if command_start && let ScriptCommand::Quickstep { direction, .. } = &command {
-            script.jump_sequence = script.jump_sequence.wrapping_add(1);
+            script.jump_sequence = script.jump_sequence.next();
             direct_controls.dodge_just_pressed = true;
             direct_controls.quickstep_direction = direction.vector();
         }
@@ -719,7 +719,7 @@ fn drive_scripted_input(
             force_attack.0 = true;
         }
         let request = PlayerInputRequest {
-            simulation_tick: 0,
+            simulation_tick: 0.into(),
             movement,
             look: script.look,
             jump,

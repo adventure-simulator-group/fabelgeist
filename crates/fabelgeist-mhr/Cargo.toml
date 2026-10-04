@@ -6,7 +6,9 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
 
 [dependencies]
-anyhow = "1"
+fabelgeist-rig = { path = "../fabelgeist-rig", features = ["fbx"] }
+fabelgeist-storage = { path = "../fabelgeist-storage" }
+serde = { version = "1", features = ["derive"] }
 burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
     "std",
     "wgpu",
@@ -22,3 +24,8 @@ pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea
 
 [lints.clippy]
 all = { level = "warn", priority = -1 }
+
+[dev-dependencies]
+tempfile = "3"
+serde_json = "1"
+tokio = { version = "1", features = ["macros", "rt"] }

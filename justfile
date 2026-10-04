@@ -746,6 +746,9 @@ fmt-check:
     @cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
 
 lint: verify-db-client
+    @{{ python_bin }} -B -m unittest scripts.test_semantic_interfaces scripts.test_wgsl_interfaces
+    @node node_modules/prettier/bin/prettier.cjs --check scripts/semantic_interfaces/javascript.mts
+    @{{ python_bin }} -B -m scripts.check_semantic_interfaces check
     @{{ python_bin }} -B -m unittest scripts.test_check_calendar_api
     @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
     @{{ python_bin }} scripts/check_deterministic_rng.py

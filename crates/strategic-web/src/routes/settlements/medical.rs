@@ -1,3 +1,5 @@
+use adventuresim_core::organization::organization_chapter_at;
+
 pub(super) fn parse_surgery_limb(slug: &str) -> Option<BodyRegion> {
     BodyRegion::parse_slug(slug)
 }
@@ -37,20 +39,6 @@ fn housing_error_code(_error: &str) -> &'static str {
     "unavailable"
 }
 
-pub(super) async fn required_surgery_rows<T>(
-    state: &AppState,
-    sql: &str,
-    data_kind: &'static str,
-) -> Result<Vec<T>, Html<String>>
-where
-    T: spacetimedb_sats::de::DeserializeOwned,
-{
-    state.db.query_sats(sql).await.map_err(|error| {
-        tracing::error!(%error, data_kind, "failed to load surgery data");
-        Html("<h1>Strategic medical data is unavailable</h1>".into())
-    })
-}
-
 pub(super) async fn surgery(
     State(state): State<AppState>,
     Path((kind, id, patient_id, limb)): Path<(String, String, u64, String)>,
@@ -83,7 +71,7 @@ pub(super) async fn surgery(
         Some(patient) => patient,
         None => match state
             .db
-            .query_one_sats_into::<DbCharacter, CharacterView>(&db::character_by_id(patient_id))
+            .query_one_sats_into::<DbCharacter, CharacterView>(db::character_by_id(patient_id.into()))
             .await
         {
             Ok(Some(patient)) => patient,
@@ -92,10 +80,10 @@ pub(super) async fn surgery(
     };
     let contextual_patient = state
         .db
-        .query_sats::<BackendContextCharacter>(&format!(
+        .query_sats::<BackendContextCharacter>(SqlQuery::from(format!(
             "SELECT * FROM backend_context_characters WHERE character_id = {patient_id} AND party_id = {}",
             sql_string_literal(active.party_id.as_deref().unwrap_or(""))
-        ))
+        )))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -105,39 +93,39 @@ pub(super) async fn surgery(
     {
         return Html("<h1>Surgeon and patient must be together</h1>".into());
     }
-    let injuries = match required_surgery_rows::<LimbInjury>(
-        &state,
-        &format!("SELECT * FROM limb_injury WHERE character_id = {patient_id}"),
-        "patient injuries",
-    )
-    .await
+    let injuries = match SurgeryDataset::PatientInjuries
+        .load::<LimbInjury>(
+            &state,
+            adventuresim_core::identity::CharacterId::from(patient_id),
+        )
+        .await
     {
         Ok(rows) => rows,
-        Err(response) => return response,
+        Err(error) => return error.response(),
     };
-    let projectiles = match required_surgery_rows::<RetainedProjectile>(
-        &state,
-        &format!("SELECT * FROM retained_projectile WHERE character_id = {patient_id}"),
-        "retained projectiles",
-    )
-    .await
+    let projectiles = match SurgeryDataset::RetainedProjectiles
+        .load::<RetainedProjectile>(
+            &state,
+            adventuresim_core::identity::CharacterId::from(patient_id),
+        )
+        .await
     {
         Ok(rows) => rows,
-        Err(response) => return response,
+        Err(error) => return error.response(),
     };
-    let inventory = match required_surgery_rows::<InventoryItem>(
-        &state,
-        &format!("SELECT * FROM inventory_item WHERE character_id = {actor_id}"),
-        "surgeon inventory",
-    )
-    .await
+    let inventory = match SurgeryDataset::Inventory
+        .load::<InventoryItem>(
+            &state,
+            adventuresim_core::identity::CharacterId::from(actor_id),
+        )
+        .await
     {
         Ok(rows) => rows,
-        Err(response) => return response,
+        Err(error) => return error.response(),
     };
     let item_definitions = match state
         .db
-        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into())
         .await
         .map_err(|error| {
             tracing::error!(%error, data_kind = "item definitions", "failed to load surgery data");
@@ -180,15 +168,15 @@ pub(super) async fn surgery(
     let actor_injuries = if actor_id == patient_id {
         injuries.clone()
     } else {
-        match required_surgery_rows::<LimbInjury>(
-            &state,
-            &format!("SELECT * FROM limb_injury WHERE character_id = {actor_id}"),
-            "surgeon injuries",
-        )
-        .await
+        match SurgeryDataset::SurgeonInjuries
+            .load::<LimbInjury>(
+                &state,
+                adventuresim_core::identity::CharacterId::from(actor_id),
+            )
+            .await
         {
             Ok(rows) => rows,
-            Err(response) => return response,
+            Err(error) => return error.response(),
         }
     };
     let quantity = |item_id: &str| {
@@ -499,15 +487,14 @@ pub(super) async fn settlement_resident_place(
     Query(page_query): Query<ResidencePageQuery>,
     session: Session,
 ) -> Html<String> {
-    let organization_chapter =
-        adventuresim_core::organization::organization_chapter_at(&id, &place);
+    let organization_chapter = organization_chapter_at(&id, &place);
     if !matches!(place.as_str(), "residences" | "keep") && organization_chapter.is_none() {
         return Html("<h1>Settlement place not found</h1>".into());
     }
     let settlement_query = settlement_by_id(&id);
     let settlement = state
         .db
-        .query_one_sats_into::<DbSettlement, SettlementView>(settlement_query.as_str())
+        .query_one_sats_into::<DbSettlement, SettlementView>(settlement_query)
         .await
         .ok()
         .flatten();
@@ -542,27 +529,27 @@ pub(super) async fn settlement_resident_place(
     }
     let party_members = get_active_party_members(&state, Some(character)).await;
     if place == "residences" {
-        let settlement_literal = sql_string_literal(&settlement.id);
-        let offers_sql = format!(
-            "SELECT * FROM settlement_residence_offer WHERE settlement_id = {settlement_literal}"
-        );
-        let residence_sql = db::character_residence_status_by_character_id(character.id);
-        let relationship_sql = db::character_relationship_status_by_character_id(character.id);
+        let quoted_id = sql_string_literal(&settlement.id);
+        let offers_sql: SqlQuery =
+            format!("SELECT * FROM settlement_residence_offer WHERE settlement_id = {quoted_id}")
+                .into();
+        let residence_sql = db::character_residence_status_by_character_id(character.id.into());
+        let relationship_sql = db::character_relationship_status_by_character_id(character.id.into());
         let owner_key = session.owner_key().unwrap_or_default();
-        let family_sql = format!(
+        let family_sql = SqlQuery::from(format!(
             "SELECT * FROM backend_family_children WHERE owner_key = {} AND observer_character_id = {}",
             sql_string_literal(owner_key),
             character.id,
-        );
+        ));
         let (offers, residences, relationship, children) = tokio::join!(
-            state.db.query_sats::<SettlementResidenceOffer>(&offers_sql),
+            state.db.query_sats::<SettlementResidenceOffer>(offers_sql),
             state
                 .db
-                .query_sats::<BackendCharacterResidenceStatus>(&residence_sql),
+                .query_sats::<BackendCharacterResidenceStatus>(residence_sql),
             state
                 .db
-                .query_one_sats::<BackendCharacterRelationshipStatus>(&relationship_sql),
-            state.db.query_sats::<BackendFamilyChild>(&family_sql),
+                .query_one_sats::<BackendCharacterRelationshipStatus>(relationship_sql),
+            state.db.query_sats::<BackendFamilyChild>(family_sql),
         );
         let mut offers = offers.unwrap_or_default();
         offers.sort_by_key(|offer| match offer.tier {
@@ -602,7 +589,7 @@ pub(super) async fn settlement_resident_place(
         for related_id in related_ids {
             if let Ok(Some(related)) = state
                 .db
-                .query_one_sats_into::<DbCharacter, CharacterView>(&db::character_by_id(related_id))
+                .query_one_sats_into::<DbCharacter, CharacterView>(db::character_by_id(related_id.into()))
                 .await
             {
                 related_characters.push(related);
@@ -610,11 +597,11 @@ pub(super) async fn settlement_resident_place(
         }
         let character_minute = state
             .db
-            .query_one_sats::<CharacterTime>(&db::character_time_by_character_id(character.id))
+            .query_one_sats::<CharacterTime>(db::character_time_by_character_id(character.id.into()))
             .await
             .ok()
             .flatten()
-            .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
+            .map_or(StrategicMinute::ZERO, |t| calendar_minute(&t.minutes));
         let wedding = relationship
             .as_ref()
             .and_then(|row| row.wedding_effective_minute.as_ref())
@@ -638,9 +625,10 @@ pub(super) async fn settlement_resident_place(
                 courtship_kind: status.courtship_kind,
                 courtship_exposed: status.courtship_exposed,
                 wedding,
-                pregnancy_due_days: status.pregnancy_due_minute.as_ref().map(|due| {
-                    character_minute.days_until_ceil(StrategicMinute::new(due.minutes))
-                }),
+                pregnancy_due_days: status
+                    .pregnancy_due_minute
+                    .as_ref()
+                    .map(|due| character_minute.days_until_ceil(calendar_minute(due))),
                 children: children
                     .iter()
                     .map(|child| ChildPresentation {
@@ -867,11 +855,11 @@ pub(super) async fn show_settlement_location(
     Query(query): Query<BuildingQuery>,
     session: Session,
 ) -> Html<String> {
-    let settlement_literal = sql_string_literal(&id);
+    let quoted_id = sql_string_literal(&id);
     let settlement_query = settlement_by_id(&id);
     let settlement = state
         .db
-        .query_one_sats_into::<DbSettlement, SettlementView>(settlement_query.as_str())
+        .query_one_sats_into::<DbSettlement, SettlementView>(settlement_query)
         .await;
     let settlement = match settlement {
         Ok(Some(settlement)) => settlement,
@@ -882,15 +870,15 @@ pub(super) async fn show_settlement_location(
         }
     };
     super::entry::activate_settlement(&state, &id).await;
-    let alias_sql =
-        format!("SELECT * FROM settlement_alias WHERE settlement_id = {settlement_literal}");
-    let description_sql =
-        format!("SELECT * FROM settlement_description WHERE settlement_id = {settlement_literal}");
+    let alias_sql: SqlQuery =
+        format!("SELECT * FROM settlement_alias WHERE settlement_id = {quoted_id}").into();
+    let description_sql: SqlQuery =
+        format!("SELECT * FROM settlement_description WHERE settlement_id = {quoted_id}").into();
     let (aliases, descriptions, active_character) = tokio::join!(
-        state.db.query_sats::<SettlementAlias>(&alias_sql),
+        state.db.query_sats::<SettlementAlias>(alias_sql),
         state
             .db
-            .query_sats::<SettlementDescription>(&description_sql),
+            .query_sats::<SettlementDescription>(description_sql),
         get_active_character(&state, session.character_id_u64()),
     );
     let party_members = get_active_party_members(
@@ -904,10 +892,10 @@ pub(super) async fn show_settlement_location(
     let mut corpses = if let Some((character, _)) = &active_character {
         state
             .db
-            .query_sats::<BackendCorpse>(&format!(
+            .query_sats::<BackendCorpse>(SqlQuery::from(format!(
                 "SELECT * FROM backend_corpses WHERE owner_character_id = {}",
                 character.id
-            ))
+            )))
             .await
             .unwrap_or_else(|error| {
                 tracing::warn!(%error, settlement_id = %id, "failed to load settlement corpses");

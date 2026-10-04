@@ -1,7 +1,9 @@
 //! One-recipe baking with owned pixel data, usable without a renderer or filesystem.
 
 mod compressed;
+mod error;
 mod wire;
+pub use error::BakeDecodeError;
 
 use bevy::{prelude::*, render::render_resource::TextureFormat};
 use serde::{Deserialize, Serialize};

@@ -793,10 +793,10 @@ mod tests {
         );
         let mut consequences = TacticalConsequenceAccumulator::default();
         for _ in 0..=adventuresim_core::mission::MAX_TACTICAL_AMMUNITION_USED {
-            record_party_ammunition_use(&mut consequences, CharacterId(7));
+            record_party_ammunition_use(&mut consequences, CharacterId::from(7));
         }
         assert_eq!(
-            consequences.party[&CharacterId(7)].ammunition_used,
+            consequences.party[&CharacterId::from(7)].ammunition_used,
             adventuresim_core::mission::MAX_TACTICAL_AMMUNITION_USED
         );
     }
@@ -855,13 +855,13 @@ mod tests {
         for _ in 0..100 {
             record_party_injury(
                 &mut consequences,
-                CharacterId(7),
+                CharacterId::from(7),
                 BodyPart::Chest,
                 0.003,
                 0.002,
             );
         }
-        let consequence = &consequences.party[&CharacterId(7)];
+        let consequence = &consequences.party[&CharacterId::from(7)];
         assert_eq!(consequence.injuries.len(), 1);
         assert!((consequence.injuries[0].cut_damage - 0.3).abs() < 0.0001);
         assert!((consequence.injuries[0].blunt_damage - 0.2).abs() < 0.0001);

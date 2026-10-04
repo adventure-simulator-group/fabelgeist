@@ -103,20 +103,20 @@ pub(crate) fn validate_scene_gardens(
     gardens: &[CityGarden],
     buildings: &[crate::scene_input::GeneratedBuilding],
     distant: &[DistantBuildingPlacement],
-) -> Result<(), String> {
+) -> Result<(), GardenClearanceError> {
     if gardens.is_empty() {
         return Ok(());
     }
-    let check = |id, centre, bounds: CityPlotBounds| -> Result<(), String> {
+    let check = |id, centre, bounds: CityPlotBounds| -> Result<(), GardenClearanceError> {
         if gardens
             .iter()
             .filter(|g| g.front_building_id == id)
             .any(|g| !g.plot.contains(centre) || g.cultivated_bounds.contains(centre))
         {
-            return Err("garden owner geometry lies outside its property".into());
+            return Err(GardenClearanceError::OwnerGeometry { building: id });
         }
         if gardens.iter().any(|g| !g.clears_building(bounds)) {
-            Err("garden working ground or plant intersects building geometry".into())
+            Err(GardenClearanceError::BuildingIntersection { building: id })
         } else {
             Ok(())
         }
@@ -140,7 +140,10 @@ pub(crate) fn validate_scene_gardens(
                 building.service_size,
                 building.seed,
             )
-            .map_err(|error| error.to_string())?;
+            .map_err(|source| GardenClearanceError::Recipe {
+                building: building.id,
+                source,
+            })?;
         check(
             building.id,
             building.centre_metres,
@@ -156,4 +159,18 @@ pub(crate) fn validate_scene_gardens(
         )?;
     }
     Ok(())
+}
+
+#[derive(Debug, thiserror::Error)]
+pub enum GardenClearanceError {
+    #[error("garden owner building {building} geometry lies outside its property")]
+    OwnerGeometry { building: u64 },
+    #[error("garden working ground or plant intersects building {building}")]
+    BuildingIntersection { building: u64 },
+    #[error("garden clearance building {building}: {source}")]
+    Recipe {
+        building: u64,
+        #[source]
+        source: super::CityCompileError,
+    },
 }

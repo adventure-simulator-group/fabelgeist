@@ -1,4 +1,5 @@
 use super::*;
+use crate::scene_input::SceneValidationError;
 
 /// Touching level cores form one terrace, even when their reserved plots differ.
 /// All medians sample the unchanged source terrain, so iteration order cannot
@@ -63,7 +64,7 @@ pub(super) fn shared_elevations(
                 .insert(*group, *anchor)
                 .is_some_and(|previous| (previous - anchor).abs() > f32::EPSILON)
             {
-                return invalid("connected property terraces require conflicting vista elevations");
+                return invalid(SceneValidationError::PropertyTerraceConflict);
             }
             levels.insert(*group, *anchor);
         }

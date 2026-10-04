@@ -1,5 +1,6 @@
 //! Named attachments and connected guard/ornament assemblies.
 use super::*;
+use crate::ConstructionError;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
@@ -175,7 +176,7 @@ pub struct Ornament {
 
 impl GuardAssemblyParameters {
     /// Order derived nodes by dependency, independently of their names.
-    pub(crate) fn binding_order(&self) -> Result<Vec<String>, String> {
+    pub(crate) fn binding_order(&self) -> Result<Vec<String>, ConstructionError> {
         let Some(bindings) = &self.node_bindings else {
             return Ok(Vec::new());
         };
@@ -191,7 +192,7 @@ impl GuardAssemblyParameters {
                         .all(|dependency| !pending.contains(dependency)),
                 })
                 .cloned()
-                .ok_or("guard node bindings contain a cycle")?;
+                .ok_or(ConstructionError::GuardNodeBindingsContainCycle)?;
             pending.remove(&next);
             order.push(next);
         }

@@ -4,7 +4,7 @@ use adventuresim_character_creator::proportions::{joint_bases, model_parameters}
 use adventuresim_core::character_proportions::{BodyProportion, CharacterProportions};
 use burn::tensor::{Device, Tensor, TensorData};
 use fabelgeist_mhr::{
-    Mhr, MhrConfig,
+    Mhr, MhrConfig, ModelParameterName,
     math::{Transform, rotate_vector},
 };
 
@@ -17,18 +17,23 @@ fn evaluate(
     let mut parameters = model_parameters(model, proportions).unwrap();
     if bent {
         for name in ["l_elbow_bend", "r_elbow_bend", "l_knee_bend", "r_knee_bend"] {
-            parameters[model.parameter_transform.parameter_index(name).unwrap()] = 0.4;
+            parameters[usize::from(
+                model
+                    .parameter_transform()
+                    .parameter_index(&ModelParameterName::from(name))
+                    .unwrap(),
+            )] = 0.4;
         }
     }
     let output = model
         .forward_with(
             Tensor::from_data(TensorData::new(vec![0.15; 45], [1, 45]), &device),
             Tensor::from_data(
-                TensorData::new(parameters, [1, model.num_model_parameters()]),
+                TensorData::new(parameters, [1, usize::from(model.num_model_parameters())]),
                 &device,
             ),
             None,
-            false,
+            fabelgeist_mhr::PoseCorrectivePolicy::Disabled,
         )
         .unwrap();
     let skeleton = output.skeleton_state.into_data().into_vec::<f32>().unwrap();
@@ -79,10 +84,10 @@ fn skeletal_proportions_match_mhr_joints_and_skinned_vertices_in_motion() {
                 .join("../../target/mhr-assets/v1.0.1/assets")
         });
     let model = Mhr::from_files(
-        &assets,
+        &fabelgeist_mhr::MhrAssetDirectory::from(assets),
         MhrConfig {
-            lod: fabelgeist_mhr::MIN_LOD,
-            pose_correctives: false,
+            lod: fabelgeist_mhr::CharacterLod::Detailed,
+            pose_correctives: fabelgeist_mhr::PoseCorrectivePolicy::Disabled,
         },
         &Device::default(),
     )

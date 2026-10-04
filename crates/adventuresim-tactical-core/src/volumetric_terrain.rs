@@ -16,7 +16,9 @@ use serde::{Deserialize, Serialize};
 use crate::marching_tetrahedra::marching_tetrahedra;
 use crate::{scene::SceneTerrain, terrain_transition::TerrainTransitionCollar};
 
+mod error;
 mod recipe;
+pub use error::TerrainRecipeError;
 mod surface_recipe;
 pub use recipe::{TerrainLandformKind, TerrainLandformLod, TerrainLandformRecipe};
 pub use surface_recipe::{
@@ -74,7 +76,7 @@ impl SceneTerrainPatch {
 pub fn terrain_landform_patch(
     terrain: &SceneTerrain,
     recipe: TerrainLandformRecipe,
-) -> Result<SceneTerrainPatch, &'static str> {
+) -> Result<SceneTerrainPatch, TerrainRecipeError> {
     recipe.validate(terrain)?;
     if recipe.kind != TerrainLandformKind::FaultScarp {
         return crate::erosional_terrain::patch(terrain, recipe);
@@ -100,7 +102,7 @@ pub fn terrain_landform_patch(
     let required_top = maximum + throw + spacing * 2.0;
     let vertical = ((required_top - bottom) / spacing).ceil() as usize + 1;
     if side > 195 || vertical > 96 {
-        return Err("fault patch voxel grid exceeds its bound");
+        return Err(TerrainRecipeError::VoxelGridBound);
     }
     let dimensions = [side, vertical, side];
     let sample_position = |index: [usize; 3]| {
@@ -153,7 +155,7 @@ impl SimulatedScarpSurface {
             .lerp(c.lerp(d, fraction.x), fraction.y)
     }
 
-    fn height_range(&self, terrain: &SceneTerrain) -> Result<(f32, f32), &'static str> {
+    fn height_range(&self, terrain: &SceneTerrain) -> Result<(f32, f32), TerrainRecipeError> {
         let range = self
             .offsets
             .par_iter()
@@ -179,7 +181,7 @@ fn simulate_fault_scarp(
     side: usize,
     spacing: f32,
     minimum: Vec2,
-) -> Result<SimulatedScarpSurface, &'static str> {
+) -> Result<SimulatedScarpSurface, TerrainRecipeError> {
     let collar = recipe.transition_collar();
     let throw = f32::from(recipe.relief_cm) / 100.0;
     // Keep both displaced blocks clear of the original heightfield.  A zero

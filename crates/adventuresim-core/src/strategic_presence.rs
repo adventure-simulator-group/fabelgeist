@@ -29,7 +29,7 @@ pub enum PresenceBasis {
 /// One character's presence projected at an explicit observer frontier.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct StrategicPresence {
-    character_id: u64,
+    character_id: crate::identity::CharacterId,
     place: StrategicPlaceId,
     frontier: PresenceFrontier,
     basis: PresenceBasis,
@@ -40,13 +40,13 @@ pub struct StrategicPresence {
 /// pairwise-soft interactions.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct PresenceFrontier {
-    pub observer_character_id: u64,
+    pub observer_character_id: crate::identity::CharacterId,
     pub personal_minute: StrategicMinute,
 }
 
 impl StrategicPresence {
     pub fn settlement_membership(
-        character_id: u64,
+        character_id: crate::identity::CharacterId,
         settlement_id: impl Into<String>,
         frontier: PresenceFrontier,
     ) -> Result<Self, PresenceError> {
@@ -89,7 +89,7 @@ impl StrategicPresence {
     }
 
     pub fn scheduled_resident(
-        character_id: u64,
+        character_id: crate::identity::CharacterId,
         place: StrategicPlaceId,
         frontier: PresenceFrontier,
         schedule: DailyPresenceWindow,
@@ -125,9 +125,9 @@ impl StrategicPresence {
     /// Exact residence presence requires an effective occupancy edge. Legal
     /// ownership alone deliberately has no constructor.
     pub fn residence_occupancy(
-        character_id: u64,
+        character_id: crate::identity::CharacterId,
         place: StrategicPlaceId,
-        owner_character_id: u64,
+        owner_character_id: crate::identity::CharacterId,
         admitted_minute: StrategicMinute,
         frontier: PresenceFrontier,
         holding_active: bool,
@@ -157,7 +157,7 @@ impl StrategicPresence {
     /// Physical party/Character occupancy at an exact case site. Observer
     /// discovery remains the adapter's responsibility.
     pub fn case_site_occupancy(
-        character_id: u64,
+        character_id: crate::identity::CharacterId,
         place: StrategicPlaceId,
         frontier: PresenceFrontier,
         occupied: bool,
@@ -184,7 +184,7 @@ impl StrategicPresence {
         reason = "presence validation compares each authority fact explicitly"
     )]
     pub fn case_context_membership(
-        character_id: u64,
+        character_id: crate::identity::CharacterId,
         place: StrategicPlaceId,
         frontier: PresenceFrontier,
         active: bool,
@@ -213,7 +213,7 @@ impl StrategicPresence {
         })
     }
 
-    pub fn character_id(&self) -> u64 {
+    pub fn character_id(&self) -> crate::identity::CharacterId {
         self.character_id
     }
 
@@ -368,7 +368,10 @@ mod tests {
     use super::*;
     use crate::strategic_place::SettlementVenueKind;
 
-    fn frontier(observer_character_id: u64, personal_minute: u64) -> PresenceFrontier {
+    fn frontier(
+        observer_character_id: crate::identity::CharacterId,
+        personal_minute: u64,
+    ) -> PresenceFrontier {
         PresenceFrontier {
             observer_character_id,
             personal_minute: StrategicMinute::new(personal_minute),
@@ -377,8 +380,12 @@ mod tests {
 
     #[test]
     fn settlement_membership_does_not_equal_exact_venue_presence() {
-        let coarse =
-            StrategicPresence::settlement_membership(1, "lubeck", frontier(1, 720)).unwrap();
+        let coarse = StrategicPresence::settlement_membership(
+            (1).into(),
+            "lubeck",
+            frontier((1).into(), 720),
+        )
+        .unwrap();
         let inn = StrategicPlaceId::settlement_venue("lubeck", SettlementVenueKind::Inn).unwrap();
         let exact = StrategicPresence::validated_venue_selection(&coarse, inn).unwrap();
 
@@ -388,13 +395,14 @@ mod tests {
 
     #[test]
     fn chapter_representative_can_share_an_effective_service_venue() {
-        let observer_frontier = frontier(1, 720);
+        let observer_frontier = frontier((1).into(), 720);
         let coarse =
-            StrategicPresence::settlement_membership(1, "lubeck", observer_frontier).unwrap();
+            StrategicPresence::settlement_membership((1).into(), "lubeck", observer_frontier)
+                .unwrap();
         let inn = StrategicPlaceId::settlement_venue("lubeck", SettlementVenueKind::Inn).unwrap();
         let actor = StrategicPresence::validated_venue_selection(&coarse, inn.clone()).unwrap();
         let representative = StrategicPresence::scheduled_resident(
-            2,
+            (2).into(),
             inn,
             observer_frontier,
             DailyPresenceWindow {
@@ -414,20 +422,20 @@ mod tests {
     fn residence_presence_distinguishes_owner_occupant_from_household_occupant() {
         let home =
             StrategicPlaceId::residence("lubeck", "residence-holding:1:lubeck:cheap:0").unwrap();
-        let observer_frontier = frontier(1, 200);
+        let observer_frontier = frontier((1).into(), 200);
         let owner = StrategicPresence::residence_occupancy(
-            1,
+            (1).into(),
             home.clone(),
-            1,
+            (1).into(),
             StrategicMinute::new(100),
             observer_frontier,
             true,
         )
         .unwrap();
         let guest = StrategicPresence::residence_occupancy(
-            2,
+            (2).into(),
             home,
-            1,
+            (1).into(),
             StrategicMinute::new(150),
             observer_frontier,
             true,
@@ -454,9 +462,9 @@ mod tests {
         };
         assert_eq!(
             StrategicPresence::scheduled_resident(
-                2,
+                (2).into(),
                 inn,
-                frontier(1, 720),
+                frontier((1).into(), 720),
                 window,
                 true,
                 true,
@@ -472,11 +480,11 @@ mod tests {
         let home = StrategicPlaceId::residence("lubeck", "holding-1").unwrap();
         assert_eq!(
             StrategicPresence::residence_occupancy(
-                2,
+                (2).into(),
                 home,
-                1,
+                (1).into(),
                 StrategicMinute::new(800),
-                frontier(1, 720),
+                frontier((1).into(), 720),
                 true
             ),
             Err(PresenceError::FutureEvidence)
@@ -514,14 +522,30 @@ mod tests {
 
     #[test]
     fn co_presence_rejects_different_places_and_personal_frontiers() {
-        let lubeck =
-            StrategicPresence::settlement_membership(1, "lubeck", frontier(1, 720)).unwrap();
-        let hamburg =
-            StrategicPresence::settlement_membership(2, "hamburg", frontier(1, 720)).unwrap();
-        let future =
-            StrategicPresence::settlement_membership(2, "lubeck", frontier(1, 721)).unwrap();
-        let other_observer =
-            StrategicPresence::settlement_membership(2, "lubeck", frontier(2, 720)).unwrap();
+        let lubeck = StrategicPresence::settlement_membership(
+            (1).into(),
+            "lubeck",
+            frontier((1).into(), 720),
+        )
+        .unwrap();
+        let hamburg = StrategicPresence::settlement_membership(
+            (2).into(),
+            "hamburg",
+            frontier((1).into(), 720),
+        )
+        .unwrap();
+        let future = StrategicPresence::settlement_membership(
+            (2).into(),
+            "lubeck",
+            frontier((1).into(), 721),
+        )
+        .unwrap();
+        let other_observer = StrategicPresence::settlement_membership(
+            (2).into(),
+            "lubeck",
+            frontier((2).into(), 720),
+        )
+        .unwrap();
 
         assert!(!are_co_present(&lubeck, &hamburg));
         assert!(!are_co_present(&lubeck, &future));
@@ -590,12 +614,13 @@ mod tests {
 
     #[test]
     fn case_occupant_and_current_context_actor_are_co_present() {
-        let frontier = frontier(1, 500);
+        let frontier = frontier((1).into(), 500);
         let site = StrategicPlaceId::case_site("outbreak:site:well").unwrap();
         let actor =
-            StrategicPresence::case_site_occupancy(1, site.clone(), frontier, true, true).unwrap();
+            StrategicPresence::case_site_occupancy((1).into(), site.clone(), frontier, true, true)
+                .unwrap();
         let patient = StrategicPresence::case_context_membership(
-            2,
+            (2).into(),
             site,
             frontier,
             true,
@@ -611,13 +636,14 @@ mod tests {
 
     #[test]
     fn case_context_rejects_mismatch_staleness_and_malformed_identity() {
-        let frontier = frontier(1, 500);
+        let frontier = frontier((1).into(), 500);
         let first = StrategicPlaceId::case_site("case:one").unwrap();
         let second = StrategicPlaceId::case_site("case:two").unwrap();
         let actor =
-            StrategicPresence::case_site_occupancy(1, first.clone(), frontier, true, true).unwrap();
+            StrategicPresence::case_site_occupancy((1).into(), first.clone(), frontier, true, true)
+                .unwrap();
         let elsewhere = StrategicPresence::case_context_membership(
-            2,
+            (2).into(),
             second,
             frontier,
             true,
@@ -631,7 +657,7 @@ mod tests {
         assert!(!are_co_present(&actor, &elsewhere));
         assert_eq!(
             StrategicPresence::case_context_membership(
-                2,
+                (2).into(),
                 first.clone(),
                 frontier,
                 true,
@@ -645,7 +671,7 @@ mod tests {
         );
         assert_eq!(
             StrategicPresence::case_context_membership(
-                2,
+                (2).into(),
                 first,
                 frontier,
                 true,

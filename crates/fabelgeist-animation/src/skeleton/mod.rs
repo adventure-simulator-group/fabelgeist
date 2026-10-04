@@ -1,25 +1,26 @@
 use fabelgeist_math::matrix::Mat4;
 use fabelgeist_math::transform::Transform;
+use fabelgeist_rig::{RigJointName, RigJointOrdinal};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Skeleton {
-    pub joints: Vec<Joint>,
+    pub joints: SkeletonJoints,
     #[serde(default = "Transform::identity")]
     pub transform: Transform,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct JointInfo {
-    pub name: String,
-    pub index: usize,
-    pub joint_index: Option<usize>,
+    pub name: RigJointName,
+    pub index: RigJointOrdinal,
+    pub joint_index: Option<SkinJointOrdinal>,
 }
 
 impl Skeleton {
     pub fn new(joints: Vec<Joint>) -> Self {
         Self {
-            joints,
+            joints: SkeletonJoints::from(joints),
             transform: Transform::identity(),
         }
     }
@@ -35,25 +36,35 @@ impl Skeleton {
             .collect()
     }
 
-    pub fn find_joint_by_name(&self, name: &str) -> Option<usize> {
-        self.joints.iter().position(|j| j.name == name)
+    pub fn find_joint_by_name(&self, name: &RigJointName) -> Option<RigJointOrdinal> {
+        self.joints
+            .iter()
+            .position(|j| &j.name == name)
+            .map(RigJointOrdinal::from)
+    }
+
+    /// The exact label at an ordered skeleton slot; the caller owns range validity.
+    pub fn joint_name(&self, index: RigJointOrdinal) -> &RigJointName {
+        &self.joints[index].name
     }
 
     pub fn world_positions(&self) -> Vec<fabelgeist_math::vector::Vec3> {
-        let mut world_matrices = vec![Mat4::identity(); self.joints.len()];
-        let mut world_positions =
-            vec![fabelgeist_math::vector::Vec3::new(0.0, 0.0, 0.0); self.joints.len()];
+        let mut world_matrices = vec![Mat4::identity(); usize::from(self.joints.count())];
+        let mut world_positions = vec![
+            fabelgeist_math::vector::Vec3::new(0.0, 0.0, 0.0);
+            usize::from(self.joints.count())
+        ];
 
-        for i in 0..self.joints.len() {
+        for i in self.joints.ordinals() {
             let joint = &self.joints[i];
             let local = joint.local_transform.to_mat4();
             let world = if let Some(parent_idx) = joint.parent_index {
-                world_matrices[parent_idx] * local
+                world_matrices[usize::from(parent_idx)] * local
             } else {
                 local
             };
-            world_matrices[i] = world;
-            world_positions[i] = fabelgeist_math::vector::Vec3::new(
+            world_matrices[usize::from(i)] = world;
+            world_positions[usize::from(i)] = fabelgeist_math::vector::Vec3::new(
                 world.columns[3][0],
                 world.columns[3][1],
                 world.columns[3][2],
@@ -62,20 +73,20 @@ impl Skeleton {
         world_positions
     }
 
-    pub fn world_transforms(&self) -> Vec<Mat4> {
-        let mut world_matrices = vec![Mat4::identity(); self.joints.len()];
+    pub fn world_transforms(&self) -> SkeletonModelMatrices {
+        let mut world_matrices = vec![Mat4::identity(); usize::from(self.joints.count())];
 
-        for i in 0..self.joints.len() {
+        for i in self.joints.ordinals() {
             let joint = &self.joints[i];
             let local = joint.local_transform.to_mat4();
             let world = if let Some(parent_idx) = joint.parent_index {
-                world_matrices[parent_idx] * local
+                world_matrices[usize::from(parent_idx)] * local
             } else {
                 local
             };
-            world_matrices[i] = world;
+            world_matrices[usize::from(i)] = world;
         }
-        world_matrices
+        SkeletonModelMatrices::from(world_matrices)
     }
 }
 
@@ -104,12 +115,12 @@ fn default_enabled() -> bool {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Joint {
-    pub name: String,
-    pub index: usize,
-    pub parent_index: Option<usize>,
+    pub name: RigJointName,
+    pub index: RigJointOrdinal,
+    pub parent_index: Option<RigJointOrdinal>,
     pub inverse_bind_matrix: Mat4,
     pub local_transform: Transform,
-    pub joint_index: Option<usize>, // Index in the GPU skinning buffer
+    pub joint_index: Option<SkinJointOrdinal>, // Index in the GPU skinning buffer
     #[serde(default = "default_enabled")]
     pub enabled: bool,
     #[serde(default = "default_radius")]
@@ -124,12 +135,12 @@ pub struct Joint {
 
 impl Joint {
     pub fn new(
-        name: String,
-        index: usize,
-        parent_index: Option<usize>,
+        name: RigJointName,
+        index: RigJointOrdinal,
+        parent_index: Option<RigJointOrdinal>,
         inverse_bind_matrix: Mat4,
         local_transform: Transform,
-        joint_index: Option<usize>,
+        joint_index: Option<SkinJointOrdinal>,
     ) -> Self {
         Self {
             name,
@@ -151,4 +162,17 @@ pub mod auto_rigger;
 pub mod mixamo;
 pub mod skinning;
 
-pub use skinning::build_skinning_matrices;
+pub use skinning::{SkinningError, build_skinning_matrices};
+
+mod fitting;
+mod joints;
+mod matrices;
+mod slots;
+pub use joints::SkeletonJoints;
+pub use matrices::{SkeletonModelMatrices, SkinJointMatrices};
+pub use slots::{SkinJointCount, SkinJointOrdinal};
+
+mod weights;
+pub use weights::{
+    SkinBlendWeight, SkinnedVertexCount, SkinnedVertexOrdinal, VertexSkinBinding, VertexSkinWeights,
+};

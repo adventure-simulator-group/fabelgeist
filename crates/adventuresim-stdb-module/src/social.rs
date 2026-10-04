@@ -3,6 +3,8 @@
 #[cfg(feature = "authority-tests")]
 mod action_authority_tests;
 mod admission;
+mod affinity;
+pub(crate) use affinity::{affinity_at, current_affinity, put_affinity, put_affinity_at};
 #[cfg(feature = "authority-tests")]
 mod authority_tests;
 #[cfg(feature = "authority-tests")]
@@ -321,11 +323,15 @@ pub fn backend_settlement_resident_relationships(
                 .character_id()
                 .find(affinity.subject_id)
                 .map_or(affinity.anchor_minute, |time| time.minutes);
-            let shared_minutes = canonical_pair(affinity.subject_id, affinity.actor_id)
-                .and_then(|(low, high)| {
-                    ctx.db.character_familiarity().id().find(pair_id(low, high))
-                })
-                .map_or(0, |row| row.shared_minutes);
+            let shared_minutes =
+                canonical_pair((affinity.subject_id).into(), (affinity.actor_id).into())
+                    .and_then(|(low, high)| {
+                        ctx.db
+                            .character_familiarity()
+                            .id()
+                            .find(pair_id((low).into(), (high).into()))
+                    })
+                    .map_or(0, |row| row.shared_minutes);
             let morale = ctx
                 .db
                 .character_strategic_condition()
@@ -449,16 +455,20 @@ pub(crate) fn apply_corpse_family_offense(
     morale_delta: f32,
     affinity_delta: f32,
 ) -> Result<(), String> {
-    let current = current_affinity(ctx, resident_character_id, observer_character_id);
+    let current = current_affinity(
+        ctx,
+        (resident_character_id).into(),
+        (observer_character_id).into(),
+    );
     put_affinity(
         ctx,
-        resident_character_id,
-        observer_character_id,
+        (resident_character_id).into(),
+        (observer_character_id).into(),
         current + affinity_delta,
     );
     crate::condition::record_morale_event(
         ctx,
-        resident_character_id,
+        (resident_character_id).into(),
         adventuresim_core::morale::MoraleEventKind::CorpseHandling,
         morale_delta,
         Some(format!("corpse-family:{event_id}")),
@@ -620,7 +630,7 @@ fn require_resident_chat_window(
         .character_id()
         .find(actor_id)
         .map_or(StrategicMinute::ZERO, |time| time.minutes);
-    if !crate::relationship::character_alive_at(ctx, resident_character_id, now) {
+    if !crate::relationship::character_alive_at(ctx, (resident_character_id).into(), now) {
         return Err("Resident is not available at the actor's personal date".into());
     }
     let remaining_presence = ctx
@@ -648,8 +658,10 @@ pub fn spend_time_with_settlement_resident(
     requested_minutes: u64,
     action_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
-    crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, (actor_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     validate_casual_chat_request(requested_minutes, &action_id)?;
     if actor_id == resident_character_id {
         return Err("Choose another resident to chat with".into());
@@ -693,23 +705,34 @@ pub fn spend_time_with_settlement_resident(
     }
     let now =
         require_resident_chat_window(ctx, actor_id, resident_character_id, requested_minutes)?;
-    let actor_disposition =
-        character_chat_disposition(&crate::personality::personality_or_neutral(ctx, actor_id));
-    let target_disposition = character_chat_disposition(
-        &crate::personality::personality_or_neutral(ctx, resident_character_id),
+    let actor_disposition = character_chat_disposition(
+        &crate::personality::personality_or_neutral(ctx, (actor_id).into()),
     );
-    let affinity = current_affinity(ctx, resident_character_id, actor_id);
-    let familiarity = canonical_pair(actor_id, resident_character_id)
-        .and_then(|(low, high)| ctx.db.character_familiarity().id().find(pair_id(low, high)))
+    let target_disposition = character_chat_disposition(
+        &crate::personality::personality_or_neutral(ctx, (resident_character_id).into()),
+    );
+    let affinity = current_affinity(ctx, (resident_character_id).into(), (actor_id).into());
+    let familiarity = canonical_pair((actor_id).into(), (resident_character_id).into())
+        .and_then(|(low, high)| {
+            ctx.db
+                .character_familiarity()
+                .id()
+                .find(pair_id((low).into(), (high).into()))
+        })
         .map_or(0.0, |row| row.shared_minutes as f32 / 60.0);
-    let language =
-        crate::character::shared_language_coefficient(ctx, actor_id, resident_character_id);
+    let language = crate::character::shared_language_coefficient(
+        ctx,
+        (actor_id).into(),
+        (resident_character_id).into(),
+    );
     let charm_check = adventuresim_world_schema::language_scaled_effect(
-        crate::condition::mental_check(ctx, actor_id, Skill::Charm)?,
+        crate::condition::mental_check(ctx, (actor_id).into(), Skill::Charm)
+            .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?,
         language,
     );
     let insight_check = adventuresim_world_schema::language_scaled_effect(
-        crate::condition::mental_check(ctx, actor_id, Skill::Insight)?,
+        crate::condition::mental_check(ctx, (actor_id).into(), Skill::Insight)
+            .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?,
         language,
     );
     let (morale_delta, affinity_delta, outcome) = resolve_casual_chat_segments(
@@ -722,7 +745,7 @@ pub fn spend_time_with_settlement_resident(
         actor_disposition,
         target_disposition,
     );
-    if !crate::time::advance_character_wait_time(ctx, actor_id, requested_minutes)? {
+    if !crate::time::advance_character_wait_time(ctx, (actor_id).into(), requested_minutes)? {
         return Err("Actor could not complete the conversation".into());
     }
     let after = ctx
@@ -735,7 +758,7 @@ pub fn spend_time_with_settlement_resident(
         });
     crate::condition::record_morale_event(
         ctx,
-        resident_character_id,
+        (resident_character_id).into(),
         adventuresim_core::morale::MoraleEventKind::SocialInteraction,
         morale_delta,
         Some(format!(
@@ -744,11 +767,16 @@ pub fn spend_time_with_settlement_resident(
     )?;
     put_affinity(
         ctx,
-        resident_character_id,
-        actor_id,
+        (resident_character_id).into(),
+        (actor_id).into(),
         affinity + affinity_delta,
     );
-    apply_async_socializing(ctx, actor_id, resident_character_id, requested_minutes)?;
+    apply_async_socializing(
+        ctx,
+        (actor_id).into(),
+        (resident_character_id).into(),
+        requested_minutes,
+    )?;
     insert_chat_receipt(
         ctx,
         actor_id,
@@ -772,8 +800,10 @@ pub fn chat_with_party_member(
     requested_minutes: u64,
     action_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
-    crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, (actor_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     validate_casual_chat_request(requested_minutes, &action_id)?;
     if actor_id == target_id {
         return Err("Choose another party member to chat with".into());
@@ -802,23 +832,38 @@ pub fn chat_with_party_member(
         .find(target_id)
         .ok_or("Target not found")?;
     validate_social_pair(ctx, &actor, &target, false)?;
-    crate::time::synchronize_party_activity_time(ctx, &[actor_id, target_id], actor_id)?;
+    crate::time::synchronize_party_activity_time(
+        ctx,
+        &[
+            adventuresim_core::identity::CharacterId::from(actor_id),
+            adventuresim_core::identity::CharacterId::from(target_id),
+        ],
+        (actor_id).into(),
+    )?;
     let now = social_clock_or(ctx, actor_id, StrategicMinute::ZERO);
-    let actor_personality = crate::personality::personality_or_neutral(ctx, actor_id);
-    let target_personality = crate::personality::personality_or_neutral(ctx, target_id);
+    let actor_personality = crate::personality::personality_or_neutral(ctx, (actor_id).into());
+    let target_personality = crate::personality::personality_or_neutral(ctx, (target_id).into());
     let actor_disposition = character_chat_disposition(&actor_personality);
     let target_disposition = character_chat_disposition(&target_personality);
-    let affinity = current_affinity(ctx, target_id, actor_id);
-    let familiarity = canonical_pair(actor_id, target_id)
-        .and_then(|(low, high)| ctx.db.character_familiarity().id().find(pair_id(low, high)))
+    let affinity = current_affinity(ctx, (target_id).into(), (actor_id).into());
+    let familiarity = canonical_pair((actor_id).into(), (target_id).into())
+        .and_then(|(low, high)| {
+            ctx.db
+                .character_familiarity()
+                .id()
+                .find(pair_id((low).into(), (high).into()))
+        })
         .map_or(0.0, |row| row.shared_minutes as f32 / 60.0);
-    let language = crate::character::shared_language_coefficient(ctx, actor_id, target_id);
+    let language =
+        crate::character::shared_language_coefficient(ctx, (actor_id).into(), (target_id).into());
     let charm_check = adventuresim_world_schema::language_scaled_effect(
-        crate::condition::mental_check(ctx, actor_id, Skill::Charm)?,
+        crate::condition::mental_check(ctx, (actor_id).into(), Skill::Charm)
+            .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?,
         language,
     );
     let insight_check = adventuresim_world_schema::language_scaled_effect(
-        crate::condition::mental_check(ctx, actor_id, Skill::Insight)?,
+        crate::condition::mental_check(ctx, (actor_id).into(), Skill::Insight)
+            .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?,
         language,
     );
     let (morale_delta, affinity_delta, outcome) = resolve_casual_chat_segments(
@@ -832,21 +877,27 @@ pub fn chat_with_party_member(
         target_disposition,
     );
     for participant in [actor_id, target_id] {
-        if !crate::time::advance_character_wait_time(ctx, participant, requested_minutes)? {
+        if !crate::time::advance_character_wait_time(ctx, (participant).into(), requested_minutes)?
+        {
             return Err("Both party members must complete the conversation".into());
         }
     }
-    settle_shared_party_time(ctx, actor_id);
-    settle_shared_party_time(ctx, target_id);
+    settle_shared_party_time(ctx, (actor_id).into());
+    settle_shared_party_time(ctx, (target_id).into());
     let after = social_clock_or(ctx, actor_id, now.saturating_add_minutes(requested_minutes));
     crate::condition::record_morale_event(
         ctx,
-        target_id,
+        (target_id).into(),
         adventuresim_core::morale::MoraleEventKind::SocialInteraction,
         morale_delta,
         Some(format!("casual-chat:{actor_id}:{target_id}:{action_id}")),
     )?;
-    put_affinity(ctx, target_id, actor_id, affinity + affinity_delta);
+    put_affinity(
+        ctx,
+        (target_id).into(),
+        (actor_id).into(),
+        affinity + affinity_delta,
+    );
     insert_chat_receipt(
         ctx,
         actor_id,
@@ -916,7 +967,8 @@ fn persist_claim_assessments(
     event_sequence: u32,
     claims: Vec<crate::strategic::ReferredTestimonyClaim>,
 ) -> Result<(), String> {
-    let insight = crate::condition::mental_check(ctx, observer_character_id, Skill::Insight)?;
+    let insight =
+        crate::condition::mental_check(ctx, (observer_character_id).into(), Skill::Insight)?;
     let assessment_seed: u64 = ctx.random();
     for (claim_order, claim) in claims.into_iter().enumerate() {
         if ctx
@@ -1131,21 +1183,30 @@ fn apply_witness_relationship_outcome(
     if morale_delta != 0.0 {
         crate::condition::record_morale_event(
             ctx,
-            resident_character_id,
+            (resident_character_id).into(),
             morale_source_kind,
             morale_delta,
             Some(morale_source_id.into()),
         )?;
     }
-    let current = current_affinity(ctx, resident_character_id, observer_character_id);
+    let current = current_affinity(
+        ctx,
+        (resident_character_id).into(),
+        (observer_character_id).into(),
+    );
     let realized_delta = realized_affinity_delta(current, affinity_delta);
     put_affinity(
         ctx,
-        resident_character_id,
-        observer_character_id,
+        (resident_character_id).into(),
+        (observer_character_id).into(),
         current + realized_delta,
     );
-    apply_async_socializing(ctx, observer_character_id, resident_character_id, elapsed)?;
+    apply_async_socializing(
+        ctx,
+        (observer_character_id).into(),
+        (resident_character_id).into(),
+        elapsed,
+    )?;
     Ok(realized_delta)
 }
 
@@ -1159,8 +1220,10 @@ pub fn approach_dialogue_witness(
     action_id: String,
     expected_revision: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
-    crate::strategic::require_strategic_character_authority(ctx, observer_character_id)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, (observer_character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     let receipt_id = format!("{session_id}:{action_id}");
     if witness_social_action_replayed(
         ctx,
@@ -1184,27 +1247,37 @@ pub fn approach_dialogue_witness(
         &challenge_token,
     )?;
     let resident_id = capability.resident_character_id;
-    let affinity = current_affinity(ctx, resident_id, observer_character_id);
-    let skill_check = crate::condition::mental_check(ctx, observer_character_id, approach.skill())?;
+    let affinity = current_affinity(ctx, (resident_id).into(), (observer_character_id).into());
+    let skill_check =
+        crate::condition::mental_check(ctx, (observer_character_id).into(), approach.skill())
+            .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?;
     let npc = ctx
         .db
         .settlement_resident_profile()
         .character_id()
         .find(resident_id)
         .ok_or("Witness NPC not found")?;
-    let familiarity_minutes = canonical_pair(observer_character_id, resident_id)
-        .and_then(|(low, high)| ctx.db.character_familiarity().id().find(pair_id(low, high)))
+    let familiarity_minutes = canonical_pair((observer_character_id).into(), (resident_id).into())
+        .and_then(|(low, high)| {
+            ctx.db
+                .character_familiarity()
+                .id()
+                .find(pair_id((low).into(), (high).into()))
+        })
         .map_or(0, |value| value.shared_minutes);
     let familiarity_bps = ((familiarity_minutes
         .saturating_mul(u64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE))
         / (100 * 60))
         .min(u64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)))
         as u16;
-    let (fame, infamy) =
-        crate::reputation::local_reputation(ctx, observer_character_id, &npc.home_settlement_id);
+    let (fame, infamy) = crate::reputation::local_reputation(
+        ctx,
+        (observer_character_id).into(),
+        &npc.home_settlement_id,
+    );
     let reputation_modifier =
         adventuresim_core::reputation::npc_reaction_modifier(fame, infamy, familiarity_bps);
-    let target_personality = crate::personality::personality_or_neutral(ctx, resident_id);
+    let target_personality = crate::personality::personality_or_neutral(ctx, (resident_id).into());
     let current_morale = ctx
         .db
         .character_strategic_condition()
@@ -1220,7 +1293,11 @@ pub fn approach_dialogue_witness(
         current_morale,
         target_transparency: target_personality.transparency,
         target_mirth: target_personality.mirth,
-        roll: draws::check(ctx.random(), [observer_character_id, resident_id]),
+        roll: draws::check(
+            ctx.random(),
+            ([observer_character_id, resident_id])
+                .map(adventuresim_core::identity::CharacterId::from),
+        ),
     });
     if !crate::time::advance_investigation_time(
         ctx,
@@ -1466,10 +1543,10 @@ pub struct SocialActionCooldown {
     pub available_at_minute: StrategicMinute,
 }
 
-fn affinity_id(subject_id: u64, actor_id: u64) -> String {
-    format!("{subject_id}:{actor_id}")
-}
-fn pair_id(low_id: u64, high_id: u64) -> String {
+fn pair_id(
+    low_id: adventuresim_core::identity::CharacterId,
+    high_id: adventuresim_core::identity::CharacterId,
+) -> String {
     format!("{low_id}:{high_id}")
 }
 
@@ -1477,15 +1554,28 @@ fn automatic_chat_id(actor_id: u64, target_id: u64) -> String {
     format!("{actor_id}:{target_id}")
 }
 
-fn social_address_id(actor_id: u64, target_id: u64, source_id: &str) -> String {
+fn social_address_id(
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
+    source_id: &str,
+) -> String {
     format!("{actor_id}:{target_id}:{source_id}")
 }
 
-fn source_addressed(ctx: &ReducerContext, actor_id: u64, target_id: u64, source_id: &str) -> bool {
+fn source_addressed(
+    ctx: &ReducerContext,
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
+    source_id: &str,
+) -> bool {
     ctx.db
         .social_address()
         .id()
-        .find(social_address_id(actor_id, target_id, source_id))
+        .find(social_address_id(
+            (actor_id).into(),
+            (target_id).into(),
+            source_id,
+        ))
         .is_some()
 }
 
@@ -1496,7 +1586,8 @@ pub fn set_automatic_social_chat(
     target_id: u64,
     enabled: bool,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     if actor_id == target_id {
         return Err("Automatic chats require a companion".into());
     }
@@ -1568,54 +1659,6 @@ pub(crate) fn prune_invalid_automatic_social_chats(ctx: &ReducerContext) {
     }
 }
 
-pub fn current_affinity(ctx: &ReducerContext, subject_id: u64, actor_id: u64) -> f32 {
-    let now = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(subject_id)
-        .map_or(StrategicMinute::ZERO, |v| v.minutes);
-    ctx.db
-        .character_affinity()
-        .id()
-        .find(affinity_id(subject_id, actor_id))
-        .map_or(0.0, |row| {
-            settle_affinity(row.anchor, now.elapsed_since(row.anchor_minute))
-        })
-}
-
-pub(crate) fn put_affinity(ctx: &ReducerContext, subject_id: u64, actor_id: u64, value: f32) {
-    let anchor_minute = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(subject_id)
-        .map_or(StrategicMinute::ZERO, |v| v.minutes);
-    put_affinity_at(ctx, subject_id, actor_id, value, anchor_minute);
-}
-
-pub(crate) fn put_affinity_at(
-    ctx: &ReducerContext,
-    subject_id: u64,
-    actor_id: u64,
-    value: f32,
-    anchor_minute: StrategicMinute,
-) {
-    let id = affinity_id(subject_id, actor_id);
-    let row = CharacterAffinity {
-        id: id.clone(),
-        subject_id,
-        actor_id,
-        anchor: value.clamp(AFFINITY_MIN, AFFINITY_MAX),
-        anchor_minute,
-    };
-    if ctx.db.character_affinity().id().find(&id).is_some() {
-        ctx.db.character_affinity().id().update(row);
-    } else {
-        ctx.db.character_affinity().insert(row);
-    }
-}
-
 /// Record an asynchronous, pairwise-soft social interval.  It intentionally
 /// does not consult either participant's canonical NPC frontier, consume an
 /// NPC schedule, or create an exclusive claim.  The receipt belongs to the
@@ -1623,11 +1666,17 @@ pub(crate) fn put_affinity_at(
 /// edge once the caller has established idempotency.
 pub fn apply_async_socializing(
     ctx: &ReducerContext,
-    actor_id: u64,
-    target_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
     minutes: u64,
 ) -> Result<(), String> {
-    apply_async_socializing_with_familiarity(ctx, actor_id, target_id, minutes, true)
+    apply_async_socializing_with_familiarity(
+        ctx,
+        (actor_id).into(),
+        (target_id).into(),
+        minutes,
+        true,
+    )
 }
 
 /// Party familiarity is owned by the shared-clock settlement path. Scheduled
@@ -1635,53 +1684,59 @@ pub fn apply_async_socializing(
 /// entry point avoids counting the same colocated minutes a second time.
 pub fn apply_async_socializing_without_familiarity(
     ctx: &ReducerContext,
-    actor_id: u64,
-    target_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
     minutes: u64,
 ) -> Result<(), String> {
-    apply_async_socializing_with_familiarity(ctx, actor_id, target_id, minutes, false)
+    apply_async_socializing_with_familiarity(
+        ctx,
+        (actor_id).into(),
+        (target_id).into(),
+        minutes,
+        false,
+    )
 }
 
 fn apply_async_socializing_with_familiarity(
     ctx: &ReducerContext,
-    actor_id: u64,
-    target_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
     minutes: u64,
     record_familiarity: bool,
 ) -> Result<(), String> {
     if actor_id == target_id || minutes == 0 {
         return Ok(());
     }
-    if ctx.db.character().id().find(actor_id).is_none()
-        || ctx.db.character().id().find(target_id).is_none()
+    if ctx.db.character().id().find(u64::from(actor_id)).is_none()
+        || ctx.db.character().id().find(u64::from(target_id)).is_none()
     {
         return Err("Socializing requires full Characters".into());
     }
-    let current = current_affinity(ctx, target_id, actor_id);
+    let current = current_affinity(ctx, (target_id).into(), (actor_id).into());
     // A small diminishing directed gain: socializing says the target gets to
     // know the actor better, but does not assert romantic availability.
     let requested = (minutes as f32 / 60.0) * 0.4;
     put_affinity(
         ctx,
-        target_id,
-        actor_id,
+        (target_id).into(),
+        (actor_id).into(),
         current + realized_affinity_delta(current, requested),
     );
     if !record_familiarity {
         return Ok(());
     }
-    let Some((low_id, high_id)) = canonical_pair(actor_id, target_id) else {
+    let Some((low_id, high_id)) = canonical_pair((actor_id).into(), (target_id).into()) else {
         return Ok(());
     };
-    let id = pair_id(low_id, high_id);
+    let id = pair_id((low_id).into(), (high_id).into());
     if let Some(mut familiarity) = ctx.db.character_familiarity().id().find(&id) {
         familiarity.shared_minutes = familiarity.shared_minutes.saturating_add(minutes);
         ctx.db.character_familiarity().id().update(familiarity);
     } else {
         ctx.db.character_familiarity().insert(CharacterFamiliarity {
             id,
-            low_id,
-            high_id,
+            low_id: u64::from(low_id),
+            high_id: u64::from(high_id),
             shared_minutes: minutes,
             joint_minute_anchor: StrategicMinute::ZERO,
         });
@@ -1692,8 +1747,11 @@ fn apply_async_socializing_with_familiarity(
 /// Settle canonical familiarity whenever either member's personal strategic
 /// clock changes. Taking the minimum clock makes simultaneous party time
 /// partition-independent and prevents double counting.
-pub fn settle_shared_party_time(ctx: &ReducerContext, character_id: u64) {
-    let Some(subject) = ctx.db.character().id().find(character_id) else {
+pub fn settle_shared_party_time(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) {
+    let Some(subject) = ctx.db.character().id().find(u64::from(character_id)) else {
         return;
     };
     let Some(party_id) = subject.party_id.as_deref() else {
@@ -1706,16 +1764,21 @@ pub fn settle_shared_party_time(ctx: &ReducerContext, character_id: u64) {
         .db
         .character_time()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let peers: Vec<_> = ctx
         .db
         .character()
         .iter()
-        .filter(|v| v.party_id.as_deref() == Some(party_id) && v.alive && v.id != character_id)
+        .filter(|v| {
+            v.party_id.as_deref() == Some(party_id)
+                && v.alive
+                && adventuresim_core::identity::CharacterId::from(v.id) != character_id
+        })
         .collect();
     for peer in peers {
-        let Some((low_id, high_id)) = canonical_pair(character_id, peer.id) else {
+        let Some((low_id, high_id)) = canonical_pair((character_id).into(), (peer.id).into())
+        else {
             continue;
         };
         let peer_minute = ctx
@@ -1725,7 +1788,7 @@ pub fn settle_shared_party_time(ctx: &ReducerContext, character_id: u64) {
             .find(peer.id)
             .map_or(StrategicMinute::ZERO, |t| t.minutes);
         let joint = subject_minute.min(peer_minute);
-        let id = pair_id(low_id, high_id);
+        let id = pair_id((low_id).into(), (high_id).into());
         if let Some(mut row) = ctx.db.character_familiarity().id().find(&id) {
             row.shared_minutes = row
                 .shared_minutes
@@ -1735,8 +1798,8 @@ pub fn settle_shared_party_time(ctx: &ReducerContext, character_id: u64) {
         } else {
             ctx.db.character_familiarity().insert(CharacterFamiliarity {
                 id,
-                low_id,
-                high_id,
+                low_id: u64::from(low_id),
+                high_id: u64::from(high_id),
                 shared_minutes: 0,
                 joint_minute_anchor: joint,
             });
@@ -1746,8 +1809,11 @@ pub fn settle_shared_party_time(ctx: &ReducerContext, character_id: u64) {
 
 /// Joining or rejoining starts a fresh joint-clock anchor so time spent apart
 /// is never counted as familiarity.
-pub fn reset_familiarity_after_join(ctx: &ReducerContext, character_id: u64) {
-    let Some(subject) = ctx.db.character().id().find(character_id) else {
+pub fn reset_familiarity_after_join(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) {
+    let Some(subject) = ctx.db.character().id().find(u64::from(character_id)) else {
         return;
     };
     let Some(party_id) = subject.party_id.as_deref() else {
@@ -1757,17 +1823,17 @@ pub fn reset_familiarity_after_join(ctx: &ReducerContext, character_id: u64) {
         .db
         .character_time()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .map_or(StrategicMinute::ZERO, |t| t.minutes);
-    for peer in ctx
-        .db
-        .character()
-        .iter()
-        .filter(|v| v.alive && v.id != character_id && v.party_id.as_deref() == Some(party_id))
-    {
-        observe_presentation_on_contact(ctx, character_id, peer.id);
-        observe_presentation_on_contact(ctx, peer.id, character_id);
-        let Some((low_id, high_id)) = canonical_pair(character_id, peer.id) else {
+    for peer in ctx.db.character().iter().filter(|v| {
+        v.alive
+            && adventuresim_core::identity::CharacterId::from(v.id) != character_id
+            && v.party_id.as_deref() == Some(party_id)
+    }) {
+        observe_presentation_on_contact(ctx, (character_id).into(), (peer.id).into());
+        observe_presentation_on_contact(ctx, (peer.id).into(), (character_id).into());
+        let Some((low_id, high_id)) = canonical_pair((character_id).into(), (peer.id).into())
+        else {
             continue;
         };
         let joint = subject_minute.min(
@@ -1777,19 +1843,22 @@ pub fn reset_familiarity_after_join(ctx: &ReducerContext, character_id: u64) {
                 .find(peer.id)
                 .map_or(StrategicMinute::ZERO, |t| t.minutes),
         );
-        let id = pair_id(low_id, high_id);
+        let id = pair_id((low_id).into(), (high_id).into());
         let already_open = ctx
             .db
             .physiology_presence_span()
             .presence_low_id()
-            .filter(low_id)
-            .any(|span| span.high_id == high_id && span.ended_at.is_none());
+            .filter(u64::from(low_id))
+            .any(|span| {
+                adventuresim_core::identity::CharacterId::from(span.high_id) == high_id
+                    && span.ended_at.is_none()
+            });
         if !already_open {
             let band = |id| {
                 ctx.db
                     .character_capability()
                     .character_id()
-                    .find(id)
+                    .find(u64::from(id))
                     .map_or(0, |capability| {
                         capability.physiology.round().clamp(0.0, 5.0) as u8
                     })
@@ -1798,8 +1867,8 @@ pub fn reset_familiarity_after_join(ctx: &ReducerContext, character_id: u64) {
                 .physiology_presence_span()
                 .insert(PhysiologyPresenceSpan {
                     id: 0,
-                    low_id,
-                    high_id,
+                    low_id: u64::from(low_id),
+                    high_id: u64::from(high_id),
                     started_at: joint,
                     ended_at: None,
                     low_observer_band: band(low_id),
@@ -1812,8 +1881,8 @@ pub fn reset_familiarity_after_join(ctx: &ReducerContext, character_id: u64) {
         } else {
             ctx.db.character_familiarity().insert(CharacterFamiliarity {
                 id,
-                low_id,
-                high_id,
+                low_id: u64::from(low_id),
+                high_id: u64::from(high_id),
                 shared_minutes: 0,
                 joint_minute_anchor: joint,
             });
@@ -1821,12 +1890,16 @@ pub fn reset_familiarity_after_join(ctx: &ReducerContext, character_id: u64) {
     }
 }
 
-fn observe_presentation_on_contact(ctx: &ReducerContext, observer_id: u64, subject_id: u64) {
+fn observe_presentation_on_contact(
+    ctx: &ReducerContext,
+    observer_id: adventuresim_core::identity::CharacterId,
+    subject_id: adventuresim_core::identity::CharacterId,
+) {
     let Some(personality) = ctx
         .db
         .character_personality()
         .character_id()
-        .find(subject_id)
+        .find(u64::from(subject_id))
     else {
         return;
     };
@@ -1834,7 +1907,7 @@ fn observe_presentation_on_contact(ctx: &ReducerContext, observer_id: u64, subje
         .db
         .character_time()
         .character_id()
-        .find(observer_id)
+        .find(u64::from(observer_id))
         .map_or(StrategicMinute::ZERO, |time| time.minutes);
     let truth = match personality.presentation {
         crate::personality::Presentation::Man => 0,
@@ -1844,8 +1917,8 @@ fn observe_presentation_on_contact(ctx: &ReducerContext, observer_id: u64, subje
     if personality.presentation != crate::personality::Presentation::Ambiguous {
         put_belief(
             ctx,
-            observer_id,
-            subject_id,
+            (observer_id).into(),
+            (subject_id).into(),
             PersonalityAxis::Presentation,
             truth,
             1.0,
@@ -1854,8 +1927,8 @@ fn observe_presentation_on_contact(ctx: &ReducerContext, observer_id: u64, subje
         return;
     }
     let (Ok(insight), Ok(base_deception)) = (
-        crate::condition::mental_check(ctx, observer_id, Skill::Insight),
-        crate::condition::mental_check(ctx, subject_id, Skill::Deception),
+        crate::condition::mental_check(ctx, (observer_id).into(), Skill::Insight),
+        crate::condition::mental_check(ctx, (subject_id).into(), Skill::Deception),
     ) else {
         return;
     };
@@ -1866,7 +1939,7 @@ fn observe_presentation_on_contact(ctx: &ReducerContext, observer_id: u64, subje
             crate::personality::Transparency::Guarded => 1.0,
         })
     .clamp(0.0, 5.0);
-    let roll = draws::presentation(ctx.random(), observer_id, subject_id);
+    let roll = draws::presentation(ctx.random(), (observer_id).into(), (subject_id).into());
     let (value, confidence) = diagnosed_axis(
         PersonalityAxis::Presentation,
         truth,
@@ -1876,24 +1949,32 @@ fn observe_presentation_on_contact(ctx: &ReducerContext, observer_id: u64, subje
     );
     put_belief(
         ctx,
-        observer_id,
-        subject_id,
+        (observer_id).into(),
+        (subject_id).into(),
         PersonalityAxis::Presentation,
         value,
         confidence,
         now,
     );
-    award_discovery_training(ctx, observer_id, subject_id, personality.transparency);
+    award_discovery_training(
+        ctx,
+        (observer_id).into(),
+        (subject_id).into(),
+        personality.transparency,
+    );
 }
 
 /// Close every open span before leave, party change, death or disband. Taking
 /// the minimum personal clock preserves asymmetric-clock and chunk invariance.
-pub fn close_physiology_presence(ctx: &ReducerContext, character_id: u64) {
-    let clock = |id| {
+pub fn close_physiology_presence(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) {
+    let clock = |id: adventuresim_core::identity::CharacterId| {
         ctx.db
             .character_time()
             .character_id()
-            .find(id)
+            .find(u64::from(id))
             .map_or(StrategicMinute::ZERO, |t| t.minutes)
     };
     let spans = ctx
@@ -1901,13 +1982,15 @@ pub fn close_physiology_presence(ctx: &ReducerContext, character_id: u64) {
         .physiology_presence_span()
         .iter()
         .filter(|span| {
-            span.ended_at.is_none() && (span.low_id == character_id || span.high_id == character_id)
+            span.ended_at.is_none()
+                && (adventuresim_core::identity::CharacterId::from(span.low_id) == character_id
+                    || adventuresim_core::identity::CharacterId::from(span.high_id) == character_id)
         })
         .collect::<Vec<_>>();
     for mut span in spans {
         span.ended_at = Some(
-            clock(span.low_id)
-                .min(clock(span.high_id))
+            clock(span.low_id.into())
+                .min(clock(span.high_id.into()))
                 .max(span.started_at),
         );
         ctx.db.physiology_presence_span().id().update(span);
@@ -1921,15 +2004,18 @@ pub(crate) fn begin_physiology_presence_on_contact(
     observer_id: u64,
     patient_id: u64,
 ) {
-    let Some((low_id, high_id)) = canonical_pair(observer_id, patient_id) else {
+    let Some((low_id, high_id)) = canonical_pair((observer_id).into(), (patient_id).into()) else {
         return;
     };
     if ctx
         .db
         .physiology_presence_span()
         .presence_low_id()
-        .filter(low_id)
-        .any(|span| span.high_id == high_id && span.ended_at.is_none())
+        .filter(u64::from(low_id))
+        .any(|span| {
+            adventuresim_core::identity::CharacterId::from(span.high_id) == high_id
+                && span.ended_at.is_none()
+        })
     {
         return;
     }
@@ -1937,14 +2023,14 @@ pub(crate) fn begin_physiology_presence_on_contact(
         ctx.db
             .character_time()
             .character_id()
-            .find(id)
+            .find(u64::from(id))
             .map_or(StrategicMinute::ZERO, |t| t.minutes)
     };
     let band = |id| {
         ctx.db
             .character_capability()
             .character_id()
-            .find(id)
+            .find(u64::from(id))
             .map_or(0, |capability| {
                 capability.physiology.round().clamp(0.0, 5.0) as u8
             })
@@ -1953,8 +2039,8 @@ pub(crate) fn begin_physiology_presence_on_contact(
         .physiology_presence_span()
         .insert(PhysiologyPresenceSpan {
             id: 0,
-            low_id,
-            high_id,
+            low_id: u64::from(low_id),
+            high_id: u64::from(high_id),
             started_at: clock(low_id).min(clock(high_id)),
             ended_at: None,
             low_observer_band: band(low_id),
@@ -1962,28 +2048,35 @@ pub(crate) fn begin_physiology_presence_on_contact(
         });
 }
 
-pub(crate) fn close_physiology_presence_between(ctx: &ReducerContext, left_id: u64, right_id: u64) {
-    let Some((low_id, high_id)) = canonical_pair(left_id, right_id) else {
+pub(crate) fn close_physiology_presence_between(
+    ctx: &ReducerContext,
+    left_id: adventuresim_core::identity::CharacterId,
+    right_id: adventuresim_core::identity::CharacterId,
+) {
+    let Some((low_id, high_id)) = canonical_pair((left_id).into(), (right_id).into()) else {
         return;
     };
     let low_minute = ctx
         .db
         .character_time()
         .character_id()
-        .find(low_id)
+        .find(u64::from(low_id))
         .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let high_minute = ctx
         .db
         .character_time()
         .character_id()
-        .find(high_id)
+        .find(u64::from(high_id))
         .map_or(StrategicMinute::ZERO, |t| t.minutes);
     for mut span in ctx
         .db
         .physiology_presence_span()
         .presence_low_id()
-        .filter(low_id)
-        .filter(|span| span.high_id == high_id && span.ended_at.is_none())
+        .filter(u64::from(low_id))
+        .filter(|span| {
+            adventuresim_core::identity::CharacterId::from(span.high_id) == high_id
+                && span.ended_at.is_none()
+        })
         .collect::<Vec<_>>()
     {
         span.ended_at = Some(low_minute.min(high_minute).max(span.started_at));
@@ -2128,13 +2221,13 @@ fn conviction_code(value: crate::personality::Conviction) -> i8 {
 
 pub(crate) fn target_religion(
     ctx: &ReducerContext,
-    target_id: u64,
+    target_id: adventuresim_core::identity::CharacterId,
 ) -> Result<adventuresim_world_schema::OfficialReligion, String> {
     let religion_id = ctx
         .db
         .character_condition()
         .character_id()
-        .find(target_id)
+        .find(u64::from(target_id))
         .ok_or("Target religion is unavailable")?
         .religion_id
         .ok_or("Target professes no religion")?;
@@ -2144,14 +2237,14 @@ pub(crate) fn target_religion(
 
 pub(crate) fn target_religion_check(
     ctx: &ReducerContext,
-    actor_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
     religion: adventuresim_world_schema::OfficialReligion,
 ) -> Result<f32, String> {
     let skills = ctx
         .db
         .character_skills()
         .character_id()
-        .find(actor_id)
+        .find(u64::from(actor_id))
         .ok_or("Actor skills not found")?;
     let direct_hours = skills.religion_hours.direct(religion);
     if !direct_hours.is_finite() || direct_hours <= 0.0 {
@@ -2161,19 +2254,19 @@ pub(crate) fn target_religion_check(
         .db
         .character_attributes()
         .character_id()
-        .find(actor_id)
+        .find(u64::from(actor_id))
         .ok_or("Character attributes not found")?;
     let limbs = ctx
         .db
         .character_limbs()
         .character_id()
-        .find(actor_id)
+        .find(u64::from(actor_id))
         .ok_or("Character limbs not found")?;
     let stats = ctx
         .db
         .character_stats()
         .character_id()
-        .find(actor_id)
+        .find(u64::from(actor_id))
         .ok_or("Character stats not found")?;
     Ok(adventuresim_core::capability::religion_knowledge_check(
         skills.religion_hours.effective(religion),
@@ -2186,8 +2279,8 @@ pub(crate) fn target_religion_check(
 
 fn automatic_social_action(
     ctx: &ReducerContext,
-    actor_id: u64,
-    target_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
     topic: SocialTopic,
 ) -> Result<Option<SocialActionKind>, String> {
     const ACTIONS: [SocialActionKind; 8] = [
@@ -2201,17 +2294,18 @@ fn automatic_social_action(
         SocialActionKind::Flirt,
     ];
 
-    let shares_concern = shares_concern(ctx, actor_id, topic);
-    let personality = crate::personality::personality_or_neutral(ctx, actor_id);
-    let target_personality = crate::personality::personality_or_neutral(ctx, target_id);
-    let prayer_religion = target_religion(ctx, target_id).ok();
+    let shares_concern = shares_concern(ctx, (actor_id).into(), topic);
+    let personality = crate::personality::personality_or_neutral(ctx, (actor_id).into());
+    let target_personality = crate::personality::personality_or_neutral(ctx, (target_id).into());
+    let prayer_religion = target_religion(ctx, (target_id).into()).ok();
     let now = ctx
         .db
         .character_time()
         .character_id()
-        .find(target_id)
+        .find(u64::from(target_id))
         .map_or(StrategicMinute::ZERO, |row| row.minutes);
-    let language = crate::character::shared_language_coefficient(ctx, actor_id, target_id);
+    let language =
+        crate::character::shared_language_coefficient(ctx, (actor_id).into(), (target_id).into());
     let mut candidates = Vec::with_capacity(ACTIONS.len());
     for action in ACTIONS.into_iter().filter(|action| {
         action.available_for(topic)
@@ -2221,7 +2315,8 @@ fn automatic_social_action(
             && actor_allows_social_action(*action, personality.mirth, personality.courtship)
     }) {
         let action_kind = action.reducer_value();
-        let cooldown_id = canonical_cooldown_id(actor_id, target_id, topic, action_kind);
+        let cooldown_id =
+            canonical_cooldown_id((actor_id).into(), (target_id).into(), topic, action_kind);
         if ctx
             .db
             .social_action_cooldown()
@@ -2235,12 +2330,12 @@ fn automatic_social_action(
             let Some(religion) = prayer_religion else {
                 continue;
             };
-            match target_religion_check(ctx, actor_id, religion) {
+            match target_religion_check(ctx, (actor_id).into(), religion) {
                 Ok(check) => check,
                 Err(_) => continue,
             }
         } else {
-            crate::condition::mental_check(ctx, actor_id, action.skill(shares_concern))?
+            crate::condition::mental_check(ctx, (actor_id).into(), action.skill(shares_concern))?
         };
         if action == SocialActionKind::Rally {
             unscaled_skill_check +=
@@ -2277,12 +2372,16 @@ fn automatic_social_action(
     Ok(choose_automatic_social_action(topic, candidates))
 }
 
-fn sensitivity(ctx: &ReducerContext, target_id: u64, topic: SocialTopic) -> f32 {
+fn sensitivity(
+    ctx: &ReducerContext,
+    target_id: adventuresim_core::identity::CharacterId,
+    topic: SocialTopic,
+) -> f32 {
     let Some(p) = ctx
         .db
         .character_personality()
         .character_id()
-        .find(target_id)
+        .find(u64::from(target_id))
     else {
         return 0.5;
     };
@@ -2313,23 +2412,31 @@ fn sensitivity(ctx: &ReducerContext, target_id: u64, topic: SocialTopic) -> f32 
     }
 }
 
-fn shares_concern(ctx: &ReducerContext, character_id: u64, topic: SocialTopic) -> bool {
+fn shares_concern(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+    topic: SocialTopic,
+) -> bool {
     ctx.db
         .character_morale_source()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .any(|source| {
             social_source_eligible(source.kind, source.magnitude)
                 && topic_for_source_kind(source.kind) == Some(topic)
         })
 }
 
-fn personality_truth(ctx: &ReducerContext, target_id: u64, axis: PersonalityAxis) -> Option<i8> {
+fn personality_truth(
+    ctx: &ReducerContext,
+    target_id: adventuresim_core::identity::CharacterId,
+    axis: PersonalityAxis,
+) -> Option<i8> {
     let p = ctx
         .db
         .character_personality()
         .character_id()
-        .find(target_id)?;
+        .find(u64::from(target_id))?;
     Some(match axis {
         PersonalityAxis::Nerve => match p.nerve {
             crate::personality::Nerve::Neutral => 0,
@@ -2413,18 +2520,21 @@ fn personality_truth(ctx: &ReducerContext, target_id: u64, axis: PersonalityAxis
 
 fn award_discovery_training(
     ctx: &ReducerContext,
-    observer_id: u64,
-    subject_id: u64,
+    observer_id: adventuresim_core::identity::CharacterId,
+    subject_id: adventuresim_core::identity::CharacterId,
     transparency: crate::personality::Transparency,
 ) {
     let (observer_insight, subject_deception) = discovery_training_split(transparency);
     if observer_id == subject_id {
         if let (Some(mut skills), Some(attributes)) = (
-            ctx.db.character_skills().character_id().find(observer_id),
+            ctx.db
+                .character_skills()
+                .character_id()
+                .find(u64::from(observer_id)),
             ctx.db
                 .character_attributes()
                 .character_id()
-                .find(observer_id),
+                .find(u64::from(observer_id)),
         ) {
             adventuresim_core::skill::apply_direct_training(
                 Skill::Insight,
@@ -2444,11 +2554,14 @@ fn award_discovery_training(
     }
     if observer_insight > 0.0
         && let (Some(mut skills), Some(attributes)) = (
-            ctx.db.character_skills().character_id().find(observer_id),
+            ctx.db
+                .character_skills()
+                .character_id()
+                .find(u64::from(observer_id)),
             ctx.db
                 .character_attributes()
                 .character_id()
-                .find(observer_id),
+                .find(u64::from(observer_id)),
         )
     {
         adventuresim_core::skill::apply_direct_training(
@@ -2461,11 +2574,14 @@ fn award_discovery_training(
     }
     if subject_deception > 0.0
         && let (Some(mut skills), Some(attributes)) = (
-            ctx.db.character_skills().character_id().find(subject_id),
+            ctx.db
+                .character_skills()
+                .character_id()
+                .find(u64::from(subject_id)),
             ctx.db
                 .character_attributes()
                 .character_id()
-                .find(subject_id),
+                .find(u64::from(subject_id)),
         )
     {
         adventuresim_core::skill::apply_direct_training(
@@ -2480,8 +2596,8 @@ fn award_discovery_training(
 
 fn put_belief(
     ctx: &ReducerContext,
-    observer_id: u64,
-    subject_id: u64,
+    observer_id: adventuresim_core::identity::CharacterId,
+    subject_id: adventuresim_core::identity::CharacterId,
     axis: PersonalityAxis,
     perceived_value: i8,
     confidence: f32,
@@ -2499,8 +2615,8 @@ fn put_belief(
     }
     let row = SocialBelief {
         id: id.clone(),
-        observer_id,
-        subject_id,
+        observer_id: u64::from(observer_id),
+        subject_id: u64::from(subject_id),
         axis,
         perceived_value,
         confidence,
@@ -2528,7 +2644,11 @@ fn validate_social_pair(
     if !is_self
         && !(actor.current_settlement_id.is_some()
             && actor.current_settlement_id == target.current_settlement_id
-            || crate::world_actor::characters_are_contextually_present(ctx, actor.id, target.id))
+            || crate::world_actor::characters_are_contextually_present(
+                ctx,
+                (actor.id).into(),
+                (target.id).into(),
+            ))
     {
         return Err("Characters must be co-located".into());
     }
@@ -2543,14 +2663,22 @@ pub fn perform_social_action(
     source_id: String,
     action_kind: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
-    perform_social_action_authoritative(ctx, actor_id, target_id, source_id, action_kind, true)
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    perform_social_action_authoritative(
+        ctx,
+        (actor_id).into(),
+        (target_id).into(),
+        source_id,
+        action_kind,
+        true,
+    )
 }
 
 fn known_belief_for_axis(
     ctx: &ReducerContext,
-    actor_id: u64,
-    target_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
     axis: PersonalityAxis,
 ) -> Option<(PersonalityAxis, i8)> {
     ctx.db
@@ -2565,18 +2693,26 @@ fn known_belief_for_axis(
 
 fn perform_social_action_authoritative(
     ctx: &ReducerContext,
-    actor_id: u64,
-    target_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
     source_id: String,
     action_kind: String,
     consume_time: bool,
 ) -> Result<(), String> {
-    let action = admission::admit_social_action(ctx, actor_id, target_id, &action_kind)?;
+    let action =
+        admission::admit_social_action(ctx, (actor_id).into(), (target_id).into(), &action_kind)?;
     let is_self = actor_id == target_id;
     if consume_time && !is_self {
-        crate::time::synchronize_party_activity_time(ctx, &[actor_id, target_id], actor_id)?;
+        crate::time::synchronize_party_activity_time(
+            ctx,
+            &[
+                adventuresim_core::identity::CharacterId::from(actor_id),
+                adventuresim_core::identity::CharacterId::from(target_id),
+            ],
+            (actor_id).into(),
+        )?;
     }
-    let actor_personality = crate::personality::personality_or_neutral(ctx, actor_id);
+    let actor_personality = crate::personality::personality_or_neutral(ctx, (actor_id).into());
     if !actor_allows_social_action(action, actor_personality.mirth, actor_personality.courtship) {
         return Err("Your disposition does not permit that social approach".into());
     }
@@ -2591,7 +2727,7 @@ fn perform_social_action_authoritative(
         .id()
         .find(&source_id)
         .ok_or("Morale source is stale")?;
-    if source.character_id != target_id {
+    if adventuresim_core::identity::CharacterId::from(source.character_id) != target_id {
         return Err("Morale source does not belong to target".into());
     }
     if !social_source_eligible(source.kind, source.magnitude) {
@@ -2602,7 +2738,7 @@ fn perform_social_action_authoritative(
         return Err("That social approach does not fit this concern".into());
     }
     let prayer = if action == SocialActionKind::Pray {
-        let religion = target_religion(ctx, target_id)?;
+        let religion = target_religion(ctx, (target_id).into())?;
         Some((
             religion,
             prayer_approach(religion, topic)
@@ -2623,9 +2759,10 @@ fn perform_social_action_authoritative(
         .db
         .character_time()
         .character_id()
-        .find(target_id)
+        .find(u64::from(target_id))
         .map_or(StrategicMinute::ZERO, |v| v.minutes);
-    let cooldown_id = canonical_cooldown_id(actor_id, target_id, topic, &action_kind);
+    let cooldown_id =
+        canonical_cooldown_id((actor_id).into(), (target_id).into(), topic, &action_kind);
     if ctx
         .db
         .social_action_cooldown()
@@ -2636,20 +2773,25 @@ fn perform_social_action_authoritative(
         return Err("That approach needs time before it can be tried again".into());
     }
 
-    let familiarity = canonical_pair(actor_id, target_id)
-        .and_then(|(l, h)| ctx.db.character_familiarity().id().find(pair_id(l, h)))
+    let familiarity = canonical_pair((actor_id).into(), (target_id).into())
+        .and_then(|(l, h)| {
+            ctx.db
+                .character_familiarity()
+                .id()
+                .find(pair_id((l).into(), (h).into()))
+        })
         .map_or(0.0, |v| v.shared_minutes as f32 / 60.0);
     let affinity = if is_self {
         0.0
     } else {
-        current_affinity(ctx, target_id, actor_id)
+        current_affinity(ctx, (target_id).into(), (actor_id).into())
     };
-    let actor_shares_concern = shares_concern(ctx, actor_id, topic);
+    let actor_shares_concern = shares_concern(ctx, (actor_id).into(), topic);
     let mut skill_check = if let Some((religion, _)) = prayer {
-        target_religion_check(ctx, actor_id, religion)?
+        target_religion_check(ctx, (actor_id).into(), religion)?
     } else {
         let skill = action.skill(actor_shares_concern);
-        crate::condition::mental_check(ctx, actor_id, skill)?
+        crate::condition::mental_check(ctx, (actor_id).into(), skill)?
     };
     if action == SocialActionKind::Rally {
         skill_check +=
@@ -2658,11 +2800,16 @@ fn perform_social_action_authoritative(
     if !is_self {
         skill_check = adventuresim_world_schema::language_scaled_effect(
             skill_check,
-            crate::character::shared_language_coefficient(ctx, actor_id, target_id),
+            crate::character::shared_language_coefficient(
+                ctx,
+                (actor_id).into(),
+                (target_id).into(),
+            ),
         );
     }
-    let target_personality = crate::personality::personality_or_neutral(ctx, target_id);
-    let base_target_deception = crate::condition::mental_check(ctx, target_id, Skill::Deception)?;
+    let target_personality = crate::personality::personality_or_neutral(ctx, (target_id).into());
+    let base_target_deception =
+        crate::condition::mental_check(ctx, (target_id).into(), Skill::Deception)?;
     let obscuring_deception = (base_target_deception
         + match target_personality.transparency {
             crate::personality::Transparency::Open => -1.0,
@@ -2670,7 +2817,7 @@ fn perform_social_action_authoritative(
             crate::personality::Transparency::Guarded => 1.0,
         })
     .clamp(0.0, 5.0);
-    let insight_check = crate::condition::mental_check(ctx, actor_id, Skill::Insight)?;
+    let insight_check = crate::condition::mental_check(ctx, (actor_id).into(), Skill::Insight)?;
     let self_insight_modifier = if is_self {
         self_knowledge_insight_modifier(target_personality.self_knowledge)
     } else {
@@ -2678,9 +2825,9 @@ fn perform_social_action_authoritative(
     };
     let action_draws = draws::ActionDraws::new(ctx.random(), actor_id, target_id);
     let relevant_axis = axis_for_topic(topic);
-    let truth = relevant_axis.and_then(|axis| personality_truth(ctx, target_id, axis));
-    let relevant_belief =
-        relevant_axis.and_then(|axis| known_belief_for_axis(ctx, actor_id, target_id, axis));
+    let truth = relevant_axis.and_then(|axis| personality_truth(ctx, (target_id).into(), axis));
+    let relevant_belief = relevant_axis
+        .and_then(|axis| known_belief_for_axis(ctx, (actor_id).into(), (target_id).into(), axis));
     let diagnosis_correct = diagnosis_for_axis(
         relevant_axis,
         truth,
@@ -2710,7 +2857,7 @@ fn perform_social_action_authoritative(
         affinity,
         familiarity_hours: familiarity,
         diagnosis_correct,
-        sensitivity: sensitivity(ctx, target_id, topic),
+        sensitivity: sensitivity(ctx, (target_id).into(), topic),
         roll: action_draws.resolution(),
     };
     let outcome = if flirt_modifier.is_none() {
@@ -2737,8 +2884,11 @@ fn perform_social_action_authoritative(
             vec![actor_id, target_id]
         };
         for participant in participants {
-            if !crate::time::advance_character_wait_time(ctx, participant, SOCIAL_RESPONSE_MINUTES)?
-            {
+            if !crate::time::advance_character_wait_time(
+                ctx,
+                (participant).into(),
+                SOCIAL_RESPONSE_MINUTES,
+            )? {
                 return Err("Every participant must complete the social response".into());
             }
         }
@@ -2747,7 +2897,7 @@ fn perform_social_action_authoritative(
         ctx.db
             .character_time()
             .character_id()
-            .find(target_id)
+            .find(u64::from(target_id))
             .map_or(
                 now.saturating_add_minutes(SOCIAL_RESPONSE_MINUTES),
                 |time| time.minutes,
@@ -2759,26 +2909,26 @@ fn perform_social_action_authoritative(
         .db
         .character_strategic_condition()
         .character_id()
-        .find(target_id)
+        .find(u64::from(target_id))
         .map_or(0.0, |v| v.morale);
     if !is_self {
         let event_source = format!("social:{actor_id}:{target_id}:{source_id}:{action_kind}:{now}");
         crate::condition::record_morale_event(
             ctx,
-            target_id,
+            (target_id).into(),
             adventuresim_core::morale::MoraleEventKind::SocialInteraction,
             outcome.morale_delta,
             Some(event_source),
         )?;
         // This is the first non-event mutation. Every fallible automatic call
         // propagates the error above so SpacetimeDB rolls the transaction back.
-        settle_shared_party_time(ctx, actor_id);
+        settle_shared_party_time(ctx, (actor_id).into());
     }
     let after = ctx
         .db
         .character_strategic_condition()
         .character_id()
-        .find(target_id)
+        .find(u64::from(target_id))
         .map_or(before + outcome.morale_delta, |v| v.morale);
     let realized_gain = if is_self {
         0.0
@@ -2791,12 +2941,17 @@ fn perform_social_action_authoritative(
         outcome.affinity_delta.min(0.0)
     };
     if !is_self {
-        put_affinity(ctx, target_id, actor_id, affinity + affinity_delta);
+        put_affinity(
+            ctx,
+            (target_id).into(),
+            (actor_id).into(),
+            affinity + affinity_delta,
+        );
     }
     ctx.db.social_interaction().insert(SocialInteraction {
         id: 0,
-        actor_id,
-        target_id,
+        actor_id: u64::from(actor_id),
+        target_id: u64::from(target_id),
         source_id: source_id.clone(),
         topic: topic.stable_id().to_owned(),
         action_kind: action_kind.clone(),
@@ -2805,11 +2960,11 @@ fn perform_social_action_authoritative(
         occurred_at_minute: now,
     });
     if outcome.succeeded {
-        let id = social_address_id(actor_id, target_id, &source_id);
+        let id = social_address_id((actor_id).into(), (target_id).into(), &source_id);
         let address = SocialAddress {
             id: id.clone(),
-            actor_id,
-            target_id,
+            actor_id: u64::from(actor_id),
+            target_id: u64::from(target_id),
             source_id: source_id.clone(),
             addressed_at_minute: now,
         };
@@ -2821,8 +2976,8 @@ fn perform_social_action_authoritative(
     }
     let cooldown = SocialActionCooldown {
         id: cooldown_id.clone(),
-        actor_id,
-        target_id,
+        actor_id: u64::from(actor_id),
+        target_id: u64::from(target_id),
         topic: topic.stable_id().to_owned(),
         action_kind,
         available_at_minute: now.saturating_add_minutes(SOCIAL_COOLDOWN_MINUTES),
@@ -2841,13 +2996,14 @@ fn perform_social_action_authoritative(
     // Presentation is normally obvious on contact. Its explicit axis leaves
     // room for a future disguise override without exposing demographic sex.
     if !is_self
-        && let Some(value) = personality_truth(ctx, target_id, PersonalityAxis::Presentation)
+        && let Some(value) =
+            personality_truth(ctx, (target_id).into(), PersonalityAxis::Presentation)
         && value != 1
     {
         put_belief(
             ctx,
-            actor_id,
-            target_id,
+            (actor_id).into(),
+            (target_id).into(),
             PersonalityAxis::Presentation,
             value,
             1.0,
@@ -2855,7 +3011,7 @@ fn perform_social_action_authoritative(
         );
     }
     for axis in discovery::axes(action, topic, is_self) {
-        let Some(truth) = personality_truth(ctx, target_id, axis) else {
+        let Some(truth) = personality_truth(ctx, (target_id).into(), axis) else {
             continue;
         };
         let discovery_roll = action_draws.discovery(axis);
@@ -2871,8 +3027,21 @@ fn perform_social_action_authoritative(
             deception,
             discovery_roll,
         );
-        put_belief(ctx, actor_id, target_id, axis, value, confidence, now);
-        award_discovery_training(ctx, actor_id, target_id, target_personality.transparency);
+        put_belief(
+            ctx,
+            (actor_id).into(),
+            (target_id).into(),
+            axis,
+            value,
+            confidence,
+            now,
+        );
+        award_discovery_training(
+            ctx,
+            (actor_id).into(),
+            (target_id).into(),
+            target_personality.transparency,
+        );
     }
     Ok(())
 }
@@ -2884,14 +3053,14 @@ fn perform_social_action_authoritative(
 /// rule.
 pub(crate) fn apply_automatic_social_chats(
     ctx: &ReducerContext,
-    actor_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
     discretionary_minutes: u64,
 ) -> Result<(), String> {
     let preferences: Vec<_> = ctx
         .db
         .automatic_social_chat()
         .actor_id()
-        .filter(actor_id)
+        .filter(u64::from(actor_id))
         .collect();
     let candidates: Vec<_> = preferences
         .iter()
@@ -2900,7 +3069,7 @@ pub(crate) fn apply_automatic_social_chats(
                 .db
                 .character()
                 .id()
-                .find(actor_id)
+                .find(u64::from(actor_id))
                 .zip(ctx.db.character().id().find(preference.target_id))
                 .is_some_and(|(actor, target)| {
                     validate_social_pair(ctx, &actor, &target, false).is_ok()
@@ -2911,7 +3080,14 @@ pub(crate) fn apply_automatic_social_chats(
                 .character_id()
                 .filter(preference.target_id)
                 .filter(|source| social_source_eligible(source.kind, source.magnitude))
-                .filter(|source| !source_addressed(ctx, actor_id, preference.target_id, &source.id))
+                .filter(|source| {
+                    !source_addressed(
+                        ctx,
+                        (actor_id).into(),
+                        (preference.target_id).into(),
+                        &source.id,
+                    )
+                })
                 .collect();
             sources.sort_by(|left, right| left.id.cmp(&right.id));
             (
@@ -2945,13 +3121,15 @@ pub(crate) fn apply_automatic_social_chats(
             .find(&source_id)
             .and_then(|source| topic_for_source_kind(source.kind))
             .expect("automatic target planner only returns actionable sources");
-        let Some(action) = automatic_social_action(ctx, actor_id, target_id, topic)? else {
+        let Some(action) =
+            automatic_social_action(ctx, (actor_id).into(), (target_id).into(), topic)?
+        else {
             continue;
         };
         perform_social_action_authoritative(
             ctx,
-            actor_id,
-            target_id,
+            (actor_id).into(),
+            (target_id).into(),
             source_id,
             action.reducer_value().into(),
             false,
@@ -2961,12 +3139,15 @@ pub(crate) fn apply_automatic_social_chats(
 }
 
 /// Keep compact address state aligned with the refreshable source projection.
-pub(crate) fn prune_social_addresses(ctx: &ReducerContext, target_id: u64) {
+pub(crate) fn prune_social_addresses(
+    ctx: &ReducerContext,
+    target_id: adventuresim_core::identity::CharacterId,
+) {
     for row in ctx
         .db
         .social_address()
         .target_id()
-        .filter(target_id)
+        .filter(u64::from(target_id))
         .filter(|row| {
             ctx.db
                 .character_morale_source()
@@ -3109,7 +3290,7 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
         .character_id()
         .find(TARGET)
         .map_or(StrategicMinute::ZERO, |v| v.minutes);
-    let mut viewer_personality = crate::personality::personality_or_neutral(ctx, VIEWER);
+    let mut viewer_personality = crate::personality::personality_or_neutral(ctx, (VIEWER).into());
     viewer_personality.sex = adventuresim_world_schema::Sex::Male;
     viewer_personality.presentation = crate::personality::Presentation::Man;
     viewer_personality.inclination = crate::personality::Inclination::Women;
@@ -3120,7 +3301,7 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
         viewer_personality.presentation,
         viewer_personality.inclination,
     )?;
-    let mut personality = crate::personality::CharacterPersonality::neutral(TARGET);
+    let mut personality = crate::personality::CharacterPersonality::neutral((TARGET).into());
     personality.drive = crate::personality::Drive::Ambitious;
     personality.self_regard = crate::personality::SelfRegard::Proud;
     personality.conscience = crate::personality::Conscience::Cruel;
@@ -3130,7 +3311,7 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
     personality.presentation = crate::personality::Presentation::Woman;
     personality.inclination = crate::personality::Inclination::Men;
     crate::personality::reset_personality_from_visible(ctx, personality);
-    crate::condition::initialize_character_condition(ctx, TARGET)?;
+    crate::condition::initialize_character_condition(ctx, TARGET.into());
     if let Some(mut condition) = ctx.db.character_condition().character_id().find(TARGET) {
         condition.religion_id = Some("lutheran".into());
         ctx.db
@@ -3151,7 +3332,7 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
         crate::personality::MutablePersonalityAxis::Conviction,
         crate::personality::PERSONALITY_SCORE_LIMIT,
     )?;
-    crate::condition::initialize_character_condition(ctx, ZEALOUS_TARGET)?;
+    crate::condition::initialize_character_condition(ctx, ZEALOUS_TARGET.into());
     if let Some(mut condition) = ctx
         .db
         .character_condition()
@@ -3189,7 +3370,7 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
     }
     crate::condition::record_morale_event(
         ctx,
-        ZEALOUS_TARGET,
+        (ZEALOUS_TARGET).into(),
         adventuresim_core::morale::MoraleEventKind::Defeat,
         -8.0,
         Some(SocialDemoMoraleSourceId::ZealousDefeat.as_str().into()),
@@ -3211,24 +3392,25 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
     }
     crate::condition::record_morale_event(
         ctx,
-        TARGET,
+        (TARGET).into(),
         adventuresim_core::morale::MoraleEventKind::Defeat,
         -8.0,
         Some(SocialDemoMoraleSourceId::Defeat.as_str().into()),
     )?;
     crate::condition::record_morale_event(
         ctx,
-        TARGET,
+        (TARGET).into(),
         adventuresim_core::morale::MoraleEventKind::Injury,
         -3.0,
         Some(SocialDemoMoraleSourceId::Injury.as_str().into()),
     )?;
-    put_affinity(ctx, TARGET, VIEWER, 18.0);
-    let (low_id, high_id) = canonical_pair(VIEWER, TARGET).expect("distinct demo ids");
+    put_affinity(ctx, (TARGET).into(), (VIEWER).into(), 18.0);
+    let (low_id, high_id) =
+        canonical_pair((VIEWER).into(), (TARGET).into()).expect("distinct demo ids");
     let familiarity = CharacterFamiliarity {
-        id: pair_id(low_id, high_id),
-        low_id,
-        high_id,
+        id: pair_id((low_id).into(), (high_id).into()),
+        low_id: u64::from(low_id),
+        high_id: u64::from(high_id),
         shared_minutes: 18 * 60,
         joint_minute_anchor: now,
     };
@@ -3260,8 +3442,8 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
     }
     put_belief(
         ctx,
-        VIEWER,
-        TARGET,
+        (VIEWER).into(),
+        (TARGET).into(),
         PersonalityAxis::Conscience,
         3,
         0.82,
@@ -3269,8 +3451,8 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
     );
     put_belief(
         ctx,
-        VIEWER,
-        TARGET,
+        (VIEWER).into(),
+        (TARGET).into(),
         PersonalityAxis::Presentation,
         2,
         1.0,
@@ -3448,7 +3630,7 @@ mod contract_tests {
 
     #[test]
     fn automatic_personality_fit_changes_the_preferred_style() {
-        let mut sanguine = crate::personality::CharacterPersonality::neutral(1);
+        let mut sanguine = crate::personality::CharacterPersonality::neutral((1).into());
         sanguine.outlook = crate::personality::Outlook::Sanguine;
         sanguine.sociability = crate::personality::Sociability::Gregarious;
         assert!(
@@ -3459,7 +3641,7 @@ mod contract_tests {
             ) > automatic_personality_fit(&sanguine, SocialActionKind::Listen, SocialTopic::Defeat,)
         );
 
-        let mut ambitious = crate::personality::CharacterPersonality::neutral(2);
+        let mut ambitious = crate::personality::CharacterPersonality::neutral((2).into());
         ambitious.drive = crate::personality::Drive::Ambitious;
         ambitious.nerve = crate::personality::Nerve::Brave;
         assert!(
@@ -3529,7 +3711,7 @@ mod contract_tests {
             .next()
             .unwrap();
         assert!(chat.contains("character_alive_at("));
-        assert!(chat.contains("resident_character_id,"));
+        assert!(chat.contains("(resident_character_id).into()"));
         assert!(chat.contains("time.minutes"));
         assert!(chat.contains("not available at the actor's personal date"));
     }
@@ -3541,7 +3723,7 @@ mod contract_tests {
             .split("pub fn set_automatic_social_chat")
             .nth(1)
             .expect("automatic preference setter")
-            .split("pub fn current_affinity")
+            .split("pub(crate) fn prune_invalid_automatic_social_chats")
             .next()
             .expect("setter boundary");
         assert!(setter.contains("if !enabled"));

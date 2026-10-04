@@ -46,17 +46,17 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
             (9, BuildingArchetype::FachwerkMerchantHouse, 0, 25.0),
         ]
         .into_iter()
-        .map(|(id, archetype, seed, x)| {
-            let mut program = BuildingProgram::fixture(archetype, seed);
-            program.domestic_heating = Some(
-                adventuresim_building_generator::DomesticHeatingProgramme::HearthAndRearFedStove,
-            );
-            TacticalBuildingPlacement {
-                id,
-                program,
-                centre_metres: Vec2::new(x, 67.5),
-                orientation: BuildingOrientation::IDENTITY,
-            }
+        .map(|(id, archetype, seed, x)| TacticalBuildingPlacement {
+            id,
+            program: BuildingProgram::validated_settlement(
+                archetype,
+                adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling,
+                seed,
+                None,
+            )
+            .expect("upper heating review dwelling must validate"),
+            centre_metres: Vec2::new(x, 67.5),
+            orientation: BuildingOrientation::IDENTITY,
         }),
     )
     .collect()
@@ -70,7 +70,23 @@ mod tests {
     fn upper_heating_specimens_have_bare_playable_ground_beneath_them() {
         let input = super::super::build_fixture(fixture());
         let generated = input.generate().unwrap();
-        for building in generated.buildings.iter().filter(|b| b.placement.id >= 8) {
+        let upper = generated
+            .buildings
+            .iter()
+            .filter(|b| b.placement.id >= 8)
+            .collect::<Vec<_>>();
+        assert_eq!(upper.len(), 2);
+        for building in upper {
+            assert_eq!(
+                building
+                    .plan
+                    .domestic_heating
+                    .as_ref()
+                    .unwrap()
+                    .kitchen
+                    .storey_level,
+                1
+            );
             let half = building.collision.bounds.plan_half_extents();
             for z in [-0.9, 0.0, 0.9] {
                 for x in [-0.9, 0.0, 0.9] {

@@ -1,5 +1,6 @@
 //! Lightweight frontage geometry shared by tactical and distant building sites.
 use super::*;
+use crate::scene_input::SceneValidationError;
 use crate::scene_input::{SceneInputError, TacticalBuildingPlacement};
 use adventuresim_building_generator::{BuildingPlan, CollisionBounds, OpeningUse};
 #[cfg(test)]
@@ -84,18 +85,20 @@ pub(super) fn collect(
         .collect::<Vec<_>>();
     for distant in &input.distant_buildings {
         let program = distant.exterior_program();
-        let recipe = if let Some((_, recipe)) =
-            recipes.sites.iter().find(|(key, _)| *key == program)
-        {
-            recipe.clone()
-        } else {
-            let generated = recipes.get_or_generate(&program).map_err(|e| {
-                SceneInputError::Validation(format!("distant furniture site {}: {e}", distant.id))
-            })?;
-            let recipe = FurnitureSiteRecipe::new(&generated.plan, generated.collision.bounds);
-            recipes.sites.push((program.clone(), recipe.clone()));
-            recipe
-        };
+        let recipe =
+            if let Some((_, recipe)) = recipes.sites.iter().find(|(key, _)| *key == program) {
+                recipe.clone()
+            } else {
+                let generated = recipes.get_or_generate(&program).map_err(|e| {
+                    SceneInputError::Validation(SceneValidationError::FurnitureSite {
+                        building: distant.id,
+                        source: e,
+                    })
+                })?;
+                let recipe = FurnitureSiteRecipe::new(&generated.plan, generated.collision.bounds);
+                recipes.sites.push((program.clone(), recipe.clone()));
+                recipe
+            };
         sites.push(recipe.place(
             TacticalBuildingPlacement {
                 id: distant.id,

@@ -1,41 +1,4 @@
 // Owns courtship validation, establishment, reducer boundaries, and rejection policy.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) enum CourtshipPairError {
-    Rejected(CourtshipRejection),
-    InvalidState(String),
-}
-
-impl CourtshipPairError {
-    fn rejected(code: CourtshipRejectionCode, detail: impl Into<String>) -> Self {
-        Self::Rejected(CourtshipRejection::new(code, detail))
-    }
-
-    fn rejection_code(&self) -> Option<CourtshipRejectionCode> {
-        match self {
-            Self::Rejected(rejection) => Some(rejection.code),
-            Self::InvalidState(_) => None,
-        }
-    }
-
-    pub(crate) fn into_reducer_error(self) -> String {
-        match self {
-            Self::Rejected(rejection) => encode_courtship_rejection(&rejection),
-            Self::InvalidState(detail) => detail,
-        }
-    }
-}
-
-impl From<String> for CourtshipPairError {
-    fn from(detail: String) -> Self {
-        Self::InvalidState(detail)
-    }
-}
-
-impl From<&str> for CourtshipPairError {
-    fn from(detail: &str) -> Self {
-        Self::InvalidState(detail.to_owned())
-    }
-}
 fn personality_disposition(value: PersonalityCourtship) -> CourtshipDisposition {
     match value {
         PersonalityCourtship::Amorous => CourtshipDisposition::Amorous,
@@ -72,17 +35,16 @@ fn validate_canonical_courtship_pair(
         .id()
         .find(partner_id)
         .ok_or("Potential partner not found")?;
-    let effective_minute = enforce_temporal_scope(
-        ctx,
-        suitor_id,
-        Some(partner_id),
-        TemporalScope::ExclusiveShared,
-    )?;
+    let effective_minute = TemporalScope::ExclusiveShared {
+        actor: (suitor_id).into(),
+        participant: (partner_id).into(),
+    }
+    .enforce(ctx)?;
     if !suitor.alive
         || !partner.alive
-        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0)
+        || effective_age_years(ctx, (suitor_id).into(), effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
-        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0)
+        || effective_age_years(ctx, (partner_id).into(), effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
     {
         return Err(CourtshipPairError::rejected(
@@ -178,16 +140,12 @@ fn establish_courtship(
         };
     }
     let (approved_father_id, planned_dowry_amount) = if kind == CourtshipKind::Formal {
-        let father = father_of_at(ctx, partner_id, minute)
-            .map_err(|detail| {
-                CourtshipPairError::rejected(CourtshipRejectionCode::FatherApproval, detail)
-            })?
-            .ok_or_else(|| {
-                CourtshipPairError::rejected(
-                    CourtshipRejectionCode::FatherApproval,
-                    "Formal courtship requires a known living father",
-                )
-            })?;
+        let father = father_of_at(ctx, partner_id.into(), minute)?.ok_or_else(|| {
+            CourtshipPairError::rejected(
+                CourtshipRejectionCode::FatherApproval,
+                "Formal courtship requires a known living father",
+            )
+        })?;
         (
             Some(father),
             formal_dowry_amount(crate::item::personal_currency_total(ctx, father)),
@@ -212,11 +170,11 @@ fn establish_courtship(
         kind,
         status: CourtshipStatus::Active,
         secrecy_reason,
-        approved_father_id,
+        approved_father_id: approved_father_id.map(u64::from),
         planned_dowry_amount,
         weaker_deception_baseline,
         started_minute: minute,
-        next_discovery_day: minute.day_index(),
+        next_discovery_day: u64::from(minute.day_index()),
         resolved_minute: None,
         terminal_reason: None,
     });
@@ -244,8 +202,8 @@ fn establish_courtship(
             let Some(observer) = ctx.db.character().id().find(observer_id) else {
                 continue;
             };
-            if !character_alive_at(ctx, observer_id, minute)
-                || effective_age_years(ctx, observer_id, minute).unwrap_or(0)
+            if !character_alive_at(ctx, (observer_id).into(), minute)
+                || effective_age_years(ctx, (observer_id).into(), minute).unwrap_or(0)
                     < ADULT_AGE_YEARS
                 || observer.current_settlement_id != pair_settlement
             {
@@ -308,14 +266,14 @@ pub(crate) fn establish_npc_courtship_and_wedding(
         .id()
         .find(partner_id)
         .ok_or("NPC partner character not found")?;
-    let suitor_time = canonical_now(ctx, suitor_id)?;
-    let partner_time = canonical_now(ctx, partner_id)?;
+    let suitor_time = canonical_now(ctx, (suitor_id).into())?;
+    let partner_time = canonical_now(ctx, (partner_id).into())?;
     let effective_minute = suitor_time.max(partner_time);
     if !suitor.alive
         || !partner.alive
-        || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0)
+        || effective_age_years(ctx, (suitor_id).into(), effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
-        || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0)
+        || effective_age_years(ctx, (partner_id).into(), effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
         || suitor.current_settlement_id.is_none()
         || suitor.current_settlement_id != partner.current_settlement_id
@@ -358,16 +316,18 @@ pub(crate) fn establish_npc_courtship_and_wedding(
         return Ok(NpcCourtshipOutcome::Ineligible);
     }
 
-    let Some(partner_affinity) = affinity_at(ctx, partner_id, suitor_id, effective_minute) else {
+    let Some(partner_affinity) =
+        affinity_at(ctx, partner_id.into(), suitor_id.into(), effective_minute)
+    else {
         return Ok(NpcCourtshipOutcome::Ineligible);
     };
     let formal_pair = suitor_personality.sex == Sex::Male && partner_personality.sex == Sex::Female;
-    let living_father = match father_of_at(ctx, partner_id, effective_minute) {
+    let living_father = match father_of_at(ctx, partner_id.into(), effective_minute) {
         Ok(father) => father,
         Err(_) => return Ok(NpcCourtshipOutcome::Ineligible),
     };
     let father_approves = living_father.is_some_and(|father| {
-        affinity_at(ctx, father, suitor_id, effective_minute)
+        affinity_at(ctx, father, suitor_id.into(), effective_minute)
             .is_some_and(|affinity| affinity >= FORMAL_FATHER_APPROVAL_AFFINITY)
     });
     let route = adventuresim_core::npc_policy::npc_courtship_route(
@@ -430,7 +390,8 @@ pub fn begin_formal_courtship(
     suitor_id: u64,
     partner_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, suitor_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (suitor_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     let minute = match validate_canonical_courtship_pair(ctx, suitor_id, partner_id) {
         Ok(minute) => minute,
         Err(error)
@@ -459,7 +420,7 @@ pub fn begin_formal_courtship(
         )
         .into_reducer_error());
     }
-    if affinity_at(ctx, partner_id, suitor_id, minute)
+    if affinity_at(ctx, partner_id.into(), suitor_id.into(), minute)
         .is_none_or(|affinity| affinity < FORMAL_COURTSHIP_AFFINITY)
     {
         return Err(CourtshipPairError::rejected(
@@ -468,10 +429,9 @@ pub fn begin_formal_courtship(
         )
         .into_reducer_error());
     }
-    let father = father_of_at(ctx, partner_id, minute)
-        .map_err(|detail| {
-            CourtshipPairError::rejected(CourtshipRejectionCode::FatherApproval, detail)
-                .into_reducer_error()
+    let father = father_of_at(ctx, partner_id.into(), minute)
+        .map_err(|source: FatherAdmissionError| {
+            CourtshipPairError::from(source).into_reducer_error()
         })?
         .ok_or_else(|| {
             CourtshipPairError::rejected(
@@ -480,7 +440,7 @@ pub fn begin_formal_courtship(
             )
             .into_reducer_error()
         })?;
-    if affinity_at(ctx, father, suitor_id, minute)
+    if affinity_at(ctx, father, suitor_id.into(), minute)
         .is_none_or(|affinity| affinity < FORMAL_FATHER_APPROVAL_AFFINITY)
     {
         return Err(CourtshipPairError::rejected(
@@ -512,7 +472,8 @@ pub fn prepare_development_courtship(
     suitor_id: u64,
     partner_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     let settlement_id = ctx
         .db
         .character()
@@ -520,12 +481,14 @@ pub fn prepare_development_courtship(
         .find(suitor_id)
         .and_then(|character| character.current_settlement_id)
         .ok_or("Development courtship requires a current settlement")?;
-    crate::item::credit_personal_currency(ctx, suitor_id, &settlement_id, 10_000)?;
+    crate::item::credit_personal_currency(ctx, (suitor_id).into(), &settlement_id, 10_000)?;
     let minute = validate_canonical_courtship_pair(ctx, suitor_id, partner_id)
         .map_err(CourtshipPairError::into_reducer_error)?;
-    crate::social::put_affinity_at(ctx, partner_id, suitor_id, 100.0, minute);
-    if let Some(father_id) = father_of_at(ctx, partner_id, minute)? {
-        crate::social::put_affinity_at(ctx, father_id, suitor_id, 100.0, minute);
+    crate::social::put_affinity_at(ctx, (partner_id).into(), (suitor_id).into(), 100.0, minute);
+    if let Some(father_id) = father_of_at(ctx, partner_id.into(), minute)
+        .map_err(|source: FatherAdmissionError| source.to_string())?
+    {
+        crate::social::put_affinity_at(ctx, father_id, (suitor_id).into(), 100.0, minute);
     }
     Ok(())
 }
@@ -536,7 +499,8 @@ pub fn begin_informal_courtship(
     suitor_id: u64,
     partner_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, suitor_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (suitor_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     let minute = validate_canonical_courtship_pair(ctx, suitor_id, partner_id)
         .map_err(CourtshipPairError::into_reducer_error)?;
     let partner = ctx
@@ -545,7 +509,7 @@ pub fn begin_informal_courtship(
         .character_id()
         .find(partner_id)
         .ok_or("Partner personality not found")?;
-    if affinity_at(ctx, partner_id, suitor_id, minute).is_none_or(|affinity| {
+    if affinity_at(ctx, partner_id.into(), suitor_id.into(), minute).is_none_or(|affinity| {
         affinity < informal_affinity_threshold(personality_disposition(partner.courtship))
     }) {
         return Err(CourtshipPairError::rejected(
@@ -561,12 +525,12 @@ pub fn begin_informal_courtship(
         .find(suitor_id)
         .ok_or("Suitor personality not found")?;
     let formal_pair = suitor_personality.sex == Sex::Male && partner.sex == Sex::Female;
-    let living_father = father_of_at(ctx, partner_id, minute).map_err(|detail| {
-        CourtshipPairError::rejected(CourtshipRejectionCode::FatherApproval, detail)
-            .into_reducer_error()
-    })?;
+    let living_father =
+        father_of_at(ctx, partner_id.into(), minute).map_err(|source: FatherAdmissionError| {
+            CourtshipPairError::from(source).into_reducer_error()
+        })?;
     let father_approves = living_father.is_some_and(|father| {
-        affinity_at(ctx, father, suitor_id, minute)
+        affinity_at(ctx, father, suitor_id.into(), minute)
             .is_some_and(|affinity| affinity >= FORMAL_FATHER_APPROVAL_AFFINITY)
     });
     if formal_pair && father_approves {
@@ -601,7 +565,8 @@ pub fn schedule_wedding(
     first_character_id: u64,
     second_character_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, first_character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (first_character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     let minute = validate_canonical_courtship_pair(ctx, first_character_id, second_character_id)
         .map_err(CourtshipPairError::into_reducer_error)?;
     let (first, second) = canonical_pair(first_character_id, second_character_id);
@@ -630,18 +595,22 @@ pub fn cancel_wedding(
     actor_id: u64,
     commitment_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (actor_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     let commitment = ctx
         .db
         .exclusive_commitment()
         .id()
         .find(&commitment_id)
         .ok_or("Commitment not found")?;
-    commitment.parsed_state().map_err(|error| error.to_string())?;
+    commitment
+        .parsed_state()
+        .map_err(|error| error.to_string())?;
     if actor_id != commitment.first_character_id && actor_id != commitment.second_character_id {
         return Err("Only a participant can cancel this wedding".into());
     }
-    let minute = crate::time::refresh_clock(ctx)?;
+    let minute = crate::time::refresh_clock(ctx)
+        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
     if commitment.status != CommitmentStatus::Reserved {
         return Err(
             "Only a reserved wedding can be cancelled; end an active marriage instead".into(),
@@ -673,7 +642,9 @@ pub fn expire_wedding_reservation(
         .id()
         .find(commitment_id.to_owned())
         .ok_or("Commitment not found")?;
-    commitment.parsed_state().map_err(|error| error.to_string())?;
+    commitment
+        .parsed_state()
+        .map_err(|error| error.to_string())?;
     transition_commitment_terminal(
         ctx,
         commitment,

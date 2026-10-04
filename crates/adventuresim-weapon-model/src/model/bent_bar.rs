@@ -1,6 +1,7 @@
 //! A single swept round bar, without separate forged hilt furniture.
 use super::*;
-pub(super) fn bar(p: &BentBarParameters, detail: Detail) -> Result<Solid, String> {
+use crate::ConstructionError;
+pub(super) fn bar(p: &BentBarParameters, detail: Detail) -> Result<Solid, ConstructionError> {
     let samples = detail.samples(p.samples.0 as usize, 4);
     let points: Vec<_> = (0..=samples)
         .map(|i| {

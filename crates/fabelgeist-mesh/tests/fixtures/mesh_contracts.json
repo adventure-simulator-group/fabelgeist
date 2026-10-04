@@ -1,0 +1,1731 @@
+[
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "valid unindexed",
+    "triangle_error": null,
+    "triangles": [
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "empty list",
+    "triangle_error": null,
+    "triangles": [],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": [],
+      "joints": null,
+      "normals": [],
+      "positions": [],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "empty explicit indices",
+    "triangle_error": null,
+    "triangles": [],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "positions": [
+        [
+          2143294004,
+          0,
+          0
+        ],
+        [
+          2143294004,
+          0,
+          0
+        ],
+        [
+          2143294004,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "position NaN beats normal length",
+    "triangle_error": "non-finite mesh position",
+    "triangles": null,
+    "validation_error": "non-finite mesh position"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          2139095040,
+          0,
+          0
+        ],
+        [
+          2139095040,
+          0,
+          0
+        ],
+        [
+          2139095040,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "position infinity",
+    "triangle_error": "non-finite mesh position",
+    "triangles": null,
+    "validation_error": "non-finite mesh position"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [
+        [
+          0,
+          0
+        ]
+      ],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "normal length beats UV length",
+    "triangle_error": "normal count must match positions",
+    "triangles": null,
+    "validation_error": "normal count must match positions"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [
+        [
+          2143294004,
+          0,
+          0
+        ],
+        [
+          2143294004,
+          0,
+          0
+        ],
+        [
+          2143294004,
+          0,
+          0
+        ]
+      ],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [
+        [
+          0,
+          0
+        ]
+      ],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "UV length beats nonfinite normal",
+    "triangle_error": "UV count must match positions",
+    "triangles": null,
+    "validation_error": "UV count must match positions"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "normals": [
+        [
+          2143294004,
+          0,
+          0
+        ],
+        [
+          2143294004,
+          0,
+          0
+        ],
+        [
+          2143294004,
+          0,
+          0
+        ]
+      ],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "normal NaN beats missing weights",
+    "triangle_error": "non-finite mesh attribute",
+    "triangles": null,
+    "validation_error": "non-finite mesh attribute"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [
+        [
+          2139095040,
+          0
+        ],
+        [
+          2139095040,
+          0
+        ],
+        [
+          2139095040,
+          0
+        ]
+      ],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "UV infinity",
+    "triangle_error": "non-finite mesh attribute",
+    "triangles": null,
+    "validation_error": "non-finite mesh attribute"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "missing weights",
+    "triangle_error": "joints and weights must be supplied together",
+    "triangles": null,
+    "validation_error": "joints and weights must be supplied together"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": [
+        [
+          1065353216,
+          0,
+          0,
+          0
+        ],
+        [
+          1065353216,
+          0,
+          0,
+          0
+        ],
+        [
+          1065353216,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "name": "missing joints",
+    "triangle_error": "joints and weights must be supplied together",
+    "triangles": null,
+    "validation_error": "joints and weights must be supplied together"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": [
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": []
+    },
+    "name": "joint length beats weight length",
+    "triangle_error": "joint count must match positions",
+    "triangles": null,
+    "validation_error": "joint count must match positions"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": []
+    },
+    "name": "weight length",
+    "triangle_error": "invalid skin weights",
+    "triangles": null,
+    "validation_error": "invalid skin weights"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": [
+        [
+          3212836864,
+          0,
+          0,
+          0
+        ],
+        [
+          3212836864,
+          0,
+          0,
+          0
+        ],
+        [
+          3212836864,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "name": "negative weight",
+    "triangle_error": "invalid skin weights",
+    "triangles": null,
+    "validation_error": "invalid skin weights"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": [
+        [
+          2143294004,
+          0,
+          0,
+          0
+        ],
+        [
+          2143294004,
+          0,
+          0,
+          0
+        ],
+        [
+          2143294004,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "name": "NaN weight",
+    "triangle_error": "invalid skin weights",
+    "triangles": null,
+    "validation_error": "invalid skin weights"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": [
+        [
+          2139095040,
+          0,
+          0,
+          0
+        ],
+        [
+          2139095040,
+          0,
+          0,
+          0
+        ],
+        [
+          2139095040,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "name": "infinite weight",
+    "triangle_error": "invalid skin weights",
+    "triangles": null,
+    "validation_error": "invalid skin weights"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": [
+        [
+          4294967295,
+          0,
+          0,
+          0
+        ],
+        [
+          4294967295,
+          0,
+          0,
+          0
+        ],
+        [
+          4294967295,
+          0,
+          0,
+          0
+        ]
+      ],
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": [
+        [
+          1065353216,
+          1065353216,
+          1065353216,
+          1065353216
+        ],
+        [
+          1065353216,
+          1065353216,
+          1065353216,
+          1065353216
+        ],
+        [
+          1065353216,
+          1065353216,
+          1065353216,
+          1065353216
+        ]
+      ]
+    },
+    "name": "unnormalized weights admitted",
+    "triangle_error": null,
+    "triangles": [
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": [
+        3
+      ],
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "index outside vertices beats topology",
+    "triangle_error": "mesh index out of bounds",
+    "triangles": null,
+    "validation_error": "mesh index out of bounds"
+  },
+  {
+    "mesh": {
+      "indices": [
+        4294967295
+      ],
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "maximum index rejected",
+    "triangle_error": "mesh index out of bounds",
+    "triangles": null,
+    "validation_error": "mesh index out of bounds"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": [
+        [
+          2147483648,
+          0,
+          0,
+          0
+        ],
+        [
+          2147483648,
+          0,
+          0,
+          0
+        ],
+        [
+          2147483648,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "name": "negative zero weights admitted",
+    "triangle_error": null,
+    "triangles": [
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [],
+      "tex_coords": [],
+      "topology": "PointList",
+      "weights": null
+    },
+    "name": "PointList 0",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "PointList",
+      "weights": null
+    },
+    "name": "PointList 1",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "PointList",
+      "weights": null
+    },
+    "name": "PointList 2",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "PointList",
+      "weights": null
+    },
+    "name": "PointList 3",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "PointList",
+      "weights": null
+    },
+    "name": "PointList 4",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [],
+      "tex_coords": [],
+      "topology": "LineList",
+      "weights": null
+    },
+    "name": "LineList 0",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "LineList",
+      "weights": null
+    },
+    "name": "LineList 1",
+    "triangle_error": "line list needs pairs",
+    "triangles": null,
+    "validation_error": "line list needs pairs"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "LineList",
+      "weights": null
+    },
+    "name": "LineList 2",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "LineList",
+      "weights": null
+    },
+    "name": "LineList 3",
+    "triangle_error": "line list needs pairs",
+    "triangles": null,
+    "validation_error": "line list needs pairs"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "LineList",
+      "weights": null
+    },
+    "name": "LineList 4",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [],
+      "tex_coords": [],
+      "topology": "LineStrip",
+      "weights": null
+    },
+    "name": "LineStrip 0",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "LineStrip",
+      "weights": null
+    },
+    "name": "LineStrip 1",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "LineStrip",
+      "weights": null
+    },
+    "name": "LineStrip 2",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "LineStrip",
+      "weights": null
+    },
+    "name": "LineStrip 3",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "LineStrip",
+      "weights": null
+    },
+    "name": "LineStrip 4",
+    "triangle_error": "operation requires triangle geometry",
+    "triangles": null,
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "TriangleList 0",
+    "triangle_error": null,
+    "triangles": [],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "TriangleList 1",
+    "triangle_error": "triangle list needs triples",
+    "triangles": null,
+    "validation_error": "triangle list needs triples"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "TriangleList 2",
+    "triangle_error": "triangle list needs triples",
+    "triangles": null,
+    "validation_error": "triangle list needs triples"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "TriangleList 3",
+    "triangle_error": null,
+    "triangles": [
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleList",
+      "weights": null
+    },
+    "name": "TriangleList 4",
+    "triangle_error": "triangle list needs triples",
+    "triangles": null,
+    "validation_error": "triangle list needs triples"
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [],
+      "tex_coords": [],
+      "topology": "TriangleStrip",
+      "weights": null
+    },
+    "name": "TriangleStrip 0",
+    "triangle_error": null,
+    "triangles": [],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleStrip",
+      "weights": null
+    },
+    "name": "TriangleStrip 1",
+    "triangle_error": null,
+    "triangles": [],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleStrip",
+      "weights": null
+    },
+    "name": "TriangleStrip 2",
+    "triangle_error": null,
+    "triangles": [],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleStrip",
+      "weights": null
+    },
+    "name": "TriangleStrip 3",
+    "triangle_error": null,
+    "triangles": [
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": null,
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleStrip",
+      "weights": null
+    },
+    "name": "TriangleStrip 4",
+    "triangle_error": null,
+    "triangles": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        2,
+        1,
+        3
+      ]
+    ],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": [
+        0,
+        1,
+        1,
+        2,
+        3,
+        4
+      ],
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleStrip",
+      "weights": null
+    },
+    "name": "strip degenerate parity",
+    "triangle_error": null,
+    "triangles": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        3,
+        2,
+        4
+      ]
+    ],
+    "validation_error": null
+  },
+  {
+    "mesh": {
+      "indices": [
+        3,
+        2,
+        1,
+        0
+      ],
+      "joints": null,
+      "normals": [],
+      "positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "tex_coords": [],
+      "topology": "TriangleStrip",
+      "weights": null
+    },
+    "name": "strip indexed winding",
+    "triangle_error": null,
+    "triangles": [
+      [
+        3,
+        2,
+        1
+      ],
+      [
+        1,
+        2,
+        0
+      ]
+    ],
+    "validation_error": null
+  }
+]

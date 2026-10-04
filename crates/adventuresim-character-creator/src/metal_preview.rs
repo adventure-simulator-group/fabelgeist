@@ -6,6 +6,14 @@ use bevy::{
 };
 use fabelgeist_armor::material::Metal;
 
+#[derive(Debug, thiserror::Error)]
+pub(super) enum MetalPreviewError {
+    #[error("{0}")]
+    Open(#[from] adventuresim_character_creator::MetalGpuOpenError),
+    #[error("{0}")]
+    Bake(#[from] fabelgeist_armor::material::MetalError),
+}
+
 /// A metal's baked maps, uploaded for the preview.
 pub(super) struct MetalImages {
     normal: Handle<Image>,
@@ -15,10 +23,12 @@ pub(super) struct MetalImages {
 }
 
 impl MetalImages {
-    pub(super) fn new(images: &mut Assets<Image>, metal: &Metal) -> Result<Self, String> {
-        let textures = adventuresim_character_creator::metal_gpu()
-            .map_err(|error| error.to_string())?
-            .textures(metal, Metal::TEXTURE_SIZE)?;
+    pub(super) fn new(
+        images: &mut Assets<Image>,
+        metal: &Metal,
+    ) -> std::result::Result<Self, MetalPreviewError> {
+        let textures =
+            adventuresim_character_creator::metal_gpu()?.textures(metal, Metal::TEXTURE_SIZE)?;
         let mut upload = |data| {
             let mut image = Image::new(
                 Extent3d {

@@ -6,7 +6,7 @@
 
 mod seed;
 mod stream;
-pub use seed::{Seed, StreamId};
+pub use seed::{Seed, SeedKey, StreamId};
 pub use stream::{DeterministicRng, SamplingError};
 
 const UNIT_F32_SCALE: f32 = (1_u32 << 24) as f32;

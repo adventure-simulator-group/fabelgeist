@@ -1,4 +1,5 @@
 use super::*;
+use crate::scene_input::SceneValidationError;
 use bevy::math::Vec2;
 use fabelgeist_determinism::StreamId;
 
@@ -42,10 +43,9 @@ impl TacticalSceneInput {
         )?;
         repairs.levelled_building_samples = levelled_building_samples;
         let coarse_terrain =
-            SceneTerrain::from_heightmap(grid_width, grid_depth, grid_spacing, heights)
-                .ok_or_else(|| {
-                    SceneInputError::Validation("playable heightmap is invalid".into())
-                })?;
+            SceneTerrain::from_heightmap(grid_width, grid_depth, grid_spacing, heights).ok_or(
+                SceneInputError::Validation(SceneValidationError::PlayableTerrain),
+            )?;
         let mut obstacles = generated_obstacles(self);
         remove_reserved_obstacles(self, &mut obstacles, &mut repairs);
         remove_building_obstacles(
@@ -68,7 +68,7 @@ impl TacticalSceneInput {
             &self.yards,
         )?;
         let terrain = refine_authoritative_terrain(
-            self.seed,
+            self.seed.to_u64(),
             &coarse_terrain,
             &ground,
             &obstacles,
@@ -114,8 +114,14 @@ fn prepare_terrain(
         .len()
         .saturating_sub(input.playable.heights_metres.len())
         as u32;
-    let microrelief_adjusted_samples =
-        add_authoritative_microrelief(input.seed, width, depth, spacing, heights, environment);
+    let microrelief_adjusted_samples = add_authoritative_microrelief(
+        input.seed.to_u64(),
+        width,
+        depth,
+        spacing,
+        heights,
+        environment,
+    );
     let mut repairs = repair_playable_terrain(width, depth, spacing, heights, environment);
     repairs.upsampled_height_samples = upsampled_height_samples;
     repairs.microrelief_adjusted_samples = microrelief_adjusted_samples;
@@ -145,10 +151,10 @@ fn generated_obstacles(input: &TacticalSceneInput) -> Vec<GeneratedObstacle> {
             }
             let context = [u64::from(x), u64::from(z)];
             let tree_roll = StreamId::new("scene.tree-placement")
-                .rng(input.seed, &context)
+                .rng(input.seed.to_u64(), &context)
                 .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u64;
             let rock_seed = StreamId::new("scene.rock-placement")
-                .seed(input.seed, &context)
+                .seed(input.seed.to_u64(), &context)
                 .to_u64();
             let rock_roll = StreamId::new("scene.rock-presence")
                 .rng(rock_seed, &[])

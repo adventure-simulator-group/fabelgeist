@@ -293,7 +293,9 @@ fn coif(
     head: &PartFrame,
     drape: &CoifDrapeProfile,
 ) -> Result<BuiltPart, GenerateError> {
-    let fit = gpu().upload(&drape.fit_words(head.half_extents))?;
+    let fit = gpu().upload(fabelgeist_gpu::prelude::BufferUpload::from_elements(
+        &drape.fit_words(head.half_extents),
+    ))?;
     gpu().build_in(&[*head], |batch, frames| {
         record_coif(gpu(), batch, design, &fit, frames[0])
     })

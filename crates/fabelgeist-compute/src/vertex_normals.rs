@@ -28,7 +28,7 @@ pub const VANISHED_NORMAL: u32 = 2;
 
 const WORKGROUP: u32 = 256;
 
-fn corners_code(weighting: NormalWeighting) -> String {
+fn corners_code(weighting: NormalWeighting) -> ShaderSource {
     let contribution = match weighting {
         NormalWeighting::Area => {
             r#"
@@ -53,7 +53,7 @@ fn corners_code(weighting: NormalWeighting) -> String {
 "#
         }
     };
-    format!(
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> triangles: array<u32>;
@@ -106,11 +106,11 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     {contribution}
 }}
 "#
-    )
+    ))
 }
 
-fn ranges_code() -> String {
-    format!(
+fn ranges_code() -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> keys: array<u32>;
 @group(0) @binding(1) var<storage, read_write> starts: array<u32>;
@@ -139,11 +139,11 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     }}
 }}
 "#
-    )
+    ))
 }
 
-fn gather_code() -> String {
-    format!(
+fn gather_code() -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> contributions: array<f32>;
 @group(0) @binding(1) var<storage, read> corners: array<u32>;
@@ -186,15 +186,15 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     normals[vertex * 3u + 2u] = normal.z;
 }}
 "#
-    )
+    ))
 }
 
 /// Parameters for a pass over `count` items; the pads fill out the uniform.
 fn counted(count: u32) -> PassParameters {
     let mut parameters = PassParameters::new();
-    parameters.insert("count", count);
+    parameters.insert("count".into(), (count).into());
     for pad in ["pad0", "pad1", "pad2"] {
-        parameters.insert(pad, 0u32);
+        parameters.insert(pad.into(), (0u32).into());
     }
     parameters
 }
@@ -226,19 +226,39 @@ impl VertexNormals {
         let vertex_capacity = vertex_capacity.max(1);
         let triangle_capacity = triangle_capacity.max(1);
         let corner_capacity = triangle_capacity * 3;
-        let storage = BufferDefinition::storage().with_copy_src();
-        let buffer = |bytes: u64, label: &str| {
+        let storage = BufferDefinition::storage().with_usage(BufferUse::CopySource);
+        let buffer = |bytes: BufferByteLength,
+                      label: BufferLabel|
+         -> std::result::Result<Buffer, BufferCreationError> {
             Buffer::new(context, bytes, storage.clone().with_label(label))
         };
         Ok(Self {
-            normals: buffer(vertex_capacity as u64 * 12, "vertex normals")?,
-            status: buffer(4, "vertex normal status")?,
-            contributions: buffer(corner_capacity as u64 * 12, "corner normals")?,
-            keys: buffer(corner_capacity as u64 * 4, "corner vertices")?,
-            corners: buffer(corner_capacity as u64 * 4, "corners by vertex")?,
-            starts: buffer(vertex_capacity as u64 * 4, "vertex corner starts")?,
-            ends: buffer(vertex_capacity as u64 * 4, "vertex corner ends")?,
-            sort: SortScratch::new(context, corner_capacity)?,
+            normals: buffer(
+                (vertex_capacity as u64 * 12).into(),
+                ("vertex normals").into(),
+            )?,
+            status: buffer((4u64).into(), ("vertex normal status").into())?,
+            contributions: buffer(
+                (corner_capacity as u64 * 12).into(),
+                ("corner normals").into(),
+            )?,
+            keys: buffer(
+                (corner_capacity as u64 * 4).into(),
+                ("corner vertices").into(),
+            )?,
+            corners: buffer(
+                (corner_capacity as u64 * 4).into(),
+                ("corners by vertex").into(),
+            )?,
+            starts: buffer(
+                (vertex_capacity as u64 * 4).into(),
+                ("vertex corner starts").into(),
+            )?,
+            ends: buffer(
+                (vertex_capacity as u64 * 4).into(),
+                ("vertex corner ends").into(),
+            )?,
+            sort: SortScratch::new(context, corner_capacity.into())?,
             vertex_capacity,
             triangle_capacity,
         })
@@ -307,13 +327,16 @@ impl VertexNormalKernels {
         batch.clear_buffer(&output.ends);
 
         let mut corners = counted(triangle_count);
-        corners.insert("positions", positions.clone());
-        corners.insert("triangles", triangles.clone());
-        corners.insert("contributions", output.contributions.clone());
-        corners.insert("keys", output.keys.clone());
-        corners.insert("corners", output.corners.clone());
-        corners.insert("status", output.status.clone());
-        batch.dispatch_items(&self.corners, &corners, triangle_count)?;
+        corners.insert("positions".into(), (positions.clone()).into());
+        corners.insert("triangles".into(), (triangles.clone()).into());
+        corners.insert(
+            "contributions".into(),
+            (output.contributions.clone()).into(),
+        );
+        corners.insert("keys".into(), (output.keys.clone()).into());
+        corners.insert("corners".into(), (output.corners.clone()).into());
+        corners.insert("status".into(), (output.status.clone()).into());
+        batch.dispatch_items(&self.corners, &corners, (triangle_count).into())?;
 
         let bits = u32::BITS - vertex_count.saturating_sub(1).leading_zeros();
         self.sort.record(
@@ -321,24 +344,27 @@ impl VertexNormalKernels {
             &output.keys,
             &output.corners,
             &mut output.sort,
-            corner_count,
-            bits.max(1),
+            corner_count.into(),
+            bits.max(1).into(),
         )?;
 
         let mut ranges = counted(corner_count);
-        ranges.insert("keys", output.keys.clone());
-        ranges.insert("starts", output.starts.clone());
-        ranges.insert("ends", output.ends.clone());
-        batch.dispatch_items(&self.ranges, &ranges, corner_count)?;
+        ranges.insert("keys".into(), (output.keys.clone()).into());
+        ranges.insert("starts".into(), (output.starts.clone()).into());
+        ranges.insert("ends".into(), (output.ends.clone()).into());
+        batch.dispatch_items(&self.ranges, &ranges, (corner_count).into())?;
 
         let mut gather = counted(vertex_count);
-        gather.insert("contributions", output.contributions.clone());
-        gather.insert("corners", output.corners.clone());
-        gather.insert("starts", output.starts.clone());
-        gather.insert("ends", output.ends.clone());
-        gather.insert("normals", output.normals.clone());
-        gather.insert("status", output.status.clone());
-        batch.dispatch_items(&self.gather, &gather, vertex_count)?;
+        gather.insert(
+            "contributions".into(),
+            (output.contributions.clone()).into(),
+        );
+        gather.insert("corners".into(), (output.corners.clone()).into());
+        gather.insert("starts".into(), (output.starts.clone()).into());
+        gather.insert("ends".into(), (output.ends.clone()).into());
+        gather.insert("normals".into(), (output.normals.clone()).into());
+        gather.insert("status".into(), (output.status.clone()).into());
+        batch.dispatch_items(&self.gather, &gather, (vertex_count).into())?;
         Ok(())
     }
 }
@@ -401,8 +427,13 @@ mod tests {
         let context = WgpuContext::new().await?;
         let kernels = VertexNormalKernels::new(&context, weighting)?;
         let definition = BufferDefinition::storage();
-        let position_buffer = Buffer::from_slice(&context, positions, definition.clone())?;
-        let triangle_buffer = Buffer::from_slice(&context, triangles, definition)?;
+        let position_buffer = Buffer::from_upload(
+            &context,
+            BufferUpload::from_elements(positions),
+            definition.clone(),
+        )?;
+        let triangle_buffer =
+            Buffer::from_upload(&context, BufferUpload::from_elements(triangles), definition)?;
         let mut output =
             VertexNormals::new(&context, positions.len() as u32, triangles.len() as u32)?;
         let mut batch = KernelBatch::new(&context);

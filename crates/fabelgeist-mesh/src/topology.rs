@@ -1,5 +1,8 @@
 use serde::{Deserialize, Serialize};
 
+mod edges;
+pub(crate) use edges::{DrawEdge, MeshEdges, MeshLineUpload};
+
 #[derive(
     Debug,
     Clone,

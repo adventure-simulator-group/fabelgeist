@@ -3,19 +3,25 @@
 use super::*;
 use crate::condition::character_condition;
 
-fn preparation_actor(ctx: &ReducerContext, id: u64) -> Result<u64, String> {
+fn preparation_actor(
+    ctx: &ReducerContext,
+    id: u64,
+) -> Result<adventuresim_core::identity::InventoryItemId, String> {
     crate::character::create_named_character_with_id(ctx, id, "Preparation Fixture".into())?;
     let mut actor = ctx.db.character().id().find(id).ok_or("Actor missing")?;
     actor.current_settlement_id = Some("riverdale".into());
     ctx.db.character().id().update(actor);
-    crate::item::add_inventory_item_checked(ctx, id, "utility_knife", 1)?;
-    crate::item::add_inventory_item_checked(ctx, id, "apple", 1)?.ok_or("Ingredient missing".into())
+    crate::item::add_inventory_item_checked(ctx, id.into(), &"utility_knife".into(), 1.into())
+        .map_err(|error: crate::item::InventoryGrantError| -> String { error.to_string() })?;
+    crate::item::add_inventory_item_checked(ctx, id.into(), &"apple".into(), 1.into())
+        .map_err(|error: crate::item::InventoryGrantError| -> String { error.to_string() })?
+        .ok_or("Ingredient missing".into())
 }
 
 fn prepare_and_replay(
     ctx: &ReducerContext,
     actor_id: u64,
-    row_id: u64,
+    row_id: adventuresim_core::identity::InventoryItemId,
     action: IngredientPreparationAction,
     interrupted: bool,
 ) -> Result<(), String> {
@@ -25,9 +31,14 @@ fn prepare_and_replay(
         .id()
         .find(actor_id)
         .ok_or("Actor missing")?;
-    let lot = personal_lot(ctx, row_id).ok_or("Lot missing")?;
+    let lot = personal_lot(ctx, row_id.get()).ok_or("Lot missing")?;
     let object =
-        crate::inventory_container::object_for_row(ctx, CarriedInventoryScope::Personal, row_id)?
+        crate::inventory_container::object_for_row(ctx, CarriedInventoryScope::Personal, row_id)
+            .map_err(
+                |error: crate::inventory_container::InventoryObjectError| -> String {
+                    error.to_string()
+                },
+            )?
             .ok_or("Object missing")?;
     let place = preparation_place(ctx, &actor)?.to_string();
     let custody = crate::object_custody::canonical_custody_binding(
@@ -38,7 +49,7 @@ fn prepare_and_replay(
     let request = preparation_request_id(
         actor_id,
         "personal",
-        row_id,
+        row_id.get(),
         lot.id,
         object.id,
         lot.material_revision,
@@ -52,7 +63,7 @@ fn prepare_and_replay(
             ctx,
             actor_id,
             "personal".into(),
-            row_id,
+            row_id.get(),
             lot.id,
             object.id,
             request.clone(),
@@ -62,7 +73,7 @@ fn prepare_and_replay(
         )
     };
     submit()?;
-    let after = personal_lot(ctx, row_id).ok_or("Lot missing")?;
+    let after = personal_lot(ctx, row_id.get()).ok_or("Lot missing")?;
     let receipt = ctx
         .db
         .ingredient_preparation_receipt()
@@ -86,10 +97,10 @@ fn prepare_and_replay(
     {
         return Err("Preparation operation or conservation disagrees".into());
     }
-    let minute = current_minute(ctx, actor_id);
+    let minute = current_minute(ctx, (actor_id.into()).into());
     submit()?;
-    if current_minute(ctx, actor_id) != minute
-        || personal_lot(ctx, row_id)
+    if current_minute(ctx, (actor_id.into()).into()) != minute
+        || personal_lot(ctx, row_id.get())
             .ok_or("Lot missing")?
             .material_revision
             != after.material_revision
@@ -100,7 +111,7 @@ fn prepare_and_replay(
         ctx,
         actor_id,
         "personal".into(),
-        row_id,
+        row_id.get(),
         lot.id,
         object.id,
         request.clone(),
@@ -114,7 +125,7 @@ fn prepare_and_replay(
     let key = preparation_attempt_state_key(
         actor_id,
         "personal",
-        row_id,
+        row_id.get(),
         lot.id,
         object.id,
         lot.material_revision,
@@ -133,7 +144,7 @@ fn prepare_and_replay(
         && preparation_request_id(
             actor_id,
             "personal",
-            row_id,
+            row_id.get(),
             lot.id,
             object.id,
             lot.material_revision,

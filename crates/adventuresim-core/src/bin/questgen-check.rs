@@ -11,7 +11,7 @@ fn context(seed: u64, ordinal: u16) -> GenerationContext {
         observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high")
             .seed(seed, &[])
             .to_u64(),
-        settlement_id: "developer".into(),
+        settlement_id: adventuresim_core::identity::SettlementId::try_new("developer").unwrap(),
         settlement_name: "Developer settlement".into(),
         scope: Scope::Settlement {
             settlement_id: "developer".into(),

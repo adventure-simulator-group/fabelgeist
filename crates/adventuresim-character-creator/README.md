@@ -1060,3 +1060,19 @@ closures while retaining neighboring assets for contact checks. Leather must
 have closed, consistently wound walls and no self-intersections. Contact
 between the metal tongue and frame is intentional. These checks do not claim
 collision-free movement in posed animations or every continuous parameter blend.
+
+## Rig lookup and fitting errors
+
+Skeleton labels remain `fabelgeist_rig::RigJointName` through equipment fitting,
+plate ownership, cloth selection, export and runtime equipment metadata. Joint
+lookup retains `RigJointOrdinal` until indexing a storage collection or writing
+a GPU parameter. Frame landmarks distinguish unused slots from actual joints.
+Cloth fitting and socket export share the waist policy, which includes thigh
+twists and excludes spine twists.
+
+`ClothingError` classifies body-layout admission, missing landmarks, empty
+surface selections, non-finite fitted vertices, rejected triangles and morph
+correspondence failures. `ForearmInputError` distinguishes inconsistent input
+from a missing skin family. Both retain nominal provenance; application error
+conversion preserves the cause. Remaining GPU/provider errors and geometric
+interfaces are still migration debt.

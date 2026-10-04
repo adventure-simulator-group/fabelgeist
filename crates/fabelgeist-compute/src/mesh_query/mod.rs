@@ -89,22 +89,22 @@ pub struct Hit {
 impl QueryHits {
     pub fn new(context: &WgpuContext, capacity: u32) -> Result<Self> {
         let capacity = capacity.max(1);
-        let storage = BufferDefinition::storage().with_copy_src();
+        let storage = BufferDefinition::storage().with_usage(BufferUse::CopySource);
         Ok(Self {
             nearest: Buffer::new(
                 context,
-                capacity as u64 * 4,
-                storage.clone().with_label("query nearest"),
+                (capacity as u64 * 4).into(),
+                storage.clone().with_label(("query nearest").into()),
             )?,
             weights: Buffer::new(
                 context,
-                capacity as u64 * 12,
-                storage.clone().with_label("query weights"),
+                (capacity as u64 * 12).into(),
+                storage.clone().with_label(("query weights").into()),
             )?,
             distances: Buffer::new(
                 context,
-                capacity as u64 * 4,
-                storage.with_label("query distances"),
+                (capacity as u64 * 4).into(),
+                storage.with_label(("query distances").into()),
             )?,
             capacity,
         })
@@ -150,10 +150,10 @@ impl MeshQuery {
             nearest_points: cache.get(context, &wgsl::nearest_points())?,
             closest_triangles: cache.get(context, &wgsl::closest_triangles())?,
             ray_triangles: cache.get(context, &wgsl::ray_triangles())?,
-            all_targets: Buffer::from_slice(
+            all_targets: Buffer::from_upload(
                 context,
-                &[0u32],
-                BufferDefinition::storage().with_label("query all targets"),
+                BufferUpload::from_elements(&[0u32]),
+                BufferDefinition::storage().with_label(("query all targets").into()),
             )?,
         })
     }
@@ -172,17 +172,20 @@ impl MeshQuery {
             ));
         }
         let mut parameters = PassParameters::new();
-        parameters.insert("query_count", query_count);
-        parameters.insert("target_count", target_count);
-        parameters.insert("use_candidates", u32::from(candidates.is_some()));
-        parameters.insert("mode", 0u32);
+        parameters.insert("query_count".into(), (query_count).into());
+        parameters.insert("target_count".into(), (target_count).into());
         parameters.insert(
-            "candidates",
-            candidates.unwrap_or(&self.all_targets).clone(),
+            "use_candidates".into(),
+            (u32::from(candidates.is_some())).into(),
         );
-        parameters.insert("nearest", hits.nearest.clone());
-        parameters.insert("weights", hits.weights.clone());
-        parameters.insert("distances", hits.distances.clone());
+        parameters.insert("mode".into(), (0u32).into());
+        parameters.insert(
+            "candidates".into(),
+            (candidates.unwrap_or(&self.all_targets).clone()).into(),
+        );
+        parameters.insert("nearest".into(), (hits.nearest.clone()).into());
+        parameters.insert("weights".into(), (hits.weights.clone()).into());
+        parameters.insert("distances".into(), (hits.distances.clone()).into());
         Ok(parameters)
     }
 
@@ -197,9 +200,9 @@ impl MeshQuery {
     ) -> Result<()> {
         let mut parameters =
             self.parameters(query_count, targets.count, targets.candidates, hits)?;
-        parameters.insert("queries", queries.clone());
-        parameters.insert("positions", targets.positions.clone());
-        batch.dispatch_items(&self.nearest_points, &parameters, query_count)?;
+        parameters.insert("queries".into(), (queries.clone()).into());
+        parameters.insert("positions".into(), (targets.positions.clone()).into());
+        batch.dispatch_items(&self.nearest_points, &parameters, (query_count).into())?;
         Ok(())
     }
 
@@ -214,10 +217,10 @@ impl MeshQuery {
     ) -> Result<()> {
         let mut parameters =
             self.parameters(query_count, targets.count, targets.candidates, hits)?;
-        parameters.insert("queries", queries.clone());
-        parameters.insert("positions", targets.positions.clone());
-        parameters.insert("triangles", targets.triangles.clone());
-        batch.dispatch_items(&self.closest_triangles, &parameters, query_count)?;
+        parameters.insert("queries".into(), (queries.clone()).into());
+        parameters.insert("positions".into(), (targets.positions.clone()).into());
+        parameters.insert("triangles".into(), (targets.triangles.clone()).into());
+        batch.dispatch_items(&self.closest_triangles, &parameters, (query_count).into())?;
         Ok(())
     }
 
@@ -232,21 +235,22 @@ impl MeshQuery {
         let mut parameters =
             self.parameters(rays.count, targets.count, targets.candidates, hits)?;
         parameters.insert(
-            "mode",
-            match rays.crossing {
+            "mode".into(),
+            (match rays.crossing {
                 Crossing::First => 0u32,
                 Crossing::Last => 1,
-            },
+            })
+            .into(),
         );
-        parameters.insert("minimum", rays.span[0]);
-        parameters.insert("maximum", rays.span[1]);
-        parameters.insert("epsilon", rays.parallel_epsilon);
-        parameters.insert("pad", 0u32);
-        parameters.insert("queries", rays.origins.clone());
-        parameters.insert("directions", rays.directions.clone());
-        parameters.insert("positions", targets.positions.clone());
-        parameters.insert("triangles", targets.triangles.clone());
-        batch.dispatch_items(&self.ray_triangles, &parameters, rays.count)?;
+        parameters.insert("minimum".into(), (rays.span[0]).into());
+        parameters.insert("maximum".into(), (rays.span[1]).into());
+        parameters.insert("epsilon".into(), (rays.parallel_epsilon).into());
+        parameters.insert("pad".into(), (0u32).into());
+        parameters.insert("queries".into(), (rays.origins.clone()).into());
+        parameters.insert("directions".into(), (rays.directions.clone()).into());
+        parameters.insert("positions".into(), (targets.positions.clone()).into());
+        parameters.insert("triangles".into(), (targets.triangles.clone()).into());
+        batch.dispatch_items(&self.ray_triangles, &parameters, (rays.count).into())?;
         Ok(())
     }
 }

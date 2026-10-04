@@ -3,6 +3,8 @@
 //! Route registration stays in this facade. Handler modules own their forms,
 //! policy, database reads, rendering adapters, and behavior-local tests.
 
+use crate::spacetimedb::SqlQuery;
+
 #[cfg(test)]
 pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
     include_str!("router.rs"),
@@ -33,6 +35,10 @@ pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
 include!("router.rs");
 
 mod entry;
+mod provision_error;
+mod surgery_data;
+use provision_error::TravelProvisionError;
+use surgery_data::SurgeryDataset;
 
 mod medical {
     use super::*;
@@ -63,7 +69,6 @@ mod commerce {
 }
 mod rest {
     use super::*;
-    use adventuresim_world_schema::calendar::StrategicMinute;
     include!("rest.rs");
     include!("rest_tests.rs");
     include!("herbalist_tests.rs");

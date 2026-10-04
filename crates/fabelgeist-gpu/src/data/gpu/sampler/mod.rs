@@ -6,7 +6,6 @@ pub use filter_mode::*;
 
 use crate::globals::WgpuContext;
 
-use anyhow::Result;
 use std::sync::Arc;
 
 #[derive(Clone, Debug, Default)]
@@ -22,7 +21,7 @@ impl Sampler {
         address_mode_w: Option<SamplerAddressMode>,
         mag_filter: Option<SamplerFilterMode>,
         min_filter: Option<SamplerFilterMode>,
-    ) -> Result<Sampler> {
+    ) -> Self {
         let address_mode_u = address_mode_u.unwrap_or_default();
         let address_mode_v = address_mode_v.unwrap_or_default();
         let address_mode_w = address_mode_w.unwrap_or_default();
@@ -40,11 +39,9 @@ impl Sampler {
             ..Default::default()
         });
 
-        let sampler_value = Sampler {
+        Self {
             sampler: Some(Arc::new(sampler)),
-        };
-
-        Ok(sampler_value)
+        }
     }
 }
 

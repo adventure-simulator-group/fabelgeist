@@ -104,7 +104,7 @@ fn record_melee_equipment_contacts(
             record_equipment_contact(
                 consequences,
                 *attacker_id,
-                provenance.0,
+                provenance.get(),
                 contact_stress,
                 false,
             );
@@ -156,7 +156,7 @@ fn record_melee_equipment_contacts(
                     },
                     |inventory_item_id| {
                         owner.0 == event.target
-                            && provenance.0 == inventory_item_id
+                            && provenance.get() == inventory_item_id
                             && armor.is_some()
                     },
                 )
@@ -165,7 +165,7 @@ fn record_melee_equipment_contacts(
             record_equipment_contact(
                 consequences,
                 *defender_id,
-                provenance.0,
+                provenance.get(),
                 contact_stress,
                 true,
             );

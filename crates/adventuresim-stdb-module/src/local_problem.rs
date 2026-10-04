@@ -630,7 +630,7 @@ fn ensure_generated_incidents_inner(
                 witness_resident_character_id: witness.resident_character_id,
                 victim_resident_character_id: victim.resident_character_id,
                 circumstance: circumstance.as_str().to_owned(),
-                site_id: site.id.0.clone(),
+                site_id: site.id.as_str().to_owned(),
                 evidence_id: evidence_id.clone(),
                 evidence_kind: evidence_kind.as_str().to_owned(),
                 public_summary,
@@ -654,7 +654,7 @@ fn ensure_generated_incidents_inner(
                         "id": proposition_id,
                         "subject": victim.resident_character_id,
                         "predicate": "was affected by a further incident near",
-                        "object": site.id.0,
+                        "object": site.id.as_str(),
                     })])
                     .map_err(|_| "Could not encode generated incident event")?,
                     occurred_at,
@@ -1056,7 +1056,7 @@ fn validated_problem_generation(
     let settlement = ctx.db.settlement().id().find(settlement_id.to_string())?;
     if validated.manifest.canonical_case_id != problem.opaque_case_ref
         || validated.manifest.problem_id != problem.id
-        || validated.context.settlement_id != settlement_id
+        || validated.context.settlement_id.as_str() != settlement_id
         || validated.context.settlement_name != settlement.name
         || problem.scope_key != format!("settlement:{settlement_id}")
     {
@@ -1209,7 +1209,7 @@ fn source_may_disclose_public_threat(
         .as_deref()
         .and_then(adventuresim_core::organization::organization);
     let current_member = organization.and_then(|organization| {
-        crate::organization::membership(ctx, character_id, &organization.id)
+        crate::organization::membership(ctx, (character_id).into(), &organization.id)
             .filter(|membership| crate::organization::membership_is_current(membership, minute))
     });
     adventuresim_core::threat_escalation::public_referral_source(
@@ -1365,7 +1365,7 @@ fn surface_public_threat(
         .db
         .case_site_authority()
         .id_key()
-        .find(&site.id.0)
+        .find(site.id.as_str().to_owned())
         .ok_or("Public hostile case site authority is missing")?;
     let threat_name = adventuresim_core::bestiary::profile(threat).display_name;
     let count_band =
@@ -1415,7 +1415,7 @@ fn surface_public_threat(
         .filter(&character_id)
         .filter(|lead| {
             lead.case_id == validated.manifest.public_case_id
-                && lead.exact_location_id != site.id.0
+                && lead.exact_location_id != site.id.as_str()
                 && lead.corrected_by.is_empty()
         })
         .collect::<Vec<_>>()
@@ -1425,7 +1425,7 @@ fn surface_public_threat(
     }
     crate::investigation::disclose_exact_case_site(
         ctx,
-        character_id,
+        (character_id).into(),
         &validated.manifest.public_case_id,
         &case_site,
         source_kind,
@@ -1597,7 +1597,7 @@ pub(crate) fn discover_development_problem(
     problem_id: &str,
     scenario_slug: &str,
 ) -> Result<(), String> {
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())?;
     let settlement_id = character
         .current_settlement_id
         .ok_or("Development quest discovery requires a settlement")?;
@@ -2364,7 +2364,7 @@ mod tests {
         for binding in [
             "manifest.canonical_case_id != problem.opaque_case_ref",
             "manifest.problem_id != problem.id",
-            "context.settlement_id != settlement_id",
+            "context.settlement_id.as_str() != settlement_id",
             "context.settlement_name != settlement.name",
         ] {
             assert!(authority.contains(binding), "{binding}");

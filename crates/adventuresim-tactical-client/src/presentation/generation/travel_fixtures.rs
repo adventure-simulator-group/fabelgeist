@@ -24,7 +24,7 @@ fn distinct_city_inputs_validate_occupied_layouts() {
     let occupied = request.placements(&base);
     for (index, offset) in [1_u64, 1001].into_iter().enumerate() {
         let mut input = base.clone();
-        input.seed = input.seed.wrapping_add(offset);
+        input.seed = input.seed.to_u64().wrapping_add(offset).into();
         input.scene_key = format!("travel-distinct-{}", index + 1);
         for &(id, seed) in &DESTINATION_SEEDS[index] {
             if let Some(placement) = input.buildings.iter_mut().find(|p| p.id == id) {

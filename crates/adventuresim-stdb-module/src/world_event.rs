@@ -192,7 +192,7 @@ fn persist(envelope: &WorldEventEnvelope) -> PersistedWorldEventEnvelope {
         },
         actor: match &envelope.actor {
             WorldEventActor::Character { character_id } => PersistedWorldEventActor::Character {
-                character_id: *character_id,
+                character_id: u64::from(*character_id),
             },
             WorldEventActor::Party { party_id } => PersistedWorldEventActor::Party {
                 party_id: party_id.clone(),
@@ -204,7 +204,7 @@ fn persist(envelope: &WorldEventEnvelope) -> PersistedWorldEventEnvelope {
             .map(|subject| match subject {
                 WorldEventSubject::Character { character_id } => {
                     PersistedWorldEventSubject::Character {
-                        character_id: *character_id,
+                        character_id: u64::from(*character_id),
                     }
                 }
                 WorldEventSubject::Case { canonical_case_id } => PersistedWorldEventSubject::Case {
@@ -372,7 +372,7 @@ fn apply_consequences(
                 crate::reputation::record_event(
                     ctx,
                     event_id,
-                    character_id,
+                    (character_id).into(),
                     &settlement_id,
                     source_kind,
                     &source_id,
@@ -395,7 +395,7 @@ fn apply_consequences(
                 crate::reputation::record_discovered_offense(
                     ctx,
                     offense_id,
-                    character_id,
+                    (character_id).into(),
                     &settlement_id,
                     kind,
                     severity,
@@ -429,7 +429,7 @@ fn apply_consequences(
             } => crate::reputation::snapshot_case_resolution_participant(
                 ctx,
                 &case_id,
-                character_id,
+                (character_id).into(),
                 &party_id,
                 minute,
             ),
@@ -445,7 +445,7 @@ fn apply_consequences(
                         .infection_episode()
                         .insert(crate::disease::InfectionEpisodeRow {
                             id: episode_id,
-                            character_id,
+                            character_id: u64::from(character_id),
                             disease_id,
                             contracted_at,
                             ruleset_version:
@@ -628,7 +628,8 @@ fn preflight_consequences(
                         ReputationMeaning::IllegalForaging => "illegal_foraging",
                         ReputationMeaning::CaseResolution => "case_resolution",
                     };
-                    existing.character_id == *character_id
+                    adventuresim_core::identity::CharacterId::from(existing.character_id)
+                        == *character_id
                         && existing.origin_settlement_id == *settlement_id
                         && existing.source_kind == source_kind
                         && existing.source_id == *source_id
@@ -648,7 +649,8 @@ fn preflight_consequences(
                 .id()
                 .find(*episode_id)
                 .map(|existing| {
-                    existing.character_id == *character_id
+                    adventuresim_core::identity::CharacterId::from(existing.character_id)
+                        == *character_id
                         && existing.disease_id == *disease_id
                         && existing.contracted_at == *contracted_at
                         && existing.ruleset_version
@@ -672,7 +674,8 @@ fn preflight_consequences(
                     let kind = match kind {
                         ExistingOffenseKind::IllegalForaging => "illegal_foraging",
                     };
-                    existing.character_id == *character_id
+                    adventuresim_core::identity::CharacterId::from(existing.character_id)
+                        == *character_id
                         && existing.settlement_id == *settlement_id
                         && existing.kind == kind
                         && existing.severity == (*severity).clamp(1, 5)
@@ -721,7 +724,8 @@ fn preflight_consequences(
                 .find(snapshot_id)
                 .map(|existing| {
                     existing.case_id == *case_id
-                        && existing.character_id == *character_id
+                        && adventuresim_core::identity::CharacterId::from(existing.character_id)
+                            == *character_id
                         && existing.party_id == *party_id
                         && existing.captured_at_minute == *minute
                 }),
@@ -811,7 +815,7 @@ fn validate_consequence_order(
 
 pub(crate) fn commit_noticed_illegal_foraging(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     settlement_id: &str,
     request_id: &str,
     infamy_centipoints: i32,
@@ -941,7 +945,7 @@ pub(crate) fn commit_generated_case_resolution(
 pub(crate) fn commit_food_water_infection(
     ctx: &ReducerContext,
     consumption_id: &str,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     strategic_place_id: &str,
     carrier_id: u64,
     contribution_digest: &str,
@@ -1010,8 +1014,12 @@ mod tests {
             source: WorldEventSource::ForagingAction {
                 request_id: "req".into(),
             },
-            actor: WorldEventActor::Character { character_id: 7 },
-            subjects: vec![WorldEventSubject::Character { character_id: 7 }],
+            actor: WorldEventActor::Character {
+                character_id: adventuresim_core::identity::CharacterId::from(7),
+            },
+            subjects: vec![WorldEventSubject::Character {
+                character_id: adventuresim_core::identity::CharacterId::from(7),
+            }],
             place: WorldEventPlace::Settlement {
                 settlement_id: "lubeck".into(),
             },
@@ -1055,7 +1063,7 @@ mod tests {
     fn consequence_identity_is_closed_and_exact() {
         let consequence = WorldEventConsequence::DiscoveredOffense {
             offense_id: "offense:1".into(),
-            character_id: 7,
+            character_id: adventuresim_core::identity::CharacterId::from(7),
             settlement_id: "lubeck".into(),
             kind: ExistingOffenseKind::IllegalForaging,
             severity: 1,
@@ -1071,7 +1079,7 @@ mod tests {
     fn canonical_orders_reject_duplicates_and_reordering() {
         let reputation = WorldEventConsequence::Reputation {
             event_id: "forage:7:req".into(),
-            character_id: 7,
+            character_id: adventuresim_core::identity::CharacterId::from(7),
             settlement_id: "lubeck".into(),
             meaning: ReputationMeaning::IllegalForaging,
             source_id: "req".into(),
@@ -1081,7 +1089,7 @@ mod tests {
         };
         let offense = WorldEventConsequence::DiscoveredOffense {
             offense_id: "offense:forage:7:req".into(),
-            character_id: 7,
+            character_id: adventuresim_core::identity::CharacterId::from(7),
             settlement_id: "lubeck".into(),
             kind: ExistingOffenseKind::IllegalForaging,
             severity: 1,
@@ -1111,8 +1119,12 @@ mod tests {
             source: WorldEventSource::ForagingAction {
                 request_id: "req".into(),
             },
-            actor: WorldEventActor::Character { character_id: 7 },
-            subjects: vec![WorldEventSubject::Character { character_id: 7 }],
+            actor: WorldEventActor::Character {
+                character_id: adventuresim_core::identity::CharacterId::from(7),
+            },
+            subjects: vec![WorldEventSubject::Character {
+                character_id: adventuresim_core::identity::CharacterId::from(7),
+            }],
             place: WorldEventPlace::Settlement {
                 settlement_id: "lubeck".into(),
             },
@@ -1137,7 +1149,7 @@ mod tests {
         let consequences = vec![
             WorldEventConsequence::Reputation {
                 event_id: envelope.id.clone(),
-                character_id: 7,
+                character_id: adventuresim_core::identity::CharacterId::from(7),
                 settlement_id: "lubeck".into(),
                 meaning: ReputationMeaning::IllegalForaging,
                 source_id: "req".into(),
@@ -1147,7 +1159,7 @@ mod tests {
             },
             WorldEventConsequence::DiscoveredOffense {
                 offense_id: "offense:forage:7:req".into(),
-                character_id: 7,
+                character_id: adventuresim_core::identity::CharacterId::from(7),
                 settlement_id: "lubeck".into(),
                 kind: ExistingOffenseKind::IllegalForaging,
                 severity: 1,

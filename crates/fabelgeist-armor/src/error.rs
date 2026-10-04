@@ -25,4 +25,12 @@ pub enum GenerateError {
     NotOnDevice(&'static str),
     #[error("armor GPU: {0}")]
     Gpu(std::sync::Arc<str>),
+    #[error("armor GPU: {0}")]
+    Kernel(#[from] fabelgeist_compute::KernelCacheError),
+    #[error("armor GPU: {0}")]
+    BufferCreation(#[from] fabelgeist_gpu::prelude::BufferCreationError),
+    #[error("armor GPU: {0}")]
+    Dispatch(#[from] fabelgeist_compute::KernelDispatchError),
+    #[error("armor GPU readback: {0}")]
+    Readback(#[from] fabelgeist_gpu::prelude::ReadbackError),
 }

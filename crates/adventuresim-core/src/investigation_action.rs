@@ -401,7 +401,7 @@ mod planning_adapter_tests {
         let PlanningOutcome::Ready(plan) = build_investigation_plan(authority(Some(120))) else {
             panic!("authorized plan should be ready");
         };
-        assert_eq!(plan.time().elapsed_minutes, 20);
+        assert_eq!(plan.time().elapsed_minutes.get(), 20);
         assert_eq!(plan.effects().len(), 1);
         assert!(matches!(
             &plan.effects()[0],

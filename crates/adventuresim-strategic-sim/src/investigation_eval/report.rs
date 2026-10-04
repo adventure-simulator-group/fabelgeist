@@ -4,7 +4,7 @@ use super::{
     PublicQuestTrace, QuestPolicy, SemanticDigestPurpose, Termination, TerminationErrorCode,
     semantic_digest,
 };
-use adventuresim_core::quest_generation::{RouteClass, TemplateFamily};
+use adventuresim_core::quest_generation::{BridgeId, FactorId, RouteClass, TemplateFamily};
 use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize};
 use std::{
@@ -145,8 +145,8 @@ pub struct MarginalAudit {
     pub factor_count: u64,
     pub bridge_count: u64,
     pub catalog_revisions: BTreeSet<String>,
-    pub factor_id_counts: BTreeMap<String, u32>,
-    pub bridge_id_counts: BTreeMap<String, u32>,
+    pub factor_id_counts: BTreeMap<FactorId, u32>,
+    pub bridge_id_counts: BTreeMap<BridgeId, u32>,
     pub accepted_factor_rows: u64,
     pub rejected_factor_rows: u64,
 }
@@ -853,11 +853,11 @@ fn marginal_audit(cases: &[DeveloperCaseAnalysis]) -> MarginalAudit {
         *true_site_counts.entry(case.true_site.clone()).or_default() += 1;
         for row in &case.factor_trace {
             for factor in &row.factor_ids {
-                *factor_id_counts.entry(factor.0.clone()).or_default() += 1;
+                *factor_id_counts.entry(factor.clone()).or_default() += 1;
             }
         }
         for bridge in &case.bridges {
-            *bridge_id_counts.entry(bridge.id.0.clone()).or_default() += 1;
+            *bridge_id_counts.entry(bridge.id.clone()).or_default() += 1;
         }
     }
     MarginalAudit {

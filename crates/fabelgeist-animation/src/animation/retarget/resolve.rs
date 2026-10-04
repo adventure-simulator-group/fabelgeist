@@ -5,32 +5,21 @@
 //! addresses joints by index, which is what makes the retargeter itself
 //! indifferent to where an animation came from.
 
+use super::matching::RetargetMatchKey;
+use super::{ChainPresence, RigJointChain};
+use super::{JointRequirement, RetargetStrictness};
+use super::{MissingRequiredJoint, RetargetError, RetargetProfileName, RigProfileName};
 use crate::skeleton::Skeleton;
-use anyhow::{Result, bail};
+use fabelgeist_rig::{RigJointName, RigJointOrdinal};
 use indexmap::IndexMap;
 
 use super::profile::{RetargetProfile, RetargetSettings, RigProfile, RootSource};
 use super::semantic::{HumanoidChain, HumanoidJoint};
 
-/// Loose name matching: `mixamorig:LeftUpLeg`, `mixamorig1:LeftUpLeg`,
-/// `Left_Up_Leg` and `leftupleg` all reduce to the same key.
-///
-/// Namespaces are stripped because exporters add and rename them freely;
-/// separators and case are dropped because rig authors are inconsistent about
-/// both. Nothing else is normalized — this must not make distinct joints
-/// collide.
-fn normalize(name: &str) -> String {
-    let name = name.rsplit([':', '|']).next().unwrap_or(name);
-    name.chars()
-        .filter(|character| character.is_ascii_alphanumeric())
-        .map(|character| character.to_ascii_lowercase())
-        .collect()
-}
-
 /// A skeleton's joint names indexed for repeated lookups.
 struct JointIndex {
-    exact: IndexMap<String, usize>,
-    normalized: IndexMap<String, usize>,
+    exact: IndexMap<RigJointName, RigJointOrdinal>,
+    normalized: IndexMap<RetargetMatchKey, RigJointOrdinal>,
 }
 
 impl JointIndex {
@@ -38,16 +27,19 @@ impl JointIndex {
         let mut exact = IndexMap::new();
         let mut normalized = IndexMap::new();
         for (index, joint) in skeleton.joints.iter().enumerate() {
+            let index = RigJointOrdinal::from(index);
             exact.entry(joint.name.clone()).or_insert(index);
-            normalized.entry(normalize(&joint.name)).or_insert(index);
+            normalized
+                .entry(RetargetMatchKey::from(&joint.name))
+                .or_insert(index);
         }
         Self { exact, normalized }
     }
 
-    fn find(&self, name: &str) -> Option<usize> {
+    fn find(&self, name: &RigJointName) -> Option<RigJointOrdinal> {
         self.exact
             .get(name)
-            .or_else(|| self.normalized.get(&normalize(name)))
+            .or_else(|| self.normalized.get(&RetargetMatchKey::from(name)))
             .copied()
     }
 }
@@ -55,21 +47,21 @@ impl JointIndex {
 /// A profile bound to a concrete skeleton.
 #[derive(Clone, Debug, PartialEq)]
 pub struct ResolvedRig {
-    pub profile: String,
+    pub profile: RigProfileName,
     /// Skeleton joint index per humanoid role that resolved.
-    pub joints: IndexMap<HumanoidJoint, usize>,
+    pub joints: IndexMap<HumanoidJoint, RigJointOrdinal>,
     /// Skeleton joint indices per chain, root-most first.
-    pub chains: IndexMap<HumanoidChain, Vec<usize>>,
+    pub chains: IndexMap<HumanoidChain, RigJointChain>,
     /// The joint carrying locomotion, if the rig has one.
-    pub root: Option<usize>,
+    pub root: Option<RigJointOrdinal>,
     /// Optional roles the profile named but the skeleton does not have.
     pub missing: Vec<HumanoidJoint>,
     /// Skeleton joints no role or chain claims. Harmless; listed for tooling.
-    pub unmapped: Vec<usize>,
+    pub unmapped: Vec<RigJointOrdinal>,
 }
 
 impl ResolvedRig {
-    pub fn joint(&self, role: HumanoidJoint) -> Option<usize> {
+    pub fn joint(&self, role: HumanoidJoint) -> Option<RigJointOrdinal> {
         self.joints.get(&role).copied()
     }
 
@@ -78,7 +70,7 @@ impl ResolvedRig {
     }
 
     /// The roles this rig resolved that a later IK or contact pass would pin.
-    pub fn end_effectors(&self) -> Vec<(HumanoidJoint, usize)> {
+    pub fn end_effectors(&self) -> Vec<(HumanoidJoint, RigJointOrdinal)> {
         self.joints
             .iter()
             .filter(|(role, _)| role.is_end_effector())
@@ -92,7 +84,7 @@ impl RigProfile {
     ///
     /// Fails only on joints the profile marked required; everything else is
     /// reported and carried on without.
-    pub fn resolve(&self, skeleton: &Skeleton) -> Result<ResolvedRig> {
+    pub fn resolve(&self, skeleton: &Skeleton) -> Result<ResolvedRig, RetargetError> {
         let index = JointIndex::new(skeleton);
 
         let mut joints = IndexMap::new();
@@ -103,29 +95,32 @@ impl RigProfile {
                 Some(joint) => {
                     joints.insert(*role, joint);
                 }
-                None if binding.required => missing_required.push(*role),
+                None if binding.required == JointRequirement::Required => {
+                    missing_required.push(*role)
+                }
                 None => missing.push(*role),
             }
         }
 
         if !missing_required.is_empty() {
-            let names: Vec<String> = missing_required
+            let bindings = missing_required
                 .iter()
-                .map(|role| {
-                    let candidates = self.joints[role].names.join(" | ");
-                    format!("{role} (expected {candidates})")
+                .map(|role: &HumanoidJoint| -> MissingRequiredJoint {
+                    MissingRequiredJoint {
+                        role: *role,
+                        candidates: self.joints[role].names.clone(),
+                    }
                 })
                 .collect();
-            bail!(
-                "rig profile {:?} requires joints the skeleton does not have: {}",
-                self.name,
-                names.join(", ")
-            );
+            return Err(RetargetError::RequiredJointsMissing {
+                profile: self.name.clone(),
+                bindings,
+            });
         }
 
-        let mut chains: IndexMap<HumanoidChain, Vec<usize>> = IndexMap::new();
+        let mut chains: IndexMap<HumanoidChain, RigJointChain> = IndexMap::new();
         for chain in HumanoidChain::ALL {
-            let resolved: Vec<usize> = match self.chains.get(chain) {
+            let resolved: RigJointChain = match self.chains.get(chain) {
                 // An explicit chain lists the rig's own joints, extras included.
                 Some(binding) => binding
                     .joints
@@ -139,7 +134,7 @@ impl RigProfile {
                     .filter_map(|role| joints.get(role).copied())
                     .collect(),
             };
-            if !resolved.is_empty() {
+            if resolved.presence() == ChainPresence::Populated {
                 chains.insert(*chain, resolved);
             }
         }
@@ -150,13 +145,15 @@ impl RigProfile {
             RootSource::None => None,
         };
 
-        let claimed: std::collections::HashSet<usize> = joints
+        let claimed: std::collections::HashSet<RigJointOrdinal> = joints
             .values()
             .copied()
             .chain(chains.values().flatten().copied())
             .chain(root)
             .collect();
-        let unmapped = (0..skeleton.joints.len())
+        let unmapped = skeleton
+            .joints
+            .ordinals()
             .filter(|index| !claimed.contains(index))
             .collect();
 
@@ -187,7 +184,7 @@ impl RigProfile {
 /// Both rigs bound to their skeletons, plus the policy joining them.
 #[derive(Clone, Debug, PartialEq)]
 pub struct ResolvedProfile {
-    pub name: String,
+    pub name: RetargetProfileName,
     pub source: ResolvedRig,
     pub target: ResolvedRig,
     pub settings: RetargetSettings,
@@ -198,22 +195,19 @@ impl RetargetProfile {
         &self,
         source_skeleton: &Skeleton,
         target_skeleton: &Skeleton,
-    ) -> Result<ResolvedProfile> {
+    ) -> Result<ResolvedProfile, RetargetError> {
         let source = self.source.resolve(source_skeleton)?;
         let target = self.target.resolve(target_skeleton)?;
 
-        if self.settings.strict {
-            let orphaned: Vec<String> = source
+        if self.settings.strict == RetargetStrictness::Strict {
+            let orphaned: Vec<HumanoidJoint> = source
                 .joints
                 .keys()
                 .filter(|role| !target.has(**role))
-                .map(|role| role.to_string())
+                .copied()
                 .collect();
             if !orphaned.is_empty() {
-                bail!(
-                    "strict retargeting: the target rig has no joint for {}",
-                    orphaned.join(", ")
-                );
+                return Err(RetargetError::StrictTargetRolesMissing { roles: orphaned });
             }
         }
 
@@ -234,104 +228,5 @@ impl ResolvedProfile {
             .copied()
             .filter(|role| self.source.has(*role) && self.target.has(*role))
             .collect()
-    }
-
-    /// A human-readable dump of the mapping, for checking a new rig.
-    ///
-    /// ```text
-    /// Pelvis:
-    ///   source = mixamorig:Hips
-    ///   target = root
-    /// ```
-    pub fn report(&self, source_skeleton: &Skeleton, target_skeleton: &Skeleton) -> String {
-        let mut report = String::new();
-        let name = |skeleton: &Skeleton, index: Option<usize>| match index {
-            Some(index) => skeleton.joints[index].name.clone(),
-            None => "<unmapped>".to_string(),
-        };
-
-        report.push_str(&format!("profile: {}\n", self.name));
-        report.push_str(&format!(
-            "source rig: {} ({} joints)\n",
-            self.source.profile,
-            source_skeleton.joints.len()
-        ));
-        report.push_str(&format!(
-            "target rig: {} ({} joints)\n\n",
-            self.target.profile,
-            target_skeleton.joints.len()
-        ));
-
-        for role in HumanoidJoint::ALL {
-            let source = self.source.joint(*role);
-            let target = self.target.joint(*role);
-            if source.is_none() && target.is_none() {
-                continue;
-            }
-            report.push_str(&format!("{role}:\n"));
-            report.push_str(&format!("  source = {}\n", name(source_skeleton, source)));
-            report.push_str(&format!("  target = {}\n", name(target_skeleton, target)));
-        }
-
-        for chain in HumanoidChain::ALL {
-            let source = self.source.chains.get(chain);
-            let target = self.target.chains.get(chain);
-            let (Some(source), Some(target)) = (source, target) else {
-                continue;
-            };
-            if source.len() == target.len() {
-                continue;
-            }
-            let joints = |skeleton: &Skeleton, indices: &[usize]| {
-                indices
-                    .iter()
-                    .map(|index| skeleton.joints[*index].name.as_str())
-                    .collect::<Vec<_>>()
-                    .join(" -> ")
-            };
-            report.push_str(&format!(
-                "\nchain {chain} ({} source joints, {} target joints, motion distributed)\n",
-                source.len(),
-                target.len()
-            ));
-            report.push_str(&format!("  source = {}\n", joints(source_skeleton, source)));
-            report.push_str(&format!("  target = {}\n", joints(target_skeleton, target)));
-        }
-
-        if !self.source.missing.is_empty() {
-            let missing: Vec<String> = self
-                .source
-                .missing
-                .iter()
-                .map(ToString::to_string)
-                .collect();
-            report.push_str(&format!(
-                "\nsource rig is missing: {}\n",
-                missing.join(", ")
-            ));
-        }
-        if !self.target.missing.is_empty() {
-            let missing: Vec<String> = self
-                .target
-                .missing
-                .iter()
-                .map(ToString::to_string)
-                .collect();
-            report.push_str(&format!("target rig is missing: {}\n", missing.join(", ")));
-        }
-        report
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn namespaces_and_separators_do_not_defeat_lookup() {
-        assert_eq!(normalize("mixamorig:LeftUpLeg"), "leftupleg");
-        assert_eq!(normalize("mixamorig1:Left_Up_Leg"), "leftupleg");
-        assert_eq!(normalize("Armature|LeftUpLeg"), "leftupleg");
-        assert_ne!(normalize("l_upleg"), normalize("r_upleg"));
     }
 }

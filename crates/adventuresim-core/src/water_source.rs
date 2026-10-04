@@ -1,5 +1,8 @@
 //! Pure shared planning and conservation rules for collecting fixture water.
 
+mod contribution;
+pub use contribution::{WaterContaminantMicrounits, WaterMaterialContribution};
+
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
 
 use crate::{
@@ -147,8 +150,12 @@ impl OutbreakWaterFlow {
             source: crate::world_event::WorldEventSource::FoodWaterExposure {
                 consumption_id: "simulated-consumption".into(),
             },
-            actor: crate::world_event::WorldEventActor::Character { character_id: 1 },
-            subjects: vec![crate::world_event::WorldEventSubject::Character { character_id: 1 }],
+            actor: crate::world_event::WorldEventActor::Character {
+                character_id: crate::identity::CharacterId::from(1),
+            },
+            subjects: vec![crate::world_event::WorldEventSubject::Character {
+                character_id: crate::identity::CharacterId::from(1),
+            }],
             place: crate::world_event::WorldEventPlace::Strategic {
                 place_id: "simulated-well".into(),
             },
@@ -401,46 +408,15 @@ pub fn conserved_collection(
         .flatten()
 }
 
-/// Sample one private material contribution by the same fraction as the
-/// public holding transfer. Integer remainders stay with the source.
-pub fn proportional_material_transfer(
-    public_total: crate::material::Microliters,
-    moved: crate::material::Microliters,
-    contribution: crate::material::Microliters,
-    contaminant_load_microunits: u64,
-) -> Option<(crate::material::Microliters, u64)> {
-    if public_total.is_zero() || moved > public_total {
-        return None;
-    }
-    if moved == public_total {
-        return Some((contribution, contaminant_load_microunits));
-    }
-    let amount = crate::material::Microliters::new(
-        (u128::from(contribution.get()) * u128::from(moved.get()) / u128::from(public_total.get()))
-            as u64,
-    );
-    let load = if amount == contribution {
-        contaminant_load_microunits
-    } else if contribution.is_zero() {
-        0
-    } else {
-        (u128::from(contaminant_load_microunits) * u128::from(amount.get())
-            / u128::from(contribution.get())) as u64
-    };
-    Some((amount, load))
-}
-
 #[cfg(test)]
 mod tests {
     use crate::{
-        material::Microliters,
         physical_object::{CustodyCharacterId, PhysicalObjectId},
         strategic_place::StrategicPlaceId,
     };
 
     use super::{
-        conserved_collection, proportional_material_transfer, water_container_alter_question,
-        water_rights_question_digest,
+        conserved_collection, water_container_alter_question, water_rights_question_digest,
     };
 
     #[test]
@@ -448,28 +424,6 @@ mod tests {
         assert_eq!(conserved_collection(10_000, 250, 750), Some((9_250, 1_000)));
         assert_eq!(conserved_collection(100, 0, 101), None);
         assert_eq!(conserved_collection(100, 0, 0), None);
-    }
-
-    #[test]
-    fn transfer_samples_tainted_and_implicit_clean_water_proportionally() {
-        assert_eq!(
-            proportional_material_transfer(
-                Microliters::new(1_000_000),
-                Microliters::new(100_000),
-                Microliters::new(100_000),
-                12_000_000
-            ),
-            Some((Microliters::new(10_000), 1_200_000))
-        );
-        assert_eq!(
-            proportional_material_transfer(
-                Microliters::new(900_000),
-                Microliters::new(900_000),
-                Microliters::new(10_000),
-                1_200_000
-            ),
-            Some((Microliters::new(10_000), 1_200_000))
-        );
     }
 
     #[test]

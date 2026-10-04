@@ -35,7 +35,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 #[test]
 fn every_thread_sees_its_own_uniforms() -> Result<()> {
     let context = pollster::block_on(WgpuContext::new())?;
-    let kernel = KernelCache::new().get(&context, FILL)?;
+    let kernel =
+        KernelCache::new().get(&context, &fabelgeist_gpu::prelude::ShaderSource::from(FILL))?;
     let threads = 32u32;
     let barrier = std::sync::Barrier::new(threads as usize);
     let wrong = std::sync::atomic::AtomicUsize::new(0);
@@ -48,23 +49,29 @@ fn every_thread_sees_its_own_uniforms() -> Result<()> {
                     let value = thread * 1_000 + round + 1;
                     let output = Buffer::new(
                         context,
-                        count as u64 * 4,
-                        BufferDefinition::storage().with_copy_src(),
+                        (count as u64 * 4).into(),
+                        BufferDefinition::storage().with_usage(BufferUse::CopySource),
                     )
                     .unwrap();
                     let input: Vec<u32> = (0..20_000u32).map(|i| i ^ thread).collect();
-                    let input =
-                        Buffer::from_slice(context, &input, BufferDefinition::storage()).unwrap();
+                    let input = Buffer::from_upload(
+                        context,
+                        BufferUpload::from_elements(&input),
+                        BufferDefinition::storage(),
+                    )
+                    .unwrap();
                     let mut parameters = PassParameters::new();
-                    parameters.insert("output", output.clone());
-                    parameters.insert("input", input);
-                    parameters.insert("count", count);
-                    parameters.insert("value", value);
-                    parameters.insert("pad0", 0u32);
-                    parameters.insert("pad1", 0u32);
+                    parameters.insert("output".into(), (output.clone()).into());
+                    parameters.insert("input".into(), (input).into());
+                    parameters.insert("count".into(), (count).into());
+                    parameters.insert("value".into(), (value).into());
+                    parameters.insert("pad0".into(), (0u32).into());
+                    parameters.insert("pad1".into(), (0u32).into());
                     barrier.wait();
                     let mut batch = KernelBatch::new(context);
-                    batch.dispatch_items(kernel, &parameters, count).unwrap();
+                    batch
+                        .dispatch_items(kernel, &parameters, (count).into())
+                        .unwrap();
                     batch.submit();
                     let read: Vec<u32> = pollster::block_on(output.read(context)).unwrap();
                     let bad = read.iter().filter(|v| **v != value).count();
@@ -86,29 +93,34 @@ fn every_thread_sees_its_own_uniforms() -> Result<()> {
 #[test]
 fn a_long_open_batch_keeps_its_uniforms() -> Result<()> {
     let context = pollster::block_on(WgpuContext::new())?;
-    let kernel = KernelCache::new().get(&context, FILL)?;
-    let input = Buffer::from_slice(&context, &[1u32], BufferDefinition::storage())?;
+    let kernel =
+        KernelCache::new().get(&context, &fabelgeist_gpu::prelude::ShaderSource::from(FILL))?;
+    let input = Buffer::from_upload(
+        &context,
+        BufferUpload::from_elements(&[1u32]),
+        BufferDefinition::storage(),
+    )?;
     let parameters = |output: &Buffer, value: u32| {
         let mut parameters = PassParameters::new();
-        parameters.insert("output", output.clone());
-        parameters.insert("input", input.clone());
-        parameters.insert("count", 64u32);
-        parameters.insert("value", value);
-        parameters.insert("pad0", 0u32);
-        parameters.insert("pad1", 0u32);
+        parameters.insert("output".into(), (output.clone()).into());
+        parameters.insert("input".into(), (input.clone()).into());
+        parameters.insert("count".into(), (64u32).into());
+        parameters.insert("value".into(), (value).into());
+        parameters.insert("pad0".into(), (0u32).into());
+        parameters.insert("pad1".into(), (0u32).into());
         parameters
     };
-    let storage = BufferDefinition::storage().with_copy_src();
-    let held = Buffer::new(&context, 256, storage.clone())?;
+    let storage = BufferDefinition::storage().with_usage(BufferUse::CopySource);
+    let held = Buffer::new(&context, (256u64).into(), storage.clone())?;
     let mut open = KernelBatch::new(&context);
-    open.dispatch_items(&kernel, &parameters(&held, 7), 64)?;
+    open.dispatch_items(&kernel, &parameters(&held, 7), (64u32).into())?;
     std::thread::scope(|scope| {
         scope.spawn(|| {
-            let other = Buffer::new(&context, 256, storage.clone()).unwrap();
+            let other = Buffer::new(&context, (256u64).into(), storage.clone()).unwrap();
             for round in 0..3_000u32 {
                 let mut batch = KernelBatch::new(&context);
                 batch
-                    .dispatch_items(&kernel, &parameters(&other, round), 64)
+                    .dispatch_items(&kernel, &parameters(&other, round), (64u32).into())
                     .unwrap();
                 batch.submit();
             }

@@ -1,5 +1,6 @@
 //! Turned, forged, fluted and ornamented pommel constructions.
 use super::*;
+use crate::ConstructionError;
 use std::f64::consts::{PI, TAU};
 
 fn part(solid: Solid, r: &ResolvedComponent, suffix: &str, material: Material) -> PartSource {
@@ -20,7 +21,7 @@ pub(super) fn pommel(
     r: &ResolvedComponent,
     p: &PommelParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, String> {
+) -> Result<Vec<PartSource>, ConstructionError> {
     let material = r.component.material.unwrap_or(Material::Steel);
     match p.construction {
         PommelConstruction::Composite => composite(r, p, detail),
@@ -28,7 +29,7 @@ pub(super) fn pommel(
             let profile = p
                 .profile
                 .as_ref()
-                .ok_or("lathed pommel needs profile")?
+                .ok_or(ConstructionError::LathedPommelNeedsProfile)?
                 .iter()
                 .map(|p| p.map(Metres::get))
                 .collect::<Vec<_>>();
@@ -57,7 +58,7 @@ fn plate(
     r: &ResolvedComponent,
     p: &PommelParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, String> {
+) -> Result<Vec<PartSource>, ConstructionError> {
     let radius = p.diameter.map_or(0.06, Metres::get) * p.width_scale.map_or(1.0, Ratio::get) / 2.0;
     let height =
         p.height.or(p.diameter).map_or(0.06, Metres::get) * p.length_scale.map_or(1.0, Ratio::get);
@@ -124,7 +125,7 @@ fn outline(
     r: &ResolvedComponent,
     p: &PommelParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, String> {
+) -> Result<Vec<PartSource>, ConstructionError> {
     let width = p.diameter.map_or(0.055, Metres::get) * p.width_scale.map_or(1.0, Ratio::get);
     let height = p.height.map_or(0.06, Metres::get) * p.length_scale.map_or(1.0, Ratio::get);
     let thickness = p.thickness.map_or(0.018, Metres::get);
@@ -186,7 +187,7 @@ fn outline(
     ])
 }
 
-fn fan(width: f64, height: f64, thickness: f64) -> Result<Solid, String> {
+fn fan(width: f64, height: f64, thickness: f64) -> Result<Solid, ConstructionError> {
     let mut points = vec![[-width * 0.18, 0.0]];
     for i in 0..12 {
         let t = i as f64 / 12.0;
@@ -307,12 +308,12 @@ fn composite(
     r: &ResolvedComponent,
     p: &PommelParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, String> {
+) -> Result<Vec<PartSource>, ConstructionError> {
     let mut base = p.clone();
     let construction = p
         .base_construction
         .as_ref()
-        .ok_or("composite pommel needs baseConstruction")?;
+        .ok_or(ConstructionError::CompositePommelNeedsBaseConstruction)?;
     base.construction = match construction {
         PommelBaseConstruction::Lathed => PommelConstruction::Lathed,
         PommelBaseConstruction::Plate => PommelConstruction::Plate,
@@ -321,15 +322,18 @@ fn composite(
         PommelBaseConstruction::Outline => PommelConstruction::Outline,
     };
     let mut parts = pommel(r, &base, detail)?;
-    let sockets = p.sockets.as_ref().ok_or("composite pommel needs sockets")?;
+    let sockets = p
+        .sockets
+        .as_ref()
+        .ok_or(ConstructionError::CompositePommelNeedsSockets)?;
     for ornament in p
         .ornaments
         .as_ref()
-        .ok_or("composite pommel needs ornaments")?
+        .ok_or(ConstructionError::CompositePommelNeedsOrnaments)?
     {
         let mut socket = sockets
             .get(&ornament.socket)
-            .ok_or("missing ornament socket")?
+            .ok_or(ConstructionError::MissingOrnamentSocket)?
             .map(Metres::get);
         seat_ornament(&parts, &mut socket);
         let material = ornament
@@ -380,7 +384,7 @@ fn seat_ornament(parts: &[PartSource], socket: &mut Point) {
 fn ornament_solids(
     ornament: &Ornament,
     detail: Detail,
-) -> Result<Vec<(Solid, &'static str)>, String> {
+) -> Result<Vec<(Solid, &'static str)>, ConstructionError> {
     let scale = ornament.scale.get();
     let mut additions = Vec::new();
     match &ornament.geometry {
@@ -437,7 +441,7 @@ fn ornament_solids(
             smooth,
         } => {
             if positions.len() % 3 != 0 || indices.len() % 3 != 0 {
-                return Err("ornament requires complete vertices and triangles".into());
+                return Err(ConstructionError::OrnamentRequiresCompleteVerticesTriangles);
             }
             let points: Vec<Point> = positions
                 .as_chunks::<3>()
@@ -453,7 +457,7 @@ fn ornament_solids(
                         points
                             .get(i as usize)
                             .copied()
-                            .ok_or("ornament vertex index out of range")
+                            .ok_or(ConstructionError::OrnamentVertexIndexOutRange)
                     })
                     .collect::<Result<Vec<_>, _>>()?;
                 solid.triangle(

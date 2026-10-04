@@ -1,12 +1,12 @@
 //! Native renderer boundary for the shared double-precision weapon kernel.
 use crate::*;
 use thiserror::Error;
-#[derive(Debug, Error)]
+#[derive(Clone, Debug, PartialEq, Error)]
 pub enum GenerateError {
     #[error("invalid weapon design")]
     Invalid(Vec<ValidationError>),
     #[error("weapon construction failed: {0}")]
-    Construction(String),
+    Construction(#[source] ConstructionError),
     #[error("weapon cannot provide required {0} holder geometry")]
     MissingHolderGeometry(&'static str),
 }

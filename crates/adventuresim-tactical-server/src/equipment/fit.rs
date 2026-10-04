@@ -11,7 +11,7 @@ fn authored_requirement(
     let TacticalEquipmentAnchor::CharacterLocation(location) = occupancy.anchor else {
         unreachable!("only character anchors have fit zones")
     };
-    let fit_zone = item_catalog::definition(item_id)
+    let fit_zone = item_catalog::definition(&(item_id).into())
         .and_then(|definition| definition.equipment.as_ref())
         .and_then(|equipment| {
             equipment
@@ -138,7 +138,7 @@ mod tests {
             "greave",
             "sabaton",
         ] {
-            for placement in &item_catalog::definition(item)
+            for placement in &item_catalog::definition(&(item).into())
                 .unwrap()
                 .equipment
                 .as_ref()
@@ -202,7 +202,7 @@ mod tests {
         ]
         .into_iter()
         .flat_map(|item| {
-            item_catalog::definition(item)
+            item_catalog::definition(&(item).into())
                 .unwrap()
                 .equipment
                 .as_ref()

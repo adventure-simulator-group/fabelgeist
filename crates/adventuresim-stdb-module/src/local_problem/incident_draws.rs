@@ -47,7 +47,7 @@ pub(super) fn candidates(context: &GenerationContext) -> Vec<&WitnessCandidate> 
 
 pub(super) fn sites(case: &GeneratedCase) -> Vec<&GeneratedSite> {
     let mut sites = case.sites.iter().collect::<Vec<_>>();
-    sites.sort_by(|a, b| a.id.0.cmp(&b.id.0));
+    sites.sort_by(|a, b| a.id.cmp(&b.id));
     sites
 }
 

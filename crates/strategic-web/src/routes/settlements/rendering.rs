@@ -27,7 +27,7 @@ pub(super) async fn merchant_shop(
     let settlement_literal = sql_string_literal(&id);
     let settlement_sql = settlement_by_id(&id);
     let (settlements, active_character) = tokio::join!(
-        db.query_sats_into::<DbSettlement, SettlementView>(settlement_sql.as_str()),
+        db.query_sats_into::<DbSettlement, SettlementView>(settlement_sql),
         get_active_character(&state, session.character_id_u64()),
     );
     let settlements = settlements.unwrap_or_default();
@@ -63,18 +63,19 @@ pub(super) async fn merchant_shop(
             .into_string(),
         );
     };
-    let condition_sql = "SELECT * FROM item_condition".to_string();
+    let condition_sql = SqlQuery::from("SELECT * FROM item_condition".to_string());
     let smith_sql = db::settlement_smith_by_settlement_id(&id);
-    let order_sql = format!(
+    let order_sql = SqlQuery::from(format!(
         "SELECT * FROM repair_order WHERE owner_character_id = {} AND settlement_id = {settlement_literal}",
         character.id
-    );
-    let time_sql = db::character_time_by_character_id(character.id);
-    let consequence_sql = format!(
+    ));
+    let time_sql = db::character_time_by_character_id(character.id.into());
+    let consequence_sql = SqlQuery::from(format!(
         "SELECT * FROM backend_local_problem_trade_effects WHERE character_id = {}",
         character.id
-    );
-    let amount_sql = "SELECT * FROM inventory_item_amount";
+    ));
+    let amount_sql = SqlQuery::from("SELECT * FROM inventory_item_amount");
+
     let (
         party_members,
         items,
@@ -89,15 +90,15 @@ pub(super) async fn merchant_shop(
         personal_amounts,
     ) = tokio::join!(
         get_active_party_members(&state, Some(character)),
-        db.query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item"),
-        db.query_sats::<FoodLot>("SELECT * FROM food_lot"),
+        db.query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into()),
+        db.query_sats::<FoodLot>("SELECT * FROM food_lot".into()),
         party::character_equipment_graph(&state, character.id),
         inventory_trade_context(&state, character),
-        db.query_sats::<ItemCondition>(&condition_sql),
-        db.query_sats::<SettlementSmith>(&smith_sql),
-        db.query_sats::<RepairOrder>(&order_sql),
-        db.query_sats::<CharacterTime>(&time_sql),
-        db.query_sats::<BackendLocalProblemTradeEffect>(&consequence_sql),
+        db.query_sats::<ItemCondition>(condition_sql),
+        db.query_sats::<SettlementSmith>(smith_sql),
+        db.query_sats::<RepairOrder>(order_sql),
+        db.query_sats::<CharacterTime>(time_sql),
+        db.query_sats::<BackendLocalProblemTradeEffect>(consequence_sql),
         db.query_sats::<InventoryItemAmount>(amount_sql),
     );
     let items = items.unwrap_or_default();
@@ -116,15 +117,15 @@ pub(super) async fn merchant_shop(
         let (limbs, stats, condition) = tokio::join!(
             query_single::<CharacterLimbs>(
                 &state,
-                db::character_limbs_by_character_id(character.id),
+                db::character_limbs_by_character_id(character.id.into()),
             ),
             query_single::<CharacterStats>(
                 &state,
-                db::character_stats_by_character_id(character.id),
+                db::character_stats_by_character_id(character.id.into()),
             ),
             query_single::<CharacterCondition>(
                 &state,
-                db::character_condition_by_character_id(character.id),
+                db::character_condition_by_character_id(character.id.into()),
             ),
         );
         let (field_repair_minutes, smith_wait_minutes) =
@@ -149,7 +150,7 @@ pub(super) async fn merchant_shop(
         (None, SoapRestPreview::default())
     };
     let speaker =
-        query_single::<CharacterSkills>(&state, db::character_skills_by_character_id(character.id))
+        query_single::<CharacterSkills>(&state, db::character_skills_by_character_id(character.id.into()))
             .await
             .map_or_else(
                 adventuresim_world_schema::OralLanguageHours::default,
@@ -157,7 +158,7 @@ pub(super) async fn merchant_shop(
             );
     let speaker_cap = query_single::<CharacterAttributes>(
         &state,
-        db::character_attributes_by_character_id(character.id),
+        db::character_attributes_by_character_id(character.id.into()),
     )
     .await
     .map_or(0.0, |attributes| attributes.instinct * 1_000.0);
@@ -174,7 +175,7 @@ pub(super) async fn merchant_shop(
         .as_ref()
         .ok()
         .and_then(|rows| rows.first())
-        .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
+        .map_or(StrategicMinute::ZERO, |t| calendar_minute(&t.minutes));
     let problem_effects = consequences
         .unwrap_or_default()
         .into_iter()
@@ -223,37 +224,37 @@ pub(super) async fn inventory_trade_context(
     Vec<InventoryQuantityTarget>,
     Vec<PartyInventoryItem>,
 ) {
-    let personal_sql = format!(
+    let personal_sql = SqlQuery::from(format!(
         "SELECT * FROM inventory_quantity_target WHERE owner_character_id = {} AND party_scope = false",
         character.id
-    );
+    ));
     let Some(party_id) = character.party_id.as_ref() else {
-        let personal = state.db.query_sats(&personal_sql).await.unwrap_or_default();
+        let personal = state.db.query_sats(personal_sql).await.unwrap_or_default();
         return (personal, Vec::new(), Vec::new());
     };
     let party_sql = db::party_by_id(party_id);
     let (personal, party) = tokio::join!(
-        state.db.query_sats(&personal_sql),
+        state.db.query_sats(personal_sql),
         state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&party_sql),
+            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(party_sql),
     );
     let personal = personal.unwrap_or_default();
     let party = party.unwrap_or_default().into_iter().next();
     let Some(party) = party else {
         return (personal, Vec::new(), Vec::new());
     };
-    let party_targets_sql = format!(
+    let party_targets_sql = SqlQuery::from(format!(
         "SELECT * FROM inventory_quantity_target WHERE owner_character_id = {} AND party_scope = true",
         party.leader_id
-    );
-    let pooled_sql = format!(
+    ));
+    let pooled_sql = SqlQuery::from(format!(
         "SELECT * FROM party_inventory_item WHERE party_id = {}",
         sql_string_literal(party_id)
-    );
+    ));
     let (party_targets, pooled) = tokio::join!(
-        state.db.query_sats(&party_targets_sql),
-        state.db.query_sats(&pooled_sql),
+        state.db.query_sats(party_targets_sql),
+        state.db.query_sats(pooled_sql),
     );
     (
         personal,
@@ -266,7 +267,7 @@ pub(super) async fn personal_inventory_targets(
     state: &AppState,
     character_id: u64,
 ) -> Vec<InventoryQuantityTarget> {
-    state.db.query_sats(&format!("SELECT * FROM inventory_quantity_target WHERE owner_character_id = {character_id} AND party_scope = false")).await.unwrap_or_default()
+    state.db.query_sats(SqlQuery::from(format!("SELECT * FROM inventory_quantity_target WHERE owner_character_id = {character_id} AND party_scope = false"))).await.unwrap_or_default()
 }
 
 pub(super) async fn render_service_page(
@@ -279,7 +280,7 @@ pub(super) async fn render_service_page(
     let db = &state.db;
     let settlement_sql = db::settlement_by_id(&id);
     let (settlements, active_character) = tokio::join!(
-        db.query_sats_into::<DbSettlement, SettlementView>(&settlement_sql),
+        db.query_sats_into::<DbSettlement, SettlementView>(settlement_sql),
         get_active_character(&state, session.character_id_u64()),
     );
     let settlements = settlements.unwrap_or_default();
@@ -305,7 +306,7 @@ pub(super) async fn render_service_page(
             Some(character) => {
                 query_single::<CharacterLimbs>(
                     &state,
-                    db::character_limbs_by_character_id(character.id),
+                    db::character_limbs_by_character_id(character.id.into()),
                 )
                 .await
             }
@@ -317,7 +318,7 @@ pub(super) async fn render_service_page(
             Some(character) => {
                 query_single::<CharacterStats>(
                     &state,
-                    db::character_stats_by_character_id(character.id),
+                    db::character_stats_by_character_id(character.id.into()),
                 )
                 .await
             }
@@ -329,7 +330,7 @@ pub(super) async fn render_service_page(
             Some(character) => {
                 query_single::<CharacterCondition>(
                     &state,
-                    db::character_condition_by_character_id(character.id),
+                    db::character_condition_by_character_id(character.id.into()),
                 )
                 .await
             }
@@ -344,10 +345,11 @@ pub(super) async fn render_service_page(
             None => (0, 0),
         }
     };
+
     let (party_members, items, food_lots, limbs, stats, condition, equipment_recovery) = tokio::join!(
         get_active_party_members(&state, active_character_ref),
-        db.query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item"),
-        db.query_sats::<FoodLot>("SELECT * FROM food_lot"),
+        db.query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into()),
+        db.query_sats::<FoodLot>("SELECT * FROM food_lot".into()),
         limbs_lookup,
         stats_lookup,
         condition_lookup,
@@ -392,21 +394,22 @@ pub(super) async fn equipment_rest_recommendation(
     settlement_id: &str,
     inventory: &[InventoryItem],
 ) -> (u64, u64) {
-    let skills_sql = db::character_skills_by_character_id(character_id);
-    let attributes_sql = db::character_attributes_by_character_id(character_id);
+    let skills_sql = db::character_skills_by_character_id(character_id.into());
+    let attributes_sql = db::character_attributes_by_character_id(character_id.into());
     let settlement_literal = sql_string_literal(settlement_id);
-    let orders_sql = format!(
+    let orders_sql = SqlQuery::from(format!(
         "SELECT * FROM repair_order WHERE owner_character_id = {character_id} AND settlement_id = {settlement_literal}"
-    );
-    let time_sql = db::character_time_by_character_id(character_id);
+    ));
+    let time_sql = db::character_time_by_character_id(character_id.into());
+
     let (conditions, skills, attributes, orders, times) = tokio::join!(
         state
             .db
-            .query_sats::<ItemCondition>("SELECT * FROM item_condition"),
-        state.db.query_sats::<CharacterSkills>(&skills_sql),
-        state.db.query_sats::<CharacterAttributes>(&attributes_sql),
-        state.db.query_sats::<RepairOrder>(&orders_sql),
-        state.db.query_sats::<CharacterTime>(&time_sql),
+            .query_sats::<ItemCondition>("SELECT * FROM item_condition".into()),
+        state.db.query_sats::<CharacterSkills>(skills_sql),
+        state.db.query_sats::<CharacterAttributes>(attributes_sql),
+        state.db.query_sats::<RepairOrder>(orders_sql),
+        state.db.query_sats::<CharacterTime>(time_sql),
     );
     let skills = skills.unwrap_or_default();
     let attributes = attributes.unwrap_or_default();
@@ -432,13 +435,11 @@ pub(super) async fn equipment_rest_recommendation(
     let now = times
         .unwrap_or_default()
         .first()
-        .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
+        .map_or(StrategicMinute::ZERO, |t| calendar_minute(&t.minutes));
     let smith_wait = orders
         .unwrap_or_default()
         .iter()
-        .map(|order| {
-            StrategicMinute::new(order.ready_at_minutes.minutes).elapsed_since(now)
-        })
+        .map(|order| StrategicMinute::new(order.ready_at_minutes.minutes).elapsed_since(now))
         .max()
         .unwrap_or(0);
     (field_minutes, smith_wait)

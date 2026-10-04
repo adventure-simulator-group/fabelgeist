@@ -97,7 +97,7 @@ fn play_locomotion_audio(
         };
         let position = transform.translation();
         let sequence = StreamId::new("audio.locomotion-event")
-            .seed(character_id.0, &[event.sequence])
+            .seed(character_id.get(), &[event.sequence])
             .to_u64();
         match event.kind {
             LocomotionPresentationEventKind::Contact(_) => {
@@ -192,7 +192,7 @@ fn play_grounded_dive_impacts(
                 &asset_server,
                 "impactSoft_heavy_00",
                 StreamId::new("audio.grounded-dive")
-                    .seed(character_id.0, &[skeleton.locomotion_sample_tick])
+                    .seed(character_id.get(), &[skeleton.locomotion_sample_tick])
                     .to_u64(),
                 transform.translation(),
                 config.movement.body_impact_relative_volume,
@@ -329,7 +329,7 @@ mod tests {
         let display = app
             .world_mut()
             .spawn((
-                CharacterId(1),
+                CharacterId::from(1),
                 GlobalTransform::default(),
                 SkeletonState::default(),
             ))

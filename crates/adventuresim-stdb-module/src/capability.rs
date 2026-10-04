@@ -1,3 +1,4 @@
+use adventuresim_core::identity::CharacterId;
 use adventuresim_core::item_catalog::{EquipmentBodyPart, EquipmentChannel, EquipmentLocation};
 use adventuresim_core::physical_object::{CarriedInventoryScope, OperationalCustody};
 use adventuresim_core::prelude::*;
@@ -17,6 +18,15 @@ use crate::{
 
 mod armor;
 mod equipment_projection;
+mod error;
+mod evaluation;
+mod inputs;
+pub(crate) use evaluation::{evaluate_character, load_combatant};
+use inputs::CapabilityInputs;
+mod refresh;
+use error::CapabilityComponent;
+pub(crate) use error::CapabilityEvaluationError;
+pub(crate) use refresh::refresh_character_capability;
 mod mass;
 use armor::*;
 use equipment_projection::combat_weapon;
@@ -72,95 +82,11 @@ impl From<(u64, CharacterCapabilities)> for CharacterCapability {
     }
 }
 
-pub fn evaluate_character(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<CharacterCapabilities, String> {
-    let attributes = ctx
-        .db
-        .character_attributes()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character attributes not found")?;
-    let attributes = crate::disease::effective_attributes(ctx, character_id, attributes)?;
-    let skills = ctx
-        .db
-        .character_skills()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character skills not found")?;
-    let body = ctx
-        .db
-        .character_limbs()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character limbs not found")?;
-    let essentials = ctx
-        .db
-        .character_stats()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character stats not found")?;
-    let equipment = StrategicEquipment::load(ctx, character_id);
-    Ok(evaluate_capabilities(
-        &attributes,
-        &body,
-        &essentials,
-        &equipment,
-        &skills,
-    ))
-}
-
-pub fn refresh_character_capability(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<CharacterCapabilities, String> {
-    let capabilities = evaluate_character(ctx, character_id)?;
-    let mut row = CharacterCapability::from((character_id, capabilities));
-    let condition = ctx
-        .db
-        .character_strategic_condition()
-        .character_id()
-        .find(character_id);
-    let combatant = load_combatant(
-        ctx,
-        character_id,
-        condition.as_ref().map_or(0.0, |row| row.incapacitation),
-        condition.as_ref().map_or(0.0, |row| row.pain),
-        condition.as_ref().map_or(0.0, |row| row.blood_loss),
-    )?;
-    row.autoresolve_combat_power =
-        adventuresim_core::autoresolve::autoresolve_combat_power(&combatant);
-    if let Some(existing) = ctx
-        .db
-        .character_capability()
-        .character_id()
-        .find(character_id)
-    {
-        // Capability reads are currently refreshed lazily by the web layer. Avoid
-        // emitting a table update when the derived value has not changed: that
-        // update invalidates the SSE UI, which otherwise refreshes the same
-        // capability again and creates a feedback loop.
-        if existing != row {
-            let old_band = existing.physiology.round().clamp(0.0, 5.0) as u8;
-            let new_band = row.physiology.round().clamp(0.0, 5.0) as u8;
-            if old_band != new_band {
-                crate::social::close_physiology_presence(ctx, character_id);
-            }
-            ctx.db.character_capability().character_id().update(row);
-            if old_band != new_band {
-                crate::social::reset_familiarity_after_join(ctx, character_id);
-            }
-        }
-    } else {
-        ctx.db.character_capability().insert(row);
-    }
-    Ok(capabilities)
-}
-
 #[reducer]
 pub fn refresh_capabilities(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    refresh_character_capability(ctx, character_id).map(|_| ())
+    refresh_character_capability(ctx, (character_id).into())
+        .map(|_| ())
+        .map_err(|error: CapabilityEvaluationError| error.to_string())
 }
 
 impl PlayerBody for CharacterLimbs {
@@ -274,13 +200,13 @@ pub(crate) struct StrategicEquipment {
 }
 
 impl StrategicEquipment {
-    pub(crate) fn load(ctx: &ReducerContext, character_id: u64) -> Self {
+    pub(crate) fn load(ctx: &ReducerContext, character_id: CharacterId) -> Self {
         let definition = |inventory_id| effective_item_definition(ctx, inventory_id);
         let normalized_hand = |location| {
             ctx.db
                 .equipment_occupancy()
                 .character_id()
-                .filter(character_id)
+                .filter(u64::from(character_id))
                 .find(|row| row.location == Some(location) && row.channel == EquipmentChannel::Held)
                 .map(|row| row.inventory_item_id)
         };
@@ -365,7 +291,7 @@ impl StrategicEquipment {
             .db
             .inventory_item()
             .character_id()
-            .filter(character_id)
+            .filter(u64::from(character_id))
             .filter(|inventory| inventory.item_id == "arrow")
             .filter(|inventory| {
                 !crate::inventory_container::row_is_fireplace_rooted(
@@ -414,7 +340,7 @@ impl StrategicEquipment {
                 adventuresim_core::equipment::aggregate_layered_armor(part, pieces);
         }
         let dry_inventory_weight = mass::dry_inventory_weight(ctx, character_id);
-        let personal_custody = OperationalCustody::character(character_id)
+        let personal_custody = OperationalCustody::character((u64::from(character_id)).into())
             .expect("persisted character identities must be nonzero");
         let contained_water_weight =
             crate::inventory_container::contained_water_ml(ctx, &personal_custody)
@@ -621,108 +547,6 @@ impl PlayerEquipment for StrategicEquipment {
     }
 }
 
-pub(crate) fn load_combatant(
-    ctx: &ReducerContext,
-    character_id: u64,
-    strategic_incapacitation: f32,
-    strategic_pain: f32,
-    strategic_blood_loss: f32,
-) -> Result<Combatant, String> {
-    let attributes = ctx
-        .db
-        .character_attributes()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character attributes not found")?;
-    let attributes = crate::disease::effective_attributes(ctx, character_id, attributes)?;
-    let skills = ctx
-        .db
-        .character_skills()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character skills not found")?;
-    let limbs = ctx
-        .db
-        .character_limbs()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character limbs not found")?;
-    let stats = ctx
-        .db
-        .character_stats()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character stats not found")?;
-    let condition = ctx
-        .db
-        .character_condition()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character condition not found")?;
-    let fatigue = fatigue_incapacitation(stats.fatigue_by_parts(&attributes, &limbs));
-    let equipment = StrategicEquipment::load(ctx, character_id);
-    let combat_equipment = equipment.combat_equipment();
-    let (starting_incapacitation, starting_blood_fraction) = derive_combat_starting_condition(
-        strategic_incapacitation,
-        strategic_pain,
-        strategic_blood_loss,
-        condition.current_blood_ml,
-        condition.maximum_blood_ml,
-    );
-
-    Ok(Combatant::from_strategic_state(CombatantStrategicState {
-        fatigue,
-        id: character_id,
-        attributes: attributes.into(),
-        body: CombatBody {
-            health: [
-                limbs.left_arm_health,
-                limbs.right_arm_health,
-                limbs.left_leg_health,
-                limbs.right_leg_health,
-                limbs.chest_health,
-                limbs.stomach_health,
-                limbs.head_health,
-            ],
-            weight_kg: condition.body_weight_kg,
-            primary_side: BodySide::Right,
-        },
-        essentials: CombatEssentials {
-            calories_used_today: stats.calories_used,
-            focus_level: stats.focus,
-        },
-        equipment: combat_equipment,
-        skills: CombatSkills {
-            polearm_hours: skills.polearm_hours,
-            axe_hours: skills.axe_hours,
-            bludgeon_hours: skills.bludgeon_hours,
-            sword_hours: skills.sword_hours,
-            knife_hours: skills.knife_hours,
-            dodge_hours: skills.dodge_hours,
-            block_hours: skills.block_hours,
-            bow_hours: skills.bow_hours,
-            crossbow_hours: skills.crossbow_hours,
-            firearm_hours: skills.firearm_hours,
-            throw_hours: skills.throw_hours,
-            will_hours: skills.will_hours,
-            insight_hours: skills.insight_hours,
-            charm_hours: skills.charm_hours,
-            command_hours: skills.command_hours,
-            deception_hours: skills.deception_hours,
-            physiology_hours: skills.physiology_hours,
-            religion_hours: skills.religion_hours.total_direct(),
-            stealth_hours: skills.stealth_hours,
-            balance_hours: skills.balance_hours,
-            bestiary_hours: skills.bestiary_hours,
-            surgery_hours: skills.surgery_hours,
-            tailoring_hours: skills.tailoring_hours,
-            smithing_hours: skills.smithing_hours,
-        },
-        starting_incapacitation,
-        starting_blood_fraction,
-    }))
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -736,7 +560,7 @@ mod tests {
         };
 
         let weapon = combat_weapon(&item, None);
-        let definition = adventuresim_core::item_catalog::definition(&item.id).unwrap();
+        let definition = adventuresim_core::item_catalog::definition(&(&item.id).into()).unwrap();
         let equipment = definition.equipment.as_ref().unwrap();
 
         assert_eq!(weapon.grip_to_tip_m, equipment.physical.grip_to_tip_m);
@@ -756,7 +580,8 @@ mod tests {
             id: "halberd".to_owned(),
             melee: true,
             reach: 2.0,
-            precision: adventuresim_core::item_catalog::weapon_precision("halberd").unwrap(),
+            precision: adventuresim_core::item_catalog::weapon_precision(&("halberd").into())
+                .unwrap(),
             moment_of_inertia_kg_m2: 4.0,
             ..Item::default()
         };

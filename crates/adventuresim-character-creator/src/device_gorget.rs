@@ -8,6 +8,8 @@ use fabelgeist_armor::gpu::{record_gorget_plates, wgsl};
 use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::DeviceWearer;
@@ -61,7 +63,10 @@ impl DeviceWearer<'_> {
         };
         let gpu = self.gpu;
         let head = self.record_frame(batch, FitRegion::Head)?;
-        let fit = gpu.scratch(u64::from(GORGET_FIT_WORDS) * 4, "gorget fit")?;
+        let fit = gpu.scratch(
+            (u64::from(GORGET_FIT_WORDS) * 4).into(),
+            ("gorget fit").into(),
+        )?;
         let clearance = design.clearance.metres() + design.wall_thickness.metres();
         let collar_padding = neck_clearance.metres() + design.wall_thickness.metres();
         dispatch(
@@ -74,8 +79,14 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::U("neck", self.joint_slot("c_neck")?),
-                Word::U("crown", self.joint_slot("c_head")?),
+                Word::U(
+                    "neck",
+                    usize::from(self.joint_slot(&RigJointName::C_NECK)?) as u32,
+                ),
+                Word::U(
+                    "crown",
+                    usize::from(self.joint_slot(&RigJointName::C_HEAD)?) as u32,
+                ),
                 Word::F(
                     "top_ratio",
                     COLLAR_BASE_NECK_RATIO + COLLAR_HEIGHT_NECK_RATIO * collar_height.unit(),
@@ -94,7 +105,7 @@ impl DeviceWearer<'_> {
                 Word::F("rear_hem_flatness", rear_hem_flatness.unit()),
                 Word::F("rear_sweep", rear_sweep.unit()),
             ],
-            Grid::Singles(1),
+            Grid::Singles((1u32).into()),
         )?;
         let words = [
             Word::F("clearance", clearance),
@@ -130,7 +141,10 @@ impl DeviceWearer<'_> {
     ) -> Result<Buffer> {
         let gpu = self.gpu;
         // Every body vertex in the gorget's frame.
-        let samples = gpu.scratch(u64::from(self.body.vertex_count) * 12, "gorget samples")?;
+        let samples = gpu.scratch(
+            (u64::from(self.body.vertex_count) * 12).into(),
+            ("gorget samples").into(),
+        )?;
         dispatch(
             self,
             batch,
@@ -141,7 +155,7 @@ impl DeviceWearer<'_> {
                 write("points", &samples),
             ],
             &[Word::U("count", self.body.vertex_count)],
-            Grid::Items(self.body.vertex_count),
+            Grid::Items((self.body.vertex_count).into()),
         )?;
         let mut planes = Vec::new();
         for _ in 0..2 {
@@ -149,7 +163,7 @@ impl DeviceWearer<'_> {
             planes.extend([ORDERED_NEGATIVE_INFINITY; 3]);
             planes.push(0);
         }
-        let planes = gpu.upload(&planes)?;
+        let planes = gpu.upload(BufferUpload::from_elements(&planes))?;
         dispatch(
             self,
             batch,
@@ -161,11 +175,11 @@ impl DeviceWearer<'_> {
                 atomic("planes", &planes),
             ],
             &[Word::U("count", self.body.face_count)],
-            Grid::Items(self.body.face_count),
+            Grid::Items((self.body.face_count).into()),
         )?;
         for (entry, grid) in [
-            (BANDS, Grid::Singles(BAND_SECTIONS)),
-            (CAGE_SETUP, Grid::Singles(1)),
+            (BANDS, Grid::Singles((BAND_SECTIONS).into())),
+            (CAGE_SETUP, Grid::Singles((1u32).into())),
         ] {
             dispatch(
                 self,
@@ -206,7 +220,7 @@ impl DeviceWearer<'_> {
                 Word::U("faces_count", self.body.face_count),
                 Word::F("padding", padding),
             ],
-            Grid::Items((BIB_ROWS - 1) * BIB_COLUMNS),
+            Grid::Items(((BIB_ROWS - 1) * BIB_COLUMNS).into()),
         )?;
         dispatch(
             self,
@@ -214,7 +228,7 @@ impl DeviceWearer<'_> {
             &format!("{}{SMOOTH}", layout()),
             &[write("fit", fit)],
             &[],
-            Grid::Items(BIB_ROWS * BIB_COLUMNS),
+            Grid::Items((BIB_ROWS * BIB_COLUMNS).into()),
         )
     }
 }

@@ -11,14 +11,19 @@ use axum::{
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
+use adventuresim_stdb_client::Item as DbItem;
 use adventuresim_world_schema::coordinates::{UnboundedCoordinateE7, Wgs84CoordinateE7};
+
+mod party_action_flow;
+use party_action_flow::{
+    accept_quest_for_character, autoresolve_redirect, safe_case_site_travel_error,
+};
 
 #[cfg(test)]
 use crate::spacetimedb::DestinationKnowledgeStage;
 
 use super::{
-    AppState, PartyAction, PartyActionOutcome, execute_or_request_party_action,
-    participates_in_party_readiness,
+    AppState, PartyAction, PartyActionError, PartyActionOutcome, execute_or_request_party_action,
     settlements::{
         RestForm, get_active_party_members, living_party_members, soap_rest_preview,
         travel_rest_minutes,
@@ -30,14 +35,13 @@ use super::{
 };
 use crate::medical::CorpseActionKind;
 use crate::session::Session;
-use crate::spacetimedb::sql_string_literal;
 use crate::spacetimedb::{
     AutoresolveReport, BackendCaseSitePin, BackendContextCharacter, BackendContract, BackendCorpse,
     BackendHostileNegotiation, BackendHostileSurrender, BackendInvestigationAction, BattleLootItem,
     BattleResult, CaseBattleView, CatalogItemView, CharacterAttributes, CharacterLimbs,
     CharacterStats, CharacterStrategicCondition, CharacterTime, CharacterTrainingSchedule,
     CharacterView, ContractStatus, FoodLot, InventoryQuantityTarget, PartyInventoryItem,
-    PartyStake, PartyView, SettlementView,
+    PartyStake, PartyView, SettlementView, SqlQuery, sql_string_literal,
 };
 use crate::templates::quest::{
     CaseSitePagePresentation, CaseSiteRecoveryNotice, HostileNegotiationPresentation,
@@ -238,7 +242,7 @@ async fn accept_quest_api(
 ) -> Json<AcceptQuestResponse> {
     let title = state
         .db
-        .query_sats::<BackendContract>(&crate::spacetimedb::contract_by_id(&id))
+        .query_sats::<BackendContract>(crate::spacetimedb::contract_by_id(&id))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -246,7 +250,9 @@ async fn accept_quest_api(
         .map(|quest| quest.title)
         .unwrap_or_else(|| "Quest".to_string());
     let result = match session.character_id_u64() {
-        Some(character_id) => accept_quest_for_character(&state, character_id, &id).await,
+        Some(character_id) => accept_quest_for_character(&state, character_id.into(), &id)
+            .await
+            .map_err(|error: PartyActionError| -> String { error.to_string() }),
         None => Err("Choose a character first".to_string()),
     };
     match result {
@@ -265,24 +271,9 @@ async fn accept_quest_api(
             accepted: false,
             quest_id: id,
             title,
-            message: error,
+            message: error.to_string(),
         }),
     }
-}
-
-async fn accept_quest_for_character(
-    state: &AppState,
-    character_id: u64,
-    quest_id: &str,
-) -> Result<PartyActionOutcome, String> {
-    execute_or_request_party_action(
-        state,
-        character_id,
-        PartyAction::AcceptContract {
-            contract_id: quest_id.into(),
-        },
-    )
-    .await
 }
 
 #[derive(Serialize)]
@@ -299,7 +290,7 @@ async fn turn_in_quest_api(
 ) -> Json<TurnInQuestResponse> {
     let reward = state
         .db
-        .query_sats::<BackendContract>(&crate::spacetimedb::contract_by_id(&id))
+        .query_sats::<BackendContract>(crate::spacetimedb::contract_by_id(&id))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -338,13 +329,13 @@ async fn abandon_quest(
 
     let quests: Vec<BackendContract> = state
         .db
-        .query_sats(&crate::spacetimedb::contract_by_id(&id))
+        .query_sats(crate::spacetimedb::contract_by_id(&id))
         .await
         .unwrap_or_default();
     let settlement_id = quests.first().map(|quest| quest.settlement_id.clone());
     let _ = execute_or_request_party_action(
         &state,
-        character_id,
+        character_id.into(),
         PartyAction::AbandonContract {
             contract_id: id.clone(),
         },
@@ -368,7 +359,7 @@ async fn travel_to_case_site(
     };
     let outcome = execute_or_request_party_action(
         &state,
-        character_id,
+        character_id.into(),
         PartyAction::TravelToCaseSite {
             case_site_id: id.clone(),
         },
@@ -408,10 +399,6 @@ async fn travel_to_case_site(
                 .into_response()
         }
     }
-}
-
-fn safe_case_site_travel_error(_error: &str) -> &'static str {
-    "The exact destination or the party's travel readiness changed. Review the journal before trying again."
 }
 
 async fn track_case_site(
@@ -477,7 +464,7 @@ async fn store_battle_loot(
     {
         tracing::error!("Failed to store battle loot: {error:?}");
     }
-    let case_site_id = super::data::character(&state, character_id)
+    let case_site_id = super::data::character(&state, character_id.into())
         .await
         .ok()
         .flatten()
@@ -863,7 +850,7 @@ async fn rest_at_quest_location_with_redirect(
     let Some(character_id) = session.character_id_u64() else {
         return Redirect::to("/characters").into_response();
     };
-    let character = super::data::character(&state, character_id)
+    let character = super::data::character(&state, character_id.into())
         .await
         .ok()
         .flatten();
@@ -908,16 +895,16 @@ async fn render_quest_location(
     let Some(character_id) = session.character_id_u64() else {
         return Redirect::to("/characters").into_response();
     };
-    let character = super::data::character(&state, character_id)
+    let character = super::data::character(&state, character_id.into())
         .await
         .ok()
         .flatten();
     let known_site = state
         .db
-        .query_one_sats::<BackendCaseSitePin>(&format!(
+        .query_one_sats::<BackendCaseSitePin>(SqlQuery::from(format!(
             "SELECT * FROM backend_case_site_pins WHERE owner_character_id = {character_id} AND case_site_id = {}",
             sql_string_literal(&case_site_id)
-        ))
+        )))
         .await
         .ok()
         .flatten();
@@ -942,10 +929,10 @@ async fn render_quest_location(
     } else {
         state
             .db
-            .query_sats::<BackendContract>(&format!(
+            .query_sats::<BackendContract>(SqlQuery::from(format!(
                 "SELECT * FROM backend_contracts WHERE case_id = {}",
                 sql_string_literal(&site.case_id)
-            ))
+            )))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -971,7 +958,7 @@ async fn render_quest_location(
         state
             .db
             .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(
-                &crate::spacetimedb::party_by_id(party_id),
+                crate::spacetimedb::party_by_id(party_id),
             )
             .await
             .unwrap_or_default()
@@ -1009,7 +996,7 @@ async fn render_quest_location(
     let settlements: Vec<SettlementView> = state
         .db
         .query_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-            "SELECT * FROM settlement",
+            "SELECT * FROM settlement".into(),
         )
         .await
         .unwrap_or_default();
@@ -1057,11 +1044,11 @@ async fn render_quest_location(
     let case_battle = if let Some(party) = party.as_ref() {
         state
             .db
-            .query_sats_into::<adventuresim_stdb_client::BackendCaseBattle, CaseBattleView>(&format!(
+            .query_sats_into::<adventuresim_stdb_client::BackendCaseBattle, CaseBattleView>(SqlQuery::from(format!(
                 "SELECT * FROM backend_case_battles WHERE owner_character_id = {character_id} AND public_case_id = {} AND party_id = {}",
                 sql_string_literal(&site.case_id),
                 sql_string_literal(&party.id),
-            ))
+            )))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -1077,7 +1064,7 @@ async fn render_quest_location(
     let results: Vec<BattleResult> = if let Some(case_battle) = case_battle.as_ref() {
         state
             .db
-            .query_sats(&crate::spacetimedb::battle_result_by_battle_id(
+            .query_sats(crate::spacetimedb::battle_result_by_battle_id(
                 &case_battle.battle_id,
             ))
             .await
@@ -1089,7 +1076,7 @@ async fn render_quest_location(
     let autoresolve_report = if let Some(case_battle) = case_battle.as_ref() {
         state
             .db
-            .query_sats::<AutoresolveReport>(&crate::spacetimedb::autoresolve_report_by_battle_id(
+            .query_sats::<AutoresolveReport>(crate::spacetimedb::autoresolve_report_by_battle_id(
                 &case_battle.battle_id,
             ))
             .await
@@ -1102,10 +1089,10 @@ async fn render_quest_location(
     let loot: Vec<BattleLootItem> = if let Some(case_battle) = case_battle.as_ref() {
         state
             .db
-            .query_sats(&format!(
+            .query_sats(SqlQuery::from(format!(
                 "SELECT * FROM battle_loot_item WHERE loot_battle_id = {}",
                 sql_string_literal(&case_battle.battle_id)
-            ))
+            )))
             .await
             .unwrap_or_default()
     } else {
@@ -1114,10 +1101,10 @@ async fn render_quest_location(
     let pooled: Vec<PartyInventoryItem> = if let Some(party) = party.as_ref() {
         state
             .db
-            .query_sats(&format!(
+            .query_sats(SqlQuery::from(format!(
                 "SELECT * FROM party_inventory_item WHERE party_id = {}",
                 sql_string_literal(&party.id)
-            ))
+            )))
             .await
             .unwrap_or_default()
     } else {
@@ -1126,10 +1113,10 @@ async fn render_quest_location(
     let stakes: Vec<PartyStake> = if let Some(party) = party.as_ref() {
         state
             .db
-            .query_sats(&format!(
+            .query_sats(SqlQuery::from(format!(
                 "SELECT * FROM party_stake WHERE party_id = {}",
                 sql_string_literal(&party.id)
-            ))
+            )))
             .await
             .unwrap_or_default()
     } else {
@@ -1143,7 +1130,7 @@ async fn render_quest_location(
     });
     let items: Vec<CatalogItemView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into())
         .await
         .unwrap_or_default();
     let targets = if let Some(party) = party.as_ref() {
@@ -1153,14 +1140,14 @@ async fn render_quest_location(
     };
     let food_lots: Vec<FoodLot> = state
         .db
-        .query_sats("SELECT * FROM food_lot")
+        .query_sats("SELECT * FROM food_lot".into())
         .await
         .unwrap_or_default();
     let party_members = get_active_party_members(&state, character.as_ref()).await;
     let living_party_members = living_party_members(&party_members);
     let stats: Vec<CharacterStats> = state
         .db
-        .query_sats("SELECT * FROM backend_character_stats")
+        .query_sats("SELECT * FROM backend_character_stats".into())
         .await
         .unwrap_or_default();
     let default_rest_minutes = living_party_members
@@ -1178,22 +1165,22 @@ async fn render_quest_location(
     if let Some(party) = party.as_ref() {
         let attributes: Vec<CharacterAttributes> = state
             .db
-            .query_sats("SELECT * FROM backend_character_attributes")
+            .query_sats("SELECT * FROM backend_character_attributes".into())
             .await
             .unwrap_or_default();
         let limbs: Vec<CharacterLimbs> = state
             .db
-            .query_sats("SELECT * FROM backend_character_limbs")
+            .query_sats("SELECT * FROM backend_character_limbs".into())
             .await
             .unwrap_or_default();
         let times: Vec<CharacterTime> = state
             .db
-            .query_sats("SELECT * FROM backend_character_times")
+            .query_sats("SELECT * FROM backend_character_times".into())
             .await
             .unwrap_or_default();
         let schedules: Vec<CharacterTrainingSchedule> = state
             .db
-            .query_sats("SELECT * FROM backend_character_training_schedules")
+            .query_sats("SELECT * FROM backend_character_training_schedules".into())
             .await
             .unwrap_or_default();
         let member_ids: Vec<_> = living_party_members
@@ -1243,17 +1230,17 @@ async fn render_quest_location(
     );
     let context_memberships: Vec<BackendContextCharacter> = state
         .db
-        .query_sats(&format!(
+        .query_sats(SqlQuery::from(format!(
             "SELECT * FROM backend_context_characters WHERE location_id = {} AND party_id = {}",
             sql_string_literal(&site.case_site_id.value),
             sql_string_literal(party.as_ref().map_or("", |party| party.id.as_str()))
-        ))
+        )))
         .await
         .unwrap_or_default();
     let mut counterparties = Vec::new();
     for membership in context_memberships.into_iter().filter(|row| row.alive) {
         if let Ok(Some(counterparty)) =
-            super::data::character(&state, membership.character_id).await
+            super::data::character(&state, membership.character_id.into()).await
         {
             counterparties.push(QuestCounterparty {
                 character: counterparty,
@@ -1268,9 +1255,9 @@ async fn render_quest_location(
     }
     let hostile_negotiation = state
         .db
-        .query_sats::<BackendHostileNegotiation>(&format!(
+        .query_sats::<BackendHostileNegotiation>(SqlQuery::from(format!(
             "SELECT * FROM backend_hostile_negotiations WHERE owner_character_id = {character_id}"
-        ))
+        )))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -1288,9 +1275,9 @@ async fn render_quest_location(
         });
     let hostile_surrender = state
         .db
-        .query_sats::<BackendHostileSurrender>(&format!(
+        .query_sats::<BackendHostileSurrender>(SqlQuery::from(format!(
             "SELECT * FROM backend_hostile_surrenders WHERE owner_character_id = {character_id}"
-        ))
+        )))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -1310,18 +1297,18 @@ async fn render_quest_location(
     let onsite_actions = onsite_investigation_actions(
         state
             .db
-            .query_sats::<BackendInvestigationAction>(&format!(
+            .query_sats::<BackendInvestigationAction>(SqlQuery::from(format!(
                 "SELECT * FROM backend_investigation_actions WHERE owner_character_id = {character_id}"
-            ))
+            )))
             .await
             .unwrap_or_default(),
         &site.case_site_id.value,
     );
     let corpses = state
         .db
-        .query_sats::<BackendCorpse>(&format!(
+        .query_sats::<BackendCorpse>(SqlQuery::from(format!(
             "SELECT * FROM backend_corpses WHERE owner_character_id = {character_id}"
-        ))
+        )))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -1415,10 +1402,9 @@ async fn party_readiness(
 ) -> (bool, Vec<CharacterStrategicCondition>) {
     let mut ready = true;
     let mut conditions = Vec::new();
-    for member in members
-        .iter()
-        .filter(|member| participates_in_party_readiness(member.alive))
-    {
+    for member in members.iter().filter(|member| {
+        super::data::ObservedLife::from_character(member) == super::data::ObservedLife::Alive
+    }) {
         if state
             .db
             .call(
@@ -1434,7 +1420,7 @@ async fn party_readiness(
         let condition = state
             .db
             .query_one_sats::<CharacterStrategicCondition>(
-                &crate::spacetimedb::character_strategic_condition_by_character_id(member.id),
+                crate::spacetimedb::character_strategic_condition_by_character_id(member.id.into()),
             )
             .await;
         match condition {
@@ -1453,7 +1439,7 @@ async fn party_targets(state: &AppState, party_id: &str) -> Vec<InventoryQuantit
     let party = state
         .db
         .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(
-            &crate::spacetimedb::party_by_id(party_id),
+            crate::spacetimedb::party_by_id(party_id),
         )
         .await
         .unwrap_or_default()
@@ -1462,7 +1448,7 @@ async fn party_targets(state: &AppState, party_id: &str) -> Vec<InventoryQuantit
     let Some(party) = party else {
         return Vec::new();
     };
-    state.db.query_sats(&format!("SELECT * FROM inventory_quantity_target WHERE owner_character_id = {} AND party_scope = true", party.leader_id)).await.unwrap_or_default()
+    state.db.query_sats(SqlQuery::from(format!("SELECT * FROM inventory_quantity_target WHERE owner_character_id = {} AND party_scope = true", party.leader_id))).await.unwrap_or_default()
 }
 
 async fn autoresolve_quest(
@@ -1473,7 +1459,7 @@ async fn autoresolve_quest(
     let Some(character_id) = session.character_id_u64() else {
         return Redirect::to("/characters");
     };
-    let selected_case_site_id = super::data::character(&state, character_id)
+    let selected_case_site_id = super::data::character(&state, character_id.into())
         .await
         .ok()
         .flatten()
@@ -1486,7 +1472,7 @@ async fn autoresolve_quest(
     }
     let outcome = execute_or_request_party_action(
         &state,
-        character_id,
+        character_id.into(),
         PartyAction::AutoresolveMission {
             mission_id: format!("mission:autoresolve-{}", super::data::new_id()),
         },
@@ -1495,7 +1481,7 @@ async fn autoresolve_quest(
     if let Err(ref error) = outcome {
         tracing::error!("Failed to autoresolve quest: {error:?}");
     }
-    let case_site_id = super::data::character(&state, character_id)
+    let case_site_id = super::data::character(&state, character_id.into())
         .await
         .ok()
         .flatten()
@@ -1540,19 +1526,6 @@ async fn contact_quest_counterparty(
     }
 }
 
-fn autoresolve_redirect<E>(
-    case_site_id: Option<&str>,
-    outcome: Result<PartyActionOutcome, E>,
-) -> Redirect {
-    match outcome {
-        Ok(PartyActionOutcome::Executed) | Err(_) => case_site_id.map_or_else(
-            || Redirect::to("/"),
-            |id| Redirect::to(&paths::QUEST_LOCATION_ENEMY.url([&id])),
-        ),
-        Ok(PartyActionOutcome::Requested) => Redirect::to("/?party-requested=autoresolve"),
-    }
-}
-
 pub(crate) fn offroad_journey_minutes(distance_m: u64) -> u64 {
     ((distance_m as f64 / 1_250.0) * 60.0).ceil() as u64
 }
@@ -1594,8 +1567,6 @@ pub(crate) fn straight_line_distance_m(
 
 #[cfg(test)]
 mod quest_route_tests {
-    use axum::http::header::LOCATION;
-
     use super::*;
 
     #[test]
@@ -1608,17 +1579,6 @@ mod quest_route_tests {
             .map(HostileSurrenderOperation::reducer),
             ["demand_hostile_surrender", "answer_hostile_surrender_offer"]
         );
-    }
-
-    fn redirect_location(redirect: Redirect) -> String {
-        redirect
-            .into_response()
-            .headers()
-            .get(LOCATION)
-            .expect("redirect has a location")
-            .to_str()
-            .expect("redirect location is valid text")
-            .to_owned()
     }
 
     fn case_site(generated_case: bool, combat_available: bool) -> BackendCaseSitePin {
@@ -1809,42 +1769,6 @@ mod quest_route_tests {
             return_terrain_route: None,
             uses_straight_line_estimate: true,
         }
-    }
-
-    #[test]
-    fn autoresolve_stays_on_the_enemy_lifecycle_except_while_requesting_approval() {
-        let enemy = "/locations/case-site/case-site-1/enemy";
-        assert_eq!(
-            redirect_location(autoresolve_redirect::<()>(
-                Some("case-site-1"),
-                Ok(PartyActionOutcome::Executed),
-            )),
-            enemy,
-        );
-        assert_eq!(
-            redirect_location(autoresolve_redirect::<()>(Some("case-site-1"), Err(()))),
-            enemy,
-        );
-        assert_eq!(
-            redirect_location(autoresolve_redirect::<()>(
-                Some("case-site-1"),
-                Ok(PartyActionOutcome::Requested),
-            )),
-            "/?party-requested=autoresolve",
-        );
-    }
-
-    #[test]
-    fn case_site_travel_errors_are_safe_and_actionable() {
-        assert_eq!(
-            safe_case_site_travel_error("An incapacitated member cannot act"),
-            "The exact destination or the party's travel readiness changed. Review the journal before trying again."
-        );
-        assert_eq!(
-            safe_case_site_travel_error("private canonical site mismatch: site:secret"),
-            "The exact destination or the party's travel readiness changed. Review the journal before trying again."
-        );
-        assert!(!safe_case_site_travel_error("site:secret").contains("site:secret"));
     }
 
     #[test]
@@ -2045,7 +1969,8 @@ mod quest_route_tests {
     fn site_sensitive_handlers_use_the_authoritative_character_loader() {
         let source = include_str!("quests.rs");
         let raw_character_query = ["query_one::<", "Character>"].concat();
-        let authoritative_loader = ["super::data::", "character(&state, character_id)"].concat();
+        let authoritative_loader =
+            ["super::data::", "character(&state, character_id.into())"].concat();
         assert!(!source.contains(&raw_character_query));
         assert_eq!(source.matches(&authoritative_loader).count(), 5);
         for (start, end) in [
@@ -2055,7 +1980,7 @@ mod quest_route_tests {
                 "async fn render_quest_location",
             ),
             ("async fn render_quest_location", "async fn party_readiness"),
-            ("async fn autoresolve_quest", "fn autoresolve_redirect"),
+            ("async fn autoresolve_quest", "fn offroad_journey_minutes"),
         ] {
             let handler = source
                 .split(start)
@@ -2090,12 +2015,13 @@ mod quest_route_tests {
         let handler = source
             .split("async fn autoresolve_quest")
             .nth(1)
-            .and_then(|tail| tail.split("fn autoresolve_redirect").next())
+            .and_then(|tail| tail.split("fn offroad_journey_minutes").next())
             .expect("autoresolve handler");
         assert!(handler.contains("Path(id): Path<String>"));
         assert!(handler.contains("selected_case_site_id.as_deref() != Some(id.as_str())"));
         assert!(handler.contains("character.current_case_site_id"));
-        let authoritative_loader = ["super::data::", "character(&state, character_id)"].concat();
+        let authoritative_loader =
+            ["super::data::", "character(&state, character_id.into())"].concat();
         assert_eq!(handler.matches(&authoritative_loader).count(), 2);
         assert!(!handler.contains("Path(_id)"));
     }

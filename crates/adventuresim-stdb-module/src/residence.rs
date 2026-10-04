@@ -409,11 +409,14 @@ pub fn ensure_settlement_residence_offers(
     Ok(())
 }
 
-fn residence_now(ctx: &ReducerContext, character_id: u64) -> Result<StrategicMinute, String> {
+fn residence_now(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) -> Result<StrategicMinute, String> {
     ctx.db
         .character_time()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .map(|row| row.minutes)
         .ok_or_else(|| "Character time record not found".to_string())
 }
@@ -436,7 +439,7 @@ pub fn primary_residence_holding(
     ctx: &ReducerContext,
     character_id: u64,
 ) -> Option<ResidenceHolding> {
-    let minute = residence_now(ctx, character_id).ok()?;
+    let minute = residence_now(ctx, (character_id).into()).ok()?;
     let primary = ctx
         .db
         .primary_residence()
@@ -463,21 +466,21 @@ pub fn active_primary_residence(
 /// not through ownership.
 pub fn active_residence_for_occupant(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     settlement_id: &str,
 ) -> Option<ResidenceHolding> {
-    active_residence_presence(ctx, character_id, settlement_id).map(|(holding, _)| holding)
+    active_residence_presence(ctx, (character_id).into(), settlement_id).map(|(holding, _)| holding)
 }
 
 /// Private typed projection of residence access. Exact presence comes from
 /// chronological occupancy; ownership without occupancy is insufficient.
 pub(crate) fn active_residence_presence(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     settlement_id: &str,
 ) -> Option<(ResidenceHolding, StrategicPresence)> {
-    let minute = residence_now(ctx, character_id).ok()?;
-    let (holding_id, admitted_minute) = occupant_holding_at(ctx, character_id, minute)?;
+    let minute = residence_now(ctx, (character_id).into()).ok()?;
+    let (holding_id, admitted_minute) = occupant_holding_at(ctx, (character_id).into(), minute)?;
     let holding = ctx
         .db
         .residence_holding()
@@ -488,12 +491,12 @@ pub(crate) fn active_residence_presence(
         })?;
     let place = StrategicPlaceId::residence(&holding.settlement_id, &holding.id).ok()?;
     let presence = StrategicPresence::residence_occupancy(
-        character_id,
+        (character_id).into(),
         place,
-        holding.owner_character_id,
+        (holding.owner_character_id).into(),
         admitted_minute,
         PresenceFrontier {
-            observer_character_id: character_id,
+            observer_character_id: (character_id).into(),
             personal_minute: minute,
         },
         true,
@@ -552,19 +555,19 @@ pub(crate) fn occupant_holding_id_at(
     character_id: u64,
     minute: StrategicMinute,
 ) -> Option<String> {
-    occupant_holding_at(ctx, character_id, minute).map(|(holding_id, _)| holding_id)
+    occupant_holding_at(ctx, (character_id).into(), minute).map(|(holding_id, _)| holding_id)
 }
 
 fn occupant_holding_at(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     minute: StrategicMinute,
 ) -> Option<(String, StrategicMinute)> {
     let mut transitions = ctx
         .db
         .residence_transition()
         .affected_character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .filter(|transition| transition.minute <= minute)
         .filter(|transition| {
             matches!(
@@ -813,29 +816,30 @@ fn validate_public_admission(
     use crate::relationship::KinshipKind;
     use adventuresim_core::courtship::ADULT_AGE_YEARS;
 
-    let owner = crate::character::require_living_character(ctx, holding.owner_character_id)?;
-    let occupant = crate::character::require_living_character(ctx, occupant_id)?;
-    let actor_minute = crate::relationship::enforce_temporal_scope(
-        ctx,
-        holding.owner_character_id,
-        Some(occupant_id),
-        crate::relationship::TemporalScope::PairwiseSoft,
-    )?;
+    let owner =
+        crate::character::require_living_character(ctx, (holding.owner_character_id).into())?;
+    let occupant = crate::character::require_living_character(ctx, (occupant_id).into())?;
+    let actor_minute = crate::relationship::TemporalScope::PairwiseSoft {
+        actor: (holding.owner_character_id).into(),
+    }
+    .enforce(ctx)?;
     let frontier = PresenceFrontier {
-        observer_character_id: holding.owner_character_id,
+        observer_character_id: (holding.owner_character_id).into(),
         personal_minute: actor_minute,
     };
     let owner_presence = owner
         .current_settlement_id
         .as_deref()
         .and_then(|settlement_id| {
-            StrategicPresence::settlement_membership(owner.id, settlement_id, frontier).ok()
+            StrategicPresence::settlement_membership((owner.id).into(), settlement_id, frontier)
+                .ok()
         });
     let occupant_presence = occupant
         .current_settlement_id
         .as_deref()
         .and_then(|settlement_id| {
-            StrategicPresence::settlement_membership(occupant.id, settlement_id, frontier).ok()
+            StrategicPresence::settlement_membership((occupant.id).into(), settlement_id, frontier)
+                .ok()
         });
     let expected_place = StrategicPlaceId::settlement(&holding.settlement_id)
         .map_err(|_| "Residence settlement identity is invalid")?;
@@ -973,7 +977,8 @@ fn supported_occupant_counts_at(
         if !admitted {
             continue;
         }
-        let effective_age = crate::relationship::effective_age_years(ctx, character_id, due_minute);
+        let effective_age =
+            crate::relationship::effective_age_years(ctx, (character_id).into(), due_minute);
         let underage =
             effective_age.is_some_and(|age| age < adventuresim_core::courtship::ADULT_AGE_YEARS);
         if underage {
@@ -1088,16 +1093,19 @@ fn settle_one_holding_period(
 /// Nonprimary owned properties therefore continue to incur maintenance and
 /// property tax. Each due period is indivisible; the first unaffordable bill
 /// retains the remaining funds and its authoritative due frontier.
-pub fn settle_residence_billing(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    let now = residence_now(ctx, character_id)?;
-    let mut available = crate::item::personal_currency_total(ctx, character_id);
+pub fn settle_residence_billing(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) -> Result<(), String> {
+    let now = residence_now(ctx, (character_id).into())?;
+    let mut available = crate::item::personal_currency_total(ctx, character_id.into());
     let mut total_spent = 0_u64;
     loop {
         let next = ctx
             .db
             .residence_holding()
             .owner_character_id()
-            .filter(character_id)
+            .filter(u64::from(character_id))
             .filter(|holding| {
                 holding.status == ResidenceHoldingStatus::Active && holding.next_due_minute <= now
             })
@@ -1111,7 +1119,7 @@ pub fn settle_residence_billing(ctx: &ReducerContext, character_id: u64) -> Resu
         settle_one_holding_period(ctx, holding, &mut available, &mut total_spent)?;
     }
     if total_spent > 0 {
-        crate::item::consume_personal_currency(ctx, character_id, total_spent)?;
+        crate::item::consume_personal_currency(ctx, (character_id).into(), total_spent)?;
     }
     Ok(())
 }
@@ -1137,7 +1145,7 @@ impl<'a> LeisureMoraleSourceId<'a> {
 
 pub fn apply_residence_leisure_morale(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     baseline_morale: f32,
     now: StrategicMinute,
 ) -> Result<(), String> {
@@ -1148,12 +1156,14 @@ pub fn apply_residence_leisure_morale(
         .db
         .character()
         .id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character not found")?;
     let Some(holding) = character
         .current_settlement_id
         .as_deref()
-        .and_then(|settlement_id| active_residence_for_occupant(ctx, character_id, settlement_id))
+        .and_then(|settlement_id| {
+            active_residence_for_occupant(ctx, (character_id).into(), settlement_id)
+        })
     else {
         return Ok(());
     };
@@ -1167,7 +1177,7 @@ pub fn apply_residence_leisure_morale(
         .db
         .morale_event()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .find(|event| event.source_id.as_deref() == Some(&source));
     let as_refreshable = |event: &MoraleEvent| RefreshableMorale {
         milli_points: (event.magnitude.max(0.0) * 1_000.0).round() as u32,
@@ -1177,7 +1187,7 @@ pub fn apply_residence_leisure_morale(
         .db
         .morale_event()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .find(|event| {
             event
                 .source_id
@@ -1199,7 +1209,7 @@ pub fn apply_residence_leisure_morale(
     }
     let event = MoraleEvent {
         id: existing.as_ref().map_or(0, |event| event.id),
-        character_id,
+        character_id: u64::from(character_id),
         kind: adventuresim_core::morale::MoraleEventKind::ResidenceLeisure,
         magnitude: refreshed.milli_points as f32 / 1_000.0,
         occurred_at_minute: now,
@@ -1211,7 +1221,7 @@ pub fn apply_residence_leisure_morale(
     } else {
         ctx.db.morale_event().insert(event);
     }
-    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+    crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())?;
     Ok(())
 }
 
@@ -1263,7 +1273,7 @@ fn acquire_residence_internal(
     tier: HousingTier,
     tenure: ResidenceTenure,
 ) -> Result<String, String> {
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())?;
     if character.current_settlement_id.as_deref() != Some(settlement_id) {
         return Err("You must be in a settlement to acquire a residence there".into());
     }
@@ -1272,8 +1282,8 @@ fn acquire_residence_internal(
         ResidenceTenure::Renter => u64::from(offer.rent_per_period),
         ResidenceTenure::Owner => u64::from(offer.purchase_price),
     };
-    crate::item::consume_personal_currency(ctx, character_id, initial_charge)?;
-    let now = residence_now(ctx, character_id)?;
+    crate::item::consume_personal_currency(ctx, (character_id).into(), initial_charge)?;
+    let now = residence_now(ctx, (character_id).into())?;
     if tenure == ResidenceTenure::Renter {
         let active_rentals: Vec<_> = ctx
             .db
@@ -1329,7 +1339,7 @@ fn acquire_residence(
     tier: HousingTier,
     tenure: ResidenceTenure,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())?;
     acquire_residence_internal(ctx, character_id, settlement_id, tier, tenure).map(|_| ())
 }
 
@@ -1371,8 +1381,9 @@ pub fn relinquish_residence(
     character_id: u64,
     holding_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
-    let now = residence_now(ctx, character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    let now = residence_now(ctx, (character_id).into())?;
     relinquish_holding_at(ctx, character_id, &holding_id, now)
 }
 
@@ -1382,8 +1393,9 @@ pub fn designate_residence(
     character_id: u64,
     holding_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
-    let now = residence_now(ctx, character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    let now = residence_now(ctx, (character_id).into())?;
     designate_holding_at(ctx, character_id, &holding_id, now)
 }
 
@@ -1393,7 +1405,8 @@ pub fn recover_owned_residence(
     character_id: u64,
     holding_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     recover_owned_residence_internal(ctx, character_id, &holding_id)
 }
 
@@ -1402,7 +1415,7 @@ fn recover_owned_residence_internal(
     character_id: u64,
     holding_id: &str,
 ) -> Result<(), String> {
-    let now = residence_now(ctx, character_id)?;
+    let now = residence_now(ctx, (character_id).into())?;
     let mut holding = ctx
         .db
         .residence_holding()
@@ -1421,7 +1434,7 @@ fn recover_owned_residence_internal(
     }
     holding.status = ResidenceHoldingStatus::Active;
     ctx.db.residence_holding().id().update(holding.clone());
-    settle_residence_billing(ctx, character_id)?;
+    settle_residence_billing(ctx, (character_id).into())?;
     let recovered = ctx
         .db
         .residence_holding()
@@ -1454,7 +1467,7 @@ pub(crate) fn settle_npc_residence(
     character_id: u64,
     home_settlement_id: &str,
 ) -> Result<NpcResidenceOutcome, String> {
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())?;
     if character.current_settlement_id.as_deref() != Some(home_settlement_id) {
         return Ok(NpcResidenceOutcome::NotAtHome);
     }
@@ -1489,7 +1502,7 @@ pub(crate) fn settle_npc_residence(
             ctx,
             character_id,
             &holding.id,
-            residence_now(ctx, character_id)?,
+            residence_now(ctx, (character_id).into())?,
         )?;
         return Ok(if holding.status == ResidenceHoldingStatus::Dormant {
             NpcResidenceOutcome::RecoveredOwner
@@ -1498,7 +1511,7 @@ pub(crate) fn settle_npc_residence(
         });
     }
     ensure_settlement_residence_offers(ctx, home_settlement_id)?;
-    let available = crate::item::personal_currency_total(ctx, character_id);
+    let available = crate::item::personal_currency_total(ctx, character_id.into());
     let mut resolved = Vec::with_capacity(HousingTier::ALL.len());
     for tier in HousingTier::ALL {
         let row = offer(ctx, home_settlement_id, tier)?;
@@ -1542,8 +1555,9 @@ pub fn admit_household_occupant(
     holding_id: String,
     occupant_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, owner_character_id)?;
-    let now = residence_now(ctx, owner_character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (owner_character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    let now = residence_now(ctx, (owner_character_id).into())?;
     let holding = ctx
         .db
         .residence_holding()
@@ -1563,7 +1577,8 @@ pub fn remove_household_occupant(
     holding_id: String,
     occupant_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, owner_character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (owner_character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     ctx.db
         .residence_holding()
         .id()
@@ -1577,7 +1592,7 @@ pub fn remove_household_occupant(
         .find(occupant_id)
         .filter(|row| row.holding_id == holding_id)
         .ok_or("Character does not occupy this residence")?;
-    let now = residence_now(ctx, owner_character_id)?;
+    let now = residence_now(ctx, (owner_character_id).into())?;
     remove_occupant_at(ctx, existing.character_id, now);
     Ok(())
 }

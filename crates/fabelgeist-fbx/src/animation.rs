@@ -16,7 +16,10 @@
 //! any pre/post-rotation — because composing those is a rig question, not a
 //! container question.
 
-use crate::{Prop, Scene};
+use crate::{
+    CurveAxis, FbxConnectionProperty, FbxObjectId, FbxObjectName, FbxPropertyName,
+    FbxQualifiedName, FbxRecordName, Object, Prop, Scene, TransformProperty,
+};
 
 /// FBX stores times as integer ticks of this many per second.
 const TICKS_PER_SECOND: f64 = 46_186_158_000.0;
@@ -98,9 +101,9 @@ impl TransformChannel {
 #[derive(Debug, Clone)]
 pub struct NodeAnimation {
     /// Object id of the animated `Model`.
-    pub node: i64,
+    pub node: FbxObjectId,
     /// The model's name, namespace intact.
-    pub name: String,
+    pub name: FbxQualifiedName,
     pub translation: Option<TransformChannel>,
     /// Euler angles in degrees, in the node's own rotation order.
     pub rotation: Option<TransformChannel>,
@@ -121,7 +124,7 @@ impl NodeAnimation {
 /// One `AnimationStack` — what other tools call a take or a clip.
 #[derive(Debug, Clone)]
 pub struct Take {
-    pub name: String,
+    pub name: FbxObjectName,
     /// Seconds, from the stack's declared local time span when it has one and
     /// from the keys otherwise.
     pub duration: f64,
@@ -157,30 +160,29 @@ impl Scene {
         // Curve nodes point at the model they drive, but the link is recorded
         // on the model's side, so the reverse map is built once rather than
         // rediscovered per curve node.
-        let mut targets: std::collections::HashMap<i64, (i64, String)> =
+        let mut targets: std::collections::HashMap<FbxObjectId, (FbxObjectId, TransformProperty)> =
             std::collections::HashMap::new();
-        for model in self.objects.iter().filter(|object| object.is_node()) {
+        for model in self
+            .objects()
+            .filter(|object: &&Object| -> bool { object.model_role().is_some() })
+        {
             for (child, property) in self.children_with_property(model.id) {
-                if let Some(property @ ("Lcl Translation" | "Lcl Rotation" | "Lcl Scaling")) =
-                    property
-                {
-                    targets.insert(child.id, (model.id, property.to_string()));
+                if let Some(property) = property.and_then(FbxConnectionProperty::transform) {
+                    targets.insert(child.id, (model.id, property));
                 }
             }
         }
 
-        self.objects
-            .iter()
-            .filter(|object| object.kind == "AnimationStack")
-            .filter_map(|stack| {
+        self.objects()
+            .filter(|object: &&Object| -> bool { object.kind == FbxRecordName::ANIMATION_STACK })
+            .filter_map(|stack: &Object| -> Option<Take> {
                 let mut nodes: Vec<NodeAnimation> = Vec::new();
 
                 // Layers are blended by FBX; importers that do not blend take
                 // the base layer, which is the first one connected.
-                if let Some(layer) = self
-                    .children(stack.id)
-                    .find(|object| object.kind == "AnimationLayer")
-                {
+                if let Some(layer) = self.children(stack.id).find(|object: &&Object| -> bool {
+                    object.kind == FbxRecordName::ANIMATION_LAYER
+                }) {
                     self.collect_layer(layer.id, &targets, &mut nodes);
                 }
                 if nodes.is_empty() {
@@ -206,8 +208,8 @@ impl Scene {
 
     /// The stack's declared time span, when the exporter wrote one.
     fn stack_duration(&self, stack: &crate::Object) -> Option<f64> {
-        let start = stack.node.property70("LocalStart")?;
-        let stop = stack.node.property70("LocalStop")?;
+        let start = stack.node.property70(&FbxPropertyName::LOCAL_START)?;
+        let stop = stack.node.property70(&FbxPropertyName::LOCAL_STOP)?;
         let start = start.props.get(4).and_then(Prop::as_i64)?;
         let stop = stop.props.get(4).and_then(Prop::as_i64)?;
         let span = ticks_to_seconds(stop) - ticks_to_seconds(start);
@@ -218,18 +220,17 @@ impl Scene {
     /// property it drives.
     fn collect_layer(
         &self,
-        layer: i64,
-        targets: &std::collections::HashMap<i64, (i64, String)>,
+        layer: FbxObjectId,
+        targets: &std::collections::HashMap<FbxObjectId, (FbxObjectId, TransformProperty)>,
         nodes: &mut Vec<NodeAnimation>,
     ) {
-        for curve_node in self
-            .children(layer)
-            .filter(|object| object.kind == "AnimationCurveNode")
-        {
+        for curve_node in self.children(layer).filter(|object: &&Object| -> bool {
+            object.kind == FbxRecordName::ANIMATION_CURVE_NODE
+        }) {
             let Some((model, property)) = targets.get(&curve_node.id) else {
                 continue;
             };
-            let (model, property) = (*model, property.as_str());
+            let (model, property) = (*model, *property);
             let channel = self.transform_channel(curve_node.id);
             if channel.is_empty() {
                 continue;
@@ -254,23 +255,29 @@ impl Scene {
             };
 
             match property {
-                "Lcl Translation" => entry.translation = Some(channel),
-                "Lcl Rotation" => entry.rotation = Some(channel),
-                "Lcl Scaling" => entry.scale = Some(channel),
-                _ => {}
+                TransformProperty::Translation => entry.translation = Some(channel),
+                TransformProperty::Rotation => entry.rotation = Some(channel),
+                TransformProperty::Scaling => entry.scale = Some(channel),
             }
         }
     }
 
     /// A curve node's three axis curves plus its static defaults.
-    fn transform_channel(&self, curve_node: i64) -> TransformChannel {
+    fn transform_channel(&self, curve_node: FbxObjectId) -> TransformChannel {
         let mut channel = TransformChannel::default();
 
         if let Some(object) = self.get(curve_node) {
-            for (index, name) in ["d|X", "d|Y", "d|Z"].into_iter().enumerate() {
+            for (index, name) in [
+                FbxPropertyName::CURVE_X,
+                FbxPropertyName::CURVE_Y,
+                FbxPropertyName::CURVE_Z,
+            ]
+            .into_iter()
+            .enumerate()
+            {
                 if let Some(value) = object
                     .node
-                    .property70(name)
+                    .property70(&name)
                     .and_then(|property| property.props.get(4))
                     .and_then(Prop::as_f64)
                 {
@@ -280,19 +287,19 @@ impl Scene {
         }
 
         for (curve, property) in self.children_with_property(curve_node) {
-            if curve.kind != "AnimationCurve" {
+            if curve.kind != FbxRecordName::ANIMATION_CURVE {
                 continue;
             }
             let Some(times) = curve
                 .node
-                .child("KeyTime")
+                .child(&FbxRecordName::KEY_TIME)
                 .and_then(|node| node.i64_array())
             else {
                 continue;
             };
             let Some(values) = curve
                 .node
-                .child("KeyValueFloat")
+                .child(&FbxRecordName::KEY_VALUE_FLOAT)
                 .and_then(|node| node.props.first().and_then(Prop::as_f64_array))
             else {
                 continue;
@@ -305,10 +312,10 @@ impl Scene {
                     .collect(),
                 values: values[..count].to_vec(),
             };
-            match property {
-                Some("d|X") => channel.x = curve,
-                Some("d|Y") => channel.y = curve,
-                Some("d|Z") => channel.z = curve,
+            match property.and_then(FbxConnectionProperty::axis) {
+                Some(CurveAxis::X) => channel.x = curve,
+                Some(CurveAxis::Y) => channel.y = curve,
+                Some(CurveAxis::Z) => channel.z = curve,
                 _ => {}
             }
         }

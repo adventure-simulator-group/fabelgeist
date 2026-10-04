@@ -22,23 +22,29 @@ pub(crate) async fn soap_rest_preview(
     let (filth, personal, shared, personal_amounts, party_amounts, definitions, personalities) = tokio::join!(
         state
             .db
-            .query_sats::<CharacterFilth>("SELECT * FROM character_filth"),
+            .query_sats::<CharacterFilth>("SELECT * FROM character_filth".into()),
         state
             .db
-            .query_sats::<InventoryItem>("SELECT * FROM inventory_item"),
+            .query_sats::<InventoryItem>("SELECT * FROM inventory_item".into()),
         state
             .db
-            .query_sats::<PartyInventoryItem>("SELECT * FROM party_inventory_item"),
+            .query_sats::<PartyInventoryItem>("SELECT * FROM party_inventory_item".into()),
         state
             .db
-            .query_sats::<InventoryItemAmount>("SELECT * FROM inventory_item_amount"),
+            .query_sats::<InventoryItemAmount>("SELECT * FROM inventory_item_amount".into()),
         state
             .db
-            .query_sats::<PartyItemAmount>("SELECT * FROM party_item_amount"),
-        state.db.query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item"),
-        state.db.query_sats::<adventuresim_stdb_client::CharacterPersonality>(
-            "SELECT * FROM backend_character_personalities",
-        ),
+            .query_sats::<PartyItemAmount>("SELECT * FROM party_item_amount".into()),
+        state
+            .db
+            .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>(
+                "SELECT * FROM item".into()
+            ),
+        state
+            .db
+            .query_sats::<adventuresim_stdb_client::CharacterPersonality>(
+                "SELECT * FROM backend_character_personalities".into(),
+            ),
     );
     let personal = personal.unwrap_or_default();
     let shared = shared.unwrap_or_default();
@@ -58,16 +64,19 @@ pub(crate) async fn soap_rest_preview(
         .into_iter()
         .map(|row| (row.character_id, crate::spacetimedb::core_personality(&row)))
         .collect::<Vec<_>>();
-    calculate_rest_supply_availability(&mut preview, RestSupplySources {
-        members,
-        personal: &personal,
-        shared: &shared,
-        personal_amounts: &personal_amounts,
-        party_amounts: &party_amounts,
-        definitions: &definitions.unwrap_or_default(),
-        personalities: &personalities,
-        party_id,
-    });
+    calculate_rest_supply_availability(
+        &mut preview,
+        RestSupplySources {
+            members,
+            personal: &personal,
+            shared: &shared,
+            personal_amounts: &personal_amounts,
+            party_amounts: &party_amounts,
+            definitions: &definitions.unwrap_or_default(),
+            personalities: &personalities,
+            party_id,
+        },
+    );
     preview
 }
 

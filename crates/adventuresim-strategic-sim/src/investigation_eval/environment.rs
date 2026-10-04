@@ -349,7 +349,7 @@ impl InvestigationEnvironment {
                                 .unwrap_or_else(|| action.safe_summary.clone());
                             let resolution = if *stage == DestinationKnowledgeStage::ExactBelieved {
                                 if let Some(id) = site_id {
-                                    self.exact_sites.insert(id.0.clone());
+                                    self.exact_sites.insert(id.as_str().to_owned());
                                 }
                                 LocationResolution::Exact
                             } else {
@@ -360,7 +360,7 @@ impl InvestigationEnvironment {
                                     action_index: index,
                                     output_index,
                                 },
-                                |id| JournalLocationKey::CaseSite(id.0.clone()),
+                                |id| JournalLocationKey::CaseSite(id.as_str().to_owned()),
                             );
                             upsert_location(
                                 &mut self.frame.journal.locations,
@@ -442,7 +442,7 @@ impl InvestigationEnvironment {
                     .generated
                     .sites
                     .iter()
-                    .find(|site| site.id.0 == site_id)
+                    .find(|site| site.id.as_str() == site_id)
                 {
                     self.current_location = site.safe_label.clone();
                     upsert_location(
@@ -589,7 +589,7 @@ impl InvestigationEnvironment {
                 .generated
                 .sites
                 .iter()
-                .find(|site| site.id.0 == action.target_id)
+                .find(|site| site.id.as_str() == action.target_id)
                 .map(|site| site.safe_label.clone()),
             InvestigationTargetKind::Area => self
                 .generated
@@ -686,7 +686,7 @@ impl InvestigationEnvironment {
                         .generated
                         .sites
                         .iter()
-                        .find(|site| site.id.0 == site_id)
+                        .find(|site| site.id.as_str() == site_id)
                         .map(|site| site.safe_label.as_str())
                         .unwrap_or("learned destination");
                     self.push_choice(
@@ -706,7 +706,7 @@ impl InvestigationEnvironment {
                 );
             }
             for finale in &self.generated.finales {
-                if let Some(route) = self.admissible_finale_route(&finale.site_id.0) {
+                if let Some(route) = self.admissible_finale_route(finale.site_id.as_str()) {
                     self.push_choice(
                         &mut choices,
                         ChoiceKind::Conclude,
@@ -785,7 +785,7 @@ impl InvestigationEnvironment {
             qg::OutbreakRemediation::ResolveCarrierThreat { .. }
         ) || !self
             .visited_sites
-            .contains(&outbreak.physical_source_site.0)
+            .contains(outbreak.physical_source_site.as_str())
         {
             return None;
         }
@@ -1014,7 +1014,7 @@ fn developer_analysis(case: &GeneratedCase) -> Result<DeveloperCaseAnalysis, Str
         .sites
         .iter()
         .find(|site| site.is_true_location)
-        .map(|site| site.id.0.clone())
+        .map(|site| site.id.as_str().to_owned())
         .ok_or("generated case lacks true site")?;
     let private_digest = semantic_digest(SemanticDigestPurpose::GeneratorManifest, case)?;
     Ok(DeveloperCaseAnalysis {
@@ -1360,7 +1360,7 @@ mod tests {
             TemplateFamily::DisappearanceOrLoss,
         ))
         .unwrap();
-        let finale_site = env.generated.finales[0].site_id.0.clone();
+        let finale_site = env.generated.finales[0].site_id.as_str().to_owned();
         env.visited_sites.insert(finale_site.clone());
         let (action_index, route, target_kind, target_id) = env
             .generated

@@ -1,18 +1,19 @@
 //! Render layouts must match the presence of a complete wearer skin binding.
 use super::*;
+use fabelgeist_rig::RigJointName;
 
 #[derive(Component)]
 pub(crate) struct ProceduralEquipmentPart {
     pub(crate) item: Entity,
     pub(super) inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
-    pub(crate) joint_names: Vec<String>,
+    pub(crate) joint_names: Vec<RigJointName>,
 }
 
 impl ProceduralEquipmentPart {
     pub(crate) fn new(
         item: Entity,
         inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
-        joint_names: Vec<String>,
+        joint_names: Vec<RigJointName>,
     ) -> Self {
         Self {
             item,

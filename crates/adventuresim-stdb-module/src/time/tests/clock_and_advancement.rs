@@ -18,7 +18,10 @@ fn every_authoritative_clock_commit_has_one_exposure_application() {
             "pub fn advance_character_time",
             "pub fn preview_travel_time",
         ),
-        ("pub fn advance_character_wait_time", "fn default_schedule"),
+        (
+            "pub fn advance_character_wait_time",
+            "fn activity_execution_location",
+        ),
         (
             "pub fn perform_immediate_activity",
             "fn apply_organization_outcomes",
@@ -67,7 +70,7 @@ fn authoritative_time_paths_split_at_lifecycle_boundaries() {
         ),
         (
             "pub fn advance_character_wait_time_in_plan",
-            "fn default_schedule",
+            "fn activity_execution_location",
         ),
     ] {
         let path = source

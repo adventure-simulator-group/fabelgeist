@@ -1,5 +1,6 @@
 //! Recipe-local attachment frames, shaft fitting and grip placement.
 use super::*;
+use crate::ConstructionError;
 use std::collections::BTreeMap;
 mod anchors;
 mod fitting;
@@ -23,7 +24,7 @@ pub(super) struct Resolved {
     pub(super) grip: Point,
 }
 
-fn metres(point: Point) -> Result<[Metres; 3], String> {
+fn metres(point: Point) -> Result<[Metres; 3], ConstructionError> {
     Ok([
         Metres::new(point[0])?,
         Metres::new(point[1])?,
@@ -31,7 +32,7 @@ fn metres(point: Point) -> Result<[Metres; 3], String> {
     ])
 }
 
-pub(super) fn resolve(recipe: &Recipe) -> Result<Resolved, String> {
+pub(super) fn resolve(recipe: &Recipe) -> Result<Resolved, ConstructionError> {
     let grip_width = recipe.components.iter().find_map(|c| {
         if c.id.as_deref() == Some(GRIP_COMPONENT_ID) || c.role == Some(crate::ComponentRole::Grip)
         {
@@ -74,7 +75,7 @@ pub(super) fn resolve(recipe: &Recipe) -> Result<Resolved, String> {
         graph.frames.get(GRIP_TOP_FRAME),
     ) && clearance.get() > magnitude(sub(*top, *base))
     {
-        return Err("hand control point must remain within the modeled grip".into());
+        return Err(ConstructionError::HandControlPointRemainModeledGrip);
     }
     let grip = grip_point(&recipe, &graph.frames);
     graph.frames.insert(WEAPON_GRIP_FRAME.into(), grip);
@@ -97,7 +98,7 @@ struct PlacementGraph {
     shaft: Option<Shaft>,
 }
 impl PlacementGraph {
-    fn insert(&mut self, index: usize, component: &mut Component) -> Result<(), String> {
+    fn insert(&mut self, index: usize, component: &mut Component) -> Result<(), ConstructionError> {
         let Self {
             frames,
             rotations,
@@ -125,7 +126,9 @@ impl PlacementGraph {
         if let Shape::Box(p) = &component.shape
             && p.fit_shaft_side == Some(true)
         {
-            let shaft = shaft.as_ref().ok_or("side fitting requires shaft")?;
+            let shaft = shaft
+                .as_ref()
+                .ok_or(ConstructionError::SideFittingRequiresShaft)?;
             offset[0] = if local[0] < 0.0 { -1.0 } else { 1.0 }
                 * (shaft.radius.get() * shaft.top_scale.map_or(0.92, Ratio::get)
                     + p.size[0].get() / 2.0

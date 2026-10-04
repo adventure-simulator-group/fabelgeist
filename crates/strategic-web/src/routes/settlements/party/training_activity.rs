@@ -16,21 +16,23 @@ pub(super) struct TrainingScheduleForm {
 }
 
 impl TrainingScheduleForm {
-    fn into_schedule(self) -> Result<ScheduleAllocation, adventuresim_core::strategic_schedule::ScheduleParseError> {
+    fn into_schedule(
+        self,
+    ) -> Result<ScheduleAllocation, adventuresim_core::strategic_schedule::ScheduleParseError> {
         let schedule = ScheduleAllocation {
-        reading_minutes: self.reading_minutes,
-        combat_training_minutes: self.combat_training_minutes,
-        carousing_minutes: self.carousing_minutes,
-        socializing_minutes: self.socializing_minutes,
-        apprenticeship_minutes: self.apprenticeship_minutes,
-        apprenticeship_organization_id: self.apprenticeship_organization_id,
-        profession_practice_minutes: self.profession_practice_minutes,
-        practice_organization_id: self.practice_organization_id,
-        labor_minutes: self.labor_minutes,
-        prayer_minutes: self.prayer_minutes,
-        thievery_minutes: self.thievery_minutes,
-        raiding_minutes: self.raiding_minutes,
-    };
+            reading_minutes: self.reading_minutes,
+            combat_training_minutes: self.combat_training_minutes,
+            carousing_minutes: self.carousing_minutes,
+            socializing_minutes: self.socializing_minutes,
+            apprenticeship_minutes: self.apprenticeship_minutes,
+            apprenticeship_organization_id: self.apprenticeship_organization_id,
+            profession_practice_minutes: self.profession_practice_minutes,
+            practice_organization_id: self.practice_organization_id,
+            labor_minutes: self.labor_minutes,
+            prayer_minutes: self.prayer_minutes,
+            thievery_minutes: self.thievery_minutes,
+            raiding_minutes: self.raiding_minutes,
+        };
         crate::schedule::validate(schedule)
     }
 }
@@ -249,7 +251,7 @@ pub(super) async fn party_member(
         active_character.clone()
     } else {
         let character =
-            crate::routes::data::character_as_observed(&state, character_id, active_character.id)
+            crate::routes::data::character_as_observed(&state, character_id.into(), active_character.id.into())
                 .await
                 .ok()
                 .flatten();
@@ -273,9 +275,9 @@ pub(super) async fn party_member(
     } else {
         state
             .db
-            .query_sats(&format!(
+            .query_sats(SqlQuery::from(format!(
                 "SELECT * FROM inventory_item WHERE character_id = {character_id}"
-            ))
+            )))
             .await
             .unwrap_or_default()
     };
@@ -288,20 +290,20 @@ pub(super) async fn party_member(
     };
     let items: Vec<CatalogItemView> = state
         .db
-        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into())
         .await
         .unwrap_or_default();
     let food_lots: Vec<FoodLot> = state
         .db
-        .query_sats("SELECT * FROM food_lot")
+        .query_sats("SELECT * FROM food_lot".into())
         .await
         .unwrap_or_default();
     let preparation_plans: Vec<BackendIngredientPreparationPlan> = state
         .db
-        .query_sats(&format!(
+        .query_sats(SqlQuery::from(format!(
             "SELECT * FROM backend_ingredient_preparation_plans WHERE actor_character_id = {}",
             active_character.id
-        ))
+        )))
         .await
         .unwrap_or_default();
     let selected_targets = personal_inventory_targets(&state, selected.id).await;
@@ -388,36 +390,36 @@ pub(super) async fn party_pool_inventory(
     };
     let pooled: Vec<PartyInventoryItem> = state
         .db
-        .query_sats(&format!(
+        .query_sats(SqlQuery::from(format!(
             "SELECT * FROM party_inventory_item WHERE party_id = {}",
             sql_string_literal(party_id)
-        ))
+        )))
         .await
         .unwrap_or_default();
     let stakes: Vec<PartyStake> = state
         .db
-        .query_sats(&format!(
+        .query_sats(SqlQuery::from(format!(
             "SELECT * FROM party_stake WHERE party_id = {}",
             sql_string_literal(party_id)
-        ))
+        )))
         .await
         .unwrap_or_default();
     let food_lots: Vec<FoodLot> = state
         .db
-        .query_sats("SELECT * FROM food_lot")
+        .query_sats("SELECT * FROM food_lot".into())
         .await
         .unwrap_or_default();
     let preparation_plans: Vec<BackendIngredientPreparationPlan> = state
         .db
-        .query_sats(&format!(
+        .query_sats(SqlQuery::from(format!(
             "SELECT * FROM backend_ingredient_preparation_plans WHERE actor_character_id = {}",
             character.id
-        ))
+        )))
         .await
         .unwrap_or_default();
     let items: Vec<CatalogItemView> = state
         .db
-        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into())
         .await
         .unwrap_or_default();
     let equip = character_equipment_graph(&state, character.id).await;

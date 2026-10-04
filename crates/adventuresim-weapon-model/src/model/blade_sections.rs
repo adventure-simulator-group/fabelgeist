@@ -1,5 +1,6 @@
 //! One transverse section and closed loft authority for authored blades.
 use super::*;
+use crate::ConstructionError;
 use std::f64::consts::TAU;
 
 #[derive(Clone, Copy)]
@@ -11,8 +12,8 @@ pub(super) fn blade(
     p: BladeProfile<'_>,
     sampling: BladeSampling,
     detail: Detail,
-) -> Result<Solid, String> {
-    p.validate().map_err(|e| e.to_string())?;
+) -> Result<Solid, ConstructionError> {
+    p.validate().map_err(ConstructionError::Recipe)?;
     let point = p.point_curve()?;
     let minimum_envelope = blade_reduction::envelope_floor(&p, detail)?;
     let ring = |y, minimum_envelope| {
@@ -75,7 +76,7 @@ fn cap_rings(
     solid: &mut Solid,
     rings: &[Vec<Point>],
     retain_collinear: bool,
-) -> Result<(), String> {
+) -> Result<(), ConstructionError> {
     for (ring, reverse) in [
         (rings.first().unwrap(), true),
         (rings.last().unwrap(), false),
@@ -107,7 +108,7 @@ fn feature_stations(
     p: &BladeProfile<'_>,
     ring: impl Fn(f64) -> Vec<Point>,
     detail: Detail,
-) -> Result<Vec<f64>, String> {
+) -> Result<Vec<f64>, ConstructionError> {
     let mut features = vec![0.0, p.length];
     if p.ricasso > 0.0 {
         features.push(p.ricasso);
@@ -140,7 +141,7 @@ pub(super) fn refine_sections(
     detail: Detail,
     depth: usize,
     out: &mut Vec<f64>,
-) -> Result<(), String> {
+) -> Result<(), ConstructionError> {
     let (left, right) = (ring(a), ring(b));
     let mut deviation = 0.0_f64;
     for t in [0.25, 0.5, 0.75] {
@@ -160,7 +161,7 @@ pub(super) fn refine_sections(
         || deviation > detail.error(blade_reduction::BLADE_SURFACE_ERROR) / 2.0
     {
         if depth >= f64::MANTISSA_DIGITS as usize {
-            return Err("blade sampling exceeds its surface-error budget".into());
+            return Err(ConstructionError::BladeSamplingExceedsSurfaceErrorBudget);
         }
         let mid = (a + b) / 2.0;
         refine_sections(a, mid, ring, detail, depth + 1, out)?;
@@ -177,7 +178,7 @@ fn baseline_stations(
     ring: impl Fn(f64) -> Vec<Point>,
     sampling: BladeSampling,
     detail: Detail,
-) -> Result<Vec<f64>, String> {
+) -> Result<Vec<f64>, ConstructionError> {
     Ok(match sampling {
         BladeSampling::Loft(n) => (0..=n)
             .map(|i| length * i as f64 / n as f64)
@@ -196,7 +197,7 @@ fn baseline_stations(
                     .fold(f64::INFINITY, f64::min);
                 let step = detail.error(0.03).min(edge * 40.0);
                 if !step.is_finite() || step <= 0.0 {
-                    return Err("blade section has no area".into());
+                    return Err(ConstructionError::BladeSectionNoArea);
                 }
                 construction_budget(((ys.len() + 1) * profile.len() * 2) as f64)?;
                 ys.push(if y <= step * (1.0 + 1e-8) {
@@ -211,7 +212,11 @@ fn baseline_stations(
     })
 }
 
-pub(super) fn face(solid: &mut Solid, quad: [Point; 4], surface: u32) -> Result<(), String> {
+pub(super) fn face(
+    solid: &mut Solid,
+    quad: [Point; 4],
+    surface: u32,
+) -> Result<(), ConstructionError> {
     let mut vertices = quad.to_vec();
     vertices.dedup();
     if vertices.first() == vertices.last() {
@@ -221,7 +226,7 @@ pub(super) fn face(solid: &mut Solid, quad: [Point; 4], surface: u32) -> Result<
         return Ok(());
     }
     if vertices.iter().flatten().any(|x| !x.is_finite()) {
-        return Err("blade section contains a nonfinite vertex".into());
+        return Err(ConstructionError::BladeSectionContainsNonfiniteVertex);
     }
     for i in 1..vertices.len() - 1 {
         solid.triangle(vertices[0], vertices[i], vertices[i + 1], surface);

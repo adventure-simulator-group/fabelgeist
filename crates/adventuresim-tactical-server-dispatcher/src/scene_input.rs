@@ -136,7 +136,7 @@ pub fn build_imported_scene(
     let input = TacticalSceneInput {
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-        seed,
+        seed: seed.into(),
         scene_key: scene_key.into(),
         source: SceneSource::ImportedPackage(pack.digest().into()),
         latitude_microdegrees: coordinates.latitude().to_microdegrees().get(),
@@ -643,12 +643,17 @@ mod tests {
             .landform
             .expect("terrain-pack feature should produce a scarp");
         assert!((1_050..=1_180).contains(&landform.origin_cm[1]));
+        // Detail is added to absolute f32 elevation before the datum is
+        // subtracted, so its representable bounds include that rounding.
+        let datum = f32::from(input.absolute_elevation_metres);
+        let detail_range = (datum - HILLY_DETAIL_AMPLITUDE_METRES) - datum
+            ..=(datum + HILLY_DETAIL_AMPLITUDE_METRES) - datum;
         assert!(
             input
                 .playable
                 .heights_metres
                 .iter()
-                .all(|height| height.abs() <= 0.45)
+                .all(|height| detail_range.contains(height))
         );
         let center = input.playable.environment[50 * 101 + 50];
         assert_eq!(center.surface, TacticalSurface::DeepWoods);

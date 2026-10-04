@@ -252,7 +252,7 @@ fn view_direct_custody(
             .map(OperationalCustody::Container);
     }
     match scope {
-        CarriedInventoryScope::Personal => OperationalCustody::character(actor.id).ok(),
+        CarriedInventoryScope::Personal => OperationalCustody::character((actor.id).into()).ok(),
         CarriedInventoryScope::Party => OperationalCustody::party(actor.party_id.clone()?).ok(),
     }
 }

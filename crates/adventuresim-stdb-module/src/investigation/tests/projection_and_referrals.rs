@@ -138,10 +138,9 @@ fn bounded_failure_wording_snapshots_progress_and_live_alternate_truthfully() {
 #[test]
 fn bounded_progress_covers_every_generated_kind_and_replay_precedes_history() {
     let source = INVESTIGATION_SOURCE;
-    let reducer = source
+    let reducer = include_str!("../actions/execution.rs")
         .split("pub(crate) fn perform_investigation_action_authorized")
         .nth(1)
-        .and_then(|tail| tail.split("#[reducer]").next())
         .unwrap();
     assert!(reducer.contains("capability_uses_bounded_progress"));
     assert!(
@@ -193,7 +192,10 @@ fn bounded_progress_covers_every_generated_kind_and_replay_precedes_history() {
     let receipt = source
         .split("fn private_action_resolution_json")
         .nth(1)
-        .and_then(|tail| tail.split("fn capability_progress_depends_on_exact_lead").next())
+        .and_then(|tail| {
+            tail.split("fn capability_progress_depends_on_exact_lead")
+                .next()
+        })
         .expect("bounded progress receipt serializer");
     assert!(receipt.contains("\"attempt_number\""));
     assert!(receipt.contains("\"persistent_progress_bps\""));
@@ -233,7 +235,10 @@ fn exact_site_projection_and_travel_require_explicit_case_provenance() {
     let travel = source
         .split("pub(crate) fn exact_case_site_for_observer_at")
         .nth(1)
-        .and_then(|tail| tail.split("pub(crate) fn case_site_presence_for_observer").next())
+        .and_then(|tail| {
+            tail.split("pub(crate) fn case_site_presence_for_observer")
+                .next()
+        })
         .unwrap();
     assert!(pins.contains("case_site_provenance_view"));
     assert!(travel.contains("case_site_provenance_reducer"));
@@ -256,7 +261,7 @@ fn exact_site_provenance_accepts_only_valid_manual_or_generated_tuples() {
         seed: 19,
         observer_entropy_hi: 23,
         observer_entropy_lo: 29,
-        settlement_id: "lubeck".into(),
+        settlement_id: adventuresim_core::identity::SettlementId::try_new("lubeck").unwrap(),
         settlement_name: "Lubeck".into(),
         scope: Scope::Settlement {
             settlement_id: "lubeck".into(),
@@ -272,7 +277,7 @@ fn exact_site_provenance_accepts_only_valid_manual_or_generated_tuples() {
     let authority = crate::strategic::QuestGenerationAuthority {
         case_id: manifest.canonical_case_id.clone(),
         public_case_id: manifest.public_case_id.clone(),
-        settlement_id: context.settlement_id.clone(),
+        settlement_id: context.settlement_id.as_str().to_owned(),
         settlement_name: context.settlement_name.clone(),
         seed: context.seed,
         catalog_revision: manifest.catalog_revision.clone(),
@@ -342,7 +347,7 @@ fn explicit_secondary_referral_and_context_are_exact() {
         seed: 7,
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
-        settlement_id: "riverdale".into(),
+        settlement_id: adventuresim_core::identity::SettlementId::try_new("riverdale").unwrap(),
         settlement_name: "Riverdale".into(),
         scope: Scope::Settlement {
             settlement_id: "riverdale".into(),
@@ -375,7 +380,7 @@ fn explicit_secondary_referral_and_context_are_exact() {
         expected_location_id: secondary.expected_location.clone(),
         grant_kind: "testimony".into(),
         source_receipt_id: "testimony-receipt".into(),
-        source_witness_id: primary.id.0.clone(),
+        source_witness_id: primary.id.as_str().to_owned(),
         source_witness_resident_character_id: primary.resident_character_id,
         source_testimony_index: 0,
         source_proposition_id: primary.testimony[0].proposition_id.clone(),
@@ -498,8 +503,12 @@ fn both_generated_families_issue_root_and_successor_action_text() {
         let context = GenerationContext {
             seed,
             observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
-            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
-            settlement_id: "lubeck".into(),
+            observer_entropy_lo: fabelgeist_determinism::StreamId::new(
+                "quest.fixture-observer-high",
+            )
+            .seed(seed, &[])
+            .to_u64(),
+            settlement_id: adventuresim_core::identity::SettlementId::try_new("lubeck").unwrap(),
             settlement_name: "Lubeck".into(),
             scope: Scope::Settlement {
                 settlement_id: "lubeck".into(),
@@ -530,7 +539,7 @@ fn both_generated_families_issue_root_and_successor_action_text() {
         let mut saw_successor = false;
         for action in &manifest.actions {
             let remap = |id: &adventuresim_core::quest_generation::ActionId| {
-                observer_scoped_id(&context, "capability", &format!("1:{}", id.0))
+                observer_scoped_id(&context, "capability", &format!("1:{}", id.as_str()))
             };
             let required_action_id = action.prerequisite.as_ref().map_or_else(String::new, remap);
             saw_root |= required_action_id.is_empty();
@@ -572,8 +581,12 @@ fn root_rumor_then_every_referred_witness_pipeline_is_valid_in_both_families() {
         let mut context = GenerationContext {
             seed,
             observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
-            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
-            settlement_id: "lubeck".into(),
+            observer_entropy_lo: fabelgeist_determinism::StreamId::new(
+                "quest.fixture-observer-high",
+            )
+            .seed(seed, &[])
+            .to_u64(),
+            settlement_id: adventuresim_core::identity::SettlementId::try_new("lubeck").unwrap(),
             settlement_name: "Lubeck".into(),
             scope: Scope::Settlement {
                 settlement_id: "lubeck".into(),

@@ -22,7 +22,7 @@ mod compound;
 mod graph;
 pub use compiled::{
     ChurchSitingIssue, CityBusinessSite, CityCompileError, CitySceneLayout, CompiledCityLayout,
-    CompoundIssue,
+    CompoundIssue, GardenClearanceError,
 };
 pub(crate) use compiled::{validate_scene_compound, validate_scene_gardens};
 pub use compound::{
@@ -32,7 +32,7 @@ pub use compound::{
 };
 pub mod gardens;
 pub use gardens::{
-    CityGarden, GardenPlantId, GardenPlantPlacement, GardenPlantScale, GardenSpecimen,
+    CityGarden, GardenIssue, GardenPlantId, GardenPlantPlacement, GardenPlantScale, GardenSpecimen,
 };
 mod houses;
 mod subdivision;

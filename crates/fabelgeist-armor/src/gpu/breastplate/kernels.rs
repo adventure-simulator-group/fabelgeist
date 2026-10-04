@@ -5,10 +5,11 @@
 //! `unit` normalization, and -- for a kernel that binds the plate's design
 //! and wearer -- the authored shape and the fit's profile evaluation.
 
+use fabelgeist_gpu::prelude::PassParameterName;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
 
 use super::carrier_wgsl::COARSE_WORDS;
 use super::finish_wgsl::{CARRIER_WORDS, UPPER_RIM_ROWS};
@@ -19,7 +20,7 @@ use super::skin_wgsl::{MORPH_WORDS, SAMPLE_WORDS, SKIN_WORDS};
 use super::topology::{SKIRT_SAMPLES, U_SAMPLES, V_SAMPLES};
 use crate::GenerateError;
 use crate::gpu::anatomy::SURFACE_HEADER;
-use crate::gpu::{ArmorGpu, device_error, wgsl};
+use crate::gpu::{ArmorGpu, wgsl};
 
 /// The pass parameters every breastplate kernel takes.
 #[derive(Clone, Copy, Default)]
@@ -44,15 +45,15 @@ impl Params {
 
     fn parameters(self) -> PassParameters {
         let mut parameters = PassParameters::new();
-        parameters.insert("count", self.count);
-        parameters.insert("width", self.width);
-        parameters.insert("rear", u32::from(self.rear));
-        parameters.insert("side", self.side);
-        parameters.insert("torso_count", self.torso_count);
-        parameters.insert("iteration", self.iteration);
-        parameters.insert("front_count", self.front_count);
-        parameters.insert("extra", self.extra);
-        parameters.insert("zero", 0u32);
+        parameters.insert("count".into(), (self.count).into());
+        parameters.insert("width".into(), (self.width).into());
+        parameters.insert("rear".into(), (u32::from(self.rear)).into());
+        parameters.insert("side".into(), (self.side).into());
+        parameters.insert("torso_count".into(), (self.torso_count).into());
+        parameters.insert("iteration".into(), (self.iteration).into());
+        parameters.insert("front_count".into(), (self.front_count).into());
+        parameters.insert("extra".into(), (self.extra).into());
+        parameters.insert("zero".into(), (0u32).into());
         parameters
     }
 }
@@ -142,8 +143,8 @@ const MAX_FIT_CORRECTION: f32 = 0.060;
         fit_common = if shape { fit_wgsl::FIT_COMMON } else { "" },
     );
     gpu.cache()
-        .get(gpu.context(), &source)
-        .map_err(device_error)
+        .get(gpu.context(), &ShaderSource::from(source))
+        .map_err(crate::GenerateError::from)
 }
 
 /// Record one dispatch of a breastplate kernel over `items` invocations,
@@ -155,18 +156,15 @@ pub(super) fn dispatch(
     points: Points,
     params: Params,
     buffers: &[(&str, &Buffer)],
-    items: u32,
+    items: fabelgeist_gpu::prelude::InvocationCount,
 ) -> Result<(), GenerateError> {
     let mut parameters = params.parameters();
     for (name, buffer) in buffers {
-        parameters.insert(*name, (*buffer).clone());
+        parameters.insert(PassParameterName::from(*name), ((*buffer).clone()).into());
     }
     let kernel = kernel(gpu, entry, points)?;
-    if kernel.workgroup_size[0] == 1 {
-        batch.dispatch(&kernel, &parameters, [items, 1, 1])
-    } else {
-        batch.dispatch_items(&kernel, &parameters, items)
-    }
-    .map_err(device_error)?;
+    batch
+        .dispatch_items(&kernel, &parameters, items)
+        .map_err(GenerateError::from)?;
     Ok(())
 }

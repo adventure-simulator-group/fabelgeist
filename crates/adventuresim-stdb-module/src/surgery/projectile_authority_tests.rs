@@ -31,8 +31,8 @@ pub fn authority_test_projectile_identity(
             || records[0].source_damage != 0.2
             || !records[0].extraction_dc.is_finite()
             || records[0].extraction_dc <= 0.0
-            || injury_for(ctx, character_id, limb).cut_damage != 0.1
-            || injury_for(ctx, character_id, limb).bruise_damage != 0.1
+            || injury_for(ctx, (character_id).into(), limb).cut_damage != 0.1
+            || injury_for(ctx, (character_id).into(), limb).bruise_damage != 0.1
         {
             return Err("Retained projectile lost committed hit identity or damage".into());
         }

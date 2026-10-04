@@ -7,6 +7,7 @@
 //! so its floor can roughen and the preview can show it in parallax; a normal
 //! map only tilts the shading. A procedural [`Ornament`] is always cut as a
 //! height map.
+use crate::material::MetalError;
 use crate::ornament::Ornament;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
@@ -81,7 +82,7 @@ impl Engraving {
         }
     }
 
-    pub fn validate(&self) -> Result<(), String> {
+    pub fn validate(&self) -> Result<(), MetalError> {
         let bounded =
             |value: f32, low: f32, high: f32| value.is_finite() && (low..=high).contains(&value);
         let relief = match self.relief {
@@ -101,18 +102,25 @@ impl Engraving {
             || !bounded(self.rotation, -std::f32::consts::PI, std::f32::consts::PI)
             || !bounded(self.recess_roughness, 0.0, 1.0)
         {
-            return Err("Invalid engraving parameters".into());
+            return Err(MetalError::InvalidEngraving);
         }
         Ok(())
     }
 
     /// What the bake cuts: the relief image, read and decoded, or the
     /// ornament to draw.
-    pub(crate) fn cut(&self) -> Result<Cut<'_>, String> {
+    pub(crate) fn cut(&self) -> Result<Cut<'_>, MetalError> {
         match &self.source {
             ReliefSource::Image(image) => {
-                let bytes = std::fs::read(image)
-                    .map_err(|error| format!("Engraving {}: {error}", image.display()))?;
+                let bytes = match std::fs::read(image) {
+                    Ok(bytes) => bytes,
+                    Err(source) => {
+                        return Err(MetalError::ReliefIo {
+                            path: image.clone(),
+                            source,
+                        });
+                    }
+                };
                 self.decode(&bytes).map(Cut::Image)
             }
             ReliefSource::Ornament(ornament) => Ok(Cut::Ornament(ornament)),
@@ -120,13 +128,16 @@ impl Engraving {
     }
 
     /// Decode PNG `bytes` as this engraving's kind of relief.
-    pub fn decode(&self, bytes: &[u8]) -> Result<ReliefImage, String> {
-        let name = match &self.source {
-            ReliefSource::Image(image) => image.display().to_string(),
-            ReliefSource::Ornament(_) => "ornament".into(),
+    pub fn decode(&self, bytes: &[u8]) -> Result<ReliefImage, MetalError> {
+        let image = match image::load_from_memory(bytes) {
+            Ok(image) => image,
+            Err(source) => {
+                return Err(MetalError::ReliefDecode {
+                    source_name: self.source.clone(),
+                    source,
+                });
+            }
         };
-        let image =
-            image::load_from_memory(bytes).map_err(|error| format!("Engraving {name}: {error}"))?;
         let (width, height) = (image.width() as usize, image.height() as usize);
         let pixels = match self.relief {
             Relief::Height { .. } => ReliefPixels::Height(image.to_luma32f().into_raw()),
@@ -245,5 +256,34 @@ pub(crate) mod tests {
             "an ornament is cut as heights"
         );
         assert!(Engraving::new("garbage.png").decode(b"not a png").is_err());
+    }
+
+    #[test]
+    fn relief_errors_retain_source_context_and_causes() {
+        use std::error::Error;
+
+        let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("Cargo.toml/relief.png");
+        let engraving = Engraving::new(path.clone());
+        let error = engraving.cut().err().unwrap();
+        assert!(matches!(&error, MetalError::ReliefIo { path: actual, .. } if actual == &path));
+        assert!(
+            error
+                .source()
+                .unwrap()
+                .downcast_ref::<std::io::Error>()
+                .is_some()
+        );
+
+        let error = engraving.decode(b"not an image").err().unwrap();
+        assert!(
+            matches!(&error, MetalError::ReliefDecode { source_name: ReliefSource::Image(actual), .. } if actual == &path)
+        );
+        assert!(
+            error
+                .source()
+                .unwrap()
+                .downcast_ref::<image::ImageError>()
+                .is_some()
+        );
     }
 }

@@ -11,6 +11,98 @@ from scripts import check_calendar_api
 
 
 class CalendarApiGuardTests(unittest.TestCase):
+    def test_day_projection_is_allowed_only_in_its_exact_shared_owner(self) -> None:
+        projection = (
+            "pub const fn start(self) -> StrategicMinute { "
+            "StrategicMinute::new(self.0.saturating_mul(MINUTES_PER_DAY)) }"
+        )
+        # A consumer cannot copy even the same operation and receiver spelling.
+        result, errors = self.check_fixture(projection)
+        self.assertEqual(result, 1)
+        self.assertIn("construct calendar days", errors)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            owner = root / check_calendar_api.CALENDAR_DAY
+            owner.parent.mkdir(parents=True)
+            with (
+                patch.object(check_calendar_api, "ROOT", root),
+                patch.object(check_calendar_api, "REQUIRED_SHARED_FIELDS", {}),
+                patch.object(check_calendar_api, "REQUIRED_TYPED_RETURNS", {}),
+            ):
+                owner.write_text(projection)
+                self.assertEqual(check_calendar_api.main(), 0)
+                owner.write_text(
+                    projection + "\nfn copied(day: u64) -> StrategicMinute { "
+                    "StrategicMinute::new(day.saturating_mul(MINUTES_PER_DAY)) }"
+                )
+                with contextlib.redirect_stderr(io.StringIO()) as errors:
+                    self.assertEqual(check_calendar_api.main(), 1)
+                self.assertIn("construct calendar days", errors.getvalue())
+                # Owning this conversion does not exempt other calendar leaks.
+                owner.write_text(projection + "\nfn copied(absolute_minute: u64) {}")
+                with contextlib.redirect_stderr(io.StringIO()) as errors:
+                    self.assertEqual(check_calendar_api.main(), 1)
+                self.assertIn("raw calendar declarations", errors.getvalue())
+
+    def test_residence_clock_retains_character_identity_and_shared_minute(self):
+        relative = Path("crates/adventuresim-stdb-module/src/residence.rs")
+        declaration = check_calendar_api.REQUIRED_SHARED_FIELDS[relative]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / relative
+            source.parent.mkdir(parents=True)
+            with (
+                patch.object(check_calendar_api, "ROOT", root),
+                patch.object(check_calendar_api, "REQUIRED_SHARED_FIELDS", {
+                    relative: declaration,
+                }),
+                patch.object(check_calendar_api, "REQUIRED_TYPED_RETURNS", {}),
+            ):
+                source.write_text(declaration + " { todo!() }")
+                self.assertEqual(check_calendar_api.main(), 0)
+                for invalid in (
+                    declaration.replace(
+                        "adventuresim_core::identity::CharacterId", "u64"
+                    ),
+                    declaration.replace("Result<StrategicMinute", "Result<u64"),
+                ):
+                    with self.subTest(declaration=invalid):
+                        source.write_text(invalid + " { todo!() }")
+                        with contextlib.redirect_stderr(io.StringIO()) as errors:
+                            self.assertEqual(check_calendar_api.main(), 1)
+                        self.assertIn("restore shared calendar field", errors.getvalue())
+
+    def test_departure_clock_retains_members_minute_and_concrete_error(self):
+        relative = Path("crates/adventuresim-stdb-module/src/time/departure.rs")
+        declaration = check_calendar_api.REQUIRED_SHARED_FIELDS[relative]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / relative
+            source.parent.mkdir(parents=True)
+            with (
+                patch.object(check_calendar_api, "ROOT", root),
+                patch.object(check_calendar_api, "REQUIRED_SHARED_FIELDS", {
+                    relative: declaration,
+                }),
+                patch.object(check_calendar_api, "REQUIRED_TYPED_RETURNS", {}),
+            ):
+                source.write_text(declaration + " todo!() }")
+                self.assertEqual(check_calendar_api.main(), 0)
+                for invalid in (
+                    declaration.replace(
+                        "adventuresim_core::identity::CharacterId", "u64"
+                    ),
+                    declaration.replace("Result<StrategicMinute", "Result<u64"),
+                    declaration.replace("DepartureClockError", "String"),
+                    declaration.replace("Result<StrategicMinute", "Result<Option<StrategicMinute>"),
+                ):
+                    with self.subTest(declaration=invalid):
+                        source.write_text(invalid + " todo!() }")
+                        with contextlib.redirect_stderr(io.StringIO()) as errors:
+                            self.assertEqual(check_calendar_api.main(), 1)
+                        self.assertIn("restore shared calendar field", errors.getvalue())
+
     def test_partial_day_durations_are_not_whole_day_advances(self):
         for operation in ("saturating_add_minutes", "checked_add_minutes", "saturating_sub_minutes"):
             for prefix in ("", "adventuresim_world_schema::calendar::"):

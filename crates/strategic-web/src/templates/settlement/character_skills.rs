@@ -761,7 +761,7 @@ impl ActivityPreviewRates {
                 skills.written_languages.effective(selected.book.medium),
                 attributes.intelligence,
             );
-            let title = adventuresim_core::item_catalog::definition(selected.item_id)
+            let title = adventuresim_core::item_catalog::definition(&(selected.item_id).into())
                 .map_or(selected.item_id, |item| item.display_name.as_str());
             let (lower, upper) = adventuresim_core::book::rank_band(selected.book);
             self.reading = Some(ReadingPreview {
@@ -782,7 +782,7 @@ impl ActivityPreviewRates {
         &self,
         schedule: &ScheduleAllocation,
         location: Option<adventuresim_core::activity::ActivityLocation>,
-        seed: u64,
+        character_id: adventuresim_core::identity::CharacterId,
     ) -> ScheduleAllocation {
         let mut eligible = schedule.clone();
         if !schedule
@@ -800,7 +800,7 @@ impl ActivityPreviewRates {
         {
             eligible.profession_practice_minutes = 0;
         }
-        effective_preview_schedule(&eligible, location, seed)
+        effective_preview_schedule(&eligible, location, character_id)
     }
 
     pub fn with_professions(
@@ -1198,7 +1198,7 @@ fn skills_table(
                         @let effective = preview.effective_schedule(
                             &schedule.downtime,
                             activity_location,
-                            skills.character_id,
+                            adventuresim_core::identity::CharacterId::from(skills.character_id),
                         );
                         tr class="schedule-divider" { td colspan="9" {} }
                         tr class="schedule-section-heading" {
@@ -2103,10 +2103,10 @@ fn leisure_preview(schedule: &ScheduleAllocation, current_fatigue: f32) -> Leisu
 fn effective_preview_schedule(
     schedule: &ScheduleAllocation,
     location: Option<adventuresim_core::activity::ActivityLocation>,
-    redistribution_seed: u64,
+    redistribution_character: adventuresim_core::identity::CharacterId,
 ) -> ScheduleAllocation {
     match location {
-        Some(location) => crate::schedule::effective(schedule, location, redistribution_seed)
+        Some(location) => crate::schedule::effective(schedule, location, redistribution_character)
             .expect("saved schedule allocation was validated on write"),
         None => schedule.clone(),
     }
@@ -3443,7 +3443,7 @@ mod tests {
         let effective = effective_preview_schedule(
             &saved,
             Some(adventuresim_core::activity::ActivityLocation::Settlement { has_inn: false }),
-            42,
+            adventuresim_core::identity::CharacterId::from(42),
         );
         assert_eq!(saved.carousing_minutes, 120);
         assert_eq!(saved.raiding_minutes, 180);
@@ -3494,10 +3494,11 @@ mod tests {
             .reading
             .expect("German primer is readable and useful");
         assert!((reading.rate - 0.5).abs() < f32::EPSILON);
-        let selected_title = adventuresim_core::item_catalog::definition("primer_german_latin")
-            .expect("German primer remains authored")
-            .display_name
-            .as_str();
+        let selected_title =
+            adventuresim_core::item_catalog::definition(&("primer_german_latin").into())
+                .expect("German primer remains authored")
+                .display_name
+                .as_str();
         assert!(reading.description.contains(selected_title));
         assert!(reading.description.contains("50%"));
     }

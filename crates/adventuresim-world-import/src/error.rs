@@ -54,6 +54,8 @@ pub enum Error {
     },
     #[error("compiled world failed validation: {0}")]
     Validation(String),
+    #[error(transparent)]
+    TravelCoordinate(#[from] adventuresim_world_schema::InvalidTravelCoordinate),
     #[error("failed to serialize compiled world: {0}")]
     Json(#[from] serde_json::Error),
     #[error("world importer I/O failed: {0}")]

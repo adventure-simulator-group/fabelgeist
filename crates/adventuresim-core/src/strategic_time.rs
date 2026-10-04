@@ -1,20 +1,17 @@
 //! Pure calculations used by the strategic clock, training, and recovery systems.
 
+pub mod clock;
+
 use crate::{
     provisioning::STRATEGIC_TRAVEL_KCAL_PER_DAY,
     strategic_schedule::{DailySchedule, settlement_leisure_outcome},
 };
-#[cfg(test)]
-use adventuresim_world_schema::calendar::WORLD_START_DAY_OF_YEAR;
-use adventuresim_world_schema::calendar::{
-    MINUTES_PER_DAY, MINUTES_PER_YEAR, StrategicMinute, WORLD_START_MINUTE,
-};
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, MINUTES_PER_YEAR, StrategicMinute};
 
 pub const HOURS_PER_DAY: u16 = 24;
 pub const MINUTES_PER_HOUR: u16 = 60;
 /// Longest settlement rest request accepted by the shared strategic contract.
 pub const MAX_SETTLEMENT_REST_MINUTES: u64 = MINUTES_PER_YEAR;
-const REAL_MICROSECONDS_PER_STRATEGIC_YEAR: u128 = 7 * 24 * 60 * 60 * 1_000_000;
 const DAYLIGHT_START_MINUTE: u16 = 6 * 60;
 const DAYLIGHT_END_MINUTE: u16 = 20 * 60;
 pub const DEFAULT_WALKING_MINUTES_PER_DAY: u16 = 8 * 60;
@@ -378,39 +375,6 @@ pub fn party_travel_leg_minutes(
         .min()
 }
 
-/// Convert real elapsed time to authoritative strategic minutes.
-pub fn elapsed_official_minutes(epoch_micros: i64, now_micros: i64) -> u64 {
-    let elapsed_micros = now_micros.saturating_sub(epoch_micros).max(0) as u128;
-    // One real week advances exactly one strategic year.
-    (elapsed_micros.saturating_mul(u128::from(MINUTES_PER_YEAR))
-        / REAL_MICROSECONDS_PER_STRATEGIC_YEAR) as u64
-}
-
-/// Convert an official-minute duration to the wall-clock duration used by the
-/// authoritative strategic clock, rounding up to preserve the requested tick.
-pub fn real_micros_for_official_minutes(elapsed_minutes: u64) -> u128 {
-    (u128::from(elapsed_minutes) * REAL_MICROSECONDS_PER_STRATEGIC_YEAR)
-        .div_ceil(u128::from(MINUTES_PER_YEAR))
-}
-
-/// Convert wall-clock timestamps to the shared absolute strategic calendar.
-pub fn official_minute(epoch_micros: i64, now_micros: i64) -> StrategicMinute {
-    WORLD_START_MINUTE.saturating_add_minutes(elapsed_official_minutes(epoch_micros, now_micros))
-}
-
-/// Choose an epoch whose derived official clock is exactly `target_minutes`
-/// at `now_micros`. Developer tooling uses this to move a disposable world's
-/// wall clock alongside an explicitly advanced character without changing the
-/// production conversion rate.
-pub fn epoch_micros_for_official_minute(
-    now_micros: i64,
-    target_minute: StrategicMinute,
-) -> Option<i64> {
-    let elapsed_minutes = target_minute.elapsed_since(WORLD_START_MINUTE);
-    let elapsed_micros = real_micros_for_official_minutes(elapsed_minutes);
-    now_micros.checked_sub(i64::try_from(elapsed_micros).ok()?)
-}
-
 /// Sum the daily minutes assigned to training and labor activities.
 pub fn allocated_schedule_minutes<const N: usize>(daily_minutes: [u16; N]) -> u64 {
     daily_minutes.into_iter().map(u64::from).sum()
@@ -513,46 +477,6 @@ mod tests {
         assert!(StrategicMinuteOfDay::new(MINUTES_PER_DAY as u16).is_none());
         assert!(StrategicMinuteOfDay::from_hour_minute(HOURS_PER_DAY, 0).is_none());
         assert!(StrategicMinuteOfDay::from_hour_minute(0, MINUTES_PER_HOUR).is_none());
-    }
-
-    #[test]
-    fn one_real_week_is_one_game_year() {
-        let one_week_micros = i64::try_from(REAL_MICROSECONDS_PER_STRATEGIC_YEAR).unwrap();
-        assert_eq!(
-            elapsed_official_minutes(0, one_week_micros),
-            MINUTES_PER_YEAR
-        );
-        assert_eq!(
-            official_minute(0, one_week_micros),
-            WORLD_START_MINUTE.saturating_add_minutes(MINUTES_PER_YEAR)
-        );
-    }
-
-    #[test]
-    fn future_epoch_has_no_elapsed_official_minutes() {
-        assert_eq!(elapsed_official_minutes(2_000_000, 1_000_000), 0);
-    }
-
-    #[test]
-    fn initialized_world_starts_on_august_twentieth() {
-        const DAYS_BEFORE_AUGUST: u64 = 31 + 28 + 31 + 30 + 31 + 30 + 31;
-        assert_eq!(WORLD_START_DAY_OF_YEAR, DAYS_BEFORE_AUGUST + 19);
-        assert_eq!(official_minute(42, 42), WORLD_START_MINUTE);
-        assert_eq!(official_minute(42, 42).calendar_year().get(), 1544);
-    }
-
-    #[test]
-    fn developer_epoch_round_trips_exact_official_minutes() {
-        let now = 2_000_000_000_000_000_i64;
-        for target in [
-            WORLD_START_MINUTE,
-            WORLD_START_MINUTE.saturating_add_minutes(1),
-            WORLD_START_MINUTE.saturating_add_days(1),
-            WORLD_START_MINUTE.saturating_add_years(16),
-        ] {
-            let epoch = epoch_micros_for_official_minute(now, target).unwrap();
-            assert_eq!(official_minute(epoch, now), target);
-        }
     }
 
     #[test]

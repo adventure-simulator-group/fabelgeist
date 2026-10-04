@@ -1,186 +1,268 @@
-//! `.npz` archive reading (a zip of `.npy` members).
-//!
-//! `np.savez` writes stored members and `np.savez_compressed` writes deflated
-//! ones; both are handled, as is zip64, which NumPy emits for large arrays. The
-//! archive plumbing itself lives in [`crate::zip`].
+//! Array lookup retains exact NPZ keys and concrete archive/array causes.
 
-use std::path::Path;
+use crate::npy::{NpyArray, NpyDecodeError};
+use crate::zip::{
+    ArchiveMemberName, ArchiveMemberPresence, Entry, NpzArrayName, ZipArchive, ZipReadError,
+};
+use fabelgeist_fs::{FileContents, NativeFile};
+use fabelgeist_storage::StorageByteLength;
 
-use anyhow::{Context, Result};
+#[derive(Debug)]
+pub enum NpzArrayError {
+    Missing(NpzArrayName),
+    Read {
+        name: NpzArrayName,
+        source: Box<ZipReadError>,
+    },
+    Decode {
+        name: NpzArrayName,
+        source: NpyDecodeError,
+    },
+}
+impl std::fmt::Display for NpzArrayError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Missing(name) => write!(f, "archive has no array {name}"),
+            Self::Read { name, source } => write!(f, "reading array {name}: {source}"),
+            Self::Decode { name, source } => write!(f, "decoding array {name}: {source}"),
+        }
+    }
+}
+impl std::error::Error for NpzArrayError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::Missing(_) => None,
+            Self::Read { source, .. } => Some(source.as_ref()),
+            Self::Decode { source, .. } => Some(source),
+        }
+    }
+}
 
-use crate::npy::{self, NpyArray};
-use crate::zip::ZipArchive;
-
-/// A memory-mapped `.npz` archive.
 pub struct Npz {
     archive: ZipArchive,
 }
-
 impl Npz {
-    pub fn open(path: impl AsRef<Path>) -> Result<Self> {
+    pub fn open(file: &NativeFile) -> Result<Self, ZipReadError> {
         Ok(Self {
-            archive: ZipArchive::open(path)?,
+            archive: ZipArchive::open(file)?,
         })
     }
-
-    /// Opens an archive already loaded in memory, for browser and streamed assets.
-    pub fn from_bytes(bytes: Vec<u8>) -> Result<Self> {
+    pub fn from_bytes(bytes: FileContents) -> Result<Self, ZipReadError> {
         Ok(Self {
             archive: ZipArchive::from_bytes(bytes)?,
         })
     }
-
-    /// Member names, as stored (NumPy keeps the `.npy` suffix).
-    pub fn names(&self) -> impl Iterator<Item = &str> {
+    pub fn names(&self) -> impl Iterator<Item = &ArchiveMemberName> {
         self.archive.names()
     }
-
-    /// Array names, with the `.npy` suffix stripped.
-    pub fn keys(&self) -> impl Iterator<Item = &str> {
-        self.names()
-            .map(|name| name.strip_suffix(".npy").unwrap_or(name))
+    pub fn keys(&self) -> impl Iterator<Item = NpzArrayName> {
+        self.names().map(NpzArrayName::from)
     }
-
-    pub fn contains(&self, name: &str) -> bool {
-        self.archive.find(|member| matches(member, name)).is_some()
+    fn entry(&self, name: &NpzArrayName) -> Option<&Entry> {
+        self.archive.entries().find(|entry: &&Entry| -> bool {
+            name.matches(&entry.name) == ArchiveMemberPresence::Present
+        })
     }
-
-    /// Size of a member once decoded, without decoding it.
-    pub fn uncompressed_size(&self, name: &str) -> Option<u64> {
-        self.archive
-            .find(|member| matches(member, name))
-            .and_then(|entry| self.archive.uncompressed_size(&entry.name))
+    pub fn contains(&self, name: &NpzArrayName) -> ArchiveMemberPresence {
+        match self.entry(name) {
+            Some(_) => ArchiveMemberPresence::Present,
+            None => ArchiveMemberPresence::Absent,
+        }
     }
-
-    /// Decodes one member. The `.npy` suffix is optional.
-    pub fn array(&self, name: &str) -> Result<NpyArray> {
+    pub fn uncompressed_size(&self, name: &NpzArrayName) -> Option<StorageByteLength> {
+        self.entry(name)
+            .and_then(|entry: &Entry| -> Option<StorageByteLength> {
+                self.archive.uncompressed_size(&entry.name)
+            })
+    }
+    pub fn array(&self, name: &NpzArrayName) -> Result<NpyArray, NpzArrayError> {
         let entry = self
-            .archive
-            .find(|member| matches(member, name))
-            .with_context(|| format!("archive has no member {name:?}"))?;
-        let bytes = self.archive.entry_bytes(entry)?;
-        npy::parse(&bytes).with_context(|| format!("reading array {name:?}"))
+            .entry(name)
+            .ok_or_else(|| -> NpzArrayError { NpzArrayError::Missing(name.clone()) })?;
+        let bytes =
+            self.archive
+                .entry_bytes(entry)
+                .map_err(|source: ZipReadError| -> NpzArrayError {
+                    NpzArrayError::Read {
+                        name: name.clone(),
+                        source: Box::new(source),
+                    }
+                })?;
+        NpyArray::from_view(bytes.view()).map_err(|source: NpyDecodeError| -> NpzArrayError {
+            NpzArrayError::Decode {
+                name: name.clone(),
+                source,
+            }
+        })
     }
-}
-
-fn matches(member: &str, name: &str) -> bool {
-    member == name || member.strip_suffix(".npy") == Some(name)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::io::Write;
-
-    const END_OF_CENTRAL_DIRECTORY: u32 = 0x0605_4b50;
-    const CENTRAL_FILE_HEADER: u32 = 0x0201_4b50;
-    const LOCAL_FILE_HEADER: u32 = 0x0403_4b50;
-
-    /// Builds a minimal stored-member zip so the reader can be tested without
-    /// depending on an external archiver.
-    fn zip(members: &[(&str, Vec<u8>)]) -> Vec<u8> {
-        let mut out = Vec::new();
-        let mut directory = Vec::new();
-        for (name, payload) in members {
-            let offset = out.len() as u32;
-            let crc = 0u32;
-            out.extend_from_slice(&LOCAL_FILE_HEADER.to_le_bytes());
-            out.extend_from_slice(&[20, 0, 0, 0, 0, 0, 0, 0, 0, 0]); // version, flags, method, time, date
-            out.extend_from_slice(&crc.to_le_bytes());
-            out.extend_from_slice(&(payload.len() as u32).to_le_bytes());
-            out.extend_from_slice(&(payload.len() as u32).to_le_bytes());
-            out.extend_from_slice(&(name.len() as u16).to_le_bytes());
-            out.extend_from_slice(&0u16.to_le_bytes());
-            out.extend_from_slice(name.as_bytes());
-            out.write_all(payload).unwrap();
-
-            directory.extend_from_slice(&CENTRAL_FILE_HEADER.to_le_bytes());
-            directory.extend_from_slice(&[20, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-            directory.extend_from_slice(&crc.to_le_bytes());
-            directory.extend_from_slice(&(payload.len() as u32).to_le_bytes());
-            directory.extend_from_slice(&(payload.len() as u32).to_le_bytes());
-            directory.extend_from_slice(&(name.len() as u16).to_le_bytes());
-            directory.extend_from_slice(&[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-            directory.extend_from_slice(&offset.to_le_bytes());
-            directory.extend_from_slice(name.as_bytes());
-        }
-
-        let directory_offset = out.len() as u32;
-        let directory_size = directory.len() as u32;
-        out.extend_from_slice(&directory);
-        out.extend_from_slice(&END_OF_CENTRAL_DIRECTORY.to_le_bytes());
-        out.extend_from_slice(&[0, 0, 0, 0]);
-        out.extend_from_slice(&(members.len() as u16).to_le_bytes());
-        out.extend_from_slice(&(members.len() as u16).to_le_bytes());
-        out.extend_from_slice(&directory_size.to_le_bytes());
-        out.extend_from_slice(&directory_offset.to_le_bytes());
-        out.extend_from_slice(&[0, 0]);
-        out
-    }
-
-    fn write_temp(bytes: &[u8]) -> std::path::PathBuf {
-        let path = std::env::temp_dir().join(format!(
-            "fabelgeist-numpy-storage-{}.npz",
-            std::time::SystemTime::now()
-                .duration_since(std::time::UNIX_EPOCH)
-                .unwrap()
-                .as_nanos()
-        ));
-        std::fs::write(&path, bytes).unwrap();
-        path
-    }
-
+    use crate::npy::fixture::{FixtureShape, NpyFixture};
+    use crate::npy::{Dtype, NpyDimension};
+    use crate::zip::fixture::{
+        ArchiveFixture, FixtureCompression, FixtureDirectory, FixtureMember,
+    };
     #[test]
     fn reads_stored_members() {
-        let payload: Vec<u8> = [1.0f32, 2.0, 3.0, 4.0]
-            .iter()
-            .flat_map(|v| v.to_le_bytes())
-            .collect();
-        let archive = zip(&[
-            (
-                "weights.npy",
-                crate::npy::tests::encode("<f4", "2, 2", &payload),
-            ),
-            (
-                "indices.npy",
-                crate::npy::tests::encode(
-                    "<i8",
-                    "2,",
-                    &[7i64, 9]
-                        .iter()
-                        .flat_map(|v| v.to_le_bytes())
-                        .collect::<Vec<_>>(),
-                ),
-            ),
-        ]);
-
-        let path = write_temp(&archive);
-        let npz = Npz::open(&path).unwrap();
-        assert_eq!(npz.keys().collect::<Vec<_>>(), ["weights", "indices"]);
-        assert!(npz.contains("weights"));
-        assert!(npz.contains("weights.npy"));
-        assert!(!npz.contains("missing"));
-
-        let weights = npz.array("weights").unwrap();
-        assert_eq!(weights.shape, [2, 2]);
-        assert_eq!(weights.to_f32(), [1.0, 2.0, 3.0, 4.0]);
-        assert_eq!(npz.array("indices").unwrap().to_i64(), [7, 9]);
-
-        let memory_npz = Npz::from_bytes(archive).unwrap();
-        assert_eq!(
-            memory_npz.array("weights").unwrap().to_f32(),
-            [1.0, 2.0, 3.0, 4.0]
+        let mut payload = Vec::new();
+        for value in [1.0f32, 2.0, 3.0, 4.0] {
+            payload.extend_from_slice(&value.to_le_bytes());
+        }
+        let mut indices = Vec::new();
+        for value in [7i64, 9] {
+            indices.extend_from_slice(&value.to_le_bytes());
+        }
+        let archive = ArchiveFixture::from_members(
+            &[
+                FixtureMember {
+                    name: ArchiveMemberName::from("weights.npy"),
+                    payload: FileContents::from(
+                        NpyFixture::from_parts(
+                            Dtype::F32.into(),
+                            FixtureShape::from(vec![NpyDimension::from(2), NpyDimension::from(2)]),
+                            FileContents::from(payload),
+                        )
+                        .unwrap(),
+                    ),
+                    compression: FixtureCompression::Stored,
+                },
+                FixtureMember {
+                    name: ArchiveMemberName::from("indices.npy"),
+                    payload: FileContents::from(
+                        NpyFixture::from_parts(
+                            Dtype::I64.into(),
+                            FixtureShape::from(vec![NpyDimension::from(2)]),
+                            FileContents::from(indices),
+                        )
+                        .unwrap(),
+                    ),
+                    compression: FixtureCompression::Stored,
+                },
+            ],
+            FixtureDirectory::Ordinary,
         );
 
-        std::fs::remove_file(path).ok();
+        let mapped = archive.mapped();
+        let npz = Npz::open(&mapped.file).unwrap();
+        assert_eq!(
+            npz.keys().collect::<Vec<_>>(),
+            [NpzArrayName::from("weights"), NpzArrayName::from("indices")]
+        );
+        assert_eq!(
+            npz.contains(&NpzArrayName::from("weights")),
+            ArchiveMemberPresence::Present
+        );
+        assert_eq!(
+            npz.contains(&NpzArrayName::from("weights.npy")),
+            ArchiveMemberPresence::Present
+        );
+        assert_eq!(
+            npz.contains(&NpzArrayName::from("missing")),
+            ArchiveMemberPresence::Absent
+        );
+
+        let weights = npz.array(&NpzArrayName::from("weights")).unwrap();
+        assert_eq!(
+            weights.shape().dimensions(),
+            [
+                crate::npy::NpyDimension::from(2),
+                crate::npy::NpyDimension::from(2)
+            ]
+        );
+        assert_eq!(
+            Vec::<f32>::from(weights.floating_values()),
+            [1.0, 2.0, 3.0, 4.0]
+        );
+        assert_eq!(
+            Vec::<i64>::from(
+                npz.array(&NpzArrayName::from("indices"))
+                    .unwrap()
+                    .integer_values()
+            ),
+            [7, 9]
+        );
+
+        let memory_npz = Npz::from_bytes(archive.contents).unwrap();
+        assert_eq!(
+            Vec::<f32>::from(
+                memory_npz
+                    .array(&NpzArrayName::from("weights"))
+                    .unwrap()
+                    .floating_values()
+            ),
+            [1.0, 2.0, 3.0, 4.0]
+        );
     }
 
     #[test]
     fn reports_a_missing_member() {
-        let archive = zip(&[("a.npy", crate::npy::tests::encode("<f4", "1,", &[0; 4]))]);
-        let path = write_temp(&archive);
-        let npz = Npz::open(&path).unwrap();
-        assert!(npz.array("b").is_err());
-        std::fs::remove_file(path).ok();
+        let archive = ArchiveFixture::from_members(
+            &[FixtureMember {
+                name: ArchiveMemberName::from("a.npy"),
+                payload: FileContents::from(
+                    NpyFixture::from_parts(
+                        Dtype::F32.into(),
+                        FixtureShape::from(vec![NpyDimension::from(1)]),
+                        FileContents::from(vec![0; 4]),
+                    )
+                    .unwrap(),
+                ),
+                compression: FixtureCompression::Stored,
+            }],
+            FixtureDirectory::Ordinary,
+        );
+        let mapped = archive.mapped();
+        let npz = Npz::open(&mapped.file).unwrap();
+        assert!(npz.array(&NpzArrayName::from("b")).is_err());
+    }
+    #[test]
+    fn array_lookup_keeps_nested_member_and_decode_errors() {
+        let name = NpzArrayName::from("weights");
+        let fixture = ArchiveFixture::from_members(
+            &[FixtureMember {
+                name: ArchiveMemberName::from("weights.npy"),
+                payload: FileContents::from(b"not-numpy".to_vec()),
+                compression: FixtureCompression::Stored,
+            }],
+            FixtureDirectory::Ordinary,
+        );
+        let archive = Npz::from_bytes(fixture.contents).unwrap();
+        match archive.array(&name) {
+            Err(NpzArrayError::Decode {
+                name: original,
+                source: NpyDecodeError::Magic,
+            }) => assert_eq!(original, name),
+            _ => panic!("expected named NumPy decode failure"),
+        }
+        let fixture = ArchiveFixture::from_members(
+            &[FixtureMember {
+                name: ArchiveMemberName::from("weights.npy"),
+                payload: FileContents::from(vec![1, 2, 3]),
+                compression: FixtureCompression::Stored,
+            }],
+            FixtureDirectory::Ordinary,
+        );
+        let archive =
+            Npz::from_bytes(fixture.corrupted(crate::zip::fixture::FixtureFault::Checksum))
+                .unwrap();
+        match archive.array(&name) {
+            Err(NpzArrayError::Read {
+                name: original,
+                source,
+            }) => {
+                assert_eq!(original, name);
+                assert!(matches!(
+                    *source,
+                    ZipReadError::Member {
+                        source: crate::zip::ZipMemberError::Checksum { .. },
+                        ..
+                    }
+                ));
+            }
+            _ => panic!("expected named archive read failure"),
+        }
     }
 }

@@ -24,10 +24,12 @@ pub(super) fn append(
 ) -> Result<(), super::super::SceneInputError> {
     for building in buildings {
         let layout = furnish(&building.plan, &building.placement.program).map_err(|error| {
-            super::super::SceneInputError::Validation(format!(
-                "building {} interior: {error}",
-                building.placement.id,
-            ))
+            super::super::SceneInputError::Validation(
+                super::super::SceneValidationError::BuildingInterior {
+                    building: building.placement.id,
+                    source: error,
+                },
+            )
         })?;
         install(furniture, building, layout);
     }

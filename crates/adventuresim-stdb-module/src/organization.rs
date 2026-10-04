@@ -47,13 +47,13 @@ pub struct OrganizationPresentation {
 
 pub fn membership(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     organization_id: &str,
 ) -> Option<OrganizationMembership> {
     ctx.db
         .organization_membership()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .find(|row| row.organization_id == organization_id)
 }
 
@@ -131,12 +131,12 @@ include!("organization/membership.rs");
 
 pub fn active_membership(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     organization_id: &str,
 ) -> Result<OrganizationMembership, String> {
-    let row = membership(ctx, character_id, organization_id)
+    let row = membership(ctx, (character_id).into(), organization_id)
         .ok_or("Character is not a member of that organization")?;
-    if !membership_is_current(&row, current_minute(ctx, character_id)?) {
+    if !membership_is_current(&row, current_minute(ctx, (character_id).into())?) {
         return Err("Organization membership is suspended until dues are paid".into());
     }
     Ok(row)
@@ -240,11 +240,11 @@ fn requirements_met(
 
 fn require_local_chapter<'a>(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     organization_id: &str,
 ) -> Result<&'a OrganizationDefinition, String> {
     let definition = organization(organization_id).ok_or("Unknown organization")?;
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())?;
     let settlement_id = character
         .current_settlement_id
         .ok_or("Organization business may only be conducted in a settlement")?;
@@ -261,16 +261,17 @@ pub fn join_organization(
     organization_id: String,
     entry_role_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
-    crate::time::initialize_character_time(ctx, character_id)?;
-    crate::relationship::enforce_temporal_scope(
-        ctx,
-        character_id,
-        None,
-        crate::relationship::TemporalScope::Institutional,
-    )?;
-    let definition = require_local_chapter(ctx, character_id, &organization_id)?;
-    if membership(ctx, character_id, &organization_id).is_some() {
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::time::initialize_character_time(ctx, (character_id).into())
+        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
+    crate::relationship::TemporalScope::Institutional {
+        actor: (character_id).into(),
+    }
+    .enforce(ctx)
+    .map_err(|error: crate::relationship::TemporalScopeError| error.to_string())?;
+    let definition = require_local_chapter(ctx, (character_id).into(), &organization_id)?;
+    if membership(ctx, (character_id).into(), &organization_id).is_some() {
         return Ok(());
     }
     requirements_met(ctx, character_id, &definition.admission.requirements)?;
@@ -288,11 +289,11 @@ pub fn join_organization(
     if definition.admission.joining_fee > 0 {
         crate::item::consume_personal_currency(
             ctx,
-            character_id,
+            (character_id).into(),
             u64::from(definition.admission.joining_fee),
         )?;
     }
-    let minute = current_minute(ctx, character_id)?;
+    let minute = current_minute(ctx, (character_id).into())?;
     let paid_through = definition
         .dues
         .as_ref()
@@ -327,9 +328,10 @@ pub fn promote_organization_membership(
     organization_id: String,
     to_role_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
-    let definition = require_local_chapter(ctx, character_id, &organization_id)?;
-    active_membership(ctx, character_id, &organization_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    let definition = require_local_chapter(ctx, (character_id).into(), &organization_id)?;
+    active_membership(ctx, (character_id).into(), &organization_id)?;
     let assignment =
         crate::social_roles::assigned_organization_role(ctx, character_id, &organization_id)?;
     if !definition.can_transition(&assignment.role_id, &to_role_id) {
@@ -349,16 +351,17 @@ pub fn pay_organization_dues(
     character_id: u64,
     organization_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
-    let definition = require_local_chapter(ctx, character_id, &organization_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    let definition = require_local_chapter(ctx, (character_id).into(), &organization_id)?;
     let dues = definition
         .dues
         .as_ref()
         .ok_or("This organization charges no dues")?;
-    let mut row = membership(ctx, character_id, &organization_id)
+    let mut row = membership(ctx, (character_id).into(), &organization_id)
         .ok_or("Character is not a member of that organization")?;
-    crate::item::consume_personal_currency(ctx, character_id, u64::from(dues.amount))?;
-    let now = current_minute(ctx, character_id)?;
+    crate::item::consume_personal_currency(ctx, (character_id).into(), u64::from(dues.amount))?;
+    let now = current_minute(ctx, (character_id).into())?;
     let base = if membership_is_current(&row, now) {
         row.dues_paid_through_minute
     } else {
@@ -376,10 +379,12 @@ pub fn present_organization(
     character_id: u64,
     organization_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     let definition = organization(&organization_id).ok_or("Unknown organization")?;
-    active_membership(ctx, character_id, &organization_id)?;
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    active_membership(ctx, (character_id).into(), &organization_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let settlement_id = character
         .current_settlement_id
         .ok_or("An organization can only be presented in a settlement")?;
@@ -404,7 +409,7 @@ pub fn present_organization(
     } else {
         ctx.db.organization_presentation().insert(row);
     }
-    crate::equipment_law::enforce_equipment_compliance(ctx, character_id)?;
+    crate::equipment_law::enforce_equipment_compliance(ctx, (character_id).into())?;
     Ok(())
 }
 
@@ -413,23 +418,27 @@ pub fn clear_organization_presentation(
     ctx: &ReducerContext,
     character_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
     ctx.db
         .organization_presentation()
         .character_id()
         .delete(character_id);
-    crate::equipment_law::enforce_equipment_compliance(ctx, character_id)?;
+    crate::equipment_law::enforce_equipment_compliance(ctx, (character_id).into())?;
     Ok(())
 }
 
-pub fn settle_membership_dues(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    let now = current_minute(ctx, character_id)?;
+pub fn settle_membership_dues(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) -> Result<(), String> {
+    let now = current_minute(ctx, (character_id).into())?;
     let mut lapsed = Vec::new();
     for mut row in ctx
         .db
         .organization_membership()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
     {
         if row.status == OrganizationMembershipStatus::Active && now > row.dues_paid_through_minute
         {
@@ -439,26 +448,29 @@ pub fn settle_membership_dues(ctx: &ReducerContext, character_id: u64) -> Result
         }
     }
     if !lapsed.is_empty() {
-        reconcile_presentation(ctx, character_id)?;
+        reconcile_presentation(ctx, (character_id).into())?;
     }
     Ok(())
 }
 
-pub fn effective_presented_organization(ctx: &ReducerContext, character_id: u64) -> Option<String> {
+pub fn effective_presented_organization(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) -> Option<String> {
     let presentation = ctx
         .db
         .organization_presentation()
         .character_id()
-        .find(character_id)?;
-    let character = ctx.db.character().id().find(character_id)?;
+        .find(u64::from(character_id))?;
+    let character = ctx.db.character().id().find(u64::from(character_id))?;
     let settlement_id = character.current_settlement_id.as_deref()?;
     let definition = organization(&presentation.organization_id)?;
-    let membership = membership(ctx, character_id, &presentation.organization_id)?;
+    let membership = membership(ctx, (character_id).into(), &presentation.organization_id)?;
     let minute = ctx
         .db
         .character_time()
         .character_id()
-        .find(character_id)?
+        .find(u64::from(character_id))?
         .minutes;
     (definition.recognition.includes(settlement_id) && membership_is_current(&membership, minute))
         .then_some(presentation.organization_id)
@@ -466,19 +478,19 @@ pub fn effective_presented_organization(ctx: &ReducerContext, character_id: u64)
 
 fn globally_current_presented_organization(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
 ) -> Option<String> {
     let presentation = ctx
         .db
         .organization_presentation()
         .character_id()
-        .find(character_id)?;
-    let membership = membership(ctx, character_id, &presentation.organization_id)?;
+        .find(u64::from(character_id))?;
+    let membership = membership(ctx, (character_id).into(), &presentation.organization_id)?;
     let minute = ctx
         .db
         .character_time()
         .character_id()
-        .find(character_id)?
+        .find(u64::from(character_id))?
         .minutes;
     membership_is_current(&membership, minute).then_some(presentation.organization_id)
 }
@@ -489,29 +501,29 @@ fn globally_current_presented_organization(
 /// it.
 pub fn reconcile_presentation(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
 ) -> Result<Option<String>, String> {
-    let effective = effective_presented_organization(ctx, character_id);
-    if globally_current_presented_organization(ctx, character_id).is_none()
+    let effective = effective_presented_organization(ctx, (character_id).into());
+    if globally_current_presented_organization(ctx, (character_id).into()).is_none()
         && ctx
             .db
             .organization_presentation()
             .character_id()
-            .find(character_id)
+            .find(u64::from(character_id))
             .is_some()
     {
         ctx.db
             .organization_presentation()
             .character_id()
-            .delete(character_id);
+            .delete(u64::from(character_id));
     }
-    crate::equipment_law::enforce_equipment_compliance(ctx, character_id)?;
+    crate::equipment_law::enforce_equipment_compliance(ctx, (character_id).into())?;
     Ok(effective)
 }
 
 pub fn presented_privilege(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     settlement_id: &str,
     privilege: Privilege,
 ) -> bool {
@@ -519,7 +531,7 @@ pub fn presented_privilege(
         .db
         .organization_presentation()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
     else {
         return false;
     };
@@ -528,7 +540,7 @@ pub fn presented_privilege(
     };
     definition.recognition.includes(settlement_id)
         && definition.has_privilege(privilege)
-        && active_membership(ctx, character_id, &presentation.organization_id).is_ok()
+        && active_membership(ctx, (character_id).into(), &presentation.organization_id).is_ok()
 }
 
 /// Global presented privileges deliberately ignore current settlement and
@@ -539,13 +551,14 @@ pub fn global_presented_privilege(
     character_id: u64,
     privilege: Privilege,
 ) -> bool {
-    let Some(organization_id) = globally_current_presented_organization(ctx, character_id) else {
+    let Some(organization_id) = globally_current_presented_organization(ctx, (character_id).into())
+    else {
         return false;
     };
     let Some(definition) = organization(&organization_id) else {
         return false;
     };
-    let Some(membership) = membership(ctx, character_id, &organization_id) else {
+    let Some(membership) = membership(ctx, (character_id).into(), &organization_id) else {
         return false;
     };
     let Some(minute) = ctx
@@ -564,21 +577,21 @@ pub fn global_presented_privilege(
 
 pub fn require_activity_membership(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     organization_id: &str,
 ) -> Result<OrganizationMembership, String> {
-    require_local_chapter(ctx, character_id, organization_id)?;
-    active_membership(ctx, character_id, organization_id)
+    require_local_chapter(ctx, (character_id).into(), organization_id)?;
+    active_membership(ctx, (character_id).into(), organization_id)
 }
 
 pub fn increment_activity_accrual(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     organization_id: &str,
     apprenticeship: u64,
     practice: u64,
 ) {
-    if let Some(mut row) = membership(ctx, character_id, organization_id) {
+    if let Some(mut row) = membership(ctx, (character_id).into(), organization_id) {
         row.apprenticeship_minutes_accrued = row
             .apprenticeship_minutes_accrued
             .saturating_add(apprenticeship);

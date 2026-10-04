@@ -39,30 +39,30 @@ fn party_itinerary_members(
             .db
             .character_attributes()
             .character_id()
-            .find(member_id)
+            .find(u64::from(member_id))
             .ok_or("Party member attributes not found")?;
         let limbs = ctx
             .db
             .character_limbs()
             .character_id()
-            .find(member_id)
+            .find(u64::from(member_id))
             .ok_or("Party member limbs not found")?;
         let stats = ctx
             .db
             .character_stats()
             .character_id()
-            .find(member_id)
+            .find(u64::from(member_id))
             .ok_or("Party member stats not found")?;
         let schedule = ctx
             .db
             .character_training_schedule()
             .character_id()
-            .find(member_id)
+            .find(u64::from(member_id))
             .ok_or("Party member schedule not found")?;
         let allowed = crate::time::effective_location_schedule(
             &crate::time::allowed_camp_schedule(&schedule.downtime),
             adventuresim_core::activity::ActivityLocation::JourneyCamp,
-            member_id,
+            (member_id).into(),
         );
         members.push(ItineraryMember {
             fatigue_capacity: attributes
@@ -119,7 +119,11 @@ fn start_party_journey(
     departure_minute: StrategicMinute,
     route: Option<&JourneyRoutePlan>,
 ) -> Result<(), String> {
-    require_no_unresolved_encounter(ctx, &party.id)?;
+    require_no_unresolved_encounter(
+        ctx,
+        &adventuresim_core::identity::PartyId::try_new(party.id.clone())
+            .map_err(PendingEncounterError::PartyIdentity)?,
+    )?;
     if ctx
         .db
         .strategic_encounter()
@@ -302,7 +306,7 @@ pub(crate) fn current_journey_camp_place(
     }
     adventuresim_core::strategic_place::StrategicPlaceId::journey_camp(
         party_id,
-journey.departure_minute,
+        journey.departure_minute,
         journey.completed_movement_minutes,
     )
     .map_err(|_| "Journey camp has an invalid canonical identity".into())
@@ -377,7 +381,7 @@ fn train_party_terrain_movement(
     ctx: &ReducerContext,
     party_id: &str,
     movement_minutes: u64,
-) -> Result<std::collections::BTreeMap<u64, f32>, String> {
+) -> Result<std::collections::BTreeMap<adventuresim_core::identity::CharacterId, f32>, String> {
     let mut excess_by_character = std::collections::BTreeMap::new();
     if movement_minutes == 0 {
         return Ok(excess_by_character);
@@ -402,12 +406,17 @@ fn train_party_terrain_movement(
     let end = start.saturating_add(movement_minutes).min(route.minutes);
     let exposure = terrain_training_exposure(&route.spans, start, end, route.snow_cover_bps);
     for member_id in living_party_member_ids(ctx, party_id) {
-        if let Some(mut skills) = ctx.db.character_skills().character_id().find(member_id) {
+        if let Some(mut skills) = ctx
+            .db
+            .character_skills()
+            .character_id()
+            .find(u64::from(member_id))
+        {
             let attributes = ctx
                 .db
                 .character_attributes()
                 .character_id()
-                .find(member_id)
+                .find(u64::from(member_id))
                 .ok_or("Character attributes not found")?;
             let mut excess = 0.0;
             for (stored, skill, real_hours) in [
@@ -464,7 +473,7 @@ fn train_party_oral_communication(
     ctx: &ReducerContext,
     party_id: &str,
     movement_minutes: u64,
-) -> std::collections::BTreeMap<u64, f32> {
+) -> std::collections::BTreeMap<adventuresim_core::identity::CharacterId, f32> {
     let mut excess_by_character = std::collections::BTreeMap::new();
     if movement_minutes == 0 {
         return excess_by_character;
@@ -475,13 +484,13 @@ fn train_party_oral_communication(
             ctx.db
                 .character_skills()
                 .character_id()
-                .find(id)
+                .find(u64::from(id))
                 .map(|skills| {
                     let cap = ctx
                         .db
                         .character_attributes()
                         .character_id()
-                        .find(id)
+                        .find(u64::from(id))
                         .map_or(0.0, |attributes| attributes.instinct * 1_000.0);
                     (id, skills.oral_languages, cap)
                 })
@@ -492,12 +501,12 @@ fn train_party_oral_communication(
     let gains =
         adventuresim_world_schema::party_oral_training_gains_capped(&snapshot, interval_hours);
     for (id, language, hours) in gains {
-        if let Some(mut skills) = ctx.db.character_skills().character_id().find(id) {
+        if let Some(mut skills) = ctx.db.character_skills().character_id().find(u64::from(id)) {
             let instinct = ctx
                 .db
                 .character_attributes()
                 .character_id()
-                .find(id)
+                .find(u64::from(id))
                 .map_or(0.0, |attributes| attributes.instinct);
             let excess = adventuresim_core::skill::apply_language_training(
                 skills.oral_languages.direct_mut(language),
@@ -544,7 +553,7 @@ fn terrain_training_exposure(
 fn advance_party_movement(
     ctx: &ReducerContext,
     party_id: &str,
-    traveler_ids: &[u64],
+    traveler_ids: &[adventuresim_core::identity::CharacterId],
     requested_minutes: u64,
 ) -> Result<(u64, bool), String> {
     let disease_plan =
@@ -553,7 +562,7 @@ fn advance_party_movement(
     for member_id in traveler_ids {
         safe_prefixes.push(crate::time::preview_travel_time_in_plan(
             ctx,
-            *member_id,
+            (*member_id).into(),
             requested_minutes,
             &disease_plan,
         )?);
@@ -563,7 +572,7 @@ fn advance_party_movement(
         let mut all_survived = true;
         for (member_id, safe_prefix) in traveler_ids.iter().zip(safe_prefixes) {
             if zero_boundary_requires_settlement(actual_minutes, safe_prefix) {
-                all_survived &= settle_travel_boundary(ctx, *member_id)?;
+                all_survived &= settle_travel_boundary(ctx, (*member_id).into())?;
             }
         }
         return Ok((0, all_survived));
@@ -572,7 +581,7 @@ fn advance_party_movement(
     for member_id in traveler_ids.iter().copied() {
         all_survived &= crate::time::advance_travel_time_in_plan(
             ctx,
-            member_id,
+            (member_id).into(),
             actual_minutes,
             &disease_plan,
         )?;
@@ -584,7 +593,12 @@ fn advance_party_movement(
         *mastery_excess.entry(character_id).or_default() += excess;
     }
     for (character_id, excess) in mastery_excess {
-        crate::condition::record_mastery_training_morale(ctx, character_id, actual_minutes, excess);
+        crate::condition::record_mastery_training_morale(
+            ctx,
+            (character_id).into(),
+            actual_minutes,
+            excess,
+        );
     }
     advance_party_wilderness_elapsed(ctx, party_id, actual_minutes)?;
     Ok((actual_minutes, all_survived))
@@ -607,8 +621,7 @@ pub(crate) fn advance_party_wilderness_elapsed(
     if party.wilderness_canonical_anchor_minute.is_none() {
         return Err("Party wilderness clock is not initialized".into());
     }
-    party.wilderness_elapsed_minutes =
-        party.wilderness_elapsed_minutes.saturating_add(elapsed);
+    party.wilderness_elapsed_minutes = party.wilderness_elapsed_minutes.saturating_add(elapsed);
     ctx.db.party_authority().id().update(party);
     Ok(())
 }
@@ -860,49 +873,4 @@ pub(crate) fn route_position_at_minute(
         traversed = traversed.saturating_add(length);
     }
     route.points.last().map(coordinate)
-}
-
-fn unresolved_encounter(ctx: &ReducerContext, party_id: &str) -> Option<StrategicEncounter> {
-    ctx.db
-        .strategic_encounter()
-        .party_id()
-        .find(party_id.to_string())
-        .filter(|encounter| encounter.status == StrategicEncounterStatus::AwaitingChoice)
-}
-
-pub(crate) fn require_no_unresolved_encounter(
-    ctx: &ReducerContext,
-    party_id: &str,
-) -> Result<(), String> {
-    let party = ctx.db.party_authority().id().find(party_id.to_string());
-    let narrative_pending = party.as_ref().is_some_and(|party| {
-        ctx.db
-            .road_challenge_authority()
-            .party_id()
-            .filter(&party_id.to_string())
-            .any(|occurrence| {
-                occurrence.is_open() && party_at_bound_road_challenge(ctx, party, &occurrence)
-            })
-    });
-    if unresolved_encounter(ctx, party_id).is_some() || narrative_pending {
-        Err("Resolve the strategic encounter before changing or continuing travel".into())
-    } else {
-        Ok(())
-    }
-}
-
-pub(crate) fn require_character_no_unresolved_encounter(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<(), String> {
-    if let Some(party_id) = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .and_then(|character| character.party_id)
-    {
-        require_no_unresolved_encounter(ctx, &party_id)?;
-    }
-    Ok(())
 }

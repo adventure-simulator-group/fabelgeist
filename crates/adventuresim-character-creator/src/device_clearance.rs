@@ -7,10 +7,13 @@
 //! does; the carriers move one invocation each.
 
 use anyhow::Result;
-use fabelgeist_armor::gpu::device_error;
+use fabelgeist_gpu::prelude::BufferUpload;
+
 use fabelgeist_armor::{CuisseDesign, GreaveDesign, Millimeters, RerebraceDesign};
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::PassParameterName;
+use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_rig::RigJointMembership;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -118,28 +121,46 @@ impl DeviceWearer<'_> {
         let (extra, filtered) = match region {
             FitRegion::Hand(side) => (owned(FitRegion::Forearm(side)), 0u32),
             FitRegion::LowerLeg(side) => (owned(FitRegion::Foot(side)), 1),
-            _ => (vec![0; primary.len()], 0),
+            _ => (vec![RigJointMembership::Excluded; primary.len()], 0),
         };
         let mut parameters = PassParameters::new();
-        parameters.insert("count", self.body.vertex_count);
-        parameters.insert("filtered", filtered);
-        parameters.insert("pad1", 0u32);
-        parameters.insert("pad2", 0u32);
-        parameters.insert("positions", self.body.positions.clone());
-        parameters.insert("joint_indices", self.body.joint_indices.clone());
-        parameters.insert("joint_weights", self.body.joint_weights.clone());
-        parameters.insert("primary", self.gpu.upload(&primary)?);
-        parameters.insert("extra", self.gpu.upload(&extra)?);
-        parameters.insert("frames", frame.frame.clone());
-        parameters.insert("support", support.clone());
+        parameters.insert("count".into(), (self.body.vertex_count).into());
+        parameters.insert("filtered".into(), (filtered).into());
+        parameters.insert("pad1".into(), (0u32).into());
+        parameters.insert("pad2".into(), (0u32).into());
+        parameters.insert("positions".into(), (self.body.positions.clone()).into());
+        parameters.insert(
+            "joint_indices".into(),
+            (self.body.joint_indices.clone()).into(),
+        );
+        parameters.insert(
+            "joint_weights".into(),
+            (self.body.joint_weights.clone()).into(),
+        );
+        parameters.insert(
+            "primary".into(),
+            (self.gpu.upload(BufferUpload::from_elements(
+                &primary.into_iter().map(u32::from).collect::<Vec<_>>(),
+            ))?)
+            .into(),
+        );
+        parameters.insert(
+            "extra".into(),
+            (self.gpu.upload(BufferUpload::from_elements(
+                &extra.into_iter().map(u32::from).collect::<Vec<_>>(),
+            ))?)
+            .into(),
+        );
+        parameters.insert("frames".into(), (frame.frame.clone()).into());
+        parameters.insert("support".into(), (support.clone()).into());
         let kernel = self
             .gpu
             .cache()
-            .get(self.gpu.context(), &support_source())
-            .map_err(device_error)?;
+            .get(self.gpu.context(), &ShaderSource::from(support_source()))
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.body.vertex_count)
-            .map_err(device_error)?;
+            .dispatch_items(&kernel, &parameters, (self.body.vertex_count).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         Ok(())
     }
 
@@ -153,7 +174,10 @@ impl DeviceWearer<'_> {
         status: &Buffer,
     ) -> Result<()> {
         let gpu = self.gpu;
-        let support = gpu.scratch(self.body.vertex_count as u64 * 4, "clearance support")?;
+        let support = gpu.scratch(
+            (self.body.vertex_count as u64 * 4).into(),
+            ("clearance support").into(),
+        )?;
         self.record_support(batch, fit.region, frame, &support)?;
         let half_width = if matches!(fit.region, FitRegion::UpperArm(_) | FitRegion::LowerLeg(_)) {
             UPPER_ARM_STATION_HALF_WIDTH_M
@@ -162,47 +186,53 @@ impl DeviceWearer<'_> {
         };
         let (style, words) = style_words(fit.style);
         let sections = gpu.scratch(
-            STATIONS as u64 * SECTION_WORDS as u64 * 4,
-            "clearance sections",
+            (STATIONS as u64 * SECTION_WORDS as u64 * 4).into(),
+            ("clearance sections").into(),
         )?;
         let scratch = gpu.scratch(
-            STATIONS as u64 * STATION_CAPACITY as u64 * 12,
-            "clearance section samples",
+            (STATIONS as u64 * STATION_CAPACITY as u64 * 12).into(),
+            ("clearance section samples").into(),
         )?;
         let mut parameters = PassParameters::new();
-        parameters.insert("count", self.body.vertex_count);
-        parameters.insert("carriers_count", fit.count);
-        parameters.insert("cuff", fit.cuff);
-        parameters.insert("style", style);
-        parameters.insert("hand", u32::from(matches!(fit.region, FitRegion::Hand(_))));
-        parameters.insert("pad0", 0u32);
-        parameters.insert("pad1", 0u32);
-        parameters.insert("pad2", 0u32);
-        parameters.insert("half_width", half_width);
-        parameters.insert("gap", fit.clearance + fit.thickness + FIT_MARGIN_M);
-        parameters.insert("pad3", 0.0f32);
-        parameters.insert("pad4", 0.0f32);
+        parameters.insert("count".into(), (self.body.vertex_count).into());
+        parameters.insert("carriers_count".into(), (fit.count).into());
+        parameters.insert("cuff".into(), (fit.cuff).into());
+        parameters.insert("style".into(), (style).into());
+        parameters.insert(
+            "hand".into(),
+            (u32::from(matches!(fit.region, FitRegion::Hand(_)))).into(),
+        );
+        parameters.insert("pad0".into(), (0u32).into());
+        parameters.insert("pad1".into(), (0u32).into());
+        parameters.insert("pad2".into(), (0u32).into());
+        parameters.insert("half_width".into(), (half_width).into());
+        parameters.insert(
+            "gap".into(),
+            (fit.clearance + fit.thickness + FIT_MARGIN_M).into(),
+        );
+        parameters.insert("pad3".into(), (0.0f32).into());
+        parameters.insert("pad4".into(), (0.0f32).into());
         for (i, word) in words.iter().enumerate() {
-            parameters.insert(format!("style{i}"), *word);
+            parameters.insert(PassParameterName::from(format!("style{i}")), (*word).into());
         }
-        parameters.insert("positions", self.body.positions.clone());
-        parameters.insert("support", support);
-        parameters.insert("frames", frame.frame.clone());
-        parameters.insert("sections", sections);
-        parameters.insert("samples", scratch);
-        parameters.insert("carriers", carriers.clone());
-        parameters.insert("status", status.clone());
+        parameters.insert("positions".into(), (self.body.positions.clone()).into());
+        parameters.insert("support".into(), (support).into());
+        parameters.insert("frames".into(), (frame.frame.clone()).into());
+        parameters.insert("sections".into(), (sections).into());
+        parameters.insert("samples".into(), (scratch).into());
+        parameters.insert("carriers".into(), (carriers.clone()).into());
+        parameters.insert("status".into(), (status.clone()).into());
         let compile = |entry: &str| {
             gpu.cache()
-                .get(gpu.context(), &fit_source(entry))
-                .map_err(device_error)
+                .get(gpu.context(), &ShaderSource::from(fit_source(entry)))
+                .map_err(fabelgeist_armor::GenerateError::from)
         };
         batch
-            .dispatch(&*compile(SECTIONS)?, &parameters, [STATIONS, 1, 1])
-            .map_err(device_error)?;
+            .dispatch(&*compile(SECTIONS)?, &parameters, ([STATIONS, 1, 1]).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         batch
-            .dispatch_items(&*compile(FIT)?, &parameters, fit.count)
-            .map_err(device_error)?;
+            .dispatch_items(&*compile(FIT)?, &parameters, (fit.count).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         Ok(())
     }
 }

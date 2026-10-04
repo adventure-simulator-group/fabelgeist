@@ -1,3 +1,4 @@
+use crate::scene_input::SceneValidationError;
 use adventuresim_building_generator::{
     BuildingArchetype, BuildingCollision, BuildingPlan, BuildingProgram,
 };
@@ -194,15 +195,15 @@ pub(super) fn validate_building_placements(
     placements: &[TacticalBuildingPlacement],
 ) -> Result<(), SceneInputError> {
     if placements.len() > MAX_TACTICAL_BUILDINGS {
-        return invalid("scene has too many tactical buildings");
+        return invalid(SceneValidationError::BuildingCount);
     }
     let mut ids = std::collections::BTreeSet::new();
     for placement in placements {
         if placement.id == 0 || !ids.insert(placement.id) {
-            return invalid("building identity is zero or duplicated");
+            return invalid(SceneValidationError::BuildingIdentity);
         }
         if !placement.centre_metres.is_finite() || !placement.orientation.is_valid() {
-            return invalid("building placement is invalid");
+            return invalid(SceneValidationError::BuildingPlacement);
         }
     }
     Ok(())
@@ -212,18 +213,18 @@ pub(super) fn validate_distant_building_placements(
     placements: &[DistantBuildingPlacement],
 ) -> Result<(), SceneInputError> {
     if placements.len() > MAX_CITY_BUILDING_INSTANCES {
-        return invalid("scene has too many distant buildings");
+        return invalid(SceneValidationError::DistantBuildingCount);
     }
     let mut ids = std::collections::BTreeSet::new();
     for placement in placements {
         if placement.id == 0 || !ids.insert(placement.id) {
-            return invalid("distant building identity is zero or duplicated");
+            return invalid(SceneValidationError::DistantBuildingIdentity);
         }
         if !placement.centre_metres.is_finite()
             || !placement.base_elevation_metres.is_finite()
             || !placement.orientation.is_valid()
         {
-            return invalid("distant building placement is invalid");
+            return invalid(SceneValidationError::DistantBuildingPlacement);
         }
     }
     Ok(())
@@ -244,10 +245,10 @@ pub(super) fn prepare_buildings(
                     super::GeneratedBuildingRecipe::generate(placement.program.clone())
                 })
                 .map_err(|error| {
-                    SceneInputError::Validation(format!(
-                        "building {} program is invalid: {error}",
-                        placement.id
-                    ))
+                    SceneInputError::Validation(SceneValidationError::BuildingProgram {
+                        building: placement.id,
+                        source: error,
+                    })
                 })?;
             Ok(GeneratedBuilding {
                 placement,
@@ -288,9 +289,10 @@ pub(super) fn validate_building_pads(
                 other_half_extents,
                 other_orientation,
             ) {
-                return invalid(format!(
-                    "building {id} footprint overlaps building {other_id}"
-                ));
+                return invalid(SceneValidationError::BuildingOverlap {
+                    building: id,
+                    other: other_id,
+                });
             }
         }
     }

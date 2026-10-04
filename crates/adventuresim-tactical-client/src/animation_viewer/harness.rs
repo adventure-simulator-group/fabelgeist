@@ -111,7 +111,8 @@ impl ArmorHarness {
         self,
     ) -> impl Iterator<Item = (&'static ItemDefinition, &'static EquipmentPlacement)> {
         self.item_ids().flat_map(|item_id| {
-            let definition = item_catalog::definition(item_id).expect("authored harness item");
+            let definition =
+                item_catalog::definition(&(item_id).into()).expect("authored harness item");
             definition
                 .equipment
                 .as_ref()
@@ -451,11 +452,12 @@ mod tests {
                         } = &occupancy.anchor
                         {
                             Some(adventuresim_core::equipment::EquipmentGraphEdge {
-                                parent_inventory_item_id: previous
+                                parent_inventory_item_id: (previous
                                     .iter()
                                     .position(|(_, entity, _)| entity == parent)
                                     .unwrap()
-                                    as u64,
+                                    as u64)
+                                    .into(),
                                 attachment_point_id: attachment_point_id.clone(),
                                 capacity_index: occupancy.capacity_index,
                             })
@@ -466,7 +468,7 @@ mod tests {
                     .collect();
                 graph
                     .equip(
-                        index as u64,
+                        (index as u64).into(),
                         EquipmentGraphPlacement {
                             body: placement.occupancy.clone(),
                             parents,

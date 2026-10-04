@@ -1,5 +1,6 @@
 //! Curved shield panels and their shared fitting dimensions.
 use super::*;
+use crate::ConstructionError;
 mod fittings;
 mod panels;
 #[cfg(test)]
@@ -108,7 +109,7 @@ impl<'a> Shield<'a> {
             0.0
         }
     }
-    pub(super) fn grip(&self) -> Result<Point, String> {
+    pub(super) fn grip(&self) -> Result<Point, ConstructionError> {
         let layout = self.layout(Detail::High)?;
         let (body, _) = self.body(Detail::High)?;
         self.handle_center(&body, &layout)
@@ -129,7 +130,7 @@ impl<'a> Shield<'a> {
         &self,
         r: &ResolvedComponent,
         detail: Detail,
-    ) -> Result<Vec<PartSource>, String> {
+    ) -> Result<Vec<PartSource>, ConstructionError> {
         let (body, outline) = self.body(detail)?;
         let mut parts = self.fittings(r, &body, detail)?;
         parts.insert(

@@ -219,7 +219,7 @@ struct DirectControlQueries<'w, 's> {
 }
 
 #[derive(Resource, Debug, Clone, Copy, Default)]
-struct LocalInputTick(u32);
+struct LocalInputTick(InputTick);
 
 fn update_direct_control_input(
     time: Res<Time>,
@@ -564,12 +564,12 @@ fn update_direct_control_input(
         && (space_just_released && controls.space_jump_armed && !raised
             || (!left_trigger && !left_thumb && right_trigger_just_pressed));
     if jump_requested || quickstep_requested {
-        controls.jump_command.sequence = controls.jump_command.sequence.wrapping_add(1);
+        controls.jump_command.sequence = controls.jump_command.sequence.next();
         controls.jump_command.quickstep = quickstep_requested.then_some(quickstep_direction);
         if quickstep_requested {
             info!(
                 target: "quickstep_trace",
-                sequence = controls.jump_command.sequence,
+                sequence = %controls.jump_command.sequence,
                 direction = ?quickstep_direction,
                 raised,
                 quickstep_grounded,
@@ -660,7 +660,7 @@ fn announce_join(
     credential: Res<ReconnectCredential>,
 ) {
     info!("[startup] tactical network connected; announcing join");
-    let character_id = CharacterId(client.player_id);
+    let character_id = CharacterId::from(client.player_id);
     commands.client_trigger(JoinRequest {
         character_id,
         reconnect_token: credential
@@ -680,7 +680,7 @@ fn send_player_input(
     scripted: Res<PlayerInputOverride>,
 ) {
     let simulation_tick = input_tick.0;
-    input_tick.0 = input_tick.0.wrapping_add(1);
+    input_tick.0 = input_tick.0.next();
     for (actions, look) in &players {
         if let Some(mut request) = scripted.0 {
             request.simulation_tick = simulation_tick;
@@ -707,7 +707,7 @@ fn send_player_input(
 }
 
 fn queue_posture_action(controls: &mut DirectControlState, action: PostureActionRequest) {
-    controls.posture_command.sequence = controls.posture_command.sequence.wrapping_add(1);
+    controls.posture_command.sequence = controls.posture_command.sequence.next();
     controls.posture_command.action = Some(action);
 }
 
@@ -739,10 +739,11 @@ mod tests {
 
     #[test]
     fn reconnect_credential_is_process_owned_not_transport_owned() {
-        let credential = ReconnectCredential(Some((CharacterId(42), ReconnectToken([5; 32]))));
+        let credential =
+            ReconnectCredential(Some((CharacterId::from(42), ReconnectToken([5; 32]))));
         // A transport state transition does not recreate App resources; the
         // same contract is compiled for native and wasm clients.
-        assert_eq!(credential.0.unwrap().0, CharacterId(42));
+        assert_eq!(credential.0.unwrap().0, CharacterId::from(42));
         assert_eq!(credential.0.unwrap().1, ReconnectToken([5; 32]));
     }
 
@@ -955,7 +956,7 @@ mod tests {
         assert_eq!(
             world.resource::<DirectControlState>().posture_command,
             PostureCommand {
-                sequence: 1,
+                sequence: 1.into(),
                 action: Some(PostureActionRequest::Toggle),
             }
         );
@@ -982,7 +983,7 @@ mod tests {
         assert_eq!(
             world.resource::<DirectControlState>().posture_command,
             PostureCommand {
-                sequence: 1,
+                sequence: 1.into(),
                 action: Some(PostureActionRequest::Dive {
                     animation_direction: DiveDirection::Forward,
                     travel_direction: DiveDirection::Left,
@@ -1001,7 +1002,7 @@ mod tests {
                 .resource::<DirectControlState>()
                 .posture_command
                 .sequence,
-            1
+            1.into()
         );
     }
 
@@ -1022,7 +1023,7 @@ mod tests {
         assert_eq!(
             world.resource::<DirectControlState>().posture_command,
             PostureCommand {
-                sequence: 1,
+                sequence: 1.into(),
                 action: Some(PostureActionRequest::RollLeft),
             }
         );
@@ -1072,7 +1073,7 @@ mod tests {
                 .resource::<DirectControlState>()
                 .posture_command
                 .sequence,
-            1
+            1.into()
         );
 
         {
@@ -1086,7 +1087,7 @@ mod tests {
                 .resource::<DirectControlState>()
                 .posture_command
                 .sequence,
-            1
+            1.into()
         );
 
         assert!(
@@ -1107,7 +1108,7 @@ mod tests {
                 .resource::<DirectControlState>()
                 .posture_command
                 .sequence,
-            1
+            1.into()
         );
 
         world
@@ -1118,7 +1119,7 @@ mod tests {
         assert_eq!(
             world.resource::<DirectControlState>().posture_command,
             PostureCommand {
-                sequence: 2,
+                sequence: 2.into(),
                 action: Some(PostureActionRequest::RollRight),
             }
         );
@@ -1134,7 +1135,7 @@ mod tests {
         assert!(world.resource::<DirectControlState>().jump_charge);
         assert_eq!(
             world.resource::<DirectControlState>().jump_command.sequence,
-            0
+            0.into()
         );
 
         {
@@ -1146,7 +1147,7 @@ mod tests {
         assert!(!world.resource::<DirectControlState>().jump_charge);
         assert_eq!(
             world.resource::<DirectControlState>().jump_command.sequence,
-            1
+            1.into()
         );
     }
 
@@ -1164,7 +1165,7 @@ mod tests {
         let controls = world.resource::<DirectControlState>();
         assert!(!controls.dodge_just_pressed);
         assert!(!controls.jump_charge);
-        assert_eq!(controls.jump_command.sequence, 0);
+        assert_eq!(controls.jump_command.sequence, 0.into());
 
         {
             let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
@@ -1176,7 +1177,7 @@ mod tests {
         let controls = world.resource::<DirectControlState>();
         assert!(!controls.dodge_just_pressed);
         assert!(!controls.jump_charge);
-        assert_eq!(controls.jump_command.sequence, 0);
+        assert_eq!(controls.jump_command.sequence, 0.into());
         assert_eq!(controls.jump_command.quickstep, None);
     }
 
@@ -1192,7 +1193,7 @@ mod tests {
         schedule.run(&mut world);
         assert_eq!(
             world.resource::<DirectControlState>().jump_command.sequence,
-            0
+            0.into()
         );
 
         world
@@ -1211,7 +1212,7 @@ mod tests {
 
         let controls = world.resource::<DirectControlState>();
         assert!(!controls.dodge_just_pressed);
-        assert_eq!(controls.jump_command.sequence, 1);
+        assert_eq!(controls.jump_command.sequence, 1.into());
         assert_eq!(controls.jump_command.quickstep, None);
     }
 
@@ -1228,7 +1229,7 @@ mod tests {
         assert!(!world.resource::<DirectControlState>().dodge_just_pressed);
         assert_eq!(
             world.resource::<DirectControlState>().jump_command.sequence,
-            0
+            0.into()
         );
 
         {
@@ -1265,7 +1266,7 @@ mod tests {
 
         let controls = world.resource::<DirectControlState>();
         assert!(controls.dodge_just_pressed);
-        assert_eq!(controls.jump_command.sequence, 1);
+        assert_eq!(controls.jump_command.sequence, 1.into());
         assert_eq!(controls.jump_command.quickstep, Some(Vec2::X));
         assert!(!controls.jump_charge);
     }
@@ -1291,7 +1292,7 @@ mod tests {
 
         let controls = world.resource::<DirectControlState>();
         assert!(!controls.dodge_just_pressed);
-        assert_eq!(controls.jump_command.sequence, 1);
+        assert_eq!(controls.jump_command.sequence, 1.into());
         assert_eq!(controls.jump_command.quickstep, Some(Vec2::Y));
 
         let player = world
@@ -1304,7 +1305,7 @@ mod tests {
         assert!(!world.resource::<DirectControlState>().dodge_just_pressed);
         assert_eq!(
             world.resource::<DirectControlState>().jump_command.sequence,
-            1
+            1.into()
         );
 
         world
@@ -1315,7 +1316,7 @@ mod tests {
 
         let controls = world.resource::<DirectControlState>();
         assert!(controls.dodge_just_pressed);
-        assert_eq!(controls.jump_command.sequence, 2);
+        assert_eq!(controls.jump_command.sequence, 2.into());
         assert_eq!(controls.jump_command.quickstep, Some(Vec2::Y));
     }
 
@@ -1332,7 +1333,7 @@ mod tests {
         assert!(!world.resource::<DirectControlState>().dodge_just_pressed);
         assert_eq!(
             world.resource::<DirectControlState>().jump_command.sequence,
-            0
+            0.into()
         );
 
         world
@@ -1345,7 +1346,7 @@ mod tests {
 
         let controls = world.resource::<DirectControlState>();
         assert!(controls.dodge_just_pressed);
-        assert_eq!(controls.jump_command.sequence, 1);
+        assert_eq!(controls.jump_command.sequence, 1.into());
         assert_eq!(controls.jump_command.quickstep, Some(Vec2::NEG_Y));
     }
 
@@ -1420,7 +1421,7 @@ mod tests {
             assert_eq!(
                 world.resource::<DirectControlState>().posture_command,
                 PostureCommand {
-                    sequence: 1,
+                    sequence: 1.into(),
                     action: Some(PostureActionRequest::Dive {
                         animation_direction: DiveDirection::Forward,
                         travel_direction,
@@ -1442,7 +1443,7 @@ mod tests {
                     .resource::<DirectControlState>()
                     .posture_command
                     .sequence,
-                1
+                1.into()
             );
         }
     }
@@ -1480,7 +1481,7 @@ mod tests {
                 .resource::<DirectControlState>()
                 .posture_command
                 .sequence,
-            1
+            1.into()
         );
     }
 

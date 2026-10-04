@@ -13,5 +13,5 @@
 pub mod animation;
 pub mod skeleton;
 
-pub use animation::{Animation, JointTransform, LocalPose, model_pose, rest_pose};
+pub use animation::{Animation, JointTransform, LocalPose, ModelPose, model_pose, rest_pose};
 pub use skeleton::{Joint, JointInfo, Skeleton, build_skinning_matrices};

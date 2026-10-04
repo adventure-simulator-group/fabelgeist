@@ -12,6 +12,38 @@ fn container_cooking_is_distinct_from_loose_roasting() {
 }
 
 #[test]
+fn persisted_fireplace_fixture_keeps_decode_cause_and_rejects_other_fixture_roles() {
+    use adventuresim_core::strategic_place::PlaceIdentityError;
+    use std::error::Error as _;
+
+    let error = parse_persisted_fireplace_fixture("malformed").unwrap_err();
+    assert!(matches!(error, FireplaceCustodyError::Fixture(_)));
+    assert!(
+        error
+            .source()
+            .unwrap()
+            .downcast_ref::<PlaceIdentityError>()
+            .is_some()
+    );
+
+    let place = StrategicPlaceId::settlement_venue(
+        "riverdale",
+        adventuresim_core::strategic_place::SettlementVenueKind::Inn,
+    )
+    .unwrap();
+    let fireplace = StrategicFixtureId::fireplace(place.clone()).unwrap();
+    assert_eq!(
+        parse_persisted_fireplace_fixture(&fireplace.to_string()).unwrap(),
+        fireplace
+    );
+    let other = StrategicFixtureId::service(place).unwrap();
+    assert!(matches!(
+        parse_persisted_fireplace_fixture(&other.to_string()),
+        Err(FireplaceCustodyError::NonFireplaceFixture)
+    ));
+}
+
+#[test]
 fn vessel_selection_uses_direct_authoritative_food_lots() {
     let source = crate::production_source(crate::food::FOOD_SOURCE);
     let reducer = source
@@ -99,11 +131,14 @@ fn fireplace_authority_is_private_location_bound_and_race_safe() {
 #[test]
 fn camp_departure_and_retrieval_cleanup_enforce_fireplace_custody() {
     let food_source = crate::production_source(crate::food::FOOD_SOURCE);
-    let travel_source = crate::production_source(include_str!("../../strategic/travel_reducers.rs"));
+    let travel_source =
+        crate::production_source(include_str!("../../strategic/travel_reducers.rs"));
     assert!(travel_source.contains("require_clear_current_camp_fireplace"));
-    assert!(food_source.contains(
+    assert!(food_source.contains("Err(FireplaceCustodyError::OccupiedCamp)"));
+    assert_eq!(
+        FireplaceCustodyError::OccupiedCamp.to_string(),
         "Retrieve every dish and remove every cooking instrument before breaking camp"
-    ));
+    );
     let retrieval = food_source
         .split("pub fn retrieve_fireplace_dish")
         .nth(1)
@@ -120,14 +155,17 @@ fn dish_retrieval_is_bound_to_immutable_source_custody() {
         &adventuresim_core::physical_object::OperationalCustody::party("party-before-transfer")
             .unwrap(),
     );
-    let expected =
-        OperationalCustody::party("party-before-transfer").map_err(|error| error.to_string());
-    assert_eq!(dish_inventory_destination(&party_source, 7), expected);
+    let expected = OperationalCustody::party("party-before-transfer")
+        .map_err(crate::object_custody::ObjectCustodyError::from);
+    assert_eq!(
+        crate::object_custody::carried_destination(&party_source, 7.into()),
+        expected
+    );
 
     let personal_source = crate::object_custody::encode_custody(
-        &adventuresim_core::physical_object::OperationalCustody::character(7).unwrap(),
+        &adventuresim_core::physical_object::OperationalCustody::character((7).into()).unwrap(),
     );
-    assert!(dish_inventory_destination(&personal_source, 8).is_err());
+    assert!(crate::object_custody::carried_destination(&personal_source, 8.into()).is_err());
 }
 
 #[test]

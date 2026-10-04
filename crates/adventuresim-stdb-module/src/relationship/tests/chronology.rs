@@ -24,35 +24,26 @@ fn npc_policy_uses_the_single_character_clock_and_central_lifecycle_hook() {
 
 #[test]
 fn soft_scope_never_reads_or_synchronizes_the_target_clock() {
-    let source = crate::production_source(crate::relationship::RELATIONSHIP_SOURCE);
-    let guard = source
-        .split("pub fn enforce_temporal_scope")
-        .nth(1)
-        .unwrap()
-        .split("pub enum KinshipKind")
-        .next()
-        .unwrap();
+    let source = crate::production_source(include_str!("../temporal_scope.rs"));
+    let guard = source.split("pub(crate) fn enforce(").nth(1).unwrap();
     let soft = guard
-        .split("TemporalScope::ActorLocal")
+        .split("Self::ActorLocal")
         .nth(1)
         .unwrap()
-        .split("TemporalScope::NpcCanonical")
+        .split("Self::NpcCanonical")
         .next()
         .unwrap();
-    assert!(!soft.contains("canonical_now(ctx, target_id)"));
+    assert!(soft.contains("Ok(actor_minute)"));
+    assert!(!soft.contains("canonical_now("));
+    assert!(!soft.contains(".db"));
     assert!(!soft.contains("synchronize"));
 }
 
 #[test]
 fn exclusive_scope_and_weddings_use_canonical_world_time() {
     let source = crate::production_source(crate::relationship::RELATIONSHIP_SOURCE);
-    let guard = source
-        .split("pub fn enforce_temporal_scope")
-        .nth(1)
-        .unwrap()
-        .split("pub enum KinshipKind")
-        .next()
-        .unwrap();
+    let policy = crate::production_source(include_str!("../temporal_scope.rs"));
+    let guard = policy.split("pub(crate) fn enforce(").nth(1).unwrap();
     assert!(guard.contains("crate::time::refresh_clock(ctx)"));
     assert!(!guard.contains("actor_minute.max(target_minute)"));
     let wedding = source
@@ -75,7 +66,8 @@ fn representative_soft_actions_guard_scope_without_target_clock_writes() {
         include_str!("../../strategic/inventory_trade.rs"),
         include_str!("../../residence.rs"),
     ] {
-        assert!(source.contains("enforce_temporal_scope"));
+        assert!(source.contains("TemporalScope::"));
+        assert!(source.contains(".enforce(ctx)"));
     }
     let dialogue = crate::production_source(include_str!("../../strategic/dialogue_sessions.rs"));
     let guarded = dialogue

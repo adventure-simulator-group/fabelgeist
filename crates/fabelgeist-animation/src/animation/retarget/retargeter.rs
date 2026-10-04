@@ -24,12 +24,15 @@
 //! intermediate bones and extra target bones both behave: the chain still
 //! accumulates through them, and they stay in a valid pose.
 
+use super::RetargetError;
+use super::chain::{ChainPosition, ChainPresence, RigJointChain, SourceChainOrdinal};
+use crate::animation::ModelPose;
 use crate::animation::{
     Animation, Curve, JointTrack, JointTransform, LocalPose, RootMotion, model_pose, rest_pose,
 };
 use crate::skeleton::Skeleton;
-use anyhow::Result;
 use fabelgeist_math::vector::{Vec3, Vec4};
+use fabelgeist_rig::RigJointOrdinal;
 
 use super::profile::{
     Axis, ReferencePose, RetargetProfile, RetargetSettings, RigProfile, ScaleMeasure, ScalePolicy,
@@ -42,10 +45,13 @@ use super::semantic::{HumanoidChain, HumanoidJoint};
 #[derive(Clone, Debug, PartialEq)]
 enum Motion {
     /// One source joint, the usual case.
-    Joint(usize),
+    Joint(RigJointOrdinal),
     /// A position along a source chain, for chains of unequal length. The
     /// motion at that position is interpolated between the chain's joints.
-    Chain { chain: usize, position: f32 },
+    Chain {
+        chain: SourceChainOrdinal,
+        position: ChainPosition,
+    },
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -65,27 +71,27 @@ struct Mapping {
 /// Construction does all the resolution and measurement once; retargeting a
 /// clip is then a straight pass over its keyframes.
 pub struct Retargeter<'a> {
-    source_skeleton: &'a Skeleton,
-    target_skeleton: &'a Skeleton,
-    resolved: ResolvedProfile,
-    source_rest_model: LocalPose,
+    pub(super) source_skeleton: &'a Skeleton,
+    pub(super) target_skeleton: &'a Skeleton,
+    pub(super) resolved: ResolvedProfile,
+    source_rest_model: ModelPose,
     target_rest: LocalPose,
-    target_rest_model: LocalPose,
+    target_rest_model: ModelPose,
     /// Model-space poses of each rig in its reference posture, which is what
     /// motion is measured against. Equal to the rest poses unless a profile
     /// says its bind pose is not a usable reference.
-    source_reference_model: LocalPose,
-    target_reference_model: LocalPose,
+    source_reference_model: ModelPose,
+    target_reference_model: ModelPose,
     /// Source chains, in the order `Mapping::Chain` indexes them.
-    source_chains: Vec<Vec<usize>>,
+    source_chains: Vec<RigJointChain>,
     /// One entry per target joint.
     mappings: Vec<Option<Mapping>>,
     /// Rotation from source-rig space to target-rig space.
     basis: Vec4,
     /// Target units per source unit.
-    scale: f32,
+    pub(super) scale: f32,
     /// The source joint carrying locomotion.
-    root: Option<usize>,
+    root: Option<RigJointOrdinal>,
 }
 
 /// Retargets a clip from one skeleton to another.
@@ -97,7 +103,7 @@ pub fn retarget(
     source_clip: &Animation,
     target_skeleton: &Skeleton,
     profile: &RetargetProfile,
-) -> Result<Animation> {
+) -> Result<Animation, RetargetError> {
     Retargeter::new(source_skeleton, target_skeleton, profile)
         .map(|retargeter| retargeter.clip(source_clip))
 }
@@ -108,7 +114,7 @@ impl<'a> Retargeter<'a> {
         source_skeleton: &'a Skeleton,
         target_skeleton: &'a Skeleton,
         profile: &RetargetProfile,
-    ) -> Result<Self> {
+    ) -> Result<Self, RetargetError> {
         Self::with_rest_poses(source_skeleton, None, target_skeleton, None, profile)
     }
 
@@ -120,19 +126,19 @@ impl<'a> Retargeter<'a> {
     /// letting it round-trip.
     pub fn with_rest_poses(
         source_skeleton: &'a Skeleton,
-        source_rest: Option<&[JointTransform]>,
+        source_rest: Option<&LocalPose>,
         target_skeleton: &'a Skeleton,
-        target_rest: Option<&[JointTransform]>,
+        target_rest: Option<&LocalPose>,
         profile: &RetargetProfile,
-    ) -> Result<Self> {
+    ) -> Result<Self, RetargetError> {
         let resolved = profile.resolve(source_skeleton, target_skeleton)?;
 
         let source_rest = match source_rest {
-            Some(rest) if rest.len() == source_skeleton.joints.len() => rest.to_vec(),
+            Some(rest) if rest.count() == source_skeleton.joints.count() => rest.clone(),
             _ => rest_pose(source_skeleton),
         };
         let target_rest = match target_rest {
-            Some(rest) if rest.len() == target_skeleton.joints.len() => rest.to_vec(),
+            Some(rest) if rest.count() == target_skeleton.joints.count() => rest.clone(),
             _ => rest_pose(target_skeleton),
         };
         // A skeleton's armature transform is what relates its joint space to
@@ -208,7 +214,7 @@ impl<'a> Retargeter<'a> {
             source_reference_model,
             target_reference_model,
             source_chains: Vec::new(),
-            mappings: vec![None; target_skeleton.joints.len()],
+            mappings: vec![None; usize::from(target_skeleton.joints.count())],
             basis,
             scale,
         };
@@ -227,26 +233,6 @@ impl<'a> Retargeter<'a> {
     /// Target units per source unit, as measured or configured.
     pub fn scale(&self) -> f32 {
         self.scale
-    }
-
-    /// The mapping as text, for inspecting a rig that misbehaves.
-    pub fn report(&self) -> String {
-        let mut report = self
-            .resolved
-            .report(self.source_skeleton, self.target_skeleton);
-        report.push_str(&format!(
-            "\nscale: {:.4} target units per source unit\n",
-            self.scale
-        ));
-        let effectors = self.resolved.target.end_effectors();
-        if !effectors.is_empty() {
-            let names: Vec<String> = effectors
-                .iter()
-                .map(|(role, index)| format!("{role}={}", self.target_skeleton.joints[*index].name))
-                .collect();
-            report.push_str(&format!("end effectors: {}\n", names.join(", ")));
-        }
-        report
     }
 
     /// Decides, per target joint, where its motion comes from.
@@ -272,7 +258,7 @@ impl<'a> Retargeter<'a> {
                 .binding(role)
                 .and_then(|binding| binding.correction);
             let translation = self.translation_policy_for(profile, Some(role), target);
-            self.mappings[target] = Some(Mapping {
+            self.mappings[usize::from(target)] = Some(Mapping {
                 motion: Motion::Joint(source),
                 role: Some(role),
                 source_rest: rest_rotation(&self.source_reference_model, source, source_correction),
@@ -290,44 +276,37 @@ impl<'a> Retargeter<'a> {
             };
             let declared = profile.source.chains.contains_key(chain)
                 || profile.target.chains.contains_key(chain);
-            if !declared || source_chain.len() == target_chain.len() || source_chain.is_empty() {
+            if !declared
+                || source_chain.count() == target_chain.count()
+                || source_chain.presence() == ChainPresence::Empty
+            {
                 continue;
             }
 
             let source_chain = source_chain.clone();
             let target_chain = target_chain.clone();
-            let chain_index = self.source_chains.len();
+            let chain_index = SourceChainOrdinal::from(self.source_chains.len());
             self.source_chains.push(source_chain.clone());
 
-            let last = target_chain.len().saturating_sub(1);
-            for (link, target) in target_chain.iter().enumerate() {
-                let position = if last == 0 {
-                    1.0
-                } else {
-                    link as f32 / last as f32
-                };
+            for (position, target) in target_chain.positions() {
                 let role = self
                     .resolved
                     .target
                     .joints
                     .iter()
-                    .find_map(|(role, index)| (index == target).then_some(*role));
+                    .find_map(|(role, index)| (*index == target).then_some(*role));
                 let correction = role
                     .and_then(|role| profile.target.binding(role))
                     .and_then(|binding| binding.correction);
-                self.mappings[*target] = Some(Mapping {
+                self.mappings[usize::from(target)] = Some(Mapping {
                     motion: Motion::Chain {
                         chain: chain_index,
                         position,
                     },
                     role,
-                    source_rest: chain_rotation(
-                        &self.source_reference_model,
-                        &source_chain,
-                        position,
-                    ),
-                    target_rest: rest_rotation(&self.target_reference_model, *target, correction),
-                    translation: self.translation_policy_for(profile, role, *target),
+                    source_rest: source_chain.rotation_in(&self.source_reference_model, position),
+                    target_rest: rest_rotation(&self.target_reference_model, target, correction),
+                    translation: self.translation_policy_for(profile, role, target),
                 });
             }
         }
@@ -338,7 +317,7 @@ impl<'a> Retargeter<'a> {
         &self,
         profile: &RetargetProfile,
         role: Option<HumanoidJoint>,
-        target: usize,
+        target: RigJointOrdinal,
     ) -> TranslationPolicy {
         let policy = role
             .and_then(|role| self.resolved.settings.joint_translation.get(&role).copied())
@@ -387,21 +366,20 @@ impl<'a> Retargeter<'a> {
 
     /// Retargets one pose. `source_locals` is the source skeleton's local
     /// transforms in joint order, as [`Animation::sample`] produces them.
-    pub fn pose(&self, source_locals: &[JointTransform]) -> LocalPose {
+    pub fn pose(&self, source_locals: &LocalPose) -> LocalPose {
         self.pose_with_root(source_locals).0
     }
 
     /// As [`Retargeter::pose`], also returning the locomotion that was taken
     /// out of the pose, already in target units.
-    pub fn pose_with_root(&self, source_locals: &[JointTransform]) -> (LocalPose, JointTransform) {
+    pub fn pose_with_root(&self, source_locals: &LocalPose) -> (LocalPose, JointTransform) {
         let mut source_model = rebase(model_pose(self.source_skeleton, source_locals), self.basis);
         let locomotion = self.extract_locomotion(&mut source_model);
 
-        let mut target_model: LocalPose =
-            vec![JointTransform::identity(); self.target_skeleton.joints.len()];
+        let mut target_model = ModelPose::identity(self.target_skeleton.joints.count());
         let mut target_locals = self.target_rest.clone();
 
-        for target in 0..self.target_skeleton.joints.len() {
+        for target in self.target_skeleton.joints.ordinals() {
             let parent = self.target_skeleton.joints[target]
                 .parent_index
                 .filter(|parent| *parent < target);
@@ -409,7 +387,7 @@ impl<'a> Retargeter<'a> {
                 .map(|parent| target_model[parent])
                 .unwrap_or_else(JointTransform::identity);
 
-            let Some(mapping) = &self.mappings[target] else {
+            let Some(mapping) = &self.mappings[usize::from(target)] else {
                 // Unmapped joints ride along on their rest transform, which is
                 // what keeps extra target bones valid.
                 target_model[target] = parent_model.compose(self.target_rest[target]);
@@ -450,11 +428,11 @@ impl<'a> Retargeter<'a> {
 
     /// The source's model-space motion away from its rest pose, expressed in
     /// target-rig space.
-    fn delta(&self, source_model: &[JointTransform], mapping: &Mapping) -> Vec4 {
+    fn delta(&self, source_model: &ModelPose, mapping: &Mapping) -> Vec4 {
         let rotation = match &mapping.motion {
             Motion::Joint(source) => source_model[*source].rotation,
             Motion::Chain { chain, position } => {
-                chain_rotation(source_model, &self.source_chains[*chain], *position)
+                self.source_chains[usize::from(*chain)].rotation_in(source_model, *position)
             }
         };
         // Both rigs are already in the same frame, so this is a plain
@@ -475,9 +453,9 @@ impl<'a> Retargeter<'a> {
     /// lengths and only the motion crosses over.
     fn model_translation(
         &self,
-        source_model: &[JointTransform],
+        source_model: &ModelPose,
         mapping: &Mapping,
-        target: usize,
+        target: RigJointOrdinal,
     ) -> Option<Vec3> {
         let scale = match mapping.translation {
             TranslationPolicy::Copy => 1.0,
@@ -489,7 +467,7 @@ impl<'a> Retargeter<'a> {
         let source = match &mapping.motion {
             Motion::Joint(source) => *source,
             Motion::Chain { chain, position } => {
-                nearest_chain_joint(&self.source_chains[*chain], *position)
+                self.source_chains[usize::from(*chain)].nearest_joint(*position)
             }
         };
         let delta = source_model[source].translation - self.source_rest_model[source].translation;
@@ -498,7 +476,7 @@ impl<'a> Retargeter<'a> {
 
     /// Splits locomotion out of the source's model pose, returning it in
     /// target units. The pose that remains is in place.
-    fn extract_locomotion(&self, source_model: &mut [JointTransform]) -> JointTransform {
+    fn extract_locomotion(&self, source_model: &mut ModelPose) -> JointTransform {
         let Some(channels) = self.resolved.settings.root_motion.channels() else {
             return JointTransform::identity();
         };
@@ -554,7 +532,7 @@ impl<'a> Retargeter<'a> {
         let times = source.key_times();
         let binding = source.bind(self.source_skeleton);
 
-        let joints = self.target_skeleton.joints.len();
+        let joints = usize::from(self.target_skeleton.joints.count());
         let mut rotations: Vec<Vec<Vec4>> = vec![Vec::with_capacity(times.len()); joints];
         let mut translations: Vec<Vec<Vec3>> = vec![Vec::with_capacity(times.len()); joints];
         let mut root_translations = Vec::with_capacity(times.len());
@@ -598,7 +576,11 @@ impl<'a> Retargeter<'a> {
 
         for (index, mapping) in self.mappings.iter().enumerate() {
             let Some(mapping) = mapping else { continue };
-            let mut track = JointTrack::new(self.target_skeleton.joints[index].name.clone());
+            let mut track = JointTrack::new(
+                self.target_skeleton.joints[RigJointOrdinal::from(index)]
+                    .name
+                    .clone(),
+            );
             track.rotation = Some(Curve::new(times.clone(), rotations[index].clone()));
             if mapping.translation != TranslationPolicy::Ignore {
                 track.translation = Some(Curve::new(times.clone(), translations[index].clone()));
@@ -636,7 +618,7 @@ fn armature_rotation(skeleton: &Skeleton) -> Vec4 {
 }
 
 /// Turns a model-space pose into another frame, rotating about the origin.
-fn rebase(pose: LocalPose, basis: Vec4) -> LocalPose {
+fn rebase(pose: ModelPose, basis: Vec4) -> ModelPose {
     if basis.w.abs() > 1.0 - 1.0e-9 {
         return pose;
     }
@@ -670,7 +652,7 @@ fn reference_pose(
     reference: &ReferencePose,
     basis: Vec4,
 ) -> LocalPose {
-    let mut local = bind.to_vec();
+    let mut local = bind.clone();
     let engine = basis.conjugate();
     match reference {
         ReferencePose::Bind => local,
@@ -777,8 +759,8 @@ fn roll_onto(from: Vec3, to: Vec3, axis: Vec3) -> Option<Vec4> {
 fn turn_joint(
     skeleton: &Skeleton,
     local: &mut LocalPose,
-    model: &[JointTransform],
-    joint: usize,
+    model: &ModelPose,
+    joint: RigJointOrdinal,
     turn: Vec4,
 ) {
     let parent = skeleton.joints[joint]
@@ -812,36 +794,12 @@ fn shortest_arc(from: Vec3, to: Vec3) -> Vec4 {
     Vec4::new(axis.x, axis.y, axis.z, 1.0 + dot).normalize()
 }
 
-fn rest_rotation(model: &[JointTransform], joint: usize, correction: Option<Vec4>) -> Vec4 {
+fn rest_rotation(model: &ModelPose, joint: RigJointOrdinal, correction: Option<Vec4>) -> Vec4 {
     let rest = model[joint].rotation;
     match correction {
         Some(correction) => rest.mul_quat(correction).normalize(),
         None => rest,
     }
-}
-
-/// The rotation partway along a chain, interpolated between its joints.
-fn chain_rotation(model: &[JointTransform], chain: &[usize], position: f32) -> Vec4 {
-    match chain.len() {
-        0 => Vec4::quat_identity(),
-        1 => model[chain[0]].rotation,
-        length => {
-            let scaled = position.clamp(0.0, 1.0) * (length - 1) as f32;
-            let lower = (scaled.floor() as usize).min(length - 1);
-            let upper = (lower + 1).min(length - 1);
-            model[chain[lower]]
-                .rotation
-                .slerp(model[chain[upper]].rotation, scaled - lower as f32)
-        }
-    }
-}
-
-fn nearest_chain_joint(chain: &[usize], position: f32) -> usize {
-    if chain.is_empty() {
-        return 0;
-    }
-    let scaled = position.clamp(0.0, 1.0) * (chain.len() - 1) as f32;
-    chain[(scaled.round() as usize).min(chain.len() - 1)]
 }
 
 /// How much bigger the target rig is than the source rig.
@@ -852,8 +810,8 @@ fn nearest_chain_joint(chain: &[usize], position: f32) -> usize {
 /// measurements so a partial rig still gets a sane number.
 fn size_ratio(
     resolved: &ResolvedProfile,
-    source_model: &[JointTransform],
-    target_model: &[JointTransform],
+    source_model: &ModelPose,
+    target_model: &ModelPose,
     policy: ScalePolicy,
     up: Axis,
 ) -> f32 {
@@ -896,7 +854,7 @@ fn size_ratio(
 
 fn measure_rig(
     rig: &ResolvedRig,
-    model: &[JointTransform],
+    model: &ModelPose,
     measure: ScaleMeasure,
     up: Axis,
 ) -> Option<f32> {

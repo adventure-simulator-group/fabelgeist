@@ -144,7 +144,7 @@ mod tests {
             "greave",
             "sabaton",
         ] {
-            for placement in &item_catalog::definition(item)
+            for placement in &item_catalog::definition(&(item).into())
                 .unwrap()
                 .equipment
                 .as_ref()

@@ -78,10 +78,10 @@ pub(super) async fn inventory_containers(
     };
     let fireplace_roots = state
         .db
-        .query_sats::<BackendFireplaceStation>(&format!(
+        .query_sats::<BackendFireplaceStation>(SqlQuery::from(format!(
             "SELECT * FROM backend_fireplace_stations WHERE character_id = {}",
             actor.id
-        ))
+        )))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -89,7 +89,7 @@ pub(super) async fn inventory_containers(
         .collect::<HashSet<_>>();
     let objects = state
         .db
-        .query_sats::<InventoryObject>("SELECT * FROM inventory_object")
+        .query_sats::<InventoryObject>("SELECT * FROM inventory_object".into())
         .await
         .unwrap_or_default()
         .into_iter()
@@ -105,7 +105,7 @@ pub(super) async fn inventory_containers(
     let ids = objects.iter().map(|row| row.id).collect::<HashSet<_>>();
     let edges = state
         .db
-        .query_sats::<InventoryContainment>("SELECT * FROM inventory_containment")
+        .query_sats::<InventoryContainment>("SELECT * FROM inventory_containment".into())
         .await
         .unwrap_or_default()
         .into_iter()
@@ -113,7 +113,7 @@ pub(super) async fn inventory_containers(
         .collect::<Vec<_>>();
     let liquids: Vec<ContainerLiquid> = state
         .db
-        .query_sats::<ContainerLiquid>("SELECT * FROM container_liquid")
+        .query_sats::<ContainerLiquid>("SELECT * FROM container_liquid".into())
         .await
         .unwrap_or_default()
         .into_iter()
@@ -121,29 +121,29 @@ pub(super) async fn inventory_containers(
         .collect();
     let definitions = state
         .db
-        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into())
         .await
         .unwrap_or_default();
     let lots = state
         .db
-        .query_sats::<FoodLot>("SELECT * FROM food_lot")
+        .query_sats::<FoodLot>("SELECT * FROM food_lot".into())
         .await
         .unwrap_or_default();
     let personal = state
         .db
-        .query_sats::<InventoryItem>(&format!(
+        .query_sats::<InventoryItem>(SqlQuery::from(format!(
             "SELECT * FROM inventory_item WHERE character_id = {}",
             actor.id
-        ))
+        )))
         .await
         .unwrap_or_default();
     let party = if let Some(party_id) = actor.party_id.as_deref() {
         state
             .db
-            .query_sats::<PartyInventoryItem>(&format!(
+            .query_sats::<PartyInventoryItem>(SqlQuery::from(format!(
                 "SELECT * FROM party_inventory_item WHERE party_id = {}",
                 sql_string_literal(party_id)
-            ))
+            )))
             .await
             .unwrap_or_default()
     } else {
@@ -185,7 +185,7 @@ pub(super) async fn inventory_containers(
                 quantity,
                 exterior_volume_ml: definition.exterior_volume_ml,
                 container_capacity_ml: definition.container_capacity_ml,
-                tincture_vessel: adventuresim_core::item_catalog::definition(&object.item_id)
+                tincture_vessel: adventuresim_core::item_catalog::definition(&(&object.item_id).into())
                     .is_some_and(|definition| {
                         definition.tags.iter().any(|tag| tag == "tincture_vessel")
                     }),
@@ -194,7 +194,7 @@ pub(super) async fn inventory_containers(
         .collect();
     let existing = state
         .db
-        .query_sats::<BackendTinctureStatus>("SELECT * FROM backend_tincture_statuses")
+        .query_sats::<BackendTinctureStatus>("SELECT * FROM backend_tincture_statuses".into())
         .await
         .unwrap_or_default()
         .into_iter()
@@ -211,7 +211,7 @@ pub(super) async fn inventory_containers(
     }
     let tinctures: Vec<BackendTinctureStatus> = state
         .db
-        .query_sats::<BackendTinctureStatus>("SELECT * FROM backend_tincture_statuses")
+        .query_sats::<BackendTinctureStatus>("SELECT * FROM backend_tincture_statuses".into())
         .await
         .unwrap_or_default()
         .into_iter()
@@ -246,7 +246,7 @@ async fn owned_container_object(
 ) -> Option<InventoryObject> {
     let row = state
         .db
-        .query_one_sats::<InventoryObject>(&db::inventory_object_by_id(id))
+        .query_one_sats::<InventoryObject>(db::inventory_object_by_id(id))
         .await
         .ok()
         .flatten()?;
@@ -363,10 +363,10 @@ pub(super) async fn pour_inventory_container_tincture_spirit(
     };
     let spirit = state
         .db
-        .query_sats::<InventoryItem>(&format!(
+        .query_sats::<InventoryItem>(SqlQuery::from(format!(
             "SELECT * FROM inventory_item WHERE character_id = {}",
             actor.id
-        ))
+        )))
         .await
         .unwrap_or_default()
         .into_iter()

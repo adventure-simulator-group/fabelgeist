@@ -43,10 +43,10 @@ pub(super) fn sync_character_morphs(
         {
             continue;
         }
-        let identity = CharacterMorphWeights::from_character_id(character_id.0);
+        let identity = CharacterMorphWeights::from_character_id(character_id.get());
         let proportions = explicit
             .map(|p| p.0)
-            .unwrap_or_else(|| CharacterProportions::from_character_id(character_id.0));
+            .unwrap_or_else(|| CharacterProportions::from_character_id(character_id.get()));
         let reference = reference.map(|p| p.0).unwrap_or_default();
         for entity in descendants_including(root, &children) {
             let Ok(mut weights) = morphs.get_mut(entity) else {
@@ -88,7 +88,7 @@ mod tests {
         let mesh = app.world_mut().resource_mut::<Assets<Mesh>>().add(mesh);
         let mut bodies = Vec::new();
         for id in [42, 43] {
-            let owner = app.world_mut().spawn(CharacterId(id)).id();
+            let owner = app.world_mut().spawn(CharacterId::from(id)).id();
             let root = app.world_mut().spawn(AnimationRigScene(owner)).id();
             app.update();
             let body = app
@@ -125,7 +125,9 @@ mod tests {
         assert_eq!(app.world().resource::<Assets<Mesh>>().len(), 1);
         let rig = app.world().get::<ChildOf>(bodies[0]).unwrap().parent();
         let owner = app.world().get::<AnimationRigScene>(rig).unwrap().0;
-        app.world_mut().entity_mut(owner).insert(CharacterId(99));
+        app.world_mut()
+            .entity_mut(owner)
+            .insert(CharacterId::from(99));
         app.update();
         assert_ne!(
             app.world()

@@ -185,8 +185,8 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
             full_code.push_str("}\n");
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
-        ComputePipeline::new(context, shader)
+        let shader = ComputeShader::new(context, ShaderSource::from(full_code))?;
+        Ok(ComputePipeline::new(context, shader)?)
     }
 
     pub fn get_or_create_pipeline(
@@ -260,7 +260,7 @@ impl Advect {
 
         let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
         parameters.insert(
-            "velocity",
+            "velocity".into(),
             match velocity {
                 GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
                 GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
@@ -268,7 +268,7 @@ impl Advect {
             },
         );
         parameters.insert(
-            "quantity",
+            "quantity".into(),
             match quantity {
                 GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
                 GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
@@ -276,7 +276,7 @@ impl Advect {
             },
         );
         parameters.insert(
-            "output",
+            "output".into(),
             match output {
                 GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
                 GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
@@ -297,8 +297,8 @@ impl Advect {
             _ => return Err(anyhow!("Output must be a texture")),
         };
 
-        parameters.insert("size", size);
-        parameters.insert("dt", dt);
+        parameters.insert("size".into(), (size).into());
+        parameters.insert("dt".into(), (dt).into());
 
         let (wg_x, wg_y, wg_z) = match output {
             GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
@@ -314,9 +314,7 @@ impl Advect {
             context,
             pipeline.as_ref().clone(),
             parameters,
-            wg_x,
-            wg_y,
-            wg_z,
+            fabelgeist_gpu::prelude::WorkgroupGrid::from((wg_x, wg_y, wg_z)),
         )?;
 
         Ok(())

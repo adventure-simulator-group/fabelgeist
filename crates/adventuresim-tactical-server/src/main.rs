@@ -429,7 +429,7 @@ mod debug_dump_world_tests {
             Player {
                 name: "Debug Dump Fixture".to_string(),
             },
-            CharacterId(4242),
+            CharacterId::from(4242),
         ));
 
         let before = dump_dir_snapshot();
@@ -461,7 +461,7 @@ mod debug_dump_world_tests {
             Player {
                 name: "Real Server Fixture".to_string(),
             },
-            CharacterId(1),
+            CharacterId::from(1),
         ));
 
         let before = dump_dir_snapshot();
@@ -494,7 +494,7 @@ mod debug_dump_world_tests {
             Player {
                 name: "Allowlist Fixture".to_string(),
             },
-            CharacterId(2),
+            CharacterId::from(2),
             Replicated,
         ));
 
@@ -526,7 +526,7 @@ mod debug_dump_world_tests {
                 Player {
                     name: "Round Trip Fixture".to_string(),
                 },
-                CharacterId(777),
+                CharacterId::from(777),
             ))
             .id();
         // Inventory items are separate entities linked via `ItemOf`, not
@@ -580,7 +580,7 @@ mod debug_dump_world_tests {
             .query::<(Entity, &Player, &CharacterId)>();
         let (loaded_entity, player, _) = query
             .iter(load_app.world())
-            .find(|(_, _, id)| id.0 == 777)
+            .find(|(_, _, id)| id.get() == 777)
             .expect("loaded world should contain the dumped entity");
         assert_eq!(player.name, "Round Trip Fixture");
 

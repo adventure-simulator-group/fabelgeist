@@ -1,3 +1,4 @@
+use adventuresim_core::identity::CharacterId as DurableCharacterId;
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::message::{ImpactSound, SuccessfulAttackResponse};
 use bevy::audio::{PlaybackMode, Volume};
@@ -94,7 +95,7 @@ fn spawn_combat_effects(
     mut resources: CombatEffectResources,
     parents: Query<&ChildOf>,
     surfaces: BloodSurfaceQuery,
-    mut sound_sequences: Local<std::collections::BTreeMap<u64, u64>>,
+    mut sound_sequences: Local<std::collections::BTreeMap<DurableCharacterId, u64>>,
     identities: Query<&CharacterId>,
     mut effect_sequence: Local<u64>,
 ) {
@@ -187,14 +188,14 @@ fn spawn_combat_effects(
 fn combat_sound_seed(
     attacker: Entity,
     identities: &Query<&CharacterId>,
-    sequences: &mut std::collections::BTreeMap<u64, u64>,
+    sequences: &mut std::collections::BTreeMap<DurableCharacterId, u64>,
 ) -> Option<u64> {
     let character_id = identities.get(attacker).ok()?.0;
     let sequence = sequences.entry(character_id).or_default();
     *sequence = sequence.wrapping_add(1);
     Some(
         StreamId::new("audio.combat-event")
-            .seed(character_id, &[*sequence])
+            .seed(u64::from(character_id), &[*sequence])
             .to_u64(),
     )
 }

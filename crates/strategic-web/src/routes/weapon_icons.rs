@@ -76,7 +76,7 @@ async fn weapon_icon(
     let actor = match state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            &crate::spacetimedb::character_by_id(actor_id),
+            crate::spacetimedb::character_by_id(actor_id.into()),
         )
         .await
     {
@@ -89,7 +89,7 @@ async fn weapon_icon(
     };
     let objects = match state
         .db
-        .query_sats::<InventoryObject>("SELECT * FROM inventory_object")
+        .query_sats::<InventoryObject>("SELECT * FROM inventory_object".into())
         .await
     {
         Ok(objects) => objects
@@ -108,7 +108,7 @@ async fn weapon_icon(
         InventoryLocation::Personal(location) if location.character_id != actor.id => state
             .db
             .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-                &crate::spacetimedb::character_by_id(location.character_id),
+                crate::spacetimedb::character_by_id(location.character_id.into()),
             )
             .await
             .ok()
@@ -130,7 +130,7 @@ async fn weapon_icon(
     let weapon_instance = match state
         .db
         .query_one_sats::<WeaponInstance>(
-            &crate::spacetimedb::weapon_instance_by_physical_object_id(object.id),
+            crate::spacetimedb::weapon_instance_by_physical_object_id(object.id),
         )
         .await
     {
@@ -146,7 +146,7 @@ async fn weapon_icon(
         let holder = match state
             .db
             .query_one_sats::<WeaponHolderInstance>(
-                &crate::spacetimedb::weapon_holder_instance_by_physical_object_id(object.id),
+                crate::spacetimedb::weapon_holder_instance_by_physical_object_id(object.id),
             )
             .await
         {

@@ -1,89 +1,14 @@
 // Owns fireplace fixture validation, vessel custody, cleanup, placement, and retrieval.
-fn dish_inventory_destination(
-    source: &crate::PersistedOperationalCustody,
-    dish_character_id: u64,
-) -> Result<OperationalCustody, String> {
-    crate::object_custody::carried_destination(source, dish_character_id)
-}
-
 fn station_key(character_id: u64, fireplace_fixture_id: &str) -> String {
     format!("{character_id}|{fireplace_fixture_id}")
-}
-
-fn parse_persisted_fireplace_fixture(
-    fireplace_fixture_id: &str,
-) -> Result<StrategicFixtureId, String> {
-    match fireplace_fixture_id
-        .parse::<StrategicFixtureId>()
-        .map_err(|_| "Persisted fireplace custody has an invalid canonical fixture")?
-    {
-        fixture @ StrategicFixtureId::Fireplace { .. } => Ok(fixture),
-        _ => Err("Persisted fireplace custody names a non-fireplace fixture".into()),
-    }
-}
-
-fn validate_persisted_station_fixture(
-    ctx: &ReducerContext,
-    station: &FireplaceStation,
-) -> Result<StrategicFixtureId, String> {
-    let fixture = parse_persisted_fireplace_fixture(&station.fireplace_fixture_id)?;
-    let expected_key = match station.instrument_object_id {
-        Some(object_id) => vessel_station_key(
-            station.character_id,
-            &station.fireplace_fixture_id,
-            object_id,
-        ),
-        None => station_key(station.character_id, &station.fireplace_fixture_id),
-    };
-    if station.key != expected_key {
-        return Err("Persisted fireplace station conflicts with its canonical fixture".into());
-    }
-    if station.instrument_item_id.is_some() != station.instrument_return_custody.is_some() {
-        return Err("Persisted fireplace station has ambiguous return custody".into());
-    }
-    if let Some(custody) = station.instrument_return_custody.as_ref() {
-        crate::object_custody::carried_destination(custody, station.character_id)?;
-    }
-    if let Some(object_id) = station.instrument_object_id {
-        let object = ctx
-            .db
-            .inventory_object()
-            .id()
-            .find(object_id)
-            .ok_or("Persisted fireplace station object is missing")?;
-        if station.instrument_item_id.as_deref() != Some(object.item_id.as_str()) {
-            return Err("Persisted fireplace station conflicts with its object identity".into());
-        }
-        crate::object_custody::require_object_at_fixture(ctx, &object, &fixture)?;
-    }
-    Ok(fixture)
-}
-
-fn validate_persisted_dish_fixture(
-    ctx: &ReducerContext,
-    dish: &FireplaceDish,
-) -> Result<StrategicFixtureId, String> {
-    let fixture = parse_persisted_fireplace_fixture(&dish.fireplace_fixture_id)?;
-    let station = ctx
-        .db
-        .fireplace_station()
-        .key()
-        .find(dish.station_key.clone())
-        .ok_or("Persisted fireplace dish has no station authority")?;
-    let station_fixture = validate_persisted_station_fixture(ctx, &station)?;
-    if station.character_id != dish.character_id || station_fixture != fixture {
-        return Err("Persisted fireplace dish conflicts with its station authority".into());
-    }
-    crate::object_custody::carried_destination(&dish.return_custody, dish.character_id)?;
-    Ok(fixture)
 }
 
 pub(crate) fn require_clear_current_camp_fireplace(
     ctx: &ReducerContext,
     camp_place: &StrategicPlaceId,
-) -> Result<(), String> {
+) -> Result<(), FireplaceCustodyError> {
     if !matches!(camp_place, StrategicPlaceId::JourneyCamp { .. }) {
-        return Err("Camp custody gate requires an exact journey camp".into());
+        return Err(FireplaceCustodyError::NotJourneyCamp);
     }
     let mut occupied = false;
     for station in ctx.db.fireplace_station().iter() {
@@ -95,7 +20,7 @@ pub(crate) fn require_clear_current_camp_fireplace(
         occupied |= fixture.place() == camp_place;
     }
     if occupied {
-        Err("Retrieve every dish and remove every cooking instrument before breaking camp".into())
+        Err(FireplaceCustodyError::OccupiedCamp)
     } else {
         Ok(())
     }
@@ -155,7 +80,7 @@ pub(crate) fn require_members_clear_current_camp_fireplace(
 /// player's dish.
 pub(crate) fn cleanup_fireplace_custody_for_death(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
 ) -> Result<(), String> {
     enum StationCleanup {
         Delete {
@@ -170,12 +95,17 @@ pub(crate) fn cleanup_fireplace_custody_for_death(
         },
     }
 
-    let personal_estate_exists = ctx.db.character().id().find(character_id).is_some();
+    let personal_estate_exists = ctx
+        .db
+        .character()
+        .id()
+        .find(u64::from(character_id))
+        .is_some();
     let stations = ctx
         .db
         .fireplace_station()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .collect::<Vec<_>>();
     let mut cleanup = Vec::with_capacity(stations.len());
 
@@ -194,7 +124,7 @@ pub(crate) fn cleanup_fireplace_custody_for_death(
                 .instrument_return_custody
                 .as_ref()
                 .ok_or("Fireplace instrument return custody is missing")?,
-            character_id,
+            (character_id).into(),
         )?;
         let exact_party = match &recorded_destination {
             OperationalCustody::Party(party_id) => Some(party_id),
@@ -210,7 +140,10 @@ pub(crate) fn cleanup_fireplace_custody_for_death(
         let destination = if let Some(party_id) = exact_party {
             Some(OperationalCustody::party(party_id.as_str()).map_err(|error| error.to_string())?)
         } else if personal_estate_exists {
-            Some(OperationalCustody::character(character_id).map_err(|error| error.to_string())?)
+            Some(
+                OperationalCustody::character((character_id).into())
+                    .map_err(|error| error.to_string())?,
+            )
         } else {
             None
         };
@@ -242,7 +175,7 @@ pub(crate) fn cleanup_fireplace_custody_for_death(
         .db
         .fireplace_dish()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .collect::<Vec<_>>()
     {
         ctx.db
@@ -516,8 +449,10 @@ pub fn place_fireplace_container(
     inventory_scope: String,
     inventory_item_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
-    let actor = crate::character::require_living_character(ctx, character_id)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    let actor = crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     if actor.has_tactical_server_assignment() {
         return Err("Cooking is unavailable during a tactical encounter".into());
     }
@@ -526,9 +461,12 @@ pub fn place_fireplace_container(
         .map_err(|error| error.to_string())?;
     let mut object = crate::inventory_container::require_object(
         ctx,
-        character_id,
+        character_id.into(),
         inventory_scope,
-        inventory_item_id,
+        inventory_item_id.into(),
+    )
+    .map_err(
+        |error: crate::inventory_container::InventoryObjectError| -> String { error.to_string() },
     )?;
     if crate::inventory_container::object_is_nested(ctx, object.id) {
         return Err(
@@ -536,9 +474,13 @@ pub fn place_fireplace_container(
         );
     }
     method_for_instrument(Some(&object.item_id))?;
-    let source_custody =
-        crate::object_custody::carried_scope_custody(ctx, &actor, inventory_scope)?;
-    let resolved = crate::object_custody::resolve_object_custody(ctx, &object)?;
+    let source_custody = crate::object_custody::carried_scope_custody(ctx, &actor, inventory_scope)
+        .map_err(
+            |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
+        )?;
+    let resolved = crate::object_custody::resolve_object_custody(ctx, &object).map_err(
+        |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
+    )?;
     if resolved.root != source_custody {
         return Err("Container custody conflicts with the selected inventory".into());
     }
@@ -573,8 +515,10 @@ pub fn retrieve_fireplace_container(
     fireplace_fixture_id: String,
     container_object_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
-    let actor = crate::character::require_living_character(ctx, character_id)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    let actor = crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     if actor.has_tactical_server_assignment() {
         return Err("Cooking is unavailable during a tactical encounter".into());
     }
@@ -599,13 +543,22 @@ pub fn retrieve_fireplace_container(
         .instrument_item_id
         .clone()
         .ok_or("Fireplace vessel is missing")?;
-    let fixture = validate_persisted_station_fixture(ctx, &station)?;
+    let fixture = validate_persisted_station_fixture(ctx, &station)
+        .map_err(|error: crate::food::FireplaceCustodyError| -> String { error.to_string() })?;
     let return_custody = station
         .instrument_return_custody
         .as_ref()
         .ok_or("Container return custody is unknown")?;
-    let destination = crate::object_custody::carried_destination(return_custody, character_id)?;
-    crate::inventory_container::prevalidate_rehome_subtree(ctx, container_object_id, &destination)?;
+    let destination =
+        crate::object_custody::carried_destination(return_custody, (character_id).into()).map_err(
+            |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
+        )?;
+    crate::inventory_container::prevalidate_rehome_subtree(ctx, container_object_id, &destination)
+        .map_err(
+            |error: crate::inventory_container::InventoryContainerError| -> String {
+                error.to_string()
+            },
+        )?;
     let inventory_row_id = match &destination {
         OperationalCustody::Character(character) => {
             let row = ctx.db.inventory_item().insert(crate::InventoryItem {
@@ -645,12 +598,27 @@ pub fn retrieve_fireplace_container(
         .id()
         .find(container_object_id)
         .ok_or("Container object is missing")?;
-    crate::object_custody::require_object_at_fixture(ctx, &object, &fixture)?;
+    crate::object_custody::require_object_at_fixture(ctx, &object, &fixture).map_err(
+        |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
+    )?;
     object.location =
-        crate::inventory_container::carried_location_for_row(&destination, inventory_row_id)?;
+        crate::inventory_container::carried_location_for_row(&destination, inventory_row_id)
+            .map_err(
+                |error: crate::inventory_container::InventoryContainerError| -> String {
+                    error.to_string()
+                },
+            )?;
     ctx.db.inventory_object().id().update(object);
-    crate::inventory_container::rehome_subtree(ctx, container_object_id, &destination)?;
+    crate::inventory_container::rehome_subtree(ctx, container_object_id, &destination).map_err(
+        |error: crate::inventory_container::InventoryContainerError| -> String {
+            error.to_string()
+        },
+    )?;
     ctx.db.fireplace_station().key().delete(key);
-    crate::inventory_container::merge_empty_container(ctx, container_object_id)?;
+    crate::inventory_container::merge_empty_container(ctx, container_object_id).map_err(
+        |error: crate::inventory_container::InventoryContainerError| -> String {
+            error.to_string()
+        },
+    )?;
     Ok(())
 }

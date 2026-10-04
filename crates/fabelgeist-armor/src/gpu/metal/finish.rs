@@ -12,13 +12,14 @@
 
 use super::wgsl;
 use crate::material::Metal;
+use fabelgeist_gpu::prelude::ShaderSource;
 
 /// Floats written per texel: the slope along x and y, and a roughness offset.
 pub(super) const FINISH_WORDS: u32 = 3;
 
 /// Bake the finish of every texel.
-pub(super) fn finish_source() -> String {
-    format!(
+pub(super) fn finish_source() -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read_write> finish: array<f32>;
 
@@ -130,5 +131,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         math = wgsl::math(),
         random = wgsl::RANDOM,
         tiles_per_metre = Metal::TILES_PER_METRE,
-    )
+    ))
 }

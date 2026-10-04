@@ -1,5 +1,6 @@
 //! Pure food-lot, spoilage, meal, and cooking rules.
 
+use crate::item_catalog::ItemDefinitionId;
 use serde::{Deserialize, Serialize};
 
 pub const MAX_MEAL_FULLNESS_KCAL: f32 = 3_000.0;
@@ -305,8 +306,10 @@ pub static FOOD_CATALOG: std::sync::LazyLock<Vec<FoodDefinition>> =
             .collect()
     });
 
-pub fn definition(id: &str) -> Option<&'static FoodDefinition> {
-    FOOD_CATALOG.iter().find(|food| food.id == id)
+pub fn definition(id: &ItemDefinitionId) -> Option<&'static FoodDefinition> {
+    FOOD_CATALOG
+        .iter()
+        .find(|food: &&FoodDefinition| -> bool { food.id == id.as_str() })
 }
 
 pub fn deterministic_initial_contamination(seed: u64) -> f32 {
@@ -567,10 +570,14 @@ mod tests {
     #[test]
     fn exponential_growth_is_bounded_and_realistically_ordered() {
         let start = 1e-6;
-        let fruit = contamination_at(start, definition("apple").unwrap().growth_per_hour, 24 * 60);
+        let fruit = contamination_at(
+            start,
+            definition(&"apple".into()).unwrap().growth_per_hour,
+            24 * 60,
+        );
         let meat = contamination_at(
             start,
-            definition("raw_fowl").unwrap().growth_per_hour,
+            definition(&"raw_fowl".into()).unwrap().growth_per_hour,
             24 * 60,
         );
         assert!(meat > fruit);
@@ -581,7 +588,7 @@ mod tests {
     }
     #[test]
     fn cooking_kills_and_slows_contamination() {
-        let raw = definition("raw_venison").unwrap();
+        let raw = definition(&"raw_venison".into()).unwrap();
         assert!(cooked_contamination(1.0, CookingMethod::Stew) < 1e-4);
         assert!(
             cooked_growth_per_hour(&[raw.growth_per_hour], CookingMethod::Stew)
@@ -679,7 +686,7 @@ mod tests {
 
     #[test]
     fn standard_cooked_meal_is_positive_and_unique() {
-        let meal = definition("cooked_meal").expect("standard cooked meal");
+        let meal = definition(&"cooked_meal".into()).expect("standard cooked meal");
         assert_eq!(meal.class, FoodClass::MixedMeal);
         assert!(meal.kcal_per_unit > 0.0);
         assert!(meal.mass_kg_per_unit > 0.0);
@@ -697,7 +704,7 @@ mod tests {
     #[test]
     fn forage_meats_have_complete_raw_food_definitions() {
         for id in ["raw_venison", "raw_fowl", "raw_fish", "raw_beast_meat"] {
-            let food = definition(id).unwrap();
+            let food = definition(&(id).into()).unwrap();
             assert_eq!(food.class, FoodClass::RawMeat);
             assert!(food.kcal_per_unit > 0.0);
             assert!(food.mass_kg_per_unit > 0.0);
@@ -715,8 +722,11 @@ mod tests {
             assert!(item.flavors_per_unit.valid(), "{}", item.id);
             assert!((1..=5).contains(&item.default_quality), "{}", item.id);
         }
-        assert_eq!(definition("salt").unwrap().flavors_per_unit.salty, 1.0);
-        assert_eq!(definition("salt").unwrap().mass_kg_per_unit, 0.01);
+        assert_eq!(
+            definition(&"salt".into()).unwrap().flavors_per_unit.salty,
+            1.0
+        );
+        assert_eq!(definition(&"salt".into()).unwrap().mass_kg_per_unit, 0.01);
     }
 
     #[test]

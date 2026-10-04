@@ -137,8 +137,7 @@ fn validate_custody_fact_retry_attribution(
 mod custody_party_dispatch_tests {
     use super::{
         CaseOutcomeSource, CustodyPartyDispatch, apply_custody_party_continuity,
-        custody_party_dispatch,
-        validate_custody_fact_retry_attribution,
+        custody_party_dispatch, validate_custody_fact_retry_attribution,
     };
     use std::cell::Cell;
 
@@ -420,7 +419,7 @@ fn seed_case_custody(
             kind,
             object_id,
             CustodyHolderKind::Site,
-            &site_id.0,
+            site_id.as_str(),
             0,
             None,
         )?;
@@ -1105,7 +1104,7 @@ pub(crate) fn ingest_case_outcome_fact(
         )?;
     }
     if let Some(validated) = generated_provenance {
-        ensure_settlement_activity_inner(ctx, &validated.context.settlement_id)?;
+        ensure_settlement_activity_inner(ctx, validated.context.settlement_id.as_str())?;
     }
     Ok(())
 }
@@ -1222,7 +1221,7 @@ fn execute_case_finale(
             &case.id,
             &validated.manifest.public_case_id,
             party_id,
-            &validated.context.settlement_id,
+            validated.context.settlement_id.as_str(),
             resolved_local_problem_id,
             500,
             now,
@@ -1289,7 +1288,7 @@ pub(crate) fn generated_case_site_combat_group_id<'a>(
         .finales
         .iter()
         .filter(|finale| {
-            finale.site_id.0 == case_site.id.as_str() && finale.strategic_outcome_compatible
+            finale.site_id.as_str() == case_site.id.as_str() && finale.strategic_outcome_compatible
         })
         .filter_map(|finale| finale.hostile_group_id.as_deref())
         .collect();
@@ -1299,7 +1298,7 @@ pub(crate) fn generated_case_site_combat_group_id<'a>(
             .hostile_groups
             .iter()
             .any(|(group_id, site_id, _, _)| {
-                group_id == hostile_group_id && site_id.0 == case_site.id.as_str()
+                group_id == hostile_group_id && site_id.as_str() == case_site.id.as_str()
             }))
     .then_some(hostile_group_id)
 }
@@ -1350,7 +1349,7 @@ pub(crate) fn generated_case_site_hostile_resolution_eligible<'a>(
     let generated_site = generated
         .sites
         .iter()
-        .find(|site| site.id.0 == case_site.id.as_str())?;
+        .find(|site| site.id.as_str() == case_site.id.as_str())?;
     if generated_site.safe_label != case_site.name {
         return None;
     }
@@ -1438,7 +1437,9 @@ pub(crate) fn ensure_bound_mission_authority(
             Err("Mission ID is already bound to different authority".into())
         };
     }
-    if exact_case_site_for_observer(ctx, observer_character_id, case_site.id.as_str()).is_none() {
+    if exact_case_site_for_observer(ctx, (observer_character_id).into(), case_site.id.as_str())
+        .is_none()
+    {
         return Err("Mission observer does not know or have a visited exact case site".into());
     }
     let case = ctx
@@ -1662,9 +1663,16 @@ pub(crate) fn ensure_bound_mission_authority(
         .id()
         .find(&hostile_group_id)
         .ok_or("Bound hostile group disappeared")?;
-    let authority = MissionAuthority::capture(ctx, mission_id, party_id,
-        observer_character_id, case_site, &hostile_group, scene_key)
-        .map_err(|error| error.to_string())?;
+    let authority = MissionAuthority::capture(
+        ctx,
+        mission_id,
+        party_id,
+        observer_character_id,
+        case_site,
+        &hostile_group,
+        scene_key,
+    )
+    .map_err(|error| error.to_string())?;
     ctx.db.mission_authority().insert(authority.clone());
     for (index, capability) in tactical_capabilities.into_iter().enumerate() {
         ctx.db

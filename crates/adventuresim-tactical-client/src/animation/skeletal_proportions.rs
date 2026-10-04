@@ -114,7 +114,7 @@ pub(super) fn sync_skeletal_proportions(
         }
         let proportions = explicit
             .map(|value| value.0)
-            .unwrap_or_else(|| CharacterProportions::from_character_id(id.0));
+            .unwrap_or_else(|| CharacterProportions::from_character_id(id.get()));
         rigs.entry(bind.owner).or_default().insert(
             entity,
             BoneReference {
@@ -190,7 +190,10 @@ mod tests {
                 .set(BodyProportion::UpperLegLength, length)
                 .unwrap();
             let owner = world
-                .spawn((CharacterId(id), CharacterSkeletalProportions(proportions)))
+                .spawn((
+                    CharacterId::from(id),
+                    CharacterSkeletalProportions(proportions),
+                ))
                 .id();
             let root = world
                 .spawn((

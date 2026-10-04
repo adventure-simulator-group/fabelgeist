@@ -1,5 +1,6 @@
 //! Finite mating footprints and material partition for radial plates.
 use super::*;
+use crate::ConstructionError;
 use serde_json::{Value, json};
 use std::f64::consts::PI;
 
@@ -78,23 +79,27 @@ fn mace_material_volume_agrees_with_polygon_core_and_analytic_flange_area() {
 
 #[test]
 fn invalid_mace_seats_are_rejected_instead_of_moving_or_thinning_plates() {
-    for (field, value, diagnostic) in [
-        ("segments", json!(8), "multiple"),
-        ("flangeThickness", json!(0.02), "thickness"),
+    for (field, value, expected) in [
+        (
+            "segments",
+            json!(8),
+            ConstructionError::MaceCoreSidesMultipleFlangeCount,
+        ),
+        (
+            "flangeThickness",
+            json!(0.02),
+            ConstructionError::MaceFlangeThicknessExceedsReceivingCoreFace,
+        ),
         (
             "coreProfile",
             json!([[-0.08, 0.03], [0.08, 0.03]]),
-            "outside",
+            ConstructionError::MaceFlangeOutline,
         ),
     ] {
         let mut value_recipe = fixture(5);
         value_recipe["components"][0][field] = value;
         let recipe: Recipe = serde_json::from_value(value_recipe).unwrap();
-        assert!(
-            generate_model(&recipe, Detail::Low)
-                .unwrap_err()
-                .contains(diagnostic)
-        );
+        assert_eq!(generate_model(&recipe, Detail::Low).unwrap_err(), expected);
     }
     let mut removed = fixture(5);
     removed["components"][0]["flangeRootScale"] = json!(0.55);

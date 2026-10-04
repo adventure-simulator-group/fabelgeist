@@ -7,10 +7,12 @@
 //! concrete skeleton.
 
 use fabelgeist_math::vector::Vec4;
+use fabelgeist_rig::RigJointName;
 use indexmap::IndexMap;
 use serde::{Deserialize, Serialize};
 
 use super::semantic::{HumanoidChain, HumanoidJoint};
+use super::{JointRequirement, RetargetProfileName, RetargetStrictness, RigProfileName};
 
 /// Which of a rig's joints plays a humanoid role.
 ///
@@ -19,10 +21,10 @@ use super::semantic::{HumanoidChain, HumanoidJoint};
 /// has wins.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct JointBinding {
-    pub names: Vec<String>,
+    pub names: Vec<RigJointName>,
     /// Retargeting fails if a required joint is absent from the skeleton.
     #[serde(default)]
-    pub required: bool,
+    pub required: JointRequirement,
     /// Extra rotation applied on top of the rest-pose difference the
     /// retargeter derives, for rigs whose rest pose is not a usable reference.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -48,10 +50,10 @@ pub struct JointBinding {
 }
 
 impl JointBinding {
-    pub fn new(name: impl Into<String>) -> Self {
+    pub fn new(name: RigJointName) -> Self {
         Self {
-            names: vec![name.into()],
-            required: false,
+            names: vec![name],
+            required: JointRequirement::Optional,
             correction: None,
             translation: None,
             hinge: None,
@@ -59,12 +61,12 @@ impl JointBinding {
     }
 
     pub fn required(mut self) -> Self {
-        self.required = true;
+        self.required = JointRequirement::Required;
         self
     }
 
-    pub fn with_alias(mut self, name: impl Into<String>) -> Self {
-        self.names.push(name.into());
+    pub fn with_alias(mut self, name: RigJointName) -> Self {
+        self.names.push(name);
         self
     }
 
@@ -92,17 +94,16 @@ impl JointBinding {
 /// spread motion along the chain instead of dropping the extras.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ChainBinding {
-    pub joints: Vec<String>,
+    pub joints: Vec<RigJointName>,
 }
 
 impl ChainBinding {
-    pub fn new<I, S>(joints: I) -> Self
+    pub fn new<I>(joints: I) -> Self
     where
-        I: IntoIterator<Item = S>,
-        S: Into<String>,
+        I: IntoIterator<Item = RigJointName>,
     {
         Self {
-            joints: joints.into_iter().map(Into::into).collect(),
+            joints: joints.into_iter().collect(),
         }
     }
 }
@@ -114,7 +115,7 @@ pub enum RootSource {
     #[default]
     Pelvis,
     /// A dedicated joint above the pelvis (`Root`, `Armature`, `Reference`…).
-    Joint(String),
+    Joint(RigJointName),
     /// The rig is authored in place and has no locomotion at all.
     None,
 }
@@ -144,7 +145,7 @@ pub enum ReferencePose {
 /// How one rig names the humanoid body.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct RigProfile {
-    pub name: String,
+    pub name: RigProfileName,
     pub joints: IndexMap<HumanoidJoint, JointBinding>,
     #[serde(default, skip_serializing_if = "IndexMap::is_empty")]
     pub chains: IndexMap<HumanoidChain, ChainBinding>,
@@ -158,13 +159,13 @@ pub struct RigProfile {
     pub basis: Option<Vec4>,
     /// Joint names whose presence identifies this rig, for optional detection.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub markers: Vec<String>,
+    pub markers: Vec<RigJointName>,
 }
 
 impl RigProfile {
-    pub fn new(name: impl Into<String>) -> Self {
+    pub fn new(name: RigProfileName) -> Self {
         Self {
-            name: name.into(),
+            name,
             ..Default::default()
         }
     }
@@ -175,13 +176,13 @@ impl RigProfile {
     }
 
     /// Binds a role to a single joint name, the common case.
-    pub fn with(mut self, joint: HumanoidJoint, name: impl Into<String>) -> Self {
+    pub fn with(mut self, joint: HumanoidJoint, name: RigJointName) -> Self {
         self.joints.insert(joint, JointBinding::new(name));
         self
     }
 
     /// Binds a role to a joint that must exist.
-    pub fn with_required(mut self, joint: HumanoidJoint, name: impl Into<String>) -> Self {
+    pub fn with_required(mut self, joint: HumanoidJoint, name: RigJointName) -> Self {
         self.joints
             .insert(joint, JointBinding::new(name).required());
         self
@@ -202,12 +203,11 @@ impl RigProfile {
         self
     }
 
-    pub fn with_markers<I, S>(mut self, markers: I) -> Self
+    pub fn with_markers<I>(mut self, markers: I) -> Self
     where
-        I: IntoIterator<Item = S>,
-        S: Into<String>,
+        I: IntoIterator<Item = RigJointName>,
     {
-        self.markers = markers.into_iter().map(Into::into).collect();
+        self.markers = markers.into_iter().collect();
         self
     }
 
@@ -360,7 +360,7 @@ pub struct RetargetSettings {
     /// Whether a source joint whose role the target rig lacks is an error.
     /// Off by default: extra source bones are normal and ignoring them is safe.
     #[serde(default)]
-    pub strict: bool,
+    pub strict: RetargetStrictness,
 }
 
 impl Default for RetargetSettings {
@@ -371,7 +371,7 @@ impl Default for RetargetSettings {
             scale: ScalePolicy::default(),
             root_motion: RootMotionPolicy::default(),
             up: Axis::default(),
-            strict: false,
+            strict: RetargetStrictness::Permissive,
         }
     }
 }
@@ -406,7 +406,7 @@ impl RetargetSettings {
 /// to, and how to treat what does not line up.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct RetargetProfile {
-    pub name: String,
+    pub name: RetargetProfileName,
     pub source: RigProfile,
     pub target: RigProfile,
     #[serde(default)]
@@ -416,7 +416,7 @@ pub struct RetargetProfile {
 impl RetargetProfile {
     pub fn new(source: RigProfile, target: RigProfile) -> Self {
         Self {
-            name: format!("{} -> {}", source.name, target.name),
+            name: RetargetProfileName::from((&source.name, &target.name)),
             source,
             target,
             settings: RetargetSettings::default(),

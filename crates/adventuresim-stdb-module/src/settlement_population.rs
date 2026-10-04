@@ -492,12 +492,13 @@ pub fn npc_strategic_presence_at(
 ) -> Option<ScheduledStrategicPresence> {
     let suppression =
         crate::outbreak::patient_presence_suppression_at(ctx, presence.character_id, minute)?;
-    let alive = crate::relationship::character_alive_at(ctx, presence.character_id, minute);
+    let alive =
+        crate::relationship::character_alive_at(ctx, (presence.character_id).into(), minute);
     StrategicPresence::scheduled_resident(
-        presence.character_id,
+        (presence.character_id).into(),
         canonical_npc_place(&presence.settlement_id, &presence.location_id)?,
         PresenceFrontier {
-            observer_character_id,
+            observer_character_id: (observer_character_id).into(),
             personal_minute: minute,
         },
         DailyPresenceWindow {
@@ -637,9 +638,7 @@ mod tests {
         let input = GenerationInput {
             seed: "npc:test".into(),
             location: LocationContext::Overview,
-            is_service_provider: false,
-            service_id: None,
-            profession_override: None,
+            role: population::PopulationRole::Resident,
             local_role: "resident".into(),
             age: None,
             available_bridges: BTreeSet::from([

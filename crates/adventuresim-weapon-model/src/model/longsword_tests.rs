@@ -101,11 +101,10 @@ fn unresolvable_fuller_floor_rejects_instead_of_emitting_collapsed_strips() {
     value["components"][0]["fuller"]["grooves"][0]["floorWidthRatio"] = 0.000001.into();
     let recipe: Recipe = serde_json::from_value(value).unwrap();
     recipe.validate().unwrap();
-    assert!(
-        generate_model(&recipe, Detail::High)
-            .unwrap_err()
-            .contains("fuller strips cannot be resolved")
-    );
+    assert!(matches!(
+        generate_model(&recipe, Detail::High).unwrap_err(),
+        crate::ConstructionError::FullerSurfaceBudget
+    ));
     generate_model(
         &serde_json::from_value(blade_definition()).unwrap(),
         Detail::High,
@@ -337,9 +336,8 @@ fn axial_guard_terminals_join_outside_the_arm_and_inherit_material() {
     let mut invalid = value;
     invalid["components"][0]["terminalProfile"]["stations"][0][1] = 0.0001.into();
     let invalid: Recipe = serde_json::from_value(invalid).unwrap();
-    assert!(
-        generate_model(&invalid, Detail::High)
-            .unwrap_err()
-            .contains("receiving quillon")
-    );
+    assert!(matches!(
+        generate_model(&invalid, Detail::High).unwrap_err(),
+        crate::ConstructionError::TerminalQuillonCoverage
+    ));
 }

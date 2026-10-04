@@ -2,6 +2,7 @@
 
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::TorsoBody;
 use super::finish_wgsl::{self, CARRIER_WORDS};
@@ -21,8 +22,8 @@ pub(super) struct Plate {
 impl Plate {
     fn new(gpu: &ArmorGpu, topology: MidTopology, label: &str) -> Result<Self, GenerateError> {
         Ok(Self {
-            positions: gpu.scratch(topology.vertex_count() as u64 * 12, label)?,
-            faces: gpu.upload(&topology.faces)?,
+            positions: gpu.scratch((topology.vertex_count() as u64 * 12).into(), (label).into())?,
+            faces: gpu.upload(BufferUpload::from_elements(&topology.faces))?,
             topology,
         })
     }
@@ -42,7 +43,7 @@ impl Plate {
         batch: &mut KernelBatch,
         status: &Buffer,
     ) -> Result<Buffer, GenerateError> {
-        let normals = gpu.scratch(self.count() as u64 * 12, "plate normals")?;
+        let normals = gpu.scratch((self.count() as u64 * 12).into(), ("plate normals").into())?;
         let (offsets, incident) = self.topology.incident_faces();
         dispatch(
             gpu,
@@ -53,12 +54,18 @@ impl Plate {
             &[
                 ("positions", &self.positions),
                 ("faces", &self.faces),
-                ("offsets", &gpu.upload(&offsets)?),
-                ("incident", &gpu.upload(&incident)?),
+                (
+                    "offsets",
+                    &gpu.upload(BufferUpload::from_elements(&offsets))?,
+                ),
+                (
+                    "incident",
+                    &gpu.upload(BufferUpload::from_elements(&incident))?,
+                ),
                 ("normals", &normals),
                 ("status", status),
             ],
-            self.count(),
+            (self.count()).into(),
         )?;
         Ok(normals)
     }
@@ -149,15 +156,18 @@ impl Plates {
             &[("normals", true)],
             rim,
             &[("normals", &coarse_normals), ("status", status)],
-            finish_wgsl::UPPER_RIM_ROWS * self.coarse.width(),
+            (finish_wgsl::UPPER_RIM_ROWS * self.coarse.width()).into(),
         )?;
         let front = &self.front;
         let extrusions = Extrusions {
-            front: gpu.scratch(front.count() as u64 * 12, "front extrusion")?,
+            front: gpu.scratch(
+                (front.count() as u64 * 12).into(),
+                ("front extrusion").into(),
+            )?,
             back: self.back.normals(gpu, batch, status)?,
             carrier: gpu.scratch(
-                front.count() as u64 * CARRIER_WORDS as u64 * 4,
-                "front carrier samples",
+                (front.count() as u64 * CARRIER_WORDS as u64 * 4).into(),
+                ("front carrier samples").into(),
             )?,
         };
         dispatch(
@@ -178,12 +188,15 @@ impl Plates {
                 ("plate", plate),
                 ("coarse", &self.coarse.positions),
                 ("coarse_normals", &coarse_normals),
-                ("columns", &gpu.upload(&front.topology.columns)?),
+                (
+                    "columns",
+                    &gpu.upload(BufferUpload::from_elements(&front.topology.columns))?,
+                ),
                 ("positions", &front.positions),
                 ("extrusion", &extrusions.front),
                 ("carrier", &extrusions.carrier),
             ],
-            front.count(),
+            (front.count()).into(),
         )?;
         Ok(extrusions)
     }
@@ -201,9 +214,9 @@ impl Plates {
         let count = topology.sources.len() as u32;
         let triangles = (topology.indices.len() / 3) as u32;
         let shell = Shell {
-            sources: gpu.upload(&topology.sources)?,
-            indices: gpu.upload(&topology.indices)?,
-            positions: gpu.scratch(count as u64 * 12, "breastplate positions")?,
+            sources: gpu.upload(BufferUpload::from_elements(&topology.sources))?,
+            indices: gpu.upload(BufferUpload::from_elements(&topology.indices))?,
+            positions: gpu.scratch((count as u64 * 12).into(), ("breastplate positions").into())?,
             normals: VertexNormals::new(gpu.context(), count, triangles).map_err(device_error)?,
             topology,
         };
@@ -232,7 +245,7 @@ impl Plates {
                 ("back_extrusion", &extrusions.back),
                 ("positions", &shell.positions),
             ],
-            count,
+            (count).into(),
         )?;
         let mut shell = shell;
         gpu.normals(NormalWeighting::Area)
@@ -264,8 +277,8 @@ impl Plates {
         let (front, back) = (self.front.count(), self.back.count());
         let queries = front + back + self.coarse.count();
         let samples = gpu.scratch(
-            queries as u64 * SAMPLE_WORDS as u64 * 4,
-            "breastplate samples",
+            (queries as u64 * SAMPLE_WORDS as u64 * 4).into(),
+            ("breastplate samples").into(),
         )?;
         let params = Params {
             count: queries,
@@ -290,21 +303,24 @@ impl Plates {
                 ("front", &self.front.positions),
                 ("back", &self.back.positions),
                 ("coarse", &self.coarse.positions),
-                ("eligible", &gpu.upload(torso.eligible)?),
+                (
+                    "eligible",
+                    &gpu.upload(BufferUpload::from_elements(torso.eligible))?,
+                ),
                 ("body_faces", &torso.body.faces),
                 ("body_local", body_local),
                 ("samples", &samples),
             ],
-            queries,
+            (queries).into(),
         )?;
         let correspondence = Correspondence {
             skin: gpu.scratch(
-                shell.count() as u64 * SKIN_WORDS as u64 * 4,
-                "breastplate skin",
+                (shell.count() as u64 * SKIN_WORDS as u64 * 4).into(),
+                ("breastplate skin").into(),
             )?,
             morph_samples: gpu.scratch(
-                (front + back) as u64 * MORPH_WORDS as u64 * 4,
-                "breastplate morph samples",
+                ((front + back) as u64 * MORPH_WORDS as u64 * 4).into(),
+                ("breastplate morph samples").into(),
             )?,
         };
         dispatch(
@@ -321,7 +337,7 @@ impl Plates {
                 ("carrier", &extrusions.carrier),
                 ("morph_samples", &correspondence.morph_samples),
             ],
-            front + back,
+            (front + back).into(),
         )?;
         dispatch(
             gpu,
@@ -339,7 +355,7 @@ impl Plates {
                 ("body_joint_weights", &torso.body.joint_weights),
                 ("skin", &correspondence.skin),
             ],
-            shell.count(),
+            (shell.count()).into(),
         )?;
         Ok(correspondence)
     }

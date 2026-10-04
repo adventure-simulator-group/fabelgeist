@@ -167,7 +167,7 @@ impl MarketRow {
             let mut candidate = Candidate::new(
                 StreamId::new("furniture.market-anchor")
                     .seed(
-                        input.seed,
+                        input.seed.to_u64(),
                         &[
                             u64::from(frame.centre.x.to_bits()),
                             u64::from(frame.centre.y.to_bits()),

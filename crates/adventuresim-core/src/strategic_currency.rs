@@ -3,12 +3,12 @@
 pub use crate::item_references::CURRENCY_IDS;
 
 pub fn is_currency_id(item_id: &str) -> bool {
-    crate::item_catalog::definition(item_id)
+    crate::item_catalog::definition(&(item_id).into())
         .is_some_and(|item| matches!(&item.kind, crate::item_catalog::ItemKind::Currency))
 }
 
 pub fn currency_name(item_id: &str) -> Option<&'static str> {
-    crate::item_catalog::definition(item_id)
+    crate::item_catalog::definition(&(item_id).into())
         .filter(|item| matches!(&item.kind, crate::item_catalog::ItemKind::Currency))
         .map(|item| item.display_name.as_str())
 }

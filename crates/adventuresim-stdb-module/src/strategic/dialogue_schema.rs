@@ -83,7 +83,8 @@ fn project_local_chat_message(
                 owner_character_id,
                 "npc".into(),
                 String::new(),
-                row.resident_character_id.map_or_else(String::new, |id| id.to_string()),
+                row.resident_character_id
+                    .map_or_else(String::new, |id| id.to_string()),
             );
         }
     }
@@ -585,10 +586,10 @@ fn require_live_dialogue_presence(
         .ok_or("Dialogue participant has no personal time authority")?;
     let actor_settlement_presence =
         adventuresim_core::strategic_presence::StrategicPresence::settlement_membership(
-            character_id,
+            (character_id).into(),
             session.settlement_id.clone(),
             adventuresim_core::strategic_presence::PresenceFrontier {
-                observer_character_id: character_id,
+                observer_character_id: (character_id).into(),
                 personal_minute: minute,
             },
         )
@@ -739,9 +740,7 @@ mod stable_dialogue_schema_tests {
         }
         assert!(ResolutionPolicy::parse("FirstResponseWins").is_err());
         assert_eq!(
-            DialoguePromptState::parse("resolved")
-                .unwrap()
-                .stable_id(),
+            DialoguePromptState::parse("resolved").unwrap().stable_id(),
             "resolved"
         );
         assert!(DialoguePromptState::parse("unresolved").is_err());
@@ -760,15 +759,15 @@ mod stable_dialogue_schema_tests {
         );
         assert_eq!(parsed.approach, "request");
         assert_eq!(parsed.corpse_id, "corpse:character:7");
-        assert!(CorpsePermissionTopicId::parse("ordinary-topic")
-            .unwrap()
-            .is_none());
         assert!(
-            CorpsePermissionTopicId::parse(
-                "prefix-corpse-permission:examination:request:corpse:7"
-            )
-            .unwrap()
-            .is_none()
+            CorpsePermissionTopicId::parse("ordinary-topic")
+                .unwrap()
+                .is_none()
+        );
+        assert!(
+            CorpsePermissionTopicId::parse("prefix-corpse-permission:examination:request:corpse:7")
+                .unwrap()
+                .is_none()
         );
         for malformed in [
             "corpse-permission:unknown:request:corpse:7",

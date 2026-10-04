@@ -1,5 +1,6 @@
 //! Explicit directional dependencies between independently parameterized heads.
 use super::*;
+use crate::ConstructionError;
 use std::collections::BTreeSet;
 
 fn direction(shape: &Shape) -> Option<Direction> {
@@ -12,24 +13,25 @@ fn direction(shape: &Shape) -> Option<Direction> {
     }
 }
 
-pub(crate) fn directions(recipe: &Recipe) -> Result<Vec<(usize, Direction)>, String> {
+pub(crate) fn directions(recipe: &Recipe) -> Result<Vec<(usize, Direction)>, ConstructionError> {
     fn resolve(
         index: usize,
         recipe: &Recipe,
         visiting: &mut BTreeSet<usize>,
-    ) -> Result<Direction, String> {
+    ) -> Result<Direction, ConstructionError> {
         if !visiting.insert(index) {
-            return Err("working-end facing dependencies contain a cycle".into());
+            return Err(ConstructionError::WorkingEndFacingDependenciesContainCycle);
         }
         let component = &recipe.components[index];
-        let own = direction(&component.shape).ok_or("component has no directional working end")?;
+        let own = direction(&component.shape)
+            .ok_or(ConstructionError::ComponentNoDirectionalWorkingEnd)?;
         let result = if let Some(target) = &component.opposed_to {
             let parent = recipe
                 .components
                 .iter()
                 .enumerate()
                 .position(|(i, c)| c.resolved_id(i) == *target)
-                .ok_or("opposed working end names a missing component")?;
+                .ok_or(ConstructionError::OpposedWorkingEndNamesMissingComponent)?;
             match resolve(parent, recipe, visiting)? {
                 Direction::Positive => Direction::Negative,
                 Direction::Negative => Direction::Positive,
@@ -49,7 +51,7 @@ pub(crate) fn directions(recipe: &Recipe) -> Result<Vec<(usize, Direction)>, Str
         .collect::<Result<Vec<_>, _>>()
 }
 
-pub(crate) fn apply(recipe: &mut Recipe) -> Result<(), String> {
+pub(crate) fn apply(recipe: &mut Recipe) -> Result<(), ConstructionError> {
     for (index, direction) in directions(recipe)? {
         let c = &mut recipe.components[index];
         match &mut c.shape {
@@ -57,7 +59,7 @@ pub(crate) fn apply(recipe: &mut Recipe) -> Result<(), String> {
             Shape::Beak(p) => p.direction = Some(direction),
             Shape::FacetedBeak(p) => p.direction = Some(direction),
             Shape::Hammer(p) => p.direction = Some(direction),
-            _ => return Err("component has no directional working end".into()),
+            _ => return Err(ConstructionError::ComponentNoDirectionalWorkingEnd),
         }
         if let Some(offset) = &mut c.offset {
             offset[0] = Metres::new(offset[0].get().abs() * direction.sign())?;

@@ -6,10 +6,12 @@
 //! kernels read the frame where the fit was written; fitting kernels read the
 //! rest. Nothing is read back until the finished part is.
 
+use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
 use std::collections::HashSet;
 use std::sync::{LazyLock, Mutex};
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 use fabelgeist_armor::gpu::body::Correspondence;
 use fabelgeist_armor::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
@@ -115,13 +117,11 @@ fn joint(index: u32) -> vec3<f32> {
 
 impl DeviceWearer<'_> {
     /// A joint's index in the rig.
-    pub(crate) fn joint_slot(&self, name: &str) -> Result<u32> {
-        self.host
-            .joint_names
-            .iter()
-            .position(|n| n == name)
-            .map(|i| i as u32)
-            .with_context(|| format!("missing garment landmark {name}"))
+    pub(crate) fn joint_slot(
+        &self,
+        name: &RigJointName,
+    ) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+        name.require_in(self.host.joint_names)
     }
 
     /// Record which regions' skin each body vertex supports: bit `i` is set
@@ -135,12 +135,15 @@ impl DeviceWearer<'_> {
         for (bit, region) in regions.iter().enumerate() {
             let owners = region.owners();
             for (mask, owns) in owned.iter_mut().zip(self.host.owned_joints(&owners)) {
-                *mask |= owns << bit;
+                *mask |= u32::from(owns) << bit;
             }
         }
         let gpu = self.gpu;
-        let owned = gpu.upload(&owned)?;
-        let support = gpu.scratch(self.body.vertex_count as u64 * 4, "garment support")?;
+        let owned = gpu.upload(BufferUpload::from_elements(&owned))?;
+        let support = gpu.scratch(
+            (self.body.vertex_count as u64 * 4).into(),
+            ("garment support").into(),
+        )?;
         dispatch(
             self,
             batch,
@@ -159,7 +162,7 @@ impl DeviceWearer<'_> {
                 Word::U("count", self.body.vertex_count),
                 Word::U("regions", regions.len() as u32),
             ],
-            Grid::Items(self.body.vertex_count),
+            Grid::Items((self.body.vertex_count).into()),
         )?;
         Ok(support)
     }
@@ -175,7 +178,9 @@ impl DeviceWearer<'_> {
         head: &DeviceFrame,
         span: UprightSpan,
     ) -> Result<Buffer> {
-        let fit = self.gpu.scratch(u64::from(words) * 4, "garment fit")?;
+        let fit = self
+            .gpu
+            .scratch((u64::from(words) * 4).into(), ("garment fit").into())?;
         dispatch(
             self,
             batch,
@@ -187,14 +192,23 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::U("top_joint", self.joint_slot(span.top.0)?),
-                Word::U("bottom_joint", self.joint_slot(span.bottom.0)?),
-                Word::U("reach_joint", self.joint_slot(span.reach.0)?),
+                Word::U(
+                    "top_joint",
+                    usize::from(self.joint_slot(&span.top.0)?) as u32,
+                ),
+                Word::U(
+                    "bottom_joint",
+                    usize::from(self.joint_slot(&span.bottom.0)?) as u32,
+                ),
+                Word::U(
+                    "reach_joint",
+                    usize::from(self.joint_slot(&span.reach.0)?) as u32,
+                ),
                 Word::F("top_offset", span.top.1),
                 Word::F("bottom_offset", span.bottom.1),
                 Word::F("reach", span.reach.1),
             ],
-            Grid::Singles(1),
+            Grid::Singles((1u32).into()),
         )?;
         Ok(fit)
     }
@@ -229,7 +243,7 @@ impl DeviceWearer<'_> {
             return Ok(());
         }
         let gpu = self.gpu;
-        let mut unsubmitted = gpu.batch("garment kernels");
+        let mut unsubmitted = gpu.batch(("garment kernels").into());
         let mut recording = self.record_garment(&mut unsubmitted, design, placement)?;
         recording.part.record_shells(gpu, &mut unsubmitted)?;
         Correspondence::record(
@@ -276,7 +290,7 @@ impl DeviceWearer<'_> {
             FIT_STATUS,
             &[read("fit", fit), atomic("status", part.status())],
             &[],
-            Grid::Singles(1),
+            Grid::Singles((1u32).into()),
         )
     }
 }
@@ -284,11 +298,11 @@ impl DeviceWearer<'_> {
 /// Where an upright frame's top and bottom lie: the top is a joint's height
 /// plus an offset; the bottom lies `reach` of the way from a joint down to a
 /// second joint's height, less an offset.
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 pub(crate) struct UprightSpan {
-    pub top: (&'static str, f32),
-    pub bottom: (&'static str, f32),
-    pub reach: (&'static str, f32),
+    pub top: (RigJointName, f32),
+    pub bottom: (RigJointName, f32),
+    pub reach: (RigJointName, f32),
 }
 
 const SUPPORT: &str = r#"

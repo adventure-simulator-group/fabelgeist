@@ -113,11 +113,10 @@ fn narrow_deep_grooves_report_precision_limits_without_relaxing_clearance() {
     groove["exitLength"] = 0.015.into();
     let recipe: Recipe = serde_json::from_value(value).unwrap();
     recipe.validate().unwrap();
-    assert!(
-        generate_model(&recipe, Detail::High)
-            .unwrap_err()
-            .contains("normal-error budget")
-    );
+    assert!(matches!(
+        generate_model(&recipe, Detail::High).unwrap_err(),
+        crate::ConstructionError::FullerNormalBudget(_)
+    ));
 }
 
 #[test]

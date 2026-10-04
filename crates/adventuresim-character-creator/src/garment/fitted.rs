@@ -47,7 +47,7 @@ pub(super) fn coif(
 pub(super) fn surface_mesh(
     frame: &PartFrame,
     carrier: &CoifCarrier,
-    density: f32,
+    density: fabelgeist_shell::ParticleArealDensity,
 ) -> Result<GarmentMesh> {
     let count = carrier.positions.len();
     anyhow::ensure!(
@@ -96,18 +96,12 @@ pub(super) fn surface_mesh(
     // around it instead of creasing. Originals keep their indices.
     for bend in topology::build(&whole).bends {
         let points = bend.particles().map(|i| mesh.positions[i as usize]);
-        let Some(weights) = topology::bending_weights(points) else {
+        let points = fabelgeist_shell::BendPoints::from(points);
+        let Ok(weights) = fabelgeist_shell::BendWeights::for_points(points) else {
             continue;
         };
-        let rest = points
-            .iter()
-            .zip(&weights)
-            .fold(Vec3::default(), |sum, (p, &k)| sum + *p * k)
-            .length();
         mesh.bends.push(bend);
-        mesh.bend_weights.push([
-            weights[0], weights[1], weights[2], weights[3], rest, 0.0, 0.0, 0.0,
-        ]);
+        mesh.bend_weights.push(weights.observed_rest(points));
     }
     mesh.masses = topology::vertex_masses(&mesh.positions, &mesh.triangles, density);
     Ok(mesh)
@@ -453,6 +447,7 @@ fn norm(a: V) -> f64 {
 mod tests {
     use super::*;
     use fabelgeist_armor::gpu::{COIF_DRAPE_SECTIONS, FIT_PROFILE_WORD, frame_words, record_coif};
+    use fabelgeist_gpu::prelude::BufferUpload;
     use std::f32::consts::TAU;
 
     fn head() -> PartFrame {
@@ -519,9 +514,13 @@ mod tests {
         let gpu = crate::armor_gpu().unwrap();
         let design = CoifDesign::default();
         let frame = head();
-        let fit = gpu.upload(&fit_words(&design, &frame)).unwrap();
-        let placement = gpu.upload(&frame_words(&frame)).unwrap();
-        let mut batch = gpu.batch("coif carrier test");
+        let fit = gpu
+            .upload(BufferUpload::from_elements(&fit_words(&design, &frame)))
+            .unwrap();
+        let placement = gpu
+            .upload(BufferUpload::from_elements(&frame_words(&frame)))
+            .unwrap();
+        let mut batch = gpu.batch(("coif carrier test").into());
         let part = record_coif(gpu, &mut batch, &design, &fit, &placement).unwrap();
         batch.submit();
         let carrier = CoifCarrier::read(gpu, &part).unwrap();
@@ -537,7 +536,9 @@ mod tests {
             assert!(mesh.positions[a as usize].z > head().origin[2]);
         }
         assert!(
-            mesh.masses.iter().all(|m| *m > 0.0),
+            mesh.masses
+                .iter()
+                .all(|m| *m > fabelgeist_shell::ParticleMass::ZERO),
             "a vertex is in no triangle"
         );
         assert!(mesh.rest_lengths.iter().all(|l| *l > 0.0));

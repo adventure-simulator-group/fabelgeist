@@ -63,14 +63,17 @@ fn carried_item_rows(
         .character_id()
         .filter(character_id)
         .filter(|row| {
-            crate::inventory_container::object_for_row(ctx, CarriedInventoryScope::Personal, row.id)
-                .ok()
-                .flatten()
-                .is_some_and(|object| {
-                    crate::object_custody::require_actor_carried_object(ctx, &actor, &object)
-                        .is_ok()
-                        && !crate::inventory_container::ancestry_reaches_fireplace(ctx, object.id)
-                })
+            crate::inventory_container::object_for_row(
+                ctx,
+                CarriedInventoryScope::Personal,
+                (row.id).into(),
+            )
+            .ok()
+            .flatten()
+            .is_some_and(|object| {
+                crate::object_custody::require_actor_carried_object(ctx, &actor, &object).is_ok()
+                    && !crate::inventory_container::ancestry_reaches_fireplace(ctx, object.id)
+            })
         })
         .map(|row| (CarriedInventoryScope::Personal, row.id, row.item_id))
         .collect::<Vec<_>>();
@@ -90,7 +93,7 @@ fn carried_item_rows(
                     crate::inventory_container::object_for_row(
                         ctx,
                         CarriedInventoryScope::Party,
-                        row.id,
+                        (row.id).into(),
                     )
                     .ok()
                     .flatten()
@@ -166,7 +169,7 @@ fn preparation_terminal_minute(
 ) -> Result<Option<StrategicMinute>, String> {
     let injury = crate::surgery::preview_injury_boundary(
         ctx,
-        character_id,
+        (character_id).into(),
         duration,
         crate::surgery::InjuryRecoveryMinutes::new(duration),
     )?;
@@ -301,7 +304,8 @@ pub fn prepare_ingredient_lot(
     attempt_generation: u64,
     action: IngredientPreparationAction,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     // Exact replay is resolved solely from the immutable submitted tuple and
     // durable receipt, before consulting any mutable live state.
     if let Some(receipt) = ctx
@@ -324,11 +328,13 @@ pub fn prepare_ingredient_lot(
             Err("Ingredient preparation request id collides with a different attempt".into())
         };
     }
-    let actor = crate::character::require_living_character(ctx, character_id)?;
+    let actor = crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     if actor.has_tactical_server_assignment() {
         return Err("Ingredient preparation is unavailable during a tactical encounter".into());
     }
-    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+    crate::strategic::require_character_no_unresolved_encounter(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
     let current_minute = ctx
         .db
         .character_time()
@@ -485,7 +491,7 @@ pub fn prepare_ingredient_lot(
         return Err("Ingredient preparation planner effects do not match authority".into());
     }
 
-    let survived = crate::time::advance_character_wait_time(ctx, character_id, duration)?;
+    let survived = crate::time::advance_character_wait_time(ctx, (character_id).into(), duration)?;
     if !survived && effect_commit.is_some() {
         return Err("Ingredient preparation wait diverged from its authoritative plan".into());
     }
@@ -533,11 +539,13 @@ pub fn prepare_ingredient_lot(
         return Ok(());
     }
     let (_, _, next_display_name) = effect_commit.expect("completion effect checked");
-    let post_actor = crate::character::require_living_character(ctx, character_id)?;
+    let post_actor = crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     if post_actor.has_tactical_server_assignment() {
         return Err("Ingredient preparation became unavailable during its wait".into());
     }
-    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+    crate::strategic::require_character_no_unresolved_encounter(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
     let post_minute = ctx
         .db
         .character_time()
@@ -611,11 +619,12 @@ pub fn prepare_ingredient_lot(
     ctx.db.character_skills().character_id().update(skills);
     crate::condition::record_mastery_training_morale(
         ctx,
-        character_id,
+        (character_id).into(),
         duration,
         gain.excess_effective_hours,
     );
-    crate::capability::refresh_character_capability(ctx, character_id)?;
+    crate::capability::refresh_character_capability(ctx, (character_id).into())
+        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
     record_preparation_attempt_state(
         ctx,
         character_id,

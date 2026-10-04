@@ -13,7 +13,8 @@ pub fn authority_test_outcome_fact_payload(
     require_dev_bootstrap_token(&bootstrap_token)?;
     let case_id = "case:authority-fact-payload";
     let party_id = "party:authority-fact-payload";
-    let now = crate::time::refresh_clock(ctx)?;
+    let now = crate::time::refresh_clock(ctx)
+        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
     let deadline = now.saturating_add_minutes(10);
     let expression = ObjectiveExpression {
         alternatives: vec![ObjectivePath {

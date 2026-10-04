@@ -23,8 +23,32 @@ use crate::{
 };
 use adventuresim_core::physiology::{BodyMassKg, BodyRegion};
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+mod error;
+#[cfg(test)]
+mod error_tests;
+mod members;
+use members::condition_projection_member_ids;
+mod readiness;
+pub(crate) mod readiness_error;
+use adventuresim_core::identity::CharacterId;
+use error::ConditionComponent;
+pub(crate) use error::StrategicConditionError;
+pub(crate) use readiness::{require_character_ready, require_characters_ready};
+pub(crate) use readiness_error::CharacterReadinessError;
+mod parts;
+use parts::load_character_parts;
+pub(crate) use parts::mental_check;
+mod morale;
+use morale::{base_morale, party_morale_support};
+mod survival;
+use survival::SurvivalProjection;
+mod projection;
+pub(crate) use projection::refresh_character_strategic_condition;
+use projection::refresh_character_strategic_condition_projection;
 mod fear;
+mod initialization;
 use fear::enemy_fear_multiplier;
+pub(crate) use initialization::initialize_character_condition;
 pub const RECENT_MORALE_DURATION_MINUTES: u64 = 7 * 24 * 60;
 const LEISURE_MORALE_SOURCE_ID: &str = "settlement-leisure";
 const MASTERY_MORALE_SOURCE_ID: &str = "mastery-enjoyment";
@@ -149,57 +173,6 @@ pub struct ReligiousDemand {
     pub resolution: Option<String>,
 }
 
-pub fn initialize_character_condition(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<(), String> {
-    if ctx
-        .db
-        .character_condition()
-        .character_id()
-        .find(character_id)
-        .is_none()
-    {
-        let body_mass = BodyMassKg::DEFAULT;
-        let maximum_blood_ml = body_mass.estimated_blood_milliliters();
-        ctx.db.character_condition().insert(CharacterCondition {
-            character_id,
-            body_weight_kg: body_mass.kilograms(),
-            current_blood_ml: maximum_blood_ml,
-            maximum_blood_ml,
-            religion_id: None,
-        });
-    }
-    if ctx
-        .db
-        .character_needs()
-        .character_id()
-        .find(character_id)
-        .is_none()
-    {
-        ctx.db.character_needs().insert(CharacterNeeds {
-            character_id,
-            food_balance_kcal: STRATEGIC_TRAVEL_KCAL_PER_DAY,
-            water_balance_ml: STRATEGIC_TRAVEL_WATER_ML_PER_DAY,
-        });
-    }
-    if ctx
-        .db
-        .character_exposure()
-        .character_id()
-        .find(character_id)
-        .is_none()
-    {
-        ctx.db.character_exposure().insert(CharacterExposure {
-            character_id,
-            wetness_bps: 0,
-            thermal_strain: 0,
-            frostbite_progress_minutes: 0,
-        });
-    }
-    Ok(())
-}
-
 enum ExposureLocation {
     Fixed(i32, i32, i16),
     Route {
@@ -235,8 +208,8 @@ impl ExposureLocation {
 
 /// Load the durable location/route authority once. The potentially long
 /// minute stepping below is then pure and performs no database queries.
-fn exposure_location(ctx: &ReducerContext, character_id: u64) -> ExposureLocation {
-    let Some(character) = ctx.db.character().id().find(character_id) else {
+fn exposure_location(ctx: &ReducerContext, character_id: CharacterId) -> ExposureLocation {
+    let Some(character) = ctx.db.character().id().find(u64::from(character_id)) else {
         return ExposureLocation::Fixed(53_000_000, 10_000_000, 0);
     };
     if let Some(settlement_id) = character.current_settlement_id
@@ -301,13 +274,13 @@ fn exposure_location(ctx: &ReducerContext, character_id: u64) -> ExposureLocatio
 /// has committed its actually elapsed (possibly terminal-clipped) interval.
 pub fn apply_weather_exposure(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     starting_minute: StrategicMinute,
     elapsed_minutes: u64,
     moving: bool,
     shelter: adventuresim_core::survival::ExposureShelter,
 ) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
+    initialize_character_condition(ctx, character_id.into());
     if elapsed_minutes == 0 {
         return Ok(());
     }
@@ -315,15 +288,15 @@ pub fn apply_weather_exposure(
         .db
         .character_exposure()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character exposure not found")?;
-    let clothing = StrategicEquipment::load(ctx, character_id).survival_clothing();
-    let location = exposure_location(ctx, character_id);
+    let clothing = StrategicEquipment::load(ctx, (character_id).into()).survival_clothing();
+    let location = exposure_location(ctx, (character_id).into());
     let wilderness_environment_start = ctx
         .db
         .character()
         .id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .and_then(|character| character.party_id)
         .and_then(|party_id| ctx.db.party_authority().id().find(&party_id))
         .and_then(|party| crate::strategic::party_wilderness_environment_minutes(&party))
@@ -356,7 +329,7 @@ pub fn apply_weather_exposure(
         .character_exposure()
         .character_id()
         .update(CharacterExposure {
-            character_id,
+            character_id: u64::from(character_id),
             wetness_bps: outcome.state.wetness_bps,
             thermal_strain: outcome.state.thermal_strain,
             frostbite_progress_minutes: outcome.state.frostbite_progress_minutes,
@@ -379,19 +352,19 @@ pub fn apply_weather_exposure(
         ][peripheral];
         crate::surgery::commit_frostbite_injury(
             ctx,
-            character_id,
+            (character_id).into(),
             limb,
             adventuresim_core::survival::FROSTBITE_DAMAGE_PER_THRESHOLD,
         )?;
     }
-    refresh_character_strategic_condition_projection(ctx, character_id).map(|_| ())
+    refresh_character_strategic_condition_projection(ctx, (character_id).into()).map(|_| ())
 }
 
 /// Reusable authoritative water-entry impulse for future ford/immersion
 /// locations. Route terrain currently has no ford coordinates, so no caller
 /// guesses immersion from wetlands.
 pub fn apply_immersion_impulse(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
+    initialize_character_condition(ctx, character_id.into());
     let row = ctx
         .db
         .character_exposure()
@@ -416,11 +389,11 @@ pub fn apply_immersion_impulse(ctx: &ReducerContext, character_id: u64) -> Resul
     Ok(())
 }
 
-fn inventory_quantity(ctx: &ReducerContext, character_id: u64, item_id: &str) -> u32 {
+fn inventory_quantity(ctx: &ReducerContext, character_id: CharacterId, item_id: &str) -> u32 {
     ctx.db
         .inventory_item()
         .character_and_item_id()
-        .filter((character_id, item_id))
+        .filter((u64::from(character_id), item_id))
         .filter(|entry| {
             !crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
@@ -440,7 +413,7 @@ fn water_reserve_days(needs: &CharacterNeeds) -> f32 {
     needs.water_balance_ml.max(0.0) / STRATEGIC_TRAVEL_WATER_ML_PER_DAY
 }
 
-pub(crate) fn water_capacity_ml(ctx: &ReducerContext, character_id: u64) -> u32 {
+pub(crate) fn water_capacity_ml(ctx: &ReducerContext, character_id: CharacterId) -> u32 {
     let capacity_per_container = ctx
         .db
         .item()
@@ -466,14 +439,15 @@ pub fn prepare_party_waterskins(
 
 pub fn prepare_character_waterskins(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     from_settlement: bool,
 ) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
+    initialize_character_condition(ctx, character_id.into());
     if from_settlement {
-        let custody =
-            adventuresim_core::physical_object::OperationalCustody::character(character_id)
-                .map_err(|error| error.to_string())?;
+        let custody = adventuresim_core::physical_object::OperationalCustody::character(
+            (character_id).into(),
+        )
+        .map_err(|error| error.to_string())?;
         crate::inventory_container::fill_carried_waterskins(ctx, &custody)?;
     }
     Ok(())
@@ -481,34 +455,35 @@ pub fn prepare_character_waterskins(
 
 pub fn replenish_needs_at_settlement(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
 ) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
+    initialize_character_condition(ctx, character_id.into());
     let mut needs = ctx
         .db
         .character_needs()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character needs not found")?;
     // Arrival grants no free provisions and clears any travel surplus so the
     // character can immediately eat a deliberate dinner.
     needs.food_balance_kcal = needs.food_balance_kcal.min(0.0);
     needs.water_balance_ml = STRATEGIC_TRAVEL_WATER_ML_PER_DAY;
     ctx.db.character_needs().character_id().update(needs);
-    let custody = adventuresim_core::physical_object::OperationalCustody::character(character_id)
-        .map_err(|error| error.to_string())?;
+    let custody =
+        adventuresim_core::physical_object::OperationalCustody::character((character_id).into())
+            .map_err(|error| error.to_string())?;
     crate::inventory_container::fill_carried_waterskins(ctx, &custody)?;
     Ok(())
 }
 
 pub fn apply_elapsed_needs(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     elapsed_minutes: u64,
 ) -> Result<(), String> {
     apply_elapsed_needs_with_provision(
         ctx,
-        character_id,
+        (character_id).into(),
         elapsed_minutes,
         ElapsedNeedsProvision::PersonalSupplies,
     )
@@ -518,13 +493,13 @@ pub fn apply_elapsed_needs(
 /// supplies water; inn board and a residence additionally supply food.
 pub(crate) fn apply_settlement_rest_elapsed_needs(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     elapsed_minutes: u64,
     provision: crate::time::SettlementRestProvision,
 ) -> Result<(), String> {
     apply_elapsed_needs_with_provision(
         ctx,
-        character_id,
+        (character_id).into(),
         elapsed_minutes,
         settlement_rest_elapsed_needs_provision(provision),
     )
@@ -607,16 +582,16 @@ fn elapsed_needs_plan(
 
 fn apply_elapsed_needs_with_provision(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     elapsed_minutes: u64,
     provision: ElapsedNeedsProvision,
 ) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
+    initialize_character_condition(ctx, character_id.into());
     let mut needs = ctx
         .db
         .character_needs()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character needs not found")?;
 
     let needs_plan = elapsed_needs_plan(
@@ -631,13 +606,13 @@ fn apply_elapsed_needs_with_provision(
         .character_id()
         .update(needs.clone());
     if needs_plan.consume_stored_food {
-        crate::food::consume_travel_food_to_zero(ctx, character_id)?;
+        crate::food::consume_travel_food_to_zero(ctx, (character_id).into())?;
     }
     needs = ctx
         .db
         .character_needs()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character needs not found")?;
 
     needs.water_balance_ml = needs_plan.water_balance_ml;
@@ -646,7 +621,7 @@ fn apply_elapsed_needs_with_provision(
             .db
             .character()
             .id()
-            .find(character_id)
+            .find(u64::from(character_id))
             .and_then(|row| row.party_id)
         {
             let party_custody =
@@ -654,18 +629,19 @@ fn apply_elapsed_needs_with_provision(
                     .map_err(|error| error.to_string())?;
             let contained = crate::inventory_container::consume_contained_water(
                 ctx,
-                character_id,
+                (character_id).into(),
                 &party_custody,
                 (-needs.water_balance_ml).max(0.0).ceil() as u64,
             )?;
             needs.water_balance_ml += contained as f32;
         }
-        let personal_custody =
-            adventuresim_core::physical_object::OperationalCustody::character(character_id)
-                .map_err(|error| error.to_string())?;
+        let personal_custody = adventuresim_core::physical_object::OperationalCustody::character(
+            (character_id).into(),
+        )
+        .map_err(|error| error.to_string())?;
         let contained = crate::inventory_container::consume_contained_water(
             ctx,
-            character_id,
+            (character_id).into(),
             &personal_custody,
             (-needs.water_balance_ml).max(0.0).ceil() as u64,
         )?;
@@ -688,82 +664,6 @@ fn total_damage(limbs: &CharacterLimbs) -> f32 {
     .into_iter()
     .map(|health| (1.0 - health).max(0.0))
     .sum()
-}
-
-pub(crate) fn mental_check(
-    ctx: &ReducerContext,
-    character_id: u64,
-    skill: Skill,
-) -> Result<f32, String> {
-    let attributes = ctx
-        .db
-        .character_attributes()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character attributes not found")?;
-    let limbs = ctx
-        .db
-        .character_limbs()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character limbs not found")?;
-    let stats = ctx
-        .db
-        .character_stats()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character stats not found")?;
-    let skills = ctx
-        .db
-        .character_skills()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character skills not found")?;
-    let equipment = StrategicEquipment::load(ctx, character_id);
-    Ok(skills.skill_check_by_parts(
-        skill,
-        &attributes,
-        &limbs,
-        &stats,
-        &equipment,
-        LimbWeights::all_equal(),
-    ))
-}
-
-fn load_character_parts(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<
-    (
-        CharacterAttributes,
-        CharacterLimbs,
-        CharacterStats,
-        CharacterSkills,
-    ),
-    String,
-> {
-    Ok((
-        ctx.db
-            .character_attributes()
-            .character_id()
-            .find(character_id)
-            .ok_or("Character attributes not found")?,
-        ctx.db
-            .character_limbs()
-            .character_id()
-            .find(character_id)
-            .ok_or("Character limbs not found")?,
-        ctx.db
-            .character_stats()
-            .character_id()
-            .find(character_id)
-            .ok_or("Character stats not found")?,
-        ctx.db
-            .character_skills()
-            .character_id()
-            .find(character_id)
-            .ok_or("Character skills not found")?,
-    ))
 }
 
 #[derive(Clone, Debug)]
@@ -815,16 +715,22 @@ fn religion_label(religion_id: &str) -> String {
         .join(" ")
 }
 
-fn party_character_ids(ctx: &ReducerContext, character_id: u64) -> Result<Vec<u64>, String> {
+fn party_character_ids(
+    ctx: &ReducerContext,
+    character_id: CharacterId,
+) -> Result<Vec<CharacterId>, StrategicConditionError> {
     let character = ctx
         .db
         .character()
         .id()
-        .find(character_id)
-        .ok_or("Character not found")?;
+        .find(u64::from(character_id))
+        .ok_or(StrategicConditionError::Missing {
+            character: character_id,
+            component: ConditionComponent::Character,
+        })?;
     Ok(condition_projection_member_ids(
         character_id,
-        character.alive,
+        crate::character::StoredCharacterLifeState::from(character.alive),
         character
             .party_id
             .as_ref()
@@ -832,25 +738,11 @@ fn party_character_ids(ctx: &ReducerContext, character_id: u64) -> Result<Vec<u6
     ))
 }
 
-fn condition_projection_member_ids(
-    character_id: u64,
-    alive: bool,
-    living_party_members: Option<Vec<u64>>,
-) -> Vec<u64> {
-    if !alive {
-        // A corpse still has a durable condition projection, but must not be
-        // reintroduced into living party morale/capability aggregation.
-        vec![character_id]
-    } else {
-        living_party_members.unwrap_or_else(|| vec![character_id])
-    }
-}
-
 fn religion_knowledge_check(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     religion: adventuresim_world_schema::OfficialReligion,
-) -> Result<f32, String> {
+) -> Result<f32, StrategicConditionError> {
     let (attributes, limbs, stats, skills) = load_character_parts(ctx, character_id)?;
     Ok(adventuresim_core::capability::religion_knowledge_check(
         skills.religion_hours.effective(religion),
@@ -863,13 +755,13 @@ fn religion_knowledge_check(
 
 fn party_religion_context(
     ctx: &ReducerContext,
-    character_id: u64,
-    party_members: &[u64],
-) -> Result<Option<(String, PartyReligionContext)>, String> {
+    character_id: CharacterId,
+    party_members: &[CharacterId],
+) -> Result<Option<(String, PartyReligionContext)>, StrategicConditionError> {
     let mut cohorts: BTreeMap<String, Vec<f32>> = BTreeMap::new();
     let mut commands = Vec::with_capacity(party_members.len());
     for member_id in party_members.iter().copied() {
-        initialize_character_condition(ctx, member_id)?;
+        initialize_character_condition(ctx, member_id);
         commands.push(adventuresim_world_schema::language_scaled_effect(
             mental_check(ctx, member_id, Skill::Command)?,
             crate::character::shared_language_coefficient(ctx, member_id, character_id),
@@ -878,7 +770,7 @@ fn party_religion_context(
             .db
             .character_condition()
             .character_id()
-            .find(member_id)
+            .find(u64::from(member_id))
             .and_then(|condition| condition.religion_id)
         {
             cohorts.entry(religion_id).or_default().push(
@@ -892,13 +784,18 @@ fn party_religion_context(
         .db
         .character_condition()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .and_then(|condition| condition.religion_id);
     let Some(own_religion) = own_religion else {
         return Ok(None);
     };
-    let religion = adventuresim_world_schema::OfficialReligion::from_id(&own_religion)
-        .ok_or_else(|| "Character has an unknown religion".to_string())?;
+    let religion =
+        adventuresim_world_schema::OfficialReligion::from_id(&own_religion).ok_or_else(|| {
+            StrategicConditionError::UnknownReligion {
+                character: character_id,
+                stored_key: own_religion.clone(),
+            }
+        })?;
     let (own_cohort, foreign_pressure) = religion_cohort_pressure(cohorts, &own_religion);
     let knowledge_checks = party_members
         .iter()
@@ -931,276 +828,25 @@ fn religion_cohort_pressure(cohorts: BTreeMap<String, Vec<f32>>, own_religion: &
     (own_cohort, foreign_pressure)
 }
 
-fn base_morale(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<(f32, Vec<ProjectedMoraleSource>), String> {
-    let character = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .ok_or("Character not found")?;
-    let current_minute = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .map_or(StrategicMinute::ZERO, |t| t.minutes);
-    let (_, limbs, _, _) = load_character_parts(ctx, character_id)?;
-    let will = mental_check(ctx, character_id, Skill::Will)?.max(MINIMUM_WILL_CHECK);
-    let personality = crate::personality::personality_or_neutral(ctx, character_id);
-    let mut raw_sources = Vec::new();
-    let mut add_source = |key: String,
-                          kind: MoraleSourceKind,
-                          label: String,
-                          magnitude: f32,
-                          stimulus: crate::personality::MoraleStimulus| {
-        // True personality changes the authoritative magnitude, but labels are
-        // public presentation data and must never reveal that private truth.
-        let (magnitude, _) =
-            crate::personality::react_raw_for_character(ctx, character_id, stimulus, magnitude);
-        raw_sources.push(ProjectedMoraleSource {
-            key,
-            kind,
-            label,
-            magnitude,
-        });
-    };
-
-    let injury = total_damage(&limbs) * INJURY_MORALE_PER_HEALTH_DEFICIT;
-    if injury > 0.0 {
-        add_source(
-            "injuries".into(),
-            MoraleSourceKind::Injury,
-            "Injuries".into(),
-            -injury,
-            crate::personality::MoraleStimulus::Other,
-        );
-    }
-
-    let filth_total = ctx
-        .db
-        .character_filth()
-        .character_id()
-        .filter(character_id)
-        .map(|deposit| f32::from(deposit.amount))
-        .sum::<f32>()
-        .min(f32::from(adventuresim_core::filth::MAX_FILTH));
-    let filth_fraction = filth_total / f32::from(adventuresim_core::filth::MAX_FILTH);
-    let hygiene_score =
-        crate::personality::personality_scores_or_neutral(ctx, character_id).hygiene;
-    let baseline_hygiene_morale = -8.0 * filth_fraction;
-    let hygiene_endpoint = if hygiene_score >= 0 {
-        if filth_total == 0.0 {
-            2.0
-        } else {
-            -20.0 * filth_fraction
-        }
-    } else {
-        0.0
-    };
-    let hygiene_ratio = f32::from(hygiene_score.unsigned_abs())
-        / f32::from(crate::personality::PERSONALITY_SCORE_LIMIT as u16);
-    let hygiene_morale =
-        baseline_hygiene_morale + (hygiene_endpoint - baseline_hygiene_morale) * hygiene_ratio;
-    if hygiene_morale != 0.0 {
-        add_source(
-            "cleanliness".into(),
-            MoraleSourceKind::Cleanliness,
-            if hygiene_morale > 0.0 {
-                "Clean".into()
-            } else {
-                "Filthy".into()
-            },
-            hygiene_morale,
-            crate::personality::MoraleStimulus::Other,
-        );
-    }
-
-    let party_members = party_character_ids(ctx, character_id)?;
-    if let Some((religion_id, religion)) =
-        party_religion_context(ctx, character_id, &party_members)?
-    {
-        if personality.conviction == crate::personality::Conviction::Zealous
-            && religion.knowledge > 0.0
-        {
-            add_source(
-                format!("religion-{religion_id}"),
-                MoraleSourceKind::Religion,
-                format!("Religious leadership for {}", religion_label(&religion_id)),
-                religion.knowledge,
-                crate::personality::MoraleStimulus::Religious,
-            );
-        }
-        let discord = religious_discord(religion.foreign_pressure, religion.party_command);
-        if discord > 0.0 {
-            add_source(
-                "religious-discord".into(),
-                MoraleSourceKind::ReligiousDiscord,
-                "Religious discord".into(),
-                -discord,
-                crate::personality::MoraleStimulus::Religious,
-            );
-        }
-        let prayer_minutes = ctx
-            .db
-            .character_training_schedule()
-            .character_id()
-            .find(character_id)
-            .map_or(0, |schedule| schedule.downtime.prayer_minutes);
-        if prayer_minutes > 0 {
-            add_source(
-                "daily-prayer".into(),
-                MoraleSourceKind::Prayer,
-                "Daily prayer".into(),
-                led_prayer_morale(prayer_minutes, religion.knowledge),
-                crate::personality::MoraleStimulus::Religious,
-            );
-        }
-        let prayer_fervor = fervor_fraction(
-            crate::personality::conviction_strength_for_character(ctx, character_id),
-            religion.own_cohort,
-            0.0,
-            religion.party_command,
-        );
-        let neglect = religious_neglect_morale(prayer_fervor, religion.party_command)
-            * (1.0 - prayer_observance(prayer_fervor, prayer_minutes));
-        if neglect > 0.0 {
-            add_source(
-                "neglected-prayer".into(),
-                MoraleSourceKind::Prayer,
-                "Insufficient daily prayer".into(),
-                -neglect,
-                crate::personality::MoraleStimulus::Religious,
-            );
-        }
-    } else {
-        let meditation_minutes = ctx
-            .db
-            .character_training_schedule()
-            .character_id()
-            .find(character_id)
-            .map_or(0, |schedule| schedule.downtime.prayer_minutes);
-        if meditation_minutes > 0 {
-            // Meditation is independent of religious knowledge and Conviction.
-            add_source(
-                "daily-meditation".into(),
-                MoraleSourceKind::Meditation,
-                "Daily meditation".into(),
-                meditation_morale(meditation_minutes),
-                crate::personality::MoraleStimulus::Other,
-            );
-        }
-    }
-    let mut allied_power = 0.0;
-    for member_id in party_members {
-        let capability = crate::capability::refresh_character_capability(ctx, member_id)?;
-        allied_power += capability.athletics
-            + capability.endurance
-            + capability.weapon_precision
-            + if capability.melee || capability.ranged {
-                2.0
-            } else {
-                0.0
-            }
-            + if capability.full_armor {
-                2.0
-            } else if capability.half_armor || capability.three_quarter_armor {
-                1.0
-            } else if capability.quarter_armor {
-                0.5
-            } else {
-                0.0
-            };
-    }
-
-    if let Some(case_site_id) = crate::investigation::character_case_site_id(ctx, character.id)
-        && let Some(site) = ctx.db.case_site_authority().id_key().find(&case_site_id)
-        && let Some(group) = ctx
-            .db
-            .hostile_group_authority()
-            .iter()
-            .find(|group| group.case_site_id == site.id)
-    {
-        let enemy_power = group.enemy_count.max(1) as f32 * (group.difficulty.max(1) as f32 + 4.0);
-        let difference = allied_power - enemy_power;
-        if difference != 0.0 {
-            add_source(
-                format!("power-{}", group.id),
-                MoraleSourceKind::Power,
-                if difference > 0.0 {
-                    "Superior allied strength".into()
-                } else {
-                    format!("Outmatched by {}", group.enemy_type)
-                },
-                if difference > 0.0 {
-                    difference
-                } else {
-                    difference.abs() * -enemy_fear_multiplier(&group.enemy_type)?
-                },
-                if difference < 0.0 {
-                    crate::personality::MoraleStimulus::Threat
-                } else {
-                    crate::personality::MoraleStimulus::Other
-                },
-            );
-        }
-    }
-
-    for event in ctx.db.morale_event().character_id().filter(character_id) {
-        let occurred_at = event.occurred_at_minute;
-        let duration = event.expires_at_minute.elapsed_since(occurred_at);
-        let age = current_minute.elapsed_since(occurred_at);
-        let effect = if event.source_id.as_deref() == Some(LEISURE_MORALE_SOURCE_ID) {
-            leisure_morale_effect(event.magnitude, age as f32, duration)
-        } else if event.source_id.as_deref() == Some(MASTERY_MORALE_SOURCE_ID) {
-            event.magnitude * adventuresim_core::morale::mastery_enjoyment_decay(age, duration)
-        } else {
-            event.magnitude * morale_event_decay(age, duration)
-        };
-        if effect != 0.0 {
-            let stimulus = crate::personality::morale_event_stimulus(event.kind);
-            add_source(
-                format!("event-{}", event.id),
-                event.kind.into(),
-                match event.kind {
-                    MoraleEventKind::Victory => "Recent victory".into(),
-                    MoraleEventKind::Defeat => "Recent defeat".into(),
-                    MoraleEventKind::Leisure => "Restful leisure".into(),
-                    MoraleEventKind::MasteryEnjoyment => "Mastery enjoyment".into(),
-                    other => other.as_str().replace('_', " "),
-                },
-                effect,
-                stimulus,
-            );
-        }
-    }
-
-    rank_morale_sources(&mut raw_sources, will);
-    let morale = raw_sources.iter().map(|source| source.magnitude).sum();
-    Ok((morale, raw_sources))
-}
-
 /// Feed all rejected effective skill training into one shared, durable morale
 /// source. Callers aggregate every award in one logical clock interval before
 /// recording it, so skill choice and award order cannot multiply enjoyment.
 pub fn record_mastery_training_morale(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     elapsed_minutes: u64,
     excess_effective_hours: f32,
 ) {
     if excess_effective_hours <= 0.0 || !excess_effective_hours.is_finite() {
         return;
     }
-    let interval_end = character_minute(ctx, character_id);
+    let interval_end = character_minute(ctx, (character_id).into());
     let interval_start = interval_end.saturating_sub_minutes(elapsed_minutes);
     let existing = ctx
         .db
         .morale_event()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .find(|event| event.source_id.as_deref() == Some(MASTERY_MORALE_SOURCE_ID));
     let at_interval_start = existing.as_ref().map_or(0.0, |event| {
         let occurred_at = event.occurred_at_minute;
@@ -1221,7 +867,7 @@ pub fn record_mastery_training_morale(
     );
     let event = MoraleEvent {
         id: existing.as_ref().map_or(0, |event| event.id),
-        character_id,
+        character_id: u64::from(character_id),
         kind: MoraleEventKind::MasteryEnjoyment,
         magnitude,
         occurred_at_minute: interval_end,
@@ -1235,229 +881,18 @@ pub fn record_mastery_training_morale(
     }
 }
 
-fn party_morale_support(
-    ctx: &ReducerContext,
-    party_members: &[u64],
-) -> Result<(f32, Vec<(u64, f32)>), String> {
-    let mut commands = Vec::new();
-    let mut surplus_weights = Vec::new();
-    for member_id in party_members.iter().copied() {
-        commands.push(mental_check(ctx, member_id, Skill::Command)?);
-        let (member_base_morale, _) = base_morale(ctx, member_id)?;
-        let surplus = member_base_morale.max(0.0);
-        if surplus > 0.0 {
-            surplus_weights.push((member_id, surplus));
-        }
-    }
-    let party_command = aggregate_party_command(commands);
-    let bonus_cap = MORALE_BONUS_PER_COMMAND * party_command;
-    let combined_surplus = cumulative_morale(surplus_weights.iter().map(|(_, surplus)| *surplus));
-    let total_bonus = morale_bonus_fraction(combined_surplus, party_command);
-    let total_weight: f32 = surplus_weights.iter().map(|(_, surplus)| *surplus).sum();
-    let shares = surplus_weights
-        .into_iter()
-        .map(|(member_id, surplus)| (member_id, total_bonus * surplus / total_weight))
-        .collect();
-    Ok((bonus_cap, shares))
-}
-
-fn evaluate_strategic_condition(
-    ctx: &ReducerContext,
-    character_id: u64,
-    morale_bonus_cap: f32,
-    morale_bonus_shares: &[(u64, f32)],
-) -> Result<(CharacterStrategicCondition, Vec<ProjectedMoraleSource>), String> {
-    initialize_character_condition(ctx, character_id)?;
-    let condition = ctx
-        .db
-        .character_condition()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character condition not found")?;
-    let (attributes, limbs, stats, _) = load_character_parts(ctx, character_id)?;
-    let will = mental_check(ctx, character_id, Skill::Will)?;
-    let (listener_base_morale, mut sources) = base_morale(ctx, character_id)?;
-    let party_members = party_character_ids(ctx, character_id)?;
-    let fervor =
-        if let Some((_, religion)) = party_religion_context(ctx, character_id, &party_members)? {
-            fervor_fraction(
-                crate::personality::personality_or_neutral(ctx, character_id)
-                    .conviction
-                    .strength(),
-                religion.own_cohort,
-                listener_base_morale.max(0.0),
-                religion.party_command,
-            )
-        } else {
-            0.0
-        };
-
-    if listener_base_morale < 0.0 {
-        let deficit = -listener_base_morale;
-        let mut ally_lifts = Vec::new();
-        for (member_id, fraction) in morale_bonus_shares.iter().copied() {
-            if member_id != character_id && fraction > 0.0 {
-                let ally = ctx
-                    .db
-                    .character()
-                    .id()
-                    .find(member_id)
-                    .ok_or("Party member not found")?;
-                let (social_multiplier, social_trait) =
-                    crate::personality::ally_restoration_multiplier_for_character(
-                        ctx,
-                        character_id,
-                    );
-                ally_lifts.push((
-                    member_id,
-                    ally.name,
-                    deficit * fraction * social_multiplier,
-                    social_trait,
-                ));
-            }
-        }
-        let total_lift: f32 = ally_lifts.iter().map(|(_, _, lift, _)| *lift).sum();
-        let scale = if total_lift > deficit {
-            deficit / total_lift
-        } else {
-            1.0
-        };
-        for (member_id, name, lift, _social_trait) in ally_lifts {
-            sources.push(ProjectedMoraleSource {
-                key: format!("ally-{member_id}"),
-                kind: MoraleSourceKind::Ally,
-                label: format!("Encouraged by {name}"),
-                magnitude: lift * scale,
-            });
-        }
-    }
-
-    let morale = sources
-        .iter()
-        .map(|source| source.magnitude)
-        .sum::<f32>()
-        .min(listener_base_morale.max(0.0));
-    let morale_bonus = morale_bonus_shares
-        .iter()
-        .find_map(|(member_id, bonus)| (*member_id == character_id).then_some(*bonus))
-        .unwrap_or(0.0);
-    let pain = pain_incapacitation(total_damage(&limbs), will);
-    let blood_loss =
-        blood_loss_incapacitation(condition.current_blood_ml, condition.maximum_blood_ml);
-    let fatigue_ratio = stats.fatigue_by_parts(&attributes, &limbs);
-    let needs = ctx
-        .db
-        .character_needs()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character needs not found")?;
-    let water_capacity = water_capacity_ml(ctx, character_id);
-    let hunger = hunger_incapacitation(needs.food_balance_kcal, STRATEGIC_TRAVEL_KCAL_PER_DAY);
-    let thirst = thirst_incapacitation(needs.water_balance_ml, STRATEGIC_TRAVEL_WATER_ML_PER_DAY);
-    let exposure = ctx
-        .db
-        .character_exposure()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character exposure not found")?;
-    let thermal = adventuresim_core::survival::thermal_incapacitation(exposure.thermal_strain);
-    let incapacitation = StrategicIncapacitation {
-        pain,
-        blood_loss,
-        fear: fear_incapacitation(morale),
-        fatigue: fatigue_incapacitation(fatigue_ratio),
-        hunger,
-        thirst,
-        thermal,
-    };
-    let status = incapacitation.status();
-    Ok((
-        CharacterStrategicCondition {
-            character_id,
-            morale,
-            morale_bonus,
-            morale_bonus_cap,
-            fervor,
-            pain: incapacitation.pain,
-            blood_loss: incapacitation.blood_loss,
-            fear: incapacitation.fear,
-            fatigue: incapacitation.fatigue,
-            hunger: incapacitation.hunger,
-            thirst: incapacitation.thirst,
-            thermal: incapacitation.thermal,
-            wetness_bps: exposure.wetness_bps,
-            thermal_strain: exposure.thermal_strain,
-            food_days: food_reserve_days(&needs),
-            water_days: water_reserve_days(&needs),
-            water_capacity_ml: water_capacity,
-            incapacitation: incapacitation.total(),
-            check_multiplier: incapacitation.check_multiplier(),
-            status,
-        },
-        sources,
-    ))
-}
-
-fn refresh_one_strategic_condition(
-    ctx: &ReducerContext,
-    character_id: u64,
-    morale_bonus_cap: f32,
-    morale_bonus_shares: &[(u64, f32)],
-) -> Result<CharacterStrategicCondition, String> {
-    let (row, sources) =
-        evaluate_strategic_condition(ctx, character_id, morale_bonus_cap, morale_bonus_shares)?;
-    if let Some(existing) = ctx
-        .db
-        .character_strategic_condition()
-        .character_id()
-        .find(character_id)
-    {
-        if existing != row {
-            ctx.db
-                .character_strategic_condition()
-                .character_id()
-                .update(row.clone());
-        }
-    } else {
-        ctx.db.character_strategic_condition().insert(row.clone());
-    }
-    let old_source_ids: Vec<String> = ctx
-        .db
-        .character_morale_source()
-        .character_id()
-        .filter(character_id)
-        .map(|source| source.id)
-        .collect();
-    for id in old_source_ids {
-        ctx.db.character_morale_source().id().delete(&id);
-    }
-    for source in sources {
-        ctx.db
-            .character_morale_source()
-            .insert(CharacterMoraleSource {
-                id: format!("{character_id}:{}", source.key),
-                character_id,
-                kind: source.kind,
-                label: source.label,
-                magnitude: source.magnitude,
-            });
-    }
-    crate::social::prune_social_addresses(ctx, character_id);
-    Ok(row)
-}
-
-fn character_minute(ctx: &ReducerContext, character_id: u64) -> StrategicMinute {
+fn character_minute(ctx: &ReducerContext, character_id: CharacterId) -> StrategicMinute {
     ctx.db
         .character_time()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .map_or(StrategicMinute::ZERO, |time| time.minutes)
 }
 
 fn ensure_holy_day_demand(
     ctx: &ReducerContext,
     condition: &CharacterStrategicCondition,
-) -> Result<(), String> {
+) -> Result<(), StrategicConditionError> {
     if condition.fervor <= 0.0 {
         return Ok(());
     }
@@ -1472,7 +907,7 @@ fn ensure_holy_day_demand(
     }
     let current_minute = crate::time::refresh_clock(ctx)?;
     let current_day = current_minute.day_index();
-    if !adventuresim_world_schema::calendar::is_sunday_day_index(current_day) {
+    if current_day.weekday() != adventuresim_world_schema::calendar::StrategicWeekday::Sunday {
         return Ok(());
     }
     let demands: Vec<_> = ctx
@@ -1513,66 +948,26 @@ fn ensure_holy_day_demand(
     Ok(())
 }
 
-fn refresh_character_strategic_condition_projection(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<CharacterStrategicCondition, String> {
-    let party_members = party_character_ids(ctx, character_id)?;
-    let rows = refresh_party_strategic_condition_projection(ctx, &party_members)?;
-    rows.into_iter()
-        .find(|row| row.character_id == character_id)
-        .ok_or_else(|| "Character is not a member of their party".to_string())
-}
-
-fn refresh_party_strategic_condition_projection(
-    ctx: &ReducerContext,
-    party_members: &[u64],
-) -> Result<Vec<CharacterStrategicCondition>, String> {
-    let (morale_bonus_cap, morale_bonus_shares) = party_morale_support(ctx, party_members)?;
-    let rows = party_members
-        .iter()
-        .copied()
-        .map(|member_id| {
-            refresh_one_strategic_condition(ctx, member_id, morale_bonus_cap, &morale_bonus_shares)
-        })
-        .collect::<Result<Vec<_>, _>>()?;
-    // Combat power consumes this projection. Keep its public aggregate in the
-    // same transaction as the condition rows so disease, time, and recovery
-    // changes cannot leave a stale readiness snapshot behind.
-    for row in &rows {
-        crate::capability::refresh_character_capability(ctx, row.character_id)?;
-    }
-    Ok(rows)
-}
-
-pub fn refresh_character_strategic_condition(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<CharacterStrategicCondition, String> {
-    let mut requested = refresh_character_strategic_condition_projection(ctx, character_id)?;
-    if refuse_expired_holy_day_demands(ctx, character_id, false)? {
-        requested = refresh_character_strategic_condition_projection(ctx, character_id)?;
-    }
-    ensure_holy_day_demand(ctx, &requested)?;
-    Ok(requested)
-}
-
-fn holy_day_demand_has_expired(created_day: u64, current_day: u64, departing: bool) -> bool {
+fn holy_day_demand_has_expired(
+    created_day: adventuresim_world_schema::calendar::StrategicDayIndex,
+    current_day: adventuresim_world_schema::calendar::StrategicDayIndex,
+    departing: bool,
+) -> bool {
     created_day < current_day || (departing && created_day == current_day)
 }
 
 fn refuse_expired_holy_day_demands(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     departing: bool,
-) -> Result<bool, String> {
+) -> Result<bool, StrategicConditionError> {
     let current_minute = crate::time::refresh_clock(ctx)?;
     let current_day = current_minute.day_index();
     let pending: Vec<_> = ctx
         .db
         .religious_demand()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .filter(|demand| {
             demand.kind == "holy_day"
                 && demand.status == "pending"
@@ -1620,7 +1015,8 @@ pub fn resolve_religious_demand(
         .id()
         .find(demand_id)
         .ok_or("Religious demand not found")?;
-    crate::character::require_living_character(ctx, demand.character_id)?;
+    crate::character::require_living_character(ctx, (demand.character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     if demand.status != "pending" {
         return Err("Religious demand has already been resolved".into());
     }
@@ -1640,13 +1036,18 @@ pub fn resolve_religious_demand(
         if character.current_settlement_id.is_none() {
             return Err("A holy day can only be observed at a settlement".into());
         }
-        let current_day = crate::time::refresh_clock(ctx)?.day_index();
+        let current_day = crate::time::refresh_clock(ctx)
+            .map_err(|error: crate::time::WorldClockError| error.to_string())?
+            .day_index();
         if current_day != demand.created_at_minute.day_index() {
             return Err("This holy day has already passed".into());
         }
     }
     demand.status = "resolved".into();
-    demand.resolved_at_minute = Some(crate::time::refresh_clock(ctx)?);
+    demand.resolved_at_minute = Some(
+        crate::time::refresh_clock(ctx)
+            .map_err(|error: crate::time::WorldClockError| error.to_string())?,
+    );
     demand.resolution = Some(choice.clone());
     ctx.db.religious_demand().id().update(demand.clone());
 
@@ -1656,31 +1057,35 @@ pub fn resolve_religious_demand(
             // from work; it does not imply access to a Church service.
             crate::time::spend_private_settlement_downtime(
                 ctx,
-                demand.character_id,
+                (demand.character_id).into(),
                 adventuresim_world_schema::calendar::MINUTES_PER_DAY,
                 true,
             )?;
             record_morale_event(
                 ctx,
-                demand.character_id,
+                (demand.character_id).into(),
                 MoraleEventKind::HolyDayObserved,
                 2.0,
                 Some(format!("religious-demand:{}", demand.id)),
             )?;
         }
         "refuse" => {
-            let party_ids = party_character_ids(ctx, demand.character_id)?;
+            let party_ids = party_character_ids(ctx, (demand.character_id).into())
+                .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?;
             let party_command = aggregate_party_command(
                 party_ids
                     .into_iter()
                     .map(|id| mental_check(ctx, id, Skill::Command))
-                    .collect::<Result<Vec<_>, _>>()?,
+                    .collect::<Result<Vec<_>, _>>()
+                    .map_err(|error: crate::condition::StrategicConditionError| {
+                        error.to_string()
+                    })?,
             );
             let penalty = religious_neglect_morale(demand.fervor, party_command);
             if penalty > 0.0 {
                 record_morale_event(
                     ctx,
-                    demand.character_id,
+                    (demand.character_id).into(),
                     MoraleEventKind::ReligiousObservanceNeglected,
                     -penalty,
                     Some(format!("religious-demand:{}", demand.id)),
@@ -1689,12 +1094,14 @@ pub fn resolve_religious_demand(
         }
         _ => return Err("Religious demand kind cannot be observed".into()),
     }
-    refresh_character_strategic_condition(ctx, demand.character_id).map(|_| ())
+    refresh_character_strategic_condition(ctx, (demand.character_id).into())
+        .map(|_| ())
+        .map_err(|error: StrategicConditionError| error.to_string())
 }
 
 pub fn record_morale_event(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     kind: MoraleEventKind,
     magnitude: f32,
     source_id: Option<String>,
@@ -1706,19 +1113,19 @@ pub fn record_morale_event(
         .db
         .character_time()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .map_or(StrategicMinute::ZERO, |time| time.minutes);
-    let duration = stored_morale_event_duration(ctx, character_id, magnitude);
+    let duration = stored_morale_event_duration(ctx, (character_id).into(), magnitude);
     ctx.db.morale_event().insert(MoraleEvent {
         id: 0,
-        character_id,
+        character_id: u64::from(character_id),
         kind,
         magnitude,
         occurred_at_minute,
         expires_at_minute: occurred_at_minute.saturating_add_minutes(duration),
         source_id,
     });
-    refresh_character_strategic_condition(ctx, character_id)?;
+    refresh_character_strategic_condition(ctx, (character_id).into())?;
     Ok(())
 }
 
@@ -1727,7 +1134,7 @@ pub fn record_morale_event(
 /// condition once after the batch completes.
 pub fn upsert_refreshable_morale_event_at_without_refresh(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     kind: MoraleEventKind,
     magnitude: f32,
     occurred_at_minute: StrategicMinute,
@@ -1736,16 +1143,16 @@ pub fn upsert_refreshable_morale_event_at_without_refresh(
     if magnitude == 0.0 || !magnitude.is_finite() {
         return Ok(());
     }
-    let duration = stored_morale_event_duration(ctx, character_id, magnitude);
+    let duration = stored_morale_event_duration(ctx, (character_id).into(), magnitude);
     let existing = ctx
         .db
         .morale_event()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .find(|event| event.source_id.as_deref() == Some(source_id));
     let event = MoraleEvent {
         id: existing.as_ref().map_or(0, |event| event.id),
-        character_id,
+        character_id: u64::from(character_id),
         kind,
         magnitude,
         occurred_at_minute,
@@ -1765,7 +1172,7 @@ pub fn upsert_refreshable_morale_event_at_without_refresh(
 /// effect's retention window.
 pub(crate) fn upsert_fixed_morale_event_without_refresh(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     kind: MoraleEventKind,
     magnitude: f32,
     occurred_at_minute: StrategicMinute,
@@ -1776,11 +1183,11 @@ pub(crate) fn upsert_fixed_morale_event_without_refresh(
         .db
         .morale_event()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .find(|event| event.source_id.as_deref() == Some(source_id));
     let event = MoraleEvent {
         id: existing.as_ref().map_or(0, |event| event.id),
-        character_id,
+        character_id: u64::from(character_id),
         kind,
         magnitude,
         occurred_at_minute,
@@ -1796,7 +1203,7 @@ pub(crate) fn upsert_fixed_morale_event_without_refresh(
 
 fn insert_morale_event_without_refresh(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     kind: MoraleEventKind,
     magnitude: f32,
     source_id: String,
@@ -1808,7 +1215,7 @@ fn insert_morale_event_without_refresh(
     let duration = stored_morale_event_duration(ctx, character_id, magnitude);
     ctx.db.morale_event().insert(MoraleEvent {
         id: 0,
-        character_id,
+        character_id: u64::from(character_id),
         kind,
         magnitude,
         occurred_at_minute,
@@ -1817,7 +1224,11 @@ fn insert_morale_event_without_refresh(
     });
 }
 
-fn stored_morale_event_duration(ctx: &ReducerContext, character_id: u64, magnitude: f32) -> u64 {
+fn stored_morale_event_duration(
+    ctx: &ReducerContext,
+    character_id: CharacterId,
+    magnitude: f32,
+) -> u64 {
     if magnitude < 0.0 {
         crate::personality::negative_event_duration_for_character(
             ctx,
@@ -1837,9 +1248,9 @@ pub(crate) fn record_immediate_prayer_morale(
     character_id: u64,
     minutes: u16,
 ) -> Result<(), String> {
-    let party_members = party_character_ids(ctx, character_id)?;
+    let party_members = party_character_ids(ctx, (character_id).into())?;
     let (kind, magnitude) = if let Some((_religion_id, religion)) =
-        party_religion_context(ctx, character_id, &party_members)?
+        party_religion_context(ctx, (character_id).into(), &party_members)?
     {
         (
             MoraleEventKind::Prayer,
@@ -1853,14 +1264,17 @@ pub(crate) fn record_immediate_prayer_morale(
     };
     record_morale_event(
         ctx,
-        character_id,
+        (character_id).into(),
         kind,
         magnitude,
         Some(format!("activity:{}", kind.as_str())),
     )
 }
 
-fn party_command(ctx: &ReducerContext, character_id: u64) -> Result<f32, String> {
+fn party_command(
+    ctx: &ReducerContext,
+    character_id: CharacterId,
+) -> Result<f32, StrategicConditionError> {
     Ok(aggregate_party_command(
         party_character_ids(ctx, character_id)?
             .into_iter()
@@ -1869,11 +1283,11 @@ fn party_command(ctx: &ReducerContext, character_id: u64) -> Result<f32, String>
     ))
 }
 
-fn has_morale_source(ctx: &ReducerContext, character_id: u64, source_id: &str) -> bool {
+fn has_morale_source(ctx: &ReducerContext, character_id: CharacterId, source_id: &str) -> bool {
     ctx.db
         .morale_event()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .any(|event| event.source_id.as_deref() == Some(source_id))
 }
 
@@ -1882,7 +1296,7 @@ fn has_morale_source(ctx: &ReducerContext, character_id: u64, source_id: &str) -
 /// implemented.
 pub fn apply_travel_condition(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     starting_minute: StrategicMinute,
     elapsed_minutes: u64,
     prayer_minutes: u16,
@@ -1895,18 +1309,26 @@ pub fn apply_travel_condition(
         .ok_or("Travel condition interval overflow")?;
     for (segment_start, segment_end, history_minute) in
         adventuresim_core::alcohol::travel_evening_segments(starting_minute, interval_end)
-            .map_err(str::to_string)?
+            .map_err(|error| error.to_string())?
     {
-        apply_elapsed_needs(ctx, character_id, segment_end.elapsed_since(segment_start))?;
+        apply_elapsed_needs(
+            ctx,
+            (character_id).into(),
+            segment_end.elapsed_since(segment_start),
+        )?;
         // Movement alone may spend potable alcohol as emergency hydration.
         // Attribute each whole serving to the evening in which the deficit
         // arose; generic waits and camp downtime never invoke this fallback.
-        if let Some(mut needs) = ctx.db.character_needs().character_id().find(character_id)
+        if let Some(mut needs) = ctx
+            .db
+            .character_needs()
+            .character_id()
+            .find(u64::from(character_id))
             && needs.water_balance_ml < 0.0
         {
             let supplied = crate::alcohol::consume_emergency_hydration(
                 ctx,
-                character_id,
+                (character_id).into(),
                 -needs.water_balance_ml,
                 history_minute,
             );
@@ -1918,21 +1340,21 @@ pub fn apply_travel_condition(
         .db
         .character_stats()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character stats not found")?;
     stats.calories_used += elapsed_minutes as f32 / (24.0 * 60.0) * STRATEGIC_TRAVEL_KCAL_PER_DAY;
     ctx.db.character_stats().character_id().update(stats);
 
-    refuse_expired_holy_day_demands(ctx, character_id, true)?;
-    let condition = refresh_character_strategic_condition_projection(ctx, character_id)?;
+    refuse_expired_holy_day_demands(ctx, (character_id).into(), true)?;
+    let condition = refresh_character_strategic_condition_projection(ctx, (character_id).into())?;
     let professes_religion = ctx
         .db
         .character_condition()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .is_some_and(|row| row.religion_id.is_some());
     if professes_religion && condition.fervor > 0.0 {
-        let command = party_command(ctx, character_id)?;
+        let command = party_command(ctx, (character_id).into())?;
         let daily_penalty = religious_neglect_morale(condition.fervor, command);
         let missed_prayer = 1.0 - prayer_observance(condition.fervor, prayer_minutes);
         let elapsed_days = elapsed_minutes as f32 / MINUTES_PER_DAY as f32;
@@ -1940,7 +1362,7 @@ pub fn apply_travel_condition(
         if prayer_penalty > 0.0 {
             insert_morale_event_without_refresh(
                 ctx,
-                character_id,
+                (character_id).into(),
                 MoraleEventKind::TravelPrayerNeglected,
                 -prayer_penalty,
                 format!(
@@ -1950,14 +1372,14 @@ pub fn apply_travel_condition(
             );
         }
     }
-    refresh_character_strategic_condition_projection(ctx, character_id).map(|_| ())
+    refresh_character_strategic_condition_projection(ctx, (character_id).into()).map(|_| ())
 }
 
 /// Resolve canonical Sundays that passed while a character was outside a
 /// settlement. Subjective wilderness days never create additional holy days.
 pub(crate) fn apply_canonical_wilderness_observance(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     canonical_start: StrategicMinute,
     canonical_end: StrategicMinute,
 ) -> Result<(), String> {
@@ -1965,40 +1387,41 @@ pub(crate) fn apply_canonical_wilderness_observance(
     if elapsed == 0 {
         return Ok(());
     }
-    let condition = refresh_character_strategic_condition_projection(ctx, character_id)?;
+    let condition = refresh_character_strategic_condition_projection(ctx, (character_id).into())?;
     let professes_religion = ctx
         .db
         .character_condition()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .is_some_and(|row| row.religion_id.is_some());
     if !professes_religion || condition.fervor <= 0.0 {
         return Ok(());
     }
-    let penalty = religious_neglect_morale(condition.fervor, party_command(ctx, character_id)?);
+    let penalty =
+        religious_neglect_morale(condition.fervor, party_command(ctx, (character_id).into())?);
     for sunday in sundays_overlapping(canonical_start, elapsed) {
         let source_id = format!("missed-canonical-sunday:{sunday}");
-        if penalty > 0.0 && !has_morale_source(ctx, character_id, &source_id) {
+        if penalty > 0.0 && !has_morale_source(ctx, (character_id).into(), &source_id) {
             insert_morale_event_without_refresh(
                 ctx,
-                character_id,
+                (character_id).into(),
                 MoraleEventKind::ReligiousObservanceNeglected,
                 -penalty,
                 source_id,
             );
         }
     }
-    refresh_character_strategic_condition_projection(ctx, character_id).map(|_| ())
+    refresh_character_strategic_condition_projection(ctx, (character_id).into()).map(|_| ())
 }
 
 pub fn apply_rest_condition(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     elapsed_minutes: u64,
 ) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
+    initialize_character_condition(ctx, character_id.into());
     let _ = elapsed_minutes;
-    refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+    refresh_character_strategic_condition(ctx, (character_id).into()).map(|_| ())
 }
 
 fn leisure_morale_effect(magnitude: f32, age_minutes: f32, duration: u64) -> f32 {
@@ -2025,7 +1448,7 @@ fn accumulated_leisure_morale(
 
 fn upsert_leisure_morale(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     earned: f32,
     morale_earning_minutes: f32,
     interval_end_minute: StrategicMinute,
@@ -2037,7 +1460,7 @@ fn upsert_leisure_morale(
         .db
         .morale_event()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .find(|event| event.source_id.as_deref() == Some(LEISURE_MORALE_SOURCE_ID));
     let magnitude = accumulated_leisure_morale(
         existing.as_ref().map(|event| {
@@ -2061,7 +1484,7 @@ fn upsert_leisure_morale(
     } else {
         ctx.db.morale_event().insert(MoraleEvent {
             id: 0,
-            character_id,
+            character_id: u64::from(character_id),
             kind: MoraleEventKind::Leisure,
             magnitude,
             occurred_at_minute: interval_end_minute,
@@ -2079,7 +1502,7 @@ fn upsert_leisure_morale(
 /// downtime schedule receives its Leisure allocation.
 pub fn apply_settlement_leisure_condition(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     schedule: DailySchedule,
     elapsed_minutes: u64,
     interval_end_minute: StrategicMinute,
@@ -2088,21 +1511,21 @@ pub fn apply_settlement_leisure_condition(
         .db
         .character_stats()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character stats not found")?;
     let outcome = settlement_leisure_outcome(schedule, elapsed_minutes, stats.calories_used);
     stats.calories_used = (stats.calories_used + outcome.fatigue_delta).max(0.0);
     ctx.db.character_stats().character_id().update(stats);
     upsert_leisure_morale(
         ctx,
-        character_id,
+        (character_id).into(),
         outcome.morale,
         outcome.morale_earning_minutes,
         interval_end_minute,
     );
     crate::residence::apply_residence_leisure_morale(
         ctx,
-        character_id,
+        (character_id).into(),
         outcome.morale,
         interval_end_minute,
     )?;
@@ -2116,16 +1539,16 @@ pub fn apply_camp_rest_condition(
     character_id: u64,
     elapsed_minutes: u64,
 ) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
-    apply_elapsed_needs(ctx, character_id, elapsed_minutes)?;
-    apply_camp_rest_recovery_condition(ctx, character_id, elapsed_minutes)
+    initialize_character_condition(ctx, character_id.into());
+    apply_elapsed_needs(ctx, (character_id).into(), elapsed_minutes)?;
+    apply_camp_rest_recovery_condition(ctx, (character_id).into(), elapsed_minutes)
 }
 
 /// Apply only the recovery portion of camp rest. Callers that must process a
 /// disease terminal boundary consume needs first, then skip this after death.
 pub fn apply_camp_rest_recovery_condition(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     elapsed_minutes: u64,
 ) -> Result<(), String> {
     let days = elapsed_minutes as f32 / (24.0 * 60.0);
@@ -2133,24 +1556,24 @@ pub fn apply_camp_rest_recovery_condition(
         .db
         .character_stats()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character stats not found")?;
     stats.calories_used = (stats.calories_used - STRATEGIC_TRAVEL_KCAL_PER_DAY * days).max(0.0);
     ctx.db.character_stats().character_id().update(stats);
-    refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+    refresh_character_strategic_condition(ctx, (character_id).into()).map(|_| ())
 }
 
 pub fn apply_blood_loss(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     fraction_of_maximum: f32,
 ) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
+    initialize_character_condition(ctx, character_id.into());
     let mut condition = ctx
         .db
         .character_condition()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character condition not found")?;
     condition.current_blood_ml = (condition.current_blood_ml
         - condition.maximum_blood_ml * fraction_of_maximum.max(0.0))
@@ -2164,14 +1587,14 @@ pub fn apply_blood_loss(
     if circulatory_failure {
         crate::transition_character_to_dead(
             ctx,
-            character_id,
+            (character_id).into(),
             crate::DeathCause::CirculatoryFailure,
             crate::DeathSource::Strategic,
             Some("critical-blood-loss".into()),
         )?;
         Ok(())
     } else {
-        refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+        refresh_character_strategic_condition(ctx, (character_id).into()).map(|_| ())
     }
 }
 
@@ -2179,15 +1602,15 @@ pub fn apply_blood_loss(
 /// interval and commit circulatory death at the caller's already-clipped clock.
 pub fn set_blood_fraction(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: CharacterId,
     fraction: f32,
 ) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
+    initialize_character_condition(ctx, character_id.into());
     let mut condition = ctx
         .db
         .character_condition()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character condition not found")?;
     condition.current_blood_ml = condition.maximum_blood_ml * fraction.clamp(0.0, 1.0);
     let terminal = condition.maximum_blood_ml > 0.0
@@ -2199,44 +1622,22 @@ pub fn set_blood_fraction(
     if terminal {
         crate::transition_character_to_dead(
             ctx,
-            character_id,
+            (character_id).into(),
             crate::DeathCause::CirculatoryFailure,
             crate::DeathSource::Strategic,
             Some("critical-blood-loss".into()),
         )?;
         Ok(())
     } else {
-        refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+        refresh_character_strategic_condition(ctx, (character_id).into()).map(|_| ())
     }
-}
-
-pub fn require_character_ready(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    crate::character::require_living_character(ctx, character_id)?;
-    let condition = refresh_character_strategic_condition(ctx, character_id)?;
-    if condition.status == IncapacitationStatus::Incapacitated {
-        Err("Character is incapacitated and must recover before acting".into())
-    } else {
-        Ok(())
-    }
-}
-
-pub fn require_characters_ready(ctx: &ReducerContext, character_ids: &[u64]) -> Result<(), String> {
-    for character_id in character_ids {
-        crate::character::require_living_character(ctx, *character_id)?;
-    }
-    let conditions = refresh_party_strategic_condition_projection(ctx, character_ids)?;
-    for condition in &conditions {
-        ensure_holy_day_demand(ctx, condition)?;
-        if condition.status == IncapacitationStatus::Incapacitated {
-            return Err("A party member is incapacitated and must recover before acting".into());
-        }
-    }
-    Ok(())
 }
 
 #[reducer]
 pub fn refresh_strategic_condition(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+    refresh_character_strategic_condition(ctx, (character_id).into())
+        .map(|_| ())
+        .map_err(|error: StrategicConditionError| error.to_string())
 }
 
 #[reducer]
@@ -2245,9 +1646,11 @@ pub fn set_character_religion(
     character_id: u64,
     religion_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
-    crate::character::require_living_character(ctx, character_id)?;
-    initialize_character_condition(ctx, character_id)?;
+    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    initialize_character_condition(ctx, character_id.into());
     let religion_id = religion_id.trim();
     if !religion_id.is_empty() {
         let character = ctx
@@ -2286,7 +1689,9 @@ pub fn set_character_religion(
         .character_condition()
         .character_id()
         .update(condition);
-    refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+    refresh_character_strategic_condition(ctx, (character_id).into())
+        .map(|_| ())
+        .map_err(|error: StrategicConditionError| error.to_string())
 }
 
 fn require_profession_service(
@@ -2306,8 +1711,8 @@ mod tests {
     use super::{
         CharacterNeeds, ElapsedNeedsProvision, MoraleSourceKind, ProjectedMoraleSource,
         STRATEGIC_TRAVEL_KCAL_PER_DAY, STRATEGIC_TRAVEL_WATER_ML_PER_DAY,
-        accumulated_leisure_morale, condition_projection_member_ids, elapsed_needs_plan,
-        food_reserve_days, holy_day_demand_has_expired, leisure_morale_effect, rank_morale_sources,
+        accumulated_leisure_morale, elapsed_needs_plan, food_reserve_days,
+        holy_day_demand_has_expired, leisure_morale_effect, rank_morale_sources,
         religion_cohort_pressure, require_profession_service,
         settlement_rest_elapsed_needs_provision, water_reserve_days,
     };
@@ -2364,17 +1769,6 @@ mod tests {
         );
     }
 
-    #[test]
-    fn corpse_projection_contains_the_requested_character_without_living_party_support() {
-        assert_eq!(
-            condition_projection_member_ids(7, false, Some(vec![8, 9])),
-            vec![7]
-        );
-        assert_eq!(
-            condition_projection_member_ids(7, true, Some(vec![7, 8])),
-            vec![7, 8]
-        );
-    }
     use adventuresim_core::strategic_schedule::{
         DailySchedule, LEISURE_MORALE_LIMIT, settlement_leisure_outcome,
     };
@@ -2463,10 +1857,10 @@ mod tests {
 
     #[test]
     fn holy_day_demands_expire_after_their_day_or_on_departure() {
-        assert!(!holy_day_demand_has_expired(6, 6, false));
-        assert!(holy_day_demand_has_expired(6, 6, true));
-        assert!(holy_day_demand_has_expired(6, 7, false));
-        assert!(!holy_day_demand_has_expired(13, 12, true));
+        assert!(!holy_day_demand_has_expired(6.into(), 6.into(), false));
+        assert!(holy_day_demand_has_expired(6.into(), 6.into(), true));
+        assert!(holy_day_demand_has_expired(6.into(), 7.into(), false));
+        assert!(!holy_day_demand_has_expired(13.into(), 12.into(), true));
     }
 
     #[test]

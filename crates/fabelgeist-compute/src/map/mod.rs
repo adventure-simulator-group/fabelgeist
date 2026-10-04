@@ -21,7 +21,7 @@ type MapPipelineCache = HashMap<
     (
         Option<ResourceDescriptor>,
         ResourceDescriptor,
-        Vec<(String, ResourceDescriptor)>,
+        Vec<(PassParameterName, ResourceDescriptor)>,
     ),
     Arc<(ComputePipeline, u64, u64)>,
 >;
@@ -146,7 +146,7 @@ impl MapDefinition {
         context: &WgpuContext,
         input_res: Option<ResourceDescriptor>,
         output_res: ResourceDescriptor,
-        secondary_resources: &HashMap<String, ResourceDescriptor>,
+        secondary_resources: &HashMap<PassParameterName, ResourceDescriptor>,
     ) -> Result<(ComputePipeline, u64, u64)> {
         let sig = Self::parse_signature(&self.code)?;
 
@@ -177,7 +177,7 @@ impl MapDefinition {
         let mut uniform_params = Vec::new();
         let mut resource_params = Vec::new();
         for (name, ty) in extra_params {
-            if secondary_resources.contains_key(name) {
+            if secondary_resources.contains_key(&PassParameterName::from(name.as_str())) {
                 resource_params.push((name.clone(), ty.clone()));
             } else {
                 uniform_params.push((name.clone(), ty.clone()));
@@ -186,7 +186,7 @@ impl MapDefinition {
 
         let mut current_binding = 2;
         for (name, _) in &resource_params {
-            let res_desc = &secondary_resources[name];
+            let res_desc = &secondary_resources[&PassParameterName::from(name.as_str())];
             full_code.push_str(&res_desc.to_wgsl_input_binding(0, current_binding, name));
             current_binding += 1;
         }
@@ -301,7 +301,7 @@ impl MapDefinition {
 
         // Fetch resource params
         for (name, ty) in &resource_params {
-            let res_desc = &secondary_resources[name];
+            let res_desc = &secondary_resources[&PassParameterName::from(name.as_str())];
             let fetch_code = res_desc.generate_fetch(name, &output_res, ty);
             let fetch_code_custom = fetch_code
                 .replace("_in_global_index", &format!("_in_global_index_{}", name))
@@ -369,10 +369,8 @@ impl MapDefinition {
         full_code.push_str("}\n");
 
         // 3. Parse with naga to get struct sizes for validation
-        let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
-            wgpu::naga::ShaderStage::Compute,
-        )?;
+        let full_code = ShaderSource::from(full_code);
+        let module = full_code.parse(wgpu::naga::ShaderStage::Compute)?;
 
         let mut input_size = 0;
         let mut output_size = 0;
@@ -416,9 +414,9 @@ impl MapDefinition {
         context: &WgpuContext,
         input_res: Option<ResourceDescriptor>,
         output_res: ResourceDescriptor,
-        secondary_resources: &HashMap<String, ResourceDescriptor>,
+        secondary_resources: &HashMap<PassParameterName, ResourceDescriptor>,
     ) -> Result<Arc<(ComputePipeline, u64, u64)>> {
-        let mut sec_res_sorted: Vec<(String, ResourceDescriptor)> = secondary_resources
+        let mut sec_res_sorted: Vec<(PassParameterName, ResourceDescriptor)> = secondary_resources
             .iter()
             .map(|(k, v)| (k.clone(), v.clone()))
             .collect();
@@ -482,29 +480,13 @@ impl Map {
 
         let output_descriptor = ResourceDescriptor::from_resource(output, sig.output_element_type);
 
-        let mut secondary_resources = HashMap::new();
-        if let Some(extra) = extra_parameters.as_ref() {
-            for (name, val) in &extra.parameters {
-                match val {
-                    fabelgeist_gpu::data::gpu::parameters::PassParameter::Buffer(_b) => {
-                        if let Some((_, param_ty)) = sig.user_params.iter().find(|(n, _)| n == name)
-                        {
-                            secondary_resources
-                                .insert(name.clone(), ResourceDescriptor::Buffer(param_ty.clone()));
-                        }
-                    }
-                    fabelgeist_gpu::data::gpu::parameters::PassParameter::Texture2d(t) => {
-                        secondary_resources
-                            .insert(name.clone(), ResourceDescriptor::Texture2d(t.format));
-                    }
-                    fabelgeist_gpu::data::gpu::parameters::PassParameter::Texture3d(t) => {
-                        secondary_resources
-                            .insert(name.clone(), ResourceDescriptor::Texture3d(t.format));
-                    }
-                    _ => {}
-                }
-            }
-        }
+        let secondary_resources = extra_parameters.as_ref().map_or_else(
+            HashMap::new,
+            |parameters: &PassParameters| -> HashMap<PassParameterName, ResourceDescriptor> {
+                crate::parameter_types::ShaderParameterTypes::from(sig.user_params.as_slice())
+                    .resources(parameters)
+            },
+        );
 
         let pipeline_info = definition.get_or_create_pipeline(
             context,
@@ -519,15 +501,15 @@ impl Map {
         // Output resource determines grid size
         let output_num_elements: u64 = match output {
             GpuResource::Buffer(b) => {
-                parameters.insert("output", b.clone());
-                b.size / output_size.max(&1)
+                parameters.insert("output".into(), (b.clone()).into());
+                u64::from(b.length()) / output_size.max(&1)
             }
             GpuResource::Texture2d(t) => {
-                parameters.insert("output", t.clone());
+                parameters.insert("output".into(), (t.clone()).into());
                 (t.size.0 * t.size.1) as u64
             }
             GpuResource::Texture3d(t) => {
-                parameters.insert("output", t.clone());
+                parameters.insert("output".into(), (t.clone()).into());
                 (t.size.0 * t.size.1 * t.size.2) as u64
             }
         };
@@ -536,13 +518,13 @@ impl Map {
         if let Some(input) = input {
             match input {
                 GpuResource::Buffer(b) => {
-                    parameters.insert("input", b.clone());
+                    parameters.insert("input".into(), (b.clone()).into());
                 }
                 GpuResource::Texture2d(t) => {
-                    parameters.insert("input", t.clone());
+                    parameters.insert("input".into(), (t.clone()).into());
                 }
                 GpuResource::Texture3d(t) => {
-                    parameters.insert("input", t.clone());
+                    parameters.insert("input".into(), (t.clone()).into());
                 }
             }
         }
@@ -561,9 +543,7 @@ impl Map {
             context,
             pipeline.clone(),
             parameters,
-            wg_x,
-            wg_y,
-            wg_z,
+            fabelgeist_gpu::prelude::WorkgroupGrid::from((wg_x, wg_y, wg_z)),
         )?;
 
         Ok(())

@@ -156,7 +156,7 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
         app.world().resource::<RetainedScene>().people[&id].entity,
         entity
     );
-    assert_eq!(app.world().get::<CharacterId>(entity).unwrap().0, 42);
+    assert_eq!(app.world().get::<CharacterId>(entity).unwrap().get(), 42);
     assert!(
         app.world().get_entity(item).is_ok(),
         "navigation retains fitted equipment"

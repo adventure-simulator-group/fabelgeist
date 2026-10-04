@@ -125,8 +125,8 @@ impl DivergenceDefinition {
             full_code.push_str("}\n");
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
-        ComputePipeline::new(context, shader)
+        let shader = ComputeShader::new(context, ShaderSource::from(full_code))?;
+        Ok(ComputePipeline::new(context, shader)?)
     }
 
     pub fn get_or_create_pipeline(
@@ -173,7 +173,7 @@ impl Divergence {
 
         let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
         parameters.insert(
-            "velocity",
+            "velocity".into(),
             match velocity {
                 GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
                 GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
@@ -181,7 +181,7 @@ impl Divergence {
             },
         );
         parameters.insert(
-            "output",
+            "output".into(),
             match output {
                 GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
                 GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
@@ -189,7 +189,10 @@ impl Divergence {
             },
         );
 
-        parameters.insert("half_inverse_cell_size", half_inverse_cell_size);
+        parameters.insert(
+            "half_inverse_cell_size".into(),
+            (half_inverse_cell_size).into(),
+        );
 
         let (wg_x, wg_y, wg_z) = match output {
             GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
@@ -205,9 +208,7 @@ impl Divergence {
             context,
             pipeline.as_ref().clone(),
             parameters,
-            wg_x,
-            wg_y,
-            wg_z,
+            fabelgeist_gpu::prelude::WorkgroupGrid::from((wg_x, wg_y, wg_z)),
         )?;
 
         Ok(())

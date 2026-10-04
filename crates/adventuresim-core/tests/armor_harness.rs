@@ -1,5 +1,6 @@
+use adventuresim_core::identity::InventoryItemId;
 use adventuresim_core::{
-    equipment::{EquipmentGraph, EquipmentGraphPlacement},
+    equipment::{EquipmentGraph, EquipmentGraphError, EquipmentGraphPlacement},
     item_catalog::{
         self, EquipmentChannel, EquipmentFitZone, EquipmentLocation, OccupancyRequirement,
     },
@@ -24,7 +25,7 @@ fn complete_plate_harness_coexists_and_duplicate_piece_is_rejected() {
         "greave",
         "sabaton",
     ] {
-        for placement in &item_catalog::definition(item)
+        for placement in &item_catalog::definition(&(item).into())
             .unwrap()
             .equipment
             .as_ref()
@@ -36,11 +37,11 @@ fn complete_plate_harness_coexists_and_duplicate_piece_is_rejected() {
                 parents: vec![],
             };
             graph
-                .equip(next_id, body.clone())
+                .equip(InventoryItemId::new(next_id), body.clone())
                 .unwrap_or_else(|error| panic!("{item}/{}: {error}", placement.id));
             assert_eq!(
-                graph.equip(next_id + 100, body),
-                Err("body occupancy conflict"),
+                graph.equip((next_id + 100).into(), body),
+                Err(EquipmentGraphError::BodyOccupancyConflict),
                 "duplicate {item}/{}",
                 placement.id
             );
@@ -87,7 +88,7 @@ fn full_pauldrons_replace_spaulders_and_coexist_with_torso_and_upper_arm_plates(
     let mut graph = EquipmentGraph::default();
     let mut instance = 1;
     for item in ["cuirass", "gorget", "pauldron", "rerebrace"] {
-        for placement in &item_catalog::definition(item)
+        for placement in &item_catalog::definition(&(item).into())
             .unwrap()
             .equipment
             .as_ref()
@@ -96,7 +97,7 @@ fn full_pauldrons_replace_spaulders_and_coexist_with_torso_and_upper_arm_plates(
         {
             graph
                 .equip(
-                    instance,
+                    InventoryItemId::new(instance),
                     EquipmentGraphPlacement {
                         body: placement.occupancy.clone(),
                         parents: vec![],
@@ -106,7 +107,7 @@ fn full_pauldrons_replace_spaulders_and_coexist_with_torso_and_upper_arm_plates(
             instance += 1;
         }
     }
-    for placement in &item_catalog::definition("spaulder")
+    for placement in &item_catalog::definition(&"spaulder".into())
         .unwrap()
         .equipment
         .as_ref()
@@ -115,13 +116,13 @@ fn full_pauldrons_replace_spaulders_and_coexist_with_torso_and_upper_arm_plates(
     {
         assert_eq!(
             graph.equip(
-                instance,
+                InventoryItemId::new(instance),
                 EquipmentGraphPlacement {
                     body: placement.occupancy.clone(),
                     parents: vec![]
                 }
             ),
-            Err("body occupancy conflict")
+            Err(EquipmentGraphError::BodyOccupancyConflict)
         );
         instance += 1;
     }
@@ -134,7 +135,7 @@ fn museum_helmets_mount_with_independent_gorgets_without_losing_coverage() {
     for (helmet, coverage) in [("burgonet", 0.75), ("close_helmet", 0.9)] {
         let mut graph = EquipmentGraph::default();
         for (id, item) in [helmet, "gorget"].into_iter().enumerate() {
-            let placement = &item_catalog::definition(item)
+            let placement = &item_catalog::definition(&(item).into())
                 .unwrap()
                 .equipment
                 .as_ref()
@@ -144,10 +145,10 @@ fn museum_helmets_mount_with_independent_gorgets_without_losing_coverage() {
                 body: placement.occupancy.clone(),
                 parents: vec![],
             };
-            graph.equip(id as u64, body.clone()).unwrap();
+            graph.equip((id as u64).into(), body.clone()).unwrap();
             assert_eq!(
-                graph.equip(id as u64 + 10, body),
-                Err("body occupancy conflict"),
+                graph.equip((id as u64 + 10).into(), body),
+                Err(EquipmentGraphError::BodyOccupancyConflict),
                 "duplicate {item} must still conflict"
             );
             assert_eq!(placement.protection, [EquipmentBodyPart::Head]);

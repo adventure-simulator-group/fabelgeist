@@ -107,8 +107,12 @@ pub enum EstateDispositionStatus {
     HeirPredeceased,
 }
 
-fn valid_estate_choice(heir_kind: EstateHeirKind, chosen_heir_id: u64) -> bool {
-    matches!(heir_kind, EstateHeirKind::Unclaimed) == (chosen_heir_id == 0)
+fn valid_estate_choice(
+    heir_kind: EstateHeirKind,
+    chosen_heir_id: adventuresim_core::identity::CharacterId,
+) -> bool {
+    matches!(heir_kind, EstateHeirKind::Unclaimed)
+        == (chosen_heir_id == adventuresim_core::identity::CharacterId::from(0))
 }
 
 /// Immutable/effective-dated succession choice plus its retry-safe settlement
@@ -221,17 +225,22 @@ fn direct_skill_hours_mut(skills: &mut crate::CharacterSkills, skill: Skill) -> 
 /// independently earned skill hours.
 fn settle_child_training(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     minute: StrategicMinute,
 ) -> Result<(), String> {
-    let Some(mut development) = ctx.db.child_development().character_id().find(character_id) else {
+    let Some(mut development) = ctx
+        .db
+        .child_development()
+        .character_id()
+        .find(u64::from(character_id))
+    else {
         return Ok(());
     };
     let birth = ctx
         .db
         .character_birth()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Child birth coordinate not found")?;
     let Ok(birth_minute) = u64::try_from(birth.birth_minute) else {
         return Err("Natural child birth minute cannot be negative".into());
@@ -248,13 +257,13 @@ fn settle_child_training(
             .db
             .character_attributes()
             .character_id()
-            .find(character_id)
+            .find(u64::from(character_id))
             .ok_or("Child attributes not found")?;
         let mut skills = ctx
             .db
             .character_skills()
             .character_id()
-            .find(character_id)
+            .find(u64::from(character_id))
             .ok_or("Child skills not found")?;
         for index in 0..2 {
             let (skill, real_hours) =
@@ -280,8 +289,15 @@ fn settle_child_training(
     Ok(())
 }
 
-fn promote_household_role(ctx: &ReducerContext, character_id: u64) {
-    if let Some(mut member) = ctx.db.household_member().character_id().find(character_id)
+fn promote_household_role(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) {
+    if let Some(mut member) = ctx
+        .db
+        .household_member()
+        .character_id()
+        .find(u64::from(character_id))
         && member.role == HouseholdRole::Dependent
     {
         member.role = HouseholdRole::AdultChild;
@@ -291,54 +307,62 @@ fn promote_household_role(ctx: &ReducerContext, character_id: u64) {
 
 fn promote_adult_descendant(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     minute: StrategicMinute,
 ) -> Result<(), String> {
-    if effective_age_years(ctx, character_id, minute).unwrap_or(0) < ADULT_AGE_YEARS {
+    if effective_age_years(ctx, (character_id).into(), minute).unwrap_or(0) < ADULT_AGE_YEARS {
         return Ok(());
     }
-    promote_household_role(ctx, character_id);
-    let Some(_claim) = ctx.db.lineage_control_claim().child_id().find(character_id) else {
+    promote_household_role(ctx, (character_id).into());
+    let Some(_claim) = ctx
+        .db
+        .lineage_control_claim()
+        .child_id()
+        .find(u64::from(character_id))
+    else {
         return Ok(());
     };
     let character = ctx
         .db
         .character()
         .id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Adult descendant character not found")?;
     if !character.alive {
         return Ok(());
     }
-    grant_adult_descendant_internal(ctx, character_id)?;
+    grant_adult_descendant_internal(ctx, (character_id).into())?;
     if character.party_id.is_none() {
-        create_solo_party_for_character(ctx, character_id)?;
+        create_solo_party_for_character(ctx, (character_id).into())?;
     }
-    ctx.db.npc_policy().character_id().delete(character_id);
+    ctx.db
+        .npc_policy()
+        .character_id()
+        .delete(u64::from(character_id));
     Ok(())
 }
 
 pub(crate) fn settle_continuity_for_character(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     minute: StrategicMinute,
 ) -> Result<(), String> {
-    settle_child_training(ctx, character_id, minute)?;
-    promote_adult_descendant(ctx, character_id, minute)?;
-    settle_pending_inheritances_for_heir(ctx, character_id, minute)?;
+    settle_child_training(ctx, (character_id).into(), minute)?;
+    promote_adult_descendant(ctx, (character_id).into(), minute)?;
+    settle_pending_inheritances_for_heir(ctx, (character_id).into(), minute)?;
     Ok(())
 }
 
 fn eldest_living_child_at(
     ctx: &ReducerContext,
-    parent_id: u64,
+    parent_id: adventuresim_core::identity::CharacterId,
     minute: StrategicMinute,
-) -> Option<u64> {
+) -> Option<adventuresim_core::identity::CharacterId> {
     let mut children = ctx
         .db
         .character_kinship()
         .subject_id()
-        .filter(parent_id)
+        .filter(u64::from(parent_id))
         .filter(|edge| edge.kind == KinshipKind::Child && edge.established_minute <= minute)
         .filter_map(|edge| {
             let birth = ctx
@@ -347,8 +371,11 @@ fn eldest_living_child_at(
                 .character_id()
                 .find(edge.related_id)?;
             (minute.is_at_or_after_signed_birth(birth.birth_minute)
-                && character_alive_at(ctx, edge.related_id, minute))
-            .then_some((birth.birth_minute, edge.related_id))
+                && character_alive_at(ctx, (edge.related_id).into(), minute))
+            .then_some((
+                birth.birth_minute,
+                adventuresim_core::identity::CharacterId::from(edge.related_id),
+            ))
         })
         .collect::<Vec<_>>();
     children.sort_unstable();
@@ -357,102 +384,113 @@ fn eldest_living_child_at(
 
 fn living_spouse_at(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     minute: StrategicMinute,
-) -> Option<u64> {
+) -> Option<adventuresim_core::identity::CharacterId> {
     ctx.db
         .marriage()
         .iter()
         .filter(|row| {
-            (row.first_character_id == character_id || row.second_character_id == character_id)
+            (adventuresim_core::identity::CharacterId::from(row.first_character_id) == character_id
+                || adventuresim_core::identity::CharacterId::from(row.second_character_id)
+                    == character_id)
                 && row.married_minute <= minute
                 && row.resolved_minute.is_none_or(|resolved| resolved > minute)
         })
         .map(|row| {
-            if row.first_character_id == character_id {
+            if adventuresim_core::identity::CharacterId::from(row.first_character_id)
+                == character_id
+            {
                 row.second_character_id
             } else {
                 row.first_character_id
             }
         })
+        .map(adventuresim_core::identity::CharacterId::from)
         .find(|spouse_id| character_alive_at(ctx, *spouse_id, minute))
 }
 
 pub(crate) fn record_estate_disposition_for_death(
     ctx: &ReducerContext,
-    decedent_id: u64,
+    decedent_id: adventuresim_core::identity::CharacterId,
     death_minute: StrategicMinute,
 ) -> Result<(), String> {
     if ctx
         .db
         .estate_disposition()
         .decedent_id()
-        .find(decedent_id)
+        .find(u64::from(decedent_id))
         .is_some()
     {
         return Ok(());
     }
     let (chosen_heir_id, heir_kind) =
-        if let Some(child) = eldest_living_child_at(ctx, decedent_id, death_minute) {
+        if let Some(child) = eldest_living_child_at(ctx, (decedent_id).into(), death_minute) {
             (child, EstateHeirKind::DirectChild)
-        } else if let Some(spouse) = living_spouse_at(ctx, decedent_id, death_minute) {
+        } else if let Some(spouse) = living_spouse_at(ctx, (decedent_id).into(), death_minute) {
             (spouse, EstateHeirKind::Spouse)
         } else {
-            (0, EstateHeirKind::Unclaimed)
+            (
+                adventuresim_core::identity::CharacterId::from(0),
+                EstateHeirKind::Unclaimed,
+            )
         };
-    let status = if chosen_heir_id != 0 {
+    let status = if chosen_heir_id != adventuresim_core::identity::CharacterId::from(0) {
         EstateDispositionStatus::Pending
     } else {
         EstateDispositionStatus::Unclaimed
     };
-    if !valid_estate_choice(heir_kind, chosen_heir_id) {
+    if !valid_estate_choice(heir_kind, (chosen_heir_id).into()) {
         return Err("Estate heir provenance is inconsistent".into());
     }
-    unequip_personal_estate(ctx, decedent_id)?;
+    unequip_personal_estate(ctx, (decedent_id).into())?;
     ctx.db.estate_disposition().insert(EstateDisposition {
-        decedent_id,
-        chosen_heir_id,
+        decedent_id: u64::from(decedent_id),
+        chosen_heir_id: u64::from(chosen_heir_id),
         heir_kind,
         effective_minute: death_minute,
         status,
         settled_minute: (status == EstateDispositionStatus::Unclaimed).then_some(death_minute),
     });
-    if chosen_heir_id != 0
+    if chosen_heir_id != adventuresim_core::identity::CharacterId::from(0)
         && ctx
             .db
             .character_time()
             .character_id()
-            .find(chosen_heir_id)
+            .find(u64::from(chosen_heir_id))
             .is_some_and(|time| time.minutes >= death_minute)
     {
-        settle_pending_inheritances_for_heir(ctx, chosen_heir_id, death_minute)?;
+        settle_pending_inheritances_for_heir(ctx, (chosen_heir_id).into(), death_minute)?;
     }
     Ok(())
 }
 
-fn unequip_personal_estate(ctx: &ReducerContext, decedent_id: u64) -> Result<(), String> {
+fn unequip_personal_estate(
+    ctx: &ReducerContext,
+    decedent_id: adventuresim_core::identity::CharacterId,
+) -> Result<(), String> {
     let equipped = ctx
         .db
         .character_equipped_item()
         .character_id()
-        .filter(decedent_id)
+        .filter(u64::from(decedent_id))
         .map(|row| row.inventory_item_id)
         .collect::<Vec<_>>();
     for inventory_item_id in equipped {
         unequip_wearable(ctx, inventory_item_id);
     }
-    crate::capability::refresh_character_capability(ctx, decedent_id)?;
+    crate::capability::refresh_character_capability(ctx, (decedent_id).into())?;
     Ok(())
 }
 
 fn transfer_personal_estate(
     ctx: &ReducerContext,
-    decedent_id: u64,
-    heir_id: u64,
+    decedent_id: adventuresim_core::identity::CharacterId,
+    heir_id: adventuresim_core::identity::CharacterId,
 ) -> Result<(), String> {
     // Tear down every body and item-attachment anchor before ownership moves.
     // Item IDs remain stable, preserving amounts, food lots, and condition.
-    unequip_personal_estate(ctx, decedent_id)?;
+    unequip_personal_estate(ctx, (decedent_id).into())?;
     let object_roots = ctx
         .db
         .inventory_object()
@@ -461,7 +499,7 @@ fn transfer_personal_estate(
             matches!(
                 &object.location,
                 adventuresim_core::physical_object::InventoryLocation::Personal(location)
-                    if location.character_id == decedent_id
+                    if adventuresim_core::identity::CharacterId::from(location.character_id) == decedent_id
             )
         })
         .filter(|object| !crate::inventory_container::object_is_nested(ctx, object.id))
@@ -469,7 +507,7 @@ fn transfer_personal_estate(
         .collect::<Vec<_>>();
     for object_id in object_roots {
         let destination =
-            adventuresim_core::physical_object::OperationalCustody::character(heir_id)
+            adventuresim_core::physical_object::OperationalCustody::character((heir_id).into())
                 .map_err(|error| error.to_string())?;
         crate::inventory_container::rehome_subtree(ctx, object_id, &destination)?;
     }
@@ -477,14 +515,14 @@ fn transfer_personal_estate(
         .db
         .inventory_item()
         .character_id()
-        .filter(decedent_id)
+        .filter(u64::from(decedent_id))
         .collect::<Vec<_>>();
     inventory.sort_by_key(|row| row.id);
     for mut row in inventory {
-        row.character_id = heir_id;
+        row.character_id = u64::from(heir_id);
         ctx.db.inventory_item().id().update(row);
     }
-    crate::capability::refresh_character_capability(ctx, heir_id)?;
+    crate::capability::refresh_character_capability(ctx, (heir_id).into())?;
     Ok(())
 }
 
@@ -494,24 +532,24 @@ enum EstateRouteState {
     Dead {
         death_minute: StrategicMinute,
         status: Option<EstateDispositionStatus>,
-        chosen_heir_id: u64,
+        chosen_heir_id: adventuresim_core::identity::CharacterId,
     },
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum EstateRouteOutcome {
-    Destination(u64),
+    Destination(adventuresim_core::identity::CharacterId),
     InitialHeirPredeceased,
-    UnclaimedAt(u64),
+    UnclaimedAt(adventuresim_core::identity::CharacterId),
 }
 
 /// Follow already-materialized later estates without replaying their transfer.
 /// A pending later estate remains an intentional staging point: when its heir
 /// reaches the effective date it will transfer everything then present.
 fn route_materialized_inheritance(
-    initial_heir_id: u64,
+    initial_heir_id: adventuresim_core::identity::CharacterId,
     initial_effective_minute: StrategicMinute,
-    mut state_for: impl FnMut(u64) -> EstateRouteState,
+    mut state_for: impl FnMut(adventuresim_core::identity::CharacterId) -> EstateRouteState,
 ) -> Result<EstateRouteOutcome, String> {
     let mut current = initial_heir_id;
     let mut effective = initial_effective_minute;
@@ -532,7 +570,9 @@ fn route_materialized_inheritance(
                     return Ok(EstateRouteOutcome::InitialHeirPredeceased);
                 }
                 match status {
-                    Some(EstateDispositionStatus::Transferred) if chosen_heir_id != 0 => {
+                    Some(EstateDispositionStatus::Transferred)
+                        if chosen_heir_id != adventuresim_core::identity::CharacterId::from(0) =>
+                    {
                         current = chosen_heir_id;
                         effective = death_minute;
                     }
@@ -549,38 +589,49 @@ fn route_materialized_inheritance(
 
 fn materialized_inheritance_route(
     ctx: &ReducerContext,
-    heir_id: u64,
+    heir_id: adventuresim_core::identity::CharacterId,
     effective_minute: StrategicMinute,
 ) -> Result<EstateRouteOutcome, String> {
-    route_materialized_inheritance(heir_id, effective_minute, |character_id| {
-        let Some(death) = ctx.db.character_death().character_id().find(character_id) else {
+    route_materialized_inheritance((heir_id).into(), effective_minute, |character_id| {
+        let Some(death) = ctx
+            .db
+            .character_death()
+            .character_id()
+            .find(u64::from(character_id))
+        else {
             return EstateRouteState::Living;
         };
-        let disposition = ctx.db.estate_disposition().decedent_id().find(character_id);
+        let disposition = ctx
+            .db
+            .estate_disposition()
+            .decedent_id()
+            .find(u64::from(character_id));
         EstateRouteState::Dead {
             death_minute: death.strategic_minute,
             status: disposition.as_ref().map(|row| row.status),
-            chosen_heir_id: disposition.map_or(0, |row| row.chosen_heir_id),
+            chosen_heir_id: adventuresim_core::identity::CharacterId::from(
+                disposition.map_or(0, |row| row.chosen_heir_id),
+            ),
         }
     })
 }
 
 pub(crate) fn settle_pending_inheritances_for_heir(
     ctx: &ReducerContext,
-    heir_id: u64,
+    heir_id: adventuresim_core::identity::CharacterId,
     heir_frontier: StrategicMinute,
 ) -> Result<(), String> {
     let heir_death_minute = ctx
         .db
         .character_death()
         .character_id()
-        .find(heir_id)
+        .find(u64::from(heir_id))
         .map(|death| death.strategic_minute);
     let mut pending = ctx
         .db
         .estate_disposition()
         .chosen_heir_id()
-        .filter(heir_id)
+        .filter(u64::from(heir_id))
         .filter(|row| {
             row.status == EstateDispositionStatus::Pending
                 && (row.effective_minute <= heir_frontier
@@ -594,13 +645,21 @@ pub(crate) fn settle_pending_inheritances_for_heir(
             // that they predeceased the estate makes this estate unclaimed.
             disposition.status = EstateDispositionStatus::HeirPredeceased;
         } else {
-            match materialized_inheritance_route(ctx, heir_id, disposition.effective_minute)? {
+            match materialized_inheritance_route(
+                ctx,
+                (heir_id).into(),
+                disposition.effective_minute,
+            )? {
                 EstateRouteOutcome::InitialHeirPredeceased => {
                     disposition.status = EstateDispositionStatus::HeirPredeceased;
                 }
                 EstateRouteOutcome::Destination(destination)
                 | EstateRouteOutcome::UnclaimedAt(destination) => {
-                    transfer_personal_estate(ctx, disposition.decedent_id, destination)?;
+                    transfer_personal_estate(
+                        ctx,
+                        (disposition.decedent_id).into(),
+                        (destination).into(),
+                    )?;
                     disposition.status = EstateDispositionStatus::Transferred;
                 }
             }
@@ -864,45 +923,55 @@ mod tests {
 
     #[test]
     fn materialized_estates_cascade_through_three_generations() {
-        let routed = route_materialized_inheritance(2, StrategicMinute::new(100), |id| match id {
-            2 => EstateRouteState::Dead {
-                death_minute: StrategicMinute::new(200),
-                status: Some(EstateDispositionStatus::Transferred),
-                chosen_heir_id: 3,
-            },
-            3 => EstateRouteState::Dead {
-                death_minute: StrategicMinute::new(300),
-                status: Some(EstateDispositionStatus::Transferred),
-                chosen_heir_id: 4,
-            },
-            _ => EstateRouteState::Living,
-        });
-        assert_eq!(routed, Ok(EstateRouteOutcome::Destination(4)));
+        let routed =
+            route_materialized_inheritance((2).into(), StrategicMinute::new(100), |id| match id {
+                id if id == adventuresim_core::identity::CharacterId::from(2) => {
+                    EstateRouteState::Dead {
+                        death_minute: StrategicMinute::new(200),
+                        status: Some(EstateDispositionStatus::Transferred),
+                        chosen_heir_id: 3.into(),
+                    }
+                }
+                id if id == adventuresim_core::identity::CharacterId::from(3) => {
+                    EstateRouteState::Dead {
+                        death_minute: StrategicMinute::new(300),
+                        status: Some(EstateDispositionStatus::Transferred),
+                        chosen_heir_id: 4.into(),
+                    }
+                }
+                _ => EstateRouteState::Living,
+            });
+        assert_eq!(routed, Ok(EstateRouteOutcome::Destination(4.into())));
     }
 
     #[test]
     fn out_of_order_assets_stop_at_a_pending_later_estate() {
-        let routed = route_materialized_inheritance(2, StrategicMinute::new(100), |id| match id {
-            2 => EstateRouteState::Dead {
-                death_minute: StrategicMinute::new(200),
-                status: Some(EstateDispositionStatus::Transferred),
-                chosen_heir_id: 3,
-            },
-            3 => EstateRouteState::Dead {
-                death_minute: StrategicMinute::new(300),
-                status: Some(EstateDispositionStatus::Pending),
-                chosen_heir_id: 4,
-            },
-            _ => EstateRouteState::Living,
-        });
-        assert_eq!(routed, Ok(EstateRouteOutcome::Destination(3)));
+        let routed =
+            route_materialized_inheritance((2).into(), StrategicMinute::new(100), |id| match id {
+                id if id == adventuresim_core::identity::CharacterId::from(2) => {
+                    EstateRouteState::Dead {
+                        death_minute: StrategicMinute::new(200),
+                        status: Some(EstateDispositionStatus::Transferred),
+                        chosen_heir_id: 3.into(),
+                    }
+                }
+                id if id == adventuresim_core::identity::CharacterId::from(3) => {
+                    EstateRouteState::Dead {
+                        death_minute: StrategicMinute::new(300),
+                        status: Some(EstateDispositionStatus::Pending),
+                        chosen_heir_id: 4.into(),
+                    }
+                }
+                _ => EstateRouteState::Living,
+            });
+        assert_eq!(routed, Ok(EstateRouteOutcome::Destination(3.into())));
     }
 
     #[test]
     fn estate_choice_requires_structural_heir_consistency() {
-        assert!(valid_estate_choice(EstateHeirKind::DirectChild, 7));
-        assert!(valid_estate_choice(EstateHeirKind::Unclaimed, 0));
-        assert!(!valid_estate_choice(EstateHeirKind::Unclaimed, 7));
-        assert!(!valid_estate_choice(EstateHeirKind::Spouse, 0));
+        assert!(valid_estate_choice(EstateHeirKind::DirectChild, 7.into()));
+        assert!(valid_estate_choice(EstateHeirKind::Unclaimed, 0.into()));
+        assert!(!valid_estate_choice(EstateHeirKind::Unclaimed, 7.into()));
+        assert!(!valid_estate_choice(EstateHeirKind::Spouse, 0.into()));
     }
 }

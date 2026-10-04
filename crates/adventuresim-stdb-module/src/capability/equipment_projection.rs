@@ -4,12 +4,13 @@ pub(super) fn combat_weapon(
     item: &Item,
     instance: Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>,
 ) -> CombatWeapon {
-    let definition = adventuresim_core::item_catalog::definition(&item.id).unwrap_or_else(|| {
-        panic!(
-            "equipped weapon {} is absent from the authored catalog",
-            item.id
-        )
-    });
+    let definition = adventuresim_core::item_catalog::definition(&(&item.id).into())
+        .unwrap_or_else(|| {
+            panic!(
+                "equipped weapon {} is absent from the authored catalog",
+                item.id
+            )
+        });
     let equipment = definition.equipment.as_ref().unwrap_or_else(|| {
         panic!(
             "equipped weapon {} has no authored equipment geometry",

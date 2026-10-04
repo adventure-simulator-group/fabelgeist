@@ -69,9 +69,8 @@ fn profile_rejects_zero_thickness_inside_occupied_material() {
     for station in value["surface"]["stations"].as_array_mut().unwrap() {
         station["profile"][3]["thickness"] = 0.into();
     }
-    assert!(
-        contoured_plate::construct(&parameters(value), Detail::High)
-            .unwrap_err()
-            .contains("isolated authored boundary apices")
-    );
+    assert!(matches!(
+        contoured_plate::construct(&parameters(value), Detail::High).unwrap_err(),
+        crate::ConstructionError::PlateBoundaryApices
+    ));
 }

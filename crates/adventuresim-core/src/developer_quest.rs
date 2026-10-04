@@ -5,6 +5,8 @@
 //! server-owned generation context. The definition itself is persisted beside
 //! that context so authority validation can replay it exactly.
 
+mod bindings;
+
 use crate::{
     bestiary::ThreatId,
     case::{AssetId, ObjectiveExpression, ObjectiveId, ObjectiveRequirement, SubjectId},
@@ -1652,22 +1654,7 @@ pub fn compile(
             ));
         }
     }
-    for (index, target) in definition.pattern_targets.iter().enumerate() {
-        let matches_current =
-            candidates
-                .get(&target.resident_character_id)
-                .is_some_and(|candidate| {
-                    qg::pattern_target_matches(target, candidate, &context.base.settlement_id)
-                });
-        if !matches_current {
-            diagnostics.push(diagnostic(
-                format!("pattern_targets.{index}"),
-                "stale_pattern_target",
-                "Pattern target is not the same current, persistent settlement NPC",
-                DiagnosticTier::Structural,
-            ));
-        }
-    }
+    bindings::validate_pattern_targets(definition, context, &candidates, &mut diagnostics);
 
     if let CanonicalCause::Hostile(threat) = definition.cause {
         let Some(monster) = catalog.monster(threat.as_str()) else {
@@ -1962,7 +1949,7 @@ mod tests {
             seed: 7,
             observer_entropy_hi: 8,
             observer_entropy_lo: 9,
-            settlement_id: "riverdale".into(),
+            settlement_id: crate::identity::SettlementId::try_new("riverdale").unwrap(),
             settlement_name: "Riverdale".into(),
             scope: Scope::Settlement {
                 settlement_id: "riverdale".into(),

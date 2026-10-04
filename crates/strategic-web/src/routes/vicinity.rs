@@ -1,10 +1,14 @@
 //! Read-only location resolution shared by terrain presentation and foraging.
 use super::{AppState, persisted_route_position, wgs84_latitude_longitude_degrees};
+mod error;
 use crate::spacetimedb::{
     BackendCaseSitePin, CharacterView, PartyJourney, PartyJourneyRouteView, PartyView,
-    SettlementView, sql_string_literal,
+    SettlementView, SpacetimeError, SqlQuery, sql_string_literal,
 };
+use adventuresim_core::identity::CharacterId;
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+pub(super) use error::VicinityError;
+use error::VicinityReadStage;
 pub(super) struct Vicinity {
     pub(super) kind: String,
     pub(super) id: String,
@@ -16,21 +20,24 @@ pub(super) struct Vicinity {
 pub(super) async fn vicinity(
     state: &AppState,
     character: &CharacterView,
-) -> Result<Vicinity, String> {
+) -> std::result::Result<Vicinity, VicinityError> {
+    let actor = CharacterId::from(character.id);
     if let Some(id) = character.current_settlement_id.as_deref() {
         let row = state
             .db
             .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-                &crate::spacetimedb::settlement_by_id(id),
+                crate::spacetimedb::settlement_by_id(id),
             )
             .await
-            .map_err(|error| error.to_string())?
-            .ok_or("Current settlement not found")?;
+            .map_err(|source: SpacetimeError| -> VicinityError {
+                VicinityError::query(VicinityReadStage::Settlement, actor, source)
+            })?
+            .ok_or(VicinityError::MissingSettlement)?;
         let coordinate = Wgs84CoordinateMicrodegrees::from_longitude_latitude_degrees(
             row.longitude,
             row.latitude,
         )
-        .ok_or("persisted settlement coordinate is outside WGS84 bounds")?;
+        .ok_or(VicinityError::InvalidSettlementCoordinate)?;
         let (longitude, latitude) = coordinate.longitude_latitude_degrees();
         return Ok(Vicinity {
             kind: "settlement".into(),
@@ -43,17 +50,18 @@ pub(super) async fn vicinity(
     if let Some(id) = character.current_case_site_id.as_deref() {
         let row = state
             .db
-            .query_one_sats::<BackendCaseSitePin>(&format!(
+            .query_one_sats::<BackendCaseSitePin>(SqlQuery::from(format!(
                 "SELECT * FROM backend_case_site_pins WHERE owner_character_id = {} AND case_site_id = {}",
                 character.id,
                 sql_string_literal(id)
-            ))
+            )))
             .await
-            .map_err(|error| error.to_string())?
-            .ok_or("Current case site is not exact")?;
+            .map_err(|source: SpacetimeError| -> VicinityError {
+                VicinityError::query(VicinityReadStage::CaseSite, actor, source)
+            })?
+            .ok_or(VicinityError::InexactCaseSite)?;
         let (latitude, longitude) =
-            wgs84_latitude_longitude_degrees(row.latitude_e_7, row.longitude_e_7)
-                .map_err(str::to_owned)?;
+            wgs84_latitude_longitude_degrees(row.latitude_e_7, row.longitude_e_7)?;
         return Ok(Vicinity {
             kind: "case_site".into(),
             id: id.into(),
@@ -65,35 +73,41 @@ pub(super) async fn vicinity(
     let party_id = character
         .party_id
         .as_deref()
-        .ok_or("Character has no stationary vicinity")?;
+        .ok_or(VicinityError::NoStationaryVicinity)?;
     let party = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(
-            &crate::spacetimedb::party_by_id(party_id),
+            crate::spacetimedb::party_by_id(party_id),
         )
         .await
-        .map_err(|error| error.to_string())?
-        .ok_or("Party not found")?;
+        .map_err(|source: SpacetimeError| -> VicinityError {
+            VicinityError::query(VicinityReadStage::Party, actor, source)
+        })?
+        .ok_or(VicinityError::MissingParty)?;
     if party.camp_destination.is_none() {
-        return Err("Foraging is unavailable while moving or without a known location".into());
+        return Err(VicinityError::MovingOrUnknownLocation);
     }
     let journey = state
         .db
-        .query_one_sats::<PartyJourney>(&crate::spacetimedb::party_journey_by_party_id(party_id))
+        .query_one_sats::<PartyJourney>(crate::spacetimedb::party_journey_by_party_id(party_id))
         .await
-        .map_err(|error| error.to_string())?
-        .ok_or("Camp journey not found")?;
+        .map_err(|source: SpacetimeError| -> VicinityError {
+            VicinityError::query(VicinityReadStage::Journey, actor, source)
+        })?
+        .ok_or(VicinityError::MissingJourney)?;
     let route = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::PartyJourneyRoute, PartyJourneyRouteView>(
-            &crate::spacetimedb::party_journey_route_by_party_id(party_id),
+            crate::spacetimedb::party_journey_route_by_party_id(party_id),
         )
         .await
-        .map_err(|error| error.to_string())?
-        .ok_or("Camp terrain route not found")?;
+        .map_err(|source: SpacetimeError| -> VicinityError {
+            VicinityError::query(VicinityReadStage::Route, actor, source)
+        })?
+        .ok_or(VicinityError::MissingRoute)?;
     let (latitude, longitude) =
         persisted_route_position(&route, journey.completed_movement_minutes)
-            .ok_or("Camp terrain position is unavailable")?;
+            .ok_or(VicinityError::UnavailableCampPosition)?;
     Ok(Vicinity {
         kind: "camp".into(),
         id: party_id.into(),

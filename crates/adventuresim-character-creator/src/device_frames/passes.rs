@@ -3,7 +3,8 @@
 
 use anyhow::Result;
 use fabelgeist_armor::ArmorGpu;
-use fabelgeist_armor::gpu::{device_error, wgsl};
+use fabelgeist_armor::gpu::wgsl;
+use fabelgeist_gpu::prelude::ShaderSource;
 
 pub(super) const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
 pub(super) const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
@@ -13,7 +14,7 @@ pub(super) fn kernels(gpu: &ArmorGpu) -> Result<[std::sync::Arc<fabelgeist_compu
     let compile = |entry: &str| {
         gpu.cache()
             .get(gpu.context(), &source(entry))
-            .map_err(device_error)
+            .map_err(fabelgeist_armor::GenerateError::from)
     };
     Ok([
         compile(EXTREMES)?,
@@ -23,8 +24,8 @@ pub(super) fn kernels(gpu: &ArmorGpu) -> Result<[std::sync::Arc<fabelgeist_compu
     ])
 }
 
-fn source(entry: &str) -> String {
-    format!(
+fn source(entry: &str) -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> joint_indices: array<u32>;
@@ -118,7 +119,7 @@ fn point(l: vec3<f32>) -> vec3<f32> {{
         ordered = wgsl::ORDERED_FLOAT,
         positions = wgsl::read_points("positions"),
         frame_constants = super::frame_constants(),
-    )
+    ))
 }
 
 /// The body's top, and each side's floor, for the head and feet.

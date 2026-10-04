@@ -23,7 +23,7 @@ pub(super) async fn set_inventory_target(
     let result = if form.party_scope {
         super::execute_or_request_party_action(
             &state,
-            character_id,
+            character_id.into(),
             super::PartyAction::SetInventoryQuantityTarget {
                 item_id: form.item_id,
                 quantity: form.quantity,
@@ -36,7 +36,7 @@ pub(super) async fn set_inventory_target(
             .db
             .call("set_inventory_quantity_target", &args)
             .await
-            .map_err(|error| error.to_string())
+            .map_err(|source: crate::spacetimedb::SpacetimeError| -> crate::routes::PartyActionError { crate::routes::PartyActionError::reducer(character_id.into(), source) })
     };
     match result {
         Ok(()) => (axum::http::StatusCode::NO_CONTENT, ""),
@@ -68,22 +68,27 @@ pub(super) async fn character_equipment_graph(
     state: &AppState,
     character_id: u64,
 ) -> Vec<CharacterEquipmentGraph> {
-    let worn_sql =
-        format!("SELECT * FROM character_equipped_item WHERE character_id = {character_id}");
-    let occupancy_sql =
-        format!("SELECT * FROM equipment_occupancy WHERE character_id = {character_id}");
-    let inventory_sql = format!("SELECT * FROM inventory_item WHERE character_id = {character_id}");
+    let worn_sql = SqlQuery::from(format!(
+        "SELECT * FROM character_equipped_item WHERE character_id = {character_id}"
+    ));
+    let occupancy_sql = SqlQuery::from(format!(
+        "SELECT * FROM equipment_occupancy WHERE character_id = {character_id}"
+    ));
+    let inventory_sql = SqlQuery::from(format!(
+        "SELECT * FROM inventory_item WHERE character_id = {character_id}"
+    ));
+
     let (worn, occupancies, inventory, definitions) = tokio::join!(
         state
             .db
             .query_sats_into::<adventuresim_stdb_client::CharacterEquippedItem, EquippedItemView>(
-                &worn_sql,
+                worn_sql,
             ),
-        state.db.query_sats::<EquipmentOccupancy>(&occupancy_sql),
-        state.db.query_sats::<InventoryItem>(&inventory_sql),
+        state.db.query_sats::<EquipmentOccupancy>(occupancy_sql),
+        state.db.query_sats::<InventoryItem>(inventory_sql),
         state
             .db
-            .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item"),
+            .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into()),
     );
     let mut worn = worn.unwrap_or_default();
     let worn_ids = worn
@@ -217,10 +222,10 @@ pub(super) async fn set_equipment(
     };
     let inventory: Option<InventoryItem> = match state
         .db
-        .query_one_sats(&format!(
+        .query_one_sats(SqlQuery::from(format!(
             "SELECT * FROM inventory_item WHERE id = {} AND character_id = {character_id}",
             form.inventory_item_id
-        ))
+        )))
         .await
     {
         Ok(inventory) => inventory,
@@ -234,7 +239,7 @@ pub(super) async fn set_equipment(
     };
     let definition: Option<CatalogItemView> = match state
         .db
-        .query_one_sats_into::<DbItem, CatalogItemView>(&db::item_by_id(&inventory.item_id))
+        .query_one_sats_into::<DbItem, CatalogItemView>(db::item_by_id(&inventory.item_id))
         .await
     {
         Ok(definition) => definition,
@@ -494,13 +499,13 @@ pub(super) async fn remove_party_member(
                 .db
                 .call("leave_party", &[json!(actor_character_id)])
                 .await
-                .map_err(|error| error.to_string())
+                .map_err(|source: crate::spacetimedb::SpacetimeError| -> crate::routes::PartyActionError { crate::routes::PartyActionError::reducer(actor_character_id.into(), source) })
         } else {
             super::execute_or_request_party_action(
                 &state,
-                actor_character_id,
+                actor_character_id.into(),
                 super::PartyAction::RemovePartyMember {
-                    character_id: member_character_id,
+                    character_id: member_character_id.into(),
                 },
             )
             .await
@@ -578,7 +583,7 @@ pub(super) async fn render_party_stats(
         active_character.clone()
     } else {
         let character =
-            crate::routes::data::character_as_observed(state, character_id, active_character.id)
+            crate::routes::data::character_as_observed(state, character_id.into(), active_character.id.into())
                 .await
                 .ok()
                 .flatten();
@@ -595,9 +600,7 @@ pub(super) async fn render_party_stats(
     let active_party = match active_character.party_id.as_deref() {
         Some(party_id) => state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
-                party_id,
-            ))
+            .query_sats_into::<DbParty, PartyView>(db::party_by_id(party_id))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -607,9 +610,7 @@ pub(super) async fn render_party_stats(
     let selected_party = match selected.party_id.as_deref() {
         Some(party_id) => state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
-                party_id,
-            ))
+            .query_sats_into::<DbParty, PartyView>(db::party_by_id(party_id))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -618,17 +619,17 @@ pub(super) async fn render_party_stats(
     };
     let selected_attributes: Vec<CharacterAttributes> = state
         .db
-        .query_sats(&db::character_attributes_by_character_id(character_id))
+        .query_sats(db::character_attributes_by_character_id(character_id.into()))
         .await
         .unwrap_or_default();
     let selected_skills: Vec<CharacterSkills> = state
         .db
-        .query_sats(&db::character_skills_by_character_id(character_id))
+        .query_sats(db::character_skills_by_character_id(character_id.into()))
         .await
         .unwrap_or_default();
     let selected_limbs: Vec<CharacterLimbs> = state
         .db
-        .query_sats(&db::character_limbs_by_character_id(character_id))
+        .query_sats(db::character_limbs_by_character_id(character_id.into()))
         .await
         .unwrap_or_default();
     let capability = get_character_capability(state, character_id).await;
@@ -638,7 +639,7 @@ pub(super) async fn render_party_stats(
     let morale_sources = get_morale_sources(state, character_id).await;
     let religion = query_single::<CharacterCondition>(
         state,
-        db::character_condition_by_character_id(character_id),
+        db::character_condition_by_character_id(character_id.into()),
     )
     .await
     .and_then(|condition| condition.religion_id);
@@ -653,23 +654,23 @@ pub(super) async fn render_party_stats(
     let medical = medical_presentation(state, active_character.id, character_id).await;
     let injuries = state
         .db
-        .query_sats::<LimbInjury>(&format!(
+        .query_sats::<LimbInjury>(SqlQuery::from(format!(
             "SELECT * FROM limb_injury WHERE character_id = {character_id}"
-        ))
+        )))
         .await
         .unwrap_or_default();
     let projectiles = state
         .db
-        .query_sats::<RetainedProjectile>(&format!(
+        .query_sats::<RetainedProjectile>(SqlQuery::from(format!(
             "SELECT * FROM retained_projectile WHERE character_id = {character_id}"
-        ))
+        )))
         .await
         .unwrap_or_default();
     let filth = state
         .db
-        .query_sats::<CharacterFilth>(&format!(
+        .query_sats::<CharacterFilth>(SqlQuery::from(format!(
             "SELECT * FROM character_filth WHERE character_id = {character_id}"
-        ))
+        )))
         .await
         .unwrap_or_default();
     Html(
@@ -711,9 +712,9 @@ pub(crate) async fn medical_presentation(
 ) -> crate::medical::MedicalPresentation {
     let rows = match state
         .db
-        .query_sats::<BackendPhysiologyChart>(&format!(
+        .query_sats::<BackendPhysiologyChart>(SqlQuery::from(format!(
             "SELECT * FROM backend_physiology_charts WHERE observer_id = {viewer_id} AND patient_id = {target_id}"
-        ))
+        )))
         .await
     {
         Ok(rows) => rows,
@@ -729,9 +730,9 @@ pub(crate) async fn medical_presentation(
     {
         state
             .db
-            .query_sats::<BackendPhysiologyAdministration>(&format!(
+            .query_sats::<BackendPhysiologyAdministration>(SqlQuery::from(format!(
                 "SELECT * FROM backend_physiology_administrations WHERE patient_id = {target_id}"
-            ))
+            )))
             .await
             .unwrap_or_default()
     } else {
@@ -739,10 +740,10 @@ pub(crate) async fn medical_presentation(
     };
     let current_minute = match state
         .db
-        .query_one_sats::<CharacterTime>(&db::character_time_by_character_id(target_id))
+        .query_one_sats::<CharacterTime>(db::character_time_by_character_id(target_id.into()))
         .await
     {
-        Ok(Some(time)) => adventuresim_world_schema::calendar::StrategicMinute::new(time.minutes.minutes),
+        Ok(Some(time)) => calendar_minute(&time.minutes),
         Ok(None) => {
             tracing::error!(
                 target_id,
@@ -877,7 +878,7 @@ pub(super) async fn get_strategic_condition(
     }
     query_single(
         state,
-        db::character_strategic_condition_by_character_id(character_id),
+        db::character_strategic_condition_by_character_id(character_id.into()),
     )
     .await
 }
@@ -888,9 +889,9 @@ pub(super) async fn get_morale_sources(
 ) -> Vec<CharacterMoraleSource> {
     let mut sources: Vec<CharacterMoraleSource> = state
         .db
-        .query_sats(&format!(
+        .query_sats(SqlQuery::from(format!(
             "SELECT * FROM backend_character_morale_sources WHERE character_id = {character_id}"
-        ))
+        )))
         .await
         .unwrap_or_default();
     sources.sort_by(|left, right| right.magnitude.abs().total_cmp(&left.magnitude.abs()));

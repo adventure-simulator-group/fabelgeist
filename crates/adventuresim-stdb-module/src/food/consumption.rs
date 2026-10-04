@@ -1,7 +1,7 @@
 // Owns foodborne exposure, measured consumption, travel use, and eating reducers.
 fn expose_to_dysentery(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     lot_id: u64,
     minute: StrategicMinute,
     dose: f32,
@@ -18,7 +18,7 @@ fn expose_to_dysentery(
         );
     expose_food_water_dysentery(
         ctx,
-        character_id,
+        (character_id).into(),
         &format!("food:{lot_id}:{minute}"),
         lot_id,
         minute,
@@ -34,7 +34,7 @@ fn expose_to_dysentery(
 )]
 pub(crate) fn expose_food_water_dysentery(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     exposure_id: &str,
     carrier_id: u64,
     minute: StrategicMinute,
@@ -49,22 +49,17 @@ pub(crate) fn expose_food_water_dysentery(
         .db
         .character_attributes()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .map_or(3.0, |row| row.immunity);
-    let episodes = crate::disease::character_episodes(ctx, character_id)?;
+    let episodes = crate::disease::character_episodes(ctx, character_id.into())?;
     if disease::has_unresolved_disease(&episodes, DiseaseId::Dysentery, minute, immunity) {
         return Ok(());
     }
-    let prior = disease::acquired_immunity(
-        &episodes,
-        DiseaseId::Dysentery,
-        minute,
-        immunity
-    );
-    let seed = disease::outbreak_exposure_seed(character_id, exposure_id);
+    let prior = disease::acquired_immunity(&episodes, DiseaseId::Dysentery, minute, immunity);
+    let seed = disease::outbreak_exposure_seed((character_id).into(), exposure_id);
     let protected_dose = crate::disease::protected_point_exposure(
         ctx,
-        character_id,
+        (character_id).into(),
         minute,
         adventuresim_core::disease::TransmissionVector::FoodWater,
         dose,
@@ -77,7 +72,7 @@ pub(crate) fn expose_food_water_dysentery(
         protected_dose,
     ) {
         let episode_id = seed.max(1);
-        let place = crate::foraging::current_strategic_place(ctx, character_id)?;
+        let place = crate::foraging::current_strategic_place(ctx, (character_id).into())?;
         crate::world_event::commit_food_water_infection(
             ctx,
             exposure_id,
@@ -100,19 +95,19 @@ pub(crate) fn expose_food_water_dysentery(
 
 fn consume_food_amount(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     inventory_id: u64,
     kcal: f32,
     explicit: bool,
 ) -> Result<f32, String> {
-    initialize_character_condition(ctx, character_id)?;
+    initialize_character_condition(ctx, character_id.into());
     let inventory = ctx
         .db
         .inventory_item()
         .id()
         .find(inventory_id)
         .ok_or("Food inventory row not found")?;
-    if inventory.character_id != character_id {
+    if adventuresim_core::identity::CharacterId::from(inventory.character_id) != character_id {
         return Err("Food is not in this inventory".into());
     }
     crate::inventory_container::reconcile_consumed_row(
@@ -126,7 +121,7 @@ fn consume_food_amount(
         .db
         .character_needs()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character needs not found")?;
     let wanted = if explicit {
         food::explicit_meal_consumption(needs.food_balance_kcal, lot.nutrition_kcal)
@@ -138,17 +133,17 @@ fn consume_food_amount(
         return Ok(0.0);
     }
     let ratio = (wanted / lot.nutrition_kcal).clamp(0.0, 1.0);
-    let minute = current_minute(ctx, character_id);
+    let minute = current_minute(ctx, (character_id.into()).into());
     let (_, current) = contamination(ctx, &lot, minute)?;
     expose_to_dysentery(
         ctx,
-        character_id,
+        (character_id).into(),
         lot.id,
         minute,
         current * ratio * lot.mass_kg,
         (ratio * f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)).round() as u16,
     )?;
-    crate::herbalism::consume_food_medicine(ctx, character_id, lot.id, ratio)?;
+    crate::herbalism::consume_food_medicine(ctx, (character_id).into(), lot.id, ratio)?;
     consume_food_contamination_provenance(ctx, lot.id, ratio);
     needs.food_balance_kcal += wanted;
     ctx.db.character_needs().character_id().update(needs);
@@ -191,17 +186,20 @@ fn consume_food_amount(
                 remaining_fraction_micros: remaining.get(),
             });
     }
-    crate::capability::refresh_character_capability(ctx, character_id)?;
+    crate::capability::refresh_character_capability(ctx, (character_id).into())?;
     Ok(wanted)
 }
 
-pub fn consume_travel_food_to_zero(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    initialize_character_condition(ctx, character_id)?;
+pub fn consume_travel_food_to_zero(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) -> Result<(), String> {
+    initialize_character_condition(ctx, character_id.into());
     let actor = ctx
         .db
         .character()
         .id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Character not found")?;
     if let Some(party_id) = actor.party_id.as_deref() {
         let mut candidates: Vec<_> = ctx
@@ -237,31 +235,31 @@ pub fn consume_travel_food_to_zero(ctx: &ReducerContext, character_id: u64) -> R
                 .db
                 .character_needs()
                 .character_id()
-                .find(character_id)
+                .find(u64::from(character_id))
                 .map_or(0.0, |n| n.food_balance_kcal);
             let wanted = food::travel_consumption(deficit, lot.nutrition_kcal);
             if wanted <= 0.0 {
                 break;
             }
             let ratio = (wanted / lot.nutrition_kcal).clamp(0.0, 1.0);
-            let minute = current_minute(ctx, character_id);
+            let minute = current_minute(ctx, (character_id.into()).into());
             let (_, current) = contamination(ctx, &lot, minute)?;
             expose_to_dysentery(
                 ctx,
-                character_id,
+                (character_id).into(),
                 lot.id,
                 minute,
                 current * ratio * lot.mass_kg,
                 (ratio * f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)).round()
                     as u16,
             )?;
-            crate::herbalism::consume_food_medicine(ctx, character_id, lot.id, ratio)?;
+            crate::herbalism::consume_food_medicine(ctx, (character_id).into(), lot.id, ratio)?;
             consume_food_contamination_provenance(ctx, lot.id, ratio);
             let mut needs = ctx
                 .db
                 .character_needs()
                 .character_id()
-                .find(character_id)
+                .find(u64::from(character_id))
                 .unwrap();
             needs.food_balance_kcal = (needs.food_balance_kcal + wanted).min(0.0);
             ctx.db.character_needs().character_id().update(needs);
@@ -310,7 +308,7 @@ pub fn consume_travel_food_to_zero(ctx: &ReducerContext, character_id: u64) -> R
         .db
         .inventory_item()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .filter(|inventory| {
             !crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
@@ -330,18 +328,26 @@ pub fn consume_travel_food_to_zero(ctx: &ReducerContext, character_id: u64) -> R
             .db
             .character_needs()
             .character_id()
-            .find(character_id)
+            .find(u64::from(character_id))
             .is_some_and(|n| n.food_balance_kcal >= 0.0)
         {
             break;
         }
-        consume_food_amount(ctx, character_id, id, f32::MAX, false)?;
+        consume_food_amount(ctx, (character_id).into(), id, f32::MAX, false)?;
     }
     Ok(())
 }
 
-pub fn clear_stomach_fullness(ctx: &ReducerContext, character_id: u64) {
-    if let Some(mut needs) = ctx.db.character_needs().character_id().find(character_id) {
+pub fn clear_stomach_fullness(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) {
+    if let Some(mut needs) = ctx
+        .db
+        .character_needs()
+        .character_id()
+        .find(u64::from(character_id))
+    {
         needs.food_balance_kcal = needs.food_balance_kcal.min(0.0);
         ctx.db.character_needs().character_id().update(needs);
     }
@@ -353,8 +359,10 @@ pub fn eat_food(
     character_id: u64,
     inventory_item_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)?;
-    crate::character::require_living_character(ctx, character_id)?;
+    crate::strategic::require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let actor = ctx
         .db
         .character()
@@ -364,6 +372,12 @@ pub fn eat_food(
     if actor.has_tactical_server_assignment() {
         return Err("Eating is unavailable during a tactical encounter".into());
     }
-    consume_food_amount(ctx, character_id, inventory_item_id, f32::MAX, true)?;
+    consume_food_amount(
+        ctx,
+        (character_id).into(),
+        inventory_item_id,
+        f32::MAX,
+        true,
+    )?;
     Ok(())
 }

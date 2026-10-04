@@ -8,9 +8,11 @@ pub fn start_dialogue(
     location_id: String,
     catalog_revision: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     require_dialogue_revision(&catalog_revision)?;
-    crate::character::require_living_character(ctx, character_id)?;
+    crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let character = ctx
         .db
         .character()
@@ -30,18 +32,17 @@ pub fn start_dialogue(
     let npc_character_id = npc_actor_id
         .parse::<u64>()
         .map_err(|_| "Dialogue NPC identity is invalid")?;
-    let minute = crate::relationship::enforce_temporal_scope(
-        ctx,
-        character_id,
-        Some(npc_character_id),
-        crate::relationship::TemporalScope::PairwiseSoft,
-    )?;
+    let minute = crate::relationship::TemporalScope::PairwiseSoft {
+        actor: (character_id).into(),
+    }
+    .enforce(ctx)
+    .map_err(|error: crate::relationship::TemporalScopeError| error.to_string())?;
     let actor_settlement_presence =
         adventuresim_core::strategic_presence::StrategicPresence::settlement_membership(
-            character_id,
+            (character_id).into(),
             settlement_id.clone(),
             adventuresim_core::strategic_presence::PresenceFrontier {
-                observer_character_id: character_id,
+                observer_character_id: (character_id).into(),
                 personal_minute: minute,
             },
         )
@@ -161,12 +162,12 @@ pub fn start_dialogue(
                 character_id,
                 minute,
             )
-                .is_some_and(|candidate_presence| {
-                    adventuresim_core::strategic_presence::are_co_present(
-                        &actor_presence,
-                        candidate_presence.presence(),
-                    )
-                })
+            .is_some_and(|candidate_presence| {
+                adventuresim_core::strategic_presence::are_co_present(
+                    &actor_presence,
+                    candidate_presence.presence(),
+                )
+            })
         })
         .filter_map(|presence| {
             crate::settlement_population::resolve_settlement_resident(ctx, presence.character_id)

@@ -1,5 +1,6 @@
 //! Dimensioned recessed sections and independent terminal point geometry.
 use super::*;
+use crate::ConstructionError;
 
 pub(crate) const MAX_FULLER_GROOVES: usize = 8;
 
@@ -77,14 +78,14 @@ impl PointCurve {
         width: f64,
         slope: f64,
         roundness: f64,
-    ) -> Result<Self, String> {
+    ) -> Result<Self, ConstructionError> {
         if !(y < end
             && width > 0.0
             && slope.is_finite()
             && slope <= 0.0
             && (0.0..=1.0).contains(&roundness))
         {
-            return Err("point needs a positive monotonically tapering body section".into());
+            return Err(ConstructionError::PointTaper);
         }
         let k = roundness * width / 3.0;
         let h = if slope < 0.0 {

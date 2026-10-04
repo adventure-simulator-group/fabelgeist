@@ -16,6 +16,7 @@ use anyhow::{Context, Result, bail};
 use fabelgeist_armor::{
     ArmorGpu, ArmorMorph, BracerDesign, BreastplateDesign, GeneratedArmor, parametric_design_hash,
 };
+use fabelgeist_rig::RigJointName;
 use std::sync::LazyLock;
 
 /// The body data needed to generate equipment, with its morph realizations.
@@ -29,7 +30,7 @@ pub struct RuntimeBody {
     pub texcoord_faces: Vec<[u32; 3]>,
     pub joint_indices: Vec<[u32; 8]>,
     pub joint_weights: Vec<[f32; 8]>,
-    pub joint_names: Vec<String>,
+    pub joint_names: Vec<RigJointName>,
     pub global_joint_states: Vec<[f32; 8]>,
     /// Each realization a piece is refitted to, becoming one of its morphs.
     pub morphs: Vec<ForearmMorphSample>,
@@ -307,7 +308,7 @@ pub fn generate_runtime_clothing(
         &body.joint_names,
         &body.global_joint_states,
     )
-    .map_err(anyhow::Error::msg)?;
+    .map_err(anyhow::Error::from)?;
     let shell = generated
         .shells
         .into_iter()
@@ -329,7 +330,7 @@ pub fn generate_runtime_clothing(
         .map(|morph| {
             let fitted = shell
                 .refit(&morph.positions, &morph.normals)
-                .map_err(anyhow::Error::msg)?;
+                .map_err(anyhow::Error::from)?;
             Ok(ArmorMorph {
                 name: morph.name.clone(),
                 position_deltas: deltas(&base_positions, &fitted.positions),

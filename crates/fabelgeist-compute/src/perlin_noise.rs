@@ -117,11 +117,11 @@ impl RenderPerlin {
         let map_def = MapDefinition::new(shader_code)?;
 
         let mut params = PassParameters::new();
-        params.insert("scale", scale);
-        params.insert("offset", offset);
-        params.insert("octaves", octaves);
-        params.insert("lacunarity", lacunarity);
-        params.insert("gain", gain);
+        params.insert("scale".into(), (scale).into());
+        params.insert("offset".into(), (offset).into());
+        params.insert("octaves".into(), (octaves).into());
+        params.insert("lacunarity".into(), (lacunarity).into());
+        params.insert("gain".into(), (gain).into());
 
         Map::execute_with_parameters(context, &map_def, None, output, Some(params))?;
         Ok(())

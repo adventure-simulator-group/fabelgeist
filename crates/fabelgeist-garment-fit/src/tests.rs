@@ -193,9 +193,10 @@ fn builds_a_garment_from_a_preset() {
     }
 
     // And the masses are a garment's, not a sack of sand's.
-    let total: f32 = build.mesh.masses.iter().sum();
+    let total: fabelgeist_shell::ParticleMass = build.mesh.masses.iter().sum();
     assert!(
-        (0.05..5.0).contains(&total),
+        (fabelgeist_shell::ParticleMass::from(0.05)..fabelgeist_shell::ParticleMass::from(5.0))
+            .contains(&total),
         "the garment weighs {total} kg"
     );
 }
@@ -398,7 +399,7 @@ async fn a_preset_garment_sews_itself_together() -> anyhow::Result<()> {
     let before = mean_seam_span(&build);
     let mut fit = Fit::new(context, &build, fabric, &settings)?;
     for _ in 0..240 {
-        fit.step(1.0 / 60.0).await?;
+        fit.step((1.0 / 60.0).into()).await?;
     }
 
     let positions = fit.positions().await?;
@@ -467,7 +468,7 @@ async fn a_garment_stays_outside_a_body() -> anyhow::Result<()> {
     )?;
 
     for _ in 0..240 {
-        fit.step(1.0 / 60.0).await?;
+        fit.step((1.0 / 60.0).into()).await?;
     }
 
     let positions = fit.positions().await?;

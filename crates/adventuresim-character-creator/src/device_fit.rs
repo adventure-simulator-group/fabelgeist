@@ -12,6 +12,7 @@ use fabelgeist_armor::{
     HelmetDesign, LimbArmorDesign, PartFrame, TASSET_SUSPENSION_GAP_M,
 };
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::{FitRegion, Wearer};
 use crate::armor_recipes::{self, ParametricDesign};
@@ -28,7 +29,7 @@ pub struct FitBody<'a> {
     pub texcoords: &'a [[f32; 2]],
     pub joint_indices: &'a [[u32; 8]],
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [String],
+    pub joint_names: &'a [RigJointName],
 }
 
 /// One shape of the body: the wearer or a morph realization, with its device
@@ -125,7 +126,7 @@ pub fn fit_piece(
     let mut recordings = Vec::with_capacity(bodies.len());
     let mut skin = None;
     for (device, host) in bodies.iter().copied().zip(&hosts) {
-        let mut batch = gpu.batch("fitted armor");
+        let mut batch = gpu.batch(("fitted armor").into());
         let wearer = DeviceWearer {
             gpu,
             body: device,
@@ -177,7 +178,7 @@ fn read(
     let mut parts = Vec::with_capacity(recordings.len());
     for (index, (recording, (frames, part))) in recordings.iter().zip(slots).enumerate() {
         for ((_, region), frame) in recording.frames.iter().zip(frames) {
-            DeviceFrame::check_status(results.status(frame), *region)?;
+            DeviceFrame::check_status(results.status(frame)?, *region)?;
         }
         let context = || match index {
             0 => "fitting armor".to_string(),
@@ -197,7 +198,7 @@ fn read(
     let base = parts.next().expect("the wearer is always fitted");
     Ok(DevicePiece {
         base,
-        skin: skin.finish(&results, skin_slots),
+        skin: skin.finish(&results, skin_slots)?,
         endpoints: parts.collect(),
     })
 }
@@ -321,7 +322,7 @@ pub struct Fitted<'a> {
     /// Each morph realization's name, in order.
     pub morphs: &'a [&'a str],
     pub domain: &'a str,
-    pub joint_names: &'a [String],
+    pub joint_names: &'a [RigJointName],
     /// The wearer's global joint states, one per name.
     pub joints: &'a [[f32; 8]],
 }

@@ -1,5 +1,6 @@
 //! Conforming triangulation of simple manufactured plate outlines.
 use super::PlanarPoint;
+use crate::ConstructionError;
 use std::collections::{BTreeMap, BTreeSet};
 
 // Keep equivalent diagonals in stable input order across libm implementations.
@@ -45,7 +46,7 @@ impl Region {
     pub(crate) fn triangulate(
         input: &[PlanarPoint],
         preserve_boundary: bool,
-    ) -> Result<Self, String> {
+    ) -> Result<Self, ConstructionError> {
         let OutlineTolerance {
             minimum_distance,
             minimum_area,
@@ -96,7 +97,7 @@ impl Region {
                 }
             }
             let Some(i) = selected else {
-                return Err("outline must be simple and nondegenerate".into());
+                return Err(ConstructionError::OutlineSimpleNondegenerate);
             };
             triangles.push([
                 remaining[(i + remaining.len() - 1) % remaining.len()],
@@ -106,7 +107,7 @@ impl Region {
             remaining.remove(i);
         }
         if remaining.len() != 3 {
-            return Err("outline collapsed during triangulation".into());
+            return Err(ConstructionError::OutlineCollapsedDuringTriangulation);
         }
         if area2(
             points[remaining[0]],
@@ -114,7 +115,7 @@ impl Region {
             points[remaining[2]],
         ) <= minimum_area
         {
-            return Err("outline has a degenerate final triangle".into());
+            return Err(ConstructionError::OutlineDegenerateFinalTriangle);
         }
         triangles.push([remaining[0], remaining[1], remaining[2]]);
         let boundary = (0..points.len()).collect();
@@ -229,9 +230,9 @@ struct OutlineTolerance {
     minimum_distance: f64,
     minimum_area: f64,
 }
-fn checked_outline(input: &[PlanarPoint]) -> Result<OutlineTolerance, String> {
+fn checked_outline(input: &[PlanarPoint]) -> Result<OutlineTolerance, ConstructionError> {
     if input.len() < 3 || input.iter().flatten().any(|v| !v.is_finite()) {
-        return Err("outline needs at least three finite points".into());
+        return Err(ConstructionError::OutlineNeedsThreeFinitePoints);
     }
     let extent = (0..2)
         .map(|axis| {
@@ -243,7 +244,7 @@ fn checked_outline(input: &[PlanarPoint]) -> Result<OutlineTolerance, String> {
         })
         .fold(0.0, f64::max);
     if extent == 0.0 {
-        return Err("outline has no extent".into());
+        return Err(ConstructionError::OutlineNoExtent);
     }
     let minimum_distance = extent * 1e-9;
     let minimum_area = extent * extent * 1e-12;
@@ -283,7 +284,7 @@ fn checked_outline(input: &[PlanarPoint]) -> Result<OutlineTolerance, String> {
                 || ca == 0 && on_segment(a, c, d)
                 || cb == 0 && on_segment(b, c, d)
             {
-                return Err("outline edges intersect or touch".into());
+                return Err(ConstructionError::OutlineEdgesIntersectTouch);
             }
         }
     }

@@ -6,7 +6,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
 
 [dependencies]
-anyhow = "1"
+fabelgeist-storage = { path = "../fabelgeist-storage" }
 # Pure-Rust inflate (miniz_oxide) for deflated FBX array properties; no C
 # toolchain is pulled in.
 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }

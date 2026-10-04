@@ -13,6 +13,7 @@ anyhow = { "version" = "1.0" }
 bytemuck = { "version" = "1.16", "features" = ["derive"] }
 
 [dev-dependencies]
+serde_json = { workspace = true }
 tokio = { "version" = "1", "features" = ["full"] }
 
 [lints]

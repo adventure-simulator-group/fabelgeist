@@ -1,5 +1,19 @@
 use super::vicinity::vicinity;
+use crate::spacetimedb::SqlQuery;
+mod destination;
+mod error;
 mod feedback;
+mod form;
+mod notice;
+mod receipt;
+mod request;
+use adventuresim_core::{foraging::ForageAttemptGeneration, identity::CharacterId};
+use destination::ForageDialogDestination;
+use error::{ForageReadStage, ForageRouteError};
+use form::{FORAGE_FORM_MAX_BYTES, ForageForm};
+use notice::ForageFeedback;
+use receipt::{ForageReceipt, ForageReceiptError};
+use request::ForageReceiptReference;
 
 use adventuresim_world_schema::calendar::StrategicMinute;
 use axum::{
@@ -12,85 +26,23 @@ use axum::{
 use maud::{Markup, html};
 use serde::Serialize;
 use serde_json::json;
-use sha2::{Digest, Sha256};
-use std::{
-    collections::BTreeSet,
-    sync::atomic::{AtomicU64, Ordering},
-    time::{SystemTime, UNIX_EPOCH},
-};
+use std::collections::BTreeSet;
 
-use super::{AppState, local_return_url, wgs84_e7};
+use super::{AppState, wgs84_e7};
 use crate::{
     session::Session,
     spacetimedb::{
         BackendForageAttemptState, BackendForageReceipt, BackendOrganizationMembership,
         CharacterTime, CharacterView, OrganizationMembershipStatus, OrganizationPresentation,
-        sql_string_literal,
+        SpacetimeError,
     },
 };
-
-static NEXT_FORAGE_REQUEST: AtomicU64 = AtomicU64::new(1);
-const FORAGE_FORM_MAX_BYTES: usize = 1_024;
-const FORAGE_FORM_MAX_PAIRS: usize = 8;
-const FORAGE_FORM_MAX_SOURCES: usize = 5;
-const FORAGE_FORM_MAX_SOURCE_LEN: usize = 32;
-const FORAGE_FORM_MAX_RETURN_TO_LEN: usize = 512;
 
 pub fn routes() -> Router<AppState> {
     Router::new().route(
         "/forage",
         post(perform).layer(DefaultBodyLimit::max(FORAGE_FORM_MAX_BYTES)),
     )
-}
-
-#[derive(Debug, PartialEq, Eq)]
-struct ForageForm {
-    source: Vec<String>,
-    hours: u8,
-    return_to: String,
-}
-
-fn parse_forage_form(body: &[u8]) -> Result<ForageForm, ()> {
-    if body.len() > FORAGE_FORM_MAX_BYTES {
-        return Err(());
-    }
-    let mut source = Vec::new();
-    let mut hours = None;
-    let mut return_to = None;
-    for (pair_index, (key, value)) in form_urlencoded::parse(body).enumerate() {
-        if pair_index >= FORAGE_FORM_MAX_PAIRS {
-            return Err(());
-        }
-        match key.as_ref() {
-            // Preserve duplicates so the reducer can reject malformed requests.
-            "source" => {
-                if source.len() >= FORAGE_FORM_MAX_SOURCES
-                    || value.len() > FORAGE_FORM_MAX_SOURCE_LEN
-                {
-                    return Err(());
-                }
-                source.push(value.into_owned());
-            }
-            "hours" => {
-                if hours.is_some() {
-                    return Err(());
-                }
-                hours = Some(value.parse().map_err(|_| ())?);
-            }
-            "return_to" => {
-                if return_to.is_some() || value.len() > FORAGE_FORM_MAX_RETURN_TO_LEN {
-                    return Err(());
-                }
-                return_to = Some(value.into_owned());
-            }
-            _ => {}
-        }
-    }
-    Ok(ForageForm {
-        source,
-        hours: hours.ok_or(())?,
-        return_to: return_to.ok_or(())?,
-    })
 }
 
 #[derive(Serialize)]
@@ -126,26 +78,26 @@ fn source_privilege(
 
 async fn advisory_privileges(
     state: &AppState,
-    character_id: u64,
+    character_id: CharacterId,
 ) -> BTreeSet<adventuresim_core::organization::Privilege> {
     let presentation = state
         .db
         .query_one_sats::<OrganizationPresentation>(
-            &crate::spacetimedb::organization_presentation_by_character_id(character_id),
+            crate::spacetimedb::organization_presentation_by_character_id(character_id),
         )
         .await
         .ok()
         .flatten();
     let memberships = state
         .db
-        .query_sats::<BackendOrganizationMembership>(&format!(
+        .query_sats::<BackendOrganizationMembership>(SqlQuery::from(format!(
             "SELECT * FROM backend_organization_memberships WHERE character_id = {character_id}"
-        ))
+        )))
         .await
         .unwrap_or_default();
     let minute = state
         .db
-        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
+        .query_one_sats::<CharacterTime>(crate::spacetimedb::character_time_by_character_id(
             character_id,
         ))
         .await
@@ -229,120 +181,41 @@ fn source_rows(
     }
 }
 
-fn forage_request_id(character_id: u64) -> String {
-    let counter = NEXT_FORAGE_REQUEST.fetch_add(1, Ordering::Relaxed);
-    let nanos = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .unwrap_or_default()
-        .as_nanos();
-    format!(
-        "{:x}",
-        Sha256::digest(
-            [
-                b"forage-request-v1".as_slice(),
-                &character_id.to_le_bytes(),
-                &counter.to_le_bytes(),
-                &nanos.to_le_bytes(),
-            ]
-            .concat()
-        )
-    )
-}
-
-fn forage_receipt_query(character_id: u64, request_id: &str) -> String {
-    format!(
-        "SELECT * FROM backend_forage_receipts WHERE character_id = {character_id} AND request_id = {}",
-        sql_string_literal(request_id)
-    )
-}
-
-fn valid_forage_request_id(request_id: &str) -> bool {
-    request_id.len() == 64 && request_id.bytes().all(|byte| byte.is_ascii_hexdigit())
-}
-
-fn forage_result_href(return_to: &str, request_id: &str) -> String {
-    format!(
-        "{return_to}{}forage=true&forage_receipt={request_id}",
-        if return_to.contains('?') { "&" } else { "?" }
-    )
-}
-
-fn forage_error_message(code: &str) -> Option<&'static str> {
-    match code {
-        "location" => Some("Foraging is unavailable at this location."),
-        "targets" => Some("Choose valid forage sources and try again."),
-        "duration" => Some("Choose a valid search duration and try again."),
-        "unavailable" => Some("The search could not be completed."),
-        _ => None,
-    }
-}
-
-fn forage_error_code(_error: &str) -> &'static str {
-    "unavailable"
-}
-
-fn forage_error_href(return_to: &str, code: &str) -> String {
-    let code = forage_error_message(code).map_or("unavailable", |_| code);
-    format!(
-        "{return_to}{}forage=true&forage_error={code}",
-        if return_to.contains('?') { "&" } else { "?" }
-    )
-}
-
-fn forage_receipt_status(receipt: &BackendForageReceipt) -> Markup {
-    html! {
-        div role="status" aria-live="polite" {
-            @if receipt.interrupted {
-                p { "The search was interrupted after " (receipt.elapsed_minutes / 60) " hour(s). Nothing was gathered." }
-            } @else if receipt.yielded_item_ids.is_empty() {
-                p { "The search found nothing." }
-            } @else {
-                h3 { "Gathered" }
-                ul {
-                    @for (item, quantity) in receipt.yielded_item_ids.iter().zip(&receipt.yielded_quantities) {
-                        li { (quantity) " × " (adventuresim_core::foraging::resource(item).map_or(item.as_str(), |resource| resource.name)) }
-                    }
-                }
-            }
-            @if receipt.legal_outcome == "unnoticed" {
-                p { "The illegal search went unnoticed." }
-            } @else if receipt.legal_outcome == "noticed" {
-                p { "The illegal search was noticed. Local Infamy increased." }
-            }
-        }
-    }
-}
-
-async fn character(state: &AppState, id: u64) -> Result<CharacterView, String> {
+async fn character(
+    state: &AppState,
+    id: CharacterId,
+) -> std::result::Result<CharacterView, ForageRouteError> {
     state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            &crate::spacetimedb::character_by_id(id),
+            crate::spacetimedb::character_by_id(id),
         )
         .await
-        .map_err(|error| error.to_string())?
-        .ok_or("Character not found".into())
+        .map_err(|source: SpacetimeError| -> ForageRouteError {
+            ForageRouteError::database(ForageReadStage::Actor, id, source)
+        })?
+        .ok_or(ForageRouteError::MissingActor(id))
 }
 
 async fn environment(
     state: &AppState,
     character: &CharacterView,
-) -> Result<
+) -> std::result::Result<
     (
         adventuresim_core::foraging::ForageEnvironment,
         serde_json::Value,
     ),
-    String,
+    ForageRouteError,
 > {
     let location = vicinity(state, character).await?;
     let terrain = state
         .terrain
         .as_deref()
-        .ok_or("Terrain data is unavailable")?;
+        .ok_or(ForageRouteError::TerrainUnavailable)?;
     let (cell, river_or_wet, coastal) =
         terrain.forage_environment(location.latitude, location.longitude)?;
     if cell.surface == adventuresim_terrain::Surface::Water && !cell.crossing {
-        return Err("Foraging is unavailable on open water".into());
+        return Err(ForageRouteError::OpenWater);
     }
     let weights = cell.terrain_weights();
     let mixture = adventuresim_core::foraging::LocalTerrainMixture {
@@ -359,8 +232,7 @@ async fn environment(
         settlement: location.settlement,
         license_violation: false,
     };
-    let (latitude_e7, longitude_e7) =
-        wgs84_e7(location.latitude, location.longitude).map_err(str::to_owned)?;
+    let (latitude_e7, longitude_e7) = wgs84_e7(location.latitude, location.longitude)?;
     let attestation = serde_json::to_value(WireForageEnvironmentAttestation {
         package_digest: terrain.digest(),
         latitude_e_7: latitude_e7,
@@ -374,8 +246,7 @@ async fn environment(
         river_or_wet_ground: environment.river_or_wet_ground,
         sea_or_coast: environment.sea_or_coast,
         cultivated: environment.cultivated,
-    })
-    .map_err(|error| error.to_string())?;
+    })?;
     Ok((environment, attestation))
 }
 
@@ -386,29 +257,31 @@ pub(crate) async fn activity_dialog(
     receipt_id: Option<&str>,
     error_code: Option<&str>,
 ) -> Markup {
-    let receipt = if let Some(request_id) = receipt_id.filter(|id| valid_forage_request_id(id)) {
+    let receipt_reference = receipt_id
+        .map(ForageReceiptReference::try_from)
+        .and_then(Result::ok);
+    let receipt = if let Some(request_id) = receipt_reference {
         state
             .db
-            .query_one_sats::<BackendForageReceipt>(&forage_receipt_query(character.id, request_id))
+            .query_one_sats::<BackendForageReceipt>(request_id.query(character.id.into()))
             .await
             .ok()
             .flatten()
+            .map(|native: BackendForageReceipt| -> std::result::Result<ForageReceipt, ForageReceiptError> {
+                ForageReceipt::admit(native, character.id.into(), &request_id)
+            })
     } else {
         None
     };
-    let error_message = error_code.and_then(forage_error_message);
+    let error_message = error_code
+        .and_then(ForageFeedback::from_http)
+        .map(ForageFeedback::message);
     let outcome = environment(state, character).await;
     let (environment, unavailable) = match outcome {
         Ok((environment, _)) => (Some(environment), None),
-        Err(error) => (
-            None,
-            Some(
-                forage_error_message(forage_error_code(&error))
-                    .unwrap_or("The search could not be completed."),
-            ),
-        ),
+        Err(error) => (None, Some(error.feedback().message())),
     };
-    let privileges = advisory_privileges(state, character.id).await;
+    let privileges = advisory_privileges(state, character.id.into()).await;
     let illegal =
         environment.is_some_and(|environment| environment.settlement || environment.cultivated);
     let available_source_rows = environment
@@ -426,7 +299,14 @@ pub(crate) async fn activity_dialog(
                 }
                 p id="forage-description" { "Search only the character's immediate vicinity. Selected sources share the search time." }
                 @if let Some(receipt) = receipt.as_ref() {
-                    (forage_receipt_status(receipt))
+                    @match receipt {
+                        Ok(receipt) => { (receipt.render()) }
+                        Err(_error) => {
+                            p role="alert" class="badge badge-danger" {
+                                (ForageFeedback::Unavailable.message())
+                            }
+                        }
+                    }
                     div class="modal-actions" {
                         a class="btn btn-primary character-action-dialog-close" href=(return_to) { "Return" }
                     }
@@ -468,26 +348,30 @@ async fn perform(
     session: Session,
     RawForm(body): RawForm,
 ) -> Response {
-    let Ok(form) = parse_forage_form(&body) else {
+    let Ok(form) = ForageForm::try_from(&body[..]) else {
         return StatusCode::UNPROCESSABLE_ENTITY.into_response();
     };
-    let return_to = local_return_url(&form.return_to).unwrap_or("/");
-    let Some(character_id) = session.character_id_u64() else {
+    let return_to = form.return_destination();
+    let Some(character_id) = session.character_id_u64().map(CharacterId::from) else {
         return Redirect::to("/characters").into_response();
     };
     let result = async {
         let character = character(&state, character_id).await?;
         let (environment, attestation) = environment(&state, &character).await?;
-        let minutes = u64::from(form.hours) * 60;
-        let request_id = forage_request_id(character_id);
-        let attempt_generation = state
+        let minutes = form.duration();
+        let request_id = ForageReceiptReference::issue(character_id);
+        let attempt_generation = match state
             .db
             .query_one_sats::<BackendForageAttemptState>(
-                &crate::spacetimedb::forage_attempt_state_by_character_id(character_id),
+                crate::spacetimedb::forage_attempt_state_by_character_id(character_id),
             )
             .await
-            .map_err(|error| error.to_string())?
-            .map_or(0, |row| row.next_generation);
+            .map_err(|source: SpacetimeError| -> ForageRouteError {
+                ForageRouteError::database(ForageReadStage::Generation, character_id, source)
+            })? {
+            Some(row) => ForageAttemptGeneration::from(row.next_generation),
+            None => ForageAttemptGeneration::INITIAL,
+        };
         // The browser submits only selected categories and duration. This
         // session-scoped endpoint hydrates the opaque request, generation, and
         // private terrain attestation before entering the plan gateway.
@@ -498,33 +382,44 @@ async fn perform(
                 &[
                     json!(character_id),
                     json!(&request_id),
-                    json!(&form.source),
+                    json!(form.sources()),
                     json!(minutes),
                     json!(attempt_generation),
                     attestation,
                 ],
             )
             .await
-            .map_err(|error| error.to_string())?;
+            .map_err(|source: SpacetimeError| -> ForageRouteError {
+                ForageRouteError::database(ForageReadStage::Execute, character_id, source)
+            })?;
         let attempt = state
             .db
-            .query_one_sats::<BackendForageReceipt>(&forage_receipt_query(
-                character_id,
-                &request_id,
-            ))
+            .query_one_sats::<BackendForageReceipt>(request_id.query(character_id))
             .await
-            .map_err(|error| error.to_string())?
-            .ok_or("Foraging completed but its result is not visible yet")?;
-        Ok::<_, String>((environment, attempt, request_id))
+            .map_err(|source: SpacetimeError| -> ForageRouteError {
+                ForageRouteError::database(ForageReadStage::Receipt, character_id, source)
+            })?
+            .ok_or(ForageRouteError::ReceiptUnavailable)?;
+        let receipt = ForageReceipt::admit(attempt, character_id, &request_id).map_err(
+            |source: ForageReceiptError| -> ForageRouteError {
+                ForageRouteError::Receipt {
+                    actor: character_id,
+                    source,
+                }
+            },
+        )?;
+        Ok::<_, ForageRouteError>((environment, receipt, request_id))
     }
     .await;
     match result {
-        Ok((_environment, _attempt, request_id)) => {
-            Redirect::to(&forage_result_href(return_to, &request_id)).into_response()
+        Ok((_environment, _receipt, request_id)) => {
+            ForageDialogDestination::receipt(return_to, &request_id)
+                .redirect()
+                .into_response()
         }
-        Err(error) => {
-            Redirect::to(&forage_error_href(return_to, forage_error_code(&error))).into_response()
-        }
+        Err(error) => ForageDialogDestination::failure(return_to, error.feedback())
+            .redirect()
+            .into_response(),
     }
 }
 
@@ -546,60 +441,6 @@ mod tests {
             settlement: false,
             license_violation: false,
         }
-    }
-
-    #[test]
-    fn browser_checkbox_form_accepts_one_or_many_sources_without_javascript() {
-        assert_eq!(
-            parse_forage_form(b"return_to=%2Flocations%2Fcamp&source=plants&hours=1"),
-            Ok(ForageForm {
-                source: vec!["plants".into()],
-                hours: 1,
-                return_to: "/locations/camp".into(),
-            })
-        );
-        assert_eq!(
-            parse_forage_form(
-                b"return_to=%2Flocations%2Fcamp&source=high_game&source=plants&hours=24"
-            ),
-            Ok(ForageForm {
-                source: vec!["high_game".into(), "plants".into()],
-                hours: 24,
-                return_to: "/locations/camp".into(),
-            })
-        );
-    }
-
-    #[test]
-    fn browser_checkbox_form_preserves_none_and_duplicates_for_authoritative_validation() {
-        assert_eq!(
-            parse_forage_form(b"return_to=%2Flocations%2Fcamp&hours=1"),
-            Ok(ForageForm {
-                source: Vec::new(),
-                hours: 1,
-                return_to: "/locations/camp".into(),
-            })
-        );
-        assert_eq!(
-            parse_forage_form(b"return_to=%2Flocations%2Fcamp&source=plants&source=plants&hours=1")
-                .unwrap()
-                .source,
-            ["plants", "plants"]
-        );
-    }
-
-    #[test]
-    fn browser_checkbox_form_rejects_ambiguous_scalar_fields() {
-        assert!(
-            parse_forage_form(
-                b"return_to=%2Flocations%2Fcamp&return_to=%2Fother&source=plants&hours=1"
-            )
-            .is_err()
-        );
-        assert!(
-            parse_forage_form(b"return_to=%2Flocations%2Fcamp&source=plants&hours=1&hours=2")
-                .is_err()
-        );
     }
 
     #[test]
@@ -706,36 +547,6 @@ mod tests {
     }
 
     #[test]
-    fn browser_checkbox_form_is_explicitly_bounded_before_authentication() {
-        assert!(parse_forage_form(&vec![b'x'; FORAGE_FORM_MAX_BYTES + 1]).is_err());
-
-        let too_many_pairs = format!(
-            "return_to=%2Flocations%2Fcamp&hours=1{}",
-            "&ignored=x".repeat(FORAGE_FORM_MAX_PAIRS - 1)
-        );
-        assert!(parse_forage_form(too_many_pairs.as_bytes()).is_err());
-
-        let too_many_sources = format!(
-            "return_to=%2Flocations%2Fcamp&hours=1{}",
-            "&source=plants".repeat(FORAGE_FORM_MAX_SOURCES + 1)
-        );
-        assert!(parse_forage_form(too_many_sources.as_bytes()).is_err());
-
-        let long_source = "x".repeat(FORAGE_FORM_MAX_SOURCE_LEN + 1);
-        assert!(
-            parse_forage_form(
-                format!("return_to=%2Flocations%2Fcamp&hours=1&source={long_source}").as_bytes()
-            )
-            .is_err()
-        );
-
-        let long_return = "x".repeat(FORAGE_FORM_MAX_RETURN_TO_LEN + 1);
-        assert!(
-            parse_forage_form(format!("return_to=%2F{long_return}&hours=1").as_bytes()).is_err()
-        );
-    }
-
-    #[test]
     fn forage_attestation_uses_generated_spacetime_wire_field_names() {
         let encoded = serde_json::to_value(WireForageEnvironmentAttestation {
             package_digest: "digest",
@@ -780,7 +591,10 @@ mod tests {
     fn receipt_lookup_is_exact_for_character_and_opaque_request() {
         let request = "a".repeat(64);
         assert_eq!(
-            forage_receipt_query(17, &request),
+            ForageReceiptReference::try_from(request.as_str())
+                .unwrap()
+                .query(17.into())
+                .to_string(),
             format!(
                 "SELECT * FROM backend_forage_receipts WHERE character_id = 17 AND request_id = '{request}'"
             )
@@ -789,19 +603,23 @@ mod tests {
 
     #[test]
     fn request_ids_are_unique_and_opaque() {
-        let first = forage_request_id(17);
-        let second = forage_request_id(17);
-        assert_eq!(first.len(), 64);
+        let first = ForageReceiptReference::issue(17.into());
+        let second = ForageReceiptReference::issue(17.into());
+        assert_eq!(first.to_string().len(), 64);
         assert_ne!(first, second);
     }
 
     #[test]
     fn result_redirects_reopen_authoritative_receipts_in_the_integrated_dialog() {
         let request = "a".repeat(64);
-        assert!(valid_forage_request_id(&request));
-        assert!(!valid_forage_request_id("../client-feedback"));
+        let reference = ForageReceiptReference::try_from(request.as_str()).unwrap();
+        assert!(ForageReceiptReference::try_from("../client-feedback").is_err());
         assert_eq!(
-            forage_result_href("/locations/camp", &request),
+            ForageDialogDestination::receipt(
+                crate::routes::return_url::LocalReturnUrl::try_from("/locations/camp").unwrap(),
+                &reference
+            )
+            .to_string(),
             format!(
                 "{}?forage=true&forage_receipt={}",
                 crate::location_urls::patterns::CAMP.url([]),
@@ -809,10 +627,14 @@ mod tests {
             )
         );
         assert_eq!(
-            forage_result_href(
-                "/locations/settlement/lubeck/party/17?building=public-square",
-                &request
-            ),
+            ForageDialogDestination::receipt(
+                crate::routes::return_url::LocalReturnUrl::try_from(
+                    "/locations/settlement/lubeck/party/17?building=public-square"
+                )
+                .unwrap(),
+                &reference
+            )
+            .to_string(),
             format!(
                 "{}?building=public-square&forage=true&forage_receipt={}",
                 crate::location_urls::patterns::PARTY_PERSONAL.url([
@@ -827,22 +649,60 @@ mod tests {
 
     #[test]
     fn failures_reopen_the_integrated_dialog_with_allowlisted_feedback() {
-        assert_eq!(forage_error_code("invalid target item"), "unavailable");
         assert_eq!(
-            forage_error_code("Terrain data is unavailable"),
+            ForageRouteError::database(
+                ForageReadStage::Execute,
+                7.into(),
+                crate::spacetimedb::SpacetimeError::Remote(
+                    crate::spacetimedb::RemoteDatabaseFailure::from_response(
+                        crate::spacetimedb::DatabaseOperation::Reducer,
+                        reqwest::StatusCode::CONFLICT,
+                        Ok("invalid target item".into())
+                    )
+                )
+            )
+            .feedback()
+            .to_string(),
             "unavailable"
         );
-        assert_eq!(forage_error_code("database exploded"), "unavailable");
-        assert_eq!(forage_error_message("../raw-error"), None);
         assert_eq!(
-            forage_error_href("/locations/camp", "../raw-error"),
+            ForageRouteError::TerrainUnavailable.feedback().to_string(),
+            "unavailable"
+        );
+        assert_eq!(
+            ForageRouteError::database(
+                ForageReadStage::Execute,
+                7.into(),
+                crate::spacetimedb::SpacetimeError::Remote(
+                    crate::spacetimedb::RemoteDatabaseFailure::from_response(
+                        crate::spacetimedb::DatabaseOperation::Reducer,
+                        reqwest::StatusCode::CONFLICT,
+                        Ok("database exploded".into())
+                    )
+                )
+            )
+            .feedback()
+            .to_string(),
+            "unavailable"
+        );
+        assert_eq!(ForageFeedback::from_http("../raw-error"), None);
+        assert_eq!(
+            ForageDialogDestination::failure(
+                crate::routes::return_url::LocalReturnUrl::try_from("/locations/camp").unwrap(),
+                ForageFeedback::from_http("../raw-error").unwrap_or(ForageFeedback::Unavailable)
+            )
+            .to_string(),
             "/locations/camp?forage=true&forage_error=unavailable"
         );
         assert_eq!(
-            forage_error_href(
-                "/locations/settlement/lubeck/party/17?building=public-square",
-                "targets"
-            ),
+            ForageDialogDestination::failure(
+                crate::routes::return_url::LocalReturnUrl::try_from(
+                    "/locations/settlement/lubeck/party/17?building=public-square"
+                )
+                .unwrap(),
+                ForageFeedback::Targets
+            )
+            .to_string(),
             "/locations/settlement/lubeck/party/17?building=public-square&forage=true&forage_error=targets"
         );
     }

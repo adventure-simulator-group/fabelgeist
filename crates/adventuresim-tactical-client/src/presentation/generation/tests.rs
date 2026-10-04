@@ -94,7 +94,7 @@ fn scene_transport_preserves_static_assets_and_full_width_seed() {
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
     .unwrap();
-    input.seed = u64::MAX;
+    input.seed = u64::MAX.into();
     let request = serde_json::to_string(&input).unwrap();
     let jobs = jobs(&request).unwrap();
     assert!(jobs[0].contains(&u64::MAX.to_string()));

@@ -163,7 +163,10 @@ fn plate_cut_preserves_closed_geometry_or_rejects_sub_resolution_separations() {
         for detail in [Detail::Low, Detail::Medium, Detail::High] {
             match contoured_plate::construct(&p, detail) {
                 Ok(solid) => closed(&solid),
-                Err(error) => assert!(error.contains("sub-resolution")),
+                Err(error) => assert!(matches!(
+                    error,
+                    crate::ConstructionError::PlateCutResolution
+                )),
             }
         }
     }

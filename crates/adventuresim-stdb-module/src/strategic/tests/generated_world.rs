@@ -7,7 +7,7 @@ fn generated_case(
             seed,
             observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
             observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(seed, &[]).to_u64(),
-            settlement_id: "test-settlement".into(),
+            settlement_id: adventuresim_core::identity::SettlementId::try_new("test-settlement").unwrap(),
             settlement_name: "Test Settlement".into(),
             scope: adventuresim_core::local_problem::Scope::Settlement {
                 settlement_id: "test-settlement".into(),
@@ -104,7 +104,7 @@ fn acceptance_fixture_selects_before_materialization_without_rewriting_sites() {
         .split("fn materialize_generated_quest")
         .nth(1)
         .expect("ordinary generated quest materialization");
-    assert!(ordinary_generation.contains("ordinary_generated_site_distance_m(seed, &site.id.0)"));
+    assert!(ordinary_generation.contains("ordinary_generated_site_distance_m(seed, site.id.as_str())"));
     assert!((4_000..21_000).contains(&ordinary_generated_site_distance_m(0, "site:fixture")));
     assert!((0..64).all(|index| {
         (4_000..21_000).contains(&ordinary_generated_site_distance_m(u64::MAX, &format!("site:{index}")))
@@ -226,7 +226,7 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
         seed: generated.generation_seed,
         observer_entropy_hi: generated.generation_seed ^ 0x6f62_7365_7276_6572,
         observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(generated.generation_seed, &[]).to_u64(),
-        settlement_id: "test-settlement".into(),
+        settlement_id: adventuresim_core::identity::SettlementId::try_new("test-settlement").unwrap(),
         settlement_name: "Test Settlement".into(),
         scope: adventuresim_core::local_problem::Scope::Settlement {
             settlement_id: "test-settlement".into(),
@@ -241,7 +241,7 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
     let authority = QuestGenerationAuthority {
         case_id: generated.canonical_case_id.clone(),
         public_case_id: generated.public_case_id.clone(),
-        settlement_id: context.settlement_id.clone(),
+        settlement_id: context.settlement_id.as_str().to_owned(),
         settlement_name: context.settlement_name.clone(),
         seed: generated.generation_seed,
         catalog_revision: generated.catalog_revision.clone(),
@@ -311,7 +311,7 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
     ));
     mutations.push(mutate_context(
         &authority,
-        |context| context.settlement_id = "other-settlement".into(),
+        |context| context.settlement_id = adventuresim_core::identity::SettlementId::try_new("other-settlement").unwrap(),
         true,
     ));
     mutations.push(mutate_context(
@@ -435,7 +435,7 @@ fn generated_hostile_materialization_preserves_manifest_identity_across_links() 
         };
         assert_ne!(
             hostile_group_id,
-            &format!("hostile-group:{}", site_id.0),
+            &format!("hostile-group:{}", site_id.as_str()),
             "observer-facing authority IDs must not embed one another"
         );
         let generated_site = generated
@@ -444,8 +444,8 @@ fn generated_hostile_materialization_preserves_manifest_identity_across_links() 
             .find(|site| site.id == *site_id)
             .expect("hostile-group site exists");
         let site = CaseSiteAuthority {
-            id_key: generated_site.id.0.clone(),
-            id: CaseSiteId::from(generated_site.id.0.clone()),
+            id_key: generated_site.id.as_str().to_owned(),
+            id: CaseSiteId::from(generated_site.id.as_str().to_owned()),
             case_id: generated.canonical_case_id.clone(),
             origin_settlement_id: "test-settlement".into(),
             name: generated_site.safe_label.clone(),
@@ -562,8 +562,8 @@ fn generated_combat_eligibility_fails_closed_across_site_group_and_finale_author
         .find(|site| site.id == *hostile_site_id)
         .expect("hostile site exists");
     let site = CaseSiteAuthority {
-        id_key: generated_site.id.0.clone(),
-        id: CaseSiteId::from(generated_site.id.0.clone()),
+        id_key: generated_site.id.as_str().to_owned(),
+        id: CaseSiteId::from(generated_site.id.as_str().to_owned()),
         case_id: generated.canonical_case_id.clone(),
         origin_settlement_id: "test-settlement".into(),
         name: generated_site.safe_label.clone(),
@@ -725,8 +725,8 @@ fn generated_combat_eligibility_fails_closed_across_site_group_and_finale_author
         .find(|candidate| candidate.id != *hostile_site_id)
         .expect("recurring case has a non-hostile site");
     let mut noncombat_site = site.clone();
-    noncombat_site.id_key = evidence_site.id.0.clone();
-    noncombat_site.id = CaseSiteId::from(evidence_site.id.0.clone());
+    noncombat_site.id_key = evidence_site.id.as_str().to_owned();
+    noncombat_site.id = CaseSiteId::from(evidence_site.id.as_str().to_owned());
     noncombat_site.name = evidence_site.safe_label.clone();
     assert!(
         generated_case_site_combat_eligible(
@@ -846,7 +846,7 @@ fn generated_activity_is_contract_free_and_counted_by_open_case_authority() {
     assert!(activity.contains(".settlement_id()"));
     assert!(activity.contains(".filter(&settlement_id.to_string())"));
     assert!(!activity.contains("quest_generation_authority()\n            .iter()"));
-    assert!(activity.contains("validated.context.settlement_id != settlement_id"));
+    assert!(activity.contains("validated.context.settlement_id.as_str() != settlement_id"));
     assert!(activity.contains("CaseStatus::Open"));
     let resolution = source
         .split("pub(crate) fn ingest_case_outcome_fact")
@@ -946,7 +946,7 @@ fn world_import_persists_settlement_facts_without_activating_gameplay() {
             .split(consumer)
             .nth(1)
             .expect("quest ordinal consumer");
-        assert!(body.contains("validated.context.settlement_id == settlement_id"));
+        assert!(body.contains("validated.context.settlement_id.as_str() == settlement_id"));
     }
 }
 

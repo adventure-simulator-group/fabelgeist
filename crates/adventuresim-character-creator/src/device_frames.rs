@@ -9,11 +9,14 @@
 
 use anyhow::Result;
 use fabelgeist_armor::ArmorGpu;
+use fabelgeist_armor::gpu::Staging;
 use fabelgeist_armor::gpu::body::{BodySurface, GpuBody};
-use fabelgeist_armor::gpu::device_error;
-use fabelgeist_armor::gpu::{Staged, Staging};
+use fabelgeist_gpu::prelude::BufferUpload;
+
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::PassParameterName;
+use fabelgeist_gpu::prelude::{Buffer, PassParameters, ReadbackSlot, ReadbackStatusWord};
+use fabelgeist_rig::{RigJointMembership, RigJointName};
 
 use crate::armor_frames::{FitRegion, Side, Wearer};
 
@@ -48,22 +51,27 @@ pub enum FrameFailure {
 impl DeviceFrame {
     /// Read the fitted frame's status back. Stalls on the device.
     pub fn check(&self, gpu: &ArmorGpu, region: FitRegion) -> Result<()> {
-        Self::check_status(gpu.read::<u32>(&self.status)?[0], region)
+        let word = gpu
+            .read::<u32>(&self.status)?
+            .first()
+            .copied()
+            .ok_or(fabelgeist_gpu::prelude::ReadbackError::EmptyStatus)?;
+        Self::check_status(ReadbackStatusWord::from(word), region)
     }
 
     /// Stage the frame's status for a shared readback.
-    pub fn stage<'a>(&'a self, staging: &mut Staging<'a>) -> Staged {
+    pub fn stage<'a>(&'a self, staging: &mut Staging<'a>) -> ReadbackSlot {
         staging.stage(&self.status)
     }
 
     /// Turn a frame's status into the failure it records.
-    pub fn check_status(status: u32, region: FitRegion) -> Result<()> {
+    pub fn check_status(status: ReadbackStatusWord, region: FitRegion) -> Result<()> {
         for failure in [
             FrameFailure::CoincidentLandmarks,
             FrameFailure::NoEnvelope,
             FrameFailure::Invalid,
         ] {
-            if status & failure as u32 != 0 {
+            if u32::from(status) & failure as u32 != 0 {
                 anyhow::bail!("{region:?} frame: {}", failure.message());
             }
         }
@@ -140,7 +148,7 @@ impl DeviceWearer<'_> {
     /// Fit `region`'s frame and read it back, for the stages that use it on
     /// the host. Stalls on the device.
     pub fn read_frame(&self, region: FitRegion) -> Result<fabelgeist_armor::PartFrame> {
-        let mut batch = self.gpu.batch("armor frame");
+        let mut batch = self.gpu.batch(("armor frame").into());
         let frame = self.record_frame(&mut batch, region)?;
         batch.submit();
         frame.check(self.gpu, region)?;
@@ -158,15 +166,15 @@ impl DeviceWearer<'_> {
     pub fn record_thumb_frame(&self, batch: &mut KernelBatch, side: Side) -> Result<DeviceFrame> {
         let landmarks = self.host.thumb_landmarks(side)?;
         let prefix = if matches!(side, Side::Left) {
-            "l_thumb"
+            RigJointName::L_THUMB
         } else {
-            "r_thumb"
+            RigJointName::R_THUMB
         };
         let owned = self
             .host
             .joint_names
             .iter()
-            .map(|n| u32::from(n.starts_with(prefix)))
+            .map(|n: &RigJointName| -> RigJointMembership { n.family_prefix(&prefix) })
             .collect();
         self.record(batch, landmarks, owned)
     }
@@ -175,15 +183,15 @@ impl DeviceWearer<'_> {
         &self,
         batch: &mut KernelBatch,
         landmarks: Landmarks,
-        owned: Vec<u32>,
+        owned: Vec<RigJointMembership>,
     ) -> Result<DeviceFrame> {
         let gpu = self.gpu;
         let frame = DeviceFrame {
-            frame: gpu.scratch(FRAME_WORDS * 4, "armor frame")?,
-            status: gpu.scratch(4, "armor frame status")?,
+            frame: gpu.scratch((FRAME_WORDS * 4).into(), ("armor frame").into())?,
+            status: gpu.scratch((4u64).into(), ("armor frame status").into())?,
         };
         // Top, left floor, right floor, then six bounds.
-        let reductions = gpu.upload(&[
+        let reductions = gpu.upload(BufferUpload::from_elements(&[
             ORDERED_NEGATIVE_INFINITY,
             ORDERED_POSITIVE_INFINITY,
             ORDERED_POSITIVE_INFINITY,
@@ -193,38 +201,49 @@ impl DeviceWearer<'_> {
             ORDERED_NEGATIVE_INFINITY,
             ORDERED_NEGATIVE_INFINITY,
             ORDERED_NEGATIVE_INFINITY,
-        ])?;
-        let owned = gpu.upload(&owned)?;
+        ]))?;
+        let owned = gpu.upload(BufferUpload::from_elements(
+            &owned.into_iter().map(u32::from).collect::<Vec<_>>(),
+        ))?;
         let mut parameters = PassParameters::new();
-        parameters.insert("count", self.body.vertex_count);
-        parameters.insert("rule", landmarks.rule as u32);
+        parameters.insert("count".into(), (self.body.vertex_count).into());
+        parameters.insert("rule".into(), (landmarks.rule as u32).into());
         for (i, joint) in landmarks.joints.iter().enumerate() {
-            parameters.insert(format!("joint{i}"), *joint);
+            parameters.insert(
+                PassParameterName::from(format!("joint{i}")),
+                (joint.device_word()).into(),
+            );
         }
-        parameters.insert("side", landmarks.side);
-        parameters.insert("pad0", 0.0f32);
-        parameters.insert("positions", self.body.positions.clone());
-        parameters.insert("joint_indices", self.body.joint_indices.clone());
-        parameters.insert("joint_weights", self.body.joint_weights.clone());
-        parameters.insert("joints", self.body.joints.clone());
-        parameters.insert("owned", owned);
-        parameters.insert("reductions", reductions);
-        parameters.insert("frame", frame.frame.clone());
-        parameters.insert("status", frame.status.clone());
+        parameters.insert("side".into(), (landmarks.side).into());
+        parameters.insert("pad0".into(), (0.0f32).into());
+        parameters.insert("positions".into(), (self.body.positions.clone()).into());
+        parameters.insert(
+            "joint_indices".into(),
+            (self.body.joint_indices.clone()).into(),
+        );
+        parameters.insert(
+            "joint_weights".into(),
+            (self.body.joint_weights.clone()).into(),
+        );
+        parameters.insert("joints".into(), (self.body.joints.clone()).into());
+        parameters.insert("owned".into(), (owned).into());
+        parameters.insert("reductions".into(), (reductions).into());
+        parameters.insert("frame".into(), (frame.frame.clone()).into());
+        parameters.insert("status".into(), (frame.status.clone()).into());
         let kernels = kernels(gpu)?;
         let vertices = self.body.vertex_count;
         batch
-            .dispatch_items(&kernels[0], &parameters, vertices)
-            .map_err(device_error)?;
+            .dispatch_items(&kernels[0], &parameters, (vertices).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         batch
-            .dispatch(&kernels[1], &parameters, [1, 1, 1])
-            .map_err(device_error)?;
+            .dispatch(&kernels[1], &parameters, ([1, 1, 1]).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         batch
-            .dispatch_items(&kernels[2], &parameters, vertices)
-            .map_err(device_error)?;
+            .dispatch_items(&kernels[2], &parameters, (vertices).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         batch
-            .dispatch(&kernels[3], &parameters, [1, 1, 1])
-            .map_err(device_error)?;
+            .dispatch(&kernels[3], &parameters, ([1, 1, 1]).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         Ok(frame)
     }
 }

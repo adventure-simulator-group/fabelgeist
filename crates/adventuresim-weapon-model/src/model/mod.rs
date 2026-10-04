@@ -1,4 +1,5 @@
 //! Authoritative assembly and generation of precise weapon recipes.
+use crate::ConstructionError;
 mod ammunition;
 mod archery;
 mod bent_bar;
@@ -64,7 +65,10 @@ use placement::ResolvedComponent;
 
 /// Generate renderer geometry while keeping physical properties independent of
 /// the selected display detail. High detail is the fixed integration budget.
-pub fn generate_model(recipe: &Recipe, detail: Detail) -> Result<GeneratedModel, String> {
+pub fn generate_model(
+    recipe: &Recipe,
+    detail: Detail,
+) -> Result<GeneratedModel, ConstructionError> {
     Construction::new(recipe)?.render(detail)
 }
 
@@ -78,8 +82,8 @@ impl Construction {
     pub(crate) fn frames(&self) -> &std::collections::BTreeMap<String, Point> {
         &self.resolved.output.frames
     }
-    pub(crate) fn new(recipe: &Recipe) -> Result<Self, String> {
-        recipe.validate().map_err(|error| error.to_string())?;
+    pub(crate) fn new(recipe: &Recipe) -> Result<Self, ConstructionError> {
+        recipe.validate().map_err(ConstructionError::Recipe)?;
         let mut resolved = placement::resolve(recipe)?;
         if resolved
             .output
@@ -88,7 +92,7 @@ impl Construction {
             .flatten()
             .any(|value| value.abs() > MODEL_FRAME_EXTENT)
         {
-            return Err("resolved assembly exceeds the supported world extent".into());
+            return Err(ConstructionError::ResolvedAssemblyExceedsSupportedWorldExtent);
         }
         let sources = construct(&resolved, Detail::High)?;
         let physical = PhysicalProperties::from_sources(&sources, resolved.grip);
@@ -110,7 +114,7 @@ impl Construction {
             physical,
         })
     }
-    pub(crate) fn render(self, detail: Detail) -> Result<GeneratedModel, String> {
+    pub(crate) fn render(self, detail: Detail) -> Result<GeneratedModel, ConstructionError> {
         let sources = if detail == Detail::High {
             self.sources
         } else {
@@ -124,7 +128,10 @@ impl Construction {
     }
 }
 
-fn construct(resolved: &placement::Resolved, detail: Detail) -> Result<Vec<PartSource>, String> {
+fn construct(
+    resolved: &placement::Resolved,
+    detail: Detail,
+) -> Result<Vec<PartSource>, ConstructionError> {
     let mut parts = Vec::new();
     if let Some(shaft) = &resolved.output.recipe.shaft {
         let profile = shaft.profile();

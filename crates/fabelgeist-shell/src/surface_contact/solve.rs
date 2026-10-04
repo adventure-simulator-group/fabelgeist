@@ -1,10 +1,14 @@
 //! Projection passes for vertex/triangle and edge/edge contacts.
 use super::*;
+use fabelgeist_xpbd::{
+    ConstraintGradient, EffectiveInverseMass, MassValidity, ProjectionActivity, ProjectionDepth,
+    RelativeNormalSpeed,
+};
 
 struct ContactState<'a> {
     positions: &'a mut [Vec3],
     previous: &'a [Vec3],
-    inverse_masses: &'a [f32],
+    inverse_masses: &'a [ParticleInverseMass],
     velocities: Option<&'a mut [Vec3]>,
     thickness: f32,
 }
@@ -13,18 +17,20 @@ impl SurfaceContacts {
         &self,
         positions: &mut [Vec3],
         previous: &[Vec3],
-        inverse_masses: &[f32],
+        inverse_masses: &[ParticleInverseMass],
         thickness: f32,
         iterations: u32,
         velocities: Option<&mut [Vec3]>,
-    ) -> usize {
+    ) -> SurfaceContactCount {
         assert_eq!(positions.len(), self.seam_copies.len());
         assert_eq!(positions.len(), previous.len());
         assert_eq!(positions.len(), inverse_masses.len());
-        assert!(inverse_masses.iter().all(|m| m.is_finite() && *m >= 0.0));
+        for mass in inverse_masses {
+            assert_eq!(mass.validity(), MassValidity::FiniteNonnegative);
+        }
         assert!(positions.iter().chain(previous).all(|p| p.is_finite()));
         if !thickness.is_finite() || thickness <= 0.0 {
-            return 0;
+            return SurfaceContactCount::NONE;
         }
         let mut state = ContactState {
             positions,
@@ -33,7 +39,7 @@ impl SurfaceContacts {
             velocities,
             thickness,
         };
-        let mut contacts = 0;
+        let mut contacts = SurfaceContactCount::NONE;
         for _ in 0..iterations {
             contacts += self.vertex_contacts(&mut state);
             contacts += self.edge_contacts(&mut state);
@@ -41,7 +47,7 @@ impl SurfaceContacts {
         contacts
     }
 
-    fn vertex_contacts(&self, state: &mut ContactState<'_>) -> usize {
+    fn vertex_contacts(&self, state: &mut ContactState<'_>) -> SurfaceContactCount {
         let thickness = state.thickness;
         let search_radius = thickness.max(self.static_clearance);
         let dynamic_count = state.positions.len() - self.static_positions.len();
@@ -49,7 +55,7 @@ impl SurfaceContacts {
         let previous = state.previous;
         let inverse_masses = state.inverse_masses;
         let velocities = &mut state.velocities;
-        let mut contacts = 0;
+        let mut contacts = SurfaceContactCount::NONE;
         let face_count = self
             .fixed_bounds
             .as_ref()
@@ -72,7 +78,7 @@ impl SurfaceContacts {
             .enumerate()
             .filter_map(|(i, f)| {
                 f.iter()
-                    .any(|&v| inverse_masses[v as usize] > 0.0)
+                    .any(|&v| inverse_masses[v as usize].mobility() == ParticleMobility::Dynamic)
                     .then_some(i)
             })
             .collect();
@@ -82,7 +88,7 @@ impl SurfaceContacts {
         for v in 0..dynamic_count {
             candidates.clear();
             let query = Aabb::from_points([positions[v], previous[v]]).expand(search_radius);
-            if inverse_masses[v] > 0.0 {
+            if inverse_masses[v].mobility() == ParticleMobility::Dynamic {
                 tree.query_aabb(&bounds, &query, |f| candidates.push(f as usize));
                 if let Some(fixed) = &self.fixed_bounds {
                     fixed.faces.query(&query.expand(search_radius), |f| {
@@ -144,7 +150,7 @@ impl SurfaceContacts {
         contacts
     }
 
-    fn edge_contacts(&self, state: &mut ContactState<'_>) -> usize {
+    fn edge_contacts(&self, state: &mut ContactState<'_>) -> SurfaceContactCount {
         let thickness = state.thickness;
         let search_radius = thickness.max(self.static_clearance);
         let dynamic_count = state.positions.len() - self.static_positions.len();
@@ -152,7 +158,7 @@ impl SurfaceContacts {
         let previous = state.previous;
         let inverse_masses = state.inverse_masses;
         let velocities = &mut state.velocities;
-        let mut contacts = 0;
+        let mut contacts = SurfaceContactCount::NONE;
         let mut candidates = Vec::new();
         let edge_count = self
             .fixed_bounds
@@ -170,16 +176,19 @@ impl SurfaceContacts {
             .collect();
         let tree = Bvh::build(&bounds);
         for (i, edge) in self.edges[..edge_count].iter().enumerate() {
-            if edge.iter().all(|&v| inverse_masses[v as usize] == 0.0) {
+            if edge
+                .iter()
+                .all(|&v| inverse_masses[v as usize].mobility() == ParticleMobility::Prescribed)
+            {
                 continue;
             }
             candidates.clear();
             tree.query_aabb(&bounds, &bounds[i], |j| {
                 let j = j as usize;
                 if j > i
-                    || self.edges[j]
-                        .iter()
-                        .all(|&v| inverse_masses[v as usize] == 0.0)
+                    || self.edges[j].iter().all(|&v| {
+                        inverse_masses[v as usize].mobility() == ParticleMobility::Prescribed
+                    })
                 {
                     candidates.push(j);
                 }
@@ -230,11 +239,11 @@ fn resolve(
     pair: Pair,
     positions: &mut [Vec3],
     previous: &[Vec3],
-    masses: &[f32],
+    masses: &[ParticleInverseMass],
     ids: [usize; 4],
     thickness: f32,
     velocities: Option<&mut [Vec3]>,
-) -> usize {
+) -> SurfaceContactCount {
     let start = ids.map(|i| previous[i]);
     let end = ids.map(|i| positions[i]);
     // The CCD guard is inside the resting contact shell. This lets touching
@@ -245,34 +254,56 @@ fn resolve(
     let separation = ids
         .iter()
         .zip(contact.weights)
-        .fold(Vec3::default(), |sum, (&i, w)| sum + positions[i] * w)
+        .fold(
+            Vec3::default(),
+            |sum: Vec3, (&i, w): (&usize, ConstraintGradient)| -> Vec3 {
+                sum + w.contribution(positions[i])
+            },
+        )
         .dot(contact.normal);
-    let depth = thickness - separation;
-    if depth <= 0.0 {
-        return 0;
+    let depth = ProjectionDepth::from(thickness - separation);
+    if depth.activity() == ProjectionActivity::Inactive {
+        return SurfaceContactCount::NONE;
     }
-    let denominator: f32 = ids
+    let denominator: EffectiveInverseMass = ids
         .iter()
         .zip(contact.weights)
-        .map(|(&i, w)| masses[i] * w * w)
+        .map(
+            |(&i, w): (&usize, ConstraintGradient)| -> EffectiveInverseMass {
+                w.inverse_response(masses[i])
+            },
+        )
         .sum();
-    if denominator <= 1e-12 {
-        return 0;
+    if denominator.contact_activity() == ProjectionActivity::Inactive {
+        return SurfaceContactCount::NONE;
     }
     if let Some(velocities) = velocities {
-        let relative = ids
-            .iter()
-            .zip(contact.weights)
-            .fold(Vec3::default(), |sum, (&i, w)| sum + velocities[i] * w)
-            .dot(contact.normal);
-        if relative < 0.0 {
+        let relative = RelativeNormalSpeed::from(
+            ids.iter()
+                .zip(contact.weights)
+                .fold(
+                    Vec3::default(),
+                    |sum: Vec3, (&i, w): (&usize, ConstraintGradient)| -> Vec3 {
+                        sum + w.contribution(velocities[i])
+                    },
+                )
+                .dot(contact.normal),
+        );
+        if relative.activity() == ProjectionActivity::Active {
             for (i, w) in ids.into_iter().zip(contact.weights) {
-                velocities[i] -= contact.normal * (relative * w * masses[i] / denominator);
+                velocities[i] -= relative
+                    .contact_correction(w, masses[i], denominator)
+                    .along(contact.normal);
             }
         }
     }
     for (i, w) in ids.into_iter().zip(contact.weights) {
-        positions[i] += contact.normal * (depth * w * masses[i] / denominator);
+        positions[i] += depth
+            .contact_correction(w, masses[i], denominator)
+            .along(contact.normal);
     }
-    1
+    SurfaceContactCount::RESOLVED
 }
+
+#[cfg(test)]
+mod tests;

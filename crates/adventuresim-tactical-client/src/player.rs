@@ -441,9 +441,9 @@ fn on_new_player_added_hook(
     combat_config: Res<TacticalCombatConfig>,
 ) -> Result {
     let (Player { name }, id) = query.get(event.entity)?;
-    info!(entity = ?event.entity, id = id.0, "Added new player {name}");
+    info!(entity = ?event.entity, id = id.get(), "Added new player {name}");
 
-    let is_client_player = local_character.0 == id.0;
+    let is_client_player = local_character.0 == id.get();
     if is_client_player {
         info!(
             entity = ?event.entity,
@@ -551,7 +551,7 @@ fn trace_local_quickstep_state(
                 push_active = push.active,
                 push_start_tick = push.start_tick,
                 push_direction = ?push.direction,
-                acknowledged_input_tick = snapshot.acknowledged_input_tick,
+                acknowledged_input_tick = %snapshot.acknowledged_input_tick,
                 render_translation = ?transform.translation,
                 snapshot_translation = ?snapshot.translation,
                 "[quickstep][client-state] animation/actuator discrepancy"
@@ -566,7 +566,7 @@ fn trace_local_quickstep_state(
                 push_active = push.active,
                 push_start_tick = push.start_tick,
                 push_direction = ?push.direction,
-                acknowledged_input_tick = snapshot.acknowledged_input_tick,
+                acknowledged_input_tick = %snapshot.acknowledged_input_tick,
                 render_translation = ?transform.translation,
                 snapshot_translation = ?snapshot.translation,
                 "[quickstep][client-state] transition"

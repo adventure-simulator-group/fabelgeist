@@ -1,38 +1,15 @@
 // Owns scheduled socializing selection, chronology, affinity effects, and receipts.
-fn socializing_id(actor_id: u64, day: u64, target_id: u64) -> String {
+fn socializing_id(
+    actor_id: adventuresim_core::identity::CharacterId,
+    day: StrategicDayIndex,
+    target_id: adventuresim_core::identity::CharacterId,
+) -> String {
     format!("socializing:{actor_id}:{day}:{target_id}")
-}
-
-/// Project a directional affinity at an effective relationship minute.
-///
-/// A row whose anchor is newer than the requested minute cannot be
-/// reconstructed from compact soft state, so callers fail closed instead of
-/// letting a future opinion authorize a backdated exclusive relationship.
-fn affinity_at(
-    ctx: &ReducerContext,
-    subject_id: u64,
-    actor_id: u64,
-    minute: StrategicMinute,
-) -> Option<f32> {
-    let Some(row) = ctx
-        .db
-        .character_affinity()
-        .id()
-        .find(format!("{subject_id}:{actor_id}"))
-    else {
-        return Some(0.0);
-    };
-    (row.anchor_minute <= minute).then(|| {
-        adventuresim_core::social::settle_affinity(
-            row.anchor,
-            minute.elapsed_since(row.anchor_minute),
-        )
-    })
 }
 
 fn active_romantic_partners(
     ctx: &ReducerContext,
-    actor_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
     effective_minute: StrategicMinute,
 ) -> Vec<u64> {
     ctx.db
@@ -43,10 +20,15 @@ fn active_romantic_partners(
                 && row
                     .resolved_minute
                     .is_none_or(|resolved| resolved > effective_minute)
-                && (row.first_character_id == actor_id || row.second_character_id == actor_id)
+                && (adventuresim_core::identity::CharacterId::from(row.first_character_id)
+                    == actor_id
+                    || adventuresim_core::identity::CharacterId::from(row.second_character_id)
+                        == actor_id)
         })
         .map(|courtship| {
-            if courtship.first_character_id == actor_id {
+            if adventuresim_core::identity::CharacterId::from(courtship.first_character_id)
+                == actor_id
+            {
                 courtship.second_character_id
             } else {
                 courtship.first_character_id
@@ -57,13 +39,15 @@ fn active_romantic_partners(
 
 fn socializing_target(
     ctx: &ReducerContext,
-    actor_id: u64,
-    day: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
+    day: StrategicDayIndex,
     effective_minute: StrategicMinute,
 ) -> Option<u64> {
-    let actor = ctx.db.character().id().find(actor_id)?;
+    let actor = ctx.db.character().id().find(u64::from(actor_id))?;
     let same_settlement = |candidate: &crate::Character| {
-        if !character_alive_at(ctx, candidate.id, effective_minute) || candidate.id == actor_id {
+        if !character_alive_at(ctx, (candidate.id).into(), effective_minute)
+            || adventuresim_core::identity::CharacterId::from(candidate.id) == actor_id
+        {
             return false;
         }
         if let Some(presence) = ctx
@@ -78,7 +62,7 @@ fn socializing_target(
         // A mutable location without an interval history is authoritative
         // only at the character's own frontier. Fail closed for historical
         // selection rather than leaking a future move into this slice.
-        (canonical_now(ctx, candidate.id)
+        (canonical_now(ctx, (candidate.id).into())
             .is_ok_and(|candidate_minute| candidate_minute <= effective_minute)
             || ctx
                 .db
@@ -102,7 +86,7 @@ fn socializing_target(
         )
         .and_then(|selected| selected.parse().ok())
     };
-    let available_partners = active_romantic_partners(ctx, actor_id, effective_minute)
+    let available_partners = active_romantic_partners(ctx, (actor_id).into(), effective_minute)
         .into_iter()
         .filter(|partner| {
             ctx.db
@@ -135,7 +119,8 @@ fn socializing_target(
         .iter()
         .filter(|candidate| {
             same_settlement(candidate)
-                && crate::social::current_affinity(ctx, candidate.id, actor_id) > 0.0
+                && crate::social::current_affinity(ctx, (candidate.id).into(), (actor_id).into())
+                    > 0.0
         })
         .map(|candidate| candidate.id)
         .collect();
@@ -157,7 +142,7 @@ fn socializing_target(
 /// birth/death and courtship timestamps are durable one-time histories.
 fn next_socializing_boundary(
     ctx: &ReducerContext,
-    actor_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
     start_minute: StrategicMinute,
     end_minute: StrategicMinute,
 ) -> Option<StrategicMinute> {
@@ -165,7 +150,7 @@ fn next_socializing_boundary(
         .db
         .character()
         .id()
-        .find(actor_id)
+        .find(u64::from(actor_id))
         .and_then(|actor| actor.current_settlement_id);
     let day_start = start_minute.day_start();
     let resident: Vec<StrategicMinute> = actor_settlement.map_or_else(Vec::new, |settlement_id| {
@@ -180,11 +165,11 @@ fn next_socializing_boundary(
             })
             .collect()
     });
-    let births = ctx
-        .db
-        .character_birth()
-        .iter()
-        .filter_map(|birth| u64::try_from(birth.birth_minute).ok().map(StrategicMinute::new));
+    let births = ctx.db.character_birth().iter().filter_map(|birth| {
+        u64::try_from(birth.birth_minute)
+            .ok()
+            .map(StrategicMinute::new)
+    });
     let deaths = ctx
         .db
         .character_death()
@@ -195,7 +180,9 @@ fn next_socializing_boundary(
         .courtship()
         .iter()
         .filter(move |courtship| {
-            courtship.first_character_id == actor_id || courtship.second_character_id == actor_id
+            adventuresim_core::identity::CharacterId::from(courtship.first_character_id) == actor_id
+                || adventuresim_core::identity::CharacterId::from(courtship.second_character_id)
+                    == actor_id
         })
         .flat_map(|courtship| [Some(courtship.started_minute), courtship.resolved_minute])
         .flatten();
@@ -210,20 +197,20 @@ fn next_socializing_boundary(
 
 fn record_socializing_receipt(
     ctx: &ReducerContext,
-    actor_id: u64,
-    target_id: u64,
-    day: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
+    target_id: adventuresim_core::identity::CharacterId,
+    day: StrategicDayIndex,
     start_minute: StrategicMinute,
     end_minute: StrategicMinute,
     minutes: u64,
 ) {
-    let id = socializing_id(actor_id, day, target_id);
+    let id = socializing_id((actor_id).into(), day, (target_id).into());
     let existing = ctx.db.socializing_receipt().id().find(&id);
     let receipt = SocializingReceipt {
         id,
-        actor_id,
-        target_id,
-        day,
+        actor_id: u64::from(actor_id),
+        target_id: u64::from(target_id),
+        day: u64::from(day),
         start_minute: existing.as_ref().map_or(start_minute, |receipt| {
             receipt.start_minute.min(start_minute)
         }),
@@ -244,7 +231,7 @@ fn record_socializing_receipt(
 /// change romantic eligibility, never prevent close friendship.
 pub fn apply_scheduled_socializing(
     ctx: &ReducerContext,
-    actor_id: u64,
+    actor_id: adventuresim_core::identity::CharacterId,
     schedule_minutes_per_day: u16,
     interval_start: StrategicMinute,
     interval_end: StrategicMinute,
@@ -254,53 +241,62 @@ pub fn apply_scheduled_socializing(
     }
     let first_day = interval_start.day_index();
     let last_day = interval_end.saturating_sub_minutes(1).day_index();
-    for day in first_day..=last_day {
-        let day_start = StrategicMinute::day_start_for_index(day);
+    for day in first_day.through(last_day) {
+        let day_start = day.start();
         let start = interval_start.max(day_start);
         let end = interval_end.min(day_start.saturating_add_days(1));
         let allocation = |minute: StrategicMinute| {
-            minute.elapsed_since(day_start).saturating_mul(u64::from(schedule_minutes_per_day))
+            minute
+                .elapsed_since(day_start)
+                .saturating_mul(u64::from(schedule_minutes_per_day))
                 / MINUTES_PER_DAY
         };
         let applied_through = ctx
             .db
             .socializing_receipt()
             .actor_id()
-            .filter(actor_id)
-            .filter(|receipt| receipt.day == day)
+            .filter(u64::from(actor_id))
+            .filter(|receipt| StrategicDayIndex::new(receipt.day) == day)
             .map(|receipt| receipt.end_minute)
             .max()
             .unwrap_or(start)
             .max(start);
         let mut cursor = applied_through.min(end);
         while cursor < end {
-            let slice_end = next_socializing_boundary(ctx, actor_id, cursor, end).unwrap_or(end);
+            let slice_end =
+                next_socializing_boundary(ctx, (actor_id).into(), cursor, end).unwrap_or(end);
             let minutes = allocation(slice_end).saturating_sub(allocation(cursor));
             // Select against the beginning of each availability slice. The
             // actor's stored clock already points at `interval_end`, so a
             // future death or recurring resident departure must not rewrite
             // the earlier part of a bulk advance.
-            let Some(target_id) = socializing_target(ctx, actor_id, day, cursor) else {
+            let Some(target_id) = socializing_target(ctx, (actor_id).into(), day, cursor) else {
                 // The actor id is an impossible real target and therefore a
                 // private zero-minute watermark. It prevents a later chunk
                 // from retroactively realizing time for which nobody was
                 // available.
-                record_socializing_receipt(ctx, actor_id, actor_id, day, cursor, slice_end, 0);
+                record_socializing_receipt(
+                    ctx,
+                    (actor_id).into(),
+                    (actor_id).into(),
+                    day,
+                    cursor,
+                    slice_end,
+                    0,
+                );
                 cursor = slice_end;
                 continue;
             };
             if minutes > 0 {
-                let _ = enforce_temporal_scope(
-                    ctx,
-                    actor_id,
-                    Some(target_id),
-                    TemporalScope::PairwiseSoft,
-                )?;
+                let _ = TemporalScope::PairwiseSoft {
+                    actor: (actor_id).into(),
+                }
+                .enforce(ctx)?;
                 let actor_party_id = ctx
                     .db
                     .character()
                     .id()
-                    .find(actor_id)
+                    .find(u64::from(actor_id))
                     .and_then(|character| character.party_id);
                 let target_is_party_member = actor_party_id.is_some()
                     && ctx
@@ -311,13 +307,29 @@ pub fn apply_scheduled_socializing(
                         .is_some_and(|character| character.party_id == actor_party_id);
                 if target_is_party_member {
                     crate::social::apply_async_socializing_without_familiarity(
-                        ctx, actor_id, target_id, minutes,
+                        ctx,
+                        (actor_id).into(),
+                        (target_id).into(),
+                        minutes,
                     )?;
                 } else {
-                    crate::social::apply_async_socializing(ctx, actor_id, target_id, minutes)?;
+                    crate::social::apply_async_socializing(
+                        ctx,
+                        (actor_id).into(),
+                        (target_id).into(),
+                        minutes,
+                    )?;
                 }
             }
-            record_socializing_receipt(ctx, actor_id, target_id, day, cursor, slice_end, minutes);
+            record_socializing_receipt(
+                ctx,
+                (actor_id).into(),
+                (target_id).into(),
+                day,
+                cursor,
+                slice_end,
+                minutes,
+            );
             cursor = slice_end;
         }
     }

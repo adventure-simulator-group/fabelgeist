@@ -201,7 +201,7 @@ impl WornGraph {
                                 .any(|tag| candidate.attachment_tags.contains(tag)));
                     let used = self.children_on(parent.id, &point.id);
                     (accepts && used < point.capacity).then(|| EquipmentGraphEdge {
-                        parent_inventory_item_id: parent.id.0,
+                        parent_inventory_item_id: parent.id.0.into(),
                         attachment_point_id: point.id.clone(),
                         capacity_index: used,
                     })
@@ -215,7 +215,7 @@ impl WornGraph {
             .values()
             .flat_map(|node| &node.parents)
             .filter(|edge| {
-                edge.parent_inventory_item_id == parent.0 && edge.attachment_point_id == point
+                edge.parent_inventory_item_id.get() == parent.0 && edge.attachment_point_id == point
             })
             .count() as u16
     }
@@ -228,14 +228,14 @@ impl WornGraph {
     ) -> Result<(), (InventoryItemId, EquipConflict)> {
         let supports = edges
             .iter()
-            .map(|edge| InventoryItemId(edge.parent_inventory_item_id))
+            .map(|edge| InventoryItemId(edge.parent_inventory_item_id.get()))
             .collect();
         let placement = EquipmentGraphPlacement {
             body: candidate.occupancy.body.clone(),
             parents: edges,
         };
         self.graph
-            .equip(candidate.id.0, placement)
+            .equip(candidate.id.0.into(), placement)
             .map_err(|reason| {
                 let occupied = placed.iter().find_map(|other| {
                     candidate.occupancy.body.iter().find_map(|requirement| {
@@ -253,7 +253,7 @@ impl WornGraph {
                 });
                 (
                     candidate.id,
-                    occupied.unwrap_or_else(|| EquipConflict::Invalid(reason.into())),
+                    occupied.unwrap_or(EquipConflict::Graph(reason)),
                 )
             })?;
         self.supports.insert(candidate.id, supports);

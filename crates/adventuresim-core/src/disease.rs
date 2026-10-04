@@ -3,6 +3,11 @@
 //! An infection is completely described by its identity, associations and two
 //! character-local timestamps. Everything else in this module is derived.
 
+mod interval_bound;
+pub use interval_bound::{add_bounded_work, insert_unique_bounded};
+mod error;
+pub use error::DiseaseIntervalError;
+
 use crate::physiology::{self, BodyRegion, CurvePoint, Humour, Meter, MeterCurve, MeterVector};
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use fabelgeist_determinism::{Seed, StreamId};
@@ -455,10 +460,17 @@ pub fn residual_exposure(exposure: f32, vector: TransmissionVector, physiology_c
 /// Duplicate spans for one practitioner use the strongest matching pinned
 /// value, which makes adjacent join/rejoin and band-boundary records harmless.
 pub fn historical_physiology_check_at(
-    spans: impl IntoIterator<Item = (u64, StrategicMinute, StrategicMinute, f32)>,
+    spans: impl IntoIterator<
+        Item = (
+            crate::identity::CharacterId,
+            StrategicMinute,
+            StrategicMinute,
+            f32,
+        ),
+    >,
     minute: StrategicMinute,
 ) -> f32 {
-    let mut contributors = std::collections::BTreeMap::<u64, f32>::new();
+    let mut contributors = std::collections::BTreeMap::<crate::identity::CharacterId, f32>::new();
     for (contributor_id, start, end, check) in spans {
         if minute < start || minute > end {
             continue;
@@ -532,15 +544,15 @@ pub fn close_contact_infectiousness(episode: InfectionEpisode, at: StrategicMinu
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct ContactWindow {
-    pub low_id: u64,
-    pub high_id: u64,
+    pub low_id: crate::identity::CharacterId,
+    pub high_id: crate::identity::CharacterId,
     pub start: StrategicMinute,
     pub end: StrategicMinute,
 }
 
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct AcquisitionTimeline {
-    pub proposals: std::collections::BTreeMap<u64, Vec<InfectionEpisode>>,
+    pub proposals: std::collections::BTreeMap<crate::identity::CharacterId, Vec<InfectionEpisode>>,
     pub work_units: u64,
 }
 
@@ -556,7 +568,7 @@ pub struct AcquisitionAttempt {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct EnvironmentalExposureSource {
-    pub character_id: u64,
+    pub character_id: crate::identity::CharacterId,
     pub disease_id: DiseaseId,
     pub exposure_id: String,
     pub start: StrategicMinute,
@@ -584,32 +596,6 @@ impl AcquisitionAttempt {
     }
 }
 
-pub fn insert_unique_bounded<K: Ord, V>(
-    values: &mut std::collections::BTreeMap<K, V>,
-    key: K,
-    value: V,
-    limit: usize,
-) -> Result<bool, &'static str> {
-    use std::collections::btree_map::Entry;
-    if values.len() >= limit && !values.contains_key(&key) {
-        return Err("Disease interval has too many raw presence spans");
-    }
-    Ok(match values.entry(key) {
-        Entry::Vacant(entry) => {
-            entry.insert(value);
-            true
-        }
-        Entry::Occupied(_) => false,
-    })
-}
-
-pub fn add_bounded_work(work: &mut u64, amount: u64, max: u64) -> Result<(), &'static str> {
-    *work = work.saturating_add(amount);
-    (*work <= max)
-        .then_some(())
-        .ok_or("Disease interval exceeds bounded exposure work")
-}
-
 /// Resolve route exposure attempts and contact transmission in one absolute-
 /// minute timeline. Acquisitions at a minute are simultaneous and become
 /// eligible contact sources only on the following minute.
@@ -618,25 +604,25 @@ pub fn add_bounded_work(work: &mut u64, amount: u64, max: u64) -> Result<(), &'s
     reason = "the acquisition timeline receives independent authority inputs"
 )]
 pub fn resolve_acquisition_timeline(
-    target_ids: &std::collections::BTreeSet<u64>,
-    initial: &std::collections::BTreeMap<u64, Vec<InfectionEpisode>>,
+    target_ids: &std::collections::BTreeSet<crate::identity::CharacterId>,
+    initial: &std::collections::BTreeMap<crate::identity::CharacterId, Vec<InfectionEpisode>>,
     scheduled: impl IntoIterator<Item = AcquisitionAttempt>,
     environmental: &[EnvironmentalExposureSource],
     windows: &[ContactWindow],
-    immunity: &std::collections::BTreeMap<u64, f32>,
+    immunity: &std::collections::BTreeMap<crate::identity::CharacterId, f32>,
     from: StrategicMinute,
     to: StrategicMinute,
     initial_work: u64,
     max_work: u64,
-    physiology_check_at: impl Fn(u64, StrategicMinute) -> f32,
-) -> Result<AcquisitionTimeline, &'static str> {
+    physiology_check_at: impl Fn(crate::identity::CharacterId, StrategicMinute) -> f32,
+) -> Result<AcquisitionTimeline, DiseaseIntervalError> {
     if to <= from || initial_work > max_work {
         return (initial_work <= max_work)
             .then_some(AcquisitionTimeline {
                 work_units: initial_work,
                 ..Default::default()
             })
-            .ok_or("Disease interval exceeds bounded exposure work");
+            .ok_or(DiseaseIntervalError::ExposureWorkBound);
     }
     let mut scheduled_by_minute =
         std::collections::BTreeMap::<StrategicMinute, Vec<AcquisitionAttempt>>::new();
@@ -649,7 +635,7 @@ pub fn resolve_acquisition_timeline(
         {
             work_units = work_units.saturating_add(1);
             if work_units > max_work {
-                return Err("Disease interval exceeds bounded exposure work");
+                return Err(DiseaseIntervalError::ExposureWorkBound);
             }
             scheduled_by_minute
                 .entry(episode.contracted_at)
@@ -736,7 +722,7 @@ pub fn resolve_acquisition_timeline(
             }
             result.work_units = result.work_units.saturating_add(1);
             if result.work_units > max_work {
-                return Err("Disease interval exceeds bounded exposure work");
+                return Err(DiseaseIntervalError::ExposureWorkBound);
             }
             let target_immunity = immunity.get(&source.character_id).copied().unwrap_or(3.0);
             let target_episodes = state
@@ -771,7 +757,7 @@ pub fn resolve_acquisition_timeline(
         for window in windows {
             result.work_units = result.work_units.saturating_add(1);
             if result.work_units > max_work {
-                return Err("Disease interval exceeds bounded exposure work");
+                return Err(DiseaseIntervalError::ExposureWorkBound);
             }
             if minute < window.start || minute > window.end {
                 continue;
@@ -788,7 +774,7 @@ pub fn resolve_acquisition_timeline(
                 for source_episode in state.get(&source_id).into_iter().flatten() {
                     result.work_units = result.work_units.saturating_add(1);
                     if result.work_units > max_work {
-                        return Err("Disease interval exceeds bounded exposure work");
+                        return Err(DiseaseIntervalError::ExposureWorkBound);
                     }
                     if source_episode.contracted_at >= minute
                         || !definition(source_episode.disease_id)
@@ -1317,7 +1303,7 @@ pub fn definition(id: DiseaseId) -> &'static DiseaseDefinition {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct InfectionEpisode {
     pub id: u64,
-    pub character_id: u64,
+    pub character_id: crate::identity::CharacterId,
     pub disease_id: DiseaseId,
     pub contracted_at: StrategicMinute,
     pub ruleset_version: u16,
@@ -1339,14 +1325,21 @@ pub fn severity_seed(e: InfectionEpisode) -> u64 {
     StreamId::new("disease.severity")
         .rng(
             e.id,
-            &[e.character_id, e.disease_id as u64, e.contracted_at.get()],
+            &[
+                u64::from(e.character_id),
+                e.disease_id as u64,
+                e.contracted_at.get(),
+            ],
         )
         .next_u64()
 }
 
-pub fn outbreak_exposure_seed(character_id: u64, outbreak_id: &str) -> u64 {
+pub fn outbreak_exposure_seed(
+    character_id: crate::identity::CharacterId,
+    outbreak_id: &str,
+) -> u64 {
     Seed::derive(
-        &character_id.to_le_bytes(),
+        &u64::from(character_id).to_le_bytes(),
         StreamId::new("disease.outbreak-exposure"),
         &[outbreak_id.as_bytes()],
     )
@@ -1356,13 +1349,16 @@ pub fn outbreak_exposure_seed(character_id: u64, outbreak_id: &str) -> u64 {
 
 /// Minute-specific contact draws are independent of neighboring exposures.
 pub fn contact_exposure_seed(
-    target_id: u64,
-    source_id: u64,
+    target_id: crate::identity::CharacterId,
+    source_id: crate::identity::CharacterId,
     source_episode_id: u64,
     minute: StrategicMinute,
 ) -> u64 {
     StreamId::new("disease.contact-exposure")
-        .rng(target_id, &[source_id, source_episode_id, minute.get()])
+        .rng(
+            u64::from(target_id),
+            &[u64::from(source_id), source_episode_id, minute.get()],
+        )
         .next_u64()
 }
 
@@ -1395,7 +1391,7 @@ pub fn infection_occurs_through(episode: InfectionEpisode, through: StrategicMin
     reason = "the exposure calculation names each independent epidemiology input"
 )]
 pub fn first_presence_exposure_minute(
-    character_id: u64,
+    character_id: crate::identity::CharacterId,
     outbreak_id: &str,
     from: StrategicMinute,
     to: StrategicMinute,
@@ -1430,7 +1426,7 @@ pub fn first_presence_exposure_minute(
 pub fn first_eligible_presence_exposure_minute(
     episodes: &[InfectionEpisode],
     disease_id: DiseaseId,
-    character_id: u64,
+    character_id: crate::identity::CharacterId,
     outbreak_id: &str,
     from: StrategicMinute,
     to: StrategicMinute,
@@ -1464,7 +1460,7 @@ pub fn first_eligible_presence_exposure_minute(
 pub fn first_eligible_protected_presence_exposure_minute(
     episodes: &[InfectionEpisode],
     disease_id: DiseaseId,
-    character_id: u64,
+    character_id: crate::identity::CharacterId,
     exposure_id: &str,
     from: StrategicMinute,
     to: StrategicMinute,
@@ -1502,7 +1498,7 @@ pub fn first_eligible_protected_presence_exposure_minute(
 )]
 pub fn protected_presence_exposure_source(
     disease_id: DiseaseId,
-    character_id: u64,
+    character_id: crate::identity::CharacterId,
     exposure_id: &str,
     from: StrategicMinute,
     to: StrategicMinute,
@@ -2176,7 +2172,7 @@ pub fn disease_peak_meters(disease_id: DiseaseId) -> &'static [(Meter, f32)] {
 }
 
 pub fn private_regional_meter_state(
-    patient_id: u64,
+    patient_id: crate::identity::CharacterId,
     episodes: &[InfectionEpisode],
     now: StrategicMinute,
     immunity: f32,
@@ -2394,7 +2390,7 @@ mod tests {
     fn e(id: u64, disease_id: DiseaseId) -> InfectionEpisode {
         InfectionEpisode {
             id,
-            character_id: 7,
+            character_id: (7).into(),
             disease_id,
             contracted_at: StrategicMinute::new(100),
             ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
@@ -2532,7 +2528,7 @@ mod tests {
     #[test]
     fn private_regional_state_includes_patient_baseline_without_infections() {
         let regions = private_regional_meter_state(
-            73,
+            (73).into(),
             &[],
             StrategicMinute::new(10_000),
             3.0,
@@ -2544,7 +2540,7 @@ mod tests {
         assert_ne!(
             regions[0],
             private_regional_meter_state(
-                74,
+                (74).into(),
                 &[],
                 StrategicMinute::new(10_000),
                 3.0,
@@ -2594,7 +2590,7 @@ mod tests {
     #[test]
     fn presence_exposure_handles_late_arrival_reentry_and_chunking() {
         let whole = first_presence_exposure_minute(
-            4,
+            (4).into(),
             "x",
             StrategicMinute::new(10_000),
             StrategicMinute::new(30_000),
@@ -2605,7 +2601,7 @@ mod tests {
         );
         let chunks = (10_000..30_000).step_by(500).find_map(|from| {
             first_presence_exposure_minute(
-                4,
+                (4).into(),
                 "x",
                 StrategicMinute::new(from),
                 StrategicMinute::new((from + 500).min(30_000)),
@@ -2617,7 +2613,7 @@ mod tests {
         });
         assert_eq!(whole, chunks);
         let reentry = first_presence_exposure_minute(
-            9,
+            (9).into(),
             "reentry",
             StrategicMinute::new(20_000),
             StrategicMinute::new(21_000),
@@ -2823,7 +2819,9 @@ mod tests {
             };
             let exposure = residual_exposure(0.20, vector, physiology_check);
             (0..20_000_u64)
-                .map(|character_id| outbreak_exposure_seed(character_id, "prevention-fixture"))
+                .map(|character_id| {
+                    outbreak_exposure_seed((character_id).into(), "prevention-fixture")
+                })
                 .filter(|seed| acquisition_succeeds(*seed, definition, 2.5, 0.0, exposure))
                 .count()
         };
@@ -2843,7 +2841,7 @@ mod tests {
         let overnight_start = 18 * 60;
         let overnight_end = overnight_start + 12 * 60;
         let physician_span = [(
-            9,
+            crate::identity::CharacterId::from(9),
             StrategicMinute::new(overnight_start + 1),
             StrategicMinute::new(overnight_end),
             5.0,
@@ -2852,7 +2850,7 @@ mod tests {
             first_eligible_protected_presence_exposure_minute(
                 &[],
                 DiseaseId::Influenza,
-                7,
+                (7).into(),
                 "shared-sleep:source-8",
                 StrategicMinute::new(from),
                 StrategicMinute::new(to),
@@ -2898,11 +2896,36 @@ mod tests {
     #[test]
     fn historical_party_support_respects_join_leave_and_band_boundaries() {
         let spans = [
-            (7, StrategicMinute::new(100), StrategicMinute::new(199), 1.0),
-            (8, StrategicMinute::new(100), StrategicMinute::new(199), 4.0),
-            (7, StrategicMinute::new(200), StrategicMinute::new(300), 3.0),
-            (8, StrategicMinute::new(200), StrategicMinute::new(300), 4.0),
-            (9, StrategicMinute::new(225), StrategicMinute::new(250), 2.0),
+            (
+                crate::identity::CharacterId::from(7),
+                StrategicMinute::new(100),
+                StrategicMinute::new(199),
+                1.0,
+            ),
+            (
+                crate::identity::CharacterId::from(8),
+                StrategicMinute::new(100),
+                StrategicMinute::new(199),
+                4.0,
+            ),
+            (
+                crate::identity::CharacterId::from(7),
+                StrategicMinute::new(200),
+                StrategicMinute::new(300),
+                3.0,
+            ),
+            (
+                crate::identity::CharacterId::from(8),
+                StrategicMinute::new(200),
+                StrategicMinute::new(300),
+                4.0,
+            ),
+            (
+                crate::identity::CharacterId::from(9),
+                StrategicMinute::new(225),
+                StrategicMinute::new(250),
+                2.0,
+            ),
         ];
         assert_eq!(
             historical_physiology_check_at(spans, StrategicMinute::new(99)),
@@ -2923,8 +2946,18 @@ mod tests {
     fn duplicate_coverage_does_not_count_one_supporter_twice() {
         let duplicate = historical_physiology_check_at(
             [
-                (7, StrategicMinute::ZERO, StrategicMinute::new(100), 4.0),
-                (7, StrategicMinute::new(50), StrategicMinute::new(150), 4.0),
+                (
+                    crate::identity::CharacterId::from(7),
+                    StrategicMinute::ZERO,
+                    StrategicMinute::new(100),
+                    4.0,
+                ),
+                (
+                    crate::identity::CharacterId::from(7),
+                    StrategicMinute::new(50),
+                    StrategicMinute::new(150),
+                    4.0,
+                ),
             ],
             StrategicMinute::new(75),
         );
@@ -2934,9 +2967,14 @@ mod tests {
     #[test]
     fn changing_historical_protection_is_chunk_invariant() {
         let spans = [
-            (7, StrategicMinute::new(101), StrategicMinute::new(500), 1.0),
             (
-                7,
+                crate::identity::CharacterId::from(7),
+                StrategicMinute::new(101),
+                StrategicMinute::new(500),
+                1.0,
+            ),
+            (
+                crate::identity::CharacterId::from(7),
                 StrategicMinute::new(501),
                 StrategicMinute::new(1_000),
                 5.0,
@@ -2946,7 +2984,7 @@ mod tests {
             first_eligible_protected_presence_exposure_minute(
                 &[],
                 DiseaseId::Influenza,
-                77,
+                (77).into(),
                 "protected",
                 StrategicMinute::new(from),
                 StrategicMinute::new(to),
@@ -3014,7 +3052,11 @@ mod tests {
         );
     }
 
-    fn timeline_episode(id: u64, character_id: u64, contracted_at: u64) -> InfectionEpisode {
+    fn timeline_episode(
+        id: u64,
+        character_id: crate::identity::CharacterId,
+        contracted_at: u64,
+    ) -> InfectionEpisode {
         InfectionEpisode {
             id,
             character_id,
@@ -3027,19 +3069,36 @@ mod tests {
 
     #[test]
     fn chronological_contact_chain_is_order_independent_and_chunk_invariant() {
-        let targets = [1, 2, 3].into_iter().collect();
-        let initial = [(1, vec![timeline_episode(1, 1, 0)])].into_iter().collect();
-        let immunity = [(1, 0.0), (2, 0.0), (3, 0.0)].into_iter().collect();
+        let targets = [
+            crate::identity::CharacterId::from(1),
+            crate::identity::CharacterId::from(2),
+            crate::identity::CharacterId::from(3),
+        ]
+        .into_iter()
+        .collect();
+        let initial = [(
+            crate::identity::CharacterId::from(1),
+            vec![timeline_episode(1, (1).into(), 0)],
+        )]
+        .into_iter()
+        .collect();
+        let immunity = [
+            (crate::identity::CharacterId::from(1), 0.0),
+            (crate::identity::CharacterId::from(2), 0.0),
+            (crate::identity::CharacterId::from(3), 0.0),
+        ]
+        .into_iter()
+        .collect();
         let windows = [
             ContactWindow {
-                low_id: 1,
-                high_id: 2,
+                low_id: (1).into(),
+                high_id: (2).into(),
                 start: StrategicMinute::new(1),
                 end: StrategicMinute::new(30_000),
             },
             ContactWindow {
-                low_id: 2,
-                high_id: 3,
+                low_id: (2).into(),
+                high_id: (3).into(),
                 start: StrategicMinute::new(1),
                 end: StrategicMinute::new(30_000),
             },
@@ -3058,8 +3117,12 @@ mod tests {
             |_, _| 0.0,
         )
         .unwrap();
-        let b_at = whole.proposals[&2][0].contracted_at.get();
-        let c_at = whole.proposals[&3][0].contracted_at.get();
+        let b_at = whole.proposals[&crate::identity::CharacterId::from(2)][0]
+            .contracted_at
+            .get();
+        let c_at = whole.proposals[&crate::identity::CharacterId::from(3)][0]
+            .contracted_at
+            .get();
         assert!(
             c_at > b_at,
             "new sources become eligible on the next minute"
@@ -3122,17 +3185,27 @@ mod tests {
 
     #[test]
     fn blood_scheduled_acquisition_becomes_contact_source_next_minute() {
-        let targets = [2, 3].into_iter().collect();
-        let immunity = [(2, 0.0), (3, 0.0)].into_iter().collect();
-        let blood = timeline_episode(22, 2, 100);
+        let targets = [
+            crate::identity::CharacterId::from(2),
+            crate::identity::CharacterId::from(3),
+        ]
+        .into_iter()
+        .collect();
+        let immunity = [
+            (crate::identity::CharacterId::from(2), 0.0),
+            (crate::identity::CharacterId::from(3), 0.0),
+        ]
+        .into_iter()
+        .collect();
+        let blood = timeline_episode(22, (2).into(), 100);
         let result = resolve_acquisition_timeline(
             &targets,
             &Default::default(),
             [AcquisitionAttempt::guaranteed(blood)],
             &[],
             &[ContactWindow {
-                low_id: 2,
-                high_id: 3,
+                low_id: (2).into(),
+                high_id: (3).into(),
                 start: StrategicMinute::new(1),
                 end: StrategicMinute::new(30_000),
             }],
@@ -3144,18 +3217,41 @@ mod tests {
             |_, _| 0.0,
         )
         .unwrap();
-        assert_eq!(result.proposals[&2], vec![blood]);
-        assert!(result.proposals[&3][0].contracted_at.get() > blood.contracted_at.get());
+        assert_eq!(
+            result.proposals[&crate::identity::CharacterId::from(2)],
+            vec![blood]
+        );
+        assert!(
+            result.proposals[&crate::identity::CharacterId::from(3)][0]
+                .contracted_at
+                .get()
+                > blood.contracted_at.get()
+        );
     }
 
     #[test]
     fn synchronized_prevention_and_clipped_timeline_are_executable() {
-        let targets = [1, 2].into_iter().collect();
-        let initial = [(1, vec![timeline_episode(1, 1, 0)])].into_iter().collect();
-        let immunity = [(1, 0.0), (2, 0.0)].into_iter().collect();
+        let targets = [
+            crate::identity::CharacterId::from(1),
+            crate::identity::CharacterId::from(2),
+        ]
+        .into_iter()
+        .collect();
+        let initial = [(
+            crate::identity::CharacterId::from(1),
+            vec![timeline_episode(1, (1).into(), 0)],
+        )]
+        .into_iter()
+        .collect();
+        let immunity = [
+            (crate::identity::CharacterId::from(1), 0.0),
+            (crate::identity::CharacterId::from(2), 0.0),
+        ]
+        .into_iter()
+        .collect();
         let window = [ContactWindow {
-            low_id: 1,
-            high_id: 2,
+            low_id: (1).into(),
+            high_id: (2).into(),
             start: StrategicMinute::new(1),
             end: StrategicMinute::new(30_000),
         }];
@@ -3190,14 +3286,16 @@ mod tests {
         assert!(
             protected
                 .proposals
-                .get(&2)
+                .get(&crate::identity::CharacterId::from(2))
                 .and_then(|episodes| episodes.first())
                 .map(|episode| episode.contracted_at.get())
                 .unwrap_or(u64::MAX)
-                > unprotected.proposals[&2][0].contracted_at.get()
+                > unprotected.proposals[&crate::identity::CharacterId::from(2)][0]
+                    .contracted_at
+                    .get()
         );
 
-        let scheduled_after_death_clip = timeline_episode(32, 2, 501);
+        let scheduled_after_death_clip = timeline_episode(32, (2).into(), 501);
         let clipped = resolve_acquisition_timeline(
             &targets,
             &Default::default(),
@@ -3227,7 +3325,7 @@ mod tests {
                 1,
                 |_, _| 0.0,
             ),
-            Err("Disease interval exceeds bounded exposure work")
+            Err(DiseaseIntervalError::ExposureWorkBound)
         );
     }
 
@@ -3261,22 +3359,29 @@ mod tests {
             at(peer_clock),
         )
         .unwrap();
-        let targets = [2].into_iter().collect();
-        let initial = [(1, vec![timeline_episode(41, 1, 0)])]
+        let targets = [crate::identity::CharacterId::from(2)]
             .into_iter()
             .collect();
+        let initial = [(
+            crate::identity::CharacterId::from(1),
+            vec![timeline_episode(41, (1).into(), 0)],
+        )]
+        .into_iter()
+        .collect();
         let result = resolve_acquisition_timeline(
             &targets,
             &initial,
             [],
             &[],
             &[ContactWindow {
-                low_id: 1,
-                high_id: 2,
+                low_id: (1).into(),
+                high_id: (2).into(),
                 start: StrategicMinute::new(101),
                 end: overlap_end,
             }],
-            &[(2, 0.0)].into_iter().collect(),
+            &[(crate::identity::CharacterId::from(2), 0.0)]
+                .into_iter()
+                .collect(),
             StrategicMinute::new(100),
             StrategicMinute::new(target_horizon),
             0,
@@ -3284,16 +3389,25 @@ mod tests {
             |_, _| 0.0,
         )
         .unwrap();
-        assert!(result.proposals[&2][0].contracted_at.get() <= peer_clock);
+        assert!(
+            result.proposals[&crate::identity::CharacterId::from(2)][0]
+                .contracted_at
+                .get()
+                <= peer_clock
+        );
     }
 
     #[test]
     fn environmental_immunity_evolves_across_multiple_cycles_whole_or_split() {
         let initial = std::collections::BTreeMap::new();
-        let immunity = [(7, 0.0)].into_iter().collect();
-        let targets = [7].into_iter().collect();
+        let immunity = [(crate::identity::CharacterId::from(7), 0.0)]
+            .into_iter()
+            .collect();
+        let targets = [crate::identity::CharacterId::from(7)]
+            .into_iter()
+            .collect();
         let duration = {
-            let episode = timeline_episode(1, 7, 1);
+            let episode = timeline_episode(1, (7).into(), 1);
             (2..60 * DAY)
                 .find(|minute| {
                     evaluate(episode, StrategicMinute::new(*minute), 0.0).stage
@@ -3326,7 +3440,7 @@ mod tests {
         ));
         let episode = |id, at| InfectionEpisode {
             id,
-            character_id: 7,
+            character_id: (7).into(),
             disease_id: DiseaseId::Influenza,
             contracted_at: StrategicMinute::new(at),
             ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
@@ -3365,14 +3479,14 @@ mod tests {
         )
         .unwrap();
         assert_eq!(
-            whole.proposals[&7]
+            whole.proposals[&crate::identity::CharacterId::from(7)]
                 .iter()
                 .map(|episode| episode.contracted_at.get())
                 .collect::<Vec<_>>(),
             vec![first_at, second_at, third_at]
         );
         assert!(
-            !whole.proposals[&7]
+            !whole.proposals[&crate::identity::CharacterId::from(7)]
                 .iter()
                 .any(|episode| episode.id == threshold_seed),
             "the threshold-sensitive roll must be rejected by immunity acquired during this run"
@@ -3419,13 +3533,17 @@ mod tests {
 
     #[test]
     fn one_year_environmental_source_stays_compact_and_chunk_invariant() {
-        let targets = [7].into_iter().collect();
-        let immunity = [(7, 0.0)].into_iter().collect();
+        let targets = [crate::identity::CharacterId::from(7)]
+            .into_iter()
+            .collect();
+        let immunity = [(crate::identity::CharacterId::from(7), 0.0)]
+            .into_iter()
+            .collect();
         let initial = std::collections::BTreeMap::new();
         let through = MINUTES_PER_YEAR;
         let source = protected_presence_exposure_source(
             DiseaseId::Influenza,
-            7,
+            (7).into(),
             "year-long-outbreak",
             StrategicMinute::new(0),
             StrategicMinute::new(through),
@@ -3449,7 +3567,7 @@ mod tests {
             |_, _| 0.0,
         )
         .unwrap();
-        assert!(whole.proposals[&7].len() > 20);
+        assert!(whole.proposals[&crate::identity::CharacterId::from(7)].len() > 20);
         assert!(
             whole.work_units < 1_000,
             "resolved intervals should be skipped instead of evaluated minute by minute"
@@ -3493,28 +3611,6 @@ mod tests {
             split.entry(id).or_default().extend(episodes);
         }
         assert_eq!(whole.proposals, split);
-    }
-
-    #[test]
-    fn raw_presence_span_and_checkpoint_work_caps_fail_closed() {
-        let mut spans = std::collections::BTreeMap::new();
-        assert_eq!(insert_unique_bounded(&mut spans, 1, "a", 2), Ok(true));
-        assert_eq!(
-            insert_unique_bounded(&mut spans, 1, "duplicate", 2),
-            Ok(false)
-        );
-        assert_eq!(insert_unique_bounded(&mut spans, 2, "b", 2), Ok(true));
-        assert_eq!(
-            insert_unique_bounded(&mut spans, 3, "excess", 2),
-            Err("Disease interval has too many raw presence spans")
-        );
-
-        let mut work = 0;
-        assert_eq!(add_bounded_work(&mut work, 4, 5), Ok(()));
-        assert_eq!(
-            add_bounded_work(&mut work, 2, 5),
-            Err("Disease interval exceeds bounded exposure work")
-        );
     }
 
     #[test]
@@ -3757,7 +3853,7 @@ mod tests {
             let whole = first_eligible_protected_presence_exposure_minute(
                 &[],
                 id,
-                7,
+                (7).into(),
                 &exposure_id,
                 StrategicMinute::new(from),
                 StrategicMinute::new(to),
@@ -3773,7 +3869,7 @@ mod tests {
                     first_eligible_protected_presence_exposure_minute(
                         &[],
                         id,
-                        7,
+                        (7).into(),
                         &exposure_id,
                         StrategicMinute::new(chunk_from),
                         StrategicMinute::new(chunk_from.saturating_add(6 * 60).min(to)),

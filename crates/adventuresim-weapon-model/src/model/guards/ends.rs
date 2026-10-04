@@ -1,5 +1,6 @@
 //! Forged quillon terminal variants.
 use super::*;
+use crate::ConstructionError;
 pub(super) fn left_terminal(v: &GuardLeftTerminal) -> Option<GuardTerminal> {
     Some(match v {
         GuardLeftTerminal::Profile => GuardTerminal::Profile,
@@ -32,7 +33,7 @@ pub(super) fn terminal(
     size: f64,
     tangent: Point,
     detail: Detail,
-) -> Result<Option<Solid>, String> {
+) -> Result<Option<Solid>, ConstructionError> {
     let rotation = [
         tangent[2].atan2(tangent[0].hypot(tangent[1])).to_degrees(),
         0.0,
@@ -41,7 +42,7 @@ pub(super) fn terminal(
     let solid = match style {
         GuardTerminal::None => return Ok(None),
         GuardTerminal::Profile => {
-            return Err("profile terminal requires its authored stations".into());
+            return Err(ConstructionError::ProfileTerminalRequiresAuthoredStations);
         }
         GuardTerminal::Ball => {
             return Ok(Some(Solid::lathe(

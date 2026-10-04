@@ -1,5 +1,6 @@
 //! Boundary properties anchor their shared playable terrace to the graded vista.
 use super::*;
+use crate::scene_input::SceneValidationError;
 use bevy::math::Vec2;
 use std::collections::BTreeMap;
 mod boundary;
@@ -35,7 +36,7 @@ pub(in crate::scene_input) fn terrain_anchors(
             .find(|b| b.id == garden.front_building_id)
             && (front.base_elevation_metres - elevation).abs() > LEVEL_TOLERANCE_METRES
         {
-            return invalid("distant garden owner does not share its graded vista elevation");
+            return invalid(SceneValidationError::GardenVistaElevation);
         }
         grounding
             .anchors
@@ -49,7 +50,7 @@ pub(in crate::scene_input) fn terrain_anchors(
 
 fn vista_level(input: &TacticalSceneInput, garden: &CityGarden) -> Result<f32, SceneInputError> {
     let Some(first) = input.vista.lods.first() else {
-        return invalid("boundary garden requires graded vista terrain");
+        return invalid(SceneValidationError::GardenVistaRequired);
     };
     let origin = Vec2::new(
         first.origin_east_metres as f32,
@@ -88,15 +89,13 @@ fn vista_level(input: &TacticalSceneInput, garden: &CityGarden) -> Result<f32, S
                     input.vista.lods.get(index + 1),
                 );
                 if height.is_none_or(|h| (h - reference).abs() > LEVEL_TOLERANCE_METRES) {
-                    return invalid(
-                        "garden requires a level terrace across its complete vista footprint and LOD morph",
-                    );
+                    return invalid(SceneValidationError::GardenLevelTerrace);
                 }
             }
         }
         return Ok(reference);
     }
-    invalid("garden leaves the supplied vista domain")
+    invalid(SceneValidationError::GardenVistaDomain)
 }
 
 pub(in crate::scene_input) fn validate_surface(
@@ -149,7 +148,7 @@ pub(in crate::scene_input) fn validate_surface(
                     })
             });
             if height.is_none_or(|h| (h - elevation).abs() > LEVEL_TOLERANCE_METRES) {
-                return invalid("garden terrace does not match the final stitched terrain");
+                return invalid(SceneValidationError::GardenTerrace);
             }
         }
     }

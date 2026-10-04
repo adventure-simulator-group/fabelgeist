@@ -30,6 +30,7 @@ pub mod fixture_path;
 pub mod food;
 pub mod foraging;
 pub mod herbalism;
+pub mod identity;
 pub mod ingredient_preparation;
 pub mod inventory_containers;
 pub mod inventory_measurement;

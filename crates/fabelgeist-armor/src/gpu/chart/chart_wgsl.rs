@@ -4,6 +4,7 @@
 use super::super::part::SHELL_MIRRORED;
 use super::super::wgsl;
 use super::{BOUNDARY_APEX, BOUNDARY_CAPPED, TIP_RINGS};
+use fabelgeist_gpu::prelude::ShaderSource;
 
 /// The chart kernel's bindings and parameters.
 const BINDINGS: &str = r#"
@@ -132,8 +133,8 @@ fn flute_relief(u: f32, v: f32) -> f32 {
 "#;
 
 /// The chart kernel: every carrier point of one chart, evaluated by `shape`.
-pub(super) fn source(shape: &str) -> String {
-    format!(
+pub(super) fn source(shape: &str) -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 {BINDINGS}{math}
 {frame}
@@ -216,5 +217,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         apex = BOUNDARY_APEX,
         rings = TIP_RINGS,
         mirrored_word = SHELL_MIRRORED,
-    )
+    ))
 }

@@ -9,9 +9,9 @@
 //! member of a group reaches the same direction.
 
 use anyhow::Result;
-use fabelgeist_armor::gpu::device_error;
+
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
 
 use super::wgsl;
 use super::workspace::Workspace;
@@ -36,20 +36,23 @@ impl Workspace<'_> {
     ) -> Result<()> {
         let gpu = self.gpu;
         let mut parameters = PassParameters::new();
-        parameters.insert("count", self.face_count);
-        parameters.insert("first", set * self.face_count * CONSTRAINT_WORDS);
-        parameters.insert("pad0", 0u32);
-        parameters.insert("pad1", 0u32);
-        parameters.insert("positions", positions.clone());
-        parameters.insert("faces", self.faces.clone());
-        parameters.insert("constraints", self.constraints.clone());
+        parameters.insert("count".into(), (self.face_count).into());
+        parameters.insert(
+            "first".into(),
+            (set * self.face_count * CONSTRAINT_WORDS).into(),
+        );
+        parameters.insert("pad0".into(), (0u32).into());
+        parameters.insert("pad1".into(), (0u32).into());
+        parameters.insert("positions".into(), (positions.clone()).into());
+        parameters.insert("faces".into(), (self.faces.clone()).into());
+        parameters.insert("constraints".into(), (self.constraints.clone()).into());
         let kernel = gpu
             .cache()
             .get(gpu.context(), &constraint_source())
-            .map_err(device_error)?;
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.face_count)
-            .map_err(device_error)?;
+            .dispatch_items(&kernel, &parameters, (self.face_count).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         Ok(())
     }
 
@@ -66,29 +69,29 @@ impl Workspace<'_> {
     ) -> Result<()> {
         let gpu = self.gpu;
         let mut parameters = PassParameters::new();
-        parameters.insert("count", self.vertex_count);
-        parameters.insert("faces", self.face_count);
-        parameters.insert("sets", sets);
-        parameters.insert("pad0", 0u32);
-        parameters.insert("normals", normals.clone());
-        parameters.insert("incidence", self.incidence.clone());
-        parameters.insert("links", links.clone());
-        parameters.insert("constraints", self.constraints.clone());
-        parameters.insert("directions", directions.clone());
-        parameters.insert("status", self.status.clone());
+        parameters.insert("count".into(), (self.vertex_count).into());
+        parameters.insert("faces".into(), (self.face_count).into());
+        parameters.insert("sets".into(), (sets).into());
+        parameters.insert("pad0".into(), (0u32).into());
+        parameters.insert("normals".into(), (normals.clone()).into());
+        parameters.insert("incidence".into(), (self.incidence.clone()).into());
+        parameters.insert("links".into(), (links.clone()).into());
+        parameters.insert("constraints".into(), (self.constraints.clone()).into());
+        parameters.insert("directions".into(), (directions.clone()).into());
+        parameters.insert("status".into(), (self.status.clone()).into());
         let kernel = gpu
             .cache()
             .get(gpu.context(), &projection_source())
-            .map_err(device_error)?;
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.vertex_count)
-            .map_err(device_error)?;
+            .dispatch_items(&kernel, &parameters, (self.vertex_count).into())
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         Ok(())
     }
 }
 
-fn constraint_source() -> String {
-    format!(
+fn constraint_source() -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> faces: array<u32>;
@@ -130,7 +133,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         vector = wgsl::VECTOR,
         words = CONSTRAINT_WORDS,
-    )
+    ))
 }
 
 /// One invocation per weld group: its offset direction pushed outside every face constraint.
@@ -196,8 +199,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 }
 "#;
 
-fn projection_source() -> String {
-    format!(
+fn projection_source() -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> normals: array<f32>;
 @group(0) @binding(1) var<storage, read> incidence: array<u32>;
@@ -249,5 +252,5 @@ fn project(realization: u32, face: u32) {{
         margin = wgsl::constant("OUTWARD_MARGIN", OUTWARD_MARGIN),
         passes = PROJECTION_PASSES,
         words = CONSTRAINT_WORDS,
-    )
+    ))
 }

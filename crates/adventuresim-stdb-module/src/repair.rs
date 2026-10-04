@@ -223,7 +223,10 @@ fn submit(
     if let Some(mut object) = crate::inventory_container::object_for_row(
         ctx,
         CarriedInventoryScope::Personal,
-        inventory_item_id,
+        (inventory_item_id).into(),
+    )
+    .map_err(
+        |error: crate::inventory_container::InventoryObjectError| -> String { error.to_string() },
     )? {
         crate::inventory_container::detach_if_nested(ctx, object.id)?;
         object.location = InventoryLocation::repair(settlement_id, inventory_item_id);
@@ -255,8 +258,8 @@ fn submit(
         attachment_targets,
         quoted_cost,
     });
-    crate::capability::refresh_character_capability(ctx, character_id)?;
-    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+    crate::capability::refresh_character_capability(ctx, (character_id).into())?;
+    crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())?;
     Ok(order.id)
 }
 
@@ -433,8 +436,8 @@ fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> Result<()
         })?;
     }
     ctx.db.repair_order().id().delete(order_id);
-    crate::capability::refresh_character_capability(ctx, character_id)?;
-    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+    crate::capability::refresh_character_capability(ctx, (character_id).into())?;
+    crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())?;
     Ok(())
 }
 
@@ -483,7 +486,7 @@ pub fn retrieve_repaired_items(
     if ids.is_empty() {
         return Err("No completed matching repairs are ready to retrieve".into());
     }
-    let available_gold = crate::item::personal_currency_total(ctx, character_id);
+    let available_gold = crate::item::personal_currency_total(ctx, character_id.into());
     let affordable = adventuresim_core::durability::affordable_repair_prefix(
         available_gold,
         &ids.iter().map(|(_, _, cost)| *cost).collect::<Vec<_>>(),
@@ -501,7 +504,7 @@ pub fn retrieve_repaired_items(
 /// yellow bins and uses Tailoring for clothing, Smithing for other equipment.
 pub(crate) fn field_repair(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     smithing: u8,
     tailoring: u8,
     available_minutes: u64,
@@ -511,7 +514,7 @@ pub(crate) fn field_repair(
         .db
         .inventory_item()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .map(|v| v.id)
         .collect();
     for id in ids {
@@ -640,8 +643,10 @@ pub fn seed_simulation_equipment_damage(
         .item_condition()
         .inventory_item_id()
         .update(condition);
-    crate::capability::refresh_character_capability(ctx, character_id)?;
-    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+    crate::capability::refresh_character_capability(ctx, (character_id).into())
+        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+    crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())
+        .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?;
     Ok(())
 }
 

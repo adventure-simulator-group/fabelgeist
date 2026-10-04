@@ -33,7 +33,8 @@ pub(super) fn generation_context(seed: u64, family: TemplateFamily) -> qg::Gener
         observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-low")
             .seed(seed, &[])
             .to_u64(),
-        settlement_id: "settlement:evaluator".into(),
+        settlement_id: adventuresim_core::identity::SettlementId::try_new("settlement:evaluator")
+            .unwrap(),
         settlement_name: "Greifenhagen".into(),
         scope: adventuresim_core::local_problem::Scope::Settlement {
             settlement_id: "settlement:evaluator".into(),

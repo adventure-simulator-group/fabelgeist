@@ -571,7 +571,7 @@ mod tests {
 
     fn fixture_weapon() -> CombatWeapon {
         use adventuresim_core::item_catalog::{ItemKind, definition};
-        let definition = definition("katzbalger").unwrap();
+        let definition = definition(&"katzbalger".into()).unwrap();
         let ItemKind::Weapon {
             preferred_attack,
             reach_m,

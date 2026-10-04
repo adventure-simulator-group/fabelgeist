@@ -31,12 +31,14 @@ pub fn authority_test_outbreak_patient_lifecycle(
 ) -> Result<(), String> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let actor = 732004;
-    let now = crate::time::refresh_clock(ctx)?.saturating_add_minutes(1_000);
+    let now = crate::time::refresh_clock(ctx)
+        .map_err(|error: crate::time::WorldClockError| error.to_string())?
+        .saturating_add_minutes(1_000);
     let mut generated = generate(&GenerationContext {
         seed: 0,
         observer_entropy_hi: 732,
         observer_entropy_lo: 87,
-        settlement_id: "riverdale".into(),
+        settlement_id: adventuresim_core::identity::SettlementId::try_new("riverdale").unwrap(),
         settlement_name: "Riverdale".into(),
         scope: adventuresim_core::local_problem::Scope::Settlement {
             settlement_id: "riverdale".into(),
@@ -63,7 +65,7 @@ pub fn authority_test_outbreak_patient_lifecycle(
     exposure.death_kind = None;
     let id = exposure.patient_ref.clone();
     let membership_id = format!("context:{}:patient:{actor}", generated.canonical_case_id);
-    let site_id = outbreak.physical_source_site.0.clone();
+    let site_id = outbreak.physical_source_site.as_str().to_owned();
     let disease = adventuresim_core::disease::definition(outbreak.disease);
     let recovery = now
         .saturating_add_minutes(disease.incubation_minutes)
@@ -90,7 +92,7 @@ pub fn authority_test_outbreak_patient_lifecycle(
         )?;
     }
     // Recovery refresh must leave the pending health checkpoint intact while ill.
-    refresh_patient_context_after_time_write(ctx, actor, released);
+    refresh_patient_context_after_time_write(ctx, (actor).into(), released);
     let closed = membership(ctx, &membership_id)?;
     let presence = ctx
         .db
@@ -119,7 +121,7 @@ pub fn authority_test_outbreak_patient_lifecycle(
     }
     materialize_generated_outbreak(ctx, &generated, "riverdale", released)?;
     for _ in 0..2 {
-        refresh_patient_context_after_time_write(ctx, actor, recovery);
+        refresh_patient_context_after_time_write(ctx, (actor).into(), recovery);
     }
     let presence = ctx
         .db
@@ -186,14 +188,14 @@ pub fn authority_test_outbreak_patient_lifecycle(
     ctx.db.character_time().character_id().update(clock);
     crate::character::transition_character_to_dead_at(
         ctx,
-        dead_actor,
+        (dead_actor).into(),
         crate::character::DeathCause::DevTest,
         crate::character::DeathSource::DevTest,
         None,
         released,
     )?;
     for _ in 0..2 {
-        refresh_patient_context_after_time_write(ctx, dead_actor, released);
+        refresh_patient_context_after_time_write(ctx, (dead_actor).into(), released);
     }
     let dead_membership = membership(ctx, &dead_membership_id)?;
     if patient(ctx, &"patient:authority-death".to_owned())?.health_active

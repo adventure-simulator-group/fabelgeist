@@ -1,19 +1,21 @@
 //! The one armor compute device this process generates on.
 
-use std::sync::{Condvar, Mutex, OnceLock};
+use std::sync::{Arc, Condvar, Mutex, OnceLock};
 
-use fabelgeist_armor::ArmorGpu;
+use fabelgeist_armor::{ArmorGpu, GenerateError};
 
 /// The shared armor device, opened on first use.
 ///
 /// Opening a device and compiling the armor kernels takes a noticeable
 /// fraction of a second, and every fitted piece in every thread wants the
 /// same kernels, so the process keeps one.
-pub fn armor_gpu() -> anyhow::Result<&'static ArmorGpu> {
-    static GPU: OnceLock<Result<ArmorGpu, String>> = OnceLock::new();
-    GPU.get_or_init(|| ArmorGpu::open().map_err(|error| error.to_string()))
-        .as_ref()
-        .map_err(|error| anyhow::anyhow!("opening the armor GPU: {error}"))
+pub fn armor_gpu() -> Result<&'static ArmorGpu, Arc<GenerateError>> {
+    static GPU: OnceLock<Result<ArmorGpu, Arc<GenerateError>>> = OnceLock::new();
+    GPU.get_or_init(|| -> Result<ArmorGpu, Arc<GenerateError>> {
+        ArmorGpu::open().map_err(Arc::new)
+    })
+    .as_ref()
+    .map_err(Arc::clone)
 }
 
 /// Pieces fitted on the armor device at once.

@@ -8,7 +8,14 @@ use adventuresim_character_creator::{
 #[ignore = "requires MHR_ASSETS and the measured drape acceptance output"]
 fn draped_chainmail_exports() -> Result<()> {
     let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
-    let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
+    let model = load_body_model(
+        &MhrAssetDirectory::from(std::path::PathBuf::from(assets)),
+        MhrConfig {
+            lod: CharacterLod::Detailed,
+            pose_correctives: PoseCorrectivePolicy::Disabled,
+        },
+        &Device::default(),
+    )?;
     let catalog = EquipmentCatalog(ItemCatalog::new(vec![], CatalogDesigns::authored())?);
     let mut recipe = CharacterRecipe {
         inventory: Default::default(),

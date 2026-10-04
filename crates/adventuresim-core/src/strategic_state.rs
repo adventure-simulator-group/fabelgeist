@@ -4,13 +4,11 @@
 //! types at the storage boundary so contradictory option/status combinations do
 //! not escape into reducer logic.
 
-use std::fmt;
-
 use adventuresim_world_schema::calendar::StrategicMinute;
 
 pub mod vocabulary;
 
-use crate::{case::ContractStatus, strategic_place::CaseSiteId};
+use crate::{case::ContractStatus, identity::PartyId, strategic_place::CaseSiteId};
 use vocabulary::{
     CommitmentStatus, CommitmentTerminalReason, CourtshipKind, CourtshipSecrecyReason,
     CourtshipStatus, CourtshipTerminalReason, HostileResolutionKind, MarriageStatus,
@@ -21,15 +19,15 @@ use vocabulary::{
 pub enum ContractState {
     Offered,
     Accepted {
-        party_id: String,
+        party_id: PartyId,
         accepted_at: StrategicMinute,
     },
     ReadyToReport {
-        party_id: String,
+        party_id: PartyId,
         accepted_at: StrategicMinute,
     },
     Paid {
-        party_id: String,
+        party_id: PartyId,
         accepted_at: StrategicMinute,
         paid_at: StrategicMinute,
     },
@@ -40,7 +38,7 @@ pub enum ContractState {
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ContractAcceptance {
-    pub party_id: String,
+    pub party_id: PartyId,
     pub accepted_at: StrategicMinute,
 }
 
@@ -51,6 +49,10 @@ impl ContractState {
         accepted_at: Option<StrategicMinute>,
         paid_at: Option<StrategicMinute>,
     ) -> Result<Self, StateParseError> {
+        let party_id = party_id
+            .map(PartyId::try_new)
+            .transpose()
+            .map_err(StateParseError::PartyIdentity)?;
         match (status, party_id, accepted_at, paid_at) {
             (ContractStatus::Offered, None, None, None) => Ok(Self::Offered),
             (ContractStatus::Accepted, Some(party_id), Some(accepted_at), None) => {
@@ -85,9 +87,7 @@ impl ContractState {
                     }),
                 })
             }
-            _ => Err(StateParseError(
-                "contract status and lifecycle fields disagree",
-            )),
+            _ => Err(StateParseError::ContractLifecycle),
         }
     }
 }
@@ -165,9 +165,7 @@ impl MissionAttemptState {
                 hostile_group_id,
             }),
             _ => {
-                return Err(StateParseError(
-                    "mission binding must contain both identifiers",
-                ));
+                return Err(StateParseError::IncompleteMissionBinding);
             }
         };
         match (status, resolution, subject_id, custody_version) {
@@ -222,21 +220,13 @@ impl MissionAttemptState {
             }),
             (MissionAttemptStatus::Failed, None, None, None) => Ok(Self::Failed),
             (MissionAttemptStatus::Cancelled, None, None, None) => Ok(Self::Cancelled),
-            _ => Err(StateParseError(
-                "mission status and resolution fields disagree",
-            )),
+            _ => Err(StateParseError::MissionResolution),
         }
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct StateParseError(pub &'static str);
-impl fmt::Display for StateParseError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(self.0)
-    }
-}
-impl std::error::Error for StateParseError {}
+mod error;
+pub use error::StateParseError;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CommitmentState {
@@ -296,9 +286,7 @@ impl CommitmentState {
                 Some(resolved_minute),
                 Some(CommitmentTerminalReason::MarriageEnded),
             ) => Ok(Self::Ended { resolved_minute }),
-            _ => Err(StateParseError(
-                "commitment status and terminal fields disagree",
-            )),
+            _ => Err(StateParseError::CommitmentLifecycle),
         }
     }
 }
@@ -341,7 +329,7 @@ pub fn parse_courtship(
         (CourtshipKind::Informal, Some(secrecy_reason), None) if planned_dowry == 0 => {
             CourtshipRoute::Informal { secrecy_reason }
         }
-        _ => return Err(StateParseError("courtship kind and route fields disagree")),
+        _ => return Err(StateParseError::CourtshipRoute),
     };
     let state = match (status, resolved_minute, terminal_reason) {
         (CourtshipStatus::Active, None, None) => CourtshipState::Active,
@@ -351,9 +339,7 @@ pub fn parse_courtship(
             reason,
         },
         _ => {
-            return Err(StateParseError(
-                "courtship status and terminal fields disagree",
-            ));
+            return Err(StateParseError::CourtshipLifecycle);
         }
     };
     Ok((route, state))
@@ -377,9 +363,7 @@ impl MarriageState {
                 Ok(Self::Widowed { resolved_minute })
             }
             (MarriageStatus::Ended, Some(resolved_minute)) => Ok(Self::Ended { resolved_minute }),
-            _ => Err(StateParseError(
-                "marriage status and terminal minute disagree",
-            )),
+            _ => Err(StateParseError::MarriageLifecycle),
         }
     }
 }
@@ -411,9 +395,7 @@ impl PregnancyState {
             (PregnancyStatus::Ended, None, Some(resolved_minute)) => {
                 Ok(Self::Ended { resolved_minute })
             }
-            _ => Err(StateParseError(
-                "pregnancy status and outcome fields disagree",
-            )),
+            _ => Err(StateParseError::PregnancyOutcome),
         }
     }
 }

@@ -1,8 +1,9 @@
 //! Closed asymmetric wedge sections, with capped or continuously pointed ends.
 use super::*;
+use crate::ConstructionError;
 
-pub(super) fn blade(p: &BladeParameters, detail: Detail) -> Result<Solid, String> {
-    p.validate_form().map_err(|e| e.to_string())?;
+pub(super) fn blade(p: &BladeParameters, detail: Detail) -> Result<Solid, ConstructionError> {
+    p.validate_form().map_err(ConstructionError::Recipe)?;
     let point = p.point_curve()?;
     let ring = |y| section(p, y, point.as_ref());
     let mut boundaries = vec![0.0];
@@ -75,7 +76,7 @@ fn section(p: &BladeParameters, y: f64, point: Option<&PointCurve>) -> Vec<Point
     ring
 }
 
-fn cap(solid: &mut Solid, ring: &[Point], reverse: bool) -> Result<(), String> {
+fn cap(solid: &mut Solid, ring: &[Point], reverse: bool) -> Result<(), ConstructionError> {
     let outline: Vec<_> = ring.iter().map(|p| [p[0], p[2]]).collect();
     let cap = Region::triangulate(&outline, true)?;
     for [a, b, c] in cap.triangles {

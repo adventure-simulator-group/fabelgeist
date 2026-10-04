@@ -23,7 +23,7 @@ mod edges;
 mod finish;
 mod split;
 
-pub use finish::Trim;
+pub use finish::{Trim, TrimFinishError};
 
 /// The band's dimensions on the surface.
 #[derive(Clone, Copy, Debug, PartialEq)]

@@ -300,7 +300,7 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
     TacticalSceneInput {
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-        seed: fixture.seed,
+        seed: fixture.seed.into(),
         scene_key: fixture.scene_key.into(),
         source: SceneSource::SyntheticFixture(fixture.name.into()),
         latitude_microdegrees: 53_500_000,

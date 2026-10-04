@@ -162,13 +162,13 @@ pub(crate) fn grant_browser_character_internal(
 /// so adulthood needs no browser-supplied provenance.
 pub(crate) fn grant_adult_descendant_internal(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
 ) -> Result<(), String> {
     let claim = ctx
         .db
         .lineage_control_claim()
         .child_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Adult descendant lineage claim not found")?;
     let owner_key = claim.owner_key.as_str();
     let source_parent_id = claim.source_parent_id;
@@ -179,21 +179,23 @@ pub(crate) fn grant_adult_descendant_internal(
         .db
         .character()
         .id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Adult descendant not found")?;
     let minute = ctx
         .db
         .character_time()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .ok_or("Adult descendant time not found")?
         .minutes;
-    if claim.established_minute > minute || source_parent_id == character_id {
+    if claim.established_minute > minute
+        || adventuresim_core::identity::CharacterId::from(source_parent_id) == character_id
+    {
         return Err("Adult descendant lineage claim is not yet effective or is cyclic".into());
     }
     if character.temporary
         || !character.alive
-        || effective_age_years(ctx, character_id, minute).unwrap_or(0)
+        || effective_age_years(ctx, (character_id).into(), minute).unwrap_or(0)
             < adventuresim_core::courtship::ADULT_AGE_YEARS
     {
         return Err("Only a living adult descendant can receive a browser grant".into());
@@ -211,7 +213,7 @@ pub(crate) fn grant_adult_descendant_internal(
         .db
         .browser_character_grant()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
     {
         return if existing.owner_key == owner_key
             && existing.origin == BrowserCharacterGrantOrigin::AdultDescendant
@@ -226,8 +228,8 @@ pub(crate) fn grant_adult_descendant_internal(
     ctx.db
         .browser_character_grant()
         .insert(BrowserCharacterGrant {
-            character_id,
-            character_scan_id: character_id,
+            character_id: u64::from(character_id),
+            character_scan_id: u64::from(character_id),
             owner_key: owner_key.to_owned(),
             origin: BrowserCharacterGrantOrigin::AdultDescendant,
             starting_claim_request_key: None,
@@ -237,12 +239,15 @@ pub(crate) fn grant_adult_descendant_internal(
     Ok(())
 }
 
-pub(crate) fn clear_dead_character_selection(ctx: &ReducerContext, character_id: u64) {
+pub(crate) fn clear_dead_character_selection(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) {
     let selections = ctx
         .db
         .browser_character_selection()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .collect::<Vec<_>>();
     for selection in selections {
         ctx.db
@@ -259,7 +264,8 @@ pub fn grant_browser_character(
     character_id: u64,
     starting_request_key: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     grant_browser_character_internal(ctx, &owner_key, character_id, &starting_request_key)
 }
 
@@ -321,7 +327,8 @@ pub fn select_browser_character(
     owner_key: String,
     character_id: u64,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     if !valid_owner_key(&owner_key) {
         return Err("Browser owner key is malformed".into());
     }
@@ -354,7 +361,7 @@ pub fn select_browser_character(
         .ok_or("Character time record not found")?
         .minutes;
     if !character.alive
-        || effective_age_years(ctx, character_id, minute).unwrap_or(0)
+        || effective_age_years(ctx, (character_id).into(), minute).unwrap_or(0)
             < adventuresim_core::courtship::ADULT_AGE_YEARS
     {
         return Err("Only living adult characters can be selected".into());
@@ -393,7 +400,8 @@ pub fn clear_browser_character_selection(
     ctx: &ReducerContext,
     owner_key: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     if !valid_owner_key(&owner_key) {
         return Err("Browser owner key is malformed".into());
     }

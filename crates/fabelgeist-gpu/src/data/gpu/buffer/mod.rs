@@ -1,317 +1,125 @@
 use crate::globals::WgpuContext;
-use anyhow::{Result, anyhow};
 use std::sync::Arc;
 
+mod creation_error;
+mod definition;
+mod extent;
+mod label;
+mod upload;
+pub use creation_error::BufferCreationError;
+mod length_error;
+mod mapping;
+mod read_error;
 mod readback;
+mod results;
+#[cfg(test)]
+mod tests;
+mod write_error;
 
+pub use definition::{BufferDefinition, BufferUse};
+pub use extent::{BufferByteLength, BufferByteOffset, ReadbackRange};
+pub use label::BufferLabel;
+pub use length_error::BufferLengthError;
+pub use mapping::{ReadbackMapping, ReadbackView};
+pub use read_error::ReadbackError;
+pub use readback::{BufferReadback, MappedBufferBytes};
+pub use results::{ReadbackBlocks, ReadbackSlot, ReadbackSources, ReadbackStatusWord};
+pub use upload::{BufferUpload, BufferUploadOccupancy};
+pub use write_error::BufferWriteError;
+
+/// Native storage with a separately retained logical byte result.
+///
+/// ```compile_fail
+/// use fabelgeist_gpu::prelude::*;
+/// fn allocate_at_address(context: &WgpuContext, address: BufferByteOffset) {
+///     let _ = Buffer::new(context, address, BufferDefinition::storage());
+/// }
+/// ```
 #[derive(Clone, Debug)]
 pub struct Buffer {
     pub buffer: Arc<wgpu::Buffer>,
-    pub size: u64,
-    pub usage: wgpu::BufferUsages,
+    length: BufferByteLength,
 }
 
-#[derive(Clone, Debug)]
-pub struct BufferDefinition {
-    pub label: Option<String>,
-    pub uniform: bool,
-    pub storage: bool,
-    pub vertex: bool,
-    pub index: bool,
-    pub indirect: bool,
-    pub copy_src: bool,
-    pub copy_dst: bool,
-    pub map_write: bool,
-    pub map_read: bool,
-}
-
-impl Default for BufferDefinition {
-    fn default() -> Self {
-        Self::all()
-    }
-}
-impl BufferDefinition {
-    pub fn new() -> Self {
-        Self {
-            label: None,
-            uniform: false,
-            storage: false,
-            vertex: false,
-            index: false,
-            indirect: false,
-            copy_src: false,
-            copy_dst: false,
-            map_write: false,
-            map_read: false,
-        }
-    }
-
-    pub fn all() -> Self {
-        Self {
-            label: None,
-            uniform: true,
-            storage: true,
-            vertex: true,
-            index: true,
-            indirect: true,
-            copy_src: true,
-            copy_dst: true,
-            map_write: false,
-            map_read: false,
-        }
-    }
-    pub fn with_label(mut self, label: impl ToString) -> Self {
-        self.label = Some(label.to_string());
-        self
-    }
-
-    pub fn uniform() -> Self {
-        Self::new().with_uniform()
-    }
-
-    pub fn storage() -> Self {
-        Self::new().with_storage()
-    }
-
-    pub fn vertex() -> Self {
-        Self::new().with_vertex()
-    }
-
-    pub fn index() -> Self {
-        Self::new().with_index()
-    }
-
-    pub fn indirect() -> Self {
-        Self::new().with_indirect()
-    }
-
-    pub fn map_write() -> Self {
-        Self::new().with_map_write()
-    }
-
-    pub fn map_read() -> Self {
-        Self::new().with_map_read()
-    }
-
-    pub fn copy_src() -> Self {
-        Self::new().with_copy_src()
-    }
-
-    pub fn copy_dst() -> Self {
-        Self::new().with_copy_dst()
-    }
-
-    pub fn with_uniform(mut self) -> Self {
-        self.uniform = true;
-        self
-    }
-
-    pub fn with_storage(mut self) -> Self {
-        self.storage = true;
-        self
-    }
-
-    pub fn with_vertex(mut self) -> Self {
-        self.vertex = true;
-        self
-    }
-
-    pub fn with_index(mut self) -> Self {
-        self.index = true;
-        self
-    }
-
-    pub fn with_indirect(mut self) -> Self {
-        self.indirect = true;
-        self
-    }
-
-    pub fn with_copy_src(mut self) -> Self {
-        self.copy_src = true;
-        self
-    }
-
-    pub fn with_copy_dst(mut self) -> Self {
-        self.copy_dst = true;
-        self
-    }
-
-    pub fn with_map_write(mut self) -> Self {
-        self.map_write = true;
-        self
-    }
-
-    pub fn with_map_read(mut self) -> Self {
-        self.map_read = true;
-        self
-    }
-}
 impl Buffer {
-    pub fn new(context: &WgpuContext, bytes: u64, definition: BufferDefinition) -> Result<Buffer> {
-        if bytes == 0 {
-            return Err(anyhow!("Buffer size must be greater than 0"));
+    pub fn new(
+        context: &WgpuContext,
+        bytes: BufferByteLength,
+        definition: BufferDefinition,
+    ) -> std::result::Result<Buffer, BufferCreationError> {
+        if bytes == BufferByteLength::default() {
+            return Err(BufferCreationError::Empty);
         }
 
-        let label = definition.label;
-
-        let mut usage = wgpu::BufferUsages::empty();
-        if definition.uniform {
-            usage |= wgpu::BufferUsages::UNIFORM;
-        }
-        if definition.storage {
-            usage |= wgpu::BufferUsages::STORAGE
-                | wgpu::BufferUsages::COPY_SRC
-                | wgpu::BufferUsages::COPY_DST;
-        }
-        if definition.vertex {
-            usage |= wgpu::BufferUsages::VERTEX;
-        }
-        if definition.index {
-            usage |= wgpu::BufferUsages::INDEX;
-        }
-        if definition.indirect {
-            usage |= wgpu::BufferUsages::INDIRECT;
-        }
-        if definition.copy_src {
-            usage |= wgpu::BufferUsages::COPY_SRC;
-        }
-        if definition.copy_dst {
-            usage |= wgpu::BufferUsages::COPY_DST;
-        }
-        if definition.map_write {
-            usage |= wgpu::BufferUsages::MAP_WRITE;
-        }
-        if definition.map_read {
-            usage |= wgpu::BufferUsages::MAP_READ;
-        }
-
-        // Universal default if nothing is specified (safety fallback)
-        if usage.is_empty() {
-            usage = wgpu::BufferUsages::STORAGE
-                | wgpu::BufferUsages::UNIFORM
-                | wgpu::BufferUsages::VERTEX
-                | wgpu::BufferUsages::INDEX
-                | wgpu::BufferUsages::INDIRECT
-                | wgpu::BufferUsages::COPY_DST
-                | wgpu::BufferUsages::COPY_SRC
-        }
-
-        let buffer = context.device.create_buffer(&wgpu::BufferDescriptor {
-            label: label.as_deref(),
-            size: bytes,
-            usage,
-            mapped_at_creation: false,
-        });
+        let buffer = definition.allocate_native(context, bytes);
 
         Ok(Buffer {
             buffer: Arc::new(buffer),
-            size: bytes,
-            usage,
+            length: bytes,
         })
     }
 
-    pub fn size(&self) -> f64 {
-        self.size as f64
+    /// Logical bytes, excluding any retained allocation padding.
+    pub fn length(&self) -> BufferByteLength {
+        self.length
     }
 
-    pub fn from_f32(
+    /// Select a logical result length while retaining the native allocation.
+    pub fn with_logical_length(
+        mut self,
+        requested: BufferByteLength,
+    ) -> Result<Self, BufferLengthError> {
+        let available = BufferByteLength::from(self.buffer.size());
+        if requested > available {
+            return Err(BufferLengthError {
+                requested,
+                available,
+            });
+        }
+        self.length = requested;
+        Ok(self)
+    }
+
+    /// Convert a GPU element representation into initialized host values.
+    pub async fn read<T: bytemuck::AnyBitPattern>(
+        &self,
         context: &WgpuContext,
-        data: Vec<f32>,
-        definition: Option<BufferDefinition>,
-    ) -> Result<Buffer> {
-        Self::from_slice(context, &data, definition.unwrap_or_default())
-    }
-    pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
-        let size = self.size;
-        let readback = readback::Readback::<T>::new(size)?;
-        let is_mappable = self.usage.contains(wgpu::BufferUsages::MAP_READ);
-
-        let (target_buffer, needs_unmap) = if is_mappable {
-            (self.buffer.clone(), false)
+    ) -> std::result::Result<Vec<T>, ReadbackError> {
+        let length = self.length;
+        let readback = BufferReadback::<T>::new(length)?;
+        if length == BufferByteLength::from(0u64) {
+            return readback.copy_from(MappedBufferBytes::from(&[][..]));
+        }
+        let target_buffer = if self.buffer.usage().contains(wgpu::BufferUsages::MAP_READ) {
+            self.buffer.clone()
         } else {
-            // 1. Create staging buffer
-            let staging_buffer = context.device.create_buffer(&wgpu::BufferDescriptor {
+            let extent = length.copy_aligned()?;
+            let available = BufferByteLength::from(self.buffer.size());
+            if u64::from(extent) > u64::from(available) {
+                return Err(ReadbackError::CopyStorage {
+                    required: extent,
+                    available,
+                });
+            }
+            let staging = context.device.create_buffer(&wgpu::BufferDescriptor {
                 label: Some("Staging Buffer"),
-                size,
+                size: u64::from(extent),
                 usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
                 mapped_at_creation: false,
             });
-
-            // 2. Copy data to staging buffer
             let mut encoder = context
                 .device
                 .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
-            encoder.copy_buffer_to_buffer(&self.buffer, 0, &staging_buffer, 0, size);
+            encoder.copy_buffer_to_buffer(&self.buffer, 0, &staging, 0, u64::from(extent));
             context.queue.submit(Some(encoder.finish()));
-            (Arc::new(staging_buffer), true)
+            Arc::new(staging)
         };
-
-        #[allow(unused_mut)]
-        let (tx, mut rx) = futures_channel::oneshot::channel();
-
-        // 1. Start mapping
-        {
-            let slice = target_buffer.slice(..);
-            slice.map_async(wgpu::MapMode::Read, move |res| {
-                let _ = tx.send(res);
-            });
-        }
-
-        // 2. Poll if on native
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            // Waiting on the queue is what a readback actually costs. Asking
-            // whether it is done and then sleeping a millisecond between asks
-            // adds the sleep's granularity to every one -- and on Windows that
-            // is not a millisecond, it is whatever the system timer is set to,
-            // which turned a four-megabyte read into four milliseconds and
-            // sometimes eight. `Wait` returns when the work is done.
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            loop {
-                match rx.try_recv() {
-                    Ok(Some(res)) => {
-                        res.map_err(|e| anyhow!("GPU Mapping error: {:?}", e))?;
-                        break;
-                    }
-                    // `Wait` covers submitted work, so this is reached only for
-                    // a buffer that was already mappable and had nothing
-                    // submitted for it. Yielding keeps that case from spinning
-                    // a core without putting a sleep back in the common one.
-                    Ok(None) => {
-                        let _ = context.device.poll(wgpu::PollType::Poll);
-                        std::thread::yield_now();
-                    }
-                    Err(_) => return Err(anyhow!("Mapping channel closed")),
-                }
-            }
-        }
-
-        // 3. Await result (only on wasm, since native loop already consumed rx)
-        #[cfg(target_arch = "wasm32")]
-        rx.await
-            .map_err(|_| anyhow!("Mapping channel closed"))?
-            .map_err(|_| anyhow!("GPU Mapping error"))?;
-
-        // Allocate before obtaining the mapped view so WASM memory growth
-        // cannot detach it; initialize typed values only after copying bytes.
-        let slice = target_buffer.slice(..);
-        let data = slice.get_mapped_range()?;
-        let result = readback.copy_from(&data);
-        drop(data);
-
-        if needs_unmap {
-            target_buffer.unmap();
-        } else {
-            // If it's the original buffer, we still need to unmap it so it can be used by the GPU again
-            target_buffer.unmap();
-        }
-
-        result
+        let mapping = ReadbackMapping::new(context, &target_buffer).await?;
+        let view = mapping.view()?;
+        readback.copy_from(view.bytes())
     }
-    pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
-        let bytes = bytemuck::cast_slice(data);
-        context.queue.write_buffer(&self.buffer, 0, bytes);
-        Ok(())
+    pub fn write(&self, context: &WgpuContext, data: BufferUpload<'_>) {
+        data.write_to(context, &self.buffer, BufferByteOffset::START);
     }
 
     /// Write `data` into this buffer starting `at` bytes in.
@@ -320,42 +128,38 @@ impl Buffer {
     /// changing: a ring of video frames, a slice of a vertex stream. Writing
     /// the whole buffer to replace part of it is the alternative, and at these
     /// sizes that is the cost.
-    pub fn write_at<T: bytemuck::NoUninit>(
+    pub fn write_at(
         &self,
         context: &WgpuContext,
-        at: u64,
-        data: &[T],
-    ) -> Result<()> {
-        let bytes = bytemuck::cast_slice(data);
-        let end = at
-            .checked_add(bytes.len() as u64)
-            .ok_or_else(|| anyhow!("Buffer write overflows an offset"))?;
-        if end > self.size {
-            return Err(anyhow!(
-                "Writing {} bytes at {at} runs past the end of a {}-byte buffer",
-                bytes.len(),
-                self.size
-            ));
-        }
-        context.queue.write_buffer(&self.buffer, at, bytes);
+        at: BufferByteOffset,
+        data: BufferUpload<'_>,
+    ) -> Result<(), BufferWriteError> {
+        let range = write_error::BufferWriteRange::new(at, data.length(), self.length)?;
+        data.write_to(context, &self.buffer, range.at);
         Ok(())
     }
-    pub fn from_slice<T: bytemuck::NoUninit>(
+    pub fn from_upload(
         context: &WgpuContext,
-        data: &[T],
+        data: BufferUpload<'_>,
         definition: BufferDefinition,
-    ) -> Result<Buffer> {
-        let bytes = bytemuck::cast_slice(data);
-        Self::from_bytes(context, bytes, definition)
+    ) -> Result<Buffer, BufferCreationError> {
+        let buffer = Self::new(
+            context,
+            data.length(),
+            definition.with_usage(BufferUse::CopyDestination),
+        )?;
+        data.write_to(context, &buffer.buffer, BufferByteOffset::START);
+        Ok(buffer)
     }
-    pub fn from_bytes(
+
+    /// Allocate backing storage for an empty logical result.
+    pub fn empty_result(
         context: &WgpuContext,
-        bytes: &[u8],
-        mut definition: BufferDefinition,
-    ) -> Result<Buffer> {
-        definition.copy_dst = true;
-        let buffer = Self::new(context, bytes.len() as u64, definition)?;
-        context.queue.write_buffer(&buffer.buffer, 0, bytes);
+        allocation: BufferByteLength,
+        definition: BufferDefinition,
+    ) -> Result<Buffer, BufferCreationError> {
+        let mut buffer = Self::new(context, allocation, definition)?;
+        buffer.length = BufferByteLength::default();
         Ok(buffer)
     }
 }
@@ -365,6 +169,6 @@ unsafe impl Sync for Buffer {}
 
 impl PartialEq for Buffer {
     fn eq(&self, other: &Self) -> bool {
-        Arc::ptr_eq(&self.buffer, &other.buffer) && self.size == other.size
+        Arc::ptr_eq(&self.buffer, &other.buffer) && self.length == other.length
     }
 }

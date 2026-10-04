@@ -14,16 +14,25 @@ use crate::strategic::strategic_gateway_authority__view;
 use crate::{CatalogItemKind, InventoryItem, inventory_object};
 
 mod appearance;
+mod authentication_error;
+use authentication_error::WeaponAuthenticationError;
+mod error;
 mod evaluation;
 pub(crate) use appearance::{connected_appearance, connected_holder_appearance};
+pub(crate) use error::{WeaponInstanceError, WeaponProjectionError};
+use error::{WeaponProjectionField, WeaponRecipeKind};
 use evaluation::{evaluate_holder_instance, evaluate_instance};
 
 pub const MAX_WEAPON_RECIPE_BYTES: usize = adventuresim_weapon_model::MAX_ENCODED_RECIPE_BYTES;
 
-fn checked_scaled_u32(value: f32, scale: f32, label: &str) -> Result<u32, String> {
+fn checked_scaled_u32(
+    value: f32,
+    scale: f32,
+    label: WeaponProjectionField,
+) -> Result<u32, WeaponProjectionError> {
     let scaled = value * scale;
     if !scaled.is_finite() || scaled < 0.0 || scaled > u32::MAX as f32 {
-        return Err(format!("Weapon {label} is outside the persisted range"));
+        return Err(WeaponProjectionError::OutOfRange(label));
     }
     Ok(scaled.round() as u32)
 }
@@ -141,9 +150,11 @@ pub struct ConnectedWeaponAppearance {
 pub(crate) fn initialize_personal_weapon(
     ctx: &ReducerContext,
     inventory: &InventoryItem,
-) -> Result<(), String> {
+) -> Result<(), WeaponInstanceError> {
     let Some(definition) = ctx.db.item().id().find(inventory.item_id.clone()) else {
-        return Err(format!("Unknown weapon definition {}", inventory.item_id));
+        return Err(WeaponInstanceError::MissingDefinition(
+            (&inventory.item_id).into(),
+        ));
     };
     if definition.kind != CatalogItemKind::Weapon || !definition.melee {
         return Ok(());
@@ -152,14 +163,20 @@ pub(crate) fn initialize_personal_weapon(
         return Ok(());
     };
     if inventory.quantity != 1 {
-        return Err("Parametric weapons must be individual inventory rows".into());
+        return Err(WeaponInstanceError::NonIndividual {
+            scope: CarriedInventoryScope::Personal,
+            row: inventory.id.into(),
+        });
     }
     let object = crate::inventory_container::object_for_row(
         ctx,
         CarriedInventoryScope::Personal,
-        inventory.id,
+        (inventory.id).into(),
     )?
-    .ok_or("Parametric weapon has no stable physical object identity")?;
+    .ok_or(WeaponInstanceError::MissingStableObject {
+        scope: CarriedInventoryScope::Personal,
+        row: inventory.id.into(),
+    })?;
     replace_design(ctx, object.id, &design)?;
     Ok(())
 }
@@ -167,9 +184,11 @@ pub(crate) fn initialize_personal_weapon(
 pub(crate) fn initialize_party_weapon(
     ctx: &ReducerContext,
     inventory: &PartyInventoryItem,
-) -> Result<(), String> {
+) -> Result<(), WeaponInstanceError> {
     let Some(definition) = ctx.db.item().id().find(inventory.item_id.clone()) else {
-        return Err(format!("Unknown weapon definition {}", inventory.item_id));
+        return Err(WeaponInstanceError::MissingDefinition(
+            (&inventory.item_id).into(),
+        ));
     };
     if definition.kind != CatalogItemKind::Weapon || !definition.melee {
         return Ok(());
@@ -178,14 +197,20 @@ pub(crate) fn initialize_party_weapon(
         return Ok(());
     };
     if inventory.quantity != 1 {
-        return Err("Parametric weapons must be individual party inventory rows".into());
+        return Err(WeaponInstanceError::NonIndividual {
+            scope: CarriedInventoryScope::Party,
+            row: inventory.id.into(),
+        });
     }
     let object = crate::inventory_container::object_for_row(
         ctx,
         CarriedInventoryScope::Party,
-        inventory.id,
+        (inventory.id).into(),
     )?
-    .ok_or("Parametric party weapon has no stable physical object identity")?;
+    .ok_or(WeaponInstanceError::MissingStableObject {
+        scope: CarriedInventoryScope::Party,
+        row: inventory.id.into(),
+    })?;
     replace_design(ctx, object.id, &design)?;
     Ok(())
 }
@@ -203,10 +228,10 @@ pub(crate) fn delete_for_object(ctx: &ReducerContext, physical_object_id: u64) {
 
 pub(crate) fn fit_personal_holder(
     ctx: &ReducerContext,
-    character_id: u64,
-    holder_inventory_row_id: u64,
-    weapon_inventory_row_id: u64,
-) -> Result<(), String> {
+    character_id: adventuresim_core::identity::CharacterId,
+    holder_inventory_row_id: adventuresim_core::identity::InventoryItemId,
+    weapon_inventory_row_id: adventuresim_core::identity::InventoryItemId,
+) -> Result<(), WeaponInstanceError> {
     let holder_object = crate::inventory_container::require_object(
         ctx,
         character_id,
@@ -218,30 +243,37 @@ pub(crate) fn fit_personal_holder(
         CarriedInventoryScope::Personal,
         weapon_inventory_row_id,
     )?
-    .ok_or("Fitted weapon has no physical identity")?;
+    .ok_or(WeaponInstanceError::MissingStableObject {
+        scope: CarriedInventoryScope::Personal,
+        row: weapon_inventory_row_id,
+    })?;
     let weapon = ctx
         .db
         .weapon_instance()
         .physical_object_id()
         .find(weapon_object.id)
-        .ok_or("Fitted weapon has no parametric recipe")?;
-    let evaluated = evaluate_instance(&weapon, &weapon_object.item_id)
-        .ok_or("Fitted weapon recipe is invalid")?;
-    let expected_holder =
+        .ok_or(WeaponInstanceError::MissingParametricRecipe(
+            weapon_inventory_row_id,
+        ))?;
+    let weapon_key =
+        adventuresim_core::item_catalog::ItemDefinitionId::from(&weapon_object.item_id);
+    let evaluated = evaluate_instance(&weapon, &weapon_key)?;
+    let expected_holder: adventuresim_core::item_catalog::ItemDefinitionId =
         match adventuresim_weapon_model::recommended_holder(&weapon_object.item_id) {
-            Some(adventuresim_weapon_model::WeaponHolderKind::BladeSheath) => "scabbard",
-            Some(adventuresim_weapon_model::WeaponHolderKind::HaftLoop) => "weapon_loop",
-            None => return Err("Polearms cannot be fitted to a body-mounted holder".into()),
+            Some(adventuresim_weapon_model::WeaponHolderKind::BladeSheath) => "scabbard".into(),
+            Some(adventuresim_weapon_model::WeaponHolderKind::HaftLoop) => "weapon_loop".into(),
+            None => return Err(WeaponInstanceError::UnsupportedBodyHolder(weapon_key)),
         };
-    if holder_object.item_id != expected_holder {
-        return Err(format!(
-            "{} requires a {expected_holder}",
-            weapon_object.item_id
-        ));
+    if holder_object.item_id != expected_holder.as_str() {
+        return Err(WeaponInstanceError::WrongHolder {
+            weapon: weapon_key,
+            expected: expected_holder,
+            supplied: holder_object.item_id.into(),
+        });
     }
     let weapon_design = evaluated.design();
-    let holder_design =
-        default_holder_design(weapon_design).ok_or("Weapon has no procedural holder template")?;
+    let holder_design = default_holder_design(weapon_design)
+        .ok_or(WeaponInstanceError::MissingHolderTemplate(weapon_key))?;
     replace_holder_design(ctx, holder_object.id, &holder_design)?;
     Ok(())
 }
@@ -253,15 +285,21 @@ pub(crate) fn replace_holder_design(
     ctx: &ReducerContext,
     physical_object_id: u64,
     design: &WeaponHolderDesign,
-) -> Result<(), String> {
+) -> Result<(), WeaponInstanceError> {
     let object = ctx
         .db
         .inventory_object()
         .id()
         .find(physical_object_id)
-        .ok_or("Holder physical object not found")?;
+        .ok_or(WeaponInstanceError::MissingPhysicalObject(
+            WeaponRecipeKind::Holder,
+        ))?;
     if object.item_id != design.catalog_id {
-        return Err("Holder design chassis does not match its inventory object".into());
+        return Err(WeaponInstanceError::ChassisMismatch {
+            role: WeaponRecipeKind::Holder,
+            expected: object.item_id.into(),
+            supplied: (&design.catalog_id).into(),
+        });
     }
     let fit = WeaponHolderInstance::from_design(physical_object_id, design)?;
     if ctx
@@ -288,24 +326,30 @@ pub(crate) fn replace_design(
     ctx: &ReducerContext,
     physical_object_id: u64,
     design: &WeaponDesign,
-) -> Result<(), String> {
+) -> Result<(), WeaponInstanceError> {
     let object = ctx
         .db
         .inventory_object()
         .id()
         .find(physical_object_id)
-        .ok_or("Weapon physical object not found")?;
+        .ok_or(WeaponInstanceError::MissingPhysicalObject(
+            WeaponRecipeKind::Weapon,
+        ))?;
     let definition = ctx
         .db
         .item()
         .id()
         .find(object.item_id.clone())
-        .ok_or("Weapon catalog definition not found")?;
+        .ok_or(WeaponInstanceError::MissingCatalogDefinition)?;
     if definition.kind != CatalogItemKind::Weapon || !definition.melee {
-        return Err("Only melee weapon objects accept parametric designs".into());
+        return Err(WeaponInstanceError::NotMelee(object.item_id.into()));
     }
     if design.catalog_id != object.item_id {
-        return Err("Weapon design chassis does not match its inventory object".into());
+        return Err(WeaponInstanceError::ChassisMismatch {
+            role: WeaponRecipeKind::Weapon,
+            expected: object.item_id.into(),
+            supplied: (&design.catalog_id).into(),
+        });
     }
     let instance = WeaponInstance::from_design(physical_object_id, design)?;
     if ctx
@@ -333,7 +377,7 @@ pub(crate) fn combat_geometry(
     let object = crate::inventory_container::object_for_row(
         ctx,
         CarriedInventoryScope::Personal,
-        inventory_row_id,
+        (inventory_row_id).into(),
     )
     .ok()?
     .filter(|object| object.item_id == item_id)?;
@@ -342,7 +386,7 @@ pub(crate) fn combat_geometry(
         .weapon_instance()
         .physical_object_id()
         .find(object.id)?;
-    let evaluated = evaluate_instance(&instance, item_id)?;
+    let evaluated = evaluate_instance(&instance, &item_id.into()).ok()?;
     let design = evaluated.design();
     let derived = evaluated.derived();
     adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
@@ -363,9 +407,9 @@ pub(crate) fn combat_geometry(
 /// authenticated material shells and must never silently fall back on corruption.
 pub(crate) fn fitted_holder_mass(
     ctx: &ReducerContext,
-    inventory_row_id: u64,
-    item_id: &str,
-) -> Result<Option<f32>, String> {
+    inventory_row_id: adventuresim_core::identity::InventoryItemId,
+    item_id: &adventuresim_core::item_catalog::ItemDefinitionId,
+) -> Result<Option<f32>, WeaponInstanceError> {
     let Some(object) = crate::inventory_container::object_for_row(
         ctx,
         CarriedInventoryScope::Personal,
@@ -382,11 +426,13 @@ pub(crate) fn fitted_holder_mass(
     else {
         return Ok(None);
     };
-    if object.item_id != item_id {
-        return Err("Holder object has the wrong catalog identity".into());
+    if object.item_id != item_id.as_str() {
+        return Err(WeaponInstanceError::HolderIdentityMismatch {
+            expected: item_id.clone(),
+            actual: object.item_id.into(),
+        });
     }
-    let evaluated = evaluate_holder_instance(&instance, item_id)
-        .ok_or("Holder instance does not match its authenticated construction")?;
+    let evaluated = evaluate_holder_instance(&instance, item_id)?;
     Ok(Some(evaluated.derived().mass_kg))
 }
 
@@ -395,12 +441,62 @@ mod tests {
     use super::*;
 
     #[test]
+    fn invalid_recipe_retains_its_codec_cause_through_inventory_issuance() {
+        use std::error::Error;
+        let mut design = default_design("longsword").unwrap();
+        design.recipe.components.clear();
+        let projection = WeaponInstance::from_design(42, &design).unwrap_err();
+        assert!(matches!(&projection, WeaponProjectionError::Evaluation(
+            adventuresim_weapon_model::CodecError::InvalidDesign(errors)
+        ) if !errors.is_empty()));
+        let grant = crate::item::InventoryGrantError::from(WeaponInstanceError::from(projection));
+        let instance = grant
+            .source()
+            .unwrap()
+            .downcast_ref::<WeaponInstanceError>()
+            .unwrap();
+        let projection = instance
+            .source()
+            .unwrap()
+            .downcast_ref::<WeaponProjectionError>()
+            .unwrap();
+        assert!(
+            matches!(projection.source().unwrap().downcast_ref::<adventuresim_weapon_model::CodecError>(),
+            Some(adventuresim_weapon_model::CodecError::InvalidDesign(errors)) if !errors.is_empty())
+        );
+    }
+
+    #[test]
+    fn persisted_scaling_preserves_rounding_and_reports_the_failed_field() {
+        assert_eq!(
+            checked_scaled_u32(1.2345, 1_000.0, WeaponProjectionField::Mass).unwrap(),
+            1235
+        );
+        assert_eq!(
+            checked_scaled_u32(-0.0, 1_000.0, WeaponProjectionField::Mass).unwrap(),
+            0
+        );
+        assert_eq!(
+            checked_scaled_u32(u32::MAX as f32, 1.0, WeaponProjectionField::Length).unwrap(),
+            u32::MAX
+        );
+        for value in [f32::NAN, f32::INFINITY, f32::NEG_INFINITY, -1.0, f32::MAX] {
+            let error = checked_scaled_u32(value, 1_000.0, WeaponProjectionField::HolderGripToTip)
+                .unwrap_err();
+            assert!(matches!(
+                error,
+                WeaponProjectionError::OutOfRange(WeaponProjectionField::HolderGripToTip)
+            ));
+        }
+    }
+
+    #[test]
     fn persisted_projection_round_trips_and_rejects_tampering() {
         let design = default_design("longsword").expect("longsword recipe");
         let mut instance = WeaponInstance::from_design(42, &design).expect("instance");
-        assert!(evaluate_instance(&instance, "longsword").is_some());
+        assert!(evaluate_instance(&instance, &"longsword".into()).is_ok());
         instance.recipe[0] ^= 0x55;
-        assert!(evaluate_instance(&instance, "longsword").is_none());
+        assert!(evaluate_instance(&instance, &"longsword".into()).is_err());
     }
 
     #[test]

@@ -169,7 +169,9 @@ fn consume_narrative_party_item(
     item_id: &str,
     quantity: u32,
 ) -> Result<(), String> {
-    if crate::inventory_amount::is_measured_item(ctx, item_id) || item_is_durable(ctx, item_id) {
+    if crate::inventory_amount::is_measured_item(ctx, &(item_id).into())
+        || item_is_durable(ctx, item_id)
+    {
         return Err("Narrative costs currently require an ordinary stackable item".into());
     }
     let mut stacks: Vec<_> = ctx
@@ -778,7 +780,11 @@ pub(crate) fn materialize_chance_narrative_encounter(
     selection: &adventuresim_core::encounter::NarrativeSelection,
     origin: NarrativeEncounterOrigin,
 ) -> Result<(), String> {
-    require_no_unresolved_encounter(ctx, party_id)?;
+    require_no_unresolved_encounter(
+        ctx,
+        &adventuresim_core::identity::PartyId::try_new(party_id.to_owned())
+            .map_err(crate::strategic::PendingEncounterError::PartyIdentity)?,
+    )?;
     let journey = ctx
         .db
         .party_journey_authority()
@@ -1070,8 +1076,7 @@ pub(crate) fn resolve_narrative_combat_followup(
         )?;
     }
     let recognized_virtue =
-        adventuresim_core::road_encounter_catalog::exemplified_virtue(&payload.personality)
-            ;
+        adventuresim_core::road_encounter_catalog::exemplified_virtue(&payload.personality);
     for development in &payload.personality {
         let virtue = development.virtue;
         crate::personality::apply_personality_development(
@@ -1276,8 +1281,10 @@ pub fn submit_puzzle_challenge(
     expected_revision: u32,
     submission_json: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let party_id = character.party_id.ok_or("Must be in a party")?;
     let party = ctx
         .db
@@ -1421,7 +1428,8 @@ pub fn submit_puzzle_challenge(
     let correct = puzzle
         .check(&submission)
         .map_err(|_| "Puzzle answer does not match this challenge")?;
-    let now = crate::time::refresh_clock(ctx)?;
+    let now = crate::time::refresh_clock(ctx)
+        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
     let resulting_revision = expected_revision.saturating_add(1);
     ctx.db
         .challenge_attempt_receipt()
@@ -1469,7 +1477,8 @@ pub fn resolve_errantry_road_challenge(
     choice: String,
     action_id: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Road challenge action ID is invalid".into());
     }
@@ -1489,7 +1498,8 @@ pub fn resolve_errantry_road_challenge(
             Err("Conflicting road challenge retry".into())
         };
     }
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let party_id = character.party_id.ok_or("Must be in a party")?;
     let party = ctx
         .db
@@ -1582,7 +1592,8 @@ pub fn resolve_errantry_road_challenge(
             "Bandage the wounded character through the ordinary Surgery interface first".into(),
         );
     }
-    let now = crate::time::refresh_clock(ctx)?;
+    let now = crate::time::refresh_clock(ctx)
+        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
     for requirement in &selected.requirements {
         match requirement {
             adventuresim_core::road_encounter_catalog::Requirement::Skill {
@@ -1602,7 +1613,8 @@ pub fn resolve_errantry_road_challenge(
             }
             adventuresim_core::road_encounter_catalog::Requirement::Religion { religion } => {
                 let religion = narrative_religion(*religion);
-                let check = crate::social::target_religion_check(ctx, character_id, religion)?;
+                let check =
+                    crate::social::target_religion_check(ctx, (character_id).into(), religion)?;
                 if !check.is_finite() || check <= 0.0 {
                     return Err(
                         "The chosen encounter action requires knowledge of this faith".into(),
@@ -1643,7 +1655,10 @@ pub fn resolve_errantry_road_challenge(
                 skill,
                 difficulty_milli,
             } => (
-                crate::condition::mental_check(ctx, character_id, narrative_skill(*skill))?,
+                crate::condition::mental_check(ctx, (character_id).into(), narrative_skill(*skill))
+                    .map_err(|error: crate::condition::StrategicConditionError| {
+                        error.to_string()
+                    })?,
                 *difficulty_milli,
             ),
             adventuresim_core::road_encounter_catalog::Check::Religion {
@@ -1652,7 +1667,7 @@ pub fn resolve_errantry_road_challenge(
             } => (
                 crate::social::target_religion_check(
                     ctx,
-                    character_id,
+                    (character_id).into(),
                     narrative_religion(*religion),
                 )?,
                 *difficulty_milli,
@@ -1680,8 +1695,7 @@ pub fn resolve_errantry_road_challenge(
         apply_narrative_effect(ctx, &challenge.id, &party_id, now, effect)?;
     }
     let recognized_virtue =
-        adventuresim_core::road_encounter_catalog::exemplified_virtue(&selected.personality)
-            ;
+        adventuresim_core::road_encounter_catalog::exemplified_virtue(&selected.personality);
     for development in &selected.personality {
         let virtue = development.virtue;
         crate::personality::apply_personality_development(
@@ -1910,7 +1924,7 @@ fn materialize_development_road_encounter(
             ErrantryLaunch::DirectDemoCamp(PuzzleKind::OrderedSigils),
         )?;
     }
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())?;
     let party_id = character.party_id.ok_or("Must be in a party")?;
     let party = ctx
         .db
@@ -1995,7 +2009,8 @@ pub fn accept_order_errantry(
     dialogue_session_id: String,
     action_id: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Errantry acceptance action ID is invalid".into());
     }
@@ -2070,7 +2085,7 @@ fn materialize_order_errantry(
     )>,
     launch: ErrantryLaunch,
 ) -> Result<MaterializedErrantry, String> {
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())?;
     let party_id = character.party_id.clone().ok_or("Must be in a party")?;
     let mut party = ctx
         .db
@@ -2131,21 +2146,25 @@ fn materialize_order_errantry(
         .challenge_authority()
         .party_id()
         .filter(&party_id)
-        .filter(|challenge| match (launch, ErrantryChallengeId::parse(&challenge.id)) {
-            (ErrantryLaunch::NormalTravel, Some(identity)) => {
-                identity.namespace == ErrantryChallengeNamespace::Order
-                    && identity.puzzle_kind == puzzle_kind.slug()
-                    && identity.character_id == character_id
-            }
-            (ErrantryLaunch::DirectDemoCamp(_), Some(identity)) => {
-                identity.namespace == ErrantryChallengeNamespace::Demo
-                    && identity.character_id == character_id
-            }
-            (_, None) => false,
-        })
+        .filter(
+            |challenge| match (launch, ErrantryChallengeId::parse(&challenge.id)) {
+                (ErrantryLaunch::NormalTravel, Some(identity)) => {
+                    identity.namespace == ErrantryChallengeNamespace::Order
+                        && identity.puzzle_kind == puzzle_kind.slug()
+                        && identity.character_id == character_id
+                }
+                (ErrantryLaunch::DirectDemoCamp(_), Some(identity)) => {
+                    identity.namespace == ErrantryChallengeNamespace::Demo
+                        && identity.character_id == character_id
+                }
+                (_, None) => false,
+            },
+        )
         .count() as u64;
     let suffix = errantry_suffix(character_id, ordinal, launch);
-    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id, &[ordinal]).to_u64();
+    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter")
+        .seed(character_id, &[ordinal])
+        .to_u64();
     let road_definition =
         adventuresim_core::road_encounter_catalog::select_quest_eligible(seed, ordinal)
             .ok_or("No quest-eligible road encounter is available")?;
@@ -2365,7 +2384,7 @@ fn materialize_order_errantry(
     });
     crate::investigation::disclose_exact_case_site(
         ctx,
-        character_id,
+        (character_id).into(),
         &case_id,
         &site,
         "the Order of St. George",
@@ -2416,10 +2435,10 @@ fn materialize_order_errantry(
                 .db
                 .character()
                 .id()
-                .find(member_id)
+                .find(u64::from(member_id))
                 .ok_or("Party member not found")?;
             member.current_settlement_id = None;
-            crate::investigation::set_character_case_site(ctx, member_id, None)?;
+            crate::investigation::set_character_case_site(ctx, (member_id).into(), None)?;
             ctx.db.character().id().update(member);
         }
         bind_errantry_trials_to_current_camp(ctx, &party_id)?;
@@ -2735,7 +2754,10 @@ mod challenge_source_boundary_tests {
 
     #[test]
     fn courier_catalog_binds_distinct_material_and_personality_routes() {
-        use adventuresim_core::{personality::ChivalricVirtue, road_encounter_catalog::{Effect, Requirement}};
+        use adventuresim_core::{
+            personality::ChivalricVirtue,
+            road_encounter_catalog::{Effect, Requirement},
+        };
         let definition =
             adventuresim_core::road_encounter_catalog::encounter("wounded_order_courier_v1")
                 .unwrap();
@@ -2754,12 +2776,18 @@ mod challenge_source_boundary_tests {
             choice("rally").requirements[0],
             Requirement::Skill { .. }
         ));
-        assert_eq!(choice("rally").personality[0].virtue, ChivalricVirtue::Courage);
+        assert_eq!(
+            choice("rally").personality[0].virtue,
+            ChivalricVirtue::Courage
+        );
         assert!(matches!(
             choice("consecrate").requirements[0],
             Requirement::Religion { .. }
         ));
-        assert_eq!(choice("consecrate").personality[0].virtue, ChivalricVirtue::Faith);
+        assert_eq!(
+            choice("consecrate").personality[0].virtue,
+            ChivalricVirtue::Faith
+        );
         assert!(choice("rob").personality[0].delta < 0);
         assert!(choice("ignore").effects.is_empty() && choice("ignore").personality.is_empty());
     }

@@ -187,7 +187,7 @@ impl DistanceField {
         let io_res = GpuResource::Texture3d(io.clone());
 
         let mut final_params = parameters.unwrap_or_default();
-        final_params.insert("smin_k", k);
+        final_params.insert("smin_k".into(), (k).into());
 
         Map::execute_with_parameters(
             context,
@@ -218,7 +218,7 @@ impl DistanceField {
         let output_res = GpuResource::Texture3d(output.clone());
 
         let mut params = PassParameters::new();
-        params.insert("val_b", PassParameter::Texture3d(b.clone()));
+        params.insert("val_b".into(), PassParameter::Texture3d(b.clone()));
 
         Map::execute_with_parameters(
             context,
@@ -258,8 +258,8 @@ impl DistanceField {
         let output_res = GpuResource::Texture3d(output.clone());
 
         let mut params = PassParameters::new();
-        params.insert("val_b", PassParameter::Texture3d(b.clone()));
-        params.insert("k", k);
+        params.insert("val_b".into(), PassParameter::Texture3d(b.clone()));
+        params.insert("k".into(), (k).into());
 
         Map::execute_with_parameters(
             context,

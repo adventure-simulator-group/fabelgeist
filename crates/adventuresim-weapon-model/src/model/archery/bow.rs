@@ -1,12 +1,13 @@
 //! Limb laminations, tip overlays and independent working-string parts.
 use super::*;
+use crate::ConstructionError;
 pub(super) fn bow_limbs(
     r: &ResolvedComponent,
     p: &ArcheryBowParameters,
     upper: &[Point],
     lower: &[Point],
     detail: Detail,
-) -> Result<Vec<PartSource>, String> {
+) -> Result<Vec<PartSource>, ConstructionError> {
     let composite = p.construction == ArcheryBowConstruction::Composite;
     let section = match p.limb_section.as_ref() {
         Some(ArcheryBowLimbSection::DShape) => Section::DShape,
@@ -84,7 +85,7 @@ pub(super) fn bow_furniture(
     lower: &[Point],
     detail: Detail,
     parts: &mut Vec<PartSource>,
-) -> Result<(), String> {
+) -> Result<(), ConstructionError> {
     parts.push(part(
         Solid::sweep(
             &[
@@ -136,7 +137,7 @@ pub(super) fn bow_strings(
     lower: &[Point],
     detail: Detail,
     parts: &mut Vec<PartSource>,
-) -> Result<(), String> {
+) -> Result<(), ConstructionError> {
     let x = -p.brace_height.get();
     let half = p.loop_gap.get() / 2.0;
     let (upper_attachment, upper_loop) = tip_loop(p, upper, detail);

@@ -891,7 +891,12 @@ mod tests {
                 .any(|monster| monster.id == "authority_added_threat")
         );
         let error = crate::item_references::validate_gameplay_references(&expanded).unwrap_err();
-        assert_eq!(error.ids, ["authority_missing_loot"]);
+        assert_eq!(
+            error.as_slice(),
+            &[crate::item_catalog::ItemDefinitionId::from(
+                "authority_missing_loot"
+            )]
+        );
         let mut documents = expanded.documents;
         documents[0]
             .monsters

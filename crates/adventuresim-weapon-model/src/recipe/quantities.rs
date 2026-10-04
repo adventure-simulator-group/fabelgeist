@@ -9,11 +9,11 @@ macro_rules! quantity {
         #[serde(transparent)]
         pub struct $name(f64);
         impl $name {
-            pub fn new(value: f64) -> Result<Self, &'static str> {
+            pub fn new(value: f64) -> Result<Self, NonFiniteQuantity> {
                 if value.is_finite() {
                     Ok(Self(if value == 0.0 { 0.0 } else { value }))
                 } else {
-                    Err("quantity must be finite")
+                    Err(NonFiniteQuantity)
                 }
             }
             pub fn get(self) -> f64 {
@@ -96,3 +96,7 @@ impl<'de> Deserialize<'de> for Direction {
         }
     }
 }
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, thiserror::Error)]
+#[error("quantity must be finite")]
+pub struct NonFiniteQuantity;

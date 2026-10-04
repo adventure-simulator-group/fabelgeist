@@ -247,7 +247,7 @@ fn local_chat_writes_are_gateway_only_and_raw_rows_are_private() {
         .nth(1)
         .and_then(|tail| tail.split("#[reducer]").next())
         .expect("local chat reducer");
-    assert!(reducer.contains("require_strategic_gateway(ctx)?"));
+    assert!(reducer.split_whitespace().collect::<String>().contains("require_strategic_gateway(ctx).map_err(|error:crate::strategic::GatewayAdmissionError|error.to_string())?"));
     assert!(reducer.contains("location_id: String"));
     let view = source
         .split("pub fn backend_local_chat_messages")
@@ -423,7 +423,7 @@ fn encounter_resolution_requires_character_authority_and_uses_private_entropy() 
         .nth(1)
         .and_then(|tail| tail.split("pub fn complete_quest").next())
         .expect("encounter resolution reducer");
-    assert!(reducer.contains("require_strategic_character_authority(ctx, character_id)?"));
+    assert!(reducer.split_whitespace().collect::<String>().contains("require_strategic_character_authority(ctx,(character_id).into()).map_err(|error:crate::strategic::StrategicCharacterAuthorityError|error.to_string())?"));
     assert!(reducer.contains("party_journey_encounter_authority()"));
 
     let encounter = source
@@ -720,19 +720,39 @@ fn incidents_own_sources_sites_and_lifecycle_without_quest_side_effects() {
 #[test]
 fn recruitment_offer_lifecycle_expires_and_closes_stale_bindings() {
     assert_eq!(
-        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, StrategicMinute::new(10), StrategicMinute::new(20), true),
+        refreshed_recruitment_offer_status(
+            RecruitmentOfferStatus::Open,
+            StrategicMinute::new(10),
+            StrategicMinute::new(20),
+            true
+        ),
         RecruitmentOfferStatus::Open
     );
     assert_eq!(
-        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, StrategicMinute::new(20), StrategicMinute::new(20), true),
+        refreshed_recruitment_offer_status(
+            RecruitmentOfferStatus::Open,
+            StrategicMinute::new(20),
+            StrategicMinute::new(20),
+            true
+        ),
         RecruitmentOfferStatus::Expired
     );
     assert_eq!(
-        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, StrategicMinute::new(10), StrategicMinute::new(20), false),
+        refreshed_recruitment_offer_status(
+            RecruitmentOfferStatus::Open,
+            StrategicMinute::new(10),
+            StrategicMinute::new(20),
+            false
+        ),
         RecruitmentOfferStatus::Closed
     );
     assert_eq!(
-        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, StrategicMinute::new(20), StrategicMinute::new(20), false),
+        refreshed_recruitment_offer_status(
+            RecruitmentOfferStatus::Open,
+            StrategicMinute::new(20),
+            StrategicMinute::new(20),
+            false
+        ),
         RecruitmentOfferStatus::Closed
     );
     let first = renewed_recruitment_offer_expiry(StrategicMinute::new(20));

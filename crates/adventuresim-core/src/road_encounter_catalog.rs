@@ -994,8 +994,10 @@ pub fn definitions() -> &'static [EncounterDefinition] {
         let value: Vec<EncounterDefinition> = serde_json::from_str(ROAD_ENCOUNTER_CATALOG_JSON)
             .expect("embedded road encounter catalog");
         validate_definitions(&value).expect("validated road encounter catalog");
-        validate_item_references(&value, |id| crate::item_catalog::definition(id).is_some())
-            .expect("validated road encounter item references");
+        validate_item_references(&value, |id| {
+            crate::item_catalog::definition(&(id).into()).is_some()
+        })
+        .expect("validated road encounter item references");
         value
     })
 }
@@ -1747,7 +1749,7 @@ mod tests {
             } if item_id == "travel_ration"
         ));
         assert_eq!(
-            crate::item_catalog::definition("travel_ration")
+            crate::item_catalog::definition(&"travel_ration".into())
                 .unwrap()
                 .base_value
                 * 4,
@@ -2143,8 +2145,8 @@ mod tests {
             )));
             assert!(route.quest_reward_tags == ["prepare_bows_against_melee_only_opposition"]);
         }
-        let bow = crate::item_catalog::definition("self_bow").unwrap();
-        let arrow = crate::item_catalog::definition("arrow").unwrap();
+        let bow = crate::item_catalog::definition(&"self_bow".into()).unwrap();
+        let arrow = crate::item_catalog::definition(&"arrow".into()).unwrap();
         assert_eq!(bow.base_value + arrow.base_value * 8, 16);
         let command = choice("coordinate_bloodless_recovery");
         let command_prose = format!("{} {}", command.response[0].text, command.result);
@@ -2228,8 +2230,8 @@ mod tests {
                 ["prepare_bows_against_melee_only_opposition"]
             );
         }
-        assert!(crate::item_catalog::definition("self_bow").is_some());
-        assert!(crate::item_catalog::definition("arrow").is_some());
+        assert!(crate::item_catalog::definition(&"self_bow".into()).is_some());
+        assert!(crate::item_catalog::definition(&"arrow".into()).is_some());
         let command = choice("coordinate_reeves_mist_line");
         assert!(
             command
@@ -2284,7 +2286,7 @@ mod tests {
                 ["prepare_heater_shield_against_blade_only_opposition"]
             );
         }
-        let shield = crate::item_catalog::definition("heater_shield").unwrap();
+        let shield = crate::item_catalog::definition(&"heater_shield".into()).unwrap();
         assert!(matches!(
             &shield.kind,
             crate::item_catalog::ItemKind::Shield { block, .. } if *block > 0.0
@@ -2370,7 +2372,7 @@ mod tests {
                 ["prepare_arming_doublet_against_blade_only_opposition"]
             );
         }
-        let doublet = crate::item_catalog::definition("arming_doublet").unwrap();
+        let doublet = crate::item_catalog::definition(&"arming_doublet".into()).unwrap();
         assert_eq!(doublet.base_value, 12);
         assert!(matches!(&doublet.kind,
             crate::item_catalog::ItemKind::Armor { coverage, resistance, padding, .. }
@@ -2403,8 +2405,8 @@ mod tests {
         assert!(evil_effects.contains("mail_shirt") && evil_effects.contains("war_hammer"));
         assert!(evil.personality.len() == 1 && evil.personality[0].delta < 0);
         assert_eq!(exemplified_virtue(&evil.personality), None);
-        let mail = crate::item_catalog::definition("mail_shirt").unwrap();
-        let hammer = crate::item_catalog::definition("war_hammer").unwrap();
+        let mail = crate::item_catalog::definition(&"mail_shirt".into()).unwrap();
+        let hammer = crate::item_catalog::definition(&"war_hammer".into()).unwrap();
         assert_eq!(
             96 + mail.base_value + hammer.base_value + doublet.base_value,
             177
@@ -2458,7 +2460,7 @@ mod tests {
                     .any(|id| effects.contains(id))
             );
         }
-        let halberd = crate::item_catalog::definition("halberd").unwrap();
+        let halberd = crate::item_catalog::definition(&"halberd".into()).unwrap();
         let crate::item_catalog::ItemKind::Weapon {
             reach_m, precision, ..
         } = halberd.kind
@@ -2478,7 +2480,7 @@ mod tests {
         assert!(evil_effects.contains("\"amount\":96") && evil_effects.contains("jack_of_plates"));
         assert!(evil.personality.len() == 1 && evil.personality[0].delta < 0);
         assert_eq!(exemplified_virtue(&evil.personality), None);
-        let jack = crate::item_catalog::definition("jack_of_plates").unwrap();
+        let jack = crate::item_catalog::definition(&"jack_of_plates".into()).unwrap();
         assert_eq!(jack.base_value, 35);
         assert!(96 + jack.base_value + halberd.base_value == 155 && 155 > 6 * halberd.base_value);
         assert!(tagged(evil, "loot_secured_before_release"));
@@ -2551,11 +2553,12 @@ mod tests {
                     .any(|id| effects.contains(id))
             );
         }
-        let mace = crate::item_catalog::definition("flanged_mace").unwrap();
+        let mace = crate::item_catalog::definition(&"flanged_mace".into()).unwrap();
         let weapon = serde_json::to_string(&mace.kind).unwrap();
         assert_eq!(mace.base_value, 10);
         assert!(
-            (crate::item_catalog::weapon_precision("flanged_mace").unwrap() - 0.1).abs() < 0.01
+            (crate::item_catalog::weapon_precision(&"flanged_mace".into()).unwrap() - 0.1).abs()
+                < 0.01
         );
         assert!(weapon.contains(r#""melee":true"#) && weapon.contains(r#""ranged":false"#));
         let retainer = crate::bestiary::ThreatId::ArmedRetainer.profile();

@@ -1,11 +1,15 @@
 //! Measured alcohol consumption, durable evening history, and shared selection.
 
+mod consumption_error;
+pub(crate) use consumption_error::AlcoholConsumptionError;
+include!("alcohol/consumption.rs");
+
 mod rest_ledger;
 use rest_ledger::mark_evening_evaluated;
 
 use adventuresim_core::alcohol::{
     AlcoholProperties, HEAVY_ETHANOL_ML, LOW_MORALE_THRESHOLD, NIGHTLY_MORALE_SOURCE_ID,
-    ROLLING_WEEK_DAYS, TemperancePreference, emergency_hydration_ml, ethanol_ml, evening_target,
+    TemperancePreference, emergency_hydration_ml, ethanol_ml, evening_target,
     nightly_morale_effect, rest_evenings,
 };
 use adventuresim_core::inventory_measurement::ConsumableFractionMicros;
@@ -46,40 +50,48 @@ pub fn properties(item: &crate::Item) -> AlcoholProperties {
     }
 }
 
-fn ledger_id(character_id: u64, evening_id: u64) -> String {
+fn ledger_id(
+    character_id: adventuresim_core::identity::CharacterId,
+    evening_id: adventuresim_core::alcohol::EveningId,
+) -> String {
     format!("{character_id}:{evening_id}")
 }
 
 pub fn record_consumed_ethanol(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     minute: StrategicMinute,
     amount: u32,
 ) {
     if amount == 0 {
         return;
     }
-    let evening_id = adventuresim_core::alcohol::evening_id(minute);
-    let id = ledger_id(character_id, evening_id);
+    let evening_id = adventuresim_core::alcohol::EveningId::from_minute(minute);
+    let id = ledger_id((character_id).into(), evening_id);
     if let Some(mut row) = ctx.db.alcohol_consumption().id().find(&id) {
         row.ethanol_ml = row.ethanol_ml.saturating_add(amount);
         ctx.db.alcohol_consumption().id().update(row);
     } else {
         ctx.db.alcohol_consumption().insert(AlcoholConsumption {
             id,
-            character_id,
-            evening_id,
+            character_id: u64::from(character_id),
+            evening_id: u64::from(evening_id),
             ethanol_ml: amount,
             morale_evaluated: false,
         });
     }
 }
 
-fn target_for(ctx: &ReducerContext, owner: u64, party_scope: bool, item_id: &str) -> u32 {
+fn target_for(
+    ctx: &ReducerContext,
+    owner: adventuresim_core::identity::CharacterId,
+    party_scope: bool,
+    item_id: &str,
+) -> u32 {
     ctx.db
         .inventory_quantity_target()
         .owner_and_scope()
-        .filter((owner, party_scope))
+        .filter((u64::from(owner), party_scope))
         .find(|row| row.item_id == item_id)
         .map_or(0, |row| row.quantity)
 }
@@ -103,7 +115,7 @@ fn stack_fraction(ctx: &ReducerContext, stack: &Stack) -> ConsumableFractionMicr
 
 fn available_item_micros(
     ctx: &ReducerContext,
-    owner: u64,
+    owner: adventuresim_core::identity::CharacterId,
     party_scope: bool,
     item_id: &str,
     settled: bool,
@@ -112,7 +124,7 @@ fn available_item_micros(
         ctx.db
             .character()
             .id()
-            .find(owner)
+            .find(u64::from(owner))
             .and_then(|character| character.party_id)
             .map_or(0_u64, |party_id| {
                 ctx.db
@@ -140,7 +152,7 @@ fn available_item_micros(
         ctx.db
             .inventory_item()
             .character_id()
-            .filter(owner)
+            .filter(u64::from(owner))
             .filter(|row| row.item_id == item_id)
             .filter(|row| {
                 !crate::inventory_container::row_is_fireplace_rooted(
@@ -159,7 +171,7 @@ fn available_item_micros(
             .sum()
     };
     let reserve = if settled {
-        u64::from(target_for(ctx, owner, party_scope, item_id))
+        u64::from(target_for(ctx, (owner).into(), party_scope, item_id))
             .saturating_mul(u64::from(ConsumableFractionMicros::MICROS_PER_WHOLE))
     } else {
         0
@@ -169,12 +181,12 @@ fn available_item_micros(
 
 fn available_stacks(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     settled: bool,
     allow_medical: bool,
     hydration: bool,
 ) -> Vec<(Stack, crate::Item, ConsumableFractionMicros)> {
-    let character = match ctx.db.character().id().find(character_id) {
+    let character = match ctx.db.character().id().find(u64::from(character_id)) {
         Some(row) => row,
         None => return Vec::new(),
     };
@@ -196,8 +208,13 @@ fn available_stacks(
                     && ethanol_ml(p) > 0
                     && (!hydration || emergency_hydration_ml(p) > 0)
                     && (allow_medical || !p.disinfectant_focused)
-                    && available_item_micros(ctx, party.leader_id, true, &stack.item_id, settled)
-                        > 0
+                    && available_item_micros(
+                        ctx,
+                        (party.leader_id).into(),
+                        true,
+                        &stack.item_id,
+                        settled,
+                    ) > 0
                 {
                     let tagged = Stack::Party(stack);
                     let available_micros =
@@ -205,7 +222,7 @@ fn available_stacks(
                             .get()
                             .min(available_item_micros(
                                 ctx,
-                                party.leader_id,
+                                (party.leader_id).into(),
                                 true,
                                 &def.id,
                                 settled,
@@ -219,7 +236,12 @@ fn available_stacks(
             }
         }
     }
-    for stack in ctx.db.inventory_item().character_id().filter(character_id) {
+    for stack in ctx
+        .db
+        .inventory_item()
+        .character_id()
+        .filter(u64::from(character_id))
+    {
         if crate::inventory_container::row_is_fireplace_rooted(
             ctx,
             CarriedInventoryScope::Personal,
@@ -233,7 +255,8 @@ fn available_stacks(
                 && ethanol_ml(p) > 0
                 && (!hydration || emergency_hydration_ml(p) > 0)
                 && (allow_medical || !p.disinfectant_focused)
-                && available_item_micros(ctx, character_id, false, &stack.item_id, settled) > 0
+                && available_item_micros(ctx, (character_id).into(), false, &stack.item_id, settled)
+                    > 0
             {
                 let tagged = Stack::Personal(stack);
                 let available_micros =
@@ -241,7 +264,7 @@ fn available_stacks(
                         .get()
                         .min(available_item_micros(
                             ctx,
-                            character_id,
+                            (character_id).into(),
                             false,
                             &def.id,
                             settled,
@@ -276,41 +299,9 @@ fn available_stacks(
     rows
 }
 
-fn consume_stack(
-    ctx: &ReducerContext,
-    stack: Stack,
-    requested_fraction: ConsumableFractionMicros,
-) -> Result<ConsumableFractionMicros, String> {
-    let (scope, row_id, available) = match &stack {
-        Stack::Party(row) => (
-            CarriedInventoryScope::Party,
-            row.id,
-            crate::inventory_amount::party_fraction(ctx, row.id),
-        ),
-        Stack::Personal(row) => (
-            CarriedInventoryScope::Personal,
-            row.id,
-            crate::inventory_amount::personal_fraction(ctx, row.id),
-        ),
-    };
-    crate::inventory_container::reconcile_consumed_row(ctx, scope, row_id, false)?;
-    let consumed = match stack {
-        Stack::Party(row) => {
-            crate::inventory_amount::consume_party(ctx, row.id, requested_fraction)?
-        }
-        Stack::Personal(row) => {
-            crate::inventory_amount::consume_personal(ctx, row.id, requested_fraction)?
-        }
-    };
-    if available.is_some_and(|amount| consumed >= amount) {
-        crate::inventory_container::reconcile_consumed_row(ctx, scope, row_id, true)?;
-    }
-    Ok(consumed)
-}
-
 fn consume_for_ethanol(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     target: u32,
     settled: bool,
     allow_medical: bool,
@@ -318,7 +309,7 @@ fn consume_for_ethanol(
     let mut total = 0_u32;
     while total < target {
         let Some((stack, def, available)) =
-            available_stacks(ctx, character_id, settled, allow_medical, false)
+            available_stacks(ctx, (character_id).into(), settled, allow_medical, false)
                 .into_iter()
                 .next()
         else {
@@ -340,20 +331,26 @@ fn consume_for_ethanol(
     total
 }
 
-fn current_morale(ctx: &ReducerContext, character_id: u64) -> f32 {
+fn current_morale(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) -> f32 {
     ctx.db
         .character_strategic_condition()
         .character_id()
-        .find(character_id)
+        .find(u64::from(character_id))
         .map_or(0.0, |row| row.morale)
 }
 
-fn ordinary_potable_exists(ctx: &ReducerContext, character_id: u64) -> bool {
+fn ordinary_potable_exists(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+) -> bool {
     let personal = ctx
         .db
         .inventory_item()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .any(|row| {
             !crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
@@ -371,7 +368,7 @@ fn ordinary_potable_exists(ctx: &ReducerContext, character_id: u64) -> bool {
             .db
             .character()
             .id()
-            .find(character_id)
+            .find(u64::from(character_id))
             .and_then(|row| row.party_id)
             .is_some_and(|party_id| {
                 ctx.db
@@ -393,19 +390,26 @@ fn ordinary_potable_exists(ctx: &ReducerContext, character_id: u64) -> bool {
             })
 }
 
-fn had_recent_heavy(ctx: &ReducerContext, character_id: u64, evening: u64) -> bool {
+fn had_recent_heavy(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+    evening: adventuresim_core::alcohol::EveningId,
+) -> bool {
     ctx.db
         .alcohol_consumption()
         .by_character()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .any(|row| {
-            row.evening_id < evening
-                && evening - row.evening_id < ROLLING_WEEK_DAYS
+            adventuresim_core::alcohol::EveningId::new(row.evening_id).is_recent_prior_to(evening)
                 && row.ethanol_ml >= HEAVY_ETHANOL_ML
         })
 }
 
-fn tavern_purchase(ctx: &ReducerContext, character_id: u64, target: u32) -> u32 {
+fn tavern_purchase(
+    ctx: &ReducerContext,
+    character_id: adventuresim_core::identity::CharacterId,
+    target: u32,
+) -> u32 {
     let Some(def) = ctx.db.item().id().find(TAVERN_DRINK_ITEM_ID.to_string()) else {
         return 0;
     };
@@ -416,12 +420,12 @@ fn tavern_purchase(ctx: &ReducerContext, character_id: u64, target: u32) -> u32 
         target,
         each,
         price,
-        crate::item::personal_currency_total(ctx, character_id),
+        crate::item::personal_currency_total(ctx, character_id.into()),
     );
     for _ in 0..units {
         // Affordability was computed from the same personal-only balance. Keep
         // the reducer transaction authoritative if inventory changed.
-        if crate::item::consume_personal_currency(ctx, character_id, price).is_err() {
+        if crate::item::consume_personal_currency(ctx, (character_id).into(), price).is_err() {
             break;
         }
         bought = bought.saturating_add(each);
@@ -431,21 +435,22 @@ fn tavern_purchase(ctx: &ReducerContext, character_id: u64, target: u32) -> u32 
 
 pub fn process_rest_evenings(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     start: StrategicMinute,
     end: StrategicMinute,
     settled: bool,
 ) -> Result<(), String> {
     use crate::personality::Temperance;
-    let temperament = crate::personality::personality_or_neutral(ctx, character_id).temperance;
+    let temperament =
+        crate::personality::personality_or_neutral(ctx, (character_id).into()).temperance;
     let temperance_score =
-        crate::personality::personality_scores_or_neutral(ctx, character_id).temperance;
+        crate::personality::personality_scores_or_neutral(ctx, (character_id).into()).temperance;
     if temperament == Temperance::Temperate {
         return Ok(());
     }
     let mut morale_changed = false;
-    for evening in rest_evenings(start, end).map_err(str::to_string)? {
-        let id = ledger_id(character_id, evening);
+    for evening in rest_evenings(start, end).map_err(|error| error.to_string())? {
+        let id = ledger_id((character_id).into(), evening);
         if ctx
             .db
             .alcohol_consumption()
@@ -455,8 +460,8 @@ pub fn process_rest_evenings(
         {
             continue;
         }
-        let weekly_heavy =
-            temperament == Temperance::Neutral && !had_recent_heavy(ctx, character_id, evening);
+        let weekly_heavy = temperament == Temperance::Neutral
+            && !had_recent_heavy(ctx, (character_id).into(), evening);
         let preference = match temperament {
             Temperance::Neutral => TemperancePreference::Neutral,
             Temperance::Temperate => TemperancePreference::Temperate,
@@ -474,7 +479,7 @@ pub fn process_rest_evenings(
         if consumed < target {
             consumed = consumed.saturating_add(consume_for_ethanol(
                 ctx,
-                character_id,
+                (character_id).into(),
                 target - consumed,
                 settled,
                 false,
@@ -482,22 +487,25 @@ pub fn process_rest_evenings(
         }
         if consumed < target
             && temperament == Temperance::Drunkard
-            && current_morale(ctx, character_id) < LOW_MORALE_THRESHOLD
-            && !ordinary_potable_exists(ctx, character_id)
+            && current_morale(ctx, (character_id).into()) < LOW_MORALE_THRESHOLD
+            && !ordinary_potable_exists(ctx, (character_id).into())
         {
             consumed = consumed.saturating_add(consume_for_ethanol(
                 ctx,
-                character_id,
+                (character_id).into(),
                 target - consumed,
                 settled,
                 true,
             ));
         }
         if settled && consumed < target {
-            consumed =
-                consumed.saturating_add(tavern_purchase(ctx, character_id, target - consumed));
+            consumed = consumed.saturating_add(tavern_purchase(
+                ctx,
+                (character_id).into(),
+                target - consumed,
+            ));
         }
-        mark_evening_evaluated(ctx, character_id, evening, &id, consumed);
+        mark_evening_evaluated(ctx, (character_id).into(), evening, &id, consumed);
         let effect =
             nightly_morale_effect(evening, preference, had_recent_heavy, consumed >= target)
                 .ok_or("Alcohol morale effect unexpectedly absent")?;
@@ -515,7 +523,7 @@ pub fn process_rest_evenings(
         );
         crate::condition::upsert_refreshable_morale_event_at_without_refresh(
             ctx,
-            character_id,
+            (character_id).into(),
             effect.kind,
             magnitude,
             effect.occurred_at_minute,
@@ -524,22 +532,23 @@ pub fn process_rest_evenings(
         morale_changed = true;
     }
     if morale_changed {
-        crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+        crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())?;
     }
     Ok(())
 }
 
 pub fn consume_emergency_hydration(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     requested_ml: f32,
     minute: StrategicMinute,
 ) -> u32 {
     let mut supplied = 0_u32;
     while supplied as f32 + f32::EPSILON < requested_ml {
-        let Some((stack, def, available)) = available_stacks(ctx, character_id, false, false, true)
-            .into_iter()
-            .next()
+        let Some((stack, def, available)) =
+            available_stacks(ctx, (character_id).into(), false, false, true)
+                .into_iter()
+                .next()
         else {
             break;
         };
@@ -558,7 +567,7 @@ pub fn consume_emergency_hydration(
         supplied = supplied.saturating_add(consumed.scale_floor(u64::from(full_hydration)) as u32);
         record_consumed_ethanol(
             ctx,
-            character_id,
+            (character_id).into(),
             minute,
             consumed.scale_floor(u64::from(ethanol_ml(p))) as u32,
         );
@@ -636,39 +645,18 @@ pub fn disinfectant_count(ctx: &ReducerContext, character_id: u64) -> u32 {
         .sum()
 }
 
-pub fn consume_inventory_row(ctx: &ReducerContext, id: u64) -> Result<(), String> {
-    let row = ctx
-        .db
-        .inventory_item()
-        .id()
-        .find(id)
-        .ok_or("Selected alcohol is no longer available")?;
-    let definition = ctx
-        .db
-        .item()
-        .id()
-        .find(&row.item_id)
-        .ok_or("Selected alcohol definition is missing")?;
-    let requested = ConsumableFractionMicros::try_from_ratio(
-        SURGERY_DISINFECTANT_ML,
-        u64::from(definition.alcohol_serving_ml),
-    )
-    .map_err(|_| "Selected alcohol has an invalid serving size")?;
-    consume_stack(ctx, Stack::Personal(row), requested)?;
-    Ok(())
-}
-
 #[cfg(test)]
 mod tests {
     #[test]
     fn alcohol_candidates_and_consumption_observe_effective_container_custody() {
         let source = crate::production_source(include_str!("alcohol.rs"));
         assert!(source.matches("row_is_fireplace_rooted").count() >= 6);
-        let consume = source
+        let consumption = crate::production_source(include_str!("alcohol/consumption.rs"));
+        let consume = consumption
             .split("fn consume_stack")
             .nth(1)
             .unwrap()
-            .split("fn consume_for_ethanol")
+            .split("pub fn consume_inventory_row")
             .next()
             .unwrap();
         assert!(consume.contains("reconcile_consumed_row(ctx, scope, row_id, false)"));

@@ -156,10 +156,8 @@ fn main(
             input_binding, output_binding, ty_str, self.code, prologue, input_len_calc, fetch_logic
         );
 
-        let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
-            wgpu::naga::ShaderStage::Compute,
-        )?;
+        let full_code = ShaderSource::from(full_code);
+        let module = full_code.parse(wgpu::naga::ShaderStage::Compute)?;
 
         let mut element_size = ty.element_size();
 
@@ -213,7 +211,7 @@ impl Reduce {
         let mut current_resource = input.clone();
         let mut current_element_count = match input {
             fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(b) => {
-                (b.size / element_size.max(1)).max(1) as u32
+                (u64::from(b.length()) / element_size.max(1)).max(1) as u32
             }
             fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => t.size.0 * t.size.1,
             fabelgeist_gpu::data::gpu::resource::GpuResource::Texture3d(t) => {
@@ -235,10 +233,10 @@ impl Reduce {
         fn ensure_buffer(
             ctx: &WgpuContext,
             buffer_opt: &mut Option<fabelgeist_gpu::data::gpu::Buffer>,
-            required_size: u64,
-        ) -> Result<()> {
+            required_size: BufferByteLength,
+        ) -> std::result::Result<(), BufferCreationError> {
             let resize = if let Some(buf) = buffer_opt {
-                buf.size < required_size
+                buf.length() < required_size
             } else {
                 true
             };
@@ -248,21 +246,21 @@ impl Reduce {
                     ctx,
                     required_size,
                     fabelgeist_gpu::data::BufferDefinition::storage()
-                        .with_label("scratchpad")
-                        .with_copy_src(),
+                        .with_label(("scratchpad").into())
+                        .with_usage(BufferUse::CopySource),
                 )?);
             }
             Ok(())
         }
 
-        ensure_buffer(context, &mut scratchpad.a, first_pass_output_size)?;
+        ensure_buffer(context, &mut scratchpad.a, (first_pass_output_size).into())?;
 
         if first_pass_output_count > 1 {
             let second_pass_output_count = first_pass_output_count.div_ceil(64);
             ensure_buffer(
                 context,
                 &mut scratchpad.b,
-                second_pass_output_count as u64 * element_size,
+                (second_pass_output_count as u64 * element_size).into(),
             )?;
         }
 
@@ -287,16 +285,16 @@ impl Reduce {
             let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
             match &current_resource {
                 fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(b) => {
-                    parameters.insert("input", b.clone())
+                    parameters.insert("input".into(), (b.clone()).into())
                 }
                 fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => {
-                    parameters.insert("input", t.clone())
+                    parameters.insert("input".into(), (t.clone()).into())
                 }
                 fabelgeist_gpu::data::gpu::resource::GpuResource::Texture3d(t) => {
-                    parameters.insert("input", t.clone())
+                    parameters.insert("input".into(), (t.clone()).into())
                 }
             }
-            parameters.insert("output", output_buffer.clone());
+            parameters.insert("output".into(), (output_buffer.clone()).into());
 
             let pipeline = if pass_idx == 0 {
                 &first_pass_pipeline
@@ -309,9 +307,7 @@ impl Reduce {
                 pipeline,
                 &parameters,
                 &mut encoder,
-                workgroup_count,
-                1,
-                1,
+                fabelgeist_gpu::prelude::WorkgroupGrid::from((workgroup_count, 1, 1)),
             )?;
 
             current_buffer = Some(output_buffer.clone());
@@ -323,11 +319,11 @@ impl Reduce {
 
         let final_buffer = fabelgeist_gpu::data::gpu::Buffer::new(
             context,
-            element_size,
+            (element_size).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("reduction_result")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("reduction_result").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
 
         encoder.copy_buffer_to_buffer(

@@ -11,7 +11,7 @@ pub(super) async fn settlement_map(
 ) -> Html<String> {
     let settlements: Vec<SettlementView> = state
         .db
-        .query_sats_into::<DbSettlement, SettlementView>("SELECT * FROM settlement")
+        .query_sats_into::<DbSettlement, SettlementView>("SELECT * FROM settlement".into())
         .await
         .unwrap_or_default();
     let Some(settlement) = settlements.iter().find(|settlement| settlement.id == id) else {
@@ -21,7 +21,7 @@ pub(super) async fn settlement_map(
     let edges: Vec<TravelEdgeView> = state
         .db
         .query_sats_into::<adventuresim_stdb_client::TravelEdge, TravelEdgeView>(
-            "SELECT * FROM travel_edge",
+            "SELECT * FROM travel_edge".into(),
         )
         .await
         .unwrap_or_default();
@@ -33,7 +33,7 @@ pub(super) async fn settlement_map(
     };
     let quests: Vec<BackendContract> = state
         .db
-        .query_sats("SELECT * FROM backend_contracts")
+        .query_sats("SELECT * FROM backend_contracts".into())
         .await
         .unwrap_or_default();
     let active_character = get_active_character(&state, session.character_id_u64()).await;
@@ -43,7 +43,7 @@ pub(super) async fn settlement_map(
     {
         state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
+            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(db::party_by_id(
                 party_id,
             ))
             .await
@@ -61,9 +61,9 @@ pub(super) async fn settlement_map(
     let case_sites = if let Some(character_id) = session.character_id_u64() {
         state
             .db
-            .query_sats::<BackendCaseSitePin>(&format!(
+            .query_sats::<BackendCaseSitePin>(SqlQuery::from(format!(
                 "SELECT * FROM backend_case_site_pins WHERE owner_character_id = {character_id}"
-            ))
+            )))
             .await
             .unwrap_or_default()
     } else {
@@ -157,7 +157,7 @@ pub(super) async fn settlement_map(
     let living_party_members = living_party_members(&party_members);
     let stats: Vec<CharacterStats> = state
         .db
-        .query_sats("SELECT * FROM backend_character_stats")
+        .query_sats("SELECT * FROM backend_character_stats".into())
         .await
         .unwrap_or_default();
     let default_rest_minutes = living_party_members
@@ -174,22 +174,22 @@ pub(super) async fn settlement_map(
     if can_travel && let Some(party) = active_party.as_ref() {
         let attributes: Vec<CharacterAttributes> = state
             .db
-            .query_sats("SELECT * FROM backend_character_attributes")
+            .query_sats("SELECT * FROM backend_character_attributes".into())
             .await
             .unwrap_or_default();
         let limbs: Vec<CharacterLimbs> = state
             .db
-            .query_sats("SELECT * FROM backend_character_limbs")
+            .query_sats("SELECT * FROM backend_character_limbs".into())
             .await
             .unwrap_or_default();
         let times: Vec<CharacterTime> = state
             .db
-            .query_sats("SELECT * FROM backend_character_times")
+            .query_sats("SELECT * FROM backend_character_times".into())
             .await
             .unwrap_or_default();
         let schedules: Vec<CharacterTrainingSchedule> = state
             .db
-            .query_sats("SELECT * FROM backend_character_training_schedules")
+            .query_sats("SELECT * FROM backend_character_training_schedules".into())
             .await
             .unwrap_or_default();
         let member_ids: Vec<_> = living_party_members

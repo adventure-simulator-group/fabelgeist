@@ -219,7 +219,8 @@ pub fn authority_test_request_roster(
 ) -> Result<(), String> {
     use crate::strategic::mission_authority;
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
-    adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_owned)?;
+    adventuresim_core::mission::MissionId::new(mission_id.clone())
+        .map_err(|error| error.to_string())?;
     let mut request = ctx
         .db
         .tactical_server_request_authority()

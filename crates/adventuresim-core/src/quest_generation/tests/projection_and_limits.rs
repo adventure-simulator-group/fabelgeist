@@ -221,7 +221,7 @@ fn victim_cohort_binding_accepts_exact_authority_and_rejects_drift() {
         assert!(pattern_target_matches(
             target,
             current,
-            &source.settlement_id
+            source.settlement_id.as_str()
         ));
         assert_eq!(
             target.expected_location_label,
@@ -254,21 +254,21 @@ fn victim_cohort_binding_accepts_exact_authority_and_rejects_drift() {
         assert!(!pattern_target_matches(
             target,
             &wrong_demographic,
-            &source.settlement_id
+            source.settlement_id.as_str()
         ));
         let mut moved = current.clone();
         moved.expected_location.push_str("-moved");
         assert!(!pattern_target_matches(
             target,
             &moved,
-            &source.settlement_id
+            source.settlement_id.as_str()
         ));
         let mut stale = current.clone();
         stale.presence_version ^= 1;
         assert!(!pattern_target_matches(
             target,
             &stale,
-            &source.settlement_id
+            source.settlement_id.as_str()
         ));
     }
 }
@@ -350,7 +350,7 @@ fn visible_developer_witnesses_preserve_all_presentations_and_pattern_targets() 
     assert!(pattern_target_matches(
         target,
         current,
-        &source.settlement_id
+        source.settlement_id.as_str()
     ));
     assert!(target.sex.is_none());
     assert_eq!(serde_json::to_value(target).unwrap()["sex"], serde_json::Value::Null);
@@ -404,4 +404,16 @@ fn oversized_candidate_domains_fail_before_ordering_or_tracing() {
         generate(&oversized_bytes),
         Err(GenerationError::CandidateLimit)
     );
+}
+
+#[test]
+fn decoded_quest_ids_cannot_bypass_their_bounded_ascii_contract() {
+    for invalid in ["", "space here", "é", &"a".repeat(257)] {
+        let json = serde_json::to_string(invalid).unwrap();
+        assert!(serde_json::from_str::<EvidenceId>(&json).is_err());
+        assert!(serde_json::from_str::<SiteId>(&json).is_err());
+    }
+    let original = "\"evidence:one\"";
+    let id: EvidenceId = serde_json::from_str(original).unwrap();
+    assert_eq!(serde_json::to_string(&id).unwrap(), original);
 }

@@ -4,8 +4,8 @@ pub(super) fn forced_armor_contacts(
     attacker: &Combatant,
     defender: &Combatant,
 ) -> Result<Vec<ForcedArmorContactEvidence>, String> {
-    let definition =
-        crate::item_catalog::definition("brigandine").ok_or("missing authored brigandine")?;
+    let definition = crate::item_catalog::definition(&"brigandine".into())
+        .ok_or("missing authored brigandine")?;
     let equipment = definition
         .equipment
         .as_ref()
@@ -38,7 +38,8 @@ pub(super) fn forced_armor_contacts(
 }
 
 pub(super) fn mirrored_vambrace_contacts() -> Result<Vec<MirroredArmorContactEvidence>, String> {
-    let definition = crate::item_catalog::definition("vambrace").ok_or("missing vambrace")?;
+    let definition =
+        crate::item_catalog::definition(&"vambrace".into()).ok_or("missing vambrace")?;
     let equipment = definition
         .equipment
         .as_ref()

@@ -196,7 +196,7 @@ impl LiveRunner {
     }
 
     fn public_personal_load_kg(&self, character_id: u64) -> f32 {
-        let Ok(custody) = OperationalCustody::character(character_id) else {
+        let Ok(custody) = OperationalCustody::character((character_id).into()) else {
             return f32::INFINITY;
         };
         let inventory_weight = self
@@ -1660,7 +1660,7 @@ recovered_return_start,
         };
         let planned_travel_at_night = party.travel_at_night;
         let Some(itinerary) = adventuresim_core::strategic_time::forecast_itinerary(
-starting_minute,
+            starting_minute,
             movement_minutes,
             planned_walking_minutes,
             planned_travel_at_night,
@@ -1693,7 +1693,7 @@ starting_minute,
             )
             .collect::<Vec<_>>();
         let Some(return_itinerary) = adventuresim_core::strategic_time::forecast_itinerary(
-return_start_minute,
+            return_start_minute,
             movement_minutes,
             planned_walking_minutes,
             planned_travel_at_night,
@@ -1709,14 +1709,14 @@ return_start_minute,
             );
         }
         let delayed_forecast = adventuresim_core::strategic_time::minutes_until_next_walking_start(
-starting_minute,
+            starting_minute,
             planned_walking_minutes,
             planned_travel_at_night,
         )
         .and_then(representable_safe_departure_wait_minutes)
         .filter(|wait_minutes| {
             adventuresim_core::strategic_time::is_walking_time(
-starting_minute.saturating_add_minutes(*wait_minutes),
+                starting_minute.saturating_add_minutes(*wait_minutes),
                 planned_walking_minutes,
                 planned_travel_at_night,
             )
@@ -1724,7 +1724,7 @@ starting_minute.saturating_add_minutes(*wait_minutes),
         .and_then(|wait_minutes| {
             let delayed_start = starting_minute.saturating_add_minutes(wait_minutes);
             let outbound = adventuresim_core::strategic_time::forecast_itinerary(
-delayed_start,
+                delayed_start,
                 movement_minutes,
                 planned_walking_minutes,
                 planned_travel_at_night,
@@ -1752,7 +1752,7 @@ delayed_start,
                 .saturating_add_minutes(outbound.total_elapsed_minutes)
                 .saturating_add_minutes(action_minutes);
             let returned = adventuresim_core::strategic_time::forecast_itinerary(
-return_start,
+                return_start,
                 movement_minutes,
                 planned_walking_minutes,
                 planned_travel_at_night,

@@ -82,7 +82,7 @@ pub(super) async fn begin_service_apprenticeship(
     };
     let settlement = state
         .db
-        .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(&id))
+        .query_one_sats_into::<DbSettlement, SettlementView>(db::settlement_by_id(&id))
         .await
         .ok()
         .flatten();
@@ -101,8 +101,8 @@ pub(super) async fn begin_service_apprenticeship(
         adventuresim_core::organization::organization_representative_id(&id, &organization.id);
     let representative = match state
         .db
-        .query_one_sats::<db::BackendSettlementResident>(&db::settlement_resident_by_character_id(
-            representative_id,
+        .query_one_sats::<db::BackendSettlementResident>(db::settlement_resident_by_character_id(
+            representative_id.into(),
         ))
         .await
     {
@@ -118,7 +118,7 @@ pub(super) async fn begin_service_apprenticeship(
     let presences = match state
         .db
         .query_sats::<db::SettlementResidentPresence>(
-            &db::settlement_resident_presence_by_character_id(representative_id),
+            db::settlement_resident_presence_by_character_id(representative_id.into()),
         )
         .await
     {
@@ -343,7 +343,7 @@ pub(super) async fn service_quest_offers(
 ) -> Json<ServiceActivityResponse> {
     let settlements: Vec<SettlementView> = state
         .db
-        .query_sats_into::<DbSettlement, SettlementView>("SELECT * FROM settlement")
+        .query_sats_into::<DbSettlement, SettlementView>("SELECT * FROM settlement".into())
         .await
         .unwrap_or_default();
     let Some(settlement) = settlements.iter().find(|settlement| settlement.id == id) else {
@@ -354,16 +354,16 @@ pub(super) async fn service_quest_offers(
     };
     let quests: Vec<BackendContract> = state
         .db
-        .query_sats(&format!(
+        .query_sats(SqlQuery::from(format!(
             "SELECT * FROM backend_contracts WHERE settlement_id = {}",
             sql_string_literal(&id)
-        ))
+        )))
         .await
         .unwrap_or_default();
     let edges: Vec<TravelEdgeView> = state
         .db
         .query_sats_into::<adventuresim_stdb_client::TravelEdge, TravelEdgeView>(
-            "SELECT * FROM travel_edge",
+            "SELECT * FROM travel_edge".into(),
         )
         .await
         .unwrap_or_default();
@@ -378,7 +378,7 @@ pub(super) async fn service_quest_offers(
     {
         state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
+            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(db::party_by_id(
                 party_id,
             ))
             .await
@@ -399,32 +399,32 @@ pub(super) async fn service_quest_offers(
     });
     let parties: Vec<PartyView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Party, PartyView>("SELECT * FROM party")
+        .query_sats_into::<adventuresim_stdb_client::Party, PartyView>("SELECT * FROM party".into())
         .await
         .unwrap_or_default();
     let party_memberships: Vec<PartyMember> = state
         .db
-        .query_sats("SELECT * FROM party_member")
+        .query_sats("SELECT * FROM party_member".into())
         .await
         .unwrap_or_default();
     let recruitment_roles: Vec<RecruitmentRoleView> = state
         .db
         .query_sats_into::<adventuresim_stdb_client::PartyRecruitmentRole, RecruitmentRoleView>(
-            "SELECT * FROM party_recruitment_role",
+            "SELECT * FROM party_recruitment_role".into(),
         )
         .await
         .unwrap_or_default();
     let recruitment_offers: Vec<RecruitmentOffer> = state
         .db
-        .query_sats(&format!(
+        .query_sats(SqlQuery::from(format!(
             "SELECT * FROM recruitment_offer WHERE settlement_id = {}",
             sql_string_literal(&id)
-        ))
+        )))
         .await
         .unwrap_or_default();
     let characters: Vec<CharacterView> = state
         .db
-        .query_sats_into::<DbCharacter, CharacterView>("SELECT * FROM backend_characters")
+        .query_sats_into::<DbCharacter, CharacterView>("SELECT * FROM backend_characters".into())
         .await
         .unwrap_or_default();
     let viewer_party_id = active_party.as_ref().map(|party| party.id.as_str());
@@ -445,8 +445,8 @@ pub(super) async fn service_quest_offers(
             .await;
         if let Some(capability) = state
             .db
-            .query_sats::<CharacterCapability>(&db::character_capability_by_character_id(
-                character_id,
+            .query_sats::<CharacterCapability>(db::character_capability_by_character_id(
+                character_id.into(),
             ))
             .await
             .unwrap_or_default()

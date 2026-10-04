@@ -1,8 +1,20 @@
 //! Particle state on the GPU.
 
-use anyhow::anyhow;
+use crate::ParticleInverseMass;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
+
+mod error;
+mod packed;
+mod quantities;
+pub use error::{ParticleBufferRole, ParticleError};
+pub use packed::{
+    ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
+};
+pub use quantities::{
+    InverseMassCount, ParticleCapacity, ParticleCount, ParticleInputCount, ParticleInputIndex,
+    ParticleMassCount,
+};
 
 /// Positions, the previous substep's positions, and velocities.
 ///
@@ -22,32 +34,64 @@ pub struct Particles {
     /// Kept on the host because the inverse masses share their words with the
     /// positions: re-uploading positions alone would otherwise have to read
     /// the buffer back first.
-    inverse_masses: Vec<f32>,
-    count: u32,
-    capacity: u32,
+    inverse_masses: Vec<ParticleInverseMass>,
+    count: ParticleCount,
+    capacity: ParticleCapacity,
 }
 
 impl Particles {
-    pub fn new(context: &WgpuContext, capacity: u32) -> Result<Self> {
-        let capacity = capacity.max(1);
-        let bytes = capacity as u64 * 16;
+    pub fn new(
+        context: &WgpuContext,
+        capacity: ParticleCapacity,
+    ) -> std::result::Result<Self, ParticleError> {
+        let bytes = capacity.record_bytes();
         // `vertex` so that the renderer can draw straight out of the solver's
         // own buffer, with no copy between simulating and showing.
-        let definition = BufferDefinition::storage().with_vertex().with_copy_src();
+        let definition = BufferDefinition::storage()
+            .with_usage(BufferUse::Vertex)
+            .with_usage(BufferUse::CopySource);
         Ok(Self {
             positions: Buffer::new(
                 context,
                 bytes,
-                definition.clone().with_label("particle positions"),
-            )?,
+                definition.clone().with_label(("particle positions").into()),
+            )
+            .map_err(|source: BufferCreationError| -> ParticleError {
+                ParticleError::Allocation {
+                    role: ParticleBufferRole::Positions,
+                    capacity,
+                    bytes,
+                    source,
+                }
+            })?,
             previous: Buffer::new(
                 context,
                 bytes,
-                definition.clone().with_label("particle previous"),
-            )?,
-            velocities: Buffer::new(context, bytes, definition.with_label("particle velocities"))?,
+                definition.clone().with_label(("particle previous").into()),
+            )
+            .map_err(|source: BufferCreationError| -> ParticleError {
+                ParticleError::Allocation {
+                    role: ParticleBufferRole::Previous,
+                    capacity,
+                    bytes,
+                    source,
+                }
+            })?,
+            velocities: Buffer::new(
+                context,
+                bytes,
+                definition.with_label(("particle velocities").into()),
+            )
+            .map_err(|source: BufferCreationError| -> ParticleError {
+                ParticleError::Allocation {
+                    role: ParticleBufferRole::Velocities,
+                    capacity,
+                    bytes,
+                    source,
+                }
+            })?,
             inverse_masses: Vec::new(),
-            count: 0,
+            count: ParticleCount::EMPTY,
             capacity,
         })
     }
@@ -56,18 +100,21 @@ impl Particles {
     pub fn from_positions(
         context: &WgpuContext,
         positions: &[Vec3],
-        inverse_masses: &[f32],
-    ) -> Result<Self> {
-        let mut particles = Self::new(context, positions.len() as u32)?;
+        inverse_masses: &[ParticleInverseMass],
+    ) -> std::result::Result<Self, ParticleError> {
+        let mut particles = Self::new(
+            context,
+            ParticleInputCount::from(positions.len()).gpu_count().into(),
+        )?;
         particles.write(context, positions, inverse_masses)?;
         Ok(particles)
     }
 
-    pub fn count(&self) -> u32 {
+    pub fn count(&self) -> ParticleCount {
         self.count
     }
 
-    pub fn capacity(&self) -> u32 {
+    pub fn capacity(&self) -> ParticleCapacity {
         self.capacity
     }
 
@@ -76,80 +123,90 @@ impl Particles {
         &mut self,
         context: &WgpuContext,
         positions: &[Vec3],
-        inverse_masses: &[f32],
-    ) -> Result<()> {
-        if positions.len() != inverse_masses.len() {
-            return Err(anyhow!(
-                "Particles::write: {} positions but {} inverse masses",
-                positions.len(),
-                inverse_masses.len()
-            ));
-        }
-        if positions.len() as u32 > self.capacity {
-            return Err(anyhow!(
-                "Particles::write: capacity is {}, given {}",
-                self.capacity,
-                positions.len()
-            ));
-        }
+        inverse_masses: &[ParticleInverseMass],
+    ) -> std::result::Result<(), ParticleError> {
+        let count = ParticleInputCount::from(positions.len());
+        count.admit_masses(InverseMassCount::from(inverse_masses.len()))?;
+        self.capacity.admit(count)?;
 
-        let packed = pack(positions, inverse_masses);
-        self.positions.write(context, &packed)?;
-        self.previous.write(context, &packed)?;
+        let packed = ParticlePositions::new(positions, inverse_masses)?;
+        self.positions.write(context, packed.upload());
+        self.previous.write(context, packed.upload());
         self.velocities
-            .write(context, &vec![0.0f32; positions.len() * 4])?;
-        self.count = positions.len() as u32;
+            .write(context, ParticleVelocities::at_rest(count).upload());
+        self.count = count.gpu_count();
         self.inverse_masses = inverse_masses.to_vec();
         Ok(())
     }
 
     /// The inverse masses as last uploaded. Zero pins the particle.
-    pub fn inverse_masses(&self) -> &[f32] {
+    pub fn inverse_masses(&self) -> &[ParticleInverseMass] {
         &self.inverse_masses
     }
 
     /// Overwrite positions, keeping the inverse masses. Used to re-drape a
     /// garment from a fresh layout without rebuilding the constraints.
-    pub fn write_positions(&mut self, context: &WgpuContext, positions: &[Vec3]) -> Result<()> {
-        if positions.len() as u32 != self.count {
-            return Err(anyhow!(
-                "Particles::write_positions: holds {} particles, given {}",
-                self.count,
-                positions.len()
-            ));
-        }
+    pub fn write_positions(
+        &mut self,
+        context: &WgpuContext,
+        positions: &[Vec3],
+    ) -> std::result::Result<(), ParticleError> {
+        self.count
+            .admit_replacement(ParticleInputCount::from(positions.len()))?;
         let masses = std::mem::take(&mut self.inverse_masses);
         let result = self.write(context, positions, &masses);
         self.inverse_masses = masses;
         result
     }
 
-    pub async fn read_positions(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
-        let raw: Vec<f32> = self.positions.read(context).await?;
-        Ok(unpack(&raw, self.count as usize))
+    pub async fn read_positions(
+        &self,
+        context: &WgpuContext,
+    ) -> std::result::Result<Vec<Vec3>, ParticleError> {
+        let raw: Vec<ParticlePositionRecord> = self.positions.read(context).await.map_err(
+            |source: ReadbackError| -> ParticleError {
+                ParticleError::Readback {
+                    role: ParticleBufferRole::Positions,
+                    source: Box::new(source),
+                }
+            },
+        )?;
+        Ok(ParticlePositions::from(raw).positions(self.count))
     }
 
-    pub async fn read_velocities(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
-        let raw: Vec<f32> = self.velocities.read(context).await?;
-        Ok(unpack(&raw, self.count as usize))
+    pub async fn read_velocities(
+        &self,
+        context: &WgpuContext,
+    ) -> std::result::Result<Vec<Vec3>, ParticleError> {
+        let raw: Vec<ParticleVelocityRecord> = self.velocities.read(context).await.map_err(
+            |source: ReadbackError| -> ParticleError {
+                ParticleError::Readback {
+                    role: ParticleBufferRole::Velocities,
+                    source: Box::new(source),
+                }
+            },
+        )?;
+        Ok(ParticleVelocities::from(raw).velocities(self.count))
     }
 
-    pub async fn read_inverse_masses(&self, context: &WgpuContext) -> Result<Vec<f32>> {
-        let raw: Vec<f32> = self.positions.read(context).await?;
-        Ok((0..self.count as usize).map(|i| raw[i * 4 + 3]).collect())
+    pub async fn read_inverse_masses(
+        &self,
+        context: &WgpuContext,
+    ) -> std::result::Result<Vec<ParticleInverseMass>, ParticleError> {
+        let raw: Vec<ParticlePositionRecord> = self.positions.read(context).await.map_err(
+            |source: ReadbackError| -> ParticleError {
+                ParticleError::Readback {
+                    role: ParticleBufferRole::Positions,
+                    source: Box::new(source),
+                }
+            },
+        )?;
+        Ok(raw[..usize::from(self.count)]
+            .iter()
+            .map(ParticlePositionRecord::inverse_mass)
+            .collect())
     }
 }
 
-pub fn pack(positions: &[Vec3], inverse_masses: &[f32]) -> Vec<f32> {
-    let mut packed = Vec::with_capacity(positions.len() * 4);
-    for (position, &inverse_mass) in positions.iter().zip(inverse_masses) {
-        packed.extend_from_slice(&[position.x, position.y, position.z, inverse_mass]);
-    }
-    packed
-}
-
-pub fn unpack(raw: &[f32], count: usize) -> Vec<Vec3> {
-    (0..count)
-        .map(|i| Vec3::new(raw[i * 4], raw[i * 4 + 1], raw[i * 4 + 2]))
-        .collect()
-}
+#[cfg(test)]
+mod tests;

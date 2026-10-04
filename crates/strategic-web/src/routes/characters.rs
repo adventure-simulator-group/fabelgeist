@@ -11,6 +11,7 @@ use serde::Deserialize;
 use serde_json::{Value, json};
 
 use super::AppState;
+use super::data::{self, FrontierAlignment};
 use crate::session::{Session, clear_character_cookie, redirect_with_session_cookie};
 use crate::spacetimedb::{BackendDevelopmentScenario, CharacterStrategicCondition, CharacterView};
 use crate::templates::character::{
@@ -58,16 +59,17 @@ async fn character_condition(
         return StatusCode::UNAUTHORIZED.into_response();
     };
     let (viewer, subject) = tokio::join!(
-        super::data::character(&state, viewer_id),
-        super::data::character_as_observed(&state, id, viewer_id),
+        super::data::character(&state, viewer_id.into()),
+        super::data::character_as_observed(&state, id.into(), viewer_id.into()),
     );
     let (Ok(Some(viewer)), Ok(Some(subject))) = (viewer, subject) else {
         return StatusCode::NOT_FOUND.into_response();
     };
     let synchronized = viewer.id == subject.id
-        || super::data::characters_share_frontier(&state, viewer.id, subject.id)
-            .await
-            .unwrap_or(false);
+        || matches!(
+            data::frontier_alignment(&state, viewer.id.into(), subject.id.into()).await,
+            Ok(FrontierAlignment::Aligned)
+        );
     let same_party = viewer.id == subject.id
         || (viewer.party_id.is_some() && viewer.party_id == subject.party_id);
     let colocated = viewer.current_settlement_id == subject.current_settlement_id
@@ -78,7 +80,7 @@ async fn character_condition(
     let condition = state
         .db
         .query_one_sats::<CharacterStrategicCondition>(
-            &crate::spacetimedb::character_strategic_condition_by_character_id(id),
+            crate::spacetimedb::character_strategic_condition_by_character_id(id.into()),
         )
         .await
         .ok()
@@ -158,7 +160,7 @@ async fn list_characters(State(state): State<AppState>, session: Session) -> Res
 async fn development_scenarios(state: &AppState) -> Vec<BackendDevelopmentScenario> {
     state
         .db
-        .query_sats("SELECT * FROM backend_development_scenarios")
+        .query_sats("SELECT * FROM backend_development_scenarios".into())
         .await
         .unwrap_or_default()
 }
@@ -180,7 +182,7 @@ async fn remembered_characters(state: &AppState, session: &Session) -> Vec<Chara
         match state
             .db
             .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-                "SELECT * FROM backend_characters",
+                "SELECT * FROM backend_characters".into(),
             )
             .await
         {
@@ -203,7 +205,7 @@ async fn remembered_characters(state: &AppState, session: &Session) -> Vec<Chara
     for character in &mut remembered {
         if let Err(error) = super::data::project_alive_as_observed(
             state,
-            character.id,
+            character.id.into(),
             std::slice::from_mut(character),
         )
         .await
@@ -254,7 +256,9 @@ async fn confirm_candidate(
 ) -> Response {
     let spec = match generate(form.version, &form.seed, form.age, form.slot) {
         Ok(spec) => spec,
-        Err(error) => return (axum::http::StatusCode::BAD_REQUEST, error).into_response(),
+        Err(error) => {
+            return (axum::http::StatusCode::BAD_REQUEST, error.to_string()).into_response();
+        }
     };
     let issued = if session.owner_key().is_none() {
         match state.session_codec.issue() {
@@ -328,7 +332,7 @@ async fn select_character(
         )
             .into_response();
     };
-    match super::data::character(&state, id).await {
+    match super::data::character(&state, id.into()).await {
         Ok(Some(character)) if !character.temporary && session.character_ids().contains(&id) => {
             match state
                 .db
@@ -445,8 +449,8 @@ mod tests {
             .split("struct ConfirmCandidateForm")
             .next()
             .unwrap();
-        assert!(handler.contains("character_as_observed(&state, id, viewer_id)"));
-        assert!(handler.contains("characters_share_frontier"));
+        assert!(handler.contains("character_as_observed(&state, id.into(), viewer_id.into())"));
+        assert!(handler.contains("frontier_alignment"));
         assert!(handler.contains("!synchronized || !same_party || !colocated"));
     }
 }

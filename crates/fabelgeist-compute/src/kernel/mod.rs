@@ -15,19 +15,31 @@
 //! hundreds of submits per frame is a lost frame. [`KernelBatch`] records into
 //! a single encoder and submits once.
 
+mod batch_label;
+mod cache;
+mod copy_error;
+mod definition;
+mod dispatch_count;
+mod dispatch_error;
+mod error;
 mod fast;
+mod uniform_arena;
+pub use batch_label::KernelBatchLabel;
+pub use cache::{CompiledKernelCount, KernelCache};
+pub use copy_error::BufferCopyError;
+pub use dispatch_count::RecordedDispatchCount;
+pub use dispatch_error::KernelDispatchError;
+pub use error::{KernelBuildError, KernelCacheError};
 
 use crate::prelude::*;
-use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
 
 /// A compiled compute kernel: the pipeline plus the workgroup size declared in
 /// its own source, so that a dispatch can be sized in *items* rather than in
 /// workgroups.
 pub struct Kernel {
     pub pipeline: ComputePipeline,
-    pub workgroup_size: [u32; 3],
-    pub entry_point: String,
+    workgroup_shape: WorkgroupShape,
+    pub entry_point: ShaderEntryPoint,
     /// The cached dispatch path, when this kernel's shape allows one.
     ///
     /// Without it every dispatch builds a uniform buffer and a bind group,
@@ -40,7 +52,7 @@ impl std::fmt::Debug for Kernel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Kernel")
             .field("entry_point", &self.entry_point)
-            .field("workgroup_size", &self.workgroup_size)
+            .field("workgroup_size", &self.workgroup_shape)
             .field("cached", &self.fast.is_some())
             .finish()
     }
@@ -56,59 +68,48 @@ impl Kernel {
     /// Compile WGSL into a kernel. The source is ordinary WGSL with explicit
     /// `@group(0) @binding(n)` declarations; the binding *names* are what a
     /// dispatch matches its parameters against.
-    pub fn new(context: &WgpuContext, code: impl Into<String>) -> Result<Self> {
+    pub fn new(
+        context: &WgpuContext,
+        code: ShaderSource,
+    ) -> std::result::Result<Self, KernelBuildError> {
         // Shader and pipeline creation read back validation error scopes,
         // which interleave badly when two threads compile at once.
         static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
         let _compiling = COMPILING
             .lock()
             .unwrap_or_else(|poisoned| poisoned.into_inner());
-        let code = code.into();
+        let definition = definition::KernelDefinition::new(&code)?;
+        let workgroup_shape = definition.workgroup_shape;
+        let entry_point = definition.entry_point;
+        let shader = ComputeShader::new(context, code).map_err(KernelBuildError::Shader)?;
+        let pipeline = ComputePipeline::new(context, shader).map_err(KernelBuildError::Pipeline)?;
 
-        let module =
-            fabelgeist_gpu::data::gpu::shader::parse_naga(&code, wgpu::naga::ShaderStage::Compute)?;
-        let entry = module
-            .entry_points
-            .iter()
-            .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
-            .ok_or_else(|| anyhow!("Kernel: no compute entry point"))?;
-        let workgroup_size = entry.workgroup_size;
-        let entry_point = entry.name.clone();
-
-        if workgroup_size.contains(&0) {
-            return Err(anyhow!(
-                "Kernel `{entry_point}`: workgroup size {workgroup_size:?} has a zero dimension"
-            ));
-        }
-
-        let shader = ComputeShader::new(context, code.clone())?;
-        let pipeline = ComputePipeline::new(context, shader)?;
-
-        let fast = pipeline
-            .shader
-            .module
-            .as_ref()
-            .zip(pipeline.reflection.as_ref())
-            .and_then(|(module, reflection)| {
-                fast::FastPath::new(context, &code, module, &entry_point, reflection)
-            });
+        let fast = match (&pipeline.shader.module, &pipeline.reflection) {
+            (Some(module), Some(reflection)) => {
+                fast::FastPath::new(context, module, &entry_point, reflection)
+            }
+            _ => None,
+        };
 
         Ok(Self {
             pipeline,
-            workgroup_size,
+            workgroup_shape,
             entry_point,
             fast,
         })
     }
 
-    /// Whether this kernel dispatches through the cached path.
-    pub fn is_cached(&self) -> bool {
-        self.fast.is_some()
+    /// The recording path selected for this kernel's resource layout.
+    pub fn dispatch_path(&self) -> KernelDispatchPath {
+        match self.fast {
+            Some(_) => KernelDispatchPath::Cached,
+            None => KernelDispatchPath::General,
+        }
     }
 
     /// Workgroup count that covers `items` invocations along x.
-    pub fn groups_for(&self, items: u32) -> [u32; 3] {
-        [items.div_ceil(self.workgroup_size[0]), 1, 1]
+    pub fn groups_for(&self, items: InvocationCount) -> WorkgroupGrid {
+        self.workgroup_shape.covering_x(items)
     }
 
     /// Run this kernel on its own -- one encoder, one submit. Convenient for a
@@ -117,58 +118,17 @@ impl Kernel {
         &self,
         context: &WgpuContext,
         parameters: PassParameters,
-        groups: [u32; 3],
-    ) -> Result<()> {
-        ComputePass::dispatch(
-            context,
-            self.pipeline.clone(),
-            parameters,
-            groups[0],
-            groups[1],
-            groups[2],
-        )
+        groups: WorkgroupGrid,
+    ) -> std::result::Result<(), KernelDispatchError> {
+        ComputePass::dispatch(context, self.pipeline.clone(), parameters, groups)
+            .map_err(KernelDispatchError::General)
     }
 }
 
-/// Compiles each distinct kernel source once and hands out clones after that.
-///
-/// Kernels here are generated -- a constraint kernel is a template with the
-/// fabric model pasted into it -- so the same source comes back around every
-/// frame and for every solver instance. Compiling it once per source rather
-/// than once per call is the difference between a stutter and a steady frame.
-#[derive(Clone, Debug, Default)]
-pub struct KernelCache {
-    kernels: Arc<RwLock<HashMap<String, Arc<Kernel>>>>,
-}
-
-impl KernelCache {
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    pub fn get(&self, context: &WgpuContext, code: &str) -> Result<Arc<Kernel>> {
-        if let Some(kernel) = self.kernels.read().unwrap().get(code) {
-            return Ok(kernel.clone());
-        }
-
-        // Compiled outside the write lock: a shader compile is slow, and
-        // holding the lock across it would serialise every other kernel's
-        // first use behind this one.
-        let kernel = Arc::new(Kernel::new(context, code)?);
-
-        let mut kernels = self.kernels.write().unwrap();
-        // A racing caller may have inserted the same source in the meantime;
-        // keep theirs, so that every holder of this source shares one pipeline.
-        Ok(kernels.entry(code.to_string()).or_insert(kernel).clone())
-    }
-
-    pub fn len(&self) -> usize {
-        self.kernels.read().unwrap().len()
-    }
-
-    pub fn is_empty(&self) -> bool {
-        self.len() == 0
-    }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum KernelDispatchPath {
+    Cached,
+    General,
 }
 
 /// A command encoder that many kernel dispatches record into before a single
@@ -180,23 +140,25 @@ impl KernelCache {
 pub struct KernelBatch<'a> {
     context: &'a WgpuContext,
     encoder: wgpu::CommandEncoder,
-    dispatches: usize,
+    dispatches: RecordedDispatchCount,
     uniforms: fast::UniformArena,
 }
 
 impl<'a> KernelBatch<'a> {
     pub fn new(context: &'a WgpuContext) -> Self {
-        Self::labelled(context, "KernelBatch")
+        Self::labelled(context, "KernelBatch".into())
     }
 
-    pub fn labelled(context: &'a WgpuContext, label: &str) -> Self {
+    pub fn labelled(context: &'a WgpuContext, label: KernelBatchLabel<'_>) -> Self {
         let encoder = context
             .device
-            .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: Some(label) });
+            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                label: Some(<&str>::from(label)),
+            });
         Self {
             context,
             encoder,
-            dispatches: 0,
+            dispatches: RecordedDispatchCount::default(),
             uniforms: fast::UniformArena::default(),
         }
     }
@@ -206,11 +168,11 @@ impl<'a> KernelBatch<'a> {
         &mut self,
         kernel: &Kernel,
         parameters: &PassParameters,
-        groups: [u32; 3],
-    ) -> Result<&mut Self> {
+        groups: WorkgroupGrid,
+    ) -> std::result::Result<&mut Self, KernelDispatchError> {
         // A zero-sized grid is a no-op, not an error: an empty constraint
         // colour or an empty contact list is a perfectly ordinary frame.
-        if groups.contains(&0) {
+        if groups.occupancy() == DispatchOccupancy::Empty {
             return Ok(self);
         }
 
@@ -225,23 +187,24 @@ impl<'a> KernelBatch<'a> {
                     });
                 pass.set_pipeline(&prepared.pipeline);
                 match prepared.dynamic_offset {
-                    Some(offset) => pass.set_bind_group(0, &prepared.bind_group, &[offset]),
+                    Some(offset) => {
+                        pass.set_bind_group(0, &prepared.bind_group, &[u32::from(offset)])
+                    }
                     None => pass.set_bind_group(0, &prepared.bind_group, &[]),
                 }
-                pass.dispatch_workgroups(groups[0], groups[1], groups[2]);
+                groups.record(&mut pass);
             }
             None => ComputePass::record(
                 self.context,
                 &kernel.pipeline,
                 parameters,
                 &mut self.encoder,
-                groups[0],
-                groups[1],
-                groups[2],
-            )?,
+                groups,
+            )
+            .map_err(KernelDispatchError::General)?,
         }
 
-        self.dispatches += 1;
+        self.dispatches.record();
         Ok(self)
     }
 
@@ -250,23 +213,35 @@ impl<'a> KernelBatch<'a> {
         &mut self,
         kernel: &Kernel,
         parameters: &PassParameters,
-        items: u32,
-    ) -> Result<&mut Self> {
+        items: InvocationCount,
+    ) -> std::result::Result<&mut Self, KernelDispatchError> {
         self.dispatch(kernel, parameters, kernel.groups_for(items))
     }
 
     /// Copy between buffers inside the batch, so that the copy is ordered
     /// against the dispatches around it.
-    pub fn copy_buffer(&mut self, source: &Buffer, destination: &Buffer, bytes: u64) -> Result<()> {
-        if bytes > source.size || bytes > destination.size {
-            return Err(anyhow!(
-                "KernelBatch::copy_buffer: {bytes} bytes does not fit {} -> {}",
-                source.size,
-                destination.size
-            ));
+    pub fn copy_buffer(
+        &mut self,
+        source: &Buffer,
+        destination: &Buffer,
+        bytes: BufferByteLength,
+    ) -> std::result::Result<(), BufferCopyError> {
+        let source_length = source.length();
+        let destination_length = destination.length();
+        if bytes > source_length || bytes > destination_length {
+            return Err(BufferCopyError {
+                bytes,
+                source_length,
+                destination_length,
+            });
         }
-        self.encoder
-            .copy_buffer_to_buffer(&source.buffer, 0, &destination.buffer, 0, bytes);
+        self.encoder.copy_buffer_to_buffer(
+            &source.buffer,
+            0,
+            &destination.buffer,
+            0,
+            u64::from(bytes),
+        );
         Ok(())
     }
 
@@ -280,7 +255,7 @@ impl<'a> KernelBatch<'a> {
         &mut self.encoder
     }
 
-    pub fn dispatch_count(&self) -> usize {
+    pub fn dispatch_count(&self) -> RecordedDispatchCount {
         self.dispatches
     }
 
@@ -305,6 +280,14 @@ mod context_tests {
     use anyhow::Result;
     use fabelgeist_gpu::globals::WgpuContext;
 
+    const DOUBLING: &str = r#"
+@group(0) @binding(0) var<storage, read_write> values: array<f32>;
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    if (id.x < arrayLength(&values)) { values[id.x] = values[id.x] * 2.0; }
+}
+"#;
+
     /// A kernel compiles through a *borrowed* context too -- one built from
     /// someone else's device rather than owning it.
     ///
@@ -320,17 +303,105 @@ mod context_tests {
             owned.queue.clone(),
         );
 
-        let kernel = Kernel::new(
-            &borrowed,
-            r#"
-@group(0) @binding(0) var<storage, read_write> values: array<f32>;
-@compute @workgroup_size(64)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-    if (id.x < arrayLength(&values)) { values[id.x] = values[id.x] * 2.0; }
-}
-"#,
-        )?;
-        assert_eq!(kernel.workgroup_size, [64, 1, 1]);
+        let kernel = Kernel::new(&borrowed, ShaderSource::from(DOUBLING))?;
+        assert_eq!(
+            kernel.workgroup_shape,
+            WorkgroupShape::try_from([64, 1, 1]).unwrap()
+        );
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn empty_failed_cached_and_general_records_keep_count_and_effects() {
+        let context = WgpuContext::new().await.unwrap();
+        let cached = Kernel::new(&context, ShaderSource::from(DOUBLING)).unwrap();
+        assert_eq!(cached.dispatch_path(), KernelDispatchPath::Cached);
+        let mut general = Kernel::new(&context, ShaderSource::from(DOUBLING)).unwrap();
+        // Exercise both recording paths with identical shader arithmetic.
+        general.fast = None;
+        assert_eq!(general.dispatch_path(), KernelDispatchPath::General);
+        let mut batch = KernelBatch::new(&context);
+        let missing = PassParameters::new();
+        for grid in [[0, 1, 1], [1, 0, 1], [1, 1, 0]] {
+            batch
+                .dispatch(&cached, &missing, WorkgroupGrid::from(grid))
+                .unwrap();
+        }
+        batch
+            .dispatch_items(&cached, &missing, InvocationCount::default())
+            .unwrap();
+        assert_eq!(batch.dispatch_count(), RecordedDispatchCount::default());
+        assert!(matches!(
+            batch.dispatch(&cached, &missing, WorkgroupGrid::from([1, 1, 1])),
+            Err(KernelDispatchError::Buffer { .. })
+        ));
+        assert_eq!(batch.dispatch_count(), RecordedDispatchCount::default());
+        // Standalone general recording still admits parameters for an empty
+        // grid; only the batch has the early empty-work policy.
+        assert!(matches!(
+            cached.run(&context, missing, WorkgroupGrid::from([0, 1, 1])),
+            Err(KernelDispatchError::General(
+                ComputePassError::MissingParameter { .. }
+            ))
+        ));
+        let buffer = Buffer::from_upload(
+            &context,
+            BufferUpload::from_elements(&[3.0f32, 5.0]),
+            BufferDefinition::storage().with_usage(BufferUse::CopySource),
+        )
+        .unwrap();
+        let parameters = PassParameters::from([("values".into(), buffer.clone().into())]);
+        batch
+            .dispatch_items(&cached, &parameters, InvocationCount::from(2u32))
+            .unwrap();
+        batch
+            .dispatch_items(&general, &parameters, InvocationCount::from(2u32))
+            .unwrap();
+        assert_eq!(batch.dispatch_count().to_string(), "2");
+        batch.submit();
+        let result: Vec<f32> = buffer.read(&context).await.unwrap();
+        assert_eq!(result, [12.0, 20.0]);
+    }
+
+    #[tokio::test]
+    async fn batch_copies_retain_logical_bounds_and_do_not_count_as_dispatches() {
+        let context = WgpuContext::new().await.unwrap();
+        let source = Buffer::from_upload(
+            &context,
+            BufferUpload::from_elements(&[7u32, 11]),
+            BufferDefinition::storage().with_usage(BufferUse::CopySource),
+        )
+        .unwrap();
+        let definition = BufferDefinition::storage()
+            .with_usage(BufferUse::CopySource)
+            .with_usage(BufferUse::CopyDestination);
+        let small = Buffer::new(&context, (4u64).into(), definition.clone()).unwrap();
+        let destination = Buffer::new(&context, (8u64).into(), definition).unwrap();
+        let mut batch = KernelBatch::new(&context);
+        let cause = batch
+            .copy_buffer(&source, &small, BufferByteLength::from(8u64))
+            .unwrap_err();
+        assert_eq!(cause.bytes, BufferByteLength::from(8u64));
+        assert_eq!(cause.source_length, BufferByteLength::from(8u64));
+        assert_eq!(cause.destination_length, BufferByteLength::from(4u64));
+        assert_eq!(
+            cause.to_string(),
+            "KernelBatch::copy_buffer: 8 bytes does not fit 8 -> 4"
+        );
+        let cause = batch
+            .copy_buffer(&small, &destination, BufferByteLength::from(8u64))
+            .unwrap_err();
+        assert_eq!(cause.source_length, BufferByteLength::from(4u64));
+        assert_eq!(cause.destination_length, BufferByteLength::from(8u64));
+        batch
+            .copy_buffer(&source, &destination, BufferByteLength::from(4u64))
+            .unwrap();
+        batch
+            .copy_buffer(&source, &destination, BufferByteLength::default())
+            .unwrap();
+        assert_eq!(batch.dispatch_count(), RecordedDispatchCount::default());
+        batch.submit();
+        let copied: Vec<u32> = destination.read(&context).await.unwrap();
+        assert_eq!(copied, [7, 0]);
     }
 }

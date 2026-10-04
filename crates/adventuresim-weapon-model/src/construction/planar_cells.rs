@@ -1,5 +1,6 @@
 //! Retriangulation retains physical cell boundaries, not incidental diagonals.
 use super::{PlanarPoint, Region, construction_budget};
+use crate::ConstructionError;
 use std::collections::{BTreeMap, BTreeSet};
 
 const CELL_COLLINEAR_ROUNDOFF_ULPS: f64 = 64.0;
@@ -9,7 +10,7 @@ impl Region {
     pub(crate) fn remesh_cells<K: Ord>(
         &mut self,
         classify: impl Fn(PlanarPoint) -> K,
-    ) -> Result<(), String> {
+    ) -> Result<(), ConstructionError> {
         let mut cells = BTreeMap::<K, DirectedEdges>::new();
         for face in &self.triangles {
             let center = std::array::from_fn(|axis| {
@@ -76,11 +77,11 @@ impl Region {
     }
 }
 
-fn boundary_loops(edges: DirectedEdges) -> Result<Vec<Vec<usize>>, String> {
+fn boundary_loops(edges: DirectedEdges) -> Result<Vec<Vec<usize>>, ConstructionError> {
     let mut outgoing = BTreeMap::new();
     for (a, b) in edges.into_values() {
         if outgoing.insert(a, b).is_some() {
-            return Err("plate cell boundary has an unresolved junction".into());
+            return Err(ConstructionError::PlateCellBoundaryUnresolvedJunction);
         }
     }
     let mut loops = Vec::new();
@@ -91,13 +92,13 @@ fn boundary_loops(edges: DirectedEdges) -> Result<Vec<Vec<usize>>, String> {
             boundary.push(current);
             current = outgoing
                 .remove(&current)
-                .ok_or("plate cell boundary is open")?;
+                .ok_or(ConstructionError::PlateCellBoundaryOpen)?;
             if current == start {
                 break;
             }
         }
         if boundary.len() < 3 {
-            return Err("plate cell boundary is degenerate".into());
+            return Err(ConstructionError::PlateCellBoundaryDegenerate);
         }
         loops.push(boundary);
     }

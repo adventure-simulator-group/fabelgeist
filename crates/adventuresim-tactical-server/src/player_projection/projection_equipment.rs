@@ -93,7 +93,7 @@ pub(super) fn projected_holder_mass(item: &ConnectedPlayerItem) -> Option<f32> {
 
 pub(super) fn projected_armor(item: &ConnectedPlayerItem) -> Option<ArmorItem> {
     let part = item.protected_body_parts.first()?;
-    let definition = adventuresim_core::item_catalog::definition(&item.item.id)
+    let definition = adventuresim_core::item_catalog::definition(&(&item.item.id).into())
         .expect("validated armor exists in authored catalog");
     let authored = definition
         .equipment

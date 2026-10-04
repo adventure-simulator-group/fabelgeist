@@ -15,6 +15,7 @@ tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep
 remote-types = ["debug"]
 
 [dependencies]
+fabelgeist-rig = { path = "../fabelgeist-rig" }
 adventuresim-procedural-materials.workspace = true
 anyhow = "1"
 bevy.workspace = true

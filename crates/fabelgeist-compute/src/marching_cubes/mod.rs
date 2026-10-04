@@ -1,3 +1,5 @@
+use fabelgeist_gpu::prelude::ShaderSource;
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 pub mod tables;
 
 use crate::Scan;
@@ -7,7 +9,6 @@ use anyhow::Result;
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::globals::WgpuContext;
 
-use fabelgeist_gpu::data::PassParameter;
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 
@@ -37,20 +38,20 @@ impl PartialEq for MarchingCubesDefinition {
 
 impl MarchingCubesDefinition {
     pub fn new(context: &WgpuContext) -> Result<Self> {
-        let tri_table_buffer = Buffer::from_slice(
+        let tri_table_buffer = Buffer::from_upload(
             context,
-            &tables::TRI_TABLE,
-            BufferDefinition::storage().with_label("TRI_TABLE"),
+            BufferUpload::from_elements(&tables::TRI_TABLE),
+            BufferDefinition::storage().with_label(("TRI_TABLE").into()),
         )?;
-        let edge_table_buffer = Buffer::from_slice(
+        let edge_table_buffer = Buffer::from_upload(
             context,
-            &tables::EDGE_TABLE,
-            BufferDefinition::storage().with_label("EDGE_TABLE"),
+            BufferUpload::from_elements(&tables::EDGE_TABLE),
+            BufferDefinition::storage().with_label(("EDGE_TABLE").into()),
         )?;
-        let tri_count_table_buffer = Buffer::from_slice(
+        let tri_count_table_buffer = Buffer::from_upload(
             context,
-            &tables::TRI_COUNT_TABLE,
-            BufferDefinition::storage().with_label("TRI_COUNT_TABLE"),
+            BufferUpload::from_elements(&tables::TRI_COUNT_TABLE),
+            BufferDefinition::storage().with_label(("TRI_COUNT_TABLE").into()),
         )?;
 
         let params_struct = r#"
@@ -247,7 +248,8 @@ fn map(val: u32) -> u32 {
 "#;
         let sync_indirect_def = MapDefinition::new(sync_indirect_wgsl.to_string())?;
 
-        let deinterleave_wgsl = r#"
+        let deinterleave_wgsl = ShaderSource::from(
+            r#"
             struct Vertex {
                 position: vec4<f32>,
                 normal: vec4<f32>,
@@ -273,11 +275,10 @@ fn map(val: u32) -> u32 {
                 out_normals[pos_idx + 1u] = v.normal.y;
                 out_normals[pos_idx + 2u] = v.normal.z;
             }
-        "#;
-        let deinterleave_shader =
-            fabelgeist_gpu::data::gpu::ComputeShader::new(context, deinterleave_wgsl.to_string())?;
+        "#,
+        );
         let deinterleave_pipeline =
-            fabelgeist_gpu::data::gpu::ComputePipeline::new(context, deinterleave_shader)?;
+            fabelgeist_gpu::data::gpu::ComputePipeline::from_source(context, deinterleave_wgsl)?;
 
         Ok(Self {
             count_def,
@@ -314,27 +315,31 @@ impl MarchingCubes {
         // 1. Count Pass
         let counts_buffer = Buffer::new(
             context,
-            grid_total * 4,
+            (grid_total * 4).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("counts_buffer")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("counts_buffer").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
         let counts_resource = GpuResource::Buffer(counts_buffer.clone());
 
-        let mut count_params = PassParameters::new();
-        count_params.insert("grid_x", grid.0);
-        count_params.insert("grid_y", grid.1);
-        count_params.insert("grid_z", grid.2);
-        count_params.insert("max_vertices", max_vertices);
-        count_params.insert("threshold", threshold);
-        count_params.insert("scale_x", scale.0);
-        count_params.insert("scale_y", scale.1);
-        count_params.insert("scale_z", scale.2);
-        count_params.insert("offset_x", offset.0);
-        count_params.insert("offset_y", offset.1);
-        count_params.insert("offset_z", offset.2);
-        count_params.insert("tri_count_table", definition.tri_count_table_buffer.clone());
+        let count_params = PassParameters::from([
+            ("grid_x".into(), (grid.0).into()),
+            ("grid_y".into(), (grid.1).into()),
+            ("grid_z".into(), (grid.2).into()),
+            ("max_vertices".into(), (max_vertices).into()),
+            ("threshold".into(), (threshold).into()),
+            ("scale_x".into(), (scale.0).into()),
+            ("scale_y".into(), (scale.1).into()),
+            ("scale_z".into(), (scale.2).into()),
+            ("offset_x".into(), (offset.0).into()),
+            ("offset_y".into(), (offset.1).into()),
+            ("offset_z".into(), (offset.2).into()),
+            (
+                "tri_count_table".into(),
+                (definition.tri_count_table_buffer.clone()).into(),
+            ),
+        ]);
 
         Gather::execute_with_parameters(
             context,
@@ -350,34 +355,38 @@ impl MarchingCubes {
         // 3. Sync Indirect Pass (Map)
         let dummy_in = Buffer::new(
             context,
-            4,
+            (4u64).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("dummy_in")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("dummy_in").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
         let dummy_out = Buffer::new(
             context,
-            4,
+            (4u64).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("dummy_out")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("dummy_out").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
 
         let output_indirect = Buffer::new(
             context,
-            16,
+            (16u64).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("marching_cubes_indirect")
-                .with_copy_src()
-                .with_copy_dst()
-                .with_indirect(),
+                .with_label(("marching_cubes_indirect").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination)
+                .with_usage(BufferUse::Indirect),
         )?;
 
-        let mut sync_params = PassParameters::new();
-        sync_params.insert("inclusive_offsets", inclusive_offsets.clone());
-        sync_params.insert("indirect", output_indirect.clone());
+        let sync_params = PassParameters::from([
+            (
+                "inclusive_offsets".into(),
+                (inclusive_offsets.clone()).into(),
+            ),
+            ("indirect".into(), (output_indirect.clone()).into()),
+        ]);
 
         crate::Map::execute_with_parameters(
             context,
@@ -388,28 +397,35 @@ impl MarchingCubes {
         )?;
 
         // 4. Generate Pass (Stream)
-        let mut gen_params = PassParameters::new();
-        gen_params.insert("grid_x", grid.0);
-        gen_params.insert("grid_y", grid.1);
-        gen_params.insert("grid_z", grid.2);
-        gen_params.insert("max_vertices", max_vertices);
-        gen_params.insert("threshold", threshold);
-        gen_params.insert("scale_x", scale.0);
-        gen_params.insert("scale_y", scale.1);
-        gen_params.insert("scale_z", scale.2);
-        gen_params.insert("offset_x", offset.0);
-        gen_params.insert("offset_y", offset.1);
-        gen_params.insert("offset_z", offset.2);
-        gen_params.insert("triTable", definition.tri_table_buffer.clone());
-        gen_params.insert("edgeTable", definition.edge_table_buffer.clone());
+        let gen_params = PassParameters::from([
+            ("grid_x".into(), (grid.0).into()),
+            ("grid_y".into(), (grid.1).into()),
+            ("grid_z".into(), (grid.2).into()),
+            ("max_vertices".into(), (max_vertices).into()),
+            ("threshold".into(), (threshold).into()),
+            ("scale_x".into(), (scale.0).into()),
+            ("scale_y".into(), (scale.1).into()),
+            ("scale_z".into(), (scale.2).into()),
+            ("offset_x".into(), (offset.0).into()),
+            ("offset_y".into(), (offset.1).into()),
+            ("offset_z".into(), (offset.2).into()),
+            (
+                "triTable".into(),
+                (definition.tri_table_buffer.clone()).into(),
+            ),
+            (
+                "edgeTable".into(),
+                (definition.edge_table_buffer.clone()).into(),
+            ),
+        ]);
 
         let output_vertices = Buffer::new(
             context,
-            max_vertices as u64 * 32, // vec4 pos + vec4 norm
+            (max_vertices as u64 * 32).into(), // vec4 pos + vec4 norm
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("marching_cubes_output_vertices")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("marching_cubes_output_vertices").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
 
         crate::Stream::execute(
@@ -423,41 +439,14 @@ impl MarchingCubes {
         )?;
 
         // 5. Deinterleave Pass
-        let out_positions = Buffer::new(
+        let attributes = crate::surface_attributes::SurfaceAttributes::new(
             context,
-            max_vertices as u64 * 12, // vec3 pos
-            fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("marching_cubes_positions")
-                .with_copy_src()
-                .with_copy_dst()
-                .with_vertex(),
+            &definition.deinterleave_pipeline,
+            output_vertices,
+            fabelgeist_gpu::prelude::BufferByteLength::from(max_vertices as u64 * 12),
+            fabelgeist_gpu::prelude::WorkgroupGrid::from([max_vertices.div_ceil(64), 1, 1]),
+            crate::surface_attributes::SurfaceExtraction::MarchingCubes,
         )?;
-
-        let out_normals = Buffer::new(
-            context,
-            max_vertices as u64 * 12, // vec3 norm
-            fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("marching_cubes_normals")
-                .with_copy_src()
-                .with_copy_dst()
-                .with_vertex(),
-        )?;
-
-        let mut deinterleave_params = PassParameters::new();
-        deinterleave_params.insert("vertices", PassParameter::from(output_vertices));
-        deinterleave_params.insert("out_positions", PassParameter::from(out_positions.clone()));
-        deinterleave_params.insert("out_normals", PassParameter::from(out_normals.clone()));
-
-        let workgroups_x = max_vertices.div_ceil(64);
-        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
-            context,
-            definition.deinterleave_pipeline.clone(),
-            deinterleave_params,
-            workgroups_x,
-            1,
-            1,
-        )?;
-
-        Ok((out_positions, out_normals, output_indirect))
+        Ok((attributes.positions, attributes.normals, output_indirect))
     }
 }

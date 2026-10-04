@@ -3,10 +3,7 @@ fn contract_interaction_receipt_id(
     party_id: &str,
     stage: ContractInteractionStage,
 ) -> String {
-    format!(
-        "interaction:{contract_id}:{party_id}:{}",
-        stage.stable_id()
-    )
+    format!("interaction:{contract_id}:{party_id}:{}", stage.stable_id())
 }
 
 #[expect(
@@ -23,7 +20,7 @@ fn record_contract_issuer_interaction(
     dialogue_revision: u64,
     location_id: String,
 ) -> Result<(), String> {
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())?;
     let party_id = character.party_id.ok_or("Must be in a party")?;
     let party = ctx
         .db
@@ -163,9 +160,8 @@ pub fn simulate_contract_issuer_interaction(
     contract_id: String,
     stage: ContractInteractionStage,
 ) -> Result<(), String> {
-    if !crate::simulation::sender_owns_simulation_character(ctx, character_id) {
-        return Err("Only an owned disposable simulation may simulate NPC interaction".into());
-    }
+    crate::simulation::require_simulation_character_authority(ctx, character_id.into())
+        .map_err(|error: crate::simulation::SimulationCharacterAuthorityError| error.to_string())?;
     let contract = ctx
         .db
         .contract_authority()
@@ -220,8 +216,10 @@ pub fn accept_contract(
     character_id: u64,
     contract_id: String,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, character_id)?;
-    crate::character::require_living_character(ctx, character_id)?;
+    require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let Some(character) = ctx.db.character().id().find(character_id) else {
         return Err("Character not found".into());
     };
@@ -272,7 +270,10 @@ pub fn accept_contract(
 
     quest.status = ContractStatus::Accepted;
     quest.accepted_by = Some(party_id.clone());
-    quest.accepted_at_minute = Some(crate::time::refresh_clock(ctx)?);
+    quest.accepted_at_minute = Some(
+        crate::time::refresh_clock(ctx)
+            .map_err(|error: crate::time::WorldClockError| error.to_string())?,
+    );
     let case_id = quest.case_id.clone();
     let contract_id = quest.id.clone();
     ctx.db.contract_authority().id().update(quest);
@@ -284,7 +285,13 @@ pub fn accept_contract(
         .filter(&case_id)
         .next()
         .ok_or("Quest destination is not configured")?;
-    disclose_exact_case_site(ctx, character_id, &case_id, &site, "the contract issuer")?;
+    disclose_exact_case_site(
+        ctx,
+        (character_id).into(),
+        &case_id,
+        &site,
+        "the contract issuer",
+    )?;
 
     party.active_contract_id = Some(contract_id);
     ctx.db.party_authority().id().update(party);
@@ -299,8 +306,10 @@ pub fn track_case_site(
     character_id: u64,
     case_site_id: CaseSiteId,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let party_id = character
         .party_id
         .ok_or("Must be in a party to track a case site")?;
@@ -313,13 +322,14 @@ pub fn track_case_site(
     if party.leader_id != character_id {
         return Err("Only the party leader can change the tracked site".into());
     }
-    exact_case_site_for_observer(ctx, character_id, case_site_id.as_str())
+    exact_case_site_for_observer(ctx, (character_id).into(), case_site_id.as_str())
         .ok_or("That exact site has not been disclosed to this observer")?;
     let row = PartyCaseSiteTracking {
         party_id: party_id.clone(),
         observer_character_id: character_id,
         case_site_id,
-        tracked_at: crate::time::refresh_clock(ctx)?,
+        tracked_at: crate::time::refresh_clock(ctx)
+            .map_err(|error: crate::time::WorldClockError| error.to_string())?,
     };
     if ctx
         .db
@@ -341,9 +351,12 @@ pub fn abandon_contract(
     character_id: u64,
     contract_id: String,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, character_id)?;
-    require_character_no_unresolved_encounter(ctx, character_id)?;
-    crate::character::require_living_character(ctx, character_id)?;
+    require_strategic_character_authority(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    require_character_no_unresolved_encounter(ctx, (character_id).into())
+        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
+    crate::character::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     let Some(character) = ctx.db.character().id().find(character_id) else {
         return Err("Character not found".into());
     };
@@ -359,7 +372,7 @@ pub fn abandon_contract(
     if party.leader_id != character_id {
         return Err("Only the party leader can abandon quests".into());
     }
-    if crate::investigation::character_case_site_id(ctx, character_id).is_some() {
+    if crate::investigation::character_case_site_id(ctx, (character_id).into()).is_some() {
         return Err("Travel to a settlement before abandoning the quest".into());
     }
 

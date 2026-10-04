@@ -8,6 +8,7 @@ const OBSERVER_HIGH: fabelgeist_determinism::StreamId =
 const OBSERVER_LOW: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("quest.developer-observer-low");
 use super::AppState;
+use crate::spacetimedb::SqlQuery;
 use crate::{
     session::Session,
     spacetimedb::{
@@ -18,6 +19,7 @@ use crate::{
 };
 use adventuresim_core::{
     developer_quest::{self as dq, DeveloperGenerationContext, DeveloperQuestDefinition},
+    identity::SettlementId,
     quest_generation::{
         GenerationContext, TemplateFamily, VisibleWitnessCandidateInput,
         retain_navigable_witnesses, visible_witness_candidate,
@@ -60,7 +62,7 @@ struct TriggerIncidentForm {
 async fn inspector(State(state): State<AppState>) -> Response {
     let quests = match state
         .db
-        .query_sats::<BackendDevelopmentQuest>("SELECT * FROM backend_development_quests")
+        .query_sats::<BackendDevelopmentQuest>("SELECT * FROM backend_development_quests".into())
         .await
     {
         Ok(quests) => quests,
@@ -128,6 +130,32 @@ async fn trigger_incident(
         Err(error) => (StatusCode::UNPROCESSABLE_ENTITY, error.to_string()).into_response(),
     }
 }
+fn project_witness(
+    npc: &BackendSettlementResident,
+    presence: &SettlementResidentPresence,
+) -> Option<adventuresim_core::quest_generation::WitnessCandidate> {
+    if npc.character_id != presence.character_id {
+        return None;
+    }
+    visible_witness_candidate(VisibleWitnessCandidateInput {
+        resident_character_id: npc.character_id,
+        display_name: &npc.name,
+        age_band: npc_age_band_id(npc.age_band),
+        presentation: npc_presentation_id(npc.presentation),
+        height: &npc.height,
+        build: &npc.build,
+        hair: &npc.hair,
+        clothing: &npc.clothing,
+        profession: &npc.profession,
+        local_role: &npc.local_role,
+        settlement_id: &presence.settlement_id,
+        location_id: &presence.location_id,
+        start_minute: presence.start_minute,
+        end_minute: presence.end_minute,
+        is_default: presence.is_default,
+    })
+}
+
 async fn active_context(
     state: &AppState,
     session: &Session,
@@ -137,7 +165,7 @@ async fn active_context(
     let character = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            &crate::spacetimedb::character_by_id(character_id),
+            crate::spacetimedb::character_by_id(character_id.into()),
         )
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
@@ -148,15 +176,15 @@ async fn active_context(
     let settlement = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-            &crate::spacetimedb::settlement_by_id(&settlement_id),
+            crate::spacetimedb::settlement_by_id(&settlement_id),
         )
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
         .ok_or(StatusCode::NOT_FOUND)?;
     let now_minute = state
         .db
-        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
-            character_id,
+        .query_one_sats::<CharacterTime>(crate::spacetimedb::character_time_by_character_id(
+            character_id.into(),
         ))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
@@ -164,15 +192,17 @@ async fn active_context(
             StrategicMinute::new(t.minutes.minutes)
         });
     let literal = sql_string_literal(&settlement_id);
-    let npc_sql =
-        format!("SELECT * FROM backend_settlement_residents WHERE home_settlement_id = {literal}");
-    let presence_sql =
-        format!("SELECT * FROM settlement_resident_presence WHERE settlement_id = {literal}");
+    let npc_sql = SqlQuery::from(format!(
+        "SELECT * FROM backend_settlement_residents WHERE home_settlement_id = {literal}"
+    ));
+    let presence_sql = SqlQuery::from(format!(
+        "SELECT * FROM settlement_resident_presence WHERE settlement_id = {literal}"
+    ));
     let (npcs, presences) = tokio::join!(
-        state.db.query_sats::<BackendSettlementResident>(&npc_sql),
+        state.db.query_sats::<BackendSettlementResident>(npc_sql),
         state
             .db
-            .query_sats::<SettlementResidentPresence>(&presence_sql)
+            .query_sats::<SettlementResidentPresence>(presence_sql)
     );
     let visible_tabs = player_visible_npc_tabs(
         &settlement.economy,
@@ -192,23 +222,7 @@ async fn active_context(
             let presence = presences
                 .iter()
                 .find(|row| row.character_id == npc.character_id)?;
-            visible_witness_candidate(VisibleWitnessCandidateInput {
-                resident_character_id: npc.character_id,
-                display_name: &npc.name,
-                age_band: npc_age_band_id(npc.age_band),
-                presentation: npc_presentation_id(npc.presentation),
-                height: &npc.height,
-                build: &npc.build,
-                hair: &npc.hair,
-                clothing: &npc.clothing,
-                profession: &npc.profession,
-                local_role: &npc.local_role,
-                settlement_id: &presence.settlement_id,
-                location_id: &presence.location_id,
-                start_minute: presence.start_minute,
-                end_minute: presence.end_minute,
-                is_default: presence.is_default,
-            })
+            project_witness(&npc, presence)
         })
         .collect::<Vec<_>>();
     candidates = retain_navigable_witnesses(candidates, &visible_tabs);
@@ -217,7 +231,8 @@ async fn active_context(
         seed,
         observer_entropy_hi: OBSERVER_HIGH.rng(seed, &[]).next_u64(),
         observer_entropy_lo: OBSERVER_LOW.rng(seed, &[]).next_u64(),
-        settlement_id: settlement_id.clone(),
+        settlement_id: SettlementId::try_new(settlement_id.clone())
+            .map_err(|_| StatusCode::CONFLICT)?,
         settlement_name: settlement.name.clone(),
         scope: adventuresim_core::local_problem::Scope::Settlement { settlement_id },
         ordinal: 0,
@@ -232,7 +247,9 @@ async fn active_context(
 async fn development_enabled(state: &AppState) -> bool {
     state
         .db
-        .query_sats::<BackendDevelopmentScenario>("SELECT * FROM backend_development_scenarios")
+        .query_sats::<BackendDevelopmentScenario>(
+            "SELECT * FROM backend_development_scenarios".into(),
+        )
         .await
         .is_ok_and(|rows| !rows.is_empty())
 }

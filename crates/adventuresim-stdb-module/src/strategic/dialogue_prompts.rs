@@ -3,15 +3,7 @@ fn resolved_prompt_choices(
     session: &DialogueSession,
     character_id: u64,
     prompt: &adventuresim_dialogue::Prompt,
-) -> Result<
-    (
-        PromptMode,
-        Vec<adventuresim_dialogue::Choice>,
-        u32,
-        u32,
-    ),
-    String,
-> {
+) -> Result<(PromptMode, Vec<adventuresim_dialogue::Choice>, u32, u32), String> {
     if prompt.id != "request-organization-promotion" {
         return Ok((
             prompt.mode,
@@ -33,11 +25,8 @@ fn resolved_prompt_choices(
     let organization_id = dialogue_organization_id(ctx, session, &npc)?;
     let definition = adventuresim_core::organization::organization(&organization_id)
         .ok_or("Unknown organization")?;
-    let current = crate::social_roles::assigned_organization_role(
-        ctx,
-        character_id,
-        &organization_id,
-    )?;
+    let current =
+        crate::social_roles::assigned_organization_role(ctx, character_id, &organization_id)?;
     let request_template = prompt
         .choices
         .iter()
@@ -56,9 +45,11 @@ fn resolved_prompt_choices(
             let mut choice = request_template.clone();
             choice.id = format!("request:{}", target.id);
             choice.label = format!("Request the role of {}.", target.name);
-            choice.effects = vec![adventuresim_dialogue::Effect::RequestOrganizationPromotion {
-                to_role_id: Some(target.id.clone()),
-            }];
+            choice.effects = vec![
+                adventuresim_dialogue::Effect::RequestOrganizationPromotion {
+                    to_role_id: Some(target.id.clone()),
+                },
+            ];
             choice
         })
         .collect::<Vec<_>>();
@@ -122,7 +113,8 @@ pub fn choose_dialogue_topic(
     expected_revision: u64,
     catalog_revision: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     require_dialogue_revision(&catalog_revision)?;
     validate_dialogue_action_id(&action_id)?;
     let action_row_id = format!("{session_id}:{action_id}");
@@ -328,9 +320,7 @@ pub fn choose_dialogue_topic(
                 prompt_id: prompt.id.clone(),
                 mode: mode.stable_id().into(),
                 respondent_role: prompt.respondent.clone(),
-                resolution_policy: prompt.resolution
-                    .stable_id()
-                    .into(),
+                resolution_policy: prompt.resolution.stable_id().into(),
                 choices_json: serde_json::to_string(&choices)
                     .map_err(|_| "Could not encode dialogue choices")?,
                 min_choices,
@@ -396,7 +386,8 @@ pub fn answer_dialogue_prompt(
     expected_revision: u64,
     catalog_revision: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
+    require_strategic_gateway(ctx)
+        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
     require_dialogue_revision(&catalog_revision)?;
     validate_dialogue_action_id(&action_id)?;
     let prompt = ctx

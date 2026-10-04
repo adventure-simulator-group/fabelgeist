@@ -1,0 +1,50 @@
+[
+  {
+    "offset": 0,
+    "bytes": 0,
+    "available": 0,
+    "error": null
+  },
+  {
+    "offset": 0,
+    "bytes": 4,
+    "available": 4,
+    "error": null
+  },
+  {
+    "offset": 4,
+    "bytes": 4,
+    "available": 8,
+    "error": null
+  },
+  {
+    "offset": 8,
+    "bytes": 0,
+    "available": 8,
+    "error": null
+  },
+  {
+    "offset": 9,
+    "bytes": 0,
+    "available": 8,
+    "error": "Writing 0 bytes at 9 runs past the end of a 8-byte buffer"
+  },
+  {
+    "offset": 4,
+    "bytes": 8,
+    "available": 8,
+    "error": "Writing 8 bytes at 4 runs past the end of a 8-byte buffer"
+  },
+  {
+    "offset": 18446744073709551615,
+    "bytes": 1,
+    "available": 18446744073709551615,
+    "error": "Buffer write overflows an offset"
+  },
+  {
+    "offset": 18446744073709551615,
+    "bytes": 0,
+    "available": 18446744073709551615,
+    "error": null
+  }
+]

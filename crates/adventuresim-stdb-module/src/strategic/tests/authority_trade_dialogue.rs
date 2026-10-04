@@ -44,8 +44,8 @@ fn unready_members_keep_their_burden_but_lose_carrying_capacity() {
     let unchanged_body_and_load_burden = 95.0;
     let ready_capacity =
         100.0 * carrying_capacity_multiplier_for_condition(IncapacitationStatus::Ready);
-    let incapacitated_capacity = 100.0
-        * carrying_capacity_multiplier_for_condition(IncapacitationStatus::Incapacitated);
+    let incapacitated_capacity =
+        100.0 * carrying_capacity_multiplier_for_condition(IncapacitationStatus::Incapacitated);
     assert!(ready_capacity >= unchanged_body_and_load_burden);
     assert!(incapacitated_capacity < unchanged_body_and_load_burden);
 }
@@ -80,9 +80,27 @@ fn forged_recruitment_mutations_must_cross_character_authority() {
 
 #[test]
 fn incident_sources_are_retry_stable_and_group_resolution_is_exact() {
-    let first = activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1440));
-    let retry = activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1440));
-    let next = activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1441));
+    let first = activity_incident_source_id(
+        "raiding",
+        "party",
+        "town",
+        (7).into(),
+        StrategicMinute::new(1440),
+    );
+    let retry = activity_incident_source_id(
+        "raiding",
+        "party",
+        "town",
+        (7).into(),
+        StrategicMinute::new(1440),
+    );
+    let next = activity_incident_source_id(
+        "raiding",
+        "party",
+        "town",
+        (7).into(),
+        StrategicMinute::new(1441),
+    );
     assert_eq!(first, retry);
     assert_ne!(first, next);
     assert!(incident_group_matches(
@@ -167,7 +185,7 @@ fn case_reputation_separates_canonical_and_public_battle_identity() {
     assert!(finale.contains("crate::world_event::commit_generated_case_resolution"));
     assert!(finale.contains("&case.id"));
     assert!(finale.contains("&validated.manifest.public_case_id"));
-    assert!(finale.contains("&validated.context.settlement_id"));
+    assert!(finale.contains("validated.context.settlement_id.as_str()"));
     let unified = finale
         .find("crate::world_event::commit_generated_case_resolution")
         .expect("unified consequence boundary");
@@ -215,7 +233,20 @@ fn mission_binding_entropy_and_terminal_replays_fail_closed() {
         .expect("mission binding");
     assert!(binding.contains("existing.status == MissionAttemptStatus::Bound"));
     assert!(binding.contains("already terminal and cannot be reused"));
-    assert!(binding.contains("outcome_entropy: ctx.random()"));
+    let reuse = binding
+        .find("return if existing.party_id == party_id")
+        .expect("existing authority is inspected before capture");
+    let capture = binding
+        .find("MissionAuthority::capture(")
+        .expect("new authority captures entropy and combat inputs");
+    assert!(reuse < capture);
+    let capture = include_str!("../mission_roster.rs")
+        .split("pub(crate) fn capture(")
+        .nth(1)
+        .and_then(|tail| tail.split("pub(crate) fn enemy_roster(").next())
+        .expect("mission capture constructor");
+    assert!(capture.contains("outcome_entropy: ctx.random()"));
+    assert!(capture.contains("status: MissionAttemptStatus::Bound"));
     assert!(binding.contains("mission_approach_capability_id("));
 
     let cancel = source
@@ -248,7 +279,7 @@ fn mission_gateway_reducers_require_character_authority() {
             .and_then(|tail| tail.split("#[reducer]").next())
             .expect("reducer body");
         assert!(
-            body.contains("require_strategic_character_authority(ctx, character_id)?"),
+            body.split_whitespace().collect::<String>().contains("require_strategic_character_authority(ctx,(character_id).into()).map_err(|error:crate::strategic::StrategicCharacterAuthorityError|error.to_string())?"),
             "{function} lacks gateway authority"
         );
     }
@@ -479,7 +510,7 @@ fn case_blocker_authority_paths_remain_reachable_and_private() {
         .nth(1)
         .and_then(|tail| tail.split("fn consume_contract_interaction").next())
         .unwrap();
-    assert!(simulated_interaction.contains("sender_owns_simulation_character(ctx, character_id)"));
+    assert!(simulated_interaction.split_whitespace().collect::<String>().contains("require_simulation_character_authority(ctx,character_id.into()).map_err(|error:crate::simulation::SimulationCharacterAuthorityError|error.to_string())?"));
     let dialogue_effect = source
         .split("fn apply_dialogue_effect")
         .nth(1)
@@ -560,7 +591,7 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
         "default_merchant_provider(ctx, &settlement_id, &service_id, location_id)",
         "storefront_stocks(",
         "settlement_allowlist",
-        "inventory_food_definition(Some(item.kind), item_id)?",
+        "inventory_food_definition(Some(item.kind), &(item_id).into()).map_err(|error: crate::item::MissingInventoryFoodDefinition| -> String { error.to_string() })?",
         "add_to_party_inventory_checked(",
         "add_inventory_item_checked(",
     ] {
@@ -569,7 +600,14 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
             "missing merchant authority check: {authority_check}"
         );
     }
-    assert!(trade.contains("let problem_minute = StrategicMinute::new("));
+    let clock = trade
+        .split("let problem_minute =")
+        .nth(1)
+        .and_then(|tail| tail.split("if provider.home_settlement_id").next())
+        .expect("merchant presence uses the character's strategic clock");
+    assert!(clock.contains(".character_time()"));
+    assert!(clock.contains(".find(character_id)"));
+    assert!(clock.contains(".map_or(StrategicMinute::ZERO, |time| time.minutes)"));
     assert!(
         !trade.contains("let storefront = match catalog_kind"),
         "the reducer must not infer a different storefront from item kind"
@@ -580,9 +618,11 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
         .next()
         .and_then(|tail| tail.split("fn credit_party_stake").next())
         .expect("party inventory purchase implementation");
-    assert!(party_purchase.contains("inventory_food_definition(kind, item_id)?"));
+    assert!(party_purchase.contains("inventory_food_definition(kind, &(item_id).into()).map_err(|error: crate::item::MissingInventoryFoodDefinition| -> String { error.to_string() })?"));
     assert!(party_purchase.contains("for _ in 0..quantity"));
-    assert!(party_purchase.contains("create_party_food_lot(ctx, row.id, item_id, 1, minute)"));
+    assert!(
+        party_purchase.contains("create_party_food_lot(ctx, row.id, &(item_id).into(), 1, minute)")
+    );
 }
 
 #[test]

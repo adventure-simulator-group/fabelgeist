@@ -1,88 +1,120 @@
-use crate::data::{gpu::shader::parse_naga, shader};
+use crate::data::gpu::shader::{ShaderLanguage, ShaderParseError, ShaderSource};
 use crate::globals::WgpuContext;
-use anyhow::{Result, anyhow};
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 
 #[derive(Clone, Debug, Default)]
 pub struct ComputeShader {
-    pub code: String,
+    pub code: ShaderSource,
     pub module: Option<Arc<wgpu::ShaderModule>>,
-    pub error: Arc<Mutex<Option<String>>>,
 }
-impl ComputeShader {
-    pub fn new(context: &WgpuContext, code: String) -> Result<ComputeShader> {
-        // 1. Naga Parse & Deep Validation
-        let is_glsl = shader::detect_from_code(&code) == "glsl";
-        let naga_res = parse_naga(&code, wgpu::naga::ShaderStage::Compute)
-            .map_err(|e| anyhow::anyhow!("Compute Shader Parse Error: {}", e))?;
 
+/// CPU preparation preserves the original source separately from emitted WGSL.
+#[derive(Debug)]
+pub struct PreparedComputeShader {
+    source: ShaderSource,
+    gpu_source: ShaderSource,
+}
+impl PreparedComputeShader {
+    pub fn new(source: ShaderSource) -> Result<Self, ComputeShaderError> {
+        let module = source
+            .parse(wgpu::naga::ShaderStage::Compute)
+            .map_err(ComputeShaderError::Parse)?;
         let mut validator = wgpu::naga::valid::Validator::new(
             wgpu::naga::valid::ValidationFlags::all(),
             wgpu::naga::valid::Capabilities::all(),
         );
-
-        let info = if let Ok(info) = validator.validate(&naga_res) {
-            info
-        } else {
-            let e = validator.validate(&naga_res).unwrap_err();
-            let message = e.emit_to_string(&code);
-            return Err(anyhow::anyhow!(
-                "Compute Shader Validation Error: {}",
-                message
-            ));
+        let info = validator.validate(&module).map_err(
+            |cause: wgpu::naga::WithSpan<wgpu::naga::valid::ValidationError>| -> ComputeShaderError {
+                ComputeShaderError::Validation {
+                    source: source.clone(),
+                    cause: Box::new(cause),
+                }
+            },
+        )?;
+        let gpu_source = match source.language() {
+            ShaderLanguage::Glsl => ShaderSource::from(
+                wgpu::naga::back::wgsl::write_string(
+                    &module,
+                    &info,
+                    wgpu::naga::back::wgsl::WriterFlags::empty(),
+                )
+                .map_err(ComputeShaderError::Conversion)?,
+            ),
+            ShaderLanguage::Wgsl => source.clone(),
         };
+        Ok(Self { source, gpu_source })
+    }
+    pub fn source(&self) -> &ShaderSource {
+        &self.source
+    }
+    pub fn gpu_source(&self) -> &ShaderSource {
+        &self.gpu_source
+    }
+}
 
-        // 2. Convert to WGSL for WGPU compatibility (if it was GLSL)
-        let wgsl_code = if is_glsl {
-            match wgpu::naga::back::wgsl::write_string(
-                &naga_res,
-                &info,
-                wgpu::naga::back::wgsl::WriterFlags::empty(),
-            ) {
-                Ok(s) => s,
-                Err(e) => return Err(anyhow!("Failed to convert GLSL to WGSL: {}", e)),
-            }
-        } else {
-            code.clone()
-        };
-
-        // 3. WGPU Validation & Creation
+impl ComputeShader {
+    pub fn new(context: &WgpuContext, code: ShaderSource) -> Result<Self, ComputeShaderError> {
+        let prepared = PreparedComputeShader::new(code)?;
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
-
-        let sm = context
+        let error_scope = context.validation_readback.scope(&context.device);
+        let module = context
             .device
             .create_shader_module(wgpu::ShaderModuleDescriptor {
                 label: Some("ComputeShader"),
-                source: wgpu::ShaderSource::Wgsl(std::borrow::Cow::Borrowed(&wgsl_code)),
+                source: wgpu::ShaderSource::Wgsl(std::borrow::Cow::Borrowed(<&str>::from(
+                    prepared.gpu_source(),
+                ))),
             });
-        let module = Some(Arc::new(sm));
-
-        let error = Arc::new(Mutex::new(None));
-
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(error_scope) = error_scope {
             let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(e) = pollster::block_on(error_scope.pop()) {
-                return Err(anyhow!("Compute Shader Validation Error: {}", e));
+            if let Some(cause) = pollster::block_on(error_scope.pop()) {
+                return Err(ComputeShaderError::Device(cause));
             }
         }
-
-        let definition = ComputeShader {
-            code: code.clone(),
-            module,
-            error,
-        };
-
-        Ok(definition)
+        Ok(Self {
+            code: prepared.source,
+            module: Some(Arc::new(module)),
+        })
     }
 }
 impl PartialEq for ComputeShader {
     fn eq(&self, other: &Self) -> bool {
         self.code == other.code
+    }
+}
+
+#[derive(Debug)]
+pub enum ComputeShaderError {
+    Parse(ShaderParseError),
+    Validation {
+        source: ShaderSource,
+        cause: Box<wgpu::naga::WithSpan<wgpu::naga::valid::ValidationError>>,
+    },
+    Conversion(wgpu::naga::back::wgsl::Error),
+    Device(wgpu::Error),
+}
+impl std::fmt::Display for ComputeShaderError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Parse(cause) => write!(f, "Compute Shader Parse Error: {cause}"),
+            Self::Validation { source, cause } => write!(
+                f,
+                "Compute Shader Validation Error: {}",
+                cause.emit_to_string(<&str>::from(source))
+            ),
+            Self::Conversion(cause) => write!(f, "Failed to convert GLSL to WGSL: {cause}"),
+            Self::Device(cause) => write!(f, "Compute Shader Validation Error: {cause}"),
+        }
+    }
+}
+impl std::error::Error for ComputeShaderError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::Parse(cause) => Some(cause),
+            Self::Validation { cause, .. } => Some(cause.as_ref()),
+            Self::Conversion(cause) => Some(cause),
+            Self::Device(cause) => Some(cause),
+        }
     }
 }

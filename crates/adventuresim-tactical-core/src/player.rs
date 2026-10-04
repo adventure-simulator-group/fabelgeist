@@ -1,7 +1,6 @@
 use adventuresim_core::prelude::*;
 use bevy::{ecs::system::SystemParam, prelude::*};
 use bevy_enhanced_input::prelude::Actions;
-use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 use crate::combat_config::AttackCurveConfig;
@@ -83,26 +82,8 @@ impl Default for Player {
     }
 }
 
-/// Strategic character identity projected into the transient tactical world.
-/// Network client identity remains a separate transport concern.
-#[derive(
-    Component, Serialize, Deserialize, Default, Debug, Reflect, Clone, Copy, PartialEq, Eq, Hash,
-)]
-#[reflect(Component)]
-#[component(immutable)]
-pub struct CharacterId(pub u64);
-
-impl CharacterId {
-    /// Get associated color of this player.
-    pub fn color(&self) -> Color {
-        let mut random = StreamId::new("character.display-color").rng(self.0, &[]);
-        let hue = random.index(360) as f32;
-        let saturation = 0.28 + random.inclusive_unit_f32() * 0.18;
-        let value = 0.90 + random.inclusive_unit_f32() * 0.08;
-
-        Color::hsv(hue, saturation, value)
-    }
-}
+mod identity;
+pub use identity::CharacterId;
 
 /// Creature families used to select the attacker's anatomical lore.
 ///

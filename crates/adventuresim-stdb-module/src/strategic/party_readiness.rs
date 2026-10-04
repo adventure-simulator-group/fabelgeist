@@ -1,31 +1,13 @@
-/// Returns the living members who participate in strategic party activity.
-/// Membership rows for dead characters remain durable, but corpses never
-/// advance time, travel, consume provisions, affect readiness, or enter combat.
-pub(crate) fn living_party_member_ids(ctx: &ReducerContext, party_id: &str) -> Vec<u64> {
-    let mut character_ids: Vec<_> = ctx
-        .db
-        .party_member()
-        .party_id()
-        .filter(party_id)
-        .filter_map(|membership| {
-            ctx.db
-                .character()
-                .id()
-                .find(membership.character_id)
-                .filter(|character| character.alive)
-                .map(|character| character.id)
-        })
-        .collect();
-    character_ids.sort_unstable();
-    character_ids
-}
-
-pub(crate) fn require_party_ready(ctx: &ReducerContext, party_id: &str) -> Result<(), String> {
+pub(crate) fn require_party_ready(
+    ctx: &ReducerContext,
+    party_id: &str,
+) -> Result<(), PartyReadinessError> {
     let character_ids = living_party_member_ids(ctx, party_id);
     if character_ids.is_empty() {
-        return Err("Party has no living members".into());
+        return Err(PartyReadinessError::NoLivingMembers);
     }
     crate::condition::require_characters_ready(ctx, &character_ids)
+        .map_err(PartyReadinessError::from)
 }
 
 pub(crate) fn character_is_publicly_ready_party_member(

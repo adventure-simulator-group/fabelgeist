@@ -724,7 +724,7 @@ impl Administration {
 pub fn phenotype_multipliers(
     secret: &[u8],
     key_version: u16,
-    character_id: u64,
+    character_id: crate::identity::CharacterId,
     episode_id: u64,
 ) -> [f32; METER_COUNT] {
     let mut raw = [0.0; METER_COUNT];
@@ -737,7 +737,11 @@ pub fn phenotype_multipliers(
     raw.map(|value| value / mean)
 }
 
-pub fn baseline_meters(secret: &[u8], key_version: u16, character_id: u64) -> MeterVector {
+pub fn baseline_meters(
+    secret: &[u8],
+    key_version: u16,
+    character_id: crate::identity::CharacterId,
+) -> MeterVector {
     let mut values = [0.0; METER_COUNT];
     for meter in Meter::ALL {
         let hash = keyed_hash(secret, key_version, character_id, 0, meter as u8);
@@ -751,7 +755,7 @@ pub fn baseline_meters(secret: &[u8], key_version: u16, character_id: u64) -> Me
 fn keyed_hash(
     secret: &[u8],
     key_version: u16,
-    character_id: u64,
+    character_id: crate::identity::CharacterId,
     episode_id: u64,
     discriminator: u8,
 ) -> u64 {
@@ -775,7 +779,7 @@ fn keyed_hash(
     inner.update(inner_pad);
     inner.update(b"adventuresim/physiology/phenotype");
     inner.update(key_version.to_le_bytes());
-    inner.update(character_id.to_le_bytes());
+    inner.update(u64::from(character_id).to_le_bytes());
     inner.update(episode_id.to_le_bytes());
     inner.update([discriminator]);
     let inner_digest = inner.finalize();
@@ -949,13 +953,19 @@ pub fn observation_noise(
     let discriminator = (region as u8)
         .saturating_mul(HUMOUR_COUNT as u8)
         .saturating_add(humour as u8);
-    let sample = |sample_day: u64| {
-        let episode = patient_id ^ sample_day.rotate_left(19) ^ 0x6f62_7365_7276_6572;
-        let hash = keyed_hash(secret, key_version, observer_id, episode, discriminator);
+    let sample = |sample_day: adventuresim_world_schema::calendar::StrategicDayIndex| {
+        let episode = patient_id ^ u64::from(sample_day).rotate_left(19) ^ 0x6f62_7365_7276_6572;
+        let hash = keyed_hash(
+            secret,
+            key_version,
+            (observer_id).into(),
+            episode,
+            discriminator,
+        );
         ((hash >> 11) as f64 / (1u64 << 53) as f64 * 2.0 - 1.0) as f32
     };
     let amplitude = [0.070, 0.060, 0.050, 0.040, 0.030, 0.020][usize::from(physiology_band.min(5))];
-    (sample(day) + (sample(day.saturating_add(1)) - sample(day)) * fraction) * amplitude
+    (sample(day) + (sample(day.following()) - sample(day)) * fraction) * amplitude
 }
 
 #[cfg(test)]
@@ -996,9 +1006,9 @@ mod tests {
 
     #[test]
     fn phenotype_is_keyed_deterministic_and_relative() {
-        let a = phenotype_multipliers(b"one", 1, 4, 9);
-        assert_eq!(a, phenotype_multipliers(b"one", 1, 4, 9));
-        assert_ne!(a, phenotype_multipliers(b"two", 1, 4, 9));
+        let a = phenotype_multipliers(b"one", 1, (4).into(), 9);
+        assert_eq!(a, phenotype_multipliers(b"one", 1, (4).into(), 9));
+        assert_ne!(a, phenotype_multipliers(b"two", 1, (4).into(), 9));
         assert!((a.iter().sum::<f32>() / METER_COUNT as f32 - 1.0).abs() < 0.0001);
         assert!(a.windows(2).any(|pair| pair[0] != pair[1]));
     }

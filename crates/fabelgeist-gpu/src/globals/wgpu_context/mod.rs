@@ -1,5 +1,7 @@
+mod validation;
 use anyhow::{Result, anyhow};
 use std::sync::Arc;
+pub use validation::ValidationReadback;
 use wgpu::{Adapter, Device, Instance, Queue};
 pub mod blitter;
 pub use blitter::Blitter;
@@ -31,7 +33,7 @@ pub struct WgpuContext {
     /// creation drains the queue the same way and would hang a borrowed
     /// device identically -- nothing reaches it on a borrowed context today,
     /// but that is the place to look if one ever does.
-    pub blocking_validation: bool,
+    pub validation_readback: ValidationReadback,
 }
 
 /// Reports which GPU the adapter request actually landed on. `device_type: Cpu`
@@ -114,7 +116,7 @@ impl WgpuContext {
             blit_lock: Arc::new(async_lock::Mutex::new(())),
             // Someone else's device, and very likely someone else's render
             // loop with it.
-            blocking_validation: false,
+            validation_readback: ValidationReadback::Deferred,
         }
     }
 
@@ -129,7 +131,7 @@ impl WgpuContext {
     /// Waits on a submission index rather than the whole queue, so it is safe
     /// on a device shared with a renderer -- unlike `poll(wait_indefinitely)`,
     /// which never returns while something else keeps submitting. See
-    /// [`WgpuContext::blocking_validation`].
+    /// [`WgpuContext::validation_readback`].
     pub async fn submitted_work_done(&self) {
         #[cfg(not(target_arch = "wasm32"))]
         {
@@ -250,7 +252,7 @@ impl WgpuContext {
             surface,
             blitter,
             blit_lock: Arc::new(async_lock::Mutex::new(())),
-            blocking_validation: true,
+            validation_readback: ValidationReadback::Blocking,
         })
     }
 }
@@ -274,7 +276,7 @@ mod tests {
     async fn a_borrowed_device_skips_blocking_validation() -> Result<()> {
         let owned = WgpuContext::new().await?;
         assert!(
-            owned.blocking_validation,
+            owned.validation_readback == ValidationReadback::Blocking,
             "a context that owns its device can afford to read the error scope"
         );
 
@@ -285,7 +287,7 @@ mod tests {
             owned.queue.clone(),
         );
         assert!(
-            !borrowed.blocking_validation,
+            borrowed.validation_readback == ValidationReadback::Deferred,
             "a borrowed device may have someone else submitting to it; draining              its queue would block until the driver gives up"
         );
         assert!(borrowed.surface.is_none());

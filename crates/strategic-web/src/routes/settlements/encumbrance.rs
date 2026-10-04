@@ -1,3 +1,6 @@
+use crate::routes::data::{self, MutableCharacterAccess};
+use adventuresim_core::identity::CharacterId;
+
 #[derive(Default)]
 pub(super) struct EncumbranceRows {
     attributes: Vec<CharacterAttributes>,
@@ -56,9 +59,9 @@ pub(super) async fn inventory_encumbrance_summaries(
             } else {
                 state
                     .db
-                    .query_sats::<InventoryItem>(&format!(
+                    .query_sats::<InventoryItem>(SqlQuery::from(format!(
                         "SELECT * FROM inventory_item WHERE character_id = {member_id}"
-                    ))
+                    )))
                     .await
                     .unwrap_or_default()
             }
@@ -72,7 +75,7 @@ pub(super) async fn inventory_encumbrance_summaries(
     let rows = EncumbranceRows::query(state, &encumbrance_ids).await;
     let food_lots = state
         .db
-        .query_sats::<FoodLot>("SELECT * FROM food_lot")
+        .query_sats::<FoodLot>("SELECT * FROM food_lot".into())
         .await
         .unwrap_or_default();
     InventoryEncumbranceSummaries {
@@ -100,17 +103,17 @@ impl EncumbranceRows {
                 // buffer is a bound on actual in-flight database calls.
                 let attributes = query_single::<CharacterAttributes>(
                     state,
-                    crate::spacetimedb::character_attributes_by_character_id(character_id),
+                    db::character_attributes_by_character_id(character_id.into()),
                 )
                 .await;
                 let limbs = query_single::<CharacterLimbs>(
                     state,
-                    crate::spacetimedb::character_limbs_by_character_id(character_id),
+                    db::character_limbs_by_character_id(character_id.into()),
                 )
                 .await;
                 let condition = query_single::<CharacterCondition>(
                     state,
-                    crate::spacetimedb::character_condition_by_character_id(character_id),
+                    db::character_condition_by_character_id(character_id.into()),
                 )
                 .await;
                 (attributes, limbs, condition)
@@ -124,16 +127,17 @@ impl EncumbranceRows {
             rows.limbs.extend(limbs);
             rows.conditions.extend(condition);
         }
+
         let (objects, containment, liquids) = tokio::join!(
             state
                 .db
-                .query_sats::<InventoryObject>("SELECT * FROM inventory_object"),
+                .query_sats::<InventoryObject>("SELECT * FROM inventory_object".into()),
             state
                 .db
-                .query_sats::<InventoryContainment>("SELECT * FROM inventory_containment"),
+                .query_sats::<InventoryContainment>("SELECT * FROM inventory_containment".into()),
             state
                 .db
-                .query_sats::<ContainerLiquid>("SELECT * FROM container_liquid"),
+                .query_sats::<ContainerLiquid>("SELECT * FROM container_liquid".into()),
         );
         rows.objects = objects.unwrap_or_default();
         rows.containment = containment.unwrap_or_default();
@@ -167,18 +171,17 @@ pub(super) fn personal_encumbrance(
                 .expect("persisted character body mass must be valid")
                 .kilograms()
         });
-    let water_weight = adventuresim_core::physical_object::OperationalCustody::character(
-        character_id,
-    )
-    .map_or(0.0, |custody| {
-        super::contained_water_ml_for_custody(
-            &rows.objects,
-            &rows.containment,
-            &rows.liquids,
-            &custody,
-        ) as f32
-            / 1_000.0
-    });
+    let water_weight =
+        adventuresim_core::physical_object::OperationalCustody::character((character_id).into())
+            .map_or(0.0, |custody| {
+                super::contained_water_ml_for_custody(
+                    &rows.objects,
+                    &rows.containment,
+                    &rows.liquids,
+                    &custody,
+                ) as f32
+                    / 1_000.0
+            });
     let inventory_weight = inventory
         .iter()
         .filter(|row| row.character_id == character_id)
@@ -267,10 +270,12 @@ pub(super) async fn get_active_character(
     character_id: Option<u64>,
 ) -> Option<(CharacterView, Vec<InventoryItem>)> {
     let character_id = character_id?;
-    let inventory_sql = format!("SELECT * FROM inventory_item WHERE character_id = {character_id}");
+    let inventory_sql = SqlQuery::from(format!(
+        "SELECT * FROM inventory_item WHERE character_id = {character_id}"
+    ));
     let (character, inventory) = tokio::join!(
-        super::super::data::character_as_observed(state, character_id, character_id),
-        state.db.query_sats::<InventoryItem>(&inventory_sql),
+        super::super::data::character_as_observed(state, character_id.into(), character_id.into()),
+        state.db.query_sats::<InventoryItem>(inventory_sql),
     );
     let character = character.ok().flatten()?;
     let inventory = inventory.unwrap_or_default();
@@ -303,8 +308,8 @@ pub(super) async fn get_character_capability(
         .await;
     state
         .db
-        .query_sats(&crate::spacetimedb::character_capability_by_character_id(
-            character_id,
+        .query_sats(crate::spacetimedb::character_capability_by_character_id(
+            character_id.into(),
         ))
         .await
         .unwrap_or_default()
@@ -318,9 +323,9 @@ pub(crate) async fn get_combat_training_profile(
 ) -> CombatTrainingProfile {
     let occupancies = state
         .db
-        .query_sats::<EquipmentOccupancy>(&format!(
+        .query_sats::<EquipmentOccupancy>(SqlQuery::from(format!(
             "SELECT * FROM equipment_occupancy WHERE character_id = {character_id}"
-        ))
+        )))
         .await
         .unwrap_or_default();
     let mut hands = Vec::new();
@@ -331,14 +336,16 @@ pub(crate) async fn get_combat_training_profile(
     {
         let inventory = state
             .db
-            .query_one_sats::<InventoryItem>(&crate::spacetimedb::inventory_item_by_id(inventory_id))
+            .query_one_sats::<InventoryItem>(crate::spacetimedb::inventory_item_by_id(inventory_id))
             .await
             .ok()
             .flatten();
         let Some(inventory) = inventory else { continue };
         let definition = state
             .db
-            .query_one_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>(&crate::spacetimedb::item_by_id(&inventory.item_id))
+            .query_one_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>(
+                crate::spacetimedb::item_by_id(&inventory.item_id),
+            )
             .await
             .ok()
             .flatten();
@@ -360,14 +367,14 @@ pub(crate) async fn get_active_party_members(
     let Some(party_id) = active_character.and_then(|character| character.party_id.as_ref()) else {
         return Vec::new();
     };
-    let memberships_sql = format!(
+    let memberships_sql = SqlQuery::from(format!(
         "SELECT * FROM party_member WHERE party_id = {}",
         sql_string_literal(party_id)
-    );
+    ));
     let party_sql = crate::spacetimedb::party_by_id(party_id);
     let (memberships, party) = tokio::join!(
-        state.db.query_sats::<PartyMember>(&memberships_sql),
-        state.db.query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&party_sql),
+        state.db.query_sats::<PartyMember>(memberships_sql),
+        state.db.query_sats_into::<DbParty, PartyView>(party_sql),
     );
     let memberships = memberships.unwrap_or_default();
     let leader_id = party
@@ -377,8 +384,8 @@ pub(crate) async fn get_active_party_members(
     let lookups = memberships.into_iter().map(|membership| async move {
         state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(&crate::spacetimedb::character_by_id(
-                membership.character_id,
+            .query_sats_into::<DbCharacter, CharacterView>(crate::spacetimedb::character_by_id(
+                membership.character_id.into(),
             ))
             .await
             .unwrap_or_default()
@@ -393,20 +400,21 @@ pub(crate) async fn get_active_party_members(
         // so omit that row until the viewer catches up.
         let visibility = join_all(members.iter().map(|member| async move {
             (
-                member.id,
-                super::super::data::character_not_ahead_of_observer(state, member.id, actor.id)
+                CharacterId::from(member.id),
+                data::mutable_character_access(state, member.id.into(), actor.id.into())
                     .await
-                    .unwrap_or(false),
+                    .unwrap_or(MutableCharacterAccess::Unknown),
             )
         }))
         .await;
         let visible_ids = visibility
             .into_iter()
-            .filter_map(|(id, visible)| visible.then_some(id))
-            .collect::<HashSet<_>>();
-        members.retain(|member| visible_ids.contains(&member.id));
+            .filter_map(|(id, access)| (access == MutableCharacterAccess::Available).then_some(id))
+            .collect::<HashSet<CharacterId>>();
+        members.retain(|member| visible_ids.contains(&CharacterId::from(member.id)));
         if let Err(error) =
-            super::super::data::project_alive_as_observed(state, actor.id, &mut members).await
+            super::super::data::project_alive_as_observed(state, actor.id.into(), &mut members)
+                .await
         {
             // A failed chronology read must not disclose or act on broad
             // current death state from beyond the selected character's date.
@@ -415,28 +423,28 @@ pub(crate) async fn get_active_party_members(
                 member.alive = true;
             }
         }
-        let addresses_sql = format!(
+        let addresses_sql = SqlQuery::from(format!(
             "SELECT * FROM backend_social_addresses WHERE actor_id = {}",
             actor.id
-        );
-        let automatic_sql = format!(
+        ));
+        let automatic_sql = SqlQuery::from(format!(
             "SELECT * FROM backend_automatic_social_chats WHERE actor_id = {}",
             actor.id
-        );
+        ));
         let source_lookups = members.iter().map(|member| async move {
             state
                 .db
-                .query_sats::<CharacterMoraleSource>(&format!(
+                .query_sats::<CharacterMoraleSource>(SqlQuery::from(format!(
                     "SELECT * FROM backend_character_morale_sources WHERE character_id = {}",
                     member.id
-                ))
+                )))
                 .await
                 .unwrap_or_default()
         });
         let (source_groups, addresses, automatic_chats) = tokio::join!(
             join_all(source_lookups),
-            state.db.query_sats::<SocialAddress>(&addresses_sql),
-            state.db.query_sats::<AutomaticSocialChat>(&automatic_sql),
+            state.db.query_sats::<SocialAddress>(addresses_sql),
+            state.db.query_sats::<AutomaticSocialChat>(automatic_sql),
         );
         let sources: Vec<_> = source_groups.into_iter().flatten().collect();
         let successful = addresses.unwrap_or_default();
@@ -455,8 +463,8 @@ pub(crate) async fn get_active_party_members(
             }
             member.social_notification_count =
                 adventuresim_core::social::unaddressed_social_source_count(
-                    actor.id,
-                    member.id,
+                    (actor.id).into(),
+                    (member.id).into(),
                     sources
                         .iter()
                         .filter(|source| source.character_id == member.id)
@@ -469,8 +477,8 @@ pub(crate) async fn get_active_party_members(
                         }),
                     successful.iter().map(|address| {
                         (
-                            address.actor_id,
-                            address.target_id,
+                            CharacterId::from(address.actor_id),
+                            CharacterId::from(address.target_id),
                             address.source_id.as_str(),
                             true,
                         )

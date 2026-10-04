@@ -8,12 +8,18 @@
 
 use std::sync::Arc;
 
-use anyhow::anyhow;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
-use fabelgeist_xpbd::{Particles, SubstepHook};
-
-use crate::wgsl;
+use fabelgeist_xpbd::{
+    ParticleCapacity, ParticleCount, ParticleInputCount, Particles, SubstepDuration, SubstepHook,
+};
+mod build;
+mod error;
+mod hash_layout;
+mod resource;
+pub use error::{SelfCollisionBuildError, SelfCollisionRecordError};
+use hash_layout::CollisionTableSize;
+pub use resource::{SelfCollisionBuffer, SelfCollisionKernel};
 
 /// The hash grid, its buffers, and the passes over them.
 pub struct SelfCollision {
@@ -33,8 +39,8 @@ pub struct SelfCollision {
     neighbours: Buffer,
     scratch: SortScratch,
 
-    table_size: u32,
-    capacity: u32,
+    table_size: CollisionTableSize,
+    capacity: ParticleCapacity,
     /// Particles closer than twice this are pushed apart. Half the fabric
     /// thickness, so two layers rest one thickness apart.
     pub radius: f32,
@@ -47,96 +53,9 @@ pub struct SelfCollision {
 }
 
 impl SelfCollision {
-    /// `adjacency` is, per particle, the particles it already shares a mesh
-    /// edge with. Those pairs are skipped: a stretch constraint is already
-    /// holding them at the right distance, and pushing them apart as well
-    /// would inflate the fabric.
-    pub fn new(
-        context: &WgpuContext,
-        cache: &KernelCache,
-        particle_count: u32,
-        adjacency: &[Vec<u32>],
-        radius: f32,
-    ) -> Result<Self> {
-        if adjacency.len() as u32 != particle_count {
-            return Err(anyhow!(
-                "SelfCollision: {particle_count} particles but {} adjacency lists",
-                adjacency.len()
-            ));
-        }
-        let capacity = particle_count.max(1);
-        // Roughly two buckets per particle keeps the occupancy low enough that
-        // a bucket is a handful of entries, and the memory is trivial.
-        let table_size = (capacity * 2).next_power_of_two().max(64);
-
-        let mut starts_data = Vec::with_capacity(capacity as usize + 1);
-        let mut flat = Vec::new();
-        for list in adjacency {
-            starts_data.push(flat.len() as u32);
-            flat.extend_from_slice(list);
-        }
-        starts_data.push(flat.len() as u32);
-        if flat.is_empty() {
-            // A zero-length buffer cannot be allocated; the ranges are all
-            // empty so nothing reads it.
-            flat.push(0);
-        }
-
-        let storage = BufferDefinition::storage();
-        Ok(Self {
-            hash: cache.get(context, wgsl::HASH)?,
-            clear_ranges: cache.get(context, wgsl::CLEAR_RANGES)?,
-            cell_ranges: cache.get(context, wgsl::CELL_RANGES)?,
-            collide: cache.get(context, wgsl::SELF_COLLIDE)?,
-            apply: cache.get(context, wgsl::APPLY_CORRECTIONS)?,
-            sort: RadixSort::with_cache(context, cache)?,
-
-            cells: Buffer::new(
-                context,
-                capacity as u64 * 4,
-                storage.clone().with_label("self-collision cells"),
-            )?,
-            indices: Buffer::new(
-                context,
-                capacity as u64 * 4,
-                storage.clone().with_label("self-collision indices"),
-            )?,
-            starts: Buffer::new(
-                context,
-                (table_size as u64 + 1) * 4,
-                storage.clone().with_label("self-collision buckets"),
-            )?,
-            corrections: Buffer::new(
-                context,
-                capacity as u64 * 16,
-                storage.clone().with_label("self-collision corrections"),
-            )?,
-            neighbour_starts: Buffer::from_slice(
-                context,
-                &starts_data,
-                storage
-                    .clone()
-                    .with_label("self-collision adjacency starts"),
-            )?,
-            neighbours: Buffer::from_slice(
-                context,
-                &flat,
-                storage.with_label("self-collision adjacency"),
-            )?,
-            scratch: SortScratch::new(context, capacity)?,
-
-            table_size,
-            capacity,
-            radius,
-            spacing: radius * 2.0,
-            enabled: true,
-            built: false,
-        })
-    }
-
     /// Build the adjacency the constructor wants from a mesh's edges.
-    pub fn adjacency(particle_count: usize, edges: &[[u32; 2]]) -> Vec<Vec<u32>> {
-        let mut adjacency = vec![Vec::new(); particle_count];
+    pub fn adjacency(particle_count: ParticleInputCount, edges: &[[u32; 2]]) -> Vec<Vec<u32>> {
+        let mut adjacency = vec![Vec::new(); usize::from(particle_count)];
         for &[a, b] in edges {
             adjacency[a as usize].push(b);
             adjacency[b as usize].push(a);
@@ -161,19 +80,19 @@ impl SelfCollision {
         batch: &mut KernelBatch,
         particles: &Particles,
         rebuild: bool,
-    ) -> Result<()> {
+    ) -> std::result::Result<(), SelfCollisionRecordError> {
         if !self.enabled {
             return Ok(());
         }
         let count = particles.count();
-        if count < 2 {
+        if count < ParticleCount::from(2) {
             return Ok(());
         }
-        if count > self.capacity {
-            return Err(anyhow!(
-                "SelfCollision: built for {} particles, given {count}",
-                self.capacity
-            ));
+        if count > self.capacity.count() {
+            return Err(SelfCollisionRecordError::Capacity {
+                capacity: self.capacity,
+                count,
+            });
         }
 
         let inverse_spacing = 1.0 / self.spacing;
@@ -189,41 +108,58 @@ impl SelfCollision {
         self.built = true;
 
         let mut hash_parameters = PassParameters::new();
-        hash_parameters.insert("positions", particles.positions.clone());
-        hash_parameters.insert("cells", self.cells.clone());
-        hash_parameters.insert("indices", self.indices.clone());
-        hash_parameters.insert("count", count);
-        hash_parameters.insert("table_size", self.table_size);
-        hash_parameters.insert("inverse_spacing", inverse_spacing);
-        hash_parameters.insert("pad", 0u32);
-        batch.dispatch_items(&self.hash, &hash_parameters, count)?;
-
-        // Sorting the indices by bucket is what makes a bucket contiguous.
-        self.sort.record(
+        hash_parameters.insert("positions".into(), (particles.positions.clone()).into());
+        hash_parameters.insert("cells".into(), (self.cells.clone()).into());
+        hash_parameters.insert("indices".into(), (self.indices.clone()).into());
+        count.bind(&mut hash_parameters);
+        self.table_size.bind(&mut hash_parameters);
+        hash_parameters.insert("inverse_spacing".into(), (inverse_spacing).into());
+        hash_parameters.insert("pad".into(), (0u32).into());
+        SelfCollisionKernel::Hash.dispatch(
             batch,
-            &self.cells,
-            &self.indices,
-            &mut self.scratch,
-            count,
-            32,
+            &self.hash,
+            &hash_parameters,
+            count.invocations(),
         )?;
 
+        // Sorting the indices by bucket is what makes a bucket contiguous.
+        self.sort
+            .record(
+                batch,
+                &self.cells,
+                &self.indices,
+                &mut self.scratch,
+                count.sort_items(),
+                32.into(),
+            )
+            .map_err(SelfCollisionRecordError::Sort)?;
+
         let mut clear_parameters = PassParameters::new();
-        clear_parameters.insert("starts", self.starts.clone());
-        clear_parameters.insert("table_size", self.table_size);
-        clear_parameters.insert("count", count);
-        clear_parameters.insert("pad0", 0u32);
-        clear_parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.clear_ranges, &clear_parameters, self.table_size + 1)?;
+        clear_parameters.insert("starts".into(), (self.starts.clone()).into());
+        self.table_size.bind(&mut clear_parameters);
+        count.bind(&mut clear_parameters);
+        clear_parameters.insert("pad0".into(), (0u32).into());
+        clear_parameters.insert("pad1".into(), (0u32).into());
+        SelfCollisionKernel::ClearRanges.dispatch(
+            batch,
+            &self.clear_ranges,
+            &clear_parameters,
+            self.table_size.clear_invocations(),
+        )?;
 
         let mut range_parameters = PassParameters::new();
-        range_parameters.insert("cells", self.cells.clone());
-        range_parameters.insert("starts", self.starts.clone());
-        range_parameters.insert("count", count);
-        range_parameters.insert("table_size", self.table_size);
-        range_parameters.insert("pad0", 0u32);
-        range_parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.cell_ranges, &range_parameters, count)?;
+        range_parameters.insert("cells".into(), (self.cells.clone()).into());
+        range_parameters.insert("starts".into(), (self.starts.clone()).into());
+        count.bind(&mut range_parameters);
+        self.table_size.bind(&mut range_parameters);
+        range_parameters.insert("pad0".into(), (0u32).into());
+        range_parameters.insert("pad1".into(), (0u32).into());
+        SelfCollisionKernel::CellRanges.dispatch(
+            batch,
+            &self.cell_ranges,
+            &range_parameters,
+            count.invocations(),
+        )?;
 
         self.record_collide(batch, particles, inverse_spacing)
     }
@@ -234,43 +170,60 @@ impl SelfCollision {
         batch: &mut KernelBatch,
         particles: &Particles,
         inverse_spacing: f32,
-    ) -> Result<()> {
+    ) -> std::result::Result<(), SelfCollisionRecordError> {
         let count = particles.count();
         let mut collide_parameters = PassParameters::new();
-        collide_parameters.insert("positions", particles.positions.clone());
-        collide_parameters.insert("cells", self.cells.clone());
-        collide_parameters.insert("sorted", self.indices.clone());
-        collide_parameters.insert("starts", self.starts.clone());
-        collide_parameters.insert("corrections", self.corrections.clone());
-        collide_parameters.insert("neighbour_starts", self.neighbour_starts.clone());
-        collide_parameters.insert("neighbours", self.neighbours.clone());
-        collide_parameters.insert("count", count);
-        collide_parameters.insert("table_size", self.table_size);
-        collide_parameters.insert("inverse_spacing", inverse_spacing);
-        collide_parameters.insert("radius", self.radius);
-        batch.dispatch_items(&self.collide, &collide_parameters, count)?;
+        collide_parameters.insert("positions".into(), (particles.positions.clone()).into());
+        collide_parameters.insert("cells".into(), (self.cells.clone()).into());
+        collide_parameters.insert("sorted".into(), (self.indices.clone()).into());
+        collide_parameters.insert("starts".into(), (self.starts.clone()).into());
+        collide_parameters.insert("corrections".into(), (self.corrections.clone()).into());
+        collide_parameters.insert(
+            "neighbour_starts".into(),
+            (self.neighbour_starts.clone()).into(),
+        );
+        collide_parameters.insert("neighbours".into(), (self.neighbours.clone()).into());
+        count.bind(&mut collide_parameters);
+        self.table_size.bind(&mut collide_parameters);
+        collide_parameters.insert("inverse_spacing".into(), (inverse_spacing).into());
+        collide_parameters.insert("radius".into(), (self.radius).into());
+        SelfCollisionKernel::Collide.dispatch(
+            batch,
+            &self.collide,
+            &collide_parameters,
+            count.invocations(),
+        )?;
 
         let mut apply_parameters = PassParameters::new();
-        apply_parameters.insert("positions", particles.positions.clone());
-        apply_parameters.insert("corrections", self.corrections.clone());
-        apply_parameters.insert("count", count);
-        apply_parameters.insert("pad0", 0u32);
-        apply_parameters.insert("pad1", 0u32);
-        apply_parameters.insert("pad2", 0u32);
-        batch.dispatch_items(&self.apply, &apply_parameters, count)?;
+        apply_parameters.insert("positions".into(), (particles.positions.clone()).into());
+        apply_parameters.insert("corrections".into(), (self.corrections.clone()).into());
+        count.bind(&mut apply_parameters);
+        apply_parameters.insert("pad0".into(), (0u32).into());
+        apply_parameters.insert("pad1".into(), (0u32).into());
+        apply_parameters.insert("pad2".into(), (0u32).into());
+        SelfCollisionKernel::Apply.dispatch(
+            batch,
+            &self.apply,
+            &apply_parameters,
+            count.invocations(),
+        )?;
 
         Ok(())
     }
 }
 
 impl SubstepHook for SelfCollision {
+    type Error = SelfCollisionRecordError;
     fn record(
         &mut self,
         batch: &mut KernelBatch,
         particles: &Particles,
-        _substep: f32,
-    ) -> Result<()> {
+        _substep: SubstepDuration,
+    ) -> std::result::Result<(), Self::Error> {
         // Integration can move particles across cell boundaries.
         SelfCollision::record(self, batch, particles, true)
     }
 }
+
+#[cfg(test)]
+mod tests;

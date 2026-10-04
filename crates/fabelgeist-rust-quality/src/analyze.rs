@@ -9,7 +9,7 @@ use walkdir::WalkDir;
 use crate::{
     calendar_flow,
     config::{Baseline, Config, Debt, Exception, FindingBaseline},
-    manifests,
+    interfaces, manifests,
     scan::{Finding, FunctionSize, LiteralOccurrence, path_matches, scan},
 };
 
@@ -61,6 +61,7 @@ pub fn check_repository(
         seen_items.insert(relative, result.seen_items);
     }
 
+    findings.extend(interfaces::census(root, config).map_err(|error| error.to_string())?);
     let grouped_findings = group_findings(&findings);
     let mut diagnostics = manifests::check(root)?;
     diagnostics.extend(calendar_diagnostics);
@@ -113,6 +114,20 @@ pub fn print_baseline(baseline: &Baseline) -> Result<(), String> {
     Ok(())
 }
 
+pub fn print_interfaces(baseline: &Baseline) {
+    let entries = baseline.interface_findings();
+    println!(
+        "Rust interface census: {} signature finding(s)",
+        entries.len()
+    );
+    for finding in entries {
+        println!(
+            "{}::{}: {} {} ({} occurrence(s))",
+            finding.path, finding.item, finding.rule, finding.fingerprint, finding.occurrences
+        );
+    }
+}
+
 fn validate_scopes(
     config: &Config,
     files: &BTreeMap<String, usize>,
@@ -148,9 +163,11 @@ fn validate_findings(
     actual: &BTreeMap<FindingKey, FindingGroup>,
     diagnostics: &mut Vec<String>,
 ) {
+    let interface_findings = baseline.interface_findings();
     let baselined = baseline
         .findings
         .iter()
+        .chain(&interface_findings)
         .map(|finding| (FindingKey::from_baseline(finding), finding.occurrences))
         .collect::<BTreeMap<_, _>>();
     let exceptions = config
@@ -323,21 +340,36 @@ fn snapshot(
             ceiling: function.lines,
         })
         .collect();
-    let finding_debt = findings
-        .into_iter()
-        .map(|(key, group)| FindingBaseline {
-            rule: key.rule,
-            path: key.path,
-            item: key.item,
-            fingerprint: key.fingerprint,
-            occurrences: group.count,
-        })
-        .collect();
+    let mut finding_debt = Vec::new();
+    let mut interfaces: BTreeMap<String, BTreeMap<String, BTreeMap<String, usize>>> =
+        BTreeMap::new();
+    for (key, group) in findings {
+        if matches!(
+            key.rule.as_str(),
+            "raw-interface" | "unresolved-interface" | "unexpanded-interface-macro"
+        ) {
+            interfaces
+                .entry(key.path)
+                .or_default()
+                .entry(key.item)
+                .or_default()
+                .insert(format!("{}:{}", key.rule, key.fingerprint), group.count);
+        } else {
+            finding_debt.push(FindingBaseline {
+                rule: key.rule,
+                path: key.path,
+                item: key.item,
+                fingerprint: key.fingerprint,
+                occurrences: group.count,
+            });
+        }
+    }
     file_debt.sort_by(|left, right| left.path.cmp(&right.path));
     Baseline {
         files: file_debt,
         functions: function_debt,
         findings: finding_debt,
+        interfaces,
     }
 }
 
@@ -505,6 +537,7 @@ mod tests {
             }],
             functions: Vec::new(),
             findings: Vec::new(),
+            ..Baseline::default()
         };
         let mut files = BTreeMap::from([("crates/example/src/lib.rs".into(), 525)]);
         let mut diagnostics = Vec::new();
@@ -517,6 +550,92 @@ mod tests {
             diagnostics
                 .iter()
                 .any(|diagnostic| diagnostic.contains("grew to 551"))
+        );
+    }
+
+    #[test]
+    fn interface_debt_rejects_new_signatures_growth_and_stale_counts() {
+        let config: Config = toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let finding = Finding {
+            rule: "raw-interface".into(),
+            path: "crates/example/src/lib.rs".into(),
+            item: "sample".into(),
+            fingerprint: "value:Vec<u64>:u64".into(),
+            line: 4,
+        };
+        let actual = group_findings(std::slice::from_ref(&finding));
+        let mut diagnostics = Vec::new();
+        validate_findings(&config, &Baseline::default(), &actual, &mut diagnostics);
+        assert!(
+            diagnostics
+                .iter()
+                .any(|message| message.contains("raw-interface in sample"))
+        );
+
+        let baseline = Baseline {
+            findings: vec![FindingBaseline {
+                rule: finding.rule.clone(),
+                path: finding.path.clone(),
+                item: finding.item.clone(),
+                fingerprint: finding.fingerprint.clone(),
+                occurrences: 1,
+            }],
+            ..Baseline::default()
+        };
+        diagnostics.clear();
+        validate_findings(&config, &baseline, &actual, &mut diagnostics);
+        assert!(diagnostics.is_empty());
+
+        let doubled = group_findings(&[finding.clone(), finding]);
+        validate_findings(&config, &baseline, &doubled, &mut diagnostics);
+        assert!(
+            diagnostics
+                .iter()
+                .any(|message| message.contains("found 2"))
+        );
+
+        diagnostics.clear();
+        validate_findings(&config, &baseline, &BTreeMap::new(), &mut diagnostics);
+        assert!(
+            diagnostics
+                .iter()
+                .any(|message| message.contains("stale finding raw-interface"))
+        );
+    }
+
+    #[test]
+    fn compact_interface_snapshot_roundtrips_and_enforces_the_same_debt() {
+        let config: Config = toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let finding = Finding {
+            rule: "raw-interface".into(),
+            path: "crates/example/src/lib.rs".into(),
+            item: "sample".into(),
+            fingerprint: "value:Option<u64>:u64".into(),
+            line: 2,
+        };
+        let actual = group_findings(std::slice::from_ref(&finding));
+        let original = snapshot(&config, BTreeMap::new(), Vec::new(), actual);
+        assert!(original.findings.is_empty());
+        let encoded = toml::to_string(&original).unwrap();
+        let decoded: Baseline = toml::from_str(&encoded).unwrap();
+        let mut diagnostics = Vec::new();
+        validate_findings(
+            &config,
+            &decoded,
+            &group_findings(std::slice::from_ref(&finding)),
+            &mut diagnostics,
+        );
+        assert!(diagnostics.is_empty());
+        validate_findings(
+            &config,
+            &decoded,
+            &group_findings(&[finding.clone(), finding]),
+            &mut diagnostics,
+        );
+        assert!(
+            diagnostics
+                .iter()
+                .any(|message| message.contains("found 2"))
         );
     }
 }

@@ -19,12 +19,15 @@ mod wgsl;
 #[cfg(test)]
 mod tests;
 
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, KernelCache};
-use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, PassParameters, WgpuContext};
+use fabelgeist_gpu::prelude::{
+    Buffer, BufferDefinition, PassParameters, ShaderSource, WgpuContext,
+};
 
-use crate::material::{Metal, MetalTextures};
+use crate::material::{Metal, MetalError, MetalTextures};
 
 /// The metal kernels, compiled for one device.
 pub struct MetalGpu {
@@ -49,8 +52,10 @@ impl MetalGpu {
     /// Everything compiles here: compiling pushes and pops the device's error
     /// scopes, which must not interleave with another thread's, so no bake
     /// compiles anything later.
-    pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self, String> {
-        let kernel = |source: String| cache.get(context, &source).map_err(device_error);
+    pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self, MetalError> {
+        let kernel = |source: ShaderSource| -> Result<Arc<Kernel>, MetalError> {
+            cache.get(context, &source).map_err(MetalError::from)
+        };
         Ok(Self {
             scratches: kernel(textures::scratches_source())?,
             engraving: kernel(textures::engraving_source())?,
@@ -63,53 +68,50 @@ impl MetalGpu {
     }
 
     /// Open the default adapter's device.
-    pub fn open() -> Result<Self, String> {
-        let context = pollster::block_on(WgpuContext::new()).map_err(device_error)?;
+    pub fn open() -> Result<Self, MetalError> {
+        let context = pollster::block_on(WgpuContext::new()).map_err(MetalError::Device)?;
         Self::new(&context, &KernelCache::new())
     }
 
     /// Bake the metal's maps onto a `size` square tile, reading the engraving
     /// image if there is one. `size` must be 32–1024.
-    pub fn textures(&self, metal: &Metal, size: u32) -> Result<MetalTextures, String> {
+    pub fn textures(&self, metal: &Metal, size: u32) -> Result<MetalTextures, MetalError> {
         bake::textures(self, metal, size)
     }
 
-    fn batch(&self, label: &str) -> KernelBatch<'_> {
+    fn batch(&self, label: fabelgeist_compute::KernelBatchLabel<'_>) -> KernelBatch<'_> {
         KernelBatch::labelled(&self.context, label)
     }
 
-    fn upload<T: bytemuck::NoUninit>(&self, data: &[T]) -> Result<Buffer, String> {
-        let bytes = bytemuck::cast_slice::<T, u8>(data);
-        // A buffer cannot be empty; an empty array still needs something bound.
-        let bytes = if bytes.is_empty() {
-            &[0u8; 4][..]
-        } else {
-            bytes
-        };
-        Buffer::from_bytes(
+    fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, MetalError> {
+        Buffer::from_upload(
             &self.context,
-            bytes,
-            BufferDefinition::storage().with_copy_src(),
+            data.with_empty_word(),
+            BufferDefinition::storage().with_usage(BufferUse::CopySource),
         )
-        .map_err(device_error)
+        .map_err(MetalError::BufferCreation)
     }
 
     /// A zeroed storage buffer of `words` 32-bit words.
-    fn scratch(&self, words: u64, label: &str) -> Result<Buffer, String> {
+    fn scratch(
+        &self,
+        words: u64,
+        label: fabelgeist_gpu::prelude::BufferLabel,
+    ) -> Result<Buffer, MetalError> {
         Buffer::new(
             &self.context,
-            words.max(1) * 4,
+            (words.max(1) * 4).into(),
             BufferDefinition::storage()
-                .with_copy_src()
-                .with_copy_dst()
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination)
                 .with_label(label),
         )
-        .map_err(device_error)
+        .map_err(MetalError::BufferCreation)
     }
 
     /// Read a buffer back. Stalls until the device has finished writing it.
-    fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>, String> {
-        pollster::block_on(buffer.read(&self.context)).map_err(device_error)
+    fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>, MetalError> {
+        pollster::block_on(buffer.read(&self.context)).map_err(MetalError::Readback)
     }
 
     /// Record `kernel` over `items` invocations.
@@ -118,16 +120,11 @@ impl MetalGpu {
         batch: &mut KernelBatch,
         kernel: &Kernel,
         parameters: &PassParameters,
-        items: u32,
-    ) -> Result<(), String> {
+        items: fabelgeist_gpu::prelude::InvocationCount,
+    ) -> Result<(), MetalError> {
         batch
             .dispatch_items(kernel, parameters, items)
             .map(|_| ())
-            .map_err(device_error)
+            .map_err(MetalError::Dispatch)
     }
-}
-
-/// A device failure, which a bake cannot recover from.
-fn device_error(error: impl std::fmt::Display) -> String {
-    format!("armor metal device: {error}")
 }

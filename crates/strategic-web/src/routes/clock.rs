@@ -1,7 +1,7 @@
 //! Strategic display time projected from the authoritative clocks.
 use super::*;
 use crate::spacetimedb::WorldClock;
-use adventuresim_core::strategic_time::official_minute;
+use adventuresim_core::strategic_time::clock::{OfficialClockEpoch, UnixMicrosecondInstant};
 use std::time::{SystemTime, UNIX_EPOCH};
 #[derive(Serialize)]
 struct CurrentTime {
@@ -17,11 +17,12 @@ pub(super) async fn current_time(State(state): State<AppState>, session: Session
         })
         .into_response();
     };
-    let character_time_sql = crate::spacetimedb::character_time_by_character_id(character_id);
+    let character_time_sql =
+        crate::spacetimedb::character_time_by_character_id(character_id.into());
     let world_clock_sql = crate::spacetimedb::world_clock_singleton();
     let (character_time, world_clock) = tokio::join!(
-        state.db.query_sats::<CharacterTime>(&character_time_sql),
-        state.db.query_sats::<WorldClock>(&world_clock_sql),
+        state.db.query_sats::<CharacterTime>(character_time_sql),
+        state.db.query_sats::<WorldClock>(world_clock_sql),
     );
     let _character_time = match character_time {
         Ok(value) => value,
@@ -51,12 +52,14 @@ pub(super) async fn current_time(State(state): State<AppState>, session: Session
             .unwrap_or_default()
             .as_micros();
         let now = i64::try_from(now_micros).unwrap_or(i64::MAX);
-        official_minute(clock.epoch_micros, now).get()
+        OfficialClockEpoch::from(clock.epoch_micros)
+            .at(UnixMicrosecondInstant::from(now))
+            .get()
     });
     let active_character = state
         .db
         .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            &crate::spacetimedb::character_by_id(character_id),
+            crate::spacetimedb::character_by_id(character_id.into()),
         )
         .await
         .unwrap_or_default()
@@ -69,7 +72,7 @@ pub(super) async fn current_time(State(state): State<AppState>, session: Session
             state
                 .db
                 .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(
-                    &crate::spacetimedb::party_by_id(party_id),
+                    crate::spacetimedb::party_by_id(party_id),
                 )
                 .await
                 .unwrap_or_default()

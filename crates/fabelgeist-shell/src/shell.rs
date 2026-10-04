@@ -1,17 +1,24 @@
 //! A thin surface on the GPU: particles, the constraints holding it together, and
 //! the loop that steps it.
 
-use anyhow::anyhow;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 use fabelgeist_physics::Collisions;
-use fabelgeist_xpbd::{ConstraintSet, Particles, Solver, SolverSettings, SubstepHook};
+use fabelgeist_xpbd::{
+    ConstraintSet, Particles, Solver, SolverSettings, SolverStepError, SolverSubstepError,
+    StepActivity, StepDuration, SubstepCadence, SubstepCount, SubstepCycleBoundary,
+    SubstepDuration, SubstepHook,
+};
 
 use crate::ShellMaterial;
-use crate::ShellMesh;
 use crate::selfcollision::SelfCollision;
-use crate::wgsl;
+mod build;
+mod error;
+pub use error::{
+    ShellBuildError, ShellHookError, ShellPositionValidity, ShellProjectionError,
+    ShellProjectionStage, ShellStepError,
+};
 
 /// When the host resolves swept contacts and outer layers between GPU
 /// substeps. Each host projection reads particles back and waits for the GPU,
@@ -20,7 +27,7 @@ use crate::wgsl;
 pub struct HostContactSchedule {
     /// GPU substeps swept by one host projection. Zero leaves contact to the
     /// GPU collider and self-collision kernels.
-    pub interval_substeps: u32,
+    pub interval_substeps: SubstepCount,
     /// Projection sweeps in one surface contact solve.
     pub iterations: u32,
     /// Alternations between an outer layer and surface contacts.
@@ -30,7 +37,7 @@ pub struct HostContactSchedule {
 impl Default for HostContactSchedule {
     fn default() -> Self {
         Self {
-            interval_substeps: 1,
+            interval_substeps: SubstepCount::ONE,
             iterations: 4,
             outer_layer_passes: 4,
         }
@@ -55,101 +62,10 @@ pub struct Shell {
     pub triangles: Vec<[u32; 3]>,
     /// Kept so the surface can be reset to its initial layout.
     initial_positions: Vec<Vec3>,
-    inverse_masses: Vec<f32>,
+    inverse_masses: Vec<crate::ParticleInverseMass>,
 }
 
 impl Shell {
-    pub fn new(
-        context: &WgpuContext,
-        cache: &KernelCache,
-        mesh: &ShellMesh,
-        material: ShellMaterial,
-    ) -> Result<Self> {
-        mesh.validate()?;
-        material.validate()?;
-        if mesh.positions.is_empty() {
-            return Err(anyhow!("Shell: the garment has no particles"));
-        }
-
-        let inverse_masses = mesh.inverse_masses();
-        let particles = Particles::from_positions(context, &mesh.positions, &inverse_masses)?;
-
-        let stretch = ConstraintSet::distance(
-            context,
-            cache,
-            "stretch",
-            &mesh.edges,
-            &mesh.rest_lengths,
-            material.stretch_compliance,
-        )?;
-
-        // Seams start at zero rest length -- the two edges are meant to become
-        // one -- and the solver closes the gap over the first few frames. That
-        // pulling-together is the whole drape: it is what turns flat panels
-        // into a garment shaped round a body.
-        let seam_rest = vec![0.0f32; mesh.seams.len()];
-        let seams = ConstraintSet::distance(
-            context,
-            cache,
-            "seams",
-            &mesh.seams,
-            &seam_rest,
-            material.seam_compliance,
-        )?;
-
-        let bend_particles: Vec<u32> = mesh
-            .bends
-            .iter()
-            .flat_map(|bend| bend.particles())
-            .collect();
-        let bend_kernel = cache.get(
-            context,
-            &fabelgeist_xpbd::wgsl::constraint_kernel(wgsl::BEND),
-        )?;
-        let mut bending = ConstraintSet::new(
-            context,
-            "bending",
-            bend_kernel,
-            cache,
-            &bend_particles,
-            4,
-            material.bend_compliance,
-        )?;
-        // The weights are per constraint and the set is stored in colour
-        // order, so they have to be permuted the same way -- otherwise every
-        // hinge reads another hinge's weights.
-        let ordered_weights = bending.reorder(&mesh.bend_weights);
-        let flat_weights: Vec<f32> = ordered_weights.into_iter().flatten().collect();
-        bending.attach_raw(context, "weights", &flat_weights)?;
-
-        let self_collision = SelfCollision::new(
-            context,
-            cache,
-            mesh.positions.len() as u32,
-            &mesh.adjacency(),
-            material.particle_radius(),
-        )?;
-
-        Ok(Self {
-            outer_layer: None,
-            host_contacts: HostContactSchedule::default(),
-            surface_contacts: crate::surface_contact::SurfaceContacts::new(
-                mesh.positions.len(),
-                mesh.triangles.clone(),
-            )
-            .with_seams(&mesh.seams),
-            particles,
-            stretch,
-            bending,
-            seams,
-            self_collision,
-            material,
-            triangles: mesh.triangles.clone(),
-            initial_positions: mesh.positions.clone(),
-            inverse_masses,
-        })
-    }
-
     pub fn set_collision_surface(
         &mut self,
         positions: &[Vec3],
@@ -160,7 +76,7 @@ impl Shell {
             .set_static_surface(positions, faces, clearance);
     }
 
-    pub fn particle_count(&self) -> u32 {
+    pub fn particle_count(&self) -> fabelgeist_xpbd::ParticleCount {
         self.particles.count()
     }
 
@@ -169,7 +85,10 @@ impl Shell {
     }
 
     /// Put every particle back where the flat layout placed it, at rest.
-    pub fn reset(&mut self, context: &WgpuContext) -> Result<()> {
+    pub fn reset(
+        &mut self,
+        context: &WgpuContext,
+    ) -> std::result::Result<(), fabelgeist_xpbd::ParticleError> {
         self.particles
             .write(context, &self.initial_positions, &self.inverse_masses)
     }
@@ -178,9 +97,9 @@ impl Shell {
     /// changing [`Shell::material`]; the masses are baked in at build time and
     /// need a rebuild.
     pub fn apply_material(&mut self) {
-        self.stretch.compliance = self.material.stretch_compliance;
-        self.bending.compliance = self.material.bend_compliance;
-        self.seams.compliance = self.material.seam_compliance;
+        self.stretch.compliance = self.material.stretch_compliance.into();
+        self.bending.compliance = self.material.bend_compliance.into();
+        self.seams.compliance = self.material.seam_compliance.into();
         self.self_collision
             .set_radius(self.material.particle_radius());
     }
@@ -188,7 +107,7 @@ impl Shell {
     /// Solver settings that suit this material.
     pub fn settings(&self) -> SolverSettings {
         SolverSettings {
-            damping: self.material.damping,
+            damping: self.material.damping.into(),
             ..Default::default()
         }
     }
@@ -200,8 +119,8 @@ impl Shell {
         batch: &mut KernelBatch,
         solver: &Solver,
         collisions: &mut Collisions,
-        delta: f32,
-    ) -> Result<()> {
+        delta: StepDuration,
+    ) -> std::result::Result<(), ShellStepError> {
         collisions.particle_radius = self.material.particle_radius();
 
         let mut hook = ShellHook {
@@ -209,13 +128,15 @@ impl Shell {
             self_collision: &mut self.self_collision,
         };
 
-        solver.record_step(
-            batch,
-            &self.particles,
-            &mut [&mut self.stretch, &mut self.seams, &mut self.bending],
-            &mut hook,
-            delta,
-        )
+        solver
+            .record_step(
+                batch,
+                &self.particles,
+                &mut [&mut self.stretch, &mut self.seams, &mut self.bending],
+                &mut hook,
+                delta,
+            )
+            .map_err(ShellStepError::Solver)
     }
 
     pub fn step(
@@ -223,9 +144,9 @@ impl Shell {
         context: &WgpuContext,
         solver: &Solver,
         collisions: &mut Collisions,
-        delta: f32,
-    ) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, "cloth step");
+        delta: StepDuration,
+    ) -> std::result::Result<(), ShellStepError> {
+        let mut batch = KernelBatch::labelled(context, ("cloth step").into());
         self.record_step(&mut batch, solver, collisions, delta)?;
         batch.submit();
         Ok(())
@@ -241,41 +162,58 @@ impl Shell {
         context: &WgpuContext,
         solver: &Solver,
         collisions: &mut Collisions,
-        delta: f32,
-    ) -> Result<()> {
-        if !delta.is_finite() || delta <= 0.0 {
+        delta: StepDuration,
+    ) -> std::result::Result<(), ShellStepError> {
+        if delta.finite_activity() == StepActivity::Inactive {
             return Ok(());
         }
-        let count = solver.settings.substeps.max(1);
-        let substep = delta / count as f32;
+        let count = solver.settings.substeps.at_least_one();
+        let substep = delta.for_substeps(count);
         let schedule = self.host_contacts;
         let interval = schedule.interval_substeps;
         collisions.particle_radius = self.material.particle_radius();
         let mut interval_start = None;
-        for index in 0..count {
-            if interval > 1 && index % interval == 0 {
+        for index in count.sequence() {
+            if interval.cadence() == SubstepCadence::Multiple
+                && index.starts_cycle(interval) == SubstepCycleBoundary::Boundary
+            {
                 // Sweep the whole interval, not only its last GPU substep.
-                interval_start = Some(self.particles.read_positions(context).await?);
+                interval_start = Some(
+                    self.particles
+                        .read_positions(context)
+                        .await
+                        .map_err(ShellStepError::IntervalRead)?,
+                );
             }
-            let mut batch = KernelBatch::labelled(context, "surface contact substep");
+            let mut batch = KernelBatch::labelled(context, ("surface contact substep").into());
             let mut hook = ShellHook {
                 collisions,
                 self_collision: &mut self.self_collision,
             };
-            solver.record_substep(
-                &mut batch,
-                &self.particles,
-                &mut [&mut self.stretch, &mut self.seams, &mut self.bending],
-                &mut hook,
-                substep,
-            )?;
+            solver
+                .record_substep(
+                    &mut batch,
+                    &self.particles,
+                    &mut [&mut self.stretch, &mut self.seams, &mut self.bending],
+                    &mut hook,
+                    substep,
+                )
+                .map_err(
+                    |source: SolverSubstepError<ShellHookError>| -> ShellStepError {
+                        ShellStepError::Solver(SolverStepError {
+                            substep: index,
+                            source,
+                        })
+                    },
+                )?;
             batch.submit();
-            if interval > 0 && ((index + 1) % interval == 0 || index + 1 == count) {
+            if index.ends_cycle(interval, count) == SubstepCycleBoundary::Boundary {
                 self.project_host_contacts(context, schedule, interval_start.take().as_deref())
-                    .await?;
+                    .await
+                    .map_err(ShellStepError::Projection)?;
             }
         }
-        if interval == 0 {
+        if interval.cadence() == SubstepCadence::Disabled {
             // Bound the queue: a caller stepping on a timer must not outrun the GPU.
             context.submitted_work_done().await;
         }
@@ -287,14 +225,22 @@ impl Shell {
         context: &WgpuContext,
         schedule: HostContactSchedule,
         interval_start: Option<&[Vec3]>,
-    ) -> Result<()> {
+    ) -> std::result::Result<(), ShellProjectionError> {
         // Alternate the outer layer and swept self contacts. Neither may
         // silently win merely because it is the last positional correction.
         for _ in 0..schedule.outer_layer_passes.max(1) {
             if let Some(layer) = &self.outer_layer {
                 layer
                     .project_particles(context, &self.particles, &self.triangles)
-                    .await?;
+                    .await
+                    .map_err(
+                        |source: fabelgeist_xpbd::ParticleError| -> ShellProjectionError {
+                            ShellProjectionError::ParticleState {
+                                stage: ShellProjectionStage::OuterLayer,
+                                source,
+                            }
+                        },
+                    )?;
             }
             if self.self_collision.enabled {
                 self.surface_contacts
@@ -305,14 +251,22 @@ impl Shell {
                         schedule.iterations,
                         interval_start,
                     )
-                    .await?;
+                    .await
+                    .map_err(ShellProjectionError::SurfaceContact)?;
             } else {
                 context.submitted_work_done().await;
             }
             let Some(layer) = &self.outer_layer else {
                 break;
             };
-            let positions = self.particles.read_positions(context).await?;
+            let positions = self.particles.read_positions(context).await.map_err(
+                |source: fabelgeist_xpbd::ParticleError| -> ShellProjectionError {
+                    ShellProjectionError::ParticleState {
+                        stage: ShellProjectionStage::ResidualPositions,
+                        source,
+                    }
+                },
+            )?;
             if layer.surface_residual(&positions, &self.triangles)
                 <= crate::outer_layer::CLEARANCE_TOLERANCE
             {
@@ -321,13 +275,19 @@ impl Shell {
         }
         Ok(())
     }
-    pub async fn read_positions(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
+    pub async fn read_positions(
+        &self,
+        context: &WgpuContext,
+    ) -> std::result::Result<Vec<Vec3>, fabelgeist_xpbd::ParticleError> {
         self.particles.read_positions(context).await
     }
 
     /// Snapshot the deformed surface as reusable mesh geometry. This reads back
     /// particle state; it is intended for export/CSG rather than a per-frame draw.
-    pub async fn read_mesh(&self, context: &WgpuContext) -> Result<fabelgeist_mesh::MeshData> {
+    pub async fn read_mesh(
+        &self,
+        context: &WgpuContext,
+    ) -> std::result::Result<fabelgeist_mesh::MeshData, fabelgeist_xpbd::ParticleError> {
         let positions = self.read_positions(context).await?;
         let mut normals = vec![Vec3::default(); positions.len()];
         for &[a, b, c] in &self.triangles {
@@ -358,12 +318,16 @@ impl Shell {
     /// Whether the solve has gone unstable. A garment that has blown up shows
     /// up as a non-finite position, and it is worth catching before it reaches
     /// a renderer.
-    pub async fn is_finite(&self, context: &WgpuContext) -> Result<bool> {
-        Ok(self
-            .read_positions(context)
-            .await?
-            .iter()
-            .all(|p| p.is_finite()))
+    pub async fn position_validity(
+        &self,
+        context: &WgpuContext,
+    ) -> std::result::Result<ShellPositionValidity, fabelgeist_xpbd::ParticleError> {
+        for position in self.read_positions(context).await? {
+            if !position.is_finite() {
+                return Ok(ShellPositionValidity::NonFinite);
+            }
+        }
+        Ok(ShellPositionValidity::Finite)
     }
 }
 
@@ -379,26 +343,34 @@ struct ShellHook<'a> {
 }
 
 impl SubstepHook for ShellHook<'_> {
+    type Error = ShellHookError;
     fn after_solve(
         &mut self,
         batch: &mut KernelBatch,
         particles: &Particles,
-        _substep: f32,
-    ) -> Result<()> {
+        _substep: SubstepDuration,
+    ) -> std::result::Result<(), Self::Error> {
         // Sewing and bending can pull a particle through the body after the
         // prediction collision pass. Resolve that before storing velocity.
-        self.self_collision.record(batch, particles, true)?;
-        Collisions::record(self.collisions, batch, particles)
+        self.self_collision
+            .record(batch, particles, true)
+            .map_err(ShellHookError::self_collision)?;
+        Collisions::record(self.collisions, batch, particles).map_err(ShellHookError::body)
     }
 
     fn record(
         &mut self,
         batch: &mut KernelBatch,
         particles: &Particles,
-        substep: f32,
-    ) -> Result<()> {
+        substep: SubstepDuration,
+    ) -> std::result::Result<(), Self::Error> {
         let _ = substep;
-        Collisions::record(self.collisions, batch, particles)?;
-        self.self_collision.record(batch, particles, true)
+        Collisions::record(self.collisions, batch, particles).map_err(ShellHookError::body)?;
+        self.self_collision
+            .record(batch, particles, true)
+            .map_err(ShellHookError::self_collision)
     }
 }
+
+#[cfg(test)]
+mod tests;

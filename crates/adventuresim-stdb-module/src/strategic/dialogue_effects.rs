@@ -305,7 +305,7 @@ fn apply_dialogue_investigation_action(
     use adventuresim_core::case::ObjectiveRequirement as R;
     use adventuresim_core::case::OutcomeFactKind as F;
 
-    let character = crate::character::require_living_character(ctx, character_id)?;
+    let character = crate::character::require_living_character(ctx, (character_id).into())?;
     let party_id = character.party_id.ok_or("Character has no party")?;
     let party = ctx
         .db
@@ -538,7 +538,11 @@ fn apply_dialogue_investigation_action(
 fn same_location(ctx: &ReducerContext, left: &crate::Character, right: &crate::Character) -> bool {
     (left.current_settlement_id.is_some()
         && left.current_settlement_id == right.current_settlement_id)
-        || crate::world_actor::characters_are_contextually_present(ctx, left.id, right.id)
+        || crate::world_actor::characters_are_contextually_present(
+            ctx,
+            (left.id).into(),
+            (right.id).into(),
+        )
 }
 
 fn player_conversation_parties(

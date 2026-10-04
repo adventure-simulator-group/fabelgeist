@@ -21,7 +21,8 @@ pub fn seed_simulation_disease(
     if sim.run_id != run.id {
         return Err("Simulation character belongs to another run".into());
     }
-    crate::require_living_character(ctx, character_id)?;
+    crate::require_living_character(ctx, (character_id).into())
+        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
     if ctx
         .db
         .infection_episode()
@@ -53,13 +54,13 @@ pub fn seed_simulation_disease(
     // knowledge from the private infection row.
     let injury_limit = crate::surgery::preview_injury_boundary(
         ctx,
-        character_id,
+        (character_id).into(),
         requested,
         crate::surgery::InjuryRecoveryMinutes::NONE,
     )?
     .elapsed;
     let (elapsed, terminal) =
-        crate::disease::clip_elapsed_for_disease(ctx, character_id, injury_limit, false)?;
+        crate::disease::clip_elapsed_for_disease(ctx, (character_id).into(), injury_limit, false)?;
     let mut time = ctx
         .db
         .character_time()
@@ -68,19 +69,21 @@ pub fn seed_simulation_disease(
         .ok_or("Simulation character time not found")?;
     let settled = crate::surgery::settle_injuries(
         ctx,
-        character_id,
+        (character_id).into(),
         elapsed,
         crate::surgery::InjuryRecoveryMinutes::NONE,
     )?;
     let interval_end = time.minutes.saturating_add_minutes(settled.elapsed);
     time.minutes = interval_end;
     ctx.db.character_time().character_id().update(time);
-    crate::disease::finish_disease_interval(ctx, character_id, terminal)?;
-    settle_lifecycle_after_character_time_write(ctx, character_id, interval_end)?;
+    crate::disease::finish_disease_interval(ctx, (character_id).into(), terminal)?;
+    settle_lifecycle_after_character_time_write(ctx, (character_id).into(), interval_end)?;
     if terminal.is_some() || !settled.alive {
         return Ok(());
     }
-    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
-    crate::capability::refresh_character_capability(ctx, character_id)?;
+    crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())
+        .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?;
+    crate::capability::refresh_character_capability(ctx, (character_id).into())
+        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
     Ok(())
 }

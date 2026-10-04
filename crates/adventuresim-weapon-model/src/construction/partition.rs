@@ -1,5 +1,6 @@
 //! Shared-edge planar partitions retain explicit ridges in a lifted surface.
 use super::{PlanarPoint, Region, construction_budget};
+use crate::ConstructionError;
 use std::collections::BTreeMap;
 
 /// Classification only absorbs arithmetic rounding at an existing cut plane.
@@ -39,7 +40,7 @@ impl PlanarCut {
 }
 
 impl Region {
-    pub(crate) fn partition(&mut self, cut: PlanarCut) -> Result<(), String> {
+    pub(crate) fn partition(&mut self, cut: PlanarCut) -> Result<(), ConstructionError> {
         for point in &mut self.points {
             if !cut.active(&[*point]) {
                 continue;
@@ -71,7 +72,7 @@ impl Region {
                 }
                 if (da < 0.0 && db > 0.0) || (da > 0.0 && db < 0.0) {
                     if da.abs().min(db.abs()) < crate::recipe::MIN_MANUFACTURED_METRES {
-                        return Err("plate cut leaves a sub-resolution feature".into());
+                        return Err(ConstructionError::PlateCutResolution);
                     }
                     let key = (a.min(b), a.max(b));
                     let index = *crossings.entry(key).or_insert_with(|| {

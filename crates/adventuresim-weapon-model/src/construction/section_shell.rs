@@ -1,5 +1,6 @@
 //! Hollow solids between corresponding polygonal section rings.
 use super::*;
+use crate::ConstructionError;
 pub(crate) enum LoftEnd {
     Open,
     Closed,
@@ -9,14 +10,14 @@ impl Solid {
         inner: &[Vec<Point>],
         outer: &[Vec<Point>],
         end: LoftEnd,
-    ) -> Result<Self, String> {
+    ) -> Result<Self, ConstructionError> {
         let count = inner.first().map_or(0, Vec::len);
         if inner.len() < 2
             || outer.len() < 2
             || count < 3
             || inner.iter().chain(outer).any(|ring| ring.len() != count)
         {
-            return Err("shell requires matching closed section rings".into());
+            return Err(ConstructionError::ShellRequiresMatchingClosedSectionRings);
         }
         construction_budget(((inner.len() + outer.len()) * count * 2) as f64)?;
         let mut solid = Self::default();

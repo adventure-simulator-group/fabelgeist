@@ -133,7 +133,7 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
         "/../../assets/tactical-scenes/furniture-review.json"
     )))
     .unwrap();
-    input.seed += 1;
+    input.seed = (input.seed.to_u64() + 1).into();
     input.weather.ground_moisture_bps = 8500;
     let width = usize::from(input.playable.width);
     for (index, height) in input.playable.heights_metres.iter_mut().enumerate() {

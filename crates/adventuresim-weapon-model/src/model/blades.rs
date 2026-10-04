@@ -1,12 +1,13 @@
 //! Forged blade, axe and spear surface profiles.
 use super::*;
+use crate::ConstructionError;
 use std::f64::consts::PI;
 
-pub(super) fn blade(p: &BladeParameters, detail: Detail) -> Result<Solid, String> {
+pub(super) fn blade(p: &BladeParameters, detail: Detail) -> Result<Solid, ConstructionError> {
     generic_blade::blade(p, detail)
 }
 
-pub(super) fn axe(p: &AxeParameters, detail: Detail) -> Result<Solid, String> {
+pub(super) fn axe(p: &AxeParameters, detail: Detail) -> Result<Solid, ConstructionError> {
     let width = p.width.get();
     let height = p.height.get();
     let thickness = p.thickness.get();
@@ -77,7 +78,10 @@ pub(super) fn axe(p: &AxeParameters, detail: Detail) -> Result<Solid, String> {
     )
 }
 
-pub(super) fn section_blade(p: &SectionBladeParameters, detail: Detail) -> Result<Solid, String> {
+pub(super) fn section_blade(
+    p: &SectionBladeParameters,
+    detail: Detail,
+) -> Result<Solid, ConstructionError> {
     blade_sections::blade(
         BladeProfile::from(p),
         blade_sections::BladeSampling::Section,
@@ -126,7 +130,7 @@ pub(super) fn diamond_blade(p: &DiamondBladeParameters, detail: Detail) -> Solid
     solid.positive()
 }
 
-pub(super) fn fork(p: &ForkParameters, detail: Detail) -> Result<Solid, String> {
+pub(super) fn fork(p: &ForkParameters, detail: Detail) -> Result<Solid, ConstructionError> {
     let length = p.length.get();
     let width = p.width.get();
     let half = width / 2.0;
@@ -155,7 +159,7 @@ pub(super) fn fork(p: &ForkParameters, detail: Detail) -> Result<Solid, String> 
     )
 }
 
-pub(super) fn partisan(p: &PartisanParameters, detail: Detail) -> Result<Solid, String> {
+pub(super) fn partisan(p: &PartisanParameters, detail: Detail) -> Result<Solid, ConstructionError> {
     let length = p.length.get();
     let width = p.width.get();
     let lug = p.lug_width.get() / 2.0;
@@ -187,7 +191,7 @@ pub(super) fn partisan(p: &PartisanParameters, detail: Detail) -> Result<Solid, 
     )
 }
 
-pub(super) fn glaive(p: &GlaiveParameters, detail: Detail) -> Result<Solid, String> {
+pub(super) fn glaive(p: &GlaiveParameters, detail: Detail) -> Result<Solid, ConstructionError> {
     let outline = glaive_outline(p, detail);
     let length = p.length.get();
     Solid::shaped_plate(

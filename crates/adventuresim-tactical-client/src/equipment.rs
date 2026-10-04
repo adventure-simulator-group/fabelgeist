@@ -180,7 +180,7 @@ struct GrabSession {
     selection: Option<GrabSelection>,
     repeated_input: Option<(&'static str, usize)>,
     invalid_flash_remaining: f32,
-    next_sequence: u32,
+    next_sequence: EquipmentSequence,
 }
 
 #[derive(Clone)]
@@ -411,11 +411,13 @@ fn update_grab_input(
             return;
         }
     };
-    session.next_sequence = session.next_sequence.wrapping_add(1);
+    session.next_sequence = session.next_sequence.next();
     commands.client_trigger(EquipmentActionRequest {
         actor,
         sequence: session.next_sequence,
-        expected_revision: action_states.get(actor).map_or(0, |state| state.revision),
+        expected_revision: action_states
+            .get(actor)
+            .map_or(EquipmentRevision::default(), |state| state.revision),
         hand,
         expected_hand_item: held,
         action,
@@ -435,7 +437,7 @@ fn outermost_occupied_depth(layers: &[PreviewTarget]) -> Option<usize> {
 }
 
 fn eligible_slot_depth(
-    held_item_id: &str,
+    held_item_id: &item_catalog::ItemDefinitionId,
     location: EquipmentLocation,
     layers: &[PreviewTarget],
 ) -> Option<usize> {
@@ -496,7 +498,7 @@ fn append_preview(
         });
         return;
     };
-    let Some(equipment) = item_catalog::definition(&properties.id)
+    let Some(equipment) = item_catalog::definition(&(&properties.id).into())
         .and_then(|definition| definition.equipment.as_ref())
     else {
         output.push(PreviewTarget {
@@ -599,7 +601,7 @@ fn hud_layers(
             });
             return;
         };
-        let Some(equipment) = item_catalog::definition(&properties.id)
+        let Some(equipment) = item_catalog::definition(&(&properties.id).into())
             .and_then(|definition| definition.equipment.as_ref())
         else {
             output.push(PreviewTarget {
@@ -778,7 +780,7 @@ fn draw_slot_hud(
                                     else {
                                         return;
                                     };
-                                    let icon = item_catalog::definition(&item.id)
+                                    let icon = item_catalog::definition(&(&item.id).into())
                                         .map(|definition| definition.presentation.icon.as_str())
                                         .unwrap_or("help");
                                     let response = ui.add(
@@ -879,7 +881,7 @@ fn draw_slot_hud(
         ui.horizontal(|ui| {
             let active_entity = held.map(|(entity, _, _, _, _)| entity);
             let active_icon = held
-                .and_then(|(_, _, _, item, _)| item_catalog::definition(&item.id))
+                .and_then(|(_, _, _, item, _)| item_catalog::definition(&(&item.id).into()))
                 .map_or("mailed-fist", |definition| {
                     definition.presentation.icon.as_str()
                 });
@@ -908,7 +910,7 @@ fn draw_slot_hud(
                 });
             let other_entity = other_item.map(|(entity, _, _, _, _)| entity);
             let other_icon = other_item
-                .and_then(|(_, _, _, item, _)| item_catalog::definition(&item.id))
+                .and_then(|(_, _, _, item, _)| item_catalog::definition(&(&item.id).into()))
                 .map_or("mailed-fist", |definition| definition.presentation.icon.as_str());
             let other_button = egui::Button::image(
                 equipment_icon_image(
@@ -933,7 +935,7 @@ fn draw_slot_hud(
                 && let Some(GrabSelection::SceneItem(entity)) = session.selection
                 && let Ok((_, item)) = scene_items.get(entity)
             {
-                let icon = item_catalog::definition(&item.id)
+                let icon = item_catalog::definition(&(&item.id).into())
                     .map(|definition| definition.presentation.icon.as_str())
                     .unwrap_or("help");
                 ui.add(equipment_icon_image(

@@ -63,4 +63,4 @@ pub const REQUIRED_GAMEPLAY_ITEM_IDS: [&str; 19] = [
 #[path = "item_references/gameplay.rs"]
 mod gameplay;
 #[cfg(runtime_catalog)]
-pub use gameplay::{MissingGameplayItemReferences, validate_gameplay_references};
+pub use gameplay::validate_gameplay_references;

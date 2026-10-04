@@ -24,7 +24,8 @@ pub fn authority_test_disease_keys(
             .id()
             .find(stored.id)
             .ok_or("Episode missing")?;
-        let resolved = episode(&persisted)?;
+        let resolved = InfectionEpisode::try_from(&persisted)
+            .map_err(|error: EpisodeDecodeError| error.to_string())?;
         if resolved.disease_id != definition.id
             || resolved.id != stored.id
             || resolved.contracted_at != persisted.contracted_at
@@ -92,5 +93,7 @@ pub fn authority_test_invalid_disease_key(
         phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
     });
     // The caller checks that error propagation rolls this insertion back.
-    episode(&stored).map(|_| ())
+    InfectionEpisode::try_from(&stored)
+        .map(|_| ())
+        .map_err(|error: EpisodeDecodeError| error.to_string())
 }

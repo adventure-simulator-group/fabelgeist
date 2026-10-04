@@ -287,7 +287,14 @@ mod tests {
     #[ignore = "requires MHR_ASSETS and a compute-capable GPU"]
     fn every_catalog_armor_fits_the_measured_body_and_its_morphs() -> Result<()> {
         let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
-        let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
+        let model = load_body_model(
+            &MhrAssetDirectory::from(std::path::PathBuf::from(assets)),
+            MhrConfig {
+                lod: CharacterLod::Detailed,
+                pose_correctives: PoseCorrectivePolicy::Disabled,
+            },
+            &Device::default(),
+        )?;
         let catalog = ItemCatalog::load(
             std::path::Path::new("../../content/items"),
             CatalogDesigns::authored(),

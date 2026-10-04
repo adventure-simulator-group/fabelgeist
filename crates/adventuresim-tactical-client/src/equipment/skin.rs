@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_rig::RigJointName;
 
 pub(super) fn sync_procedural_equipment_skins(
     mut commands: Commands,
@@ -6,12 +7,12 @@ pub(super) fn sync_procedural_equipment_skins(
     items: Query<(Option<&ItemOf>, Has<TacticalSceneItem>)>,
     bones: Query<(Entity, &MhrBone, &Name)>,
 ) {
-    let mut rig_bones = HashMap::<Entity, HashMap<String, Entity>>::new();
+    let mut rig_bones = HashMap::<Entity, HashMap<RigJointName, Entity>>::new();
     for (entity, bone, name) in &bones {
         rig_bones
             .entry(bone.owner)
             .or_default()
-            .insert(name.as_str().to_owned(), entity);
+            .insert(RigJointName::from(name.as_str()), entity);
     }
     for (entity, part, current_skin) in &parts {
         let desired_joints = items

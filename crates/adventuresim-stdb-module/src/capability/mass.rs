@@ -1,10 +1,10 @@
 //! Authenticated carried construction mass, including food and fractional stock.
 use super::*;
-pub(super) fn dry_inventory_weight(ctx: &ReducerContext, character_id: u64) -> f32 {
+pub(super) fn dry_inventory_weight(ctx: &ReducerContext, character_id: CharacterId) -> f32 {
     ctx.db
         .inventory_item()
         .character_id()
-        .filter(character_id)
+        .filter(u64::from(character_id))
         .filter_map(|inventory: InventoryItem| {
             if crate::inventory_container::row_is_fireplace_rooted(
                 ctx,
@@ -30,9 +30,13 @@ pub(super) fn dry_inventory_weight(ctx: &ReducerContext, character_id: u64) -> f
                         .expect("parametric inventory weapon has valid physical recipe")
                         .mass_kg
                 } else {
-                    crate::weapon_instance::fitted_holder_mass(ctx, inventory.id, &item.id)
-                        .expect("fitted inventory holder has valid physical recipe")
-                        .unwrap_or(item.weight)
+                    crate::weapon_instance::fitted_holder_mass(
+                        ctx,
+                        inventory.id.into(),
+                        &(&item.id).into(),
+                    )
+                    .expect("fitted inventory holder has valid physical recipe")
+                    .unwrap_or(item.weight)
                 };
                 unit_mass * effective_quantity
             })

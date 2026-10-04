@@ -3,49 +3,7 @@ name: Rust quality
 on:
   push:
     branches: ["main"]
-    paths:
-      - "AGENTS.md"
-      - ".cargo/**"
-      - "Cargo.toml"
-      - "Cargo.lock"
-      - "crates/**"
-      - "rustfmt.toml"
-      - "rust-toolchain.toml"
-      - "rust-quality.toml"
-      - "rust-quality-baseline.toml"
-      - "justfile"
-      - "scripts/dev_stack.py"
-      - "scripts/check_calendar_api.py"
-      - "scripts/test_check_calendar_api.py"
-      - "scripts/tests/test_dev_stack.py"
-      - "scripts/tests/test_building_review_boundary.py"
-      - "scripts/capture*review.py"
-      - "scripts/capture_shop_signs.py"
-      - "scripts/capture_workplaces.py"
-      - "assets/tactical-scenes/*review*.json"
-      - ".github/workflows/rust-quality.yml"
   pull_request:
-    paths:
-      - "AGENTS.md"
-      - ".cargo/**"
-      - "Cargo.toml"
-      - "Cargo.lock"
-      - "crates/**"
-      - "rustfmt.toml"
-      - "rust-toolchain.toml"
-      - "rust-quality.toml"
-      - "rust-quality-baseline.toml"
-      - "justfile"
-      - "scripts/dev_stack.py"
-      - "scripts/check_calendar_api.py"
-      - "scripts/test_check_calendar_api.py"
-      - "scripts/tests/test_dev_stack.py"
-      - "scripts/tests/test_building_review_boundary.py"
-      - "scripts/capture*review.py"
-      - "scripts/capture_shop_signs.py"
-      - "scripts/capture_workplaces.py"
-      - "assets/tactical-scenes/*review*.json"
-      - ".github/workflows/rust-quality.yml"
   workflow_dispatch:
 
 permissions:
@@ -60,6 +18,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install pinned repository tooling
+        run: npm ci --ignore-scripts
+      - name: Check script and browser interface debt
+        run: |
+          node node_modules/prettier/bin/prettier.cjs --check scripts/semantic_interfaces/javascript.mts
+          python3 -B -m unittest scripts.test_semantic_interfaces
+          python3 -B -m scripts.check_semantic_interfaces check
       - name: Install pinned Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:

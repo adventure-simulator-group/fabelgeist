@@ -1,5 +1,6 @@
 //! Signed opaque browser sessions backed by server-side character grants.
 
+use crate::spacetimedb::SqlQuery;
 use std::{
     fmt,
     time::{SystemTime, UNIX_EPOCH},
@@ -145,11 +146,11 @@ fn owner_key(id: &[u8; SESSION_ID_BYTES]) -> String {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct GrantedCharacterId(u64);
+pub struct GrantedCharacterId(adventuresim_core::identity::CharacterId);
 
 impl GrantedCharacterId {
-    pub const fn get(self) -> u64 {
-        self.0
+    pub fn get(self) -> u64 {
+        u64::from(self.0)
     }
 }
 
@@ -223,10 +224,10 @@ impl FromRequestParts<AppState> for Session {
         };
         let rows = state
             .db
-            .query_sats::<BackendBrowserCharacterAccess>(&format!(
+            .query_sats::<BackendBrowserCharacterAccess>(SqlQuery::from(format!(
                 "SELECT * FROM backend_browser_character_access WHERE owner_key = {}",
                 sql_string_literal(&owner_key)
-            ))
+            )))
             .await
             .map_err(|error| {
                 tracing::error!(%error, "failed to resolve browser character grants");
@@ -239,10 +240,10 @@ impl FromRequestParts<AppState> for Session {
         let character_id = rows
             .iter()
             .find(|row| row.selected)
-            .map(|row| GrantedCharacterId(row.character_id));
+            .map(|row| GrantedCharacterId(row.character_id.into()));
         let character_ids = rows
             .into_iter()
-            .map(|row| GrantedCharacterId(row.character_id))
+            .map(|row| GrantedCharacterId(row.character_id.into()))
             .collect();
         Ok(Session {
             owner_key: Some(owner_key),
@@ -283,7 +284,7 @@ mod tests {
 
     #[test]
     fn granted_character_id_preserves_the_session_authority_value() {
-        let granted = GrantedCharacterId(42);
+        let granted = GrantedCharacterId(42.into());
         assert_eq!(granted.get(), 42);
         assert_eq!(granted.to_string(), "42");
     }

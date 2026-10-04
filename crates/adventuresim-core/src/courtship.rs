@@ -10,11 +10,20 @@ use adventuresim_world_schema::calendar::{MINUTES_PER_YEAR, StrategicMinute};
 use serde::{Deserialize, Serialize};
 use std::{fmt, str::FromStr};
 
+use adventuresim_world_schema::calendar::StrategicDayIndex;
+mod affinity;
+mod target_selection;
+pub use target_selection::{
+    daily_location_target_score, select_daily_location_target, select_stable_target_by_score,
+};
 mod child_identity;
+mod discovery;
+pub use affinity::CharacterAffinityKey;
 pub use child_identity::{
     ChildIdentitySeed, ChildNameSeed, ChildSeeds, HouseholdPlacementSeed, PregnancyOrdinal,
     deterministic_child_seeds,
 };
+pub use discovery::{CourtshipDiscoveryTrial, DiscoveryDayOutcome};
 
 pub const ADULT_AGE_YEARS: u16 = 16;
 pub const FORMAL_COURTSHIP_AFFINITY: f32 = 45.0;
@@ -590,41 +599,6 @@ pub fn stable_lifecycle_hash(domain: &str, parts: &[&str]) -> u64 {
     .to_u64()
 }
 
-pub fn daily_location_target_score(
-    actor_id: &str,
-    location_id: &str,
-    calendar_day: u64,
-    target_id: &str,
-) -> u64 {
-    let day = calendar_day.to_string();
-    stable_lifecycle_hash(
-        "daily-location-target",
-        &[actor_id, location_id, &day, target_id],
-    )
-}
-
-pub fn select_stable_target_by_score<'a>(
-    candidates: impl IntoIterator<Item = &'a str>,
-    score: impl Fn(&str) -> u64,
-) -> Option<&'a str> {
-    candidates
-        .into_iter()
-        .min_by_key(|candidate| (score(candidate), *candidate))
-}
-
-/// Pick the lowest deterministic score. Character ID is the stable final tie
-/// break, so storage or iteration order cannot affect an ambiguous choice.
-pub fn select_daily_location_target<'a>(
-    actor_id: &str,
-    location_id: &str,
-    calendar_day: u64,
-    candidates: impl IntoIterator<Item = &'a str>,
-) -> Option<&'a str> {
-    select_stable_target_by_score(candidates, |candidate| {
-        daily_location_target_score(actor_id, location_id, calendar_day, candidate)
-    })
-}
-
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct ConceptionQuantumState {
     pub conserved_joint_minutes: u8,
@@ -702,10 +676,10 @@ pub const fn succeeds_daily_trial(day_entropy: u16, numerator: u16) -> bool {
 pub fn crossed_days(
     start_minute: StrategicMinute,
     end_minute: StrategicMinute,
-) -> impl Iterator<Item = u64> {
+) -> impl Iterator<Item = StrategicDayIndex> {
     let first = start_minute.day_index();
     let last = end_minute.day_index();
-    (first + 1)..=last
+    first.following().through(last)
 }
 
 #[cfg(test)]
@@ -952,23 +926,6 @@ mod tests {
             RESIDENCE_MORALE_SPEC,
         );
         assert_eq!(after_spouse_expiry.milli_points, RESIDENCE_MORALE_CAP_MILLI);
-    }
-
-    #[test]
-    fn deterministic_target_selection_is_order_independent_and_ties_by_id() {
-        let forward =
-            select_daily_location_target("actor", "wittenberg", 42, ["c", "a", "b"]).unwrap();
-        let reverse =
-            select_daily_location_target("actor", "wittenberg", 42, ["b", "a", "c"]).unwrap();
-        assert_eq!(forward, reverse);
-        assert_eq!(
-            select_stable_target_by_score(["zeta", "alpha"], |_| 7),
-            Some("alpha")
-        );
-        assert_ne!(
-            daily_location_target_score("actor", "wittenberg", 42, "a"),
-            daily_location_target_score("actor", "wittenberg", 43, "a")
-        );
     }
 
     #[test]

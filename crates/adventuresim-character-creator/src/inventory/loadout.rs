@@ -59,10 +59,9 @@ impl Inventory {
                 Article::Catalog(article) => {
                     let (definition, placement) = article.resolve(catalog).map_err(fail)?;
                     if !is_wearable(definition) || placement.surface.is_empty() {
-                        return Err(fail(EquipConflict::Invalid(format!(
-                            "{} has no generated body surface",
-                            definition.display_name
-                        ))));
+                        return Err(fail(EquipConflict::MissingBodySurface {
+                            display_name: definition.display_name.clone(),
+                        }));
                     }
                     let piece = CatalogPiece {
                         id: item.id,

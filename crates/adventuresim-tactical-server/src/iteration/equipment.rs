@@ -10,7 +10,7 @@ pub(super) fn spawn_equipment(world: &mut World, owner: Entity, build: &MeleeIte
 
 fn spawn_weapon(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
     if let Some(weapon) = build.combatant.equipment.melee_weapon {
-        let definition = adventuresim_core::item_catalog::definition(build.weapon_id)
+        let definition = adventuresim_core::item_catalog::definition(&(build.weapon_id).into())
             .expect("iteration roster validates its weapon");
         let authored = definition
             .equipment
@@ -29,7 +29,7 @@ fn spawn_weapon(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
                 striking_head_length_m: weapon.striking_head_length_m,
                 anchor_offset_m: Vec3::from_array(authored.physical.anchor_offset_m),
             },
-            TacticalInventoryItemId(1),
+            TacticalInventoryItemId::from(1),
             EquipSlot::HoldingRight,
             WeaponItem {
                 striking_material: authored
@@ -71,7 +71,7 @@ fn spawn_weapon(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
 
 fn spawn_shield(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
     if let Some(shield_id) = build.shield_id {
-        let definition = adventuresim_core::item_catalog::definition(shield_id)
+        let definition = adventuresim_core::item_catalog::definition(&(shield_id).into())
             .expect("iteration roster validates its shield");
         world.spawn((
             ItemOf(owner),
@@ -79,7 +79,7 @@ fn spawn_shield(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
                 id: shield_id.into(),
                 weight: definition.weight_kg,
             },
-            TacticalInventoryItemId(2),
+            TacticalInventoryItemId::from(2),
             EquipSlot::HoldingLeft,
             ShieldItem {
                 block: build.combatant.equipment.shield_block_bonus,
@@ -90,7 +90,7 @@ fn spawn_shield(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
 
 fn spawn_armor(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
     for (item_index, armor_id) in build.armor_ids.iter().enumerate() {
-        let definition = adventuresim_core::item_catalog::definition(armor_id)
+        let definition = adventuresim_core::item_catalog::definition(&(*armor_id).into())
             .expect("iteration roster validates its armor");
         let authored = definition
             .equipment
@@ -129,7 +129,7 @@ fn spawn_armor(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
                 id: (*armor_id).into(),
                 weight: definition.weight_kg,
             },
-            TacticalInventoryItemId(10 + item_index as u64),
+            TacticalInventoryItemId::from(10 + item_index as u64),
             EquipSlot::from_armor_body_part(part),
             ArmorItem {
                 material,

@@ -1,10 +1,14 @@
 //! Error bounds for replacing unresolvable groove tails by broad-face fans.
 use super::*;
+use crate::ConstructionError;
 
 pub(super) const BLADE_SURFACE_ERROR: f64 = 0.00004;
 const GROOVE_ADDITIONAL_NORMAL_ERROR: f64 = 0.02;
 
-pub(super) fn envelope_floor(p: &BladeProfile<'_>, detail: Detail) -> Result<f64, String> {
+pub(super) fn envelope_floor(
+    p: &BladeProfile<'_>,
+    detail: Detail,
+) -> Result<f64, ConstructionError> {
     let Some(f) = p.fuller else {
         return Ok(0.0);
     };
@@ -24,7 +28,7 @@ pub(super) fn envelope_floor(p: &BladeProfile<'_>, detail: Detail) -> Result<f64
             .iter()
             .any(|g| g.depth.get() * minimum.powi(2) > detail.error(BLADE_SURFACE_ERROR) / 2.0)
     {
-        return Err("fuller strips cannot be resolved within the surface-error budget".into());
+        return Err(ConstructionError::FullerSurfaceBudget);
     }
     Ok(minimum)
 }
@@ -47,7 +51,7 @@ pub(super) fn check(
     quad: &[Point; 4],
     ring: impl Fn(f64) -> Vec<Point>,
     detail: Detail,
-) -> Result<(), String> {
+) -> Result<(), ConstructionError> {
     let [a, b] = interval;
     let left = ring(a);
     let right = ring(b);
@@ -105,7 +109,7 @@ struct NormalCheck<F> {
     tolerance: f64,
 }
 impl<F: Fn(f64) -> Vec<Point>> NormalCheck<F> {
-    fn compare(&self, normal: Point, param: [f64; 2]) -> Result<(), String> {
+    fn compare(&self, normal: Point, param: [f64; 2]) -> Result<(), ConstructionError> {
         let Self {
             interval,
             side,
@@ -138,21 +142,25 @@ impl<F: Fn(f64) -> Vec<Point>> NormalCheck<F> {
         // Completely omitted strips call this with normal=broad, which also
         // bounds their full normal departure without flattening retained fans.
         if angle(normal, analytic) > base_error + tolerance {
-            return Err(format!(
-                "fuller tail cannot be simplified within the normal-error budget: interval {interval:?}, side {side}, at {param:?}, analytic-to-flat {}, mesh-to-analytic {}, base {}, tolerance {}",
-                angle(analytic, reference),
-                angle(normal, analytic),
-                base_error,
-                tolerance
+            return Err(ConstructionError::FullerNormalBudget(
+                crate::NormalBudgetFailure {
+                    interval: *interval,
+                    side: *side,
+                    parameter: param,
+                    analytic_to_flat: angle(analytic, reference),
+                    mesh_to_analytic: angle(normal, analytic),
+                    base_error,
+                    tolerance: *tolerance,
+                },
             ));
         }
         Ok(())
     }
 }
-fn unit(v: Point) -> Result<Point, String> {
+fn unit(v: Point) -> Result<Point, ConstructionError> {
     let length = magnitude(v);
     if !length.is_finite() || length == 0.0 {
-        return Err("unresolved blade surface normal".into());
+        return Err(ConstructionError::UnresolvedBladeSurfaceNormal);
     }
     Ok(mul(v, 1.0 / length))
 }

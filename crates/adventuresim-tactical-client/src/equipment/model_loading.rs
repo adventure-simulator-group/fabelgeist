@@ -2,13 +2,14 @@
 
 use super::*;
 use bevy::gltf::GltfExtras;
+use fabelgeist_rig::RigJointName;
 
 struct LoadedPart {
     name: String,
     mesh: Handle<Mesh>,
     material_index: usize,
     inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
-    joint_names: Vec<String>,
+    joint_names: Vec<RigJointName>,
     extras: Option<GltfExtras>,
 }
 
@@ -102,7 +103,11 @@ mod tests {
                 .collect::<Vec<_>>(),
             ["skull", "bevor", "bevor", "visor"]
         );
-        assert!(parts.iter().all(|part| part.joint_names == ["c_head"]));
+        assert!(
+            parts
+                .iter()
+                .all(|part| part.joint_names == [RigJointName::C_HEAD])
+        );
         assert_eq!(
             parts[3].extras.as_ref().unwrap().value,
             "{\"part\":\"visor\"}"
@@ -162,7 +167,11 @@ impl EquipmentAssets<'_> {
             let joint_names = skin
                 .joints
                 .iter()
-                .map(|joint| self.nodes.get(joint).map(|node| node.name.clone()))
+                .map(|joint| {
+                    self.nodes
+                        .get(joint)
+                        .map(|node| RigJointName::from(node.name.clone()))
+                })
                 .collect::<Option<Vec<_>>>()?;
             for primitive in &mesh.primitives {
                 let Some(material_index) = primitive.material.as_ref().and_then(|material| {

@@ -17,7 +17,7 @@ use adventuresim_core::strategic_state::vocabulary::{
     CommitmentStatus, CommitmentTerminalReason, CourtshipKind, CourtshipSecrecyReason,
     CourtshipStatus, CourtshipTerminalReason, MarriageStatus, PregnancyStatus,
 };
-use adventuresim_world_schema::calendar::StrategicMinute;
+use adventuresim_world_schema::calendar::{StrategicDayIndex, StrategicMinute};
 use adventuresim_world_schema::person_names::NameStableSeed;
 use adventuresim_world_schema::{Sex, calendar::MINUTES_PER_DAY};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
@@ -31,10 +31,18 @@ use crate::personality::{
 };
 use crate::residence::{ResidenceTransitionKind, residence_holding, residence_transition};
 use crate::settlement_population::{npc_is_present, settlement_resident_presence};
-use crate::social::{CharacterAffinity, character_affinity};
+use crate::social::{CharacterAffinity, affinity_at, character_affinity};
 use crate::strategic::{settlement, strategic_gateway_authority__view};
-use crate::time::{character_time, character_time__view};
+use crate::time::{canonical_now, character_time, character_time__view};
+mod courtship_error;
+mod father;
+mod temporal_scope;
+mod temporal_scope_error;
+pub(crate) use courtship_error::CourtshipPairError;
+use father::{FatherAdmissionError, father_of_at};
 use std::collections::BTreeSet;
+pub use temporal_scope::TemporalScope;
+pub(crate) use temporal_scope_error::TemporalScopeError;
 
 #[cfg(feature = "authority-tests")]
 mod leisure_authority_tests;
@@ -54,7 +62,8 @@ include!("reproduction.rs");
 include!("authority_tests.rs");
 include!("lifecycle.rs");
 include!("socializing.rs");
-include!("courtship_discovery.rs");
+mod discovery;
+pub(crate) use discovery::settle_secret_courtship_discovery_for_character;
 include!("courtship.rs");
 
 /// Process one chronological queue across every globally due relationship
@@ -102,7 +111,9 @@ pub fn settle_due_lifecycle_events_global(
                 id,
                 participant_id,
             } => {
-                if let Err(error) = settle_due_weddings(ctx, participant_id, effective_minute) {
+                if let Err(error) =
+                    settle_due_weddings(ctx, (participant_id).into(), effective_minute)
+                {
                     if let Some(commitment) = ctx.db.exclusive_commitment().id().find(&id) {
                         transition_commitment_terminal(
                             ctx,
@@ -145,7 +156,7 @@ pub fn settle_due_lifecycle_events_global(
                     // Preflight precedes every write. An unexpected failure in
                     // the commit path aborts this reducer transaction instead
                     // of being caught after partial character construction.
-                    settle_due_births(ctx, mother_id, effective_minute)?;
+                    settle_due_births(ctx, (mother_id).into(), effective_minute)?;
                 }
             }
         }
@@ -159,12 +170,13 @@ pub(crate) const RELATIONSHIP_SOURCE: &str = concat!(
     include_str!("projections.rs"),
     include_str!("chronology.rs"),
     include_str!("family.rs"),
+    include_str!("father.rs"),
     include_str!("commitments.rs"),
     include_str!("marriage.rs"),
     include_str!("reproduction.rs"),
     include_str!("lifecycle.rs"),
     include_str!("socializing.rs"),
-    include_str!("courtship_discovery.rs"),
+    include_str!("discovery.rs"),
     include_str!("courtship.rs"),
     include_str!("mod.rs"),
 );

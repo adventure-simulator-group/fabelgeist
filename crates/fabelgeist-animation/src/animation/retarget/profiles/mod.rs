@@ -9,7 +9,9 @@ use crate::skeleton::mixamo::MixamoRig;
 use super::profile::RigProfile;
 
 pub mod infer;
+mod inference_name;
 pub mod mixamo;
+mod mixamo_finger;
 
 /// The built-in source profiles, in detection order.
 pub fn builtin() -> Vec<RigProfile> {
@@ -31,23 +33,25 @@ pub fn detect(skeleton: &Skeleton) -> Option<RigProfile> {
 mod tests {
     use super::*;
     use crate::skeleton::Joint;
+    use crate::skeleton::SkinJointOrdinal;
     use fabelgeist_math::matrix::Mat4;
+    use fabelgeist_rig::RigJointOrdinal;
 
     #[test]
     fn a_known_rig_is_detected() {
         let detected = detect(&MixamoRig::skeleton()).expect("the Mixamo rig should be detected");
-        assert_eq!(detected.name, "Mixamo");
+        assert_eq!(detected.name, "Mixamo".into());
     }
 
     #[test]
     fn an_unknown_rig_simply_does_not_detect() {
         let skeleton = Skeleton::new(vec![Joint::new(
-            "bone".to_string(),
-            0,
+            "bone".into(),
+            RigJointOrdinal::from(0_usize),
             None,
             Mat4::identity(),
             Default::default(),
-            Some(0),
+            Some(SkinJointOrdinal::from(0_usize)),
         )]);
         assert!(detect(&skeleton).is_none());
     }

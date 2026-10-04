@@ -26,8 +26,12 @@ pub(super) fn seed(
             physiology::DoseMilliunits::try_new(1_250).unwrap(),
         ),
     ] {
-        let (sensitivity_bps, adverse_bps) =
-            private_variation(ctx, patient_id, administered_at, "oral_rehydration_draught")?;
+        let (sensitivity_bps, adverse_bps) = private_variation(
+            ctx,
+            (patient_id).into(),
+            administered_at,
+            "oral_rehydration_draught",
+        )?;
         ctx.db
             .physiology_administration()
             .insert(PhysiologyAdministration {

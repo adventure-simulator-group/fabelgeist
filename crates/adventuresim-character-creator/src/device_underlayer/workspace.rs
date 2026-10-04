@@ -5,6 +5,7 @@ use fabelgeist_armor::ArmorGpu;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::{RadixSort, SortScratch};
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::gap::{BUCKETS, CELLS_PER_FACE};
 use super::plan::{CutPlan, incidence};
@@ -22,7 +23,7 @@ pub(super) struct Workspace<'a> {
     pub incidence: Buffer,
     pub table: Buffer,
     pub sources: Buffer,
-    /// Fit failures; see `wgsl::STATUS`.
+    /// Device flags decoded as [`super::FitStatus`] after readback.
     pub status: Buffer,
     pub sort: RadixSort,
     pub sort_scratch: SortScratch,
@@ -62,28 +63,40 @@ impl<'a> Workspace<'a> {
             plan,
             vertex_count: vertex_count as u32,
             face_count,
-            faces: gpu.upload(faces)?,
-            incidence: gpu.upload(&incidence(vertex_count, faces))?,
-            table: gpu.upload(&plan.table)?,
-            sources: gpu.upload(&plan.sources)?,
-            status: gpu.scratch(4, "underlayer status")?,
+            faces: gpu.upload(BufferUpload::from_elements(faces))?,
+            incidence: gpu.upload(BufferUpload::from_elements(&incidence(vertex_count, faces)))?,
+            table: gpu.upload(BufferUpload::from_elements(&plan.table))?,
+            sources: gpu.upload(BufferUpload::from_elements(&plan.sources))?,
+            status: gpu.scratch((4u64).into(), ("underlayer status").into())?,
             sort: RadixSort::with_cache(gpu.context(), gpu.cache()).map_err(device_error)?,
-            sort_scratch: SortScratch::new(gpu.context(), capacity).map_err(device_error)?,
-            keys: gpu.scratch(capacity as u64 * 4, "underlayer sort keys")?,
-            values: gpu.scratch(capacity as u64 * 4, "underlayer sort values")?,
-            quantized: gpu.scratch(vertices * 12, "underlayer weld keys")?,
-            ranges: gpu.scratch(BUCKETS as u64 * 8, "underlayer grid buckets")?,
-            overflow: gpu.scratch((face_count as u64 + 1) * 4, "underlayer large faces")?,
-            rooms: gpu.scratch(vertices * 8, "underlayer rooms")?,
+            sort_scratch: SortScratch::new(gpu.context(), capacity.into()).map_err(device_error)?,
+            keys: gpu.scratch(
+                (capacity as u64 * 4).into(),
+                ("underlayer sort keys").into(),
+            )?,
+            values: gpu.scratch(
+                (capacity as u64 * 4).into(),
+                ("underlayer sort values").into(),
+            )?,
+            quantized: gpu.scratch((vertices * 12).into(), ("underlayer weld keys").into())?,
+            ranges: gpu.scratch(
+                (BUCKETS as u64 * 8).into(),
+                ("underlayer grid buckets").into(),
+            )?,
+            overflow: gpu.scratch(
+                ((face_count as u64 + 1) * 4).into(),
+                ("underlayer large faces").into(),
+            )?,
+            rooms: gpu.scratch((vertices * 8).into(), ("underlayer rooms").into())?,
             worklist: gpu.scratch(
-                (WORKLIST_HEADER as u64 + face_count as u64 * 4) * 4,
-                "underlayer prism worklist",
+                ((WORKLIST_HEADER as u64 + face_count as u64 * 4) * 4).into(),
+                ("underlayer prism worklist").into(),
             )?,
             constraints: gpu.scratch(
-                constraint_sets.max(1) as u64 * face_count as u64 * 16,
-                "underlayer face constraints",
+                (constraint_sets.max(1) as u64 * face_count as u64 * 16).into(),
+                ("underlayer face constraints").into(),
             )?,
-            compression: gpu.upload(&vec![f32::MAX; vertex_count])?,
+            compression: gpu.upload(BufferUpload::from_elements(&vec![f32::MAX; vertex_count]))?,
         })
     }
 }

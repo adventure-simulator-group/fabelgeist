@@ -1,5 +1,6 @@
 //! Convex section envelopes with clearance to sloped supporting faces.
 use super::*;
+use crate::ConstructionError;
 use std::collections::BTreeMap;
 pub(crate) struct ClearanceEnvelope {
     levels: Vec<(f64, Vec<f64>)>,
@@ -7,9 +8,9 @@ pub(crate) struct ClearanceEnvelope {
     slope_factors: Vec<f64>,
 }
 impl ClearanceEnvelope {
-    pub(crate) fn new(points: &[Point], sides: usize) -> Result<Self, String> {
+    pub(crate) fn new(points: &[Point], sides: usize) -> Result<Self, ConstructionError> {
         if sides < 3 {
-            return Err("clearance envelope needs three supporting planes".into());
+            return Err(ConstructionError::ClearanceEnvelopeNeedsThreeSupportingPlanes);
         }
         let mut groups = BTreeMap::<i64, Vec<Point>>::new();
         for &point in points {
@@ -19,7 +20,7 @@ impl ClearanceEnvelope {
                 .push(point);
         }
         if groups.len() < 2 {
-            return Err("clearance envelope needs two axial sections".into());
+            return Err(ConstructionError::ClearanceEnvelopeNeedsTwoAxialSections);
         }
         let normals: Vec<_> = (0..sides)
             .map(|i| {
@@ -123,7 +124,7 @@ impl ClearanceEnvelope {
         gap: f64,
         wall: f64,
         end: LoftEnd,
-    ) -> Result<Solid, String> {
+    ) -> Result<Solid, ConstructionError> {
         let heights = self.heights(lower, upper);
         let inner: Vec<_> = heights.iter().map(|&y| self.ring(y, gap)).collect();
         let mut outer: Vec<_> = heights.iter().map(|&y| self.ring(y, gap + wall)).collect();

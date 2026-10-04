@@ -1,5 +1,6 @@
 use super::AppState;
 use crate::location_urls::patterns as paths;
+use crate::spacetimedb::SqlQuery;
 use crate::{
     session::Session,
     spacetimedb::{
@@ -61,7 +62,7 @@ async fn evidence_at_site(
     character_id: u64,
     case_site_id: &str,
 ) -> Result<Vec<EvidenceView>, StatusCode> {
-    let character = super::data::character(state, character_id)
+    let character = super::data::character(state, character_id.into())
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
         .ok_or(StatusCode::UNAUTHORIZED)?;
@@ -70,24 +71,24 @@ async fn evidence_at_site(
     }
     let mut evidence = state
         .db
-        .query_sats::<BackendPhysicalEvidence>(&format!(
+        .query_sats::<BackendPhysicalEvidence>(SqlQuery::from(format!(
             "SELECT * FROM backend_physical_evidence WHERE owner_character_id = {character_id} AND case_site_id = {}",
             sql_string_literal(case_site_id)
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     let inspections = state
         .db
-        .query_sats::<BackendPhysicalEvidenceInspection>(&format!(
+        .query_sats::<BackendPhysicalEvidenceInspection>(SqlQuery::from(format!(
             "SELECT * FROM backend_physical_evidence_inspections WHERE owner_character_id = {character_id}"
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     let deductions = state
         .db
-        .query_sats::<BackendBestiaryDeduction>(&format!(
+        .query_sats::<BackendBestiaryDeduction>(SqlQuery::from(format!(
             "SELECT * FROM backend_bestiary_deductions WHERE owner_character_id = {character_id}"
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     evidence.sort_by(|left, right| {

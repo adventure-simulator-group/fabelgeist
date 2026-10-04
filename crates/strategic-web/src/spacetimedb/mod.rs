@@ -6,11 +6,14 @@ mod item_kind;
 mod resident_presentation;
 pub(crate) use resident_presentation::npc_presentation_id;
 mod preparation;
+mod projection;
 mod queries;
 pub(crate) use preparation::{ingredient_preparation_action, parse_ingredient_preparation_action};
 mod types;
 
 pub(crate) use calendar::{calendar_countdown_days, calendar_minute};
+#[cfg(test)]
+pub(crate) use client::{DatabaseOperation, RemoteDatabaseFailure};
 pub(crate) use client::{Result, SpacetimeClient, SpacetimeError};
 pub(crate) use queries::{
     SqlQuery, automatic_social_chat_by_id, autoresolve_report_by_battle_id,

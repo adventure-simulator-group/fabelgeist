@@ -1,5 +1,6 @@
 //! Conforming front/back shield surfaces and their actual rim boundary.
 use super::*;
+use crate::ConstructionError;
 
 fn ending(shape: &ShapedShieldTopShape, u: f64, depth: f64, roundness: f64) -> f64 {
     let d = u.abs().min(1.0);
@@ -76,7 +77,10 @@ impl Shield<'_> {
             }
         }
     }
-    pub(super) fn body(&self, detail: Detail) -> Result<(Solid, Vec<PlanarPoint>), String> {
+    pub(super) fn body(
+        &self,
+        detail: Detail,
+    ) -> Result<(Solid, Vec<PlanarPoint>), ConstructionError> {
         let outline = self.outline(detail);
         let solid = match self.panel {
             Panel::Round(p) => self.round_body(p, detail),

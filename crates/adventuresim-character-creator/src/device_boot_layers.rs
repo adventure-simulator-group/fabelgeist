@@ -9,9 +9,9 @@
 
 use anyhow::Result;
 use fabelgeist_armor::DevicePart;
-use fabelgeist_armor::gpu::{device_error, wgsl};
+use fabelgeist_armor::gpu::wgsl;
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
 
 use crate::device_foot_sections::PROFILE_SAMPLES;
 use crate::device_frames::DeviceWearer;
@@ -36,35 +36,35 @@ impl DeviceWearer<'_> {
         let gpu = self.gpu;
         let slots = |garment: &DevicePart| PROFILE_SAMPLES * garment.triangle_count() * 3;
         let count = garments.iter().map(slots).sum::<u32>();
-        let points = gpu.scratch(count as u64 * 16, "boot layer slices")?;
+        let points = gpu.scratch((count as u64 * 16).into(), ("boot layer slices").into())?;
         let kernel = gpu
             .cache()
             .get(gpu.context(), &source())
-            .map_err(device_error)?;
+            .map_err(fabelgeist_armor::GenerateError::from)?;
         let mut first = 0;
         for (index, garment) in garments.iter().enumerate() {
             let mut parameters = PassParameters::new();
-            parameters.insert("triangles", garment.triangle_count());
-            parameters.insert("garment", index as u32);
-            parameters.insert("first", first);
-            parameters.insert("pad0", 0u32);
-            parameters.insert("frames", frame.clone());
-            parameters.insert("bounds", bounds.clone());
-            parameters.insert("hems", hems.clone());
-            parameters.insert("positions", garment.positions().clone());
-            parameters.insert("indices", garment.indices().clone());
-            parameters.insert("points", points.clone());
+            parameters.insert("triangles".into(), (garment.triangle_count()).into());
+            parameters.insert("garment".into(), (index as u32).into());
+            parameters.insert("first".into(), (first).into());
+            parameters.insert("pad0".into(), (0u32).into());
+            parameters.insert("frames".into(), (frame.clone()).into());
+            parameters.insert("bounds".into(), (bounds.clone()).into());
+            parameters.insert("hems".into(), (hems.clone()).into());
+            parameters.insert("positions".into(), (garment.positions().clone()).into());
+            parameters.insert("indices".into(), (garment.indices().clone()).into());
+            parameters.insert("points".into(), (points.clone()).into());
             batch
-                .dispatch_items(&kernel, &parameters, slots(garment))
-                .map_err(device_error)?;
+                .dispatch_items(&kernel, &parameters, (slots(garment)).into())
+                .map_err(fabelgeist_armor::GenerateError::from)?;
             first += slots(garment);
         }
         Ok(GarmentSlices { points, count })
     }
 }
 
-fn source() -> String {
-    format!(
+fn source() -> ShaderSource {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> bounds: array<u32>;
@@ -130,5 +130,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         ordered = wgsl::ORDERED_FLOAT,
         positions = wgsl::read_points("positions"),
         samples = PROFILE_SAMPLES,
-    )
+    ))
 }

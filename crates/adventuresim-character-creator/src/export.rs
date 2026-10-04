@@ -1,5 +1,6 @@
 //! Deterministic binary glTF export for an identity-shaped MHR character.
 
+use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
 #[cfg(test)]
 use glb::GLB_MAGIC;
 #[cfg(test)]
@@ -23,9 +24,6 @@ mod sockets;
 mod validation;
 use validation::validate;
 
-pub const LEFT_WEAPON_JOINT: &str = "l_weapon";
-pub const RIGHT_WEAPON_JOINT: &str = "r_weapon";
-pub const FIRST_PERSON_CAMERA_JOINT: &str = "c_camera";
 pub const EQUIPMENT_SOCKET_NODE_PREFIX: &str = "equipment_socket_";
 pub const MHR_ANATOMICAL_UV_DOMAIN: &str = "mhr_body_v1";
 
@@ -151,11 +149,11 @@ fn transform_matrix(transform: Transform) -> [f32; 16] {
     ]
 }
 
-fn landmark(mesh: &RiggedMesh<'_>, name: &str) -> Result<usize> {
-    mesh.joint_names
-        .iter()
-        .position(|candidate| candidate == name)
-        .with_context(|| format!("MHR rig is missing attachment landmark {name}"))
+fn landmark(
+    mesh: &RiggedMesh<'_>,
+    name: &RigJointName,
+) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+    name.require_in(mesh.joint_names)
 }
 
 fn between(a: Transform, b: Transform, amount: f64) -> [f64; 3] {
@@ -236,14 +234,6 @@ fn ray_triangle_hit(
     (distance > RAY_INTERSECTION_EPSILON).then_some((distance, u, v))
 }
 
-fn attachment_region_joint(name: &str) -> bool {
-    matches!(
-        name,
-        "root" | "c_spine0" | "c_spine1" | "l_upleg" | "r_upleg"
-    ) || name.starts_with("l_upleg_twist")
-        || name.starts_with("r_upleg_twist")
-}
-
 fn attachment_region_weight(mesh: &RiggedMesh<'_>, vertex: usize) -> f32 {
     mesh.joint_indices[vertex]
         .iter()
@@ -251,7 +241,9 @@ fn attachment_region_weight(mesh: &RiggedMesh<'_>, vertex: usize) -> f32 {
         .filter(|(joint, _)| {
             mesh.joint_names
                 .get(**joint as usize)
-                .is_some_and(|name| attachment_region_joint(name))
+                .is_some_and(|name: &RigJointName| -> bool {
+                    crate::clothing::waist_surface_joint(name) == RigJointMembership::Included
+                })
         })
         .map(|(_, weight)| weight)
         .sum()
@@ -291,8 +283,8 @@ fn equipment_surface_socket(
     normal: [f64; 3],
     tangent: [f32; 3],
 ) -> Result<Transform> {
-    let pelvis = landmark(mesh, "root")?;
-    let pelvis_transform = state(mesh.global_joint_states[pelvis]);
+    let pelvis = landmark(mesh, &RigJointName::ROOT)?;
+    let pelvis_transform = state(mesh.global_joint_states[usize::from(pelvis)]);
     let direction = normalize(normal, "equipment", "surface normal")?;
     let translation = std::array::from_fn(|axis| {
         translation[axis] + direction[axis] * EQUIPMENT_SOCKET_CLEARANCE_METERS
@@ -612,19 +604,6 @@ fn weapon_attachment(
     Ok(surface_socket.compose(&WEAPON_SOCKET_CALIBRATION))
 }
 
-fn append_attachment(
-    names: &mut Vec<String>,
-    parents: &mut Vec<i32>,
-    globals: &mut Vec<Transform>,
-    name: &str,
-    parent: usize,
-    transform: Transform,
-) {
-    names.push(name.to_owned());
-    parents.push(parent as i32);
-    globals.push(transform);
-}
-
 fn position_bounds(positions: &[[f32; 3]]) -> ([f32; 3], [f32; 3]) {
     positions.iter().fold(
         ([f32::INFINITY; 3], [f32::NEG_INFINITY; 3]),
@@ -654,12 +633,12 @@ pub fn export_rigged_glb(
     output: GlbOutput<'_>,
     character_name: &str,
     recipe_version: u8,
-    lod: u8,
+    lod: fabelgeist_mhr::CharacterLod,
     mesh: &RiggedMesh<'_>,
     shells: &[RiggedShell<'_>],
     sockets: &[RiggedSocket<'_>],
 ) -> Result<()> {
-    validate(lod, mesh, shells, sockets)?;
+    validate(mesh, shells, sockets)?;
     let compact = shells
         .iter()
         .map(|shell| compact::CompactShell::new(mesh, shell))
@@ -723,73 +702,73 @@ pub fn export_rigged_glb(
     let mut joint_parents = mesh.joint_parents.to_vec();
     let mut attachments = Vec::new();
     if !mesh.faces.is_empty() {
-        let left_wrist = landmark(mesh, "l_wrist")?;
-        let left_middle = landmark(mesh, "l_middle1")?;
-        let left_index = landmark(mesh, "l_index1")?;
-        let left_ring = landmark(mesh, "l_ring1")?;
-        let left_thumb_base = landmark(mesh, "l_thumb0")?;
-        let left_thumb = landmark(mesh, "l_thumb1")?;
-        let right_wrist = landmark(mesh, "r_wrist")?;
-        let right_middle = landmark(mesh, "r_middle1")?;
-        let right_index = landmark(mesh, "r_index1")?;
-        let right_ring = landmark(mesh, "r_ring1")?;
-        let right_thumb_base = landmark(mesh, "r_thumb0")?;
-        let right_thumb = landmark(mesh, "r_thumb1")?;
-        let head = landmark(mesh, "c_head")?;
-        let left_eye = landmark(mesh, "l_eye")?;
-        let right_eye = landmark(mesh, "r_eye")?;
+        let transform = |joint: RigJointOrdinal| -> Transform { globals[usize::from(joint)] };
+        let left_wrist = landmark(mesh, &RigJointName::L_WRIST)?;
+        let left_middle = landmark(mesh, &RigJointName::L_MIDDLE1)?;
+        let left_index = landmark(mesh, &RigJointName::L_INDEX1)?;
+        let left_ring = landmark(mesh, &RigJointName::L_RING1)?;
+        let left_thumb_base = landmark(mesh, &RigJointName::L_THUMB0)?;
+        let left_thumb = landmark(mesh, &RigJointName::L_THUMB1)?;
+        let right_wrist = landmark(mesh, &RigJointName::R_WRIST)?;
+        let right_middle = landmark(mesh, &RigJointName::R_MIDDLE1)?;
+        let right_index = landmark(mesh, &RigJointName::R_INDEX1)?;
+        let right_ring = landmark(mesh, &RigJointName::R_RING1)?;
+        let right_thumb_base = landmark(mesh, &RigJointName::R_THUMB0)?;
+        let right_thumb = landmark(mesh, &RigJointName::R_THUMB1)?;
+        let head = landmark(mesh, &RigJointName::C_HEAD)?;
+        let left_eye = landmark(mesh, &RigJointName::L_EYE)?;
+        let right_eye = landmark(mesh, &RigJointName::R_EYE)?;
         let left_grip = weapon_attachment(
             mesh,
             "left",
-            globals[left_wrist],
-            globals[left_middle],
-            globals[left_index],
-            globals[left_ring],
-            [globals[left_thumb_base], globals[left_thumb]],
+            transform(left_wrist),
+            transform(left_middle),
+            transform(left_index),
+            transform(left_ring),
+            [transform(left_thumb_base), transform(left_thumb)],
         )?;
         let right_grip = weapon_attachment(
             mesh,
             "right",
-            globals[right_wrist],
-            globals[right_middle],
-            globals[right_index],
-            globals[right_ring],
-            [globals[right_thumb_base], globals[right_thumb]],
+            transform(right_wrist),
+            transform(right_middle),
+            transform(right_index),
+            transform(right_ring),
+            [transform(right_thumb_base), transform(right_thumb)],
         )?;
-        let camera_position = between(globals[left_eye], globals[right_eye], 0.5);
         let camera = Transform {
-            translation: camera_position,
-            rotation: globals[head].rotation,
-            scale: globals[head].scale,
+            translation: between(transform(left_eye), transform(right_eye), 0.5),
+            rotation: transform(head).rotation,
+            scale: transform(head).scale,
         };
-        append_attachment(
+        skeleton::append_attachment(
             &mut joint_names,
             &mut joint_parents,
             &mut globals,
-            LEFT_WEAPON_JOINT,
+            &RigJointName::L_WEAPON,
             left_wrist,
             left_grip,
         );
-        append_attachment(
+        skeleton::append_attachment(
             &mut joint_names,
             &mut joint_parents,
             &mut globals,
-            RIGHT_WEAPON_JOINT,
+            &RigJointName::R_WEAPON,
             right_wrist,
             right_grip,
         );
-        append_attachment(
+        skeleton::append_attachment(
             &mut joint_names,
             &mut joint_parents,
             &mut globals,
-            FIRST_PERSON_CAMERA_JOINT,
+            &RigJointName::C_CAMERA,
             head,
             camera,
         );
         attachments = vec![
-            json!({"name": LEFT_WEAPON_JOINT, "parent": "l_wrist", "role": "left_weapon_grip"}),
-            json!({"name": RIGHT_WEAPON_JOINT, "parent": "r_wrist", "role": "right_weapon_grip"}),
-            json!({"name": FIRST_PERSON_CAMERA_JOINT, "parent": "c_head", "role": "first_person_camera"}),
+            json!({"name": RigJointName::L_WEAPON, "parent": RigJointName::L_WRIST, "role": "left_weapon_grip"}),
+            json!({"name": RigJointName::R_WEAPON, "parent": RigJointName::R_WRIST, "role": "right_weapon_grip"}),
+            json!({"name": RigJointName::C_CAMERA, "parent": RigJointName::C_HEAD, "role": "first_person_camera"}),
         ];
     }
     let inverse_bind_matrices = buffer.push(
@@ -942,26 +921,25 @@ mod tests {
         serde_json::from_slice(&bytes[20..20 + json_length]).unwrap()
     }
 
-    fn attachment_test_skeleton() -> (Vec<String>, Vec<i32>, Vec<[f32; 8]>) {
+    fn attachment_test_skeleton() -> (Vec<RigJointName>, Vec<i32>, Vec<[f32; 8]>) {
         let names = [
-            "body_world",
-            "l_wrist",
-            "l_middle1",
-            "l_index1",
-            "l_ring1",
-            "l_thumb0",
-            "l_thumb1",
-            "r_wrist",
-            "r_middle1",
-            "r_index1",
-            "r_ring1",
-            "r_thumb0",
-            "r_thumb1",
-            "c_head",
-            "l_eye",
-            "r_eye",
+            RigJointName::from("body_world"),
+            RigJointName::L_WRIST,
+            RigJointName::L_MIDDLE1,
+            RigJointName::L_INDEX1,
+            RigJointName::L_RING1,
+            RigJointName::L_THUMB0,
+            RigJointName::L_THUMB1,
+            RigJointName::R_WRIST,
+            RigJointName::R_MIDDLE1,
+            RigJointName::R_INDEX1,
+            RigJointName::R_RING1,
+            RigJointName::R_THUMB0,
+            RigJointName::R_THUMB1,
+            RigJointName::C_HEAD,
+            RigJointName::L_EYE,
+            RigJointName::R_EYE,
         ]
-        .map(str::to_owned)
         .to_vec();
         let parents = vec![-1, 0, 1, 1, 1, 1, 5, 0, 7, 7, 7, 7, 11, 0, 13, 13];
         let transform = |translation: [f32; 3]| {
@@ -1025,7 +1003,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "Test",
             1,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &bases,
                 morph_targets: &[],
@@ -1056,24 +1034,29 @@ mod tests {
         assert_eq!(parsed.meshes().count(), 1);
         assert_eq!(document["skins"][0]["joints"].as_array().unwrap().len(), 19);
         let nodes = document["nodes"].as_array().unwrap();
-        let index_of = |name: &str| nodes.iter().position(|node| node["name"] == name).unwrap();
-        let left_weapon = index_of(LEFT_WEAPON_JOINT);
-        let right_weapon = index_of(RIGHT_WEAPON_JOINT);
-        let camera = index_of(FIRST_PERSON_CAMERA_JOINT);
+        let index_of = |name: &RigJointName| {
+            nodes
+                .iter()
+                .position(|node| node["name"] == serde_json::to_value(name).unwrap())
+                .unwrap()
+        };
+        let left_weapon = index_of(&RigJointName::L_WEAPON);
+        let right_weapon = index_of(&RigJointName::R_WEAPON);
+        let camera = index_of(&RigJointName::C_CAMERA);
         assert!(
-            nodes[index_of("l_wrist")]["children"]
+            nodes[index_of(&RigJointName::L_WRIST)]["children"]
                 .as_array()
                 .unwrap()
                 .contains(&json!(left_weapon))
         );
         assert!(
-            nodes[index_of("r_wrist")]["children"]
+            nodes[index_of(&RigJointName::R_WRIST)]["children"]
                 .as_array()
                 .unwrap()
                 .contains(&json!(right_weapon))
         );
         assert!(
-            nodes[index_of("c_head")]["children"]
+            nodes[index_of(&RigJointName::C_HEAD)]["children"]
                 .as_array()
                 .unwrap()
                 .contains(&json!(camera))
@@ -1149,14 +1132,14 @@ mod tests {
         let faces = [];
         let joint_indices = [[0; 8]];
         let joint_weights = [[0.0; 8]];
-        let joint_names = ["root".to_owned()];
+        let joint_names = [RigJointName::ROOT];
         let joint_parents = [-1];
         let global_joint_states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
         let result = export_rigged_glb(
             GlbOutput::Standalone(Path::new("unused.glb")),
             "Test",
             1,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -1234,7 +1217,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "Test",
             2,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &body_targets,
@@ -1339,7 +1322,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "Test",
             2,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -1427,7 +1410,7 @@ mod tests {
         let normals = [[0.0, 0.0, 1.0]; 3];
         let joint_indices = [[1; 8]; 3];
         let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
-        let joint_names = ["body_world".to_owned(), "root".to_owned()];
+        let joint_names = [RigJointName::from("body_world"), RigJointName::ROOT];
         let joint_parents = [-1, 0];
         let global_joint_states = [
             [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0],
@@ -1466,7 +1449,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "leather_belt",
             1,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -1584,7 +1567,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "bracer",
             1,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -1594,7 +1577,7 @@ mod tests {
                 export_body: false,
                 joint_indices: &body_indices,
                 joint_weights: &body_weights,
-                joint_names: &["root".into()],
+                joint_names: &[RigJointName::ROOT],
                 joint_parents: &[-1],
                 global_joint_states: &[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
             },
@@ -1678,7 +1661,7 @@ mod tests {
             indices[0] = 1;
         }
         let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 12];
-        let joint_names = ["root".to_owned(), "l_wrist".to_owned()];
+        let joint_names = [RigJointName::ROOT, RigJointName::L_WRIST];
         let joint_parents = [-1, 0];
         let global_joint_states = [
             [0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0],

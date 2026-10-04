@@ -36,14 +36,13 @@ mod device_torso_wgsl;
 pub mod device_underlayer;
 pub use armor_gpu::{FittingSlot, armor_gpu, fitting_slot};
 mod metal_gpu;
-pub use metal_gpu::metal_gpu;
+pub use metal_gpu::{MetalGpuOpenError, metal_gpu};
 pub mod armor_metal;
 pub mod armor_recipes;
 pub mod bracer;
 pub mod clothing;
 mod clothing_material;
 #[cfg(feature = "offline-creator")]
-pub mod lod;
 pub mod nearest_vertex;
 pub use clothing_material::pbr as equipment_pbr;
 pub mod decoration;

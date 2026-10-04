@@ -25,7 +25,7 @@ pub(super) fn tactical_consequence_receipt(
         .party
         .iter()
         .map(|(character_id, consequence)| TacticalCharacterConsequence {
-            character_id: character_id.0,
+            character_id: character_id.get(),
             injuries: consequence
                 .injuries
                 .iter()
@@ -43,10 +43,10 @@ pub(super) fn tactical_consequence_receipt(
     for contact in &accumulated.equipment_contacts {
         if !party
             .iter()
-            .any(|consequence| consequence.character_id == contact.character_id.0)
+            .any(|consequence| consequence.character_id == contact.character_id.get())
         {
             party.push(TacticalCharacterConsequence {
-                character_id: contact.character_id.0,
+                character_id: contact.character_id.get(),
                 injuries: Vec::new(),
                 blood_loss_fraction: 0.0,
                 ammunition_used: 0,
@@ -61,7 +61,7 @@ pub(super) fn tactical_consequence_receipt(
             .equipment_contacts
             .iter()
             .map(|contact| TacticalEquipmentContact {
-                character_id: contact.character_id.0,
+                character_id: contact.character_id.get(),
                 inventory_item_id: contact.inventory_item_id,
                 contact_stress: contact.contact_stress,
                 role: if contact.defender_equipment {
@@ -87,7 +87,7 @@ mod tests {
         accumulated
             .equipment_contacts
             .push(AccumulatedEquipmentContact {
-                character_id: CharacterId(7),
+                character_id: CharacterId::from(7),
                 inventory_item_id: 99,
                 contact_stress: 12.0,
                 defender_equipment: false,

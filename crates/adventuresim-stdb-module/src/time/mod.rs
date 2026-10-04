@@ -1,18 +1,29 @@
+mod character_clock;
+pub(crate) use character_clock::canonical_now;
+mod character_clock_error;
+pub(crate) use character_clock_error::CharacterClockError;
+mod departure;
+mod initialization;
+pub(crate) use departure::{DepartureClockError, synchronize_party_departure_time};
+mod rest_service;
 use adventuresim_core::activity::{ActivityLocation, LocationActivity};
+use adventuresim_core::strategic_time::clock::{OfficialClockEpoch, UnixMicrosecondInstant};
+pub(crate) use initialization::initialize_character_time;
+use rest_service::error::RestServiceAdmissionError;
+use rest_service::require_character_rest_service;
+mod clock_error;
 use adventuresim_core::strategic_schedule::{
     ActivityOutcomeInputs, DailySchedule, SkillHours, SocializingSociability,
     apply_organization_training, apply_religion_training, apply_schedule_training,
     settlement_activity_outcome,
 };
 use adventuresim_core::strategic_state::vocabulary::MarriageStatus;
-use adventuresim_core::strategic_time::{
-    MAX_SETTLEMENT_REST_MINUTES, allocated_schedule_minutes,
-    official_minute as calculate_official_minute,
-};
+use adventuresim_core::strategic_time::{MAX_SETTLEMENT_REST_MINUTES, allocated_schedule_minutes};
 use adventuresim_core::survival::{ExposureShelter, FieldShelter};
 use adventuresim_core::{capability::aggregate_bounded_party_check, prelude::*};
 use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use adventuresim_world_schema::calendar::{MINUTES_PER_YEAR, StrategicMinute, WORLD_START_MINUTE};
+pub(crate) use clock_error::WorldClockError;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, reducer, table};
 
 use crate::capability::StrategicEquipment;
@@ -56,21 +67,25 @@ include!("stationary.rs");
 /// widowhood observe the final alive state at this frontier.
 pub(crate) fn settle_lifecycle_after_character_time_write(
     ctx: &ReducerContext,
-    character_id: u64,
+    character_id: adventuresim_core::identity::CharacterId,
     minute: StrategicMinute,
 ) -> Result<(), String> {
-    crate::relationship::settle_character_age(ctx, character_id, minute);
-    crate::continuity::settle_continuity_for_character(ctx, character_id, minute)?;
-    crate::residence::settle_residence_billing(ctx, character_id)?;
-    crate::relationship::settle_due_weddings(ctx, character_id, minute)?;
-    crate::relationship::settle_due_births(ctx, character_id, minute)?;
+    crate::relationship::settle_character_age(ctx, (character_id).into(), minute);
+    crate::continuity::settle_continuity_for_character(ctx, (character_id).into(), minute)?;
+    crate::residence::settle_residence_billing(ctx, (character_id).into())?;
+    crate::relationship::settle_due_weddings(ctx, (character_id).into(), minute)?;
+    crate::relationship::settle_due_births(ctx, (character_id).into(), minute)?;
     crate::relationship::settle_secret_courtship_discovery_for_character(
         ctx,
-        character_id,
+        character_id.into(),
         minute,
     )?;
-    crate::relationship::settle_marriage_lifecycle_for_character(ctx, character_id, minute);
-    crate::outbreak::refresh_patient_context_after_time_write(ctx, character_id, minute);
+    crate::relationship::settle_marriage_lifecycle_for_character(
+        ctx,
+        (character_id).into(),
+        minute,
+    );
+    crate::outbreak::refresh_patient_context_after_time_write(ctx, (character_id).into(), minute);
     Ok(())
 }
 
@@ -78,6 +93,9 @@ pub(crate) fn settle_lifecycle_after_character_time_write(
 pub(crate) const TIME_SOURCE: &str = concat!(
     include_str!("model.rs"),
     include_str!("clock.rs"),
+    include_str!("initialization.rs"),
+    include_str!("departure.rs"),
+    include_str!("departure/error.rs"),
     include_str!("advancement.rs"),
     include_str!("schedule.rs"),
     include_str!("activities.rs"),

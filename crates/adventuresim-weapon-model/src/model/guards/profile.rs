@@ -1,5 +1,6 @@
 //! A lathed fitting seated outside the actual quillon end plane.
 use super::*;
+use crate::ConstructionError;
 
 pub(super) fn terminal_profile(
     p: &TerminalProfile,
@@ -7,14 +8,14 @@ pub(super) fn terminal_profile(
     end: Point,
     receiver: &Solid,
     detail: Detail,
-) -> Result<Solid, String> {
+) -> Result<Solid, ConstructionError> {
     let axis = normalize(tangent);
     let mut radius = 0.0_f64;
     for &vertex in &receiver.positions {
         let delta = sub(vertex, end);
         let axial = dot(delta, axis);
         if axial > 1e-9 {
-            return Err("quillon crosses the terminal joint plane".into());
+            return Err(ConstructionError::QuillonCrossesTerminalJointPlane);
         }
         if axial.abs() < 1e-9 {
             radius = radius.max(magnitude(sub(delta, mul(axis, axial))));
@@ -24,7 +25,7 @@ pub(super) fn terminal_profile(
     let largest = points.iter().map(|p| p[1]).fold(0.0, f64::max);
     let segments = detail.radial(largest, 16);
     if radius <= 0.0 || points[0][1] * (PI / segments as f64).cos() < radius {
-        return Err("terminal base must cover its receiving quillon section".into());
+        return Err(ConstructionError::TerminalQuillonCoverage);
     }
     let mut sampled = Vec::new();
     let mut start = 0;

@@ -1,4 +1,8 @@
-use std::{collections::BTreeSet, fs, path::Path};
+use std::{
+    collections::{BTreeMap, BTreeSet},
+    fs,
+    path::Path,
+};
 
 use serde::{Deserialize, Serialize};
 
@@ -68,6 +72,10 @@ pub struct Baseline {
     pub functions: Vec<Debt>,
     #[serde(default)]
     pub findings: Vec<FindingBaseline>,
+    /// Exact signature debt, grouped by source and item to avoid repeating
+    /// source paths for every primitive leaf and unresolved closure.
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub interfaces: BTreeMap<String, BTreeMap<String, BTreeMap<String, usize>>>,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -145,13 +153,54 @@ impl Config {
 }
 
 impl Baseline {
+    pub fn interface_findings(&self) -> Vec<FindingBaseline> {
+        self.interfaces
+            .iter()
+            .flat_map(|(path, items)| {
+                items.iter().flat_map(move |(item, signatures)| {
+                    signatures.iter().map(move |(key, occurrences)| {
+                        // load_optional validates this serialized key boundary.
+                        let (rule, fingerprint) = key.split_once(':').unwrap();
+                        FindingBaseline {
+                            rule: rule.into(),
+                            path: path.clone(),
+                            item: item.clone(),
+                            fingerprint: fingerprint.into(),
+                            occurrences: *occurrences,
+                        }
+                    })
+                })
+            })
+            .collect()
+    }
+
     pub fn load_optional(path: &Path) -> Result<Self, String> {
         if !path.exists() {
             return Ok(Self::default());
         }
         let text = fs::read_to_string(path)
             .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-        toml::from_str(&text).map_err(|error| format!("invalid {}: {error}", path.display()))
+        let baseline: Self = toml::from_str(&text)
+            .map_err(|error| format!("invalid {}: {error}", path.display()))?;
+        for (source, items) in &baseline.interfaces {
+            for (item, signatures) in items {
+                for (key, occurrences) in signatures {
+                    if *occurrences == 0
+                        || !key.split_once(':').is_some_and(|(rule, _)| {
+                            matches!(
+                                rule,
+                                "raw-interface"
+                                    | "unresolved-interface"
+                                    | "unexpanded-interface-macro"
+                            )
+                        })
+                    {
+                        return Err(format!("invalid interface debt in {source}::{item}: {key}"));
+                    }
+                }
+            }
+        }
+        Ok(baseline)
     }
 }
 

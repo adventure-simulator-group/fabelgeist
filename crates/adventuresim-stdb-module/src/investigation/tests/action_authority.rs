@@ -20,7 +20,7 @@ fn action_graph_covers_all_methods_and_enforces_authoritative_boundaries() {
         assert!(graph.contains(method), "missing action method {method}");
     }
     assert!(graph.contains("validate_newly_issued_action_route_graph"));
-    assert!(source.contains("require_party_ready(ctx, party_id)?"));
+    assert!(source.contains("require_party_ready(ctx, party_id.as_str())?"));
     assert!(source.contains("require_no_unresolved_encounter(ctx, party_id)?"));
     assert!(source.contains("synchronize_party_activity_time"));
     assert!(source.contains("started_at.minute_of_day()"));
@@ -33,10 +33,9 @@ fn action_graph_covers_all_methods_and_enforces_authoritative_boundaries() {
     assert!(!production.contains("ensure_bound_mission_authority"));
     assert!(!production.contains("HostileResolutionKind::DrivenOff"));
     assert!(!production.contains("HostileResolutionKind::Captured"));
-    let position = production
+    let position = include_str!("../actions/position.rs")
         .split("fn validate_action_position")
         .nth(1)
-        .and_then(|tail| tail.split("fn validate_generated_pattern_condition").next())
         .expect("position authority");
     assert!(position.contains("settlement_resident_presence()"));
     assert!(position.contains("actor.current_settlement_id.as_deref()"));
@@ -46,8 +45,8 @@ fn action_graph_covers_all_methods_and_enforces_authoritative_boundaries() {
     assert!(position.contains("area.coordinates_are_geographic"));
     assert!(position.contains("site.coordinates_are_geographic"));
     assert!(position.contains("site.case_id == area.case_id"));
-    assert!(position.contains("The party must occupy the action's authoritative site"));
-    let reducer = production
+    assert!(position.contains("InvestigationAdmissionError::SiteRequired"));
+    let reducer = include_str!("../actions/execution.rs")
         .split("pub(crate) fn perform_investigation_action_authorized")
         .nth(1)
         .expect("action reducer");
@@ -102,7 +101,7 @@ fn action_graph_covers_all_methods_and_enforces_authoritative_boundaries() {
     assert!(!terminal_branch.contains("persist_action_result_lead"));
     assert!(terminal_branch.contains("investigation_action_attempt()"));
     assert!(terminal_branch.contains("private_interrupted_action_resolution_json"));
-    assert!(reducer.contains("require_living_character(ctx, normalized_party.leader_id)"));
+    assert!(reducer.contains("require_living_character(ctx, (normalized_party.leader_id).into())"));
     assert!(reducer.contains(".find(normalized_party.leader_id)"));
 }
 
@@ -152,7 +151,7 @@ fn generated_graph_issues_owner_scoped_initial_site_knowledge() {
         seed: 7,
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
-        settlement_id: "lubeck".into(),
+        settlement_id: adventuresim_core::identity::SettlementId::try_new("lubeck").unwrap(),
         settlement_name: "Lubeck".into(),
         scope: Scope::Settlement {
             settlement_id: "lubeck".into(),
@@ -167,7 +166,7 @@ fn generated_graph_issues_owner_scoped_initial_site_knowledge() {
     let initially_known = generated_initially_known_site_ids(&manifest).collect::<Vec<_>>();
     assert!(!initially_known.is_empty());
     assert!(manifest.sites.iter().all(|site| {
-        initially_known.contains(&site.id.0.as_str()) == site.exact_location_initially_known
+        initially_known.contains(&site.id.as_str()) == site.exact_location_initially_known
     }));
 
     let graph = INVESTIGATION_SOURCE
@@ -194,11 +193,9 @@ fn generated_graph_issues_owner_scoped_initial_site_knowledge() {
 
 #[test]
 fn generated_physical_and_social_reveals_execute_from_known_origins() {
-    let source = INVESTIGATION_SOURCE;
-    let position = source
+    let position = include_str!("../actions/position.rs")
         .split("fn validate_action_position")
         .nth(1)
-        .and_then(|tail| tail.split("fn validate_generated_pattern_condition").next())
         .expect("real position validator");
     assert!(position.contains("action::InvestigationTargetKind::Site =>"));
     assert!(position.contains("InvestigationActionKind::FollowTracks"));
@@ -232,10 +229,13 @@ fn generated_physical_and_social_reveals_execute_from_known_origins() {
 #[test]
 fn generated_pattern_actions_require_the_exact_earned_clue() {
     let source = INVESTIGATION_SOURCE;
-    let validator = source
+    let validator = include_str!("../actions.rs")
         .split("fn validate_generated_pattern_condition")
         .nth(1)
-        .and_then(|tail| tail.split("fn validate_live_action_prerequisites").next())
+        .and_then(|tail| {
+            tail.split("fn case_objective_contains_custody_target")
+                .next()
+        })
         .expect("pattern-condition validator");
     assert!(validator.contains("generated_pattern_authority("));
     assert!(validator.contains("GeneratedPatternAuthority::Pattern"));
@@ -243,14 +243,15 @@ fn generated_pattern_actions_require_the_exact_earned_clue() {
     let clue_authority = source
         .split("fn observer_pattern_route_has_live_corroborated_clue")
         .nth(1)
-        .and_then(|tail| tail.split("fn capability_has_live_pattern_support_view").next())
+        .and_then(|tail| {
+            tail.split("fn capability_has_live_pattern_support_view")
+                .next()
+        })
         .expect("typed corroborated-clue authority");
     assert!(clue_authority.contains("proposition.case_id.as_str() == case_id"));
     assert!(clue_authority.contains("proposition.evidence_id.as_str() == evidence_id"));
     assert!(validator.contains("started_at.minute_of_day()"));
-    assert!(validator.contains(
-        "capability.target_kind != action::InvestigationTargetKind::Route"
-    ));
+    assert!(validator.contains("capability.target_kind != action::InvestigationTargetKind::Route"));
     assert!(validator.contains("InvestigationActionKind::SearchArea"));
     assert!(validator.contains("investigation_pattern_target_authority()"));
     assert!(validator.contains("pattern_target_matches"));
@@ -262,12 +263,13 @@ fn generated_pattern_actions_require_the_exact_earned_clue() {
     assert!(
         !source.contains("#[table(accessor = investigation_pattern_target_authority, public)]")
     );
-    let generated_client = crate::production_source(include_str!("../../../../adventuresim-stdb-client/src/mod.rs"));
+    let generated_client = crate::production_source(include_str!(
+        "../../../../adventuresim-stdb-client/src/mod.rs"
+    ));
     assert!(!generated_client.contains("investigation_pattern_target_authority_table"));
-    let performer = source
+    let performer = include_str!("../actions/execution.rs")
         .split("pub(crate) fn perform_investigation_action_authorized")
         .nth(1)
-        .and_then(|tail| tail.split("#[reducer]").next())
         .expect("authorized action performer");
     assert_eq!(
         performer
@@ -285,7 +287,7 @@ fn pattern_route_support_requires_exact_observer_clue_knowledge() {
     };
 
     let outputs_json = serde_json::to_string(&[GeneratedActionOutput::PatternCondition {
-        evidence_id: EvidenceId("pattern-clue".into()),
+        evidence_id: EvidenceId::try_new("pattern-clue").unwrap(),
         condition: GeneratedPatternCondition::BroadSurvey,
     }])
     .unwrap();
@@ -360,20 +362,19 @@ fn pattern_route_support_requires_exact_observer_clue_knowledge() {
         })
         .expect("pattern recovery support");
     assert!(recovery.contains("capability_has_live_pattern_support_reducer"));
-    let execution = source
+    let execution = include_str!("../actions.rs")
         .split("fn validate_generated_pattern_condition")
-        .nth(1)
-        .and_then(|tail| tail.split("fn validate_live_action_prerequisites").next())
-        .expect("pattern execution support");
-    assert!(execution.contains("observer_pattern_route_has_live_corroborated_clue"));
-    assert!(execution.contains("The selected pattern has not been corroborated yet"));
-    let live_execution = source
-        .split("fn validate_live_action_prerequisites")
         .nth(1)
         .and_then(|tail| {
             tail.split("fn case_objective_contains_custody_target")
                 .next()
         })
+        .expect("pattern execution support");
+    assert!(execution.contains("observer_pattern_route_has_live_corroborated_clue"));
+    assert!(execution.contains("The selected pattern has not been corroborated yet"));
+    let live_execution = include_str!("../actions/live_prerequisites.rs")
+        .split("fn validate_live_action_prerequisites")
+        .nth(1)
         .expect("live execution support");
     assert!(live_execution.contains("capability_has_live_support_reducer"));
     let reducer_support = source
@@ -405,7 +406,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
         seed: 7,
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
-        settlement_id: "lubeck".into(),
+        settlement_id: adventuresim_core::identity::SettlementId::try_new("lubeck").unwrap(),
         settlement_name: "Lubeck".into(),
         scope: Scope::Settlement {
             settlement_id: "lubeck".into(),
@@ -430,7 +431,11 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
     let (known_prerequisites, safe_result_on_success) =
         generated_capability_safe_text(&manifest, generated);
     let capability = InvestigationActionCapability {
-        id: observer_scoped_id(&context, "capability", &format!("7:{}", generated.id.0)),
+        id: observer_scoped_id(
+            &context,
+            "capability",
+            &format!("7:{}", generated.id.as_str()),
+        ),
         owner_character_id: 7,
         case_id: manifest.public_case_id.clone(),
         provenance_kind: InvestigationProvenanceKind::Generated,
@@ -444,7 +449,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
             manifest
                 .sites
                 .iter()
-                .find(|site| site.id.0 == generated.target_id)
+                .find(|site| site.id.as_str() == generated.target_id)
                 .map(|site| site.terrain)
                 .or_else(|| {
                     manifest
@@ -467,12 +472,12 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
             .prerequisite
             .as_ref()
             .map_or_else(String::new, |id| {
-                observer_scoped_id(&context, "capability", &format!("7:{}", id.0))
+                observer_scoped_id(&context, "capability", &format!("7:{}", id.as_str()))
             }),
         alternate_route_action_id: observer_scoped_id(
             &context,
             "capability",
-            &format!("7:{}", generated.alternate.0),
+            &format!("7:{}", generated.alternate.as_str()),
         ),
         active: true,
     };
@@ -519,7 +524,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
             _ => None,
         })
         .unwrap();
-    pattern.0 = "wrong-evidence".into();
+    *pattern = adventuresim_core::quest_generation::EvidenceId::try_new("wrong-evidence").unwrap();
     let wrong_evidence = serde_json::to_string(&wrong_evidence_outputs).unwrap();
     assert_eq!(
         generated_pattern_authority(&capability, authority, Some(&wrong_evidence)),
@@ -719,10 +724,9 @@ fn capability_randomness_is_private_persisted_and_attempt_domain_separated() {
         .and_then(|tail| tail.split("let area_id =").next())
         .expect("generated capability issuer");
     assert!(generated_issuer.contains("ctx.random::<u64>()"));
-    let performer = source
+    let performer = include_str!("../actions/execution.rs")
         .split("pub(crate) fn perform_investigation_action_authorized")
         .nth(1)
-        .and_then(|tail| tail.split("#[reducer]").next())
         .expect("authorized performer");
     assert!(performer.contains("&expected_version.to_string()"));
     assert!(performer.contains("if let Some(attempt)"));
@@ -797,7 +801,7 @@ fn exact_generated_testimony_requires_matching_private_site_authority() {
         seed: 7,
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
-        settlement_id: "lubeck".into(),
+        settlement_id: adventuresim_core::identity::SettlementId::try_new("lubeck").unwrap(),
         settlement_name: "Lubeck".into(),
         scope: Scope::Settlement {
             settlement_id: "lubeck".into(),
@@ -814,8 +818,8 @@ fn exact_generated_testimony_requires_matching_private_site_authority() {
     draft.destination_stage = DestinationKnowledgeStage::ExactBelieved;
     draft.site_id = Some(generated_site.id.clone());
     let site = CaseSiteAuthority {
-        id_key: generated_site.id.0.clone(),
-        id: CaseSiteId::from(generated_site.id.0.clone()),
+        id_key: generated_site.id.as_str().to_owned(),
+        id: CaseSiteId::from(generated_site.id.as_str().to_owned()),
         case_id: generated.canonical_case_id.clone(),
         origin_settlement_id: "lubeck".into(),
         name: generated_site.safe_label.clone(),
@@ -945,7 +949,7 @@ fn case_summary_subject_comes_only_from_immutable_journal_history() {
 
 #[test]
 fn exact_site_actions_replan_typed_effects_without_replacing_replay_or_private_receipts() {
-    let reducer = INVESTIGATION_SOURCE
+    let reducer = include_str!("../actions/execution.rs")
         .split("pub(crate) fn perform_investigation_action_authorized")
         .nth(1)
         .expect("action reducer");
@@ -981,13 +985,11 @@ fn exact_site_actions_replan_typed_effects_without_replacing_replay_or_private_r
         .split("fn site_bound_investigation_plan")
         .nth(1)
         .and_then(|tail| {
-            tail.split("pub(crate) fn perform_investigation_action_authorized")
+            tail.split("fn private_interrupted_action_resolution_json")
                 .next()
         })
         .unwrap();
-    assert!(adapter.contains(
-        "capability.target_kind != action::InvestigationTargetKind::Site"
-    ));
+    assert!(adapter.contains("capability.target_kind != action::InvestigationTargetKind::Site"));
     assert!(adapter.contains("InvestigationActionKind::InspectSite"));
     assert!(adapter.contains("investigation-plan-snapshot-v2"));
     assert!(adapter.contains("resolution_input"));
@@ -998,21 +1000,14 @@ fn exact_site_actions_replan_typed_effects_without_replacing_replay_or_private_r
     let knowledge = INVESTIGATION_SOURCE
         .split("fn observer_pattern_route_has_live_corroborated_clue")
         .nth(1)
-        .and_then(|tail| tail.split("fn capability_has_live_pattern_support_view").next())
+        .and_then(|tail| {
+            tail.split("fn capability_has_live_pattern_support_view")
+                .next()
+        })
         .expect("knowledge authority");
     assert!(knowledge.contains("row.owner_character_id != owner_character_id"));
     assert!(knowledge.contains("proposition.evidence_id.as_str() == evidence_id"));
     assert!(knowledge.contains("adapt_evidence_knowledge"));
     assert!(knowledge.contains("observer_personal_minute"));
     assert!(!knowledge.contains("u64::MAX"));
-}
-#[test]
-fn referred_contact_position_races_are_coded_as_action_unavailable() {
-    let position = INVESTIGATION_SOURCE
-        .split("fn validate_action_position")
-        .nth(1)
-        .and_then(|tail| tail.split("fn validate_generated_pattern_condition").next())
-        .expect("action position validation");
-    assert!(position.contains("ReducerErrorCode::InvestigationActionUnavailable"));
-    assert!(position.contains("unavailable(\"The referred contact is not currently present\")"));
 }

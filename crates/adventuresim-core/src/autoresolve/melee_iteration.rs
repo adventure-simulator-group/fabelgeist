@@ -259,7 +259,7 @@ fn authored_equipment(
     armor_ids: &[&str],
     shield_id: Option<&str>,
 ) -> Result<CombatEquipment, String> {
-    let definition = crate::item_catalog::definition(weapon_id)
+    let definition = crate::item_catalog::definition(&(weapon_id).into())
         .ok_or_else(|| format!("unknown weapon {weapon_id}"))?;
     let weapon = authored_melee_weapon(definition)?;
     let mut equipment = CombatEquipment {
@@ -270,7 +270,7 @@ fn authored_equipment(
         ..CombatEquipment::default()
     };
     if let Some(shield_id) = shield_id {
-        let shield = crate::item_catalog::definition(shield_id)
+        let shield = crate::item_catalog::definition(&(shield_id).into())
             .ok_or_else(|| format!("unknown shield {shield_id}"))?;
         let ItemKind::Shield { block, .. } = shield.kind else {
             return Err(format!("{shield_id} is not a shield"));
@@ -380,7 +380,7 @@ pub(super) fn authored_melee_weapon(
 
 fn apply_authored_armor(equipment: &mut CombatEquipment, armor_ids: &[&str]) -> Result<(), String> {
     for (index, armor_id) in armor_ids.iter().enumerate() {
-        let armor = crate::item_catalog::definition(armor_id)
+        let armor = crate::item_catalog::definition(&(*armor_id).into())
             .ok_or_else(|| format!("unknown armor {armor_id}"))?;
         let ItemKind::Armor {
             coverage,
@@ -466,7 +466,7 @@ mod tests {
     fn every_roster_weapon_uses_authored_physics_for_autoresolve_cadence_and_balance() {
         let (john, opponents) = melee_iteration_roster().unwrap();
         for build in std::iter::once(john).chain(opponents) {
-            let definition = crate::item_catalog::definition(build.weapon_id).unwrap();
+            let definition = crate::item_catalog::definition(&(build.weapon_id).into()).unwrap();
             let ItemKind::Weapon {
                 preferred_attack,
                 moment_of_inertia_kg_m2,

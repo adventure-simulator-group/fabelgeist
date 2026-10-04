@@ -40,10 +40,10 @@ pub(super) fn sync_equipment_morphs(
             .and_then(|owner| characters.get(owner).ok())
             .map(|(id, explicit, reference)| {
                 (
-                    CharacterMorphWeights::from_character_id(id.0),
+                    CharacterMorphWeights::from_character_id(id.get()),
                     explicit
                         .map(|p| p.0)
-                        .unwrap_or_else(|| CharacterProportions::from_character_id(id.0)),
+                        .unwrap_or_else(|| CharacterProportions::from_character_id(id.get())),
                     reference.map(|p| p.0).unwrap_or_default(),
                 )
             });
@@ -94,7 +94,7 @@ mod tests {
         let first = app
             .world_mut()
             .spawn((
-                CharacterId(42),
+                CharacterId::from(42),
                 CharacterSkeletalProportions(reference),
                 SkeletalProportionReference(reference),
             ))
@@ -102,7 +102,7 @@ mod tests {
         let second = app
             .world_mut()
             .spawn((
-                CharacterId(43),
+                CharacterId::from(43),
                 CharacterSkeletalProportions(reference),
                 SkeletalProportionReference(reference),
             ))
@@ -166,8 +166,8 @@ mod tests {
             SkeletalFitMorph::LongSpine.name().into(),
         ]);
         let mesh = app.world_mut().resource_mut::<Assets<Mesh>>().add(mesh);
-        let first = app.world_mut().spawn(CharacterId(42)).id();
-        let second = app.world_mut().spawn(CharacterId(43)).id();
+        let first = app.world_mut().spawn(CharacterId::from(42)).id();
+        let second = app.world_mut().spawn(CharacterId::from(43)).id();
         let mut longer = CharacterProportions::default();
         longer
             .set(

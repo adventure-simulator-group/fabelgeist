@@ -1,11 +1,12 @@
+use super::data::ObservedLife;
 use super::{AppState, SocialActionId, SocialDuration};
 use crate::spacetimedb::{
-    AffinityBand, BackendCharacterRelationshipStatus, BackendDialogueEvent,
+    self as db, AffinityBand, BackendCharacterRelationshipStatus, BackendDialogueEvent,
     BackendDialogueParticipant, BackendDialoguePrompt, BackendDialogueSession,
     BackendDialogueTopicOption, BackendDialogueWitnessClaim, BackendSettlementResident,
     BackendSettlementResidentRelationship, BackendSocialChatReceipt, CharacterTime, CourtshipKind,
     FamiliarityBand, MoraleBand, SettlementCategory, SettlementResidentPresence, SettlementView,
-    SocialChatOutcome, SocialChatTargetKind, SpacetimeError, calendar_countdown_days,
+    SocialChatOutcome, SocialChatTargetKind, SpacetimeError, SqlQuery, calendar_countdown_days,
     calendar_minute, npc_age_band_id, npc_presentation_id,
 };
 use crate::{session::Session, spacetimedb::sql_string_literal};
@@ -22,6 +23,9 @@ use axum::{
 };
 use serde::{Deserialize, Serialize, Serializer};
 use serde_json::json;
+
+mod life;
+use life::ResidentObservation;
 
 mod claims;
 use claims::{ClaimView, claim_view, witness_approach};
@@ -464,7 +468,7 @@ mod npc_navigation_tests {
             .and_then(|tail| tail.split("async fn build_view").next())
             .expect("NPC endpoint");
         assert!(endpoint.contains("npc_presentation_id(npc.presentation)"));
-        assert!(endpoint.contains("character_is_alive_as_observed"));
+        assert!(endpoint.contains("ResidentObservation::new"));
         assert!(endpoint.contains("alive_npc_ids.contains"));
         assert!(!endpoint.contains("npc.sex"));
     }
@@ -750,7 +754,7 @@ async fn location_npcs(
     let character = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Character, crate::spacetimedb::CharacterView>(
-            &crate::spacetimedb::character_by_id(character_id),
+            db::character_by_id(character_id.into()),
         )
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
@@ -761,7 +765,7 @@ async fn location_npcs(
     let settlement = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-            &crate::spacetimedb::settlement_by_id(&settlement_id),
+            crate::spacetimedb::settlement_by_id(&settlement_id),
         )
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
@@ -776,41 +780,32 @@ async fn location_npcs(
     }
     let npcs = state
         .db
-        .query_sats::<BackendSettlementResident>(&format!(
+        .query_sats::<BackendSettlementResident>(SqlQuery::from(format!(
             "SELECT * FROM backend_settlement_residents WHERE home_settlement_id = {}",
             sql_string_literal(&settlement_id)
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     let presences = state
         .db
-        .query_sats::<SettlementResidentPresence>(&format!(
+        .query_sats::<SettlementResidentPresence>(SqlQuery::from(format!(
             "SELECT * FROM settlement_resident_presence WHERE settlement_id = {}",
             sql_string_literal(&settlement_id)
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     let mut alive_npc_ids = std::collections::HashSet::new();
     for npc in &npcs {
-        let alive = super::data::character_is_alive_as_observed(
-            &state,
-            npc.character_id,
-            character_id,
-        )
-        .await
-        .unwrap_or_else(|error| {
-            tracing::warn!(%error, resident_character_id = npc.character_id, observer_character_id = character_id, "could not project resident life state");
-            true
-        });
-        if alive {
+        let life = ResidentObservation::new(npc.character_id.into(), character_id.into())
+            .life_at(&state)
+            .await;
+        if life == ObservedLife::Alive {
             alive_npc_ids.insert(npc.character_id);
         }
     }
     let minute = state
         .db
-        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
-            character_id,
-        ))
+        .query_one_sats::<CharacterTime>(db::character_time_by_character_id(character_id.into()))
         .await
         .ok()
         .flatten()
@@ -838,7 +833,7 @@ async fn social_npc_in_scope(
     let character = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Character, crate::spacetimedb::CharacterView>(
-            &crate::spacetimedb::character_by_id(character_id),
+            db::character_by_id(character_id.into()),
         )
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
@@ -849,7 +844,7 @@ async fn social_npc_in_scope(
     let settlement = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-            &crate::spacetimedb::settlement_by_id(settlement_id),
+            crate::spacetimedb::settlement_by_id(settlement_id),
         )
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
@@ -864,9 +859,9 @@ async fn social_npc_in_scope(
     }
     let npc = state
         .db
-        .query_one_sats::<BackendSettlementResident>(
-            &crate::spacetimedb::settlement_resident_by_character_id(resident_character_id),
-        )
+        .query_one_sats::<BackendSettlementResident>(db::settlement_resident_by_character_id(
+            resident_character_id.into(),
+        ))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
         .filter(|npc| {
@@ -879,16 +874,11 @@ async fn social_npc_in_scope(
                 )
         })
         .ok_or(StatusCode::NOT_FOUND)?;
-    if !super::data::character_is_alive_as_observed(
-        state,
-        resident_character_id,
-        character_id,
-    )
-    .await
-    .unwrap_or_else(|error| {
-        tracing::warn!(%error, resident_character_id, observer_character_id = character_id, "could not project resident life state");
-        true
-    }) {
+    if ResidentObservation::new(resident_character_id.into(), character_id.into())
+        .life_at(state)
+        .await
+        != ObservedLife::Alive
+    {
         return Err(StatusCode::NOT_FOUND);
     }
     Ok(npc)
@@ -911,20 +901,16 @@ async fn available_social_npc(
     .await?;
     let minute = state
         .db
-        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
-            character_id,
-        ))
+        .query_one_sats::<CharacterTime>(db::character_time_by_character_id(character_id.into()))
         .await
         .ok()
         .flatten()
         .map_or(StrategicMinute::new(720), |t| calendar_minute(&t.minutes));
     let present = state
         .db
-        .query_sats::<SettlementResidentPresence>(
-            &crate::spacetimedb::settlement_resident_presence_by_character_id(
-                resident_character_id,
-            ),
-        )
+        .query_sats::<SettlementResidentPresence>(db::settlement_resident_presence_by_character_id(
+            resident_character_id.into(),
+        ))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
         .into_iter()
@@ -944,16 +930,16 @@ async fn npc_social_view(
 ) -> Result<NpcSocialView, StatusCode> {
     let relationship = state
         .db
-        .query_one_sats::<BackendSettlementResidentRelationship>(&format!(
+        .query_one_sats::<BackendSettlementResidentRelationship>(SqlQuery::from(format!(
             "SELECT * FROM backend_settlement_resident_relationships WHERE observer_character_id = {character_id} AND resident_character_id = {}",
             npc.character_id
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     let status = state
         .db
         .query_one_sats::<BackendCharacterRelationshipStatus>(
-            &crate::spacetimedb::character_relationship_status_by_character_id(character_id),
+            db::character_relationship_status_by_character_id(character_id.into()),
         )
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
@@ -961,9 +947,7 @@ async fn npc_social_view(
     let active_commitment = active_commitment_with(state, character_id, npc.character_id).await?;
     let actor_minute = state
         .db
-        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
-            character_id,
-        ))
+        .query_one_sats::<CharacterTime>(db::character_time_by_character_id(character_id.into()))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
         .map_or(StrategicMinute::ZERO, |t| calendar_minute(&t.minutes));
@@ -1108,7 +1092,7 @@ async fn active_commitment_with(
     let status = state
         .db
         .query_one_sats::<BackendCharacterRelationshipStatus>(
-            &crate::spacetimedb::character_relationship_status_by_character_id(actor_id),
+            db::character_relationship_status_by_character_id(actor_id.into()),
         )
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
@@ -1278,10 +1262,10 @@ async fn chat_with_npc(
     let receipt_id = format!("{character_id}:{}", request.action_id.as_str());
     if let Some(receipt) = state
         .db
-        .query_one_sats::<BackendSocialChatReceipt>(&format!(
+        .query_one_sats::<BackendSocialChatReceipt>(SqlQuery::from(format!(
             "SELECT * FROM backend_social_chat_receipts WHERE id = {} AND actor_id = {character_id}",
             sql_string_literal(&receipt_id)
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
     {
@@ -1318,10 +1302,10 @@ async fn chat_with_npc(
         .map_err(|_| StatusCode::CONFLICT)?;
     let receipt = state
         .db
-        .query_one_sats::<BackendSocialChatReceipt>(&format!(
+        .query_one_sats::<BackendSocialChatReceipt>(SqlQuery::from(format!(
             "SELECT * FROM backend_social_chat_receipts WHERE id = {} AND actor_id = {character_id}",
             sql_string_literal(&receipt_id)
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
         .ok_or(StatusCode::SERVICE_UNAVAILABLE)?;
@@ -1337,19 +1321,19 @@ async fn build_view(
 ) -> Result<ConversationView, StatusCode> {
     let session = state
         .db
-        .query_one_sats::<BackendDialogueSession>(&format!(
+        .query_one_sats::<BackendDialogueSession>(SqlQuery::from(format!(
             "SELECT * FROM backend_dialogue_sessions WHERE id = {} AND owner_character_id = {character_id}",
             sql_string_literal(session_id),
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
         .ok_or(StatusCode::NOT_FOUND)?;
     let mut participants = state
         .db
-        .query_sats::<BackendDialogueParticipant>(&format!(
+        .query_sats::<BackendDialogueParticipant>(SqlQuery::from(format!(
             "SELECT * FROM backend_dialogue_participants WHERE session_id = {} AND owner_character_id = {character_id}",
             sql_string_literal(session_id),
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     if !participants
@@ -1365,19 +1349,19 @@ async fn build_view(
         .collect();
     let mut claims = state
         .db
-        .query_sats::<BackendDialogueWitnessClaim>(&format!(
+        .query_sats::<BackendDialogueWitnessClaim>(SqlQuery::from(format!(
             "SELECT * FROM backend_dialogue_witness_claims WHERE session_id = {} AND observer_character_id = {character_id}",
             sql_string_literal(session_id),
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     claims.sort_by_key(|claim| (claim.event_sequence, claim.claim_order));
     let mut events = state
         .db
-        .query_sats::<BackendDialogueEvent>(&format!(
+        .query_sats::<BackendDialogueEvent>(SqlQuery::from(format!(
             "SELECT * FROM backend_dialogue_events WHERE session_id = {} AND owner_character_id = {character_id}",
             sql_string_literal(session_id),
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     events.sort_by_key(|event| event.sequence);
@@ -1423,10 +1407,10 @@ async fn build_view(
         .collect();
     let mut topics = state
         .db
-        .query_sats::<BackendDialogueTopicOption>(&format!(
+        .query_sats::<BackendDialogueTopicOption>(SqlQuery::from(format!(
             "SELECT * FROM backend_dialogue_topic_options WHERE session_id = {} AND owner_character_id = {character_id}",
             sql_string_literal(session_id),
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     topics.sort_by(|a, b| a.id.cmp(&b.id));
@@ -1450,10 +1434,10 @@ async fn build_view(
         .collect();
     let mut prompts = state
         .db
-        .query_sats::<BackendDialoguePrompt>(&format!(
+        .query_sats::<BackendDialoguePrompt>(SqlQuery::from(format!(
             "SELECT * FROM backend_dialogue_prompts WHERE session_id = {} AND owner_character_id = {character_id}",
             sql_string_literal(session_id),
-        ))
+        )))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     prompts.retain(|prompt| prompt.state == "open");
@@ -1569,16 +1553,16 @@ async fn start(
         .map_err(|_| StatusCode::BAD_REQUEST)?;
     let npc = state
         .db
-        .query_one_sats::<BackendSettlementResident>(
-            &crate::spacetimedb::settlement_resident_by_character_id(npc_actor_id),
-        )
+        .query_one_sats::<BackendSettlementResident>(db::settlement_resident_by_character_id(
+            npc_actor_id.into(),
+        ))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
         .ok_or(StatusCode::BAD_REQUEST)?;
     let settlement = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-            &crate::spacetimedb::settlement_by_id(&npc.home_settlement_id),
+            crate::spacetimedb::settlement_by_id(&npc.home_settlement_id),
         )
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
@@ -1883,13 +1867,23 @@ mod tests {
                 detail,
             );
             assert!(matches!(
-                classify_public_dialogue_start_reducer_error(SpacetimeError::Spacetime(wire)),
+                classify_public_dialogue_start_reducer_error(SpacetimeError::Remote(
+                    crate::spacetimedb::RemoteDatabaseFailure::from_response(
+                        crate::spacetimedb::DatabaseOperation::Reducer,
+                        reqwest::StatusCode::CONFLICT,
+                        Ok(wire),
+                    ),
+                )),
                 Ok(PublicDialogueStartOutcome::ContactUnavailable)
             ));
         }
         assert!(matches!(
-            classify_public_dialogue_start_reducer_error(SpacetimeError::Spacetime(
-                "uncoded reducer failure".into()
+            classify_public_dialogue_start_reducer_error(SpacetimeError::Remote(
+                crate::spacetimedb::RemoteDatabaseFailure::from_response(
+                    crate::spacetimedb::DatabaseOperation::Reducer,
+                    reqwest::StatusCode::CONFLICT,
+                    Ok("uncoded reducer failure".into()),
+                ),
             )),
             Err(PublicDialogueStartError::Reducer(_))
         ));

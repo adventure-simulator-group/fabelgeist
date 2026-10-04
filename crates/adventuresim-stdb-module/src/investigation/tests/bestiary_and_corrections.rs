@@ -452,7 +452,9 @@ fn correction_paths_reset_after_invalidation_and_replay_before_mutation() {
         generic
             .find("reset_unsupported_capability_progress")
             .unwrap()
-            < generic.find("receipt.consumed_by = action_id.clone()").unwrap()
+            < generic
+                .find("receipt.consumed_by = action_id.clone()")
+                .unwrap()
     );
     let reset_revision = source
         .split("fn reset_capability_progress_if_unsupported")
@@ -467,10 +469,7 @@ fn correction_paths_reset_after_invalidation_and_replay_before_mutation() {
     let reset = source
         .split("fn reset_unsupported_capability_progress")
         .nth(1)
-        .and_then(|tail| {
-            tail.split("pub(crate) fn perform_investigation_action_authorized")
-                .next()
-        })
+        .and_then(|tail| tail.split("fn site_bound_investigation_plan").next())
         .unwrap();
     assert!(reset.contains("unique_capability_ids"));
     assert!(reset.contains("reset_capability_progress_if_unsupported"));

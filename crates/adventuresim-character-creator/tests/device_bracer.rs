@@ -1,5 +1,6 @@
 //! The bracer fitted on the device to a synthetic forearm.
 
+use fabelgeist_rig::RigJointName;
 use std::collections::BTreeMap;
 use std::sync::OnceLock;
 
@@ -30,7 +31,7 @@ struct Forearm {
     texcoords: Vec<[f32; 2]>,
     joint_indices: Vec<[u32; 8]>,
     joint_weights: Vec<[f32; 8]>,
-    joint_names: Vec<String>,
+    joint_names: Vec<RigJointName>,
     joints: Vec<[f32; 8]>,
     morphs: Vec<ForearmMorphSample>,
 }
@@ -45,7 +46,7 @@ impl Forearm {
             joint_indices: Vec::new(),
             joint_weights: Vec::new(),
             joint_names: ["l_lowarm", "l_wrist", "l_upperarm"]
-                .map(String::from)
+                .map(RigJointName::from)
                 .to_vec(),
             joints: [
                 [0.0, LENGTH_M, 0.0],

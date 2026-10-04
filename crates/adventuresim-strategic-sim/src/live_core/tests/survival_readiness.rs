@@ -793,8 +793,8 @@ fn generated_inventory_locations_require_exact_typed_custody_and_row() {
         character_id: 7,
         row_id: 11,
     });
-    let personal_custody = OperationalCustody::character(7).unwrap();
-    let other_character = OperationalCustody::character(8).unwrap();
+    let personal_custody = OperationalCustody::character((7).into()).unwrap();
+    let other_character = OperationalCustody::character((8).into()).unwrap();
     assert!(LiveRunner::public_inventory_location_matches_row(
         &personal,
         &personal_custody,
@@ -1352,10 +1352,14 @@ fn thermal_projection_uses_core_itinerary_movement_not_provisioning_reserve() {
         calories_used: 3_000.0,
         camp_schedule: Default::default(),
     }];
-    let itinerary =
-        adventuresim_core::strategic_time::forecast_itinerary(
-adventuresim_world_schema::calendar::StrategicMinute::new(720), movement, 480, false, &members)
-            .unwrap();
+    let itinerary = adventuresim_core::strategic_time::forecast_itinerary(
+        adventuresim_world_schema::calendar::StrategicMinute::new(720),
+        movement,
+        480,
+        false,
+        &members,
+    )
+    .unwrap();
     assert_eq!(itinerary.total_movement_minutes, movement);
     assert!(itinerary.total_elapsed_minutes < 240);
     let source = LIVE_CORE_SOURCE;
