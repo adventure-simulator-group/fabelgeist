@@ -51,7 +51,9 @@ mod harness;
 pub(crate) use harness::ArmorHarness;
 
 const CAPTURE_LOAD_FRAME_LIMIT: u32 = 1200;
+mod inspection;
 mod view;
+pub(crate) use inspection::CaptureInspection;
 use view::position_capture_camera;
 mod setup;
 use setup::setup_viewer;
@@ -76,6 +78,7 @@ pub(crate) struct CaptureOptions {
     pub body_proportions: Option<adventuresim_core::character_proportions::CharacterProportions>,
     pub armor_harness: Option<ArmorHarness>,
     pub hidden: bool,
+    pub inspection: CaptureInspection,
 }
 
 pub(crate) fn run(options: CaptureOptions) -> AppExit {
@@ -88,6 +91,7 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         body_proportions,
         armor_harness,
         hidden,
+        inspection,
     } = options;
     let scenario = scenario.as_deref();
     fs::create_dir_all(&output).unwrap_or_else(|error| {
@@ -104,6 +108,7 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         AssetSourceBuilder::platform_default(&asset_root.to_string_lossy(), None);
     App::new()
         .insert_resource(combat_config)
+        .insert_resource(inspection)
         .insert_resource(CaptureBodyProportions(body_proportions))
         .insert_resource(harness::ArmorCapture::new(armor_harness, output.clone()))
         .insert_resource(harness::equipment_cache(armor_harness))
@@ -171,6 +176,7 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         .add_systems(
             Last,
             (
+                inspection::inspect_materials,
                 harness::update_readiness,
                 collect_locomotion_presentation_events,
                 capture_frame.run_if(harness::ready),

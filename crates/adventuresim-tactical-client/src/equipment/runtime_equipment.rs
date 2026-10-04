@@ -12,8 +12,10 @@ mod layers;
 mod meshes;
 mod rig;
 mod sockets;
+pub(super) mod warmup;
 use body::try_build_runtime_body;
 use meshes::{CachedPart, equipment_parts, referenced_center};
+pub(crate) use warmup::RuntimeEquipmentWarmup;
 
 use adventuresim_character_creator::{
     design_input::{load_bracer_design, load_breastplate_design},

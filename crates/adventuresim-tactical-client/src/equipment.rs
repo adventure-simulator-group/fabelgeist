@@ -32,10 +32,10 @@ mod grab_world;
 mod icons;
 use icons::*;
 pub(crate) mod runtime_equipment;
-pub(crate) use runtime_equipment::RuntimeEquipmentBodyCache;
 #[cfg(test)]
 use runtime_equipment::RuntimeEquipmentPresentation;
 use runtime_equipment::generate_runtime_equipment_models;
+pub(crate) use runtime_equipment::{RuntimeEquipmentBodyCache, RuntimeEquipmentWarmup};
 mod placeholder_update;
 mod placeholder_visual;
 use placeholder_update::update_item_placeholders;

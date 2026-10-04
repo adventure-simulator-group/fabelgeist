@@ -15,6 +15,14 @@ Offline exporters retain their reusable morph-equipped asset workflow.
 Compute and rendering dependencies must use the same `wgpu` release: linking
 two releases into the browser client duplicates their vendored WebGPU bindings.
 
+Initial loading exercises every authored armor placement on the canonical body,
+plus layered shoulders and alternate cuirass and tasset constructions. These
+temporary meshes are discarded; the device and compiled compute kernels stay
+alive across city travel. Strategic scene readiness waits for this preparation,
+even when the initial city has no equipped NPCs. Preparation failures surface as
+loading errors. Newly encountered wearers still receive their own fitted meshes;
+initial preparation does not cache canonical fits as substitutes for them.
+
 Fits are cached by item design, anatomical placement, and evaluated body shape.
 The last 128 variants remain available across travel; live entities retain their
 own mesh handles after cache eviction. Changing wearer or proportions requests a
@@ -37,10 +45,11 @@ armor_browser_probe --target wasm32-unknown-unknown --no-default-features`.
 Run the matching `wasm-bindgen` CLI with `--target web` into an output directory,
 copy `examples/armor_browser_probe.html` there as `index.html`, and copy
 `assets/animations/biped/unarmed/base.glb` from the repository as `body.glb`.
-Serve that directory on localhost. The page reports geometry validity and
-first-use versus repeated generation timings for seven equipment types.
-Gorget section measurements intersect body triangles, so fitting does not
-require dense vertices near each anatomical measurement plane.
+Serve that directory on localhost. The page reports initial preparation time,
+geometry validity, and first and repeated fitting times for twelve equipment
+types after preparation. Kernel counts identify any missed first-use work.
+Gorget and mail-coif section measurements intersect body triangles, so fitting
+does not require dense vertices near each anatomical measurement plane.
 
 `animation-viewer --armor-harness wearer-fit` renders a gorget, cuirass, and
 paired vambraces on the actual animated wearer for fitting inspection.
@@ -280,6 +289,12 @@ resolved parts and weights. `--scenario ordinary-camera-pitch` exercises
 lowered-guard idle and head pitch; `--scenario raised-guard-stationary-turn`
 exercises guard and turning. Add `--hidden` for automated captures without a
 visible desktop window.
+
+For supplementary boundary inspection, use `--camera-orbit-degrees 120` to
+rotate the front and side cameras around their existing focus. Gameplay framing
+stays unchanged. `--diffuse-armor` removes metallic highlights and makes the
+supporting cuirass translucent while keeping body anatomy visible. The capture
+records these options in `inspection.json`; neither option changes fitting.
 
 Use `--armor-harness puffed` for paired puff-and-slash sleeves and hose. Their
 ring and panel geometry, anatomical section fitting, shell extrusion, and skin

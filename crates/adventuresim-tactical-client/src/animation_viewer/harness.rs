@@ -159,6 +159,7 @@ impl ArmorCapture {
         view: CaptureView,
         subject: &Transform,
         head: Option<Vec3>,
+        orbit: Quat,
     ) -> Option<Transform> {
         let harness = self.harness?;
         const REVIEW_CAMERA_DISTANCE_METRES: f32 = 2.4;
@@ -191,7 +192,7 @@ impl ArmorCapture {
             CaptureView::Side => Vec3::new(distance, elevation, 0.0),
             CaptureView::Front => Vec3::new(0.0, elevation, -distance),
         };
-        Some(Transform::from_translation(focus + offset).looking_at(focus, Vec3::Y))
+        Some(Transform::from_translation(focus + orbit * offset).looking_at(focus, Vec3::Y))
     }
 
     pub(super) fn new(harness: Option<ArmorHarness>, output: PathBuf) -> Self {
@@ -257,6 +258,7 @@ pub(super) fn update_readiness(
     mut capture: ResMut<ArmorCapture>,
     armor: Query<(Entity, &ItemProperties), With<CapturedArmor>>,
     visuals: EquipmentVisualStatus,
+    warmup: Res<crate::equipment::RuntimeEquipmentWarmup>,
     mut exit: MessageWriter<AppExit>,
 ) {
     let Some(harness) = capture.harness else {
@@ -306,7 +308,9 @@ pub(super) fn update_readiness(
         )
         .expect("write armor readiness");
     }
-    if !capture.ready {
+    // Initial pipeline preparation is not unresolved equipment. Its synchronous
+    // driver work can span many rendered frames; start the fit budget afterward.
+    if !capture.ready && !warmup.is_preparing() {
         capture.waited += 1;
         if capture.waited >= CAPTURE_LOAD_FRAME_LIMIT {
             capture.fail("Timed out waiting for every armor mesh, material, morph, and wearer skin to resolve", &mut exit);
@@ -358,13 +362,7 @@ mod tests {
                 TacticalEquipmentAnchor::ItemAttachment { parent, attachment_point_id }
                     if *parent == doublet && attachment_point_id == "mail_voiders"
             ));
-            assert_eq!(
-                harness.visual_requirements().morph_targets,
-                Some(
-                    adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
-                        + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len()
-                )
-            );
+            assert_eq!(harness.visual_requirements().morph_targets, Some(0));
             let mut knees = 0;
             for (_, _, topology, owner) in items
                 .iter(&world)
@@ -399,19 +397,19 @@ mod tests {
         let head = subject.translation + Vec3::Y * 0.7;
         assert!(
             capture
-                .review_camera(CaptureView::Gameplay, &subject, Some(head))
+                .review_camera(CaptureView::Gameplay, &subject, Some(head), Quat::IDENTITY)
                 .is_none()
         );
         assert!(
             capture
-                .review_camera(CaptureView::Front, &subject, None)
+                .review_camera(CaptureView::Front, &subject, None, Quat::IDENTITY)
                 .is_none()
         );
         let front = capture
-            .review_camera(CaptureView::Front, &subject, Some(head))
+            .review_camera(CaptureView::Front, &subject, Some(head), Quat::IDENTITY)
             .unwrap();
         let side = capture
-            .review_camera(CaptureView::Side, &subject, Some(head))
+            .review_camera(CaptureView::Side, &subject, Some(head), Quat::IDENTITY)
             .unwrap();
         assert_ne!(front.translation, side.translation);
         for camera in [front, side] {
@@ -424,7 +422,12 @@ mod tests {
             );
         }
         let moved = capture
-            .review_camera(CaptureView::Front, &subject, Some(head + Vec3::Y))
+            .review_camera(
+                CaptureView::Front,
+                &subject,
+                Some(head + Vec3::Y),
+                Quat::IDENTITY,
+            )
             .unwrap();
         assert!((moved.translation - front.translation).abs_diff_eq(Vec3::Y, 1e-5));
     }

@@ -16,6 +16,33 @@ pub async fn fit_probe(bytes: Vec<u8>) -> Result<String, String> {
     run(&bytes).await.map_err(|error| format!("{error:#}"))
 }
 
+#[cfg(target_family = "wasm")]
+#[wasm_bindgen::prelude::wasm_bindgen]
+pub async fn prepare_probe(bytes: Vec<u8>) -> Result<String, String> {
+    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
+    let result = async {
+        let (body, _) = armor_fixture::load(&bytes)?;
+        let bracer = adventuresim_character_creator::design_input::load_bracer_design(None)?;
+        let breastplate =
+            adventuresim_character_creator::design_input::load_breastplate_design(None)?;
+        let errors = capture_errors(adventuresim_character_creator::armor_gpu_async().await?);
+        let report = adventuresim_character_creator::runtime_equipment::warm_up(
+            &body,
+            &bracer,
+            &breastplate,
+        )
+        .await;
+        let failures = errors.lock().unwrap().clone();
+        anyhow::ensure!(
+            failures.is_empty(),
+            "WebGPU preparation validation: {failures:?}"
+        );
+        anyhow::Ok(serde_json::to_string(&report?)?)
+    }
+    .await;
+    result.map_err(|error| format!("{error:#}"))
+}
+
 #[cfg_attr(
     not(target_family = "wasm"),
     expect(dead_code, reason = "called by the browser probe export")
@@ -27,13 +54,7 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
     let bracer = design_input::load_bracer_design(None)?;
     let breastplate = design_input::load_breastplate_design(None)?;
     let gpu = adventuresim_character_creator::armor_gpu_async().await?;
-    let errors = std::sync::Arc::new(std::sync::Mutex::new(Vec::new()));
-    let captured = errors.clone();
-    gpu.context()
-        .device
-        .on_uncaptured_error(std::sync::Arc::new(move |error| {
-            captured.lock().unwrap().push(format!("{error}"));
-        }));
+    let errors = capture_errors(gpu);
     let mut results = Vec::new();
     for round in 0..2 {
         for probe in [
@@ -56,6 +77,7 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
                 Probe::Wrapped => ("wrapped_tassets", "worn"),
             };
             let started = web_time::Instant::now();
+            let cached_kernels = gpu.cache().len();
             let mut breastplate = breastplate.clone();
             let armor = if matches!(probe, Probe::Wrapped) {
                 wrapped(&body).await
@@ -75,6 +97,10 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
             anyhow::ensure!(failures.is_empty(), "WebGPU validation: {failures:?}");
             let armor = armor?;
             anyhow::ensure!(
+                gpu.cache().len() == cached_kernels,
+                "post-readiness fit compiled new kernels: {item}"
+            );
+            anyhow::ensure!(
                 armor.morphs.is_empty(),
                 "runtime equipment generated morph targets"
             );
@@ -83,7 +109,12 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
                 "empty equipment"
             );
             anyhow::ensure!(
-                armor.positions.iter().flatten().all(|v| v.is_finite()),
+                armor
+                    .positions
+                    .iter()
+                    .chain(&armor.normals)
+                    .flatten()
+                    .all(|v| v.is_finite()),
                 "non-finite mesh"
             );
             anyhow::ensure!(
@@ -102,10 +133,28 @@ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
                 "collapsed equipment geometry: {item}"
             );
             results.push(serde_json::json!({"item":item,"round":round,"ms":started.elapsed().as_secs_f64()*1000.0,
-                "vertices":armor.positions.len(),"triangles":armor.indices.len()/3,"morphs":armor.morphs.len()}));
+                "vertices":armor.positions.len(),"triangles":armor.indices.len()/3,"morphs":armor.morphs.len(),
+                "new_kernels":gpu.cache().len()-cached_kernels}));
         }
     }
     Ok(serde_json::to_string_pretty(&results)?)
+}
+
+#[cfg_attr(
+    not(target_family = "wasm"),
+    expect(dead_code, reason = "browser probe helper")
+)]
+fn capture_errors(
+    gpu: &fabelgeist_armor::ArmorGpu,
+) -> std::sync::Arc<std::sync::Mutex<Vec<String>>> {
+    let errors = std::sync::Arc::new(std::sync::Mutex::new(Vec::new()));
+    let captured = errors.clone();
+    gpu.context()
+        .device
+        .on_uncaptured_error(std::sync::Arc::new(move |error| {
+            captured.lock().unwrap().push(format!("{error}"));
+        }));
+    errors
 }
 
 #[cfg_attr(

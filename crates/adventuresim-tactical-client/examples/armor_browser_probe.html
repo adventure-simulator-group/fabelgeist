@@ -1,13 +1,21 @@
 <!doctype html><meta charset="utf-8"><title>Runtime armor WebGPU probe</title>
 <style>body{font:16px system-ui;margin:32px}pre{white-space:pre-wrap}</style>
-<h1>Runtime armor WebGPU probe</h1><p id="status">Loading local Wasm module...</p><pre id="results"></pre>
+<h1>Runtime armor WebGPU probe</h1><p id="status">Loading local Wasm module...</p><pre id="preparation"></pre><pre id="results"></pre><a id="download" hidden download="armor-browser-results.json">Save results</a>
 <script type="module">
 const status=document.querySelector('#status'),output=document.querySelector('#results');
 try {
- const {default:init,fit_probe}=await import('./armor_browser_probe.js');
- await init(); status.textContent='Generating equipment twice on WebGPU...';
+ const {default:init,fit_probe,prepare_probe}=await import('./armor_browser_probe.js');
+ await init();
  const body=new Uint8Array(await (await fetch('./body.glb')).arrayBuffer());
+ status.textContent='Preparing all equipment pipelines during initial loading...';
+ const started=performance.now();
+ const preparation={...JSON.parse(await prepare_probe(body)),ms:performance.now()-started};
+ document.querySelector('#preparation').textContent=JSON.stringify(preparation,null,2);
+ status.textContent='Ready. Generating new fits with prepared pipelines...';
  output.textContent=await fit_probe(body);
  status.textContent=`PASS: ${JSON.parse(output.textContent).length} generations; finite, indexed geometry; zero morph targets.`;
+ const download=document.querySelector('#download');
+ download.href=URL.createObjectURL(new Blob([JSON.stringify({preparation,results:JSON.parse(output.textContent)},null,2)],{type:'application/json'}));
+ download.hidden=false;
 } catch(error){status.textContent='FAIL';output.textContent=String(error);}
 </script>

@@ -56,6 +56,12 @@ struct Args {
     /// Render automated screenshots without showing a desktop window.
     #[arg(long)]
     hidden: bool,
+    /// Orbit inspection views around the subject; default keeps gameplay framing.
+    #[arg(long, default_value_t = 0.0)]
+    camera_orbit_degrees: f32,
+    /// Diffuse armor with a translucent supporting cuirass, for boundary inspection.
+    #[arg(long)]
+    diffuse_armor: bool,
 }
 
 fn main() {
@@ -95,6 +101,11 @@ fn main() {
         serde_json::from_str(&text).expect("body proportions must respect the MHR limits")
     });
     let exit = animation_viewer::run(animation_viewer::CaptureOptions {
+        inspection: animation_viewer::CaptureInspection::new(
+            args.camera_orbit_degrees,
+            args.diffuse_armor,
+            &args.output,
+        ),
         output: args.output,
         asset_root,
         settle_frames: args.frames_per_sample.max(1),

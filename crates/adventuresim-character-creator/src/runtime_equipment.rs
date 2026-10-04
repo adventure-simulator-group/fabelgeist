@@ -18,6 +18,9 @@ use fabelgeist_armor::{
 };
 use std::sync::LazyLock;
 
+mod warmup;
+pub use warmup::{WarmupReport, warm_up};
+
 /// One evaluated wearer in its unposed fitting frame. Runtime equipment has no
 /// body-shape morph targets; a changed body requires a new fit.
 #[derive(Clone)]

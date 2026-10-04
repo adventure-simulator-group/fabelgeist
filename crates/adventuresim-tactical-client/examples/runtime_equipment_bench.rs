@@ -21,6 +21,48 @@ mod pauldron_tests;
 #[path = "armor_fixture/shell_validation.rs"]
 mod shell_validation;
 
+#[test]
+fn prepared_device_reuses_pipelines_for_a_new_wearer() -> Result<()> {
+    let (mut body, _) = armor_fixture::load(&std::fs::read(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../assets/animations/biped/unarmed/base.glb"
+    ))?)?;
+    let bracer = load_bracer_design(None)?;
+    let breastplate = load_breastplate_design(None)?;
+    let report = pollster::block_on(runtime_equipment::warm_up(&body, &bracer, &breastplate))?;
+    assert!(report.fitted_placements > 0);
+    assert!(report.cached_kernels > 0);
+    for p in &mut body.positions {
+        p[0] *= 1.05;
+    }
+    for joint in &mut body.global_joint_states {
+        joint[0] *= 1.05;
+    }
+    body.device = Default::default();
+    for (item, placement) in [
+        ("cuirass", "worn"),
+        ("pauldron", "right"),
+        ("puffed_hose", "left"),
+        ("mail_coif", "worn"),
+    ] {
+        let armor = pollster::block_on(runtime_equipment::generate(
+            &body,
+            item,
+            placement,
+            &bracer,
+            &breastplate,
+            &[],
+        ))?;
+        assert!(!armor.positions.is_empty());
+        assert!(armor.morphs.is_empty());
+        assert_eq!(
+            adventuresim_character_creator::armor_gpu()?.cache().len(),
+            report.cached_kernels
+        );
+    }
+    Ok(())
+}
+
 fn main() -> Result<()> {
     let path = std::env::args()
         .nth(1)
