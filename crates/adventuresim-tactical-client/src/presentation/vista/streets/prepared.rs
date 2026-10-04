@@ -67,11 +67,6 @@ impl PreparedCityGround {
         maximum_lods: usize,
     ) -> Self {
         let mut support = GroundSupport::default();
-        if let Some(surface) = terrain.property_surface() {
-            support.add_triangles(surface.presentation_triangles(), Vec3::ZERO);
-        } else {
-            support.add_mesh(&terrain.mesh(), Vec3::ZERO);
-        }
         let environment = input.environment_snapshot(input.digest().expect("validated scene"));
         let lods = input
             .vista
@@ -80,6 +75,22 @@ impl PreparedCityGround {
             .take(maximum_lods)
             .collect::<Vec<_>>();
         let mut inner = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
+        if let Some(surface) = terrain.property_surface() {
+            let outer = lods.iter().fold(inner, |extent, lod| {
+                extent.max(
+                    Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
+                        * lod.spacing_metres
+                        * 0.5,
+                )
+            });
+            support.add_owned_region(
+                surface,
+                outer,
+                input.landform.map(|recipe| recipe.transition_collar()),
+            );
+        } else {
+            support.add_mesh(&terrain.mesh(), Vec3::ZERO);
+        }
         for (index, lod) in lods
             .iter()
             .copied()
@@ -185,3 +196,6 @@ mod tests {
         assert_eq!(assets.len(), count, "return creates no new ground meshes");
     }
 }
+
+#[cfg(test)]
+mod extent_tests;

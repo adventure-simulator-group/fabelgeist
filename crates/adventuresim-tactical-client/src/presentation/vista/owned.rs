@@ -3,6 +3,7 @@ use super::*;
 use bevy::math::{DVec3, Vec3Swizzles};
 mod clip;
 mod exterior;
+mod ground_support;
 use exterior::GroundPresentation;
 #[cfg(test)]
 mod tests;
