@@ -10,7 +10,7 @@
 //! to what it selected. Which faces count as torso for fitting depends only
 //! on the rig's skin weights, so the host lists them.
 
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::BTreeSet;
 
 use anyhow::{Context, Result, bail, ensure};
 use fabelgeist_armor::gpu::anatomy::{
@@ -81,24 +81,6 @@ const SUPPORT_JOINTS: [&str; 12] = [
     "r_upleg",
 ];
 
-/// Joints of the torso proper, for the faces plates are fitted against.
-const TORSO_JOINTS: [&str; 8] = [
-    "root",
-    "c_spine0",
-    "c_spine1",
-    "c_spine2",
-    "c_spine3",
-    "c_neck",
-    "l_clavicle",
-    "r_clavicle",
-];
-/// Name fragments of the limb joints whose skin is not torso.
-const LIMB_JOINTS: [&str; 6] = ["uparm", "loarm", "hand", "upleg", "loleg", "foot"];
-/// A fitting face's least mean torso weight, and its greatest mean limb
-/// weight.
-const TORSO_FACE_WEIGHT: f32 = 0.08;
-const LIMB_FACE_WEIGHT: f32 = 0.35;
-
 impl TorsoSurfaceInput<'_> {
     fn check(&self) -> Result<()> {
         let count = self.positions.len();
@@ -127,15 +109,6 @@ impl TorsoSurfaceInput<'_> {
             .collect()
     }
 
-    fn set_weight(&self, vertex: usize, joints: &BTreeSet<usize>) -> f32 {
-        self.joint_indices[vertex]
-            .iter()
-            .zip(self.joint_weights[vertex])
-            .filter(|(joint, _)| joints.contains(&(**joint as usize)))
-            .map(|(_, weight)| weight)
-            .sum::<f32>()
-    }
-
     /// The rig joints of [`LANDMARKS`].
     fn landmarks(&self) -> Result<Vec<u32>> {
         LANDMARKS
@@ -149,40 +122,6 @@ impl TorsoSurfaceInput<'_> {
             })
             .collect()
     }
-
-    /// The body face each torso face samples skin from: the last body face
-    /// with its corners.
-    fn eligible(&self, torso_faces: &[[u32; 3]]) -> Vec<u32> {
-        let face_index = self
-            .faces
-            .iter()
-            .enumerate()
-            .map(|(index, face)| (*face, index as u32))
-            .collect::<BTreeMap<_, _>>();
-        torso_faces.iter().map(|face| face_index[face]).collect()
-    }
-
-    /// Faces whose skin is mostly torso and little limb.
-    fn torso_faces(&self) -> Result<Vec<[u32; 3]>> {
-        let torso = self.joints_named(|name| TORSO_JOINTS.contains(&name));
-        let limbs = self.joints_named(|name| LIMB_JOINTS.iter().any(|limb| name.contains(limb)));
-        let mean = |face: &[u32; 3], joints: &BTreeSet<usize>| {
-            face.iter()
-                .map(|vertex| self.set_weight(*vertex as usize, joints))
-                .sum::<f32>()
-                / 3.0
-        };
-        let faces = self
-            .faces
-            .iter()
-            .copied()
-            .filter(|face| {
-                mean(face, &torso) >= TORSO_FACE_WEIGHT && mean(face, &limbs) <= LIMB_FACE_WEIGHT
-            })
-            .collect::<Vec<_>>();
-        ensure!(!faces.is_empty(), "torso section face selection is empty");
-        Ok(faces)
-    }
 }
 
 /// Fit `design` to the wearer and each morph sample of `input` on `gpu`.
@@ -191,17 +130,31 @@ pub fn generate_breastplate_on_device(
     design: &BreastplateDesign,
     input: TorsoSurfaceInput<'_>,
 ) -> Result<GeneratedArmor> {
-    if let Some(option) = design.device_unsupported() {
-        return Err(fabelgeist_armor::GenerateError::NotOnDevice(option).into());
-    }
+    pollster::block_on(generate_breastplate_on_device_async(gpu, design, input))
+}
+
+pub async fn generate_breastplate_on_device_async(
+    gpu: &ArmorGpu,
+    design: &BreastplateDesign,
+    input: TorsoSurfaceInput<'_>,
+) -> Result<GeneratedArmor> {
     input.check()?;
     let landmarks = input.landmarks()?;
     let support_joints = input.joints_named(|name| SUPPORT_JOINTS.contains(&name));
     let supports = (0..input.joint_names.len())
         .map(|joint| u32::from(support_joints.contains(&joint)))
         .collect::<Vec<_>>();
-    let torso_faces = input.torso_faces()?;
-    let eligible = input.eligible(&torso_faces);
+    let eligible = crate::torso_domain::TorsoSkinDomain {
+        faces: input.faces,
+        joint_indices: input.joint_indices,
+        joint_weights: input.joint_weights,
+        joint_names: input.joint_names,
+    }
+    .triangle_indices()?;
+    let torso_faces = eligible
+        .iter()
+        .map(|&index| input.faces[index as usize])
+        .collect::<Vec<_>>();
 
     let vertex_count = input.positions.len();
     let unused_texcoords = vec![[0.0f32; 2]; vertex_count];
@@ -242,7 +195,7 @@ pub fn generate_breastplate_on_device(
     let surface = DeviceSurface::record(gpu, &mut batch, &seams, &body.faces, &support, &status)?;
     let mut breastplate = DeviceBreastplate::record(
         gpu,
-        &mut batch,
+        batch,
         design,
         TorsoBody {
             body: &body,
@@ -255,8 +208,8 @@ pub fn generate_breastplate_on_device(
             eligible: &eligible,
         },
         &status,
-    )?;
-    batch.submit();
+    )
+    .await?;
     for morph in input.morphs {
         let positions = gpu.upload(&morph.positions)?;
         let mut batch = gpu.batch("breastplate morph");
@@ -264,13 +217,15 @@ pub fn generate_breastplate_on_device(
         batch.submit();
     }
 
-    torso_failure(gpu.read::<u32>(&status)?[0])?;
+    torso_failure(gpu.read_async::<u32>(&status).await?[0])?;
     let names = input
         .morphs
         .iter()
         .map(|morph| morph.name.clone())
         .collect::<Vec<_>>();
-    Ok(breastplate.read(gpu, input.domain, &names)?)
+    let mut armor = breastplate.read_async(gpu, input.domain, &names).await?;
+    crate::skin_rules::breastplate(input.joint_names, &mut armor)?;
+    Ok(armor)
 }
 
 /// The torso's failure, if its status bits hold one.

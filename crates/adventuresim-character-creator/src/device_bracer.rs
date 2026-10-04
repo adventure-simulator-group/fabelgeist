@@ -43,6 +43,14 @@ pub fn generate_bracer_on_device(
     design: &BracerDesign,
     input: ForearmSurfaceInput<'_>,
 ) -> Result<GeneratedArmor> {
+    pollster::block_on(generate_bracer_on_device_async(gpu, design, input))
+}
+
+pub async fn generate_bracer_on_device_async(
+    gpu: &ArmorGpu,
+    design: &BracerDesign,
+    input: ForearmSurfaceInput<'_>,
+) -> Result<GeneratedArmor> {
     input.validate().map_err(anyhow::Error::msg)?;
     let side = input.side;
     let lowarm = side.joint(side.lowarm(), input.joint_names)?;
@@ -112,7 +120,7 @@ pub fn generate_bracer_on_device(
         batch.submit();
     }
 
-    let bits = gpu.read::<u32>(&status)?[0];
+    let bits = gpu.read_async::<u32>(&status).await?[0];
     if bits & STATUS_COINCIDENT_LANDMARKS != 0 {
         bail!("MHR forearm landmarks coincide");
     }
@@ -124,7 +132,7 @@ pub fn generate_bracer_on_device(
         .iter()
         .map(|morph| morph.name.clone())
         .collect::<Vec<_>>();
-    Ok(bracer.read(gpu, input.domain, &names)?)
+    Ok(bracer.read_async(gpu, input.domain, &names).await?)
 }
 
 /// Record each body vertex's clamped axial coordinate, and whether the

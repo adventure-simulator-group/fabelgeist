@@ -8,6 +8,8 @@ pub const MATH: &str = r#"
 const PI: f32 = 3.14159265358979;
 const TAU: f32 = 6.28318530717959;
 const FRAC_PI_2: f32 = 1.57079632679490;
+// Finite search sentinel, exactly representable by every WGSL backend.
+const MAX_FINITE: f32 = 0x1.fffffep+127f;
 
 fn lerp(a: f32, b: f32, t: f32) -> f32 {
     return a + (b - a) * t;

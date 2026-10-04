@@ -37,14 +37,18 @@ pub(crate) mod garment_torso;
 pub(crate) mod gorget;
 pub(crate) mod helmet;
 pub(crate) mod limb;
+mod limb_build;
 pub mod metal;
 pub(crate) mod mitten;
 pub(crate) mod part;
+pub mod pauldron;
 pub(crate) mod placement;
+mod puff_and_slash;
 pub(crate) mod recipe;
 pub(crate) mod shell_plan;
 pub mod staging;
 pub mod wgsl;
+pub mod wrapped_tassets;
 pub use close_helmet::{CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, record_close_helmet};
 pub use close_helmet_profile::CloseHelmetProfile;
 pub use coif::record_coif;
@@ -57,8 +61,9 @@ pub use garment::{record_fauld, record_garment_tube, record_tassets};
 pub use garment_torso::record_garment_torso;
 pub use gorget::record_gorget_plates;
 pub use helmet::{generate_helmet_on, record_helmet};
-pub use limb::{generate_limb_armor_on, record_limb_armor};
+pub use limb_build::{generate_limb_armor_on, record_limb_armor};
 pub use part::{BuiltPart, PartSlots};
+pub use puff_and_slash::record_puff_and_slash;
 pub use recipe::frame_words;
 pub use staging::{Staged, StagedResults, Staging};
 
@@ -191,7 +196,12 @@ impl ArmorGpu {
 
     /// Open the default adapter's device.
     pub fn open() -> Result<Self, GenerateError> {
-        Self::new(pollster::block_on(WgpuContext::new()).map_err(device_error)?)
+        pollster::block_on(Self::open_async())
+    }
+
+    /// Open a device without blocking the browser event loop.
+    pub async fn open_async() -> Result<Self, GenerateError> {
+        Self::new(WgpuContext::new_compute().await.map_err(device_error)?)
     }
 
     pub fn context(&self) -> &WgpuContext {
@@ -276,7 +286,14 @@ impl ArmorGpu {
         &self,
         buffer: &Buffer,
     ) -> Result<Vec<T>, GenerateError> {
-        pollster::block_on(buffer.read(&self.context)).map_err(device_error)
+        pollster::block_on(self.read_async(buffer))
+    }
+
+    pub async fn read_async<T: bytemuck::AnyBitPattern>(
+        &self,
+        buffer: &Buffer,
+    ) -> Result<Vec<T>, GenerateError> {
+        buffer.read(&self.context).await.map_err(device_error)
     }
 
     /// The nearest of `targets` to each query, ties going to the lowest index.

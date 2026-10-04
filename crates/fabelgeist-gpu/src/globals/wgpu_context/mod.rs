@@ -72,10 +72,12 @@ fn optional_features(adapter: &Adapter) -> wgpu::Features {
 fn required_limits(adapter: &Adapter) -> wgpu::Limits {
     let adapter_limits = adapter.limits();
     let mut limits = if cfg!(target_arch = "wasm32") {
-        wgpu::Limits::downlevel_webgl2_defaults().using_resolution(adapter.limits())
+        wgpu::Limits::default().using_resolution(adapter.limits())
     } else {
         wgpu::Limits::default()
     };
+    limits.max_storage_buffers_per_shader_stage =
+        adapter_limits.max_storage_buffers_per_shader_stage;
     limits.max_buffer_size = adapter_limits.max_buffer_size;
     limits.max_storage_buffer_binding_size = adapter_limits.max_storage_buffer_binding_size;
     limits.max_compute_invocations_per_workgroup =
@@ -166,20 +168,33 @@ impl WgpuContext {
     }
 
     pub async fn new() -> Result<Self> {
+        Self::open(true).await
+    }
+
+    /// Compute-only device: no canvas, surface, or presentation pipeline.
+    pub async fn new_compute() -> Result<Self> {
+        Self::open(false).await
+    }
+
+    async fn open(presentation: bool) -> Result<Self> {
         // Platform specific initialization
         #[cfg(target_arch = "wasm32")]
         let (canvas, surface, instance) = {
-            let canvas = web_sys::OffscreenCanvas::new(1, 1)
-                .map_err(|_| anyhow!("Failed to create OffscreenCanvas"))?;
             let desc = wgpu::InstanceDescriptor {
-                backends: wgpu::Backends::all(),
+                backends: wgpu::Backends::BROWSER_WEBGPU,
                 ..wgpu::InstanceDescriptor::new_without_display_handle()
             };
-            let instance = wgpu::util::new_instance_with_webgpu_detection(desc).await;
-            let surface = instance
-                .create_surface(wgpu::SurfaceTarget::OffscreenCanvas(canvas.clone()))
-                .map_err(|_| anyhow!("Failed to create surface"))?;
-            (Some(canvas), Some(Arc::new(surface)), instance)
+            let instance = Instance::new(desc);
+            if presentation {
+                let canvas = web_sys::OffscreenCanvas::new(1, 1)
+                    .map_err(|_| anyhow!("Failed to create OffscreenCanvas"))?;
+                let surface = instance
+                    .create_surface(wgpu::SurfaceTarget::OffscreenCanvas(canvas.clone()))
+                    .map_err(|_| anyhow!("Failed to create surface"))?;
+                (Some(canvas), Some(Arc::new(surface)), instance)
+            } else {
+                (None, None, instance)
+            }
         };
 
         #[cfg(not(target_arch = "wasm32"))]
@@ -206,7 +221,6 @@ impl WgpuContext {
                 power_preference: wgpu::PowerPreference::HighPerformance,
                 compatible_surface,
                 force_fallback_adapter: false,
-                apply_limit_buckets: false,
             })
             .await
             .map_err(|_| anyhow!("Failed to find an appropriate adapter"))?;
@@ -235,10 +249,8 @@ impl WgpuContext {
 
         // Blit pipeline (used by Texture3d widget)
         // We use Rgba8UnormSrgb because DisplayTexture3dWidget creates its temporary 2D texture in this format
-        let blitter = Some(Arc::new(Blitter::new(
-            &device,
-            wgpu::TextureFormat::Rgba8UnormSrgb,
-        )));
+        let blitter = presentation
+            .then(|| Arc::new(Blitter::new(&device, wgpu::TextureFormat::Rgba8UnormSrgb)));
 
         Ok(WgpuContext {
             instance: Arc::new(instance),
@@ -250,7 +262,7 @@ impl WgpuContext {
             surface,
             blitter,
             blit_lock: Arc::new(async_lock::Mutex::new(())),
-            blocking_validation: true,
+            blocking_validation: !cfg!(target_arch = "wasm32"),
         })
     }
 }

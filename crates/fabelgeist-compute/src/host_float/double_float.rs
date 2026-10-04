@@ -284,7 +284,7 @@ fn df_exp_rounded(y: vec2<f32>) -> f32 {
         return 0.0;
     }
     if (y.x > DF_EXP_OVERFLOW) {
-        return bitcast<f32>(0x7f800000u);
+        return bitcast<f32>(0x7f800000u | host_zero());
     }
     // y = k ln 2 + r, |r| <= ln 2 / 2.
     let k = round(host_mul(y.x, DF_LOG2_E));
@@ -301,7 +301,7 @@ fn df_exp_rounded(y: vec2<f32>) -> f32 {
 // and a negative argument NaN.
 fn host_log(x: f32) -> f32 {
     if (x == 0.0) {
-        return -bitcast<f32>(0x7f800000u);
+        return -bitcast<f32>(0x7f800000u | host_zero());
     }
     if (!(x > 0.0) || !(x <= HOST_FLOAT_MAX)) {
         return log(x);

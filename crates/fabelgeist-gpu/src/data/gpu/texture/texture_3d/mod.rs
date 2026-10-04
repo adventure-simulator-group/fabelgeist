@@ -209,7 +209,7 @@ impl Texture3d {
             .map_err(|_| anyhow::anyhow!("GPU Mapping error"))?;
 
         let slice = staging_buffer.slice(..);
-        let data = slice.get_mapped_range()?;
+        let data = slice.get_mapped_range();
 
         let mut result =
             Vec::with_capacity((width * height * depth) as usize * pixel_size as usize);

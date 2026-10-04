@@ -335,6 +335,7 @@ pub(crate) fn record(
     parameters.insert("carriers", build.carriers.clone());
     parameters.insert("heights", build.heights.clone());
     parameters.insert("shells", build.shells.clone());
+    parameters.insert("status", build.status.clone());
     batch
         .dispatch_items(&kernel.0, &parameters, slots.total)
         .map_err(device_error)?;

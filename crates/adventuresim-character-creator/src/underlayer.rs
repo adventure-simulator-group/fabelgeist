@@ -1,6 +1,7 @@
 //! Fitted textile garments and detachable mail patches cut from the source
 //! body.
 mod pattern;
+pub(crate) use pattern::required_frames;
 pub use pattern::{RegionFrame, regions};
 
 use anyhow::{Result, ensure};

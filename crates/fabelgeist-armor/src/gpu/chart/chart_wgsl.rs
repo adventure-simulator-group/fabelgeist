@@ -45,6 +45,12 @@ struct Params {
     pad5: f32,
 };
 @group(0) @binding(7) var<uniform> params: Params;
+@group(0) @binding(8) var<storage, read_write> status: array<atomic<u32>>;
+
+fn invalid_chart_point() -> vec3<f32> {
+    atomicOr(&status[0], 1u);
+    return vec3<f32>(0.0);
+}
 "#;
 
 /// Placing a chart's local points through its reflection and frame.

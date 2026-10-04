@@ -334,7 +334,7 @@ impl Texture2d {
             .map_err(|_| anyhow::anyhow!("GPU Mapping error"))?;
 
         let slice = staging_buffer.slice(..);
-        let data = slice.get_mapped_range()?;
+        let data = slice.get_mapped_range();
 
         let mut result = Vec::with_capacity((width * height) as usize * pixel_size as usize);
         if padded_bytes_per_row == bytes_per_row {

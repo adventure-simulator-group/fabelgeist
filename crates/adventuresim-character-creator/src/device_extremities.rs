@@ -233,13 +233,16 @@ fn layer_checks(garments: Vec<DevicePart>) -> Vec<DeviceCheck> {
     garments
         .into_iter()
         .map(|garment| -> DeviceCheck {
-            Box::new(move |gpu| {
-                anyhow::ensure!(
-                    gpu.read::<u32>(garment.status())?[0] == 0,
-                    fabelgeist_armor::GenerateError::InvalidSurface
-                );
-                Ok(())
-            })
+            DeviceCheck::Device(Box::new(move |gpu| {
+                let status = garment.status().clone();
+                Box::pin(async move {
+                    anyhow::ensure!(
+                        gpu.read_async::<u32>(&status).await?[0] == 0,
+                        fabelgeist_armor::GenerateError::InvalidSurface
+                    );
+                    Ok(())
+                })
+            }))
         })
         .collect()
 }

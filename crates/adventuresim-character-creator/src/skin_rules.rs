@@ -3,8 +3,8 @@
 //! Solid helmets move with the head alone, so jaw and neck deformation cannot
 //! bend them. Joint cops and their distal courses follow the lower limb, and
 //! rerebraces, spaulders and cuisses the upper limb, so limb motion and twist
-//! weights cannot shear their plates. Body proportions still refit every plate
-//! through its morph targets. Each lame of a fauld hangs from the pelvis and
+//! weights cannot shear their plates. Body proportions refit every plate before
+//! attachment. Each lame of a fauld hangs from the pelvis and
 //! each tasset from its own hip; a besagew hangs from the chest in front of
 //! the shoulder. Arming caps, mail coifs and textiles keep the body's flexible
 //! skin.
@@ -29,8 +29,19 @@ pub fn attach(
 ) -> Result<()> {
     let (joint, roles): (_, &[_]) = match design {
         ParametricDesign::WaistAssembly(_) => return waist(joint_names, joints, armor),
-        ParametricDesign::Garment(garment) if garment.kind == GarmentArmorKind::Fauld => {
+        ParametricDesign::Garment(garment)
+            if matches!(
+                garment.kind,
+                GarmentArmorKind::Fauld | GarmentArmorKind::Tassets
+            ) =>
+        {
             return waist(joint_names, joints, armor);
+        }
+        ParametricDesign::Garment(garment) if garment.kind == GarmentArmorKind::Gorget => {
+            // A gorget is seated on the cuirass. Its formed bib and collar
+            // sheets share that rigid support; nearby clavicle and neck skin
+            // must not fold metal or move the bib through its lower plate.
+            ("c_spine3".into(), &[ArmorComponentRole::Plate])
         }
         ParametricDesign::Helmet(HelmetDesign::ArmingCap(_) | HelmetDesign::MailCoif(_)) => {
             return Ok(());
@@ -42,6 +53,15 @@ pub fn attach(
             return Ok(());
         }
         ParametricDesign::Limb(limb) => match limb {
+            // Keep the fitted saddle and courses coherent until an equipment
+            // rig supplies independent plate transforms.
+            LimbArmorDesign::Pauldron(_) => (
+                limb_joint(placement, "uparm")?,
+                &[
+                    ArmorComponentRole::Plate,
+                    ArmorComponentRole::JointExtension,
+                ],
+            ),
             LimbArmorDesign::Couter(_) => (
                 limb_joint(placement, "lowarm")?,
                 &[
@@ -175,6 +195,15 @@ fn fill(armor: &mut GeneratedArmor, vertices: Range<usize>, joint: u32) {
     armor.joint_weights[vertices].fill([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
 }
 
+/// The cuirass follows the chest as one rigid assembly. Separate horizontal
+/// courses retain their constructed overlaps. Independent course motion needs
+/// armor pivots and lap constraints; body-spine joints are not those pivots.
+pub(crate) fn breastplate(joint_names: &[String], armor: &mut GeneratedArmor) -> Result<()> {
+    let chest = joint_index(joint_names, "c_spine3")?;
+    fill(armor, 0..armor.positions.len(), chest);
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -212,11 +241,35 @@ mod tests {
             vertices,
             indices: 0..0,
             hinge: None,
+            mount: None,
             material: None,
         }
     }
 
     const RIGID: [f32; 8] = [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+
+    #[test]
+    fn gorget_sheets_share_the_cuirass_support_and_spare_flexible_components() {
+        let mut gorget = armor(vec![
+            component(ArmorComponentRole::Plate, 0..1),
+            component(ArmorComponentRole::Plate, 1..3),
+            component(ArmorComponentRole::LeatherStraps, 3..4),
+        ]);
+        let flexible = (gorget.joint_indices[3], gorget.joint_weights[3]);
+        let design = ParametricDesign::Garment(fabelgeist_armor::GarmentArmorDesign::new(
+            GarmentArmorKind::Gorget,
+        ));
+        attach(&design, "worn", &names(), &[], &mut gorget).unwrap();
+        let mut cuirass = armor(Vec::new());
+        breastplate(&names(), &mut cuirass).unwrap();
+        assert!(
+            gorget.joint_indices[..3]
+                .iter()
+                .all(|i| *i == cuirass.joint_indices[0])
+        );
+        assert_eq!(gorget.joint_weights[..3], [RIGID; 3]);
+        assert_eq!((gorget.joint_indices[3], gorget.joint_weights[3]), flexible);
+    }
 
     #[test]
     fn solid_helmets_follow_the_head_and_cloth_headwear_keeps_its_skin() {

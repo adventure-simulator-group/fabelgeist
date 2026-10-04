@@ -7,6 +7,10 @@
 //! [`RadixSort`] groups the corners by vertex -- keeping triangle order within
 //! each vertex -- and one invocation per vertex sums its corners in that
 //! order. The result is the one a host loop over the triangles produces.
+//!
+//! Both weighting modes validate face directions with the same normalization
+//! contract. A small area alone does not make a resolved face unusable. This
+//! check does not certify topology, intersections, or fitting clearance.
 
 use crate::prelude::*;
 use std::sync::Arc;
@@ -32,9 +36,10 @@ fn corners_code(weighting: NormalWeighting) -> String {
     let contribution = match weighting {
         NormalWeighting::Area => {
             r#"
-    if (dot(face, face) <= 1e-18) {
-        atomicOr(&status[0], 1u);
-    }
+    // Weighting must not change whether a face has a usable direction.
+    // Validate with the same normalization check as angle weighting, while
+    // retaining the unnormalized face for its area contribution.
+    _ = unit(face);
     for (var corner = 0u; corner < 3u; corner = corner + 1u) {
         write_corner(triangle, corner, face);
     }
@@ -455,6 +460,32 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn small_resolved_faces_are_valid_for_both_weightings() -> Result<()> {
+        // A clipped armor facet: its 3.8 micrometre edge remains resolved in
+        // f32 at body-scale coordinates. Area weighting used to reject it
+        // even though angle weighting could normalize the same face.
+        let facet = [
+            [-0.02812963, 1.2093203, 0.19875167],
+            [-0.028126605, 1.2095866, 0.19873089],
+            [-0.028129822, 1.2095873, 0.19872896],
+        ];
+        for scale in [1.0, 0.1] {
+            let positions = facet.map(|p| p.map(|v| v * scale));
+            let expected = host_area_normals(&positions, &[[0, 1, 2]]);
+            for weighting in [NormalWeighting::Area, NormalWeighting::Angle] {
+                let (found, status) = normals(&positions, &[[0, 1, 2]], weighting).await?;
+                assert_eq!(status, 0, "{weighting:?} scale={scale}");
+                for (found, expected) in found.iter().zip(&expected) {
+                    for axis in 0..3 {
+                        assert!((found[axis] - expected[axis]).abs() < 1e-5);
+                    }
+                }
+            }
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn degenerate_input_is_reported() -> Result<()> {
         // A zero-area triangle, and a vertex no triangle uses.
         let positions = [
@@ -463,8 +494,10 @@ mod tests {
             [2.0, 0.0, 0.0],
             [5.0, 5.0, 5.0],
         ];
-        let (_, status) = normals(&positions, &[[0, 1, 2]], NormalWeighting::Area).await?;
-        assert_eq!(status, DEGENERATE_TRIANGLE | VANISHED_NORMAL);
+        for weighting in [NormalWeighting::Area, NormalWeighting::Angle] {
+            let (_, status) = normals(&positions, &[[0, 1, 2]], weighting).await?;
+            assert_eq!(status, DEGENERATE_TRIANGLE | VANISHED_NORMAL);
+        }
         Ok(())
     }
 }

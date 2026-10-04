@@ -3,7 +3,7 @@ use super::*;
 pub(super) fn sync_procedural_equipment_skins(
     mut commands: Commands,
     parts: Query<(Entity, &ProceduralEquipmentPart, Option<&SkinnedMesh>)>,
-    items: Query<(Option<&ItemOf>, Has<TacticalSceneItem>)>,
+    items: Query<(Option<&ItemOf>, Option<&EquipSlot>, Has<TacticalSceneItem>)>,
     bones: Query<(Entity, &MhrBone, &Name)>,
 ) {
     let mut rig_bones = HashMap::<Entity, HashMap<String, Entity>>::new();
@@ -17,7 +17,9 @@ pub(super) fn sync_procedural_equipment_skins(
         let desired_joints = items
             .get(part.item)
             .ok()
-            .and_then(|(owner, scene)| (!scene).then_some(owner?.0))
+            .and_then(|(owner, slot, scene)| {
+                (!scene && holding_side(slot).is_none()).then_some(owner?.0)
+            })
             .and_then(|owner| {
                 let bones = rig_bones.get(&owner)?;
                 part.joint_names
@@ -69,6 +71,7 @@ mod tests {
                 item,
                 inverse_bindposes: bindposes.clone(),
                 joint_names: vec!["l_upleg".into()],
+                rigid_center: Vec3::ZERO,
             })
             .id();
         world

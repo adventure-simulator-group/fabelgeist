@@ -113,11 +113,14 @@ comes before trimming, which renumbers the piece's vertices.
 with it, and a trim band measures each point only to the rims of its own plate,
 so closely overlapping plates each keep their own face.
 
-Some recipe options have designs and validation but no device construction
-yet: pauldrons, wrapped tassets and anime breastplates among them. Each family's
-`device_unsupported` names the first such option a design uses, and every
-device entry point refuses it with `GenerateError::NotOnDevice` rather than
-building the piece without it.
+Pauldrons, wrapped tassets, puff-and-slash clothing and anime breastplates have
+device construction. The character creator measures their wearer and completed
+lower layers on the client. Invalid support fails generation rather than
+silently substituting another design. The tactical client uses ordinary skeletal
+attachment without a runtime plate solver. Valid unposed geometry does not
+establish animation clearance or constrained plate articulation. See the
+[creator guide](../adventuresim-character-creator/README.md#device-construction-and-remaining-work)
+for the current acceptance limits.
 
 Use the character creator's `--write-armor-designs` command to obtain the
 current catalog recipe schema. Vambrace and breastplate designs load from their

@@ -2,7 +2,7 @@
 
 use anyhow::Result;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Side {
     Left,
     Right,
@@ -33,7 +33,7 @@ impl Side {
     }
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FitRegion {
     Head,
     Neck,
@@ -149,6 +149,20 @@ pub(crate) const HAND_SKIN_JOINTS: &[&str] = &[
 impl Wearer<'_> {
     /// The body vertices whose skin belongs mostly to `region`'s joints.
     pub fn support_indices(&self, region: FitRegion) -> Result<Vec<usize>> {
+        self.support_indices_for(region, self.joint_indices, self.joint_weights)
+    }
+
+    /// Anatomical ownership on a fitted lower surface, using this wearer's rig.
+    pub fn support_indices_for(
+        &self,
+        region: FitRegion,
+        joint_indices: &[[u32; 8]],
+        joint_weights: &[[f32; 8]],
+    ) -> Result<Vec<usize>> {
+        anyhow::ensure!(
+            joint_indices.len() == joint_weights.len(),
+            "incomplete surface skin ownership"
+        );
         let owners = region.support_owners();
         let owned = self
             .joint_names
@@ -159,10 +173,16 @@ impl Wearer<'_> {
                     .any(|owner| name == owner || name.starts_with(&format!("{owner}_twist")))
             })
             .collect::<Vec<_>>();
-        Ok(self
-            .joint_indices
+        anyhow::ensure!(
+            joint_indices
+                .iter()
+                .flatten()
+                .all(|&index| (index as usize) < owned.len()),
+            "surface skin references an unknown joint"
+        );
+        Ok(joint_indices
             .iter()
-            .zip(self.joint_weights)
+            .zip(joint_weights)
             .enumerate()
             .filter_map(|(i, (indices, weights))| {
                 let weight: f32 = indices

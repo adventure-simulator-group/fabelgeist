@@ -11,7 +11,7 @@ rand = { version = "=0.9.5", default-features = false, features = ["alloc"] }
 rand_xoshiro.workspace = true
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
-wasm-bindgen-test = "=0.3.58"
+wasm-bindgen-test = "=0.3.76"
 
 [lints]
 workspace = true

@@ -49,6 +49,26 @@ impl PartRecipe {
         Ok(())
     }
 
+    /// Preserve an explicitly authored coordinate grid in the exported shell.
+    pub(crate) fn push_grid_coord(
+        &mut self,
+        shell: CoordShell,
+        kernel: CoordKernel,
+        grid: super::part::GridShape,
+    ) -> Result<(), GenerateError> {
+        if grid.rows < 2
+            || grid.columns < 2
+            || grid.rows.checked_mul(grid.columns) != u32::try_from(shell.coords.len()).ok()
+        {
+            return Err(GenerateError::InvalidSurface);
+        }
+        let mut spec = shell.spec();
+        spec.grid = Some(grid);
+        let index = self.layout.push(spec)?;
+        self.shells.push((index, RecipeShell::Coord(shell, kernel)));
+        Ok(())
+    }
+
     /// A slot for a hinge that a later coordinate shell will place.
     pub(crate) fn hinge(&mut self) -> HingeSlot {
         self.hinges += 1;
@@ -58,6 +78,12 @@ impl PartRecipe {
     /// Tag the shells pushed since the last component with a role.
     pub(crate) fn component(&mut self, role: ArmorComponentRole, hinge: Option<HingeSlot>) {
         self.layout.component(role, hinge);
+    }
+
+    /// Tag and connect the newly authored plate in proximal-to-distal order.
+    pub(crate) fn mounted_component(&mut self, role: ArmorComponentRole, mount: crate::PlateMount) {
+        self.component(role, None);
+        self.layout.mount(mount);
     }
 
     /// Allocate the part and record every shell into its carriers.

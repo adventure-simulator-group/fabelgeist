@@ -295,7 +295,7 @@ impl Buffer {
         // Allocate before obtaining the mapped view so WASM memory growth
         // cannot detach it; initialize typed values only after copying bytes.
         let slice = target_buffer.slice(..);
-        let data = slice.get_mapped_range()?;
+        let data = slice.get_mapped_range();
         let result = readback.copy_from(&data);
         drop(data);
 

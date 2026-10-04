@@ -61,9 +61,7 @@ impl Readback {
             .await
             .map_err(|_| anyhow!("Readback: mapping channel closed"))?
             .map_err(|error| anyhow!("Readback: mapping failed: {error:?}"))?;
-        let data = slice
-            .get_mapped_range()
-            .map_err(|error| anyhow!("Readback: mapped range unavailable: {error:?}"))?;
+        let data = slice.get_mapped_range();
         let results = self
             .ranges
             .iter()

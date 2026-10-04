@@ -8,6 +8,12 @@ excluded_paths = [
 ]
 
 [[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs"
+item = "inspect_materials"
+reason = "Capture fixture selects its supporting cuirass by stable catalog ID for supplementary translucent boundary inspection."
+
+[[scopes]]
 kind = "boundary_adapter"
 path = "crates/adventuresim-tactical-client/src/strategic_scene/status.rs"
 item = "capture_asset_failures"

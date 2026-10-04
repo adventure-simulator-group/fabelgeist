@@ -77,11 +77,15 @@ pub(crate) struct PartLayout {
     pub(super) carrier_count: u32,
     pub(super) final_count: u32,
     /// Roles cover consecutive runs of shells.
-    components: Vec<(
-        ArmorComponentRole,
-        std::ops::Range<usize>,
-        Option<HingeSlot>,
-    )>,
+    components: Vec<ComponentLayout>,
+}
+
+#[derive(Clone, Debug)]
+struct ComponentLayout {
+    role: ArmorComponentRole,
+    shells: std::ops::Range<usize>,
+    hinge: Option<HingeSlot>,
+    mount: Option<crate::PlateMount>,
 }
 
 /// A hinge is placed by the fit, so the device transforms it; the slot is
@@ -114,9 +118,23 @@ impl PartLayout {
 
     /// Tag the shells added since the last component with a role.
     pub(crate) fn component(&mut self, role: ArmorComponentRole, hinge: Option<HingeSlot>) {
-        let start = self.components.last().map_or(0, |(_, range, _)| range.end);
+        let start = self
+            .components
+            .last()
+            .map_or(0, |component| component.shells.end);
+        self.components.push(ComponentLayout {
+            role,
+            shells: start..self.shells.len(),
+            hinge,
+            mount: None,
+        });
+    }
+
+    pub(crate) fn mount(&mut self, mount: crate::PlateMount) {
         self.components
-            .push((role, start..self.shells.len(), hinge));
+            .last_mut()
+            .expect("mount follows its component")
+            .mount = Some(mount);
     }
 
     pub(crate) fn shell_count(&self) -> usize {
@@ -205,14 +223,28 @@ impl PartLayout {
             .iter()
             .filter_map(|shell| {
                 let grid = shell.grid?;
-                Some(SurfaceGrid {
-                    rows: grid.rows,
-                    columns: grid.columns,
-                    cyclic: grid.cyclic,
-                    vertices: (0..grid.rows * grid.columns)
+                let mut surface = SurfaceGrid::regular(
+                    grid.rows,
+                    grid.columns,
+                    grid.cyclic,
+                    (0..grid.rows * grid.columns)
                         .map(|i| shell.first_final + i)
                         .collect(),
-                })
+                );
+                surface.samples = shell
+                    .plan
+                    .sources
+                    .iter()
+                    .enumerate()
+                    .filter(|(_, source)| source.packed() & INNER_BIT == 0)
+                    .map(|(i, source)| crate::SurfaceSample {
+                        vertex: shell.first_final + i as u32,
+                        column: crate::SurfaceColumn::at(source.packed() % grid.columns),
+                        carrier_column: crate::SurfaceColumn::at(source.packed() % grid.columns),
+                        edge_distances: [crate::SurfaceEdgeDistance::Rail; 2],
+                    })
+                    .collect();
+                Some(surface)
             })
             .collect()
     }
@@ -235,19 +267,21 @@ impl PartLayout {
         index_starts.push(at);
         self.components
             .iter()
-            .map(|(role, shells, hinge)| {
+            .map(|component| {
+                let shells = &component.shells;
                 let first = &self.shells[shells.start];
                 let last = &self.shells[shells.end - 1];
                 (
                     ArmorComponent {
-                        role: *role,
+                        role: component.role,
                         vertices: first.first_final as usize
                             ..(last.first_final as usize + last.plan.sources.len()),
                         indices: index_starts[shells.start]..index_starts[shells.end],
                         hinge: None,
+                        mount: component.mount,
                         material: None,
                     },
-                    *hinge,
+                    component.hinge,
                 )
             })
             .collect()

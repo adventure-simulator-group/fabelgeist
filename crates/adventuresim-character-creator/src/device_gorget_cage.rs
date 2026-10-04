@@ -30,7 +30,9 @@ pub(crate) const BIB_ROWS: u32 = 17;
 pub(crate) const BIB_COLUMNS: u32 = 129;
 pub(crate) const BIB_RAW: u32 = BANDS + BAND_COUNT * 6;
 pub(crate) const BIB: u32 = BIB_RAW + BIB_ROWS * BIB_COLUMNS;
-pub(crate) const GORGET_FIT_WORDS: u32 = BIB + BIB_ROWS * BIB_COLUMNS;
+pub(crate) const COLLAR_RAW: u32 = BIB + BIB_ROWS * BIB_COLUMNS;
+pub(crate) const COLLAR: u32 = COLLAR_RAW + BIB_ROWS * BIB_COLUMNS;
+pub(crate) const GORGET_FIT_WORDS: u32 = COLLAR + BIB_ROWS * BIB_COLUMNS;
 
 /// The layout constants, for WGSL.
 pub(crate) fn layout() -> String {
@@ -55,6 +57,8 @@ pub(crate) fn layout() -> String {
         ("BIB_COLUMNS", BIB_COLUMNS),
         ("BIB_RAW", BIB_RAW),
         ("BIB", BIB),
+        ("COLLAR_RAW", COLLAR_RAW),
+        ("COLLAR", COLLAR),
     ]
     .iter()
     .map(|(name, value)| format!("const {name}: u32 = {value}u;\n"))
@@ -201,6 +205,22 @@ fn bib_offset(t: f32, angle: f32) -> vec3<f32> {
     return bib_direction(angle) * bib_cubic(values, row - trunc(row));
 }
 
+// Bilinear measured collar support. Each cell stores an outward envelope;
+// convex interpolation cannot introduce the undershoot of a cubic spline.
+fn collar_offset(t: f32, angle: f32) -> vec3<f32> {
+    let row = clamp(t, 0.0, 1.0) * f32(BIB_ROWS - 1u);
+    let column = cage_rem_tau(angle) / TAU * f32(BIB_COLUMNS - 1u);
+    let r = u32(floor(row));
+    let c = u32(floor(column));
+    let r1 = min(r + 1u, BIB_ROWS - 1u);
+    let c1 = min(c + 1u, BIB_COLUMNS - 1u);
+    let a = mix(cage_word(COLLAR + r * BIB_COLUMNS + c),
+                cage_word(COLLAR + r * BIB_COLUMNS + c1), fract(column));
+    let b = mix(cage_word(COLLAR + r1 * BIB_COLUMNS + c),
+                cage_word(COLLAR + r1 * BIB_COLUMNS + c1), fract(column));
+    return vec3<f32>(sin(angle), 0.0, cos(angle)) * mix(a, b, fract(row));
+}
+
 // A point on the collar, from its top plane (`t` zero) down to its base.
 fn collar_point(t: f32, control: f32) -> vec3<f32> {
     let angle = surface_angle(control);
@@ -212,11 +232,14 @@ fn collar_point(t: f32, control: f32) -> vec3<f32> {
     let radius = polar_radius(width, depth, collar_power(angle), angle);
     let z = cage_word(CENTER + 1u) + radius * cos(angle);
     let top = plane_at(0u, z);
+    // Lower equipment seats the bib/collar seam; blend that displacement
+    // through the collar while its anatomical top opening stays unchanged.
+    let seating = bib_offset(0.0, angle) * t;
     return vec3<f32>(
         cage_word(CENTER) + radius * sin(angle),
         top + (base_height(angle, z) - top) * t,
         z,
-    );
+    ) + seating + collar_offset(t, angle);
 }
 
 // A point on the bib, from the collar's base (`t` zero) down to the hem,
@@ -247,9 +270,9 @@ fn bib_point(t: f32, control: f32) -> vec3<f32> {
     let base = base_height(angle, base_z);
     let available_drop = base - hem;
     let shoulder_crown = min(cage_word(CROWN), available_drop * 0.8 / PI) * sine2 * sin(PI * t);
-    let offset = bib_offset(t, angle);
+    let offset = bib_offset(t, angle) + collar_offset(1.0, angle) * (1.0 - t);
     return vec3<f32>(
-        cage_word(CENTER) + radius * sin(angle),
+        cage_word(CENTER) + radius * sin(angle) + offset.x,
         base + (hem - base) * t + shoulder_crown + offset.y,
         cage_word(CENTER + 1u) + radius * cosine + offset.z,
     );

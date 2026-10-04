@@ -38,7 +38,7 @@ pub(super) fn spawn_fallback(
 ) {
     commands.entity(root).with_child((
         Name::new("Tactical item fallback"),
-        ItemFallback(item),
+        ItemFallback,
         Mesh3d(meshes.add(Cuboid::new(
             physical.dimensions_m.x,
             physical.dimensions_m.y,

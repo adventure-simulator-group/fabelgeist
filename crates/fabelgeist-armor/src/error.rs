@@ -6,6 +6,8 @@ use crate::DesignError;
 
 #[derive(Debug, Error)]
 pub enum GenerateError {
+    #[error("armor plate shell: {0}")]
+    PlateShell(#[from] PlateShellFailure),
     #[error(
         "sabaton ankle cutaway {cutaway_m} m must be smaller than the available instep span {available_span_m} m"
     )]
@@ -19,10 +21,15 @@ pub enum GenerateError {
     InvalidSurface,
     #[error("anatomical surface has no closed forearm contour at the requested placement")]
     EmptySelection,
-    #[error("generated bracer geometry is degenerate")]
+    #[error("generated armor geometry is degenerate")]
     Degenerate,
-    #[error("{0} is not built on the device yet")]
-    NotOnDevice(&'static str),
     #[error("armor GPU: {0}")]
     Gpu(std::sync::Arc<str>),
+}
+
+/// An evaluated metal wall has unusable facets.
+#[derive(Clone, Copy, Debug, Error)]
+pub enum PlateShellFailure {
+    #[error("a wall face is collapsed or has nonfinite coordinates")]
+    CollapsedFace,
 }

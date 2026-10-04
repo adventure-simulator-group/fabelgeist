@@ -51,6 +51,11 @@ pub(crate) fn design_words(design: &BreastplateDesign) -> Vec<f32> {
             f.fade.unit(),
         ]
     }));
+    words.push(design.arm_opening_width.unit());
+    words.push(match &design.construction {
+        crate::BreastplateConstruction::Solid => 0.0,
+        crate::BreastplateConstruction::Anime(course) => course.lap_lift.metres(),
+    });
     words.resize((DESIGN_WORDS + WEARER_WORDS) as usize, 0.0);
     words
 }
@@ -98,6 +103,8 @@ const BACK_LIMIT_DEGREES = array<f32, 10>(89.0, 89.0, 74.0, 54.0, 46.0, 48.0, 46
 const BACK_NECK_Y = array<f32, 10>(1.420, 1.430, 1.455, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 const NECK_U = array<f32, 10>(0.0, 0.25, 0.50, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
+const SHOULDER_SECTION_START_HEIGHT: f32 = 1.355;
+const SHOULDER_SECTION_BLEND_HEIGHT: f32 = 0.100;
 const WAIST_POINT_BLEND_HEIGHT: f32 = 0.45;
 const RIDGE_FADE_START: f32 = 0.65;
 const UPPER_CHEST_PHASE: f32 = 0.65;
@@ -105,6 +112,7 @@ const BACK_UPPER_SECTION_START: f32 = 1.20;
 const BACK_UPPER_SECTION_BLEND: f32 = 0.08;
 const BACK_UPPER_SECTION_POWER: f32 = 0.55;
 const MAX_REAR_RETURN_DEGREES: f32 = 89.0;
+const NECKLINE_SIDE_COLUMN: f32 = 0.5;
 
 fn plate_length() -> f32 { return plate[0]; }
 fn neck_depth() -> f32 { return plate[1]; }
@@ -134,6 +142,8 @@ fn flute_lower_spread() -> f32 { return plate[25]; }
 fn flute_start() -> f32 { return plate[26]; }
 fn flute_end() -> f32 { return plate[27]; }
 fn flute_fade() -> f32 { return plate[28]; }
+fn arm_opening_width() -> f32 { return plate[29]; }
+fn side_lap_reserve() -> f32 { return plate[30]; }
 
 // The wearer, after the design: its frame's lateral and front axes (the
 // vertical is model up), the neck in that frame, and its scales.
@@ -240,7 +250,7 @@ fn mapped_height(reference_y: f32) -> f32 {
 }
 
 fn lateral_scale(reference_y: f32) -> f32 {
-    let shoulder_blend = host_smoothstep(host_div(host_sub(reference_y, 1.355), 0.100));
+    let shoulder_blend = host_smoothstep(host_div(host_sub(reference_y, SHOULDER_SECTION_START_HEIGHT), SHOULDER_SECTION_BLEND_HEIGHT));
     return host_add(
         host_mul(x_scale(), host_sub(1.0, shoulder_blend)), host_mul(shoulder_x_scale(), shoulder_blend)
     );
@@ -266,7 +276,7 @@ fn mapped_point(reference: vec3<f32>) -> vec3<f32> {
     );
 }
 
-fn top_y(rear: bool, u: f32) -> f32 {
+fn neckline_y(rear: bool, u: f32) -> f32 {
     var neck_y = FRONT_NECK_Y;
     var attach_y: f32 = 1.390;
     if (rear) {
@@ -291,9 +301,109 @@ fn top_y(rear: bool, u: f32) -> f32 {
     return host_add(host_mul(neck[2], host_sub(1.0, s)), host_mul(attach, s));
 }
 
+fn arm_opening_column(rear: bool, y: f32) -> f32 {
+    let bottom = bottom_height(rear);
+    let phase = clamp(host_div(host_sub(y, bottom),
+        host_sub(neckline_y(rear, 1.0), bottom)), 0.0, 1.0);
+    return host_add(NECKLINE_SIDE_COLUMN, host_mul(0.5,
+        host_add(1.0, host_mul(host_sub(arm_opening_width(), 1.0), host_smoothstep(phase)))));
+}
+
 fn top_neck_scale(reference_y: f32, bottom: f32, top: f32) -> f32 {
     let blend = host_smoothstep(host_div(host_sub(reference_y, bottom), max(host_sub(top, bottom), 1e-6)));
     return host_add(1.0, host_mul(host_sub(neck_width(), 1.0), blend));
+}
+
+// Sample the carrier at common physical section heights. Its last row is
+// the separately authored neckline; triangulation clips the regular samples
+// to that boundary instead of warping every interior row towards it.
+fn sample_y(rear: bool, u: f32, t: f32) -> f32 {
+    if (t >= 1.0) { return neckline_y(rear, u); }
+    let bottom = bottom_height(rear);
+    let ceiling = max(max(neckline_y(rear, 0.0), neckline_y(rear, 0.25)),
+        max(neckline_y(rear, 0.5), neckline_y(rear, 1.0)));
+    let section = host_mul(t, host_div(f32(V_SAMPLES - 1u), f32(V_SAMPLES - 2u)));
+    return host_add(bottom, host_mul(section, host_sub(ceiling, bottom)));
+}
+
+fn skirt_lateral_share(rear: bool) -> f32 { return select(1.0, host_div(5.0, 6.0), rear); }
+fn skirt_sagittal_share(rear: bool) -> f32 { return select(0.75, 1.0, rear); }
+fn skirt_center_bias(rear: bool) -> f32 { return select(0.006, -0.004, rear); }
+
+fn skirt_angle(seam_theta: f32, edge_theta: f32, t: f32) -> f32 {
+    let inset = host_mul(host_mul(host_mul(2.0, t), side_return()), RADIANS_PER_DEGREE);
+    return host_mul(seam_theta, host_sub(1.0,
+        host_div(inset, max(abs(edge_theta), host_add(inset, 1e-6)))));
+}
+
+// `PlateFluting::fan_coordinate` over the whole chart, in the signed chart coordinate.
+fn fan(u: f32, t: f32) -> f32 {
+    let span = flute_spread();
+    let spread = host_add(
+        flute_lower_spread(), host_mul(host_sub(1.0, flute_lower_spread()), host_smoothstep(t))
+    );
+    let absolute = abs(u);
+    var mapped: f32;
+    if (absolute <= span) {
+        mapped = host_mul(absolute, spread);
+    } else {
+        mapped = host_add(
+            host_mul(span, spread),
+            host_div(
+                host_mul(host_sub(absolute, span), host_sub(1.0, host_mul(span, spread))), host_sub(1.0, span)
+            )
+        );
+    }
+    return sign(u) * mapped;
+}
+
+// Project the authored skirt displacement onto the actual fitting ray.
+fn skirt_radial_relief(rear: bool, u: f32, t: f32, direction: vec2<f32>) -> f32 {
+    let bottom = bottom_height(rear);
+    let seam_u = select(u, fan(u, 0.0), !rear && fluted());
+    let theta = skirt_angle(chart_theta(rear, seam_u, bottom), chart_theta(rear, 1.0, bottom), t);
+    let lateral = host_mul(host_mul(host_mul(host_mul(skirt_flare(), t), skirt_lateral_share(rear)),
+        host_sin(theta)), host_mul(lateral_scale(bottom), waist_width()));
+    let sagittal = host_mul(host_mul(host_mul(host_mul(skirt_flare(), t), skirt_sagittal_share(rear)),
+        host_cos(theta)), select(1.0, -1.0, rear));
+    let bias = host_mul(host_mul(host_mul(skirt_center_bias(rear),
+        host_div(skirt_flare(), 0.030)), t), host_sub(1.0, host_mul(u, u)));
+    return max(host_add(host_mul(lateral, direction.x),
+        host_mul(host_mul(host_add(sagittal, bias), z_scale()), direction.y)), 0.0);
+}
+
+// Artistic front depth above the body-supported shell, shared by authoring
+// and fitting. Clearance remains a separate measured support requirement.
+fn front_profile_depth(phase: f32, sine: f32, cosine: f32) -> f32 {
+    let peak = projection_height();
+    var bell: f32;
+    if (phase <= peak) {
+        bell = host_smoothstep(host_div(phase, peak));
+    } else {
+        bell = host_smoothstep(host_div(host_sub(1.0, phase), host_sub(1.0, peak)));
+    }
+    let upper_bell = host_mul(
+        host_smoothstep(host_div(phase, UPPER_CHEST_PHASE)),
+        host_sub(
+            1.0,
+            host_smoothstep(
+                host_div(host_sub(phase, UPPER_CHEST_PHASE), host_sub(1.0, UPPER_CHEST_PHASE))
+            )
+        ),
+    );
+    let crown = host_add(
+        host_sub(host_mul(projection(), bell), host_mul(upper_chest_recession(), upper_bell)),
+        host_mul(waist_projection(), host_sub(1.0, host_smoothstep(phase))),
+    );
+    let ridge = host_mul(
+        medial_ridge(),
+        host_sub(
+            1.0,
+            host_smoothstep(host_div(host_sub(phase, RIDGE_FADE_START), host_sub(1.0, RIDGE_FADE_START)))
+        ),
+    );
+    let lifted = host_pow(max(cosine, 0.0), host_div(2.0, fullness()));
+    return host_add(host_mul(crown, lifted), host_mul(ridge, host_sub(1.0, abs(sine))));
 }
 
 // The authored front or rear section at (theta, y), in reference space. Each
@@ -307,8 +417,7 @@ fn raw(rear: bool, theta: f32, y: f32) -> vec3<f32> {
     var base: f32;
     var power: f32;
     var phase = 0.0;
-    var crown = 0.0;
-    var ridge = 0.0;
+    var profile_depth = 0.0;
     if (rear) {
         if (c <= 0.0) {
             shape_failed = true;
@@ -326,33 +435,7 @@ fn raw(rear: bool, theta: f32, y: f32) -> vec3<f32> {
         phase = clamp(
             host_div(host_sub(y, FRONT_HEIGHTS[0]), host_sub(FRONT_NECK_Y[0], FRONT_HEIGHTS[0])), 0.0, 1.0
         );
-        let peak = projection_height();
-        var bell: f32;
-        if (phase <= peak) {
-            bell = host_smoothstep(host_div(phase, peak));
-        } else {
-            bell = host_smoothstep(host_div(host_sub(1.0, phase), host_sub(1.0, peak)));
-        }
-        let upper_bell = host_mul(
-            host_smoothstep(host_div(phase, UPPER_CHEST_PHASE)),
-            host_sub(
-                1.0,
-                host_smoothstep(
-                    host_div(host_sub(phase, UPPER_CHEST_PHASE), host_sub(1.0, UPPER_CHEST_PHASE))
-                )
-            ),
-        );
-        crown = host_add(
-            host_sub(host_mul(projection(), bell), host_mul(upper_chest_recession(), upper_bell)),
-            host_mul(waist_projection(), host_sub(1.0, host_smoothstep(phase))),
-        );
-        ridge = host_mul(
-            medial_ridge(),
-            host_sub(
-                1.0,
-                host_smoothstep(host_div(host_sub(phase, RIDGE_FADE_START), host_sub(1.0, RIDGE_FADE_START)))
-            ),
-        );
+        profile_depth = front_profile_depth(phase, s, c);
         power = host_div(2.0, fullness());
         base = max(c, 0.0);
     }
@@ -368,12 +451,7 @@ fn raw(rear: bool, theta: f32, y: f32) -> vec3<f32> {
     let recession = host_mul(0.050, upper);
     let lift = host_mul(0.040, upper);
     let depth = host_add(
-        host_sub(
-            host_add(
-                host_add(host_mul(b, c), host_mul(crown, lifted)), host_mul(ridge, host_sub(1.0, abs(s)))
-            ),
-            recession
-        ),
+        host_sub(host_add(host_mul(b, c), profile_depth), recession),
         host_mul(lift, host_mul(s, s)),
     );
     return vec3<f32>(host_mul(a, s), host_sub(y, point_drop), depth);
@@ -389,7 +467,6 @@ var<private> shape_failed: bool;
 
 struct CarrierPoint {
     point: vec3<f32>,
-    normal: vec3<f32>,
     // The authored section's depth at the point itself.
     raw_depth: f32,
 };
@@ -400,43 +477,35 @@ fn opaque(count: u32) -> u32 {
     return count + host_zero();
 }
 
-// A carrier point: the authored section, mapped onto the wearer and offset by the
-// clearance along its finite-difference normal.
+// Map the authored section without displacing its chart. The body fitter measures
+// clearance along the wearer ray; extrusion normals come from the seated mesh.
 fn carrier_point(rear: bool, theta: f32, y: f32) -> CarrierPoint {
-    var mapped: array<vec3<f32>, 3>;
-    var raw_depth = 0.0;
-    for (var k = 0u; k < opaque(3u); k = k + 1u) {
-        var at_theta = theta;
-        var at_y = y;
-        if (k == 1u) {
-            at_theta = host_add(theta, 0.0005);
-        } else if (k == 2u) {
-            at_y = host_add(y, 0.0002);
-        }
-        let section = raw(rear, at_theta, at_y);
-        if (k == 0u) {
-            raw_depth = section.z;
-        }
-        mapped[k] = mapped_point(section);
-    }
-    let center = mapped[0];
-    let normalized = unit(host_cross(host_sub3(mapped[1], center), host_sub3(mapped[2], center)));
-    if (normalized.w == 0.0) {
-        shape_failed = true;
-    }
-    var normal = normalized.xyz;
-    if (rear) {
-        normal = -normal;
-    }
-    return CarrierPoint(
-        world(host_add3(center, host_scale3(normal, plate_clearance(rear)))), world(normal), raw_depth
-    );
+    let section = raw(rear, theta, y);
+    return CarrierPoint(world(nominal_layer(rear, mapped_point(section))), section.z);
+}
+
+// The fit correction is deformation beyond the configured nominal layer.
+// Radial spacing preserves the chart ray; measured support later replaces
+// this nominal radius with the actual body envelope and clearance.
+fn nominal_layer(rear: bool, point: vec3<f32>) -> vec3<f32> {
+    let direction = unit(vec3<f32>(host_sub(point.x, lateral_origin()), 0.0,
+        host_sub(point.z, coronal_origin()))).xyz;
+    return host_add3(point, host_scale3(direction, plate_clearance(rear)));
+}
+
+// Side coverage trims the torso flanks; the neck and shoulder roots retain
+// their own dimensions rather than shrinking with the side opening.
+fn side_return_at_height(rear: bool, y: f32) -> f32 {
+    let bottom = bottom_height(rear);
+    let phase = clamp(host_div(host_sub(y, bottom), host_sub(neckline_y(rear, 0.0), bottom)), 0.0, 1.0);
+    let blend = host_smoothstep(host_div(host_sub(phase, 0.75), 0.25));
+    return host_add(side_return(), host_mul(host_sub(1.0, side_return()), blend));
 }
 
 fn limit_theta(rear: bool, u: f32, y: f32) -> f32 {
     if (rear) {
         let trim_y = host_add(1.240, host_mul(host_sub(y, 1.240), arm_opening_depth()));
-        let limit = host_mul(cubic(trim_y, BACK_TRIM_HEIGHTS, BACK_LIMIT_DEGREES, 9u, false), side_return());
+        let limit = host_mul(cubic(trim_y, BACK_TRIM_HEIGHTS, BACK_LIMIT_DEGREES, 9u, false), side_return_at_height(rear, y));
         let edge = min(
             host_mul(limit, top_neck_scale(y, BACK_HEIGHTS[0], REFERENCE_CARRIER_TOP_HEIGHT)),
             MAX_REAR_RETURN_DEGREES
@@ -444,60 +513,16 @@ fn limit_theta(rear: bool, u: f32, y: f32) -> f32 {
         return host_mul(host_mul(edge, u), RADIANS_PER_DEGREE);
     }
     let trim_y = host_add(1.250, host_mul(host_sub(y, 1.250), arm_opening_depth()));
-    let limit = host_mul(cubic(trim_y, FRONT_TRIM_HEIGHTS, FRONT_LIMIT_DEGREES, 10u, false), side_return());
+    let limit = host_mul(cubic(trim_y, FRONT_TRIM_HEIGHTS, FRONT_LIMIT_DEGREES, 10u, false), side_return_at_height(rear, y));
     return host_mul(
         host_mul(host_mul(limit, u), top_neck_scale(y, FRONT_HEIGHTS[0], REFERENCE_CARRIER_TOP_HEIGHT)),
         RADIANS_PER_DEGREE
     );
 }
 
-// The chart's angle at column `u` and height `y`: the side limit, with the upper
-// armscye blended in as its own boundary.
+// The arm opening removes facets; it never squeezes the carrier's sections.
 fn chart_theta(rear: bool, u: f32, y: f32) -> f32 {
-    let original = limit_theta(rear, u, y);
-    if (abs(u) <= 0.5) {
-        return original;
-    }
-    let hs = heights(rear);
-    let rs = radii_x(rear);
-    // The upper boundary at the neck, the arm, and this column.
-    var tops: array<f32, 3>;
-    for (var i = 0u; i < opaque(3u); i = i + 1u) {
-        var at = u;
-        if (i == 0u) {
-            at = 0.5;
-        } else if (i == 1u) {
-            at = 1.0;
-        }
-        tops[i] = top_y(rear, at);
-    }
-    let neck_y = tops[0];
-    let arm_y = tops[1];
-    let boundary_y = tops[2];
-    var angles = array<f32, 5>(
-        limit_theta(rear, 0.5, neck_y),
-        limit_theta(rear, 1.0, arm_y),
-        host_mul(host_sub(abs(u), 0.5), PI),
-        limit_theta(rear, 0.5, y),
-        limit_theta(rear, 0.5, boundary_y),
-    );
-    var sines: array<f32, 5>;
-    for (var i = 0u; i < opaque(5u); i = i + 1u) {
-        sines[i] = host_sin(angles[i]);
-    }
-    let neck_x = host_mul(cubic(neck_y, hs, rs, 8u, false), sines[0]);
-    let arm_x = host_mul(cubic(arm_y, hs, rs, 8u, false), sines[1]);
-    let along = sines[2];
-    let radius = cubic(y, hs, rs, 8u, false);
-    let inner_x = host_mul(radius, sines[3]);
-    let boundary_inner_x = host_mul(cubic(boundary_y, hs, rs, 8u, false), sines[4]);
-    let x = host_add(
-        host_add(neck_x, host_mul(host_sub(arm_x, neck_x), along)),
-        host_mul(host_sub(inner_x, boundary_inner_x), host_sub(1.0, along))
-    );
-    let boundary = host_mul(host_asin(clamp(host_div(x, radius), 0.0, 0.995)), sign(u));
-    let phase = clamp(host_div(host_sub(y, hs[0]), host_sub(boundary_y, hs[0])), 0.0, 1.0);
-    let blend = host_smoothstep(host_div(host_sub(phase, 0.75), 0.25));
-    return host_add(host_mul(original, host_sub(1.0, blend)), host_mul(boundary, blend));
+    return limit_theta(rear, u, y);
 }
+
 "#;

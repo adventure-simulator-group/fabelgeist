@@ -122,7 +122,7 @@ fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 2]> {
 const BAND_SPAN: &str = r#"
 // The height band `band` spans, in the head frame.
 fn band_span(band: u32) -> vec2<f32> {
-    let above = bitcast<f32>(0x7f800000u);
+    let above = MAX_FINITE;
     let chin = -half_height();
     let front_hem = host_sub(host_mul(-half_height(), NECK_HEM_HEAD_RATIO), design[NECK_LENGTH]);
     switch band {
@@ -184,6 +184,7 @@ fn source(entry: &str) -> String {
 @group(0) @binding(4) var<storage, read_write> bands: array<atomic<u32>>;
 @group(0) @binding(5) var<storage, read_write> fit: array<f32>;
 @group(0) @binding(6) var<storage, read_write> status: array<atomic<u32>>;
+{math}
 {counted}
 @group(0) @binding(7) var<uniform> params: Params;
 {ordered}
@@ -239,6 +240,7 @@ fn half_height() -> f32 {{
 {entry}
 "#,
         band_span = BAND_SPAN,
+        math = wgsl::MATH,
         counted = wgsl::COUNTED,
         ordered = wgsl::ORDERED_FLOAT,
         zero_hook = host_float::zero_hook("bitcast<u32>(design[ZERO])"),

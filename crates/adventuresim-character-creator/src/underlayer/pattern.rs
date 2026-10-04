@@ -22,6 +22,22 @@ mod mail_regions;
 /// A part frame fitted to the wearer.
 pub type RegionFrame<'a> = &'a dyn Fn(FitRegion) -> Result<PartFrame>;
 
+/// Frames needed before cutting, so browser fitting can await their readback.
+pub(crate) fn required_frames(kind: UnderlayerKind, placement: &str) -> Result<Vec<FitRegion>> {
+    Ok(match kind {
+        UnderlayerKind::ArmingDoublet => vec![
+            FitRegion::Torso,
+            FitRegion::WholeArm(Side::Left),
+            FitRegion::WholeArm(Side::Right),
+        ],
+        UnderlayerKind::PaddedHose => vec![FitRegion::WholeLeg(Side::from_placement(placement)?)],
+        UnderlayerKind::MailVoiders => vec![],
+        UnderlayerKind::MailBrayette => vec![FitRegion::Hips],
+        UnderlayerKind::MailKneeVoider => vec![FitRegion::Knee(Side::from_placement(placement)?)],
+        UnderlayerKind::MailStandard => vec![FitRegion::Neck],
+    })
+}
+
 /// The body volumes an underlayer keeps and removes, placed by the wearer's
 /// rig and sized by the part frames `frame` fits to it.
 pub fn regions(

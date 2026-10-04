@@ -1,5 +1,70 @@
 # Fabelgeist tactical client
 
+## Runtime equipment fitting
+
+Armor and clothing are generated locally from each wearer's evaluated, unposed
+body. Identity and skeletal fit morphs are evaluated on the body once; skeletal
+proportion offsets then place its vertices and fitting landmarks. Equipment
+contains no body-shape morph targets. Its inverse bind poses belong to that
+wearer's rest skeleton, so animation does not apply proportion changes twice.
+
+The client queues fitting outside frame updates on native builds and awaits
+WebGPU initialization and readback in the browser. The compute device creates
+no canvas; Bevy renders the resulting geometry in the existing game canvas.
+Offline exporters retain their reusable morph-equipped asset workflow.
+Compute and rendering dependencies must use the same `wgpu` release: linking
+two releases into the browser client duplicates their vendored WebGPU bindings.
+
+Initial loading exercises every authored armor placement on the canonical body,
+plus layered shoulders and alternate cuirass and tasset constructions. These
+temporary meshes are discarded; the device and compiled compute kernels stay
+alive across city travel. Strategic scene readiness waits for this preparation,
+even when the initial city has no equipped NPCs. Preparation failures surface as
+loading errors. Newly encountered wearers still receive their own fitted meshes;
+initial preparation does not cache canonical fits as substitutes for them.
+
+Fits are cached by item design, anatomical placement, and evaluated body shape.
+The last 128 variants remain available across travel; live entities retain their
+own mesh handles after cache eviction. Changing wearer or proportions requests a
+new fit. Holding or dropping a previously fitted item preserves its shape and
+anatomical placement across placeholder rebuilds. Carried and dropped meshes
+are centered rigid objects; only worn equipment binds to the wearer's skeleton.
+
+Measure fitting separately from rendering with the real canonical body:
+
+```powershell
+cargo run -p adventuresim-tactical-client --example runtime_equipment_bench -- assets/animations/biped/unarmed/base.glb 3
+```
+
+The JSON records separate device opening, first use, and repeated fits. The
+vambrace and breastplate comparisons use the same batched readback for one body
+and the full set of body morph endpoints; they isolate morph generation cost.
+The browser probe example exercises the same asynchronous runtime generator.
+Build it with `cargo build -p adventuresim-tactical-client --example
+armor_browser_probe --target wasm32-unknown-unknown --no-default-features`.
+Run the matching `wasm-bindgen` CLI with `--target web` into an output directory,
+copy `examples/armor_browser_probe.html` there as `index.html`, and copy
+`assets/animations/biped/unarmed/base.glb` from the repository as `body.glb`.
+Serve that directory on localhost. The page reports initial preparation time,
+geometry validity, and first and repeated fitting times for twelve equipment
+types after preparation. Kernel counts identify any missed first-use work.
+Gorget and mail-coif section measurements intersect body triangles, so fitting
+does not require dense vertices near each anatomical measurement plane.
+
+`animation-viewer --armor-harness wearer-fit` renders a gorget, cuirass, and
+paired vambraces on the actual animated wearer for fitting inspection.
+Device builders generate pauldrons, wrapped tassets, anime breastplates, and
+puff-and-slash clothing as well. Unsupported recipes fail readiness instead of
+loading served equipment meshes or silently substituting another design.
+
+Generated equipment uses ordinary skeletal attachment during animation. Metal
+parts retain their authored rigid joint ownership; cuirass courses share one
+chest attachment, and pauldron distal lames follow the upper arm. There is no
+runtime plate solver, body collision mesh, or per-frame contact search in this
+generation path. Generation-time layer fitting and closed-shell validation do
+not establish collision-free animation. Independent plate articulation and
+contact correction are separate work.
+
 ## Browser release builds
 
 `just build-wasm` keeps the gameplay client on the workspace `release` profile
@@ -215,15 +280,27 @@ Run it from the repository root:
 cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output target/animation-captures/locomotion-review
 ```
 
-Use `--armor-harness close-helmet` to equip the installed close helmet through
-normal gameplay equipment loading. Capture waits for the separate skull, bevor,
-and visor meshes, their materials, wearer skin bindings, and all 57 morph
-weights. Front and side views follow the head at inspection distance; the
+Use `--armor-harness close-helmet` to generate the close helmet through
+normal gameplay equipment loading. Capture waits for fitted geometry,
+materials, wearer skin bindings, and the absence of equipment morph targets.
+Front and side views follow the head at inspection distance; the
 gameplay view keeps its usual framing. `armor-readiness.json` records the
 resolved parts and weights. `--scenario ordinary-camera-pitch` exercises
 lowered-guard idle and head pitch; `--scenario raised-guard-stationary-turn`
 exercises guard and turning. Add `--hidden` for automated captures without a
 visible desktop window.
+
+For supplementary boundary inspection, use `--camera-orbit-degrees 120` to
+rotate the front and side cameras around their existing focus. Gameplay framing
+stays unchanged. `--diffuse-armor` removes metallic highlights and makes the
+supporting cuirass translucent while keeping body anatomy visible. The capture
+records these options in `inspection.json`; neither option changes fitting.
+
+Use `--armor-harness puffed` for paired puff-and-slash sleeves and hose. Their
+ring and panel geometry, anatomical section fitting, shell extrusion, and skin
+correspondence run on the client GPU. Component materials retain the authored
+outer fabric and undercloth colors. Worn parts share the evaluated wearer rig;
+carried or dropped material parts retain one common item origin.
 
 Use `--asset-root` when invoking it outside the repository root,
 `--scenario steady-walk-2.0` for a focused iteration, and

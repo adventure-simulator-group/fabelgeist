@@ -385,12 +385,7 @@ pub(super) mod tests {
                 normals.push([angle.cos(), 0.0, -angle.sin()]);
             }
         }
-        let grid = SurfaceGrid {
-            rows,
-            columns,
-            cyclic: true,
-            vertices: (0..rows * columns).collect(),
-        };
+        let grid = SurfaceGrid::regular(rows, columns, true, (0..rows * columns).collect());
         (grid, positions, normals)
     }
 

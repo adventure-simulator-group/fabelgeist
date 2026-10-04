@@ -85,14 +85,42 @@ pub fn fit(
     proportions: &[BodyShape<'_>],
     morphs: &[BodyShape<'_>],
 ) -> Result<FittedUnderlayer> {
+    pollster::block_on(fit_async(
+        gpu,
+        design,
+        placement,
+        body,
+        domain,
+        proportions,
+        morphs,
+    ))
+}
+
+pub async fn fit_async(
+    gpu: &ArmorGpu,
+    design: &UnderlayerDesign,
+    placement: &str,
+    body: &Wearer<'_>,
+    domain: SurfaceDomain<'_>,
+    proportions: &[BodyShape<'_>],
+    morphs: &[BodyShape<'_>],
+) -> Result<FittedUnderlayer> {
     let device_body = body.upload(gpu)?;
     let wearer = DeviceWearer {
         gpu,
         body: &device_body,
         host: body,
     };
+    let mut frames = Vec::new();
+    for region in crate::underlayer::required_frames(design.kind, placement)? {
+        frames.push((region, wearer.read_frame_async(region).await?));
+    }
     let plan = CutPlan::new(design, placement, body, domain.uv_faces, &|region| {
-        wearer.read_frame(region)
+        frames
+            .iter()
+            .find(|(r, _)| *r == region)
+            .map(|(_, frame)| *frame)
+            .ok_or_else(|| anyhow::anyhow!("unprepared underlayer region {region:?}"))
     })?;
     Fit {
         gpu,
@@ -104,6 +132,7 @@ pub fn fit(
         domain: Some(domain),
     }
     .run()
+    .await
 }
 
 struct Fit<'a> {
@@ -123,7 +152,7 @@ struct Realization {
 }
 
 impl Fit<'_> {
-    fn run(&self) -> Result<FittedUnderlayer> {
+    async fn run(&self) -> Result<FittedUnderlayer> {
         let gpu = self.gpu;
         let body = self.body;
         let vertex_count = body.positions.len();
@@ -194,11 +223,15 @@ impl Fit<'_> {
                 directions,
             });
         }
-        self.shells(&ws, &realizations)
+        self.shells(&ws, &realizations).await
     }
 
     /// Evaluate the frozen shell on every realization and read it all back.
-    fn shells(&self, ws: &Workspace, realizations: &[Realization]) -> Result<FittedUnderlayer> {
+    async fn shells(
+        &self,
+        ws: &Workspace<'_>,
+        realizations: &[Realization],
+    ) -> Result<FittedUnderlayer> {
         let gpu = self.gpu;
         let plan = self.plan;
         let count = plan.vertex_count();
@@ -263,15 +296,15 @@ impl Fit<'_> {
             Some(domain) => Some(self.record_skin(ws, domain)?),
             None => None,
         };
-        check_status(gpu.read::<u32>(&ws.status)?[0])?;
-        let status: Vec<u32> = gpu.read(&all_status)?;
-        let positions: Vec<[f32; 3]> = gpu.read(&all_positions)?;
-        let vectors: Vec<[f32; 3]> = gpu.read(&all_normals)?;
+        check_status(gpu.read_async::<u32>(&ws.status).await?[0])?;
+        let status: Vec<u32> = gpu.read_async(&all_status).await?;
+        let positions: Vec<[f32; 3]> = gpu.read_async(&all_positions).await?;
+        let vectors: Vec<[f32; 3]> = gpu.read_async(&all_normals).await?;
         let mut surfaces =
             shell_surfaces(&positions, &vectors, &status, count as usize)?.into_iter();
         let base = surfaces.next().expect("the wearer is always fitted");
         let (texcoords, joint_indices, joint_weights) = match skin {
-            Some((joints, floats)) => read_skin(gpu, &joints, &floats, count as usize)?,
+            Some((joints, floats)) => read_skin(gpu, &joints, &floats, count as usize).await?,
             None => Default::default(),
         };
         Ok(FittedUnderlayer {
@@ -334,10 +367,10 @@ fn shell_surfaces(
 
 type Skin = (Vec<[f32; 2]>, Vec<[u32; 8]>, Vec<[f32; 8]>);
 
-fn read_skin(gpu: &ArmorGpu, joints: &Buffer, floats: &Buffer, count: usize) -> Result<Skin> {
-    let mut joint_indices: Vec<[u32; 8]> = gpu.read(joints)?;
+async fn read_skin(gpu: &ArmorGpu, joints: &Buffer, floats: &Buffer, count: usize) -> Result<Skin> {
+    let mut joint_indices: Vec<[u32; 8]> = gpu.read_async(joints).await?;
     joint_indices.truncate(count);
-    let floats: Vec<[f32; SKIN_FLOATS]> = gpu.read(floats)?;
+    let floats: Vec<[f32; SKIN_FLOATS]> = gpu.read_async(floats).await?;
     let mut texcoords = Vec::with_capacity(count);
     let mut joint_weights = Vec::with_capacity(count);
     for vertex in floats.iter().take(count) {

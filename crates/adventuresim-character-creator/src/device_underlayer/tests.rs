@@ -239,19 +239,21 @@ fn a_cut_shell_is_closed_offset_by_its_layers_and_carries_surface_coordinates() 
         thickness: Millimeters(1),
         ..design()
     };
-    let fitted = Fit {
-        gpu: &gpu,
-        design: &design,
-        body: &body,
-        plan: &plan,
-        proportions: &[],
-        morphs: &[],
-        domain: Some(SurfaceDomain {
-            uv_faces: &faces,
-            texcoords: &texcoords,
-        }),
-    }
-    .run()
+    let fitted = pollster::block_on(
+        Fit {
+            gpu: &gpu,
+            design: &design,
+            body: &body,
+            plan: &plan,
+            proportions: &[],
+            morphs: &[],
+            domain: Some(SurfaceDomain {
+                uv_faces: &faces,
+                texcoords: &texcoords,
+            }),
+        }
+        .run(),
+    )
     .unwrap();
     let shell = &fitted.base.positions;
     assert_closed(shell, &fitted.indices);
@@ -292,22 +294,24 @@ fn a_frozen_envelope_keeps_the_layers_below_the_facing_sheet_on_every_sample() {
     let design = design();
     let cut = cut(&fixture);
     let plan = CutPlan::from_cut(&cut, &body, &fixture.faces);
-    let fitted = Fit {
-        gpu: &gpu,
-        design: &design,
-        body: &body,
-        plan: &plan,
-        proportions: &[BodyShape {
-            positions: &proportion,
-            normals: &normals,
-        }],
-        morphs: &[BodyShape {
-            positions: &morphed,
-            normals: &morph_normals,
-        }],
-        domain: None,
-    }
-    .run()
+    let fitted = pollster::block_on(
+        Fit {
+            gpu: &gpu,
+            design: &design,
+            body: &body,
+            plan: &plan,
+            proportions: &[BodyShape {
+                positions: &proportion,
+                normals: &normals,
+            }],
+            morphs: &[BodyShape {
+                positions: &morphed,
+                normals: &morph_normals,
+            }],
+            domain: None,
+        }
+        .run(),
+    )
     .unwrap();
     assert_eq!(fitted.endpoints.len(), 1);
     let base = &fitted.base.positions;

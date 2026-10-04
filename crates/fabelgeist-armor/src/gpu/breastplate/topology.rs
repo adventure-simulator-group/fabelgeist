@@ -1,21 +1,24 @@
-//! The breastplate's connectivity, decided from the design alone.
+//! Logical carrier correspondence and closed metal shells.
 //!
 //! Each plate is a chart of rows and columns: the main grid rising from the
 //! waist seam, then a skirt hanging below it that shares the seam row. The
 //! solid shell adds an outer wall along the extrusion, gives the skirt its
 //! own seam vertices, closes every boundary edge with a cut wall and, for a
-//! medial ridge, splits the crease. None of that depends on where the
-//! vertices end up, so the host lays it out and the device only places each
-//! solid vertex at its mid vertex, or a gauge outward along its extrusion.
+//! medial ridge, splits the crease. Fitted inner and outer walls retain these
+//! logical vertices and boundary edges, including cuts through evaluated
+//! carrier facets. The device places each solid vertex at its mid
+//! vertex, or a gauge outward along its extrusion.
 
+use super::construction_columns::ConstructionColumns;
+use super::course_coordinates::CourseCoordinates;
 use std::collections::BTreeMap;
 
-use crate::{BreastplateDesign, GenerateError, PlateFace, SurfaceGrid};
+use crate::{BreastplateDesign, GenerateError, PlateFace, SurfaceColumn, SurfaceGrid};
 
 /// Columns of the regular carrier chart.
 pub(crate) const U_SAMPLES: usize = 49;
 /// Rows of the main grid.
-pub(crate) const V_SAMPLES: usize = 33;
+pub(crate) const V_SAMPLES: usize = 34;
 /// Rows of the skirt, its seam row included.
 pub(crate) const SKIRT_SAMPLES: usize = 9;
 /// Profile samples across one flute.
@@ -55,15 +58,56 @@ pub(crate) fn chart_columns(rear: bool, design: &BreastplateDesign) -> Vec<f32> 
 #[derive(Clone, Debug)]
 pub(crate) struct MidTopology {
     pub columns: Vec<f32>,
+    pub rows: usize,
+    pub skirt: bool,
     pub faces: Vec<[u32; 3]>,
     pub skirt_face_start: usize,
+    /// Cut-edge samples appended after the evaluated regular carrier grid.
+    pub cut_columns: Vec<SurfaceColumn>,
     /// Vertices on the medial crease, and right of it, when the design has
     /// a medial ridge.
     pub medial_crease: Vec<bool>,
     pub crease_right: Vec<bool>,
+    /// Outer construction samples, each a retained rendered wall vertex.
+    pub grid_vertices: Option<Vec<u32>>,
+    pub construction_columns: ConstructionColumns,
+    pub course_coordinates: Option<CourseCoordinates>,
 }
 
 impl MidTopology {
+    #[cfg(test)]
+    /// A separate test sheet, with its own closed boundary.
+    pub(super) fn course(rear: bool, columns: Vec<f32>, rows: usize, ridge: bool) -> Self {
+        let width = columns.len();
+        let ids = (0..rows)
+            .map(|r| (0..width).map(|c| (r * width + c) as u32).collect())
+            .collect::<Vec<Vec<u32>>>();
+        let mut faces = Vec::new();
+        grid_faces(&mut faces, &ids, rear);
+        let coords = (0..rows).flat_map(|_| columns.iter().copied());
+        Self {
+            rows,
+            skirt: false,
+            skirt_face_start: faces.len(),
+            faces,
+            cut_columns: Vec::new(),
+            grid_vertices: None,
+            construction_columns: ConstructionColumns::full(width),
+            course_coordinates: None,
+            medial_crease: if ridge {
+                coords.clone().map(|u| u.abs() < 1e-6).collect()
+            } else {
+                Vec::new()
+            },
+            crease_right: if ridge {
+                coords.map(|u| u > 1e-6).collect()
+            } else {
+                Vec::new()
+            },
+            columns,
+        }
+    }
+
     pub(crate) fn new(rear: bool, columns: Vec<f32>, design: &BreastplateDesign) -> Self {
         let width = columns.len();
         let main_ids = (0..V_SAMPLES)
@@ -92,35 +136,17 @@ impl MidTopology {
         };
         Self {
             columns,
+            rows: V_SAMPLES + SKIRT_SAMPLES - 1,
+            skirt: true,
             faces,
             skirt_face_start,
+            cut_columns: Vec::new(),
+            grid_vertices: None,
+            construction_columns: ConstructionColumns::full(width),
+            course_coordinates: None,
             medial_crease,
             crease_right,
         }
-    }
-
-    /// Each vertex's faces in face order, as offsets into one list: the
-    /// order the normal kernel sums face normals into a vertex.
-    pub(crate) fn incident_faces(&self) -> (Vec<u32>, Vec<u32>) {
-        let mut counts = vec![0u32; self.vertex_count() + 1];
-        for face in &self.faces {
-            for vertex in face {
-                counts[*vertex as usize + 1] += 1;
-            }
-        }
-        for i in 1..counts.len() {
-            counts[i] += counts[i - 1];
-        }
-        let mut next = counts.clone();
-        let mut faces = vec![0u32; counts[counts.len() - 1] as usize];
-        for (index, face) in self.faces.iter().enumerate() {
-            for vertex in face {
-                let slot = &mut next[*vertex as usize];
-                faces[*slot as usize] = index as u32;
-                *slot += 1;
-            }
-        }
-        (counts, faces)
     }
 
     pub(crate) fn width(&self) -> usize {
@@ -128,15 +154,26 @@ impl MidTopology {
     }
 
     pub(crate) fn vertex_count(&self) -> usize {
-        (V_SAMPLES + SKIRT_SAMPLES - 1) * self.width()
+        self.rows * self.width() + self.cut_columns.len()
+    }
+
+    pub(super) fn surface_column(&self, vertex: usize) -> SurfaceColumn {
+        let regular = self.rows * self.width();
+        if vertex < regular {
+            SurfaceColumn::at((vertex % self.width()) as u32)
+        } else {
+            self.cut_columns[vertex - regular]
+        }
     }
 
     /// The mid vertices as one grid from the top of the plate down: the
     /// main rows from the neck to the waist seam, then the skirt's.
-    fn rows_downward(&self) -> impl Iterator<Item = u32> + '_ {
+    pub(super) fn rows_downward(&self) -> impl Iterator<Item = u32> + '_ {
         let width = self.width() as u32;
-        let main = (0..V_SAMPLES as u32).rev();
-        let skirt = (1..SKIRT_SAMPLES as u32).map(|row| V_SAMPLES as u32 + row - 1);
+        let main_rows = if self.skirt { V_SAMPLES } else { self.rows };
+        let skirt_rows = if self.skirt { SKIRT_SAMPLES } else { 1 };
+        let main = (0..main_rows as u32).rev();
+        let skirt = (1..skirt_rows as u32).map(move |row| main_rows as u32 + row - 1);
         main.chain(skirt)
             .flat_map(move |row| (0..width).map(move |column| row * width + column))
     }
@@ -151,7 +188,17 @@ fn grid_faces(faces: &mut Vec<[u32; 3]>, ids: &[Vec<u32>], rear: bool) {
                 rows[1][column],
                 rows[1][column + 1],
             );
-            if rear {
+            // Mirror the diagonal across the centre column. An armscye's
+            // shortened outer column makes its upper cells concave in the
+            // angular/height chart; the chord toward the inner upper corner
+            // would cross outside that cell on the left wing.
+            if column < (rows[0].len() - 1) / 2 {
+                if rear {
+                    faces.extend([[a, d, b], [b, d, c]]);
+                } else {
+                    faces.extend([[a, b, d], [b, c, d]]);
+                }
+            } else if rear {
                 faces.extend([[a, c, b], [a, d, c]]);
             } else {
                 faces.extend([[a, b, c], [a, c, d]]);
@@ -174,7 +221,7 @@ pub(crate) struct SolidTopology {
 
 impl SolidTopology {
     /// Thicken `mid` into a solid's connectivity, short of placing anything.
-    pub(crate) fn new(mid: &MidTopology) -> Result<Self, GenerateError> {
+    pub(crate) fn new(mid: &MidTopology, outer_mid: &MidTopology) -> Result<Self, GenerateError> {
         let count = mid.vertex_count() as u32;
         let main_columns = mid.width();
         let mut sources = (0..count)
@@ -183,7 +230,7 @@ impl SolidTopology {
         let mut welded = (0..count * 2).collect::<Vec<_>>();
         let mut skirt_inner = vec![0u32; main_columns];
         let mut skirt_outer = vec![0u32; main_columns];
-        for index in 0..main_columns {
+        for index in 0..if mid.skirt { main_columns } else { 0 } {
             skirt_inner[index] = sources.len() as u32;
             sources.push(index as u32);
             welded.push(index as u32);
@@ -193,27 +240,36 @@ impl SolidTopology {
         }
         let mut indices = Vec::with_capacity(mid.faces.len() * 6);
         let mut faces = Vec::with_capacity(mid.faces.len() * 2);
-        for (face_index, [a, b, c]) in mid.faces.iter().enumerate() {
-            let skirt = face_index >= mid.skirt_face_start;
-            let inner = |index: u32| {
-                if skirt && (index as usize) < main_columns {
-                    skirt_inner[index as usize]
+        for (surface, outer) in [(mid, false), (outer_mid, true)] {
+            for (face_index, triangle) in surface.faces.iter().enumerate() {
+                let skirt = face_index >= surface.skirt_face_start;
+                let corners = triangle.map(|index| {
+                    if skirt && (index as usize) < main_columns {
+                        if outer {
+                            skirt_outer[index as usize]
+                        } else {
+                            skirt_inner[index as usize]
+                        }
+                    } else if outer {
+                        index + count
+                    } else {
+                        index
+                    }
+                });
+                indices.extend(if outer {
+                    corners
                 } else {
-                    index
-                }
-            };
-            let outer = |index: u32| {
-                if skirt && (index as usize) < main_columns {
-                    skirt_outer[index as usize]
+                    [corners[2], corners[1], corners[0]]
+                });
+                faces.push(if outer {
+                    PlateFace::Outer
                 } else {
-                    index + count
-                }
-            };
-            indices.extend([outer(*a), outer(*b), outer(*c)]);
-            indices.extend([inner(*c), inner(*b), inner(*a)]);
-            faces.extend([PlateFace::Outer, PlateFace::Inner]);
+                    PlateFace::Inner
+                });
+            }
         }
-        for [a, b] in boundary_edges(&mid.faces)? {
+        let boundaries = boundary_edges(&mid.faces)?;
+        for &[a, b] in &boundaries {
             // The cut edge has its own shading normals: sharing surface
             // vertices with the narrow wall creases the armhole corners.
             let first = sources.len() as u32;
@@ -225,23 +281,18 @@ impl SolidTopology {
             faces.extend([PlateFace::Edge; 2]);
         }
         validate_closed_shell(indices.as_chunks::<3>().0, &welded)?;
-        let grid = SurfaceGrid {
-            rows: (V_SAMPLES + SKIRT_SAMPLES - 1) as u32,
-            columns: main_columns as u32,
-            cyclic: false,
-            vertices: mid.rows_downward().map(|mid| mid + count).collect(),
-        };
         let mut solid = Self {
             sources,
             indices,
             faces,
-            grids: vec![grid],
+            grids: Vec::new(),
         };
         solid.split_medial_crease(mid);
+        solid.install_grid(mid, outer_mid, &boundaries);
         Ok(solid)
     }
 
-    fn mid_of(&self, vertex: u32) -> usize {
+    pub(super) fn mid_of(&self, vertex: u32) -> usize {
         (self.sources[vertex as usize] & !OUTER_BIT) as usize
     }
 
@@ -283,6 +334,37 @@ impl SolidTopology {
         }
     }
 
+    /// Remove carrier samples outside the rendered trim, preserving source IDs.
+    pub(super) fn compact(&mut self) {
+        let mut used = vec![false; self.sources.len()];
+        for &v in &self.indices {
+            used[v as usize] = true;
+        }
+        let mut remap = vec![u32::MAX; used.len()];
+        let mut sources = Vec::new();
+        for (i, (&source, active)) in self.sources.iter().zip(used).enumerate() {
+            if active {
+                remap[i] = sources.len() as u32;
+                sources.push(source);
+            }
+        }
+        self.sources = sources;
+        for v in &mut self.indices {
+            *v = remap[*v as usize];
+        }
+        for grid in &mut self.grids {
+            grid.remap_vertices(|v| {
+                let v = remap[v as usize];
+                assert_ne!(
+                    v,
+                    u32::MAX,
+                    "construction samples must be rendered wall vertices"
+                );
+                v
+            });
+        }
+    }
+
     /// Append `other`, whose mid vertices follow this plate's `mid_count`.
     pub(crate) fn extend(&mut self, other: Self, mid_count: u32) {
         let offset = self.sources.len() as u32;
@@ -296,9 +378,7 @@ impl SolidTopology {
             .extend(other.indices.into_iter().map(|index| index + offset));
         self.faces.extend(other.faces);
         self.grids.extend(other.grids.into_iter().map(|mut grid| {
-            for vertex in &mut grid.vertices {
-                *vertex += offset;
-            }
+            grid.remap_vertices(|vertex| vertex + offset);
             grid
         }));
     }
@@ -351,10 +431,46 @@ mod tests {
     use super::*;
 
     #[test]
+    fn independently_triangulated_walls_still_close_with_the_same_boundary() {
+        let inner = MidTopology::course(false, vec![-1.0, 0.0, 1.0], 2, false);
+        let mut outer = inner.clone();
+        outer.faces[..2].copy_from_slice(&[[0, 1, 4], [0, 4, 3]]);
+        let solid = SolidTopology::new(&inner, &outer).unwrap();
+        let inner_faces = solid
+            .indices
+            .as_chunks::<3>()
+            .0
+            .iter()
+            .zip(&solid.faces)
+            .filter(|(_, face)| **face == PlateFace::Inner)
+            .map(|(face, _)| face.map(|i| solid.sources[i as usize] & !OUTER_BIT))
+            .collect::<Vec<_>>();
+        let outer_faces = solid
+            .indices
+            .as_chunks::<3>()
+            .0
+            .iter()
+            .zip(&solid.faces)
+            .filter(|(_, face)| **face == PlateFace::Outer)
+            .map(|(face, _)| face.map(|i| solid.sources[i as usize] & !OUTER_BIT))
+            .collect::<Vec<_>>();
+        assert_eq!(outer_faces, outer.faces);
+        assert_eq!(
+            inner_faces,
+            inner
+                .faces
+                .iter()
+                .map(|[a, b, c]| [*c, *b, *a])
+                .collect::<Vec<_>>()
+        );
+        assert_eq!(solid.grids[0].vertices.len(), inner.vertex_count());
+    }
+
+    #[test]
     fn solid_plates_close_and_keep_their_skirt_seam_apart() {
         let design = BreastplateDesign::default();
         let mid = MidTopology::new(true, chart_columns(true, &design), &design);
-        let solid = SolidTopology::new(&mid).unwrap();
+        let solid = SolidTopology::new(&mid, &mid).unwrap();
         let count = mid.vertex_count();
         // Inner and outer walls, the skirt's own seam, and four vertices per
         // boundary edge.
