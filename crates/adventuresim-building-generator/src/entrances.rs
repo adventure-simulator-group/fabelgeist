@@ -23,8 +23,7 @@ pub enum BuildingEntranceId {
     },
 }
 
-/// An exterior entrance in architectural X/Z coordinates. Closure state does
-/// not decide whether the entrance exists. Its floor retains the plan datum.
+/// Selects architectural-floor or natural-terrain support for an entrance.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum BuildingEntranceSupport {
@@ -32,6 +31,8 @@ pub enum BuildingEntranceSupport {
     NaturalTerrain,
 }
 
+/// An exterior entrance in architectural X/Z coordinates. Closure state does
+/// not decide whether the entrance exists.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BuildingEntrance {
     pub id: BuildingEntranceId,
