@@ -184,6 +184,7 @@ fn source(entry: &str) -> String {
 @group(0) @binding(4) var<storage, read_write> bands: array<atomic<u32>>;
 @group(0) @binding(5) var<storage, read_write> fit: array<f32>;
 @group(0) @binding(6) var<storage, read_write> status: array<atomic<u32>>;
+{math}
 {counted}
 @group(0) @binding(7) var<uniform> params: Params;
 {ordered}
@@ -239,6 +240,7 @@ fn half_height() -> f32 {{
 {entry}
 "#,
         band_span = BAND_SPAN,
+        math = wgsl::MATH,
         counted = wgsl::COUNTED,
         ordered = wgsl::ORDERED_FLOAT,
         zero_hook = host_float::zero_hook("bitcast<u32>(design[ZERO])"),

@@ -1,8 +1,8 @@
 //! The mail coif fitted on the device.
 //!
 //! The coif's drape is measured on the torso and neck skin in the head frame,
-//! in dependent steps: rig landmarks set the neck boundary's heights, a
-//! reduction finds the neck's width and the chest and back depths there, the
+//! in dependent steps: rig landmarks set the neck boundary's heights,
+//! triangle sections find the neck's width and the chest and back depths there, the
 //! boundary then sets the flaps' section heights, and a second reduction
 //! finds the body's depth at every flap section. Each step between the two
 //! reductions is one invocation.
@@ -119,7 +119,17 @@ impl DeviceWearer<'_> {
         support.extend(host.support_indices(FitRegion::Neck)?);
         support.sort_unstable();
         support.dedup();
-        let support = support.into_iter().map(|i| i as u32).collect::<Vec<_>>();
+        let mut owned = vec![false; host.positions.len()];
+        for vertex in support {
+            owned[vertex] = true;
+        }
+        let support = host
+            .faces
+            .iter()
+            .filter(|face| face.iter().any(|&vertex| owned[vertex as usize]))
+            .flatten()
+            .copied()
+            .collect::<Vec<_>>();
         let fit = gpu.scratch(
             ((FIT_PROFILE_WORD + COIF_DRAPE_WORDS) * 4) as u64,
             "coif fit",
@@ -147,7 +157,7 @@ impl DeviceWearer<'_> {
             0.0,
         ];
         let mut parameters = PassParameters::new();
-        parameters.insert("count", support.len() as u32);
+        parameters.insert("count", (support.len() / 3) as u32);
         parameters.insert("neck", joint("c_neck")?);
         parameters.insert("jaw", joint("c_jaw_null")?);
         parameters.insert("head", joint("c_head")?);
@@ -160,7 +170,7 @@ impl DeviceWearer<'_> {
         parameters.insert("fit", fit.clone());
         parameters.insert("status", frame.status.clone());
         let [landmarks, neck, boundary, sections, drape] = kernels(gpu)?;
-        let samples = support.len() as u32;
+        let samples = (support.len() / 3) as u32;
         batch
             .dispatch(&landmarks, &parameters, [1, 1, 1])
             .map_err(device_error)?;
@@ -230,12 +240,9 @@ const ZERO: u32 = 8u;
 const NO_ENVELOPE: u32 = 2u;
 const INVALID: u32 = 4u;
 
-const SECTION_HALF_HEIGHT_M: f32 = 0.020;
 const TRANSVERSE_BAND_HALF_WIDTH_M: f32 = 0.030;
-const MINIMUM_SECTION_POINTS: u32 = 3u;
 const SIDE_NECK_BASE_RISE: f32 = 0.38;
 const BACK_NECK_BASE_RISE: f32 = 0.24;
-const NECK_WIDTH_SECTION_HALF_HEIGHT_M: f32 = 0.006;
 const SECTIONS: u32 = {sections}u;
 
 // Work words.
@@ -284,24 +291,18 @@ fn joint(index: u32) -> vec3<f32> {{
     return vec3<f32>(joints[index * 8u], joints[index * 8u + 1u], joints[index * 8u + 2u]);
 }}
 
-// Whether `p` lies in a horizontal body section at `height`, `across` the
-// centre line, on the facing side.
-fn in_section(p: vec3<f32>, height: f32, across: f32, center_depth: f32, facing: f32) -> bool {{
-    return abs(host_sub(p.y, height)) <= SECTION_HALF_HEIGHT_M
-        && abs(host_sub(abs(p.x), across)) <= TRANSVERSE_BAND_HALF_WIDTH_M
-        && host_mul(host_sub(p.z, center_depth), facing) > 0.0;
-}}
-
 fn count_at(at: u32) {{
     atomicAdd(&work[at + 1u], 1u);
 }}
 
+{section_source}
 {entry}
 "#,
         ordered = wgsl::ORDERED_FLOAT,
         zero_hook = host_float::zero_hook("bitcast<u32>(design[ZERO])"),
         host_float = host_float::wgsl(),
         positions = wgsl::read_points("positions"),
+        section_source = include_str!("device_coif_sections.wgsl"),
         sections = COIF_DRAPE_SECTIONS,
         queries = QUERY_START,
         drape = FIT_PROFILE_WORD,
@@ -336,20 +337,14 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     if (i >= params.count) {
         return;
     }
-    let p = local(positions_at(support[i]));
     let center = load(CENTER_DEPTH);
-    if (abs(host_sub(p.y, load(SIDE_HEIGHT))) < NECK_WIDTH_SECTION_HALF_HEIGHT_M) {
-        atomicMax(&work[NECK_WIDTH], ordered_from_float(abs(p.x)));
+    let neck = section(i, load(SIDE_HEIGHT));
+    if (neck.valid) {
+        atomicMax(&work[NECK_WIDTH], ordered_from_float(max(abs(neck.a.x), abs(neck.b.x))));
         count_at(NECK_WIDTH);
     }
-    if (in_section(p, load(FRONT_HEIGHT), 0.0, center, 1.0)) {
-        atomicMax(&work[FRONT_DEPTH], ordered_from_float(p.z));
-        count_at(FRONT_DEPTH);
-    }
-    if (in_section(p, load(BACK_HEIGHT), 0.0, center, -1.0)) {
-        atomicMax(&work[BACK_DEPTH], ordered_from_float(-p.z));
-        count_at(BACK_DEPTH);
-    }
+    reduce_depth(section(i, load(FRONT_HEIGHT)), 0.0, center, 1.0, FRONT_DEPTH);
+    reduce_depth(section(i, load(BACK_HEIGHT)), 0.0, center, -1.0, BACK_DEPTH);
 }
 "#;
 
@@ -359,7 +354,7 @@ const BOUNDARY: &str = r#"
 @compute @workgroup_size(1)
 fn main() {
     for (var k = 0u; k < 3u; k = k + 1u) {
-        if (atomicLoad(&work[NECK_WIDTH + 2u * k + 1u]) < MINIMUM_SECTION_POINTS) {
+        if (atomicLoad(&work[NECK_WIDTH + 2u * k + 1u]) == 0u) {
             fail(NO_ENVELOPE);
             return;
         }
@@ -407,20 +402,17 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     if (i >= params.count) {
         return;
     }
-    let p = local(positions_at(support[i]));
     let center = load(BOUNDARY + 4u);
     let half_width = load(FLAP_HALF_WIDTH);
     for (var flap = 0u; flap < 2u; flap = flap + 1u) {
         let facing = select(1.0, -1.0, flap == 1u);
         for (var j = 0u; j < SECTIONS; j = j + 1u) {
             let height = load(SECTION_HEIGHTS + flap * SECTIONS + j);
+            let surface = section(i, height);
             for (var edge = 0u; edge < 2u; edge = edge + 1u) {
                 let across = select(0.0, half_width, edge == 1u);
-                if (in_section(p, height, across, center, facing)) {
-                    let at = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
-                    atomicMax(&work[at], ordered_from_float(host_mul(p.z, facing)));
-                    count_at(at);
-                }
+                let at = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
+                reduce_depth(surface, across, center, facing, at);
             }
         }
     }
@@ -444,7 +436,7 @@ fn main() {
             words[at] = load(SECTION_HEIGHTS + flap * SECTIONS + j);
             for (var edge = 0u; edge < 2u; edge = edge + 1u) {
                 let query = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
-                if (atomicLoad(&work[query + 1u]) < MINIMUM_SECTION_POINTS) {
+                if (atomicLoad(&work[query + 1u]) == 0u) {
                     fail(NO_ENVELOPE);
                     return;
                 }
