@@ -13,6 +13,49 @@ pub struct NpcPolicy {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
+pub enum TemporalScope {
+    ActorLocal,
+    PairwiseSoft,
+    Institutional,
+    NpcCanonical,
+    ExclusiveShared,
+}
+
+/// Enforce the chronology contract at canonical mutation boundaries.
+/// Pairwise-soft and institutional interactions intentionally inspect only the
+/// actor's frontier: dialogue, affinity, guild, trade, rest, and socializing
+/// may address someone without advancing or even reading the target's clock.
+pub fn enforce_temporal_scope(
+    ctx: &ReducerContext,
+    actor_id: u64,
+    target_id: Option<u64>,
+    scope: TemporalScope,
+) -> Result<StrategicMinute, String> {
+    let actor_minute = canonical_now(ctx, actor_id)?;
+    match scope {
+        TemporalScope::ActorLocal | TemporalScope::PairwiseSoft | TemporalScope::Institutional => {
+            Ok(actor_minute)
+        }
+        TemporalScope::NpcCanonical => {
+            let target_id = target_id.ok_or("NPC-canonical scope requires a target")?;
+            if ctx.db.npc_policy().character_id().find(target_id).is_none() {
+                return Err("NPC-canonical scope requires an NPC-policy character".into());
+            }
+            Ok(actor_minute)
+        }
+        TemporalScope::ExclusiveShared => {
+            let target_id = target_id.ok_or("Exclusive scope requires a second participant")?;
+            if ctx.db.character().id().find(target_id).is_none() {
+                return Err("Exclusive scope requires an existing second participant".into());
+            }
+            // Commitments are facts in the settlement's canonical present.
+            // The participants' subjective ages never need to match.
+            crate::time::refresh_clock(ctx)
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
 pub enum KinshipKind {
     Parent,
     Child,

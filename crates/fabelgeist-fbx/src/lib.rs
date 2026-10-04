@@ -10,29 +10,14 @@
 //! how FBX's transform chain composes, what units the file is in — is left to
 //! callers, because rigs disagree about all three.
 //!
-//! Uses dependency-free checked storage spans and a pure-Rust inflate,
+//! Deliberately free of heavy dependencies (`anyhow` and a pure-Rust inflate),
 //! so an asset pipeline can read FBX without pulling in a tensor runtime.
 
 use std::collections::HashMap;
+use std::io::Read;
 
-mod binary;
-mod class;
-mod property_name;
-mod record;
-pub use class::{FbxClassName, ModelRole};
-pub use property_name::{CurveAxis, FbxPropertyName, TransformProperty};
-pub use record::FbxRecordName;
-mod connection;
-mod identity;
-mod object_name;
-pub use binary::{
-    FbxArrayCount, FbxArrayEncodingCode, FbxArrayKind, FbxDecodeError, FbxFormatViolation,
-    FbxPropertyCount, FbxPropertyTag, FbxSection, FbxVersion, parse,
-};
-pub use connection::FbxConnectionProperty;
-use fabelgeist_storage::StorageView;
-pub use identity::FbxObjectId;
-pub use object_name::{FbxObjectName, FbxQualifiedName};
+use anyhow::{Context, Result, anyhow, bail};
+use flate2::read::ZlibDecoder;
 
 pub mod animation;
 
@@ -111,22 +96,18 @@ impl Prop {
 /// One node record of the FBX tree.
 #[derive(Debug, Clone)]
 pub struct Node {
-    pub name: FbxRecordName,
+    pub name: String,
     pub props: Vec<Prop>,
     pub children: Vec<Node>,
 }
 
 impl Node {
-    pub fn child(&self, name: &FbxRecordName) -> Option<&Node> {
-        self.children
-            .iter()
-            .find(|c: &&Node| -> bool { &c.name == name })
+    pub fn child(&self, name: &str) -> Option<&Node> {
+        self.children.iter().find(|c| c.name == name)
     }
 
-    pub fn children_named<'a>(&'a self, name: &'a FbxRecordName) -> impl Iterator<Item = &'a Node> {
-        self.children
-            .iter()
-            .filter(move |c: &&Node| -> bool { &c.name == name })
+    pub fn children_named<'a>(&'a self, name: &'a str) -> impl Iterator<Item = &'a Node> {
+        self.children.iter().filter(move |c| c.name == name)
     }
 
     pub fn prop(&self, index: usize) -> Option<&Prop> {
@@ -151,18 +132,18 @@ impl Node {
     ///
     /// Mirrors OpenFBX `resolveProperty`: a `P` record whose first property is
     /// the requested name; values start at index 4.
-    pub fn property70(&self, name: &FbxPropertyName<'_>) -> Option<&Node> {
-        let props = self.child(&FbxRecordName::PROPERTIES70)?;
-        props.children.iter().find(|p: &&Node| -> bool {
+    pub fn property70(&self, name: &str) -> Option<&Node> {
+        let props = self.child("Properties70")?;
+        props.children.iter().find(|p| {
             p.props
                 .first()
-                .and_then(FbxPropertyName::from_property)
-                .is_some_and(|key: FbxPropertyName<'_>| -> bool { &key == name })
+                .and_then(|v| v.as_str())
+                .is_some_and(|v| v == name.as_bytes())
         })
     }
 
     /// A three-component `Properties70` value such as `Lcl Translation`.
-    pub fn property70_vec3(&self, name: &FbxPropertyName<'_>, default: [f64; 3]) -> [f64; 3] {
+    pub fn property70_vec3(&self, name: &str, default: [f64; 3]) -> [f64; 3] {
         let Some(p) = self.property70(name) else {
             return default;
         };
@@ -177,7 +158,7 @@ impl Node {
     }
 
     /// A scalar integer `Properties70` value such as `RotationOrder`.
-    pub fn property70_i64(&self, name: &FbxPropertyName<'_>, default: i64) -> i64 {
+    pub fn property70_i64(&self, name: &str, default: i64) -> i64 {
         self.property70(name)
             .and_then(|p| p.props.get(4))
             .and_then(Prop::as_i64)
@@ -185,40 +166,236 @@ impl Node {
     }
 }
 
+struct Reader<'a> {
+    data: &'a [u8],
+    pos: usize,
+    version: u32,
+}
+
+impl<'a> Reader<'a> {
+    fn take(&mut self, len: usize) -> Result<&'a [u8]> {
+        let end = self
+            .pos
+            .checked_add(len)
+            .ok_or_else(|| anyhow!("FBX read overflow"))?;
+        if end > self.data.len() {
+            bail!(
+                "truncated FBX file: wanted {len} bytes at offset {}",
+                self.pos
+            );
+        }
+        let slice = &self.data[self.pos..end];
+        self.pos = end;
+        Ok(slice)
+    }
+
+    fn u8(&mut self) -> Result<u8> {
+        Ok(self.take(1)?[0])
+    }
+
+    fn u32(&mut self) -> Result<u32> {
+        Ok(u32::from_le_bytes(self.take(4)?.try_into().unwrap()))
+    }
+
+    fn u64(&mut self) -> Result<u64> {
+        Ok(u64::from_le_bytes(self.take(8)?.try_into().unwrap()))
+    }
+
+    /// Node headers went 32-bit -> 64-bit in FBX 7500.
+    fn header_word(&mut self) -> Result<u64> {
+        if self.version >= 7500 {
+            self.u64()
+        } else {
+            Ok(self.u32()? as u64)
+        }
+    }
+
+    fn header_size(&self) -> usize {
+        // 3 header words + the 1-byte name length.
+        if self.version >= 7500 { 25 } else { 13 }
+    }
+}
+
+fn decode_array<T: Copy>(
+    raw: &[u8],
+    count: usize,
+    encoding: u32,
+    parse: impl Fn(&[u8]) -> T,
+    width: usize,
+) -> Result<Vec<T>> {
+    let bytes = if encoding == 0 {
+        raw.to_vec()
+    } else {
+        let mut out = Vec::with_capacity(count * width);
+        ZlibDecoder::new(raw)
+            .read_to_end(&mut out)
+            .context("inflating FBX array property")?;
+        out
+    };
+    if bytes.len() < count * width {
+        bail!(
+            "FBX array property is short: {} bytes for {count} x {width}",
+            bytes.len()
+        );
+    }
+    Ok((0..count)
+        .map(|i| parse(&bytes[i * width..(i + 1) * width]))
+        .collect())
+}
+
+fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
+    let mut props = Vec::with_capacity(count);
+    for _ in 0..count {
+        let kind = reader.u8()?;
+        let prop = match kind {
+            b'Y' => Prop::I16(i16::from_le_bytes(reader.take(2)?.try_into().unwrap())),
+            b'C' => Prop::Bool(reader.u8()? != 0),
+            b'I' => Prop::I32(i32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
+            b'F' => Prop::F32(f32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
+            b'D' => Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
+            b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
+            b'f' | b'd' | b'l' | b'i' | b'b' => {
+                let count = reader.u32()? as usize;
+                let encoding = reader.u32()?;
+                let compressed_len = reader.u32()? as usize;
+                let raw = reader.take(compressed_len)?;
+                match kind {
+                    b'f' => Prop::ArrF32(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| f32::from_le_bytes(b.try_into().unwrap()),
+                        4,
+                    )?),
+                    b'd' => Prop::ArrF64(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| f64::from_le_bytes(b.try_into().unwrap()),
+                        8,
+                    )?),
+                    b'i' => Prop::ArrI32(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| i32::from_le_bytes(b.try_into().unwrap()),
+                        4,
+                    )?),
+                    b'l' => Prop::ArrI64(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| i64::from_le_bytes(b.try_into().unwrap()),
+                        8,
+                    )?),
+                    _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
+                }
+            }
+            b'S' => {
+                let len = reader.u32()? as usize;
+                Prop::Str(reader.take(len)?.to_vec())
+            }
+            b'R' => {
+                let len = reader.u32()? as usize;
+                Prop::Raw(reader.take(len)?.to_vec())
+            }
+            other => bail!("unknown FBX property type {:?}", other as char),
+        };
+        props.push(prop);
+    }
+    Ok(props)
+}
+
+/// Reads one node record. Returns `None` for the null record that terminates a list.
+fn read_node(reader: &mut Reader<'_>) -> Result<Option<Node>> {
+    let end_offset = reader.header_word()? as usize;
+    let num_props = reader.header_word()? as usize;
+    let _prop_list_len = reader.header_word()?;
+    let name_len = reader.u8()? as usize;
+    let name = String::from_utf8_lossy(reader.take(name_len)?).into_owned();
+
+    if end_offset == 0 {
+        return Ok(None);
+    }
+
+    let props = read_props(reader, num_props)?;
+
+    let mut children = Vec::new();
+    let sentinel = reader.header_size();
+    while reader.pos + sentinel <= end_offset {
+        match read_node(reader)? {
+            Some(child) => children.push(child),
+            None => break,
+        }
+    }
+    reader.pos = end_offset;
+
+    Ok(Some(Node {
+        name,
+        props,
+        children,
+    }))
+}
+
+/// Parses the top-level node list of a binary FBX file.
+pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
+    const MAGIC: &[u8] = b"Kaydara FBX Binary  \x00";
+    if data.len() < 27 || &data[..MAGIC.len()] != MAGIC {
+        // ASCII FBX is a different format sharing the extension. Saying so is
+        // more use than "not a binary FBX file", because the fix is a re-export.
+        if data.starts_with(b"; FBX") || data.starts_with(b"\xef\xbb\xbf; FBX") {
+            bail!("this is an ASCII FBX file; re-export it as binary FBX");
+        }
+        bail!("not a binary FBX file");
+    }
+    let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
+    let mut reader = Reader {
+        data,
+        pos: 27,
+        version,
+    };
+
+    let mut roots = Vec::new();
+    while reader.pos + reader.header_size() <= data.len() {
+        match read_node(&mut reader)? {
+            Some(node) => roots.push(node),
+            None => break,
+        }
+    }
+    Ok(roots)
+}
+
 /// An entry of the `Objects` block.
 #[derive(Debug)]
 pub struct Object {
-    pub id: FbxObjectId,
+    pub id: i64,
     /// Object name with the `\0\x01Class` suffix and any `namespace:` prefix removed.
-    pub name: FbxObjectName,
+    pub name: String,
     /// Object name with its namespace intact, e.g. `mixamorig:Hips`.
     ///
     /// Rig profiles are usually written against the namespaced name, so an
     /// importer wants this one even though momentum matches on the stripped one.
-    pub qualified: FbxQualifiedName,
+    pub qualified: String,
     /// The sub-class token, e.g. `LimbNode`, `Mesh`, `Cluster`, `BlendShapeChannel`.
-    pub class: FbxClassName,
+    pub class: String,
     /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
-    pub kind: FbxRecordName,
+    pub kind: String,
     pub node: Node,
 }
 
 impl Object {
-    /// Classifies Models without asserting object existence or rig membership.
-    /// OpenFBX interprets both Root and LimbNode as joint candidates.
-    pub fn model_role(&self) -> Option<ModelRole> {
-        if self.kind != FbxRecordName::MODEL {
-            return None;
-        }
-        Some(
-            if self.class == FbxClassName::ROOT || self.class == FbxClassName::LIMB_NODE {
-                ModelRole::Joint
-            } else if self.class == FbxClassName::NULL {
-                ModelRole::Null
-            } else {
-                ModelRole::Uninterpreted
-            },
-        )
+    /// OpenFBX maps `Model::Root` onto a limb node, which is why `body_world`
+    /// becomes joint 0 of the MHR skeleton rather than a plain null node.
+    pub fn is_limb(&self) -> bool {
+        self.kind == "Model" && (self.class == "LimbNode" || self.class == "Root")
+    }
+
+    pub fn is_null_node(&self) -> bool {
+        self.kind == "Model" && self.class == "Null"
+    }
+
+    pub fn is_node(&self) -> bool {
+        self.kind == "Model"
     }
 }
 
@@ -226,65 +403,65 @@ impl Object {
 #[derive(Debug, Clone)]
 pub struct Link {
     /// The object being connected in.
-    pub from: FbxObjectId,
+    pub from: i64,
     /// The property it connects to, for object-property (`OP`) links.
     ///
     /// Animation is addressed entirely through these: a curve node connects to
     /// a model's `Lcl Rotation`, and a curve connects to that node's `d|X`.
-    pub property: Option<FbxConnectionProperty>,
+    pub property: Option<String>,
 }
 
 /// The object table plus the connection graph of an FBX file.
-/// Admitted records are immutable, so lookup indices stay consistent.
-///
-/// ```compile_fail
-/// use fabelgeist_fbx::Scene;
-/// let mut scene = Scene::from_roots(Vec::new());
-/// scene.objects.clear();
-/// ```
 pub struct Scene {
-    objects: Vec<Object>,
+    pub objects: Vec<Object>,
     /// The file's top-level records, kept for `GlobalSettings` and friends.
-    roots: Vec<Node>,
-    by_id: HashMap<FbxObjectId, usize>,
+    pub roots: Vec<Node>,
+    by_id: HashMap<i64, usize>,
     /// Incoming links per object id, in file order (id 0 is the scene root).
-    links: HashMap<FbxObjectId, Vec<Link>>,
+    links: HashMap<i64, Vec<Link>>,
+}
+
+fn object_name(raw: &[u8]) -> String {
+    let name = match raw.windows(2).position(|w| w == [0, 1]) {
+        Some(pos) => &raw[..pos],
+        None => raw,
+    };
+    let name = String::from_utf8_lossy(name).into_owned();
+    // momentum strips namespaces before matching joints against the .model file.
+    match name.rfind(':') {
+        Some(pos) => name[pos + 1..].to_string(),
+        None => name,
+    }
+}
+
+/// The object name with any namespace left on, e.g. `mixamorig:Hips`.
+fn qualified_name(raw: &[u8]) -> String {
+    let name = match raw.windows(2).position(|w| w == [0, 1]) {
+        Some(pos) => &raw[..pos],
+        None => raw,
+    };
+    String::from_utf8_lossy(name).into_owned()
 }
 
 impl Scene {
-    /// Admitted object records in their original encounter order.
-    pub fn objects(&self) -> impl Iterator<Item = &Object> {
-        self.objects.iter()
-    }
-
-    /// Admitted top-level records, including uninterpreted metadata.
-    pub fn roots(&self) -> impl Iterator<Item = &Node> {
-        self.roots.iter()
-    }
-
-    pub fn from_roots(roots: Vec<Node>) -> Self {
+    pub fn from_roots(roots: Vec<Node>) -> Result<Self> {
         let mut objects = Vec::new();
         let mut by_id = HashMap::new();
-        let mut links: HashMap<FbxObjectId, Vec<Link>> = HashMap::new();
+        let mut links: HashMap<i64, Vec<Link>> = HashMap::new();
 
         for root in &roots {
-            if root.name != FbxRecordName::OBJECTS {
+            if root.name != "Objects" {
                 continue;
             }
             for node in &root.children {
-                let Some(id) = node.props.first().and_then(FbxObjectId::from_property) else {
+                let Some(id) = node.props.first().and_then(Prop::as_i64) else {
                     continue;
                 };
-                let qualified = node
-                    .props
-                    .get(1)
-                    .and_then(FbxQualifiedName::from_property)
-                    .unwrap_or_default();
-                let name = FbxObjectName::from(&qualified);
+                let name = node.str_prop(1).map(object_name).unwrap_or_default();
+                let qualified = node.str_prop(1).map(qualified_name).unwrap_or_default();
                 let class = node
-                    .props
-                    .get(2)
-                    .and_then(FbxClassName::from_property)
+                    .str_prop(2)
+                    .map(|c| String::from_utf8_lossy(c).into_owned())
                     .unwrap_or_default();
                 by_id.insert(id, objects.len());
                 objects.push(Object {
@@ -299,103 +476,81 @@ impl Scene {
         }
 
         for root in &roots {
-            if root.name != FbxRecordName::CONNECTIONS {
+            if root.name != "Connections" {
                 continue;
             }
             for c in &root.children {
                 // C: [type, from, to, (property name)]
                 let (Some(from), Some(to)) = (
-                    c.props.get(1).and_then(FbxObjectId::from_property),
-                    c.props.get(2).and_then(FbxObjectId::from_property),
+                    c.props.get(1).and_then(Prop::as_i64),
+                    c.props.get(2).and_then(Prop::as_i64),
                 ) else {
                     continue;
                 };
-                if from == FbxObjectId::SCENE_ROOT {
+                if from == 0 {
                     continue;
                 }
                 let property = c
                     .props
                     .get(3)
-                    .and_then(FbxConnectionProperty::from_property);
+                    .and_then(Prop::as_str)
+                    .map(|name| String::from_utf8_lossy(name).into_owned());
                 links.entry(to).or_default().push(Link { from, property });
             }
         }
 
-        Self {
+        Ok(Self {
             objects,
             roots,
             by_id,
             links,
-        }
+        })
     }
 
-    pub fn parse(data: StorageView<'_>) -> Result<Self, FbxDecodeError> {
-        Ok(Self::from_roots(parse(data)?))
+    pub fn parse(data: &[u8]) -> Result<Self> {
+        Self::from_roots(parse(data)?)
     }
 
-    pub fn get(&self, id: FbxObjectId) -> Option<&Object> {
+    pub fn get(&self, id: i64) -> Option<&Object> {
         self.by_id.get(&id).map(|i| &self.objects[*i])
     }
 
     /// A top-level record such as `GlobalSettings` or `Definitions`.
-    pub fn root(&self, name: &FbxRecordName) -> Option<&Node> {
-        self.roots
-            .iter()
-            .find(|root: &&Node| -> bool { &root.name == name })
+    pub fn root(&self, name: &str) -> Option<&Node> {
+        self.roots.iter().find(|root| root.name == name)
     }
 
     /// Objects connected as children of `id`, in file order. This is OpenFBX's
     /// `resolveObjectLink` ordering, which fixes the joint order of the rig.
-    pub fn children(&self, id: FbxObjectId) -> impl Iterator<Item = &Object> {
+    pub fn children(&self, id: i64) -> impl Iterator<Item = &Object> {
         self.incoming(id).filter_map(|link| self.get(link.from))
     }
 
     /// As [`Scene::children`], keeping the property each link targets.
-    pub fn children_with_property(
-        &self,
-        id: FbxObjectId,
-    ) -> impl Iterator<Item = (&Object, Option<&FbxConnectionProperty>)> {
-        self.incoming(id).filter_map(
-            |link: &Link| -> Option<(&Object, Option<&FbxConnectionProperty>)> {
-                self.get(link.from).map(
-                    |object: &Object| -> (&Object, Option<&FbxConnectionProperty>) {
-                        (object, link.property.as_ref())
-                    },
-                )
-            },
-        )
+    pub fn children_with_property(&self, id: i64) -> impl Iterator<Item = (&Object, Option<&str>)> {
+        self.incoming(id).filter_map(|link| {
+            self.get(link.from)
+                .map(|object| (object, link.property.as_deref()))
+        })
     }
 
-    fn incoming(&self, id: FbxObjectId) -> impl Iterator<Item = &Link> {
+    fn incoming(&self, id: i64) -> impl Iterator<Item = &Link> {
         self.links.get(&id).map(Vec::as_slice).unwrap_or(&[]).iter()
     }
 
     /// The first child of `id` whose record name and class match.
-    pub fn child_of_kind(
-        &self,
-        id: FbxObjectId,
-        kind: &FbxRecordName,
-        class: &FbxClassName,
-    ) -> Option<&Object> {
+    pub fn child_of_kind(&self, id: i64, kind: &str, class: &str) -> Option<&Object> {
         self.children(id)
-            .find(|o: &&Object| -> bool { &o.kind == kind && &o.class == class })
+            .find(|o| o.kind == kind && o.class == class)
     }
 
     pub fn objects_of_kind<'a>(
         &'a self,
-        kind: &'a FbxRecordName,
-        class: &'a FbxClassName,
+        kind: &'a str,
+        class: &'a str,
     ) -> impl Iterator<Item = &'a Object> {
         self.objects
             .iter()
-            .filter(move |o: &&Object| -> bool { &o.kind == kind && &o.class == class })
+            .filter(move |o| o.kind == kind && o.class == class)
     }
 }
-
-#[cfg(test)]
-mod scene_tests;
-#[cfg(test)]
-mod selector_tests;
-
-#[cfg(test)]
-mod name_tests;

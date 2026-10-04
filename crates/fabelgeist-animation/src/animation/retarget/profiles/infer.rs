@@ -10,55 +10,117 @@
 //! serialize it, ship it. Nothing downstream can tell it was inferred.
 //!
 //! Inference is deliberately conservative. It claims a joint only on a keyword
-//! it recognizes, requires the pelvis only when it finds one, and roles it cannot place
+//! it recognizes, it never marks anything required, and roles it cannot place
 //! are simply left out — an unmapped joint keeps its rest pose, which is a
 //! visible but harmless result, where a *wrongly* mapped one is neither.
 
-use super::inference_name::{
-    ClaimState, InferenceKeyword, InferenceStem, InferredName, KeywordSpecificity, Side,
-};
 use crate::skeleton::Skeleton;
-use InferenceKeyword::*;
-use fabelgeist_rig::{RigJointMembership, RigJointOrdinal};
 
 use super::super::profile::{ChainBinding, ReferencePose, RigProfile, RootSource};
 use super::super::semantic::{HumanoidChain, HumanoidJoint};
 
+/// Which half of the body a joint's name claims.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Side {
+    Left,
+    Right,
+    Center,
+}
+
+/// Splits a joint name into the side it names and the rest of the name,
+/// lowercased with separators removed.
+///
+/// Rigs mark sides in every way anyone has thought of: `LeftArm`, `l_uparm`,
+/// `arm.L`, `LHipJoint`, `lFemur`.
+fn split_side(name: &str) -> (Side, String) {
+    let bare = name.rsplit([':', '|']).next().unwrap_or(name);
+    let lower = bare.to_ascii_lowercase();
+
+    let strip = |side: Side, rest: String| (side, simplify(&rest));
+
+    for (word, side) in [("left", Side::Left), ("right", Side::Right)] {
+        if let Some(position) = lower.find(word) {
+            let mut rest = lower.clone();
+            rest.replace_range(position..position + word.len(), "");
+            return strip(side, rest);
+        }
+    }
+
+    let separators = ['_', '-', '.', ' '];
+    for (prefix, side) in [("l", Side::Left), ("r", Side::Right)] {
+        for separator in separators {
+            let marker = format!("{prefix}{separator}");
+            if lower.starts_with(&marker) {
+                return strip(side, lower[marker.len()..].to_string());
+            }
+            let marker = format!("{separator}{prefix}");
+            if lower.ends_with(&marker) {
+                return strip(side, lower[..lower.len() - marker.len()].to_string());
+            }
+        }
+    }
+
+    // `LHipJoint`, `lFemur`: a lone side letter before a capitalized word.
+    let mut characters = bare.chars();
+    if let (Some(first), Some(second)) = (characters.next(), characters.next())
+        && second.is_ascii_uppercase()
+    {
+        match first {
+            'l' | 'L' => return strip(Side::Left, bare[1..].to_string()),
+            'r' | 'R' => return strip(Side::Right, bare[1..].to_string()),
+            _ => {}
+        }
+    }
+
+    (Side::Center, simplify(bare))
+}
+
+/// Lowercase, alphanumerics only — the form keywords are matched against.
+fn simplify(name: &str) -> String {
+    name.chars()
+        .filter(|character| character.is_ascii_alphanumeric())
+        .map(|character| character.to_ascii_lowercase())
+        .collect()
+}
+
 /// Keywords per role, most specific first. A joint matching a longer keyword
 /// beats one matching a shorter one, which is what keeps `LeftUpLeg` from
 /// being taken for a lower leg.
-const BODY: &[(HumanoidJoint, &[InferenceKeyword])] = &[
-    (HumanoidJoint::Pelvis, &[Hips, Pelvis, Hip]),
-    (HumanoidJoint::Neck, &[Neck]),
-    (HumanoidJoint::Head, &[Head]),
-    (HumanoidJoint::ClavicleLeft, &[Clavicle, Shoulder, Collar]),
+const BODY: &[(HumanoidJoint, &[&str])] = &[
+    (HumanoidJoint::Pelvis, &["hips", "pelvis", "hip"]),
+    (HumanoidJoint::Neck, &["neck"]),
+    (HumanoidJoint::Head, &["head"]),
+    (
+        HumanoidJoint::ClavicleLeft,
+        &["clavicle", "shoulder", "collar"],
+    ),
     (
         HumanoidJoint::UpperArmLeft,
-        &[Upperarm, Uparm, Humerus, Shldr, Arm],
+        &["upperarm", "uparm", "humerus", "shldr", "arm"],
     ),
     (
         HumanoidJoint::LowerArmLeft,
-        &[Forearm, Lowerarm, Lowarm, Elbow, Ulna],
+        &["forearm", "lowerarm", "lowarm", "elbow", "ulna"],
     ),
-    (HumanoidJoint::HandLeft, &[Hand, Wrist]),
+    (HumanoidJoint::HandLeft, &["hand", "wrist"]),
     (
         HumanoidJoint::UpperLegLeft,
-        &[Upperleg, Upleg, Thigh, Femur, Hip],
+        &["upperleg", "upleg", "thigh", "femur", "hip"],
     ),
     (
         HumanoidJoint::LowerLegLeft,
-        &[Lowerleg, Lowleg, Shin, Calf, Knee, Tibia, Leg],
+        &["lowerleg", "lowleg", "shin", "calf", "knee", "tibia", "leg"],
     ),
-    (HumanoidJoint::FootLeft, &[Foot, Ankle]),
-    (HumanoidJoint::ToeLeft, &[Toebase, Toe, Ball]),
+    (HumanoidJoint::FootLeft, &["foot", "ankle"]),
+    (HumanoidJoint::ToeLeft, &["toebase", "toe", "ball"]),
 ];
 
 /// The spine, which is a run rather than a set of named slots.
-const SPINE: &[InferenceKeyword] = &[Spine, Chest, Torso, Abdomen, Waist];
+const SPINE: &[&str] = &["spine", "chest", "torso", "abdomen", "waist"];
 
-const FINGERS: &[(InferenceKeyword, [HumanoidJoint; 3])] = &[
+const FINGERS: &[(&str, [HumanoidJoint; 3])] = &[
     (
-        Thumb,
+        "thumb",
         [
             HumanoidJoint::ThumbProximalLeft,
             HumanoidJoint::ThumbIntermediateLeft,
@@ -66,7 +128,7 @@ const FINGERS: &[(InferenceKeyword, [HumanoidJoint; 3])] = &[
         ],
     ),
     (
-        Index,
+        "index",
         [
             HumanoidJoint::IndexProximalLeft,
             HumanoidJoint::IndexIntermediateLeft,
@@ -74,7 +136,7 @@ const FINGERS: &[(InferenceKeyword, [HumanoidJoint; 3])] = &[
         ],
     ),
     (
-        Middle,
+        "middle",
         [
             HumanoidJoint::MiddleProximalLeft,
             HumanoidJoint::MiddleIntermediateLeft,
@@ -82,7 +144,7 @@ const FINGERS: &[(InferenceKeyword, [HumanoidJoint; 3])] = &[
         ],
     ),
     (
-        Ring,
+        "ring",
         [
             HumanoidJoint::RingProximalLeft,
             HumanoidJoint::RingIntermediateLeft,
@@ -90,7 +152,7 @@ const FINGERS: &[(InferenceKeyword, [HumanoidJoint; 3])] = &[
         ],
     ),
     (
-        Pinky,
+        "pinky",
         [
             HumanoidJoint::LittleProximalLeft,
             HumanoidJoint::LittleIntermediateLeft,
@@ -98,7 +160,7 @@ const FINGERS: &[(InferenceKeyword, [HumanoidJoint; 3])] = &[
         ],
     ),
     (
-        Little,
+        "little",
         [
             HumanoidJoint::LittleProximalLeft,
             HumanoidJoint::LittleIntermediateLeft,
@@ -140,10 +202,10 @@ fn mirrored(role: HumanoidJoint) -> HumanoidJoint {
 
 /// A joint as inference sees it.
 struct Candidate {
-    index: RigJointOrdinal,
+    index: usize,
     side: Side,
-    simple: InferenceStem,
-    claimed: ClaimState,
+    simple: String,
+    claimed: bool,
 }
 
 impl RigProfile {
@@ -158,12 +220,12 @@ impl RigProfile {
             .iter()
             .enumerate()
             .map(|(index, joint)| {
-                let InferredName { side, stem: simple } = InferredName::from(&joint.name);
+                let (side, simple) = split_side(&joint.name);
                 Candidate {
-                    index: RigJointOrdinal::from(index),
+                    index,
                     side,
                     simple,
-                    claimed: ClaimState::Available,
+                    claimed: false,
                 }
             })
             .collect();
@@ -173,9 +235,40 @@ impl RigProfile {
         // not a reference at all — it only lines up with the target rig by
         // luck. Straightening from the rig's own geometry makes it definite,
         // and costs nothing on a rig that was already T-posed.
-        let mut profile = RigProfile::new("inferred".into()).with_reference(ReferencePose::TPose);
+        let mut profile = RigProfile::new("inferred").with_reference(ReferencePose::TPose);
+        let name_of = |index: usize| skeleton.joints[index].name.clone();
 
-        profile = profile.with_inferred_spine(skeleton, &mut candidates);
+        // The spine first: it is a run of joints in hierarchy order, and
+        // claiming it stops `chest` being mistaken for anything else.
+        let spine: Vec<usize> = candidates
+            .iter()
+            .filter(|candidate| {
+                candidate.side == Side::Center
+                    && SPINE.iter().any(|word| candidate.simple.starts_with(word))
+            })
+            .map(|candidate| candidate.index)
+            .collect();
+        for index in &spine {
+            candidates[*index].claimed = true;
+        }
+        for (position, index) in spine.iter().enumerate() {
+            let role = match position {
+                0 => HumanoidJoint::SpineLower,
+                1 => HumanoidJoint::SpineMid,
+                2 => HumanoidJoint::Chest,
+                3 => HumanoidJoint::UpperChest,
+                // Longer spines keep going through the chain rather than the
+                // vocabulary, which is what chains are for.
+                _ => break,
+            };
+            profile = profile.with(role, name_of(*index));
+        }
+        if spine.len() > 1 {
+            profile = profile.with_chain(
+                HumanoidChain::Spine,
+                ChainBinding::new(spine.iter().map(|index| name_of(*index))),
+            );
+        }
 
         for (role, keywords) in BODY {
             for side in [Side::Center, Side::Left, Side::Right] {
@@ -194,20 +287,20 @@ impl RigProfile {
                     continue;
                 }
                 if let Some(index) = best_match(&candidates, side, keywords) {
-                    candidates[usize::from(index)].claimed = ClaimState::Claimed;
-                    profile = profile.with(role, skeleton.joint_name(index).clone());
+                    candidates[index].claimed = true;
+                    profile = profile.with(role, name_of(index));
                 }
             }
         }
 
         for (word, roles) in FINGERS {
             for side in [Side::Left, Side::Right] {
-                let segments: Vec<RigJointOrdinal> = candidates
+                let segments: Vec<usize> = candidates
                     .iter()
                     .filter(|candidate| {
-                        candidate.claimed == ClaimState::Available
+                        !candidate.claimed
                             && candidate.side == side
-                            && candidate.simple.contains(*word) == RigJointMembership::Included
+                            && candidate.simple.contains(word)
                     })
                     .map(|candidate| candidate.index)
                     .collect();
@@ -217,8 +310,8 @@ impl RigProfile {
                         _ => roles[segment],
                     };
                     if profile.binding(role).is_none() {
-                        candidates[usize::from(*index)].claimed = ClaimState::Claimed;
-                        profile = profile.with(role, skeleton.joint_name(*index).clone());
+                        candidates[*index].claimed = true;
+                        profile = profile.with(role, name_of(*index));
                     }
                 }
             }
@@ -230,10 +323,10 @@ impl RigProfile {
             .iter()
             .find(|candidate| {
                 candidate.side == Side::Center
-                    && candidate.simple.root_membership() == RigJointMembership::Included
+                    && matches!(candidate.simple.as_str(), "root" | "reference" | "armature")
                     && skeleton.joints[candidate.index].parent_index.is_none()
             })
-            .map(|candidate| skeleton.joint_name(candidate.index).clone());
+            .map(|candidate| name_of(candidate.index));
         profile.root = match root {
             Some(name) => RootSource::Joint(name),
             None => RootSource::Pelvis,
@@ -245,68 +338,22 @@ impl RigProfile {
         }
         profile
     }
-    /// Claims the center spine in hierarchy order before other keyword matches.
-    fn with_inferred_spine(mut self, skeleton: &Skeleton, candidates: &mut [Candidate]) -> Self {
-        // The spine first: it is a run of joints in hierarchy order, and
-        // claiming it stops `chest` being mistaken for anything else.
-        let spine: Vec<RigJointOrdinal> = candidates
-            .iter()
-            .filter(|candidate| {
-                candidate.side == Side::Center
-                    && SPINE.iter().any(|word| {
-                        candidate.simple.starts_with(*word) == RigJointMembership::Included
-                    })
-            })
-            .map(|candidate| candidate.index)
-            .collect();
-        for index in &spine {
-            candidates[usize::from(*index)].claimed = ClaimState::Claimed;
-        }
-        for (position, index) in spine.iter().enumerate() {
-            let role = match position {
-                0 => HumanoidJoint::SpineLower,
-                1 => HumanoidJoint::SpineMid,
-                2 => HumanoidJoint::Chest,
-                3 => HumanoidJoint::UpperChest,
-                // Longer spines keep going through the chain rather than the
-                // vocabulary, which is what chains are for.
-                _ => break,
-            };
-            self = self.with(role, skeleton.joint_name(*index).clone());
-        }
-        if spine.len() > 1 {
-            self = self.with_chain(
-                HumanoidChain::Spine,
-                ChainBinding::new(
-                    spine
-                        .iter()
-                        .map(|index| skeleton.joint_name(*index).clone()),
-                ),
-            );
-        }
-
-        self
-    }
 }
 
 /// The unclaimed joint on `side` matching the most specific keyword.
 ///
 /// Ties go to the joint nearer the start of the skeleton, which is nearer the
 /// root in every importer the engine has.
-fn best_match(
-    candidates: &[Candidate],
-    side: Side,
-    keywords: &[InferenceKeyword],
-) -> Option<RigJointOrdinal> {
-    let mut best: Option<(KeywordSpecificity, RigJointOrdinal)> = None;
+fn best_match(candidates: &[Candidate], side: Side, keywords: &[&str]) -> Option<usize> {
+    let mut best: Option<(usize, usize)> = None;
     for candidate in candidates {
-        if candidate.claimed == ClaimState::Claimed || candidate.side != side {
+        if candidate.claimed || candidate.side != side {
             continue;
         }
         let Some(length) = keywords
             .iter()
-            .filter(|keyword| candidate.simple.contains(**keyword) == RigJointMembership::Included)
-            .map(|keyword| keyword.specificity())
+            .filter(|keyword| candidate.simple.contains(**keyword))
+            .map(|keyword| keyword.len())
             .max()
         else {
             continue;
@@ -322,23 +369,21 @@ fn best_match(
 mod tests {
     use super::*;
     use crate::skeleton::Joint;
-    use crate::skeleton::SkinJointOrdinal;
     use fabelgeist_math::matrix::Mat4;
-    use fabelgeist_rig::RigJointName;
 
-    fn skeleton(names: &[RigJointName]) -> Skeleton {
+    fn skeleton(names: &[&str]) -> Skeleton {
         Skeleton::new(
             names
                 .iter()
                 .enumerate()
                 .map(|(index, name)| {
                     Joint::new(
-                        name.clone(),
-                        RigJointOrdinal::from(index),
-                        index.checked_sub(1).map(RigJointOrdinal::from),
+                        (*name).to_string(),
+                        index,
+                        index.checked_sub(1),
                         Mat4::identity(),
                         Default::default(),
-                        Some(SkinJointOrdinal::from(index)),
+                        Some(index),
                     )
                 })
                 .collect(),
@@ -347,171 +392,117 @@ mod tests {
 
     #[test]
     fn sides_are_read_however_a_rig_spells_them() {
+        assert_eq!(split_side("LeftUpLeg"), (Side::Left, "upleg".into()));
         assert_eq!(
-            InferredName::from(&RigJointName::from("LeftUpLeg")),
-            InferredName {
-                side: Side::Left,
-                stem: InferenceStem::from("upleg".to_owned())
-            }
+            split_side("mixamorig:RightArm"),
+            (Side::Right, "arm".into())
         );
-        assert_eq!(
-            InferredName::from(&RigJointName::from("mixamorig:RightArm")),
-            InferredName {
-                side: Side::Right,
-                stem: InferenceStem::from("arm".to_owned())
-            }
-        );
-        assert_eq!(
-            InferredName::from(&RigJointName::from("l_uparm")),
-            InferredName {
-                side: Side::Left,
-                stem: InferenceStem::from("uparm".to_owned())
-            }
-        );
-        assert_eq!(
-            InferredName::from(&RigJointName::from("upperarm.R")),
-            InferredName {
-                side: Side::Right,
-                stem: InferenceStem::from("upperarm".to_owned())
-            }
-        );
-        assert_eq!(
-            InferredName::from(&RigJointName::from("LHipJoint")),
-            InferredName {
-                side: Side::Left,
-                stem: InferenceStem::from("hipjoint".to_owned())
-            }
-        );
-        assert_eq!(
-            InferredName::from(&RigJointName::from("lFemur")),
-            InferredName {
-                side: Side::Left,
-                stem: InferenceStem::from("femur".to_owned())
-            }
-        );
+        assert_eq!(split_side("l_uparm"), (Side::Left, "uparm".into()));
+        assert_eq!(split_side("upperarm.R"), (Side::Right, "upperarm".into()));
+        assert_eq!(split_side("LHipJoint"), (Side::Left, "hipjoint".into()));
+        assert_eq!(split_side("lFemur"), (Side::Left, "femur".into()));
         // Words that merely start with l or r are not sides.
-        assert_eq!(
-            InferredName::from(&RigJointName::from("LowerLeg")),
-            InferredName {
-                side: Side::Center,
-                stem: InferenceStem::from("lowerleg".to_owned())
-            }
-        );
-        assert_eq!(
-            InferredName::from(&RigJointName::from("Hips")),
-            InferredName {
-                side: Side::Center,
-                stem: InferenceStem::from("hips".to_owned())
-            }
-        );
+        assert_eq!(split_side("LowerLeg"), (Side::Center, "lowerleg".into()));
+        assert_eq!(split_side("Hips"), (Side::Center, "hips".into()));
     }
 
     #[test]
     fn a_mixamo_style_rig_is_inferred() {
         let rig = skeleton(&[
-            "mixamorig:Hips".into(),
-            "mixamorig:Spine".into(),
-            "mixamorig:Spine1".into(),
-            "mixamorig:Spine2".into(),
-            "mixamorig:Neck".into(),
-            "mixamorig:Head".into(),
-            "mixamorig:LeftShoulder".into(),
-            "mixamorig:LeftArm".into(),
-            "mixamorig:LeftForeArm".into(),
-            "mixamorig:LeftHand".into(),
-            "mixamorig:RightShoulder".into(),
-            "mixamorig:RightArm".into(),
-            "mixamorig:RightForeArm".into(),
-            "mixamorig:RightHand".into(),
-            "mixamorig:LeftUpLeg".into(),
-            "mixamorig:LeftLeg".into(),
-            "mixamorig:LeftFoot".into(),
-            "mixamorig:LeftToeBase".into(),
+            "mixamorig:Hips",
+            "mixamorig:Spine",
+            "mixamorig:Spine1",
+            "mixamorig:Spine2",
+            "mixamorig:Neck",
+            "mixamorig:Head",
+            "mixamorig:LeftShoulder",
+            "mixamorig:LeftArm",
+            "mixamorig:LeftForeArm",
+            "mixamorig:LeftHand",
+            "mixamorig:RightShoulder",
+            "mixamorig:RightArm",
+            "mixamorig:RightForeArm",
+            "mixamorig:RightHand",
+            "mixamorig:LeftUpLeg",
+            "mixamorig:LeftLeg",
+            "mixamorig:LeftFoot",
+            "mixamorig:LeftToeBase",
         ]);
         let profile = RigProfile::infer(&rig);
         let resolved = profile.resolve(&rig).expect("an inferred profile resolves");
         let named = |role| {
             resolved
                 .joint(role)
-                .map(|index| rig.joints[index].name.clone())
+                .map(|index| rig.joints[index].name.as_str())
         };
 
-        assert_eq!(named(HumanoidJoint::Pelvis), Some("mixamorig:Hips".into()));
-        assert_eq!(
-            named(HumanoidJoint::SpineLower),
-            Some("mixamorig:Spine".into())
-        );
-        assert_eq!(named(HumanoidJoint::Chest), Some("mixamorig:Spine2".into()));
-        assert_eq!(named(HumanoidJoint::Head), Some("mixamorig:Head".into()));
+        assert_eq!(named(HumanoidJoint::Pelvis), Some("mixamorig:Hips"));
+        assert_eq!(named(HumanoidJoint::SpineLower), Some("mixamorig:Spine"));
+        assert_eq!(named(HumanoidJoint::Chest), Some("mixamorig:Spine2"));
+        assert_eq!(named(HumanoidJoint::Head), Some("mixamorig:Head"));
         assert_eq!(
             named(HumanoidJoint::ClavicleRight),
-            Some("mixamorig:RightShoulder".into())
+            Some("mixamorig:RightShoulder")
         );
         // The trap: "LeftArm" is an upper arm and "LeftLeg" a lower leg.
         assert_eq!(
             named(HumanoidJoint::UpperArmLeft),
-            Some("mixamorig:LeftArm".into())
+            Some("mixamorig:LeftArm")
         );
         assert_eq!(
             named(HumanoidJoint::LowerArmLeft),
-            Some("mixamorig:LeftForeArm".into())
+            Some("mixamorig:LeftForeArm")
         );
         assert_eq!(
             named(HumanoidJoint::UpperLegLeft),
-            Some("mixamorig:LeftUpLeg".into())
+            Some("mixamorig:LeftUpLeg")
         );
         assert_eq!(
             named(HumanoidJoint::LowerLegLeft),
-            Some("mixamorig:LeftLeg".into())
+            Some("mixamorig:LeftLeg")
         );
-        assert_eq!(
-            named(HumanoidJoint::ToeLeft),
-            Some("mixamorig:LeftToeBase".into())
-        );
-        assert_eq!(
-            resolved.chains[&HumanoidChain::Spine].count(),
-            crate::animation::retarget::ChainJointCount::from(3_usize)
-        );
+        assert_eq!(named(HumanoidJoint::ToeLeft), Some("mixamorig:LeftToeBase"));
+        assert_eq!(resolved.chains[&HumanoidChain::Spine].len(), 3);
     }
 
     #[test]
     fn a_mocap_rig_with_different_names_is_inferred() {
         // The CMU/BioVision naming a lot of BVH files use.
         let rig = skeleton(&[
-            "Hips".into(),
-            "LowerBack".into(),
-            "Spine".into(),
-            "Spine1".into(),
-            "Neck".into(),
-            "Head".into(),
-            "LeftShoulder".into(),
-            "LeftArm".into(),
-            "LeftForeArm".into(),
-            "LeftHand".into(),
-            "LHipJoint".into(),
-            "LeftUpLeg".into(),
-            "LeftLeg".into(),
-            "LeftFoot".into(),
-            "LeftToeBase".into(),
+            "Hips",
+            "LowerBack",
+            "Spine",
+            "Spine1",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LHipJoint",
+            "LeftUpLeg",
+            "LeftLeg",
+            "LeftFoot",
+            "LeftToeBase",
         ]);
         let profile = RigProfile::infer(&rig);
         let resolved = profile.resolve(&rig).expect("an inferred profile resolves");
         let named = |role| {
             resolved
                 .joint(role)
-                .map(|index| rig.joints[index].name.clone())
+                .map(|index| rig.joints[index].name.as_str())
         };
 
-        assert_eq!(named(HumanoidJoint::Pelvis), Some("Hips".into()));
-        assert_eq!(named(HumanoidJoint::UpperLegLeft), Some("LeftUpLeg".into()));
-        assert_eq!(named(HumanoidJoint::LowerLegLeft), Some("LeftLeg".into()));
-        assert_eq!(named(HumanoidJoint::FootLeft), Some("LeftFoot".into()));
-        assert_eq!(named(HumanoidJoint::Head), Some("Head".into()));
+        assert_eq!(named(HumanoidJoint::Pelvis), Some("Hips"));
+        assert_eq!(named(HumanoidJoint::UpperLegLeft), Some("LeftUpLeg"));
+        assert_eq!(named(HumanoidJoint::LowerLegLeft), Some("LeftLeg"));
+        assert_eq!(named(HumanoidJoint::FootLeft), Some("LeftFoot"));
+        assert_eq!(named(HumanoidJoint::Head), Some("Head"));
     }
 
     #[test]
     fn a_rig_of_nonsense_names_yields_an_empty_mapping_rather_than_a_wrong_one() {
-        let rig = skeleton(&["bone_000".into(), "bone_001".into(), "bone_002".into()]);
+        let rig = skeleton(&["bone_000", "bone_001", "bone_002"]);
         let profile = RigProfile::infer(&rig);
         assert!(
             profile.joints.is_empty(),
@@ -524,7 +515,7 @@ mod tests {
 
     #[test]
     fn an_inferred_profile_is_just_data() {
-        let rig = skeleton(&["Hips".into(), "Spine".into(), "Neck".into(), "Head".into()]);
+        let rig = skeleton(&["Hips", "Spine", "Neck", "Head"]);
         let profile = RigProfile::infer(&rig);
         let json = serde_json::to_string(&profile).expect("it serializes");
         let restored: RigProfile = serde_json::from_str(&json).expect("it deserializes");

@@ -4,9 +4,9 @@
 
 use anyhow::Result;
 use fabelgeist_armor::ArmorGpu;
-use fabelgeist_armor::gpu::wgsl;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::device_foot_sections::common;
 
@@ -40,31 +40,28 @@ pub(crate) fn record_section_fit(
         SectionFit::Layer { hems } => (1, hems.clone()),
     };
     let mut parameters = PassParameters::new();
-    parameters.insert("count".into(), (count).into());
-    parameters.insert("mode".into(), (mode).into());
-    parameters.insert("pad1".into(), (0u32).into());
-    parameters.insert("pad2".into(), (0u32).into());
-    parameters.insert("clearance".into(), (clearance).into());
-    parameters.insert("pad3".into(), (0.0f32).into());
-    parameters.insert("pad4".into(), (0.0f32).into());
-    parameters.insert("pad5".into(), (0.0f32).into());
-    parameters.insert("frames".into(), (frame.clone()).into());
-    parameters.insert("bounds".into(), (bounds.clone()).into());
-    parameters.insert("sections".into(), (sections.clone()).into());
-    parameters.insert("hems".into(), (hems).into());
-    parameters.insert("carriers".into(), (carriers.clone()).into());
+    parameters.insert("count", count);
+    parameters.insert("mode", mode);
+    parameters.insert("pad1", 0u32);
+    parameters.insert("pad2", 0u32);
+    parameters.insert("clearance", clearance);
+    parameters.insert("pad3", 0.0f32);
+    parameters.insert("pad4", 0.0f32);
+    parameters.insert("pad5", 0.0f32);
+    parameters.insert("frames", frame.clone());
+    parameters.insert("bounds", bounds.clone());
+    parameters.insert("sections", sections.clone());
+    parameters.insert("hems", hems);
+    parameters.insert("carriers", carriers.clone());
     // Only the fairing keeps radii; the binding still needs a buffer.
-    parameters.insert(
-        "radii".into(),
-        (gpu.scratch((4u64).into(), ("unused fairing radii").into())?).into(),
-    );
+    parameters.insert("radii", gpu.scratch(4, "unused fairing radii")?);
     let kernel = gpu
         .cache()
         .get(gpu.context(), &fit_source(FIT))
-        .map_err(fabelgeist_armor::GenerateError::from)?;
+        .map_err(device_error)?;
     batch
-        .dispatch_items(&kernel, &parameters, (count).into())
-        .map_err(fabelgeist_armor::GenerateError::from)?;
+        .dispatch_items(&kernel, &parameters, count)
+        .map_err(device_error)?;
     Ok(())
 }
 
@@ -82,35 +79,35 @@ pub(crate) fn record_ankle_fairing(
     count: u32,
 ) -> Result<()> {
     let mut parameters = PassParameters::new();
-    parameters.insert("count".into(), (count).into());
-    parameters.insert("mode".into(), (0u32).into());
-    parameters.insert("pad1".into(), (0u32).into());
-    parameters.insert("pad2".into(), (0u32).into());
-    parameters.insert("clearance".into(), (clearance).into());
-    parameters.insert("pad3".into(), (0.0f32).into());
-    parameters.insert("pad4".into(), (0.0f32).into());
-    parameters.insert("pad5".into(), (0.0f32).into());
-    parameters.insert("frames".into(), (frame.clone()).into());
-    parameters.insert("bounds".into(), (hems.clone()).into());
-    parameters.insert("sections".into(), (sections.clone()).into());
-    parameters.insert("hems".into(), (hems.clone()).into());
-    parameters.insert("carriers".into(), (carriers.clone()).into());
+    parameters.insert("count", count);
+    parameters.insert("mode", 0u32);
+    parameters.insert("pad1", 0u32);
+    parameters.insert("pad2", 0u32);
+    parameters.insert("clearance", clearance);
+    parameters.insert("pad3", 0.0f32);
+    parameters.insert("pad4", 0.0f32);
+    parameters.insert("pad5", 0.0f32);
+    parameters.insert("frames", frame.clone());
+    parameters.insert("bounds", hems.clone());
+    parameters.insert("sections", sections.clone());
+    parameters.insert("hems", hems.clone());
+    parameters.insert("carriers", carriers.clone());
     parameters.insert(
-        "radii".into(),
-        (gpu.scratch((count as u64 * 8).into(), ("ankle fairing radii").into())?).into(),
+        "radii",
+        gpu.scratch(count as u64 * 8, "ankle fairing radii")?,
     );
     let kernel = gpu
         .cache()
         .get(gpu.context(), &fit_source(FAIR))
-        .map_err(fabelgeist_armor::GenerateError::from)?;
+        .map_err(device_error)?;
     batch
-        .dispatch(&kernel, &parameters, ([1, 1, 1]).into())
-        .map_err(fabelgeist_armor::GenerateError::from)?;
+        .dispatch(&kernel, &parameters, [1, 1, 1])
+        .map_err(device_error)?;
     Ok(())
 }
 
-fn fit_source(entry: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+fn fit_source(entry: &str) -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> bounds: array<u32>;
@@ -168,7 +165,7 @@ fn lowest_hem() -> f32 {{
 "#,
         common = common(),
         carriers = wgsl::points("carriers"),
-    ))
+    )
 }
 
 /// One invocation per carrier: the envelope fit or the layer fit.

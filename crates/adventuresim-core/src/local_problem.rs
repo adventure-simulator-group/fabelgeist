@@ -781,7 +781,7 @@ mod tests {
             first_eligible_presence_exposure_minute(
                 &[],
                 DiseaseId::Influenza,
-                (7).into(),
+                7,
                 "problem:stable",
                 at(from),
                 at(to),

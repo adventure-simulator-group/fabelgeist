@@ -1,6 +1,5 @@
 //! Rear fittings seated on the emitted shield surface.
 use super::*;
-use crate::ConstructionError;
 
 pub(super) struct Layout {
     pub(super) grip: PlanarPoint,
@@ -15,7 +14,7 @@ fn endpoint(center: PlanarPoint, axis: PlanarPoint, distance: f64) -> PlanarPoin
         center[1] + axis[1] * distance,
     ]
 }
-fn back_surface(solid: &Solid, [x, y]: PlanarPoint) -> Result<f64, ConstructionError> {
+fn back_surface(solid: &Solid, [x, y]: PlanarPoint) -> Result<f64, String> {
     for &[a, b, c] in &solid.faces {
         let [a, b, c] = [solid.positions[a], solid.positions[b], solid.positions[c]];
         let denominator = (b[1] - c[1]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[1] - c[1]);
@@ -29,10 +28,10 @@ fn back_surface(solid: &Solid, [x, y]: PlanarPoint) -> Result<f64, ConstructionE
             return Ok(u * a[2] + v * b[2] + w * c[2]);
         }
     }
-    Err(ConstructionError::ShieldFittingLiesOutsidePanelSurface)
+    Err("shield fitting lies outside panel surface".into())
 }
 impl Shield<'_> {
-    pub(super) fn layout(&self, detail: Detail) -> Result<Layout, ConstructionError> {
+    pub(super) fn layout(&self, detail: Detail) -> Result<Layout, String> {
         let angle = self.angle.to_radians();
         let position = [angle.cos(), angle.sin()];
         let axis = [-angle.sin(), angle.cos()];
@@ -81,7 +80,7 @@ impl Shield<'_> {
                 }
             }
             if scale <= 0.0 {
-                return Err(ConstructionError::ShieldFittingLayoutNoInteriorClearance);
+                return Err("shield fitting layout has no interior clearance".into());
             }
             grip = grip.map(|v| v * scale);
             strap = strap.map(|v| v * scale);
@@ -94,11 +93,7 @@ impl Shield<'_> {
             scale,
         })
     }
-    pub(super) fn handle_center(
-        &self,
-        body: &Solid,
-        layout: &Layout,
-    ) -> Result<Point, ConstructionError> {
+    pub(super) fn handle_center(&self, body: &Solid, layout: &Layout) -> Result<Point, String> {
         let half = self.grip_length * layout.scale / 2.0;
         let a = endpoint(layout.grip, layout.axis, -half);
         let b = endpoint(layout.grip, layout.axis, half);
@@ -113,7 +108,7 @@ impl Shield<'_> {
         r: &ResolvedComponent,
         body: &Solid,
         detail: Detail,
-    ) -> Result<Vec<PartSource>, ConstructionError> {
+    ) -> Result<Vec<PartSource>, String> {
         let layout = self.layout(Detail::High)?;
         let length = self.grip_length * layout.scale;
         let radius = self.grip_radius * layout.scale;
@@ -187,7 +182,7 @@ impl Shield<'_> {
         layout: &Layout,
         length: f64,
         detail: Detail,
-    ) -> Result<Vec<PartSource>, ConstructionError> {
+    ) -> Result<Vec<PartSource>, String> {
         let width = self.strap_width * layout.scale;
         let thickness = self.strap_thickness * layout.scale;
         let ends = [

@@ -1,4 +1,3 @@
-use crate::scene_input::SceneValidationError;
 use crate::{
     scene::SceneTerrain,
     scene_input::{SceneInputError, TerrainSampleGrid},
@@ -18,12 +17,10 @@ pub(crate) fn validate(
         playable.spacing_metres,
         playable.heights_metres.clone(),
     )
-    .ok_or(SceneInputError::Validation(
-        SceneValidationError::PlayableTerrain,
-    ))?;
+    .ok_or_else(|| SceneInputError::Validation("playable heightmap is invalid".into()))?;
     recipe
         .validate(&terrain)
-        .map_err(|reason| SceneInputError::Validation(SceneValidationError::Terrain(reason)))
+        .map_err(|reason| SceneInputError::Validation(reason.into()))
 }
 
 pub(crate) fn generate(
@@ -33,5 +30,5 @@ pub(crate) fn generate(
     recipe
         .map(|recipe| terrain_landform_patch(terrain, recipe))
         .transpose()
-        .map_err(|reason| SceneInputError::Validation(SceneValidationError::Terrain(reason)))
+        .map_err(|reason| SceneInputError::Validation(reason.into()))
 }

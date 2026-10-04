@@ -1,4 +1,3 @@
-use crate::spacetimedb::SqlQuery;
 use adventuresim_puzzles::{
     ParseSigilError, PuzzleProjection, PuzzleSubmission, Sigil, WitnessPath,
 };
@@ -32,14 +31,14 @@ async fn projection(
     case_id: &str,
     challenge_id: &str,
 ) -> Result<BackendChallenge, StatusCode> {
-    let sql = SqlQuery::from(format!(
+    let sql = format!(
         "SELECT * FROM backend_challenges WHERE owner_character_id = {character_id} AND case_id = {} AND id = {} AND active = true",
         sql_string_literal(case_id),
         sql_string_literal(challenge_id)
-    ));
+    );
     state
         .db
-        .query_one_sats::<BackendChallenge>(sql)
+        .query_one_sats::<BackendChallenge>(&sql)
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
         .ok_or(StatusCode::NOT_FOUND)
@@ -53,13 +52,13 @@ async fn show(
     let Some(character_id) = session.character_id_u64() else {
         return StatusCode::UNAUTHORIZED.into_response();
     };
-    let character_sql = crate::spacetimedb::character_by_id(character_id.into());
+    let character_sql = crate::spacetimedb::character_by_id(character_id);
     let (challenge, character) = tokio::join!(
         projection(&state, character_id, &case_id, &challenge_id),
         state
             .db
             .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-                character_sql
+                &character_sql
             )
     );
     let challenge = match challenge {

@@ -5,7 +5,7 @@ fn socializing_receipts_are_actor_day_target_cumulative_and_party_safe() {
         .split("pub fn apply_scheduled_socializing")
         .nth(1)
         .unwrap()
-        .split("fn settle_secret_courtship_discovery_for_pair")
+        .split("pub fn settle_secret_courtship_discovery_for_pair")
         .next()
         .unwrap();
     assert!(source.contains("format!(\"socializing:{actor_id}:{day}:{target_id}\")"));
@@ -29,8 +29,7 @@ fn socializing_receipts_are_actor_day_target_cumulative_and_party_safe() {
     assert!(target.contains("npc_is_present("));
     assert!(target.contains("npc_is_present(ctx, &presence, effective_minute)"));
     assert!(target.contains("select_daily_location_target"));
-    assert!(!target.contains("canonical_now(ctx, actor_id"));
-    assert!(!target.contains("canonical_now(ctx, (actor_id).into()"));
+    assert!(!target.contains("canonical_now(ctx, actor_id)"));
 }
 
 #[test]
@@ -53,7 +52,7 @@ fn scheduled_socializing_splits_at_availability_boundaries() {
         .split("pub fn apply_scheduled_socializing")
         .nth(1)
         .unwrap()
-        .split("fn settle_secret_courtship_discovery_for_pair")
+        .split("pub fn settle_secret_courtship_discovery_for_pair")
         .next()
         .unwrap();
     assert!(socializing.contains("while cursor < end"));

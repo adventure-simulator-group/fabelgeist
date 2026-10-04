@@ -166,7 +166,7 @@ fn read_source(
                         longitude.clamp(bounds[0], bounds[2]),
                         latitude.clamp(bounds[1], bounds[3]),
                     )
-                    .map_err(Error::from)?;
+                    .map_err(Error::Validation)?;
                     if points.last() != Some(&point) {
                         points.push(point);
                     }

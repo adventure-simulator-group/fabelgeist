@@ -37,9 +37,9 @@ pub struct DiseaseSnapshot {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Deposit {
     pub id: u64,
-    pub character_id: crate::identity::CharacterId,
+    pub character_id: u64,
     pub substance: FilthSubstance,
-    pub source_character_id: Option<crate::identity::CharacterId>,
+    pub source_character_id: Option<u64>,
     pub amount: u16,
     pub deposited_at: StrategicMinute,
     pub diseases: Vec<DiseaseSnapshot>,
@@ -248,14 +248,14 @@ fn cleaning_rank(d: &Deposit, has_cut: bool) -> u8 {
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct WashPriority {
-    pub character_id: crate::identity::CharacterId,
+    pub character_id: u64,
     pub best_substance_rank: u8,
     pub exposure: f32,
     pub total_filth: u32,
 }
 
 pub fn wash_priority(
-    character_id: crate::identity::CharacterId,
+    character_id: u64,
     deposits: &[Deposit],
     has_cut: bool,
     exposure: f32,
@@ -333,17 +333,12 @@ mod tests {
     use super::*;
     use adventuresim_world_schema::calendar::MINUTES_PER_YEAR;
 
-    fn d(
-        id: u64,
-        kind: FilthSubstance,
-        source: Option<crate::identity::CharacterId>,
-        amount: u16,
-    ) -> Deposit {
+    fn d(id: u64, kind: FilthSubstance, source: Option<u64>, amount: u16) -> Deposit {
         Deposit {
             id,
-            character_id: (7).into(),
+            character_id: 7,
             substance: kind,
-            source_character_id: (source),
+            source_character_id: source,
             amount,
             deposited_at: StrategicMinute::new(id),
             diseases: vec![],
@@ -391,12 +386,7 @@ mod tests {
     #[test]
     fn wash_is_input_order_invariant_and_prioritizes_foreign_blood() {
         let a = d(2, FilthSubstance::Dirt, None, 25);
-        let b = d(
-            1,
-            FilthSubstance::Blood,
-            Some(crate::identity::CharacterId::from(8)),
-            25,
-        );
+        let b = d(1, FilthSubstance::Blood, Some(8), 25);
         let stacks = [stack(SoapSource::Personal, 4, 1)];
         assert_eq!(
             plan_wash(&[a.clone(), b.clone()], &stacks, true),
@@ -404,15 +394,7 @@ mod tests {
         );
         assert_eq!(
             plan_wash(
-                &[
-                    a,
-                    d(
-                        1,
-                        FilthSubstance::Blood,
-                        Some(crate::identity::CharacterId::from(8)),
-                        25
-                    )
-                ],
+                &[a, d(1, FilthSubstance::Blood, Some(8), 25)],
                 &stacks,
                 true
             )
@@ -455,31 +437,23 @@ mod tests {
 
     #[test]
     fn scarce_shared_soap_priority_is_risk_first_and_deterministic() {
-        let mut dangerous = d(
-            1,
-            FilthSubstance::Blood,
-            Some(crate::identity::CharacterId::from(99)),
-            10,
-        );
-        dangerous.character_id = crate::identity::CharacterId::from(20);
+        let mut dangerous = d(1, FilthSubstance::Blood, Some(99), 10);
+        dangerous.character_id = 20;
         dangerous.diseases.push(DiseaseSnapshot {
             disease_id: DiseaseId::Plague,
             episode_id: 5,
         });
         let safe = d(2, FilthSubstance::Dirt, None, 100);
         let priorities = [
-            wash_priority((7).into(), &[safe], false, 0.0),
-            wash_priority((20).into(), &[dangerous], true, 0.4),
+            wash_priority(7, &[safe], false, 0.0),
+            wash_priority(20, &[dangerous], true, 0.4),
         ];
         let mut forward = priorities;
         let mut reverse = [priorities[1], priorities[0]];
         sort_wash_priorities(&mut forward);
         sort_wash_priorities(&mut reverse);
         assert_eq!(forward, reverse);
-        assert_eq!(
-            forward[0].character_id,
-            crate::identity::CharacterId::from(20)
-        );
+        assert_eq!(forward[0].character_id, 20);
     }
 
     #[test]
@@ -508,12 +482,7 @@ mod tests {
             )
             .is_empty()
         );
-        let mut own = d(
-            2,
-            FilthSubstance::Blood,
-            Some(crate::identity::CharacterId::from(7)),
-            20,
-        );
+        let mut own = d(2, FilthSubstance::Blood, Some(7), 20);
         own.diseases.push(DiseaseSnapshot {
             disease_id: DiseaseId::Plague,
             episode_id: 3,
@@ -527,12 +496,7 @@ mod tests {
             )
             .is_empty()
         );
-        let mut expired = d(
-            1,
-            FilthSubstance::Blood,
-            Some(crate::identity::CharacterId::from(8)),
-            20,
-        );
+        let mut expired = d(1, FilthSubstance::Blood, Some(8), 20);
         expired.deposited_at = StrategicMinute::new(10);
         expired.diseases.push(DiseaseSnapshot {
             disease_id: DiseaseId::Plague,
@@ -551,12 +515,7 @@ mod tests {
 
     #[test]
     fn active_blood_work_is_bounded_to_two_days() {
-        let mut blood = d(
-            1,
-            FilthSubstance::Blood,
-            Some(crate::identity::CharacterId::from(8)),
-            20,
-        );
+        let mut blood = d(1, FilthSubstance::Blood, Some(8), 20);
         blood.deposited_at = StrategicMinute::new(100);
         blood.diseases.push(DiseaseSnapshot {
             disease_id: DiseaseId::Plague,
@@ -627,12 +586,7 @@ mod tests {
             ),
             0.0
         );
-        let blood = d(
-            1,
-            FilthSubstance::Blood,
-            Some(crate::identity::CharacterId::from(8)),
-            20,
-        );
+        let blood = d(1, FilthSubstance::Blood, Some(8), 20);
         assert_eq!(blood.amount, 20);
     }
 
@@ -645,12 +599,7 @@ mod tests {
 
     #[test]
     fn only_blood_compatible_disease_snapshots_create_exposure() {
-        let mut blood = d(
-            1,
-            FilthSubstance::Blood,
-            Some(crate::identity::CharacterId::from(8)),
-            50,
-        );
+        let mut blood = d(1, FilthSubstance::Blood, Some(8), 50);
         blood.diseases.push(DiseaseSnapshot {
             disease_id: DiseaseId::Influenza,
             episode_id: 44,

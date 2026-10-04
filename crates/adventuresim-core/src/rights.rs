@@ -7,12 +7,13 @@ use std::{fmt, num::NonZeroU64};
 
 use sha2::{Digest, Sha256};
 
-mod error;
 mod validity;
 pub use validity::RightsValidity;
 
 use crate::{
-    physical_object::{CustodyCharacterId, ObjectCustody, OperationalCustody, PhysicalObjectId},
+    physical_object::{
+        CustodyCharacterId, CustodyPartyId, ObjectCustody, OperationalCustody, PhysicalObjectId,
+    },
     strategic_place::{StrategicFixtureId, StrategicPlaceId},
 };
 pub trait DomainRightsSubject: Clone + fmt::Debug + Eq {}
@@ -171,7 +172,7 @@ impl CanonicalRightsQuestionDigest {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum RightsSubject<S: DomainRightsSubject> {
     Character(CustodyCharacterId),
-    Party(crate::identity::PartyId),
+    Party(CustodyPartyId),
     Domain(S),
 }
 
@@ -1016,13 +1017,13 @@ mod tests {
         };
         let custody = ObjectCustody::try_new(
             PhysicalObjectId::try_new(11).unwrap(),
-            OperationalCustody::character((7).into()).unwrap(),
+            OperationalCustody::character(7).unwrap(),
         )
         .unwrap();
         assert_ne!(owner, actor());
         assert_eq!(
             custody.custody(),
-            &OperationalCustody::character((7).into()).unwrap()
+            &OperationalCustody::character(7).unwrap()
         );
         assert_eq!(ownership.resource, object());
 

@@ -5,7 +5,6 @@
 //! none duplicate a persisted row.
 
 use super::item_kind::catalog_item_kind;
-use super::projection::{ViewField, ViewProjectionError, sats_to_serde};
 pub use adventuresim_core::{
     capability::RoleRequirements,
     investigation_action::{InvestigationActionAvailability, InvestigationActionUnavailableReason},
@@ -57,7 +56,7 @@ pub use adventuresim_stdb_client::{
     PartyJoinRequest, PartyJourney, PartyLeaderVote, PartyMember, PartyStake, Precipitation,
     ProjectileKind, RecruitmentOffer, RecruitmentOfferStatus, ReligiousDemand, RepairOrder,
     ResidenceTenure, RetainedProjectile, SavedRecruitmentRole, ScheduleAllocation, SettlementAlias,
-    SettlementCategory, SettlementDescription, SettlementDescriptionKind, SettlementResidenceOffer,
+    SettlementCategory, SettlementDescription, SettlementDescriptionKind,
     SettlementResidentPresence, SettlementSmith, SocialAddress, SocialBelief, SocialChatOutcome,
     SocialChatTargetKind, StrategicEncounter, StrategicEncounterStatus, WeaponHolderInstance,
     WeaponInstance, WorldClock,
@@ -69,10 +68,9 @@ pub use adventuresim_stdb_client::{
 };
 use adventuresim_world_schema::Sex;
 use adventuresim_world_schema::calendar::StrategicMinute;
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use serde_json::Value;
-#[cfg(test)]
-use spacetimedb_sats::serde::SerdeWrapper;
+use spacetimedb_sats::{ser::Serialize as SatsSerialize, serde::SerdeWrapper};
 
 pub type QueryResponse = Vec<QueryResult>;
 
@@ -113,6 +111,48 @@ pub(crate) const fn npc_age_band_id(value: AgeBand) -> &'static str {
         AgeBand::Elder => DomainAgeBand::Elder,
     }
     .stable_id()
+}
+
+fn sats_to_serde<T, U>(value: &T) -> serde_json::Result<U>
+where
+    T: SatsSerialize + ?Sized,
+    U: DeserializeOwned,
+{
+    serde_json::from_value(normalize_sats_serde_value(serde_json::to_value(
+        SerdeWrapper::from_ref(value),
+    )?))
+}
+
+fn normalize_sats_serde_value(value: Value) -> Value {
+    match value {
+        Value::Array(values) => {
+            Value::Array(values.into_iter().map(normalize_sats_serde_value).collect())
+        }
+        Value::Object(object) if object.len() == 1 => {
+            let (name, payload) = object.into_iter().next().expect("one field");
+            if name.eq_ignore_ascii_case("none") && payload.as_array().is_some_and(Vec::is_empty) {
+                return Value::Null;
+            }
+            if name.eq_ignore_ascii_case("some") {
+                return normalize_sats_serde_value(payload);
+            }
+            if payload.as_array().is_some_and(Vec::is_empty) {
+                return Value::String(name);
+            }
+            Value::Object(
+                [(name, normalize_sats_serde_value(payload))]
+                    .into_iter()
+                    .collect(),
+            )
+        }
+        Value::Object(object) => Value::Object(
+            object
+                .into_iter()
+                .map(|(name, value)| (name, normalize_sats_serde_value(value)))
+                .collect(),
+        ),
+        value => value,
+    }
 }
 
 fn core_official_religion(
@@ -380,7 +420,7 @@ pub struct SettlementView {
 }
 
 impl TryFrom<sats::Settlement> for SettlementView {
-    type Error = ViewProjectionError;
+    type Error = serde_json::Error;
 
     fn try_from(row: sats::Settlement) -> Result<Self, Self::Error> {
         let sats::Settlement {
@@ -419,9 +459,9 @@ impl TryFrom<sats::Settlement> for SettlementView {
             population_level,
             population_estimate,
             category,
-            languages: sats_to_serde(&languages, ViewField::SettlementLanguages)?,
-            industries: sats_to_serde(&industries, ViewField::SettlementIndustries)?,
-            economy: sats_to_serde(&economy, ViewField::SettlementEconomy)?,
+            languages: sats_to_serde(&languages)?,
+            industries: sats_to_serde(&industries)?,
+            economy: sats_to_serde(&economy)?,
             religious_status: core_settlement_religious_status(religious_status),
             scene_key,
             religion_id,
@@ -446,7 +486,7 @@ pub struct TravelEdgeView {
 }
 
 impl TryFrom<sats::TravelEdge> for TravelEdgeView {
-    type Error = ViewProjectionError;
+    type Error = serde_json::Error;
 
     fn try_from(row: sats::TravelEdge) -> Result<Self, Self::Error> {
         let sats::TravelEdge {
@@ -467,10 +507,10 @@ impl TryFrom<sats::TravelEdge> for TravelEdgeView {
             id,
             from_node_id,
             to_node_id,
-            route: sats_to_serde(&route, ViewField::TravelRoute)?,
+            route: sats_to_serde(&route)?,
             length_m,
             slope_multiplier,
-            terrain: sats_to_serde(&terrain, ViewField::TravelTerrain)?,
+            terrain: sats_to_serde(&terrain)?,
             certainty,
             section,
         })
@@ -2432,7 +2472,7 @@ mod tests {
             yiddish_incidence_bp: 100,
         };
         let converted: adventuresim_world_schema::SettlementLanguageProfile =
-            sats_to_serde(&languages, ViewField::SettlementLanguages).unwrap();
+            sats_to_serde(&languages).unwrap();
         assert_eq!(converted.east_central_bp, 5_000);
         let mut encoded = serde_json::to_value(SerdeWrapper::from_ref(&languages)).unwrap();
         encoded["unexpected"] = serde_json::json!(1);

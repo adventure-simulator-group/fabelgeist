@@ -1,6 +1,5 @@
 //! Monotone cubic interpolation of dimensioned axial profiles.
 use super::*;
-use crate::ConstructionError;
 
 /// Each cubic stays between its two station values. Zero secants and changes
 /// of direction have zero derivative; other interior derivatives use the
@@ -10,12 +9,12 @@ pub(crate) struct SmoothProfile {
     slopes: Vec<f64>,
 }
 impl SmoothProfile {
-    pub(crate) fn new(points: Vec<PlanarPoint>) -> Result<Self, ConstructionError> {
+    pub(crate) fn new(points: Vec<PlanarPoint>) -> Result<Self, String> {
         if points.len() < 2
             || points.iter().flatten().any(|x| !x.is_finite())
             || points.windows(2).any(|p| p[0][0] >= p[1][0])
         {
-            return Err(ConstructionError::SmoothProfileNeedsFiniteIncreasingStations);
+            return Err("smooth profile needs finite increasing stations".into());
         }
         let intervals: Vec<_> = points.windows(2).map(|p| p[1][0] - p[0][0]).collect();
         let secants: Vec<_> = points

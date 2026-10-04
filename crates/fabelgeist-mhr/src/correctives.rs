@@ -4,24 +4,11 @@
 //! through a sparse 750 -> 3000 layer, a ReLU, and a dense 3000 -> `3 * V`
 //! layer, giving a per-vertex offset applied before skinning.
 
-mod error;
-mod layout;
-mod sparse;
-#[cfg(test)]
-mod tests;
-use crate::MeshVertexCount;
+use std::path::Path;
+
+use anyhow::{Context, Result, bail};
 use burn::tensor::{Device, Tensor, TensorData, activation};
-pub use error::CorrectiveDecodeError;
-use fabelgeist_fs::FileContents;
-use fabelgeist_numpy_storage::{
-    ArchiveMemberPresence, NpyArray, Npz, NpzArrayError, NpzArrayName, ZipReadError,
-};
-pub use layout::{
-    CorrectiveBasisDimensions, CorrectiveDimension, CorrectiveNetworkDimensions,
-    CorrectiveRigTopology, RejectedCorrectiveShape,
-};
-use sparse::AdmittedSparseActivation;
-pub use sparse::{SparseActivationCoordinate, SparseActivationLayout, SparseCoordinateAxis};
+use fabelgeist_numpy_storage::Npz;
 
 /// The first two joints do not define a local pose, so they carry no feature.
 pub const SKIPPED_JOINTS: usize = 2;
@@ -30,104 +17,129 @@ const HIDDEN_PER_JOINT: usize = 24;
 /// Feature channels per posed joint (a 6D rotation).
 const FEATURES_PER_JOINT: usize = 6;
 
-/// The archive's role remains distinct from each array's role.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum CorrectiveArchiveRole {
-    Activation,
-    Basis,
-}
-impl CorrectiveArchiveRole {
-    fn admit(self, contents: FileContents) -> Result<Npz, CorrectiveDecodeError> {
-        Npz::from_bytes(contents).map_err(|source: ZipReadError| -> CorrectiveDecodeError {
-            CorrectiveDecodeError::Archive {
-                role: self,
-                source: Box::new(source),
-            }
-        })
-    }
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum CorrectiveArrayRole {
-    Basis,
-    SparseIndices,
-    SparseWeights,
-}
-impl CorrectiveArrayRole {
-    fn name(self) -> NpzArrayName {
-        NpzArrayName::from(match self {
-            Self::Basis => "corrective_blendshapes",
-            Self::SparseIndices => "0.sparse_indices",
-            Self::SparseWeights => "0.sparse_weight",
-        })
-    }
-    fn read(self, archive: &Npz) -> Result<NpyArray, CorrectiveDecodeError> {
-        archive
-            .array(&self.name())
-            .map_err(|source: NpzArrayError| -> CorrectiveDecodeError {
-                CorrectiveDecodeError::Array {
-                    role: self,
-                    source: Box::new(source),
-                }
-            })
-    }
-}
+/// Names of the arrays MHR stores the network in.
+const BASIS_ARRAY: &str = "corrective_blendshapes";
+const SPARSE_INDICES_ARRAY: &str = "0.sparse_indices";
+const SPARSE_WEIGHT_ARRAY: &str = "0.sparse_weight";
 
 pub struct PoseCorrectives {
     /// Sparse activation layer, densified and transposed: `[posed * 6, hidden]`.
     activation: Tensor<2>,
     /// Corrective basis: `[hidden, vertices * 3]`.
     basis: Tensor<2>,
-    dimensions: CorrectiveNetworkDimensions,
+    posed_joints: usize,
+    num_vertices: usize,
 }
 
 impl PoseCorrectives {
+    /// Loads the corrective network for one level of detail, or `None` when the
+    /// LOD ships no corrective basis.
+    ///
+    /// `activation_path` holds the sparse mask and weights shared by every LOD;
+    /// `basis_path` holds this LOD's corrective basis.
+    pub fn load(
+        activation_path: &Path,
+        basis_path: &Path,
+        num_joints: usize,
+        num_vertices: usize,
+        device: &Device,
+    ) -> Result<Option<Self>> {
+        let archive = Npz::open(basis_path)?;
+        let activation = Npz::open(activation_path)?;
+        Self::from_archives(activation, archive, num_joints, num_vertices, device)
+    }
+
     /// Loads corrective archives already held in memory (for web/streamed assets).
     pub fn from_bytes(
-        activation: FileContents,
-        basis: FileContents,
-        rig: CorrectiveRigTopology,
+        activation: Vec<u8>,
+        basis: Vec<u8>,
+        num_joints: usize,
+        num_vertices: usize,
         device: &Device,
-    ) -> Result<Option<Self>, CorrectiveDecodeError> {
+    ) -> Result<Option<Self>> {
         Self::from_archives(
-            CorrectiveArchiveRole::Activation.admit(activation)?,
-            CorrectiveArchiveRole::Basis.admit(basis)?,
-            rig,
+            Npz::from_bytes(activation)?,
+            Npz::from_bytes(basis)?,
+            num_joints,
+            num_vertices,
             device,
         )
     }
 
-    pub(crate) fn from_archives(
+    fn from_archives(
         activation: Npz,
         archive: Npz,
-        rig: CorrectiveRigTopology,
+        num_joints: usize,
+        num_vertices: usize,
         device: &Device,
-    ) -> Result<Option<Self>, CorrectiveDecodeError> {
-        if archive.contains(&CorrectiveArrayRole::Basis.name()) == ArchiveMemberPresence::Absent {
+    ) -> Result<Option<Self>> {
+        if !archive.contains(BASIS_ARRAY) {
             return Ok(None);
         }
-        let basis = CorrectiveArrayRole::Basis.read(&archive)?;
-        let basis_dimensions = CorrectiveBasisDimensions::try_from(&basis)?;
-        basis_dimensions.admit_vertices(rig)?;
-        let dimensions = CorrectiveNetworkDimensions::try_from(rig)?;
-        basis_dimensions.admit_components(dimensions)?;
-        let indices = CorrectiveArrayRole::SparseIndices.read(&activation)?;
-        let weights = CorrectiveArrayRole::SparseWeights.read(&activation)?;
-        let dense = AdmittedSparseActivation::from_arrays(&indices, &weights, dimensions)?;
+        let basis = archive
+            .array(BASIS_ARRAY)
+            .context("reading the corrective basis")?;
+        let (components, basis_vertices) = match basis.shape[..] {
+            [components, vertices, 3] => (components, vertices),
+            _ => bail!(
+                "{BASIS_ARRAY} has shape {:?}, expected [components, vertices, 3]",
+                basis.shape
+            ),
+        };
+        if basis_vertices != num_vertices {
+            bail!(
+                "corrective basis covers {basis_vertices} vertices but the mesh has {num_vertices}"
+            );
+        }
+
+        let posed_joints = num_joints - SKIPPED_JOINTS;
+        let hidden = posed_joints * HIDDEN_PER_JOINT;
+        if components != hidden {
+            bail!("corrective basis has {components} components, expected {hidden}");
+        }
+
+        let indices = activation
+            .array(SPARSE_INDICES_ARRAY)
+            .context("reading the sparse activation indices")?
+            .to_i64();
+        let values = activation
+            .array(SPARSE_WEIGHT_ARRAY)
+            .context("reading the sparse activation weights")?
+            .to_f32();
+        if indices.len() != 2 * values.len() {
+            bail!(
+                "sparse activation has {} indices for {} weights",
+                indices.len(),
+                values.len()
+            );
+        }
+
+        // Densify straight into the transposed layout the matmul wants. The
+        // layer is 4% dense, so a dense matmul beats a sparse gather on GPU.
+        let inputs = posed_joints * FEATURES_PER_JOINT;
+        let mut dense = vec![0.0f32; inputs * hidden];
+        for (slot, value) in values.iter().enumerate() {
+            let row = indices[slot] as usize;
+            let column = indices[values.len() + slot] as usize;
+            if row >= hidden || column >= inputs {
+                bail!("sparse activation index ({row}, {column}) is out of bounds");
+            }
+            dense[column * hidden + row] = *value;
+        }
+
         Ok(Some(Self {
-            activation: Tensor::from_data(TensorData::from(dense), device),
+            activation: Tensor::from_data(TensorData::new(dense, [inputs, hidden]), device),
             basis: Tensor::from_data(
-                TensorData::new(
-                    Vec::<f32>::from(basis.floating_values()),
-                    [basis_dimensions.components, dimensions.output_coordinates],
-                ),
+                TensorData::new(basis.to_f32(), [components, num_vertices * 3]),
                 device,
             ),
-            dimensions,
+            posed_joints,
+            num_vertices,
         }))
     }
 
-    pub fn num_vertices(&self) -> MeshVertexCount {
-        MeshVertexCount::from(self.dimensions.vertices)
+    pub fn num_vertices(&self) -> usize {
+        self.num_vertices
     }
 
     /// Per-vertex corrective offsets `[batch, vertices, 3]`, from joint
@@ -138,7 +150,7 @@ impl PoseCorrectives {
         let hidden = activation::relu(features.matmul(self.activation.clone()));
         hidden
             .matmul(self.basis.clone())
-            .reshape([batch, self.dimensions.vertices, 3])
+            .reshape([batch, self.num_vertices, 3])
     }
 
     /// The 6D rotation feature per posed joint, flattened to `[batch, posed * 6]`.
@@ -148,12 +160,12 @@ impl PoseCorrectives {
     fn pose_features(&self, joint_parameters: Tensor<3>) -> Tensor<2> {
         let batch = joint_parameters.dims()[0];
         let euler = joint_parameters
-            .narrow(1, SKIPPED_JOINTS, self.dimensions.posed_joints)
+            .narrow(1, SKIPPED_JOINTS, self.posed_joints)
             .narrow(2, 3, 3);
 
-        let (sx, cx) = axis_sin_cos(&euler, RotationFeatureAxis::X);
-        let (sy, cy) = axis_sin_cos(&euler, RotationFeatureAxis::Y);
-        let (sz, cz) = axis_sin_cos(&euler, RotationFeatureAxis::Z);
+        let (sx, cx) = axis_sin_cos(&euler, 0);
+        let (sy, cy) = axis_sin_cos(&euler, 1);
+        let (sz, cz) = axis_sin_cos(&euler, 2);
 
         let feature = Tensor::cat(
             vec![
@@ -166,21 +178,11 @@ impl PoseCorrectives {
             ],
             2,
         );
-        feature.reshape([batch, self.dimensions.posed_joints * FEATURES_PER_JOINT])
+        feature.reshape([batch, self.posed_joints * FEATURES_PER_JOINT])
     }
 }
 
-enum RotationFeatureAxis {
-    X,
-    Y,
-    Z,
-}
-fn axis_sin_cos(euler: &Tensor<3>, axis: RotationFeatureAxis) -> (Tensor<3>, Tensor<3>) {
-    let index = match axis {
-        RotationFeatureAxis::X => 0,
-        RotationFeatureAxis::Y => 1,
-        RotationFeatureAxis::Z => 2,
-    };
-    let angle = euler.clone().narrow(2, index, 1);
+fn axis_sin_cos(euler: &Tensor<3>, axis: usize) -> (Tensor<3>, Tensor<3>) {
+    let angle = euler.clone().narrow(2, axis, 1);
     (angle.clone().sin(), angle.cos())
 }

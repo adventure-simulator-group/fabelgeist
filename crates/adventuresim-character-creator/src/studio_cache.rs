@@ -36,7 +36,7 @@ impl StudioCache {
         recipe: &CharacterRecipe,
     ) -> Result<Arc<GeneratedCharacter>> {
         let key = serde_json::to_vec(&(
-            model.config,
+            model.lod,
             &recipe.proportions,
             &recipe.identity,
             &recipe.expression,
@@ -65,39 +65,54 @@ impl StudioCache {
     ) -> Result<Vec<SelectedArmor<'a>>> {
         let mut fits = HashMap::new();
         let mut finishes = HashMap::new();
-        let mut armor = Vec::with_capacity(loadout.fitted.len());
-        for piece in &loadout.fitted {
-            let fit_key = fit_key(piece)?;
+        let (plan, keys) = fit_keys(loadout)?;
+        let mut armor = (0..loadout.fitted.len())
+            .map(|_| None)
+            .collect::<Vec<Option<SelectedArmor>>>();
+        for &index in plan.order() {
+            let piece = &loadout.fitted[index];
+            let fit_key = keys[index].clone();
+            let supports = plan
+                .supports(index)
+                .map(|inner| {
+                    &armor[inner]
+                        .as_ref()
+                        .expect("ordered lower surface")
+                        .generated
+                })
+                .collect::<Vec<_>>();
             let fitted = match self.fits.remove(&fit_key) {
                 Some(fitted) => fitted,
-                None => parametric_equipment::fit(model, generated, piece, &[])?,
+                None => parametric_equipment::fit(model, generated, piece, &[], &supports)?,
             };
             let finish_key = finish_key(&fit_key, piece)?;
             let finish = match self.finishes.remove(&finish_key) {
                 Some(finish) => finish,
                 None => parametric_equipment::finish(piece, fitted.clone())?,
             };
-            armor.push(SelectedArmor::new(piece, finish.clone()));
+            armor[index] = Some(SelectedArmor::new(piece, finish.clone()));
             fits.insert(fit_key, fitted);
             finishes.insert(finish_key, finish);
         }
         self.fits = fits;
         self.finishes = finishes;
-        Ok(armor)
+        Ok(armor
+            .into_iter()
+            .map(|piece| piece.expect("all selections fitted"))
+            .collect())
     }
 
     /// The lining of the worn rigid plate, as fitted before it is built of
     /// small plates, so that only a change of fit moves the cloth under it.
     pub(super) fn lining(&mut self, loadout: &Loadout<'_>) -> Result<Option<Arc<PlateLining>>> {
-        let rigid = loadout
+        let (_, fit_keys) = fit_keys(loadout)?;
+        let keys = loadout
             .fitted
             .iter()
-            .filter(|piece| parametric_equipment::is_rigid(piece))
+            .enumerate()
+            .filter(|(_, piece)| parametric_equipment::is_rigid(piece))
+            .map(|(index, _)| fit_keys[index].clone())
             .collect::<Vec<_>>();
-        let keys = rigid
-            .iter()
-            .map(|piece| fit_key(piece))
-            .collect::<Result<Vec<_>>>()?;
         if let Some((cached, lining)) = &self.lining
             && *cached == keys
         {
@@ -134,12 +149,37 @@ impl StudioCache {
 }
 
 /// What a piece's fit depends on besides the body.
-fn fit_key(piece: &FittedPiece<'_>) -> Result<Key> {
-    Ok(serde_json::to_vec(&(
-        &piece.piece.item.id,
-        &piece.piece.placement.id,
-        &piece.design,
-    ))?)
+fn fit_keys(
+    loadout: &Loadout<'_>,
+) -> Result<(
+    adventuresim_character_creator::equipment_layers::LayerPlan,
+    Vec<Key>,
+)> {
+    use adventuresim_character_creator::equipment_layers::LayerPlan;
+    let placements = loadout
+        .fitted
+        .iter()
+        .map(|piece| piece.piece.placement)
+        .collect::<Vec<_>>();
+    let plan = LayerPlan::new(&placements)?;
+    let mut keys = vec![Vec::new(); placements.len()];
+    for &index in plan.order() {
+        let piece = &loadout.fitted[index];
+        // The support's finished geometry is used, so changes to construction
+        // and trim underneath also invalidate the outer fit.
+        let supports = plan
+            .supports(index)
+            .map(|inner| finish_key(&keys[inner], &loadout.fitted[inner]))
+            .collect::<Result<Vec<_>>>()?;
+        let bytes = serde_json::to_vec(&(
+            &piece.piece.item.id,
+            &piece.piece.placement.id,
+            &piece.design,
+            supports,
+        ))?;
+        keys[index] = blake3::hash(&bytes).as_bytes().to_vec();
+    }
+    Ok((plan, keys))
 }
 
 /// What a piece's finish depends on besides its fit.

@@ -29,7 +29,7 @@ pub(super) fn setup_viewer(
             Name::new(default_player.name),
             CaptureSubject,
             Player::default(),
-            CharacterId::from(default_tactical_character_id()),
+            CharacterId(default_tactical_character_id()),
             CharacterLook::default(),
             SkeletonState::default(),
             Transform::from_xyz(0.0, spawn_height, 0.0),
@@ -51,7 +51,7 @@ pub(super) fn setup_viewer(
             shadow_maps_enabled: false,
             ..default()
         },
-        Transform::from_xyz(-8.0, 12.0, 8.0).looking_at(Vec3::ZERO, Vec3::Y),
+        Transform::from_xyz(8.0, 12.0, -8.0).looking_at(Vec3::ZERO, Vec3::Y),
     ));
     commands.spawn((
         CaptureLabel,

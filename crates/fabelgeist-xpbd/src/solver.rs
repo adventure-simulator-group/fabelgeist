@@ -16,58 +16,96 @@
 //! 4. **finalize** -- read velocity back out of the total position change, so
 //!    that every correction made in 2 and 3 shows up in the velocity for free.
 
-use crate::{
-    ConstraintSet, ConstraintSweepCount, DampingRate, GravityAcceleration, ParticleSpeedLimit,
-    Particles, StepActivity, StepDuration, SubstepCount, SubstepDuration,
-};
-use fabelgeist_compute::kernel::{Kernel, KernelBatch, KernelCache};
-use fabelgeist_gpu::prelude::{PassParameters, WgpuContext};
 use std::sync::Arc;
-mod error;
-#[cfg(test)]
-mod fixture;
-mod hook;
-mod kernel;
-#[cfg(test)]
-mod tests;
-pub use error::{
-    SolverBuildError, SolverDispatchError, SolverHookPhase, SolverStepError, SolverSubstepError,
-};
-pub use hook::{HookChain, HookChainError, NoSubstepHook, SubstepHook};
-pub use kernel::SolverKernel;
+
+use fabelgeist_compute::prelude::*;
+use fabelgeist_gpu::prelude::*;
+use fabelgeist_math::Vec3;
+
+use crate::constraint::ConstraintSet;
+use crate::particles::Particles;
+use crate::wgsl;
 
 /// How the substep loop is driven.
 #[derive(Clone, Copy, Debug)]
 pub struct SolverSettings {
     /// Substeps per call to [`Solver::step`]. More is stiffer and steadier;
     /// the cost is linear.
-    pub substeps: SubstepCount,
+    pub substeps: u32,
     /// Constraint sweeps within each substep. XPBD wants one; more helps a
     /// badly conditioned set converge, at the price of the compliance meaning
     /// slightly less than it says.
-    pub iterations: ConstraintSweepCount,
-    pub gravity: GravityAcceleration,
+    pub iterations: u32,
+    pub gravity: Vec3,
     /// Exponential velocity drag, per second. Independent of the substep
     /// count, so changing `substeps` does not change how draggy the cloth is.
-    pub damping: DampingRate,
+    pub damping: f32,
     /// Ceiling on particle speed. It only ever binds when something has
     /// already gone wrong, and it is what turns a blown-up frame into a
     /// recoverable one rather than a garment flung off the screen.
-    pub max_speed: ParticleSpeedLimit,
+    pub max_speed: f32,
 }
 
 impl Default for SolverSettings {
     fn default() -> Self {
         Self {
-            substeps: SubstepCount::DEFAULT,
-            iterations: ConstraintSweepCount::ONE,
+            substeps: 10,
+            iterations: 1,
             // Metres per second squared, and the rest of the stack is in
             // metres, so a garment in centimetres has to be scaled on the way
             // in.
-            gravity: GravityAcceleration::earth(),
-            damping: DampingRate::DEFAULT,
-            max_speed: ParticleSpeedLimit::DEFAULT,
+            gravity: Vec3::new(0.0, -9.81, 0.0),
+            damping: 0.1,
+            max_speed: 20.0,
         }
+    }
+}
+
+/// Anything that wants to run between the prediction and the constraint solve
+/// of every substep -- which is where collision response belongs.
+///
+/// It sees the substep length because a positional correction has to know it
+/// to turn into the right velocity change, and friction depends on it.
+pub trait SubstepHook {
+    fn record(
+        &mut self,
+        batch: &mut KernelBatch,
+        particles: &Particles,
+        substep: f32,
+    ) -> Result<()>;
+
+    fn after_solve(
+        &mut self,
+        _batch: &mut KernelBatch,
+        _particles: &Particles,
+        _substep: f32,
+    ) -> Result<()> {
+        Ok(())
+    }
+}
+
+impl SubstepHook for () {
+    fn record(
+        &mut self,
+        _batch: &mut KernelBatch,
+        _particles: &Particles,
+        _substep: f32,
+    ) -> Result<()> {
+        Ok(())
+    }
+}
+
+impl<F> SubstepHook for F
+where
+    F: FnMut(&mut KernelBatch, &Particles, f32) -> Result<()>,
+{
+    fn record(
+        &mut self,
+        batch: &mut KernelBatch,
+        particles: &Particles,
+        substep: f32,
+    ) -> Result<()> {
+        self(batch, particles, substep)
     }
 }
 
@@ -79,7 +117,7 @@ pub struct Solver {
 }
 
 impl Solver {
-    pub fn new(context: &WgpuContext, settings: SolverSettings) -> Result<Self, SolverBuildError> {
+    pub fn new(context: &WgpuContext, settings: SolverSettings) -> Result<Self> {
         Self::with_cache(context, &KernelCache::new(), settings)
     }
 
@@ -87,74 +125,62 @@ impl Solver {
         context: &WgpuContext,
         cache: &KernelCache,
         settings: SolverSettings,
-    ) -> Result<Self, SolverBuildError> {
+    ) -> Result<Self> {
         Ok(Self {
-            predict: SolverKernel::Predict.load(context, cache)?,
-            finalize: SolverKernel::Finalize.load(context, cache)?,
+            predict: cache.get(context, wgsl::PREDICT)?,
+            finalize: cache.get(context, wgsl::FINALIZE)?,
             settings,
         })
     }
 
     /// Record one full step: `settings.substeps` substeps of `delta / substeps`.
-    pub fn record_step<E: std::error::Error + 'static>(
+    pub fn record_step(
         &self,
         batch: &mut KernelBatch,
         particles: &Particles,
         constraints: &mut [&mut ConstraintSet],
-        hook: &mut dyn SubstepHook<Error = E>,
-        delta: StepDuration,
-    ) -> Result<(), SolverStepError<E>> {
+        hook: &mut impl SubstepHook,
+        delta: f32,
+    ) -> Result<()> {
         let count = particles.count();
-        if count == crate::ParticleCount::EMPTY
-            || delta.activity() == StepActivity::Inactive
-            || self.settings.substeps == SubstepCount::EMPTY
-        {
+        if count == 0 || delta <= 0.0 || self.settings.substeps == 0 {
             return Ok(());
         }
-        let substep = delta.for_substeps(self.settings.substeps);
+        let substep = delta / self.settings.substeps as f32;
 
-        for index in self.settings.substeps.sequence() {
-            SolverStepError::for_substep(
-                index,
-                self.record_substep(batch, particles, constraints, hook, substep),
-            )?;
+        for _ in 0..self.settings.substeps {
+            self.record_substep(batch, particles, constraints, hook, substep)?;
         }
         Ok(())
     }
 
     /// One substep, into the given batch.
-    pub fn record_substep<E: std::error::Error + 'static>(
+    pub fn record_substep(
         &self,
         batch: &mut KernelBatch,
         particles: &Particles,
         constraints: &mut [&mut ConstraintSet],
-        hook: &mut dyn SubstepHook<Error = E>,
-        substep: SubstepDuration,
-    ) -> Result<(), SolverSubstepError<E>> {
-        self.record_predict(batch, particles, substep)
-            .map_err(SolverSubstepError::Dispatch)?;
+        hook: &mut impl SubstepHook,
+        substep: f32,
+    ) -> Result<()> {
+        self.record_predict(batch, particles, substep)?;
 
         // Collisions are positional constraints too, and they belong before
         // the material ones: the cloth should be told where it may not be
         // before it is asked to hold its shape there.
-        hook.record(batch, particles, substep)
-            .map_err(SolverSubstepError::before_hook)?;
+        hook.record(batch, particles, substep)?;
 
         for set in constraints.iter_mut() {
-            set.record_clear(batch)
-                .map_err(SolverSubstepError::Constraint)?;
+            set.record_clear(batch)?;
         }
-        for _ in self.settings.iterations.sequence() {
+        for _ in 0..self.settings.iterations.max(1) {
             for set in constraints.iter_mut() {
-                set.record_solve(batch, particles, substep)
-                    .map_err(SolverSubstepError::Constraint)?;
+                set.record_solve(batch, particles, substep)?;
             }
         }
 
-        hook.after_solve(batch, particles, substep)
-            .map_err(SolverSubstepError::after_hook)?;
+        hook.after_solve(batch, particles, substep)?;
         self.record_finalize(batch, particles, substep)
-            .map_err(SolverSubstepError::Dispatch)
     }
 
     /// Step with one submission **per substep** rather than one for the whole
@@ -170,44 +196,38 @@ impl Solver {
     /// Submitting each substep separately gives the scheduler a dozen places
     /// to fit other work. Use this whenever the solver shares a device with a
     /// renderer; `step` is for a device the solver has to itself.
-    pub fn step_interleaved<E: std::error::Error + 'static>(
+    pub fn step_interleaved(
         &self,
         context: &WgpuContext,
         particles: &Particles,
         constraints: &mut [&mut ConstraintSet],
-        hook: &mut dyn SubstepHook<Error = E>,
-        delta: StepDuration,
-    ) -> Result<(), SolverStepError<E>> {
+        hook: &mut impl SubstepHook,
+        delta: f32,
+    ) -> Result<()> {
         let count = particles.count();
-        if count == crate::ParticleCount::EMPTY
-            || delta.activity() == StepActivity::Inactive
-            || self.settings.substeps == SubstepCount::EMPTY
-        {
+        if count == 0 || delta <= 0.0 || self.settings.substeps == 0 {
             return Ok(());
         }
-        let substep = delta.for_substeps(self.settings.substeps);
+        let substep = delta / self.settings.substeps as f32;
 
-        for index in self.settings.substeps.sequence() {
-            let mut batch = KernelBatch::labelled(context, ("xpbd substep").into());
-            SolverStepError::for_substep(
-                index,
-                self.record_substep(&mut batch, particles, constraints, hook, substep),
-            )?;
+        for _ in 0..self.settings.substeps {
+            let mut batch = KernelBatch::labelled(context, "xpbd substep");
+            self.record_substep(&mut batch, particles, constraints, hook, substep)?;
             batch.submit();
         }
         Ok(())
     }
 
     /// Step on a batch of its own and submit.
-    pub fn step<E: std::error::Error + 'static>(
+    pub fn step(
         &self,
         context: &WgpuContext,
         particles: &Particles,
         constraints: &mut [&mut ConstraintSet],
-        hook: &mut dyn SubstepHook<Error = E>,
-        delta: StepDuration,
-    ) -> Result<(), SolverStepError<E>> {
-        let mut batch = KernelBatch::labelled(context, ("xpbd step").into());
+        hook: &mut impl SubstepHook,
+        delta: f32,
+    ) -> Result<()> {
+        let mut batch = KernelBatch::labelled(context, "xpbd step");
         self.record_step(&mut batch, particles, constraints, hook, delta)?;
         batch.submit();
         Ok(())
@@ -217,23 +237,26 @@ impl Solver {
         &self,
         batch: &mut KernelBatch,
         particles: &Particles,
-        substep: SubstepDuration,
-    ) -> Result<(), SolverDispatchError> {
+        substep: f32,
+    ) -> Result<()> {
         let mut parameters = PassParameters::new();
-        parameters.insert("positions".into(), (particles.positions.clone()).into());
-        parameters.insert("previous".into(), (particles.previous.clone()).into());
-        parameters.insert("velocities".into(), (particles.velocities.clone()).into());
-        self.settings.gravity.bind(&mut parameters);
-        substep.bind(&mut parameters);
-        self.settings.damping.bind(&mut parameters);
-        particles.count().bind(&mut parameters);
-        self.settings.max_speed.bind(&mut parameters);
-        SolverKernel::Predict.dispatch(
-            batch,
-            &self.predict,
-            &parameters,
-            particles.count().invocations(),
-        )?;
+        parameters.insert("positions", particles.positions.clone());
+        parameters.insert("previous", particles.previous.clone());
+        parameters.insert("velocities", particles.velocities.clone());
+        parameters.insert(
+            "gravity",
+            fabelgeist_math::Vec4::new(
+                self.settings.gravity.x,
+                self.settings.gravity.y,
+                self.settings.gravity.z,
+                0.0,
+            ),
+        );
+        parameters.insert("substep", substep);
+        parameters.insert("damping", self.settings.damping);
+        parameters.insert("count", particles.count());
+        parameters.insert("max_speed", self.settings.max_speed);
+        batch.dispatch_items(&self.predict, &parameters, particles.count())?;
         Ok(())
     }
 
@@ -241,22 +264,17 @@ impl Solver {
         &self,
         batch: &mut KernelBatch,
         particles: &Particles,
-        substep: SubstepDuration,
-    ) -> Result<(), SolverDispatchError> {
+        substep: f32,
+    ) -> Result<()> {
         let mut parameters = PassParameters::new();
-        parameters.insert("positions".into(), (particles.positions.clone()).into());
-        parameters.insert("previous".into(), (particles.previous.clone()).into());
-        parameters.insert("velocities".into(), (particles.velocities.clone()).into());
-        substep.bind(&mut parameters);
-        particles.count().bind(&mut parameters);
-        parameters.insert("pad0".into(), (0u32).into());
-        parameters.insert("pad1".into(), (0u32).into());
-        SolverKernel::Finalize.dispatch(
-            batch,
-            &self.finalize,
-            &parameters,
-            particles.count().invocations(),
-        )?;
+        parameters.insert("positions", particles.positions.clone());
+        parameters.insert("previous", particles.previous.clone());
+        parameters.insert("velocities", particles.velocities.clone());
+        parameters.insert("substep", substep);
+        parameters.insert("count", particles.count());
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        batch.dispatch_items(&self.finalize, &parameters, particles.count())?;
         Ok(())
     }
 }

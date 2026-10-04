@@ -381,7 +381,7 @@ pub fn validate(case: &GeneratedCase) -> Result<(), Vec<String>> {
                 || outbreak.exposure_chronology.iter().any(|exposure| {
                     let episode = crate::disease::InfectionEpisode {
                         id: exposure.episode_id,
-                        character_id: (exposure.patient_character_id).into(),
+                        character_id: exposure.patient_character_id,
                         disease_id: outbreak.disease,
                         contracted_at: exposure.exposed_at,
                         ruleset_version: crate::physiology::PHYSIOLOGY_RULESET_VERSION,

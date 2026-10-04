@@ -6,9 +6,6 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use crate::{material::Milliliters, physical_object::PhysicalObjectId};
 
-mod error;
-pub use error::ContainmentError;
-
 pub const MAX_CONTAINER_DEPTH: usize = 16;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -29,20 +26,20 @@ pub struct ContainmentGraph {
 }
 
 impl ContainmentGraph {
-    pub fn new(objects: impl IntoIterator<Item = Object>) -> Result<Self, ContainmentError> {
+    pub fn new(objects: impl IntoIterator<Item = Object>) -> Result<Self, &'static str> {
         let mut graph = Self::default();
         for object in objects {
             if object.exterior_volume.is_zero() {
-                return Err(ContainmentError::ZeroExteriorVolume);
+                return Err("Every physical object must have a positive exterior volume");
             }
             if object
                 .measured_volume
                 .is_some_and(|volume| volume > object.exterior_volume)
             {
-                return Err(ContainmentError::MeasuredVolumeExceedsExterior);
+                return Err("Measured volume exceeds the object's authored exterior volume");
             }
             if graph.objects.insert(object.id, object).is_some() {
-                return Err(ContainmentError::DuplicateObject);
+                return Err("Duplicate inventory object identity");
             }
         }
         Ok(graph)
@@ -58,27 +55,21 @@ impl ContainmentGraph {
             .any(|parent| *parent == container)
     }
 
-    pub fn used_volume(
-        &self,
-        container: PhysicalObjectId,
-    ) -> Result<Milliliters, ContainmentError> {
+    pub fn used_volume(&self, container: PhysicalObjectId) -> Result<Milliliters, &'static str> {
         let mut used = Milliliters::ZERO;
         for child in self
             .parent_by_child
             .iter()
             .filter_map(|(child, parent)| (*parent == container).then_some(*child))
         {
-            let object = self
-                .objects
-                .get(&child)
-                .ok_or(ContainmentError::UnknownContainedObject)?;
+            let object = self.objects.get(&child).ok_or("Unknown contained object")?;
             // An immediate liquid lot consumes its current amount. A vessel or
             // solid consumes its exterior displacement; grandchildren are
             // already physically inside that displacement and are not added.
             let volume = object.measured_volume.unwrap_or(object.exterior_volume);
             used = used
                 .checked_add(volume)
-                .ok_or(ContainmentError::VolumeOverflow)?;
+                .ok_or("Container volume overflow")?;
         }
         Ok(used)
     }
@@ -87,21 +78,18 @@ impl ContainmentGraph {
         &mut self,
         child: PhysicalObjectId,
         parent: PhysicalObjectId,
-    ) -> Result<(), ContainmentError> {
+    ) -> Result<(), &'static str> {
         if child == parent {
-            return Err(ContainmentError::SelfContainment);
+            return Err("A container cannot contain itself");
         }
         let parent_object = self
             .objects
             .get(&parent)
-            .ok_or(ContainmentError::UnknownDestination)?;
+            .ok_or("Unknown destination container")?;
         let Some(parent_capacity) = parent_object.capacity else {
-            return Err(ContainmentError::NotAContainer);
+            return Err("Destination is not a container");
         };
-        let child_object = self
-            .objects
-            .get(&child)
-            .ok_or(ContainmentError::UnknownChild)?;
+        let child_object = self.objects.get(&child).ok_or("Unknown child object")?;
         let child_volume = child_object
             .measured_volume
             .unwrap_or(child_object.exterior_volume);
@@ -112,16 +100,16 @@ impl ContainmentGraph {
         for _ in 0..=MAX_CONTAINER_DEPTH {
             let Some(id) = ancestor else { break };
             if id == child {
-                return Err(ContainmentError::WouldCycle);
+                return Err("Container nesting would create a cycle");
             }
             if !visited.insert(id) {
-                return Err(ContainmentError::ExistingCycle);
+                return Err("Existing containment cycle");
             }
             ancestor = self.parent(id);
             ancestor_depth += 1;
         }
         if ancestor.is_some() {
-            return Err(ContainmentError::DepthExceeded);
+            return Err("Container nesting exceeds the maximum depth");
         }
         let mut frontier = vec![(child, 0usize)];
         let mut descendant_depth = 0usize;
@@ -131,7 +119,7 @@ impl ContainmentGraph {
                 .checked_add(descendant_depth)
                 .is_none_or(|combined| combined > MAX_CONTAINER_DEPTH)
             {
-                return Err(ContainmentError::DepthExceeded);
+                return Err("Container nesting exceeds the maximum depth");
             }
             frontier.extend(self.parent_by_child.iter().filter_map(
                 |(candidate, candidate_parent)| {
@@ -149,7 +137,7 @@ impl ContainmentGraph {
             if let Some(old_parent) = old_parent {
                 self.parent_by_child.insert(child, old_parent);
             }
-            return Err(ContainmentError::CapacityExceeded);
+            return Err("Container capacity exceeded");
         }
         self.parent_by_child.insert(child, parent);
         Ok(())
@@ -159,18 +147,15 @@ impl ContainmentGraph {
         self.parent_by_child.remove(&child).is_some()
     }
 
-    pub fn subtree(
-        &self,
-        root: PhysicalObjectId,
-    ) -> Result<Vec<PhysicalObjectId>, ContainmentError> {
+    pub fn subtree(&self, root: PhysicalObjectId) -> Result<Vec<PhysicalObjectId>, &'static str> {
         if !self.objects.contains_key(&root) {
-            return Err(ContainmentError::UnknownObject);
+            return Err("Unknown inventory object");
         }
         let mut result = vec![root];
         let mut cursor = 0;
         while cursor < result.len() {
             if cursor >= MAX_CONTAINER_DEPTH * self.objects.len().max(1) {
-                return Err(ContainmentError::TraversalBoundExceeded);
+                return Err("Containment traversal bound exceeded");
             }
             let parent = result[cursor];
             for child in self
@@ -179,7 +164,7 @@ impl ContainmentGraph {
                 .filter_map(|(child, candidate)| (*candidate == parent).then_some(*child))
             {
                 if result.contains(&child) {
-                    return Err(ContainmentError::ExistingCycle);
+                    return Err("Containment cycle");
                 }
                 result.push(child);
             }
@@ -210,7 +195,7 @@ mod tests {
         let mut over = ContainmentGraph::new([object(1, 100, 999), object(2, 1_000, 0)]).unwrap();
         assert_eq!(
             over.insert(object_id(2), object_id(1)),
-            Err(ContainmentError::CapacityExceeded)
+            Err("Container capacity exceeded")
         );
     }
 
@@ -265,7 +250,7 @@ mod tests {
     fn duplicate_physical_object_ids_are_rejected() {
         assert_eq!(
             ContainmentGraph::new([object(1, 100, 100), object(1, 100, 100)]),
-            Err(ContainmentError::DuplicateObject)
+            Err("Duplicate inventory object identity")
         );
     }
 }

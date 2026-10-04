@@ -1,21 +1,28 @@
 //! The one armor compute device this process generates on.
 
-use std::sync::{Arc, Condvar, Mutex, OnceLock};
+use std::sync::{Condvar, Mutex};
 
-use fabelgeist_armor::{ArmorGpu, GenerateError};
+use fabelgeist_armor::ArmorGpu;
 
 /// The shared armor device, opened on first use.
 ///
 /// Opening a device and compiling the armor kernels takes a noticeable
 /// fraction of a second, and every fitted piece in every thread wants the
 /// same kernels, so the process keeps one.
-pub fn armor_gpu() -> Result<&'static ArmorGpu, Arc<GenerateError>> {
-    static GPU: OnceLock<Result<ArmorGpu, Arc<GenerateError>>> = OnceLock::new();
-    GPU.get_or_init(|| -> Result<ArmorGpu, Arc<GenerateError>> {
-        ArmorGpu::open().map_err(Arc::new)
+pub fn armor_gpu() -> anyhow::Result<&'static ArmorGpu> {
+    pollster::block_on(armor_gpu_async())
+}
+
+pub async fn armor_gpu_async() -> anyhow::Result<&'static ArmorGpu> {
+    static GPU: async_lock::OnceCell<Result<ArmorGpu, String>> = async_lock::OnceCell::new();
+    GPU.get_or_init(|| async {
+        ArmorGpu::open_async()
+            .await
+            .map_err(|error| error.to_string())
     })
+    .await
     .as_ref()
-    .map_err(Arc::clone)
+    .map_err(|error| anyhow::anyhow!("opening the armor GPU: {error}"))
 }
 
 /// Pieces fitted on the armor device at once.

@@ -190,7 +190,7 @@ pub fn authority_test_witness_resolutions(
             return Err("Resolution persistence or admission disagrees".into());
         }
         // The real reducer must exact-replay before reading mutable presence or revision.
-        let affinity_before = current_affinity(ctx, (732004).into(), (observer).into());
+        let affinity_before = current_affinity(ctx, 732004, observer);
         approach_dialogue_witness(
             ctx,
             observer,
@@ -208,7 +208,7 @@ pub fn authority_test_witness_resolutions(
             .ok_or("Session missing")?
             .revision
             != session.revision
-            || current_affinity(ctx, (732004).into(), (observer).into()) != affinity_before
+            || current_affinity(ctx, 732004, observer) != affinity_before
             || witness_social_action_replayed(
                 ctx,
                 &format!("{}:{action_id}", session.id),
@@ -297,7 +297,7 @@ pub fn authority_test_witness_request_keys(
             return Err("Witness request did not execute its canonical action exactly once".into());
         }
         let after = social_clock_or(ctx, observer, StrategicMinute::ZERO);
-        let affinity = current_affinity(ctx, (732004).into(), (observer).into());
+        let affinity = current_affinity(ctx, 732004, observer);
         approach_dialogue_witness(
             ctx,
             observer,
@@ -319,7 +319,7 @@ pub fn authority_test_witness_request_keys(
         )
         .is_ok()
             || social_clock_or(ctx, observer, StrategicMinute::ZERO) != after
-            || current_affinity(ctx, (732004).into(), (observer).into()) != affinity
+            || current_affinity(ctx, 732004, observer) != affinity
             || ctx
                 .db
                 .dialogue_session()

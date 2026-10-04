@@ -195,12 +195,8 @@ fn lame_count_makes_separate_overlapping_plates() {
 
 /// Each lame's carrier points, row by row, read back from the device.
 fn tasset_carriers(design: &GarmentArmorDesign, fit: &PartFrame) -> Vec<Vec<[f32; 3]>> {
-    let frame = gpu()
-        .upload(fabelgeist_gpu::prelude::BufferUpload::from_elements(
-            &frame_words(fit),
-        ))
-        .unwrap();
-    let mut batch = gpu().batch(("tasset carriers").into());
+    let frame = gpu().upload(&frame_words(fit)).unwrap();
+    let mut batch = gpu().batch("tasset carriers");
     let mut part = record_tassets(gpu(), &mut batch, design, &frame).unwrap();
     part.record_shells(gpu(), &mut batch).unwrap();
     batch.submit();

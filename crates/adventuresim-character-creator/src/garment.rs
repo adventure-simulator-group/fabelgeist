@@ -9,7 +9,6 @@ use fabelgeist_garment_code::{
 };
 use fabelgeist_garment_fit::{Fit, FitSettings, build_garment};
 use fabelgeist_math::Vec3;
-use fabelgeist_rig::RigJointName;
 use serde::{Deserialize, Serialize};
 use std::sync::atomic::{AtomicBool, Ordering};
 
@@ -44,7 +43,7 @@ pub struct DrapeInput {
     pub obstacles: Vec<DrapedGarment>,
     pub positions: Vec<[f32; 3]>,
     pub faces: Vec<[u32; 3]>,
-    pub names: Vec<RigJointName>,
+    pub names: Vec<String>,
     pub joints: Vec<[f32; 8]>,
     pub indices: Vec<[u32; 8]>,
     pub weights: Vec<[f32; 8]>,
@@ -94,7 +93,7 @@ fn array(p: Vec3) -> [f32; 3] {
 }
 
 pub fn measured_body(input: &DrapeInput) -> Result<Body> {
-    let joint = |name: &RigJointName| -> Result<[f32; 3]> {
+    let joint = |name: &str| -> Result<[f32; 3]> {
         let i = input
             .names
             .iter()
@@ -104,27 +103,12 @@ pub fn measured_body(input: &DrapeInput) -> Result<Body> {
         Ok([j[0] * 100.0, j[1] * 100.0, j[2] * 100.0])
     };
     let marks = Landmarks {
-        shoulders: [
-            joint(&RigJointName::L_UPARM)?,
-            joint(&RigJointName::R_UPARM)?,
-        ],
-        elbows: [
-            joint(&RigJointName::L_LOWARM)?,
-            joint(&RigJointName::R_LOWARM)?,
-        ],
-        wrists: [
-            joint(&RigJointName::L_WRIST)?,
-            joint(&RigJointName::R_WRIST)?,
-        ],
-        hips: [
-            joint(&RigJointName::L_UPLEG)?,
-            joint(&RigJointName::R_UPLEG)?,
-        ],
-        knees: [
-            joint(&RigJointName::L_LOWLEG)?,
-            joint(&RigJointName::R_LOWLEG)?,
-        ],
-        neck: joint(&RigJointName::C_NECK)?,
+        shoulders: [joint("l_uparm")?, joint("r_uparm")?],
+        elbows: [joint("l_lowarm")?, joint("r_lowarm")?],
+        wrists: [joint("l_wrist")?, joint("r_wrist")?],
+        hips: [joint("l_upleg")?, joint("r_upleg")?],
+        knees: [joint("l_lowleg")?, joint("r_lowleg")?],
+        neck: joint("c_neck")?,
     };
     let vertices: Vec<_> = input
         .positions
@@ -382,7 +366,7 @@ fn orient_faces(
 // Sample each side outside the nearest-leg discontinuity, then interpolate
 // across the hip span. Side vertices retain full leg motion; the centre blends.
 fn transfer_skirt_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<SkinTransferArrays> {
-    let hip = |name: &RigJointName| -> Result<[f32; 8]> {
+    let hip = |name: &str| -> Result<[f32; 8]> {
         let index = input
             .names
             .iter()
@@ -394,8 +378,8 @@ fn transfer_skirt_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<Ski
             .copied()
             .context("missing hip transform")
     };
-    let left = hip(&RigJointName::L_UPLEG)?;
-    let right = hip(&RigJointName::R_UPLEG)?;
+    let left = hip("l_upleg")?;
+    let right = hip("r_upleg")?;
     let center = (left[0] + right[0]) * 0.5;
     let half_width = ((left[0] - right[0]).abs() * 0.5).max(0.025);
     let hip_y = (left[1] + right[1]) * 0.5;
@@ -564,7 +548,7 @@ mod tests {
         let build = build_garment(&pattern, &FitSettings::default(), &Fabric::CHAINMAIL).unwrap();
         let start = build.mesh.positions.clone();
         let mut points = start.clone();
-        let masses = vec![fabelgeist_shell::ParticleInverseMass::UNIT_MASS; start.len()];
+        let masses = vec![1.0; start.len()];
         let contacts = fabelgeist_cloth::surface_contact::SurfaceContacts::new(
             start.len(),
             build.mesh.triangles.clone(),
@@ -638,7 +622,7 @@ mod seam_and_leg_regression {
                 [0.1, 0., 1.],
             ],
             faces: vec![[0, 1, 2], [3, 4, 5]],
-            names: vec![RigJointName::L_UPLEG, RigJointName::R_UPLEG],
+            names: vec!["l_upleg".into(), "r_upleg".into()],
             joints: vec![
                 [-0.1, 1., 0., 0., 0., 0., 1., 1.],
                 [0.1, 1., 0., 0., 0., 0., 1., 1.],

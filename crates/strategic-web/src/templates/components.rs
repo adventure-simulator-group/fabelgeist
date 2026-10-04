@@ -135,14 +135,14 @@ pub fn item_icon_name(item_id: &str) -> &'static str {
     if item_id == "coin" {
         return "coins";
     }
-    adventuresim_core::item_catalog::definition(&(item_id).into())
+    adventuresim_core::item_catalog::definition(item_id)
         .map(|item| item.presentation.icon.as_str())
         .unwrap_or("help")
 }
 
 pub fn item_type_icon(item_id: &str) -> Markup {
     let readable = item_display_name(item_id);
-    if let Some(book) = adventuresim_core::item_catalog::definition(&(item_id).into())
+    if let Some(book) = adventuresim_core::item_catalog::definition(item_id)
         .and_then(|item| item.capabilities.book.as_ref())
     {
         return book_target_icon(&readable, &book.target);
@@ -227,7 +227,7 @@ fn book_target_icon(
 /// Turn a stable snake-case item identifier into player-facing copy without
 /// changing the identifier used by forms or client-side behavior.
 pub fn item_display_name(item_id: &str) -> String {
-    if let Some(item) = adventuresim_core::item_catalog::definition(&(item_id).into()) {
+    if let Some(item) = adventuresim_core::item_catalog::definition(item_id) {
         return item.display_name.clone();
     }
     let mut readable = item_id.replace('_', " ");
@@ -240,7 +240,7 @@ pub fn item_display_name(item_id: &str) -> String {
 /// Resolve a compiled item source location to the same centrally configured
 /// GitHub editor used by dialogue developer links.
 pub fn item_source_edit_url(item_id: &str) -> Option<String> {
-    let source = adventuresim_core::item_catalog::source_for_item(&(item_id).into())?;
+    let source = adventuresim_core::item_catalog::source_for_item(item_id)?;
     adventuresim_dialogue::github_edit_url_for_location(
         "adventure-simulator-group/fabelgeist",
         option_env!("ADVENTURESIM_SOURCE_REF").unwrap_or("main"),

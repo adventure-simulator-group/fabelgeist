@@ -9,74 +9,67 @@
 
 use crate::prelude::*;
 
-/// Results staged for one mapping, with checked logical byte ranges.
+/// Copy offsets must be multiples of this many bytes.
+const ALIGNMENT: u64 = wgpu::COPY_BUFFER_ALIGNMENT;
+
+/// Results staged for one mapping.
 #[derive(Debug)]
 pub struct Readback {
     staging: wgpu::Buffer,
-    ranges: Vec<ReadbackRange>,
+    /// Byte offset and length of each staged buffer.
+    ranges: Vec<(u64, u64)>,
 }
 
 impl Readback {
-    /// Record ordered copies after the commands already present in `batch`.
-    pub fn record(
-        context: &WgpuContext,
-        batch: &mut KernelBatch,
-        sources: ReadbackSources<'_>,
-    ) -> std::result::Result<Self, ReadbackError> {
-        let mut copies = Vec::new();
-        let mut offset = BufferByteOffset::START;
-        for buffer in sources {
-            let length = buffer.length();
-            let extent = length.copy_aligned()?;
-            let available = BufferByteLength::from(buffer.buffer.size());
-            if extent > available {
-                return Err(ReadbackError::CopyStorage {
-                    required: extent,
-                    available,
-                });
-            }
-            let range = ReadbackRange::new(offset, length)?;
-            offset = offset.after(extent)?;
-            copies.push((buffer, range, extent));
+    /// Record copies of `buffers` into a new staging buffer, in `batch` after
+    /// everything already recorded there.
+    pub fn record(context: &WgpuContext, batch: &mut KernelBatch, buffers: &[&Buffer]) -> Self {
+        let mut ranges = Vec::with_capacity(buffers.len());
+        let mut size = 0;
+        for buffer in buffers {
+            ranges.push((size, buffer.size));
+            size += buffer.size.div_ceil(ALIGNMENT) * ALIGNMENT;
         }
         let staging = context.device.create_buffer(&wgpu::BufferDescriptor {
             label: Some("Readback"),
-            size: u64::from(offset).max(wgpu::COPY_BUFFER_ALIGNMENT),
+            size: size.max(ALIGNMENT),
             usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
             mapped_at_creation: false,
         });
-        let mut ranges = Vec::with_capacity(copies.len());
-        for (buffer, range, extent) in copies {
-            if extent != BufferByteLength::from(0u64) {
-                batch.encoder().copy_buffer_to_buffer(
-                    &buffer.buffer,
-                    0,
-                    &staging,
-                    u64::from(range.start()),
-                    u64::from(extent),
-                );
-            }
-            ranges.push(range);
+        for (buffer, (offset, length)) in buffers.iter().zip(&ranges) {
+            batch
+                .encoder()
+                .copy_buffer_to_buffer(&buffer.buffer, 0, &staging, *offset, *length);
         }
-        Ok(Self { staging, ranges })
+        Self { staging, ranges }
     }
 
-    /// Admit and allocate every host destination before obtaining a mapped view.
-    pub async fn read(
-        self,
-        context: &WgpuContext,
-    ) -> std::result::Result<ReadbackBlocks, ReadbackError> {
-        let mut layouts = Vec::with_capacity(self.ranges.len());
-        let mut results = Vec::with_capacity(self.ranges.len());
-        for range in &self.ranges {
-            layouts.push(BufferReadback::<u8>::new(range.length())?);
-        }
-        let mapping = ReadbackMapping::new(context, &self.staging).await?;
-        let view = mapping.view()?;
-        for (layout, range) in layouts.into_iter().zip(self.ranges) {
-            results.push(layout.copy_from(view.bytes().segment(range)?)?);
-        }
-        Ok(ReadbackBlocks::new(results))
+    /// Map the staging buffer once the batch has been submitted, and return
+    /// each buffer's bytes in the order they were recorded. On native targets
+    /// this waits on the device.
+    pub async fn read(self, context: &WgpuContext) -> Result<Vec<Vec<u8>>> {
+        let slice = self.staging.slice(..);
+        let (sender, receiver) = futures_channel::oneshot::channel();
+        slice.map_async(wgpu::MapMode::Read, move |result| {
+            let _ = sender.send(result);
+        });
+        #[cfg(not(target_arch = "wasm32"))]
+        let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+        #[cfg(target_arch = "wasm32")]
+        let _ = context;
+        receiver
+            .await
+            .map_err(|_| anyhow!("Readback: mapping channel closed"))?
+            .map_err(|error| anyhow!("Readback: mapping failed: {error:?}"))?;
+        let data = slice.get_mapped_range();
+        let results = self
+            .ranges
+            .iter()
+            .map(|(offset, length)| data[*offset as usize..(*offset + *length) as usize].to_vec())
+            .collect();
+        drop(data);
+        self.staging.unmap();
+        Ok(results)
     }
 }
 
@@ -88,55 +81,21 @@ mod tests {
     async fn every_buffer_comes_back_in_order() -> Result<()> {
         let context = WgpuContext::new().await?;
         let definition = BufferDefinition::storage();
-        // A three-byte logical result needs padding before the next copy.
-        let a = Buffer::from_upload(
+        // Odd lengths, so that the staged copies need padding between them.
+        let a = Buffer::from_slice(&context, &[1u32, 2, 3], definition.clone())?;
+        let b = Buffer::from_slice(
             &context,
-            BufferUpload::from_elements(&[1u32, 2, 3]),
+            &[7u8, 8, 9, 10, 11, 12, 13, 14],
             definition.clone(),
         )?;
-        let mut b = Buffer::from_upload(
-            &context,
-            BufferUpload::from_elements(&[7u8, 8, 9, 10, 11, 12, 13, 14]),
-            definition.clone(),
-        )?;
-        b = b.with_logical_length(3u64.into())?;
-        let mut empty = Buffer::from_upload(
-            &context,
-            BufferUpload::from_elements(&[0u32]),
-            definition.clone(),
-        )?;
-        empty = empty.with_logical_length(BufferByteLength::default())?;
-        let c = Buffer::from_upload(&context, BufferUpload::from_elements(&[0.5f32]), definition)?;
+        let c = Buffer::from_slice(&context, &[0.5f32], definition)?;
         let mut batch = KernelBatch::new(&context);
-        let readback = Readback::record(
-            &context,
-            &mut batch,
-            ReadbackSources::from(&[&a, &b, &empty, &c][..]),
-        )?;
+        let readback = Readback::record(&context, &mut batch, &[&a, &b, &c]);
         batch.submit();
         let results = readback.read(&context).await?;
-        assert_eq!(
-            results.get(ReadbackSlot::from(0))?.decode::<u32>()?,
-            &[1, 2, 3]
-        );
-        assert_eq!(
-            results.get(ReadbackSlot::from(1))?.decode::<u8>()?,
-            [7, 8, 9]
-        );
-        assert!(
-            results
-                .get(ReadbackSlot::from(2))?
-                .decode::<u32>()?
-                .is_empty()
-        );
-        assert_eq!(results.get(ReadbackSlot::from(3))?.decode::<f32>()?, &[0.5]);
-        let mut batch = KernelBatch::new(&context);
-        let readback = Readback::record(&context, &mut batch, ReadbackSources::from(&[][..]))?;
-        batch.submit();
-        assert!(matches!(
-            readback.read(&context).await?.get(ReadbackSlot::from(0)),
-            Err(ReadbackError::MissingSlot(_))
-        ));
+        assert_eq!(bytemuck::cast_slice::<u8, u32>(&results[0]), &[1, 2, 3]);
+        assert_eq!(results[1], [7, 8, 9, 10, 11, 12, 13, 14]);
+        assert_eq!(bytemuck::cast_slice::<u8, f32>(&results[2]), &[0.5]);
         Ok(())
     }
 }

@@ -25,7 +25,7 @@ fn eligible_mapped_slot(
         let location = mapping.locations[location_index];
         let layers = layers_at(location);
         let depth = match held_item_id {
-            Some(item_id) => eligible_slot_depth(&item_id.into(), location, &layers),
+            Some(item_id) => eligible_slot_depth(item_id, location, &layers),
             None => outermost_occupied_depth(&layers),
         }?;
         Some(MappedSlot {
@@ -145,7 +145,7 @@ mod tests {
             let mut world = World::new();
             let actor = world.spawn_empty().id();
             for item in allocation {
-                let placement = &item_catalog::definition(&(item).into())
+                let placement = &item_catalog::definition(item)
                     .unwrap()
                     .equipment
                     .as_ref()

@@ -5,8 +5,8 @@ use crate::gather::Gather;
 use anyhow::Result;
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::globals::WgpuContext;
-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 
+use fabelgeist_gpu::data::PassParameter;
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 
@@ -82,30 +82,29 @@ impl DualContouring {
         let grid_total = (grid.0 * grid.1 * grid.2) as u64;
 
         // Create uniform parameter buffer info
-        let params = PassParameters::from([
-            ("grid_x".into(), (grid.0).into()),
-            ("grid_y".into(), (grid.1).into()),
-            ("grid_z".into(), (grid.2).into()),
-            ("max_vertices".into(), (max_vertices).into()),
-            ("max_indices".into(), (max_indices).into()),
-            ("front_mode".into(), (u32::from(front_mode)).into()),
-            ("threshold".into(), (threshold).into()),
-            ("scale_x".into(), (scale.0).into()),
-            ("scale_y".into(), (scale.1).into()),
-            ("scale_z".into(), (scale.2).into()),
-            ("offset_x".into(), (offset.0).into()),
-            ("offset_y".into(), (offset.1).into()),
-            ("offset_z".into(), (offset.2).into()),
-        ]);
+        let mut params = PassParameters::new();
+        params.insert("grid_x", grid.0);
+        params.insert("grid_y", grid.1);
+        params.insert("grid_z", grid.2);
+        params.insert("max_vertices", max_vertices);
+        params.insert("max_indices", max_indices);
+        params.insert("front_mode", u32::from(front_mode));
+        params.insert("threshold", threshold);
+        params.insert("scale_x", scale.0);
+        params.insert("scale_y", scale.1);
+        params.insert("scale_z", scale.2);
+        params.insert("offset_x", offset.0);
+        params.insert("offset_y", offset.1);
+        params.insert("offset_z", offset.2);
 
         // 1. Gather Vertex Count
         let vertex_counts_buffer = Buffer::new(
             context,
-            (grid_total * 4).into(),
+            grid_total * 4,
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("dual_contouring_vertex_counts").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination),
+                .with_label("dual_contouring_vertex_counts")
+                .with_copy_src()
+                .with_copy_dst(),
         )?;
         Gather::execute_with_parameters(
             context,
@@ -118,11 +117,11 @@ impl DualContouring {
         // 2. Gather Index Count
         let index_counts_buffer = Buffer::new(
             context,
-            (grid_total * 4).into(),
+            grid_total * 4,
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("dual_contouring_index_counts").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination),
+                .with_label("dual_contouring_index_counts")
+                .with_copy_src()
+                .with_copy_dst(),
         )?;
         Gather::execute_with_parameters(
             context,
@@ -141,36 +140,32 @@ impl DualContouring {
         // 4. Sync Indirect Buffer (using index count)
         let dummy_in = Buffer::new(
             context,
-            (4u64).into(),
+            4,
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("dummy_in").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination),
+                .with_label("dummy_in")
+                .with_copy_src()
+                .with_copy_dst(),
         )?;
         let dummy_out = Buffer::new(
             context,
-            (4u64).into(),
+            4,
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("dummy_out").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination),
+                .with_label("dummy_out")
+                .with_copy_src()
+                .with_copy_dst(),
         )?;
         let output_indirect = Buffer::new(
             context,
-            (20u64).into(), // 5 * u32 for DrawIndexedIndirect
+            20, // 5 * u32 for DrawIndexedIndirect
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("dual_contouring_indirect").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination)
-                .with_usage(BufferUse::Indirect),
+                .with_label("dual_contouring_indirect")
+                .with_copy_src()
+                .with_copy_dst()
+                .with_indirect(),
         )?;
-        let sync_params = PassParameters::from([
-            (
-                "inclusive_offsets".into(),
-                (index_inclusive_offsets.clone()).into(),
-            ),
-            ("indirect".into(), (output_indirect.clone()).into()),
-        ]);
+        let mut sync_params = PassParameters::new();
+        sync_params.insert("inclusive_offsets", index_inclusive_offsets.clone());
+        sync_params.insert("indirect", output_indirect.clone());
         crate::Map::execute_with_parameters(
             context,
             &definition.sync_indirect_def,
@@ -180,26 +175,23 @@ impl DualContouring {
         )?;
 
         // 5. Initialize cell_vertex_indices buffer to 0xFFFFFFFF
-        let cell_vertex_indices = Buffer::from_upload(
+        let cell_vertex_indices = Buffer::from_slice(
             context,
-            BufferUpload::from_elements(&vec![0xFFFFFFFFu32; grid_total as usize]),
-            BufferDefinition::storage().with_label(("cell_vertex_indices").into()),
+            &vec![0xFFFFFFFFu32; grid_total as usize],
+            BufferDefinition::storage().with_label("cell_vertex_indices"),
         )?;
 
         // 6. Stream Vertices
         let output_vertices = Buffer::new(
             context,
-            (max_vertices as u64 * 32).into(), // vec4 pos + vec4 norm
+            max_vertices as u64 * 32, // vec4 pos + vec4 norm
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("dual_contouring_output_vertices").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination),
+                .with_label("dual_contouring_output_vertices")
+                .with_copy_src()
+                .with_copy_dst(),
         )?;
         let mut vertex_gen_params = params.clone();
-        vertex_gen_params.insert(
-            "cell_vertex_indices".into(),
-            (cell_vertex_indices.clone()).into(),
-        );
+        vertex_gen_params.insert("cell_vertex_indices", cell_vertex_indices.clone());
         crate::Stream::execute(
             context,
             &definition.vertex_stream_def,
@@ -213,21 +205,16 @@ impl DualContouring {
         // 7. Stream Indices
         let output_indices = Buffer::new(
             context,
-            (max_indices as u64 * 4).into(),
+            max_indices as u64 * 4,
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("dual_contouring_output_indices").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination)
-                .with_usage(BufferUse::Index),
+                .with_label("dual_contouring_output_indices")
+                .with_copy_src()
+                .with_copy_dst()
+                .with_index(),
         )?;
         let mut index_gen_params = params.clone();
-        index_gen_params.overlay(PassParameters::from([
-            (
-                "cell_vertex_indices".into(),
-                (cell_vertex_indices.clone()).into(),
-            ),
-            ("front_vertices".into(), (output_vertices.clone()).into()),
-        ]));
+        index_gen_params.insert("cell_vertex_indices", cell_vertex_indices.clone());
+        index_gen_params.insert("front_vertices", output_vertices.clone());
         crate::Stream::execute(
             context,
             &definition.index_stream_def,
@@ -239,19 +226,40 @@ impl DualContouring {
         )?;
 
         // 8. Deinterleave positions and normals
-        let attributes = crate::surface_attributes::SurfaceAttributes::new(
+        let out_positions = Buffer::new(
             context,
-            &definition.deinterleave_pipeline,
-            output_vertices,
-            fabelgeist_gpu::prelude::BufferByteLength::from(max_vertices as u64 * 12),
-            fabelgeist_gpu::prelude::WorkgroupGrid::from([max_vertices.div_ceil(64), 1, 1]),
-            crate::surface_attributes::SurfaceExtraction::DualContouring,
+            max_vertices as u64 * 12, // vec3 pos
+            fabelgeist_gpu::data::BufferDefinition::storage()
+                .with_label("dual_contouring_positions")
+                .with_copy_src()
+                .with_copy_dst()
+                .with_vertex(),
         )?;
-        Ok((
-            attributes.positions,
-            attributes.normals,
-            output_indices,
-            output_indirect,
-        ))
+        let out_normals = Buffer::new(
+            context,
+            max_vertices as u64 * 12, // vec3 norm
+            fabelgeist_gpu::data::BufferDefinition::storage()
+                .with_label("dual_contouring_normals")
+                .with_copy_src()
+                .with_copy_dst()
+                .with_vertex(),
+        )?;
+
+        let mut deinterleave_params = PassParameters::new();
+        deinterleave_params.insert("vertices", PassParameter::from(output_vertices));
+        deinterleave_params.insert("out_positions", PassParameter::from(out_positions.clone()));
+        deinterleave_params.insert("out_normals", PassParameter::from(out_normals.clone()));
+
+        let workgroups_x = max_vertices.div_ceil(64);
+        fabelgeist_gpu::data::gpu::ComputePass::dispatch(
+            context,
+            definition.deinterleave_pipeline.clone(),
+            deinterleave_params,
+            workgroups_x,
+            1,
+            1,
+        )?;
+
+        Ok((out_positions, out_normals, output_indices, output_indirect))
     }
 }

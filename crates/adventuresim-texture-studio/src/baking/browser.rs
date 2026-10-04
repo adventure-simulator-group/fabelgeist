@@ -24,7 +24,6 @@ impl Backend {
                 Err(error)
             } else {
                 BakedRecipe::from_bytes(&js_sys::Uint8Array::new(&data).to_vec())
-                    .map_err(|error| error.to_string())
             };
             *inbox.borrow_mut() = Some(value);
         });

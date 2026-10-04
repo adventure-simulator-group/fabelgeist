@@ -2,29 +2,31 @@
 
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
-use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::TorsoBody;
 use super::carrier_wgsl::{self, COARSE_WORDS};
-use super::fit_wgsl::{self, CENTER_WORDS, PREPARED_WORDS, RESIDUAL_WORDS};
+use super::fit_wgsl::{self, CENTER_WORDS};
 use super::kernels::{Params, dispatch};
 use super::plates::{Plate, Plates};
 use super::shape_wgsl;
-use super::topology::{SKIRT_SAMPLES, U_SAMPLES, V_SAMPLES};
+use super::topology::{SKIRT_SAMPLES, V_SAMPLES};
 use super::wearer_wgsl;
 use crate::gpu::ArmorGpu;
 use crate::{BreastplateDesign, GenerateError};
-
-/// The section fit stops after this many measurements.
-pub(super) const ITERATIONS: u32 = 25;
 
 /// The ordered encodings of positive and negative infinity: a bound's
 /// starting value before an atomic reduction.
 const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
 const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
-/// A fit's control words before its first measurement: no residual, no
-/// witness, not finished.
-const CONTROL_START: [u32; 4] = [0, u32::MAX, 0, 0];
+/// Seating may contract an oversized carrier. Enclosure after construction
+/// preserves existing radial reach, including the rear side lap.
+#[derive(Clone, Copy, Default)]
+#[repr(u32)]
+pub(super) enum RadialFit {
+    #[default]
+    Seat,
+    Enclose,
+}
 
 /// The wearer as the plates were fitted to it: the design and wearer words
 /// every shape kernel reads, and the body in the wearer's frame.
@@ -43,14 +45,9 @@ pub(super) fn record_fitted(
     plates: &Plates,
     status: &Buffer,
 ) -> Result<Fitted, GenerateError> {
-    let plate = gpu.upload(BufferUpload::from_elements(&shape_wgsl::design_words(
-        design,
-    )))?;
-    let torso_faces = gpu.upload(BufferUpload::from_elements(torso.torso_faces))?;
-    let body_local = gpu.scratch(
-        (torso.body.vertex_count as u64 * 12).into(),
-        ("body in wearer frame").into(),
-    )?;
+    let plate = gpu.upload(&shape_wgsl::design_words(design))?;
+    let torso_faces = gpu.upload(torso.torso_faces)?;
+    let body_local = gpu.scratch(torso.body.vertex_count as u64 * 12, "body in wearer frame")?;
     record_wearer(gpu, batch, &plate, torso, &torso_faces, &body_local, status)?;
     let fitter = Fitter {
         gpu,
@@ -63,17 +60,31 @@ pub(super) fn record_fitted(
     let (coarse, back) = (&plates.coarse, &plates.back);
     let coarse_centers = fitter.record_carrier(batch, coarse, false)?;
     let back_centers = fitter.record_carrier(batch, back, true)?;
-    fitter.record_fit(
-        batch,
-        &coarse.positions,
-        &coarse_centers,
-        coarse.count(),
-        false,
-    )?;
-    fitter.record_fit(batch, &back.positions, &back_centers, back.count(), true)?;
+    fitter.record_fit(batch, coarse, &coarse_centers, false, RadialFit::Seat)?;
+    fitter.record_fit(batch, back, &back_centers, true, RadialFit::Seat)?;
     fitter.record_lap(batch, back, coarse)?;
-    // Restore the enclosure with a smooth profile after seating the lap.
-    fitter.record_fit(batch, &back.positions, &back_centers, back.count(), true)?;
+    // Restore local enclosure after seating the lap.
+    fitter.record_fit(batch, back, &back_centers, true, RadialFit::Enclose)?;
+    for (plate, centers, rear) in [
+        (coarse, &coarse_centers, false),
+        (back, &back_centers, true),
+    ] {
+        dispatch(
+            gpu,
+            batch,
+            fit_wgsl::TRIM_CARRIER,
+            &[("positions", true)],
+            Params {
+                width: plate.width(),
+                ..Params::default()
+            },
+            &[("positions", &plate.positions)],
+            plate.width(),
+        )?;
+        let trim = if rear { &plates.back } else { &plates.front };
+        trim.record_arm_trim(gpu, batch, fitter.plate, rear)?;
+        fitter.record_trim_validation(batch, plate, centers, rear, &trim.arm_distances)?;
+    }
     Ok(Fitted { plate, body_local })
 }
 
@@ -102,7 +113,7 @@ fn record_wearer(
             ("positions", &torso.body.positions),
             ("status", status),
         ],
-        (1u32).into(),
+        1,
     )?;
     let vertices = torso.body.vertex_count;
     dispatch(
@@ -116,17 +127,17 @@ fn record_wearer(
             ("positions", &torso.body.positions),
             ("body_local", body_local),
         ],
-        (vertices).into(),
+        vertices,
     )?;
     let corners = torso.torso_faces.len() as u32 * 3;
-    let bounds = gpu.upload(BufferUpload::from_elements(&[
+    let bounds = gpu.upload(&[
         ORDERED_POSITIVE_INFINITY,
         ORDERED_POSITIVE_INFINITY,
         ORDERED_POSITIVE_INFINITY,
         ORDERED_NEGATIVE_INFINITY,
         ORDERED_NEGATIVE_INFINITY,
         ORDERED_NEGATIVE_INFINITY,
-    ]))?;
+    ])?;
     dispatch(
         gpu,
         batch,
@@ -139,7 +150,7 @@ fn record_wearer(
             ("body_local", body_local),
             ("bounds", &bounds),
         ],
-        (corners).into(),
+        corners,
     )?;
     dispatch(
         gpu,
@@ -148,7 +159,7 @@ fn record_wearer(
         &[],
         Params::default(),
         &[("plate", plate), ("bounds", &bounds)],
-        (1u32).into(),
+        1,
     )
 }
 
@@ -163,6 +174,60 @@ struct Fitter<'a> {
 }
 
 impl Fitter<'_> {
+    fn record_trim_validation(
+        &self,
+        batch: &mut KernelBatch,
+        plate: &Plate,
+        centers: &Buffer,
+        rear: bool,
+        arm_distances: &Buffer,
+    ) -> Result<(), GenerateError> {
+        let params = Params {
+            count: plate.width(),
+            width: plate.width(),
+            rear,
+            torso_count: self.torso_count,
+            extra: (V_SAMPLES as u32 - 1) * plate.width(),
+            ..Params::default()
+        };
+        let support = self
+            .gpu
+            .scratch(plate.count() as u64 * 4, "trim body support")?;
+        dispatch(
+            self.gpu,
+            batch,
+            fit_wgsl::MEASURE,
+            &[("positions", false), ("body_local", false)],
+            params,
+            &[
+                ("plate", self.plate),
+                ("positions", &plate.positions),
+                ("centers", centers),
+                ("torso_faces", self.torso_faces),
+                ("body_local", self.body_local),
+                ("support_radii", &support),
+                ("columns", &self.gpu.upload(&plate.topology.columns)?),
+                ("status", self.status),
+            ],
+            plate.width(),
+        )?;
+        dispatch(
+            self.gpu,
+            batch,
+            fit_wgsl::CHECK_SUPPORT,
+            &[("positions", false)],
+            params,
+            &[
+                ("plate", self.plate),
+                ("positions", &plate.positions),
+                ("support_radii", &support),
+                ("status", self.status),
+                ("arm_distances", arm_distances),
+            ],
+            plate.width(),
+        )
+    }
+
     /// Evaluate an unfluted plate's carrier, and the torso section centre at
     /// each of its vertices' heights, which fitting never changes.
     fn record_carrier(
@@ -172,10 +237,6 @@ impl Fitter<'_> {
         rear: bool,
     ) -> Result<Buffer, GenerateError> {
         let gpu = self.gpu;
-        // The skirt hangs from the regular chart's own columns.
-        if plate.width() != U_SAMPLES as u32 {
-            return Err(GenerateError::InvalidSurface);
-        }
         let count = plate.count();
         let params = Params {
             count,
@@ -184,11 +245,8 @@ impl Fitter<'_> {
             torso_count: self.torso_count,
             ..Params::default()
         };
-        let samples = U_SAMPLES as u32 * V_SAMPLES as u32;
-        let coarse = gpu.scratch(
-            (samples as u64 * COARSE_WORDS as u64 * 4).into(),
-            ("regular chart").into(),
-        )?;
+        let samples = plate.width() * V_SAMPLES as u32;
+        let coarse = gpu.scratch(samples as u64 * COARSE_WORDS as u64 * 4, "regular chart")?;
         dispatch(
             gpu,
             batch,
@@ -198,9 +256,10 @@ impl Fitter<'_> {
             &[
                 ("plate", self.plate),
                 ("coarse", &coarse),
+                ("columns", &self.gpu.upload(&plate.topology.columns)?),
                 ("status", self.status),
             ],
-            (samples).into(),
+            samples,
         )?;
         dispatch(
             gpu,
@@ -210,18 +269,15 @@ impl Fitter<'_> {
             params,
             &[
                 ("plate", self.plate),
-                (
-                    "columns",
-                    &gpu.upload(BufferUpload::from_elements(&plate.topology.columns))?,
-                ),
+                ("columns", &gpu.upload(&plate.topology.columns)?),
                 ("coarse", &coarse),
                 ("positions", &plate.positions),
             ],
-            (count).into(),
+            count,
         )?;
         let centers = gpu.scratch(
-            (count as u64 * CENTER_WORDS as u64 * 4).into(),
-            ("torso section centres").into(),
+            count as u64 * CENTER_WORDS as u64 * 4,
+            "torso section centres",
         )?;
         dispatch(
             gpu,
@@ -236,7 +292,7 @@ impl Fitter<'_> {
                 ("body_local", self.body_local),
                 ("centers", &centers),
             ],
-            (count).into(),
+            count,
         )?;
         Ok(centers)
     }
@@ -257,6 +313,7 @@ impl Fitter<'_> {
                 &[("positions", true)],
                 Params {
                     width: back.width(),
+                    front_count: front.width(),
                     side,
                     ..Params::default()
                 },
@@ -265,158 +322,79 @@ impl Fitter<'_> {
                     ("front", &front.positions),
                     ("positions", &back.positions),
                 ],
-                ((V_SAMPLES + SKIRT_SAMPLES - 1) as u32).into(),
+                (V_SAMPLES + SKIRT_SAMPLES - 1) as u32,
             )?;
         }
         Ok(())
     }
 
-    /// Fit a carrier to clear the torso's sections: every iteration
-    /// recorded, the ones after convergence doing nothing.
+    /// Measure each carrier point against its own torso ray, then smooth a
+    /// conservative local support envelope. A flank correction cannot push
+    /// the whole anterior chest away from its wearer.
     fn record_fit(
         &self,
         batch: &mut KernelBatch,
-        positions: &Buffer,
+        plate: &Plate,
         centers: &Buffer,
-        count: u32,
         rear: bool,
+        radial_fit: RadialFit,
     ) -> Result<(), GenerateError> {
-        let gpu = self.gpu;
-        let fit = Fit {
-            fitter: self,
-            positions,
-            centers,
-            prepared: gpu.scratch(
-                (count as u64 * PREPARED_WORDS as u64 * 4).into(),
-                ("fit origins").into(),
-            )?,
-            residuals: gpu.scratch(
-                (count as u64 * RESIDUAL_WORDS as u64 * 4).into(),
-                ("fit residuals").into(),
-            )?,
-            profile: gpu.scratch((8u64 * 4).into(), ("fit profile").into())?,
-            control: gpu.upload(BufferUpload::from_elements(&CONTROL_START))?,
-            params: Params {
-                count,
-                rear,
-                torso_count: self.torso_count,
-                ..Params::default()
-            },
+        let positions = &plate.positions;
+        let count = plate.count();
+        let support_radii = self.gpu.scratch(count as u64 * 4, "local torso support")?;
+        let envelope = self
+            .gpu
+            .scratch(count as u64 * 4, "torso support envelope")?;
+        let params = Params {
+            count,
+            rear,
+            radial_fit,
+            width: plate.width(),
+            torso_count: self.torso_count,
+            ..Params::default()
         };
         dispatch(
-            gpu,
+            self.gpu,
             batch,
-            fit_wgsl::PREPARE,
-            &[("positions", false)],
-            fit.params,
+            fit_wgsl::MEASURE,
+            &[("positions", false), ("body_local", false)],
+            params,
             &[
                 ("plate", self.plate),
                 ("positions", positions),
                 ("centers", centers),
-                ("prepared", &fit.prepared),
-            ],
-            (count).into(),
-        )?;
-        for iteration in 0..ITERATIONS {
-            fit.apply(batch)?;
-            fit.measure(batch, iteration)?;
-        }
-        fit.apply(batch)?;
-        dispatch(
-            gpu,
-            batch,
-            fit_wgsl::FINISH,
-            &[],
-            fit.params,
-            &[
-                ("plate", self.plate),
-                ("profile", &fit.profile),
+                ("torso_faces", self.torso_faces),
+                ("body_local", self.body_local),
+                ("support_radii", &support_radii),
+                ("columns", &self.gpu.upload(&plate.topology.columns)?),
                 ("status", self.status),
             ],
-            (1u32).into(),
-        )
-    }
-}
-
-/// One plate's section fit in progress.
-struct Fit<'a> {
-    fitter: &'a Fitter<'a>,
-    positions: &'a Buffer,
-    centers: &'a Buffer,
-    prepared: Buffer,
-    residuals: Buffer,
-    profile: Buffer,
-    control: Buffer,
-    params: Params,
-}
-
-impl Fit<'_> {
-    /// Move every carrier vertex by the current profile.
-    fn apply(&self, batch: &mut KernelBatch) -> Result<(), GenerateError> {
+            count,
+        )?;
         dispatch(
-            self.fitter.gpu,
+            self.gpu,
+            batch,
+            fit_wgsl::ENVELOPE,
+            &[],
+            params,
+            &[("support_radii", &support_radii), ("envelope", &envelope)],
+            count,
+        )?;
+        dispatch(
+            self.gpu,
             batch,
             fit_wgsl::APPLY,
             &[("positions", true)],
-            self.params,
+            params,
             &[
-                ("plate", self.fitter.plate),
-                ("prepared", &self.prepared),
-                ("profile", &self.profile),
-                ("positions", self.positions),
+                ("positions", positions),
+                ("plate", self.plate),
+                ("centers", centers),
+                ("envelope", &envelope),
+                ("support_radii", &support_radii),
+                ("status", self.status),
             ],
-            (self.params.count).into(),
-        )
-    }
-
-    /// Find the vertex furthest inside its clearance, and grow the profile
-    /// to clear it; or finish the fit when none is.
-    fn measure(&self, batch: &mut KernelBatch, iteration: u32) -> Result<(), GenerateError> {
-        let fitter = self.fitter;
-        let count = self.params.count;
-        dispatch(
-            fitter.gpu,
-            batch,
-            fit_wgsl::RESIDUAL,
-            &[("positions", false), ("body_local", false)],
-            self.params,
-            &[
-                ("plate", fitter.plate),
-                ("positions", self.positions),
-                ("centers", self.centers),
-                ("torso_faces", fitter.torso_faces),
-                ("body_local", fitter.body_local),
-                ("residuals", &self.residuals),
-                ("control", &self.control),
-            ],
-            (count).into(),
-        )?;
-        dispatch(
-            fitter.gpu,
-            batch,
-            fit_wgsl::WITNESS,
-            &[],
-            self.params,
-            &[("residuals", &self.residuals), ("control", &self.control)],
-            (count).into(),
-        )?;
-        dispatch(
-            fitter.gpu,
-            batch,
-            fit_wgsl::UPDATE,
-            &[],
-            Params {
-                iteration,
-                ..self.params
-            },
-            &[
-                ("prepared", &self.prepared),
-                ("residuals", &self.residuals),
-                ("profile", &self.profile),
-                ("control", &self.control),
-                ("status", fitter.status),
-            ],
-            (1u32).into(),
+            count,
         )
     }
 }

@@ -5,16 +5,15 @@
 //! helmet's profile by one invocation. Which skin belongs to the head and
 //! neck is a matter of skin weights alone, so the host lists it once.
 
-use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use anyhow::Result;
 use fabelgeist_armor::gpu::{
-    CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, record_close_helmet, wgsl,
+    CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, device_error, record_close_helmet, wgsl,
 };
 use fabelgeist_armor::{ArmorGpu, CloseHelmetDesign};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -67,8 +66,8 @@ impl DeviceWearer<'_> {
         let support = self.head_and_neck_support(FitRegion::Neck)?;
         let wall = design.fit.wall_thickness.metres();
         let fit = gpu.scratch(
-            (((FIT_PROFILE_WORD + CLOSE_HELMET_PROFILE_WORDS) * 4) as u64).into(),
-            ("close helmet fit").into(),
+            ((FIT_PROFILE_WORD + CLOSE_HELMET_PROFILE_WORDS) * 4) as u64,
+            "close helmet fit",
         )?;
         let mut bands = Vec::with_capacity(BANDS * BAND_WORDS);
         for _ in 0..BANDS {
@@ -77,19 +76,16 @@ impl DeviceWearer<'_> {
             bands.extend([0, 0]);
         }
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (support.len() as u32).into());
+        parameters.insert("count", support.len() as u32);
         for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad.into(), (0u32).into());
+            parameters.insert(pad, 0u32);
         }
-        parameters.insert("positions".into(), (self.body.positions.clone()).into());
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert("support", gpu.upload(&support)?);
+        parameters.insert("frame", frame.frame.clone());
         parameters.insert(
-            "support".into(),
-            (gpu.upload(BufferUpload::from_elements(&support))?).into(),
-        );
-        parameters.insert("frame".into(), (frame.frame.clone()).into());
-        parameters.insert(
-            "design".into(),
-            (gpu.upload(BufferUpload::from_elements(&[
+            "design",
+            gpu.upload(&[
                 design.neck_length.metres(),
                 design.back_edge_lift.metres(),
                 design.fit.clearance.metres() + wall,
@@ -97,22 +93,18 @@ impl DeviceWearer<'_> {
                 wall,
                 design.temple_clearance.metres(),
                 0.0,
-            ]))?)
-            .into(),
+            ])?,
         );
-        parameters.insert(
-            "bands".into(),
-            (gpu.upload(BufferUpload::from_elements(&bands))?).into(),
-        );
-        parameters.insert("fit".into(), (fit.clone()).into());
-        parameters.insert("status".into(), (frame.status.clone()).into());
+        parameters.insert("bands", gpu.upload(&bands)?);
+        parameters.insert("fit", fit.clone());
+        parameters.insert("status", frame.status.clone());
         let [measure, profile] = kernels(gpu)?;
         batch
-            .dispatch_items(&measure, &parameters, (support.len() as u32).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&measure, &parameters, support.len() as u32)
+            .map_err(device_error)?;
         batch
-            .dispatch(&profile, &parameters, ([1, 1, 1]).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch(&profile, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
         Ok(fit)
     }
 }
@@ -121,7 +113,7 @@ fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 2]> {
     let compile = |entry: &str| {
         gpu.cache()
             .get(gpu.context(), &source(entry))
-            .map_err(fabelgeist_armor::GenerateError::from)
+            .map_err(device_error)
     };
     Ok([compile(MEASURE)?, compile(PROFILE)?])
 }
@@ -130,7 +122,7 @@ fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 2]> {
 const BAND_SPAN: &str = r#"
 // The height band `band` spans, in the head frame.
 fn band_span(band: u32) -> vec2<f32> {
-    let above = bitcast<f32>(0x7f800000u);
+    let above = MAX_FINITE;
     let chin = -half_height();
     let front_hem = host_sub(host_mul(-half_height(), NECK_HEM_HEAD_RATIO), design[NECK_LENGTH]);
     switch band {
@@ -182,8 +174,8 @@ fn band_span(band: u32) -> vec2<f32> {
 
 "#;
 
-fn source(entry: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+fn source(entry: &str) -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> support: array<u32>;
@@ -192,6 +184,7 @@ fn source(entry: &str) -> ShaderSource {
 @group(0) @binding(4) var<storage, read_write> bands: array<atomic<u32>>;
 @group(0) @binding(5) var<storage, read_write> fit: array<f32>;
 @group(0) @binding(6) var<storage, read_write> status: array<atomic<u32>>;
+{math}
 {counted}
 @group(0) @binding(7) var<uniform> params: Params;
 {ordered}
@@ -247,6 +240,7 @@ fn half_height() -> f32 {{
 {entry}
 "#,
         band_span = BAND_SPAN,
+        math = wgsl::MATH,
         counted = wgsl::COUNTED,
         ordered = wgsl::ORDERED_FLOAT,
         zero_hook = host_float::zero_hook("bitcast<u32>(design[ZERO])"),
@@ -255,7 +249,7 @@ fn half_height() -> f32 {{
         bands = BANDS,
         band_words = BAND_WORDS,
         profile = FIT_PROFILE_WORD,
-    ))
+    )
 }
 
 /// Each supported sample, in the head frame, widens every band it lies in.

@@ -174,11 +174,24 @@ impl CustodyCharacterId {
     }
 }
 
-impl TryFrom<crate::identity::CharacterId> for CustodyCharacterId {
-    type Error = CustodyIdentityError;
+#[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct CustodyPartyId(String);
 
-    fn try_from(character: crate::identity::CharacterId) -> Result<Self, Self::Error> {
-        Self::try_new(u64::from(character))
+impl CustodyPartyId {
+    pub fn try_new(value: impl Into<String>) -> Result<Self, CustodyIdentityError> {
+        let value = value.into();
+        if value.is_empty()
+            || value.trim() != value
+            || value.len() > 256
+            || value.chars().any(char::is_control)
+        {
+            return Err(CustodyIdentityError::InvalidPartyId);
+        }
+        Ok(Self(value))
+    }
+
+    pub fn as_str(&self) -> &str {
+        &self.0
     }
 }
 
@@ -191,24 +204,19 @@ impl TryFrom<crate::identity::CharacterId> for CustodyCharacterId {
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum OperationalCustody {
     Character(CustodyCharacterId),
-    Party(crate::identity::PartyId),
+    Party(CustodyPartyId),
     Container(PhysicalObjectId),
     Place(StrategicPlaceId),
     Fixture(StrategicFixtureId),
 }
 
 impl OperationalCustody {
-    pub fn character(
-        character_id: crate::identity::CharacterId,
-    ) -> Result<Self, CustodyIdentityError> {
-        Ok(Self::Character(CustodyCharacterId::try_from(character_id)?))
+    pub fn character(character_id: u64) -> Result<Self, CustodyIdentityError> {
+        Ok(Self::Character(CustodyCharacterId::try_new(character_id)?))
     }
 
     pub fn party(party_id: impl Into<String>) -> Result<Self, CustodyIdentityError> {
-        Ok(Self::Party(
-            crate::identity::PartyId::try_new(party_id)
-                .map_err(|_| CustodyIdentityError::InvalidPartyId)?,
-        ))
+        Ok(Self::Party(CustodyPartyId::try_new(party_id)?))
     }
 
     /// Exact carried-inventory identity match. This is a projection law, not a
@@ -285,7 +293,7 @@ mod tests {
     fn custody_transfer_preserves_the_only_physical_identity() {
         let id = PhysicalObjectId::try_new(41).unwrap();
         let carried =
-            ObjectCustody::try_new(id, OperationalCustody::character((7).into()).unwrap()).unwrap();
+            ObjectCustody::try_new(id, OperationalCustody::character(7).unwrap()).unwrap();
         let transferred = carried
             .transfer(OperationalCustody::party("party-red").unwrap())
             .unwrap();
@@ -331,7 +339,7 @@ mod tests {
 
     #[test]
     fn exact_character_and_party_authority_never_alias() {
-        let personal = OperationalCustody::character((7).into()).unwrap();
+        let personal = OperationalCustody::character(7).unwrap();
         let party = OperationalCustody::party("party-7").unwrap();
         assert!(personal.matches_carried_inventory(7, Some("party-7")));
         assert!(!personal.matches_carried_inventory(8, Some("party-7")));

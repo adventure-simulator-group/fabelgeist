@@ -41,7 +41,7 @@ pub(in crate::scene_input::furniture) fn building(
     let mut candidates = Vec::new();
     for slot in 0..FRONTAGE_SAMPLES * 4 {
         let mut candidate = Candidate::new(
-            input.seed.to_u64(),
+            input.seed,
             slot,
             kind,
             FurnitureAnchor::Building {

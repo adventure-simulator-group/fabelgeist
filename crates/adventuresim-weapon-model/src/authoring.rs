@@ -1,5 +1,5 @@
 mod controls;
-pub use controls::{ControlError, validate_controls};
+pub use controls::validate_controls;
 
 use crate::recipe::*;
 use serde::{Deserialize, Serialize};
@@ -59,11 +59,11 @@ fn templates() -> &'static Vec<HeadTemplate> {
     })
 }
 impl RadiusBinding {
-    fn apply(&self, components: &mut [Component], radius: Metres) -> Result<(), AuthoringError> {
+    fn apply(&self, components: &mut [Component], radius: Metres) -> Result<(), String> {
         let component = components
             .iter_mut()
             .find(|c| c.id.as_ref() == Some(&self.component))
-            .ok_or(AuthoringError::MissingBoundComponent)?;
+            .ok_or("missing bound head component")?;
         let value = Metres::new(
             (radius.get() * self.factor.get()).max(self.minimum.map_or(0.0, Metres::get)),
         )?;
@@ -73,22 +73,22 @@ impl RadiusBinding {
             (Shape::Mace(p), RadiusParameter::MaceRoot) => p.root_radius = value,
             (Shape::Mace(p), RadiusParameter::MaceShoulder) => p.shoulder_radius = value,
             (Shape::Mace(p), RadiusParameter::MaceCusp) => p.cusp_radius = value,
-            _ => return Err(AuthoringError::RadiusBindingMismatch),
+            _ => return Err("radius binding does not match component construction".into()),
         }
         Ok(())
     }
 }
-pub fn compose_weapon(haft_id: &str, head_id: &str) -> Result<Recipe, AuthoringError> {
-    let hafts: Vec<Haft> = serde_json::from_value(authoring_catalog()["hafts"].clone())
-        .map_err(AuthoringError::Json)?;
+pub fn compose_weapon(haft_id: &str, head_id: &str) -> Result<Recipe, String> {
+    let hafts: Vec<Haft> =
+        serde_json::from_value(authoring_catalog()["hafts"].clone()).map_err(|e| e.to_string())?;
     let haft = hafts
         .into_iter()
         .find(|h| h.id == haft_id)
-        .ok_or(AuthoringError::UnknownHaft)?;
+        .ok_or("unknown haft")?;
     let template = templates()
         .iter()
         .find(|h| h.id == head_id)
-        .ok_or(AuthoringError::UnknownHead)?;
+        .ok_or("unknown head")?;
     let mut head = template.components.clone();
     for binding in &template.radius_bindings {
         binding.apply(&mut head, haft.shaft.radius)?;
@@ -100,7 +100,7 @@ pub fn compose_weapon(haft_id: &str, head_id: &str) -> Result<Recipe, AuthoringE
             let offset = component
                 .offset
                 .as_mut()
-                .ok_or(AuthoringError::SideMountedOffset)?;
+                .ok_or("side-mounted langet needs offset")?;
             offset[0] = Metres::new(
                 offset[0].get().signum()
                     * (haft.shaft.radius.get() * haft.shaft.top_scale.map_or(0.92, Ratio::get)
@@ -114,11 +114,11 @@ pub fn compose_weapon(haft_id: &str, head_id: &str) -> Result<Recipe, AuthoringE
         components: haft.components.into_iter().chain(head).collect(),
         grip_clearance: None,
     };
-    recipe.validate().map_err(AuthoringError::Recipe)?;
+    recipe.validate().map_err(|e| e.to_string())?;
     Ok(recipe)
 }
-pub fn composition_controls(recipe: &Recipe) -> Result<Vec<Value>, AuthoringError> {
-    let shaft = recipe.shaft.as_ref().ok_or(AuthoringError::MissingHaft)?;
+pub fn composition_controls(recipe: &Recipe) -> Result<Vec<Value>, String> {
+    let shaft = recipe.shaft.as_ref().ok_or("composition requires a haft")?;
     let scale = shaft
         .bottom_scale
         .map_or(1.0, Ratio::get)
@@ -156,7 +156,7 @@ pub fn composition_controls(recipe: &Recipe) -> Result<Vec<Value>, AuthoringErro
         for control in &template.controls {
             let mut control = control.clone();
             control["componentId"] =
-                serde_json::to_value(&primary.id).map_err(AuthoringError::Json)?;
+                serde_json::to_value(&primary.id).map_err(|e| e.to_string())?;
             controls.push(control);
         }
     }
@@ -208,26 +208,4 @@ pub fn museum_studies() -> &'static Value {
                 .expect("museum study catalog must be valid JSON")
         ])
     })
-}
-
-#[derive(Debug, thiserror::Error)]
-pub enum AuthoringError {
-    #[error("authoring catalog JSON: {0}")]
-    Json(#[source] serde_json::Error),
-    #[error("invalid composed recipe: {0}")]
-    Recipe(#[source] crate::recipe::RecipeError),
-    #[error("nonfinite authoring quantity: {0}")]
-    Quantity(#[from] crate::recipe::NonFiniteQuantity),
-    #[error("missing bound head component")]
-    MissingBoundComponent,
-    #[error("radius binding does not match component construction")]
-    RadiusBindingMismatch,
-    #[error("unknown haft")]
-    UnknownHaft,
-    #[error("unknown head")]
-    UnknownHead,
-    #[error("side-mounted langet needs offset")]
-    SideMountedOffset,
-    #[error("composition requires a haft")]
-    MissingHaft,
 }

@@ -121,7 +121,9 @@ fn request_choices(
             parish_siting_distance(request, candidate.lot.centre_metres, placed, radius).is_some()
         })
         .collect::<Vec<_>>();
-    choices.sort_by_key(|candidate| {
+    // Seeded ranks are expensive. Cache each complete key once while retaining
+    // the stable ordering of equal ranks and the exact accepted property sites.
+    choices.sort_by_cached_key(|candidate| {
         if let Some(distance) =
             parish_siting_distance(request, candidate.lot.centre_metres, placed, radius)
             && matches!(request, BuildingDemand::Parish { .. })

@@ -5,7 +5,6 @@
 //! execution authorizes and validates against its own current state.
 use super::*;
 use crate::schedule::SchedulePreview;
-use crate::spacetimedb::SqlQuery;
 use adventuresim_core::activity::ActivityLocation;
 
 pub(in crate::routes::settlements) async fn preview_training_schedule(
@@ -42,11 +41,7 @@ pub(in crate::routes::settlements) async fn preview_training_schedule(
     if let Err(error) = resolve_organizations(&state, &character, &mut schedule).await {
         return error.into_response();
     }
-    match SchedulePreview::calculate(
-        &schedule,
-        policy,
-        adventuresim_core::identity::CharacterId::from(character_id),
-    ) {
+    match SchedulePreview::calculate(&schedule, policy, character_id) {
         Ok(preview) => (
             [(axum::http::header::CACHE_CONTROL, "no-store")],
             Json(preview),
@@ -69,7 +64,7 @@ async fn current_location(
     let mut character = state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            crate::spacetimedb::character_by_id(character_id.into()),
+            &crate::spacetimedb::character_by_id(character_id),
         )
         .await
         .map_err(|_| unavailable())?
@@ -77,7 +72,7 @@ async fn current_location(
     let occupancy = state
         .db
         .query_one_sats::<crate::spacetimedb::BackendCharacterCaseSiteLocation>(
-            crate::spacetimedb::character_case_site_location_by_character_id(character_id.into()),
+            &crate::spacetimedb::character_case_site_location_by_character_id(character_id),
         )
         .await
         .map_err(|_| unavailable())?;
@@ -127,7 +122,7 @@ async fn resolve_preview_location(
     let site = state
         .db
         .query_one_sats::<BackendCaseSitePin>(
-            crate::spacetimedb::case_site_pin_by_case_site_id_and_owner(id, character_id.into()),
+            &crate::spacetimedb::case_site_pin_by_case_site_id_and_owner(id, character_id),
         )
         .await
         .map_err(|_| unavailable())?
@@ -158,9 +153,9 @@ async fn location_policy(
             let site = state
                 .db
                 .query_one_sats::<BackendCaseSitePin>(
-                    crate::spacetimedb::case_site_pin_by_case_site_id_and_owner(
+                    &crate::spacetimedb::case_site_pin_by_case_site_id_and_owner(
                         &location.id,
-                        character_id.into(),
+                        character_id,
                     ),
                 )
                 .await
@@ -186,15 +181,15 @@ async fn resolve_organizations(
     let character_id = character.id;
     let memberships: Vec<crate::spacetimedb::BackendOrganizationMembership> = state
         .db
-        .query_sats(SqlQuery::from(format!(
+        .query_sats(&format!(
             "SELECT * FROM backend_organization_memberships WHERE character_id = {character_id}"
-        )))
+        ))
         .await
         .map_err(|_| unavailable())?;
     let minute = state
         .db
-        .query_one_sats::<CharacterTime>(crate::spacetimedb::character_time_by_character_id(
-            character_id.into(),
+        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
+            character_id,
         ))
         .await
         .map_err(|_| unavailable())?

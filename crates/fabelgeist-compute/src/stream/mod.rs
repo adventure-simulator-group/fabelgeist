@@ -270,8 +270,10 @@ impl StreamDefinition {
         full_code.push_str(&format!("    stream({});\n", call_args.join(", ")));
         full_code.push_str("}\n");
 
-        let full_code = ShaderSource::from(full_code);
-        let _module = full_code.parse(wgpu::naga::ShaderStage::Compute)?;
+        let _module = fabelgeist_gpu::data::gpu::shader::parse_naga(
+            &full_code,
+            wgpu::naga::ShaderStage::Compute,
+        )?;
 
         let shader = ComputeShader::new(context, full_code)?;
         let pipeline = ComputePipeline::new(context, shader)?;
@@ -321,24 +323,17 @@ impl Stream {
         let mut parameters = extra_parameters.unwrap_or_default();
 
         match input {
-            GpuResource::Buffer(b) => parameters.insert("input".into(), (b.clone()).into()),
-            GpuResource::Texture2d(t) => parameters.insert("input".into(), (t.clone()).into()),
-            GpuResource::Texture3d(t) => parameters.insert("input".into(), (t.clone()).into()),
+            GpuResource::Buffer(b) => parameters.insert("input", b.clone()),
+            GpuResource::Texture2d(t) => parameters.insert("input", t.clone()),
+            GpuResource::Texture3d(t) => parameters.insert("input", t.clone()),
         }
 
-        parameters.insert("counts".into(), (counts.clone()).into());
-        parameters.insert(
-            "inclusive_offsets".into(),
-            (inclusive_offsets.clone()).into(),
-        );
-        parameters.insert("output".into(), (output.clone()).into());
+        parameters.insert("counts", counts.clone());
+        parameters.insert("inclusive_offsets", inclusive_offsets.clone());
+        parameters.insert("output", output.clone());
 
         let (workgroups_x, workgroups_y, workgroups_z) = match input {
-            GpuResource::Buffer(_b) => (
-                ((u64::from(inclusive_offsets.length()) / 4) as u32).div_ceil(64),
-                1,
-                1,
-            ),
+            GpuResource::Buffer(_b) => (((inclusive_offsets.size / 4) as u32).div_ceil(64), 1, 1),
             GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
             GpuResource::Texture3d(t) => (
                 t.size.0.div_ceil(4),
@@ -351,11 +346,9 @@ impl Stream {
             context,
             pipeline.as_ref().clone(),
             parameters,
-            fabelgeist_gpu::prelude::WorkgroupGrid::from((
-                workgroups_x,
-                workgroups_y,
-                workgroups_z,
-            )),
+            workgroups_x,
+            workgroups_y,
+            workgroups_z,
         )?;
 
         Ok(())

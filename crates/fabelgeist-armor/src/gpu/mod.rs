@@ -4,7 +4,6 @@
 //! family shares. One is enough for a whole process: its kernels are compiled
 //! once, and it may be used from any number of threads at once.
 
-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use std::sync::Arc;
 
 use fabelgeist_compute::{
@@ -38,14 +37,18 @@ pub(crate) mod garment_torso;
 pub(crate) mod gorget;
 pub(crate) mod helmet;
 pub(crate) mod limb;
+mod limb_build;
 pub mod metal;
 pub(crate) mod mitten;
 pub(crate) mod part;
+pub mod pauldron;
 pub(crate) mod placement;
+mod puff_and_slash;
 pub(crate) mod recipe;
 pub(crate) mod shell_plan;
 pub mod staging;
 pub mod wgsl;
+pub mod wrapped_tassets;
 pub use close_helmet::{CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, record_close_helmet};
 pub use close_helmet_profile::CloseHelmetProfile;
 pub use coif::record_coif;
@@ -58,10 +61,11 @@ pub use garment::{record_fauld, record_garment_tube, record_tassets};
 pub use garment_torso::record_garment_torso;
 pub use gorget::record_gorget_plates;
 pub use helmet::{generate_helmet_on, record_helmet};
-pub use limb::{generate_limb_armor_on, record_limb_armor};
+pub use limb_build::{generate_limb_armor_on, record_limb_armor};
 pub use part::{BuiltPart, PartSlots};
+pub use puff_and_slash::record_puff_and_slash;
 pub use recipe::frame_words;
-pub use staging::{StagedResults, Staging};
+pub use staging::{Staged, StagedResults, Staging};
 
 /// A part under construction on the device: its carriers, until
 /// [`DevicePart::record_shells`] thickens them, then its final mesh.
@@ -166,7 +170,7 @@ pub struct ArmorGpu {
 impl std::fmt::Debug for ArmorGpu {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("ArmorGpu")
-            .field("kernels", &self.cache.count())
+            .field("kernels", &self.cache.len())
             .finish()
     }
 }
@@ -192,7 +196,12 @@ impl ArmorGpu {
 
     /// Open the default adapter's device.
     pub fn open() -> Result<Self, GenerateError> {
-        Self::new(pollster::block_on(WgpuContext::new()).map_err(device_error)?)
+        pollster::block_on(Self::open_async())
+    }
+
+    /// Open a device without blocking the browser event loop.
+    pub async fn open_async() -> Result<Self, GenerateError> {
+        Self::new(WgpuContext::new_compute().await.map_err(device_error)?)
     }
 
     pub fn context(&self) -> &WgpuContext {
@@ -214,7 +223,7 @@ impl ArmorGpu {
         }
     }
 
-    pub fn batch(&self, label: fabelgeist_compute::KernelBatchLabel<'_>) -> KernelBatch<'_> {
+    pub fn batch(&self, label: &str) -> KernelBatch<'_> {
         KernelBatch::labelled(&self.context, label)
     }
 
@@ -228,13 +237,13 @@ impl ArmorGpu {
     ) -> Result<BuiltPart, GenerateError> {
         let buffers = frames
             .iter()
-            .map(|frame: &PartFrame| -> Result<Buffer, GenerateError> {
+            .map(|frame| {
                 frame.validate()?;
-                self.upload(BufferUpload::from_elements(&frame_words(frame)))
+                self.upload(&frame_words(frame))
             })
             .collect::<Result<Vec<_>, _>>()?;
         let buffers = buffers.iter().collect::<Vec<_>>();
-        let mut batch = self.batch(("armor in host frames").into());
+        let mut batch = self.batch("armor in host frames");
         let mut part = record(&mut batch, &buffers)?;
         part.record_shells(self, &mut batch)?;
         batch.submit();
@@ -242,29 +251,34 @@ impl ArmorGpu {
     }
 
     /// Upload plain data into a new storage buffer.
-    pub fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, GenerateError> {
-        Buffer::from_upload(
+    pub fn upload<T: bytemuck::NoUninit>(&self, data: &[T]) -> Result<Buffer, GenerateError> {
+        let bytes = bytemuck::cast_slice::<T, u8>(data);
+        // A buffer cannot be empty; an empty array still needs something bound.
+        let padded;
+        let bytes = if bytes.is_empty() {
+            padded = [0u8; 4];
+            &padded[..]
+        } else {
+            bytes
+        };
+        Buffer::from_bytes(
             &self.context,
-            data.with_empty_word(),
-            BufferDefinition::storage().with_usage(BufferUse::CopySource),
+            bytes,
+            BufferDefinition::storage().with_copy_src(),
         )
-        .map_err(GenerateError::BufferCreation)
+        .map_err(device_error)
     }
 
     /// A zeroed storage buffer of `bytes` bytes.
-    pub fn scratch(
-        &self,
-        bytes: fabelgeist_gpu::prelude::BufferByteLength,
-        label: fabelgeist_gpu::prelude::BufferLabel,
-    ) -> Result<Buffer, GenerateError> {
+    pub fn scratch(&self, bytes: u64, label: &str) -> Result<Buffer, GenerateError> {
         Buffer::new(
             &self.context,
-            bytes.max(4u64.into()),
+            bytes.max(4),
             BufferDefinition::storage()
-                .with_usage(BufferUse::CopySource)
+                .with_copy_src()
                 .with_label(label),
         )
-        .map_err(crate::GenerateError::from)
+        .map_err(device_error)
     }
 
     /// Read a buffer back. Stalls until the device has finished writing it.
@@ -272,7 +286,14 @@ impl ArmorGpu {
         &self,
         buffer: &Buffer,
     ) -> Result<Vec<T>, GenerateError> {
-        pollster::block_on(buffer.read(&self.context)).map_err(GenerateError::Readback)
+        pollster::block_on(self.read_async(buffer))
+    }
+
+    pub async fn read_async<T: bytemuck::AnyBitPattern>(
+        &self,
+        buffer: &Buffer,
+    ) -> Result<Vec<T>, GenerateError> {
+        buffer.read(&self.context).await.map_err(device_error)
     }
 
     /// The nearest of `targets` to each query, ties going to the lowest index.
@@ -289,9 +310,9 @@ impl ArmorGpu {
         }
         let count = queries.len() as u32;
         let hits = QueryHits::new(&self.context, count).map_err(device_error)?;
-        let query_buffer = self.upload(BufferUpload::from_elements(queries))?;
-        let target_buffer = self.upload(BufferUpload::from_elements(targets))?;
-        let mut batch = self.batch(("armor nearest points").into());
+        let query_buffer = self.upload(queries)?;
+        let target_buffer = self.upload(targets)?;
+        let mut batch = self.batch("armor nearest points");
         self.query
             .record_nearest_points(
                 &mut batch,

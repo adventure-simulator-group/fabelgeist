@@ -312,16 +312,14 @@ impl LiveRunner {
             .iter()
             .find(|row| row.character_id == character_id)
             .ok_or("missing activity condition")?;
-        let elapsed_minutes = StrategicMinute::new(
-            self.connection
-                .db
-                .backend_character_times()
-                .iter()
-                .find(|row| row.character_id == character_id)
-                .ok_or("missing activity clock")?
-                .minutes
-                .minutes,
-        );
+        let elapsed_minutes = StrategicMinute::new(self
+            .connection
+            .db
+            .backend_character_times()
+            .iter()
+            .find(|row| row.character_id == character_id)
+            .ok_or("missing activity clock")?
+            .minutes.minutes);
         let (visible_food_kcal, visible_water_ml) = self.visible_rest_supplies(character_id);
         Ok(ActivityObservation {
             personal_gold_coin: self.personal_gold(character_id),
@@ -351,7 +349,7 @@ impl LiveRunner {
             return (0.0, 0.0);
         };
         let party_id = character.party_id;
-        let personal_custody = OperationalCustody::character((character_id).into()).ok();
+        let personal_custody = OperationalCustody::character(character_id).ok();
         let personal_ids = self
             .connection
             .db
@@ -518,10 +516,7 @@ impl LiveRunner {
             .iter()
             .filter(|chart| {
                 chart.patient_id == patient_id
-                    && public_chart_is_fresh(
-                        patient_minute,
-                        StrategicMinute::new(chart.observed_at.minutes),
-                    )
+                    && public_chart_is_fresh(patient_minute, StrategicMinute::new(chart.observed_at.minutes))
                     && chart.confidence_bps >= MIN_ACTIONABLE_PHYSIOLOGY_CONFIDENCE_BPS
                     && chart.gap_from.is_none()
                     && chart.gap_to.is_none()
@@ -848,7 +843,9 @@ impl LiveRunner {
                         .db
                         .party_stake()
                         .iter()
-                        .find(|row| row.party_id == party_id && row.character_id == character_id)
+                        .find(|row| {
+                            row.party_id == party_id && row.character_id == character_id
+                        })
                         .map_or(0, |row| row.value);
                     let treasury = self
                         .connection
@@ -860,7 +857,8 @@ impl LiveRunner {
                         .sum();
                     (Some(party_id.to_owned()), stake, treasury)
                 });
-            let self_funded_budget = purse.saturating_add(patient_party_stake.min(party_treasury));
+            let self_funded_budget =
+                purse.saturating_add(patient_party_stake.min(party_treasury));
             let chart = self.public_physician_chart(character_id);
             let intervention_offers = settlement.as_deref().zip(chart.as_ref()).map_or_else(
                 Vec::new,
@@ -1093,8 +1091,10 @@ impl LiveRunner {
                     .find(|row| row.character_id == character_id)
                     .ok_or("missing patient clock before natural recovery rest")?
                     .minutes;
-                let sponsored_inn_rest = matches!(rest_service, DomainSettlementActionService::Inn)
-                    && purse < inn_cost.expect("inn venue requires a public quote")
+                let sponsored_inn_rest = matches!(
+                    rest_service,
+                    DomainSettlementActionService::Inn
+                ) && purse < inn_cost.expect("inn venue requires a public quote")
                     && rest_sponsor.is_some();
                 let actual_rest_minutes = if sponsored_inn_rest {
                     let sponsor = rest_sponsor
@@ -1140,8 +1140,7 @@ impl LiveRunner {
                         .find(|row| row.character_id == character_id)
                         .ok_or("missing patient clock after sponsored recovery rest")?
                         .minutes;
-                    let actual_rest_minutes = StrategicMinute::new(rest_ended_at.minutes)
-                        .elapsed_since(StrategicMinute::new(rest_started_at.minutes));
+                    let actual_rest_minutes = StrategicMinute::new(rest_ended_at.minutes).elapsed_since(StrategicMinute::new(rest_started_at.minutes));
                     let payer_purse_after = self.personal_gold(sponsor.payer_id);
                     let patient_purse_after = self.personal_gold(character_id);
                     let sponsor_spend = payer_purse_before.saturating_sub(payer_purse_after);
@@ -1199,9 +1198,9 @@ impl LiveRunner {
                             inn_cost.expect("self-funded inn rest requires a public quote");
                         let shortfall = public_quote.saturating_sub(purse);
                         if shortfall > 0 {
-                            let party_id = patient_party_id
-                                .as_deref()
-                                .ok_or("self-funded party-stake rest requires a public party")?;
+                            let party_id = patient_party_id.as_deref().ok_or(
+                                "self-funded party-stake rest requires a public party",
+                            )?;
                             if !self.withdraw_stake_for_personal_purchase(
                                 character_id,
                                 party_id,
@@ -1233,8 +1232,7 @@ impl LiveRunner {
                         .find(|row| row.character_id == character_id)
                         .ok_or("missing patient clock after natural recovery rest")?
                         .minutes;
-                    StrategicMinute::new(rest_ended_at.minutes)
-                        .elapsed_since(StrategicMinute::new(rest_started_at.minutes))
+                    StrategicMinute::new(rest_ended_at.minutes).elapsed_since(StrategicMinute::new(rest_started_at.minutes))
                 };
                 self.metrics.treatment_rest_minutes = self
                     .metrics
@@ -1446,8 +1444,8 @@ impl LiveRunner {
                 .find(|row| row.character_id == character_id)
                 .ok_or("missing patient clock after medical recovery rest")?
                 .minutes;
-            let actual_medical_rest_minutes = StrategicMinute::new(medical_rest_ended_at.minutes)
-                .elapsed_since(StrategicMinute::new(medical_rest_started_at.minutes));
+            let actual_medical_rest_minutes =
+                StrategicMinute::new(medical_rest_ended_at.minutes).elapsed_since(StrategicMinute::new(medical_rest_started_at.minutes));
             self.metrics.treatment_rest_minutes = self
                 .metrics
                 .treatment_rest_minutes
@@ -1754,16 +1752,14 @@ impl LiveRunner {
         }) {
             return Ok(());
         }
-        let now = calendar_minute(
-            &self
-                .connection
-                .db
-                .backend_character_times()
-                .iter()
-                .find(|row| row.character_id == character_id)
-                .ok_or("missing maintenance clock")?
-                .minutes,
-        );
+        let now = calendar_minute(&self
+            .connection
+            .db
+            .backend_character_times()
+            .iter()
+            .find(|row| row.character_id == character_id)
+            .ok_or("missing maintenance clock")?
+            .minutes);
         let medical_reserve = self.observable_medical_reserve(character_id, &settlement);
         let mut repair_budget = spending_budget_after_medical_reserve(
             self.personal_gold(character_id),
@@ -1783,13 +1779,7 @@ impl LiveRunner {
             .repair_order()
             .iter()
             .filter(|order| order.owner_character_id == character_id)
-            .map(|order| {
-                (
-                    calendar_minute(&order.ready_at_minutes),
-                    order.id,
-                    order.quoted_cost,
-                )
-            })
+            .map(|order| (calendar_minute(&order.ready_at_minutes), order.id, order.quoted_cost))
             .collect::<Vec<_>>();
         reserved_quotes.sort_unstable();
         repair_budget = adventuresim_core::durability::repair_budget_after_reservations(
@@ -1830,7 +1820,9 @@ impl LiveRunner {
                     continue;
                 };
                 let skill = match definition.kind {
-                    CatalogItemKind::Weapon | CatalogItemKind::Shield => smith.weaponsmith_skill,
+                    CatalogItemKind::Weapon | CatalogItemKind::Shield => {
+                        smith.weaponsmith_skill
+                    }
                     CatalogItemKind::Armor => smith.armourer_skill,
                     CatalogItemKind::Clothing => smith.tailor_skill,
                     _ => continue,

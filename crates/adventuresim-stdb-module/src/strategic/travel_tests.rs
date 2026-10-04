@@ -6,10 +6,13 @@ mod departure_invariant_tests {
         JourneySettlementEndpoint, JourneyTerrainKind, JourneyTerrainSpan, JourneyTerrainWeights,
         Party, PartyJourneyRoute, Precipitation, authoritative_case_route_binding_digest,
         authoritative_straight_line_case_route, common_movement_prefix, core_encounter_terrain,
+        departure_requires_ready_party, departure_snapshot_allows_travel,
         encode_position_e7, journey_elapsed_after_delay, party_can_continue_travel,
-        route_position_at_minute, set_party_journey_state, straight_line_distance_m,
-        terrain_training_exposure, validate_journey_route_payload,
-        validate_route_departure_weather_interval, zero_boundary_requires_settlement,
+        pending_incident_allows_departure, route_position_at_minute, set_party_journey_state,
+        straight_line_distance_m,
+        terrain_training_exposure, validate_camp_redirect_weather_interval,
+        validate_journey_route_payload, validate_route_departure_weather_interval,
+        zero_boundary_requires_settlement,
     };
     use adventuresim_world_schema::calendar::StrategicMinute;
 
@@ -59,6 +62,39 @@ mod departure_invariant_tests {
     }
 
     #[test]
+    fn departure_requires_unchanged_party_members_and_incident_snapshot() {
+        assert!(!departure_snapshot_allows_travel(true, true, false));
+        assert!(!departure_snapshot_allows_travel(false, true, true));
+        assert!(!departure_snapshot_allows_travel(true, false, true));
+        assert!(departure_snapshot_allows_travel(true, true, true));
+    }
+
+    #[test]
+    fn only_case_site_withdrawal_may_bypass_departure_readiness() {
+        assert!(!departure_requires_ready_party(None, Some("site:a"), true));
+        assert!(departure_requires_ready_party(
+            Some("settlement:a"),
+            None,
+            true
+        ));
+        assert!(departure_requires_ready_party(None, None, true));
+        assert!(departure_requires_ready_party(None, Some("site:a"), false));
+    }
+
+    #[test]
+    fn settlement_travel_requests_the_bypass_only_for_case_site_origins() {
+        let source = crate::strategic::STRATEGIC_SOURCE;
+        let travel = source
+            .split("fn travel_to_settlement_impl")
+            .nth(1)
+            .and_then(|tail| tail.split("pub fn set_party_camp_fatigue_percent").next())
+            .expect("settlement travel implementation");
+        assert!(travel.contains("(origin_kind == \"case_site\").then_some(origin_id.as_str())"));
+        assert!(travel.contains("origin_kind == \"case_site\","));
+        assert!(travel.contains("require_party_ready(ctx, &party.id)?"));
+    }
+
+    #[test]
     fn colocated_case_site_return_is_an_instant_exact_location_transition() {
         assert_eq!(straight_line_distance_m(10.0, 53.0, 10.0, 53.0, true), 0);
 
@@ -75,8 +111,7 @@ mod departure_invariant_tests {
             .expect("zero-distance case-site return branch");
 
         assert!(travel.contains("party.leader_id != character_id"));
-        let compact = travel.split_whitespace().collect::<String>();
-        assert!(compact.contains(&"require_no_unresolved_encounter(ctx, &adventuresim_core::identity::PartyId::try_new(party.id.clone()).map_err(crate::strategic::PendingEncounterError::PartyIdentity)?)?".split_whitespace().collect::<String>()));
+        assert!(travel.contains("require_no_unresolved_encounter(ctx, &party.id)?"));
         assert!(travel.contains("require_party_ready(ctx, &party.id)?"));
         assert!(travel.contains("if !zero_distance_return"));
         assert!(travel.contains("let Some(route) = route.as_ref()"));
@@ -188,6 +223,27 @@ mod departure_invariant_tests {
             .expect("terminal incident site provenance");
         assert!(!provenance.contains("IncidentStatus::Pending"));
         assert!(provenance.contains("incident.case_site_id.as_str() == case_site_id"));
+    }
+
+    #[test]
+    fn only_the_exact_departing_incident_site_may_be_avoided() {
+        assert!(pending_incident_allows_departure(None, std::iter::empty()));
+        assert!(pending_incident_allows_departure(
+            Some("site:a"),
+            ["site:a"].into_iter()
+        ));
+        assert!(!pending_incident_allows_departure(
+            Some("site:a"),
+            ["site:b"].into_iter()
+        ));
+        assert!(!pending_incident_allows_departure(
+            None,
+            ["site:a"].into_iter()
+        ));
+        assert!(!pending_incident_allows_departure(
+            Some("site:a"),
+            ["site:a", "site:b"].into_iter()
+        ));
     }
 
     #[test]
@@ -451,32 +507,20 @@ mod departure_invariant_tests {
     fn departure_weather_interval_closes_clock_sync_boundary() {
         let mut route = route_fixture();
         route.weather_interval_start = StrategicMinute::ZERO;
-        assert!(
-            validate_route_departure_weather_interval(&route, StrategicMinute::new(359)).is_ok()
-        );
-        assert!(
-            validate_route_departure_weather_interval(&route, StrategicMinute::new(360)).is_err()
-        );
+        assert!(validate_route_departure_weather_interval(&route, StrategicMinute::new(359)).is_ok());
+        assert!(validate_route_departure_weather_interval(&route, StrategicMinute::new(360)).is_err());
         route.weather_interval_start = StrategicMinute::new(360);
-        assert!(
-            validate_route_departure_weather_interval(&route, StrategicMinute::new(360)).is_ok()
-        );
+        assert!(validate_route_departure_weather_interval(&route, StrategicMinute::new(360)).is_ok());
     }
 
     #[test]
     fn camp_redirect_rejects_stale_six_hour_weather_snapshot() {
         let mut route = route_fixture();
         route.weather_interval_start = StrategicMinute::new(360);
-        assert!(
-            validate_route_departure_weather_interval(&route, StrategicMinute::new(719)).is_ok()
-        );
-        assert!(
-            validate_route_departure_weather_interval(&route, StrategicMinute::new(720)).is_err()
-        );
+        assert!(validate_camp_redirect_weather_interval(&route, StrategicMinute::new(719)).is_ok());
+        assert!(validate_camp_redirect_weather_interval(&route, StrategicMinute::new(720)).is_err());
         route.weather_interval_start = StrategicMinute::new(720);
-        assert!(
-            validate_route_departure_weather_interval(&route, StrategicMinute::new(720)).is_ok()
-        );
+        assert!(validate_camp_redirect_weather_interval(&route, StrategicMinute::new(720)).is_ok());
     }
 
     #[test]
@@ -551,7 +595,7 @@ mod departure_invariant_tests {
     }
 
     #[test]
-    fn zero_minute_terminal_is_settled_before_survivors_retry() {
+fn zero_minute_terminal_is_settled_before_survivors_retry() {
         let first_prefixes = [12, 0];
         let first = common_movement_prefix(12, first_prefixes);
         assert_eq!(first, 0);
@@ -701,20 +745,13 @@ fn journey_local_time_wraps_without_advancing_the_frozen_date() {
         actual_camp_intervals: Vec::new(),
         forecast_camp_intervals: Vec::new(),
         fatigue_percent: 0,
-        departure_minute: adventuresim_world_schema::calendar::StrategicDayIndex::new(10)
-            .start()
-            .saturating_add_minutes(23 * MINUTES_PER_HOUR),
+        departure_minute: StrategicMinute::day_start_for_index(10).saturating_add_minutes(23 * MINUTES_PER_HOUR),
         total_elapsed_minutes: 60,
         completed_elapsed_minutes: 0,
         walking_minutes_per_day: DEFAULT_WALKING_MINUTES_PER_DAY,
         travel_at_night: false,
     };
-    let expected = adventuresim_world_schema::calendar::StrategicDayIndex::new(10)
-        .start()
-        .saturating_add_minutes(MINUTES_PER_HOUR);
+    let expected = StrategicMinute::day_start_for_index(10).saturating_add_minutes(MINUTES_PER_HOUR);
     assert_eq!(journey_local_minute(&journey, 120), expected);
-    assert_eq!(
-        journey_local_minute(&journey, 90 * MINUTES_PER_DAY + 120),
-        expected
-    );
+    assert_eq!(journey_local_minute(&journey, 90 * MINUTES_PER_DAY + 120), expected);
 }

@@ -1,12 +1,6 @@
 //! Enforceable isolation for reducer-backed balance simulations.
 
-mod character_authority;
-pub(crate) use character_authority::{
-    SimulationCharacterAuthorityError, require_simulation_character_authority,
-};
-mod clock;
 mod disease_fixture;
-pub use clock::advance_simulation_world_time;
 
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use spacetimedb::{
@@ -14,6 +8,8 @@ use spacetimedb::{
 };
 
 use adventuresim_core::simulation_security::MAX_SIMULATION_SKILL_HOURS;
+use adventuresim_core::strategic_time::real_micros_for_official_minutes;
+use adventuresim_world_schema::calendar::MINUTES_PER_YEAR;
 
 use crate::character::character;
 use crate::investigation::investigation_witness_referral__view;
@@ -29,7 +25,16 @@ use crate::{
 /// Ordinary module builds deliberately contain no simulation capability. The
 /// disposable launcher supplies this only to the one module build it owns.
 const COMPILED_BOOTSTRAP_TOKEN: Option<&str> = option_env!("ADVENTURESIM_SIM_BOOTSTRAP_TOKEN");
+const MAX_SIMULATION_CLOCK_ADVANCE_MINUTES: u64 = 100 * MINUTES_PER_YEAR;
 const SIMULATION_STARTING_COIN: u32 = 100;
+
+fn valid_simulation_clock_advance(delta_minutes: u64) -> bool {
+    (1..=MAX_SIMULATION_CLOCK_ADVANCE_MINUTES).contains(&delta_minutes)
+}
+
+fn simulation_epoch_shift_micros(delta_minutes: u64) -> Option<i64> {
+    i64::try_from(real_micros_for_official_minutes(delta_minutes)).ok()
+}
 
 fn simulation_religion_hours_valid(hours: adventuresim_world_schema::ReligionHours) -> bool {
     hours.direct_fields_valid(MAX_SIMULATION_SKILL_HOURS)
@@ -255,6 +260,20 @@ pub(crate) fn owned_run(ctx: &ReducerContext, nonce: &str) -> Result<SimulationR
     Ok(run)
 }
 
+pub(crate) fn sender_owns_simulation_character(ctx: &ReducerContext, character_id: u64) -> bool {
+    ctx.db
+        .simulation_run()
+        .id()
+        .find(0)
+        .is_some_and(|run| run.owner == ctx.sender())
+        && ctx
+            .db
+            .simulation_character()
+            .character_id()
+            .find(character_id)
+            .is_some()
+}
+
 #[reducer]
 pub fn seed_simulation_world(ctx: &ReducerContext, nonce: String) -> Result<(), String> {
     owned_run(ctx, &nonce)?;
@@ -310,12 +329,12 @@ pub fn seed_simulation_quest_fixture(
             Err("Simulation quest fixture is already bound to different leaders".into())
         };
     }
-    let party_power = |leader_id: adventuresim_core::identity::CharacterId| -> Result<u64, String> {
+    let party_power = |leader_id| -> Result<u64, String> {
         let party_id = ctx
             .db
             .character()
             .id()
-            .find(u64::from(leader_id))
+            .find(leader_id)
             .and_then(|character| character.party_id)
             .ok_or("Quest coverage leader has no party")?;
         let party = ctx
@@ -324,15 +343,13 @@ pub fn seed_simulation_quest_fixture(
             .id()
             .find(&party_id)
             .ok_or("Quest coverage party does not exist")?;
-        crate::condition::refresh_character_strategic_condition(ctx, leader_id)
-            .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?;
+        crate::condition::refresh_character_strategic_condition(ctx, leader_id)?;
         for member_id in crate::strategic::living_party_member_ids(ctx, &party_id) {
-            crate::capability::refresh_character_capability(ctx, (member_id).into())
-                .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+            crate::capability::refresh_character_capability(ctx, member_id)?;
         }
         crate::strategic::publicly_ready_party_combat_power(ctx, &party).map(|(_, power)| power)
     };
-    let direct_power = party_power(direct_leader_id.into())?;
+    let direct_power = party_power(direct_leader_id)?;
     let fixture_enemy_power = crate::strategic::simulation_quest_fixture_enemy_power()?;
     if direct_power == 0
         || !adventuresim_core::autoresolve::combat_power_meets_safety_margin(
@@ -366,6 +383,36 @@ pub fn seed_simulation_quest_fixture(
 
 /// Advance authoritative world time only in a capability-owned disposable
 /// simulation. Production time remains derived exclusively from wall time.
+#[reducer]
+pub fn advance_simulation_world_time(
+    ctx: &ReducerContext,
+    nonce: String,
+    delta_minutes: u64,
+) -> Result<(), String> {
+    owned_run(ctx, &nonce)?;
+    if !valid_simulation_clock_advance(delta_minutes) {
+        return Err("Simulation world-time advance is outside the bounded range".into());
+    }
+    crate::time::refresh_clock(ctx)?;
+    let mut clock = ctx
+        .db
+        .world_clock()
+        .id()
+        .find(0)
+        .ok_or("Simulation world clock is not initialized")?;
+    // Move the epoch by the inverse authoritative-clock transform, rounding up
+    // so every requested official minute is observed.
+    let delta_micros = simulation_epoch_shift_micros(delta_minutes)
+        .ok_or("Simulation world-time advance overflow")?;
+    clock.epoch_micros = clock
+        .epoch_micros
+        .checked_sub(delta_micros)
+        .ok_or("Simulation world epoch underflow")?;
+    clock.official_minutes = clock.official_minutes.saturating_add_minutes(delta_minutes);
+    ctx.db.world_clock().id().update(clock);
+    Ok(())
+}
+
 /// Deterministic death path available only in a capability-owned disposable
 /// simulation database. Production databases cannot claim that capability.
 #[reducer]
@@ -382,7 +429,7 @@ pub fn kill_simulation_character(
         .ok_or("Character not found in this disposable simulation database")?;
     crate::character::transition_character_to_dead(
         ctx,
-        (character_id).into(),
+        character_id,
         DeathCause::DevTest,
         DeathSource::DevTest,
         Some(nonce),
@@ -502,7 +549,7 @@ pub fn configure_simulation_character(
         return Err("Simulation character must still lead its fresh solo party".into());
     }
     character.current_settlement_id = Some(settlement_id.clone());
-    crate::investigation::set_character_case_site(ctx, (character.id).into(), None)?;
+    crate::investigation::set_character_case_site(ctx, character.id, None)?;
     ctx.db.character().id().update(character);
     solo_party.current_settlement_id = Some(settlement_id.clone());
     solo_party.current_case_site_id = None;
@@ -535,14 +582,12 @@ pub fn configure_simulation_character(
     // currency reducers used by players.
     crate::item::credit_personal_currency(
         ctx,
-        (character_id).into(),
+        character_id,
         &settlement_id,
         SIMULATION_STARTING_COIN,
     )?;
-    crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())
-        .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?;
-    crate::capability::refresh_character_capability(ctx, (character_id).into())
-        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+    crate::capability::refresh_character_capability(ctx, character_id)?;
     Ok(())
 }
 
@@ -558,7 +603,10 @@ pub(crate) fn same_simulation_scope(ctx: &ReducerContext, left: u64, right: u64)
 
 #[cfg(test)]
 mod tests {
-    use super::simulation_religion_hours_valid;
+    use super::{
+        MAX_SIMULATION_CLOCK_ADVANCE_MINUTES, simulation_epoch_shift_micros,
+        simulation_religion_hours_valid, valid_simulation_clock_advance,
+    };
     use adventuresim_world_schema::ReligionHours;
 
     #[test]
@@ -613,10 +661,10 @@ mod tests {
             .split("pub fn seed_simulation_quest_fixture")
             .nth(1)
             .unwrap()
-            .split("pub fn kill_simulation_character")
+            .split("pub fn advance_simulation_world_time")
             .next()
             .unwrap();
-        assert!(reducer.contains("let direct_power = party_power(direct_leader_id.into())?"));
+        assert!(reducer.contains("let direct_power = party_power(direct_leader_id)?"));
         assert!(!reducer.contains("second_power"));
         assert!(!reducer.contains("(generated_leader_id, direct_leader_id"));
         assert!(reducer.contains(
@@ -635,5 +683,26 @@ mod tests {
                 ..Default::default()
             }));
         }
+    }
+
+    #[test]
+    fn simulation_world_time_advance_is_positive_and_bounded() {
+        assert!(!valid_simulation_clock_advance(0));
+        assert!(valid_simulation_clock_advance(
+            adventuresim_world_schema::calendar::MINUTES_PER_DAY
+        ));
+        assert!(valid_simulation_clock_advance(
+            MAX_SIMULATION_CLOCK_ADVANCE_MINUTES
+        ));
+        assert!(!valid_simulation_clock_advance(
+            MAX_SIMULATION_CLOCK_ADVANCE_MINUTES + 1
+        ));
+        let shift =
+            simulation_epoch_shift_micros(adventuresim_world_schema::calendar::MINUTES_PER_DAY)
+                .unwrap();
+        assert_eq!(
+            adventuresim_core::strategic_time::elapsed_official_minutes(-shift, 0),
+            adventuresim_world_schema::calendar::MINUTES_PER_DAY
+        );
     }
 }

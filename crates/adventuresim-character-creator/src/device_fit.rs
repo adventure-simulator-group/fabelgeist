@@ -12,9 +12,9 @@ use fabelgeist_armor::{
     HelmetDesign, LimbArmorDesign, PartFrame, TASSET_SUSPENSION_GAP_M,
 };
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::{FitRegion, Wearer};
+use crate::armor_layer::ArmorLayerSurface;
 use crate::armor_recipes::{self, ParametricDesign};
 use crate::device_body::DeviceBody;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -29,7 +29,7 @@ pub struct FitBody<'a> {
     pub texcoords: &'a [[f32; 2]],
     pub joint_indices: &'a [[u32; 8]],
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
+    pub joint_names: &'a [String],
 }
 
 /// One shape of the body: the wearer or a morph realization, with its device
@@ -108,7 +108,17 @@ pub fn fit_piece(
     body: &FitBody<'_>,
     wearer: &Realization<'_>,
     morphs: &[(&str, Realization<'_>)],
-    record: impl Fn(&DeviceWearer, &mut KernelBatch) -> Result<DeviceRecording>,
+    record: impl Fn(&DeviceWearer, &mut KernelBatch, Option<&str>) -> Result<DeviceRecording>,
+) -> Result<DevicePiece> {
+    pollster::block_on(fit_piece_async(gpu, body, wearer, morphs, record))
+}
+
+pub async fn fit_piece_async(
+    gpu: &ArmorGpu,
+    body: &FitBody<'_>,
+    wearer: &Realization<'_>,
+    morphs: &[(&str, Realization<'_>)],
+    record: impl Fn(&DeviceWearer, &mut KernelBatch, Option<&str>) -> Result<DeviceRecording>,
 ) -> Result<DevicePiece> {
     let realizations = std::iter::once(wearer)
         .chain(morphs.iter().map(|(_, morph)| morph))
@@ -125,14 +135,15 @@ pub fn fit_piece(
     // within a batch, and a piece and its morphs together can exceed it.
     let mut recordings = Vec::with_capacity(bodies.len());
     let mut skin = None;
-    for (device, host) in bodies.iter().copied().zip(&hosts) {
-        let mut batch = gpu.batch(("fitted armor").into());
+    for (index, (device, host)) in bodies.iter().copied().zip(&hosts).enumerate() {
+        let mut batch = gpu.batch("fitted armor");
         let wearer = DeviceWearer {
             gpu,
             body: device,
             host,
         };
-        let mut recording = record(&wearer, &mut batch)?;
+        let target = index.checked_sub(1).map(|i| morphs[i].0);
+        let mut recording = record(&wearer, &mut batch, target)?;
         recording.part.record_shells(gpu, &mut batch)?;
         if skin.is_none() {
             skin = Some(Correspondence::record(
@@ -153,9 +164,10 @@ pub fn fit_piece(
         &skin.expect("the wearer is always fitted"),
         &names,
     )
+    .await
 }
 
-fn read(
+async fn read(
     gpu: &ArmorGpu,
     recordings: &[DeviceRecording],
     skin: &Correspondence,
@@ -174,31 +186,37 @@ fn read(
         })
         .collect::<Vec<_>>();
     let skin_slots = skin.stage(&mut staging);
-    let results = gpu.read_staged(staging)?;
+    let results = gpu.read_staged_async(staging).await?;
     let mut parts = Vec::with_capacity(recordings.len());
     for (index, (recording, (frames, part))) in recordings.iter().zip(slots).enumerate() {
         for ((_, region), frame) in recording.frames.iter().zip(frames) {
-            DeviceFrame::check_status(results.status(frame)?, *region)?;
+            DeviceFrame::check_status(results.status(frame), *region)?;
         }
         let context = || match index {
             0 => "fitting armor".to_string(),
             i => format!("fitting armor morph {}", names[i - 1]),
         };
         for check in &recording.checks {
-            check(gpu).with_context(context)?;
+            if let crate::device_piece::DeviceCheck::Device(check) = check {
+                check(gpu).await.with_context(context)?;
+            }
         }
-        parts.push(
-            recording
-                .part
-                .finish(&results, part)
-                .with_context(context)?,
-        );
+        let part = recording
+            .part
+            .finish(&results, part)
+            .with_context(context)?;
+        for check in &recording.checks {
+            if let crate::device_piece::DeviceCheck::Mesh(check) = check {
+                check(&part).with_context(context)?;
+            }
+        }
+        parts.push(part);
     }
     let mut parts = parts.into_iter();
     let base = parts.next().expect("the wearer is always fitted");
     Ok(DevicePiece {
         base,
-        skin: skin.finish(&results, skin_slots)?,
+        skin: skin.finish(&results, skin_slots),
         endpoints: parts.collect(),
     })
 }
@@ -212,23 +230,82 @@ pub fn fit_recipe(
     morphs: &[(&str, Realization<'_>)],
     design: &ParametricDesign,
     placement: &str,
+    layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
-    let fit = |design: &ParametricDesign| {
-        fit_piece(gpu, body, wearer, morphs, |device, batch| {
-            record_recipe(device, batch, design, placement)
+    pollster::block_on(fit_recipe_async(
+        gpu, body, wearer, morphs, design, placement, layers,
+    ))
+}
+
+pub async fn fit_recipe_async(
+    gpu: &ArmorGpu,
+    body: &FitBody<'_>,
+    wearer: &Realization<'_>,
+    morphs: &[(&str, Realization<'_>)],
+    design: &ParametricDesign,
+    placement: &str,
+    layers: &[&GeneratedArmor],
+) -> Result<DevicePiece> {
+    let fit = async |design: &ParametricDesign| {
+        fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {
+            let surfaces = layers
+                .iter()
+                .map(|armor| ArmorLayerSurface::from_generated(armor, target))
+                .collect::<Result<Vec<_>>>()?;
+            record_recipe(device, batch, design, placement, &surfaces)
         })
+        .await
     };
     let ParametricDesign::WaistAssembly(waist) = design else {
-        return fit(design);
+        return fit(design).await;
     };
-    let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone()))?;
-    let tassets = fit(&ParametricDesign::Garment(waist.tassets.clone()))?;
-    Ok(suspended_waist(fauld, tassets))
+    let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone())).await?;
+    let tassets = if matches!(
+        waist.tassets.plate_shape,
+        fabelgeist_armor::GarmentPlateShape::WrappedTassets(_)
+    ) {
+        fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {
+            let lower = match target {
+                None => &fauld.base,
+                Some(name) => {
+                    &fauld.endpoints[morphs
+                        .iter()
+                        .position(|(n, _)| *n == name)
+                        .context("missing suspended fauld realization")?]
+                }
+            };
+            let top = lower
+                .positions
+                .iter()
+                .map(|p| p[1])
+                .fold(f32::INFINITY, f32::min)
+                - TASSET_SUSPENSION_GAP_M;
+            let mut surfaces = layers
+                .iter()
+                .map(|armor| ArmorLayerSurface::from_generated(armor, target))
+                .collect::<Result<Vec<_>>>()?;
+            surfaces.push(ArmorLayerSurface {
+                positions: &lower.positions,
+                faces: lower.indices.as_chunks::<3>().0,
+                joint_indices: &fauld.skin.joint_indices,
+                joint_weights: &fauld.skin.joint_weights,
+            });
+            device.record_wrapped_tassets(batch, &waist.tassets, &surfaces, Some(top))
+        })
+        .await?
+    } else {
+        fit(&ParametricDesign::Garment(waist.tassets.clone())).await?
+    };
+    Ok(suspended_waist(fauld, tassets, &waist.tassets))
 }
 
 /// Hang the tassets below the fauld's hem on every realization, and join
 /// both as one waist defense with a component each.
-fn suspended_waist(fauld: DevicePiece, tassets: DevicePiece) -> DevicePiece {
+fn suspended_waist(
+    fauld: DevicePiece,
+    tassets: DevicePiece,
+    design: &fabelgeist_armor::GarmentArmorDesign,
+) -> DevicePiece {
     let join = |mut fauld: BuiltPart, mut tassets: BuiltPart| {
         let hem = fauld
             .positions
@@ -240,7 +317,16 @@ fn suspended_waist(fauld: DevicePiece, tassets: DevicePiece) -> DevicePiece {
             .iter()
             .map(|p| p[1])
             .fold(f32::NEG_INFINITY, f32::max);
-        let shift = (hem - TASSET_SUSPENSION_GAP_M - top).min(0.0);
+        // Wrapped carriers were fitted at the actual suspension height; moving
+        // them afterward would invalidate anatomical support at shaped edges.
+        let shift = if matches!(
+            design.plate_shape,
+            fabelgeist_armor::GarmentPlateShape::WrappedTassets(_)
+        ) {
+            0.0
+        } else {
+            (hem - TASSET_SUSPENSION_GAP_M - top).min(0.0)
+        };
         for point in &mut tassets.positions {
             point[1] += shift;
         }
@@ -249,6 +335,7 @@ fn suspended_waist(fauld: DevicePiece, tassets: DevicePiece) -> DevicePiece {
             vertices: 0..part.positions.len(),
             indices: 0..part.indices.len(),
             hinge: None,
+            mount: None,
             material: None,
         };
         fauld.components = vec![whole(&fauld, ArmorComponentRole::Fauld)];
@@ -280,6 +367,7 @@ fn record_recipe(
     batch: &mut KernelBatch,
     design: &ParametricDesign,
     placement: &str,
+    layers: &[ArmorLayerSurface<'_>],
 ) -> Result<DeviceRecording> {
     match design {
         ParametricDesign::Helmet(HelmetDesign::CloseHelmet(d)) => {
@@ -287,6 +375,12 @@ fn record_recipe(
         }
         ParametricDesign::Helmet(HelmetDesign::MailCoif(d)) => wearer.record_fitted_coif(batch, d),
         ParametricDesign::Helmet(helmet) => wearer.record_helmet(batch, helmet),
+        ParametricDesign::Limb(LimbArmorDesign::Pauldron(d)) => wearer.record_fitted_pauldron(
+            batch,
+            d,
+            armor_recipes::fit_region(design, placement)?,
+            layers,
+        ),
         ParametricDesign::Limb(limb) => {
             let region = armor_recipes::fit_region(design, placement)?;
             if matches!(
@@ -300,15 +394,26 @@ fn record_recipe(
                 wearer.record_fitted_limb(batch, limb, region)
             }
         }
+        ParametricDesign::Garment(garment)
+            if matches!(
+                garment.plate_shape,
+                fabelgeist_armor::GarmentPlateShape::WrappedTassets(_)
+            ) =>
+        {
+            wearer.record_wrapped_tassets(batch, garment, layers, None)
+        }
         ParametricDesign::Garment(garment) => {
-            wearer.record_fitted_garment(batch, garment, placement)
+            wearer.record_fitted_garment(batch, garment, placement, layers)
         }
         ParametricDesign::Underlayer(_) | ParametricDesign::TrunkHose(_) => {
             anyhow::bail!("underlayers are cut from the body, not recorded as parts")
         }
-        ParametricDesign::PuffAndSlash(_) => {
-            anyhow::bail!("puff-and-slash garments are not yet fitted on the device")
-        }
+        ParametricDesign::PuffAndSlash(puff) => wearer.record_fitted_puff(
+            batch,
+            puff,
+            armor_recipes::fit_region(design, placement)?,
+            layers,
+        ),
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
         }
@@ -322,7 +427,7 @@ pub struct Fitted<'a> {
     /// Each morph realization's name, in order.
     pub morphs: &'a [&'a str],
     pub domain: &'a str,
-    pub joint_names: &'a [RigJointName],
+    pub joint_names: &'a [String],
     /// The wearer's global joint states, one per name.
     pub joints: &'a [[f32; 8]],
 }
@@ -379,6 +484,15 @@ pub fn assemble_recipe(
         morphs: targets,
         components: base.components,
     };
+    if let ParametricDesign::PuffAndSlash(puff) = design {
+        for component in &mut armor.components {
+            component.material = match component.role {
+                ArmorComponentRole::Undercloth => Some(puff.undercloth_color.material()),
+                ArmorComponentRole::OuterFabric => Some(puff.outer_color.material()),
+                _ => component.material,
+            };
+        }
+    }
     crate::skin_rules::attach(
         design,
         fitted.placement,

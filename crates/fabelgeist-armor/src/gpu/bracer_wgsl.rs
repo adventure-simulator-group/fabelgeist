@@ -8,7 +8,6 @@
 use super::anatomy::SURFACE_HEADER;
 use super::bracer::{ALONG, STATUS_EMPTY_CONTOUR};
 use super::wgsl;
-use fabelgeist_gpu::prelude::ShaderSource;
 
 /// Floats of the measured axis: axis and weld distance, then the two
 /// directions angles around it are measured in, each padded to four.
@@ -78,9 +77,9 @@ struct Params {
 
 /// A kernel's full source: its bindings and entry after the prelude. A
 /// kernel that binds `status` also gets `fail`.
-pub(crate) fn source(entry: &str, binds_status: bool) -> ShaderSource {
+pub(crate) fn source(entry: &str, binds_status: bool) -> String {
     let status = if binds_status { wgsl::STATUS } else { "" };
-    ShaderSource::from(format!("{PARAMS}\n{}\n{entry}\n{status}", prelude()))
+    format!("{PARAMS}\n{}\n{entry}\n{status}", prelude())
 }
 
 /// The design's relief and flute fan, from its words.
@@ -131,7 +130,7 @@ fn main() {
         fail(STATUS_INVALID_SURFACE);
         return;
     }
-    let infinity = bitcast<f32>(0x7f800000u);
+    let infinity = MAX_FINITE;
     var axial_sum = 0.0;
     var position_sum = vec3<f32>(0.0);
     var lowest = vec3<f32>(infinity);

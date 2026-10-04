@@ -1,12 +1,10 @@
-use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_math::Vec2;
 use fabelgeist_physics::{Collider, Collisions};
-use fabelgeist_xpbd::{Solver, SolverBuildError, SolverSettings};
+use fabelgeist_xpbd::{Solver, SolverSettings};
 
 use super::*;
 use crate::garment::{Panel, Placement, Seam, SeamSide};
 use crate::{Fabric, build};
-use anyhow::Result;
 
 struct Harness {
     context: WgpuContext,
@@ -21,13 +19,11 @@ impl Harness {
         })
     }
 
-    fn collisions(
-        &self,
-    ) -> std::result::Result<Collisions, fabelgeist_physics::CollisionBuildError> {
+    fn collisions(&self) -> Result<Collisions> {
         Collisions::new(&self.context, &self.cache)
     }
 
-    fn solver(&self, settings: SolverSettings) -> std::result::Result<Solver, SolverBuildError> {
+    fn solver(&self, settings: SolverSettings) -> Result<Solver> {
         Solver::with_cache(&self.context, &self.cache, settings)
     }
 }
@@ -65,16 +61,11 @@ async fn a_sheet_falls_and_settles_on_the_ground() -> Result<()> {
     )?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 12.into(),
+        substeps: 12,
         ..cloth.settings()
     })?;
     for _ in 0..180 {
-        cloth.step(
-            &harness.context,
-            &solver,
-            &mut collisions,
-            (1.0 / 60.0).into(),
-        )?;
+        cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
     }
 
     let settled = cloth.read_positions(&harness.context).await?;
@@ -110,16 +101,11 @@ async fn a_falling_sheet_does_not_stretch() -> Result<()> {
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 15.into(),
+        substeps: 15,
         ..cloth.settings()
     })?;
     for _ in 0..120 {
-        cloth.step(
-            &harness.context,
-            &solver,
-            &mut collisions,
-            (1.0 / 60.0).into(),
-        )?;
+        cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
     }
 
     let settled = cloth.read_positions(&harness.context).await?;
@@ -162,7 +148,7 @@ async fn a_pinned_sheet_hangs() -> Result<()> {
     let mut pinned = 0;
     for (index, position) in mesh.positions.iter().enumerate() {
         if position.y > top - 1e-4 {
-            inverse_masses[index] = fabelgeist_shell::ParticleInverseMass::PINNED;
+            inverse_masses[index] = 0.0;
             pinned += 1;
         }
     }
@@ -175,21 +161,16 @@ async fn a_pinned_sheet_hangs() -> Result<()> {
 
     let mut collisions = harness.collisions()?;
     let solver = harness.solver(SolverSettings {
-        substeps: 15.into(),
+        substeps: 15,
         ..cloth.settings()
     })?;
     for _ in 0..240 {
-        cloth.step(
-            &harness.context,
-            &solver,
-            &mut collisions,
-            (1.0 / 60.0).into(),
-        )?;
+        cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
     }
 
     let settled = cloth.read_positions(&harness.context).await?;
     for (index, position) in settled.iter().enumerate() {
-        if inverse_masses[index].mobility() == fabelgeist_shell::ParticleMobility::Prescribed {
+        if inverse_masses[index] == 0.0 {
             assert!(
                 (*position - mesh.positions[index]).length() < 1e-4,
                 "pinned particle {index} moved"
@@ -229,7 +210,7 @@ async fn bending_stiffness_changes_the_drape() -> Result<()> {
         let mut inverse_masses = mesh.inverse_masses();
         for (index, position) in mesh.positions.iter().enumerate() {
             if position.z < 0.0 {
-                inverse_masses[index] = fabelgeist_shell::ParticleInverseMass::PINNED;
+                inverse_masses[index] = 0.0;
             }
         }
 
@@ -240,16 +221,11 @@ async fn bending_stiffness_changes_the_drape() -> Result<()> {
 
         let mut collisions = harness.collisions()?;
         let solver = harness.solver(SolverSettings {
-            substeps: 15.into(),
+            substeps: 15,
             ..cloth.settings()
         })?;
         for _ in 0..240 {
-            cloth.step(
-                &harness.context,
-                &solver,
-                &mut collisions,
-                (1.0 / 60.0).into(),
-            )?;
+            cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
         }
 
         let settled = cloth.read_positions(&harness.context).await?;
@@ -313,18 +289,13 @@ async fn seams_pull_panels_together() -> Result<()> {
     let mut collisions = harness.collisions()?;
     // No gravity: this is about the seams, not about falling.
     let solver = harness.solver(SolverSettings {
-        substeps: 15.into(),
-        gravity: Vec3::default().into(),
-        damping: 2.0.into(),
+        substeps: 15,
+        gravity: Vec3::default(),
+        damping: 2.0,
         ..Default::default()
     })?;
     for _ in 0..240 {
-        cloth.step(
-            &harness.context,
-            &solver,
-            &mut collisions,
-            (1.0 / 60.0).into(),
-        )?;
+        cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
     }
 
     let settled = cloth.read_positions(&harness.context).await?;
@@ -375,16 +346,11 @@ async fn self_collision_keeps_layers_apart() -> Result<()> {
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 15.into(),
+        substeps: 15,
         ..cloth.settings()
     })?;
     for _ in 0..240 {
-        cloth.step(
-            &harness.context,
-            &solver,
-            &mut collisions,
-            (1.0 / 60.0).into(),
-        )?;
+        cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
     }
 
     let settled = cloth.read_positions(&harness.context).await?;
@@ -433,16 +399,11 @@ async fn layers_merge_without_self_collision() -> Result<()> {
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 15.into(),
+        substeps: 15,
         ..cloth.settings()
     })?;
     for _ in 0..240 {
-        cloth.step(
-            &harness.context,
-            &solver,
-            &mut collisions,
-            (1.0 / 60.0).into(),
-        )?;
+        cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
     }
 
     let settled = cloth.read_positions(&harness.context).await?;
@@ -477,16 +438,11 @@ async fn a_sheet_drapes_over_a_sphere() -> Result<()> {
     )?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 15.into(),
+        substeps: 15,
         ..cloth.settings()
     })?;
     for _ in 0..300 {
-        cloth.step(
-            &harness.context,
-            &solver,
-            &mut collisions,
-            (1.0 / 60.0).into(),
-        )?;
+        cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
     }
 
     let settled = cloth.read_positions(&harness.context).await?;
@@ -524,12 +480,7 @@ async fn resets_to_the_flat_layout() -> Result<()> {
     let mut collisions = harness.collisions()?;
     let solver = harness.solver(cloth.settings())?;
     for _ in 0..30 {
-        cloth.step(
-            &harness.context,
-            &solver,
-            &mut collisions,
-            (1.0 / 60.0).into(),
-        )?;
+        cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
     }
     let moved = cloth.read_positions(&harness.context).await?;
     assert!(moved[0].y < mesh.positions[0].y - 0.01, "it did not fall");
@@ -578,7 +529,7 @@ async fn bend_scaling_grid() -> Result<()> {
             let mut inverse_masses = mesh.inverse_masses();
             for (index, position) in mesh.positions.iter().enumerate() {
                 if position.z < 0.0 {
-                    inverse_masses[index] = fabelgeist_shell::ParticleInverseMass::PINNED;
+                    inverse_masses[index] = 0.0;
                 }
             }
             let mut cloth = Cloth::new(&harness.context, &harness.cache, &mesh, fabric)?;
@@ -587,16 +538,11 @@ async fn bend_scaling_grid() -> Result<()> {
                 .write(&harness.context, &mesh.positions, &inverse_masses)?;
             let mut collisions = harness.collisions()?;
             let solver = harness.solver(SolverSettings {
-                substeps: 8.into(),
+                substeps: 8,
                 ..cloth.settings()
             })?;
             for _ in 0..100 {
-                cloth.step(
-                    &harness.context,
-                    &solver,
-                    &mut collisions,
-                    (1.0 / 60.0).into(),
-                )?;
+                cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
             }
             let settled = cloth.read_positions(&harness.context).await?;
             let reach = settled
@@ -632,27 +578,17 @@ async fn interleaved_submission_gives_the_same_result() -> Result<()> {
             vec![Collider::ground(0.0).with_friction(0.4)],
         )?;
         let solver = harness.solver(SolverSettings {
-            substeps: 10.into(),
+            substeps: 10,
             ..cloth.settings()
         })?;
 
         for _ in 0..90 {
             if interleaved {
                 cloth
-                    .step_interleaved(
-                        &harness.context,
-                        &solver,
-                        &mut collisions,
-                        (1.0 / 60.0).into(),
-                    )
+                    .step_interleaved(&harness.context, &solver, &mut collisions, 1.0 / 60.0)
                     .await?;
             } else {
-                cloth.step(
-                    &harness.context,
-                    &solver,
-                    &mut collisions,
-                    (1.0 / 60.0).into(),
-                )?;
+                cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
             }
         }
         settled.push(cloth.read_positions(&harness.context).await?);
@@ -679,16 +615,16 @@ async fn coincident_non_neighbours_separate_and_pinned_particles_stay_fixed() ->
     let particles = fabelgeist_xpbd::Particles::from_positions(
         &harness.context,
         &[Vec3::default(), Vec3::default()],
-        &[0.0.into(), 1.0.into()],
+        &[0.0, 1.0],
     )?;
     let mut collision = crate::SelfCollision::new(
         &harness.context,
         &harness.cache,
-        2.into(),
+        2,
         &[vec![], vec![]],
         0.005,
     )?;
-    let mut batch = KernelBatch::labelled(&harness.context, ("coincident contact").into());
+    let mut batch = KernelBatch::labelled(&harness.context, "coincident contact");
     collision.record(&mut batch, &particles, true)?;
     batch.submit();
     let p = particles.read_positions(&harness.context).await?;
@@ -708,14 +644,14 @@ async fn interactive_step_blocks_a_triangle_interior_crossing() -> Result<()> {
             Vec3::new(0., 0.02, 0.),
         ],
         triangles: vec![[0, 1, 2]],
-        masses: vec![0.0.into(), 0.0.into(), 0.0.into(), 1.0.into()],
+        masses: vec![0., 0., 0., 1.],
         ..Default::default()
     };
     let mut cloth = Cloth::new(&harness.context, &harness.cache, &mesh, Fabric::COTTON)?;
     let solver = harness.solver(SolverSettings {
-        substeps: 1.into(),
-        gravity: Vec3::default().into(),
-        damping: 0.0.into(),
+        substeps: 1,
+        gravity: Vec3::default(),
+        damping: 0.,
         ..cloth.settings()
     })?;
     let mut collisions = harness.collisions()?;
@@ -724,9 +660,9 @@ async fn interactive_step_blocks_a_triangle_interior_crossing() -> Result<()> {
     cloth
         .particles
         .velocities
-        .write(&harness.context, BufferUpload::from_elements(&velocities));
+        .write(&harness.context, &velocities)?;
     cloth
-        .step_interleaved(&harness.context, &solver, &mut collisions, (0.01).into())
+        .step_interleaved(&harness.context, &solver, &mut collisions, 0.01)
         .await?;
     let positions = cloth.read_positions(&harness.context).await?;
     assert!(positions[3].y >= Fabric::COTTON.thickness * 0.99);

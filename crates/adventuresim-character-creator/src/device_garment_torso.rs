@@ -6,7 +6,6 @@ use anyhow::Result;
 use fabelgeist_armor::gpu::record_garment_torso;
 use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::DeviceWearer;
@@ -55,9 +54,9 @@ impl DeviceWearer<'_> {
         let head = self.record_frame(batch, FitRegion::Head)?;
         let raw = self.record_frame(batch, FitRegion::Torso)?;
         let bottom = if matches!(design.kind, Kind::ArmingDoublet | Kind::MailShirt) {
-            RigJointName::C_SPINE1
+            "c_spine1"
         } else {
-            RigJointName::C_SPINE0
+            "c_spine0"
         };
         let fit = self.record_upright(
             batch,
@@ -65,8 +64,8 @@ impl DeviceWearer<'_> {
             &raw,
             &head,
             UprightSpan {
-                top: (RigJointName::C_NECK, SHOULDER_LIFT_M),
-                bottom: (bottom.clone(), 0.0),
+                top: ("c_neck", SHOULDER_LIFT_M),
+                bottom: (bottom, 0.0),
                 reach: (bottom, 0.0),
             },
         )?;
@@ -77,25 +76,16 @@ impl DeviceWearer<'_> {
             &format!("{}{JOINTS}{TORSO_SETUP}", layout()),
             &[read("joints", &self.body.joints), write("fit", &fit)],
             &[
-                Word::U(
-                    "neck",
-                    usize::from(self.joint_slot(&RigJointName::C_NECK)?) as u32,
-                ),
-                Word::U(
-                    "waist",
-                    usize::from(self.joint_slot(&RigJointName::C_SPINE1)?) as u32,
-                ),
-                Word::U(
-                    "armpit",
-                    usize::from(self.joint_slot(&RigJointName::L_UPARM)?) as u32,
-                ),
+                Word::U("neck", self.joint_slot("c_neck")?),
+                Word::U("waist", self.joint_slot("c_spine1")?),
+                Word::U("armpit", self.joint_slot("l_uparm")?),
                 Word::F("length", design.length.unit()),
                 Word::F("gap", gap),
                 Word::F("waist_scale", design.waist.unit()),
                 Word::F("flare", design.flare.unit()),
                 Word::F("kind", kind),
             ],
-            Grid::Singles((1u32).into()),
+            Grid::Singles(1),
         )?;
         let support = self.record_region_support(batch, &[FitRegion::Torso, FitRegion::Hips])?;
         dispatch(
@@ -108,7 +98,7 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[],
-            Grid::Singles((CAGE_SECTIONS).into()),
+            Grid::Singles(CAGE_SECTIONS),
         )?;
         let part = record_garment_torso(
             self.gpu,

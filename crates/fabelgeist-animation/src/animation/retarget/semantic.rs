@@ -7,26 +7,6 @@
 //! resolved joint indices.
 
 use serde::{Deserialize, Serialize};
-use std::borrow::Cow;
-
-/// Exact serialized spelling of a humanoid role, distinct from rig identity.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct HumanoidRoleName(Cow<'static, str>);
-impl From<&str> for HumanoidRoleName {
-    fn from(name: &str) -> Self {
-        Self(Cow::Owned(name.to_owned()))
-    }
-}
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct UnknownHumanoidJoint {
-    pub name: HumanoidRoleName,
-}
-impl std::fmt::Display for UnknownHumanoidJoint {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "unknown humanoid joint {:?}", self.name.0)
-    }
-}
-impl std::error::Error for UnknownHumanoidJoint {}
 
 macro_rules! humanoid_joints {
     ($($variant:ident => $name:literal),* $(,)?) => {
@@ -40,18 +20,16 @@ macro_rules! humanoid_joints {
             /// Every role, in a stable order.
             pub const ALL: &'static [HumanoidJoint] = &[$(HumanoidJoint::$variant),*];
 
-            pub const fn name(self) -> HumanoidRoleName {
+            pub fn as_str(self) -> &'static str {
                 match self {
-                    $(HumanoidJoint::$variant => HumanoidRoleName(Cow::Borrowed($name))),*
+                    $(HumanoidJoint::$variant => $name),*
                 }
             }
-        }
-        impl TryFrom<HumanoidRoleName> for HumanoidJoint {
-            type Error = UnknownHumanoidJoint;
-            fn try_from(name: HumanoidRoleName) -> Result<Self, Self::Error> {
-                match name.0.as_ref() {
-                    $($name => Ok(HumanoidJoint::$variant),)*
-                    _ => Err(UnknownHumanoidJoint { name }),
+
+            pub fn from_name(name: &str) -> Option<Self> {
+                match name {
+                    $($name => Some(HumanoidJoint::$variant),)*
+                    _ => None,
                 }
             }
         }
@@ -122,15 +100,15 @@ humanoid_joints! {
 
 impl std::fmt::Display for HumanoidJoint {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        formatter.write_str(self.name().0.as_ref())
+        formatter.write_str(self.as_str())
     }
 }
 
 impl std::str::FromStr for HumanoidJoint {
-    type Err = UnknownHumanoidJoint;
+    type Err = String;
 
     fn from_str(name: &str) -> Result<Self, Self::Err> {
-        Self::try_from(HumanoidRoleName::from(name))
+        Self::from_name(name).ok_or_else(|| format!("unknown humanoid joint {name:?}"))
     }
 }
 
@@ -380,11 +358,9 @@ impl HumanoidChain {
             ],
         }
     }
-}
 
-impl std::fmt::Display for HumanoidChain {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        formatter.write_str(match self {
+    pub fn as_str(self) -> &'static str {
+        match self {
             HumanoidChain::Spine => "Spine",
             HumanoidChain::Neck => "Neck",
             HumanoidChain::ArmLeft => "ArmLeft",
@@ -401,7 +377,13 @@ impl std::fmt::Display for HumanoidChain {
             HumanoidChain::MiddleRight => "MiddleRight",
             HumanoidChain::RingRight => "RingRight",
             HumanoidChain::LittleRight => "LittleRight",
-        })
+        }
+    }
+}
+
+impl std::fmt::Display for HumanoidChain {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter.write_str(self.as_str())
     }
 }
 
@@ -412,18 +394,8 @@ mod tests {
     #[test]
     fn joint_names_round_trip() {
         for joint in HumanoidJoint::ALL {
-            assert_eq!(HumanoidJoint::try_from(joint.name()), Ok(*joint));
+            assert_eq!(HumanoidJoint::from_name(joint.as_str()), Some(*joint));
         }
-    }
-
-    #[test]
-    fn unknown_role_spelling_remains_structured_and_exact() {
-        let name = HumanoidRoleName::from("ns:Head \0");
-        let error = HumanoidJoint::try_from(name.clone()).unwrap_err();
-        assert_eq!(error.name, name);
-        assert_eq!("ns:Head \0".parse::<HumanoidJoint>(), Err(error.clone()));
-        assert_eq!(error.to_string(), "unknown humanoid joint \"ns:Head \\0\"");
-        assert_eq!("Head".parse::<HumanoidJoint>(), Ok(HumanoidJoint::Head));
     }
 
     #[test]

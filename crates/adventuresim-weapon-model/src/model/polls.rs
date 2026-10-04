@@ -1,8 +1,7 @@
 //! Hammer faces, piercing beaks and bill hooks.
 use super::*;
-use crate::ConstructionError;
 
-pub(super) fn beak(p: &BeakParameters, detail: Detail) -> Result<Solid, ConstructionError> {
+pub(super) fn beak(p: &BeakParameters, detail: Detail) -> Result<Solid, String> {
     let length = p.length.get();
     let radius = p.radius.get();
     let direction = p.direction.map_or(-1.0, Direction::sign);
@@ -40,7 +39,7 @@ pub(super) fn beak(p: &BeakParameters, detail: Detail) -> Result<Solid, Construc
     Solid::prism(&outline, p.working_thickness().get(), detail)
 }
 
-pub(super) fn hammer(p: &HammerParameters, detail: Detail) -> Result<Solid, ConstructionError> {
+pub(super) fn hammer(p: &HammerParameters, detail: Detail) -> Result<Solid, String> {
     let length = p.length.get();
     let face = p.face.get();
     let neck = p.neck.get();
@@ -67,10 +66,7 @@ pub(super) fn hammer(p: &HammerParameters, detail: Detail) -> Result<Solid, Cons
     )
 }
 
-pub(super) fn faceted_beak(
-    p: &FacetedBeakParameters,
-    detail: Detail,
-) -> Result<Solid, ConstructionError> {
+pub(super) fn faceted_beak(p: &FacetedBeakParameters, detail: Detail) -> Result<Solid, String> {
     let length = p.length.get();
     let root = p.root.get();
     let tip = p.tip.map_or(root * 0.16, Metres::get);
@@ -91,7 +87,7 @@ pub(super) fn faceted_beak(
     )
 }
 
-pub(super) fn bill(p: &BillParameters, detail: Detail) -> Result<Solid, ConstructionError> {
+pub(super) fn bill(p: &BillParameters, detail: Detail) -> Result<Solid, String> {
     Solid::prism(&bill_outline(p, detail), p.thickness.get(), detail)
 }
 

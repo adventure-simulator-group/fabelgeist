@@ -7,8 +7,9 @@ use crate::{
 };
 use crate::{
     combat_style::MeleeAttackStyle,
-    item_catalog_schema::{EquipmentChannel, EquipmentLocation},
+    item_catalog_schema::{EquipmentChannel, EquipmentLocation, OccupancyRequirement},
 };
+use std::collections::{BTreeMap, BTreeSet};
 
 mod armor;
 mod loadout;
@@ -190,8 +191,128 @@ pub const INPUT_ADDRESS_MAPPINGS: &[InputAddressMapping] = &[
     },
 ];
 
-mod graph;
-pub use graph::{EquipmentGraph, EquipmentGraphEdge, EquipmentGraphError, EquipmentGraphPlacement};
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct EquipmentGraph {
+    pub nodes: BTreeMap<u64, EquipmentGraphPlacement>,
+}
+
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct EquipmentGraphPlacement {
+    pub body: Vec<OccupancyRequirement>,
+    pub parents: Vec<EquipmentGraphEdge>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub struct EquipmentGraphEdge {
+    pub parent_inventory_item_id: u64,
+    pub attachment_point_id: String,
+    pub capacity_index: u16,
+}
+
+impl EquipmentGraph {
+    pub fn equip(
+        &mut self,
+        inventory_item_id: u64,
+        mut placement: EquipmentGraphPlacement,
+    ) -> Result<(), &'static str> {
+        if self.has_children(inventory_item_id) {
+            return Err("item has equipped children");
+        }
+        for requirement in &mut placement.body {
+            if requirement.channel.singleton_per_location() {
+                requirement.order = 0;
+            }
+        }
+        if placement
+            .body
+            .iter()
+            .enumerate()
+            .any(|(index, requirement)| {
+                placement.body[..index]
+                    .iter()
+                    .any(|other| requirement.conflicts_with(*other))
+            })
+        {
+            return Err("duplicate body occupancy");
+        }
+        let edge_keys = placement.parents.iter().cloned().collect::<BTreeSet<_>>();
+        if edge_keys.len() != placement.parents.len() {
+            return Err("duplicate attachment capacity");
+        }
+        for (other_id, other) in &self.nodes {
+            if *other_id == inventory_item_id {
+                continue;
+            }
+            if other.body.iter().any(|cell| {
+                placement
+                    .body
+                    .iter()
+                    .any(|requirement| requirement.conflicts_with(*cell))
+            }) {
+                return Err("body occupancy conflict");
+            }
+            if other.parents.iter().any(|edge| edge_keys.contains(edge)) {
+                return Err("attachment capacity conflict");
+            }
+        }
+        if placement
+            .parents
+            .iter()
+            .any(|edge| !self.nodes.contains_key(&edge.parent_inventory_item_id))
+        {
+            return Err("parent is not equipped");
+        }
+        if self.would_cycle(
+            inventory_item_id,
+            placement
+                .parents
+                .iter()
+                .map(|edge| edge.parent_inventory_item_id),
+        ) {
+            return Err("attachment cycle");
+        }
+        self.nodes.insert(inventory_item_id, placement);
+        Ok(())
+    }
+
+    pub fn unequip(&mut self, inventory_item_id: u64) -> Result<(), &'static str> {
+        if self.has_children(inventory_item_id) {
+            return Err("item has equipped children");
+        }
+        self.nodes.remove(&inventory_item_id);
+        Ok(())
+    }
+
+    pub fn has_children(&self, inventory_item_id: u64) -> bool {
+        self.nodes.values().any(|placement| {
+            placement
+                .parents
+                .iter()
+                .any(|edge| edge.parent_inventory_item_id == inventory_item_id)
+        })
+    }
+
+    fn would_cycle(&self, inventory_item_id: u64, parents: impl IntoIterator<Item = u64>) -> bool {
+        let mut ancestors = parents.into_iter().collect::<Vec<_>>();
+        let mut visited = BTreeSet::new();
+        while let Some(ancestor) = ancestors.pop() {
+            if ancestor == inventory_item_id {
+                return true;
+            }
+            if visited.insert(ancestor)
+                && let Some(placement) = self.nodes.get(&ancestor)
+            {
+                ancestors.extend(
+                    placement
+                        .parents
+                        .iter()
+                        .map(|edge| edge.parent_inventory_item_id),
+                );
+            }
+        }
+        false
+    }
+}
 
 /// SpacetimeDB-friendly weights for the nine weapon leaf skills. A weapon may
 /// combine melee and ranged families; callers normalize the positive entries.
@@ -374,7 +495,7 @@ pub fn melee_attack_timing(
 /// Unknown and non-weapon identifiers deliberately return an empty
 /// distribution. There is no ID-shaped sword fallback.
 pub fn weapon_skill_distribution_for_item(item_id: &str) -> WeaponSkillDistribution {
-    crate::item_catalog::weapon_skills(&(item_id).into())
+    crate::item_catalog::weapon_skills(item_id)
         .map_or_else(WeaponSkillDistribution::default, Into::into)
 }
 
@@ -588,7 +709,6 @@ pub trait PlayerEquipment {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::BTreeSet;
 
     #[test]
     fn weapon_skill_distribution_uses_the_shared_boundary_shape() {
@@ -948,5 +1068,184 @@ mod tests {
             INPUT_ADDRESS_MAPPINGS.len(),
             "slot inputs must occupy distinct cells in the QWERTY map"
         );
+    }
+
+    #[test]
+    fn graph_supports_belt_sheath_sword_and_body_bag_contents() {
+        let edge = |parent, point: &str, capacity_index| EquipmentGraphEdge {
+            parent_inventory_item_id: parent,
+            attachment_point_id: point.into(),
+            capacity_index,
+        };
+        let mut graph = EquipmentGraph::default();
+        graph
+            .equip(
+                1,
+                EquipmentGraphPlacement {
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::LeftBelt,
+                        channel: EquipmentChannel::Accessory,
+                        order: 0,
+                        fit_zone: None,
+                    }],
+                    parents: vec![],
+                },
+            )
+            .unwrap();
+        graph
+            .equip(
+                2,
+                EquipmentGraphPlacement {
+                    body: vec![],
+                    parents: vec![edge(1, "left", 0), edge(1, "right", 0)],
+                },
+            )
+            .unwrap();
+        graph
+            .equip(
+                3,
+                EquipmentGraphPlacement {
+                    body: vec![],
+                    parents: vec![edge(2, "blade", 0)],
+                },
+            )
+            .unwrap();
+        graph
+            .equip(
+                4,
+                EquipmentGraphPlacement {
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::LeftShoulder,
+                        channel: EquipmentChannel::Accessory,
+                        order: 0,
+                        fit_zone: None,
+                    }],
+                    parents: vec![],
+                },
+            )
+            .unwrap();
+        graph
+            .equip(
+                5,
+                EquipmentGraphPlacement {
+                    body: vec![],
+                    parents: vec![edge(4, "contents", 0)],
+                },
+            )
+            .unwrap();
+        assert_eq!(graph.nodes.len(), 5);
+        assert!(graph.unequip(1).is_err());
+        graph.unequip(3).unwrap();
+        graph.unequip(2).unwrap();
+        graph.unequip(1).unwrap();
+    }
+
+    #[test]
+    fn graph_multi_point_move_is_atomic_and_cycle_safe() {
+        let edge = |parent, point: &str, capacity_index| EquipmentGraphEdge {
+            parent_inventory_item_id: parent,
+            attachment_point_id: point.into(),
+            capacity_index,
+        };
+        let mut graph = EquipmentGraph::default();
+        for id in [10, 11] {
+            graph
+                .equip(
+                    id,
+                    EquipmentGraphPlacement {
+                        body: vec![OccupancyRequirement {
+                            location: if id == 10 {
+                                EquipmentLocation::LeftShoulder
+                            } else {
+                                EquipmentLocation::RightShoulder
+                            },
+                            channel: EquipmentChannel::Mount,
+                            order: 0,
+                            fit_zone: None,
+                        }],
+                        parents: vec![],
+                    },
+                )
+                .unwrap();
+        }
+        graph
+            .equip(
+                20,
+                EquipmentGraphPlacement {
+                    body: vec![],
+                    parents: vec![edge(10, "strap", 0), edge(11, "strap", 0)],
+                },
+            )
+            .unwrap();
+        let before = graph.clone();
+        assert_eq!(
+            graph.equip(
+                21,
+                EquipmentGraphPlacement {
+                    body: vec![],
+                    parents: vec![edge(10, "strap", 0), edge(11, "strap", 1)],
+                },
+            ),
+            Err("attachment capacity conflict")
+        );
+        assert_eq!(graph, before, "failed preflight never partially mutates");
+        assert_eq!(
+            graph.equip(
+                10,
+                EquipmentGraphPlacement {
+                    body: vec![],
+                    parents: vec![edge(20, "loop", 0)],
+                },
+            ),
+            Err("item has equipped children")
+        );
+    }
+
+    #[test]
+    fn singleton_wearable_orders_conflict_but_accessory_coexists() {
+        let mut graph = EquipmentGraph::default();
+        graph
+            .equip(
+                1,
+                EquipmentGraphPlacement {
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::Chest,
+                        channel: EquipmentChannel::RigidArmor,
+                        order: 0,
+                        fit_zone: None,
+                    }],
+                    parents: vec![],
+                },
+            )
+            .unwrap();
+        assert_eq!(
+            graph.equip(
+                2,
+                EquipmentGraphPlacement {
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::Chest,
+                        channel: EquipmentChannel::RigidArmor,
+                        order: 1,
+                        fit_zone: None
+                    }],
+                    parents: vec![],
+                },
+            ),
+            Err("body occupancy conflict")
+        );
+        graph
+            .equip(
+                3,
+                EquipmentGraphPlacement {
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::Chest,
+                        channel: EquipmentChannel::Accessory,
+                        order: 0,
+                        fit_zone: None,
+                    }],
+                    parents: vec![],
+                },
+            )
+            .unwrap();
     }
 }

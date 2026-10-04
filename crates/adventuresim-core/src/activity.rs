@@ -1,6 +1,6 @@
 //! Strategic schedule activities which combine training with other outcomes.
 
-use adventuresim_world_schema::calendar::{StrategicDayIndex, StrategicMinute, StrategicWeekday};
+use adventuresim_world_schema::calendar::{StrategicMinute, is_sunday_day_index};
 
 pub const THIEVERY_UNAVAILABLE_REASON: &str = "Thievery is only available inside settlements.";
 pub const RAIDING_UNAVAILABLE_REASON: &str =
@@ -71,10 +71,7 @@ pub fn carousing_morale_per_day(minutes: u16) -> f32 {
     CAROUSING_MORALE_LIMIT * (1.0 - (-f32::from(minutes) / CAROUSING_MORALE_SCALE_MINUTES).exp())
 }
 
-pub fn sundays_overlapping(
-    start_minute: StrategicMinute,
-    elapsed_minutes: u64,
-) -> Vec<StrategicDayIndex> {
+pub fn sundays_overlapping(start_minute: StrategicMinute, elapsed_minutes: u64) -> Vec<u64> {
     if elapsed_minutes == 0 {
         return Vec::new();
     }
@@ -83,9 +80,8 @@ pub fn sundays_overlapping(
         .saturating_add_minutes(elapsed_minutes)
         .saturating_sub_minutes(1)
         .day_index();
-    first_day
-        .through(last_day)
-        .filter(|day| day.weekday() == StrategicWeekday::Sunday)
+    (first_day..=last_day)
+        .filter(|day| is_sunday_day_index(*day))
         .collect()
 }
 
@@ -188,7 +184,7 @@ mod tests {
 
     #[test]
     fn average_labor_covers_retail_daily_meals_and_inn_full_board() {
-        let meal = crate::food::definition(&"cooked_meal".into()).expect("standard cooked meal");
+        let meal = crate::food::definition("cooked_meal").expect("standard cooked meal");
         let meals_per_day =
             (crate::provisioning::STRATEGIC_TRAVEL_KCAL_PER_DAY / meal.kcal_per_unit).ceil() as u32;
         let retail_meal = crate::strategic_economy::language_adjusted_buy_price(
@@ -228,22 +224,19 @@ mod tests {
 
     #[test]
     fn sunday_is_every_seventh_calendar_day() {
-        assert!(StrategicDayIndex::new(0).weekday() != StrategicWeekday::Sunday);
-        assert!(StrategicDayIndex::new(5).weekday() != StrategicWeekday::Sunday);
-        assert!(StrategicDayIndex::new(6).weekday() == StrategicWeekday::Sunday);
-        assert!(StrategicDayIndex::new(13).weekday() == StrategicWeekday::Sunday);
+        assert!(!is_sunday_day_index(0));
+        assert!(!is_sunday_day_index(5));
+        assert!(is_sunday_day_index(6));
+        assert!(is_sunday_day_index(13));
     }
 
     #[test]
     fn travel_detects_each_sunday_it_overlaps() {
         let saturday_evening = StrategicMinute::new(5 * MINUTES_PER_DAY + 20 * 60);
-        assert_eq!(
-            sundays_overlapping(saturday_evening, 32 * 60),
-            vec![StrategicDayIndex::new(6)]
-        );
+        assert_eq!(sundays_overlapping(saturday_evening, 32 * 60), vec![6]);
         assert_eq!(
             sundays_overlapping(saturday_evening, 8 * MINUTES_PER_DAY),
-            vec![StrategicDayIndex::new(6), StrategicDayIndex::new(13)]
+            vec![6, 13]
         );
         assert!(sundays_overlapping(StrategicMinute::ZERO, 0).is_empty());
     }

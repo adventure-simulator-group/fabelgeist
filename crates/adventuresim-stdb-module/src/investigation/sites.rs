@@ -1,9 +1,9 @@
 #[path = "sites/provenance.rs"]
 mod provenance;
-use crate::strategic::strategic_incident__view;
+pub(crate) use provenance::{case_site_provenance_view, case_site_provenance_reducer};
 #[cfg(test)]
 use provenance::validated_case_site_aliases;
-pub(crate) use provenance::{case_site_provenance_reducer, case_site_provenance_view};
+use crate::strategic::strategic_incident__view;
 #[view(accessor = backend_case_site_pins, public)]
 pub fn backend_case_site_pins(ctx: &ViewContext) -> Vec<BackendCaseSitePin> {
     if !is_gateway(ctx) {
@@ -45,13 +45,8 @@ pub fn backend_case_site_pins(ctx: &ViewContext) -> Vec<BackendCaseSitePin> {
                 });
             let raiding_allowed = adventuresim_core::activity::ActivityLocation::case_site(
                 site.distance_m,
-                ctx.db
-                    .strategic_incident()
-                    .id_key()
-                    .find(&site.case_id)
-                    .is_some(),
-            )
-            .allows(adventuresim_core::activity::LocationActivity::Raiding);
+                ctx.db.strategic_incident().id_key().find(&site.case_id).is_some(),
+            ).allows(adventuresim_core::activity::LocationActivity::Raiding);
             Some(BackendCaseSitePin {
                 raiding_allowed,
                 owner_character_id: lead.owner_character_id,
@@ -128,7 +123,7 @@ fn case_site_presentation_view(
         .find(canonical_case_id)?;
     let validated = validate_quest_generation_authority(&authority).ok()?;
     let generated_site = validated.manifest.sites.iter().find(|generated_site| {
-        canonical_case_site_place(generated_site.id.as_str())
+        canonical_case_site_place(&generated_site.id.0)
             .map(|generated| (generated, site.id.to_place()))
             .is_some_and(|(generated, persisted)| generated == persisted)
     })?;
@@ -219,6 +214,12 @@ fn lead_projects_exact_case_site_pin(
         && lead.longitude_e7 == site.longitude_e7
 }
 
+
+
+
+
+
+
 #[view(accessor = backend_character_case_site_locations, public)]
 pub fn backend_character_case_site_locations(
     ctx: &ViewContext,
@@ -286,15 +287,10 @@ fn exact_action_case_site_for_observer(
 
 pub(crate) fn exact_case_site_for_observer(
     ctx: &ReducerContext,
-    observer_character_id: adventuresim_core::identity::CharacterId,
+    observer_character_id: u64,
     case_site_id: &str,
 ) -> Option<(CaseSiteAuthority, InvestigationLead)> {
-    exact_case_site_for_observer_at(
-        ctx,
-        (observer_character_id).into(),
-        case_site_id,
-        StrategicMinute::MAX,
-    )
+    exact_case_site_for_observer_at(ctx, observer_character_id, case_site_id, StrategicMinute::MAX)
 }
 
 fn lead_temporally_live(
@@ -305,11 +301,7 @@ fn lead_temporally_live(
     recorded_at <= minute && correction_recorded_at.is_none_or(|corrected_at| corrected_at > minute)
 }
 
-fn lead_is_live_at(
-    ctx: &ReducerContext,
-    lead: &InvestigationLead,
-    minute: StrategicMinute,
-) -> bool {
+fn lead_is_live_at(ctx: &ReducerContext, lead: &InvestigationLead, minute: StrategicMinute) -> bool {
     if lead.corrected_by.is_empty() {
         return lead_temporally_live(lead.recorded_at, None, minute);
     }
@@ -321,12 +313,16 @@ fn lead_is_live_at(
         .filter(|correction| correction.owner_character_id == lead.owner_character_id)
         .map(|correction| correction.recorded_at);
     correction_recorded_at.is_some()
-        && lead_temporally_live(lead.recorded_at, correction_recorded_at, minute)
+        && lead_temporally_live(
+            lead.recorded_at,
+            correction_recorded_at,
+            minute,
+        )
 }
 
 pub(crate) fn exact_case_site_for_observer_at(
     ctx: &ReducerContext,
-    observer_character_id: adventuresim_core::identity::CharacterId,
+    observer_character_id: u64,
     case_site_id: &str,
     minute: StrategicMinute,
 ) -> Option<(CaseSiteAuthority, InvestigationLead)> {
@@ -343,7 +339,7 @@ pub(crate) fn exact_case_site_for_observer_at(
     ctx.db
         .investigation_lead()
         .owner_character_id()
-        .filter(u64::from(observer_character_id))
+        .filter(observer_character_id)
         .find(|lead| {
             canonical_case_site_place(&lead.exact_location_id)
                 .is_some_and(|lead_place| lead_place == requested_place)
@@ -362,16 +358,16 @@ pub(crate) fn exact_case_site_for_observer_at(
 /// Observer-safe physical occupancy at one disclosed canonical case site.
 pub(crate) fn case_site_presence_for_observer(
     ctx: &ReducerContext,
-    observer_character_id: adventuresim_core::identity::CharacterId,
-    character_id: adventuresim_core::identity::CharacterId,
+    observer_character_id: u64,
+    character_id: u64,
     minute: StrategicMinute,
 ) -> Option<adventuresim_core::strategic_presence::StrategicPresence> {
     let occupancy =
-        crate::investigation::character_case_site_occupancy_at(ctx, (character_id).into(), minute)?;
+        crate::investigation::character_case_site_occupancy_at(ctx, character_id, minute)?;
     let place = occupancy.case_site_id.to_place();
     let (site, _) = exact_case_site_for_observer_at(
         ctx,
-        (observer_character_id).into(),
+        observer_character_id,
         occupancy.case_site_id.as_str(),
         minute,
     )?;
@@ -379,14 +375,14 @@ pub(crate) fn case_site_presence_for_observer(
         return None;
     }
     adventuresim_core::strategic_presence::StrategicPresence::case_site_occupancy(
-        (character_id).into(),
+        character_id,
         place,
         adventuresim_core::strategic_presence::PresenceFrontier {
-            observer_character_id: (observer_character_id).into(),
+            observer_character_id,
             personal_minute: minute,
         },
         true,
-        crate::relationship::character_alive_at(ctx, (character_id).into(), minute),
+        crate::relationship::character_alive_at(ctx, character_id, minute),
     )
     .ok()
 }
@@ -395,7 +391,7 @@ pub(crate) fn case_site_presence_for_observer(
 /// by the caller's live projection so stale contexts fail closed.
 pub(crate) fn case_context_presence_for_observer(
     ctx: &ReducerContext,
-    observer_character_id: adventuresim_core::identity::CharacterId,
+    observer_character_id: u64,
     membership: &crate::world_actor::CharacterContextMembership,
     expected_membership_id: &str,
     expected_revision: u32,
@@ -411,7 +407,7 @@ pub(crate) fn case_context_presence_for_observer(
     let place = canonical_case_site_place(&membership.location_id)?;
     let (site, _) = exact_case_site_for_observer_at(
         ctx,
-        (observer_character_id).into(),
+        observer_character_id,
         &membership.location_id,
         minute,
     )?;
@@ -419,10 +415,10 @@ pub(crate) fn case_context_presence_for_observer(
         return None;
     }
     adventuresim_core::strategic_presence::StrategicPresence::case_context_membership(
-        (membership.character_id).into(),
+        membership.character_id,
         place,
         adventuresim_core::strategic_presence::PresenceFrontier {
-            observer_character_id: (observer_character_id).into(),
+            observer_character_id,
             personal_minute: minute,
         },
         crate::world_actor::context_membership_valid_at(membership, minute),
@@ -430,7 +426,7 @@ pub(crate) fn case_context_presence_for_observer(
         membership.id.as_str(),
         expected_revision,
         membership.revision,
-        crate::relationship::character_alive_at(ctx, (membership.character_id).into(), minute),
+        crate::relationship::character_alive_at(ctx, membership.character_id, minute),
     )
     .ok()
 }
@@ -446,7 +442,9 @@ impl CaseSiteDisclosureLeadId {
         if value == base_id {
             return Some(Self::Base);
         }
-        let revision = value.strip_prefix(base_id)?.strip_prefix(":revision:")?;
+        let revision = value
+            .strip_prefix(base_id)?
+            .strip_prefix(":revision:")?;
         if revision.len() != 8 || !revision.bytes().all(|byte| byte.is_ascii_digit()) {
             return None;
         }
@@ -457,7 +455,7 @@ impl CaseSiteDisclosureLeadId {
 
 pub(crate) fn disclose_exact_case_site(
     ctx: &ReducerContext,
-    observer_character_id: adventuresim_core::identity::CharacterId,
+    observer_character_id: u64,
     case_id: &str,
     site: &CaseSiteAuthority,
     source_label: &str,
@@ -476,7 +474,7 @@ pub(crate) fn disclose_exact_case_site(
         .db
         .investigation_lead()
         .owner_character_id()
-        .filter(u64::from(observer_character_id))
+        .filter(observer_character_id)
         .filter_map(|lead| {
             (lead.exact_location_id == site.id.as_str())
                 .then(|| CaseSiteDisclosureLeadId::parse(&lead.id, &base_id))
@@ -530,7 +528,7 @@ pub(crate) fn disclose_exact_case_site(
     }
     ctx.db.investigation_lead().insert(InvestigationLead {
         id,
-        owner_character_id: u64::from(observer_character_id),
+        owner_character_id: observer_character_id,
         case_id: case_id.into(),
         proposition_id: String::new(),
         summary: format!("Exact destination disclosed: {}", site.name),
@@ -557,12 +555,12 @@ pub(crate) fn disclose_exact_case_site(
 /// back even if party leadership later changes.
 pub(crate) fn mark_case_site_visited(
     ctx: &ReducerContext,
-    observer_character_id: adventuresim_core::identity::CharacterId,
+    observer_character_id: u64,
     site: &CaseSiteAuthority,
 ) -> Result<(), String> {
     disclose_exact_case_site(
         ctx,
-        (observer_character_id).into(),
+        observer_character_id,
         &site.case_id,
         site,
         "visited with the party",
@@ -571,7 +569,7 @@ pub(crate) fn mark_case_site_visited(
         .db
         .investigation_lead()
         .owner_character_id()
-        .filter(u64::from(observer_character_id))
+        .filter(observer_character_id)
         .filter(|lead| {
             lead.case_id == site.case_id
                 && lead.exact_location_id == site.id.as_str()
@@ -598,11 +596,7 @@ mod temporal_disclosure_tests {
     #[test]
     fn future_disclosure_is_not_visible_at_an_earlier_frontier() {
         let earlier = StrategicMinute::new(100);
-        assert!(!lead_temporally_live(
-            StrategicMinute::new(101),
-            None,
-            earlier
-        ));
+        assert!(!lead_temporally_live(StrategicMinute::new(101), None, earlier));
         assert!(lead_temporally_live(earlier, None, earlier));
     }
 

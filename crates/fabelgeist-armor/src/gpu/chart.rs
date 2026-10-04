@@ -16,14 +16,13 @@
 //! kernel adds the flute relief, places the point through the frame, and
 //! writes the shell's extrusion geometry.
 
-use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch};
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
-use super::ArmorGpu;
 use super::part::{Extrusion, GridShape, PartBuild, SHELL_WORDS, ShellSpec};
+use super::{ArmorGpu, device_error};
 use crate::{BoundaryNormals, GenerateError, PlateFluting};
 
 mod chart_wgsl;
@@ -251,7 +250,7 @@ impl ChartKernel {
         Ok(Self(
             gpu.cache()
                 .get(gpu.context(), &source(shape))
-                .map_err(crate::GenerateError::from)?,
+                .map_err(device_error)?,
         ))
     }
 }
@@ -295,7 +294,7 @@ pub(crate) fn record(
         ("pad2", 0),
     ];
     for (name, value) in unsigned {
-        parameters.insert(name.into(), (value).into());
+        parameters.insert(name, value);
     }
     let (tip_length, tip_per_half_height) = match chart.boundary {
         ChartBoundary::CappedByFrame {
@@ -323,30 +322,22 @@ pub(crate) fn record(
         ("pad5", 0.0),
     ];
     for (name, value) in floats {
-        parameters.insert(name.into(), (value).into());
+        parameters.insert(name, value);
     }
-    parameters.insert(
-        "columns".into(),
-        (gpu.upload(BufferUpload::from_elements(&slots.columns))?).into(),
-    );
-    parameters.insert(
-        "flute".into(),
-        (gpu.upload(BufferUpload::from_elements(&flute_words(
-            chart.fluting.as_ref(),
-        )))?)
-        .into(),
-    );
-    parameters.insert("design".into(), (inputs.design.clone()).into());
+    parameters.insert("columns", gpu.upload(&slots.columns)?);
+    parameters.insert("flute", gpu.upload(&flute_words(chart.fluting.as_ref()))?);
+    parameters.insert("design", inputs.design.clone());
     let frames = inputs
         .frames
         .get(chart.frame)
         .ok_or(GenerateError::InvalidSurface)?;
-    parameters.insert("frames".into(), ((*frames).clone()).into());
-    parameters.insert("carriers".into(), (build.carriers.clone()).into());
-    parameters.insert("heights".into(), (build.heights.clone()).into());
-    parameters.insert("shells".into(), (build.shells.clone()).into());
+    parameters.insert("frames", (*frames).clone());
+    parameters.insert("carriers", build.carriers.clone());
+    parameters.insert("heights", build.heights.clone());
+    parameters.insert("shells", build.shells.clone());
+    parameters.insert("status", build.status.clone());
     batch
-        .dispatch_items(&kernel.0, &parameters, (slots.total).into())
-        .map_err(crate::GenerateError::from)?;
+        .dispatch_items(&kernel.0, &parameters, slots.total)
+        .map_err(device_error)?;
     Ok(())
 }

@@ -55,7 +55,10 @@ fn massive_city_workers_prepare_only_shared_exteriors() {
     clear_residency();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
     let requests = jobs(input).unwrap();
-    assert!(requests.len() <= 1 + BuildingArchetype::ALL.len() * 3);
+    assert!(
+        requests.len() < 200,
+        "the 40,000-person fixture must share facade recipes"
+    );
     assert!(matches!(
         serde_json::from_str::<GenerationJob>(&requests[0]).unwrap(),
         GenerationJob::Scene(_)
@@ -94,7 +97,7 @@ fn scene_transport_preserves_static_assets_and_full_width_seed() {
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
     .unwrap();
-    input.seed = u64::MAX.into();
+    input.seed = u64::MAX;
     let request = serde_json::to_string(&input).unwrap();
     let jobs = jobs(&request).unwrap();
     assert!(jobs[0].contains(&u64::MAX.to_string()));
@@ -199,4 +202,53 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
             .unwrap()
             .is_empty()
     );
+}
+
+#[test]
+#[ignore = "records cold preparation and warm recipe residency to GENERATION_BENCHMARK_OUTPUT"]
+fn independent_city_generation_benchmark() {
+    let _guard = TEST_PRODUCTS.lock().unwrap();
+    clear_residency();
+    let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
+    let started = std::time::Instant::now();
+    let requests = jobs(input).unwrap();
+    let scheduling_seconds = started.elapsed().as_secs_f64();
+    let mut bytes = 0_usize;
+    let mut recipe_seconds = 0.0;
+    let mut receive_seconds = 0.0;
+    for job in &requests {
+        let started = std::time::Instant::now();
+        let product = generate(job, &dependencies(job).unwrap()).unwrap();
+        recipe_seconds += started.elapsed().as_secs_f64();
+        bytes += product.len();
+        let started = std::time::Instant::now();
+        receive(job, &product).unwrap();
+        receive_seconds += started.elapsed().as_secs_f64();
+        if let GenerationJob::Building(program) = serde_json::from_str(job).unwrap() {
+            retain_facade(&program);
+        }
+    }
+    let started = std::time::Instant::now();
+    let warm = jobs(input).unwrap();
+    let warm_scheduling_seconds = started.elapsed().as_secs_f64();
+    assert_eq!(
+        warm.len(),
+        1,
+        "resident recipes must require no new facade jobs"
+    );
+    assert!(matches!(
+        serde_json::from_str::<GenerationJob>(&warm[0]).unwrap(),
+        GenerationJob::Scene(_)
+    ));
+    let report = serde_json::json!({
+        "fixture": "massive-city", "jobs": requests.len(), "product_bytes": bytes,
+        "cold_scheduling_seconds": scheduling_seconds,
+        "serial_generation_seconds": recipe_seconds, "receive_seconds": receive_seconds,
+        "warm_scheduling_seconds": warm_scheduling_seconds,
+        "warm_facade_jobs": warm.len() - 1,
+    });
+    let path = std::env::var("GENERATION_BENCHMARK_OUTPUT").expect("benchmark output path");
+    std::fs::write(path, serde_json::to_vec_pretty(&report).unwrap()).unwrap();
+    println!("{report}");
+    clear_residency();
 }

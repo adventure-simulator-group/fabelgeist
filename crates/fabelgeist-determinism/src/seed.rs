@@ -47,8 +47,7 @@ impl StreamId {
 }
 
 /// Eight little-endian bytes used directly as the SplitMix64 initial state.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Serialize, serde::Deserialize)]
-#[serde(from = "u64", into = "u64")]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Seed([u8; 8]);
 
 impl Seed {
@@ -120,50 +119,5 @@ mod tests {
                 }
             }
         }
-    }
-}
-
-impl From<u64> for Seed {
-    fn from(value: u64) -> Self {
-        Self::from_u64(value)
-    }
-}
-impl From<Seed> for u64 {
-    fn from(value: Seed) -> Self {
-        value.to_u64()
-    }
-}
-impl std::fmt::Display for Seed {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.to_u64().fmt(f)
-    }
-}
-
-/// Textual root material, retaining exact UTF-8 bytes and field framing.
-///
-/// This is distinct from an already derived numeric `Seed`. Normalizing,
-/// concatenating or pre-hashing this key changes deterministic outcomes.
-///
-/// ```compile_fail
-/// use fabelgeist_determinism::{Seed, SeedKey};
-/// let root = SeedKey::from("resident:42");
-/// let derived: Seed = root;
-/// ```
-#[derive(Clone, Debug, Eq, PartialEq, serde::Serialize, serde::Deserialize)]
-#[serde(transparent)]
-pub struct SeedKey(String);
-impl SeedKey {
-    pub fn derive(&self, stream: StreamId, context: &[&[u8]]) -> Seed {
-        Seed::derive(self.0.as_bytes(), stream, context)
-    }
-}
-impl From<String> for SeedKey {
-    fn from(value: String) -> Self {
-        Self(value)
-    }
-}
-impl From<&str> for SeedKey {
-    fn from(value: &str) -> Self {
-        Self(value.into())
     }
 }

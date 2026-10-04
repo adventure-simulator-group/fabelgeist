@@ -7,14 +7,13 @@
 //! carrier around it. One invocation fits one carrier against every skin
 //! vertex of the leg.
 
-use anyhow::Result;
-use fabelgeist_armor::gpu::wgsl;
+use anyhow::{Context, Result};
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{
     DevicePart, GarmentArmorDesign, GarmentArmorKind, gpu::record_garment_tube,
 };
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
-use fabelgeist_rig::{RigJointLookupError, RigJointOrdinal, RigJointPart};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -36,52 +35,47 @@ impl DeviceWearer<'_> {
         let gpu = self.gpu;
         let design = GarmentArmorDesign::new(kind);
         let mut part = record_garment_tube(gpu, batch, &design, &frame.frame)?;
-
-        let anchor =
-            |part: RigJointPart| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
-                side.joint(part).require_in(self.host.joint_names)
-            };
+        let prefix = side.prefix();
+        let anchor = |name: &str| -> Result<u32> {
+            let name = format!("{prefix}_{name}");
+            self.host
+                .joint_names
+                .iter()
+                .position(|n| *n == name)
+                .map(|i| i as u32)
+                .with_context(|| format!("missing garment landmark {name}"))
+        };
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.body.vertex_count).into());
-        parameters.insert("carriers_count".into(), (part.carrier_count()).into());
+        parameters.insert("count", self.body.vertex_count);
+        parameters.insert("carriers_count", part.carrier_count());
+        parameters.insert("hip", anchor("upleg")?);
+        parameters.insert("knee", anchor("lowleg")?);
+        parameters.insert("ankle", anchor("foot")?);
         parameters.insert(
-            "hip".into(),
-            (usize::from(anchor(RigJointPart::Upleg)?) as u32).into(),
+            "quilted",
+            u32::from(kind == GarmentArmorKind::PaddedChausses),
         );
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
         parameters.insert(
-            "knee".into(),
-            (usize::from(anchor(RigJointPart::Lowleg)?) as u32).into(),
+            "gap",
+            design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M,
         );
-        parameters.insert(
-            "ankle".into(),
-            (usize::from(anchor(RigJointPart::Foot)?) as u32).into(),
-        );
-        parameters.insert(
-            "quilted".into(),
-            (u32::from(kind == GarmentArmorKind::PaddedChausses)).into(),
-        );
-        parameters.insert("pad0".into(), (0u32).into());
-        parameters.insert("pad1".into(), (0u32).into());
-        parameters.insert(
-            "gap".into(),
-            (design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M)
-                .into(),
-        );
-        parameters.insert("pad2".into(), (0.0f32).into());
-        parameters.insert("pad3".into(), (0.0f32).into());
-        parameters.insert("pad4".into(), (0.0f32).into());
-        parameters.insert("frames".into(), (frame.frame.clone()).into());
-        parameters.insert("positions".into(), (self.body.positions.clone()).into());
-        parameters.insert("joints".into(), (self.body.joints.clone()).into());
-        parameters.insert("support".into(), (support.clone()).into());
-        parameters.insert("carriers".into(), (part.carriers().clone()).into());
+        parameters.insert("pad2", 0.0f32);
+        parameters.insert("pad3", 0.0f32);
+        parameters.insert("pad4", 0.0f32);
+        parameters.insert("frames", frame.frame.clone());
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert("joints", self.body.joints.clone());
+        parameters.insert("support", support.clone());
+        parameters.insert("carriers", part.carriers().clone());
         let kernel = gpu
             .cache()
             .get(gpu.context(), &cage_source())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, (part.carrier_count()).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&kernel, &parameters, part.carrier_count())
+            .map_err(device_error)?;
         part.record_shells(gpu, batch)?;
         Ok(part)
     }
@@ -100,8 +94,8 @@ impl DeviceWearer<'_> {
     }
 }
 
-fn cage_source() -> ShaderSource {
-    ShaderSource::from(format!(
+fn cage_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -134,7 +128,7 @@ struct Params {{
         positions = wgsl::read_points("positions"),
         carriers = wgsl::points("carriers"),
         cage = CAGE,
-    ))
+    )
 }
 
 const CAGE: &str = r#"

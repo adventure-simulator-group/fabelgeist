@@ -6,7 +6,6 @@ use crate::{
 };
 use anyhow::{Context, Result};
 use fabelgeist_armor::PartFrame;
-use fabelgeist_rig::{RigJointName, RigJointPart};
 
 const TUBE_SIDES: usize = 8;
 const GARMENT_HEM_DROP_M: f32 = 0.035;
@@ -23,6 +22,22 @@ mod mail_regions;
 /// A part frame fitted to the wearer.
 pub type RegionFrame<'a> = &'a dyn Fn(FitRegion) -> Result<PartFrame>;
 
+/// Frames needed before cutting, so browser fitting can await their readback.
+pub(crate) fn required_frames(kind: UnderlayerKind, placement: &str) -> Result<Vec<FitRegion>> {
+    Ok(match kind {
+        UnderlayerKind::ArmingDoublet => vec![
+            FitRegion::Torso,
+            FitRegion::WholeArm(Side::Left),
+            FitRegion::WholeArm(Side::Right),
+        ],
+        UnderlayerKind::PaddedHose => vec![FitRegion::WholeLeg(Side::from_placement(placement)?)],
+        UnderlayerKind::MailVoiders => vec![],
+        UnderlayerKind::MailBrayette => vec![FitRegion::Hips],
+        UnderlayerKind::MailKneeVoider => vec![FitRegion::Knee(Side::from_placement(placement)?)],
+        UnderlayerKind::MailStandard => vec![FitRegion::Neck],
+    })
+}
+
 /// The body volumes an underlayer keeps and removes, placed by the wearer's
 /// rig and sized by the part frames `frame` fits to it.
 pub fn regions(
@@ -31,7 +46,7 @@ pub fn regions(
     body: &Wearer<'_>,
     frame: RegionFrame<'_>,
 ) -> Result<(Vec<ConvexRegion>, Vec<ConvexRegion>)> {
-    let joint = |name: &RigJointName| -> Result<[f32; 3]> {
+    let joint = |name: &str| -> Result<[f32; 3]> {
         let i = body
             .joint_names
             .iter()
@@ -65,13 +80,13 @@ pub fn regions(
 fn doublet(
     design: &UnderlayerDesign,
     frame: RegionFrame<'_>,
-    joint: &impl Fn(&RigJointName) -> Result<[f32; 3]>,
+    joint: &impl Fn(&str) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
     let mut include = Vec::new();
-    let hip = joint(&RigJointName::C_SPINE0)?;
-    let neck = joint(&RigJointName::C_NECK)?;
-    let left = joint(&RigJointName::L_UPARM)?;
-    let right = joint(&RigJointName::R_UPARM)?;
+    let hip = joint("c_spine0")?;
+    let neck = joint("c_neck")?;
+    let left = joint("l_uparm")?;
+    let right = joint("r_uparm")?;
     let depth = frame(FitRegion::Torso)?.half_extents[2] * 2.0;
     let bottom = neck[1] - (neck[1] - hip[1]) * design.length.unit() - GARMENT_HEM_DROP_M;
     include.push(box_region(
@@ -82,10 +97,10 @@ fn doublet(
             hip[2] + depth,
         ],
     ));
-    for side in [Side::Left, Side::Right] {
-        let shoulder = joint(&side.joint(RigJointPart::Uparm))?;
-        let elbow = joint(&side.joint(RigJointPart::Lowarm))?;
-        let wrist = joint(&side.joint(RigJointPart::Wrist))?;
+    for (prefix, side) in [("l", Side::Left), ("r", Side::Right)] {
+        let shoulder = joint(&format!("{prefix}_uparm"))?;
+        let elbow = joint(&format!("{prefix}_lowarm"))?;
+        let wrist = joint(&format!("{prefix}_wrist"))?;
         let arm = frame(FitRegion::WholeArm(side))?;
         let radius = arm.half_extents[0].max(arm.half_extents[2]) * 1.5;
         include.push(tube(
@@ -112,15 +127,15 @@ fn hose(
     design: &UnderlayerDesign,
     placement: &str,
     frame: RegionFrame<'_>,
-    joint: &impl Fn(&RigJointName) -> Result<[f32; 3]>,
+    joint: &impl Fn(&str) -> Result<[f32; 3]>,
 ) -> Result<(Vec<ConvexRegion>, Vec<ConvexRegion>)> {
     let mut include = Vec::new();
     let mut subtract = Vec::new();
     let side = Side::from_placement(placement)?;
-
-    let hip = joint(&side.joint(RigJointPart::Upleg))?;
-    let knee = joint(&side.joint(RigJointPart::Lowleg))?;
-    let ankle = joint(&side.joint(RigJointPart::Foot))?;
+    let prefix = side.prefix();
+    let hip = joint(&format!("{prefix}_upleg"))?;
+    let knee = joint(&format!("{prefix}_lowleg"))?;
+    let ankle = joint(&format!("{prefix}_foot"))?;
     let ankle = std::array::from_fn(|i| knee[i] + (ankle[i] - knee[i]) * design.length.unit());
     let leg = frame(FitRegion::WholeLeg(side))?;
     let radius = leg.half_extents[0].max(leg.half_extents[2]) * 1.5;
@@ -152,13 +167,13 @@ fn hose(
 
 fn voiders(
     design: &UnderlayerDesign,
-    joint: &impl Fn(&RigJointName) -> Result<[f32; 3]>,
+    joint: &impl Fn(&str) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
     let mut include = Vec::new();
     let half = design.patch_width.metres() * 0.5;
-    for (side, outward) in [(Side::Left, 1.0), (Side::Right, -1.0)] {
-        let shoulder = joint(&side.joint(RigJointPart::Uparm))?;
-        let elbow = joint(&side.joint(RigJointPart::Lowarm))?;
+    for (prefix, outward) in [("l", 1.0), ("r", -1.0)] {
+        let shoulder = joint(&format!("{prefix}_uparm"))?;
+        let elbow = joint(&format!("{prefix}_lowarm"))?;
         let axilla = [
             shoulder[0] + outward * half,
             shoulder[1] - AXILLA_BELOW_SHOULDER_M,

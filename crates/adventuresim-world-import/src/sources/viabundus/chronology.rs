@@ -114,7 +114,7 @@ pub(super) fn optional_calendar_year(
                 path: path.into(),
                 field,
                 value: value.into(),
-                message: message.to_string(),
+                message: message.into(),
             })
         })
         .transpose()

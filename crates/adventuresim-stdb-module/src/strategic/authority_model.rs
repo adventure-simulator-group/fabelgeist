@@ -94,7 +94,7 @@ pub(crate) fn validate_quest_generation_authority(
     let scope_matches = matches!(
         &context.scope,
         adventuresim_core::local_problem::Scope::Settlement { settlement_id }
-            if settlement_id == context.settlement_id.as_str()
+            if settlement_id == &context.settlement_id
     );
     if authority.case_id != manifest.canonical_case_id
         || authority.public_case_id != manifest.public_case_id
@@ -104,8 +104,9 @@ pub(crate) fn validate_quest_generation_authority(
         || authority.catalog_revision != manifest.catalog_revision
         || manifest.catalog_revision != qg::CATALOG_REVISION
         || trace != manifest.factor_trace
-        || authority.settlement_id != context.settlement_id.as_str()
+        || authority.settlement_id != context.settlement_id
         || authority.settlement_name != context.settlement_name
+        || context.settlement_id.is_empty()
         || context.settlement_name.is_empty()
         || !scope_matches
     {
@@ -936,6 +937,34 @@ pub fn register_strategic_gateway(
     Ok(())
 }
 
+pub(crate) fn require_strategic_gateway(
+    ctx: &ReducerContext,
+) -> Result<StrategicGatewayAuthority, String> {
+    let authority = ctx
+        .db
+        .strategic_gateway_authority()
+        .id()
+        .find(0)
+        .ok_or("Strategic gateway is not registered")?;
+    if authority.identity != ctx.sender() {
+        return Err("This reducer may only be called by the strategic gateway".into());
+    }
+    Ok(authority)
+}
+
+pub(crate) fn require_strategic_character_authority(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> Result<(), String> {
+    if require_strategic_gateway(ctx).is_ok()
+        || crate::simulation::sender_owns_simulation_character(ctx, character_id)
+    {
+        Ok(())
+    } else {
+        Err("Character-mutating strategic reducers may only be called by the strategic gateway or the owner of the target disposable simulation character".into())
+    }
+}
+
 #[derive(Clone, Debug)]
 #[table(accessor = party_member, public)]
 pub struct PartyMember {
@@ -1003,8 +1032,7 @@ pub fn set_inventory_quantity_target(
     item_id: String,
     quantity: u32,
 ) -> Result<(), String> {
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::character::require_living_character(ctx, character_id)?;
     let character = ctx
         .db
         .character()
@@ -1701,17 +1729,14 @@ impl ApprovedPartyAction {
                 action_id,
                 method,
                 expected_version,
-            } => {
-                crate::investigation::perform_investigation_action_authorized(
-                    ctx,
-                    requester_id,
-                    action_id,
-                    method,
-                    expected_version,
-                    true,
-                )?;
-                Ok(())
-            }
+            } => crate::investigation::perform_investigation_action_authorized(
+                ctx,
+                requester_id,
+                action_id,
+                method,
+                expected_version,
+                true,
+            ),
         }
     }
 }

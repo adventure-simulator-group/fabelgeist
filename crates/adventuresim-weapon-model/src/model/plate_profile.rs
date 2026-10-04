@@ -1,5 +1,5 @@
 //! Ordered moving section landmarks define continuous ridges and relieved faces.
-use super::contoured_plate::{PlateCell, PlateField};
+use super::contoured_plate::PlateField;
 use super::*;
 
 pub(super) struct ProfileField<'a> {
@@ -56,6 +56,8 @@ impl ProfileField<'_> {
 }
 
 impl PlateField for ProfileField<'_> {
+    type Cell = (usize, usize);
+
     fn cuts(&self) -> Vec<PlanarCut> {
         let mut cuts: Vec<_> = self
             .stations
@@ -79,9 +81,9 @@ impl PlateField for ProfileField<'_> {
         cuts
     }
 
-    fn cell(&self, [x, y]: PlanarPoint) -> PlateCell {
+    fn cell(&self, [x, y]: PlanarPoint) -> Self::Cell {
         let (index, slice) = self.slice(y);
-        PlateCell::profile(index, slice.band(x))
+        (index, slice.band(x))
     }
 
     fn thickness(&self, x: f64, y: f64) -> f64 {

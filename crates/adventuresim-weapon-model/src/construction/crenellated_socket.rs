@@ -1,6 +1,5 @@
 //! Hollow turned sockets whose terminal rim has repeated open notches.
 use super::*;
-use crate::ConstructionError;
 use crate::recipe::SocketCrenellations;
 use std::f64::consts::TAU;
 
@@ -10,7 +9,7 @@ impl Solid {
         inner: &[f64],
         crenels: &SocketCrenellations,
         detail: Detail,
-    ) -> Result<Self, ConstructionError> {
+    ) -> Result<Self, String> {
         let RimSampling {
             rows,
             angles,
@@ -92,18 +91,18 @@ impl RimSampling {
         inner: &[f64],
         crenels: &SocketCrenellations,
         detail: Detail,
-    ) -> Result<Self, ConstructionError> {
+    ) -> Result<Self, String> {
         let mut rows: Vec<_> = profile
             .iter()
             .zip(inner)
             .map(|(p, &r)| [p[0], p[1], r])
             .collect();
-        let top = rows.last().ok_or(ConstructionError::SocketNeedsProfile)?[0];
+        let top = rows.last().ok_or("socket needs a profile")?[0];
         let floor = top - crenels.depth.get();
         let before = rows
             .iter()
             .rposition(|p| p[0] <= floor)
-            .ok_or(ConstructionError::NotchesLeaveNoSocketBase)?;
+            .ok_or("notches leave no socket base")?;
         let floor_row = if rows[before][0] == floor {
             before
         } else {

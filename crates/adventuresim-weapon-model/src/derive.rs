@@ -43,5 +43,5 @@ pub fn derive_holder_properties(
 ) -> Result<DerivedProperties, Vec<ValidationError>> {
     crate::holders::HolderConstruction::new(design)
         .map(|holder| holder.derived)
-        .map_err(|e| vec![ValidationError::HolderGeneration(Box::new(e))])
+        .map_err(|e| vec![ValidationError::Construction(e.to_string())])
 }

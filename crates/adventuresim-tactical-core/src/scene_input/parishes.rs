@@ -1,6 +1,5 @@
 //! Validate parish ownership against the complete near/distant building union.
 use super::*;
-use crate::scene_input::SceneValidationError;
 use adventuresim_world_schema::settlement_buildings::{BuildingUse, ParishProminence};
 use std::collections::{BTreeMap, BTreeSet};
 #[cfg(test)]
@@ -35,7 +34,7 @@ impl Member {
 
 pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError> {
     if input.parishes.len() > crate::city_layout::MAX_CITY_LOTS {
-        return invalid(SceneValidationError::ParishCount);
+        return invalid("scene exceeds parish count bound");
     }
     let buildings = input
         .buildings
@@ -64,7 +63,7 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
     let mut schools = 0;
     for parish in &input.parishes {
         if !ids.insert(parish.programme.id) || parish.programme.population.0 == 0 {
-            return invalid(SceneValidationError::ParishIdentity);
+            return invalid("parish identity or population is invalid");
         }
         let principal = parish.programme.prominence == ParishProminence::PrincipalTown;
         principals += usize::from(principal);
@@ -72,7 +71,7 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
         validate_members(parish, &buildings, &mut members)?;
     }
     if !input.parishes.is_empty() && (principals != 1 || schools > 1) {
-        return invalid(SceneValidationError::ParishProgramme);
+        return invalid("town parish programme has an invalid principal or school count");
     }
     if !input.parishes.is_empty()
         && buildings.iter().any(|(id, building)| {
@@ -87,7 +86,7 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
             ) && !members.contains(id)
         })
     {
-        return invalid(SceneValidationError::MissingParishAssociation);
+        return invalid("settlement has a building without its parish association");
     }
     Ok(())
 }
@@ -106,10 +105,10 @@ fn validate_members(
         },
     );
     let Some(church) = buildings.get(&parish.church_building_id) else {
-        return invalid(SceneValidationError::MissingParishChurch);
+        return invalid("parish church is missing");
     };
     if church.usage != Some(BuildingUse::ParishChurch) || church.size != expected_size {
-        return invalid(SceneValidationError::ParishChurchProgramme);
+        return invalid("parish church recipe disagrees with its programme");
     }
     for (id, usage) in [
         (parish.church_building_id, BuildingUse::ParishChurch),
@@ -122,7 +121,7 @@ fn validate_members(
             .map(|id| (id, BuildingUse::School)),
     ) {
         if !members.insert(id) || buildings.get(&id).map(|b| b.usage) != Some(Some(usage)) {
-            return invalid(SceneValidationError::ParishMember);
+            return invalid("parish member is missing, shared, or has the wrong use");
         }
     }
     if [Some(parish.rectory_building_id), parish.school_building_id]
@@ -133,12 +132,12 @@ fn validate_members(
                 > crate::city_layout::CITY_PARISH_PRECINCT_RADIUS_METRES
         })
     {
-        return invalid(SceneValidationError::ParishPrecinct);
+        return invalid("parish support building is outside its precinct");
     }
     if parish.school_building_id.is_some()
         && parish.programme.prominence != ParishProminence::PrincipalTown
     {
-        return invalid(SceneValidationError::SchoolParish);
+        return invalid("town school must belong to the principal parish");
     }
     let mut residents = 0_u64;
     for allocation in &parish.residences {
@@ -147,15 +146,15 @@ fn validate_members(
             || buildings.get(&allocation.building_id).map(|b| b.usage)
                 != Some(Some(BuildingUse::Dwelling))
         {
-            return invalid(SceneValidationError::ParishHousing);
+            return invalid("parish residential allocation is missing, shared, or not housing");
         }
         if allocation.residents.0 > buildings[&allocation.building_id].resident_capacity {
-            return invalid(SceneValidationError::ParishHousingCapacity);
+            return invalid("parish allocation exceeds physical housing capacity");
         }
         residents += u64::from(allocation.residents.0);
     }
     if residents != u64::from(parish.programme.population.0) {
-        return invalid(SceneValidationError::ParishPopulation);
+        return invalid("parish population differs from its residential allocation");
     }
     Ok(())
 }

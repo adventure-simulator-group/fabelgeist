@@ -1,8 +1,7 @@
 //! Leaf blade sections and their longitudinal outline.
 use super::*;
-use crate::ConstructionError;
 
-pub(super) fn spear(p: &SpearParameters, detail: Detail) -> Result<Solid, ConstructionError> {
+pub(super) fn spear(p: &SpearParameters, detail: Detail) -> Result<Solid, String> {
     if p.socket.is_some() {
         return super::spear_socket::construct(p, detail);
     }

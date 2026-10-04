@@ -24,10 +24,7 @@ pub mod mesh;
 pub mod wgsl;
 
 pub use collider::{Collider, Shape};
-pub use contact::{
-    ColliderCapacity, ColliderCount, ColliderUpdateError, CollisionBuildError, CollisionKernel,
-    CollisionRecordError, Collisions,
-};
+pub use contact::{Collisions, HookChain};
 pub use mesh::{MeshCollider, MeshSurface};
 
 #[cfg(test)]

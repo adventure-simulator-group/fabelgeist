@@ -1,10 +1,7 @@
 use adventuresim_weapon_model::{Detail, generate_model, recipe::Recipe};
 use serde_json::{Value, json};
 
-fn model(
-    value: Value,
-) -> Result<adventuresim_weapon_model::GeneratedModel, adventuresim_weapon_model::ConstructionError>
-{
+fn model(value: Value) -> Result<adventuresim_weapon_model::GeneratedModel, String> {
     let recipe: Recipe = serde_json::from_value(value).unwrap();
     generate_model(&recipe, Detail::High)
 }
@@ -18,10 +15,11 @@ fn stepped_flange_checks_both_sides_of_each_radial_step() {
         {"at":0.4,"radius":0.02},{"at":0.8,"radius":0.05},{"at":1,"radius":0.014}]}]});
     assert!(model(value.clone()).is_ok());
     value["components"][0]["flangeProfile"][1]["radius"] = 0.005.into();
-    assert!(matches!(
-        model(value).unwrap_err(),
-        adventuresim_weapon_model::ConstructionError::MaceFlangeOutline
-    ));
+    assert!(
+        model(value)
+            .unwrap_err()
+            .contains("core face reaches outside")
+    );
 }
 
 fn wrapped_grip() -> Value {

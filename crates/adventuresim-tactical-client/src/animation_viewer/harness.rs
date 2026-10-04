@@ -18,6 +18,10 @@ pub(crate) enum ArmorHarness {
     Underlayers,
     Mail,
     Padded,
+    Puffed,
+    Anime,
+    Pauldron,
+    WearerFit,
     CloseHelmet,
     MuseumHenry,
     MuseumNuremberg,
@@ -27,6 +31,10 @@ impl ArmorHarness {
     fn item_ids(self) -> impl Iterator<Item = &'static str> {
         let items: &'static [&'static str] = match self {
             Self::CloseHelmet => &["close_helmet"],
+            Self::WearerFit => &["gorget", "cuirass", "vambrace"],
+            Self::Puffed => &["puffed_sleeve", "puffed_hose"],
+            Self::Anime => &["breastplate"],
+            Self::Pauldron => &["cuirass", "pauldron"],
             Self::MuseumHenry => museum::HENRY_ITEMS,
             Self::MuseumNuremberg => museum::NUREMBERG_ITEMS,
             Self::Plate | Self::PlateTassets | Self::PlateUnderlayers => &[
@@ -85,25 +93,9 @@ impl ArmorHarness {
     }
 
     fn visual_requirements(self) -> EquipmentVisualRequirements {
-        match self {
-            Self::CloseHelmet => EquipmentVisualRequirements {
-                names: &["skull", "bevor", "visor"],
-                morph_targets: Some(
-                    adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
-                        + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len(),
-                ),
-            },
-            Self::Underlayers
-            | Self::PlateUnderlayers
-            | Self::MuseumHenry
-            | Self::MuseumNuremberg => EquipmentVisualRequirements {
-                names: &[],
-                morph_targets: Some(
-                    adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
-                        + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len(),
-                ),
-            },
-            _ => EquipmentVisualRequirements::default(),
+        EquipmentVisualRequirements {
+            names: &[],
+            morph_targets: Some(0),
         }
     }
 
@@ -111,8 +103,7 @@ impl ArmorHarness {
         self,
     ) -> impl Iterator<Item = (&'static ItemDefinition, &'static EquipmentPlacement)> {
         self.item_ids().flat_map(|item_id| {
-            let definition =
-                item_catalog::definition(&(item_id).into()).expect("authored harness item");
+            let definition = item_catalog::definition(item_id).expect("authored harness item");
             definition
                 .equipment
                 .as_ref()
@@ -121,6 +112,31 @@ impl ArmorHarness {
                 .iter()
                 .map(move |placement| (definition, placement))
         })
+    }
+}
+
+pub(super) fn equipment_cache(
+    harness: Option<ArmorHarness>,
+) -> crate::equipment::RuntimeEquipmentBodyCache {
+    if matches!(harness, Some(ArmorHarness::Anime)) {
+        let mut design =
+            adventuresim_character_creator::design_input::load_breastplate_design(None)
+                .expect("authored breastplate recipe");
+        design.construction = fabelgeist_armor::BreastplateConstruction::Anime(Default::default());
+        crate::equipment::RuntimeEquipmentBodyCache::with_breastplate(design)
+            .expect("articulated breastplate fixture")
+    } else {
+        default()
+    }
+}
+
+impl crate::equipment::RuntimeEquipmentBodyCache {
+    /// A validated recipe chosen before this review fixture generates any fit.
+    fn with_breastplate(design: fabelgeist_armor::BreastplateDesign) -> anyhow::Result<Self> {
+        fabelgeist_armor::validate_breastplate(&design)?;
+        let mut cache = Self::default();
+        cache.breastplate_design = Some(design);
+        Ok(cache)
     }
 }
 
@@ -143,16 +159,25 @@ impl ArmorCapture {
         view: CaptureView,
         subject: &Transform,
         head: Option<Vec3>,
+        orbit: Quat,
     ) -> Option<Transform> {
         let harness = self.harness?;
         const REVIEW_CAMERA_DISTANCE_METRES: f32 = 2.4;
         const REVIEW_CAMERA_ELEVATION_METRES: f32 = 0.2;
         const HELMET_REVIEW_DISTANCE_METRES: f32 = 0.72;
         const HELMET_FOCUS_ABOVE_HEAD_METRES: f32 = 0.07;
+        const TORSO_FOCUS_BELOW_HEAD_METRES: f32 = 0.30;
+        const TORSO_REVIEW_DISTANCE_METRES: f32 = 1.15;
         let (focus, distance, elevation) = if matches!(harness, ArmorHarness::CloseHelmet) {
             (
                 head? + Vec3::Y * HELMET_FOCUS_ABOVE_HEAD_METRES,
                 HELMET_REVIEW_DISTANCE_METRES,
+                0.0,
+            )
+        } else if matches!(harness, ArmorHarness::Anime | ArmorHarness::Pauldron) {
+            (
+                head? - Vec3::Y * TORSO_FOCUS_BELOW_HEAD_METRES,
+                TORSO_REVIEW_DISTANCE_METRES,
                 0.0,
             )
         } else {
@@ -167,13 +192,13 @@ impl ArmorCapture {
             CaptureView::Side => Vec3::new(distance, elevation, 0.0),
             CaptureView::Front => Vec3::new(0.0, elevation, -distance),
         };
-        Some(Transform::from_translation(focus + offset).looking_at(focus, Vec3::Y))
+        Some(Transform::from_translation(focus + orbit * offset).looking_at(focus, Vec3::Y))
     }
 
     pub(super) fn new(harness: Option<ArmorHarness>, output: PathBuf) -> Self {
         if let Some(harness) = harness {
             let pieces = harness.placements().map(|(item, placement)| serde_json::json!({"item_id": item.id, "placement_id": placement.id})).collect::<Vec<_>>();
-            let manifest = serde_json::json!({"harness": harness, "pieces": pieces, "renderer": "gameplay_equipment_glb_skin_morph", "identity": "deterministic_character_id_variation"});
+            let manifest = serde_json::json!({"harness": harness, "pieces": pieces, "renderer": "gameplay_equipment_runtime_wearer_fit", "identity": "deterministic_character_id_variation"});
             fs::write(
                 output.join("armor-fixture.json"),
                 serde_json::to_vec_pretty(&manifest).expect("serialize armor fixture"),
@@ -233,6 +258,7 @@ pub(super) fn update_readiness(
     mut capture: ResMut<ArmorCapture>,
     armor: Query<(Entity, &ItemProperties), With<CapturedArmor>>,
     visuals: EquipmentVisualStatus,
+    warmup: Res<crate::equipment::RuntimeEquipmentWarmup>,
     mut exit: MessageWriter<AppExit>,
 ) {
     let Some(harness) = capture.harness else {
@@ -282,7 +308,9 @@ pub(super) fn update_readiness(
         )
         .expect("write armor readiness");
     }
-    if !capture.ready {
+    // Initial pipeline preparation is not unresolved equipment. Its synchronous
+    // driver work can span many rendered frames; start the fit budget afterward.
+    if !capture.ready && !warmup.is_preparing() {
         capture.waited += 1;
         if capture.waited >= CAPTURE_LOAD_FRAME_LIMIT {
             capture.fail("Timed out waiting for every armor mesh, material, morph, and wearer skin to resolve", &mut exit);
@@ -334,13 +362,7 @@ mod tests {
                 TacticalEquipmentAnchor::ItemAttachment { parent, attachment_point_id }
                     if *parent == doublet && attachment_point_id == "mail_voiders"
             ));
-            assert_eq!(
-                harness.visual_requirements().morph_targets,
-                Some(
-                    adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
-                        + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len()
-                )
-            );
+            assert_eq!(harness.visual_requirements().morph_targets, Some(0));
             let mut knees = 0;
             for (_, _, topology, owner) in items
                 .iter(&world)
@@ -375,19 +397,19 @@ mod tests {
         let head = subject.translation + Vec3::Y * 0.7;
         assert!(
             capture
-                .review_camera(CaptureView::Gameplay, &subject, Some(head))
+                .review_camera(CaptureView::Gameplay, &subject, Some(head), Quat::IDENTITY)
                 .is_none()
         );
         assert!(
             capture
-                .review_camera(CaptureView::Front, &subject, None)
+                .review_camera(CaptureView::Front, &subject, None, Quat::IDENTITY)
                 .is_none()
         );
         let front = capture
-            .review_camera(CaptureView::Front, &subject, Some(head))
+            .review_camera(CaptureView::Front, &subject, Some(head), Quat::IDENTITY)
             .unwrap();
         let side = capture
-            .review_camera(CaptureView::Side, &subject, Some(head))
+            .review_camera(CaptureView::Side, &subject, Some(head), Quat::IDENTITY)
             .unwrap();
         assert_ne!(front.translation, side.translation);
         for camera in [front, side] {
@@ -400,7 +422,12 @@ mod tests {
             );
         }
         let moved = capture
-            .review_camera(CaptureView::Front, &subject, Some(head + Vec3::Y))
+            .review_camera(
+                CaptureView::Front,
+                &subject,
+                Some(head + Vec3::Y),
+                Quat::IDENTITY,
+            )
             .unwrap();
         assert!((moved.translation - front.translation).abs_diff_eq(Vec3::Y, 1e-5));
     }
@@ -452,12 +479,11 @@ mod tests {
                         } = &occupancy.anchor
                         {
                             Some(adventuresim_core::equipment::EquipmentGraphEdge {
-                                parent_inventory_item_id: (previous
+                                parent_inventory_item_id: previous
                                     .iter()
                                     .position(|(_, entity, _)| entity == parent)
                                     .unwrap()
-                                    as u64)
-                                    .into(),
+                                    as u64,
                                 attachment_point_id: attachment_point_id.clone(),
                                 capacity_index: occupancy.capacity_index,
                             })
@@ -468,7 +494,7 @@ mod tests {
                     .collect();
                 graph
                     .equip(
-                        (index as u64).into(),
+                        index as u64,
                         EquipmentGraphPlacement {
                             body: placement.occupancy.clone(),
                             parents,

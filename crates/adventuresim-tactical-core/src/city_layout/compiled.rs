@@ -7,7 +7,6 @@ use adventuresim_world_schema::settlement_buildings::BusinessKey;
 mod church;
 mod gardens;
 mod terrain;
-pub use gardens::GardenClearanceError;
 pub(crate) use gardens::validate_scene_gardens;
 mod property;
 pub use church::ChurchSitingIssue;

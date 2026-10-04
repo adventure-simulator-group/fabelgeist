@@ -1,7 +1,6 @@
 // Domain values used at the durable character-name boundary.
 
 use std::fmt;
-use adventuresim_core::identity::CharacterId;
 
 /// Failure of the private semantic identity authority, before reducer formatting.
 #[derive(Debug)]
@@ -18,14 +17,14 @@ pub(crate) enum CharacterNameError {
 impl fmt::Display for CharacterNameError {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::MissingCharacter(id) => write!(formatter, "Character {} not found", id),
+            Self::MissingCharacter(id) => write!(formatter, "Character {} not found", id.get()),
             Self::MissingPersonality(id) => {
-                write!(formatter, "Character {} has no personality", id)
+                write!(formatter, "Character {} has no personality", id.get())
             }
             Self::MissingIdentity(id) => write!(
                 formatter,
                 "Character {} has no semantic name identity",
-                id
+                id.get()
             ),
             Self::InvalidIdentity(error) => {
                 write!(formatter, "Invalid character name identity: {error}")
@@ -39,15 +38,7 @@ impl fmt::Display for CharacterNameError {
     }
 }
 
-impl std::error::Error for CharacterNameError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match self {
-            Self::InvalidIdentity(error) => Some(error),
-            Self::InvalidName(error) => Some(error),
-            _ => None,
-        }
-    }
-}
+impl std::error::Error for CharacterNameError {}
 
 impl From<serde_json::Error> for CharacterNameError {
     fn from(error: serde_json::Error) -> Self {
@@ -58,6 +49,32 @@ impl From<serde_json::Error> for CharacterNameError {
 impl From<adventuresim_world_schema::person_names::NameCatalogError> for CharacterNameError {
     fn from(error: adventuresim_world_schema::person_names::NameCatalogError) -> Self {
         Self::InvalidName(error)
+    }
+}
+
+/// A durable character-table identity at the reducer boundary.
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub(crate) struct CharacterId(u64);
+
+impl CharacterId {
+    pub(crate) const fn new(value: u64) -> Self {
+        Self(value)
+    }
+
+    pub(crate) const fn get(self) -> u64 {
+        self.0
+    }
+}
+
+impl From<u64> for CharacterId {
+    fn from(value: u64) -> Self {
+        Self::new(value)
+    }
+}
+
+impl From<CharacterId> for u64 {
+    fn from(value: CharacterId) -> Self {
+        value.get()
     }
 }
 

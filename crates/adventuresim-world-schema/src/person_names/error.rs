@@ -7,7 +7,7 @@ pub enum NameCatalogError {
     InvalidRenderedName,
     MissingCatalogEntry(String),
     InconsistentNativeForm,
-    Sampling(fabelgeist_determinism::SamplingError),
+    Sampling(String),
 }
 
 impl std::fmt::Display for NameCatalogError {
@@ -31,11 +31,4 @@ impl std::fmt::Display for NameCatalogError {
     }
 }
 
-impl std::error::Error for NameCatalogError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match self {
-            Self::Sampling(error) => Some(error),
-            _ => None,
-        }
-    }
-}
+impl std::error::Error for NameCatalogError {}

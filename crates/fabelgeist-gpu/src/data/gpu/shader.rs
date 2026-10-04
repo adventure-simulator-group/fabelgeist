@@ -1,56 +1,73 @@
-use super::buffer::{BufferByteLength, BufferByteOffset};
-use super::parameters::PassParameterName;
+use anyhow::anyhow;
+
 #[derive(Debug, Clone)]
 pub struct UniformMember {
-    pub name: PassParameterName,
-    pub offset: BufferByteOffset,
-    pub size: BufferByteLength,
+    pub name: String,
+    pub offset: u32,
+    pub size: u32,
 }
 
 #[derive(Debug, Clone)]
 pub struct TextureBinding {
-    pub name: ShaderBindingName,
-    pub binding: BindingIndex,
+    pub name: String,
+    pub binding: u32,
     pub format: Option<wgpu::TextureFormat>,
     pub dimension: wgpu::TextureViewDimension,
 }
 
 #[derive(Debug, Clone)]
 pub struct BufferBinding {
-    pub name: ShaderBindingName,
-    pub binding: BindingIndex,
+    pub name: String,
+    pub binding: u32,
     pub ty: wgpu::BufferBindingType,
 }
 
 #[derive(Debug, Clone, Default)]
 pub struct BindGroupReflection {
-    pub index: BindGroupIndex,
+    pub index: u32,
     pub uniform_members: Vec<UniformMember>,
-    pub uniform_buffer_size: BufferByteLength,
-    pub uniform_binding: Option<BindingIndex>,
+    pub uniform_buffer_size: u32,
+    pub uniform_binding: Option<u32>,
     pub texture_bindings: Vec<TextureBinding>,
-    pub sampler_bindings: Vec<SamplerBinding>,
+    pub sampler_bindings: Vec<(String, u32)>, // name, binding index
     pub buffer_bindings: Vec<BufferBinding>,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct SamplerBinding {
-    pub name: ShaderBindingName,
-    pub binding: BindingIndex,
 }
 
 #[derive(Debug, Clone)]
 pub struct ReflectionData {
     pub bind_groups: Vec<BindGroupReflection>,
-    pub compute_entry_point: ShaderEntryPoint,
+    pub fragment_entry_point: String,
+    pub vertex_entry_point: String,
 }
 
-mod error;
-mod source;
-pub use error::ShaderParseError;
-pub use source::{
-    ShaderBindingMarker, ShaderBindingName, ShaderEntryPoint, ShaderLanguage, ShaderSource,
-};
+pub fn detect_from_code(code: &str) -> String {
+    if code.contains("#version") {
+        return "glsl".to_string();
+    }
+    "wgsl".to_string()
+}
 
-mod binding;
-pub use binding::{BindGroupIndex, BindingIndex};
+pub fn parse_naga(
+    code: &str,
+    stage: wgpu::naga::ShaderStage,
+) -> anyhow::Result<wgpu::naga::Module> {
+    let lang = detect_from_code(code);
+
+    if lang == "glsl" {
+        let mut frontend = wgpu::naga::front::glsl::Frontend::default();
+        frontend
+            .parse(
+                &wgpu::naga::front::glsl::Options {
+                    stage,
+                    defines: Default::default(),
+                },
+                code,
+            )
+            .map_err(|e| anyhow!("GLSL Parse Error: {:?}", e))
+    } else {
+        wgpu::naga::front::wgsl::parse_str(code).map_err(|e| {
+            let message = e.emit_to_string(code);
+            anyhow!("WGSL Parse Error: {}", message)
+        })
+    }
+}

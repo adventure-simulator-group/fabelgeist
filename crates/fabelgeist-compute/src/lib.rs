@@ -39,7 +39,6 @@ pub mod map;
 pub mod marching_cubes;
 pub mod matmul;
 pub mod mesh_query;
-mod parameter_types;
 pub mod perlin_noise;
 pub mod prelude;
 pub mod readback;
@@ -52,7 +51,6 @@ pub mod sort;
 pub mod stencil;
 pub mod stereo;
 pub mod stream;
-mod surface_attributes;
 pub mod transpose;
 pub mod vertex_normals;
 
@@ -77,11 +75,7 @@ pub use reshape::*;
 pub use scan::*;
 pub use scatter::*;
 pub use simplex_noise::RenderSimplex;
-pub use sort::{
-    RadixSort, ScratchGrowth, SortBufferRole, SortBuildError, SortDigit, SortDigits,
-    SortDispatchStage, SortError, SortItemCount, SortKernelRole, SortKeyWidth, SortPassCount,
-    SortScratch, SortScratchError,
-};
+pub use sort::{RadixSort, SortScratch};
 pub use stencil::*;
 pub use stream::*;
 pub use transpose::*;

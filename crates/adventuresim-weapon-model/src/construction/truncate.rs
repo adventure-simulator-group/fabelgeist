@@ -1,6 +1,5 @@
 //! Planar receiving cuts through convex solids, retaining the shared boundary.
 use super::*;
-use crate::ConstructionError;
 use std::collections::BTreeMap;
 
 /// Covers accumulated rotation/interpolation roundoff, not geometric clearance.
@@ -8,7 +7,7 @@ const PLANE_CLASSIFICATION_ULPS: f64 = 64.0;
 
 impl Solid {
     /// Keep the portion at or below a horizontal receiving plane.
-    pub(crate) fn truncate_y(&self, height: f64) -> Result<Self, ConstructionError> {
+    pub(crate) fn truncate_y(&self, height: f64) -> Result<Self, String> {
         let scale = self
             .positions
             .iter()
@@ -18,7 +17,9 @@ impl Solid {
         for point in &self.positions {
             let separation = (point[1] - height).abs();
             if separation > roundoff && separation < crate::recipe::MIN_MANUFACTURED_METRES {
-                return Err(ConstructionError::CutManufacturingMinimum);
+                return Err(
+                    "receiving cut leaves a fragment below the manufacturing minimum".into(),
+                );
             }
         }
         let mut result = Self::default();
@@ -57,7 +58,7 @@ impl Solid {
         boundary.sort_by(|a, b| a[0].total_cmp(&b[0]).then(a[2].total_cmp(&b[2])));
         boundary.dedup();
         if boundary.len() < 3 {
-            return Err(ConstructionError::ReceivingPlaneCutFiniteConvexSection);
+            return Err("receiving plane must cut a finite convex section".into());
         }
         let mut center = mul(
             boundary.iter().copied().fold([0.0; 3], add),
@@ -83,7 +84,7 @@ impl Solid {
 }
 
 /// A real sub-resolution fragment is an error, not a candidate for snapping.
-fn check_cut_precision(solid: &Solid) -> Result<(), ConstructionError> {
+fn check_cut_precision(solid: &Solid) -> Result<(), String> {
     for float32 in [false, true] {
         let mut edges = BTreeMap::<[[u64; 3]; 2], Vec<bool>>::new();
         let key = |p: Point| p.map(|v| if v == 0.0 { 0 } else { v.to_bits() });
@@ -91,7 +92,7 @@ fn check_cut_precision(solid: &Solid) -> Result<(), ConstructionError> {
             let p =
                 face.map(|i| solid.positions[i].map(|v| if float32 { v as f32 as f64 } else { v }));
             if magnitude(cross(sub(p[1], p[0]), sub(p[2], p[0]))) == 0.0 {
-                return Err(ConstructionError::ReceivingCutUnresolvedFloat32Surface);
+                return Err("receiving cut has an unresolved float32 surface".into());
             }
             for [a, b] in [[p[0], p[1]], [p[1], p[2]], [p[2], p[0]]] {
                 let (a, b) = (key(a), key(b));
@@ -105,7 +106,7 @@ fn check_cut_precision(solid: &Solid) -> Result<(), ConstructionError> {
             .values()
             .any(|uses| uses.len() != 2 || uses[0] == uses[1])
         {
-            return Err(ConstructionError::ReceivingCutCannotRetainClosedFloat32Boundary);
+            return Err("receiving cut cannot retain a closed float32 boundary".into());
         }
     }
     Ok(())

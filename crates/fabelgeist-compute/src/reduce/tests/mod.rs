@@ -1,5 +1,4 @@
 use super::*;
-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 
 pub async fn test_generalized_reduce<T>(
     definition_code: &str,
@@ -14,10 +13,10 @@ where
 
     let mut scratchpad = ReduceScratchpad::default();
 
-    let in_buf = Buffer::from_upload(
+    let in_buf = Buffer::from_slice(
         &context,
-        BufferUpload::from_elements(input_data),
-        BufferDefinition::storage().with_usage(BufferUse::CopySource),
+        input_data,
+        BufferDefinition::storage().with_copy_src(),
     )?;
     let in_res = fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(in_buf);
 
@@ -45,10 +44,10 @@ async fn min_f32() -> Result<()> {
     let context = WgpuContext::new().await.unwrap();
     let mut scratchpad = ReduceScratchpad::default();
     let input_data: Vec<f32> = vec![10.0, 2.0, 50.0, -1.0, 20.0];
-    let in_buf = Buffer::from_upload(
+    let in_buf = Buffer::from_slice(
         &context,
-        BufferUpload::from_elements(&input_data),
-        BufferDefinition::storage().with_usage(BufferUse::CopySource),
+        &input_data,
+        BufferDefinition::storage().with_copy_src(),
     )?;
     let in_res = fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(in_buf);
 
@@ -63,10 +62,10 @@ async fn max_f32() -> Result<()> {
     let context = WgpuContext::new().await.unwrap();
     let mut scratchpad = ReduceScratchpad::default();
     let input_data: Vec<f32> = vec![10.0, 2.0, 50.0, -1.0, 20.0];
-    let in_buf = Buffer::from_upload(
+    let in_buf = Buffer::from_slice(
         &context,
-        BufferUpload::from_elements(&input_data),
-        BufferDefinition::storage().with_usage(BufferUse::CopySource),
+        &input_data,
+        BufferDefinition::storage().with_copy_src(),
     )?;
     let in_res = fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(in_buf);
 
@@ -96,10 +95,10 @@ async fn min_custom_struct() -> Result<()> {
     ];
 
     let mut scratchpad = ReduceScratchpad::default();
-    let in_buf = Buffer::from_upload(
+    let in_buf = Buffer::from_slice(
         &context,
-        BufferUpload::from_elements(&input_data),
-        BufferDefinition::storage().with_usage(BufferUse::CopySource),
+        &input_data,
+        BufferDefinition::storage().with_copy_src(),
     )?;
     let in_res = fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(in_buf);
 
@@ -151,10 +150,10 @@ async fn min_to_number() -> Result<()> {
     let context = WgpuContext::new().await.unwrap();
     let mut scratchpad = ReduceScratchpad::default();
     let input_data: Vec<f32> = vec![10.0, 2.0, 50.0, -1.0, 20.0];
-    let in_buf = Buffer::from_upload(
+    let in_buf = Buffer::from_slice(
         &context,
-        BufferUpload::from_elements(&input_data),
-        BufferDefinition::storage().with_usage(BufferUse::CopySource),
+        &input_data,
+        BufferDefinition::storage().with_copy_src(),
     )?;
     let in_res = fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(in_buf);
 

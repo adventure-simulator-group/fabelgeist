@@ -392,7 +392,7 @@ pub(crate) fn materialize_context_roster(
         )?;
         crate::character::assign_generated_historical_name_for_age(
             ctx,
-            adventuresim_core::identity::CharacterId::from(id),
+            crate::character::CharacterId::new(id),
             adventuresim_world_schema::person_names::NameStableSeed::new(id),
             entered_at,
             None,
@@ -582,7 +582,7 @@ pub(crate) fn materialize_road_encounter_cast(
                 absolute_minute,
             );
             if *treatment_decision == ContextualDecisionState::Unavailable {
-                crate::condition::apply_blood_loss(ctx, (character_id).into(), 0.30)?;
+                crate::condition::apply_blood_loss(ctx, character_id, 0.30)?;
             }
         }
         materialized.push(character_id);
@@ -592,13 +592,13 @@ pub(crate) fn materialize_road_encounter_cast(
 
 pub(crate) fn characters_are_contextually_present(
     ctx: &ReducerContext,
-    actor_id: adventuresim_core::identity::CharacterId,
-    target_id: adventuresim_core::identity::CharacterId,
+    actor_id: u64,
+    target_id: u64,
 ) -> bool {
-    let Some(actor) = ctx.db.character().id().find(u64::from(actor_id)) else {
+    let Some(actor) = ctx.db.character().id().find(actor_id) else {
         return false;
     };
-    let Some(target) = ctx.db.character().id().find(u64::from(target_id)) else {
+    let Some(target) = ctx.db.character().id().find(target_id) else {
         return false;
     };
     if actor.current_settlement_id.is_some()
@@ -606,22 +606,23 @@ pub(crate) fn characters_are_contextually_present(
     {
         return true;
     }
-    let actor_case_presence = actor_case_presence(ctx, (actor_id).into());
+    let actor_case_presence = actor_case_presence(ctx, actor_id);
     if let Some((actor_presence, minute)) = actor_case_presence.as_ref()
-        && case_site_presence_for_observer(ctx, (actor_id).into(), (target_id).into(), *minute)
-            .is_some_and(|target_presence| {
+        && case_site_presence_for_observer(ctx, actor_id, target_id, *minute).is_some_and(
+            |target_presence| {
                 adventuresim_core::strategic_presence::are_co_present(
                     actor_presence,
                     &target_presence,
                 )
-            })
+            },
+        )
     {
         return true;
     }
     ctx.db
         .character_context_membership()
         .character_id()
-        .filter(u64::from(target_id))
+        .filter(target_id)
         .filter(|row| {
             context_membership_interval_is_well_formed(row)
                 && (row.is_open()
@@ -637,13 +638,13 @@ pub(crate) fn characters_are_contextually_present(
                     .is_some_and(|(actor_presence, minute)| {
                         let minute = *minute;
                         let Some((projected_id, projected_revision)) =
-                            projected_case_context_claim(ctx, (actor_id).into(), &row, minute)
+                            projected_case_context_claim(ctx, actor_id, &row, minute)
                         else {
                             return false;
                         };
                         case_context_presence_for_observer(
                             ctx,
-                            (actor_id).into(),
+                            actor_id,
                             &row,
                             &projected_id,
                             projected_revision,
@@ -720,31 +721,28 @@ fn contextual_membership_is_visible(
         context_membership_valid_at(membership, actor_minute)
     } else {
         context_membership_interval_is_well_formed(membership) && membership.is_open()
-    }) && characters_are_contextually_present(
-        ctx,
-        (actor_id).into(),
-        (membership.character_id).into(),
-    ) && match membership.context_kind {
-        CharacterContextKind::CaseSite => crate::outbreak::case_patient_visible_to_character(
-            ctx,
-            actor_id,
-            &membership.context_id,
-            actor_minute,
-        ),
-        CharacterContextKind::RoadEncounter => ctx
-            .db
-            .road_challenge_authority()
-            .id()
-            .find(&membership.context_id)
-            .is_some_and(|challenge| challenge.party_id == party_id),
-        CharacterContextKind::StrategicEncounter => ctx
-            .db
-            .strategic_encounter()
-            .party_id()
-            .find(party_id.to_owned())
-            .is_some_and(|encounter| encounter.encounter_id == membership.context_id),
-        CharacterContextKind::HostileGroup => true,
-    }
+    }) && characters_are_contextually_present(ctx, actor_id, membership.character_id)
+        && match membership.context_kind {
+            CharacterContextKind::CaseSite => crate::outbreak::case_patient_visible_to_character(
+                ctx,
+                actor_id,
+                &membership.context_id,
+                actor_minute,
+            ),
+            CharacterContextKind::RoadEncounter => ctx
+                .db
+                .road_challenge_authority()
+                .id()
+                .find(&membership.context_id)
+                .is_some_and(|challenge| challenge.party_id == party_id),
+            CharacterContextKind::StrategicEncounter => ctx
+                .db
+                .strategic_encounter()
+                .party_id()
+                .find(party_id.to_owned())
+                .is_some_and(|encounter| encounter.encounter_id == membership.context_id),
+            CharacterContextKind::HostileGroup => true,
+        }
 }
 
 fn public_decision(
@@ -851,7 +849,7 @@ fn contextual_treatment_decision_with_emergency(
             false,
         );
     }
-    if !characters_are_contextually_present(ctx, (actor_id).into(), (patient_id).into()) {
+    if !characters_are_contextually_present(ctx, actor_id, patient_id) {
         return ContextualActionDecision::Unavailable;
     }
 
@@ -920,7 +918,7 @@ pub(crate) fn contextual_treatment_decision(
         .is_some_and(|row| {
             row.status == adventuresim_core::morale::IncapacitationStatus::Incapacitated
         });
-    let injury = crate::surgery::injury_for(ctx, (patient_id).into(), limb);
+    let injury = crate::surgery::injury_for(ctx, patient_id, limb);
     let emergency_bandage = adventuresim_core::strategic_action::emergency_bandage_is_necessary(
         incapacitated,
         procedure,
@@ -954,7 +952,7 @@ pub(crate) fn context_patient_is_treated(ctx: &ReducerContext, context_id: &str)
             adventuresim_core::physiology::BodyRegion::ALL
                 .into_iter()
                 .any(|limb| {
-                    let injury = crate::surgery::injury_for(ctx, (row.character_id).into(), limb);
+                    let injury = crate::surgery::injury_for(ctx, row.character_id, limb);
                     injury.cut_damage > 0.0 && injury.bandaged
                 })
         })
@@ -972,8 +970,7 @@ pub fn contact_context_character(
     expected_revision: u32,
     action_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, (actor_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Contextual contact action ID is invalid".into());
     }
@@ -989,10 +986,8 @@ pub fn contact_context_character(
             Err("Conflicting contextual contact retry".into())
         };
     }
-    crate::character::require_living_character(ctx, (actor_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (target_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::character::require_living_character(ctx, actor_id)?;
+    crate::character::require_living_character(ctx, target_id)?;
     let actor = ctx
         .db
         .character()
@@ -1007,8 +1002,7 @@ pub fn contact_context_character(
         .find(actor_id)
         .ok_or("Contact actor has no personal time")?
         .minutes;
-    let case_presence =
-        case_site_presence_for_observer(ctx, (actor_id).into(), (actor_id).into(), actor_minute);
+    let case_presence = case_site_presence_for_observer(ctx, actor_id, actor_id, actor_minute);
     let candidates = ctx
         .db
         .character_context_membership()
@@ -1033,7 +1027,7 @@ pub fn contact_context_character(
                     ) && case_presence.as_ref().is_some_and(|actor_presence| {
                         case_context_presence_for_observer(
                             ctx,
-                            (actor_id).into(),
+                            actor_id,
                             row,
                             &row.id,
                             expected_revision,
@@ -1144,7 +1138,7 @@ pub fn contact_context_character(
         ctx.db.party_context_contact_authority().insert(contact);
     }
     crate::social::begin_physiology_presence_on_contact(ctx, actor_id, target_id);
-    crate::social::apply_async_socializing(ctx, (actor_id).into(), (target_id).into(), 10)?;
+    crate::social::apply_async_socializing(ctx, actor_id, target_id, 10)?;
     ctx.db
         .contextual_contact_receipt()
         .insert(ContextualContactReceipt {

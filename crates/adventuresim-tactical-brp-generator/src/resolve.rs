@@ -5,7 +5,7 @@
 //! The reflected *shape* of a type is not always its wire *encoding*. The
 //! behavior implemented here is:
 //!
-//! - A single-field tuple struct (`CharacterId::from(u64)`) is transparent on the
+//! - A single-field tuple struct (`CharacterId(u64)`) is transparent on the
 //!   wire: as a *field* of some other type it inlines directly (no wrapper
 //!   class); as a top-level Component/Resource it still gets a class (with
 //!   a single `value: T` field) purely so the BrpClient API has a uniform

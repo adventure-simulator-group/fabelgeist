@@ -1,12 +1,11 @@
-const RNG_QUEST_FAMILY: fabelgeist_determinism::StreamId =
-    fabelgeist_determinism::StreamId::new("quest.family");
+const RNG_QUEST_FAMILY: fabelgeist_determinism::StreamId = fabelgeist_determinism::StreamId::new("quest.family");
+
 
 pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, GenerationError> {
     let canonical = canonical_context(context)?;
     let context = &canonical;
     if context.requested_family == Some(TemplateFamily::Outbreak)
-        || (context.requested_family.is_none()
-            && RNG_QUEST_FAMILY.rng(context.seed, &[]).index(7) == 0)
+        || (context.requested_family.is_none() && RNG_QUEST_FAMILY.rng(context.seed, &[]).index(7) == 0)
     {
         return generate_outbreak(context);
     }
@@ -84,8 +83,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
         .filter(|index| *index != primary_witness && *index != secondary_witness)
         .collect::<Vec<_>>();
     fabelgeist_determinism::StreamId::new("quest.victim-target")
-        .rng(context.seed, &[])
-        .shuffle(&mut victim_target_candidates);
+        .rng(context.seed, &[]).shuffle(&mut victim_target_candidates);
     let (attack_pattern, pattern_bridge) = choose(
         context.seed,
         "module.attack_pattern",
@@ -215,10 +213,8 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     // cannot change any part of the initial dialogue projection.
     let uncorroborated_pattern_claim =
         "There may be a pattern, yet I cannot tell which details matter.".to_owned();
-    let has_private_pattern_detail =
-        fabelgeist_determinism::StreamId::new("quest.private-pattern-detail")
-            .rng(context.observer_entropy_hi, &[context.observer_entropy_lo])
-            .boolean();
+    let has_private_pattern_detail = fabelgeist_determinism::StreamId::new("quest.private-pattern-detail")
+        .rng(context.observer_entropy_hi, &[context.observer_entropy_lo]).boolean();
     let evidence_site_label = if family == TemplateFamily::RecurringDepredation {
         "the latest incident site"
     } else {
@@ -880,9 +876,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
         DiseaseId::ShroudFever,
         DiseaseId::Bilwisschuss,
         DiseaseId::Kobeldunst,
-    ][fabelgeist_determinism::StreamId::new("quest.outbreak-disease")
-        .rng(context.seed, &[])
-        .index(6)];
+    ][fabelgeist_determinism::StreamId::new("quest.outbreak-disease").rng(context.seed, &[]).index(6)];
     let transmission_route = crate::disease::definition(disease).primary_community_vector;
     let carrier = ThreatId::Alp;
     let (site_kind, source, remediation, responsible_npc, carrier_threat) = match disease {
@@ -1280,19 +1274,18 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
                 .saturating_add(definition.recovery_minutes);
             let exposed_at = context.now_minute.saturating_sub_minutes(course_duration);
             let episode_id = crate::disease::outbreak_exposure_seed(
-                (resident_character_id).into(),
+                resident_character_id,
                 &format!("{}:{patient_ref}", problem_id),
             );
             let episode = crate::disease::InfectionEpisode {
                 id: episode_id,
-                character_id: (resident_character_id).into(),
+                character_id: resident_character_id,
                 disease_id: disease,
                 contracted_at: exposed_at,
                 ruleset_version: crate::physiology::PHYSIOLOGY_RULESET_VERSION,
                 phenotype_key_version: crate::physiology::PHENOTYPE_KEY_VERSION,
             };
-            let became_symptomatic_at =
-                exposed_at.saturating_add_minutes(definition.incubation_minutes);
+            let became_symptomatic_at = exposed_at.saturating_add_minutes(definition.incubation_minutes);
             let immunity = f32::from(immunity_milli) / 1_000.0;
             let terminal = crate::disease::first_combined_terminal(
                 &[episode],
@@ -1393,7 +1386,9 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
             subject: "several households".into(),
             predicate: "became ill during".into(),
             object: "the same few days".into(),
-            occurred_at: context.now_minute.saturating_sub_days(3),
+            occurred_at: context
+                .now_minute
+                .saturating_sub_days(3),
         }],
         consequence: ConsequenceProfile {
             symptom: Symptom::SickLocals,

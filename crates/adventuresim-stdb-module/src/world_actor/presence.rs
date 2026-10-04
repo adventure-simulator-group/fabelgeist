@@ -7,7 +7,10 @@ fn context_interval_is_well_formed(
 }
 
 pub(crate) fn context_membership_interval_is_well_formed(row: &CharacterContextMembership) -> bool {
-    context_interval_is_well_formed(row.entered_at, row.left_at)
+    context_interval_is_well_formed(
+        row.entered_at,
+        row.left_at,
+    )
 }
 
 pub(crate) fn context_membership_valid_at(
@@ -16,7 +19,9 @@ pub(crate) fn context_membership_valid_at(
 ) -> bool {
     context_membership_interval_is_well_formed(row)
         && row.entered_at <= minute
-        && row.left_at.is_none_or(|left_at| minute < left_at)
+        && row
+            .left_at
+            .is_none_or(|left_at| minute < left_at)
 }
 
 fn exact_context_claim_matches(
@@ -39,7 +44,7 @@ fn exactly_one<T>(mut values: impl Iterator<Item = T>) -> Option<T> {
 
 fn projected_case_context_claim(
     ctx: &ReducerContext,
-    observer_character_id: adventuresim_core::identity::CharacterId,
+    observer_character_id: u64,
     membership: &CharacterContextMembership,
     minute: StrategicMinute,
 ) -> Option<(String, u32)> {
@@ -48,7 +53,7 @@ fn projected_case_context_claim(
         .filter(|_| {
             crate::investigation::exact_case_site_for_observer_at(
                 ctx,
-                (observer_character_id).into(),
+                observer_character_id,
                 &membership.location_id,
                 minute,
             )
@@ -66,7 +71,10 @@ fn character_case_site_occupancy_at_view(
         .character_case_site_occupancy()
         .character_id()
         .filter(character_id)
-        .filter(|row| row.entered_at <= minute && row.left_at.is_none_or(|left| minute < left));
+        .filter(|row| {
+            row.entered_at <= minute
+                && row.left_at.is_none_or(|left| minute < left)
+        });
     let row = rows.next()?;
     rows.next().is_none().then_some(row)
 }
@@ -105,18 +113,15 @@ fn case_context_party_visible_at_view(
 
 fn actor_case_presence(
     ctx: &ReducerContext,
-    actor_id: adventuresim_core::identity::CharacterId,
-) -> Option<(
-    adventuresim_core::strategic_presence::StrategicPresence,
-    StrategicMinute,
-)> {
+    actor_id: u64,
+) -> Option<(adventuresim_core::strategic_presence::StrategicPresence, StrategicMinute)> {
     let minute = ctx
         .db
         .character_time()
         .character_id()
-        .find(u64::from(actor_id))?
+        .find(actor_id)?
         .minutes;
-    case_site_presence_for_observer(ctx, (actor_id).into(), (actor_id).into(), minute)
+    case_site_presence_for_observer(ctx, actor_id, actor_id, minute)
         .map(|presence| (presence, minute))
 }
 

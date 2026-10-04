@@ -1,8 +1,6 @@
 //! Which rig joints orient and size each region's frame.
 
-use fabelgeist_rig::{
-    RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal, RigJointPart,
-};
+use anyhow::{Context, Result};
 
 use super::Side;
 use crate::armor_frames::{FitRegion, Wearer};
@@ -21,117 +19,101 @@ pub(super) enum Rule {
 }
 
 /// Landmark slots the orientation kernel reads, by rule.
-#[derive(Clone, Copy)]
-pub(super) enum FrameLandmark {
-    Joint(RigJointOrdinal),
-    Unused,
-}
-impl From<RigJointOrdinal> for FrameLandmark {
-    fn from(joint: RigJointOrdinal) -> Self {
-        Self::Joint(joint)
-    }
-}
-impl FrameLandmark {
-    /// The fixed six-word orientation-kernel layout; unused slots encode zero.
-    pub(super) fn device_word(self) -> u32 {
-        match self {
-            Self::Joint(joint) => usize::from(joint) as u32,
-            Self::Unused => 0,
-        }
-    }
-}
-
 pub(super) struct Landmarks {
     pub rule: Rule,
     /// Joint indices; meaning depends on the rule.
-    pub joints: [FrameLandmark; 6],
+    pub joints: [u32; 6],
     pub side: f32,
-    pub owners: Vec<RigJointName>,
+    pub owners: Vec<String>,
 }
 
 impl Wearer<'_> {
-    fn joint_index(
-        &self,
-        name: &RigJointName,
-    ) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
-        name.require_in(self.joint_names)
+    fn joint_index(&self, name: &str) -> Result<u32> {
+        self.joint_names
+            .iter()
+            .position(|n| n == name)
+            .map(|i| i as u32)
+            .with_context(|| format!("missing armor landmark {name}"))
     }
 
     /// Which joints own skin for a set of owner names.
-    pub(crate) fn owned_joints(&self, owners: &[RigJointName]) -> Vec<RigJointMembership> {
+    pub(crate) fn owned_joints(&self, owners: &[String]) -> Vec<u32> {
         self.joint_names
             .iter()
-            .map(|name: &RigJointName| -> RigJointMembership {
-                RigJointMembership::from(owners.iter().any(|owner: &RigJointName| -> bool {
-                    name.skin_family(owner) == RigJointMembership::Included
-                }))
+            .map(|name| {
+                u32::from(
+                    owners
+                        .iter()
+                        .any(|owner| name == owner || name.starts_with(&format!("{owner}_twist"))),
+                )
             })
             .collect()
     }
 
-    pub(super) fn device_landmarks(
-        &self,
-        region: FitRegion,
-    ) -> std::result::Result<Landmarks, RigJointLookupError> {
+    pub(super) fn device_landmarks(&self, region: FitRegion) -> Result<Landmarks> {
         use FitRegion::*;
-        use RigJointPart::{Foot as FootPart, Lowarm, Lowleg, Uparm, Upleg, Wrist};
-        let unused = FrameLandmark::Unused;
         let (rule, joints, side) = match region {
-            Head => return self.head_landmarks(),
-            Neck => (
-                Rule::Limb,
-                self.named(&RigJointName::C_NECK, &RigJointName::C_SPINE3)?,
-                1.0,
-            ),
-            Torso => (
-                Rule::Limb,
-                self.named(&RigJointName::C_NECK, &RigJointName::C_SPINE0)?,
-                1.0,
-            ),
-            Hips => (
-                Rule::Limb,
-                self.named(&RigJointName::C_SPINE1, &RigJointName::ROOT)?,
-                1.0,
-            ),
-            UpperArm(s) => (Rule::Limb, self.limb(s, Uparm, Lowarm, unused)?, s.sign()),
+            Head => {
+                let [l, r, h] = self.eyes()?;
+                (
+                    Rule::Head,
+                    [h, self.joint_index("c_jaw_null")?, l, r, h, 0],
+                    1.0,
+                )
+            }
+            Neck => (Rule::Limb, self.named("c_neck", "c_spine3")?, 1.0),
+            Torso => (Rule::Limb, self.named("c_neck", "c_spine0")?, 1.0),
+            Hips => (Rule::Limb, self.named("c_spine1", "root")?, 1.0),
+            UpperArm(s) => (Rule::Limb, self.limb(s, "uparm", "lowarm", 0)?, s.sign()),
             Shoulder(s) => {
-                let uparm = self.side_joint(s, Uparm)?;
+                let uparm = self.side_joint(s, "uparm")?;
                 (
                     Rule::Shoulder,
-                    self.limb(s, Uparm, Lowarm, uparm.into())?,
+                    self.limb(s, "uparm", "lowarm", uparm)?,
                     s.sign(),
                 )
             }
-            Forearm(s) => (Rule::Limb, self.limb(s, Lowarm, Wrist, unused)?, s.sign()),
-            WholeArm(s) => (Rule::Limb, self.limb(s, Uparm, Wrist, unused)?, s.sign()),
-            Thigh(s) => (Rule::Limb, self.limb(s, Upleg, Lowleg, unused)?, s.sign()),
-            LowerLeg(s) => (
-                Rule::Limb,
-                self.limb(s, Lowleg, FootPart, unused)?,
-                s.sign(),
-            ),
+            Forearm(s) => (Rule::Limb, self.limb(s, "lowarm", "wrist", 0)?, s.sign()),
+            WholeArm(s) => (Rule::Limb, self.limb(s, "uparm", "wrist", 0)?, s.sign()),
+            Thigh(s) => (Rule::Limb, self.limb(s, "upleg", "lowleg", 0)?, s.sign()),
+            LowerLeg(s) => (Rule::Limb, self.limb(s, "lowleg", "foot", 0)?, s.sign()),
             Knee(s) => {
-                let lowleg = self.side_joint(s, Lowleg)?;
+                let lowleg = self.side_joint(s, "lowleg")?;
                 (
                     Rule::Knee,
-                    self.limb(s, Lowleg, FootPart, lowleg.into())?,
+                    self.limb(s, "lowleg", "foot", lowleg)?,
                     s.sign(),
                 )
             }
-            WholeLeg(s) => (Rule::Limb, self.limb(s, Upleg, FootPart, unused)?, s.sign()),
+            WholeLeg(s) => (Rule::Limb, self.limb(s, "upleg", "foot", 0)?, s.sign()),
             Elbow(s) => {
                 let joints = [
-                    self.side_joint(s, Lowarm)?.into(),
-                    self.side_joint(s, Uparm)?.into(),
-                    self.side_joint(s, Wrist)?.into(),
-                    unused,
-                    unused,
-                    unused,
+                    self.side_joint(s, "lowarm")?,
+                    self.side_joint(s, "uparm")?,
+                    self.side_joint(s, "wrist")?,
+                    0,
+                    0,
+                    0,
                 ];
                 (Rule::Elbow, joints, s.sign())
             }
-            Hand(s) => return self.hand_landmarks(s),
-            Foot(s) => return self.foot_landmarks(s),
+            Hand(s) => {
+                let mut joints = self.limb(s, "wrist", "middle_null", 0)?;
+                joints[2] = self.side_joint(s, "pinky1")?;
+                joints[3] = self.side_joint(s, "index1")?;
+                (Rule::Hand, joints, s.sign())
+            }
+            Foot(s) => {
+                let joints = [
+                    self.side_joint(s, "foot")?,
+                    self.side_joint(s, "ball")?,
+                    0,
+                    0,
+                    0,
+                    0,
+                ];
+                (Rule::Foot, joints, s.sign())
+            }
         };
         Ok(Landmarks {
             rule,
@@ -141,118 +123,56 @@ impl Wearer<'_> {
         })
     }
 
-    fn head_landmarks(&self) -> std::result::Result<Landmarks, RigJointLookupError> {
-        let [left, right, head] = self.eyes()?;
-        Ok(Landmarks {
-            rule: Rule::Head,
-            joints: [
-                head.into(),
-                self.joint_index(&RigJointName::C_JAW_NULL)?.into(),
-                left.into(),
-                right.into(),
-                head.into(),
-                FrameLandmark::Unused,
-            ],
-            side: 1.0,
-            owners: FitRegion::Head.owners(),
-        })
-    }
-
-    fn hand_landmarks(&self, side: Side) -> std::result::Result<Landmarks, RigJointLookupError> {
-        let mut joints = self.limb(
-            side,
-            RigJointPart::Wrist,
-            RigJointPart::MiddleNull,
-            FrameLandmark::Unused,
-        )?;
-        joints[2] = self.side_joint(side, RigJointPart::Pinky1)?.into();
-        joints[3] = self.side_joint(side, RigJointPart::Index1)?.into();
-        Ok(Landmarks {
-            rule: Rule::Hand,
-            joints,
-            side: side.sign(),
-            owners: FitRegion::Hand(side).owners(),
-        })
-    }
-
-    fn foot_landmarks(&self, side: Side) -> std::result::Result<Landmarks, RigJointLookupError> {
-        let mut joints = [FrameLandmark::Unused; 6];
-        joints[0] = self.side_joint(side, RigJointPart::Foot)?.into();
-        joints[1] = self.side_joint(side, RigJointPart::Ball)?.into();
-        Ok(Landmarks {
-            rule: Rule::Foot,
-            joints,
-            side: side.sign(),
-            owners: FitRegion::Foot(side).owners(),
-        })
-    }
-
-    fn side_joint(
-        &self,
-        side: Side,
-        name: RigJointPart,
-    ) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
-        self.joint_index(&side.joint(name))
+    fn side_joint(&self, side: Side, name: &str) -> Result<u32> {
+        self.joint_index(&format!("{}_{name}", side.prefix()))
     }
 
     /// The eyes and the head, which face every frame forward.
-    fn eyes(&self) -> std::result::Result<[RigJointOrdinal; 3], RigJointLookupError> {
+    fn eyes(&self) -> Result<[u32; 3]> {
         Ok([
-            self.joint_index(&RigJointName::L_EYE)?,
-            self.joint_index(&RigJointName::R_EYE)?,
-            self.joint_index(&RigJointName::C_HEAD)?,
+            self.joint_index("l_eye")?,
+            self.joint_index("r_eye")?,
+            self.joint_index("c_head")?,
         ])
     }
 
     /// A central span between two named joints, faced by the eyes.
-    fn named(
-        &self,
-        proximal: &RigJointName,
-        distal: &RigJointName,
-    ) -> std::result::Result<[FrameLandmark; 6], RigJointLookupError> {
+    fn named(&self, proximal: &str, distal: &str) -> Result<[u32; 6]> {
         let [l, r, h] = self.eyes()?;
         Ok([
-            self.joint_index(proximal)?.into(),
-            self.joint_index(distal)?.into(),
-            l.into(),
-            r.into(),
-            h.into(),
-            FrameLandmark::Unused,
+            self.joint_index(proximal)?,
+            self.joint_index(distal)?,
+            l,
+            r,
+            h,
+            0,
         ])
     }
 
     /// A limb span on one side, faced by the eyes, with one extra joint slot.
-    fn limb(
-        &self,
-        side: Side,
-        proximal: RigJointPart,
-        distal: RigJointPart,
-        extra: FrameLandmark,
-    ) -> std::result::Result<[FrameLandmark; 6], RigJointLookupError> {
+    fn limb(&self, side: Side, proximal: &str, distal: &str, extra: u32) -> Result<[u32; 6]> {
         let [l, r, h] = self.eyes()?;
         Ok([
-            self.side_joint(side, proximal)?.into(),
-            self.side_joint(side, distal)?.into(),
-            l.into(),
-            r.into(),
-            h.into(),
+            self.side_joint(side, proximal)?,
+            self.side_joint(side, distal)?,
+            l,
+            r,
+            h,
             extra,
         ])
     }
 
-    pub(super) fn thumb_landmarks(
-        &self,
-        side: Side,
-    ) -> std::result::Result<Landmarks, RigJointLookupError> {
+    pub(super) fn thumb_landmarks(&self, side: Side) -> Result<Landmarks> {
+        let p = side.prefix();
         Ok(Landmarks {
             rule: Rule::Thumb,
             joints: [
-                self.side_joint(side, RigJointPart::Thumb1)?.into(),
-                self.side_joint(side, RigJointPart::ThumbNull)?.into(),
-                self.side_joint(side, RigJointPart::Thumb3)?.into(),
-                FrameLandmark::Unused,
-                FrameLandmark::Unused,
-                FrameLandmark::Unused,
+                self.joint_index(&format!("{p}_thumb1"))?,
+                self.joint_index(&format!("{p}_thumb_null"))?,
+                self.joint_index(&format!("{p}_thumb3"))?,
+                0,
+                0,
+                0,
             ],
             side: side.sign(),
             // Every thumb joint, matched by prefix below.

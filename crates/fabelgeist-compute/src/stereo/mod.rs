@@ -24,7 +24,6 @@
 //! [`StereoDepth`] runs the stages after the match on the card; [`synthetic`]
 //! is a scene with a known answer to measure them against.
 
-mod kernels;
 mod pipeline;
 pub mod rig;
 pub mod synthetic;

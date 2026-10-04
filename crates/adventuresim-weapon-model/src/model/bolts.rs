@@ -1,6 +1,5 @@
 //! Quarrels and layered wooden bolt carriers.
 use super::*;
-use crate::ConstructionError;
 
 fn part(solid: Solid, material: Material, label: &str, r: &ResolvedComponent) -> PartSource {
     PartSource::new(solid, material, label, &r.id)
@@ -10,7 +9,7 @@ pub(super) fn bolt(
     r: &ResolvedComponent,
     p: &CrossbowBoltParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let radius = p.shaft_radius.get();
     let length = p.length.get();
     let h = p.head_length.get();
@@ -89,7 +88,7 @@ pub(super) fn quiver(
     r: &ResolvedComponent,
     p: &BoltQuiverParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let bottom = p.bottom_width.get() / 2.0;
     let mouth = p.mouth_width.get() / 2.0;
     let depth = p.depth.get() / 2.0;
@@ -177,7 +176,7 @@ fn vanes(
     r: &ResolvedComponent,
     p: &CrossbowBoltParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let mut parts = Vec::new();
     let radius = p.shaft_radius.get();
     let length = p.length.get();
@@ -237,7 +236,7 @@ fn carrier_fittings(
     r: &ResolvedComponent,
     p: &BoltQuiverParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let mut parts = Vec::new();
     let bottom = p.bottom_width.get() / 2.0;
     let mouth = p.mouth_width.get() / 2.0;

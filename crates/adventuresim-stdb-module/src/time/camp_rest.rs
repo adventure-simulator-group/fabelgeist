@@ -22,12 +22,9 @@ pub fn rest_at_camp(
     requested_minutes: u64,
     shelter: FieldShelter,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::strategic::require_character_no_unresolved_encounter(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+    crate::character::require_living_character(ctx, character_id)?;
     if requested_minutes == 0 {
         return Ok(());
     }
@@ -55,10 +52,9 @@ pub fn rest_at_camp(
             .filter(&party_id)
             .any(|row| {
                 row.quantity > 0
-                    && adventuresim_core::item_catalog::definition(&(&row.item_id).into())
-                        .is_some_and(|definition| {
-                            definition.tags.iter().any(|tag| tag == "field_shelter")
-                        })
+                    && adventuresim_core::item_catalog::definition(&row.item_id).is_some_and(
+                        |definition| definition.tags.iter().any(|tag| tag == "field_shelter"),
+                    )
             })
     {
         return Err("A tent must be in party inventory before choosing tent shelter".into());
@@ -122,14 +118,14 @@ pub fn rest_at_camp(
         .try_fold(requested_minutes, |limit, member_id| {
             let disease = crate::disease::preview_elapsed_for_disease_in_plan(
                 ctx,
-                (*member_id).into(),
+                *member_id,
                 limit,
                 true,
                 &disease_plan,
             )?;
             let injury = crate::surgery::preview_injury_boundary(
                 ctx,
-                (*member_id).into(),
+                *member_id,
                 limit,
                 InjuryRecoveryMinutes::new(limit),
             )?;
@@ -142,13 +138,13 @@ pub fn rest_at_camp(
             ctx.db
                 .character_skills()
                 .character_id()
-                .find(u64::from(*id))
+                .find(*id)
                 .map(|skills| {
                     let cap = ctx
                         .db
                         .character_attributes()
                         .character_id()
-                        .find(u64::from(*id))
+                        .find(*id)
                         .map_or(0.0, |attributes| attributes.instinct * 1_000.0);
                     (*id, skills.oral_languages, cap)
                 })
@@ -161,26 +157,24 @@ pub fn rest_at_camp(
             .collect();
     let mut automatic_chat_downtime = Vec::new();
     for member_id in members {
-        initialize_character_time(ctx, (member_id).into())
-            .map_err(|error: crate::time::WorldClockError| error.to_string())?;
+        ensure_character_time(ctx, member_id)?;
         let mut time = ctx
             .db
             .character_time()
             .character_id()
-            .find(u64::from(member_id))
+            .find(member_id)
             .ok_or("Character time record not found")?;
         let starting_fatigue = ctx
             .db
             .character_stats()
             .character_id()
-            .find(u64::from(member_id))
+            .find(member_id)
             .map_or(0.0, |stats| stats.calories_used.max(0.0));
-        let physiology_check = party_physiology_check(ctx, (member_id).into())?;
-        let convalescing =
-            convalescence_minutes(ctx, (member_id).into(), physiology_check).min(elapsed);
+        let physiology_check = party_physiology_check(ctx, member_id)?;
+        let convalescing = convalescence_minutes(ctx, member_id, physiology_check).min(elapsed);
         let (disease_elapsed, terminal) = crate::disease::clip_elapsed_for_disease_in_plan(
             ctx,
-            (member_id).into(),
+            member_id,
             elapsed,
             true,
             &disease_plan,
@@ -188,7 +182,7 @@ pub fn rest_at_camp(
         let injury_elapsed = elapsed.min(disease_elapsed);
         let settled = crate::surgery::settle_injuries(
             ctx,
-            (member_id).into(),
+            member_id,
             injury_elapsed,
             InjuryRecoveryMinutes::new(injury_elapsed),
         )?;
@@ -196,48 +190,44 @@ pub fn rest_at_camp(
         let end = time.minutes.saturating_add_minutes(member_elapsed);
         time.minutes = end;
         ctx.db.character_time().character_id().update(time);
-        advance_married_family_by(ctx, (member_id).into(), member_elapsed)?;
+        advance_married_family_by(ctx, member_id, member_elapsed)?;
         crate::condition::apply_weather_exposure(
             ctx,
-            (member_id).into(),
+            member_id,
             end.saturating_sub_minutes(member_elapsed),
             member_elapsed,
             false,
             ExposureShelter::Field(shelter),
         )?;
-        crate::organization::settle_membership_dues(ctx, (member_id).into())?;
-        crate::social::settle_shared_party_time(ctx, (member_id).into());
-        crate::condition::apply_elapsed_needs(ctx, (member_id).into(), member_elapsed)?;
-        crate::disease::finish_disease_interval(ctx, (member_id).into(), terminal)?;
-        settle_lifecycle_after_character_time_write(ctx, (member_id).into(), end)?;
+        crate::organization::settle_membership_dues(ctx, member_id)?;
+        crate::social::settle_shared_party_time(ctx, member_id);
+        crate::condition::apply_elapsed_needs(ctx, member_id, member_elapsed)?;
+        crate::disease::finish_disease_interval(ctx, member_id, terminal)?;
+        settle_lifecycle_after_character_time_write(ctx, member_id, end)?;
         if terminal.is_some() || !settled.alive {
             continue;
         }
         crate::alcohol::process_rest_evenings(
             ctx,
-            (member_id).into(),
+            member_id,
             end.saturating_sub_minutes(member_elapsed),
             end,
             false,
         )?;
-        crate::condition::apply_camp_rest_recovery_condition(
-            ctx,
-            (member_id).into(),
-            member_elapsed,
-        )?;
-        crate::food::clear_stomach_fullness(ctx, (member_id).into());
+        crate::condition::apply_camp_rest_recovery_condition(ctx, member_id, member_elapsed)?;
+        crate::food::clear_stomach_fullness(ctx, member_id);
         let convalescing = convalescing.min(member_elapsed);
         let attributes = ctx
             .db
             .character_attributes()
             .character_id()
-            .find(u64::from(member_id))
+            .find(member_id)
             .ok_or("Character attributes not found")?;
         let (smithing_skill, tailoring_skill) = ctx
             .db
             .character_skills()
             .character_id()
-            .find(u64::from(member_id))
+            .find(member_id)
             .map(|skills| {
                 (
                     Skill::Smithing
@@ -251,7 +241,7 @@ pub fn rest_at_camp(
             .unwrap_or((0, 0));
         let maintenance = crate::repair::field_repair(
             ctx,
-            (member_id).into(),
+            member_id,
             smithing_skill,
             tailoring_skill,
             adventuresim_core::durability::remaining_after_priority(member_elapsed, convalescing),
@@ -266,61 +256,49 @@ pub fn rest_at_camp(
                 .db
                 .character_training_schedule()
                 .character_id()
-                .find(u64::from(member_id))
+                .find(member_id)
                 .ok_or("Character training schedule not found")?;
             let allowed = effective_location_schedule(
                 &allowed_camp_schedule(&schedule.downtime),
                 ActivityLocation::JourneyCamp,
-                (member_id).into(),
+                member_id,
             );
             let mut skills = ctx
                 .db
                 .character_skills()
                 .character_id()
-                .find(u64::from(member_id))
+                .find(member_id)
                 .ok_or("Character skill record not found")?;
-            let activities = activity_training_profile(ctx, (member_id).into())?;
-            let mut excess = apply_training(
-                ctx,
-                (member_id).into(),
-                &mut skills,
-                &allowed,
-                downtime,
-                activities,
-            )?;
+            let activities = activity_training_profile(ctx, member_id)?;
+            let mut excess =
+                apply_training(ctx, member_id, &mut skills, &allowed, downtime, activities)?;
             if let Some((language, coefficient)) = language_choices.get(&member_id) {
                 excess += apply_oral_language_training(
                     ctx,
-                    (member_id).into(),
+                    member_id,
                     &mut skills.oral_languages,
                     *language,
                     downtime as f32 / 60.0 * (2.0 / 3.0) * coefficient,
                 );
             }
-            crate::condition::record_mastery_training_morale(
-                ctx,
-                (member_id).into(),
-                downtime,
-                excess,
-            );
+            crate::condition::record_mastery_training_morale(ctx, member_id, downtime, excess);
             ctx.db.character_skills().character_id().update(skills);
             crate::condition::apply_settlement_leisure_condition(
                 ctx,
-                (member_id).into(),
+                member_id,
                 core_schedule(&allowed),
                 downtime,
                 end,
             )?;
             automatic_chat_downtime.push((member_id, downtime));
         }
-        crate::capability::refresh_character_capability(ctx, (member_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+        crate::capability::refresh_character_capability(ctx, member_id)?;
     }
     // Resolve chats after every member's clock has reached the end of the
     // shared interval so target-clock cooldowns receive the full cadence.
     automatic_chat_downtime.sort_by_key(|(member_id, _)| *member_id);
     for (member_id, downtime) in automatic_chat_downtime {
-        crate::social::apply_automatic_social_chats(ctx, (member_id).into(), downtime)?;
+        crate::social::apply_automatic_social_chats(ctx, member_id, downtime)?;
     }
     let living_after = crate::strategic::living_party_member_ids(ctx, &party_id);
     if living_after.is_empty() {
@@ -363,10 +341,7 @@ pub fn rest_at_camp(
     Ok(())
 }
 
-fn party_fatigue_summary(
-    ctx: &ReducerContext,
-    members: &[adventuresim_core::identity::CharacterId],
-) -> Result<(f32, f32), String> {
+fn party_fatigue_summary(ctx: &ReducerContext, members: &[u64]) -> Result<(f32, f32), String> {
     if members.is_empty() {
         return Ok((0.0, 0.0));
     }
@@ -377,19 +352,19 @@ fn party_fatigue_summary(
             .db
             .character_attributes()
             .character_id()
-            .find(u64::from(*member_id))
+            .find(*member_id)
             .ok_or("Party member attributes not found")?;
         let limbs = ctx
             .db
             .character_limbs()
             .character_id()
-            .find(u64::from(*member_id))
+            .find(*member_id)
             .ok_or("Party member limbs not found")?;
         let stats = ctx
             .db
             .character_stats()
             .character_id()
-            .find(u64::from(*member_id))
+            .find(*member_id)
             .ok_or("Party member stats not found")?;
         let capacity = attributes
             .attr_by_parts(SimpleAttribute::Endurance, &limbs)

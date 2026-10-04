@@ -105,7 +105,7 @@ pub fn authority_test_social_action_keys(
                 });
         }
         if action == SocialActionKind::Commiserate
-            && action.skill(shares_concern(ctx, (actor).into(), SocialTopic::Defeat))
+            && action.skill(shares_concern(ctx, actor, SocialTopic::Defeat))
                 != if index == 9 {
                     Skill::Insight
                 } else {
@@ -118,8 +118,8 @@ pub fn authority_test_social_action_keys(
         // Clock advancement is covered by the automatic-care lifecycle fixture.
         perform_social_action_authoritative(
             ctx,
-            (actor).into(),
-            (target).into(),
+            actor,
+            target,
             source_id.clone(),
             key.into(),
             false,
@@ -137,15 +137,8 @@ pub fn authority_test_social_action_keys(
         {
             return Err("Executing social action changed its request/receipt binding".into());
         }
-        if perform_social_action_authoritative(
-            ctx,
-            (actor).into(),
-            (target).into(),
-            source_id,
-            key.into(),
-            false,
-        )
-        .is_ok()
+        if perform_social_action_authoritative(ctx, actor, target, source_id, key.into(), false)
+            .is_ok()
         {
             return Err("Repeated social action bypassed its cooldown".into());
         }

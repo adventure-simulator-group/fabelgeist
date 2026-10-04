@@ -23,7 +23,7 @@ pub fn authority_test_automatic_chat_preferences(
     crate::strategic::attach_seeded_party_member(ctx, actor, target, "companion")?;
     crate::condition::record_morale_event(
         ctx,
-        (target).into(),
+        target,
         adventuresim_core::morale::MoraleEventKind::Defeat,
         -15.0,
         Some("automatic-care-fixture".into()),
@@ -42,7 +42,7 @@ pub fn authority_test_automatic_chat_preferences(
         return Err("Repeated opt-in duplicated the preference".into());
     }
     set_automatic_social_chat(ctx, actor, target, false)?;
-    apply_automatic_social_chats(ctx, (actor).into(), 10)?;
+    apply_automatic_social_chats(ctx, actor, 10)?;
     if ctx.db.automatic_social_chat().id().find(&id).is_some()
         || ctx.db.social_interaction().actor_id().filter(actor).count() != 0
     {
@@ -50,7 +50,7 @@ pub fn authority_test_automatic_chat_preferences(
     }
     set_automatic_social_chat(ctx, actor, target, true)?;
     set_automatic_social_chat(ctx, actor, target, true)?;
-    apply_automatic_social_chats(ctx, (actor).into(), 10)?;
+    apply_automatic_social_chats(ctx, actor, 10)?;
     // Either random outcome is valid; enrollment must produce exactly one attempt.
     if ctx.db.social_interaction().actor_id().filter(actor).count() != 1 {
         return Err("Opt-in did not produce one bounded care attempt".into());

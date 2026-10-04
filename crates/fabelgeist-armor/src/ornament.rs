@@ -5,7 +5,6 @@
 //! Its lines are cut to the engraving's depth, with antialiased edges, and
 //! drawn on the device at the bake's own resolution, so they stay sharp at
 //! any cell size.
-use crate::material::MetalError;
 use serde::{Deserialize, Serialize};
 
 /// A procedural ornament: a motif repeated across the cell, between optional
@@ -126,13 +125,13 @@ impl Ornament {
     pub const MIN_LINE: f32 = 0.01;
     pub const MAX_LINE: f32 = 0.2;
 
-    pub fn validate(&self) -> Result<(), MetalError> {
+    pub fn validate(&self) -> Result<(), String> {
         if !(1..=Self::MAX_REPEATS).contains(&self.repeats)
             || !self.line.is_finite()
             || !(Self::MIN_LINE..=Self::MAX_LINE).contains(&self.line)
             || !self.motif.valid()
         {
-            return Err(MetalError::InvalidOrnament);
+            return Err("Invalid ornament parameters".into());
         }
         Ok(())
     }

@@ -68,6 +68,7 @@ pub(super) fn fitted(
     morphs: &[ForearmMorphSample],
     design: &ParametricDesign,
     placement: &str,
+    layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
     let texcoords = vertex_texcoords(model);
     let morphs = morphs
@@ -91,5 +92,6 @@ pub(super) fn fitted(
         &morphs,
         design,
         placement,
+        layers,
     )
 }

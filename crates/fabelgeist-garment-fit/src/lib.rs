@@ -21,10 +21,9 @@ use fabelgeist_garment_code::pattern::PatternSpec;
 use fabelgeist_gpu::prelude::WgpuContext;
 use fabelgeist_math::{Vec2, Vec3};
 use fabelgeist_physics::{Collider, Collisions, MeshCollider, MeshSurface};
-use fabelgeist_xpbd::{Solver, SolverSettings, SubstepCount};
+use fabelgeist_xpbd::{Solver, SolverSettings};
 
 pub mod pose;
-mod step;
 
 pub use pose::{GarmentPose, Pivots};
 
@@ -43,7 +42,7 @@ pub struct FitSettings {
     /// Target mesh edge, in centimetres. The resolution knob: it decides the
     /// particle count and the finest fold the fabric can make.
     pub resolution_cm: f32,
-    pub substeps: SubstepCount,
+    pub substeps: u32,
     /// How far a garment particle is held off the body surface.
     pub body_offset_cm: f32,
     pub self_collision: bool,
@@ -65,7 +64,7 @@ pub struct FitSettings {
     /// garment crumpling onto the floor is where they part: every substep
     /// keeps its edges within 50% of rest, off leaves one at 50%, and once a
     /// frame stretches one by 235% -- a sparse pass is worse than none.
-    pub host_contact_interval: SubstepCount,
+    pub host_contact_interval: u32,
 }
 
 impl Default for FitSettings {
@@ -75,14 +74,14 @@ impl Default for FitSettings {
             // roughly 60 ms. Finer is available on the slider and costs
             // roughly the square.
             resolution_cm: 2.5,
-            substeps: 12.into(),
+            substeps: 12,
             body_offset_cm: 0.6,
             self_collision: true,
             gravity: true,
             // The bundled GarmentCode bodies are around this tall; the tab
             // overwrites it from whichever body is selected.
             body_height_cm: 164.0,
-            host_contact_interval: SubstepCount::ONE,
+            host_contact_interval: 1,
         }
     }
 }
@@ -416,9 +415,8 @@ impl Fit {
                     Vec3::new(0.0, -9.81, 0.0)
                 } else {
                     Vec3::default()
-                }
-                .into(),
-                damping: fabric.damping.into(),
+                },
+                damping: fabric.damping,
                 ..Default::default()
             },
         )?;
@@ -570,6 +568,38 @@ impl Fit {
                 .particles
                 .write_positions(&self.context, &positions)?;
         }
+        Ok(())
+    }
+
+    /// Step the fit.
+    ///
+    /// Interleaved: one submission per substep. The solver is running on the
+    /// application's own device, alongside the compositor presenting the
+    /// window it is drawn in, and a whole step submitted at once occupies the
+    /// GPU long enough that the compositor cannot get a swapchain image.
+    ///
+    /// Asynchronous because the host-side contact projection between substeps
+    /// reads positions back from the GPU.
+    pub async fn step(&mut self, delta: f32) -> anyhow::Result<()> {
+        self.cloth
+            .step_interleaved(&self.context, &self.solver, &mut self.collisions, delta)
+            .await?;
+        self.frames += 1;
+        Ok(())
+    }
+
+    /// Step, then wait for the GPU to finish it.
+    ///
+    /// What an interactive loop must call. A step is tens of milliseconds of
+    /// GPU work and nothing throttles submission, so a loop that steps on a
+    /// timer submits faster than the device drains and the queue grows without
+    /// bound -- for a minute or so, until the driver loses the device and
+    /// takes the window with it. Waiting also hands the compositor sharing
+    /// this device a clear gap between steps.
+    #[cfg_attr(not(test), allow(dead_code))]
+    pub async fn step_and_wait(&mut self, delta: f32) -> anyhow::Result<()> {
+        self.step(delta).await?;
+        self.context.submitted_work_done().await;
         Ok(())
     }
 

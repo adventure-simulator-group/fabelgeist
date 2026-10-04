@@ -1,11 +1,10 @@
 //! Stock, prod, string, bridle and nut constructions.
 use super::*;
-use crate::ConstructionError;
 pub(super) fn stock(
     r: &ResolvedComponent,
     p: &CrossbowParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let StockLayout {
         rear,
         fore,
@@ -56,7 +55,7 @@ pub(super) fn limbs(
     p: &CrossbowParameters,
     detail: Detail,
     parts: &mut Vec<PartSource>,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let points = prod(p, detail);
     let member = |points: &[Point], depth| {
         Solid::sweep(
@@ -82,16 +81,16 @@ pub(super) fn limbs(
     } else {
         let horn = p
             .horn_thickness
-            .ok_or(ConstructionError::CompositeProdNeedsHornThickness)?
+            .ok_or("composite prod needs horn thickness")?
             .get();
         let sinew = p
             .sinew_thickness
-            .ok_or(ConstructionError::CompositeProdNeedsSinewThickness)?
+            .ok_or("composite prod needs sinew thickness")?
             .get();
         let depth = p.prod_depth.get();
         let core = depth - horn - sinew;
         if core <= 0.0 {
-            return Err(ConstructionError::CrossbowCoreRetainPositiveDepth);
+            return Err("crossbow core must retain positive depth".into());
         }
         for (width, offset, material, label) in [
             (
@@ -125,7 +124,7 @@ pub(super) fn strings(
     p: &CrossbowParameters,
     detail: Detail,
     parts: &mut Vec<PartSource>,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let nut = p.nut_position.get();
     let points = prod(p, detail);
     let (left, left_loop) = tip_loop(p, &points, false, detail);
@@ -193,7 +192,7 @@ pub(super) fn bridles(
     p: &CrossbowParameters,
     detail: Detail,
     parts: &mut Vec<PartSource>,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let prod_position = p.prod_position.get();
     for (side, name) in [(-1.0, "left"), (1.0, "right")] {
         let x = side * p.bridle_spacing.get();
@@ -236,7 +235,7 @@ pub(super) fn nut(
     p: &CrossbowParameters,
     detail: Detail,
     parts: &mut Vec<PartSource>,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let nut = p.nut_position.get();
     let nr = p.nut_radius.get();
     let radius = p.string_radius.get();

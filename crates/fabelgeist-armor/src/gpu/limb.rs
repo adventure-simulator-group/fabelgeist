@@ -6,12 +6,12 @@
 
 use std::f32::consts::PI;
 
+use super::ArmorGpu;
 use super::chart::{AROUND, AUTHORED_ORIGIN, ChartBoundary, ChartKernel, PlateChart};
 use super::part::Extrusion;
 use super::recipe::PartRecipe;
-use super::{ArmorGpu, BuiltPart};
 use crate::{
-    ArmorComponentRole, CuisseDesign, GenerateError, GreaveDesign, LimbArmorDesign, PartFrame,
+    ArmorComponentRole, CuisseDesign, GenerateError, GreaveDesign, LimbArmorDesign,
     RerebraceDesign, SpaulderDesign,
 };
 
@@ -466,7 +466,6 @@ fn spaulder(gpu: &ArmorGpu, d: &SpaulderDesign) -> Result<LimbShape, GenerateErr
 /// The charts of a limb design, before any fit.
 pub(crate) fn shape(gpu: &ArmorGpu, design: &LimbArmorDesign) -> Result<LimbShape, GenerateError> {
     design.validate()?;
-    crate::device_support::on_device(design.device_unsupported())?;
     let _ = PI;
     match design {
         LimbArmorDesign::Greave(d) => greave(gpu, d),
@@ -476,26 +475,4 @@ pub(crate) fn shape(gpu: &ArmorGpu, design: &LimbArmorDesign) -> Result<LimbShap
         LimbArmorDesign::Spaulder(d) => spaulder(gpu, d),
         _ => Err(GenerateError::InvalidSurface),
     }
-}
-
-/// Record a limb design's charts, placed by the part frame at the start of
-/// `frame`, into a new device part.
-pub fn record_limb_armor(
-    gpu: &ArmorGpu,
-    batch: &mut fabelgeist_compute::KernelBatch,
-    design: &LimbArmorDesign,
-    frame: &fabelgeist_gpu::prelude::Buffer,
-) -> Result<super::DevicePart, GenerateError> {
-    let LimbShape { part, design } = shape(gpu, design)?;
-    part.record(gpu, batch, &design, &[frame])
-}
-
-/// Generate a limb plate on the device, placed by `fit`.
-pub fn generate_limb_armor_on(
-    gpu: &ArmorGpu,
-    design: &LimbArmorDesign,
-    fit: &PartFrame,
-) -> Result<BuiltPart, GenerateError> {
-    let LimbShape { part, design } = shape(gpu, design)?;
-    part.build(gpu, &design, fit)
 }

@@ -8,11 +8,9 @@
 //! garment slices a boot shaft must clear.
 
 use anyhow::Result;
-use fabelgeist_armor::gpu::wgsl;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{KernelBatch, host_float};
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_gpu::prelude::PassParameterName;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::DeviceWearer;
@@ -50,46 +48,31 @@ impl DeviceWearer<'_> {
         for (bit, region) in regions.iter().enumerate() {
             let owned = self.host.owned_joints(&region.owners());
             for (mask, owns) in masks.iter_mut().zip(owned) {
-                *mask |= u32::from(owns) << bit;
+                *mask |= owns << bit;
             }
         }
         let gpu = self.gpu;
-        let support = gpu.scratch(
-            (self.body.vertex_count as u64 * 4).into(),
-            ("footwear support").into(),
-        )?;
+        let support = gpu.scratch(self.body.vertex_count as u64 * 4, "footwear support")?;
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.body.vertex_count).into());
-        parameters.insert("regions".into(), (regions.len() as u32).into());
-        parameters.insert("pad1".into(), (0u32).into());
-        parameters.insert("pad2".into(), (0u32).into());
-        parameters.insert(
-            PassParameterName::from(host_float::ZERO_FIELD),
-            (0u32).into(),
-        );
+        parameters.insert("count", self.body.vertex_count);
+        parameters.insert("regions", regions.len() as u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert("pad2", 0u32);
+        parameters.insert(host_float::ZERO_FIELD, 0u32);
         for pad in ["pad3", "pad4", "pad5"] {
-            parameters.insert(pad.into(), (0.0f32).into());
+            parameters.insert(pad, 0.0f32);
         }
-        parameters.insert(
-            "joint_indices".into(),
-            (self.body.joint_indices.clone()).into(),
-        );
-        parameters.insert(
-            "joint_weights".into(),
-            (self.body.joint_weights.clone()).into(),
-        );
-        parameters.insert(
-            "masks".into(),
-            (gpu.upload(BufferUpload::from_elements(&masks))?).into(),
-        );
-        parameters.insert("support".into(), (support.clone()).into());
+        parameters.insert("joint_indices", self.body.joint_indices.clone());
+        parameters.insert("joint_weights", self.body.joint_weights.clone());
+        parameters.insert("masks", gpu.upload(&masks)?);
+        parameters.insert("support", support.clone());
         let kernel = gpu
             .cache()
             .get(gpu.context(), &support_source())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, (self.body.vertex_count).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&kernel, &parameters, self.body.vertex_count)
+            .map_err(device_error)?;
         Ok(support)
     }
 
@@ -101,31 +84,28 @@ impl DeviceWearer<'_> {
         support: &Buffer,
     ) -> Result<Buffer> {
         let gpu = self.gpu;
-        let points = gpu.scratch(
-            (self.body.vertex_count as u64 * 16).into(),
-            ("footwear body points").into(),
-        )?;
+        let points = gpu.scratch(self.body.vertex_count as u64 * 16, "footwear body points")?;
         let mut parameters = counted(self.body.vertex_count);
-        parameters.insert("frames".into(), (frame.clone()).into());
-        parameters.insert("positions".into(), (self.body.positions.clone()).into());
-        parameters.insert("support".into(), (support.clone()).into());
-        parameters.insert("points".into(), (points.clone()).into());
+        parameters.insert("frames", frame.clone());
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert("support", support.clone());
+        parameters.insert("points", points.clone());
         let kernel = gpu
             .cache()
             .get(gpu.context(), &points_source())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, (self.body.vertex_count).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&kernel, &parameters, self.body.vertex_count)
+            .map_err(device_error)?;
         Ok(points)
     }
 }
 
 fn counted(count: u32) -> PassParameters {
     let mut parameters = PassParameters::new();
-    parameters.insert("count".into(), (count).into());
+    parameters.insert("count", count);
     for pad in ["pad0", "pad1", "pad2"] {
-        parameters.insert(pad.into(), (0u32).into());
+        parameters.insert(pad, 0u32);
     }
     parameters
 }
@@ -133,7 +113,7 @@ fn counted(count: u32) -> PassParameters {
 /// A fresh pair of ordered-float axial bounds, lowest then highest.
 pub(crate) fn axial_bounds(gpu: &fabelgeist_armor::ArmorGpu, pairs: usize) -> Result<Buffer> {
     let words = [ORDERED_POSITIVE_INFINITY, ORDERED_NEGATIVE_INFINITY].repeat(pairs);
-    Ok(gpu.upload(BufferUpload::from_elements(&words))?)
+    Ok(gpu.upload(&words)?)
 }
 
 /// Record the axial extent of `count` points in `frame` into the bounds
@@ -148,20 +128,20 @@ pub(crate) fn record_axial_bounds(
     pair: u32,
 ) -> Result<()> {
     let mut parameters = PassParameters::new();
-    parameters.insert("count".into(), (count).into());
-    parameters.insert("pair".into(), (pair).into());
-    parameters.insert("pad1".into(), (0u32).into());
-    parameters.insert("pad2".into(), (0u32).into());
-    parameters.insert("frames".into(), (frame.clone()).into());
-    parameters.insert("positions".into(), (positions.clone()).into());
-    parameters.insert("bounds".into(), (bounds.clone()).into());
+    parameters.insert("count", count);
+    parameters.insert("pair", pair);
+    parameters.insert("pad1", 0u32);
+    parameters.insert("pad2", 0u32);
+    parameters.insert("frames", frame.clone());
+    parameters.insert("positions", positions.clone());
+    parameters.insert("bounds", bounds.clone());
     let kernel = gpu
         .cache()
         .get(gpu.context(), &bounds_source())
-        .map_err(fabelgeist_armor::GenerateError::from)?;
+        .map_err(device_error)?;
     batch
-        .dispatch_items(&kernel, &parameters, (count).into())
-        .map_err(fabelgeist_armor::GenerateError::from)?;
+        .dispatch_items(&kernel, &parameters, count)
+        .map_err(device_error)?;
     Ok(())
 }
 
@@ -186,20 +166,20 @@ pub(crate) fn record_sections(
             ordered(1.0),
         ]);
     }
-    let sections = gpu.upload(BufferUpload::from_elements(&words))?;
+    let sections = gpu.upload(&words)?;
     let mut parameters = counted(count);
-    parameters.insert("frames".into(), (frame.clone()).into());
-    parameters.insert("bounds".into(), (bounds.clone()).into());
-    parameters.insert("points".into(), (points.clone()).into());
-    parameters.insert("sections".into(), (sections.clone()).into());
+    parameters.insert("frames", frame.clone());
+    parameters.insert("bounds", bounds.clone());
+    parameters.insert("points", points.clone());
+    parameters.insert("sections", sections.clone());
     for entry in [NEAREST, SLICE, ENCLOSE] {
         let kernel = gpu
             .cache()
             .get(gpu.context(), &sections_source(entry))
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, (count).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&kernel, &parameters, count)
+            .map_err(device_error)?;
     }
     Ok(sections)
 }
@@ -255,13 +235,13 @@ fn superellipse(delta: vec2<f32>, radius: vec2<f32>, exponent: f32) -> f32 {{
 /// Support weights summed in joint-slot order with exact device arithmetic
 /// (`fabelgeist_compute::host_float`): a vertex at the threshold falls on
 /// the same side whatever the device's fused operations.
-fn support_source() -> ShaderSource {
-    ShaderSource::from(format!(
+fn support_source() -> String {
+    format!(
         "{}{}{}{SUPPORT}",
         host_float::PARAMS_ZERO_HOOK,
         host_float::wgsl(),
         crate::armor_frames::skin_support_wgsl(),
-    ))
+    )
 }
 
 const SUPPORT: &str = r#"
@@ -303,8 +283,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 }
 "#;
 
-fn points_source() -> ShaderSource {
-    ShaderSource::from(format!(
+fn points_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -328,11 +308,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         counted = wgsl::COUNTED,
         common = common(),
         positions = wgsl::read_points("positions"),
-    ))
+    )
 }
 
-fn bounds_source() -> ShaderSource {
-    ShaderSource::from(format!(
+fn bounds_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -360,11 +340,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         common = common(),
         positions = wgsl::read_points("positions"),
-    ))
+    )
 }
 
-fn sections_source(entry: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+fn sections_source(entry: &str) -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> bounds: array<u32>;
@@ -401,7 +381,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         counted = wgsl::COUNTED,
         common = common(),
-    ))
+    )
 }
 
 /// The distance from each section's height to its nearest point.

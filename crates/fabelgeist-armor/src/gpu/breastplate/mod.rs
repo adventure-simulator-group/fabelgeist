@@ -13,15 +13,35 @@
 //! vertex on the symmetry plane chooses its side of the back's atlas seam by
 //! those roundings.
 
+mod anime;
+mod anime_layout;
+mod anime_sampling;
+mod arm_trim;
 mod carrier_wgsl;
+mod clip_carrier;
+#[cfg(test)]
+mod clip_tests;
+mod construction_columns;
+mod course_clip;
+mod course_coordinates;
+mod course_flare;
+mod cut_frame;
+mod cut_resolution;
 mod finish_wgsl;
 mod fit;
+#[cfg(test)]
+mod fit_tests;
 mod fit_wgsl;
 mod kernels;
+mod miter;
 mod plates;
+#[cfg(test)]
+mod shape_tests;
 mod shape_wgsl;
 mod skin_wgsl;
+mod solid_grid;
 mod topology;
+mod trimmed_carrier;
 mod wearer_wgsl;
 
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
@@ -29,11 +49,11 @@ use fabelgeist_gpu::prelude::Buffer;
 
 use super::anatomy::{DeviceSurface, STATUS_DEGENERATE};
 use super::body::GpuBody;
-use super::bracer::{deltas, read_prefix};
+use super::bracer::deltas;
 use super::{ArmorGpu, device_error};
 use crate::{
-    ArmorMorph, BreastplateDesign, GenerateError, GeneratedArmor, breastplate_design_hash,
-    validate_breastplate,
+    ArmorMorph, BreastplateConstruction, BreastplateDesign, GenerateError, GeneratedArmor,
+    breastplate_design_hash, validate_breastplate,
 };
 use kernels::{Params, dispatch};
 use plates::{Plates, Shell};
@@ -72,43 +92,82 @@ pub struct DeviceBreastplate {
     base_body: Buffer,
     status: Buffer,
     morphs: Vec<(Buffer, VertexNormals)>,
+    articulation: Option<anime::Articulation>,
 }
 
 impl DeviceBreastplate {
-    /// Record the breastplate fitted to `torso`. Failures raise bits in
-    /// `status`, which [`DeviceBreastplate::read`] reports.
-    pub fn record(
+    /// Fit and triangulate the breastplate on `torso`. Submitted stages are
+    /// read before triangulation; final device failures are reported by
+    /// [`DeviceBreastplate::read`].
+    pub async fn record(
         gpu: &ArmorGpu,
-        batch: &mut KernelBatch,
+        mut batch: KernelBatch<'_>,
         design: &BreastplateDesign,
-        torso: TorsoBody,
+        torso: TorsoBody<'_>,
         status: &Buffer,
     ) -> Result<Self, GenerateError> {
         validate_breastplate(design)?;
         if torso.torso_faces.is_empty() || torso.eligible.len() != torso.torso_faces.len() {
             return Err(GenerateError::InvalidSurface);
         }
-        let plates = Plates::new(gpu, design)?;
-        let fitted = fit::record_fitted(gpu, batch, design, &torso, &plates, status)?;
-        let extrusions = plates.record_extrusions(gpu, batch, &fitted.plate, status)?;
-        let shell = plates.record_shell(gpu, batch, &fitted.plate, &extrusions)?;
+        let mut plates = Plates::new(gpu, design)?;
+        let fitted = fit::record_fitted(gpu, &mut batch, design, &torso, &plates, status)?;
+        let mut extrusions = plates.record_extrusions(gpu, &mut batch, &fitted.plate, status)?;
+        batch.submit();
+        plates.remesh(gpu, status, &mut extrusions).await?;
+        let mut batch = gpu.batch("triangulated breastplate");
+        extrusions.record_miters(gpu, &mut batch, &plates, status)?;
+        let shell = plates.record_shell(
+            gpu,
+            &mut batch,
+            &fitted.plate,
+            &extrusions,
+            &design.construction,
+        )?;
         let correspondence = plates.record_correspondence(
             gpu,
-            batch,
+            &mut batch,
             &torso,
             (&fitted.plate, &fitted.body_local),
             &extrusions,
             &shell,
         )?;
+        let (shell, skin, articulation) = match &design.construction {
+            BreastplateConstruction::Solid => {
+                batch.submit();
+                (shell, correspondence.skin, None)
+            }
+            BreastplateConstruction::Anime(design) => {
+                let articulated = anime::Articulation::record(
+                    gpu,
+                    batch,
+                    design,
+                    shell,
+                    anime::CourseInputs {
+                        plates: &plates,
+                        frame: &fitted.plate,
+                        skin: &correspondence.skin,
+                        status,
+                    },
+                )
+                .await?;
+                (
+                    articulated.shell,
+                    articulated.skin,
+                    Some(articulated.correspondence),
+                )
+            }
+        };
         Ok(Self {
             design: design.clone(),
             shell,
-            skin: correspondence.skin,
+            skin,
             morph_samples: correspondence.morph_samples,
             body_faces: torso.body.faces.clone(),
             base_body: torso.body.positions.clone(),
             status: status.clone(),
             morphs: Vec::new(),
+            articulation,
         })
     }
 
@@ -120,12 +179,12 @@ impl DeviceBreastplate {
         batch: &mut KernelBatch,
         body: &Buffer,
     ) -> Result<(), GenerateError> {
-        let shell = &self.shell;
+        let shell = self
+            .articulation
+            .as_ref()
+            .map_or(&self.shell, |a| &a.source);
         let count = shell.count();
-        let positions = gpu.scratch(
-            (count as u64 * 12).into(),
-            ("breastplate morph positions").into(),
-        )?;
+        let positions = gpu.scratch(count as u64 * 12, "breastplate morph positions")?;
         dispatch(
             gpu,
             batch,
@@ -146,8 +205,14 @@ impl DeviceBreastplate {
                 ("base", &shell.positions),
                 ("positions", &positions),
             ],
-            (count).into(),
+            count,
         )?;
+        let positions = match &self.articulation {
+            Some(articulation) => articulation.record_morph(gpu, batch, &self.shell, &positions)?,
+            None => positions,
+        };
+        let shell = &self.shell;
+        let count = shell.count();
         let mut normals =
             VertexNormals::new(gpu.context(), count, shell.triangles()).map_err(device_error)?;
         gpu.normals(NormalWeighting::Area)
@@ -172,7 +237,34 @@ impl DeviceBreastplate {
         domain: &str,
         morphs: &[String],
     ) -> Result<GeneratedArmor, GenerateError> {
-        let status = gpu.read::<u32>(&self.status)?[0];
+        pollster::block_on(self.read_async(gpu, domain, morphs))
+    }
+
+    pub async fn read_async(
+        &self,
+        gpu: &ArmorGpu,
+        domain: &str,
+        morphs: &[String],
+    ) -> Result<GeneratedArmor, GenerateError> {
+        let mut staging = super::Staging::new();
+        let status_slot = staging.stage(&self.status);
+        let meshes = std::iter::once((&self.shell.positions, &self.shell.normals)).chain(
+            self.morphs
+                .iter()
+                .map(|(positions, normals)| (positions, normals)),
+        );
+        let slots = meshes
+            .map(|(positions, normals)| {
+                [
+                    staging.stage(&normals.status),
+                    staging.stage(positions),
+                    staging.stage(&normals.normals),
+                ]
+            })
+            .collect::<Vec<_>>();
+        let skin_slot = staging.stage(&self.skin);
+        let results = gpu.read_staged_async(staging).await?;
+        let status = results.status(status_slot);
         if status & STATUS_DEGENERATE != 0 {
             return Err(GenerateError::Degenerate);
         }
@@ -180,23 +272,23 @@ impl DeviceBreastplate {
             return Err(GenerateError::InvalidSurface);
         }
         let count = self.shell.count() as usize;
-        let read_mesh = |positions: &Buffer, normals: &VertexNormals| {
-            if gpu.read::<u32>(&normals.status)?[0] != 0 {
+        let read_mesh = |slots: [super::Staged; 3]| {
+            if results.status(slots[0]) != 0 {
                 return Err(GenerateError::Degenerate);
             }
             Ok::<_, GenerateError>((
-                read_prefix::<[f32; 3]>(gpu, positions, count)?,
-                read_prefix::<[f32; 3]>(gpu, &normals.normals, count)?,
+                results.prefix::<[f32; 3]>(slots[1], count),
+                results.prefix::<[f32; 3]>(slots[2], count),
             ))
         };
-        let (positions, normals) = read_mesh(&self.shell.positions, &self.shell.normals)?;
-        let skin: Vec<[u32; SKIN_WORDS as usize]> = read_prefix(gpu, &self.skin, count)?;
-        let morphs = self
-            .morphs
+        let (positions, normals) = read_mesh(slots[0])?;
+        let skin: Vec<[u32; SKIN_WORDS as usize]> = results.prefix(skin_slot, count);
+        let morphs = slots
             .iter()
+            .skip(1)
             .zip(morphs)
-            .map(|((target, target_normals), name)| {
-                let (direct, target_normals) = read_mesh(target, target_normals)?;
+            .map(|(target, name)| {
+                let (direct, target_normals) = read_mesh(*target)?;
                 Ok(ArmorMorph {
                     name: name.clone(),
                     position_deltas: deltas(&positions, &direct),
@@ -206,7 +298,10 @@ impl DeviceBreastplate {
             })
             .collect::<Result<Vec<_>, GenerateError>>()?;
         Ok(GeneratedArmor {
-            components: Vec::new(),
+            components: self
+                .articulation
+                .as_ref()
+                .map_or_else(Vec::new, |a| a.components.clone()),
             design_hash: breastplate_design_hash(&self.design)?,
             surface_domain: domain.to_owned(),
             positions,

@@ -6,9 +6,6 @@ use spacetimedb_sdk::{DbContext, Identity, Table};
 
 use crate::Args;
 
-mod terminal;
-pub(crate) use terminal::{TerminalEnqueueError, TerminalSubmissionResult};
-
 /// Plugin for spacetimedb x bevy integration.
 pub struct SpacetimeDbPlugin;
 
@@ -54,6 +51,12 @@ pub struct SpacetimeDb {
     terminal_results: Arc<Mutex<Vec<TerminalSubmissionResult>>>,
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub(crate) enum TerminalSubmissionResult {
+    Accepted,
+    Rejected(String),
+}
+
 impl SpacetimeDb {
     /// Access spacetime db reducers.
     pub fn reducers(&self) -> &RemoteReducers {
@@ -92,31 +95,24 @@ impl SpacetimeDb {
 
     /// Queue a terminal reducer and mailbox its eventual nested callback
     /// result. Queue success is not reducer acceptance.
-    pub(crate) fn submit_terminal(
+    pub fn submit_terminal(
         &self,
         resolution: TacticalMissionResolution,
         receipt: TacticalConsequenceReceipt,
-    ) -> Result<(), TerminalEnqueueError> {
+    ) -> spacetimedb_sdk::Result<()> {
         let terminal_results = self.terminal_results.clone();
-        let enqueued =
-            self.conn.reducers.end_tactical_server_then(
-                resolution,
-                receipt,
-                move |_: &ReducerEventContext,
-                      reply: Result<
-                    Result<(), String>,
-                    spacetimedb_sdk::__codegen::InternalError,
-                >| {
-                    terminal_results
-                        .lock()
-                        .unwrap()
-                        .push(TerminalSubmissionResult::from(reply));
-                },
-            );
-        match enqueued {
-            Ok(()) => Ok(()),
-            Err(source) => Err(TerminalEnqueueError::from_provider(resolution, source)),
-        }
+        self.conn
+            .reducers
+            .end_tactical_server_then(resolution, receipt, move |_, result| {
+                let result = match result {
+                    Ok(Ok(())) => TerminalSubmissionResult::Accepted,
+                    Ok(Err(error)) => TerminalSubmissionResult::Rejected(error),
+                    Err(error) => TerminalSubmissionResult::Rejected(format!(
+                        "internal reducer callback error: {error:?}"
+                    )),
+                };
+                terminal_results.lock().unwrap().push(result);
+            })
     }
 
     pub(crate) fn take_terminal_results(&self) -> Vec<TerminalSubmissionResult> {

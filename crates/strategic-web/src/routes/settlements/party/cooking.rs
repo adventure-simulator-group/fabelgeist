@@ -155,7 +155,7 @@ async fn camp_fireplace_context(
         .ok_or("Character has no active camp")?;
     let party = state
         .db
-        .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(db::party_by_id(
+        .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
             party_id,
         ))
         .await
@@ -163,7 +163,7 @@ async fn camp_fireplace_context(
         .ok_or("Party state unavailable")?;
     let journey = state
         .db
-        .query_one_sats::<PartyJourney>(db::party_journey_by_party_id(party_id))
+        .query_one_sats::<PartyJourney>(&db::party_journey_by_party_id(party_id))
         .await
         .map_err(|_| "Journey state unavailable")?
         .ok_or("Journey state unavailable")?;
@@ -172,7 +172,7 @@ async fn camp_fireplace_context(
     }
     let place = adventuresim_core::strategic_place::StrategicPlaceId::journey_camp(
         party_id,
-        adventuresim_world_schema::calendar::StrategicMinute::new(journey.departure_minute.minutes),
+adventuresim_world_schema::calendar::StrategicMinute::new(journey.departure_minute.minutes),
         journey.completed_movement_minutes,
     )
     .map_err(|_| "This journey camp has no canonical identity")?;
@@ -200,19 +200,19 @@ async fn fireplace_rows(
 ) {
     let personal = state
         .db
-        .query_sats::<InventoryItem>(SqlQuery::from(format!(
+        .query_sats::<InventoryItem>(&format!(
             "SELECT * FROM inventory_item WHERE character_id = {}",
             actor.id
-        )))
+        ))
         .await
         .unwrap_or_default();
     let party = if let Some(party_id) = actor.party_id.as_deref() {
         state
             .db
-            .query_sats::<PartyInventoryItem>(SqlQuery::from(format!(
+            .query_sats::<PartyInventoryItem>(&format!(
                 "SELECT * FROM party_inventory_item WHERE party_id = {}",
                 sql_string_literal(party_id)
-            )))
+            ))
             .await
             .unwrap_or_default()
     } else {
@@ -220,43 +220,43 @@ async fn fireplace_rows(
     };
     let personal_amounts = state
         .db
-        .query_sats::<InventoryItemAmount>("SELECT * FROM inventory_item_amount".into())
+        .query_sats::<InventoryItemAmount>("SELECT * FROM inventory_item_amount")
         .await
         .unwrap_or_default();
     let party_amounts = state
         .db
-        .query_sats::<PartyItemAmount>("SELECT * FROM party_item_amount".into())
+        .query_sats::<PartyItemAmount>("SELECT * FROM party_item_amount")
         .await
         .unwrap_or_default();
     let lots = state
         .db
-        .query_sats::<FoodLot>("SELECT * FROM food_lot".into())
+        .query_sats::<FoodLot>("SELECT * FROM food_lot")
         .await
         .unwrap_or_default();
     let definitions = state
         .db
-        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into())
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let key = format!("{}|{}", actor.id, fireplace_fixture_id);
     let station = state
         .db
-        .query_one_sats::<BackendFireplaceStation>(db::fireplace_station_by_key(&key))
+        .query_one_sats::<BackendFireplaceStation>(&db::fireplace_station_by_key(&key))
         .await
         .ok()
         .flatten();
     let dish = state
         .db
-        .query_one_sats::<BackendFireplaceDish>(db::fireplace_dish_by_station_key(&key))
+        .query_one_sats::<BackendFireplaceDish>(&db::fireplace_dish_by_station_key(&key))
         .await
         .ok()
         .flatten();
     let vessel_stations = state
         .db
-        .query_sats::<BackendFireplaceStation>(SqlQuery::from(format!(
+        .query_sats::<BackendFireplaceStation>(&format!(
             "SELECT * FROM backend_fireplace_stations WHERE character_id = {}",
             actor.id
-        )))
+        ))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -270,15 +270,15 @@ async fn fireplace_rows(
         .collect::<HashSet<_>>();
     let vessel_dishes = state
         .db
-        .query_sats::<BackendFireplaceDish>("SELECT * FROM backend_fireplace_dishes".into())
+        .query_sats::<BackendFireplaceDish>("SELECT * FROM backend_fireplace_dishes")
         .await
         .unwrap_or_default()
         .into_iter()
         .filter(|row| vessel_keys.contains(row.station_key.as_str()))
         .collect::<Vec<_>>();
-    let minute = query_single::<CharacterTime>(state, db::character_time_by_character_id(actor.id.into()))
+    let minute = query_single::<CharacterTime>(state, db::character_time_by_character_id(actor.id))
         .await
-        .map_or(StrategicMinute::ZERO, |t| calendar_minute(&t.minutes));
+        .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
     (
         personal,
         party,
@@ -312,7 +312,7 @@ pub(super) async fn settlement_fireplace(
     }
     let Some(settlement) = state
         .db
-        .query_one_sats_into::<DbSettlement, SettlementView>(db::settlement_by_id(&id))
+        .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(&id))
         .await
         .ok()
         .flatten()
@@ -433,7 +433,7 @@ async fn fireplace_post_context(
             }
             let settlement = state
                 .db
-                .query_one_sats_into::<DbSettlement, SettlementView>(db::settlement_by_id(id))
+                .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(id))
                 .await
                 .map_err(|_| "Settlement state unavailable")?
                 .ok_or("Settlement not found")?;
@@ -776,18 +776,18 @@ pub(super) async fn party_religion_knowledge_check(
     let mut checks = Vec::with_capacity(party_members.len());
     for member in living_party_member_refs(party_members) {
         let skills =
-            query_single::<CharacterSkills>(state, db::character_skills_by_character_id(member.id.into()))
+            query_single::<CharacterSkills>(state, db::character_skills_by_character_id(member.id))
                 .await;
         let attributes = query_single::<CharacterAttributes>(
             state,
-            db::character_attributes_by_character_id(member.id.into()),
+            db::character_attributes_by_character_id(member.id),
         )
         .await;
         let limbs =
-            query_single::<CharacterLimbs>(state, db::character_limbs_by_character_id(member.id.into()))
+            query_single::<CharacterLimbs>(state, db::character_limbs_by_character_id(member.id))
                 .await;
         let stats =
-            query_single::<CharacterStats>(state, db::character_stats_by_character_id(member.id.into()))
+            query_single::<CharacterStats>(state, db::character_stats_by_character_id(member.id))
                 .await;
         if let (Some(skills), Some(attributes), Some(limbs), Some(stats)) =
             (skills, attributes, limbs, stats)

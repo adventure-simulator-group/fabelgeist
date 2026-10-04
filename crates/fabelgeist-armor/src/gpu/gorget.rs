@@ -45,7 +45,7 @@ const PLATES: &str = r#"
 const FLUTED: u32 = 0u;
 const COLLAR_START: u32 = 1u;
 // The collar's lowest band is formed into the bib as one sheet.
-const COLLAR_ROWS_FRACTION: f32 = 1.0 / 3.0;
+
 
 fn shell_pass(index: u32, coord: vec4<f32>) -> u32 {
     return 0u;
@@ -164,26 +164,34 @@ pub fn record_gorget_plates(
     let kernel = CoordKernel::new(
         gpu,
         &format!(
-            "const FLUTE: u32 = {FLUTE_WORDS_AT}u;
-{cage}{flutes}{PLATES}"
+            "const COLLAR_ROWS_FRACTION: f32 = {};
+const FLUTE: u32 = {FLUTE_WORDS_AT}u;
+{cage}{flutes}{PLATES}",
+            crate::GORGET_FORMED_COLLAR_FRACTION
         ),
     )?;
     let mut part = PartRecipe::new();
-    part.push_coord(
+    let bib_columns = columns(design, design.fluting.as_ref());
+    part.push_grid_coord(
         plate(
-            &columns(design, design.fluting.as_ref()),
+            &bib_columns,
             BIB_ROWS,
             gauge,
             CoordExtrusion::AngleWeightedNormal,
             [0.0; 4],
         ),
         kernel.clone(),
+        super::part::GridShape {
+            rows: (BIB_ROWS + 1) as u32,
+            columns: bib_columns.len() as u32,
+            cyclic: true,
+        },
     )?;
     let lame_columns = columns(design, None);
     for lame in 0..count - 1 {
         let start = lame as f32 / count as f32;
         let end = (lame as f32 + 1.0 + LAP_FRACTION) / count as f32;
-        part.push_coord(
+        part.push_grid_coord(
             plate(
                 &lame_columns,
                 LAME_ROWS,
@@ -195,6 +203,11 @@ pub fn record_gorget_plates(
                 [1.0, start, end, gauge * 1.5 * (count - lame - 1) as f32],
             ),
             kernel.clone(),
+            super::part::GridShape {
+                rows: (LAME_ROWS + 1) as u32,
+                columns: lame_columns.len() as u32,
+                cyclic: true,
+            },
         )?;
     }
     let mut floats = vec![

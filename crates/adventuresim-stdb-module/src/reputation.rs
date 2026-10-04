@@ -92,7 +92,7 @@ pub(crate) fn case_resolution_participant_ids(
     ctx: &ReducerContext,
     public_case_id: &str,
     party_id: &str,
-) -> Vec<adventuresim_core::identity::CharacterId> {
+) -> Vec<u64> {
     let battle_character_ids = ctx
         .db
         .backend_case_battle_authority()
@@ -103,9 +103,7 @@ pub(crate) fn case_resolution_participant_ids(
                 .battle_participant()
                 .participant_battle_id()
                 .filter(&battle.battle_id)
-                .map(|participant| {
-                    adventuresim_core::identity::CharacterId::from(participant.character_id)
-                })
+                .map(|participant| participant.character_id)
                 .collect::<Vec<_>>()
         })
         .collect::<Vec<_>>();
@@ -123,7 +121,7 @@ pub(crate) fn case_resolution_participant_ids(
 pub(crate) fn snapshot_case_resolution_participant(
     ctx: &ReducerContext,
     canonical_case_id: &str,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     party_id: &str,
     minute: StrategicMinute,
 ) {
@@ -140,7 +138,7 @@ pub(crate) fn snapshot_case_resolution_participant(
             .insert(CaseReputationParticipant {
                 id: snapshot_id,
                 case_id: canonical_case_id.to_owned(),
-                character_id: u64::from(character_id),
+                character_id,
                 party_id: party_id.to_owned(),
                 captured_at_minute: minute,
             });
@@ -152,7 +150,7 @@ pub(crate) fn snapshot_case_resolution_participant(
 pub fn record_discovered_offense(
     ctx: &ReducerContext,
     id: String,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     settlement_id: &str,
     kind: &str,
     severity: u8,
@@ -161,7 +159,7 @@ pub fn record_discovered_offense(
     if ctx.db.discovered_offense().id().find(&id).is_none() {
         ctx.db.discovered_offense().insert(DiscoveredOffense {
             id,
-            character_id: u64::from(character_id),
+            character_id,
             settlement_id: settlement_id.to_owned(),
             kind: kind.to_owned(),
             severity: severity.clamp(1, 5),
@@ -173,14 +171,14 @@ pub fn record_discovered_offense(
 
 pub fn unsettled_local_offenses(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     settlement_id: &str,
 ) -> Vec<DiscoveredOffense> {
     let mut offenses = ctx
         .db
         .discovered_offense()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .filter(|offense| offense.settlement_id == settlement_id && !offense.settled)
         .collect::<Vec<_>>();
     offenses.sort_by(|left, right| {
@@ -192,10 +190,10 @@ pub fn unsettled_local_offenses(
 pub fn snapshot_arrest_charges(
     ctx: &ReducerContext,
     incident_id: &str,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     settlement_id: &str,
 ) -> usize {
-    let offenses = unsettled_local_offenses(ctx, (character_id).into(), settlement_id);
+    let offenses = unsettled_local_offenses(ctx, character_id, settlement_id);
     for offense in &offenses {
         let id = format!("{incident_id}:{}", offense.id);
         if ctx.db.authority_arrest_charge().id().find(&id).is_none() {
@@ -204,7 +202,7 @@ pub fn snapshot_arrest_charges(
                 .insert(AuthorityArrestCharge {
                     id,
                     incident_id: incident_id.to_owned(),
-                    character_id: u64::from(character_id),
+                    character_id,
                     settlement_id: settlement_id.to_owned(),
                     offense_id: offense.id.clone(),
                 });
@@ -245,10 +243,7 @@ pub fn settle_offenses(ctx: &ReducerContext, offenses: Vec<DiscoveredOffense>) {
     }
 }
 
-pub fn aggregate_id(
-    character_id: adventuresim_core::identity::CharacterId,
-    settlement_id: &str,
-) -> String {
+pub fn aggregate_id(character_id: u64, settlement_id: &str) -> String {
     format!("{character_id}:{settlement_id}")
 }
 
@@ -263,7 +258,7 @@ pub fn aggregate_id(
 pub fn record_event(
     ctx: &ReducerContext,
     event_id: String,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     origin_settlement_id: &str,
     source_kind: &str,
     source_id: &str,
@@ -316,7 +311,7 @@ pub fn record_event(
     );
     ctx.db.reputation_event().insert(ReputationEvent {
         id: event_id.clone(),
-        character_id: u64::from(character_id),
+        character_id,
         origin_settlement_id: origin_settlement_id.to_owned(),
         source_kind: source_kind.to_owned(),
         source_id: source_id.to_owned(),
@@ -325,7 +320,7 @@ pub fn record_event(
         occurred_at_minute,
     });
     for contribution in projected {
-        let aggregate_id = aggregate_id((character_id).into(), &contribution.settlement_id);
+        let aggregate_id = aggregate_id(character_id, &contribution.settlement_id);
         let existing = ctx
             .db
             .character_settlement_reputation()
@@ -333,7 +328,7 @@ pub fn record_event(
             .find(&aggregate_id);
         let mut aggregate = existing.clone().unwrap_or(CharacterSettlementReputation {
             id: aggregate_id,
-            character_id: u64::from(character_id),
+            character_id,
             settlement_id: contribution.settlement_id.clone(),
             fame: 0,
             infamy: 0,
@@ -354,13 +349,13 @@ pub fn record_event(
 
 pub fn local_reputation(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     settlement_id: &str,
 ) -> (i32, i32) {
     ctx.db
         .character_settlement_reputation()
         .id()
-        .find(aggregate_id((character_id).into(), settlement_id))
+        .find(aggregate_id(character_id, settlement_id))
         .map_or((0, 0), |row| (row.fame, row.infamy))
 }
 

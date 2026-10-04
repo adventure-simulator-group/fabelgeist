@@ -201,19 +201,19 @@ pub fn item_stock_category(id: &str, kind: CatalogKind) -> Option<Stock> {
         CatalogKind::Clothing => Stock::Cloth,
         CatalogKind::Ingredient | CatalogKind::Medication => Stock::Herbs,
         CatalogKind::Simple
-            if crate::item_catalog::definition(&(id).into())
+            if crate::item_catalog::definition(id)
                 .is_some_and(|item| item.tags.iter().any(|tag| tag == "cooking_tool")) =>
         {
             Stock::Metalwares
         }
         CatalogKind::Simple
-            if crate::item_catalog::definition(&(id).into())
+            if crate::item_catalog::definition(id)
                 .is_some_and(|item| item.capabilities.book.is_some()) =>
         {
             Stock::Books
         }
         CatalogKind::Simple => Stock::GeneralGoods,
-        CatalogKind::Food => crate::item_catalog::definition(&(id).into())
+        CatalogKind::Food => crate::item_catalog::definition(id)
             .and_then(|item| {
                 [
                     ("stock_grain", Stock::Grain),
@@ -263,7 +263,7 @@ pub fn storefront_stocks(
     // commodity profile: the travel planner must never direct a player to an
     // exposed storefront that cannot sell the provisions it just recommended.
     if matches!(storefront, Storefront::General | Storefront::Inn)
-        && crate::item_catalog::definition(&(id).into())
+        && crate::item_catalog::definition(id)
             .is_some_and(|item| item.tags.iter().any(|tag| tag == "travel_provision"))
     {
         return true;
@@ -284,7 +284,7 @@ pub fn storefront_stocks(
                         | CatalogKind::Armor
                         | CatalogKind::Clothing
                         | CatalogKind::Food
-                ) && crate::item_catalog::definition(&(id).into())
+                ) && crate::item_catalog::definition(id)
                     .is_none_or(|item| item.capabilities.book.is_none())
             }
             Storefront::Weapons => matches!(kind, CatalogKind::Weapon | CatalogKind::Shield),
@@ -295,14 +295,13 @@ pub fn storefront_stocks(
                 CatalogKind::Ingredient | CatalogKind::Medication | CatalogKind::Food
             ),
             Storefront::Inn => {
-                (matches!(kind, CatalogKind::Food)
-                    || crate::food::definition(&(id).into()).is_some())
-                    || crate::item_catalog::definition(&(id).into())
+                (matches!(kind, CatalogKind::Food) || crate::food::definition(id).is_some())
+                    || crate::item_catalog::definition(id)
                         .is_some_and(|item| item.tags.iter().any(|tag| tag == "cooking_tool"))
             }
             Storefront::Books => {
                 kind == CatalogKind::Simple
-                    && crate::item_catalog::definition(&(id).into())
+                    && crate::item_catalog::definition(id)
                         .is_some_and(|item| item.capabilities.book.is_some())
             }
         }

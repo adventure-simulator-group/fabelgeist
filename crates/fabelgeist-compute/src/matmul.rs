@@ -38,8 +38,8 @@ impl MatMulDefinition {
                 output[global_id.x] = input_a[global_id.x];
             }
         ";
-        let shader = ComputeShader::new(context, ShaderSource::from(shader_code.to_string()))?;
-        let pipeline = ComputePipeline::new(context, shader)?;
+        let shader = ComputeShader::new(context, shader_code.to_string())?;
+        let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
 
         let mut cache = self.cache.write().unwrap();
         *cache = Some(pipeline.clone());
@@ -61,28 +61,25 @@ impl MatMul {
 
         let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
         match input_a {
-            GpuResource::Buffer(b) => parameters.insert("input_a".into(), (b.clone()).into()),
+            GpuResource::Buffer(b) => parameters.insert("input_a", b.clone()),
             _ => return Err(anyhow::anyhow!("MatMul input_a must be a buffer")),
         }
         match input_b {
-            GpuResource::Buffer(b) => parameters.insert("input_b".into(), (b.clone()).into()),
+            GpuResource::Buffer(b) => parameters.insert("input_b", b.clone()),
             _ => return Err(anyhow::anyhow!("MatMul input_b must be a buffer")),
         }
         match output {
-            GpuResource::Buffer(b) => parameters.insert("output".into(), (b.clone()).into()),
+            GpuResource::Buffer(b) => parameters.insert("output", b.clone()),
             _ => return Err(anyhow::anyhow!("MatMul output must be a buffer")),
         }
 
         let wg_x = match output {
-            GpuResource::Buffer(b) => ((u64::from(b.length()) / 4) as u32).div_ceil(64),
+            GpuResource::Buffer(b) => ((b.size / 4) as u32).div_ceil(64),
             _ => 1,
         };
 
         fabelgeist_gpu::data::gpu::ComputePass::dispatch(
-            context,
-            pipeline,
-            parameters,
-            fabelgeist_gpu::prelude::WorkgroupGrid::from((wg_x, 1, 1)),
+            context, pipeline, parameters, wg_x, 1, 1,
         )?;
 
         Ok(())

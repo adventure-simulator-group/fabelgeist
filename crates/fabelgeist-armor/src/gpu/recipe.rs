@@ -2,7 +2,6 @@
 
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
-use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::chart::{self, ChartInputs, ChartKernel, ChartSlots, PlateChart};
 use super::coord::{self, CoordKernel, CoordShell};
@@ -50,6 +49,26 @@ impl PartRecipe {
         Ok(())
     }
 
+    /// Preserve an explicitly authored coordinate grid in the exported shell.
+    pub(crate) fn push_grid_coord(
+        &mut self,
+        shell: CoordShell,
+        kernel: CoordKernel,
+        grid: super::part::GridShape,
+    ) -> Result<(), GenerateError> {
+        if grid.rows < 2
+            || grid.columns < 2
+            || grid.rows.checked_mul(grid.columns) != u32::try_from(shell.coords.len()).ok()
+        {
+            return Err(GenerateError::InvalidSurface);
+        }
+        let mut spec = shell.spec();
+        spec.grid = Some(grid);
+        let index = self.layout.push(spec)?;
+        self.shells.push((index, RecipeShell::Coord(shell, kernel)));
+        Ok(())
+    }
+
     /// A slot for a hinge that a later coordinate shell will place.
     pub(crate) fn hinge(&mut self) -> HingeSlot {
         self.hinges += 1;
@@ -61,6 +80,12 @@ impl PartRecipe {
         self.layout.component(role, hinge);
     }
 
+    /// Tag and connect the newly authored plate in proximal-to-distal order.
+    pub(crate) fn mounted_component(&mut self, role: ArmorComponentRole, mount: crate::PlateMount) {
+        self.component(role, None);
+        self.layout.mount(mount);
+    }
+
     /// Allocate the part and record every shell into its carriers.
     pub(crate) fn record(
         self,
@@ -70,7 +95,7 @@ impl PartRecipe {
         frames: &[&Buffer],
     ) -> Result<DevicePart, GenerateError> {
         let build = PartBuild::new(gpu, self.layout, self.hinges)?;
-        let design = gpu.upload(BufferUpload::from_elements(design))?;
+        let design = gpu.upload(design)?;
         let inputs = ChartInputs {
             design: &design,
             frames,
@@ -81,7 +106,7 @@ impl PartRecipe {
                     chart::record(gpu, batch, &build, *shell, chart, slots, kernel, &inputs)?;
                 }
                 RecipeShell::Coord(coord_shell, kernel) => {
-                    let coords = gpu.upload(BufferUpload::from_elements(&coord_shell.coords))?;
+                    let coords = gpu.upload(&coord_shell.coords)?;
                     coord::record(
                         batch,
                         &build,
@@ -106,8 +131,8 @@ impl PartRecipe {
         frame: &PartFrame,
     ) -> Result<BuiltPart, GenerateError> {
         frame.validate()?;
-        let frames = gpu.upload(BufferUpload::from_elements(&frame_words(frame)))?;
-        let mut batch = gpu.batch(("armor part").into());
+        let frames = gpu.upload(&frame_words(frame))?;
+        let mut batch = gpu.batch("armor part");
         let mut part = self.record(gpu, &mut batch, design, &[&frames])?;
         part.record_shells(gpu, &mut batch)?;
         batch.submit();

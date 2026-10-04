@@ -145,14 +145,14 @@ pub(crate) fn enrich(mut world: CompiledWorld, terrain: &TerrainPack) -> Result<
         let mut geometry = plan
             .points
             .iter()
-            .map(|p| TravelGeometryPoint::new(p.longitude, p.latitude).map_err(Error::from))
+            .map(|p| TravelGeometryPoint::new(p.longitude, p.latitude).map_err(Error::Validation))
             .collect::<Result<Vec<_>>>()?;
         if geometry.len() < 2 || geometry.len() > MAX_EDGE_GEOMETRY_POINTS {
             continue;
         }
-        geometry[0] = TravelGeometryPoint::new(a.1, a.0).map_err(Error::from)?;
+        geometry[0] = TravelGeometryPoint::new(a.1, a.0).map_err(Error::Validation)?;
         let last = geometry.len() - 1;
-        geometry[last] = TravelGeometryPoint::new(b.1, b.0).map_err(Error::from)?;
+        geometry[last] = TravelGeometryPoint::new(b.1, b.0).map_err(Error::Validation)?;
         let id = stable_id(candidate.from, candidate.to, &existing_ids, &accepted);
         let length_m = geometry
             .windows(2)

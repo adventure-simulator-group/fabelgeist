@@ -49,8 +49,8 @@ struct Params {
 "#;
 
 /// Nearest point of a point set, per query.
-pub(super) fn nearest_points() -> fabelgeist_gpu::prelude::ShaderSource {
-    fabelgeist_gpu::prelude::ShaderSource::from(format!(
+pub(super) fn nearest_points() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> queries: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -105,7 +105,7 @@ fn main(
     }}
 }}
 "#
-    ))
+    )
 }
 
 const TRIANGLES: &str = r#"
@@ -125,8 +125,8 @@ fn load_triangle(id: u32) -> Triangle {
 "#;
 
 /// Closest point on a triangle set, per query, with barycentric weights.
-pub(super) fn closest_triangles() -> fabelgeist_gpu::prelude::ShaderSource {
-    fabelgeist_gpu::prelude::ShaderSource::from(format!(
+pub(super) fn closest_triangles() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> queries: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -236,15 +236,15 @@ fn main(
     }}
 }}
 "#
-    ))
+    )
 }
 
 /// First or last crossing of a ray with a triangle set.
 ///
 /// `mode` 0 keeps the nearest crossing, 1 the farthest; both only within
 /// `[minimum, maximum]` along the ray, in units of the direction's length.
-pub(super) fn ray_triangles() -> fabelgeist_gpu::prelude::ShaderSource {
-    fabelgeist_gpu::prelude::ShaderSource::from(format!(
+pub(super) fn ray_triangles() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> queries: array<f32>;
 @group(0) @binding(1) var<storage, read> directions: array<f32>;
@@ -351,5 +351,5 @@ fn main(
     }}
 }}
 "#
-    ))
+    )
 }

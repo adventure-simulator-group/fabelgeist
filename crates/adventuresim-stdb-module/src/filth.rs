@@ -1,10 +1,5 @@
 //! Durable strategic filth and automatic washing.
 
-mod soap_error;
-use adventuresim_core::identity::InventoryItemId;
-use adventuresim_core::physical_object::CarriedInventoryScope;
-pub(crate) use soap_error::SoapConsumptionError;
-
 mod exposure_windows;
 
 use adventuresim_core::disease::DiseaseId;
@@ -83,13 +78,13 @@ pub struct BloodExposureCheckpoint {
 
 fn predicted_wound_routes(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     allow_healing: bool,
 ) -> Result<Vec<filth::TimedCutRoute>, String> {
     let natural = if allow_healing {
         crate::time::health_recovered_per_day(crate::time::party_physiology_check(
             ctx,
-            (character_id).into(),
+            character_id,
         )?)
     } else {
         0.0
@@ -98,7 +93,7 @@ fn predicted_wound_routes(
         .db
         .limb_injury()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .filter(|injury| injury.cut_damage > 0.0)
         .map(|injury| {
             let state = if injury.stitched {
@@ -118,7 +113,7 @@ fn predicted_wound_routes(
                     .db
                     .retained_projectile()
                     .character_id()
-                    .filter(u64::from(character_id))
+                    .filter(character_id)
                     .any(|projectile| projectile.limb == injury.limb)
                 {
                     crate::surgery::RETAINED_PROJECTILE_HEALING_MULTIPLIER
@@ -144,22 +139,19 @@ fn predicted_wound_routes(
 
 include!("filth/blood_attempts.rs");
 
-pub fn next_travel_dirt_boundary(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-) -> u64 {
+pub fn next_travel_dirt_boundary(ctx: &ReducerContext, character_id: u64) -> u64 {
     let remainder = ctx
         .db
         .travel_filth_progress()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .map_or(0, |row| u64::from(row.remainder_numerator));
     (MINUTES_PER_DAY - remainder).div_ceil(8).max(1)
 }
 
 pub fn record_travel_elapsed(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     minutes: u64,
     at: StrategicMinute,
 ) -> Result<u16, String> {
@@ -167,9 +159,9 @@ pub fn record_travel_elapsed(
         .db
         .travel_filth_progress()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .unwrap_or(TravelFilthProgress {
-            character_id: u64::from(character_id),
+            character_id,
             remainder_numerator: 0,
         });
     let (dirt, remainder) = filth::travel_dirt_accrual(row.remainder_numerator, minutes);
@@ -178,7 +170,7 @@ pub fn record_travel_elapsed(
         .db
         .travel_filth_progress()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .is_some()
     {
         ctx.db.travel_filth_progress().character_id().update(row);
@@ -186,36 +178,26 @@ pub fn record_travel_elapsed(
         ctx.db.travel_filth_progress().insert(row);
     }
     if dirt > 0 {
-        deposit(
-            ctx,
-            (character_id).into(),
-            FilthSubstance::Dirt,
-            None,
-            dirt,
-            at,
-        )?;
+        deposit(ctx, character_id, FilthSubstance::Dirt, None, dirt, at)?;
     }
     Ok(dirt)
 }
 
-fn total(ctx: &ReducerContext, character_id: adventuresim_core::identity::CharacterId) -> u16 {
+fn total(ctx: &ReducerContext, character_id: u64) -> u16 {
     ctx.db
         .character_filth()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .map(|d| d.amount)
         .fold(0u16, u16::saturating_add)
         .min(filth::MAX_FILTH)
 }
 
-pub fn dirt_total(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-) -> u16 {
+pub fn dirt_total(ctx: &ReducerContext, character_id: u64) -> u16 {
     ctx.db
         .character_filth()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .filter(|d| d.substance == FilthSubstance::Dirt)
         .map(|d| d.amount)
         .fold(0u16, u16::saturating_add)
@@ -225,19 +207,19 @@ pub fn dirt_total(
 /// Reusable strategic boundary: callers persist only final dirt/blood outcomes.
 pub fn deposit(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     substance: FilthSubstance,
-    source_character_id: Option<adventuresim_core::identity::CharacterId>,
+    source_character_id: Option<u64>,
     amount: u16,
     at: StrategicMinute,
 ) -> Result<Option<u64>, String> {
-    let amount = filth::bounded_deposit_amount(total(ctx, (character_id).into()), amount);
+    let amount = filth::bounded_deposit_amount(total(ctx, character_id), amount);
     if amount == 0 {
         return Ok(None);
     }
     let row = ctx.db.character_filth().insert(CharacterFilth {
         id: 0,
-        character_id: u64::from(character_id),
+        character_id,
         substance,
         origin: match source_character_id {
             Some(source) if source == character_id => FilthOrigin::Own,
@@ -249,7 +231,7 @@ pub fn deposit(
     });
     ctx.db.filth_provenance().insert(FilthProvenance {
         filth_id: row.id,
-        source_character_id: source_character_id.map(u64::from),
+        source_character_id,
     });
     if substance == FilthSubstance::Blood
         && let Some(source) = source_character_id
@@ -258,15 +240,10 @@ pub fn deposit(
             .db
             .character_attributes()
             .character_id()
-            .find(u64::from(source))
+            .find(source)
             .map_or(3.0, |attributes| attributes.immunity);
         let mut seen = std::collections::BTreeSet::new();
-        for episode in ctx
-            .db
-            .infection_episode()
-            .character_id()
-            .filter(u64::from(source))
-        {
+        for episode in ctx.db.infection_episode().character_id().filter(source) {
             let disease_id = episode
                 .disease_id
                 .parse::<DiseaseId>()
@@ -278,7 +255,7 @@ pub fn deposit(
                     adventuresim_core::disease::evaluate(
                         adventuresim_core::disease::InfectionEpisode {
                             id: episode.id,
-                            character_id: (source).into(),
+                            character_id: source,
                             disease_id,
                             contracted_at: episode.contracted_at,
                             ruleset_version: episode.ruleset_version,
@@ -309,20 +286,20 @@ pub fn deposit(
 
 pub fn deposit_now(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     substance: FilthSubstance,
-    source_character_id: Option<adventuresim_core::identity::CharacterId>,
+    source_character_id: Option<u64>,
     amount: u16,
 ) -> Result<Option<u64>, String> {
     let at = ctx
         .db
         .character_time()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .map_or(StrategicMinute::ZERO, |t| t.minutes);
     deposit(
         ctx,
-        (character_id).into(),
+        character_id,
         substance,
         source_character_id,
         amount,
@@ -330,14 +307,11 @@ pub fn deposit_now(
     )
 }
 
-pub(crate) fn deposits(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-) -> Result<Vec<Deposit>, String> {
+pub(crate) fn deposits(ctx: &ReducerContext, character_id: u64) -> Result<Vec<Deposit>, String> {
     ctx.db
         .character_filth()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .map(|row| -> Result<Deposit, String> {
             let diseases = ctx
                 .db
@@ -363,10 +337,9 @@ pub(crate) fn deposits(
                 .source_character_id;
             Ok(Deposit {
                 id: row.id,
-                character_id: (character_id).into(),
+                character_id,
                 substance: row.substance,
-                source_character_id: (source_character_id)
-                    .map(adventuresim_core::identity::CharacterId::from),
+                source_character_id,
                 amount: row.amount,
                 deposited_at: row.deposited_at,
                 diseases,
@@ -375,11 +348,11 @@ pub(crate) fn deposits(
         .collect()
 }
 
-fn has_cut(ctx: &ReducerContext, character_id: adventuresim_core::identity::CharacterId) -> bool {
+fn has_cut(ctx: &ReducerContext, character_id: u64) -> bool {
     ctx.db
         .limb_injury()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .any(|i| i.cut_damage > 0.0)
 }
 
@@ -389,7 +362,52 @@ pub const SOAP_FRACTION_PER_CLEANSING_POINT:
         filth::SOAP_CLEANSING_CAPACITY as u32,
     );
 
-include!("filth/soap_consumption.rs");
+fn consume_personal(ctx: &ReducerContext, stack_id: u64, points: u32) -> Result<(), String> {
+    let stack = ctx
+        .db
+        .inventory_item()
+        .id()
+        .find(stack_id)
+        .ok_or("Planned personal soap stack is missing")?;
+    if stack.item_id != SOFT_SOAP_ID {
+        return Err("Planned personal stack is not soap".into());
+    }
+    let fraction = SOAP_FRACTION_PER_CLEANSING_POINT
+        .checked_mul(points)
+        .ok_or("Planned personal soap amount overflow")?;
+    crate::inventory_amount::consume_personal(ctx, stack.id, fraction)?;
+    Ok(())
+}
+fn consume_party(ctx: &ReducerContext, stack_id: u64, points: u32) -> Result<(), String> {
+    let stack = ctx
+        .db
+        .party_inventory_item()
+        .id()
+        .find(stack_id)
+        .ok_or("Planned shared soap stack is missing")?;
+    if stack.item_id != SOFT_SOAP_ID {
+        return Err("Planned shared stack is not soap".into());
+    }
+    let fraction = SOAP_FRACTION_PER_CLEANSING_POINT
+        .checked_mul(points)
+        .ok_or("Planned shared soap amount overflow")?;
+    crate::inventory_amount::consume_party(ctx, stack.id, fraction)?;
+    Ok(())
+}
+
+pub fn consume_personal_soap_points(
+    ctx: &ReducerContext,
+    stack_id: u64,
+    points: u32,
+) -> Result<(), String> {
+    let required = SOAP_FRACTION_PER_CLEANSING_POINT
+        .checked_mul(points)
+        .ok_or("Requested soap amount overflow")?;
+    if crate::inventory_amount::personal_fraction(ctx, stack_id).unwrap_or_default() < required {
+        return Err("Not enough soap remains for the requested use".into());
+    }
+    consume_personal(ctx, stack_id, points)
+}
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct WashSummary {
@@ -400,7 +418,7 @@ pub struct WashSummary {
 }
 
 struct PlannedCharacterWash {
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     plan: filth::WashPlan,
 }
 
@@ -426,10 +444,10 @@ fn take_units(pool: &mut [WashStack], mut wanted: u32) -> Vec<WashStack> {
 
 fn plan_party_wash(
     ctx: &ReducerContext,
-    character_ids: &[adventuresim_core::identity::CharacterId],
+    character_ids: &[u64],
 ) -> Result<(Vec<PlannedCharacterWash>, WashSummary), String> {
     struct Subject {
-        id: adventuresim_core::identity::CharacterId,
+        id: u64,
         dirty: Vec<Deposit>,
         cut: bool,
         assigned: Vec<WashStack>,
@@ -442,13 +460,13 @@ fn plan_party_wash(
             .db
             .character()
             .id()
-            .find(u64::from(id))
+            .find(id)
             .ok_or("Character not found")?;
         if !character.alive {
             continue;
         }
         party_id = party_id.or(character.party_id.clone());
-        let dirty = deposits(ctx, (id).into())?;
+        let dirty = deposits(ctx, id)?;
         if dirty.is_empty() {
             continue;
         }
@@ -457,7 +475,7 @@ fn plan_party_wash(
             .db
             .inventory_item()
             .character_and_item_id()
-            .filter((u64::from(id), SOFT_SOAP_ID))
+            .filter((id, SOFT_SOAP_ID))
             .map(|stack| WashStack {
                 key: SoapStackId {
                     source: SoapSource::Personal,
@@ -473,7 +491,7 @@ fn plan_party_wash(
         let personal_used = assigned.iter().map(|stack| stack.quantity).sum::<u32>();
         subjects.push(Subject {
             id,
-            cut: has_cut(ctx, (id).into()),
+            cut: has_cut(ctx, id),
             dirty,
             assigned,
             remaining: needed.saturating_sub(personal_used),
@@ -504,19 +522,16 @@ fn plan_party_wash(
                 .db
                 .character_time()
                 .character_id()
-                .find(u64::from(subject.id))
+                .find(subject.id)
                 .map_or(StrategicMinute::ZERO, |t| t.minutes);
             let exposure = filth::blood_exposure(
                 &subject.dirty,
                 adventuresim_core::disease::DiseaseId::Plague,
                 now,
-                filth::timed_cut_exposure(
-                    &predicted_wound_routes(ctx, (subject.id).into(), false)?,
-                    0,
-                ),
+                filth::timed_cut_exposure(&predicted_wound_routes(ctx, subject.id, false)?, 0),
             );
             Ok::<_, String>(filth::wash_priority(
-                (subject.id).into(),
+                subject.id,
                 &subject.dirty,
                 subject.cut,
                 exposure,
@@ -527,9 +542,7 @@ fn plan_party_wash(
     for priority in priorities {
         let subject = subjects
             .iter_mut()
-            .find(|subject| {
-                adventuresim_core::identity::CharacterId::from(subject.id) == priority.character_id
-            })
+            .find(|subject| subject.id == priority.character_id)
             .unwrap();
         let assigned = take_units(&mut shared, subject.remaining);
         let used = assigned.iter().map(|stack| stack.quantity).sum::<u32>();
@@ -561,14 +574,14 @@ fn plan_party_wash(
 
 pub fn preview_party_wash(
     ctx: &ReducerContext,
-    character_ids: &[adventuresim_core::identity::CharacterId],
+    character_ids: &[u64],
 ) -> Result<WashSummary, String> {
     plan_party_wash(ctx, character_ids).map(|(_, summary)| summary)
 }
 
 pub fn wash_party_before_explicit_rest(
     ctx: &ReducerContext,
-    character_ids: &[adventuresim_core::identity::CharacterId],
+    character_ids: &[u64],
 ) -> Result<WashSummary, String> {
     let (planned, summary) = plan_party_wash(ctx, character_ids)?;
     // Preflight exact tagged identities before the first mutation.
@@ -610,17 +623,14 @@ pub fn wash_party_before_explicit_rest(
     }
     for (key, quantity) in &summary.stacks {
         match key.source {
-            SoapSource::Personal => consume_personal(ctx, key.id.into(), *quantity)?,
-            SoapSource::Party => consume_party(ctx, key.id.into(), *quantity)?,
+            SoapSource::Personal => consume_personal(ctx, key.id, *quantity)?,
+            SoapSource::Party => consume_party(ctx, key.id, *quantity)?,
         }
     }
     for character in planned {
         for (id, removed) in character.plan.cleaned_deposits {
             if let Some(mut row) = ctx.db.character_filth().id().find(id) {
-                if adventuresim_core::identity::CharacterId::from(row.character_id)
-                    != character.character_id
-                    || row.amount < removed
-                {
+                if row.character_id != character.character_id || row.amount < removed {
                     return Err("Planned filth deposit changed before washing".into());
                 }
                 row.amount = row
@@ -651,10 +661,7 @@ pub fn wash_party_before_explicit_rest(
 }
 
 /// Single-character settlement rest wrapper.
-pub fn wash_before_explicit_rest(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-) -> Result<u32, String> {
+pub fn wash_before_explicit_rest(ctx: &ReducerContext, character_id: u64) -> Result<u32, String> {
     Ok(wash_party_before_explicit_rest(ctx, &[character_id])?.total_units)
 }
 
@@ -728,7 +735,7 @@ pub(crate) fn seed_demo(
     }
     deposit(
         ctx,
-        (character_id).into(),
+        character_id,
         FilthSubstance::Dirt,
         None,
         38,
@@ -736,11 +743,9 @@ pub(crate) fn seed_demo(
     )?;
     deposit(
         ctx,
-        (character_id).into(),
+        character_id,
         FilthSubstance::Blood,
-        Some(adventuresim_core::identity::CharacterId::from(
-            foreign_source_id,
-        )),
+        Some(foreign_source_id),
         27,
         StrategicMinute::new(86_200),
     )?;
@@ -758,12 +763,7 @@ pub(crate) fn seed_demo(
         .map(|row| row.quantity)
         .sum::<u32>();
     if existing < 3 {
-        crate::add_inventory_item(
-            ctx,
-            character_id.into(),
-            &(SOFT_SOAP_ID).into(),
-            (3 - existing).into(),
-        );
+        crate::add_inventory_item(ctx, character_id, SOFT_SOAP_ID, 3 - existing);
     }
     Ok(())
 }

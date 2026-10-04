@@ -12,7 +12,7 @@ pub(super) fn choose_age(
     input: &GenerationInput,
     context: &str,
     candidates: &[RelationCandidate<AgeBand>],
-) -> Result<(AgeBand, RelationDecision), PopulationError> {
+) -> Result<(AgeBand, RelationDecision), String> {
     if let Some(age) = input.age {
         return Ok((
             age,

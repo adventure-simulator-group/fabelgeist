@@ -5,14 +5,13 @@ use adventuresim_character_creator::{
     device_torso::{TorsoSurfaceInput, generate_breastplate_on_device},
 };
 use fabelgeist_armor::{ArmorGpu, BreastplateDesign};
-use fabelgeist_rig::RigJointName;
 
 struct TorsoFixture {
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     texcoords: Vec<[f32; 2]>,
-    joint_names: Vec<RigJointName>,
+    joint_names: Vec<String>,
     states: Vec<[f32; 8]>,
     indices: Vec<[u32; 8]>,
     weights: Vec<[f32; 8]>,

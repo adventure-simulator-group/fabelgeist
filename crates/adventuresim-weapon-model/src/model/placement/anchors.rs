@@ -1,6 +1,5 @@
 //! Rotated attachment anchors and registration of component frames.
 use super::*;
-use crate::ConstructionError;
 pub(super) fn attached(
     component: &mut Component,
     frames: &BTreeMap<String, Point>,
@@ -9,41 +8,37 @@ pub(super) fn attached(
     local: Point,
     range: [f64; 2],
     mut offset: Point,
-) -> Result<Point, ConstructionError> {
+) -> Result<Point, String> {
     let id = component.id.as_deref().unwrap();
     if let Some(stretch) = &component.stretch_between {
         if magnitude(local) > 1e-8 {
-            return Err(ConstructionError::StretchedStartEndMeetDeclaredFrames);
+            return Err("stretched start and end must meet their declared frames".into());
         }
         let from = *frames
             .get(&stretch[0])
-            .ok_or(ConstructionError::MissingStretchSourceFrame)?;
+            .ok_or("missing stretch source frame")?;
         let to = *frames
             .get(&stretch[1])
-            .ok_or(ConstructionError::MissingStretchTargetFrame)?;
+            .ok_or("missing stretch target frame")?;
         if to[1] <= from[1] {
-            return Err(ConstructionError::StretchTargetLieAboveSource);
+            return Err("stretch target must lie above source".into());
         }
         let Shape::KnuckleBow(p) = &mut component.shape else {
-            return Err(ConstructionError::StretchBetweenRequiresKnuckleBow);
+            return Err("stretchBetween requires knuckle bow".into());
         };
         p.length = Metres::new(to[1] - from[1])?;
         offset = add(from, local);
     } else if let Some(attachment) = &component.attach {
-        let target =
-            *frames
-                .get(&attachment.to)
-                .ok_or_else(|| ConstructionError::MissingFrame {
-                    component: id.into(),
-                    frame: attachment.to.clone(),
-                })?;
+        let target = *frames
+            .get(&attachment.to)
+            .ok_or_else(|| format!("{id}: missing frame {}", attachment.to))?;
         let anchor = component
             .shape
             .attachment_anchor(attachment.at.unwrap_or_default(), range)?;
         let (owner, name) = attachment
             .to
             .rsplit_once('.')
-            .ok_or(ConstructionError::FrameNeedsOwnerName)?;
+            .ok_or("frame needs owner and name")?;
         let inward = rotate(
             [
                 0.0,
@@ -58,7 +53,7 @@ pub(super) fn attached(
         );
         let overlap = attachment.overlap.map_or(0.0, Metres::get);
         if overlap < 0.0 {
-            return Err(ConstructionError::AttachmentOverlapCannotNegative);
+            return Err("attachment overlap cannot be negative".into());
         }
         let expected = add(
             add(
@@ -80,7 +75,7 @@ pub(super) fn register(
     offset: Point,
     frames: &mut BTreeMap<String, Point>,
     rotations: &mut BTreeMap<String, Point>,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     for (name, y) in [
         ("base", range[0]),
         ("bottom", range[0]),

@@ -31,8 +31,18 @@ pub fn fit_underlayer(
     body: &UnderlayerBody<'_>,
     morphs: &[(&str, BodyShape<'_>)],
 ) -> Result<GeneratedArmor> {
+    pollster::block_on(fit_underlayer_async(gpu, design, placement, body, morphs))
+}
+
+pub async fn fit_underlayer_async(
+    gpu: &ArmorGpu,
+    design: &UnderlayerDesign,
+    placement: &str,
+    body: &UnderlayerBody<'_>,
+    morphs: &[(&str, BodyShape<'_>)],
+) -> Result<GeneratedArmor> {
     let shapes = morphs.iter().map(|(_, shape)| *shape).collect::<Vec<_>>();
-    let fitted = device_underlayer::fit(
+    let fitted = device_underlayer::fit_async(
         gpu,
         design,
         placement,
@@ -40,7 +50,8 @@ pub fn fit_underlayer(
         body.domain,
         body.proportions,
         &shapes,
-    )?;
+    )
+    .await?;
     let base = fitted.base;
     let (vertex_count, index_count) = (base.positions.len(), fitted.indices.len());
     let targets = morphs
@@ -85,6 +96,7 @@ fn fabric_component(
         vertices: 0..vertex_count,
         indices: 0..index_count,
         hinge: None,
+        mount: None,
         material: Some(design.color.material()),
     }]
 }
@@ -92,6 +104,16 @@ fn fabric_component(
 /// Fit trunk hose as a quilted layer over the hips and alternate its
 /// vertical panes between the two fabrics.
 pub fn fit_trunk_hose(
+    gpu: &ArmorGpu,
+    design: &TrunkHoseDesign,
+    placement: &str,
+    body: &UnderlayerBody<'_>,
+    morphs: &[(&str, BodyShape<'_>)],
+) -> Result<GeneratedArmor> {
+    pollster::block_on(fit_trunk_hose_async(gpu, design, placement, body, morphs))
+}
+
+pub async fn fit_trunk_hose_async(
     gpu: &ArmorGpu,
     design: &TrunkHoseDesign,
     placement: &str,
@@ -109,7 +131,7 @@ pub fn fit_trunk_hose(
         patch_width: Millimeters(80),
         cuts: Vec::new(),
     };
-    let mut armor = fit_underlayer(gpu, &carrier, placement, body, morphs)?;
+    let mut armor = fit_underlayer_async(gpu, &carrier, placement, body, morphs).await?;
     armor.design_hash = fabelgeist_armor::parametric_design_hash(&serde_json::to_vec(design)?);
     apply_trunk_hose_panes(&mut armor, design);
     Ok(armor)
@@ -156,6 +178,7 @@ fn apply_trunk_hose_panes(armor: &mut GeneratedArmor, design: &TrunkHoseDesign) 
         vertices: 0..armor.positions.len(),
         indices,
         hinge: None,
+        mount: None,
         material: Some(color.material()),
     })
     .collect();

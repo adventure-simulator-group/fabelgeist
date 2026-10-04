@@ -139,9 +139,7 @@ impl LiveRunner {
                     .backend_character_times()
                     .iter()
                     .find(|row| row.character_id == character_id)
-                    .map_or(StrategicMinute::ZERO, |row| {
-                        StrategicMinute::new(row.minutes.minutes)
-                    });
+                    .map_or(StrategicMinute::ZERO, |row| StrategicMinute::new(row.minutes.minutes));
                 let survival = self
                     .public_survival_observation(character_id)
                     .unwrap_or_default();
@@ -189,7 +187,7 @@ impl LiveRunner {
             .iter()
             .filter(|row| {
                 member_ids.contains(&row.character_id)
-                    && OperationalCustody::character((row.character_id).into())
+                    && OperationalCustody::character(row.character_id)
                         .is_ok_and(|custody| self.public_row_is_carried(&custody, row.id))
             })
             .map(|row| row.id)
@@ -224,7 +222,7 @@ impl LiveRunner {
             .sum();
         let contained_water_ml = member_ids
             .iter()
-            .filter_map(|character_id| OperationalCustody::character((*character_id).into()).ok())
+            .filter_map(|character_id| OperationalCustody::character(*character_id).ok())
             .map(|custody| self.public_contained_water_ml(&custody))
             .sum::<f32>()
             + party_custody
@@ -596,7 +594,8 @@ impl LiveRunner {
         party_id: &str,
     ) -> Result<Option<ExpeditionRecoveryOutcome>, String> {
         let party = self.party_by_id(party_id)?;
-        let Some(current_site_id) = party.current_case_site_id.clone() else {
+        let Some(current_site_id) = party.current_case_site_id.clone()
+        else {
             return Ok(None);
         };
         // A persisted journey, accepted direct contract, or unresolved generated
@@ -620,7 +619,8 @@ impl LiveRunner {
             .backend_case_site_pins()
             .iter()
             .filter(|pin| {
-                member_ids.contains(&pin.owner_character_id) && pin.case_site_id == current_site_id
+                member_ids.contains(&pin.owner_character_id)
+                    && pin.case_site_id == current_site_id
             })
             .collect::<Vec<_>>();
         if pins
@@ -1208,13 +1208,10 @@ impl LiveRunner {
             },
         );
         if !self.public_journey_is_evacuation(party_id) {
-            let result = reducer_call!(self, ReducerOperation::ExpeditionHealthEvacuation, |cb| {
-                self.connection.reducers.travel_to_settlement_then(
-                    evacuation_actor_id,
-                    return_settlement.clone(),
-                    cb,
-                )
-            });
+            let result = reducer_call!(self, ReducerOperation::ExpeditionHealthEvacuation, |cb| self
+                .connection
+                .reducers
+                .travel_to_settlement_then(evacuation_actor_id, return_settlement.clone(), cb));
             self.call(result)?;
         }
         if self.travel_camps(party_id)? != JourneyTravelOutcome::Completed {

@@ -18,21 +18,16 @@ impl PreparedResident {
     fn new(draft: &ResidentDraft) -> Result<Self, String> {
         let provider = draft.business_id.is_some() || draft.service.is_some();
         let input = GenerationInput {
-            seed: draft.seed.clone().into(),
+            seed: draft.seed.clone(),
             location: location_context(&draft.location)?,
-            role: if provider {
-                population::PopulationRole::ServiceProvider {
-                    profession: draft.profession.clone(),
-                    service_id: draft.service.clone(),
-                }
-            } else {
-                population::PopulationRole::Resident
-            },
+            is_service_provider: provider,
+            service_id: draft.service.clone(),
+            profession_override: provider.then(|| draft.profession.clone()),
             local_role: draft.role.clone(),
             age: draft.exact_age.map(AgeBand::for_years),
             available_bridges: BTreeSet::from(RESIDENT_BRIDGES),
         };
-        let profile = population::generate(&input).map_err(|error| error.to_string())?;
+        let profile = population::generate(&input)?;
         let age_band = profile.age;
         Ok(Self {
             input,

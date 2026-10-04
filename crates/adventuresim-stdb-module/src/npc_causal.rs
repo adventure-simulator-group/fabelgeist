@@ -6,7 +6,7 @@
 //! from changing causal order.
 
 use adventuresim_core::courtship::ADULT_AGE_YEARS;
-use adventuresim_world_schema::calendar::{StrategicDayIndex, StrategicMinute};
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, ScheduleAt, SpacetimeType, Table, TimeDuration, reducer, table};
 
 use crate::CharacterTime;
@@ -122,14 +122,14 @@ fn stable_npc_cohort(
     candidates
 }
 
-fn receipt_id(character_id: u64, day: StrategicDayIndex, phase: NpcPolicyDecisionPhase) -> String {
+fn receipt_id(character_id: u64, day: u64, phase: NpcPolicyDecisionPhase) -> String {
     format!("npc-policy:{character_id}:{day}:{}", phase.stable_id())
 }
 
 fn phase_already_decided(
     ctx: &ReducerContext,
     character_id: u64,
-    day: StrategicDayIndex,
+    day: u64,
     phase: NpcPolicyDecisionPhase,
 ) -> bool {
     ctx.db
@@ -142,7 +142,7 @@ fn phase_already_decided(
 fn record_decision(
     ctx: &ReducerContext,
     character_id: u64,
-    day: StrategicDayIndex,
+    day: u64,
     phase: NpcPolicyDecisionPhase,
     outcome: NpcPolicyDecisionOutcome,
     target_character_id: Option<u64>,
@@ -161,7 +161,7 @@ fn record_decision(
             .insert(NpcPolicyDecisionReceipt {
                 id,
                 character_id,
-                day: u64::from(day),
+                day,
                 phase,
                 outcome,
                 target_character_id,
@@ -201,7 +201,7 @@ fn initialize_saved_schedule_once(
     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Schedule) {
         return Ok(());
     }
-    let age_years = crate::relationship::effective_age_years(ctx, (character_id).into(), minute)
+    let age_years = crate::relationship::effective_age_years(ctx, character_id, minute)
         .ok_or("NPC policy character is missing age chronology")?;
     if age_years < ADULT_AGE_YEARS {
         // Dependents retain the empty schedule created with their full
@@ -432,7 +432,7 @@ fn settle_romance_decision(
 fn stable_romance_candidates(
     character_id: u64,
     policy_seed: u64,
-    day: StrategicDayIndex,
+    day: u64,
     candidates: impl IntoIterator<Item = adventuresim_core::npc_policy::NpcCandidate>,
 ) -> Result<Vec<adventuresim_core::npc_policy::NpcCandidate>, String> {
     adventuresim_core::npc_policy::stable_candidate_order(
@@ -485,8 +485,7 @@ pub fn run_npc_causal_tick(
     if ctx.sender() != ctx.database_identity() {
         return Err("NPC causal processing may only be invoked by its scheduler".into());
     }
-    let official_minute = crate::time::refresh_clock(ctx)
-        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
+    let official_minute = crate::time::refresh_clock(ctx)?;
 
     crate::relationship::settle_due_lifecycle_events_global(
         ctx,
@@ -504,7 +503,7 @@ pub fn run_npc_causal_tick(
     }
     for time in cohort {
         let target = official_minute.min(time.minutes.saturating_add_days(1));
-        crate::time::advance_stationary_character_to(ctx, (time.character_id).into(), target)?;
+        crate::time::advance_stationary_character_to(ctx, time.character_id, target)?;
     }
     Ok(())
 }

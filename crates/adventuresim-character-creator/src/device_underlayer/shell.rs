@@ -2,9 +2,9 @@
 //! the skin they carry.
 
 use anyhow::Result;
-
+use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::plan::POINT_WORDS;
 use super::wgsl;
@@ -36,23 +36,23 @@ impl Workspace<'_> {
     ) -> Result<()> {
         let gpu = self.gpu;
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.plan.vertex_count()).into());
-        parameters.insert("points".into(), (self.plan.point_count).into());
-        parameters.insert("outer".into(), (offsets.outer).into());
-        parameters.insert("inner".into(), (offsets.inner).into());
-        parameters.insert("table".into(), (self.table.clone()).into());
-        parameters.insert("sources".into(), (self.sources.clone()).into());
-        parameters.insert("positions".into(), (positions.clone()).into());
-        parameters.insert("directions".into(), (directions.clone()).into());
-        parameters.insert("compression".into(), (self.compression.clone()).into());
-        parameters.insert("shell".into(), (shell.clone()).into());
+        parameters.insert("count", self.plan.vertex_count());
+        parameters.insert("points", self.plan.point_count);
+        parameters.insert("outer", offsets.outer);
+        parameters.insert("inner", offsets.inner);
+        parameters.insert("table", self.table.clone());
+        parameters.insert("sources", self.sources.clone());
+        parameters.insert("positions", positions.clone());
+        parameters.insert("directions", directions.clone());
+        parameters.insert("compression", self.compression.clone());
+        parameters.insert("shell", shell.clone());
         let kernel = gpu
             .cache()
             .get(gpu.context(), &layers_source())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, (self.plan.vertex_count()).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
+            .map_err(device_error)?;
         Ok(())
     }
 
@@ -68,25 +68,25 @@ impl Workspace<'_> {
     ) -> Result<()> {
         let gpu = self.gpu;
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.plan.vertex_count()).into());
-        parameters.insert("points".into(), (self.plan.point_count).into());
-        parameters.insert("pad0".into(), (0u32).into());
-        parameters.insert("pad1".into(), (0u32).into());
-        parameters.insert("table".into(), (self.table.clone()).into());
-        parameters.insert("sources".into(), (self.sources.clone()).into());
-        parameters.insert("texcoords".into(), (skin.texcoords.clone()).into());
-        parameters.insert("joint_indices".into(), (skin.joint_indices.clone()).into());
-        parameters.insert("joint_weights".into(), (skin.joint_weights.clone()).into());
-        parameters.insert("joints".into(), (joints.clone()).into());
-        parameters.insert("floats".into(), (floats.clone()).into());
-        parameters.insert("status".into(), (self.status.clone()).into());
+        parameters.insert("count", self.plan.vertex_count());
+        parameters.insert("points", self.plan.point_count);
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert("table", self.table.clone());
+        parameters.insert("sources", self.sources.clone());
+        parameters.insert("texcoords", skin.texcoords.clone());
+        parameters.insert("joint_indices", skin.joint_indices.clone());
+        parameters.insert("joint_weights", skin.joint_weights.clone());
+        parameters.insert("joints", joints.clone());
+        parameters.insert("floats", floats.clone());
+        parameters.insert("status", self.status.clone());
         let kernel = gpu
             .cache()
             .get(gpu.context(), &skin_source())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, (self.plan.vertex_count()).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
+            .map_err(device_error)?;
         Ok(())
     }
 }
@@ -112,8 +112,8 @@ fn corner_weight(point: u32, corner: u32) -> f32 {
 }
 "#;
 
-fn layers_source() -> ShaderSource {
-    ShaderSource::from(format!(
+fn layers_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> table: array<u32>;
 @group(0) @binding(1) var<storage, read> sources: array<u32>;
@@ -156,7 +156,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         words = POINT_WORDS,
         points = POINTS,
-    ))
+    )
 }
 
 /// One invocation per shell vertex: its surface coordinate and strongest skin influences.
@@ -236,8 +236,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 }
 "#;
 
-fn skin_source() -> ShaderSource {
-    ShaderSource::from(format!(
+fn skin_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> table: array<u32>;
 @group(0) @binding(1) var<storage, read> sources: array<u32>;
@@ -270,5 +270,5 @@ const GATHERED: u32 = 3u * INFLUENCES;
         skin_floats = SKIN_FLOATS,
         status = wgsl::status(),
         points = POINTS,
-    ))
+    )
 }

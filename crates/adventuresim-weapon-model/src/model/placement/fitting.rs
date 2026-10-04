@@ -1,6 +1,5 @@
 //! Receiving shafts and shaped grip seats.
 use super::*;
-use crate::ConstructionError;
 pub(super) fn mounted(
     component: &mut Component,
     shaft: Option<&Shaft>,
@@ -8,7 +7,7 @@ pub(super) fn mounted(
     rotation: Point,
     local: Point,
     range: [f64; 2],
-) -> Result<(Point, Option<f64>), ConstructionError> {
+) -> Result<(Point, Option<f64>), String> {
     let mut offset = local;
     let mut shaft_contact = None;
     if let Some(mount) = component.mount {
@@ -17,7 +16,7 @@ pub(super) fn mounted(
                 let anchor = component
                     .anchor
                     .as_ref()
-                    .ok_or(ConstructionError::ComponentEndNeedsAnchor)?;
+                    .ok_or("component-end needs anchor")?;
                 component.attach = Some(Attachment {
                     to: format!("{anchor}.top"),
                     at: Some(AttachmentAnchor::Center),
@@ -26,19 +25,16 @@ pub(super) fn mounted(
                 });
             }
             _ => {
-                mounts::check(
-                    component,
-                    shaft.ok_or(ConstructionError::ShaftTopMountRequiresShaft)?,
-                )?;
+                mounts::check(component, shaft.ok_or("shaft-top mount requires shaft")?)?;
                 let top = *frames
                     .get(SHAFT_TOP_FRAME)
-                    .ok_or(ConstructionError::ShaftTopMountRequiresShaft)?;
+                    .ok_or("shaft-top mount requires shaft")?;
                 offset = add(top, local);
                 if let Shape::Spear(p) = &component.shape
                     && let Some(socket) = &p.socket
                 {
                     if mount != Mount::ShaftTop {
-                        return Err(ConstructionError::SocketedSpearUsesShaftTopReceivingMount);
+                        return Err("socketed spear uses shaft-top receiving mount".into());
                     }
                     offset[1] += socket.length.get() - socket.insertion_depth.get();
                 }
@@ -54,7 +50,7 @@ pub(super) fn mounted(
                     }
                     _ => {}
                 }
-                let shaft = shaft.ok_or(ConstructionError::ShaftTopMountRequiresShaft)?;
+                let shaft = shaft.ok_or("shaft-top mount requires shaft")?;
                 let radius = shaft.radius.get() * shaft.top_scale.map_or(0.92, Ratio::get);
                 match &mut component.shape {
                     Shape::Socket(p) if p.fit_shaft != Some(false) => {

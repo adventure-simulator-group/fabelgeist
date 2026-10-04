@@ -44,9 +44,7 @@ fn transition_commitment_terminal(
     reason: CommitmentTerminalReason,
     minute: StrategicMinute,
 ) -> Result<ExclusiveCommitment, String> {
-    commitment
-        .parsed_state()
-        .map_err(|error| error.to_string())?;
+    commitment.parsed_state().map_err(|error| error.to_string())?;
     if commitment.status != CommitmentStatus::Reserved {
         return Ok(commitment);
     }
@@ -55,7 +53,7 @@ fn transition_commitment_terminal(
     {
         crate::item::credit_personal_currency(
             ctx,
-            (escrow.father_id).into(),
+            escrow.father_id,
             &commitment.ceremony_settlement_id,
             escrow.amount,
         )?;
@@ -113,7 +111,7 @@ fn transition_commitment_terminal(
 /// the death transaction rather than waiting for the wedding/birth queues.
 pub(crate) fn settle_relationship_lifecycle_for_death(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     death_minute: StrategicMinute,
 ) -> Result<(), String> {
     let mut commitments = ctx
@@ -122,11 +120,8 @@ pub(crate) fn settle_relationship_lifecycle_for_death(
         .iter()
         .filter(|commitment| {
             commitment.status == CommitmentStatus::Reserved
-                && (adventuresim_core::identity::CharacterId::from(commitment.first_character_id)
-                    == character_id
-                    || adventuresim_core::identity::CharacterId::from(
-                        commitment.second_character_id,
-                    ) == character_id)
+                && (commitment.first_character_id == character_id
+                    || commitment.second_character_id == character_id)
         })
         .collect::<Vec<_>>();
     commitments.sort_by(|left, right| {
@@ -148,18 +143,13 @@ pub(crate) fn settle_relationship_lifecycle_for_death(
         .iter()
         .filter(|courtship| {
             courtship.status != CourtshipStatus::Ended
-                && (adventuresim_core::identity::CharacterId::from(courtship.first_character_id)
-                    == character_id
-                    || adventuresim_core::identity::CharacterId::from(
-                        courtship.second_character_id,
-                    ) == character_id)
+                && (courtship.first_character_id == character_id
+                    || courtship.second_character_id == character_id)
         })
         .collect::<Vec<_>>();
     courtships.sort_by(|left, right| left.id.cmp(&right.id));
     for mut courtship in courtships {
-        courtship
-            .parsed_state()
-            .map_err(|error| error.to_string())?;
+        courtship.parsed_state().map_err(|error| error.to_string())?;
         courtship.status = CourtshipStatus::Ended;
         courtship.resolved_minute = Some(death_minute);
         courtship.terminal_reason = Some(CourtshipTerminalReason::PartnerUnavailable);
@@ -170,16 +160,14 @@ pub(crate) fn settle_relationship_lifecycle_for_death(
         .db
         .pregnancy()
         .mother_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .filter(|pregnancy| pregnancy.status == PregnancyStatus::Active)
         .collect::<Vec<_>>();
     pregnancies.sort_by(|left, right| {
         (left.conceived_minute, left.id.as_str()).cmp(&(right.conceived_minute, right.id.as_str()))
     });
     for mut pregnancy in pregnancies {
-        pregnancy
-            .parsed_state()
-            .map_err(|error| error.to_string())?;
+        pregnancy.parsed_state().map_err(|error| error.to_string())?;
         pregnancy.status = PregnancyStatus::Ended;
         pregnancy.resolved_minute = Some(death_minute);
         ctx.db.pregnancy().id().update(pregnancy.clone());
@@ -187,13 +175,10 @@ pub(crate) fn settle_relationship_lifecycle_for_death(
             .db
             .active_pregnancy()
             .mother_id()
-            .find(u64::from(character_id))
+            .find(character_id)
             .is_some_and(|active| active.pregnancy_id == pregnancy.id)
         {
-            ctx.db
-                .active_pregnancy()
-                .mother_id()
-                .delete(u64::from(character_id));
+            ctx.db.active_pregnancy().mother_id().delete(character_id);
         }
         if ctx
             .db
@@ -313,11 +298,11 @@ pub(crate) fn reserve_wedding(
             .map(|father_id| (father_id, courtship.planned_dowry_amount))
     });
     if let Some((father_id, amount)) = dowry_escrow {
-        if crate::item::personal_currency_total(ctx, father_id.into()) < u64::from(amount) {
+        if crate::item::personal_currency_total(ctx, father_id) < u64::from(amount) {
             return Err("The approved dowry is no longer available to reserve".into());
         }
         crate::item::validate_personal_currency_credit(ctx, &row.ceremony_settlement_id, amount)?;
-        crate::item::consume_personal_currency(ctx, (father_id).into(), u64::from(amount))?;
+        crate::item::consume_personal_currency(ctx, father_id, u64::from(amount))?;
     }
     ctx.db.exclusive_commitment().insert(row.clone());
     if let Some((father_id, amount)) = dowry_escrow {

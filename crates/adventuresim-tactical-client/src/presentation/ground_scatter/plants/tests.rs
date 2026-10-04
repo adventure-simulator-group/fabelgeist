@@ -51,7 +51,7 @@ fn seasonal_catalog_shares_population_budget_and_preserves_spring_flowers() {
     environment.cultivation_bps = 0;
     environment.weather.ground_moisture_bps = 7000;
     environment.absolute_minute =
-        adventuresim_world_schema::calendar::StrategicDayIndex::new(110).start();
+        adventuresim_world_schema::calendar::StrategicMinute::day_start_for_index(110);
     let spring = placements(&terrain, &ground, &environment, 42);
     assert_eq!(spring.len(), MAX_SPECIMENS);
     assert!(
@@ -60,7 +60,7 @@ fn seasonal_catalog_shares_population_budget_and_preserves_spring_flowers() {
             .all(|s| matches!(s.species, PlantSpecies::Flower(_)))
     );
     environment.absolute_minute =
-        adventuresim_world_schema::calendar::StrategicDayIndex::new(270).start();
+        adventuresim_world_schema::calendar::StrategicMinute::day_start_for_index(270);
     let autumn = placements(&terrain, &ground, &environment, 42);
     assert_eq!(autumn.len(), MAX_SPECIMENS);
     assert!(
@@ -122,7 +122,7 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
     };
     let mut environment = SceneEnvironmentFixture::TemperateHills.snapshot("plant-placement");
     environment.absolute_minute =
-        adventuresim_world_schema::calendar::StrategicDayIndex::new(180).start();
+        adventuresim_world_schema::calendar::StrategicMinute::day_start_for_index(180);
     environment.weather.ground_moisture_bps = 5000;
     let ground = make_ground(GroundSubstrate::Soil);
     let sites = placements(&terrain, &ground, &environment, 42);
@@ -163,7 +163,7 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
         assert!(placements(&terrain, &make_ground(substrate), &environment, 42).is_empty());
     }
     environment.absolute_minute =
-        adventuresim_world_schema::calendar::StrategicDayIndex::new(10).start();
+        adventuresim_world_schema::calendar::StrategicMinute::day_start_for_index(10);
     assert!(placements(&terrain, &ground, &environment, 42).is_empty());
 }
 
@@ -176,7 +176,7 @@ fn scene_plugin_spawns_batches_and_is_idempotent() {
         .add_plugins(PlantPresentationPlugin);
     let mut environment = SceneEnvironmentFixture::TemperateHills.snapshot("plant-ecs");
     environment.absolute_minute =
-        adventuresim_world_schema::calendar::StrategicDayIndex::new(180).start();
+        adventuresim_world_schema::calendar::StrategicMinute::day_start_for_index(180);
     let entity = app
         .world_mut()
         .spawn((

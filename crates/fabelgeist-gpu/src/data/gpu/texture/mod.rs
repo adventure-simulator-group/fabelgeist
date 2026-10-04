@@ -12,8 +12,3 @@ pub use texture_2d::*;
 pub use texture_3d::*;
 pub use texture_cube::*;
 pub use texture_view::*;
-
-mod view_error;
-pub use view_error::TextureViewError;
-
-mod view_creation;

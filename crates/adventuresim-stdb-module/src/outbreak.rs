@@ -6,12 +6,8 @@
 mod authority_tests;
 mod patient_chronology;
 mod water_time;
-mod water_transfer;
-pub(crate) use water_transfer::{TransferredWaterContribution, take_container_water_contributions};
-mod water_transfer_error;
 use patient_chronology::resolve_patient_death;
 use water_time::concentration_at_collection;
-pub(crate) use water_transfer_error::WaterContributionTransferError;
 
 use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, Table, ViewContext, reducer, table};
@@ -20,9 +16,7 @@ use std::str::FromStr;
 use adventuresim_core::disease::DiseaseId;
 use adventuresim_core::{
     material::{Microliters, Milliliters},
-    physical_object::PhysicalObjectId,
     strategic_place::{StrategicFixtureId, StrategicPlaceId},
-    water_source::{WaterContaminantMicrounits, WaterMaterialContribution},
 };
 
 use crate::{
@@ -175,12 +169,60 @@ pub(crate) fn delete_container_water_contributions(ctx: &ReducerContext, contain
     }
 }
 
+pub(crate) fn take_container_water_contributions(
+    ctx: &ReducerContext,
+    container_object_id: u64,
+    source_total: Microliters,
+    moved_water: Microliters,
+) -> Result<Vec<(u64, Microliters, u64)>, String> {
+    if moved_water > source_total {
+        return Err("Water material transfer exceeds public volume".into());
+    }
+    let mut rows = ctx
+        .db
+        .container_water_contribution()
+        .container_object_id()
+        .filter(container_object_id)
+        .collect::<Vec<_>>();
+    rows.sort_by_key(|row| row.material_lot_id);
+    let mut moved = Vec::new();
+    for mut row in rows {
+        let amount_before = row.amount_microliters;
+        let load_before = row.contaminant_load_microunits;
+        let (amount, moved_load) = adventuresim_core::water_source::proportional_material_transfer(
+            source_total,
+            moved_water,
+            Microliters::new(amount_before),
+            load_before,
+        )
+        .ok_or("Water material transfer exceeds public volume")?;
+        if amount.is_zero() {
+            continue;
+        }
+        row.amount_microliters -= amount.get();
+        row.contaminant_load_microunits -= moved_load;
+        if row.amount_microliters == 0 {
+            ctx.db
+                .container_water_contribution()
+                .material_lot_id()
+                .delete(row.material_lot_id);
+        } else {
+            ctx.db
+                .container_water_contribution()
+                .material_lot_id()
+                .update(row.clone());
+        }
+        moved.push((row.material_lot_id, amount, moved_load));
+    }
+    Ok(moved)
+}
+
 pub(crate) fn consume_container_water_contributions(
     ctx: &ReducerContext,
-    container_object_id: PhysicalObjectId,
+    container_object_id: u64,
     source_total_ml: u64,
     consumed_water_ml: u64,
-    consumer_character_id: adventuresim_core::identity::CharacterId,
+    consumer_character_id: u64,
 ) -> Result<(), String> {
     let moved = take_container_water_contributions(
         ctx,
@@ -191,40 +233,37 @@ pub(crate) fn consume_container_water_contributions(
             .map_err(|_| "Consumed water volume is invalid")?,
     )?;
     if !moved.is_empty() {
-        expose_to_water_contributions(ctx, (consumer_character_id).into(), &moved)?;
+        expose_to_water_contributions(ctx, consumer_character_id, &moved)?;
     }
     Ok(())
 }
 
 fn expose_to_water_contributions(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-    moved: &[TransferredWaterContribution],
+    character_id: u64,
+    moved: &[(u64, Microliters, u64)],
 ) -> Result<(), String> {
     use sha2::{Digest as _, Sha256};
     let minute = ctx
         .db
         .character_time()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let mut digest = Sha256::new();
     let mut dose = 0.0_f32;
-    for contribution in moved {
-        let output_lot_id = contribution.lot();
-        let amount_microliters = contribution.material().volume();
-        let anchor_load = contribution.material().contaminant_load();
+    for &(output_lot_id, amount_microliters, anchor_load) in moved {
         let lot = ctx
             .db
             .water_output_lot()
             .id()
-            .find(output_lot_id.get())
+            .find(output_lot_id)
             .ok_or("Consumed water material provenance is incomplete")?;
-        digest.update(output_lot_id.get().to_le_bytes());
+        digest.update(output_lot_id.to_le_bytes());
         digest.update(amount_microliters.get().to_le_bytes());
-        digest.update(anchor_load.get().to_le_bytes());
+        digest.update(anchor_load.to_le_bytes());
         let amount_ml = amount_microliters.as_milliliters_f32();
-        let anchor_concentration = anchor_load.get() as f32 / (amount_ml.max(0.001) * 1_000.0);
+        let anchor_concentration = anchor_load as f32 / (amount_ml.max(0.001) * 1_000.0);
         let current = adventuresim_core::food::contamination_at(
             anchor_concentration,
             lot.growth_per_hour,
@@ -240,7 +279,7 @@ fn expose_to_water_contributions(
     let carrier_id = u64::from_le_bytes(bytes[..8].try_into().unwrap()).max(1);
     crate::food::expose_food_water_dysentery(
         ctx,
-        (character_id).into(),
+        character_id,
         &format!("water:{minute}:{contribution_digest}"),
         carrier_id,
         minute,
@@ -297,8 +336,7 @@ pub fn collect_fixture_water_into_container(
     };
     use sha2::{Digest as _, Sha256};
 
-    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     if request_id.is_empty() || request_id.len() > 192 || requested_ml == 0 {
         return Err("Invalid water collection request".into());
     }
@@ -361,11 +399,9 @@ pub fn collect_fixture_water_into_container(
     if fixture.place().case_site_id() != Some(capability.target_id.as_str()) {
         return Err("Water collection action is unavailable".into());
     }
-    let exact_presence = crate::investigation::character_case_site_id(ctx, (character_id).into())
-        .as_deref()
+    let exact_presence = crate::investigation::character_case_site_id(ctx, character_id).as_deref()
         == fixture.place().case_site_id();
-    let actor = crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    let actor = crate::character::require_living_character(ctx, character_id)?;
     let object = ctx
         .db
         .inventory_object()
@@ -497,15 +533,10 @@ pub fn collect_fixture_water_into_container(
     if ctx.db.water_output_lot().id().find(output_lot_id).is_some() {
         return Err("Water collection output identity conflicts".into());
     }
-    crate::time::advance_character_time(
-        ctx,
-        (character_id).into(),
-        plan.time().elapsed_minutes.get(),
-    )?;
+    crate::time::advance_character_time(ctx, character_id, plan.time().elapsed_minutes)?;
     let (source_after, container_after) = conserved.unwrap();
-    let actor = crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
-    if crate::investigation::character_case_site_id(ctx, (character_id).into()).as_deref()
+    let actor = crate::character::require_living_character(ctx, character_id)?;
+    if crate::investigation::character_case_site_id(ctx, character_id).as_deref()
         != fixture.place().case_site_id()
         || crate::object_custody::require_actor_carried_object(ctx, &actor, &object).is_err()
         || crate::inventory_container::require_mutable(ctx, object.id).is_err()
@@ -676,18 +707,18 @@ fn container_water_contamination(
         if contribution.amount_microliters == 0 {
             return Err("Contained water material has zero measure".into());
         }
-        let selected = WaterMaterialContribution::new(
-            Microliters::new(contribution.amount_microliters),
-            WaterContaminantMicrounits::new(contribution.contaminant_load_microunits),
-        )
-        .sample(source_total, moved.min(source_total))
-        .ok_or("Water material preview exceeds public volume")?;
-        let amount_microliters = selected.volume();
+        let (amount_microliters, selected_load) =
+            adventuresim_core::water_source::proportional_material_transfer(
+                source_total,
+                moved.min(source_total),
+                Microliters::new(contribution.amount_microliters),
+                contribution.contaminant_load_microunits,
+            )
+            .ok_or("Water material preview exceeds public volume")?;
         if amount_microliters.is_zero() {
             continue;
         }
-        let held_anchor_concentration =
-            selected.contaminant_load().get() as f32 / amount_microliters.get() as f32;
+        let held_anchor_concentration = selected_load as f32 / amount_microliters.get() as f32;
         let current = adventuresim_core::food::contamination_at(
             held_anchor_concentration,
             lot.growth_per_hour,
@@ -843,8 +874,8 @@ fn materialize_patient_corpse(
     };
     crate::investigation::set_character_case_site(
         ctx,
-        (exposure.patient_character_id).into(),
-        Some(outbreak.patient_presentation_site.as_str().to_owned()),
+        exposure.patient_character_id,
+        Some(outbreak.patient_presentation_site.0.clone()),
     )?;
     let death_source_id = format!("outbreak-victim:{}", generated.canonical_case_id);
     if let Some(existing) = ctx
@@ -859,7 +890,7 @@ fn materialize_patient_corpse(
     }
     crate::character::transition_character_to_dead_at(
         ctx,
-        (exposure.patient_character_id).into(),
+        exposure.patient_character_id,
         cause,
         source,
         Some(death_source_id),
@@ -868,7 +899,7 @@ fn materialize_patient_corpse(
     let corpse_id = format!("corpse:character:{}", exposure.patient_character_id);
     let episode = InfectionEpisode {
         id: exposure.episode_id,
-        character_id: (exposure.patient_character_id).into(),
+        character_id: exposure.patient_character_id,
         disease_id: outbreak.disease,
         contracted_at: exposure.exposed_at,
         ruleset_version: adventuresim_core::physiology::PHYSIOLOGY_RULESET_VERSION,
@@ -1015,10 +1046,10 @@ pub(crate) fn materialize_generated_outbreak(
     let responsible = outbreak.responsible_npc.as_ref();
     let physical_source_fixture = outbreak_source_fixture(
         &generated.canonical_case_id,
-        outbreak.physical_source_site.as_str(),
+        &outbreak.physical_source_site.0,
     )?;
     let patient_presentation_place =
-        StrategicPlaceId::case_site(outbreak.patient_presentation_site.as_str().to_owned())
+        StrategicPlaceId::case_site(outbreak.patient_presentation_site.0.clone())
             .map_err(|_| "Outbreak patient case-site identity is malformed")?;
     let disease_id = outbreak.disease.stable_id().to_string();
     let transmission_route = outbreak.transmission_route.stable_id().to_owned();
@@ -1201,13 +1232,13 @@ pub(crate) fn materialize_generated_outbreak(
             ctx.db.character_time().character_id().update(patient_time);
             crate::time::settle_lifecycle_after_character_time_write(
                 ctx,
-                (exposure.patient_character_id).into(),
+                exposure.patient_character_id,
                 now_minute,
             )?;
         }
         let episode = adventuresim_core::disease::InfectionEpisode {
             id: exposure.episode_id,
-            character_id: (exposure.patient_character_id).into(),
+            character_id: exposure.patient_character_id,
             disease_id: outbreak.disease,
             contracted_at: exposure.exposed_at,
             ruleset_version: adventuresim_core::physiology::PHYSIOLOGY_RULESET_VERSION,
@@ -1252,7 +1283,7 @@ pub(crate) fn materialize_generated_outbreak(
             .saturating_add_minutes(definition.recovery_minutes);
         let private_terminal = crate::disease::first_private_terminal(
             ctx,
-            (exposure.patient_character_id).into(),
+            exposure.patient_character_id,
             &[episode],
             exposure.exposed_at,
             course_end,
@@ -1285,7 +1316,7 @@ pub(crate) fn materialize_generated_outbreak(
                     evidence.kind
                         == adventuresim_core::quest_generation::EvidenceKind::BloodlessCorpse
                 })
-                .map(|evidence| evidence.id.as_str().to_owned())
+                .map(|evidence| evidence.id.0.clone())
         });
         let membership_id = format!(
             "context:{}:patient:{}",
@@ -1295,7 +1326,7 @@ pub(crate) fn materialize_generated_outbreak(
         let membership = crate::world_actor::CharacterContextMembership {
             id: membership_id.clone(),
             context_id: generated.canonical_case_id.clone(),
-            location_id: outbreak.patient_presentation_site.as_str().to_owned(),
+            location_id: outbreak.patient_presentation_site.0.clone(),
             character_id: exposure.patient_character_id,
             context_kind: crate::world_actor::CharacterContextKind::CaseSite,
             role: crate::world_actor::CharacterContextRole::Patient,
@@ -1513,8 +1544,7 @@ pub(crate) fn patient_presence_suppression_at(
     character_id: u64,
     minute: StrategicMinute,
 ) -> Option<adventuresim_core::strategic_presence::PresenceSuppression> {
-    let alive_at_observer =
-        crate::relationship::character_alive_at(ctx, (character_id).into(), minute);
+    let alive_at_observer = crate::relationship::character_alive_at(ctx, character_id, minute);
     let mut aggregate = adventuresim_core::strategic_presence::PresenceSuppression {
         context_suppressed: false,
         health_suppressed: !alive_at_observer,
@@ -1660,21 +1690,21 @@ mod water_integration_contract_tests {
 /// their ordinary Character clock advances past the standard episode course.
 pub(crate) fn refresh_patient_context_after_time_write(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     minute: StrategicMinute,
 ) {
     let alive = ctx
         .db
         .character()
         .id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .is_some_and(|character| character.alive);
     let mut released_any = false;
     for mut patient in ctx
         .db
         .outbreak_patient_authority()
         .patient_character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .filter(|patient| patient.health_active)
         .collect::<Vec<_>>()
     {
@@ -1721,7 +1751,7 @@ pub(crate) fn refresh_patient_context_after_time_write(
             .db
             .settlement_resident_presence()
             .character_id()
-            .find(u64::from(character_id))
+            .find(character_id)
     {
         presence.context_suppressed = false;
         presence.health_suppressed = !alive;
@@ -1805,7 +1835,7 @@ pub(crate) fn accepted_hostile_remediation(
 pub(crate) fn exposure_windows(
     ctx: &ReducerContext,
     problem_id: &str,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     from: StrategicMinute,
     to: StrategicMinute,
 ) -> Vec<(String, StrategicMinute, StrategicMinute)> {
@@ -1822,23 +1852,24 @@ pub(crate) fn exposure_windows(
         return Vec::new();
     }
     match authority.source_kind.as_str() {
-        "sanitation" | "behavior" => ctx
-            .db
-            .character()
-            .id()
-            .find(u64::from(character_id))
-            .map_or_else(Vec::new, |character| {
-                (character.current_settlement_id.as_deref()
-                    == Some(authority.settlement_id.as_str()))
-                .then_some((problem_id.to_owned(), from, exposure_to))
-                .into_iter()
-                .collect()
-            }),
+        "sanitation" | "behavior" => {
+            ctx.db
+                .character()
+                .id()
+                .find(character_id)
+                .map_or_else(Vec::new, |character| {
+                    (character.current_settlement_id.as_deref()
+                        == Some(authority.settlement_id.as_str()))
+                    .then_some((problem_id.to_owned(), from, exposure_to))
+                    .into_iter()
+                    .collect()
+                })
+        }
         "environmental" | "threat_vector" => ctx
             .db
             .outbreak_source_presence_span()
             .character_id()
-            .filter(u64::from(character_id))
+            .filter(character_id)
             .filter(|span| {
                 parse_outbreak_source_fixture(
                     &authority.physical_source_fixture_id,
@@ -1858,20 +1889,20 @@ pub(crate) fn exposure_windows(
 
 pub(crate) fn record_case_site_presence_transition(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     destination_site_id: Option<&str>,
 ) {
     let minute = ctx
         .db
         .character_time()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .map_or(StrategicMinute::ZERO, |t| t.minutes);
     for mut span in ctx
         .db
         .outbreak_source_presence_span()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .filter(|span| span.ended_at.is_none())
         .collect::<Vec<_>>()
     {
@@ -1904,7 +1935,7 @@ pub(crate) fn record_case_site_presence_transition(
             .outbreak_source_presence_span()
             .insert(OutbreakSourcePresenceSpan {
                 id,
-                character_id: u64::from(character_id),
+                character_id,
                 source_place_id: destination_place.to_string(),
                 started_at: minute,
                 ended_at: None,

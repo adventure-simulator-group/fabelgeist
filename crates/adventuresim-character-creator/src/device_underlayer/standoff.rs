@@ -7,9 +7,9 @@
 //! [`super::sweep`]), and the room found lowers the frozen compression.
 
 use anyhow::Result;
-
+use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::wgsl;
 use super::workspace::Workspace;
@@ -37,41 +37,37 @@ impl Workspace<'_> {
         let gpu = self.gpu;
         let kernel = |source: String| {
             gpu.cache()
-                .get(gpu.context(), &ShaderSource::from(source))
-                .map_err(fabelgeist_armor::GenerateError::from)
+                .get(gpu.context(), &source)
+                .map_err(device_error)
         };
         let mut parameters = PassParameters::new();
-        parameters.insert("vertices".into(), (self.vertex_count).into());
-        parameters.insert("faces".into(), (self.face_count).into());
-        parameters.insert("pad0".into(), (0u32).into());
-        parameters.insert("pad1".into(), (0u32).into());
-        parameters.insert("positions".into(), (positions.clone()).into());
-        parameters.insert("directions".into(), (directions.clone()).into());
-        parameters.insert("triangles".into(), (self.faces.clone()).into());
-        parameters.insert("incidence".into(), (self.incidence.clone()).into());
-        parameters.insert("rooms".into(), (self.rooms.clone()).into());
+        parameters.insert("vertices", self.vertex_count);
+        parameters.insert("faces", self.face_count);
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert("positions", positions.clone());
+        parameters.insert("directions", directions.clone());
+        parameters.insert("triangles", self.faces.clone());
+        parameters.insert("incidence", self.incidence.clone());
+        parameters.insert("rooms", self.rooms.clone());
         batch
             .dispatch_items(
                 &*kernel(convergence_source())?,
                 &parameters,
-                (self.vertex_count).into(),
+                self.vertex_count,
             )
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .map_err(device_error)?;
         self.record_sweeps(batch, positions, directions, links)?;
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.vertex_count).into());
+        parameters.insert("count", self.vertex_count);
         for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad.into(), (0u32).into());
+            parameters.insert(pad, 0u32);
         }
-        parameters.insert("rooms".into(), (self.rooms.clone()).into());
-        parameters.insert("compression".into(), (self.compression.clone()).into());
+        parameters.insert("rooms", self.rooms.clone());
+        parameters.insert("compression", self.compression.clone());
         batch
-            .dispatch_items(
-                &*kernel(lower_source())?,
-                &parameters,
-                (self.vertex_count).into(),
-            )
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&*kernel(lower_source())?, &parameters, self.vertex_count)
+            .map_err(device_error)?;
         Ok(())
     }
 }

@@ -1,12 +1,11 @@
 //! Continuous swept rings, bows and figure-eight guards.
 use super::*;
-use crate::ConstructionError;
 pub(in crate::model) fn tube(
     points: &[PlanarPoint],
     radius: f64,
     segments: usize,
     detail: Detail,
-) -> Result<Solid, ConstructionError> {
+) -> Result<Solid, String> {
     Solid::sweep(
         &points.iter().map(|&[x, y]| [x, y, 0.0]).collect::<Vec<_>>(),
         &Sweep {
@@ -19,10 +18,7 @@ pub(in crate::model) fn tube(
     )
 }
 
-pub(in crate::model) fn ring(
-    p: &RingGuardParameters,
-    detail: Detail,
-) -> Result<Solid, ConstructionError> {
+pub(in crate::model) fn ring(p: &RingGuardParameters, detail: Detail) -> Result<Solid, String> {
     let radius = p.radius.get();
     let start = p.arc_start.map_or(0.0, Radians::get);
     let end = p.arc_end.map_or(TAU, Radians::get);
@@ -50,7 +46,7 @@ pub(in crate::model) fn knuckle(
     r: &ResolvedComponent,
     p: &KnuckleBowParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let width = p.width.get();
     let length = p.length.get();
     let bar = p.bar.map_or(0.012, Metres::get);
@@ -110,7 +106,7 @@ pub(in crate::model) fn knuckle(
 pub(in crate::model) fn figure_eight(
     p: &FigureEightParameters,
     detail: Detail,
-) -> Result<Solid, ConstructionError> {
+) -> Result<Solid, String> {
     let half_width = p.width.get() / 2.0;
     let height = p.height.map_or(p.width.get() * 0.28, Metres::get);
     let bar = p.bar.map_or(0.009, Metres::get);
@@ -189,10 +185,7 @@ pub(in crate::model) fn figure_eight(
     Ok(solid.positive())
 }
 
-fn round_figure_eight(
-    p: &FigureEightParameters,
-    detail: Detail,
-) -> Result<Solid, ConstructionError> {
+fn round_figure_eight(p: &FigureEightParameters, detail: Detail) -> Result<Solid, String> {
     let half_width = p.width.get() / 2.0;
     let height = p.height.map_or(p.width.get() * 0.28, Metres::get);
     let bar = p.bar.map_or(0.009, Metres::get);

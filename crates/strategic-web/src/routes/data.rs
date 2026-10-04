@@ -1,65 +1,51 @@
 //! Shared typed reads used by more than one strategic feature.
 
-mod chronology;
-
-use chronology::PersonalFrontier;
-pub(crate) use chronology::{FrontierAlignment, MutableCharacterAccess, ObservedLife};
-
 use super::AppState;
 use crate::spacetimedb::{
     BackendCharacterCaseSiteLocation, CaseSiteId, CharacterDeath, CharacterTime, CharacterView,
     Result, SpacetimeError,
 };
-use adventuresim_core::identity::CharacterId;
 use adventuresim_world_schema::calendar::StrategicMinute;
 
-async fn personal_frontier(
-    state: &AppState,
-    character_id: CharacterId,
-) -> Result<PersonalFrontier> {
+async fn character_minute(state: &AppState, character_id: u64) -> Result<Option<StrategicMinute>> {
     state
         .db
-        .query_one_sats::<CharacterTime>(crate::spacetimedb::character_time_by_character_id(
+        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
             character_id,
         ))
         .await
-        .map(|time| {
-            PersonalFrontier::new(
-                character_id,
-                time.map(|time| StrategicMinute::new(time.minutes.minutes)),
-            )
-        })
+        .map(|time| time.map(|time| StrategicMinute::new(time.minutes.minutes)))
 }
 
 /// Mutable Character columns have no effective-dated history yet. They are
 /// safe to use cross-character only when the subject has not advanced beyond
 /// the observer. Callers that need co-location or another shared-current fact
 /// should additionally require equal frontiers.
-pub(crate) async fn mutable_character_access(
+pub(crate) async fn character_not_ahead_of_observer(
     state: &AppState,
-    character_id: CharacterId,
-    observer_character_id: CharacterId,
-) -> Result<MutableCharacterAccess> {
+    character_id: u64,
+    observer_character_id: u64,
+) -> Result<bool> {
     if character_id == observer_character_id {
-        return Ok(MutableCharacterAccess::Available);
+        return Ok(true);
     }
     let (subject, observer) = tokio::join!(
-        personal_frontier(state, character_id),
-        personal_frontier(state, observer_character_id),
+        character_minute(state, character_id),
+        character_minute(state, observer_character_id),
     );
-    Ok(subject?.mutable_access_for(&observer?))
+    Ok(matches!((subject?, observer?), (Some(subject), Some(observer)) if subject <= observer))
 }
 
-pub(crate) async fn frontier_alignment(
+pub(crate) async fn characters_share_frontier(
     state: &AppState,
-    first_character_id: CharacterId,
-    second_character_id: CharacterId,
-) -> Result<FrontierAlignment> {
+    first_character_id: u64,
+    second_character_id: u64,
+) -> Result<bool> {
     let (first, second) = tokio::join!(
-        personal_frontier(state, first_character_id),
-        personal_frontier(state, second_character_id),
+        character_minute(state, first_character_id),
+        character_minute(state, second_character_id),
     );
-    Ok(first?.alignment_with(&second?))
+    Ok(matches!((first?, second?), (Some(first), Some(second)) if first == second))
 }
 
 fn prefer_complete_cache<T>(cache: Option<Option<T>>, fallback: Option<T>) -> Option<T> {
@@ -68,7 +54,7 @@ fn prefer_complete_cache<T>(cache: Option<Option<T>>, fallback: Option<T>) -> Op
 
 pub(crate) async fn character(
     state: &AppState,
-    character_id: CharacterId,
+    character_id: u64,
 ) -> Result<Option<CharacterView>> {
     let case_site_sql =
         crate::spacetimedb::character_case_site_location_by_character_id(character_id);
@@ -83,20 +69,24 @@ pub(crate) async fn character(
             state
                 .db
                 .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-                    crate::spacetimedb::character_by_id(character_id),
+                    &crate::spacetimedb::character_by_id(character_id),
                 )
                 .await
         }
     }?;
     let case_site = state
         .db
-        .query_one_sats::<BackendCharacterCaseSiteLocation>(case_site_sql)
+        .query_one_sats::<BackendCharacterCaseSiteLocation>(&case_site_sql)
         .await?;
     if let Some(character) = character.as_mut() {
         character.current_case_site_id = case_site
             .map(|location| CaseSiteId::try_new(location.case_site_id.value))
             .transpose()
-            .map_err(SpacetimeError::CaseSiteIdentity)?;
+            .map_err(|error| {
+                SpacetimeError::Spacetime(format!(
+                    "generated case-site identity failed validation: {error}"
+                ))
+            })?;
     }
     Ok(character)
 }
@@ -106,19 +96,19 @@ pub(crate) async fn character(
 /// projection, but must not disclose a death from another character's future.
 pub(crate) async fn project_alive_as_observed(
     state: &AppState,
-    observer_character_id: CharacterId,
+    observer_character_id: u64,
     characters: &mut [CharacterView],
 ) -> Result<()> {
     let observer_time = match state
         .db
-        .query_one_sats::<CharacterTime>(crate::spacetimedb::character_time_by_character_id(
+        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
             observer_character_id,
         ))
         .await
     {
         Ok(time) => time,
         Err(error) => {
-            tracing::warn!(%error, observer_character_id = u64::from(observer_character_id), "could not read observer chronology");
+            tracing::warn!(%error, observer_character_id, "could not read observer chronology");
             for character in characters.iter_mut().filter(|character| !character.alive) {
                 character.alive = true;
             }
@@ -139,34 +129,31 @@ pub(crate) async fn project_alive_as_observed(
     for character in characters.iter_mut().filter(|character| !character.alive) {
         let death = match state
             .db
-            .query_one_sats::<CharacterDeath>(crate::spacetimedb::character_death_by_character_id(
-                character.id.into(),
+            .query_one_sats::<CharacterDeath>(&crate::spacetimedb::character_death_by_character_id(
+                character.id,
             ))
             .await
         {
             Ok(death) => death,
             Err(error) => {
-                tracing::warn!(%error, character_id = character.id, observer_character_id = u64::from(observer_character_id), "could not read death chronology");
+                tracing::warn!(%error, character_id = character.id, observer_character_id, "could not read death chronology");
                 character.alive = true;
                 continue;
             }
         };
-        character.alive = ObservedLife::at_date(
-            Some(observer_minute),
-            death.map(|death| StrategicMinute::new(death.strategic_minute.minutes)),
-        ) == ObservedLife::Alive;
+        character.alive = death.is_none_or(|death| {
+            StrategicMinute::new(death.strategic_minute.minutes) > observer_minute
+        });
     }
     Ok(())
 }
 
 pub(crate) async fn character_as_observed(
     state: &AppState,
-    character_id: CharacterId,
-    observer_character_id: CharacterId,
+    character_id: u64,
+    observer_character_id: u64,
 ) -> Result<Option<CharacterView>> {
-    if mutable_character_access(state, character_id, observer_character_id).await?
-        != MutableCharacterAccess::Available
-    {
+    if !character_not_ahead_of_observer(state, character_id, observer_character_id).await? {
         // We cannot reconstruct location, party, age, wealth, or progression
         // at the observer's earlier date. Fail closed instead of returning a
         // row containing mutable facts from the subject's future.
@@ -184,18 +171,18 @@ pub(crate) async fn character_as_observed(
     Ok(character)
 }
 
-pub(crate) async fn observed_life(
+pub(crate) async fn character_is_alive_as_observed(
     state: &AppState,
-    character_id: CharacterId,
-    observer_character_id: CharacterId,
-) -> Result<ObservedLife> {
+    character_id: u64,
+    observer_character_id: u64,
+) -> Result<bool> {
     // Life state has its own effective-dated history, so callers that need
     // only this fact must not inherit the fail-closed policy for unrelated
     // mutable Character fields. This keeps asynchronous NPC dialogue
     // available without exposing the NPC's future location, wealth, or party.
     let mut character = character(state, character_id).await?;
     let Some(character) = character.as_mut() else {
-        return Ok(ObservedLife::MissingCharacter);
+        return Ok(false);
     };
     project_alive_as_observed(
         state,
@@ -203,7 +190,7 @@ pub(crate) async fn observed_life(
         std::slice::from_mut(character),
     )
     .await?;
-    Ok(ObservedLife::from_character(character))
+    Ok(character.alive)
 }
 
 pub(crate) fn new_id() -> u64 {
@@ -218,11 +205,10 @@ pub(crate) fn new_id() -> u64 {
 mod tests {
     use super::prefer_complete_cache;
     use crate::spacetimedb::CharacterView;
-    use adventuresim_core::identity::CharacterId;
 
-    fn character(id: CharacterId) -> CharacterView {
+    fn character(id: u64) -> CharacterView {
         CharacterView {
-            id: u64::from(id),
+            id,
             name: format!("character-{id}"),
             xp: 0,
             level: 1,
@@ -240,19 +226,14 @@ mod tests {
     #[test]
     fn complete_cache_hit_wins_and_cache_miss_falls_back() {
         assert_eq!(
-            prefer_complete_cache(
-                Some(Some(character(CharacterId::from(7)))),
-                Some(character(CharacterId::from(8))),
-            )
-            .unwrap()
-            .id,
-            7
-        );
-        assert!(prefer_complete_cache(Some(None), Some(character(CharacterId::from(8)))).is_none());
-        assert_eq!(
-            prefer_complete_cache(None, Some(character(CharacterId::from(8))))
+            prefer_complete_cache(Some(Some(character(7))), Some(character(8)))
                 .unwrap()
                 .id,
+            7
+        );
+        assert!(prefer_complete_cache(Some(None), Some(character(8))).is_none());
+        assert_eq!(
+            prefer_complete_cache(None, Some(character(8))).unwrap().id,
             8
         );
     }
@@ -285,8 +266,10 @@ mod tests {
             .unwrap();
         assert!(projection.contains("character_time_by_character_id"));
         assert!(projection.contains("character_death_by_character_id"));
-        assert!(projection.contains("ObservedLife::at_date"));
-        assert!(projection.contains("death.strategic_minute.minutes"));
+        assert!(
+            projection
+                .contains("StrategicMinute::new(death.strategic_minute.minutes) > observer_minute")
+        );
         assert!(projection.contains("let Some(observer_minute)"));
         assert!(projection.contains("character.alive = true"));
         assert!(!projection.contains("character_death WHERE"));
@@ -299,10 +282,10 @@ mod tests {
             .split("pub(crate) async fn character_as_observed")
             .nth(1)
             .unwrap()
-            .split("pub(crate) async fn observed_life")
+            .split("pub(crate) async fn character_is_alive_as_observed")
             .next()
             .unwrap();
-        let chronology = loader.find("mutable_character_access").unwrap();
+        let chronology = loader.find("character_not_ahead_of_observer").unwrap();
         let mutable_read = loader.find("character(state, character_id)").unwrap();
         assert!(chronology < mutable_read);
         assert!(loader.contains("return Ok(None)"));
@@ -312,7 +295,7 @@ mod tests {
     fn life_only_projection_does_not_require_mutable_frontier_alignment() {
         let source = include_str!("data.rs");
         let loader = source
-            .split("pub(crate) async fn observed_life")
+            .split("pub(crate) async fn character_is_alive_as_observed")
             .nth(1)
             .unwrap()
             .split("#[cfg(test)]")
@@ -320,6 +303,6 @@ mod tests {
             .unwrap();
         assert!(loader.contains("project_alive_as_observed"));
         assert!(!loader.contains("character_as_observed"));
-        assert!(!loader.contains("mutable_character_access"));
+        assert!(!loader.contains("character_not_ahead_of_observer"));
     }
 }

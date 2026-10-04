@@ -57,7 +57,7 @@ impl DueLifecycleEvent {
                         });
                     participant_died_before_ceremony
                         || participants.into_iter().all(|character_id| {
-                            canonical_now(ctx, (character_id).into())
+                            canonical_now(ctx, character_id)
                                 .is_ok_and(|frontier| frontier >= *effective_minute)
                         })
                 }),
@@ -65,7 +65,7 @@ impl DueLifecycleEvent {
                 effective_minute,
                 mother_id,
                 ..
-            } => canonical_now(ctx, (*mother_id).into())
+            } => canonical_now(ctx, *mother_id)
                 .is_ok_and(|frontier| frontier >= *effective_minute),
         }
     }

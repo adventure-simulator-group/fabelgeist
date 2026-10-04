@@ -13,6 +13,8 @@ pub struct BreastplateDesign {
     pub neck_depth: Permille,
     /// Scale of the armscye depth.
     pub arm_opening_depth: Permille,
+    /// Lateral width of the armscye boundary, independent of the neckline.
+    pub arm_opening_width: Permille,
     /// Scale of the lower plate width around the wearer-derived default.
     pub waist_width: Permille,
     /// Scale of neck-to-waist plate length.
@@ -42,6 +44,7 @@ impl Default for BreastplateDesign {
             neck_width: Permille(1_000),
             neck_depth: Permille(1_000),
             arm_opening_depth: Permille(1_000),
+            arm_opening_width: Permille(1_000),
             waist_width: Permille(1_000),
             plate_length: Permille(1_000),
             side_return: Permille(1_000),
@@ -119,6 +122,8 @@ impl BreastplateProfile {
 }
 
 impl BreastplateDesign {
+    pub const SIDE_RETURN_RANGE: RangeInclusive<u16> = 500..=1080;
+    pub const ARM_OPENING_WIDTH_RANGE: RangeInclusive<u16> = 100..=1000;
     pub const WAIST_WIDTH_RANGE: RangeInclusive<u16> = 650..=1200;
 
     /// Early sixteenth-century rounded silhouette; no separate plackart.

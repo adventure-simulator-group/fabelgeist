@@ -7,11 +7,9 @@
 //! [`Readback`] brings them all back, and each result parses its own slice.
 
 use fabelgeist_compute::Readback;
-use fabelgeist_gpu::prelude::{
-    Buffer, ReadbackBlocks, ReadbackError, ReadbackSlot, ReadbackSources, ReadbackStatusWord,
-};
+use fabelgeist_gpu::prelude::Buffer;
 
-use super::ArmorGpu;
+use super::{ArmorGpu, device_error};
 use crate::GenerateError;
 
 /// Buffers waiting to be read back together.
@@ -20,9 +18,13 @@ pub struct Staging<'a> {
     buffers: Vec<&'a Buffer>,
 }
 
+/// Where one staged buffer's bytes will be.
+#[derive(Clone, Copy, Debug)]
+pub struct Staged(usize);
+
 /// The bytes of every staged buffer.
 pub struct StagedResults {
-    bytes: ReadbackBlocks,
+    bytes: Vec<Vec<u8>>,
 }
 
 impl<'a> Staging<'a> {
@@ -30,25 +32,28 @@ impl<'a> Staging<'a> {
         Self::default()
     }
 
-    pub fn stage(&mut self, buffer: &'a Buffer) -> ReadbackSlot {
+    pub fn stage(&mut self, buffer: &'a Buffer) -> Staged {
         self.buffers.push(buffer);
-        ReadbackSlot::from(self.buffers.len() - 1)
+        Staged(self.buffers.len() - 1)
     }
 }
 
 impl StagedResults {
-    /// Convert a staged device representation into initialized host values.
-    pub fn get<T: bytemuck::Pod>(&self, slot: ReadbackSlot) -> Result<Vec<T>, GenerateError> {
-        Ok(self.bytes.get(slot)?.decode()?)
+    /// A staged buffer's contents as plain values.
+    pub fn get<T: bytemuck::Pod>(&self, staged: Staged) -> Vec<T> {
+        bytemuck::pod_collect_to_vec(&self.bytes[staged.0])
     }
 
-    /// Decode the first protocol word, rejecting an empty status buffer.
-    pub fn status(&self, slot: ReadbackSlot) -> Result<ReadbackStatusWord, GenerateError> {
-        self.get::<u32>(slot)?
-            .first()
-            .copied()
-            .map(ReadbackStatusWord::from)
-            .ok_or(GenerateError::Readback(ReadbackError::EmptyStatus))
+    /// Typed prefix, excluding storage allocation padding.
+    pub fn prefix<T: bytemuck::Pod>(&self, staged: Staged, count: usize) -> Vec<T> {
+        let mut values = self.get(staged);
+        values.truncate(count);
+        values
+    }
+
+    /// The first word of a staged status buffer.
+    pub fn status(&self, staged: Staged) -> u32 {
+        self.get::<u32>(staged)[0]
     }
 }
 
@@ -56,15 +61,17 @@ impl ArmorGpu {
     /// Read every staged buffer back with one mapping, after everything
     /// submitted so far.
     pub fn read_staged(&self, staging: Staging) -> Result<StagedResults, GenerateError> {
-        let mut batch = self.batch(("armor readback").into());
-        let readback = Readback::record(
-            self.context(),
-            &mut batch,
-            ReadbackSources::from(&staging.buffers[..]),
-        )?;
+        pollster::block_on(self.read_staged_async(staging))
+    }
+
+    pub async fn read_staged_async(
+        &self,
+        staging: Staging<'_>,
+    ) -> Result<StagedResults, GenerateError> {
+        let mut batch = self.batch("armor readback");
+        let readback = Readback::record(self.context(), &mut batch, &staging.buffers);
         batch.submit();
-        let bytes =
-            pollster::block_on(readback.read(self.context())).map_err(GenerateError::Readback)?;
+        let bytes = readback.read(self.context()).await.map_err(device_error)?;
         Ok(StagedResults { bytes })
     }
 }

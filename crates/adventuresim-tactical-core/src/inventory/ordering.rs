@@ -22,7 +22,7 @@ impl EquipmentTopology {
         location: EquipmentLocation,
         item_id: &'a str,
     ) -> Option<EquipmentRootOrder<'a>> {
-        let placement = item_catalog::definition(&(item_id).into())
+        let placement = item_catalog::definition(item_id)
             .and_then(|definition| definition.equipment.as_ref())
             .and_then(|equipment| {
                 equipment
@@ -68,7 +68,7 @@ mod tests {
     fn anatomical_depth_survives_reversed_network_entity_remapping() {
         let location = EquipmentLocation::LeftArm;
         let roots = ["rerebrace", "couter", "vambrace"].map(|item_id| {
-            let placement = &item_catalog::definition(&(item_id).into())
+            let placement = &item_catalog::definition(item_id)
                 .unwrap()
                 .equipment
                 .as_ref()

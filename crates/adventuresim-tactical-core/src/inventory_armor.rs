@@ -32,13 +32,13 @@ impl InventoryView<'_, '_, '_> {
                     .expect("covered armor part retains authored geometry");
                 ArmorLayerContact {
                     item_id: item.properties.id.clone(),
-                    inventory_item_id: item.inventory_item_id.map(|id| id.get()),
+                    inventory_item_id: item.inventory_item_id.map(|id| id.0),
                     material: armor.material,
                     geometry,
                     intersected: geometry.contains(sample),
                     selected: selected == Some(layer_index),
                     surface: adventuresim_core::equipment::ArmorSurface {
-                        inventory_item_id: item.inventory_item_id.map(|id| id.get()),
+                        inventory_item_id: item.inventory_item_id.map(|id| id.0),
                         material: Some(armor.material),
                         resistance: armor.resistance,
                         padding: armor.padding,
@@ -88,7 +88,7 @@ mod tests {
     use bevy::{ecs::system::SystemState, prelude::*};
 
     fn armor(item: &str) -> ArmorItem {
-        let definition = item_catalog::definition(&(item).into()).unwrap();
+        let definition = item_catalog::definition(item).unwrap();
         let equipment = definition.equipment.as_ref().unwrap();
         let placement = &equipment.placements[0];
         let ItemKind::Armor {

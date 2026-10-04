@@ -10,8 +10,8 @@ use adventuresim_core::{
     strategic_time::{is_walking_time, minutes_until_next_walking_start},
 };
 use adventuresim_stdb_client::{
-    Character as DbCharacter, Item as DbItem, Party as DbParty,
-    PartyJourneyRoute as DbPartyJourneyRoute, Settlement as DbSettlement,
+    Character as DbCharacter, Item as DbItem, PartyJourneyRoute as DbPartyJourneyRoute,
+    Settlement as DbSettlement,
 };
 use adventuresim_world_schema::OfficialReligion;
 use axum::{
@@ -248,18 +248,18 @@ use crate::spacetimedb::{
     PartyStake, PartyView, Personality, RecruitmentOffer, RecruitmentOfferStatus,
     RecruitmentRoleView, ReligionHoursExt, ReligiousDemand, RepairOrder, RetainedProjectile,
     RoleRequirements, ScheduleAllocation, SettlementAlias, SettlementDescription,
-    SettlementResidenceOffer, SettlementSmith, SettlementView, SocialAddress, SocialBelief,
+    SettlementSmith, SettlementView, SocialAddress, SocialBelief,
     SocialChatOutcome, StrategicEncounter, StrategicEncounterStatus, TravelEdgeView,
 };
-use crate::spacetimedb::{calendar_minute, party_by_id, settlement_by_id, sql_string_literal};
+use crate::spacetimedb::{party_by_id, settlement_by_id, sql_string_literal};
 use crate::templates::settlement::{
-    ActivityPreviewRates, CampTravelDestination, ChildPresentation, LocationView,
+    ActivityPreviewRates, CampTravelDestination, ChildPresentation, LocationView, Storefront,
     RelationshipPresentation, RestServiceKind, RestSummary, SoapRestPreview, SocialPresentation,
-    Storefront, WeddingPresentation, camp_page, live_merchant_shop_page, merchants_page,
-    party_discard_page, party_inventory_page, party_personal_page, party_pool_page,
-    party_social_dialog, party_stats_page, religion_page, rest_default_minutes, rest_result_page,
-    settlement_map_page, settlement_overview_page, settlement_residence_page,
-    settlement_resident_location_page, surgery_dialog,
+    WeddingPresentation, camp_page, live_merchant_shop_page, merchants_page, party_discard_page,
+    party_inventory_page, party_personal_page, party_pool_page, party_social_dialog,
+    party_stats_page, religion_page, rest_default_minutes, rest_result_page, settlement_map_page,
+    settlement_overview_page, settlement_residence_page, settlement_resident_location_page,
+    surgery_dialog,
 };
 
 fn contained_water_ml_for_custody(

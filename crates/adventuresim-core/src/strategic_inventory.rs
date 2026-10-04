@@ -5,11 +5,8 @@
 
 use std::{fmt, num::NonZeroU64};
 
+use crate::inventory_measurement::ItemQuantity;
 use crate::settlement_economy::Storefront;
-use crate::{
-    identity::{CharacterId, InventoryItemId},
-    inventory_measurement::ItemQuantity,
-};
 
 /// A non-zero amount of coin in a validated payment plan.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -223,7 +220,7 @@ pub struct BuyLine {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct SellLine {
-    pub inventory_item_id: InventoryItemId,
+    pub inventory_item_id: u64,
     pub quantity: TradeQuantity,
 }
 
@@ -268,7 +265,7 @@ impl StorefrontTradeRequest {
             .zip(sell_quantities)
             .map(|(inventory_item_id, quantity)| {
                 Ok(SellLine {
-                    inventory_item_id: inventory_item_id.into(),
+                    inventory_item_id,
                     quantity: TradeQuantity::try_from(quantity)?,
                 })
             })
@@ -287,9 +284,9 @@ impl StorefrontTradeRequest {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct PartyOfferLine {
-    pub from_character_id: CharacterId,
-    pub to_character_id: CharacterId,
-    pub inventory_item_id: InventoryItemId,
+    pub from_character_id: u64,
+    pub to_character_id: u64,
+    pub inventory_item_id: u64,
     pub quantity: TradeQuantity,
 }
 
@@ -313,9 +310,9 @@ pub fn parse_party_offer(
         .map(
             |(((from_character_id, to_character_id), inventory_item_id), quantity)| {
                 Ok(PartyOfferLine {
-                    from_character_id: from_character_id.into(),
-                    to_character_id: to_character_id.into(),
-                    inventory_item_id: inventory_item_id.into(),
+                    from_character_id,
+                    to_character_id,
+                    inventory_item_id,
                     quantity: TradeQuantity::try_from(quantity)?,
                 })
             },

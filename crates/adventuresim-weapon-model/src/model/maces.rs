@@ -1,13 +1,12 @@
 //! Radial flanges and their turned structural core.
 use super::*;
-use crate::ConstructionError;
 use std::f64::consts::PI;
 
 pub(super) fn mace(
     r: &ResolvedComponent,
     p: &MaceParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let length = p.length.get();
     let half = length / 2.0;
     let root = p.root_radius.get();
@@ -23,7 +22,7 @@ pub(super) fn mace(
     }
     let sides = p.segments.map_or(p.flanges.0 as usize, |n| n.0 as usize);
     if !sides.is_multiple_of(p.flanges.0 as usize) {
-        return Err(ConstructionError::MaceCoreSidesMultipleFlangeCount);
+        return Err("mace core sides must be a multiple of its flange count".into());
     }
     let angle = PI / sides as f64;
     let outer = flange_outer(p, detail);
@@ -65,9 +64,9 @@ fn receiving_profile(
     outer: &[PlanarPoint],
     thickness: f64,
     angle: f64,
-) -> Result<Vec<PlanarPoint>, ConstructionError> {
+) -> Result<Vec<PlanarPoint>, String> {
     if core.windows(2).any(|p| p[1][0] <= p[0][0]) {
-        return Err(ConstructionError::MaceCoreStationsHaveStrictlyIncreasingHeights);
+        return Err("mace core stations must have strictly increasing heights".into());
     }
     let bottom = outer[0][1];
     let top = outer.last().unwrap()[1];
@@ -82,7 +81,7 @@ fn receiving_profile(
     let silhouette: Vec<_> = outer.iter().map(|p| [p[1], p[0]]).collect();
     for &[radius, height] in outer {
         if interpolate(core, height) * angle.cos() >= radius {
-            return Err(ConstructionError::MaceFlangeOutline);
+            return Err("mace core face reaches outside the flange outline".into());
         }
     }
     let mut heights: Vec<_> = outer
@@ -96,11 +95,11 @@ fn receiving_profile(
     for height in heights {
         let radius = interpolate(core, height);
         if thickness >= 2.0 * radius * angle.sin() {
-            return Err(ConstructionError::MaceFlangeThicknessExceedsReceivingCoreFace);
+            return Err("mace flange thickness exceeds its receiving core face".into());
         }
         let seat = radius * angle.cos();
         if seat >= interpolate(&silhouette, height) {
-            return Err(ConstructionError::MaceFlangeOutline);
+            return Err("mace core face reaches outside the flange outline".into());
         }
         inner.push([seat, height]);
     }

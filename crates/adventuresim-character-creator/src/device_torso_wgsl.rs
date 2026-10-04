@@ -6,13 +6,12 @@
 
 use fabelgeist_armor::gpu::wgsl;
 use fabelgeist_compute::host_float;
-use fabelgeist_gpu::prelude::ShaderSource;
 
 use crate::device_torso::{STATUS_COINCIDENT_LANDMARKS, STATUS_DEGENERATE_WIDTH, STATUS_NO_WIDTH};
 
 /// A torso kernel's full source.
-pub(crate) fn torso_source(entry: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+pub(crate) fn torso_source(entry: &str) -> String {
+    format!(
         r#"
 struct Params {{
     count: u32,
@@ -56,7 +55,7 @@ fn unit(a: vec3<f32>) -> vec4<f32> {{
         entry = entry
             .replace("{status}", wgsl::STATUS)
             .replace("{readers}", FRAME_READERS),
-    ))
+    )
 }
 
 /// What the per-vertex torso kernels read of the frame.

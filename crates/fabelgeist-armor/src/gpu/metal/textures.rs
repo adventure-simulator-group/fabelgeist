@@ -14,7 +14,6 @@
 
 use super::wgsl;
 use crate::material::Metal;
-use fabelgeist_gpu::prelude::ShaderSource;
 
 /// Draws each scratch takes: position, angle, length, depth.
 pub(super) const DRAWS_PER_SCRATCH: u32 = 5;
@@ -22,8 +21,8 @@ pub(super) const DRAWS_PER_SCRATCH: u32 = 5;
 pub(super) const STAMP_GROUP: u32 = 64;
 
 /// Stamp every scratch into the height field.
-pub(super) fn scratches_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub(super) fn scratches_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read_write> height: array<atomic<u32>>;
 
@@ -103,13 +102,13 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         random = wgsl::RANDOM,
         draws = DRAWS_PER_SCRATCH,
         group = STAMP_GROUP,
-    ))
+    )
 }
 
 /// Resample the relief image onto the tile: the recess of a height map, or
 /// the turned slopes of a normal map.
-pub(super) fn engraving_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub(super) fn engraving_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> image: array<f32>;
 @group(0) @binding(1) var<storage, read_write> recess: array<f32>;
@@ -193,12 +192,12 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         math = wgsl::math(),
-    ))
+    )
 }
 
 /// The slopes of a height map's cut, by central differences.
-pub(super) fn cut_slopes_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub(super) fn cut_slopes_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> recess: array<f32>;
 @group(0) @binding(1) var<storage, read_write> slopes: array<f32>;
@@ -241,12 +240,12 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         math = wgsl::math(),
         tiles_per_metre = Metal::TILES_PER_METRE,
-    ))
+    )
 }
 
 /// Every texel's normal, roughness and depth, as RGBA8 words.
-pub(super) fn bake_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub(super) fn bake_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> height: array<u32>;
 @group(0) @binding(1) var<storage, read> slopes: array<f32>;
@@ -332,5 +331,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         math = wgsl::math(),
         random = wgsl::RANDOM,
         scratch_roughness = Metal::SCRATCH_ROUGHNESS,
-    ))
+    )
 }

@@ -93,13 +93,13 @@ async fn home(State(state): State<AppState>, session: Session) -> Response {
             .or_else(|| issued.as_ref().map(|issued| issued.token.as_str()));
         return redirect_with_session_cookie(&state.session_codec, token, "/");
     };
-    let character = match super::data::character(&state, character_id.into()).await {
+    let character = match super::data::character(&state, character_id).await {
         Ok(Some(character)) => character,
         Ok(None) => {
             let destination = match state
                 .db
                 .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-                    "SELECT * FROM backend_characters".into(),
+                    "SELECT * FROM backend_characters",
                 )
                 .await
             {
@@ -127,7 +127,7 @@ async fn home(State(state): State<AppState>, session: Session) -> Response {
                     .query_one_sats_into::<
                         adventuresim_stdb_client::Party,
                         crate::spacetimedb::PartyView,
-                    >(query)
+                    >(query.as_str())
                     .await
                     .ok()
                     .flatten()

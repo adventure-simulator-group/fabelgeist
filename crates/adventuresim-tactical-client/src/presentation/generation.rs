@@ -260,7 +260,7 @@ fn jobs(input_json: &str) -> Result<Vec<String>, String> {
     let mut programs = Vec::new();
     let resident = products().resident_facades.clone();
     for placement in &input.distant_buildings {
-        let program = placement.exterior_program();
+        let program = placement.occupied_program();
         if !programs.contains(&program) && !resident.contains(&program) {
             programs.push(program);
         }

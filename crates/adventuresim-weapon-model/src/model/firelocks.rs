@@ -1,6 +1,5 @@
 //! Explicit animation pivots and physical pans, jaws and sear linkages.
 use super::*;
-use crate::ConstructionError;
 use firearms::Assembly;
 
 fn pan(
@@ -9,7 +8,7 @@ fn pan(
     center: Point,
     pivot: Point,
     prefix: &str,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let [x, y, z] = center;
     let half = p.pan_width.get() / 2.0;
     let material = p.lock_material.unwrap_or(Material::Steel);
@@ -58,7 +57,7 @@ fn channel(
     pan: Point,
     bore: Point,
     label: &str,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let target = [p.bore.get() * 0.42, bore[1], bore[2]];
     let width = (p.bore.get() * 0.16).min(0.003);
     let part = a.sweep(
@@ -83,7 +82,7 @@ pub(super) fn locks(
     centers: &[f64],
     outer: f64,
     start: f64,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let side = p.waist_width.get().max(p.fore_width.get()) / 2.0 + 0.003;
     let z = -p.stock_depth.get() * 0.22;
     let lock = p.lock_position.get();
@@ -115,11 +114,7 @@ pub(super) fn locks(
     }
     Ok(())
 }
-fn wheel(
-    a: &mut Assembly<'_>,
-    p: &FirearmParameters,
-    index: usize,
-) -> Result<(), ConstructionError> {
+fn wheel(a: &mut Assembly<'_>, p: &FirearmParameters, index: usize) -> Result<(), String> {
     let side = p.waist_width.get().max(p.fore_width.get()) / 2.0 + 0.003;
     let z = -p.stock_depth.get() * 0.22;
     let lock = p.lock_position.get();
@@ -180,7 +175,7 @@ fn wheel_ignition(
     index: usize,
     barrel_z: f64,
     outer: f64,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let side = p.waist_width.get().max(p.fore_width.get()) / 2.0 + 0.003;
     let z = -p.stock_depth.get() * 0.22;
     let lock = p.lock_position.get();
@@ -246,7 +241,7 @@ fn wheel_ignition(
     }
     Ok(())
 }
-fn wheel_safety(a: &mut Assembly<'_>, p: &FirearmParameters) -> Result<(), ConstructionError> {
+fn wheel_safety(a: &mut Assembly<'_>, p: &FirearmParameters) -> Result<(), String> {
     let side = p.waist_width.get().max(p.fore_width.get()) / 2.0 + 0.003;
     let z = -p.stock_depth.get() * 0.22;
     let lock = p.lock_position.get();
@@ -311,7 +306,7 @@ fn match_ignition(
     start: f64,
     centers: &[f64],
     outer: f64,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let side = p.waist_width.get().max(p.fore_width.get()) / 2.0 + 0.003;
     let z = -p.stock_depth.get() * 0.22;
     let lock = p.lock_position.get();
@@ -372,7 +367,7 @@ fn match_ignition(
 
     Ok(())
 }
-fn match_trigger(a: &mut Assembly<'_>, p: &FirearmParameters) -> Result<(), ConstructionError> {
+fn match_trigger(a: &mut Assembly<'_>, p: &FirearmParameters) -> Result<(), String> {
     let side = p.waist_width.get().max(p.fore_width.get()) / 2.0 + 0.003;
     let z = -p.stock_depth.get() * 0.22;
     let lock = p.lock_position.get();

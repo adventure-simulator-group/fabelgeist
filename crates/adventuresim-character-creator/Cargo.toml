@@ -7,17 +7,22 @@ license = "GPL-3.0"
 
 [features]
 default = ["offline-creator"]
-offline-creator = ["dep:burn", "dep:fabelgeist-mhr"]
+offline-creator = ["dep:burn", "dep:fabelgeist-mhr", "bevy/default"]
+
+[[bin]]
+name = "adventuresim-character-creator"
+path = "src/main.rs"
+required-features = ["offline-creator"]
 
 [dependencies]
-fabelgeist-rig = { path = "../fabelgeist-rig" }
 adventuresim-core = { path = "../adventuresim-core" }
 anyhow = "1"
-thiserror = "2"
+pollster = "0.4"
+async-lock = "3"
 base64 = "0.22"
 fabelgeist-armor = { path = "../fabelgeist-armor" }
 image = { version = "0.25.10", default-features = false, features = ["png"] }
-bevy = "0.19.0"
+bevy = { version = "0.19.0", default-features = false, features = ["std", "3d_bevy_render"] }
 bevy_egui = "0.40.1"
 blake3 = "1"
 burn = { optional = true, git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
@@ -45,7 +50,6 @@ tokio = { version = "1", features = ["rt", "time"] }
 egui_extras = { version = "0.34", default-features = false, features = ["svg"] }
 
 [dev-dependencies]
-fabelgeist-fs = { path = "../fabelgeist-fs" }
 gltf = { version = "1.4", default-features = false }
 
 [workspace]

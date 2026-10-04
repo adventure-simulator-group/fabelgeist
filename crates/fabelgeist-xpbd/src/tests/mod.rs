@@ -5,12 +5,7 @@ use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 
-use crate::{
-    ColorCount, ColorRange, ConstraintCompliance, ConstraintCount, ConstraintEdges,
-    ConstraintMultiplier, ConstraintSet, ConstraintViolation, NoSubstepHook, ParticleIndex,
-    ParticleInverseMass, ParticleMobility, Particles, ProjectionActivity, Solver, SolverSettings,
-    StepDuration, SubstepDuration,
-};
+use crate::{ConstraintSet, Particles, Solver, SolverSettings};
 
 /// The XPBD distance projection, written out on the host.
 ///
@@ -22,15 +17,15 @@ struct Reference {
     positions: Vec<Vec3>,
     previous: Vec<Vec3>,
     velocities: Vec<Vec3>,
-    inverse_masses: Vec<ParticleInverseMass>,
+    inverse_masses: Vec<f32>,
 }
 
 struct ReferenceConstraints {
     /// Particle pairs, in colour order.
-    edges: Vec<[ParticleIndex; 2]>,
+    edges: Vec<[u32; 2]>,
     rest_lengths: Vec<f32>,
-    ranges: Vec<ColorRange>,
-    compliance: ConstraintCompliance,
+    ranges: Vec<u32>,
+    compliance: f32,
 }
 
 impl Reference {
@@ -38,30 +33,34 @@ impl Reference {
         &mut self,
         constraints: &mut ReferenceConstraints,
         settings: &SolverSettings,
-        delta: StepDuration,
+        delta: f32,
     ) {
-        let substep = delta.for_substeps(settings.substeps);
+        let substep = delta / settings.substeps as f32;
 
-        for _ in settings.substeps.sequence() {
+        for _ in 0..settings.substeps {
             for index in 0..self.positions.len() {
                 self.previous[index] = self.positions[index];
-                if self.inverse_masses[index].mobility() == ParticleMobility::Prescribed {
+                if self.inverse_masses[index] == 0.0 {
                     self.velocities[index] = Vec3::default();
                     continue;
                 }
-                let velocity = self.velocities[index] + settings.gravity.velocity_change(substep);
-                let velocity = settings.damping.apply(velocity, substep);
-                let velocity = settings.max_speed.limit(velocity);
+                let mut velocity = self.velocities[index] + settings.gravity * substep;
+                velocity *= (-settings.damping * substep).exp();
+                let speed = velocity.length();
+                if speed > settings.max_speed && speed > 0.0 {
+                    velocity *= settings.max_speed / speed;
+                }
                 self.velocities[index] = velocity;
-                self.positions[index] += substep.displacement(velocity);
+                self.positions[index] += velocity * substep;
             }
 
-            let mut lambdas = vec![ConstraintMultiplier::ZERO; constraints.edges.len()];
-            for _ in settings.iterations.sequence() {
-                for color in &constraints.ranges {
-                    for slot in color.slots() {
-                        let c = usize::from(slot);
-                        let [a, b] = constraints.edges[c].map(usize::from);
+            let mut lambdas = vec![0.0f32; constraints.edges.len()];
+            for _ in 0..settings.iterations.max(1) {
+                for color in 0..constraints.ranges.len() - 1 {
+                    let range =
+                        constraints.ranges[color] as usize..constraints.ranges[color + 1] as usize;
+                    for c in range {
+                        let [a, b] = constraints.edges[c].map(|i| i as usize);
                         let inverse_a = self.inverse_masses[a];
                         let inverse_b = self.inverse_masses[b];
 
@@ -71,31 +70,26 @@ impl Reference {
                             continue;
                         }
                         let normal = delta_vector / distance;
-                        let value =
-                            ConstraintViolation::from(distance - constraints.rest_lengths[c]);
-                        let alpha_tilde = constraints.compliance.per_substep(substep);
+                        let value = distance - constraints.rest_lengths[c];
+                        let alpha_tilde = constraints.compliance / (substep * substep);
                         let denominator = inverse_a + inverse_b + alpha_tilde;
-                        if denominator.distance_activity() == ProjectionActivity::Inactive {
+                        if denominator < 1e-12 {
                             continue;
                         }
-                        let delta_lambda =
-                            value.multiplier_delta(alpha_tilde, lambdas[c], denominator);
+                        let delta_lambda = (-value - alpha_tilde * lambdas[c]) / denominator;
                         lambdas[c] += delta_lambda;
-                        self.positions[a] +=
-                            inverse_a.distance_correction(delta_lambda).along(normal);
-                        self.positions[b] += inverse_b
-                            .opposed_distance_correction(delta_lambda)
-                            .along(normal);
+                        self.positions[a] += normal * (inverse_a * delta_lambda);
+                        self.positions[b] += normal * (-inverse_b * delta_lambda);
                     }
                 }
             }
 
             for index in 0..self.positions.len() {
-                if self.inverse_masses[index].mobility() == ParticleMobility::Prescribed {
+                if self.inverse_masses[index] == 0.0 {
                     self.velocities[index] = Vec3::default();
                 } else {
                     self.velocities[index] =
-                        substep.velocity(self.positions[index] - self.previous[index]);
+                        (self.positions[index] - self.previous[index]) / substep;
                 }
             }
         }
@@ -103,28 +97,15 @@ impl Reference {
 }
 
 /// A hanging chain: particle 0 pinned, the rest strung below it.
-fn chain(
-    links: usize,
-    spacing: f32,
-) -> (
-    Vec<Vec3>,
-    Vec<ParticleInverseMass>,
-    ConstraintEdges,
-    Vec<f32>,
-) {
+fn chain(links: usize, spacing: f32) -> (Vec<Vec3>, Vec<f32>, Vec<[u32; 2]>, Vec<f32>) {
     let positions: Vec<Vec3> = (0..=links)
         .map(|i| Vec3::new(i as f32 * spacing, 0.0, 0.0))
         .collect();
-    let mut inverse_masses = vec![ParticleInverseMass::UNIT_MASS; positions.len()];
-    inverse_masses[0] = ParticleInverseMass::PINNED;
+    let mut inverse_masses = vec![1.0f32; positions.len()];
+    inverse_masses[0] = 0.0;
     let edges: Vec<[u32; 2]> = (0..links).map(|i| [i as u32, i as u32 + 1]).collect();
     let rest_lengths = vec![spacing; links];
-    (
-        positions,
-        inverse_masses,
-        ConstraintEdges::from(edges.as_slice()),
-        rest_lengths,
-    )
+    (positions, inverse_masses, edges, rest_lengths)
 }
 
 #[expect(
@@ -133,13 +114,13 @@ fn chain(
 )]
 async fn run(
     positions: &[Vec3],
-    inverse_masses: &[ParticleInverseMass],
-    edges: &ConstraintEdges,
+    inverse_masses: &[f32],
+    edges: &[[u32; 2]],
     rest_lengths: &[f32],
-    compliance: ConstraintCompliance,
+    compliance: f32,
     settings: SolverSettings,
     steps: usize,
-    delta: StepDuration,
+    delta: f32,
 ) -> Result<(Vec<Vec3>, Vec<Vec3>)> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
@@ -148,7 +129,7 @@ async fn run(
     let mut set = ConstraintSet::distance(
         &context,
         &cache,
-        "distance".into(),
+        "distance",
         edges,
         rest_lengths,
         compliance,
@@ -156,13 +137,7 @@ async fn run(
     let solver = Solver::with_cache(&context, &cache, settings)?;
 
     for _ in 0..steps {
-        solver.step(
-            &context,
-            &particles,
-            &mut [&mut set],
-            &mut NoSubstepHook,
-            delta,
-        )?;
+        solver.step(&context, &particles, &mut [&mut set], &mut (), delta)?;
     }
 
     let gpu_positions = particles.read_positions(&context).await?;
@@ -171,12 +146,12 @@ async fn run(
 
     // The same run on the host, using the colour order the set chose.
     let coloring = set.coloring();
-    let mut ordered_edges = Vec::new();
-    let mut ordered_rest = Vec::new();
-    for &index in coloring.order() {
-        ordered_edges.push(edges.pairs()[usize::from(index)]);
-        ordered_rest.push(rest_lengths[usize::from(index)]);
-    }
+    let ordered_edges: Vec<[u32; 2]> = coloring.order.iter().map(|&i| edges[i as usize]).collect();
+    let ordered_rest: Vec<f32> = coloring
+        .order
+        .iter()
+        .map(|&i| rest_lengths[i as usize])
+        .collect();
 
     let mut reference = Reference {
         positions: positions.to_vec(),
@@ -187,7 +162,7 @@ async fn run(
     let mut reference_constraints = ReferenceConstraints {
         edges: ordered_edges,
         rest_lengths: ordered_rest,
-        ranges: coloring.colors().collect(),
+        ranges: coloring.ranges.clone(),
         compliance,
     };
     for _ in 0..steps {
@@ -213,7 +188,7 @@ fn assert_close(gpu: &[Vec3], host: &[Vec3], tolerance: f32) {
 async fn matches_the_host_solver_on_a_chain() -> Result<()> {
     let (positions, inverse_masses, edges, rest_lengths) = chain(40, 0.05);
     let settings = SolverSettings {
-        substeps: 8.into(),
+        substeps: 8,
         ..Default::default()
     };
     let (gpu, host) = run(
@@ -221,10 +196,10 @@ async fn matches_the_host_solver_on_a_chain() -> Result<()> {
         &inverse_masses,
         &edges,
         &rest_lengths,
-        (0.0).into(),
+        0.0,
         settings,
         20,
-        (1.0 / 60.0).into(),
+        1.0 / 60.0,
     )
     .await?;
     // Twenty steps of eight substeps is 160 sweeps of accumulated
@@ -239,7 +214,7 @@ async fn matches_the_host_solver_on_a_chain() -> Result<()> {
 async fn matches_the_host_solver_with_compliance() -> Result<()> {
     let (positions, inverse_masses, edges, rest_lengths) = chain(24, 0.08);
     let settings = SolverSettings {
-        substeps: 12.into(),
+        substeps: 12,
         ..Default::default()
     };
     let (gpu, host) = run(
@@ -247,10 +222,10 @@ async fn matches_the_host_solver_with_compliance() -> Result<()> {
         &inverse_masses,
         &edges,
         &rest_lengths,
-        (1e-6).into(),
+        1e-6,
         settings,
         15,
-        (1.0 / 60.0).into(),
+        1.0 / 60.0,
     )
     .await?;
     assert_close(&gpu, &host, 1e-3);
@@ -268,8 +243,8 @@ async fn matches_the_host_solver_with_compliance() -> Result<()> {
 async fn matches_the_host_solver_across_repeated_sweeps() -> Result<()> {
     let (positions, inverse_masses, edges, rest_lengths) = chain(24, 0.08);
     let settings = SolverSettings {
-        substeps: 6.into(),
-        iterations: 4.into(),
+        substeps: 6,
+        iterations: 4,
         ..Default::default()
     };
     let (gpu, host) = run(
@@ -277,10 +252,10 @@ async fn matches_the_host_solver_across_repeated_sweeps() -> Result<()> {
         &inverse_masses,
         &edges,
         &rest_lengths,
-        (1e-5).into(),
+        1e-5,
         settings,
         15,
-        (1.0 / 60.0).into(),
+        1.0 / 60.0,
     )
     .await?;
     assert_close(&gpu, &host, 1e-3);
@@ -297,10 +272,10 @@ async fn pinned_particles_never_move() -> Result<()> {
         &inverse_masses,
         &edges,
         &rest_lengths,
-        (0.0).into(),
+        0.0,
         SolverSettings::default(),
         30,
-        (1.0 / 60.0).into(),
+        1.0 / 60.0,
     )
     .await?;
     assert!(
@@ -319,11 +294,10 @@ async fn free_fall_matches_the_analytic_drop() -> Result<()> {
     let cache = KernelCache::new();
 
     let positions = vec![Vec3::default(); 100];
-    let particles =
-        Particles::from_positions(&context, &positions, &vec![1.0.into(); positions.len()])?;
+    let particles = Particles::from_positions(&context, &positions, &vec![1.0; positions.len()])?;
     let settings = SolverSettings {
-        substeps: 20.into(),
-        damping: 0.0.into(),
+        substeps: 20,
+        damping: 0.0,
         ..Default::default()
     };
     let solver = Solver::with_cache(&context, &cache, settings)?;
@@ -331,18 +305,12 @@ async fn free_fall_matches_the_analytic_drop() -> Result<()> {
     let steps = 60;
     let delta = 1.0f32 / 60.0;
     for _ in 0..steps {
-        solver.step(
-            &context,
-            &particles,
-            &mut [],
-            &mut NoSubstepHook,
-            delta.into(),
-        )?;
+        solver.step(&context, &particles, &mut [], &mut (), delta)?;
     }
 
     let after = particles.read_positions(&context).await?;
     let elapsed = steps as f32 * delta;
-    let analytic = 0.5 * -9.81f32 * elapsed * elapsed;
+    let analytic = 0.5 * settings.gravity.y * elapsed * elapsed;
     // Symplectic Euler overshoots the closed form by half a substep of
     // velocity each step; over a second at twenty substeps that is about half
     // a percent.
@@ -355,10 +323,10 @@ async fn free_fall_matches_the_analytic_drop() -> Result<()> {
     // And the velocity is g t.
     let velocities = particles.read_velocities(&context).await?;
     assert!(
-        (velocities[0].y - -9.81f32 * elapsed).abs() < 0.2,
+        (velocities[0].y - settings.gravity.y * elapsed).abs() < 0.2,
         "velocity {} is not near {}",
         velocities[0].y,
-        -9.81f32 * elapsed
+        settings.gravity.y * elapsed
     );
     Ok(())
 }
@@ -375,37 +343,25 @@ async fn a_stiff_chain_holds_its_length() -> Result<()> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
     let particles = Particles::from_positions(&context, &positions, &inverse_masses)?;
-    let mut set = ConstraintSet::distance(
-        &context,
-        &cache,
-        "distance".into(),
-        &edges,
-        &rest_lengths,
-        (0.0).into(),
-    )?;
+    let mut set =
+        ConstraintSet::distance(&context, &cache, "distance", &edges, &rest_lengths, 0.0)?;
     let solver = Solver::with_cache(
         &context,
         &cache,
         SolverSettings {
-            substeps: 20.into(),
-            damping: 2.0.into(),
+            substeps: 20,
+            damping: 2.0,
             ..Default::default()
         },
     )?;
 
     for _ in 0..300 {
-        solver.step(
-            &context,
-            &particles,
-            &mut [&mut set],
-            &mut NoSubstepHook,
-            (1.0 / 60.0).into(),
-        )?;
+        solver.step(&context, &particles, &mut [&mut set], &mut (), 1.0 / 60.0)?;
     }
 
     let settled = particles.read_positions(&context).await?;
-    for (index, edge) in edges.pairs().iter().enumerate() {
-        let length = (settled[usize::from(edge[0])] - settled[usize::from(edge[1])]).length();
+    for (index, edge) in edges.iter().enumerate() {
+        let length = (settled[edge[0] as usize] - settled[edge[1] as usize]).length();
         assert!(
             (length - spacing).abs() < spacing * 0.05,
             "link {index} is {length} long, not {spacing}"
@@ -437,37 +393,28 @@ async fn compliance_orders_the_stretch() -> Result<()> {
         let mut set = ConstraintSet::distance(
             &context,
             &cache,
-            "distance".into(),
+            "distance",
             &edges,
             &rest_lengths,
-            compliance.into(),
+            compliance,
         )?;
         let solver = Solver::with_cache(
             &context,
             &cache,
             SolverSettings {
-                substeps: 20.into(),
-                damping: 3.0.into(),
+                substeps: 20,
+                damping: 3.0,
                 ..Default::default()
             },
         )?;
         for _ in 0..400 {
-            solver.step(
-                &context,
-                &particles,
-                &mut [&mut set],
-                &mut NoSubstepHook,
-                (1.0 / 60.0).into(),
-            )?;
+            solver.step(&context, &particles, &mut [&mut set], &mut (), 1.0 / 60.0)?;
         }
         let settled = particles.read_positions(&context).await?;
         // Total length of the hanging chain once it has come to rest.
         let total: f32 = edges
-            .pairs()
             .iter()
-            .map(|edge: &[ParticleIndex; 2]| -> f32 {
-                (settled[usize::from(edge[0])] - settled[usize::from(edge[1])]).length()
-            })
+            .map(|e| (settled[e[0] as usize] - settled[e[1] as usize]).length())
             .sum();
         lengths.push(total);
     }
@@ -500,11 +447,7 @@ async fn a_colored_grid_solves_without_racing() -> Result<()> {
         for x in 0..width {
             positions.push(Vec3::new(x as f32 * spacing, 0.0, y as f32 * spacing));
             // The top row is pinned, so the sheet hangs.
-            inverse_masses.push(if y == 0 {
-                ParticleInverseMass::PINNED
-            } else {
-                ParticleInverseMass::UNIT_MASS
-            });
+            inverse_masses.push(if y == 0 { 0.0 } else { 1.0 });
         }
     }
 
@@ -523,20 +466,12 @@ async fn a_colored_grid_solves_without_racing() -> Result<()> {
         }
     }
 
-    let edges = ConstraintEdges::from(edges.as_slice());
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
     let particles = Particles::from_positions(&context, &positions, &inverse_masses)?;
-    let mut set = ConstraintSet::distance(
-        &context,
-        &cache,
-        "stretch".into(),
-        &edges,
-        &rest_lengths,
-        (0.0).into(),
-    )?;
+    let mut set = ConstraintSet::distance(&context, &cache, "stretch", &edges, &rest_lengths, 0.0)?;
     assert!(
-        set.color_count() >= ColorCount::from(4),
+        set.color_count() >= 4,
         "a grid needs at least four colours, got {}",
         set.color_count()
     );
@@ -545,19 +480,13 @@ async fn a_colored_grid_solves_without_racing() -> Result<()> {
         &context,
         &cache,
         SolverSettings {
-            substeps: 15.into(),
-            damping: 2.0.into(),
+            substeps: 15,
+            damping: 2.0,
             ..Default::default()
         },
     )?;
     for _ in 0..200 {
-        solver.step(
-            &context,
-            &particles,
-            &mut [&mut set],
-            &mut NoSubstepHook,
-            (1.0 / 60.0).into(),
-        )?;
+        solver.step(&context, &particles, &mut [&mut set], &mut (), 1.0 / 60.0)?;
     }
 
     let settled = particles.read_positions(&context).await?;
@@ -569,12 +498,10 @@ async fn a_colored_grid_solves_without_racing() -> Result<()> {
     // end up badly stretched. Every edge staying near its rest length is the
     // evidence that the colours held.
     let worst = edges
-        .pairs()
         .iter()
         .zip(&rest_lengths)
-        .map(|(edge, &rest): (&[ParticleIndex; 2], &f32)| -> f32 {
-            ((settled[usize::from(edge[0])] - settled[usize::from(edge[1])]).length() - rest).abs()
-                / rest
+        .map(|(e, &rest)| {
+            ((settled[e[0] as usize] - settled[e[1] as usize]).length() - rest).abs() / rest
         })
         .fold(0.0f32, f32::max);
     assert!(
@@ -591,28 +518,20 @@ async fn rejects_mismatched_inputs() -> Result<()> {
     let cache = KernelCache::new();
 
     assert!(
-        ConstraintSet::distance(
-            &context,
-            &cache,
-            "bad".into(),
-            &ConstraintEdges::from([[0u32, 1]].as_slice()),
-            &[1.0, 2.0],
-            (0.0).into()
-        )
-        .is_err(),
+        ConstraintSet::distance(&context, &cache, "bad", &[[0, 1]], &[1.0, 2.0], 0.0).is_err(),
         "one edge with two rest lengths must be rejected"
     );
 
-    let mut particles = Particles::new(&context, 4.into())?;
+    let mut particles = Particles::new(&context, 4)?;
     assert!(
         particles
-            .write(&context, &[Vec3::default(); 2], &[1.0.into()])
+            .write(&context, &[Vec3::default(); 2], &[1.0])
             .is_err(),
         "two positions with one inverse mass must be rejected"
     );
     assert!(
         particles
-            .write(&context, &[Vec3::default(); 8], &[1.0.into(); 8])
+            .write(&context, &[Vec3::default(); 8], &[1.0; 8])
             .is_err(),
         "eight particles must not fit a capacity of four"
     );
@@ -625,25 +544,12 @@ async fn rejects_mismatched_inputs() -> Result<()> {
 async fn handles_empty_constraint_sets() -> Result<()> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
-    let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0.into()])?;
-    let mut set = ConstraintSet::distance(
-        &context,
-        &cache,
-        "none".into(),
-        &ConstraintEdges::default(),
-        &[],
-        (0.0).into(),
-    )?;
-    assert_eq!(set.constraint_count(), ConstraintCount::from(0));
+    let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0])?;
+    let mut set = ConstraintSet::distance(&context, &cache, "none", &[], &[], 0.0)?;
+    assert_eq!(set.constraint_count(), 0);
 
     let solver = Solver::with_cache(&context, &cache, SolverSettings::default())?;
-    solver.step(
-        &context,
-        &particles,
-        &mut [&mut set],
-        &mut NoSubstepHook,
-        (1.0 / 60.0).into(),
-    )?;
+    solver.step(&context, &particles, &mut [&mut set], &mut (), 1.0 / 60.0)?;
     Ok(())
 }
 
@@ -653,36 +559,24 @@ async fn handles_empty_constraint_sets() -> Result<()> {
 async fn the_substep_hook_runs_every_substep() -> Result<()> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
-    let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0.into()])?;
+    let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0])?;
     let settings = SolverSettings {
-        substeps: 7.into(),
+        substeps: 7,
         ..Default::default()
     };
     let solver = Solver::with_cache(&context, &cache, settings)?;
 
     let mut calls = 0usize;
-    let mut seen_substep = None;
+    let mut seen_substep = 0.0f32;
     {
-        let mut hook = |_: &mut KernelBatch,
-                        _: &Particles,
-                        substep: SubstepDuration|
-         -> std::result::Result<(), std::convert::Infallible> {
+        let mut hook = |_: &mut KernelBatch, _: &Particles, substep: f32| {
             calls += 1;
-            seen_substep = Some(substep);
+            seen_substep = substep;
             Ok(())
         };
-        solver.step(
-            &context,
-            &particles,
-            &mut [],
-            &mut hook,
-            (1.0 / 60.0).into(),
-        )?;
+        solver.step(&context, &particles, &mut [], &mut hook, 1.0 / 60.0)?;
     }
     assert_eq!(calls, 7);
-    assert_eq!(
-        u32::from(seen_substep.unwrap()),
-        ((1.0f32 / 60.0) / 7.0).to_bits()
-    );
+    assert!((seen_substep - (1.0 / 60.0) / 7.0).abs() < 1e-9);
     Ok(())
 }

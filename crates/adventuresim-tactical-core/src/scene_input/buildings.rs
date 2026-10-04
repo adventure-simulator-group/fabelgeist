@@ -1,4 +1,3 @@
-use crate::scene_input::SceneValidationError;
 use adventuresim_building_generator::{
     BuildingArchetype, BuildingCollision, BuildingPlan, BuildingProgram,
 };
@@ -77,12 +76,9 @@ pub struct TacticalBuildingPlacement {
     pub orientation: BuildingOrientation,
 }
 
-/// Compact presentation-only building outside the authoritative tactical area.
-///
-/// The compact occupied recipe supports promotion into a playable venue. Display
-/// uses a bounded exterior family and prosperity palette instead of compiling a
-/// distinct mesh for each occupation and service size. Distant instances never
-/// receive authoritative collision or tactical simulation state.
+/// Compact physical program outside the active tactical area. All visual detail
+/// levels compile this occupied recipe at its original dimensions. Meshes remain
+/// shared by equal programs; distant instances receive no tactical tick state.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct DistantBuildingPlacement {
@@ -195,15 +191,15 @@ pub(super) fn validate_building_placements(
     placements: &[TacticalBuildingPlacement],
 ) -> Result<(), SceneInputError> {
     if placements.len() > MAX_TACTICAL_BUILDINGS {
-        return invalid(SceneValidationError::BuildingCount);
+        return invalid("scene has too many tactical buildings");
     }
     let mut ids = std::collections::BTreeSet::new();
     for placement in placements {
         if placement.id == 0 || !ids.insert(placement.id) {
-            return invalid(SceneValidationError::BuildingIdentity);
+            return invalid("building identity is zero or duplicated");
         }
         if !placement.centre_metres.is_finite() || !placement.orientation.is_valid() {
-            return invalid(SceneValidationError::BuildingPlacement);
+            return invalid("building placement is invalid");
         }
     }
     Ok(())
@@ -213,18 +209,18 @@ pub(super) fn validate_distant_building_placements(
     placements: &[DistantBuildingPlacement],
 ) -> Result<(), SceneInputError> {
     if placements.len() > MAX_CITY_BUILDING_INSTANCES {
-        return invalid(SceneValidationError::DistantBuildingCount);
+        return invalid("scene has too many distant buildings");
     }
     let mut ids = std::collections::BTreeSet::new();
     for placement in placements {
         if placement.id == 0 || !ids.insert(placement.id) {
-            return invalid(SceneValidationError::DistantBuildingIdentity);
+            return invalid("distant building identity is zero or duplicated");
         }
         if !placement.centre_metres.is_finite()
             || !placement.base_elevation_metres.is_finite()
             || !placement.orientation.is_valid()
         {
-            return invalid(SceneValidationError::DistantBuildingPlacement);
+            return invalid("distant building placement is invalid");
         }
     }
     Ok(())
@@ -245,10 +241,10 @@ pub(super) fn prepare_buildings(
                     super::GeneratedBuildingRecipe::generate(placement.program.clone())
                 })
                 .map_err(|error| {
-                    SceneInputError::Validation(SceneValidationError::BuildingProgram {
-                        building: placement.id,
-                        source: error,
-                    })
+                    SceneInputError::Validation(format!(
+                        "building {} program is invalid: {error}",
+                        placement.id
+                    ))
                 })?;
             Ok(GeneratedBuilding {
                 placement,
@@ -289,10 +285,9 @@ pub(super) fn validate_building_pads(
                 other_half_extents,
                 other_orientation,
             ) {
-                return invalid(SceneValidationError::BuildingOverlap {
-                    building: id,
-                    other: other_id,
-                });
+                return invalid(format!(
+                    "building {id} footprint overlaps building {other_id}"
+                ));
             }
         }
     }

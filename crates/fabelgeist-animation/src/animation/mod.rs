@@ -15,12 +15,7 @@ use fabelgeist_math::transform::Transform;
 use fabelgeist_math::vector::{Vec3, Vec4};
 use serde::{Deserialize, Serialize};
 
-mod label;
-mod pose;
-pub use pose::{LocalPose, ModelPose, model_pose, rest_pose};
 pub mod retarget;
-use fabelgeist_rig::RigJointName;
-pub use label::AnimationClipName;
 
 /// A joint's local transform, with the rotation kept as a quaternion.
 ///
@@ -176,6 +171,35 @@ fn invert(value: f32) -> f32 {
     }
 }
 
+/// A skeleton's local transforms in joint order, the currency of posing.
+pub type LocalPose = Vec<JointTransform>;
+
+/// The rest (bind) pose a skeleton declares through its joint hierarchy.
+pub fn rest_pose(skeleton: &Skeleton) -> LocalPose {
+    skeleton
+        .joints
+        .iter()
+        .map(|joint| JointTransform::from_transform(&joint.local_transform))
+        .collect()
+}
+
+/// Accumulates local transforms into model space, parents before children.
+///
+/// Joints are stored parent-first by every importer in the engine; a joint
+/// whose parent appears later is treated as a root rather than silently
+/// producing garbage.
+pub fn model_pose(skeleton: &Skeleton, locals: &[JointTransform]) -> LocalPose {
+    let mut model: LocalPose = Vec::with_capacity(locals.len());
+    for (index, local) in locals.iter().enumerate() {
+        let transform = match skeleton.joints[index].parent_index {
+            Some(parent) if parent < index => model[parent].compose(*local),
+            _ => *local,
+        };
+        model.push(transform);
+    }
+    model
+}
+
 /// Values that can be interpolated between keyframes.
 pub trait Interpolate: Copy {
     fn interpolate(self, other: Self, factor: f32) -> Self;
@@ -260,7 +284,7 @@ impl<T: Interpolate> Curve<T> {
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct JointTrack {
     /// Name of the joint in the skeleton this clip targets.
-    pub joint: RigJointName,
+    pub joint: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub translation: Option<Curve<Vec3>>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -270,9 +294,9 @@ pub struct JointTrack {
 }
 
 impl JointTrack {
-    pub fn new(joint: RigJointName) -> Self {
+    pub fn new(joint: impl Into<String>) -> Self {
         Self {
-            joint,
+            joint: joint.into(),
             ..Default::default()
         }
     }
@@ -359,7 +383,7 @@ impl RootMotion {
 /// canonical rig.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct Animation {
-    pub name: AnimationClipName,
+    pub name: String,
     pub duration: f32,
     pub tracks: Vec<JointTrack>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -367,15 +391,15 @@ pub struct Animation {
 }
 
 impl Animation {
-    pub fn new(name: AnimationClipName) -> Self {
+    pub fn new(name: impl Into<String>) -> Self {
         Self {
-            name,
+            name: name.into(),
             ..Default::default()
         }
     }
 
-    pub fn track(&self, joint: &RigJointName) -> Option<&JointTrack> {
-        self.tracks.iter().find(|track| &track.joint == joint)
+    pub fn track(&self, joint: &str) -> Option<&JointTrack> {
+        self.tracks.iter().find(|track| track.joint == joint)
     }
 
     /// Sets `duration` from the tracks, for clips assembled track by track.
@@ -431,7 +455,6 @@ impl Animation {
                 self.tracks
                     .iter()
                     .position(|track| track.joint == joint.name)
-                    .map(ClipTrackOrdinal::from)
             })
             .collect();
         ClipBinding {
@@ -448,7 +471,7 @@ impl Animation {
             .iter()
             .zip(&binding.tracks)
             .map(|(rest, track)| match track {
-                Some(index) => self.tracks[usize::from(*index)].sample_onto(*rest, time),
+                Some(index) => self.tracks[*index].sample_onto(*rest, time),
                 None => *rest,
             })
             .collect()
@@ -464,11 +487,11 @@ impl Animation {
     }
 
     /// Joints named by the clip that the skeleton does not have.
-    pub fn unbound_tracks(&self, skeleton: &Skeleton) -> Vec<&RigJointName> {
+    pub fn unbound_tracks(&self, skeleton: &Skeleton) -> Vec<&str> {
         self.tracks
             .iter()
             .filter(|track| skeleton.find_joint_by_name(&track.joint).is_none())
-            .map(|track| &track.joint)
+            .map(|track| track.joint.as_str())
             .collect()
     }
 }
@@ -477,7 +500,7 @@ impl Animation {
 #[derive(Clone, Debug, PartialEq)]
 pub struct ClipBinding {
     /// Track index per skeleton joint, `None` where the joint is unanimated.
-    pub tracks: Vec<Option<ClipTrackOrdinal>>,
+    pub tracks: Vec<Option<usize>>,
     pub rest: LocalPose,
 }
 
@@ -535,7 +558,7 @@ mod tests {
 
     #[test]
     fn key_times_merge_every_channel() {
-        let mut clip = Animation::new("test".into());
+        let mut clip = Animation::new("test");
         clip.tracks.push(JointTrack {
             joint: "a".into(),
             rotation: Some(Curve::new(
@@ -552,19 +575,5 @@ mod tests {
         clip.recompute_duration();
         assert_eq!(clip.key_times(), vec![0.0, 0.5, 1.0]);
         assert_eq!(clip.duration, 1.0);
-    }
-}
-
-/// Position in a clip's track table, independent of skeleton or skin slots.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct ClipTrackOrdinal(usize);
-impl From<usize> for ClipTrackOrdinal {
-    fn from(track: usize) -> Self {
-        Self(track)
-    }
-}
-impl From<ClipTrackOrdinal> for usize {
-    fn from(track: ClipTrackOrdinal) -> Self {
-        track.0
     }
 }

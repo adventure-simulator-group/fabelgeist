@@ -1,6 +1,5 @@
 //! Stable language types and deterministic playable-world inference.
 
-use crate::identity::CharacterId;
 mod initialization;
 use fabelgeist_determinism::StreamId;
 pub use initialization::{initial_character_languages, initial_oral_languages};
@@ -245,8 +244,8 @@ pub fn language_scaled_effect(value: f32, shared_language: f32) -> f32 {
 
 /// O(L*n) best-counterpart choices from one immutable party snapshot.
 pub fn party_common_oral_choices(
-    speakers: &[(CharacterId, OralLanguageHours)],
-) -> Vec<(CharacterId, OralLanguage, f32)> {
+    speakers: &[(u64, OralLanguageHours)],
+) -> Vec<(u64, OralLanguage, f32)> {
     let capped: Vec<_> = speakers
         .iter()
         .map(|(id, hours)| (*id, *hours, ORAL_FLUENCY_HOURS))
@@ -255,9 +254,9 @@ pub fn party_common_oral_choices(
 }
 
 pub fn party_common_oral_choices_capped(
-    speakers: &[(CharacterId, OralLanguageHours, f32)],
-) -> Vec<(CharacterId, OralLanguage, f32)> {
-    let mut top = [[(CharacterId::from(0), -1.0_f32); 2]; 8];
+    speakers: &[(u64, OralLanguageHours, f32)],
+) -> Vec<(u64, OralLanguage, f32)> {
+    let mut top = [[(0_u64, -1.0_f32); 2]; 8];
     for (id, hours, cap) in speakers {
         for language in OralLanguage::ALL {
             let candidate = (*id, hours.effective(language).min((*cap).max(0.0)));
@@ -306,9 +305,9 @@ pub fn party_common_oral_choices_capped(
 }
 
 pub fn party_oral_training_gains(
-    speakers: &[(CharacterId, OralLanguageHours)],
+    speakers: &[(u64, OralLanguageHours)],
     elapsed_hours: f32,
-) -> Vec<(CharacterId, OralLanguage, f32)> {
+) -> Vec<(u64, OralLanguage, f32)> {
     let hours = if elapsed_hours.is_finite() {
         elapsed_hours.max(0.0)
     } else {
@@ -321,9 +320,9 @@ pub fn party_oral_training_gains(
 }
 
 pub fn party_oral_training_gains_capped(
-    speakers: &[(CharacterId, OralLanguageHours, f32)],
+    speakers: &[(u64, OralLanguageHours, f32)],
     elapsed_hours: f32,
-) -> Vec<(CharacterId, OralLanguage, f32)> {
+) -> Vec<(u64, OralLanguage, f32)> {
     let hours = if elapsed_hours.is_finite() {
         elapsed_hours.max(0.0)
     } else {
@@ -639,10 +638,7 @@ mod tests {
         assert_eq!(low, 0.2);
         assert_eq!(restored, 0.7);
 
-        let choices = party_common_oral_choices_capped(&[
-            (CharacterId::from(1), left, 1_000.0),
-            (CharacterId::from(2), right, 5_000.0),
-        ]);
+        let choices = party_common_oral_choices_capped(&[(1, left, 1_000.0), (2, right, 5_000.0)]);
         assert!(
             choices
                 .iter()
@@ -700,7 +696,7 @@ mod tests {
         let speakers: Vec<_> = (0..64)
             .map(|id| {
                 (
-                    CharacterId::from(id),
+                    id,
                     if id % 2 == 0 {
                         OralLanguageHours {
                             east_central: 1000.0,

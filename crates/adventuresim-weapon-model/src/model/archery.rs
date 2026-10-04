@@ -1,6 +1,5 @@
 //! Bow laminations, strung control spans, arrows, nocks and open quivers.
 use super::*;
-use crate::ConstructionError;
 mod bow;
 use bow::*;
 use std::f64::consts::{PI, TAU};
@@ -75,7 +74,7 @@ pub(super) fn bow(
     r: &ResolvedComponent,
     p: &ArcheryBowParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let upper = limb(p, true, detail);
     let lower = limb(p, false, detail);
     let mut parts = bow_limbs(r, p, &upper, &lower, detail)?;
@@ -88,7 +87,7 @@ pub(super) fn arrow(
     r: &ResolvedComponent,
     p: &ArrowParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let radius = p.shaft_radius.get();
     let length = p.length.get();
     let head_length = p.head_length.get();
@@ -201,7 +200,7 @@ pub(super) fn quiver(
     r: &ResolvedComponent,
     p: &ArrowQuiverParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let bag = p.carrier_style == Some(ArrowQuiverCarrierStyle::Bag);
     let radius = p.mouth_radius.get();
     let length = p.length.get();
@@ -211,7 +210,7 @@ pub(super) fn quiver(
     let bottom = profile[0][1];
     let inner: Vec<_> = profile.iter().map(|p| p[1] - wall).collect();
     if inner.iter().any(|&r| r <= 0.0) {
-        return Err(ConstructionError::QuiverWallLeaveOpenInterior);
+        return Err("quiver wall must leave an open interior".into());
     }
     let material = r.component.material.unwrap_or(Material::Leather);
     let mut parts = vec![
@@ -268,19 +267,19 @@ pub(super) fn quiver(
 
 pub(super) fn composite_layers(
     p: &ArcheryBowParameters,
-) -> Result<[(&'static str, f64, f64, Material); 3], ConstructionError> {
+) -> Result<[(&'static str, f64, f64, Material); 3], String> {
     let horn = p
         .horn_thickness
-        .ok_or(ConstructionError::CompositeBowNeedsHornThickness)?
+        .ok_or("composite bow needs horn thickness")?
         .get();
     let backing = p
         .backing_thickness
-        .ok_or(ConstructionError::CompositeBowNeedsBackingThickness)?
+        .ok_or("composite bow needs backing thickness")?
         .get();
     let depth = p.limb_depth.get();
     let core = depth - horn - backing;
     if core <= 0.0 {
-        return Err(ConstructionError::BowCoreRetainPositiveDepthBetweenLaminations);
+        return Err("bow core must retain positive depth between laminations".into());
     }
     Ok([
         (

@@ -10,10 +10,10 @@
 //! ```no_run
 //! # use fabelgeist_animation::animation::{Animation, retarget};
 //! # use fabelgeist_animation::skeleton::Skeleton;
-//! # fn example(source: &Skeleton, clip: &Animation, target: &Skeleton) -> Result<(), retarget::RetargetError> {
+//! # fn example(source: &Skeleton, clip: &Animation, target: &Skeleton) -> anyhow::Result<()> {
 //! let profile = retarget::RetargetProfile::new(
 //!     fabelgeist_animation::skeleton::mixamo::MixamoRig::profile(),
-//!     retarget::RigProfile::new("my rig".into()),
+//!     retarget::RigProfile::new("my rig"),
 //! );
 //! let retargeted = retarget::retarget(source, clip, target, &profile)?;
 //! # let _ = retargeted;
@@ -25,17 +25,6 @@
 //! [`Animation`](crate::animation::Animation) and writing a
 //! profile. It does not mean touching anything in this module.
 
-mod chain;
-mod error;
-pub use chain::{ChainJointCount, ChainPosition, ChainPresence, RigJointChain};
-mod label;
-mod matching;
-mod report;
-mod requirement;
-pub use error::{MissingRequiredJoint, RetargetError};
-pub use label::{RetargetProfileName, RigProfileName};
-pub use report::RetargetReport;
-pub use requirement::{JointRequirement, RetargetStrictness};
 pub mod profile;
 pub mod profiles;
 pub mod resolve;

@@ -1,6 +1,5 @@
 //! Release, runner, spanning and sight hardware built from shared stock datums.
 use super::*;
-use crate::ConstructionError;
 type Blocks = Vec<(Point, Point, Material, String)>;
 pub(super) fn notch_blocks(p: &CrossbowParameters) -> Blocks {
     let nut = p.nut_position.get();
@@ -73,7 +72,7 @@ pub(super) fn trigger(
     detail: Detail,
     parts: &mut Vec<PartSource>,
     boxes: &mut Blocks,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let nut = p.nut_position.get();
     let nr = p.nut_radius.get();
     let sear = -nr * 0.72;
@@ -108,7 +107,7 @@ pub(super) fn stirrup(
     p: &CrossbowParameters,
     detail: Detail,
     parts: &mut Vec<PartSource>,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let rail = p.rail_height.get();
     let length = p.length.get();
     let stirrup = [
@@ -148,7 +147,7 @@ pub(super) fn spanning(
     detail: Detail,
     parts: &mut Vec<PartSource>,
     boxes: &mut Blocks,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let nut = p.nut_position.get();
     let table = p.lock_table_height.get();
     let butt = p.butt_width.get();
@@ -206,7 +205,7 @@ pub(super) fn sights(
     p: &CrossbowParameters,
     detail: Detail,
     parts: &mut Vec<PartSource>,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let nut = p.nut_position.get();
     let rear = StockLayout::new(p).rear;
     if p.sight_style != CrossbowSightStyle::None {

@@ -7,7 +7,6 @@
 //! body realization is bound: the wearer, or a morph sample, whose bracer is
 //! the same samples on its own skin.
 
-use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, NormalWeighting, VertexNormals};
@@ -67,12 +66,12 @@ impl Layout {
 
     /// The outer wall: its rings along the forearm, closed around it.
     fn grid(&self) -> SurfaceGrid {
-        SurfaceGrid {
-            rows: ALONG + 1,
-            columns: self.around,
-            cyclic: true,
-            vertices: (0..self.sample_count()).collect(),
-        }
+        SurfaceGrid::regular(
+            ALONG + 1,
+            self.around,
+            true,
+            (0..self.sample_count()).collect(),
+        )
     }
 
     /// The plate face of each triangle `bracer_wgsl::INDICES` writes: per
@@ -100,31 +99,28 @@ impl Layout {
         body_normals: Option<&Buffer>,
     ) -> Result<BracerMesh, GenerateError> {
         let vertices = self.vertex_count();
-        let positions = gpu.scratch((vertices as u64 * 12).into(), ("bracer positions").into())?;
+        let positions = gpu.scratch(vertices as u64 * 12, "bracer positions")?;
         let mut parameters = counted(vertices, self.around, self.surface.faces_at());
-        parameters.insert(
-            "record_body_normals".into(),
-            (u32::from(body_normals.is_some())).into(),
-        );
-        parameters.insert("body_positions".into(), (body.positions.clone()).into());
-        parameters.insert("body_normals_in".into(), (body.normals.clone()).into());
-        parameters.insert("surface".into(), (self.surface.words.clone()).into());
-        parameters.insert("design".into(), (self.design.clone()).into());
-        parameters.insert("samples".into(), (self.samples.clone()).into());
-        parameters.insert("positions".into(), (positions.clone()).into());
+        parameters.insert("record_body_normals", u32::from(body_normals.is_some()));
+        parameters.insert("body_positions", body.positions.clone());
+        parameters.insert("body_normals_in", body.normals.clone());
+        parameters.insert("surface", self.surface.words.clone());
+        parameters.insert("design", self.design.clone());
+        parameters.insert("samples", self.samples.clone());
+        parameters.insert("positions", positions.clone());
         let body_normals = match body_normals {
             Some(buffer) => buffer.clone(),
-            None => gpu.scratch((4u64).into(), ("unused body normals").into())?,
+            None => gpu.scratch(4, "unused body normals")?,
         };
-        parameters.insert("body_normals".into(), (body_normals).into());
-        parameters.insert("status".into(), (self.status.clone()).into());
+        parameters.insert("body_normals", body_normals);
+        parameters.insert("status", self.status.clone());
         batch
             .dispatch_items(
                 &*kernel(gpu, &bracer_wgsl::displace(), true)?,
                 &parameters,
-                (vertices).into(),
+                vertices,
             )
-            .map_err(crate::GenerateError::from)?;
+            .map_err(device_error)?;
         Ok(BracerMesh {
             positions,
             normals: VertexNormals::new(gpu.context(), vertices, self.triangle_count)
@@ -195,15 +191,15 @@ fn design_words(design: &BracerDesign) -> Vec<f32> {
 fn kernel(gpu: &ArmorGpu, entry: &str, binds_status: bool) -> Result<Arc<Kernel>, GenerateError> {
     gpu.cache()
         .get(gpu.context(), &bracer_wgsl::source(entry, binds_status))
-        .map_err(crate::GenerateError::from)
+        .map_err(device_error)
 }
 
 fn counted(count: u32, around: u32, faces_at: u32) -> PassParameters {
     let mut parameters = PassParameters::new();
-    parameters.insert("count".into(), (count).into());
-    parameters.insert("around".into(), (around).into());
-    parameters.insert("faces_at".into(), (faces_at).into());
-    parameters.insert("record_body_normals".into(), (0u32).into());
+    parameters.insert("count", count);
+    parameters.insert("around", around);
+    parameters.insert("faces_at", faces_at);
+    parameters.insert("record_body_normals", 0u32);
     parameters
 }
 
@@ -226,46 +222,42 @@ impl Layout {
         batch: &mut KernelBatch,
         skin: &ForearmSkin,
     ) -> Result<Buffer, GenerateError> {
-        let axis = gpu.scratch((AXIS_WORDS as u64 * 4).into(), ("bracer axis").into())?;
+        let axis = gpu.scratch(AXIS_WORDS as u64 * 4, "bracer axis")?;
         let faces_at = self.surface.faces_at();
         let mut parameters = counted(1, self.around, faces_at);
-        parameters.insert("positions".into(), (skin.body.positions.clone()).into());
-        parameters.insert("surface".into(), (self.surface.words.clone()).into());
-        parameters.insert("axial".into(), (skin.axial.clone()).into());
-        parameters.insert(
-            "joint_weights".into(),
-            (skin.body.joint_weights.clone()).into(),
-        );
-        parameters.insert("axis".into(), (axis.clone()).into());
-        parameters.insert("status".into(), (self.status.clone()).into());
+        parameters.insert("positions", skin.body.positions.clone());
+        parameters.insert("surface", self.surface.words.clone());
+        parameters.insert("axial", skin.axial.clone());
+        parameters.insert("joint_weights", skin.body.joint_weights.clone());
+        parameters.insert("axis", axis.clone());
+        parameters.insert("status", self.status.clone());
         batch
             .dispatch(
                 &*kernel(gpu, bracer_wgsl::AXIS, true)?,
                 &parameters,
-                ([1, 1, 1]).into(),
+                [1, 1, 1],
             )
-            .map_err(crate::GenerateError::from)?;
+            .map_err(device_error)?;
 
         let mut parameters = counted(RING_CAPACITY, self.around, faces_at);
-        parameters.insert("positions".into(), (skin.body.positions.clone()).into());
-        parameters.insert("surface".into(), (self.surface.words.clone()).into());
-        parameters.insert("axial".into(), (skin.axial.clone()).into());
-        parameters.insert("design".into(), (self.design.clone()).into());
-        parameters.insert("axis".into(), (axis.clone()).into());
+        parameters.insert("positions", skin.body.positions.clone());
+        parameters.insert("surface", self.surface.words.clone());
+        parameters.insert("axial", skin.axial.clone());
+        parameters.insert("design", self.design.clone());
+        parameters.insert("axis", axis.clone());
         parameters.insert(
-            "points".into(),
-            (gpu.scratch(
-                ((ALONG + 1) as u64 * RING_CAPACITY as u64 * POINT_WORDS as u64 * 4).into(),
-                ("bracer ring crossings").into(),
-            )?)
-            .into(),
+            "points",
+            gpu.scratch(
+                (ALONG + 1) as u64 * RING_CAPACITY as u64 * POINT_WORDS as u64 * 4,
+                "bracer ring crossings",
+            )?,
         );
-        parameters.insert("samples".into(), (self.samples.clone()).into());
-        parameters.insert("status".into(), (self.status.clone()).into());
+        parameters.insert("samples", self.samples.clone());
+        parameters.insert("status", self.status.clone());
         let contour = kernel(gpu, &bracer_contour_wgsl::contour(), true)?;
         batch
-            .dispatch(&contour, &parameters, ([ALONG + 1, 1, 1]).into())
-            .map_err(crate::GenerateError::from)?;
+            .dispatch(&contour, &parameters, [ALONG + 1, 1, 1])
+            .map_err(device_error)?;
         Ok(axis)
     }
 
@@ -280,17 +272,17 @@ impl Layout {
     ) -> Result<(), GenerateError> {
         let quads = ALONG * self.around + 2 * self.around;
         let mut parameters = counted(quads, self.around, self.surface.faces_at());
-        parameters.insert("positions".into(), (positions.clone()).into());
-        parameters.insert("body_normals".into(), (body_normals.clone()).into());
-        parameters.insert("axis".into(), (axis.clone()).into());
-        parameters.insert("indices".into(), (self.indices.clone()).into());
+        parameters.insert("positions", positions.clone());
+        parameters.insert("body_normals", body_normals.clone());
+        parameters.insert("axis", axis.clone());
+        parameters.insert("indices", self.indices.clone());
         batch
             .dispatch_items(
                 &*kernel(gpu, bracer_wgsl::INDICES, false)?,
                 &parameters,
-                (quads).into(),
+                quads,
             )
-            .map_err(crate::GenerateError::from)?;
+            .map_err(device_error)?;
         Ok(())
     }
 }
@@ -311,25 +303,19 @@ impl DeviceBracer {
         let sample_count = around * (ALONG + 1);
         let triangle_count = ALONG * around * 4 + 2 * around * 2;
         let layout = Layout {
-            design: gpu.upload(BufferUpload::from_elements(&design_words(design)))?,
+            design: gpu.upload(&design_words(design))?,
             surface: skin.surface.clone(),
             samples: gpu.scratch(
-                (sample_count as u64 * SAMPLE_WORDS as u64 * 4).into(),
-                ("bracer samples").into(),
+                sample_count as u64 * SAMPLE_WORDS as u64 * 4,
+                "bracer samples",
             )?,
             status: status.clone(),
             around,
-            indices: gpu.scratch(
-                (triangle_count as u64 * 12).into(),
-                ("bracer indices").into(),
-            )?,
+            indices: gpu.scratch(triangle_count as u64 * 12, "bracer indices")?,
             triangle_count,
         };
         let axis = layout.record_samples(gpu, batch, &skin)?;
-        let body_normals = gpu.scratch(
-            (sample_count as u64 * 12).into(),
-            ("bracer body normals").into(),
-        )?;
+        let body_normals = gpu.scratch(sample_count as u64 * 12, "bracer body normals")?;
         let body = BracerBody {
             positions: &skin.body.positions,
             normals: &skin.body.normals,
@@ -341,11 +327,9 @@ impl DeviceBracer {
         let vertex_count = layout.vertex_count() as u64;
         let bracer = Self {
             design: design.clone(),
-            texcoords: gpu.scratch((vertex_count * 8).into(), ("bracer texcoords").into())?,
-            joint_indices: gpu
-                .scratch((vertex_count * 32).into(), ("bracer joint indices").into())?,
-            joint_weights: gpu
-                .scratch((vertex_count * 32).into(), ("bracer joint weights").into())?,
+            texcoords: gpu.scratch(vertex_count * 8, "bracer texcoords")?,
+            joint_indices: gpu.scratch(vertex_count * 32, "bracer joint indices")?,
+            joint_weights: gpu.scratch(vertex_count * 32, "bracer joint weights")?,
             base,
             morphs: Vec::new(),
             layout,
@@ -364,27 +348,21 @@ impl DeviceBracer {
         let layout = &self.layout;
         let samples = layout.sample_count();
         let mut parameters = counted(samples, layout.around, layout.surface.faces_at());
-        parameters.insert("surface".into(), (layout.surface.words.clone()).into());
-        parameters.insert("samples".into(), (layout.samples.clone()).into());
-        parameters.insert("atlas".into(), (skin.atlas.clone()).into());
-        parameters.insert(
-            "body_joint_indices".into(),
-            (skin.body.joint_indices.clone()).into(),
-        );
-        parameters.insert(
-            "body_joint_weights".into(),
-            (skin.body.joint_weights.clone()).into(),
-        );
-        parameters.insert("texcoords".into(), (self.texcoords.clone()).into());
-        parameters.insert("joint_indices".into(), (self.joint_indices.clone()).into());
-        parameters.insert("joint_weights".into(), (self.joint_weights.clone()).into());
+        parameters.insert("surface", layout.surface.words.clone());
+        parameters.insert("samples", layout.samples.clone());
+        parameters.insert("atlas", skin.atlas.clone());
+        parameters.insert("body_joint_indices", skin.body.joint_indices.clone());
+        parameters.insert("body_joint_weights", skin.body.joint_weights.clone());
+        parameters.insert("texcoords", self.texcoords.clone());
+        parameters.insert("joint_indices", self.joint_indices.clone());
+        parameters.insert("joint_weights", self.joint_weights.clone());
         batch
             .dispatch_items(
                 &*kernel(gpu, bracer_wgsl::SKIN, false)?,
                 &parameters,
-                (samples).into(),
+                samples,
             )
-            .map_err(crate::GenerateError::from)?;
+            .map_err(device_error)?;
         Ok(())
     }
 
@@ -409,7 +387,39 @@ impl DeviceBracer {
         domain: &str,
         morphs: &[String],
     ) -> Result<GeneratedArmor, GenerateError> {
-        let status = gpu.read::<u32>(&self.layout.status)?[0];
+        pollster::block_on(self.read_async(gpu, domain, morphs))
+    }
+
+    pub async fn read_async(
+        &self,
+        gpu: &ArmorGpu,
+        domain: &str,
+        morphs: &[String],
+    ) -> Result<GeneratedArmor, GenerateError> {
+        let mut staging = super::Staging::new();
+        let status_slot = staging.stage(&self.layout.status);
+        let meshes = std::iter::once(&self.base)
+            .chain(&self.morphs)
+            .collect::<Vec<_>>();
+        let slots = meshes
+            .iter()
+            .map(|mesh| {
+                [
+                    staging.stage(&mesh.normals.status),
+                    staging.stage(&mesh.positions),
+                    staging.stage(&mesh.normals.normals),
+                ]
+            })
+            .collect::<Vec<_>>();
+        let attributes = [
+            &self.texcoords,
+            &self.joint_indices,
+            &self.joint_weights,
+            &self.layout.indices,
+        ]
+        .map(|buffer| staging.stage(buffer));
+        let results = gpu.read_staged_async(staging).await?;
+        let status = results.status(status_slot);
         if status & STATUS_EMPTY_CONTOUR != 0 {
             return Err(GenerateError::EmptySelection);
         }
@@ -420,22 +430,22 @@ impl DeviceBracer {
             return Err(GenerateError::InvalidSurface);
         }
         let vertex_count = self.layout.vertex_count() as usize;
-        let read_mesh = |mesh: &BracerMesh| -> Result<MeshSurface, GenerateError> {
-            if gpu.read::<u32>(&mesh.normals.status)?[0] != 0 {
+        let read_mesh = |slots: [super::Staged; 3]| -> Result<MeshSurface, GenerateError> {
+            if results.status(slots[0]) != 0 {
                 return Err(GenerateError::Degenerate);
             }
             Ok((
-                read_prefix(gpu, &mesh.positions, vertex_count)?,
-                read_prefix(gpu, &mesh.normals.normals, vertex_count)?,
+                results.prefix(slots[1], vertex_count),
+                results.prefix(slots[2], vertex_count),
             ))
         };
-        let (positions, normals) = read_mesh(&self.base)?;
-        let morphs = self
-            .morphs
+        let (positions, normals) = read_mesh(slots[0])?;
+        let morphs = slots
             .iter()
+            .skip(1)
             .zip(morphs)
             .map(|(target, name)| {
-                let (target_positions, target_normals) = read_mesh(target)?;
+                let (target_positions, target_normals) = read_mesh(*target)?;
                 Ok(ArmorMorph {
                     name: name.clone(),
                     position_deltas: deltas(&positions, &target_positions),
@@ -450,31 +460,16 @@ impl DeviceBracer {
             surface_domain: domain.to_owned(),
             positions,
             normals,
-            texcoords: read_prefix(gpu, &self.texcoords, vertex_count)?,
-            joint_indices: read_prefix(gpu, &self.joint_indices, vertex_count)?,
-            joint_weights: read_prefix(gpu, &self.joint_weights, vertex_count)?,
-            indices: read_prefix(
-                gpu,
-                &self.layout.indices,
-                self.layout.triangle_count as usize * 3,
-            )?,
+            texcoords: results.prefix(attributes[0], vertex_count),
+            joint_indices: results.prefix(attributes[1], vertex_count),
+            joint_weights: results.prefix(attributes[2], vertex_count),
+            indices: results.prefix(attributes[3], self.layout.triangle_count as usize * 3),
             faces: self.layout.faces(),
             trim: None,
             grids: vec![self.layout.grid()],
             morphs,
         })
     }
-}
-
-/// The first `count` items of a buffer, which may be padded.
-pub(crate) fn read_prefix<T: bytemuck::AnyBitPattern>(
-    gpu: &ArmorGpu,
-    buffer: &Buffer,
-    count: usize,
-) -> Result<Vec<T>, GenerateError> {
-    let mut items: Vec<T> = gpu.read(buffer)?;
-    items.truncate(count);
-    Ok(items)
 }
 
 pub(crate) fn deltas(base: &[[f32; 3]], target: &[[f32; 3]]) -> Vec<[f32; 3]> {

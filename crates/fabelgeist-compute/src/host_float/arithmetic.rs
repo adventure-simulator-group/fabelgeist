@@ -7,7 +7,7 @@
 pub(super) const ARITHMETIC: &str = r#"
 // The largest finite float. Beyond it -- and for NaN -- a quotient or root
 // is the device's own, which is the host's special value too.
-const HOST_FLOAT_MAX: f32 = 3.40282347e38f;
+const HOST_FLOAT_MAX: f32 = 0x1.fffffep+127f;
 // How many units in the last place a quotient or root may walk. The
 // device's division and square root are within a few units of the nearest.
 const HOST_FLOAT_WALK: u32 = 4u;
@@ -34,50 +34,6 @@ fn host_sub(a: f32, b: f32) -> f32 {
 fn host_mul(a: f32, b: f32) -> f32 {
     return host_fence(host_fence(a) * host_fence(b));
 }
-// A finite product as an exact high/low expansion at a normal binary scale.
-// Its exponent is separate so nonzero product magnitudes stay in [1/4, 1).
-// The normalized operands split into twelve-bit significands, whose partial
-// products are exact in binary32 (Dekker's TwoProduct transformation).
-const PRODUCT_HIGH_SIGNIFICAND_MASK: u32 = 0xfffff000u;
-struct ProductExpansion {
-    high: f32,
-    low: f32,
-    exponent: i32,
-};
-fn product_expansion(a_: f32, b_: f32) -> ProductExpansion {
-    let af = frexp(host_fence(a_));
-    let bf = frexp(host_fence(b_));
-    let a = host_fence(af.fract);
-    let b = host_fence(bf.fract);
-    let high_a = bitcast<f32>(bitcast<u32>(a) & PRODUCT_HIGH_SIGNIFICAND_MASK);
-    let high_b = bitcast<f32>(bitcast<u32>(b) & PRODUCT_HIGH_SIGNIFICAND_MASK);
-    let low_a = host_sub(a, high_a);
-    let low_b = host_sub(b, high_b);
-    let product = host_mul(a, b);
-    let e1 = host_sub(product, host_mul(high_a, high_b));
-    let e2 = host_sub(e1, host_mul(low_a, high_b));
-    let e3 = host_sub(e2, host_mul(high_a, low_b));
-    let error = host_sub(host_mul(low_a, low_b), e3);
-    return ProductExpansion(product, error, af.exp + bf.exp);
-}
-// A rounded cancellation residual. The addend cancels the leading product:
-// division and root correction supply this condition, not a general fma.
-struct ProductResidual {
-    rounded: f32,
-};
-fn product_residual(product: ProductExpansion, addend: f32) -> ProductResidual {
-    let scaled = host_fence(ldexp(host_fence(addend), -product.exponent));
-    let high = host_add(scaled, product.high);
-    let residual = host_add(high, product.low);
-    return ProductResidual(host_fence(ldexp(residual, product.exponent)));
-}
-// Convert the exact product to the double-float library's two-word format.
-fn product_to_double_float(product: ProductExpansion) -> DoubleFloat {
-    return DoubleFloat(
-        host_fence(ldexp(product.high, product.exponent)),
-        host_fence(ldexp(product.low, product.exponent)),
-    );
-}
 
 // The float next to `x` toward positive (`up`) or negative infinity.
 fn host_next_float(x: f32, up: bool) -> f32 {
@@ -102,7 +58,7 @@ fn host_nearer(q: f32, r: f32, q2: f32, r2: f32) -> f32 {
 }
 
 // The correctly rounded quotient: the device's, walked toward the true
-// quotient by exact product-cancellation residuals until neighbours bracket it.
+// quotient by exact fused residuals until two neighbours bracket it.
 fn host_div(a_: f32, b_: f32) -> f32 {
     let a = host_fence(a_);
     let b = host_fence(b_);
@@ -112,12 +68,12 @@ fn host_div(a_: f32, b_: f32) -> f32 {
     }
     for (var k = 0u; k < HOST_FLOAT_WALK; k = k + 1u) {
         // a - q b, exact once q is within a unit of a / b.
-        let r = product_residual(product_expansion(-q, b), a).rounded;
+        let r = fma(-q, b, a);
         if (r == 0.0) {
             return q;
         }
         let q2 = host_next_float(q, (r > 0.0) == (b > 0.0));
-        let r2 = product_residual(product_expansion(-q2, b), a).rounded;
+        let r2 = fma(-q2, b, a);
         if (r2 == 0.0) {
             return q2;
         }
@@ -132,9 +88,8 @@ fn host_div(a_: f32, b_: f32) -> f32 {
 // The correctly rounded square root. With s's significand an integer S
 // units u, x - s^2 and s u are both whole multiples of u^2, and the root
 // lies above the midpoint s + u/2 exactly when x - (s + u/2)^2 =
-// (x - s^2) - s u - u^2/4 is positive: when the exact
-// product-cancellation residual exceeds s u. Below, likewise, with the
-// unit under s.
+// (x - s^2) - s u - u^2/4 is positive: when the exact residual
+// `fma(-s, s, x)` exceeds s u. Below, likewise, with the unit under s.
 // Unlike comparing the two neighbours' residuals, which weigh the distance
 // to the root by different factors, this never picks the farther one.
 fn host_sqrt(x_: f32) -> f32 {
@@ -159,7 +114,7 @@ const HOST_SQRT_UNSCALE: f32 = 0x1p-32f;
 fn host_sqrt_walked(x: f32) -> f32 {
     var s = host_fence(sqrt(x));
     for (var k = 0u; k < HOST_FLOAT_WALK; k = k + 1u) {
-        let r = product_residual(product_expansion(-s, s), x).rounded;
+        let r = fma(-s, s, x);
         let above = host_next_float(s, true);
         let below = host_next_float(s, false);
         if (r > host_fence(s * (above - s))) {

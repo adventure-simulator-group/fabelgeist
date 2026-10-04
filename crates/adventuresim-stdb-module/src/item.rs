@@ -1,13 +1,3 @@
-mod food_definition;
-mod grant_error;
-mod issuance;
-pub(crate) use food_definition::{MissingInventoryFoodDefinition, inventory_food_definition};
-pub(crate) use grant_error::InventoryGrantError;
-pub use issuance::add_inventory_item;
-pub(crate) use issuance::{
-    add_foraged_inventory_item_checked_rows, add_inventory_item_checked, inventory_row_allocation,
-};
-
 #[cfg(feature = "authority-tests")]
 #[path = "item/authority_tests.rs"]
 mod authority_tests;
@@ -318,7 +308,7 @@ pub(crate) fn upsert_surgery_items(ctx: &ReducerContext) {
         "splint",
         adventuresim_core::item_references::SOFT_SOAP_ID,
     ] {
-        let definition = adventuresim_core::item_catalog::definition(&(id).into())
+        let definition = adventuresim_core::item_catalog::definition(id)
             .expect("validated surgery item reference");
         let item = project_definition(definition);
         if ctx.db.item().id().find(id.to_owned()).is_some() {
@@ -329,6 +319,124 @@ pub(crate) fn upsert_surgery_items(ctx: &ReducerContext) {
     }
 }
 
+pub(crate) fn inventory_food_definition(
+    kind: Option<CatalogItemKind>,
+    item_id: &str,
+) -> Result<Option<&'static adventuresim_core::food::FoodDefinition>, String> {
+    let definition = adventuresim_core::food::definition(item_id);
+    if kind == Some(CatalogItemKind::Food) || definition.is_some() {
+        definition
+            .map(Some)
+            .ok_or_else(|| format!("Food definition not found for {item_id}"))
+    } else {
+        Ok(None)
+    }
+}
+
+pub(crate) fn requires_stable_object(
+    definition: Option<&Item>,
+    food: bool,
+    measured: bool,
+) -> bool {
+    food || measured
+        || definition.is_some_and(|definition| {
+            definition.repairable
+                || definition.kind == CatalogItemKind::Medication
+                || (definition.kind == CatalogItemKind::Weapon && definition.melee)
+                || definition.container_capacity_ml > 0
+                || !definition.attachment_points.is_empty()
+        })
+}
+
+pub(crate) fn add_inventory_item_checked(
+    ctx: &ReducerContext,
+    character_id: u64,
+    item_id: &str,
+    quantity: u32,
+) -> Result<Option<u64>, String> {
+    if quantity == 0 {
+        return Ok(None);
+    }
+
+    let definition = ctx.db.item().id().find(item_id.to_owned());
+    let kind = definition.as_ref().map(|definition| definition.kind);
+    let food_definition = inventory_food_definition(kind, item_id)?;
+    let durable = definition
+        .as_ref()
+        .is_some_and(|definition| definition.repairable);
+    let food = food_definition.is_some();
+    let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
+    // Every food unit is its own non-fungible batch. A partly consumed unit
+    // remains quantity one while its authoritative lot mass/value/provenance
+    // shrink, so it can never be merged back into fresh stock.
+    let individual = requires_stable_object(definition.as_ref(), food, measured);
+    let count = if individual { quantity } else { 1 };
+    let mut first = None;
+    for _ in 0..count {
+        let item = ctx.db.inventory_item().insert(InventoryItem {
+            id: 0,
+            character_id,
+            item_id: item_id.to_string(),
+            quantity: if individual { 1 } else { quantity },
+        });
+        if individual {
+            crate::inventory_container::insert_personal_object(ctx, &item)?;
+        }
+        if durable {
+            crate::repair::initialize_item_condition(ctx, &item);
+        }
+        crate::weapon_instance::initialize_personal_weapon(ctx, &item)?;
+        if measured {
+            crate::inventory_amount::initialize_personal(ctx, item.id);
+        }
+        if food {
+            crate::food::create_personal_food_lot(
+                ctx,
+                character_id,
+                item.id,
+                item_id,
+                if individual { 1 } else { quantity },
+            )
+            .map_err(|error| format!("Could not create food lot: {error}"))?;
+        }
+        first.get_or_insert(item.id);
+    }
+    if food {
+        let _ = crate::capability::refresh_character_capability(ctx, character_id);
+    }
+    Ok(first)
+}
+
+/// Foraging receipts bind every concrete harvested unit to an object and
+/// material lot. Preserve the shared grant helper's stacking semantics for
+/// every other caller while intentionally issuing one validated unit here.
+pub(crate) fn add_foraged_inventory_item_checked_rows(
+    ctx: &ReducerContext,
+    character_id: u64,
+    item_id: &str,
+    quantity: u32,
+) -> Result<Vec<u64>, String> {
+    let mut rows = Vec::with_capacity(quantity as usize);
+    for _ in 0..quantity {
+        rows.push(
+            add_inventory_item_checked(ctx, character_id, item_id, 1)?
+                .ok_or("Foraged inventory insertion returned no row")?,
+        );
+    }
+    Ok(rows)
+}
+
+pub fn add_inventory_item(
+    ctx: &ReducerContext,
+    character_id: u64,
+    item_id: &str,
+    quantity: u32,
+) -> Option<u64> {
+    add_inventory_item_checked(ctx, character_id, item_id, quantity)
+        .ok()
+        .flatten()
+}
+
 pub fn is_currency(ctx: &ReducerContext, item_id: &str) -> bool {
     ctx.db
         .item()
@@ -337,14 +445,11 @@ pub fn is_currency(ctx: &ReducerContext, item_id: &str) -> bool {
         .is_some_and(|item| item.kind == CatalogItemKind::Currency)
 }
 
-pub fn personal_currency_total(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-) -> u64 {
+pub fn personal_currency_total(ctx: &ReducerContext, character_id: u64) -> u64 {
     ctx.db
         .inventory_item()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .filter(|stack| is_currency(ctx, &stack.item_id))
         .map(|stack| u64::from(stack.quantity))
         .sum()
@@ -380,14 +485,14 @@ fn currency_withdrawal_plan(
 /// order.  The preflight makes an insufficient payment a no-op.
 pub fn consume_personal_currency(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     amount: u64,
 ) -> Result<(), String> {
     let stacks: Vec<_> = ctx
         .db
         .inventory_item()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .filter(|stack| is_currency(ctx, &stack.item_id))
         .collect();
     let plan = currency_withdrawal_plan(
@@ -412,7 +517,7 @@ pub fn consume_personal_currency(
 
 pub fn credit_personal_currency(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     settlement_id: &str,
     amount: u32,
 ) -> Result<(), String> {
@@ -424,27 +529,17 @@ pub fn credit_personal_currency(
         .db
         .inventory_item()
         .character_and_item_id()
-        .filter((u64::from(character_id), &currency_id))
+        .filter((character_id, &currency_id))
         .next()
     {
         if let Some(quantity) = merged_currency_quantity(stack.quantity, amount) {
             stack.quantity = quantity;
             ctx.db.inventory_item().id().update(stack);
         } else {
-            add_inventory_item(
-                ctx,
-                character_id.into(),
-                &(&currency_id).into(),
-                amount.into(),
-            );
+            add_inventory_item(ctx, character_id, &currency_id, amount);
         }
     } else {
-        add_inventory_item(
-            ctx,
-            character_id.into(),
-            &(&currency_id).into(),
-            amount.into(),
-        );
+        add_inventory_item(ctx, character_id, &currency_id, amount);
     }
     Ok(())
 }
@@ -472,8 +567,7 @@ pub fn change_inventory_item(
     item_id: &str,
     by_quantity: i32,
 ) -> Result<(), String> {
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::character::require_living_character(ctx, character_id)?;
     let durable = ctx
         .db
         .item()
@@ -484,7 +578,7 @@ pub fn change_inventory_item(
         let (add, remove) = adventuresim_core::durability::bounded_durable_change(by_quantity)
             .map_err(str::to_owned)?;
         if add > 0 {
-            add_inventory_item(ctx, character_id.into(), &(item_id).into(), add.into());
+            add_inventory_item(ctx, character_id, item_id, add);
             return Ok(());
         }
         if remove > 0 {
@@ -519,25 +613,14 @@ pub fn change_inventory_item(
                     ctx,
                     adventuresim_core::physical_object::CarriedInventoryScope::Personal,
                     id,
-                )
-                .map_err(
-                    |error: crate::inventory_container::InventoryContainerError| -> String {
-                        error.to_string()
-                    },
                 )? {
                     ctx.db.inventory_item().id().delete(id);
                     ctx.db.item_condition().inventory_item_id().delete(id);
                 }
             }
             if equipment_changed {
-                crate::capability::refresh_character_capability(ctx, (character_id).into())
-                    .map_err(|error: crate::capability::CapabilityEvaluationError| {
-                        error.to_string()
-                    })?;
-                crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())
-                    .map_err(|error: crate::condition::StrategicConditionError| {
-                        error.to_string()
-                    })?;
+                crate::capability::refresh_character_capability(ctx, character_id)?;
+                crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
             }
         }
         return Ok(());
@@ -548,17 +631,12 @@ pub fn change_inventory_item(
         .id()
         .find(item_id.to_owned())
         .is_some_and(|definition| definition.kind == CatalogItemKind::Food)
-        || adventuresim_core::food::definition(&(item_id).into()).is_some();
-    let measured = crate::inventory_amount::is_measured_item(ctx, &(item_id).into());
+        || adventuresim_core::food::definition(item_id).is_some();
+    let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
     if measured {
         if by_quantity > 0 {
-            add_inventory_item(
-                ctx,
-                character_id.into(),
-                &(item_id).into(),
-                (by_quantity as u32).into(),
-            )
-            .ok_or("food definition not found")?;
+            add_inventory_item(ctx, character_id, item_id, by_quantity as u32)
+                .ok_or("food definition not found")?;
             return Ok(());
         }
         if by_quantity < 0 {
@@ -576,9 +654,7 @@ pub fn change_inventory_item(
             for mut row in items {
                 let take = row.quantity.min(remaining);
                 if food {
-                    crate::food::remove_lot_quantity(ctx, row.id, take, row.quantity).map_err(
-                        |error: crate::food::FoodLotMutationError| -> String { error.to_string() },
-                    )?;
+                    crate::food::remove_lot_quantity(ctx, row.id, take, row.quantity)?;
                 }
                 row.quantity -= take;
                 remaining -= take;
@@ -612,10 +688,10 @@ pub fn change_inventory_item(
                 item.quantity = quantity;
                 ctx.db.inventory_item().id().update(item);
             } else {
-                add_inventory_item(ctx, character_id.into(), &(item_id).into(), addition.into());
+                add_inventory_item(ctx, character_id, item_id, addition);
             }
         } else {
-            add_inventory_item(ctx, character_id.into(), &(item_id).into(), addition.into());
+            add_inventory_item(ctx, character_id, item_id, addition);
         }
     } else if by_quantity < 0 {
         let available = items
@@ -649,25 +725,93 @@ mod tests {
     use std::collections::HashSet;
 
     #[test]
+    fn food_inventory_is_prevalidated_before_rows_can_be_inserted() {
+        let cooked = inventory_food_definition(Some(CatalogItemKind::Food), "cooked_meal")
+            .unwrap()
+            .expect("cooked meal definition");
+        assert!(cooked.kcal_per_unit > 0.0);
+        assert!(inventory_food_definition(Some(CatalogItemKind::Food), "missing_food").is_err());
+        assert_eq!(
+            inventory_food_definition(Some(CatalogItemKind::Simple), "torch").unwrap(),
+            None
+        );
+        let source = crate::production_source(include_str!("item.rs"));
+        assert_eq!(
+            source.matches("id: \"cooked_meal\".into()").count(),
+            0,
+            "the standard food catalog must be the sole cooked-meal item seed"
+        );
+        let checked = source
+            .split("pub(crate) fn add_inventory_item_checked")
+            .nth(1)
+            .and_then(|tail| tail.split("pub fn add_inventory_item").next())
+            .expect("checked inventory insertion");
+        assert!(
+            checked.find("inventory_food_definition").unwrap()
+                < checked.find("inventory_item().insert").unwrap()
+        );
+        assert!(checked.contains("for _ in 0..count"));
+        assert!(checked.contains("create_personal_food_lot("));
+    }
+
+    #[test]
+    fn kind_aware_insertion_keeps_ingredients_fungible_and_medication_individual() {
+        let source = crate::production_source(include_str!("item.rs"));
+        let checked = source
+            .split("pub(crate) fn add_inventory_item_checked")
+            .nth(1)
+            .and_then(|tail| tail.split("pub fn add_inventory_item").next())
+            .expect("checked inventory insertion");
+        assert!(checked.contains("requires_stable_object(definition.as_ref(), food, measured)"));
+        let stable_object_policy = source
+            .split("pub(crate) fn requires_stable_object")
+            .nth(1)
+            .and_then(|tail| {
+                tail.split("pub(crate) fn add_inventory_item_checked")
+                    .next()
+            })
+            .expect("stable-object policy");
+        assert!(stable_object_policy.contains("definition.kind == CatalogItemKind::Medication"));
+        assert!(checked.contains("let count = if individual { quantity } else { 1 }"));
+        assert!(checked.contains("quantity: if individual { 1 } else { quantity }"));
+        assert_eq!(
+            adventuresim_core::item_catalog::definition("tincture_spirit")
+                .unwrap()
+                .kind,
+            adventuresim_core::item_catalog::ItemKind::Ingredient
+        );
+    }
+
+    #[test]
+    fn foraging_specific_insertion_issues_each_harvested_unit_separately() {
+        let source = crate::production_source(include_str!("item.rs"));
+        let helper = source
+            .split("pub(crate) fn add_foraged_inventory_item_checked_rows")
+            .nth(1)
+            .and_then(|tail| tail.split("pub fn add_inventory_item").next())
+            .expect("foraging-specific insertion helper");
+        assert!(helper.contains("for _ in 0..quantity"));
+        assert!(helper.contains("add_inventory_item_checked(ctx, character_id, item_id, 1)"));
+    }
+
+    #[test]
     fn catalog_weapon_skill_distributions_cover_hybrids_and_ranged_families() {
-        let halberd = project_definition(
-            adventuresim_core::item_catalog::definition(&("halberd").into()).unwrap(),
-        )
-        .weapon_skills;
+        let halberd =
+            project_definition(adventuresim_core::item_catalog::definition("halberd").unwrap())
+                .weapon_skills;
         assert_eq!(halberd.polearm, 1.0 / 3.0);
         assert_eq!(halberd.axe, 1.0 / 3.0);
         assert_eq!(halberd.bludgeon, 1.0 / 3.0);
         assert!(halberd.validate(true, false));
 
-        let hand_axe = project_definition(
-            adventuresim_core::item_catalog::definition(&("hand_axe").into()).unwrap(),
-        )
-        .weapon_skills;
+        let hand_axe =
+            project_definition(adventuresim_core::item_catalog::definition("hand_axe").unwrap())
+                .weapon_skills;
         assert_eq!(hand_axe.axe, 0.5);
         assert_eq!(hand_axe.knife, 0.5);
 
         let crossbow = project_definition(
-            adventuresim_core::item_catalog::definition(&("heavy_crossbow").into()).unwrap(),
+            adventuresim_core::item_catalog::definition("heavy_crossbow").unwrap(),
         )
         .weapon_skills;
         assert_eq!(crossbow.crossbow, 1.0);
@@ -750,23 +894,7 @@ mod tests {
                     ));
                     assert!((0.0..=1.0).contains(&definition.coverage));
                     assert!(definition.resistance > 0.0);
-                    assert!(
-                        definition.padding.is_finite() && definition.padding >= 0.0,
-                        "{} has invalid padding",
-                        definition.id
-                    );
-                    let adventuresim_core::item_catalog::ItemKind::Armor { padding, .. } =
-                        &adventuresim_core::item_catalog::definition(&(&definition.id).into())
-                            .unwrap()
-                            .kind
-                    else {
-                        panic!("projected armor must come from authored armor");
-                    };
-                    assert_eq!(
-                        definition.padding, *padding,
-                        "{} must preserve authored padding, including unpadded mail",
-                        definition.id
-                    );
+                    assert!(definition.padding > 0.0);
                     assert!((0.0..=1.0).contains(&definition.flexibility));
                     assert!((0.0..=1.0).contains(&definition.range_of_motion));
                 }
@@ -781,15 +909,14 @@ mod tests {
 
     #[test]
     fn projection_preserves_container_and_authored_repairability() {
-        let waterskin = project_definition(
-            adventuresim_core::item_catalog::definition(&("waterskin").into()).unwrap(),
-        );
+        let waterskin =
+            project_definition(adventuresim_core::item_catalog::definition("waterskin").unwrap());
         assert_eq!(waterskin.kind, CatalogItemKind::Container);
         assert_eq!(waterskin.slot, Slot::None);
         assert!(!waterskin.repairable);
 
         let sword = project_definition(
-            adventuresim_core::item_catalog::definition(&("arming_sword").into()).unwrap(),
+            adventuresim_core::item_catalog::definition("arming_sword").unwrap(),
         );
         assert!(sword.repairable);
     }
@@ -797,7 +924,7 @@ mod tests {
     #[test]
     fn projection_exposes_book_quality_for_inventory_presentation() {
         let book = project_definition(
-            adventuresim_core::item_catalog::definition(&("human_anatomy").into()).unwrap(),
+            adventuresim_core::item_catalog::definition("human_anatomy").unwrap(),
         );
         assert_eq!(book.kind, CatalogItemKind::Simple);
         assert_eq!(book.quality, 4);
@@ -807,10 +934,10 @@ mod tests {
     #[test]
     fn round_and_heater_shields_have_a_weight_block_tradeoff() {
         let round = project_definition(
-            adventuresim_core::item_catalog::definition(&("round_shield").into()).unwrap(),
+            adventuresim_core::item_catalog::definition("round_shield").unwrap(),
         );
         let heater = project_definition(
-            adventuresim_core::item_catalog::definition(&("heater_shield").into()).unwrap(),
+            adventuresim_core::item_catalog::definition("heater_shield").unwrap(),
         );
         assert!(round.weight < heater.weight);
         assert!(round.block < heater.block);

@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 
-use crate::volumetric_terrain::TerrainRecipeError;
 use bevy::prelude::Vec3;
 use rayon::prelude::*;
 
@@ -34,7 +33,7 @@ pub(crate) fn marching_tetrahedra(
     position_at: impl Fn([usize; 3]) -> Vec3 + Sync,
     field: impl Fn(Vec3) -> f32 + Sync,
     transition_collar: TerrainTransitionCollar,
-) -> Result<SceneTerrainPatch, TerrainRecipeError> {
+) -> Result<SceneTerrainPatch, &'static str> {
     let (positions, values) = sample_field(dimensions, &position_at, &field)?;
     let (mesh_positions, indices) = extract_surface(dimensions, &positions, &values)?;
     build_surface(mesh_positions, indices, transition_collar)
@@ -44,11 +43,11 @@ fn sample_field(
     dimensions: [usize; 3],
     position_at: &(impl Fn([usize; 3]) -> Vec3 + Sync),
     field: &(impl Fn(Vec3) -> f32 + Sync),
-) -> Result<(Vec<Vec3>, Vec<f32>), TerrainRecipeError> {
+) -> Result<(Vec<Vec3>, Vec<f32>), &'static str> {
     let count = dimensions[0]
         .checked_mul(dimensions[1])
         .and_then(|n| n.checked_mul(dimensions[2]))
-        .ok_or(TerrainRecipeError::SampleCountOverflow)?;
+        .ok_or("fault patch sample count overflow")?;
     let samples = (0..count)
         .into_par_iter()
         .map(|index| {
@@ -66,7 +65,7 @@ fn sample_field(
             };
             (position.is_finite() && value.is_finite())
                 .then_some((position, value))
-                .ok_or(TerrainRecipeError::NonFiniteField)
+                .ok_or("fault patch field is not finite")
         })
         .collect::<Result<Vec<_>, _>>()?;
     Ok(samples.into_iter().unzip())
@@ -76,7 +75,7 @@ fn extract_surface(
     dimensions: [usize; 3],
     positions: &[Vec3],
     values: &[f32],
-) -> Result<(Vec<Vec3>, Vec<u32>), TerrainRecipeError> {
+) -> Result<(Vec<Vec3>, Vec<u32>), &'static str> {
     let sample_id = |x: usize, y: usize, z: usize| (z * dimensions[1] + y) * dimensions[0] + x;
     let mut mesh_positions = Vec::new();
     let mut indices = Vec::new();
@@ -109,7 +108,7 @@ fn emit_tetrahedron(
     edge_vertices: &mut HashMap<(usize, usize), u32>,
     mesh_positions: &mut Vec<Vec3>,
     indices: &mut Vec<u32>,
-) -> Result<(), TerrainRecipeError> {
+) -> Result<(), &'static str> {
     let inside = vertices
         .iter()
         .copied()
@@ -168,7 +167,7 @@ fn vertex_on_edge(
     values: &[f32],
     edge_vertices: &mut HashMap<(usize, usize), u32>,
     mesh_positions: &mut Vec<Vec3>,
-) -> Result<u32, TerrainRecipeError> {
+) -> Result<u32, &'static str> {
     // Several tetrahedra can reach the same zero-valued lattice vertex along
     // different edges. Give that endpoint one identity to preserve topology.
     let key = if values[a] == 0.0 {
@@ -191,7 +190,7 @@ fn vertex_on_edge(
     }
     .clamp(0.0, 1.0);
     let index =
-        u32::try_from(mesh_positions.len()).map_err(|_| TerrainRecipeError::VertexCountOverflow)?;
+        u32::try_from(mesh_positions.len()).map_err(|_| "fault patch has too many vertices")?;
     mesh_positions.push(positions[a].lerp(positions[b], fraction));
     edge_vertices.insert(key, index);
     Ok(index)
@@ -201,7 +200,7 @@ fn build_surface(
     mesh_positions: Vec<Vec3>,
     indices: Vec<u32>,
     transition_collar: TerrainTransitionCollar,
-) -> Result<SceneTerrainPatch, TerrainRecipeError> {
+) -> Result<SceneTerrainPatch, &'static str> {
     let oriented = indices
         .par_chunks_exact(3)
         .map(|source| triangle_normal(source, &mesh_positions))
@@ -215,7 +214,7 @@ fn build_surface(
         oriented_indices.extend(triangle);
     }
     if oriented_indices.is_empty() {
-        return Err(TerrainRecipeError::EmptySurface);
+        return Err("fault patch extraction produced no surface");
     }
     Ok(SceneTerrainPatch {
         transition_collar,

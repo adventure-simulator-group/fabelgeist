@@ -113,10 +113,8 @@ pub fn start_fireplace_container_cooking(
     fireplace_fixture_id: String,
     container_object_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
-    let actor = crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::strategic::require_strategic_gateway(ctx)?;
+    let actor = crate::character::require_living_character(ctx, character_id)?;
     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
     let key = vessel_station_key(character_id, &fireplace_fixture_id, container_object_id);
     let station = ctx
@@ -125,17 +123,14 @@ pub fn start_fireplace_container_cooking(
         .key()
         .find(key.clone())
         .ok_or("Container is not over this fireplace")?;
-    let fixture = validate_persisted_station_fixture(ctx, &station)
-        .map_err(|error: crate::food::FireplaceCustodyError| -> String { error.to_string() })?;
+    let fixture = validate_persisted_station_fixture(ctx, &station)?;
     let object = ctx
         .db
         .inventory_object()
         .id()
         .find(container_object_id)
         .ok_or("Container object is missing")?;
-    crate::object_custody::require_object_at_fixture(ctx, &object, &fixture).map_err(
-        |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
-    )?;
+    crate::object_custody::require_object_at_fixture(ctx, &object, &fixture)?;
     if ctx.db.fireplace_dish().station_key().find(key).is_some() {
         return Err("This container is already cooking".into());
     }
@@ -143,10 +138,7 @@ pub fn start_fireplace_container_cooking(
         .instrument_return_custody
         .as_ref()
         .ok_or("Container return custody is unknown")?;
-    let destination =
-        crate::object_custody::carried_destination(return_custody, (character_id).into()).map_err(
-            |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
-        )?;
+    let destination = crate::object_custody::carried_destination(return_custody, character_id)?;
     let scope = match destination {
         OperationalCustody::Character(_) => CarriedInventoryScope::Personal,
         OperationalCustody::Party(_) => CarriedInventoryScope::Party,
@@ -234,7 +226,7 @@ fn add_fireplace_ingredients_at(
     vessel_station: Option<FireplaceStation>,
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
-    let actor = crate::character::require_living_character(ctx, (character_id).into())?;
+    let actor = crate::character::require_living_character(ctx, character_id)?;
     if actor.has_tactical_server_assignment() {
         return Err("Cooking is unavailable during a tactical encounter".into());
     }
@@ -253,8 +245,7 @@ fn add_fireplace_ingredients_at(
             .instrument_return_custody
             .clone()
             .ok_or("Container return custody is unknown")?;
-        let destination =
-            crate::object_custody::carried_destination(&custody, (character_id).into())?;
+        let destination = crate::object_custody::carried_destination(&custody, character_id)?;
         let destination_scope = match &destination {
             OperationalCustody::Character(_) => CarriedInventoryScope::Personal,
             OperationalCustody::Party(_) => CarriedInventoryScope::Party,
@@ -300,8 +291,8 @@ fn add_fireplace_ingredients_at(
     };
     let check = cooking_check(ctx, character_id)?;
     let herbalism_check = preparation_skill_check(ctx, character_id, Skill::Herbalism)?;
-    initialize_character_condition(ctx, character_id.into());
-    let minute = current_minute(ctx, character_id.into());
+    initialize_character_condition(ctx, character_id)?;
+    let minute = current_minute(ctx, character_id);
     let mut seen = std::collections::BTreeSet::new();
     let mut selected = Vec::new();
     let mut safety = Vec::new();
@@ -388,7 +379,7 @@ fn add_fireplace_ingredients_at(
             return Err("Ingredient lot contains invalid food values".into());
         }
         let (cont, current) = contamination(ctx, &lot, minute)?;
-        let raw_safety = food::definition(&(&item_id).into()).map_or(5, |d| d.cooking_minutes);
+        let raw_safety = food::definition(&item_id).map_or(5, |d| d.cooking_minutes);
         let preparation_factor = match lot.preparation {
             FoodPreparation::Cut => food::CUT_COOKING_TIME_FACTOR,
             FoodPreparation::Ground => food::GROUND_COOKING_TIME_FACTOR,
@@ -443,7 +434,7 @@ fn add_fireplace_ingredients_at(
         if lot
             .ingredient_item_ids
             .iter()
-            .any(|i| food::definition(&(i).into()).is_some_and(|d| d.culinary_fat))
+            .any(|i| food::definition(i).is_some_and(|d| d.culinary_fat))
         {
             culinary_fat_mass += selected_mass;
         }
@@ -624,10 +615,8 @@ pub fn retrieve_fireplace_dish(
     fireplace_fixture_id: String,
     container_object_id: Option<u64>,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
-    let actor = crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::strategic::require_strategic_gateway(ctx)?;
+    let actor = crate::character::require_living_character(ctx, character_id)?;
     if actor.has_tactical_server_assignment() {
         return Err("Cooking is unavailable during a tactical encounter".into());
     }
@@ -643,18 +632,10 @@ pub fn retrieve_fireplace_dish(
         .station_key()
         .find(key)
         .ok_or("No dish is in this fireplace")?;
-    if validate_persisted_dish_fixture(ctx, &dish)
-        .map_err(|error: crate::food::FireplaceCustodyError| -> String { error.to_string() })?
-        .to_string()
-        != fireplace_fixture_id
-    {
+    if validate_persisted_dish_fixture(ctx, &dish)?.to_string() != fireplace_fixture_id {
         return Err("Dish custody conflicts with the requested canonical fixture".into());
     }
-    let destination =
-        crate::object_custody::carried_destination(&dish.return_custody, (character_id).into())
-            .map_err(
-                |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
-            )?;
+    let destination = dish_inventory_destination(&dish.return_custody, character_id)?;
     if let OperationalCustody::Party(party_id) = &destination
         && ctx
             .db
@@ -673,7 +654,7 @@ pub fn retrieve_fireplace_dish(
     {
         return Err("Dish selector conflicts with its fireplace container".into());
     }
-    let minute = current_minute(ctx, character_id.into());
+    let minute = current_minute(ctx, character_id);
     let elapsed = minute.elapsed_since(dish.started_at_minute);
     let doneness = food::method_doneness_outcome(dish.method, elapsed, dish.target_minutes);
     let quality = dish
@@ -734,12 +715,7 @@ pub fn retrieve_fireplace_dish(
         let meal = ctx.db.inventory_object().insert(crate::InventoryObject {
             id: 0,
             item_id: "cooked_meal".into(),
-            location: crate::inventory_container::carried_location_for_row(&destination, row_id)
-                .map_err(
-                    |error: crate::inventory_container::InventoryContainerError| -> String {
-                        error.to_string()
-                    },
-                )?,
+            location: crate::inventory_container::carried_location_for_row(&destination, row_id)?,
         });
         ctx.db
             .inventory_containment()
@@ -749,12 +725,10 @@ pub fn retrieve_fireplace_dish(
             });
     }
     if let Some(row_id) = personal_id {
-        ensure_food_material_object(ctx, CarriedInventoryScope::Personal, row_id.into())
-            .map_err(|error: crate::food::FoodLotCreationError| -> String { error.to_string() })?;
+        ensure_food_material_object(ctx, CarriedInventoryScope::Personal, row_id)?;
     }
     if let Some(row_id) = party_id {
-        ensure_food_material_object(ctx, CarriedInventoryScope::Party, row_id.into())
-            .map_err(|error: crate::food::FoodLotCreationError| -> String { error.to_string() })?;
+        ensure_food_material_object(ctx, CarriedInventoryScope::Party, row_id)?;
     }
     let lot = ctx.db.food_lot().insert(FoodLot {
         id: 0,
@@ -838,8 +812,7 @@ pub fn retrieve_fireplace_dish(
     {
         ctx.db.fireplace_station().key().delete(station.key);
     }
-    crate::capability::refresh_character_capability(ctx, (character_id).into())
-        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+    crate::capability::refresh_character_capability(ctx, character_id)?;
     Ok(())
 }
 
@@ -881,8 +854,7 @@ pub fn preview_cooking(
         }
         let lot = lot_for_inventory(ctx, id)?;
         safety.push(
-            food::definition(&(&inventory.item_id).into())
-                .map_or(5, |definition| definition.cooking_minutes),
+            food::definition(&inventory.item_id).map_or(5, |definition| definition.cooking_minutes),
         );
         mass += lot.mass_kg * fraction.get() as f32 / available.get() as f32;
     }

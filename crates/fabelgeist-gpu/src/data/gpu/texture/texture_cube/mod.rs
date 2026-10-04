@@ -273,7 +273,7 @@ impl TextureCube {
     }
     pub fn face_view_with_format(
         &self,
-        context: Option<&WgpuContext>,
+        _ctx: Option<&WgpuContext>,
         face: CubeFace,
         format: TextureFormat,
     ) -> Result<TextureView> {
@@ -288,7 +288,7 @@ impl TextureCube {
         }
 
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.map(|c| c.device.push_error_scope(wgpu::ErrorFilter::Validation));
+        let error_scope = _ctx.map(|c| c.device.push_error_scope(wgpu::ErrorFilter::Validation));
 
         let view = texture.create_view(&wgpu::TextureViewDescriptor {
             label: Some(&format!("TextureCube Face View ({:?})", face)),
@@ -300,7 +300,7 @@ impl TextureCube {
         });
 
         #[cfg(not(target_arch = "wasm32"))]
-        if let (Some(c), Some(scope)) = (context, error_scope) {
+        if let (Some(c), Some(scope)) = (_ctx, error_scope) {
             let _ = c.device.poll(wgpu::PollType::wait_indefinitely());
             if let Some(err) = pollster::block_on(scope.pop()) {
                 return Err(anyhow::anyhow!("WGPU TextureCube Face View Error: {}", err));
@@ -597,7 +597,49 @@ impl TextureCube {
     pub fn size(&self) -> f32 {
         self.size as f32
     }
+    pub fn view_with_format(
+        &self,
+        _ctx: &WgpuContext,
+        format: TextureFormat,
+    ) -> Result<Arc<wgpu::TextureView>> {
+        if format == self.format {
+            return Ok(self.view.as_ref().unwrap().clone());
+        }
+        let texture = self
+            .texture
+            .as_ref()
+            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
 
+        let mut requested_format = format;
+        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+            requested_format = format.linear_counterpart();
+        }
+
+        #[cfg(not(target_arch = "wasm32"))]
+        let error_scope = _ctx.device.push_error_scope(wgpu::ErrorFilter::Validation);
+
+        let view = texture.create_view(&wgpu::TextureViewDescriptor {
+            label: Some("TextureCube View"),
+            dimension: Some(wgpu::TextureViewDimension::Cube),
+            array_layer_count: Some(6),
+            format: Some(requested_format.into()),
+            ..Default::default()
+        });
+
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let _ = _ctx.device.poll(wgpu::PollType::wait_indefinitely());
+            if let Some(err) = pollster::block_on(error_scope.pop()) {
+                return Err(anyhow::anyhow!(
+                    "WGPU TextureCube view_with_format Error (requested {:?}): {}",
+                    format,
+                    err
+                ));
+            }
+        }
+
+        Ok(Arc::new(view))
+    }
     pub fn view_2d_array(&self) -> Option<wgpu::TextureView> {
         self.texture.as_ref().map(|tex| {
             let mut requested_format = self.format;

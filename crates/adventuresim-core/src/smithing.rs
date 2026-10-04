@@ -1,11 +1,6 @@
 //! Shared forge quotation, including the inventory representation's limits.
-mod error;
-use crate::{
-    inventory_measurement::{ConsumableFractionMicros, MeasuredItemAmountMicros},
-    item_catalog::ItemDefinitionId,
-};
+use crate::inventory_measurement::ConsumableFractionMicros;
 use adventuresim_weapon_model::{WeaponDesign, derive_material_masses, derive_properties};
-pub use error::{ForgeDerivationErrors, ForgeQuoteError};
 use serde::Serialize;
 use std::collections::BTreeMap;
 
@@ -16,14 +11,13 @@ const FORGE_MINUTES_PER_COMPONENT: u64 = 12;
 #[derive(Debug, Serialize)]
 pub struct ForgeQuote {
     pub minutes: u64,
-    pub materials: BTreeMap<ItemDefinitionId, f32>,
+    pub materials: BTreeMap<String, f32>,
     /// Required inventory fractions, rounded up per construction material.
-    pub requirements: BTreeMap<ItemDefinitionId, MeasuredItemAmountMicros>,
+    pub requirements: BTreeMap<String, u32>,
 }
 
-pub fn quote_weapon(design: &WeaponDesign) -> Result<ForgeQuote, ForgeQuoteError> {
-    let physical =
-        derive_properties(design).map_err(|errors| ForgeQuoteError::Properties(errors.into()))?;
+pub fn quote_weapon(design: &WeaponDesign) -> Result<ForgeQuote, String> {
+    let physical = derive_properties(design).map_err(|errors| format!("{errors:?}"))?;
     let mut quote = ForgeQuote {
         minutes: FORGE_MINUTES_BASE
             + (physical.mass_kg * FORGE_MINUTES_PER_KILOGRAM).ceil() as u64
@@ -31,28 +25,24 @@ pub fn quote_weapon(design: &WeaponDesign) -> Result<ForgeQuote, ForgeQuoteError
         materials: BTreeMap::new(),
         requirements: BTreeMap::new(),
     };
-    for mass in derive_material_masses(design)
-        .map_err(|errors| ForgeQuoteError::MaterialMasses(errors.into()))?
-    {
+    for mass in derive_material_masses(design).map_err(|errors| format!("{errors:?}"))? {
         let stock = mass
             .material
             .forge_stock()
-            .ok_or(ForgeQuoteError::UnsupportedStock(mass.material))?;
+            .ok_or_else(|| format!("No forge stock is traded for {:?}", mass.material))?;
         let required_micros = (f64::from(mass.mass_kg) / f64::from(stock.unit_mass_kg())
             * f64::from(ConsumableFractionMicros::MICROS_PER_WHOLE))
         .ceil();
         if !required_micros.is_finite() || required_micros > f64::from(u32::MAX) {
-            return Err(ForgeQuoteError::RequirementOutOfRange(
-                stock.item_id().into(),
-            ));
+            return Err("Weapon material requirement is outside the supported range".into());
         }
         let total = quote
             .requirements
             .entry(stock.item_id().into())
             .or_default();
         *total = total
-            .checked_add(MeasuredItemAmountMicros::new(required_micros as u32))
-            .ok_or_else(|| ForgeQuoteError::RequirementOutOfRange(stock.item_id().into()))?;
+            .checked_add(required_micros as u32)
+            .ok_or("Weapon material requirement is outside the supported range")?;
         *quote.materials.entry(stock.item_id().into()).or_default() += mass.mass_kg;
     }
     Ok(quote)
@@ -71,10 +61,7 @@ mod tests {
             ]}
         })).unwrap();
         assert!(adventuresim_weapon_model::generate(&design).is_ok());
-        assert!(matches!(
-            quote_weapon(&design),
-            Err(ForgeQuoteError::RequirementOutOfRange(stock)) if stock.as_str() == "steel_stock"
-        ));
+        assert!(quote_weapon(&design).is_err());
     }
 
     #[test]
@@ -87,56 +74,5 @@ mod tests {
         assert_ne!(short.requirements, long.requirements);
         assert_ne!(short.minutes, long.minutes);
         assert!(long.materials.values().all(|mass| *mass > 0.0));
-    }
-
-    #[test]
-    fn quote_admission_retains_derivation_causes_and_unsupported_material_identity() {
-        use adventuresim_weapon_model::{Material, ValidationError};
-        use std::error::Error as _;
-
-        let mut design = adventuresim_weapon_model::default_design("rondel_dagger").unwrap();
-        design.catalog_id.clear();
-        let error = quote_weapon(&design).unwrap_err();
-        let ForgeQuoteError::Properties(ref failures) = error else {
-            panic!("invalid design must fail physical derivation first")
-        };
-        assert!(matches!(
-            failures.errors(),
-            [ValidationError::CatalogIdentity]
-        ));
-        let failures = error
-            .source()
-            .unwrap()
-            .downcast_ref::<ForgeDerivationErrors>()
-            .unwrap();
-        assert!(matches!(
-            failures.source().unwrap().downcast_ref::<ValidationError>(),
-            Some(ValidationError::CatalogIdentity)
-        ));
-
-        let mut design = adventuresim_weapon_model::default_design("rondel_dagger").unwrap();
-        design.recipe.components[0].material = Some(Material::Horn);
-        assert!(adventuresim_weapon_model::generate(&design).is_ok());
-        assert!(matches!(
-            quote_weapon(&design),
-            Err(ForgeQuoteError::UnsupportedStock(Material::Horn))
-        ));
-    }
-
-    #[test]
-    fn serialized_quote_keeps_numeric_amounts_and_exact_stock_keys() {
-        let quote =
-            quote_weapon(&adventuresim_weapon_model::default_design("longsword").unwrap()).unwrap();
-        let json = serde_json::to_value(&quote).unwrap();
-        assert!(json["minutes"].is_u64());
-        let requirements = json["requirements"].as_object().unwrap();
-        assert_eq!(requirements.len(), quote.requirements.len());
-        for (item, amount) in &quote.requirements {
-            assert_eq!(
-                requirements[item.as_str()].as_u64(),
-                Some(u64::from(amount.get()))
-            );
-            assert!(json["materials"][item.as_str()].is_number());
-        }
     }
 }

@@ -290,7 +290,7 @@ fn generate_personal_name_from_catalog(
                 .map(|entry| entry.frequency)
                 .collect::<Vec<_>>(),
         )
-        .map_err(NameCatalogError::Sampling)?;
+        .map_err(|error| NameCatalogError::Sampling(error.to_string()))?;
     let family_id = family_weights[family_index].family_id.as_str();
     let eligible_forms: Vec<_> = repertoire
         .everyday_forms
@@ -310,7 +310,7 @@ fn generate_personal_name_from_catalog(
                 .map(|entry| entry.frequency)
                 .collect::<Vec<_>>(),
         )
-        .map_err(NameCatalogError::Sampling)?;
+        .map_err(|error| NameCatalogError::Sampling(error.to_string()))?;
     let surname_id = match inherited_surname {
         Some(id) => Some(id),
         None => {
@@ -323,7 +323,7 @@ fn generate_personal_name_from_catalog(
                         .map(|entry| entry.frequency)
                         .collect::<Vec<_>>(),
                 )
-                .map_err(NameCatalogError::Sampling)?;
+                .map_err(|error| NameCatalogError::Sampling(error.to_string()))?;
             Some(SurnameId::new(
                 repertoire.surnames[index].surname_id.clone(),
             ))

@@ -194,7 +194,7 @@ pub(crate) fn check_terminal_combat_outcome(
         if *side == TacticalCombatSide::Party {
             if state.observe_loaded_party_member(*player_id) == AdmissionResult::RejectedAfterSeal {
                 error!(
-                    character_id = player_id.get(),
+                    character_id = player_id.0,
                     "Rejecting unseen Party character projected after enrollment sealed"
                 );
                 commands.entity(entity).despawn();

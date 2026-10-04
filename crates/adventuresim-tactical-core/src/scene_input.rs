@@ -5,6 +5,10 @@
 //! synthetic fixture. Short-lived servers consume the identical format and
 //! never need access to the continental source pack.
 
+mod terrain_samples;
+pub use terrain_samples::{
+    EnvironmentalSample, SceneSource, TacticalSurface, TerrainSampleGrid, VistaLod, VistaSample,
+};
 mod rock_recipe;
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use rock_recipe::rock_recipe;
@@ -17,6 +21,7 @@ use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, UnitBasisPoints};
 use bevy::prelude::Component;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
+use thiserror::Error;
 
 use crate::{
     city_layout::{CityStreetPatch, CityYardPatch},
@@ -36,6 +41,7 @@ pub use gardens::{GeneratedGarden, SceneGarden};
 mod environment;
 mod establishments;
 mod parishes;
+mod properties;
 pub use compounds::{GeneratedBoundary, SceneBoundary};
 pub use environment::{SceneEnvironment, SceneEnvironmentFixture};
 pub use establishments::SceneEstablishment;
@@ -73,77 +79,6 @@ const MAX_PLAYABLE_GRADE: f32 = 0.65;
 const AUTHORITATIVE_DETAIL_SPACING_METRES: f32 = 0.5;
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
-
-#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(
-    rename_all = "snake_case",
-    tag = "kind",
-    content = "id",
-    deny_unknown_fields
-)]
-pub enum SceneSource {
-    ImportedPackage(String),
-    SyntheticFixture(String),
-}
-
-#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct EnvironmentalSample {
-    pub canopy_bps: u16,
-    pub wetland_bps: u16,
-    pub cultivation_bps: u16,
-    pub water_bps: u16,
-    pub hilly_bps: u16,
-    pub crossing_bps: u16,
-    pub surface: TacticalSurface,
-}
-
-/// Captured scene transport vocabulary. The dispatcher exhaustively adapts
-/// terrain-pack routing cells; tactical consumers use the immutable snapshot
-/// without depending on the terrain package runtime or updating routing data.
-#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum TacticalSurface {
-    Road,
-    #[default]
-    Open,
-    SparseWoods,
-    DeepWoods,
-    Water,
-    Wetland,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct TerrainSampleGrid {
-    /// Vertex dimensions; samples are row-major with X varying fastest.
-    pub width: u16,
-    pub depth: u16,
-    pub spacing_metres: f32,
-    /// Relative metres around the tactical origin.
-    pub heights_metres: Vec<f32>,
-    /// One environment sample per height vertex.
-    pub environment: Vec<EnvironmentalSample>,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct VistaLod {
-    pub level: u8,
-    pub spacing_metres: f32,
-    pub width: u16,
-    pub depth: u16,
-    pub origin_east_metres: f64,
-    pub origin_north_metres: f64,
-    pub heights_metres: Vec<f32>,
-    pub environment: Vec<EnvironmentalSample>,
-}
-
-#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct VistaSample {
-    pub lods: Vec<VistaLod>,
-}
 
 /// Broad procedural silhouette family for a collider-bearing rock.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -206,14 +141,23 @@ pub enum GeneratedObstacle {
     Rock { x: u16, z: u16, recipe: RockRecipe },
 }
 
-mod error;
-pub use error::{SampleGridKind, SceneInputError, SceneValidationError};
+#[derive(Debug, Error)]
+pub enum SceneInputError {
+    #[error("scene input I/O failed: {0}")]
+    Io(#[from] std::io::Error),
+    #[error("scene input JSON is invalid: {0}")]
+    Json(#[from] serde_json::Error),
+    #[error("scene input is invalid: {0}")]
+    Validation(String),
+}
 
 impl TacticalSceneInput {
     pub fn load(path: &Path) -> Result<Self, SceneInputError> {
         let length = fs::metadata(path)?.len();
         if length == 0 || length > MAX_SCENE_INPUT_BYTES {
-            return Err(SceneInputError::Validation(SceneValidationError::FileSize));
+            return Err(SceneInputError::Validation(
+                "file exceeds the 32 MiB bound".into(),
+            ));
         }
         let input: Self = serde_json::from_slice(&fs::read(path)?)?;
         input.validate()?;
@@ -222,41 +166,42 @@ impl TacticalSceneInput {
 
     pub fn validate(&self) -> Result<(), SceneInputError> {
         if self.schema_version != TACTICAL_SCENE_SCHEMA_VERSION {
-            return invalid(SceneValidationError::SchemaVersion);
+            return invalid("incompatible schema version");
         }
         if self.generation_version != TACTICAL_SCENE_GENERATION_VERSION {
-            return invalid(SceneValidationError::GenerationVersion);
+            return invalid("incompatible generation version");
         }
         if self.scene_key.is_empty() || self.scene_key.len() > MAX_TEMPLATE_BYTES {
-            return invalid(SceneValidationError::SceneKey);
+            return invalid("scene key is empty or oversized");
         }
         let source_id = match &self.source {
             SceneSource::ImportedPackage(value) | SceneSource::SyntheticFixture(value) => value,
         };
         if source_id.is_empty() || source_id.len() > MAX_SOURCE_ID_BYTES {
-            return invalid(SceneValidationError::SourceIdentity);
+            return invalid("source identity is empty or oversized");
         }
         if !(-90_000_000..=90_000_000).contains(&self.latitude_microdegrees)
             || !(-180_000_000..=180_000_000).contains(&self.longitude_microdegrees)
         {
-            return invalid(SceneValidationError::GeographicOrigin);
+            return invalid("geographic origin is out of bounds");
         }
-        validate_grid(&self.playable, MAX_PLAYABLE_SIDE, SampleGridKind::Playable)?;
+        validate_grid(&self.playable, MAX_PLAYABLE_SIDE, "playable")?;
         crate::scene_fault::validate(self.landform, &self.playable)?;
         urban::validate(self)?;
         establishments::validate(self)?;
+        properties::validate(self)?;
         if self.vista.lods.len() > MAX_VISTA_LEVELS {
-            return invalid(SceneValidationError::VistaLevelCount);
+            return invalid("vista has too many LOD levels");
         }
         let mut previous_level = None;
         let mut previous_spacing = self.playable.spacing_metres;
         let mut vista_samples = 0usize;
         for lod in &self.vista.lods {
             if previous_level.is_some_and(|level| lod.level <= level) {
-                return invalid(SceneValidationError::VistaLevelOrder);
+                return invalid("vista LOD levels are not strictly increasing");
             }
             if !lod.origin_east_metres.is_finite() || !lod.origin_north_metres.is_finite() {
-                return invalid(SceneValidationError::VistaOrigin);
+                return invalid("vista LOD origin is not finite");
             }
             let grid = TerrainSampleGrid {
                 width: lod.width,
@@ -265,15 +210,15 @@ impl TacticalSceneInput {
                 heights_metres: lod.heights_metres.clone(),
                 environment: lod.environment.clone(),
             };
-            validate_grid(&grid, u16::MAX as usize, SampleGridKind::Vista)?;
+            validate_grid(&grid, u16::MAX as usize, "vista")?;
             if lod.spacing_metres <= previous_spacing {
-                return invalid(SceneValidationError::VistaSpacingOrder);
+                return invalid("vista LOD spacing must progressively increase");
             }
-            vista_samples = vista_samples.checked_add(lod.heights_metres.len()).ok_or(
-                SceneInputError::Validation(SceneValidationError::VistaSampleOverflow),
-            )?;
+            vista_samples = vista_samples
+                .checked_add(lod.heights_metres.len())
+                .ok_or_else(|| SceneInputError::Validation("vista sample count overflow".into()))?;
             if vista_samples > MAX_VISTA_SAMPLES {
-                return invalid(SceneValidationError::VistaSampleCount);
+                return invalid("vista sample count exceeds its bound");
             }
             previous_level = Some(lod.level);
             previous_spacing = lod.spacing_metres;
@@ -391,9 +336,9 @@ fn refine_authoritative_terrain(
                     )
             }
         })
-        .ok_or(SceneInputError::Validation(
-            SceneValidationError::DetailTerrain,
-        ))?;
+        .ok_or_else(|| {
+            SceneInputError::Validation("authoritative detail terrain is invalid".into())
+        })?;
     terrain.constrain_max_grade(MAX_PLAYABLE_GRADE);
     terrain.rewrite_heights(|point, height| {
         building_pads
@@ -1012,28 +957,28 @@ fn clamp_height_pair(heights: &mut [f32], anchor: usize, target: usize, maximum_
 fn validate_grid(
     grid: &TerrainSampleGrid,
     max_side: usize,
-    label: SampleGridKind,
+    label: &str,
 ) -> Result<(), SceneInputError> {
     let width = usize::from(grid.width);
     let depth = usize::from(grid.depth);
     if width < 2 || depth < 2 || width > max_side || depth > max_side {
-        return invalid(SceneValidationError::GridDimensions { grid: label });
+        return invalid(format!("{label} dimensions are out of bounds"));
     }
     if !grid.spacing_metres.is_finite() || !(0.25..=2_000.0).contains(&grid.spacing_metres) {
-        return invalid(SceneValidationError::GridSpacing { grid: label });
+        return invalid(format!("{label} spacing is out of bounds"));
     }
-    let expected = width.checked_mul(depth).ok_or(SceneInputError::Validation(
-        SceneValidationError::GridOverflow { grid: label },
-    ))?;
+    let expected = width
+        .checked_mul(depth)
+        .ok_or_else(|| SceneInputError::Validation(format!("{label} dimensions overflow")))?;
     if grid.heights_metres.len() != expected || grid.environment.len() != expected {
-        return invalid(SceneValidationError::GridSamples { grid: label });
+        return invalid(format!("{label} sample counts do not match dimensions"));
     }
     if grid
         .heights_metres
         .iter()
         .any(|height| !height.is_finite() || !(-12_000.0..=12_000.0).contains(height))
     {
-        return invalid(SceneValidationError::GridHeight { grid: label });
+        return invalid(format!("{label} contains an invalid height"));
     }
     if grid.environment.iter().any(|sample| {
         [
@@ -1047,7 +992,7 @@ fn validate_grid(
         .into_iter()
         .any(|value| value > BASIS_POINTS_PER_WHOLE)
     }) {
-        return invalid(SceneValidationError::GridEnvironment { grid: label });
+        return invalid(format!("{label} contains an invalid environment sample"));
     }
     Ok(())
 }
@@ -1083,13 +1028,13 @@ fn validate_weather(weather: WeatherSnapshot) -> Result<(), SceneInputError> {
                     )
                 })))
     {
-        return invalid(SceneValidationError::Weather);
+        return invalid("weather snapshot is invalid");
     }
     Ok(())
 }
 
-fn invalid<T>(error: SceneValidationError) -> Result<T, SceneInputError> {
-    Err(SceneInputError::Validation(error))
+fn invalid<T>(message: impl Into<String>) -> Result<T, SceneInputError> {
+    Err(SceneInputError::Validation(message.into()))
 }
 
 #[cfg(test)]
@@ -1103,7 +1048,7 @@ mod tests {
     };
     use std::time::SystemTime;
 
-    fn fixture() -> TacticalSceneInput {
+    pub(super) fn fixture() -> TacticalSceneInput {
         let environment = vec![
             EnvironmentalSample {
                 canopy_bps: 8_000,
@@ -1112,9 +1057,10 @@ mod tests {
             9
         ];
         TacticalSceneInput {
+            properties: None,
             schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-            seed: 42.into(),
+            seed: 42,
             scene_key: "woodland".into(),
             source: SceneSource::SyntheticFixture("dense-woodland".into()),
             latitude_microdegrees: 53_500_000,

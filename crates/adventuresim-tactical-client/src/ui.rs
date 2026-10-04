@@ -911,7 +911,7 @@ fn on_new_player_added_hook(
 ) -> Result {
     let (id, player) = query.get(event.entity)?;
 
-    let class_list = if args.id == id.get() {
+    let class_list = if args.id == id.0 {
         "player controlled"
     } else {
         "player"

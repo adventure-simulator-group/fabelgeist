@@ -1,17 +1,8 @@
 #[test]
 fn settlement_arrival_only_catches_up_to_local_time_of_day() {
-    assert_eq!(
-        StrategicMinute::new(600).minutes_until_time_of_day(600),
-        Some(0)
-    );
-    assert_eq!(
-        StrategicMinute::new(600).minutes_until_time_of_day(660),
-        Some(60)
-    );
-    assert_eq!(
-        StrategicMinute::new(1_380).minutes_until_time_of_day(60),
-        Some(120)
-    );
+    assert_eq!(StrategicMinute::new(600).minutes_until_time_of_day(600), Some(0));
+    assert_eq!(StrategicMinute::new(600).minutes_until_time_of_day(660), Some(60));
+    assert_eq!(StrategicMinute::new(1_380).minutes_until_time_of_day(60), Some(120));
     assert!(
         u64::from(
             StrategicMinute::ZERO
@@ -50,10 +41,7 @@ fn settlement_rest_uses_indoor_exposure() {
 fn settlement_wait_and_downtime_use_indoor_exposure() {
     let source = crate::production_source(crate::time::TIME_SOURCE);
     for (start, end) in [
-        (
-            "pub fn advance_character_wait_time",
-            "fn activity_execution_location",
-        ),
+        ("pub fn advance_character_wait_time", "fn default_schedule"),
         (
             "pub fn perform_immediate_activity",
             "fn apply_organization_outcomes",
@@ -71,6 +59,21 @@ fn settlement_wait_and_downtime_use_indoor_exposure() {
         assert!(body.contains("ExposureShelter::Indoor"), "{start}");
         assert!(body.contains("FieldShelter::Bivouac"), "{start}");
     }
+}
+
+#[test]
+fn settlement_rest_rejects_unavailable_inn_and_temple_services() {
+    use adventuresim_world_schema::{SettlementActionService, SettlementService};
+
+    let mut profile = adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder();
+    assert!(require_settlement_rest_service(&profile, SettlementActionService::Inn).is_ok());
+    assert!(
+        require_settlement_rest_service(&profile, SettlementActionService::Temple).is_err()
+    );
+    profile.services.clear();
+    assert!(require_settlement_rest_service(&profile, SettlementActionService::Inn).is_err());
+    profile.services.push(SettlementService::Temple);
+    assert!(require_settlement_rest_service(&profile, SettlementActionService::Temple).is_ok());
 }
 
 #[test]
@@ -98,17 +101,15 @@ fn sponsored_inn_rest_is_one_day_exact_cost_and_never_transfers_coin() {
     let sponsored = source
         .split("pub fn sponsor_party_member_inn_rest")
         .nth(1)
-        .and_then(|tail| tail.split("fn require_character_residence_rest").next())
+        .and_then(|tail| tail.split("fn require_settlement_rest_service").next())
         .expect("sponsored rest reducer");
-    assert!(sponsored.split_whitespace().collect::<String>().contains(
-        "require_strategic_character_authority(ctx,(payer_id).into()).map_err(|error:crate::strategic::StrategicCharacterAuthorityError|error.to_string())?"
-    ));
     for gate in [
+        "require_strategic_character_authority(ctx, payer_id)",
         "payer_id == patient_id",
         "same party",
         "current party membership",
         "named settlement",
-        "require_character_rest_service(ctx, patient_id.into(), SettlementActionService::Inn)",
+        "require_character_rest_service(ctx, patient_id, SettlementActionService::Inn)",
         "patient_publicly_needs_rest(ctx, patient_id)",
         "expected_cost != authoritative_cost",
         "Patient can afford ordinary inn rest",
@@ -159,7 +160,8 @@ fn settlement_rest_consumes_elapsed_needs_once_in_terminal_safe_order() {
     assert!(rest.find("settle_shared_party_time").unwrap() < rest.find(needs).unwrap());
     assert!(rest.find(needs).unwrap() < rest.find("finish_disease_interval").unwrap());
     assert!(
-        rest.find("finish_disease_interval").unwrap() < rest.find("terminal.is_some()").unwrap()
+        rest.find("finish_disease_interval").unwrap()
+            < rest.find("terminal.is_some()").unwrap()
     );
     assert!(
         rest.find("terminal.is_some()").unwrap() < rest.find("clear_stomach_fullness").unwrap()
@@ -190,10 +192,7 @@ fn automatic_social_chats_run_only_after_positive_discretionary_downtime() {
             "pub fn advance_travel_time",
             "pub fn advance_character_wait_time",
         ),
-        (
-            "pub fn advance_character_wait_time",
-            "fn activity_execution_location",
-        ),
+        ("pub fn advance_character_wait_time", "fn default_schedule"),
     ] {
         let ordinary = source
             .split(start)

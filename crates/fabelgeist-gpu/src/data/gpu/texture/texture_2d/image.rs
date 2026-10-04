@@ -17,18 +17,10 @@ impl Image {
     // feature an `Image` is still a perfectly good pixel buffer -- it just has
     // to be handed its pixels rather than fetching them.
     #[cfg(feature = "image-io")]
-    pub async fn from_resource(
-        resource: &fabelgeist_fs::ResourceLocator,
-    ) -> std::result::Result<Image, ImageLoadError> {
-        let contents = resource.read().await.map_err(ImageLoadError::Read)?;
-        let img = image::load_from_memory(contents.as_ref()).map_err(
-            |source: image::ImageError| -> ImageLoadError {
-                ImageLoadError::Decode {
-                    resource: resource.clone(),
-                    source,
-                }
-            },
-        )?;
+    pub async fn new(_context: WgpuContext, uri: String) -> Result<Image> {
+        let bytes = fabelgeist_fs::read_bytes(&uri).await?;
+
+        let img = image::load_from_memory(&bytes)?;
         let img = img.to_rgba8();
         let (width, height) = img.dimensions();
 
@@ -45,36 +37,6 @@ impl Image {
             width,
             height,
         })
-    }
-}
-
-#[cfg(feature = "image-io")]
-#[derive(Debug)]
-pub enum ImageLoadError {
-    Read(fabelgeist_fs::ResourceIoError),
-    Decode {
-        resource: fabelgeist_fs::ResourceLocator,
-        source: image::ImageError,
-    },
-}
-#[cfg(feature = "image-io")]
-impl std::fmt::Display for ImageLoadError {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::Read(source) => source.fmt(formatter),
-            Self::Decode { resource, source } => {
-                write!(formatter, "decoding image {resource} failed: {source}")
-            }
-        }
-    }
-}
-#[cfg(feature = "image-io")]
-impl std::error::Error for ImageLoadError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match self {
-            Self::Read(source) => Some(source),
-            Self::Decode { source, .. } => Some(source),
-        }
     }
 }
 
@@ -183,41 +145,6 @@ impl super::Texture2d {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[cfg(feature = "image-io")]
-    #[tokio::test]
-    async fn resource_decode_preserves_pixels_and_distinguishes_read_from_decode_failures() {
-        use fabelgeist_fs::{FileContents, ResourceLocator, ResourceMime};
-        use std::error::Error;
-        let picture = image::DynamicImage::ImageRgba8(image::RgbaImage::from_pixel(
-            1,
-            1,
-            image::Rgba([1, 2, 3, 255]),
-        ));
-        let mut encoded = std::io::Cursor::new(Vec::new());
-        picture
-            .write_to(&mut encoded, image::ImageFormat::Png)
-            .unwrap();
-        let resource = ResourceLocator::from_inline(
-            &FileContents::from(encoded.into_inner()),
-            ResourceMime::Png,
-        );
-        let decoded = Image::from_resource(&resource).await.unwrap();
-        assert_eq!((decoded.width, decoded.height), (1, 1));
-        assert_eq!(decoded.data.as_ref().as_slice(), &[1, 2, 3, 255]);
-        let corrupt =
-            ResourceLocator::from_inline(&FileContents::from(vec![0, 255]), ResourceMime::Png);
-        let failure = Image::from_resource(&corrupt).await.unwrap_err();
-        assert!(
-            matches!(&failure, ImageLoadError::Decode { resource, .. } if resource == &corrupt)
-        );
-        assert!(failure.source().unwrap().is::<image::ImageError>());
-        let unreadable = ResourceLocator::try_from("data:image/png;base64,???").unwrap();
-        assert!(matches!(
-            Image::from_resource(&unreadable).await.unwrap_err(),
-            ImageLoadError::Read(_)
-        ));
-    }
 
     /// A ramp of every eight-bit level, which is what the loss showed up in.
     fn ramp() -> Image {

@@ -99,19 +99,17 @@ impl AdministrationPresentation {
         Self {
             id: row.id,
             preparation_id: row.preparation_id.clone(),
-            display_name: adventuresim_core::item_catalog::definition(
-                &(&row.preparation_id).into(),
-            )
-            .map_or_else(
-                || {
-                    let mut readable = row.preparation_id.replace('_', " ");
-                    if let Some(first) = readable.get_mut(0..1) {
-                        first.make_ascii_uppercase();
-                    }
-                    readable
-                },
-                |definition| definition.display_name.clone(),
-            ),
+            display_name: adventuresim_core::item_catalog::definition(&row.preparation_id)
+                .map_or_else(
+                    || {
+                        let mut readable = row.preparation_id.replace('_', " ");
+                        if let Some(first) = readable.get_mut(0..1) {
+                            first.make_ascii_uppercase();
+                        }
+                        readable
+                    },
+                    |definition| definition.display_name.clone(),
+                ),
             profile_version: row.profile_version,
             route: crate::spacetimedb::core_intervention_route(row.route),
             dose: DoseMilliunits::try_new(row.dose_milliunits)

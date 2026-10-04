@@ -67,7 +67,7 @@ pub(super) fn export_character(
         GlbOutput::Standalone(path),
         &recipe.name,
         recipe.version,
-        model.config.lod,
+        model.lod,
         &RiggedMesh {
             joint_proportions: &generated.joint_proportions,
             morph_targets: &body_targets,

@@ -1,6 +1,5 @@
 //! Crossbow tillers, prods, open lock cavities, spanning hardware and strings.
 use super::*;
-use crate::ConstructionError;
 mod components;
 mod hardware;
 use components::*;
@@ -62,7 +61,7 @@ pub(super) fn crossbow(
     r: &ResolvedComponent,
     p: &CrossbowParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let mut parts = stock(r, p, detail)?;
     limbs(r, p, detail, &mut parts)?;
     strings(r, p, detail, &mut parts)?;

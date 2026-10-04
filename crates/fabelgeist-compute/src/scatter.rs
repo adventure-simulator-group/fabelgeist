@@ -272,8 +272,10 @@ impl ScatterDefinition {
         full_code.push_str(&format!("    {};\n", scatter_call));
         full_code.push_str("}\n");
 
-        let full_code = ShaderSource::from(full_code);
-        let module = full_code.parse(wgpu::naga::ShaderStage::Compute)?;
+        let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
+            &full_code,
+            wgpu::naga::ShaderStage::Compute,
+        )?;
 
         let mut input_size = 0;
         let mut output_size = 0;
@@ -351,15 +353,15 @@ impl Scatter {
         // Input resource determines grid size
         let input_num_elements = match input {
             GpuResource::Buffer(b) => {
-                parameters.insert("input".into(), (b.clone()).into());
-                u64::from(b.length()) / input_size.max(&1)
+                parameters.insert("input", b.clone());
+                b.size / input_size.max(&1)
             }
             GpuResource::Texture2d(t) => {
-                parameters.insert("input".into(), (t.clone()).into());
+                parameters.insert("input", t.clone());
                 (t.size.0 * t.size.1) as u64
             }
             GpuResource::Texture3d(t) => {
-                parameters.insert("input".into(), (t.clone()).into());
+                parameters.insert("input", t.clone());
                 (t.size.0 * t.size.1 * t.size.2) as u64
             }
         };
@@ -367,13 +369,13 @@ impl Scatter {
         // Scatter output info
         match output {
             GpuResource::Buffer(b) => {
-                parameters.insert("output".into(), (b.clone()).into());
+                parameters.insert("output", b.clone());
             }
             GpuResource::Texture2d(t) => {
-                parameters.insert("output".into(), (t.clone()).into());
+                parameters.insert("output", t.clone());
             }
             GpuResource::Texture3d(t) => {
-                parameters.insert("output".into(), (t.clone()).into());
+                parameters.insert("output", t.clone());
             }
         }
 
@@ -391,7 +393,9 @@ impl Scatter {
             context,
             pipeline.clone(),
             parameters,
-            fabelgeist_gpu::prelude::WorkgroupGrid::from((wg_x, wg_y, wg_z)),
+            wg_x,
+            wg_y,
+            wg_z,
         )?;
 
         Ok(())

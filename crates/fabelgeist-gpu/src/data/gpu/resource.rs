@@ -1,5 +1,4 @@
 use crate::data::gpu::buffer::Buffer;
-use crate::data::gpu::buffer::BufferUpload;
 use crate::data::gpu::compute::signature::ResourceBaseType;
 use crate::data::gpu::texture::{Texture2d, Texture3d};
 
@@ -63,7 +62,7 @@ impl GpuResource {
         context: &crate::globals::WgpuContext,
     ) -> anyhow::Result<Vec<T>> {
         match self {
-            GpuResource::Buffer(b) => Ok(b.read(context).await?),
+            GpuResource::Buffer(b) => b.read(context).await,
             GpuResource::Texture2d(t) => t.read(context).await,
             GpuResource::Texture3d(t) => t.read(context).await,
         }
@@ -75,10 +74,7 @@ impl GpuResource {
         data: &[T],
     ) -> anyhow::Result<()> {
         match self {
-            GpuResource::Buffer(b) => {
-                b.write(context, BufferUpload::from_elements(data));
-                Ok(())
-            }
+            GpuResource::Buffer(b) => b.write(context, data),
             GpuResource::Texture2d(t) => t.write(context, data),
             GpuResource::Texture3d(t) => t.write(context, data),
         }

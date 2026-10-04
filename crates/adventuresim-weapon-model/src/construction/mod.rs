@@ -4,8 +4,6 @@
 //! passed explicitly, so generating another weapon cannot change a build's
 //! sampling budget.
 
-mod error;
-pub use error::{ConstructionError, NormalBudgetFailure};
 mod clearance_envelope;
 mod crenellated_socket;
 mod curves;
@@ -52,12 +50,12 @@ pub(crate) const FLOAT32_STRIP_SEPARATION: f64 = 4.0 * MODEL_FRAME_EXTENT * f32:
 
 /// Reject pathological detail requests before allocating their sampled grids.
 /// This ceiling permits large authored surfaces while bounding hostile recipes.
-pub(crate) fn construction_budget(triangles: f64) -> Result<(), ConstructionError> {
+pub(crate) fn construction_budget(triangles: f64) -> Result<(), String> {
     const MAX_SOLID_TRIANGLES: f64 = 262144.0;
     if triangles.is_finite() && (0.0..=MAX_SOLID_TRIANGLES).contains(&triangles) {
         Ok(())
     } else {
-        Err(ConstructionError::ConstructionBudget)
+        Err("solid exceeds its bounded construction budget".into())
     }
 }
 

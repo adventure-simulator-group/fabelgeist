@@ -1,13 +1,12 @@
 //! Profiled oval grips with disjoint core and cover material volumes.
 use super::*;
-use crate::ConstructionError;
 use std::f64::consts::TAU;
 
 pub(super) fn construct(
     r: &ResolvedComponent,
     p: &ProfileBodyParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let outer = rings(p, detail)?;
     let make = |solid, material, label: &str| PartSource::new(solid, material, label, &r.id);
     let core_material = r.component.material.unwrap_or(Material::Wood);
@@ -38,7 +37,7 @@ pub(super) fn construct(
     ])
 }
 
-fn rings(p: &ProfileBodyParameters, detail: Detail) -> Result<Vec<Vec<Point>>, ConstructionError> {
+fn rings(p: &ProfileBodyParameters, detail: Detail) -> Result<Vec<Vec<Point>>, String> {
     let length = p.length.get();
     let width = SmoothProfile::new(
         p.profile
@@ -121,7 +120,7 @@ fn rings(p: &ProfileBodyParameters, detail: Detail) -> Result<Vec<Vec<Point>>, C
         .collect())
 }
 
-fn inset(ring: &[Point], distance: f64) -> Result<Vec<Point>, ConstructionError> {
+fn inset(ring: &[Point], distance: f64) -> Result<Vec<Point>, String> {
     let count = ring.len();
     let normal = |a: Point, b: Point| {
         let (x, z) = (b[0] - a[0], b[2] - a[2]);
@@ -144,13 +143,13 @@ fn inset(ring: &[Point], distance: f64) -> Result<Vec<Point>, ConstructionError>
     for i in 0..count {
         let [a, b, c] = [inner[i], inner[(i + 1) % count], inner[(i + 2) % count]];
         if (b[0] - a[0]) * (c[2] - b[2]) - (b[2] - a[2]) * (c[0] - b[0]) <= 0.0 {
-            return Err(ConstructionError::GripCoverInsetCollapsesCoreSection);
+            return Err("grip cover inset collapses its core section".into());
         }
     }
     Ok(inner)
 }
 
-fn filled(rings: &[Vec<Point>]) -> Result<Solid, ConstructionError> {
+fn filled(rings: &[Vec<Point>]) -> Result<Solid, String> {
     let mut solid = Solid::default();
     for pair in rings.windows(2) {
         for i in 0..pair[0].len() {

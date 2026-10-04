@@ -1,6 +1,5 @@
 //! Shared continuous blade plan and manufacturing clearance bounds.
 use super::*;
-use crate::ConstructionError;
 use std::f64::consts::PI;
 
 pub(crate) struct BladeProfile<'a> {
@@ -75,7 +74,7 @@ impl BladeProfile<'_> {
         self.point
             .map(|p| self.ricasso + p.start.get() * (self.length - self.ricasso))
     }
-    pub(crate) fn point_curve(&self) -> Result<Option<PointCurve>, ConstructionError> {
+    pub(crate) fn point_curve(&self) -> Result<Option<PointCurve>, String> {
         let Some(p) = self.point else { return Ok(None) };
         let y = self.point_start().unwrap();
         let t = self.progress(y);

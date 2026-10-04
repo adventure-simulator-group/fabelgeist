@@ -1,6 +1,5 @@
 //! Cast round balls and hinged leather ammunition pouches.
 use super::*;
-use crate::ConstructionError;
 use std::f64::consts::{PI, TAU};
 
 pub(super) fn ball(
@@ -62,7 +61,7 @@ pub(super) fn pouch(
     r: &ResolvedComponent,
     p: &BallPouchParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let width = p.width.get();
     let height = p.height.get();
     let depth = p.depth.get();
@@ -151,10 +150,7 @@ pub(super) fn pouch(
     Ok(a.parts)
 }
 
-fn pouch_flap(
-    a: &mut firearms::Assembly<'_>,
-    p: &BallPouchParameters,
-) -> Result<(), ConstructionError> {
+fn pouch_flap(a: &mut firearms::Assembly<'_>, p: &BallPouchParameters) -> Result<(), String> {
     let detail = a.detail;
     let material = a.resolved.component.material.unwrap_or(Material::Leather);
     let width = p.width.get();

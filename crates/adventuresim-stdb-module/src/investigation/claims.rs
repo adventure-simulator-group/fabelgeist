@@ -235,7 +235,7 @@ fn validate_referral_manifest_provenance(
                 .witnesses
                 .iter()
                 .find(|candidate| {
-                    candidate.id.as_str() == referral.source_witness_id
+                    candidate.id.0 == referral.source_witness_id
                         && candidate.resident_character_id
                             == referral.source_witness_resident_character_id
                 })
@@ -371,7 +371,7 @@ fn grant_generated_witness_referral(
             (
                 "testimony".to_owned(),
                 source_receipt_id.to_owned(),
-                source_witness.id.as_str().to_owned(),
+                source_witness.id.0.clone(),
                 source_witness.resident_character_id,
                 u32::try_from(testimony_index)
                     .map_err(|_| "Testimony referral index is too large")?,
@@ -502,7 +502,7 @@ pub(crate) fn referred_generated_witness(
     let validated = validate_quest_generation_authority(&authority)?;
     if validated.manifest.public_case_id != referral.public_case_id
         || validated.manifest.catalog_revision != referral.catalog_revision
-        || validated.context.settlement_id.as_str() != referral.expected_settlement_id
+        || validated.context.settlement_id != referral.expected_settlement_id
     {
         return Err("Witness referral no longer matches generated authority".into());
     }
@@ -609,7 +609,7 @@ pub(crate) fn known_outbreak_witness(
             .find(|witness| {
                 witness.resident_character_id == witness_resident_character_id
                     && witness.expected_location == location_id
-                    && validated.context.settlement_id.as_str() == settlement_id
+                    && validated.context.settlement_id == settlement_id
             })
             .cloned()
         else {
@@ -649,7 +649,7 @@ pub(crate) fn receive_local_problem_rumor_for_development_bootstrap(
     if !crate::strategic::development_capability_enabled() {
         return Err("Development scenarios are disabled in this module build".into());
     }
-    crate::character::require_living_character(ctx, (character_id).into())?;
+    crate::character::require_living_character(ctx, character_id)?;
     receive_local_problem_rumor_impl(ctx, character_id, receipt_id, action_id)
 }
 
@@ -931,7 +931,7 @@ fn validate_generated_testimony_site(
     let site_id = draft
         .site_id
         .as_ref()
-        .filter(|site_id| !site_id.as_str().is_empty())
+        .filter(|site_id| !site_id.0.is_empty())
         .ok_or("Exact generated testimony has no site identity")?;
     let generated_site = generated
         .sites
@@ -940,8 +940,8 @@ fn validate_generated_testimony_site(
         .ok_or("Exact generated testimony site is absent from the manifest")?;
     let site = site.ok_or("Exact generated testimony site authority is missing")?;
     if site.case_id != generated.canonical_case_id
-        || site.id.as_str() != site_id.as_str()
-        || site.id_key != site_id.as_str()
+        || site.id.as_str() != site_id.0
+        || site.id_key != site_id.0
         || site.name != generated_site.safe_label
         || site.distance_m == 0
         || (site.coordinates_are_geographic
@@ -964,7 +964,7 @@ fn record_generated_bestiary_report(
         "bestiary-report",
         &character_id.to_string(),
         &generated.public_case_id,
-        witness.id.as_str(),
+        &witness.id.0,
     ]);
     if let Some(existing) = ctx
         .db
@@ -1033,12 +1033,10 @@ pub(crate) fn persist_generated_testimony(
         return Err("Generated testimony presentation text is invalid".into());
     }
     for draft in &projection_plan {
-        let site = draft.site_id.as_ref().and_then(|site_id| {
-            ctx.db
-                .case_site_authority()
-                .id_key()
-                .find(site_id.as_str().to_owned())
-        });
+        let site = draft
+            .site_id
+            .as_ref()
+            .and_then(|site_id| ctx.db.case_site_authority().id_key().find(&site_id.0));
         validate_generated_testimony_site(generated, draft, site.as_ref())
             .map_err(str::to_string)?;
     }
@@ -1079,7 +1077,7 @@ pub(crate) fn persist_generated_testimony(
                     character_id,
                     generated,
                     referred,
-                    generation_context.settlement_id.as_str(),
+                    &generation_context.settlement_id,
                     WitnessReferralProvenance::Testimony {
                         source_witness: witness,
                         testimony_index: index,
@@ -1130,18 +1128,16 @@ pub(crate) fn persist_generated_testimony(
             official_minute(ctx),
         )?;
 
-        let site = draft.site_id.as_ref().and_then(|site_id| {
-            ctx.db
-                .case_site_authority()
-                .id_key()
-                .find(site_id.as_str().to_owned())
-        });
+        let site = draft
+            .site_id
+            .as_ref()
+            .and_then(|site_id| ctx.db.case_site_authority().id_key().find(&site_id.0));
         let exact = draft.destination_stage == DestinationKnowledgeStage::ExactBelieved;
         let lead_id = inv::compound_id(&[
             "lead",
             "generated-testimony",
             &character_id.to_string(),
-            witness.id.as_str(),
+            &witness.id.0,
             &index.to_string(),
         ]);
         if ctx.db.investigation_lead().id().find(&lead_id).is_none() {
@@ -1224,7 +1220,7 @@ pub(crate) fn persist_generated_testimony(
                 character_id,
                 generated,
                 referred,
-                generation_context.settlement_id.as_str(),
+                &generation_context.settlement_id,
                 WitnessReferralProvenance::Testimony {
                     source_witness: witness,
                     testimony_index: index,
@@ -1547,11 +1543,7 @@ pub fn discover_investigation_lead(
 fn same_place(ctx: &ReducerContext, left: &crate::Character, right: &crate::Character) -> bool {
     (left.current_settlement_id.is_some()
         && left.current_settlement_id == right.current_settlement_id)
-        || crate::world_actor::characters_are_contextually_present(
-            ctx,
-            (left.id).into(),
-            (right.id).into(),
-        )
+        || crate::world_actor::characters_are_contextually_present(ctx, left.id, right.id)
 }
 
 #[reducer]

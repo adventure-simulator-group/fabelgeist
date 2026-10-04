@@ -1,4 +1,3 @@
-use super::TerrainRecipeError;
 use adventuresim_world_schema::{
     IgneousRock, MetamorphicRock, MixedLithology, SedimentaryRock, SurfaceLithology,
     UnconsolidatedDeposit,
@@ -101,14 +100,14 @@ impl TerrainSurfaceRecipe {
         self.preset().parameters()
     }
 
-    pub fn validate(self) -> Result<(), TerrainRecipeError> {
+    pub fn validate(self) -> Result<(), &'static str> {
         let parameters = self.parameters();
         if !(0.18..=4.0).contains(&parameters.grain_tile_metres)
             || !(0.004..=0.055).contains(&parameters.microrelief_metres)
             || !(0.55..=1.0).contains(&parameters.roughness[0])
             || !(parameters.roughness[0]..=1.0).contains(&parameters.roughness[1])
         {
-            return Err(TerrainRecipeError::SurfaceParameters);
+            return Err("terrain surface parameters are outside physical bounds");
         }
         match self.structure {
             TerrainGeologicStructure::Massive => {}
@@ -125,7 +124,7 @@ impl TerrainSurfaceRecipe {
                     || !(2..=120).contains(&warp_cm)
                     || cross_bedding_bps > 5_000
                 {
-                    return Err(TerrainRecipeError::Bedding);
+                    return Err("bedded terrain structure is outside bounds");
                 }
             }
             TerrainGeologicStructure::Foliated {
@@ -135,7 +134,7 @@ impl TerrainSurfaceRecipe {
             } => {
                 validate_normal(normal_permyriad)?;
                 if !(8..=350).contains(&band_spacing_cm) || !(2..=90).contains(&warp_cm) {
-                    return Err(TerrainRecipeError::Foliation);
+                    return Err("foliated terrain structure is outside bounds");
                 }
             }
         }
@@ -143,14 +142,14 @@ impl TerrainSurfaceRecipe {
     }
 }
 
-fn validate_normal(normal: [i16; 3]) -> Result<(), TerrainRecipeError> {
+fn validate_normal(normal: [i16; 3]) -> Result<(), &'static str> {
     let squared = normal
         .into_iter()
         .map(|component| i64::from(component).pow(2))
         .sum::<i64>();
     ((98_000_000..=102_000_000).contains(&squared))
         .then_some(())
-        .ok_or(TerrainRecipeError::StructureNormal)
+        .ok_or("terrain geological structure normal is not normalized")
 }
 
 impl TerrainSurfacePreset {

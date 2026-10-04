@@ -88,7 +88,7 @@ impl std::error::Error for ConflictingCandidate {}
 pub fn stable_candidate_order(
     actor_id: u64,
     actor_seed: u64,
-    day: adventuresim_world_schema::calendar::StrategicDayIndex,
+    day: u64,
     candidates: impl IntoIterator<Item = NpcCandidate>,
 ) -> Result<Vec<NpcCandidate>, ConflictingCandidate> {
     let mut candidates: Vec<_> = candidates.into_iter().collect();
@@ -101,18 +101,12 @@ pub fn stable_candidate_order(
     candidates.dedup_by_key(|candidate| candidate.character_id);
     candidates.sort_by_key(|candidate| {
         (
-            fabelgeist_determinism::Seed::derive(
-                &actor_seed.to_le_bytes(),
-                StreamId::new("npc.policy-rank"),
-                &[
-                    &candidate.policy_seed.to_le_bytes(),
-                    &actor_id.to_le_bytes(),
-                    &u64::from(day).to_le_bytes(),
-                    &candidate.character_id.to_le_bytes(),
-                ],
-            )
-            .rng()
-            .next_u64(),
+            StreamId::new("npc.policy-rank")
+                .rng(
+                    actor_seed,
+                    &[candidate.policy_seed, actor_id, day, candidate.character_id],
+                )
+                .next_u64(),
             candidate.character_id,
         )
     });
@@ -168,20 +162,8 @@ mod tests {
         let mut reverse = forward.clone();
         reverse.reverse();
         reverse.push(forward[0]);
-        let first = stable_candidate_order(
-            99,
-            123,
-            adventuresim_world_schema::calendar::StrategicDayIndex::new(45),
-            forward,
-        )
-        .unwrap();
-        let second = stable_candidate_order(
-            99,
-            123,
-            adventuresim_world_schema::calendar::StrategicDayIndex::new(45),
-            reverse,
-        )
-        .unwrap();
+        let first = stable_candidate_order(99, 123, 45, forward).unwrap();
+        let second = stable_candidate_order(99, 123, 45, reverse).unwrap();
         assert_eq!(first, second);
         assert_eq!(first.len(), NPC_ROMANCE_CANDIDATE_CAP);
     }
@@ -200,12 +182,7 @@ mod tests {
         ];
         for candidates in [candidates, [candidates[1], candidates[0]]] {
             assert_eq!(
-                stable_candidate_order(
-                    1,
-                    2,
-                    adventuresim_world_schema::calendar::StrategicDayIndex::new(3),
-                    candidates
-                ),
+                stable_candidate_order(1, 2, 3, candidates),
                 Err(ConflictingCandidate(7))
             );
         }

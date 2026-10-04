@@ -57,22 +57,22 @@ impl BakedRecipe {
         bytes
     }
 
-    pub fn from_bytes(bytes: &[u8]) -> Result<Self, BakeDecodeError> {
+    pub fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
         let length_bytes: [u8; HEADER_LENGTH_BYTES] = bytes
             .get(..HEADER_LENGTH_BYTES)
-            .ok_or(BakeDecodeError::MissingHeaderLength)?
+            .ok_or("missing bake header length")?
             .try_into()
             .unwrap();
         let length = u32::from_le_bytes(length_bytes) as usize;
         if length > MAX_HEADER_BYTES {
-            return Err(BakeDecodeError::HeaderLimit);
+            return Err("bake header exceeds limit".into());
         }
         let header: Header = serde_json::from_slice(
             bytes
                 .get(HEADER_LENGTH_BYTES..HEADER_LENGTH_BYTES + length)
-                .ok_or(BakeDecodeError::TruncatedHeader)?,
+                .ok_or("truncated bake header")?,
         )
-        .map_err(BakeDecodeError::Json)?;
+        .map_err(|error| error.to_string())?;
         if header.maps.is_empty()
             || header.maps.len() > MAX_MAPS
             || !header.tile_metres.is_finite()
@@ -80,25 +80,18 @@ impl BakedRecipe {
             || !header.height_range_metres.is_finite()
             || header.height_range_metres < 0.0
         {
-            return Err(BakeDecodeError::Metadata);
+            return Err("invalid bake metadata".into());
         }
         let mut offset = HEADER_LENGTH_BYTES + length;
         let mut maps: Vec<BakedMap> = Vec::with_capacity(header.maps.len());
         for map in header.maps {
-            if !map.size.is_power_of_two() || map.size > MAX_TEXTURE_SIZE {
-                return Err(BakeDecodeError::Dimensions {
-                    channel: map.channel,
-                    size: map.size,
-                });
-            }
-            if map.mip_levels == 0 || map.mip_levels > map.size.ilog2() + 1 {
-                return Err(BakeDecodeError::MipCount {
-                    channel: map.channel,
-                    levels: map.mip_levels,
-                });
-            }
-            if maps.iter().any(|previous| previous.channel == map.channel) {
-                return Err(BakeDecodeError::DuplicateChannel(map.channel));
+            if !map.size.is_power_of_two()
+                || map.size > MAX_TEXTURE_SIZE
+                || map.mip_levels == 0
+                || map.mip_levels > map.size.ilog2() + 1
+                || maps.iter().any(|previous| previous.channel == map.channel)
+            {
+                return Err("invalid map dimensions, mips, or duplicate channel".into());
             }
             let count = (0..map.mip_levels)
                 .map(|level| (map.size >> level).pow(2) as usize)
@@ -106,7 +99,7 @@ impl BakedRecipe {
                 * map.encoding.channels();
             let data = bytes
                 .get(offset..offset + count)
-                .ok_or(BakeDecodeError::TruncatedPayload)?
+                .ok_or("truncated map payload")?
                 .to_vec();
             offset += count;
             maps.push(BakedMap {
@@ -119,7 +112,7 @@ impl BakedRecipe {
             });
         }
         if offset != bytes.len() {
-            return Err(BakeDecodeError::TrailingData);
+            return Err("unexpected trailing bake data".into());
         }
         Ok(Self {
             recipe: header.recipe,
@@ -154,14 +147,8 @@ mod tests {
             BakedRecipe::from_bytes(&bytes).unwrap().maps[0].bytes,
             source.maps[0].bytes
         );
-        assert!(matches!(
-            BakedRecipe::from_bytes(&bytes[..bytes.len() - 1]),
-            Err(BakeDecodeError::TruncatedPayload)
-        ));
+        assert!(BakedRecipe::from_bytes(&bytes[..bytes.len() - 1]).is_err());
         bytes.push(0);
-        assert!(matches!(
-            BakedRecipe::from_bytes(&bytes),
-            Err(BakeDecodeError::TrailingData)
-        ));
+        assert!(BakedRecipe::from_bytes(&bytes).is_err());
     }
 }

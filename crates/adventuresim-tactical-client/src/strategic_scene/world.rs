@@ -122,6 +122,7 @@ fn prepare(
         street.clear_foreground_canopy(&mut lods);
     }
     commands.trigger(SceneVistaBundle {
+        properties: input.properties.clone(),
         scene_digest: generated.digest,
         playable_half_extent_metres: half_extent,
         distant_buildings: input
@@ -153,9 +154,9 @@ mod tests {
         let text = include_str!("../../../../assets/tactical-scenes/massive-city.json");
         let document = SceneDocument::parse("city".into(), text);
         let mut input = document.input.unwrap();
-        input.seed = u64::MAX.into();
+        input.seed = u64::MAX;
         let document = SceneDocument::parse("city".into(), &serde_json::to_string(&input).unwrap());
-        assert_eq!(document.input.unwrap().seed.to_u64(), u64::MAX);
+        assert_eq!(document.input.unwrap().seed, u64::MAX);
         assert!(SceneDocument::parse("city".into(), "{}").input.is_err());
     }
 }

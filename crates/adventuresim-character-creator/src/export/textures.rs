@@ -39,8 +39,9 @@ pub struct ShellTextures {
 impl ShellTextures {
     pub fn armor(metal: &fabelgeist_armor::material::Metal) -> Result<Self> {
         use image::ImageEncoder;
-        let textures =
-            crate::metal_gpu()?.textures(metal, fabelgeist_armor::material::Metal::TEXTURE_SIZE)?;
+        let textures = crate::metal_gpu()?
+            .textures(metal, fabelgeist_armor::material::Metal::TEXTURE_SIZE)
+            .map_err(anyhow::Error::msg)?;
         let encode = |pixels: &[u8]| -> Result<Vec<u8>> {
             let mut bytes = Vec::new();
             image::codecs::png::PngEncoder::new(&mut bytes).write_image(

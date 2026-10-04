@@ -62,16 +62,15 @@ fn birth_and_discovery_wait_for_authoritative_personal_frontiers() {
         .unwrap();
     assert!(birth.contains("mother_frontier < pregnancy.due_minute"));
     assert!(!birth.contains("advance_npc_personal_time"));
-    let discovery_source = crate::production_source(include_str!("../discovery.rs"));
-    let discovery = discovery_source
-        .split("fn settle_secret_courtship_discovery_for_pair")
+    let discovery = source
+        .split("pub fn settle_secret_courtship_discovery_for_pair")
         .nth(1)
         .unwrap()
-        .split("pub(crate) fn settle_secret_courtship_discovery_for_character")
+        .split("fn personality_disposition")
         .next()
         .unwrap();
     assert!(discovery.contains("first_frontier.day_index() < day"));
-    assert!(discovery.contains("canonical_now(ctx, (baseline.observer_id).into())?"));
+    assert!(discovery.contains("canonical_now(ctx, baseline.observer_id)?"));
     assert!(discovery.contains("courtship_observer_baseline()"));
     assert!(!discovery.contains("no-observation"));
 }

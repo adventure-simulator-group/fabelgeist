@@ -13,7 +13,6 @@ use std::{
     time::Duration,
 };
 
-use adventuresim_core::identity::CharacterId;
 use adventuresim_stdb_client::spacetimedb_sdk::{DbContext, Table, TableWithPrimaryKey};
 use adventuresim_stdb_client::*;
 use adventuresim_stdb_client::{
@@ -96,8 +95,8 @@ use crate::{
     routes::AppState,
     session::Session,
     spacetimedb::{
-        self as db, BackendCharacterCaseSiteLocation as HttpBackendCharacterCaseSiteLocation,
-        CharacterView, PartyView,
+        BackendCharacterCaseSiteLocation as HttpBackendCharacterCaseSiteLocation, CharacterView,
+        PartyView,
     },
 };
 
@@ -510,20 +509,20 @@ impl LiveState {
                 .db
                 .backend_characters()
                 .iter()
-                .map(CharacterView::from)
+                .map(character_from_sdk)
                 .collect()
         })
     }
 
-    pub fn cached_character(&self, id: CharacterId) -> Option<Option<CharacterView>> {
+    pub fn cached_character(&self, id: u64) -> Option<Option<crate::spacetimedb::CharacterView>> {
         self.cache_status().ready.then(|| {
             self.0
                 ._connection
                 .db
                 .backend_characters()
                 .iter()
-                .find(|character| CharacterId::from(character.id) == id)
-                .map(CharacterView::from)
+                .find(|character| character.id == id)
+                .map(character_from_sdk)
         })
     }
 
@@ -536,6 +535,25 @@ impl LiveState {
                 .iter()
                 .any(|party| party.id == id && party.camp_destination.is_some())
         })
+    }
+}
+
+fn character_from_sdk(
+    value: adventuresim_stdb_client::Character,
+) -> crate::spacetimedb::CharacterView {
+    crate::spacetimedb::CharacterView {
+        id: value.id,
+        name: value.name,
+        xp: value.xp,
+        level: value.level,
+        current_settlement_id: value.current_settlement_id,
+        current_case_site_id: None,
+        party_id: value.party_id,
+        age_years: value.age_years,
+        alive: value.alive,
+        temporary: value.temporary,
+        social_notification_count: 0,
+        automatic_social_chat_enabled: false,
     }
 }
 
@@ -605,7 +623,7 @@ async fn navigation(State(state): State<AppState>, session: Session) -> Json<Nav
         let character = state
             .db
             .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-                db::character_by_id(character_id.into()),
+                &crate::spacetimedb::character_by_id(character_id),
             )
             .await
             .ok()
@@ -617,7 +635,7 @@ async fn navigation(State(state): State<AppState>, session: Session) -> Json<Nav
             && state
                 .db
                 .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(
-                    crate::spacetimedb::party_by_id(party_id),
+                    &crate::spacetimedb::party_by_id(party_id),
                 )
                 .await
                 .ok()
@@ -633,7 +651,7 @@ async fn navigation(State(state): State<AppState>, session: Session) -> Json<Nav
         let current_case_site_id = state
             .db
             .query_one_sats::<HttpBackendCharacterCaseSiteLocation>(
-                db::character_case_site_location_by_character_id(character_id.into()),
+                &crate::spacetimedb::character_case_site_location_by_character_id(character_id),
             )
             .await
             .ok()

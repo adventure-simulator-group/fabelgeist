@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Component, Reflect, Serialize, Deserialize, Clone, Copy, Debug, PartialEq)]
 #[reflect(opaque)]
-#[reflect(Component, Serialize, Deserialize)]
+#[reflect(Component)]
 pub struct ArmorItem {
     pub material: EquipmentMaterial,
     pub range_of_motion: f32,
@@ -23,22 +23,8 @@ pub struct ArmorItem {
 /// Stable strategic inventory identity retained on the transient tactical
 /// projection so contact consequences can name the exact engaged item.
 #[derive(Component, Reflect, Serialize, Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
-#[reflect(opaque)]
-#[reflect(Component, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct TacticalInventoryItemId(pub adventuresim_core::identity::InventoryItemId);
-
-impl From<u64> for TacticalInventoryItemId {
-    fn from(value: u64) -> Self {
-        Self(value.into())
-    }
-}
-
-impl TacticalInventoryItemId {
-    pub const fn get(self) -> u64 {
-        self.0.get()
-    }
-}
+#[reflect(Component)]
+pub struct TacticalInventoryItemId(pub u64);
 
 #[derive(Serialize, Clone, Debug, PartialEq)]
 pub struct ArmorLayerContact {
@@ -64,40 +50,4 @@ pub enum ArmorSlot {
 pub enum ArmorSide {
     Left,
     Right,
-}
-
-#[cfg(test)]
-mod identity_reflection_tests {
-    use super::*;
-    use bevy::reflect::{
-        TypeRegistry,
-        serde::{TypedReflectDeserializer, TypedReflectSerializer},
-    };
-    use serde::de::DeserializeSeed;
-
-    #[test]
-    fn opaque_inventory_identity_reflection_preserves_scalar_encoding_and_admission() {
-        let mut registry = TypeRegistry::new();
-        registry.register::<TacticalInventoryItemId>();
-        for value in [0, 99, u64::MAX] {
-            let identity = TacticalInventoryItemId::from(value);
-            let encoded =
-                serde_json::to_string(&TypedReflectSerializer::new(&identity, &registry)).unwrap();
-            assert_eq!(encoded, serde_json::to_string(&value).unwrap());
-            let reflected = TypedReflectDeserializer::of::<TacticalInventoryItemId>(&registry)
-                .deserialize(&mut serde_json::Deserializer::from_str(&encoded))
-                .unwrap();
-            assert_eq!(
-                TacticalInventoryItemId::from_reflect(reflected.as_ref()),
-                Some(identity)
-            );
-        }
-        for invalid in ["-1", "1.5", "\"99\""] {
-            assert!(
-                TypedReflectDeserializer::of::<TacticalInventoryItemId>(&registry)
-                    .deserialize(&mut serde_json::Deserializer::from_str(invalid))
-                    .is_err()
-            );
-        }
-    }
 }

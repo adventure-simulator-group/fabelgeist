@@ -1,6 +1,4 @@
 mod helper;
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_gpu::prelude::BufferUse;
 use helper::*;
 
 use crate::test_map;
@@ -202,10 +200,8 @@ async fn test_generator() -> Result<()> {
 
     let output_buffer = Buffer::new(
         &context,
-        (16u64).into(),
-        BufferDefinition::storage()
-            .with_usage(BufferUse::CopySource)
-            .with_usage(BufferUse::CopyDestination),
+        16,
+        BufferDefinition::storage().with_copy_src().with_copy_dst(),
     )?;
 
     Map::execute(
@@ -230,24 +226,20 @@ async fn test_extra_parameters() -> Result<()> {
     let input_data = vec![1.0f32, 2.0, 3.0, 4.0];
     let input_buffer = Buffer::new(
         &context,
-        (16u64).into(),
-        BufferDefinition::storage()
-            .with_usage(BufferUse::CopySource)
-            .with_usage(BufferUse::CopyDestination),
+        16,
+        BufferDefinition::storage().with_copy_src().with_copy_dst(),
     )?;
-    input_buffer.write(&context, BufferUpload::from_elements(&input_data));
+    input_buffer.write(&context, &input_data)?;
 
     let output_buffer = Buffer::new(
         &context,
-        (16u64).into(),
-        BufferDefinition::storage()
-            .with_usage(BufferUse::CopySource)
-            .with_usage(BufferUse::CopyDestination),
+        16,
+        BufferDefinition::storage().with_copy_src().with_copy_dst(),
     )?;
 
     let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-    parameters.insert("factor".into(), (10.0f32).into());
-    parameters.insert("offset".into(), (5.0f32).into());
+    parameters.insert("factor", 10.0f32);
+    parameters.insert("offset", 5.0f32);
 
     Map::execute_with_parameters(
         &context,
@@ -274,14 +266,12 @@ async fn test_generator_with_parameters() -> Result<()> {
 
     let output_buffer = Buffer::new(
         &context,
-        (16u64).into(),
-        BufferDefinition::storage()
-            .with_usage(BufferUse::CopySource)
-            .with_usage(BufferUse::CopyDestination),
+        16,
+        BufferDefinition::storage().with_copy_src().with_copy_dst(),
     )?;
 
     let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-    parameters.insert("time".into(), (100.0f32).into());
+    parameters.insert("time", 100.0f32);
 
     Map::execute_with_parameters(
         &context,

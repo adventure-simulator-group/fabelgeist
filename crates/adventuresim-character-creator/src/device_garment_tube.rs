@@ -11,8 +11,6 @@ use fabelgeist_armor::{
 };
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_rig::{RigJointLookupError, RigJointOrdinal, RigJointPart};
 
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_frames::DeviceWearer;
@@ -73,54 +71,6 @@ pub(crate) fn hem() -> Vec<u32> {
     points.into_iter().map(|i| i as u32).collect()
 }
 
-/// The anatomical span of a sleeve or chausse, independent of its device flags.
-#[derive(Clone, Copy)]
-enum TubeRig {
-    Arm,
-    Leg,
-}
-impl From<&GarmentArmorDesign> for TubeRig {
-    fn from(design: &GarmentArmorDesign) -> Self {
-        if matches!(design.kind, Kind::MailSleeve | Kind::QuiltedSleeve) {
-            Self::Arm
-        } else {
-            Self::Leg
-        }
-    }
-}
-impl TubeRig {
-    fn region(self, side: Side) -> FitRegion {
-        match self {
-            Self::Arm => FitRegion::WholeArm(side),
-            Self::Leg => FitRegion::WholeLeg(side),
-        }
-    }
-    fn anchors(
-        self,
-        body: &crate::armor_frames::Wearer<'_>,
-        side: Side,
-    ) -> std::result::Result<[RigJointOrdinal; 3], RigJointLookupError> {
-        let parts = match self {
-            Self::Arm => [
-                RigJointPart::Uparm,
-                RigJointPart::Lowarm,
-                RigJointPart::Wrist,
-            ],
-            Self::Leg => [
-                RigJointPart::Upleg,
-                RigJointPart::Lowleg,
-                RigJointPart::Foot,
-            ],
-        };
-        let [first, second, third] = parts;
-        Ok([
-            side.joint(first).require_in(body.joint_names)?,
-            side.joint(second).require_in(body.joint_names)?,
-            side.joint(third).require_in(body.joint_names)?,
-        ])
-    }
-}
-
 impl DeviceWearer<'_> {
     /// Record the sewing ring through `torso` carriers `indices` into `fit`,
     /// in the angular chart of the fit's frame.
@@ -135,7 +85,7 @@ impl DeviceWearer<'_> {
             indices.len() as u32 <= RING_CAPACITY,
             "sewing ring too long"
         );
-        let indices_buffer = self.gpu.upload(BufferUpload::from_elements(indices))?;
+        let indices_buffer = self.gpu.upload(indices)?;
         dispatch(
             self,
             batch,
@@ -146,7 +96,7 @@ impl DeviceWearer<'_> {
                 write("fit", fit),
             ],
             &[Word::U("count", indices.len() as u32)],
-            Grid::Singles((1u32).into()),
+            Grid::Singles(1),
         )
     }
 
@@ -158,14 +108,25 @@ impl DeviceWearer<'_> {
         placement: &str,
     ) -> Result<DeviceRecording> {
         let side = Side::from_placement(placement)?;
-
-        let rig = TubeRig::from(design);
-        let anchors = rig.anchors(self.host, side)?;
-        let region = rig.region(side);
+        let prefix = side.prefix();
+        let arm = matches!(design.kind, Kind::MailSleeve | Kind::QuiltedSleeve);
+        let names = if arm {
+            ["uparm", "lowarm", "wrist"]
+        } else {
+            ["upleg", "lowleg", "foot"]
+        };
+        let anchors = names
+            .map(|name| self.joint_slot(&format!("{prefix}_{name}")))
+            .into_iter()
+            .collect::<Result<Vec<_>>>()?;
+        let region = if arm {
+            FitRegion::WholeArm(side)
+        } else {
+            FitRegion::WholeLeg(side)
+        };
+        let gpu = self.gpu;
         let frame = self.record_frame(batch, region)?;
-        let fit = self
-            .gpu
-            .scratch((u64::from(RING_FIT_WORDS) * 4).into(), ("tube fit").into())?;
+        let fit = gpu.scratch(u64::from(RING_FIT_WORDS) * 4, "tube fit")?;
         dispatch(
             self,
             batch,
@@ -178,14 +139,14 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::U("anchor0", usize::from(anchors[0]) as u32),
-                Word::U("anchor1", usize::from(anchors[1]) as u32),
-                Word::U("anchor2", usize::from(anchors[2]) as u32),
+                Word::U("anchor0", anchors[0]),
+                Word::U("anchor1", anchors[1]),
+                Word::U("anchor2", anchors[2]),
             ],
-            Grid::Singles((1u32).into()),
+            Grid::Singles(1),
         )?;
         let mut frames = vec![(frame, region)];
-        let attachment = if matches!(rig, TubeRig::Arm) {
+        let attachment = if arm {
             let mut torso_design = GarmentArmorDesign::new(if design.kind == Kind::QuiltedSleeve {
                 Kind::ArmingDoublet
             } else {
@@ -201,7 +162,7 @@ impl DeviceWearer<'_> {
             false
         };
         let support = self.record_region_support(batch, &[region])?;
-        let part = record_garment_tube(self.gpu, batch, design, &fit)?;
+        let part = record_garment_tube(gpu, batch, design, &fit)?;
         let gap = design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M;
         dispatch(
             self,
@@ -217,7 +178,7 @@ impl DeviceWearer<'_> {
             ],
             &[
                 Word::U("count", part.carrier_count()),
-                Word::U("arm", u32::from(matches!(rig, TubeRig::Arm))),
+                Word::U("arm", u32::from(arm)),
                 Word::U("attached", u32::from(attachment)),
                 Word::U(
                     "quilted",
@@ -229,7 +190,7 @@ impl DeviceWearer<'_> {
                 Word::U("reserved", u32::from(design.kind == Kind::QuiltedSleeve)),
                 Word::F("gap", gap),
             ],
-            Grid::Items((part.carrier_count()).into()),
+            Grid::Items(part.carrier_count()),
         )?;
         Ok(DeviceRecording {
             part,

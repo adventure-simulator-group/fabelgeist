@@ -1,6 +1,5 @@
 //! Continuous forged exterior, blind receiving cavity, and integral basal stops.
 use super::*;
-use crate::ConstructionError;
 use std::f64::consts::{FRAC_PI_2, PI, TAU};
 
 pub(super) const BLADE_CREASE_COSINE: f64 = 0.98;
@@ -11,11 +10,11 @@ struct Station {
     stops: bool,
 }
 
-pub(super) fn construct(p: &SpearParameters, detail: Detail) -> Result<Solid, ConstructionError> {
+pub(super) fn construct(p: &SpearParameters, detail: Detail) -> Result<Solid, String> {
     let socket = p
         .socket
         .as_ref()
-        .ok_or(ConstructionError::SocketedBladeNeedsSocketDimensions)?;
+        .ok_or("socketed blade needs socket dimensions")?;
     let rows = stations(p, socket, detail);
     let angles = angles(socket, p, &rows, detail)?;
     construction_budget((rows.len() + 4) as f64 * angles.len() as f64 * 2.0)?;
@@ -34,9 +33,7 @@ pub(super) fn construct(p: &SpearParameters, detail: Detail) -> Result<Solid, Co
             if rows[index].y >= 0.0 { 2 } else { 1 }
         });
     }
-    let last = rings
-        .last()
-        .ok_or(ConstructionError::SocketedBladeNeedsStations)?;
+    let last = rings.last().ok_or("socketed blade needs stations")?;
     for side in 0..angles.len() {
         triangle(
             &mut solid,
@@ -157,7 +154,7 @@ fn angles(
     p: &SpearParameters,
     rows: &[Station],
     detail: Detail,
-) -> Result<Vec<f64>, ConstructionError> {
+) -> Result<Vec<f64>, String> {
     let radial = detail
         .radial(socket.base_radius.get(), 24)
         .max((TAU / BLADE_CREASE_COSINE.acos()).ceil() as usize)
@@ -221,7 +218,7 @@ fn refine_angles(
     rows: &[Station],
     detail: Detail,
     angles: Vec<f64>,
-) -> Result<Vec<f64>, ConstructionError> {
+) -> Result<Vec<f64>, String> {
     let error = detail.error(socket.base_radius.get() / 1000.0);
     let minimum_angle = 4.0 * f64::from(f32::EPSILON).sqrt();
     let mut pending: Vec<_> = angles

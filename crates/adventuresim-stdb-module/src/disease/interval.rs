@@ -17,8 +17,8 @@ pub(super) fn disease_events(
 
 pub(super) fn contact_windows(
     pairs: Vec<CachedPairPresence>,
-    starts: &BTreeMap<CharacterId, StrategicMinute>,
-    horizons: &BTreeMap<CharacterId, StrategicMinute>,
+    starts: &BTreeMap<u64, StrategicMinute>,
+    horizons: &BTreeMap<u64, StrategicMinute>,
 ) -> Vec<disease::ContactWindow> {
     pairs
         .into_iter()
@@ -43,8 +43,8 @@ pub(super) fn contact_windows(
                 .unwrap_or(pair.end)
                 .min(pair.end);
             (start <= end).then_some(disease::ContactWindow {
-                low_id: (pair.low_id).into(),
-                high_id: (pair.high_id).into(),
+                low_id: pair.low_id,
+                high_id: pair.high_id,
                 start,
                 end,
             })

@@ -6,14 +6,12 @@
 //! fabric read as itself when a garment is draped, which is what a fitting
 //! tool actually needs.
 
-use fabelgeist_shell::ParticleArealDensity;
-
 /// Material parameters for one garment.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Fabric {
     /// Areal density, kg per square metre. Sets the particle masses, and with
     /// them how the cloth hangs.
-    pub density: ParticleArealDensity,
+    pub density: f32,
     /// Resistance to stretching along the mesh edges. Near zero for anything
     /// woven: real cloth barely stretches in the warp and weft.
     pub stretch_compliance: f32,
@@ -23,8 +21,8 @@ pub struct Fabric {
     ///
     /// The useful range is roughly `1e-6` (a board) to `1e-3` (a rag); the
     /// values below were picked by draping a flap and measuring how far it
-    /// reaches. The bending weights carry the mesh's length scale, but a coarse mesh still
-    /// shifts the useful compliance range -- see `fabelgeist_shell::BendWeights`.
+    /// reaches. Resolution-independent, because the bending weights carry the
+    /// mesh's length scale -- see `topology::bending_weights`.
     pub bend_compliance: f32,
     /// Resistance at a seam. Stiffer than the fabric itself, because a sewn
     /// seam is two layers plus thread.
@@ -48,7 +46,7 @@ impl Default for Fabric {
 impl Fabric {
     /// Flexible steel mail. Visual fitting parameters, not measured armor data.
     pub const CHAINMAIL: Self = Self {
-        density: ParticleArealDensity::kilograms_per_square_metre(7.0),
+        density: 7.0,
         stretch_compliance: 1e-8,
         bend_compliance: 3e-2,
         seam_compliance: 1e-9,
@@ -59,7 +57,7 @@ impl Fabric {
 
     /// A plain medium-weight woven: the default for anything unspecified.
     pub const COTTON: Self = Self {
-        density: ParticleArealDensity::kilograms_per_square_metre(0.20),
+        density: 0.20,
         stretch_compliance: 1e-7,
         bend_compliance: 3e-5,
         seam_compliance: 1e-8,
@@ -70,7 +68,7 @@ impl Fabric {
 
     /// Light, slippery, and it falls in many fine folds.
     pub const SILK: Self = Self {
-        density: ParticleArealDensity::kilograms_per_square_metre(0.08),
+        density: 0.08,
         stretch_compliance: 1e-7,
         bend_compliance: 3e-4,
         seam_compliance: 1e-8,
@@ -81,7 +79,7 @@ impl Fabric {
 
     /// Heavy and stiff: few folds, and they hold their shape.
     pub const DENIM: Self = Self {
-        density: ParticleArealDensity::kilograms_per_square_metre(0.45),
+        density: 0.45,
         stretch_compliance: 5e-8,
         bend_compliance: 4e-6,
         seam_compliance: 1e-9,
@@ -92,7 +90,7 @@ impl Fabric {
 
     /// Heavy but soft, and it clings.
     pub const WOOL: Self = Self {
-        density: ParticleArealDensity::kilograms_per_square_metre(0.30),
+        density: 0.30,
         stretch_compliance: 2e-7,
         bend_compliance: 8e-5,
         seam_compliance: 1e-8,
@@ -103,7 +101,7 @@ impl Fabric {
 
     /// Knitted: it stretches, which is the whole point of it.
     pub const JERSEY: Self = Self {
-        density: ParticleArealDensity::kilograms_per_square_metre(0.18),
+        density: 0.18,
         stretch_compliance: 5e-6,
         bend_compliance: 1.5e-4,
         seam_compliance: 1e-7,
@@ -126,7 +124,7 @@ impl Fabric {
         self.thickness * 0.5
     }
 
-    pub fn with_density(mut self, density: ParticleArealDensity) -> Self {
+    pub fn with_density(mut self, density: f32) -> Self {
         self.density = density;
         self
     }

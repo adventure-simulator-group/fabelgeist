@@ -1,12 +1,8 @@
 //! Closed solid construction from shared planar and radial boundaries.
 use super::{Detail, PlanarPoint, Region, Solid, signed_area, subdivide};
-use crate::ConstructionError;
 use std::f64::consts::{PI, TAU};
 
-fn planar_region(
-    outline: &[PlanarPoint],
-    max_edge: f64,
-) -> Result<(Region, f64), ConstructionError> {
+fn planar_region(outline: &[PlanarPoint], max_edge: f64) -> Result<(Region, f64), String> {
     let region = Region::triangulate(outline, false)?;
     let budget = max_edge.max((signed_area(&region.points).abs() / 800.0).sqrt());
     Ok((region.refine(budget), budget))
@@ -75,7 +71,7 @@ impl Solid {
         outline: &[PlanarPoint],
         thickness: f64,
         detail: Detail,
-    ) -> Result<Self, ConstructionError> {
+    ) -> Result<Self, String> {
         let (region, max_edge) = planar_region(outline, detail.error(0.03))?;
         let mut solid = Self::default();
         let half = thickness / 2.0;
@@ -103,7 +99,7 @@ impl Solid {
         Ok(solid.positive())
     }
 
-    pub(crate) fn cuboid([x, y, z]: [f64; 3], detail: Detail) -> Result<Self, ConstructionError> {
+    pub(crate) fn cuboid([x, y, z]: [f64; 3], detail: Detail) -> Result<Self, String> {
         Self::prism(
             &[
                 [-x / 2.0, -y / 2.0],
@@ -122,9 +118,9 @@ impl Solid {
         radial_scale: f64,
         exact_segments: bool,
         detail: Detail,
-    ) -> Result<Self, ConstructionError> {
+    ) -> Result<Self, String> {
         if profile.len() < 2 || requested < 3 || radial_scale <= 0.0 {
-            return Err(ConstructionError::RadialSolidRequiresStationsPositiveSection);
+            return Err("radial solid requires stations and a positive section".into());
         }
         let largest = profile.iter().map(|p| p[1]).fold(0.0, f64::max);
         let segments = detail.lathe_radial(largest, requested, exact_segments);
@@ -142,9 +138,9 @@ impl Solid {
         profile: &[PlanarPoint],
         sides: usize,
         detail: Detail,
-    ) -> Result<Self, ConstructionError> {
+    ) -> Result<Self, String> {
         if profile.len() < 2 || sides < 3 {
-            return Err(ConstructionError::FacetedSolidRequiresStationsThreeSides);
+            return Err("faceted solid requires stations and at least three sides".into());
         }
         Self::radial_profile(profile, sides, 1.0, true, detail)
     }
@@ -155,7 +151,7 @@ impl Solid {
         radial_scale: f64,
         faceted: bool,
         detail: Detail,
-    ) -> Result<Self, ConstructionError> {
+    ) -> Result<Self, String> {
         let minimum = profile
             .iter()
             .map(|p| p[1])
@@ -295,7 +291,7 @@ impl Solid {
         outline: &[PlanarPoint],
         thickness_at: impl Fn(f64, f64) -> f64,
         detail: Detail,
-    ) -> Result<Self, ConstructionError> {
+    ) -> Result<Self, String> {
         let minimum = outline
             .iter()
             .map(|&[x, y]| thickness_at(x, y))
@@ -328,7 +324,7 @@ impl Solid {
         outline: &[PlanarPoint],
         thickness: f64,
         bevel_fraction: f64,
-    ) -> Result<Self, ConstructionError> {
+    ) -> Result<Self, String> {
         let region = Region::triangulate(outline, false)?;
         let center_y = (region
             .points

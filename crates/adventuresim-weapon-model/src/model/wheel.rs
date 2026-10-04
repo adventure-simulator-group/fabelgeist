@@ -1,13 +1,9 @@
 //! One beveled wheel solid with a cut chord receiving its grip.
 use super::*;
-use crate::ConstructionError;
 
 const WHEEL_RADIAL_SEGMENTS: usize = 48;
 
-pub(super) fn construct(
-    p: &WheelPommelParameters,
-    detail: Detail,
-) -> Result<Solid, ConstructionError> {
+pub(super) fn construct(p: &WheelPommelParameters, detail: Detail) -> Result<Solid, String> {
     let radius = p.diameter.get() / 2.0;
     let face = p.face_diameter.get() / 2.0;
     let half = p.thickness.get() / 2.0;

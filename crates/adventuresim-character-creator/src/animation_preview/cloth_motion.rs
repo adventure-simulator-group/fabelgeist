@@ -4,7 +4,7 @@ type Motion = (Vec<Vec3>, Vec<Vec3>, Vec<[u32; 3]>);
 type ContactSurface = (Vec<Vec3>, Vec<[u32; 3]>, fabelgeist_bvh::TriangleBvh);
 
 struct OutfitContacts {
-    masses: Vec<fabelgeist_shell::ParticleInverseMass>,
+    masses: Vec<f32>,
     contacts: Option<fabelgeist_cloth::surface_contact::SurfaceContacts>,
 }
 impl OutfitContacts {
@@ -23,13 +23,10 @@ impl OutfitContacts {
             faces.extend(skin.faces.iter().map(|f| f.map(|v| v + cloth_count as u32)));
             cloth_count += skin.current.len();
         }
-        let mut masses = vec![fabelgeist_shell::ParticleInverseMass::UNIT_MASS; cloth_count];
+        let mut masses = vec![1.0; cloth_count];
         if let Some((_, end, body_faces)) = &body {
             faces.extend(body_faces.iter().map(|f| f.map(|v| v + cloth_count as u32)));
-            masses.resize(
-                cloth_count + end.len(),
-                fabelgeist_shell::ParticleInverseMass::PINNED,
-            );
+            masses.resize(cloth_count + end.len(), 0.0);
         }
         let contacts = settings
             .self_collision

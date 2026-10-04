@@ -1,13 +1,5 @@
 //! Deterministic fixed-point alcohol rules shared by strategic simulation and UI.
 
-mod error;
-mod evening;
-pub use error::AlcoholIntervalError;
-pub use evening::{
-    EveningId, EveningIds, RestEvenings, crossed_evenings, next_evening_boundary_after,
-    rest_evenings,
-};
-
 use crate::morale::MoraleEventKind;
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
 use adventuresim_world_schema::calendar::DAYS_PER_YEAR;
@@ -63,7 +55,7 @@ pub struct NightlyMoraleEffect {
 }
 
 pub const fn nightly_morale_effect(
-    evening: EveningId,
+    evening: u64,
     preference: TemperancePreference,
     had_recent_heavy: bool,
     target_satisfied: bool,
@@ -72,7 +64,7 @@ pub const fn nightly_morale_effect(
     if magnitude == 0 {
         return None;
     }
-    let Some(occurred_at_minute) = evening.boundary() else {
+    let Some(occurred_at_minute) = evening_boundary(evening) else {
         return None;
     };
     Some(NightlyMoraleEffect {
@@ -171,18 +163,125 @@ pub fn tavern_units_affordable(
     })
 }
 
-fn checked_interval(
-    start: StrategicMinute,
-    end: StrategicMinute,
-) -> Result<(), AlcoholIntervalError> {
+/// Stable absolute identity for the evening whose boundary occurs at `minute`.
+pub const fn evening_id(minute: StrategicMinute) -> u64 {
+    minute
+        .saturating_sub_minutes(EVENING_BOUNDARY_MINUTE)
+        .day_index()
+}
+
+pub const fn evening_boundary(evening: u64) -> Option<StrategicMinute> {
+    match StrategicMinute::checked_day_start_for_index(evening) {
+        Some(day_start) => day_start.checked_add_minutes(EVENING_BOUNDARY_MINUTE),
+        None => None,
+    }
+}
+
+pub const fn next_evening_boundary_after(minute: StrategicMinute) -> Option<StrategicMinute> {
+    let next_id = if StrategicMinute::new(EVENING_BOUNDARY_MINUTE).is_after(minute) {
+        0
+    } else {
+        match evening_id(minute).checked_add(1) {
+            Some(id) => id,
+            None => return None,
+        }
+    };
+    evening_boundary(next_id)
+}
+
+#[derive(Clone, Debug)]
+pub struct EveningIds {
+    next: u64,
+    last: Option<u64>,
+}
+
+impl Iterator for EveningIds {
+    type Item = u64;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let last = self.last?;
+        if self.next > last {
+            self.last = None;
+            return None;
+        }
+        let value = self.next;
+        self.next = self.next.saturating_add(1);
+        Some(value)
+    }
+}
+
+fn checked_interval(start: StrategicMinute, end: StrategicMinute) -> Result<(), &'static str> {
     if end < start {
-        return Err(AlcoholIntervalError::Reversed);
+        return Err("Alcohol interval ends before it starts");
     }
     let elapsed = end.elapsed_since(start);
     if elapsed > MAX_ALCOHOL_INTERVAL_MINUTES {
-        return Err(AlcoholIntervalError::TooLong);
+        return Err("Alcohol interval cannot exceed one year");
     }
     Ok(())
+}
+
+/// Every evening boundary in `(start, end]`, lazily and with an independent
+/// one-year work bound.
+pub fn crossed_evenings(
+    start: StrategicMinute,
+    end: StrategicMinute,
+) -> Result<EveningIds, &'static str> {
+    checked_interval(start, end)?;
+    let first = if start < StrategicMinute::new(EVENING_BOUNDARY_MINUTE) {
+        0
+    } else {
+        evening_id(start)
+            .checked_add(1)
+            .ok_or("Evening identity overflow")?
+    };
+    let last = (end >= StrategicMinute::new(EVENING_BOUNDARY_MINUTE)).then(|| evening_id(end));
+    Ok(EveningIds { next: first, last })
+}
+
+#[derive(Clone, Debug)]
+pub struct RestEvenings {
+    next: u64,
+    last: u64,
+    start: StrategicMinute,
+    end: StrategicMinute,
+}
+
+impl Iterator for RestEvenings {
+    type Item = u64;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        while self.next <= self.last {
+            let evening = self.next;
+            self.next = self.next.saturating_add(1);
+            let boundary = evening_boundary(evening)?;
+            let sleep_end = boundary
+                .day_start()
+                .checked_add_days(1)?
+                .checked_add_minutes(NIGHT_END_MINUTE)?;
+            if self.start < sleep_end && self.end >= boundary {
+                return Some(evening);
+            }
+        }
+        None
+    }
+}
+
+/// Nightly opportunities overlapped by a rest interval. This includes the
+/// current unprocessed evening for rests beginning after 18:00 or before 08:00.
+pub fn rest_evenings(
+    start: StrategicMinute,
+    end: StrategicMinute,
+) -> Result<RestEvenings, &'static str> {
+    checked_interval(start, end)?;
+    let first = start.day_index().saturating_sub(1);
+    let last = end.day_index();
+    Ok(RestEvenings {
+        next: first,
+        last,
+        start,
+        end,
+    })
 }
 
 #[derive(Clone, Debug)]
@@ -211,7 +310,7 @@ impl Iterator for TravelEveningSegments {
 pub fn travel_evening_segments(
     start: StrategicMinute,
     end: StrategicMinute,
-) -> Result<TravelEveningSegments, AlcoholIntervalError> {
+) -> Result<TravelEveningSegments, &'static str> {
     checked_interval(start, end)?;
     Ok(TravelEveningSegments { cursor: start, end })
 }
@@ -303,6 +402,10 @@ pub fn best_disinfectant(candidates: &[(u16, u64)]) -> Option<usize> {
 mod tests {
     use super::*;
 
+    fn minute(value: u64) -> StrategicMinute {
+        StrategicMinute::new(value)
+    }
+
     #[test]
     fn strength_equivalence_uses_pure_ethanol() {
         let beer = AlcoholProperties {
@@ -323,17 +426,79 @@ mod tests {
     }
 
     #[test]
+    fn evening_enumeration_is_chunk_invariant() {
+        let whole: Vec<_> = crossed_evenings(minute(0), minute(4_000))
+            .unwrap()
+            .collect();
+        let split: Vec<_> = crossed_evenings(minute(0), minute(2_000))
+            .unwrap()
+            .chain(crossed_evenings(minute(2_000), minute(4_000)).unwrap())
+            .collect();
+        assert_eq!(whole, split);
+        assert_eq!(whole, vec![0, 1, 2]);
+    }
+
+    #[test]
+    fn rest_after_evening_boundary_includes_the_current_night() {
+        assert_eq!(
+            rest_evenings(minute(19 * 60), minute(MINUTES_PER_DAY + 7 * 60))
+                .unwrap()
+                .collect::<Vec<_>>(),
+            vec![0]
+        );
+        assert_eq!(
+            rest_evenings(
+                minute(MINUTES_PER_DAY + 2 * 60),
+                minute(MINUTES_PER_DAY + 8 * 60)
+            )
+            .unwrap()
+            .collect::<Vec<_>>(),
+            vec![0]
+        );
+    }
+
+    #[test]
+    fn nightly_rest_enumeration_is_chunk_idempotent() {
+        let whole: Vec<_> = rest_evenings(minute(19 * 60), minute(3 * MINUTES_PER_DAY + 7 * 60))
+            .unwrap()
+            .collect();
+        let mut split: Vec<_> = rest_evenings(minute(19 * 60), minute(MINUTES_PER_DAY + 7 * 60))
+            .unwrap()
+            .chain(
+                rest_evenings(
+                    minute(MINUTES_PER_DAY + 7 * 60),
+                    minute(3 * MINUTES_PER_DAY + 7 * 60),
+                )
+                .unwrap(),
+            )
+            .collect();
+        split.dedup();
+        assert_eq!(whole, split);
+        assert_eq!(whole, vec![0, 1, 2]);
+    }
+
+    #[test]
+    fn evening_iterators_reject_reversed_or_unbounded_work() {
+        assert!(crossed_evenings(minute(2), minute(1)).is_err());
+        assert!(rest_evenings(minute(0), minute(MAX_ALCOHOL_INTERVAL_MINUTES + 1)).is_err());
+        assert_eq!(
+            crossed_evenings(minute(0), minute(MAX_ALCOHOL_INTERVAL_MINUTES))
+                .unwrap()
+                .count(),
+            usize::try_from(DAYS_PER_YEAR).unwrap()
+        );
+    }
+
+    #[test]
     fn long_rest_and_daily_chunks_choose_the_same_latest_absolute_event() {
         fn latest(intervals: &[(u64, u64)]) -> Option<(StrategicMinute, i8)> {
             let mut evaluated = std::collections::BTreeSet::new();
             let mut result = None;
             for (start, end) in intervals {
-                for evening in
-                    rest_evenings(StrategicMinute::new(*start), StrategicMinute::new(*end)).unwrap()
-                {
+                for evening in rest_evenings(minute(*start), minute(*end)).unwrap() {
                     if evaluated.insert(evening) {
                         result = Some((
-                            evening.boundary().unwrap(),
+                            evening_boundary(evening).unwrap(),
                             morale_change(TemperancePreference::Drunkard, true, false),
                         ));
                     }
@@ -354,7 +519,7 @@ mod tests {
         assert_eq!(latest(&[(start, end)]), latest(&daily));
         assert_eq!(
             latest(&[(start, end)]).unwrap().0,
-            EveningId::new(30).boundary().unwrap()
+            evening_boundary(30).unwrap()
         );
     }
 
@@ -362,28 +527,12 @@ mod tests {
     fn nightly_morale_is_one_refreshable_nonzero_source() {
         assert_eq!(NIGHTLY_MORALE_SOURCE_ID, "alcohol-nightly");
         assert_eq!(
-            nightly_morale_effect(
-                EveningId::new(0),
-                TemperancePreference::Temperate,
-                false,
-                false
-            ),
+            nightly_morale_effect(0, TemperancePreference::Temperate, false, false),
             None
         );
-        let missed = nightly_morale_effect(
-            EveningId::new(2),
-            TemperancePreference::Drunkard,
-            true,
-            false,
-        )
-        .unwrap();
-        let satisfied = nightly_morale_effect(
-            EveningId::new(3),
-            TemperancePreference::Drunkard,
-            true,
-            true,
-        )
-        .unwrap();
+        let missed = nightly_morale_effect(2, TemperancePreference::Drunkard, true, false).unwrap();
+        let satisfied =
+            nightly_morale_effect(3, TemperancePreference::Drunkard, true, true).unwrap();
         // Upserting by the stable source leaves only the latest value.
         let mut sources = std::collections::BTreeMap::new();
         sources.insert(NIGHTLY_MORALE_SOURCE_ID, missed);
@@ -392,35 +541,28 @@ mod tests {
         let source = sources[NIGHTLY_MORALE_SOURCE_ID];
         assert_eq!(source.kind, MoraleEventKind::AlcoholSatisfied);
         assert_eq!(source.magnitude, 5);
-        assert_eq!(
-            source.occurred_at_minute,
-            EveningId::new(3).boundary().unwrap()
-        );
+        assert_eq!(source.occurred_at_minute, evening_boundary(3).unwrap());
     }
 
     #[test]
     fn emergency_travel_segments_preserve_evening_history_when_chunked() {
         let start = 17 * 60;
         let end = start + 3 * MINUTES_PER_DAY;
-        let mut whole: Vec<_> =
-            travel_evening_segments(StrategicMinute::new(start), StrategicMinute::new(end))
-                .unwrap()
-                .map(|(_, _, minute)| EveningId::from_minute(minute))
-                .collect();
+        let mut whole: Vec<_> = travel_evening_segments(minute(start), minute(end))
+            .unwrap()
+            .map(|(_, _, minute)| evening_id(minute))
+            .collect();
         whole.dedup();
-        assert_eq!(
-            whole,
-            vec![EveningId::new(0), EveningId::new(1), EveningId::new(2)]
-        );
+        assert_eq!(whole, vec![0, 1, 2]);
         let mut daily = Vec::new();
         for day in 0..3 {
             daily.extend(
                 travel_evening_segments(
-                    StrategicMinute::new(start + day * MINUTES_PER_DAY),
-                    StrategicMinute::new(start + (day + 1) * MINUTES_PER_DAY),
+                    minute(start + day * MINUTES_PER_DAY),
+                    minute(start + (day + 1) * MINUTES_PER_DAY),
                 )
                 .unwrap()
-                .map(|(_, _, minute)| EveningId::from_minute(minute)),
+                .map(|(_, _, minute)| evening_id(minute)),
             );
         }
         daily.dedup();

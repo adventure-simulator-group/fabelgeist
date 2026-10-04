@@ -477,11 +477,7 @@ fn exact_hostile_negotiation_authority(
                         .id()
                         .find(membership.character_id)
                         .is_some_and(|character| character.alive)
-                    && crate::relationship::character_alive_at(
-                        ctx,
-                        (membership.character_id).into(),
-                        minute,
-                    )
+                    && crate::relationship::character_alive_at(ctx, membership.character_id, minute)
             })
             .collect(),
     )
@@ -493,12 +489,7 @@ fn exact_hostile_negotiation_authority(
     if !profile.negotiation.sapient || !profile.negotiation.negotiable {
         return Err("Hostile group is not available for negotiation".into());
     }
-    if crate::character::shared_language_coefficient(
-        ctx,
-        (actor_id).into(),
-        (spokesman.character_id).into(),
-    ) <= 0.0
-    {
+    if crate::character::shared_language_coefficient(ctx, actor_id, spokesman.character_id) <= 0.0 {
         return Err("No shared spoken language is available".into());
     }
     let capability_available = ctx
@@ -534,8 +525,7 @@ pub fn negotiate_hostile_withdrawal(
     expected_revision: u32,
     action_id: String,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (actor_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    require_strategic_character_authority(ctx, actor_id)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Hostile negotiation action ID is invalid".into());
     }
@@ -561,26 +551,16 @@ pub fn negotiate_hostile_withdrawal(
         expected_revision,
         HostileResolutionKind::DrivenOff,
     )?;
-    let social_ability = crate::condition::mental_check(
-        ctx,
-        (actor_id).into(),
-        adventuresim_core::skill::Skill::Charm,
-    )
-    .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?
-    .max(
-        crate::condition::mental_check(
-            ctx,
-            (actor_id).into(),
-            adventuresim_core::skill::Skill::Command,
-        )
-        .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?,
-    );
-    let language = crate::character::shared_language_coefficient(
-        ctx,
-        (actor_id).into(),
-        (spokesman_id).into(),
-    );
-    let affinity = crate::social::current_affinity(ctx, (spokesman_id).into(), (actor_id).into());
+    let social_ability =
+        crate::condition::mental_check(ctx, actor_id, adventuresim_core::skill::Skill::Charm)?.max(
+            crate::condition::mental_check(
+                ctx,
+                actor_id,
+                adventuresim_core::skill::Skill::Command,
+            )?,
+        );
+    let language = crate::character::shared_language_coefficient(ctx, actor_id, spokesman_id);
+    let affinity = crate::social::current_affinity(ctx, spokesman_id, actor_id);
     let profile = parse_threat(&group.enemy_type)?.profile();
     let assessment = adventuresim_core::strategic_action::assess_negotiated_withdrawal(
         social_ability,

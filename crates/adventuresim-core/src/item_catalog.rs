@@ -4,11 +4,7 @@
 //! `build.rs` validates and combines them; production code only reads this
 //! embedded representation and never opens loose content files.
 
-mod identity;
-mod references;
 pub use crate::item_catalog_schema::*;
-pub use identity::ItemDefinitionId;
-pub use references::{MissingItemDefinitions, validate_references};
 use serde::Deserialize;
 use std::sync::OnceLock;
 
@@ -108,48 +104,46 @@ pub fn catalog() -> &'static [ItemDefinition] {
         .as_slice()
 }
 
-pub fn definition(id: &ItemDefinitionId) -> Option<&'static ItemDefinition> {
+pub fn definition(id: &str) -> Option<&'static ItemDefinition> {
     catalog()
-        .binary_search_by(|definition: &ItemDefinition| -> std::cmp::Ordering {
-            definition.id.as_str().cmp(id.as_str())
-        })
+        .binary_search_by_key(&id, |definition| definition.id.as_str())
         .ok()
         .map(|index| &catalog()[index])
 }
 
-pub fn weapon_carry(id: &ItemDefinitionId) -> Option<WeaponCarry> {
+pub fn weapon_carry(id: &str) -> Option<WeaponCarry> {
     match &definition(id)?.kind {
         ItemKind::Weapon { carry, .. } => Some(*carry),
         _ => None,
     }
 }
 
-pub fn weapon_handling(id: &ItemDefinitionId) -> Option<WeaponHandling> {
+pub fn weapon_handling(id: &str) -> Option<WeaponHandling> {
     match &definition(id)?.kind {
         ItemKind::Weapon { handling, .. } => Some(*handling),
         _ => None,
     }
 }
 
-pub fn weapon_precision(id: &ItemDefinitionId) -> Option<f32> {
+pub fn weapon_precision(id: &str) -> Option<f32> {
     match &definition(id)?.kind {
         ItemKind::Weapon { precision, .. } => Some(*precision),
         _ => None,
     }
 }
 
-pub fn weapon_animation_pack(id: &ItemDefinitionId) -> Option<&'static str> {
+pub fn weapon_animation_pack(id: &str) -> Option<&'static str> {
     match &definition(id)?.kind {
         ItemKind::Weapon { animation_pack, .. } => animation_pack.as_deref(),
         _ => None,
     }
 }
 
-pub fn is_sheathable_weapon(id: &ItemDefinitionId) -> bool {
+pub fn is_sheathable_weapon(id: &str) -> bool {
     weapon_carry(id) == Some(WeaponCarry::Sheathable)
 }
 
-pub fn source_for_item(id: &ItemDefinitionId) -> Option<&'static ItemSourceRef> {
+pub fn source_for_item(id: &str) -> Option<&'static ItemSourceRef> {
     let sources = SOURCE_MAP.get_or_init(|| {
         let mut sources: Vec<ItemSourceRef> = serde_json::from_str(ITEM_CATALOG_SOURCE_MAP_JSON)
             .expect("validated embedded item source map");
@@ -157,9 +151,7 @@ pub fn source_for_item(id: &ItemDefinitionId) -> Option<&'static ItemSourceRef> 
         sources
     });
     sources
-        .binary_search_by(|source: &ItemSourceRef| -> std::cmp::Ordering {
-            source.id.as_str().cmp(id.as_str())
-        })
+        .binary_search_by_key(&id, |source| source.id.as_str())
         .ok()
         .map(|index| &sources[index])
 }
@@ -168,10 +160,25 @@ pub const fn revision() -> &'static str {
     ITEM_CATALOG_DIGEST
 }
 
-pub fn weapon_skills(id: &ItemDefinitionId) -> Option<WeaponSkills> {
+pub fn weapon_skills(id: &str) -> Option<WeaponSkills> {
     match &definition(id)?.kind {
         ItemKind::Weapon { skills, .. } => Some(*skills),
         _ => None,
+    }
+}
+
+pub fn validate_references<'a>(
+    references: impl IntoIterator<Item = &'a str>,
+) -> Result<(), Vec<String>> {
+    let missing: Vec<_> = references
+        .into_iter()
+        .filter(|id| definition(id).is_none())
+        .map(str::to_owned)
+        .collect();
+    if missing.is_empty() {
+        Ok(())
+    } else {
+        Err(missing)
     }
 }
 
@@ -184,7 +191,7 @@ mod tests {
     fn embedded_catalog_is_sorted_unique_complete_and_revisioned() {
         // The source catalog expands each availability epoch into a compiled
         // definition; the generated weapon loop adds four epoch rows.
-        assert_eq!(catalog().len(), 184);
+        assert_eq!(catalog().len(), 180);
         assert!(revision().len() == 64 && revision().bytes().all(|b| b.is_ascii_hexdigit()));
         assert!(
             catalog()
@@ -192,19 +199,19 @@ mod tests {
                 .all(|pair| pair[0].id.as_str() < pair[1].id.as_str())
         );
         assert_eq!(
-            definition(&"arming_sword".into()).unwrap().display_name,
+            definition("arming_sword").unwrap().display_name,
             "Arming sword"
         );
-        assert!(definition(&"missing".into()).is_none());
-        let sword_source = source_for_item(&"arming_sword".into()).unwrap();
+        assert!(definition("missing").is_none());
+        let sword_source = source_for_item("arming_sword").unwrap();
         assert_eq!(sword_source.file, "content/items/catalog.yaml");
         assert!(sword_source.line > 1);
         assert!(sword_source.column > 0);
-        assert_eq!(source_for_item(&"missing".into()), None);
+        assert_eq!(source_for_item("missing"), None);
         assert!(
             catalog()
                 .iter()
-                .all(|item| source_for_item(&(&item.id).into()).is_some()),
+                .all(|item| source_for_item(&item.id).is_some()),
             "every item definition must retain an authored source location"
         );
 
@@ -216,8 +223,8 @@ mod tests {
             + "\n";
         assert_eq!(
             format!("{:x}", Sha256::digest(stable_ids.as_bytes())),
-            "9ac2822ccd9f88a8065e651407c0f385bbb175432772d85110473b84a7ecbb03",
-            "stable-ID golden includes the full pauldron and Landsknecht garments"
+            "e66b5f7c62c3bc3a1d1462c3a96ff383740ce19ebf909230d9910d46b16942d1",
+            "stable-ID golden includes the full pauldron"
         );
 
         let counts = catalog().iter().fold([0_u16; 10], |mut counts, item| {
@@ -238,12 +245,12 @@ mod tests {
         });
         // Holder chassis are simple catalog rows; their individual procedural
         // identities live in WeaponHolderInstance.
-        assert_eq!(counts, [47, 6, 16, 14, 3, 1, 5, 42, 29, 21]);
+        assert_eq!(counts, [47, 6, 16, 14, 3, 1, 5, 38, 29, 21]);
     }
 
     #[test]
     fn field_tent_is_weighted_valuable_general_goods_shelter() {
-        let tent = definition(&(crate::item_references::FIELD_TENT_ID).into()).expect("field tent");
+        let tent = definition(crate::item_references::FIELD_TENT_ID).expect("field tent");
         assert!(tent.weight_kg > 0.0);
         assert!(tent.base_value > 0);
         assert!(tent.tags.iter().any(|tag| tag == "general_goods"));
@@ -253,10 +260,10 @@ mod tests {
 
     #[test]
     fn compositional_food_and_alcohol_are_not_flat_kinds() {
-        let garlic = definition(&"garlic".into()).unwrap();
+        let garlic = definition("garlic").unwrap();
         assert!(matches!(&garlic.kind, ItemKind::Ingredient));
         assert!(garlic.capabilities.food.is_some());
-        let beer = definition(&"small_beer".into()).unwrap();
+        let beer = definition("small_beer").unwrap();
         assert!(matches!(&beer.kind, ItemKind::Simple));
         assert!(beer.capabilities.alcohol.is_some());
     }
@@ -277,7 +284,7 @@ mod tests {
                 assert!((total - 1.0).abs() < 0.000_1, "{}", item.id);
             }
         }
-        assert!(weapon_skills(&"not_an_item".into()).is_none());
+        assert!(weapon_skills("not_an_item").is_none());
     }
 
     #[test]
@@ -322,7 +329,7 @@ mod tests {
             "spear",
             "walking_staff",
         ] {
-            assert_eq!(weapon_carry(&(item_id).into()), Some(WeaponCarry::HandOnly));
+            assert_eq!(weapon_carry(item_id), Some(WeaponCarry::HandOnly));
         }
         for item_id in [
             "club",
@@ -331,10 +338,7 @@ mod tests {
             "war_hammer",
             "zweihander",
         ] {
-            assert_eq!(
-                weapon_carry(&(item_id).into()),
-                Some(WeaponCarry::Sheathable)
-            );
+            assert_eq!(weapon_carry(item_id), Some(WeaponCarry::Sheathable));
         }
     }
 
@@ -359,7 +363,7 @@ mod tests {
                 item.id
             );
         }
-        let tunic = definition(&"linen_tunic".into())
+        let tunic = definition("linen_tunic")
             .unwrap()
             .equipment
             .as_ref()
@@ -372,7 +376,7 @@ mod tests {
     fn compiled_catalog_represents_attachment_graph_examples_without_kind_inference() {
         use crate::item_catalog_schema::EquipmentChannel;
 
-        let belt = definition(&"leather_belt".into())
+        let belt = definition("leather_belt")
             .unwrap()
             .equipment
             .as_ref()
@@ -382,13 +386,13 @@ mod tests {
                 .iter()
                 .any(|point| point.id == "left")
         );
-        let sheath = definition(&"sword_sheath".into())
+        let sheath = definition("sword_sheath")
             .unwrap()
             .equipment
             .as_ref()
             .unwrap();
         assert!(sheath.attachment_tags.contains(&"sheath".to_owned()));
-        let weapon_loop = definition(&"weapon_loop".into())
+        let weapon_loop = definition("weapon_loop")
             .unwrap()
             .equipment
             .as_ref()
@@ -406,7 +410,7 @@ mod tests {
                 .iter()
                 .any(|point| point.accepts_tags.contains(&"sheathable_weapon".to_owned()))
         );
-        let knife = definition(&"utility_knife".into())
+        let knife = definition("utility_knife")
             .unwrap()
             .equipment
             .as_ref()
@@ -449,7 +453,7 @@ mod tests {
                 .contains(&"sheathable_weapon".to_owned())
         );
 
-        let bag = definition(&"leather_satchel".into())
+        let bag = definition("leather_satchel")
             .unwrap()
             .equipment
             .as_ref()
@@ -479,7 +483,7 @@ mod tests {
                 })
         }));
 
-        let sword = definition(&"arming_sword".into())
+        let sword = definition("arming_sword")
             .unwrap()
             .equipment
             .as_ref()
@@ -503,11 +507,7 @@ mod tests {
             "repeated selection traverses attachment points in authored order"
         );
         for fixture in ["boot_sheath", "forearm_holster"] {
-            let definition = definition(&(fixture).into())
-                .unwrap()
-                .equipment
-                .as_ref()
-                .unwrap();
+            let definition = definition(fixture).unwrap().equipment.as_ref().unwrap();
             assert!(
                 definition
                     .placements
@@ -523,7 +523,7 @@ mod tests {
             .iter()
             .filter_map(|item| item.equipment.as_ref().map(|equipment| (item, equipment)))
             .collect();
-        assert_eq!(equipment.len(), 86);
+        assert_eq!(equipment.len(), 82);
         for (item, equipment) in equipment {
             assert!(
                 equipment
@@ -590,12 +590,10 @@ mod tests {
 
     #[test]
     fn stable_reference_validation_rejects_missing_ids() {
-        assert!(validate_references(&["torch", "waterskin"].map(ItemDefinitionId::from)).is_ok());
+        assert!(validate_references(["torch", "waterskin"]).is_ok());
         assert_eq!(
-            validate_references(&["torch", "removed_item"].map(ItemDefinitionId::from))
-                .unwrap_err()
-                .as_slice(),
-            &[ItemDefinitionId::from("removed_item")]
+            validate_references(["torch", "removed_item"]),
+            Err(vec!["removed_item".to_owned()])
         );
     }
 }

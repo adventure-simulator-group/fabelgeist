@@ -45,14 +45,14 @@ impl TerrainLandformLod {
 }
 
 impl TerrainLandformRecipe {
-    pub fn validate(self, terrain: &SceneTerrain) -> Result<(), TerrainRecipeError> {
+    pub fn validate(self, terrain: &SceneTerrain) -> Result<(), &'static str> {
         self.surface.validate()?;
         let tangent = Vec2::new(
             f32::from(self.tangent_permyriad[0]),
             f32::from(self.tangent_permyriad[1]),
         ) / 10_000.0;
         if !(0.98..=1.02).contains(&tangent.length()) {
-            return Err(TerrainRecipeError::Tangent);
+            return Err("landform tangent is not normalized");
         }
         if !(100..=2_000).contains(&self.relief_cm)
             || !(400..=5_000).contains(&self.half_length_cm)
@@ -61,7 +61,7 @@ impl TerrainLandformRecipe {
             || self.collar_cm >= self.half_length_cm
             || u32::from(self.collar_cm) * 2 >= u32::from(self.half_width_cm)
         {
-            return Err(TerrainRecipeError::Dimensions);
+            return Err("landform dimensions are outside their bounds");
         }
         let origin = Vec2::new(self.origin_cm[0] as f32, self.origin_cm[1] as f32) / 100.0;
         let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
@@ -70,7 +70,7 @@ impl TerrainLandformRecipe {
         let normal = Vec2::new(-tangent.y, tangent.x);
         let extent = tangent.abs() * half_length + normal.abs() * half_width;
         if origin.x.abs() > half.x + extent.x || origin.y.abs() > half.y + extent.y {
-            return Err(TerrainRecipeError::OutsidePlayable);
+            return Err("landform does not overlap the playable terrain");
         }
         Ok(())
     }

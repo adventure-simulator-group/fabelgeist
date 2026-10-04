@@ -206,7 +206,7 @@ pub fn tactical_character_controller() -> CharacterController {
 )]
 #[reflect(Component)]
 pub struct CharacterMotionSnapshot {
-    pub acknowledged_input_tick: crate::protocol::InputTick,
+    pub acknowledged_input_tick: u32,
     pub translation: Vec3,
     pub rotation: Quat,
     pub linear_velocity: Vec3,

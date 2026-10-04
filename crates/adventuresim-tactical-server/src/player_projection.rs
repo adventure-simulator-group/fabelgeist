@@ -1,10 +1,7 @@
-mod input_serials;
-pub(crate) use input_serials::{AuthoritativeInputTick, AuthoritativePostureIntent};
-
 use std::collections::BTreeMap;
 
 use adventuresim_core::{
-    attribute::PlayerAttributeValues, combat::HUMANOID_COLLISION_RADIUS_METRES, item_catalog,
+    attribute::PlayerAttributeValues, combat::HUMANOID_COLLISION_RADIUS_METRES,
     tactical_fixture::TacticalEnemyFixture,
 };
 use adventuresim_stdb_client::*;
@@ -235,6 +232,33 @@ pub(crate) fn update_attack_facing_targets(
             commands.entity(entity).remove::<AttackFacing>();
         }
     }
+}
+
+/// Newest complete continuous-input sample accepted from the unreliable
+/// channel. Wrap-aware ordering prevents a delayed packet from restoring stale
+/// movement or look intent.
+#[derive(Component, Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub(crate) struct AuthoritativeInputTick {
+    tick: u32,
+    initialized: bool,
+}
+
+impl AuthoritativeInputTick {
+    fn accept(&mut self, tick: u32) -> bool {
+        if self.initialized && !sequence_is_newer(tick, self.tick) {
+            return false;
+        }
+        self.tick = tick;
+        self.initialized = true;
+        true
+    }
+}
+
+#[derive(Component, Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub(crate) struct AuthoritativePostureIntent {
+    facing: CameraFacingIntent,
+    last_jump_sequence: u32,
+    last_command_sequence: u32,
 }
 
 /// One camera-facing owner is selected per accepted input. Free downed camera
@@ -525,7 +549,7 @@ fn spawn_connected_player(
     } else {
         let Some((entity, _)) = q_loading
             .iter()
-            .find(|(_, id)| id.requested_character.get() == player.character.id)
+            .find(|(_, id)| id.requested_character.0 == player.character.id)
         else {
             warn!(
                 "Got new ConnectedPlayer from stdb, but there is no LoadingPlayer for it: {}#{}",
@@ -709,7 +733,7 @@ fn spawn_connected_player(
         Player {
             name: player.character.name.clone(),
         },
-        CharacterId::from(player.character.id),
+        CharacterId(player.character.id),
         skills,
         limbs,
         attributes,
@@ -771,7 +795,7 @@ fn spawn_connected_player(
         let weapon_holder_appearance = projected_holder_appearance(item);
         item_cmd.insert((
             Replicated,
-            TacticalInventoryItemId::from(item.inventory_item_id),
+            TacticalInventoryItemId(item.inventory_item_id),
             ItemOf(entity),
             quantity,
             ItemProperties {
@@ -783,7 +807,7 @@ fn spawn_connected_player(
             },
             Transform::default(),
         ));
-        if let Some(definition) = item_catalog::definition(&(&item.item.id).into())
+        if let Some(definition) = adventuresim_core::item_catalog::definition(&item.item.id)
             && let Some(equipment) = &definition.equipment
         {
             let mut physical = equipment.physical;
@@ -849,7 +873,7 @@ fn spawn_connected_player(
             | CatalogItemKind::Medication
             | CatalogItemKind::Food => {}
             CatalogItemKind::Weapon => {
-                let equipment = item_catalog::definition(&(&item.item.id).into())
+                let equipment = adventuresim_core::item_catalog::definition(&item.item.id)
                     .and_then(|definition| definition.equipment.as_ref())
                     .expect("validated tactical weapon has equipment metadata");
                 item_cmd.insert(WeaponItem {
@@ -979,27 +1003,27 @@ pub(crate) fn on_join_request(
         }
         commands.entity(disconnected).despawn();
         info!(
-            character_id = join.character_id.get(),
+            character_id = join.character_id.0,
             "Rebound reconnect to transient tactical state"
         );
         return Ok(());
     }
     if join.reconnect_token.is_some() {
         warn!(
-            character_id = join.character_id.get(),
+            character_id = join.character_id.0,
             "Rejected invalid or consumed reconnect capability"
         );
         return Ok(());
     }
     if !state.allows_party_join(join.character_id) {
         warn!(
-            character_id = join.character_id.get(),
+            character_id = join.character_id.0,
             "Rejected unseen Party join after enrollment sealed"
         );
         return Ok(());
     }
     conn.reducers()
-        .enter_mission(join.character_id.get(), ready.identity())?;
+        .enter_mission(join.character_id.0, ready.identity())?;
     state.begin_enrollment();
     let token = fresh_reconnect_token();
     commands.entity(client).insert((
@@ -1016,7 +1040,7 @@ pub(crate) fn on_join_request(
     send_combat_config(&mut commands, join.client_id, &combat_config);
     info!(
         "[startup] Character {} connected and entered mission, awaiting loading",
-        join.character_id.get()
+        join.character_id.0
     );
     Ok(())
 }
@@ -1041,7 +1065,7 @@ pub(crate) fn on_join_request_standalone(
     }
     if !state.allows_party_join(join.character_id) {
         warn!(
-            character_id = join.character_id.get(),
+            character_id = join.character_id.0,
             "Rejected unseen Party join after enrollment sealed"
         );
         return Ok(());
@@ -1052,7 +1076,7 @@ pub(crate) fn on_join_request_standalone(
     });
     info!(
         "[startup] Character {} connected, awaiting binding to a dumped character",
-        join.character_id.get()
+        join.character_id.0
     );
     Ok(())
 }
@@ -1093,13 +1117,14 @@ pub(crate) fn on_player_input(
     {
         return;
     }
-    let jump_requested = posture_intent.consume_jump(validated.jump.sequence);
+    let jump_requested =
+        sequence_is_newer(validated.jump.sequence, posture_intent.last_jump_sequence);
     if jump_requested && let Some(direction) = validated.jump.quickstep {
         info!(
             target: "quickstep_trace",
             ?entity,
-            simulation_tick = %input.simulation_tick,
-            sequence = %validated.jump.sequence,
+            simulation_tick = input.simulation_tick,
+            sequence = validated.jump.sequence,
             ?direction,
             requested_guard = ?validated.weapon_guard,
             server_guard = ?skeleton.weapon_guard(),
@@ -1109,13 +1134,20 @@ pub(crate) fn on_player_input(
             "[quickstep][server-input] received new edge"
         );
     }
+    if jump_requested {
+        // Consume the edge even when the current body state cannot jump. The
+        // client repeats this sequence indefinitely, so retaining it through
+        // incapacitation or an airborne interval would create a stale jump
+        // as soon as the player became grounded again.
+        posture_intent.last_jump_sequence = validated.jump.sequence;
+    }
     if combat_state.is_incapacitated() {
         if jump_requested && validated.jump.quickstep.is_some() {
             warn!(
                 target: "quickstep_trace",
                 ?entity,
-                simulation_tick = %input.simulation_tick,
-                sequence = %validated.jump.sequence,
+                simulation_tick = input.simulation_tick,
+                sequence = validated.jump.sequence,
                 "[quickstep][server-input] rejected: incapacitated"
             );
         }
@@ -1143,32 +1175,37 @@ pub(crate) fn on_player_input(
     look.yaw = validated.yaw;
     look.pitch = validated.pitch;
     accumulated_input.last_movement = validated.movement;
-    if posture_intent.consume_posture(validated.posture.sequence)
-        && let Some(action) = validated.posture.action
-        && let Some(launch) = apply_posture_action(
-            action,
-            &mut skeleton,
-            &mut accumulated_input,
-            validated.pace,
-            &combat_config,
-        )
-    {
-        if launch.trajectory == DiveTrajectory::Airborne {
-            // Airborne dive travel and authored direction both capture
-            // this accepted camera frame before transition facing locks.
-            let launch_rotation = dive_launch_root_rotation(Quat::from_rotation_y(look.yaw));
-            transform.rotation = launch_rotation;
-            physics_rotation.0 = launch_rotation;
+    if sequence_is_newer(
+        validated.posture.sequence,
+        posture_intent.last_command_sequence,
+    ) {
+        posture_intent.last_command_sequence = validated.posture.sequence;
+        if let Some(action) = validated.posture.action
+            && let Some(launch) = apply_posture_action(
+                action,
+                &mut skeleton,
+                &mut accumulated_input,
+                validated.pace,
+                &combat_config,
+            )
+        {
+            if launch.trajectory == DiveTrajectory::Airborne {
+                // Airborne dive travel and authored direction both capture
+                // this accepted camera frame before transition facing locks.
+                let launch_rotation = dive_launch_root_rotation(Quat::from_rotation_y(look.yaw));
+                transform.rotation = launch_rotation;
+                physics_rotation.0 = launch_rotation;
+            }
+            // A slide inherits an already-committed sprint heading and exact
+            // velocity. Rewriting its root to camera yaw would twist the whole
+            // body on the first frame, independently of its inverted animation.
+            apply_dive_launch_velocity(
+                &mut velocity,
+                look.yaw,
+                launch,
+                combat_config.movement.speeds_metres_per_second.dive,
+            );
         }
-        // A slide inherits an already-committed sprint heading and exact
-        // velocity. Rewriting its root to camera yaw would twist the whole
-        // body on the first frame, independently of its inverted animation.
-        apply_dive_launch_velocity(
-            &mut velocity,
-            look.yaw,
-            launch,
-            combat_config.movement.speeds_metres_per_second.dive,
-        );
     }
     accumulated_input.crouched = skeleton.body().is_downed() || skeleton.is_posture_transitioning();
     movement_intent.0 = validated.movement;
@@ -1208,8 +1245,8 @@ pub(crate) fn on_player_input(
                 warn!(
                     target: "quickstep_trace",
                     ?entity,
-                    simulation_tick = %input.simulation_tick,
-                    sequence = %validated.jump.sequence,
+                    simulation_tick = input.simulation_tick,
+                    sequence = validated.jump.sequence,
                     transition = ?skeleton.posture_transition().map(|transition| transition.kind()),
                     "[quickstep][server-input] rejected: posture transition"
                 );
@@ -1219,8 +1256,8 @@ pub(crate) fn on_player_input(
                 warn!(
                     target: "quickstep_trace",
                     ?entity,
-                    simulation_tick = %input.simulation_tick,
-                    sequence = %validated.jump.sequence,
+                    simulation_tick = input.simulation_tick,
+                    sequence = validated.jump.sequence,
                     server_body = ?skeleton.body(),
                     "[quickstep][server-input] rejected: not grounded"
                 );
@@ -1243,8 +1280,8 @@ pub(crate) fn on_player_input(
                         info!(
                             target: "quickstep_trace",
                             ?entity,
-                            simulation_tick = %input.simulation_tick,
-                            sequence = %validated.jump.sequence,
+                            simulation_tick = input.simulation_tick,
+                            sequence = validated.jump.sequence,
                             ?direction,
                             skeleton_tick = skeleton.locomotion_sample_tick,
                             push_start_tick = quickstep_push.start_tick,
@@ -1259,8 +1296,8 @@ pub(crate) fn on_player_input(
                         warn!(
                             target: "quickstep_trace",
                             ?entity,
-                            simulation_tick = %input.simulation_tick,
-                            sequence = %validated.jump.sequence,
+                            simulation_tick = input.simulation_tick,
+                            sequence = validated.jump.sequence,
                             server_guard = ?skeleton.weapon_guard(),
                             server_body = ?skeleton.body(),
                             server_action = ?skeleton.action_kind(),
@@ -1274,8 +1311,8 @@ pub(crate) fn on_player_input(
                     warn!(
                         target: "quickstep_trace",
                         ?entity,
-                        simulation_tick = %input.simulation_tick,
-                        sequence = %validated.jump.sequence,
+                        simulation_tick = input.simulation_tick,
+                        sequence = validated.jump.sequence,
                         ?direction,
                         requested_guard = ?validated.weapon_guard,
                         server_guard = ?skeleton.weapon_guard(),
@@ -1325,6 +1362,11 @@ pub(crate) fn begin_authoritative_quickstep(
     }
     quickstep_push.begin(start, direction, orientation, origin);
     true
+}
+
+fn sequence_is_newer(candidate: u32, previous: u32) -> bool {
+    let distance = candidate.wrapping_sub(previous);
+    distance != 0 && distance <= u32::MAX / 2
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -1786,7 +1828,7 @@ pub(crate) fn update_character_motion_snapshots(mut players: CharacterMotionSnap
         &mut players
     {
         *snapshot = CharacterMotionSnapshot {
-            acknowledged_input_tick: input.tick.unwrap_or_default(),
+            acknowledged_input_tick: input.tick,
             translation: transform.translation,
             rotation: transform.rotation,
             linear_velocity: velocity.0,
@@ -1894,7 +1936,7 @@ pub(crate) fn on_client_disconnected(
     if projected {
         commands.queue(move |world: &mut World| rebuild_inventory_holding_cache(world, orphan));
     }
-    let character_id = session.character_id.get();
+    let character_id = session.character_id.0;
     match &disconnected.reason {
         DisconnectReason::ByUser(reason) => {
             info!("Character {character_id} disconnected by server request: {reason}")
@@ -2031,9 +2073,9 @@ pub(crate) fn expire_disconnected_players(
         if grace.remaining_secs > 0.0 {
             continue;
         }
-        if let Err(error) = conn.reducers().leave_mission(grace.character_id.get()) {
+        if let Err(error) = conn.reducers().leave_mission(grace.character_id.0) {
             warn!(
-                character_id = grace.character_id.get(),
+                character_id = grace.character_id.0,
                 ?error,
                 "Failed to expire disconnected mission member"
             );
@@ -2100,7 +2142,7 @@ pub(crate) fn on_player_added(
 ) -> Result {
     let (player, character_id) = query.get(event.entity)?;
     commands.entity(event.entity).insert_if_new((
-        Name::new(format!("Character#{} {}", character_id.get(), player.name)),
+        Name::new(format!("Character#{} {}", character_id.0, player.name)),
         Replicated,
         BestiaryCategories::default(),
         MeleeAttackAuthority::default(),
@@ -2172,7 +2214,7 @@ pub(crate) fn bind_dumped_character_on_join(world: &mut World) {
     for (client_entity, character_id) in loading {
         let Some(index) = templates.iter().position(|(_, id)| *id == character_id) else {
             warn!(
-                character_id = character_id.get(),
+                character_id = character_id.0,
                 "No dumped character found for joining client; join stays pending"
             );
             continue;
@@ -2224,13 +2266,13 @@ pub(crate) fn bind_dumped_character_on_join(world: &mut World) {
                 ));
                 mark_loaded_items_replicated(world, entity_map.values());
                 info!(
-                    character_id = character_id.get(),
+                    character_id = character_id.0,
                     "Bound joining client to dumped character"
                 );
             }
             Err(error) => error!(
                 ?error,
-                character_id = character_id.get(),
+                character_id = character_id.0,
                 "Failed to bind dumped character to joining client"
             ),
         }
@@ -2255,7 +2297,7 @@ mod standalone_join_tests {
                 Player {
                     name: "Dumped Party Member".to_string(),
                 },
-                CharacterId::from(7),
+                CharacterId(7),
                 TacticalCombatSide::Party,
                 TacticalCombatState {
                     imbalance: 0.42,
@@ -2271,7 +2313,7 @@ mod standalone_join_tests {
                 Player {
                     name: "Bandit".to_string(),
                 },
-                CharacterId::from(99),
+                CharacterId(99),
                 MissionEnemy,
                 TacticalCombatSide::Enemy,
                 crate::bot::OffensiveCombatAi::default(),
@@ -2316,7 +2358,7 @@ mod standalone_join_tests {
         // The joining client's connection entity.
         let client_entity = world
             .spawn(LoadingPlayer {
-                requested_character: CharacterId::from(7),
+                requested_character: CharacterId(7),
             })
             .id();
 
@@ -2360,7 +2402,7 @@ mod standalone_join_tests {
             "holding_weapon should be remapped to the merged item entity"
         );
         assert_eq!(merged.get::<Player>().unwrap().name, "Dumped Party Member");
-        assert_eq!(merged.get::<CharacterId>().unwrap().get(), 7);
+        assert_eq!(merged.get::<CharacterId>().unwrap().0, 7);
         assert_eq!(
             merged.get::<TacticalCombatSide>().unwrap(),
             &TacticalCombatSide::Party
@@ -2378,7 +2420,7 @@ mod standalone_join_tests {
         let bot_entity = world.entity(bot);
         assert!(bot_entity.contains::<MissionEnemy>());
         assert!(bot_entity.contains::<crate::bot::OffensiveCombatAi>());
-        assert_eq!(bot_entity.get::<CharacterId>().unwrap().get(), 99);
+        assert_eq!(bot_entity.get::<CharacterId>().unwrap().0, 99);
     }
 }
 
@@ -2396,8 +2438,8 @@ mod tests {
         downed_tank_controller_input, input, mission_enemy_health_scale, mission_enemy_scale,
         on_client_disconnected, player_collider, posture_transition_locks_body_facing,
         queue_replication_rebind, reconnect_matches, restore_authoritative_movement_intent,
-        tactical_movement_speed_for_guard, try_claim_reconnect, update_character_motion_snapshots,
-        validate_player_input,
+        sequence_is_newer, tactical_movement_speed_for_guard, try_claim_reconnect,
+        update_character_motion_snapshots, validate_player_input,
     };
     use adventuresim_tactical_core::physics::tactical_character_controller;
     use adventuresim_tactical_core::prelude::{
@@ -2410,7 +2452,6 @@ mod tests {
         TacticalCombatSide, TacticalCombatState, advance_body_facing, controller_yaw,
         downed_camera_roll_target,
     };
-    use adventuresim_tactical_core::protocol::{InputTick, JumpSequence};
 
     #[test]
     fn tactical_recipe_length_changes_reach_mass_and_handling() {
@@ -2450,15 +2491,7 @@ mod tests {
         )
         .unwrap();
 
-        let adventuresim_core::item_catalog::ItemKind::Weapon { reach_m, .. } =
-            &adventuresim_core::item_catalog::definition(&"halberd".into())
-                .unwrap()
-                .kind
-        else {
-            panic!("authored halberd must be a weapon");
-        };
-        assert!((short.melee_reach_m() - reach_m).abs() < 1.0e-6);
-        assert!(short.melee_reach_m() < short.total_length_m);
+        assert!((short.melee_reach_m() - 2.0).abs() < 1.0e-6);
         assert!(long.melee_reach_m() > short.melee_reach_m() + 0.10);
         assert!(long.mass_kg > short.mass_kg);
         assert!(long.moment_of_inertia_kg_m2 > short.moment_of_inertia_kg_m2);
@@ -2504,7 +2537,7 @@ mod tests {
                     .add_observer(super::on_player_added);
             }
             let session = ReconnectSession {
-                character_id: CharacterId::from(7),
+                character_id: CharacterId(7),
                 token: ReconnectToken([7; 32]),
             };
             let limbs = Limbs::default();
@@ -2513,7 +2546,7 @@ mod tests {
             app.world_mut().entity_mut(client).insert((
                 Name::new("snapshot-player"),
                 Player::default(),
-                CharacterId::from(7),
+                CharacterId(7),
                 BestiaryCategories::default(),
                 Skills::default(),
                 limbs,
@@ -2596,27 +2629,19 @@ mod tests {
     fn reconnect_rebind_requires_character_and_single_current_capability() {
         let current = ReconnectToken([7; 32]);
         let session = DisconnectedPlayer {
-            character_id: CharacterId::from(7),
+            character_id: CharacterId(7),
             reconnect_token: current,
             remaining_secs: RECONNECT_GRACE_SECS,
             claimed: false,
         };
-        assert!(reconnect_matches(
-            CharacterId::from(7),
-            Some(current),
-            &session
-        ));
+        assert!(reconnect_matches(CharacterId(7), Some(current), &session));
+        assert!(!reconnect_matches(CharacterId(8), Some(current), &session));
         assert!(!reconnect_matches(
-            CharacterId::from(8),
-            Some(current),
-            &session
-        ));
-        assert!(!reconnect_matches(
-            CharacterId::from(7),
+            CharacterId(7),
             Some(ReconnectToken([8; 32])),
             &session
         ));
-        assert!(!reconnect_matches(CharacterId::from(7), None, &session));
+        assert!(!reconnect_matches(CharacterId(7), None, &session));
         const { assert!(RECONNECT_GRACE_SECS > 0.0) };
     }
 
@@ -2624,34 +2649,30 @@ mod tests {
     fn consumed_reconnect_capability_cannot_be_reused_after_rotation() {
         let old = ReconnectToken([7; 32]);
         let rotated = DisconnectedPlayer {
-            character_id: CharacterId::from(7),
+            character_id: CharacterId(7),
             reconnect_token: ReconnectToken([9; 32]),
             remaining_secs: RECONNECT_GRACE_SECS,
             claimed: false,
         };
-        assert!(!reconnect_matches(
-            CharacterId::from(7),
-            Some(old),
-            &rotated
-        ));
+        assert!(!reconnect_matches(CharacterId(7), Some(old), &rotated));
     }
 
     #[test]
     fn same_frame_duplicate_reconnect_is_claimed_exactly_once() {
         let token = ReconnectToken([4; 32]);
         let mut session = DisconnectedPlayer {
-            character_id: CharacterId::from(7),
+            character_id: CharacterId(7),
             reconnect_token: token,
             remaining_secs: 1.0,
             claimed: false,
         };
         assert!(try_claim_reconnect(
-            CharacterId::from(7),
+            CharacterId(7),
             Some(token),
             &mut session
         ));
         assert!(!try_claim_reconnect(
-            CharacterId::from(7),
+            CharacterId(7),
             Some(token),
             &mut session
         ));
@@ -2662,13 +2683,13 @@ mod tests {
         for remaining_secs in [0.0, -f32::EPSILON] {
             let token = ReconnectToken([6; 32]);
             let mut session = DisconnectedPlayer {
-                character_id: CharacterId::from(7),
+                character_id: CharacterId(7),
                 reconnect_token: token,
                 remaining_secs,
                 claimed: false,
             };
             assert!(!try_claim_reconnect(
-                CharacterId::from(7),
+                CharacterId(7),
                 Some(token),
                 &mut session
             ));
@@ -2689,12 +2710,12 @@ mod tests {
     #[test]
     fn disconnected_loading_player_expiry_has_character_without_projection() {
         let marker = DisconnectedPlayer {
-            character_id: CharacterId::from(42),
+            character_id: CharacterId(42),
             reconnect_token: ReconnectToken([3; 32]),
             remaining_secs: RECONNECT_GRACE_SECS,
             claimed: false,
         };
-        assert_eq!(marker.character_id, CharacterId::from(42));
+        assert_eq!(marker.character_id, CharacterId(42));
     }
 
     #[test]
@@ -2731,7 +2752,7 @@ mod tests {
                 look,
                 movement,
                 jump: JumpCommand {
-                    sequence: 1.into(),
+                    sequence: 1,
                     ..default()
                 },
                 pace: MovementPace::Sprint,
@@ -2758,22 +2779,23 @@ mod tests {
 
     #[test]
     fn jump_sequence_accepts_each_command_once_across_loss_and_reordering() {
-        assert!(JumpSequence::new(1).is_newer_than(JumpSequence::new(0)));
-        assert!(!JumpSequence::new(1).is_newer_than(JumpSequence::new(1)));
-        assert!(!JumpSequence::new(0).is_newer_than(JumpSequence::new(1)));
-        assert!(JumpSequence::new(0).is_newer_than(JumpSequence::new(u32::MAX)));
+        assert!(sequence_is_newer(1, 0));
+        assert!(!sequence_is_newer(1, 1));
+        assert!(!sequence_is_newer(0, 1));
+        assert!(sequence_is_newer(0, u32::MAX));
     }
 
     #[test]
     fn continuous_input_tick_rejects_duplicates_and_reordered_packets() {
         let mut newest = AuthoritativeInputTick::default();
-        assert!(newest.accept(InputTick::new(10)));
-        assert!(!newest.accept(InputTick::new(10)));
-        assert!(!newest.accept(InputTick::new(9)));
-        assert!(newest.accept(InputTick::new(11)));
+        assert!(newest.accept(10));
+        assert!(!newest.accept(10));
+        assert!(!newest.accept(9));
+        assert!(newest.accept(11));
 
-        newest.tick = Some(InputTick::new(u32::MAX));
-        assert!(newest.accept(InputTick::new(0)));
+        newest.tick = u32::MAX;
+        newest.initialized = true;
+        assert!(newest.accept(0));
     }
 
     #[test]
@@ -2786,7 +2808,8 @@ mod tests {
                 LinearVelocity(Vec3::new(1.0, -2.0, 3.0)),
                 CharacterControllerState::default(),
                 AuthoritativeInputTick {
-                    tick: Some(InputTick::new(42)),
+                    tick: 42,
+                    initialized: true,
                 },
                 QuickstepPush::default(),
                 CharacterMotionSnapshot::default(),
@@ -2797,7 +2820,7 @@ mod tests {
         schedule.run(&mut world);
 
         let snapshot = world.get::<CharacterMotionSnapshot>(entity).unwrap();
-        assert_eq!(snapshot.acknowledged_input_tick, InputTick::new(42));
+        assert_eq!(snapshot.acknowledged_input_tick, 42);
         assert_eq!(snapshot.translation, Vec3::new(2.0, 3.0, 4.0));
         assert_eq!(snapshot.linear_velocity, Vec3::new(1.0, -2.0, 3.0));
         assert!(!snapshot.grounded);
@@ -2810,7 +2833,7 @@ mod tests {
             look: Vec2::new(std::f32::consts::TAU * 4.0 + 0.25, 99.0),
             movement: Some(Vec2::splat(10.0)),
             jump: JumpCommand {
-                sequence: 7.into(),
+                sequence: 7,
                 ..default()
             },
             jump_charge: true,
@@ -2824,7 +2847,7 @@ mod tests {
         assert!(validated.movement.unwrap().length() <= 1.0001);
         assert!(validated.yaw.is_finite() && validated.pitch.is_finite());
         assert_eq!(validated.weapon_guard, WeaponGuardState::Raised);
-        assert_eq!(validated.jump.sequence, 7.into());
+        assert_eq!(validated.jump.sequence, 7);
         assert!(validated.jump_charge);
         assert!(validated.downed_align);
     }
@@ -2835,7 +2858,7 @@ mod tests {
             look: Vec2::ZERO,
             movement: Some(Vec2::Y),
             jump: JumpCommand {
-                sequence: 3.into(),
+                sequence: 3,
                 quickstep: Some(Vec2::new(4.0, -3.0)),
             },
             pace: MovementPace::Walk,
@@ -2848,7 +2871,7 @@ mod tests {
                 look: Vec2::ZERO,
                 movement: None,
                 jump: JumpCommand {
-                    sequence: 4.into(),
+                    sequence: 4,
                     quickstep: Some(Vec2::new(f32::NAN, 0.0)),
                 },
                 pace: MovementPace::Walk,

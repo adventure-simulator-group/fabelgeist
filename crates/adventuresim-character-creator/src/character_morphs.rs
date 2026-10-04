@@ -119,7 +119,7 @@ impl CharacterMorphs {
                     .map(|sample| {
                         let fitted = base
                             .refit(&sample.positions, &sample.normals)
-                            .map_err(anyhow::Error::from)?;
+                            .map_err(anyhow::Error::msg)?;
                         let mut delta = MorphDelta::between(
                             sample.name.clone(),
                             &base.positions,

@@ -3,26 +3,7 @@
 //! Resources are intentionally year-round until a strategic season model is
 //! authoritative. Displayed market prices never participate in discovery.
 
-mod error;
-mod generation;
-mod outcome;
-mod quantity;
-mod resource;
 mod sampling;
-mod seasonality;
-pub use error::ForageError;
-pub use generation::{ForageAttemptGeneration, ForageGenerationError};
-pub use outcome::{
-    ForageExposure, ForageLegalOutcomeError, ForageLegality, ForagePublicLegalOutcome,
-    ForageResolution, ForageStealthOutcome, ForageYield,
-};
-pub use quantity::{EmptyForageYield, ForageYieldQuantity};
-pub use resource::{
-    FORAGE_RESOURCES, ForageBiome, ForageRarity, ForageResource, UnknownForageResource,
-};
-pub use seasonality::{ForageSeasonalityPolicy, SEASONALITY_POLICY};
-
-use ForageBiome::{Forest, Hills, Plains, RiverWetGround, SeaCoast};
 use sampling::ForageDraw;
 
 use adventuresim_world_schema::calendar::StrategicMinute;
@@ -54,6 +35,33 @@ pub const MAX_SOURCES: usize = 5;
 /// Food searches are calibrated so an eight-hour low-skill search in an ideal
 /// habitat can approximately replace that interval's metabolic expenditure.
 pub const FOOD_DISCOVERY_RATE_PERMILLE: u64 = 1_750;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ForageSeasonalityPolicy {
+    YearRoundUntilStrategicSeasons,
+}
+
+pub const SEASONALITY_POLICY: ForageSeasonalityPolicy =
+    ForageSeasonalityPolicy::YearRoundUntilStrategicSeasons;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ForageBiome {
+    Plains,
+    Forest,
+    Hills,
+    RiverWetGround,
+    SeaCoast,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ForageRarity {
+    Common,
+    Uncommon,
+    Rare,
+}
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -123,6 +131,157 @@ impl ForageRarity {
     }
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct ForageResource {
+    pub item_id: &'static str,
+    pub name: &'static str,
+    pub rarity: ForageRarity,
+    pub biomes: &'static [ForageBiome],
+    pub yield_min: u16,
+    pub yield_max: u16,
+    pub source: ForageSource,
+}
+
+use ForageBiome::{Forest, Hills, Plains, RiverWetGround, SeaCoast};
+
+pub const FORAGE_RESOURCES: &[ForageResource] = &[
+    ForageResource {
+        item_id: "wild_berries",
+        name: "Wild berries",
+        rarity: ForageRarity::Common,
+        biomes: &[Plains, Forest, Hills],
+        yield_min: 1,
+        yield_max: 4,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "root_vegetables",
+        name: "Wild roots",
+        rarity: ForageRarity::Common,
+        biomes: &[Plains, Forest, Hills, RiverWetGround],
+        yield_min: 1,
+        yield_max: 3,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "hazelnuts",
+        name: "Hazelnuts",
+        rarity: ForageRarity::Uncommon,
+        biomes: &[Forest, Hills],
+        yield_min: 1,
+        yield_max: 3,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "wild_mushrooms",
+        name: "Wild mushrooms",
+        rarity: ForageRarity::Uncommon,
+        biomes: &[Forest, RiverWetGround],
+        yield_min: 1,
+        yield_max: 3,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "garlic",
+        name: "Wild garlic",
+        rarity: ForageRarity::Uncommon,
+        biomes: &[Forest, RiverWetGround],
+        yield_min: 1,
+        yield_max: 2,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "sage",
+        name: "Sage",
+        rarity: ForageRarity::Rare,
+        biomes: &[Plains, Hills],
+        yield_min: 1,
+        yield_max: 2,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "willow_bark",
+        name: "Willow bark",
+        rarity: ForageRarity::Uncommon,
+        biomes: &[Forest, RiverWetGround],
+        yield_min: 1,
+        yield_max: 2,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "poppy",
+        name: "Poppy",
+        rarity: ForageRarity::Uncommon,
+        biomes: &[Plains, Hills],
+        yield_min: 1,
+        yield_max: 2,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "comfrey",
+        name: "Comfrey",
+        rarity: ForageRarity::Uncommon,
+        biomes: &[Plains, RiverWetGround],
+        yield_min: 1,
+        yield_max: 2,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "watercress",
+        name: "Watercress",
+        rarity: ForageRarity::Common,
+        biomes: &[RiverWetGround],
+        yield_min: 1,
+        yield_max: 4,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "seaweed",
+        name: "Seaweed",
+        rarity: ForageRarity::Common,
+        biomes: &[SeaCoast],
+        yield_min: 1,
+        yield_max: 4,
+        source: ForageSource::Plants,
+    },
+    ForageResource {
+        item_id: "raw_venison",
+        name: "Raw venison",
+        rarity: ForageRarity::Uncommon,
+        biomes: &[Forest, Hills, Plains],
+        yield_min: 2,
+        yield_max: 6,
+        source: ForageSource::HighGame,
+    },
+    ForageResource {
+        item_id: "raw_fowl",
+        name: "Raw fowl",
+        rarity: ForageRarity::Common,
+        biomes: &[Plains, Forest, RiverWetGround],
+        yield_min: 1,
+        yield_max: 3,
+        source: ForageSource::LowGame,
+    },
+    ForageResource {
+        item_id: "raw_fish",
+        name: "Raw fish",
+        rarity: ForageRarity::Common,
+        biomes: &[RiverWetGround, SeaCoast],
+        yield_min: 1,
+        yield_max: 4,
+        source: ForageSource::Fish,
+    },
+    ForageResource {
+        item_id: "raw_beast_meat",
+        name: "Raw beast meat",
+        rarity: ForageRarity::Uncommon,
+        biomes: &[Plains, Forest, Hills],
+        yield_min: 1,
+        yield_max: 3,
+        source: ForageSource::HarmfulBeasts,
+    },
+];
+
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
 pub struct LocalTerrainMixture {
     pub plains: u16,
@@ -153,12 +312,31 @@ pub struct ForageEnvironment {
     pub license_violation: bool,
 }
 
-pub fn validate_duration(minutes: u64) -> Result<(), ForageError> {
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ForageYield {
+    pub item_id: &'static str,
+    pub quantity: u16,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ForageResolution {
+    pub yields: Vec<ForageYield>,
+    pub stealth_dc_millirank: Option<u16>,
+    pub stealth_succeeded: Option<bool>,
+}
+
+pub fn validate_duration(minutes: u64) -> Result<(), &'static str> {
     if (MIN_FORAGE_MINUTES..=MAX_FORAGE_MINUTES).contains(&minutes) && minutes.is_multiple_of(60) {
         Ok(())
     } else {
-        Err(ForageError::Duration)
+        Err("Foraging duration must use whole hours from one to 24 hours")
     }
+}
+
+pub fn resource(item_id: &str) -> Option<&'static ForageResource> {
+    FORAGE_RESOURCES
+        .iter()
+        .find(|entry| entry.item_id == item_id)
 }
 
 pub fn source_available(source: ForageSource, environment: ForageEnvironment) -> bool {
@@ -221,29 +399,29 @@ pub fn resolve(
     minutes: u64,
     terrain_check_millirank: u16,
     stealth_check_millirank: u16,
-) -> Result<ForageResolution, ForageError> {
+) -> Result<ForageResolution, &'static str> {
     validate_duration(minutes)?;
     if !environment.terrain.is_normalized() {
-        return Err(ForageError::TerrainMixture);
+        return Err("Foraging terrain mixture is not normalized");
     }
     if source_ids.is_empty() || source_ids.len() > MAX_SOURCES {
-        return Err(ForageError::SourceCount);
+        return Err("Choose between one and five forage sources");
     }
     let mut unique = std::collections::BTreeSet::new();
     for id in source_ids {
         if !unique.insert(id.as_str()) {
-            return Err(ForageError::DuplicateSource);
+            return Err("Forage sources must be unique");
         }
     }
     let mut sources = Vec::with_capacity(unique.len());
     for id in unique {
-        let source = ForageSource::from_id(id).ok_or(ForageError::UnknownSource)?;
+        let source = ForageSource::from_id(id).ok_or("Unknown forage source")?;
         let resources = FORAGE_RESOURCES
             .iter()
             .filter(|resource| resource.source == source && available(resource, environment))
             .collect::<Vec<_>>();
         if resources.is_empty() {
-            return Err(ForageError::UnavailableSource);
+            return Err("A forage source is unavailable in this vicinity");
         }
         sources.push((source, resources));
     }
@@ -253,9 +431,8 @@ pub fn resolve(
     for (source, resources) in sources {
         let resource_count = resources.len() as u64;
         for target in resources {
-            let item_id = target.item_id.into();
             let habitat = u64::from(habitat_share_permille(target, environment));
-            let food_rate = if crate::food::definition(&item_id).is_some() {
+            let food_rate = if crate::food::definition(target.item_id).is_some() {
                 FOOD_DISCOVERY_RATE_PERMILLE
             } else {
                 1_000
@@ -289,14 +466,18 @@ pub fn resolve(
                 .saturating_mul(yield_bonus_permille)
                 / 1_000;
             yields.push(ForageYield {
-                item_id,
-                quantity: ForageYieldQuantity::from_computed(quantity)
-                    .expect("a discovered resource has a positive yield"),
+                item_id: target.item_id,
+                quantity: u16::try_from(quantity).unwrap_or(u16::MAX),
             });
         }
     }
-    let exposure = resolve_stealth(seed, environment, minutes, stealth_check_millirank);
-    Ok(ForageResolution { yields, exposure })
+    let (dc, stealth_succeeded) =
+        resolve_stealth(seed, environment, minutes, stealth_check_millirank);
+    Ok(ForageResolution {
+        yields,
+        stealth_dc_millirank: dc,
+        stealth_succeeded,
+    })
 }
 
 /// Resolve the single completion/exposure check independently from yield.
@@ -307,15 +488,13 @@ pub fn resolve_stealth(
     environment: ForageEnvironment,
     elapsed_minutes: u64,
     stealth_check_millirank: u16,
-) -> ForageExposure {
+) -> (Option<u16>, Option<bool>) {
     let dc = stealth_dc_millirank(environment, elapsed_minutes);
-    match dc {
-        Some(dc) => {
-            let roll = ForageDraw::Stealth.below(seed, "", "", 1_001) as u16;
-            ForageExposure::checked(dc, stealth_check_millirank.saturating_add(roll) >= dc)
-        }
-        None => ForageExposure::UNCHECKED,
-    }
+    let succeeded = dc.map(|dc| {
+        let roll = ForageDraw::Stealth.below(seed, "", "", 1_001) as u16;
+        stealth_check_millirank.saturating_add(roll) >= dc
+    });
+    (dc, succeeded)
 }
 
 /// Conserve actual elapsed search time over concrete Terrain leaf skills.
@@ -364,6 +543,12 @@ pub enum ForagePlanInterruption {
     CharacterBoundary,
 }
 impl DomainInterruption for ForagePlanInterruption {}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ForageLegality {
+    Legal,
+    IllegalAttempt,
+}
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum ForagePlanEffect {
@@ -472,13 +657,13 @@ impl ForageLicenseDecision {
     pub fn try_new(
         question: &ForageRightsQuestion,
         decision: PrivateRightsDecision<()>,
-    ) -> Result<Self, ForageError> {
+    ) -> Result<Self, &'static str> {
         let RightsSubject::Character(actor) = question.subject() else {
-            return Err(ForageError::LicenseSubject);
+            return Err("foraging license subject must be a character");
         };
         let RightsResource::Domain(ForageRightsResource::Source(source)) = question.resource()
         else {
-            return Err(ForageError::LicenseResource);
+            return Err("foraging license resource must be a source");
         };
         if !matches!(
             question.operation(),
@@ -486,7 +671,7 @@ impl ForageLicenseDecision {
         ) || !matches!(question.jurisdiction(), RightsJurisdiction::Global)
             || decision.provenance().question_digest != forage_license_question_digest(question)
         {
-            return Err(ForageError::LicenseBinding);
+            return Err("foraging license decision does not bind its question");
         }
         Ok(Self {
             actor: *actor,
@@ -613,7 +798,7 @@ pub fn build_forage_plan(authority: ForagePlanAuthority) -> ForagePlanningOutcom
                 actor,
                 requested_minutes,
             })];
-            if time.elapsed_minutes.get() > 0
+            if time.elapsed_minutes > 0
                 && let Some(mut resolution) = resolution
             {
                 let permits_yield = time.permits_completion_effects();
@@ -747,8 +932,7 @@ mod tests {
     fn interrupted_illegal_elapsed_time_still_resolves_exposure() {
         let mut environment = legal();
         environment.cultivated = true;
-        let exposure = resolve_stealth(7, environment, 30, 0);
-        let (dc, noticed) = <(Option<u16>, Option<bool>)>::from(exposure);
+        let (dc, noticed) = resolve_stealth(7, environment, 30, 0);
         assert_eq!(dc, Some(CULTIVATED_STEALTH_DC_MILLIRANK));
         assert_eq!(noticed, Some(false));
     }
@@ -774,11 +958,11 @@ mod tests {
     #[test]
     fn habitat_share_scales_mixed_biome_resources() {
         assert_eq!(
-            habitat_share_permille(&ForageResource::try_from("hazelnuts").unwrap(), legal()),
+            habitat_share_permille(resource("hazelnuts").unwrap(), legal()),
             500
         );
         assert_eq!(
-            habitat_share_permille(&ForageResource::try_from("wild_berries").unwrap(), legal()),
+            habitat_share_permille(resource("wild_berries").unwrap(), legal()),
             1_000
         );
     }
@@ -794,21 +978,21 @@ mod tests {
             },
             ..Default::default()
         };
-        let mut novice = 0.0_f32;
-        let mut expert = 0.0_f32;
-        for (check, total) in [(0, &mut novice), (5_000, &mut expert)] {
-            for seed in 0..256_u64 {
-                let mut sample = 0.0_f32;
-                for row in resolve(seed, forest, &["plants".into()], 8 * 60, check, 0)
-                    .unwrap()
-                    .yields
-                {
-                    sample += f32::from(u16::from(row.quantity)) * 630.0;
-                }
-                *total += sample;
-            }
-            *total /= 256.0;
-        }
+        let calories = |check| {
+            (0..256_u64)
+                .map(|seed| {
+                    resolve(seed, forest, &["plants".into()], 8 * 60, check, 0)
+                        .unwrap()
+                        .yields
+                        .iter()
+                        .map(|row| f32::from(row.quantity) * 630.0)
+                        .sum::<f32>()
+                })
+                .sum::<f32>()
+                / 256.0
+        };
+        let novice = calories(0);
+        let expert = calories(5_000);
         assert!(novice > 0.0);
         assert!(expert > novice);
     }
@@ -820,19 +1004,13 @@ mod tests {
             ["high_game", "low_game", "fish", "harmful_beasts", "plants"]
         );
         assert_eq!(
-            ForageResource::try_from("raw_venison").unwrap().source,
+            resource("raw_venison").unwrap().source,
             ForageSource::HighGame
         );
+        assert_eq!(resource("raw_fowl").unwrap().source, ForageSource::LowGame);
+        assert_eq!(resource("raw_fish").unwrap().source, ForageSource::Fish);
         assert_eq!(
-            ForageResource::try_from("raw_fowl").unwrap().source,
-            ForageSource::LowGame
-        );
-        assert_eq!(
-            ForageResource::try_from("raw_fish").unwrap().source,
-            ForageSource::Fish
-        );
-        assert_eq!(
-            ForageResource::try_from("raw_beast_meat").unwrap().source,
+            resource("raw_beast_meat").unwrap().source,
             ForageSource::HarmfulBeasts
         );
         assert!(
@@ -928,10 +1106,11 @@ mod tests {
         };
         let result = ForageResolution {
             yields: vec![ForageYield {
-                item_id: "sage".into(),
-                quantity: ForageYieldQuantity::try_from(2).unwrap(),
+                item_id: "sage",
+                quantity: 2,
             }],
-            exposure: ForageExposure::checked(1_750, false),
+            stealth_dc_millirank: Some(1_750),
+            stealth_succeeded: Some(false),
         };
 
         let PlanningOutcome::Ready(zero) = build(Some(StrategicMinute::new(100)), None) else {
@@ -949,7 +1128,7 @@ mod tests {
             ActionEffect::Domain(ForagePlanEffect::CommitResolution {
                 resolution,
                 permits_yield: false,
-            }) if resolution.yields.is_empty() && resolution.exposure.outcome() == ForageStealthOutcome::Detected
+            }) if resolution.yields.is_empty() && resolution.stealth_succeeded == Some(false)
         )));
 
         let PlanningOutcome::Ready(complete) = build(None, Some(result)) else {
@@ -1000,46 +1179,49 @@ mod tests {
 
         let actor = CustodyCharacterId::try_new(9).unwrap();
         let place = StrategicPlaceId::settlement("lubeck").unwrap();
-        let authority = || -> ForagePlanAuthority {
-            ForagePlanAuthority {
-                coordinates: ActionCoordinates::try_new(
-                    actor,
-                    ActionTarget::Place(place.clone()),
-                    place.clone(),
-                    None,
-                    Vec::new(),
-                )
-                .unwrap(),
-                provenance: PlanProvenance {
-                    request_id: ActionRequestId::try_new("rights-test").unwrap(),
-                    action_id: ActionDefinitionId::try_new("forage:current-vicinity").unwrap(),
-                    input_digest: SnapshotDigest([3; 32]),
-                    authority_binding: AuthorityBinding([3; 32]),
-                },
-                snapshot: AuthoritativeSnapshot {
-                    revision: SnapshotRevision(1),
-                    digest: SnapshotDigest([3; 32]),
-                },
-                current_minute: StrategicMinute::ZERO,
-                duration: RequestedDuration::try_new(60).unwrap(),
-                terminal_minute: None,
-                exact_presence: true,
-                encounter_clear: true,
-                environment_current: true,
-                capability_current: true,
-                sources_available: true,
-                license_decisions: Vec::new(),
-                local_restriction: false,
-                legality: ForageLegality::Legal,
-                source_ids: vec!["plants".into()],
-                resolution: Some(ForageResolution {
-                    yields: Vec::new(),
-                    exposure: ForageExposure::UNCHECKED,
-                }),
-            }
+        let authority = |source_ids, license_decisions, legality| ForagePlanAuthority {
+            coordinates: ActionCoordinates::try_new(
+                actor,
+                ActionTarget::Place(place.clone()),
+                place.clone(),
+                None,
+                Vec::new(),
+            )
+            .unwrap(),
+            provenance: PlanProvenance {
+                request_id: ActionRequestId::try_new("rights-test").unwrap(),
+                action_id: ActionDefinitionId::try_new("forage:current-vicinity").unwrap(),
+                input_digest: SnapshotDigest([3; 32]),
+                authority_binding: AuthorityBinding([3; 32]),
+            },
+            snapshot: AuthoritativeSnapshot {
+                revision: SnapshotRevision(1),
+                digest: SnapshotDigest([3; 32]),
+            },
+            current_minute: StrategicMinute::ZERO,
+            duration: RequestedDuration::try_new(60).unwrap(),
+            terminal_minute: None,
+            exact_presence: true,
+            encounter_clear: true,
+            environment_current: true,
+            capability_current: true,
+            sources_available: true,
+            license_decisions,
+            local_restriction: false,
+            legality,
+            source_ids,
+            resolution: Some(ForageResolution {
+                yields: Vec::new(),
+                stealth_dc_millirank: None,
+                stealth_succeeded: None,
+            }),
         };
         assert!(matches!(
-            build_forage_plan(authority()),
+            build_forage_plan(authority(
+                vec!["plants".into()],
+                Vec::new(),
+                ForageLegality::Legal,
+            )),
             PlanningOutcome::Rejected(_)
         ));
 
@@ -1047,17 +1229,16 @@ mod tests {
         let fish_decision = decide_forage_license(&fish, true, 0);
         let plants = forage_license_question(actor, ForageSource::Plants).unwrap();
         assert!(ForageLicenseDecision::try_new(&plants, fish_decision.clone()).is_err());
-        let mut mismatched = authority();
-        mismatched.license_decisions =
-            vec![ForageLicenseDecision::try_new(&fish, fish_decision).unwrap()];
         assert!(matches!(
-            build_forage_plan(mismatched),
+            build_forage_plan(authority(
+                vec!["plants".into()],
+                vec![ForageLicenseDecision::try_new(&fish, fish_decision).unwrap()],
+                ForageLegality::Legal,
+            )),
             PlanningOutcome::Rejected(_)
         ));
-        let mut empty = authority();
-        empty.source_ids.clear();
         assert!(matches!(
-            build_forage_plan(empty),
+            build_forage_plan(authority(Vec::new(), Vec::new(), ForageLegality::Legal)),
             PlanningOutcome::Rejected(_)
         ));
     }

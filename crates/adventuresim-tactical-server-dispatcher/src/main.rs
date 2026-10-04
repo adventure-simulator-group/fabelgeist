@@ -314,12 +314,7 @@ struct TacticalLaunchArguments {
 
 fn launch_arguments(request: &TacticalServerRequest) -> Option<TacticalLaunchArguments> {
     match adventuresim_core::mission::TacticalPartyRoster::try_from(
-        request
-            .authorized_party_member_ids
-            .iter()
-            .copied()
-            .map(adventuresim_core::identity::CharacterId::from)
-            .collect::<Vec<_>>(),
+        request.authorized_party_member_ids.clone(),
     ) {
         Ok(roster) => Some(TacticalLaunchArguments {
             expected_party_members: roster.expected_members().to_string(),

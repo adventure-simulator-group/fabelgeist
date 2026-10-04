@@ -9,10 +9,9 @@
 //! Every intermediate is fenced (see [`fabelgeist_compute::host_float`]).
 
 use super::wgsl;
-use fabelgeist_gpu::prelude::ShaderSource;
 
-pub(super) fn ornament_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub(super) fn ornament_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read_write> recess: array<f32>;
 
@@ -84,7 +83,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         math = wgsl::math(),
         shapes = SHAPES,
-    ))
+    )
 }
 
 /// The motif codes, the strokes and fills they are drawn with, and each

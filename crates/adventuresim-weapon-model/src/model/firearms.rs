@@ -1,6 +1,5 @@
 //! Stock, barrel and furniture construction for matchlock and wheellock arms.
 use super::*;
-use crate::ConstructionError;
 mod furniture;
 mod mechanisms;
 
@@ -93,7 +92,7 @@ impl Assembly<'_> {
         offset: Point,
         material: Material,
         label: &str,
-    ) -> Result<&mut PartSource, ConstructionError> {
+    ) -> Result<&mut PartSource, String> {
         Ok(self.add(
             Solid::cuboid(size, self.detail)?.transform([0.0; 3], offset),
             material,
@@ -108,7 +107,7 @@ impl Assembly<'_> {
         depth: f64,
         material: Material,
         label: &str,
-    ) -> Result<&mut PartSource, ConstructionError> {
+    ) -> Result<&mut PartSource, String> {
         Ok(self.add(
             Solid::sweep(
                 points,
@@ -130,7 +129,7 @@ pub(super) fn firearm(
     r: &ResolvedComponent,
     p: &FirearmParameters,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let stations = stations(p);
     let start = p.length.get() - p.barrel_length.get();
     let outer = p.bore.get() / 2.0 + p.barrel_wall.get();

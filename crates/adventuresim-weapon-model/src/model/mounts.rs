@@ -1,6 +1,5 @@
 //! Receiving-shaft constraints for the explicit shaft mount constructions.
 use super::*;
-use crate::ConstructionError;
 
 pub(super) fn socket_fit(
     component: &Component,
@@ -8,7 +7,7 @@ pub(super) fn socket_fit(
     parents: &[ResolvedComponent],
     offset: Point,
     rotation: Point,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let Shape::Spear(p) = &component.shape else {
         return Ok(());
     };
@@ -42,7 +41,7 @@ pub(super) fn socket_fit(
         || offset[2].abs() > 1e-8
         || magnitude(sub(axis, [0.0, 1.0, 0.0])) > 1e-8
     {
-        return Err(ConstructionError::ReceivingSocketAlignWithShaft);
+        return Err("receiving socket must align with its shaft".into());
     }
     let rim = offset[1] - socket.length.get();
     if shaft
@@ -51,11 +50,11 @@ pub(super) fn socket_fit(
         .flatten()
         .any(|w| w.start.get() + w.length.get() > rim)
     {
-        return Err(ConstructionError::ReceivingSocketSeatOverUnwrappedShaftTenon);
+        return Err("receiving socket must seat over an unwrapped shaft tenon".into());
     }
     let penetration = shaft.length.get() - rim;
     if (penetration - socket.insertion_depth.get()).abs() > 1e-8 || rim < 0.0 {
-        return Err(ConstructionError::SocketPlacementDoesNotMatchDeclaredShaftInsertion);
+        return Err("socket placement does not match its declared shaft insertion".into());
     }
     // Both profiles are piecewise linear: endpoints and every shaft breakpoint
     // prove clearance throughout the full inserted length, not only at the tip.
@@ -73,22 +72,22 @@ pub(super) fn socket_fit(
     let apothem = (std::f64::consts::PI / radial as f64).cos();
     for height in heights {
         if shaft.radius_at(height) > socket.bore_radius(height - rim) * apothem + 1e-9 {
-            return Err(ConstructionError::SocketShaftClearance);
+            return Err("socket bore cannot clear the complete receiving shaft".into());
         }
     }
     Ok(())
 }
 
-pub(super) fn check(component: &Component, shaft: &Shaft) -> Result<(), ConstructionError> {
+pub(super) fn check(component: &Component, shaft: &Shaft) -> Result<(), String> {
     let offset = component.offset.map_or([0.0; 3], |p| p.map(Metres::get));
     let concentric = is_axial(&component.shape);
     if concentric && (offset[0].abs() > 1e-8 || offset[2].abs() > 1e-8) {
-        return Err(ConstructionError::ShaftMountedAxialConstructionSeatConcentrically);
+        return Err("shaft-mounted axial construction must seat concentrically".into());
     }
     let radius = shaft.radius.get() * shaft.top_scale.map_or(0.92, Ratio::get);
     match &component.shape {
         Shape::Socket(p) if p.facets.is_some() => {
-            return Err(ConstructionError::FacetedSocketRequiresExplicitSharedSectionAttachment);
+            return Err("faceted socket requires explicit shared-section attachment".into());
         }
         Shape::Socket(p) if p.fit_shaft == Some(false) => {
             let wall = p.wall.map_or(0.003, Metres::get);
@@ -96,7 +95,7 @@ pub(super) fn check(component: &Component, shaft: &Shaft) -> Result<(), Construc
                 .iter()
                 .any(|station| station[1].get() - wall < radius - 1e-8)
             {
-                return Err(ConstructionError::SocketBoreCannotFitShaft);
+                return Err("socket bore cannot fit shaft".into());
             }
         }
         Shape::Sleeve(p) if p.fit_shaft == Some(false) => {
@@ -106,7 +105,7 @@ pub(super) fn check(component: &Component, shaft: &Shaft) -> Result<(), Construc
                 .min(p.top_radius.map_or(p.radius.get(), Metres::get))
                 - p.wall.map_or(0.003, Metres::get);
             if inner < radius - 1e-8 {
-                return Err(ConstructionError::SleeveBoreCannotFitShaft);
+                return Err("sleeve bore cannot fit shaft".into());
             }
         }
         _ => {}
@@ -135,7 +134,7 @@ pub(super) fn attachment_contact(
     child: &ResolvedComponent,
     parents: &[ResolvedComponent],
     shaft: Option<&Shaft>,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let Some(attachment) = &child.component.attach else {
         return Ok(());
     };
@@ -195,9 +194,10 @@ pub(super) fn attachment_contact(
         if anchor[1] < parent_bounds.0[1] - seating_radius - 1e-8
             || anchor[1] > parent_bounds.1[1] + seating_radius + 1e-8
         {
-            return Err(ConstructionError::ContactOutsideParent {
-                parent: attachment.to.clone(),
-            });
+            return Err(format!(
+                "declared contact lies outside parent axial geometry {}",
+                attachment.to
+            ));
         }
     }
     let separated = |axis| {
@@ -210,16 +210,16 @@ pub(super) fn attachment_contact(
         return Ok(());
     }
     if separated(1) {
-        return Err(ConstructionError::AttachmentOutsideParent {
-            component: child.id.clone(),
-            parent: attachment.to.clone(),
-        });
+        return Err(format!(
+            "{} attachment lies outside parent axial geometry {}",
+            child.id, attachment.to
+        ));
     }
     if separated(0) || separated(2) {
-        return Err(ConstructionError::AttachmentOutsideFootprint {
-            component: child.id.clone(),
-            parent: attachment.to.clone(),
-        });
+        return Err(format!(
+            "{} attachment lies outside parent footprint {}",
+            child.id, attachment.to
+        ));
     }
     Ok(())
 }
@@ -232,7 +232,7 @@ fn connected_through_assembly(
     parent: &ResolvedComponent,
     components: &[ResolvedComponent],
     shaft: Option<&ResolvedComponent>,
-) -> Result<bool, ConstructionError> {
+) -> Result<bool, String> {
     let all = components.iter().chain(shaft).collect::<Vec<_>>();
     let mut envelopes = Vec::new();
     for component in &all {

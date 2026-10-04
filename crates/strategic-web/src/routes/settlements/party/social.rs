@@ -53,13 +53,14 @@ pub(super) async fn party_social(
     let selected = if target_id == active.id {
         active.clone()
     } else {
-        let Some(value) = crate::routes::data::character_as_observed(&state, target_id.into(), active.id.into())
+        match crate::routes::data::character_as_observed(&state, target_id, active.id)
             .await
-            .unwrap_or(None)
-        else {
-            return Html("<h1>Party member not found</h1>".into());
-        };
-        value
+            .ok()
+            .flatten()
+        {
+            Some(value) => value,
+            None => return Html("<h1>Party member not found</h1>".into()),
+        }
     };
     let same_party = target_id == active.id
         || (active.party_id.is_some() && active.party_id == selected.party_id);
@@ -94,7 +95,7 @@ pub(super) async fn party_social(
     shared_concerns.dedup();
     let target_condition_result = state
         .db
-        .query_one_sats::<CharacterCondition>(db::character_condition_by_character_id(target_id.into()))
+        .query_one_sats::<CharacterCondition>(&db::character_condition_by_character_id(target_id))
         .await;
     let religion_id = target_condition_result
         .as_ref()
@@ -109,24 +110,23 @@ pub(super) async fn party_social(
         .as_ref()
         .map_or(0.0, |value| value.infamy as f32 / 100.0);
     let target_minute =
-        query_single::<CharacterTime>(&state, db::character_time_by_character_id(target_id.into()))
+        query_single::<CharacterTime>(&state, db::character_time_by_character_id(target_id))
             .await
-            .map_or(StrategicMinute::ZERO, |v| calendar_minute(&v.minutes));
+            .map_or(StrategicMinute::ZERO, |v| StrategicMinute::new(v.minutes.minutes));
     let affinity_id = format!("{target_id}:{}", active.id);
     let affinity_result = state
         .db
-        .query_one_sats::<CharacterAffinity>(db::character_affinity_by_id(&affinity_id))
+        .query_one_sats::<CharacterAffinity>(&db::character_affinity_by_id(&affinity_id))
         .await;
     let affinity_available = affinity_result.is_ok();
     let affinity = affinity_result.ok().flatten().map_or(0.0, |v| {
-        let elapsed_minutes = target_minute.elapsed_since(calendar_minute(&v.anchor_minute));
-        settle_affinity(v.anchor, elapsed_minutes)
+        settle_affinity(v.anchor, target_minute.elapsed_since(StrategicMinute::new(v.anchor_minute.minutes)))
     });
     let (low, high) = (active.id.min(target_id), active.id.max(target_id));
     let familiarity_id = format!("{low}:{high}");
     let familiarity_result = state
         .db
-        .query_one_sats::<CharacterFamiliarity>(db::character_familiarity_by_id(&familiarity_id))
+        .query_one_sats::<CharacterFamiliarity>(&db::character_familiarity_by_id(&familiarity_id))
         .await;
     let familiarity_available = familiarity_result.is_ok();
     let shared_minutes = familiarity_result
@@ -135,10 +135,10 @@ pub(super) async fn party_social(
         .map_or(0, |v| v.shared_minutes);
     let beliefs_result = state
         .db
-        .query_sats::<SocialBelief>(SqlQuery::from(format!(
+        .query_sats::<SocialBelief>(&format!(
             "SELECT * FROM backend_social_beliefs WHERE observer_id = {}",
             active.id
-        )))
+        ))
         .await;
     let beliefs_available = beliefs_result.is_ok();
     let beliefs = match beliefs_result {
@@ -153,10 +153,10 @@ pub(super) async fn party_social(
     };
     let addressed_source_ids = state
         .db
-        .query_sats::<SocialAddress>(SqlQuery::from(format!(
+        .query_sats::<SocialAddress>(&format!(
             "SELECT * FROM backend_social_addresses WHERE actor_id = {}",
             active.id
-        )))
+        ))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -168,7 +168,7 @@ pub(super) async fn party_social(
     } else {
         state
             .db
-            .query_one_sats::<AutomaticSocialChat>(db::automatic_social_chat_by_id(&format!(
+            .query_one_sats::<AutomaticSocialChat>(&db::automatic_social_chat_by_id(&format!(
                 "{}:{target_id}",
                 active.id
             )))
@@ -180,7 +180,7 @@ pub(super) async fn party_social(
     let relationship_answer = state
         .db
         .query_one_sats::<BackendCharacterRelationshipStatus>(
-            db::character_relationship_status_by_character_id(target_id.into()),
+            &db::character_relationship_status_by_character_id(target_id),
         )
         .await
         .ok()
@@ -190,7 +190,7 @@ pub(super) async fn party_social(
     let actor_personality_result = state
         .db
         .query_sats::<adventuresim_stdb_client::CharacterPersonality>(
-            db::character_personality_by_character_id(active.id.into()),
+            &db::character_personality_by_character_id(active.id),
         )
         .await;
     let actor_personality_available = actor_personality_result.is_ok();
@@ -210,7 +210,7 @@ pub(super) async fn party_social(
     };
     let actor_skills_result = state
         .db
-        .query_one_sats::<CharacterSkills>(db::character_skills_by_character_id(active.id.into()))
+        .query_one_sats::<CharacterSkills>(&db::character_skills_by_character_id(active.id))
         .await;
     let prayer_disabled_reason = if target_id == active.id {
         None
@@ -398,7 +398,7 @@ pub(super) async fn perform_social_action(
             let address_id = format!("{actor_id}:{target_id}:{}", form.source_id);
             match state
                 .db
-                .query_one_sats::<SocialAddress>(db::social_address_by_id(&address_id))
+                .query_one_sats::<SocialAddress>(&db::social_address_by_id(&address_id))
                 .await
             {
                 Ok(Some(_)) => "addressed",
@@ -456,10 +456,10 @@ pub(super) async fn chat_with_party_member(
     let feedback = match result {
         Ok(()) => state
             .db
-            .query_one_sats::<db::BackendSocialChatReceipt>(SqlQuery::from(format!(
+            .query_one_sats::<db::BackendSocialChatReceipt>(&format!(
                 "SELECT * FROM backend_social_chat_receipts WHERE id = {} AND actor_id = {actor_id}",
                 sql_string_literal(&format!("{actor_id}:{}", form.action_id.as_str()))
-            )))
+            ))
             .await
             .ok()
             .flatten()

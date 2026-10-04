@@ -5,34 +5,24 @@ impl WeaponInstance {
     pub(super) fn from_design(
         physical_object_id: u64,
         design: &WeaponDesign,
-    ) -> Result<Self, WeaponProjectionError> {
-        let evaluated =
-            EvaluatedWeapon::new(design.clone()).map_err(WeaponProjectionError::Evaluation)?;
+    ) -> Result<Self, String> {
+        let evaluated = EvaluatedWeapon::new(design.clone()).map_err(|error| error.to_string())?;
         Self::from_evaluation(physical_object_id, &evaluated)
     }
     fn from_evaluation(
         physical_object_id: u64,
         evaluated: &EvaluatedWeapon,
-    ) -> Result<Self, WeaponProjectionError> {
+    ) -> Result<Self, String> {
         let design = evaluated.design();
         let derived = evaluated.derived();
-        let recipe = evaluated
-            .encode()
-            .map_err(WeaponProjectionError::Encoding)?;
+        let recipe = evaluated.encode().map_err(|error| error.to_string())?;
         if recipe.len() > MAX_WEAPON_RECIPE_BYTES {
-            return Err(WeaponProjectionError::RecipeTooLarge(
-                WeaponRecipeKind::Weapon,
-            ));
+            return Err("Weapon recipe exceeds the tactical transport limit".into());
         }
-        let mass_grams =
-            checked_scaled_u32(derived.mass_kg, 1_000.0, WeaponProjectionField::Mass)?.max(1);
-        let length_mm =
-            checked_scaled_u32(derived.length_m, 1_000.0, WeaponProjectionField::Length)?.max(1);
-        let grip_to_tip_mm = checked_scaled_u32(
-            derived.grip_to_tip_m,
-            1_000.0,
-            WeaponProjectionField::GripToTip,
-        )?;
+        let mass_grams = checked_scaled_u32(derived.mass_kg, 1_000.0, "mass")?.max(1);
+        let length_mm = checked_scaled_u32(derived.length_m, 1_000.0, "length")?.max(1);
+        let grip_to_tip_mm =
+            checked_scaled_u32(derived.grip_to_tip_m, 1_000.0, "grip-to-tip distance")?;
         Ok(WeaponInstance {
             physical_object_id,
             generator_version: GENERATOR_VERSION,
@@ -48,23 +38,18 @@ impl WeaponHolderInstance {
     pub(super) fn from_design(
         physical_object_id: u64,
         design: &WeaponHolderDesign,
-    ) -> Result<Self, WeaponProjectionError> {
-        let evaluated =
-            EvaluatedHolder::new(design.clone()).map_err(WeaponProjectionError::Evaluation)?;
+    ) -> Result<Self, String> {
+        let evaluated = EvaluatedHolder::new(design.clone()).map_err(|error| error.to_string())?;
         Self::from_evaluation(physical_object_id, &evaluated)
     }
     fn from_evaluation(
         physical_object_id: u64,
         evaluated: &EvaluatedHolder,
-    ) -> Result<Self, WeaponProjectionError> {
+    ) -> Result<Self, String> {
         let design = evaluated.design();
-        let recipe = evaluated
-            .encode()
-            .map_err(WeaponProjectionError::Encoding)?;
+        let recipe = evaluated.encode().map_err(|error| error.to_string())?;
         if recipe.len() > MAX_WEAPON_RECIPE_BYTES {
-            return Err(WeaponProjectionError::RecipeTooLarge(
-                WeaponRecipeKind::Holder,
-            ));
+            return Err("Weapon holder recipe exceeds the tactical transport limit".into());
         }
         let derived = evaluated.derived();
         Ok(WeaponHolderInstance {
@@ -72,22 +57,12 @@ impl WeaponHolderInstance {
             generator_version: HOLDER_GENERATOR_VERSION,
             design_hash: holder_design_hash(design).0.to_vec(),
             recipe,
-            mass_grams: checked_scaled_u32(
-                derived.mass_kg,
-                1_000.0,
-                WeaponProjectionField::HolderMass,
-            )?
-            .max(1),
-            length_mm: checked_scaled_u32(
-                derived.length_m,
-                1_000.0,
-                WeaponProjectionField::HolderLength,
-            )?
-            .max(1),
+            mass_grams: checked_scaled_u32(derived.mass_kg, 1_000.0, "holder mass")?.max(1),
+            length_mm: checked_scaled_u32(derived.length_m, 1_000.0, "holder length")?.max(1),
             grip_to_tip_mm: checked_scaled_u32(
                 derived.grip_to_tip_m,
                 1_000.0,
-                WeaponProjectionField::HolderGripToTip,
+                "holder anchor-to-tip distance",
             )?,
         })
     }
@@ -95,140 +70,49 @@ impl WeaponHolderInstance {
 
 pub(super) fn evaluate_instance(
     instance: &WeaponInstance,
-    expected_catalog_id: &adventuresim_core::item_catalog::ItemDefinitionId,
-) -> Result<EvaluatedWeapon, WeaponAuthenticationError> {
-    if instance.generator_version != GENERATOR_VERSION {
-        return Err(WeaponAuthenticationError::GeneratorVersion(
-            WeaponRecipeKind::Weapon,
-        ));
+    expected_catalog_id: &str,
+) -> Option<EvaluatedWeapon> {
+    if instance.generator_version != GENERATOR_VERSION
+        || instance.design_hash.len() != 32
+        || instance.recipe.len() > MAX_WEAPON_RECIPE_BYTES
+    {
+        return None;
     }
-    if instance.design_hash.len() != 32 {
-        return Err(WeaponAuthenticationError::DigestLength(
-            WeaponRecipeKind::Weapon,
-        ));
+    let evaluated = EvaluatedWeapon::decode(&instance.recipe).ok()?;
+    if evaluated.design().catalog_id != expected_catalog_id {
+        return None;
     }
-    if instance.recipe.len() > MAX_WEAPON_RECIPE_BYTES {
-        return Err(WeaponAuthenticationError::RecipeTooLarge(
-            WeaponRecipeKind::Weapon,
-        ));
-    }
-    let evaluated =
-        EvaluatedWeapon::decode(&instance.recipe).map_err(WeaponAuthenticationError::Decode)?;
-    if evaluated.design().catalog_id != expected_catalog_id.as_str() {
-        return Err(WeaponAuthenticationError::Chassis {
-            expected: expected_catalog_id.clone(),
-            actual: (&evaluated.design().catalog_id).into(),
-        });
-    }
-    if WeaponInstance::from_evaluation(instance.physical_object_id, &evaluated)? != *instance {
-        return Err(WeaponAuthenticationError::ProjectionMismatch(
-            WeaponRecipeKind::Weapon,
-        ));
-    }
-    Ok(evaluated)
+    (WeaponInstance::from_evaluation(instance.physical_object_id, &evaluated).ok()? == *instance)
+        .then_some(evaluated)
 }
 pub(super) fn evaluate_holder_instance(
     instance: &WeaponHolderInstance,
-    expected_catalog_id: &adventuresim_core::item_catalog::ItemDefinitionId,
-) -> Result<EvaluatedHolder, WeaponAuthenticationError> {
-    if instance.generator_version != HOLDER_GENERATOR_VERSION {
-        return Err(WeaponAuthenticationError::GeneratorVersion(
-            WeaponRecipeKind::Holder,
-        ));
-    }
-    if instance.design_hash.len() != 32 {
-        return Err(WeaponAuthenticationError::DigestLength(
-            WeaponRecipeKind::Holder,
-        ));
-    }
-    if instance.recipe.len() > MAX_WEAPON_RECIPE_BYTES {
-        return Err(WeaponAuthenticationError::RecipeTooLarge(
-            WeaponRecipeKind::Holder,
-        ));
-    }
-    let evaluated =
-        EvaluatedHolder::decode(&instance.recipe).map_err(WeaponAuthenticationError::Decode)?;
-    if evaluated.design().catalog_id != expected_catalog_id.as_str() {
-        return Err(WeaponAuthenticationError::Chassis {
-            expected: expected_catalog_id.clone(),
-            actual: (&evaluated.design().catalog_id).into(),
-        });
-    }
-    if WeaponHolderInstance::from_evaluation(instance.physical_object_id, &evaluated)? != *instance
+    expected_catalog_id: &str,
+) -> Option<EvaluatedHolder> {
+    if instance.generator_version != HOLDER_GENERATOR_VERSION
+        || instance.design_hash.len() != 32
+        || instance.recipe.len() > MAX_WEAPON_RECIPE_BYTES
     {
-        return Err(WeaponAuthenticationError::ProjectionMismatch(
-            WeaponRecipeKind::Holder,
-        ));
+        return None;
     }
-    Ok(evaluated)
+    let evaluated = EvaluatedHolder::decode(&instance.recipe).ok()?;
+    if evaluated.design().catalog_id != expected_catalog_id {
+        return None;
+    }
+    (WeaponHolderInstance::from_evaluation(instance.physical_object_id, &evaluated).ok()?
+        == *instance)
+        .then_some(evaluated)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn authentication_preserves_decode_causes_and_distinguishes_projection_forgery() {
-        use std::error::Error;
-        let key = "longsword".into();
-        let design = default_design("longsword").unwrap();
-        let mut malformed = WeaponInstance::from_design(42, &design).unwrap();
-        malformed.recipe.clear();
-        let error = evaluate_instance(&malformed, &key)
-            .err()
-            .expect("malformed recipe must fail");
-        assert!(matches!(
-            &error,
-            WeaponAuthenticationError::Decode(adventuresim_weapon_model::CodecError::Json(_))
-        ));
-        assert!(
-            error
-                .source()
-                .unwrap()
-                .is::<adventuresim_weapon_model::CodecError>()
-        );
-
-        let mut forged = WeaponInstance::from_design(42, &design).unwrap();
-        forged.mass_grams += 1;
-        assert!(matches!(
-            evaluate_instance(&forged, &key),
-            Err(WeaponAuthenticationError::ProjectionMismatch(
-                WeaponRecipeKind::Weapon
-            ))
-        ));
-    }
-
-    #[test]
-    fn authentication_checks_envelope_before_recipe_and_retains_chassis_identity() {
-        let design = default_holder_design(&default_design("longsword").unwrap()).unwrap();
-        let mut instance = WeaponHolderInstance::from_design(42, &design).unwrap();
-        let wrong_key = "weapon_loop".into();
-        assert!(matches!(evaluate_holder_instance(&instance, &wrong_key),
-            Err(WeaponAuthenticationError::Chassis { expected, actual })
-            if expected == wrong_key && actual.as_str() == "scabbard"));
-        instance.recipe.clear();
-        instance.design_hash.clear();
-        instance.generator_version += 1;
-        assert!(matches!(
-            evaluate_holder_instance(&instance, &wrong_key),
-            Err(WeaponAuthenticationError::GeneratorVersion(
-                WeaponRecipeKind::Holder
-            ))
-        ));
-        instance.generator_version = HOLDER_GENERATOR_VERSION;
-        assert!(matches!(
-            evaluate_holder_instance(&instance, &wrong_key),
-            Err(WeaponAuthenticationError::DigestLength(
-                WeaponRecipeKind::Holder
-            ))
-        ));
-    }
     #[test]
     fn weapon_evaluation_authenticates_every_persisted_projection() {
         let design = default_design("longsword").unwrap();
         let valid = WeaponInstance::from_design(42, &design).unwrap();
-        assert!(evaluate_instance(&valid, &"longsword".into()).is_ok());
-        assert!(evaluate_instance(&valid, &"utility_knife".into()).is_err());
+        assert!(evaluate_instance(&valid, "longsword").is_some());
+        assert!(evaluate_instance(&valid, "utility_knife").is_none());
         let mutations: [fn(&mut WeaponInstance); 7] = [
             |row| row.generator_version += 1,
             |row| row.design_hash[0] ^= 1,
@@ -241,15 +125,15 @@ mod tests {
         for mutation in mutations {
             let mut changed = valid.clone();
             mutation(&mut changed);
-            assert!(evaluate_instance(&changed, &"longsword".into()).is_err());
+            assert!(evaluate_instance(&changed, "longsword").is_none());
         }
     }
     #[test]
     fn holder_evaluation_authenticates_every_persisted_projection() {
         let design = default_holder_design(&default_design("longsword").unwrap()).unwrap();
         let valid = WeaponHolderInstance::from_design(42, &design).unwrap();
-        assert!(evaluate_holder_instance(&valid, &"scabbard".into()).is_ok());
-        assert!(evaluate_holder_instance(&valid, &"weapon_loop".into()).is_err());
+        assert!(evaluate_holder_instance(&valid, "scabbard").is_some());
+        assert!(evaluate_holder_instance(&valid, "weapon_loop").is_none());
         let mutations: [fn(&mut WeaponHolderInstance); 7] = [
             |row| row.generator_version += 1,
             |row| row.design_hash[0] ^= 1,
@@ -262,7 +146,7 @@ mod tests {
         for mutation in mutations {
             let mut changed = valid.clone();
             mutation(&mut changed);
-            assert!(evaluate_holder_instance(&changed, &"scabbard".into()).is_err());
+            assert!(evaluate_holder_instance(&changed, "scabbard").is_none());
         }
     }
 }

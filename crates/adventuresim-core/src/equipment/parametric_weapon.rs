@@ -58,7 +58,7 @@ impl ParametricWeaponCombatGeometry {
 
     /// Apply the existing edge-condition factor once to this instance's geometry.
     pub fn conditioned_precision(self, catalog_id: &str, effective_catalog_precision: f32) -> f32 {
-        let base = crate::item_catalog::weapon_precision(&(catalog_id).into())
+        let base = crate::item_catalog::weapon_precision(catalog_id)
             .filter(|value| *value > 0.0)
             .expect("generated weapon has positive catalog precision");
         self.precision * effective_catalog_precision / base

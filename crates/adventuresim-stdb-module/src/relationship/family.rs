@@ -91,32 +91,20 @@ pub fn set_seeded_character_birth_from_age(
     }
 }
 
-pub fn effective_age_years(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-    minute: StrategicMinute,
-) -> Option<u16> {
-    ctx.db.character().id().find(u64::from(character_id))?;
-    let birth = ctx
-        .db
-        .character_birth()
-        .character_id()
-        .find(u64::from(character_id))?;
+pub fn effective_age_years(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) -> Option<u16> {
+    ctx.db.character().id().find(character_id)?;
+    let birth = ctx.db.character_birth().character_id().find(character_id)?;
     Some(minute.age_years_since_signed_birth(birth.birth_minute))
 }
 
 /// Refresh the cached display age from the authoritative birth coordinate.
 /// Calling this at every lifecycle boundary naturally promotes dependents at
 /// their yearly boundary without granting newborn starter equipment.
-pub fn settle_character_age(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-    minute: StrategicMinute,
-) {
-    let Some(mut character) = ctx.db.character().id().find(u64::from(character_id)) else {
+pub fn settle_character_age(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) {
+    let Some(mut character) = ctx.db.character().id().find(character_id) else {
         return;
     };
-    let Some(age_years) = effective_age_years(ctx, (character_id).into(), minute) else {
+    let Some(age_years) = effective_age_years(ctx, character_id, minute) else {
         return;
     };
     if character.age_years != age_years {
@@ -192,13 +180,7 @@ pub fn ensure_seeded_family_households(
             });
         }
         for &(character_id, role) in &plan.members {
-            join_household(
-                ctx,
-                &plan.household_id,
-                character_id,
-                StrategicMinute::ZERO,
-                role,
-            );
+            join_household(ctx, &plan.household_id, character_id, StrategicMinute::ZERO, role);
         }
         let noble = plan.members.iter().any(|(character_id, _)| {
             crate::social_roles::character_has_profession(ctx, *character_id, "noble")
@@ -217,6 +199,34 @@ pub fn ensure_seeded_family_households(
         }
     }
     Ok(())
+}
+
+fn father_of_at(
+    ctx: &ReducerContext,
+    child_id: u64,
+    minute: StrategicMinute,
+) -> Result<Option<u64>, String> {
+    let father = ctx.db.character_kinship().iter().find_map(|edge| {
+        (edge.subject_id == child_id
+            && edge.kind == KinshipKind::Parent
+            && edge.established_minute <= minute)
+            .then(|| {
+                ctx.db
+                    .character_personality()
+                    .character_id()
+                    .find(edge.related_id)
+                    .filter(|personality| personality.sex == Sex::Male)
+                    .map(|_| edge.related_id)
+            })
+            .flatten()
+    });
+    let Some(father) = father else {
+        return Ok(None);
+    };
+    if canonical_now(ctx, father)? != minute {
+        return Err("The prospective bride's father has not reached the relationship date".into());
+    }
+    Ok(character_alive_at(ctx, father, minute).then_some(father))
 }
 
 fn relationship_conflicts_at(

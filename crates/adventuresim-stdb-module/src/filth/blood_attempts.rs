@@ -5,7 +5,7 @@
 )]
 pub fn blood_exposure_attempts_through(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     from: StrategicMinute,
     to: StrategicMinute,
     persist_checkpoint: bool,
@@ -16,11 +16,11 @@ pub fn blood_exposure_attempts_through(
     if to <= from {
         return Ok(Vec::new());
     }
-    let all_deposits = deposits(ctx, (character_id).into())?;
+    let all_deposits = deposits(ctx, character_id)?;
     if !exposure_windows::has_active_compatible_foreign_blood(&all_deposits, from, to) {
         return Ok(Vec::new());
     }
-    let routes = predicted_wound_routes(ctx, (character_id).into(), allow_healing)?;
+    let routes = predicted_wound_routes(ctx, character_id, allow_healing)?;
     let mut attempts = Vec::new();
     let mut work = 0;
     for disease_id in adventuresim_core::disease::STARTER_DISEASES
@@ -33,9 +33,7 @@ pub fn blood_exposure_attempts_through(
         let key = format!("{character_id}:{}", disease_id.stable_id());
         let checkpoint = ctx.db.blood_exposure_checkpoint().id().find(&key);
         let start = from.saturating_add_minutes(1).max(
-            checkpoint.as_ref().map_or(StrategicMinute::ZERO, |row| {
-                row.evaluated_through.saturating_add_minutes(1)
-            }),
+            checkpoint.as_ref().map_or(StrategicMinute::ZERO, |row| row.evaluated_through.saturating_add_minutes(1)),
         );
         let relevant = relevant_blood_deposits(&all_deposits, disease_id);
         let windows = exposure_windows::blood_infectious_windows(
@@ -49,11 +47,19 @@ pub fn blood_exposure_attempts_through(
             .flat_map(|(window_start, window_end)| window_start.iter_through(window_end))
         {
             adventuresim_core::disease::add_bounded_work(&mut work, 1, max_work)
-                .map_err(|error| error.to_string())?;
-            let route = filth::timed_cut_exposure(&routes, minute.elapsed_since(from));
+                .map_err(str::to_string)?;
+            let route = filth::timed_cut_exposure(
+                &routes,
+                minute.elapsed_since(from),
+            );
             let check = plan.map_or_else(
-                || crate::disease::party_physiology_check_at(ctx, (character_id).into(), minute),
-                |plan| plan.check_at(character_id, minute),
+                || crate::disease::party_physiology_check_at(ctx, character_id, minute),
+                |plan| {
+                    plan.check_at(
+                        character_id,
+                        minute,
+                    )
+                },
             );
             // Any infectious deposit still present here survived or preceded
             // explicit washing, so clean handling is not available for this
@@ -71,13 +77,13 @@ pub fn blood_exposure_attempts_through(
                 continue;
             }
             let seed = adventuresim_core::disease::outbreak_exposure_seed(
-                (character_id).into(),
+                character_id,
                 &format!("blood:{}:{minute}", disease_id.stable_id()),
             );
             attempts.push(adventuresim_core::disease::AcquisitionAttempt::exposure(
                 adventuresim_core::disease::InfectionEpisode {
                     id: seed,
-                    character_id: (character_id).into(),
+                    character_id,
                     disease_id,
                     contracted_at: minute,
                     ruleset_version: adventuresim_core::physiology::PHYSIOLOGY_RULESET_VERSION,
@@ -88,14 +94,7 @@ pub fn blood_exposure_attempts_through(
             ));
         }
         if persist_checkpoint {
-            persist_blood_checkpoint(
-                ctx,
-                key,
-                (character_id).into(),
-                disease_id,
-                to,
-                checkpoint.is_some(),
-            );
+            persist_blood_checkpoint(ctx, key, character_id, disease_id, to, checkpoint.is_some());
         }
     }
     Ok(attempts)
@@ -121,14 +120,14 @@ fn relevant_blood_deposits(
 fn persist_blood_checkpoint(
     ctx: &ReducerContext,
     key: String,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     disease_id: adventuresim_core::disease::DiseaseId,
     to: StrategicMinute,
     existed: bool,
 ) {
     let row = BloodExposureCheckpoint {
         id: key,
-        character_id: u64::from(character_id),
+        character_id,
         disease_id: disease_id.stable_id().into(),
         evaluated_through: to,
     };

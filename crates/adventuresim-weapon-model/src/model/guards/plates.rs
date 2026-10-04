@@ -1,22 +1,21 @@
 //! Dished guard plates with rounded matched apertures and rolled rims.
 use super::*;
-use crate::ConstructionError;
 fn rounded(
     p: &GuardAssemblyParameters,
     names: &[String],
     detail: Detail,
-) -> Result<Vec<Point>, ConstructionError> {
+) -> Result<Vec<Point>, String> {
     let controls: Vec<_> = names
         .iter()
         .map(|name| {
             p.nodes
                 .get(name)
                 .map(|v| v.map(Metres::get))
-                .ok_or(ConstructionError::MissingPlateNode { node: name.clone() })
+                .ok_or("missing plate node".to_string())
         })
         .collect::<Result<_, _>>()?;
     if controls.len() < 3 {
-        return Err(ConstructionError::PlateNeedsThreeNodes);
+        return Err("plate needs three nodes".into());
     }
     let samples = detail.samples(8, 5);
     let mut points = Vec::new();
@@ -45,11 +44,11 @@ pub(super) fn guard_plate(
     plate: &GuardPlate,
     index: usize,
     detail: Detail,
-) -> Result<Vec<PartSource>, ConstructionError> {
+) -> Result<Vec<PartSource>, String> {
     let mut outer = rounded(p, &plate.outline, detail)?;
     let mut hole = rounded(p, &plate.cutout, detail)?;
     if outer.len() != hole.len() {
-        return Err(ConstructionError::GuardPlateLoopsNeedEqualStationCounts);
+        return Err("guard plate loops need equal station counts".into());
     }
     if signed_area(&outer.iter().map(|p| [p[0], p[1]]).collect::<Vec<_>>()) < 0.0 {
         outer.reverse();

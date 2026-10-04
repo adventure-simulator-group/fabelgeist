@@ -2,7 +2,6 @@
 //! drawn onto. A tunic's hem hangs past the thighs and a sleeve may reach
 //! over the hand, but neither should be wrapped around them.
 use super::*;
-use fabelgeist_rig::{RigJointMembership, RigJointName, RigJointPart};
 
 /// A part of the body, by the joint that moves its skin most.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -17,41 +16,19 @@ enum BodyPart {
 
 impl BodyPart {
     /// MHR joints are named by side and part, such as `l_upleg` or `r_index1`.
-    fn of_joint(name: &RigJointName) -> Self {
-        const HEAD: [RigJointPart; 4] = [
-            RigJointPart::Head,
-            RigJointPart::Jaw,
-            RigJointPart::Eye,
-            RigJointPart::Tongue,
-        ];
-        const HAND: [RigJointPart; 6] = [
-            RigJointPart::Wrist,
-            RigJointPart::Thumb,
-            RigJointPart::Index,
-            RigJointPart::Middle,
-            RigJointPart::Ring,
-            RigJointPart::Pinky,
-        ];
-        const LEG: [RigJointPart; 2] = [RigJointPart::Upleg, RigJointPart::Lowleg];
-        const FOOT: [RigJointPart; 5] = [
-            RigJointPart::Foot,
-            RigJointPart::Ball,
-            RigJointPart::Toe,
-            RigJointPart::Talocrural,
-            RigJointPart::Subtalar,
-        ];
-        let contains = |parts: &[RigJointPart]| -> RigJointMembership {
-            RigJointMembership::from(parts.iter().any(|part: &RigJointPart| -> bool {
-                name.contains_part(*part) == RigJointMembership::Included
-            }))
-        };
-        if contains(&HEAD) == RigJointMembership::Included {
+    fn of_joint(name: &str) -> Self {
+        const HEAD: [&str; 4] = ["head", "jaw", "eye", "tongue"];
+        const HAND: [&str; 6] = ["wrist", "thumb", "index", "middle", "ring", "pinky"];
+        const LEG: [&str; 2] = ["upleg", "lowleg"];
+        const FOOT: [&str; 5] = ["foot", "ball", "toe", "talocrural", "subtalar"];
+        let contains = |parts: &[&str]| parts.iter().any(|part| name.contains(part));
+        if contains(&HEAD) {
             Self::Head
-        } else if contains(&HAND) == RigJointMembership::Included {
+        } else if contains(&HAND) {
             Self::Hand
-        } else if contains(&FOOT) == RigJointMembership::Included {
+        } else if contains(&FOOT) {
             Self::Foot
-        } else if contains(&LEG) == RigJointMembership::Included {
+        } else if contains(&LEG) {
             Self::Leg
         } else {
             Self::Trunk
@@ -131,12 +108,12 @@ mod tests {
     #[test]
     fn only_the_trunk_and_the_parts_a_cut_covers_are_dressed() {
         let part = BodyPart::of_joint;
-        assert_eq!(part(&RigJointName::C_SPINE2), BodyPart::Trunk);
-        assert_eq!(part(&RigJointName::L_LOWARM_TWIST), BodyPart::Trunk);
-        assert_eq!(part(&RigJointName::R_THUMB1), BodyPart::Hand);
-        assert_eq!(part(&RigJointName::L_UPLEG_TWIST), BodyPart::Leg);
-        assert_eq!(part(&RigJointName::R_FOOT), BodyPart::Foot);
-        assert_eq!(part(&RigJointName::C_HEAD), BodyPart::Head);
+        assert_eq!(part("c_spine2"), BodyPart::Trunk);
+        assert_eq!(part("l_lowarm_twist"), BodyPart::Trunk);
+        assert_eq!(part("r_thumb1"), BodyPart::Hand);
+        assert_eq!(part("l_upleg_twist"), BodyPart::Leg);
+        assert_eq!(part("r_foot"), BodyPart::Foot);
+        assert_eq!(part("c_head"), BodyPart::Head);
         assert!(!BodyPart::Leg.dressed_by(GarmentForm::Upper));
         assert!(BodyPart::Leg.dressed_by(GarmentForm::Legged));
         assert!(!BodyPart::Hand.dressed_by(GarmentForm::Upper));

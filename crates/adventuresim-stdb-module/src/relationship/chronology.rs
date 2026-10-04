@@ -1,26 +1,31 @@
 // Owns canonical personal-time policy and deterministic NPC clock advancement.
 pub(crate) fn character_alive_at(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     minute: StrategicMinute,
 ) -> bool {
-    ctx.db
-        .character()
-        .id()
-        .find(u64::from(character_id))
-        .is_some()
+    ctx.db.character().id().find(character_id).is_some()
         && ctx
             .db
             .character_birth()
             .character_id()
-            .find(u64::from(character_id))
+            .find(character_id)
             .is_some_and(|birth| minute.is_at_or_after_signed_birth(birth.birth_minute))
         && ctx
             .db
             .character_death()
             .character_id()
-            .find(u64::from(character_id))
+            .find(character_id)
             .is_none_or(|death| death.strategic_minute > minute)
+}
+
+pub fn canonical_now(ctx: &ReducerContext, character_id: u64) -> Result<StrategicMinute, String> {
+    ctx.db
+        .character_time()
+        .character_id()
+        .find(character_id)
+        .map(|time| time.minutes)
+        .ok_or_else(|| "Character time record not found".to_string())
 }
 
 /// Earliest relationship boundary which can change the meaning of an actor's
@@ -29,7 +34,7 @@ pub(crate) fn character_alive_at(
 /// minute before applying leisure, household, or spouse consequences.
 pub(crate) fn next_lifecycle_boundary(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     start_minute: StrategicMinute,
     end_minute: StrategicMinute,
 ) -> Option<StrategicMinute> {
@@ -37,7 +42,7 @@ pub(crate) fn next_lifecycle_boundary(
         .db
         .character_birth()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .and_then(|birth| {
             start_minute.next_signed_birth_anniversary_before(birth.birth_minute, end_minute)
         });
@@ -50,10 +55,8 @@ pub(crate) fn next_lifecycle_boundary(
                 && row.effective_minute < end_minute
                 && row.status == CommitmentStatus::Reserved
                 && row.kind == CommitmentKind::Engagement
-                && (adventuresim_core::identity::CharacterId::from(row.first_character_id)
-                    == character_id
-                    || adventuresim_core::identity::CharacterId::from(row.second_character_id)
-                        == character_id)
+                && (row.first_character_id == character_id
+                    || row.second_character_id == character_id)
         })
         .map(|row| row.effective_minute)
         .min();
@@ -65,9 +68,7 @@ pub(crate) fn next_lifecycle_boundary(
             start_minute < row.due_minute
                 && row.due_minute < end_minute
                 && row.status == PregnancyStatus::Active
-                && (adventuresim_core::identity::CharacterId::from(row.mother_id) == character_id
-                    || adventuresim_core::identity::CharacterId::from(row.father_id)
-                        == character_id)
+                && (row.mother_id == character_id || row.father_id == character_id)
         })
         .map(|row| row.due_minute)
         .min();
@@ -76,9 +77,7 @@ pub(crate) fn next_lifecycle_boundary(
         .marriage()
         .iter()
         .filter(|row| {
-            adventuresim_core::identity::CharacterId::from(row.first_character_id) == character_id
-                || adventuresim_core::identity::CharacterId::from(row.second_character_id)
-                    == character_id
+            row.first_character_id == character_id || row.second_character_id == character_id
         })
         .flat_map(|row| [Some(row.married_minute), row.resolved_minute])
         .flatten()
@@ -88,7 +87,7 @@ pub(crate) fn next_lifecycle_boundary(
         .db
         .estate_disposition()
         .chosen_heir_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .filter(|row| {
             row.status == EstateDispositionStatus::Pending
                 && start_minute < row.effective_minute
@@ -158,8 +157,7 @@ pub fn advance_npc_personal_time(
     if target_minute < time.minutes {
         return Err("Canonical NPC time cannot be written retroactively".into());
     }
-    if let Some(boundary) =
-        next_lifecycle_boundary(ctx, (character_id).into(), time.minutes, target_minute)
+    if let Some(boundary) = next_lifecycle_boundary(ctx, character_id, time.minutes, target_minute)
     {
         advance_npc_personal_time(ctx, character_id, boundary)?;
         if ctx
@@ -181,11 +179,7 @@ pub fn advance_npc_personal_time(
     // NPC can never skip a due event by retaining an advanced date.
     time.minutes = target_minute;
     ctx.db.character_time().character_id().update(time);
-    crate::time::settle_lifecycle_after_character_time_write(
-        ctx,
-        (character_id).into(),
-        target_minute,
-    )
+    crate::time::settle_lifecycle_after_character_time_write(ctx, character_id, target_minute)
 }
 
 /// Internal-only scaffolding reducer.  Production NPC generation invokes the

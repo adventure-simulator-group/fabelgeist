@@ -11,10 +11,10 @@ use crate::{
 
 pub fn require_item_legal(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     inventory_item_id: u64,
 ) -> Result<(), String> {
-    let Some(character) = ctx.db.character().id().find(u64::from(character_id)) else {
+    let Some(character) = ctx.db.character().id().find(character_id) else {
         return Err("Character not found".into());
     };
     let Some(settlement_id) = character.current_settlement_id else {
@@ -27,7 +27,7 @@ pub fn require_item_legal(
         .db
         .inventory_item()
         .character_and_id()
-        .filter((u64::from(character_id), inventory_item_id))
+        .filter((character_id, inventory_item_id))
         .next()
         .ok_or("Inventory item not found")?;
     let definition = ctx
@@ -44,12 +44,7 @@ pub fn require_item_legal(
         _ => None,
     };
     if privilege.is_some_and(|privilege| {
-        !crate::organization::presented_privilege(
-            ctx,
-            (character_id).into(),
-            &settlement_id,
-            privilege,
-        )
+        !crate::organization::presented_privilege(ctx, character_id, &settlement_id, privilege)
     }) {
         return Err(match definition.kind {
             CatalogItemKind::Armor => format!(
@@ -68,19 +63,19 @@ pub fn require_item_legal(
 /// Auto-unequip prohibited items. Inventory ownership is unchanged.
 pub fn enforce_equipment_compliance(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
 ) -> Result<Vec<u64>, String> {
-    let equipped = crate::character::equipped_wearable_ids(ctx, (character_id).into());
+    let equipped = crate::character::equipped_wearable_ids(ctx, character_id);
     let mut removed = Vec::new();
     for inventory_item_id in equipped {
-        if require_item_legal(ctx, (character_id).into(), inventory_item_id).is_err() {
+        if require_item_legal(ctx, character_id, inventory_item_id).is_err() {
             crate::character::unequip_wearable(ctx, inventory_item_id);
             removed.push(inventory_item_id);
         }
     }
     if !removed.is_empty() {
-        crate::capability::refresh_character_capability(ctx, (character_id).into())?;
-        crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())?;
+        crate::capability::refresh_character_capability(ctx, character_id)?;
+        crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
     }
     Ok(removed)
 }

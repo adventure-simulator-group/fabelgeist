@@ -12,17 +12,9 @@ pub fn authority_test_offense_policy(
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
     let actor = 732083;
     crate::character::create_named_character_with_id(ctx, actor, "Offense Fixture".into())?;
-    let now = crate::time::refresh_clock(ctx)
-        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
+    let now = crate::time::refresh_clock(ctx)?;
     for _ in 0..2 {
-        commit_noticed_illegal_foraging(
-            ctx,
-            actor.into(),
-            "riverdale",
-            "authority-offense",
-            100,
-            now,
-        )?;
+        commit_noticed_illegal_foraging(ctx, actor, "riverdale", "authority-offense", 100, now)?;
     }
     let offense_id = format!("offense:forage:{actor}:authority-offense");
     let offense = ctx
@@ -33,7 +25,7 @@ pub fn authority_test_offense_policy(
         .ok_or("Offense missing")?;
     let consequence = WorldEventConsequence::DiscoveredOffense {
         offense_id,
-        character_id: adventuresim_core::identity::CharacterId::from(actor),
+        character_id: actor,
         settlement_id: "riverdale".into(),
         kind: ExistingOffenseKind::IllegalForaging,
         severity: 1,
@@ -45,21 +37,9 @@ pub fn authority_test_offense_policy(
         *severity = 2;
     }
     if preflight_consequences(ctx, &[conflicting]).is_ok()
-        || commit_noticed_illegal_foraging(
-            ctx,
-            actor.into(),
-            "riverdale",
-            "authority-offense",
-            200,
-            now,
-        )
-        .is_ok()
-        || snapshot_arrest_charges(
-            ctx,
-            "incident:authority-offense",
-            (actor).into(),
-            "riverdale",
-        ) != 1
+        || commit_noticed_illegal_foraging(ctx, actor, "riverdale", "authority-offense", 200, now)
+            .is_ok()
+        || snapshot_arrest_charges(ctx, "incident:authority-offense", actor, "riverdale") != 1
     {
         return Err("Offense identity or charge snapshot disagrees".into());
     }
@@ -76,14 +56,7 @@ pub fn authority_test_offense_policy(
     }
     settle_offenses(ctx, charges);
     preflight_consequences(ctx, &[consequence])?;
-    commit_noticed_illegal_foraging(
-        ctx,
-        actor.into(),
-        "riverdale",
-        "authority-offense",
-        100,
-        now,
-    )?;
+    commit_noticed_illegal_foraging(ctx, actor, "riverdale", "authority-offense", 100, now)?;
     let stored = ctx
         .db
         .discovered_offense()
@@ -106,8 +79,7 @@ pub fn authority_test_finale_world_effects(
     bootstrap_token: String,
 ) -> Result<(), String> {
     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
-    let now = crate::time::refresh_clock(ctx)
-        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
+    let now = crate::time::refresh_clock(ctx)?;
     let actor = 732083;
     let party_id = ctx
         .db

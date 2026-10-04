@@ -1,5 +1,4 @@
 use super::*;
-use fabelgeist_rig::RigJointName;
 
 fn maps() -> SurfaceTextures {
     SurfaceTextures {
@@ -53,7 +52,7 @@ fn export_equipment_with_maps(
         GlbOutput::SharedTextures(path),
         "mail",
         1,
-        fabelgeist_mhr::CharacterLod::Detailed,
+        4,
         &RiggedMesh {
             positions: &positions,
             normals: &normals,
@@ -61,7 +60,7 @@ fn export_equipment_with_maps(
             export_body: false,
             joint_indices: &joints,
             joint_weights: &weights,
-            joint_names: &[RigJointName::ROOT],
+            joint_names: &["root".to_owned()],
             joint_parents: &[-1],
             global_joint_states: &[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
             joint_proportions: &[],

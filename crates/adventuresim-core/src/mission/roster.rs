@@ -3,7 +3,6 @@
 use std::{collections::BTreeSet, fmt, num::NonZeroU32};
 
 use super::MAX_TACTICAL_RECEIPT_PARTICIPANTS;
-use crate::identity::CharacterId;
 
 /// A nonempty, bounded roster with unique durable character IDs.
 ///
@@ -11,7 +10,7 @@ use crate::identity::CharacterId;
 /// from this validated snapshot, never maintained as a second stored fact.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct TacticalPartyRoster {
-    members: Vec<CharacterId>,
+    members: Vec<u64>,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -33,10 +32,10 @@ impl fmt::Display for TacticalRosterError {
 
 impl std::error::Error for TacticalRosterError {}
 
-impl TryFrom<Vec<CharacterId>> for TacticalPartyRoster {
+impl TryFrom<Vec<u64>> for TacticalPartyRoster {
     type Error = TacticalRosterError;
 
-    fn try_from(members: Vec<CharacterId>) -> Result<Self, Self::Error> {
+    fn try_from(members: Vec<u64>) -> Result<Self, Self::Error> {
         if members.is_empty() {
             return Err(TacticalRosterError::Empty);
         }
@@ -56,7 +55,7 @@ impl TacticalPartyRoster {
             .expect("a validated roster is nonempty")
     }
 
-    pub fn into_member_ids(self) -> Vec<CharacterId> {
+    pub fn into_member_ids(self) -> Vec<u64> {
         self.members
     }
 }
@@ -67,22 +66,9 @@ mod tests {
 
     #[test]
     fn enrollment_count_and_order_come_from_the_captured_members() {
-        let roster =
-            TacticalPartyRoster::try_from(vec![CharacterId::from(9), CharacterId::from(3)])
-                .unwrap();
+        let roster = TacticalPartyRoster::try_from(vec![9, 3]).unwrap();
         assert_eq!(roster.expected_members().get(), 2);
-        assert_eq!(
-            roster.into_member_ids(),
-            vec![CharacterId::from(9), CharacterId::from(3)]
-        );
-    }
-
-    #[test]
-    fn captured_roster_retains_zero_and_full_width_identities_in_capture_order() {
-        let captured = vec![CharacterId::from(u64::MAX), CharacterId::from(0)];
-        let roster = TacticalPartyRoster::try_from(captured.clone()).unwrap();
-        assert_eq!(roster.expected_members().get(), 2);
-        assert_eq!(roster.into_member_ids(), captured);
+        assert_eq!(roster.into_member_ids(), vec![9, 3]);
     }
 
     #[test]
@@ -92,16 +78,13 @@ mod tests {
             Err(TacticalRosterError::Empty)
         );
         assert_eq!(
-            TacticalPartyRoster::try_from(vec![CharacterId::from(7), CharacterId::from(7)]),
+            TacticalPartyRoster::try_from(vec![7, 7]),
             Err(TacticalRosterError::DuplicateMember)
         );
         let limit = u64::try_from(MAX_TACTICAL_RECEIPT_PARTICIPANTS).unwrap();
-        assert!(
-            TacticalPartyRoster::try_from((0..limit).map(CharacterId::from).collect::<Vec<_>>())
-                .is_ok()
-        );
+        assert!(TacticalPartyRoster::try_from((0..limit).collect::<Vec<_>>()).is_ok());
         assert_eq!(
-            TacticalPartyRoster::try_from((0..=limit).map(CharacterId::from).collect::<Vec<_>>()),
+            TacticalPartyRoster::try_from((0..=limit).collect::<Vec<_>>()),
             Err(TacticalRosterError::TooLarge)
         );
     }

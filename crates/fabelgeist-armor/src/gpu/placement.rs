@@ -10,14 +10,13 @@
 //! every step with exact device arithmetic ([`host_float`]), before the final
 //! normals are taken.
 
-use fabelgeist_gpu::prelude::PassParameterName;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::part::HINGE_WORDS;
-use super::{ArmorGpu, wgsl};
+use super::{ArmorGpu, device_error, wgsl};
 use crate::GenerateError;
 
 /// Where a placed part goes, and what of it moves.
@@ -38,28 +37,25 @@ pub(crate) fn record(
     placement: &Placement,
 ) -> Result<(), GenerateError> {
     let mut parameters = PassParameters::new();
-    parameters.insert("count".into(), (placement.count).into());
-    parameters.insert("hinge_count".into(), (placement.hinge_count).into());
-    parameters.insert("pad0".into(), (0u32).into());
-    parameters.insert("pad1".into(), (0u32).into());
-    parameters.insert(
-        PassParameterName::from(host_float::ZERO_FIELD),
-        (0u32).into(),
-    );
+    parameters.insert("count", placement.count);
+    parameters.insert("hinge_count", placement.hinge_count);
+    parameters.insert("pad0", 0u32);
+    parameters.insert("pad1", 0u32);
+    parameters.insert(host_float::ZERO_FIELD, 0u32);
     for pad in ["pad2", "pad3", "pad4"] {
-        parameters.insert(pad.into(), (0.0f32).into());
+        parameters.insert(pad, 0.0f32);
     }
-    parameters.insert("frames".into(), (placement.frame.clone()).into());
-    parameters.insert("positions".into(), (placement.positions.clone()).into());
-    parameters.insert("hinges".into(), (placement.hinges.clone()).into());
-    parameters.insert("status".into(), (placement.status.clone()).into());
+    parameters.insert("frames", placement.frame.clone());
+    parameters.insert("positions", placement.positions.clone());
+    parameters.insert("hinges", placement.hinges.clone());
+    parameters.insert("status", placement.status.clone());
     batch
         .dispatch_items(
             &*kernel(gpu)?,
             &parameters,
-            (placement.count.max(placement.hinge_count)).into(),
+            placement.count.max(placement.hinge_count),
         )
-        .map_err(crate::GenerateError::from)?;
+        .map_err(device_error)?;
     Ok(())
 }
 
@@ -140,6 +136,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         hinge_words = HINGE_WORDS,
     );
     gpu.cache()
-        .get(gpu.context(), &ShaderSource::from(source))
-        .map_err(crate::GenerateError::from)
+        .get(gpu.context(), &source)
+        .map_err(device_error)
 }

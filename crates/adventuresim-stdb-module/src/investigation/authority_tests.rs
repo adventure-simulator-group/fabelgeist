@@ -150,7 +150,7 @@ fn check_generated_binding(
         seed: 7,
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
-        settlement_id: adventuresim_core::identity::SettlementId::try_new("lubeck").unwrap(),
+        settlement_id: "lubeck".into(),
         settlement_name: "Lubeck".into(),
         scope: Scope::Settlement {
             settlement_id: "lubeck".into(),
@@ -176,7 +176,7 @@ fn check_generated_binding(
         observer_scoped_id(
             &context,
             "capability",
-            &format!("{}:{}", prototype.owner_character_id, id.as_str()),
+            &format!("{}:{}", prototype.owner_character_id, id.0),
         )
     };
     let mut capability = prototype.clone();

@@ -92,8 +92,8 @@ impl TextureBinaryOpDefinition {
         }
         full_code.push_str("}\n");
 
-        let shader = ComputeShader::new(context, crate::data::gpu::ShaderSource::from(full_code))?;
-        Ok(ComputePipeline::new(context, shader)?)
+        let shader = ComputeShader::new(context, full_code)?;
+        ComputePipeline::new(context, shader)
     }
 
     pub fn get_or_create_pipeline(
@@ -153,28 +153,28 @@ impl TextureBinaryOp {
 
         let mut parameters = crate::data::gpu::parameters::PassParameters::new();
         parameters.insert(
-            "input_a".into(),
+            "input_a",
             match input_a {
                 GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
                 _ => return Err(anyhow!("Input A must be a Texture2d")),
             },
         );
         parameters.insert(
-            "input_b".into(),
+            "input_b",
             match input_b {
                 GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
                 _ => return Err(anyhow!("Input B must be a Texture2d")),
             },
         );
         parameters.insert(
-            "output".into(),
+            "output",
             match output {
                 GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
                 _ => return Err(anyhow!("Output must be a Texture2d")),
             },
         );
 
-        parameters.insert("amount".into(), (amount).into());
+        parameters.insert("amount", amount);
 
         let (wg_x, wg_y, wg_z) = match output {
             GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
@@ -185,7 +185,9 @@ impl TextureBinaryOp {
             context,
             pipeline.as_ref().clone(),
             parameters,
-            crate::data::WorkgroupGrid::from((wg_x, wg_y, wg_z)),
+            wg_x,
+            wg_y,
+            wg_z,
         )?;
 
         Ok(())

@@ -84,7 +84,7 @@ impl DistanceFieldJfa {
             };
 
             let mut params = PassParameters::new();
-            params.insert("step".into(), (step as f32).into());
+            params.insert("step", step as f32);
 
             Map::execute_with_parameters(
                 context,
@@ -203,7 +203,7 @@ impl DistanceFieldJfa {
             };
 
             let mut params = PassParameters::new();
-            params.insert("step".into(), (step as f32).into());
+            params.insert("step", step as f32);
 
             Map::execute_with_parameters(
                 context,

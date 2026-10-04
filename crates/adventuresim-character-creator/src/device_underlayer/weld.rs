@@ -9,7 +9,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::wgsl;
 use super::workspace::Workspace;
@@ -31,54 +31,54 @@ impl Workspace<'_> {
         let gpu = self.gpu;
         let count = self.vertex_count;
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (count).into());
+        parameters.insert("count", count);
         for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad.into(), (0u32).into());
+            parameters.insert(pad, 0u32);
         }
-        parameters.insert("positions".into(), (positions.clone()).into());
-        parameters.insert("keys".into(), (self.keys.clone()).into());
-        parameters.insert("values".into(), (self.values.clone()).into());
-        parameters.insert("quantized".into(), (self.quantized.clone()).into());
+        parameters.insert("positions", positions.clone());
+        parameters.insert("keys", self.keys.clone());
+        parameters.insert("values", self.values.clone());
+        parameters.insert("quantized", self.quantized.clone());
         let hash = gpu
             .cache()
             .get(gpu.context(), &hash_source())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&hash, &parameters, (count).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&hash, &parameters, count)
+            .map_err(device_error)?;
         self.sort
             .record(
                 batch,
                 &self.keys,
                 &self.values,
                 &mut self.sort_scratch,
-                count.into(),
-                32.into(),
+                count,
+                32,
             )
             .map_err(device_error)?;
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (count).into());
+        parameters.insert("count", count);
         for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad.into(), (0u32).into());
+            parameters.insert(pad, 0u32);
         }
-        parameters.insert("keys".into(), (self.keys.clone()).into());
-        parameters.insert("values".into(), (self.values.clone()).into());
-        parameters.insert("quantized".into(), (self.quantized.clone()).into());
-        parameters.insert("links".into(), (links.clone()).into());
-        parameters.insert("status".into(), (self.status.clone()).into());
+        parameters.insert("keys", self.keys.clone());
+        parameters.insert("values", self.values.clone());
+        parameters.insert("quantized", self.quantized.clone());
+        parameters.insert("links", links.clone());
+        parameters.insert("status", self.status.clone());
         let link = gpu
             .cache()
             .get(gpu.context(), &link_source())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&link, &parameters, (count).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&link, &parameters, count)
+            .map_err(device_error)?;
         Ok(())
     }
 }
 
-fn hash_source() -> ShaderSource {
-    ShaderSource::from(format!(
+fn hash_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read_write> keys: array<u32>;
@@ -120,11 +120,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         precision = wgsl::constant("WELD_PRECISION", WELD_PRECISION),
-    ))
+    )
 }
 
-fn link_source() -> ShaderSource {
-    ShaderSource::from(format!(
+fn link_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> keys: array<u32>;
 @group(0) @binding(1) var<storage, read> values: array<u32>;
@@ -191,5 +191,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         status = wgsl::status(),
         groups = wgsl::GROUPS,
         run = RUN_CAPACITY,
-    ))
+    )
 }

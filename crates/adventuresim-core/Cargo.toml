@@ -11,6 +11,7 @@ default = []
 spacetimedb = ["dep:spacetimedb", "adventuresim-world-schema/spacetimedb"]
 
 [dependencies]
+thiserror.workspace = true
 enum-assoc = "1.3.0"
 blanket = "0.4.0"
 ambassador = "0.5.0"

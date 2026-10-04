@@ -23,34 +23,14 @@
 
 pub mod coloring;
 pub mod constraint;
-pub mod incidence;
 pub mod particles;
 pub mod solver;
 pub mod wgsl;
 
-pub use coloring::{ColorCount, ColorRange, Coloring, ConstraintColor, ConstraintSlot};
-pub use constraint::{
-    ConstraintAttachment, ConstraintAttachmentError, ConstraintBuffer, ConstraintBuildError,
-    ConstraintCount, ConstraintDispatchError, ConstraintDispatchStage, ConstraintIndex,
-    ConstraintKernel, ConstraintName, ConstraintOccupancy, ConstraintSet,
-};
-pub use incidence::{
-    ConstraintArity, ConstraintEdges, ConstraintIncidence, ConstraintLayoutError,
-    ConstraintParticleCount, ParticleIndex,
-};
-pub use particles::{
-    InverseMassCount, ParticleBufferRole, ParticleCapacity, ParticleCount, ParticleError,
-    ParticleInputCount, ParticleInputIndex, ParticleMassCount, ParticlePositionRecord,
-    ParticlePositions, ParticleVelocities, ParticleVelocityRecord, Particles,
-};
-pub use solver::{
-    HookChain, HookChainError, NoSubstepHook, Solver, SolverBuildError, SolverDispatchError,
-    SolverHookPhase, SolverKernel, SolverSettings, SolverStepError, SolverSubstepError,
-    SubstepHook,
-};
-
-pub mod dynamics;
-pub use dynamics::*;
+pub use coloring::{Coloring, color, color_fixed};
+pub use constraint::ConstraintSet;
+pub use particles::Particles;
+pub use solver::{Solver, SolverSettings, SubstepHook};
 
 #[cfg(test)]
 mod tests;

@@ -456,7 +456,7 @@ pub fn ensure_settlement_population(
             .update(representative);
     }
     crate::relationship::ensure_seeded_family_households(ctx, settlement_id, &household_groups)?;
-    Ok(())
+    crate::residence::bind_generated_households(ctx, settlement_id)
 }
 pub fn npc_is_present(
     ctx: &ReducerContext,
@@ -492,13 +492,12 @@ pub fn npc_strategic_presence_at(
 ) -> Option<ScheduledStrategicPresence> {
     let suppression =
         crate::outbreak::patient_presence_suppression_at(ctx, presence.character_id, minute)?;
-    let alive =
-        crate::relationship::character_alive_at(ctx, (presence.character_id).into(), minute);
+    let alive = crate::relationship::character_alive_at(ctx, presence.character_id, minute);
     StrategicPresence::scheduled_resident(
-        (presence.character_id).into(),
+        presence.character_id,
         canonical_npc_place(&presence.settlement_id, &presence.location_id)?,
         PresenceFrontier {
-            observer_character_id: (observer_character_id).into(),
+            observer_character_id,
             personal_minute: minute,
         },
         DailyPresenceWindow {
@@ -638,7 +637,9 @@ mod tests {
         let input = GenerationInput {
             seed: "npc:test".into(),
             location: LocationContext::Overview,
-            role: population::PopulationRole::Resident,
+            is_service_provider: false,
+            service_id: None,
+            profession_override: None,
             local_role: "resident".into(),
             age: None,
             available_bridges: BTreeSet::from([

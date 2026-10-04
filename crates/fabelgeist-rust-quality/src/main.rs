@@ -1,7 +1,6 @@
 mod analyze;
 mod calendar_flow;
 mod config;
-mod interfaces;
 mod manifests;
 mod scan;
 
@@ -19,8 +18,7 @@ fn run() -> Result<bool, String> {
         .unwrap_or(env::current_dir().map_err(|error| error.to_string())?);
     if arguments.next().is_some() {
         return Err(
-            "usage: fabelgeist-rust-quality [check|census|interfaces|baseline] [repository-root]"
-                .into(),
+            "usage: fabelgeist-rust-quality [check|census|baseline] [repository-root]".into(),
         );
     }
 
@@ -39,10 +37,6 @@ fn run() -> Result<bool, String> {
         }
         "census" => {
             print_census(&report.census, usize::MAX);
-            Ok(true)
-        }
-        "interfaces" => {
-            analyze::print_interfaces(&report.snapshot);
             Ok(true)
         }
         "baseline" => {

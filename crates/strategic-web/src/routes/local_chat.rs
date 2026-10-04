@@ -1,4 +1,4 @@
-use crate::spacetimedb::SqlQuery;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use axum::{
     Form, Json, Router,
     extract::{Path, Query, State},
@@ -8,25 +8,15 @@ use axum::{
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-use super::data::{self, FrontierAlignment};
 use super::{AppState, character_case_site_id};
-mod actor;
-mod error;
-mod presence;
-mod resident;
 use crate::{
     session::Session,
     spacetimedb::{
-        BackendLocalChatMessage, BackendSettlementResident, CharacterView, PartyMember,
-        SettlementCategory, SettlementResidentPresence, SettlementView, SpacetimeError,
+        BackendLocalChatMessage, BackendSettlementResident, CharacterTime, CharacterView,
+        PartyMember, SettlementCategory, SettlementResidentPresence, SettlementView,
         sql_string_literal,
     },
 };
-use actor::{actor_strategic_minute, require_player_frontier, selected_actor};
-use adventuresim_core::identity::CharacterId;
-use error::{ChatAuthorizationError, ChatReadStage};
-use presence::LocalPlayerPresence;
-use resident::ResidentChatEvidence;
 
 const MAX_CHAT_HISTORY: usize = 200;
 const MAX_INCOMING_PLAYERS: usize = 50;
@@ -128,95 +118,117 @@ enum ConversationSelector {
     PlayerParty(String),
 }
 
+async fn actor_strategic_minute(
+    state: &AppState,
+    actor_id: u64,
+) -> Result<StrategicMinute, String> {
+    state
+        .db
+        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
+            actor_id,
+        ))
+        .await
+        .map(|time| {
+            time.map_or(StrategicMinute::new(720), |time| {
+                StrategicMinute::new(time.minutes.minutes)
+            })
+        })
+        .map_err(|error| error.to_string())
+}
+
 async fn actor_and_selector(
     state: &AppState,
-    actor_id: CharacterId,
+    actor_id: u64,
     kind: &str,
     subject_id: &str,
     location_id: &str,
-) -> std::result::Result<(CharacterView, ConversationSelector), ChatAuthorizationError> {
-    let actor = selected_actor(state, actor_id).await?;
+) -> Result<(CharacterView, ConversationSelector), String> {
+    let actor = state
+        .db
+        .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
+            &crate::spacetimedb::character_by_id(actor_id),
+        )
+        .await
+        .map_err(|e| e.to_string())?
+        .into_iter()
+        .next()
+        .ok_or("Character not found")?;
+    actor.party_id.as_deref().ok_or("Character has no party")?;
     let selector = match kind {
         "npc" => {
             let settlement = actor
                 .current_settlement_id
                 .as_deref()
-                .ok_or(ChatAuthorizationError::NpcNotLocal)?;
+                .ok_or("NPC is not local")?;
             let settlement_authority = state
                 .db
                 .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-                    crate::spacetimedb::settlement_by_id(settlement),
+                    &crate::spacetimedb::settlement_by_id(settlement),
                 )
                 .await
-                .map_err(|source: SpacetimeError| -> ChatAuthorizationError {
-                    ChatAuthorizationError::database(
-                        ChatReadStage::Settlement,
-                        actor_id,
-                        None,
-                        source,
-                    )
-                })?
-                .ok_or(ChatAuthorizationError::NpcNotLocal)?;
+                .map_err(|error| error.to_string())?
+                .ok_or("NPC is not local")?;
             if !npc_history_location_is_navigable(
                 &settlement_authority.economy,
                 &settlement_authority.category,
                 settlement,
                 location_id,
             ) {
-                return Err(ChatAuthorizationError::NpcNotLocal);
+                return Err("NPC is not local".into());
             }
-            let resident_character_id = CharacterId::from(
-                subject_id
-                    .parse::<u64>()
-                    .map_err(ChatAuthorizationError::InvalidNpcSubject)?,
-            );
-            let evidence =
-                ResidentChatEvidence::load(state, actor_id, resident_character_id).await?;
-            let minute = actor_strategic_minute(state, actor.id.into()).await?;
-            if !npc_authority_matches(
-                settlement,
-                &evidence.npc,
-                &evidence.presence,
-                location_id,
-                minute,
-            ) {
-                return Err(ChatAuthorizationError::NpcNotLocal);
+            let resident_character_id =
+                subject_id.parse::<u64>().map_err(|_| "NPC is not local")?;
+            let npc = state
+                .db
+                .query_one_sats::<BackendSettlementResident>(
+                    &crate::spacetimedb::settlement_resident_by_character_id(resident_character_id),
+                )
+                .await
+                .map_err(|error| error.to_string())?
+                .ok_or("NPC is not local")?;
+            let presence = state
+                .db
+                .query_one_sats::<SettlementResidentPresence>(
+                    &crate::spacetimedb::settlement_resident_presence_by_character_id(
+                        resident_character_id,
+                    ),
+                )
+                .await
+                .map_err(|error| error.to_string())?
+                .ok_or("NPC is not local")?;
+            let minute = actor_strategic_minute(state, actor.id).await?;
+            if !npc_authority_matches(settlement, &npc, &presence, location_id, minute) {
+                return Err("NPC is not local".into());
             }
             ConversationSelector::Npc(subject_id.to_string())
         }
         "player" => {
             if !location_id.is_empty() {
-                return Err(ChatAuthorizationError::UnexpectedPlayerLocation);
+                return Err("Player conversations do not accept an NPC location".into());
             }
-            let id = CharacterId::from(
-                subject_id
-                    .parse::<u64>()
-                    .map_err(ChatAuthorizationError::InvalidPlayerSubject)?,
-            );
-            let subject = super::data::character_as_observed(state, id, actor.id.into())
+            let id: u64 = subject_id.parse().map_err(|_| "Invalid player")?;
+            let subject = super::data::character_as_observed(state, id, actor.id)
                 .await
-                .map_err(|source: SpacetimeError| -> ChatAuthorizationError {
-                    ChatAuthorizationError::database(
-                        ChatReadStage::ObservedPlayer,
-                        actor_id,
-                        Some(id),
-                        source,
-                    )
-                })?
-                .ok_or(ChatAuthorizationError::PlayerUnavailable(id))?;
-            require_player_frontier(state, actor.id.into(), subject.id.into()).await?;
-            if LocalPlayerPresence::observe(state, &actor, &subject).await?
-                != LocalPlayerPresence::CoLocated
+                .map_err(|e| e.to_string())?
+                .ok_or("Player is not available at your personal date")?;
+            if !super::data::characters_share_frontier(state, actor.id, subject.id)
+                .await
+                .map_err(|e| e.to_string())?
             {
-                return Err(ChatAuthorizationError::PlayerElsewhere(id));
+                return Err("Player is not at this location".into());
             }
-            let other = subject
-                .party_id
-                .as_deref()
-                .ok_or(ChatAuthorizationError::PlayerHasNoParty(id))?;
+            let actor_site = character_case_site_id(state, actor.id).await?;
+            let subject_site = character_case_site_id(state, subject.id).await?;
+            if actor.current_settlement_id != subject.current_settlement_id
+                || actor_site != subject_site
+                || (actor.current_settlement_id.is_none() && actor_site.is_none())
+            {
+                return Err("Player is not at this location".into());
+            }
+            let other = subject.party_id.as_deref().ok_or("Player has no party")?;
             ConversationSelector::PlayerParty(other.to_string())
         }
-        _ => return Err(ChatAuthorizationError::UnknownSubject),
+        _ => return Err("Unknown Local subject".into()),
     };
     Ok((actor, selector))
 }
@@ -226,21 +238,14 @@ async fn messages(
     Path((kind, subject_id)): Path<(String, String)>,
     Query(query): Query<LocationQuery>,
     session: Session,
-) -> std::result::Result<Json<LocalChatResponse>, (StatusCode, String)> {
+) -> Result<Json<LocalChatResponse>, (StatusCode, String)> {
     let actor_id = session
         .character_id_u64()
         .ok_or((StatusCode::UNAUTHORIZED, "Choose a character".into()))?;
-    let (_, selector) = actor_and_selector(
-        &state,
-        actor_id.into(),
-        &kind,
-        &subject_id,
-        &query.location_id,
-    )
-    .await
-    .map_err(|error: ChatAuthorizationError| -> (StatusCode, String) {
-        (StatusCode::FORBIDDEN, error.to_string())
-    })?;
+    let (_, selector) =
+        actor_and_selector(&state, actor_id, &kind, &subject_id, &query.location_id)
+            .await
+            .map_err(|e| (StatusCode::FORBIDDEN, e))?;
     let selector_filter = match &selector {
         ConversationSelector::Npc(resident_character_id) => format!(
             "conversation_kind = 'npc' AND subject_resident_character_id = {}",
@@ -253,25 +258,15 @@ async fn messages(
     };
     let mut messages = state
         .db
-        .query_sats::<BackendLocalChatMessage>(SqlQuery::from(format!(
+        .query_sats::<BackendLocalChatMessage>(&format!(
             "SELECT * FROM backend_local_chat_messages WHERE owner_character_id = {actor_id} AND {selector_filter}"
-        )))
+        ))
         .await
-        .map_err(|error: SpacetimeError| -> (StatusCode, String) {
-            (StatusCode::SERVICE_UNAVAILABLE, error.to_string())
-        })?;
+        .map_err(|error| (StatusCode::SERVICE_UNAVAILABLE, error.to_string()))?;
     // Close the gap between the authority read and returning private message bodies.
-    actor_and_selector(
-        &state,
-        actor_id.into(),
-        &kind,
-        &subject_id,
-        &query.location_id,
-    )
-    .await
-    .map_err(|error: ChatAuthorizationError| -> (StatusCode, String) {
-        (StatusCode::FORBIDDEN, error.to_string())
-    })?;
+    actor_and_selector(&state, actor_id, &kind, &subject_id, &query.location_id)
+        .await
+        .map_err(|e| (StatusCode::FORBIDDEN, e))?;
     messages.sort_by_key(|message| (message.created_micros, message.id));
     if messages.len() > MAX_CHAT_HISTORY {
         messages.drain(..messages.len() - MAX_CHAT_HISTORY);
@@ -326,7 +321,7 @@ async fn incoming(State(state): State<AppState>, session: Session) -> Json<Vec<I
     let Some(actor) = state
         .db
         .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            crate::spacetimedb::character_by_id(actor_id.into()),
+            &crate::spacetimedb::character_by_id(actor_id),
         )
         .await
         .ok()
@@ -339,19 +334,19 @@ async fn incoming(State(state): State<AppState>, session: Session) -> Json<Vec<I
     };
     let memberships = state
         .db
-        .query_sats::<PartyMember>(SqlQuery::from(format!(
+        .query_sats::<PartyMember>(&format!(
             "SELECT * FROM party_member WHERE party_id = {}",
             sql_string_literal(party_id)
-        )))
+        ))
         .await
         .unwrap_or_default();
     let own: std::collections::HashSet<u64> =
         memberships.into_iter().map(|m| m.character_id).collect();
     let all_messages = state
         .db
-        .query_sats::<BackendLocalChatMessage>(SqlQuery::from(format!(
+        .query_sats::<BackendLocalChatMessage>(&format!(
             "SELECT * FROM backend_local_chat_messages WHERE owner_character_id = {actor_id} AND conversation_kind = 'player'"
-        )))
+        ))
         .await
         .unwrap_or_default();
     let mut ids = std::collections::BTreeSet::new();
@@ -360,27 +355,21 @@ async fn incoming(State(state): State<AppState>, session: Session) -> Json<Vec<I
             ids.insert(message.sender_id);
         }
     }
-    let actor_site = character_case_site_id(&state, actor.id.into())
+    let actor_site = character_case_site_id(&state, actor.id)
         .await
         .ok()
         .flatten();
     let mut candidate_sites = std::collections::HashMap::new();
     for id in ids.iter().copied().take(MAX_INCOMING_PLAYERS) {
-        candidate_sites.insert(
-            id,
-            character_case_site_id(&state, id.into())
-                .await
-                .ok()
-                .flatten(),
-        );
+        candidate_sites.insert(id, character_case_site_id(&state, id).await.ok().flatten());
     }
     let mut visible = Vec::new();
     for id in ids.into_iter().take(MAX_INCOMING_PLAYERS) {
-        let alignment = data::frontier_alignment(&state, actor.id.into(), id.into())
+        let synchronized = super::data::characters_share_frontier(&state, actor.id, id)
             .await
-            .unwrap_or(FrontierAlignment::Unknown);
-        let candidate = if alignment == FrontierAlignment::Aligned {
-            super::data::character_as_observed(&state, id.into(), actor.id.into())
+            .unwrap_or(false);
+        let candidate = if synchronized {
+            super::data::character_as_observed(&state, id, actor.id)
                 .await
                 .ok()
                 .flatten()
@@ -442,13 +431,8 @@ mod tests {
             .split("async fn messages")
             .next()
             .unwrap();
-        assert!(selector.contains("character_as_observed(state, id, actor.id.into())"));
-        assert!(
-            selector.contains("require_player_frontier(state, actor.id.into(), subject.id.into())")
-        );
-        let authority = include_str!("local_chat/actor.rs");
-        assert!(authority.contains("data::frontier_alignment(state, actor, subject)"));
-        assert!(authority.contains("data::FrontierAlignment::Aligned"));
+        assert!(selector.contains("character_as_observed(state, id, actor.id)"));
+        assert!(selector.contains("characters_share_frontier(state, actor.id, subject.id)"));
 
         let incoming = source
             .split("async fn incoming")
@@ -457,7 +441,7 @@ mod tests {
             .split("#[cfg(test)]")
             .next()
             .unwrap();
-        assert!(incoming.contains("frontier_alignment(&state, actor.id.into(), id.into())"));
+        assert!(incoming.contains("characters_share_frontier(&state, actor.id, id)"));
         assert!(!incoming.contains(".query::<Character>(\"SELECT * FROM backend_characters\")"));
     }
 
@@ -610,13 +594,8 @@ mod tests {
             .nth(1)
             .and_then(|tail| tail.split("async fn messages").next())
             .expect("local chat authority handler");
-        assert!(
-            local_route
-                .contains("ResidentChatEvidence::load(state, actor_id, resident_character_id)")
-        );
-        let resident_reads = include_str!("local_chat/resident.rs");
-        assert!(resident_reads.contains("settlement_resident_by_character_id(resident)"));
-        assert!(resident_reads.contains("settlement_resident_presence_by_character_id(resident)"));
+        assert!(local_route.contains("settlement_resident_by_character_id"));
+        assert!(local_route.contains("settlement_resident_presence_by_character_id"));
         assert!(
             include_str!("local_chat.rs").contains("presence.location_id == requested_location_id")
         );

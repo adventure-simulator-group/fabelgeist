@@ -11,7 +11,6 @@
 
 use anyhow::anyhow;
 use fabelgeist_math::{Vec2, Vec3};
-use fabelgeist_shell::{ParticleArealDensity, ParticleInverseMass, ParticleMass};
 
 use crate::topology::{self, BendQuad};
 use crate::triangulate::{PanelMesh, triangulate_with_segments};
@@ -152,11 +151,11 @@ pub struct GarmentMesh {
     /// the rest value, and three of padding so the kernel can index by a
     /// power of two.
     pub bends: Vec<BendQuad>,
-    pub bend_weights: Vec<fabelgeist_shell::BendRecord>,
+    pub bend_weights: Vec<[f32; 8]>,
     /// Seam constraints: particle pairs to be pulled together.
     pub seams: Vec<[u32; 2]>,
     /// Per-particle mass, from the area it carries and the fabric density.
-    pub masses: Vec<ParticleMass>,
+    pub masses: Vec<f32>,
     /// Where each panel's vertices start, plus a final total.
     pub panel_offsets: Vec<u32>,
     pub panel_names: Vec<String>,
@@ -188,16 +187,13 @@ impl GarmentMesh {
         }
     }
 
-    pub fn inverse_masses(&self) -> Vec<ParticleInverseMass> {
+    pub fn inverse_masses(&self) -> Vec<f32> {
         topology::inverse_masses(&self.masses)
     }
 
     /// The mesh's edge adjacency, for the self-collision pass to skip.
     pub fn adjacency(&self) -> Vec<Vec<u32>> {
-        let mut adjacency = crate::SelfCollision::adjacency(
-            fabelgeist_shell::ParticleInputCount::from(self.positions.len()),
-            &self.edges,
-        );
+        let mut adjacency = crate::SelfCollision::adjacency(self.positions.len(), &self.edges);
         // Seam partners are held together by a constraint too, and a
         // self-collision pass fighting a seam is what keeps a garment from
         // ever closing.
@@ -222,7 +218,7 @@ pub fn build(
     panels: &[Panel],
     seams: &[Seam],
     target_edge: f32,
-    density: ParticleArealDensity,
+    density: f32,
 ) -> anyhow::Result<GarmentMesh> {
     if panels.is_empty() {
         return Ok(GarmentMesh::default());
@@ -314,12 +310,18 @@ pub fn build(
             mesh.positions[i2 as usize],
             mesh.positions[i3 as usize],
         ];
-        let points = fabelgeist_shell::BendPoints::from(points);
-        let Ok(weights) = fabelgeist_shell::BendWeights::for_points(points) else {
+        let Some(weights) = topology::bending_weights(points) else {
             continue;
         };
+        let rest = points
+            .iter()
+            .zip(&weights)
+            .fold(Vec3::default(), |acc, (p, &k)| acc + *p * k)
+            .length();
         mesh.bends.push(bend);
-        mesh.bend_weights.push(weights.observed_rest(points));
+        mesh.bend_weights.push([
+            weights[0], weights[1], weights[2], weights[3], rest, 0.0, 0.0, 0.0,
+        ]);
     }
 
     for (index, seam) in seams.iter().enumerate() {
@@ -392,9 +394,7 @@ fn add_seam_bends(mesh: &mut GarmentMesh) {
             Vec3::new(x0 * length / l0, y0, 0.0),
             Vec3::new(x1 * length / l1, -y1, 0.0),
         ];
-        let Ok(weights) =
-            fabelgeist_shell::BendWeights::for_points(fabelgeist_shell::BendPoints::from(points))
-        else {
+        let Some(w) = topology::bending_weights(points) else {
             continue;
         };
         let bend = BendQuad {
@@ -406,7 +406,8 @@ fn add_seam_bends(mesh: &mut GarmentMesh) {
             continue;
         }
         mesh.bends.push(bend);
-        mesh.bend_weights.push(weights.flat_rest());
+        mesh.bend_weights
+            .push([w[0], w[1], w[2], w[3], 0.0, 0.0, 0.0, 0.0]);
     }
 }
 

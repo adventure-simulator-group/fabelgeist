@@ -1,6 +1,5 @@
 //! Transverse section loft with an open, materially subtracted blade mortise.
 use super::*;
-use crate::ConstructionError;
 
 const GUARD_TRANSVERSE_SAMPLES: usize = 32;
 const MIN_GUARD_TRANSVERSE_SAMPLES: usize = 16;
@@ -10,7 +9,7 @@ const MORTISE_POSITION_TOLERANCE: f64 = 1e-10;
 pub(super) fn check_mating(
     child: &ResolvedComponent,
     parent: &ResolvedComponent,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     let (Shape::LoftedBlade(blade), Shape::MortisedGuard(guard)) =
         (&child.component.shape, &parent.component.shape)
     else {
@@ -36,15 +35,14 @@ pub(super) fn check_mating(
         || child.rotation != parent.rotation
         || magnitude(sub(child.offset, expected)) > MORTISE_POSITION_TOLERANCE
     {
-        return Err(ConstructionError::GuardMortise);
+        return Err(
+            "mounted blade must match the guard mortise section, engagement and pose".into(),
+        );
     }
     Ok(())
 }
 
-pub(super) fn construct(
-    p: &MortisedGuardParameters,
-    detail: Detail,
-) -> Result<Solid, ConstructionError> {
+pub(super) fn construct(p: &MortisedGuardParameters, detail: Detail) -> Result<Solid, String> {
     let half = p.width.get() / 2.0;
     let blade = p.mortise.width.get() / 2.0;
     let flat = blade * (1.0 - p.mortise.bevel_width_ratio.get());

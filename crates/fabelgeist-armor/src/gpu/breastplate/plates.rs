@@ -2,29 +2,33 @@
 
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::Buffer;
-use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::TorsoBody;
+use super::clip_carrier::ClippedCarrier;
 use super::finish_wgsl::{self, CARRIER_WORDS};
 use super::kernels::{Params, dispatch};
 use super::skin_wgsl::{self, MORPH_WORDS, SAMPLE_WORDS, SKIN_WORDS};
 use super::topology::{MidTopology, SolidTopology, chart_columns};
 use crate::gpu::{ArmorGpu, device_error};
-use crate::{BreastplateDesign, GenerateError};
+use crate::{BreastplateConstruction, BreastplateDesign, GenerateError, Millimeters};
 
 /// One plate's mid surface on the device.
 pub(super) struct Plate {
     pub topology: MidTopology,
+    outer: MidTopology,
     pub positions: Buffer,
-    faces: Buffer,
+    pub arm_distances: Buffer,
+    pub rim_vertices: Vec<u32>,
 }
 
 impl Plate {
     fn new(gpu: &ArmorGpu, topology: MidTopology, label: &str) -> Result<Self, GenerateError> {
         Ok(Self {
-            positions: gpu.scratch((topology.vertex_count() as u64 * 12).into(), (label).into())?,
-            faces: gpu.upload(BufferUpload::from_elements(&topology.faces))?,
+            positions: gpu.scratch(topology.vertex_count() as u64 * 12, label)?,
+            arm_distances: gpu.scratch(topology.vertex_count() as u64 * 4, "arm trim domain")?,
+            outer: topology.clone(),
             topology,
+            rim_vertices: Vec::new(),
         })
     }
 
@@ -36,36 +40,33 @@ impl Plate {
         self.topology.width() as u32
     }
 
-    /// The plate's area-weighted vertex normals, summed in face order.
+    /// The seated carrier's extrusion from derivatives at a uniform spacing.
     fn normals(
         &self,
         gpu: &ArmorGpu,
         batch: &mut KernelBatch,
         status: &Buffer,
+        rear: bool,
     ) -> Result<Buffer, GenerateError> {
-        let normals = gpu.scratch((self.count() as u64 * 12).into(), ("plate normals").into())?;
-        let (offsets, incident) = self.topology.incident_faces();
+        let normals = gpu.scratch(self.count() as u64 * 12, "plate normals")?;
         dispatch(
             gpu,
             batch,
             finish_wgsl::PLATE_NORMALS,
             &[("positions", false), ("normals", true)],
-            Params::counted(self.count()),
+            Params {
+                count: self.count(),
+                width: self.width(),
+                rear,
+                ..Default::default()
+            },
             &[
                 ("positions", &self.positions),
-                ("faces", &self.faces),
-                (
-                    "offsets",
-                    &gpu.upload(BufferUpload::from_elements(&offsets))?,
-                ),
-                (
-                    "incident",
-                    &gpu.upload(BufferUpload::from_elements(&incident))?,
-                ),
+                ("columns", &gpu.upload(&self.topology.columns)?),
                 ("normals", &normals),
                 ("status", status),
             ],
-            (self.count()).into(),
+            self.count(),
         )?;
         Ok(normals)
     }
@@ -74,6 +75,7 @@ impl Plate {
 /// The front carrier as fitted, the rear plate, and the front plate it
 /// refines into.
 pub(super) struct Plates {
+    gauge: Millimeters,
     pub coarse: Plate,
     pub back: Plate,
     pub front: Plate,
@@ -85,6 +87,20 @@ pub(super) struct Extrusions {
     front: Buffer,
     back: Buffer,
     carrier: Buffer,
+}
+
+impl Extrusions {
+    pub(super) fn record_miters(
+        &mut self,
+        gpu: &ArmorGpu,
+        batch: &mut KernelBatch,
+        plates: &Plates,
+        status: &Buffer,
+    ) -> Result<(), GenerateError> {
+        self.front = plates.front.record_miter(gpu, batch, &self.front, status)?;
+        self.back = plates.back.record_miter(gpu, batch, &self.back, status)?;
+        Ok(())
+    }
 }
 
 /// The thickened shell on the device.
@@ -113,18 +129,73 @@ pub(super) struct Correspondence {
 }
 
 impl Plates {
+    /// Clip the evaluated carrier facets at the neckline. New cut samples
+    /// interpolate the same facets on both walls, including their offsets.
+    pub(super) async fn remesh(
+        &mut self,
+        gpu: &ArmorGpu,
+        status: &Buffer,
+        extrusions: &mut Extrusions,
+    ) -> Result<(), GenerateError> {
+        let mut staging = crate::gpu::Staging::new();
+        let front = staging.stage(&self.front.positions);
+        let back = staging.stage(&self.back.positions);
+        let coarse = staging.stage(&self.coarse.positions);
+        let front_extrusion = staging.stage(&extrusions.front);
+        let back_extrusion = staging.stage(&extrusions.back);
+        let front_arm = staging.stage(&self.front.arm_distances);
+        let back_arm = staging.stage(&self.back.arm_distances);
+        let status = staging.stage(status);
+        let results = gpu.read_staged_async(staging).await?;
+        let front = results.prefix::<[f32; 3]>(front, self.front.count() as usize);
+        let back = results.prefix::<[f32; 3]>(back, self.back.count() as usize);
+        let front_extrusion =
+            results.prefix::<[f32; 3]>(front_extrusion, self.front.count() as usize);
+        let back_extrusion = results.prefix::<[f32; 3]>(back_extrusion, self.back.count() as usize);
+        match results.status(status) {
+            0 => {}
+            bits if bits & crate::gpu::anatomy::STATUS_DEGENERATE != 0 => {
+                return Err(GenerateError::Degenerate);
+            }
+            _ => return Err(GenerateError::InvalidSurface),
+        }
+        let mut front = ClippedCarrier::new(&self.front.topology, &front, &front_extrusion)?;
+        let mut back = ClippedCarrier::new(&self.back.topology, &back, &back_extrusion)?;
+        front.trim_arms(&results.prefix::<f32>(front_arm, self.front.count() as usize))?;
+        back.trim_arms(&results.prefix::<f32>(back_arm, self.back.count() as usize))?;
+        front.validate_outer(self.gauge)?;
+        back.validate_outer(self.gauge)?;
+        front.install(&mut self.front.topology);
+        back.install(&mut self.back.topology);
+        self.front.rim_vertices = front.rim_vertices.clone();
+        self.back.rim_vertices = back.rim_vertices.clone();
+        self.front.outer = self.front.topology.clone();
+        self.back.outer = self.back.topology.clone();
+        self.front.positions = gpu.upload(&front.positions)?;
+        self.back.positions = gpu.upload(&back.positions)?;
+        let coarse = front
+            .carrier_positions(results.prefix::<[f32; 3]>(coarse, self.coarse.count() as usize));
+        self.coarse
+            .topology
+            .cut_columns
+            .clone_from(&self.front.topology.cut_columns);
+        self.coarse.positions = gpu.upload(&coarse)?;
+        extrusions.front = gpu.upload(&front.directions)?;
+        extrusions.back = gpu.upload(&back.directions)?;
+        let carrier = (0..self.front.count())
+            .map(|i| [f32::from_bits(i), f32::from_bits(i), 0.0])
+            .collect::<Vec<_>>();
+        extrusions.carrier = gpu.upload(&carrier)?;
+        Ok(())
+    }
+
     /// Lay out the plates: the front is fitted smooth, then refined onto the
     /// flutes' columns.
     pub(super) fn new(gpu: &ArmorGpu, design: &BreastplateDesign) -> Result<Self, GenerateError> {
-        let mut smooth = design.clone();
-        smooth.fluting = None;
-        let coarse = MidTopology::new(false, chart_columns(false, &smooth), design);
-        let front = if design.fluting.is_some() {
-            MidTopology::new(false, chart_columns(false, design), design)
-        } else {
-            coarse.clone()
-        };
+        let coarse = MidTopology::new(false, chart_columns(false, design), design);
+        let front = coarse.clone();
         Ok(Self {
+            gauge: design.wall_thickness,
             coarse: Plate::new(gpu, coarse, "front carrier")?,
             back: Plate::new(
                 gpu,
@@ -135,8 +206,8 @@ impl Plates {
         })
     }
 
-    /// Continue the front's extrusion over its rim, refine it onto the
-    /// flutes and raise them; take the rear's extrusion from its normals.
+    /// Continue both extrusion fields over their upper rims. Raise front
+    /// flute relief radially, retaining the carrier's metal-gauge directions.
     pub(super) fn record_extrusions(
         &self,
         gpu: &ArmorGpu,
@@ -144,30 +215,14 @@ impl Plates {
         plate: &Buffer,
         status: &Buffer,
     ) -> Result<Extrusions, GenerateError> {
-        let coarse_normals = self.coarse.normals(gpu, batch, status)?;
-        let rim = Params {
-            width: self.coarse.width(),
-            ..Params::default()
-        };
-        dispatch(
-            gpu,
-            batch,
-            finish_wgsl::RIM,
-            &[("normals", true)],
-            rim,
-            &[("normals", &coarse_normals), ("status", status)],
-            (finish_wgsl::UPPER_RIM_ROWS * self.coarse.width()).into(),
-        )?;
+        let coarse_normals = self.coarse.normals(gpu, batch, status, false)?;
         let front = &self.front;
         let extrusions = Extrusions {
-            front: gpu.scratch(
-                (front.count() as u64 * 12).into(),
-                ("front extrusion").into(),
-            )?,
-            back: self.back.normals(gpu, batch, status)?,
+            front: gpu.scratch(front.count() as u64 * 12, "front extrusion")?,
+            back: self.back.normals(gpu, batch, status, true)?,
             carrier: gpu.scratch(
-                (front.count() as u64 * CARRIER_WORDS as u64 * 4).into(),
-                ("front carrier samples").into(),
+                front.count() as u64 * CARRIER_WORDS as u64 * 4,
+                "front carrier samples",
             )?,
         };
         dispatch(
@@ -188,15 +243,12 @@ impl Plates {
                 ("plate", plate),
                 ("coarse", &self.coarse.positions),
                 ("coarse_normals", &coarse_normals),
-                (
-                    "columns",
-                    &gpu.upload(BufferUpload::from_elements(&front.topology.columns))?,
-                ),
+                ("columns", &gpu.upload(&front.topology.columns)?),
                 ("positions", &front.positions),
                 ("extrusion", &extrusions.front),
                 ("carrier", &extrusions.carrier),
             ],
-            (front.count()).into(),
+            front.count(),
         )?;
         Ok(extrusions)
     }
@@ -208,15 +260,22 @@ impl Plates {
         batch: &mut KernelBatch,
         plate: &Buffer,
         extrusions: &Extrusions,
+        construction: &BreastplateConstruction,
     ) -> Result<Shell, GenerateError> {
-        let mut topology = SolidTopology::new(&self.front.topology)?;
-        topology.extend(SolidTopology::new(&self.back.topology)?, self.front.count());
+        let mut topology = SolidTopology::new(&self.front.topology, &self.front.outer)?;
+        topology.extend(
+            SolidTopology::new(&self.back.topology, &self.back.outer)?,
+            self.front.count(),
+        );
+        if matches!(construction, BreastplateConstruction::Solid) {
+            topology.compact();
+        }
         let count = topology.sources.len() as u32;
         let triangles = (topology.indices.len() / 3) as u32;
         let shell = Shell {
-            sources: gpu.upload(BufferUpload::from_elements(&topology.sources))?,
-            indices: gpu.upload(BufferUpload::from_elements(&topology.indices))?,
-            positions: gpu.scratch((count as u64 * 12).into(), ("breastplate positions").into())?,
+            sources: gpu.upload(&topology.sources)?,
+            indices: gpu.upload(&topology.indices)?,
+            positions: gpu.scratch(count as u64 * 12, "breastplate positions")?,
             normals: VertexNormals::new(gpu.context(), count, triangles).map_err(device_error)?,
             topology,
         };
@@ -245,7 +304,7 @@ impl Plates {
                 ("back_extrusion", &extrusions.back),
                 ("positions", &shell.positions),
             ],
-            (count).into(),
+            count,
         )?;
         let mut shell = shell;
         gpu.normals(NormalWeighting::Area)
@@ -277,8 +336,8 @@ impl Plates {
         let (front, back) = (self.front.count(), self.back.count());
         let queries = front + back + self.coarse.count();
         let samples = gpu.scratch(
-            (queries as u64 * SAMPLE_WORDS as u64 * 4).into(),
-            ("breastplate samples").into(),
+            queries as u64 * SAMPLE_WORDS as u64 * 4,
+            "breastplate samples",
         )?;
         let params = Params {
             count: queries,
@@ -303,24 +362,21 @@ impl Plates {
                 ("front", &self.front.positions),
                 ("back", &self.back.positions),
                 ("coarse", &self.coarse.positions),
-                (
-                    "eligible",
-                    &gpu.upload(BufferUpload::from_elements(torso.eligible))?,
-                ),
+                ("eligible", &gpu.upload(torso.eligible)?),
                 ("body_faces", &torso.body.faces),
                 ("body_local", body_local),
                 ("samples", &samples),
             ],
-            (queries).into(),
+            queries,
         )?;
         let correspondence = Correspondence {
             skin: gpu.scratch(
-                (shell.count() as u64 * SKIN_WORDS as u64 * 4).into(),
-                ("breastplate skin").into(),
+                shell.count() as u64 * SKIN_WORDS as u64 * 4,
+                "breastplate skin",
             )?,
             morph_samples: gpu.scratch(
-                ((front + back) as u64 * MORPH_WORDS as u64 * 4).into(),
-                ("breastplate morph samples").into(),
+                (front + back) as u64 * MORPH_WORDS as u64 * 4,
+                "breastplate morph samples",
             )?,
         };
         dispatch(
@@ -337,7 +393,7 @@ impl Plates {
                 ("carrier", &extrusions.carrier),
                 ("morph_samples", &correspondence.morph_samples),
             ],
-            (front + back).into(),
+            front + back,
         )?;
         dispatch(
             gpu,
@@ -355,7 +411,7 @@ impl Plates {
                 ("body_joint_weights", &torso.body.joint_weights),
                 ("skin", &correspondence.skin),
             ],
-            (shell.count()).into(),
+            shell.count(),
         )?;
         Ok(correspondence)
     }

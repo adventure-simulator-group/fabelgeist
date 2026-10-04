@@ -15,7 +15,6 @@ mod inventory_armor;
 mod marching_tetrahedra;
 pub mod physics;
 pub mod player;
-pub mod protocol;
 pub mod scene;
 mod scene_fault;
 mod scene_ground;
@@ -97,9 +96,6 @@ pub mod prelude {
         TacticalIncapacitationSources, TacticalPlayerView, TacticalPlayerViewer,
         attack_preparation_secs, attack_recovery_secs, configure_attack_curve,
         default_tactical_character_id, effective_weapon_handling_skill,
-    };
-    pub use crate::protocol::{
-        EquipmentRevision, EquipmentSequence, InputTick, JumpSequence, PostureSequence,
     };
     pub use crate::scene::{
         GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneId, SceneTerrain,

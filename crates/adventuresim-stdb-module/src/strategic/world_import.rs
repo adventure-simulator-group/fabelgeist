@@ -246,7 +246,7 @@ pub struct WorldDataImport {
     pub completed: bool,
 }
 
-fn discard_placeholder_settlement_data(ctx: &ReducerContext) -> Result<(), crate::character::CharacterDeletionError> {
+fn discard_placeholder_settlement_data(ctx: &ReducerContext) -> Result<(), String> {
     for settlement_id in PLACEHOLDER_SETTLEMENT_IDS {
         for alias in ctx
             .db
@@ -321,7 +321,7 @@ fn discard_placeholder_settlement_data(ctx: &ReducerContext) -> Result<(), crate
     Ok(())
 }
 
-fn discard_character_data_for_world_import(ctx: &ReducerContext) -> Result<(), crate::character::CharacterDeletionError> {
+fn discard_character_data_for_world_import(ctx: &ReducerContext) -> Result<(), String> {
     for claim in ctx.db.starting_character_claim().iter().collect::<Vec<_>>() {
         ctx.db
             .starting_character_claim()
@@ -393,7 +393,7 @@ pub fn begin_world_data_import(
             import.schema_version, import.artifact_id
         )),
         None => {
-            discard_placeholder_settlement_data(ctx).map_err(|error: crate::character::CharacterDeletionError| -> String { error.to_string() })?;
+            discard_placeholder_settlement_data(ctx)?;
             ctx.db.world_data_import().insert(WorldDataImport {
                 id: 0,
                 owner: ctx.sender(),
@@ -431,7 +431,7 @@ pub fn finish_world_data_import(ctx: &ReducerContext, artifact_id: String) -> Re
     }
     validate_final_settlement_industries(ctx)?;
     validate_final_settlement_economies(ctx)?;
-    discard_character_data_for_world_import(ctx).map_err(|error: crate::character::CharacterDeletionError| -> String { error.to_string() })?;
+    discard_character_data_for_world_import(ctx)?;
     import.completed = true;
     ctx.db.world_data_import().id().update(import);
     Ok(())

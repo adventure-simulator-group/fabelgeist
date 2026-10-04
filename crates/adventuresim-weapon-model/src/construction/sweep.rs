@@ -1,5 +1,4 @@
 //! Parallel-transport swept sections with bounded path sampling.
-use crate::ConstructionError;
 mod path;
 use super::*;
 use path::{SampledPath, TransportFrames};
@@ -244,9 +243,9 @@ pub(crate) fn bend_scales(points: &[Point], radius: f64, closed: bool) -> Vec<f6
 }
 
 /// A single authored tube path may close, but may not cross itself.
-pub(crate) fn validate_simple_path(input: &[Point]) -> Result<(), ConstructionError> {
+pub(crate) fn validate_simple_path(input: &[Point]) -> Result<(), String> {
     if input.len() < 2 {
-        return Err(ConstructionError::MemberNeedsTwoStations);
+        return Err("member needs at least two stations".into());
     }
     let closed = magnitude(sub(input[0], *input.last().unwrap())) < 1e-8;
     for i in 0..input.len() - 1 {
@@ -255,7 +254,7 @@ pub(crate) fn validate_simple_path(input: &[Point]) -> Result<(), ConstructionEr
                 continue;
             }
             if segment_distance(input[i], input[i + 1], input[j], input[j + 1]) < 1e-10 {
-                return Err(ConstructionError::MemberCenterlineIntersectsItself);
+                return Err("member centerline intersects itself".into());
             }
         }
     }
@@ -263,20 +262,16 @@ pub(crate) fn validate_simple_path(input: &[Point]) -> Result<(), ConstructionEr
 }
 
 impl Solid {
-    pub(crate) fn sweep(
-        input: &[Point],
-        sweep: &Sweep,
-        detail: Detail,
-    ) -> Result<Self, ConstructionError> {
+    pub(crate) fn sweep(input: &[Point], sweep: &Sweep, detail: Detail) -> Result<Self, String> {
         if input.len() < 2 || sweep.width <= 0.0 || sweep.depth <= 0.0 || sweep.tip_scale <= 0.0 {
-            return Err(ConstructionError::SweepNeedsPositiveSectionTwoPoints);
+            return Err("sweep needs a positive section and at least two points".into());
         }
         if input.windows(2).any(|p| magnitude(sub(p[1], p[0])) < 1e-12) {
-            return Err(ConstructionError::MemberRepeatedAdjacentStations);
+            return Err("member has repeated adjacent stations".into());
         }
         let closed = magnitude(sub(input[0], *input.last().unwrap())) < 1e-8;
         if closed && (sweep.twist % 360.0).abs() > 1e-8 {
-            return Err(ConstructionError::ClosedMemberNeedsWholeTurnSectionTwist);
+            return Err("closed member needs whole-turn section twist".into());
         }
         let outline =
             sweep

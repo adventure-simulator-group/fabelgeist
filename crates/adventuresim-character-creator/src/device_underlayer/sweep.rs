@@ -11,10 +11,10 @@
 //! the neighbours of each new failure -- until none changes. A pass in which
 //! nothing fails ends the sweep, leaving every later pass idle.
 
-use fabelgeist_armor::GenerateError;
-use fabelgeist_compute::{Kernel, KernelBatch};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
-use std::sync::Arc;
+use anyhow::Result;
+use fabelgeist_armor::gpu::device_error;
+use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::standoff::{BINDINGS, COMPRESSION_PASSES, PRISM_MARGIN};
 use super::wgsl;
@@ -38,41 +38,45 @@ impl Workspace<'_> {
         positions: &Buffer,
         directions: &Buffer,
         links: &Buffer,
-    ) -> Result<(), GenerateError> {
+    ) -> Result<()> {
         let gpu = self.gpu;
-        let kernel = |source: ShaderSource| -> Result<Arc<Kernel>, GenerateError> {
+        let kernel = |source: String| {
             gpu.cache()
                 .get(gpu.context(), &source)
-                .map_err(GenerateError::from)
+                .map_err(device_error)
         };
-        let synchronize = kernel(synchronize_source().into())?;
-        let restart = kernel(restart_source().into())?;
-        let test = kernel(test_source().into())?;
-        let settle = kernel(settle_source().into())?;
+        let synchronize = kernel(synchronize_source())?;
+        let restart = kernel(restart_source())?;
+        let test = kernel(test_source())?;
+        let settle = kernel(settle_source())?;
         batch.clear_buffer(&self.worklist);
         let mut parameters = PassParameters::new();
-        parameters.insert("vertices".into(), (self.vertex_count).into());
-        parameters.insert("faces".into(), (self.face_count).into());
-        parameters.insert("gated".into(), (1u32).into());
-        parameters.insert("pad0".into(), (0u32).into());
-        parameters.insert("positions".into(), (positions.clone()).into());
-        parameters.insert("directions".into(), (directions.clone()).into());
-        parameters.insert("triangles".into(), (self.faces.clone()).into());
-        parameters.insert("incidence".into(), (self.incidence.clone()).into());
-        parameters.insert("links".into(), (links.clone()).into());
-        parameters.insert("rooms".into(), (self.rooms.clone()).into());
-        parameters.insert("worklist".into(), (self.worklist.clone()).into());
-        parameters.insert("status".into(), (self.status.clone()).into());
+        parameters.insert("vertices", self.vertex_count);
+        parameters.insert("faces", self.face_count);
+        parameters.insert("gated", 1u32);
+        parameters.insert("pad0", 0u32);
+        parameters.insert("positions", positions.clone());
+        parameters.insert("directions", directions.clone());
+        parameters.insert("triangles", self.faces.clone());
+        parameters.insert("incidence", self.incidence.clone());
+        parameters.insert("links", links.clone());
+        parameters.insert("rooms", self.rooms.clone());
+        parameters.insert("worklist", self.worklist.clone());
+        parameters.insert("status", self.status.clone());
         let vertices = self.vertex_count;
         for _ in 0..COMPRESSION_PASSES {
-            batch.dispatch_items(&synchronize, &parameters, vertices.into())?;
-            batch.dispatch_items(&restart, &parameters, vertices.into())?;
-            batch.dispatch_items(&test, &parameters, self.face_count.into())?;
-            batch.dispatch(&settle, &parameters, [1, 1, 1].into())?;
+            batch
+                .dispatch_items(&synchronize, &parameters, vertices)
+                .and_then(|b| b.dispatch_items(&restart, &parameters, vertices))
+                .and_then(|b| b.dispatch_items(&test, &parameters, self.face_count))
+                .and_then(|b| b.dispatch(&settle, &parameters, [1, 1, 1]))
+                .map_err(device_error)?;
         }
-        parameters.insert("gated".into(), (0u32).into());
-        batch.dispatch_items(&synchronize, &parameters, vertices.into())?;
-        batch.dispatch_items(&restart, &parameters, vertices.into())?;
+        parameters.insert("gated", 0u32);
+        batch
+            .dispatch_items(&synchronize, &parameters, vertices)
+            .and_then(|b| b.dispatch_items(&restart, &parameters, vertices))
+            .map_err(device_error)?;
         Ok(())
     }
 }
@@ -165,20 +169,19 @@ fn halvings(v: u32, chosen: u32, before: u32) -> i32 {{
 // Whether triangle `f`'s prism holds with its corners' starting room, halved
 // once per failure among earlier triangles in verdict set `chosen` -- or not
 // halved at all when `chosen` is `NO_VERTEX`.
-// Keep the fixed corners explicit: llvmpipe faults on nested corner/incidence
-// loops when a later sweep has a sparse worklist.
 fn holds(f: u32, chosen: u32) -> bool {{
-    let v = vec3<u32>(triangles[f * 3u], triangles[f * 3u + 1u], triangles[f * 3u + 2u]);
-    var room = vec3<f32>(start_room(v.x), start_room(v.y), start_room(v.z));
-    if (chosen != NO_VERTEX) {{
-        room.x = ldexp(room.x, -halvings(v.x, chosen, f));
-        room.y = ldexp(room.y, -halvings(v.y, chosen, f));
-        room.z = ldexp(room.z, -halvings(v.z, chosen, f));
+    var p: array<vec3<f32>, 3>;
+    var o: array<vec3<f32>, 3>;
+    for (var corner = 0u; corner < 3u; corner = corner + 1u) {{
+        let v = triangles[f * 3u + corner];
+        var room = start_room(v);
+        if (chosen != NO_VERTEX) {{
+            room = ldexp(room, -halvings(v, chosen, f));
+        }}
+        p[corner] = point(v);
+        o[corner] = direction(v) * room;
     }}
-    return valid_prism(
-        array<vec3<f32>, 3>(point(v.x), point(v.y), point(v.z)),
-        array<vec3<f32>, 3>(direction(v.x) * room.x, direction(v.y) * room.y, direction(v.z) * room.z)
-    );
+    return valid_prism(p, o);
 }}
 
 // Make `f` a candidate, once.

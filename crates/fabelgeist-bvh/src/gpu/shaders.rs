@@ -27,7 +27,6 @@
 /// A non-negative float already compares correctly as an integer once the sign
 /// bit is set; a negative one needs every bit flipped, which turns its
 /// descending integer order into an ascending one.
-use fabelgeist_gpu::prelude::ShaderSource;
 pub const ORDERED_FLOAT: &str = r#"
 fn ordered_from_float(value: f32) -> u32 {
     let bits = bitcast<u32>(value);
@@ -72,8 +71,8 @@ struct Params {
 "#;
 
 /// Reduce every primitive's box into the six words of the scene bounds.
-pub fn bounds_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub fn bounds_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> primitive_bounds: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read_write> scene_bounds: array<atomic<u32>>;
@@ -98,12 +97,12 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     atomicMax(&scene_bounds[5], ordered_from_float(upper.z));
 }}
 "#
-    ))
+    )
 }
 
 /// A Morton code per primitive, from its centroid's position in the scene box.
-pub fn codes_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub fn codes_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> primitive_bounds: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> scene_bounds: array<u32>;
@@ -146,7 +145,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     indices[index] = index;
 }}
 "#
-    ))
+    )
 }
 
 /// Karras's hierarchy: `count - 1` internal nodes, each deriving its own range
@@ -154,8 +153,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 ///
 /// Internal nodes are `0 .. count-1`; leaves are `count-1 .. 2*count-1`, with
 /// leaf `i` holding sorted primitive `i`.
-pub fn hierarchy_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub fn hierarchy_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> codes: array<u32>;
 @group(0) @binding(1) var<storage, read_write> nodes: array<vec4<f32>>;
@@ -245,12 +244,12 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     parents[right] = i;
 }}
 "#
-    ))
+    )
 }
 
 /// Reset every node's bounds to the empty box, ready for the push-up.
-pub fn clear_bounds_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub fn clear_bounds_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read_write> node_bounds: array<atomic<u32>>;
 {PARAMS}
@@ -275,7 +274,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     atomicStore(&node_bounds[index * 6u + 5u], empty_high);
 }}
 "#
-    ))
+    )
 }
 
 /// Bottom-up refit, done by having each leaf push its own box into every
@@ -290,8 +289,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 /// order they arrive in -- so it is correct by construction. The cost is
 /// `leaves x depth` atomic operations, which for the tens of thousands of
 /// primitives here is nothing next to a shader launch.
-pub fn refit_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub fn refit_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> primitive_bounds: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> indices: array<u32>;
@@ -340,13 +339,13 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     }}
 }}
 "#
-    ))
+    )
 }
 
 /// Copy the atomically-reduced bounds into the node array, leaving the child
 /// and count lanes alone.
-pub fn gather_bounds_source() -> ShaderSource {
-    ShaderSource::from(format!(
+pub fn gather_bounds_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> node_bounds: array<u32>;
 @group(0) @binding(1) var<storage, read_write> nodes: array<vec4<f32>>;
@@ -385,7 +384,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     }}
 }}
 "#
-    ))
+    )
 }
 
 /// How a generated traversal names the buffers it reads and the function it

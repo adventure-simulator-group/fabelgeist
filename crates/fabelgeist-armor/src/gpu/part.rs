@@ -8,14 +8,12 @@
 //! the final normals. Nothing is read back until [`PartBuild::read`].
 
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
-use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
-use fabelgeist_gpu::prelude::{ReadbackSlot, ReadbackStatusWord};
 
 mod layout;
 mod shell_kernels;
 
-use super::staging::{StagedResults, Staging};
+use super::staging::{Staged, StagedResults, Staging};
 use super::{ArmorGpu, device_error};
 use crate::{ArmorComponent, ArmorHinge, GenerateError, PlateFace, SurfaceGrid};
 pub(crate) use layout::{
@@ -70,31 +68,22 @@ impl PartBuild {
         let carrier_triangle_count = carrier_shells.len() as u32;
         let final_triangle_count = final_shells.len() as u32;
         Ok(Self {
-            carriers: gpu.scratch((carriers as u64 * 12).into(), ("part carriers").into())?,
-            heights: gpu.scratch((carriers as u64 * 4).into(), ("part heights").into())?,
-            shells: gpu.upload(BufferUpload::from_elements(&shell_table(&layout)))?,
-            hinges: gpu.scratch(
-                (hinges.max(1) as u64 * HINGE_WORDS as u64 * 4).into(),
-                ("part hinges").into(),
-            )?,
-            status: gpu.scratch((4u64).into(), ("part status").into())?,
-            shell_of: gpu.upload(BufferUpload::from_elements(&layout.shell_of_carrier()))?,
-            authored_carrier_triangles: gpu
-                .upload(BufferUpload::from_elements(&carrier_indices))?,
-            carrier_triangle_shells: gpu.upload(BufferUpload::from_elements(&carrier_shells))?,
-            carrier_triangles: gpu.scratch(
-                (carrier_indices.len() as u64 * 4).into(),
-                ("part carrier triangles").into(),
-            )?,
-            sources: gpu.upload(BufferUpload::from_elements(&layout.sources()))?,
-            authored_final_indices: gpu.upload(BufferUpload::from_elements(&final_indices))?,
-            final_triangle_shells: gpu.upload(BufferUpload::from_elements(&final_shells))?,
-            final_indices: gpu.scratch(
-                (final_indices.len() as u64 * 4).into(),
-                ("part triangles").into(),
-            )?,
-            walls: gpu.scratch((carriers as u64 * 24).into(), ("part walls").into())?,
-            positions: gpu.scratch((finals as u64 * 12).into(), ("part positions").into())?,
+            carriers: gpu.scratch(carriers as u64 * 12, "part carriers")?,
+            heights: gpu.scratch(carriers as u64 * 4, "part heights")?,
+            shells: gpu.upload(&shell_table(&layout))?,
+            hinges: gpu.scratch(hinges.max(1) as u64 * HINGE_WORDS as u64 * 4, "part hinges")?,
+            status: gpu.scratch(4, "part status")?,
+            shell_of: gpu.upload(&layout.shell_of_carrier())?,
+            authored_carrier_triangles: gpu.upload(&carrier_indices)?,
+            carrier_triangle_shells: gpu.upload(&carrier_shells)?,
+            carrier_triangles: gpu
+                .scratch(carrier_indices.len() as u64 * 4, "part carrier triangles")?,
+            sources: gpu.upload(&layout.sources())?,
+            authored_final_indices: gpu.upload(&final_indices)?,
+            final_triangle_shells: gpu.upload(&final_shells)?,
+            final_indices: gpu.scratch(final_indices.len() as u64 * 4, "part triangles")?,
+            walls: gpu.scratch(carriers as u64 * 24, "part walls")?,
+            positions: gpu.scratch(finals as u64 * 12, "part positions")?,
             area: VertexNormals::new(context, carriers, carrier_triangle_count)
                 .map_err(device_error)?,
             angle: VertexNormals::new(context, carriers, carrier_triangle_count)
@@ -136,15 +125,15 @@ impl PartBuild {
             ),
         ] {
             let mut winding = PassParameters::new();
-            winding.insert("count".into(), (count).into());
+            winding.insert("count", count);
             pad(&mut winding);
-            winding.insert("authored".into(), (authored.clone()).into());
-            winding.insert("triangle_shells".into(), (shells.clone()).into());
-            winding.insert("shells".into(), (self.shells.clone()).into());
-            winding.insert("wound".into(), (wound.clone()).into());
+            winding.insert("authored", authored.clone());
+            winding.insert("triangle_shells", shells.clone());
+            winding.insert("shells", self.shells.clone());
+            winding.insert("wound", wound.clone());
             batch
-                .dispatch_items(&kernels.winding, &winding, (count).into())
-                .map_err(crate::GenerateError::from)?;
+                .dispatch_items(&kernels.winding, &winding, count)
+                .map_err(device_error)?;
         }
         for (weighting, output) in [
             (NormalWeighting::Area, &mut self.area),
@@ -162,32 +151,32 @@ impl PartBuild {
                 .map_err(device_error)?;
         }
         let mut walls = PassParameters::new();
-        walls.insert("count".into(), (carriers).into());
+        walls.insert("count", carriers);
         pad(&mut walls);
-        walls.insert("carriers".into(), (self.carriers.clone()).into());
-        walls.insert("heights".into(), (self.heights.clone()).into());
-        walls.insert("shell_of".into(), (self.shell_of.clone()).into());
-        walls.insert("shells".into(), (self.shells.clone()).into());
-        walls.insert("area_normals".into(), (self.area.normals.clone()).into());
-        walls.insert("angle_normals".into(), (self.angle.normals.clone()).into());
-        walls.insert("walls".into(), (self.walls.clone()).into());
-        walls.insert("status".into(), (self.status.clone()).into());
+        walls.insert("carriers", self.carriers.clone());
+        walls.insert("heights", self.heights.clone());
+        walls.insert("shell_of", self.shell_of.clone());
+        walls.insert("shells", self.shells.clone());
+        walls.insert("area_normals", self.area.normals.clone());
+        walls.insert("angle_normals", self.angle.normals.clone());
+        walls.insert("walls", self.walls.clone());
+        walls.insert("status", self.status.clone());
         batch
-            .dispatch_items(&kernels.walls, &walls, (carriers).into())
-            .map_err(crate::GenerateError::from)?;
+            .dispatch_items(&kernels.walls, &walls, carriers)
+            .map_err(device_error)?;
 
         let finals = self.layout.final_count;
         let mut assemble = PassParameters::new();
-        assemble.insert("count".into(), (finals).into());
-        assemble.insert("carriers".into(), (carriers).into());
-        assemble.insert("pad1".into(), (0u32).into());
-        assemble.insert("pad2".into(), (0u32).into());
-        assemble.insert("sources".into(), (self.sources.clone()).into());
-        assemble.insert("walls".into(), (self.walls.clone()).into());
-        assemble.insert("positions".into(), (self.positions.clone()).into());
+        assemble.insert("count", finals);
+        assemble.insert("carriers", carriers);
+        assemble.insert("pad1", 0u32);
+        assemble.insert("pad2", 0u32);
+        assemble.insert("sources", self.sources.clone());
+        assemble.insert("walls", self.walls.clone());
+        assemble.insert("positions", self.positions.clone());
         batch
-            .dispatch_items(&kernels.assemble, &assemble, (finals).into())
-            .map_err(crate::GenerateError::from)?;
+            .dispatch_items(&kernels.assemble, &assemble, finals)
+            .map_err(device_error)?;
         if let Some(frame) = &self.placement {
             super::placement::record(
                 gpu,
@@ -258,24 +247,23 @@ impl PartBuild {
         // area is degenerate, an angle-weighted carrier that cannot be
         // normalised is not a surface, and neither is an extrusion that does
         // not leave its carrier.
-        if results.status(slots.area)? != ReadbackStatusWord::CLEAR {
+        if results.status(slots.area) != 0 {
             return Err(GenerateError::Degenerate);
         }
-        if results.status(slots.angle)? != ReadbackStatusWord::CLEAR
-            && self.layout.uses_angle_normals()
-            || results.status(slots.shell)? != ReadbackStatusWord::CLEAR
+        if results.status(slots.angle) != 0 && self.layout.uses_angle_normals()
+            || results.status(slots.shell) != 0
         {
             return Err(GenerateError::InvalidSurface);
         }
-        if results.status(slots.normals_status)? != ReadbackStatusWord::CLEAR {
+        if results.status(slots.normals_status) != 0 {
             return Err(GenerateError::Degenerate);
         }
         let count = self.layout.final_count as usize;
-        let mut positions: Vec<[f32; 3]> = results.get(slots.positions)?;
+        let mut positions: Vec<[f32; 3]> = results.get(slots.positions);
         positions.truncate(count);
-        let mut normals: Vec<[f32; 3]> = results.get(slots.normals)?;
+        let mut normals: Vec<[f32; 3]> = results.get(slots.normals);
         normals.truncate(count);
-        let hinges: Vec<[f32; 4]> = results.get(slots.hinges)?;
+        let hinges: Vec<[f32; 4]> = results.get(slots.hinges);
         let components = self
             .layout
             .components()
@@ -288,7 +276,7 @@ impl PartBuild {
                 component
             })
             .collect();
-        let mut indices: Vec<u32> = results.get(slots.indices)?;
+        let mut indices: Vec<u32> = results.get(slots.indices);
         indices.truncate(self.final_triangle_count as usize * 3);
         Ok(BuiltPart {
             positions,
@@ -304,14 +292,14 @@ impl PartBuild {
 /// Where a part's results are in a staged readback.
 #[derive(Clone, Copy, Debug)]
 pub struct PartSlots {
-    area: ReadbackSlot,
-    angle: ReadbackSlot,
-    shell: ReadbackSlot,
-    normals_status: ReadbackSlot,
-    positions: ReadbackSlot,
-    normals: ReadbackSlot,
-    hinges: ReadbackSlot,
-    indices: ReadbackSlot,
+    area: Staged,
+    angle: Staged,
+    shell: Staged,
+    normals_status: Staged,
+    positions: Staged,
+    normals: Staged,
+    hinges: Staged,
+    indices: Staged,
 }
 
 /// A finished part, back on the host.
@@ -348,9 +336,7 @@ impl BuiltPart {
                 component
             }));
         self.grids.extend(other.grids.into_iter().map(|mut grid| {
-            for vertex in &mut grid.vertices {
-                *vertex += offset;
-            }
+            grid.remap_vertices(|vertex| vertex + vertices as u32);
             grid
         }));
     }
@@ -369,6 +355,6 @@ fn shell_table(layout: &PartLayout) -> Vec<f32> {
 
 fn pad(parameters: &mut PassParameters) {
     for name in ["pad0", "pad1", "pad2"] {
-        parameters.insert(name.into(), (0u32).into());
+        parameters.insert(name, 0u32);
     }
 }

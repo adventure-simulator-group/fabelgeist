@@ -3,14 +3,14 @@ use super::*;
 
 const SITE_HALF_WIDTH_METRES: f32 = CITY_RADIUS_X_METRES;
 const EXTENSION_START_METRES: f32 = 300.0;
-const EXTENSION_BLOCK_METRES: f32 = 75.0;
-const OLD_BLOCK_MIN_METRES: f32 = 70.0;
-const OLD_BLOCK_VARIATION_METRES: f32 = 55.0;
-const MARKET_LENGTH_METRES: f32 = 150.0;
+const EXTENSION_BLOCK_METRES: f32 = 96.0;
+const OLD_BLOCK_MIN_METRES: f32 = 96.0;
+const OLD_BLOCK_VARIATION_METRES: f32 = 48.0;
+const MARKET_LENGTH_METRES: f32 = 112.0;
 const JUNCTION_SPACING_METRES: f32 = 2.0;
-const STRIP_DEPTH_METRES: f32 = 96.0;
+const STRIP_DEPTH_METRES: f32 = 56.0;
 const OLD_SEAM_OFFSET_METRES: f32 = 18.0;
-const OLD_SEAM_PHASE: f32 = 1.7;
+const OLD_SEAM_PHASE: f32 = 0.45;
 
 pub(super) fn build(site: &CitySite, seed: u64, extent: DevelopmentExtent) -> StreetGraph {
     let strip_count = extent.strip_count;

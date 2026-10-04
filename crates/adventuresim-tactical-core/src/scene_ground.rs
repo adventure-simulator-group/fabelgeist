@@ -1,4 +1,3 @@
-use crate::scene_input::SceneValidationError;
 use fabelgeist_determinism::StreamId;
 
 use crate::{
@@ -72,9 +71,10 @@ pub(crate) fn build_scene_ground(
             }
         }
     }
-    let mut ground = SceneGround::from_samples(width, depth, spacing, samples).ok_or(
-        SceneInputError::Validation(SceneValidationError::GroundSurface),
-    )?;
+    let mut ground =
+        SceneGround::from_samples(width, depth, spacing, samples).ok_or_else(|| {
+            SceneInputError::Validation("generated ground-surface grid is invalid".into())
+        })?;
     ground.urban = crate::scene::UrbanGroundSurfaces::new(streets, yards, buildings);
     Ok(ground)
 }

@@ -23,7 +23,7 @@ pub use catalog::{
     recommended_holder,
 };
 pub use codec::{CodecError, decode, decode_holder, encode, encode_holder};
-pub use construction::{ConstructionError, Detail, NormalBudgetFailure};
+pub use construction::Detail;
 pub use derive::{derive_holder_properties, derive_material_masses, derive_properties};
 pub use derived_properties::{DerivedMaterialMass, DerivedProperties};
 pub use design::*;

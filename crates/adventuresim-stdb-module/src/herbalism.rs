@@ -1,8 +1,5 @@
 //! Authoritative bounded herbal preparation.
 
-mod food_split_error;
-pub(crate) use food_split_error::MedicinalFoodSplitError;
-
 mod ingredient;
 use ingredient::consume_tincture_ingredient;
 
@@ -97,7 +94,7 @@ pub struct MedicinalComponent {
 }
 
 fn is_tincture_vessel(item_id: &str) -> bool {
-    adventuresim_core::item_catalog::definition(&(item_id).into())
+    adventuresim_core::item_catalog::definition(item_id)
         .is_some_and(|definition| definition.tags.iter().any(|tag| tag == "tincture_vessel"))
 }
 
@@ -179,7 +176,7 @@ fn materialize_mature_tincture(ctx: &ReducerContext, object_id: u64, now: Strate
 
 pub(crate) fn consume_food_medicine(
     ctx: &ReducerContext,
-    patient_id: adventuresim_core::identity::CharacterId,
+    patient_id: u64,
     lot_id: u64,
     fraction: f32,
 ) -> Result<(), String> {
@@ -213,7 +210,7 @@ pub(crate) fn consume_food_medicine(
             .map_err(|_| "Medicinal food dose is outside the supported range")?;
         crate::disease::administer_intervention_component(
             ctx,
-            (patient_id).into(),
+            patient_id,
             &row.intervention_profile_id,
             row.profile_version,
             dose,
@@ -245,9 +242,9 @@ pub(crate) fn split_food_medicine(
     source_id: u64,
     child_id: u64,
     fraction: f32,
-) -> Result<(), MedicinalFoodSplitError> {
+) -> Result<(), String> {
     if !fraction.is_finite() || !(0.0..=1.0).contains(&fraction) {
-        return Err(MedicinalFoodSplitError);
+        return Err("Medicinal food split fraction is invalid".into());
     }
     for mut source in ctx
         .db
@@ -281,10 +278,8 @@ pub fn pour_tincture_spirit_into_container(
     spirit_id: u64,
     object_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::character::require_living_character(ctx, character_id)?;
     let mut spirit = ctx
         .db
         .inventory_item()
@@ -304,10 +299,7 @@ pub fn pour_tincture_spirit_into_container(
         .id()
         .find(character_id)
         .ok_or("Character not found")?;
-    let custody = crate::object_custody::require_actor_carried_object(ctx, &actor, &object)
-        .map_err(
-            |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
-        )?;
+    let custody = crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
     if !matches!(
         custody.root,
         adventuresim_core::physical_object::OperationalCustody::Character(id)
@@ -347,15 +339,12 @@ pub fn start_poppy_tincture(
     character_id: u64,
     object_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
-    let actor = crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::strategic::require_strategic_gateway(ctx)?;
+    let actor = crate::character::require_living_character(ctx, character_id)?;
     if actor.has_tactical_server_assignment() {
         return Err("Tincturing is unavailable during a tactical encounter".into());
     }
-    crate::strategic::require_character_no_unresolved_encounter(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
+    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
     let object = require_tincture_vessel(ctx, object_id)?;
     let actor = ctx
         .db
@@ -363,10 +352,7 @@ pub fn start_poppy_tincture(
         .id()
         .find(character_id)
         .ok_or("Character not found")?;
-    let custody = crate::object_custody::require_actor_carried_object(ctx, &actor, &object)
-        .map_err(
-            |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
-        )?;
+    let custody = crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
     if !matches!(
         custody.root,
         adventuresim_core::physical_object::OperationalCustody::Character(id)
@@ -408,9 +394,7 @@ pub fn start_poppy_tincture(
         .find(direct[0].child_object_id)
         .ok_or("Tincture ingredient is missing")?;
     let ingredient_custody =
-        crate::object_custody::require_actor_carried_object(ctx, &actor, &ingredient).map_err(
-            |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
-        )?;
+        crate::object_custody::require_actor_carried_object(ctx, &actor, &ingredient)?;
     if !matches!(
         ingredient_custody.root,
         adventuresim_core::physical_object::OperationalCustody::Character(id)
@@ -455,15 +439,10 @@ pub fn start_poppy_tincture(
     if check < MIN_HERBALISM_CHECK {
         return Err("At least 0.5 Herbalism is required to prepare a medicinal tincture".into());
     }
-    if !crate::time::advance_character_wait_time(
-        ctx,
-        (character_id).into(),
-        TINCTURE_SETUP_MINUTES,
-    )? {
+    if !crate::time::advance_character_wait_time(ctx, character_id, TINCTURE_SETUP_MINUTES)? {
         return Ok(());
     }
-    let now = crate::time::refresh_clock(ctx)
-        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
+    let now = crate::time::refresh_clock(ctx)?;
     let ready = now
         .checked_add_minutes(adventuresim_core::herbalism::POPPY_TINCTURE_MATURATION_MINUTES)
         .ok_or("Tincture completion time overflow")?;
@@ -478,14 +457,12 @@ pub fn start_poppy_tincture(
     ctx.db.character_skills().character_id().update(skills);
     crate::condition::record_mastery_training_morale(
         ctx,
-        (character_id).into(),
+        character_id,
         TINCTURE_SETUP_MINUTES,
         gain.excess_effective_hours,
     );
-    crate::capability::refresh_character_capability(ctx, (character_id).into())
-        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
-    crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())
-        .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?;
+    crate::capability::refresh_character_capability(ctx, character_id)?;
+    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
     ctx.db.tincture_process().insert(TinctureProcess {
         container_object_id: object_id,
         started_at_world_minute: now,
@@ -508,10 +485,8 @@ pub fn refresh_tincture(
     character_id: u64,
     object_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::strategic::require_strategic_gateway(ctx)?;
+    crate::character::require_living_character(ctx, character_id)?;
     let object = require_tincture_vessel(ctx, object_id)?;
     let actor = ctx
         .db
@@ -519,14 +494,8 @@ pub fn refresh_tincture(
         .id()
         .find(character_id)
         .ok_or("Character not found")?;
-    crate::object_custody::require_actor_carried_object(ctx, &actor, &object).map_err(
-        |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
-    )?;
-    materialize_mature_tincture(
-        ctx,
-        object_id,
-        refresh_clock(ctx).map_err(|error: crate::time::WorldClockError| error.to_string())?,
-    );
+    crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
+    materialize_mature_tincture(ctx, object_id, refresh_clock(ctx)?);
     Ok(())
 }
 
@@ -538,8 +507,7 @@ pub fn administer_tincture_from_container(
     object_id: u64,
     dose_milliunits: u32,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    crate::strategic::require_strategic_gateway(ctx)?;
     crate::disease::require_intervention_relationship(ctx, actor_id, patient_id)?;
     let tincture_dose = DoseMilliunits::try_new(dose_milliunits)
         .map_err(|_| "Tincture dose must be between 1 and 1000 milliunits")?;
@@ -553,14 +521,8 @@ pub fn administer_tincture_from_container(
         .id()
         .find(actor_id)
         .ok_or("Character not found")?;
-    crate::object_custody::require_actor_carried_object(ctx, &actor, &object).map_err(
-        |error: crate::object_custody::ObjectCustodyError| -> String { error.to_string() },
-    )?;
-    materialize_mature_tincture(
-        ctx,
-        object_id,
-        refresh_clock(ctx).map_err(|error: crate::time::WorldClockError| error.to_string())?,
-    );
+    crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
+    materialize_mature_tincture(ctx, object_id, refresh_clock(ctx)?);
     let process = ctx
         .db
         .tincture_process()
@@ -586,7 +548,7 @@ pub fn administer_tincture_from_container(
     }
     crate::disease::administer_intervention_component(
         ctx,
-        (patient_id).into(),
+        patient_id,
         &component.intervention_profile_id,
         component.profile_version,
         administered_dose,
@@ -607,11 +569,7 @@ pub fn administer_tincture_from_container(
             .container_liquid()
             .container_object_id()
             .delete(object_id);
-        crate::inventory_container::merge_empty_container(ctx, object_id).map_err(
-            |error: crate::inventory_container::InventoryContainerError| -> String {
-                error.to_string()
-            },
-        )?;
+        crate::inventory_container::merge_empty_container(ctx, object_id)?;
     } else {
         ctx.db.medicinal_component().key().update(component);
         ctx.db

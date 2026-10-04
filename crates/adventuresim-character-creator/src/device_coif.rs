@@ -1,23 +1,21 @@
 //! The mail coif fitted on the device.
 //!
 //! The coif's drape is measured on the torso and neck skin in the head frame,
-//! in dependent steps: rig landmarks set the neck boundary's heights, a
-//! reduction finds the neck's width and the chest and back depths there, the
+//! in dependent steps: rig landmarks set the neck boundary's heights,
+//! triangle sections find the neck's width and the chest and back depths there, the
 //! boundary then sets the flaps' section heights, and a second reduction
 //! finds the body's depth at every flap section. Each step between the two
 //! reductions is one invocation.
 
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
 use std::f32::consts::{PI, TAU};
 use std::sync::Arc;
 
-use anyhow::{Result, ensure};
+use anyhow::{Context, Result, ensure};
 use fabelgeist_armor::gpu::COIF_DRAPE_SECTIONS;
-use fabelgeist_armor::gpu::{COIF_DRAPE_WORDS, FIT_PROFILE_WORD, record_coif, wgsl};
+use fabelgeist_armor::gpu::{COIF_DRAPE_WORDS, FIT_PROFILE_WORD, device_error, record_coif, wgsl};
 use fabelgeist_armor::{ArmorGpu, CoifDesign, DevicePart, PartFrame};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::{FitRegion, Wearer};
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -75,7 +73,7 @@ pub fn fitted_coif_carrier(
         body: &body,
         host: wearer,
     };
-    let mut batch = gpu.batch(("coif carrier").into());
+    let mut batch = gpu.batch("coif carrier");
     let recording = device.record_fitted_coif(&mut batch, design)?;
     batch.submit();
     let (frame, region) = &recording.frames[0];
@@ -110,18 +108,31 @@ impl DeviceWearer<'_> {
     ) -> Result<Buffer> {
         let gpu = self.gpu;
         let host = self.host;
-        let joint =
-            |name: &RigJointName| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
-                name.require_in(host.joint_names)
-            };
+        let joint = |name: &str| -> Result<u32> {
+            host.joint_names
+                .iter()
+                .position(|n| n == name)
+                .map(|i| i as u32)
+                .with_context(|| format!("missing coif neck landmark {name}"))
+        };
         let mut support = host.support_indices(FitRegion::Torso)?;
         support.extend(host.support_indices(FitRegion::Neck)?);
         support.sort_unstable();
         support.dedup();
-        let support = support.into_iter().map(|i| i as u32).collect::<Vec<_>>();
+        let mut owned = vec![false; host.positions.len()];
+        for vertex in support {
+            owned[vertex] = true;
+        }
+        let support = host
+            .faces
+            .iter()
+            .filter(|face| face.iter().any(|&vertex| owned[vertex as usize]))
+            .flatten()
+            .copied()
+            .collect::<Vec<_>>();
         let fit = gpu.scratch(
-            (((FIT_PROFILE_WORD + COIF_DRAPE_WORDS) * 4) as u64).into(),
-            ("coif fit").into(),
+            ((FIT_PROFILE_WORD + COIF_DRAPE_WORDS) * 4) as u64,
+            "coif fit",
         )?;
         let mut work = vec![0u32; QUERY_START + 2 * QUERIES];
         work[4] = ORDERED_ZERO;
@@ -146,53 +157,35 @@ impl DeviceWearer<'_> {
             0.0,
         ];
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (support.len() as u32).into());
-        parameters.insert(
-            "neck".into(),
-            (usize::from(joint(&RigJointName::C_NECK)?) as u32).into(),
-        );
-        parameters.insert(
-            "jaw".into(),
-            (usize::from(joint(&RigJointName::C_JAW_NULL)?) as u32).into(),
-        );
-        parameters.insert(
-            "head".into(),
-            (usize::from(joint(&RigJointName::C_HEAD)?) as u32).into(),
-        );
-        parameters.insert("positions".into(), (self.body.positions.clone()).into());
-        parameters.insert(
-            "support".into(),
-            (gpu.upload(BufferUpload::from_elements(&support))?).into(),
-        );
-        parameters.insert("joints".into(), (self.body.joints.clone()).into());
-        parameters.insert("frame".into(), (frame.frame.clone()).into());
-        parameters.insert(
-            "design".into(),
-            (gpu.upload(BufferUpload::from_elements(&design_words))?).into(),
-        );
-        parameters.insert(
-            "work".into(),
-            (gpu.upload(BufferUpload::from_elements(&work))?).into(),
-        );
-        parameters.insert("fit".into(), (fit.clone()).into());
-        parameters.insert("status".into(), (frame.status.clone()).into());
+        parameters.insert("count", (support.len() / 3) as u32);
+        parameters.insert("neck", joint("c_neck")?);
+        parameters.insert("jaw", joint("c_jaw_null")?);
+        parameters.insert("head", joint("c_head")?);
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert("support", gpu.upload(&support)?);
+        parameters.insert("joints", self.body.joints.clone());
+        parameters.insert("frame", frame.frame.clone());
+        parameters.insert("design", gpu.upload(&design_words)?);
+        parameters.insert("work", gpu.upload(&work)?);
+        parameters.insert("fit", fit.clone());
+        parameters.insert("status", frame.status.clone());
         let [landmarks, neck, boundary, sections, drape] = kernels(gpu)?;
-        let samples = support.len() as u32;
+        let samples = (support.len() / 3) as u32;
         batch
-            .dispatch(&landmarks, &parameters, ([1, 1, 1]).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch(&landmarks, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&neck, &parameters, (samples).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&neck, &parameters, samples)
+            .map_err(device_error)?;
         batch
-            .dispatch(&boundary, &parameters, ([1, 1, 1]).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch(&boundary, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&sections, &parameters, (samples).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&sections, &parameters, samples)
+            .map_err(device_error)?;
         batch
-            .dispatch(&drape, &parameters, ([1, 1, 1]).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch(&drape, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
         Ok(fit)
     }
 }
@@ -201,7 +194,7 @@ fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 5]> {
     let compile = |entry: &str| {
         gpu.cache()
             .get(gpu.context(), &source(entry))
-            .map_err(fabelgeist_armor::GenerateError::from)
+            .map_err(device_error)
     };
     Ok([
         compile(LANDMARKS)?,
@@ -212,8 +205,8 @@ fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 5]> {
     ])
 }
 
-fn source(entry: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+fn source(entry: &str) -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> support: array<u32>;
@@ -247,12 +240,9 @@ const ZERO: u32 = 8u;
 const NO_ENVELOPE: u32 = 2u;
 const INVALID: u32 = 4u;
 
-const SECTION_HALF_HEIGHT_M: f32 = 0.020;
 const TRANSVERSE_BAND_HALF_WIDTH_M: f32 = 0.030;
-const MINIMUM_SECTION_POINTS: u32 = 3u;
 const SIDE_NECK_BASE_RISE: f32 = 0.38;
 const BACK_NECK_BASE_RISE: f32 = 0.24;
-const NECK_WIDTH_SECTION_HALF_HEIGHT_M: f32 = 0.006;
 const SECTIONS: u32 = {sections}u;
 
 // Work words.
@@ -301,28 +291,22 @@ fn joint(index: u32) -> vec3<f32> {{
     return vec3<f32>(joints[index * 8u], joints[index * 8u + 1u], joints[index * 8u + 2u]);
 }}
 
-// Whether `p` lies in a horizontal body section at `height`, `across` the
-// centre line, on the facing side.
-fn in_section(p: vec3<f32>, height: f32, across: f32, center_depth: f32, facing: f32) -> bool {{
-    return abs(host_sub(p.y, height)) <= SECTION_HALF_HEIGHT_M
-        && abs(host_sub(abs(p.x), across)) <= TRANSVERSE_BAND_HALF_WIDTH_M
-        && host_mul(host_sub(p.z, center_depth), facing) > 0.0;
-}}
-
 fn count_at(at: u32) {{
     atomicAdd(&work[at + 1u], 1u);
 }}
 
+{section_source}
 {entry}
 "#,
         ordered = wgsl::ORDERED_FLOAT,
         zero_hook = host_float::zero_hook("bitcast<u32>(design[ZERO])"),
         host_float = host_float::wgsl(),
         positions = wgsl::read_points("positions"),
+        section_source = include_str!("device_coif_sections.wgsl"),
         sections = COIF_DRAPE_SECTIONS,
         queries = QUERY_START,
         drape = FIT_PROFILE_WORD,
-    ))
+    )
 }
 
 /// One invocation: the neck boundary's heights from the rig.
@@ -353,20 +337,14 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     if (i >= params.count) {
         return;
     }
-    let p = local(positions_at(support[i]));
     let center = load(CENTER_DEPTH);
-    if (abs(host_sub(p.y, load(SIDE_HEIGHT))) < NECK_WIDTH_SECTION_HALF_HEIGHT_M) {
-        atomicMax(&work[NECK_WIDTH], ordered_from_float(abs(p.x)));
+    let neck = section(i, load(SIDE_HEIGHT));
+    if (neck.valid) {
+        atomicMax(&work[NECK_WIDTH], ordered_from_float(max(abs(neck.a.x), abs(neck.b.x))));
         count_at(NECK_WIDTH);
     }
-    if (in_section(p, load(FRONT_HEIGHT), 0.0, center, 1.0)) {
-        atomicMax(&work[FRONT_DEPTH], ordered_from_float(p.z));
-        count_at(FRONT_DEPTH);
-    }
-    if (in_section(p, load(BACK_HEIGHT), 0.0, center, -1.0)) {
-        atomicMax(&work[BACK_DEPTH], ordered_from_float(-p.z));
-        count_at(BACK_DEPTH);
-    }
+    reduce_depth(section(i, load(FRONT_HEIGHT)), 0.0, center, 1.0, FRONT_DEPTH);
+    reduce_depth(section(i, load(BACK_HEIGHT)), 0.0, center, -1.0, BACK_DEPTH);
 }
 "#;
 
@@ -376,7 +354,7 @@ const BOUNDARY: &str = r#"
 @compute @workgroup_size(1)
 fn main() {
     for (var k = 0u; k < 3u; k = k + 1u) {
-        if (atomicLoad(&work[NECK_WIDTH + 2u * k + 1u]) < MINIMUM_SECTION_POINTS) {
+        if (atomicLoad(&work[NECK_WIDTH + 2u * k + 1u]) == 0u) {
             fail(NO_ENVELOPE);
             return;
         }
@@ -424,20 +402,17 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     if (i >= params.count) {
         return;
     }
-    let p = local(positions_at(support[i]));
     let center = load(BOUNDARY + 4u);
     let half_width = load(FLAP_HALF_WIDTH);
     for (var flap = 0u; flap < 2u; flap = flap + 1u) {
         let facing = select(1.0, -1.0, flap == 1u);
         for (var j = 0u; j < SECTIONS; j = j + 1u) {
             let height = load(SECTION_HEIGHTS + flap * SECTIONS + j);
+            let surface = section(i, height);
             for (var edge = 0u; edge < 2u; edge = edge + 1u) {
                 let across = select(0.0, half_width, edge == 1u);
-                if (in_section(p, height, across, center, facing)) {
-                    let at = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
-                    atomicMax(&work[at], ordered_from_float(host_mul(p.z, facing)));
-                    count_at(at);
-                }
+                let at = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
+                reduce_depth(surface, across, center, facing, at);
             }
         }
     }
@@ -461,7 +436,7 @@ fn main() {
             words[at] = load(SECTION_HEIGHTS + flap * SECTIONS + j);
             for (var edge = 0u; edge < 2u; edge = edge + 1u) {
                 let query = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
-                if (atomicLoad(&work[query + 1u]) < MINIMUM_SECTION_POINTS) {
+                if (atomicLoad(&work[query + 1u]) == 0u) {
                     fail(NO_ENVELOPE);
                     return;
                 }

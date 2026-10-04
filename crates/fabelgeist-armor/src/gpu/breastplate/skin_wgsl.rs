@@ -83,7 +83,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
         point = coarse_at(q - params.front_count - params.extra);
     }
     let target_point = local(point);
-    var best = bitcast<f32>(0x7f800000u);
+    var best = MAX_FINITE;
     var best_face = 0u;
     var best_weights = vec3<f32>(0.0);
     var found = false;

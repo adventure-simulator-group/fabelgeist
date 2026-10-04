@@ -74,6 +74,7 @@ pub struct ArmorComponent {
     pub vertices: Range<usize>,
     pub indices: Range<usize>,
     pub hinge: Option<ArmorHinge>,
+    pub mount: Option<crate::PlateMount>,
     pub material: Option<ArmorComponentMaterial>,
 }
 

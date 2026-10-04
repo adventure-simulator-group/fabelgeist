@@ -1,13 +1,11 @@
 //! A wearer's body on the device, and what armor takes from it.
 
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_gpu::prelude::ReadbackSlot;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, PointTargets, QueryHits};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
-use super::staging::{StagedResults, Staging};
+use super::staging::{Staged, StagedResults, Staging};
 use super::{ArmorGpu, device_error, wgsl};
 use crate::GenerateError;
 
@@ -58,13 +56,13 @@ impl GpuBody {
             return Err(GenerateError::InvalidSurface);
         }
         Ok(Self {
-            positions: gpu.upload(BufferUpload::from_elements(surface.positions))?,
-            normals: gpu.upload(BufferUpload::from_elements(surface.normals))?,
-            faces: gpu.upload(BufferUpload::from_elements(surface.faces))?,
-            texcoords: gpu.upload(BufferUpload::from_elements(surface.texcoords))?,
-            joint_indices: gpu.upload(BufferUpload::from_elements(surface.joint_indices))?,
-            joint_weights: gpu.upload(BufferUpload::from_elements(surface.joint_weights))?,
-            joints: gpu.upload(BufferUpload::from_elements(surface.joints))?,
+            positions: gpu.upload(surface.positions)?,
+            normals: gpu.upload(surface.normals)?,
+            faces: gpu.upload(surface.faces)?,
+            texcoords: gpu.upload(surface.texcoords)?,
+            joint_indices: gpu.upload(surface.joint_indices)?,
+            joint_weights: gpu.upload(surface.joint_weights)?,
+            joints: gpu.upload(surface.joints)?,
             vertex_count: vertices as u32,
             face_count: surface.faces.len() as u32,
             joint_count: surface.joints.len() as u32,
@@ -124,47 +122,27 @@ impl Correspondence {
             )
             .map_err(device_error)?;
         let correspondence = Self {
-            texcoords: gpu.scratch((count as u64 * 8).into(), ("armor texcoords").into())?,
-            joint_indices: gpu
-                .scratch((count as u64 * 32).into(), ("armor joint indices").into())?,
-            joint_weights: gpu
-                .scratch((count as u64 * 32).into(), ("armor joint weights").into())?,
+            texcoords: gpu.scratch(count as u64 * 8, "armor texcoords")?,
+            joint_indices: gpu.scratch(count as u64 * 32, "armor joint indices")?,
+            joint_weights: gpu.scratch(count as u64 * 32, "armor joint weights")?,
             hits,
             count,
         };
         let mut gather = PassParameters::new();
-        gather.insert("count".into(), (count).into());
+        gather.insert("count", count);
         for pad in ["pad0", "pad1", "pad2"] {
-            gather.insert(pad.into(), (0u32).into());
+            gather.insert(pad, 0u32);
         }
-        gather.insert(
-            "nearest".into(),
-            (correspondence.hits.nearest.clone()).into(),
-        );
-        gather.insert("body_texcoords".into(), (body.texcoords.clone()).into());
-        gather.insert(
-            "body_joint_indices".into(),
-            (body.joint_indices.clone()).into(),
-        );
-        gather.insert(
-            "body_joint_weights".into(),
-            (body.joint_weights.clone()).into(),
-        );
-        gather.insert(
-            "texcoords".into(),
-            (correspondence.texcoords.clone()).into(),
-        );
-        gather.insert(
-            "joint_indices".into(),
-            (correspondence.joint_indices.clone()).into(),
-        );
-        gather.insert(
-            "joint_weights".into(),
-            (correspondence.joint_weights.clone()).into(),
-        );
+        gather.insert("nearest", correspondence.hits.nearest.clone());
+        gather.insert("body_texcoords", body.texcoords.clone());
+        gather.insert("body_joint_indices", body.joint_indices.clone());
+        gather.insert("body_joint_weights", body.joint_weights.clone());
+        gather.insert("texcoords", correspondence.texcoords.clone());
+        gather.insert("joint_indices", correspondence.joint_indices.clone());
+        gather.insert("joint_weights", correspondence.joint_weights.clone());
         batch
-            .dispatch_items(&*gather_kernel(gpu)?, &gather, (count).into())
-            .map_err(crate::GenerateError::from)?;
+            .dispatch_items(&*gather_kernel(gpu)?, &gather, count)
+            .map_err(device_error)?;
         Ok(correspondence)
     }
 
@@ -172,11 +150,11 @@ impl Correspondence {
     pub fn read(&self, gpu: &ArmorGpu) -> Result<Skin, GenerateError> {
         let mut staging = Staging::new();
         let slots = self.stage(&mut staging);
-        self.finish(&gpu.read_staged(staging)?, slots)
+        Ok(self.finish(&gpu.read_staged(staging)?, slots))
     }
 
     /// Stage the skin for a shared readback.
-    pub fn stage<'a>(&'a self, staging: &mut Staging<'a>) -> [ReadbackSlot; 3] {
+    pub fn stage<'a>(&'a self, staging: &mut Staging<'a>) -> [Staged; 3] {
         [
             staging.stage(&self.texcoords),
             staging.stage(&self.joint_indices),
@@ -185,23 +163,19 @@ impl Correspondence {
     }
 
     /// The skin, from a shared readback.
-    pub fn finish(
-        &self,
-        results: &StagedResults,
-        slots: [ReadbackSlot; 3],
-    ) -> Result<Skin, GenerateError> {
+    pub fn finish(&self, results: &StagedResults, slots: [Staged; 3]) -> Skin {
         let count = self.count as usize;
-        let mut texcoords: Vec<[f32; 2]> = results.get(slots[0])?;
-        let mut joint_indices: Vec<[u32; 8]> = results.get(slots[1])?;
-        let mut joint_weights: Vec<[f32; 8]> = results.get(slots[2])?;
+        let mut texcoords: Vec<[f32; 2]> = results.get(slots[0]);
+        let mut joint_indices: Vec<[u32; 8]> = results.get(slots[1]);
+        let mut joint_weights: Vec<[f32; 8]> = results.get(slots[2]);
         texcoords.truncate(count);
         joint_indices.truncate(count);
         joint_weights.truncate(count);
-        Ok(Skin {
+        Skin {
             texcoords,
             joint_indices,
             joint_weights,
-        })
+        }
     }
 }
 
@@ -236,6 +210,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         counted = wgsl::COUNTED,
     );
     gpu.cache()
-        .get(gpu.context(), &ShaderSource::from(source))
-        .map_err(crate::GenerateError::from)
+        .get(gpu.context(), &source)
+        .map_err(device_error)
 }

@@ -191,7 +191,7 @@ mod tests {
     use super::*;
 
     fn coverage(item: &str, placement: usize, part: BodyPart) -> AuthoredArmorCoverage {
-        let definition = crate::item_catalog::definition(&(item).into()).unwrap();
+        let definition = crate::item_catalog::definition(item).unwrap();
         AuthoredArmorCoverage::from_placement(
             &definition.equipment.as_ref().unwrap().placements[placement],
             part,

@@ -14,7 +14,7 @@ impl InventoryView<'_, '_, '_> {
         self.iter().find_map(|item| {
             (item.slot == Some(&slot)).then_some((
                 item.properties.id.as_str(),
-                item.inventory_item_id.map(|id| id.get()),
+                item.inventory_item_id.map(|id| id.0),
             ))
         })
     }

@@ -5,8 +5,8 @@ use spacetimedb::{ReducerContext, Table};
 
 pub(super) fn mark_evening_evaluated(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-    evening: adventuresim_core::alcohol::EveningId,
+    character_id: u64,
+    evening: u64,
     id: &String,
     consumed: u32,
 ) {
@@ -17,8 +17,8 @@ pub(super) fn mark_evening_evaluated(
         .find(id)
         .unwrap_or(AlcoholConsumption {
             id: id.clone(),
-            character_id: u64::from(character_id),
-            evening_id: u64::from(evening),
+            character_id,
+            evening_id: evening,
             ethanol_ml: 0,
             morale_evaluated: false,
         });

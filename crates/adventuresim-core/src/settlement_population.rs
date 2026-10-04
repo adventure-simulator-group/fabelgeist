@@ -6,8 +6,6 @@ mod age;
 pub use age::AgeBand;
 mod demographics;
 pub use demographics::settlement_building_seed;
-mod error;
-pub use error::PopulationError;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -117,9 +115,11 @@ impl LocationContext {
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct GenerationInput {
-    pub seed: fabelgeist_determinism::SeedKey,
+    pub seed: String,
     pub location: LocationContext,
-    pub role: PopulationRole,
+    pub is_service_provider: bool,
+    pub service_id: Option<String>,
+    pub profession_override: Option<String>,
     pub local_role: String,
     /// Final age selected by an owning population plan. `None` lets this
     /// relation choose the age before any age-dependent profile facts.
@@ -127,17 +127,14 @@ pub struct GenerationInput {
     pub available_bridges: BTreeSet<PresenceBridge>,
 }
 
-mod role;
-pub use role::PopulationRole;
-mod bridge;
-pub use bridge::BridgeRequirement;
-
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct RelationCandidate<T> {
     pub value: T,
     pub plausibility: u32,
     pub curation: u32,
-    pub bridge: BridgeRequirement,
+    pub bridge: Option<PresenceBridge>,
+    /// Set for outcomes whose causal bridge is part of their validity, not flavor.
+    pub requires_bridge: bool,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -172,8 +169,8 @@ pub fn stable_hash(value: &str) -> u64 {
     .to_u64()
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum PopulationRelation {
+#[derive(Clone, Copy)]
+enum PopulationRelation {
     AgeAtLocation,
     ProfessionAtLocation,
     ScheduleAtLocation,
@@ -226,22 +223,23 @@ impl StableDecision for &'static str {
 }
 
 fn population_relation_seed(
-    seed: &fabelgeist_determinism::SeedKey,
+    seed: &str,
     relation: PopulationRelation,
 ) -> fabelgeist_determinism::Seed {
-    seed.derive(
+    fabelgeist_determinism::Seed::derive(
+        seed.as_bytes(),
         fabelgeist_determinism::StreamId::new("population.relation"),
         &[relation.stable_id().as_bytes()],
     )
 }
 
 fn choose<T: StableDecision>(
-    seed: &fabelgeist_determinism::SeedKey,
+    seed: &str,
     relation: PopulationRelation,
     context: &str,
     available_bridges: &BTreeSet<PresenceBridge>,
     candidates: &[RelationCandidate<T>],
-) -> Result<(T, RelationDecision), PopulationError> {
+) -> Result<(T, RelationDecision), String> {
     let relation_id = relation.stable_id();
     let mut valid: Vec<_> = candidates
         .iter()
@@ -249,7 +247,10 @@ fn choose<T: StableDecision>(
         .filter(|candidate| {
             candidate.plausibility > 0
                 && candidate.curation > 0
-                && candidate.bridge.is_satisfied_by(available_bridges)
+                && (!candidate.requires_bridge
+                    || candidate
+                        .bridge
+                        .is_some_and(|bridge| available_bridges.contains(&bridge)))
         })
         .collect();
     valid.sort_by_key(|candidate| candidate.value.stable_decision());
@@ -257,7 +258,7 @@ fn choose<T: StableDecision>(
         .windows(2)
         .any(|pair| pair[0].value.stable_decision() == pair[1].value.stable_decision())
     {
-        return Err(PopulationError::DuplicateCandidate { relation });
+        return Err(format!("Duplicate candidate in relation {relation_id}"));
     }
     let weights: Vec<_> = valid
         .iter()
@@ -266,11 +267,7 @@ fn choose<T: StableDecision>(
     let selected = population_relation_seed(seed, relation)
         .rng()
         .weighted_index(&weights)
-        .map_err(|source| PopulationError::Sampling {
-            relation,
-            context: context.into(),
-            source,
-        })?;
+        .map_err(|error| format!("Cannot select relation {relation_id} in {context}: {error}"))?;
     let candidate = valid[selected];
     Ok((
         candidate.value,
@@ -280,7 +277,7 @@ fn choose<T: StableDecision>(
             decision: candidate.value.stable_decision().into(),
             plausibility: candidate.plausibility,
             curation: candidate.curation,
-            bridge: candidate.bridge.required_bridge(),
+            bridge: candidate.bridge,
         },
     ))
 }
@@ -290,7 +287,8 @@ fn candidate<T>(value: T, plausibility: u32) -> RelationCandidate<T> {
         value,
         plausibility,
         curation: 10,
-        bridge: BridgeRequirement::Unrestricted,
+        bridge: None,
+        requires_bridge: false,
     }
 }
 fn bridged<T>(value: T, plausibility: u32, bridge: PresenceBridge) -> RelationCandidate<T> {
@@ -298,19 +296,20 @@ fn bridged<T>(value: T, plausibility: u32, bridge: PresenceBridge) -> RelationCa
         value,
         plausibility,
         curation: 10,
-        bridge: BridgeRequirement::Required(bridge),
+        bridge: Some(bridge),
+        requires_bridge: true,
     }
 }
 
-pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, PopulationError> {
+pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, String> {
     let context = input.location.stable_id();
-    let adult_only = input.role.is_provider() || input.location == LocationContext::AdultVenue;
+    let adult_only = input.is_service_provider || input.location == LocationContext::AdultVenue;
     let age_candidates = [
         candidate(AgeBand::Adult, if adult_only { 85 } else { 62 }),
         candidate(AgeBand::Elder, if adult_only { 15 } else { 18 }),
         bridged(
             AgeBand::Adolescent,
-            if input.role.is_provider() {
+            if input.is_service_provider {
                 0
             } else if input.location == LocationContext::AdultVenue {
                 3
@@ -321,7 +320,7 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, P
         ),
         bridged(
             AgeBand::Child,
-            if input.role.is_provider() {
+            if input.is_service_provider {
                 0
             } else if input.location == LocationContext::AdultVenue {
                 1
@@ -334,7 +333,7 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, P
     let profession_candidates = [
         candidate(
             Profession::Artisan,
-            if input.role.is_provider() {
+            if input.is_service_provider {
                 0
             } else if matches!(
                 input.location,
@@ -350,7 +349,7 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, P
         ),
         candidate(
             Profession::Householder,
-            if input.role.is_provider() {
+            if input.is_service_provider {
                 0
             } else if matches!(
                 input.location,
@@ -363,9 +362,9 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, P
         ),
         candidate(
             Profession::Laborer,
-            if input.role.is_provider() { 0 } else { 30 },
+            if input.is_service_provider { 0 } else { 30 },
         ),
-        if input.role.is_provider() {
+        if input.is_service_provider {
             candidate(Profession::Retainer, 0)
         } else if input.location == LocationContext::Keep {
             candidate(Profession::Retainer, 70)
@@ -374,7 +373,7 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, P
         },
         candidate(
             Profession::ServiceProvider,
-            if input.role.is_provider() { 100 } else { 0 },
+            if input.is_service_provider { 100 } else { 0 },
         ),
     ];
     let (age, age_decision) = demographics::choose_age(input, context, &age_candidates)?;
@@ -385,10 +384,19 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, P
         &input.available_bridges,
         &profession_candidates,
     )?;
-    input
-        .role
-        .apply_profession_explanation(&mut profession_decision, &input.local_role);
-    let schedule_candidates = if input.role.is_provider() {
+    if profession == Profession::ServiceProvider {
+        let override_name = input
+            .profession_override
+            .as_deref()
+            .ok_or("Service provider generation requires a profession override")?;
+        profession_decision.decision = override_name.into();
+        profession_decision.context = format!(
+            "service:{};role:{}",
+            input.service_id.as_deref().unwrap_or("unknown"),
+            input.local_role
+        );
+    }
+    let schedule_candidates = if input.is_service_provider {
         [
             candidate(Schedule::Provider, 100),
             candidate(Schedule::Day, 0),
@@ -539,7 +547,9 @@ mod tests {
         GenerationInput {
             seed: seed.into(),
             location,
-            role: PopulationRole::Resident,
+            is_service_provider: false,
+            service_id: None,
+            profession_override: None,
             local_role: "witness".into(),
             age: None,
             available_bridges: BTreeSet::from([
@@ -549,63 +559,6 @@ mod tests {
             ]),
         }
     }
-    #[test]
-    fn relation_failures_retain_their_classification_and_sampling_cause() {
-        let root = "failure-case".into();
-        let relation = PopulationRelation::Height;
-        assert!(matches!(
-            choose(
-                &root,
-                relation,
-                "market",
-                &BTreeSet::new(),
-                &[candidate("short", 1), candidate("short", 1)]
-            ),
-            Err(PopulationError::DuplicateCandidate {
-                relation: PopulationRelation::Height
-            })
-        ));
-        let error = choose(
-            &root,
-            relation,
-            "market",
-            &BTreeSet::new(),
-            &[bridged("short", 1, PresenceBridge::NearbyHome)],
-        )
-        .unwrap_err();
-        assert!(matches!(
-            error,
-            PopulationError::Sampling {
-                source: fabelgeist_determinism::SamplingError::EmptyCandidates,
-                ..
-            }
-        ));
-        assert!(
-            std::error::Error::source(&error)
-                .unwrap()
-                .is::<fabelgeist_determinism::SamplingError>()
-        );
-    }
-    #[test]
-    fn provider_role_supplies_profession_and_adult_schedule_together() {
-        let mut input = input("provider", LocationContext::Market);
-        input.role = PopulationRole::ServiceProvider {
-            profession: "armourer".into(),
-            service_id: Some("forge".into()),
-        };
-        let profile = generate(&input).unwrap();
-        assert_eq!(profile.profession, Profession::ServiceProvider);
-        assert_eq!(profile.schedule, Schedule::Provider);
-        assert!(matches!(profile.age, AgeBand::Adult | AgeBand::Elder));
-        let explanation = profile
-            .decisions
-            .iter()
-            .find(|decision| decision.relation == "profession_at_location")
-            .unwrap();
-        assert_eq!(explanation.decision, "armourer");
-        assert_eq!(explanation.context, "service:forge;role:witness");
-    }
-
     #[test]
     fn production_profile_is_deterministic_and_explanation_round_trips() {
         let value = generate(&input("same", LocationContext::Market)).unwrap();
@@ -621,7 +574,7 @@ mod tests {
         let mut i = input("x", LocationContext::AdultVenue);
         i.available_bridges.clear();
         for n in 0..500 {
-            i.seed = format!("x-{n}").into();
+            i.seed = format!("x-{n}");
             let p = generate(&i).unwrap();
             assert!(matches!(p.age, AgeBand::Adult | AgeBand::Elder));
             assert_ne!(p.profession, Profession::Retainer);
@@ -671,12 +624,12 @@ mod tests {
     #[test]
     fn population_relations_have_independent_streams() {
         assert_ne!(
-            population_relation_seed(&"same".into(), PopulationRelation::AgeAtLocation),
-            population_relation_seed(&"same".into(), PopulationRelation::ProfessionAtLocation)
+            population_relation_seed("same", PopulationRelation::AgeAtLocation),
+            population_relation_seed("same", PopulationRelation::ProfessionAtLocation)
         );
         assert_ne!(
-            population_relation_seed(&"same".into(), PopulationRelation::AgeAtLocation),
-            population_relation_seed(&"different".into(), PopulationRelation::AgeAtLocation)
+            population_relation_seed("same", PopulationRelation::AgeAtLocation),
+            population_relation_seed("different", PopulationRelation::AgeAtLocation)
         );
     }
 

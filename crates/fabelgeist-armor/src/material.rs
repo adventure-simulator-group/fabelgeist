@@ -1,6 +1,3 @@
-mod error;
-pub use error::MetalError;
-
 use crate::engraving::Engraving;
 use serde::{Deserialize, Serialize};
 
@@ -57,7 +54,7 @@ impl Metal {
     /// Roughness added at the bottom of the deepest scratch.
     pub(crate) const SCRATCH_ROUGHNESS: f32 = 0.45;
 
-    pub fn validate(&self) -> Result<(), MetalError> {
+    pub fn validate(&self) -> Result<(), String> {
         let values = [
             (self.roughness, 0.08, 0.9),
             (self.scratch_length, 0.005, 0.4),
@@ -82,7 +79,7 @@ impl Metal {
                 .iter()
                 .any(|x| !x.is_finite() || !(0.0..=1.0).contains(x))
         {
-            return Err(MetalError::InvalidMaterial);
+            return Err("Invalid metal parameters".into());
         }
         self.engraving.as_ref().map_or(Ok(()), Engraving::validate)
     }

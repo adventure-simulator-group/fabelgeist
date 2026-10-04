@@ -60,12 +60,8 @@ struct Catalog {
 
 #[derive(Debug, thiserror::Error)]
 enum RequestError {
-    #[error("invalid authoring: {0}")]
-    Authoring(#[source] adventuresim_weapon_model::authoring::AuthoringError),
-    #[error("invalid controls: {0}")]
-    Controls(#[source] adventuresim_weapon_model::authoring::ControlError),
     #[error("invalid construction: {0}")]
-    Construction(#[source] adventuresim_weapon_model::ConstructionError),
+    Construction(String),
     #[error("invalid request: {0}")]
     Json(#[from] serde_json::Error),
     #[error("unknown weapon preset: {0}")]
@@ -93,7 +89,7 @@ impl Request {
                 detail,
             } => {
                 adventuresim_weapon_model::authoring::validate_controls(&recipe, &controls)
-                    .map_err(RequestError::Controls)?;
+                    .map_err(RequestError::Construction)?;
                 serde_json::to_value(
                     adventuresim_weapon_model::generate_model(&recipe, detail)
                         .map_err(RequestError::Construction)?,
@@ -107,11 +103,11 @@ impl Request {
             }
             Self::Compose { haft, head } => serde_json::to_value(
                 adventuresim_weapon_model::authoring::compose_weapon(&haft, &head)
-                    .map_err(RequestError::Authoring)?,
+                    .map_err(RequestError::Construction)?,
             )?,
             Self::CompositionControls { recipe } => serde_json::to_value(
                 adventuresim_weapon_model::authoring::composition_controls(&recipe)
-                    .map_err(RequestError::Authoring)?,
+                    .map_err(RequestError::Construction)?,
             )?,
             Self::Catalog {} => serde_json::to_value(Catalog {
                 schema_version: SCHEMA_VERSION,

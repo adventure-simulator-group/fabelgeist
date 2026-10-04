@@ -1,14 +1,6 @@
 use super::*;
 
-use fabelgeist_xpbd::{
-    BarycentricWeight, ClippingFraction, EffectiveInverseMass, IncomingNormalSpeed,
-    ProjectionActivity, ProjectionDepth,
-};
-#[derive(Clone, Copy)]
-struct ClippedSample {
-    point: Vec3,
-    weights: [BarycentricWeight; 3],
-}
+type Sample = (Vec3, [f32; 3]);
 
 // Leave headroom for subsequent body and self-contact corrections.
 const PROJECTION_TOLERANCE: f32 = CLEARANCE_TOLERANCE * 0.1;
@@ -31,7 +23,7 @@ impl OuterLayer {
                 if alignment <= 1e-5 {
                     continue;
                 }
-                for ClippedSample { point, .. } in clipped(points, [a, b, c], self.inward) {
+                for (point, _) in clipped(points, [a, b, c], self.inward) {
                     residual = residual.max(self.clearance - (point - a).dot(normal));
                 }
             }
@@ -46,7 +38,7 @@ impl OuterLayer {
         &self,
         positions: &mut [Vec3],
         velocities: &mut [Vec3],
-        masses: &[ParticleInverseMass],
+        masses: &[f32],
         faces: &[[u32; 3]],
     ) -> bool {
         let mut changed = false;
@@ -65,35 +57,29 @@ impl OuterLayer {
                 if alignment <= 1e-5 {
                     continue;
                 }
-                for ClippedSample { weights, .. } in clipped(points, [a, b, c], self.inward) {
-                    let point = (0..3).fold(Vec3::default(), |p: Vec3, i: usize| -> Vec3 {
-                        p + weights[i].contribution(positions[face[i] as usize])
+                for (_, weights) in clipped(points, [a, b, c], self.inward) {
+                    let point = (0..3).fold(Vec3::default(), |p, i| {
+                        p + positions[face[i] as usize] * weights[i]
                     });
                     let depth = self.clearance - (point - a).dot(normal);
                     if depth <= PROJECTION_TOLERANCE {
                         continue;
                     }
-                    let denominator: EffectiveInverseMass = (0..3)
-                        .map(|i: usize| -> EffectiveInverseMass {
-                            weights[i].inverse_response(masses[face[i] as usize])
-                        })
+                    let denominator: f32 = (0..3)
+                        .map(|i| weights[i].powi(2) * masses[face[i] as usize])
                         .sum();
-                    if denominator.layer_activity() == ProjectionActivity::Inactive {
+                    if denominator <= 0.0 {
                         continue;
                     }
                     let incoming = (0..3)
-                        .map(|i: usize| -> IncomingNormalSpeed {
-                            weights[i].weighted_normal_speed(velocities[face[i] as usize], normal)
-                        })
-                        .sum::<IncomingNormalSpeed>()
-                        .incoming();
+                        .map(|i| velocities[face[i] as usize].dot(normal) * weights[i])
+                        .sum::<f32>()
+                        .min(0.0);
                     for i in 0..3 {
                         let vertex = face[i] as usize;
-                        let share = weights[i].mass_share(masses[vertex], denominator);
-                        positions[vertex] += share
-                            .position_correction(ProjectionDepth::from(depth))
-                            .along(normal);
-                        velocities[vertex] -= share.speed_correction(incoming).along(normal);
+                        let share = weights[i] * masses[vertex] / denominator;
+                        positions[vertex] += normal * (depth * share);
+                        velocities[vertex] -= normal * (incoming * share);
                     }
                     changed = true;
                 }
@@ -118,17 +104,14 @@ impl OuterLayer {
     }
 }
 
-fn clipped(cloth: [Vec3; 3], plate: [Vec3; 3], inward: Vec3) -> Vec<ClippedSample> {
-    let mut polygon: Vec<ClippedSample> = cloth
+fn clipped(cloth: [Vec3; 3], plate: [Vec3; 3], inward: Vec3) -> Vec<Sample> {
+    let mut polygon: Vec<Sample> = cloth
         .into_iter()
         .enumerate()
-        .map(|(i, p): (usize, Vec3)| -> ClippedSample {
-            let mut w = [BarycentricWeight::ZERO; 3];
-            w[i] = BarycentricWeight::ONE;
-            ClippedSample {
-                point: p,
-                weights: w,
-            }
+        .map(|(i, p)| {
+            let mut w = [0.0; 3];
+            w[i] = 1.0;
+            (p, w)
         })
         .collect();
     for edge in 0..3 {
@@ -137,29 +120,18 @@ fn clipped(cloth: [Vec3; 3], plate: [Vec3; 3], inward: Vec3) -> Vec<ClippedSampl
         let signed = |point: Vec3| direction.cross(point - a).dot(inward);
         let mut output = Vec::new();
         for i in 0..polygon.len() {
-            let ClippedSample {
-                point: p,
-                weights: pw,
-            } = polygon[i];
-            let ClippedSample {
-                point: q,
-                weights: qw,
-            } = polygon[(i + 1) % polygon.len()];
+            let (p, pw) = polygon[i];
+            let (q, qw) = polygon[(i + 1) % polygon.len()];
             let (dp, dq) = (signed(p), signed(q));
             if dp >= 0.0 {
-                output.push(ClippedSample {
-                    point: p,
-                    weights: pw,
-                });
+                output.push((p, pw));
             }
             if (dp < 0.0) != (dq < 0.0) {
-                let t = ClippingFraction::from(dp / (dp - dq));
-                output.push(ClippedSample {
-                    point: t.interpolate_point(p, q),
-                    weights: std::array::from_fn(|k: usize| -> BarycentricWeight {
-                        pw[k].interpolate(qw[k], t)
-                    }),
-                });
+                let t = dp / (dp - dq);
+                output.push((
+                    p + (q - p) * t,
+                    std::array::from_fn(|k| pw[k] + (qw[k] - pw[k]) * t),
+                ));
             }
         }
         polygon = output;
@@ -190,14 +162,9 @@ mod tests {
         assert!(points.iter().all(|&p| layer.correction(p).is_none()));
         assert!(layer.surface_residual(&points, &[[0, 1, 2]]) > 0.1);
         let mut velocities = vec![Vec3::default(); 3];
-        assert!(layer.project_surface(
-            &mut points,
-            &mut velocities,
-            &[1.0.into(); 3],
-            &[[0, 1, 2]]
-        ));
+        assert!(layer.project_surface(&mut points, &mut velocities, &[1.0; 3], &[[0, 1, 2]]));
         assert!(layer.surface_residual(&points, &[[0, 1, 2]]) <= CLEARANCE_TOLERANCE + 1e-6);
-        for ClippedSample { point, .. } in clipped(
+        for (point, _) in clipped(
             [points[0], points[1], points[2]],
             [
                 layer.surface.positions[0],
@@ -210,6 +177,3 @@ mod tests {
         }
     }
 }
-
-#[cfg(test)]
-mod mass_tests;

@@ -34,8 +34,6 @@ members = [
   "crates/fabelgeist-mesh",
   "crates/fabelgeist-shell",
   "crates/fabelgeist-fbx",
-  "crates/fabelgeist-storage",
-  "crates/fabelgeist-rig",
   "crates/fabelgeist-rust-quality",
   "crates/fabelgeist-compute",
   "crates/fabelgeist-bvh",
@@ -163,7 +161,7 @@ shapefile = { version = "0.9.0", features = ["geo-types"] }
 zip = { version = "3.0.0", default-features = false, features = ["deflate"] }
 flate2 = "1.1"
 ron = "0.12"
-wasm-bindgen = "=0.2.108"
+wasm-bindgen = "=0.2.126"
 web-time = "1.1.0"
 spacetimedb = "=2.6.1"
 spacetimedb-sdk = "=2.6.1"

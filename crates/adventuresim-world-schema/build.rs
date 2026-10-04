@@ -1,7 +1,4 @@
 use sha2::{Digest, Sha256};
-#[cfg(feature = "spacetimedb")]
-#[path = "src/checked_sats.rs"]
-mod checked_sats;
 use std::{
     env,
     ffi::OsStr,
@@ -10,11 +7,7 @@ use std::{
 };
 
 #[path = "src/calendar.rs"]
-#[expect(
-    dead_code,
-    unused_imports,
-    reason = "build script uses only calendar year validation"
-)]
+#[expect(dead_code, reason = "build script uses only calendar year validation")]
 mod calendar;
 #[path = "src/demographics.rs"]
 #[allow(

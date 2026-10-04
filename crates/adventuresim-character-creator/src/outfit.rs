@@ -37,7 +37,7 @@ pub(super) fn clothing(
         &character.skeleton.names,
         &generated.global_joint_states,
     )
-    .map_err(anyhow::Error::from)
+    .map_err(anyhow::Error::msg)
 }
 
 fn clothing_specifications(loadout: &Loadout<'_>) -> Result<Vec<GarmentSpecification>> {

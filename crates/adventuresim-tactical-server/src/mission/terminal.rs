@@ -215,18 +215,8 @@ mod tests {
         FrozenTerminal {
             resolution,
             receipt: TacticalConsequenceReceipt {
-                party: vec![adventuresim_stdb_client::TacticalCharacterConsequence {
-                    character_id: 7,
-                    injuries: Vec::new(),
-                    blood_loss_fraction: 0.15,
-                    ammunition_used: 2,
-                }],
-                equipment_contacts: vec![adventuresim_stdb_client::TacticalEquipmentContact {
-                    character_id: 7,
-                    inventory_item_id: 99,
-                    contact_stress: 12.0,
-                    role: adventuresim_stdb_client::TacticalEquipmentContactRole::AttackerWeapon,
-                }],
+                party: Vec::new(),
+                equipment_contacts: Vec::new(),
             },
         }
     }
@@ -234,28 +224,23 @@ mod tests {
     #[test]
     fn rejection_retries_the_same_inseparable_frozen_payload() {
         let original = frozen(TacticalMissionResolution::Defeated);
-        for result in [
-            TerminalSubmissionResult::from(Ok(Err("no".into()))),
-            TerminalSubmissionResult::from(Err(
-                spacetimedb_sdk::__codegen::InternalError::failed_parse(
-                    "TerminalReply",
-                    "EndTacticalServer",
-                ),
-            )),
-        ] {
-            let mut state = TerminalLifecycle::Running;
-            assert_eq!(
-                state.begin(original.clone(), Duration::ZERO, ACK),
-                Some(original.clone())
-            );
-            state.apply_submission_result(result, Duration::ZERO, RETRY, PRESENT);
-            assert!(
-                state
-                    .retry_due(RETRY - Duration::from_millis(1), ACK)
-                    .is_none()
-            );
-            assert_eq!(state.retry_due(RETRY, ACK), Some(original.clone()));
-        }
+        let mut state = TerminalLifecycle::Running;
+        assert_eq!(
+            state.begin(original.clone(), Duration::ZERO, ACK),
+            Some(original.clone())
+        );
+        state.apply_submission_result(
+            TerminalSubmissionResult::Rejected("no".into()),
+            Duration::ZERO,
+            RETRY,
+            PRESENT,
+        );
+        assert!(
+            state
+                .retry_due(RETRY - Duration::from_millis(1), ACK)
+                .is_none()
+        );
+        assert_eq!(state.retry_due(RETRY, ACK), Some(original));
     }
 
     #[test]

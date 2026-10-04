@@ -1,7 +1,7 @@
 // Owns wedding settlement, dowry policy, and marriage terminal lifecycle.
 pub fn settle_due_weddings(
     ctx: &ReducerContext,
-    participant_id: adventuresim_core::identity::CharacterId,
+    participant_id: u64,
     _participant_frontier: StrategicMinute,
 ) -> Result<(), String> {
     let now = crate::time::refresh_clock(ctx)?;
@@ -13,10 +13,8 @@ pub fn settle_due_weddings(
             row.status == CommitmentStatus::Reserved
                 && row.kind == CommitmentKind::Engagement
                 && row.effective_minute <= now
-                && (adventuresim_core::identity::CharacterId::from(row.first_character_id)
-                    == participant_id
-                    || adventuresim_core::identity::CharacterId::from(row.second_character_id)
-                        == participant_id)
+                && (row.first_character_id == participant_id
+                    || row.second_character_id == participant_id)
         })
         .collect();
     for commitment in due {
@@ -73,8 +71,8 @@ pub fn settle_due_weddings(
             )?;
             continue;
         };
-        if !character_alive_at(ctx, (first.id).into(), effective_minute)
-            || !character_alive_at(ctx, (second.id).into(), effective_minute)
+        if !character_alive_at(ctx, first.id, effective_minute)
+            || !character_alive_at(ctx, second.id, effective_minute)
         {
             transition_commitment_terminal(
                 ctx,
@@ -85,9 +83,9 @@ pub fn settle_due_weddings(
             )?;
             continue;
         }
-        if effective_age_years(ctx, (first.id).into(), effective_minute).unwrap_or(0)
+        if effective_age_years(ctx, first.id, effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
-            || effective_age_years(ctx, (second.id).into(), effective_minute).unwrap_or(0)
+            || effective_age_years(ctx, second.id, effective_minute).unwrap_or(0)
                 < ADULT_AGE_YEARS
         {
             transition_commitment_terminal(
@@ -107,7 +105,7 @@ pub fn settle_due_weddings(
             .residence_holding()
             .iter()
             .filter(|holding| {
-                [first.id, second.id].contains(&holding.owner_character_id)
+                [first.id, second.id].contains(&holding.holder_character_id)
                     && holding.settlement_id == commitment.ceremony_settlement_id
                     && holding.acquired_minute <= effective_minute
                     && holding
@@ -192,7 +190,7 @@ pub fn settle_due_weddings(
         if let (Some(_father), amount, DowryOutcomeKind::Paid) = planned_dowry {
             crate::item::credit_personal_currency(
                 ctx,
-                (recipient_id).into(),
+                recipient_id,
                 &commitment.ceremony_settlement_id,
                 amount,
             )?;
@@ -217,7 +215,7 @@ pub fn settle_due_weddings(
                 commitment.effective_minute,
                 role,
             );
-            crate::residence::move_residence_occupant_effective(
+            crate::residence::move_residence_occupant_at(
                 ctx,
                 &residence_holding_id,
                 character_id,
@@ -319,7 +317,7 @@ pub fn settle_due_weddings_global(
     due.truncate(limit);
     let count = due.len();
     for commitment in due {
-        settle_due_weddings(ctx, (commitment.first_character_id).into(), now)?;
+        settle_due_weddings(ctx, commitment.first_character_id, now)?;
     }
     Ok(count)
 }
@@ -348,7 +346,11 @@ fn resolve_marriage(
         {
             leave_household(ctx, character_id);
         }
-        crate::residence::remove_nonowned_occupancy_effective(ctx, character_id, minute);
+        crate::residence::remove_nonowned_occupancy_effective(
+            ctx,
+            character_id,
+            minute,
+        );
     }
     for (subject_id, related_id) in [
         (marriage.first_character_id, marriage.second_character_id),
@@ -400,8 +402,7 @@ pub fn end_marriage(
     actor_id: u64,
     marriage_id: String,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, (actor_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
     let marriage = ctx
         .db
         .marriage()
@@ -417,12 +418,12 @@ pub fn end_marriage(
     } else {
         marriage.first_character_id
     };
-    let actor_minute = TemporalScope::ExclusiveShared {
-        actor: (actor_id).into(),
-        participant: (spouse_id).into(),
-    }
-    .enforce(ctx)
-    .map_err(|error: crate::relationship::TemporalScopeError| error.to_string())?;
+    let actor_minute = enforce_temporal_scope(
+        ctx,
+        actor_id,
+        Some(spouse_id),
+        TemporalScope::ExclusiveShared,
+    )?;
     if marriage.married_minute > actor_minute
         || marriage
             .resolved_minute
@@ -436,14 +437,14 @@ pub fn end_marriage(
 
 pub fn settle_marriage_lifecycle_for_character(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     minute: StrategicMinute,
 ) {
     let Some(participant) = ctx
         .db
         .marriage_participant()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
     else {
         return;
     };
@@ -473,7 +474,7 @@ pub fn settle_marriage_lifecycle_for_character(
     };
     let both_reached_resolution = [marriage.first_character_id, marriage.second_character_id]
         .into_iter()
-        .all(|id| canonical_now(ctx, (id).into()).is_ok_and(|frontier| frontier >= death_minute));
+        .all(|id| canonical_now(ctx, id).is_ok_and(|frontier| frontier >= death_minute));
     if both_reached_resolution {
         resolve_marriage(ctx, marriage, MarriageStatus::Widowed, death_minute);
     }

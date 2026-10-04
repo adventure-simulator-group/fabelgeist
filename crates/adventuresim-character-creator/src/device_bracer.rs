@@ -6,18 +6,16 @@
 //! selected skin of the wearer and displaced off each morph sample's skin.
 //! Everything is read back once, at the end.
 
-use anyhow::{Result, bail, ensure};
+use anyhow::{Context, Result, bail, ensure};
 use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
 };
 use fabelgeist_armor::gpu::body::{BodySurface, GpuBody};
 use fabelgeist_armor::gpu::bracer::{BracerBody, DeviceBracer, ForearmSkin};
-use fabelgeist_armor::gpu::wgsl;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{ArmorGpu, BracerDesign, GeneratedArmor};
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
-use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::bracer::{ForearmSide, ForearmSurfaceInput};
 
@@ -30,12 +28,12 @@ const AXIAL_SUPPORT_MARGIN: f32 = 0.1;
 const STATUS_COINCIDENT_LANDMARKS: u32 = 32;
 
 impl ForearmSide {
-    fn joint(
-        self,
-        name: &RigJointName,
-        joint_names: &[RigJointName],
-    ) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
-        name.require_in(joint_names)
+    fn joint(self, name: &str, joint_names: &[String]) -> Result<u32> {
+        joint_names
+            .iter()
+            .position(|candidate| candidate == name)
+            .map(|index| index as u32)
+            .with_context(|| format!("MHR rig is missing {name}"))
     }
 }
 
@@ -45,14 +43,22 @@ pub fn generate_bracer_on_device(
     design: &BracerDesign,
     input: ForearmSurfaceInput<'_>,
 ) -> Result<GeneratedArmor> {
-    input.validate()?;
+    pollster::block_on(generate_bracer_on_device_async(gpu, design, input))
+}
+
+pub async fn generate_bracer_on_device_async(
+    gpu: &ArmorGpu,
+    design: &BracerDesign,
+    input: ForearmSurfaceInput<'_>,
+) -> Result<GeneratedArmor> {
+    input.validate().map_err(anyhow::Error::msg)?;
     let side = input.side;
     let lowarm = side.joint(side.lowarm(), input.joint_names)?;
     let wrist = side.joint(side.wrist(), input.joint_names)?;
     let supports = input
         .joint_names
         .iter()
-        .map(|name: &RigJointName| -> RigJointMembership { side.supports_forearm_boundary(name) })
+        .map(|name| u32::from(side.supports_forearm_boundary(name)))
         .collect::<Vec<_>>();
     let vertex_count = input.positions.len();
     let unused_texcoords = vec![[0.0f32; 2]; vertex_count];
@@ -69,20 +75,18 @@ pub fn generate_bracer_on_device(
         },
     )?;
     let seams = DeviceSeams::new(gpu, &SeamTopology::new(input.faces, input.texcoord_faces)?)?;
-    let atlas = gpu.upload(BufferUpload::from_elements(input.texcoords))?;
-    let status = gpu.scratch((4u64).into(), ("bracer status").into())?;
+    let atlas = gpu.upload(input.texcoords)?;
+    let status = gpu.scratch(4, "bracer status")?;
 
-    let mut batch = gpu.batch(("bracer").into());
-    let support = gpu.scratch((vertex_count as u64 * 4).into(), ("forearm support").into())?;
-    let axial = gpu.scratch((vertex_count as u64 * 4).into(), ("forearm axial").into())?;
+    let mut batch = gpu.batch("bracer");
+    let support = gpu.scratch(vertex_count as u64 * 4, "forearm support")?;
+    let axial = gpu.scratch(vertex_count as u64 * 4, "forearm axial")?;
     record_support(
         gpu,
         &mut batch,
         &body,
         [lowarm, wrist],
-        &gpu.upload(BufferUpload::from_elements(
-            &supports.into_iter().map(u32::from).collect::<Vec<_>>(),
-        ))?,
+        &gpu.upload(&supports)?,
         &support,
         &axial,
         &status,
@@ -102,9 +106,9 @@ pub fn generate_bracer_on_device(
     )?;
     batch.submit();
     for morph in input.morphs {
-        let positions = gpu.upload(BufferUpload::from_elements(&morph.positions))?;
-        let normals = gpu.upload(BufferUpload::from_elements(&morph.normals))?;
-        let mut batch = gpu.batch(("bracer morph").into());
+        let positions = gpu.upload(&morph.positions)?;
+        let normals = gpu.upload(&morph.normals)?;
+        let mut batch = gpu.batch("bracer morph");
         bracer.record_morph(
             gpu,
             &mut batch,
@@ -116,7 +120,7 @@ pub fn generate_bracer_on_device(
         batch.submit();
     }
 
-    let bits = gpu.read::<u32>(&status)?[0];
+    let bits = gpu.read_async::<u32>(&status).await?[0];
     if bits & STATUS_COINCIDENT_LANDMARKS != 0 {
         bail!("MHR forearm landmarks coincide");
     }
@@ -128,7 +132,7 @@ pub fn generate_bracer_on_device(
         .iter()
         .map(|morph| morph.name.clone())
         .collect::<Vec<_>>();
-    Ok(bracer.read(gpu, input.domain, &names)?)
+    Ok(bracer.read_async(gpu, input.domain, &names).await?)
 }
 
 /// Record each body vertex's clamped axial coordinate, and whether the
@@ -138,7 +142,7 @@ fn record_support(
     gpu: &ArmorGpu,
     batch: &mut KernelBatch,
     body: &GpuBody,
-    [lowarm, wrist]: [RigJointOrdinal; 2],
+    [lowarm, wrist]: [u32; 2],
     supports: &Buffer,
     support: &Buffer,
     axial: &Buffer,
@@ -149,30 +153,30 @@ fn record_support(
         "forearm surface inputs are inconsistent"
     );
     let mut parameters = PassParameters::new();
-    parameters.insert("count".into(), (body.vertex_count).into());
-    parameters.insert("lowarm".into(), (usize::from(lowarm) as u32).into());
-    parameters.insert("wrist".into(), (usize::from(wrist) as u32).into());
-    parameters.insert("pad0".into(), (0u32).into());
-    parameters.insert("positions".into(), (body.positions.clone()).into());
-    parameters.insert("joints".into(), (body.joints.clone()).into());
-    parameters.insert("joint_indices".into(), (body.joint_indices.clone()).into());
-    parameters.insert("joint_weights".into(), (body.joint_weights.clone()).into());
-    parameters.insert("supports".into(), (supports.clone()).into());
-    parameters.insert("support".into(), (support.clone()).into());
-    parameters.insert("axial".into(), (axial.clone()).into());
-    parameters.insert("status".into(), (status.clone()).into());
+    parameters.insert("count", body.vertex_count);
+    parameters.insert("lowarm", lowarm);
+    parameters.insert("wrist", wrist);
+    parameters.insert("pad0", 0u32);
+    parameters.insert("positions", body.positions.clone());
+    parameters.insert("joints", body.joints.clone());
+    parameters.insert("joint_indices", body.joint_indices.clone());
+    parameters.insert("joint_weights", body.joint_weights.clone());
+    parameters.insert("supports", supports.clone());
+    parameters.insert("support", support.clone());
+    parameters.insert("axial", axial.clone());
+    parameters.insert("status", status.clone());
     let kernel = gpu
         .cache()
         .get(gpu.context(), &support_source())
-        .map_err(fabelgeist_armor::GenerateError::from)?;
+        .map_err(device_error)?;
     batch
-        .dispatch_items(&kernel, &parameters, (body.vertex_count).into())
-        .map_err(fabelgeist_armor::GenerateError::from)?;
+        .dispatch_items(&kernel, &parameters, body.vertex_count)
+        .map_err(device_error)?;
     Ok(())
 }
 
-fn support_source() -> ShaderSource {
-    ShaderSource::from(format!(
+fn support_source() -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> joints: array<f32>;
@@ -236,5 +240,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         threshold = FOREARM_WEIGHT_THRESHOLD,
         margin = AXIAL_SUPPORT_MARGIN,
         coincident = STATUS_COINCIDENT_LANDMARKS,
-    ))
+    )
 }

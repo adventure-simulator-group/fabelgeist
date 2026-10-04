@@ -1,9 +1,8 @@
 //! Local axial extents of authored component shapes.
 use super::*;
-use crate::ConstructionError;
-fn profile_range(profile: &[[Metres; 2]]) -> Result<[f64; 2], ConstructionError> {
+fn profile_range(profile: &[[Metres; 2]]) -> Result<[f64; 2], String> {
     if profile.len() < 2 {
-        return Err(ConstructionError::RadialProfileRequiresTwoStations);
+        return Err("radial profile requires at least two stations".into());
     }
     Ok([
         profile
@@ -23,11 +22,11 @@ impl Shape {
         &self,
         at: AttachmentAnchor,
         range: [f64; 2],
-    ) -> Result<Point, ConstructionError> {
+    ) -> Result<Point, String> {
         if at == AttachmentAnchor::HeelCenter {
             return match self {
                 Self::Blade(p) => Ok(p.heel_center()),
-                _ => Err(ConstructionError::HeelCenterRequiresGenericBlade),
+                _ => Err("heel-center requires a generic blade".into()),
             };
         }
         if let Self::GuardAssembly(p) = self {
@@ -36,9 +35,9 @@ impl Shape {
                 .get(
                     p.anchor_node
                         .as_ref()
-                        .ok_or(ConstructionError::GuardAssemblyNeedsAnchorNode)?,
+                        .ok_or("guard assembly needs anchorNode")?,
                 )
-                .ok_or(ConstructionError::MissingGuardAnchor)
+                .ok_or_else(|| "missing guard anchor node".to_owned())
                 .map(|point| point.map(Metres::get));
         }
         let y = match at {
@@ -51,7 +50,7 @@ impl Shape {
         Ok([0.0, y, 0.0])
     }
 
-    pub(super) fn range(&self) -> Result<[f64; 2], ConstructionError> {
+    pub(super) fn range(&self) -> Result<[f64; 2], String> {
         Ok(match self {
             Self::ContouredPlate(p) => [0.0, p.length.get()],
             Self::WheelPommel(p) => [-p.diameter.get() / 2.0, p.seat_height.get()],
@@ -62,7 +61,7 @@ impl Shape {
             },
             Self::SpatialTube(p) => {
                 if p.points.is_empty() {
-                    return Err(ConstructionError::SpatialMemberNeedsPoints);
+                    return Err("spatial member needs points".into());
                 }
                 [
                     p.points
@@ -117,14 +116,11 @@ impl Shape {
                 [-h, h]
             }
             Self::KnuckleBow(p) => [0.0, p.length.get()],
-            Self::Tube(p) => [
-                0.0,
-                p.points.last().ok_or(ConstructionError::TubeNeedsPoints)?[1].get(),
-            ],
+            Self::Tube(p) => [0.0, p.points.last().ok_or("tube needs points")?[1].get()],
             Self::Pommel(p) => pommel_range(p)?,
             Self::GuardAssembly(p) => {
                 if p.nodes.is_empty() {
-                    return Err(ConstructionError::GuardAssemblyNeedsNodes);
+                    return Err("guard assembly needs nodes".into());
                 }
                 [
                     p.nodes
@@ -153,17 +149,13 @@ impl Shape {
     }
 }
 
-fn pommel_range(p: &PommelParameters) -> Result<[f64; 2], ConstructionError> {
+fn pommel_range(p: &PommelParameters) -> Result<[f64; 2], String> {
     Ok({
         if p.construction == PommelConstruction::Lathed
             || (p.construction == PommelConstruction::Composite
                 && p.base_construction == Some(PommelBaseConstruction::Lathed))
         {
-            profile_range(
-                p.profile
-                    .as_deref()
-                    .ok_or(ConstructionError::LathedPommelNeedsProfile)?,
-            )?
+            profile_range(p.profile.as_deref().ok_or("lathed pommel needs profile")?)?
         } else {
             [
                 0.0,

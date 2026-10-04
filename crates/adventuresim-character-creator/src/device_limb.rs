@@ -1,11 +1,10 @@
 //! Limb armor fitted on the device.
 
 use anyhow::{Result, bail};
-use fabelgeist_armor::gpu::wgsl;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{DevicePart, LimbArmorDesign, record_limb_armor};
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_gpu::prelude::{PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::PassParameters;
 
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_clearance::ClearanceFit;
@@ -91,47 +90,40 @@ impl DeviceWearer<'_> {
             bounds.extend([0xff80_0000u32, 0x007f_ffff]);
         }
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (part.carrier_count()).into());
-        parameters.insert("pad0".into(), (0u32).into());
-        parameters.insert("pad1".into(), (0u32).into());
-        parameters.insert("pad2".into(), (0u32).into());
+        parameters.insert("count", part.carrier_count());
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert("pad2", 0u32);
         parameters.insert(
-            "outward".into(),
-            (if matches!(side, Side::Left) {
+            "outward",
+            if matches!(side, Side::Left) {
                 1.0f32
             } else {
                 -1.0
-            })
-            .into(),
+            },
         );
-        parameters.insert("depth".into(), (depth).into());
-        parameters.insert("reserve".into(), (reserve).into());
-        parameters.insert("pad3".into(), (0.0f32).into());
-        parameters.insert("frames".into(), (frame.frame.clone()).into());
-        parameters.insert(
-            "shell_of".into(),
-            (gpu.upload(BufferUpload::from_elements(&shell_of))?).into(),
-        );
-        parameters.insert(
-            "bounds".into(),
-            (gpu.upload(BufferUpload::from_elements(&bounds))?).into(),
-        );
-        parameters.insert("carriers".into(), (part.carriers().clone()).into());
+        parameters.insert("depth", depth);
+        parameters.insert("reserve", reserve);
+        parameters.insert("pad3", 0.0f32);
+        parameters.insert("frames", frame.frame.clone());
+        parameters.insert("shell_of", gpu.upload(&shell_of)?);
+        parameters.insert("bounds", gpu.upload(&bounds)?);
+        parameters.insert("carriers", part.carriers().clone());
         for entry in [TRIM_BOUNDS, TRIM] {
             let kernel = gpu
                 .cache()
                 .get(gpu.context(), &trim_source(entry))
-                .map_err(fabelgeist_armor::GenerateError::from)?;
+                .map_err(device_error)?;
             batch
-                .dispatch_items(&kernel, &parameters, (part.carrier_count()).into())
-                .map_err(fabelgeist_armor::GenerateError::from)?;
+                .dispatch_items(&kernel, &parameters, part.carrier_count())
+                .map_err(device_error)?;
         }
         Ok(())
     }
 }
 
-fn trim_source(entry: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+fn trim_source(entry: &str) -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> shell_of: array<u32>;
@@ -168,7 +160,7 @@ fn host_local(f: Frame, p: vec3<f32>) -> vec3<f32> {{
         frame = wgsl::FRAME,
         ordered = wgsl::ORDERED_FLOAT,
         carriers = wgsl::points("carriers"),
-    ))
+    )
 }
 
 /// Each shell's axial extent in the frame.

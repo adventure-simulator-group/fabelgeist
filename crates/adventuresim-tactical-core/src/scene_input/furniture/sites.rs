@@ -1,6 +1,5 @@
 //! Lightweight frontage geometry shared by tactical and distant building sites.
 use super::*;
-use crate::scene_input::SceneValidationError;
 use crate::scene_input::{SceneInputError, TacticalBuildingPlacement};
 use adventuresim_building_generator::{BuildingPlan, CollisionBounds, OpeningUse};
 #[cfg(test)]
@@ -49,16 +48,14 @@ impl FurnitureSiteRecipe {
             routes,
         }
     }
-    fn place(&self, placement: TacticalBuildingPlacement, scale: f32) -> FurnitureSite {
+    fn place(&self, placement: TacticalBuildingPlacement) -> FurnitureSite {
         let routes = self
             .routes
             .iter()
             .map(|r| FurnitureFootprint {
                 centre_metres: placement.centre_metres
-                    + placement
-                        .orientation
-                        .local_to_world(r.centre_metres * scale),
-                half_extents_metres: r.half_extents_metres * scale,
+                    + placement.orientation.local_to_world(r.centre_metres),
+                half_extents_metres: r.half_extents_metres,
                 orientation: BuildingOrientation::from_radians(
                     placement.orientation.yaw_radians() + r.orientation.yaw_radians(),
                 )
@@ -67,7 +64,7 @@ impl FurnitureSiteRecipe {
             .collect();
         FurnitureSite {
             placement,
-            half_extents: self.half_extents * scale,
+            half_extents: self.half_extents,
             routes,
         }
     }
@@ -79,37 +76,28 @@ pub(super) fn collect(
 ) -> Result<Vec<FurnitureSite>, SceneInputError> {
     let mut sites = buildings
         .iter()
-        .map(|b| {
-            FurnitureSiteRecipe::new(&b.plan, b.collision.bounds).place(b.placement.clone(), 1.0)
-        })
+        .map(|b| FurnitureSiteRecipe::new(&b.plan, b.collision.bounds).place(b.placement.clone()))
         .collect::<Vec<_>>();
     for distant in &input.distant_buildings {
-        let program = distant.exterior_program();
-        let recipe =
-            if let Some((_, recipe)) = recipes.sites.iter().find(|(key, _)| *key == program) {
-                recipe.clone()
-            } else {
-                let generated = recipes.get_or_generate(&program).map_err(|e| {
-                    SceneInputError::Validation(SceneValidationError::FurnitureSite {
-                        building: distant.id,
-                        source: e,
-                    })
-                })?;
-                let recipe = FurnitureSiteRecipe::new(&generated.plan, generated.collision.bounds);
-                recipes.sites.push((program.clone(), recipe.clone()));
-                recipe
-            };
-        sites.push(recipe.place(
-            TacticalBuildingPlacement {
-                id: distant.id,
-                // Occupation selects street activity, while the visible prototype
-                // owns its physical footprint and door reservations.
-                program: distant.occupied_program(),
-                centre_metres: distant.centre_metres,
-                orientation: distant.orientation,
-            },
-            distant.exterior_scale(&program),
-        ));
+        let program = distant.occupied_program();
+        let recipe = if let Some((_, recipe)) =
+            recipes.sites.iter().find(|(key, _)| *key == program)
+        {
+            recipe.clone()
+        } else {
+            let generated = recipes.get_or_generate(&program).map_err(|e| {
+                SceneInputError::Validation(format!("distant furniture site {}: {e}", distant.id))
+            })?;
+            let recipe = FurnitureSiteRecipe::new(&generated.plan, generated.collision.bounds);
+            recipes.sites.push((program.clone(), recipe.clone()));
+            recipe
+        };
+        sites.push(recipe.place(TacticalBuildingPlacement {
+            id: distant.id,
+            program: distant.occupied_program(),
+            centre_metres: distant.centre_metres,
+            orientation: distant.orientation,
+        }));
     }
     Ok(sites)
 }

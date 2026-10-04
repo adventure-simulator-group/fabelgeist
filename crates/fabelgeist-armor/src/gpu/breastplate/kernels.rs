@@ -3,24 +3,23 @@
 //! Every kernel shares one parameter block and one prelude: the layout
 //! constants, the exactly rounded arithmetic of [`host_float`] with the
 //! `unit` normalization, and -- for a kernel that binds the plate's design
-//! and wearer -- the authored shape and the fit's profile evaluation.
+//! and wearer -- the authored shape and local torso support.
 
-use fabelgeist_gpu::prelude::PassParameterName;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::carrier_wgsl::COARSE_WORDS;
-use super::finish_wgsl::{CARRIER_WORDS, UPPER_RIM_ROWS};
-use super::fit::ITERATIONS;
-use super::fit_wgsl::{self, CENTER_WORDS, PREPARED_WORDS, RESIDUAL_WORDS};
+use super::finish_wgsl::CARRIER_WORDS;
+use super::fit::RadialFit;
+use super::fit_wgsl::{self, CENTER_WORDS};
 use super::shape_wgsl;
 use super::skin_wgsl::{MORPH_WORDS, SAMPLE_WORDS, SKIN_WORDS};
 use super::topology::{SKIRT_SAMPLES, U_SAMPLES, V_SAMPLES};
 use crate::GenerateError;
 use crate::gpu::anatomy::SURFACE_HEADER;
-use crate::gpu::{ArmorGpu, wgsl};
+use crate::gpu::{ArmorGpu, device_error, wgsl};
 
 /// The pass parameters every breastplate kernel takes.
 #[derive(Clone, Copy, Default)]
@@ -30,7 +29,7 @@ pub(super) struct Params {
     pub rear: bool,
     pub side: u32,
     pub torso_count: u32,
-    pub iteration: u32,
+    pub radial_fit: RadialFit,
     pub front_count: u32,
     pub extra: u32,
 }
@@ -45,15 +44,15 @@ impl Params {
 
     fn parameters(self) -> PassParameters {
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.count).into());
-        parameters.insert("width".into(), (self.width).into());
-        parameters.insert("rear".into(), (u32::from(self.rear)).into());
-        parameters.insert("side".into(), (self.side).into());
-        parameters.insert("torso_count".into(), (self.torso_count).into());
-        parameters.insert("iteration".into(), (self.iteration).into());
-        parameters.insert("front_count".into(), (self.front_count).into());
-        parameters.insert("extra".into(), (self.extra).into());
-        parameters.insert("zero".into(), (0u32).into());
+        parameters.insert("count", self.count);
+        parameters.insert("width", self.width);
+        parameters.insert("rear", u32::from(self.rear));
+        parameters.insert("side", self.side);
+        parameters.insert("torso_count", self.torso_count);
+        parameters.insert("radial_fit", self.radial_fit as u32);
+        parameters.insert("front_count", self.front_count);
+        parameters.insert("extra", self.extra);
+        parameters.insert("zero", 0u32);
         parameters
     }
 }
@@ -85,7 +84,7 @@ struct Params {{
     rear: u32,
     side: u32,
     torso_count: u32,
-    iteration: u32,
+    radial_fit: u32,
     front_count: u32,
     extra: u32,
     // Always zero; `host_zero` reads it.
@@ -96,15 +95,11 @@ const U_SAMPLES: u32 = {u_samples}u;
 const V_SAMPLES: u32 = {v_samples}u;
 const SKIRT_SAMPLES: u32 = {skirt_samples}u;
 const CENTER_WORDS: u32 = {center_words}u;
-const PREPARED_WORDS: u32 = {prepared_words}u;
-const RESIDUAL_WORDS: u32 = {residual_words}u;
 const SAMPLE_WORDS: u32 = {sample_words}u;
 const CARRIER_WORDS: u32 = {carrier_words}u;
 const MORPH_WORDS: u32 = {morph_words}u;
 const SKIN_WORDS: u32 = {skin_words}u;
 const COARSE_WORDS: u32 = {coarse_words}u;
-const UPPER_RIM_ROWS: u32 = {upper_rim_rows}u;
-const LAST_ITERATION: u32 = {last_iteration}u;
 // Padding reserve for interpolation and negative identity-morph blends.
 const FIT_SURFACE_MARGIN: f32 = 0.006;
 const MAX_FIT_CORRECTION: f32 = 0.060;
@@ -116,6 +111,7 @@ const MAX_FIT_CORRECTION: f32 = 0.060;
 {unit}
 {shape_code}
 {fit_common}
+{fit_neighbors}
 {accessors}
 {entry}
 "#,
@@ -124,15 +120,11 @@ const MAX_FIT_CORRECTION: f32 = 0.060;
         v_samples = V_SAMPLES,
         skirt_samples = SKIRT_SAMPLES,
         center_words = CENTER_WORDS,
-        prepared_words = PREPARED_WORDS,
-        residual_words = RESIDUAL_WORDS,
         sample_words = SAMPLE_WORDS,
         carrier_words = CARRIER_WORDS,
         morph_words = MORPH_WORDS,
         skin_words = SKIN_WORDS,
         coarse_words = COARSE_WORDS,
-        upper_rim_rows = UPPER_RIM_ROWS,
-        last_iteration = ITERATIONS - 1,
         math = wgsl::MATH,
         ordered = wgsl::ORDERED_FLOAT,
         status_code = if status { wgsl::STATUS } else { "" },
@@ -141,10 +133,11 @@ const MAX_FIT_CORRECTION: f32 = 0.060;
         unit = shape_wgsl::UNIT,
         shape_code = if shape { shape_wgsl::SHAPE } else { "" },
         fit_common = if shape { fit_wgsl::FIT_COMMON } else { "" },
+        fit_neighbors = fit_wgsl::NEIGHBORS,
     );
     gpu.cache()
-        .get(gpu.context(), &ShaderSource::from(source))
-        .map_err(crate::GenerateError::from)
+        .get(gpu.context(), &source)
+        .map_err(device_error)
 }
 
 /// Record one dispatch of a breastplate kernel over `items` invocations,
@@ -156,15 +149,18 @@ pub(super) fn dispatch(
     points: Points,
     params: Params,
     buffers: &[(&str, &Buffer)],
-    items: fabelgeist_gpu::prelude::InvocationCount,
+    items: u32,
 ) -> Result<(), GenerateError> {
     let mut parameters = params.parameters();
     for (name, buffer) in buffers {
-        parameters.insert(PassParameterName::from(*name), ((*buffer).clone()).into());
+        parameters.insert(*name, (*buffer).clone());
     }
     let kernel = kernel(gpu, entry, points)?;
-    batch
-        .dispatch_items(&kernel, &parameters, items)
-        .map_err(GenerateError::from)?;
+    if kernel.workgroup_size[0] == 1 {
+        batch.dispatch(&kernel, &parameters, [items, 1, 1])
+    } else {
+        batch.dispatch_items(&kernel, &parameters, items)
+    }
+    .map_err(device_error)?;
     Ok(())
 }

@@ -12,8 +12,9 @@ use super::strategic_minute_type::StrategicMinute;
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct ResidenceHolding {
+    pub property_id: String,
     pub id: String,
-    pub owner_character_id: u64,
+    pub holder_character_id: u64,
     pub settlement_id: String,
     pub tier: HousingTier,
     pub tenure: ResidenceTenure,
@@ -33,8 +34,9 @@ impl __sdk::InModule for ResidenceHolding {
 ///
 /// Provides typed access to columns for query building.
 pub struct ResidenceHoldingCols {
+    pub property_id: __sdk::__query_builder::Col<ResidenceHolding, String>,
     pub id: __sdk::__query_builder::Col<ResidenceHolding, String>,
-    pub owner_character_id: __sdk::__query_builder::Col<ResidenceHolding, u64>,
+    pub holder_character_id: __sdk::__query_builder::Col<ResidenceHolding, u64>,
     pub settlement_id: __sdk::__query_builder::Col<ResidenceHolding, String>,
     pub tier: __sdk::__query_builder::Col<ResidenceHolding, HousingTier>,
     pub tenure: __sdk::__query_builder::Col<ResidenceHolding, ResidenceTenure>,
@@ -50,8 +52,12 @@ impl __sdk::__query_builder::HasCols for ResidenceHolding {
     type Cols = ResidenceHoldingCols;
     fn cols(table_name: &'static str) -> Self::Cols {
         ResidenceHoldingCols {
+            property_id: __sdk::__query_builder::Col::new(table_name, "property_id"),
             id: __sdk::__query_builder::Col::new(table_name, "id"),
-            owner_character_id: __sdk::__query_builder::Col::new(table_name, "owner_character_id"),
+            holder_character_id: __sdk::__query_builder::Col::new(
+                table_name,
+                "holder_character_id",
+            ),
             settlement_id: __sdk::__query_builder::Col::new(table_name, "settlement_id"),
             tier: __sdk::__query_builder::Col::new(table_name, "tier"),
             tenure: __sdk::__query_builder::Col::new(table_name, "tenure"),
@@ -69,8 +75,9 @@ impl __sdk::__query_builder::HasCols for ResidenceHolding {
 ///
 /// Provides typed access to indexed columns for query building.
 pub struct ResidenceHoldingIxCols {
+    pub holder_character_id: __sdk::__query_builder::IxCol<ResidenceHolding, u64>,
     pub id: __sdk::__query_builder::IxCol<ResidenceHolding, String>,
-    pub owner_character_id: __sdk::__query_builder::IxCol<ResidenceHolding, u64>,
+    pub property_id: __sdk::__query_builder::IxCol<ResidenceHolding, String>,
     pub settlement_id: __sdk::__query_builder::IxCol<ResidenceHolding, String>,
 }
 
@@ -78,11 +85,12 @@ impl __sdk::__query_builder::HasIxCols for ResidenceHolding {
     type IxCols = ResidenceHoldingIxCols;
     fn ix_cols(table_name: &'static str) -> Self::IxCols {
         ResidenceHoldingIxCols {
-            id: __sdk::__query_builder::IxCol::new(table_name, "id"),
-            owner_character_id: __sdk::__query_builder::IxCol::new(
+            holder_character_id: __sdk::__query_builder::IxCol::new(
                 table_name,
-                "owner_character_id",
+                "holder_character_id",
             ),
+            id: __sdk::__query_builder::IxCol::new(table_name, "id"),
+            property_id: __sdk::__query_builder::IxCol::new(table_name, "property_id"),
             settlement_id: __sdk::__query_builder::IxCol::new(table_name, "settlement_id"),
         }
     }

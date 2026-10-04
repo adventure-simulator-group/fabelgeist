@@ -58,7 +58,7 @@ fn spawn_item(
     items: &HashMap<PresentationId, Entity>,
 ) {
     let entity = items[&item.id];
-    let Some(definition) = item_catalog::definition(&(&item.item).into()) else {
+    let Some(definition) = item_catalog::definition(&item.item) else {
         commands.entity(entity).despawn();
         return;
     };

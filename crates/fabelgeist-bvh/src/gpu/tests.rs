@@ -1,5 +1,3 @@
-use fabelgeist_gpu::prelude::ShaderSource;
-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use fabelgeist_math::Vec3;
 
 use super::*;
@@ -12,10 +10,10 @@ async fn build(bounds: &[Aabb]) -> Result<(WgpuContext, GpuBvh)> {
     let mut bvh = GpuBvh::new(&context, kernels, bounds.len().max(1) as u32)?;
 
     let packed = pack_bounds(bounds);
-    let buffer = Buffer::from_upload(
+    let buffer = Buffer::from_slice(
         &context,
-        BufferUpload::from_elements(&packed),
-        BufferDefinition::storage().with_usage(BufferUse::CopySource),
+        &packed,
+        BufferDefinition::storage().with_copy_src(),
     )?;
     bvh.build(&context, &buffer, bounds.len() as u32)?;
     Ok((context, bvh))
@@ -262,10 +260,10 @@ async fn refit_tracks_moved_primitives() -> Result<()> {
             .collect();
 
         let packed = pack_bounds(&moved);
-        let buffer = Buffer::from_upload(
+        let buffer = Buffer::from_slice(
             &context,
-            BufferUpload::from_elements(&packed),
-            BufferDefinition::storage().with_usage(BufferUse::CopySource),
+            &packed,
+            BufferDefinition::storage().with_copy_src(),
         )?;
         let mut batch = KernelBatch::new(&context);
         bvh.record_refit(&mut batch, &buffer)?;
@@ -327,11 +325,7 @@ async fn rejects_more_primitives_than_it_was_built_for() -> Result<()> {
     let context = WgpuContext::new().await?;
     let kernels = BvhKernels::new(&context)?;
     let mut bvh = GpuBvh::new(&context, kernels, 10)?;
-    let buffer = Buffer::from_upload(
-        &context,
-        BufferUpload::from_elements(&[0.0f32; 8]),
-        BufferDefinition::storage(),
-    )?;
+    let buffer = Buffer::from_slice(&context, &[0.0f32; 8], BufferDefinition::storage())?;
     let mut batch = KernelBatch::new(&context);
     assert!(bvh.record_build(&mut batch, &buffer, 100).is_err());
     Ok(())
@@ -356,7 +350,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 "#,
         super::shaders::MORTON
     );
-    let kernel = Kernel::new(&context, ShaderSource::from(code))?;
+    let kernel = Kernel::new(&context, code)?;
 
     let mut random = Random::new(97);
     let points: Vec<[f32; 4]> = (0..500)
@@ -365,25 +359,17 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
         .chain([[0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 0.0]])
         .collect();
 
-    let input = Buffer::from_upload(
-        &context,
-        BufferUpload::from_elements(&points),
-        BufferDefinition::storage(),
-    )?;
+    let input = Buffer::from_slice(&context, &points, BufferDefinition::storage())?;
     let output = Buffer::new(
         &context,
-        (points.len() as u64 * 4).into(),
-        BufferDefinition::storage().with_usage(BufferUse::CopySource),
+        points.len() as u64 * 4,
+        BufferDefinition::storage().with_copy_src(),
     )?;
 
     let mut parameters = PassParameters::new();
-    parameters.insert("input".into(), (input).into());
-    parameters.insert("output".into(), (output.clone()).into());
-    kernel.run(
-        &context,
-        parameters,
-        kernel.groups_for((points.len() as u32).into()),
-    )?;
+    parameters.insert("input", input);
+    parameters.insert("output", output.clone());
+    kernel.run(&context, parameters, kernel.groups_for(points.len() as u32))?;
 
     let from_gpu: Vec<u32> = output.read(&context).await?;
     for (point, &gpu_code) in points.iter().zip(&from_gpu) {

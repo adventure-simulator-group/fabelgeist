@@ -1,6 +1,13 @@
 //! Extract the canonical skinned body used to generate fitted equipment.
+use super::rig::FittingRig;
 use super::*;
-use fabelgeist_rig::RigJointName;
+
+pub(super) struct CanonicalBody {
+    pub body: RuntimeBody,
+    pub targets: Vec<MorphAttributes>,
+    pub names: Vec<String>,
+    pub rig: FittingRig,
+}
 
 pub(super) fn try_build_runtime_body(
     base_handle: &Handle<Gltf>,
@@ -10,7 +17,7 @@ pub(super) fn try_build_runtime_body(
     gltf_skins: &Assets<GltfSkin>,
     meshes: &Assets<Mesh>,
     inverse_bindposes: &Assets<SkinnedMeshInverseBindposes>,
-) -> Option<anyhow::Result<(RuntimeBody, Handle<SkinnedMeshInverseBindposes>)>> {
+) -> Option<anyhow::Result<CanonicalBody>> {
     let gltf = gltfs.get(base_handle)?;
 
     for node_handle in &gltf.nodes {
@@ -27,6 +34,7 @@ pub(super) fn try_build_runtime_body(
             let mesh = meshes.get(&primitive.mesh)?;
             return Some(build_runtime_body(
                 mesh,
+                gltf,
                 skin,
                 inverse_bindposes_asset,
                 gltf_nodes,
@@ -41,10 +49,11 @@ pub(super) fn try_build_runtime_body(
 
 fn build_runtime_body(
     mesh: &Mesh,
+    gltf: &Gltf,
     skin: &GltfSkin,
     inverse_bindposes: &SkinnedMeshInverseBindposes,
     gltf_nodes: &Assets<GltfNode>,
-) -> anyhow::Result<(RuntimeBody, Handle<SkinnedMeshInverseBindposes>)> {
+) -> anyhow::Result<CanonicalBody> {
     let positions = attribute_vec3(mesh, Mesh::ATTRIBUTE_POSITION, "positions")?;
     let normals = attribute_vec3(mesh, Mesh::ATTRIBUTE_NORMAL, "normals")?;
     let texcoords = body_surface_coordinates(&positions)?;
@@ -69,7 +78,7 @@ fn build_runtime_body(
         .map(|joint| {
             gltf_nodes
                 .get(joint)
-                .map(|node| RigJointName::from(node.name.clone()))
+                .map(|node| node.name.clone())
                 .unwrap_or_else(|| "joint".into())
         })
         .collect::<Vec<_>>();
@@ -84,8 +93,6 @@ fn build_runtime_body(
             ]
         })
         .collect::<Vec<_>>();
-
-    let morphs = runtime_body_morphs(mesh, &positions, &normals, &global_joint_states);
 
     let body = RuntimeBody {
         domain: "runtime_body_cylindrical_v1".into(),
@@ -119,11 +126,14 @@ fn build_runtime_body(
             .collect(),
         joint_names,
         global_joint_states,
-        morphs,
         device: Default::default(),
     };
-    let inverse_bindposes_handle = skin.inverse_bind_matrices.clone();
-    Ok((body, inverse_bindposes_handle))
+    Ok(CanonicalBody {
+        body,
+        targets: mesh.get_morph_targets().unwrap_or_default().to_vec(),
+        names: mesh.morph_target_names().unwrap_or_default().to_vec(),
+        rig: FittingRig::new(gltf, skin, gltf_nodes)?,
+    })
 }
 
 fn attribute_vec3(

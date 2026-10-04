@@ -8,19 +8,17 @@ use fabelgeist_armor::gpu::{record_gorget_plates, wgsl};
 use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::FitRegion;
+use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::DeviceWearer;
 use crate::device_garment::JOINTS;
 use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
-use crate::device_gorget_bib::{MEASURE, SMOOTH};
-use crate::device_gorget_cage::{BIB_COLUMNS, BIB_ROWS, CAGE, GORGET_FIT_WORDS, layout};
+use crate::device_gorget_cage::{CAGE, GORGET_FIT_WORDS, layout};
+use crate::device_gorget_sections::BANDS;
 use crate::device_piece::DeviceRecording;
 
 /// Collar and bib proportions, as fractions of the neck's height.
-const COLLAR_HEIGHT_NECK_RATIO: f32 = 0.20;
 const COLLAR_BASE_NECK_RATIO: f32 = 0.58;
 const COLLAR_MAX_PITCH: f32 = 0.45;
 const FRONT_BIB_DROP_NECK_RATIO: f32 = 0.48;
@@ -40,6 +38,7 @@ impl DeviceWearer<'_> {
         &self,
         batch: &mut KernelBatch,
         design: &GarmentArmorDesign,
+        layers: &[ArmorLayerSurface<'_>],
     ) -> Result<DeviceRecording> {
         design.validate()?;
         ensure!(
@@ -63,10 +62,7 @@ impl DeviceWearer<'_> {
         };
         let gpu = self.gpu;
         let head = self.record_frame(batch, FitRegion::Head)?;
-        let fit = gpu.scratch(
-            (u64::from(GORGET_FIT_WORDS) * 4).into(),
-            ("gorget fit").into(),
-        )?;
+        let fit = gpu.scratch(u64::from(GORGET_FIT_WORDS) * 4, "gorget fit")?;
         let clearance = design.clearance.metres() + design.wall_thickness.metres();
         let collar_padding = neck_clearance.metres() + design.wall_thickness.metres();
         dispatch(
@@ -79,17 +75,12 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::U(
-                    "neck",
-                    usize::from(self.joint_slot(&RigJointName::C_NECK)?) as u32,
-                ),
-                Word::U(
-                    "crown",
-                    usize::from(self.joint_slot(&RigJointName::C_HEAD)?) as u32,
-                ),
+                Word::U("neck", self.joint_slot("c_neck")?),
+                Word::U("crown", self.joint_slot("c_head")?),
                 Word::F(
                     "top_ratio",
-                    COLLAR_BASE_NECK_RATIO + COLLAR_HEIGHT_NECK_RATIO * collar_height.unit(),
+                    COLLAR_BASE_NECK_RATIO
+                        + fabelgeist_armor::GORGET_COLLAR_HEIGHT_NECK_RATIO * collar_height.unit(),
                 ),
                 Word::F("base_ratio", COLLAR_BASE_NECK_RATIO),
                 Word::F("pitch", COLLAR_MAX_PITCH * collar_slope.unit()),
@@ -105,7 +96,7 @@ impl DeviceWearer<'_> {
                 Word::F("rear_hem_flatness", rear_hem_flatness.unit()),
                 Word::F("rear_sweep", rear_sweep.unit()),
             ],
-            Grid::Singles((1u32).into()),
+            Grid::Singles(1),
         )?;
         let words = [
             Word::F("clearance", clearance),
@@ -117,7 +108,7 @@ impl DeviceWearer<'_> {
             Word::F("sagittal_ratio", SAGITTAL_SECTION_HALF_WIDTH_NECK_RATIO),
         ];
         let samples = self.record_gorget_sections(batch, &fit, &words)?;
-        self.record_bib_fit(batch, &fit, &samples, clearance)?;
+        self.record_gorget_support(batch, &fit, &samples, clearance, collar_padding, layers)?;
         let cage = format!(
             "{}fn cage_word(i: u32) -> f32 {{\n    return frames[i];\n}}\n{CAGE}",
             layout()
@@ -141,10 +132,7 @@ impl DeviceWearer<'_> {
     ) -> Result<Buffer> {
         let gpu = self.gpu;
         // Every body vertex in the gorget's frame.
-        let samples = gpu.scratch(
-            (u64::from(self.body.vertex_count) * 12).into(),
-            ("gorget samples").into(),
-        )?;
+        let samples = gpu.scratch(u64::from(self.body.vertex_count) * 12, "gorget samples")?;
         dispatch(
             self,
             batch,
@@ -155,7 +143,7 @@ impl DeviceWearer<'_> {
                 write("points", &samples),
             ],
             &[Word::U("count", self.body.vertex_count)],
-            Grid::Items((self.body.vertex_count).into()),
+            Grid::Items(self.body.vertex_count),
         )?;
         let mut planes = Vec::new();
         for _ in 0..2 {
@@ -163,7 +151,7 @@ impl DeviceWearer<'_> {
             planes.extend([ORDERED_NEGATIVE_INFINITY; 3]);
             planes.push(0);
         }
-        let planes = gpu.upload(BufferUpload::from_elements(&planes))?;
+        let planes = gpu.upload(&planes)?;
         dispatch(
             self,
             batch,
@@ -175,11 +163,11 @@ impl DeviceWearer<'_> {
                 atomic("planes", &planes),
             ],
             &[Word::U("count", self.body.face_count)],
-            Grid::Items((self.body.face_count).into()),
+            Grid::Items(self.body.face_count),
         )?;
         for (entry, grid) in [
-            (BANDS, Grid::Singles((BAND_SECTIONS).into())),
-            (CAGE_SETUP, Grid::Singles((1u32).into())),
+            (BANDS, Grid::Singles(BAND_SECTIONS)),
+            (CAGE_SETUP, Grid::Singles(1)),
         ] {
             dispatch(
                 self,
@@ -187,6 +175,7 @@ impl DeviceWearer<'_> {
                 &format!("{}{}{SECTIONS}{entry}", layout(), wgsl::ORDERED_FLOAT),
                 &[
                     read("points", &samples),
+                    read_u32("faces", &self.body.faces),
                     read_u32("planes", &planes),
                     write("fit", fit),
                 ],
@@ -195,41 +184,6 @@ impl DeviceWearer<'_> {
             )?;
         }
         Ok(samples)
-    }
-
-    /// Record the bib's seating: rays from the unseated bib to the body in
-    /// each directional section, then the smoothing of their offsets.
-    fn record_bib_fit(
-        &self,
-        batch: &mut KernelBatch,
-        fit: &Buffer,
-        samples: &Buffer,
-        padding: f32,
-    ) -> Result<()> {
-        let cage = format!("fn cage_word(i: u32) -> f32 {{\n    return fit[i];\n}}\n{CAGE}");
-        dispatch(
-            self,
-            batch,
-            &format!("{}{cage}{MEASURE}", layout()),
-            &[
-                read_u32("faces", &self.body.faces),
-                read("points", samples),
-                write("fit", fit),
-            ],
-            &[
-                Word::U("faces_count", self.body.face_count),
-                Word::F("padding", padding),
-            ],
-            Grid::Items(((BIB_ROWS - 1) * BIB_COLUMNS).into()),
-        )?;
-        dispatch(
-            self,
-            batch,
-            &format!("{}{SMOOTH}", layout()),
-            &[write("fit", fit)],
-            &[],
-            Grid::Items((BIB_ROWS * BIB_COLUMNS).into()),
-        )
     }
 }
 
@@ -323,8 +277,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 /// Section readers shared by the band and cage kernels.
 const SECTIONS: &str = r#"
 const MINIMUM_SECTION_SAMPLES: u32 = 4u;
-const SECTION_HALF_BAND_M: f32 = 0.006;
-const MAXIMUM_SECTION_HALF_BAND_M: f32 = 0.018;
 
 struct Section {
     low: vec3<f32>,
@@ -347,85 +299,6 @@ fn plane_at(plane: u32, z: f32) -> f32 {
 }
 "#;
 
-/// One invocation per broad section: the bounds of the samples in a thin band
-/// about a height, or of the four nearest in a wider one.
-const BANDS: &str = r#"
-fn in_reach(p: vec3<f32>, y: f32, half_width: f32) -> bool {
-    return abs(p.x) <= half_width && abs(p.y - y) <= MAXIMUM_SECTION_HALF_BAND_M;
-}
-
-@compute @workgroup_size(1)
-fn main(@builtin(workgroup_id) group: vec3<u32>) {
-    let band = group.x;
-    let height = fit[HEIGHT];
-    let lower = plane_section(1u);
-    var y = height * params.shoulder_ratio;
-    var half_width = INFINITY;
-    if (band > 0u) {
-        let t = f32((band - 1u) % 3u) * 0.5;
-        half_width = height * params.sagittal_ratio;
-        if (band < 4u) {
-            let start = plane_at(1u, lower.high.z);
-            y = start + (fit[HEM] - start) * t;
-        } else {
-            let start = plane_at(1u, lower.low.z);
-            y = start + (fit[HEM + 2u] - start) * t;
-        }
-    }
-    let count = arrayLength(&points) / 3u;
-    var low = vec3<f32>(INFINITY);
-    var high = vec3<f32>(-INFINITY);
-    var nearby = 0u;
-    var close = 0u;
-    for (var v = 0u; v < count; v = v + 1u) {
-        let p = points_at(v);
-        if (!in_reach(p, y, half_width)) {
-            continue;
-        }
-        nearby = nearby + 1u;
-        if (abs(p.y - y) <= SECTION_HALF_BAND_M) {
-            close = close + 1u;
-            low = min(low, p);
-            high = max(high, p);
-        }
-    }
-    if (nearby < MINIMUM_SECTION_SAMPLES) {
-        fit[FIT_FAILED] = 1.0;
-    } else if (close < MINIMUM_SECTION_SAMPLES) {
-        // The nearest by height, ties to the lowest vertex.
-        low = vec3<f32>(INFINITY);
-        high = vec3<f32>(-INFINITY);
-        var last_distance = -1.0;
-        var last = 0u;
-        for (var k = 0u; k < MINIMUM_SECTION_SAMPLES; k = k + 1u) {
-            var best_distance = INFINITY;
-            var best = 0u;
-            for (var v = 0u; v < count; v = v + 1u) {
-                let p = points_at(v);
-                if (!in_reach(p, y, half_width)) {
-                    continue;
-                }
-                let d = abs(p.y - y);
-                let after = d > last_distance || (d == last_distance && v > last);
-                if (after && d < best_distance) {
-                    best_distance = d;
-                    best = v;
-                }
-            }
-            low = min(low, points_at(best));
-            high = max(high, points_at(best));
-            last_distance = best_distance;
-            last = best;
-        }
-    }
-    let at = BANDS + band * 6u;
-    for (var axis = 0u; axis < 3u; axis = axis + 1u) {
-        fit[at + axis] = low[axis];
-        fit[at + 3u + axis] = high[axis];
-    }
-}
-"#;
-
 /// The collar cage from the plane and band sections: the collar's centre and
 /// radii, the bib's outer widths, and its front and back depths.
 const CAGE_SETUP: &str = r#"
@@ -445,6 +318,16 @@ fn main() {
     let lower = plane_section(1u);
     if (!neck.valid || !lower.valid) {
         fit[FIT_FAILED] = 1.0;
+    }
+    // One invocation validates all sections after their dispatch completes.
+    for (var band = 0u; band < BAND_COUNT; band += 1u) {
+        let low = band_low(band);
+        let high = band_high(band);
+        if (!all(abs(low) < vec3<f32>(INFINITY)) ||
+            !all(abs(high) < vec3<f32>(INFINITY)) || high.z <= low.z) {
+            fit[FIT_FAILED] = 1.0;
+            return;
+        }
     }
     let center = vec2<f32>((neck.low.x + neck.high.x) * 0.5, (neck.low.z + neck.high.z) * 0.5);
     fit[CENTER] = center.x;

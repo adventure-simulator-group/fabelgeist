@@ -1,16 +1,9 @@
 //! Fitted placeholder garments generated from catalog-authored anatomical spans.
 
-mod error;
-pub use error::{ClothingError, ClothingFaceContext, ClothingPieceName};
 mod fitting;
-mod validation;
-use validation::validated_placeholder_faces;
 mod regions;
-use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
 use fitting::fitted_surface;
-use regions::region_rig;
-#[cfg(feature = "offline-creator")]
-pub(crate) use regions::waist_surface_joint;
+use regions::{region_rig, waist_surface_joint};
 
 use std::collections::{HashMap, HashSet};
 
@@ -193,6 +186,23 @@ fn surface_normals(
         .collect()
 }
 
+fn validated_placeholder_faces(
+    name: &str,
+    faces: &[[u32; 3]],
+    positions: &[[f32; 3]],
+) -> Result<Vec<[u32; 3]>, String> {
+    if positions.iter().flatten().any(|value| !value.is_finite()) {
+        return Err(format!("{name} contains a non-finite fitted vertex"));
+    }
+    if let Some(face) = faces.iter().find(|face| {
+        face.iter()
+            .any(|vertex| *vertex as usize >= positions.len())
+    }) {
+        return Err(format!("{name} contains an out-of-range face: {face:?}"));
+    }
+    Ok(faces.to_vec())
+}
+
 fn weld_split_vertex_positions(source: &[[f32; 3]], shell: &mut [[f32; 3]]) {
     let mut groups = HashMap::<[i64; 3], Vec<usize>>::new();
     for (index, position) in source.iter().enumerate() {
@@ -276,28 +286,33 @@ pub fn generate_clothing_shells(
     faces: &[[u32; 3]],
     joint_indices: &[[u32; 8]],
     joint_weights: &[[f32; 8]],
-    joint_names: &[RigJointName],
+    joint_names: &[String],
     global_joint_states: &[[f32; 8]],
-) -> Result<ClothedMesh, ClothingError> {
+) -> Result<ClothedMesh, String> {
     let vertices = positions.len();
     if normals.len() != vertices
         || joint_indices.len() != vertices
         || joint_weights.len() != vertices
         || global_joint_states.len() != joint_names.len()
     {
-        return Err(ClothingError::InconsistentBodyInputs);
+        return Err("clothing inputs have inconsistent vertex or joint counts".into());
     }
     if faces
         .iter()
         .flatten()
         .any(|vertex| *vertex as usize >= vertices)
     {
-        return Err(ClothingError::MissingBodyVertex);
+        return Err("clothing topology references a missing vertex".into());
     }
-    let joint_position = |name: &RigJointName| -> Result<[f32; 3], RigJointLookupError> {
-        let index = name.require_in(joint_names)?;
-        let state = global_joint_states[usize::from(index)];
-        Ok([state[0], state[1], state[2]])
+    let joint_position = |name: &str| {
+        joint_names
+            .iter()
+            .position(|candidate| candidate == name)
+            .map(|index| {
+                let state = global_joint_states[index];
+                [state[0], state[1], state[2]]
+            })
+            .ok_or_else(|| format!("MHR rig is missing anatomical landmark {name}"))
     };
 
     let mut shells = Vec::with_capacity(garments.len());
@@ -311,11 +326,17 @@ pub fn generate_clothing_shells(
                 .copied()
                 .map(region_rig)
                 .collect::<Vec<_>>();
-            let selected_joints = regions::RegionRig::skin_joints(&rigs, joint_names);
+            let selected_joints = joint_names
+                .iter()
+                .enumerate()
+                .filter_map(|(index, name)| {
+                    rigs.iter().any(|rig| (rig.joint)(name)).then_some(index)
+                })
+                .collect::<HashSet<_>>();
             let segments = rigs
                 .iter()
-                .map(|rig| Ok((joint_position(&rig.proximal)?, joint_position(&rig.distal)?)))
-                .collect::<Result<Vec<_>, RigJointLookupError>>()?;
+                .map(|rig| Ok((joint_position(rig.proximal)?, joint_position(rig.distal)?)))
+                .collect::<Result<Vec<_>, String>>()?;
             let coordinate_bounds = positions
                 .iter()
                 .enumerate()
@@ -323,9 +344,7 @@ pub fn generate_clothing_shells(
                     let weight = joint_indices[vertex]
                         .iter()
                         .zip(&joint_weights[vertex])
-                        .filter(|(joint, _)| {
-                            selected_joints.contains(&RigJointOrdinal::from(**joint))
-                        })
+                        .filter(|(joint, _)| selected_joints.contains(&(**joint as usize)))
                         .map(|(_, weight)| *weight)
                         .sum::<f32>();
                     (weight >= specification.weight_threshold)
@@ -339,12 +358,16 @@ pub fn generate_clothing_shells(
                         }),
                     )
                 })
-                .ok_or_else(|| ClothingError::NoWeightedVertices {
-                    garment: ClothingPieceName::from(specification.name.as_str()),
-                })?;
+                .ok_or_else(|| format!("{} selected no weighted vertices", specification.name))?;
             let interval = anchor_interval(span.anchor, span.coverage);
             let waist_cross_section = if span.regions.contains(&Region::Stomach) {
-                Some(regions::waist_joints(joint_names))
+                Some(
+                    joint_names
+                        .iter()
+                        .enumerate()
+                        .filter_map(|(index, name)| waist_surface_joint(name).then_some(index))
+                        .collect::<HashSet<_>>(),
+                )
             } else {
                 None
             };
@@ -357,9 +380,10 @@ pub fn generate_clothing_shells(
             ));
         }
         if span_masks.is_empty() {
-            return Err(ClothingError::NoSurfaceSpans {
-                garment: ClothingPieceName::from(specification.name.as_str()),
-            });
+            return Err(format!(
+                "{} has no anatomical surface spans",
+                specification.name
+            ));
         }
         let covered = positions
             .iter()
@@ -370,9 +394,7 @@ pub fn generate_clothing_shells(
                         let weight = joint_indices[vertex]
                             .iter()
                             .zip(&joint_weights[vertex])
-                            .filter(|(joint, _)| {
-                                selected_joints.contains(&RigJointOrdinal::from(**joint))
-                            })
+                            .filter(|(joint, _)| selected_joints.contains(&(**joint as usize)))
                             .map(|(_, weight)| *weight)
                             .sum::<f32>();
                         weight >= specification.weight_threshold
@@ -434,9 +456,7 @@ pub fn generate_clothing_shells(
                         (minimum.min(y), maximum.max(y))
                     }))
                 })
-                .ok_or_else(|| ClothingError::NoWaistVertices {
-                    garment: ClothingPieceName::from(specification.name.as_str()),
-                })?;
+                .ok_or_else(|| format!("{} selected no waist vertices", specification.name))?;
             let cross_section_covered = positions
                 .iter()
                 .enumerate()
@@ -444,7 +464,7 @@ pub fn generate_clothing_shells(
                     let weight = joint_indices[vertex]
                         .iter()
                         .zip(&joint_weights[vertex])
-                        .filter(|(joint, _)| waist_joints.contains(&RigJointOrdinal::from(**joint)))
+                        .filter(|(joint, _)| waist_joints.contains(&(**joint as usize)))
                         .map(|(_, weight)| *weight)
                         .sum::<f32>();
                     weight > WAIST_CROSS_SECTION_WEIGHT_THRESHOLD
@@ -467,9 +487,7 @@ pub fn generate_clothing_shells(
             .filter_map(|(face, selected)| selected.then_some(face))
             .collect::<Vec<_>>();
         if selected_shell_faces.is_empty() {
-            return Err(ClothingError::NoSelectedTriangles {
-                garment: ClothingPieceName::from(specification.name.as_str()),
-            });
+            return Err(format!("{} selected no MHR triangles", specification.name));
         }
         if specification.occludes_body {
             occluded_faces.extend(
@@ -486,7 +504,7 @@ pub fn generate_clothing_shells(
             specification.normal_offset_metres,
         );
         let shell_faces = validated_placeholder_faces(
-            &ClothingPieceName::from(specification.name.as_str()),
+            &specification.name,
             &selected_shell_faces,
             &shell_positions,
         )?;
@@ -580,31 +598,13 @@ mod tests {
         let positions = [[-1.0, -1.0, 0.0], [0.0, 1.0, 0.0], [1.0, -1.0, 0.0]];
         let rotated = [[-1.0, -1.0, 0.0], [0.0, 0.0, 1.0], [1.0, -1.0, 0.0]];
         assert_eq!(
-            validated_placeholder_faces(
-                &ClothingPieceName::from("test garment"),
-                &[[0, 1, 2]],
-                &rotated
-            )
-            .expect("placeholder deformation is intentionally not a quality gate"),
+            validated_placeholder_faces("test garment", &[[0, 1, 2]], &rotated)
+                .expect("placeholder deformation is intentionally not a quality gate"),
             vec![[0, 1, 2]]
         );
-        assert!(
-            validated_placeholder_faces(
-                &ClothingPieceName::from("test garment"),
-                &[[0, 1, 3]],
-                &positions
-            )
-            .is_err()
-        );
+        assert!(validated_placeholder_faces("test garment", &[[0, 1, 3]], &positions).is_err());
         let nonfinite = [[f32::NAN, 0.0, 0.0], positions[1], positions[2]];
-        assert!(
-            validated_placeholder_faces(
-                &ClothingPieceName::from("test garment"),
-                &[[0, 1, 2]],
-                &nonfinite
-            )
-            .is_err()
-        );
+        assert!(validated_placeholder_faces("test garment", &[[0, 1, 2]], &nonfinite).is_err());
     }
 
     #[test]
@@ -647,34 +647,5 @@ mod tests {
         assert_eq!(specification.metallic, 1.0);
         assert_eq!(specification.roughness, 0.20);
         assert_eq!(specification.placement.surface[0].coverage, 0.3);
-    }
-}
-
-#[cfg(test)]
-mod admission_tests {
-    use super::*;
-
-    #[test]
-    fn absent_landmark_keeps_its_identity_and_error_classification() {
-        let specification = GarmentSpecification {
-            name: "head covering".into(), material: EquipmentMaterial::Linen,
-            placement: serde_json::from_value(serde_json::json!({"id":"worn","surface":[{"regions":["head"],"anchor":"proximal","coverage":1.0}]})).unwrap(),
-            weight_threshold: 0.1, expansion_rings: 0, normal_offset_metres: 0.0,
-            base_color: [1.0;4], metallic: 0.0, roughness: 1.0, occludes_body: false,
-        };
-        let result = generate_clothing_shells(
-            &[specification],
-            &[[0.0; 3]],
-            &[[0.0; 3]],
-            &[],
-            &[[0; 8]],
-            &[[1.0; 8]],
-            &[RigJointName::ROOT],
-            &[[0.0; 8]],
-        );
-        match result.unwrap_err() {
-            ClothingError::MissingLandmark(error) => assert_eq!(error.joint, RigJointName::C_NECK),
-            other => panic!("wrong admission stage: {other:?}"),
-        }
     }
 }

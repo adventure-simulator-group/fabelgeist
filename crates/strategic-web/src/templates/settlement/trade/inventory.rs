@@ -105,9 +105,9 @@ pub(super) fn item_name_with_display_quality(
     let alcohol_group = definition
         .filter(|item| item.alcohol_serving_ml > 0)
         .map(|_| "alcohol");
-    let food_quality = quality_override.is_some()
-        || adventuresim_core::food::definition(&(item_id).into()).is_some();
-    let book_quality = adventuresim_core::item_catalog::definition(&(item_id).into())
+    let food_quality =
+        quality_override.is_some() || adventuresim_core::food::definition(item_id).is_some();
+    let book_quality = adventuresim_core::item_catalog::definition(item_id)
         .is_some_and(|item| item.capabilities.book.is_some());
     let quality = quality_override.or_else(|| {
         definition
@@ -118,7 +118,7 @@ pub(super) fn item_name_with_display_quality(
                         | crate::spacetimedb::CatalogItemKind::Armor
                         | crate::spacetimedb::CatalogItemKind::Shield
                         | crate::spacetimedb::CatalogItemKind::Food
-                ) || adventuresim_core::food::definition(&(item_id).into()).is_some()
+                ) || adventuresim_core::food::definition(item_id).is_some()
                     || book_quality
             })
             .map(|item| item.quality.clamp(1, 5))
@@ -147,7 +147,7 @@ pub(super) fn item_name_with_display_quality(
             data-item-ranged=[definition.map(|item| item.ranged)]
             data-item-group=[alcohol_group]
             data-group-name=[alcohol_group.map(|_| "Alcohol")]
-            data-food-lot=[adventuresim_core::food::definition(&item_id.into()).map(|_| "true")]
+            data-food-lot=[adventuresim_core::food::definition(item_id).map(|_| "true")]
             data-container-capacity-ml=[definition.and_then(|item| (item.container_capacity_ml > 0).then_some(item.container_capacity_ml))]
             data-exterior-volume-ml=[definition.map(|item| item.exterior_volume_ml)]
             data-stat-precision=[definition.map(|item| weight_display(item.precision))]

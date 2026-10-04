@@ -1,9 +1,8 @@
 //! The wearer armor is fitted to: its body, rig and anatomical regions.
 
 use anyhow::Result;
-use fabelgeist_rig::{RigJointMembership, RigJointName, RigJointPart, RigSide};
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Side {
     Left,
     Right,
@@ -25,19 +24,16 @@ impl Side {
         }
     }
 
-    /// Construct the anatomical label on this equipment side.
-    pub(crate) fn joint(self, part: RigJointPart) -> RigJointName {
-        RigJointName::sided(
-            match self {
-                Self::Left => RigSide::Left,
-                Self::Right => RigSide::Right,
-            },
-            part,
-        )
+    /// The rig's joint name prefix for this side.
+    pub(crate) fn prefix(self) -> &'static str {
+        match self {
+            Self::Left => "l",
+            Self::Right => "r",
+        }
     }
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FitRegion {
     Head,
     Neck,
@@ -59,49 +55,37 @@ pub enum FitRegion {
 impl FitRegion {
     /// The joints whose skin makes up the region: any of these, or their
     /// twist joints, owning enough of a vertex's weight puts it in the region.
-    pub fn owners(self) -> Vec<RigJointName> {
+    pub fn owners(self) -> Vec<String> {
         use FitRegion::*;
-        let central = |names: &[RigJointName]| -> Vec<RigJointName> { names.to_vec() };
-        let sided = |side: Side, names: &[RigJointPart]| -> Vec<RigJointName> {
+        let central = |names: &[&str]| names.iter().map(|n| n.to_string()).collect();
+        let sided = |side: Side, names: &[&str]| {
             names
                 .iter()
-                .map(|part: &RigJointPart| -> RigJointName { side.joint(*part) })
+                .map(|n| format!("{}_{n}", side.prefix()))
                 .collect()
         };
         match self {
-            Head => central(&[RigJointName::C_HEAD, RigJointName::C_JAW]),
-            Neck => central(&[RigJointName::C_NECK, RigJointName::C_SPINE3]),
+            Head => central(&["c_head", "c_jaw"]),
+            Neck => central(&["c_neck", "c_spine3"]),
             Torso => central(&[
-                RigJointName::C_SPINE0,
-                RigJointName::C_SPINE1,
-                RigJointName::C_SPINE2,
-                RigJointName::C_SPINE3,
-                RigJointName::L_CLAVICLE,
-                RigJointName::R_CLAVICLE,
+                "c_spine0",
+                "c_spine1",
+                "c_spine2",
+                "c_spine3",
+                "l_clavicle",
+                "r_clavicle",
             ]),
-            Hips => central(&[
-                RigJointName::ROOT,
-                RigJointName::C_SPINE0,
-                RigJointName::C_SPINE1,
-                RigJointName::L_UPLEG,
-                RigJointName::R_UPLEG,
-            ]),
-            UpperArm(s) | Shoulder(s) => sided(s, &[RigJointPart::Uparm]),
-            Forearm(s) => sided(s, &[RigJointPart::Lowarm]),
-            WholeArm(s) | Elbow(s) => sided(s, &[RigJointPart::Uparm, RigJointPart::Lowarm]),
-            Thigh(s) => sided(s, &[RigJointPart::Upleg]),
-            LowerLeg(s) | Knee(s) => sided(s, &[RigJointPart::Lowleg]),
-            WholeLeg(s) => sided(s, &[RigJointPart::Upleg, RigJointPart::Lowleg]),
+            Hips => central(&["root", "c_spine0", "c_spine1", "l_upleg", "r_upleg"]),
+            UpperArm(s) | Shoulder(s) => sided(s, &["uparm"]),
+            Forearm(s) => sided(s, &["lowarm"]),
+            WholeArm(s) | Elbow(s) => sided(s, &["uparm", "lowarm"]),
+            Thigh(s) => sided(s, &["upleg"]),
+            LowerLeg(s) | Knee(s) => sided(s, &["lowleg"]),
+            WholeLeg(s) => sided(s, &["upleg", "lowleg"]),
             Hand(s) => sided(s, HAND_SKIN_JOINTS),
             Foot(s) => sided(
                 s,
-                &[
-                    RigJointPart::Foot,
-                    RigJointPart::Talocrural,
-                    RigJointPart::Subtalar,
-                    RigJointPart::Transversetarsal,
-                    RigJointPart::Ball,
-                ],
+                &["foot", "talocrural", "subtalar", "transversetarsal", "ball"],
             ),
         }
     }
@@ -110,10 +94,10 @@ impl FitRegion {
     /// shoulder cap spans the deltoid and the clavicular transition: its
     /// frame stays anchored by the upper arm, while its support also takes the
     /// proximal surface that does not shorten with that bone.
-    pub fn support_owners(self) -> Vec<RigJointName> {
+    pub fn support_owners(self) -> Vec<String> {
         let mut owners = self.owners();
         if let FitRegion::Shoulder(side) = self {
-            owners.push(side.joint(RigJointPart::Clavicle));
+            owners.push(format!("{}_clavicle", side.prefix()));
         }
         owners
     }
@@ -125,7 +109,7 @@ pub struct Wearer<'a> {
     pub normals: &'a [[f32; 3]],
     pub joint_indices: &'a [[u32; 8]],
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
+    pub joint_names: &'a [String],
     pub joints: &'a [[f32; 8]],
 }
 
@@ -141,50 +125,70 @@ pub(crate) fn skin_support_wgsl() -> String {
 pub(crate) const MINIMUM_REGION_RADIUS_M: f32 = 0.018;
 // The glove body covers every finger segment, including terminal skin weights.
 // The thumb has its own frame and remains outside this envelope.
-pub(crate) const HAND_SKIN_JOINTS: &[RigJointPart] = &[
-    RigJointPart::Wrist,
-    RigJointPart::Index1,
-    RigJointPart::Index2,
-    RigJointPart::Index3,
-    RigJointPart::IndexNull,
-    RigJointPart::Middle1,
-    RigJointPart::Middle2,
-    RigJointPart::Middle3,
-    RigJointPart::MiddleNull,
-    RigJointPart::Ring1,
-    RigJointPart::Ring2,
-    RigJointPart::Ring3,
-    RigJointPart::RingNull,
-    RigJointPart::Pinky0,
-    RigJointPart::Pinky1,
-    RigJointPart::Pinky2,
-    RigJointPart::Pinky3,
-    RigJointPart::PinkyNull,
+pub(crate) const HAND_SKIN_JOINTS: &[&str] = &[
+    "wrist",
+    "index1",
+    "index2",
+    "index3",
+    "index_null",
+    "middle1",
+    "middle2",
+    "middle3",
+    "middle_null",
+    "ring1",
+    "ring2",
+    "ring3",
+    "ring_null",
+    "pinky0",
+    "pinky1",
+    "pinky2",
+    "pinky3",
+    "pinky_null",
 ];
 
 impl Wearer<'_> {
     /// The body vertices whose skin belongs mostly to `region`'s joints.
     pub fn support_indices(&self, region: FitRegion) -> Result<Vec<usize>> {
+        self.support_indices_for(region, self.joint_indices, self.joint_weights)
+    }
+
+    /// Anatomical ownership on a fitted lower surface, using this wearer's rig.
+    pub fn support_indices_for(
+        &self,
+        region: FitRegion,
+        joint_indices: &[[u32; 8]],
+        joint_weights: &[[f32; 8]],
+    ) -> Result<Vec<usize>> {
+        anyhow::ensure!(
+            joint_indices.len() == joint_weights.len(),
+            "incomplete surface skin ownership"
+        );
         let owners = region.support_owners();
         let owned = self
             .joint_names
             .iter()
-            .map(|name: &RigJointName| -> RigJointMembership {
-                RigJointMembership::from(owners.iter().any(|owner: &RigJointName| -> bool {
-                    name.skin_family(owner) == RigJointMembership::Included
-                }))
+            .map(|name| {
+                owners
+                    .iter()
+                    .any(|owner| name == owner || name.starts_with(&format!("{owner}_twist")))
             })
             .collect::<Vec<_>>();
-        Ok(self
-            .joint_indices
+        anyhow::ensure!(
+            joint_indices
+                .iter()
+                .flatten()
+                .all(|&index| (index as usize) < owned.len()),
+            "surface skin references an unknown joint"
+        );
+        Ok(joint_indices
             .iter()
-            .zip(self.joint_weights)
+            .zip(joint_weights)
             .enumerate()
             .filter_map(|(i, (indices, weights))| {
                 let weight: f32 = indices
                     .iter()
                     .zip(weights)
-                    .filter(|(j, _)| owned[**j as usize] == RigJointMembership::Included)
+                    .filter(|(j, _)| owned[**j as usize])
                     .map(|(_, w)| w)
                     .sum();
                 (weight >= SKIN_SUPPORT_THRESHOLD).then_some(i)
@@ -196,18 +200,18 @@ impl Wearer<'_> {
 #[cfg(test)]
 mod tests {
     use super::{FitRegion, Side, Wearer};
-    use fabelgeist_rig::RigJointName;
 
     #[test]
     fn shoulder_support_unites_clavicle_and_arm_without_crossing_body_regions() {
         let names = [
-            RigJointName::L_UPARM,
-            RigJointName::L_LOWARM,
-            RigJointName::L_UPARM_TWIST0_PROC,
-            RigJointName::L_CLAVICLE,
-            RigJointName::R_CLAVICLE,
-            RigJointName::C_SPINE3,
-        ];
+            "l_uparm",
+            "l_lowarm",
+            "l_uparm_twist0_proc",
+            "l_clavicle",
+            "r_clavicle",
+            "c_spine3",
+        ]
+        .map(String::from);
         let positions = [[0.0; 3]; 6];
         let joints = [[0.0; 8]; 6];
         let indices = [
@@ -246,12 +250,7 @@ mod tests {
 
     #[test]
     fn hand_envelope_includes_skin_owned_by_finger_terminal_joints() {
-        let names = [
-            RigJointName::L_WRIST,
-            RigJointName::L_MIDDLE_NULL,
-            RigJointName::L_PINKY_NULL,
-            RigJointName::L_FOOT,
-        ];
+        let names = ["l_wrist", "l_middle_null", "l_pinky_null", "l_foot"].map(String::from);
         let positions = [[0.0; 3]; 3];
         let indices = [[1; 8], [2; 8], [3; 8]];
         let weights = [[0.125; 8]; 3];

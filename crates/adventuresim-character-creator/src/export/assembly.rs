@@ -52,7 +52,7 @@ pub(super) fn append(
 pub(super) fn extras(
     character_name: &str,
     recipe_version: u8,
-    lod: fabelgeist_mhr::CharacterLod,
+    lod: u8,
     shells: &[RiggedShell<'_>],
     sockets: &[RiggedSocket<'_>],
     attachments: &[Value],
@@ -126,7 +126,7 @@ mod tests {
         };
         let joints = [[0; 8]; 4];
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
-        let names = [RigJointName::C_HEAD];
+        let names = ["c_head".to_owned()];
         let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
         let target_count = adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
             + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len();
@@ -173,7 +173,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "close_helmet",
             1,
-            fabelgeist_mhr::CharacterLod::Detailed,
+            4,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],

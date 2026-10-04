@@ -38,7 +38,7 @@ impl Plugin for TacticalEquipmentPlugin {
 pub(crate) struct PendingEquipmentActions(VecDeque<(Entity, EquipmentActionRequest)>);
 
 #[derive(Resource, Default)]
-pub(crate) struct LastEquipmentSequence(HashMap<Entity, EquipmentSequence>);
+pub(crate) struct LastEquipmentSequence(HashMap<Entity, u32>);
 
 const MAX_PENDING_PER_ACTOR: usize = 4;
 
@@ -61,7 +61,7 @@ fn queue_equipment_action(
         warn!(
             client_id = ?request.client_id,
             actor = ?request.actor,
-            sequence = %request.sequence,
+            sequence = request.sequence,
             "Rejected tactical equipment action from a client without a controlled entity"
         );
         return;
@@ -70,7 +70,7 @@ fn queue_equipment_action(
         warn!(
             ?controlled,
             requested_actor = ?request.actor,
-            sequence = %request.sequence,
+            sequence = request.sequence,
             action = ?request.action,
             "Rejected tactical equipment action for an uncontrolled actor"
         );
@@ -79,7 +79,7 @@ fn queue_equipment_action(
     if !can_enqueue(&pending.0, controlled) {
         warn!(
             actor = ?controlled,
-            sequence = %request.sequence,
+            sequence = request.sequence,
             action = ?request.action,
             max_pending = MAX_PENDING_PER_ACTOR,
             "Rejected tactical equipment action because the actor queue is full"
@@ -112,7 +112,7 @@ fn process_equipment_actions(
         warn!(
             ?controlled,
             requested_actor = ?request.actor,
-            sequence = %request.sequence,
+            sequence = request.sequence,
             action = ?request.action,
             "Rejected queued tactical equipment action for an uncontrolled actor"
         );
@@ -121,7 +121,7 @@ fn process_equipment_actions(
     if players.get(controlled).is_err() {
         warn!(
             actor = ?controlled,
-            sequence = %request.sequence,
+            sequence = request.sequence,
             action = ?request.action,
             "Rejected tactical equipment action because the controlled player is unavailable"
         );
@@ -130,18 +130,18 @@ fn process_equipment_actions(
     let Ok(mut state) = action_states.get_mut(controlled) else {
         warn!(
             actor = ?controlled,
-            sequence = %request.sequence,
+            sequence = request.sequence,
             action = ?request.action,
             "Rejected tactical equipment action because authoritative action state is unavailable"
         );
         return;
     };
-    let last = sequences.0.get(&controlled).copied().unwrap_or_default();
-    if !request.sequence.is_newer_than(last) {
+    let last = sequences.0.get(&controlled).copied().unwrap_or(0);
+    if !sequence_is_newer(request.sequence, last) {
         warn!(
             actor = ?controlled,
-            sequence = %request.sequence,
-            last_sequence = %last,
+            sequence = request.sequence,
+            last_sequence = last,
             action = ?request.action,
             "Rejected stale or replayed tactical equipment action"
         );
@@ -150,9 +150,9 @@ fn process_equipment_actions(
     if request.expected_revision != state.revision {
         warn!(
             actor = ?controlled,
-            sequence = %request.sequence,
-            expected_revision = %request.expected_revision,
-            authoritative_revision = %state.revision,
+            sequence = request.sequence,
+            expected_revision = request.expected_revision,
+            authoritative_revision = state.revision,
             action = ?request.action,
             "Rejected tactical equipment action with a stale revision"
         );
@@ -162,7 +162,7 @@ fn process_equipment_actions(
     if authoritative_hand_item != request.expected_hand_item {
         warn!(
             actor = ?controlled,
-            sequence = %request.sequence,
+            sequence = request.sequence,
             hand = ?request.hand,
             expected_hand_item = ?request.expected_hand_item,
             ?authoritative_hand_item,
@@ -184,7 +184,7 @@ fn process_equipment_actions(
             if authoritative_destination != expected_destination {
                 warn!(
                     actor = ?controlled,
-                    sequence = %request.sequence,
+                    sequence = request.sequence,
                     ?location,
                     depth,
                     ?expected_destination,
@@ -252,14 +252,19 @@ fn record_action_outcome(
     state: &mut EquipmentActionState,
 ) {
     if !accepted {
-        warn!(actor = ?controlled, sequence = %request.sequence, action = ?request.action,
+        warn!(actor = ?controlled, sequence = request.sequence, action = ?request.action,
             "Rejected tactical equipment action during authoritative transfer validation");
         return;
     }
     sequences.0.insert(controlled, request.sequence);
-    state.revision = state.revision.next();
-    info!(actor = ?controlled, sequence = %request.sequence, revision = %state.revision,
+    state.revision = state.revision.wrapping_add(1);
+    info!(actor = ?controlled, sequence = request.sequence, revision = state.revision,
         action = ?request.action, "Committed tactical equipment action");
+}
+
+fn sequence_is_newer(candidate: u32, previous: u32) -> bool {
+    let distance = candidate.wrapping_sub(previous);
+    distance != 0 && distance <= u32::MAX / 2
 }
 
 fn hand_item(actor: Entity, hand: EquipmentHand, items: &Query<ItemView<'_>>) -> Option<Entity> {
@@ -332,7 +337,7 @@ fn append_reachable(
         output.push(ReachableTarget::Occupied(entity));
         return;
     };
-    let Some(equipment) = item_catalog::definition(&(&properties.id).into())
+    let Some(equipment) = item_catalog::definition(&properties.id)
         .and_then(|definition| definition.equipment.as_ref())
     else {
         output.push(ReachableTarget::Occupied(entity));
@@ -405,7 +410,7 @@ fn hand_topology(hand: EquipmentHand) -> EquipmentTopology {
 }
 
 fn placement_topology(item_id: &str, location: EquipmentLocation) -> Option<EquipmentTopology> {
-    let definition = item_catalog::definition(&(item_id).into())?;
+    let definition = item_catalog::definition(item_id)?;
     let equipment = definition.equipment.as_ref()?;
     let placement = equipment.placements.iter().find(|placement| {
         placement.parents.is_empty()
@@ -436,7 +441,7 @@ fn placement_topology(item_id: &str, location: EquipmentLocation) -> Option<Equi
 }
 
 fn root_placement_allowed(item_id: &str, placement: &item_catalog::EquipmentPlacement) -> bool {
-    if item_catalog::weapon_carry(&(item_id).into()) != Some(item_catalog::WeaponCarry::HandOnly) {
+    if item_catalog::weapon_carry(item_id) != Some(item_catalog::WeaponCarry::HandOnly) {
         return true;
     }
     placement.parents.is_empty()
@@ -450,7 +455,7 @@ fn root_placement_allowed(item_id: &str, placement: &item_catalog::EquipmentPlac
 }
 
 fn parent_placement_allowed(item_id: &str) -> bool {
-    item_catalog::weapon_carry(&(item_id).into()) != Some(item_catalog::WeaponCarry::HandOnly)
+    item_catalog::weapon_carry(item_id) != Some(item_catalog::WeaponCarry::HandOnly)
 }
 
 fn attachment_occupancies_conflict(
@@ -664,7 +669,7 @@ mod tests {
     fn hand_only_weapons_fail_closed_for_parent_placement() {
         for item_id in ["halberd", "hunting_spear", "military_pike", "spear"] {
             assert!(!parent_placement_allowed(item_id), "{item_id}");
-            let equipment = item_catalog::definition(&(item_id).into())
+            let equipment = item_catalog::definition(item_id)
                 .unwrap()
                 .equipment
                 .as_ref()
@@ -681,7 +686,7 @@ mod tests {
 
     #[test]
     fn hand_only_root_authority_accepts_only_one_held_hand() {
-        let authored = item_catalog::definition(&"halberd".into())
+        let authored = item_catalog::definition("halberd")
             .unwrap()
             .equipment
             .as_ref()
@@ -709,10 +714,10 @@ mod tests {
 
     #[test]
     fn sequence_replay_and_old_half_range_are_rejected() {
-        assert!(EquipmentSequence::new(2).is_newer_than(EquipmentSequence::new(1)));
-        assert!(!EquipmentSequence::new(1).is_newer_than(EquipmentSequence::new(1)));
-        assert!(!EquipmentSequence::new(1).is_newer_than(EquipmentSequence::new(2)));
-        assert!(EquipmentSequence::new(0).is_newer_than(EquipmentSequence::new(u32::MAX)));
+        assert!(sequence_is_newer(2, 1));
+        assert!(!sequence_is_newer(1, 1));
+        assert!(!sequence_is_newer(1, 2));
+        assert!(sequence_is_newer(0, u32::MAX));
     }
 
     #[test]
@@ -720,8 +725,8 @@ mod tests {
         let actor = Entity::from_bits(7);
         let request = EquipmentActionRequest {
             actor,
-            sequence: 1.into(),
-            expected_revision: 0.into(),
+            sequence: 1,
+            expected_revision: 0,
             hand: EquipmentHand::Right,
             expected_hand_item: None,
             action: EquipmentAction::Drop,
@@ -741,18 +746,17 @@ mod tests {
         let new = Entity::from_bits(8);
         let request = EquipmentActionRequest {
             actor: old,
-            sequence: 4.into(),
-            expected_revision: 0.into(),
+            sequence: 4,
+            expected_revision: 0,
             hand: EquipmentHand::Right,
             expected_hand_item: None,
             action: EquipmentAction::Drop,
         };
         let mut pending = PendingEquipmentActions(VecDeque::from([(old, request)]));
-        let mut sequences =
-            LastEquipmentSequence(HashMap::from([(old, EquipmentSequence::new(3))]));
+        let mut sequences = LastEquipmentSequence(HashMap::from([(old, 3)]));
         reconnect_equipment_lifecycle(old, new, &mut pending, &mut sequences);
         assert!(pending.0.is_empty());
-        assert_eq!(sequences.0.get(&new), Some(&EquipmentSequence::new(3)));
+        assert_eq!(sequences.0.get(&new), Some(&3));
         purge_equipment_lifecycle(new, &mut pending, &mut sequences);
         assert!(!sequences.0.contains_key(&new));
     }

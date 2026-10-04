@@ -33,16 +33,13 @@
 //! texture or sampler binding -- have no fast path and fall back to
 //! `ComputePass::record`, which still handles everything.
 
-use super::KernelDispatchError;
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
-use fabelgeist_gpu::data::gpu::shader::{
-    BindGroupIndex, BindingIndex, BufferBinding, UniformMember,
-};
+use fabelgeist_gpu::data::gpu::shader::{BufferBinding, UniformMember};
 
-pub(super) use super::uniform_arena::UniformArena;
-use super::uniform_arena::{UniformDynamicOffset, UniformStride};
+/// Bytes in each buffer of a batch's [`UniformArena`].
+const CHUNK_BYTES: u64 = 64 * 1024;
 
 /// The largest uniform block the cached path packs without allocating.
 ///
@@ -57,18 +54,56 @@ pub(super) struct FastPath {
     layout: wgpu::BindGroupLayout,
 
     buffers: Vec<BufferBinding>,
-    uniform_binding: Option<BindingIndex>,
+    uniform_binding: Option<u32>,
     uniform_members: Vec<UniformMember>,
-    uniform_size: BufferByteLength,
+    uniform_size: u64,
     /// `uniform_size` rounded up to the device's binding alignment.
-    stride: UniformStride,
+    stride: u64,
+}
+
+/// The uniform values of one batch's dispatches.
+///
+/// A kernel used to own a ring of uniform slots that every batch wrote into
+/// in turn. A ring is only safe to wrap once the batch holding a slot has been
+/// submitted, and with several threads recording at once nothing guarantees
+/// that: a long batch still being recorded on one thread saw its slots
+/// overwritten by other threads' dispatches, and ran with their counts. So
+/// each batch now writes its uniforms into buffers of its own, which live
+/// exactly as long as its commands need them.
+#[derive(Default)]
+pub(super) struct UniformArena {
+    chunks: Vec<wgpu::Buffer>,
+    /// Bytes used in the last chunk.
+    used: u64,
+}
+
+impl UniformArena {
+    /// Room for one dispatch's uniform block: the buffer and its offset.
+    fn allocate(&mut self, context: &WgpuContext, stride: u64) -> (wgpu::Buffer, u64) {
+        if self.chunks.is_empty() || self.used + stride > CHUNK_BYTES {
+            // Created mapped, so that it is initialised from the start rather
+            // than zero-filled lazily around the submission that reads it.
+            let chunk = context.device.create_buffer(&wgpu::BufferDescriptor {
+                label: Some("Kernel Uniform Arena"),
+                size: CHUNK_BYTES,
+                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+                mapped_at_creation: true,
+            });
+            chunk.unmap();
+            self.chunks.push(chunk);
+            self.used = 0;
+        }
+        let offset = self.used;
+        self.used += stride;
+        (self.chunks.last().expect("allocated above").clone(), offset)
+    }
 }
 
 /// What a prepared dispatch needs at record time.
 pub(super) struct Prepared {
     pub pipeline: wgpu::ComputePipeline,
     pub bind_group: wgpu::BindGroup,
-    pub dynamic_offset: Option<UniformDynamicOffset>,
+    pub dynamic_offset: Option<u32>,
 }
 
 impl FastPath {
@@ -76,8 +111,9 @@ impl FastPath {
     /// suit one.
     pub(super) fn new(
         context: &WgpuContext,
+        code: &str,
         module: &wgpu::ShaderModule,
-        entry_point: &ShaderEntryPoint,
+        entry_point: &str,
         reflection: &fabelgeist_gpu::data::gpu::shader::ReflectionData,
     ) -> Option<Self> {
         // One bind group only. Everything the solver writes uses group 0, and
@@ -86,7 +122,7 @@ impl FastPath {
             return None;
         }
         let group = &reflection.bind_groups[0];
-        if group.index != BindGroupIndex::FIRST {
+        if group.index != 0 {
             return None;
         }
         // Textures and samplers would each need their own cache key and their
@@ -94,43 +130,38 @@ impl FastPath {
         if !group.texture_bindings.is_empty() || !group.sampler_bindings.is_empty() {
             return None;
         }
+        let _ = code;
 
         let mut entries: Vec<wgpu::BindGroupLayoutEntry> = group
             .buffer_bindings
             .iter()
-            .map(|binding: &BufferBinding| -> wgpu::BindGroupLayoutEntry {
-                wgpu::BindGroupLayoutEntry {
-                    binding: u32::from(binding.binding),
-                    visibility: wgpu::ShaderStages::COMPUTE,
-                    ty: wgpu::BindingType::Buffer {
-                        ty: binding.ty,
-                        has_dynamic_offset: false,
-                        min_binding_size: None,
-                    },
-                    count: None,
-                }
+            .map(|binding| wgpu::BindGroupLayoutEntry {
+                binding: binding.binding,
+                visibility: wgpu::ShaderStages::COMPUTE,
+                ty: wgpu::BindingType::Buffer {
+                    ty: binding.ty,
+                    has_dynamic_offset: false,
+                    min_binding_size: None,
+                },
+                count: None,
             })
             .collect();
 
-        let uniform_size = group.uniform_buffer_size;
-        if uniform_size > BufferByteLength::from(MAX_UNIFORM_BYTES) {
+        let uniform_size = group.uniform_buffer_size as u64;
+        if uniform_size as usize > MAX_UNIFORM_BYTES {
             return None;
         }
-        let uniform_binding = if u64::from(uniform_size) > 0 {
-            group.uniform_binding
-        } else {
-            None
-        };
+        let uniform_binding = group.uniform_binding.filter(|_| uniform_size > 0);
         if let Some(binding) = uniform_binding {
             entries.push(wgpu::BindGroupLayoutEntry {
-                binding: u32::from(binding),
+                binding,
                 visibility: wgpu::ShaderStages::COMPUTE,
                 ty: wgpu::BindingType::Buffer {
                     ty: wgpu::BufferBindingType::Uniform,
                     // The whole point: one buffer, one bind group, and the
                     // per-dispatch values selected by offset.
                     has_dynamic_offset: true,
-                    min_binding_size: std::num::NonZeroU64::new(u64::from(uniform_size)),
+                    min_binding_size: std::num::NonZeroU64::new(uniform_size),
                 },
                 count: None,
             });
@@ -157,12 +188,13 @@ impl FastPath {
                 label: Some("Kernel Pipeline"),
                 layout: Some(&pipeline_layout),
                 module,
-                entry_point: Some(<&str>::from(entry_point)),
+                entry_point: Some(entry_point),
                 compilation_options: wgpu::PipelineCompilationOptions::default(),
                 cache: None,
             });
 
-        let stride = UniformStride::new(context, uniform_size);
+        let alignment = context.device.limits().min_uniform_buffer_offset_alignment as u64;
+        let stride = uniform_size.div_ceil(alignment.max(1)) * alignment.max(1);
 
         Some(Self {
             pipeline,
@@ -181,45 +213,45 @@ impl FastPath {
         context: &WgpuContext,
         parameters: &PassParameters,
         uniforms: &mut UniformArena,
-    ) -> std::result::Result<Prepared, KernelDispatchError> {
-        let slot = (self.uniform_binding.is_some() && u64::from(self.uniform_size) > 0)
+    ) -> Result<Prepared> {
+        let slot = (self.uniform_binding.is_some() && self.uniform_size > 0)
             .then(|| uniforms.allocate(context, self.stride));
         // Built fresh every dispatch. See the note at the top of this file:
         // reusing one costs wgpu the barrier between dependent passes.
         let mut entries: Vec<wgpu::BindGroupEntry> = Vec::with_capacity(self.buffers.len() + 1);
-        let mut bound: Vec<(BindingIndex, Buffer)> = Vec::with_capacity(self.buffers.len());
+        let mut bound: Vec<(u32, Buffer)> = Vec::with_capacity(self.buffers.len());
         for binding in &self.buffers {
-            let Some(PassParameter::Buffer(buffer)) = parameters.get(binding.name.parameter_name())
-            else {
-                return Err(KernelDispatchError::Buffer {
-                    name: binding.name.clone(),
-                    binding: binding.binding,
-                });
+            let Some(PassParameter::Buffer(buffer)) = parameters.get(&binding.name) else {
+                return Err(anyhow!(
+                    "Kernel: parameter `{}` (binding {}) is missing or is not a buffer",
+                    binding.name,
+                    binding.binding
+                ));
             };
             bound.push((binding.binding, buffer.clone()));
         }
 
         for (binding, buffer) in &bound {
             entries.push(wgpu::BindGroupEntry {
-                binding: u32::from(*binding),
-                resource: if buffer.length() < BufferByteLength::from(buffer.buffer.size()) {
+                binding: *binding,
+                resource: if buffer.size < buffer.buffer.size() {
                     wgpu::BindingResource::Buffer(wgpu::BufferBinding {
                         buffer: &buffer.buffer,
                         offset: 0,
-                        size: std::num::NonZeroU64::new(u64::from(buffer.length())),
+                        size: std::num::NonZeroU64::new(buffer.size),
                     })
                 } else {
                     buffer.buffer.as_entire_binding()
                 },
             });
         }
-        if let (Some(binding), Some(slot)) = (self.uniform_binding, &slot) {
+        if let (Some(binding), Some((chunk, _))) = (self.uniform_binding, &slot) {
             entries.push(wgpu::BindGroupEntry {
-                binding: u32::from(binding),
+                binding,
                 resource: wgpu::BindingResource::Buffer(wgpu::BufferBinding {
-                    buffer: slot.buffer(),
+                    buffer: chunk,
                     offset: 0,
-                    size: std::num::NonZeroU64::new(u64::from(self.uniform_size)),
+                    size: std::num::NonZeroU64::new(self.uniform_size),
                 }),
             });
         }
@@ -235,21 +267,17 @@ impl FastPath {
 
         let dynamic_offset = match &slot {
             None => None,
-            Some(slot) => {
-                // Scalar and vector packing stays on the stack.
+            Some((chunk, offset)) => {
+                let offset = *offset;
+                // A uniform block is a handful of words, so it is packed on
+                // the stack rather than allocated per dispatch.
                 let mut data = [0u8; MAX_UNIFORM_BYTES];
-                let size =
-                    usize::try_from(self.uniform_size).expect("bounded uniform size fits the host");
-                let mut payload = UniformBytes::from(&mut data[..size]);
-                payload
-                    .pack(
-                        &self.uniform_members,
-                        parameters,
-                        UniformPackingPolicy::Cached,
-                    )
-                    .map_err(KernelDispatchError::Uniform)?;
-                payload.upload(context, slot.buffer(), slot.offset());
-                Some(slot.dynamic_offset())
+                let size = self.uniform_size as usize;
+                let data = &mut data[..size];
+                data.fill(0);
+                write_uniform(&self.uniform_members, parameters, data)?;
+                context.queue.write_buffer(chunk, offset, data);
+                Some(offset as u32)
             }
         };
 
@@ -259,4 +287,65 @@ impl FastPath {
             dynamic_offset,
         })
     }
+}
+
+/// Pack the uniform block from named parameters, by reflected offsets.
+///
+/// Covers the scalar, vector and matrix kinds a solver passes. Anything else
+/// is reported rather than silently skipped -- a uniform quietly left at zero
+/// is a wrong simulation, not an error, and those are the expensive ones.
+fn write_uniform(
+    members: &[UniformMember],
+    parameters: &PassParameters,
+    out: &mut [u8],
+) -> Result<()> {
+    for member in members {
+        let Some(value) = parameters.get(&member.name) else {
+            return Err(anyhow!(
+                "Kernel: uniform `{}` was not supplied",
+                member.name
+            ));
+        };
+        let offset = member.offset as usize;
+
+        let mut put = |values: &[f32]| {
+            let end = offset + values.len() * 4;
+            if end <= out.len() {
+                for (index, value) in values.iter().enumerate() {
+                    out[offset + index * 4..offset + index * 4 + 4]
+                        .copy_from_slice(&value.to_le_bytes());
+                }
+            }
+        };
+
+        match value {
+            PassParameter::Number(n) => put(&[*n as f32]),
+            PassParameter::Unsigned(u) => {
+                if offset + 4 <= out.len() {
+                    out[offset..offset + 4].copy_from_slice(&u.to_le_bytes());
+                }
+            }
+            PassParameter::Vec2(v) => put(&[v.x, v.y]),
+            PassParameter::Vec3(v) => put(&[v.x, v.y, v.z]),
+            PassParameter::Vec4(v) => put(&[v.x, v.y, v.z, v.w]),
+            PassParameter::Mat4(m) => {
+                let mut values = Vec::with_capacity(16);
+                for column in 0..4 {
+                    for row in 0..4 {
+                        values.push(m.columns[column][row]);
+                    }
+                }
+                put(&values);
+            }
+            other => {
+                return Err(anyhow!(
+                    "Kernel: uniform `{}` is a {:?}, which the cached dispatch path does not pack; \
+                     use ComputePass::record for this kernel",
+                    member.name,
+                    std::mem::discriminant(other)
+                ));
+            }
+        }
+    }
+    Ok(())
 }

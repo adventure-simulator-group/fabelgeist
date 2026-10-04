@@ -3,18 +3,16 @@ use crate::{
     ComponentRole, WeaponDesign, WeaponHolderDesign, WeaponHolderKind, recommended_holder,
 };
 use thiserror::Error;
-#[derive(Clone, Debug, Error, PartialEq)]
+#[derive(Clone, Debug, Error, Eq, PartialEq)]
 pub enum ValidationError {
     #[error("weapon catalog ID is empty or exceeds its transport limit")]
     CatalogIdentity,
     #[error("invalid canonical weapon recipe: {0}")]
     Recipe(#[from] crate::recipe::RecipeError),
     #[error("weapon construction failed: {0}")]
-    Construction(#[source] crate::ConstructionError),
+    Construction(String),
     #[error("invalid holder {0}")]
     Holder(&'static str),
-    #[error("holder generation failed: {0}")]
-    HolderGeneration(#[source] Box<crate::GenerateError>),
 }
 pub(crate) fn identity(design: &WeaponDesign) -> Result<(), Vec<ValidationError>> {
     if design.catalog_id.is_empty() || design.catalog_id.len() > 128 {
@@ -34,7 +32,7 @@ pub fn validate(design: &WeaponDesign) -> Result<(), Vec<ValidationError>> {
 pub fn validate_holder(design: &WeaponHolderDesign) -> Result<(), Vec<ValidationError>> {
     crate::holders::HolderConstruction::new(design)
         .map(|_| ())
-        .map_err(|error| vec![ValidationError::HolderGeneration(Box::new(error))])
+        .map_err(|error| vec![ValidationError::Construction(error.to_string())])
 }
 pub(crate) fn holder_identity(design: &WeaponHolderDesign) -> Result<(), Vec<ValidationError>> {
     identity(&design.fitted_weapon)?;

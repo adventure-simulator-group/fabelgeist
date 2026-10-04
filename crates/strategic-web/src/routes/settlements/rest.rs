@@ -191,7 +191,7 @@ pub(super) async fn rest(
     let settlement_query = settlement_by_id(&id);
     let settlements: Vec<SettlementView> = state
         .db
-        .query_sats_into::<DbSettlement, SettlementView>(settlement_query)
+        .query_sats_into::<DbSettlement, SettlementView>(settlement_query.as_str())
         .await
         .unwrap_or_default();
     let Some(settlement) = settlements.first() else {
@@ -240,13 +240,13 @@ pub(super) async fn rest(
     };
     let before_character = get_active_character(&state, Some(character_id)).await;
     let before_limbs =
-        query_single::<CharacterLimbs>(&state, db::character_limbs_by_character_id(character_id.into()))
+        query_single::<CharacterLimbs>(&state, db::character_limbs_by_character_id(character_id))
             .await;
     let before_skills =
-        query_single::<CharacterSkills>(&state, db::character_skills_by_character_id(character_id.into()))
+        query_single::<CharacterSkills>(&state, db::character_skills_by_character_id(character_id))
             .await;
     let before_time =
-        query_single::<db::CharacterTime>(&state, db::character_time_by_character_id(character_id.into()))
+        query_single::<db::CharacterTime>(&state, db::character_time_by_character_id(character_id))
             .await;
     let before_reputation = query_local_reputation(&state, character_id, &id).await;
     let character_settlement_id = before_character
@@ -305,13 +305,13 @@ pub(super) async fn rest(
     )
     .await;
     let after_limbs =
-        query_single::<CharacterLimbs>(&state, db::character_limbs_by_character_id(character_id.into()))
+        query_single::<CharacterLimbs>(&state, db::character_limbs_by_character_id(character_id))
             .await;
     let after_skills =
-        query_single::<CharacterSkills>(&state, db::character_skills_by_character_id(character_id.into()))
+        query_single::<CharacterSkills>(&state, db::character_skills_by_character_id(character_id))
             .await;
     let after_time =
-        query_single::<db::CharacterTime>(&state, db::character_time_by_character_id(character_id.into()))
+        query_single::<db::CharacterTime>(&state, db::character_time_by_character_id(character_id))
             .await;
     let after_reputation = query_local_reputation(&state, character_id, &id).await;
     let summary = rest_summary(RestSummaryObservation {
@@ -337,12 +337,12 @@ pub(super) async fn rest(
         .map(|(character, _)| character.name.clone());
     let items = state
         .db
-        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into())
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let food_lots = state
         .db
-        .query_sats::<FoodLot>("SELECT * FROM food_lot".into())
+        .query_sats::<FoodLot>("SELECT * FROM food_lot")
         .await
         .unwrap_or_default();
     let soap_preview = soap_rest_preview(
@@ -379,7 +379,7 @@ pub(super) async fn query_single<T: spacetimedb_sats::de::DeserializeOwned>(
     state: &AppState,
     query: db::SqlQuery,
 ) -> Option<T> {
-    state.db.query_one_sats(query).await.ok().flatten()
+    state.db.query_one_sats(&query).await.ok().flatten()
 }
 
 pub(super) async fn query_local_reputation(
@@ -389,10 +389,10 @@ pub(super) async fn query_local_reputation(
 ) -> Option<CharacterSettlementReputation> {
     state
         .db
-        .query_sats(SqlQuery::from(format!(
+        .query_sats(&format!(
             "SELECT * FROM character_settlement_reputation WHERE character_id = {character_id} AND settlement_id = {}",
             db::sql_string_literal(settlement_id)
-        )))
+        ))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -430,7 +430,7 @@ pub(super) fn rest_summary(observation: RestSummaryObservation<'_>) -> RestSumma
         requested_minutes,
     } = observation;
     let minutes = before_time.zip(after_time).map_or(0, |(before, after)| {
-        calendar_minute(&after.minutes).elapsed_since(calendar_minute(&before.minutes))
+        StrategicMinute::new(after.minutes.minutes).elapsed_since(StrategicMinute::new(before.minutes.minutes))
     });
     let currency_total = |inventory: &[InventoryItem]| -> u32 {
         inventory
@@ -590,7 +590,7 @@ pub(super) async fn travel(
 
     let outcome = super::execute_or_request_party_action(
         &state,
-        character_id.into(),
+        character_id,
         super::PartyAction::TravelToSettlement {
             settlement_id: id.clone(),
         },
@@ -601,7 +601,7 @@ pub(super) async fn travel(
         // reducer's committed state is visible.
         Ok(super::PartyActionOutcome::Executed) => StatusCode::NO_CONTENT.into_response(),
         Ok(super::PartyActionOutcome::Requested) => StatusCode::ACCEPTED.into_response(),
-        Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
+        Err(error) => (StatusCode::BAD_REQUEST, error).into_response(),
     }
 }
 

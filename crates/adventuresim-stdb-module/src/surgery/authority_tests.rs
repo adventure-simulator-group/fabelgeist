@@ -8,8 +8,7 @@ fn injured_actor(ctx: &ReducerContext, id: u64) -> Result<(), String> {
     actor.current_settlement_id = Some("riverdale".into());
     ctx.db.character().id().update(actor);
     crate::item::upsert_surgery_items(ctx);
-    crate::item::add_inventory_item_checked(ctx, id.into(), &"bandage".into(), 1.into())
-        .map_err(|error: crate::item::InventoryGrantError| -> String { error.to_string() })?;
+    crate::item::add_inventory_item_checked(ctx, id, "bandage", 1)?;
     let mut injury = blank_injury(id, BodyRegion::LeftArm);
     injury.cut_damage = 0.1;
     store_injury(ctx, injury);
@@ -40,7 +39,7 @@ pub fn authority_test_treatment_receipts(
     };
     let supplies_before = item_quantity(ctx, actor, "bandage");
     treat("completed".into(), false)?;
-    let injury = injury_for(ctx, (actor).into(), BodyRegion::LeftArm);
+    let injury = injury_for(ctx, actor, BodyRegion::LeftArm);
     let minute = ctx
         .db
         .character_time()
@@ -61,7 +60,7 @@ pub fn authority_test_treatment_receipts(
         return Err("Completed treatment lacks injury effect or receipt".into());
     }
     treat("completed".into(), false)?;
-    if injury_for(ctx, (actor).into(), BodyRegion::LeftArm).cut_damage != injury.cut_damage
+    if injury_for(ctx, actor, BodyRegion::LeftArm).cut_damage != injury.cut_damage
         || ctx
             .db
             .character_time()
@@ -109,7 +108,7 @@ pub fn authority_test_treatment_receipts(
         .id()
         .find(format!("treatment:{interrupted}:interrupted"))
         .is_some()
-        || injury_for(ctx, (interrupted).into(), BodyRegion::LeftArm).bandaged
+        || injury_for(ctx, interrupted, BodyRegion::LeftArm).bandaged
         || item_quantity(ctx, interrupted, "bandage") != supplies
     {
         return Err("Interrupted treatment committed a receipt or consumed supplies".into());

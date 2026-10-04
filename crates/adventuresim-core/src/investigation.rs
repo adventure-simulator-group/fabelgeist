@@ -71,11 +71,42 @@ impl DestinationKnowledgeStage {
     }
 }
 
-mod identity;
-pub use identity::{
-    BeliefId, CaseId, ClaimId, EventId, EvidenceId, EvidenceKnowledgeSourceId, LeadId,
-    ObservationId, PropositionId, RecollectionId, RevisionId, SharingReceiptId,
-};
+macro_rules! stable_id {
+    ($name:ident) => {
+        #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+        pub struct $name(String);
+        impl $name {
+            pub fn new(value: impl Into<String>) -> Result<Self, ValidationError> {
+                let value = value.into();
+                if value.is_empty()
+                    || value.len() > 256
+                    || !value.bytes().all(|b| {
+                        b.is_ascii_alphanumeric() || matches!(b, b'-' | b'_' | b':' | b'.')
+                    })
+                {
+                    return Err(ValidationError::InvalidId);
+                }
+                Ok(Self(value))
+            }
+            pub fn as_str(&self) -> &str {
+                &self.0
+            }
+        }
+    };
+}
+
+stable_id!(CaseId);
+stable_id!(EventId);
+stable_id!(PropositionId);
+stable_id!(ObservationId);
+stable_id!(RecollectionId);
+stable_id!(ClaimId);
+stable_id!(EvidenceId);
+stable_id!(BeliefId);
+stable_id!(LeadId);
+stable_id!(RevisionId);
+stable_id!(SharingReceiptId);
+stable_id!(EvidenceKnowledgeSourceId);
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum EvidenceKnowledgeSubject {
@@ -289,8 +320,14 @@ impl BasisPoints {
     }
 }
 
-mod error;
-pub use error::ValidationError;
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum ValidationError {
+    InvalidId,
+    TextTooLong,
+    OutOfRange,
+    TooManyRecords,
+    DuplicateRecord,
+}
 
 fn bounded_text(value: impl Into<String>) -> Result<String, ValidationError> {
     let value = value.into();

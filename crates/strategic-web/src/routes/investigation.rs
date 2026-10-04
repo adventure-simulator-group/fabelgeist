@@ -1,4 +1,3 @@
-use crate::spacetimedb::SqlQuery;
 use axum::{
     Router,
     extract::{Form, State},
@@ -31,7 +30,7 @@ async fn journal(State(state): State<AppState>, session: Session) -> Response {
     let character = match state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            crate::spacetimedb::character_by_id(character_id.into()),
+            &crate::spacetimedb::character_by_id(character_id),
         )
         .await
     {
@@ -54,29 +53,29 @@ async fn journal_response(
     let character_id = character.id;
     // Defense in depth: the gateway view is already sanitized, and SSR still
     // scopes every query to the selected session character.
-    let entries_sql = SqlQuery::from(format!(
+    let entries_sql = format!(
         "SELECT * FROM backend_investigation_journal WHERE owner_character_id = {character_id}"
-    ));
-    let leads_sql = SqlQuery::from(format!(
+    );
+    let leads_sql = format!(
         "SELECT * FROM backend_investigation_leads WHERE owner_character_id = {character_id}"
-    ));
-    let cases_sql = SqlQuery::from(format!(
+    );
+    let cases_sql = format!(
         "SELECT * FROM backend_investigation_cases WHERE owner_character_id = {character_id}"
-    ));
-    let deductions_sql = SqlQuery::from(format!(
+    );
+    let deductions_sql = format!(
         "SELECT * FROM backend_bestiary_deductions WHERE owner_character_id = {character_id}"
-    ));
+    );
     let (entries, leads, cases, deductions) = tokio::join!(
         state
             .db
-            .query_sats::<BackendInvestigationJournalEntry>(entries_sql),
-        state.db.query_sats::<BackendInvestigationLead>(leads_sql),
+            .query_sats::<BackendInvestigationJournalEntry>(&entries_sql),
+        state.db.query_sats::<BackendInvestigationLead>(&leads_sql),
         state
             .db
-            .query_sats::<BackendInvestigationCaseSummary>(cases_sql),
+            .query_sats::<BackendInvestigationCaseSummary>(&cases_sql),
         state
             .db
-            .query_sats::<BackendBestiaryDeduction>(deductions_sql)
+            .query_sats::<BackendBestiaryDeduction>(&deductions_sql)
     );
     match (entries, leads, cases, deductions) {
         (Ok(mut entries), Ok(mut leads), Ok(cases), Ok(deductions)) => {
@@ -118,7 +117,7 @@ async fn journal_response(
     }
 }
 
-fn safe_investigation_action_error(_error: &super::PartyActionError) -> &'static str {
+fn safe_investigation_action_error(_error: &str) -> &'static str {
     "That investigation route is no longer available. The journal now shows the routes supported by your current leads."
 }
 
@@ -139,7 +138,7 @@ async fn perform_action(
     };
     match execute_or_request_party_action(
         &state,
-        character_id.into(),
+        character_id,
         PartyAction::PerformInvestigation {
             action_id: form.action_id,
             method: form.method,
@@ -155,7 +154,7 @@ async fn perform_action(
             match state
                 .db
                 .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-                    crate::spacetimedb::character_by_id(character_id.into()),
+                    &crate::spacetimedb::character_by_id(character_id),
                 )
                 .await
             {
@@ -188,16 +187,19 @@ mod tests {
     #[test]
     fn rejected_actions_map_to_visible_player_safe_feedback() {
         let generic = "That investigation route is no longer available. The journal now shows the routes supported by your current leads.";
-        let private = crate::routes::PartyActionError::reducer(7.into(), crate::spacetimedb::SpacetimeError::Remote(crate::spacetimedb::RemoteDatabaseFailure::from_response(crate::spacetimedb::DatabaseOperation::Reducer, reqwest::StatusCode::CONFLICT, Ok("private target id 123; The party must occupy the action's authoritative site".into()))));
-
         assert_eq!(
-            safe_investigation_action_error(&super::super::PartyActionError::from(
-                super::super::party_readiness::PartyReadinessError::Incapacitated(7.into())
-            )),
+            safe_investigation_action_error(
+                "An incapacitated party member must recover before the party can act"
+            ),
             generic
         );
-        assert_eq!(safe_investigation_action_error(&private), generic);
-        assert!(!safe_investigation_action_error(&private).contains("123"));
+        assert_eq!(
+            safe_investigation_action_error(
+                "The party must occupy the action's authoritative site"
+            ),
+            generic
+        );
+        assert!(!safe_investigation_action_error("private target id 123").contains("123"));
     }
 
     #[test]

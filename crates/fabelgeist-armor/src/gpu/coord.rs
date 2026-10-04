@@ -20,10 +20,10 @@
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch};
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::part::{Extrusion, HINGE_WORDS, PartBuild, SHELL_MIRRORED, SHELL_WORDS, ShellSpec};
-use super::{ArmorGpu, wgsl};
+use super::{ArmorGpu, device_error, wgsl};
 use crate::{BoundaryNormals, GenerateError};
 
 /// One shell whose vertices the host lists with their coordinates.
@@ -91,7 +91,7 @@ impl CoordKernel {
         Ok(Self(
             gpu.cache()
                 .get(gpu.context(), &source(shape))
-                .map_err(crate::GenerateError::from)?,
+                .map_err(device_error)?,
         ))
     }
 }
@@ -143,7 +143,7 @@ pub(crate) fn record(
             ("pad1", 0),
             ("pad2", 0),
         ] {
-            parameters.insert(name.into(), (value).into());
+            parameters.insert(name, value);
         }
         for (name, value) in [
             ("value0", coord_shell.values[0]),
@@ -159,22 +159,18 @@ pub(crate) fn record(
             ("axis_z", axis[2]),
             ("pad4", 0.0),
         ] {
-            parameters.insert(name.into(), (value).into());
+            parameters.insert(name, value);
         }
-        parameters.insert("coords".into(), (coords.clone()).into());
-        parameters.insert("design".into(), (design.clone()).into());
-        parameters.insert("frames".into(), ((*frame).clone()).into());
-        parameters.insert("carriers".into(), (build.carriers.clone()).into());
-        parameters.insert("heights".into(), (build.heights.clone()).into());
-        parameters.insert("shells".into(), (build.shells.clone()).into());
-        parameters.insert("hinges".into(), (build.hinges.clone()).into());
+        parameters.insert("coords", coords.clone());
+        parameters.insert("design", design.clone());
+        parameters.insert("frames", (*frame).clone());
+        parameters.insert("carriers", build.carriers.clone());
+        parameters.insert("heights", build.heights.clone());
+        parameters.insert("shells", build.shells.clone());
+        parameters.insert("hinges", build.hinges.clone());
         batch
-            .dispatch_items(
-                &kernel.0,
-                &parameters,
-                (coord_shell.coords.len() as u32).into(),
-            )
-            .map_err(crate::GenerateError::from)?;
+            .dispatch_items(&kernel.0, &parameters, coord_shell.coords.len() as u32)
+            .map_err(device_error)?;
     }
     Ok(())
 }
@@ -224,8 +220,8 @@ struct Params {
 /// A shell's hinge slot when it carries no hinge.
 const NO_HINGE: u32 = u32::MAX;
 
-fn source(shape: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+fn source(shape: &str) -> String {
+    format!(
         r#"
 {BINDINGS}{math}
 {frame}
@@ -304,5 +300,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         mirrored_word = SHELL_MIRRORED,
         no_hinge = NO_HINGE,
         hinge_words = HINGE_WORDS,
-    ))
+    )
 }

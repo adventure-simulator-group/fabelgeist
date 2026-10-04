@@ -1,5 +1,4 @@
 use crate::strategic::strategic_gateway_authority__view;
-use adventuresim_core::identity::CharacterId;
 pub use adventuresim_core::personality::{
     ChivalricVirtue, Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve,
     Outlook, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance, Transparency,
@@ -112,9 +111,9 @@ pub struct PersonalityDevelopmentEvent {
 }
 
 impl CharacterPersonalityScores {
-    pub fn neutral(character_id: CharacterId) -> Self {
+    pub fn neutral(character_id: u64) -> Self {
         Self {
-            character_id: u64::from(character_id),
+            character_id,
             nerve: 0,
             drive: 0,
             outlook: 0,
@@ -169,7 +168,7 @@ impl CharacterPersonalityScores {
     }
 
     pub fn from_visible(value: &CharacterPersonality) -> Self {
-        let mut scores = Self::neutral(value.character_id.into());
+        let mut scores = Self::neutral(value.character_id);
         scores.nerve = match value.nerve {
             Nerve::Brave => PERSONALITY_SCORE_LIMIT,
             Nerve::Fearful => -PERSONALITY_SCORE_LIMIT,
@@ -261,10 +260,10 @@ pub fn backend_character_personalities(ctx: &ViewContext) -> Vec<CharacterPerson
 }
 
 impl CharacterPersonality {
-    pub fn neutral(character_id: CharacterId) -> Self {
+    pub fn neutral(character_id: u64) -> Self {
         Self {
-            character_id: u64::from(character_id),
-            projection_character_id: u64::from(character_id),
+            character_id,
+            projection_character_id: character_id,
             nerve: Nerve::Neutral,
             drive: Drive::Neutral,
             outlook: Outlook::Neutral,
@@ -469,7 +468,7 @@ pub fn set_personality_axis_score(
         .character_personality_scores()
         .character_id()
         .update(scores.clone());
-    let demographics = personality_or_neutral(ctx, (character_id).into());
+    let demographics = personality_or_neutral(ctx, character_id);
     write_projection(ctx, project_scores(&scores, &demographics));
     Ok(())
 }
@@ -487,7 +486,7 @@ pub fn update_personality_demographics(
         .character_id()
         .find(character_id)
         .ok_or("Character personality scores not found")?;
-    let mut demographics = personality_or_neutral(ctx, (character_id).into());
+    let mut demographics = personality_or_neutral(ctx, character_id);
     demographics.sex = sex;
     demographics.presentation = presentation;
     demographics.inclination = inclination;
@@ -497,12 +496,12 @@ pub fn update_personality_demographics(
 
 pub fn personality_scores_or_neutral(
     ctx: &ReducerContext,
-    character_id: CharacterId,
+    character_id: u64,
 ) -> CharacterPersonalityScores {
     ctx.db
         .character_personality_scores()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .unwrap_or_else(|| CharacterPersonalityScores::neutral(character_id))
 }
 
@@ -589,7 +588,7 @@ fn development_replay_matches(
         && existing.virtue == virtue
 }
 
-pub fn conviction_strength_for_character(ctx: &ReducerContext, character_id: CharacterId) -> f32 {
+pub fn conviction_strength_for_character(ctx: &ReducerContext, character_id: u64) -> f32 {
     2.5 + 2.5 * f32::from(personality_scores_or_neutral(ctx, character_id).conviction)
         / f32::from(PERSONALITY_SCORE_LIMIT)
 }
@@ -599,7 +598,7 @@ pub fn random_personality(
     character_id: u64,
     random: &mut DeterministicRng,
 ) -> CharacterPersonality {
-    let mut result = CharacterPersonality::neutral((character_id).into());
+    let mut result = CharacterPersonality::neutral(character_id);
     let mut axes = [0_u8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     random.shuffle(&mut axes);
     let count = 2 + random.index(3);
@@ -724,15 +723,16 @@ pub fn random_personality(
     result
 }
 
-/// Read the stored behavioral projection, using neutral traits for a missing row.
-pub fn personality_or_neutral(
-    ctx: &ReducerContext,
-    character_id: CharacterId,
-) -> CharacterPersonality {
+/// Generate an NPC personality from an identity-stable seed.
+///
+/// Reducer RNG is intentionally not involved. The same NPC therefore receives
+/// the same demographic axes and sparse traits regardless of bootstrap order,
+/// retries, or unrelated random draws in the surrounding transaction.
+pub fn personality_or_neutral(ctx: &ReducerContext, character_id: u64) -> CharacterPersonality {
     ctx.db
         .character_personality()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .unwrap_or_else(|| CharacterPersonality::neutral(character_id))
 }
 
@@ -768,7 +768,7 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
                 character_id,
                 &mut generation::PERSONALITY_GENERATION_DOMAIN.rng(ctx.random(), &[character_id]),
             );
-            let mut neutral = CharacterPersonality::neutral((character_id).into());
+            let mut neutral = CharacterPersonality::neutral(character_id);
             neutral.sex = generated.sex;
             neutral.presentation = generated.presentation;
             neutral.inclination = generated.inclination;
@@ -914,7 +914,7 @@ pub fn react_raw_with_scores(
 
 pub fn react_raw_for_character(
     ctx: &ReducerContext,
-    character_id: CharacterId,
+    character_id: u64,
     stimulus: MoraleStimulus,
     magnitude: f32,
 ) -> (f32, Vec<&'static str>) {
@@ -936,7 +936,7 @@ pub fn negative_event_duration(personality: &CharacterPersonality, duration: u64
 
 pub fn negative_event_duration_for_character(
     ctx: &ReducerContext,
-    character_id: CharacterId,
+    character_id: u64,
     duration: u64,
 ) -> u64 {
     let score = personality_scores_or_neutral(ctx, character_id).outlook;
@@ -972,7 +972,7 @@ pub fn ally_restoration_multiplier(
 
 pub fn ally_restoration_multiplier_for_character(
     ctx: &ReducerContext,
-    character_id: CharacterId,
+    character_id: u64,
 ) -> (f32, Option<&'static str>) {
     let visible = personality_or_neutral(ctx, character_id);
     let multiplier = continuous_axis_multiplier(
@@ -1063,10 +1063,7 @@ mod tests {
 
     #[test]
     fn neutral_profile_has_no_visible_axes() {
-        assert_eq!(
-            CharacterPersonality::neutral(1.into()).non_neutral_count(),
-            0
-        );
+        assert_eq!(CharacterPersonality::neutral(1).non_neutral_count(), 0);
     }
 
     #[test]
@@ -1078,7 +1075,7 @@ mod tests {
 
     #[test]
     fn every_active_axis_modifies_only_its_semantic_hook() {
-        let mut p = CharacterPersonality::neutral((1).into());
+        let mut p = CharacterPersonality::neutral(1);
         p.nerve = Nerve::Brave;
         assert_eq!(react_raw(&p, MoraleStimulus::Threat, -10.0).0, -5.0);
         p.nerve = Nerve::Fearful;
@@ -1110,7 +1107,7 @@ mod tests {
 
     #[test]
     fn multipliers_compose_and_event_memory_changes() {
-        let mut p = CharacterPersonality::neutral((1).into());
+        let mut p = CharacterPersonality::neutral(1);
         p.drive = Drive::Ambitious;
         p.self_regard = SelfRegard::Proud;
         p.outlook = Outlook::Brooding;
@@ -1122,7 +1119,7 @@ mod tests {
 
     #[test]
     fn sociability_is_separate_from_command_and_caps_can_apply_after_it() {
-        let mut p = CharacterPersonality::neutral((1).into());
+        let mut p = CharacterPersonality::neutral(1);
         p.sociability = Sociability::Gregarious;
         let (multiplier, _) = ally_restoration_multiplier(&p);
         assert_eq!((8.0_f32 * multiplier).min(10.0), 10.0);
@@ -1132,7 +1129,7 @@ mod tests {
 
     #[test]
     fn observed_holy_days_receive_conviction_reactions_and_annotations() {
-        let mut p = CharacterPersonality::neutral((1).into());
+        let mut p = CharacterPersonality::neutral(1);
         p.conviction = Conviction::Zealous;
         let stimulus =
             morale_event_stimulus(adventuresim_core::morale::MoraleEventKind::HolyDayObserved);
@@ -1144,8 +1141,8 @@ mod tests {
 
     #[test]
     fn scores_clamp_and_project_only_after_visibility_thresholds() {
-        let demographics = CharacterPersonality::neutral((7).into());
-        let mut scores = CharacterPersonalityScores::neutral((7).into());
+        let demographics = CharacterPersonality::neutral(7);
+        let mut scores = CharacterPersonalityScores::neutral(7);
         scores.set_score(MutablePersonalityAxis::Nerve, 25_000);
         assert_eq!(scores.nerve, PERSONALITY_SCORE_LIMIT);
         assert_eq!(project_scores(&scores, &demographics).nerve, Nerve::Brave);
@@ -1157,8 +1154,8 @@ mod tests {
 
     #[test]
     fn conscience_has_compassionate_callous_and_cruel_bands() {
-        let demographics = CharacterPersonality::neutral((8).into());
-        let mut scores = CharacterPersonalityScores::neutral((8).into());
+        let demographics = CharacterPersonality::neutral(8);
+        let mut scores = CharacterPersonalityScores::neutral(8);
         for (score, expected) in [
             (4_999, Conscience::Neutral),
             (5_000, Conscience::Compassionate),
@@ -1191,10 +1188,10 @@ mod tests {
 
     #[test]
     fn demographic_projection_preserves_hidden_unrelated_scores_and_forces_key() {
-        let mut scores = CharacterPersonalityScores::neutral((42).into());
+        let mut scores = CharacterPersonalityScores::neutral(42);
         scores.nerve = 3_750;
         scores.conviction = -2_250;
-        let mut demographics = CharacterPersonality::neutral((999).into());
+        let mut demographics = CharacterPersonality::neutral(999);
         demographics.sex = Sex::Female;
         demographics.presentation = Presentation::Woman;
         demographics.inclination = Inclination::Either;
@@ -1261,7 +1258,7 @@ mod tests {
         let personality_source = crate::production_source(include_str!("personality.rs"));
         assert!(!personality_source.contains("#[view(accessor = character_personality_scores"));
         assert!(!personality_source.contains("#[view(accessor = personality_development_event"));
-        let deletion = crate::production_source(include_str!("character/deletion.rs"));
+        let deletion = crate::production_source(include_str!("character.rs"));
         assert!(deletion.contains("character_personality_scores()"));
         assert!(deletion.contains("personality_development_event()"));
         assert!(deletion.contains(".character_id()\n        .filter(character.id)"));
@@ -1269,8 +1266,8 @@ mod tests {
 
     #[test]
     fn hidden_subthreshold_scores_already_change_morale_without_leaking_annotation() {
-        let visible = CharacterPersonality::neutral((9).into());
-        let mut scores = CharacterPersonalityScores::neutral((9).into());
+        let visible = CharacterPersonality::neutral(9);
+        let mut scores = CharacterPersonalityScores::neutral(9);
         scores.nerve = 2_500;
         let (magnitude, annotations) =
             react_raw_with_scores(&visible, &scores, MoraleStimulus::Threat, -8.0);

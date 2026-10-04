@@ -147,7 +147,7 @@ pub(super) async fn camp(
         let query = party_by_id(party_id);
         party = state
             .db
-            .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(query)
+            .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(query.as_str())
             .await
             .ok()
             .flatten();
@@ -178,7 +178,7 @@ pub(super) async fn camp(
     for attempt in 0..4 {
         journey = state
             .db
-            .query_one_sats::<PartyJourney>(db::party_journey_by_party_id(&party.id))
+            .query_one_sats::<PartyJourney>(&db::party_journey_by_party_id(&party.id))
             .await
             .ok()
             .flatten();
@@ -190,7 +190,7 @@ pub(super) async fn camp(
     let party_members = get_active_party_members(&state, Some(&character)).await;
     let member_times: Vec<CharacterTime> = state
         .db
-        .query_sats("SELECT * FROM backend_character_times".into())
+        .query_sats("SELECT * FROM backend_character_times")
         .await
         .unwrap_or_default();
     let current_party_minute = party_members
@@ -212,10 +212,10 @@ pub(super) async fn camp(
     for attempt in 0..4 {
         match state
             .db
-            .query_sats::<BackendChallenge>(SqlQuery::from(format!(
+            .query_sats::<BackendChallenge>(&format!(
                 "SELECT * FROM backend_challenges WHERE owner_character_id = {}",
                 character.id
-            )))
+            ))
             .await
         {
             Ok(rows) => challenges = rows,
@@ -237,10 +237,10 @@ pub(super) async fn camp(
     }
     let road_challenges = match state
         .db
-        .query_sats::<BackendRoadChallenge>(SqlQuery::from(format!(
+        .query_sats::<BackendRoadChallenge>(&format!(
             "SELECT * FROM backend_road_challenges WHERE owner_character_id = {}",
             character.id
-        )))
+        ))
         .await
     {
         Ok(rows) => rows,
@@ -260,14 +260,14 @@ pub(super) async fn camp(
     let terrain_route = state
         .db
         .query_one_sats_into::<DbPartyJourneyRoute, PartyJourneyRouteView>(
-            db::party_journey_route_by_party_id(&party.id),
+            &db::party_journey_route_by_party_id(&party.id),
         )
         .await
         .ok()
         .flatten();
     let encounter = match state
         .db
-        .query_one_sats::<StrategicEncounter>(db::strategic_encounter_by_party_id(&party.id))
+        .query_one_sats::<StrategicEncounter>(&db::strategic_encounter_by_party_id(&party.id))
         .await
     {
         Ok(encounter) => encounter,
@@ -291,18 +291,18 @@ pub(super) async fn camp(
     {
         let memberships: Vec<BackendContextCharacter> = state
             .db
-            .query_sats(SqlQuery::from(format!(
+            .query_sats(&format!(
                 "SELECT * FROM backend_context_characters WHERE contact_ref = {} AND party_id = {}",
                 sql_string_literal(&encounter.encounter_id),
                 sql_string_literal(&party.id)
-            )))
+            ))
             .await
             .unwrap_or_default();
         for membership in memberships.into_iter().filter(|row| row.alive) {
             if let Ok(Some(character)) = state
                 .db
-                .query_one_sats_into::<DbCharacter, CharacterView>(db::character_by_id(
-                    membership.character_id.into(),
+                .query_one_sats_into::<DbCharacter, CharacterView>(&db::character_by_id(
+                    membership.character_id,
                 ))
                 .await
             {
@@ -312,7 +312,7 @@ pub(super) async fn camp(
     }
     let stats: Vec<CharacterStats> = state
         .db
-        .query_sats("SELECT * FROM backend_character_stats".into())
+        .query_sats("SELECT * FROM backend_character_stats")
         .await
         .unwrap_or_default();
     let fatigue_rest_minutes = party_members
@@ -326,7 +326,7 @@ pub(super) async fn camp(
         .max()
         .unwrap_or(0);
     let default_rest_minutes = minutes_until_next_walking_start(
-        current_party_minute,
+current_party_minute,
         party.walking_minutes_per_day,
         party.travel_at_night,
     )
@@ -338,7 +338,7 @@ pub(super) async fn camp(
     let continue_block_reason = camp_continue_block_reason(
         encounter.as_ref().map(|encounter| encounter.status),
         is_walking_time(
-            current_party_minute,
+current_party_minute,
             party.walking_minutes_per_day,
             party.travel_at_night,
         ),
@@ -349,24 +349,27 @@ pub(super) async fn camp(
             row.total_elapsed_minutes
                 .saturating_sub(row.completed_elapsed_minutes)
         });
-    let mut remaining_rest_intervals = Vec::new();
-    if let Some(journey) = &journey {
-        let remaining_start = journey.completed_elapsed_minutes;
-        let remaining_end = journey.total_elapsed_minutes;
-        for camp in &journey.forecast_camp_intervals {
-            let camp_start = camp.elapsed_start_minute.max(remaining_start);
-            let camp_end = camp
-                .elapsed_start_minute
-                .saturating_add(camp.elapsed_minutes)
-                .min(remaining_end);
-            if camp_end > camp_start {
-                remaining_rest_intervals.push((
-                    calendar_minute(&journey.departure_minute).saturating_add_minutes(camp_start),
-                    camp_end - camp_start,
-                ));
-            }
-        }
-    }
+    let remaining_rest_intervals: Vec<_> = journey.iter().flat_map(|journey| {
+            let remaining_start = journey.completed_elapsed_minutes;
+            let remaining_end = journey.total_elapsed_minutes;
+            journey
+                .forecast_camp_intervals
+                .iter()
+                .filter_map(move |camp| {
+                    let camp_start = camp.elapsed_start_minute.max(remaining_start);
+                    let camp_end = camp
+                        .elapsed_start_minute
+                        .saturating_add(camp.elapsed_minutes)
+                        .min(remaining_end);
+                    (camp_end > camp_start).then(|| {
+                        (
+                            StrategicMinute::new(journey.departure_minute.minutes)
+                                .saturating_add_minutes(camp_start),
+                            camp_end - camp_start,
+                        )
+                    })
+                })
+    }).collect();
     let provision_forecast = travel_provision_forecast_for_minutes(
         &state,
         Some(&party),
@@ -401,8 +404,8 @@ pub(super) async fn camp(
         .filter(|challenge| !challenge.open)
         .collect::<Vec<_>>();
     road_history.sort_by(|left, right| {
-        db::calendar_minute(&right.absolute_minute)
-            .cmp(&db::calendar_minute(&left.absolute_minute))
+        crate::spacetimedb::calendar_minute(&right.absolute_minute)
+            .cmp(&crate::spacetimedb::calendar_minute(&left.absolute_minute))
             .then_with(|| right.id.cmp(&left.id))
     });
     if let Some(requested) = query.road_occurrence.as_deref()
@@ -839,7 +842,7 @@ pub(super) async fn camp_settlement_destinations(
         let query = settlement_by_id(id);
         let settlement = state
             .db
-            .query_one_sats_into::<DbSettlement, SettlementView>(query)
+            .query_one_sats_into::<DbSettlement, SettlementView>(query.as_str())
             .await
             .ok()
             .flatten();
@@ -935,7 +938,7 @@ pub(crate) async fn travel_provision_forecast(
     travelers: &[CharacterView],
     destination: &TravelDestination,
     departing_settlement: bool,
-) -> Result<Option<TravelProvisionForecast>, TravelProvisionError> {
+) -> Result<Option<TravelProvisionForecast>, String> {
     let rest_intervals: Vec<_> = destination
         .itinerary_segments
         .iter()
@@ -944,9 +947,7 @@ pub(crate) async fn travel_provision_forecast(
         })
         .map(|segment| {
             (
-                destination
-                    .departure_minute
-                    .saturating_add_minutes(segment.elapsed_start),
+                destination.departure_minute.saturating_add_minutes(segment.elapsed_start),
                 segment.elapsed_minutes,
             )
         })
@@ -969,13 +970,14 @@ pub(super) async fn travel_provision_forecast_for_minutes(
     planning_minutes: u64,
     rest_intervals: &[(StrategicMinute, u64)],
     departing_settlement: bool,
-) -> Result<Option<TravelProvisionForecast>, TravelProvisionError> {
+) -> Result<Option<TravelProvisionForecast>, String> {
     let mut travelers: Vec<_> = travelers.iter().filter(|traveler| traveler.alive).collect();
     travelers.sort_by_key(|traveler| traveler.id);
     let items: Vec<CatalogItemView> = state
         .db
-        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item".into())
-        .await?;
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
+        .await
+        .map_err(|error| error.to_string())?;
     let Some(ration) = items
         .iter()
         .find(|item| item.id == STANDARD_TRAVEL_RATION_ID)
@@ -985,21 +987,25 @@ pub(super) async fn travel_provision_forecast_for_minutes(
     let Some(waterskin) = items.iter().find(|item| item.id == STANDARD_WATERSKIN_ID) else {
         return Ok(None);
     };
-    let food_lots: Vec<FoodLot> = state.db.query_sats("SELECT * FROM food_lot".into()).await?;
+    let food_lots: Vec<FoodLot> = state
+        .db
+        .query_sats("SELECT * FROM food_lot")
+        .await
+        .map_err(|error| error.to_string())?;
     let (objects, containment, liquids) = tokio::join!(
         state
             .db
-            .query_sats::<InventoryObject>("SELECT * FROM inventory_object".into()),
+            .query_sats::<InventoryObject>("SELECT * FROM inventory_object"),
         state
             .db
-            .query_sats::<InventoryContainment>("SELECT * FROM inventory_containment".into()),
+            .query_sats::<InventoryContainment>("SELECT * FROM inventory_containment"),
         state
             .db
-            .query_sats::<ContainerLiquid>("SELECT * FROM container_liquid".into()),
+            .query_sats::<ContainerLiquid>("SELECT * FROM container_liquid"),
     );
-    let objects = objects?;
-    let containment = containment?;
-    let liquids = liquids?;
+    let objects = objects.map_err(|error| error.to_string())?;
+    let containment = containment.map_err(|error| error.to_string())?;
+    let liquids = liquids.map_err(|error| error.to_string())?;
     let mut food_reserve_kcal = 0.0;
     let mut food_lot_kcal = 0.0;
     let mut water_reserve_ml = 0.0;
@@ -1010,20 +1016,20 @@ pub(super) async fn travel_provision_forecast_for_minutes(
     for traveler in &travelers {
         let Some(needs) = state
             .db
-            .query_one_sats::<CharacterNeeds>(db::character_needs_by_character_id(
-                traveler.id.into(),
-            ))
-            .await?
+            .query_one_sats::<CharacterNeeds>(&db::character_needs_by_character_id(traveler.id))
+            .await
+            .map_err(|error| error.to_string())?
         else {
             return Ok(None);
         };
         let inventory: Vec<InventoryItem> = state
             .db
-            .query_sats(SqlQuery::from(format!(
+            .query_sats(&format!(
                 "SELECT * FROM inventory_item WHERE character_id = {}",
                 traveler.id
-            )))
-            .await?;
+            ))
+            .await
+            .map_err(|error| error.to_string())?;
         for entry in &inventory {
             if let Some(def) = items.iter().find(|def| def.id == entry.item_id) {
                 alcohol_supplies.push(adventuresim_core::alcohol::ScopedAlcoholSupply {
@@ -1042,25 +1048,24 @@ pub(super) async fn travel_provision_forecast_for_minutes(
                 });
             }
         }
-        let time = query_single::<CharacterTime>(
-            state,
-            db::character_time_by_character_id(traveler.id.into()),
-        )
-        .await;
+        let time =
+            query_single::<CharacterTime>(state, db::character_time_by_character_id(traveler.id))
+                .await;
         let personality = query_single::<adventuresim_stdb_client::CharacterPersonality>(
             state,
-            db::character_personality_by_character_id(traveler.id.into()),
+            db::character_personality_by_character_id(traveler.id),
         )
         .await
         .map(|row| db::core_personality(&row));
         if time.is_some() {
             let history = state
                 .db
-                .query_sats::<AlcoholConsumption>(SqlQuery::from(format!(
+                .query_sats::<AlcoholConsumption>(&format!(
                     "SELECT * FROM alcohol_consumption WHERE character_id = {}",
                     traveler.id
-                )))
-                .await?;
+                ))
+                .await
+                .map_err(|error| error.to_string())?;
             let mut evenings: Vec<_> = rest_intervals
                 .iter()
                 .map(|(start, minutes)| {
@@ -1073,10 +1078,9 @@ pub(super) async fn travel_provision_forecast_for_minutes(
                 .into_iter()
                 .flatten()
                 .filter(|evening| {
-                    !history.iter().any(|row| {
-                        adventuresim_core::alcohol::EveningId::new(row.evening_id) == *evening
-                            && row.morale_evaluated
-                    })
+                    !history
+                        .iter()
+                        .any(|row| row.evening_id == *evening && row.morale_evaluated)
                 })
                 .collect();
             evenings.sort_unstable();
@@ -1093,15 +1097,16 @@ pub(super) async fn travel_provision_forecast_for_minutes(
                     }));
                 }
                 _ => {
-                    let mut heavy_evenings: Vec<adventuresim_core::alcohol::EveningId> = history
+                    let mut heavy_evenings: Vec<u64> = history
                         .iter()
                         .filter(|row| adventuresim_core::alcohol::qualifying_heavy(row.ethanol_ml))
-                        .map(|row| adventuresim_core::alcohol::EveningId::new(row.evening_id))
+                        .map(|row| row.evening_id)
                         .collect();
                     for evening in evenings {
-                        let had_recent_heavy = heavy_evenings
-                            .iter()
-                            .any(|prior| prior.is_recent_prior_to(evening));
+                        let had_recent_heavy = heavy_evenings.iter().any(|prior| {
+                            *prior < evening
+                                && evening - *prior < adventuresim_core::alcohol::ROLLING_WEEK_DAYS
+                        });
                         let target = if had_recent_heavy {
                             adventuresim_core::alcohol::MODEST_ETHANOL_ML
                         } else {
@@ -1135,9 +1140,9 @@ pub(super) async fn travel_provision_forecast_for_minutes(
         if departing_settlement {
             waterskin_count += skins;
         } else {
-            let custody = adventuresim_core::physical_object::OperationalCustody::character(
-                (traveler.id).into(),
-            )?;
+            let custody =
+                adventuresim_core::physical_object::OperationalCustody::character(traveler.id)
+                    .map_err(|error| error.to_string())?;
             water_reserve_ml +=
                 super::contained_water_ml_for_custody(&objects, &containment, &liquids, &custody)
                     as f32;
@@ -1146,11 +1151,12 @@ pub(super) async fn travel_provision_forecast_for_minutes(
     if let Some(party) = party {
         let pooled: Vec<PartyInventoryItem> = state
             .db
-            .query_sats(SqlQuery::from(format!(
+            .query_sats(&format!(
                 "SELECT * FROM party_inventory_item WHERE party_id = {}",
                 sql_string_literal(&party.id)
-            )))
-            .await?;
+            ))
+            .await
+            .map_err(|error| error.to_string())?;
         for entry in &pooled {
             if let Some(def) = items.iter().find(|def| def.id == entry.item_id) {
                 alcohol_supplies.push(adventuresim_core::alcohol::ScopedAlcoholSupply {
@@ -1190,7 +1196,8 @@ pub(super) async fn travel_provision_forecast_for_minutes(
         if departing_settlement {
             waterskin_count += party_skins;
         } else {
-            let custody = adventuresim_core::physical_object::OperationalCustody::party(&party.id)?;
+            let custody = adventuresim_core::physical_object::OperationalCustody::party(&party.id)
+                .map_err(|error| error.to_string())?;
             water_reserve_ml +=
                 super::contained_water_ml_for_custody(&objects, &containment, &liquids, &custody)
                     as f32;

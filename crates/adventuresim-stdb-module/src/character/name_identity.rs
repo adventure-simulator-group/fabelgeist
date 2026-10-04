@@ -31,7 +31,7 @@ fn character_name_sex(
         .db
         .character_personality()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id.get())
         .ok_or(CharacterNameError::MissingPersonality(character_id))?;
     Ok(personality.sex)
 }
@@ -58,19 +58,19 @@ pub(crate) fn assign_character_name_identity(
         .db
         .character()
         .id()
-        .find(u64::from(character_id))
+        .find(character_id.get())
         .ok_or(CharacterNameError::MissingCharacter(character_id))?;
     character.name = display.into_string();
     ctx.db.character().id().update(character);
     let row = CharacterNameIdentity {
-        character_id: u64::from(character_id),
+        character_id: character_id.get(),
         identity_json,
     };
     if ctx
         .db
         .character_name_identity()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id.get())
         .is_some()
     {
         ctx.db.character_name_identity().character_id().update(row);
@@ -131,7 +131,7 @@ pub(crate) fn assign_generated_historical_name_for_age(
         .db
         .character()
         .id()
-        .find(u64::from(character_id))
+        .find(character_id.get())
         .ok_or(CharacterNameError::MissingCharacter(character_id))?
         .age_years;
     assign_generated_historical_name(
@@ -158,7 +158,7 @@ pub(crate) fn assign_newborn_historical_name(
         .db
         .character_personality()
         .character_id()
-        .find(u64::from(child_id))
+        .find(child_id.get())
         .ok_or(CharacterNameError::MissingPersonality(child_id))?;
     personality.sex = sex;
     personality.presentation = match sex {
@@ -191,7 +191,7 @@ pub(crate) fn character_hereditary_surname(
         .db
         .character_name_identity()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id.get())
         .ok_or(CharacterNameError::MissingIdentity(character_id))?;
     let identity = NameIdentityJson::parse(row.identity_json.as_str())?;
     render_personal_name(
@@ -208,13 +208,13 @@ fn delete_character_name_data(ctx: &ReducerContext, character_id: CharacterId) {
         .db
         .character_name_identity()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id.get())
         .is_some()
     {
         ctx.db
             .character_name_identity()
             .character_id()
-            .delete(u64::from(character_id));
+            .delete(character_id.get());
     }
 }
 
@@ -222,14 +222,14 @@ fn persistent_character_has_name_identity(ctx: &ReducerContext, character_id: Ch
     ctx.db
         .character()
         .id()
-        .find(u64::from(character_id))
+        .find(character_id.get())
         .is_none_or(|character| {
             character.temporary
                 || ctx
                     .db
                     .character_name_identity()
                     .character_id()
-                    .find(u64::from(character_id))
+                    .find(character_id.get())
                     .is_some()
         })
 }

@@ -252,8 +252,7 @@ pub fn wasm_weapon_editor_fields(design_json: String) -> Result<String, JsValue>
 #[cfg(target_family = "wasm")]
 #[wasm_bindgen]
 pub fn wasm_quote_weapon_design(design_json: String) -> Result<String, JsValue> {
-    browser_runtime::quote_design_json(&design_json)
-        .map_err(|error| JsValue::from_str(&error.to_string()))
+    browser_runtime::quote_design_json(&design_json).map_err(|error| JsValue::from_str(&error))
 }
 
 /// Keeps rendering after a pipeline fails validation instead of quitting.

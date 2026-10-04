@@ -7,14 +7,13 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 
 [dependencies]
 fabelgeist-shell = { "path" = "../fabelgeist-shell" }
-fabelgeist-xpbd = { "path" = "../fabelgeist-xpbd" }
 fabelgeist-gpu = { "default-features" = false, "path" = "../fabelgeist-gpu" }
 fabelgeist-compute = { "path" = "../fabelgeist-compute" }
 fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
 anyhow = { "version" = "1.0" }
 
 [dev-dependencies]
-bytemuck = { version = "1.16" }
+fabelgeist-xpbd = { "path" = "../fabelgeist-xpbd" }
 fabelgeist-physics = { "path" = "../fabelgeist-physics" }
 tokio = { "version" = "1", "features" = ["full"] }
 

@@ -6,10 +6,9 @@
 //! accessors for buffers of packed points -- and records the dispatch.
 
 use anyhow::Result;
-use fabelgeist_armor::gpu::wgsl;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::PassParameterName;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::device_frames::DeviceWearer;
 
@@ -19,7 +18,9 @@ pub(crate) const HOST: &str = r#"
 // The word of a fit that is nonzero once the fit has failed.
 const FIT_FAILED: u32 = 15u;
 const FLT_EPSILON: f32 = 1.1920929e-7;
-const INFINITY: f32 = 3.4028235e38;
+// Exact largest finite f32. A rounded decimal above this value is rejected
+// by browser WGSL parsers even when a native backend rounds it down.
+const INFINITY: f32 = MAX_FINITE;
 
 fn host_dot(a: vec3<f32>, b: vec3<f32>) -> f32 {
     return (a.x * b.x + a.y * b.y) + a.z * b.z;
@@ -127,9 +128,9 @@ pub(crate) enum Word {
 #[derive(Clone, Copy)]
 pub(crate) enum Grid {
     /// One per item, in workgroups of 64.
-    Items(fabelgeist_gpu::prelude::InvocationCount),
+    Items(u32),
     /// One single-invocation workgroup per item.
-    Singles(fabelgeist_gpu::prelude::InvocationCount),
+    Singles(u32),
 }
 
 /// Compile and record one garment kernel: its bindings and uniform block
@@ -151,10 +152,7 @@ pub(crate) fn dispatch(
             "@group(0) @binding({binding}) var<storage, {};\n",
             bound.kind.declaration().replace("{}", bound.name)
         ));
-        parameters.insert(
-            PassParameterName::from(bound.name),
-            (bound.buffer.clone()).into(),
-        );
+        parameters.insert(bound.name, bound.buffer.clone());
     }
     source.push_str("struct Params {\n");
     let mut members = words.to_vec();
@@ -167,11 +165,11 @@ pub(crate) fn dispatch(
         match *word {
             Word::U(name, value) => {
                 source.push_str(&format!("    {name}: u32,\n"));
-                parameters.insert(name.into(), (value).into());
+                parameters.insert(name, value);
             }
             Word::F(name, value) => {
                 source.push_str(&format!("    {name}: f32,\n"));
-                parameters.insert(name.into(), (value).into());
+                parameters.insert(name, value);
             }
         }
     }
@@ -201,13 +199,13 @@ pub(crate) fn dispatch(
     };
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &ShaderSource::from(source))
-        .map_err(fabelgeist_armor::GenerateError::from)?;
+        .get(gpu.context(), &source)
+        .map_err(device_error)?;
     match grid {
         Grid::Items(count) => batch.dispatch_items(&kernel, &parameters, count),
-        Grid::Singles(count) => batch.dispatch(&kernel, &parameters, count.single_workgroups()),
+        Grid::Singles(count) => batch.dispatch(&kernel, &parameters, [count, 1, 1]),
     }
-    .map_err(fabelgeist_armor::GenerateError::from)?;
+    .map_err(device_error)?;
     Ok(())
 }
 

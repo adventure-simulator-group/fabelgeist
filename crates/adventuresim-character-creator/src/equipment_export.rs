@@ -86,7 +86,7 @@ pub(super) fn generate_equipment_assets(
     let manifest = serde_json::json!({
         "schema_version": 1,
         "mhr_release": "v1.0.1",
-        "lod": model.config.lod,
+        "lod": model.lod,
         "assets": assets,
     });
     std::fs::write(
@@ -137,6 +137,7 @@ impl EquipmentExporter<'_> {
             design,
             &placement.id,
             &self.morphs.samples,
+            &[],
         )?;
         let parametric_coverage = match design {
             ItemDesign::Vambrace(design) => design.coverage.unit(),
@@ -175,7 +176,7 @@ impl EquipmentExporter<'_> {
             GlbOutput::SharedTextures(&path),
             &item.id,
             recipe.version,
-            model.config.lod,
+            model.lod,
             &self.mesh(),
             &rigged_shells,
             &[],
@@ -238,7 +239,7 @@ impl EquipmentExporter<'_> {
             GlbOutput::SharedTextures(&path),
             &item.id,
             recipe.version,
-            model.config.lod,
+            model.lod,
             &rigged_mesh,
             &[rigged_shell],
             &sockets,

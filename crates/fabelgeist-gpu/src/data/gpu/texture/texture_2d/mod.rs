@@ -128,7 +128,11 @@ impl Texture2d {
         // waits for a queue that never empties. The same rule the shader and
         // pipeline paths follow: only a context that owns its device drains it.
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.validation_readback.scope(&context.device);
+        let error_scope = context.blocking_validation.then(|| {
+            context
+                .device
+                .push_error_scope(wgpu::ErrorFilter::Validation)
+        });
 
         let texture = context.device.create_texture(&texture_desc);
 
@@ -330,7 +334,7 @@ impl Texture2d {
             .map_err(|_| anyhow::anyhow!("GPU Mapping error"))?;
 
         let slice = staging_buffer.slice(..);
-        let data = slice.get_mapped_range()?;
+        let data = slice.get_mapped_range();
 
         let mut result = Vec::with_capacity((width * height) as usize * pixel_size as usize);
         if padded_bytes_per_row == bytes_per_row {
@@ -394,6 +398,52 @@ impl Texture2d {
         );
 
         Ok(())
+    }
+    pub fn view_with_format(
+        &self,
+        _context: &WgpuContext,
+        format: TextureFormat,
+    ) -> Result<Arc<wgpu::TextureView>> {
+        if format == self.format {
+            return Ok(self.view.as_ref().unwrap().clone());
+        }
+        let texture = self
+            .texture
+            .as_ref()
+            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+
+        let mut requested_format = format;
+
+        // WebGPU Limitation: If a texture has STORAGE_BINDING, it cannot have an sRGB view.
+        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+            // Fallback to linear counterpart to avoid validation error.
+            requested_format = format.linear_counterpart();
+            // Optional: log or return a warning if we had a way to do so without noise.
+        }
+
+        #[cfg(not(target_arch = "wasm32"))]
+        let error_scope = _context
+            .device
+            .push_error_scope(wgpu::ErrorFilter::Validation);
+
+        let view = texture.create_view(&wgpu::TextureViewDescriptor {
+            format: Some(requested_format.into()),
+            ..Default::default()
+        });
+
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let _ = _context.device.poll(wgpu::PollType::wait_indefinitely());
+            if let Some(err) = pollster::block_on(error_scope.pop()) {
+                return Err(anyhow::anyhow!(
+                    "WGPU Texture2d view_with_format Error (requested {:?}): {}",
+                    format,
+                    err
+                ));
+            }
+        }
+
+        Ok(Arc::new(view))
     }
 
     pub fn to_view(self_tex: Texture2d) -> super::texture_view::TextureView {

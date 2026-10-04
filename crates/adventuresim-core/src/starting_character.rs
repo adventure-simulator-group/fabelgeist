@@ -1,17 +1,12 @@
 //! Pure, versioned generation for the first-character candidate roster.
 
-mod loadout;
 mod names;
 #[cfg(test)]
 mod personality_tests;
 mod professional;
-mod request;
-pub use request::{CandidateSeed, CandidateSlot, StartingCharacterRequest};
-mod error;
 use adventuresim_world_schema::{
     BestiaryHours, ReligionHours, Sex, person_names::PersonalNameIdentity,
 };
-pub use error::StartingCharacterError;
 pub use names::default_character_name;
 use serde::{Deserialize, Serialize};
 
@@ -319,6 +314,28 @@ pub struct StartingCharacterSpec {
     pub religion_id: Option<String>,
 }
 
+pub fn validate_request(
+    version: u16,
+    seed: &str,
+    age_tier: StartingAgeTier,
+    slot: u8,
+) -> Result<(), &'static str> {
+    if version != GENERATOR_VERSION {
+        return Err("unsupported candidate generator version");
+    }
+    if seed.len() != 32
+        || !seed
+            .bytes()
+            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+    {
+        return Err("candidate seed must be 32 lowercase hexadecimal characters");
+    }
+    if slot >= age_tier.roster_size() {
+        return Err("candidate slot is out of range");
+    }
+    Ok(())
+}
+
 fn tier_random(
     domain: &str,
     seed: &str,
@@ -505,19 +522,55 @@ pub fn generate(
     seed: &str,
     age_tier: StartingAgeTier,
     slot: u8,
-) -> Result<StartingCharacterSpec, StartingCharacterError> {
-    let request = StartingCharacterRequest::parse(version, seed, age_tier, slot)?;
-    let seed = request.seed.as_str();
-    let slot = request.slot.get();
-    let age_tier = request.age_tier;
-    let loadout::StartingLoadout {
-        background,
-        weapon,
-        weapon_slot,
-        armor,
-        defense,
-        currency_base,
-    } = loadout::StartingLoadout::for_slot(request.slot);
+) -> Result<StartingCharacterSpec, &'static str> {
+    validate_request(version, seed, age_tier, slot)?;
+    let (background, weapon, weapon_slot, armor, _primary, defense, currency_base) = match slot {
+        0 => (
+            "Militia runner",
+            "katzbalger",
+            LoadoutSlot::RightHand,
+            "arming_doublet",
+            "sword",
+            "block",
+            90,
+        ),
+        1 => (
+            "Woodland hunter",
+            "longbow",
+            LoadoutSlot::RightHand,
+            "quilted_sleeve",
+            "bow",
+            "dodge",
+            65,
+        ),
+        2 => (
+            "Caravan guard",
+            "hunting_spear",
+            LoadoutSlot::RightHand,
+            "padded_chausses",
+            "polearm",
+            "dodge",
+            125,
+        ),
+        3 => (
+            "Town watch apprentice",
+            "light_crossbow",
+            LoadoutSlot::RightHand,
+            "arming_cap",
+            "crossbow",
+            "block",
+            155,
+        ),
+        _ => (
+            "Camp follower turned scout",
+            "bauernwehr",
+            LoadoutSlot::RightHand,
+            "padded_skirt",
+            "knife",
+            "dodge",
+            105,
+        ),
+    };
     let variation = |domain: &str| 2.0 + (random(domain, seed, slot).index(17)) as f32 / 10.0;
     let mut inventory = basic_clothing();
     inventory.extend([
@@ -540,7 +593,7 @@ pub fn generate(
             None,
         ),
     ]);
-    if defense == loadout::Defense::Block {
+    if defense == "block" {
         inventory.push(item("buckler", 1, Some(LoadoutSlot::LeftHand)));
     }
     if matches!(weapon, "longbow" | "light_crossbow") {
@@ -845,7 +898,7 @@ fn starting_activity_profile(
             )
         })
         .map(|item| {
-            let definition = crate::item_catalog::definition(&(&item.item_id).into());
+            let definition = crate::item_catalog::definition(&item.item_id);
             let (shield, balance) =
                 definition.map_or((false, 1.0), |definition| match &definition.kind {
                     crate::item_catalog_schema::ItemKind::Shield { .. } => (true, 1.0),
@@ -883,13 +936,13 @@ fn simulate_starting_life(
     spec: &mut StartingCharacterSpec,
     seed: &str,
     slot: u8,
-) -> Result<(), StartingCharacterError> {
+) -> Result<(), &'static str> {
     let organization = spec
         .organization
         .as_ref()
         .map(|starting| {
             crate::organization::organization(&starting.organization_id)
-                .ok_or(StartingCharacterError::MissingOrganization)
+                .ok_or("starting organization is not in the catalog")
         })
         .transpose()?;
     let requirements = organization
@@ -925,7 +978,7 @@ fn simulate_starting_life(
         .iter()
         .all(|requirement| requirement_met(&spec.skills, requirement, spec.religion_id.as_deref()))
     {
-        return Err(StartingCharacterError::ProfessionalRequirements);
+        return Err("simulated professional life does not meet its starting requirements");
     }
     Ok(())
 }
@@ -1013,7 +1066,7 @@ impl StartingSkills {
 
 fn required_religion<'a>(
     requirements: impl Iterator<Item = &'a Requirement>,
-) -> Result<Option<String>, StartingCharacterError> {
+) -> Result<Option<String>, &'static str> {
     let mut selected: Option<String> = None;
     for religion in requirements.filter_map(|requirement| match requirement {
         Requirement::ProfessedReligion { religion } => Some(religion),
@@ -1023,7 +1076,7 @@ fn required_religion<'a>(
             .as_deref()
             .is_some_and(|selected| selected != religion)
         {
-            return Err(StartingCharacterError::ConflictingReligions);
+            return Err("starting organization role has conflicting religions");
         }
         selected = Some(religion.clone());
     }
@@ -1325,7 +1378,7 @@ fn apply_professional_start(
     spec: &mut StartingCharacterSpec,
     seed: &str,
     slot: u8,
-) -> Result<(), StartingCharacterError> {
+) -> Result<(), &'static str> {
     let profession = StartingProfession::ALL[slot as usize];
     let organization = professional::select_organization(profession, seed, spec.age_tier, slot)?;
     let role = organization
@@ -1335,11 +1388,11 @@ fn apply_professional_start(
     let role_id = match spec.age_tier {
         StartingAgeTier::Adult => &role.adult_role_id,
         StartingAgeTier::Old => &role.old_role_id,
-        StartingAgeTier::Young => return Err(StartingCharacterError::YoungProfession),
+        StartingAgeTier::Young => return Err("young characters cannot have a profession"),
     };
     let assigned_role = organization
         .role(role_id)
-        .ok_or(StartingCharacterError::MissingOrganizationRole)?;
+        .ok_or("starting organization role is missing")?;
     let starting_requirements = requirements_for_role(organization, role_id);
     let religion_id = required_religion(starting_requirements.iter().copied())?;
     let adult = spec.age_tier == StartingAgeTier::Adult;
@@ -1429,7 +1482,7 @@ pub fn roster(
     version: u16,
     seed: &str,
     age_tier: StartingAgeTier,
-) -> Result<Vec<StartingCharacterSpec>, StartingCharacterError> {
+) -> Result<Vec<StartingCharacterSpec>, &'static str> {
     (0..age_tier.roster_size())
         .map(|slot| generate(version, seed, age_tier, slot))
         .collect()
@@ -1822,9 +1875,7 @@ mod tests {
                 let sheathable = candidate
                     .inventory
                     .iter()
-                    .filter(|item| {
-                        crate::item_catalog::is_sheathable_weapon(&(&item.item_id).into())
-                    })
+                    .filter(|item| crate::item_catalog::is_sheathable_weapon(&item.item_id))
                     .count();
                 assert!(
                     sheathable <= 1,
@@ -1841,7 +1892,7 @@ mod tests {
             professional_loadout(StartingProfession::WitchHunter, StartingAgeTier::Adult);
         let sidearm = witch_hunter
             .iter()
-            .find(|item| crate::item_catalog::is_sheathable_weapon(&(&item.item_id).into()))
+            .find(|item| crate::item_catalog::is_sheathable_weapon(&item.item_id))
             .expect("witch hunter sidearm");
         assert_eq!(sidearm.item_id, "bauernwehr");
         assert_eq!(sidearm.equipped, None);
@@ -1849,7 +1900,7 @@ mod tests {
         let knight = professional_loadout(StartingProfession::Knight, StartingAgeTier::Adult);
         let sword = knight
             .iter()
-            .find(|item| crate::item_catalog::is_sheathable_weapon(&(&item.item_id).into()))
+            .find(|item| crate::item_catalog::is_sheathable_weapon(&item.item_id))
             .expect("knight sword");
         assert_eq!(sword.equipped, Some(LoadoutSlot::RightHand));
     }

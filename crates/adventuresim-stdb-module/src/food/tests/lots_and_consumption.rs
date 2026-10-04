@@ -68,7 +68,7 @@ fn partial_lot_retains_quality_and_scales_every_flavor() {
 fn catalog_quality_is_copied_when_lots_are_acquired() {
     let source = crate::production_source(crate::food::FOOD_SOURCE);
     let constructor = source
-        .split("pub(crate) fn create_personal_food_lot")
+        .split("pub fn create_personal_food_lot")
         .nth(1)
         .and_then(|tail| tail.split("pub fn create_party_food_lot").next())
         .expect("personal lot constructor");

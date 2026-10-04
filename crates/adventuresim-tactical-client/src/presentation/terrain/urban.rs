@@ -191,6 +191,7 @@ mod tests {
             .resource_mut::<Assets<Mesh>>()
             .remove(mesh.id());
         let mut bundle = SceneVistaBundle {
+            properties: None,
             scene_digest: "late-city".into(),
             playable_half_extent_metres: Vec2::splat(4.0),
             distant_buildings: vec![],

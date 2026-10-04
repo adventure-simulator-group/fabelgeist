@@ -130,8 +130,8 @@ fn main(
             block_size = block_size
         );
 
-        let scan_blocks_shader = ComputeShader::new(context, ShaderSource::from(scan_blocks_code))?;
-        let add_aux_shader = ComputeShader::new(context, ShaderSource::from(add_aux_code))?;
+        let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code)?;
+        let add_aux_shader = ComputeShader::new(context, add_aux_code)?;
 
         let p1 = ComputePipeline::new(context, scan_blocks_shader)?;
         let p2 = ComputePipeline::new(context, add_aux_shader)?;
@@ -154,7 +154,7 @@ impl Scan {
         let (scan_blocks_pipeline, add_aux_pipeline, _element_type) =
             definition.get_or_create_pipelines(context)?;
 
-        let num_elements = (u64::from(input.length()) / 4) as u32;
+        let num_elements = (input.size / 4) as u32;
         if num_elements == 0 {
             return Ok(input.clone());
         }
@@ -165,55 +165,59 @@ impl Scan {
         // Output buffer
         let output = fabelgeist_gpu::data::gpu::Buffer::new(
             context,
-            input.length(),
+            input.size,
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label(("output").into())
-                .with_usage(BufferUse::CopySource)
-                .with_usage(BufferUse::CopyDestination),
+                .with_label("output")
+                .with_copy_src()
+                .with_copy_dst(),
         )?;
 
         if num_blocks <= 1 {
             let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-            parameters.insert("input".into(), (input.clone()).into());
-            parameters.insert("output".into(), (output.clone()).into());
+            parameters.insert("input", input.clone());
+            parameters.insert("output", output.clone());
 
             let aux = fabelgeist_gpu::data::gpu::Buffer::new(
                 context,
-                (4u64).into(),
+                4,
                 fabelgeist_gpu::data::BufferDefinition::storage()
-                    .with_label(("aux").into())
-                    .with_usage(BufferUse::CopySource)
-                    .with_usage(BufferUse::CopyDestination),
+                    .with_label("aux")
+                    .with_copy_src()
+                    .with_copy_dst(),
             )?;
-            parameters.insert("aux".into(), (aux).into());
+            parameters.insert("aux", aux);
 
             fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                 context,
                 scan_blocks_pipeline,
                 parameters,
-                fabelgeist_gpu::prelude::WorkgroupGrid::from((1, 1, 1)),
+                1,
+                1,
+                1,
             )?;
         } else {
             let aux = fabelgeist_gpu::data::gpu::Buffer::new(
                 context,
-                ((num_blocks as u64) * 4).into(),
+                (num_blocks as u64) * 4,
                 fabelgeist_gpu::data::BufferDefinition::storage()
-                    .with_label(("aux").into())
-                    .with_usage(BufferUse::CopySource)
-                    .with_usage(BufferUse::CopyDestination),
+                    .with_label("aux")
+                    .with_copy_src()
+                    .with_copy_dst(),
             )?;
 
             // Pass 1
             let mut parameters_p1 = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-            parameters_p1.insert("input".into(), (input.clone()).into());
-            parameters_p1.insert("output".into(), (output.clone()).into());
-            parameters_p1.insert("aux".into(), (aux.clone()).into());
+            parameters_p1.insert("input", input.clone());
+            parameters_p1.insert("output", output.clone());
+            parameters_p1.insert("aux", aux.clone());
 
             fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                 context,
                 scan_blocks_pipeline.clone(),
                 parameters_p1,
-                fabelgeist_gpu::prelude::WorkgroupGrid::from((num_blocks, 1, 1)),
+                num_blocks,
+                1,
+                1,
             )?;
 
             // Pass 2
@@ -224,34 +228,36 @@ impl Scan {
                 let next_num_blocks = current_num_blocks.div_ceil(block_size);
                 let next_aux = fabelgeist_gpu::data::gpu::Buffer::new(
                     context,
-                    ((next_num_blocks as u64) * 4).into(),
+                    (next_num_blocks as u64) * 4,
                     fabelgeist_gpu::data::BufferDefinition::storage()
-                        .with_label(("next_aux").into())
-                        .with_usage(BufferUse::CopySource)
-                        .with_usage(BufferUse::CopyDestination),
+                        .with_label("next_aux")
+                        .with_copy_src()
+                        .with_copy_dst(),
                 )?;
 
                 let scanned_aux = fabelgeist_gpu::data::gpu::Buffer::new(
                     context,
-                    ((current_num_blocks as u64) * 4).into(),
+                    (current_num_blocks as u64) * 4,
                     fabelgeist_gpu::data::BufferDefinition::storage()
-                        .with_label(("scanned_aux").into())
-                        .with_usage(BufferUse::CopySource)
-                        .with_usage(BufferUse::CopyDestination),
+                        .with_label("scanned_aux")
+                        .with_copy_src()
+                        .with_copy_dst(),
                 )?;
 
                 let mut parameters_p2 =
                     fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
                 let last_aux = aux_buffers.last().unwrap();
-                parameters_p2.insert("input".into(), (last_aux.clone()).into());
-                parameters_p2.insert("output".into(), (scanned_aux.clone()).into());
-                parameters_p2.insert("aux".into(), (next_aux.clone()).into());
+                parameters_p2.insert("input", last_aux.clone());
+                parameters_p2.insert("output", scanned_aux.clone());
+                parameters_p2.insert("aux", next_aux.clone());
 
                 fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                     context,
                     scan_blocks_pipeline.clone(),
                     parameters_p2,
-                    fabelgeist_gpu::prelude::WorkgroupGrid::from((next_num_blocks, 1, 1)),
+                    next_num_blocks,
+                    1,
+                    1,
                 )?;
 
                 let last_idx = aux_buffers.len() - 1;
@@ -269,26 +275,30 @@ impl Scan {
                     fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
 
                 if aux_buffers.is_empty() {
-                    parameters_p3.insert("output".into(), (output.clone()).into());
-                    parameters_p3.insert("aux".into(), (current_aux.clone()).into());
+                    parameters_p3.insert("output", output.clone());
+                    parameters_p3.insert("aux", current_aux.clone());
 
                     fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                         context,
                         add_aux_pipeline.clone(),
                         parameters_p3,
-                        fabelgeist_gpu::prelude::WorkgroupGrid::from((num_blocks, 1, 1)),
+                        num_blocks,
+                        1,
+                        1,
                     )?;
                 } else {
                     let target = aux_buffers.last().unwrap();
-                    parameters_p3.insert("output".into(), (target.clone()).into());
-                    parameters_p3.insert("aux".into(), (current_aux.clone()).into());
+                    parameters_p3.insert("output", target.clone());
+                    parameters_p3.insert("aux", current_aux.clone());
 
-                    let target_blocks = (u64::from(target.length()) / 4) as u32;
+                    let target_blocks = (target.size / 4) as u32;
                     fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                         context,
                         add_aux_pipeline.clone(),
                         parameters_p3,
-                        fabelgeist_gpu::prelude::WorkgroupGrid::from((target_blocks, 1, 1)),
+                        target_blocks,
+                        1,
+                        1,
                     )?;
                 }
             }

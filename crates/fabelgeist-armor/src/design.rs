@@ -14,6 +14,8 @@ impl Millimeters {
 pub struct Permille(pub u16);
 
 impl Permille {
+    pub const ONE: Self = Self(1_000);
+
     pub fn unit(self) -> f32 {
         f32::from(self.0) / 1_000.0
     }

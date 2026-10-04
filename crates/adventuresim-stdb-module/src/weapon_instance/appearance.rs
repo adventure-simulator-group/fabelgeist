@@ -26,7 +26,7 @@ pub(crate) fn connected_appearance(
         .weapon_instance()
         .physical_object_id()
         .find(object.id)?;
-    evaluate_instance(&instance, &item_id.into()).ok()?;
+    evaluate_instance(&instance, item_id)?;
     Some(ConnectedWeaponAppearance {
         generator_version: instance.generator_version,
         design_hash: instance.design_hash,
@@ -66,7 +66,7 @@ pub(crate) fn connected_holder_appearance(
         .weapon_holder_instance()
         .physical_object_id()
         .find(object.id)?;
-    evaluate_holder_instance(&holder, &item_id.into()).ok()?;
+    evaluate_holder_instance(&holder, item_id)?;
     Some(ConnectedWeaponAppearance {
         generator_version: holder.generator_version,
         design_hash: holder.design_hash,

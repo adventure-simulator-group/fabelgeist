@@ -2149,6 +2149,7 @@ fn setup_scene(
         terrain_patch.as_ref(),
     );
     commands.trigger(SceneVistaBundle {
+        properties: input.properties.clone(),
         scene_digest: digest.clone(),
         playable_half_extent_metres: Vec2::new(
             terrain_summary.width_metres * 0.5,
@@ -2170,7 +2171,7 @@ fn setup_scene(
         input_path,
         output,
         digest,
-        seed: input.seed.to_u64(),
+        seed: input.seed,
         absolute_minute,
         latitude_microdegrees,
         longitude_microdegrees,

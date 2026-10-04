@@ -1,6 +1,5 @@
 //! Immutable owned planting; horizontal poses survive authority partition unchanged.
 use super::*;
-use crate::scene_input::SceneValidationError;
 mod grounding;
 #[cfg(test)]
 mod tests;
@@ -23,7 +22,7 @@ pub struct GeneratedGarden {
 
 pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError> {
     if input.gardens.len() > MAX_CITY_LOTS {
-        return invalid(SceneValidationError::GardenCount);
+        return invalid("scene exceeds garden count bound");
     }
     let mut owners = input
         .compounds
@@ -47,7 +46,7 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
                 .iter()
                 .any(|p| p.id.0 == 0 || !plants.insert(p.id))
         {
-            return invalid(SceneValidationError::GardenOwnership);
+            return invalid("garden ownership, membership or plant identity is invalid");
         }
         let owner = input
             .buildings
@@ -62,16 +61,13 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
                     .map(|b| (b.usage, b.centre_metres))
             });
         let Some((Some(_), centre)) = owner else {
-            return invalid(SceneValidationError::GardenOwner);
+            return invalid("garden owner must reference an occupied front building");
         };
         if !garden.plot.contains(centre) || garden.cultivated_bounds.contains(centre) {
-            return invalid(SceneValidationError::GardenOwnerGeometry);
+            return invalid("garden owner geometry lies outside its property");
         }
         garden.validate_geometry(&input.streets).map_err(|issue| {
-            SceneInputError::Validation(SceneValidationError::Garden {
-                owner: garden.owner,
-                issue,
-            })
+            SceneInputError::Validation(format!("garden {}: {issue:?}", garden.owner.0))
         })?;
     }
     for (index, garden) in input.gardens.iter().enumerate() {
@@ -83,7 +79,7 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
                 .iter()
                 .any(|c| c.plot.intersects(garden.plot))
         {
-            return invalid(SceneValidationError::GardenOverlap);
+            return invalid("garden overlaps another owned property");
         }
     }
     Ok(())
@@ -104,7 +100,7 @@ impl TacticalSceneInput {
             &generated.buildings,
             &self.distant_buildings,
         )
-        .map_err(|error| SceneInputError::Validation(SceneValidationError::GardenClearance(error)))
+        .map_err(SceneInputError::Validation)
     }
 }
 

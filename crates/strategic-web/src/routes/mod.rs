@@ -17,11 +17,10 @@ pub mod local_chat;
 pub mod missions;
 pub mod parties;
 mod party_actions;
-mod party_readiness;
 pub mod quests;
-mod return_url;
 mod scene_assets;
 mod scene_equipment;
+mod settlement_properties;
 mod vicinity;
 use clock::current_time;
 pub mod settlements;
@@ -30,8 +29,13 @@ mod weapon_icons;
 use crate::live::LiveState;
 use crate::session::{Session, SessionCodec};
 use crate::spacetimedb::{
-    CharacterTime, CharacterView, PartyJourneyRouteView, PartyView, SettlementView, SpacetimeClient,
+    BackendCaseSitePin, BackendCharacterCaseSiteLocation, CaseSiteId, CharacterAttributes,
+    CharacterLimbs, CharacterSkills, CharacterStrategicCondition, CharacterTime, CharacterView,
+    PartyActionRequestView, PartyJourney, PartyJourneyRouteView, PartyMember, PartyView,
+    SettlementView, SpacetimeClient, sql_string_literal,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
+use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use axum::{
     Router,
     extract::{Request, State},
@@ -41,6 +45,7 @@ use axum::{
     routing::get,
 };
 use serde::{Deserialize, Serialize};
+use serde_json::json;
 
 /// Application state shared across routes
 #[derive(Clone)]
@@ -52,12 +57,7 @@ pub struct AppState {
     pub session_codec: std::sync::Arc<SessionCodec>,
 }
 
-#[cfg(test)]
-use party_actions::terrain_profile::terrain_mental_check;
-pub(crate) use party_actions::{
-    PartyAction, PartyActionError, approve_party_action, character_case_site_id,
-    execute_or_request_party_action, party_terrain_profile,
-};
+pub(crate) use party_actions::PartyAction;
 
 pub(crate) enum PartyActionOutcome {
     Executed,
@@ -132,32 +132,44 @@ impl<'de> Deserialize<'de> for SocialActionId {
     }
 }
 
-pub(crate) fn redirect_to_local(return_to: &str, fallback: &str) -> Redirect {
-    match return_url::LocalReturnUrl::try_from(return_to) {
-        Ok(destination) => destination.redirect(),
-        Err(_) => Redirect::to(fallback),
+/// Accept a return destination only when it is a local absolute-path URL.
+///
+/// Workflows may carry this value through query strings and hidden form fields,
+/// but every completion handler must validate it before emitting a redirect.
+pub(crate) fn local_return_url(value: &str) -> Option<&str> {
+    if !value.starts_with('/')
+        || value.starts_with("//")
+        || value.contains('\\')
+        || value.chars().any(char::is_control)
+    {
+        return None;
     }
+    let uri = value.parse::<Uri>().ok()?;
+    (uri.scheme().is_none() && uri.authority().is_none() && uri.path().starts_with('/'))
+        .then_some(value)
+}
+
+pub(crate) fn redirect_to_local(return_to: &str, fallback: &str) -> Redirect {
+    Redirect::to(local_return_url(return_to).unwrap_or(fallback))
 }
 
 #[cfg(test)]
 mod return_url_tests {
-    use super::{return_url::LocalReturnUrl, terrain_mental_check};
+    use super::{local_return_url, terrain_mental_check};
 
     #[test]
     fn return_urls_are_local_paths_with_optional_query_and_fragment() {
         assert_eq!(
-            LocalReturnUrl::try_from(
+            local_return_url(
                 "/locations/settlement/riverdale?destination=quest-1&target_surplus=1.5#plan"
-            )
-            .unwrap()
-            .to_string(),
-            "/locations/settlement/riverdale?destination=quest-1&target_surplus=1.5#plan"
+            ),
+            Some("/locations/settlement/riverdale?destination=quest-1&target_surplus=1.5#plan")
         );
-        assert!(LocalReturnUrl::try_from("https://example.com/steal").is_err());
-        assert!(LocalReturnUrl::try_from("//example.com/steal").is_err());
-        assert!(LocalReturnUrl::try_from("/\\example.com/steal").is_err());
-        assert!(LocalReturnUrl::try_from("merchants").is_err());
-        assert!(LocalReturnUrl::try_from("/safe\nLocation: /unsafe").is_err());
+        assert_eq!(local_return_url("https://example.com/steal"), None);
+        assert_eq!(local_return_url("//example.com/steal"), None);
+        assert_eq!(local_return_url("/\\example.com/steal"), None);
+        assert_eq!(local_return_url("merchants"), None);
+        assert_eq!(local_return_url("/safe\nLocation: /unsafe"), None);
     }
 
     #[test]
@@ -178,6 +190,495 @@ mod return_url_tests {
         assert_eq!(injured, 1.0);
         assert_eq!(destroyed, 0.0);
     }
+}
+
+/// Corpses remain party members for rendering and history, but do not
+/// participate in readiness checks that gate survivor actions.
+pub(crate) fn participates_in_party_readiness(alive: bool) -> bool {
+    alive
+}
+
+pub(crate) async fn character_case_site_id(
+    state: &AppState,
+    character_id: u64,
+) -> Result<Option<CaseSiteId>, String> {
+    state
+        .db
+        .query_one_sats::<BackendCharacterCaseSiteLocation>(
+            &crate::spacetimedb::character_case_site_location_by_character_id(character_id),
+        )
+        .await
+        .map_err(|error| error.to_string())?
+        .map(|location| CaseSiteId::try_new(location.case_site_id.value))
+        .transpose()
+        .map_err(|error| error.to_string())
+}
+
+fn action_requires_ready_party(
+    action: &PartyAction,
+    character_case_site_id: Option<&str>,
+    party: &PartyView,
+) -> bool {
+    match action {
+        PartyAction::TravelToSettlement { .. } => !character_case_site_id.is_some_and(|site_id| {
+            party
+                .current_case_site_id
+                .as_ref()
+                .is_some_and(|party_site| party_site.as_str() == site_id)
+        }),
+        _ => action.requires_ready_party(),
+    }
+}
+
+/// Execute a leader action immediately, or persist the same validated intent for
+/// the party leader when a member attempts it.
+pub(crate) async fn execute_or_request_party_action(
+    state: &AppState,
+    actor_id: u64,
+    action: PartyAction,
+) -> Result<PartyActionOutcome, String> {
+    let character = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
+            &crate::spacetimedb::character_by_id(actor_id),
+        )
+        .await
+        .map_err(|e| e.to_string())?
+        .ok_or("Character not found")?;
+    let party_id = character.party_id.ok_or("Character has no party")?;
+    let party = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(
+            &crate::spacetimedb::party_by_id(&party_id),
+        )
+        .await
+        .map_err(|e| e.to_string())?
+        .ok_or("Party not found")?;
+    let actor_case_site_id = if matches!(&action, PartyAction::TravelToSettlement { .. }) {
+        character_case_site_id(state, actor_id).await?
+    } else {
+        None
+    };
+    if action_requires_ready_party(&action, actor_case_site_id.as_deref(), &party) {
+        let members = state
+            .db
+            .query_sats::<PartyMember>(&format!(
+                "SELECT * FROM party_member WHERE party_id = {}",
+                sql_string_literal(&party.id)
+            ))
+            .await
+            .map_err(|error| error.to_string())?;
+        for membership in members {
+            let member = data::character_as_observed(state, membership.character_id, actor_id)
+                .await
+                .map_err(|error| error.to_string())?
+                .ok_or("Party member not found")?;
+            if !participates_in_party_readiness(member.alive) {
+                continue;
+            }
+            state
+                .db
+                .call("refresh_strategic_condition", &[json!(member.id)])
+                .await
+                .map_err(|error| error.to_string())?;
+            let condition = state
+                .db
+                .query_one_sats::<CharacterStrategicCondition>(
+                    &crate::spacetimedb::character_strategic_condition_by_character_id(member.id),
+                )
+                .await
+                .map_err(|error| error.to_string())?
+                .ok_or("Party member condition not found")?;
+            if condition.status == adventuresim_stdb_client::IncapacitationStatus::Incapacitated {
+                return Err(
+                    "An incapacitated party member must recover before the party can act".into(),
+                );
+            }
+        }
+    }
+    if party.leader_id == actor_id {
+        let planned = planned_travel_call(state, actor_id, &action).await?;
+        let (reducer, args) = planned.unwrap_or_else(|| action.reducer_call(actor_id));
+        state
+            .db
+            .call(reducer, &args)
+            .await
+            .map_err(|e| e.to_string())?;
+        return Ok(PartyActionOutcome::Executed);
+    }
+    let kind = action.kind();
+    let summary = action.summary();
+    let payload = serde_json::to_string(&action).map_err(|e| e.to_string())?;
+    state
+        .db
+        .call(
+            "request_party_action",
+            &[
+                json!(actor_id),
+                json!(&kind),
+                json!(summary),
+                json!(payload),
+            ],
+        )
+        .await
+        .map_err(|e| e.to_string())?;
+
+    // Temporary NPC captains always approve after a short, visible delay.
+    let leader = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
+            &crate::spacetimedb::character_by_id(party.leader_id),
+        )
+        .await
+        .map_err(|e| e.to_string())?;
+    if leader.is_some_and(|leader| leader.temporary) {
+        let state = state.clone();
+        tokio::spawn(async move {
+            tokio::time::sleep(std::time::Duration::from_secs(2)).await;
+            let requests = state
+                .db
+                .query_sats_into::<adventuresim_stdb_client::PartyActionRequest, PartyActionRequestView>(&format!(
+                    "SELECT * FROM party_action_request WHERE party_id = {}",
+                    sql_string_literal(&party_id)
+                ))
+                .await
+                .unwrap_or_default();
+            for request in requests
+                .into_iter()
+                .filter(|request| request.requester_id == actor_id && request.action_kind == kind)
+            {
+                if let Err(error) = approve_party_action(&state, party.leader_id, &request).await {
+                    tracing::warn!(%error, "temporary captain could not approve party action");
+                }
+            }
+        });
+    }
+    Ok(PartyActionOutcome::Requested)
+}
+
+pub(crate) async fn party_terrain_profile(
+    state: &AppState,
+    actor: &CharacterView,
+) -> Result<(adventuresim_terrain::TerrainSkillProfile, u16), String> {
+    let member_ids = if let Some(party_id) = actor.party_id.as_deref() {
+        state
+            .db
+            .query_sats::<PartyMember>(&format!(
+                "SELECT * FROM party_member WHERE party_id = {}",
+                sql_string_literal(party_id)
+            ))
+            .await
+            .map_err(|error| error.to_string())?
+            .into_iter()
+            .map(|member| member.character_id)
+            .collect::<Vec<_>>()
+    } else {
+        vec![actor.id]
+    };
+    let mut checks = [
+        Vec::new(),
+        Vec::new(),
+        Vec::new(),
+        Vec::new(),
+        Vec::new(),
+        Vec::new(),
+    ];
+    for id in member_ids {
+        let Some(character) = data::character_as_observed(state, id, actor.id)
+            .await
+            .map_err(|e| e.to_string())?
+        else {
+            continue;
+        };
+        if !character.alive {
+            continue;
+        }
+        let Some(attributes) = state
+            .db
+            .query_one_sats::<CharacterAttributes>(
+                &crate::spacetimedb::character_attributes_by_character_id(id),
+            )
+            .await
+            .map_err(|e| e.to_string())?
+        else {
+            continue;
+        };
+        let Some(limbs) = state
+            .db
+            .query_one_sats::<CharacterLimbs>(&crate::spacetimedb::character_limbs_by_character_id(
+                id,
+            ))
+            .await
+            .map_err(|e| e.to_string())?
+        else {
+            continue;
+        };
+        let Some(skills) = state
+            .db
+            .query_one_sats::<CharacterSkills>(
+                &crate::spacetimedb::character_skills_by_character_id(id),
+            )
+            .await
+            .map_err(|e| e.to_string())?
+        else {
+            continue;
+        };
+        let direct_hours = |skill| match skill {
+            adventuresim_core::skill::Skill::TerrainPlains => skills.terrain_plains_hours,
+            adventuresim_core::skill::Skill::TerrainForest => skills.terrain_forest_hours,
+            adventuresim_core::skill::Skill::TerrainHills => skills.terrain_hills_hours,
+            adventuresim_core::skill::Skill::TerrainWetlands => skills.terrain_wetlands_hours,
+            adventuresim_core::skill::Skill::TerrainUrban => skills.terrain_urban_hours,
+            adventuresim_core::skill::Skill::TerrainSnow => skills.terrain_snow_hours,
+            _ => 0.0,
+        };
+        for (index, skill) in [
+            adventuresim_core::skill::Skill::TerrainPlains,
+            adventuresim_core::skill::Skill::TerrainForest,
+            adventuresim_core::skill::Skill::TerrainHills,
+            adventuresim_core::skill::Skill::TerrainWetlands,
+            adventuresim_core::skill::Skill::TerrainUrban,
+            adventuresim_core::skill::Skill::TerrainSnow,
+        ]
+        .into_iter()
+        .enumerate()
+        {
+            let hours = direct_hours(skill)
+                + skill
+                    .ordinary_correlations()
+                    .iter()
+                    .map(|(source, coefficient)| direct_hours(*source) * coefficient)
+                    .sum::<f32>();
+            checks[index].push(terrain_mental_check(
+                skill.training_rank(hours),
+                attributes.intelligence,
+                limbs.head_health,
+            ));
+        }
+    }
+    let aggregate = |values: &[f32]| {
+        (adventuresim_core::capability::aggregate_bounded_party_check(values.iter().copied())
+            .clamp(0.0, 5.0)
+            * 1_000.0)
+            .round() as u16
+    };
+    Ok((
+        adventuresim_terrain::TerrainSkillProfile {
+            plains: aggregate(&checks[0]),
+            forest: aggregate(&checks[1]),
+            hills: aggregate(&checks[2]),
+            wetlands: aggregate(&checks[3]),
+            urban: aggregate(&checks[4]),
+        },
+        aggregate(&checks[5]),
+    ))
+}
+
+fn terrain_mental_check(training_rank: f32, intelligence: f32, head_health: f32) -> f32 {
+    let head_health = head_health.clamp(0.0, 1.0);
+    training_rank.min(intelligence.clamp(0.0, 5.0)) * head_health
+}
+
+async fn authoritative_party_departure_minute(
+    state: &AppState,
+    actor: &CharacterView,
+) -> Result<StrategicMinute, String> {
+    let member_ids = if let Some(party_id) = actor.party_id.as_deref() {
+        state
+            .db
+            .query_sats::<PartyMember>(&format!(
+                "SELECT * FROM party_member WHERE party_id = {}",
+                sql_string_literal(party_id)
+            ))
+            .await
+            .map_err(|error| error.to_string())?
+            .into_iter()
+            .map(|member| member.character_id)
+            .collect::<Vec<_>>()
+    } else {
+        vec![actor.id]
+    };
+    let mut departure = StrategicMinute::ZERO;
+    for id in member_ids {
+        let living = data::character_as_observed(state, id, actor.id)
+            .await
+            .map_err(|error| error.to_string())?
+            .is_some_and(|character| character.alive);
+        if !living {
+            continue;
+        }
+        if let Some(time) = state
+            .db
+            .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
+                id,
+            ))
+            .await
+            .map_err(|error| error.to_string())?
+        {
+            departure = departure.max(StrategicMinute::new(time.minutes.minutes));
+        }
+    }
+    Ok(departure)
+}
+
+async fn planned_travel_call(
+    state: &AppState,
+    actor_id: u64,
+    action: &PartyAction,
+) -> Result<Option<(&'static str, Vec<serde_json::Value>)>, String> {
+    let Some(terrain) = state.terrain.as_deref() else {
+        return Ok(None);
+    };
+    let character = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
+            &crate::spacetimedb::character_by_id(actor_id),
+        )
+        .await
+        .map_err(|error| error.to_string())?
+        .ok_or("Character not found")?;
+    let (terrain_profile, snow_check_millirank) = party_terrain_profile(state, &character).await?;
+    let (reducer, destination) = match action {
+        PartyAction::TravelToSettlement { settlement_id } => {
+            let destination = state
+                .db
+                .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
+                    &crate::spacetimedb::settlement_by_id(settlement_id),
+                )
+                .await
+                .map_err(|error| error.to_string())?
+                .ok_or("Settlement not found")?;
+            (
+                "travel_to_settlement_planned",
+                (destination.latitude, destination.longitude),
+            )
+        }
+        PartyAction::TravelToCaseSite { case_site_id } => {
+            let destination = state
+                .db
+                .query_one_sats::<BackendCaseSitePin>(&format!(
+                    "SELECT * FROM backend_case_site_pins WHERE owner_character_id = {actor_id} AND case_site_id = {}",
+                    sql_string_literal(case_site_id)
+                ))
+                .await
+                .map_err(|error| error.to_string())?
+                .ok_or("Known exact case site not found")?;
+            (
+                "travel_to_case_site_planned",
+                wgs84_latitude_longitude_degrees(
+                    destination.latitude_e_7,
+                    destination.longitude_e_7,
+                )?,
+            )
+        }
+        _ => return Ok(None),
+    };
+    let origin = if let Some(id) = character.current_settlement_id.as_deref() {
+        let settlement = state
+            .db
+            .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
+                &crate::spacetimedb::settlement_by_id(id),
+            )
+            .await
+            .map_err(|error| error.to_string())?
+            .ok_or("Origin settlement not found")?;
+        (settlement.latitude, settlement.longitude)
+    } else if let Some(id) = character_case_site_id(state, actor_id).await? {
+        let site = state
+            .db
+            .query_one_sats::<BackendCaseSitePin>(&format!(
+                "SELECT * FROM backend_case_site_pins WHERE owner_character_id = {actor_id} AND case_site_id = {}",
+                sql_string_literal(&id)
+            ))
+            .await
+            .map_err(|error| error.to_string())?
+            .ok_or("Known exact origin case site not found")?;
+        wgs84_latitude_longitude_degrees(site.latitude_e_7, site.longitude_e_7)?
+    } else if let Some(party_id) = character.party_id.as_deref() {
+        let journey = state
+            .db
+            .query_one_sats::<PartyJourney>(&crate::spacetimedb::party_journey_by_party_id(
+                party_id,
+            ))
+            .await
+            .map_err(|error| error.to_string())?
+            .ok_or("Camp journey not found")?;
+        let route = state
+            .db
+            .query_one_sats_into::<adventuresim_stdb_client::PartyJourneyRoute, PartyJourneyRouteView>(&crate::spacetimedb::party_journey_route_by_party_id(
+                party_id,
+            ))
+            .await
+            .map_err(|error| error.to_string())?
+            .ok_or("Camp terrain route not found")?;
+        persisted_route_position(&route, journey.completed_movement_minutes)
+            .ok_or("Camp terrain route position is unavailable")?
+    } else {
+        return Ok(None);
+    };
+    let departure_minute = authoritative_party_departure_minute(state, &character).await?;
+    let elevation_m = terrain
+        .forage_environment(origin.0, origin.1)
+        .map(|(cell, _, _)| cell.elevation_m)
+        .unwrap_or(0);
+    let weather_coordinate =
+        Wgs84CoordinateMicrodegrees::from_longitude_latitude_degrees(origin.1, origin.0)
+            .ok_or("travel origin is outside WGS84 bounds")?;
+    let weather = adventuresim_core::weather::weather_at(
+        adventuresim_core::weather::WORLD_WEATHER_SEED,
+        departure_minute,
+        weather_coordinate.latitude().get(),
+        weather_coordinate.longitude().get(),
+        elevation_m,
+    );
+    let plan = match terrain
+        .plan_with_profile_and_weather(
+            origin,
+            destination,
+            terrain_profile,
+            Some(weather),
+            snow_check_millirank,
+        )
+        .await
+    {
+        Ok(plan) => plan,
+        Err(error) => {
+            tracing::warn!(%error, actor_id, "terrain route unavailable at execution; using unplanned travel reducer");
+            return Ok(None);
+        }
+    };
+    let return_plan = if matches!(action, PartyAction::TravelToCaseSite { .. }) {
+        match terrain
+            .plan_with_profile_and_weather(
+                destination,
+                origin,
+                terrain_profile,
+                Some(weather),
+                snow_check_millirank,
+            )
+            .await
+        {
+            Ok(plan) => Some(plan),
+            Err(error) => {
+                tracing::warn!(%error, actor_id, "case-site return terrain route unavailable at execution; using unplanned travel reducer");
+                return Ok(None);
+            }
+        }
+    } else {
+        None
+    };
+    let route_json = terrain_route_json(terrain.digest(), &plan, return_plan.as_ref(), weather);
+    let destination_id = match action {
+        PartyAction::TravelToSettlement { settlement_id } => json!(settlement_id),
+        PartyAction::TravelToCaseSite { case_site_id } => {
+            json!({ "value": case_site_id })
+        }
+        _ => unreachable!(),
+    };
+    Ok(Some((
+        reducer,
+        vec![json!(actor_id), destination_id, route_json],
+    )))
 }
 
 pub(crate) fn persisted_route_position(
@@ -226,6 +727,214 @@ pub(crate) fn persisted_route_position(
         traversed = traversed.saturating_add(length);
     }
     route.points.last().map(coordinate)
+}
+
+fn terrain_route_json(
+    digest: &str,
+    plan: &adventuresim_terrain::RoutePlan,
+    return_plan: Option<&adventuresim_terrain::RoutePlan>,
+    weather: adventuresim_core::weather::WeatherSnapshot,
+) -> serde_json::Value {
+    let point_json = |point: &adventuresim_terrain::RoutePoint| {
+        let (latitude_e7, longitude_e7) = wgs84_e7(point.latitude, point.longitude)
+            .expect("terrain planner returned an invalid WGS84 route coordinate");
+        json!({"latitude_e7": latitude_e7, "longitude_e7": longitude_e7})
+    };
+    let leg_json = |plan: &adventuresim_terrain::RoutePlan| {
+        json!({
+            "distance_m": plan.distance_m,
+            "minutes": plan.minutes,
+            "points": plan.points.iter().map(point_json).collect::<Vec<_>>(),
+            "spans": plan.spans.iter().filter_map(|span| { let kind=match span.surface { adventuresim_terrain::Surface::Road=>adventuresim_stdb_client::JourneyTerrainKind::Road,adventuresim_terrain::Surface::Open=>adventuresim_stdb_client::JourneyTerrainKind::Open,adventuresim_terrain::Surface::SparseWoods=>adventuresim_stdb_client::JourneyTerrainKind::SparseWoods,adventuresim_terrain::Surface::DeepWoods=>adventuresim_stdb_client::JourneyTerrainKind::DeepWoods,adventuresim_terrain::Surface::Wetland=>adventuresim_stdb_client::JourneyTerrainKind::Wetland,adventuresim_terrain::Surface::Water=>return None};let kind=serde_json::to_value(spacetimedb_sats::serde::SerdeWrapper::from_ref(&kind)).expect("generated terrain kind serializes");Some(json!({"kind":kind,"terrain":span.terrain,"training_multiplier_permille":span.training_multiplier_permille,"check_millirank":span.check_millirank,"start_minute":span.start_minute,"duration_minutes":span.duration_minutes})) }).collect::<Vec<_>>()
+        })
+    };
+    let precipitation = match weather.precipitation {
+        adventuresim_core::weather::Precipitation::Clear => {
+            adventuresim_stdb_client::Precipitation::Clear
+        }
+        adventuresim_core::weather::Precipitation::Rain => {
+            adventuresim_stdb_client::Precipitation::Rain
+        }
+        adventuresim_core::weather::Precipitation::Snow => {
+            adventuresim_stdb_client::Precipitation::Snow
+        }
+    };
+    let precipitation = serde_json::to_value(spacetimedb_sats::serde::SerdeWrapper::from_ref(
+        &precipitation,
+    ))
+    .expect("generated precipitation serializes");
+    json!({
+        "package_digest": digest,
+        "weather_rules_version": weather.rules_version,
+        "weather_interval_start": weather.interval_start_minute,
+        "temperature_deci_c": weather.temperature_deci_c,
+        "wind_speed_bps": weather.wind_speed_bps,
+        "precipitation": precipitation,
+        "intensity_bps": weather.intensity_bps,
+        "ground_moisture_bps": weather.ground_moisture_bps,
+        "snow_cover_bps": weather.snow_cover_bps,
+        "atmosphere": weather.atmosphere,
+        "distance_m": plan.distance_m,
+        "minutes": plan.minutes,
+        "points": plan.points.iter().map(point_json).collect::<Vec<_>>(),
+        "spans": plan.spans.iter().filter_map(|span| { let kind=match span.surface { adventuresim_terrain::Surface::Road=>adventuresim_stdb_client::JourneyTerrainKind::Road,adventuresim_terrain::Surface::Open=>adventuresim_stdb_client::JourneyTerrainKind::Open,adventuresim_terrain::Surface::SparseWoods=>adventuresim_stdb_client::JourneyTerrainKind::SparseWoods,adventuresim_terrain::Surface::DeepWoods=>adventuresim_stdb_client::JourneyTerrainKind::DeepWoods,adventuresim_terrain::Surface::Wetland=>adventuresim_stdb_client::JourneyTerrainKind::Wetland,adventuresim_terrain::Surface::Water=>return None};let kind=serde_json::to_value(spacetimedb_sats::serde::SerdeWrapper::from_ref(&kind)).expect("generated terrain kind serializes");Some(json!({"kind":kind,"terrain":span.terrain,"training_multiplier_permille":span.training_multiplier_permille,"check_millirank":span.check_millirank,"start_minute":span.start_minute,"duration_minutes":span.duration_minutes})) }).collect::<Vec<_>>(),
+        "return_route": return_plan.map(leg_json)
+    })
+}
+
+#[cfg(test)]
+mod terrain_route_payload_tests {
+    use super::terrain_route_json;
+    use crate::spacetimedb::{JourneyTerrainKind, JourneyTerrainSpan};
+
+    #[test]
+    fn wetland_span_survives_gateway_payload_boundary() {
+        let plan = adventuresim_terrain::RoutePlan {
+            points: vec![],
+            spans: vec![adventuresim_terrain::TerrainSpan {
+                surface: adventuresim_terrain::Surface::Wetland,
+                terrain: adventuresim_terrain::TerrainWeights {
+                    wetlands: 1_000,
+                    ..Default::default()
+                },
+                training_multiplier_permille: 1_000,
+                check_millirank: 2_500,
+                start_minute: 0,
+                duration_minutes: 60,
+            }],
+            distance_m: 500,
+            minutes: 60,
+        };
+        let payload = terrain_route_json(
+            &"a".repeat(64),
+            &plan,
+            None,
+            adventuresim_core::weather::weather_at(
+                adventuresim_core::weather::WORLD_WEATHER_SEED,
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
+                53_000_000,
+                10_000_000,
+                0,
+            ),
+        );
+        let spacetimedb_sats::serde::SerdeWrapper(span) = serde_json::from_value::<
+            spacetimedb_sats::serde::SerdeWrapper<JourneyTerrainSpan>,
+        >(payload["spans"][0].clone())
+        .unwrap();
+        assert!(matches!(span.kind, JourneyTerrainKind::Wetland));
+        assert_eq!(span.terrain.wetlands, 1_000);
+        assert_eq!(
+            payload["weather_rules_version"],
+            adventuresim_core::weather::WEATHER_RULES_VERSION
+        );
+        assert!(payload["temperature_deci_c"].as_i64().is_some());
+        assert!(payload["wind_speed_bps"].as_u64().is_some());
+        assert!(payload["weather_interval_start"].as_u64().is_some());
+        assert!(payload["ground_moisture_bps"].as_u64().unwrap() <= 10_000);
+        assert!(payload["snow_cover_bps"].as_u64().unwrap() <= 10_000);
+    }
+}
+
+#[cfg(test)]
+mod readiness_tests {
+    use super::{PartyAction, action_requires_ready_party, participates_in_party_readiness};
+    use crate::spacetimedb::{CaseSiteId, PartyView};
+
+    fn party(case_site_id: Option<&str>) -> PartyView {
+        PartyView {
+            id: "party".into(),
+            gateway_bucket: 0,
+            name: "Party".into(),
+            leader_id: 7,
+            current_settlement_id: case_site_id.is_none().then(|| "ironforge".into()),
+            current_case_site_id: case_site_id
+                .map(|value| CaseSiteId::try_new(value).expect("valid fixture case-site id")),
+            active_contract_id: None,
+            is_solo: true,
+            camp_fatigue_percent: 50,
+            walking_minutes_per_day: 480,
+            travel_at_night: false,
+            journey_start_minute_of_day: 0,
+            wilderness_canonical_anchor_minute: case_site_id
+                .is_some()
+                .then_some(adventuresim_world_schema::calendar::StrategicMinute::ZERO),
+            wilderness_elapsed_minutes: 0,
+            camp_destination: None,
+            camp_remaining_minutes: 0,
+            physiology_target: 0.0,
+            command_target: 0.0,
+            religion_target: 0.0,
+        }
+    }
+
+    #[test]
+    fn corpses_do_not_participate_in_party_readiness() {
+        assert!(participates_in_party_readiness(true));
+        assert!(!participates_in_party_readiness(false));
+    }
+
+    #[test]
+    fn only_exact_case_site_settlement_withdrawal_bypasses_web_readiness() {
+        let withdrawal = PartyAction::TravelToSettlement {
+            settlement_id: "ironforge".into(),
+        };
+        let onsite_party = party(Some("site:old-graveyard"));
+        assert!(!action_requires_ready_party(
+            &withdrawal,
+            Some("site:old-graveyard"),
+            &onsite_party
+        ));
+        assert!(action_requires_ready_party(
+            &withdrawal,
+            Some("site:other"),
+            &onsite_party
+        ));
+        assert!(action_requires_ready_party(
+            &withdrawal,
+            None,
+            &onsite_party
+        ));
+        assert!(action_requires_ready_party(&withdrawal, None, &party(None)));
+
+        let investigate = PartyAction::PerformInvestigation {
+            action_id: "action:inspect".into(),
+            method: "inspect_site".into(),
+            expected_version: 1,
+        };
+        assert!(action_requires_ready_party(
+            &investigate,
+            Some("site:old-graveyard"),
+            &onsite_party
+        ));
+    }
+}
+
+pub(crate) async fn approve_party_action(
+    state: &AppState,
+    leader_id: u64,
+    request: &PartyActionRequestView,
+) -> Result<(), String> {
+    if let Ok(action) = serde_json::from_str::<PartyAction>(&request.payload)
+        && let Some((_, args)) = planned_travel_call(state, leader_id, &action).await?
+    {
+        return state
+            .db
+            .call(
+                "approve_party_action_request_planned",
+                &[json!(leader_id), json!(request.id), args[2].clone()],
+            )
+            .await
+            .map_err(|error| error.to_string());
+    }
+    state
+        .db
+        .call(
+            "approve_party_action_request",
+            &[json!(leader_id), json!(request.id)],
+        )
+        .await
+        .map_err(|e| e.to_string())?;
+    Ok(())
 }
 
 /// Build the complete router

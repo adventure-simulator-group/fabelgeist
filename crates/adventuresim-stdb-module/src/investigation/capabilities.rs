@@ -666,7 +666,7 @@ fn validate_referred_contact_authority(
             adventuresim_core::quest_generation::observer_scoped_id(
                 &context,
                 "capability",
-                &format!("{owner_character_id}:{}", action.id.as_str()),
+                &format!("{owner_character_id}:{}", action.id.0),
             ) == root.id
         })
         .ok_or("Generated contact root is absent from its manifest")?;
@@ -681,7 +681,7 @@ fn validate_referred_contact_authority(
             adventuresim_core::quest_generation::observer_scoped_id(
                 &context,
                 "capability",
-                &format!("{owner_character_id}:{}", generated.id.as_str()),
+                &format!("{owner_character_id}:{}", generated.id.0),
             )
         })
         .collect::<std::collections::BTreeSet<_>>();
@@ -904,7 +904,7 @@ fn generated_initially_known_site_ids(
         .sites
         .iter()
         .filter(|site| site.exact_location_initially_known)
-        .map(|site| site.id.as_str())
+        .map(|site| site.id.0.as_str())
 }
 
 fn disclose_generated_initial_site_knowledge(
@@ -921,7 +921,7 @@ fn disclose_generated_initial_site_knowledge(
             .ok_or("Initially known generated case site is missing")?;
         disclose_exact_case_site(
             ctx,
-            (owner_character_id).into(),
+            owner_character_id,
             &manifest.public_case_id,
             &site,
             "known when the case was accepted",
@@ -955,7 +955,7 @@ fn issue_rumor_action_graph(
                 adventuresim_core::quest_generation::observer_scoped_id(
                     &generation_context,
                     "capability",
-                    &format!("{owner_character_id}:{}", generated.id.as_str()),
+                    &format!("{owner_character_id}:{}", generated.id.0),
                 )
             })
             .collect::<Vec<_>>();
@@ -976,7 +976,7 @@ fn issue_rumor_action_graph(
                 age_band: target.age_band.clone(),
                 sex: target.sex,
                 profession: target.profession.clone(),
-                expected_settlement_id: target.expected_settlement_id.as_str().to_owned(),
+                expected_settlement_id: target.expected_settlement_id.clone(),
                 expected_location: target.expected_location.clone(),
                 presence_version: target.presence_version,
             };
@@ -1006,13 +1006,13 @@ fn issue_rumor_action_graph(
             let capability_id = adventuresim_core::quest_generation::observer_scoped_id(
                 &generation_context,
                 "capability",
-                &format!("{owner_character_id}:{}", generated.id.as_str()),
+                &format!("{owner_character_id}:{}", generated.id.0),
             );
             let remap = |id: &adventuresim_core::quest_generation::ActionId| {
                 adventuresim_core::quest_generation::observer_scoped_id(
                     &generation_context,
                     "capability",
-                    &format!("{owner_character_id}:{}", id.as_str()),
+                    &format!("{owner_character_id}:{}", id.0),
                 )
             };
             let consequence = generated
@@ -1072,7 +1072,7 @@ fn issue_rumor_action_graph(
                     capability_id: adventuresim_core::quest_generation::observer_scoped_id(
                         &generation_context,
                         "capability",
-                        &format!("{owner_character_id}:{}", generated.id.as_str()),
+                        &format!("{owner_character_id}:{}", generated.id.0),
                     ),
                     outputs_json: serde_json::to_string(&generated.outputs)
                         .map_err(|_| "Could not encode generated action outputs")?,
@@ -1089,7 +1089,7 @@ fn issue_rumor_action_graph(
                 &adventuresim_core::quest_generation::observer_scoped_id(
                     &generation_context,
                     "capability",
-                    &format!("{owner_character_id}:{}", generated.id.as_str()),
+                    &format!("{owner_character_id}:{}", generated.id.0),
                 ),
                 true,
             )?;

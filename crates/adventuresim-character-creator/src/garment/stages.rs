@@ -86,13 +86,13 @@ impl StageSettings {
         body_clearance: f32,
     ) -> Result<()> {
         let solver = &mut fit.solver.settings;
-        solver.substeps = self.substeps.into();
-        solver.iterations = self.iterations.into();
-        solver.gravity = Vec3::new(0.0, -self.gravity, 0.0).into();
-        solver.damping = self.damping.into();
+        solver.substeps = self.substeps;
+        solver.iterations = self.iterations;
+        solver.gravity = Vec3::new(0.0, -self.gravity, 0.0);
+        solver.damping = self.damping;
         fit.cloth.self_collision.enabled = self.self_collision;
         fit.cloth.host_contacts = fabelgeist_shell::HostContactSchedule {
-            interval_substeps: self.host_contact_interval.into(),
+            interval_substeps: self.host_contact_interval,
             iterations: self.host_contact_iterations,
             ..fabelgeist_shell::HostContactSchedule::default()
         };
@@ -126,7 +126,7 @@ impl DrapeSettings {
     const DEFAULT_BODY_FIT: f32 = 0.7;
 
     pub fn for_fabric(fabric: Fabric) -> Self {
-        let substeps = u32::from(FitSettings::default().substeps);
+        let substeps = FitSettings::default().substeps;
         let sewing = StageSettings {
             steps: 60,
             substeps,

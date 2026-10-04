@@ -8,8 +8,6 @@ use std::{fmt, str::FromStr};
 use serde::{Deserialize, Serialize};
 
 pub mod calendar;
-#[cfg(feature = "spacetimedb")]
-mod checked_sats;
 pub mod coordinates;
 pub use coordinates::coordinates_in_bounds;
 mod demographics;
@@ -20,7 +18,6 @@ mod geology;
 pub mod person_names;
 pub mod settlement_buildings;
 pub use {economy::*, geology::*};
-pub mod identity;
 mod language;
 mod terrain_feature;
 pub use geologic_window::*;
@@ -32,19 +29,8 @@ pub const CURRENT_INFERENCE_RULES_VERSION: u32 = 10;
 pub const MAX_EDGE_GEOMETRY_POINTS: usize = 512;
 pub const MAX_WORLD_GEOMETRY_POINTS: usize = 200_000;
 pub const MAX_SOURCES_MARKDOWN_CHARS: usize = 32_768;
-mod route_metrics;
-pub use route_metrics::{
-    RouteMetricOutOfRange, RouteReliefMeters, RouteRoughnessMeters, RouteSignedGradePermille,
-    RouteSlopePermille, RouteVerticalMeters, route_grade_permille,
-};
-mod water_values;
-pub use water_values::{EdgeProgressPermille, StrahlerOrder, WaterDistanceMeters, WorldValueError};
-mod travel_geometry;
-pub use travel_geometry::{InvalidTravelCoordinate, TravelGeometryPoint};
 mod basis_points;
-pub use basis_points::{
-    BASIS_POINTS_PER_WHOLE, BasisPointsOutOfRange, SignedUnitBasisPoints, UnitBasisPoints,
-};
+pub use basis_points::{BASIS_POINTS_PER_WHOLE, SignedUnitBasisPoints, UnitBasisPoints};
 
 /// Authoritative MVP playable area in `[west, south, east, north]` order.
 ///
@@ -1789,6 +1775,39 @@ pub enum TravelEdgeProvenance {
     InferredWalkingLink,
 }
 
+/// A bounded, deterministic WGS84 point in canonical offline edge geometry.
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+pub struct TravelGeometryPoint {
+    pub longitude_e7: i32,
+    pub latitude_e7: i32,
+}
+
+impl TravelGeometryPoint {
+    pub fn new(longitude: f64, latitude: f64) -> Result<Self, String> {
+        let longitude = coordinates::LongitudeE7::from_degrees(longitude)
+            .ok_or_else(|| "invalid travel geometry coordinate".to_owned())?;
+        let latitude = coordinates::LatitudeE7::from_degrees(latitude)
+            .ok_or_else(|| "invalid travel geometry coordinate".to_owned())?;
+        Ok(Self {
+            longitude_e7: longitude.get(),
+            latitude_e7: latitude.get(),
+        })
+    }
+
+    pub fn longitude(self) -> f64 {
+        coordinates::LongitudeE7::new(self.longitude_e7)
+            .expect("travel geometry longitude was validated at construction")
+            .degrees()
+    }
+    pub fn latitude(self) -> f64 {
+        coordinates::LatitudeE7::new(self.latitude_e7)
+            .expect("travel geometry latitude was validated at construction")
+            .degrees()
+    }
+}
+
 impl TravelEdgeKind {
     pub const fn as_str(self) -> &'static str {
         match self {
@@ -1806,6 +1825,86 @@ pub enum EdgeEndpoint {
     From,
     To,
     Both,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+pub struct WaterDistanceMeters {
+    meters: u16,
+}
+
+impl WaterDistanceMeters {
+    pub const MAX: u16 = 10_000;
+
+    pub fn new(meters: u16) -> Result<Self, String> {
+        if meters <= Self::MAX {
+            Ok(Self { meters })
+        } else {
+            Err(format!(
+                "water distance {meters} exceeds {} meters",
+                Self::MAX
+            ))
+        }
+    }
+
+    pub const fn get(self) -> u16 {
+        self.meters
+    }
+}
+
+impl<'de> Deserialize<'de> for WaterDistanceMeters {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[derive(Deserialize)]
+        struct Wire {
+            meters: u16,
+        }
+        let wire = Wire::deserialize(deserializer)?;
+        Self::new(wire.meters).map_err(serde::de::Error::custom)
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+pub struct StrahlerOrder {
+    order: u8,
+}
+
+impl StrahlerOrder {
+    pub const MAX: u8 = 12;
+
+    pub fn new(order: u8) -> Result<Self, String> {
+        if (1..=Self::MAX).contains(&order) {
+            Ok(Self { order })
+        } else {
+            Err(format!(
+                "Strahler order {order} is outside 1..={}",
+                Self::MAX
+            ))
+        }
+    }
+
+    pub const fn get(self) -> u8 {
+        self.order
+    }
+}
+
+impl<'de> Deserialize<'de> for StrahlerOrder {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[derive(Deserialize)]
+        struct Wire {
+            order: u8,
+        }
+        let wire = Wire::deserialize(deserializer)?;
+        Self::new(wire.order).map_err(serde::de::Error::custom)
+    }
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -2581,6 +2680,43 @@ impl SettlementHydrology {
     }
 }
 
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+pub struct EdgeProgressPermille {
+    permille: u16,
+}
+
+impl EdgeProgressPermille {
+    pub const MAX: u16 = 1_000;
+
+    pub fn new(value: u16) -> Result<Self, String> {
+        if value <= Self::MAX {
+            Ok(Self { permille: value })
+        } else {
+            Err(format!("edge progress {value} exceeds {}", Self::MAX))
+        }
+    }
+
+    pub const fn get(self) -> u16 {
+        self.permille
+    }
+}
+
+impl<'de> Deserialize<'de> for EdgeProgressPermille {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[derive(Deserialize)]
+        struct Wire {
+            permille: u16,
+        }
+        let wire = Wire::deserialize(deserializer)?;
+        Self::new(wire.permille).map_err(serde::de::Error::custom)
+    }
+}
+
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
 #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
@@ -2744,6 +2880,7 @@ impl RouteElevationProfile {
             ));
         }
         for sample in &self.samples {
+            EdgeProgressPermille::new(sample.progress.get())?;
             if ElevationMeters::new(sample.elevation.get()).is_none() {
                 return Err("route elevation profile contains an out-of-range elevation".into());
             }
@@ -2773,6 +2910,52 @@ impl<'de> Deserialize<'de> for RouteElevationProfile {
         Self::new(Wire::deserialize(deserializer)?.samples.0).map_err(serde::de::Error::custom)
     }
 }
+
+macro_rules! bounded_route_metric {
+    ($name:ident, $field:ident, $inner:ty, $min:expr, $max:expr) => {
+        #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
+        #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+        #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+        pub struct $name {
+            $field: $inner,
+        }
+        impl $name {
+            pub const MIN: $inner = $min;
+            pub const MAX: $inner = $max;
+            pub fn new(value: $inner) -> Result<Self, String> {
+                if (Self::MIN..=Self::MAX).contains(&value) {
+                    Ok(Self { $field: value })
+                } else {
+                    Err(format!(
+                        "{} {} is outside {}..={}",
+                        stringify!($name),
+                        value,
+                        Self::MIN,
+                        Self::MAX
+                    ))
+                }
+            }
+            pub const fn get(self) -> $inner {
+                self.$field
+            }
+        }
+        impl<'de> Deserialize<'de> for $name {
+            fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+                #[derive(Deserialize)]
+                struct Wire {
+                    $field: $inner,
+                }
+                Self::new(Wire::deserialize(deserializer)?.$field).map_err(serde::de::Error::custom)
+            }
+        }
+    };
+}
+
+bounded_route_metric!(RouteVerticalMeters, meters, u32, 0, 100_000);
+bounded_route_metric!(RouteSignedGradePermille, permille, i16, -10_000, 10_000);
+bounded_route_metric!(RouteSlopePermille, permille, u16, 0, 10_000);
+bounded_route_metric!(RouteRoughnessMeters, meters, u16, 0, 9_500);
+bounded_route_metric!(RouteReliefMeters, meters, u16, 0, 9_500);
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
@@ -2950,6 +3133,20 @@ impl RouteTerrain {
 
     pub fn validate(&self) -> Result<(), String> {
         self.elevation_profile.validate_raw()?;
+        RouteVerticalMeters::new(self.ascent.get())?;
+        RouteVerticalMeters::new(self.descent.get())?;
+        RouteSignedGradePermille::new(self.max_uphill_grade.get())?;
+        RouteSignedGradePermille::new(self.max_downhill_grade.get())?;
+        RouteSlopePermille::new(self.mean_slope.get())?;
+        RouteSlopePermille::new(self.max_slope.get())?;
+        RouteRoughnessMeters::new(self.roughness.get())?;
+        RouteReliefMeters::new(self.relief.get())?;
+        for value in &self.landforms {
+            EdgeProgressPermille::new(value.progress.get())?;
+        }
+        for value in &self.water_adjacencies {
+            WaterDistanceMeters::new(value.distance.get())?;
+        }
         if self.max_uphill_grade.get() < 0 || self.max_downhill_grade.get() > 0 {
             return Err("route grade extrema have contradictory signs".into());
         }
@@ -3075,6 +3272,28 @@ impl RouteTerrain {
         }
         Ok(())
     }
+}
+
+pub fn route_grade_permille(
+    dz: i32,
+    length_m: u32,
+    progress_delta: u32,
+) -> Result<RouteSignedGradePermille, String> {
+    if length_m == 0 || progress_delta == 0 {
+        return Err("route grade requires positive length and progress delta".into());
+    }
+    const PERMILLE_SQUARED_SCALE: i64 = 1_000_000;
+    let numerator = i64::from(dz) * PERMILLE_SQUARED_SCALE;
+    let denominator = i64::from(length_m)
+        .checked_mul(i64::from(progress_delta))
+        .ok_or("route grade denominator overflow")?;
+    let magnitude = (numerator.unsigned_abs() + denominator as u64 / 2) / denominator as u64;
+    let signed = if numerator < 0 {
+        -(magnitude as i64)
+    } else {
+        magnitude as i64
+    };
+    RouteSignedGradePermille::new(signed.clamp(-10_000, 10_000) as i16)
 }
 
 pub fn expected_route_seasonal_risks(
@@ -4496,7 +4715,7 @@ mod tests {
     }
 
     #[test]
-    fn route_terrain_validation_rejects_invalid_collections_and_decoded_metrics() {
+    fn raw_route_terrain_validation_is_panic_free_and_rechecks_wrappers() {
         let route = super::TravelRoute::Land(super::LandRoute {
             bridge: None,
             water_crossings: vec![],
@@ -4509,20 +4728,23 @@ mod tests {
                 .is_err()
         );
 
-        let mut invalid_slope =
-            serde_json::to_value(super::RouteTerrain::stage_placeholder()).unwrap();
-        invalid_slope["max_slope"]["permille"] = serde_json::json!(10_001);
-        assert!(serde_json::from_value::<super::RouteTerrain>(invalid_slope).is_err());
+        let mut raw_slope = super::RouteTerrain::stage_placeholder();
+        raw_slope.max_slope = super::RouteSlopePermille { permille: 10_001 };
+        assert!(
+            std::panic::catch_unwind(|| raw_slope.validate_context(&route, 1_000))
+                .unwrap()
+                .is_err()
+        );
 
         let mut raw_elevation = super::RouteTerrain::stage_placeholder();
         raw_elevation.elevation_profile = super::RouteElevationProfile {
             samples: vec![
                 super::RouteElevationSample {
-                    progress: super::EdgeProgressPermille::new(0).unwrap(),
+                    progress: super::EdgeProgressPermille { permille: 0 },
                     elevation: super::ElevationMeters { meters: 9_001 },
                 },
                 super::RouteElevationSample {
-                    progress: super::EdgeProgressPermille::new(1_000).unwrap(),
+                    progress: super::EdgeProgressPermille { permille: 1_000 },
                     elevation: super::ElevationMeters { meters: 0 },
                 },
             ],

@@ -146,7 +146,7 @@ fn retain_people(
             .spawn((
                 StrategicModel,
                 SceneModel(layer),
-                CharacterId::from(person.id.0),
+                CharacterId(person.id.0),
                 SkeletonState::default(),
                 model_transform(anchor).with_rotation(facing),
                 Visibility::Inherited,

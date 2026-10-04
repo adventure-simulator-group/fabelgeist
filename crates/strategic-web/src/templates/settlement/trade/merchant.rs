@@ -41,7 +41,7 @@ impl StorefrontPresentation for Storefront {
         );
         stocked
             && (!matches!(self, Self::Books)
-                || adventuresim_core::item_catalog::definition(&(&item.id).into()).is_some_and(
+                || adventuresim_core::item_catalog::definition(&item.id).is_some_and(
                     |definition| {
                         definition.capabilities.book.as_ref().is_some_and(|book| {
                             book.settlement_allowlist.is_empty()
@@ -85,13 +85,13 @@ impl StorefrontPresentation for Storefront {
                     | crate::spacetimedb::CatalogItemKind::Medication
             ),
             Self::Inn => {
-                adventuresim_core::food::definition(&(&item.id).into()).is_some()
+                adventuresim_core::food::definition(&item.id).is_some()
                     || matches!(
                         item.id.as_str(),
                         "cooking_pan" | "cooking_pot" | "portable_oven"
                     )
             }
-            Self::Books => adventuresim_core::item_catalog::definition(&(&item.id).into())
+            Self::Books => adventuresim_core::item_catalog::definition(&item.id)
                 .is_some_and(|definition| definition.capabilities.book.is_some()),
         }
     }

@@ -3,9 +3,9 @@ enum ReferralDeliveryAuthority {
     PublicThreat,
 }
 
-use crate::local_problem::generated_problem_incident as _;
 use crate::relationship::{character_kinship as _, courtship as _};
 use crate::social::character_familiarity as _;
+use crate::local_problem::generated_problem_incident as _;
 
 fn referral_delivery_authority(
     ctx: &ReducerContext,
@@ -187,11 +187,9 @@ pub fn join_dialogue_session(
     expected_revision: u64,
     catalog_revision: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    require_strategic_gateway(ctx)?;
     require_dialogue_revision(&catalog_revision)?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::character::require_living_character(ctx, character_id)?;
     validate_dialogue_action_id(&action_id)?;
     let action_row_id = format!("{session_id}:{action_id}");
     let mut session = ctx
@@ -404,86 +402,86 @@ fn dialogue_fact_context(
         );
         if participant.character_id.is_none()
             && let Ok(npc_character_id) = participant.actor_id.parse::<u64>()
-            && let Some(npc) =
-                crate::settlement_population::resolve_settlement_resident(ctx, npc_character_id)
-        {
-            for organization_role in crate::social_roles::character_roles(ctx, npc.character_id)? {
+                && let Some(npc) =
+                    crate::settlement_population::resolve_settlement_resident(ctx, npc_character_id)
+            {
+                for organization_role in crate::social_roles::character_roles(ctx, npc.character_id)? {
+                    result.facts.insert(
+                        FactKey::ParticipantRole {
+                            role: participant.role.clone(),
+                            profession: organization_role.profession.clone(),
+                        },
+                        FactValue::Bool(true),
+                    );
+                }
+                if !npc.service_id.is_empty() {
+                    result.facts.insert(
+                        FactKey::Service {
+                            role: participant.role.clone(),
+                        },
+                        FactValue::Text(npc.service_id.clone()),
+                    );
+                    result.facts.insert(
+                        FactKey::LocalOrganizationRepresentative {
+                            role: participant.role.clone(),
+                        },
+                        FactValue::Bool(
+                            local_service_organization_representative(
+                                ctx,
+                                &session.settlement_id,
+                                &session.location_id,
+                                &npc.service_id,
+                            )
+                            .is_some(),
+                        ),
+                    );
+                }
                 result.facts.insert(
-                    FactKey::ParticipantRole {
+                    FactKey::ParticipantProfession {
                         role: participant.role.clone(),
-                        profession: organization_role.profession.clone(),
                     },
-                    FactValue::Bool(true),
+                    FactValue::Text(npc.profession.clone()),
                 );
-            }
-            if !npc.service_id.is_empty() {
                 result.facts.insert(
-                    FactKey::Service {
+                    FactKey::ParticipantAgeBand {
                         role: participant.role.clone(),
                     },
-                    FactValue::Text(npc.service_id.clone()),
+                    FactValue::Text(npc.age_band.stable_id().into()),
                 );
                 result.facts.insert(
-                    FactKey::LocalOrganizationRepresentative {
+                    FactKey::ParticipantSex {
                         role: participant.role.clone(),
                     },
-                    FactValue::Bool(
-                        local_service_organization_representative(
-                            ctx,
-                            &session.settlement_id,
-                            &session.location_id,
-                            &npc.service_id,
-                        )
-                        .is_some(),
+                    FactValue::Sex { sex: npc.sex },
+                );
+                result.facts.insert(
+                    FactKey::ParticipantLocalRole {
+                        role: participant.role.clone(),
+                    },
+                    FactValue::Text(npc.local_role.clone()),
+                );
+                result.facts.insert(
+                    FactKey::LocalCircumstance,
+                    FactValue::Text(
+                        if session.location_id == "residences" {
+                            "household errand"
+                        } else {
+                            npc.local_role.as_str()
+                        }
+                        .into(),
                     ),
                 );
+                if let Some(presence) = ctx
+                    .db
+                    .settlement_resident_presence()
+                    .character_id()
+                    .find(npc.character_id)
+                {
+                    result
+                        .facts
+                        .insert(FactKey::LocationRole, FactValue::Text(presence.location_id));
+                }
             }
-            result.facts.insert(
-                FactKey::ParticipantProfession {
-                    role: participant.role.clone(),
-                },
-                FactValue::Text(npc.profession.clone()),
-            );
-            result.facts.insert(
-                FactKey::ParticipantAgeBand {
-                    role: participant.role.clone(),
-                },
-                FactValue::Text(npc.age_band.stable_id().into()),
-            );
-            result.facts.insert(
-                FactKey::ParticipantSex {
-                    role: participant.role.clone(),
-                },
-                FactValue::Sex { sex: npc.sex },
-            );
-            result.facts.insert(
-                FactKey::ParticipantLocalRole {
-                    role: participant.role.clone(),
-                },
-                FactValue::Text(npc.local_role.clone()),
-            );
-            result.facts.insert(
-                FactKey::LocalCircumstance,
-                FactValue::Text(
-                    if session.location_id == "residences" {
-                        "household errand"
-                    } else {
-                        npc.local_role.as_str()
-                    }
-                    .into(),
-                ),
-            );
-            if let Some(presence) = ctx
-                .db
-                .settlement_resident_presence()
-                .character_id()
-                .find(npc.character_id)
-            {
-                result
-                    .facts
-                    .insert(FactKey::LocationRole, FactValue::Text(presence.location_id));
-            }
-        }
         if let Some(id) = participant.character_id {
             for organization_role in crate::social_roles::character_roles(ctx, id)? {
                 result.facts.insert(
@@ -509,7 +507,7 @@ fn dialogue_fact_context(
                 );
             }
             if let Some(organization_id) =
-                crate::organization::effective_presented_organization(ctx, (id).into())
+                crate::organization::effective_presented_organization(ctx, id)
             {
                 result.facts.insert(
                     FactKey::ParticipantOrganization {
@@ -548,34 +546,33 @@ fn dialogue_fact_context(
                 );
             }
             if let Some(character) = ctx.db.character().id().find(id)
-                && let Some(party_id) = character.party_id.as_ref()
-            {
-                let leader = ctx
-                    .db
-                    .party_authority()
-                    .id()
-                    .find(party_id)
-                    .is_some_and(|party| party.leader_id == id);
-                result.facts.insert(
-                    FactKey::PartyLeader {
-                        role: participant.role.clone(),
-                    },
-                    FactValue::Bool(leader),
-                );
-                result.facts.insert(
-                    FactKey::ParticipantStatus {
-                        role: participant.role.clone(),
-                    },
-                    FactValue::Text(
-                        if leader {
-                            "party_leader"
-                        } else {
-                            "party_member"
-                        }
-                        .into(),
-                    ),
-                );
-            }
+                && let Some(party_id) = character.party_id.as_ref() {
+                    let leader = ctx
+                        .db
+                        .party_authority()
+                        .id()
+                        .find(party_id)
+                        .is_some_and(|party| party.leader_id == id);
+                    result.facts.insert(
+                        FactKey::PartyLeader {
+                            role: participant.role.clone(),
+                        },
+                        FactValue::Bool(leader),
+                    );
+                    result.facts.insert(
+                        FactKey::ParticipantStatus {
+                            role: participant.role.clone(),
+                        },
+                        FactValue::Text(
+                            if leader {
+                                "party_leader"
+                            } else {
+                                "party_member"
+                            }
+                            .into(),
+                        ),
+                    );
+                }
             {
                 let mut equipped = ctx
                     .db
@@ -643,8 +640,7 @@ fn dialogue_fact_context(
                 .ok_or_else(|| {
                     format!("Dialogue organization authority references unknown {organization_id}")
                 })?;
-            let membership =
-                crate::organization::membership(ctx, (character_id).into(), &organization_id);
+            let membership = crate::organization::membership(ctx, character_id, &organization_id);
             let minute = ctx
                 .db
                 .character_time()
@@ -678,10 +674,7 @@ fn dialogue_fact_context(
                             &organization_id,
                         )
                         .is_ok_and(|assignment| {
-                            definition
-                                .promotion_targets(&assignment.role_id)
-                                .next()
-                                .is_some()
+                            definition.promotion_targets(&assignment.role_id).next().is_some()
                         })
                 })),
             );
@@ -861,14 +854,14 @@ fn dialogue_fact_context(
             .service_id()
             .filter(&service)
             .find(|contract| contract.settlement_id == session.settlement_id)
-    {
-        result.facts.insert(
-            FactKey::ContractState {
-                contract: "selected-service-contract".into(),
-            },
-            FactValue::Text(contract.status.stable_id().into()),
-        );
-    }
+        {
+            result.facts.insert(
+                FactKey::ContractState {
+                    contract: "selected-service-contract".into(),
+                },
+                FactValue::Text(contract.status.stable_id().into()),
+            );
+        }
     Ok(result)
 }
 
@@ -1006,7 +999,7 @@ fn bind_organization_business_terms(
         format!("{fee}; admission requireth {admission_requirements}."),
     );
 
-    let membership = crate::organization::membership(ctx, (character_id).into(), &organization_id);
+    let membership = crate::organization::membership(ctx, character_id, &organization_id);
     let minute = ctx
         .db
         .character_time()
@@ -1045,39 +1038,21 @@ fn bind_organization_business_terms(
                 ctx,
                 character_id,
                 &organization_id,
-            )
-            .ok()?;
+            ).ok()?;
             let current = definition.role(&assignment.role_id)?;
-            let targets = definition
-                .promotion_targets(&assignment.role_id)
-                .collect::<Vec<_>>();
+            let targets = definition.promotion_targets(&assignment.role_id).collect::<Vec<_>>();
             Some(if targets.is_empty() {
-                format!(
-                    "{possessive} current role is {}. No promotion proceedeth from it.",
-                    current.name
-                )
-            } else {
-                let choices = targets
-                    .iter()
-                    .map(|role| role.name.as_str())
-                    .collect::<Vec<_>>()
-                    .join(" or ");
-                format!(
-                    "{possessive} current role is {}. The available promotion role{} {}: {}.",
-                    current.name,
-                    if targets.len() == 1 { " is" } else { "s are" },
-                    choices,
-                    targets
-                        .iter()
-                        .map(|role| format!(
-                            "{} requireth {}",
-                            role.name,
-                            organization_requirements_summary(role.requirements.iter())
-                        ))
-                        .collect::<Vec<_>>()
-                        .join("; "),
-                )
-            })
+                    format!("{possessive} current role is {}. No promotion proceedeth from it.", current.name)
+                } else {
+                    let choices = targets.iter().map(|role| role.name.as_str()).collect::<Vec<_>>().join(" or ");
+                    format!(
+                        "{possessive} current role is {}. The available promotion role{} {}: {}.",
+                        current.name,
+                        if targets.len() == 1 { " is" } else { "s are" },
+                        choices,
+                        targets.iter().map(|role| format!("{} requireth {}", role.name, organization_requirements_summary(role.requirements.iter()))).collect::<Vec<_>>().join("; "),
+                    )
+                })
         })
         .unwrap_or_else(|| {
             if familiar {
@@ -1091,9 +1066,7 @@ fn bind_organization_business_terms(
 }
 
 fn dialogue_actor_id(participant: &DialogueParticipant) -> Option<u64> {
-    participant
-        .character_id
-        .or_else(|| participant.actor_id.parse().ok())
+    participant.character_id.or_else(|| participant.actor_id.parse().ok())
 }
 
 fn dialogue_public_role(
@@ -1116,18 +1089,15 @@ fn dialogue_address_title(ctx: &ReducerContext, character_id: u64) -> Result<Str
     if let Some(role) = dialogue_public_role(ctx, character_id)? {
         return Ok(role.address_title.clone());
     }
-    if let Some(organization_id) =
-        crate::organization::effective_presented_organization(ctx, (character_id).into())
+    if let Some(organization_id) = crate::organization::effective_presented_organization(ctx, character_id)
         && let Some(profession) = adventuresim_core::organization::organization(&organization_id)
             .and_then(|definition| definition.starting_role.as_ref())
     {
         return Ok(profession.profession.label().to_owned());
     }
-    Ok(
-        crate::settlement_population::resolve_settlement_resident(ctx, character_id)
-            .map(|resident| resident.profession.replace('_', " "))
-            .unwrap_or_else(|| "traveler".into()),
-    )
+    Ok(crate::settlement_population::resolve_settlement_resident(ctx, character_id)
+        .map(|resident| resident.profession.replace('_', " "))
+        .unwrap_or_else(|| "traveler".into()))
 }
 
 fn dialogue_pair_is_intimate(ctx: &ReducerContext, left: u64, right: u64) -> bool {
@@ -1154,12 +1124,9 @@ fn dialogue_pair_is_intimate(ctx: &ReducerContext, left: u64, right: u64) -> boo
         .filter(left)
         .chain(ctx.db.courtship().first_character_id().filter(right))
         .any(|courtship| {
-            ((courtship.first_character_id == left && courtship.second_character_id == right)
-                || (courtship.first_character_id == right && courtship.second_character_id == left))
-                && matches!(
-                    courtship.status,
-                    CourtshipStatus::Active | CourtshipStatus::Exposed
-                )
+        ((courtship.first_character_id == left && courtship.second_character_id == right)
+            || (courtship.first_character_id == right && courtship.second_character_id == left))
+            && matches!(courtship.status, CourtshipStatus::Active | CourtshipStatus::Exposed)
         });
     let low_id = left.min(right);
     let high_id = left.max(right);
@@ -1168,7 +1135,10 @@ fn dialogue_pair_is_intimate(ctx: &ReducerContext, left: u64, right: u64) -> boo
         .character_familiarity()
         .low_id()
         .filter(low_id)
-        .any(|familiarity| familiarity.high_id == high_id && familiarity.shared_minutes >= 40 * 60);
+        .any(|familiarity| {
+        familiarity.high_id == high_id
+            && familiarity.shared_minutes >= 40 * 60
+        });
     immediate_kin || active_courtship || familiar
 }
 
@@ -1195,10 +1165,8 @@ fn bind_pairwise_address(
         .filter(|participant| {
             participant.id != speaker.id
                 && participant.role == addressee.role()
-                && (!matches!(
-                    addressee,
-                    adventuresim_dialogue::Addressee::Participant { .. }
-                ) || dialogue_actor_id(participant) == Some(acting_character_id))
+                && (!matches!(addressee, adventuresim_dialogue::Addressee::Participant { .. })
+                    || dialogue_actor_id(participant) == Some(acting_character_id))
         })
         .collect::<Vec<_>>();
     if participants.is_empty() {
@@ -1213,23 +1181,20 @@ fn bind_pairwise_address(
         .collect::<Vec<_>>();
     let singular = !addressee.is_group();
     let speaker_id = dialogue_actor_id(speaker);
-    let outranks = singular
-        && speaker_id.is_some_and(|speaker_id| {
-            dialogue_social_precedence(ctx, speaker_id).unwrap_or_default()
-                > dialogue_social_precedence(ctx, addressees[0]).unwrap_or_default()
-        });
-    let intimate = singular
-        && speaker_id
-            .is_some_and(|speaker_id| dialogue_pair_is_intimate(ctx, speaker_id, addressees[0]));
-    let register =
-        adventuresim_core::organization::second_person_register(singular, outranks, intimate);
+    let outranks = singular && speaker_id.is_some_and(|speaker_id| {
+        dialogue_social_precedence(ctx, speaker_id).unwrap_or_default()
+            > dialogue_social_precedence(ctx, addressees[0]).unwrap_or_default()
+    });
+    let intimate = singular && speaker_id.is_some_and(|speaker_id| {
+        dialogue_pair_is_intimate(ctx, speaker_id, addressees[0])
+    });
+    let register = adventuresim_core::organization::second_person_register(
+        singular, outranks, intimate,
+    );
     bindings.bind(S::SecondPersonSubject, register.subject);
     bindings.bind(S::SecondPersonObject, register.object);
     bindings.bind(S::SecondPersonPossessive, register.possessive);
-    bindings.bind(
-        S::SecondPersonPossessivePronoun,
-        register.possessive_pronoun,
-    );
+    bindings.bind(S::SecondPersonPossessivePronoun, register.possessive_pronoun);
     bindings.bind(S::SecondPersonReflexive, register.reflexive);
     bindings.bind(S::SecondPersonBe, register.be);
     bindings.bind(S::SecondPersonHave, register.have);
@@ -1272,11 +1237,8 @@ fn dialogue_runtime_bindings(
             &mut bindings,
         )?;
     }
-    let npc_character_id =
-        dialogue_actor_id(&participant).ok_or("Dialogue speaker identity is invalid")?;
-    let Some(npc) =
-        crate::settlement_population::resolve_settlement_resident(ctx, npc_character_id)
-    else {
+    let npc_character_id = dialogue_actor_id(&participant).ok_or("Dialogue speaker identity is invalid")?;
+    let Some(npc) = crate::settlement_population::resolve_settlement_resident(ctx, npc_character_id) else {
         return Ok(bindings);
     };
     bindings.bind(S::SpeakerName, npc.name.clone());

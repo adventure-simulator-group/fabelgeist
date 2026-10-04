@@ -97,40 +97,40 @@ impl GpuBvh {
             kernels,
             nodes: Buffer::new(
                 context,
-                (nodes * NODE_BYTES).into(),
-                storage.clone().with_label(("bvh nodes").into()),
+                nodes * NODE_BYTES,
+                storage.clone().with_label("bvh nodes"),
             )?,
             right_children: Buffer::new(
                 context,
-                ((capacity as u64).max(1) * 4).into(),
-                storage.clone().with_label(("bvh right children").into()),
+                (capacity as u64).max(1) * 4,
+                storage.clone().with_label("bvh right children"),
             )?,
             indices: Buffer::new(
                 context,
-                (capacity as u64 * 4).into(),
-                storage.clone().with_label(("bvh indices").into()),
+                capacity as u64 * 4,
+                storage.clone().with_label("bvh indices"),
             )?,
             parents: Buffer::new(
                 context,
-                (nodes * 4).into(),
-                storage.clone().with_label(("bvh parents").into()),
+                nodes * 4,
+                storage.clone().with_label("bvh parents"),
             )?,
             codes: Buffer::new(
                 context,
-                (capacity as u64 * 4).into(),
-                storage.clone().with_label(("bvh morton codes").into()),
+                capacity as u64 * 4,
+                storage.clone().with_label("bvh morton codes"),
             )?,
             scene_bounds: Buffer::new(
                 context,
-                (BOUNDS_WORDS * 4).into(),
-                storage.clone().with_label(("bvh scene bounds").into()),
+                BOUNDS_WORDS * 4,
+                storage.clone().with_label("bvh scene bounds"),
             )?,
             node_bounds: Buffer::new(
                 context,
-                (nodes * BOUNDS_WORDS * 4).into(),
-                storage.with_label(("bvh node bounds").into()),
+                nodes * BOUNDS_WORDS * 4,
+                storage.with_label("bvh node bounds"),
             )?,
-            sort_scratch: SortScratch::new(context, capacity.into())?,
+            sort_scratch: SortScratch::new(context, capacity)?,
             capacity,
             count: 0,
         })
@@ -173,26 +173,17 @@ impl GpuBvh {
 
     /// The same, under whatever names `config` gives.
     pub fn bind(&self, parameters: &mut PassParameters, config: &TraversalConfig) {
-        parameters.insert(
-            PassParameterName::from(config.nodes.clone()),
-            (self.nodes.clone()).into(),
-        );
-        parameters.insert(
-            PassParameterName::from(config.right_children.clone()),
-            (self.right_children.clone()).into(),
-        );
-        parameters.insert(
-            PassParameterName::from(config.indices.clone()),
-            (self.indices.clone()).into(),
-        );
+        parameters.insert(config.nodes.clone(), self.nodes.clone());
+        parameters.insert(config.right_children.clone(), self.right_children.clone());
+        parameters.insert(config.indices.clone(), self.indices.clone());
     }
 
     fn params(&self, count: u32) -> PassParameters {
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (count).into());
-        parameters.insert("pad0".into(), (0u32).into());
-        parameters.insert("pad1".into(), (0u32).into());
-        parameters.insert("pad2".into(), (0u32).into());
+        parameters.insert("count", count);
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert("pad2", 0u32);
         parameters
     }
 
@@ -227,43 +218,36 @@ impl GpuBvh {
         // "node" of six words is exactly the scene-bounds layout, so the same
         // kernel does this job with a count of one.
         let mut clear_scene = self.params(1);
-        clear_scene.insert("node_bounds".into(), (self.scene_bounds.clone()).into());
-        batch.dispatch(&self.kernels.clear_bounds, &clear_scene, ([1, 1, 1]).into())?;
+        clear_scene.insert("node_bounds", self.scene_bounds.clone());
+        batch.dispatch(&self.kernels.clear_bounds, &clear_scene, [1, 1, 1])?;
 
         let mut bounds = params.clone();
-        bounds.insert("primitive_bounds".into(), (primitive_bounds.clone()).into());
-        bounds.insert("scene_bounds".into(), (self.scene_bounds.clone()).into());
-        batch.dispatch_items(&self.kernels.bounds, &bounds, (count).into())?;
+        bounds.insert("primitive_bounds", primitive_bounds.clone());
+        bounds.insert("scene_bounds", self.scene_bounds.clone());
+        batch.dispatch_items(&self.kernels.bounds, &bounds, count)?;
 
         let mut codes = params.clone();
-        codes.insert("primitive_bounds".into(), (primitive_bounds.clone()).into());
-        codes.insert("scene_bounds".into(), (self.scene_bounds.clone()).into());
-        codes.insert("codes".into(), (self.codes.clone()).into());
-        codes.insert("indices".into(), (self.indices.clone()).into());
-        batch.dispatch_items(&self.kernels.codes, &codes, (count).into())?;
+        codes.insert("primitive_bounds", primitive_bounds.clone());
+        codes.insert("scene_bounds", self.scene_bounds.clone());
+        codes.insert("codes", self.codes.clone());
+        codes.insert("indices", self.indices.clone());
+        batch.dispatch_items(&self.kernels.codes, &codes, count)?;
 
         self.kernels.sort.record(
             batch,
             &self.codes,
             &self.indices,
             &mut self.sort_scratch,
-            count.into(),
-            morton::BITS.into(),
+            count,
+            morton::BITS,
         )?;
 
         let mut hierarchy = params.clone();
-        hierarchy.insert("codes".into(), (self.codes.clone()).into());
-        hierarchy.insert("nodes".into(), (self.nodes.clone()).into());
-        hierarchy.insert("parents".into(), (self.parents.clone()).into());
-        hierarchy.insert(
-            "right_children".into(),
-            (self.right_children.clone()).into(),
-        );
-        batch.dispatch_items(
-            &self.kernels.hierarchy,
-            &hierarchy,
-            (count.saturating_sub(1)).into(),
-        )?;
+        hierarchy.insert("codes", self.codes.clone());
+        hierarchy.insert("nodes", self.nodes.clone());
+        hierarchy.insert("parents", self.parents.clone());
+        hierarchy.insert("right_children", self.right_children.clone());
+        batch.dispatch_items(&self.kernels.hierarchy, &hierarchy, count.saturating_sub(1))?;
 
         self.record_refit_passes(batch, primitive_bounds, count)?;
         Ok(())
@@ -297,20 +281,20 @@ impl GpuBvh {
         let params = self.params(count);
 
         let mut clear = params.clone();
-        clear.insert("node_bounds".into(), (self.node_bounds.clone()).into());
-        batch.dispatch_items(&self.kernels.clear_bounds, &clear, (nodes).into())?;
+        clear.insert("node_bounds", self.node_bounds.clone());
+        batch.dispatch_items(&self.kernels.clear_bounds, &clear, nodes)?;
 
         let mut refit = params.clone();
-        refit.insert("primitive_bounds".into(), (primitive_bounds.clone()).into());
-        refit.insert("indices".into(), (self.indices.clone()).into());
-        refit.insert("parents".into(), (self.parents.clone()).into());
-        refit.insert("node_bounds".into(), (self.node_bounds.clone()).into());
-        batch.dispatch_items(&self.kernels.refit, &refit, (count).into())?;
+        refit.insert("primitive_bounds", primitive_bounds.clone());
+        refit.insert("indices", self.indices.clone());
+        refit.insert("parents", self.parents.clone());
+        refit.insert("node_bounds", self.node_bounds.clone());
+        batch.dispatch_items(&self.kernels.refit, &refit, count)?;
 
         let mut gather = params;
-        gather.insert("node_bounds".into(), (self.node_bounds.clone()).into());
-        gather.insert("nodes".into(), (self.nodes.clone()).into());
-        batch.dispatch_items(&self.kernels.gather_bounds, &gather, (nodes).into())?;
+        gather.insert("node_bounds", self.node_bounds.clone());
+        gather.insert("nodes", self.nodes.clone());
+        batch.dispatch_items(&self.kernels.gather_bounds, &gather, nodes)?;
 
         Ok(())
     }
@@ -323,7 +307,7 @@ impl GpuBvh {
         primitive_bounds: &Buffer,
         count: u32,
     ) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, ("GpuBvh build").into());
+        let mut batch = KernelBatch::labelled(context, "GpuBvh build");
         self.record_build(&mut batch, primitive_bounds, count)?;
         batch.submit();
         Ok(())

@@ -1,24 +1,25 @@
 use super::*;
-use fabelgeist_rig::RigJointName;
 
 pub(super) fn sync_procedural_equipment_skins(
     mut commands: Commands,
     parts: Query<(Entity, &ProceduralEquipmentPart, Option<&SkinnedMesh>)>,
-    items: Query<(Option<&ItemOf>, Has<TacticalSceneItem>)>,
+    items: Query<(Option<&ItemOf>, Option<&EquipSlot>, Has<TacticalSceneItem>)>,
     bones: Query<(Entity, &MhrBone, &Name)>,
 ) {
-    let mut rig_bones = HashMap::<Entity, HashMap<RigJointName, Entity>>::new();
+    let mut rig_bones = HashMap::<Entity, HashMap<String, Entity>>::new();
     for (entity, bone, name) in &bones {
         rig_bones
             .entry(bone.owner)
             .or_default()
-            .insert(RigJointName::from(name.as_str()), entity);
+            .insert(name.as_str().to_owned(), entity);
     }
     for (entity, part, current_skin) in &parts {
         let desired_joints = items
             .get(part.item)
             .ok()
-            .and_then(|(owner, scene)| (!scene).then_some(owner?.0))
+            .and_then(|(owner, slot, scene)| {
+                (!scene && holding_side(slot).is_none()).then_some(owner?.0)
+            })
             .and_then(|owner| {
                 let bones = rig_bones.get(&owner)?;
                 part.joint_names
@@ -70,6 +71,7 @@ mod tests {
                 item,
                 inverse_bindposes: bindposes.clone(),
                 joint_names: vec!["l_upleg".into()],
+                rigid_center: Vec3::ZERO,
             })
             .id();
         world

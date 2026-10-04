@@ -1,10 +1,3 @@
-mod deletion_error;
-pub(crate) use deletion_error::CharacterDeletionError;
-include!("character/deletion.rs");
-mod living;
-mod living_admission;
-pub(crate) use living::{LivingCharacterError, StoredCharacterLifeState};
-pub(crate) use living_admission::require_living_character;
 mod occupancy;
 mod origin;
 include!("character/name_types.rs");
@@ -19,7 +12,6 @@ use occupancy::{character_occupancy_id, conflicting_equipment_roots};
 use adventuresim_core::{
     attribute::PlayerAttributeValues,
     equipment::LoadoutSlot,
-    identity::InventoryItemId,
     item_catalog::{EquipmentChannel, ParentRequirement},
     organization::OrganizationMembershipStatus,
     starting_character::{StartingAgeTier, StartingCharacterSpec, StartingPersonalityTrait},
@@ -316,12 +308,28 @@ pub fn backend_character_deaths(ctx: &ViewContext) -> Vec<CharacterDeath> {
         .collect()
 }
 
+pub fn require_living_character(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> Result<Character, String> {
+    let character = ctx
+        .db
+        .character()
+        .id()
+        .find(character_id)
+        .ok_or("Character not found")?;
+    if !character.alive {
+        return Err("Dead characters cannot perform this action".into());
+    }
+    Ok(character)
+}
+
 /// Authoritative, idempotent life-state transition shared by strategic disease
 /// and committed tactical/autoresolve outcomes. Repeated calls retain the first
 /// recorded cause, source, and strategic minute.
 pub fn transition_character_to_dead(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     cause: DeathCause,
     source: DeathSource,
     source_id: Option<String>,
@@ -330,11 +338,11 @@ pub fn transition_character_to_dead(
         .db
         .character_time()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .map_or(StrategicMinute::ZERO, |t| t.minutes);
     transition_character_to_dead_at(
         ctx,
-        (character_id).into(),
+        character_id,
         cause,
         source,
         source_id,
@@ -346,58 +354,53 @@ pub fn transition_character_to_dead(
 /// The character's clock is never rewound; a future death is rejected.
 pub fn transition_character_to_dead_at(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     cause: DeathCause,
     source: DeathSource,
     source_id: Option<String>,
     strategic_minute: StrategicMinute,
 ) -> Result<CharacterDeath, String> {
-    if let Some(death) = ctx
-        .db
-        .character_death()
-        .character_id()
-        .find(u64::from(character_id))
-    {
-        crate::food::cleanup_fireplace_custody_for_death(ctx, (character_id).into())?;
+    if let Some(death) = ctx.db.character_death().character_id().find(character_id) {
+        crate::food::cleanup_fireplace_custody_for_death(ctx, character_id)?;
         return Ok(death);
     }
     let mut character = ctx
         .db
         .character()
         .id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .ok_or("Character not found")?;
     let current_minute = ctx
         .db
         .character_time()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .map_or(StrategicMinute::ZERO, |t| t.minutes);
     if strategic_minute > current_minute {
         return Err("Character death cannot be after their personal clock".into());
     }
     let death = ctx.db.character_death().insert(CharacterDeath {
-        character_id: u64::from(character_id),
+        character_id,
         cause,
         source,
         source_id,
         strategic_minute,
     });
-    crate::food::cleanup_fireplace_custody_for_death(ctx, (character_id).into())?;
+    crate::food::cleanup_fireplace_custody_for_death(ctx, character_id)?;
     crate::corpse::persist_character_death_corpse(
         ctx,
-        (character_id).into(),
+        character_id,
         death.source_id.as_deref().unwrap_or("character-death"),
         strategic_minute,
     )?;
-    crate::social::settle_shared_party_time(ctx, (character_id).into());
-    crate::social::close_physiology_presence(ctx, character_id.into());
+    crate::social::settle_shared_party_time(ctx, character_id);
+    crate::social::close_physiology_presence(ctx, character_id);
     character.alive = false;
     if let Some(mut presence) = ctx
         .db
         .settlement_resident_presence()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
     {
         presence.context_suppressed = false;
         presence.health_suppressed = true;
@@ -411,20 +414,12 @@ pub fn transition_character_to_dead_at(
     // combatants that died in transient tactical state.
     let party_id = character.party_id.clone();
     ctx.db.character().id().update(character);
-    crate::browser_session::clear_dead_character_selection(ctx, (character_id).into());
-    crate::continuity::settle_pending_inheritances_for_heir(
-        ctx,
-        (character_id).into(),
-        strategic_minute,
-    )?;
-    crate::continuity::record_estate_disposition_for_death(
-        ctx,
-        (character_id).into(),
-        strategic_minute,
-    )?;
+    crate::browser_session::clear_dead_character_selection(ctx, character_id);
+    crate::continuity::settle_pending_inheritances_for_heir(ctx, character_id, strategic_minute)?;
+    crate::continuity::record_estate_disposition_for_death(ctx, character_id, strategic_minute)?;
     crate::relationship::settle_relationship_lifecycle_for_death(
         ctx,
-        (character_id).into(),
+        character_id,
         strategic_minute,
     )?;
     crate::social::prune_invalid_automatic_social_chats(ctx);
@@ -708,14 +703,11 @@ pub(crate) fn inventory_item_is_equipped(
     wearable_is_equipped(ctx, inventory_item_id)
 }
 
-pub(crate) fn equipped_wearable_ids(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-) -> Vec<u64> {
+pub(crate) fn equipped_wearable_ids(ctx: &ReducerContext, character_id: u64) -> Vec<u64> {
     ctx.db
         .character_equipped_item()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .map(|row| row.inventory_item_id)
         .collect()
 }
@@ -800,12 +792,9 @@ pub(crate) fn restore_equipment_placement(
     )
 }
 
-fn refresh_equipment_dependents(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<(), crate::condition::StrategicConditionError> {
-    crate::capability::refresh_character_capability(ctx, (character_id).into())?;
-    crate::condition::refresh_character_strategic_condition(ctx, (character_id).into()).map(|_| ())
+fn refresh_equipment_dependents(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+    crate::capability::refresh_character_capability(ctx, character_id)?;
+    crate::condition::refresh_character_strategic_condition(ctx, character_id).map(|_| ())
 }
 
 /// Create a new random temporary character for the server.
@@ -929,13 +918,343 @@ fn scale_temporary_enemy(
     Ok(())
 }
 
+/// Transactionally delete a temporary tactical character and every durable
+/// strategic row that is owned by it. This must run before deleting Character
+/// so no orphan can survive a successful reducer commit.
+pub(crate) fn delete_temporary_character(
+    ctx: &ReducerContext,
+    character: Character,
+) -> Result<(), String> {
+    if !character.temporary {
+        return Err("Refusing to cascade-delete a persistent character".into());
+    }
+    delete_character_name_data(ctx, CharacterId::new(character.id));
+    delete_character_data(ctx, character, true)
+}
+
+pub(crate) fn delete_character_for_world_import(
+    ctx: &ReducerContext,
+    character: Character,
+) -> Result<(), String> {
+    delete_character_name_data(ctx, CharacterId::new(character.id));
+    delete_character_data(ctx, character, false)
+}
+
+fn delete_character_data(
+    ctx: &ReducerContext,
+    character: Character,
+    delete_party: bool,
+) -> Result<(), String> {
+    if delete_party {
+        if let Some(party_id) = character.party_id.as_deref() {
+            crate::strategic::delete_temporary_character_party(ctx, character.id, party_id)?;
+        } else {
+            for membership in ctx
+                .db
+                .party_member()
+                .character_id()
+                .filter(character.id)
+                .collect::<Vec<_>>()
+            {
+                ctx.db.party_member().id().delete(membership.id);
+            }
+        }
+    }
+
+    // Repair custody changes InventoryItem.character_id to zero while retaining
+    // the real owner on RepairOrder. Remove those custody rows before scanning
+    // ordinary owned inventory so a temporary character cannot leave orphaned
+    // smith inventory behind.
+    for order in ctx
+        .db
+        .repair_order()
+        .owner_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        crate::inventory_container::delete_repair_object_for_row(ctx, order.inventory_item_id)?;
+        if ctx
+            .db
+            .item_condition()
+            .inventory_item_id()
+            .find(order.inventory_item_id)
+            .is_some()
+        {
+            ctx.db
+                .item_condition()
+                .inventory_item_id()
+                .delete(order.inventory_item_id);
+        }
+        ctx.db.inventory_item().id().delete(order.inventory_item_id);
+        ctx.db.repair_order().id().delete(order.id);
+    }
+
+    let inventory = ctx
+        .db
+        .inventory_item()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>();
+    for row in inventory {
+        if crate::inventory_container::delete_carried_object_for_row(
+            ctx,
+            adventuresim_core::physical_object::CarriedInventoryScope::Personal,
+            row.id,
+        )? {
+            continue;
+        }
+        if ctx
+            .db
+            .item_condition()
+            .inventory_item_id()
+            .find(row.id)
+            .is_some()
+        {
+            ctx.db.item_condition().inventory_item_id().delete(row.id);
+        }
+        for repair in ctx
+            .db
+            .repair_order()
+            .iter()
+            .filter(|repair| repair.inventory_item_id == row.id)
+            .collect::<Vec<_>>()
+        {
+            ctx.db.repair_order().id().delete(repair.id);
+        }
+        ctx.db.inventory_item().id().delete(row.id);
+        crate::food::delete_personal_food_lot(ctx, row.id);
+    }
+    for row in ctx
+        .db
+        .physiology_administration()
+        .administration_patient_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.physiology_administration().id().delete(row.id);
+    }
+
+    for row in ctx
+        .db
+        .infection_episode()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.infection_episode().id().delete(row.id);
+    }
+    for row in ctx
+        .db
+        .committed_cut()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.committed_cut().id().delete(row.id);
+    }
+    for row in ctx
+        .db
+        .disease_notice()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.disease_notice().id().delete(&row.id);
+    }
+    for row in ctx
+        .db
+        .morale_event()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.morale_event().id().delete(row.id);
+    }
+    for row in ctx
+        .db
+        .character_morale_source()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.character_morale_source().id().delete(&row.id);
+    }
+    crate::social::cleanup_character_social(ctx, character.id);
+    for row in ctx
+        .db
+        .religious_demand()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.religious_demand().id().delete(row.id);
+    }
+    for row in ctx
+        .db
+        .inventory_quantity_target()
+        .owner_character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.inventory_quantity_target().id().delete(&row.id);
+    }
+    for row in ctx
+        .db
+        .alcohol_consumption()
+        .by_character()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.alcohol_consumption().id().delete(&row.id);
+    }
+    for row in ctx
+        .db
+        .organization_membership()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.organization_membership().id().delete(row.id);
+    }
+    crate::social_roles::delete_character_social_roles(ctx, character.id);
+    if ctx
+        .db
+        .organization_presentation()
+        .character_id()
+        .find(character.id)
+        .is_some()
+    {
+        ctx.db
+            .organization_presentation()
+            .character_id()
+            .delete(character.id);
+    }
+
+    ctx.db.character_stats().character_id().delete(character.id);
+    ctx.db
+        .character_skills()
+        .character_id()
+        .delete(character.id);
+    ctx.db.character_time().character_id().delete(character.id);
+    ctx.db
+        .character_training_schedule()
+        .character_id()
+        .delete(character.id);
+    crate::reputation::delete_character_reputation(ctx, character.id);
+    crate::strategic::delete_activity_incident_entropy(ctx, character.id);
+    for injury in ctx
+        .db
+        .limb_injury()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.limb_injury().id().delete(injury.id);
+    }
+    for projectile in ctx
+        .db
+        .retained_projectile()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.retained_projectile().id().delete(projectile.id);
+    }
+    ctx.db.character_limbs().character_id().delete(character.id);
+    for row in ctx
+        .db
+        .character_equipped_item()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        unequip_wearable(ctx, row.inventory_item_id);
+    }
+    ctx.db
+        .character_attributes()
+        .character_id()
+        .delete(character.id);
+    ctx.db
+        .character_personality()
+        .character_id()
+        .delete(character.id);
+    ctx.db
+        .character_personality_scores()
+        .character_id()
+        .delete(character.id);
+    // Development is character-owned audit history in this pre-launch model;
+    // canonical deletion removes it so a reused development source cannot
+    // point at a character that no longer exists.
+    for event in ctx
+        .db
+        .personality_development_event()
+        .character_id()
+        .filter(character.id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db
+            .personality_development_event()
+            .source_id()
+            .delete(&event.source_id);
+    }
+    if ctx
+        .db
+        .npc_policy()
+        .character_id()
+        .find(character.id)
+        .is_some()
+    {
+        ctx.db.npc_policy().character_id().delete(character.id);
+    }
+    ctx.db
+        .character_capability()
+        .character_id()
+        .delete(character.id);
+    ctx.db
+        .character_condition()
+        .character_id()
+        .delete(character.id);
+    ctx.db.character_needs().character_id().delete(character.id);
+    ctx.db
+        .character_exposure()
+        .character_id()
+        .delete(character.id);
+    ctx.db
+        .character_strategic_condition()
+        .character_id()
+        .delete(character.id);
+    if ctx
+        .db
+        .character_illness_status()
+        .character_id()
+        .find(character.id)
+        .is_some()
+    {
+        ctx.db
+            .character_illness_status()
+            .character_id()
+            .delete(character.id);
+    }
+    if ctx
+        .db
+        .character_death()
+        .character_id()
+        .find(character.id)
+        .is_some()
+    {
+        ctx.db.character_death().character_id().delete(character.id);
+    }
+    ctx.db.character().delete(character);
+    Ok(())
+}
+
 /// Create a new character with generated name and add initial items to it
 #[reducer]
 pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
     insert_new_character(ctx, "Pending generated name".into(), id, false)?;
     assign_generated_historical_name_for_age(
         ctx,
-        CharacterId::from(id),
+        CharacterId::new(id),
         NameStableSeed::new(id),
         StrategicMinute::new(0),
         None,
@@ -984,11 +1303,10 @@ pub fn create_starting_character(
     age_tier: StartingAgeTier,
     slot: u8,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    crate::strategic::require_strategic_gateway(ctx)?;
     let spec =
         adventuresim_core::starting_character::generate(generator_version, &seed, age_tier, slot)
-            .map_err(|error| error.to_string())?;
+            .map_err(str::to_owned)?;
     let request_key = format!("{generator_version}:{seed}:{}:{slot}", age_tier.as_str());
     if let Some(claim) = ctx
         .db
@@ -1041,8 +1359,7 @@ pub fn create_starting_character(
 /// build remains stable in every session and in tactical fixtures.
 #[reducer]
 pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Result<(), String> {
-    crate::strategic::require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
+    crate::strategic::require_strategic_gateway(ctx)?;
     let spec = adventuresim_core::starting_character::default_character(&owner_key);
     let version = adventuresim_core::starting_character::DEFAULT_CHARACTER_VERSION;
     let request_key = format!("default:{version}:{owner_key}");
@@ -1157,7 +1474,7 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
     )?;
     let mut bandaged = crate::surgery::injury_for(
         ctx,
-        (DAMAGED_CHARACTER_ID).into(),
+        DAMAGED_CHARACTER_ID,
         adventuresim_core::physiology::BodyRegion::RightArm,
     );
     bandaged.bandaged = true;
@@ -1174,7 +1491,7 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
     )?;
     let mut splinted = crate::surgery::injury_for(
         ctx,
-        (DAMAGED_CHARACTER_ID).into(),
+        DAMAGED_CHARACTER_ID,
         adventuresim_core::physiology::BodyRegion::LeftLeg,
     );
     splinted.splint_owner_id = Some(DAMAGED_CHARACTER_ID);
@@ -1188,19 +1505,9 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
         Some(crate::surgery::ProjectileKind::Ball),
     )?;
 
-    crate::add_inventory_item(
-        ctx,
-        DAMAGED_CHARACTER_ID.into(),
-        &"bandage".into(),
-        8.into(),
-    );
-    crate::add_inventory_item(
-        ctx,
-        DAMAGED_CHARACTER_ID.into(),
-        &"surgery_kit".into(),
-        1.into(),
-    );
-    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID.into(), &"splint".into(), 3.into());
+    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "bandage", 8);
+    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "surgery_kit", 1);
+    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "splint", 3);
 
     // A wounded primary surgeon, a less-skilled backup, and a second critical
     // patient make clock alignment and parallel triage visible in one fixture.
@@ -1235,11 +1542,11 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
             .ok_or("Surgery demo character is missing time")?;
         time.minutes = fixture_now.saturating_sub_minutes(lag);
         ctx.db.character_time().character_id().update(time);
-        crate::capability::refresh_character_capability(ctx, (id).into())?;
+        crate::capability::refresh_character_capability(ctx, id)?;
     }
-    crate::add_inventory_item(ctx, 9_000_001.into(), &"bandage".into(), 6.into());
-    crate::add_inventory_item(ctx, 9_000_001.into(), &"surgery_kit".into(), 1.into());
-    crate::add_inventory_item(ctx, 9_000_001.into(), &"splint".into(), 2.into());
+    crate::add_inventory_item(ctx, 9_000_001, "bandage", 6);
+    crate::add_inventory_item(ctx, 9_000_001, "surgery_kit", 1);
+    crate::add_inventory_item(ctx, 9_000_001, "splint", 2);
     crate::surgery::commit_hit_injury(
         ctx,
         9_000_002,
@@ -1271,7 +1578,7 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
         [0.0, 0.14, 0.0, 0.0, 0.0],
     ];
     damaged_equipment.extend(
-        equipped_wearable_ids(ctx, (DAMAGED_CHARACTER_ID).into())
+        equipped_wearable_ids(ctx, DAMAGED_CHARACTER_ID)
             .into_iter()
             // Tactical carry provisioning also equips non-durable belts and
             // sheaths. The strategic damage fixture may only damage items
@@ -1302,12 +1609,10 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
             .character_id()
             .filter(DAMAGED_CHARACTER_ID)
             .find(|inventory| inventory.item_id == item_id)
-            .map(|inventory| InventoryItemId::new(inventory.id))
-            .or_else(|| {
-                add_inventory_item(ctx, DAMAGED_CHARACTER_ID.into(), &item_id.into(), 1.into())
-            })
+            .map(|inventory| inventory.id)
+            .or_else(|| add_inventory_item(ctx, DAMAGED_CHARACTER_ID, item_id, 1))
             .ok_or_else(|| format!("Failed to add {item_id} to damaged demo inventory"))?;
-        set_demo_item_damage(ctx, inventory_item_id.get(), bins)?;
+        set_demo_item_damage(ctx, inventory_item_id, bins)?;
     }
 
     Ok(())
@@ -1365,11 +1670,8 @@ pub(crate) fn seed_religion_scholar_character(ctx: &ReducerContext) -> Result<()
         .character_id()
         .update(condition);
 
-    crate::capability::refresh_character_capability(ctx, (RELIGION_SCHOLAR_CHARACTER_ID).into())?;
-    crate::condition::refresh_character_strategic_condition(
-        ctx,
-        (RELIGION_SCHOLAR_CHARACTER_ID).into(),
-    )?;
+    crate::capability::refresh_character_capability(ctx, RELIGION_SCHOLAR_CHARACTER_ID)?;
+    crate::condition::refresh_character_strategic_condition(ctx, RELIGION_SCHOLAR_CHARACTER_ID)?;
     Ok(())
 }
 
@@ -1426,7 +1728,7 @@ pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), 
     {
         return Err("Herbalism and foraging demo no longer has its isolated solo party".into());
     }
-    crate::investigation::set_character_case_site(ctx, (HERBALISM_DEMO_CHARACTER_ID).into(), None)?;
+    crate::investigation::set_character_case_site(ctx, HERBALISM_DEMO_CHARACTER_ID, None)?;
     character.current_settlement_id = Some(HERBALISM_DEMO_SETTLEMENT_ID.into());
     ctx.db.character().id().update(character);
     party.current_settlement_id = Some(HERBALISM_DEMO_SETTLEMENT_ID.into());
@@ -1472,20 +1774,12 @@ pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), 
             .next()
             .is_none()
         {
-            add_inventory_item(
-                ctx,
-                HERBALISM_DEMO_CHARACTER_ID.into(),
-                &item_id.into(),
-                quantity.into(),
-            )
-            .ok_or_else(|| format!("Failed to add {item_id} to Herbalism and Foraging Demo"))?;
+            add_inventory_item(ctx, HERBALISM_DEMO_CHARACTER_ID, item_id, quantity)
+                .ok_or_else(|| format!("Failed to add {item_id} to Herbalism and Foraging Demo"))?;
         }
     }
-    crate::capability::refresh_character_capability(ctx, (HERBALISM_DEMO_CHARACTER_ID).into())?;
-    crate::condition::refresh_character_strategic_condition(
-        ctx,
-        (HERBALISM_DEMO_CHARACTER_ID).into(),
-    )?;
+    crate::capability::refresh_character_capability(ctx, HERBALISM_DEMO_CHARACTER_ID)?;
+    crate::condition::refresh_character_strategic_condition(ctx, HERBALISM_DEMO_CHARACTER_ID)?;
     Ok(())
 }
 
@@ -1530,7 +1824,7 @@ pub(crate) fn seed_bestiary_scholar_character(ctx: &ReducerContext) -> Result<()
         wildmen: 4_000.0,
     };
     ctx.db.character_skills().character_id().update(skills);
-    crate::capability::refresh_character_capability(ctx, (BESTIARY_SCHOLAR_CHARACTER_ID).into())?;
+    crate::capability::refresh_character_capability(ctx, BESTIARY_SCHOLAR_CHARACTER_ID)?;
     Ok(())
 }
 
@@ -1842,36 +2136,26 @@ pub(crate) fn set_character_languages_for_settlement(
 
 pub(crate) fn shared_language_coefficient(
     ctx: &ReducerContext,
-    left_id: CharacterId,
-    right_id: CharacterId,
+    left_id: u64,
+    right_id: u64,
 ) -> f32 {
-    let Some(left) = ctx
-        .db
-        .character_skills()
-        .character_id()
-        .find(u64::from(left_id))
-    else {
+    let Some(left) = ctx.db.character_skills().character_id().find(left_id) else {
         return 0.0;
     };
-    let Some(right) = ctx
-        .db
-        .character_skills()
-        .character_id()
-        .find(u64::from(right_id))
-    else {
+    let Some(right) = ctx.db.character_skills().character_id().find(right_id) else {
         return 0.0;
     };
     let left_cap = ctx
         .db
         .character_attributes()
         .character_id()
-        .find(u64::from(left_id))
+        .find(left_id)
         .map_or(0.0, |attributes| attributes.instinct * 1_000.0);
     let right_cap = ctx
         .db
         .character_attributes()
         .character_id()
-        .find(u64::from(right_id))
+        .find(right_id)
         .map_or(0.0, |attributes| attributes.instinct * 1_000.0);
     adventuresim_world_schema::best_common_oral_language_capped(
         left.oral_languages,
@@ -2161,7 +2445,7 @@ pub(crate) fn insert_character_with_origin(
             |s| s.smithing,
         ),
     });
-    crate::time::initialize_character_time(ctx, (id).into())?;
+    crate::time::initialize_character_time(ctx, id)?;
     if let Some(minutes) = options.initial_time_minute {
         let mut time = ctx
             .db
@@ -2183,9 +2467,9 @@ pub(crate) fn insert_character_with_origin(
         stomach_health: 1.0,
     });
     crate::surgery::initialize_character_injuries(ctx, character.id);
-    crate::condition::initialize_character_condition(ctx, character.id.into());
+    crate::condition::initialize_character_condition(ctx, character.id)?;
     if let Some(starting) = starting {
-        let mut personality = crate::personality::CharacterPersonality::neutral((id).into());
+        let mut personality = crate::personality::CharacterPersonality::neutral(id);
         for personality_trait in &starting.personality.traits {
             use crate::personality::{
                 Conscience, Conviction, Courtship, Drive, Hygiene, Mirth, Nerve, Outlook,
@@ -2243,16 +2527,18 @@ pub(crate) fn insert_character_with_origin(
         // Starting-character preview traits become score endpoints; the
         // gateway row is only their derived visible projection.
         crate::personality::initialize_personality_from_visible(ctx, personality);
-    } else if let Some(personality) = options.npc_personality {
-        crate::personality::initialize_personality_from_visible(ctx, personality.clone());
-    } else if npc {
-        crate::personality::initialize_npc_personality(ctx, id, options.stable_seed);
     } else {
-        crate::personality::initialize_personality(ctx, id, false);
+        if let Some(personality) = options.npc_personality {
+            crate::personality::initialize_personality_from_visible(ctx, personality.clone());
+        } else if npc {
+            crate::personality::initialize_npc_personality(ctx, id, options.stable_seed);
+        } else {
+            crate::personality::initialize_personality(ctx, id, false);
+        }
     }
 
     if !temporary {
-        assign_character_name_identity(ctx, CharacterId::from(character.id), initial_name_identity)
+        assign_character_name_identity(ctx, CharacterId::new(character.id), initial_name_identity)
             .map_err(|error| error.to_string())?;
     }
 
@@ -2261,26 +2547,25 @@ pub(crate) fn insert_character_with_origin(
     if !newborn {
         crate::item::credit_personal_currency(
             ctx,
-            (character.id).into(),
+            character.id,
             &start_settlement.id,
             starting.map_or(100, |s| s.currency),
         )?;
     }
     if let Some(spec) = starting {
         for item in &spec.inventory {
-            let id = (&item.item_id).into();
             if let Some(slot) = item.equipped {
                 add_and_equip_starting_item(ctx, character.id, &item.item_id, slot)?;
                 if item.quantity > 1 {
-                    add_inventory_item(ctx, character.id.into(), &id, (item.quantity - 1).into());
+                    add_inventory_item(ctx, character.id, &item.item_id, item.quantity - 1);
                 }
             } else {
-                add_inventory_item(ctx, character.id.into(), &id, item.quantity.into());
+                add_inventory_item(ctx, character.id, &item.item_id, item.quantity);
             }
         }
     } else if !newborn {
-        add_inventory_item(ctx, character.id.into(), &"torch".into(), 1.into());
-        add_inventory_item(ctx, character.id.into(), &"bandage".into(), 3.into());
+        add_inventory_item(ctx, character.id, "torch", 1);
+        add_inventory_item(ctx, character.id, "bandage", 3);
         add_and_equip_basic_clothing(ctx, character.id)?;
         for (item, slot) in [
             ("buckler", LoadoutSlot::LeftHand),
@@ -2298,7 +2583,7 @@ pub(crate) fn insert_character_with_origin(
     }
 
     if options.create_solo_party {
-        crate::strategic::create_solo_party_for_character(ctx, (character.id).into())?;
+        crate::strategic::create_solo_party_for_character(ctx, character.id)?;
     }
     if let Some(starting_organization) = starting.and_then(|spec| spec.organization.as_ref()) {
         let definition =
@@ -2343,7 +2628,7 @@ pub(crate) fn insert_character_with_origin(
             &starting_organization.role_id,
         )?;
     }
-    crate::capability::refresh_character_capability(ctx, (character.id).into())?;
+    crate::capability::refresh_character_capability(ctx, character.id)?;
     if let Some(religion_id) = starting.and_then(|spec| spec.religion_id.as_ref()) {
         let mut condition = ctx
             .db
@@ -2357,8 +2642,8 @@ pub(crate) fn insert_character_with_origin(
             .character_id()
             .update(condition);
     }
-    crate::condition::refresh_character_strategic_condition(ctx, (character.id).into())?;
-    crate::equipment_law::enforce_equipment_compliance(ctx, (character.id).into())?;
+    crate::condition::refresh_character_strategic_condition(ctx, character.id)?;
+    crate::equipment_law::enforce_equipment_compliance(ctx, character.id)?;
     validate_full_character_components(ctx, character.id)?;
 
     Ok(())
@@ -2370,7 +2655,7 @@ pub(crate) fn validate_full_character_components(
     ctx: &ReducerContext,
     character_id: u64,
 ) -> Result<(), String> {
-    let mut missing = missing_name_identity(ctx, CharacterId::from(character_id));
+    let mut missing = missing_name_identity(ctx, CharacterId::new(character_id));
     if ctx.db.character().id().find(character_id).is_none() {
         missing.push("character");
     }
@@ -2508,12 +2793,9 @@ pub fn unequip_item(
     character_id: u64,
     inventory_item_id: u64,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::strategic::require_character_no_unresolved_encounter(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-    require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+    require_living_character(ctx, character_id)?;
     ctx
         .db
         .inventory_item()
@@ -2534,7 +2816,6 @@ pub fn unequip_item(
     require_no_equipped_children(ctx, inventory_item_id)?;
     unequip_wearable(ctx, inventory_item_id);
     refresh_equipment_dependents(ctx, character_id)
-        .map_err(|error: crate::condition::StrategicConditionError| error.to_string())
 }
 
 #[reducer]
@@ -2544,8 +2825,7 @@ pub fn equip_item_at_placement(
     inventory_item_id: u64,
     placement_index: u16,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     equip_equipment_internal(
         ctx,
         character_id,
@@ -2565,8 +2845,7 @@ pub fn attach_item_at_placement(
     placement_index: u16,
     targets: Vec<EquipmentAttachmentTargetSelection>,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     equip_equipment_internal(
         ctx,
         character_id,
@@ -2589,8 +2868,7 @@ pub fn replace_item_at_placement(
     placement_index: u16,
     targets: Vec<EquipmentAttachmentTargetSelection>,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
     equip_equipment_internal(
         ctx,
         character_id,
@@ -2611,8 +2889,8 @@ fn equip_equipment_internal(
     enforce_law: bool,
     replace_occupied: bool,
 ) -> Result<(), String> {
-    crate::strategic::require_character_no_unresolved_encounter(ctx, (character_id).into())?;
-    require_living_character(ctx, (character_id).into())?;
+    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+    require_living_character(ctx, character_id)?;
     let inventory = ctx
         .db
         .inventory_item()
@@ -2641,7 +2919,7 @@ fn equip_equipment_internal(
             )
         })?;
     if definition.kind == crate::item::CatalogItemKind::Weapon {
-        match adventuresim_core::item_catalog::weapon_carry(&(&inventory.item_id).into()) {
+        match adventuresim_core::item_catalog::weapon_carry(&inventory.item_id) {
             Some(adventuresim_core::item_catalog::WeaponCarry::HandOnly)
                 if !hand_only_placement_is_held_root(placement) =>
             {
@@ -2661,7 +2939,7 @@ fn equip_equipment_internal(
         }
     }
     if enforce_law {
-        crate::equipment_law::require_item_legal(ctx, (character_id).into(), inventory_item_id)?;
+        crate::equipment_law::require_item_legal(ctx, character_id, inventory_item_id)?;
     }
     crate::inventory_container::detach_row_for_action(
         ctx,
@@ -2913,7 +3191,7 @@ fn provision_generated_weapon_carry(ctx: &ReducerContext, character_id: u64) -> 
         .character_id()
         .filter(character_id)
         .filter(|inventory| {
-            adventuresim_core::item_catalog::is_sheathable_weapon(&(&inventory.item_id).into())
+            adventuresim_core::item_catalog::is_sheathable_weapon(&inventory.item_id)
         })
         .collect();
     if sheathable.is_empty() {
@@ -2926,13 +3204,13 @@ fn provision_generated_weapon_carry(ctx: &ReducerContext, character_id: u64) -> 
         ));
     }
 
-    let belt = add_inventory_item(ctx, character_id.into(), &"leather_belt".into(), 1.into())
+    let belt = add_inventory_item(ctx, character_id, "leather_belt", 1)
         .ok_or("Could not add generated leather belt")?;
     let belt_placement = authored_placement_index(ctx, "leather_belt", "worn")?;
     equip_equipment_internal(
         ctx,
         character_id,
-        belt.get(),
+        belt,
         belt_placement,
         Vec::new(),
         false,
@@ -2950,29 +3228,24 @@ fn provision_generated_weapon_carry(ctx: &ReducerContext, character_id: u64) -> 
                 ));
             }
         };
-        let holder = add_inventory_item(ctx, character_id.into(), &(holder_id).into(), 1.into())
+        let holder = add_inventory_item(ctx, character_id, holder_id, 1)
             .ok_or_else(|| format!("Could not add generated {holder_id}"))?;
-        crate::weapon_instance::fit_personal_holder(
-            ctx,
-            character_id.into(),
-            holder,
-            weapon.id.into(),
-        )?;
+        crate::weapon_instance::fit_personal_holder(ctx, character_id, holder, weapon.id)?;
         let holder_placement = authored_placement_index(ctx, holder_id, hip)?;
         equip_equipment_internal(
             ctx,
             character_id,
-            holder.get(),
+            holder,
             holder_placement,
             vec![EquipmentAttachmentTargetSelection {
                 requirement_index: 0,
-                parent_inventory_item_id: belt.get(),
+                parent_inventory_item_id: belt,
                 attachment_point_id: hip.into(),
             }],
             false,
             false,
         )?;
-        place_unheld_weapon_in_sheath(ctx, character_id, weapon, holder.get())?;
+        place_unheld_weapon_in_sheath(ctx, character_id, weapon, holder)?;
     }
     Ok(())
 }
@@ -3090,7 +3363,7 @@ fn add_and_equip_starting_item(
     item_id: &str,
     slot: LoadoutSlot,
 ) -> Result<(), String> {
-    let id = add_inventory_item(ctx, character_id.into(), &item_id.into(), 1.into())
+    let id = add_inventory_item(ctx, character_id, item_id, 1)
         .ok_or_else(|| "Can't add item to inventory".to_string())?;
     // This helper is used only while materializing starter equipment. The
     // completed character runs the ordinary compliance pass once every starter
@@ -3099,7 +3372,7 @@ fn add_and_equip_starting_item(
     equip_equipment_internal(
         ctx,
         character_id,
-        id.get(),
+        id,
         starting_item_placement_index(ctx, item_id, slot)?,
         Vec::new(),
         false,
@@ -3131,7 +3404,7 @@ pub(crate) fn replace_development_loadout(
     character_id: u64,
     loadout: &[(&str, LoadoutSlot)],
 ) -> Result<(), String> {
-    for inventory_item_id in equipped_wearable_ids(ctx, (character_id).into()) {
+    for inventory_item_id in equipped_wearable_ids(ctx, character_id) {
         unequip_wearable(ctx, inventory_item_id);
     }
 
@@ -3142,15 +3415,15 @@ pub(crate) fn replace_development_loadout(
             .inventory_item()
             .character_and_item_id()
             .filter((character_id, *item_id))
-            .find(|item| !selected.contains(&InventoryItemId::new(item.id)))
-            .map(|item| InventoryItemId::new(item.id))
-            .or_else(|| add_inventory_item(ctx, character_id.into(), &(*item_id).into(), 1.into()))
+            .find(|item| !selected.contains(&item.id))
+            .map(|item| item.id)
+            .or_else(|| add_inventory_item(ctx, character_id, item_id, 1))
             .ok_or_else(|| format!("Failed to add {item_id} to development loadout"))?;
         selected.insert(inventory_item_id);
         equip_equipment_internal(
             ctx,
             character_id,
-            inventory_item_id.get(),
+            inventory_item_id,
             starting_item_placement_index(ctx, item_id, *destination)?,
             Vec::new(),
             false,
@@ -3527,7 +3800,7 @@ mod starting_character_boundary_tests {
             .next()
             .unwrap();
         let condition = insertion
-            .find("crate::condition::initialize_character_condition(ctx, character.id.into())")
+            .find("crate::condition::initialize_character_condition(ctx, character.id)?")
             .unwrap();
         let injuries = insertion
             .find("crate::surgery::initialize_character_injuries(ctx, character.id)")
@@ -3536,7 +3809,7 @@ mod starting_character_boundary_tests {
             .find("crate::item::credit_personal_currency(")
             .unwrap();
         let starter_inventory = insertion
-            .find("add_inventory_item(ctx, character.id.into(), &\"torch\".into(), 1.into())")
+            .find("add_inventory_item(ctx, character.id, \"torch\", 1)")
             .unwrap();
         let capability = insertion
             .find("crate::capability::refresh_character_capability(ctx, character.id)?")
@@ -3569,7 +3842,7 @@ mod starting_character_boundary_tests {
             .split("#[reducer]")
             .next()
             .unwrap();
-        assert!(reducer.split_whitespace().collect::<String>().contains("require_strategic_gateway(ctx).map_err(|error:crate::strategic::GatewayAdmissionError|error.to_string())?"));
+        assert!(reducer.contains("require_strategic_gateway(ctx)?"));
     }
 
     #[test]

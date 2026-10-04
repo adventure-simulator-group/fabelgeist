@@ -1,4 +1,4 @@
-//! The WGSL every solver kernel shares.
+﻿//! The WGSL every solver kernel shares.
 //!
 //! A constraint kernel is mostly its own geometry -- what `C` is and what its
 //! gradient is. Everything around that is the same for all of them, so it
@@ -10,7 +10,6 @@
 ///
 /// An inverse mass of zero pins the particle: every correction is scaled by
 /// it, so a pinned particle simply never moves, with no special case anywhere.
-use fabelgeist_gpu::prelude::ShaderSource;
 pub const PARTICLES: &str = r#"
 // xyz = position, w = inverse mass
 @group(0) @binding(0) var<storage, read_write> positions: array<vec4<f32>>;
@@ -297,6 +296,6 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
 ///
 /// The body declares its own bindings from 1 upwards -- binding 0 is always
 /// the particle buffer -- and its own `main`.
-pub fn constraint_kernel(body: &str) -> ShaderSource {
-    ShaderSource::from(format!("{PARTICLES}\n{SOLVE}\n{PARAMS}\n{body}"))
+pub fn constraint_kernel(body: &str) -> String {
+    format!("{PARTICLES}\n{SOLVE}\n{PARAMS}\n{body}")
 }

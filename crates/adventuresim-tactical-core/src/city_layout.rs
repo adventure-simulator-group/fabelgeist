@@ -22,7 +22,7 @@ mod compound;
 mod graph;
 pub use compiled::{
     ChurchSitingIssue, CityBusinessSite, CityCompileError, CitySceneLayout, CompiledCityLayout,
-    CompoundIssue, GardenClearanceError,
+    CompoundIssue,
 };
 pub(crate) use compiled::{validate_scene_compound, validate_scene_gardens};
 pub use compound::{
@@ -32,7 +32,7 @@ pub use compound::{
 };
 pub mod gardens;
 pub use gardens::{
-    CityGarden, GardenIssue, GardenPlantId, GardenPlantPlacement, GardenPlantScale, GardenSpecimen,
+    CityGarden, GardenPlantId, GardenPlantPlacement, GardenPlantScale, GardenSpecimen,
 };
 mod houses;
 mod subdivision;
@@ -40,7 +40,7 @@ use graph::{BlockId, CityBlock, StreetClass, StreetGraph};
 mod plots;
 #[cfg(test)]
 use plots::lots_overlap;
-use plots::remove_overlapping_candidates;
+mod residences;
 mod services;
 mod site;
 pub use site::CitySite;
@@ -54,15 +54,13 @@ pub use surfaces::{
 };
 use surfaces::{city_street_patches, city_yard_patches};
 
-const NOMINAL_BLOCK_METRES: f32 = 72.0;
 const CITY_RADIUS_X_METRES: f32 = 1_300.0;
 const CITY_RADIUS_Y_METRES: f32 = 1_260.0;
-const ORDINARY_STREET_HALF_WIDTH_METRES: f32 = 3.5;
-const SECONDARY_STREET_HALF_WIDTH_METRES: f32 = 4.5;
-const PRIMARY_STREET_HALF_WIDTH_METRES: f32 = 6.0;
-const FRONTAGE_CORNER_CLEARANCE_METRES: f32 = 7.0;
+const ORDINARY_STREET_HALF_WIDTH_METRES: f32 = 2.0;
+const SECONDARY_STREET_HALF_WIDTH_METRES: f32 = 3.0;
+const PRIMARY_STREET_HALF_WIDTH_METRES: f32 = 4.0;
+const FRONTAGE_CORNER_CLEARANCE_METRES: f32 = 4.0;
 const PARTY_WALL_CLEARANCE_METRES: f32 = 0.12;
-const REAR_COURT_PRIORITY_PENALTY: u32 = 7;
 pub(crate) const SPATIAL_BUCKET_METRES: f32 = 32.0;
 pub const MAX_CITY_LOTS: usize = 16_384;
 
@@ -148,34 +146,37 @@ impl CitySite {
             &candidates,
             &demand.buildings,
         );
-        let mut candidates =
-            remove_overlapping_candidates(service_lots.into_iter().chain(candidates).collect());
+        let mut candidates = residences::pack(seed, &graph.blocks, extent, service_lots);
+        let development_order = graph.development_order();
         candidates.sort_by_key(|candidate| {
-            let radial_band = (candidate.lot.centre_metres.length() / NOMINAL_BLOCK_METRES) as u32
-                + u32::from(candidate.rear_court) * REAR_COURT_PRIORITY_PENALTY;
             (
                 candidate.lot.service.is_none(),
-                radial_band,
-                candidate.block_key,
+                candidate.rear_court,
+                development_order[&candidate.block_key],
                 candidate.selection_key,
             )
         });
 
         let target_population = resident_population;
         let mut represented_population = 0_u32;
+        let mut market = adventuresim_core::settlement_property::HousingMarketReserve::default();
         let mut selected = Vec::new();
         for candidate in candidates.into_iter().take(MAX_CITY_LOTS) {
-            if candidate.lot.service.is_none() && represented_population >= target_population {
+            if candidate.lot.service.is_none()
+                && represented_population >= target_population
+                && market.complete()
+            {
                 break;
             }
             let mut lot = candidate.lot;
             lot.id = selected.len() as u64 + 1;
-            represented_population =
-                represented_population.saturating_add(if lot.service.is_none() {
+            represented_population = represented_population.saturating_add(
+                if lot.service.is_none() && !market.reserve(lot.house_class.housing_tier()) {
                     lot.house_class.resident_capacity()
                 } else {
                     0
-                });
+                },
+            );
             selected.push(CandidateLot { lot, ..candidate });
         }
         let developed_blocks = selected

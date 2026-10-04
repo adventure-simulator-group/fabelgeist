@@ -293,7 +293,7 @@ async fn proposed_allocation_is_read_only_and_uses_current_server_eligibility() 
         assert_eq!(status, StatusCode::OK, "{preview}");
         let execution = ValidatedSchedule::try_from(proposed)
             .unwrap()
-            .effective_at(policy, adventuresim_core::identity::CharacterId::from(7));
+            .effective_at(policy, 7);
         assert_eq!(
             preview["effective"],
             serde_json::to_value(execution).unwrap()

@@ -6,7 +6,7 @@ pub(super) fn select_organization(
     seed: &str,
     age_tier: StartingAgeTier,
     slot: u8,
-) -> Result<&'static crate::organization::OrganizationDefinition, StartingCharacterError> {
+) -> Result<&'static crate::organization::OrganizationDefinition, &'static str> {
     let eligible = catalog()
         .organizations
         .iter()
@@ -18,7 +18,7 @@ pub(super) fn select_organization(
         })
         .collect::<Vec<_>>();
     if eligible.is_empty() {
-        return Err(StartingCharacterError::NoEligibleOrganization);
+        return Err("profession has no eligible starting organization");
     }
     Ok(eligible[tier_random("organization", seed, age_tier, slot).index(eligible.len())])
 }

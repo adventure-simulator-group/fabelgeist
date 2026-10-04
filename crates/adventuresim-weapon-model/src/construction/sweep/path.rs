@@ -1,6 +1,5 @@
 //! Authored path stations and transported section frames.
 use super::*;
-use crate::ConstructionError;
 
 const TWIST_CORNER_TRAVEL_METRES: f64 = 0.0006;
 const MAXIMUM_RING_TWIST_RADIANS: f64 = PI / 12.0;
@@ -16,7 +15,7 @@ impl SampledPath {
         section_vertices: usize,
         detail: Detail,
         closed: bool,
-    ) -> Result<Self, ConstructionError> {
+    ) -> Result<Self, String> {
         let room = if sweep.fit_bends {
             bend_scales(input, sweep.width.hypot(sweep.depth) / 2.0, closed)
         } else {
@@ -26,7 +25,7 @@ impl SampledPath {
                 .unwrap_or_else(|| vec![1.0; input.len()])
         };
         if room.len() != input.len() {
-            return Err(ConstructionError::SectionScalesMatchMemberStations);
+            return Err("section scales must match member stations".into());
         }
         let chord = detail.error(0.025).min(
             sweep.width.min(sweep.depth)
@@ -80,7 +79,7 @@ pub(super) struct TransportFrames {
     pub(super) normals: Vec<Point>,
 }
 impl TransportFrames {
-    pub(super) fn along(points: &[Point], closed: bool) -> Result<Self, ConstructionError> {
+    pub(super) fn along(points: &[Point], closed: bool) -> Result<Self, String> {
         let n = points.len();
         let tangents: Vec<_> = (0..n)
             .map(|row| {
@@ -113,7 +112,7 @@ impl TransportFrames {
                 let sine = magnitude(axis);
                 let cosine = dot(tangents[row - 1], tangent);
                 if cosine < -0.99 {
-                    return Err(ConstructionError::MemberCenterlineReversesDirection);
+                    return Err("member centerline reverses direction".into());
                 }
                 frames.push(if sine < 1e-8 {
                     frames[row - 1]

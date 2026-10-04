@@ -8,7 +8,6 @@
 use anyhow::anyhow;
 use fabelgeist_bvh::gpu::{BvhKernels, GpuBvh, TraversalConfig, traversal_source};
 use fabelgeist_compute::prelude::*;
-use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 
@@ -77,28 +76,24 @@ impl MeshCollider {
         let flat_triangles: Vec<u32> = triangles.iter().flatten().copied().collect();
 
         let mut collider = Self {
-            positions: Buffer::from_upload(
+            positions: Buffer::from_slice(
                 context,
-                BufferUpload::from_elements(&packed_positions),
-                storage
-                    .clone()
-                    .with_label(("mesh collider positions").into()),
+                &packed_positions,
+                storage.clone().with_label("mesh collider positions"),
             )?,
-            triangles: Buffer::from_upload(
+            triangles: Buffer::from_slice(
                 context,
-                BufferUpload::from_elements(&flat_triangles),
-                storage
-                    .clone()
-                    .with_label(("mesh collider triangles").into()),
+                &flat_triangles,
+                storage.clone().with_label("mesh collider triangles"),
             )?,
             bounds: Buffer::new(
                 context,
-                (triangle_count as u64 * 32).into(),
-                storage.with_label(("mesh collider triangle bounds").into()),
+                triangle_count as u64 * 32,
+                storage.with_label("mesh collider triangle bounds"),
             )?,
             bvh: GpuBvh::new(context, bvh_kernels, triangle_count)?,
             surface,
-            triangle_bounds: cache.get(context, &ShaderSource::from(wgsl::TRIANGLE_BOUNDS))?,
+            triangle_bounds: cache.get(context, wgsl::TRIANGLE_BOUNDS)?,
             vertex_count: positions.len() as u32,
             triangle_count,
         };
@@ -125,29 +120,22 @@ impl MeshCollider {
                 positions.len()
             ));
         }
-        self.positions.write(
-            context,
-            BufferUpload::from_elements(&pack_positions(positions)),
-        );
+        self.positions.write(context, &pack_positions(positions))?;
         Ok(())
     }
 
     fn record_bounds(&self, batch: &mut KernelBatch) -> Result<()> {
         let mut parameters = PassParameters::new();
-        parameters.insert("mesh_positions".into(), (self.positions.clone()).into());
-        parameters.insert("mesh_triangles".into(), (self.triangles.clone()).into());
-        parameters.insert("primitive_bounds".into(), (self.bounds.clone()).into());
-        parameters.insert("count".into(), (self.triangle_count).into());
+        parameters.insert("mesh_positions", self.positions.clone());
+        parameters.insert("mesh_triangles", self.triangles.clone());
+        parameters.insert("primitive_bounds", self.bounds.clone());
+        parameters.insert("count", self.triangle_count);
         // The bounds carry the collision shell, so a query for a point inside
         // the shell can use the point's own box rather than an expanded one.
-        parameters.insert("margin".into(), (self.surface.thickness).into());
-        parameters.insert("pad0".into(), (0u32).into());
-        parameters.insert("pad1".into(), (0u32).into());
-        batch.dispatch_items(
-            &self.triangle_bounds,
-            &parameters,
-            (self.triangle_count).into(),
-        )?;
+        parameters.insert("margin", self.surface.thickness);
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        batch.dispatch_items(&self.triangle_bounds, &parameters, self.triangle_count)?;
         Ok(())
     }
 
@@ -171,21 +159,21 @@ impl MeshCollider {
     }
 
     pub fn rebuild(&mut self, context: &WgpuContext) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, ("mesh collider rebuild").into());
+        let mut batch = KernelBatch::labelled(context, "mesh collider rebuild");
         self.record_rebuild(&mut batch)?;
         batch.submit();
         Ok(())
     }
 
     pub fn refit(&mut self, context: &WgpuContext) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, ("mesh collider refit").into());
+        let mut batch = KernelBatch::labelled(context, "mesh collider refit");
         self.record_refit(&mut batch)?;
         batch.submit();
         Ok(())
     }
 
     /// The WGSL for the resolve kernel, with this mesh's traversal pasted in.
-    pub(crate) fn kernel_source() -> ShaderSource {
+    pub(crate) fn kernel_source() -> String {
         let config = TraversalConfig {
             callback: "bvh_hit".into(),
             ..Default::default()
@@ -194,8 +182,8 @@ impl MeshCollider {
     }
 
     pub(crate) fn bind(&self, parameters: &mut PassParameters) {
-        parameters.insert("mesh_positions".into(), (self.positions.clone()).into());
-        parameters.insert("mesh_triangles".into(), (self.triangles.clone()).into());
+        parameters.insert("mesh_positions", self.positions.clone());
+        parameters.insert("mesh_triangles", self.triangles.clone());
         self.bvh.bind(parameters, &TraversalConfig::default());
     }
 }

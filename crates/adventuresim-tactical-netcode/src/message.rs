@@ -35,6 +35,7 @@ pub struct ReconnectCapability {
 /// Vista samples intentionally bypass ordinary ECS component replication.
 #[derive(Debug, Clone, Event, Serialize, Deserialize)]
 pub struct SceneVistaBundle {
+    pub properties: Option<adventuresim_core::settlement_property::GeneratedHomeCatalog>,
     pub scene_digest: String,
     /// Half-width and half-depth of the authoritative playable heightfield.
     /// Presentation-only vista rings clip exactly to this rectangle.
@@ -69,7 +70,7 @@ pub struct PlayerInputRequest {
     /// rejects older samples so reordering on the unreliable channel cannot
     /// restore stale movement or look intent. It is also the reconciliation
     /// acknowledgement key for future client rollback.
-    pub simulation_tick: InputTick,
+    pub simulation_tick: u32,
     pub movement: Option<Vec2>,
     pub look: Vec2,
     pub jump: JumpCommand,
@@ -117,8 +118,8 @@ impl EquipmentHand {
 pub struct EquipmentActionRequest {
     #[entities]
     pub actor: Entity,
-    pub sequence: EquipmentSequence,
-    pub expected_revision: EquipmentRevision,
+    pub sequence: u32,
+    pub expected_revision: u32,
     pub hand: EquipmentHand,
     #[entities]
     pub expected_hand_item: Option<Entity>,
@@ -159,7 +160,7 @@ pub enum EquipmentAction {
 /// the release packet delays a jump rather than losing it.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Serialize, Deserialize, Reflect)]
 pub struct JumpCommand {
-    pub sequence: JumpSequence,
+    pub sequence: u32,
     /// Camera-relative quickstep direction selected on this edge. `None`
     /// requests an ordinary jump.
     pub quickstep: Option<Vec2>,
@@ -167,7 +168,7 @@ pub struct JumpCommand {
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, Reflect)]
 pub struct PostureCommand {
-    pub sequence: PostureSequence,
+    pub sequence: u32,
     pub action: Option<PostureActionRequest>,
 }
 
@@ -253,8 +254,8 @@ mod equipment_action_mapping_tests {
 
         let mut request = EquipmentActionRequest {
             actor,
-            sequence: 1.into(),
-            expected_revision: 0.into(),
+            sequence: 1,
+            expected_revision: 0,
             hand: EquipmentHand::Left,
             expected_hand_item: Some(hand_item),
             action: EquipmentAction::Slot {
@@ -282,8 +283,8 @@ mod equipment_action_mapping_tests {
         let mapped_item = Entity::from_bits(14);
         let mut request = EquipmentActionRequest {
             actor: Entity::from_bits(1),
-            sequence: 1.into(),
-            expected_revision: 0.into(),
+            sequence: 1,
+            expected_revision: 0,
             hand: EquipmentHand::Left,
             expected_hand_item: None,
             action: EquipmentAction::Pickup { item },
@@ -303,8 +304,8 @@ mod equipment_action_mapping_tests {
         let mapped_door = Entity::from_bits(15);
         let mut request = EquipmentActionRequest {
             actor: Entity::from_bits(1),
-            sequence: 1.into(),
-            expected_revision: 0.into(),
+            sequence: 1,
+            expected_revision: 0,
             hand: EquipmentHand::Right,
             expected_hand_item: None,
             action: EquipmentAction::OpenDoor { door },
@@ -324,8 +325,8 @@ mod equipment_action_mapping_tests {
         let mapped_window = Entity::from_bits(16);
         let mut request = EquipmentActionRequest {
             actor: Entity::from_bits(1),
-            sequence: 1.into(),
-            expected_revision: 0.into(),
+            sequence: 1,
+            expected_revision: 0,
             hand: EquipmentHand::Left,
             expected_hand_item: None,
             action: EquipmentAction::ToggleWindow { window },

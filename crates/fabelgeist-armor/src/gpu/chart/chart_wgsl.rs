@@ -4,7 +4,6 @@
 use super::super::part::SHELL_MIRRORED;
 use super::super::wgsl;
 use super::{BOUNDARY_APEX, BOUNDARY_CAPPED, TIP_RINGS};
-use fabelgeist_gpu::prelude::ShaderSource;
 
 /// The chart kernel's bindings and parameters.
 const BINDINGS: &str = r#"
@@ -46,6 +45,12 @@ struct Params {
     pad5: f32,
 };
 @group(0) @binding(7) var<uniform> params: Params;
+@group(0) @binding(8) var<storage, read_write> status: array<atomic<u32>>;
+
+fn invalid_chart_point() -> vec3<f32> {
+    atomicOr(&status[0], 1u);
+    return vec3<f32>(0.0);
+}
 "#;
 
 /// Placing a chart's local points through its reflection and frame.
@@ -133,8 +138,8 @@ fn flute_relief(u: f32, v: f32) -> f32 {
 "#;
 
 /// The chart kernel: every carrier point of one chart, evaluated by `shape`.
-pub(super) fn source(shape: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+pub(super) fn source(shape: &str) -> String {
+    format!(
         r#"
 {BINDINGS}{math}
 {frame}
@@ -217,5 +222,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         apex = BOUNDARY_APEX,
         rings = TIP_RINGS,
         mirrored_word = SHELL_MIRRORED,
-    ))
+    )
 }

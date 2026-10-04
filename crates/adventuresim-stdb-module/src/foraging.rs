@@ -2,15 +2,14 @@
 
 use adventuresim_core::{
     foraging::{
-        self, ForageAttemptGeneration, ForageEnvironment, ForageExposure, ForageLegality,
-        ForagePublicLegalOutcome, ForageStealthOutcome, ILLEGAL_FORAGE_INFAMY, LocalTerrainMixture,
+        self, ForageEnvironment, ForageLegality, ILLEGAL_FORAGE_INFAMY, LocalTerrainMixture,
     },
     physical_object::CustodyCharacterId,
     prelude::*,
     strategic_action::{
         ActionCoordinates, ActionDefinitionId, ActionEffect, ActionRequestId, ActionTarget,
         AuthoritativeSnapshot, AuthorityBinding, CommitAttempt, PlanProvenance, RequestedDuration,
-        SnapshotDigest,
+        SnapshotDigest, SnapshotRevision,
     },
     strategic_place::StrategicPlaceId,
 };
@@ -18,11 +17,8 @@ use adventuresim_world_schema::{calendar::StrategicMinute, coordinates::Wgs84Coo
 use sha2::{Digest, Sha256};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
-mod generation;
 mod timing;
 
-pub use generation::ForageAttemptState;
-use generation::{forage_attempt_state, forage_attempt_state__view};
 use timing::{character_minute, forage_terminal_minute};
 
 use crate::{
@@ -103,6 +99,17 @@ pub struct ForageAttemptAuthority {
     pub output_material_revisions: Vec<u64>,
 }
 
+/// Per-actor cursor used by the gateway to mint the next independent attempt.
+#[derive(Clone, Debug)]
+#[table(accessor = forage_attempt_state)]
+pub struct ForageAttemptState {
+    #[primary_key]
+    pub character_id: u64,
+    #[index(btree)]
+    pub gateway_bucket: u8,
+    pub next_generation: u64,
+}
+
 /// Private source provenance for every concrete harvested unit.
 #[derive(Clone, Debug)]
 #[table(accessor = forage_harvest_material)]
@@ -143,6 +150,16 @@ fn view_is_gateway(ctx: &ViewContext) -> bool {
         .id()
         .find(0)
         .is_some_and(|row| row.identity == ctx.sender())
+}
+
+fn safe_legal_outcome(illegal: bool, stealth_succeeded: Option<bool>) -> &'static str {
+    if !illegal {
+        "legal"
+    } else if stealth_succeeded == Some(true) {
+        "unnoticed"
+    } else {
+        "noticed"
+    }
 }
 
 fn valid_request_id(request_id: &str) -> bool {
@@ -201,20 +218,14 @@ pub fn backend_forage_receipts(ctx: &ViewContext) -> Vec<BackendForageReceipt> {
         .forage_attempt_authority()
         .gateway_bucket()
         .filter(0u8)
-        .map(|attempt: ForageAttemptAuthority| -> BackendForageReceipt {
-            BackendForageReceipt {
-                character_id: attempt.character_id,
-                request_id: attempt.request_id,
-                elapsed_minutes: attempt.elapsed_minutes,
-                yielded_item_ids: attempt.yielded_item_ids,
-                yielded_quantities: attempt.yielded_quantities,
-                interrupted: attempt.interrupted,
-                legal_outcome: ForagePublicLegalOutcome::from_authority(
-                    ForageLegality::from(attempt.illegal),
-                    ForageStealthOutcome::from(attempt.stealth_succeeded),
-                )
-                .to_string(),
-            }
+        .map(|attempt| BackendForageReceipt {
+            character_id: attempt.character_id,
+            request_id: attempt.request_id,
+            elapsed_minutes: attempt.elapsed_minutes,
+            yielded_item_ids: attempt.yielded_item_ids,
+            yielded_quantities: attempt.yielded_quantities,
+            interrupted: attempt.interrupted,
+            legal_outcome: safe_legal_outcome(attempt.illegal, attempt.stealth_succeeded).into(),
         })
         .collect()
 }
@@ -247,19 +258,16 @@ struct ForageVicinityAuthority {
 
 fn actor_party_owns_incident_site(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     party_id: &str,
     case_site_id: &str,
 ) -> bool {
-    let party_membership_matches =
-        ctx.db
-            .party_member()
-            .party_id()
-            .filter(party_id)
-            .any(|membership| {
-                adventuresim_core::identity::CharacterId::from(membership.character_id)
-                    == character_id
-            });
+    let party_membership_matches = ctx
+        .db
+        .party_member()
+        .party_id()
+        .filter(party_id)
+        .any(|membership| membership.character_id == character_id);
     let party_site_matches = ctx
         .db
         .party_authority()
@@ -286,11 +294,11 @@ fn actor_party_has_pending_incident_at_current_site(
     };
     let (Some(party_id), Some(case_site_id)) = (
         actor.party_id.as_deref(),
-        character_case_site_id(ctx, (character_id).into()),
+        character_case_site_id(ctx, character_id),
     ) else {
         return false;
     };
-    actor_party_owns_incident_site(ctx, (character_id).into(), party_id, &case_site_id)
+    actor_party_owns_incident_site(ctx, character_id, party_id, &case_site_id)
         && ctx
             .db
             .strategic_incident()
@@ -304,18 +312,18 @@ fn actor_party_has_pending_incident_at_current_site(
 
 fn expected_location(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
 ) -> Result<ForageVicinityAuthority, String> {
     let actor = ctx
         .db
         .character()
         .id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .ok_or("Character not found")?;
     if actor.has_tactical_server_assignment() {
         return Err("Foraging is unavailable during a tactical encounter".into());
     }
-    crate::strategic::require_character_no_unresolved_encounter(ctx, (character_id).into())?;
+    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
     if let Some(settlement_id) = actor.current_settlement_id.as_deref() {
         let location = ctx
             .db
@@ -336,12 +344,11 @@ fn expected_location(
             settlement: true,
         });
     }
-    if let Some(site_id) = character_case_site_id(ctx, (character_id).into()) {
+    if let Some(site_id) = character_case_site_id(ctx, character_id) {
         let exact_investigation_site =
-            exact_case_site_for_observer(ctx, (character_id).into(), &site_id)
-                .map(|(site, _)| site);
+            exact_case_site_for_observer(ctx, character_id, &site_id).map(|(site, _)| site);
         let exact_incident_site = actor.party_id.as_deref().and_then(|party_id| {
-            actor_party_owns_incident_site(ctx, (character_id).into(), party_id, &site_id)
+            actor_party_owns_incident_site(ctx, character_id, party_id, &site_id)
                 .then(|| ctx.db.case_site_authority().id_key().find(site_id.clone()))
                 .flatten()
         });
@@ -406,9 +413,9 @@ fn expected_location(
 
 pub(crate) fn current_strategic_place(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
 ) -> Result<StrategicPlaceId, String> {
-    Ok(expected_location(ctx, (character_id).into())?.place)
+    Ok(expected_location(ctx, character_id)?.place)
 }
 
 fn validate_attestation(
@@ -427,7 +434,7 @@ fn validate_attestation(
     {
         return Err("Forage environment uses a stale terrain package".into());
     }
-    let vicinity = expected_location(ctx, (character_id).into())?;
+    let vicinity = expected_location(ctx, character_id)?;
     if attestation.context_kind != vicinity.context_kind
         || attestation.context_id != vicinity.context_id
         || attestation.latitude_e7 != vicinity.latitude_e7
@@ -486,7 +493,7 @@ fn acting_checks(
         .character_id()
         .find(character_id)
         .ok_or("Character stats not found")?;
-    let equipment = StrategicEquipment::load(ctx, (character_id).into());
+    let equipment = StrategicEquipment::load(ctx, character_id);
     let check = |skill| {
         skills.skill_check_by_parts(
             skill,
@@ -587,7 +594,7 @@ fn forage_authority_digest(
     requested_minutes: u64,
     current_minute: StrategicMinute,
     terminal_minute: Option<StrategicMinute>,
-    attempt_generation: ForageAttemptGeneration,
+    attempt_generation: u64,
     terrain_check: u16,
     stealth_check: u16,
     resolution_seed: u64,
@@ -635,7 +642,7 @@ fn license_decisions(
                 crate::organization::global_presented_privilege(ctx, actor.get(), privilege)
             });
             let decision = foraging::decide_forage_license(&question, allowed, evidence_revision);
-            foraging::ForageLicenseDecision::try_new(&question, decision).map_err(|e| e.to_string())
+            foraging::ForageLicenseDecision::try_new(&question, decision).map_err(str::to_owned)
         })
         .collect()
 }
@@ -655,7 +662,7 @@ fn build_forage_planner(
     requested_minutes: u64,
     current_minute: StrategicMinute,
     terminal_minute: Option<StrategicMinute>,
-    attempt_generation: ForageAttemptGeneration,
+    attempt_generation: u64,
     terrain_check: u16,
     stealth_check: u16,
     seed: u64,
@@ -689,17 +696,18 @@ fn build_forage_planner(
         terrain_check,
         stealth_check,
     )
-    .map_err(|error| error.to_string())?;
-    let resolution = if time.elapsed_minutes.get() == 0 {
+    .map_err(str::to_owned)?;
+    let resolution = if time.elapsed_minutes == 0 {
         None
     } else if time.permits_completion_effects() {
         Some(full)
     } else {
-        let exposure =
-            foraging::resolve_stealth(seed, environment, time.elapsed_minutes.get(), stealth_check);
+        let (stealth_dc_millirank, stealth_succeeded) =
+            foraging::resolve_stealth(seed, environment, time.elapsed_minutes, stealth_check);
         Some(foraging::ForageResolution {
             yields: Vec::new(),
-            exposure,
+            stealth_dc_millirank,
+            stealth_succeeded,
         })
     };
     let env_digest = environment_digest(attestation, environment);
@@ -728,7 +736,7 @@ fn build_forage_planner(
             authority_binding: AuthorityBinding(digest),
         },
         snapshot: AuthoritativeSnapshot {
-            revision: attempt_generation.snapshot_revision(),
+            revision: SnapshotRevision(attempt_generation),
             digest: SnapshotDigest(digest),
         },
         current_minute,
@@ -759,13 +767,13 @@ fn replay_matches(
     character_id: u64,
     source_ids: &[String],
     requested_minutes: u64,
-    attempt_generation: ForageAttemptGeneration,
+    attempt_generation: u64,
     attestation: &ForageEnvironmentAttestation,
 ) -> bool {
     receipt.character_id == character_id
         && receipt.source_ids == source_ids
         && receipt.requested_minutes == requested_minutes
-        && ForageAttemptGeneration::from(receipt.attempt_generation) == attempt_generation
+        && receipt.attempt_generation == attempt_generation
         && receipt.context_kind == attestation.context_kind
         && receipt.context_id == attestation.context_id
         && receipt.terrain_package_digest == attestation.package_digest
@@ -792,13 +800,11 @@ pub fn forage_current_vicinity(
 ) -> Result<(), String> {
     // Authentication must precede even replay lookup: otherwise a caller can
     // use receipt/readiness differences as a character-state oracle.
-    crate::strategic::require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
-    let attempt_generation = ForageAttemptGeneration::from(attempt_generation);
+    crate::strategic::require_strategic_gateway(ctx)?;
     if !valid_request_id(&request_id) {
         return Err("Forage request id is invalid".into());
     }
-    foraging::validate_duration(requested_minutes).map_err(|error| error.to_string())?;
+    foraging::validate_duration(requested_minutes).map_err(str::to_owned)?;
     let source_ids = canonical_sources(source_ids)?;
     // Exact immutable retry is resolved before any mutable character, place,
     // condition, or ecology authority is consulted.
@@ -826,21 +832,26 @@ pub fn forage_current_vicinity(
         return Err("Foraging is unavailable during a pending strategic incident".into());
     }
 
-    crate::condition::require_character_ready(ctx, (character_id).into())
-        .map_err(|error: crate::condition::CharacterReadinessError| error.to_string())?;
-    let next_attempt_generation =
-        match generation::next_attempt_generation(ctx, character_id.into(), attempt_generation) {
-            Ok(next) => next,
-            Err(error) => return Err(error.to_string()),
-        };
+    crate::condition::require_character_ready(ctx, character_id)?;
+    let expected_generation = ctx
+        .db
+        .forage_attempt_state()
+        .character_id()
+        .find(character_id)
+        .map_or(0, |state| state.next_generation);
+    if attempt_generation != expected_generation {
+        return Err("Forage attempt generation is stale".into());
+    }
+    let next_attempt_generation = attempt_generation
+        .checked_add(1)
+        .ok_or("Forage attempt generation is exhausted")?;
     let (vicinity, mut environment) = validate_attestation(ctx, character_id, &attestation)?;
     environment.license_violation = license_violation_for_sources(&source_ids, |privilege| {
         crate::organization::global_presented_privilege(ctx, character_id, privilege)
     });
     let (terrain_check, stealth_check) = acting_checks(ctx, character_id, environment.terrain)?;
-    crate::time::initialize_character_time(ctx, (character_id).into())
-        .map_err(|error: crate::time::WorldClockError| error.to_string())?;
-    let started_at = character_minute(ctx, (character_id).into())?;
+    crate::time::initialize_character_time(ctx, character_id)?;
+    let started_at = character_minute(ctx, character_id)?;
     let seed = resolution_seed(
         ctx.random::<u64>(),
         character_id,
@@ -936,10 +947,10 @@ pub fn forage_current_vicinity(
         return Err("Foraging planner effects do not match authority".into());
     }
     let completed = crate::time::advance_investigation_time(ctx, character_id, requested_minutes)?;
-    let completed_at = character_minute(ctx, (character_id).into())?;
+    let completed_at = character_minute(ctx, character_id)?;
     let elapsed = completed_at.elapsed_since(started_at);
     let interrupted = !planned.time().permits_completion_effects();
-    if elapsed != planned.time().elapsed_minutes.get()
+    if elapsed != planned.time().elapsed_minutes
         || completed != planned.time().permits_completion_effects()
         || effect_resolution
             .as_ref()
@@ -1006,12 +1017,7 @@ pub fn forage_current_vicinity(
             .excess_effective_hours;
         }
         ctx.db.character_skills().character_id().update(skills);
-        crate::condition::record_mastery_training_morale(
-            ctx,
-            (character_id).into(),
-            elapsed,
-            excess,
-        );
+        crate::condition::record_mastery_training_morale(ctx, character_id, elapsed, excess);
     }
     let resolution = effect_resolution.map(|(resolution, _)| resolution);
     let mut yielded_item_ids = Vec::new();
@@ -1024,32 +1030,22 @@ pub fn forage_current_vicinity(
         for found in &resolution.yields {
             let rows = crate::item::add_foraged_inventory_item_checked_rows(
                 ctx,
-                character_id.into(),
-                &found.item_id,
-                found.quantity,
-            )
-            .map_err(|error: crate::item::InventoryGrantError| -> String { error.to_string() })?;
+                character_id,
+                found.item_id,
+                u32::from(found.quantity),
+            )?;
             for row_id in rows {
                 let object = crate::inventory_container::object_for_row(
                     ctx,
                     adventuresim_core::physical_object::CarriedInventoryScope::Personal,
                     row_id,
-                )
-                .map_err(
-                    |error: crate::inventory_container::InventoryObjectError| -> String {
-                        error.to_string()
-                    },
                 )?
                 .ok_or("Foraged material has no stable object identity")?;
                 let lot = ctx
                     .db
                     .food_lot()
                     .iter()
-                    .find(|lot| {
-                        lot.inventory_item_id
-                            .map(adventuresim_core::identity::InventoryItemId::new)
-                            == Some(row_id)
-                    })
+                    .find(|lot| lot.inventory_item_id == Some(row_id))
                     .ok_or("Foraged material has no food lot")?;
                 if lot.material_revision != 1
                     || lot.ingredient_item_ids != vec![found.item_id.to_string()]
@@ -1060,33 +1056,33 @@ pub fn forage_current_vicinity(
                 ctx.db
                     .forage_harvest_material()
                     .insert(ForageHarvestMaterial {
-                        inventory_item_id: row_id.get(),
+                        inventory_item_id: row_id,
                         request_id: request_id.clone(),
                         actor_character_id: character_id,
-                        item_id: found.item_id.to_string(),
+                        item_id: found.item_id.into(),
                         material_object_id: object.id,
                         food_lot_id: lot.id,
                         material_revision: lot.material_revision,
                         canonical_place: vicinity.place.to_string(),
                     });
-                output_inventory_item_ids.push(row_id.get());
+                output_inventory_item_ids.push(row_id);
                 output_object_ids.push(object.id);
                 output_food_lot_ids.push(lot.id);
                 output_material_revisions.push(lot.material_revision);
             }
-            yielded_item_ids.push(found.item_id.to_string());
-            yielded_quantities.push(u16::from(found.quantity));
+            yielded_item_ids.push(found.item_id.into());
+            yielded_quantities.push(found.quantity);
         }
     }
-    let exposure = match resolution.as_ref() {
-        Some(result) => result.exposure,
-        None => ForageExposure::UNCHECKED,
+    let infamy_gained = if resolution
+        .as_ref()
+        .and_then(|result| result.stealth_succeeded)
+        .is_some_and(|success| !success)
+    {
+        ILLEGAL_FORAGE_INFAMY
+    } else {
+        0.0
     };
-    let infamy_gained = match exposure.outcome() {
-        ForageStealthOutcome::Detected => ILLEGAL_FORAGE_INFAMY,
-        ForageStealthOutcome::NotChecked | ForageStealthOutcome::Concealed => 0.0,
-    };
-    let (stealth_dc_millirank, stealth_succeeded) = exposure.into();
     if infamy_gained > 0.0
         && let Some(settlement_id) = ctx
             .db
@@ -1097,7 +1093,7 @@ pub fn forage_current_vicinity(
     {
         crate::world_event::commit_noticed_illegal_foraging(
             ctx,
-            adventuresim_core::identity::CharacterId::from(character_id),
+            character_id,
             &settlement_id,
             &request_id,
             (infamy_gained * 100.0).round() as i32,
@@ -1108,7 +1104,7 @@ pub fn forage_current_vicinity(
         request_id: request_id.clone(),
         character_id,
         gateway_bucket: 0,
-        attempt_generation: attempt_generation.into(),
+        attempt_generation,
         authority_input_digest: encode_digest(&planned.provenance().input_digest.0),
         environment_digest: encode_digest(&environment_digest(&attestation, environment)),
         canonical_place: vicinity.place.to_string(),
@@ -1122,8 +1118,8 @@ pub fn forage_current_vicinity(
         yielded_quantities,
         interrupted,
         illegal: environment.settlement || environment.cultivated || environment.license_violation,
-        stealth_dc_millirank,
-        stealth_succeeded,
+        stealth_dc_millirank: resolution.as_ref().and_then(|row| row.stealth_dc_millirank),
+        stealth_succeeded: resolution.as_ref().and_then(|row| row.stealth_succeeded),
         infamy_gained,
         context_kind: attestation.context_kind,
         context_id: attestation.context_id,
@@ -1147,7 +1143,7 @@ pub fn forage_current_vicinity(
     let state = ForageAttemptState {
         character_id,
         gateway_bucket: 0,
-        next_generation: next_attempt_generation.into(),
+        next_generation: next_attempt_generation,
     };
     if ctx
         .db
@@ -1160,10 +1156,8 @@ pub fn forage_current_vicinity(
     } else {
         ctx.db.forage_attempt_state().insert(state);
     }
-    crate::capability::refresh_character_capability(ctx, (character_id).into())
-        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
-    crate::condition::refresh_character_strategic_condition(ctx, (character_id).into())
-        .map_err(|error: crate::condition::StrategicConditionError| error.to_string())?;
+    crate::capability::refresh_character_capability(ctx, character_id)?;
+    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
     Ok(())
 }
 
@@ -1182,30 +1176,9 @@ mod tests {
 
     #[test]
     fn receipt_projection_uses_only_safe_legality_wording() {
-        assert_eq!(
-            ForagePublicLegalOutcome::from_authority(
-                ForageLegality::Legal,
-                ForageStealthOutcome::NotChecked
-            )
-            .to_string(),
-            "legal"
-        );
-        assert_eq!(
-            ForagePublicLegalOutcome::from_authority(
-                ForageLegality::IllegalAttempt,
-                ForageStealthOutcome::Concealed
-            )
-            .to_string(),
-            "unnoticed"
-        );
-        assert_eq!(
-            ForagePublicLegalOutcome::from_authority(
-                ForageLegality::IllegalAttempt,
-                ForageStealthOutcome::Detected
-            )
-            .to_string(),
-            "noticed"
-        );
+        assert_eq!(safe_legal_outcome(false, None), "legal");
+        assert_eq!(safe_legal_outcome(true, Some(true)), "unnoticed");
+        assert_eq!(safe_legal_outcome(true, Some(false)), "noticed");
     }
 
     #[test]
@@ -1267,7 +1240,7 @@ mod tests {
             .find("forage_attempt_authority()\n        .request_id()")
             .unwrap();
         let readiness = reducer
-            .find("require_character_ready(ctx, (character_id).into())")
+            .find("require_character_ready(ctx, character_id)")
             .unwrap();
         assert!(gateway < replay && replay < readiness);
         assert!(reducer.contains("ctx.db.forage_attempt_authority().insert(attempt)"));
@@ -1313,9 +1286,7 @@ mod tests {
             .split("#[cfg(test)]")
             .next()
             .unwrap();
-        assert!(reducer.contains("generation::next_attempt_generation("));
-        let generation = crate::production_source(include_str!("foraging/generation.rs"));
-        assert!(generation.contains("submitted.advance_from(expected)"));
+        assert!(reducer.contains("attempt_generation\n        .checked_add(1)"));
         assert!(!reducer.contains("attempt_generation.saturating_add(1)"));
     }
 

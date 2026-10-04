@@ -7,7 +7,8 @@ use studio_generation::PreviewScene;
 /// outfit or name, which never change the body.
 #[derive(PartialEq)]
 struct BodyKey {
-    config: MhrConfig,
+    lod: u8,
+    correctives: bool,
     recipe: CharacterRecipe,
 }
 
@@ -17,7 +18,8 @@ impl BodyKey {
         recipe.inventory = default();
         recipe.name.clear();
         Self {
-            config: model.config,
+            lod: model.lod,
+            correctives: model.correctives,
             recipe,
         }
     }

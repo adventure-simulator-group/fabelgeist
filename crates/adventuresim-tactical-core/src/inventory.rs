@@ -75,7 +75,7 @@ impl InventoryItems {
 
 #[derive(Component, Reflect, Serialize, Deserialize, Clone, Copy, Debug, PartialEq)]
 #[reflect(opaque)]
-#[reflect(Component, Serialize, Deserialize)]
+#[reflect(Component)]
 pub struct WeaponItem {
     pub striking_material: EquipmentMaterial,
     pub skill_weights: [f32; 9],
@@ -213,7 +213,7 @@ pub struct TacticalSceneItem;
     Component, Reflect, Serialize, Deserialize, Clone, Copy, Debug, Default, PartialEq, Eq,
 )]
 pub struct EquipmentActionState {
-    pub revision: crate::protocol::EquipmentRevision,
+    pub revision: u32,
 }
 
 #[derive(
@@ -466,7 +466,7 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
 
     fn weapon_body_material(&self) -> Option<EquipmentMaterial> {
         let item_id = self.equipped_weapon()?.properties.id.as_str();
-        adventuresim_core::item_catalog::definition(&(item_id).into())
+        adventuresim_core::item_catalog::definition(item_id)
             .and_then(|definition| definition.equipment.as_ref())
             .and_then(|equipment| equipment.material)
     }

@@ -1,5 +1,4 @@
 use super::*;
-use crate::scene_input::SceneValidationError;
 use std::collections::{BTreeMap, BTreeSet};
 
 use adventuresim_building_generator::signs::ShopName;
@@ -41,28 +40,28 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
             || establishment.operator_character_id == 0
             || establishment.operator_name.as_str().is_empty()
         {
-            return invalid(SceneValidationError::EstablishmentIdentity);
+            return invalid("establishment identity or operator is empty");
         }
         if !building_ids.insert(establishment.building_id)
             || !business_ids.insert(&establishment.business_id)
             || !operator_ids.insert(establishment.operator_character_id)
         {
-            return invalid(SceneValidationError::EstablishmentDuplicate);
+            return invalid("establishment building, business, or operator is duplicated");
         }
         if settlement_id
             .replace(&establishment.business_id.settlement_id)
             .is_some_and(|expected| expected != establishment.business_id.settlement_id)
         {
-            return invalid(SceneValidationError::EstablishmentSettlement);
+            return invalid("establishments cross settlement boundaries");
         }
         let Some(usage) = buildings.get(&establishment.building_id).copied().flatten() else {
-            return invalid(SceneValidationError::EstablishmentBuilding);
+            return invalid("establishment references an unknown business building");
         };
         if usage != establishment.business_id.key.usage {
-            return invalid(SceneValidationError::EstablishmentUsage);
+            return invalid("establishment business use does not match its building");
         }
         if establishment.shop_name != ShopName::for_operator(&establishment.operator_name, usage) {
-            return invalid(SceneValidationError::EstablishmentShopName);
+            return invalid("establishment shop name does not match its operator and building use");
         }
     }
     Ok(())

@@ -3,12 +3,11 @@
 //! Route registration stays in this facade. Handler modules own their forms,
 //! policy, database reads, rendering adapters, and behavior-local tests.
 
-use crate::spacetimedb::SqlQuery;
-
 #[cfg(test)]
 pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
     include_str!("router.rs"),
     include_str!("medical.rs"),
+    include_str!("residences.rs"),
     include_str!("overview.rs"),
     include_str!("camp.rs"),
     include_str!("service_quests.rs"),
@@ -35,15 +34,15 @@ pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
 include!("router.rs");
 
 mod entry;
-mod provision_error;
-mod surgery_data;
-use provision_error::TravelProvisionError;
-use surgery_data::SurgeryDataset;
 
 mod medical {
     use super::*;
-    use adventuresim_world_schema::calendar::StrategicMinute;
     include!("medical.rs");
+}
+mod residences {
+    use super::*;
+    use adventuresim_world_schema::calendar::StrategicMinute;
+    include!("residences.rs");
 }
 mod overview {
     use super::*;
@@ -69,6 +68,7 @@ mod commerce {
 }
 mod rest {
     use super::*;
+    use adventuresim_world_schema::calendar::StrategicMinute;
     include!("rest.rs");
     include!("rest_tests.rs");
     include!("herbalist_tests.rs");
@@ -114,9 +114,8 @@ use encumbrance::{
     inventory_encumbrance_summaries, personal_encumbrance,
 };
 use medical::{
-    alchemy, change_residence, perform_surgery, retrieve_repair, retrieve_repairs,
-    schedule_allocation_reducer_arg, settlement_resident_place, show_settlement_location,
-    submit_all_repairs, submit_repair, surgery,
+    alchemy, perform_surgery, retrieve_repair, retrieve_repairs, schedule_allocation_reducer_arg,
+    show_settlement_location, submit_all_repairs, submit_repair, surgery,
 };
 use overview::settlement_map;
 use party::{
@@ -141,6 +140,7 @@ use religion::{religion_dialogue, renounce_religion, resolve_religious_demand, s
 use rendering::{
     inventory_trade_context, merchant_shop, personal_inventory_targets, render_service_page,
 };
+use residences::{change_residence, settlement_resident_place};
 use rest::{
     armor, bookstore, clothing, forge_weapon, herbalist, purchase_from_herbalist,
     query_local_reputation, query_single, religion, rest, settlement_action_service_available,

@@ -63,6 +63,7 @@ use drape_preview::DrapeJob;
 
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 
+use adventuresim_character_creator::lod::{CharacterLod, MAX_CHARACTER_LOD, MIN_CHARACTER_LOD};
 use adventuresim_character_creator::profiling;
 use adventuresim_character_creator::{
     CharacterRecipe, IdentityGroup,
@@ -88,15 +89,13 @@ use bevy_egui::{EguiContexts, EguiPlugin, EguiPrimaryContextPass, egui};
 use burn::tensor::{Device, Tensor, TensorData};
 use clap::Parser;
 use fabelgeist_armor::{BracerDesign, BreastplateDesign, GeneratedArmor};
-use fabelgeist_mhr::{
-    CharacterLod, Mhr, MhrAssetDirectory, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES,
-    PoseCorrectivePolicy,
-};
+use fabelgeist_mhr::{Mhr, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES};
 
 #[derive(Resource)]
 struct BodyModel {
     mhr: Mhr,
-    config: MhrConfig,
+    lod: u8,
+    correctives: bool,
 }
 
 #[derive(Resource)]
@@ -109,7 +108,8 @@ struct Studio {
     recipe_path: String,
     glb_path: String,
     seed: u64,
-    selected_config: MhrConfig,
+    selected_lod: u8,
+    selected_correctives: bool,
     /// Where the catalog default designs are saved.
     design_paths: studio_ui::DesignPathInputs,
     /// Named engravings and trims, and where they are saved.
@@ -134,10 +134,8 @@ impl Studio {
             recipe_path: args.recipe.display().to_string(),
             glb_path: args.glb.display().to_string(),
             seed: 1544,
-            selected_config: MhrConfig {
-                lod: args.lod,
-                pose_correctives: PoseCorrectivePolicy::Disabled,
-            },
+            selected_lod: args.lod,
+            selected_correctives: false,
             design_paths: studio_ui::DesignPathInputs {
                 catalog: path(&args.armor_designs, "target/armor-designs.json"),
                 vambrace: path(&args.bracer_design, "target/bracer-design.json"),
@@ -177,15 +175,8 @@ fn main() -> Result<()> {
         "dense bake-source armor is not yet generated on the device"
     );
     let device = Device::default();
-    let model = load_body_model(
-        &MhrAssetDirectory::from(args.assets.clone()),
-        MhrConfig {
-            lod: args.lod,
-            pose_correctives: PoseCorrectivePolicy::Disabled,
-        },
-        &device,
-    )
-    .with_context(|| format!("loading MHR assets from {}", args.assets.display()))?;
+    let model = load_body_model(&args.assets, args.lod, false, &device)
+        .with_context(|| format!("loading MHR assets from {}", args.assets.display()))?;
     let designs = CatalogDesigns::load(
         args.armor_designs.as_deref(),
         args.bracer_design.as_deref(),
@@ -394,40 +385,49 @@ fn belt_mount_outward(location: EquipmentLocation) -> Option<[f64; 3]> {
 }
 
 fn load_body_model(
-    assets: &MhrAssetDirectory,
-    config: MhrConfig,
+    assets: &std::path::Path,
+    lod: u8,
+    correctives: bool,
     device: &Device,
 ) -> Result<BodyModel> {
+    CharacterLod::try_from(lod)?;
+    let mhr = Mhr::from_files(
+        assets,
+        MhrConfig {
+            lod,
+            pose_correctives: correctives,
+        },
+        device,
+    )?;
     Ok(BodyModel {
-        mhr: Mhr::from_files(assets, config, device)?,
-        config,
+        mhr,
+        lod,
+        correctives,
     })
 }
 
 fn reload_model(args: Res<Args>, mut model: ResMut<BodyModel>, mut studio: ResMut<Studio>) {
-    if studio.selected_config == model.config {
+    if studio.selected_lod == model.lod && studio.selected_correctives == model.correctives {
         return;
     }
-    let requested = studio.selected_config;
+    let requested = studio.selected_lod;
+    let requested_correctives = studio.selected_correctives;
     let device = Device::default();
-    match load_body_model(
-        &MhrAssetDirectory::from(args.assets.clone()),
-        requested,
-        &device,
-    ) {
+    match load_body_model(&args.assets, requested, requested_correctives, &device) {
         Ok(loaded) => {
             *model = loaded;
             studio.dirty = true;
             studio.status = format!(
-                "MHR LOD {} ready · correctives {}",
-                requested.lod, requested.pose_correctives
+                "MHR LOD {requested} ready · correctives {}",
+                if requested_correctives { "on" } else { "off" }
             );
         }
         Err(error) => {
-            studio.selected_config = model.config;
+            studio.selected_lod = model.lod;
+            studio.selected_correctives = model.correctives;
             studio.status = format!(
-                "Could not load LOD {} with correctives {}: {error:#}",
-                requested.lod, requested.pose_correctives
+                "Could not load LOD {requested} with correctives {}: {error:#}",
+                if requested_correctives { "on" } else { "off" }
             );
         }
     }
@@ -461,14 +461,7 @@ mod garment_integration_tests {
     #[ignore = "requires MHR_ASSETS and a compute-capable GPU"]
     fn measured_mhr_garment_drapes_and_exports() -> Result<()> {
         let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
-        let model = load_body_model(
-            &MhrAssetDirectory::from(std::path::PathBuf::from(assets)),
-            MhrConfig {
-                lod: CharacterLod::Detailed,
-                pose_correctives: PoseCorrectivePolicy::Disabled,
-            },
-            &Device::default(),
-        )?;
+        let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
         let mut recipe = CharacterRecipe {
             inventory: Default::default(),
             ..CharacterRecipe::default()

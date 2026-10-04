@@ -141,13 +141,13 @@ pub struct RetainedProjectile {
     pub source_damage: f32,
 }
 
-fn injury_id(character_id: adventuresim_core::identity::CharacterId, limb: BodyRegion) -> String {
+fn injury_id(character_id: u64, limb: BodyRegion) -> String {
     format!("{character_id}:{}", limb.slug())
 }
 
 fn blank_injury(character_id: u64, limb: BodyRegion) -> LimbInjury {
     LimbInjury {
-        id: injury_id((character_id).into(), limb),
+        id: injury_id(character_id, limb),
         character_id,
         limb,
         cut_damage: 0.0,
@@ -187,20 +187,13 @@ fn projected_damage(injury: &LimbInjury) -> f32 {
         .clamp(0.0, 1.0)
 }
 
-pub fn injury_for(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-    limb: BodyRegion,
-) -> LimbInjury {
-    let key = injury_id((character_id).into(), limb);
+pub fn injury_for(ctx: &ReducerContext, character_id: u64, limb: BodyRegion) -> LimbInjury {
+    let key = injury_id(character_id, limb);
     ctx.db
         .limb_injury()
         .id()
         .find(key)
-        .filter(|row| {
-            adventuresim_core::identity::CharacterId::from(row.character_id) == character_id
-                && row.limb == limb
-        })
+        .filter(|row| row.character_id == character_id && row.limb == limb)
         .expect("character injury rows must be initialized at character creation")
 }
 
@@ -216,7 +209,7 @@ pub(crate) fn seed_field_cut(
     damage: f32,
     origin_minute: StrategicMinute,
 ) {
-    let mut injury = injury_for(ctx, (character_id).into(), limb);
+    let mut injury = injury_for(ctx, character_id, limb);
     if injury.cut_damage <= 0.0 {
         injury.cut_damage = damage.clamp(0.01, 1.0);
         injury.infection_origin_minute = Some(origin_minute);
@@ -236,38 +229,21 @@ fn health_mut(limbs: &mut CharacterLimbs, limb: BodyRegion) -> &mut f32 {
     }
 }
 
-fn refresh_limb_projection(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-    limb: BodyRegion,
-) {
-    let Some(mut limbs) = ctx
-        .db
-        .character_limbs()
-        .character_id()
-        .find(u64::from(character_id))
-    else {
+fn refresh_limb_projection(ctx: &ReducerContext, character_id: u64, limb: BodyRegion) {
+    let Some(mut limbs) = ctx.db.character_limbs().character_id().find(character_id) else {
         return;
     };
-    let injury = injury_for(ctx, (character_id).into(), limb);
+    let injury = injury_for(ctx, character_id, limb);
     *health_mut(&mut limbs, limb) = (1.0 - projected_damage(&injury)).clamp(0.0, 1.0);
     ctx.db.character_limbs().character_id().update(limbs);
 }
 
-fn refresh_all_limb_projections(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-) {
-    let Some(mut limbs) = ctx
-        .db
-        .character_limbs()
-        .character_id()
-        .find(u64::from(character_id))
-    else {
+fn refresh_all_limb_projections(ctx: &ReducerContext, character_id: u64) {
+    let Some(mut limbs) = ctx.db.character_limbs().character_id().find(character_id) else {
         return;
     };
     for limb in BodyRegion::ALL {
-        let injury = injury_for(ctx, (character_id).into(), limb);
+        let injury = injury_for(ctx, character_id, limb);
         *health_mut(&mut limbs, limb) = (1.0 - projected_damage(&injury)).clamp(0.0, 1.0);
     }
     ctx.db.character_limbs().character_id().update(limbs);
@@ -306,7 +282,7 @@ pub(crate) fn commit_aggregated_hit_injury(
     max_single_hit_blunt_damage: f32,
     projectile: Option<ProjectileKind>,
 ) -> Result<(), String> {
-    let mut injury = injury_for(ctx, (character_id).into(), limb);
+    let mut injury = injury_for(ctx, character_id, limb);
     injury.cut_damage += cut_damage.max(0.0);
     injury.bruise_damage += blunt_damage.max(0.0);
     injury.fracture_damage = (injury.fracture_damage
@@ -325,9 +301,9 @@ pub(crate) fn commit_aggregated_hit_injury(
         injury.stitch_quality = 0.0;
         crate::filth::deposit_now(
             ctx,
-            (character_id).into(),
+            character_id,
             adventuresim_core::filth::FilthSubstance::Blood,
-            Some(adventuresim_core::identity::CharacterId::from(character_id)),
+            Some(character_id),
             (cut_damage * 50.0).ceil().clamp(1.0, 20.0) as u16,
         )?;
     }
@@ -350,7 +326,7 @@ pub(crate) fn commit_aggregated_hit_injury(
             source_damage: total_damage,
         });
     }
-    refresh_limb_projection(ctx, (character_id).into(), limb);
+    refresh_limb_projection(ctx, character_id, limb);
     Ok(())
 }
 
@@ -359,7 +335,7 @@ pub(crate) fn commit_aggregated_hit_injury(
 /// therefore cannot create blood deposits or projectile state.
 pub fn commit_frostbite_injury(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     limb: BodyRegion,
     damage: f32,
 ) -> Result<(), String> {
@@ -369,10 +345,10 @@ pub fn commit_frostbite_injury(
     ) {
         return Err("Frostbite must target a peripheral limb".to_string());
     }
-    let mut injury = injury_for(ctx, (character_id).into(), limb);
+    let mut injury = injury_for(ctx, character_id, limb);
     injury.frostbite_damage = (injury.frostbite_damage + damage.max(0.0)).clamp(0.0, 1.0);
     store_injury(ctx, injury);
-    refresh_limb_projection(ctx, (character_id).into(), limb);
+    refresh_limb_projection(ctx, character_id, limb);
     Ok(())
 }
 
@@ -380,15 +356,11 @@ pub fn fracture_from_single_hit(blunt_damage: f32) -> f32 {
     (blunt_damage.max(0.0) - FRACTURE_SINGLE_HIT_THRESHOLD).max(0.0) * 0.65
 }
 
-fn has_projectile(
-    ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
-    limb: BodyRegion,
-) -> bool {
+fn has_projectile(ctx: &ReducerContext, character_id: u64, limb: BodyRegion) -> bool {
     ctx.db
         .retained_projectile()
         .character_id()
-        .filter(u64::from(character_id))
+        .filter(character_id)
         .any(|projectile| projectile.limb == limb)
 }
 
@@ -424,7 +396,7 @@ pub(crate) struct InjurySettlement {
 /// blood loss and heal wounds.
 pub(crate) fn preview_injury_boundary(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     requested: u64,
     recovery: InjuryRecoveryMinutes,
 ) -> Result<InjuryPreview, String> {
@@ -432,7 +404,7 @@ pub(crate) fn preview_injury_boundary(
         .db
         .character_condition()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .map_or(1.0, |row| {
             if row.maximum_blood_ml > 0.0 {
                 row.current_blood_ml / row.maximum_blood_ml
@@ -443,7 +415,7 @@ pub(crate) fn preview_injury_boundary(
     let cuts = BodyRegion::ALL
         .into_iter()
         .map(|limb| {
-            let injury = injury_for(ctx, (character_id).into(), limb);
+            let injury = injury_for(ctx, character_id, limb);
             if injury.bandaged {
                 0.0
             } else {
@@ -470,7 +442,7 @@ pub(crate) fn preview_injury_boundary(
 /// recovery path, so projections cannot drift from durable wound state.
 pub(crate) fn settle_injuries(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     elapsed: u64,
     recovery: InjuryRecoveryMinutes,
 ) -> Result<InjurySettlement, String> {
@@ -480,12 +452,12 @@ pub(crate) fn settle_injuries(
             alive: true,
         });
     }
-    crate::condition::apply_blood_loss(ctx, (character_id).into(), 0.0)?;
+    crate::condition::apply_blood_loss(ctx, character_id, 0.0)?;
     let starting_blood = ctx
         .db
         .character_condition()
         .character_id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .map_or(1.0, |row| {
             if row.maximum_blood_ml > 0.0 {
                 row.current_blood_ml / row.maximum_blood_ml
@@ -493,7 +465,7 @@ pub(crate) fn settle_injuries(
                 1.0
             }
         });
-    let mut injuries = BodyRegion::ALL.map(|limb| injury_for(ctx, (character_id).into(), limb));
+    let mut injuries = BodyRegion::ALL.map(|limb| injury_for(ctx, character_id, limb));
     let open_cuts = injuries
         .iter()
         .map(|injury| {
@@ -515,7 +487,7 @@ pub(crate) fn settle_injuries(
     let elapsed_days = interval.elapsed as f32 / MINUTES_PER_DAY as f32;
     let healing_days = recovery.get().min(interval.elapsed) as f32 / MINUTES_PER_DAY as f32;
     let physiology = if healing_days > 0.0 {
-        crate::time::party_physiology_check(ctx, (character_id).into())?
+        crate::time::party_physiology_check(ctx, character_id)?
     } else {
         0.0
     };
@@ -531,7 +503,7 @@ pub(crate) fn settle_injuries(
         if !injury.bandaged {
             injury.cut_damage = interval.open_cuts[index];
         }
-        let projectile_term = if has_projectile(ctx, (character_id).into(), limb) {
+        let projectile_term = if has_projectile(ctx, character_id, limb) {
             RETAINED_PROJECTILE_HEALING_MULTIPLIER
         } else {
             1.0
@@ -570,23 +542,23 @@ pub(crate) fn settle_injuries(
             );
             let dirt = adventuresim_core::filth::dirt_wound_multiplier(crate::filth::dirt_total(
                 ctx,
-                (character_id).into(),
+                character_id,
             ));
             accrue_standing_infection(ctx, injury, exposure * protection * dirt)?;
         }
         store_injury(ctx, injury.clone());
     }
-    refresh_all_limb_projections(ctx, (character_id).into());
+    refresh_all_limb_projections(ctx, character_id);
     // The strategic time owner commits the elapsed frontier exactly once.
     // Surgery settles injury state only; writing CharacterTime here used to
     // double-advance terminal intervals when the caller committed the same
     // elapsed span.
-    crate::condition::set_blood_fraction(ctx, (character_id).into(), interval.blood_fraction)?;
+    crate::condition::set_blood_fraction(ctx, character_id, interval.blood_fraction)?;
     let alive = ctx
         .db
         .character()
         .id()
-        .find(u64::from(character_id))
+        .find(character_id)
         .is_some_and(|row| row.alive);
     Ok(InjurySettlement {
         elapsed: interval.elapsed,
@@ -602,8 +574,8 @@ pub fn convalescence_minutes(
     let natural = crate::time::health_recovered_per_day(physiology_check);
     let mut days = 0.0_f32;
     for limb in BodyRegion::ALL {
-        let injury = injury_for(ctx, (character_id).into(), limb);
-        let projectile = if has_projectile(ctx, (character_id).into(), limb) {
+        let injury = injury_for(ctx, character_id, limb);
+        let projectile = if has_projectile(ctx, character_id, limb) {
             RETAINED_PROJECTILE_HEALING_MULTIPLIER
         } else {
             1.0
@@ -768,7 +740,7 @@ fn procedure_check(
         .character_id()
         .find(actor_id)
         .ok_or("Character attributes not found")?;
-    let attributes = crate::disease::effective_attributes(ctx, (actor_id).into(), attributes)?;
+    let attributes = crate::disease::effective_attributes(ctx, actor_id, attributes)?;
     let skills = ctx
         .db
         .character_skills()
@@ -787,7 +759,7 @@ fn procedure_check(
         .character_id()
         .find(actor_id)
         .ok_or("Character stats not found")?;
-    let equipment = crate::capability::StrategicEquipment::load(ctx, (actor_id).into());
+    let equipment = crate::capability::StrategicEquipment::load(ctx, actor_id);
     let check = |skill| {
         skills.skill_check_by_parts(
             skill,
@@ -824,7 +796,7 @@ fn infection_control_check(ctx: &ReducerContext, actor_id: u64, surgical_skill: 
         .character_id()
         .filter(actor_id)
         .any(|row| {
-            adventuresim_core::disease::InfectionEpisode::try_from(&row).is_ok_and(|episode| {
+            crate::disease::episode(&row).is_ok_and(|episode| {
                 !matches!(
                     adventuresim_core::disease::evaluate(episode, now, immunity,).stage,
                     adventuresim_core::disease::DiseaseStage::Resolved
@@ -839,15 +811,11 @@ fn infection_control_check(ctx: &ReducerContext, actor_id: u64, surgical_skill: 
 }
 
 fn require_together(ctx: &ReducerContext, actor_id: u64, patient_id: u64) -> Result<(), String> {
-    let actor = crate::require_living_character(ctx, (actor_id).into())?;
-    let patient = crate::require_living_character(ctx, (patient_id).into())?;
+    let actor = crate::require_living_character(ctx, actor_id)?;
+    let patient = crate::require_living_character(ctx, patient_id)?;
     let same_place = actor.current_settlement_id.is_some()
         && actor.current_settlement_id == patient.current_settlement_id
-        || crate::world_actor::characters_are_contextually_present(
-            ctx,
-            (actor_id).into(),
-            (patient_id).into(),
-        );
+        || crate::world_actor::characters_are_contextually_present(ctx, actor_id, patient_id);
     if !same_place {
         return Err("Surgeon and patient must be together".into());
     }
@@ -880,38 +848,34 @@ fn align_and_advance(
             continue;
         }
         let catchup = aligned.elapsed_since(time);
-        if catchup > 0 && !crate::time::advance_character_wait_time(ctx, (id).into(), catchup)? {
+        if catchup > 0 && !crate::time::advance_character_wait_time(ctx, id, catchup)? {
             return Ok(false);
         }
     }
     require_together(ctx, actor_id, patient_id)?;
     let participants = if actor_id == patient_id {
-        vec![adventuresim_core::identity::CharacterId::from(actor_id)]
+        vec![actor_id]
     } else {
-        vec![
-            adventuresim_core::identity::CharacterId::from(actor_id),
-            adventuresim_core::identity::CharacterId::from(patient_id),
-        ]
+        vec![actor_id, patient_id]
     };
     let disease_plan =
         crate::disease::plan_party_disease_interval(ctx, &participants, duration, true)?;
     let safe_duration = participants.iter().try_fold(duration, |limit, id| {
         let disease = crate::disease::preview_elapsed_for_disease_in_plan(
             ctx,
-            (*id).into(),
+            *id,
             limit,
             true,
             &disease_plan,
         )?;
-        let injury =
-            preview_injury_boundary(ctx, (*id).into(), limit, InjuryRecoveryMinutes::new(limit))?;
+        let injury = preview_injury_boundary(ctx, *id, limit, InjuryRecoveryMinutes::new(limit))?;
         Ok::<u64, String>(limit.min(disease).min(injury.elapsed))
     })?;
     let mut completed = safe_duration == duration;
     for id in participants {
         completed &= crate::time::advance_character_wait_time_in_plan(
             ctx,
-            (id).into(),
+            id,
             safe_duration,
             &disease_plan,
         )?;
@@ -943,8 +907,7 @@ pub fn treat_limb(
     context_ref: Option<String>,
     expected_membership_revision: Option<u32>,
 ) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, (actor_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
     if action_id.is_empty() || action_id.len() > 160 {
         return Err("Treatment action ID is invalid".into());
     }
@@ -1004,7 +967,7 @@ pub fn treat_limb(
     }
     crate::item::upsert_surgery_items(ctx);
     let skill = procedure_check(ctx, actor_id, patient_id, procedure)?;
-    let mut injury = injury_for(ctx, (patient_id).into(), limb);
+    let mut injury = injury_for(ctx, patient_id, limb);
     let projectile = projectile_id.and_then(|id| ctx.db.retained_projectile().id().find(id));
     let dc = match procedure {
         SurgeryProcedure::Bandage if injury.cut_damage > 0.0 && !injury.bandaged => 0.0,
@@ -1090,7 +1053,7 @@ pub fn treat_limb(
             return Err("Treatment became unavailable before it could be committed".into());
         }
     }
-    injury = injury_for(ctx, (patient_id).into(), limb);
+    injury = injury_for(ctx, patient_id, limb);
     let selected_alcohol = soap_applicable
         .then(|| crate::alcohol::best_disinfectant(ctx, actor_id))
         .flatten();
@@ -1105,13 +1068,10 @@ pub fn treat_limb(
                     >= crate::filth::SOAP_FRACTION_PER_CLEANSING_POINT
             })
             .ok_or("Selected soap is no longer available")?;
-        crate::filth::consume_personal_soap_points(ctx, soap.id.into(), 1)
-            .map_err(|error: crate::filth::SoapConsumptionError| -> String { error.to_string() })?;
+        crate::filth::consume_personal_soap_points(ctx, soap.id, 1)?;
     }
     if let Some((inventory_id, _, _)) = selected_alcohol.as_ref() {
-        crate::alcohol::consume_inventory_row(ctx, (*inventory_id).into()).map_err(
-            |error: crate::alcohol::AlcoholConsumptionError| -> String { error.to_string() },
-        )?;
+        crate::alcohol::consume_inventory_row(ctx, *inventory_id)?;
     }
     let clean_check = infection_control_check(ctx, actor_id, skill)
         + adventuresim_core::alcohol::surgery_control_bonus(
@@ -1164,7 +1124,7 @@ pub fn treat_limb(
             injury.bandaged = false;
             injury.stitched = false;
             injury.stitch_quality = 0.0;
-            crate::condition::apply_blood_loss(ctx, (patient_id).into(), trauma * 0.15)?;
+            crate::condition::apply_blood_loss(ctx, patient_id, trauma * 0.15)?;
             crate::disease::record_committed_cut(ctx, patient_id, trauma, clean_check)?;
             ctx.db.retained_projectile().id().delete(projectile.id);
         }
@@ -1175,14 +1135,14 @@ pub fn treat_limb(
     if exposure > 0 {
         crate::filth::deposit_now(
             ctx,
-            (actor_id).into(),
+            actor_id,
             adventuresim_core::filth::FilthSubstance::Blood,
-            Some(adventuresim_core::identity::CharacterId::from(patient_id)),
+            Some(patient_id),
             exposure,
         )?;
     }
     store_injury(ctx, injury);
-    refresh_limb_projection(ctx, (patient_id).into(), limb);
+    refresh_limb_projection(ctx, patient_id, limb);
     let patient_survived = ctx
         .db
         .character()
@@ -1190,8 +1150,7 @@ pub fn treat_limb(
         .find(patient_id)
         .is_some_and(|character| character.alive);
     if patient_survived {
-        crate::capability::refresh_character_capability(ctx, (patient_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+        crate::capability::refresh_character_capability(ctx, patient_id)?;
     }
     ctx.db
         .treatment_action_receipt()
@@ -1348,12 +1307,12 @@ mod tests {
     #[test]
     fn limb_keys_do_not_wrap_or_alias() {
         assert_ne!(
-            injury_id(0.into(), BodyRegion::LeftArm),
-            injury_id((1_u64 << 61).into(), BodyRegion::LeftArm)
+            injury_id(0, BodyRegion::LeftArm),
+            injury_id(1_u64 << 61, BodyRegion::LeftArm)
         );
         assert_ne!(
-            injury_id(42.into(), BodyRegion::LeftArm),
-            injury_id(42.into(), BodyRegion::RightArm)
+            injury_id(42, BodyRegion::LeftArm),
+            injury_id(42, BodyRegion::RightArm)
         );
     }
 

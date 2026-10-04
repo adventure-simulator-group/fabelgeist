@@ -130,7 +130,7 @@ fn equip_threat_weapon(combatant: &mut Combatant, weapon: CombatWeapon, ranged: 
         combatant.equipment.ranged_projectile_kind = Some(ProjectileKind::Arrowhead);
         combatant.equipment.melee_weapon = Some(
             super::melee_iteration::authored_melee_weapon(
-                crate::item_catalog::definition(&"knife".into()).expect("catalog knife"),
+                crate::item_catalog::definition("knife").expect("catalog knife"),
             )
             .expect("valid generated sidearm"),
         );

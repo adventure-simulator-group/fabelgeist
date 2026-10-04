@@ -7,7 +7,6 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 CALENDAR = Path("crates/adventuresim-world-schema/src/calendar.rs")
-CALENDAR_DAY = Path("crates/adventuresim-world-schema/src/calendar/day.rs")
 GENERATED = Path("crates/adventuresim-stdb-client/src")
 BROWSER_CALENDAR = Path("crates/strategic-web/static/strategic-calendar.js")
 FORBIDDEN = (
@@ -72,12 +71,6 @@ RAW_CALENDAR_DAY_CONSTRUCTION = re.compile(
     r"(?:\b\w+\s*\*\s*MINUTES_PER_DAY|"
     r"\b\w+\.saturating_mul\(MINUTES_PER_DAY\))",
     re.DOTALL,
-)
-# Only the shared day owner's exact saturating projection may encode this unit.
-# Other arithmetic in this file and copies in consumer modules remain guarded.
-OWNED_DAY_START = re.compile(
-    r"pub\s+const\s+fn\s+start\(self\)\s*->\s*StrategicMinute\s*\{\s*"
-    r"StrategicMinute::new\(self\.0\.saturating_mul\(MINUTES_PER_DAY\)\)\s*\}"
 )
 RAW_CALENDAR_DAY_WRAP = re.compile(
     r"u64::from\([^)]*\)\s*\+\s*\w+\s*\)\s*%\s*MINUTES_PER_DAY"
@@ -202,12 +195,7 @@ REQUIRED_SHARED_FIELDS = {
     Path("crates/strategic-web/src/medical.rs"):
         "pub administered_at: StrategicMinute",
     Path("crates/adventuresim-stdb-module/src/time/clock.rs"):
-        "pub(crate) fn refresh_clock(ctx: &ReducerContext) -> Result<StrategicMinute, WorldClockError>",
-    Path("crates/adventuresim-stdb-module/src/time/departure.rs"):
-        "pub(crate) fn synchronize_party_departure_time(\n"
-        "    ctx: &ReducerContext,\n"
-        "    member_ids: &[adventuresim_core::identity::CharacterId],\n"
-        ") -> Result<StrategicMinute, DepartureClockError> {",
+        "pub fn refresh_clock(ctx: &ReducerContext) -> Result<StrategicMinute, String>",
     Path("crates/adventuresim-stdb-module/src/time/activities.rs"):
         "let starting_minute = character_time.minutes",
     Path("crates/adventuresim-stdb-module/src/time/settlement_rest.rs"):
@@ -219,12 +207,9 @@ REQUIRED_SHARED_FIELDS = {
     Path("crates/adventuresim-stdb-module/src/investigation/capabilities.rs"):
         "fn character_strategic_minute(ctx: &ReducerContext, character_id: u64) -> StrategicMinute",
     Path("crates/adventuresim-stdb-module/src/residence.rs"):
-        "fn residence_now(\n"
-        "    ctx: &ReducerContext,\n"
-        "    character_id: adventuresim_core::identity::CharacterId,\n"
-        ") -> Result<StrategicMinute, String>",
-    Path("crates/adventuresim-stdb-module/src/time/character_clock.rs"):
-        ") -> Result<StrategicMinute, CharacterClockError> {",
+        "fn residence_now(ctx: &ReducerContext, character_id: u64) -> Result<StrategicMinute, String>",
+    Path("crates/adventuresim-stdb-module/src/relationship/model.rs"):
+        ") -> Result<StrategicMinute, String> {",
     Path("crates/adventuresim-strategic-sim/src/live_core/discovery_policy.rs"):
         "DomainCaseStatus, StrategicMinute)",
     Path("crates/adventuresim-stdb-module/src/corpse.rs"):
@@ -233,10 +218,12 @@ REQUIRED_SHARED_FIELDS = {
         "fn public_party_elapsed_max(&self, party_id: &str) -> StrategicMinute",
     Path("crates/adventuresim-strategic-sim/src/live_core/expedition_policy.rs"):
         "pub(super) elapsed_minutes: StrategicMinute",
-    Path("crates/strategic-web/src/routes/party_actions/terrain_profile.rs"):
-        ") -> std::result::Result<StrategicMinute, PartyDepartureError> {",
+    Path("crates/strategic-web/src/routes/mod.rs"):
+        ") -> Result<StrategicMinute, String> {",
 }
 REQUIRED_TYPED_RETURNS = {
+    Path("crates/adventuresim-stdb-module/src/time/settlement_rest.rs"):
+        ") -> Result<Option<StrategicMinute>, String> {",
     Path("crates/adventuresim-stdb-module/src/residence.rs"):
         ") -> Option<(String, StrategicMinute)> {",
 }
@@ -287,7 +274,6 @@ def main() -> int:
         for match in RAW_ABSOLUTE_ARITHMETIC.finditer(production):
             number = production.count("\n", 0, match.start()) + 1
             violations.append(f"{relative}:{number}: move absolute-minute arithmetic to calendar")
-        owned_day_start = OWNED_DAY_START.search(production) if relative == CALENDAR_DAY else None
         for pattern, reason in (
             (RAW_CALENDAR_DAY_CONSTRUCTION, "construct calendar days through StrategicMinute"),
             (RAW_CALENDAR_DAY_WRAP, "wrap day time through StrategicMinute"),
@@ -308,13 +294,6 @@ def main() -> int:
             (RAW_CASE_ORDERING_KEY, "keep case ordering timestamps typed"),
         ):
             for match in pattern.finditer(production):
-                if (
-                    pattern is RAW_CALENDAR_DAY_CONSTRUCTION
-                    and owned_day_start is not None
-                    and owned_day_start.start() <= match.start()
-                    and match.end() <= owned_day_start.end()
-                ):
-                    continue
                 number = production.count("\n", 0, match.start()) + 1
                 violations.append(f"{relative}:{number}: {reason}")
         if relative.parts[:2] in {

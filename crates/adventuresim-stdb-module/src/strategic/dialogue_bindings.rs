@@ -605,7 +605,7 @@ fn issue_dialogue_investigation_bindings(
     if actions.is_empty() {
         return Ok(true);
     }
-    let character = crate::character::require_living_character(ctx, (character_id).into())?;
+    let character = crate::character::require_living_character(ctx, character_id)?;
     let party_id = character.party_id.ok_or("Character has no party")?;
     let party = ctx
         .db

@@ -5,8 +5,6 @@
 //! Changing modes preserves the Wasm application, WebGPU device and assets.
 
 mod forge_view;
-mod quote;
-pub(crate) use quote::quote_design_json;
 use std::{
     collections::VecDeque,
     sync::{Mutex, OnceLock},
@@ -416,6 +414,12 @@ pub(crate) fn editor_fields_json(json: &str) -> Result<String, String> {
     let design: WeaponDesign = serde_json::from_str(json).map_err(|error| error.to_string())?;
     serde_json::to_string(&adventuresim_weapon_model::editor_fields(&design))
         .map_err(|error| error.to_string())
+}
+
+pub(crate) fn quote_design_json(json: &str) -> Result<String, String> {
+    let design: WeaponDesign = serde_json::from_str(json).map_err(|error| error.to_string())?;
+    let quote = adventuresim_core::smithing::quote_weapon(&design)?;
+    serde_json::to_string(&quote).map_err(|error| error.to_string())
 }
 
 fn sync_tactical_ui_visibility(

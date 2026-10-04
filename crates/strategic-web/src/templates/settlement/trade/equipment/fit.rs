@@ -16,7 +16,7 @@ pub(super) fn reservation_conflicts(
         .iter()
         .find(|node| node.inventory_item_id == occupied.inventory_item_id)
         .and_then(|node| {
-            item_catalog::definition(&(&node.item_name).into())?
+            item_catalog::definition(&node.item_name)?
                 .equipment
                 .as_ref()?
                 .placements

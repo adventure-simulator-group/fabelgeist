@@ -1,8 +1,8 @@
 //! Versioned scene document shared by production dispatch and capture tools.
 use super::*;
 
-pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 24;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 52;
+pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 25;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 54;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -10,7 +10,7 @@ pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 pub struct TacticalSceneInput {
     pub schema_version: u16,
     pub generation_version: u16,
-    pub seed: fabelgeist_determinism::Seed,
+    pub seed: u64,
     pub scene_key: String,
     pub source: SceneSource,
     pub latitude_microdegrees: i32,
@@ -28,6 +28,7 @@ pub struct TacticalSceneInput {
     pub buildings: Vec<TacticalBuildingPlacement>,
     pub distant_buildings: Vec<DistantBuildingPlacement>,
     pub establishments: Vec<SceneEstablishment>,
+    pub properties: Option<adventuresim_core::settlement_property::GeneratedHomeCatalog>,
     pub vista: VistaSample,
     pub weather: WeatherSnapshot,
 }

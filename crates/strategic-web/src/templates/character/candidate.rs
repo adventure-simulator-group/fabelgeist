@@ -300,7 +300,7 @@ fn candidate_capability(
     let (melee, ranged) = candidate_weapon_roles(&equipped_item_ids);
     let weapon_precision = equipped_item_ids
         .iter()
-        .filter_map(|id| adventuresim_core::item_catalog::weapon_precision(&(*id).into()))
+        .filter_map(|id| adventuresim_core::item_catalog::weapon_precision(id))
         .fold(0.0_f32, f32::max);
     CharacterCapability {
         character_id: spec.id,

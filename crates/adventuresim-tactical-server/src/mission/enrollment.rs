@@ -133,12 +133,12 @@ mod tests {
     fn enrollment_seals_only_after_expected_roster_finishes_loading() {
         let mut enrollment = PartyEnrollment::new(NonZeroU32::new(2).unwrap());
         enrollment.begin();
-        enrollment.observe_loaded(CharacterId::from(1));
+        enrollment.observe_loaded(CharacterId(1));
         assert_eq!(
             enrollment.advance(1, false, Duration::ZERO, GRACE),
             EnrollmentEffect::None
         );
-        enrollment.observe_loaded(CharacterId::from(2));
+        enrollment.observe_loaded(CharacterId(2));
         assert_eq!(
             enrollment.advance(2, true, Duration::ZERO, GRACE),
             EnrollmentEffect::None
@@ -153,7 +153,7 @@ mod tests {
     #[test]
     fn begun_partial_enrollment_uses_bounded_abandonment_grace() {
         let mut enrollment = PartyEnrollment::new(NonZeroU32::new(2).unwrap());
-        enrollment.observe_loaded(CharacterId::from(1));
+        enrollment.observe_loaded(CharacterId(1));
         assert_eq!(
             enrollment.advance(0, false, GRACE - Duration::from_millis(1), GRACE),
             EnrollmentEffect::None
@@ -168,21 +168,21 @@ mod tests {
     fn sealed_roster_allows_known_reconnect_and_rejects_unseen_member() {
         let mut enrollment = PartyEnrollment::new(NonZeroU32::new(1).unwrap());
         assert_eq!(
-            enrollment.observe_loaded(CharacterId::from(1)),
+            enrollment.observe_loaded(CharacterId(1)),
             AdmissionResult::Admitted
         );
         assert_eq!(
             enrollment.advance(1, false, Duration::ZERO, GRACE),
             EnrollmentEffect::Sealed
         );
-        assert!(enrollment.allows_join(CharacterId::from(1)));
-        assert!(!enrollment.allows_join(CharacterId::from(2)));
+        assert!(enrollment.allows_join(CharacterId(1)));
+        assert!(!enrollment.allows_join(CharacterId(2)));
         assert_eq!(
-            enrollment.observe_loaded(CharacterId::from(1)),
+            enrollment.observe_loaded(CharacterId(1)),
             AdmissionResult::Admitted
         );
         assert_eq!(
-            enrollment.observe_loaded(CharacterId::from(2)),
+            enrollment.observe_loaded(CharacterId(2)),
             AdmissionResult::RejectedAfterSeal
         );
     }

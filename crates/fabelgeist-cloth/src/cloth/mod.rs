@@ -1,9 +1,9 @@
 //! Fabric-specific configuration of the shared shell solver.
 use crate::{Fabric, GarmentMesh};
+use anyhow::Result;
 use fabelgeist_compute::KernelCache;
 use fabelgeist_gpu::globals::WgpuContext;
 use fabelgeist_shell::{Shell, ShellMesh};
-use fabelgeist_xpbd::StepDuration;
 
 use fabelgeist_compute::KernelBatch;
 #[cfg(test)]
@@ -30,7 +30,7 @@ impl Cloth {
         cache: &KernelCache,
         mesh: &GarmentMesh,
         fabric: Fabric,
-    ) -> std::result::Result<Self, fabelgeist_shell::ShellBuildError> {
+    ) -> Result<Self> {
         let shell_mesh = ShellMesh {
             positions: mesh.positions.clone(),
             triangles: mesh.triangles.clone(),
@@ -52,7 +52,7 @@ impl Cloth {
     }
     pub fn settings(&self) -> fabelgeist_shell::SolverSettings {
         fabelgeist_shell::SolverSettings {
-            damping: self.fabric.damping.into(),
+            damping: self.fabric.damping,
             ..Default::default()
         }
     }
@@ -61,8 +61,8 @@ impl Cloth {
         batch: &mut KernelBatch,
         solver: &fabelgeist_shell::Solver,
         collisions: &mut fabelgeist_shell::Collisions,
-        delta: StepDuration,
-    ) -> std::result::Result<(), fabelgeist_shell::ShellStepError> {
+        delta: f32,
+    ) -> Result<()> {
         self.shell.material.thickness = self.fabric.thickness;
         self.shell.record_step(batch, solver, collisions, delta)
     }
@@ -71,8 +71,8 @@ impl Cloth {
         context: &WgpuContext,
         solver: &fabelgeist_shell::Solver,
         collisions: &mut fabelgeist_shell::Collisions,
-        delta: StepDuration,
-    ) -> std::result::Result<(), fabelgeist_shell::ShellStepError> {
+        delta: f32,
+    ) -> Result<()> {
         self.shell.material.thickness = self.fabric.thickness;
         self.shell.step(context, solver, collisions, delta)
     }
@@ -81,8 +81,8 @@ impl Cloth {
         context: &WgpuContext,
         solver: &fabelgeist_shell::Solver,
         collisions: &mut fabelgeist_shell::Collisions,
-        delta: StepDuration,
-    ) -> std::result::Result<(), fabelgeist_shell::ShellStepError> {
+        delta: f32,
+    ) -> Result<()> {
         self.shell.material.thickness = self.fabric.thickness;
         self.shell
             .step_interleaved(context, solver, collisions, delta)

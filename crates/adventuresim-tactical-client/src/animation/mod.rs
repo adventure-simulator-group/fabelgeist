@@ -5,8 +5,8 @@
 
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 
-use adventuresim_core::item_catalog::WeaponHandling;
-use adventuresim_tactical_core::{animation::AttackCurve, prelude::*};
+use adventuresim_tactical_core::animation::AttackCurve;
+use adventuresim_tactical_core::prelude::*;
 #[cfg(not(target_family = "wasm"))]
 use adventuresim_tactical_netcode::message::PlayerInputRequest;
 use adventuresim_tactical_netcode::message::SuccessfulAttackResponse;
@@ -33,8 +33,8 @@ pub(crate) use procedural::{
     ArmIkState, BoneRole, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidBone,
     HumanoidIkTargets, HumanoidRig, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState,
     LocomotionHeightState, MhrBone, ProceduralAnimationClock, RaisedFootworkState,
-    authored_bind_global, locomotion_support_weights, measured_ankle_sole_offset_metres,
-    sole_contact_tolerance_metres,
+    authored_bind_global, cache_humanoid_rigs, locomotion_support_weights,
+    measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
 };
 const HUMANOID_UNARMED_PACK: &str = "humanoid_unarmed";
 const HUMANOID_2H_CLOSE_PACK: &str = "humanoid_2h_close";
@@ -623,7 +623,7 @@ fn authored_pose_owns_hands(samples: &[PoseSample]) -> bool {
 
 fn weapon_uses_offhand(item_id: &str, offhand_is_empty: bool) -> bool {
     offhand_is_empty
-        && item_catalog::weapon_handling(&(item_id).into()) == Some(WeaponHandling::TwoHanded)
+        && item_catalog::weapon_handling(item_id) == Some(item_catalog::WeaponHandling::TwoHanded)
 }
 
 fn weapon_grip_layers(
@@ -654,16 +654,16 @@ fn equipped_animation_pack(
 }
 
 fn animation_pack_for_weapon(item_id: &str, uses_offhand: bool) -> &'static str {
-    if item_catalog::weapon_handling(&(item_id).into()) == Some(WeaponHandling::TwoHanded)
+    if item_catalog::weapon_handling(item_id) == Some(item_catalog::WeaponHandling::TwoHanded)
         && !uses_offhand
     {
         return HUMANOID_UNARMED_PACK;
     }
-    if let Some(pack) = item_catalog::weapon_animation_pack(&(item_id).into()) {
+    if let Some(pack) = item_catalog::weapon_animation_pack(item_id) {
         return pack;
     }
-    match item_catalog::weapon_handling(&(item_id).into()) {
-        Some(WeaponHandling::TwoHanded) => HUMANOID_2H_CLOSE_PACK,
+    match item_catalog::weapon_handling(item_id) {
+        Some(item_catalog::WeaponHandling::TwoHanded) => HUMANOID_2H_CLOSE_PACK,
         _ => HUMANOID_UNARMED_PACK,
     }
 }

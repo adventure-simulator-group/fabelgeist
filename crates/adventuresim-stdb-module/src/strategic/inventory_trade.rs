@@ -13,12 +13,9 @@ pub fn transfer_party_item(
     inventory_item_id: u64,
     quantity: u32,
 ) -> Result<(), String> {
-    require_character_no_unresolved_encounter(ctx, (from_character_id).into())
-        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (from_character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (to_character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_character_no_unresolved_encounter(ctx, from_character_id)?;
+    crate::character::require_living_character(ctx, from_character_id)?;
+    crate::character::require_living_character(ctx, to_character_id)?;
     if quantity == 0 || from_character_id == to_character_id {
         return Err("Transfer quantity must be positive and between different characters".into());
     }
@@ -44,31 +41,18 @@ pub fn transfer_party_item(
     let container_object = crate::inventory_container::object_for_row(
         ctx,
         CarriedInventoryScope::Personal,
-        (source_item.id).into(),
-    )
-    .map_err(
-        |error: crate::inventory_container::InventoryObjectError| -> String { error.to_string() },
+        source_item.id,
     )?;
     if let Some(object) = container_object {
         if !physical_object_row_is_atomic(true, quantity, source_item.quantity) {
             return Err("A physical object must move as one exact inventory row".into());
         }
-        crate::inventory_container::detach_if_nested(ctx, object.id).map_err(
-            |error: crate::inventory_container::InventoryContainerError| -> String {
-                error.to_string()
-            },
-        )?;
-        let destination = OperationalCustody::character((to_character_id).into())
-            .map_err(|error| error.to_string())?;
-        crate::inventory_container::rehome_subtree(ctx, object.id, &destination).map_err(
-            |error: crate::inventory_container::InventoryContainerError| -> String {
-                error.to_string()
-            },
-        )?;
-        crate::capability::refresh_character_capability(ctx, (from_character_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
-        crate::capability::refresh_character_capability(ctx, (to_character_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+        crate::inventory_container::detach_if_nested(ctx, object.id)?;
+        let destination =
+            OperationalCustody::character(to_character_id).map_err(|error| error.to_string())?;
+        crate::inventory_container::rehome_subtree(ctx, object.id, &destination)?;
+        crate::capability::refresh_character_capability(ctx, from_character_id)?;
+        crate::capability::refresh_character_capability(ctx, to_character_id)?;
         return Ok(());
     }
 
@@ -80,10 +64,8 @@ pub fn transfer_party_item(
         let mut transferred = source_item;
         transferred.character_id = to_character_id;
         ctx.db.inventory_item().id().update(transferred);
-        crate::capability::refresh_character_capability(ctx, (from_character_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
-        crate::capability::refresh_character_capability(ctx, (to_character_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+        crate::capability::refresh_character_capability(ctx, from_character_id)?;
+        crate::capability::refresh_character_capability(ctx, to_character_id)?;
         return Ok(());
     }
 
@@ -114,7 +96,7 @@ pub fn transfer_party_item(
         .id()
         .find(&source_item.item_id)
         .is_some_and(|row| row.kind == crate::CatalogItemKind::Food)
-        || adventuresim_core::food::definition(&(&source_item.item_id).into()).is_some();
+        || adventuresim_core::food::definition(&source_item.item_id).is_some();
     if food {
         if source_item.quantity == quantity {
             let mut moved = source_item;
@@ -138,13 +120,10 @@ pub fn transfer_party_item(
                 destination.id,
                 quantity,
                 original_quantity,
-            )
-            .map_err(|error: crate::food::FoodLotMutationError| -> String { error.to_string() })?;
+            )?;
         }
-        crate::capability::refresh_character_capability(ctx, (from_character_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
-        crate::capability::refresh_character_capability(ctx, (to_character_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+        crate::capability::refresh_character_capability(ctx, from_character_id)?;
+        crate::capability::refresh_character_capability(ctx, to_character_id)?;
         return Ok(());
     }
 
@@ -456,18 +435,13 @@ mod medication_custody_tests {
             .split("fn credit_party_stake")
             .next()
             .unwrap();
-        assert!(
-            party_add.contains("inventory_row_allocation(definition.as_ref(), food, measured)")
-        );
+        assert!(party_add.contains("requires_stable_object(definition.as_ref(), food, measured)"));
         assert!(party_add.contains("for _ in 0..quantity"));
         assert!(party_add.contains("quantity: 1"));
-        let stable_object_policy = crate::production_source(include_str!("../item/issuance.rs"))
-            .split("pub(crate) fn inventory_row_allocation")
+        let stable_object_policy = crate::production_source(include_str!("../item.rs"))
+            .split("pub(crate) fn requires_stable_object")
             .nth(1)
-            .and_then(|tail| {
-                tail.split("pub(crate) fn add_inventory_item_checked")
-                    .next()
-            })
+            .and_then(|tail| tail.split("pub(crate) fn add_inventory_item_checked").next())
             .unwrap();
         assert!(stable_object_policy.contains("definition.kind == CatalogItemKind::Medication"));
 
@@ -515,15 +489,11 @@ pub(crate) fn add_to_party_inventory_checked(
     }
     let definition = ctx.db.item().id().find(item_id.to_string());
     let kind = definition.as_ref().map(|row| row.kind);
-    let food_definition = crate::item::inventory_food_definition(kind, &(item_id).into()).map_err(
-        |error: crate::item::MissingInventoryFoodDefinition| -> String { error.to_string() },
-    )?;
+    let food_definition = crate::item::inventory_food_definition(kind, item_id)?;
     let food = food_definition.is_some();
-    let measured = crate::inventory_amount::is_measured_item(ctx, &(item_id).into());
+    let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
     let durable = item_is_durable(ctx, item_id);
-    let allocation = crate::item::inventory_row_allocation(definition.as_ref(), food, measured);
-    let individual =
-        allocation == adventuresim_core::inventory_measurement::InventoryRowAllocation::Individual;
+    let individual = crate::item::requires_stable_object(definition.as_ref(), food, measured);
     if individual {
         let minute = ctx
             .db
@@ -539,16 +509,12 @@ pub(crate) fn add_to_party_inventory_checked(
                 item_id: item_id.into(),
                 quantity: 1,
             });
-            crate::inventory_container::insert_party_object(ctx, &row).map_err(
-                |error: crate::inventory_container::InventoryObjectError| -> String {
-                    error.to_string()
-                },
-            )?;
+            crate::inventory_container::insert_party_object(ctx, &row)?;
             if measured {
                 crate::inventory_amount::initialize_party(ctx, row.id);
             }
             if food {
-                crate::food::create_party_food_lot(ctx, row.id, &(item_id).into(), 1, minute)
+                crate::food::create_party_food_lot(ctx, row.id, item_id, 1, minute)
                     .ok_or_else(|| format!("Could not create party food lot for {item_id}"))?;
             }
             if durable {
@@ -561,11 +527,7 @@ pub(crate) fn add_to_party_inventory_checked(
                     tier_5: 0.0,
                 });
             }
-            crate::weapon_instance::initialize_party_weapon(ctx, &row).map_err(
-                |error: crate::weapon_instance::WeaponInstanceError| -> String {
-                    error.to_string()
-                },
-            )?;
+            crate::weapon_instance::initialize_party_weapon(ctx, &row)?;
         }
         return Ok(());
     }
@@ -601,7 +563,7 @@ pub(crate) fn add_to_party_inventory_checked(
 fn credit_party_stake(
     ctx: &ReducerContext,
     party_id: &str,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
     value: u64,
 ) -> Result<(), String> {
     if value == 0 {
@@ -612,9 +574,7 @@ fn credit_party_stake(
         .party_stake()
         .party_id()
         .filter(party_id)
-        .find(|stake| {
-            adventuresim_core::identity::CharacterId::from(stake.character_id) == character_id
-        })
+        .find(|stake| stake.character_id == character_id)
     {
         stake.value = stake
             .value
@@ -625,7 +585,7 @@ fn credit_party_stake(
         ctx.db.party_stake().insert(PartyStake {
             id: 0,
             party_id: party_id.to_string(),
-            character_id: u64::from(character_id),
+            character_id,
             value,
         });
     }
@@ -1259,14 +1219,13 @@ fn commit_hostile_battle_resolution(
         !dropped_items.is_empty() || include_random_gold,
     )
     .map_err(str::to_string)?;
-    adventuresim_core::mission::OutcomeSourceId::new(outcome_source_id)
-        .map_err(|error| error.to_string())?;
-    adventuresim_core::mission::BattleId::new(battle_id).map_err(|error| error.to_string())?;
+    adventuresim_core::mission::OutcomeSourceId::new(outcome_source_id).map_err(str::to_string)?;
+    adventuresim_core::mission::BattleId::new(battle_id).map_err(str::to_string)?;
     if let Some(id) = mission_id {
-        adventuresim_core::mission::MissionId::new(id).map_err(|error| error.to_string())?;
+        adventuresim_core::mission::MissionId::new(id).map_err(str::to_string)?;
     }
     if let Some(id) = hostile_group_id {
-        adventuresim_core::mission::HostileGroupId::new(id).map_err(|error| error.to_string())?;
+        adventuresim_core::mission::HostileGroupId::new(id).map_err(str::to_string)?;
     }
     if let Some(existing) = ctx
         .db
@@ -1390,11 +1349,11 @@ fn commit_hostile_battle_resolution(
         ctx.db.battle_participant().insert(BattleParticipant {
             id: 0,
             participant_battle_id: battle_id.to_string(),
-            character_id: u64::from(member_id),
+            character_id: member_id,
         });
         crate::condition::record_morale_event(
             ctx,
-            (member_id).into(),
+            member_id,
             adventuresim_core::morale::MoraleEventKind::Victory,
             5.0 + difficulty.max(0) as f32,
             Some(outcome_source_id.to_string()),
@@ -1485,12 +1444,9 @@ pub fn store_battle_loot(
     loot_item_ids: Vec<u64>,
     quantities: Vec<u32>,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    adventuresim_core::mission::BattleId::new(battle_id.clone())
-        .map_err(|error| error.to_string())?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, character_id)?;
+    adventuresim_core::mission::BattleId::new(battle_id.clone()).map_err(str::to_string)?;
+    crate::character::require_living_character(ctx, character_id)?;
     if loot_item_ids.len() != quantities.len() {
         return Err("Loot entries must be aligned".into());
     }
@@ -1595,7 +1551,7 @@ pub fn store_battle_loot(
     let participant_count = participants.len() as u64;
     let share = total_value / participant_count;
     for participant_id in participants {
-        credit_party_stake(ctx, &party_id, (participant_id).into(), share)?;
+        credit_party_stake(ctx, &party_id, participant_id, share)?;
     }
     credit_party_reserve(ctx, &party_id, total_value % participant_count)?;
     Ok(())
@@ -1608,10 +1564,8 @@ pub fn deposit_party_inventory_item(
     inventory_item_id: u64,
     quantity: u32,
 ) -> Result<(), String> {
-    require_character_no_unresolved_encounter(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_character_no_unresolved_encounter(ctx, character_id)?;
+    crate::character::require_living_character(ctx, character_id)?;
     let character = ctx
         .db
         .character()
@@ -1634,10 +1588,7 @@ pub fn deposit_party_inventory_item(
     if let Some(object) = crate::inventory_container::object_for_row(
         ctx,
         CarriedInventoryScope::Personal,
-        (inventory.id).into(),
-    )
-    .map_err(
-        |error: crate::inventory_container::InventoryObjectError| -> String { error.to_string() },
+        inventory.id,
     )? {
         if !physical_object_row_is_atomic(true, quantity, inventory.quantity) {
             return Err("A physical object must be deposited as one exact inventory row".into());
@@ -1649,21 +1600,12 @@ pub fn deposit_party_inventory_item(
         } else {
             personal_inventory_value(ctx, &inventory, quantity)?
         };
-        crate::inventory_container::detach_if_nested(ctx, object.id).map_err(
-            |error: crate::inventory_container::InventoryContainerError| -> String {
-                error.to_string()
-            },
-        )?;
+        crate::inventory_container::detach_if_nested(ctx, object.id)?;
         let destination =
             OperationalCustody::party(party_id.clone()).map_err(|error| error.to_string())?;
-        crate::inventory_container::rehome_subtree(ctx, object.id, &destination).map_err(
-            |error: crate::inventory_container::InventoryContainerError| -> String {
-                error.to_string()
-            },
-        )?;
-        credit_party_stake(ctx, &party_id, (character_id).into(), value)?;
-        crate::capability::refresh_character_capability(ctx, (character_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+        crate::inventory_container::rehome_subtree(ctx, object.id, &destination)?;
+        credit_party_stake(ctx, &party_id, character_id, value)?;
+        crate::capability::refresh_character_capability(ctx, character_id)?;
         return Ok(());
     }
     let medication = item_is_medication(ctx, &inventory.item_id);
@@ -1702,17 +1644,9 @@ pub fn deposit_party_inventory_item(
                 party_row.id,
                 quantity,
                 inventory.quantity,
-            )
-            .map_err(|error: crate::food::FoodLotMutationError| -> String { error.to_string() })?;
+            )?;
         }
-        crate::inventory_amount::move_personal_to_party(
-            ctx,
-            inventory.id.into(),
-            party_row.id.into(),
-        )
-        .map_err(
-            |error: crate::inventory_amount::InventoryAmountError| -> String { error.to_string() },
-        )?;
+        crate::inventory_amount::move_personal_to_party(ctx, inventory.id, party_row.id)?;
         Some(party_row)
     } else {
         add_to_party_inventory(ctx, &party_id, &inventory.item_id, quantity);
@@ -1750,15 +1684,14 @@ pub fn deposit_party_inventory_item(
             .inventory_item_id()
             .delete(inventory.id);
     }
-    credit_party_stake(ctx, &party_id, (character_id).into(), value)?;
+    credit_party_stake(ctx, &party_id, character_id, value)?;
     if inventory.quantity == quantity {
         ctx.db.inventory_item().id().delete(inventory.id);
     } else {
         inventory.quantity -= quantity;
         ctx.db.inventory_item().id().update(inventory);
     }
-    crate::capability::refresh_character_capability(ctx, (character_id).into())
-        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+    crate::capability::refresh_character_capability(ctx, character_id)?;
     Ok(())
 }
 
@@ -1767,7 +1700,7 @@ pub(crate) fn consume_personal_gold(
     character_id: u64,
     amount: u64,
 ) -> Result<(), String> {
-    crate::item::consume_personal_currency(ctx, (character_id).into(), amount)
+    crate::item::consume_personal_currency(ctx, character_id, amount)
 }
 
 pub(crate) fn party_currency_total(ctx: &ReducerContext, party_id: &str) -> u64 {
@@ -1884,12 +1817,7 @@ fn transfer_party_currency_to_personal(
     let mut remaining = amount;
     for mut stack in stacks {
         let taken = remaining.min(u64::from(stack.quantity)) as u32;
-        crate::add_inventory_item(
-            ctx,
-            character_id.into(),
-            &(&stack.item_id).into(),
-            taken.into(),
-        );
+        crate::add_inventory_item(ctx, character_id, &stack.item_id, taken);
         stack.quantity -= taken;
         remaining -= u64::from(taken);
         if stack.quantity == 0 {
@@ -1911,10 +1839,8 @@ pub fn withdraw_party_inventory_item(
     party_inventory_item_id: u64,
     quantity: u32,
 ) -> Result<(), String> {
-    require_character_no_unresolved_encounter(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_character_no_unresolved_encounter(ctx, character_id)?;
+    crate::character::require_living_character(ctx, character_id)?;
     let character = ctx
         .db
         .character()
@@ -1934,10 +1860,7 @@ pub fn withdraw_party_inventory_item(
     let container_object = crate::inventory_container::object_for_row(
         ctx,
         CarriedInventoryScope::Party,
-        (inventory.id).into(),
-    )
-    .map_err(
-        |error: crate::inventory_container::InventoryObjectError| -> String { error.to_string() },
+        inventory.id,
     )?;
     let container_subtree = container_object.as_ref().is_some_and(|object| {
         crate::inventory_container::object_is_nonempty(ctx, object.id)
@@ -1967,20 +1890,11 @@ pub fn withdraw_party_inventory_item(
         ctx.db.party_stake().id().update(stake.clone());
     }
     if let Some(object) = container_object {
-        crate::inventory_container::detach_if_nested(ctx, object.id).map_err(
-            |error: crate::inventory_container::InventoryContainerError| -> String {
-                error.to_string()
-            },
-        )?;
-        let destination = OperationalCustody::character((character_id).into())
-            .map_err(|error| error.to_string())?;
-        crate::inventory_container::rehome_subtree(ctx, object.id, &destination).map_err(
-            |error: crate::inventory_container::InventoryContainerError| -> String {
-                error.to_string()
-            },
-        )?;
-        crate::capability::refresh_character_capability(ctx, (character_id).into())
-            .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+        crate::inventory_container::detach_if_nested(ctx, object.id)?;
+        let destination =
+            OperationalCustody::character(character_id).map_err(|error| error.to_string())?;
+        crate::inventory_container::rehome_subtree(ctx, object.id, &destination)?;
+        crate::capability::refresh_character_capability(ctx, character_id)?;
         return Ok(());
     }
     let durable = item_is_durable(ctx, &inventory.item_id);
@@ -2015,30 +1929,19 @@ pub fn withdraw_party_inventory_item(
                 row.id,
                 quantity,
                 inventory.quantity,
-            )
-            .map_err(|error: crate::food::FoodLotMutationError| -> String { error.to_string() })?;
-        }
-        crate::inventory_amount::move_party_to_personal(ctx, inventory.id.into(), row.id.into())
-            .map_err(
-                |error: crate::inventory_amount::InventoryAmountError| -> String {
-                    error.to_string()
-                },
             )?;
-        Some(adventuresim_core::identity::InventoryItemId::new(row.id))
+        }
+        crate::inventory_amount::move_party_to_personal(ctx, inventory.id, row.id)?;
+        Some(row.id)
     } else {
-        crate::add_inventory_item(
-            ctx,
-            character_id.into(),
-            &(&inventory.item_id).into(),
-            quantity.into(),
-        )
+        crate::add_inventory_item(ctx, character_id, &inventory.item_id, quantity)
     };
     if let (Some(condition), Some(new_id)) = (preserved_condition, new_inventory_id) {
         ctx.db
             .item_condition()
             .inventory_item_id()
             .update(crate::repair::ItemCondition {
-                inventory_item_id: new_id.get(),
+                inventory_item_id: new_id,
                 tier_1: condition.tier_1,
                 tier_2: condition.tier_2,
                 tier_3: condition.tier_3,
@@ -2056,8 +1959,7 @@ pub fn withdraw_party_inventory_item(
         inventory.quantity -= quantity;
         ctx.db.party_inventory_item().id().update(inventory);
     }
-    crate::capability::refresh_character_capability(ctx, (character_id).into())
-        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+    crate::capability::refresh_character_capability(ctx, character_id)?;
     Ok(())
 }
 
@@ -2069,8 +1971,7 @@ pub fn liquidate_party_inventory(
     party_inventory_item_ids: Vec<u64>,
     quantities: Vec<u32>,
 ) -> Result<(), String> {
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::character::require_living_character(ctx, character_id)?;
     if party_inventory_item_ids.is_empty() || party_inventory_item_ids.len() != quantities.len() {
         return Err("Liquidation entries must be non-empty and aligned".into());
     }
@@ -2120,12 +2021,7 @@ pub fn liquidate_party_inventory(
         let object = crate::inventory_container::object_for_row(
             ctx,
             CarriedInventoryScope::Party,
-            (entry.id).into(),
-        )
-        .map_err(
-            |error: crate::inventory_container::InventoryObjectError| -> String {
-                error.to_string()
-            },
+            entry.id,
         )?;
         let subtree = object.as_ref().is_some_and(|object| {
             crate::inventory_container::object_is_nonempty(ctx, object.id)
@@ -2148,24 +2044,13 @@ pub fn liquidate_party_inventory(
         u32::try_from(proceeds).map_err(|_| "Party asset liquidation exceeds currency limits")?;
     for (mut entry, quantity, object) in staged {
         if let Some(object) = object {
-            crate::inventory_container::detach_if_nested(ctx, object.id).map_err(
-                |error: crate::inventory_container::InventoryContainerError| -> String {
-                    error.to_string()
-                },
-            )?;
-            crate::inventory_container::delete_subtree(ctx, object.id).map_err(
-                |error: crate::inventory_container::InventoryContainerError| -> String {
-                    error.to_string()
-                },
-            )?;
+            crate::inventory_container::detach_if_nested(ctx, object.id)?;
+            crate::inventory_container::delete_subtree(ctx, object.id)?;
             continue;
         }
         let is_food = crate::food::party_lot(ctx, entry.id).is_some();
         if is_food {
-            crate::food::remove_party_lot_quantity(ctx, entry.id, quantity, entry.quantity)
-                .map_err(|error: crate::food::FoodLotMutationError| -> String {
-                    error.to_string()
-                })?;
+            crate::food::remove_party_lot_quantity(ctx, entry.id, quantity, entry.quantity)?;
         }
         if entry.quantity == quantity {
             ctx.db
@@ -2193,10 +2078,8 @@ pub fn discard_inventory_items(
     inventory_item_ids: Vec<u64>,
     quantities: Vec<u32>,
 ) -> Result<(), String> {
-    require_character_no_unresolved_encounter(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_character_no_unresolved_encounter(ctx, character_id)?;
+    crate::character::require_living_character(ctx, character_id)?;
     if inventory_item_ids.is_empty() || inventory_item_ids.len() != quantities.len() {
         return Err("Discarded item IDs and quantities must be non-empty and aligned".into());
     }
@@ -2224,12 +2107,7 @@ pub fn discard_inventory_items(
         let object = crate::inventory_container::object_for_row(
             ctx,
             CarriedInventoryScope::Personal,
-            (item.id).into(),
-        )
-        .map_err(
-            |error: crate::inventory_container::InventoryObjectError| -> String {
-                error.to_string()
-            },
+            item.id,
         )?;
         if !physical_object_row_is_atomic(object.is_some(), quantity, item.quantity) {
             return Err("A physical object must be discarded as one exact inventory row".into());
@@ -2239,16 +2117,8 @@ pub fn discard_inventory_items(
 
     for (mut item, quantity, object) in staged {
         if let Some(object) = object {
-            crate::inventory_container::detach_if_nested(ctx, object.id).map_err(
-                |error: crate::inventory_container::InventoryContainerError| -> String {
-                    error.to_string()
-                },
-            )?;
-            crate::inventory_container::delete_subtree(ctx, object.id).map_err(
-                |error: crate::inventory_container::InventoryContainerError| -> String {
-                    error.to_string()
-                },
-            )?;
+            crate::inventory_container::detach_if_nested(ctx, object.id)?;
+            crate::inventory_container::delete_subtree(ctx, object.id)?;
             continue;
         }
         if item.quantity == quantity {
@@ -2260,15 +2130,12 @@ pub fn discard_inventory_items(
             ctx.db.item_condition().inventory_item_id().delete(item.id);
             crate::food::delete_personal_food_lot(ctx, item.id);
         } else {
-            crate::food::remove_lot_quantity(ctx, item.id, quantity, item.quantity).map_err(
-                |error: crate::food::FoodLotMutationError| -> String { error.to_string() },
-            )?;
+            crate::food::remove_lot_quantity(ctx, item.id, quantity, item.quantity)?;
             item.quantity -= quantity;
             ctx.db.inventory_item().id().update(item);
         }
     }
-    crate::capability::refresh_character_capability(ctx, (character_id).into())
-        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+    crate::capability::refresh_character_capability(ctx, character_id)?;
     Ok(())
 }
 
@@ -2291,14 +2158,12 @@ pub fn finalize_party_offer(
         .iter()
         .flat_map(|line| [line.from_character_id, line.to_character_id])
     {
-        require_character_no_unresolved_encounter(ctx, (u64::from(character_id)).into())
-            .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-        crate::character::require_living_character(ctx, character_id)
-            .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+        require_character_no_unresolved_encounter(ctx, character_id)?;
+        crate::character::require_living_character(ctx, character_id)?;
     }
     for line in &offer {
-        let from_id = u64::from(line.from_character_id);
-        let to_id = u64::from(line.to_character_id);
+        let from_id = line.from_character_id;
+        let to_id = line.to_character_id;
         let quantity = line.quantity.get();
         let Some(from) = ctx.db.character().id().find(from_id) else {
             return Err("Source character not found".into());
@@ -2306,12 +2171,7 @@ pub fn finalize_party_offer(
         let Some(to) = ctx.db.character().id().find(to_id) else {
             return Err("Recipient character not found".into());
         };
-        let Some(item) = ctx
-            .db
-            .inventory_item()
-            .id()
-            .find(line.inventory_item_id.get())
-        else {
+        let Some(item) = ctx.db.inventory_item().id().find(line.inventory_item_id) else {
             return Err("Inventory item not found".into());
         };
         if quantity == 0
@@ -2330,9 +2190,9 @@ pub fn finalize_party_offer(
     for line in offer {
         transfer_party_item(
             ctx,
-            u64::from(line.from_character_id),
-            u64::from(line.to_character_id),
-            line.inventory_item_id.get(),
+            line.from_character_id,
+            line.to_character_id,
+            line.inventory_item_id,
             line.quantity.get(),
         )?;
     }
@@ -2437,8 +2297,7 @@ pub fn purchase_personal_storefront_with_party_stake(
     maximum_personal_payment: u64,
     maximum_stake_payment: u64,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    require_strategic_character_authority(ctx, character_id)?;
     let provider_resident_character_id =
         adventuresim_core::strategic_inventory::MerchantProviderId::try_from(
             provider_resident_character_id,
@@ -2467,7 +2326,7 @@ pub fn purchase_personal_storefront_with_party_stake(
     .map_err(|error| error.to_string())?;
     let personal_payment = payment.personal_amount();
     let stake_payment = payment.stake_amount();
-    if crate::item::personal_currency_total(ctx, character_id.into()) < personal_payment {
+    if crate::item::personal_currency_total(ctx, character_id) < personal_payment {
         return Err("Not enough personal coin".into());
     }
     if stake_payment > 0 {
@@ -2513,7 +2372,7 @@ fn validate_personal_storefront_purchase(
     item_id: &str,
     quantity: u32,
 ) -> Result<(String, u64), String> {
-    let character = crate::character::require_living_character(ctx, (character_id).into())?;
+    let character = crate::character::require_living_character(ctx, character_id)?;
     if quantity == 0 || character.current_settlement_id.as_deref() != Some(settlement_id) {
         return Err("Character must be at this settlement to purchase".into());
     }
@@ -2544,7 +2403,7 @@ fn validate_personal_storefront_purchase(
         item_id,
         item.kind.economy_kind(),
     ) || (storefront == adventuresim_core::settlement_economy::Storefront::Books
-        && adventuresim_core::item_catalog::definition(&(item_id).into())
+        && adventuresim_core::item_catalog::definition(item_id)
             .and_then(|definition| definition.capabilities.book.as_ref())
             .is_none_or(|book| {
                 !book.settlement_allowlist.is_empty()
@@ -2681,18 +2540,20 @@ fn finalize_storefront_trade_impl(
     let sell_inventory_ids = request
         .sells
         .iter()
-        .map(|line| line.inventory_item_id.get())
+        .map(|line| line.inventory_item_id)
         .collect::<Vec<_>>();
     let sell_quantities = request
         .sells
         .iter()
         .map(|line| line.quantity.get())
         .collect::<Vec<_>>();
-    crate::character::require_living_character(ctx, (character_id).into())?;
-    crate::relationship::TemporalScope::PairwiseSoft {
-        actor: (character_id).into(),
-    }
-    .enforce(ctx)?;
+    crate::character::require_living_character(ctx, character_id)?;
+    crate::relationship::enforce_temporal_scope(
+        ctx,
+        character_id,
+        Some(provider_resident_character_id.get()),
+        crate::relationship::TemporalScope::PairwiseSoft,
+    )?;
     let route = adventuresim_core::strategic_inventory::MerchantStorefrontRoute::try_from(
         service_id.as_str(),
     )
@@ -2799,9 +2660,7 @@ fn finalize_storefront_trade_impl(
         {
             return Err("Invalid merchant purchase".into());
         }
-        crate::item::inventory_food_definition(Some(item.kind), &(item_id).into()).map_err(
-            |error: crate::item::MissingInventoryFoodDefinition| -> String { error.to_string() },
-        )?;
+        crate::item::inventory_food_definition(Some(item.kind), item_id)?;
         let catalog_kind = item.kind.economy_kind();
         if !adventuresim_core::settlement_economy::storefront_stocks(
             &settlement_economy,
@@ -2809,7 +2668,7 @@ fn finalize_storefront_trade_impl(
             item_id,
             catalog_kind,
         ) || (storefront == adventuresim_core::settlement_economy::Storefront::Books
-            && adventuresim_core::item_catalog::definition(&(item_id).into())
+            && adventuresim_core::item_catalog::definition(item_id)
                 .and_then(|definition| definition.capabilities.book.as_ref())
                 .is_none_or(|book| {
                     !book.settlement_allowlist.is_empty()
@@ -2839,12 +2698,7 @@ fn finalize_storefront_trade_impl(
             } else {
                 CarriedInventoryScope::Personal
             },
-            (*inventory_id).into(),
-        )
-        .map_err(
-            |error: crate::inventory_container::InventoryObjectError| -> String {
-                error.to_string()
-            },
+            *inventory_id,
         )?;
         let container_subtree = container_object.as_ref().is_some_and(|object| {
             crate::inventory_container::object_is_nonempty(ctx, object.id)
@@ -2961,13 +2815,10 @@ fn finalize_storefront_trade_impl(
     }
     let coins = if party_scope {
         party_currency_total(ctx, party_id.as_ref().ok_or("Character has no party")?)
-            .checked_add(crate::item::personal_currency_total(
-                ctx,
-                character_id.into(),
-            ))
+            .checked_add(crate::item::personal_currency_total(ctx, character_id))
             .ok_or("Merchant balance overflow")?
     } else {
-        crate::item::personal_currency_total(ctx, character_id.into())
+        crate::item::personal_currency_total(ctx, character_id)
     };
     if coins
         .checked_add(proceeds)
@@ -2984,12 +2835,7 @@ fn finalize_storefront_trade_impl(
             } else {
                 CarriedInventoryScope::Personal
             },
-            (*inventory_id).into(),
-        )
-        .map_err(
-            |error: crate::inventory_container::InventoryObjectError| -> String {
-                error.to_string()
-            },
+            *inventory_id,
         )?;
         if let Some(object) = object {
             crate::inventory_container::detach_if_nested(ctx, object.id)?;
@@ -3085,7 +2931,7 @@ fn finalize_storefront_trade_impl(
             .id()
             .find(item_id)
             .is_some_and(|definition| definition.kind == crate::CatalogItemKind::Food)
-            || adventuresim_core::food::definition(&(item_id).into()).is_some();
+            || adventuresim_core::food::definition(item_id).is_some();
         if !durable
             && !food
             && let Some(mut stack) = ctx
@@ -3101,24 +2947,12 @@ fn finalize_storefront_trade_impl(
                 stack.quantity = merged;
                 ctx.db.inventory_item().id().update(stack);
             } else {
-                crate::item::add_inventory_item_checked(
-                    ctx,
-                    character_id.into(),
-                    &(item_id).into(),
-                    (*quantity).into(),
-                )
-                .map_err(|error: crate::item::InventoryGrantError| -> String { error.to_string() })?
-                .ok_or("Merchant purchase created no inventory item")?;
+                crate::item::add_inventory_item_checked(ctx, character_id, item_id, *quantity)?
+                    .ok_or("Merchant purchase created no inventory item")?;
             }
         } else {
-            crate::item::add_inventory_item_checked(
-                ctx,
-                character_id.into(),
-                &(item_id).into(),
-                (*quantity).into(),
-            )
-            .map_err(|error: crate::item::InventoryGrantError| -> String { error.to_string() })?
-            .ok_or("Merchant purchase created no inventory item")?;
+            crate::item::add_inventory_item_checked(ctx, character_id, item_id, *quantity)?
+                .ok_or("Merchant purchase created no inventory item")?;
         }
     }
     let (owes, receives) = if cost >= proceeds {
@@ -3137,7 +2971,7 @@ fn finalize_storefront_trade_impl(
     } else if party_scope && owes > 0 {
         let party_id = party_id.as_ref().ok_or("Character has no party")?;
         let party_coins = party_currency_total(ctx, party_id);
-        let personal_coins = crate::item::personal_currency_total(ctx, character_id.into());
+        let personal_coins = crate::item::personal_currency_total(ctx, character_id);
         let (pooled, personal) =
             adventuresim_core::strategic_economy::split_party_purchase_payment(
                 party_coins,
@@ -3148,28 +2982,26 @@ fn finalize_storefront_trade_impl(
         consume_party_currency(ctx, party_id, pooled)?;
         consume_personal_gold(ctx, character_id, personal)?;
         if personal > 0 {
-            credit_party_stake(ctx, party_id, (character_id).into(), personal)?;
+            credit_party_stake(ctx, party_id, character_id, personal)?;
         }
     } else if owes > 0 {
         consume_personal_gold(ctx, character_id, owes)?;
     } else if receives > 0 {
         crate::item::credit_personal_currency(
             ctx,
-            (character_id).into(),
+            character_id,
             &settlement_id,
             u32::try_from(receives).map_err(|_| "Merchant proceeds exceed inventory capacity")?,
         )?;
     }
-    crate::capability::refresh_character_capability(ctx, (character_id).into())?;
+    crate::capability::refresh_character_capability(ctx, character_id)?;
     Ok(())
 }
 
 #[reducer]
 pub fn leave_party(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    require_character_no_unresolved_encounter(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_character_no_unresolved_encounter(ctx, character_id)?;
+    crate::character::require_living_character(ctx, character_id)?;
     remove_party_member(ctx, character_id, character_id)
 }
 
@@ -3181,10 +3013,8 @@ pub fn remove_party_member(
     actor_character_id: u64,
     member_character_id: u64,
 ) -> Result<(), String> {
-    require_character_no_unresolved_encounter(ctx, (actor_character_id).into())
-        .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (actor_character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_character_no_unresolved_encounter(ctx, actor_character_id)?;
+    crate::character::require_living_character(ctx, actor_character_id)?;
     let Some(actor) = ctx.db.character().id().find(actor_character_id) else {
         return Err("Acting character not found".into());
     };
@@ -3237,8 +3067,8 @@ pub fn remove_party_member(
         ctx.db.party_member().id().delete(membership.id);
     }
 
-    crate::social::settle_shared_party_time(ctx, (member_character_id).into());
-    crate::social::close_physiology_presence(ctx, member_character_id.into());
+    crate::social::settle_shared_party_time(ctx, member_character_id);
+    crate::social::close_physiology_presence(ctx, member_character_id);
     character.party_id = None;
     ctx.db.character().id().update(character);
     for vote in ctx
@@ -3253,7 +3083,7 @@ pub fn remove_party_member(
         }
     }
     normalize_and_elect_party_leader(ctx, &party_id)?;
-    create_solo_party_for_character(ctx, (member_character_id).into())?;
+    create_solo_party_for_character(ctx, member_character_id)?;
     crate::social::prune_invalid_automatic_social_chats(ctx);
     Ok(())
 }
@@ -3281,15 +3111,8 @@ fn settle_temporary_member_stake(
 
 #[reducer]
 pub fn disband_party(ctx: &ReducerContext, leader_id: u64, party_id: String) -> Result<(), String> {
-    require_no_unresolved_encounter(
-        ctx,
-        &adventuresim_core::identity::PartyId::try_new(party_id.clone()).map_err(|source| {
-            crate::strategic::PendingEncounterError::PartyIdentity(source).to_string()
-        })?,
-    )
-    .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_no_unresolved_encounter(ctx, &party_id)?;
+    crate::character::require_living_character(ctx, leader_id)?;
     let Some(party) = ctx.db.party_authority().id().find(&party_id) else {
         return Err("Party not found".into());
     };
@@ -3385,8 +3208,8 @@ pub fn disband_party(ctx: &ReducerContext, leader_id: u64, party_id: String) -> 
     let member_ids: Vec<_> = members.iter().map(|member| member.character_id).collect();
     for member in members {
         if let Some(mut character) = ctx.db.character().id().find(member.character_id) {
-            crate::social::settle_shared_party_time(ctx, (member.character_id).into());
-            crate::social::close_physiology_presence(ctx, member.character_id.into());
+            crate::social::settle_shared_party_time(ctx, member.character_id);
+            crate::social::close_physiology_presence(ctx, member.character_id);
             character.party_id = None;
             ctx.db.character().id().update(character);
         }
@@ -3421,7 +3244,7 @@ pub fn disband_party(ctx: &ReducerContext, leader_id: u64, party_id: String) -> 
 
     ctx.db.party_authority().id().delete(&party_id);
     for character_id in member_ids {
-        create_solo_party_for_character(ctx, (character_id).into())?;
+        create_solo_party_for_character(ctx, character_id)?;
     }
     crate::social::prune_invalid_automatic_social_chats(ctx);
     Ok(())

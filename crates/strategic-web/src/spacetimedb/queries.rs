@@ -1,30 +1,21 @@
-use adventuresim_core::identity::CharacterId;
-
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) struct SqlQuery(String);
 
 impl SqlQuery {
-    /// Encode the complete statement only at the HTTP provider boundary.
-    pub(crate) fn request_body(&self) -> reqwest::Body {
-        self.0.clone().into()
+    fn new(query: String) -> Self {
+        Self(query)
+    }
+
+    pub(crate) fn as_str(&self) -> &str {
+        &self.0
     }
 }
 
-impl From<String> for SqlQuery {
-    fn from(statement: String) -> Self {
-        Self(statement)
-    }
-}
+impl std::ops::Deref for SqlQuery {
+    type Target = str;
 
-impl From<&str> for SqlQuery {
-    fn from(statement: &str) -> Self {
-        Self::from(statement.to_owned())
-    }
-}
-
-impl std::fmt::Display for SqlQuery {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        formatter.write_str(&self.0)
+    fn deref(&self) -> &Self::Target {
+        self.as_str()
     }
 }
 
@@ -35,7 +26,7 @@ pub(crate) fn sql_string_literal(value: &str) -> String {
 macro_rules! string_key_query {
     ($name:ident, $prefix:literal) => {
         pub(crate) fn $name(value: &str) -> SqlQuery {
-            SqlQuery::from(format!(concat!($prefix, "{}"), sql_string_literal(value)))
+            SqlQuery::new(format!(concat!($prefix, "{}"), sql_string_literal(value)))
         }
     };
 }
@@ -43,7 +34,7 @@ macro_rules! string_key_query {
 macro_rules! u64_key_query {
     ($name:ident, $prefix:literal) => {
         pub(crate) fn $name(value: u64) -> SqlQuery {
-            SqlQuery::from(format!(concat!($prefix, "{}"), value))
+            SqlQuery::new(format!(concat!($prefix, "{}"), value))
         }
     };
 }
@@ -113,9 +104,9 @@ string_key_query!(
 );
 pub(crate) fn case_site_pin_by_case_site_id_and_owner(
     case_site_id: &str,
-    owner_character_id: CharacterId,
+    owner_character_id: u64,
 ) -> SqlQuery {
-    SqlQuery::from(format!(
+    SqlQuery::new(format!(
         "SELECT * FROM backend_case_site_pins WHERE case_site_id = {} AND owner_character_id = {owner_character_id}",
         sql_string_literal(case_site_id)
     ))
@@ -125,106 +116,86 @@ string_key_query!(
     "SELECT * FROM tactical_server WHERE mission_id = "
 );
 
-pub(crate) fn character_by_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_characters WHERE id = {character_id}"
-    ))
-}
-pub(crate) fn character_time_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_times WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_stats_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_stats WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_skills_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_skills WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_attributes_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_attributes WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_capability_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_capabilities WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_limbs_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_limbs WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_condition_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_conditions WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_strategic_condition_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_strategic_conditions WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_death_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_deaths WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_needs_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_needs WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_personality_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_personalities WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_training_schedule_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_training_schedules WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_relationship_status_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_relationship_statuses WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_residence_status_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_residence_statuses WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn character_case_site_location_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_character_case_site_locations WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn organization_presentation_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM organization_presentation WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn settlement_resident_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_settlement_residents WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn settlement_resident_presence_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM settlement_resident_presence WHERE character_id = {character_id}"
-    ))
-}
-pub(crate) fn forage_attempt_state_by_character_id(character_id: CharacterId) -> SqlQuery {
-    SqlQuery::from(format!(
-        "SELECT * FROM backend_forage_attempt_states WHERE character_id = {character_id}"
-    ))
-}
+u64_key_query!(
+    character_by_id,
+    "SELECT * FROM backend_characters WHERE id = "
+);
+u64_key_query!(
+    character_time_by_character_id,
+    "SELECT * FROM backend_character_times WHERE character_id = "
+);
+u64_key_query!(
+    character_stats_by_character_id,
+    "SELECT * FROM backend_character_stats WHERE character_id = "
+);
+u64_key_query!(
+    character_skills_by_character_id,
+    "SELECT * FROM backend_character_skills WHERE character_id = "
+);
+u64_key_query!(
+    character_attributes_by_character_id,
+    "SELECT * FROM backend_character_attributes WHERE character_id = "
+);
+u64_key_query!(
+    character_capability_by_character_id,
+    "SELECT * FROM backend_character_capabilities WHERE character_id = "
+);
+u64_key_query!(
+    character_limbs_by_character_id,
+    "SELECT * FROM backend_character_limbs WHERE character_id = "
+);
+u64_key_query!(
+    character_condition_by_character_id,
+    "SELECT * FROM backend_character_conditions WHERE character_id = "
+);
+u64_key_query!(
+    character_strategic_condition_by_character_id,
+    "SELECT * FROM backend_character_strategic_conditions WHERE character_id = "
+);
+u64_key_query!(
+    character_death_by_character_id,
+    "SELECT * FROM backend_character_deaths WHERE character_id = "
+);
+u64_key_query!(
+    character_needs_by_character_id,
+    "SELECT * FROM backend_character_needs WHERE character_id = "
+);
+u64_key_query!(
+    character_personality_by_character_id,
+    "SELECT * FROM backend_character_personalities WHERE character_id = "
+);
+u64_key_query!(
+    character_training_schedule_by_character_id,
+    "SELECT * FROM backend_character_training_schedules WHERE character_id = "
+);
+u64_key_query!(
+    character_relationship_status_by_character_id,
+    "SELECT * FROM backend_character_relationship_statuses WHERE character_id = "
+);
+u64_key_query!(
+    character_residence_status_by_character_id,
+    "SELECT * FROM backend_character_residence_statuses WHERE character_id = "
+);
+u64_key_query!(
+    character_case_site_location_by_character_id,
+    "SELECT * FROM backend_character_case_site_locations WHERE character_id = "
+);
+u64_key_query!(
+    organization_presentation_by_character_id,
+    "SELECT * FROM organization_presentation WHERE character_id = "
+);
+u64_key_query!(
+    settlement_resident_by_character_id,
+    "SELECT * FROM backend_settlement_residents WHERE character_id = "
+);
+u64_key_query!(
+    settlement_resident_presence_by_character_id,
+    "SELECT * FROM settlement_resident_presence WHERE character_id = "
+);
+u64_key_query!(
+    forage_attempt_state_by_character_id,
+    "SELECT * FROM backend_forage_attempt_states WHERE character_id = "
+);
 u64_key_query!(
     inventory_item_by_id,
     "SELECT * FROM inventory_item WHERE id = "
@@ -251,26 +222,12 @@ u64_key_query!(
 );
 
 pub(crate) fn world_clock_singleton() -> SqlQuery {
-    SqlQuery::from("SELECT * FROM world_clock WHERE id = 0".to_string())
+    SqlQuery::new("SELECT * FROM world_clock WHERE id = 0".to_string())
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn statement_admission_and_http_encoding_preserve_exact_utf8_bytes() {
-        let expected = "SELECT * FROM settlement WHERE id = '港の''家'";
-        let borrowed = SqlQuery::from(expected);
-        let owned = SqlQuery::from(expected.to_owned());
-        assert_eq!(borrowed, owned);
-        assert_eq!(borrowed.to_string(), expected);
-        assert_eq!(
-            borrowed.request_body().as_bytes(),
-            Some(expected.as_bytes())
-        );
-        assert_eq!(owned.request_body().as_bytes(), Some(expected.as_bytes()));
-    }
 
     #[test]
     fn string_primary_key_queries_escape_ids() {
@@ -352,13 +309,13 @@ mod tests {
                 "SELECT * FROM backend_case_site_pins WHERE case_site_id = 'site''oath'",
             ),
             (
-                case_site_pin_by_case_site_id_and_owner("site'oath", CharacterId::from(17)),
+                case_site_pin_by_case_site_id_and_owner("site'oath", 17),
                 "SELECT * FROM backend_case_site_pins WHERE case_site_id = 'site''oath' AND owner_character_id = 17",
             ),
         ];
 
         for (query, expected) in cases {
-            assert_eq!(query.to_string(), expected);
+            assert_eq!(query.as_str(), expected);
         }
     }
 
@@ -366,110 +323,89 @@ mod tests {
     fn character_primary_key_queries_name_the_gateway_rows() {
         let cases = [
             (
-                character_by_id(CharacterId::from(17)),
+                character_by_id(17),
                 "SELECT * FROM backend_characters WHERE id = 17",
             ),
             (
-                character_time_by_character_id(CharacterId::from(17)),
+                character_time_by_character_id(17),
                 "SELECT * FROM backend_character_times WHERE character_id = 17",
             ),
             (
-                character_stats_by_character_id(CharacterId::from(17)),
+                character_stats_by_character_id(17),
                 "SELECT * FROM backend_character_stats WHERE character_id = 17",
             ),
             (
-                character_skills_by_character_id(CharacterId::from(17)),
+                character_skills_by_character_id(17),
                 "SELECT * FROM backend_character_skills WHERE character_id = 17",
             ),
             (
-                character_attributes_by_character_id(CharacterId::from(17)),
+                character_attributes_by_character_id(17),
                 "SELECT * FROM backend_character_attributes WHERE character_id = 17",
             ),
             (
-                character_capability_by_character_id(CharacterId::from(17)),
+                character_capability_by_character_id(17),
                 "SELECT * FROM backend_character_capabilities WHERE character_id = 17",
             ),
             (
-                character_limbs_by_character_id(CharacterId::from(17)),
+                character_limbs_by_character_id(17),
                 "SELECT * FROM backend_character_limbs WHERE character_id = 17",
             ),
             (
-                character_condition_by_character_id(CharacterId::from(17)),
+                character_condition_by_character_id(17),
                 "SELECT * FROM backend_character_conditions WHERE character_id = 17",
             ),
             (
-                character_strategic_condition_by_character_id(CharacterId::from(17)),
+                character_strategic_condition_by_character_id(17),
                 "SELECT * FROM backend_character_strategic_conditions WHERE character_id = 17",
             ),
             (
-                character_death_by_character_id(CharacterId::from(17)),
+                character_death_by_character_id(17),
                 "SELECT * FROM backend_character_deaths WHERE character_id = 17",
             ),
             (
-                character_needs_by_character_id(CharacterId::from(17)),
+                character_needs_by_character_id(17),
                 "SELECT * FROM backend_character_needs WHERE character_id = 17",
             ),
             (
-                character_personality_by_character_id(CharacterId::from(17)),
+                character_personality_by_character_id(17),
                 "SELECT * FROM backend_character_personalities WHERE character_id = 17",
             ),
             (
-                character_training_schedule_by_character_id(CharacterId::from(17)),
+                character_training_schedule_by_character_id(17),
                 "SELECT * FROM backend_character_training_schedules WHERE character_id = 17",
             ),
             (
-                character_relationship_status_by_character_id(CharacterId::from(17)),
+                character_relationship_status_by_character_id(17),
                 "SELECT * FROM backend_character_relationship_statuses WHERE character_id = 17",
             ),
             (
-                character_residence_status_by_character_id(CharacterId::from(17)),
+                character_residence_status_by_character_id(17),
                 "SELECT * FROM backend_character_residence_statuses WHERE character_id = 17",
             ),
             (
-                character_case_site_location_by_character_id(CharacterId::from(17)),
+                character_case_site_location_by_character_id(17),
                 "SELECT * FROM backend_character_case_site_locations WHERE character_id = 17",
             ),
             (
-                organization_presentation_by_character_id(CharacterId::from(17)),
+                organization_presentation_by_character_id(17),
                 "SELECT * FROM organization_presentation WHERE character_id = 17",
             ),
             (
-                settlement_resident_by_character_id(CharacterId::from(17)),
+                settlement_resident_by_character_id(17),
                 "SELECT * FROM backend_settlement_residents WHERE character_id = 17",
             ),
             (
-                settlement_resident_presence_by_character_id(CharacterId::from(17)),
+                settlement_resident_presence_by_character_id(17),
                 "SELECT * FROM settlement_resident_presence WHERE character_id = 17",
             ),
             (
-                forage_attempt_state_by_character_id(CharacterId::from(17)),
+                forage_attempt_state_by_character_id(17),
                 "SELECT * FROM backend_forage_attempt_states WHERE character_id = 17",
             ),
         ];
 
         for (query, expected) in cases {
-            assert_eq!(query.to_string(), expected);
-        }
-    }
-
-    #[test]
-    fn character_query_selectors_keep_full_unsigned_width_and_empty_identity_word() {
-        for raw in [0, u64::MAX] {
-            let character = CharacterId::from(raw);
-            assert_eq!(
-                character_by_id(character).to_string(),
-                format!("SELECT * FROM backend_characters WHERE id = {raw}"),
-            );
-            assert_eq!(
-                character_time_by_character_id(character).to_string(),
-                format!("SELECT * FROM backend_character_times WHERE character_id = {raw}"),
-            );
-            assert_eq!(
-                case_site_pin_by_case_site_id_and_owner("site'oath", character).to_string(),
-                format!(
-                    "SELECT * FROM backend_case_site_pins WHERE case_site_id = 'site''oath' AND owner_character_id = {raw}"
-                ),
-            );
+            assert_eq!(query.as_str(), expected);
         }
     }
 
@@ -507,7 +443,7 @@ mod tests {
         ];
 
         for (query, expected) in cases {
-            assert_eq!(query.to_string(), expected);
+            assert_eq!(query.as_str(), expected);
         }
     }
 

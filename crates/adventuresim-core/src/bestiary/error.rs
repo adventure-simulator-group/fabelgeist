@@ -13,12 +13,12 @@ impl std::error::Error for UnknownThreatId {}
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::UnknownThreatId;
     use crate::bestiary::ThreatId;
     use std::error::Error;
 
     #[test]
-    fn invalid_authored_vocabulary_exposes_the_same_standard_and_serde_failure() {
+    fn unknown_authored_threat_has_a_concrete_error_and_serde_message() {
         for key in ["Bandit", "not_an_authored_threat"] {
             let error = key.parse::<ThreatId>().unwrap_err();
             let cause: &dyn Error = &error;
@@ -28,6 +28,7 @@ mod tests {
             );
             assert!(cause.source().is_none());
             assert_eq!(cause.to_string(), "unknown threat ID");
+
             let wire = serde_json::to_string(key).unwrap();
             assert_eq!(
                 serde_json::from_str::<ThreatId>(&wire)
@@ -36,6 +37,15 @@ mod tests {
                 "unknown threat ID"
             );
         }
-        assert_eq!("bandit".parse::<ThreatId>().unwrap(), ThreatId::Bandit);
+    }
+
+    #[test]
+    fn authored_threat_id_round_trips_through_serde() {
+        let threat = ThreatId::Bandit;
+        let wire = serde_json::to_string(&threat).unwrap();
+
+        assert_eq!(wire, "\"bandit\"");
+        assert_eq!(serde_json::from_str::<ThreatId>(&wire).unwrap(), threat);
+        assert_eq!("bandit".parse::<ThreatId>().unwrap(), threat);
     }
 }

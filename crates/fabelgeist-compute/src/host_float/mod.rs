@@ -26,12 +26,8 @@
 //!   whose value lies within about `2^-44` of a rounding boundary. A host
 //!   whose own `sinf` or `powf` is not correctly rounded differs from them
 //!   there instead. `host_pow` takes a positive base, or zero.
-//! * `df_*`: the double-float arithmetic beneath them. `DoubleFloat` retains
-//!   an unevaluated `high + low` sum for more than a float's precision.
-//!   `df_from_scalar` and `df_two_sum` construct these values; `df_round`
-//!   converts to a single float. `QuarterTurnReduction` keeps an angle's
-//!   double-float remainder paired with its quarter-turn count, while
-//!   `TrigonometricComponent` selects sine or cosine explicitly.
+//! * `df_*`: the double-float arithmetic beneath them -- `vec2<f32>` values
+//!   `x + y` -- for a kernel that needs more than a float's precision.
 //!
 //! # The fence
 //!
@@ -54,19 +50,11 @@
 //!
 //! # Limits
 //!
-//! WGSL permits an unfused `fma`, so products use a scaled error-free
-//! `ProductExpansion` instead. `ProductResidual` owns the rounded residual of
-//! a cancelling addend; quotient and root correction meet that condition.
-//! Normalizing the factors keeps the expansion's intermediate operations
-//! within the normal range. Conversion to the two-word double-float format
-//! and final residual scaling can still flush subnormal results on a device.
-//! The quarter-turn reduction of `host_sin` and `host_cos` is exact for
-//! arguments up to a few thousand radians.
-//!
-//! The product expansion follows Dekker's TwoProduct transformation; see
-//! [Algorithm 1](https://www.tuhh.de/ti3/paper/rump/OzOgRuOi07.pdf).
-//! WGSL's permitted unfused behavior is specified in
-//! [floating-point evaluation](https://www.w3.org/TR/2026/CRD-WGSL-20260703/#floating-point-evaluation).
+//! Residuals are taken with `fma`, which must be fused: the tests below
+//! check that it is on the device they run on. Devices flush subnormals to
+//! zero, so a result or residual beneath the normal range may still differ
+//! from the host's. The quarter-turn reduction of `host_sin` and `host_cos`
+//! is exact for arguments up to a few thousand radians.
 
 mod arithmetic;
 mod double_float;
@@ -87,13 +75,7 @@ pub const PARAMS_ZERO_HOOK: &str = "fn host_zero() -> u32 {\n    return params.z
 /// the module documentation.
 pub fn wgsl() -> &'static str {
     static SOURCE: OnceLock<String> = OnceLock::new();
-    SOURCE.get_or_init(|| {
-        format!(
-            "{}{}",
-            arithmetic::ARITHMETIC,
-            double_float::DoubleFloatLibrary::new()
-        )
-    })
+    SOURCE.get_or_init(|| format!("{}{}", arithmetic::ARITHMETIC, double_float::source()))
 }
 
 /// A `host_zero` returning `expression`, a `u32` zero read at run time, such

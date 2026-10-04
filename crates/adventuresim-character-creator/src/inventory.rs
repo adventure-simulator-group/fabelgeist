@@ -82,17 +82,7 @@ pub enum EquipConflict {
         channel: EquipmentChannel,
         location: Option<EquipmentLocation>,
     },
-    MissingCatalogPlacement {
-        item_id: String,
-        placement_id: String,
-    },
-    WrongDesignFamily {
-        item_id: String,
-    },
-    MissingBodySurface {
-        display_name: String,
-    },
-    Graph(adventuresim_core::equipment::EquipmentGraphError),
+    Invalid(String),
 }
 
 impl CatalogArticle {
@@ -112,9 +102,11 @@ impl CatalogArticle {
     ) -> Result<(&'a ItemDefinition, &'a EquipmentPlacement), EquipConflict> {
         catalog
             .placement(&self.item_id, &self.placement_id)
-            .ok_or_else(|| EquipConflict::MissingCatalogPlacement {
-                item_id: self.item_id.clone(),
-                placement_id: self.placement_id.clone(),
+            .ok_or_else(|| {
+                EquipConflict::Invalid(format!(
+                    "the catalog has no {} placement {}",
+                    self.item_id, self.placement_id
+                ))
             })
     }
 
@@ -124,9 +116,10 @@ impl CatalogArticle {
         match (&self.design, default) {
             (None, default) => Ok(default),
             (Some(own), Some(default)) if default.same_family(own) => Ok(Some(own.clone())),
-            (Some(_), _) => Err(EquipConflict::WrongDesignFamily {
-                item_id: self.item_id.clone(),
-            }),
+            (Some(_), _) => Err(EquipConflict::Invalid(format!(
+                "{} has a design of another construction",
+                self.item_id
+            ))),
         }
     }
 }
@@ -385,17 +378,7 @@ impl EquipConflict {
                     location_label(location)
                 ))
             ),
-            Self::MissingCatalogPlacement {
-                item_id,
-                placement_id,
-            } => format!("the catalog has no {item_id} placement {placement_id}"),
-            Self::WrongDesignFamily { item_id } => {
-                format!("{item_id} has a design of another construction")
-            }
-            Self::MissingBodySurface { display_name } => {
-                format!("{display_name} has no generated body surface")
-            }
-            Self::Graph(reason) => reason.to_string(),
+            Self::Invalid(reason) => reason.clone(),
         }
     }
 }
@@ -446,17 +429,3 @@ pub fn location_label(location: EquipmentLocation) -> &'static str {
 
 #[cfg(test)]
 mod tests;
-
-impl std::fmt::Display for EquipConflict {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(&self.describe(|id| id.0.to_string()))
-    }
-}
-impl std::error::Error for EquipConflict {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match self {
-            Self::Graph(source) => Some(source),
-            _ => None,
-        }
-    }
-}

@@ -16,6 +16,7 @@ pub(super) fn fitted_design(
     design: &ParametricDesign,
     placement: &str,
     morphs: &[ForearmMorphSample],
+    layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     match design {
         ParametricDesign::Underlayer(d) => {
@@ -28,7 +29,8 @@ pub(super) fn fitted_design(
         }
         _ => {}
     }
-    let piece = crate::device_equipment::fitted(model, generated, morphs, design, placement)?;
+    let piece =
+        crate::device_equipment::fitted(model, generated, morphs, design, placement, layers)?;
     assembled(model, generated, design, placement, piece, morphs)
 }
 
@@ -68,10 +70,13 @@ pub(super) fn fitted_item(
     design: &ItemDesign,
     placement: &str,
     morphs: &[ForearmMorphSample],
+    layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     let _slot = adventuresim_character_creator::fitting_slot();
     match design {
-        ItemDesign::Recipe(design) => fitted_design(model, generated, design, placement, morphs),
+        ItemDesign::Recipe(design) => {
+            fitted_design(model, generated, design, placement, morphs, layers)
+        }
         ItemDesign::Vambrace(design) => {
             let side = match Side::from_placement(placement)? {
                 Side::Left => ForearmSide::Left,
@@ -91,8 +96,9 @@ pub(super) fn fitted_catalog_item(
     design: &ItemDesign,
     placement: &str,
     morphs: &[ForearmMorphSample],
+    layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
-    let mut armor = fitted_item(model, generated, design, placement, morphs)?;
+    let mut armor = fitted_item(model, generated, design, placement, morphs, layers)?;
     let material = item
         .equipment
         .as_ref()
@@ -232,6 +238,7 @@ pub(super) fn fit(
     generated: &GeneratedCharacter,
     piece: &FittedPiece<'_>,
     morphs: &[ForearmMorphSample],
+    layers: &[&GeneratedArmor],
 ) -> Result<GeneratedArmor> {
     let placement = &piece.piece.placement.id;
     fitted_catalog_item(
@@ -241,6 +248,7 @@ pub(super) fn fit(
         &piece.design,
         placement,
         morphs,
+        layers,
     )
     .with_context(|| format!("fitting {} ({placement})", piece.piece.item.id))
 }
@@ -266,14 +274,28 @@ pub(super) fn selected<'a>(
     loadout: &Loadout<'a>,
     morphs: &[ForearmMorphSample],
 ) -> Result<Vec<SelectedArmor<'a>>> {
-    loadout
+    let placements = loadout
         .fitted
         .iter()
-        .map(|piece| {
-            let fitted = fit(model, generated, piece, morphs)?;
-            Ok(SelectedArmor::new(piece, finish(piece, fitted)?))
-        })
-        .collect()
+        .map(|piece| piece.piece.placement)
+        .collect::<Vec<_>>();
+    let plan = adventuresim_character_creator::equipment_layers::LayerPlan::new(&placements)?;
+    let mut results = (0..loadout.fitted.len())
+        .map(|_| None)
+        .collect::<Vec<Option<SelectedArmor>>>();
+    for &index in plan.order() {
+        let supports = plan
+            .supports(index)
+            .map(|inner| &results[inner].as_ref().expect("ordered support").generated)
+            .collect::<Vec<_>>();
+        let piece = &loadout.fitted[index];
+        let fitted = fit(model, generated, piece, morphs, &supports)?;
+        results[index] = Some(SelectedArmor::new(piece, finish(piece, fitted)?));
+    }
+    Ok(results
+        .into_iter()
+        .map(|piece| piece.expect("all selections fitted"))
+        .collect())
 }
 
 #[cfg(test)]
@@ -287,14 +309,7 @@ mod tests {
     #[ignore = "requires MHR_ASSETS and a compute-capable GPU"]
     fn every_catalog_armor_fits_the_measured_body_and_its_morphs() -> Result<()> {
         let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
-        let model = load_body_model(
-            &MhrAssetDirectory::from(std::path::PathBuf::from(assets)),
-            MhrConfig {
-                lod: CharacterLod::Detailed,
-                pose_correctives: PoseCorrectivePolicy::Disabled,
-            },
-            &Device::default(),
-        )?;
+        let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
         let catalog = ItemCatalog::load(
             std::path::Path::new("../../content/items"),
             CatalogDesigns::authored(),
@@ -311,7 +326,7 @@ mod tests {
             for placement in &item.equipment.as_ref().expect("wearable item").placements {
                 eprintln!("{}--{}", item.id, placement.id);
                 let armor =
-                    fitted_catalog_item(&model, &body, item, &design, &placement.id, &morphs)
+                    fitted_catalog_item(&model, &body, item, &design, &placement.id, &morphs, &[])
                         .with_context(|| format!("fitting {}--{}", item.id, placement.id))?;
                 let count = armor.positions.len();
                 anyhow::ensure!(count > 0 && armor.indices.len().is_multiple_of(3));

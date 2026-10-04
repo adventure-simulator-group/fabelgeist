@@ -114,10 +114,10 @@ pub fn upload<T: bytemuck::NoUninit>(
 ) -> Result<GpuResource> {
     {
         match resource_type {
-            TestResourceType::Buffer => Ok(Buffer::from_upload(
+            TestResourceType::Buffer => Ok(Buffer::from_slice(
                 context,
-                BufferUpload::from_elements(resource),
-                BufferDefinition::storage().with_usage(BufferUse::CopySource),
+                resource,
+                BufferDefinition::storage().with_copy_src(),
             )?
             .into()),
             TestResourceType::Texture2d(x, y, format) => {

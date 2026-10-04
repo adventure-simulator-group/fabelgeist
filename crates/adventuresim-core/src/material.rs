@@ -1511,11 +1511,7 @@ mod tests {
         revision: u64,
     ) -> PrivateMaterialSnapshot<Preparation, Component, Contaminant> {
         PrivateMaterialSnapshot::try_new(
-            identity(
-                lot,
-                object,
-                OperationalCustody::character((7).into()).unwrap(),
-            ),
+            identity(lot, object, OperationalCustody::character(7).unwrap()),
             amount,
             MaterialPreparation::Raw,
             truth(component, contaminant),
@@ -1614,7 +1610,7 @@ mod tests {
 
         let vessel = MaterialVessel::try_new(
             vessel_id,
-            OperationalCustody::character((7).into()).unwrap(),
+            OperationalCustody::character(7).unwrap(),
             250_000,
         )
         .unwrap();
@@ -1675,7 +1671,7 @@ mod tests {
         let second = PrivateMaterialTruth::try_new(vec![], vec![]).unwrap();
         let make = |truth| {
             PrivateMaterialSnapshot::try_new(
-                identity(1, 10, OperationalCustody::character((7).into()).unwrap()),
+                identity(1, 10, OperationalCustody::character(7).unwrap()),
                 measure(50_000, 0),
                 MaterialPreparation::<Preparation>::Ground,
                 truth,
@@ -1736,7 +1732,7 @@ mod tests {
             MaterialRetryDecision::ProvenanceCollision
         );
         let changed_preparation = PrivateMaterialSnapshot::try_new(
-            identity(1, 11, OperationalCustody::character((7).into()).unwrap()),
+            identity(1, 11, OperationalCustody::character(7).unwrap()),
             measure(100, 0),
             MaterialPreparation::Ground,
             truth(5, 2),

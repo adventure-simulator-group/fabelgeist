@@ -473,17 +473,10 @@ pub fn social_source_eligible(kind: crate::morale::MoraleSourceKind, magnitude: 
 /// Counts projected source rows, rather than topics, which the exact observer
 /// has not successfully addressed for the exact target and durable source ID.
 pub fn unaddressed_social_source_count<'a>(
-    actor_id: crate::identity::CharacterId,
-    target_id: crate::identity::CharacterId,
+    actor_id: u64,
+    target_id: u64,
     sources: impl IntoIterator<Item = (&'a str, crate::morale::MoraleSourceKind, f32)>,
-    interactions: impl IntoIterator<
-        Item = (
-            crate::identity::CharacterId,
-            crate::identity::CharacterId,
-            &'a str,
-            bool,
-        ),
-    >,
+    interactions: impl IntoIterator<Item = (u64, u64, &'a str, bool)>,
 ) -> usize {
     let addressed: HashSet<&str> = interactions
         .into_iter()
@@ -563,8 +556,8 @@ pub fn diagnosis_for_axis(
 }
 
 pub fn canonical_cooldown_id(
-    actor_id: crate::identity::CharacterId,
-    target_id: crate::identity::CharacterId,
+    actor_id: u64,
+    target_id: u64,
     topic: SocialTopic,
     action_kind: &str,
 ) -> String {
@@ -923,10 +916,7 @@ pub fn resolve_casual_chat(input: CasualChatInput) -> CasualChatOutcome {
     }
 }
 
-pub fn canonical_pair(
-    left: crate::identity::CharacterId,
-    right: crate::identity::CharacterId,
-) -> Option<(crate::identity::CharacterId, crate::identity::CharacterId)> {
+pub fn canonical_pair(left: u64, right: u64) -> Option<(u64, u64)> {
     (left != right).then(|| (left.min(right), left.max(right)))
 }
 
@@ -1210,14 +1200,8 @@ mod tests {
 
     #[test]
     fn familiarity_is_symmetric_and_party_size_adjusted() {
-        assert_eq!(
-            canonical_pair((9).into(), (2).into()),
-            Some((
-                crate::identity::CharacterId::from(2),
-                crate::identity::CharacterId::from(9)
-            ))
-        );
-        assert_eq!(canonical_pair((2).into(), (2).into()), None);
+        assert_eq!(canonical_pair(9, 2), Some((2, 9)));
+        assert_eq!(canonical_pair(2, 2), None);
         assert_eq!(effective_familiarity_hours(600, 5, true), 2.0);
         assert_eq!(effective_familiarity_hours(600, 0, false), 10.0);
     }
@@ -1485,48 +1469,20 @@ mod tests {
             ("good", K::Victory, 2.0),
         ];
         let interactions = [
-            (
-                crate::identity::CharacterId::from(7),
-                crate::identity::CharacterId::from(9),
-                "loss-a",
-                false,
-            ),
-            (
-                crate::identity::CharacterId::from(8),
-                crate::identity::CharacterId::from(9),
-                "loss-a",
-                true,
-            ),
-            (
-                crate::identity::CharacterId::from(7),
-                crate::identity::CharacterId::from(10),
-                "loss-b",
-                true,
-            ),
+            (7, 9, "loss-a", false),
+            (8, 9, "loss-a", true),
+            (7, 10, "loss-b", true),
         ];
         assert_eq!(
-            unaddressed_social_source_count((7).into(), (9).into(), sources, interactions),
+            unaddressed_social_source_count(7, 9, sources, interactions),
             2
         );
         assert_eq!(
             unaddressed_social_source_count(
-                (7).into(),
-                (9).into(),
+                7,
+                9,
                 sources,
-                [
-                    (
-                        crate::identity::CharacterId::from(7),
-                        crate::identity::CharacterId::from(9),
-                        "loss-a",
-                        true
-                    ),
-                    (
-                        crate::identity::CharacterId::from(7),
-                        crate::identity::CharacterId::from(9),
-                        "loss-b",
-                        true
-                    )
-                ]
+                [(7, 9, "loss-a", true), (7, 9, "loss-b", true)]
             ),
             0
         );
@@ -1663,7 +1619,7 @@ mod tests {
     #[test]
     fn cooldown_identity_does_not_depend_on_source_row() {
         assert_eq!(
-            canonical_cooldown_id((1).into(), (2).into(), SocialTopic::Defeat, "listen"),
+            canonical_cooldown_id(1, 2, SocialTopic::Defeat, "listen"),
             "1:2:defeat:listen"
         );
     }

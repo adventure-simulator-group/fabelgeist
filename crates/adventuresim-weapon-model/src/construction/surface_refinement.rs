@@ -1,7 +1,6 @@
 //! Conforming subdivision shared by planar regions and sampled relief surfaces.
 use super::polygon::{TRIANGLE_QUALITY_TIE_TOLERANCE, edge, shape};
 use super::{PlanarPoint, Region, construction_budget};
-use crate::ConstructionError;
 use std::collections::BTreeMap;
 
 const MAX_SURFACE_REFINEMENT_ROUNDS: usize = 12;
@@ -123,7 +122,7 @@ impl Region {
         height: impl Fn(PlanarPoint) -> f64,
         maximum_deviation: f64,
         maximum_edge: f64,
-    ) -> Result<(), ConstructionError> {
+    ) -> Result<(), String> {
         for _ in 0..MAX_SURFACE_REFINEMENT_ROUNDS {
             let original_points = self.points.len();
             let mut mids = BTreeMap::new();
@@ -180,7 +179,7 @@ impl Region {
             self.split_edges(&mids);
             self.improve_refinement_cells(&classify, &height, maximum_deviation, maximum_edge);
         }
-        Err(ConstructionError::PlateSurfaceExceedsBoundedRefinementBudget)
+        Err("plate surface exceeds its bounded refinement budget".into())
     }
 
     /// Improve interior fans without undoing a completed error or edge split.

@@ -1047,8 +1047,6 @@ mod tests {
             include_str!("../../adventuresim-stdb-module/src/social_roles.rs").replace('\r', "");
         let character =
             include_str!("../../adventuresim-stdb-module/src/character.rs").replace('\r', "");
-        let deletion = include_str!("../../adventuresim-stdb-module/src/character/deletion.rs")
-            .replace('\r', "");
         let population = format!(
             "{}{}",
             include_str!("../../adventuresim-stdb-module/src/settlement_population.rs"),
@@ -1073,7 +1071,7 @@ mod tests {
         assert!(social.contains("\"reformed\" => \"reformed_learned_chapter\""));
         assert!(character.contains("ensure_character_social_roles("));
         assert!(character.contains("ensure_character_professional_role("));
-        assert!(deletion.contains("delete_character_social_roles(ctx, character.id)"));
+        assert!(character.contains("delete_character_social_roles(ctx, character.id)"));
         assert!(population.contains("pub struct SettlementResidentProfile"));
         assert!(population.contains("ensure_character_social_roles("));
         assert!(population.contains("ensure_settlement_social_organizations(ctx, settlement_id)"));

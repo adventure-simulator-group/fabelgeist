@@ -10,15 +10,12 @@
 //! and toward the ball, a reduction bounds the foot's own skin in it, and one
 //! invocation centres and sizes it.
 
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_gpu::prelude::PassParameterName;
-use fabelgeist_rig::{RigJointLookupError, RigJointOrdinal, RigJointPart};
 use std::sync::Arc;
 
-use anyhow::Result;
-use fabelgeist_armor::gpu::wgsl;
+use anyhow::{Context, Result};
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
-use fabelgeist_gpu::prelude::{PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::PassParameters;
 
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_frames::{DeviceFrame, DeviceWearer, FRAME_WORDS};
@@ -31,62 +28,38 @@ impl DeviceWearer<'_> {
     pub fn record_foot_frame(&self, batch: &mut KernelBatch, side: Side) -> Result<DeviceFrame> {
         let gpu = self.gpu;
         let host = self.host;
-
-        let joint =
-            |part: RigJointPart| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
-                side.joint(part).require_in(host.joint_names)
-            };
+        let prefix = side.prefix();
+        let joint = |name: &str| -> Result<u32> {
+            let name = format!("{prefix}_{name}");
+            host.joint_names
+                .iter()
+                .position(|n| *n == name)
+                .map(|i| i as u32)
+                .with_context(|| format!("missing armor landmark {name}"))
+        };
         let owners = FitRegion::Foot(side).owners();
         let frame = DeviceFrame {
-            frame: gpu.scratch((FRAME_WORDS * 4).into(), ("foot frame").into())?,
-            status: gpu.scratch((4u64).into(), ("foot frame status").into())?,
+            frame: gpu.scratch(FRAME_WORDS * 4, "foot frame")?,
+            status: gpu.scratch(4, "foot frame status")?,
         };
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.body.vertex_count).into());
-        parameters.insert(
-            "ankle".into(),
-            (usize::from(joint(RigJointPart::Foot)?) as u32).into(),
-        );
-        parameters.insert(
-            "ball".into(),
-            (usize::from(joint(RigJointPart::Ball)?) as u32).into(),
-        );
-        parameters.insert(
-            "left".into(),
-            (u32::from(matches!(side, Side::Left))).into(),
-        );
-        parameters.insert(
-            PassParameterName::from(host_float::ZERO_FIELD),
-            (0u32).into(),
-        );
+        parameters.insert("count", self.body.vertex_count);
+        parameters.insert("ankle", joint("foot")?);
+        parameters.insert("ball", joint("ball")?);
+        parameters.insert("left", u32::from(matches!(side, Side::Left)));
+        parameters.insert(host_float::ZERO_FIELD, 0u32);
         for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad.into(), (0.0f32).into());
+            parameters.insert(pad, 0.0f32);
         }
-        parameters.insert("positions".into(), (self.body.positions.clone()).into());
-        parameters.insert(
-            "joint_indices".into(),
-            (self.body.joint_indices.clone()).into(),
-        );
-        parameters.insert(
-            "joint_weights".into(),
-            (self.body.joint_weights.clone()).into(),
-        );
-        parameters.insert("joints".into(), (self.body.joints.clone()).into());
-        parameters.insert(
-            "owned".into(),
-            (gpu.upload(BufferUpload::from_elements(
-                &host
-                    .owned_joints(&owners)
-                    .into_iter()
-                    .map(u32::from)
-                    .collect::<Vec<_>>(),
-            ))?)
-            .into(),
-        );
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert("joint_indices", self.body.joint_indices.clone());
+        parameters.insert("joint_weights", self.body.joint_weights.clone());
+        parameters.insert("joints", self.body.joints.clone());
+        parameters.insert("owned", gpu.upload(&host.owned_joints(&owners))?);
         // The floor, then the foot's lower and upper bounds.
         parameters.insert(
-            "reductions".into(),
-            (gpu.upload(BufferUpload::from_elements(&[
+            "reductions",
+            gpu.upload(&[
                 ORDERED_POSITIVE_INFINITY,
                 ORDERED_POSITIVE_INFINITY,
                 ORDERED_POSITIVE_INFINITY,
@@ -94,25 +67,24 @@ impl DeviceWearer<'_> {
                 ORDERED_NEGATIVE_INFINITY,
                 ORDERED_NEGATIVE_INFINITY,
                 ORDERED_NEGATIVE_INFINITY,
-            ]))?)
-            .into(),
+            ])?,
         );
-        parameters.insert("frame".into(), (frame.frame.clone()).into());
-        parameters.insert("status".into(), (frame.status.clone()).into());
+        parameters.insert("frame", frame.frame.clone());
+        parameters.insert("status", frame.status.clone());
         let vertices = self.body.vertex_count;
         let [floor, orient, bounds, finish] = kernels(gpu)?;
         batch
-            .dispatch_items(&floor, &parameters, (vertices).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&floor, &parameters, vertices)
+            .map_err(device_error)?;
         batch
-            .dispatch(&orient, &parameters, ([1, 1, 1]).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch(&orient, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
         batch
-            .dispatch_items(&bounds, &parameters, (vertices).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&bounds, &parameters, vertices)
+            .map_err(device_error)?;
         batch
-            .dispatch(&finish, &parameters, ([1, 1, 1]).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch(&finish, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
         Ok(frame)
     }
 }
@@ -121,7 +93,7 @@ fn kernels(gpu: &fabelgeist_armor::ArmorGpu) -> Result<[Arc<Kernel>; 4]> {
     let compile = |entry: &str| {
         gpu.cache()
             .get(gpu.context(), &source(entry))
-            .map_err(fabelgeist_armor::GenerateError::from)
+            .map_err(device_error)
     };
     Ok([
         compile(FLOOR)?,
@@ -131,8 +103,8 @@ fn kernels(gpu: &fabelgeist_armor::ArmorGpu) -> Result<[Arc<Kernel>; 4]> {
     ])
 }
 
-fn source(entry: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+fn source(entry: &str) -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> joint_indices: array<u32>;
@@ -210,7 +182,7 @@ fn midpoint(a: vec3<f32>, b: vec3<f32>) -> vec3<f32> {{
         host_float = host_float::wgsl(),
         positions = wgsl::read_points("positions"),
         frame_constants = crate::device_frames::frame_constants(),
-    ))
+    )
 }
 
 /// The floor under each side of the body.

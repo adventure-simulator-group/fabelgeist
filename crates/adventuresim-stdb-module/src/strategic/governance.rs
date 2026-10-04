@@ -7,10 +7,8 @@ pub fn send_local_chat_message(
     location_id: String,
     body: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
-    crate::character::require_living_character(ctx, (sender_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_gateway(ctx)?;
+    crate::character::require_living_character(ctx, sender_id)?;
     let sender = ctx
         .db
         .character()
@@ -67,8 +65,7 @@ pub fn request_party_action(
     summary: String,
     payload: String,
 ) -> Result<(), String> {
-    crate::character::require_living_character(ctx, (requester_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::character::require_living_character(ctx, requester_id)?;
     let requester = ctx
         .db
         .character()
@@ -142,8 +139,7 @@ pub fn dismiss_party_action_request(
     leader_id: u64,
     request_id: u64,
 ) -> Result<(), String> {
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    crate::character::require_living_character(ctx, leader_id)?;
     let request = ctx
         .db
         .party_action_request_authority()
@@ -175,10 +171,8 @@ pub fn approve_party_action_request(
     leader_id: u64,
     request_id: u64,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_gateway(ctx)?;
+    crate::character::require_living_character(ctx, leader_id)?;
     if let Some(resolved) = ctx.db.resolved_party_action().id().find(request_id) {
         if resolved.approved_by != leader_id {
             return Err("Only the party leader can approve requests".into());
@@ -225,10 +219,8 @@ pub fn approve_party_action_request_planned(
     request_id: u64,
     route: JourneyRoutePlan,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)
-        .map_err(|error: crate::strategic::GatewayAdmissionError| error.to_string())?;
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_gateway(ctx)?;
+    crate::character::require_living_character(ctx, leader_id)?;
     if let Some(resolved) = ctx.db.resolved_party_action().id().find(request_id) {
         if resolved.approved_by != leader_id {
             return Err("Only the party leader can approve requests".into());
@@ -257,16 +249,10 @@ pub fn approve_party_action_request_planned(
     }
     match action {
         ApprovedPartyAction::TravelToSettlement { settlement_id } => {
-            let destination = adventuresim_core::identity::SettlementId::try_new(settlement_id)
-                .map_err(|source| TravelError::SettlementIdentity(source).to_string())?;
-            travel_to_settlement_impl(ctx, leader_id.into(), destination, Some(route))
-                .map_err(|error: TravelError| error.to_string())?
+            travel_to_settlement_impl(ctx, leader_id, settlement_id, Some(route))?
         }
         ApprovedPartyAction::TravelToCaseSite { case_site_id } => {
-            let destination = CaseSiteId::try_new(case_site_id)
-                .map_err(|source| TravelError::CaseSiteIdentity(source).to_string())?;
-            travel_to_case_site_impl(ctx, leader_id.into(), destination, Some(route))
-                .map_err(|error: TravelError| error.to_string())?
+            travel_to_case_site_impl(ctx, leader_id, case_site_id, Some(route))?
         }
         _ => return Err("A planned approval is only valid for travel".into()),
     }
@@ -298,13 +284,7 @@ pub fn vote_for_party_leader(
         return Err("Dead characters cannot vote".into());
     }
     let party_id = voter.party_id.ok_or("Voter has no party")?;
-    require_no_unresolved_encounter(
-        ctx,
-        &adventuresim_core::identity::PartyId::try_new(party_id.clone()).map_err(|source| {
-            crate::strategic::PendingEncounterError::PartyIdentity(source).to_string()
-        })?,
-    )
-    .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
+    require_no_unresolved_encounter(ctx, &party_id)?;
     ctx.db
         .party_authority()
         .id()
@@ -335,18 +315,13 @@ pub fn vote_for_party_leader(
     Ok(())
 }
 
-fn put_leader_vote(
-    ctx: &ReducerContext,
-    party_id: &str,
-    voter_id: adventuresim_core::identity::CharacterId,
-    candidate_id: adventuresim_core::identity::CharacterId,
-) {
+fn put_leader_vote(ctx: &ReducerContext, party_id: &str, voter_id: u64, candidate_id: u64) {
     let id = format!("{party_id}:{voter_id}");
     let row = PartyLeaderVote {
         id: id.clone(),
         party_id: party_id.to_string(),
-        voter_id: u64::from(voter_id),
-        candidate_id: u64::from(candidate_id),
+        voter_id,
+        candidate_id,
     };
     if ctx.db.party_leader_vote().id().find(&id).is_some() {
         ctx.db.party_leader_vote().id().update(row);
@@ -481,48 +456,31 @@ pub(crate) fn normalize_and_elect_party_leader(
         .filter(party_id)
         .collect::<Vec<_>>()
     {
-        if !living_set.contains(&adventuresim_core::identity::CharacterId::from(
-            vote.voter_id,
-        )) || !living_set.contains(&adventuresim_core::identity::CharacterId::from(
-            vote.candidate_id,
-        )) {
+        if !living_set.contains(&vote.voter_id) || !living_set.contains(&vote.candidate_id) {
             ctx.db.party_leader_vote().id().delete(&vote.id);
         }
     }
-    if !living_set.contains(&adventuresim_core::identity::CharacterId::from(
-        party.leader_id,
-    )) && let [sole_survivor] = living.as_slice()
+    if !living_set.contains(&party.leader_id)
+        && let [sole_survivor] = living.as_slice()
     {
         // Ensure a sole survivor can complete succession without deadlocking.
-        put_leader_vote(
-            ctx,
-            party_id,
-            (*sole_survivor).into(),
-            (*sole_survivor).into(),
-        );
+        put_leader_vote(ctx, party_id, *sole_survivor, *sole_survivor);
     }
-    let leader_alive = living_set.contains(&adventuresim_core::identity::CharacterId::from(
-        party.leader_id,
-    ));
+    let leader_alive = living_set.contains(&party.leader_id);
     let ballots: Vec<_> = ctx
         .db
         .party_leader_vote()
         .party_id()
         .filter(party_id)
-        .map(|vote| {
-            (
-                adventuresim_core::identity::CharacterId::from(vote.voter_id),
-                adventuresim_core::identity::CharacterId::from(vote.candidate_id),
-            )
-        })
+        .map(|vote| (vote.voter_id, vote.candidate_id))
         .collect();
     if let Some(next) = adventuresim_core::leadership::elect_leader(
-        adventuresim_core::identity::CharacterId::from(party.leader_id),
+        party.leader_id,
         leader_alive,
         &living,
         &ballots,
     ) {
-        party.leader_id = u64::from(next);
+        party.leader_id = next;
     }
     party.is_solo = living.len() == 1;
     ctx.db.party_authority().id().update(party);
@@ -531,9 +489,9 @@ pub(crate) fn normalize_and_elect_party_leader(
 
 pub(crate) fn create_solo_party_for_character(
     ctx: &ReducerContext,
-    character_id: adventuresim_core::identity::CharacterId,
+    character_id: u64,
 ) -> Result<String, String> {
-    let Some(mut character) = ctx.db.character().id().find(u64::from(character_id)) else {
+    let Some(mut character) = ctx.db.character().id().find(character_id) else {
         return Err("Character not found".into());
     };
     let party_id = format!("solo-{character_id}");
@@ -542,13 +500,10 @@ pub(crate) fn create_solo_party_for_character(
             id: party_id.clone(),
             gateway_bucket: 0,
             name: format!("{}'s party", character.name),
-            leader_id: u64::from(character_id),
+            leader_id: character_id,
             current_settlement_id: character.current_settlement_id.clone(),
-            current_case_site_id: crate::investigation::character_case_site_id(
-                ctx,
-                (character_id).into(),
-            )
-            .map(CaseSiteId::from),
+            current_case_site_id: crate::investigation::character_case_site_id(ctx, character_id)
+                .map(CaseSiteId::from),
             active_contract_id: None,
             is_solo: true,
             camp_fatigue_percent: 50,
@@ -566,21 +521,146 @@ pub(crate) fn create_solo_party_for_character(
         ctx.db.party_member().insert(PartyMember {
             id: 0,
             party_id: party_id.clone(),
-            character_id: u64::from(character_id),
+            character_id,
             role: Some("Leader".into()),
             recruitment_role_id: None,
         });
-        put_leader_vote(ctx, &party_id, (character_id).into(), (character_id).into());
+        put_leader_vote(ctx, &party_id, character_id, character_id);
     }
     character.party_id = Some(party_id.clone());
     ctx.db.character().id().update(character);
-    crate::social::reset_familiarity_after_join(ctx, (character_id).into());
+    crate::social::reset_familiarity_after_join(ctx, character_id);
     normalize_and_elect_party_leader(ctx, &party_id)?;
     Ok(party_id)
 }
 
 /// Remove the isolated party created for a temporary tactical character.
 /// Refuse to delete a party that has acquired any other member.
+pub(crate) fn delete_temporary_character_party(
+    ctx: &ReducerContext,
+    character_id: u64,
+    party_id: &str,
+) -> Result<(), String> {
+    let party_key = party_id.to_string();
+    let members: Vec<_> = ctx.db.party_member().party_id().filter(party_id).collect();
+    if members
+        .iter()
+        .any(|member| member.character_id != character_id)
+    {
+        return Err("Temporary character party contains another member".into());
+    }
+    for member in members {
+        ctx.db.party_member().id().delete(member.id);
+    }
+    for row in ctx
+        .db
+        .party_leader_vote()
+        .party_id()
+        .filter(party_id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.party_leader_vote().id().delete(&row.id);
+    }
+    for row in ctx
+        .db
+        .party_stake()
+        .party_id()
+        .filter(party_id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.party_stake().id().delete(row.id);
+    }
+    for row in ctx
+        .db
+        .party_inventory_item()
+        .party_id()
+        .filter(party_id)
+        .collect::<Vec<_>>()
+    {
+        if crate::inventory_container::delete_carried_object_for_row(
+            ctx,
+            adventuresim_core::physical_object::CarriedInventoryScope::Party,
+            row.id,
+        )? {
+            continue;
+        }
+        if let Some(condition) = ctx
+            .db
+            .party_item_condition()
+            .party_inventory_item_id()
+            .find(row.id)
+        {
+            ctx.db
+                .party_item_condition()
+                .party_inventory_item_id()
+                .delete(condition.party_inventory_item_id);
+        }
+        ctx.db.party_inventory_item().id().delete(row.id);
+    }
+    if ctx
+        .db
+        .party_inventory_state()
+        .party_id()
+        .find(&party_key)
+        .is_some()
+    {
+        ctx.db.party_inventory_state().party_id().delete(&party_key);
+    }
+    if ctx
+        .db
+        .party_journey_authority()
+        .party_id()
+        .find(&party_key)
+        .is_some()
+    {
+        ctx.db
+            .party_journey_authority()
+            .party_id()
+            .delete(&party_key);
+    }
+    if ctx
+        .db
+        .party_journey_route_authority()
+        .party_id()
+        .find(&party_key)
+        .is_some()
+    {
+        ctx.db
+            .party_journey_route_authority()
+            .party_id()
+            .delete(&party_key);
+    }
+    for row in ctx
+        .db
+        .party_action_request_authority()
+        .party_id()
+        .filter(party_id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.party_action_request_authority().id().delete(row.id);
+    }
+    for row in ctx
+        .db
+        .party_join_request()
+        .party_id()
+        .filter(party_id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.party_join_request().id().delete(row.id);
+    }
+    for row in ctx
+        .db
+        .party_recruitment_role()
+        .party_id()
+        .filter(party_id)
+        .collect::<Vec<_>>()
+    {
+        ctx.db.party_recruitment_role().id().delete(row.id);
+    }
+    ctx.db.party_authority().id().delete(&party_key);
+    Ok(())
+}
+
 /// Move a deterministic development fixture into another fixture's party
 /// without going through the player-facing recruitment workflow.
 pub(crate) fn attach_seeded_party_member(
@@ -653,10 +733,10 @@ pub(crate) fn attach_seeded_party_member(
     ctx.db.character().id().update(member);
     crate::investigation::set_character_case_site(
         ctx,
-        (member_id).into(),
-        crate::investigation::character_case_site_id(ctx, (leader_id).into()),
+        member_id,
+        crate::investigation::character_case_site_id(ctx, leader_id),
     )?;
-    crate::social::reset_familiarity_after_join(ctx, (member_id).into());
+    crate::social::reset_familiarity_after_join(ctx, member_id);
     ctx.db.party_member().insert(PartyMember {
         id: 0,
         party_id: party_id.clone(),
@@ -664,7 +744,7 @@ pub(crate) fn attach_seeded_party_member(
         role: Some(role.into()),
         recruitment_role_id: None,
     });
-    put_leader_vote(ctx, &party_id, (member_id).into(), (leader_id).into());
+    put_leader_vote(ctx, &party_id, member_id, leader_id);
     if let Some(mut party) = ctx.db.party_authority().id().find(&party_id) {
         party.is_solo = false;
         ctx.db.party_authority().id().update(party);
@@ -682,10 +762,8 @@ pub fn create_recruitment_role(
     requirements: RoleRequirements,
     save_role: bool,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (leader_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, leader_id)?;
+    crate::character::require_living_character(ctx, leader_id)?;
     if quantity == 0 || quantity > 8 {
         return Err("Role quantity must be between 1 and 8".into());
     }
@@ -764,10 +842,8 @@ pub fn update_recruitment_role(
     quantity: u32,
     requirements: RoleRequirements,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (leader_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, leader_id)?;
+    crate::character::require_living_character(ctx, leader_id)?;
     if quantity > 8 {
         return Err("Role quantity must be between 0 and 8".into());
     }
@@ -829,10 +905,8 @@ pub fn delete_recruitment_role(
     leader_id: u64,
     role_id: u64,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (leader_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, leader_id)?;
+    crate::character::require_living_character(ctx, leader_id)?;
     let leader = ctx
         .db
         .character()
@@ -893,10 +967,8 @@ pub fn save_recruitment_role(
     name: String,
     requirements: RoleRequirements,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (owner_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (owner_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, owner_id)?;
+    crate::character::require_living_character(ctx, owner_id)?;
     if ctx.db.character().id().find(owner_id).is_none() {
         return Err("Character not found".into());
     }
@@ -923,10 +995,8 @@ pub fn rename_saved_recruitment_role(
     role_id: u64,
     name: String,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (owner_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (owner_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, owner_id)?;
+    crate::character::require_living_character(ctx, owner_id)?;
     let mut role = ctx
         .db
         .saved_recruitment_role()
@@ -969,10 +1039,8 @@ pub fn update_party_check_targets(
     command: f32,
     religion: f32,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (leader_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, leader_id)?;
+    crate::character::require_living_character(ctx, leader_id)?;
     if [physiology, command, religion]
         .into_iter()
         .any(|value| !value.is_finite() || !(0.0..=5.0).contains(&value) || value.fract() != 0.0)
@@ -1008,10 +1076,8 @@ pub fn delete_saved_recruitment_role(
     owner_id: u64,
     role_id: u64,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (owner_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (owner_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, owner_id)?;
+    crate::character::require_living_character(ctx, owner_id)?;
     let role = ctx
         .db
         .saved_recruitment_role()
@@ -1139,7 +1205,8 @@ fn require_open_recruitment_offer(
     if offer.status != RecruitmentOfferStatus::Open {
         return Err("This recruitment offer is no longer open".into());
     }
-    let bindings_are_live = recruitment_offer_bindings_are_live(ctx, &offer, now);
+    let bindings_are_live =
+        recruitment_offer_bindings_are_live(ctx, &offer, now);
     let refreshed = refreshed_recruitment_offer_status(
         offer.status,
         now,
@@ -1189,9 +1256,7 @@ fn require_living_recruitment_target(ctx: &ReducerContext, party: &Party) -> Res
         .ok_or("Recruiting party leader not found")?;
     if !leader.alive
         || leader.party_id.as_deref() != Some(party.id.as_str())
-        || !living_party_member_ids(ctx, &party.id).contains(
-            &adventuresim_core::identity::CharacterId::from(party.leader_id),
-        )
+        || !living_party_member_ids(ctx, &party.id).contains(&party.leader_id)
     {
         return Err("Cannot join a party without a living leader".into());
     }
@@ -1204,10 +1269,8 @@ pub fn request_to_join_party(
     character_id: u64,
     recruitment_role_id: u64,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (character_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, character_id)?;
+    crate::character::require_living_character(ctx, character_id)?;
     let Some(character) = ctx.db.character().id().find(character_id) else {
         return Err("Character not found".into());
     };
@@ -1266,8 +1329,7 @@ pub fn request_to_join_party(
     {
         return Ok(());
     }
-    let capabilities = crate::capability::refresh_character_capability(ctx, (character_id).into())
-        .map_err(|error: crate::capability::CapabilityEvaluationError| error.to_string())?;
+    let capabilities = crate::capability::refresh_character_capability(ctx, character_id)?;
     ctx.db.party_join_request().insert(PartyJoinRequest {
         id: 0,
         party_id,
@@ -1284,8 +1346,7 @@ pub fn request_general_party_join(
     character_id: u64,
     target_party_id: String,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (character_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
+    require_strategic_character_authority(ctx, character_id)?;
     let target_party = ctx
         .db
         .party_authority()
@@ -1324,10 +1385,8 @@ pub fn accept_party_join_request(
     leader_id: u64,
     request_id: u64,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (leader_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, leader_id)?;
+    crate::character::require_living_character(ctx, leader_id)?;
     let Some(request) = ctx.db.party_join_request().id().find(request_id) else {
         return Err("Join request not found".into());
     };
@@ -1335,13 +1394,7 @@ pub fn accept_party_join_request(
         return Err("Party not found".into());
     };
     let recruitment_offer = require_open_recruitment_offer(ctx, &party)?;
-    require_no_unresolved_encounter(
-        ctx,
-        &adventuresim_core::identity::PartyId::try_new(request.party_id.clone()).map_err(
-            |source| crate::strategic::PendingEncounterError::PartyIdentity(source).to_string(),
-        )?,
-    )
-    .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
+    require_no_unresolved_encounter(ctx, &request.party_id)?;
     if party.leader_id != leader_id {
         return Err("Only the party leader can accept join requests".into());
     }
@@ -1361,13 +1414,7 @@ pub fn accept_party_join_request(
         .find(request.character_id)
         .ok_or("Applicant not found")?;
     let source_party_id = character.party_id.clone().ok_or("Applicant has no party")?;
-    require_no_unresolved_encounter(
-        ctx,
-        &adventuresim_core::identity::PartyId::try_new(source_party_id.clone()).map_err(
-            |source| crate::strategic::PendingEncounterError::PartyIdentity(source).to_string(),
-        )?,
-    )
-    .map_err(|error: crate::strategic::PendingEncounterError| error.to_string())?;
+    require_no_unresolved_encounter(ctx, &source_party_id)?;
     let source_party = ctx
         .db
         .party_authority()
@@ -1410,22 +1457,13 @@ pub fn accept_party_join_request(
             if let Some(object) = crate::inventory_container::object_for_row(
                 ctx,
                 adventuresim_core::physical_object::CarriedInventoryScope::Party,
-                (entry.id).into(),
-            )
-            .map_err(
-                |error: crate::inventory_container::InventoryObjectError| -> String {
-                    error.to_string()
-                },
+                entry.id,
             )? {
                 let destination = adventuresim_core::physical_object::OperationalCustody::party(
                     request.party_id.clone(),
                 )
                 .map_err(|error| error.to_string())?;
-                crate::inventory_container::rehome_subtree(ctx, object.id, &destination).map_err(
-                    |error: crate::inventory_container::InventoryContainerError| -> String {
-                        error.to_string()
-                    },
-                )?;
+                crate::inventory_container::rehome_subtree(ctx, object.id, &destination)?;
             } else {
                 entry.party_id = request.party_id.clone();
                 ctx.db.party_inventory_item().id().update(entry);
@@ -1442,12 +1480,7 @@ pub fn accept_party_join_request(
         .filter(&source_party_id)
         .collect::<Vec<_>>()
     {
-        credit_party_stake(
-            ctx,
-            &request.party_id,
-            (stake.character_id).into(),
-            stake.value,
-        )?;
+        credit_party_stake(ctx, &request.party_id, stake.character_id, stake.value)?;
         ctx.db.party_stake().id().delete(stake.id);
     }
     if let Some(state) = ctx
@@ -1501,13 +1534,13 @@ pub fn accept_party_join_request(
             ctx.db.character().id().update(source_character);
             crate::investigation::set_character_case_site(
                 ctx,
-                (member.character_id).into(),
+                member.character_id,
                 party
                     .current_case_site_id
                     .clone()
                     .map(CaseSiteId::into_string),
             )?;
-            crate::social::reset_familiarity_after_join(ctx, (member.character_id).into());
+            crate::social::reset_familiarity_after_join(ctx, member.character_id);
         }
     }
 
@@ -1553,12 +1586,7 @@ pub fn accept_party_join_request(
         ctx.db.party_leader_vote().id().delete(&old_vote.id);
     }
     for member_id in &source_member_ids {
-        put_leader_vote(
-            ctx,
-            &request.party_id,
-            (*member_id).into(),
-            (party.leader_id).into(),
-        );
+        put_leader_vote(ctx, &request.party_id, *member_id, party.leader_id);
     }
     if party.is_solo {
         let mut party = party;
@@ -1609,10 +1637,8 @@ pub fn reject_party_join_request(
     leader_id: u64,
     request_id: u64,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, (leader_id).into())
-        .map_err(|error: crate::strategic::StrategicCharacterAuthorityError| error.to_string())?;
-    crate::character::require_living_character(ctx, (leader_id).into())
-        .map_err(|error: crate::character::LivingCharacterError| error.to_string())?;
+    require_strategic_character_authority(ctx, leader_id)?;
+    crate::character::require_living_character(ctx, leader_id)?;
     let Some(request) = ctx.db.party_join_request().id().find(request_id) else {
         return Err("Join request not found".into());
     };

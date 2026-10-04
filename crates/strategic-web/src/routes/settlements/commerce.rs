@@ -17,19 +17,19 @@ pub(super) async fn merchant_provider_id(
     location_id: &str,
 ) -> Option<u64> {
     let settlement_literal = sql_string_literal(settlement_id);
-    let providers_sql = SqlQuery::from(format!(
+    let providers_sql = format!(
         "SELECT * FROM backend_settlement_residents WHERE home_settlement_id = {settlement_literal}"
-    ));
-    let presences_sql = SqlQuery::from(format!(
+    );
+    let presences_sql = format!(
         "SELECT * FROM settlement_resident_presence WHERE settlement_id = {settlement_literal}"
-    ));
+    );
     let (providers, presences) = tokio::join!(
         state
             .db
-            .query_sats::<db::BackendSettlementResident>(providers_sql),
+            .query_sats::<db::BackendSettlementResident>(&providers_sql),
         state
             .db
-            .query_sats::<db::SettlementResidentPresence>(presences_sql),
+            .query_sats::<db::SettlementResidentPresence>(&presences_sql),
     );
     let providers = providers.ok()?;
     let presences = presences.ok()?;

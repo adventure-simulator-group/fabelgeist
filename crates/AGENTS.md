@@ -20,9 +20,6 @@ governed by the repository-root generation rule instead.
 
 ## Semantic values and types
 
-- Follow [SEMANTIC_TYPES.md](SEMANTIC_TYPES.md) for shared owners, checked
-  decoding, seed framing, serial ordering, and boundary error conversion.
-
 - Treat a literal as magic when it encodes a domain unit, scale, bound,
   probability, tuning decision, protocol or status value, route, query, or
   error classification whose meaning is not intrinsic at the use site.
@@ -34,12 +31,10 @@ governed by the repository-root generation rule instead.
 - Default to bespoke domain types for domain values, including identifiers,
   units, quantities, states, validated values, and meaningful collections. Use
   enums, newtypes, and validated structs so invalid combinations are rejected
-  by the compiler. Handwritten function interfaces must use bespoke types,
-  including for indexes, counters, flags, and mathematical quantities.
-- Treat remaining primitive function parameters as migration debt. Admit raw
-  values only in type constructors/conversions and signatures mandated by
-  storage, external APIs, or external traits; keep these adapters explicit and
-  narrow. Convert before calling handwritten domain functions.
+  by the compiler. Keep raw strings, numbers, and containers at explicit system
+  boundaries or where the value is genuinely primitive.
+- Do not carry a naked primitive through domain logic when a bespoke type can
+  express its unit, invariant, authority, or allowed state more precisely.
 - Define each domain concept once in its lowest shared owning module. Import and
   reuse that type, its constants, and its conversions; never create equivalent
   bespoke types independently in multiple files.
@@ -87,21 +82,15 @@ governed by the repository-root generation rule instead.
 ## Lints, tests, and optimization
 
 - The `fabelgeist-rust-quality check` command enforces the semantic-value
-  registry, raw-string branching rules, primitive interface debt, Cargo lint
-  inheritance, and the 500-line file and 100-line function no-growth ceilings.
-  `just lint` runs it automatically. Interface debt also covers test helpers
-  and authored catalogs; literal scopes do not exempt their signatures.
+  registry, raw-string branching rules, Cargo lint inheritance, and the
+  500-line file and 100-line function no-growth ceilings. `just lint` runs it
+  automatically.
 - Keep legitimate fixtures, authored catalogs, shader source, and external
   boundary adapters in `rust-quality.toml`. Every scope or exception must be
   narrow and reasoned; the checker rejects entries that no longer match.
 - Use the checker's `census` subcommand to review repeated values. Its output is
   advisory: repetition suggests a concept worth reviewing but does not make an
   otherwise ordinary value illegal.
-- Use its `interfaces` subcommand for the Rust signature census, including
-  nested scalar types, handwritten aliases, generic errors, and unresolved
-  signatures. Unknown external types, generic parameters, inferred closures,
-  and unexpanded function macros remain visible for review. This syntax census
-  cannot prove the semantics of a nominal type or replace compiler inference.
 - After splitting an oversized module or migrating a semantic family, run the
   `baseline` subcommand and apply only the reductions relevant to that change.
   Never raise a ceiling to accommodate new production debt.

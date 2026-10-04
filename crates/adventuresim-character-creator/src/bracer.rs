@@ -1,7 +1,6 @@
 //! The wearer's forearm, as a bracer is fitted to it, and the body
 //! realizations every fitted piece follows.
 
-use fabelgeist_rig::{RigJointMembership, RigJointName, RigJointOrdinal};
 use std::collections::BTreeSet;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -11,37 +10,36 @@ pub enum ForearmSide {
 }
 
 impl ForearmSide {
-    pub(crate) fn lowarm(self) -> &'static RigJointName {
+    pub(crate) fn lowarm(self) -> &'static str {
         match self {
-            Self::Left => &RigJointName::L_LOWARM,
-            Self::Right => &RigJointName::R_LOWARM,
+            Self::Left => "l_lowarm",
+            Self::Right => "r_lowarm",
         }
     }
 
-    pub(crate) fn wrist(self) -> &'static RigJointName {
+    pub(crate) fn wrist(self) -> &'static str {
         match self {
-            Self::Left => &RigJointName::L_WRIST,
-            Self::Right => &RigJointName::R_WRIST,
+            Self::Left => "l_wrist",
+            Self::Right => "r_wrist",
         }
     }
 
-    fn upperarm(self) -> &'static RigJointName {
+    fn upperarm(self) -> &'static str {
         match self {
-            Self::Left => &RigJointName::L_UPPERARM,
-            Self::Right => &RigJointName::R_UPPERARM,
+            Self::Left => "l_upperarm",
+            Self::Right => "r_upperarm",
         }
     }
 
-    fn owns_forearm_joint(self, name: &RigJointName) -> RigJointMembership {
-        name.skin_family(self.lowarm())
+    fn owns_forearm_joint(self, name: &str) -> bool {
+        name == self.lowarm() || name.starts_with(&format!("{}_twist", self.lowarm()))
     }
 
-    pub(crate) fn supports_forearm_boundary(self, name: &RigJointName) -> RigJointMembership {
-        RigJointMembership::from(
-            self.owns_forearm_joint(name) == RigJointMembership::Included
-                || name == self.wrist()
-                || name.skin_family(self.upperarm()) == RigJointMembership::Included,
-        )
+    pub(crate) fn supports_forearm_boundary(self, name: &str) -> bool {
+        self.owns_forearm_joint(name)
+            || name == self.wrist()
+            || name == self.upperarm()
+            || name.starts_with(&format!("{}_twist", self.upperarm()))
     }
 }
 
@@ -55,7 +53,7 @@ pub struct ForearmSurfaceInput<'a> {
     pub texcoord_faces: &'a [[u32; 3]],
     pub joint_indices: &'a [[u32; 8]],
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
+    pub joint_names: &'a [String],
     pub global_joint_states: &'a [[f32; 8]],
     pub morphs: &'a [ForearmMorphSample],
 }
@@ -72,16 +70,8 @@ pub struct ForearmMorphSample {
     pub device: crate::device_body::DeviceBody,
 }
 
-#[derive(Debug, thiserror::Error)]
-pub enum ForearmInputError {
-    #[error("forearm surface inputs are inconsistent")]
-    InconsistentSurface,
-    #[error("MHR rig has no {owner} skin joints")]
-    MissingSkinFamily { owner: RigJointName },
-}
-
 impl ForearmSurfaceInput<'_> {
-    pub(crate) fn validate(&self) -> Result<(), ForearmInputError> {
+    pub(crate) fn validate(&self) -> Result<(), String> {
         let vertices = self.positions.len();
         if self.domain.trim().is_empty()
             || self.normals.len() != vertices
@@ -94,23 +84,16 @@ impl ForearmSurfaceInput<'_> {
                 .iter()
                 .any(|morph| morph.positions.len() != vertices || morph.normals.len() != vertices)
         {
-            return Err(ForearmInputError::InconsistentSurface);
+            return Err("forearm surface inputs are inconsistent".into());
         }
         let forearm_joints = self
             .joint_names
             .iter()
             .enumerate()
-            .filter_map(
-                |(index, name): (usize, &RigJointName)| -> Option<RigJointOrdinal> {
-                    (self.side.owns_forearm_joint(name) == RigJointMembership::Included)
-                        .then_some(RigJointOrdinal::from(index))
-                },
-            )
+            .filter_map(|(index, name)| self.side.owns_forearm_joint(name).then_some(index))
             .collect::<BTreeSet<_>>();
         if forearm_joints.is_empty() {
-            return Err(ForearmInputError::MissingSkinFamily {
-                owner: self.side.lowarm().clone(),
-            });
+            return Err(format!("MHR rig has no {} skin joints", self.side.lowarm()));
         }
         Ok(())
     }

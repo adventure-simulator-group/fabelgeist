@@ -1,6 +1,7 @@
 //! Overlapping horizontal torso courses, distinct from decorative fluting.
 use crate::{DesignError, Millimeters, Permille};
 use serde::{Deserialize, Serialize};
+use std::ops::RangeInclusive;
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub enum BreastplateConstruction {
@@ -37,10 +38,12 @@ impl Default for AnimeDesign {
 }
 
 impl AnimeDesign {
+    pub const OVERLAP_RANGE: RangeInclusive<u16> = 4..=60;
+
     pub(crate) fn validate(&self, gauge: Millimeters) -> Result<(), DesignError> {
         if !(3..=10).contains(&self.lame_count)
             || !(450..=950).contains(&self.articulated_height.0)
-            || !(4..=15).contains(&self.overlap.0)
+            || !Self::OVERLAP_RANGE.contains(&self.overlap.0)
             || self.chevron_slope.0 > 500
             || self.rear_chevron_slope.0 > 500
             || !(4..=12).contains(&self.lap_lift.0)

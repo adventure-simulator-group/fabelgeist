@@ -1,9 +1,5 @@
 //! Conforming surfaces of a single forged blank, including its closed apex.
 use super::*;
-use crate::ConstructionError;
-
-mod cell;
-pub(super) use cell::{PlateBand, PlateCell};
 
 const PLATE_CHORD: f64 = 0.008;
 const PLATE_CURVE_DEVIATION: f64 = 0.00015;
@@ -11,10 +7,7 @@ const PLATE_SURFACE_EDGE: f64 = 0.012;
 const PLATE_SURFACE_DEVIATION: f64 = 0.00005;
 const MAX_PLATE_OUTLINE_POINTS: usize = 4096;
 
-pub(super) fn construct(
-    p: &ContouredPlateParameters,
-    detail: Detail,
-) -> Result<Solid, ConstructionError> {
+pub(super) fn construct(p: &ContouredPlateParameters, detail: Detail) -> Result<Solid, String> {
     match &p.surface {
         PlateSurface::Ridge { stations } => construct_surface(
             p,
@@ -37,8 +30,9 @@ pub(super) fn construct(
 }
 
 pub(super) trait PlateField {
+    type Cell: Ord;
     fn cuts(&self) -> Vec<PlanarCut>;
-    fn cell(&self, point: PlanarPoint) -> PlateCell;
+    fn cell(&self, point: PlanarPoint) -> Self::Cell;
     fn thickness(&self, x: f64, y: f64) -> f64;
 }
 
@@ -46,7 +40,7 @@ fn construct_surface(
     p: &ContouredPlateParameters,
     detail: Detail,
     field: impl PlateField,
-) -> Result<Solid, ConstructionError> {
+) -> Result<Solid, String> {
     let surface_edge = detail.error(PLATE_SURFACE_EDGE);
     construction_budget(8.0 * p.width.get() * p.length.get() / surface_edge.powi(2))?;
     let cuts = field.cuts();
@@ -94,7 +88,7 @@ fn lift(
     p: &ContouredPlateParameters,
     field: &impl PlateField,
     region: Region,
-) -> Result<Solid, ConstructionError> {
+) -> Result<Solid, String> {
     construction_budget((region.triangles.len() * 2 + region.boundary.len() * 2) as f64)?;
     validate_apices(p, field, &region)?;
     let vertex = |i: usize, side: f64| {
@@ -132,7 +126,7 @@ fn validate_apices(
     p: &ContouredPlateParameters,
     field: &impl PlateField,
     region: &Region,
-) -> Result<(), ConstructionError> {
+) -> Result<(), String> {
     if !matches!(&p.surface, PlateSurface::Profile { .. }) {
         return Ok(());
     }
@@ -161,7 +155,10 @@ fn validate_apices(
                 && height[region.boundary[(i + 1) % count]] > 0.0
         });
         if value != 0.0 || !isolated || !endpoints.contains(&region.points[index]) {
-            return Err(ConstructionError::PlateBoundaryApices);
+            return Err(
+                "plate profile permits zero thickness only at isolated authored boundary apices"
+                    .into(),
+            );
         }
     }
     if region
@@ -169,7 +166,7 @@ fn validate_apices(
         .iter()
         .any(|face| face.iter().all(|&i| height[i] == 0.0))
     {
-        return Err(ConstructionError::PlateProfileLeavesZeroThicknessSurface);
+        return Err("plate profile leaves a zero-thickness surface".into());
     }
     Ok(())
 }
@@ -178,7 +175,7 @@ fn outline(
     p: &ContouredPlateParameters,
     detail: Detail,
     cuts: &[PlanarCut],
-) -> Result<Vec<PlanarPoint>, ConstructionError> {
+) -> Result<Vec<PlanarPoint>, String> {
     let scale = |point: [Ratio; 2]| {
         [
             point[0].get() * p.width.get(),
@@ -206,7 +203,7 @@ fn outline(
             ),
         }
         if result.len() > MAX_PLATE_OUTLINE_POINTS {
-            return Err(ConstructionError::PlateOutlineExceedsBoundedSamplingBudget);
+            return Err("plate outline exceeds its bounded sampling budget".into());
         }
         previous = end;
     }

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     runner = shutil.which("wasm-bindgen-test-runner")
     if not runner or not shutil.which("node"):
-        raise SystemExit("Install Node and wasm-bindgen-cli 0.2.108 before testing.")
+        raise SystemExit("Install Node and wasm-bindgen-cli 0.2.126 before testing.")
     command = ["cargo", "test", "--locked", "-p", "fabelgeist-determinism"]
     subprocess.run(command, cwd=ROOT, check=True)
     environment = dict(os.environ)

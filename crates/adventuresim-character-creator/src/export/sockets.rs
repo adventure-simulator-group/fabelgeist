@@ -2,7 +2,6 @@
 
 use super::{EQUIPMENT_SOCKET_NODE_PREFIX, RiggedMesh, RiggedSocket};
 use anyhow::{Context, Result};
-use fabelgeist_rig::RigJointName;
 use serde_json::{Value, json};
 
 pub(super) fn append(
@@ -13,7 +12,12 @@ pub(super) fn append(
     let socket_parent = if sockets.is_empty() {
         None
     } else {
-        Some(RigJointName::ROOT.require_in(mesh.joint_names)?)
+        Some(
+            mesh.joint_names
+                .iter()
+                .position(|name| name == "root")
+                .context("MHR skeleton has no anatomical pelvis joint")?,
+        )
     };
     let socket_nodes = sockets
         .iter()
@@ -42,7 +46,7 @@ pub(super) fn append(
         })
         .collect::<Vec<_>>();
     if let Some(socket_parent) = socket_parent {
-        let root_children = nodes[usize::from(socket_parent)]
+        let root_children = nodes[socket_parent]
             .as_object_mut()
             .context("MHR anatomical pelvis node is not an object")?
             .entry("children")

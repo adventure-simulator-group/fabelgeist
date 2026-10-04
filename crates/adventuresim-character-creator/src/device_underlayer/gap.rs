@@ -10,7 +10,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::standoff::LAYER_STACK_ENVELOPE_M;
 use super::wgsl;
@@ -40,69 +40,61 @@ impl Workspace<'_> {
         let gpu = self.gpu;
         let kernel = |source: String| {
             gpu.cache()
-                .get(gpu.context(), &ShaderSource::from(source))
-                .map_err(fabelgeist_armor::GenerateError::from)
+                .get(gpu.context(), &source)
+                .map_err(device_error)
         };
         let pairs = self.face_count * CELLS_PER_FACE;
         batch.clear_buffer(&self.overflow);
         batch.clear_buffer(&self.ranges);
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.face_count).into());
+        parameters.insert("count", self.face_count);
         for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad.into(), (0u32).into());
+            parameters.insert(pad, 0u32);
         }
-        parameters.insert("positions".into(), (positions.clone()).into());
-        parameters.insert("faces".into(), (self.faces.clone()).into());
-        parameters.insert("keys".into(), (self.keys.clone()).into());
-        parameters.insert("values".into(), (self.values.clone()).into());
-        parameters.insert("overflow".into(), (self.overflow.clone()).into());
+        parameters.insert("positions", positions.clone());
+        parameters.insert("faces", self.faces.clone());
+        parameters.insert("keys", self.keys.clone());
+        parameters.insert("values", self.values.clone());
+        parameters.insert("overflow", self.overflow.clone());
         batch
-            .dispatch_items(
-                &*kernel(cells_source())?,
-                &parameters,
-                (self.face_count).into(),
-            )
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&*kernel(cells_source())?, &parameters, self.face_count)
+            .map_err(device_error)?;
         self.sort
             .record(
                 batch,
                 &self.keys,
                 &self.values,
                 &mut self.sort_scratch,
-                pairs.into(),
-                BUCKET_BITS.into(),
+                pairs,
+                BUCKET_BITS,
             )
             .map_err(device_error)?;
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (pairs).into());
+        parameters.insert("count", pairs);
         for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad.into(), (0u32).into());
+            parameters.insert(pad, 0u32);
         }
-        parameters.insert("keys".into(), (self.keys.clone()).into());
-        parameters.insert("ranges".into(), (self.ranges.clone()).into());
+        parameters.insert("keys", self.keys.clone());
+        parameters.insert("ranges", self.ranges.clone());
         batch
-            .dispatch_items(&*kernel(ranges_source())?, &parameters, (pairs).into())
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&*kernel(ranges_source())?, &parameters, pairs)
+            .map_err(device_error)?;
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.vertex_count).into());
+        parameters.insert("count", self.vertex_count);
         for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad.into(), (0u32).into());
+            parameters.insert(pad, 0u32);
         }
-        parameters.insert("positions".into(), (positions.clone()).into());
-        parameters.insert("directions".into(), (directions.clone()).into());
-        parameters.insert("faces".into(), (self.faces.clone()).into());
-        parameters.insert("ranges".into(), (self.ranges.clone()).into());
-        parameters.insert("values".into(), (self.values.clone()).into());
-        parameters.insert("overflow".into(), (self.overflow.clone()).into());
-        parameters.insert("rooms".into(), (self.rooms.clone()).into());
-        parameters.insert("status".into(), (self.status.clone()).into());
+        parameters.insert("positions", positions.clone());
+        parameters.insert("directions", directions.clone());
+        parameters.insert("faces", self.faces.clone());
+        parameters.insert("ranges", self.ranges.clone());
+        parameters.insert("values", self.values.clone());
+        parameters.insert("overflow", self.overflow.clone());
+        parameters.insert("rooms", self.rooms.clone());
+        parameters.insert("status", self.status.clone());
         batch
-            .dispatch_items(
-                &*kernel(query_source())?,
-                &parameters,
-                (self.vertex_count).into(),
-            )
-            .map_err(fabelgeist_armor::GenerateError::from)?;
+            .dispatch_items(&*kernel(query_source())?, &parameters, self.vertex_count)
+            .map_err(device_error)?;
         Ok(())
     }
 }

@@ -48,7 +48,7 @@ fn main() {
     let mean_height = host_div(height_sum, count);
     var variance = 0.0;
     var covariance = 0.0;
-    var center_front = bitcast<f32>(0xff800000u);
+    var center_front = -MAX_FINITE;
     for (var s = 0u; s < n; s = s + 1u) {
         let body = surface[HEADER + s * 2u];
         let level = host_sub(semantic[body * 2u + 1u], mean_level);
@@ -162,7 +162,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
         return;
     }
     let y = local(positions_at(i)).y;
-    let infinity = bitcast<f32>(0x7f800000u);
+    let infinity = MAX_FINITE;
     var low = vec2<f32>(infinity);
     var high = vec2<f32>(-infinity);
     var crossings = 0u;
@@ -196,5 +196,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     centers[at] = host_mul(host_add(low.x, high.x), 0.5);
     centers[at + 1u] = host_mul(host_add(low.y, high.y), 0.5);
     centers[at + 2u] = select(0.0, 1.0, crossings >= 4u);
+    centers[at + 3u] = positions_at((V_SAMPLES - 1u) * params.width + i % params.width).y;
 }
 "#;

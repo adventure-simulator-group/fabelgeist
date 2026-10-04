@@ -113,10 +113,11 @@ fn receiving_tenon_and_declared_insertion_share_the_same_frame() {
     let mut invalid = fixture();
     invalid["shaft"]["tenon"]["tipRadius"] = 0.018.into();
     let recipe = serde_json::from_value(invalid).unwrap();
-    assert!(matches!(
-        generate_model(&recipe, Detail::High).unwrap_err(),
-        crate::ConstructionError::SocketShaftClearance
-    ));
+    assert!(
+        generate_model(&recipe, Detail::High)
+            .unwrap_err()
+            .contains("complete receiving shaft")
+    );
 }
 
 #[test]
@@ -140,10 +141,7 @@ fn explicit_rotated_shaft_parent_enforces_the_same_socket_fit() {
         value["components"] = serde_json::json!([shaft, head]);
         let result = generate_model(&serde_json::from_value(value).unwrap(), Detail::High);
         if bad_fit {
-            assert!(matches!(
-                result.unwrap_err(),
-                crate::ConstructionError::SocketShaftClearance
-            ));
+            assert!(result.unwrap_err().contains("complete receiving shaft"));
         } else {
             result.unwrap();
         }

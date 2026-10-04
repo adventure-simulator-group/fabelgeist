@@ -23,7 +23,10 @@ fn main() {
     if let Err(missing) = adventuresim_core::item_references::validate_gameplay_references(
         adventuresim_core::quest_catalog::catalog(),
     ) {
-        panic!("missing required gameplay item references: {missing}");
+        panic!(
+            "missing required gameplay item references: {:?}",
+            missing.ids
+        );
     }
     println!(
         "items: {} definitions, revision {}",

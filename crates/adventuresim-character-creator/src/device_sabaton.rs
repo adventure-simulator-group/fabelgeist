@@ -14,12 +14,10 @@
 //! whose results the tip does not amplify, are the device's.
 
 use anyhow::Result;
-use fabelgeist_armor::gpu::wgsl;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{DevicePart, FootArmorDesign, GenerateError};
 use fabelgeist_compute::{KernelBatch, host_float};
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_gpu::prelude::PassParameterName;
-use fabelgeist_gpu::prelude::{PassParameters, ShaderSource};
+use fabelgeist_gpu::prelude::PassParameters;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -66,19 +64,16 @@ impl DeviceWearer<'_> {
                 shell_of[carrier as usize] = shell as u32;
             }
         }
-        let status = gpu.scratch((4u64).into(), ("sabaton status").into())?;
+        let status = gpu.scratch(4, "sabaton status")?;
         let cutaway = design.ankle_cutaway.metres();
         let mut parameters = PassParameters::new();
-        parameters.insert("count".into(), (self.body.vertex_count).into());
-        parameters.insert("carriers_count".into(), (part.carrier_count()).into());
-        parameters.insert("toe_shell".into(), (u32::from(design.lame_count)).into());
-        parameters.insert("pad0".into(), (0u32).into());
-        parameters.insert(
-            PassParameterName::from(host_float::ZERO_FIELD),
-            (0u32).into(),
-        );
+        parameters.insert("count", self.body.vertex_count);
+        parameters.insert("carriers_count", part.carrier_count());
+        parameters.insert("toe_shell", u32::from(design.lame_count));
+        parameters.insert("pad0", 0u32);
+        parameters.insert(host_float::ZERO_FIELD, 0u32);
         for pad in ["pad1", "pad2", "pad3"] {
-            parameters.insert(pad.into(), (0.0f32).into());
+            parameters.insert(pad, 0.0f32);
         }
         let gauge = design.gauge.thickness.metres();
         for (name, value) in [
@@ -91,21 +86,15 @@ impl DeviceWearer<'_> {
             ("clearance", design.gauge.clearance.metres()),
             ("gauge", gauge),
         ] {
-            parameters.insert(name.into(), (value).into());
+            parameters.insert(name, value);
         }
-        parameters.insert("frames".into(), (frame.frame.clone()).into());
-        parameters.insert("positions".into(), (self.body.positions.clone()).into());
-        parameters.insert("support".into(), (support).into());
-        parameters.insert(
-            "profile".into(),
-            (gpu.upload(BufferUpload::from_elements(&profile))?).into(),
-        );
-        parameters.insert(
-            "shell_of".into(),
-            (gpu.upload(BufferUpload::from_elements(&shell_of))?).into(),
-        );
-        parameters.insert("carriers".into(), (part.carriers().clone()).into());
-        parameters.insert("status".into(), (status.clone()).into());
+        parameters.insert("frames", frame.frame.clone());
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert("support", support);
+        parameters.insert("profile", gpu.upload(&profile)?);
+        parameters.insert("shell_of", gpu.upload(&shell_of)?);
+        parameters.insert("carriers", part.carriers().clone());
+        parameters.insert("status", status.clone());
         for (entry, items) in [
             (FRONT, self.body.vertex_count),
             (NEAREST, self.body.vertex_count),
@@ -115,28 +104,32 @@ impl DeviceWearer<'_> {
             let kernel = gpu
                 .cache()
                 .get(gpu.context(), &source(entry))
-                .map_err(fabelgeist_armor::GenerateError::from)?;
+                .map_err(device_error)?;
             batch
-                .dispatch_items(&kernel, &parameters, (items).into())
-                .map_err(fabelgeist_armor::GenerateError::from)?;
+                .dispatch_items(&kernel, &parameters, items)
+                .map_err(device_error)?;
         }
         let frame = frame.clone();
-        Ok(Box::new(move |gpu| {
-            if gpu.read::<u32>(&status)?[0] & TRIM_EXCEEDS_FOOT == 0 {
-                return Ok(());
-            }
-            let length = frame.read(gpu)?.half_extents[2];
-            Err(GenerateError::SabatonTrimExceedsFoot {
-                cutaway_m: cutaway,
-                available_span_m: length * TRIMMABLE_FOOT_SHARE,
-            }
-            .into())
-        }))
+        Ok(DeviceCheck::Device(Box::new(move |gpu| {
+            let status = status.clone();
+            let frame = frame.clone();
+            Box::pin(async move {
+                if gpu.read_async::<u32>(&status).await?[0] & TRIM_EXCEEDS_FOOT == 0 {
+                    return Ok(());
+                }
+                let length = frame.read_async(gpu).await?.half_extents[2];
+                Err(GenerateError::SabatonTrimExceedsFoot {
+                    cutaway_m: cutaway,
+                    available_span_m: length * TRIMMABLE_FOOT_SHARE,
+                }
+                .into())
+            })
+        })))
     }
 }
 
-fn source(entry: &str) -> ShaderSource {
-    ShaderSource::from(format!(
+fn source(entry: &str) -> String {
+    format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -238,7 +231,7 @@ fn station_at(station: u32) -> u32 {{
         stations = STATIONS,
         words = STATION_WORDS,
         trim = TRIM_EXCEEDS_FOOT,
-    ))
+    )
 }
 
 /// The foot's front, and whether its length leaves room for the cutaway.

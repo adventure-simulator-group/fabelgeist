@@ -1,6 +1,5 @@
 //! Section lofts for tillers and firearm stocks with explicit lock cavities.
 use super::*;
-use crate::ConstructionError;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct StockStation {
@@ -35,12 +34,14 @@ impl StockStation {
     }
 }
 impl Solid {
-    pub(crate) fn stock(stations: &[StockStation]) -> Result<Self, ConstructionError> {
+    pub(crate) fn stock(stations: &[StockStation]) -> Result<Self, String> {
         if stations.len() < 2
             || stations.iter().any(|s| s.width <= 0.0 || s.top <= s.bottom)
             || stations.windows(2).any(|s| s[1].y <= s[0].y)
         {
-            return Err(ConstructionError::StockStations);
+            return Err(
+                "stock stations need positive sections and increasing axial positions".into(),
+            );
         }
         let rings: Vec<_> = stations
             .iter()

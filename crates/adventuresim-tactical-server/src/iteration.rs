@@ -190,7 +190,7 @@ fn spawn_combatant(
             Player {
                 name: build.name.to_owned(),
             },
-            CharacterId::from(source.id),
+            CharacterId(source.id),
             tactical_skills(source),
             tactical_limbs(source),
             TacticalAttributes(source.attributes.clone()),

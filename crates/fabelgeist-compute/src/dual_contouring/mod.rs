@@ -1,7 +1,6 @@
 use crate::{GatherDefinition, MapDefinition, ScanDefinition, StreamDefinition};
 use anyhow::Result;
 use fabelgeist_gpu::globals::WgpuContext;
-use fabelgeist_gpu::prelude::ShaderSource;
 
 #[derive(Clone, Debug)]
 pub struct DualContouringDefinition {
@@ -497,8 +496,7 @@ fn map(val: u32) -> u32 {
 "#;
         let sync_indirect_def = MapDefinition::new(sync_indirect_wgsl.to_string())?;
 
-        let deinterleave_wgsl = ShaderSource::from(
-            r#"
+        let deinterleave_wgsl = r#"
             struct Vertex {
                 position: vec4<f32>,
                 normal: vec4<f32>,
@@ -524,10 +522,11 @@ fn map(val: u32) -> u32 {
                 out_normals[pos_idx + 1u] = v.normal.y;
                 out_normals[pos_idx + 2u] = v.normal.z;
             }
-        "#,
-        );
+        "#;
+        let deinterleave_shader =
+            fabelgeist_gpu::data::gpu::ComputeShader::new(context, deinterleave_wgsl.to_string())?;
         let deinterleave_pipeline =
-            fabelgeist_gpu::data::gpu::ComputePipeline::from_source(context, deinterleave_wgsl)?;
+            fabelgeist_gpu::data::gpu::ComputePipeline::new(context, deinterleave_shader)?;
 
         Ok(Self {
             vertex_count_def,

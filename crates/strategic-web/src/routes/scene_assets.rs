@@ -1,6 +1,5 @@
 //! Prepare the actual tactical scene document without requesting a server.
 use super::{AppState, CharacterView, SettlementView};
-use crate::spacetimedb::SqlQuery;
 use crate::{session::Session, spacetimedb};
 use adventuresim_stdb_client as sdk;
 use adventuresim_tactical_server_dispatcher::{
@@ -39,9 +38,7 @@ async fn scene_assets(
     let id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let mut actor = state
         .db
-        .query_one_sats_into::<sdk::Character, CharacterView>(spacetimedb::character_by_id(
-            id.into(),
-        ))
+        .query_one_sats_into::<sdk::Character, CharacterView>(&spacetimedb::character_by_id(id))
         .await
         .map_err(unavailable)?
         .ok_or(StatusCode::UNAUTHORIZED)?;
@@ -52,7 +49,7 @@ async fn scene_assets(
     {
         return Err(StatusCode::FORBIDDEN);
     }
-    actor.current_case_site_id = super::character_case_site_id(&state, id.into())
+    actor.current_case_site_id = super::character_case_site_id(&state, id)
         .await
         .map_err(unavailable)?;
     let (coordinates, scene_key, identity, profile) =
@@ -60,7 +57,7 @@ async fn scene_assets(
             let settlement = state
                 .db
                 .query_one_sats_into::<sdk::Settlement, SettlementView>(
-                    spacetimedb::settlement_by_id(settlement_id),
+                    &spacetimedb::settlement_by_id(settlement_id),
                 )
                 .await
                 .map_err(unavailable)?
@@ -123,6 +120,11 @@ async fn scene_assets(
     .await
     .map_err(unavailable)?
     .map_err(unavailable)?;
+    if let Some(catalog) = &input.properties {
+        super::settlement_properties::ensure_catalog(&state, catalog)
+            .await
+            .map_err(unavailable)?;
+    }
     Ok(Json(input))
 }
 
@@ -132,10 +134,10 @@ async fn operators(
 ) -> Result<Vec<SettlementBusinessOperatorProfile>, StatusCode> {
     let assignments = state
         .db
-        .query_sats::<sdk::SettlementBusinessOperator>(SqlQuery::from(format!(
+        .query_sats::<sdk::SettlementBusinessOperator>(&format!(
             "SELECT * FROM settlement_business_operator WHERE settlement_id = {}",
             spacetimedb::sql_string_literal(settlement),
-        )))
+        ))
         .await
         .map_err(unavailable)?;
     if assignments.is_empty() {
@@ -148,9 +150,9 @@ async fn operators(
         .join(" OR ");
     let people = state
         .db
-        .query_sats_into::<sdk::Character, CharacterView>(SqlQuery::from(format!(
+        .query_sats_into::<sdk::Character, CharacterView>(&format!(
             "SELECT * FROM character WHERE {condition}"
-        )))
+        ))
         .await
         .map_err(unavailable)?;
     assignments
@@ -189,7 +191,7 @@ async fn scene_minute(
 ) -> Result<adventuresim_world_schema::calendar::StrategicMinute, StatusCode> {
     let clock = state
         .db
-        .query_sats::<sdk::WorldClock>(spacetimedb::world_clock_singleton())
+        .query_sats::<sdk::WorldClock>(&spacetimedb::world_clock_singleton())
         .await
         .map_err(unavailable)?
         .into_iter()
@@ -199,9 +201,9 @@ async fn scene_minute(
         .duration_since(std::time::UNIX_EPOCH)
         .map_err(unavailable)?
         .as_micros();
-    use adventuresim_core::strategic_time::clock::{OfficialClockEpoch, UnixMicrosecondInstant};
-    let minute = OfficialClockEpoch::from(clock.epoch_micros).at(UnixMicrosecondInstant::from(
+    let minute = adventuresim_core::strategic_time::official_minute(
+        clock.epoch_micros,
         i64::try_from(now).map_err(unavailable)?,
-    ));
+    );
     Ok(minute)
 }
