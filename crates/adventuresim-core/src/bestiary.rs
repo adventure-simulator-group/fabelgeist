@@ -129,14 +129,12 @@ impl Serialize for ThreatId {
 impl<'de> Deserialize<'de> for ThreatId {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = String::deserialize(deserializer)?;
-        value
-            .parse()
-            .map_err(|_| serde::de::Error::custom("unknown threat ID"))
+        value.parse().map_err(serde::de::Error::custom)
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct UnknownThreatId;
+mod error;
+pub use error::UnknownThreatId;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum RigTopology {
