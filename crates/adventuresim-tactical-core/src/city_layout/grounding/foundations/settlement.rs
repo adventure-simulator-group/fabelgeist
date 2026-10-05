@@ -87,8 +87,9 @@ impl BoundedSettlementTerrain {
         Ok(surface)
     }
 
-    /// All physical support candidates at an edge are retained. Architectural
-    /// consumers select their exact bound floor rather than averaging levels.
+    /// Sorted support elevations, coalesced within the contact tolerance.
+    /// Architectural consumers select their bound floor rather than averaging
+    /// levels.
     pub fn elevations_at(
         &self,
         scene_point: crate::scene_coordinates::ScenePlanPoint,
