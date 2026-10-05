@@ -8,7 +8,7 @@ use std::path::Path;
 
 use anyhow::{Context, Result};
 
-use crate::npy::{self, NpyArray};
+use crate::npy::NpyArray;
 use crate::zip::ZipArchive;
 
 /// A memory-mapped `.npz` archive.
@@ -59,7 +59,7 @@ impl Npz {
             .find(|member| matches(member, name))
             .with_context(|| format!("archive has no member {name:?}"))?;
         let bytes = self.archive.entry_bytes(entry)?;
-        npy::parse(&bytes).with_context(|| format!("reading array {name:?}"))
+        NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {name:?}"))
     }
 }
 
@@ -162,7 +162,13 @@ mod tests {
         assert!(!npz.contains("missing"));
 
         let weights = npz.array("weights").unwrap();
-        assert_eq!(weights.shape, [2, 2]);
+        assert_eq!(
+            weights.shape().dimensions(),
+            [
+                crate::npy::NpyDimension::from(2),
+                crate::npy::NpyDimension::from(2)
+            ]
+        );
         assert_eq!(weights.to_f32(), [1.0, 2.0, 3.0, 4.0]);
         assert_eq!(npz.array("indices").unwrap().to_i64(), [7, 9]);
 
