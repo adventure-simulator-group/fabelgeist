@@ -9,8 +9,16 @@ use burn::tensor::{Device, Int, Tensor, TensorData};
 
 use crate::character::{Character, PARAMETERS_PER_JOINT};
 use crate::correctives::PoseCorrectives;
-use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
+use crate::model_def::{BlendShapeParameterCount, ParameterTransform, parse_model_definition};
+
 use crate::skel_state;
+
+mod input;
+pub use input::{
+    ExpressionCoefficientCount, IdentityCoefficientCount, MhrEvaluationError, ModelBatchSize,
+    PoseParameterCount,
+};
+use input::{ExpressionLayout, IdentityLayout, IdentityRows, PoseLayout};
 
 /// Shape coefficients: 20 body, 20 head, 5 hands.
 pub const NUM_IDENTITY_BLEND_SHAPES: usize = 45;
@@ -69,7 +77,7 @@ pub struct Mhr {
     transform: Tensor<2>,
     /// Constant joint-parameter offsets, or `None` when the rig has none.
     offsets: Option<Tensor<2>>,
-    num_model_parameters: usize,
+    pose_parameter_count: PoseParameterCount,
 
     /// `[1, joints, 3]` and `[1, joints, 4]`.
     joint_translation_offsets: Tensor<3>,
@@ -223,14 +231,16 @@ impl Mhr {
     ) -> Result<Self> {
         let mut parameter_transform = parse_model_definition(definition, &character.skeleton)
             .context("parsing the MHR model definition")?;
-        let num_model_parameters = parameter_transform.num_parameters();
+        let pose_parameter_count = PoseParameterCount::from(parameter_transform.parameter_count());
         // momentum appends one model parameter per identity blend shape when a
         // blend shape is attached to the character.
-        append_blend_shape_parameters(&mut parameter_transform, NUM_IDENTITY_BLEND_SHAPES);
+        parameter_transform.append_blend_shape_parameters(BlendShapeParameterCount::from(
+            NUM_IDENTITY_BLEND_SHAPES,
+        ));
         Self::new(
             character,
             parameter_transform,
-            num_model_parameters,
+            pose_parameter_count,
             correctives,
             device,
         )
@@ -239,7 +249,7 @@ impl Mhr {
     fn new(
         character: Character,
         parameter_transform: ParameterTransform,
-        num_model_parameters: usize,
+        pose_parameter_count: PoseParameterCount,
         correctives: Option<PoseCorrectives>,
         device: &Device,
     ) -> Result<Self> {
@@ -255,10 +265,11 @@ impl Mhr {
         }
 
         // Transposed so a forward pass is `parameters @ transform`.
-        let columns = parameter_transform.num_parameters();
-        let mut transform = vec![0.0f32; num_model_parameters * joints * PARAMETERS_PER_JOINT];
+        let columns = usize::from(parameter_transform.parameter_count());
+        let pose_columns = usize::from(pose_parameter_count);
+        let mut transform = vec![0.0f32; pose_columns * joints * PARAMETERS_PER_JOINT];
         for row in 0..joints * PARAMETERS_PER_JOINT {
-            for column in 0..num_model_parameters {
+            for column in 0..pose_columns {
                 transform[column * joints * PARAMETERS_PER_JOINT + row] =
                     parameter_transform.transform[row * columns + column];
             }
@@ -338,14 +349,11 @@ impl Mhr {
         Ok(Self {
             device: device.clone(),
             transform: Tensor::from_data(
-                TensorData::new(
-                    transform,
-                    [num_model_parameters, joints * PARAMETERS_PER_JOINT],
-                ),
+                TensorData::new(transform, [pose_columns, joints * PARAMETERS_PER_JOINT]),
                 device,
             ),
             offsets,
-            num_model_parameters,
+            pose_parameter_count,
             joint_translation_offsets: Tensor::from_data(
                 TensorData::new(
                     character.skeleton.translation_offsets.concat(),
@@ -397,8 +405,8 @@ impl Mhr {
 
     /// Number of pose/scale parameters the model takes, excluding the blend
     /// shape coefficients momentum appends to the parameter vector.
-    pub fn num_model_parameters(&self) -> usize {
-        self.num_model_parameters
+    pub fn pose_parameter_count(&self) -> PoseParameterCount {
+        self.pose_parameter_count
     }
 
     pub fn has_pose_correctives(&self) -> bool {
@@ -410,21 +418,24 @@ impl Mhr {
     }
 
     /// Zero parameters for a batch, i.e. the rest pose.
-    pub fn zero_parameters(&self, batch: usize) -> Tensor<2> {
-        Tensor::zeros([batch, self.num_model_parameters], &self.device)
+    pub fn zero_parameters(&self, batch: ModelBatchSize) -> Tensor<2> {
+        Tensor::zeros(
+            [usize::from(batch), usize::from(self.pose_parameter_count)],
+            &self.device,
+        )
     }
 
     /// Runs the model.
     ///
     /// * `identity` — `[batch, 45]` shape coefficients (a single row is broadcast).
-    /// * `model_parameters` — `[batch, 204]` pose and scale parameters.
+    /// * `model_parameters` — `[batch, pose_parameter_count]` pose and scale parameters.
     /// * `expression` — `[batch, 72]` facial expression coefficients, optional.
     pub fn forward(
         &self,
         identity: Tensor<2>,
         model_parameters: Tensor<2>,
         expression: Option<Tensor<2>>,
-    ) -> Result<MhrOutput> {
+    ) -> std::result::Result<MhrOutput, MhrEvaluationError> {
         self.forward_with(identity, model_parameters, expression, true)
     }
 
@@ -435,45 +446,24 @@ impl Mhr {
         model_parameters: Tensor<2>,
         expression: Option<Tensor<2>>,
         apply_correctives: bool,
-    ) -> Result<MhrOutput> {
-        let batch = model_parameters.dims()[0];
+    ) -> std::result::Result<MhrOutput, MhrEvaluationError> {
+        let pose_layout = PoseLayout::from(model_parameters.dims());
+        let batch = pose_layout.batch;
         let joints = self.num_joints();
         let vertices = self.num_vertices();
-
-        let [identity_rows, identity_columns] = identity.dims();
-        if identity_columns != NUM_IDENTITY_BLEND_SHAPES {
-            bail!(
-                "identity coefficients have {identity_columns} columns, expected {NUM_IDENTITY_BLEND_SHAPES}"
-            );
-        }
-        if identity_rows != batch && identity_rows != 1 {
-            bail!("identity coefficients have {identity_rows} rows, expected {batch} or 1");
-        }
-        if model_parameters.dims()[1] != self.num_model_parameters {
-            bail!(
-                "model parameters have {} columns, expected {}",
-                model_parameters.dims()[1],
-                self.num_model_parameters
-            );
-        }
+        let identity_rows = IdentityLayout::from(identity.dims()).admit(batch)?;
+        pose_layout.admit(self.pose_parameter_count)?;
 
         // Rest shape: mean plus identity and expression offsets.
-        let identity = if identity_rows == batch {
-            identity
-        } else {
-            identity.expand([batch, NUM_IDENTITY_BLEND_SHAPES])
+        let identity = match identity_rows {
+            IdentityRows::Exact => identity,
+            IdentityRows::Broadcast => {
+                identity.expand([usize::from(batch), NUM_IDENTITY_BLEND_SHAPES])
+            }
         };
         let mut rest = self.base_shape.clone() + identity.matmul(self.identity_basis.clone());
         if let Some(expression) = expression {
-            let [rows, columns] = expression.dims();
-            if columns != NUM_FACE_EXPRESSION_BLEND_SHAPES {
-                bail!(
-                    "expression coefficients have {columns} columns, expected {NUM_FACE_EXPRESSION_BLEND_SHAPES}"
-                );
-            }
-            if rows != batch {
-                bail!("expression coefficients have {rows} rows, expected {batch}");
-            }
+            ExpressionLayout::from(expression.dims()).admit(batch)?;
             rest = rest + expression.matmul(self.expression_basis.clone());
         }
 
@@ -488,15 +478,16 @@ impl Mhr {
         let mut joint_parameters = (model_parameters.unsqueeze_dim::<3>(2)
             * self.transform.clone().unsqueeze::<3>())
         .sum_dim(1)
-        .reshape([batch, joints * PARAMETERS_PER_JOINT]);
+        .reshape([usize::from(batch), joints * PARAMETERS_PER_JOINT]);
         if let Some(offsets) = &self.offsets {
             joint_parameters = joint_parameters + offsets.clone();
         }
-        let joint_parameters = joint_parameters.reshape([batch, joints, PARAMETERS_PER_JOINT]);
+        let joint_parameters =
+            joint_parameters.reshape([usize::from(batch), joints, PARAMETERS_PER_JOINT]);
 
         let skeleton_state = self.skeleton_state(joint_parameters.clone());
 
-        let mut rest = rest.reshape([batch, vertices, 3]);
+        let mut rest = rest.reshape([usize::from(batch), vertices, 3]);
         if apply_correctives && let Some(correctives) = &self.correctives {
             rest = rest + correctives.forward(joint_parameters);
         }

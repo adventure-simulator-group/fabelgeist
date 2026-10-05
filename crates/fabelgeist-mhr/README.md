@@ -50,14 +50,24 @@ corrective_blendshapes_lod{0..6}.npz    corrective basis for that LOD
 
 ```rust
 use burn::tensor::{Device, Tensor};
-use fabelgeist_mhr::{Mhr, MhrConfig, NUM_IDENTITY_BLEND_SHAPES};
+use fabelgeist_mhr::{Mhr, MhrConfig, ModelBatchSize, NUM_IDENTITY_BLEND_SHAPES};
 
 let device = Device::default();
 let model = Mhr::from_files("D:/AI/Models/mhr", MhrConfig::default(), &device)?;
 
 let identity = Tensor::zeros([1, NUM_IDENTITY_BLEND_SHAPES], &device);
-let output = model.forward(identity, model.zero_parameters(1), None)?;
+let pose = model.zero_parameters(ModelBatchSize::from(1));
+let output = model.forward(identity, pose, None)?;
 ```
+
+Evaluation uses distinct bespoke types for batch rows, pose-input columns, and
+model-transform columns. `Mhr::pose_parameter_count()` excludes appended
+identity columns; `ParameterTransform::parameter_count()` includes them.
+Convert counts to `usize` when constructing native tensor shapes or allocating
+parameter vectors. `forward` and `forward_with` return `MhrEvaluationError` for
+invalid input layouts: identity accepts one broadcast row or the exact batch,
+while expression requires the exact batch. Identity and expression widths are
+checked before their row counts, and errors retain the rejected dimensions.
 
 Examples:
 

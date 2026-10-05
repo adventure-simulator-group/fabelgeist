@@ -7,6 +7,9 @@ use anyhow::{Result, bail};
 
 use crate::character::{PARAMETERS_PER_JOINT, Skeleton};
 
+mod count;
+pub use count::{BlendShapeParameterCount, ModelParameterCount};
+
 /// `tx, ty, tz, rx, ry, rz, sc` — the seven channels of a momentum joint.
 pub const JOINT_PARAMETER_NAMES: [&str; PARAMETERS_PER_JOINT] =
     ["tx", "ty", "tz", "rx", "ry", "rz", "sc"];
@@ -41,17 +44,13 @@ pub struct ParameterTransform {
 }
 
 impl ParameterTransform {
-    pub fn num_parameters(&self) -> usize {
-        self.names.len()
-    }
-
     pub fn parameter_index(&self, name: &str) -> Option<usize> {
         self.names.iter().position(|n| n == name)
     }
 
     /// Row `joint * 7 + channel` of the transform matrix.
     pub fn row(&self, joint_parameter: usize) -> &[f32] {
-        let stride = self.num_parameters();
+        let stride = usize::from(self.parameter_count());
         &self.transform[joint_parameter * stride..(joint_parameter + 1) * stride]
     }
 
@@ -231,7 +230,7 @@ fn parse_parameter_sets(lines: &[String], transform: &mut ParameterTransform) {
         if tokens.len() < 2 || tokens[0] != "parameterset" {
             continue;
         }
-        let mut set = vec![false; transform.num_parameters()];
+        let mut set = vec![false; usize::from(transform.parameter_count())];
         for name in &tokens[2..] {
             if let Some(index) = transform.parameter_index(name) {
                 set[index] = true;
@@ -281,7 +280,7 @@ pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<Paramet
     )?;
 
     // Densify once the parameter count is final.
-    let columns = transform.num_parameters();
+    let columns = usize::from(transform.parameter_count());
     transform.transform = vec![0.0; transform.num_joint_parameters * columns];
     for (row, column, value) in triplets {
         if value != 0.0 {
@@ -297,25 +296,6 @@ pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<Paramet
     }
 
     Ok(transform)
-}
-
-/// Appends one column per blend-shape coefficient, as momentum's
-/// `Character::withBlendShape` does. The new columns drive no joint.
-pub fn append_blend_shape_parameters(transform: &mut ParameterTransform, count: usize) {
-    let old_columns = transform.num_parameters();
-    let new_columns = old_columns + count;
-    let mut dense = vec![0.0; transform.num_joint_parameters * new_columns];
-    for row in 0..transform.num_joint_parameters {
-        let source = &transform.transform[row * old_columns..(row + 1) * old_columns];
-        dense[row * new_columns..row * new_columns + old_columns].copy_from_slice(source);
-    }
-    transform.transform = dense;
-    for index in 0..count {
-        transform.names.push(format!("blend_{index}"));
-    }
-    for set in transform.parameter_sets.values_mut() {
-        set.resize(new_columns, false);
-    }
 }
 
 #[cfg(test)]
@@ -393,7 +373,12 @@ mod tests {
     #[test]
     fn blend_shape_columns_are_appended_without_joint_influence() {
         let mut pt = parse("root.tx = 10.0 * root_tx\n");
-        append_blend_shape_parameters(&mut pt, 2);
+        let pose_columns = crate::PoseParameterCount::from(pt.parameter_count());
+        pt.parameter_sets.insert("pose".into(), vec![true]);
+        pt.append_blend_shape_parameters(BlendShapeParameterCount::from(2));
+        assert_eq!(pose_columns, crate::PoseParameterCount::from(1));
+        assert_eq!(pt.parameter_count(), ModelParameterCount::from(3));
+        assert_eq!(pt.parameter_sets["pose"], [true, false, false]);
         assert_eq!(pt.names, ["root_tx", "blend_0", "blend_1"]);
         assert_eq!(pt.row(0), [10.0, 0.0, 0.0]);
     }
