@@ -62,7 +62,9 @@ let output = model.forward(identity, pose, None)?;
 
 Evaluation uses distinct bespoke types for batch rows, pose-input columns, and
 model-transform columns. `Mhr::pose_parameter_count()` excludes appended
-identity columns; `ParameterTransform::parameter_count()` includes them.
+identity columns; `ParameterTransform::parameter_count()` includes them. A total
+transform count cannot be converted directly into a pose count. The loader
+admits the pose count from the parsed definition before adding identity columns.
 Convert counts to `usize` when constructing native tensor shapes or allocating
 parameter vectors. `forward` and `forward_with` return `MhrEvaluationError` for
 invalid input layouts: identity accepts one broadcast row or the exact batch,

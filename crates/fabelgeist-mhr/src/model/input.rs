@@ -1,6 +1,5 @@
 //! Host admission of identity, pose and expression tensor layouts.
 use super::{NUM_FACE_EXPRESSION_BLEND_SHAPES, NUM_IDENTITY_BLEND_SHAPES};
-use crate::model_def::ModelParameterCount;
 mod error;
 pub use error::MhrEvaluationError;
 
@@ -55,7 +54,7 @@ impl From<usize> for ExpressionCoefficientCount {
 /// ```compile_fail
 /// use fabelgeist_mhr::{ModelParameterCount, PoseParameterCount};
 /// fn pose_columns(total: ModelParameterCount) -> PoseParameterCount {
-///     total
+///     PoseParameterCount::from(total)
 /// }
 /// ```
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -63,11 +62,6 @@ pub struct PoseParameterCount(usize);
 impl From<usize> for PoseParameterCount {
     fn from(columns: usize) -> Self {
         Self(columns)
-    }
-}
-impl From<ModelParameterCount> for PoseParameterCount {
-    fn from(columns: ModelParameterCount) -> Self {
-        Self(usize::from(columns))
     }
 }
 impl From<PoseParameterCount> for usize {

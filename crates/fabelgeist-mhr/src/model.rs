@@ -231,7 +231,10 @@ impl Mhr {
     ) -> Result<Self> {
         let mut parameter_transform = parse_model_definition(definition, &character.skeleton)
             .context("parsing the MHR model definition")?;
-        let pose_parameter_count = PoseParameterCount::from(parameter_transform.parameter_count());
+        // The parsed definition contains only pose/scale columns; identity
+        // columns enter the transform below, after this loading admission.
+        let pose_parameter_count =
+            PoseParameterCount::from(usize::from(parameter_transform.parameter_count()));
         // momentum appends one model parameter per identity blend shape when a
         // blend shape is attached to the character.
         parameter_transform.append_blend_shape_parameters(BlendShapeParameterCount::from(

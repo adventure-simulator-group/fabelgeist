@@ -373,7 +373,11 @@ mod tests {
     #[test]
     fn blend_shape_columns_are_appended_without_joint_influence() {
         let mut pt = parse("root.tx = 10.0 * root_tx\n");
-        let pose_columns = crate::PoseParameterCount::from(pt.parameter_count());
+        let pose_columns = crate::PoseParameterCount::from(1);
+        assert_eq!(
+            pt.parameter_count(),
+            ModelParameterCount::from(usize::from(pose_columns))
+        );
         pt.parameter_sets.insert("pose".into(), vec![true]);
         pt.append_blend_shape_parameters(BlendShapeParameterCount::from(2));
         assert_eq!(pose_columns, crate::PoseParameterCount::from(1));
