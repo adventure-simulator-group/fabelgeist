@@ -1050,9 +1050,11 @@ a shared construction assembly and are not implied by passage handedness.
 
 Properties crossing the playable boundary keep both buildings in the playable
 scene. Entirely distant properties retain their walls and closed gate in the
-vista. Connected terrain pads share an elevation, including adjacent properties
-whose grading margins overlap. Nearby gates use the authoritative server door
-controller and collision; distant gates are presentation geometry.
+vista. Each property's support remains independently owned and bounded, and
+member buildings retain their bound floor elevations. Compilation rejects
+overlapping support rather than merging neighboring terraces. Nearby gates use
+the authoritative server door controller and collision; distant gates are
+presentation geometry.
 
 The authored city site expands north and south above 40,000 residents while
 retaining its surveyed east/west road anchors. Planning allocation is capped at

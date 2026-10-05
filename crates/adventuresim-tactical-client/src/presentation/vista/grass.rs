@@ -54,9 +54,10 @@ impl PreparedGrass {
     }
 }
 /// Instance placement for the vista rings: the same tuft lattice as the
-/// playable sward, sampling height from the coarse vista heightfield and
-/// coverage from the boundary-stitched ground cover. Sites inside the playable
-/// rectangle report bare so the two swards tile without overlapping.
+/// playable sward. Owned scenes sample height from accepted physical support;
+/// sampled scenes use the presented vista heightfield. Coverage comes from the
+/// boundary-stitched ground cover. Sites inside the playable rectangle report
+/// bare so the two swards tile without overlapping.
 struct VistaTuftPlacement<'a> {
     lod: &'a VistaLod,
     coarser_lod: Option<&'a VistaLod>,
@@ -81,8 +82,8 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
 
     /// `coverage` clears the playable interior per tuft, which is what keeps
     /// the boundary exact. Rejecting cells that sit wholly inside it as well is
-    /// pure speed: those cells would sample the vista heightfield once per tuft
-    /// only to discard every one.
+    /// pure speed: those cells would query support height once per tuft only
+    /// to discard every one.
     fn cell_allows(&self, _cell_hash: u64, cell: IVec2, cell_spacing: f32, _jitter: f32) -> bool {
         let centre = cell.as_vec2() * cell_spacing;
         let interior = self.playable_half_extent - Vec2::splat(cell_spacing);
