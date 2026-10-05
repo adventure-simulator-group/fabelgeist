@@ -24,7 +24,7 @@ pub struct Fabric {
     /// The useful range is roughly `1e-6` (a board) to `1e-3` (a rag); the
     /// values below were picked by draping a flap and measuring how far it
     /// reaches. Resolution-independent, because the bending weights carry the
-    /// mesh's length scale -- see `topology::bending_weights`.
+    /// mesh's length scale -- see [`fabelgeist_shell::BendWeights`].
     pub bend_compliance: f32,
     /// Resistance at a seam. Stiffer than the fabric itself, because a sewn
     /// seam is two layers plus thread.

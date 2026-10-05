@@ -119,8 +119,7 @@ impl Shell {
         // order, so they have to be permuted the same way -- otherwise every
         // hinge reads another hinge's weights.
         let ordered_weights = bending.reorder(&mesh.bend_weights);
-        let flat_weights: Vec<f32> = ordered_weights.into_iter().flatten().collect();
-        bending.attach_raw(context, "weights", &flat_weights)?;
+        bending.attach(context, "weights", &ordered_weights)?;
 
         let self_collision = SelfCollision::new(
             context,

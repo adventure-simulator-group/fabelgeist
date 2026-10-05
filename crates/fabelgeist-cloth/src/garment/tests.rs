@@ -109,7 +109,8 @@ fn builds_a_single_panel() {
     // zero, and its weights sum to zero so the measure is translation-free.
     assert_eq!(mesh.bend_weights.len(), mesh.bends.len());
     assert!(!mesh.bends.is_empty(), "a meshed panel has interior hinges");
-    for weights in &mesh.bend_weights {
+    for record in &mesh.bend_weights {
+        let weights: &[f32] = bytemuck::cast_slice(std::slice::from_ref(record));
         let magnitude = weights[..4].iter().map(|w| w.abs()).sum::<f32>().max(1e-9);
         assert!(
             weights[..4].iter().sum::<f32>().abs() < magnitude * 1e-3,
@@ -435,7 +436,8 @@ fn sewn_edges_have_bending_continuity_in_material_space() {
         .filter(|(b, _)| mesh.panel_of(b.wings[0]) != mesh.panel_of(b.wings[1]))
         .collect();
     assert_eq!(hinges.len(), 5);
-    for (_, weights) in hinges {
+    for (_, record) in hinges {
+        let weights: &[f32] = bytemuck::cast_slice(std::slice::from_ref(record));
         assert!(weights[..4].iter().sum::<f32>().abs() < 1e-6);
         assert_eq!(
             weights[4], 0.0,

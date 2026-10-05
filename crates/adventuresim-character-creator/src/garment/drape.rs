@@ -198,8 +198,8 @@ struct SeamClosure {
     /// Bend weights in colour order, as built and with every hinge across a
     /// seam slack. Such a hinge spans the open gap and would read it as a
     /// sharp crease, wrenching the panels round to flatten it.
-    bends: Vec<f32>,
-    open_bends: Vec<f32>,
+    bends: Vec<fabelgeist_shell::BendRecord>,
+    open_bends: Vec<fabelgeist_shell::BendRecord>,
 }
 
 impl SeamClosure {
@@ -231,10 +231,15 @@ impl SeamClosure {
                     triangle.sort_unstable();
                     triangles.contains(&triangle)
                 });
-                if within_the_mesh { weights } else { [0.0; 8] }
+                if within_the_mesh {
+                    weights
+                } else {
+                    fabelgeist_shell::BendRecord::slack()
+                }
             })
             .collect();
-        let colour_order = |weights: &[[f32; 8]]| fit.cloth.bending.reorder(weights).concat();
+        let colour_order =
+            |weights: &[fabelgeist_shell::BendRecord]| fit.cloth.bending.reorder(weights);
         Self {
             gaps,
             bends: colour_order(&mesh.bend_weights),
@@ -252,13 +257,13 @@ impl SeamClosure {
         self.set(fit, 0.0, &self.bends)
     }
 
-    fn set(&self, fit: &mut Fit, open: f32, bends: &[f32]) -> Result<()> {
+    fn set(&self, fit: &mut Fit, open: f32, bends: &[fabelgeist_shell::BendRecord]) -> Result<()> {
         let rest: Vec<f32> = self.gaps.iter().map(|gap| gap * open).collect();
         let rest = fit.cloth.seams.reorder(&rest);
         fit.cloth
             .seams
             .attach(&fit.context, "rest_lengths", &rest)?;
-        fit.cloth.bending.attach_raw(&fit.context, "weights", bends)
+        fit.cloth.bending.attach(&fit.context, "weights", bends)
     }
 }
 
