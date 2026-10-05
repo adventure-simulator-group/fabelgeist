@@ -1,4 +1,4 @@
-//! Failed admission of a canonical, authored threat identity.
+//! Invalid bestiary identifier syntax or an unknown authored threat ID.
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct UnknownThreatId;
