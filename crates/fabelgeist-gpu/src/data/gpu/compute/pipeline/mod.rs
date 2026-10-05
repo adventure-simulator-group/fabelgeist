@@ -2,7 +2,7 @@ mod compute_shader;
 pub use compute_shader::*;
 
 use crate::data::TextureFormat;
-use crate::data::gpu::shader::{ReflectionData, parse_naga};
+use crate::data::gpu::shader::{ReflectionData, ShaderEntryPoint, parse_naga};
 use crate::globals::WgpuContext;
 use anyhow::{Result, anyhow};
 
@@ -36,7 +36,7 @@ impl ComputePipeline {
     pub fn get_or_create_pipeline(
         &self,
         device: &wgpu::Device,
-        entry_point: &str,
+        entry_point: &ShaderEntryPoint,
     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
         self.get_or_create_pipeline_validated(device, entry_point, true)
     }
@@ -47,7 +47,7 @@ impl ComputePipeline {
     pub fn get_or_create_pipeline_validated(
         &self,
         device: &wgpu::Device,
-        entry_point: &str,
+        entry_point: &ShaderEntryPoint,
         blocking_validation: bool,
     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
         #[cfg(target_arch = "wasm32")]
@@ -55,9 +55,8 @@ impl ComputePipeline {
         use std::collections::hash_map::DefaultHasher;
         use std::hash::{Hash, Hasher};
 
-        // Cache key based on entry point (shader code is part of shader struct but not strictly hashed here, assuming one pipeline per shadernode usually)
-        // Ideally we should hash the shader code or module ID too if it changes.
-        // For now lets hash the entry point.
+        // This cache hashes the exact entry label; shader code is not part
+        // of the key.
         let mut s = DefaultHasher::new();
         entry_point.hash(&mut s);
         let cache_key = s.finish();
@@ -100,7 +99,7 @@ impl ComputePipeline {
             label: Some("ComputePipeline"),
             layout: Some(&pipeline_layout),
             module,
-            entry_point: Some(entry_point),
+            entry_point: Some(entry_point.into()),
             compilation_options: wgpu::PipelineCompilationOptions::default(),
             cache: None,
         });
@@ -148,7 +147,7 @@ impl ComputePipeline {
                 .entry_points
                 .iter()
                 .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
-                .map(|ep| ep.name.clone())
+                .map(|ep| ShaderEntryPoint::from(ep.name.clone()))
                 .ok_or_else(|| anyhow!("Compute Shader missing entry point"))?;
 
             let mut bind_groups_map: std::collections::BTreeMap<
@@ -384,8 +383,7 @@ impl ComputePipeline {
 
             let reflection = Arc::new(ReflectionData {
                 bind_groups: bind_groups_reflection,
-                fragment_entry_point: String::new(),
-                vertex_entry_point: entry_point.clone(),
+                compute_entry_point: entry_point.clone(),
             });
 
             ComputePipeline {
@@ -405,8 +403,7 @@ impl ComputePipeline {
 
         // 2. WGPU Bake
         let reflection = pipeline.reflection.as_ref().unwrap();
-        // We stored compute entry in vertex_entry_point for now
-        let entry = &reflection.vertex_entry_point;
+        let entry = &reflection.compute_entry_point;
 
         if let Ok(p_wgpu) = pipeline.get_or_create_pipeline_validated(
             &context.device,

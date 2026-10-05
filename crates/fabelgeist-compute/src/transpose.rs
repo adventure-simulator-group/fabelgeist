@@ -38,7 +38,7 @@ impl TransposeDefinition {
             }
         ";
         let shader = ComputeShader::new(context, shader_code.to_string())?;
-        let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
+        let pipeline = ComputePipeline::new(context, shader.clone())?;
 
         let mut cache = self.cache.write().unwrap();
         *cache = Some(pipeline.clone());

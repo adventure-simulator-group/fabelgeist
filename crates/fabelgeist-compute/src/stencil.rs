@@ -853,7 +853,7 @@ impl StencilDefinition {
         }
 
         let shader = ComputeShader::new(context, full_code)?;
-        let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
+        let pipeline = ComputePipeline::new(context, shader.clone())?;
         Ok((pipeline, input_size, output_size))
     }
 
