@@ -78,6 +78,7 @@
   scope without following another link.
 - Explain unfamiliar domain terms and abbreviations when first used. Prefer
   concrete code or gameplay examples over internal shorthand or process labels.
+- Prefer "bespoke type" to "domain type" for purpose-specific types.
 - Describe the final change, material decisions, validation, and known limits.
   Keep agent run history, goal status, local recovery notes, and abandoned
   approaches in ignored reports unless they explain a relevant tradeoff.
