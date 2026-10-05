@@ -2,9 +2,13 @@ use super::*;
 
 /// Refit an existing garment without changing its trim or vertex correspondence.
 impl ClothingShell {
-    pub fn refit(&self, positions: &[[f32; 3]], normals: &[[f32; 3]]) -> Result<Self, String> {
+    pub fn refit(
+        &self,
+        positions: &[[f32; 3]],
+        normals: &[[f32; 3]],
+    ) -> Result<Self, ClothingError> {
         if positions.len() != self.positions.len() || normals.len() != positions.len() {
-            return Err("garment morph changed body vertex correspondence".into());
+            return Err(ClothingError::MorphCorrespondenceChanged);
         }
         let (positions, normals) = fitted_surface(
             positions,
@@ -12,9 +16,13 @@ impl ClothingShell {
             &self.faces,
             self.specification.normal_offset_metres,
         );
-        let faces = validated_placeholder_faces(&self.specification.name, &self.faces, &positions)?;
+        let faces = validated_placeholder_faces(
+            &ClothingPieceName::from(self.specification.name.as_str()),
+            &self.faces,
+            &positions,
+        )?;
         if faces != self.faces {
-            return Err("garment morph invalidated base triangles".into());
+            return Err(ClothingError::MorphTrianglesInvalidated);
         }
         Ok(Self {
             specification: self.specification.clone(),

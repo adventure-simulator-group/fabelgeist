@@ -30,6 +30,15 @@ Vertices per level of detail: 73 639 (LOD 0), 18 439, 10 661, 4 899, 2 461,
 971, 595 (LOD 6). The 127 joints, the parameter layout and the 117 blend shapes
 are the same at every LOD.
 
+## Skeleton identity
+
+`Character::skeleton` retains labels as `fabelgeist_rig::RigJointName`.
+`Skeleton::joint_index` accepts that label and returns `RigJointOrdinal`,
+retaining the first match when names repeat. FBX decoding keeps its existing
+namespace policy; the shared type does not perform additional normalization.
+See the [shared rig guide](../fabelgeist-rig/README.md) for lookup and native
+conversion boundaries.
+
 ## Assets
 
 Download `assets.zip` from the

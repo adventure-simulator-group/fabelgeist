@@ -1,5 +1,6 @@
 //! Frames fitted on the device to synthetic rigs.
 
+use fabelgeist_rig::{RigJointName, RigJointPart};
 use std::sync::OnceLock;
 
 use fabelgeist_armor::PartFrame;
@@ -15,7 +16,7 @@ struct Arms {
     positions: Vec<[f32; 3]>,
     indices: Vec<[u32; 8]>,
     weights: Vec<[f32; 8]>,
-    names: Vec<String>,
+    names: Vec<RigJointName>,
     joints: Vec<[f32; 8]>,
 }
 
@@ -28,15 +29,18 @@ impl Arms {
             names: Vec::new(),
             joints: Vec::new(),
         };
-        for (prefix, x, width, depth) in [("l", 0.3, 0.04, 0.03), ("r", -0.3, 0.06, 0.05)] {
+        for (side, x, width, depth) in [
+            (Side::Left, 0.3, 0.04, 0.03),
+            (Side::Right, -0.3, 0.06, 0.05),
+        ] {
             let first_joint = arms.joints.len() as u32;
             // Unequal bone lengths must not skew the bend-plane bisector.
             for (name, y, z) in [
-                ("uparm", 1.5, 0.1),
-                ("lowarm", 1.2, 0.0),
-                ("wrist", 0.6, 0.2),
+                (RigJointPart::Uparm, 1.5, 0.1),
+                (RigJointPart::Lowarm, 1.2, 0.0),
+                (RigJointPart::Wrist, 0.6, 0.2),
             ] {
-                arms.names.push(format!("{prefix}_{name}"));
+                arms.names.push(side.joint(name));
                 arms.joints.push([x, y, z, 0.0, 0.0, 0.0, 1.0, 1.0]);
             }
             for (vertex, offset) in [

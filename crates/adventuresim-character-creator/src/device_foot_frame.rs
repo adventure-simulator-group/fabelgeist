@@ -11,9 +11,10 @@
 //! invocation centres and sizes it.
 
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::{RigJointLookupError, RigJointOrdinal, RigJointPart};
 use std::sync::Arc;
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
 use fabelgeist_gpu::prelude::PassParameters;
@@ -29,15 +30,11 @@ impl DeviceWearer<'_> {
     pub fn record_foot_frame(&self, batch: &mut KernelBatch, side: Side) -> Result<DeviceFrame> {
         let gpu = self.gpu;
         let host = self.host;
-        let prefix = side.prefix();
-        let joint = |name: &str| -> Result<u32> {
-            let name = format!("{prefix}_{name}");
-            host.joint_names
-                .iter()
-                .position(|n| *n == name)
-                .map(|i| i as u32)
-                .with_context(|| format!("missing armor landmark {name}"))
-        };
+
+        let joint =
+            |part: RigJointPart| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+                side.joint(part).require_in(host.joint_names)
+            };
         let owners = FitRegion::Foot(side).owners();
         let frame = DeviceFrame {
             frame: gpu.scratch(FRAME_WORDS * 4, "foot frame")?,
@@ -45,8 +42,8 @@ impl DeviceWearer<'_> {
         };
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
-        parameters.insert("ankle", joint("foot")?);
-        parameters.insert("ball", joint("ball")?);
+        parameters.insert("ankle", usize::from(joint(RigJointPart::Foot)?) as u32);
+        parameters.insert("ball", usize::from(joint(RigJointPart::Ball)?) as u32);
         parameters.insert("left", u32::from(matches!(side, Side::Left)));
         parameters.insert(host_float::ZERO_FIELD, 0u32);
         for pad in ["pad0", "pad1", "pad2"] {
@@ -58,7 +55,13 @@ impl DeviceWearer<'_> {
         parameters.insert("joints", self.body.joints.clone());
         parameters.insert(
             "owned",
-            gpu.upload(BufferUpload::from_elements(&host.owned_joints(&owners)))?,
+            gpu.upload(BufferUpload::from_elements(
+                &host
+                    .owned_joints(&owners)
+                    .into_iter()
+                    .map(u32::from)
+                    .collect::<Vec<_>>(),
+            ))?,
         );
         // The floor, then the foot's lower and upper bounds.
         parameters.insert(

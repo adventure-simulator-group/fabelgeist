@@ -15,6 +15,7 @@ tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep
 remote-types = ["debug"]
 
 [dependencies]
+fabelgeist-rig.workspace = true
 adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
 fabelgeist-armor = { path = "../fabelgeist-armor" }
 

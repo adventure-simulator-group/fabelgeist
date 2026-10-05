@@ -366,8 +366,9 @@ pub(super) fn bind_animation_target_paths(
     }
 }
 
-pub(super) fn is_lower_body_animation_target(name: &str) -> bool {
-    let bone_name = name.to_ascii_lowercase();
+pub(super) fn is_lower_body_animation_target(name: &fabelgeist_rig::RigJointName) -> bool {
+    let spelling = std::borrow::Cow::from(name);
+    let bone_name = spelling.to_ascii_lowercase();
     bone_name == "skeleton"
         || bone_name == "body_world"
         || bone_name == "root"

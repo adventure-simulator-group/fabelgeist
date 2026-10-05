@@ -1,4 +1,20 @@
+//! Admission and cached metadata for an authored animation rig.
+
 use super::*;
+
+pub(super) struct RigDefinition {
+    pub(super) family: String,
+    pub(super) joints: Vec<RigJoint>,
+}
+
+#[derive(Clone)]
+pub(super) struct RigJoint {
+    pub(super) target: AnimationTargetId,
+    pub(super) bind: LocalPose,
+    pub(super) parent: Option<usize>,
+    pub(super) name: Option<RigJointName>,
+    pub(super) lower_body: bool,
+}
 
 impl RigDefinitions {
     #[expect(
@@ -26,7 +42,7 @@ impl RigDefinitions {
                     entity,
                     *target,
                     LocalPose::from_transform(bind.local),
-                    name.map(|name| name.as_str().to_owned()),
+                    name.map(|name| RigJointName::from(name.as_str())),
                     parent.map(ChildOf::parent),
                 )
             })
@@ -59,7 +75,7 @@ impl RigDefinitions {
                             bind: *bind,
                             parent: parent.and_then(|parent| indices.get(&parent).copied()),
                             name: name.clone(),
-                            lower_body: name.as_deref().is_some_and(is_lower_body_animation_target),
+                            lower_body: name.as_ref().is_some_and(is_lower_body_animation_target),
                         })
                         .collect(),
                 })

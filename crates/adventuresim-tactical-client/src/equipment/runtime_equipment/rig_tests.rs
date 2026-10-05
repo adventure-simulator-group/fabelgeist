@@ -54,7 +54,7 @@ fn leg_height_correction_moves_pelvis_descendants_but_not_body_world() {
     };
     let mut body = body();
     body.joint_names = ["body_world", "root", "l_foot", "r_foot"]
-        .map(String::from)
+        .map(fabelgeist_rig::RigJointName::from)
         .to_vec();
     body.global_joint_states = vec![[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]; 4];
     rig.fit(&mut body, proportions).unwrap();

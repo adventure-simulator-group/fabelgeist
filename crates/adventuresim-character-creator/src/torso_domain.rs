@@ -3,18 +3,26 @@
 //! Eligibility identifies candidate torso faces. It does not identify a bearing
 //! footprint, an anatomical attachment, or a permitted sliding region.
 use anyhow::{Result, ensure};
+use fabelgeist_rig::{RigJointMembership, RigJointName, RigJointPart};
 
-const TORSO_JOINTS: [&str; 8] = [
-    "root",
-    "c_spine0",
-    "c_spine1",
-    "c_spine2",
-    "c_spine3",
-    "c_neck",
-    "l_clavicle",
-    "r_clavicle",
+const TORSO_JOINTS: [RigJointName; 8] = [
+    RigJointName::ROOT,
+    RigJointName::C_SPINE0,
+    RigJointName::C_SPINE1,
+    RigJointName::C_SPINE2,
+    RigJointName::C_SPINE3,
+    RigJointName::C_NECK,
+    RigJointName::L_CLAVICLE,
+    RigJointName::R_CLAVICLE,
 ];
-const LIMB_JOINTS: [&str; 6] = ["uparm", "loarm", "hand", "upleg", "loleg", "foot"];
+const LIMB_JOINTS: [RigJointPart; 6] = [
+    RigJointPart::Uparm,
+    RigJointPart::Loarm,
+    RigJointPart::Hand,
+    RigJointPart::Upleg,
+    RigJointPart::Loleg,
+    RigJointPart::Foot,
+];
 const MINIMUM_MEAN_TORSO_WEIGHT: f32 = 0.08;
 const MAXIMUM_MEAN_LIMB_WEIGHT: f32 = 0.35;
 
@@ -23,7 +31,12 @@ pub struct TorsoSkinDomain<'a> {
     pub faces: &'a [[u32; 3]],
     pub joint_indices: &'a [[u32; 8]],
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [String],
+    pub joint_names: &'a [RigJointName],
+}
+
+struct JointSkinOwnership {
+    torso: RigJointMembership,
+    limb: RigJointMembership,
 }
 
 impl TorsoSkinDomain<'_> {
@@ -41,15 +54,18 @@ impl TorsoSkinDomain<'_> {
                     .all(|&vertex| { (vertex as usize) < self.joint_indices.len() }),
             "torso skin domain has inconsistent topology"
         );
-        let torso = self
+        let ownership: Vec<_> = self
             .joint_names
             .iter()
-            .map(|name| TORSO_JOINTS.contains(&name.as_str()));
-        let limbs = self
-            .joint_names
-            .iter()
-            .map(|name| LIMB_JOINTS.iter().any(|limb| name.contains(limb)));
-        let ownership: Vec<_> = torso.zip(limbs).collect();
+            .map(|name| JointSkinOwnership {
+                torso: RigJointMembership::from(TORSO_JOINTS.contains(name)),
+                limb: RigJointMembership::from(
+                    LIMB_JOINTS
+                        .iter()
+                        .any(|part| name.contains_part(*part) == RigJointMembership::Included),
+                ),
+            })
+            .collect();
         let weights = self
             .joint_indices
             .iter()
@@ -61,13 +77,13 @@ impl TorsoSkinDomain<'_> {
                         weight.is_finite() && (0.0..=1.0).contains(&weight),
                         "invalid torso skin weight"
                     );
-                    let Some(&(torso, limb)) = ownership.get(joint as usize) else {
+                    let Some(ownership) = ownership.get(joint as usize) else {
                         anyhow::bail!("torso skin references a missing joint");
                     };
-                    if torso {
+                    if ownership.torso == RigJointMembership::Included {
                         totals[0] += weight;
                     }
-                    if limb {
+                    if ownership.limb == RigJointMembership::Included {
                         totals[1] += weight;
                     }
                 }

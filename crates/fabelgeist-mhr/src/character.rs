@@ -14,6 +14,7 @@ use crate::math::{
     quat_mul, rotation_order,
 };
 use fabelgeist_fbx::{Object, Scene};
+use fabelgeist_rig::{RigJointName, RigJointOrdinal};
 
 /// Momentum allows at most eight joint influences per vertex.
 pub const MAX_SKIN_JOINTS: usize = 8;
@@ -23,7 +24,7 @@ pub const PARAMETERS_PER_JOINT: usize = 7;
 /// The joint hierarchy, in momentum order (parents always precede children).
 #[derive(Debug, Default, Clone)]
 pub struct Skeleton {
-    pub names: Vec<String>,
+    pub names: Vec<RigJointName>,
     /// Parent index, or `-1` for a root.
     pub parents: Vec<i32>,
     pub translation_offsets: Vec<[f32; 3]>,
@@ -40,8 +41,8 @@ impl Skeleton {
         self.names.is_empty()
     }
 
-    pub fn joint_index(&self, name: &str) -> Option<usize> {
-        self.names.iter().position(|n| n == name)
+    pub fn joint_index(&self, name: &RigJointName) -> Option<RigJointOrdinal> {
+        name.index_in(&self.names)
     }
 
     /// Bind-pose global transform per joint (all joint parameters zero).
@@ -155,7 +156,9 @@ impl<'a> SkeletonBuilder<'a> {
         let offset = object.node.property70_vec3("Lcl Translation", [0.0; 3]);
 
         let index = self.skeleton.len();
-        self.skeleton.names.push(object.name.clone());
+        self.skeleton
+            .names
+            .push(RigJointName::from(object.name.clone()));
         self.skeleton
             .parents
             .push(parent.map(|p| p as i32).unwrap_or(-1));

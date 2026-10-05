@@ -13,6 +13,7 @@ use anyhow::{Context, Result};
 use fabelgeist_armor::{
     ArmorComponentRole, GarmentArmorKind, GeneratedArmor, HelmetDesign, LimbArmorDesign,
 };
+use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal, RigJointPart};
 use std::ops::Range;
 
 use crate::armor_frames::Side;
@@ -23,7 +24,7 @@ use crate::armor_recipes::ParametricDesign;
 pub fn attach(
     design: &ParametricDesign,
     placement: &str,
-    joint_names: &[String],
+    joint_names: &[RigJointName],
     joints: &[[f32; 8]],
     armor: &mut GeneratedArmor,
 ) -> Result<()> {
@@ -41,14 +42,14 @@ pub fn attach(
             // A gorget is seated on the cuirass. Its formed bib and collar
             // sheets share that rigid support; nearby clavicle and neck skin
             // must not fold metal or move the bib through its lower plate.
-            ("c_spine3".into(), &[ArmorComponentRole::Plate])
+            (RigJointName::C_SPINE3, &[ArmorComponentRole::Plate])
         }
         ParametricDesign::Helmet(HelmetDesign::ArmingCap(_) | HelmetDesign::MailCoif(_)) => {
             return Ok(());
         }
         ParametricDesign::Helmet(_) => {
             // Every helmet plate, visors and bevors included, is rigid.
-            let head = joint_index(joint_names, "c_head")?;
+            let head = joint_index(joint_names, &RigJointName::C_HEAD)?;
             fill(armor, 0..armor.positions.len(), head);
             return Ok(());
         }
@@ -56,32 +57,32 @@ pub fn attach(
             // Keep the fitted saddle and courses coherent until an equipment
             // rig supplies independent plate transforms.
             LimbArmorDesign::Pauldron(_) => (
-                limb_joint(placement, "uparm")?,
+                limb_joint(placement, RigJointPart::Uparm)?,
                 &[
                     ArmorComponentRole::Plate,
                     ArmorComponentRole::JointExtension,
                 ],
             ),
             LimbArmorDesign::Couter(_) => (
-                limb_joint(placement, "lowarm")?,
+                limb_joint(placement, RigJointPart::Lowarm)?,
                 &[
                     ArmorComponentRole::Plate,
                     ArmorComponentRole::JointExtension,
                 ],
             ),
             LimbArmorDesign::Poleyn(_) => (
-                limb_joint(placement, "lowleg")?,
+                limb_joint(placement, RigJointPart::Lowleg)?,
                 &[
                     ArmorComponentRole::Plate,
                     ArmorComponentRole::JointExtension,
                 ],
             ),
             LimbArmorDesign::Rerebrace(_) | LimbArmorDesign::Spaulder(_) => (
-                limb_joint(placement, "uparm")?,
+                limb_joint(placement, RigJointPart::Uparm)?,
                 &[ArmorComponentRole::Plate],
             ),
             LimbArmorDesign::Cuisse(_) => (
-                limb_joint(placement, "upleg")?,
+                limb_joint(placement, RigJointPart::Upleg)?,
                 &[ArmorComponentRole::Plate],
             ),
             _ => return Ok(()),
@@ -96,7 +97,7 @@ pub fn attach(
         .map(|component| component.vertices.clone())
         .collect::<Vec<_>>();
     if !besagews.is_empty() {
-        let chest = joint_index(joint_names, "c_spine3")?;
+        let chest = joint_index(joint_names, &RigJointName::C_SPINE3)?;
         for vertices in besagews {
             fill(armor, vertices, chest);
         }
@@ -120,14 +121,18 @@ pub fn attach(
 
 /// Each separate sheet of a fauld follows the pelvis; each tasset, the hip
 /// on its side of the pelvis.
-fn waist(joint_names: &[String], joints: &[[f32; 8]], armor: &mut GeneratedArmor) -> Result<()> {
-    let pelvis = joint_index(joint_names, "root")?;
+fn waist(
+    joint_names: &[RigJointName],
+    joints: &[[f32; 8]],
+    armor: &mut GeneratedArmor,
+) -> Result<()> {
+    let pelvis = joint_index(joint_names, &RigJointName::ROOT)?;
     let hips = [
-        joint_index(joint_names, "l_upleg")?,
-        joint_index(joint_names, "r_upleg")?,
+        joint_index(joint_names, &RigJointName::L_UPLEG)?,
+        joint_index(joint_names, &RigJointName::R_UPLEG)?,
     ];
     let center = joints
-        .get(pelvis as usize)
+        .get(usize::from(pelvis))
         .context("missing pelvic joint state")?[0];
     let tassets = armor
         .components
@@ -176,30 +181,27 @@ fn sheets(indices: &[u32], vertex_count: usize) -> Vec<Vec<usize>> {
     sheets.into_values().collect()
 }
 
-fn limb_joint(placement: &str, joint: &str) -> Result<String> {
-    Ok(format!(
-        "{}_{joint}",
-        Side::from_placement(placement)?.prefix()
-    ))
+fn limb_joint(placement: &str, joint: RigJointPart) -> Result<RigJointName> {
+    Ok(Side::from_placement(placement)?.joint(joint))
 }
 
-fn joint_index(joint_names: &[String], name: &str) -> Result<u32> {
-    Ok(joint_names
-        .iter()
-        .position(|joint| joint == name)
-        .with_context(|| format!("missing rigid plate attachment joint {name}"))? as u32)
+fn joint_index(
+    joint_names: &[RigJointName],
+    name: &RigJointName,
+) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+    name.require_in(joint_names)
 }
 
-fn fill(armor: &mut GeneratedArmor, vertices: Range<usize>, joint: u32) {
-    armor.joint_indices[vertices.clone()].fill([joint; 8]);
+fn fill(armor: &mut GeneratedArmor, vertices: Range<usize>, joint: RigJointOrdinal) {
+    armor.joint_indices[vertices.clone()].fill([usize::from(joint) as u32; 8]);
     armor.joint_weights[vertices].fill([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
 }
 
 /// The cuirass follows the chest as one rigid assembly. Separate horizontal
 /// courses retain their constructed overlaps. Independent course motion needs
 /// armor pivots and lap constraints; body-spine joints are not those pivots.
-pub(crate) fn breastplate(joint_names: &[String], armor: &mut GeneratedArmor) -> Result<()> {
-    let chest = joint_index(joint_names, "c_spine3")?;
+pub(crate) fn breastplate(joint_names: &[RigJointName], armor: &mut GeneratedArmor) -> Result<()> {
+    let chest = joint_index(joint_names, &RigJointName::C_SPINE3)?;
     fill(armor, 0..armor.positions.len(), chest);
     Ok(())
 }
@@ -209,11 +211,16 @@ mod tests {
     use super::*;
     use fabelgeist_armor::{ArmorComponent, BurgonetDesign, CoifDesign, JointCupDesign};
 
-    fn names() -> Vec<String> {
+    fn names() -> Vec<RigJointName> {
         [
-            "root", "c_head", "l_uparm", "r_lowarm", "l_lowleg", "r_upleg", "c_spine3",
+            RigJointName::ROOT,
+            RigJointName::C_HEAD,
+            RigJointName::L_UPARM,
+            RigJointName::R_LOWARM,
+            RigJointName::L_LOWLEG,
+            RigJointName::R_UPLEG,
+            RigJointName::C_SPINE3,
         ]
-        .map(String::from)
         .to_vec()
     }
 
@@ -344,7 +351,11 @@ mod tests {
             ],
             ..armor(Vec::new())
         };
-        let names = ["root", "l_upleg", "r_upleg"].map(String::from);
+        let names = [
+            RigJointName::ROOT,
+            RigJointName::L_UPLEG,
+            RigJointName::R_UPLEG,
+        ];
         let joints = [[0.0; 8]; 3];
         let design = ParametricDesign::WaistAssembly(fabelgeist_armor::WaistArmorDesign {
             fauld: fabelgeist_armor::GarmentArmorDesign::new(GarmentArmorKind::Fauld),

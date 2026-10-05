@@ -642,7 +642,7 @@ mod legacy_tests {
             "l_transversetarsal",
             "l_ball",
         ] {
-            assert!(is_lower_body_animation_target(lower), "{lower}");
+            assert!(is_lower_body_animation_target(&lower.into()), "{lower}");
         }
         for upper in [
             "c_spine0",
@@ -652,7 +652,7 @@ mod legacy_tests {
             "r_uparm",
             "c_head",
         ] {
-            assert!(!is_lower_body_animation_target(upper), "{upper}");
+            assert!(!is_lower_body_animation_target(&upper.into()), "{upper}");
         }
     }
 

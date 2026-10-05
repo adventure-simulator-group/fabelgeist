@@ -7,6 +7,7 @@ use fabelgeist_armor::{GarmentArmorDesign, GarmentPlateShape, WrappedTassetDesig
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::{RigJointName, RigJointPart};
 
 use crate::armor_frames::{FitRegion, Side, Wearer};
 use crate::armor_layer::ArmorLayerSurface;
@@ -37,17 +38,13 @@ impl Support {
         layers: &[ArmorLayerSurface<'_>],
         suspension: Option<f32>,
     ) -> Result<Self> {
-        let joint = |name: &str| -> Result<[f32; 8]> {
-            let index = wearer
-                .joint_names
-                .iter()
-                .position(|n| n == name)
-                .ok_or_else(|| anyhow::anyhow!("missing tasset landmark {name}"))?;
-            Ok(wearer.joints[index])
+        let joint = |name: &RigJointName| -> Result<[f32; 8]> {
+            let index = name.require_in(wearer.joint_names)?;
+            Ok(wearer.joints[usize::from(index)])
         };
-        let hip = joint(&format!("{}_upleg", side.prefix()))?;
-        let knee = joint(&format!("{}_lowleg", side.prefix()))?;
-        let root = joint("root")?;
+        let hip = joint(&side.joint(RigJointPart::Upleg))?;
+        let knee = joint(&side.joint(RigJointPart::Lowleg))?;
+        let root = joint(&RigJointName::ROOT)?;
         let top = suspension.unwrap_or(root[1] + SUSPENSION_RISE_M);
         let bottom = top
             + (hip[1] + (knee[1] - hip[1]) * shape.knee_reach.unit() - top) * design.length.unit();

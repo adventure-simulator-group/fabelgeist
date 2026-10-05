@@ -8,10 +8,11 @@
 //! reductions is one invocation.
 
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
 use std::f32::consts::{PI, TAU};
 use std::sync::Arc;
 
-use anyhow::{Context, Result, ensure};
+use anyhow::{Result, ensure};
 use fabelgeist_armor::gpu::COIF_DRAPE_SECTIONS;
 use fabelgeist_armor::gpu::{COIF_DRAPE_WORDS, FIT_PROFILE_WORD, device_error, record_coif, wgsl};
 use fabelgeist_armor::{ArmorGpu, CoifDesign, DevicePart, PartFrame};
@@ -109,13 +110,10 @@ impl DeviceWearer<'_> {
     ) -> Result<Buffer> {
         let gpu = self.gpu;
         let host = self.host;
-        let joint = |name: &str| -> Result<u32> {
-            host.joint_names
-                .iter()
-                .position(|n| n == name)
-                .map(|i| i as u32)
-                .with_context(|| format!("missing coif neck landmark {name}"))
-        };
+        let joint =
+            |name: &RigJointName| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+                name.require_in(host.joint_names)
+            };
         let mut support = host.support_indices(FitRegion::Torso)?;
         support.extend(host.support_indices(FitRegion::Neck)?);
         support.sort_unstable();
@@ -159,9 +157,9 @@ impl DeviceWearer<'_> {
         ];
         let mut parameters = PassParameters::new();
         parameters.insert("count", (support.len() / 3) as u32);
-        parameters.insert("neck", joint("c_neck")?);
-        parameters.insert("jaw", joint("c_jaw_null")?);
-        parameters.insert("head", joint("c_head")?);
+        parameters.insert("neck", usize::from(joint(&RigJointName::C_NECK)?) as u32);
+        parameters.insert("jaw", usize::from(joint(&RigJointName::C_JAW_NULL)?) as u32);
+        parameters.insert("head", usize::from(joint(&RigJointName::C_HEAD)?) as u32);
         parameters.insert("positions", self.body.positions.clone());
         parameters.insert(
             "support",

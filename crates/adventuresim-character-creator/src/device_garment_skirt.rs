@@ -12,6 +12,7 @@ use fabelgeist_armor::{
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -496,27 +497,27 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 fn skirt_span(design: &GarmentArmorDesign) -> Result<UprightSpan> {
     Ok(match (design.kind, design.plate_shape) {
         (Kind::Fauld, GarmentPlateShape::Fauld { waist_rise, .. }) => UprightSpan {
-            top: ("c_spine1", waist_rise.metres()),
-            bottom: ("root", FAULD_DROP_M),
-            reach: ("root", 0.0),
+            top: (RigJointName::C_SPINE1, waist_rise.metres()),
+            bottom: (RigJointName::ROOT, FAULD_DROP_M),
+            reach: (RigJointName::ROOT, 0.0),
         },
         (Kind::Fauld, _) => bail!("fauld shape required"),
         (Kind::Tassets, _) => UprightSpan {
-            top: ("root", TASSET_RISE_M),
-            bottom: ("root", 0.0),
-            reach: ("l_lowleg", SKIRT_REACH),
+            top: (RigJointName::ROOT, TASSET_RISE_M),
+            bottom: (RigJointName::ROOT, 0.0),
+            reach: (RigJointName::L_LOWLEG, SKIRT_REACH),
         },
         (kind, _) => UprightSpan {
             top: (
-                "c_spine1",
+                RigJointName::C_SPINE1,
                 if kind == Kind::PaddedSkirt {
                     design.wall_thickness.metres() * 3.0
                 } else {
                     0.0
                 },
             ),
-            bottom: ("root", 0.0),
-            reach: ("l_lowleg", SKIRT_REACH),
+            bottom: (RigJointName::ROOT, 0.0),
+            reach: (RigJointName::L_LOWLEG, SKIRT_REACH),
         },
     })
 }

@@ -1,5 +1,6 @@
 //! Geometry, skinning, morph and physical-boundary contracts for rigged export.
 use super::{ShellTextures, SurfaceTextures};
+use fabelgeist_rig::RigJointName;
 
 pub struct RiggedMesh<'a> {
     pub joint_proportions: &'a [adventuresim_core::character_proportions::JointProportionBasis],
@@ -12,7 +13,7 @@ pub struct RiggedMesh<'a> {
     pub export_body: bool,
     pub joint_indices: &'a [[u32; 8]],
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [String],
+    pub joint_names: &'a [RigJointName],
     pub joint_parents: &'a [i32],
     /// Identity-shaped global MHR transforms, in metres.
     pub global_joint_states: &'a [[f32; 8]],
