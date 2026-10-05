@@ -68,15 +68,7 @@ fn partition_review_camera(building: &GeneratedBuilding) -> BuildingReviewCamera
     let centroid =
         room.cells.iter().map(|cell| cell.centre()).sum::<Vec2>() / room.cells.len() as f32;
     let local_origin = building.collision.bounds.centre();
-    let floor_offset = local_origin.y - building.collision.bounds.min.y;
-    let transform = Transform::from_xyz(
-        building.placement.centre_metres.x,
-        building.pad_elevation_metres + floor_offset,
-        building.placement.centre_metres.y,
-    )
-    .with_rotation(Quat::from_rotation_y(
-        building.placement.orientation.yaw_radians(),
-    ));
+    let transform = building.transform();
     BuildingReviewCamera {
         position: transform.transform_point(Vec3::new(centroid.x, 1.48, centroid.y) - local_origin),
         target: transform
@@ -117,15 +109,7 @@ fn plaster_raking_camera(building: &GeneratedBuilding) -> BuildingReviewCamera {
     };
     let wall_face = wall.centre() + inward_local * (WALL_THICKNESS_METRES * 0.5 + 0.002);
     let local_origin = building.collision.bounds.centre();
-    let floor_offset = local_origin.y - building.collision.bounds.min.y;
-    let building_transform = Transform::from_xyz(
-        building.placement.centre_metres.x,
-        building.pad_elevation_metres + floor_offset,
-        building.placement.centre_metres.y,
-    )
-    .with_rotation(Quat::from_rotation_y(
-        building.placement.orientation.yaw_radians(),
-    ));
+    let building_transform = building.transform();
     let wall_point = building_transform
         .transform_point(Vec3::new(wall_face.x, 1.42, wall_face.y) - local_origin);
     let inward_normal =
@@ -176,15 +160,7 @@ fn camera_for_storey(
         .expect("generated room has a cell");
     let eye_height = f32::from(storey.level) * building.plan.storey_height_metres + 1.65;
     let local_origin = building.collision.bounds.centre();
-    let floor_offset = local_origin.y - building.collision.bounds.min.y;
-    let transform = Transform::from_xyz(
-        building.placement.centre_metres.x,
-        building.pad_elevation_metres + floor_offset,
-        building.placement.centre_metres.y,
-    )
-    .with_rotation(Quat::from_rotation_y(
-        building.placement.orientation.yaw_radians(),
-    ));
+    let transform = building.transform();
     let eye = camera_cell.centre();
     let position = transform.transform_point(Vec3::new(eye.x, eye_height, eye.y) - local_origin);
     let target = transform
@@ -208,6 +184,7 @@ mod tests {
             .into_iter()
             .enumerate()
             .map(|(index, archetype)| TacticalBuildingPlacement {
+                base_elevation_metres: 0.0,
                 id: index as u64 + 1,
                 program: BuildingProgram::fixture(archetype, 42),
                 centre_metres: Vec2::new(index as f32 * 30.0, 0.0),
@@ -223,7 +200,6 @@ mod tests {
                     placement,
                     plan,
                     collision,
-                    pad_elevation_metres: 0.0,
                 }
             })
             .collect::<Vec<_>>();

@@ -1,23 +1,28 @@
 //! Immutable owned planting; horizontal poses survive authority partition unchanged.
 use super::*;
-mod grounding;
 #[cfg(test)]
 mod tests;
-use crate::city_layout::{CityGarden, MAX_CITY_LOTS};
-pub(super) use grounding::{GardenGrounding, terrain_anchors, validate_surface};
+use crate::city_layout::grounding::SupportElevation;
+use crate::city_layout::{CityGarden, GardenPlantId, MAX_CITY_LOTS};
+mod support;
 use std::collections::BTreeSet;
+pub use support::GardenSupportError;
 
 #[derive(Clone, Debug, PartialEq, Component, Serialize, Deserialize)]
 #[component(immutable)]
 #[serde(deny_unknown_fields)]
 pub struct SceneGarden {
     pub garden: CityGarden,
+    /// Exact roots in scene coordinates; membership and horizontal poses stay
+    /// in the authoritative garden descriptor. A house floor is not soil.
+    pub plant_support: Vec<GardenPlantSupport>,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct GeneratedGarden {
-    pub scene: SceneGarden,
-    pub elevation_metres: f32,
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct GardenPlantSupport {
+    pub plant_id: GardenPlantId,
+    pub elevation: SupportElevation,
 }
 
 pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError> {
@@ -107,19 +112,15 @@ impl TacticalSceneInput {
 pub(super) fn generate(
     gardens: &[CityGarden],
     buildings: &[GeneratedBuilding],
-) -> Vec<GeneratedGarden> {
+    terrain: &SceneTerrain,
+) -> Result<Vec<SceneGarden>, SceneInputError> {
     gardens
         .iter()
-        .filter_map(|garden| {
-            let front = buildings
+        .filter(|garden| {
+            buildings
                 .iter()
-                .find(|b| b.placement.id == garden.front_building_id)?;
-            Some(GeneratedGarden {
-                scene: SceneGarden {
-                    garden: garden.clone(),
-                },
-                elevation_metres: front.pad_elevation_metres,
-            })
+                .any(|b| b.placement.id == garden.front_building_id)
         })
+        .map(|garden| SceneGarden::project(garden.clone(), terrain).map_err(SceneInputError::from))
         .collect()
 }

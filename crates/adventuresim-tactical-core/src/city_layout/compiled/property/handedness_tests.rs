@@ -8,10 +8,11 @@ fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
         &super::super::super::tests::economy(),
     );
     let original = *city.lots.iter().find(|lot| lot.has_rear_range()).unwrap();
-    let mut palette = recipes::RecipePalette::default();
+    let mut palette = recipes::CityRecipePalette::default();
     let range = palette.range().unwrap();
     let mut cache = ClearanceCache::default();
-    for seed in [42, 47, 101] {
+    // Exact occupied merchant programmes retain the same physical specimens.
+    for seed in [7989866213631017260, 269418199818528039, 6006670756388891727] {
         let front_recipe = palette
             .get(
                 original.archetype(),

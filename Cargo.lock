@@ -345,13 +345,19 @@ dependencies = [
  "bevy",
  "bevy_ahoy",
  "bevy_enhanced_input",
+ "bevy_math",
+ "bytemuck",
+ "ciborium",
  "fabelgeist-determinism",
+ "libm",
+ "microlp",
  "noiz",
  "postcard",
  "rayon",
  "serde",
  "serde_json",
  "sha2",
+ "smallvec",
  "strum 0.28.0",
  "thiserror 2.0.20",
 ]
@@ -411,8 +417,10 @@ dependencies = [
  "flate2",
  "proj4rs",
  "rand 0.9.5",
+ "serde",
  "serde_json",
  "sha2",
+ "thiserror 2.0.20",
  "tracing",
  "tracing-subscriber",
 ]
@@ -1435,8 +1443,6 @@ dependencies = [
 [[package]]
 name = "bevy_ahoy"
 version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a6e8da253b84a4d375c1cf0970cdc8936c3375bd68019a97ea3c1355283a60a4"
 dependencies = [
  "avian3d",
  "avian_pickup",
@@ -7265,6 +7271,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "microlp"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a8f19803f918039a07f3c32b23716824d8f073543417bdac5b1b8619817e3674"
+dependencies = [
+ "log",
+ "sprs",
+ "web-time",
+]
+
+[[package]]
 name = "mime"
 version = "0.3.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -10562,6 +10579,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d9571ea910ebd84c86af4b3ed27f9dbdc6ad06f17c5f96146b2b671e2976744f"
 dependencies = [
  "bitflags 2.13.1",
+]
+
+[[package]]
+name = "sprs"
+version = "0.11.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "70d5a5663aa9f18d287877b8a889ee6cc2314e3a3778193ccc580d048d7d4abc"
+dependencies = [
+ "ndarray",
+ "num-complex",
+ "num-traits",
+ "smallvec",
 ]
 
 [[package]]

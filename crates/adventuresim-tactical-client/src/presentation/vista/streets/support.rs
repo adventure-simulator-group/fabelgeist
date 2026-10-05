@@ -24,9 +24,22 @@ impl GroundSupport {
             return;
         };
         let indices = indices.iter().collect::<Vec<_>>();
-        for indices in indices.as_chunks::<3>().0 {
-            let triangle = [indices[0], indices[1], indices[2]]
-                .map(|index| Vec3::from_array(positions[index]) + origin);
+        let triangles = indices.as_chunks::<3>().0.iter().map(|indices| {
+            [indices[0], indices[1], indices[2]].map(|index| Vec3::from_array(positions[index]))
+        });
+        self.add_triangles(triangles, origin);
+    }
+
+    /// Owned terrain already carries the exact triangles. Avoid materializing
+    /// renderer vertices, normals, UVs and indices just to discard buried and
+    /// vertical faces for street clipping. The eligibility rule is shared.
+    pub(in crate::presentation::vista) fn add_triangles(
+        &mut self,
+        triangles: impl IntoIterator<Item = [Vec3; 3]>,
+        origin: Vec3,
+    ) {
+        for triangle in triangles {
+            let triangle = triangle.map(|point| point + origin);
             // Vista skirts and cliff walls are not walkable ground support.
             if (triangle[1] - triangle[0])
                 .cross(triangle[2] - triangle[0])
@@ -40,7 +53,7 @@ impl GroundSupport {
         self.index.take();
     }
 
-    pub(super) fn clip(&self, corners: [Vec2; 4], mut emit: impl FnMut([Vec3; 3])) {
+    pub(super) fn clip(&self, corners: [Vec2; 4], mut emit: impl FnMut([bevy::math::DVec3; 3])) {
         let minimum = corners
             .into_iter()
             .fold(Vec2::splat(f32::INFINITY), Vec2::min);
@@ -63,13 +76,13 @@ impl GroundSupport {
             if !tri_maximum.cmpge(minimum).all() || !tri_minimum.cmple(maximum).all() {
                 return;
             }
-            let polygon = clip_polygon(triangle.to_vec(), corners);
+            let polygon = clip_polygon(triangle.map(Vec3::as_dvec3).to_vec(), corners);
             for index in 1..polygon.len().saturating_sub(1) {
                 let clipped = [polygon[0], polygon[index], polygon[index + 1]];
                 if (clipped[1] - clipped[0])
                     .cross(clipped[2] - clipped[0])
                     .length_squared()
-                    > CLIP_EPSILON * CLIP_EPSILON
+                    > f64::from(CLIP_EPSILON * CLIP_EPSILON)
                 {
                     emit(clipped);
                 }
@@ -78,21 +91,28 @@ impl GroundSupport {
     }
 }
 
-pub(super) fn clip_polygon(mut polygon: Vec<Vec3>, corners: [Vec2; 4]) -> Vec<Vec3> {
+pub(super) fn clip_polygon(
+    mut polygon: Vec<bevy::math::DVec3>,
+    corners: [Vec2; 4],
+) -> Vec<bevy::math::DVec3> {
+    // Keep intersections in double precision until the represented polygon is
+    // complete. Repeated f32 lerps can move a constant source edge by one ULP
+    // across a retaining boundary and place paving on the wrong ground level.
+    let corners = corners.map(Vec2::as_dvec2);
     let winding = (corners[1] - corners[0])
         .perp_dot(corners[3] - corners[0])
         .signum();
     for side in 0..4 {
         let start = corners[side];
         let edge = corners[(side + 1) % 4] - start;
-        let distance = |point: Vec3| edge.perp_dot(point.xz() - start) * winding;
+        let distance = |point: bevy::math::DVec3| edge.perp_dot(point.xz() - start) * winding;
         let mut clipped = Vec::new();
         for index in 0..polygon.len() {
             let a = polygon[index];
             let b = polygon[(index + 1) % polygon.len()];
             let da = distance(a);
             let db = distance(b);
-            if da >= -CLIP_EPSILON {
+            if da >= -f64::from(CLIP_EPSILON) {
                 clipped.push(a);
             }
             if (da >= 0.0) != (db >= 0.0) {
@@ -128,6 +148,147 @@ pub(super) fn footprint_uv(corners: [Vec2; 4], point: Vec2) -> Vec2 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn direct_owned_faces_clip_exactly_like_meshes_without_buried_or_vertical_support() {
+        let faces = [
+            [
+                Vec3::new(-2.0, 1.0, -2.0),
+                Vec3::new(-2.0, 1.0, 2.0),
+                Vec3::new(2.0, 2.0, -2.0),
+            ],
+            [
+                Vec3::new(-2.0, -1.0, -2.0),
+                Vec3::new(2.0, -1.0, -2.0),
+                Vec3::new(-2.0, -1.0, 2.0),
+            ],
+            [
+                Vec3::new(-2.0, -1.0, -2.0),
+                Vec3::new(-2.0, 1.0, -2.0),
+                Vec3::new(2.0, 1.0, -2.0),
+            ],
+        ];
+        let positions: Vec<_> = faces.iter().flatten().map(|p| p.to_array()).collect();
+        let mut mesh = Mesh::new(
+            PrimitiveTopology::TriangleList,
+            RenderAssetUsages::MAIN_WORLD,
+        );
+        mesh.insert_indices(Indices::U32((0..positions.len() as u32).collect()));
+        mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, positions);
+        let origin = Vec3::new(0.5, 3.0, -0.25);
+        let mut from_mesh = GroundSupport::default();
+        from_mesh.add_mesh(&mesh, origin);
+        let mut direct = GroundSupport::default();
+        direct.add_triangles(faces, origin);
+        let corners = [
+            Vec2::splat(-0.5),
+            Vec2::new(0.5, -0.5),
+            Vec2::splat(0.5),
+            Vec2::new(-0.5, 0.5),
+        ];
+        let mut expected = Vec::new();
+        let mut actual = Vec::new();
+        from_mesh.clip(corners, |face| expected.push(face));
+        direct.clip(corners, |face| actual.push(face));
+        assert!(!actual.is_empty());
+        assert_eq!(
+            bytemuck::cast_slice::<_, u8>(&actual),
+            bytemuck::cast_slice::<_, u8>(&expected)
+        );
+        assert!(actual.iter().flatten().all(|point| point.y >= 4.0));
+    }
+
+    #[test]
+    fn coplanar_subdivision_preserves_clipped_area_and_separate_retaining_levels() {
+        for yaw in [0.0, 0.73] {
+            let rotation = Quat::from_rotation_y(yaw);
+            let origin = Vec3::new(37.5, 5.0, -81.25);
+            let world = |p: Vec3| rotation * p + origin;
+            let build = |divisions: usize| {
+                let mut support = GroundSupport::default();
+                for (start, floor) in [(-4.0, 3.0), (0.0, 0.0)] {
+                    let point = |x: usize, z: usize| {
+                        let x = start + 4.0 * x as f32 / divisions as f32;
+                        let z = -3.0 + 6.0 * z as f32 / divisions as f32;
+                        world(Vec3::new(x, floor + 0.15 * x + 0.2 * z, z))
+                    };
+                    for x in 0..divisions {
+                        for z in 0..divisions {
+                            let [a, b, c, d] = [
+                                point(x, z),
+                                point(x + 1, z),
+                                point(x + 1, z + 1),
+                                point(x, z + 1),
+                            ];
+                            support.add_triangles([[a, c, b], [a, d, c]], Vec3::ZERO);
+                        }
+                    }
+                }
+                support
+            };
+            let corners = [
+                Vec2::new(-3.0, -2.0),
+                Vec2::new(3.0, -2.0),
+                Vec2::new(3.0, 2.0),
+                Vec2::new(-3.0, 2.0),
+            ]
+            .map(|p| world(Vec3::new(p.x, 0.0, p.y)).xz());
+            let mut coarse = Vec::new();
+            let mut fine = Vec::new();
+            build(1).clip(corners, |face| coarse.push(face.map(|p| p.as_vec3())));
+            build(8).clip(corners, |face| fine.push(face.map(|p| p.as_vec3())));
+            assert!(coarse.len() < fine.len());
+            for faces in [&coarse, &fine] {
+                let area: f64 = faces
+                    .iter()
+                    .map(|[a, b, c]| {
+                        (b.xz().as_dvec2() - a.xz().as_dvec2())
+                            .perp_dot(c.xz().as_dvec2() - a.xz().as_dvec2())
+                            .abs()
+                            * 0.5
+                    })
+                    .sum();
+                assert!((area - 24.0).abs() < 0.001, "clipped area {area}");
+                for face in faces {
+                    let local =
+                        rotation.inverse() * (face.iter().copied().sum::<Vec3>() / 3.0 - origin);
+                    let floor = if local.x < 0.0 { 3.0 } else { 0.0 };
+                    let expected = floor + 0.15 * local.x + 0.2 * local.z;
+                    assert!(
+                        (local.y - expected).abs() < 0.001,
+                        "clipping changes the support at {local:?}"
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn traffic_partition_preserves_the_constant_goslar_retaining_edge() {
+        let triangle = [
+            Vec3::new(-215.999, 3.5755415, 228.77707),
+            Vec3::new(-212.54999, 3.5051064, 228.25533),
+            Vec3::new(-215.999, 3.5651064, 228.25533),
+        ];
+        let corners = [
+            Vec2::new(-216.0, 228.0),
+            Vec2::new(-214.0, 228.0),
+            Vec2::new(-214.0, 230.0),
+            Vec2::new(-216.0, 230.0),
+        ];
+        let polygon = clip_polygon(triangle.map(Vec3::as_dvec3).to_vec(), corners);
+        assert!(polygon.len() >= 3);
+        assert!(
+            polygon
+                .iter()
+                .all(|point| point.z >= f64::from(triangle[1].z))
+        );
+        let on_edge = polygon
+            .iter()
+            .find(|point| point.x == -214.0 && point.z == f64::from(triangle[1].z))
+            .expect("traffic boundary retains the exact source-edge coordinate");
+        assert!((on_edge.y - 3.530331).abs() < 0.000001);
+    }
 
     #[test]
     fn triangle_reaching_across_a_chunk_boundary_remains_queryable() {

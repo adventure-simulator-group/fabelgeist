@@ -50,9 +50,12 @@ impl SceneTerrainPatch {
         )
     }
 
-    pub fn collider_with_terrain(&self, terrain: &SceneTerrain) -> avian3d::prelude::Collider {
+    pub fn colliders_with_terrain(
+        &self,
+        terrain: &SceneTerrain,
+    ) -> Vec<avian3d::prelude::Collider> {
         let (mut positions, mut triangles) =
-            terrain.collider_mesh_with_transition(self.transition_collar);
+            terrain.natural_collision_mesh_with_transition(self.transition_collar);
         let patch_offset = u32::try_from(positions.len())
             .expect("bounded tactical terrain collider fits in u32 indices");
         positions.extend(self.positions.iter().copied().map(Vec3::from_array));
@@ -63,7 +66,9 @@ impl SceneTerrainPatch {
                 triangle[2] + patch_offset,
             ]
         }));
-        avian3d::prelude::Collider::trimesh(positions, triangles)
+        let mut colliders = terrain.foundation_colliders();
+        colliders.push(avian3d::prelude::Collider::trimesh(positions, triangles));
+        colliders
     }
 
     pub fn triangle_count(&self) -> usize {

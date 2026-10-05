@@ -1,5 +1,4 @@
 //! Presentation-only physical descriptors; tactical observers own their assets.
-use super::buildings;
 use adventuresim_building_generator::{compile_operable_doors, compile_operable_windows};
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
@@ -45,7 +44,7 @@ pub(super) fn spawn_building(
     root: Entity,
     input: Option<&TacticalSceneInput>,
 ) {
-    let transform = buildings::transform(&building);
+    let transform = building.transform();
     let origin = building.collision.bounds.centre();
     let direction = |v: Vec2| transform.rotation * Vec3::new(v.x, 0.0, v.y);
     let mut entity = commands.spawn((
@@ -147,11 +146,7 @@ pub(super) fn spawn_props(
         ));
     }
     for garden in generated.gardens.drain(..) {
-        commands.spawn((
-            garden.scene,
-            Transform::from_translation(Vec3::Y * garden.elevation_metres),
-            ChildOf(root),
-        ));
+        commands.spawn((garden, Transform::default(), ChildOf(root)));
     }
     for furniture in &generated.furniture.instances {
         commands.spawn((

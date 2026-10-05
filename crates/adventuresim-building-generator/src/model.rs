@@ -1,4 +1,6 @@
+mod storey_index;
 use std::fmt;
+pub use storey_index::StoreyIndex;
 
 use bevy::math::{IVec2, Vec2, Vec3};
 use clap::ValueEnum;

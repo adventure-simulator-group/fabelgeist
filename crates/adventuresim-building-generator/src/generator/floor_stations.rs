@@ -2,7 +2,8 @@
 use crate::BuildingProgram;
 const MAXIMUM_JOIST_PITCH_METRES: f32 = 1.35;
 const EDGE_BEARING_INSET_METRES: f32 = 0.20;
-const HEATED_BAY_SET_OUT_METRES: [f32; 3] = [0.0, 0.04, 0.08];
+const UPPER_HEATED_BAY_SET_OUT_METRES: f32 = 0.08;
+const GROUNDED_HEATED_BAY_SET_OUT_METRES: [f32; 3] = [0.0, 0.04, 0.08];
 
 fn joists(program: &BuildingProgram, width: f32) -> Vec<f32> {
     let count = (width / MAXIMUM_JOIST_PITCH_METRES).ceil().max(2.0) as usize;
@@ -13,13 +14,24 @@ fn joists(program: &BuildingProgram, width: f32) -> Vec<f32> {
             .map(|index| EDGE_BEARING_INSET_METRES + span * index as f32 / count as f32)
             .collect();
     }
-    // Full bays retain room for the masonry; the final bay takes the remainder.
+    // Align the reserved rear masonry bay with the unchanged roof frame.
+    // A seeded set-out could admit the plinth but put its bearing ledge into
+    // a joist, while the next clear floor station met a roof girder.
     let pitch = MAXIMUM_JOIST_PITCH_METRES;
-    let set_out = HEATED_BAY_SET_OUT_METRES[fabelgeist_determinism::StreamId::new(
-        "building.heated-bay-set-out",
+    let set_out = if super::heated_rooms::HeatingStorey::for_program(
+        program,
+        crate::StoreyIndex::FIRST_UPPER,
     )
-    .rng(program.seed, &[])
-    .index(HEATED_BAY_SET_OUT_METRES.len())];
+    .is_some()
+    {
+        UPPER_HEATED_BAY_SET_OUT_METRES
+    } else {
+        GROUNDED_HEATED_BAY_SET_OUT_METRES[fabelgeist_determinism::StreamId::new(
+            "building.heated-bay-set-out",
+        )
+        .rng(program.seed, &[])
+        .index(GROUNDED_HEATED_BAY_SET_OUT_METRES.len())]
+    };
     let mut stations = vec![0.0];
     stations.extend(
         (1..=count)
@@ -58,15 +70,15 @@ pub(super) fn with_stair(
 mod tests {
     use super::*;
     #[test]
-    fn heated_bays_keep_edge_bearings_inside_the_envelope_at_every_set_out() {
+    fn heated_bays_keep_edge_bearings_and_maximum_pitch_across_dimensions_and_seeds() {
         let mut program = BuildingProgram::fixture(crate::BuildingArchetype::TownHouse, 0);
         program.domestic_heating = Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove);
         for width in (3..24)
             .map(|cells| cells as f32 * crate::CELL_SIZE_METRES)
             .chain([11.0])
         {
-            for seed in 0..HEATED_BAY_SET_OUT_METRES.len() {
-                program.seed = seed as u64;
+            for seed in [0, 42, 47, 101, u64::MAX] {
+                program.seed = seed;
                 let stations = joists(&program, width);
                 assert_eq!(stations[0], EDGE_BEARING_INSET_METRES);
                 assert!(

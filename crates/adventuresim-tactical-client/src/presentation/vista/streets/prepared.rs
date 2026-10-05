@@ -67,10 +67,6 @@ impl PreparedCityGround {
         maximum_lods: usize,
     ) -> Self {
         let mut support = GroundSupport::default();
-        support.add_mesh(
-            &crate::presentation::terrain::urban_playable_mesh(terrain, input.landform.as_ref()),
-            Vec3::ZERO,
-        );
         let environment = input.environment_snapshot(input.digest().expect("validated scene"));
         let lods = input
             .vista
@@ -79,7 +75,28 @@ impl PreparedCityGround {
             .take(maximum_lods)
             .collect::<Vec<_>>();
         let mut inner = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
-        for (index, lod) in lods.iter().copied().enumerate() {
+        if let Some(surface) = terrain.property_surface() {
+            let outer = lods.iter().fold(inner, |extent, lod| {
+                extent.max(
+                    Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
+                        * lod.spacing_metres
+                        * 0.5,
+                )
+            });
+            support.add_owned_region(
+                surface,
+                outer,
+                input.landform.map(|recipe| recipe.transition_collar()),
+            );
+        } else {
+            support.add_mesh(&terrain.mesh(), Vec3::ZERO);
+        }
+        for (index, lod) in lods
+            .iter()
+            .copied()
+            .enumerate()
+            .filter(|_| terrain.property_surface().is_none())
+        {
             let origin = Vec3::new(
                 lod.origin_east_metres as f32,
                 0.0,
@@ -92,6 +109,7 @@ impl PreparedCityGround {
                 (index == 0).then_some(terrain),
                 (index == 0).then_some(&environment),
                 environment.weather,
+                input.landform.map(|recipe| recipe.transition_collar()),
             ) {
                 support.add_mesh(&mesh, origin);
             }
@@ -178,3 +196,6 @@ mod tests {
         assert_eq!(assets.len(), count, "return creates no new ground meshes");
     }
 }
+
+#[cfg(test)]
+mod extent_tests;

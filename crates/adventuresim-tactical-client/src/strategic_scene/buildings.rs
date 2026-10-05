@@ -13,25 +13,13 @@ pub(super) struct Venue {
     pub positions: Vec<Transform>,
 }
 
-pub(super) fn transform(building: &GeneratedBuilding) -> Transform {
-    let bounds = building.collision.bounds;
-    Transform::from_xyz(
-        building.placement.centre_metres.x,
-        building.pad_elevation_metres + bounds.centre().y - bounds.min.y,
-        building.placement.centre_metres.y,
-    )
-    .with_rotation(Quat::from_rotation_y(
-        building.placement.orientation.yaw_radians(),
-    ))
-}
-
 impl Venue {
     pub(super) fn from_building(
         building: &GeneratedBuilding,
         layout: &InteriorLayout,
     ) -> Result<Self, String> {
         let bounds = building.collision.bounds;
-        let transform = transform(building);
+        let transform = building.transform();
         let positions = super::staging::positions(building, layout);
         let anchor = positions
             .first()
@@ -49,8 +37,11 @@ impl Venue {
         // A standing-eye perspective from the real approach, with the entire facade in view.
         let distance = (bounds.max - bounds.min).xz().max_element() * 0.8 + 4.0;
         let target = transform.translation;
-        let eye =
-            Vec3::new(target.x, building.pad_elevation_metres + 1.7, target.z) + outward * distance;
+        let eye = Vec3::new(
+            target.x,
+            building.placement.base_elevation_metres + 1.7,
+            target.z,
+        ) + outward * distance;
         Ok(Self {
             anchor,
             approach: eye,
@@ -156,15 +147,9 @@ fn select_buildings(
                     .get_or_generate(&program)
                     .map_err(|e| e.to_string())?;
                 promoted.push(GeneratedBuilding {
-                    placement: TacticalBuildingPlacement {
-                        id,
-                        program,
-                        centre_metres: placement.centre_metres,
-                        orientation: placement.orientation,
-                    },
+                    placement: (*placement).into(),
                     plan: recipe.plan.clone(),
                     collision: recipe.collision.clone(),
-                    pad_elevation_metres: placement.base_elevation_metres,
                 });
             }
         }
@@ -207,7 +192,6 @@ mod tests {
             placement,
             plan,
             collision,
-            pad_elevation_metres: 0.0,
         };
         let layout = adventuresim_building_generator::interior::furnish(
             &building.plan,
@@ -215,7 +199,7 @@ mod tests {
         )
         .unwrap();
         let venue = Venue::from_building(&building, &layout).unwrap();
-        let pose = transform(&building);
+        let pose = building.transform();
         let field = crate::presentation::interior_lighting::InteriorField::from_plan(
             &building.plan,
             Vec3::ZERO,
@@ -234,6 +218,6 @@ mod tests {
             field.daylight_at(local + Vec3::Y) > 0.0,
             "selected room must receive actual daylight: {local:?}"
         );
-        assert!((venue.approach.y - building.pad_elevation_metres - 1.7).abs() < 0.01);
+        assert!((venue.approach.y - building.placement.base_elevation_metres - 1.7).abs() < 0.01);
     }
 }

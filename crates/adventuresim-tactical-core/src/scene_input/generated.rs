@@ -4,7 +4,7 @@ use crate::{
     volumetric_terrain::SceneTerrainPatch,
 };
 
-#[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct GeneratedTacticalScene {
     pub digest: String,
     pub terrain: SceneTerrain,
@@ -16,7 +16,7 @@ pub struct GeneratedTacticalScene {
     #[serde(skip)]
     pub building_recipes: super::GeneratedBuildingRecipes,
     pub boundaries: Vec<super::GeneratedBoundary>,
-    pub gardens: Vec<super::GeneratedGarden>,
+    pub gardens: Vec<super::SceneGarden>,
     pub furniture: FurnitureLayout,
     pub repairs: SceneRepairReport,
 }

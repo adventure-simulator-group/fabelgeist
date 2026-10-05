@@ -3,8 +3,6 @@ use adventuresim_building_generator::{compile_operable_doors, compile_operable_w
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
-use super::super::buildings::building_transform;
-
 #[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub(super) enum OpeningTarget {
@@ -135,7 +133,7 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
     commands: &mut Commands,
     building: &GeneratedBuilding,
 ) {
-    let transform = building_transform(building);
+    let transform = building.transform();
     let origin = building.collision.bounds.centre();
     let direction = |v: Vec2| transform.rotation * Vec3::new(v.x, 0.0, v.y);
     for door in compile_operable_doors(&building.plan) {

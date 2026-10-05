@@ -45,7 +45,7 @@ pub(super) fn positions(building: &GeneratedBuilding, layout: &InteriorLayout) -
         }
     }
     candidates.sort_by(|a, b| b.0.total_cmp(&a.0));
-    let transform = super::buildings::transform(building);
+    let transform = building.transform();
     let origin = building.collision.bounds.centre();
     let mut selected: Vec<Transform> = Vec::new();
     for (_, point, direction) in candidates {

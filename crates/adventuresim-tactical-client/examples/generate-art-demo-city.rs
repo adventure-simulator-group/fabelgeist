@@ -5,7 +5,7 @@ use adventuresim_world_schema::*;
 const RESIDENT_POPULATION: u32 = 30_000;
 const CITY_SEED: u64 = 47_114;
 
-fn curate(input: &mut TacticalSceneInput) -> Result<(), String> {
+fn curate(mut input: TacticalSceneInput) -> Result<TacticalSceneInput, String> {
     let economy = infer_settlement_economy(
         5,
         RESIDENT_POPULATION,
@@ -23,23 +23,50 @@ fn curate(input: &mut TacticalSceneInput) -> Result<(), String> {
         .compile(CITY_SEED)
         .and_then(|city| city.partition(None))
         .map_err(|error| error.to_string())?;
-    input.buildings = layout.playable;
-    input.distant_buildings = layout.distant;
-    input.streets = layout.streets;
-    input.yards = layout.yards;
-    input.parishes = layout.parishes;
-    input.compounds = layout.compounds;
-    input.gardens = layout.gardens;
-    Ok(())
+    input.establishments = layout
+        .businesses
+        .iter()
+        .map(|site| {
+            let mut establishment = input
+                .establishments
+                .iter()
+                .find(|operator| operator.business_id.key == site.key)
+                .cloned()
+                .ok_or_else(|| {
+                    format!(
+                        "fixture lacks operator identity for business {:?}",
+                        site.key
+                    )
+                })?;
+            establishment.building_id = site.building_id;
+            Ok(establishment)
+        })
+        .collect::<Result<Vec<_>, String>>()?;
+    input.buildings = layout.playable.clone();
+    input.distant_buildings = layout.distant.clone();
+    input.streets = layout.streets.clone();
+    input.yards = layout.yards.clone();
+    input.parishes = layout.parishes.clone();
+    input.compounds = layout.compounds.clone();
+    input.gardens = layout.gardens.clone();
+    // This is offline authoring of a distinct complete layout, not loading or
+    // repairing a partially bound occupied scene in the browser.
+    input.grounding = None;
+    input
+        .ground_generated_city(
+            &layout,
+            adventuresim_tactical_core::city_layout::CompoundGradingPolicy::bounded_settlement(),
+        )
+        .map_err(|error| error.to_string())
 }
 
 fn main() -> Result<(), String> {
     let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let source = std::fs::read_to_string(root.join("assets/tactical-scenes/massive-city.json"))
         .map_err(|error| error.to_string())?;
-    let mut input: TacticalSceneInput =
+    let input: TacticalSceneInput =
         serde_json::from_str(&source).map_err(|error| error.to_string())?;
-    curate(&mut input)?;
+    let input = curate(input)?;
     let generated = input.generate().map_err(|error| error.to_string())?;
     let furniture = generated.furniture;
     let instances = furniture
@@ -49,6 +76,10 @@ fn main() -> Result<(), String> {
         .collect::<Vec<_>>();
     let layout = serde_json::json!({
         "resident_population": RESIDENT_POPULATION,
+        "schema_version": input.schema_version,
+        "generation_version": input.generation_version,
+        "grounding": input.grounding,
+        "establishments": input.establishments,
         "buildings": input.distant_buildings,
         "streets": input.streets,
         "yards": input.yards,
@@ -58,7 +89,7 @@ fn main() -> Result<(), String> {
     });
     write_changed(
         &root.join("assets/art-demo/city-layout.json"),
-        serde_json::to_string_pretty(&layout).map_err(|error| error.to_string())? + "\n",
+        serde_json::to_string(&layout).map_err(|error| error.to_string())? + "\n",
     )
     .map_err(|error| error.to_string())?;
     write_changed(
@@ -79,6 +110,10 @@ fn main() -> Result<(), String> {
 }
 
 fn write_changed(path: &std::path::Path, contents: String) -> std::io::Result<()> {
+    assert!(
+        contents.len() as u64 <= adventuresim_tactical_core::scene_input::MAX_SCENE_INPUT_BYTES,
+        "prepared art-demo asset exceeds the scene-input payload bound"
+    );
     if std::fs::read(path).ok().as_deref() == Some(contents.as_bytes()) {
         return Ok(());
     }

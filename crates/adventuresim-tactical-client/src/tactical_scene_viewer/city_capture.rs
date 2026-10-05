@@ -35,7 +35,7 @@ pub(super) fn capture_cameras(
     let (focus, facade_target, street) = focus_candidates
         .into_iter()
         .find_map(|focus| {
-            let transform = super::buildings::building_transform(focus);
+            let transform = focus.transform();
             let width = f32::from(focus.placement.program.footprint.dimensions().0)
                 * adventuresim_building_generator::CELL_SIZE_METRES;
             let target = transform.transform_point(
@@ -285,6 +285,7 @@ mod tests {
 
     fn house(id: u64, centre: Vec2, orientation: BuildingOrientation) -> GeneratedBuilding {
         let placement = TacticalBuildingPlacement {
+            base_elevation_metres: 3.0,
             id,
             program: BuildingProgram::fixture(BuildingArchetype::TownHouse, 42),
             centre_metres: centre,
@@ -295,7 +296,6 @@ mod tests {
             placement,
             collision: compile_building_collision(&plan),
             plan,
-            pad_elevation_metres: 3.0,
         }
     }
 

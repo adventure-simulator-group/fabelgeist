@@ -92,12 +92,7 @@ pub(super) fn collect(
             recipes.sites.push((program.clone(), recipe.clone()));
             recipe
         };
-        sites.push(recipe.place(TacticalBuildingPlacement {
-            id: distant.id,
-            program: distant.occupied_program(),
-            centre_metres: distant.centre_metres,
-            orientation: distant.orientation,
-        }));
+        sites.push(recipe.place((*distant).into()));
     }
     Ok(sites)
 }

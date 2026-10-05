@@ -25,7 +25,7 @@ impl GeneratedBuildingRecipe {
 
 /// Shares each exact program's plan and collision across preparation consumers.
 /// Render compilation takes ownership so temporary CPU geometry can be released.
-#[derive(Debug, Default)]
+#[derive(Clone, Debug, Default)]
 pub struct GeneratedBuildingRecipes {
     recipes: Vec<GeneratedBuildingRecipe>,
     pub sites: Vec<(BuildingProgram, super::furniture::FurnitureSiteRecipe)>,

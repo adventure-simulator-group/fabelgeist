@@ -40,42 +40,109 @@ fn garden_input_rejects_missing_ownership_and_escape_from_property() {
     assert!(broken.validate().is_err());
 }
 
-#[test]
-fn garden_on_slope_shares_the_owner_terrace_and_reserves_working_ground() {
+fn rebind(input: TacticalSceneInput) -> TacticalSceneInput {
+    use crate::city_layout::{CitySceneLayout, CitySingleProperty, CompoundGradingPolicy};
+    let layout = CitySceneLayout {
+        playable: input.buildings.clone(),
+        distant: input.distant_buildings.clone(),
+        compounds: input.compounds.clone(),
+        gardens: input.gardens.clone(),
+        streets: input.streets.clone(),
+        yards: input.yards.clone(),
+        parishes: input.parishes.clone(),
+        single_properties: input
+            .gardens
+            .iter()
+            .map(|garden| CitySingleProperty {
+                id: garden.owner,
+                building_id: garden.front_building_id,
+                plot: garden.plot,
+            })
+            .collect(),
+        ..Default::default()
+    };
+    let mut draft = input;
+    draft.grounding = None;
+    draft
+        .ground_generated_city(&layout, CompoundGradingPolicy::bounded_settlement())
+        .unwrap()
+}
+
+fn sloped_fixture() -> TacticalSceneInput {
     let mut input = fixture();
+    let half = f32::from(input.playable.depth - 1) * 0.5;
     for (index, height) in input.playable.heights_metres.iter_mut().enumerate() {
-        *height = (index / usize::from(input.playable.width)) as f32 * 0.25;
+        *height = (index / usize::from(input.playable.width)) as f32
+            * 0.03
+            * input.playable.spacing_metres
+            - half * 0.03 * input.playable.spacing_metres;
     }
+    for lod in &mut input.vista.lods {
+        let half = f32::from(lod.depth - 1) * 0.5;
+        for (index, height) in lod.heights_metres.iter_mut().enumerate() {
+            *height = ((index / usize::from(lod.width)) as f32 - half) * lod.spacing_metres * 0.03;
+        }
+    }
+    input
+}
+
+#[test]
+fn sloped_garden_preserves_soil_relief_and_binds_each_retained_root() {
+    let input = rebind(sloped_fixture());
+    let natural = input
+        .prepare_geographic_terrain(&mut GeneratedBuildingRecipes::default())
+        .unwrap();
+    let source = crate::city_layout::grounding::GeographicSurface::from_presented_scene(
+        &natural.terrain,
+        &input.vista,
+    )
+    .unwrap();
     let generated = input.generate().unwrap();
     let garden = &generated.gardens[0];
-    assert_eq!(garden.scene.garden, input.gardens[0]);
-    assert_eq!(
-        garden.elevation_metres,
-        generated.buildings[0].pad_elevation_metres
-    );
-    for point in input.gardens[0]
-        .cultivated_bounds
-        .corners()
-        .into_iter()
-        .chain(input.gardens[0].plants.iter().map(|p| p.centre_metres))
-    {
+    assert_eq!(garden.garden, input.gardens[0]);
+    assert_eq!(garden.plant_support.len(), garden.garden.plants.len());
+    for (plant, support) in garden.garden.plants.iter().zip(&garden.plant_support) {
+        assert_eq!(plant.id, support.plant_id);
         assert!(
-            (generated.terrain.height_at(point).unwrap() - garden.elevation_metres).abs() < 0.001
+            (support.elevation.metres()
+                - generated.terrain.height_at(plant.centre_metres).unwrap())
+            .abs()
+                < 0.001
         );
-        assert_eq!(
-            generated.ground.ground_at(point).unwrap().cover_density_bps,
-            0
+        assert!(
+            (support.elevation.metres()
+                - source.elevation_at(plant.centre_metres).unwrap().metres())
+            .abs()
+                < 0.001
         );
     }
+    assert!(garden.plant_support.iter().any(|root| {
+        (root.elevation.metres() - generated.buildings[0].placement.base_elevation_metres).abs()
+            > 0.1
+    }));
+    for point in garden.garden.cultivated_bounds.corners() {
+        assert!(
+            (generated.terrain.height_at(point).unwrap()
+                - source.elevation_at(point).unwrap().metres())
+            .abs()
+                < 0.001
+        );
+        if let Some(ground) = generated.ground.ground_at(point) {
+            assert_eq!(ground.cover_density_bps, 0);
+        }
+    }
     assert!(generated.furniture.instances.iter().all(|item| {
-        !input.gardens[0]
+        !garden
+            .garden
             .cultivated_bounds
             .contains(Vec2::new(item.position_metres.x, item.position_metres.z))
     }));
+    let encoded = serde_json::to_vec(garden).unwrap();
+    let restored: SceneGarden = serde_json::from_slice(&encoded).unwrap();
+    assert_eq!(&restored, garden);
 }
 
-fn boundary_fixture(offset: Vec2) -> TacticalSceneInput {
-    let mut input = fixture();
+fn move_first_property(mut input: TacticalSceneInput, offset: Vec2) -> TacticalSceneInput {
     input.gardens.truncate(1);
     input.distant_buildings.clear();
     input.streets.truncate(1);
@@ -110,50 +177,54 @@ fn boundary_fixture(offset: Vec2) -> TacticalSceneInput {
             *end_metres += offset;
         }
     }
-    for lod in &mut input.vista.lods {
-        lod.heights_metres.fill(0.0);
-    }
-    for (index, height) in input.playable.heights_metres.iter_mut().enumerate() {
-        *height = index as f32 * 0.1;
-    }
     input
 }
 
 #[test]
-fn straddling_garden_anchors_the_complete_terrace_to_the_vista() {
-    let input = boundary_fixture(Vec2::new(0.0, 45.0));
-    assert!(input.gardens[0].plants[0].centre_metres.y > 50.0);
+fn straddling_garden_roots_follow_the_same_stitched_soil_inside_and_outside_playable_bounds() {
+    let input = rebind(move_first_property(sloped_fixture(), Vec2::new(0.0, 45.0)));
     let generated = input.generate().unwrap();
-    assert_eq!(generated.gardens[0].elevation_metres, 0.0);
-    assert_eq!(generated.buildings[0].pad_elevation_metres, 0.0);
     assert!(
-        generated
-            .ground
-            .samples()
+        generated.gardens[0]
+            .garden
+            .plants
             .iter()
-            .all(|surface| surface.substrate != crate::scene::GroundSubstrate::Stone),
-        "level garden terraces and vista supports do not manufacture exposed stone"
+            .any(|plant| plant.centre_metres.y > 50.0)
     );
-    for point in [Vec2::new(0.0, 49.0), Vec2::new(5.0, 50.0)] {
-        assert!(generated.terrain.height_at(point).unwrap().abs() < 0.001);
+    let projected = SceneGarden::project(input.gardens[0].clone(), &generated.terrain).unwrap();
+    assert_eq!(generated.gardens[0], projected);
+    for support in &projected.plant_support {
+        let point = projected
+            .garden
+            .plants
+            .iter()
+            .find(|plant| plant.id == support.plant_id)
+            .unwrap()
+            .centre_metres;
+        assert!(
+            (support.elevation.metres() - generated.terrain.height_at(point).unwrap()).abs()
+                < 0.001
+        );
     }
-    let mut broken = input;
-    broken.vista.lods[0]
-        .heights_metres
-        .iter_mut()
-        .enumerate()
-        .for_each(|(i, h)| *h = i as f32);
+    let mut stale = input;
+    let lod = &mut stale.vista.lods[0];
+    let index =
+        usize::from(lod.depth / 2) * usize::from(lod.width) + usize::from(lod.width / 2 + 2);
+    lod.heights_metres[index] += 0.1;
     assert!(
-        broken.generate().is_err(),
-        "unsupported mixed-height terrace must be rejected before presentation"
+        matches!(
+            stale.generate(),
+            Err(SceneInputError::GroundingProjection(_))
+        ),
+        "roots cannot bypass stale source support"
     );
 }
 
 #[test]
-fn distant_garden_in_stitching_band_retains_its_accepted_pose_on_sloped_playable_ground() {
-    let mut input = boundary_fixture(Vec2::new(0.0, 70.0));
-    let owner = input.buildings.remove(0);
-    input.distant_buildings.push(DistantBuildingPlacement {
+fn distant_garden_projection_retains_roots_membership_and_horizontal_geometry() {
+    let mut draft = move_first_property(sloped_fixture(), Vec2::new(0.0, 70.0));
+    let owner = draft.buildings.remove(0);
+    draft.distant_buildings.push(DistantBuildingPlacement {
         prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
         id: owner.id,
         archetype: owner.program.archetype,
@@ -162,31 +233,24 @@ fn distant_garden_in_stitching_band_retains_its_accepted_pose_on_sloped_playable
         seed: owner.program.seed,
         centre_metres: owner.centre_metres,
         orientation: owner.orientation,
-        base_elevation_metres: 0.0,
+        base_elevation_metres: owner.base_elevation_metres,
     });
-    let accepted = input.gardens[0].plants.clone();
+    let accepted = draft.gardens[0].clone();
+    let input = rebind(draft);
     let generated = input.generate().unwrap();
     assert!(
         generated.gardens.is_empty(),
-        "distant owner remains presentation authority"
+        "distant owner retains presentation authority"
     );
-    assert_eq!(input.gardens[0].plants, accepted);
-    let lod = &input.vista.lods[0];
-    for point in accepted[0]
-        .world_hull()
-        .into_iter()
-        .chain(std::iter::once(accepted[0].centre_metres))
-    {
-        let height = crate::vista_surface::vista_triangle_height(
-            lod,
-            input.vista.lods.get(1),
-            &generated.terrain,
-            point,
-        )
-        .unwrap();
+    let projected = SceneGarden::project(input.gardens[0].clone(), &generated.terrain).unwrap();
+    assert_eq!(projected.garden, accepted);
+    for (plant, support) in projected.garden.plants.iter().zip(&projected.plant_support) {
+        assert_eq!(plant.id, support.plant_id);
         assert!(
-            height.abs() < 0.001,
-            "distant specimen must sit on the actual stitched triangle at {point:?}: {height}"
+            (generated.terrain.height_at(plant.centre_metres).unwrap()
+                - support.elevation.metres())
+            .abs()
+                < 0.001
         );
     }
 }

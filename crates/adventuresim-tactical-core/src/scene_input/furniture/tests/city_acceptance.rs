@@ -57,7 +57,7 @@ fn real_city_places_market_vendors_behind_its_wide_street_reservations() {
             scene
                 .terrain
                 .height_at(instance.position_metres.xz())
-                .is_none()
+                .is_some()
         );
         for foot in &instance.scene.key.recipe().support_points_metres {
             let point =

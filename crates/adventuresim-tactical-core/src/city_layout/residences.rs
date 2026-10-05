@@ -2,6 +2,9 @@
 use super::*;
 use std::collections::BTreeMap;
 
+mod roster;
+pub(super) use roster::SelectedRoster;
+
 const FRONTAGE_SEARCH_STEP_METRES: f32 = 1.0;
 
 pub(super) fn pack(

@@ -65,6 +65,15 @@ Review camera offsets for `main_gable` targets use the aperture's tangent,
 vertical and outward axes, so a negative third component inspects its interior.
 Native capture windows remain hidden and update continuously in the background.
 
+Heating reservations classify an occupied `StoreyIndex` into an architectural
+role: the ground storey supports the masonry bay, the first upper storey houses
+the kitchen and Stube, and later occupied storeys reserve storage above the bay.
+Absent storeys and programmes without the applicable heating recipe have no
+reservation. Rear anchors use positive whole-cell offsets from the footprint's
+rear edge; these are distinct from the finer construction-grid lengths. Recipe
+records name their room and offset, while doorway recipes retain explicit room
+roles and the selected heating-door set-out.
+
 Cottage and hall-house fixtures select a grounded domestic heating programme.
 A cooking hearth and rear-fed tiled stove stand on one masonry plinth, on
 opposite sides of a real kitchen/Stube partition. Only the fire-wall patch is
@@ -101,9 +110,18 @@ clear the pier and flue; mineral cover slabs close each floor perimeter, with
 inner masonry ledges and outer bearing on the retained deck. A flue crossing
 another occupied floor has a widened masonry shoulder below that junction.
 
+Heated town and merchant houses reserve a complete rear kitchen/Stube bay,
+with storage below the masonry pier and above the kitchen where the flue
+crosses another occupied floor. Inter-room doors remain beside that bay. The
+adjacent pantry reserves a full shared rear boundary, placing its kitchen door
+behind the hearth rather than at the end of a narrow cell notch.
+Reserving isolated cells does not establish a continuous clear support route.
 Heated upper floors use full joist bays within the existing maximum pitch,
-with deterministic set-out variants. Placement checks the complete timber
-sections and retains finished joists, girders and roof members. Deck pieces
+with a fixed 0.08-metre set-out that aligns the masonry clearance with the
+unchanged roof frame. This is an authored construction dimension. Seeded
+set-out variation must not put a joist into the required bearing clearance.
+Placement checks the complete timber sections and retains finished joists,
+girders and roof members. Deck pieces
 receive measured contacts to their actual joists after cutting. Unbuildable
 room, floor or roof arrangements return `InvalidDomesticHeating`; they do not
 silently lose structural members. `SOURCES.md` distinguishes historical evidence
@@ -114,7 +132,8 @@ python scripts/capture_heating_review.py --skip-build --settle-frames 24 --outpu
 ```
 
 The `heating-review` fixture covers both building families at seeds 42, 47 and
-101, plus the deep-hearth hall at seed `u64::MAX`.
+101, the deep-hearth hall at seed `u64::MAX`, TownHouse building 8 at seed
+11, and merchant-house building 9 at seed 0 with upper heating.
 Cameras follow the resolved hearth, stove and roof junction. Matched distance
 views check representation continuity; interiors retain production lighting
 and the complete building geometry.
@@ -1040,9 +1059,11 @@ a shared construction assembly and are not implied by passage handedness.
 
 Properties crossing the playable boundary keep both buildings in the playable
 scene. Entirely distant properties retain their walls and closed gate in the
-vista. Connected terrain pads share an elevation, including adjacent properties
-whose grading margins overlap. Nearby gates use the authoritative server door
-controller and collision; distant gates are presentation geometry.
+vista. Each property's support remains independently owned and bounded, and
+member buildings retain their bound floor elevations. Compilation rejects
+overlapping support rather than merging neighboring terraces. Nearby gates use
+the authoritative server door controller and collision; distant gates are
+presentation geometry.
 
 The authored city site expands north and south above 40,000 residents while
 retaining its surveyed east/west road anchors. Planning allocation is capped at

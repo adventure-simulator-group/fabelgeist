@@ -55,8 +55,8 @@ fn instance(building: &GeneratedBuilding, placement: &InteriorPlacement) -> Gene
             .placement
             .orientation
             .local_to_world(placement.centre_metres - Vec2::new(origin.x, origin.z));
-    let height = building.pad_elevation_metres + furniture_floor_height(&building.plan, placement)
-        - building.collision.bounds.min.y;
+    let height = building.placement.base_elevation_metres
+        + furniture_floor_height(&building.plan, placement);
     GeneratedFurniture {
         scene: SceneFurniture {
             id: FurnitureInstanceId(

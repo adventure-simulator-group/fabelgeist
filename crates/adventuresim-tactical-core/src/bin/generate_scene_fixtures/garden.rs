@@ -61,7 +61,12 @@ pub(super) fn layout() -> CitySceneLayout {
         corners_metres: b.corners(),
         surface: CityYardSurface::KitchenGarden,
     }));
-    let street_depth = garden.access[0].start_metres.y;
+    // The isolated catalogue has a straight frontage street. Seat its near
+    // edge at the retained property edge rather than using an access endpoint
+    // as a street centre, which left an unowned gap before the threshold.
+    let street_half_width = 3.5;
+    let street_depth =
+        garden.plot.centre_metres.y - garden.plot.dimensions_metres.y * 0.5 - street_half_width;
     let offset = Vec2::new(0.0, 70.0);
     let mut distant_garden = garden.clone();
     distant_garden.owner = adventuresim_tactical_core::city_layout::CityPropertyId(10_032);
@@ -107,7 +112,7 @@ pub(super) fn layout() -> CitySceneLayout {
             .map(|depth| CityStreetPatch::Corridor {
                 start_metres: Vec2::new(-45.0, street_depth + depth),
                 end_metres: Vec2::new(45.0, street_depth + depth),
-                half_width_metres: 3.5,
+                half_width_metres: street_half_width,
                 surface: CityStreetSurface::CompactedEarth,
             })
             .to_vec(),

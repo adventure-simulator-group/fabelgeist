@@ -26,6 +26,7 @@ pub(in super::super) fn build_envelope(a: &mut Assembly<'_>, program: &BuildingP
         a.wall(Vec2::new(0.0, d), Vec2::new(w, d), Vec2::Y, 0.0, 1.1, true);
     }
     a.passage(
+        WorkplacePassagePurpose::GroundFloorCirculation,
         Vec3::new(w * 0.5 - HANDLING_LANE_HALF_WIDTH_METRES, 0.18, 0.0),
         Vec3::new(w * 0.5 + HANDLING_LANE_HALF_WIDTH_METRES, 2.7, d - 0.35),
     );

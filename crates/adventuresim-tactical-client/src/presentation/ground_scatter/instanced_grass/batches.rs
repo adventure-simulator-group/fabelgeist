@@ -2,7 +2,9 @@
 use super::*;
 
 #[derive(serde::Serialize, serde::Deserialize)]
-struct PackedTufts(#[serde(with = "crate::presentation::packed")] Vec<InstanceData>);
+struct PackedTufts(
+    #[serde(with = "adventuresim_tactical_core::geometry_transport::binary")] Vec<InstanceData>,
+);
 
 #[derive(serde::Serialize, serde::Deserialize)]
 pub(in crate::presentation) struct PreparedTufts(

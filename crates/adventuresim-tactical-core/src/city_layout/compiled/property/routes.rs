@@ -1,7 +1,5 @@
 use super::*;
 
-const ROUTE_JOIN_TOLERANCE_METRES: f32 = 0.02;
-
 pub(in crate::city_layout::compiled) fn validate_access(
     compound: &CityCompound,
     front: &TacticalBuildingPlacement,
@@ -21,7 +19,7 @@ pub(in crate::city_layout::compiled) fn validate_access(
         .door_point(rear, -Vec2::Y)
         .ok_or(error(CompoundIssue::MissingRangeDoor))?;
     let endpoints = |route: &CityAccessSegment| [route.start_metres, route.end_metres];
-    let near = |a: Vec2, b: Vec2| a.distance(b) <= ROUTE_JOIN_TOLERANCE_METRES;
+    let near = |a: Vec2, b: Vec2| a.distance(b) <= CityAccessSegment::JOIN_TOLERANCE_METRES;
     let mut connected = BTreeSet::new();
     for (i, route) in compound.access.iter().enumerate() {
         if endpoints(route)

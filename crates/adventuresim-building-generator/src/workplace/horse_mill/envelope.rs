@@ -59,7 +59,19 @@ pub(in super::super) fn build_envelope(a: &mut Assembly<'_>, program: &BuildingP
         true,
     );
     a.wall(Vec2::new(0.0, d), Vec2::new(w, d), Vec2::Y, 0.0, h, true);
-    a.passage(Vec3::new(0.2, 0.18, 0.0), Vec3::new(1.7, 2.4, d - 0.3));
-    a.passage(Vec3::new(1.7, 0.18, 11.0), Vec3::new(10.8, 2.4, 12.0));
-    a.passage(Vec3::new(5.2, 0.18, 11.0), Vec3::new(7.6, 2.4, d - 0.3));
+    a.passage(
+        WorkplacePassagePurpose::GroundFloorCirculation,
+        Vec3::new(0.2, 0.18, 0.0),
+        Vec3::new(1.7, 2.4, d - 0.3),
+    );
+    a.passage(
+        WorkplacePassagePurpose::GroundFloorCirculation,
+        Vec3::new(1.7, 0.18, 11.0),
+        Vec3::new(10.8, 2.4, 12.0),
+    );
+    a.passage(
+        WorkplacePassagePurpose::GroundFloorCirculation,
+        Vec3::new(5.2, 0.18, 11.0),
+        Vec3::new(7.6, 2.4, d - 0.3),
+    );
 }

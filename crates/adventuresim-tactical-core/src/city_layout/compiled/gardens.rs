@@ -131,7 +131,7 @@ pub(crate) fn validate_scene_gardens(
             ),
         )?;
     }
-    let mut palette = recipes::RecipePalette::default();
+    let mut palette = recipes::CityRecipePalette::default();
     for building in distant {
         let recipe = palette
             .get(
@@ -146,6 +146,7 @@ pub(crate) fn validate_scene_gardens(
             building.centre_metres,
             envelope(
                 &TacticalBuildingPlacement {
+                    base_elevation_metres: 0.0,
                     id: building.id,
                     program: recipe.program.clone(),
                     centre_metres: building.centre_metres,

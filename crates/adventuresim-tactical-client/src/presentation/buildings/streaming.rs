@@ -182,7 +182,7 @@ impl CityBuildingAssets<'_> {
             cached_building_levels(&mut self.cache, &program, detail, &mut self.meshes, None)?;
         let transform = Transform::from_xyz(
             placement.centre_metres.x,
-            placement.base_elevation_metres + compiled.floor_offset_metres,
+            placement.base_elevation_metres + compiled.local_origin.y,
             placement.centre_metres.y,
         )
         .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians()));

@@ -4,9 +4,14 @@ use adventuresim_tactical_core::prelude::*;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
 struct CityLayout {
     resident_population: u32,
+    schema_version: u16,
+    generation_version: u16,
+    grounding: adventuresim_tactical_core::city_layout::CityGroundingProjection,
     buildings: Vec<DistantBuildingPlacement>,
+    establishments: Vec<SceneEstablishment>,
     streets: Vec<CityStreetPatch>,
     yards: Vec<CityYardPatch>,
     parishes: Vec<adventuresim_tactical_core::city_layout::CityParish>,
@@ -29,6 +34,15 @@ pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<PreparedOutdoorFu
         buildings = layout.buildings.len(),
         "Loaded art demo city layout"
     );
+    if layout.schema_version != input.schema_version
+        || layout.generation_version != input.generation_version
+    {
+        return Err(
+            "prepared city uses a different scene format; regenerate the city assets".into(),
+        );
+    }
+    input.grounding = Some(layout.grounding);
+    input.establishments = layout.establishments;
     input.buildings.clear();
     input.distant_buildings = layout.buildings;
     input.streets = layout.streets;
@@ -46,6 +60,7 @@ pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<PreparedOutdoorFu
 #[cfg(test)]
 mod tests {
     use super::*;
+    use adventuresim_tactical_core::scene_input::GeneratedBuildingRecipes;
     #[test]
     fn complete_city_keeps_thousands_of_inspectable_buildings_and_connected_surfaces() {
         let layout: CityLayout =
@@ -92,5 +107,31 @@ mod tests {
                 .any(|s| matches!(s, CityStreetPatch::Market { .. }))
         );
         input.validate().unwrap();
+        let before = input.digest().unwrap();
+        let terrain = input
+            .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())
+            .unwrap();
+        let members: std::collections::BTreeSet<_> = terrain
+            .terrain
+            .property_surface()
+            .unwrap()
+            .foundations
+            .iter()
+            .flat_map(|foundation| foundation.member_building_ids.iter().copied())
+            .collect();
+        assert_eq!(
+            members,
+            input
+                .distant_buildings
+                .iter()
+                .map(|building| building.id)
+                .collect()
+        );
+        assert_eq!(input.digest().unwrap(), before);
+        for group in &furniture.groups {
+            if let FurnitureAnchor::Building { id } = group.anchor {
+                assert!(members.contains(&id));
+            }
+        }
     }
 }

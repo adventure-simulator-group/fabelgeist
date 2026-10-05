@@ -45,6 +45,7 @@ members = [
   "crates/fabelgeist-armor",
 ]
 exclude = [
+  "vendor/bevy_ahoy",
   "wiki",
   "utils",
   "crates/adventuresim-character-creator",
@@ -61,6 +62,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
 
 [workspace.dependencies]
+microlp = "=0.6.0"
 ab_glyph = "0.2.32"
 adventuresim-procedural-materials = { path = "crates/adventuresim-procedural-materials" }
 adventuresim-tactical-netcode = { version = "0.1.0", default-features = false }
@@ -104,9 +106,10 @@ avian3d = { version = "0.7.0", default-features = false, features = [
   "default-collider",
   "xpbd_joints",
 ] }
-bevy_ahoy = { version = "0.2.0", default-features = false, features = [
+bevy_ahoy = { version = "=0.2.0", path = "vendor/bevy_ahoy", default-features = false, features = [
   "serialize",
 ] }
+bevy_math = "0.19.0"
 bevy_enhanced_input = { version = "0.26.0", default-features = false, features = [
   "reflect",
 ] }
@@ -120,6 +123,9 @@ bevy_mod_outline = { version = "0.13", default-features = false, features = [
 ] }
 bevy_eidolon = { version = "0.5" }
 bevy_panorbit_camera = { version = "0.35", features = ["bevy_egui"] }
+bytemuck = { version = "1", features = ["extern_crate_alloc"] }
+ciborium = "0.2"
+libm = { version = "=0.2.16", default-features = false, features = ["force-soft-floats"] }
 noiz = "0.5.0"
 serde = { version = "1", default-features = false, features = [
   "alloc",

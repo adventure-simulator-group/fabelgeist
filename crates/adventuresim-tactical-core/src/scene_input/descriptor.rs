@@ -1,8 +1,8 @@
 //! Versioned scene document shared by production dispatch and capture tools.
 use super::*;
 
-pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 25;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 54;
+pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 27;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 71;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -28,6 +28,9 @@ pub struct TacticalSceneInput {
     pub buildings: Vec<TacticalBuildingPlacement>,
     pub distant_buildings: Vec<DistantBuildingPlacement>,
     pub establishments: Vec<SceneEstablishment>,
+    /// Accepted bounded support, required whenever the scene contains buildings.
+    /// Empty geographic scenes have no property surfaces.
+    pub grounding: Option<crate::city_layout::CityGroundingProjection>,
     pub properties: Option<adventuresim_core::settlement_property::GeneratedHomeCatalog>,
     pub vista: VistaSample,
     pub weather: WeatherSnapshot,

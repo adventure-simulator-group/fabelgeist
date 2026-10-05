@@ -20,9 +20,13 @@ mod parishes;
 pub use parishes::{CITY_PARISH_PRECINCT_RADIUS_METRES, CityParish, ParishResidenceAllocation};
 mod compound;
 mod graph;
+pub mod grounding;
 pub use compiled::{
-    ChurchSitingIssue, CityBusinessSite, CityCompileError, CitySceneLayout, CompiledCityLayout,
-    CompoundIssue,
+    ChurchSitingIssue, CityBusinessSite, CityCompileError, CityGroundingError,
+    CityGroundingProjection, CityGroundingProjectionError, CityRecipePalette, CitySceneLayout,
+    CitySingleProperty, CitySupportError, CompiledCityLayout, CompoundGradingPolicy, CompoundIssue,
+    GroundedCitySceneLayout, SelectedCityGrounding, SinglePropertyGradingPolicy,
+    StreetApronDimensions,
 };
 pub(crate) use compiled::{validate_scene_compound, validate_scene_gardens};
 pub use compound::{
@@ -37,6 +41,7 @@ pub use gardens::{
 mod houses;
 mod subdivision;
 use graph::{BlockId, CityBlock, StreetClass, StreetGraph};
+mod packing;
 mod plots;
 #[cfg(test)]
 use plots::lots_overlap;
@@ -48,6 +53,7 @@ use site::DevelopmentExtent;
 mod surfaces;
 
 pub use houses::CityHouseClass;
+pub use packing::{CityPackingIssue, FrontageInterval};
 pub use surfaces::{
     CityStreetPatch, CityStreetSurface, CityYardPatch, CityYardSurface, MAX_CITY_STREET_PATCHES,
     MAX_CITY_YARD_PATCHES,
@@ -74,6 +80,7 @@ pub struct GeneratedCityLayout {
     pub demand_shortfalls: Vec<DemandShortfall>,
     pub parishes: Vec<ParishProgramme>,
     pub unhoused_population: u32,
+    packing: Result<packing::CityPackingContext, CityCompileError>,
 }
 
 /// One rectangular building lot aligned to one locally straight street frontage.
@@ -136,6 +143,7 @@ impl CitySite {
                 demand_shortfalls: demand.shortfalls,
                 parishes: demand.parishes,
                 unhoused_population: resident_population,
+                packing: Ok(packing::CityPackingContext::default()),
             };
         }
 
@@ -157,32 +165,13 @@ impl CitySite {
             )
         });
 
-        let target_population = resident_population;
-        let mut represented_population = 0_u32;
-        let mut market = adventuresim_core::settlement_property::HousingMarketReserve::default();
-        let mut selected = Vec::new();
-        for candidate in candidates.into_iter().take(MAX_CITY_LOTS) {
-            if candidate.lot.service.is_none()
-                && represented_population >= target_population
-                && market.complete()
-            {
-                break;
-            }
-            let mut lot = candidate.lot;
-            lot.id = selected.len() as u64 + 1;
-            represented_population = represented_population.saturating_add(
-                if lot.service.is_none() && !market.reserve(lot.house_class.housing_tier()) {
-                    lot.house_class.resident_capacity()
-                } else {
-                    0
-                },
-            );
-            selected.push(CandidateLot { lot, ..candidate });
-        }
+        let roster = residences::SelectedRoster::from_candidates(candidates, resident_population);
+        let selected = roster.members;
         let developed_blocks = selected
             .iter()
             .map(|candidate| candidate.block_key)
             .collect::<BTreeSet<_>>();
+        let packing = packing::CityPackingContext::from_selected(&selected, &graph.blocks);
         let yards = city_yard_patches(&selected);
         let streets = city_street_patches(&graph, &developed_blocks);
         GeneratedCityLayout {
@@ -196,7 +185,8 @@ impl CitySite {
             unplaced_services,
             demand_shortfalls: demand.shortfalls,
             parishes: demand.parishes,
-            unhoused_population: target_population.saturating_sub(represented_population),
+            unhoused_population: roster.unhoused_population,
+            packing,
         }
     }
 }

@@ -1,0 +1,656 @@
+{
+  "population": 6500,
+  "seed": 42,
+  "buildings": [
+    {
+      "base_elevation_metres": 0.0,
+      "centre_metres": [
+        -99.66621398925781,
+        -291.80169677734375
+      ],
+      "id": 16903,
+      "orientation": 2.944196939468384,
+      "program": {
+        "archetype": "storage-range",
+        "church_program": null,
+        "domestic_heating": null,
+        "footprint": {
+          "rectangle": {
+            "depth": 4,
+            "width": 6
+          }
+        },
+        "roof_demonstrator": null,
+        "roof_pitch_degrees": 48.0,
+        "seed": 42,
+        "service_size": null,
+        "storey_height_metres": 2.799999952316284,
+        "storeys": [
+          {
+            "rooms": [
+              {
+                "kind": "storage",
+                "needs_exterior": true,
+                "preferred_cells": 24,
+                "preferred_neighbours": []
+              }
+            ]
+          }
+        ],
+        "timber_frame_style": "late_medieval",
+        "upper_storey_projection_metres": 0.0,
+        "usage": null,
+        "vertical_connections": [],
+        "wall_style": "timber_frame"
+      }
+    },
+    {
+      "base_elevation_metres": 0.0,
+      "centre_metres": [
+        -103.53951263427734,
+        -274.9847412109375
+      ],
+      "id": 519,
+      "orientation": 2.944196939468384,
+      "program": {
+        "archetype": "fachwerk-merchant-house",
+        "church_program": null,
+        "domestic_heating": "hearth_and_rear_fed_stove",
+        "footprint": {
+          "rectangle": {
+            "depth": 11,
+            "width": 8
+          }
+        },
+        "roof_demonstrator": null,
+        "roof_pitch_degrees": 55.42805480957031,
+        "seed": 7989866213631017260,
+        "service_size": null,
+        "storey_height_metres": 2.866433620452881,
+        "storeys": [
+          {
+            "rooms": [
+              {
+                "kind": "shop",
+                "needs_exterior": true,
+                "preferred_cells": 24,
+                "preferred_neighbours": [
+                  "workshop"
+                ]
+              },
+              {
+                "kind": "entrance_hall",
+                "needs_exterior": true,
+                "preferred_cells": 10,
+                "preferred_neighbours": [
+                  "stair_hall"
+                ]
+              },
+              {
+                "kind": "workshop",
+                "needs_exterior": false,
+                "preferred_cells": 22,
+                "preferred_neighbours": [
+                  "storage"
+                ]
+              },
+              {
+                "kind": "storage",
+                "needs_exterior": false,
+                "preferred_cells": 16,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "stair_hall",
+                "needs_exterior": false,
+                "preferred_cells": 16,
+                "preferred_neighbours": []
+              }
+            ]
+          },
+          {
+            "rooms": [
+              {
+                "kind": "common_room",
+                "needs_exterior": true,
+                "preferred_cells": 30,
+                "preferred_neighbours": [
+                  "kitchen"
+                ]
+              },
+              {
+                "kind": "kitchen",
+                "needs_exterior": true,
+                "preferred_cells": 18,
+                "preferred_neighbours": [
+                  "pantry"
+                ]
+              },
+              {
+                "kind": "pantry",
+                "needs_exterior": false,
+                "preferred_cells": 8,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "bedchamber",
+                "needs_exterior": true,
+                "preferred_cells": 20,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "stair_hall",
+                "needs_exterior": false,
+                "preferred_cells": 12,
+                "preferred_neighbours": []
+              }
+            ]
+          },
+          {
+            "rooms": [
+              {
+                "kind": "gallery",
+                "needs_exterior": true,
+                "preferred_cells": 26,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "bedchamber",
+                "needs_exterior": true,
+                "preferred_cells": 24,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "bedchamber",
+                "needs_exterior": true,
+                "preferred_cells": 20,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "storage",
+                "needs_exterior": false,
+                "preferred_cells": 10,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "stair_hall",
+                "needs_exterior": false,
+                "preferred_cells": 8,
+                "preferred_neighbours": []
+              }
+            ]
+          }
+        ],
+        "timber_frame_style": "early_modern_ornate",
+        "upper_storey_projection_metres": 0.2800000011920929,
+        "usage": "dwelling",
+        "vertical_connections": [
+          {
+            "highest_storey": 2,
+            "kind": "straight_stair",
+            "landing_room": "stair_hall",
+            "lowest_storey": 0
+          }
+        ],
+        "wall_style": "timber_frame"
+      }
+    },
+    {
+      "base_elevation_metres": 0.0,
+      "centre_metres": [
+        -112.5,
+        -302.42926025390625
+      ],
+      "id": 520,
+      "orientation": 1.5707963705062866,
+      "program": {
+        "archetype": "town-house",
+        "church_program": null,
+        "domestic_heating": "hearth_and_rear_fed_stove",
+        "footprint": {
+          "rectangle": {
+            "depth": 10,
+            "width": 6
+          }
+        },
+        "roof_demonstrator": null,
+        "roof_pitch_degrees": 56.811973571777344,
+        "seed": 6514374187028306242,
+        "service_size": null,
+        "storey_height_metres": 2.913834810256958,
+        "storeys": [
+          {
+            "rooms": [
+              {
+                "kind": "shop",
+                "needs_exterior": true,
+                "preferred_cells": 18,
+                "preferred_neighbours": [
+                  "workshop"
+                ]
+              },
+              {
+                "kind": "entrance_hall",
+                "needs_exterior": true,
+                "preferred_cells": 8,
+                "preferred_neighbours": [
+                  "stair_hall"
+                ]
+              },
+              {
+                "kind": "workshop",
+                "needs_exterior": false,
+                "preferred_cells": 15,
+                "preferred_neighbours": [
+                  "storage"
+                ]
+              },
+              {
+                "kind": "storage",
+                "needs_exterior": false,
+                "preferred_cells": 8,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "stair_hall",
+                "needs_exterior": false,
+                "preferred_cells": 8,
+                "preferred_neighbours": []
+              }
+            ]
+          },
+          {
+            "rooms": [
+              {
+                "kind": "common_room",
+                "needs_exterior": true,
+                "preferred_cells": 22,
+                "preferred_neighbours": [
+                  "kitchen"
+                ]
+              },
+              {
+                "kind": "kitchen",
+                "needs_exterior": true,
+                "preferred_cells": 12,
+                "preferred_neighbours": [
+                  "pantry"
+                ]
+              },
+              {
+                "kind": "pantry",
+                "needs_exterior": false,
+                "preferred_cells": 6,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "bedchamber",
+                "needs_exterior": true,
+                "preferred_cells": 13,
+                "preferred_neighbours": []
+              },
+              {
+                "kind": "stair_hall",
+                "needs_exterior": false,
+                "preferred_cells": 7,
+                "preferred_neighbours": []
+              }
+            ]
+          }
+        ],
+        "timber_frame_style": "late_medieval",
+        "upper_storey_projection_metres": 0.2199999988079071,
+        "usage": "dwelling",
+        "vertical_connections": [
+          {
+            "highest_storey": 1,
+            "kind": "straight_stair",
+            "landing_room": "stair_hall",
+            "lowest_storey": 0
+          }
+        ],
+        "wall_style": "timber_frame"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "access": [
+        {
+          "end_metres": [
+            -108.54046630859375,
+            -287.4577331542969
+          ],
+          "half_width_metres": 0.4000000059604645,
+          "start_metres": [
+            -112.6589126586914,
+            -266.86553955078125
+          ]
+        },
+        {
+          "end_metres": [
+            -102.06863403320312,
+            -286.1633605957031
+          ],
+          "half_width_metres": 0.4000000059604645,
+          "start_metres": [
+            -108.54046630859375,
+            -287.4577331542969
+          ]
+        },
+        {
+          "end_metres": [
+            -102.66875457763672,
+            -283.16278076171875
+          ],
+          "half_width_metres": 0.4000000059604645,
+          "start_metres": [
+            -102.06863403320312,
+            -286.1633605957031
+          ]
+        },
+        {
+          "end_metres": [
+            -101.57833862304688,
+            -286.0653076171875
+          ],
+          "half_width_metres": 0.4000000059604645,
+          "start_metres": [
+            -108.54046630859375,
+            -287.4577331542969
+          ]
+        },
+        {
+          "end_metres": [
+            -100.97061920166016,
+            -289.1039123535156
+          ],
+          "half_width_metres": 0.4000000059604645,
+          "start_metres": [
+            -101.57833862304688,
+            -286.0653076171875
+          ]
+        }
+      ],
+      "boundary": {
+        "gate": {
+          "centre_metres": [
+            -112.36473846435547,
+            -268.3363952636719
+          ],
+          "height_metres": 1.7999999523162842,
+          "hinge": "left",
+          "orientation": 2.944196939468384,
+          "width_metres": 1.600000023841858
+        },
+        "walls": [
+          {
+            "end_metres": [
+              -93.47875213623047,
+              -294.08251953125
+            ],
+            "height_metres": 1.7999999523162842,
+            "start_metres": [
+              -95.92040252685547,
+              -281.8742980957031
+            ],
+            "thickness_metres": 0.30000001192092896
+          },
+          {
+            "end_metres": [
+              -107.76580810546875,
+              -296.93994140625
+            ],
+            "height_metres": 1.7999999523162842,
+            "start_metres": [
+              -93.47875213623047,
+              -294.08251953125
+            ],
+            "thickness_metres": 0.30000001192092896
+          },
+          {
+            "end_metres": [
+              -113.44337463378906,
+              -268.5521240234375
+            ],
+            "height_metres": 1.7999999523162842,
+            "start_metres": [
+              -107.76580810546875,
+              -296.93994140625
+            ],
+            "thickness_metres": 0.30000001192092896
+          }
+        ]
+      },
+      "court": {
+        "centre_metres": [
+          -102.31378173828125,
+          -286.21240234375
+        ],
+        "dimensions_metres": [
+          14.0,
+          6.0
+        ],
+        "orientation": 2.944196939468384
+      },
+      "front_building_id": 519,
+      "id": 519,
+      "plot": {
+        "centre_metres": [
+          -103.34339904785156,
+          -281.0643310546875
+        ],
+        "dimensions_metres": [
+          16.5,
+          31.0
+        ],
+        "orientation": 2.944196939468384
+      },
+      "rear_building_id": 16903
+    }
+  ],
+  "single_properties": [
+    {
+      "building_id": 520,
+      "id": 520,
+      "plot": {
+        "centre_metres": [
+          -109.5,
+          -303.42926025390625
+        ],
+        "dimensions_metres": [
+          11.0,
+          21.0
+        ],
+        "orientation": 1.5707963705062866
+      }
+    }
+  ],
+  "source_triangles": [
+    [
+      [
+        -2000.0,
+        -120.0,
+        -2000.0
+      ],
+      [
+        2000.0,
+        0.0,
+        -2000.0
+      ],
+      [
+        2000.0,
+        160.0,
+        2000.0
+      ]
+    ],
+    [
+      [
+        -2000.0,
+        -120.0,
+        -2000.0
+      ],
+      [
+        2000.0,
+        160.0,
+        2000.0
+      ],
+      [
+        -2000.0,
+        40.0,
+        2000.0
+      ]
+    ]
+  ],
+  "streets": [
+    {
+      "end_metres": [
+        -96.0,
+        -313.205322265625
+      ],
+      "half_width_metres": 3.0,
+      "shape": "corridor",
+      "start_metres": [
+        -122.0,
+        -318.4053039550781
+      ],
+      "surface": "gravel"
+    },
+    {
+      "end_metres": [
+        0.0,
+        -294.00531005859375
+      ],
+      "half_width_metres": 3.0,
+      "shape": "corridor",
+      "start_metres": [
+        -96.0,
+        -313.205322265625
+      ],
+      "surface": "gravel"
+    },
+    {
+      "end_metres": [
+        -122.0,
+        -265.92926025390625
+      ],
+      "half_width_metres": 3.0,
+      "shape": "corridor",
+      "start_metres": [
+        -234.0,
+        -288.3292541503906
+      ],
+      "surface": "gravel"
+    },
+    {
+      "end_metres": [
+        -122.0,
+        -265.92926025390625
+      ],
+      "half_width_metres": 2.0,
+      "shape": "corridor",
+      "start_metres": [
+        -122.0,
+        -318.4053039550781
+      ],
+      "surface": "compacted_earth"
+    },
+    {
+      "end_metres": [
+        -98.0,
+        -261.1292419433594
+      ],
+      "half_width_metres": 3.0,
+      "shape": "corridor",
+      "start_metres": [
+        -122.0,
+        -265.92926025390625
+      ],
+      "surface": "gravel"
+    },
+    {
+      "end_metres": [
+        0.0,
+        -241.5292510986328
+      ],
+      "half_width_metres": 3.0,
+      "shape": "corridor",
+      "start_metres": [
+        -98.0,
+        -261.1292419433594
+      ],
+      "surface": "gravel"
+    },
+    {
+      "end_metres": [
+        -164.0,
+        -218.36302185058594
+      ],
+      "half_width_metres": 3.0,
+      "shape": "corridor",
+      "start_metres": [
+        -234.0,
+        -232.36302185058594
+      ],
+      "surface": "gravel"
+    },
+    {
+      "end_metres": [
+        -98.0,
+        -205.16302490234375
+      ],
+      "half_width_metres": 3.0,
+      "shape": "corridor",
+      "start_metres": [
+        -164.0,
+        -218.36302185058594
+      ],
+      "surface": "gravel"
+    },
+    {
+      "end_metres": [
+        -98.0,
+        -205.16302490234375
+      ],
+      "half_width_metres": 2.0,
+      "shape": "corridor",
+      "start_metres": [
+        -98.0,
+        -261.1292419433594
+      ],
+      "surface": "compacted_earth"
+    },
+    {
+      "end_metres": [
+        0.0,
+        -185.56301879882812
+      ],
+      "half_width_metres": 3.0,
+      "shape": "corridor",
+      "start_metres": [
+        -98.0,
+        -205.16302490234375
+      ],
+      "surface": "gravel"
+    },
+    {
+      "end_metres": [
+        -164.0,
+        -158.89988708496094
+      ],
+      "half_width_metres": 2.0,
+      "shape": "corridor",
+      "start_metres": [
+        -164.0,
+        -218.36302185058594
+      ],
+      "surface": "compacted_earth"
+    }
+  ],
+  "provenance": {
+    "baseline_revision": "5745fdca9d002438dc44a312ed17189fd0e846f3",
+    "generator": "central_german_market_town",
+    "failure": "empty corner of rectangular floor envelope intersects neighboring compound",
+    "generation": 59
+  }
+}

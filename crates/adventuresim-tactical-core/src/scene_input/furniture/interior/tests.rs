@@ -8,6 +8,7 @@ use bevy::math::Vec3Swizzles;
 fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
     let usage = BuildingUse::Dwelling;
     let input = TacticalBuildingPlacement {
+        base_elevation_metres: 4.2,
         id: 891,
         program: BuildingProgram::validated_settlement(
             settlement_archetype(usage),
@@ -19,12 +20,11 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
         centre_metres: Vec2::new(12.0, -19.0),
         orientation: BuildingOrientation::from_radians(0.73).unwrap(),
     };
-    let mut buildings = prepare_buildings(
+    let buildings = prepare_buildings(
         &[input],
         &mut crate::scene_input::GeneratedBuildingRecipes::default(),
     )
     .unwrap();
-    buildings[0].pad_elevation_metres = 4.2;
     let mut furniture = FurnitureLayout::default();
     append(&mut furniture, &buildings).unwrap();
     let building = &buildings[0];
@@ -44,9 +44,8 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
             + Vec2::new(origin.x, origin.z);
         assert!(local.distance(placement.centre_metres) < 0.0001);
         assert!(
-            (instance.position_metres.y - 4.2 + building.collision.bounds.min.y
-                - furniture_floor_height(&building.plan, placement))
-            .abs()
+            (instance.position_metres.y - 4.2 - furniture_floor_height(&building.plan, placement))
+                .abs()
                 < 0.0001
         );
         let world_front = instance.orientation.local_to_world(-Vec2::Y);

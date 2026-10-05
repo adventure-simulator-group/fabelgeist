@@ -39,13 +39,19 @@ pub(in super::super) fn build_envelope(a: &mut Assembly<'_>, program: &BuildingP
     let loading = [d * 0.25, d * 0.5];
     long_wall(a, w, d, h, Vec2::X, &loading);
     a.passage(
+        WorkplacePassagePurpose::GroundFloorCirculation,
         Vec3::new(w * 0.5 - 1.5, 0.18, 0.0),
         Vec3::new(w * 0.5 + 1.5, 2.7, d - 0.35),
     );
     // The apron is part of the reserved lot, with a cart lane beyond the hood's outer posts.
-    a.passage(Vec3::new(w + 5.0, 0.05, 0.0), Vec3::new(w + 7.8, 2.7, d));
+    a.passage(
+        WorkplacePassagePurpose::OutdoorRoute,
+        Vec3::new(w + 5.0, 0.05, 0.0),
+        Vec3::new(w + 7.8, 2.7, d),
+    );
     for z in loading {
         a.passage(
+            WorkplacePassagePurpose::GroundFloorCirculation,
             Vec3::new(w * 0.5 - 0.1, 0.18, z - 1.1),
             Vec3::new(w + 7.8, 2.7, z + 1.1),
         );

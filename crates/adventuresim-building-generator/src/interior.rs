@@ -29,7 +29,7 @@ pub use geometry::furniture_floor_height;
 pub use placement::{furnish, validate_layout};
 
 /// Verify the completed architectural circulation before accepting a heated recipe.
-pub(crate) fn validate_circulation(plan: &crate::BuildingPlan) -> Result<(), InteriorLayoutError> {
+pub fn validate_circulation(plan: &crate::BuildingPlan) -> Result<(), InteriorLayoutError> {
     navigation::Navigation::new(plan).map(|_| ())
 }
 

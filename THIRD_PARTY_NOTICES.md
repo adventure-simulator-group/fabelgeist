@@ -1,5 +1,27 @@
 # Third-party notices
 
+## bevy_ahoy character controller
+
+`vendor/bevy_ahoy/` retains Jan Hohenheim's bevy_ahoy 0.2.0 source under
+MIT OR Apache-2.0. Both licenses accompany the source. The local corrections
+change the speculative stair-support query using the existing contact skin and
+compute platform point motion without artificial drift on static terrain.
+They preserve character travel limits and authored movement parameters.
+
+See [source provenance and patch contract](vendor/bevy_ahoy/UPSTREAM.md).
+
+## microlp bounded city packing solver
+
+The shared city compiler uses the pinned `microlp` 0.6.0 Cargo dependency for
+continuous linear feasibility within one existing street block. The dependency
+is by Alexey Zatelepin and Specy, under Apache-2.0; it is not vendored or modified.
+Physical geometry and access validation remain Fabelgeist contracts.
+
+- Source: <https://github.com/Specy/microlp/>
+- Published version: <https://crates.io/crates/microlp/0.6.0>
+- Source revision: `22f625e4112967946e9dcd2bc87378424b2d265e`
+- License: <https://github.com/Specy/microlp/blob/22f625e4112967946e9dcd2bc87378424b2d265e/LICENSE>
+
 ## Art demo museum photographs
 
 `assets/art-demo/references/` contains CC0 photographs from the Metropolitan

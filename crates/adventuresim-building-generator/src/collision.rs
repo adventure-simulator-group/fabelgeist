@@ -11,7 +11,12 @@ use serde::{Deserialize, Serialize};
 
 use crate::{BuildingPlan, ResolvedItemId, ResolvedSolid, compile_window_bars};
 
+mod cuboid;
+mod footprint;
 mod gable;
+mod ground_contact;
+pub use footprint::GroundFloorFootprint;
+pub use ground_contact::GroundContact;
 mod intersection;
 
 #[cfg(test)]
@@ -75,6 +80,36 @@ impl CollisionCuboid {
 pub struct BuildingCollision {
     pub bounds: CollisionBounds,
     pub cuboids: Vec<CollisionCuboid>,
+}
+
+impl BuildingCollision {
+    /// Envelope of exact fixed-solid cross-sections at architectural Y=0.
+    /// Tilted members contribute only their floor contact, not projections of
+    /// higher geometry. Buried slabs touching the datum remain included.
+    /// This bounds a footprint; it does not claim every enclosed point is a
+    /// structural bearing. Both vertical bounds are the architectural datum.
+    pub fn ground_floor_contact_bounds(
+        &self,
+    ) -> Result<Option<CollisionBounds>, crate::plan_geometry::PlanGeometryError> {
+        let mut bounds: Option<CollisionBounds> = None;
+        for solid in &self.cuboids {
+            for point in solid.ground_contact()?.points() {
+                let point = point.metres();
+                let point = Vec3::new(point.x, 0.0, point.y);
+                bounds = Some(match bounds {
+                    None => CollisionBounds {
+                        min: point,
+                        max: point,
+                    },
+                    Some(bounds) => CollisionBounds {
+                        min: bounds.min.min(point),
+                        max: bounds.max.max(point),
+                    },
+                });
+            }
+        }
+        Ok(bounds)
+    }
 }
 
 /// Compiles static collision from authoritative wall hosts and walkable timber
@@ -229,6 +264,34 @@ fn collision_bounds(plan: &BuildingPlan, cuboids: &[CollisionCuboid]) -> Collisi
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn ground_contact_excludes_projections_but_keeps_buried_slabs() {
+        use super::*;
+        let part = |centre, size| CollisionCuboid {
+            source: ResolvedItemId(1),
+            centre,
+            size,
+            yaw_radians: 0.0,
+            crossfall_radians: 0.0,
+            longfall_radians: 0.0,
+        };
+        let collision = BuildingCollision {
+            bounds: CollisionBounds {
+                min: Vec3::splat(-10.0),
+                max: Vec3::splat(10.0),
+            },
+            cuboids: vec![
+                part(Vec3::new(0.0, -0.08, 0.0), Vec3::new(6.0, 0.16, 8.0)),
+                part(Vec3::new(0.0, 4.0, 0.0), Vec3::new(10.0, 1.0, 12.0)),
+                part(Vec3::new(0.0, -2.0, 0.0), Vec3::splat(1.0)),
+            ],
+        };
+        let contact = collision.ground_floor_contact_bounds().unwrap().unwrap();
+        assert_eq!(contact.min, Vec3::new(-3.0, 0.0, -4.0));
+        assert_eq!(contact.max, Vec3::new(3.0, 0.0, 4.0));
+        assert!(collision.bounds.max.x > contact.max.x);
+    }
+
     #[test]
     fn pitched_and_rolled_collision_bounds_contain_all_transformed_corners() {
         use super::*;

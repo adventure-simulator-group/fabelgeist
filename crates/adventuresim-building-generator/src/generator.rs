@@ -39,6 +39,7 @@ include!("generator/timber_geometry.rs");
 include!("generator/timber.rs");
 include!("generator/roof_editing.rs");
 include!("generator/layout.rs");
+mod architectural_envelope;
 mod bell_hanging;
 mod church_ground;
 mod civilian_roofs;

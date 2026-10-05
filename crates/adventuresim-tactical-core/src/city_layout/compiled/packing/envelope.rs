@@ -1,0 +1,55 @@
+//! Compile one exact occupied recipe into its measured packing envelope.
+use super::*;
+impl super::super::super::packing::MeasuredBuildingEnvelope {
+    pub(super) fn from_recipe(
+        building: &TacticalBuildingPlacement,
+        recipe: &recipes::Recipe,
+    ) -> Result<Self, CityCompileError> {
+        let half = recipe.collision.bounds.plan_half_extents();
+        let min = recipe.render_min.min(-half);
+        let max = recipe.render_max.max(half);
+        let footprint = recipe
+            .collision
+            .ground_floor_footprint()
+            .map_err(|issue| CityCompileError::Packing {
+                property: CityPropertyId(building.id),
+                issue: CityPackingIssue::InvalidBearing {
+                    building: building.id,
+                    issue,
+                },
+            })?
+            .ok_or(CityCompileError::Packing {
+                property: CityPropertyId(building.id),
+                issue: CityPackingIssue::MissingBearing {
+                    building: building.id,
+                },
+            })?;
+        let invalid = |issue| CityCompileError::Packing {
+            property: CityPropertyId(building.id),
+            issue: CityPackingIssue::InvalidBearing {
+                building: building.id,
+                issue,
+            },
+        };
+        let projection = crate::scene_coordinates::ArchitecturalPlanProjection::from_placement(
+            building,
+            recipe.collision.bounds,
+        )
+        .map_err(invalid)?;
+        let bearing_outline = crate::scene_coordinates::ScenePlanPolygon::from_architectural(
+            footprint.polygon(),
+            projection,
+        )
+        .map_err(invalid)?;
+        Ok(Self {
+            building: building.id,
+            bearing_outline,
+            body: CityPlotBounds {
+                centre_metres: building.centre_metres
+                    + building.orientation.local_to_world((min + max) * 0.5),
+                dimensions_metres: max - min,
+                orientation: building.orientation,
+            },
+        })
+    }
+}

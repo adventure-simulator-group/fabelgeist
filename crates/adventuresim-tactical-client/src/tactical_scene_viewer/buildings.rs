@@ -2,6 +2,21 @@ use adventuresim_building_generator::BuildingCollision;
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
+/// Select each physical building once across playable and distant presentation.
+pub(super) fn distant_placements(
+    input: &TacticalSceneInput,
+    buildings: &[GeneratedBuilding],
+) -> Vec<DistantBuildingPlacement> {
+    let playable: std::collections::BTreeSet<_> =
+        buildings.iter().map(|b| b.placement.id).collect();
+    input
+        .distant_buildings
+        .iter()
+        .filter(|b| !playable.contains(&b.id))
+        .copied()
+        .collect()
+}
+
 pub(super) fn spawn_boundaries(commands: &mut Commands, boundaries: Vec<GeneratedBoundary>) {
     for boundary in boundaries {
         let door = boundary
@@ -31,7 +46,7 @@ pub(super) fn spawn_boundaries(commands: &mut Commands, boundaries: Vec<Generate
 pub(super) fn spawn_tactical_buildings(commands: &mut Commands, buildings: Vec<GeneratedBuilding>) {
     for building in buildings {
         super::building_review::spawn_openings(commands, &building);
-        let transform = building_transform(&building);
+        let transform = building.transform();
         let entity = commands.spawn_empty().id();
         commands.queue(move |world: &mut World| {
             super::building_review::insert_authored_sign(world, entity, building.placement.id);
@@ -69,16 +84,4 @@ fn tactical_building_collider(collision: &BuildingCollision) -> Collider {
             })
             .collect(),
     )
-}
-
-pub(super) fn building_transform(building: &GeneratedBuilding) -> Transform {
-    let origin = building.collision.bounds.centre();
-    Transform::from_xyz(
-        building.placement.centre_metres.x,
-        building.pad_elevation_metres + origin.y - building.collision.bounds.min.y,
-        building.placement.centre_metres.y,
-    )
-    .with_rotation(Quat::from_rotation_y(
-        building.placement.orientation.yaw_radians(),
-    ))
 }

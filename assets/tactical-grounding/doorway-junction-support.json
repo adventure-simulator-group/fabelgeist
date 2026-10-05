@@ -1,0 +1,275 @@
+{
+  "building": {
+    "base_elevation_metres": 0.0,
+    "centre_metres": [
+      -198.49644470214844,
+      191.1220245361328
+    ],
+    "id": 546,
+    "orientation": 2.944197177886963,
+    "program": {
+      "archetype": "town-house",
+      "church_program": null,
+      "domestic_heating": "hearth_and_rear_fed_stove",
+      "footprint": {
+        "rectangle": {
+          "depth": 10,
+          "width": 6
+        }
+      },
+      "roof_demonstrator": null,
+      "roof_pitch_degrees": 53.41732406616211,
+      "seed": 15522022947284468661,
+      "service_size": null,
+      "storey_height_metres": 2.8511500358581543,
+      "storeys": [
+        {
+          "rooms": [
+            {
+              "kind": "shop",
+              "needs_exterior": true,
+              "preferred_cells": 18,
+              "preferred_neighbours": [
+                "workshop"
+              ]
+            },
+            {
+              "kind": "entrance_hall",
+              "needs_exterior": true,
+              "preferred_cells": 8,
+              "preferred_neighbours": [
+                "stair_hall"
+              ]
+            },
+            {
+              "kind": "workshop",
+              "needs_exterior": false,
+              "preferred_cells": 15,
+              "preferred_neighbours": [
+                "storage"
+              ]
+            },
+            {
+              "kind": "storage",
+              "needs_exterior": false,
+              "preferred_cells": 8,
+              "preferred_neighbours": []
+            },
+            {
+              "kind": "stair_hall",
+              "needs_exterior": false,
+              "preferred_cells": 8,
+              "preferred_neighbours": []
+            }
+          ]
+        },
+        {
+          "rooms": [
+            {
+              "kind": "common_room",
+              "needs_exterior": true,
+              "preferred_cells": 22,
+              "preferred_neighbours": [
+                "kitchen"
+              ]
+            },
+            {
+              "kind": "kitchen",
+              "needs_exterior": true,
+              "preferred_cells": 12,
+              "preferred_neighbours": [
+                "pantry"
+              ]
+            },
+            {
+              "kind": "pantry",
+              "needs_exterior": false,
+              "preferred_cells": 6,
+              "preferred_neighbours": []
+            },
+            {
+              "kind": "bedchamber",
+              "needs_exterior": true,
+              "preferred_cells": 13,
+              "preferred_neighbours": []
+            },
+            {
+              "kind": "stair_hall",
+              "needs_exterior": false,
+              "preferred_cells": 7,
+              "preferred_neighbours": []
+            }
+          ]
+        }
+      ],
+      "timber_frame_style": "late_medieval",
+      "upper_storey_projection_metres": 0.2199999988079071,
+      "usage": "dwelling",
+      "vertical_connections": [
+        {
+          "highest_storey": 1,
+          "kind": "straight_stair",
+          "landing_room": "stair_hall",
+          "lowest_storey": 0
+        }
+      ],
+      "wall_style": "timber_frame"
+    }
+  },
+  "entrances": [
+    {
+      "id": {
+        "opening": 4
+      },
+      "outward": [
+        -0.19611606001853943,
+        0.9805806875228882
+      ],
+      "support": "architectural_floor",
+      "threshold": [
+        -197.76100158691406,
+        198.9176483154297
+      ]
+    }
+  ],
+  "failure": {
+    "attempted_treatment": "single_building_floor_and_entrances",
+    "boundary": "street_landing",
+    "constraint": "stair_clearance",
+    "location_metres": [
+      -197.76100158691406,
+      198.9176483154297
+    ],
+    "measured": 1.0499999523162842,
+    "member_building_ids": [
+      546
+    ],
+    "permitted": 0.0,
+    "property_id": 546,
+    "shortfall": 1.0499999523162842,
+    "unit": "metres"
+  },
+  "footprint": [
+    [
+      -195.15463256835938,
+      197.90921020507812
+    ],
+    [
+      -195.67237854003906,
+      199.18240356445312
+    ],
+    [
+      -197.0467529296875,
+      199.17062377929688
+    ],
+    [
+      -202.93023681640625,
+      197.99392700195312
+    ],
+    [
+      -204.20343017578125,
+      197.4761962890625
+    ],
+    [
+      -203.89747619628906,
+      194.6309356689453
+    ],
+    [
+      -202.1324462890625,
+      185.8057098388672
+    ],
+    [
+      -201.3205108642578,
+      183.0616455078125
+    ],
+    [
+      -198.59841918945312,
+      183.57546997070312
+    ],
+    [
+      -198.4415283203125,
+      183.6068572998047
+    ],
+    [
+      -192.78945922851562,
+      184.7678680419922
+    ],
+    [
+      -193.38958740234375,
+      189.083984375
+    ]
+  ],
+  "population": 6500,
+  "property": {
+    "building_id": 546,
+    "id": 546,
+    "plot": {
+      "centre_metres": [
+        -198.888671875,
+        187.98416137695312
+      ],
+      "dimensions_metres": [
+        11.0,
+        21.0
+      ],
+      "orientation": 2.944197177886963
+    }
+  },
+  "seed": 42,
+  "source_triangles": [
+    [
+      [
+        -2000.0,
+        -120.0,
+        -2000.0
+      ],
+      [
+        2000.0,
+        0.0,
+        -2000.0
+      ],
+      [
+        2000.0,
+        160.0,
+        2000.0
+      ]
+    ],
+    [
+      [
+        -2000.0,
+        -120.0,
+        -2000.0
+      ],
+      [
+        2000.0,
+        160.0,
+        2000.0
+      ],
+      [
+        -2000.0,
+        40.0,
+        2000.0
+      ]
+    ]
+  ],
+  "streets": [
+    {
+      "end_metres": [
+        -166.0,
+        208.32925415039062
+      ],
+      "half_width_metres": 3.0,
+      "shape": "corridor",
+      "start_metres": [
+        -226.0,
+        196.32925415039062
+      ],
+      "surface": "gravel"
+    }
+  ],
+  "provenance": {
+    "baseline_revision": "5745fdca9d002438dc44a312ed17189fd0e846f3",
+    "generator": "central_german_market_town",
+    "classification": "rounded doorway/private plot/near street join; not an invalid slope"
+  }
+}

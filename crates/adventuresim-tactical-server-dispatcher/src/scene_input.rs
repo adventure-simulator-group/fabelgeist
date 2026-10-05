@@ -18,6 +18,8 @@ use std::collections::BTreeMap;
 use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
 
 mod geological_landforms;
+mod terrain_capture;
+pub use terrain_capture::{ImportedTerrainCapture, SourceElevationSample, TerrainCaptureError};
 
 const PLAYABLE_SIDE: u16 = 101;
 const PLAYABLE_SPACING_METRES: f32 = 1.0;
@@ -41,7 +43,7 @@ const SCARP_DEFAULT_COLLAR_CM: u16 = 400;
 
 #[derive(Clone, Copy)]
 struct VistaLodSpec {
-    level: u8,
+    level: adventuresim_tactical_core::scene_input::VistaLevelIndex,
     spacing_metres: f32,
     side: u16,
 }
@@ -49,7 +51,7 @@ struct VistaLodSpec {
 impl VistaLodSpec {
     const fn new(level: u8, spacing_metres: f32, side: u16) -> Self {
         Self {
-            level,
+            level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(level),
             spacing_metres,
             side,
         }
@@ -121,9 +123,9 @@ pub fn build_imported_scene(
             seed,
         },
     )?;
-    let mut vista = sample_city_vista(pack, coordinates, f32::from(center.elevation_m), seed)?;
+    let vista = sample_city_vista(pack, coordinates, f32::from(center.elevation_m), seed)?;
     // sample_grid has already subtracted the absolute centre elevation.
-    let building_layout = settlement_building_layout(settlement, &mut vista)?;
+    let building_layout = settlement_building_layout(settlement)?;
     let establishments = bind_establishments(settlement, &building_layout)?;
     let landform = nearest_fault_scarp(pack.terrain_features(), coordinates, seed).or_else(|| {
         settlement
@@ -134,14 +136,18 @@ pub fn build_imported_scene(
             .flatten()
     });
     let input = TacticalSceneInput {
+        grounding: None,
         properties: settlement
             .map(|profile| {
-                crate::settlement_properties::generated_homes(
-                    &profile.id,
-                    profile.population_level,
-                    profile.population_estimate,
-                    &profile.economy,
-                )
+                building_layout
+                    .generated_homes(
+                        &profile.id,
+                        adventuresim_core::reputation::effective_population(
+                            profile.population_level,
+                            profile.population_estimate,
+                        ),
+                    )
+                    .map_err(|error| error.to_string())
             })
             .transpose()?,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
@@ -156,13 +162,13 @@ pub fn build_imported_scene(
         absolute_elevation_metres: center.elevation_m,
         playable,
         landform,
-        streets: building_layout.streets,
-        yards: building_layout.yards,
-        parishes: building_layout.parishes,
-        compounds: building_layout.compounds,
-        gardens: building_layout.gardens,
-        buildings: building_layout.playable,
-        distant_buildings: building_layout.distant,
+        streets: building_layout.streets.clone(),
+        yards: building_layout.yards.clone(),
+        parishes: building_layout.parishes.clone(),
+        compounds: building_layout.compounds.clone(),
+        gardens: building_layout.gardens.clone(),
+        buildings: building_layout.playable.clone(),
+        distant_buildings: building_layout.distant.clone(),
         establishments,
         vista,
         weather: weather_at(
@@ -173,8 +179,12 @@ pub fn build_imported_scene(
             center.elevation_m,
         ),
     };
-    input.validate().map_err(|error| error.to_string())?;
-    Ok(input)
+    input
+        .ground_generated_city(
+            &building_layout,
+            adventuresim_tactical_core::city_layout::CompoundGradingPolicy::bounded_settlement(),
+        )
+        .map_err(|error| error.to_string())
 }
 
 fn bind_establishments(
@@ -219,16 +229,13 @@ fn bind_establishments(
 
 fn settlement_building_layout(
     settlement: Option<&SettlementSceneProfile>,
-    vista: &mut VistaSample,
 ) -> Result<adventuresim_tactical_core::city_layout::CitySceneLayout, String> {
     let playable_half_extent_metres = f32::from(PLAYABLE_SIDE - 1) * PLAYABLE_SPACING_METRES * 0.5;
-    let layout = settlement
+    settlement
         .map(|profile| place_settlement_buildings(profile, playable_half_extent_metres))
         .transpose()
-        .map_err(|error| error.to_string())?
-        .unwrap_or_default();
-    layout.level_vista(vista, 0.0);
-    Ok(layout)
+        .map_err(|error| error.to_string())
+        .map(Option::unwrap_or_default)
 }
 
 fn nearest_fault_scarp(
@@ -499,7 +506,7 @@ fn sample_city_vista(
                         spacing_metres: spec.spacing_metres,
                         center_elevation_metres: elevation_metres,
                         elevation_sampling: ElevationSampling::PreservePeaks,
-                        seed: seed ^ u64::from(spec.level),
+                        seed: seed ^ u64::from(spec.level.index()),
                     },
                 )?;
                 Ok(VistaLod {
@@ -729,11 +736,18 @@ mod tests {
             input
                 .distant_buildings
                 .iter()
-                .all(|building| building.base_elevation_metres == 0.0)
+                .all(|building| building.base_elevation_metres.is_finite())
         );
-        let lod = &input.vista.lods[0];
-        let middle = usize::from(lod.width) * usize::from(lod.depth) / 2;
-        assert!(lod.heights_metres[middle].abs() < 0.01);
+        input
+            .validate()
+            .expect("complete relative-datum property support");
+        assert!(input.grounding.is_some());
+        assert!(
+            input
+                .distant_buildings
+                .iter()
+                .any(|building| { building.base_elevation_metres.abs() > f32::EPSILON })
+        );
         drop(pack);
         fs::remove_dir_all(directory).expect("remove isolated terrain fixture");
     }

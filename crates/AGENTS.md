@@ -35,6 +35,20 @@ governed by the repository-root generation rule instead.
   boundaries or where the value is genuinely primitive.
 - Do not carry a naked primitive through domain logic when a bespoke type can
   express its unit, invariant, authority, or allowed state more precisely.
+- Represent domain records with small structs and named fields. Avoid positional
+  primitive tuples in parameters and return values, including tuples nested in
+  containers. Prefer named records for local domain tables and recipe entries
+  as well.
+- Give each record field its semantic domain type, reusing existing owners and
+  enforcing relevant invariants. Naming a field does not justify leaving its
+  domain unit, bound, or state encoded in a naked primitive.
+- Use enums for closed domain roles and states. Distinguish an ordinal index
+  from the role selected by that index: use a domain index type when meaningful
+  and classify it into a role at the owning boundary. Do not replace arbitrary
+  indices with enums that merely enumerate numbers.
+- Unit `()` and tuples required by external or framework APIs are valid. Keep
+  required positional representations at those boundaries and convert domain
+  records through explicit adapters.
 - Define each domain concept once in its lowest shared owning module. Import and
   reuse that type, its constants, and its conversions; never create equivalent
   bespoke types independently in multiple files.
@@ -66,6 +80,11 @@ governed by the repository-root generation rule instead.
 
 ## Functions, methods, and constructors
 
+- Keep control flow flat with pattern matching (`if let`, `while let`, and
+  `let ... else`) and early returns. Prefer `?` for error propagation rather
+  than nesting success and failure branches.
+- Never use `unwrap` or `expect` outside tests. Propagate a typed error or handle
+  the relevant cases explicitly.
 - When an operation has a clear receiver and its main argument is a local
   struct, define it as an inherent method on that struct.
 - Define functions that construct a local type as associated constructors.
@@ -97,8 +116,11 @@ governed by the repository-root generation rule instead.
 - Use `#[expect(..., reason = "...")]` for a localized lint exception. Reserve
   `#[allow(...)]` for generated code and macro expansions where `#[expect]`
   cannot be used reliably.
-- Test observable behavior, failure paths, and domain invariants. Do not add
-  tautological tests that merely repeat constants or mirror the implementation.
+- Never write unit tests for an object unless the user explicitly requests
+  them.
+- When writing tests, cover observable behavior, failure paths, and domain
+  invariants. Do not add tautological tests that merely repeat constants or
+  mirror the implementation.
 - Optimization is not a prototyping goal. Do not optimize without a measured
   problem, an acceptance constraint, or an explicit user request. A
   readability-neutral lint fix is ordinary maintenance, not permission for a

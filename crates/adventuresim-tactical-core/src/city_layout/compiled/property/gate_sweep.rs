@@ -7,7 +7,7 @@ const SWEEP_STEP_RADIANS: f32 = core::f32::consts::PI / 180.0;
 /// Each enlarged sample contains the complete angular interval around it.
 /// Candidate filtering uses bounding spheres; the final test uses oriented solids.
 pub(super) fn clear(door: DoorSpec, solids: &[CollisionCuboid]) -> bool {
-    let radius = door.size_metres.x.hypot(door.size_metres.z * 0.5);
+    let radius = door.horizontal_sweep_radius_metres();
     let candidates = solids
         .iter()
         .filter(|solid| {

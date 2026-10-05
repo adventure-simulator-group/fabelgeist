@@ -145,8 +145,11 @@ does not require a museum worktree or any dense bake inputs.
 Regenerate the city layout with
 `cargo run -p adventuresim-tactical-client --example generate-art-demo-city`.
 The browser reads `assets/art-demo/city-layout.json` and the companion
-`city-furniture.json`; expensive settlement recipe validation and furniture
-placement run during asset generation instead of tab navigation.
+`city-furniture.json`. The layout carries current scene-format versions,
+exact establishment bindings and accepted support plans for every building.
+The client reconstructs that support against the complete geographic input
+without removing distant buildings, compounds or gardens. Settlement planning
+and furniture placement run during asset generation instead of tab navigation.
 
 The client generates building geometry and LODs from those recipes. Compiled
 building meshes are not served. Reusable surface textures may be served;

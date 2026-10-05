@@ -7,9 +7,9 @@ const { chromium } = require("playwright");
 
 test("local products survive reload and invalidate on input, revision, or corruption", async () => {
   const server = http.createServer((request, response) => {
-    if (request.url === "/cache.js") {
+    if (["/cache.js", "/strategic-generation-write-queue.js"].includes(request.url)) {
       response.setHeader("Content-Type", "text/javascript");
-      response.end(fs.readFileSync(path.join(__dirname, "../static/strategic-generation-cache.js")));
+      response.end(fs.readFileSync(path.join(__dirname, "../static/", request.url === "/cache.js" ? "strategic-generation-cache.js" : "strategic-generation-write-queue.js")));
     } else { response.setHeader("Content-Type", "text/html"); response.end("<!doctype html><title>Cache test</title>"); }
   });
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
@@ -119,6 +119,22 @@ test("local products survive reload and invalidate on input, revision, or corrup
       const restored = await reopened.get("after-timeout");
       await reopened.close();
       return aborted && restored?.[0] === 7 && restored?.[1] === 8;
+    }), true);
+    assert.equal(await page.evaluate(async () => {
+      const { openGeneratedCache } = await import("/cache.js");
+      const cache = await openGeneratedCache("pending-removal");
+      const original = new Uint8Array([1, 2, 3]);
+      cache.put("removed-before-flush", original);
+      const ownershipTransferred = original.byteLength === 0;
+      await cache.remove("removed-before-flush");
+      cache.put("latest", new Uint8Array([4]));
+      cache.put("latest", new Uint8Array([5, 6]));
+      await cache.close();
+      const reopened = await openGeneratedCache("pending-removal");
+      const removed = await reopened.get("removed-before-flush");
+      const latest = await reopened.get("latest");
+      await reopened.close();
+      return ownershipTransferred && removed === undefined && latest[0] === 5 && latest[1] === 6;
     }), true);
     assert.deepEqual(pageErrors, []);
   } finally { await browser.close(); await new Promise(resolve => server.close(resolve)); }

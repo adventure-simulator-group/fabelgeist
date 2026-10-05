@@ -1,0 +1,301 @@
+{
+  "provenance": {
+    "baseline": "5745fdca9d002438dc44a312ed17189fd0e846f3",
+    "scene": "viabundus-2337",
+    "seed": 3918113949425128608,
+    "absolute_minute": 340320,
+    "terrain_package": "d321390141af464efa74c7d6910fe7ba4d5bdaaeab35903aa433b6fec6ed7ff2",
+    "height_stage": "ungraded production LOD0 50 m triangle surface",
+    "note": "Exact member placements and operable-door thresholds, with geographic observations distinct from chosen support levels. Original half-metre landing candidates are retained for comparison and the negative architectural-access regression. The doorway solution retains complete property geometry and source relief; its dimensions are engineering requirements, not historical measurements. This does not prove structural retaining-wall capacity, drainage or historical parcel suitability. Modern inventory geometry shows this generated reservation crossing the inner town wall; the required engineering fixture remains unchanged."
+  },
+  "compound": {
+    "id": 1238,
+    "front_building_id": 1238,
+    "rear_building_id": 17622,
+    "plot": {
+      "centre_metres": [
+        -321.77023,
+        -339.49298
+      ],
+      "dimensions_metres": [
+        16.5,
+        31.0
+      ],
+      "orientation": -0.19739556
+    },
+    "court": {
+      "centre_metres": [
+        -322.79987,
+        -334.3449
+      ],
+      "dimensions_metres": [
+        14.0,
+        6.0
+      ],
+      "orientation": -0.19739556
+    },
+    "access": [
+      {
+        "start_metres": [
+          -312.4547,
+          -353.69177
+        ],
+        "end_metres": [
+          -316.57318,
+          -333.09958
+        ],
+        "half_width_metres": 0.4
+      },
+      {
+        "start_metres": [
+          -316.57318,
+          -333.09958
+        ],
+        "end_metres": [
+          -323.045,
+          -334.39395
+        ],
+        "half_width_metres": 0.4
+      },
+      {
+        "start_metres": [
+          -323.045,
+          -334.39395
+        ],
+        "end_metres": [
+          -322.4449,
+          -337.39453
+        ],
+        "half_width_metres": 0.4
+      },
+      {
+        "start_metres": [
+          -316.57318,
+          -333.09958
+        ],
+        "end_metres": [
+          -323.53528,
+          -334.492
+        ],
+        "half_width_metres": 0.4
+      },
+      {
+        "start_metres": [
+          -323.53528,
+          -334.492
+        ],
+        "end_metres": [
+          -324.143,
+          -331.4534
+        ],
+        "half_width_metres": 0.4
+      }
+    ],
+    "boundary": {
+      "walls": [
+        {
+          "start_metres": [
+            -329.19324,
+            -338.683
+          ],
+          "end_metres": [
+            -331.6349,
+            -326.4748
+          ],
+          "height_metres": 1.8,
+          "thickness_metres": 0.3
+        },
+        {
+          "start_metres": [
+            -331.6349,
+            -326.4748
+          ],
+          "end_metres": [
+            -317.34784,
+            -323.61737
+          ],
+          "height_metres": 1.8,
+          "thickness_metres": 0.3
+        },
+        {
+          "start_metres": [
+            -317.34784,
+            -323.61737
+          ],
+          "end_metres": [
+            -311.67026,
+            -352.0052
+          ],
+          "height_metres": 1.8,
+          "thickness_metres": 0.3
+        }
+      ],
+      "gate": {
+        "hinge": "left",
+        "centre_metres": [
+          -312.7489,
+          -352.22092
+        ],
+        "orientation": -0.19739556,
+        "width_metres": 1.6,
+        "height_metres": 1.8
+      }
+    }
+  },
+  "front_threshold": [
+    -322.4449,
+    -337.39453
+  ],
+  "rear_threshold": [
+    -324.143,
+    -331.4534
+  ],
+  "front_street_threshold": [
+    -323.6451110839844,
+    -354.3389587402344
+  ],
+  "front_floor_m": 21.192964553833008,
+  "court_source_m": 16.457705199999978,
+  "rear_source_m": 15.383563995361328,
+  "front_distant_placement": {
+    "id": 1238,
+    "prosperity": "Wealthy",
+    "archetype": "fachwerk-merchant-house",
+    "usage": "dwelling",
+    "service_size": null,
+    "seed": 7989866213631017260,
+    "centre_metres": [
+      -321.57413,
+      -345.57257
+    ],
+    "base_elevation_metres": 0.0,
+    "orientation": -0.19739556
+  },
+  "gate_source_m": 23.384448,
+  "street_approach_source_m": 23.749226,
+  "court_candidate_m": 19.853964517042186,
+  "rear_distant_placement": {
+    "id": 17622,
+    "prosperity": "Wealthy",
+    "archetype": "storage-range",
+    "usage": null,
+    "service_size": null,
+    "seed": 42,
+    "centre_metres": [
+      -325.44742,
+      -328.7556
+    ],
+    "base_elevation_metres": 0.0,
+    "orientation": -0.19739556
+  },
+  "rear_candidate_m": 18.489760026821777,
+  "doorway_solution": {
+    "front_floor_m": 21.042906,
+    "court_floor_m": 20.062403,
+    "rear_floor_m": 19.056694,
+    "maximum_grade": 0.65,
+    "maximum_displacement_m": 6.0,
+    "contact_tolerance_m": 0.001,
+    "foundation_embedment_m": 0.2,
+    "maximum_riser_m": 0.19,
+    "minimum_going_m": 0.25,
+    "clear_stair_width_m": 1.0,
+    "endpoint_landing_run_m": 1.05,
+    "court_landing_run_m": 0.5,
+    "landing_calibration": "Measured doorway stand-off approximately 0.626 m, plus the 0.4 m production humanoid radius and existing 0.015 m contact skin: 1.041 m. A 1.05 m landing passes actual building-collider entry and return without changing movement limits.",
+    "floor_calibration": "Compare a common floor first, then stepped floors with complete court and floor landings. Exact source/support intersections bound a shared vertical seating change of front, court and rear floors, retaining flight rises and horizontal geometry. The selected lower floors meet the six metre displacement bound even at transformed boundary intersections omitted by the earlier containment query.",
+    "street_entry_apron": {
+      "centre_metres": [
+        -323.1920799543855,
+        -356.6041143864605
+      ],
+      "dimensions_metres": [
+        1.0,
+        2.0
+      ],
+      "orientation": -0.19739556
+    },
+    "street_entry_calibration": "A declared two metre external apron connects through the existing front setback, reserving the 1.05 metre doorway landing before the bearing edge. Source heights on the outer edge and the external reservation remain unchanged. The exact shared clipper and production controller prove entry and return; this does not accept every city doorway or street clearance."
+  },
+  "geographic_triangles": [
+    [
+      [
+        -350.0,
+        24.0,
+        -400.0
+      ],
+      [
+        -300.0,
+        27.0,
+        -400.0
+      ],
+      [
+        -300.0,
+        26.0,
+        -350.0
+      ]
+    ],
+    [
+      [
+        -350.0,
+        24.0,
+        -400.0
+      ],
+      [
+        -300.0,
+        26.0,
+        -350.0
+      ],
+      [
+        -350.0,
+        14.0,
+        -350.0
+      ]
+    ],
+    [
+      [
+        -350.0,
+        14.0,
+        -350.0
+      ],
+      [
+        -300.0,
+        26.0,
+        -350.0
+      ],
+      [
+        -300.0,
+        13.0,
+        -300.0
+      ]
+    ],
+    [
+      [
+        -350.0,
+        14.0,
+        -350.0
+      ],
+      [
+        -300.0,
+        13.0,
+        -300.0
+      ],
+      [
+        -350.0,
+        11.0,
+        -300.0
+      ]
+    ]
+  ],
+  "geographic_triangle_provenance": {
+    "scene_digest": "95b8d6d4f5a7ecfb7d898290e5e75cc86c752202d4343c89e5a51f25c0fae7c7",
+    "scene_schema": 26,
+    "generation_version": 56,
+    "absolute_minute": 340320,
+    "seed": 3918113949425128608,
+    "method": "The four ungraded production near-vista triangles covering the exact property and street approach, including the production a--c diagonal. Heights are scene metres relative to the settlement datum. No historic survey claim.",
+    "world_sha256": "ff47fd588dc44b7ddfb0e725e55e622924080912c2e9c61eb1c7f0aaad8a327a",
+    "terrain_manifest_sha256": "1379eed7b60890c1cda2ab4928f6a9b6dcf2a8f890a35a782bdf5b158b705326",
+    "terrain_pack_sha256": "ce09feaae6f0d544cdd719faa2b228d48dcec0838889992e08481c4c37377301"
+  }
+}

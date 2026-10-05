@@ -14,15 +14,15 @@ pub(super) struct CitySurfaceMeshBuilder {
 
 #[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
 pub(super) struct SurfaceVertices {
-    #[serde(with = "crate::presentation::packed")]
+    #[serde(with = "adventuresim_tactical_core::geometry_transport::binary")]
     positions: Vec<[f32; 3]>,
-    #[serde(with = "crate::presentation::packed")]
+    #[serde(with = "adventuresim_tactical_core::geometry_transport::binary")]
     normals: Vec<[f32; 3]>,
-    #[serde(with = "crate::presentation::packed")]
+    #[serde(with = "adventuresim_tactical_core::geometry_transport::binary")]
     uvs: Vec<[f32; 2]>,
-    #[serde(with = "crate::presentation::packed")]
+    #[serde(with = "adventuresim_tactical_core::geometry_transport::binary")]
     footprints: Vec<[f32; 4]>,
-    #[serde(with = "crate::presentation::packed")]
+    #[serde(with = "adventuresim_tactical_core::geometry_transport::binary")]
     activities: Vec<[f32; 2]>,
 }
 
@@ -119,15 +119,14 @@ impl CitySurfaceMeshBuilder {
         let depth = a.distance(d).max(b.distance(c));
         let activity = activity::ActivityWear::for_patch(patch.corners, groups);
         support.clip(patch.corners, |triangle| {
-            let normal = (triangle[1] - triangle[0])
-                .cross(triangle[2] - triangle[0])
-                .normalize();
+            let plane_normal = (triangle[1] - triangle[0]).cross(triangle[2] - triangle[0]);
+            let normal = plane_normal.normalize().as_vec3();
             let minimum = triangle
-                .map(|p| p.xz())
+                .map(|p| p.xz().as_vec2())
                 .into_iter()
                 .fold(Vec2::splat(f32::INFINITY), Vec2::min);
             let maximum = triangle
-                .map(|p| p.xz())
+                .map(|p| p.xz().as_vec2())
                 .into_iter()
                 .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
             for polygon in partition::subtract(triangle.to_vec(), exclusions) {
@@ -138,12 +137,21 @@ impl CitySurfaceMeshBuilder {
                         if (clipped[1] - clipped[0])
                             .cross(clipped[2] - clipped[0])
                             .length_squared()
-                            <= f32::EPSILON
+                            <= f64::from(f32::EPSILON)
                         {
                             continue;
                         }
                         let vertices = self.chunks.entry(tile).or_default();
-                        for mut point in clipped {
+                        for point in clipped {
+                            // Represent the completed intersection once. Its Y
+                            // follows the same physical plane at the final X/Z,
+                            // rather than at a pre-rounded intermediate point.
+                            let mut point = point.as_vec3();
+                            let anchor = triangle[0];
+                            point.y = (anchor.y
+                                - (plane_normal.x * (f64::from(point.x) - anchor.x)
+                                    + plane_normal.z * (f64::from(point.z) - anchor.z))
+                                    / plane_normal.y) as f32;
                             let uv = support::footprint_uv(patch.corners, point.xz());
                             vertices.uvs.push(uv.to_array());
                             vertices.activities.push(activity.at(point.xz()).to_array());
@@ -317,3 +325,6 @@ mod tests {
         );
     }
 }
+
+#[cfg(test)]
+mod grounding_tests;

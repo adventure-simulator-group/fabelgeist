@@ -84,7 +84,7 @@ impl CityGroundAssets<'_> {
             triangle_count += triangles;
             let mut entity = commands.spawn((
                 Name::new(format!("City ground {kind:?}")),
-                VistaTerrain(0),
+                VistaTerrain(adventuresim_tactical_core::scene_input::VistaLevelIndex::new(0)),
                 NotShadowCaster,
                 Mesh3d(mesh.clone()),
                 MeshMaterial3d(self.materials.add(kind.material(

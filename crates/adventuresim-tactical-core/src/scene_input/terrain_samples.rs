@@ -53,10 +53,29 @@ pub struct TerrainSampleGrid {
     pub environment: Vec<EnvironmentalSample>,
 }
 
+/// Ordinal of a supplied vista ring. Ring count and ordering are validated by
+/// VistaSample's owning scene contract; this does not classify distance roles.
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Hash, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct VistaLevelIndex(u8);
+impl VistaLevelIndex {
+    pub const fn new(index: u8) -> Self {
+        Self(index)
+    }
+    pub const fn index(self) -> u8 {
+        self.0
+    }
+}
+impl std::fmt::Display for VistaLevelIndex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct VistaLod {
-    pub level: u8,
+    pub level: VistaLevelIndex,
     pub spacing_metres: f32,
     pub width: u16,
     pub depth: u16,
@@ -70,4 +89,20 @@ pub struct VistaLod {
 #[serde(deny_unknown_fields)]
 pub struct VistaSample {
     pub lods: Vec<VistaLod>,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn vista_ordinal_preserves_numeric_wire_identity_without_assigning_a_role() {
+        let level = VistaLevelIndex::new(17);
+        assert_eq!(serde_json::to_string(&level).unwrap(), "17");
+        assert_eq!(
+            serde_json::from_str::<VistaLevelIndex>("17").unwrap(),
+            level
+        );
+        assert!(serde_json::from_str::<VistaLevelIndex>("-1").is_err());
+        assert!(serde_json::from_str::<VistaLevelIndex>("256").is_err());
+    }
 }

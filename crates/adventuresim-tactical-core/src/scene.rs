@@ -62,6 +62,10 @@ pub struct SceneId(pub String);
 
 mod ground;
 pub use ground::*;
+pub(crate) mod grade;
+pub use grade::TerrainGradeError;
+mod property_support;
+use property_support::TerrainGeometry;
 
 #[derive(Component, Serialize, Deserialize, Default, Debug, Reflect, Clone, PartialEq)]
 #[reflect(Component)]
@@ -74,6 +78,9 @@ pub struct SceneTerrain {
     /// sample; this stride only avoids submitting the full-resolution field
     /// outside the camera-local detail patch.
     coarse_stride: usize,
+    /// Sampled ground or an explicitly compiled owned surface. This is a
+    /// generated geometry contract, not a second tactical simulation state.
+    geometry: TerrainGeometry,
 }
 
 impl SceneTerrain {
@@ -102,6 +109,7 @@ impl SceneTerrain {
             width: grid_width,
             scale,
             coarse_stride: 1,
+            geometry: TerrainGeometry::Sampled,
         })
     }
 
@@ -122,6 +130,7 @@ impl SceneTerrain {
             heightmap,
             scale,
             coarse_stride: 1,
+            geometry: TerrainGeometry::Sampled,
         }
     }
 
@@ -133,7 +142,10 @@ impl SceneTerrain {
         target_spacing: f32,
         height_at: impl Fn(Vec2, f32) -> f32,
     ) -> Option<Self> {
-        if !target_spacing.is_finite() || target_spacing <= 0.0 {
+        if !matches!(self.geometry, TerrainGeometry::Sampled)
+            || !target_spacing.is_finite()
+            || target_spacing <= 0.0
+        {
             return None;
         }
         let subdivisions = (self.scale / target_spacing).ceil().max(1.0) as usize;
@@ -166,6 +178,7 @@ impl SceneTerrain {
             width,
             scale,
             coarse_stride: subdivisions,
+            geometry: TerrainGeometry::Sampled,
         })
     }
 
@@ -193,53 +206,28 @@ impl SceneTerrain {
         self.scale * self.coarse_stride.max(1) as f32
     }
 
-    /// Constrains every cardinal edge to a maximum grade while retaining the
-    /// same immutable dimensions and LOD relationship.
-    pub fn constrain_max_grade(&mut self, maximum_grade: f32) -> bool {
-        if !maximum_grade.is_finite() || maximum_grade < 0.0 {
-            return false;
+    /// Constrain the actual rendered/collision triangle gradients. Already valid
+    /// relief retains its bits; owned support is never rewritten by this repair.
+    pub fn constrain_max_grade(&mut self, maximum_grade: f32) -> Result<(), TerrainGradeError> {
+        if !matches!(self.geometry, TerrainGeometry::Sampled) {
+            return Err(TerrainGradeError::OwnedSurface);
         }
-        let maximum_step = self.scale * maximum_grade;
-        for _ in 0..4 {
-            for z in 0..self.grid_depth() {
-                for x in 1..self.grid_width() {
-                    self.clamp_height_pair(
-                        z * self.width + x - 1,
-                        z * self.width + x,
-                        maximum_step,
-                    );
-                }
-                for x in (0..self.grid_width() - 1).rev() {
-                    self.clamp_height_pair(
-                        z * self.width + x + 1,
-                        z * self.width + x,
-                        maximum_step,
-                    );
-                }
-            }
-            for x in 0..self.grid_width() {
-                for z in 1..self.grid_depth() {
-                    self.clamp_height_pair(
-                        (z - 1) * self.width + x,
-                        z * self.width + x,
-                        maximum_step,
-                    );
-                }
-                for z in (0..self.grid_depth() - 1).rev() {
-                    self.clamp_height_pair(
-                        (z + 1) * self.width + x,
-                        z * self.width + x,
-                        maximum_step,
-                    );
-                }
-            }
-        }
-        true
+        let depth = self.grid_depth();
+        grade::constrain(
+            &mut self.heightmap,
+            self.width,
+            depth,
+            self.scale,
+            maximum_grade,
+        )
     }
 
     /// Rewrites authoritative samples in centered world coordinates while
     /// preserving the terrain dimensions and render/collider correspondence.
     pub fn rewrite_heights(&mut self, mut rewrite: impl FnMut(Vec2, f32) -> f32) -> bool {
+        if !matches!(self.geometry, TerrainGeometry::Sampled) {
+            return false;
+        }
         let half_extent = Vec2::new(self.width(), self.depth()) * 0.5;
         for z in 0..self.grid_depth() {
             for x in 0..self.grid_width() {
@@ -255,38 +243,54 @@ impl SceneTerrain {
         true
     }
 
-    fn clamp_height_pair(&mut self, source: usize, target: usize, maximum_step: f32) {
-        let source_height = self.heightmap[source];
-        self.heightmap[target] = self.heightmap[target]
-            .clamp(source_height - maximum_step, source_height + maximum_step);
-    }
-
     pub fn minimum_height(&self) -> f32 {
-        self.heightmap.iter().copied().fold(f32::INFINITY, f32::min)
+        match &self.geometry {
+            TerrainGeometry::Sampled => {
+                self.heightmap.iter().copied().fold(f32::INFINITY, f32::min)
+            }
+            TerrainGeometry::Owned(surface) => {
+                surface.support_heights().fold(f32::INFINITY, f32::min)
+            }
+        }
     }
 
     pub fn maximum_height(&self) -> f32 {
-        self.heightmap
-            .iter()
-            .copied()
-            .fold(f32::NEG_INFINITY, f32::max)
+        match &self.geometry {
+            TerrainGeometry::Sampled => self
+                .heightmap
+                .iter()
+                .copied()
+                .fold(f32::NEG_INFINITY, f32::max),
+            TerrainGeometry::Owned(surface) => {
+                surface.support_heights().fold(f32::NEG_INFINITY, f32::max)
+            }
+        }
     }
 
     pub fn height_at(&self, pos: Vec2) -> Option<f32> {
-        self.surface_at_stride(pos, 1).map(|sample| sample.0)
+        self.surface_at_stride(pos, 1)
+            .map(|sample| sample.elevation.metres())
     }
 
     /// Samples the triangle surface used by the coarse render LOD.
     pub fn coarse_height_at(&self, pos: Vec2) -> Option<f32> {
         self.surface_at_stride(pos, self.coarse_stride.max(1))
-            .map(|sample| sample.0)
+            .map(|sample| sample.elevation.metres())
     }
 
     /// Samples the same triangle surface used by the rendered mesh and
     /// authoritative collider. Returning the triangle normal alongside the
     /// height keeps terrain IK from fitting a foot to a different, bilinear
     /// surface than the one visible beneath it.
-    fn surface_at_stride(&self, pos: Vec2, stride: usize) -> Option<(f32, Vec3)> {
+    fn surface_at_stride(
+        &self,
+        pos: Vec2,
+        stride: usize,
+    ) -> Option<crate::city_layout::grounding::SurfaceHit> {
+        if let TerrainGeometry::Owned(surface) = &self.geometry {
+            return surface
+                .highest_surface_at(crate::scene_coordinates::ScenePlanPoint::from_metres(pos)?);
+        }
         if self.scale <= 0.0 || self.grid_width() < 2 || self.grid_depth() < 2 {
             return None;
         }
@@ -337,18 +341,25 @@ impl SceneTerrain {
                 Vec3::new(0.0, x1y1 - x1y0, cell_scale_z),
             )
         };
-        let normal = tangent_z.cross(tangent_x).try_normalize()?;
-        Some((height, normal))
+        let normal = tangent_z.cross(tangent_x);
+        crate::city_layout::grounding::SurfaceHit::from_geometry(height, normal)
     }
 
     /// Returns the finite, normalized normal of the rendered/collided triangle.
     pub fn normal_at(&self, pos: Vec2) -> Option<Vec3> {
-        self.surface_at_stride(pos, 1).map(|sample| sample.1)
+        self.surface_at_stride(pos, 1).map(|sample| *sample.normal)
     }
 
-    pub fn collider(&self) -> Collider {
-        let heights = self.collider_height_matrix();
-        Collider::heightfield(heights, Vec3::new(self.width(), 1.0, self.depth()))
+    /// Install each shape on its own static body. Owned foundation compounds
+    /// and the natural trimesh cannot be nested in one composite collider.
+    pub fn colliders(&self) -> Vec<Collider> {
+        match &self.geometry {
+            TerrainGeometry::Sampled => vec![Collider::heightfield(
+                self.collider_height_matrix(),
+                Vec3::new(self.width(), 1.0, self.depth()),
+            )],
+            TerrainGeometry::Owned(surface) => surface.colliders(),
+        }
     }
 
     fn collider_height_matrix(&self) -> Vec<Vec<f32>> {
@@ -401,6 +412,9 @@ impl SceneTerrain {
         stride: usize,
         keep_cell: impl Fn(Vec2) -> bool,
     ) -> (Vec<[f32; 3]>, Vec<u32>, Vec<[f32; 2]>) {
+        if let TerrainGeometry::Owned(surface) = &self.geometry {
+            return self.owned_mesh_components(surface, keep_cell);
+        }
         let stride = stride.max(1);
         let xs = (0..self.grid_width()).step_by(stride).collect::<Vec<_>>();
         let zs = (0..self.grid_depth()).step_by(stride).collect::<Vec<_>>();
@@ -588,7 +602,7 @@ mod tests {
             vec![vec![0.0, 10.0, 1.0], vec![13.0, 4.0, 20.0]]
         );
 
-        let collider = terrain.collider();
+        let collider = terrain.colliders().pop().unwrap();
         for point in [
             Vec2::new(-0.6, -0.2),
             Vec2::new(0.6, -0.2),

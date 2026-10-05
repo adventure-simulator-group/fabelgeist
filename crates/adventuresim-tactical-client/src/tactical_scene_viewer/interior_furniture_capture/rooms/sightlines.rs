@@ -4,8 +4,7 @@ use bevy::prelude::*;
 
 const CAMERA_CLEARANCE_METRES: f32 = 0.12;
 use super::super::ROOM_FOV_DEGREES;
-const REVIEW_ASPECT: f32 = crate::tactical_scene_viewer::VIEW_WIDTH as f32
-    / crate::tactical_scene_viewer::VIEW_HEIGHT as f32;
+const REVIEW_ASPECT: f32 = crate::tactical_scene_viewer::capture_resolution::CAPTURE_ASPECT_RATIO;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(super) enum Owner {

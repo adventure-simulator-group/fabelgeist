@@ -16,8 +16,7 @@ impl Plugin for BuildingPresentationPlugin {
             .add_plugins(super::gpu::CityGpuPlugin)
             .add_observer(super::on_scene_building_added)
             .add_observer(super::on_scene_vista_buildings)
-            .add_observer(super::boundaries::on_boundary)
-            .add_observer(super::boundaries::on_vista)
+            .add_plugins(super::boundaries::BoundaryPresentationPlugin)
             .add_systems(Update, (super::streaming::present, update_lettering));
     }
 }

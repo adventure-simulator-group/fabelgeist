@@ -49,6 +49,7 @@ fn fixture() -> (
     .enumerate()
     .map(
         |(index, (usage, centre_metres))| TacticalBuildingPlacement {
+            base_elevation_metres: 0.0,
             id: index as u64 + 1,
             program: BuildingProgram::validated_settlement(
                 settlement_archetype(usage),
@@ -140,6 +141,38 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
         let x = index % width;
         *height += (x as f32 - (width - 1) as f32 * 0.5) * input.playable.spacing_metres * 0.004;
     }
+    // This authored catalogue has three known independent reservations. Rebind
+    // its changed source explicitly; runtime loading must reject stale support.
+    use crate::city_layout::{
+        CityPlotBounds, CityPropertyId, CitySceneLayout, CitySingleProperty, CompoundGradingPolicy,
+    };
+    let layout = CitySceneLayout {
+        playable: input.buildings.clone(),
+        streets: input.streets.clone(),
+        yards: input.yards.clone(),
+        parishes: input.parishes.clone(),
+        gardens: input.gardens.clone(),
+        compounds: input.compounds.clone(),
+        distant: input.distant_buildings.clone(),
+        single_properties: input
+            .buildings
+            .iter()
+            .map(|building| CitySingleProperty {
+                id: CityPropertyId(building.id),
+                building_id: building.id,
+                plot: CityPlotBounds {
+                    centre_metres: building.centre_metres,
+                    dimensions_metres: Vec2::splat(35.0),
+                    orientation: building.orientation,
+                },
+            })
+            .collect(),
+        ..Default::default()
+    };
+    input.grounding = None;
+    let input = input
+        .ground_generated_city(&layout, CompoundGradingPolicy::bounded_settlement())
+        .unwrap();
     let scene = input.generate().unwrap();
     for kind in FurnitureKind::OUTDOOR {
         assert!(

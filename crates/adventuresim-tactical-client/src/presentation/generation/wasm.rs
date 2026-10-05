@@ -14,10 +14,7 @@ pub fn wasm_generation_jobs(input_json: &str) -> Result<String, JsValue> {
 
 #[wasm_bindgen]
 pub fn wasm_begin_generation() {
-    let mut products = super::products();
-    products.scenes.clear();
-    products.facades.clear();
-    products.placements.clear();
+    super::products().begin_generation();
 }
 
 #[wasm_bindgen]

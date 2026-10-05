@@ -124,6 +124,7 @@ pub(super) fn build_envelope(a: &mut Assembly<'_>, program: &BuildingProgram) {
         }
         let half = portal_width * 0.5 - 0.12;
         a.passage(
+            WorkplacePassagePurpose::GroundFloorCirculation,
             Vec3::new(w * 0.5 - half, 0.18, 0.0),
             Vec3::new(
                 w * 0.5 + half,
@@ -213,6 +214,7 @@ fn market_frame(a: &mut Assembly<'_>, w: f32, d: f32, h: f32) {
         );
     }
     a.passage(
+        WorkplacePassagePurpose::GroundFloorCirculation,
         Vec3::new(w * 0.5 - 1.4, 0.18, 0.0),
         Vec3::new(w * 0.5 + 1.4, 2.8, d),
     );
@@ -296,7 +298,11 @@ fn working_yard(a: &mut Assembly<'_>, w: f32, d: f32) {
             true,
         );
     }
-    a.passage(Vec3::new(w + 0.4, 0.05, 0.0), Vec3::new(w + 1.7, 2.3, d));
+    a.passage(
+        WorkplacePassagePurpose::OutdoorRoute,
+        Vec3::new(w + 0.4, 0.05, 0.0),
+        Vec3::new(w + 1.7, 2.3, d),
+    );
 }
 
 fn ventilated_side(a: &mut Assembly<'_>, x: f32, d: f32, h: f32, outward: Vec2) {
