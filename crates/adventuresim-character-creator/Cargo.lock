@@ -123,7 +123,7 @@ dependencies = [
  "adventuresim-world-schema",
  "anyhow",
  "async-lock",
- "base64 0.22.1",
+ "base64",
  "bevy",
  "bevy_egui",
  "blake3",
@@ -140,6 +140,7 @@ dependencies = [
  "fabelgeist-gpu",
  "fabelgeist-math",
  "fabelgeist-mhr",
+ "fabelgeist-rig",
  "fabelgeist-shell",
  "gltf",
  "image",
@@ -148,6 +149,7 @@ dependencies = [
  "rayon",
  "serde",
  "serde_json",
+ "thiserror 2.0.20",
  "tokio",
 ]
 
@@ -5066,6 +5068,7 @@ dependencies = [
  "fabelgeist-fbx",
  "fabelgeist-fs",
  "fabelgeist-numpy-storage",
+ "fabelgeist-rig",
 ]
 
 [[package]]
@@ -5089,6 +5092,13 @@ dependencies = [
  "fabelgeist-gpu",
  "fabelgeist-math",
  "fabelgeist-xpbd",
+]
+
+[[package]]
+name = "fabelgeist-rig"
+version = "0.1.0"
+dependencies = [
+ "serde",
 ]
 
 [[package]]

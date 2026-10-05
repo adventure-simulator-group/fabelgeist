@@ -71,12 +71,8 @@ path = "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs"
 ceiling = 1173
 
 [[files]]
-path = "crates/adventuresim-character-creator/src/clothing.rs"
-ceiling = 502
-
-[[files]]
 path = "crates/adventuresim-character-creator/src/export.rs"
-ceiling = 860
+ceiling = 841
 
 [[files]]
 path = "crates/adventuresim-core/src/autoresolve.rs"
@@ -512,7 +508,7 @@ ceiling = 1168
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-ceiling = 1698
+ceiling = 1688
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
@@ -1094,7 +1090,7 @@ ceiling = 218
 [[functions]]
 path = "crates/adventuresim-character-creator/src/clothing.rs"
 item = "generate_clothing_shells"
-ceiling = 246
+ceiling = 238
 
 [[functions]]
 path = "crates/adventuresim-character-creator/src/export.rs"
@@ -8763,195 +8759,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
 item = "authored_height_compensation"
 fingerprint = "string:humanoid_unarmed"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:body_world"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_camera"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_head"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_neck"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_spine0"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_spine1"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_spine2"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:c_spine3"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_ball"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_clavicle"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_foot"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_lowarm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_lowleg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_uparm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_upleg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_weapon"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:l_wrist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_ball"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_clavicle"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_foot"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_lowarm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_lowleg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_uparm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_upleg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_weapon"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:r_wrist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs"
-item = "BoneRole::from_name"
-fingerprint = "string:root"
 occurrences = 1
 
 [[findings]]

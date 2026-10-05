@@ -16,6 +16,7 @@ use anyhow::{Context, Result, bail};
 use fabelgeist_armor::{
     ArmorGpu, BracerDesign, BreastplateDesign, GeneratedArmor, parametric_design_hash,
 };
+use fabelgeist_rig::RigJointName;
 use std::sync::LazyLock;
 
 mod warmup;
@@ -34,7 +35,7 @@ pub struct RuntimeBody {
     pub texcoord_faces: Vec<[u32; 3]>,
     pub joint_indices: Vec<[u32; 8]>,
     pub joint_weights: Vec<[f32; 8]>,
-    pub joint_names: Vec<String>,
+    pub joint_names: Vec<RigJointName>,
     pub global_joint_states: Vec<[f32; 8]>,
     /// This body on the armor device, once a piece has uploaded it.
     pub device: DeviceBody,
@@ -277,7 +278,7 @@ pub fn generate_runtime_clothing(
         &body.joint_names,
         &body.global_joint_states,
     )
-    .map_err(anyhow::Error::msg)?;
+    .map_err(anyhow::Error::from)?;
     let shell = generated
         .shells
         .into_iter()

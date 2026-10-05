@@ -11,9 +11,10 @@
 //! on the rig's skin weights, so the host lists them.
 
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
 use std::collections::BTreeSet;
 
-use anyhow::{Context, Result, bail, ensure};
+use anyhow::{Result, bail, ensure};
 use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
 };
@@ -37,7 +38,7 @@ pub struct TorsoSurfaceInput<'a> {
     pub texcoord_faces: &'a [[u32; 3]],
     pub joint_indices: &'a [[u32; 8]],
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [String],
+    pub joint_names: &'a [RigJointName],
     pub global_joint_states: &'a [[f32; 8]],
     pub morphs: &'a [ForearmMorphSample],
 }
@@ -54,32 +55,32 @@ pub(crate) const STATUS_NO_WIDTH: u32 = 64;
 pub(crate) const STATUS_DEGENERATE_WIDTH: u32 = 128;
 
 /// Rig landmarks the torso frame reads, in the frame kernel's order.
-const LANDMARKS: [&str; 9] = [
-    "c_spine0",
-    "c_neck",
-    "l_clavicle",
-    "r_clavicle",
-    "l_uparm",
-    "r_uparm",
-    "c_head",
-    "l_eye",
-    "r_eye",
+const LANDMARKS: [RigJointName; 9] = [
+    RigJointName::C_SPINE0,
+    RigJointName::C_NECK,
+    RigJointName::L_CLAVICLE,
+    RigJointName::R_CLAVICLE,
+    RigJointName::L_UPARM,
+    RigJointName::R_UPARM,
+    RigJointName::C_HEAD,
+    RigJointName::L_EYE,
+    RigJointName::R_EYE,
 ];
 
 /// Joints whose skin supports the front torso.
-const SUPPORT_JOINTS: [&str; 12] = [
-    "c_spine0",
-    "root",
-    "c_spine1",
-    "c_spine2",
-    "c_spine3",
-    "c_neck",
-    "l_clavicle",
-    "r_clavicle",
-    "l_uparm",
-    "r_uparm",
-    "l_upleg",
-    "r_upleg",
+const SUPPORT_JOINTS: [RigJointName; 12] = [
+    RigJointName::C_SPINE0,
+    RigJointName::ROOT,
+    RigJointName::C_SPINE1,
+    RigJointName::C_SPINE2,
+    RigJointName::C_SPINE3,
+    RigJointName::C_NECK,
+    RigJointName::L_CLAVICLE,
+    RigJointName::R_CLAVICLE,
+    RigJointName::L_UPARM,
+    RigJointName::R_UPARM,
+    RigJointName::L_UPLEG,
+    RigJointName::R_UPLEG,
 ];
 
 impl TorsoSurfaceInput<'_> {
@@ -102,25 +103,31 @@ impl TorsoSurfaceInput<'_> {
         Ok(())
     }
 
-    fn joints_named(&self, keep: impl Fn(&str) -> bool) -> BTreeSet<usize> {
+    fn joints_named(
+        &self,
+        keep: impl Fn(&RigJointName) -> RigJointMembership,
+    ) -> BTreeSet<RigJointOrdinal> {
         self.joint_names
             .iter()
             .enumerate()
-            .filter_map(|(index, name)| keep(name).then_some(index))
+            .filter_map(
+                |(index, name): (usize, &RigJointName)| -> Option<RigJointOrdinal> {
+                    (keep(name) == RigJointMembership::Included)
+                        .then_some(RigJointOrdinal::from(index))
+                },
+            )
             .collect()
     }
 
     /// The rig joints of [`LANDMARKS`].
-    fn landmarks(&self) -> Result<Vec<u32>> {
+    fn landmarks(&self) -> std::result::Result<Vec<RigJointOrdinal>, RigJointLookupError> {
         LANDMARKS
             .iter()
-            .map(|name| {
-                self.joint_names
-                    .iter()
-                    .position(|candidate| candidate == name)
-                    .map(|index| index as u32)
-                    .with_context(|| format!("MHR rig is missing {name}"))
-            })
+            .map(
+                |name: &RigJointName| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+                    name.require_in(self.joint_names)
+                },
+            )
             .collect()
     }
 }
@@ -141,9 +148,13 @@ pub async fn generate_breastplate_on_device_async(
 ) -> Result<GeneratedArmor> {
     input.check()?;
     let landmarks = input.landmarks()?;
-    let support_joints = input.joints_named(|name| SUPPORT_JOINTS.contains(&name));
+    let support_joints = input.joints_named(|name: &RigJointName| -> RigJointMembership {
+        RigJointMembership::from(SUPPORT_JOINTS.contains(name))
+    });
     let supports = (0..input.joint_names.len())
-        .map(|joint| u32::from(support_joints.contains(&joint)))
+        .map(|joint: usize| -> RigJointMembership {
+            RigJointMembership::from(support_joints.contains(&RigJointOrdinal::from(joint)))
+        })
         .collect::<Vec<_>>();
     let eligible = crate::torso_domain::TorsoSkinDomain {
         faces: input.faces,
@@ -185,7 +196,9 @@ pub async fn generate_breastplate_on_device_async(
         &mut batch,
         &body,
         &landmarks,
-        &gpu.upload(BufferUpload::from_elements(&supports))?,
+        &gpu.upload(BufferUpload::from_elements(
+            &supports.into_iter().map(u32::from).collect::<Vec<_>>(),
+        ))?,
         TorsoOutputs {
             rig: &rig,
             semantic: &semantic,
@@ -258,7 +271,7 @@ fn record_torso(
     gpu: &ArmorGpu,
     batch: &mut KernelBatch,
     body: &GpuBody,
-    landmarks: &[u32],
+    landmarks: &[RigJointOrdinal],
     supports: &Buffer,
     outputs: TorsoOutputs,
 ) -> Result<()> {
@@ -268,7 +281,7 @@ fn record_torso(
     let mut parameters = PassParameters::new();
     parameters.insert("count", body.vertex_count);
     for (slot, joint) in landmarks.iter().enumerate() {
-        parameters.insert(format!("joint{slot}"), *joint);
+        parameters.insert(format!("joint{slot}"), usize::from(*joint) as u32);
     }
     for pad in 0..6 {
         parameters.insert(format!("pad{pad}"), 0u32);

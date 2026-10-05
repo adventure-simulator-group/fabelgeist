@@ -9,9 +9,10 @@
 //! head's own skin in it, and one invocation centres and sizes it.
 
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
 use std::sync::Arc;
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
 use fabelgeist_gpu::prelude::PassParameters;
@@ -27,13 +28,10 @@ impl DeviceWearer<'_> {
     pub fn record_head_frame(&self, batch: &mut KernelBatch) -> Result<DeviceFrame> {
         let gpu = self.gpu;
         let host = self.host;
-        let joint = |name: &str| -> Result<u32> {
-            host.joint_names
-                .iter()
-                .position(|n| n == name)
-                .map(|i| i as u32)
-                .with_context(|| format!("missing armor landmark {name}"))
-        };
+        let joint =
+            |name: &RigJointName| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+                name.require_in(host.joint_names)
+            };
         let owners = FitRegion::Head.owners();
         let frame = DeviceFrame {
             frame: gpu.scratch(FRAME_WORDS * 4, "head frame")?,
@@ -41,10 +39,13 @@ impl DeviceWearer<'_> {
         };
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
-        parameters.insert("head", joint("c_head")?);
-        parameters.insert("jaw", joint("c_jaw_null")?);
-        parameters.insert("left_eye", joint("l_eye")?);
-        parameters.insert("right_eye", joint("r_eye")?);
+        parameters.insert("head", usize::from(joint(&RigJointName::C_HEAD)?) as u32);
+        parameters.insert("jaw", usize::from(joint(&RigJointName::C_JAW_NULL)?) as u32);
+        parameters.insert("left_eye", usize::from(joint(&RigJointName::L_EYE)?) as u32);
+        parameters.insert(
+            "right_eye",
+            usize::from(joint(&RigJointName::R_EYE)?) as u32,
+        );
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
         parameters.insert("pad2", 0u32);
@@ -58,7 +59,13 @@ impl DeviceWearer<'_> {
         parameters.insert("joints", self.body.joints.clone());
         parameters.insert(
             "owned",
-            gpu.upload(BufferUpload::from_elements(&host.owned_joints(&owners)))?,
+            gpu.upload(BufferUpload::from_elements(
+                &host
+                    .owned_joints(&owners)
+                    .into_iter()
+                    .map(u32::from)
+                    .collect::<Vec<_>>(),
+            ))?,
         );
         // The body's top, then the head's lower and upper bounds.
         parameters.insert(

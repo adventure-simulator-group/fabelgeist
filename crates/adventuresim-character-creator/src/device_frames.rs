@@ -15,6 +15,7 @@ use fabelgeist_armor::gpu::{Staged, Staging};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_rig::{RigJointMembership, RigJointName};
 
 use crate::armor_frames::{FitRegion, Side, Wearer};
 
@@ -167,15 +168,15 @@ impl DeviceWearer<'_> {
     pub fn record_thumb_frame(&self, batch: &mut KernelBatch, side: Side) -> Result<DeviceFrame> {
         let landmarks = self.host.thumb_landmarks(side)?;
         let prefix = if matches!(side, Side::Left) {
-            "l_thumb"
+            RigJointName::L_THUMB
         } else {
-            "r_thumb"
+            RigJointName::R_THUMB
         };
         let owned = self
             .host
             .joint_names
             .iter()
-            .map(|n| u32::from(n.starts_with(prefix)))
+            .map(|n: &RigJointName| -> RigJointMembership { n.family_prefix(&prefix) })
             .collect();
         self.record(batch, landmarks, owned)
     }
@@ -184,7 +185,7 @@ impl DeviceWearer<'_> {
         &self,
         batch: &mut KernelBatch,
         landmarks: Landmarks,
-        owned: Vec<u32>,
+        owned: Vec<RigJointMembership>,
     ) -> Result<DeviceFrame> {
         let gpu = self.gpu;
         let frame = DeviceFrame {
@@ -203,12 +204,14 @@ impl DeviceWearer<'_> {
             ORDERED_NEGATIVE_INFINITY,
             ORDERED_NEGATIVE_INFINITY,
         ]))?;
-        let owned = gpu.upload(BufferUpload::from_elements(&owned))?;
+        let owned = gpu.upload(BufferUpload::from_elements(
+            &owned.into_iter().map(u32::from).collect::<Vec<_>>(),
+        ))?;
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
         parameters.insert("rule", landmarks.rule as u32);
         for (i, joint) in landmarks.joints.iter().enumerate() {
-            parameters.insert(format!("joint{i}"), *joint);
+            parameters.insert(format!("joint{i}"), joint.device_word());
         }
         parameters.insert("side", landmarks.side);
         parameters.insert("pad0", 0.0f32);

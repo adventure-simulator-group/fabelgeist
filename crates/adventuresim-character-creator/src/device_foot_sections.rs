@@ -49,7 +49,7 @@ impl DeviceWearer<'_> {
         for (bit, region) in regions.iter().enumerate() {
             let owned = self.host.owned_joints(&region.owners());
             for (mask, owns) in masks.iter_mut().zip(owned) {
-                *mask |= owns << bit;
+                *mask |= u32::from(owns) << bit;
             }
         }
         let gpu = self.gpu;

@@ -164,11 +164,11 @@ pub fn rebuild(
             ancestor = character.skeleton.parents[ancestor as usize];
         }
         for joint in lineage.into_iter().rev() {
-            path.push(Name::new(character.skeleton.names[joint].clone()));
+            path.push(bevy_joint_name(&character.skeleton.names[joint]));
         }
         let entity = commands
             .spawn((
-                Name::new(name.clone()),
+                bevy_joint_name(name),
                 bevy_transform(local),
                 AnimationTargetId::from_names(path.iter()),
                 AnimatedBy(player),
@@ -206,6 +206,11 @@ pub fn rebuild(
     preview.player = Some(player);
     preview.skeleton = Some(skeleton);
     preview.joints = joints;
+}
+
+/// Convert an exact rig label to the native Bevy naming interface.
+fn bevy_joint_name(name: &fabelgeist_rig::RigJointName) -> Name {
+    Name::new(std::borrow::Cow::from(name.clone()))
 }
 
 fn mhr_state(value: [f32; 8]) -> fabelgeist_mhr::math::Transform {

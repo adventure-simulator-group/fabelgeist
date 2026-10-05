@@ -15,8 +15,10 @@ path = "src/main.rs"
 required-features = ["offline-creator"]
 
 [dependencies]
+fabelgeist-rig = { path = "../fabelgeist-rig" }
 adventuresim-core = { path = "../adventuresim-core" }
 anyhow = "1"
+thiserror = "2.0.18"
 pollster = "0.4"
 async-lock = "3"
 base64 = "0.22"

@@ -7,13 +7,14 @@
 //! carrier around it. One invocation fits one carrier against every skin
 //! vertex of the leg.
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{
     DevicePart, GarmentArmorDesign, GarmentArmorKind, gpu::record_garment_tube,
 };
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_rig::{RigJointLookupError, RigJointOrdinal, RigJointPart};
 
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -35,22 +36,17 @@ impl DeviceWearer<'_> {
         let gpu = self.gpu;
         let design = GarmentArmorDesign::new(kind);
         let mut part = record_garment_tube(gpu, batch, &design, &frame.frame)?;
-        let prefix = side.prefix();
-        let anchor = |name: &str| -> Result<u32> {
-            let name = format!("{prefix}_{name}");
-            self.host
-                .joint_names
-                .iter()
-                .position(|n| *n == name)
-                .map(|i| i as u32)
-                .with_context(|| format!("missing garment landmark {name}"))
-        };
+
+        let anchor =
+            |part: RigJointPart| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+                side.joint(part).require_in(self.host.joint_names)
+            };
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
         parameters.insert("carriers_count", part.carrier_count());
-        parameters.insert("hip", anchor("upleg")?);
-        parameters.insert("knee", anchor("lowleg")?);
-        parameters.insert("ankle", anchor("foot")?);
+        parameters.insert("hip", usize::from(anchor(RigJointPart::Upleg)?) as u32);
+        parameters.insert("knee", usize::from(anchor(RigJointPart::Lowleg)?) as u32);
+        parameters.insert("ankle", usize::from(anchor(RigJointPart::Foot)?) as u32);
         parameters.insert(
             "quilted",
             u32::from(kind == GarmentArmorKind::PaddedChausses),

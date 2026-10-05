@@ -152,6 +152,7 @@ dependencies = [
  "fabelgeist-garment-fit",
  "fabelgeist-gpu",
  "fabelgeist-math",
+ "fabelgeist-rig",
  "fabelgeist-shell",
  "image",
  "pollster",
@@ -159,6 +160,7 @@ dependencies = [
  "rayon",
  "serde",
  "serde_json",
+ "thiserror 2.0.20",
  "tokio",
 ]
 
@@ -317,6 +319,7 @@ dependencies = [
  "fabelgeist-bvh",
  "fabelgeist-determinism",
  "fabelgeist-math",
+ "fabelgeist-rig",
  "flate2",
  "gltf",
  "pollster",
@@ -5038,6 +5041,14 @@ dependencies = [
  "fabelgeist-math",
  "fabelgeist-xpbd",
  "tokio",
+]
+
+[[package]]
+name = "fabelgeist-rig"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

@@ -4,6 +4,7 @@
 use std::collections::HashMap;
 
 use anyhow::{Result, bail};
+use fabelgeist_rig::RigJointName;
 
 use crate::character::{PARAMETERS_PER_JOINT, Skeleton};
 
@@ -157,15 +158,19 @@ fn parse_expression(
         // The right side may name either a model parameter or a joint channel
         // defined earlier in the file, in which case its terms are copied.
         let parameter = transform.parameter_index(name);
-        let reference = match name.split_once('.') {
-            Some((joint, channel)) => skeleton.joint_index(joint).and_then(|joint| {
-                JOINT_PARAMETER_NAMES
-                    .iter()
-                    .position(|c| *c == channel)
-                    .map(|channel| joint * PARAMETERS_PER_JOINT + channel)
-            }),
-            None => None,
-        };
+        let reference =
+            match name.split_once('.') {
+                Some((joint, channel)) => skeleton
+                    .joint_index(&RigJointName::from(joint))
+                    .and_then(|joint| {
+                        let joint = usize::from(joint);
+                        JOINT_PARAMETER_NAMES
+                            .iter()
+                            .position(|c| *c == channel)
+                            .map(|channel| joint * PARAMETERS_PER_JOINT + channel)
+                    }),
+                None => None,
+            };
 
         match (parameter, reference) {
             (Some(parameter), _) => triplets.push((row, parameter, weight)),
@@ -207,9 +212,10 @@ fn parse_parameter_transform(
         let Some((joint_name, channel_name)) = left.trim().split_once('.') else {
             bail!("unknown joint name in expression: {line}");
         };
-        let Some(joint) = skeleton.joint_index(joint_name.trim()) else {
+        let Some(joint) = skeleton.joint_index(&RigJointName::from(joint_name.trim())) else {
             bail!("unknown joint name in expression: {line}");
         };
+        let joint = usize::from(joint);
         let Some(channel) = JOINT_PARAMETER_NAMES
             .iter()
             .position(|c| *c == channel_name.trim())

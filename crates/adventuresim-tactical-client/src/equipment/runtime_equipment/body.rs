@@ -1,6 +1,7 @@
 //! Extract the canonical skinned body used to generate fitted equipment.
 use super::rig::FittingRig;
 use super::*;
+use fabelgeist_rig::RigJointName;
 
 pub(super) struct CanonicalBody {
     pub body: RuntimeBody,
@@ -78,7 +79,7 @@ fn build_runtime_body(
         .map(|joint| {
             gltf_nodes
                 .get(joint)
-                .map(|node| node.name.clone())
+                .map(|node| RigJointName::from(node.name.clone()))
                 .unwrap_or_else(|| "joint".into())
         })
         .collect::<Vec<_>>();

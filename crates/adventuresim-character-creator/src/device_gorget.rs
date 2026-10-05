@@ -9,6 +9,7 @@ use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::FitRegion;
 use crate::armor_layer::ArmorLayerSurface;
@@ -76,8 +77,14 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::U("neck", self.joint_slot("c_neck")?),
-                Word::U("crown", self.joint_slot("c_head")?),
+                Word::U(
+                    "neck",
+                    usize::from(self.joint_slot(&RigJointName::C_NECK)?) as u32,
+                ),
+                Word::U(
+                    "crown",
+                    usize::from(self.joint_slot(&RigJointName::C_HEAD)?) as u32,
+                ),
                 Word::F(
                     "top_ratio",
                     COLLAR_BASE_NECK_RATIO

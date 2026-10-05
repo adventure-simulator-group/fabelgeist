@@ -1,5 +1,6 @@
 use super::super::AnimationRigScene;
 use super::*;
+use fabelgeist_rig::{RigJointMembership, RigJointName};
 
 #[derive(Component, Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub(crate) struct HumanoidBone {
@@ -91,26 +92,20 @@ pub(crate) enum BoneRole {
     WeaponRight,
 }
 
-fn is_mhr_joint_name(name: &str) -> bool {
-    matches!(name, "body_world" | "root")
-        || name.starts_with("c_")
-        || name.starts_with("l_")
-        || name.starts_with("r_")
-}
-
-fn mhr_mirror_topology(names: &BTreeMap<String, Entity>) -> (Vec<Entity>, Vec<(Entity, Entity)>) {
+fn mhr_mirror_topology(
+    names: &BTreeMap<RigJointName, Entity>,
+) -> (Vec<Entity>, Vec<(Entity, Entity)>) {
     let centers = names
         .iter()
         .filter_map(|(name, &entity)| {
-            (matches!(name.as_str(), "body_world" | "root") || name.starts_with("c_"))
-                .then_some(entity)
+            (name.mhr_center_membership() == RigJointMembership::Included).then_some(entity)
         })
         .collect();
     let pairs = names
         .iter()
         .filter_map(|(name, &left)| {
-            let suffix = name.strip_prefix("l_")?;
-            Some((left, *names.get(&format!("r_{suffix}"))?))
+            let right_name = name.mhr_right_partner()?;
+            Some((left, *names.get(&right_name)?))
         })
         .collect();
     (centers, pairs)
@@ -152,37 +147,40 @@ impl BoneRole {
         self as usize
     }
 
-    pub(crate) fn from_name(name: &str) -> Option<Self> {
-        Some(match name {
-            "body_world" => Self::Root,
-            "root" => Self::Pelvis,
-            "c_spine0" => Self::StomachOne,
-            "c_spine1" => Self::StomachTwo,
-            "c_spine2" => Self::StomachThree,
-            "c_spine3" => Self::Chest,
-            "c_neck" => Self::NeckOne,
-            "c_head" => Self::Head,
-            "c_camera" => Self::Camera,
-            "l_clavicle" => Self::ClavicleLeft,
-            "r_clavicle" => Self::ClavicleRight,
-            "l_upleg" => Self::ThighLeft,
-            "l_lowleg" => Self::ShinLeft,
-            "l_foot" => Self::FootLeft,
-            "l_ball" => Self::ToeLeft,
-            "r_upleg" => Self::ThighRight,
-            "r_lowleg" => Self::ShinRight,
-            "r_foot" => Self::FootRight,
-            "r_ball" => Self::ToeRight,
-            "l_uparm" => Self::UpperArmLeft,
-            "l_lowarm" => Self::ForearmLeft,
-            "l_wrist" => Self::HandLeft,
-            "l_weapon" => Self::WeaponLeft,
-            "r_uparm" => Self::UpperArmRight,
-            "r_lowarm" => Self::ForearmRight,
-            "r_wrist" => Self::HandRight,
-            "r_weapon" => Self::WeaponRight,
-            _ => return None,
-        })
+    fn joint_name(self) -> &'static RigJointName {
+        match self {
+            Self::Root => &RigJointName::BODY_WORLD,
+            Self::Pelvis => &RigJointName::ROOT,
+            Self::StomachOne => &RigJointName::C_SPINE0,
+            Self::StomachTwo => &RigJointName::C_SPINE1,
+            Self::StomachThree => &RigJointName::C_SPINE2,
+            Self::Chest => &RigJointName::C_SPINE3,
+            Self::NeckOne => &RigJointName::C_NECK,
+            Self::Head => &RigJointName::C_HEAD,
+            Self::Camera => &RigJointName::C_CAMERA,
+            Self::ClavicleLeft => &RigJointName::L_CLAVICLE,
+            Self::ClavicleRight => &RigJointName::R_CLAVICLE,
+            Self::ThighLeft => &RigJointName::L_UPLEG,
+            Self::ShinLeft => &RigJointName::L_LOWLEG,
+            Self::FootLeft => &RigJointName::L_FOOT,
+            Self::ToeLeft => &RigJointName::L_BALL,
+            Self::ThighRight => &RigJointName::R_UPLEG,
+            Self::ShinRight => &RigJointName::R_LOWLEG,
+            Self::FootRight => &RigJointName::R_FOOT,
+            Self::ToeRight => &RigJointName::R_BALL,
+            Self::UpperArmLeft => &RigJointName::L_UPARM,
+            Self::ForearmLeft => &RigJointName::L_LOWARM,
+            Self::HandLeft => &RigJointName::L_WRIST,
+            Self::WeaponLeft => &RigJointName::L_WEAPON,
+            Self::UpperArmRight => &RigJointName::R_UPARM,
+            Self::ForearmRight => &RigJointName::R_LOWARM,
+            Self::HandRight => &RigJointName::R_WRIST,
+            Self::WeaponRight => &RigJointName::R_WEAPON,
+        }
+    }
+
+    pub(crate) fn from_name(name: &RigJointName) -> Option<Self> {
+        Self::ALL.into_iter().find(|role| role.joint_name() == name)
     }
 }
 
@@ -208,7 +206,8 @@ pub(crate) fn bind_humanoid_bones(
     roots: Query<&AnimationRigScene>,
 ) {
     for (entity, name) in &bones {
-        if !is_mhr_joint_name(name.as_str()) {
+        let name = RigJointName::from(name.as_str());
+        if name.mhr_membership() == RigJointMembership::Excluded {
             continue;
         }
         let mut current = entity;
@@ -216,7 +215,7 @@ pub(crate) fn bind_humanoid_bones(
             if let Ok(root) = roots.get(current) {
                 let mut bone = commands.entity(entity);
                 bone.insert(MhrBone { owner: root.0 });
-                if let Some(role) = BoneRole::from_name(name.as_str()) {
+                if let Some(role) = BoneRole::from_name(&name) {
                     bone.insert(HumanoidBone {
                         owner: root.0,
                         role,
@@ -271,12 +270,12 @@ pub(crate) fn cache_humanoid_rigs(
         .iter()
         .map(|(root, scene)| (scene.0, root))
         .collect::<BTreeMap<_, _>>();
-    let mut named = BTreeMap::<Entity, BTreeMap<String, Entity>>::new();
+    let mut named = BTreeMap::<Entity, BTreeMap<RigJointName, Entity>>::new();
     for (entity, bone, name) in &all_mhr_bones {
         named
             .entry(bone.owner)
             .or_default()
-            .insert(name.as_str().to_owned(), entity);
+            .insert(RigJointName::from(name.as_str()), entity);
     }
     for (owner, _) in &cached {
         if !rigs.contains_key(&owner) {
@@ -422,7 +421,7 @@ mod tests {
             ("r_weapon", 12),
         ]
         .into_iter()
-        .map(|(name, entity)| (name.to_owned(), Entity::from_bits(entity)))
+        .map(|(name, entity)| (RigJointName::from(name), Entity::from_bits(entity)))
         .collect::<BTreeMap<_, _>>();
 
         let (centers, pairs) = mhr_mirror_topology(&named);

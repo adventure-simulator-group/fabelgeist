@@ -1245,10 +1245,13 @@ mod ik_tests {
             "r_weapon",
             "l_ball",
         ] {
-            assert!(BoneRole::from_name(name).is_some(), "missing {name}");
+            assert!(
+                BoneRole::from_name(&name.into()).is_some(),
+                "missing {name}"
+            );
         }
-        assert_eq!(BoneRole::from_name("l_upleg_twist2_proc"), None);
-        assert_eq!(BoneRole::from_name("Cylinder"), None);
+        assert_eq!(BoneRole::from_name(&"l_upleg_twist2_proc".into()), None);
+        assert_eq!(BoneRole::from_name(&"Cylinder".into()), None);
     }
 
     #[test]

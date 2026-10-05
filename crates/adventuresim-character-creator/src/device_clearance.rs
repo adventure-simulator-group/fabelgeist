@@ -12,6 +12,7 @@ use fabelgeist_armor::{CuisseDesign, GreaveDesign, Millimeters, RerebraceDesign}
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_rig::RigJointMembership;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -119,7 +120,7 @@ impl DeviceWearer<'_> {
         let (extra, filtered) = match region {
             FitRegion::Hand(side) => (owned(FitRegion::Forearm(side)), 0u32),
             FitRegion::LowerLeg(side) => (owned(FitRegion::Foot(side)), 1),
-            _ => (vec![0; primary.len()], 0),
+            _ => (vec![RigJointMembership::Excluded; primary.len()], 0),
         };
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
@@ -131,11 +132,15 @@ impl DeviceWearer<'_> {
         parameters.insert("joint_weights", self.body.joint_weights.clone());
         parameters.insert(
             "primary",
-            self.gpu.upload(BufferUpload::from_elements(&primary))?,
+            self.gpu.upload(BufferUpload::from_elements(
+                &primary.into_iter().map(u32::from).collect::<Vec<_>>(),
+            ))?,
         );
         parameters.insert(
             "extra",
-            self.gpu.upload(BufferUpload::from_elements(&extra))?,
+            self.gpu.upload(BufferUpload::from_elements(
+                &extra.into_iter().map(u32::from).collect::<Vec<_>>(),
+            ))?,
         );
         parameters.insert("frames", frame.frame.clone());
         parameters.insert("support", support.clone());

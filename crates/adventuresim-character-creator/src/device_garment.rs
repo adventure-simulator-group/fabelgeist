@@ -6,11 +6,12 @@
 //! kernels read the frame where the fit was written; fitting kernels read the
 //! rest. Nothing is read back until the finished part is.
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 use fabelgeist_armor::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
 
 use crate::armor_frames::FitRegion;
 use crate::armor_layer::ArmorLayerSurface;
@@ -113,13 +114,11 @@ fn joint(index: u32) -> vec3<f32> {
 
 impl DeviceWearer<'_> {
     /// A joint's index in the rig.
-    pub(crate) fn joint_slot(&self, name: &str) -> Result<u32> {
-        self.host
-            .joint_names
-            .iter()
-            .position(|n| n == name)
-            .map(|i| i as u32)
-            .with_context(|| format!("missing garment landmark {name}"))
+    pub(crate) fn joint_slot(
+        &self,
+        name: &RigJointName,
+    ) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+        name.require_in(self.host.joint_names)
     }
 
     /// Record which regions' skin each body vertex supports: bit `i` is set
@@ -133,7 +132,7 @@ impl DeviceWearer<'_> {
         for (bit, region) in regions.iter().enumerate() {
             let owners = region.owners();
             for (mask, owns) in owned.iter_mut().zip(self.host.owned_joints(&owners)) {
-                *mask |= owns << bit;
+                *mask |= u32::from(owns) << bit;
             }
         }
         let gpu = self.gpu;
@@ -185,9 +184,18 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::U("top_joint", self.joint_slot(span.top.0)?),
-                Word::U("bottom_joint", self.joint_slot(span.bottom.0)?),
-                Word::U("reach_joint", self.joint_slot(span.reach.0)?),
+                Word::U(
+                    "top_joint",
+                    usize::from(self.joint_slot(&span.top.0)?) as u32,
+                ),
+                Word::U(
+                    "bottom_joint",
+                    usize::from(self.joint_slot(&span.bottom.0)?) as u32,
+                ),
+                Word::U(
+                    "reach_joint",
+                    usize::from(self.joint_slot(&span.reach.0)?) as u32,
+                ),
                 Word::F("top_offset", span.top.1),
                 Word::F("bottom_offset", span.bottom.1),
                 Word::F("reach", span.reach.1),
@@ -246,11 +254,11 @@ impl DeviceWearer<'_> {
 /// Where an upright frame's top and bottom lie: the top is a joint's height
 /// plus an offset; the bottom lies `reach` of the way from a joint down to a
 /// second joint's height, less an offset.
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 pub(crate) struct UprightSpan {
-    pub top: (&'static str, f32),
-    pub bottom: (&'static str, f32),
-    pub reach: (&'static str, f32),
+    pub top: (RigJointName, f32),
+    pub bottom: (RigJointName, f32),
+    pub reach: (RigJointName, f32),
 }
 
 const SUPPORT: &str = r#"

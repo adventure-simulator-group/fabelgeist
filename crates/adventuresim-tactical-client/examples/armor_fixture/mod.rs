@@ -29,7 +29,7 @@ pub fn load(bytes: &[u8]) -> Result<(RuntimeBody, Vec<ForearmMorphSample>)> {
     let texcoords = surface_chart(&positions);
     let joint_names = skin
         .joints()
-        .map(|joint| joint.name().unwrap_or("joint").to_owned())
+        .map(|joint| fabelgeist_rig::RigJointName::from(joint.name().unwrap_or("joint")))
         .collect();
     let global_joint_states = joint_states(&skin, blob)?;
     let morphs = reader

@@ -6,7 +6,7 @@
 //! selected skin of the wearer and displaced off each morph sample's skin.
 //! Everything is read back once, at the end.
 
-use anyhow::{Context, Result, bail, ensure};
+use anyhow::{Result, bail, ensure};
 use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
 };
@@ -17,6 +17,7 @@ use fabelgeist_armor::{ArmorGpu, BracerDesign, GeneratedArmor};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
 
 use crate::bracer::{ForearmSide, ForearmSurfaceInput};
 
@@ -29,12 +30,12 @@ const AXIAL_SUPPORT_MARGIN: f32 = 0.1;
 const STATUS_COINCIDENT_LANDMARKS: u32 = 32;
 
 impl ForearmSide {
-    fn joint(self, name: &str, joint_names: &[String]) -> Result<u32> {
-        joint_names
-            .iter()
-            .position(|candidate| candidate == name)
-            .map(|index| index as u32)
-            .with_context(|| format!("MHR rig is missing {name}"))
+    fn joint(
+        self,
+        name: &RigJointName,
+        joint_names: &[RigJointName],
+    ) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+        name.require_in(joint_names)
     }
 }
 
@@ -52,14 +53,14 @@ pub async fn generate_bracer_on_device_async(
     design: &BracerDesign,
     input: ForearmSurfaceInput<'_>,
 ) -> Result<GeneratedArmor> {
-    input.validate().map_err(anyhow::Error::msg)?;
+    input.validate()?;
     let side = input.side;
     let lowarm = side.joint(side.lowarm(), input.joint_names)?;
     let wrist = side.joint(side.wrist(), input.joint_names)?;
     let supports = input
         .joint_names
         .iter()
-        .map(|name| u32::from(side.supports_forearm_boundary(name)))
+        .map(|name: &RigJointName| -> RigJointMembership { side.supports_forearm_boundary(name) })
         .collect::<Vec<_>>();
     let vertex_count = input.positions.len();
     let unused_texcoords = vec![[0.0f32; 2]; vertex_count];
@@ -87,7 +88,9 @@ pub async fn generate_bracer_on_device_async(
         &mut batch,
         &body,
         [lowarm, wrist],
-        &gpu.upload(BufferUpload::from_elements(&supports))?,
+        &gpu.upload(BufferUpload::from_elements(
+            &supports.into_iter().map(u32::from).collect::<Vec<_>>(),
+        ))?,
         &support,
         &axial,
         &status,
@@ -143,7 +146,7 @@ fn record_support(
     gpu: &ArmorGpu,
     batch: &mut KernelBatch,
     body: &GpuBody,
-    [lowarm, wrist]: [u32; 2],
+    [lowarm, wrist]: [RigJointOrdinal; 2],
     supports: &Buffer,
     support: &Buffer,
     axial: &Buffer,
@@ -155,8 +158,8 @@ fn record_support(
     );
     let mut parameters = PassParameters::new();
     parameters.insert("count", body.vertex_count);
-    parameters.insert("lowarm", lowarm);
-    parameters.insert("wrist", wrist);
+    parameters.insert("lowarm", usize::from(lowarm) as u32);
+    parameters.insert("wrist", usize::from(wrist) as u32);
     parameters.insert("pad0", 0u32);
     parameters.insert("positions", body.positions.clone());
     parameters.insert("joints", body.joints.clone());

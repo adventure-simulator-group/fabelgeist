@@ -26,11 +26,13 @@ mod physics_pose;
 mod proportions;
 mod rig;
 mod stride_calibration;
+use fabelgeist_rig::RigJointName;
 use inertialization::{
     JointInertialOffset, hemisphere_slerp, local_pose_velocity, quaternion_exp, quaternion_log,
     shortest_rotation,
 };
 use proportions::sample_character_plan;
+use rig::{RigDefinition, RigJoint};
 pub(super) use stride_calibration::{CharacterLocomotionStrides, calibrate_character_strides};
 mod spline;
 use spline::clamped_cubic_spline_vec3;
@@ -64,20 +66,6 @@ pub(super) struct RigDefinitions(HashMap<String, Arc<RigDefinition>>);
 
 #[derive(Resource, Default)]
 pub(super) struct BakedClipBank(HashMap<(String, AssetId<AnimationClip>), Arc<BakedClip>>);
-
-struct RigDefinition {
-    family: String,
-    joints: Vec<RigJoint>,
-}
-
-#[derive(Clone)]
-struct RigJoint {
-    target: AnimationTargetId,
-    bind: LocalPose,
-    parent: Option<usize>,
-    name: Option<String>,
-    lower_body: bool,
-}
 
 #[derive(Clone)]
 struct BakedClip {
@@ -528,7 +516,7 @@ pub(super) fn update_pose_buffers(
         }
         let target = sampled.pose;
         if let Some(weapon_joint) = rig.definition.joints.iter().position(|joint| {
-            joint.name.as_deref().and_then(BoneRole::from_name) == Some(BoneRole::WeaponRight)
+            joint.name.as_ref().and_then(BoneRole::from_name) == Some(BoneRole::WeaponRight)
         }) {
             let mut cache = vec![None; target.len()];
             let weapon = local_pose_global(&rig.definition, &target, weapon_joint, &mut cache);
@@ -752,8 +740,8 @@ fn sample_plan(
         let mut accumulated = 0.0_f32;
         let pelvis = joint
             .name
-            .as_deref()
-            .is_some_and(|name| name.eq_ignore_ascii_case("root"));
+            .as_ref()
+            .is_some_and(|name| name.eq_ignore_ascii_case(&RigJointName::ROOT));
         let mut combat_upper = joint.bind;
         let mut combat_upper_weight = 0.0_f32;
         let mut combat_lower = joint.bind;
@@ -1047,7 +1035,7 @@ fn hand_animation_joint(definition: &RigDefinition, mut joint: usize) -> Option<
     loop {
         match definition.joints[joint]
             .name
-            .as_deref()
+            .as_ref()
             .and_then(BoneRole::from_name)
         {
             Some(BoneRole::HandRight) => return Some(ClipLayer::MainHand),
@@ -1101,8 +1089,8 @@ fn conform_upcoming_pose_to_terrain(
             .position(|joint| {
                 joint
                     .name
-                    .as_deref()
-                    .is_some_and(|name| name.eq_ignore_ascii_case("root"))
+                    .as_ref()
+                    .is_some_and(|name| name.eq_ignore_ascii_case(&RigJointName::ROOT))
             })
             .map(|pelvis| {
                 let mut reference = pose.to_vec();
@@ -1114,8 +1102,8 @@ fn conform_upcoming_pose_to_terrain(
         .as_ref()
         .map(|reference| vec![None; reference.len()]);
     for (index, (left, weight, names)) in [
-        (true, weights.x, ["l_upleg", "l_lowleg", "l_foot"]),
-        (false, weights.y, ["r_upleg", "r_lowleg", "r_foot"]),
+        (true, weights.x, RigJointName::LEFT_LEG_CHAIN),
+        (false, weights.y, RigJointName::RIGHT_LEG_CHAIN),
     ]
     .into_iter()
     .enumerate()
@@ -1129,8 +1117,8 @@ fn conform_upcoming_pose_to_terrain(
             definition.joints.iter().position(|joint| {
                 joint
                     .name
-                    .as_deref()
-                    .is_some_and(|joint_name| joint_name.eq_ignore_ascii_case(name))
+                    .as_ref()
+                    .is_some_and(|joint_name| joint_name.eq_ignore_ascii_case(&name))
             })
         }) else {
             continue;
@@ -1475,7 +1463,7 @@ fn measure_authored_contact_step_distance(
     {
         return None;
     }
-    let feet = ["l_foot", "r_foot"];
+    let feet = [RigJointName::L_FOOT, RigJointName::R_FOOT];
     let sample_count = clip.frames.saturating_sub(1);
     let mut segments = Vec::new();
     for name in feet {
@@ -1483,7 +1471,7 @@ fn measure_authored_contact_step_distance(
         let foot = definition
             .joints
             .iter()
-            .position(|joint| joint.name.as_deref() == Some(name))?;
+            .position(|joint| joint.name.as_ref() == Some(&name))?;
         let samples = (0..sample_count)
             .map(|frame| {
                 let time = frame as f32 * clip.frame_dt;
@@ -1799,11 +1787,11 @@ fn measure_authored_foot_range(
     clip: &BakedClip,
     travel_axis: usize,
 ) -> Option<f32> {
-    let feet = ["l_foot", "r_foot"].map(|name| {
+    let feet = [RigJointName::L_FOOT, RigJointName::R_FOOT].map(|name| {
         definition
             .joints
             .iter()
-            .position(|joint| joint.name.as_deref() == Some(name))
+            .position(|joint| joint.name.as_ref() == Some(&name))
     });
     let [Some(left), Some(right)] = feet else {
         return None;
@@ -1882,7 +1870,7 @@ mod tests {
             target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
             bind: LocalPose::from_transform(Transform::IDENTITY),
             parent,
-            name: Some(name.to_owned()),
+            name: Some(name.into()),
             lower_body: false,
         };
         let definition = RigDefinition {
@@ -2139,7 +2127,7 @@ mod tests {
             target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
             bind: pose(Vec3::ZERO, Quat::IDENTITY),
             parent,
-            name: Some(name.to_owned()),
+            name: Some(name.into()),
             lower_body: true,
         };
         let definition = RigDefinition {
@@ -2190,7 +2178,7 @@ mod tests {
             target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
             bind: pose(Vec3::ZERO, Quat::IDENTITY),
             parent,
-            name: Some(name.to_owned()),
+            name: Some(name.into()),
             lower_body: true,
         };
         let definition = RigDefinition {
@@ -2312,7 +2300,7 @@ mod tests {
             target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
             bind: pose(translation, Quat::IDENTITY),
             parent,
-            name: Some(name.to_owned()),
+            name: Some(name.into()),
             lower_body: true,
         };
         let definition = RigDefinition {
@@ -2375,7 +2363,7 @@ mod tests {
             target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
             bind: pose(translation, Quat::IDENTITY),
             parent,
-            name: Some(name.to_owned()),
+            name: Some(name.into()),
             lower_body: true,
         };
         let definition = RigDefinition {
@@ -2437,7 +2425,7 @@ mod tests {
             target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
             bind: pose(translation, Quat::IDENTITY),
             parent,
-            name: Some(name.to_owned()),
+            name: Some(name.into()),
             lower_body: true,
         };
         let definition = RigDefinition {
@@ -2483,7 +2471,7 @@ mod tests {
             target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
             bind: pose(translation, Quat::IDENTITY),
             parent,
-            name: Some(name.to_owned()),
+            name: Some(name.into()),
             lower_body: true,
         };
         let definition = RigDefinition {
@@ -2569,7 +2557,7 @@ mod tests {
             target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
             bind: pose(translation, Quat::IDENTITY),
             parent,
-            name: Some(name.to_owned()),
+            name: Some(name.into()),
             lower_body: true,
         };
         let definition = RigDefinition {

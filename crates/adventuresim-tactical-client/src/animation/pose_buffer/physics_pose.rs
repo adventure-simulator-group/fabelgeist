@@ -13,8 +13,8 @@ impl PoseBufferRig {
         self.definition.joints.len()
     }
 
-    pub(in crate::animation) fn joint_name(&self, joint: usize) -> Option<&str> {
-        self.definition.joints[joint].name.as_deref()
+    pub(in crate::animation) fn joint_name(&self, joint: usize) -> Option<&RigJointName> {
+        self.definition.joints[joint].name.as_ref()
     }
 
     pub(in crate::animation) fn joint_parent(&self, joint: usize) -> Option<usize> {
