@@ -31,9 +31,9 @@ impl OutfitContacts {
                 fabelgeist_shell::ParticleInverseMass::PINNED,
             );
         }
-        let contacts = settings
-            .self_collision
-            .then(|| fabelgeist_cloth::surface_contact::SurfaceContacts::new(masses.len(), faces));
+        let contacts = settings.self_collision.then(|| {
+            fabelgeist_cloth::surface_contact::SurfaceContacts::new(masses.len().into(), faces)
+        });
         Self { masses, contacts }
     }
     fn resolve(

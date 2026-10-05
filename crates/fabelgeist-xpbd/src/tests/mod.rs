@@ -540,7 +540,7 @@ async fn rejects_mismatched_inputs() -> Result<()> {
         "one edge with two rest lengths must be rejected"
     );
 
-    let mut particles = Particles::new(&context, 4)?;
+    let mut particles = Particles::new(&context, 4.into())?;
     assert!(
         particles
             .write(&context, &[Vec3::default(); 2], &[1.0.into()])

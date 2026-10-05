@@ -116,7 +116,7 @@ impl Collisions {
             return Ok(());
         }
         let count = particles.count();
-        if count == 0 {
+        if count == fabelgeist_xpbd::ParticleCount::EMPTY {
             return Ok(());
         }
 
@@ -129,7 +129,7 @@ impl Collisions {
             parameters.insert("collider_count", self.colliders.len() as u32);
             parameters.insert("particle_radius", self.particle_radius);
             parameters.insert("pad", 0u32);
-            batch.dispatch_items(&self.analytic_kernel, &parameters, count)?;
+            batch.dispatch_items(&self.analytic_kernel, &parameters, u32::from(count))?;
         }
 
         if self.mesh.is_some() {
@@ -156,7 +156,7 @@ impl Collisions {
         parameters.insert("thickness", mesh.surface.thickness + self.particle_radius);
         parameters.insert("friction", mesh.surface.friction);
         parameters.insert("search_radius", search_radius);
-        batch.dispatch_items(&self.mesh_kernel, &parameters, particles.count())?;
+        batch.dispatch_items(&self.mesh_kernel, &parameters, u32::from(particles.count()))?;
         Ok(())
     }
 
@@ -178,7 +178,7 @@ impl Collisions {
         particles: &Particles,
         search_radius: f32,
     ) -> Result<()> {
-        if particles.count() == 0 {
+        if particles.count() == fabelgeist_xpbd::ParticleCount::EMPTY {
             return Ok(());
         }
         // The pass reads `previous` for friction and for the swept box. Making
@@ -188,7 +188,7 @@ impl Collisions {
         batch.copy_buffer(
             &particles.positions,
             &particles.previous,
-            particles.count() as u64 * 16,
+            u64::from(particles.count().record_bytes()),
         )?;
         self.record_mesh(batch, particles, search_radius)?;
         Ok(())
