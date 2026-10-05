@@ -51,7 +51,7 @@ impl Plate {
                 ("normals", &normals),
                 ("status", status),
             ],
-            faces.len() as u32,
+            (faces.len() as u32).into(),
         )?;
         let offsets = gpu.scratch(self.count() as u64 * 12, "clipped rim offsets")?;
         dispatch(
@@ -68,7 +68,7 @@ impl Plate {
                 ("offsets", &offsets),
                 ("status", status),
             ],
-            self.count(),
+            (self.count()).into(),
         )?;
         Ok(offsets)
     }

@@ -1,3 +1,8 @@
+mod grid;
+mod shape;
+pub use grid::{DispatchOccupancy, WorkgroupGrid};
+pub use shape::{InvocationCount, WorkgroupShape, WorkgroupShapeError};
+
 use crate::data::{ComputePipeline, PassParameter, PassParameters};
 use crate::globals::WgpuContext;
 use anyhow::{Result, anyhow};
@@ -10,9 +15,7 @@ impl ComputePass {
         context: &WgpuContext,
         pipeline_def: ComputePipeline,
         parameters: PassParameters,
-        workgroups_x: u32,
-        workgroups_y: u32,
-        workgroups_z: u32,
+        groups: WorkgroupGrid,
     ) -> Result<()> {
         let mut encoder = context
             .device
@@ -20,15 +23,7 @@ impl ComputePass {
                 label: Some("ComputePass Encoder"),
             });
 
-        Self::record(
-            context,
-            &pipeline_def,
-            &parameters,
-            &mut encoder,
-            workgroups_x,
-            workgroups_y,
-            workgroups_z,
-        )?;
+        Self::record(context, &pipeline_def, &parameters, &mut encoder, groups)?;
 
         context.queue.submit(std::iter::once(encoder.finish()));
         Ok(())
@@ -39,9 +34,7 @@ impl ComputePass {
         pipeline_def: &ComputePipeline,
         parameters: &PassParameters,
         encoder: &mut wgpu::CommandEncoder,
-        workgroups_x: u32,
-        workgroups_y: u32,
-        workgroups_z: u32,
+        groups: WorkgroupGrid,
     ) -> Result<()> {
         // --- GET PIPELINE FROM INPUT ---
         let pipeline_val = pipeline_def
@@ -476,7 +469,7 @@ impl ComputePass {
             for (i, bg) in bind_groups.iter().enumerate() {
                 compute_pass.set_bind_group(i as u32, bg, &[]);
             }
-            compute_pass.dispatch_workgroups(workgroups_x, workgroups_y, workgroups_z);
+            groups.record(&mut compute_pass);
         }
 
         Ok(())

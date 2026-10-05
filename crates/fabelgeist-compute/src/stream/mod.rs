@@ -350,9 +350,7 @@ impl Stream {
             context,
             pipeline.as_ref().clone(),
             parameters,
-            workgroups_x,
-            workgroups_y,
-            workgroups_z,
+            [workgroups_x, workgroups_y, workgroups_z].into(),
         )?;
 
         Ok(())

@@ -169,7 +169,11 @@ pub(crate) fn record(
         parameters.insert("shells", build.shells.clone());
         parameters.insert("hinges", build.hinges.clone());
         batch
-            .dispatch_items(&kernel.0, &parameters, coord_shell.coords.len() as u32)
+            .dispatch_items(
+                &kernel.0,
+                &parameters,
+                (coord_shell.coords.len() as u32).into(),
+            )
             .map_err(device_error)?;
     }
     Ok(())

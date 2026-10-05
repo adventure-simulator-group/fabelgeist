@@ -104,10 +104,10 @@ impl DeviceWearer<'_> {
         parameters.insert("status", frame.status.clone());
         let [measure, profile] = kernels(gpu)?;
         batch
-            .dispatch_items(&measure, &parameters, support.len() as u32)
+            .dispatch_items(&measure, &parameters, (support.len() as u32).into())
             .map_err(device_error)?;
         batch
-            .dispatch(&profile, &parameters, [1, 1, 1])
+            .dispatch(&profile, &parameters, [1, 1, 1].into())
             .map_err(device_error)?;
         Ok(fit)
     }

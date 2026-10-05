@@ -157,7 +157,7 @@ impl DeviceWearer<'_> {
                 Word::U("count", self.body.vertex_count),
                 Word::U("regions", regions.len() as u32),
             ],
-            Grid::Items(self.body.vertex_count),
+            Grid::Items((self.body.vertex_count).into()),
         )?;
         Ok(support)
     }
@@ -192,7 +192,7 @@ impl DeviceWearer<'_> {
                 Word::F("bottom_offset", span.bottom.1),
                 Word::F("reach", span.reach.1),
             ],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )?;
         Ok(fit)
     }
@@ -238,7 +238,7 @@ impl DeviceWearer<'_> {
             FIT_STATUS,
             &[read("fit", fit), atomic("status", part.status())],
             &[],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )
     }
 }

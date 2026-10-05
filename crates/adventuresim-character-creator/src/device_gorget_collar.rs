@@ -39,7 +39,7 @@ impl DeviceWearer<'_> {
             &format!("{}{VALIDATE_BIB}", layout()),
             &[write("fit", fit)],
             &[Word::F("support_tolerance", SUPPORT_TOLERANCE_METRES)],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )
     }
 
@@ -64,7 +64,7 @@ impl DeviceWearer<'_> {
                 Word::U("faces_count", self.body.face_count),
                 Word::F("padding", padding),
             ],
-            Grid::Items(BIB_ROWS * BIB_COLUMNS),
+            Grid::Items((BIB_ROWS * BIB_COLUMNS).into()),
         )?;
         let envelope = ENVELOPE
             .replace("BIB_RAW", "COLLAR_RAW")
@@ -75,7 +75,7 @@ impl DeviceWearer<'_> {
             &format!("{}{envelope}", layout()),
             &[write("fit", fit)],
             &[],
-            Grid::Items(BIB_ROWS * BIB_COLUMNS),
+            Grid::Items((BIB_ROWS * BIB_COLUMNS).into()),
         )
     }
 }
@@ -182,7 +182,7 @@ mod tests {
             &format!("{}{cage}{EVALUATE}", layout()),
             &[read("fit", &fit), write("points", &result)],
             &[],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )
         .unwrap();
         batch.submit();
@@ -290,7 +290,7 @@ mod tests {
             &format!("{}{cage}{EVALUATE_SIDE}", layout()),
             &[read("fit", &fit), write("points", &result)],
             &[],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )
         .unwrap();
         batch.submit();
@@ -329,7 +329,7 @@ mod tests {
             &format!("{}{VALIDATE_BIB}", layout()),
             &[write("fit", &unresolved)],
             &[Word::F("support_tolerance", SUPPORT_TOLERANCE_METRES)],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )
         .unwrap();
         failure.submit();

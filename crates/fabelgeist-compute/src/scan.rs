@@ -192,9 +192,7 @@ impl Scan {
                 context,
                 scan_blocks_pipeline,
                 parameters,
-                1,
-                1,
-                1,
+                [1, 1, 1].into(),
             )?;
         } else {
             let aux = fabelgeist_gpu::data::gpu::Buffer::new(
@@ -216,9 +214,7 @@ impl Scan {
                 context,
                 scan_blocks_pipeline.clone(),
                 parameters_p1,
-                num_blocks,
-                1,
-                1,
+                [num_blocks, 1, 1].into(),
             )?;
 
             // Pass 2
@@ -256,9 +252,7 @@ impl Scan {
                     context,
                     scan_blocks_pipeline.clone(),
                     parameters_p2,
-                    next_num_blocks,
-                    1,
-                    1,
+                    [next_num_blocks, 1, 1].into(),
                 )?;
 
                 let last_idx = aux_buffers.len() - 1;
@@ -283,9 +277,7 @@ impl Scan {
                         context,
                         add_aux_pipeline.clone(),
                         parameters_p3,
-                        num_blocks,
-                        1,
-                        1,
+                        [num_blocks, 1, 1].into(),
                     )?;
                 } else {
                     let target = aux_buffers.last().unwrap();
@@ -297,9 +289,7 @@ impl Scan {
                         context,
                         add_aux_pipeline.clone(),
                         parameters_p3,
-                        target_blocks,
-                        1,
-                        1,
+                        [target_blocks, 1, 1].into(),
                     )?;
                 }
             }

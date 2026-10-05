@@ -143,7 +143,11 @@ impl MeshCollider {
         parameters.insert("margin", self.surface.thickness);
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.triangle_bounds, &parameters, self.triangle_count)?;
+        batch.dispatch_items(
+            &self.triangle_bounds,
+            &parameters,
+            (self.triangle_count).into(),
+        )?;
         Ok(())
     }
 

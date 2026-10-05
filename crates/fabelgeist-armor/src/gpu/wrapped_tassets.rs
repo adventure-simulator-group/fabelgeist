@@ -130,7 +130,7 @@ fn record_boundaries(
             params.insert("value2", 1.0 - f32::from(course) / f32::from(courses));
             params.insert("value3", f32::from(course));
             batch
-                .dispatch_items(&kernel, &params, COURSE_ROWS + 1)
+                .dispatch_items(&kernel, &params, (COURSE_ROWS + 1).into())
                 .map_err(device_error)?;
         }
     }

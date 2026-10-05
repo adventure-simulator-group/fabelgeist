@@ -223,7 +223,7 @@ impl DeviceWearer<'_> {
                 atomic("status", part.status()),
             ],
             &[],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )?;
         let checks = vec![DeviceCheck::Mesh(Box::new(move |part| {
             ensure!(part.components.len() == bounds.len(), "missing tasset side");
@@ -287,7 +287,7 @@ impl DeviceWearer<'_> {
                 Word::U("faces", support.triangles.len() as u32),
                 Word::U("nodes", support.nodes),
             ],
-            Grid::Singles(count),
+            Grid::Singles([count, 1, 1].into()),
         )?;
         dispatch(
             self,
@@ -303,7 +303,7 @@ impl DeviceWearer<'_> {
                 atomic("status", &status),
             ],
             &[],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )?;
         Ok(DeviceSupport { fit, status })
     }

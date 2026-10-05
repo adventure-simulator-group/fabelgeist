@@ -113,7 +113,7 @@ impl DeviceWearer<'_> {
                 .get(gpu.context(), &source(entry))
                 .map_err(device_error)?;
             batch
-                .dispatch_items(&kernel, &parameters, items)
+                .dispatch_items(&kernel, &parameters, (items).into())
                 .map_err(device_error)?;
         }
         let frame = frame.clone();

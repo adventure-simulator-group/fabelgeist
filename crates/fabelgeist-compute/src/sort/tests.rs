@@ -150,7 +150,7 @@ async fn accepts_degenerate_counts() -> Result<()> {
     sort.record(&mut batch, &buffer, &buffer, &mut scratch, 0, 32)?;
     assert_eq!(
         batch.dispatch_count(),
-        0,
+        crate::RecordedDispatchCount::default(),
         "an empty sort must dispatch nothing"
     );
     Ok(())

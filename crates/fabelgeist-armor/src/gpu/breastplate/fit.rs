@@ -82,7 +82,7 @@ pub(super) fn record_fitted(
                 ..Params::default()
             },
             &[("positions", &plate.positions)],
-            plate.width(),
+            (plate.width()).into(),
         )?;
         let trim = if rear { &plates.back } else { &plates.front };
         trim.record_arm_trim(gpu, batch, fitter.plate, rear)?;
@@ -116,7 +116,7 @@ fn record_wearer(
             ("positions", &torso.body.positions),
             ("status", status),
         ],
-        1,
+        (1).into(),
     )?;
     let vertices = torso.body.vertex_count;
     dispatch(
@@ -130,7 +130,7 @@ fn record_wearer(
             ("positions", &torso.body.positions),
             ("body_local", body_local),
         ],
-        vertices,
+        (vertices).into(),
     )?;
     let corners = torso.torso_faces.len() as u32 * 3;
     let bounds = gpu.upload(BufferUpload::from_elements(&[
@@ -153,7 +153,7 @@ fn record_wearer(
             ("body_local", body_local),
             ("bounds", &bounds),
         ],
-        corners,
+        (corners).into(),
     )?;
     dispatch(
         gpu,
@@ -162,7 +162,7 @@ fn record_wearer(
         &[],
         Params::default(),
         &[("plate", plate), ("bounds", &bounds)],
-        1,
+        (1).into(),
     )
 }
 
@@ -217,7 +217,7 @@ impl Fitter<'_> {
                 ),
                 ("status", self.status),
             ],
-            plate.width(),
+            (plate.width()).into(),
         )?;
         dispatch(
             self.gpu,
@@ -232,7 +232,7 @@ impl Fitter<'_> {
                 ("status", self.status),
                 ("arm_distances", arm_distances),
             ],
-            plate.width(),
+            (plate.width()).into(),
         )
     }
 
@@ -272,7 +272,7 @@ impl Fitter<'_> {
                 ),
                 ("status", self.status),
             ],
-            samples,
+            (samples).into(),
         )?;
         dispatch(
             gpu,
@@ -289,7 +289,7 @@ impl Fitter<'_> {
                 ("coarse", &coarse),
                 ("positions", &plate.positions),
             ],
-            count,
+            (count).into(),
         )?;
         let centers = gpu.scratch(
             count as u64 * CENTER_WORDS as u64 * 4,
@@ -308,7 +308,7 @@ impl Fitter<'_> {
                 ("body_local", self.body_local),
                 ("centers", &centers),
             ],
-            count,
+            (count).into(),
         )?;
         Ok(centers)
     }
@@ -338,7 +338,7 @@ impl Fitter<'_> {
                     ("front", &front.positions),
                     ("positions", &back.positions),
                 ],
-                (V_SAMPLES + SKIRT_SAMPLES - 1) as u32,
+                ((V_SAMPLES + SKIRT_SAMPLES - 1) as u32).into(),
             )?;
         }
         Ok(())
@@ -390,7 +390,7 @@ impl Fitter<'_> {
                 ),
                 ("status", self.status),
             ],
-            count,
+            (count).into(),
         )?;
         dispatch(
             self.gpu,
@@ -399,7 +399,7 @@ impl Fitter<'_> {
             &[],
             params,
             &[("support_radii", &support_radii), ("envelope", &envelope)],
-            count,
+            (count).into(),
         )?;
         dispatch(
             self.gpu,
@@ -415,7 +415,7 @@ impl Fitter<'_> {
                 ("support_radii", &support_radii),
                 ("status", self.status),
             ],
-            count,
+            (count).into(),
         )
     }
 }

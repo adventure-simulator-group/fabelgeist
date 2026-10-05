@@ -97,7 +97,7 @@ impl DeviceWearer<'_> {
                 Word::F("rear_hem_flatness", rear_hem_flatness.unit()),
                 Word::F("rear_sweep", rear_sweep.unit()),
             ],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )?;
         let words = [
             Word::F("clearance", clearance),
@@ -144,7 +144,7 @@ impl DeviceWearer<'_> {
                 write("points", &samples),
             ],
             &[Word::U("count", self.body.vertex_count)],
-            Grid::Items(self.body.vertex_count),
+            Grid::Items((self.body.vertex_count).into()),
         )?;
         let mut planes = Vec::new();
         for _ in 0..2 {
@@ -164,11 +164,11 @@ impl DeviceWearer<'_> {
                 atomic("planes", &planes),
             ],
             &[Word::U("count", self.body.face_count)],
-            Grid::Items(self.body.face_count),
+            Grid::Items((self.body.face_count).into()),
         )?;
         for (entry, grid) in [
-            (BANDS, Grid::Singles(BAND_SECTIONS)),
-            (CAGE_SETUP, Grid::Singles(1)),
+            (BANDS, Grid::Singles([BAND_SECTIONS, 1, 1].into())),
+            (CAGE_SETUP, Grid::Singles([1, 1, 1].into())),
         ] {
             dispatch(
                 self,

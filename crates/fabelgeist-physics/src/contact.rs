@@ -129,7 +129,7 @@ impl Collisions {
             parameters.insert("collider_count", self.colliders.len() as u32);
             parameters.insert("particle_radius", self.particle_radius);
             parameters.insert("pad", 0u32);
-            batch.dispatch_items(&self.analytic_kernel, &parameters, count)?;
+            batch.dispatch_items(&self.analytic_kernel, &parameters, (count).into())?;
         }
 
         if self.mesh.is_some() {
@@ -156,7 +156,7 @@ impl Collisions {
         parameters.insert("thickness", mesh.surface.thickness + self.particle_radius);
         parameters.insert("friction", mesh.surface.friction);
         parameters.insert("search_radius", search_radius);
-        batch.dispatch_items(&self.mesh_kernel, &parameters, particles.count())?;
+        batch.dispatch_items(&self.mesh_kernel, &parameters, (particles.count()).into())?;
         Ok(())
     }
 

@@ -29,3 +29,22 @@ explicit. Storage includes copy-source and copy-destination capability.
 Empty uploads fail allocation. Armor consumers explicitly call
 `with_empty_word` when an empty logical input still requires a scalar binding.
 The generic buffer layer does not silently pad every input.
+
+## Compute launches
+
+`InvocationCount` counts work along the x axis. `WorkgroupShape` holds the
+nonzero invocation dimensions declared within one shader workgroup;
+`WorkgroupGrid` counts the workgroups dispatched along all three axes. The
+separate types prevent passing an invocation count where a dispatch grid is
+required.
+
+Admit native declarations through `WorkgroupShape::try_from([x, y, z])`.
+`WorkgroupShapeError` retains every rejected native dimension. Positivity is
+checked here; hardware limits remain the pipeline provider's responsibility.
+`covering_x` uses ceiling division along x and dispatches one group along y and
+z. `WorkgroupGrid::record` emits the native axes at the WebGPU command
+boundary.
+
+Admit an explicit grid through `WorkgroupGrid::from([x, y, z])`. Any zero axis
+produces `DispatchOccupancy::Empty`. Consumers choose whether to skip parameter
+admission or record that native empty grid.

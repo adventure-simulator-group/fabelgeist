@@ -310,9 +310,7 @@ impl Reduce {
                 pipeline,
                 &parameters,
                 &mut encoder,
-                workgroup_count,
-                1,
-                1,
+                [workgroup_count, 1, 1].into(),
             )?;
 
             current_buffer = Some(output_buffer.clone());

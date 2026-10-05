@@ -307,8 +307,8 @@ fn record_torso(
             }
         }
         match groups {
-            Some(groups) => batch.dispatch(&kernel, &bound, [groups, 1, 1]),
-            None => batch.dispatch_items(&kernel, &bound, body.vertex_count),
+            Some(groups) => batch.dispatch(&kernel, &bound, [groups, 1, 1].into()),
+            None => batch.dispatch_items(&kernel, &bound, (body.vertex_count).into()),
         }
         .map_err(device_error)?;
     }

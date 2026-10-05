@@ -86,7 +86,7 @@ impl Articulation {
                 ("links", &self.links),
                 ("positions", &positions),
             ],
-            base.count(),
+            (base.count()).into(),
         )?;
         Ok(positions)
     }

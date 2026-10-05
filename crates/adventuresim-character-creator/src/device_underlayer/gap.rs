@@ -57,7 +57,11 @@ impl Workspace<'_> {
         parameters.insert("values", self.values.clone());
         parameters.insert("overflow", self.overflow.clone());
         batch
-            .dispatch_items(&*kernel(cells_source())?, &parameters, self.face_count)
+            .dispatch_items(
+                &*kernel(cells_source())?,
+                &parameters,
+                (self.face_count).into(),
+            )
             .map_err(device_error)?;
         self.sort
             .record(
@@ -77,7 +81,7 @@ impl Workspace<'_> {
         parameters.insert("keys", self.keys.clone());
         parameters.insert("ranges", self.ranges.clone());
         batch
-            .dispatch_items(&*kernel(ranges_source())?, &parameters, pairs)
+            .dispatch_items(&*kernel(ranges_source())?, &parameters, (pairs).into())
             .map_err(device_error)?;
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.vertex_count);
@@ -93,7 +97,11 @@ impl Workspace<'_> {
         parameters.insert("rooms", self.rooms.clone());
         parameters.insert("status", self.status.clone());
         batch
-            .dispatch_items(&*kernel(query_source())?, &parameters, self.vertex_count)
+            .dispatch_items(
+                &*kernel(query_source())?,
+                &parameters,
+                (self.vertex_count).into(),
+            )
             .map_err(device_error)?;
         Ok(())
     }

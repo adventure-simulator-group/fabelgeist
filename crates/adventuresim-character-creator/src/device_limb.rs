@@ -119,7 +119,7 @@ impl DeviceWearer<'_> {
                 .get(gpu.context(), &trim_source(entry))
                 .map_err(device_error)?;
             batch
-                .dispatch_items(&kernel, &parameters, part.carrier_count())
+                .dispatch_items(&kernel, &parameters, (part.carrier_count()).into())
                 .map_err(device_error)?;
         }
         Ok(())
