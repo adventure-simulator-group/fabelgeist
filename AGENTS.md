@@ -70,6 +70,20 @@
   Iconify and update both the collection's `ATTRIBUTION.md` and the repository's
   `THIRD_PARTY_NOTICES.md`.
 
+## Contributor-facing writing
+
+- Write issues, pull requests, and durable documentation for a contributor who
+  has not read the implementation conversation. Lead with the concrete problem
+  and intended or resulting behavior; include enough context to understand the
+  scope without following another link.
+- Explain unfamiliar domain terms and abbreviations when first used. Prefer
+  concrete code or gameplay examples over internal shorthand or process labels.
+- Describe the final change, material decisions, validation, and known limits.
+  Keep agent run history, goal status, local recovery notes, and abandoned
+  approaches in ignored reports unless they explain a relevant tradeoff.
+- Treat related issues and conversation snapshots as supplemental evidence.
+  Readers must be able to understand and review the proposal from its own text.
+
 ## Pull request context
 
 - Unless the user says otherwise, every pull request must include an
