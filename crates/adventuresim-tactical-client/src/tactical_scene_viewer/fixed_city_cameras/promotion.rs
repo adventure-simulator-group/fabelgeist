@@ -1,8 +1,8 @@
 //! Select detailed capture members only after immutable support reconstruction.
 use super::Contract;
 use adventuresim_tactical_core::scene_input::{
-    GeneratedBuilding, GeneratedBuildingRecipe, GeneratedTacticalScene, SceneInputError,
-    TacticalSceneInput,
+    GeneratedBoundary, GeneratedBuilding, GeneratedBuildingRecipe, GeneratedTacticalScene,
+    SceneGarden, SceneInputError, TacticalSceneInput,
 };
 use std::collections::BTreeSet;
 
@@ -50,6 +50,23 @@ impl Contract {
                 collision: recipe.collision,
             });
         }
+        let owners: BTreeSet<_> = promoted.iter().map(|b| b.placement.id).collect();
+        generated.boundaries.extend(
+            input
+                .compounds
+                .iter()
+                .filter(|p| owners.contains(&p.front_building_id))
+                .map(|p| GeneratedBoundary::project(p, &generated.terrain))
+                .collect::<Result<Vec<_>, _>>()?,
+        );
+        generated.gardens.extend(
+            input
+                .gardens
+                .iter()
+                .filter(|p| owners.contains(&p.front_building_id))
+                .map(|p| SceneGarden::project(p.clone(), &generated.terrain))
+                .collect::<Result<Vec<_>, _>>()?,
+        );
         generated.furniture.furnish_interiors(&promoted)?;
         generated.buildings.extend(promoted);
         Ok(generated)

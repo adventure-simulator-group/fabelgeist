@@ -516,6 +516,8 @@ when comparing terrain support across generated products and building LODs.
 Explicit capture members are prepared for playable presentation only after the
 unchanged input has reconstructed its accepted terrain. Their exact programmes,
 placements and floor elevations are retained, and their distant drawing entries
-are suppressed. The saved input and scene digest identify the authoritative
+are suppressed. The existing authoritative projectors generate each selected
+owner's enclosure and garden against that same accepted terrain. The saved
+input and scene digest identify the authoritative
 source; `fixed-camera-contract.json` records this presentation selection.
 Ordinary images and wireframe/collision diagnostics are separate evidence.

@@ -44,11 +44,11 @@ fn capture_near_edge_promotion_preserves_accepted_surface_and_complete_bindings(
     );
     assert_eq!(
         serde_json::to_vec(&before.boundaries).unwrap(),
-        serde_json::to_vec(&after.boundaries).unwrap()
+        serde_json::to_vec(&after.boundaries[..before.boundaries.len()]).unwrap()
     );
     assert_eq!(
         serde_json::to_vec(&before.gardens).unwrap(),
-        serde_json::to_vec(&after.gardens).unwrap()
+        serde_json::to_vec(&after.gardens[..before.gardens.len()]).unwrap()
     );
     assert_eq!(input_bytes, serde_json::to_vec(&input).unwrap());
     assert_eq!(after.buildings.len(), before.buildings.len() + 2);
@@ -111,6 +111,43 @@ fn capture_near_edge_promotion_preserves_accepted_surface_and_complete_bindings(
             .interiors
             .iter()
             .any(|i| i.building_id == member.id)
+    );
+}
+
+#[test]
+fn promoted_garden_owner_retains_planting_and_accepted_root_elevations() {
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../assets/tactical-scenes/garden-review.json");
+    let input = TacticalSceneInput::load(&path).unwrap();
+    let member = input.distant_buildings[0];
+    let contract = Contract(Some(Document {
+        version: CONTRACT_VERSION,
+        exterior: Vec::new(),
+        benchmark: None,
+        playable_building_ids: vec![member.id],
+    }));
+    let generated = contract.generate(&input).unwrap();
+    let garden = input
+        .gardens
+        .iter()
+        .find(|g| g.front_building_id == member.id)
+        .unwrap();
+    let projected = generated
+        .gardens
+        .iter()
+        .find(|g| g.garden.owner == garden.owner)
+        .unwrap();
+    assert_eq!(projected.garden, *garden);
+    assert_eq!(
+        *projected,
+        SceneGarden::project(garden.clone(), &generated.terrain).unwrap()
+    );
+    assert_eq!(projected.plant_support.len(), garden.plants.len());
+    assert_eq!(generated.gardens.len(), input.gardens.len());
+    assert!(
+        !crate::tactical_scene_viewer::buildings::distant_placements(&input, &generated.buildings)
+            .iter()
+            .any(|b| b.id == member.id)
     );
 }
 
@@ -191,6 +228,45 @@ fn required_capture_members_preserve_all_accepted_production_terrain() {
             distant.len() + after.buildings.len(),
             input.distant_buildings.len() + input.buildings.len()
         );
+        let visible_owners: BTreeSet<_> = after.buildings.iter().map(|b| b.placement.id).collect();
+        let expected_boundaries: Vec<_> = input
+            .compounds
+            .iter()
+            .filter(|p| visible_owners.contains(&p.front_building_id))
+            .collect();
+        assert_eq!(after.boundaries.len(), expected_boundaries.len());
+        for compound in expected_boundaries {
+            let boundary = after
+                .boundaries
+                .iter()
+                .find(|b| b.scene.property_id == compound.id)
+                .unwrap();
+            assert_eq!(boundary.scene.front_building_id, compound.front_building_id);
+            assert_eq!(boundary.scene.boundary, compound.boundary);
+            assert_eq!(
+                serde_json::to_vec(boundary).unwrap(),
+                serde_json::to_vec(&GeneratedBoundary::project(compound, &after.terrain).unwrap())
+                    .unwrap()
+            );
+        }
+        let expected_gardens: Vec<_> = input
+            .gardens
+            .iter()
+            .filter(|g| visible_owners.contains(&g.front_building_id))
+            .collect();
+        assert_eq!(after.gardens.len(), expected_gardens.len());
+        for garden in expected_gardens {
+            let planting = after
+                .gardens
+                .iter()
+                .find(|g| g.garden.owner == garden.owner)
+                .unwrap();
+            assert_eq!(planting.garden, *garden);
+            assert_eq!(
+                *planting,
+                SceneGarden::project(garden.clone(), &after.terrain).unwrap()
+            );
+        }
         input.validate().unwrap();
     }
 }
