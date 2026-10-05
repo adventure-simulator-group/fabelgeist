@@ -65,8 +65,8 @@ impl Workspace<'_> {
                 &self.keys,
                 &self.values,
                 &mut self.sort_scratch,
-                pairs,
-                BUCKET_BITS,
+                pairs.into(),
+                BUCKET_BITS.into(),
             )
             .map_err(device_error)?;
         let mut parameters = PassParameters::new();

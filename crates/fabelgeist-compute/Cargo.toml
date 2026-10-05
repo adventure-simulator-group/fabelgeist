@@ -18,6 +18,7 @@ regex = { "version" = "1.12.3" }
 naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
 
 [dev-dependencies]
+serde_json = { workspace = true }
 tokio = { "version" = "1", "features" = ["full"] }
 
 [target."cfg(not(target_arch = \"wasm32\"))".dependencies]
