@@ -13,7 +13,7 @@ use crate::math::{
     Mat4, Quat, Transform, affine_inverse, mat4_from_column_major, quat_from_euler_degrees,
     quat_mul, rotation_order,
 };
-use fabelgeist_fbx::{Object, Scene};
+use fabelgeist_fbx::{FbxObjectId, Object, Scene};
 
 /// Momentum allows at most eight joint influences per vertex.
 pub const MAX_SKIN_JOINTS: usize = 8;
@@ -119,7 +119,7 @@ struct SkeletonBuilder<'a> {
     scene: &'a Scene,
     skeleton: Skeleton,
     /// FBX object id per joint index, used to resolve skin clusters back to joints.
-    joint_ids: Vec<i64>,
+    joint_ids: Vec<FbxObjectId>,
 }
 
 impl<'a> SkeletonBuilder<'a> {
@@ -178,13 +178,13 @@ impl<'a> SkeletonBuilder<'a> {
     }
 }
 
-fn parse_skeleton(scene: &Scene) -> (Skeleton, Vec<i64>) {
+fn parse_skeleton(scene: &Scene) -> (Skeleton, Vec<FbxObjectId>) {
     let mut builder = SkeletonBuilder {
         scene,
         skeleton: Skeleton::default(),
         joint_ids: Vec::new(),
     };
-    for root in scene.children(0).collect::<Vec<_>>() {
+    for root in scene.children(FbxObjectId::SCENE_ROOT).collect::<Vec<_>>() {
         builder.visit(root, None);
     }
     (builder.skeleton, builder.joint_ids)
@@ -325,7 +325,7 @@ fn parse_blend_shapes(scene: &Scene, geometry: &Object, num_vertices: usize) -> 
 fn parse_skin(
     scene: &Scene,
     geometry: &Object,
-    joint_of_object: &HashMap<i64, usize>,
+    joint_of_object: &HashMap<FbxObjectId, usize>,
     num_vertices: usize,
     inverse_bind_pose: &mut [Mat4],
 ) -> Result<SkinWeights> {
@@ -419,7 +419,7 @@ impl Character {
             bail!("no joints found in FBX rig");
         }
 
-        let joint_of_object: HashMap<i64, usize> = joint_ids
+        let joint_of_object: HashMap<FbxObjectId, usize> = joint_ids
             .iter()
             .enumerate()
             .map(|(index, id)| (*id, index))
