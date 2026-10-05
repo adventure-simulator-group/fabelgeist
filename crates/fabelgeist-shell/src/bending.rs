@@ -83,13 +83,17 @@ impl BendWeights {
             points.0[2] - points.0[0],
             points.0[3] - points.0[0],
         ];
-        let first = spokes
-            .iter()
-            .copied()
-            .max_by(|a: &Vec3, b: &Vec3| -> std::cmp::Ordering {
-                a.length_squared().total_cmp(&b.length_squared())
-            })
-            .expect("three fixed hinge spokes");
+        let [mut first, second, third] = spokes;
+        for spoke in [second, third] {
+            // Equal lengths select the later spoke in hinge order.
+            if first
+                .length_squared()
+                .total_cmp(&spoke.length_squared())
+                .is_le()
+            {
+                first = spoke;
+            }
+        }
         if first.length_squared() < Self::MINIMUM_SPOKE_LENGTH_SQUARED {
             return Err(BendGeometryError::CollapsedSpokes);
         }
