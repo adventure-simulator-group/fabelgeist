@@ -2,6 +2,7 @@
 use super::limb::{LimbShape, shape};
 use super::{ArmorGpu, BuiltPart};
 use crate::{GenerateError, LimbArmorDesign, PartFrame};
+use fabelgeist_gpu::prelude::BufferUpload;
 
 /// Record a limb design's charts, placed by the part frame at the start of
 /// `frame`, into a new device part.
@@ -27,7 +28,9 @@ pub fn generate_limb_armor_on(
 ) -> Result<BuiltPart, GenerateError> {
     if let LimbArmorDesign::Pauldron(d) = design {
         fit.validate()?;
-        let frame = gpu.upload(&super::recipe::frame_words(fit))?;
+        let frame = gpu.upload(BufferUpload::from_elements(&super::recipe::frame_words(
+            fit,
+        )))?;
         let mut batch = gpu.batch("pauldron");
         let carrier = super::pauldron::DevicePauldronCarrier::record(gpu, &mut batch, d, &frame)?;
         let mut part = carrier.record_plates(gpu, &mut batch, d)?;

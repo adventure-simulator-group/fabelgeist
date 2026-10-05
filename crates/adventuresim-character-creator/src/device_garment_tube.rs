@@ -11,6 +11,7 @@ use fabelgeist_armor::{
 };
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_frames::DeviceWearer;
@@ -85,7 +86,7 @@ impl DeviceWearer<'_> {
             indices.len() as u32 <= RING_CAPACITY,
             "sewing ring too long"
         );
-        let indices_buffer = self.gpu.upload(indices)?;
+        let indices_buffer = self.gpu.upload(BufferUpload::from_elements(indices))?;
         dispatch(
             self,
             batch,

@@ -5,6 +5,7 @@
 //! between them is the kernel and the per-constraint data; what is the same is
 //! the colouring, the Lagrange multipliers, and the dispatch per colour.
 
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use std::sync::Arc;
 
 use anyhow::anyhow;
@@ -83,21 +84,22 @@ impl ConstraintSet {
         }
 
         let storage = BufferDefinition::storage();
-        let particle_buffer = Buffer::from_slice(
+        // An empty set still gets one native slot; no dispatch visits it.
+        let particle_buffer = Buffer::from_upload(
             context,
-            // A zero-length buffer cannot be allocated, so an empty set still
-            // gets one slot; nothing ever dispatches over it.
-            if ordered.is_empty() {
+            BufferUpload::from_elements(if ordered.is_empty() {
                 &[0u32]
             } else {
                 &ordered[..]
-            },
-            storage.clone().with_label("constraint particles"),
+            }),
+            storage.clone().with_label("constraint particles".into()),
         )?;
         let lambdas = Buffer::new(
             context,
-            (count.max(1) as u64) * 4,
-            storage.with_copy_src().with_label("constraint lambdas"),
+            ((count.max(1) as u64) * 4).into(),
+            storage
+                .with_usage(BufferUse::CopySource)
+                .with_label(("constraint lambdas").into()),
         )?;
 
         Ok(Self {
@@ -197,14 +199,14 @@ impl ConstraintSet {
                 self.constraint_count()
             ));
         }
-        let definition = BufferDefinition::storage().with_label(&name);
+        let definition = BufferDefinition::storage().with_label(name.as_str().into());
         // A zero-length buffer cannot be allocated, and an empty constraint
         // set is perfectly ordinary -- a garment with no seams, say -- so it
         // gets one unused slot instead. Nothing ever dispatches over it.
         let buffer = if values.is_empty() {
-            Buffer::from_slice(context, &[0u32], definition)?
+            Buffer::from_upload(context, BufferUpload::from_elements(&[0u32]), definition)?
         } else {
-            Buffer::from_slice(context, values, definition)?
+            Buffer::from_upload(context, BufferUpload::from_elements(values), definition)?
         };
         self.attachments.retain(|(existing, _)| existing != &name);
         self.attachments.push((name, buffer));
@@ -228,11 +230,11 @@ impl ConstraintSet {
                 values.len()
             ));
         }
-        let definition = BufferDefinition::storage().with_label(&name);
+        let definition = BufferDefinition::storage().with_label(name.as_str().into());
         let buffer = if values.is_empty() {
-            Buffer::from_slice(context, &[0u32], definition)?
+            Buffer::from_upload(context, BufferUpload::from_elements(&[0u32]), definition)?
         } else {
-            Buffer::from_slice(context, values, definition)?
+            Buffer::from_upload(context, BufferUpload::from_elements(values), definition)?
         };
         self.attachments.retain(|(existing, _)| existing != &name);
         self.attachments.push((name, buffer));

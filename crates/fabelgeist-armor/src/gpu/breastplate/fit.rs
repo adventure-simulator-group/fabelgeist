@@ -2,6 +2,7 @@
 
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::TorsoBody;
 use super::carrier_wgsl::{self, COARSE_WORDS};
@@ -45,8 +46,10 @@ pub(super) fn record_fitted(
     plates: &Plates,
     status: &Buffer,
 ) -> Result<Fitted, GenerateError> {
-    let plate = gpu.upload(&shape_wgsl::design_words(design))?;
-    let torso_faces = gpu.upload(torso.torso_faces)?;
+    let plate = gpu.upload(BufferUpload::from_elements(&shape_wgsl::design_words(
+        design,
+    )))?;
+    let torso_faces = gpu.upload(BufferUpload::from_elements(torso.torso_faces))?;
     let body_local = gpu.scratch(torso.body.vertex_count as u64 * 12, "body in wearer frame")?;
     record_wearer(gpu, batch, &plate, torso, &torso_faces, &body_local, status)?;
     let fitter = Fitter {
@@ -130,14 +133,14 @@ fn record_wearer(
         vertices,
     )?;
     let corners = torso.torso_faces.len() as u32 * 3;
-    let bounds = gpu.upload(&[
+    let bounds = gpu.upload(BufferUpload::from_elements(&[
         ORDERED_POSITIVE_INFINITY,
         ORDERED_POSITIVE_INFINITY,
         ORDERED_POSITIVE_INFINITY,
         ORDERED_NEGATIVE_INFINITY,
         ORDERED_NEGATIVE_INFINITY,
         ORDERED_NEGATIVE_INFINITY,
-    ])?;
+    ]))?;
     dispatch(
         gpu,
         batch,
@@ -206,7 +209,12 @@ impl Fitter<'_> {
                 ("torso_faces", self.torso_faces),
                 ("body_local", self.body_local),
                 ("support_radii", &support),
-                ("columns", &self.gpu.upload(&plate.topology.columns)?),
+                (
+                    "columns",
+                    &self
+                        .gpu
+                        .upload(BufferUpload::from_elements(&plate.topology.columns))?,
+                ),
                 ("status", self.status),
             ],
             plate.width(),
@@ -256,7 +264,12 @@ impl Fitter<'_> {
             &[
                 ("plate", self.plate),
                 ("coarse", &coarse),
-                ("columns", &self.gpu.upload(&plate.topology.columns)?),
+                (
+                    "columns",
+                    &self
+                        .gpu
+                        .upload(BufferUpload::from_elements(&plate.topology.columns))?,
+                ),
                 ("status", self.status),
             ],
             samples,
@@ -269,7 +282,10 @@ impl Fitter<'_> {
             params,
             &[
                 ("plate", self.plate),
-                ("columns", &gpu.upload(&plate.topology.columns)?),
+                (
+                    "columns",
+                    &gpu.upload(BufferUpload::from_elements(&plate.topology.columns))?,
+                ),
                 ("coarse", &coarse),
                 ("positions", &plate.positions),
             ],
@@ -366,7 +382,12 @@ impl Fitter<'_> {
                 ("torso_faces", self.torso_faces),
                 ("body_local", self.body_local),
                 ("support_radii", &support_radii),
-                ("columns", &self.gpu.upload(&plate.topology.columns)?),
+                (
+                    "columns",
+                    &self
+                        .gpu
+                        .upload(BufferUpload::from_elements(&plate.topology.columns))?,
+                ),
                 ("status", self.status),
             ],
             count,

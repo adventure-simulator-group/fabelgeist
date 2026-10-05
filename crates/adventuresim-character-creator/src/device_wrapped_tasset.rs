@@ -6,6 +6,7 @@ use fabelgeist_armor::gpu::wrapped_tassets::{
 use fabelgeist_armor::{GarmentArmorDesign, GarmentPlateShape, WrappedTassetDesign};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use crate::armor_frames::{FitRegion, Side, Wearer};
 use crate::armor_layer::ArmorLayerSurface;
@@ -244,10 +245,10 @@ impl DeviceWearer<'_> {
         support: &Support,
     ) -> Result<DeviceSupport> {
         let gpu = self.gpu;
-        let fit = gpu.upload(&support.metadata)?;
+        let fit = gpu.upload(BufferUpload::from_elements(&support.metadata))?;
         let status = gpu.scratch(4, "tasset support status")?;
-        let points = gpu.upload(&support.points)?;
-        let triangles = gpu.upload(&support.triangles)?;
+        let points = gpu.upload(BufferUpload::from_elements(&support.points))?;
+        let triangles = gpu.upload(BufferUpload::from_elements(&support.triangles))?;
         let capacity = (support.triangles.len() as u32 * SAMPLES_PER_TRIANGLE)
             .max(support.points.len() as u32)
             + 1;

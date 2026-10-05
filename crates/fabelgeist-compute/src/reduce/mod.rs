@@ -1,3 +1,4 @@
+use fabelgeist_gpu::prelude::BufferUse;
 pub mod max;
 pub mod min;
 
@@ -213,7 +214,7 @@ impl Reduce {
         let mut current_resource = input.clone();
         let mut current_element_count = match input {
             fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(b) => {
-                (b.size / element_size.max(1)).max(1) as u32
+                (u64::from(b.size) / element_size.max(1)).max(1) as u32
             }
             fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => t.size.0 * t.size.1,
             fabelgeist_gpu::data::gpu::resource::GpuResource::Texture3d(t) => {
@@ -238,7 +239,7 @@ impl Reduce {
             required_size: u64,
         ) -> Result<()> {
             let resize = if let Some(buf) = buffer_opt {
-                buf.size < required_size
+                u64::from(buf.size) < required_size
             } else {
                 true
             };
@@ -246,10 +247,10 @@ impl Reduce {
             if resize {
                 *buffer_opt = Some(fabelgeist_gpu::data::gpu::Buffer::new(
                     ctx,
-                    required_size,
+                    (required_size).into(),
                     fabelgeist_gpu::data::BufferDefinition::storage()
-                        .with_label("scratchpad")
-                        .with_copy_src(),
+                        .with_label(("scratchpad").into())
+                        .with_usage(BufferUse::CopySource),
                 )?);
             }
             Ok(())
@@ -323,11 +324,11 @@ impl Reduce {
 
         let final_buffer = fabelgeist_gpu::data::gpu::Buffer::new(
             context,
-            element_size,
+            (element_size).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("reduction_result")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("reduction_result").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
 
         encoder.copy_buffer_to_buffer(

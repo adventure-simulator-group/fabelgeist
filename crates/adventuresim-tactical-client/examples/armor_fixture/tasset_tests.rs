@@ -7,6 +7,7 @@ use fabelgeist_armor::{
     GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape, Millimeters, Permille,
     WrappedTassetDesign,
 };
+use fabelgeist_gpu::prelude::BufferUpload;
 
 #[test]
 fn wrapped_waist_assembly_fits_completed_fauld_and_morph() -> Result<()> {
@@ -108,11 +109,14 @@ fn wrapped_tassets_reject_nonpositive_final_section_radii() -> Result<()> {
                 ]);
             }
             words[45] = inner_start as f32;
-            gpu.upload(&words)
+            gpu.upload(BufferUpload::from_elements(&words))
         });
         let [left, right] = fits;
         let (left, right) = (left?, right?);
-        let statuses = [gpu.upload(&[0_u32])?, gpu.upload(&[0_u32])?];
+        let statuses = [
+            gpu.upload(BufferUpload::from_elements(&[0_u32]))?,
+            gpu.upload(BufferUpload::from_elements(&[0_u32]))?,
+        ];
         let mut batch = gpu.batch("invalid final tasset section regression");
         let mut part = wrapped_tassets::record_wrapped_tassets(
             gpu,

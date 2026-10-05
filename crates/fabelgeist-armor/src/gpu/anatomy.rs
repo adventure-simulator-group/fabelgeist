@@ -13,6 +13,7 @@
 //! walks the faces in order, 256 at a time, and compacts them with a
 //! prefix sum. Everything that follows reads counts from the device.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::collections::HashMap;
 use std::sync::Arc;
 
@@ -89,8 +90,8 @@ pub struct DeviceSeams {
 impl DeviceSeams {
     pub fn new(gpu: &ArmorGpu, topology: &SeamTopology) -> Result<Self, GenerateError> {
         Ok(Self {
-            corner_pairs: gpu.upload(&topology.corner_pairs)?,
-            pairs: gpu.upload(&topology.pairs)?,
+            corner_pairs: gpu.upload(BufferUpload::from_elements(&topology.corner_pairs))?,
+            pairs: gpu.upload(BufferUpload::from_elements(&topology.pairs))?,
             face_count: topology.face_count,
             pair_count: topology.pair_count(),
         })

@@ -959,7 +959,7 @@ impl Stencil {
         let output_num_elements: u64 = match output {
             GpuResource::Buffer(b) => {
                 parameters.insert("output", b.clone());
-                b.size / output_size.max(&1)
+                u64::from(b.size) / output_size.max(&1)
             }
             GpuResource::Texture2d(t) => {
                 parameters.insert("output", t.clone());
@@ -1010,6 +1010,7 @@ impl Stencil {
 mod tests {
     use super::*;
     use crate::test_utils::*;
+    use fabelgeist_gpu::prelude::BufferUpload;
 
     pub async fn test_stencil_generalized<IN, OUT, S>(
         definition_code: &str,
@@ -1125,20 +1126,20 @@ mod tests {
         let input_data = vec![1.0f32, 2.0f32, 3.0f32, 4.0f32];
         let weights_data = vec![2.0f32];
 
-        let input_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_slice(
+        let input_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_upload(
             &context,
-            &input_data,
+            BufferUpload::from_elements(&input_data),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage(),
         )?;
         let output_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::new(
             &context,
-            16,
+            (16u64).into(),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage(),
         )?;
 
-        let weights_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_slice(
+        let weights_buf = fabelgeist_gpu::data::gpu::buffer::Buffer::from_upload(
             &context,
-            &weights_data,
+            BufferUpload::from_elements(&weights_data),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage(),
         )?;
 

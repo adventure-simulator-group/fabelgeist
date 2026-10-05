@@ -8,6 +8,7 @@
 use anyhow::anyhow;
 use fabelgeist_bvh::gpu::{BvhKernels, GpuBvh, TraversalConfig, traversal_source};
 use fabelgeist_compute::prelude::*;
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 
@@ -76,20 +77,24 @@ impl MeshCollider {
         let flat_triangles: Vec<u32> = triangles.iter().flatten().copied().collect();
 
         let mut collider = Self {
-            positions: Buffer::from_slice(
+            positions: Buffer::from_upload(
                 context,
-                &packed_positions,
-                storage.clone().with_label("mesh collider positions"),
+                BufferUpload::from_elements(&packed_positions),
+                storage
+                    .clone()
+                    .with_label(("mesh collider positions").into()),
             )?,
-            triangles: Buffer::from_slice(
+            triangles: Buffer::from_upload(
                 context,
-                &flat_triangles,
-                storage.clone().with_label("mesh collider triangles"),
+                BufferUpload::from_elements(&flat_triangles),
+                storage
+                    .clone()
+                    .with_label(("mesh collider triangles").into()),
             )?,
             bounds: Buffer::new(
                 context,
-                triangle_count as u64 * 32,
-                storage.with_label("mesh collider triangle bounds"),
+                (triangle_count as u64 * 32).into(),
+                storage.with_label(("mesh collider triangle bounds").into()),
             )?,
             bvh: GpuBvh::new(context, bvh_kernels, triangle_count)?,
             surface,
@@ -120,7 +125,10 @@ impl MeshCollider {
                 positions.len()
             ));
         }
-        self.positions.write(context, &pack_positions(positions))?;
+        self.positions.write(
+            context,
+            BufferUpload::from_elements(&pack_positions(positions)),
+        )?;
         Ok(())
     }
 

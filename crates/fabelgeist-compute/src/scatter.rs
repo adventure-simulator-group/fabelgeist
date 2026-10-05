@@ -354,7 +354,7 @@ impl Scatter {
         let input_num_elements = match input {
             GpuResource::Buffer(b) => {
                 parameters.insert("input", b.clone());
-                b.size / input_size.max(&1)
+                u64::from(b.size) / input_size.max(&1)
             }
             GpuResource::Texture2d(t) => {
                 parameters.insert("input", t.clone());

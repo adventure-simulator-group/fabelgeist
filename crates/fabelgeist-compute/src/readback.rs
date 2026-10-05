@@ -8,6 +8,8 @@
 //! buffer, and maps it once after the batch is submitted.
 
 use crate::prelude::*;
+#[cfg(test)]
+use fabelgeist_gpu::prelude::BufferUpload;
 
 /// Copy offsets must be multiples of this many bytes.
 const ALIGNMENT: u64 = wgpu::COPY_BUFFER_ALIGNMENT;
@@ -27,8 +29,8 @@ impl Readback {
         let mut ranges = Vec::with_capacity(buffers.len());
         let mut size = 0;
         for buffer in buffers {
-            ranges.push((size, buffer.size));
-            size += buffer.size.div_ceil(ALIGNMENT) * ALIGNMENT;
+            ranges.push((size, u64::from(buffer.size)));
+            size += u64::from(buffer.size).div_ceil(ALIGNMENT) * ALIGNMENT;
         }
         let staging = context.device.create_buffer(&wgpu::BufferDescriptor {
             label: Some("Readback"),
@@ -82,13 +84,17 @@ mod tests {
         let context = WgpuContext::new().await?;
         let definition = BufferDefinition::storage();
         // Odd lengths, so that the staged copies need padding between them.
-        let a = Buffer::from_slice(&context, &[1u32, 2, 3], definition.clone())?;
-        let b = Buffer::from_slice(
+        let a = Buffer::from_upload(
             &context,
-            &[7u8, 8, 9, 10, 11, 12, 13, 14],
+            BufferUpload::from_elements(&[1u32, 2, 3]),
             definition.clone(),
         )?;
-        let c = Buffer::from_slice(&context, &[0.5f32], definition)?;
+        let b = Buffer::from_upload(
+            &context,
+            BufferUpload::from_elements(&[7u8, 8, 9, 10, 11, 12, 13, 14]),
+            definition.clone(),
+        )?;
+        let c = Buffer::from_upload(&context, BufferUpload::from_elements(&[0.5f32]), definition)?;
         let mut batch = KernelBatch::new(&context);
         let readback = Readback::record(&context, &mut batch, &[&a, &b, &c]);
         batch.submit();

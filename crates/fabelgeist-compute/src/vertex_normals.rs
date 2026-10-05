@@ -13,6 +13,9 @@
 //! check does not certify topology, intersections, or fitting clearance.
 
 use crate::prelude::*;
+#[cfg(test)]
+use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::BufferUse;
 use std::sync::Arc;
 
 /// How a triangle's normal counts toward the normal of each of its vertices.
@@ -231,9 +234,13 @@ impl VertexNormals {
         let vertex_capacity = vertex_capacity.max(1);
         let triangle_capacity = triangle_capacity.max(1);
         let corner_capacity = triangle_capacity * 3;
-        let storage = BufferDefinition::storage().with_copy_src();
+        let storage = BufferDefinition::storage().with_usage(BufferUse::CopySource);
         let buffer = |bytes: u64, label: &str| {
-            Buffer::new(context, bytes, storage.clone().with_label(label))
+            Buffer::new(
+                context,
+                (bytes).into(),
+                storage.clone().with_label((label).into()),
+            )
         };
         Ok(Self {
             normals: buffer(vertex_capacity as u64 * 12, "vertex normals")?,
@@ -406,8 +413,13 @@ mod tests {
         let context = WgpuContext::new().await?;
         let kernels = VertexNormalKernels::new(&context, weighting)?;
         let definition = BufferDefinition::storage();
-        let position_buffer = Buffer::from_slice(&context, positions, definition.clone())?;
-        let triangle_buffer = Buffer::from_slice(&context, triangles, definition)?;
+        let position_buffer = Buffer::from_upload(
+            &context,
+            BufferUpload::from_elements(positions),
+            definition.clone(),
+        )?;
+        let triangle_buffer =
+            Buffer::from_upload(&context, BufferUpload::from_elements(triangles), definition)?;
         let mut output =
             VertexNormals::new(&context, positions.len() as u32, triangles.len() as u32)?;
         let mut batch = KernelBatch::new(&context);

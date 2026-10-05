@@ -10,6 +10,7 @@ use anyhow::{Context, Result};
 use fabelgeist_armor::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use crate::armor_frames::FitRegion;
 use crate::armor_layer::ArmorLayerSurface;
@@ -136,7 +137,7 @@ impl DeviceWearer<'_> {
             }
         }
         let gpu = self.gpu;
-        let owned = gpu.upload(&owned)?;
+        let owned = gpu.upload(BufferUpload::from_elements(&owned))?;
         let support = gpu.scratch(self.body.vertex_count as u64 * 4, "garment support")?;
         dispatch(
             self,

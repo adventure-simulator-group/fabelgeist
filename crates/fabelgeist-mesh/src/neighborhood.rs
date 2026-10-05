@@ -2,6 +2,7 @@ use crate::PrimitiveTopology;
 use anyhow::Result;
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::collections::HashSet;
 
 pub struct MeshNeighborhood {
@@ -71,10 +72,10 @@ impl MeshNeighborhood {
             }
         }
 
-        Buffer::from_slice(
+        Buffer::from_upload(
             context,
-            &buffer_data,
-            BufferDefinition::storage().with_label("Vertex Neighbors"),
+            BufferUpload::from_elements(&buffer_data),
+            BufferDefinition::storage().with_label(("Vertex Neighbors").into()),
         )
     }
 }

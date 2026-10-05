@@ -5,6 +5,7 @@
 //! moving positions -- the substep's own velocity update turns those moves
 //! into velocity changes, so there is no impulse arithmetic here at all.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use anyhow::anyhow;
@@ -47,8 +48,8 @@ impl Collisions {
             colliders: Vec::new(),
             collider_buffer: Buffer::new(
                 context,
-                INITIAL_CAPACITY as u64 * COLLIDER_BYTES as u64,
-                BufferDefinition::storage().with_label("colliders"),
+                (INITIAL_CAPACITY as u64 * COLLIDER_BYTES as u64).into(),
+                BufferDefinition::storage().with_label(("colliders").into()),
             )?,
             collider_capacity: INITIAL_CAPACITY,
             mesh: None,
@@ -67,13 +68,15 @@ impl Collisions {
             self.collider_capacity = colliders.len().next_power_of_two() as u32;
             self.collider_buffer = Buffer::new(
                 context,
-                self.collider_capacity as u64 * COLLIDER_BYTES as u64,
-                BufferDefinition::storage().with_label("colliders"),
+                (self.collider_capacity as u64 * COLLIDER_BYTES as u64).into(),
+                BufferDefinition::storage().with_label(("colliders").into()),
             )?;
         }
         if !colliders.is_empty() {
-            self.collider_buffer
-                .write(context, &pack_colliders(&colliders))?;
+            self.collider_buffer.write(
+                context,
+                BufferUpload::from_elements(&pack_colliders(&colliders)),
+            )?;
         }
         self.colliders = colliders;
         Ok(())
@@ -94,8 +97,10 @@ impl Collisions {
             ));
         }
         if !colliders.is_empty() {
-            self.collider_buffer
-                .write(context, &pack_colliders(colliders))?;
+            self.collider_buffer.write(
+                context,
+                BufferUpload::from_elements(&pack_colliders(colliders)),
+            )?;
         }
         self.colliders = colliders.to_vec();
         Ok(())

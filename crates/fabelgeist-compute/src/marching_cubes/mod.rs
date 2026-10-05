@@ -1,3 +1,4 @@
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 pub mod tables;
 
 use crate::Scan;
@@ -37,20 +38,20 @@ impl PartialEq for MarchingCubesDefinition {
 
 impl MarchingCubesDefinition {
     pub fn new(context: &WgpuContext) -> Result<Self> {
-        let tri_table_buffer = Buffer::from_slice(
+        let tri_table_buffer = Buffer::from_upload(
             context,
-            &tables::TRI_TABLE,
-            BufferDefinition::storage().with_label("TRI_TABLE"),
+            BufferUpload::from_elements(&tables::TRI_TABLE),
+            BufferDefinition::storage().with_label(("TRI_TABLE").into()),
         )?;
-        let edge_table_buffer = Buffer::from_slice(
+        let edge_table_buffer = Buffer::from_upload(
             context,
-            &tables::EDGE_TABLE,
-            BufferDefinition::storage().with_label("EDGE_TABLE"),
+            BufferUpload::from_elements(&tables::EDGE_TABLE),
+            BufferDefinition::storage().with_label(("EDGE_TABLE").into()),
         )?;
-        let tri_count_table_buffer = Buffer::from_slice(
+        let tri_count_table_buffer = Buffer::from_upload(
             context,
-            &tables::TRI_COUNT_TABLE,
-            BufferDefinition::storage().with_label("TRI_COUNT_TABLE"),
+            BufferUpload::from_elements(&tables::TRI_COUNT_TABLE),
+            BufferDefinition::storage().with_label(("TRI_COUNT_TABLE").into()),
         )?;
 
         let params_struct = r#"
@@ -314,11 +315,11 @@ impl MarchingCubes {
         // 1. Count Pass
         let counts_buffer = Buffer::new(
             context,
-            grid_total * 4,
+            (grid_total * 4).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("counts_buffer")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("counts_buffer").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
         let counts_resource = GpuResource::Buffer(counts_buffer.clone());
 
@@ -350,29 +351,29 @@ impl MarchingCubes {
         // 3. Sync Indirect Pass (Map)
         let dummy_in = Buffer::new(
             context,
-            4,
+            (4u64).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("dummy_in")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("dummy_in").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
         let dummy_out = Buffer::new(
             context,
-            4,
+            (4u64).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("dummy_out")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("dummy_out").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
 
         let output_indirect = Buffer::new(
             context,
-            16,
+            (16u64).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("marching_cubes_indirect")
-                .with_copy_src()
-                .with_copy_dst()
-                .with_indirect(),
+                .with_label(("marching_cubes_indirect").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination)
+                .with_usage(BufferUse::Indirect),
         )?;
 
         let mut sync_params = PassParameters::new();
@@ -405,11 +406,11 @@ impl MarchingCubes {
 
         let output_vertices = Buffer::new(
             context,
-            max_vertices as u64 * 32, // vec4 pos + vec4 norm
+            (max_vertices as u64 * 32).into(), // vec4 pos + vec4 norm
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("marching_cubes_output_vertices")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("marching_cubes_output_vertices").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
 
         crate::Stream::execute(
@@ -425,22 +426,22 @@ impl MarchingCubes {
         // 5. Deinterleave Pass
         let out_positions = Buffer::new(
             context,
-            max_vertices as u64 * 12, // vec3 pos
+            (max_vertices as u64 * 12).into(), // vec3 pos
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("marching_cubes_positions")
-                .with_copy_src()
-                .with_copy_dst()
-                .with_vertex(),
+                .with_label(("marching_cubes_positions").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination)
+                .with_usage(BufferUse::Vertex),
         )?;
 
         let out_normals = Buffer::new(
             context,
-            max_vertices as u64 * 12, // vec3 norm
+            (max_vertices as u64 * 12).into(), // vec3 norm
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("marching_cubes_normals")
-                .with_copy_src()
-                .with_copy_dst()
-                .with_vertex(),
+                .with_label(("marching_cubes_normals").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination)
+                .with_usage(BufferUse::Vertex),
         )?;
 
         let mut deinterleave_params = PassParameters::new();

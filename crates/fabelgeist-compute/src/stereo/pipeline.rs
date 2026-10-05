@@ -8,6 +8,7 @@ use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
 use fabelgeist_gpu::data::matrix::Mat4;
 use fabelgeist_gpu::data::vector::Vec4;
 use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 /// A 4x4 rigid transform, by rows.
 pub type Matrix4 = [[f32; 4]; 4];
@@ -142,8 +143,8 @@ pub struct StereoDepth {
 fn storage(context: &WgpuContext, label: &str, bytes: u64) -> Result<Buffer> {
     Buffer::new(
         context,
-        bytes.max(4),
-        BufferDefinition::storage().with_label(label),
+        (bytes.max(4)).into(),
+        BufferDefinition::storage().with_label((label).into()),
     )
 }
 
@@ -290,9 +291,13 @@ impl StereoDepth {
             .views
             .iter()
             .flat_map(|views| views.points.iter().chain(&views.distance))
-            .map(|buffer| buffer.size)
+            .map(|buffer| u64::from(buffer.size))
             .sum();
-        buffers.iter().map(|buffer| buffer.size).sum::<u64>() + views
+        buffers
+            .iter()
+            .map(|buffer| u64::from(buffer.size))
+            .sum::<u64>()
+            + views
     }
 
     /// Hand over one frame's match, row-major over the rectified grid:
@@ -313,8 +318,10 @@ impl StereoDepth {
             disparity.len(),
             confidence.len()
         );
-        self.disparity.write(context, disparity)?;
-        self.confidence.write(context, confidence)?;
+        self.disparity
+            .write(context, BufferUpload::from_elements(disparity))?;
+        self.confidence
+            .write(context, BufferUpload::from_elements(confidence))?;
         Ok(())
     }
 

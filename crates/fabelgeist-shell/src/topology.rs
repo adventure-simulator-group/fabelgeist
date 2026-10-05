@@ -4,6 +4,7 @@
 //! that share one. Both fall straight out of the triangle list, so a caller
 //! only ever supplies geometry.
 
+use crate::{ParticleArealDensity, ParticleInverseMass, ParticleMass};
 use std::collections::HashMap;
 
 /// A pair of triangles sharing an edge, in the order the bending constraint
@@ -99,15 +100,14 @@ pub fn build(triangles: &[[u32; 3]]) -> Topology {
 pub fn vertex_masses(
     positions: &[fabelgeist_math::Vec3],
     triangles: &[[u32; 3]],
-    density: f32,
-) -> Vec<f32> {
-    let mut masses = vec![0.0f32; positions.len()];
+    density: ParticleArealDensity,
+) -> Vec<ParticleMass> {
+    let mut masses = vec![ParticleMass::ZERO; positions.len()];
     for triangle in triangles {
         let a = positions[triangle[0] as usize];
         let b = positions[triangle[1] as usize];
         let c = positions[triangle[2] as usize];
-        let area = (b - a).cross(c - a).length() * 0.5;
-        let share = area * density / 3.0;
+        let share = density.vertex_share([a, b, c]);
         for &vertex in triangle {
             masses[vertex as usize] += share;
         }
@@ -118,10 +118,11 @@ pub fn vertex_masses(
 /// Inverse masses, with zero for anything that ended up massless -- a vertex
 /// in no triangle. Zero pins it, which is the safe answer: it cannot be moved
 /// by a constraint, rather than being moved infinitely far by one.
-pub fn inverse_masses(masses: &[f32]) -> Vec<f32> {
+pub fn inverse_masses(masses: &[ParticleMass]) -> Vec<ParticleInverseMass> {
     masses
         .iter()
-        .map(|&mass| if mass > 1e-12 { 1.0 / mass } else { 0.0 })
+        .copied()
+        .map(ParticleMass::inverse_mass)
         .collect()
 }
 
@@ -318,10 +319,10 @@ mod tests {
             Vec3::new(0.0, 0.0, 1.0),
         ];
         let coarse = [[0u32, 1, 2], [0, 2, 3]];
-        let masses = vertex_masses(&coarse_positions, &coarse, 2.0);
-        let total: f32 = masses.iter().sum();
+        let masses = vertex_masses(&coarse_positions, &coarse, 2.0.into());
+        let total: ParticleMass = masses.iter().sum();
         assert!(
-            (total - 2.0).abs() < 1e-5,
+            (total - ParticleMass::from(2.0)).absolute() < ParticleMass::from(1e-5),
             "a 1 m^2 panel at 2 kg/m^2 weighs {total}"
         );
     }
@@ -420,7 +421,7 @@ mod tests {
 
     #[test]
     fn a_massless_vertex_is_pinned() {
-        let inverse = inverse_masses(&[1.0, 0.0, 4.0]);
-        assert_eq!(inverse, vec![1.0, 0.0, 0.25]);
+        let inverse = inverse_masses(&[1.0.into(), 0.0.into(), 4.0.into()]);
+        assert_eq!(inverse, vec![1.0.into(), 0.0.into(), 0.25.into()]);
     }
 }

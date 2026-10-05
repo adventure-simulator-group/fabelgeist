@@ -1,4 +1,5 @@
 //! One-sided outer layers: normals point into the space occupied by the cloth.
+use crate::{ParticleInverseMass, ParticleMobility};
 use fabelgeist_bvh::TriangleBvh;
 use fabelgeist_math::Vec3;
 mod surface;
@@ -63,14 +64,14 @@ impl OuterLayer {
         &self,
         positions: &mut [Vec3],
         velocities: &mut [Vec3],
-        masses: &[f32],
+        masses: &[ParticleInverseMass],
         faces: &[[u32; 3]],
     ) -> bool {
         assert_eq!(positions.len(), velocities.len());
         assert_eq!(positions.len(), masses.len());
         let mut changed = false;
         for (i, point) in positions.iter_mut().enumerate() {
-            if masses[i] == 0.0 {
+            if masses[i].mobility() == ParticleMobility::Prescribed {
                 continue;
             }
             if let Some((corrected, normal)) = self.correction(*point) {
@@ -101,11 +102,12 @@ impl OuterLayer {
         if changed {
             particles.positions.write(
                 context,
-                &fabelgeist_xpbd::particles::pack(&positions, particles.inverse_masses()),
+                fabelgeist_xpbd::ParticlePositions::new(&positions, particles.inverse_masses())?
+                    .upload(),
             )?;
             particles.velocities.write(
                 context,
-                &fabelgeist_xpbd::particles::pack(&velocities, &vec![0.0; velocities.len()]),
+                fabelgeist_xpbd::ParticleVelocities::from(velocities.as_slice()).upload(),
             )?;
         }
         Ok(())
@@ -131,7 +133,7 @@ mod tests {
         let mut points = [start];
         let tangent = Vec3::new(1., 0., 1.);
         let mut velocities = [tangent];
-        layer.project(&mut points, &mut velocities, &[1.], &[]);
+        layer.project(&mut points, &mut velocities, &[1.0.into()], &[]);
         assert!((points[0] - start).dot(tangent).abs() < 1e-6);
         assert!(points[0].x > start.x);
         assert!((velocities[0] - tangent).length() < 1e-6);

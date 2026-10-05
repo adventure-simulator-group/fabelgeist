@@ -1,3 +1,4 @@
+use fabelgeist_gpu::prelude::BufferUpload;
 mod common;
 
 use common::{assert_closed_solid, component, frame, genus, gpu, largest_difference, reflected};
@@ -33,7 +34,9 @@ fn sections(scale: f32) -> CloseHelmetProfile {
 
 fn build_on(design: &CloseHelmetDesign, head: &PartFrame) -> Result<BuiltPart, GenerateError> {
     let scale = head.half_extents[1] / HEAD_HALF_EXTENTS[1];
-    let fit = gpu().upload(&sections(scale).fit_words(head.half_extents))?;
+    let fit = gpu().upload(BufferUpload::from_elements(
+        &sections(scale).fit_words(head.half_extents),
+    ))?;
     gpu().build_in(&[*head], |batch, frames| {
         record_close_helmet(gpu(), batch, design, &fit, frames[0])
     })

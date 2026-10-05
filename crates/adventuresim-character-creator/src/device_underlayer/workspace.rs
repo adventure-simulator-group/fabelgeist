@@ -5,6 +5,7 @@ use fabelgeist_armor::ArmorGpu;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::{RadixSort, SortScratch};
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::gap::{BUCKETS, CELLS_PER_FACE};
 use super::plan::{CutPlan, incidence};
@@ -62,10 +63,10 @@ impl<'a> Workspace<'a> {
             plan,
             vertex_count: vertex_count as u32,
             face_count,
-            faces: gpu.upload(faces)?,
-            incidence: gpu.upload(&incidence(vertex_count, faces))?,
-            table: gpu.upload(&plan.table)?,
-            sources: gpu.upload(&plan.sources)?,
+            faces: gpu.upload(BufferUpload::from_elements(faces))?,
+            incidence: gpu.upload(BufferUpload::from_elements(&incidence(vertex_count, faces)))?,
+            table: gpu.upload(BufferUpload::from_elements(&plan.table))?,
+            sources: gpu.upload(BufferUpload::from_elements(&plan.sources))?,
             status: gpu.scratch(4, "underlayer status")?,
             sort: RadixSort::with_cache(gpu.context(), gpu.cache()).map_err(device_error)?,
             sort_scratch: SortScratch::new(gpu.context(), capacity).map_err(device_error)?,
@@ -83,7 +84,7 @@ impl<'a> Workspace<'a> {
                 constraint_sets.max(1) as u64 * face_count as u64 * 16,
                 "underlayer face constraints",
             )?,
-            compression: gpu.upload(&vec![f32::MAX; vertex_count])?,
+            compression: gpu.upload(BufferUpload::from_elements(&vec![f32::MAX; vertex_count]))?,
         })
     }
 }

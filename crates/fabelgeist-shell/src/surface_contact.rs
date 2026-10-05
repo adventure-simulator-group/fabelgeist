@@ -3,6 +3,7 @@
 //! Zero inverse mass means prescribed motion, not a stationary collider:
 //! previous and current positions must both be supplied for animated bodies.
 use crate::ccd::{self, Pair};
+use crate::{ParticleInverseMass, ParticleMobility};
 use fabelgeist_bvh::{Aabb, Bvh};
 use fabelgeist_math::Vec3;
 use std::collections::BTreeSet;
@@ -108,8 +109,16 @@ impl SurfaceContacts {
                 start.to_vec()
             }
             None => {
-                let raw: Vec<f32> = particles.previous.read(context).await?;
-                fabelgeist_xpbd::particles::unpack(&raw, particles.count() as usize)
+                let records = fabelgeist_xpbd::ParticlePositions::from(
+                    particles
+                        .previous
+                        .read::<fabelgeist_xpbd::ParticlePositionRecord>(context)
+                        .await?,
+                );
+                records
+                    .positions()
+                    .take(particles.count() as usize)
+                    .collect()
             }
         };
         let predicted = particles.read_positions(context).await?;
@@ -119,7 +128,7 @@ impl SurfaceContacts {
         let mut masses = particles.inverse_masses().to_vec();
         previous.extend_from_slice(&self.static_positions);
         corrected.extend_from_slice(&self.static_positions);
-        masses.resize(corrected.len(), 0.0);
+        masses.resize(corrected.len(), ParticleInverseMass::PINNED);
         velocities.resize(corrected.len(), Vec3::default());
         let contacts = self.solve_inner(
             &mut corrected,
@@ -132,11 +141,15 @@ impl SurfaceContacts {
         if contacts > 0 {
             particles.positions.write(
                 context,
-                &fabelgeist_xpbd::particles::pack(&corrected[..count], particles.inverse_masses()),
+                fabelgeist_xpbd::ParticlePositions::new(
+                    &corrected[..count],
+                    particles.inverse_masses(),
+                )?
+                .upload(),
             )?;
             particles.velocities.write(
                 context,
-                &fabelgeist_xpbd::particles::pack(&velocities[..count], &vec![0.0; count]),
+                fabelgeist_xpbd::ParticleVelocities::from(&velocities[..count]).upload(),
             )?;
         }
         Ok(contacts)
@@ -150,7 +163,7 @@ impl SurfaceContacts {
         &self,
         positions: &mut [Vec3],
         previous: &[Vec3],
-        inverse_masses: &[f32],
+        inverse_masses: &[ParticleInverseMass],
         thickness: f32,
         iterations: u32,
     ) -> usize {
@@ -161,7 +174,7 @@ impl SurfaceContacts {
             let mut masses = inverse_masses.to_vec();
             full.extend_from_slice(&self.static_positions);
             start.extend_from_slice(&self.static_positions);
-            masses.resize(full.len(), 0.0);
+            masses.resize(full.len(), ParticleInverseMass::PINNED);
             let contacts =
                 self.solve_inner(&mut full, &start, &masses, thickness, iterations, None);
             positions.copy_from_slice(&full[..count]);
@@ -192,7 +205,13 @@ mod tests {
         let mut previous = p.clone();
         previous[3].y = 0.1;
         let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
-        contacts.solve(&mut p, &previous, &[0., 0., 0., 1.], 0.005, 2);
+        contacts.solve(
+            &mut p,
+            &previous,
+            &[0.0.into(), 0.0.into(), 0.0.into(), 1.0.into()],
+            0.005,
+            2,
+        );
         assert!(p[3].y >= 0.0049);
         assert_eq!(p[0], previous[0]);
     }
@@ -206,7 +225,10 @@ mod tests {
         ];
         let previous = p.clone();
         let contacts = SurfaceContacts::new(4, vec![[0, 1, 2], [1, 3, 2]]);
-        assert_eq!(contacts.solve(&mut p, &previous, &[1.; 4], 0.01, 2), 0);
+        assert_eq!(
+            contacts.solve(&mut p, &previous, &[1.0.into(); 4], 0.01, 2),
+            0
+        );
         assert_eq!(p, previous);
     }
     #[test]
@@ -221,7 +243,7 @@ mod tests {
         ];
         let previous = p.clone();
         let contacts = SurfaceContacts::new(6, vec![[0, 1, 2], [3, 4, 5]]);
-        assert!(contacts.solve(&mut p, &previous, &[1.; 6], 0.01, 4) > 0);
+        assert!(contacts.solve(&mut p, &previous, &[1.0.into(); 6], 0.01, 4) > 0);
         assert!(
             ccd::proximity(
                 Pair::EdgeEdge,
@@ -251,7 +273,14 @@ mod tests {
         contacts.solve(
             &mut end,
             &previous,
-            &[0.0, 0.0, 0.0, 1.0, 1.0, 1.0],
+            &[
+                0.0.into(),
+                0.0.into(),
+                0.0.into(),
+                1.0.into(),
+                1.0.into(),
+                1.0.into(),
+            ],
             0.004,
             8,
         );
@@ -282,7 +311,13 @@ mod tests {
         }
         let body_end = end[..3].to_vec();
         let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
-        contacts.solve(&mut end, &previous, &[0.0, 0.0, 0.0, 1.0], 0.004, 4);
+        contacts.solve(
+            &mut end,
+            &previous,
+            &[0.0.into(), 0.0.into(), 0.0.into(), 1.0.into()],
+            0.004,
+            4,
+        );
         assert!(
             end[3].z >= 1.0039,
             "body passed through vertex: {:?}",
@@ -304,7 +339,13 @@ mod tests {
         end[1].z = 1.5;
         end[2].z = 1.0;
         let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
-        contacts.solve(&mut end, &previous, &[0.0, 0.0, 0.0, 1.0], 0.004, 8);
+        contacts.solve(
+            &mut end,
+            &previous,
+            &[0.0.into(), 0.0.into(), 0.0.into(), 1.0.into()],
+            0.004,
+            8,
+        );
         assert!(
             ccd::sweep(
                 Pair::VertexTriangle,
@@ -330,18 +371,19 @@ mod gpu_contact_regression {
             Vec3::new(1., 0., -1.),
             Vec3::new(0., 0.1, 0.),
         ];
-        let masses = [0., 0., 0., 1.];
+        let masses = [0., 0., 0., 1.].map(ParticleInverseMass::from);
         let particles = fabelgeist_xpbd::Particles::from_positions(&context, &start, &masses)?;
         let mut end = start.clone();
         end[3] = Vec3::new(0.02, -0.1, 0.);
-        particles
-            .positions
-            .write(&context, &fabelgeist_xpbd::particles::pack(&end, &masses))?;
+        particles.positions.write(
+            &context,
+            fabelgeist_xpbd::ParticlePositions::new(&end, &masses)?.upload(),
+        )?;
         let mut velocity = vec![Vec3::default(); 4];
         velocity[3] = Vec3::new(1., -20., 0.);
         particles.velocities.write(
             &context,
-            &fabelgeist_xpbd::particles::pack(&velocity, &[0.; 4]),
+            fabelgeist_xpbd::ParticleVelocities::from(velocity.as_slice()).upload(),
         )?;
         let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
         assert!(
@@ -369,14 +411,15 @@ mod gpu_contact_regression {
             Vec3::new(1., 0., -1.),
             Vec3::new(0., -0.05, 0.),
         ];
-        let masses = [0., 0., 0., 1.];
+        let masses = [0., 0., 0., 1.].map(ParticleInverseMass::from);
         let particles =
             fabelgeist_xpbd::Particles::from_positions(&context, &before_last, &masses)?;
         let mut end = before_last.clone();
         end[3].y = -0.1;
-        particles
-            .positions
-            .write(&context, &fabelgeist_xpbd::particles::pack(&end, &masses))?;
+        particles.positions.write(
+            &context,
+            fabelgeist_xpbd::ParticlePositions::new(&end, &masses)?.upload(),
+        )?;
         let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
         // The last substep alone stays below the triangle.
         assert_eq!(
@@ -410,7 +453,7 @@ mod gpu_contact_regression {
         let contacts =
             SurfaceContacts::new(6, vec![[0, 1, 2], [3, 4, 5]]).with_seams(&[[1, 3], [2, 5]]);
         assert_eq!(
-            contacts.solve(&mut positions, &previous, &[1.; 6], 0.005, 4),
+            contacts.solve(&mut positions, &previous, &[1.0.into(); 6], 0.005, 4),
             0
         );
         assert_eq!(positions, previous);
@@ -431,7 +474,7 @@ mod relative_velocity_regression {
         let mut end = previous.clone();
         end[3].y = -0.1;
         let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
-        let solve = |boost: Vec3| {
+        let solve = |boost: Vec3| -> Vec<Vec3> {
             let mut positions = end.clone();
             let mut velocities = vec![boost; 4];
             velocities[3].y -= 2.;
@@ -443,7 +486,7 @@ mod relative_velocity_regression {
                 contacts.solve_inner(
                     &mut positions,
                     &previous,
-                    &[1.; 4],
+                    &[1.0.into(); 4],
                     0.005,
                     1,
                     Some(&mut velocities)
@@ -477,7 +520,15 @@ mod fold_regression {
         let mut positions = previous.clone();
         positions[3].y = -0.1;
         let contacts = SurfaceContacts::new(4, vec![[0, 1, 2], [1, 3, 2]]);
-        assert!(contacts.solve(&mut positions, &previous, &[0., 0., 0., 1.], 0.005, 4) > 0);
+        assert!(
+            contacts.solve(
+                &mut positions,
+                &previous,
+                &[0.0.into(), 0.0.into(), 0.0.into(), 1.0.into()],
+                0.005,
+                4
+            ) > 0
+        );
         assert!(positions[3].y >= 0.0049);
     }
 }
@@ -503,7 +554,7 @@ mod obstacle_regression {
             &[[0, 1, 2]],
             0.003,
         );
-        assert!(contacts.solve(&mut positions, &previous, &[1.0; 3], 0.003, 8) > 0);
+        assert!(contacts.solve(&mut positions, &previous, &[1.0.into(); 3], 0.003, 8) > 0);
         let normal = (positions[1] - positions[0]).cross(positions[2] - positions[0]);
         for point in &contacts.static_positions {
             assert!((*point - positions[0]).dot(normal) / normal.length() <= -0.0025);
@@ -529,14 +580,20 @@ mod fixed_bounds_regression {
         ];
         contacts.set_static_surface(&body, &[[0, 1, 2]], 0.003);
         let mut points = end.clone();
-        contacts.solve(&mut points, &start, &[1.; 3], 0.003, 4);
+        contacts.solve(&mut points, &start, &[1.0.into(); 3], 0.003, 4);
         assert!(points.iter().all(|p| p.y >= 0.0029));
         contacts.set_static_surface(&body.map(|p| Vec3::new(p.x, -1., p.z)), &[[0, 1, 2]], 0.003);
         points.clone_from(&end);
-        assert_eq!(contacts.solve(&mut points, &start, &[1.; 3], 0.003, 4), 0);
+        assert_eq!(
+            contacts.solve(&mut points, &start, &[1.0.into(); 3], 0.003, 4),
+            0
+        );
         assert_eq!(points, end);
         contacts.set_static_surface(&[], &[], 0.0);
-        assert_eq!(contacts.solve(&mut points, &start, &[1.; 3], 0.003, 4), 0);
+        assert_eq!(
+            contacts.solve(&mut points, &start, &[1.0.into(); 3], 0.003, 4),
+            0
+        );
     }
 }
 #[cfg(test)]
@@ -560,7 +617,7 @@ mod obstacle_clearance_regression {
             &[[0, 1, 2]],
             0.005,
         );
-        assert!(contacts.solve(&mut points, &start, &[1.; 3], 0.0006, 4) > 0);
+        assert!(contacts.solve(&mut points, &start, &[1.0.into(); 3], 0.0006, 4) > 0);
         assert!(points.iter().all(|p| p.z >= 0.00499));
     }
 }

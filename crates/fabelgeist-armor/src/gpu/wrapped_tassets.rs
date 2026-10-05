@@ -1,5 +1,6 @@
 //! Long thigh plates cut from a measured upright anatomical carrier.
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::chart::{ChartBoundary, ChartKernel, PlateChart};
@@ -114,7 +115,7 @@ fn record_boundaries(
         .cache()
         .get(gpu.context(), &source)
         .map_err(device_error)?;
-    let design = gpu.upload(words)?;
+    let design = gpu.upload(BufferUpload::from_elements(words))?;
     for (side, sign) in [1.0_f32, -1.0].into_iter().enumerate() {
         for course in 0..courses {
             let mut params = PassParameters::new();

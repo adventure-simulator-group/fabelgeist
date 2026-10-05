@@ -7,6 +7,7 @@
 //! body realization is bound: the wearer, or a morph sample, whose bracer is
 //! the same samples on its own skin.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, NormalWeighting, VertexNormals};
@@ -303,7 +304,7 @@ impl DeviceBracer {
         let sample_count = around * (ALONG + 1);
         let triangle_count = ALONG * around * 4 + 2 * around * 2;
         let layout = Layout {
-            design: gpu.upload(&design_words(design))?,
+            design: gpu.upload(BufferUpload::from_elements(&design_words(design)))?,
             surface: skin.surface.clone(),
             samples: gpu.scratch(
                 sample_count as u64 * SAMPLE_WORDS as u64 * 4,

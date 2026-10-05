@@ -10,6 +10,7 @@
 //! Each realization is recorded and submitted in turn, and everything is
 //! read back once at the end.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 mod direction;
 mod gap;
 pub mod plan;
@@ -172,8 +173,8 @@ impl Fit<'_> {
 
         // The wearer: its neutral compression, then the proportion samples'
         // face constraints and the directions they leave the wearer.
-        let base_positions = gpu.upload(body.positions)?;
-        let base_normals = gpu.upload(body.normals)?;
+        let base_positions = gpu.upload(BufferUpload::from_elements(body.positions))?;
+        let base_normals = gpu.upload(BufferUpload::from_elements(body.normals))?;
         let neutral = gpu.scratch(vector_bytes, "underlayer directions")?;
         let mut batch = gpu.batch("underlayer wearer");
         ws.record_weld(&mut batch, &base_positions, &links)?;
@@ -182,7 +183,7 @@ impl Fit<'_> {
         ws.record_standoff(&mut batch, &base_positions, &neutral, &links)?;
         let mut samples = Vec::with_capacity(self.proportions.len());
         for (set, sample) in (1..).zip(self.proportions) {
-            let positions = gpu.upload(sample.positions)?;
+            let positions = gpu.upload(BufferUpload::from_elements(sample.positions))?;
             ws.record_constraints(&mut batch, &positions, set)?;
             samples.push(positions);
         }
@@ -209,8 +210,8 @@ impl Fit<'_> {
             directions,
         }];
         for morph in self.morphs {
-            let positions = gpu.upload(morph.positions)?;
-            let normals = gpu.upload(morph.normals)?;
+            let positions = gpu.upload(BufferUpload::from_elements(morph.positions))?;
+            let normals = gpu.upload(BufferUpload::from_elements(morph.normals))?;
             let directions = gpu.scratch(vector_bytes, "underlayer directions")?;
             let mut batch = gpu.batch("underlayer morph sample");
             ws.record_weld(&mut batch, &positions, &links)?;
@@ -240,7 +241,7 @@ impl Fit<'_> {
             outer: self.design.clearance.metres() + self.design.thickness.metres(),
             inner: self.design.clearance.metres(),
         };
-        let indices = gpu.upload(&plan.indices)?;
+        let indices = gpu.upload(BufferUpload::from_elements(&plan.indices))?;
         let shell = gpu.scratch(shell_bytes, "underlayer shell")?;
         let mut normals = VertexNormals::new(gpu.context(), count, plan.triangle_count())
             .map_err(device_error)?;
@@ -321,9 +322,9 @@ impl Fit<'_> {
         let gpu = self.gpu;
         let count = self.plan.vertex_count() as u64;
         let sources = SkinSources {
-            texcoords: gpu.upload(domain.texcoords)?,
-            joint_indices: gpu.upload(self.body.joint_indices)?,
-            joint_weights: gpu.upload(self.body.joint_weights)?,
+            texcoords: gpu.upload(BufferUpload::from_elements(domain.texcoords))?,
+            joint_indices: gpu.upload(BufferUpload::from_elements(self.body.joint_indices))?,
+            joint_weights: gpu.upload(BufferUpload::from_elements(self.body.joint_weights))?,
         };
         let joints = gpu.scratch(count * INFLUENCES as u64 * 4, "underlayer joints")?;
         let floats = gpu.scratch(count * SKIN_FLOATS as u64 * 4, "underlayer skin")?;

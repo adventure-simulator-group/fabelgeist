@@ -13,6 +13,7 @@ use fabelgeist_armor::gpu::body::{BodySurface, GpuBody};
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_armor::gpu::{Staged, Staging};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::{FitRegion, Side, Wearer};
@@ -191,7 +192,7 @@ impl DeviceWearer<'_> {
             status: gpu.scratch(4, "armor frame status")?,
         };
         // Top, left floor, right floor, then six bounds.
-        let reductions = gpu.upload(&[
+        let reductions = gpu.upload(BufferUpload::from_elements(&[
             ORDERED_NEGATIVE_INFINITY,
             ORDERED_POSITIVE_INFINITY,
             ORDERED_POSITIVE_INFINITY,
@@ -201,8 +202,8 @@ impl DeviceWearer<'_> {
             ORDERED_NEGATIVE_INFINITY,
             ORDERED_NEGATIVE_INFINITY,
             ORDERED_NEGATIVE_INFINITY,
-        ])?;
-        let owned = gpu.upload(&owned)?;
+        ]))?;
+        let owned = gpu.upload(BufferUpload::from_elements(&owned))?;
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
         parameters.insert("rule", landmarks.rule as u32);

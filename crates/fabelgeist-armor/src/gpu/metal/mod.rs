@@ -10,6 +10,7 @@
 //! [`WgpuContext`], so an application that already generates armor on a
 //! device shares it; [`MetalGpu::open`] opens one of its own.
 
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 mod bake;
 mod finish;
 mod ornament;
@@ -78,31 +79,23 @@ impl MetalGpu {
         KernelBatch::labelled(&self.context, label)
     }
 
-    fn upload<T: bytemuck::NoUninit>(&self, data: &[T]) -> Result<Buffer, String> {
-        let bytes = bytemuck::cast_slice::<T, u8>(data);
-        // A buffer cannot be empty; an empty array still needs something bound.
-        let bytes = if bytes.is_empty() {
-            &[0u8; 4][..]
-        } else {
-            bytes
-        };
-        Buffer::from_bytes(
+    fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, String> {
+        Buffer::from_upload(
             &self.context,
-            bytes,
-            BufferDefinition::storage().with_copy_src(),
+            data.with_empty_word(),
+            BufferDefinition::storage().with_usage(BufferUse::CopySource),
         )
         .map_err(device_error)
     }
 
-    /// A zeroed storage buffer of `words` 32-bit words.
     fn scratch(&self, words: u64, label: &str) -> Result<Buffer, String> {
         Buffer::new(
             &self.context,
-            words.max(1) * 4,
+            (words.max(1) * 4).into(),
             BufferDefinition::storage()
-                .with_copy_src()
-                .with_copy_dst()
-                .with_label(label),
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination)
+                .with_label((label).into()),
         )
         .map_err(device_error)
     }

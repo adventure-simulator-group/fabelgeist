@@ -2,6 +2,7 @@ use crate::PrimitiveTopology;
 use anyhow::Result;
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::collections::HashSet;
 
 pub struct MeshWireframe;
@@ -67,10 +68,10 @@ impl MeshWireframe {
             line_indices.push(0);
         }
 
-        Buffer::from_slice(
+        Buffer::from_upload(
             context,
-            &line_indices,
-            BufferDefinition::index().with_label("Wireframe Line Indices"),
+            BufferUpload::from_elements(&line_indices),
+            BufferDefinition::index().with_label(("Wireframe Line Indices").into()),
         )
     }
 
@@ -135,10 +136,10 @@ impl MeshWireframe {
             line_indices.push(0);
         }
 
-        Buffer::from_slice(
+        Buffer::from_upload(
             context,
-            &line_indices,
-            BufferDefinition::index().with_label("Neighbor Lines Indices"),
+            BufferUpload::from_elements(&line_indices),
+            BufferDefinition::index().with_label(("Neighbor Lines Indices").into()),
         )
     }
 
@@ -170,10 +171,10 @@ impl MeshWireframe {
             line_indices.push(0);
         }
 
-        Buffer::from_slice(
+        Buffer::from_upload(
             context,
-            &line_indices,
-            BufferDefinition::index().with_label("Neighbor Lines Indices"),
+            BufferUpload::from_elements(&line_indices),
+            BufferDefinition::index().with_label(("Neighbor Lines Indices").into()),
         )
     }
 }

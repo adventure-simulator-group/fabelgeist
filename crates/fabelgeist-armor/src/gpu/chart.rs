@@ -16,6 +16,7 @@
 //! kernel adds the flute relief, places the point through the frame, and
 //! writes the shell's extrusion geometry.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch};
@@ -324,8 +325,16 @@ pub(crate) fn record(
     for (name, value) in floats {
         parameters.insert(name, value);
     }
-    parameters.insert("columns", gpu.upload(&slots.columns)?);
-    parameters.insert("flute", gpu.upload(&flute_words(chart.fluting.as_ref()))?);
+    parameters.insert(
+        "columns",
+        gpu.upload(BufferUpload::from_elements(&slots.columns))?,
+    );
+    parameters.insert(
+        "flute",
+        gpu.upload(BufferUpload::from_elements(&flute_words(
+            chart.fluting.as_ref(),
+        )))?,
+    );
     parameters.insert("design", inputs.design.clone());
     let frames = inputs
         .frames

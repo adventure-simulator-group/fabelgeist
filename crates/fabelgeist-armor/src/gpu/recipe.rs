@@ -2,6 +2,7 @@
 
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::chart::{self, ChartInputs, ChartKernel, ChartSlots, PlateChart};
 use super::coord::{self, CoordKernel, CoordShell};
@@ -95,7 +96,7 @@ impl PartRecipe {
         frames: &[&Buffer],
     ) -> Result<DevicePart, GenerateError> {
         let build = PartBuild::new(gpu, self.layout, self.hinges)?;
-        let design = gpu.upload(design)?;
+        let design = gpu.upload(BufferUpload::from_elements(design))?;
         let inputs = ChartInputs {
             design: &design,
             frames,
@@ -106,7 +107,7 @@ impl PartRecipe {
                     chart::record(gpu, batch, &build, *shell, chart, slots, kernel, &inputs)?;
                 }
                 RecipeShell::Coord(coord_shell, kernel) => {
-                    let coords = gpu.upload(&coord_shell.coords)?;
+                    let coords = gpu.upload(BufferUpload::from_elements(&coord_shell.coords))?;
                     coord::record(
                         batch,
                         &build,
@@ -131,7 +132,7 @@ impl PartRecipe {
         frame: &PartFrame,
     ) -> Result<BuiltPart, GenerateError> {
         frame.validate()?;
-        let frames = gpu.upload(&frame_words(frame))?;
+        let frames = gpu.upload(BufferUpload::from_elements(&frame_words(frame)))?;
         let mut batch = gpu.batch("armor part");
         let mut part = self.record(gpu, &mut batch, design, &[&frames])?;
         part.record_shells(gpu, &mut batch)?;

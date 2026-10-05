@@ -8,6 +8,7 @@ use fabelgeist_armor::gpu::{record_gorget_plates, wgsl};
 use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use crate::armor_frames::FitRegion;
 use crate::armor_layer::ArmorLayerSurface;
@@ -151,7 +152,7 @@ impl DeviceWearer<'_> {
             planes.extend([ORDERED_NEGATIVE_INFINITY; 3]);
             planes.push(0);
         }
-        let planes = gpu.upload(&planes)?;
+        let planes = gpu.upload(BufferUpload::from_elements(&planes))?;
         dispatch(
             self,
             batch,

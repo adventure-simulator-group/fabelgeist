@@ -11,6 +11,7 @@ use fabelgeist_armor::{
 };
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -194,8 +195,8 @@ impl DeviceWearer<'_> {
         for _ in 0..shells {
             bounds.extend([ORDERED_NEGATIVE_INFINITY, ORDERED_POSITIVE_INFINITY]);
         }
-        let shell_of = gpu.upload(&shell_of)?;
-        let bounds = gpu.upload(&bounds)?;
+        let shell_of = gpu.upload(BufferUpload::from_elements(&shell_of))?;
+        let bounds = gpu.upload(BufferUpload::from_elements(&bounds))?;
         let words = [
             Word::U("count", part.carrier_count()),
             Word::U("flexible", u32::from(flexible)),

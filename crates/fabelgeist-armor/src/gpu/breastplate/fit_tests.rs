@@ -7,20 +7,26 @@ use super::{
     topology::{SKIRT_SAMPLES, V_SAMPLES},
 };
 use crate::{BreastplateDesign, Millimeters, gpu::ArmorGpu};
+use fabelgeist_gpu::prelude::BufferUpload;
 
 #[test]
 fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray() {
     let gpu = ArmorGpu::open().unwrap();
     let width = 3;
     let count = width * (V_SAMPLES + SKIRT_SAMPLES - 1);
-    let positions = gpu.upload(&vec![[0.02_f32, 1.0, 0.31]; count]).unwrap();
+    let positions = gpu
+        .upload(BufferUpload::from_elements(&vec![
+            [0.02_f32, 1.0, 0.31];
+            count
+        ]))
+        .unwrap();
     // Height-dependent section centres must not steer the chart's ray.
     let centers = gpu
-        .upload(
+        .upload(BufferUpload::from_elements(
             &(0..count)
                 .map(|i| [0.05_f32, 0.08 + i as f32 * 0.001, 1.0, 2.0])
                 .collect::<Vec<_>>(),
-        )
+        ))
         .unwrap();
     let mut words = shape_wgsl::design_words(&BreastplateDesign {
         front_clearance: Millimeters(18),
@@ -32,28 +38,32 @@ fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray() {
     words[44] = 1.0;
     words[45] = 0.02;
     words[46] = 0.05;
-    let plate = gpu.upload(&words).unwrap();
+    let plate = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
     // The chart origin is outside this slab. The first hit is an entry;
     // only the farther exit at z=.30 is its outer support.
     let body = gpu
-        .upload(&[
+        .upload(BufferUpload::from_elements(&[
             [-1.0_f32, 0.0, 0.25],
             [1.0, 0.0, 0.25],
             [0.0, 2.0, 0.25],
             [-1.0, 0.0, 0.30],
             [1.0, 0.0, 0.30],
             [0.0, 2.0, 0.30],
-        ])
+        ]))
         .unwrap();
-    let faces = gpu.upload(&[[0_u32, 1, 2], [3, 4, 5]]).unwrap();
+    let faces = gpu
+        .upload(BufferUpload::from_elements(&[[0_u32, 1, 2], [3, 4, 5]]))
+        .unwrap();
     let support = gpu
         .scratch(count as u64 * 4, "outer envelope support")
         .unwrap();
     let envelope = gpu
         .scratch(count as u64 * 4, "outer envelope smooth")
         .unwrap();
-    let status = gpu.upload(&[0_u32]).unwrap();
-    let columns = gpu.upload(&[-1.0_f32, 0.0, 1.0]).unwrap();
+    let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
+    let columns = gpu
+        .upload(BufferUpload::from_elements(&[-1.0_f32, 0.0, 1.0]))
+        .unwrap();
     let params = Params {
         count: count as u32,
         width: width as u32,
@@ -130,8 +140,13 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
     let spike = V_SAMPLES * width + width / 2;
     let mut input = vec![[0.0_f32, 1.0, 0.4]; count];
     input[spike] = [0.0, 1.1, 0.28];
-    let positions = gpu.upload(&input).unwrap();
-    let centers = gpu.upload(&vec![[0.0_f32, 0.0, 1.0, 2.0]; count]).unwrap();
+    let positions = gpu.upload(BufferUpload::from_elements(&input)).unwrap();
+    let centers = gpu
+        .upload(BufferUpload::from_elements(&vec![
+            [0.0_f32, 0.0, 1.0, 2.0];
+            count
+        ]))
+        .unwrap();
     let mut words = shape_wgsl::design_words(&BreastplateDesign {
         skirt_flare: Millimeters(0),
         ..Default::default()
@@ -139,25 +154,27 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
     words[32] = 1.0;
     words[37] = 1.0;
     words[44] = 1.0;
-    let plate = gpu.upload(&words).unwrap();
+    let plate = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
     let body = gpu
-        .upload(&[
+        .upload(BufferUpload::from_elements(&[
             [-1.0_f32, 0.0, 0.25],
             [1.0, 0.0, 0.25],
             [0.0, 1.049, 0.25],
             [-1.0, 1.05, 0.3],
             [1.0, 1.05, 0.3],
             [0.0, 1.2, 0.3],
-        ])
+        ]))
         .unwrap();
-    let faces = gpu.upload(&[[0_u32, 1, 2], [3, 4, 5]]).unwrap();
+    let faces = gpu
+        .upload(BufferUpload::from_elements(&[[0_u32, 1, 2], [3, 4, 5]]))
+        .unwrap();
     let support_radii = gpu
         .scratch(count as u64 * 4, "local support test support_radii")
         .unwrap();
     let envelope = gpu
         .scratch(count as u64 * 4, "local support test envelope")
         .unwrap();
-    let status = gpu.upload(&[0_u32]).unwrap();
+    let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
     let params = Params {
         count: count as u32,
         width: width as u32,
@@ -180,11 +197,11 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
             ("support_radii", &support_radii),
             (
                 "columns",
-                &gpu.upload(
+                &gpu.upload(BufferUpload::from_elements(
                     &(0..width)
                         .map(|c| -1.0_f32 + 2.0 * c as f32 / (width - 1) as f32)
                         .collect::<Vec<_>>(),
-                )
+                ))
                 .unwrap(),
             ),
             ("status", &status),
@@ -216,11 +233,11 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
             ("support_radii", &support_radii),
             (
                 "columns",
-                &gpu.upload(
+                &gpu.upload(BufferUpload::from_elements(
                     &(0..width)
                         .map(|c| -1.0_f32 + 2.0 * c as f32 / (width - 1) as f32)
                         .collect::<Vec<_>>(),
-                )
+                ))
                 .unwrap(),
             ),
             ("status", &status),
@@ -270,11 +287,16 @@ fn apply_support(
     width: usize,
 ) -> (Vec<[f32; 3]>, u32) {
     let count = points.len();
-    let positions = gpu.upload(points).unwrap();
-    let centers = gpu.upload(&vec![[0.0_f32, 0.0, 1.0, 2.0]; count]).unwrap();
-    let support = gpu.upload(support).unwrap();
-    let envelope = gpu.upload(envelope).unwrap();
-    let status = gpu.upload(&[0_u32]).unwrap();
+    let positions = gpu.upload(BufferUpload::from_elements(points)).unwrap();
+    let centers = gpu
+        .upload(BufferUpload::from_elements(&vec![
+            [0.0_f32, 0.0, 1.0, 2.0];
+            count
+        ]))
+        .unwrap();
+    let support = gpu.upload(BufferUpload::from_elements(support)).unwrap();
+    let envelope = gpu.upload(BufferUpload::from_elements(envelope)).unwrap();
+    let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
     let mut batch = gpu.batch("final support application fixture");
     dispatch(
         gpu,
@@ -313,7 +335,7 @@ fn fitted_frame(gpu: &ArmorGpu, design: &BreastplateDesign) -> fabelgeist_gpu::p
     words[41] = 1.0;
     words[43] = 1.0;
     words[44] = 1.0;
-    gpu.upload(&words).unwrap()
+    gpu.upload(BufferUpload::from_elements(&words)).unwrap()
 }
 
 #[test]
@@ -331,8 +353,8 @@ fn rear_enclosure_preserves_the_actual_preceding_lap() {
             [x, 1.1, -(0.04 - x * x).sqrt()]
         })
         .collect::<Vec<_>>();
-    let front = gpu.upload(&front).unwrap();
-    let back = gpu.upload(&back).unwrap();
+    let front = gpu.upload(BufferUpload::from_elements(&front)).unwrap();
+    let back = gpu.upload(BufferUpload::from_elements(&back)).unwrap();
     let mut batch = gpu.batch("rear side lap followed by enclosure");
     for side in 0..2 {
         dispatch(
@@ -402,12 +424,28 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
     let rows = V_SAMPLES + SKIRT_SAMPLES - 1;
     let width = 7;
     let count = rows * width;
-    let points = gpu.upload(&vec![[0.0_f32, 1.1, -0.4]; count]).unwrap();
-    let centers = gpu.upload(&vec![[0.0_f32, 0.0, 1.0, 2.0]; count]).unwrap();
-    let body = gpu
-        .upload(&[[-1.0_f32, 0.0, -0.25], [1.0, 0.0, -0.25], [0.0, 2.0, -0.25]])
+    let points = gpu
+        .upload(BufferUpload::from_elements(&vec![
+            [0.0_f32, 1.1, -0.4];
+            count
+        ]))
         .unwrap();
-    let faces = gpu.upload(&[[0_u32, 1, 2]]).unwrap();
+    let centers = gpu
+        .upload(BufferUpload::from_elements(&vec![
+            [0.0_f32, 0.0, 1.0, 2.0];
+            count
+        ]))
+        .unwrap();
+    let body = gpu
+        .upload(BufferUpload::from_elements(&[
+            [-1.0_f32, 0.0, -0.25],
+            [1.0, 0.0, -0.25],
+            [0.0, 2.0, -0.25],
+        ]))
+        .unwrap();
+    let faces = gpu
+        .upload(BufferUpload::from_elements(&[[0_u32, 1, 2]]))
+        .unwrap();
     let mut cases = Vec::new();
     for flare in [0, 20, 40] {
         let plate = fitted_frame(
@@ -420,7 +458,7 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
         let support = gpu
             .scratch(count as u64 * 4, "skirt flare target radii")
             .unwrap();
-        let status = gpu.upload(&[0_u32]).unwrap();
+        let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
         let mut batch = gpu.batch("body-supported skirt flare");
         dispatch(
             &gpu,
@@ -443,11 +481,11 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
                 ("support_radii", &support),
                 (
                     "columns",
-                    &gpu.upload(
+                    &gpu.upload(BufferUpload::from_elements(
                         &(0..width)
                             .map(|c| -1.0_f32 + 2.0 * c as f32 / (width - 1) as f32)
                             .collect::<Vec<_>>(),
-                    )
+                    ))
                     .unwrap(),
                 ),
                 ("status", &status),
@@ -458,7 +496,7 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
         batch.submit();
         assert_eq!(gpu.read::<u32>(&status).unwrap()[0], 0);
         let support = gpu.read::<f32>(&support).unwrap();
-        let measured = gpu.upload(&support).unwrap();
+        let measured = gpu.upload(BufferUpload::from_elements(&support)).unwrap();
         let envelope = gpu
             .scratch(count as u64 * 4, "measured skirt envelope")
             .unwrap();

@@ -10,6 +10,7 @@
 //! and toward the ball, a reduction bounds the foot's own skin in it, and one
 //! invocation centres and sizes it.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use anyhow::{Context, Result};
@@ -55,11 +56,14 @@ impl DeviceWearer<'_> {
         parameters.insert("joint_indices", self.body.joint_indices.clone());
         parameters.insert("joint_weights", self.body.joint_weights.clone());
         parameters.insert("joints", self.body.joints.clone());
-        parameters.insert("owned", gpu.upload(&host.owned_joints(&owners))?);
+        parameters.insert(
+            "owned",
+            gpu.upload(BufferUpload::from_elements(&host.owned_joints(&owners)))?,
+        );
         // The floor, then the foot's lower and upper bounds.
         parameters.insert(
             "reductions",
-            gpu.upload(&[
+            gpu.upload(BufferUpload::from_elements(&[
                 ORDERED_POSITIVE_INFINITY,
                 ORDERED_POSITIVE_INFINITY,
                 ORDERED_POSITIVE_INFINITY,
@@ -67,7 +71,7 @@ impl DeviceWearer<'_> {
                 ORDERED_NEGATIVE_INFINITY,
                 ORDERED_NEGATIVE_INFINITY,
                 ORDERED_NEGATIVE_INFINITY,
-            ])?,
+            ]))?,
         );
         parameters.insert("frame", frame.frame.clone());
         parameters.insert("status", frame.status.clone());

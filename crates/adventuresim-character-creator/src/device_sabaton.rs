@@ -17,6 +17,7 @@ use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{DevicePart, FootArmorDesign, GenerateError};
 use fabelgeist_compute::{KernelBatch, host_float};
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::PassParameters;
 
 use crate::armor_frames::FitRegion;
@@ -91,8 +92,14 @@ impl DeviceWearer<'_> {
         parameters.insert("frames", frame.frame.clone());
         parameters.insert("positions", self.body.positions.clone());
         parameters.insert("support", support);
-        parameters.insert("profile", gpu.upload(&profile)?);
-        parameters.insert("shell_of", gpu.upload(&shell_of)?);
+        parameters.insert(
+            "profile",
+            gpu.upload(BufferUpload::from_elements(&profile))?,
+        );
+        parameters.insert(
+            "shell_of",
+            gpu.upload(BufferUpload::from_elements(&shell_of))?,
+        );
         parameters.insert("carriers", part.carriers().clone());
         parameters.insert("status", status.clone());
         for (entry, items) in [

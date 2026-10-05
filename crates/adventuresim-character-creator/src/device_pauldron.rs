@@ -11,6 +11,7 @@ use fabelgeist_armor::{
     gpu::pauldron::{CARRIER_COUNT, DevicePauldronCarrier, carrier_constants},
 };
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 const CLEARANCE_SMOOTHING_PASSES: usize = 180;
 const OBLIQUE_WALL_RESERVE_GAUGES: f32 = 2.5;
@@ -42,9 +43,9 @@ impl DeviceWearer<'_> {
             );
             ends.push(triangles.len() as u32);
         }
-        let triangles = gpu.upload(&triangles)?;
+        let triangles = gpu.upload(BufferUpload::from_elements(&triangles))?;
         let groups = ends.len() as u32;
-        let ends = gpu.upload(&ends)?;
+        let ends = gpu.upload(BufferUpload::from_elements(&ends))?;
         let reserve = gpu.scratch(4, "shoulder sampling reserve")?;
         let delta = gpu.scratch(CARRIER_COUNT as u64 * 12, "shoulder clearance")?;
         let next = gpu.scratch(CARRIER_COUNT as u64 * 12, "shoulder clearance smoothing")?;

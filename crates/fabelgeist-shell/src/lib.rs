@@ -48,3 +48,11 @@ impl ShellMaterial {
         Ok(())
     }
 }
+
+pub use fabelgeist_xpbd::{
+    ArealDensityValidity, MassValidity, ParticleArealDensity, ParticleInverseMass, ParticleMass,
+    ParticleMobility,
+};
+
+#[cfg(test)]
+mod native_vector_fixture;

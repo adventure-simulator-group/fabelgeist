@@ -7,6 +7,7 @@ use fabelgeist_gpu::data::{
     vector::{Vec2, Vec3},
 };
 use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use indexmap::IndexMap;
 #[derive(Debug, Clone, PartialEq)]
 pub struct GpuMesh {
@@ -82,36 +83,36 @@ impl GpuMesh {
             }
         }
 
-        let pos_buf = Buffer::from_slice(
+        let pos_buf = Buffer::from_upload(
             context,
-            &positions,
+            BufferUpload::from_elements(&positions),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Plane Positions")
-                .with_vertex(),
+                .with_label(("Plane Positions").into())
+                .with_usage(BufferUse::Vertex),
         )?;
 
-        let norm_buf = Buffer::from_slice(
+        let norm_buf = Buffer::from_upload(
             context,
-            &normals,
+            BufferUpload::from_elements(&normals),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Plane Normals")
-                .with_vertex(),
+                .with_label(("Plane Normals").into())
+                .with_usage(BufferUse::Vertex),
         )?;
 
-        let uv_buf = Buffer::from_slice(
+        let uv_buf = Buffer::from_upload(
             context,
-            &tex_coords,
+            BufferUpload::from_elements(&tex_coords),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Plane TexCoords")
-                .with_vertex(),
+                .with_label(("Plane TexCoords").into())
+                .with_usage(BufferUse::Vertex),
         )?;
 
-        let index_buf = Buffer::from_slice(
+        let index_buf = Buffer::from_upload(
             context,
-            &indices,
+            BufferUpload::from_elements(&indices),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Plane Indices")
-                .with_index(),
+                .with_label(("Plane Indices").into())
+                .with_usage(BufferUse::Index),
         )?;
 
         Ok(GpuMesh {
@@ -144,10 +145,10 @@ impl GpuMesh {
 
         let out_pos_buf = Buffer::new(
             context,
-            pos_core.size,
+            (u64::from(pos_core.size)).into(),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Displaced Positions")
-                .with_vertex(),
+                .with_label(("Displaced Positions").into())
+                .with_usage(BufferUse::Vertex),
         )?;
 
         let pipeline = DISPLACEMENT_PIPELINE.get_or_init(|| {
@@ -234,7 +235,7 @@ impl GpuMesh {
 
         parameters.insert("out_pos".to_string(), buf(out_pos_buf.clone()));
 
-        let workgroups = (pos_core.size as u32 / 12).div_ceil(64);
+        let workgroups = (u64::from(pos_core.size) as u32 / 12).div_ceil(64);
         ComputePass::dispatch(
             context,
             pipeline.clone(),
@@ -374,33 +375,33 @@ impl GpuMesh {
             Vec3::new(0.0, 1.0, 0.0),
         );
 
-        let pos_buf = Buffer::from_slice(
+        let pos_buf = Buffer::from_upload(
             context,
-            &positions,
+            BufferUpload::from_elements(&positions),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Box Positions")
-                .with_vertex(),
+                .with_label(("Box Positions").into())
+                .with_usage(BufferUse::Vertex),
         )?;
-        let norm_buf = Buffer::from_slice(
+        let norm_buf = Buffer::from_upload(
             context,
-            &normals,
+            BufferUpload::from_elements(&normals),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Box Normals")
-                .with_vertex(),
+                .with_label(("Box Normals").into())
+                .with_usage(BufferUse::Vertex),
         )?;
-        let uv_buf = Buffer::from_slice(
+        let uv_buf = Buffer::from_upload(
             context,
-            &tex_coords,
+            BufferUpload::from_elements(&tex_coords),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Box TexCoords")
-                .with_vertex(),
+                .with_label(("Box TexCoords").into())
+                .with_usage(BufferUse::Vertex),
         )?;
-        let index_buf = Buffer::from_slice(
+        let index_buf = Buffer::from_upload(
             context,
-            &indices,
+            BufferUpload::from_elements(&indices),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Box Indices")
-                .with_index(),
+                .with_label(("Box Indices").into())
+                .with_usage(BufferUse::Index),
         )?;
 
         Ok(GpuMesh {
@@ -480,33 +481,33 @@ impl GpuMesh {
 
         let vertex_count = (num_rings + 1) * (num_sectors + 1);
 
-        let pos_buf = Buffer::from_slice(
+        let pos_buf = Buffer::from_upload(
             context,
-            &positions,
+            BufferUpload::from_elements(&positions),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Sphere Positions")
-                .with_vertex(),
+                .with_label(("Sphere Positions").into())
+                .with_usage(BufferUse::Vertex),
         )?;
-        let norm_buf = Buffer::from_slice(
+        let norm_buf = Buffer::from_upload(
             context,
-            &normals,
+            BufferUpload::from_elements(&normals),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Sphere Normals")
-                .with_vertex(),
+                .with_label(("Sphere Normals").into())
+                .with_usage(BufferUse::Vertex),
         )?;
-        let uv_buf = Buffer::from_slice(
+        let uv_buf = Buffer::from_upload(
             context,
-            &tex_coords,
+            BufferUpload::from_elements(&tex_coords),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Sphere TexCoords")
-                .with_vertex(),
+                .with_label(("Sphere TexCoords").into())
+                .with_usage(BufferUse::Vertex),
         )?;
-        let index_buf = Buffer::from_slice(
+        let index_buf = Buffer::from_upload(
             context,
-            &indices,
+            BufferUpload::from_elements(&indices),
             fabelgeist_gpu::data::gpu::buffer::BufferDefinition::storage()
-                .with_label("Sphere Indices")
-                .with_index(),
+                .with_label(("Sphere Indices").into())
+                .with_usage(BufferUse::Index),
         )?;
 
         Ok(GpuMesh {

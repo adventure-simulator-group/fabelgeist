@@ -10,6 +10,7 @@
 //! to what it selected. Which faces count as torso for fitting depends only
 //! on the rig's skin weights, so the host lists them.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::collections::BTreeSet;
 
 use anyhow::{Context, Result, bail, ensure};
@@ -171,8 +172,8 @@ pub async fn generate_breastplate_on_device_async(
         },
     )?;
     let seams = DeviceSeams::new(gpu, &SeamTopology::new(input.faces, input.texcoord_faces)?)?;
-    let atlas = gpu.upload(input.texcoords)?;
-    let atlas_faces = gpu.upload(input.texcoord_faces)?;
+    let atlas = gpu.upload(BufferUpload::from_elements(input.texcoords))?;
+    let atlas_faces = gpu.upload(BufferUpload::from_elements(input.texcoord_faces))?;
     let status = gpu.scratch(4, "breastplate status")?;
 
     let mut batch = gpu.batch("breastplate");
@@ -184,7 +185,7 @@ pub async fn generate_breastplate_on_device_async(
         &mut batch,
         &body,
         &landmarks,
-        &gpu.upload(&supports)?,
+        &gpu.upload(BufferUpload::from_elements(&supports))?,
         TorsoOutputs {
             rig: &rig,
             semantic: &semantic,
@@ -211,7 +212,7 @@ pub async fn generate_breastplate_on_device_async(
     )
     .await?;
     for morph in input.morphs {
-        let positions = gpu.upload(&morph.positions)?;
+        let positions = gpu.upload(BufferUpload::from_elements(&morph.positions))?;
         let mut batch = gpu.batch("breastplate morph");
         breastplate.record_morph(gpu, &mut batch, &positions)?;
         batch.submit();

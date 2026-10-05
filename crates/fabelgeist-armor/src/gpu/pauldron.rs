@@ -8,6 +8,7 @@ use crate::{
     PlateGridEnd, PlateJointMotion, PlateMount, PlateParent,
 };
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 pub const CARRIER_COLUMNS: u32 = 96;
@@ -93,7 +94,10 @@ impl DevicePauldronCarrier {
         params.insert("frames", frame.clone());
         params.insert("arena", carrier.frame_points.clone());
         params.insert("status", carrier.status.clone());
-        params.insert("design", gpu.upload(&design_words(design))?);
+        params.insert(
+            "design",
+            gpu.upload(BufferUpload::from_elements(&design_words(design)))?,
+        );
         batch
             .dispatch_items(&kernel, &params, CARRIER_COUNT)
             .map_err(device_error)?;

@@ -6,6 +6,7 @@ use super::{
 use crate::{GenerateError, gpu::ArmorGpu};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 impl Plate {
     pub(super) fn record_miter(
@@ -46,7 +47,7 @@ impl Plate {
             Params::counted(faces.len() as u32),
             &[
                 ("positions", &self.positions),
-                ("faces", &gpu.upload(faces)?),
+                ("faces", &gpu.upload(BufferUpload::from_elements(faces))?),
                 ("normals", &normals),
                 ("status", status),
             ],
@@ -62,8 +63,8 @@ impl Plate {
             &[
                 ("normals", &normals),
                 ("initial", directions),
-                ("ranges", &gpu.upload(&ranges)?),
-                ("incident", &gpu.upload(&ids)?),
+                ("ranges", &gpu.upload(BufferUpload::from_elements(&ranges))?),
+                ("incident", &gpu.upload(BufferUpload::from_elements(&ids))?),
                 ("offsets", &offsets),
                 ("status", status),
             ],
