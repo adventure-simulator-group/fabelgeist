@@ -36,7 +36,7 @@ pub(super) struct Recipe {
     /// Complete detailed envelope, relative to the collision-centred placement.
     pub render_min: Vec2,
     pub render_max: Vec2,
-    pub doors: Vec<DoorSpec>,
+    pub doors: Vec<DoorSpec<adventuresim_building_generator::spatial_geometry::Architectural>>,
     pub ground_entrances: Vec<adventuresim_building_generator::BuildingEntrance>,
 }
 
@@ -139,9 +139,19 @@ impl Recipe {
                 source: adventuresim_building_generator::GenerationError::BlockedDomesticCirculation(source),
             })?;
         }
-        let collision = compile_building_collision(&plan);
-        let origin = collision.bounds.centre();
+        let fail = |source| CityCompileError::Recipe {
+            archetype,
+            seed,
+            source,
+        };
+        let collision = compile_building_collision(&plan).map_err(|e| fail(e.into()))?;
+        let origin = collision
+            .bounds
+            .centre()
+            .map_err(|e| fail(e.into()))?
+            .metres();
         let (render_min, render_max) = compile_building_detail(&plan)
+            .map_err(fail)?
             .meshes
             .iter()
             .flat_map(|mesh| &mesh.vertices)
@@ -156,15 +166,18 @@ impl Recipe {
             collision,
             render_min,
             render_max,
-            doors: compile_operable_doors(&plan),
-            ground_entrances: adventuresim_building_generator::compile_ground_entrances(&plan),
+            doors: compile_operable_doors(&plan).map_err(|e| fail(e.into()))?,
+            ground_entrances: adventuresim_building_generator::compile_ground_entrances(&plan)
+                .map_err(|e| fail(e.into()))?,
         });
         Ok(recipe)
     }
 
-    pub fn from_generated(building: &crate::scene_input::GeneratedBuilding) -> Self {
-        let origin = building.collision.bounds.centre();
-        let (render_min, render_max) = compile_building_detail(&building.plan)
+    pub fn from_generated(
+        building: &crate::scene_input::GeneratedBuilding,
+    ) -> Result<Self, adventuresim_building_generator::GenerationError> {
+        let origin = building.collision.bounds.centre()?.metres();
+        let (render_min, render_max) = compile_building_detail(&building.plan)?
             .meshes
             .iter()
             .flat_map(|mesh| &mesh.vertices)
@@ -173,16 +186,16 @@ impl Recipe {
                 (Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)),
                 |(min, max), p| (min.min(p), max.max(p)),
             );
-        Self {
+        Ok(Self {
             program: building.placement.program.clone(),
             collision: building.collision.clone(),
             render_min,
             render_max,
-            doors: compile_operable_doors(&building.plan),
+            doors: compile_operable_doors(&building.plan)?,
             ground_entrances: adventuresim_building_generator::compile_ground_entrances(
                 &building.plan,
-            ),
-        }
+            )?,
+        })
     }
 
     pub fn place(
@@ -190,37 +203,60 @@ impl Recipe {
         id: u64,
         centre_metres: Vec2,
         orientation: BuildingOrientation,
-    ) -> TacticalBuildingPlacement {
+    ) -> Result<TacticalBuildingPlacement, CityCompileError> {
         // Lots use a street-facing -Y frame. The basilica's west portal is -X;
         // compose its physical frame once for every scene representation.
         let orientation = match self.program.frontage_direction() {
             adventuresim_building_generator::Direction::West => BuildingOrientation::from_radians(
                 orientation.yaw_radians() - core::f32::consts::FRAC_PI_2,
             )
-            .expect("finite lot orientation"),
+            .ok_or(
+                adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection,
+            )?,
             _ => orientation,
         };
-        TacticalBuildingPlacement {
+        Ok(TacticalBuildingPlacement {
             base_elevation_metres: 0.0,
             id,
             program: self.program.clone(),
             centre_metres,
             orientation,
-        }
+        })
     }
 
-    pub fn door_point(&self, placement: &TacticalBuildingPlacement, outward: Vec2) -> Option<Vec2> {
-        let mut doors = self.doors.iter().filter(|door| door.outward == outward);
-        let door = doors.next().filter(|_| doors.next().is_none())?;
-        let centre = door.hinge_centre
-            + Vec3::new(door.tangent.x, 0.0, door.tangent.y) * door.size_metres.x * 0.5;
-        let local = centre - self.collision.bounds.centre();
-        Some(
-            placement.centre_metres
-                + placement
-                    .orientation
-                    .local_to_world(Vec2::new(local.x, local.z)),
-        )
+    pub fn door_point(
+        &self,
+        placement: &TacticalBuildingPlacement,
+        outward: adventuresim_building_generator::Direction,
+    ) -> Result<Option<crate::scene_coordinates::ScenePlanPoint>, CityCompileError> {
+        let mut doors = self
+            .doors
+            .iter()
+            .filter(|door| door.outward.vector() == outward.offset().as_vec2());
+        let Some(door) = doors.next().filter(|_| doors.next().is_none()) else {
+            return Ok(None);
+        };
+        let centre = door.hinge_centre.metres()
+            + Vec3::new(door.tangent.vector().x, 0.0, door.tangent.vector().y)
+                * door.size_metres.metres().x
+                * 0.5;
+        let project = || {
+            use adventuresim_building_generator::plan_geometry::ArchitecturalPlanPoint;
+            let projection = crate::scene_coordinates::ArchitecturalPlanProjection::from_placement(
+                placement,
+                self.collision.bounds,
+            )?;
+            projection.point(ArchitecturalPlanPoint::try_from(Vec2::new(
+                centre.x, centre.z,
+            ))?)
+        };
+        project()
+            .map(Some)
+            .map_err(|source| CityCompileError::Recipe {
+                archetype: self.program.archetype,
+                seed: self.program.seed,
+                source: source.into(),
+            })
     }
 
     pub fn fits(&self, placement: &TacticalBuildingPlacement, bounds: CityPlotBounds) -> bool {

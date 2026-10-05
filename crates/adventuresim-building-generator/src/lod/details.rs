@@ -89,21 +89,23 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
             // A bay also owns rear roof headers. Only members intersecting
             // this wall's depth may become an overlay on its exterior face.
             let wall_plane = wall.frame.origin.dot(outward_2d);
-            let half_depth = (wall.thickness_metres + member.section_metres.max_element()) * 0.5;
+            let half_depth =
+                (wall.thickness_metres + member.section_metres.metres().max_element()) * 0.5;
             if [member.start, member.end]
                 .into_iter()
-                .any(|point| (point.dot(outward) - wall_plane).abs() > half_depth)
+                .any(|point| (point.metres().dot(outward) - wall_plane).abs() > half_depth)
             {
                 continue;
             }
-            let axis = (member.end - member.start).normalize_or_zero();
-            let side = outward.cross(axis).normalize_or_zero() * member.section_metres.x * 0.5;
+            let axis = (member.end.metres() - member.start.metres()).normalize_or_zero();
+            let side =
+                outward.cross(axis).normalize_or_zero() * member.section_metres.metres().x * 0.5;
             if side.length_squared() <= f32::EPSILON || axis.dot(outward).abs() > 0.001 {
                 continue;
             }
             let project = |point: Vec3| point + outward * (surface_plane - point.dot(outward));
-            let start = project(member.start);
-            let end = project(member.end);
+            let start = project(member.start.metres());
+            let end = project(member.end.metres());
             lod.mesh_mut(BuildingLodMaterial::FacadeDetails).push_quad(
                 [start - side, end - side, end + side, start + side],
                 outward,
@@ -118,12 +120,15 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
     }
 }
 
-pub(super) fn append_gable_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
+pub(super) fn append_gable_details(
+    lod: &mut BuildingLod,
+    plan: &BuildingPlan,
+) -> Result<(), crate::GenerationError> {
     let Some(frame) = &plan.timber_frame else {
-        return;
+        return Ok(());
     };
     let compiler = crate::detail::SolidDetailCompiler::new(plan);
-    for roof in plan
+    let _: () = for roof in plan
         .roof_assemblies
         .iter()
         .filter(|roof| roof.parent.is_none())
@@ -144,7 +149,7 @@ pub(super) fn append_gable_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
                 };
                 // Keep the exterior face's authored finish and metric grain at
                 // distance, including beside an aperture's retained full solids.
-                for mesh in compiler.compile(solid).meshes {
+                for mesh in compiler.compile(solid)?.meshes {
                     for quad in mesh.vertices.as_chunks::<4>().0 {
                         if quad[0].normal.dot(outward) > 0.999 {
                             lod.mesh_mut(mesh.material).push_quad(
@@ -157,7 +162,8 @@ pub(super) fn append_gable_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
                 }
             }
         }
-    }
+    };
+    Ok(())
 }
 
 pub(super) fn opening_atlas_interval(kind: OpeningUse) -> (f32, f32) {
@@ -197,7 +203,7 @@ mod tests {
                         .iter()
                         .find(|solid| solid.id == member.solid)
                         .unwrap();
-                    compile_solid_detail(&plan, solid)
+                    compile_solid_detail(&plan, solid).unwrap()
                 })
                 .collect::<Vec<_>>();
             for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
@@ -206,7 +212,7 @@ mod tests {
                     facade_runs: vec![],
                     meshes: vec![],
                 };
-                append_gable_details(&mut lod, &plan);
+                append_gable_details(&mut lod, &plan).unwrap();
                 assert!(
                     lod.meshes
                         .iter()
@@ -278,9 +284,12 @@ mod tests {
                         .iter()
                         .find(|member| member.id == *id)
                         .unwrap();
-                    let horizontal =
-                        (member.end - member.start).normalize().dot(outward).abs() < 0.001;
-                    let behind = member.start.dot(outward)
+                    let horizontal = (member.end.metres() - member.start.metres())
+                        .normalize()
+                        .dot(outward)
+                        .abs()
+                        < 0.001;
+                    let behind = member.start.metres().dot(outward)
                         - wall.frame.origin.dot(wall.frame.outward)
                         < -1.0;
                     horizontal && behind && member.role == crate::TimberMemberRole::DormerTrimmer
@@ -308,7 +317,7 @@ mod tests {
             facade_runs: vec![],
             meshes: vec![],
         };
-        append_gable_details(&mut lod, &plan);
+        append_gable_details(&mut lod, &plan).unwrap();
         assert!(lod.meshes.is_empty());
     }
 }

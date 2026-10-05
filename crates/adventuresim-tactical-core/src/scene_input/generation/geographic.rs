@@ -30,7 +30,7 @@ impl TacticalSceneInput {
             .ok_or_else(|| SceneInputError::Validation("geographic heightmap is invalid".into()))?;
         let mut obstacles = generated_obstacles(self);
         remove_reserved_obstacles(self, &mut obstacles, &mut repairs);
-        let reservations = reservation_pads(self, &buildings);
+        let reservations = reservation_pads(self, &buildings)?;
         remove_building_obstacles(self, &coarse, &reservations, &mut obstacles, &mut repairs);
         let ground = build_scene_ground(
             width,
@@ -68,16 +68,16 @@ impl TacticalSceneInput {
 fn reservation_pads(
     input: &TacticalSceneInput,
     buildings: &[GeneratedBuilding],
-) -> Vec<buildings::BuildingPad> {
+) -> Result<Vec<buildings::BuildingPad>, SceneInputError> {
     let mut pads: Vec<_> = buildings
         .iter()
-        .map(|building| buildings::BuildingPad {
+        .map(|building| Ok(buildings::BuildingPad {
             centre: building.placement.centre_metres,
-            half_extents: building.collision.bounds.plan_half_extents(),
+            half_extents: building.collision.bounds.plan_half_extents()?.metres(),
             orientation: building.placement.orientation,
             elevation_metres: building.placement.base_elevation_metres,
-        })
-        .collect();
+        }))
+        .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
     // Only horizontal occupancy removes obstacles. Compound members may have
     // different floors, and garden soil need not share its house's elevation.
     pads.extend(
@@ -93,7 +93,7 @@ fn reservation_pads(
                 elevation_metres: 0.0,
             }),
     );
-    pads
+    Ok(pads)
 }
 
 #[cfg(test)]

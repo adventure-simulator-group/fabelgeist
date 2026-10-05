@@ -14,18 +14,25 @@ impl<'a> SolidDetailCompiler<'a> {
         }
     }
 
-    pub(crate) fn compile(&self, solid: &ResolvedSolid) -> BuildingDetail {
+    pub(crate) fn compile(
+        &self,
+        solid: &ResolvedSolid,
+    ) -> Result<BuildingDetail, crate::GenerationError> {
         let mut detail = BuildingDetail { meshes: Vec::new() };
-        self.append(&mut detail, solid);
-        detail
+        self.append(&mut detail, solid)?;
+        Ok(detail)
     }
 
-    pub(super) fn append(&self, detail: &mut BuildingDetail, solid: &ResolvedSolid) {
-        if stove_tiles::append(detail, self.plan, solid) {
-            return;
+    pub(super) fn append(
+        &self,
+        detail: &mut BuildingDetail,
+        solid: &ResolvedSolid,
+    ) -> Result<(), crate::GenerationError> {
+        if stove_tiles::append(detail, self.plan, solid)? {
+            return Ok(());
         }
         if matches!(solid.shape, ResolvedSolidShape::RoundTowerShell { .. }) {
-            return;
+            return Ok(());
         }
         let material = material_for_solid(self.plan, solid);
         let wall = wall_for_solid(self.plan, solid);
@@ -42,9 +49,9 @@ impl<'a> SolidDetailCompiler<'a> {
             // These are recessed structural bearing solids, not a second
             // visible finish. The resolved infill and timber opening frame
             // already own the exposed Fachwerk surface.
-            return;
+            return Ok(());
         }
-        match solid.shape {
+        let _: () = match solid.shape {
             ResolvedSolidShape::TimberPanelPrism {
                 vertices,
                 outward,
@@ -65,8 +72,9 @@ impl<'a> SolidDetailCompiler<'a> {
                     })
                 }),
             ),
-            _ => append_shaped_solid(detail, self.plan, material, solid, wall),
-        }
+            _ => append_shaped_solid(detail, self.plan, material, solid, wall)?,
+        };
+        Ok(())
     }
 }
 
@@ -76,14 +84,14 @@ fn append_shaped_solid(
     material: BuildingLodMaterial,
     solid: &ResolvedSolid,
     wall: Option<&crate::WallAssembly>,
-) {
+) -> Result<(), crate::GenerationError> {
     if matches!(solid.shape, ResolvedSolidShape::CylinderAlongX) {
         detail.meshes.push(crate::axle::mesh(solid));
-        return;
+        return Ok(());
     }
     if matches!(solid.shape, ResolvedSolidShape::BellShell) {
-        detail.meshes.extend(crate::bell::meshes(solid));
-        return;
+        detail.meshes.extend(crate::bell::meshes(solid)?);
+        return Ok(());
     }
     if solid.role == SolidRole::LeadedGlazing && matches!(solid.shape, ResolvedSolidShape::Cuboid) {
         append_window_leaf(
@@ -92,8 +100,8 @@ fn append_shaped_solid(
             solid,
             wall,
             crate::WindowLeafKind::LeadedGlass,
-        );
-        return;
+        )?;
+        return Ok(());
     }
     if solid.role == SolidRole::OpeningClosure
         && plan.opening_assemblies.iter().any(|opening| {
@@ -107,12 +115,13 @@ fn append_shaped_solid(
             solid,
             wall,
             crate::WindowLeafKind::TimberShutter,
-        );
-        return;
+        )?;
+        return Ok(());
     }
-    if !arches::append(detail, material, solid, wall) {
-        append_oriented_cuboid(detail, material, solid, wall);
-    }
+    let _: () = if !arches::append(detail, material, solid, wall) {
+        append_oriented_cuboid(detail, material, solid, wall)?;
+    };
+    Ok(())
 }
 
 fn append_window_leaf(
@@ -121,38 +130,41 @@ fn append_window_leaf(
     solid: &ResolvedSolid,
     wall: Option<&crate::WallAssembly>,
     kind: crate::WindowLeafKind,
-) {
-    let (size, rotation) = wall.map_or(
-        (solid.size, Quat::from_rotation_y(solid.yaw_radians)),
-        |wall| {
-            let tangent = wall.frame.tangent.abs();
-            let outward = wall.frame.outward.abs();
-            (
-                Vec3::new(
-                    tangent.x * solid.size.x + tangent.y * solid.size.z,
-                    solid.size.y,
-                    outward.x * solid.size.x + outward.y * solid.size.z,
-                ),
-                Quat::from_rotation_y(-wall.frame.tangent.y.atan2(wall.frame.tangent.x)),
-            )
-        },
-    );
+) -> Result<(), crate::GenerationError> {
+    let (size, rotation) = if let Some(wall) = wall {
+        let tangent = wall.frame.tangent.abs();
+        let outward = wall.frame.outward.abs();
+        (
+            crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(
+                tangent.x * solid.size.metres().x + tangent.y * solid.size.metres().z,
+                solid.size.metres().y,
+                outward.x * solid.size.metres().x + outward.y * solid.size.metres().z,
+            ))?,
+            Quat::from_rotation_y(-wall.frame.tangent.y.atan2(wall.frame.tangent.x)),
+        )
+    } else {
+        (
+            solid.size,
+            Quat::from_rotation_y(solid.yaw_radians.radians()),
+        )
+    };
     let state = plan
         .opening_assemblies
         .iter()
         .find(|opening| opening.closure_solids.contains(&solid.id))
         .map_or(crate::ClosureState::Closed, |opening| opening.closure.state);
-    for mesh in crate::compile_window_leaf(size, kind, state) {
+    let _: () = for mesh in crate::compile_window_leaf(size.metres(), kind, state)? {
         let target = detail.mesh_mut(mesh.material);
         for indices in mesh.indices.as_chunks::<3>().0 {
             let vertices = indices.map(|index| mesh.vertices[index as usize]);
             target.push_triangle(
-                vertices.map(|v| solid.centre + rotation * v.position),
+                vertices.map(|v| solid.centre.metres() + rotation * v.position),
                 rotation * vertices[0].normal,
                 vertices.map(|v| v.uv),
             );
         }
-    }
+    };
+    Ok(())
 }
 
 type PanelEdgeKey = ([i64; 3], [i64; 3]);

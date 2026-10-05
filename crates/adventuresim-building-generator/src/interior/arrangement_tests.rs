@@ -29,7 +29,12 @@ fn interior_ward_and_inn_arrangements_preserve_service_and_access() {
                                 let pieces = layout
                                     .placements
                                     .iter()
-                                    .filter(|p| p.storey == storey.level && p.room_id == room.id)
+                                    .filter(|p| {
+                                        p.storey
+                                            == crate::StoreyIndex::from_serialized(storey.level)
+                                            && p.room_id
+                                                == crate::RoomIndex::from_serialized(room.id)
+                                    })
                                     .collect::<Vec<_>>();
                                 pieces
                                     .iter()
@@ -50,8 +55,8 @@ fn interior_ward_and_inn_arrangements_preserve_service_and_access() {
                             .placements
                             .iter()
                             .filter(|p| {
-                                p.storey == 0
-                                    && p.room_id == room.id
+                                p.storey == crate::StoreyIndex::new(0)
+                                    && p.room_id == crate::RoomIndex::from_serialized(room.id)
                                     && p.key.kind() == FurnitureKind::WardBed
                             })
                             .collect::<Vec<_>>();
@@ -101,6 +106,7 @@ fn interior_narrow_inn_ground_room_cannot_combine_full_counter_and_dining_group(
                 position,
             },
         )
+        .unwrap()
         .into_iter()
         .filter(|group| super::footprints::validate(&plan, &nav, group, 0).is_ok())
         .collect::<Vec<_>>()
@@ -116,9 +122,14 @@ fn interior_narrow_inn_ground_room_cannot_combine_full_counter_and_dining_group(
         }
     }
     let layout = furnish(&plan, &program).unwrap();
-    assert!(layout.unmet_budgets.iter().any(|b| b.storey == 0
-        && b.room_id == room.id
-        && b.kind == FurnitureKind::DiningTable
-        && b.placed == 0));
+    assert!(
+        layout
+            .unmet_budgets
+            .iter()
+            .any(|b| b.storey == crate::StoreyIndex::new(0)
+                && b.room_id == crate::RoomIndex::from_serialized(room.id)
+                && b.kind == FurnitureKind::DiningTable
+                && b.placed == 0)
+    );
     validate_layout(&plan, &layout).unwrap();
 }

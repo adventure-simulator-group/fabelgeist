@@ -6,31 +6,25 @@ const CONTACT_TOLERANCE_METRES: f32 = 0.001;
 const SWING_HALF_STEPS: i32 = 30;
 type Triangle = [Vec3; 3];
 
-pub(super) fn is_clear(plan: &BuildingPlan, bell: &ResolvedSolid, limit: f32) -> bool {
+pub(super) fn is_clear(
+    plan: &BuildingPlan,
+    bell: &ResolvedSolid,
+    limit: f32,
+) -> Result<bool, crate::GenerationError> {
     let Some(axle) = plan
         .resolved_geometry
         .solids
         .iter()
         .find(|part| part.owner == bell.owner && part.role == SolidRole::ChurchBellAxle)
     else {
-        return false;
+        return Ok(false);
     };
-    let pivot = Vec3::new(bell.centre.x, axle.centre.y, bell.centre.z);
-    let moving_triangles = plan
-        .resolved_geometry
-        .solids
-        .iter()
-        .filter(|part| part.owner == bell.owner && moving(part.role))
-        .flat_map(|part| crate::compile_solid_detail(plan, part).meshes)
-        .flat_map(|mesh| {
-            mesh.indices
-                .as_chunks::<3>()
-                .0
-                .iter()
-                .map(|indices| indices.map(|i| mesh.vertices[i as usize].position))
-                .collect::<Vec<_>>()
-        })
-        .collect::<Vec<_>>();
+    let pivot = Vec3::new(
+        bell.centre.metres().x,
+        axle.centre.metres().y,
+        bell.centre.metres().z,
+    );
+    let moving_triangles = moving_mesh_triangles(plan, bell)?;
     let radius_squared = moving_triangles
         .iter()
         .flatten()
@@ -41,22 +35,31 @@ pub(super) fn is_clear(plan: &BuildingPlan, bell: &ResolvedSolid, limit: f32) ->
         .solids
         .iter()
         .filter(|part| !(part.owner == bell.owner && moving(part.role)))
-        .flat_map(|part| crate::collision::collision_parts(plan, part))
-        .filter(|part| {
-            let bounds = part.bounds();
-            pivot.clamp(bounds.min, bounds.max).distance_squared(pivot) <= radius_squared
+        .map(|part| crate::collision::collision_parts(plan, part))
+        .collect::<Result<Vec<_>, _>>()?
+        .into_iter()
+        .flatten()
+        .map(|part| part.bounds().map(|bounds| (part, bounds)))
+        .collect::<Result<Vec<_>, _>>()?
+        .into_iter()
+        .filter(|(_, bounds)| {
+            pivot
+                .clamp(bounds.min().metres(), bounds.max().metres())
+                .distance_squared(pivot)
+                <= radius_squared
         })
+        .map(|(part, _)| part)
         .map(|part| {
             let rotation = Quat::from_euler(
                 bevy::math::EulerRot::YXZ,
-                part.yaw_radians,
-                part.crossfall_radians,
-                part.longfall_radians,
+                part.yaw_radians.radians(),
+                part.crossfall_radians.radians(),
+                part.longfall_radians.radians(),
             );
             (
-                part.centre,
+                part.centre.metres(),
                 rotation.inverse(),
-                part.size * 0.5 - Vec3::splat(CONTACT_TOLERANCE_METRES),
+                part.size.metres() * 0.5 - Vec3::splat(CONTACT_TOLERANCE_METRES),
             )
         })
         .collect::<Vec<_>>();
@@ -87,11 +90,35 @@ pub(super) fn is_clear(plan: &BuildingPlan, bell: &ResolvedSolid, limit: f32) ->
                 .iter()
                 .any(|roof| triangles_intersect(triangle, *roof))
             {
-                return false;
+                return Ok(false);
             }
         }
     }
-    true
+    Ok(true)
+}
+
+fn moving_mesh_triangles(
+    plan: &BuildingPlan,
+    bell: &ResolvedSolid,
+) -> Result<Vec<Triangle>, crate::GenerationError> {
+    let mut triangles = Vec::new();
+    for part in plan
+        .resolved_geometry
+        .solids
+        .iter()
+        .filter(|part| part.owner == bell.owner && moving(part.role))
+    {
+        for mesh in crate::compile_solid_detail(plan, part)?.meshes {
+            triangles.extend(
+                mesh.indices
+                    .as_chunks::<3>()
+                    .0
+                    .iter()
+                    .map(|indices| indices.map(|i| mesh.vertices[i as usize].position)),
+            );
+        }
+    }
+    Ok(triangles)
 }
 
 fn bounds(triangle: Triangle) -> (Vec3, Vec3) {
@@ -189,12 +216,19 @@ mod tests {
         obstruction.owner = crate::GeometryOwnerId(u32::MAX);
         obstruction.role = SolidRole::BeamJoist;
         obstruction.shape = crate::ResolvedSolidShape::Cuboid;
-        obstruction.size = Vec3::new(2.0, 0.03, 0.03);
-        obstruction.yaw_radians = 0.3;
-        obstruction.crossfall_radians = 0.2;
-        obstruction.centre.y -= bell.size.y * 0.25;
+        obstruction.size =
+            crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(2.0, 0.03, 0.03))
+                .unwrap();
+        obstruction.yaw_radians = crate::spatial_geometry::Radians::new(0.3).unwrap();
+        obstruction.crossfall_radians = crate::spatial_geometry::Radians::new(0.2).unwrap();
+        {
+            let mut native_geometry = obstruction.centre.metres();
+            native_geometry.y -= bell.size.metres().y * 0.25;
+            obstruction.centre =
+                crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+        };
         plan.resolved_geometry.solids.push(obstruction);
-        assert!(!is_clear(&plan, &bell, std::f32::consts::FRAC_PI_6));
+        assert!(!is_clear(&plan, &bell, std::f32::consts::FRAC_PI_6).unwrap());
     }
 
     #[test]

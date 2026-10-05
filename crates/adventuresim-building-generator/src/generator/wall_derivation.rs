@@ -1,12 +1,21 @@
-const RNG_BUILDING_WINDOW_PLACEMENT: fabelgeist_determinism::StreamId = fabelgeist_determinism::StreamId::new("building.window-placement");
+const RNG_BUILDING_WINDOW_PLACEMENT: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("building.window-placement");
 fn derive_walls(
     footprint: &[Cell],
-    assignments: &BTreeMap<Cell, usize>,
-) -> Vec<crate::WallSegment> {
+    assignments: &BTreeMap<Cell, RoomIndex>,
+) -> Result<Vec<crate::WallSegment>, GenerationError> {
     let occupied = footprint.iter().copied().collect::<HashSet<_>>();
     let mut walls = Vec::new();
     for cell in footprint.iter().copied() {
-        let inside_room = assignments[&cell] as u16;
+        let assignment = |cell| {
+            assignments
+                .get(&cell)
+                .copied()
+                .ok_or(GenerationError::RoomAllocation(
+                    room_allocation::AllocationFailure::MissingCellAssignment { cell },
+                ))
+        };
+        let inside_room = assignment(cell)?.serialized_ordinal();
         for direction in Direction::ALL {
             let neighbour = cell.neighbour(direction);
             if !occupied.contains(&neighbour) {
@@ -17,7 +26,7 @@ fn derive_walls(
                     outside_room: None,
                 });
             } else if matches!(direction, Direction::North | Direction::East) {
-                let other_room = assignments[&neighbour] as u16;
+                let other_room = assignment(neighbour)?.serialized_ordinal();
                 if inside_room != other_room {
                     walls.push(crate::WallSegment {
                         cell,
@@ -29,7 +38,7 @@ fn derive_walls(
             }
         }
     }
-    walls
+    Ok(walls)
 }
 
 fn derive_openings(
@@ -37,117 +46,44 @@ fn derive_openings(
     requirements: &[RoomRequirement],
     archetype: BuildingArchetype,
     seed: u64,
-    level: usize,
+    level: StoreyIndex,
     straight_stair_core: Option<&StraightStairCore>,
 ) -> Result<Vec<Opening>, GenerationError> {
+    let storey = level;
+    let serialized_level = storey.serialized_ordinal()?;
     let mut openings = Vec::new();
-    let exterior_extent = walls
-        .iter()
-        .filter(|wall| wall.exterior())
-        .fold(None, |extent, wall| {
-            let cell = wall.cell;
-            Some(extent.map_or(
-                (cell.x, cell.x, cell.z, cell.z),
-                |(min_x, max_x, min_z, max_z): (i16, i16, i16, i16)| {
-                    (
-                        min_x.min(cell.x),
-                        max_x.max(cell.x),
-                        min_z.min(cell.z),
-                        max_z.max(cell.z),
-                    )
-                },
-            ))
-        });
+    let exterior_extent = GridEnvelope::from_walls(walls);
     let mut occupied_walls = HashSet::new();
     let mut required_room_connections = Vec::new();
 
-    if let Some(core) = straight_stair_core.filter(|core| core.serves(level as u16)) {
-        let stair_hall = requirements
-            .iter()
-            .position(|room| room.kind == core.landing_room)
-            .expect("straight stair core landing room was validated before opening derivation")
-            as u16;
-        let flight_index = level as u16 - core.lowest_storey;
-        let axis = direction_vector(core.direction);
-        let landing = if flight_index.is_multiple_of(2) {
-            core.origin
-        } else {
-            core.origin + axis * STRAIGHT_STAIR_RUN_METRES
-        };
-        let reserved_cells = core.reserved_cells.iter().copied().collect::<HashSet<_>>();
-        let Some((wall_index, wall)) = walls
-            .iter()
-            .enumerate()
-            .filter(|(_, wall)| {
-                reserved_cells.contains(&wall.cell)
-                    && wall.outside_room.is_some()
-                    && (wall.inside_room == stair_hall || wall.outside_room == Some(stair_hall))
-            })
-            .min_by(|(_, left), (_, right)| {
-                left.centre()
-                    .distance_squared(landing)
-                    .total_cmp(&right.centre().distance_squared(landing))
-            })
-        else {
-            return Err(GenerationError::UnsatisfiedVerticalCirculation {
-                connection: 0,
-                reason: format!(
-                    "storey {level} has no room-graph doorway adjacent to its stair landing"
-                ),
-            });
-        };
-        let other_room = wall
-            .outside_room
-            .filter(|room| *room != stair_hall)
-            .unwrap_or(wall.inside_room);
-        openings.push(Opening {
-            wall: wall_index,
-            kind: OpeningKind::Door,
-            width_metres: 0.95,
-            sill_metres: 0.0,
-            height_metres: 2.1,
+    if let Some(core) = straight_stair_core.filter(|core| core.serves(serialized_level)) {
+        let landing = core.landing_opening(walls, requirements, storey)?;
+        occupied_walls.insert(landing.opening.wall);
+        required_room_connections.push(room_connections::RoomConnection {
+            left: landing.stair_hall,
+            right: landing.neighbour,
         });
-        occupied_walls.insert(wall_index);
-        required_room_connections.push((stair_hall, other_room));
+        openings.push(landing.opening);
     }
 
-    if level == 0 {
-        entrances::append(walls, requirements, archetype, &mut openings, &mut occupied_walls);
+    if level == StoreyIndex::GROUND {
+        entrances::append(
+            walls,
+            requirements,
+            archetype,
+            &mut openings,
+            &mut occupied_walls,
+        )?;
     }
 
-    let mut shared = BTreeMap::<(u16, u16), Vec<usize>>::new();
-    for (wall_index, wall) in walls.iter().enumerate() {
-        if let Some(other) = wall.outside_room {
-            let pair = if wall.inside_room < other {
-                (wall.inside_room, other)
-            } else {
-                (other, wall.inside_room)
-            };
-            shared.entry(pair).or_default().push(wall_index);
-        }
-    }
-    let mut edges = shared
-        .into_iter()
-        .map(|(pair, candidates)| {
-            let left = &requirements[usize::from(pair.0)];
-            let right = &requirements[usize::from(pair.1)];
-            let preferred = left.preferred_neighbours.contains(&right.kind)
-                || right.preferred_neighbours.contains(&left.kind);
-            let circulation_required =
-                left.kind == RoomKind::StairHall || right.kind == RoomKind::StairHall;
-            (circulation_required, preferred, pair, candidates)
-        })
-        .collect::<Vec<_>>();
-    edges.sort_by_key(|(circulation_required, preferred, pair, _)| {
-        (!*circulation_required, !*preferred, *pair)
-    });
+    let edges = room_connections::shared_boundaries(walls, requirements, storey)?;
     let mut sets = DisjointSets::new(requirements.len());
-    for (left, right) in required_room_connections {
-        sets.union(usize::from(left), usize::from(right));
+    for connection in required_room_connections {
+        sets.union(connection.left.index(), connection.right.index());
     }
-    for (_, _, (left, right), candidates) in edges {
-        if sets.union(usize::from(left), usize::from(right)) {
-            let wall_index = candidates[candidates.len() / 2];
+    for edge in edges {
+        if sets.union(edge.connection.left.index(), edge.connection.right.index()) {
+            let wall_index = edge.candidates[edge.candidates.len() / 2];
             openings.push(Opening {
                 wall: wall_index,
                 kind: OpeningKind::Door,
@@ -176,18 +112,27 @@ fn derive_openings(
         // A one-cell opening at a perimeter corner consumes the return pier:
         // its jamb/reveal then occupies the perpendicular facade's frame
         // plane. Keep corner cells solid; nearby bays still provide light.
-        let corner_cell = exterior_extent.is_some_and(|(min_x, max_x, min_z, max_z)| {
-            (wall.cell.x == min_x || wall.cell.x == max_x)
-                && (wall.cell.z == min_z || wall.cell.z == max_z)
-        });
+        let corner_cell = exterior_extent.is_some_and(|extent| extent.is_corner(wall.cell));
         if corner_cell {
             continue;
         }
-        let room_kind = requirements[usize::from(wall.inside_room)].kind;
+        let room_kind = room_connections::requirement(
+            requirements,
+            RoomIndex::from_serialized(wall.inside_room),
+            storey,
+        )?
+        .kind;
         if matches!(
             room_kind,
             RoomKind::Storage | RoomKind::Pantry | RoomKind::Passage
-        ) || cell_random(seed, wall.direction as u64, wall.cell, RNG_BUILDING_WINDOW_PLACEMENT).index(3) == 0
+        ) || cell_random(
+            seed,
+            wall.direction as u64,
+            wall.cell,
+            RNG_BUILDING_WINDOW_PLACEMENT,
+        )
+        .index(3)
+            == 0
         {
             continue;
         }
@@ -214,7 +159,6 @@ fn derive_openings(
     openings.sort_by_key(|opening| opening.wall);
     Ok(openings)
 }
-
 
 fn two_centred_arc_radius(width_metres: f32, rise_metres: f32) -> f32 {
     let half_span = width_metres * 0.5;
@@ -322,45 +266,42 @@ fn wall_solid(
     role: SolidRole,
     shape: crate::ResolvedSolidShape,
     support: StructuralNodeId,
-) -> ResolvedItemId {
+) -> Result<ResolvedItemId, crate::GenerationError> {
     let id = ResolvedItemId((1_u64 << 60) | (u64::from(owner.0) << 32) | slot);
-    geometry.solids.push(ResolvedSolid {
-        id,
+    geometry.solids.push(ResolvedSolid::new(
+        CollisionCuboid::<Architectural>::from_metres(id, centre, size, 0.0, 0.0, 0.0)?,
         owner,
-        centre,
-        size,
-        yaw_radians: 0.0,
-        crossfall_radians: 0.0,
-        longfall_radians: 0.0,
         role,
         shape,
-        supported_by: vec![support],
-    });
-    geometry.support_interfaces.push(SupportInterface {
-        id: ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | slot),
-        owner,
-        node: support,
-        bounds: ResolvedBounds {
-            min: Vec3::new(
-                centre.x - size.x * 0.5,
-                centre.y - size.y * 0.5 - 0.015,
-                centre.z - size.z * 0.5,
-            ),
-            max: Vec3::new(
-                centre.x + size.x * 0.5,
-                centre.y - size.y * 0.5 + 0.015,
-                centre.z + size.z * 0.5,
-            ),
-        },
-    });
-    id
+        vec![support],
+    ));
+    geometry
+        .support_interfaces
+        .push(crate::SupportInterface::new(
+            ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | slot),
+            owner,
+            support,
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
+                    centre.x - size.x * 0.5,
+                    centre.y - size.y * 0.5 - 0.015,
+                    centre.z - size.z * 0.5,
+                ),
+                Vec3::new(
+                    centre.x + size.x * 0.5,
+                    centre.y - size.y * 0.5 + 0.015,
+                    centre.z + size.z * 0.5,
+                ),
+            )?,
+        ));
+    Ok(id)
 }
 
 fn wall_void(
     geometry: &mut ResolvedGeometry,
     owner: GeometryOwnerId,
     slot: u64,
-    bounds: ResolvedBounds,
+    bounds: SpatialBounds<Architectural>,
     opening: crate::OpeningAssemblyId,
     exterior_width_metres: f32,
     interior_width_metres: f32,
@@ -391,26 +332,9 @@ fn wall_shaped_surface(
     geometry: &mut ResolvedGeometry,
     owner: GeometryOwnerId,
     slot: u64,
-    bounds: ResolvedBounds,
+    bounds: SpatialBounds<Architectural>,
     role: SurfaceRole,
     shape: crate::ResolvedSurfaceShape,
-) -> ResolvedItemId {
-    let id = wall_surface(geometry, owner, slot, bounds, role);
-    geometry
-        .surfaces
-        .iter_mut()
-        .find(|surface| surface.id == id)
-        .expect("new wall surface")
-        .shape = shape;
-    id
-}
-
-fn wall_surface(
-    geometry: &mut ResolvedGeometry,
-    owner: GeometryOwnerId,
-    slot: u64,
-    bounds: ResolvedBounds,
-    role: SurfaceRole,
 ) -> ResolvedItemId {
     let id = ResolvedItemId((9_u64 << 60) | (u64::from(owner.0) << 32) | slot);
     geometry.surfaces.push(ResolvedSurface {
@@ -418,7 +342,61 @@ fn wall_surface(
         owner,
         bounds,
         role,
-        shape: crate::ResolvedSurfaceShape::Planar,
+        shape,
     });
     id
+}
+
+fn wall_surface(
+    geometry: &mut ResolvedGeometry,
+    owner: GeometryOwnerId,
+    slot: u64,
+    bounds: SpatialBounds<Architectural>,
+    role: SurfaceRole,
+) -> ResolvedItemId {
+    wall_shaped_surface(
+        geometry,
+        owner,
+        slot,
+        bounds,
+        role,
+        crate::ResolvedSurfaceShape::Planar,
+    )
+}
+
+/// Integer cell topology, before metre geometry admission.
+#[derive(Clone, Copy)]
+struct GridEnvelope {
+    min_x: i16,
+    max_x: i16,
+    min_z: i16,
+    max_z: i16,
+}
+impl GridEnvelope {
+    fn from_walls(walls: &[crate::WallSegment]) -> Option<Self> {
+        walls
+            .iter()
+            .filter(|wall| wall.exterior())
+            .fold(None, |extent, wall| {
+                let cell = wall.cell;
+                Some(extent.map_or(
+                    Self {
+                        min_x: cell.x,
+                        max_x: cell.x,
+                        min_z: cell.z,
+                        max_z: cell.z,
+                    },
+                    |e: Self| Self {
+                        min_x: e.min_x.min(cell.x),
+                        max_x: e.max_x.max(cell.x),
+                        min_z: e.min_z.min(cell.z),
+                        max_z: e.max_z.max(cell.z),
+                    },
+                ))
+            })
+    }
+    fn is_corner(self, cell: Cell) -> bool {
+        (cell.x == self.min_x || cell.x == self.max_x)
+            && (cell.z == self.min_z || cell.z == self.max_z)
+    }
 }

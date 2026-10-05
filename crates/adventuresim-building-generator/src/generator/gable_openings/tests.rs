@@ -103,17 +103,25 @@ fn detail_facade_shell_and_collision_share_clear_aperture_and_fixed_glass() {
             .solids
             .retain(|solid| !closure_ids.contains(&solid.id));
         let closed_meshes = [
-            compile_building_detail(&plan).meshes,
-            compile_building_lod(&plan, BuildingLodLevel::Facade).meshes,
-            compile_building_lod(&plan, BuildingLodLevel::Shell).meshes,
+            compile_building_detail(&plan).unwrap().meshes,
+            compile_building_lod(&plan, BuildingLodLevel::Facade)
+                .unwrap()
+                .meshes,
+            compile_building_lod(&plan, BuildingLodLevel::Shell)
+                .unwrap()
+                .meshes,
         ];
         let open_meshes = [
-            compile_building_detail(&open).meshes,
-            compile_building_lod(&open, BuildingLodLevel::Facade).meshes,
-            compile_building_lod(&open, BuildingLodLevel::Shell).meshes,
+            compile_building_detail(&open).unwrap().meshes,
+            compile_building_lod(&open, BuildingLodLevel::Facade)
+                .unwrap()
+                .meshes,
+            compile_building_lod(&open, BuildingLodLevel::Shell)
+                .unwrap()
+                .meshes,
         ];
-        let collision = compile_building_collision(&plan);
-        let open_collision = compile_building_collision(&open);
+        let collision = compile_building_collision(&plan).unwrap();
+        let open_collision = compile_building_collision(&open).unwrap();
         for opening in openings(&plan) {
             let frame = opening.frame;
             let outward = Vec3::new(frame.outward.x, 0.0, frame.outward.y);
@@ -153,14 +161,7 @@ fn detail_facade_shell_and_collision_share_clear_aperture_and_fixed_glass() {
                             "level {index} missing glass {x},{y}"
                         );
                     }
-                    let probe = crate::CollisionCuboid {
-                        source: ResolvedItemId(0),
-                        centre: sample,
-                        size: Vec3::new(outward.x.abs() + 0.001, 0.001, outward.z.abs() + 0.001),
-                        yaw_radians: 0.0,
-                        crossfall_radians: 0.0,
-                        longfall_radians: 0.0,
-                    };
+                    let probe = crate::CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(ResolvedItemId(0), sample, Vec3::new(outward.x.abs() + 0.001, 0.001, outward.z.abs() + 0.001), 0.0, 0.0, 0.0).unwrap();
                     assert!(!open_collision.cuboids.iter().any(|c| c.intersects(probe)));
                     assert!(
                         collision
@@ -176,14 +177,16 @@ fn detail_facade_shell_and_collision_share_clear_aperture_and_fixed_glass() {
                 point(0.0, -0.05),
                 point(0.0, 1.05),
             ] {
-                let probe = crate::CollisionCuboid {
-                    source: ResolvedItemId(0),
-                    centre: sample,
-                    size: Vec3::new(outward.x.abs() + 0.001, 0.001, outward.z.abs() + 0.001),
-                    yaw_radians: 0.0,
-                    crossfall_radians: 0.0,
-                    longfall_radians: 0.0,
-                };
+                let probe =
+                    crate::CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(
+                        ResolvedItemId(0),
+                        sample,
+                        Vec3::new(outward.x.abs() + 0.001, 0.001, outward.z.abs() + 0.001),
+                        0.0,
+                        0.0,
+                        0.0,
+                    )
+                    .unwrap();
                 assert!(
                     open_collision.cuboids.iter().any(|c| c.intersects(probe)),
                     "missing surrounding collision"
@@ -226,8 +229,13 @@ fn residual_enclosures_are_closed_and_gable_audit_rejects_mutations() {
         .iter_mut()
         .find(|v| v.id == opening.void_id)
         .unwrap();
-    void.bounds.min.x += 0.15;
-    void.bounds.max.x += 0.15;
+    {
+        let mut native_min = void.bounds.min().metres();
+        let mut native_max = void.bounds.max().metres();
+        native_min.x += 0.15;
+        native_max.x += 0.15;
+        void.bounds = crate::SpatialBounds::from_metres(native_min, native_max).unwrap();
+    };
     let mut oversized = plan.clone();
     oversized
         .wall_assemblies
@@ -246,14 +254,24 @@ fn residual_enclosures_are_closed_and_gable_audit_rejects_mutations() {
         enclosure: ResolvedItemId(999),
     };
     let mut displaced = plan.clone();
-    displaced
-        .resolved_geometry
-        .solids
-        .iter_mut()
-        .find(|s| s.id == opening.jamb_solids[0])
-        .unwrap()
-        .centre
-        .z += 0.5;
+    {
+        let mut native_geometry = displaced
+            .resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|s| s.id == opening.jamb_solids[0])
+            .unwrap()
+            .centre
+            .metres();
+        native_geometry.z += 0.5;
+        displaced
+            .resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|s| s.id == opening.jamb_solids[0])
+            .unwrap()
+            .centre = crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+    };
     let mut rotated_glass = plan.clone();
     rotated_glass
         .resolved_geometry
@@ -261,7 +279,7 @@ fn residual_enclosures_are_closed_and_gable_audit_rejects_mutations() {
         .iter_mut()
         .find(|s| s.id == opening.closure_solids[0])
         .unwrap()
-        .longfall_radians = 0.2;
+        .longfall_radians = crate::spatial_geometry::Radians::new(0.2).unwrap();
     for changed in [
         missing_jamb,
         shifted_void,
@@ -270,7 +288,7 @@ fn residual_enclosures_are_closed_and_gable_audit_rejects_mutations() {
         displaced,
         rotated_glass,
     ] {
-        let issues = crate::audit_plan(&changed);
+        let issues = crate::audit_plan(&changed).unwrap();
         assert!(
             issues.iter().any(|i| i.code == "roof_gable_enclosure_gap"),
             "mutation escaped gable coverage: {issues:?}"
@@ -294,8 +312,16 @@ fn both_ridge_axes_preserve_original_members_and_omit_blocked_bays() {
             .cloned()
             .collect::<Vec<_>>();
         for member in &mut original {
-            member.start = rotation * member.start;
-            member.end = rotation * member.end;
+            {
+                let native_geometry = rotation * member.start.metres();
+                member.start =
+                    crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+            };
+            {
+                let native_geometry = rotation * member.end.metres();
+                member.end =
+                    crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+            };
         }
         let ids = original.iter().map(|m| m.solid).collect::<BTreeSet<_>>();
         let mut geometry = ResolvedGeometry {
@@ -309,8 +335,16 @@ fn both_ridge_axes_preserve_original_members_and_omit_blocked_bays() {
             ..Default::default()
         };
         for solid in &mut geometry.solids {
-            solid.centre = rotation * solid.centre;
-            solid.yaw_radians += angle;
+            {
+                let native_geometry = rotation * solid.centre.metres();
+                solid.centre =
+                    crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+            };
+            {
+                let mut native_geometry = solid.yaw_radians.radians();
+                native_geometry += angle;
+                solid.yaw_radians = crate::spatial_geometry::Radians::new(native_geometry).unwrap();
+            };
         }
         let original_solids = serde_json::to_vec(&geometry.solids).unwrap();
         let mut roofs = plan.roof_assemblies.clone();
@@ -329,27 +363,35 @@ fn both_ridge_axes_preserve_original_members_and_omit_blocked_bays() {
         );
         builder.members = original.clone();
         let face = &roofs[0].enclosure_faces[0];
-        let candidate = Candidate::find(&builder, face).expect("unblocked bay");
+        let candidate = Candidate::find(&builder, face)
+            .unwrap()
+            .expect("unblocked bay");
         let point = candidate.frame.origin
             + candidate.frame.tangent * (CLEAR_WIDTH_METRES + JAMB_WIDTH_METRES) * 0.5
             + candidate.frame.outward * (BAY_DEPTH_METRES * 0.5 + 0.02);
         let mut strip = builder.geometry.solids[0].clone();
         strip.id = ResolvedItemId(999);
-        strip.centre = Vec3::new(point.x, candidate.base + 0.5, point.y);
-        strip.size = Vec3::splat(0.01);
-        strip.yaw_radians = 0.0;
-        strip.crossfall_radians = 0.0;
-        strip.longfall_radians = 0.0;
+        strip.centre = crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+            Vec3::new(point.x, candidate.base + 0.5, point.y),
+        )
+        .unwrap();
+        strip.size =
+            crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::splat(0.01)).unwrap();
+        strip.yaw_radians = crate::spatial_geometry::Radians::new(0.0).unwrap();
+        strip.crossfall_radians = crate::spatial_geometry::Radians::new(0.0).unwrap();
+        strip.longfall_radians = crate::spatial_geometry::Radians::new(0.0).unwrap();
         builder.geometry.solids.push(strip);
         let mut obstruction = builder.members[0].clone();
         obstruction.id = crate::TimberMemberId(999_999);
         obstruction.solid = ResolvedItemId(999);
         builder.members.push(obstruction);
         assert!(
-            !candidate.fits(
-                &OpeningObstacles::new(&builder.members, &builder.geometry.solids),
-                face
-            ),
+            !candidate
+                .fits(
+                    &OpeningObstacles::new(&builder.members, &builder.geometry.solids).unwrap(),
+                    face
+                )
+                .unwrap(),
             "exterior jamb strip must be clear"
         );
         builder.members.pop();
@@ -369,7 +411,8 @@ fn both_ridge_axes_preserve_original_members_and_omit_blocked_bays() {
             &mut walls,
             &mut apertures,
             &mut bays,
-        );
+        )
+        .unwrap();
         assert_eq!(apertures.len(), 2, "axis rotation {angle}");
         assert_eq!(
             serde_json::to_vec(&builder.members[..original.len()]).unwrap(),
@@ -404,29 +447,36 @@ fn both_ridge_axes_preserve_original_members_and_omit_blocked_bays() {
                     .find(|s| s.id == member.solid)
                     .unwrap();
                 assert!(
-                    !crate::solid_overlap::overlaps_bounds(solid, (bounds.min, bounds.max), 0.001),
+                    !crate::solid_overlap::overlaps_bounds(
+                        solid,
+                        (bounds.min().metres(), bounds.max().metres()),
+                        0.001
+                    ),
                     "frame intrudes at rotation {angle}"
                 );
             }
         }
         let face = &roofs[0].enclosure_faces[0];
-        let blocked = ResolvedSolid {
-            id: ResolvedItemId(999),
-            owner: builder.owner,
-            centre: Vec3::new(4.5, 9.0, 0.0),
-            size: Vec3::splat(100.0),
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-            role: SolidRole::FramePost,
-            shape: crate::ResolvedSolidShape::Cuboid,
-            supported_by: Vec::new(),
-        };
+        let blocked = crate::ResolvedSolid::new(
+            crate::CollisionCuboid::<crate::Architectural>::from_metres(
+                ResolvedItemId(999),
+                Vec3::new(4.5, 9.0, 0.0),
+                Vec3::splat(100.0),
+                0.0,
+                0.0,
+                0.0,
+            )
+            .unwrap(),
+            builder.owner,
+            SolidRole::FramePost,
+            crate::ResolvedSolidShape::Cuboid,
+            Vec::new(),
+        );
         builder.geometry.solids.push(blocked);
         let mut blocker = builder.members[0].clone();
         blocker.solid = ResolvedItemId(999);
         blocker.id = crate::TimberMemberId(999_999);
         builder.members.push(blocker);
-        assert!(Candidate::find(&builder, face).is_none());
+        assert!(Candidate::find(&builder, face).unwrap().is_none());
     }
 }

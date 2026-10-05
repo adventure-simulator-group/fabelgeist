@@ -5,13 +5,15 @@ fn setup(
     projected_kind: ProjectedProofKind,
     roof_proof: Option<RoofProofView>,
     scene_setup: SceneSetup,
-) {
+) -> Result<(), adventuresim_building_generator::GenerationError> {
     world.remove_resource::<sample_polygon::SampleBounds>();
     let palette = create_palette(world);
     let dimensions = plan.dimensions_metres();
     let origin = Vec2::new(-dimensions.x * 0.5, -dimensions.y * 0.5);
     let storey_height = plan.storey_height_metres;
-    if view == ViewerView::Cutaway { cutaway::spawn(world, &palette, plan, origin); }
+    if view == ViewerView::Cutaway {
+        cutaway::spawn(world, &palette, plan, origin)?;
+    }
     let crown_proof = matches!(
         view,
         ViewerView::CrownStraightExterior
@@ -155,7 +157,9 @@ fn setup(
             }
         }
         for (wall_index, wall) in storey.walls.iter().copied().enumerate() {
-            if view == ViewerView::Cutaway { continue; }
+            if view == ViewerView::Cutaway {
+                continue;
+            }
             if crown_proof && !proof_crown_matches_point(wall.centre()) {
                 continue;
             }
@@ -375,7 +379,9 @@ fn setup(
         spawn_square_tower(world, &palette, tower, origin, view);
     }
     for stair in plan.stairs.iter().copied() {
-        if matches!(stair, Stair::Spiral { .. }) { continue; }
+        if matches!(stair, Stair::Spiral { .. }) {
+            continue;
+        }
         // The programme renderer already draws the timber resolver's flight
         // from resolved geometry. The semantic recipe remains for detached
         // editing, but rendering it here would duplicate that same stair.
@@ -570,7 +576,7 @@ fn setup(
                     || timber_proof_suffix(view).is_some()
                     || artillery_proof_slug(view).is_some())
                 .then_some(view),
-            );
+            )?;
             if architectural_proof || timber_proof_suffix(view).is_some() {
                 spawn_resolved_architectural_surfaces(
                     world,
@@ -937,17 +943,18 @@ fn setup(
                         && (include_downspouts || !downspouts.contains(&solid.id))
                 })
                 .map(|solid| {
-                    let cosine = solid.yaw_radians.cos().abs();
-                    let sine = solid.yaw_radians.sin().abs();
+                    let cosine = solid.yaw_radians.radians().cos().abs();
+                    let sine = solid.yaw_radians.radians().sin().abs();
                     let half = Vec3::new(
-                        (solid.size.x * cosine + solid.size.z * sine) * 0.5,
-                        (solid.size.y
-                            + solid.size.x * solid.longfall_radians.sin().abs()
-                            + solid.size.z * solid.crossfall_radians.sin().abs())
+                        (solid.size.metres().x * cosine + solid.size.metres().z * sine) * 0.5,
+                        (solid.size.metres().y
+                            + solid.size.metres().x * solid.longfall_radians.radians().sin().abs()
+                            + solid.size.metres().z
+                                * solid.crossfall_radians.radians().sin().abs())
                             * 0.5,
-                        (solid.size.x * sine + solid.size.z * cosine) * 0.5,
+                        (solid.size.metres().x * sine + solid.size.metres().z * cosine) * 0.5,
                     );
-                    let centre = solid.centre + Vec3::new(origin.x, 0.0, origin.y);
+                    let centre = solid.centre.metres() + Vec3::new(origin.x, 0.0, origin.y);
                     (centre - half, centre + half)
                 })
                 .fold(None, |bounds, (min, max)| {
@@ -1044,8 +1051,8 @@ fn setup(
                     (f32::INFINITY, f32::NEG_INFINITY),
                     |(min_y, max_y), solid| {
                         (
-                            min_y.min(solid.centre.y - solid.size.y * 0.5),
-                            max_y.max(solid.centre.y + solid.size.y * 0.5),
+                            min_y.min(solid.centre.metres().y - solid.size.metres().y * 0.5),
+                            max_y.max(solid.centre.metres().y + solid.size.metres().y * 0.5),
                         )
                     },
                 );
@@ -1785,4 +1792,6 @@ fn setup(
     }
     world.insert_resource(palette);
     record_mesh_audit(world);
+
+    Ok(())
 }

@@ -226,7 +226,7 @@ fn single_bearing_points(layout: &CompiledCityLayout, property: &CitySinglePrope
         .unwrap();
     let mut recipes = layout.support_recipes.clone();
     let recipe = recipes.for_program(&building.program).unwrap();
-    let origin = recipe.collision.bounds.centre();
+    let origin = recipe.collision.bounds.centre().unwrap().metres();
     recipe
         .collision
         .ground_floor_footprint()

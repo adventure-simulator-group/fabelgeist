@@ -1,5 +1,6 @@
 //! Coopered vessels assembled from the same oriented timber and iron cuboids as the building.
 use super::*;
+use crate::spatial_geometry::{CuboidDimensions, Position, RigidRotation};
 use std::f32::consts::TAU;
 
 const STAVE_COUNT: u32 = 12;
@@ -9,7 +10,12 @@ const HOOP_THICKNESS_METRES: f32 = 0.035;
 const BOTTOM_PLANK_COUNT: u32 = 12;
 const BOTTOM_THICKNESS_METRES: f32 = 0.16;
 
-pub(super) fn vat(a: &mut Assembly<'_>, p: Vec2, radius: f32, height: f32) {
+pub(super) fn vat(
+    a: &mut Assembly<'_>,
+    p: Vec2,
+    radius: f32,
+    height: f32,
+) -> Result<(), crate::GenerationError> {
     let plank_depth = radius * 2.0 / BOTTOM_PLANK_COUNT as f32;
     for index in 0..BOTTOM_PLANK_COUNT {
         let z = -radius + (index as f32 + 0.5) * plank_depth;
@@ -17,10 +23,18 @@ pub(super) fn vat(a: &mut Assembly<'_>, p: Vec2, radius: f32, height: f32) {
         a.part(
             WorkplaceFeature::Vat,
             WorkplaceMaterial::UnpaintedTimber,
-            Vec3::new(p.x, BOTTOM_THICKNESS_METRES * 0.5, p.y + z),
-            Vec3::new(half_width * 2.0, BOTTOM_THICKNESS_METRES, plank_depth),
-            true,
-        );
+            Position::<crate::Architectural>::from_metres(Vec3::new(
+                p.x,
+                BOTTOM_THICKNESS_METRES * 0.5,
+                p.y + z,
+            ))?,
+            CuboidDimensions::from_metres(Vec3::new(
+                half_width * 2.0,
+                BOTTOM_THICKNESS_METRES,
+                plank_depth,
+            ))?,
+            crate::workplace::WorkplacePartVisibility::Silhouette,
+        )?;
     }
     let step = TAU / STAVE_COUNT as f32;
     let stave_width = 2.0 * radius * (step * 0.5).tan();
@@ -34,9 +48,9 @@ pub(super) fn vat(a: &mut Assembly<'_>, p: Vec2, radius: f32, height: f32) {
             Vec3::new(centre.x, height * 0.5, centre.y),
             Vec3::new(stave_width, height, STAVE_THICKNESS_METRES),
             angle,
-        );
+        )?;
     }
-    for elevation in [height * 0.18, height * 0.8] {
+    let _: () = for elevation in [height * 0.18, height * 0.8] {
         for index in 0..STAVE_COUNT {
             let angle = index as f32 * step;
             let hoop_radius = radius + (STAVE_THICKNESS_METRES + HOOP_THICKNESS_METRES) * 0.5;
@@ -51,9 +65,10 @@ pub(super) fn vat(a: &mut Assembly<'_>, p: Vec2, radius: f32, height: f32) {
                     HOOP_THICKNESS_METRES,
                 ),
                 angle,
-            );
+            )?;
         }
-    }
+    };
+    Ok(())
 }
 
 fn oriented_part(
@@ -62,7 +77,18 @@ fn oriented_part(
     centre: Vec3,
     size: Vec3,
     yaw: f32,
-) {
-    let id = a.part(WorkplaceFeature::Vat, material, centre, size, true);
-    a.orient_part(id, bevy::math::Quat::from_rotation_y(yaw));
+) -> Result<(), crate::GenerationError> {
+    let id = a.part(
+        WorkplaceFeature::Vat,
+        material,
+        Position::<crate::Architectural>::from_metres(centre)?,
+        CuboidDimensions::from_metres(size)?,
+        crate::workplace::WorkplacePartVisibility::Silhouette,
+    )?;
+    a.orient_part(
+        id,
+        RigidRotation::from_quaternion(bevy::math::Quat::from_rotation_y(yaw))?,
+    )?;
+
+    Ok(())
 }

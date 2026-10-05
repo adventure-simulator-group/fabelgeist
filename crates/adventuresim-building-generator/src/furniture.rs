@@ -2,10 +2,36 @@
 //! Recipes contain local metre-space geometry only; world placement and gameplay live in the runtime.
 use std::sync::OnceLock;
 
-use crate::{CollisionBounds, CollisionCuboid, LodMesh};
+use crate::{CollisionCuboid, LodMesh};
 use bevy::{math::Vec3, prelude::Reflect};
 use serde::{Deserialize, Serialize};
 
+/// Object-local metres: X/Z centre at zero and supporting feet at Y=0.
+#[derive(Clone, Copy, Debug, PartialEq, Reflect)]
+pub enum FurnitureLocal {}
+impl crate::spatial_geometry::GeometryFrame for FurnitureLocal {}
+
+#[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]
+pub enum FurnitureRecipeError {
+    #[error("furniture {key:?} has no interior specification")]
+    MissingInteriorSpecification { key: FurnitureKey },
+    #[error("furniture specification {key:?}: {cause}")]
+    Specification {
+        key: FurnitureKey,
+        #[source]
+        cause: crate::spatial_geometry::GeometryError,
+    },
+    #[error("furniture recipe {key:?} has no admitted catalogue entry")]
+    MissingRecipe { key: FurnitureKey },
+    #[error("furniture recipe {key:?}: {cause}")]
+    Construction {
+        key: FurnitureKey,
+        #[source]
+        cause: crate::CollisionError,
+    },
+}
+mod placement;
+pub use placement::ArchitecturalFurniturePose;
 mod apparatus;
 pub(crate) mod builder;
 mod containers;
@@ -21,7 +47,7 @@ mod stall;
 mod trade;
 mod turned;
 mod worship;
-pub use spec::{FurnitureAccessFace, InteriorFurnitureSpec};
+pub use spec::{FurnitureAccessFace, FurniturePlacementRole, InteriorFurnitureSpec};
 #[cfg(test)]
 mod finish_tests;
 #[cfg(test)]
@@ -208,16 +234,18 @@ impl FurnitureVariant {
 
 impl FurnitureKey {
     /// All authored recipes share one immutable cache, independent of placement seed.
-    pub fn recipe(self) -> &'static FurnitureRecipe {
-        static RECIPES: OnceLock<[FurnitureRecipe; FurnitureKey::ALL.len()]> = OnceLock::new();
-        let recipes = RECIPES.get_or_init(|| Self::ALL.map(Self::compile));
-        &recipes[Self::ALL
-            .iter()
-            .position(|key| *key == self)
-            .expect("validated furniture recipe key")]
+    pub fn recipe(self) -> Result<&'static FurnitureRecipe, FurnitureRecipeError> {
+        static RECIPES: OnceLock<
+            [Result<FurnitureRecipe, FurnitureRecipeError>; FurnitureKey::ALL.len()],
+        > = OnceLock::new();
+        let recipes = RECIPES.get_or_init(|| Self::ALL.map(FurnitureKey::compile));
+        let Some(index) = Self::ALL.iter().position(|key| *key == self) else {
+            return Err(FurnitureRecipeError::MissingRecipe { key: self });
+        };
+        recipes[index].as_ref().map_err(Clone::clone)
     }
 
-    fn compile(self) -> FurnitureRecipe {
+    fn compile(self) -> Result<FurnitureRecipe, FurnitureRecipeError> {
         let mut builder = builder::Builder::default();
         builder.wood_state = self.wood_state;
         match self.kind {
@@ -226,62 +254,67 @@ impl FurnitureKey {
             FurnitureKind::TableBenchSet => seating::table_and_benches(&mut builder, self.variant),
             FurnitureKind::CanvasStall => stall::canopy(&mut builder, self.variant),
             FurnitureKind::HitchingTrough => horse_stop::assemble(&mut builder, self.variant),
-            FurnitureKind::DiningTable => domestic::assemble(&mut builder, self),
-            FurnitureKind::Bench => domestic::assemble(&mut builder, self),
-            FurnitureKind::Chair => domestic::assemble(&mut builder, self),
-            FurnitureKind::Stool => domestic::assemble(&mut builder, self),
-            FurnitureKind::Bed => domestic::assemble(&mut builder, self),
-            FurnitureKind::BunkBed => domestic::assemble(&mut builder, self),
-            FurnitureKind::StorageChest => domestic::assemble(&mut builder, self),
-            FurnitureKind::Cupboard => domestic::assemble(&mut builder, self),
-            FurnitureKind::Shelving => domestic::assemble(&mut builder, self),
-            FurnitureKind::WritingDesk => domestic::assemble(&mut builder, self),
-            FurnitureKind::Lectern => domestic::assemble(&mut builder, self),
-            FurnitureKind::ChurchBench => domestic::assemble(&mut builder, self),
-            FurnitureKind::Altar => domestic::assemble(&mut builder, self),
-            FurnitureKind::WardBed => domestic::assemble(&mut builder, self),
-            FurnitureKind::BathTub => domestic::assemble(&mut builder, self),
-            FurnitureKind::WashStand => domestic::assemble(&mut builder, self),
-            FurnitureKind::Workbench => trade::assemble(&mut builder, self),
-            FurnitureKind::CuttingTable => trade::assemble(&mut builder, self),
-            FurnitureKind::ToolRack => trade::assemble(&mut builder, self),
-            FurnitureKind::WeaponRack => trade::assemble(&mut builder, self),
-            FurnitureKind::ArmourStand => trade::assemble(&mut builder, self),
-            FurnitureKind::GrainBin => trade::assemble(&mut builder, self),
-            FurnitureKind::StorageCrate => trade::assemble(&mut builder, self),
-            FurnitureKind::Counter => trade::assemble(&mut builder, self),
-            FurnitureKind::CounterLeftEnd => trade::assemble(&mut builder, self),
-            FurnitureKind::CounterRightEnd => trade::assemble(&mut builder, self),
-            FurnitureKind::CounterCorner => trade::assemble(&mut builder, self),
-            FurnitureKind::DisplayCounter => trade::assemble(&mut builder, self),
-            FurnitureKind::DryingRack => trade::assemble(&mut builder, self),
-            FurnitureKind::KneadingTrough => trade::assemble(&mut builder, self),
-            FurnitureKind::ButchersBlock => trade::assemble(&mut builder, self),
-            FurnitureKind::CaskRack => trade::assemble(&mut builder, self),
-            FurnitureKind::HayRack => trade::assemble(&mut builder, self),
-            FurnitureKind::FeedTrough => trade::assemble(&mut builder, self),
+            FurnitureKind::DiningTable => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::Bench => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::Chair => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::Stool => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::Bed => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::BunkBed => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::StorageChest => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::Cupboard => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::Shelving => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::WritingDesk => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::Lectern => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::ChurchBench => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::Altar => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::WardBed => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::BathTub => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::WashStand => domestic::assemble(&mut builder, self)?,
+            FurnitureKind::Workbench => trade::assemble(&mut builder, self)?,
+            FurnitureKind::CuttingTable => trade::assemble(&mut builder, self)?,
+            FurnitureKind::ToolRack => trade::assemble(&mut builder, self)?,
+            FurnitureKind::WeaponRack => trade::assemble(&mut builder, self)?,
+            FurnitureKind::ArmourStand => trade::assemble(&mut builder, self)?,
+            FurnitureKind::GrainBin => trade::assemble(&mut builder, self)?,
+            FurnitureKind::StorageCrate => trade::assemble(&mut builder, self)?,
+            FurnitureKind::Counter => trade::assemble(&mut builder, self)?,
+            FurnitureKind::CounterLeftEnd => trade::assemble(&mut builder, self)?,
+            FurnitureKind::CounterRightEnd => trade::assemble(&mut builder, self)?,
+            FurnitureKind::CounterCorner => trade::assemble(&mut builder, self)?,
+            FurnitureKind::DisplayCounter => trade::assemble(&mut builder, self)?,
+            FurnitureKind::DryingRack => trade::assemble(&mut builder, self)?,
+            FurnitureKind::KneadingTrough => trade::assemble(&mut builder, self)?,
+            FurnitureKind::ButchersBlock => trade::assemble(&mut builder, self)?,
+            FurnitureKind::CaskRack => trade::assemble(&mut builder, self)?,
+            FurnitureKind::HayRack => trade::assemble(&mut builder, self)?,
+            FurnitureKind::FeedTrough => trade::assemble(&mut builder, self)?,
             FurnitureKind::BaptismalFont
             | FurnitureKind::Pulpit
             | FurnitureKind::Bima
-            | FurnitureKind::TorahShrine => worship::assemble(&mut builder, self),
+            | FurnitureKind::TorahShrine => worship::assemble(&mut builder, self)?,
             FurnitureKind::CandleStand
             | FurnitureKind::SpinningStool
             | FurnitureKind::BalanceTable
             | FurnitureKind::ReckoningTable
             | FurnitureKind::TreadleLoom
             | FurnitureKind::PrintingPress
-            | FurnitureKind::TypeCase => apparatus::assemble(&mut builder, self),
+            | FurnitureKind::TypeCase => apparatus::assemble(&mut builder, self)?,
         }
-        let mut recipe = builder.finish();
-        if let Some(spec) = self.interior_spec() {
+        let mut recipe = builder
+            .finish()
+            .map_err(|cause| FurnitureRecipeError::Construction { key: self, cause })?;
+        if self.placement_role() == FurniturePlacementRole::Interior {
+            let spec = self.interior_spec()?;
             for &face in spec.required_faces {
                 recipe.clearances.push(FurnitureClearance {
                     kind: FurnitureClearanceKind::Access,
-                    bounds: spec.access_bounds(face),
+                    bounds: spec.access_bounds(face).map_err(|cause| {
+                        FurnitureRecipeError::Specification { key: self, cause }
+                    })?,
                 });
             }
         }
-        recipe
+        Ok(recipe)
     }
 }
 
@@ -294,7 +327,7 @@ pub enum FurnitureClearanceKind {
 #[derive(Clone, Copy, Debug)]
 pub struct FurnitureClearance {
     pub kind: FurnitureClearanceKind,
-    pub bounds: CollisionBounds,
+    pub bounds: crate::spatial_geometry::SpatialBounds<FurnitureLocal>,
 }
 
 /// Whole supported object in a local horizontal frame, centred at x/z=0 and grounded at y=0.
@@ -303,10 +336,10 @@ pub struct FurnitureClearance {
 #[derive(Clone, Debug)]
 pub struct FurnitureRecipe {
     pub meshes: Vec<LodMesh>,
-    pub colliders: Vec<CollisionCuboid>,
-    pub bounds: CollisionBounds,
-    pub support_points_metres: Vec<Vec3>,
+    pub colliders: Vec<CollisionCuboid<FurnitureLocal>>,
+    pub bounds: crate::spatial_geometry::SpatialBounds<FurnitureLocal>,
+    pub support_points_metres: Vec<crate::spatial_geometry::Position<FurnitureLocal>>,
     pub clearances: Vec<FurnitureClearance>,
     #[cfg(test)]
-    members: Vec<CollisionCuboid>,
+    members: Vec<CollisionCuboid<FurnitureLocal>>,
 }

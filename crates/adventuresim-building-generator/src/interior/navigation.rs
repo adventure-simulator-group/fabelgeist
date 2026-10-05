@@ -13,8 +13,20 @@ pub(super) struct Navigation {
     pub nodes: Vec<InteriorWaypoint>,
     edges: Vec<Vec<usize>>,
     entry: usize,
-    room_nodes: Vec<(u16, u16, Vec<usize>)>,
-    node_lookup: BTreeMap<(u16, u32, u32), usize>,
+    room_nodes: Vec<RoomNodes>,
+    node_lookup: BTreeMap<NavigationPointKey, usize>,
+}
+struct RoomNodes {
+    storey: crate::StoreyIndex,
+    room: crate::RoomIndex,
+    nodes: Vec<usize>,
+}
+/// Bit representations retain the existing exact node lookup policy.
+#[derive(Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
+struct NavigationPointKey {
+    storey: crate::StoreyIndex,
+    x_bits: u32,
+    z_bits: u32,
 }
 pub(super) struct Flood {
     pub parents: Vec<Option<usize>>,
@@ -22,9 +34,9 @@ pub(super) struct Flood {
 }
 impl Navigation {
     pub fn new(plan: &BuildingPlan) -> Result<Self, InteriorLayoutError> {
-        let mut nav = Self::lattice(plan);
+        let mut nav = Self::lattice(plan)?;
         nav.enter_front_door(plan)?;
-        nav.add_doors(plan);
+        nav.add_doors(plan)?;
         nav.add_stairs(plan)?;
         for storey in &plan.storeys {
             for room in &storey.rooms {
@@ -33,25 +45,29 @@ impl Navigation {
                     .iter()
                     .enumerate()
                     .filter(|(_, n)| {
-                        n.storey == storey.level
-                            && Rect::new(n.position_metres, Vec2::splat(PERSON_RADIUS))
+                        n.storey == crate::StoreyIndex::from_serialized(storey.level)
+                            && Rect::new(n.position_metres.metres(), Vec2::splat(PERSON_RADIUS))
                                 .inside_room(room)
                     })
                     .map(|(i, _)| i)
                     .collect();
-                nav.room_nodes.push((storey.level, room.id, ids));
+                nav.room_nodes.push(RoomNodes {
+                    storey: crate::StoreyIndex::from_serialized(storey.level),
+                    room: crate::RoomIndex::from_serialized(room.id),
+                    nodes: ids,
+                });
             }
         }
-        let empty = nav.flood(&[]);
+        let empty = nav.flood(&[])?;
         nav.verify_rooms(&empty)?;
         Ok(nav)
     }
-    fn lattice(plan: &BuildingPlan) -> Self {
+    fn lattice(plan: &BuildingPlan) -> Result<Self, InteriorLayoutError> {
         let floors = plan
             .storeys
             .iter()
             .map(|s| Floor::new(plan, s.level))
-            .collect::<Vec<_>>();
+            .collect::<Result<Vec<_>, _>>()?;
         let mut nodes = Vec::new();
         let mut lookup = BTreeMap::new();
         for floor in &floors {
@@ -65,8 +81,9 @@ impl Navigation {
                         if floor.walkable(Rect::new(point, Vec2::splat(PERSON_RADIUS))) {
                             lookup.insert((floor.level, gx, gz), nodes.len());
                             nodes.push(InteriorWaypoint {
-                                storey: floor.level,
-                                position_metres: point,
+                                storey: crate::StoreyIndex::from_serialized(floor.level),
+                                position_metres:
+                                    crate::plan_geometry::ArchitecturalPlanPoint::try_from(point)?,
                             });
                         }
                     }
@@ -75,11 +92,15 @@ impl Navigation {
         }
         let mut edges = vec![Vec::new(); nodes.len()];
         for (&(level, x, z), &index) in &lookup {
-            let floor = floors.iter().find(|f| f.level == level).unwrap();
+            let floor = floors.iter().find(|f| f.level == level).ok_or(
+                InteriorLayoutError::MissingStoreyFloor {
+                    storey: crate::StoreyIndex::new(usize::from(level)),
+                },
+            )?;
             for (dx, dz) in [(1, 0), (-1, 0), (0, 1), (0, -1)] {
                 if let Some(&other) = lookup.get(&(level, x + dx, z + dz)) {
-                    let a = nodes[index].position_metres;
-                    let b = nodes[other].position_metres;
+                    let a = nodes[index].position_metres.metres();
+                    let b = nodes[other].position_metres.metres();
                     if floor.walkable(Rect::new(
                         (a + b) * 0.5,
                         (a - b).abs() * 0.5 + Vec2::splat(PERSON_RADIUS),
@@ -94,23 +115,23 @@ impl Navigation {
             .enumerate()
             .map(|(i, n)| {
                 (
-                    (
-                        n.storey,
-                        n.position_metres.x.to_bits(),
-                        n.position_metres.y.to_bits(),
-                    ),
+                    NavigationPointKey {
+                        storey: n.storey,
+                        x_bits: n.position_metres.metres().x.to_bits(),
+                        z_bits: n.position_metres.metres().y.to_bits(),
+                    },
                     i,
                 )
             })
             .collect();
-        Self {
+        Ok(Self {
             floors,
             nodes,
             edges,
             entry: 0,
             room_nodes: Vec::new(),
             node_lookup,
-        }
+        })
     }
     fn enter_front_door(&mut self, plan: &BuildingPlan) -> Result<(), InteriorLayoutError> {
         let (threshold, start) =
@@ -128,18 +149,18 @@ impl Navigation {
             return Err(InteriorLayoutError::MissingFrontDoor);
         }
         let inside = self
-            .insert_portal(0, start)
+            .insert_portal(0, start)?
             .ok_or(InteriorLayoutError::MissingFrontDoor)?;
-        self.entry = self.ensure_node(0, threshold);
+        self.entry = self.ensure_node(0, threshold)?;
         self.connect(self.entry, inside);
         Ok(())
     }
-    fn add_doors(&mut self, plan: &BuildingPlan) {
+    fn add_doors(&mut self, plan: &BuildingPlan) -> Result<(), InteriorLayoutError> {
         for opening in plan.opening_assemblies.iter().filter(|o| {
             matches!(o.use_kind, OpeningUse::Door | OpeningUse::Gate)
                 && o.frame.outside_room.is_some()
         }) {
-            let level = (opening.sill_elevation_metres / plan.storey_height_metres).round() as u16;
+            let level = represented_storey(plan, opening.sill_elevation_metres)?;
             let half_wall = plan
                 .wall_assemblies
                 .iter()
@@ -149,9 +170,10 @@ impl Navigation {
                 });
             let approach = half_wall + PERSON_RADIUS + GRID_STEP;
             for offset in [0.0, -approach, approach] {
-                self.insert_portal(level, opening.frame.origin + opening.frame.outward * offset);
+                self.insert_portal(level, opening.frame.origin + opening.frame.outward * offset)?;
             }
         }
+        Ok(())
     }
     fn add_stairs(&mut self, plan: &BuildingPlan) -> Result<(), InteriorLayoutError> {
         for (index, stair) in plan.stairs.iter().enumerate() {
@@ -164,15 +186,14 @@ impl Navigation {
                 ..
             } = *stair
             {
-                let lower = (base_height_metres / plan.storey_height_metres).round() as u16;
-                let upper =
-                    ((base_height_metres + rise_metres) / plan.storey_height_metres).round() as u16;
+                let lower = represented_storey(plan, base_height_metres)?;
+                let upper = represented_storey(plan, base_height_metres + rise_metres)?;
                 let axis = direction.offset().as_vec2();
                 let a = self
-                    .stair_landing(lower, start, -axis)
+                    .stair_landing(lower, start, -axis)?
                     .ok_or(InteriorLayoutError::InvalidStair { index })?;
                 let b = self
-                    .stair_landing(upper, start + axis * run_metres, axis)
+                    .stair_landing(upper, start + axis * run_metres, axis)?
                     .ok_or(InteriorLayoutError::InvalidStair { index })?;
                 self.edges[a].push(b);
                 self.edges[b].push(a);
@@ -190,7 +211,7 @@ impl Navigation {
                 let mut portals = Vec::new();
                 for landing in landings {
                     portals.push(
-                        self.insert_portal(landing.storey, landing.position_metres)
+                        self.insert_portal(landing.storey, landing.position_metres)?
                             .ok_or(InteriorLayoutError::InvalidStair { index })?,
                     );
                 }
@@ -201,19 +222,24 @@ impl Navigation {
         }
         Ok(())
     }
-    fn ensure_node(&mut self, level: u16, point: Vec2) -> usize {
-        let key = (level, point.x.to_bits(), point.y.to_bits());
+    fn ensure_node(&mut self, level: u16, point: Vec2) -> Result<usize, InteriorLayoutError> {
+        let admitted = crate::plan_geometry::ArchitecturalPlanPoint::try_from(point)?;
+        let key = NavigationPointKey {
+            storey: crate::StoreyIndex::from_serialized(level),
+            x_bits: point.x.to_bits(),
+            z_bits: point.y.to_bits(),
+        };
         if let Some(&index) = self.node_lookup.get(&key) {
-            return index;
+            return Ok(index);
         }
         let index = self.nodes.len();
         self.nodes.push(InteriorWaypoint {
-            storey: level,
-            position_metres: point,
+            storey: crate::StoreyIndex::from_serialized(level),
+            position_metres: admitted,
         });
         self.edges.push(Vec::new());
         self.node_lookup.insert(key, index);
-        index
+        Ok(index)
     }
     fn connect(&mut self, a: usize, b: usize) {
         if a != b && !self.edges[a].contains(&b) {
@@ -221,21 +247,28 @@ impl Navigation {
             self.edges[b].push(a);
         }
     }
-    fn insert_portal(&mut self, level: u16, point: Vec2) -> Option<usize> {
-        let floor = self.floors.iter().find(|f| f.level == level)?;
+    fn insert_portal(
+        &mut self,
+        level: u16,
+        point: Vec2,
+    ) -> Result<Option<usize>, InteriorLayoutError> {
+        crate::plan_geometry::ArchitecturalPlanPoint::try_from(point)?;
+        let Some(floor) = self.floors.iter().find(|f| f.level == level) else {
+            return Ok(None);
+        };
         if !floor.walkable(Rect::new(point, Vec2::splat(PERSON_RADIUS))) {
-            return None;
+            return Ok(None);
         }
         let mut targets = self
             .nodes
             .iter()
             .enumerate()
             .filter(|(_, n)| {
-                n.storey == level
-                    && n.position_metres.distance_squared(point)
+                n.storey == crate::StoreyIndex::from_serialized(level)
+                    && n.position_metres.metres().distance_squared(point)
                         > GEOMETRY_EPSILON * GEOMETRY_EPSILON
             })
-            .map(|(index, n)| (index, n.position_metres))
+            .map(|(index, n)| (index, n.position_metres.metres()))
             .collect::<Vec<_>>();
         targets.sort_by(|a, b| {
             a.1.distance_squared(point)
@@ -270,15 +303,20 @@ impl Navigation {
                 break;
             }
         }
-        let index = self.ensure_node(level, point);
+        let index = self.ensure_node(level, point)?;
         for (target, elbow) in connections.into_iter().flatten() {
-            let middle = self.ensure_node(level, elbow);
+            let middle = self.ensure_node(level, elbow)?;
             self.connect(index, middle);
             self.connect(middle, target);
         }
-        Some(index)
+        Ok(Some(index))
     }
-    fn stair_landing(&mut self, level: u16, end: Vec2, outward: Vec2) -> Option<usize> {
+    fn stair_landing(
+        &mut self,
+        level: u16,
+        end: Vec2,
+        outward: Vec2,
+    ) -> Result<Option<usize>, InteriorLayoutError> {
         const LANDING_HALF_DEPTH_METRES: f32 = 0.45;
         const PORTAL_SEARCH_STEP_METRES: f32 = 0.01;
         let steps = ((LANDING_HALF_DEPTH_METRES - PERSON_RADIUS) / PORTAL_SEARCH_STEP_METRES).ceil()
@@ -286,25 +324,25 @@ impl Navigation {
         let mut accepted = Vec::new();
         for step in 0..=steps {
             let point = end + outward * (PERSON_RADIUS + step as f32 * PORTAL_SEARCH_STEP_METRES);
-            if let Some(index) = self.insert_portal(level, point) {
+            if let Some(index) = self.insert_portal(level, point)? {
                 accepted.push(index);
             }
         }
-        accepted
+        Ok(accepted
             .into_iter()
-            .find(|&index| !self.edges[index].is_empty())
+            .find(|&index| !self.edges[index].is_empty()))
     }
-    pub fn flood(&self, placements: &[InteriorPlacement]) -> Flood {
+    pub fn flood(&self, placements: &[InteriorPlacement]) -> Result<Flood, InteriorLayoutError> {
         let mut occupancy = Occupancy::new(self);
-        occupancy.add(placements);
-        occupancy.flood()
+        occupancy.add(placements)?;
+        Ok(occupancy.flood())
     }
     pub fn verify_rooms(&self, flood: &Flood) -> Result<(), InteriorLayoutError> {
-        for (storey, room_id, nodes) in &self.room_nodes {
-            if !nodes.iter().any(|&n| flood.parents[n].is_some()) {
+        for room in &self.room_nodes {
+            if !room.nodes.iter().any(|&n| flood.parents[n].is_some()) {
                 return Err(InteriorLayoutError::DisconnectedRoom {
-                    storey: *storey,
-                    room_id: *room_id,
+                    storey: room.storey,
+                    room_id: room.room,
                 });
             }
         }
@@ -317,8 +355,8 @@ impl Navigation {
     ) -> Result<Vec<FurnitureAccessPath>, InteriorLayoutError> {
         let mut paths = Vec::new();
         for (index, p) in placements.iter().enumerate() {
-            for &face in p.key.interior_spec().unwrap().required_faces {
-                let access = p.access_rect(face);
+            for &face in p.key.interior_spec()?.required_faces {
+                let access = p.access_rect(face)?;
                 let target = self
                     .nodes
                     .iter()
@@ -326,19 +364,24 @@ impl Navigation {
                     .filter(|(n, node)| {
                         node.storey == p.storey
                             && flood.parents[*n].is_some()
-                            && access.contains(node.position_metres)
+                            && access.contains(node.position_metres.metres())
                     })
                     .min_by(|(_, a), (_, b)| {
                         a.position_metres
+                            .metres()
                             .distance_squared(access.centre)
-                            .total_cmp(&b.position_metres.distance_squared(access.centre))
+                            .total_cmp(&b.position_metres.metres().distance_squared(access.centre))
                     })
                     .map(|(n, _)| n)
                     .ok_or(InteriorLayoutError::InaccessibleFurniture { index })?;
                 let mut cursor = target;
                 let mut points = vec![self.nodes[cursor]];
                 while cursor != flood.entry {
-                    cursor = flood.parents[cursor].unwrap();
+                    cursor =
+                        flood.parents[cursor].ok_or(InteriorLayoutError::BrokenAccessPath {
+                            placement_index: index,
+                            node: cursor,
+                        })?;
                     points.push(self.nodes[cursor]);
                 }
                 points.reverse();
@@ -357,21 +400,28 @@ fn entrance_position(plan: &BuildingPlan) -> Option<(Vec2, Vec2)> {
     if let Some(workplace) = &plan.workplace {
         let dimensions = plan.dimensions_metres();
         return workplace.passages.iter().find_map(|p| {
-            let centre = Vec2::new(p.min.x + p.max.x, p.min.z + p.max.z) * 0.5;
+            let centre = Vec2::new(
+                p.bounds.min().metres().x + p.bounds.max().metres().x,
+                p.bounds.min().metres().z + p.bounds.max().metres().z,
+            ) * 0.5;
             let inset = PERSON_RADIUS + crate::WALL_THICKNESS_METRES;
-            if p.min.z <= GEOMETRY_EPSILON && p.max.x - p.min.x >= PERSON_RADIUS * 2.0 {
+            if p.bounds.min().metres().z <= GEOMETRY_EPSILON
+                && p.bounds.max().metres().x - p.bounds.min().metres().x >= PERSON_RADIUS * 2.0
+            {
                 Some((Vec2::new(centre.x, 0.0), Vec2::new(centre.x, inset)))
-            } else if p.min.x <= GEOMETRY_EPSILON && p.max.z - p.min.z >= PERSON_RADIUS * 2.0 {
+            } else if p.bounds.min().metres().x <= GEOMETRY_EPSILON
+                && p.bounds.max().metres().z - p.bounds.min().metres().z >= PERSON_RADIUS * 2.0
+            {
                 Some((Vec2::new(0.0, centre.y), Vec2::new(inset, centre.y)))
-            } else if p.max.z >= dimensions.y - GEOMETRY_EPSILON
-                && p.max.x - p.min.x >= PERSON_RADIUS * 2.0
+            } else if p.bounds.max().metres().z >= dimensions.y - GEOMETRY_EPSILON
+                && p.bounds.max().metres().x - p.bounds.min().metres().x >= PERSON_RADIUS * 2.0
             {
                 Some((
                     Vec2::new(centre.x, dimensions.y),
                     Vec2::new(centre.x, dimensions.y - inset),
                 ))
-            } else if p.max.x >= dimensions.x - GEOMETRY_EPSILON
-                && p.max.z - p.min.z >= PERSON_RADIUS * 2.0
+            } else if p.bounds.max().metres().x >= dimensions.x - GEOMETRY_EPSILON
+                && p.bounds.max().metres().z - p.bounds.min().metres().z >= PERSON_RADIUS * 2.0
             {
                 Some((
                     Vec2::new(dimensions.x, centre.y),
@@ -407,4 +457,16 @@ fn entrance_position(plan: &BuildingPlan) -> Option<(Vec2, Vec2)> {
                             + GEOMETRY_EPSILON),
             )
         })
+}
+
+fn represented_storey(
+    plan: &BuildingPlan,
+    elevation_metres: f32,
+) -> Result<u16, InteriorLayoutError> {
+    use crate::spatial_geometry::{Elevation, PositiveLength};
+    let level = crate::StoreyIndex::from_elevation(
+        Elevation::from_metres(elevation_metres)?,
+        PositiveLength::from_metres(plan.storey_height_metres)?,
+    )?;
+    Ok(level.serialized_ordinal()?)
 }

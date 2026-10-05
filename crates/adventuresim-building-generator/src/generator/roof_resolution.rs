@@ -10,7 +10,7 @@ fn resolve_one_roof(
     support_post_parent: Option<&RoofAssembly>,
     walls: &[crate::WallAssembly],
     geometry: &mut ResolvedGeometry,
-) -> RoofAssembly {
+) -> Result<RoofAssembly, crate::GenerationError> {
     // Project gates: 0.13 m positive build-up and 15–75 degree pitch are
     // animation/rendering constraints, not universal historic dimensions.
     let thickness = if roof.kind == RoofKind::Flat {
@@ -18,59 +18,12 @@ fn resolve_one_roof(
     } else {
         0.13
     };
-    let mut apse_walls = walls
-        .iter()
-        .filter(|wall| matches!(wall.source, crate::WallSourceId::ChurchApse { .. }))
-        .collect::<Vec<_>>();
-    apse_walls.sort_by_key(|wall| match wall.source {
-        crate::WallSourceId::ChurchApse { facet } => facet,
-        _ => unreachable!(),
-    });
-    let is_church_apse = source_piece_index == Some(4) && apse_walls.len() == 5;
-    let apse_outline: Option<Vec<Vec2>> = is_church_apse.then(|| {
-        let first = apse_walls[0];
-        let mut points = vec![first.frame.origin - first.frame.tangent * first.length_metres * 0.5];
-        points.extend(
-            apse_walls
-                .iter()
-                .map(|wall| wall.frame.origin + wall.frame.tangent * wall.length_metres * 0.5),
-        );
-        let diameter_mid = (points[0] + points[points.len() - 1]) * 0.5;
-        points
-            .into_iter()
-            .map(|point| {
-                // The chord wall is 0.90 m thick; a 0.75 m radial eave keeps
-                // the physical gutter outside the masonry even at the acute
-                // five-sided shoulders.  This is a frozen coarse-detail gate,
-                // not a universal historic apse overhang.
-                point + (point - diameter_mid).normalize_or_zero() * roof.eave_metres.max(0.75)
-            })
-            .collect()
-    });
-    let polygons = if let Some(outline) = &apse_outline {
-        let diameter_mid = (outline[0] + outline[outline.len() - 1]) * 0.5;
-        let radius = outline
-            .iter()
-            .map(|point| point.distance(diameter_mid))
-            .fold(0.0_f32, f32::max);
-        let apex = Vec3::new(
-            diameter_mid.x,
-            roof.base_height_metres + radius * roof.pitch_degrees.to_radians().tan(),
-            diameter_mid.y,
-        );
-        outline
-            .windows(2)
-            .map(|pair| {
-                vec![
-                    Vec3::new(pair[0].x, roof.base_height_metres, pair[0].y),
-                    Vec3::new(pair[1].x, roof.base_height_metres, pair[1].y),
-                    apex,
-                ]
-            })
-            .collect::<Vec<_>>()
-    } else {
-        roof_face_polygons(roof, shed_high_side)
-    };
+    let church_apse::ApseRoof {
+        walls: apse_walls,
+        outline: apse_outline,
+        polygons,
+    } = church_apse::ApseRoof::from_source(roof, source_piece_index, walls, shed_high_side);
+    let is_church_apse = apse_outline.is_some();
     let node_base = StructuralNodeId((0xA_u64 << 60) | (id.0 << 8));
     let mut host_nodes = walls
         .iter()
@@ -221,27 +174,28 @@ fn resolve_one_roof(
         .collect::<Vec<_>>();
     for (index, (position, half)) in plate_specs.into_iter().enumerate() {
         let node = support_nodes[index];
-        geometry.structural_nodes.push(StructuralNode {
-            id: node,
-            owner,
-            kind: if source_tower_index.is_some() {
-                StructuralNodeKind::RoofTowerRing
-            } else {
-                StructuralNodeKind::RoofWallPlate
-            },
-            position,
-            supported_by: host_nodes.clone(),
-            grounded: false,
-        });
-        geometry.support_interfaces.push(SupportInterface {
-            id: ResolvedItemId((0x9_u64 << 60) | (id.0 << 8) | index as u64),
-            owner,
-            node,
-            bounds: ResolvedBounds {
-                min: position - half,
-                max: position + half,
-            },
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                node,
+                owner,
+                if source_tower_index.is_some() {
+                    StructuralNodeKind::RoofTowerRing
+                } else {
+                    StructuralNodeKind::RoofWallPlate
+                },
+                position,
+                host_nodes.clone(),
+                false,
+            )?);
+        geometry
+            .support_interfaces
+            .push(crate::SupportInterface::new(
+                ResolvedItemId((0x9_u64 << 60) | (id.0 << 8) | index as u64),
+                owner,
+                node,
+                SpatialBounds::<Architectural>::from_metres(position - half, position + half)?,
+            ));
         let plate_plan = Vec2::new(position.x, position.z);
         let nearest_wall = walls
             .iter()
@@ -264,31 +218,35 @@ fn resolve_one_roof(
         {
             let direction = (plate_plan - contact).normalize_or_zero();
             let beam_id = ResolvedItemId((0x8_u64 << 60) | (id.0 << 8) | 0x20 | index as u64);
-            geometry.solids.push(ResolvedSolid {
-                id: beam_id,
+            geometry.solids.push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    beam_id,
+                    Vec3::new(
+                        (plate_plan.x + contact.x) * 0.5 + direction.x * 0.01,
+                        position.y,
+                        (plate_plan.y + contact.y) * 0.5 + direction.y * 0.01,
+                    ),
+                    Vec3::new((distance - 0.02).max(0.02), 0.18, 0.18),
+                    direction.y.atan2(direction.x),
+                    0.0,
+                    0.0,
+                )?,
                 owner,
-                centre: Vec3::new(
-                    (plate_plan.x + contact.x) * 0.5 + direction.x * 0.01,
-                    position.y,
-                    (plate_plan.y + contact.y) * 0.5 + direction.y * 0.01,
-                ),
-                size: Vec3::new((distance - 0.02).max(0.02), 0.18, 0.18),
-                yaw_radians: direction.y.atan2(direction.x),
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::RoofFraming,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: vec![wall.support_node],
-            });
-            geometry.support_interfaces.push(SupportInterface {
-                id: ResolvedItemId((0x9_u64 << 60) | (id.0 << 8) | 0x20 | index as u64),
-                owner,
-                node: wall.support_node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(contact.x - 0.09, position.y - 0.09, contact.y - 0.09),
-                    max: Vec3::new(contact.x + 0.09, position.y + 0.09, contact.y + 0.09),
-                },
-            });
+                SolidRole::RoofFraming,
+                crate::ResolvedSolidShape::Cuboid,
+                vec![wall.support_node],
+            ));
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    ResolvedItemId((0x9_u64 << 60) | (id.0 << 8) | 0x20 | index as u64),
+                    owner,
+                    wall.support_node,
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(contact.x - 0.09, position.y - 0.09, contact.y - 0.09),
+                        Vec3::new(contact.x + 0.09, position.y + 0.09, contact.y + 0.09),
+                    )?,
+                ));
         }
         // A dormer may need a concealed support from the host wall to its curb,
         // but never a generic post continuing from that wall to the child
@@ -302,27 +260,31 @@ fn resolve_one_roof(
             let height = support_top - host_top;
             let post_id = ResolvedItemId((0x8_u64 << 60) | (id.0 << 8) | index as u64);
             let host_node = host_nodes[0];
-            geometry.solids.push(ResolvedSolid {
-                id: post_id,
+            geometry.solids.push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    post_id,
+                    Vec3::new(position.x, host_top + height * 0.5, position.z),
+                    Vec3::new(0.22, height, 0.22),
+                    0.0,
+                    0.0,
+                    0.0,
+                )?,
                 owner,
-                centre: Vec3::new(position.x, host_top + height * 0.5, position.z),
-                size: Vec3::new(0.22, height, 0.22),
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::RoofFraming,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: vec![host_node],
-            });
-            geometry.support_interfaces.push(SupportInterface {
-                id: ResolvedItemId((0x9_u64 << 60) | (id.0 << 8) | 0x40 | index as u64),
-                owner,
-                node: host_node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(position.x - 0.11, host_top - 0.01, position.z - 0.11),
-                    max: Vec3::new(position.x + 0.11, host_top + 0.01, position.z + 0.11),
-                },
-            });
+                SolidRole::RoofFraming,
+                crate::ResolvedSolidShape::Cuboid,
+                vec![host_node],
+            ));
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    ResolvedItemId((0x9_u64 << 60) | (id.0 << 8) | 0x40 | index as u64),
+                    owner,
+                    host_node,
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(position.x - 0.11, host_top - 0.01, position.z - 0.11),
+                        Vec3::new(position.x + 0.11, host_top + 0.01, position.z + 0.11),
+                    )?,
+                ));
         }
     }
     if is_church_apse {
@@ -332,35 +294,39 @@ fn resolve_one_roof(
         // rather than intersecting the opening spandrels at acute corners.
         for (index, wall) in apse_walls.iter().enumerate() {
             let plate_id = ResolvedItemId((0x8_u64 << 60) | (id.0 << 8) | 0x80 | index as u64);
-            geometry.solids.push(ResolvedSolid {
-                id: plate_id,
+            geometry.solids.push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    plate_id,
+                    Vec3::new(wall.frame.origin.x, 11.425, wall.frame.origin.y),
+                    Vec3::new(wall.length_metres, 0.15, 0.80),
+                    -wall.frame.tangent.y.atan2(wall.frame.tangent.x),
+                    0.0,
+                    0.0,
+                )?,
                 owner,
-                centre: Vec3::new(wall.frame.origin.x, 11.425, wall.frame.origin.y),
-                size: Vec3::new(wall.length_metres, 0.15, 0.80),
-                yaw_radians: -wall.frame.tangent.y.atan2(wall.frame.tangent.x),
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::RoofFraming,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: vec![wall.support_node],
-            });
-            geometry.support_interfaces.push(SupportInterface {
-                id: ResolvedItemId((0x9_u64 << 60) | (id.0 << 8) | 0x80 | index as u64),
-                owner,
-                node: wall.support_node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(
-                        wall.frame.origin.x - 0.08,
-                        11.335,
-                        wall.frame.origin.y - 0.08,
-                    ),
-                    max: Vec3::new(
-                        wall.frame.origin.x + 0.08,
-                        11.365,
-                        wall.frame.origin.y + 0.08,
-                    ),
-                },
-            });
+                SolidRole::RoofFraming,
+                crate::ResolvedSolidShape::Cuboid,
+                vec![wall.support_node],
+            ));
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    ResolvedItemId((0x9_u64 << 60) | (id.0 << 8) | 0x80 | index as u64),
+                    owner,
+                    wall.support_node,
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
+                            wall.frame.origin.x - 0.08,
+                            11.335,
+                            wall.frame.origin.y - 0.08,
+                        ),
+                        Vec3::new(
+                            wall.frame.origin.x + 0.08,
+                            11.365,
+                            wall.frame.origin.y + 0.08,
+                        ),
+                    )?,
+                ));
         }
     }
     let mut faces = Vec::new();
@@ -369,12 +335,12 @@ fn resolve_one_roof(
         let catchment_id = ResolvedItemId((0xC_u64 << 60) | (id.0 << 16) | index as u64);
         let route_id = ResolvedItemId((0xD_u64 << 60) | (id.0 << 16) | index as u64);
         let outlet_id = ResolvedItemId((0xE_u64 << 60) | (id.0 << 16) | index as u64);
-        let bounds = roof_polygon_bounds(polygon);
+        let bounds = roof_polygon_bounds(face_id, polygon)?;
         let low = polygon
             .iter()
             .min_by(|a, b| a.y.total_cmp(&b.y))
             .copied()
-            .unwrap();
+            .ok_or(GenerationError::EmptyRoofFace { face: face_id })?;
         let centre = polygon.iter().copied().sum::<Vec3>() / polygon.len() as f32;
         geometry.surfaces.push(ResolvedSurface {
             id: catchment_id,
@@ -386,10 +352,10 @@ fn resolve_one_roof(
         geometry.voids.push(ResolvedVoid {
             id: outlet_id,
             owner,
-            bounds: ResolvedBounds {
-                min: low - Vec3::splat(0.04),
-                max: low + Vec3::splat(0.04),
-            },
+            bounds: SpatialBounds::<Architectural>::from_metres(
+                low - Vec3::splat(0.04),
+                low + Vec3::splat(0.04),
+            )?,
             role: VoidRole::Drain,
             shape: crate::ResolvedVoidShape::Box,
             subtracts_from: owner,
@@ -411,8 +377,10 @@ fn resolve_one_roof(
             centre,
             tangent: Vec2::X,
             outward: Vec2::new(low.x - centre.x, low.z - centre.z).normalize_or_zero(),
-            length_metres: (bounds.max.x - bounds.min.x).max(bounds.max.z - bounds.min.z),
-            width_metres: (bounds.max.x - bounds.min.x).min(bounds.max.z - bounds.min.z),
+            length_metres: (bounds.max().metres().x - bounds.min().metres().x)
+                .max(bounds.max().metres().z - bounds.min().metres().z),
+            width_metres: (bounds.max().metres().x - bounds.min().metres().x)
+                .min(bounds.max().metres().z - bounds.min().metres().z),
             inner_elevation_metres: polygon
                 .iter()
                 .map(|p| p.y)
@@ -496,27 +464,31 @@ fn resolve_one_roof(
                 ResolvedItemId((0x8_u64 << 60) | (id.0 << 16) | 0x5800 | edge_index as u64);
             edge.flashing = Some(flashing_id);
             let delta = edge.end - edge.start;
-            geometry.solids.push(ResolvedSolid {
-                id: flashing_id,
+            geometry.solids.push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    flashing_id,
+                    (edge.start + edge.end) * 0.5 + Vec3::Y * 0.035,
+                    Vec3::new(Vec2::new(delta.x, delta.z).length(), 0.07, 0.18),
+                    delta.z.atan2(delta.x),
+                    0.12,
+                    0.0,
+                )?,
                 owner,
-                centre: (edge.start + edge.end) * 0.5 + Vec3::Y * 0.035,
-                size: Vec3::new(Vec2::new(delta.x, delta.z).length(), 0.07, 0.18),
-                yaw_radians: delta.z.atan2(delta.x),
-                crossfall_radians: 0.12,
-                longfall_radians: 0.0,
-                role: SolidRole::RoofFlashing,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: support_nodes.clone(),
-            });
-            geometry.support_interfaces.push(SupportInterface {
-                id: ResolvedItemId((0x9_u64 << 60) | (id.0 << 16) | 0x5800 | edge_index as u64),
-                owner,
-                node: support_nodes[0],
-                bounds: ResolvedBounds {
-                    min: (edge.start + edge.end) * 0.5 - Vec3::new(0.08, 0.025, 0.08),
-                    max: (edge.start + edge.end) * 0.5 + Vec3::new(0.08, 0.025, 0.08),
-                },
-            });
+                SolidRole::RoofFlashing,
+                crate::ResolvedSolidShape::Cuboid,
+                support_nodes.clone(),
+            ));
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    ResolvedItemId((0x9_u64 << 60) | (id.0 << 16) | 0x5800 | edge_index as u64),
+                    owner,
+                    support_nodes[0],
+                    SpatialBounds::<Architectural>::from_metres(
+                        (edge.start + edge.end) * 0.5 - Vec3::new(0.08, 0.025, 0.08),
+                        (edge.start + edge.end) * 0.5 + Vec3::new(0.08, 0.025, 0.08),
+                    )?,
+                ));
         } else {
             edge.kind = RoofEdgeKind::GableVerge;
         }
@@ -545,55 +517,56 @@ fn resolve_one_roof(
                 // edge, not horizontal plan-projection bars.
                 treated_plan_length / edge_pitch.cos().abs().max(0.01)
             };
-            geometry.solids.push(ResolvedSolid {
-                id: weather_id,
+            geometry.solids.push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    weather_id,
+                    centre
+                        + if edge.kind == RoofEdgeKind::Eave {
+                            Vec3::NEG_Y * 0.06
+                        } else {
+                            Vec3::Y * 0.035
+                        },
+                    Vec3::new(
+                        treated_length,
+                        if edge.kind == RoofEdgeKind::Eave {
+                            0.12
+                        } else {
+                            0.07
+                        },
+                        if edge.kind == RoofEdgeKind::Eave {
+                            0.16
+                        } else {
+                            0.14
+                        },
+                    ),
+                    delta.z.atan2(delta.x),
+                    0.0,
+                    if edge.kind == RoofEdgeKind::Eave {
+                        0.012
+                    } else {
+                        edge_pitch
+                    },
+                )?,
                 owner,
-                centre: centre
-                    + if edge.kind == RoofEdgeKind::Eave {
-                        Vec3::NEG_Y * 0.06
-                    } else {
-                        Vec3::Y * 0.035
-                    },
-                size: Vec3::new(
-                    treated_length,
-                    if edge.kind == RoofEdgeKind::Eave {
-                        0.12
-                    } else {
-                        0.07
-                    },
-                    if edge.kind == RoofEdgeKind::Eave {
-                        0.16
-                    } else {
-                        0.14
-                    },
-                ),
-                yaw_radians: delta.z.atan2(delta.x),
-                // Edge treatment's long axis is the typed source contour.
-                // Applying coping crossfall as an X rotation skewed that axis
-                // off the roof plane and produced detached diagonal rods.
-                crossfall_radians: 0.0,
-                longfall_radians: if edge.kind == RoofEdgeKind::Eave {
-                    0.012
-                } else {
-                    edge_pitch
-                },
-                role: if edge.kind == RoofEdgeKind::Eave {
+                if edge.kind == RoofEdgeKind::Eave {
                     SolidRole::RoofGutter
                 } else {
                     SolidRole::RoofEdgeTreatment
                 },
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: support_nodes.clone(),
-            });
-            geometry.support_interfaces.push(SupportInterface {
-                id: ResolvedItemId((0x9_u64 << 60) | (id.0 << 16) | 0x5000 | edge_index as u64),
-                owner,
-                node: support_nodes[0],
-                bounds: ResolvedBounds {
-                    min: centre - Vec3::new(0.08, 0.025, 0.08),
-                    max: centre + Vec3::new(0.08, 0.025, 0.08),
-                },
-            });
+                crate::ResolvedSolidShape::Cuboid,
+                support_nodes.clone(),
+            ));
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    ResolvedItemId((0x9_u64 << 60) | (id.0 << 16) | 0x5000 | edge_index as u64),
+                    owner,
+                    support_nodes[0],
+                    SpatialBounds::<Architectural>::from_metres(
+                        centre - Vec3::new(0.08, 0.025, 0.08),
+                        centre + Vec3::new(0.08, 0.025, 0.08),
+                    )?,
+                ));
         }
     }
     let hx = roof.size.x * 0.5;
@@ -609,7 +582,12 @@ fn resolve_one_roof(
     if roof.kind == RoofKind::Gable {
         let [first, second] = gable_enclosure::polygons(roof, &faces, walls);
         for (index, polygon) in [first, second].into_iter().enumerate() {
-            enclosure_faces.push(RoofEnclosureFace::new(ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4000 | index as u64), polygon, infill_material, support_nodes.clone()));
+            enclosure_faces.push(RoofEnclosureFace::new(
+                ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4000 | index as u64),
+                polygon,
+                infill_material,
+                support_nodes.clone(),
+            ));
         }
     }
     if roof.kind == RoofKind::HalfHip {
@@ -661,7 +639,12 @@ fn resolve_one_roof(
             }
         };
         for (index, polygon) in polygons.into_iter().enumerate() {
-            enclosure_faces.push(RoofEnclosureFace::new(ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4200 | index as u64), polygon, infill_material, support_nodes.clone()));
+            enclosure_faces.push(RoofEnclosureFace::new(
+                ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4200 | index as u64),
+                polygon,
+                infill_material,
+                support_nodes.clone(),
+            ));
         }
     }
     // A raised primary roof needs an actual clerestory/attic wall under each
@@ -712,10 +695,15 @@ fn resolve_one_roof(
             }
         };
         for (slot, polygon) in [first, second].into_iter().enumerate() {
-            enclosure_faces.push(RoofEnclosureFace::new(ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4300 | slot as u64), polygon, infill_material, support_nodes.clone()));
+            enclosure_faces.push(RoofEnclosureFace::new(
+                ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4300 | slot as u64),
+                polygon,
+                infill_material,
+                support_nodes.clone(),
+            ));
         }
     }
-    RoofAssembly {
+    Ok(RoofAssembly {
         id,
         owner,
         kind: roof.kind,
@@ -746,5 +734,5 @@ fn resolve_one_roof(
         support_nodes,
         source_piece_index,
         source_tower_index,
-    }
+    })
 }

@@ -29,7 +29,9 @@ fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
                     passage_side,
                     ..original
                 };
-                let front = front_recipe.place(lot.id, lot.centre_metres, lot.orientation);
+                let front = front_recipe
+                    .place(lot.id, lot.centre_metres, lot.orientation)
+                    .unwrap();
                 let world = |p| lot.orientation.local_to_world(p);
                 let street_y =
                     -lot.footprint_metres.y * 0.5 - compound::COMPOUND_EDGE_MARGIN_METRES - 3.5;

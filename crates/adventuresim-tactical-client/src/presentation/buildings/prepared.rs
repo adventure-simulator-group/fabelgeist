@@ -7,7 +7,7 @@ pub(super) fn install(
     geometry: super::super::generation::VenueGeometry,
     recipe: &GeneratedBuildingRecipe,
     meshes: &mut Assets<Mesh>,
-) -> Arc<CompiledBuildingLevels> {
+) -> Result<Arc<CompiledBuildingLevels>> {
     let mut batches = |source: Vec<super::super::generation::venue::PreparedBatch>| {
         source
             .into_iter()
@@ -25,12 +25,12 @@ pub(super) fn install(
             })
             .collect()
     };
-    let origin = recipe.collision.bounds.centre();
+    let origin = recipe.collision.bounds.centre()?;
     let compiled = Arc::new(CompiledBuildingLevels {
         facade_openings: recipe.plan.facade_dynamic_openings(),
         interior: Some(super::super::interior_lighting::InteriorField::from_plan(
             &recipe.plan,
-            origin,
+            origin.metres(),
         )),
         program: program.clone(),
         detail: BuildingDetail::Dynamic,
@@ -50,5 +50,5 @@ pub(super) fn install(
         lod2: batches(geometry.shell),
     });
     cache.levels.push(compiled.clone());
-    compiled
+    Ok(compiled)
 }

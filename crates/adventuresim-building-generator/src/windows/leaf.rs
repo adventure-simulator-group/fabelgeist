@@ -13,7 +13,11 @@ const CAME_DEPTH_METRES: f32 = 0.006;
 const LATCH_SIZE_METRES: Vec3 = Vec3::new(0.06, 0.012, 0.012);
 
 /// Centered on the closed leaf, matching the replicated collider dimensions.
-pub fn compile_window_leaf(size: Vec3, kind: WindowLeafKind, state: ClosureState) -> Vec<LodMesh> {
+pub fn compile_window_leaf(
+    size: Vec3,
+    kind: WindowLeafKind,
+    state: ClosureState,
+) -> Result<Vec<LodMesh>, crate::CollisionError> {
     let mut builder = Builder::default();
     if kind == WindowLeafKind::TimberShutter {
         let boards = (size.x / PANE_PITCH_METRES).ceil() as usize;
@@ -107,7 +111,8 @@ mod tests {
             Vec3::new(0.8, 1.2, 0.025),
             WindowLeafKind::LeadedGlass,
             ClosureState::Closed,
-        );
+        )
+        .unwrap();
         assert!(
             fixed
                 .iter()
@@ -122,7 +127,8 @@ mod tests {
             Vec3::new(0.8, 1.2, 0.025),
             WindowLeafKind::TimberShutter,
             ClosureState::Operable,
-        );
+        )
+        .unwrap();
         assert!(
             operable
                 .iter()

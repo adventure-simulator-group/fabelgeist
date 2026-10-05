@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::spatial_geometry::{CuboidDimensions, Position, Radians};
+    use crate::{Architectural, CollisionCuboid, SpatialBounds};
 
     #[test]
     fn mesh_audit_rejects_open_and_inconsistently_wound_geometry() {
@@ -36,9 +38,9 @@ mod tests {
         for archetype in crate::BuildingArchetype::ALL {
             let plan = crate::generate(&crate::BuildingProgram::fixture(archetype, 47)).unwrap();
             assert!(
-                audit_plan(&plan).is_empty(),
+                audit_plan(&plan).unwrap().is_empty(),
                 "{archetype:?}: {:?}",
-                audit_plan(&plan)
+                audit_plan(&plan).unwrap()
             );
         }
     }
@@ -85,7 +87,7 @@ mod tests {
             for archetype in crate::BuildingArchetype::ALL {
                 let plan =
                     crate::generate(&crate::BuildingProgram::fixture(archetype, seed)).unwrap();
-                let issues = audit_plan(&plan);
+                let issues = audit_plan(&plan).unwrap();
                 if !issues.is_empty() {
                     full_audit_failures.push((seed, archetype, issues));
                 }
@@ -109,7 +111,7 @@ mod tests {
                 if !oversized_gutters.is_empty() {
                     oversized_child_gutters.push((seed, archetype, oversized_gutters));
                 }
-                let undeclared = undeclared_timber_intersections(&plan);
+                let undeclared = undeclared_timber_intersections(&plan).unwrap();
                 if !undeclared.is_empty() {
                     let described = undeclared
                         .into_iter()
@@ -214,27 +216,28 @@ mod tests {
             .find(|roof| roof.parent.is_some())
             .unwrap();
         let id = ResolvedItemId(0x7fff_ffff_ffff_ff01);
-        mutation
-            .resolved_geometry
-            .solids
-            .push(crate::ResolvedSolid {
+        mutation.resolved_geometry.solids.push(ResolvedSolid::new(
+            CollisionCuboid::<Architectural>::from_metres(
                 id,
-                owner: child.owner,
-                centre: Vec3::new(
+                Vec3::new(
                     child.faces[0].polygon[0].x,
                     8.5,
                     child.faces[0].polygon[0].z,
                 ),
-                size: Vec3::new(0.22, 2.9, 0.22),
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::RoofFraming,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: child.support_nodes.clone(),
-            });
+                Vec3::new(0.22, 2.9, 0.22),
+                0.0,
+                0.0,
+                0.0,
+            )
+            .unwrap(),
+            child.owner,
+            SolidRole::RoofFraming,
+            crate::ResolvedSolidShape::Cuboid,
+            child.support_nodes.clone(),
+        ));
         assert!(
             audit_plan(&mutation)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "exposed_roof_child_support"),
             "a reintroduced generic dormer-corner post must fail the production audit"
@@ -252,10 +255,19 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == flashing_id)
             .unwrap();
-        flashing.size.y = 0.07;
-        flashing.size.z = 0.16;
+        {
+            let mut native_geometry = flashing.size.metres();
+            native_geometry.y = 0.07;
+            flashing.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = flashing.size.metres();
+            native_geometry.z = 0.16;
+            flashing.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(
             audit_plan(&thick_flashing)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "invalid_child_roof_flashing_profile"),
             "the former oversized child-roof flashing bar must fail the production audit"
@@ -288,6 +300,7 @@ mod tests {
             .disposition = crate::RoofDrainageDisposition::BoundDownspout;
         assert!(
             audit_plan(&child_downspout)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "invalid_child_roof_drainage"),
             "an attached dormer must not regain a detached ground-height downspout"
@@ -317,10 +330,19 @@ mod tests {
             crate::Direction::East => Vec2::X,
             crate::Direction::West => -Vec2::X,
         };
-        trimmer.end.x += outward.x * projecting_curb.roof_dormers[0].depth_metres * 0.45;
-        trimmer.end.z += outward.y * projecting_curb.roof_dormers[0].depth_metres * 0.45;
+        {
+            let mut native_geometry = trimmer.end.metres();
+            native_geometry.x += outward.x * projecting_curb.roof_dormers[0].depth_metres * 0.45;
+            trimmer.end = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = trimmer.end.metres();
+            native_geometry.z += outward.y * projecting_curb.roof_dormers[0].depth_metres * 0.45;
+            trimmer.end = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(
             audit_plan(&projecting_curb)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "invalid_dormer_trimmer_envelope"),
             "the former outward-projecting dormer curb must fail the production audit"
@@ -344,16 +366,27 @@ mod tests {
             .find(|network| network.owner == child_owner)
             .unwrap()
             .channel_floor;
-        large_child_gutter
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == gutter_id)
-            .unwrap()
-            .size
-            .z = 0.18;
+        {
+            let mut native_geometry = large_child_gutter
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == gutter_id)
+                .unwrap()
+                .size
+                .metres();
+            native_geometry.z = 0.18;
+            large_child_gutter
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == gutter_id)
+                .unwrap()
+                .size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(
             audit_plan(&large_child_gutter)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "invalid_child_roof_drainage_profile"),
             "a full-size gutter reused on an attached dormer must fail the production audit"
@@ -383,10 +416,16 @@ mod tests {
             .iter_mut()
             .find(|void| void.id == outlet_id)
             .unwrap();
-        outlet.bounds.min += Vec3::new(0.40, 0.0, 0.40);
-        outlet.bounds.max += Vec3::new(0.40, 0.0, 0.40);
+        {
+            let mut native_min = outlet.bounds.min().metres();
+            let mut native_max = outlet.bounds.max().metres();
+            native_min += Vec3::new(0.40, 0.0, 0.40);
+            native_max += Vec3::new(0.40, 0.0, 0.40);
+            outlet.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(
             audit_plan(&projecting_child_outlet)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "invalid_child_roof_drainage_profile"),
             "a child outlet projecting beyond its compact eave zone must fail the audit"
@@ -416,6 +455,7 @@ mod tests {
         }
         assert!(
             audit_plan(&free_rear_gable)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "unseated_dormer_roof"),
             "a dormer restored to a free rear gable must fail the production audit"
@@ -449,9 +489,11 @@ mod tests {
             .find(|solid| solid.id == rail_solid)
             .unwrap();
         rail.centre = closure_centre;
-        rail.size = Vec3::splat(0.30);
+        rail.size = CuboidDimensions::from_metres(Vec3::splat(0.30)).unwrap();
         assert!(
-            !undeclared_timber_intersections(&unlisted_pair).is_empty(),
+            !undeclared_timber_intersections(&unlisted_pair)
+                .unwrap()
+                .is_empty(),
             "an arbitrary frame/closure collision must not enter the exact-pair whitelist"
         );
     }
@@ -466,7 +508,10 @@ mod tests {
             .unwrap()
         };
         let has = |plan: &crate::BuildingPlan, code: &str| {
-            audit_plan(plan).iter().any(|issue| issue.code == code)
+            audit_plan(plan)
+                .unwrap()
+                .iter()
+                .any(|issue| issue.code == code)
         };
 
         let mut missing = fixture();
@@ -556,14 +601,24 @@ mod tests {
         assert!(has(&no_rondel_cover, "invalid_artillery_rondel"));
         let mut foot_level_cover = fixture();
         let id = foot_level_cover.artillery_castle.as_ref().unwrap().rondels[0].parapet_solids[0];
-        foot_level_cover
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == id)
-            .unwrap()
-            .size
-            .y = 0.4;
+        {
+            let mut native_geometry = foot_level_cover
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == id)
+                .unwrap()
+                .size
+                .metres();
+            native_geometry.y = 0.4;
+            foot_level_cover
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == id)
+                .unwrap()
+                .size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&foot_level_cover, "invalid_artillery_rondel"));
         let mut no_stair_guard = fixture();
         no_stair_guard.artillery_castle.as_mut().unwrap().rondels[0]
@@ -573,14 +628,24 @@ mod tests {
         let mut low_stair_guard = fixture();
         let id =
             low_stair_guard.artillery_castle.as_ref().unwrap().rondels[0].stair_guard_solids[0];
-        low_stair_guard
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == id)
-            .unwrap()
-            .size
-            .y = 0.45;
+        {
+            let mut native_geometry = low_stair_guard
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == id)
+                .unwrap()
+                .size
+                .metres();
+            native_geometry.y = 0.45;
+            low_stair_guard
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == id)
+                .unwrap()
+                .size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&low_stair_guard, "invalid_artillery_rondel"));
         let mut blocked_stair_arrival = fixture();
         let id = blocked_stair_arrival
@@ -690,8 +755,8 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == id)
             .unwrap();
-        solid.centre = point + Vec3::Y;
-        solid.size = Vec3::new(1.2, 2.0, 1.2);
+        solid.centre = Position::<Architectural>::from_metres(point + Vec3::Y).unwrap();
+        solid.size = CuboidDimensions::from_metres(Vec3::new(1.2, 2.0, 1.2)).unwrap();
         solid.shape = crate::ResolvedSolidShape::Cuboid;
         assert!(has(&blocked_sweep, "disconnected_artillery_route"));
         let mut missing_route_surface = fixture();
@@ -739,8 +804,13 @@ mod tests {
             .iter_mut()
             .find(|void| void.id == portal)
             .unwrap();
-        void.bounds.min += Vec3::X * 20.0;
-        void.bounds.max += Vec3::X * 20.0;
+        {
+            let mut native_min = void.bounds.min().metres();
+            let mut native_max = void.bounds.max().metres();
+            native_min += Vec3::X * 20.0;
+            native_max += Vec3::X * 20.0;
+            void.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&shifted_portal, "disconnected_artillery_route"));
         let mut missing_tread = fixture();
         let tread = missing_tread.artillery_castle.as_ref().unwrap().rondels[0].stair_solids[0];
@@ -819,7 +889,11 @@ mod tests {
             702,
         ))
         .unwrap();
-        assert!(audit_plan(&denied).is_empty(), "{:?}", audit_plan(&denied));
+        assert!(
+            audit_plan(&denied).unwrap().is_empty(),
+            "{:?}",
+            audit_plan(&denied).unwrap()
+        );
         let mut denied_crossing = denied.clone();
         let removable = denied_crossing
             .artillery_castle
@@ -857,7 +931,10 @@ mod tests {
             .unwrap()
         };
         let has = |plan: &crate::BuildingPlan, code: &str| {
-            audit_plan(plan).iter().any(|issue| issue.code == code)
+            audit_plan(plan)
+                .unwrap()
+                .iter()
+                .any(|issue| issue.code == code)
         };
 
         let mut missing = fixture();
@@ -909,15 +986,27 @@ mod tests {
         let mut shifted_springing = fixture();
         let interface_id = shifted_springing.church.as_ref().unwrap().bay_assemblies[0]
             .arcade_bearing_interfaces[0][1];
-        shifted_springing
-            .resolved_geometry
-            .support_interfaces
-            .iter_mut()
-            .find(|interface| interface.id == interface_id)
-            .unwrap()
-            .bounds
-            .min
-            .x += 1.0;
+        {
+            let bounds = shifted_springing
+                .resolved_geometry
+                .support_interfaces
+                .iter_mut()
+                .find(|interface| interface.id == interface_id)
+                .unwrap()
+                .bounds;
+            let shift = Vec3::X;
+            shifted_springing
+                .resolved_geometry
+                .support_interfaces
+                .iter_mut()
+                .find(|interface| interface.id == interface_id)
+                .unwrap()
+                .bounds = SpatialBounds::from_metres(
+                bounds.min().metres() + shift,
+                bounds.max().metres() + shift,
+            )
+            .unwrap();
+        };
         assert!(has(&shifted_springing, "invalid_church_bay_structure"));
 
         let mut decorative_buttress = fixture();
@@ -991,15 +1080,27 @@ mod tests {
             .unwrap()
             .crossing
             .arch_bearing_interfaces[0][1];
-        shifted_crossing_spring
-            .resolved_geometry
-            .support_interfaces
-            .iter_mut()
-            .find(|interface| interface.id == crossing_interface)
-            .unwrap()
-            .bounds
-            .min
-            .x += 1.0;
+        {
+            let bounds = shifted_crossing_spring
+                .resolved_geometry
+                .support_interfaces
+                .iter_mut()
+                .find(|interface| interface.id == crossing_interface)
+                .unwrap()
+                .bounds;
+            let shift = Vec3::X;
+            shifted_crossing_spring
+                .resolved_geometry
+                .support_interfaces
+                .iter_mut()
+                .find(|interface| interface.id == crossing_interface)
+                .unwrap()
+                .bounds = SpatialBounds::from_metres(
+                bounds.min().metres() + shift,
+                bounds.max().metres() + shift,
+            )
+            .unwrap();
+        };
         assert!(has(&shifted_crossing_spring, "invalid_church_crossing"));
 
         let mut severed_crossing_thrust = fixture();
@@ -1086,8 +1187,13 @@ mod tests {
             .iter_mut()
             .find(|interface| interface.id == choir_interface)
             .unwrap();
-        interface.bounds.min.z += 1.0;
-        interface.bounds.max.z += 1.0;
+        {
+            let mut native_min = interface.bounds.min().metres();
+            let mut native_max = interface.bounds.max().metres();
+            native_min.z += 1.0;
+            native_max.z += 1.0;
+            interface.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&shifted_choir_spring, "invalid_church_choir_apse"));
 
         let mut portal = fixture();
@@ -1125,8 +1231,16 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == floor_id)
             .unwrap();
-        floor.centre.x = centre.x;
-        floor.centre.z = centre.y;
+        {
+            let mut native_geometry = floor.centre.metres();
+            native_geometry.x = centre.x;
+            floor.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = floor.centre.metres();
+            native_geometry.z = centre.y;
+            floor.centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(
             &blocked_stairwell,
             "invalid_church_tower_service_geometry"
@@ -1142,8 +1256,16 @@ mod tests {
             .clone();
         for solid in &mut short_roof_ladder.resolved_geometry.solids {
             if ladder_ids.contains(&solid.id) {
-                solid.centre.y -= 1.0;
-                solid.size.y = solid.size.y.min(1.0);
+                {
+                    let mut native_geometry = solid.centre.metres();
+                    native_geometry.y -= 1.0;
+                    solid.centre = Position::from_metres(native_geometry).unwrap();
+                };
+                {
+                    let mut native_geometry = solid.size.metres();
+                    native_geometry.y = solid.size.metres().y.min(1.0);
+                    solid.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+                };
             }
         }
         assert!(has(
@@ -1218,8 +1340,13 @@ mod tests {
             .iter_mut()
             .find(|void| void.id == west_void)
             .unwrap();
-        west_void.bounds.min.z += 1.0;
-        west_void.bounds.max.z += 1.0;
+        {
+            let mut native_min = west_void.bounds.min().metres();
+            let mut native_max = west_void.bounds.max().metres();
+            native_min.z += 1.0;
+            native_max.z += 1.0;
+            west_void.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&shifted_west_portal_void, "invalid_church_circulation"));
 
         let mut shifted_nave_passage_void = fixture();
@@ -1241,8 +1368,13 @@ mod tests {
             .iter_mut()
             .find(|void| void.id == nave_void)
             .unwrap();
-        nave_void.bounds.min.z -= 1.0;
-        nave_void.bounds.max.z -= 1.0;
+        {
+            let mut native_min = nave_void.bounds.min().metres();
+            let mut native_max = nave_void.bounds.max().metres();
+            native_min.z -= 1.0;
+            native_max.z -= 1.0;
+            nave_void.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(
             &shifted_nave_passage_void,
             "invalid_church_circulation"
@@ -1368,20 +1500,35 @@ mod tests {
             .iter_mut()
             .find(|interface| interface.id == bearing_interface)
             .unwrap();
-        interface.bounds.min.x += 0.8;
-        interface.bounds.max.x += 0.8;
+        {
+            let mut native_min = interface.bounds.min().metres();
+            let mut native_max = interface.bounds.max().metres();
+            native_min.x += 0.8;
+            native_max.x += 0.8;
+            interface.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&shifted_tread_bearing, "invalid_church_circulation"));
 
         let mut moved_newel = fixture();
         let newel = moved_newel.church.as_ref().unwrap().tower.stair_newel_solid;
-        moved_newel
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == newel)
-            .unwrap()
-            .centre
-            .x += 0.5;
+        {
+            let mut native_geometry = moved_newel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == newel)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry.x += 0.5;
+            moved_newel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == newel)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&moved_newel, "invalid_church_circulation"));
 
         let mut guard_in_route = fixture();
@@ -1399,13 +1546,16 @@ mod tests {
             .find(|solid| solid.id == route_tread)
             .unwrap()
             .centre;
-        guard_in_route
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == guard)
-            .unwrap()
-            .centre = route_centre + Vec3::Y * 0.55;
+        {
+            let native_geometry = route_centre.metres() + Vec3::Y * 0.55;
+            guard_in_route
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == guard)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&guard_in_route, "invalid_church_circulation"));
 
         let mut frame_in_ladder = fixture();
@@ -1520,7 +1670,10 @@ mod tests {
             .unwrap()
         };
         let has = |plan: &crate::BuildingPlan, code: &str| {
-            audit_plan(plan).iter().any(|issue| issue.code == code)
+            audit_plan(plan)
+                .unwrap()
+                .iter()
+                .any(|issue| issue.code == code)
         };
 
         let mut pitch = fixture();
@@ -1616,7 +1769,7 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == valley_flashing)
             .unwrap()
-            .longfall_radians = 0.0;
+            .longfall_radians = Radians::new(0.0).unwrap();
         assert!(has(&flat_valley, "invalid_roof_valley_drainage"));
 
         let mut orphan_valley = fixture();
@@ -1671,7 +1824,7 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == channel)
             .unwrap()
-            .longfall_radians = 0.0;
+            .longfall_radians = Radians::new(0.0).unwrap();
         assert!(has(&flat_channel, "invalid_roof_drainage_network"));
 
         let mut reversed_channel = fixture();
@@ -1691,13 +1844,24 @@ mod tests {
 
         let mut shifted_channel = fixture();
         let channel = shifted_channel.resolved_geometry.roof_drainage_networks[0].channel_floor;
-        shifted_channel
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == channel)
-            .unwrap()
-            .centre += Vec3::X;
+        {
+            let mut native_geometry = shifted_channel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == channel)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry += Vec3::X;
+            shifted_channel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == channel)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&shifted_channel, "invalid_roof_drainage_network"));
 
         let mut disconnected_outlet = fixture();
@@ -1708,8 +1872,13 @@ mod tests {
             .iter_mut()
             .find(|void| void.id == outlet)
             .unwrap();
-        drain.bounds.min += Vec3::X;
-        drain.bounds.max += Vec3::X;
+        {
+            let mut native_min = drain.bounds.min().metres();
+            let mut native_max = drain.bounds.max().metres();
+            native_min += Vec3::X;
+            native_max += Vec3::X;
+            drain.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&disconnected_outlet, "invalid_roof_drainage_network"));
 
         let spout_fixture = || {
@@ -1733,13 +1902,24 @@ mod tests {
             .iter()
             .find_map(|network| network.downspout)
             .expect("principal roof has a downspout");
-        shifted_spout
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == spout)
-            .unwrap()
-            .centre += Vec3::Z;
+        {
+            let mut native_geometry = shifted_spout
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == spout)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry += Vec3::Z;
+            shifted_spout
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == spout)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&shifted_spout, "invalid_roof_drainage_network"));
 
         let mut spout_through_opening = spout_fixture();
@@ -1755,15 +1935,23 @@ mod tests {
             .iter()
             .find(|void| void.role == VoidRole::WallOpening)
             .unwrap();
-        let opening_plan = (opening.bounds.min + opening.bounds.max) * 0.5;
+        let opening_plan = (opening.bounds.min().metres() + opening.bounds.max().metres()) * 0.5;
         let pipe = spout_through_opening
             .resolved_geometry
             .solids
             .iter_mut()
             .find(|solid| solid.id == spout)
             .unwrap();
-        pipe.centre.x = opening_plan.x;
-        pipe.centre.z = opening_plan.z;
+        {
+            let mut native_geometry = pipe.centre.metres();
+            native_geometry.x = opening_plan.x;
+            pipe.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = pipe.centre.metres();
+            native_geometry.z = opening_plan.z;
+            pipe.centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&spout_through_opening, "invalid_roof_drainage_network"));
 
         let mut spout_through_walk = spout_fixture();
@@ -1799,10 +1987,10 @@ mod tests {
             .find(|solid| solid.id == spout)
             .unwrap();
         spout_through_stair.stairs.push(crate::Stair::Straight {
-            start: Vec2::new(pipe.centre.x, pipe.centre.z),
+            start: Vec2::new(pipe.centre.metres().x, pipe.centre.metres().z),
             direction: crate::Direction::North,
             base_height_metres: 0.0,
-            rise_metres: pipe.centre.y + pipe.size.y,
+            rise_metres: pipe.centre.metres().y + pipe.size.metres().y,
             width_metres: 1.0,
             tread_count: 12,
             run_metres: 3.8,
@@ -1867,23 +2055,26 @@ mod tests {
             .voids
             .iter()
             .find(|void| void.id == station.outlet_void)
-            .map(|void| (void.bounds.min + void.bounds.max) * 0.5)
+            .map(|void| (void.bounds.min().metres() + void.bounds.max().metres()) * 0.5)
             .unwrap();
         blocked_free_fall
             .resolved_geometry
             .solids
-            .push(crate::ResolvedSolid {
-                id: crate::ResolvedItemId(0xAFFF_FFFF_FFFF_0100),
-                owner: crate::GeometryOwnerId(0xFFFF_0100),
-                centre: (outlet + station.discharge) * 0.5,
-                size: Vec3::new(1.0, 0.18, 1.0),
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::CircuitWalk,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: Vec::new(),
-            });
+            .push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    crate::ResolvedItemId(0xAFFF_FFFF_FFFF_0100),
+                    (outlet + station.discharge) * 0.5,
+                    Vec3::new(1.0, 0.18, 1.0),
+                    0.0,
+                    0.0,
+                    0.0,
+                )
+                .unwrap(),
+                crate::GeometryOwnerId(0xFFFF_0100),
+                SolidRole::CircuitWalk,
+                crate::ResolvedSolidShape::Cuboid,
+                Vec::new(),
+            ));
         assert!(has(&blocked_free_fall, "invalid_roof_drainage_network"));
 
         let mut splash_on_portal = free_ground_fixture();
@@ -1900,10 +2091,11 @@ mod tests {
             .push(crate::ResolvedVoid {
                 id: crate::ResolvedItemId(0xEFFF_FFFF_FFFF_0100),
                 owner: crate::GeometryOwnerId(0xFFFF_0101),
-                bounds: crate::ResolvedBounds {
-                    min: station.discharge - Vec3::new(0.4, 0.08, 0.4),
-                    max: station.discharge + Vec3::new(0.4, 1.9, 0.4),
-                },
+                bounds: SpatialBounds::<Architectural>::from_metres(
+                    station.discharge - Vec3::new(0.4, 0.08, 0.4),
+                    station.discharge + Vec3::new(0.4, 1.9, 0.4),
+                )
+                .unwrap(),
                 role: VoidRole::AccessPortal,
                 shape: crate::ResolvedVoidShape::Box,
                 subtracts_from: crate::GeometryOwnerId(0xFFFF_0101),
@@ -1969,36 +2161,68 @@ mod tests {
         };
         let mut offset_treatment = edge_treatment_fixture();
         let treatment = treatment_id(&offset_treatment);
-        offset_treatment
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == treatment)
-            .unwrap()
-            .centre += Vec3::Z;
+        {
+            let mut native_geometry = offset_treatment
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == treatment)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry += Vec3::Z;
+            offset_treatment
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == treatment)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&offset_treatment, "invalid_roof_edge_treatment"));
 
         let mut rotated_treatment = edge_treatment_fixture();
         let treatment = treatment_id(&rotated_treatment);
-        rotated_treatment
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == treatment)
-            .unwrap()
-            .yaw_radians += 0.4;
+        {
+            let mut native_geometry = rotated_treatment
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == treatment)
+                .unwrap()
+                .yaw_radians
+                .radians();
+            native_geometry += 0.4;
+            rotated_treatment
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == treatment)
+                .unwrap()
+                .yaw_radians = Radians::new(native_geometry).unwrap();
+        };
         assert!(has(&rotated_treatment, "invalid_roof_edge_treatment"));
 
         let mut overlong_treatment = edge_treatment_fixture();
         let treatment = treatment_id(&overlong_treatment);
-        overlong_treatment
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == treatment)
-            .unwrap()
-            .size
-            .x += 2.0;
+        {
+            let mut native_geometry = overlong_treatment
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == treatment)
+                .unwrap()
+                .size
+                .metres();
+            native_geometry.x += 2.0;
+            overlong_treatment
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == treatment)
+                .unwrap()
+                .size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&overlong_treatment, "invalid_roof_edge_treatment"));
 
         let abutment_fixture = || {
@@ -2052,14 +2276,24 @@ mod tests {
 
         let mut raised_flashing = abutment_fixture();
         let upstand = raised_flashing.roof_assemblies[0].abutments[0].samples[0].upstand_solid;
-        raised_flashing
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == upstand)
-            .unwrap()
-            .centre
-            .y += 0.5;
+        {
+            let mut native_geometry = raised_flashing
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == upstand)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry.y += 0.5;
+            raised_flashing
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == upstand)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&raised_flashing, "invalid_roof_abutment_contour"));
 
         let mut no_lower_outlet = abutment_fixture();
@@ -2092,7 +2326,10 @@ mod tests {
         let fixture =
             |archetype| crate::generate(&crate::BuildingProgram::fixture(archetype, 47)).unwrap();
         let has = |plan: &crate::BuildingPlan, code: &str| {
-            audit_plan(plan).iter().any(|issue| issue.code == code)
+            audit_plan(plan)
+                .unwrap()
+                .iter()
+                .any(|issue| issue.code == code)
         };
 
         let mut thickness = fixture(crate::BuildingArchetype::FachwerkMerchantHouse);
@@ -2116,13 +2353,23 @@ mod tests {
             .find(|void| void.id == opening.void_id)
             .unwrap();
         if opening.frame.outward.x.abs() > 0.5 {
-            let middle = (void.bounds.min.x + void.bounds.max.x) * 0.5;
-            void.bounds.min.x = middle - 0.01;
-            void.bounds.max.x = middle + 0.01;
+            let middle = (void.bounds.min().metres().x + void.bounds.max().metres().x) * 0.5;
+            {
+                let mut native_min = void.bounds.min().metres();
+                let mut native_max = void.bounds.max().metres();
+                native_min.x = middle - 0.01;
+                native_max.x = middle + 0.01;
+                void.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+            };
         } else {
-            let middle = (void.bounds.min.z + void.bounds.max.z) * 0.5;
-            void.bounds.min.z = middle - 0.01;
-            void.bounds.max.z = middle + 0.01;
+            let middle = (void.bounds.min().metres().z + void.bounds.max().metres().z) * 0.5;
+            {
+                let mut native_min = void.bounds.min().metres();
+                let mut native_max = void.bounds.max().metres();
+                native_min.z = middle - 0.01;
+                native_max.z = middle + 0.01;
+                void.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+            };
         }
         assert!(has(&shallow, "shallow_wall_opening"));
 
@@ -2218,13 +2465,23 @@ mod tests {
                     .solids
                     .retain(|solid| solid.id != opening.spandrel_solid);
             } else {
-                plan.resolved_geometry
-                    .solids
-                    .iter_mut()
-                    .find(|solid| solid.id == opening.spandrel_solid)
-                    .unwrap()
-                    .centre
-                    .y += 0.25;
+                {
+                    let mut native_geometry = plan
+                        .resolved_geometry
+                        .solids
+                        .iter_mut()
+                        .find(|solid| solid.id == opening.spandrel_solid)
+                        .unwrap()
+                        .centre
+                        .metres();
+                    native_geometry.y += 0.25;
+                    plan.resolved_geometry
+                        .solids
+                        .iter_mut()
+                        .find(|solid| solid.id == opening.spandrel_solid)
+                        .unwrap()
+                        .centre = Position::from_metres(native_geometry).unwrap();
+                };
             }
             assert!(has(&plan, "false_opening_head_load_path"), "{mutation}");
         }
@@ -2242,7 +2499,11 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.owner == opening.owner && solid.role == SolidRole::Mullion)
             .unwrap();
-        mullion.centre.y += 0.20;
+        {
+            let mut native_geometry = mullion.centre.metres();
+            native_geometry.y += 0.20;
+            mullion.centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&hanging_tracery, "unsupported_cathedral_tracery"));
 
         let military_opening = |plan: &crate::BuildingPlan| {
@@ -2324,13 +2585,21 @@ mod tests {
             let opening = plan.opening_assemblies[0].clone();
             match mutation {
                 "raised_head" => {
-                    plan.resolved_geometry
+                    let mut native_geometry = plan
+                        .resolved_geometry
                         .solids
                         .iter_mut()
                         .find(|solid| solid.id == opening.head_solid)
                         .unwrap()
                         .centre
-                        .y += 0.25
+                        .metres();
+                    native_geometry.y += 0.25;
+                    plan.resolved_geometry
+                        .solids
+                        .iter_mut()
+                        .find(|solid| solid.id == opening.head_solid)
+                        .unwrap()
+                        .centre = Position::from_metres(native_geometry).unwrap();
                 }
                 "short_head" => {
                     let head = plan
@@ -2340,22 +2609,39 @@ mod tests {
                         .find(|solid| solid.id == opening.head_solid)
                         .unwrap();
                     if opening.frame.tangent.x.abs() > 0.5 {
-                        head.size.x -= 0.35;
+                        {
+                            let mut native_geometry = head.size.metres();
+                            native_geometry.x -= 0.35;
+                            head.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+                        };
                     } else {
-                        head.size.z -= 0.35;
+                        {
+                            let mut native_geometry = head.size.metres();
+                            native_geometry.z -= 0.35;
+                            head.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+                        };
                     }
                 }
                 "shifted_jamb" => {
+                    let mut native_geometry = plan
+                        .resolved_geometry
+                        .solids
+                        .iter_mut()
+                        .find(|solid| solid.id == opening.jamb_solids[0])
+                        .unwrap()
+                        .centre
+                        .metres();
+                    native_geometry += Vec3::new(
+                        opening.frame.tangent.x * 0.25,
+                        0.0,
+                        opening.frame.tangent.y * 0.25,
+                    );
                     plan.resolved_geometry
                         .solids
                         .iter_mut()
                         .find(|solid| solid.id == opening.jamb_solids[0])
                         .unwrap()
-                        .centre += Vec3::new(
-                        opening.frame.tangent.x * 0.25,
-                        0.0,
-                        opening.frame.tangent.y * 0.25,
-                    )
+                        .centre = Position::from_metres(native_geometry).unwrap();
                 }
                 "thin_pier" => {
                     let jamb = plan
@@ -2365,9 +2651,17 @@ mod tests {
                         .find(|solid| solid.id == opening.jamb_solids[0])
                         .unwrap();
                     if opening.frame.tangent.x.abs() > 0.5 {
-                        jamb.size.x = 0.02;
+                        {
+                            let mut native_geometry = jamb.size.metres();
+                            native_geometry.x = 0.02;
+                            jamb.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+                        };
                     } else {
-                        jamb.size.z = 0.02;
+                        {
+                            let mut native_geometry = jamb.size.metres();
+                            native_geometry.z = 0.02;
+                            jamb.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+                        };
                     }
                 }
                 _ => unreachable!(),
@@ -2381,17 +2675,28 @@ mod tests {
             .find(|opening| opening.frame.outside_room.is_none())
             .unwrap()
             .clone();
-        exterior_fin
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == exterior_opening.jamb_solids[0])
-            .unwrap()
-            .centre += Vec3::new(
-            exterior_opening.frame.outward.x * 0.10,
-            0.0,
-            exterior_opening.frame.outward.y * 0.10,
-        );
+        {
+            let mut native_geometry = exterior_fin
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == exterior_opening.jamb_solids[0])
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry += Vec3::new(
+                exterior_opening.frame.outward.x * 0.10,
+                0.0,
+                exterior_opening.frame.outward.y * 0.10,
+            );
+            exterior_fin
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == exterior_opening.jamb_solids[0])
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&exterior_fin, "discontinuous_exterior_wall_face"));
 
         let mut radial = fixture(crate::BuildingArchetype::WalledKeep);
@@ -2429,27 +2734,34 @@ mod tests {
             .unwrap()
         };
         let has = |plan: &crate::BuildingPlan, code: &str| {
-            audit_plan(plan).iter().any(|issue| issue.code == code)
+            audit_plan(plan)
+                .unwrap()
+                .iter()
+                .any(|issue| issue.code == code)
         };
         let plan = fixture(149);
         let breteche_plan = fixture(201);
         let deployed_plan = fixture(202);
         let bartizan_plan = fixture(203);
-        assert!(audit_plan(&plan).is_empty(), "{:?}", audit_plan(&plan));
         assert!(
-            audit_plan(&breteche_plan).is_empty(),
+            audit_plan(&plan).unwrap().is_empty(),
             "{:?}",
-            audit_plan(&breteche_plan)
+            audit_plan(&plan).unwrap()
         );
         assert!(
-            audit_plan(&deployed_plan).is_empty(),
+            audit_plan(&breteche_plan).unwrap().is_empty(),
             "{:?}",
-            audit_plan(&deployed_plan)
+            audit_plan(&breteche_plan).unwrap()
         );
         assert!(
-            audit_plan(&bartizan_plan).is_empty(),
+            audit_plan(&deployed_plan).unwrap().is_empty(),
             "{:?}",
-            audit_plan(&bartizan_plan)
+            audit_plan(&deployed_plan).unwrap()
+        );
+        assert!(
+            audit_plan(&bartizan_plan).unwrap().is_empty(),
+            "{:?}",
+            audit_plan(&bartizan_plan).unwrap()
         );
         assert!(
             plan.projected_defenses
@@ -2525,13 +2837,24 @@ mod tests {
 
         let mut shifted_host_walk = fixture(149);
         let host_walk = shifted_host_walk.projected_defenses[operational_index].host_walk_solid;
-        shifted_host_walk
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == host_walk)
-            .unwrap()
-            .centre += Vec3::new(2.0, 0.0, 2.0);
+        {
+            let mut native_geometry = shifted_host_walk
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == host_walk)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry += Vec3::new(2.0, 0.0, 2.0);
+            shifted_host_walk
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == host_walk)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&shifted_host_walk, "inaccessible_projected_defense"));
 
         let mut untrimmed_host_run = fixture(149);
@@ -2579,13 +2902,24 @@ mod tests {
 
         let mut shifted_joist = fixture(202);
         let (_, joist) = shifted_joist.projected_defenses[deployed_hoarding_index].socket_joists[0];
-        shifted_joist
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == joist)
-            .unwrap()
-            .centre += Vec3::new(2.0, 0.0, 2.0);
+        {
+            let mut native_geometry = shifted_joist
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == joist)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry += Vec3::new(2.0, 0.0, 2.0);
+            shifted_joist
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == joist)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&shifted_joist, "invalid_hoarding_beam_sockets"));
 
         let mut sealed = fixture(149);
@@ -2671,8 +3005,9 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.owner != owner)
             .unwrap();
-        blocker.centre = ray.origin.lerp(ray.target, 0.45);
-        blocker.size = Vec3::splat(0.45);
+        blocker.centre =
+            Position::<Architectural>::from_metres(ray.origin.lerp(ray.target, 0.45)).unwrap();
+        blocker.size = CuboidDimensions::from_metres(Vec3::splat(0.45)).unwrap();
         assert!(has(&blocked, "blocked_projected_defense_ray"));
 
         let mut no_support = fixture(149);
@@ -2695,8 +3030,13 @@ mod tests {
             .iter_mut()
             .find(|bearing| bearing.node == support)
             .unwrap();
-        bearing.bounds.max.x = bearing.bounds.min.x + 0.02;
-        bearing.bounds.max.z = bearing.bounds.min.z + 0.02;
+        {
+            let native_min = bearing.bounds.min().metres();
+            let mut native_max = bearing.bounds.max().metres();
+            native_max.x = native_min.x + 0.02;
+            native_max.z = native_min.z + 0.02;
+            bearing.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&inadequate_bearing, "unsupported_projected_defense"));
 
         let mut no_portal = fixture(149);
@@ -2728,8 +3068,14 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == floor_id)
             .unwrap();
-        floor.centre = (bounds.min + bounds.max) * 0.5;
-        floor.size = (bounds.max - bounds.min) + Vec3::splat(0.1);
+        floor.centre = Position::<Architectural>::from_metres(
+            (bounds.min().metres() + bounds.max().metres()) * 0.5,
+        )
+        .unwrap();
+        floor.size = CuboidDimensions::from_metres(
+            (bounds.max().metres() - bounds.min().metres()) + Vec3::splat(0.1),
+        )
+        .unwrap();
         assert!(has(&gallery_overlap, "unresolved_void_subtraction"));
 
         let mut closed_bartizan = fixture(203);
@@ -2744,12 +3090,13 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == floor_id)
             .unwrap();
-        floor.centre = Vec3::new(
+        floor.centre = Position::<Architectural>::from_metres(Vec3::new(
             centre.x,
             closed_bartizan.projected_defenses[bartizan_index].floor_elevation_metres + 1.0,
             centre.y,
-        );
-        floor.size = Vec3::splat(0.5);
+        ))
+        .unwrap();
+        floor.size = CuboidDimensions::from_metres(Vec3::splat(0.5)).unwrap();
         assert!(has(&closed_bartizan, "closed_bartizan"));
 
         let mut dangling_frame = fixture(202);
@@ -2774,8 +3121,8 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == floor)
             .unwrap();
-        floor.crossfall_radians = 0.0;
-        floor.longfall_radians = 0.0;
+        floor.crossfall_radians = Radians::new(0.0).unwrap();
+        floor.longfall_radians = Radians::new(0.0).unwrap();
         assert!(has(&flat_gallery, "projected_defense_roof_drain_failure"));
         let mut raised_channel = fixture(149);
         let catchment = raised_channel.projected_defenses[operational_index].drainage_catchments[0];
@@ -2786,14 +3133,24 @@ mod tests {
             .find(|candidate| candidate.id == catchment)
             .unwrap()
             .toe_channel_solids[0];
-        raised_channel
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == channel)
-            .unwrap()
-            .centre
-            .y += 0.2;
+        {
+            let mut native_geometry = raised_channel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == channel)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry.y += 0.2;
+            raised_channel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == channel)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&raised_channel, "projected_defense_roof_drain_failure"));
         let mut reversed_channel = fixture(149);
         let catchment =
@@ -2805,13 +3162,24 @@ mod tests {
             .find(|candidate| candidate.id == catchment)
             .unwrap()
             .toe_channel_solids[0];
-        reversed_channel
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == channel)
-            .unwrap()
-            .longfall_radians *= -1.0;
+        {
+            let mut native_geometry = reversed_channel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == channel)
+                .unwrap()
+                .longfall_radians
+                .radians();
+            native_geometry *= -1.0;
+            reversed_channel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == channel)
+                .unwrap()
+                .longfall_radians = Radians::new(native_geometry).unwrap();
+        };
         assert!(has(
             &reversed_channel,
             "projected_defense_roof_drain_failure"
@@ -2844,8 +3212,8 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.owner == owner && solid.role == SolidRole::DefenseRoof)
             .unwrap();
-        roof.crossfall_radians = 0.0;
-        roof.longfall_radians = 0.0;
+        roof.crossfall_radians = Radians::new(0.0).unwrap();
+        roof.longfall_radians = Radians::new(0.0).unwrap();
         assert!(has(&flat_roof, "projected_defense_roof_drain_failure"));
         let mut phase_mismatch = fixture(202);
         phase_mismatch.projected_defenses[deployed_hoarding_index].material =
@@ -2900,8 +3268,16 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == host)
             .unwrap();
-        host.centre.y += 0.5;
-        host.size.y += 1.0;
+        {
+            let mut native_geometry = host.centre.metres();
+            native_geometry.y += 0.5;
+            host.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = host.size.metres();
+            native_geometry.y += 1.0;
+            host.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&overheight_host, "unresolved_projected_defense_host"));
 
         let mut roof_intrusion = fixture(202);
@@ -2966,13 +3342,24 @@ mod tests {
 
         let mut inward_drip = fixture(149);
         let owner = inward_drip.projected_defenses[operational_index].owner;
-        inward_drip
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.owner == owner && solid.role == SolidRole::Coping)
-            .unwrap()
-            .crossfall_radians *= -1.0;
+        {
+            let mut native_geometry = inward_drip
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.owner == owner && solid.role == SolidRole::Coping)
+                .unwrap()
+                .crossfall_radians
+                .radians();
+            native_geometry *= -1.0;
+            inward_drip
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.owner == owner && solid.role == SolidRole::Coping)
+                .unwrap()
+                .crossfall_radians = Radians::new(native_geometry).unwrap();
+        };
         assert!(has(&inward_drip, "projected_defense_roof_drain_failure"));
 
         let breteche_index = fixture(201)
@@ -2982,14 +3369,24 @@ mod tests {
             .unwrap();
         let mut raised_breteche_roof = fixture(201);
         let owner = raised_breteche_roof.projected_defenses[breteche_index].owner;
-        raised_breteche_roof
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.owner == owner && solid.role == SolidRole::DefenseRoof)
-            .unwrap()
-            .centre
-            .y += 0.35;
+        {
+            let mut native_geometry = raised_breteche_roof
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.owner == owner && solid.role == SolidRole::DefenseRoof)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry.y += 0.35;
+            raised_breteche_roof
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.owner == owner && solid.role == SolidRole::DefenseRoof)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(
             &raised_breteche_roof,
             "unsupported_projected_defense_roof"
@@ -3030,14 +3427,24 @@ mod tests {
                     .any(|solid| solid.id == *id && solid.role == SolidRole::FrameMember)
             })
             .unwrap();
-        shortened_breteche_post
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == post)
-            .unwrap()
-            .size
-            .y -= 0.4;
+        {
+            let mut native_geometry = shortened_breteche_post
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == post)
+                .unwrap()
+                .size
+                .metres();
+            native_geometry.y -= 0.4;
+            shortened_breteche_post
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == post)
+                .unwrap()
+                .size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(
             &shortened_breteche_post,
             "unsupported_projected_defense_roof"
@@ -3056,14 +3463,24 @@ mod tests {
                     .any(|solid| solid.id == *id && solid.role == SolidRole::FrameMember)
             })
             .unwrap();
-        shifted_breteche_post
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == post)
-            .unwrap()
-            .centre
-            .x += 0.55;
+        {
+            let mut native_geometry = shifted_breteche_post
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == post)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry.x += 0.55;
+            shifted_breteche_post
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == post)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(
             &shifted_breteche_post,
             "unsupported_projected_defense_roof"
@@ -3080,6 +3497,7 @@ mod tests {
         disconnected.defensive_junctions.clear();
         assert!(
             audit_plan(&disconnected)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "disconnected_defensive_circuit")
         );
@@ -3115,6 +3533,7 @@ mod tests {
         });
         assert!(
             audit_plan(&separately_accessible)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "disconnected_defensive_circuit")
         );
@@ -3139,6 +3558,7 @@ mod tests {
         }
         assert!(
             audit_plan(&broken)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "wall_walk_vertical_discontinuity")
         );
@@ -3152,6 +3572,7 @@ mod tests {
         cramped.defensive_junctions[0].clear_height_metres = 1.7;
         assert!(
             audit_plan(&cramped)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "insufficient_walk_clearance")
         );
@@ -3167,6 +3588,7 @@ mod tests {
         plan.roofs[0].centre.y = 0.4;
         assert!(
             audit_plan(&plan)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "wall_walk_roof_obstruction")
         );
@@ -3187,6 +3609,7 @@ mod tests {
         plan.tower_portals.remove(portal_index);
         assert!(
             audit_plan(&plan)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "missing_tower_portal")
         );
@@ -3201,6 +3624,7 @@ mod tests {
         });
         assert!(
             audit_plan(&no_entrance)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "missing_tower_portal")
         );
@@ -3220,6 +3644,7 @@ mod tests {
         thin.towers[0].wall_thickness_metres = 0.7;
         assert!(
             audit_plan(&thin)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "wall_too_thin_for_profile")
         );
@@ -3232,6 +3657,7 @@ mod tests {
             .retain(|tower| (tower.centre_metres() - gate_centre).length() > 8.0);
         assert!(
             audit_plan(&undefended)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "undefended_gate")
         );
@@ -3242,6 +3668,7 @@ mod tests {
         }
         assert!(
             audit_plan(&blind)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "undefended_gate")
         );
@@ -3252,6 +3679,7 @@ mod tests {
         origin_inside.gate_defenses[0].firing_positions[0].origin = tower.centre_metres();
         assert!(
             audit_plan(&origin_inside)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "undefended_gate")
         );
@@ -3261,6 +3689,7 @@ mod tests {
         duplicate_aperture.gate_defenses[0].firing_positions = vec![duplicate, duplicate];
         assert!(
             audit_plan(&duplicate_aperture)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "undefended_gate")
         );
@@ -3269,6 +3698,7 @@ mod tests {
         missing_aperture.gate_defenses[0].firing_positions[0].aperture_width_metres = 0.0;
         assert!(
             audit_plan(&missing_aperture)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "undefended_gate")
         );
@@ -3278,6 +3708,7 @@ mod tests {
             -rotated_aperture.gate_defenses[0].firing_positions[0].aperture_normal;
         assert!(
             audit_plan(&rotated_aperture)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "undefended_gate")
         );
@@ -3311,6 +3742,7 @@ mod tests {
         ));
         assert!(
             audit_plan(&wall_occluded)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "undefended_gate")
         );
@@ -3321,6 +3753,7 @@ mod tests {
             .retain(|closure| closure.kind != GateClosureKind::Portcullis);
         assert!(
             audit_plan(&single_closure)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "undefended_gate")
         );
@@ -3332,6 +3765,7 @@ mod tests {
         *left_tower_index = usize::MAX;
         assert!(
             audit_plan(&unsupported_chamber)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "unsupported_guard_chamber")
         );
@@ -3344,6 +3778,7 @@ mod tests {
             .width_metres = 0.6;
         assert!(
             audit_plan(&inaccessible_chamber)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "inaccessible_guard_chamber")
         );
@@ -3355,6 +3790,7 @@ mod tests {
             .clear();
         assert!(
             audit_plan(&inoperable_chamber)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "inoperable_guard_chamber")
         );
@@ -3366,6 +3802,7 @@ mod tests {
             .position = misaligned_windlass.gate_defenses[0].guard_chamber.centre;
         assert!(
             audit_plan(&misaligned_windlass)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "inoperable_guard_chamber")
         );
@@ -3374,6 +3811,7 @@ mod tests {
         unflanked.curtain_walls[1].end.y += 40.0;
         assert!(
             audit_plan(&unflanked)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "unflanked_curtain")
         );
@@ -3386,6 +3824,7 @@ mod tests {
         thin_courtyard.towers[0].wall_thickness_metres = 0.35;
         assert!(
             audit_plan(&thin_courtyard)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "wall_too_thin_for_profile")
         );
@@ -3400,8 +3839,12 @@ mod tests {
             ))
             .unwrap()
         };
-        let has =
-            |plan: &BuildingPlan, code| audit_plan(plan).iter().any(|issue| issue.code == code);
+        let has = |plan: &BuildingPlan, code| {
+            audit_plan(plan)
+                .unwrap()
+                .iter()
+                .any(|issue| issue.code == code)
+        };
 
         let mut blocked_passage = fixture();
         let threshold = blocked_passage.gate_defenses[0].threshold;
@@ -3549,8 +3992,12 @@ mod tests {
             ))
             .unwrap()
         };
-        let has =
-            |plan: &BuildingPlan, code| audit_plan(plan).iter().any(|issue| issue.code == code);
+        let has = |plan: &BuildingPlan, code| {
+            audit_plan(plan)
+                .unwrap()
+                .iter()
+                .any(|issue| issue.code == code)
+        };
         let mut low_ceiling = fixture();
         low_ceiling.gate_defenses[0]
             .guard_chamber
@@ -3728,8 +4175,12 @@ mod tests {
             ))
             .unwrap()
         };
-        let has =
-            |plan: &BuildingPlan, code| audit_plan(plan).iter().any(|issue| issue.code == code);
+        let has = |plan: &BuildingPlan, code| {
+            audit_plan(plan)
+                .unwrap()
+                .iter()
+                .any(|issue| issue.code == code)
+        };
 
         let mut foot_level = fixture();
         foot_level.crowns[0].profile.breastwork_height_metres = 0.1;
@@ -3788,7 +4239,11 @@ mod tests {
             .solids
             .iter_mut()
             .filter(|solid| solid.owner == round_owner && solid.role == SolidRole::Merlon)
-            .for_each(|solid| solid.size.x = 0.1);
+            .for_each(|solid| {
+                let mut native_geometry = solid.size.metres();
+                native_geometry.x = 0.1;
+                solid.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+            });
         assert!(has(&bad_round_crenel, "invalid_round_crenel_interval"));
         let mut overgrown_splice = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::WalledKeep,
@@ -3817,10 +4272,26 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.owner == straight_owner && solid.role == SolidRole::Breastwork)
             .unwrap();
-        breastwork.centre.x = splice_position.x;
-        breastwork.centre.z = splice_position.y;
-        breastwork.size.x = 1.0;
-        breastwork.size.z = 1.0;
+        {
+            let mut native_geometry = breastwork.centre.metres();
+            native_geometry.x = splice_position.x;
+            breastwork.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = breastwork.centre.metres();
+            native_geometry.z = splice_position.y;
+            breastwork.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = breastwork.size.metres();
+            native_geometry.x = 1.0;
+            breastwork.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = breastwork.size.metres();
+            native_geometry.z = 1.0;
+            breastwork.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&overgrown_splice, "unresolved_tower_crown_splice"));
         let mut duplicate_corner = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::WalledKeep,
@@ -3840,7 +4311,9 @@ mod tests {
             .iter()
             .find(|solid| {
                 solid.role == SolidRole::Merlon
-                    && Vec2::new(solid.centre.x, solid.centre.z).distance(corner.position) < 0.08
+                    && Vec2::new(solid.centre.metres().x, solid.centre.metres().z)
+                        .distance(corner.position)
+                        < 0.08
             })
             .cloned()
             .unwrap();
@@ -3851,21 +4324,31 @@ mod tests {
         duplicate.owner = crate::GeometryOwnerId(99_999);
         duplicate.id = crate::ResolvedItemId(999_990);
         duplicate.supported_by = vec![crate::StructuralNodeId(999_990)];
-        overlap
-            .resolved_geometry
-            .structural_nodes
-            .push(crate::StructuralNode {
-                id: crate::StructuralNodeId(999_990),
-                owner: duplicate.owner,
-                kind: crate::StructuralNodeKind::WallBearing,
-                position: duplicate.centre,
-                supported_by: Vec::new(),
-                grounded: true,
-            });
+        overlap.resolved_geometry.structural_nodes.push({
+            let admitted_node_id = crate::StructuralNodeId(999_990);
+            crate::StructuralNode::new(
+                admitted_node_id,
+                duplicate.owner,
+                crate::StructuralNodeKind::WallBearing,
+                Position::<Architectural>::from_metres(duplicate.centre.metres())
+                    .map_err(|cause| crate::StructuralNodeError {
+                        node: admitted_node_id,
+                        cause,
+                    })
+                    .unwrap(),
+                Vec::new(),
+                true,
+            )
+        });
         overlap.resolved_geometry.solids.push(duplicate);
         assert!(has(&overlap, "undeclared_solid_overlap"));
         let mut open = fixture();
-        open.resolved_geometry.solids[0].size.y = 0.0;
+        {
+            let mut native_geometry = open.resolved_geometry.solids[0].size.metres();
+            native_geometry.y = 0.0;
+            open.resolved_geometry.solids[0].size =
+                CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&open, "invalid_resolved_geometry"));
 
         let mut stale_schema = fixture();
@@ -3900,9 +4383,14 @@ mod tests {
             .filter(|solid| {
                 solid.owner == straight_owner
                     && solid.role == SolidRole::Breastwork
-                    && solid.size.y > 0.2
+                    && solid.size.metres().y > 0.2
             })
-            .max_by(|a, b| a.size.max_element().total_cmp(&b.size.max_element()))
+            .max_by(|a, b| {
+                a.size
+                    .metres()
+                    .max_element()
+                    .total_cmp(&b.size.metres().max_element())
+            })
             .unwrap()
             .id;
         interval_gap
@@ -3922,7 +4410,7 @@ mod tests {
             .solids
             .iter_mut()
             .filter(|solid| solid.role == SolidRole::Coping)
-            .for_each(|solid| solid.crossfall_radians = 0.0);
+            .for_each(|solid| solid.crossfall_radians = Radians::new(0.0).unwrap());
         assert!(has(&flat_coping, "bad_crown_coping"));
         let mut uphill_drain = fixture();
         uphill_drain.resolved_geometry.drainage_routes[0].outlet.y =
@@ -3936,7 +4424,7 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == walk_id)
             .unwrap()
-            .crossfall_radians = 0.0;
+            .crossfall_radians = Radians::new(0.0).unwrap();
         assert!(has(&flat_catchment, "broken_crown_drainage"));
         let mut reversed_catchment = fixture();
         let walk_id = reversed_catchment.resolved_geometry.drainage_catchments[0].walk_solid;
@@ -3946,7 +4434,7 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == walk_id)
             .unwrap();
-        walk.crossfall_radians = -walk.crossfall_radians;
+        walk.crossfall_radians = Radians::new(-walk.crossfall_radians.radians()).unwrap();
         assert!(has(&reversed_catchment, "broken_crown_drainage"));
         let mut stalled_toe_channel = fixture();
         let channel_id =
@@ -3957,7 +4445,7 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == channel_id)
             .unwrap()
-            .longfall_radians = 0.0;
+            .longfall_radians = Radians::new(0.0).unwrap();
         assert!(has(&stalled_toe_channel, "broken_crown_drainage"));
         let mut wrong_inlet = fixture();
         let route_id = wrong_inlet.resolved_geometry.drainage_catchments[0].outlet_route;
@@ -3978,19 +4466,29 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == channel_id)
             .unwrap();
-        channel.longfall_radians = channel.longfall_radians.abs();
+        channel.longfall_radians = Radians::new(channel.longfall_radians.radians().abs()).unwrap();
         assert!(has(&local_basin, "broken_crown_drainage"));
         let mut raised_channel = fixture();
         let channel_id =
             raised_channel.resolved_geometry.drainage_catchments[0].toe_channel_solids[0];
-        raised_channel
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == channel_id)
-            .unwrap()
-            .centre
-            .y += 0.05;
+        {
+            let mut native_geometry = raised_channel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == channel_id)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry.y += 0.05;
+            raised_channel
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == channel_id)
+                .unwrap()
+                .centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&raised_channel, "broken_crown_drainage"));
         let mut uncut_walk = fixture();
         let catchment = uncut_walk.resolved_geometry.drainage_catchments[0].clone();
@@ -4000,9 +4498,21 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == catchment.walk_solid)
             .unwrap();
-        walk.size.z = catchment.width_metres;
-        walk.centre.x = catchment.centre.x;
-        walk.centre.z = catchment.centre.z;
+        {
+            let mut native_geometry = walk.size.metres();
+            native_geometry.z = catchment.width_metres;
+            walk.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = walk.centre.metres();
+            native_geometry.x = catchment.centre.x;
+            walk.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = walk.centre.metres();
+            native_geometry.z = catchment.centre.z;
+            walk.centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&uncut_walk, "broken_crown_drainage"));
         let mut blocked_channel = fixture();
         let channel_id =
@@ -4022,7 +4532,7 @@ mod tests {
             .find(|solid| solid.owner == owner && solid.role == SolidRole::Breastwork)
             .unwrap();
         blocker.centre = channel_centre;
-        blocker.size = Vec3::splat(0.2);
+        blocker.size = CuboidDimensions::from_metres(Vec3::splat(0.2)).unwrap();
         assert!(has(&blocked_channel, "broken_crown_drainage"));
         let mut missing_catchment = fixture();
         missing_catchment
@@ -4065,7 +4575,10 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == walk_id)
             .unwrap();
-        blocker.centre = (outlet.bounds.min + outlet.bounds.max) * 0.5;
+        blocker.centre = Position::<Architectural>::from_metres(
+            (outlet.bounds.min().metres() + outlet.bounds.max().metres()) * 0.5,
+        )
+        .unwrap();
         assert!(has(&blocked_scupper, "broken_crown_drainage"));
 
         let cardinal = crate::generate(&crate::BuildingProgram::fixture(
@@ -4099,7 +4612,7 @@ mod tests {
                 .iter_mut()
                 .find(|solid| solid.id == walk_id)
                 .unwrap();
-            walk.crossfall_radians = -walk.crossfall_radians;
+            walk.crossfall_radians = Radians::new(-walk.crossfall_radians.radians()).unwrap();
             assert!(has(&reversed, "broken_crown_drainage"));
         }
         assert_eq!(seen.len(), 4);
@@ -4130,7 +4643,11 @@ mod tests {
             .solids
             .iter_mut()
             .filter(|solid| solid.owner == round_owner && solid.role == SolidRole::WalkSurface)
-            .for_each(|solid| solid.size.x *= 0.65);
+            .for_each(|solid| {
+                let mut native_geometry = solid.size.metres();
+                native_geometry.x *= 0.65;
+                solid.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+            });
         assert!(has(&round_outer_edge_gap, "broken_crown_drainage"));
         let mut missing_bond = fixture();
         missing_bond.resolved_geometry.junction_bonds.clear();
@@ -4154,14 +4671,16 @@ mod tests {
                 })
             })
             .unwrap();
-        shifted_bond.resolved_geometry.junction_bonds[bonded_overlap_index]
-            .bounds
-            .min
-            .x += 1.0;
-        shifted_bond.resolved_geometry.junction_bonds[bonded_overlap_index]
-            .bounds
-            .max
-            .x += 1.0;
+        {
+            let bounds = shifted_bond.resolved_geometry.junction_bonds[bonded_overlap_index].bounds;
+            let shift = Vec3::X;
+            shifted_bond.resolved_geometry.junction_bonds[bonded_overlap_index].bounds =
+                SpatialBounds::from_metres(
+                    bounds.min().metres() + shift,
+                    bounds.max().metres() + shift,
+                )
+                .unwrap();
+        };
         assert!(has(&shifted_bond, "undeclared_solid_overlap"));
         let mut overpenetrated_bond = fixture();
         let bond = overpenetrated_bond.resolved_geometry.junction_bonds[bonded_overlap_index];
@@ -4194,7 +4713,7 @@ mod tests {
             .find(|solid| solid.id == intruder_id)
             .unwrap();
         intruder.centre = target_centre;
-        intruder.size = Vec3::splat(0.5);
+        intruder.size = CuboidDimensions::from_metres(Vec3::splat(0.5)).unwrap();
         assert!(has(&overpenetrated_bond, "undeclared_solid_overlap"));
 
         let mut blocked_round_portal = fixture();
@@ -4240,12 +4759,13 @@ mod tests {
             let radial = Vec2::new(angle.cos(), angle.sin());
             let mut blocker = blocker_template.clone();
             blocker.id = crate::ResolvedItemId(999_991 + serial as u64);
-            blocker.centre = Vec3::new(
+            blocker.centre = Position::<Architectural>::from_metres(Vec3::new(
                 centre.x + radial.x * (radius + thickness * 0.5),
                 base + 0.45,
                 centre.y + radial.y * (radius + thickness * 0.5),
-            );
-            blocker.size = Vec3::new(1.2, 0.9, 1.2);
+            ))
+            .unwrap();
+            blocker.size = CuboidDimensions::from_metres(Vec3::new(1.2, 0.9, 1.2)).unwrap();
             blocked_round_portal.resolved_geometry.solids.push(blocker);
         }
         assert!(has(&blocked_round_portal, "blocked_round_crown_portal"));
@@ -4292,10 +4812,26 @@ mod tests {
             .unwrap()
             .clone();
         guard.id = crate::ResolvedItemId(999_992);
-        guard.centre.x = centre.x + radial.x * (stairwell_radius + 0.08);
-        guard.centre.z = centre.y + radial.y * (stairwell_radius + 0.08);
-        guard.size.x = 1.0;
-        guard.size.z = 1.0;
+        {
+            let mut native_geometry = guard.centre.metres();
+            native_geometry.x = centre.x + radial.x * (stairwell_radius + 0.08);
+            guard.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = guard.centre.metres();
+            native_geometry.z = centre.y + radial.y * (stairwell_radius + 0.08);
+            guard.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = guard.size.metres();
+            native_geometry.x = 1.0;
+            guard.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = guard.size.metres();
+            native_geometry.z = 1.0;
+            guard.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         blocked_spiral.resolved_geometry.solids.push(guard);
         assert_eq!(tower_index, 0);
         assert!(has(&blocked_spiral, "blocked_spiral_arrival"));
@@ -4306,7 +4842,10 @@ mod tests {
         let fixture =
             |archetype| crate::generate(&crate::BuildingProgram::fixture(archetype, 47)).unwrap();
         let has = |plan: &crate::BuildingPlan, code: &str| {
-            audit_plan(plan).iter().any(|issue| issue.code == code)
+            audit_plan(plan)
+                .unwrap()
+                .iter()
+                .any(|issue| issue.code == code)
         };
 
         let mut relabelled = fixture(crate::BuildingArchetype::HallHouse);
@@ -4315,9 +4854,14 @@ mod tests {
         assert!(has(&relabelled, "invalid_timber_program"));
 
         let mut dangling_endpoint = fixture(crate::BuildingArchetype::TownHouse);
-        dangling_endpoint.timber_frame.as_mut().unwrap().members[0]
-            .start
-            .x += 0.22;
+        {
+            let mut native_geometry = dangling_endpoint.timber_frame.as_mut().unwrap().members[0]
+                .start
+                .metres();
+            native_geometry.x += 0.22;
+            dangling_endpoint.timber_frame.as_mut().unwrap().members[0].start =
+                Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&dangling_endpoint, "invalid_timber_member_joint"));
 
         let mut missing_member_solid = fixture(crate::BuildingArchetype::TownHouse);
@@ -4387,8 +4931,11 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == brace_solid)
             .unwrap();
-        blocker.centre = (void.min + void.max) * 0.5;
-        blocker.size = Vec3::splat(0.30);
+        blocker.centre = Position::<Architectural>::from_metres(
+            (void.min().metres() + void.max().metres()) * 0.5,
+        )
+        .unwrap();
+        blocker.size = CuboidDimensions::from_metres(Vec3::splat(0.30)).unwrap();
         assert!(has(&brace_through_window, "invalid_timber_opening_bay"));
 
         let mut one_post_row = fixture(crate::BuildingArchetype::HallHouse);
@@ -4436,14 +4983,24 @@ mod tests {
             .find_map(|storey| storey.jetty.as_ref())
             .unwrap()
             .floor_solid;
-        floor_outside_support
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == floor_id)
-            .unwrap()
-            .size
-            .z += 0.45;
+        {
+            let mut native_geometry = floor_outside_support
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == floor_id)
+                .unwrap()
+                .size
+                .metres();
+            native_geometry.z += 0.45;
+            floor_outside_support
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == floor_id)
+                .unwrap()
+                .size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&floor_outside_support, "unsupported_timber_jetty"));
 
         let mut no_roof_seat = fixture(crate::BuildingArchetype::FachwerkCottage);
@@ -4465,19 +5022,34 @@ mod tests {
         assert!(has(&missing_trimmer, "severed_timber_roof_bearing"));
 
         let mut protruding_half_hip_truss = fixture(crate::BuildingArchetype::HallHouse);
-        protruding_half_hip_truss
-            .timber_frame
-            .as_mut()
-            .unwrap()
-            .members
-            .iter_mut()
-            .find(|member| {
-                member.phase == crate::TimberFramePhase::RoofConstruction
-                    && member.role == crate::TimberMemberRole::GablePost
-            })
-            .unwrap()
-            .end
-            .y += 2.0;
+        {
+            let mut native_geometry = protruding_half_hip_truss
+                .timber_frame
+                .as_mut()
+                .unwrap()
+                .members
+                .iter_mut()
+                .find(|member| {
+                    member.phase == crate::TimberFramePhase::RoofConstruction
+                        && member.role == crate::TimberMemberRole::GablePost
+                })
+                .unwrap()
+                .end
+                .metres();
+            native_geometry.y += 2.0;
+            protruding_half_hip_truss
+                .timber_frame
+                .as_mut()
+                .unwrap()
+                .members
+                .iter_mut()
+                .find(|member| {
+                    member.phase == crate::TimberFramePhase::RoofConstruction
+                        && member.role == crate::TimberMemberRole::GablePost
+                })
+                .unwrap()
+                .end = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(
             &protruding_half_hip_truss,
             "timber_intrudes_through_roof"
@@ -4497,14 +5069,24 @@ mod tests {
             .unwrap()
             .sill_solid
             .unwrap();
-        coplanar_window
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == opening_sill)
-            .unwrap()
-            .size
-            .z += 0.03;
+        {
+            let mut native_geometry = coplanar_window
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == opening_sill)
+                .unwrap()
+                .size
+                .metres();
+            native_geometry.z += 0.03;
+            coplanar_window
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|solid| solid.id == opening_sill)
+                .unwrap()
+                .size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&coplanar_window, "coplanar_timber_opening_face"));
 
         let mut free_dormer_posts = fixture(crate::BuildingArchetype::RenaissanceTownHall);
@@ -4581,8 +5163,9 @@ mod tests {
             .iter()
             .max_by(|left, right| {
                 left.1
-                    .distance(child_position)
-                    .total_cmp(&right.1.distance(child_position))
+                    .metres()
+                    .distance(child_position.metres())
+                    .total_cmp(&right.1.metres().distance(child_position.metres()))
             })
             .unwrap()
             .0;
@@ -4627,8 +5210,13 @@ mod tests {
             .iter_mut()
             .find(|interface| interface.id == interface_id)
             .unwrap();
-        interface.bounds.min.x += 1.0;
-        interface.bounds.max.x += 1.0;
+        {
+            let mut native_min = interface.bounds.min().metres();
+            let mut native_max = interface.bounds.max().metres();
+            native_min.x += 1.0;
+            native_max.x += 1.0;
+            interface.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&shifted_roof_seat, "severed_timber_roof_bearing"));
 
         let mut missing_infill_partition = fixture(crate::BuildingArchetype::TownHouse);
@@ -4672,8 +5260,8 @@ mod tests {
                 .iter()
                 .flat_map(|vertex| [*vertex - offset, *vertex + offset])
                 .fold(Vec3::splat(f32::NEG_INFINITY), Vec3::max);
-            solid.centre = (min + max) * 0.5;
-            solid.size = max - min;
+            solid.centre = Position::<Architectural>::from_metres((min + max) * 0.5).unwrap();
+            solid.size = CuboidDimensions::from_metres(max - min).unwrap();
         };
 
         let mut backing_sheet = fixture(crate::BuildingArchetype::TownHouse);
@@ -4817,7 +5405,7 @@ mod tests {
                 .iter()
                 .find(|member| member.id == *id)
                 .is_none_or(|member| {
-                    let midpoint = (member.start + member.end) * 0.5;
+                    let midpoint = (member.start.metres() + member.end.metres()) * 0.5;
                     let along = (Vec2::new(midpoint.x, midpoint.z) - line.origin).dot(line.tangent)
                         / line.length_metres
                         + 0.5;
@@ -4854,10 +5442,14 @@ mod tests {
                 .members
                 .iter()
                 .find(|member| member.id == *id)
-                .is_none_or(|member| !matches!(member.role,
-                    crate::TimberMemberRole::HeadBrace
-                        | crate::TimberMemberRole::FootBrace
-                        | crate::TimberMemberRole::StoreyBrace))
+                .is_none_or(|member| {
+                    !matches!(
+                        member.role,
+                        crate::TimberMemberRole::HeadBrace
+                            | crate::TimberMemberRole::FootBrace
+                            | crate::TimberMemberRole::StoreyBrace
+                    )
+                })
         });
         assert!(line.storeys[0].member_ids.len() < braced_member_count);
         assert!(has(&broken_transverse, "unbraced_timber_storey"));
@@ -4971,8 +5563,13 @@ mod tests {
             .iter_mut()
             .find(|void| void.id == void_id)
             .unwrap();
-        void.bounds.min.x += 0.8;
-        void.bounds.max.x += 0.8;
+        {
+            let mut native_min = void.bounds.min().metres();
+            let mut native_max = void.bounds.max().metres();
+            native_min.x += 0.8;
+            native_max.x += 0.8;
+            void.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&shifted_entry, "invalid_timber_circulation"));
 
         let mut nested_posts = fixture(crate::BuildingArchetype::FachwerkMerchantHouse);
@@ -5002,10 +5599,26 @@ mod tests {
             .iter_mut()
             .find(|member| member.id == post_ids[1].0)
             .unwrap();
-        member.start.x = target_start.x;
-        member.start.z = target_start.z;
-        member.end.x = target_end.x;
-        member.end.z = target_end.z;
+        {
+            let mut native_geometry = member.start.metres();
+            native_geometry.x = target_start.metres().x;
+            member.start = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = member.start.metres();
+            native_geometry.z = target_start.metres().z;
+            member.start = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = member.end.metres();
+            native_geometry.x = target_end.metres().x;
+            member.end = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = member.end.metres();
+            native_geometry.z = target_end.metres().z;
+            member.end = Position::from_metres(native_geometry).unwrap();
+        };
         let target_centre = nested_posts
             .resolved_geometry
             .solids
@@ -5019,8 +5632,16 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == post_ids[1].1)
             .unwrap();
-        solid.centre.x = target_centre.x;
-        solid.centre.z = target_centre.z;
+        {
+            let mut native_geometry = solid.centre.metres();
+            native_geometry.x = target_centre.metres().x;
+            solid.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        {
+            let mut native_geometry = solid.centre.metres();
+            native_geometry.z = target_centre.metres().z;
+            solid.centre = Position::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&nested_posts, "overlapping_timber_members"));
 
         let mut severed_floor_chain = fixture(crate::BuildingArchetype::TownHouse);
@@ -5032,8 +5653,13 @@ mod tests {
             .iter_mut()
             .find(|interface| interface.id == interface_id)
             .unwrap();
-        interface.bounds.min.x += 0.8;
-        interface.bounds.max.x += 0.8;
+        {
+            let mut native_min = interface.bounds.min().metres();
+            let mut native_max = interface.bounds.max().metres();
+            native_min.x += 0.8;
+            native_max.x += 0.8;
+            interface.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&severed_floor_chain, "unsupported_timber_floor_route"));
 
         let mut buried_frame = fixture(crate::BuildingArchetype::TownHouse);
@@ -5052,7 +5678,11 @@ mod tests {
             .iter_mut()
             .find(|solid| solid.id == panel_id)
             .unwrap();
-        panel.size.z += 0.30;
+        {
+            let mut native_geometry = panel.size.metres();
+            native_geometry.z += 0.30;
+            panel.size = CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         assert!(has(&buried_frame, "invalid_timber_opening_bay"));
 
         let mut shifted_joint_contact = fixture(crate::BuildingArchetype::TownHouse);
@@ -5071,8 +5701,13 @@ mod tests {
             .iter_mut()
             .find(|interface| interface.id == contact_id)
             .unwrap();
-        contact.bounds.min.z += 0.5;
-        contact.bounds.max.z += 0.5;
+        {
+            let mut native_min = contact.bounds.min().metres();
+            let mut native_max = contact.bounds.max().metres();
+            native_min.z += 0.5;
+            native_max.z += 0.5;
+            contact.bounds = SpatialBounds::from_metres(native_min, native_max).unwrap();
+        };
         assert!(has(&shifted_joint_contact, "invalid_timber_joint_contact"));
 
         let mut blocked_route = fixture(crate::BuildingArchetype::TownHouse);
@@ -5112,8 +5747,11 @@ mod tests {
             .unwrap()
             .clone();
         blocker.id = crate::ResolvedItemId(u64::MAX - 31);
-        blocker.centre = (from + to) * 0.5 + Vec3::Y;
-        blocker.size = Vec3::new(0.22, 2.0, 1.2);
+        {
+            let native_geometry = (from.metres() + to.metres()) * 0.5 + Vec3::Y;
+            blocker.centre = Position::from_metres(native_geometry).unwrap();
+        };
+        blocker.size = CuboidDimensions::from_metres(Vec3::new(0.22, 2.0, 1.2)).unwrap();
         blocked_route.resolved_geometry.solids.push(blocker);
         assert!(has(&blocked_route, "invalid_timber_circulation"));
     }

@@ -5,7 +5,7 @@ impl super::super::super::packing::MeasuredBuildingEnvelope {
         building: &TacticalBuildingPlacement,
         recipe: &recipes::Recipe,
     ) -> Result<Self, CityCompileError> {
-        let half = recipe.collision.bounds.plan_half_extents();
+        let half = recipe.collision.bounds.plan_half_extents()?.metres();
         let min = recipe.render_min.min(-half);
         let max = recipe.render_max.max(half);
         let footprint = recipe
@@ -35,7 +35,7 @@ impl super::super::super::packing::MeasuredBuildingEnvelope {
             building,
             recipe.collision.bounds,
         )
-        .map_err(invalid)?;
+        .map_err(|cause| invalid(cause.into()))?;
         let bearing_outline = crate::scene_coordinates::ScenePlanPolygon::from_architectural(
             footprint.polygon(),
             projection,

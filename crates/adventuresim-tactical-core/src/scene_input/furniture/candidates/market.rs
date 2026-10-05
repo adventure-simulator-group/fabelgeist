@@ -71,19 +71,20 @@ impl MarketFrame {
     }
 }
 
-pub(in crate::scene_input::furniture) fn market(input: &TacticalSceneInput) -> MarketCandidates {
+pub(in crate::scene_input::furniture) fn market(
+    input: &TacticalSceneInput,
+) -> Result<MarketCandidates, adventuresim_building_generator::furniture::FurnitureRecipeError> {
     let mut result = MarketCandidates {
         groups: Vec::new(),
         aisles: Vec::new(),
     };
-    let row_depth = FurnitureVariant::ALL
-        .into_iter()
-        .map(|variant| {
-            let (min, max) =
-                reservation_bounds(FurnitureKey::natural(FurnitureKind::CanvasStall, variant));
-            max.y - min.y
-        })
-        .fold(0.0_f32, f32::max);
+    let mut row_depth = 0.0_f32;
+    for variant in FurnitureVariant::ALL {
+        let (min, max) = reservation_bounds(
+            FurnitureKey::natural(FurnitureKind::CanvasStall, variant).recipe()?,
+        );
+        row_depth = row_depth.max(max.y - min.y);
+    }
     for (index, patch) in input.streets.iter().enumerate() {
         let CityStreetPatch::Market { corners_metres, .. } = *patch else {
             continue;
@@ -110,7 +111,7 @@ pub(in crate::scene_input::furniture) fn market(input: &TacticalSceneInput) -> M
                     row: half * MAX_MARKET_ROWS_PER_HALF + row,
                     direction,
                 }
-                .append(input, &frame, &mut result.groups);
+                .append(input, &frame, &mut result.groups)?;
                 cursor += row_depth;
                 if row.is_multiple_of(2) {
                     cursor += ROW_SEPARATION_METRES;
@@ -127,7 +128,7 @@ pub(in crate::scene_input::furniture) fn market(input: &TacticalSceneInput) -> M
             }
         }
     }
-    result
+    Ok(result)
 }
 
 struct MarketRow {
@@ -143,7 +144,7 @@ impl MarketRow {
         input: &TacticalSceneInput,
         frame: &MarketFrame,
         candidates: &mut Vec<Candidate>,
-    ) {
+    ) -> Result<(), adventuresim_building_generator::furniture::FurnitureRecipeError> {
         let Self {
             patch_index,
             patch,
@@ -180,7 +181,7 @@ impl MarketRow {
                 FurnitureAnchor::Market {
                     patch_index: patch_index as u32,
                 },
-            );
+            )?;
             let half_width = candidate.footprint.half_extents_metres.x;
             // Restart beyond the central through-route instead of wasting a crossing slot.
             let crossing = reservations::MARKET_AISLE_HALF_WIDTH_METRES + BOUNDARY_MARGIN_METRES;
@@ -196,5 +197,6 @@ impl MarketRow {
             x += half_width * 2.0 + STALL_SEPARATION_METRES;
             candidates.push(candidate);
         }
+        Ok(())
     }
 }

@@ -7,27 +7,30 @@ pub(super) fn contacts(
     geometry: &ResolvedGeometry,
     members: &[TimberFrameMember],
     floor: &TimberFloorAssembly,
-    bounds: ResolvedBounds,
-) -> Vec<(StructuralNodeId, ResolvedBounds)> {
-    members
+    bounds: SpatialBounds<Architectural>,
+) -> Result<Vec<(StructuralNodeId, SpatialBounds<Architectural>)>, crate::GenerationError> {
+    let mut contacts = Vec::new();
+    for member in members
         .iter()
         .filter(|m| floor.joist_members.contains(&m.id))
-        .filter_map(|member| {
-            let solid = geometry.solids.iter().find(|s| s.id == member.solid)?;
-            let joist = solid.cuboid_bounds();
-            if (joist.max.y - bounds.min.y).abs() > MINIMUM_CONTACT_METRES {
-                return None;
-            }
-            let mut min = joist.min.max(bounds.min);
-            let mut max = joist.max.min(bounds.max);
-            if max.x - min.x < MINIMUM_CONTACT_METRES || max.z - min.z < MINIMUM_CONTACT_METRES {
-                return None;
-            }
-            min.y = bounds.min.y - INTERFACE_DEPTH_METRES;
-            max.y = bounds.min.y + INTERFACE_DEPTH_METRES;
-            Some((member.start_node, ResolvedBounds { min, max }))
-        })
-        .collect()
+    {
+        let Some(solid) = geometry.solids.iter().find(|s| s.id == member.solid) else {
+            continue;
+        };
+        let joist = solid.cuboid_bounds()?;
+        if (joist.max().metres().y - bounds.min().metres().y).abs() > MINIMUM_CONTACT_METRES {
+            continue;
+        }
+        let mut min = joist.min().metres().max(bounds.min().metres());
+        let mut max = joist.max().metres().min(bounds.max().metres());
+        if max.x - min.x < MINIMUM_CONTACT_METRES || max.z - min.z < MINIMUM_CONTACT_METRES {
+            continue;
+        }
+        min.y = bounds.min().metres().y - INTERFACE_DEPTH_METRES;
+        max.y = bounds.min().metres().y + INTERFACE_DEPTH_METRES;
+        contacts.push((member.start_node, SpatialBounds::from_metres(min, max)?));
+    }
+    Ok(contacts)
 }
 
 pub(super) fn attach(
@@ -36,9 +39,9 @@ pub(super) fn attach(
     floor: &mut TimberFloorAssembly,
     piece: &mut ResolvedSolid,
     slot: &mut u64,
-) {
+) -> Result<(), crate::GenerationError> {
     piece.supported_by.clear();
-    for (node, bounds) in contacts(geometry, members, floor, piece.cuboid_bounds()) {
+    for (node, bounds) in contacts(geometry, members, floor, piece.cuboid_bounds()?)? {
         *slot += 1;
         let id =
             ResolvedItemId((4_u64 << 60) | (u64::from(piece.owner.0) << 32) | 0x0950_0000 | *slot);
@@ -54,6 +57,8 @@ pub(super) fn attach(
     }
     piece.supported_by.sort_unstable();
     piece.supported_by.dedup();
+
+    Ok(())
 }
 
 pub(super) fn valid(plan: &BuildingPlan, level: u16) -> bool {
@@ -82,7 +87,10 @@ pub(super) fn valid(plan: &BuildingPlan, level: u16) -> bool {
                     solid.id == member.solid
                         && crate::solid_overlap::overlaps_bounds(
                             solid,
-                            (interface.bounds.min, interface.bounds.max),
+                            (
+                                interface.bounds.min().metres(),
+                                interface.bounds.max().metres(),
+                            ),
                             MINIMUM_CONTACT_METRES,
                         )
                 })

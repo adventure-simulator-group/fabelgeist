@@ -14,8 +14,8 @@ mod detail;
 mod doors;
 mod entrances;
 pub use entrances::{
-    BuildingEntrance, BuildingEntranceId, BuildingEntranceSupport, PassageEntranceSide,
-    compile_ground_entrances,
+    BuildingEntrance, BuildingEntranceId, BuildingEntranceSupport, EntranceError,
+    PassageEntranceSide, compile_ground_entrances,
 };
 #[cfg(test)]
 mod enclosure_tests;
@@ -34,30 +34,36 @@ mod roof_tessellation;
 mod settlement;
 pub mod signs;
 mod solid_overlap;
+pub mod spatial_geometry;
 pub mod spiral_stairs;
 mod windows;
 mod workplace;
 pub use settlement::{ServiceBuildingSize, settlement_archetype};
 pub use workplace::{
-    WorkplaceFeature, WorkplaceKind, WorkplaceMaterial, WorkplacePart, WorkplacePassage,
-    WorkplacePassageId, WorkplacePassagePurpose, WorkplacePlan, WorkplaceSurface,
+    PartAuthority, WorkplaceConstructionError, WorkplaceFeature, WorkplaceKind, WorkplaceMaterial,
+    WorkplacePart, WorkplacePassage, WorkplacePassageId, WorkplacePassagePurpose, WorkplacePlan,
+    WorkplaceSurface,
 };
 
 pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};
 pub use collision::{
-    BuildingCollision, CollisionBounds, CollisionCuboid, GroundContact, GroundFloorFootprint,
-    compile_building_collision,
+    BuildingCollision, CollisionCuboid, CollisionError, CuboidCorners, GroundContact,
+    GroundFloorFootprint, compile_building_collision,
 };
 pub use detail::{
     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, BuildingKit, TimberComponent,
     TimberInstance, compile_building_detail, compile_solid_detail, compile_static_building_detail,
 };
-pub use doors::{DoorSpec, compile_operable_doors};
+pub use doors::{DoorError, DoorErrorCause, DoorSpec, compile_operable_doors};
 pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};
-pub use generator::{GenerationError, edit_document, generate, generate_document, set_roof_pitch};
+pub use generator::{
+    AllocationFailure, GenerationError, ReservationFailure, edit_document, generate,
+    generate_document, set_roof_pitch,
+};
 pub use heating::{
-    DomesticHeatingPlan, DomesticHeatingProgramme, HeatingFloorPenetration, HeatingPart,
-    HeatingPartKind, HeatingPassage, HeatingPassageKind, HeatingRoofPenetration, HeatingRoom,
+    DomesticHeatingPlan, DomesticHeatingProgramme, HeatingConstructionError,
+    HeatingFloorPenetration, HeatingPart, HeatingPartKind, HeatingPassage, HeatingPassageKind,
+    HeatingRoofPenetration, HeatingRoom,
 };
 pub use lod::{
     BuildingLod, BuildingLodLevel, BuildingLodMaterial, FacadeRun, FacadeRunPath, LodMesh,
@@ -77,3 +83,5 @@ mod mixed_construction_tests;
 
 #[cfg(test)]
 mod storage_range_tests;
+
+pub use spatial_geometry::{Architectural, SpatialBounds};

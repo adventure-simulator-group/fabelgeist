@@ -30,9 +30,9 @@ pub use compiled::{
 };
 pub(crate) use compiled::{validate_scene_compound, validate_scene_gardens};
 pub use compound::{
-    CityAccessSegment, CityBoundary, CityBoundaryMaterial, CityBoundaryMember, CityBoundarySegment,
-    CityCompound, CityGate, CityPlotBounds, CityPropertyId, MAX_CITY_BUILDING_INSTANCES,
-    PropertySide,
+    BoundaryGeometryError, CityAccessSegment, CityBoundary, CityBoundaryMaterial,
+    CityBoundaryMember, CityBoundaryPose, CityBoundarySegment, CityCompound, CityGate,
+    CityPlotBounds, CityPropertyId, MAX_CITY_BUILDING_INSTANCES, PropertySide,
 };
 pub mod gardens;
 pub use gardens::{

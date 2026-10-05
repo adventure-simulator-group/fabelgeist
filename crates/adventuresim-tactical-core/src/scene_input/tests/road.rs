@@ -15,7 +15,8 @@ fn goslar_road_rut_preserves_the_cross_runtime_source_vertex() {
         }],
         &[],
         &[],
-    );
+    )
+    .unwrap();
     let seed = streams::DETAIL
         .seed(3_918_113_949_425_128_608, &[])
         .to_u64();

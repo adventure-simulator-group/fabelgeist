@@ -4,6 +4,91 @@ This crate converts high-level building programmes into deterministic semantic
 data and audited geometry. The tactical city adapter consumes its recipes and
 collision meshes; the standalone viewer provides architectural inspection.
 
+## Building geometry contracts
+
+The shared `spatial_geometry` owner distinguishes metre positions,
+displacements, elevations, dimensions and bounds. `Position<Architectural>` uses
+building-local X/Y/Z axes; architectural Y=0 is the finished ground-floor datum.
+A buried slab or footing does not move that datum. Signed finite points,
+elevations and displacements are admitted, including zero displacement.
+`CuboidDimensions` permits finite nonnegative extents and degenerate contact
+specimens. `LeafDimensions` requires three positive extents; `PlanDimensions`
+and `PositiveLength` require positive measurements. Ordered `SpatialBounds`
+permits zero extents. `ClearanceVolume` requires a positive volume, as workplace
+passages need physical standing space.
+
+Construction and decoding enforce the same rules. Normalized plan/spatial
+directions retain Bevy's direction invariant and remain distinct from metre
+displacements. Finite radians retain their represented value without wrapping;
+rigid quaternions must already be finite and normalized. Validated reflected
+geometry is opaque, so reflective field assignment cannot bypass admission.
+Native vector and scalar getters are explicit arithmetic, serialization, mesh
+and framework ports. Point translation, bounds centre/extent and conversion
+arithmetic are fallible when finite inputs overflow. Construction errors retain
+the geometry role and the relevant solid, node, opening or passage identity.
+
+`CuboidCorners` owns eight sign-coded corners and twelve undirected edges in any
+declared frame. Bit 0 selects X, bit 1 selects Y and bit 2 selects Z. Every edge
+changes one bit; degenerate dimensions may collapse geometric corners without
+changing this topology. Collision retains its original f32 rotation products,
+corner calculation and edge interpolation. `GroundContact` classifies those
+computed corners against exact architectural Y=0 as `Empty`, `Point`, `Segment`
+or `Area`. It uses no proximity epsilon. Hull construction sorts
+lexicographically, treats signed zeros as equal, removes exact duplicates and
+uses f64 orientation differences of the represented f32 points. Collinear
+contacts remain segments; an occupied-floor footprint requires an area hull of
+every contact dimensionality across the whole building.
+
+Ground-contact exclusion and contact bounds use computed corners. Placement and
+query envelopes retain their separately rounded half-extent arithmetic; they
+cannot exclude datum contact. A rotated church bearing can have an AABB minimum
+above zero while its computed bottom corners equal zero. Heating reuses the same
+topology with its original Euler YXZ calculation and its own measured
+bearing-area, clipping and interface-depth rules. These tolerances are not used
+for ground-contact classification.
+
+`DoorSpec<Architectural>` describes a building-local leaf. Tactical core's
+`scene_coordinates` owns `ArchitecturalFloorDatum`, `CollisionCentreDatum`,
+`GateDatum` and the conversion into `SceneDoorPose`. A city gate leaf uses scene
+X/Z and Y relative to its gate support datum; it therefore has a distinct
+`DoorSpec<GateRelative>` pose. Both conversions preserve opening/source IDs,
+hinge offsets, positive leaf dimensions, orientation and signed sweep. Boundary
+walls carry ground-relative poses and gate posts carry gate-relative poses;
+metadata never infers a datum from an unframed vector. The generator has no
+dependency on tactical core. The scene-contract inventory in issue #767 consumes
+these final core owners.
+
+Floor stations, widths and spans carry distinct checked metre roles. Room
+reservations, occupied-storey diagnostics and interior placements/waypoints use
+`RoomIndex` and `StoreyIndex`; narrowing into packed ordinals is checked.
+Authoring programmes retain their ability to describe unsupported arrangements
+until the programme validator rejects them. Catalogue literals, integer cell and
+corner topology, seed arithmetic and native mesh/binary layouts remain at their
+explicit owning boundaries. Private recipe set-out kernels perform their
+original native arithmetic and admit the results through shared geometry owners
+before storing solids, bearings, passage clearances or furnishings.
+
+Admitted native and serialized representations retain their existing layouts,
+including packed room/storey ordinals and workplace silhouette booleans.
+Malformed geometry is rejected without compatibility decoding. The sweep-radius
+reduction checks each corner before taking a maximum: otherwise f32 maximum
+could discard a NaN caused by overflow and manufacture a finite radius. Roof
+bounds also admit every vertex before taking component minima/maxima, which
+could otherwise discard a NaN. Roof faces need at least three vertices before
+plane reconstruction. These admission corrections preserve admitted arithmetic
+and report the affected opening or roof face with the construction cause.
+
+The resolved contracts use bespoke types; editable source catalogues keep their
+authoring representation until generation admits them. Wall-source room and
+storey ordinals remain packed `u16` values at that source boundary.
+Reservations, room connections, heating and interiors carry the admitted ordinal
+owners. Private set-out kernels retain authored catalogue literals and local
+native component arithmetic. Their output passes checked construction before it
+becomes a stored solid, support interface, passage or furnishing pose. Mesh
+vertices, Bevy transforms and physics shapes retain the layouts required by
+their native adapters. Collection indexes, cardinalities and corner bit masks
+remain ordinary integers; the wider seed inventory belongs to #767.
+
 ## Geometry compilation
 
 Runtime generation performs input and construction checks. Exhaustive

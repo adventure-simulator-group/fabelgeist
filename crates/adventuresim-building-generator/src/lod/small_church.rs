@@ -12,7 +12,7 @@ pub(super) fn compile(
     plan: &BuildingPlan,
     level: BuildingLodLevel,
     excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
-) -> BuildingLod {
+) -> Result<BuildingLod, crate::GenerationError> {
     let church = plan
         .small_church
         .as_ref()
@@ -23,16 +23,16 @@ pub(super) fn compile(
         meshes: Vec::new(),
     };
     match level {
-        BuildingLodLevel::Facade => append_facades(&mut lod, plan, excluded),
+        BuildingLodLevel::Facade => append_facades(&mut lod, plan, excluded)?,
         BuildingLodLevel::Shell => append_wall_envelopes(&mut lod),
     }
     append_exterior_roofs(&mut lod, plan);
-    append_belfry(&mut lod, plan, church);
+    append_belfry(&mut lod, plan, church)?;
     lod.meshes.retain(|mesh| !mesh.indices.is_empty());
     for mesh in &mut lod.meshes {
         mesh.remap_vertices();
     }
-    lod
+    Ok(lod)
 }
 
 fn append_exterior_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
@@ -67,11 +67,15 @@ fn append_exterior_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
     }
 }
 
-fn append_belfry(lod: &mut BuildingLod, plan: &BuildingPlan, church: &SmallChurchPlan) {
+fn append_belfry(
+    lod: &mut BuildingLod,
+    plan: &BuildingPlan,
+    church: &SmallChurchPlan,
+) -> Result<(), crate::GenerationError> {
     let stage = church.belfry_stage;
     if lod.level == BuildingLodLevel::Shell {
-        let min = Vec2::new(stage.min.x, stage.min.z);
-        let max = Vec2::new(stage.max.x, stage.max.z);
+        let min = Vec2::new(stage.min().metres().x, stage.min().metres().z);
+        let max = Vec2::new(stage.max().metres().x, stage.max().metres().z);
         let corners = [min, Vec2::new(max.x, min.y), max, Vec2::new(min.x, max.y)];
         for edge in 0..4 {
             let start = corners[edge];
@@ -79,10 +83,10 @@ fn append_belfry(lod: &mut BuildingLod, plan: &BuildingPlan, church: &SmallChurc
             let tangent = (end - start).normalize();
             let outward = Vec3::new(tangent.y, 0.0, -tangent.x);
             let positions = [
-                plan_vertex(start, stage.min.y),
-                plan_vertex(end, stage.min.y),
-                plan_vertex(end, stage.max.y),
-                plan_vertex(start, stage.max.y),
+                plan_vertex(start, stage.min().metres().y),
+                plan_vertex(end, stage.min().metres().y),
+                plan_vertex(end, stage.max().metres().y),
+                plan_vertex(start, stage.max().metres().y),
             ];
             lod.mesh_mut(BuildingLodMaterial::InteriorTimber).push_quad(
                 positions,
@@ -93,10 +97,10 @@ fn append_belfry(lod: &mut BuildingLod, plan: &BuildingPlan, church: &SmallChurc
                 }),
             );
         }
-        return;
+        return Ok(());
     }
     let compiler = crate::detail::SolidDetailCompiler::new(plan);
-    for solid in plan
+    let _: () = for solid in plan
         .resolved_geometry
         .solids
         .iter()
@@ -106,13 +110,34 @@ fn append_belfry(lod: &mut BuildingLod, plan: &BuildingPlan, church: &SmallChurc
             continue;
         }
         let mut exposed = solid.clone();
-        let bottom = (solid.centre.y - solid.size.y * 0.5).max(stage.min.y);
-        let top = solid.centre.y + solid.size.y * 0.5;
+        let bottom =
+            (solid.centre.metres().y - solid.size.metres().y * 0.5).max(stage.min().metres().y);
+        let top = solid.centre.metres().y + solid.size.metres().y * 0.5;
         if top <= bottom {
             continue;
         }
-        exposed.centre.y = (bottom + top) * 0.5;
-        exposed.size.y = top - bottom;
-        append_outward_solid(lod, plan, &compiler, &exposed, None);
-    }
+        {
+            let mut native_geometry = exposed.centre.metres();
+            native_geometry.y = (bottom + top) * 0.5;
+            exposed.centre =
+                crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+                    native_geometry,
+                )
+                .map_err(|cause| crate::CollisionError {
+                    source_id: exposed.id,
+                    cause,
+                })?;
+        };
+        {
+            let mut native_geometry = exposed.size.metres();
+            native_geometry.y = top - bottom;
+            exposed.size = crate::spatial_geometry::CuboidDimensions::from_metres(native_geometry)
+                .map_err(|cause| crate::CollisionError {
+                    source_id: exposed.id,
+                    cause,
+                })?;
+        };
+        append_outward_solid(lod, plan, &compiler, &exposed, None)?;
+    };
+    Ok(())
 }

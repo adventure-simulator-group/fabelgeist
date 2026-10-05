@@ -12,16 +12,16 @@ pub(super) fn intervals(
     depth: f32,
     base: f32,
     top: f32,
-) -> Vec<(f32, f32)> {
+) -> Result<Vec<(f32, f32)>, crate::GenerationError> {
     if matches!(
         solid.shape,
         ResolvedSolidShape::Cuboid | ResolvedSolidShape::TimberPanelPrism { .. }
     ) {
-        return super::enclosure_geometry::vertical_interval(
+        return Ok(super::enclosure_geometry::vertical_interval(
             solid, origin, direction, depth, base, top,
         )
         .into_iter()
-        .collect();
+        .collect());
     }
     if !matches!(
         solid.shape,
@@ -30,10 +30,10 @@ pub(super) fn intervals(
             | ResolvedSolidShape::SegmentalArchRing { .. }
             | ResolvedSolidShape::PointedArchRing { .. }
     ) {
-        return Vec::new();
+        return Ok(Vec::new());
     }
-    let detail = crate::detail::compile_solid_detail(plan, solid);
-    detail
+    let detail = crate::detail::compile_solid_detail(plan, solid)?;
+    Ok(detail
         .meshes
         .iter()
         .flat_map(|mesh| {
@@ -47,7 +47,7 @@ pub(super) fn intervals(
                     section_interval(triangle, origin, direction, depth, base, top)
                 })
         })
-        .collect()
+        .collect())
 }
 
 fn section_interval(

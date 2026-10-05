@@ -71,8 +71,8 @@ pub(crate) fn spawn_building_windows(
     building_transform: &Transform,
     plan: &BuildingPlan,
     collision: &BuildingCollision,
-) {
-    let collision_origin = collision.bounds.centre();
+) -> Result {
+    let collision_origin = collision.bounds.centre()?.metres();
     for window in compile_operable_windows(plan) {
         spawn_window(
             commands,
@@ -82,6 +82,7 @@ pub(crate) fn spawn_building_windows(
             window,
         );
     }
+    Ok(())
 }
 
 fn spawn_window(

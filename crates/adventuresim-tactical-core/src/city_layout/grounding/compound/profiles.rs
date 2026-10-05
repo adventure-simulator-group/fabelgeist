@@ -130,9 +130,17 @@ pub(super) fn passage(
     let length = delta.length();
     let direction = delta / length;
     let gate = (property.boundary.gate.centre_metres - route.start_metres).dot(direction);
-    let door = property.boundary.gate.door(property.id);
-    let hinge = (door.hinge_centre.xz() - route.start_metres).dot(direction);
-    let platform_end = hinge + door.horizontal_sweep_radius_metres() + route.half_width_metres;
+    let door = property
+        .boundary
+        .gate
+        .door(property.id)
+        .map_err(|cause| SupportDiagnostic::gate_construction(property, cause))?;
+    let hinge = (door.hinge_centre.metres().xz() - route.start_metres).dot(direction);
+    let platform_end = hinge
+        + door
+            .horizontal_sweep_radius_metres()
+            .map_err(|cause| SupportDiagnostic::gate_construction(property, cause))?
+        + route.half_width_metres;
     let points = [
         ProfilePoint::at_metres(0.0, levels.street),
         ProfilePoint::at_metres(route.half_width_metres, levels.street),

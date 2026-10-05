@@ -20,10 +20,10 @@ const SECTION: [(f32, f32); 13] = [
     (0.0, 0.44),
 ];
 
-pub(crate) fn meshes(solid: &ResolvedSolid) -> Vec<LodMesh> {
+pub(crate) fn meshes(solid: &ResolvedSolid) -> Result<Vec<LodMesh>, crate::CollisionError> {
     let mut mesh = LodMesh::new(BuildingLodMaterial::Bronze);
-    let diameter = solid.size.x.min(solid.size.z);
-    let bottom = solid.centre - Vec3::Y * solid.size.y * 0.5;
+    let diameter = solid.size.metres().x.min(solid.size.metres().z);
+    let bottom = solid.centre.metres() - Vec3::Y * solid.size.metres().y * 0.5;
     for side in 0..SEGMENTS {
         let directions = [side, side + 1].map(|i| {
             let angle = std::f32::consts::TAU * i as f32 / SEGMENTS as f32;
@@ -33,7 +33,7 @@ pub(crate) fn meshes(solid: &ResolvedSolid) -> Vec<LodMesh> {
             let section = [SECTION[index], SECTION[(index + 1) % SECTION.len()]];
             let point = |ring: usize, side: usize| {
                 bottom
-                    + Vec3::Y * section[ring].0 * solid.size.y
+                    + Vec3::Y * section[ring].0 * solid.size.metres().y
                     + directions[side] * section[ring].1 * diameter
             };
             for positions in [
@@ -58,26 +58,34 @@ pub(crate) fn meshes(solid: &ResolvedSolid) -> Vec<LodMesh> {
         (0.18, 0.02),
         (0.86, 0.02),
     ]
-    .map(|(height, radius)| (height * solid.size.y, radius * diameter));
+    .map(|(height, radius)| (height * solid.size.metres().y, radius * diameter));
     clapper.turned(BuildingLodMaterial::Iron, Vec3::ZERO, &profile);
     let mut result = vec![mesh];
-    for mut mesh in clapper.into_meshes() {
+    for mut mesh in clapper.into_meshes()? {
         for vertex in &mut mesh.vertices {
             vertex.position += bottom;
         }
         result.push(mesh);
     }
-    result
+    Ok(result)
 }
 
-pub(crate) fn collision(solid: &ResolvedSolid) -> Vec<CollisionCuboid> {
-    let diameter = solid.size.x.min(solid.size.z);
-    let bottom = solid.centre - Vec3::Y * solid.size.y * 0.5;
+pub(crate) fn collision(
+    solid: &ResolvedSolid,
+) -> Result<Vec<CollisionCuboid<crate::spatial_geometry::Architectural>>, crate::CollisionError> {
+    let diameter = solid.size.metres().x.min(solid.size.metres().z);
+    let bottom = solid.centre.metres() - Vec3::Y * solid.size.metres().y * 0.5;
     let mut result = Vec::new();
     // Each wall chord stays outside the open mouth; the crown closes above it.
     for section in SECTION[..6].windows(2) {
-        let a = Vec2::new(section[0].1 * diameter, section[0].0 * solid.size.y);
-        let b = Vec2::new(section[1].1 * diameter, section[1].0 * solid.size.y);
+        let a = Vec2::new(
+            section[0].1 * diameter,
+            section[0].0 * solid.size.metres().y,
+        );
+        let b = Vec2::new(
+            section[1].1 * diameter,
+            section[1].0 * solid.size.metres().y,
+        );
         let wall_thickness = diameter * 0.055;
         for side in 0..SEGMENTS {
             let yaw = std::f32::consts::TAU * (side as f32 + 0.5) / SEGMENTS as f32;
@@ -88,10 +96,10 @@ pub(crate) fn collision(solid: &ResolvedSolid) -> Vec<CollisionCuboid> {
             let rotation = Quat::from_rotation_y(yaw) * Quat::from_rotation_x(slope);
             let (yaw_radians, crossfall_radians, longfall_radians) =
                 rotation.to_euler(bevy::math::EulerRot::YXZ);
-            result.push(CollisionCuboid {
-                source: solid.id,
+            result.push(CollisionCuboid::from_metres(
+                solid.id,
                 centre,
-                size: Vec3::new(
+                Vec3::new(
                     2.0 * radius * (std::f32::consts::PI / SEGMENTS as f32).tan(),
                     a.distance(b),
                     wall_thickness,
@@ -99,28 +107,32 @@ pub(crate) fn collision(solid: &ResolvedSolid) -> Vec<CollisionCuboid> {
                 yaw_radians,
                 crossfall_radians,
                 longfall_radians,
-            });
+            )?);
         }
     }
-    result.push(CollisionCuboid {
-        source: solid.id,
-        centre: bottom + Vec3::Y * solid.size.y * 0.91,
-        size: Vec3::new(diameter * 0.3, solid.size.y * 0.18, diameter * 0.3),
-        yaw_radians: 0.0,
-        crossfall_radians: 0.0,
-        longfall_radians: 0.0,
-    });
+    result.push(CollisionCuboid::from_metres(
+        solid.id,
+        bottom + Vec3::Y * solid.size.metres().y * 0.91,
+        Vec3::new(diameter * 0.3, solid.size.metres().y * 0.18, diameter * 0.3),
+        0.0,
+        0.0,
+        0.0,
+    )?);
     for (height, rise, width) in [(0.1, 0.14, 0.15), (0.5, 0.72, 0.04)] {
-        result.push(CollisionCuboid {
-            source: solid.id,
-            centre: bottom + Vec3::Y * height * solid.size.y,
-            size: Vec3::new(diameter * width, solid.size.y * rise, diameter * width),
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        });
+        result.push(CollisionCuboid::from_metres(
+            solid.id,
+            bottom + Vec3::Y * height * solid.size.metres().y,
+            Vec3::new(
+                diameter * width,
+                solid.size.metres().y * rise,
+                diameter * width,
+            ),
+            0.0,
+            0.0,
+            0.0,
+        )?);
     }
-    result
+    Ok(result)
 }
 
 /// Bell solids own a hollow cast section at every generator call site.
@@ -151,9 +163,9 @@ mod tests {
             .iter()
             .find(|solid| solid.role == crate::SolidRole::ChurchBell)
             .unwrap();
-        let bottom = bell.centre - Vec3::Y * bell.size.y * 0.5;
-        let diameter = bell.size.x.min(bell.size.z);
-        let batches = meshes(bell);
+        let bottom = bell.centre.metres() - Vec3::Y * bell.size.metres().y * 0.5;
+        let diameter = bell.size.metres().x.min(bell.size.metres().z);
+        let batches = meshes(bell).unwrap();
         assert!(
             batches
                 .iter()
@@ -170,20 +182,20 @@ mod tests {
                 .flat_map(|mesh| &mesh.vertices)
                 .all(|vertex| vertex.position.is_finite() && vertex.normal.is_finite())
         );
-        let colliders = collision(bell);
+        let colliders = collision(bell).unwrap();
         for height in [0.04, 0.2, 0.5, 0.75] {
-            let point = bottom + Vec3::new(diameter * 0.12, bell.size.y * height, 0.0);
+            let point = bottom + Vec3::new(diameter * 0.12, bell.size.metres().y * height, 0.0);
             assert!(
                 !colliders.iter().any(|part| {
                     let rotation = Quat::from_euler(
                         bevy::math::EulerRot::YXZ,
-                        part.yaw_radians,
-                        part.crossfall_radians,
-                        part.longfall_radians,
+                        part.yaw_radians.radians(),
+                        part.crossfall_radians.radians(),
+                        part.longfall_radians.radians(),
                     );
-                    (rotation.inverse() * (point - part.centre))
+                    (rotation.inverse() * (point - part.centre.metres()))
                         .abs()
-                        .cmplt(part.size * 0.5)
+                        .cmplt(part.size.metres() * 0.5)
                         .all()
                 }),
                 "mouth and cavity must remain open around the clapper"

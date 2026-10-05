@@ -59,18 +59,22 @@ fn on_furniture_added(
     materials: Res<TacticalBuildingMaterials>,
 ) -> Result {
     let instance = furniture.get(event.entity)?;
-    let batches = cache.0.entry(instance.key).or_insert_with(|| {
-        instance
-            .key
-            .recipe()
-            .meshes
-            .iter()
-            .map(|batch| FurnitureBatch {
-                mesh: meshes.add(recipe_mesh(batch, Vec3::ZERO)),
-                material: batch.material,
-            })
-            .collect()
-    });
+    let batches = match cache.0.entry(instance.key) {
+        std::collections::btree_map::Entry::Occupied(entry) => entry.into_mut(),
+        std::collections::btree_map::Entry::Vacant(entry) => {
+            let recipe = instance.key.recipe()?;
+            entry.insert(
+                recipe
+                    .meshes
+                    .iter()
+                    .map(|batch| FurnitureBatch {
+                        mesh: meshes.add(recipe_mesh(batch, Vec3::ZERO)),
+                        material: batch.material,
+                    })
+                    .collect(),
+            )
+        }
+    };
     let range = match instance.location {
         FurnitureLocation::Interior { .. } => None,
         FurnitureLocation::Outdoor { .. } => Some(VisibilityRange {

@@ -27,8 +27,9 @@ impl<'a> Occupancy<'a> {
                         let b = nav.nodes[next];
                         (a.storey == b.storey).then(|| {
                             Rect::new(
-                                (a.position_metres + b.position_metres) * 0.5,
-                                (a.position_metres - b.position_metres).abs() * 0.5
+                                (a.position_metres.metres() + b.position_metres.metres()) * 0.5,
+                                (a.position_metres.metres() - b.position_metres.metres()).abs()
+                                    * 0.5
                                     + Vec2::splat(PERSON_RADIUS),
                             )
                         })
@@ -44,19 +45,19 @@ impl<'a> Occupancy<'a> {
         }
     }
 
-    pub fn add(&mut self, placements: &[InteriorPlacement]) -> Change {
+    pub fn add(&mut self, placements: &[InteriorPlacement]) -> Result<Change, InteriorLayoutError> {
         let mut change = Change {
             nodes: Vec::new(),
             edges: Vec::new(),
         };
         for placement in placements {
-            let footprint = placement.footprint();
+            let footprint = placement.footprint()?;
             let expanded = footprint.expanded(PERSON_RADIUS);
             for (index, node) in self.nav.nodes.iter().enumerate() {
                 if node.storey != placement.storey {
                     continue;
                 }
-                if expanded.contains(node.position_metres) {
+                if expanded.contains(node.position_metres.metres()) {
                     self.nodes[index] += 1;
                     change.nodes.push(index);
                 }
@@ -68,7 +69,7 @@ impl<'a> Occupancy<'a> {
                 }
             }
         }
-        change
+        Ok(change)
     }
 
     pub fn remove(&mut self, change: Change) {
@@ -113,8 +114,9 @@ mod tests {
             placements.iter().any(|p| {
                 p.storey == nav.nodes[index].storey
                     && p.footprint()
+                        .unwrap()
                         .expanded(PERSON_RADIUS)
-                        .contains(nav.nodes[index].position_metres)
+                        .contains(nav.nodes[index].position_metres.metres())
             })
         };
         let mut queue = VecDeque::new();
@@ -130,14 +132,14 @@ mod tests {
                 let a = nav.nodes[index];
                 let b = nav.nodes[next];
                 let swept = Rect::new(
-                    (a.position_metres + b.position_metres) * 0.5,
-                    (a.position_metres - b.position_metres).abs() * 0.5
+                    (a.position_metres.metres() + b.position_metres.metres()) * 0.5,
+                    (a.position_metres.metres() - b.position_metres.metres()).abs() * 0.5
                         + Vec2::splat(PERSON_RADIUS),
                 );
                 if a.storey == b.storey
                     && placements
                         .iter()
-                        .any(|p| p.storey == a.storey && p.footprint().overlaps(swept))
+                        .any(|p| p.storey == a.storey && p.footprint().unwrap().overlaps(swept))
                 {
                     continue;
                 }
@@ -164,17 +166,17 @@ mod tests {
         let mut occupancy = Occupancy::new(&nav);
         for length in 1..=layout.placements.len() {
             let candidate = &layout.placements[length - 1..length];
-            occupancy.add(candidate);
+            occupancy.add(candidate).unwrap();
             let expected = reference(&nav, &layout.placements[..length]);
             assert_eq!(occupancy.flood().parents, expected);
-            let duplicate = occupancy.add(candidate);
+            let duplicate = occupancy.add(candidate).unwrap();
             occupancy.remove(duplicate);
             assert_eq!(occupancy.flood().parents, expected);
         }
         let mut obstruction = layout.placements[0].clone();
         obstruction.storey = nav.nodes[nav.entry].storey;
         obstruction.centre_metres = nav.nodes[nav.entry].position_metres;
-        let change = occupancy.add(&[obstruction]);
+        let change = occupancy.add(&[obstruction]).unwrap();
         assert!(occupancy.flood().parents.iter().all(Option::is_none));
         occupancy.remove(change);
         assert!(occupancy.flood().parents[nav.entry].is_some());

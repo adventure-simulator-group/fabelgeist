@@ -18,7 +18,7 @@ fn fortified_spiral_landings_connect_all_occupied_rooms() {
         let plan = crate::generate(&program).unwrap();
         for index in 0..plan.stairs.len() {
             for landing in crate::spiral_stairs::landings(&plan, index) {
-                let floor = Floor::new(&plan, landing.storey);
+                let floor = Floor::new(&plan, landing.storey).unwrap();
                 let rect = Rect::new(landing.position_metres, Vec2::splat(0.3));
                 assert!(
                     floor.supports(rect, landing.elevation_metres),
@@ -37,7 +37,7 @@ fn fortified_spiral_landings_connect_all_occupied_rooms() {
         assert!(
             fresh_paths
                 .iter()
-                .all(|path| path.points.first().unwrap().storey == 0)
+                .all(|path| path.points.first().unwrap().storey == crate::StoreyIndex::GROUND)
         );
     }
 }

@@ -68,12 +68,14 @@ pub(super) fn retain_scene(
     if !scene.pending.is_empty() {
         let building = scene.pending.pop_front().expect("pending building");
         let root = scene.root.expect("prepared scene root");
-        super::instances::spawn_building(
+        if let Err(error) = super::instances::spawn_building(
             &mut commands,
             building,
             root,
             document.input.as_ref().ok(),
-        );
+        ) {
+            scene.error = Some(error.to_string());
+        }
     }
 }
 
@@ -98,7 +100,8 @@ fn prepare(
     }
     let half_extent = Vec2::new(generated.terrain.width(), generated.terrain.depth()) * 0.5;
     super::instances::spawn_obstacles(commands, input, &generated, root);
-    super::instances::spawn_props(commands, &mut generated, root);
+    super::instances::spawn_props(commands, &mut generated, root)
+        .map_err(|error| error.to_string())?;
     let mut terrain = commands.spawn((
         SceneId(input.scene_key.clone()),
         input.environment_snapshot(generated.digest.clone()),

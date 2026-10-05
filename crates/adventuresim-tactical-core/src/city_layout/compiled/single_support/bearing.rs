@@ -25,10 +25,11 @@ impl SingleBearingProjection {
             })?;
         let bounds = CityPlotBounds {
             centre_metres: placement.centre_metres
-                + placement
-                    .orientation
-                    .local_to_world(contact.centre().xz() - recipe.collision.bounds.centre().xz()),
-            dimensions_metres: contact.plan_half_extents() * 2.0,
+                + placement.orientation.local_to_world(
+                    contact.centre()?.metres().xz()
+                        - recipe.collision.bounds.centre()?.metres().xz(),
+                ),
+            dimensions_metres: contact.plan_half_extents()?.metres() * 2.0,
             orientation: placement.orientation,
         };
         let footprint = recipe
@@ -53,7 +54,7 @@ impl SingleBearingProjection {
             placement,
             recipe.collision.bounds,
         )
-        .map_err(invalid)?;
+        .map_err(|cause| invalid(cause.into()))?;
         let outline = crate::scene_coordinates::ScenePlanPolygon::from_architectural(
             footprint.polygon(),
             projection,

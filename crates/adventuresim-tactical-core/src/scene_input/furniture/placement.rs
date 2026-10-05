@@ -13,16 +13,16 @@ pub(super) fn generate(
     terrain: &SceneTerrain,
     ground: &SceneGround,
     obstacles: &[GeneratedObstacle],
-) -> FurnitureLayout {
+) -> Result<FurnitureLayout, super::super::SceneInputError> {
     let mut layout = FurnitureLayout {
-        reserved_routes: reservations::routes(input, buildings),
+        reserved_routes: reservations::routes(input, buildings)?,
         ..Default::default()
     };
     let mut occupied = occupancy::Occupancy::default();
     let support = PlacementGround::new(input, terrain, ground);
-    let market = candidates::market(input);
+    let market = candidates::market(input)?;
     layout.reserved_routes.extend(market.aisles);
-    for footprint in reservations::obstacles(input, terrain, buildings, obstacles)
+    for footprint in reservations::obstacles(input, terrain, buildings, obstacles)?
         .into_iter()
         .chain(layout.reserved_routes.iter().copied())
     {
@@ -35,7 +35,7 @@ pub(super) fn generate(
     ordered.sort_by_key(|building| building.placement.id);
     for building in ordered {
         let mut accepted = 0;
-        for candidate in candidates::building(input, building) {
+        for candidate in candidates::building(input, building)? {
             if accept(input, &support, candidate, &mut occupied, &mut layout) {
                 accepted += 1;
                 if accepted >= candidates::group_limit(building) {
@@ -44,7 +44,7 @@ pub(super) fn generate(
             }
         }
     }
-    layout
+    Ok(layout)
 }
 
 fn accept(
@@ -121,7 +121,7 @@ fn supported_instances(
         .map(|(index, item)| {
             let centre = candidate.footprint.centre_metres
                 + candidate.footprint.orientation.local_to_world(item.offset);
-            let supports = &item.key.recipe().support_points_metres;
+            let supports = &item.recipe.support_points_metres;
             if supports.is_empty() {
                 return None;
             }
@@ -132,8 +132,10 @@ fn supported_instances(
                         + candidate
                             .footprint
                             .orientation
-                            .local_to_world(Vec2::new(point.x, point.z));
-                    support.height_at(position).map(|height| height - point.y)
+                            .local_to_world(Vec2::new(point.metres().x, point.metres().z));
+                    support
+                        .height_at(position)
+                        .map(|height| height - point.metres().y)
                 })
                 .collect::<Option<Vec<_>>>()?;
             let min = heights.iter().copied().fold(f32::INFINITY, f32::min);

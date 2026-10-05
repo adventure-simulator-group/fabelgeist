@@ -49,9 +49,10 @@ fn production_single_entrances_allow_full_width_entry_and_return() {
             .find(|b| b.building.placement.id == owner.member_building_ids()[0])
             .unwrap()
             .building;
-        let transform = building.transform();
-        let origin = building.collision.bounds.centre().xz();
+        let transform = building.transform().unwrap();
+        let origin = building.collision.bounds.centre().unwrap().metres().xz();
         let mut doors: Vec<_> = compile_ground_entrances(&building.plan)
+            .unwrap()
             .into_iter()
             .filter(|door| door.support == BuildingEntranceSupport::ArchitecturalFloor)
             .collect();
@@ -65,13 +66,16 @@ fn production_single_entrances_allow_full_width_entry_and_return() {
                     continue;
                 }
             }
-            let outward = building.placement.orientation.local_to_world(door.outward);
+            let outward = building
+                .placement
+                .orientation
+                .local_to_world(door.outward.vector());
             let tangent = Vec2::new(outward.y, -outward.x);
             let threshold = building.placement.centre_metres
                 + building
                     .placement
                     .orientation
-                    .local_to_world(door.threshold_metres - origin);
+                    .local_to_world(door.threshold_metres.metres() - origin);
             let outer = apron.centre_metres + outward * apron.dimensions_metres.y * 0.5;
             let skin = CharacterController::default().move_and_slide.skin_width;
             let tolerance = crate::city_layout::CompoundGradingPolicy::bounded_settlement()

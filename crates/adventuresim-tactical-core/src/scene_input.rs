@@ -65,7 +65,7 @@ pub mod furniture;
 
 pub use buildings::{
     BuildingOrientation, DistantBuildingPlacement, DistantBuildingVariant, GeneratedBuilding,
-    SceneBuilding, SceneDoor, SceneWindow, TacticalBuildingPlacement,
+    SceneBuilding, SceneDoor, SceneDoorError, SceneWindow, TacticalBuildingPlacement,
     compile_tactical_building_collider,
 };
 

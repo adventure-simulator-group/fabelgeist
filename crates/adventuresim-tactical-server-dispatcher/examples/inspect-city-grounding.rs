@@ -160,7 +160,7 @@ impl Inspection {
                 height(main).ok_or("main threshold leaves terrain")?,
                 height,
                 adventuresim_tactical_core::scene_input::MAX_PLAYABLE_GRADE,
-            )
+            )?
             .ok_or_else(|| {
                 format!(
             "scene {} property {} members [{}, {}] has no endpoint terrace candidate; \
@@ -213,14 +213,15 @@ fn threshold(
 ) -> Result<Vec2, Box<dyn std::error::Error>> {
     let placement = member_placement(input, id)?;
     let recipe = recipes.get_or_generate(&placement.program)?;
-    let doors = adventuresim_building_generator::compile_operable_doors(&recipe.plan);
-    let mut matches = doors.iter().filter(|door| door.outward == outward);
+    let doors = adventuresim_building_generator::compile_operable_doors(&recipe.plan)?;
+    let mut matches = doors.iter().filter(|door| door.outward.vector() == outward);
     let door = matches
         .next()
         .filter(|_| matches.next().is_none())
         .ok_or("property member has no required external door")?;
-    let local = door.hinge_centre.xz() + door.tangent * door.size_metres.x * 0.5
-        - recipe.collision.bounds.centre().xz();
+    let local = door.hinge_centre.metres().xz()
+        + door.tangent.vector() * door.size_metres.metres().x * 0.5
+        - recipe.collision.bounds.centre()?.metres().xz();
     Ok(placement.centre_metres + placement.orientation.local_to_world(local))
 }
 
@@ -259,7 +260,7 @@ fn inspect(
     representation: &str,
 ) -> Result<Value, Box<dyn std::error::Error>> {
     let recipe = recipes.get_or_generate(program)?;
-    let origin = recipe.collision.bounds.centre();
+    let origin = recipe.collision.bounds.centre()?.metres();
     let offset = elevation;
     let world = |local: Vec2| centre + orientation.local_to_world(local - origin.xz());
     let height = |point| {
@@ -276,15 +277,15 @@ fn inspect(
         .iter()
         .filter(|node| node.grounded)
         .map(|node| {
-            let point = world(node.position.xz());
+            let point = world(node.position.metres().xz());
             json!({
                 "node": node.id, "kind": node.kind, "point": point,
-                "world_elevation": node.position.y + offset,
+                "world_elevation": node.position.metres().y + offset,
                 "terrain_elevation": height(point),
             })
         })
         .collect::<Vec<_>>();
-    let thresholds = adventuresim_building_generator::compile_operable_doors(&recipe.plan)
+    let thresholds = adventuresim_building_generator::compile_operable_doors(&recipe.plan)?
         .iter()
         .map(|door| {
             let opening = recipe
@@ -293,31 +294,37 @@ fn inspect(
                 .iter()
                 .find(|opening| opening.id == door.opening)
                 .expect("compiled door identifies its source opening");
-            let point = world(door.closed_centre.xz());
+            let point = world(door.closed_centre.metres().xz());
             json!({"id":opening.id, "point":point,
                 "sill_elevation":opening.sill_elevation_metres + offset,
                 "terrain_elevation":height(point)})
         })
         .collect::<Vec<_>>();
-    let levels = lod_minima(&recipe.plan, program, offset);
+    let levels = lod_minima(&recipe.plan, program, offset)?;
     let corners = [
-        recipe.collision.bounds.min.xz(),
-        Vec2::new(recipe.collision.bounds.max.x, recipe.collision.bounds.min.z),
-        recipe.collision.bounds.max.xz(),
-        Vec2::new(recipe.collision.bounds.min.x, recipe.collision.bounds.max.z),
+        recipe.collision.bounds.min().metres().xz(),
+        Vec2::new(
+            recipe.collision.bounds.max().metres().x,
+            recipe.collision.bounds.min().metres().z,
+        ),
+        recipe.collision.bounds.max().metres().xz(),
+        Vec2::new(
+            recipe.collision.bounds.min().metres().x,
+            recipe.collision.bounds.max().metres().z,
+        ),
     ]
     .map(world);
     Ok(json!({
         "id": id, "representation": representation, "program": program,
         "centre": centre, "base_elevation": elevation,
-        "collision_minimum": recipe.collision.bounds.min.y,
+        "collision_minimum": recipe.collision.bounds.min().metres().y,
         "ground_floor_contact_bounds":recipe.collision.ground_floor_contact_bounds()?,
         "collision_origin": origin, "plan_to_world_vertical_offset": offset,
-        "incorrect_collider_bottom_offset": elevation - recipe.collision.bounds.min.y,
+        "incorrect_collider_bottom_offset": elevation - recipe.collision.bounds.min().metres().y,
         "centre_terrain": height(centre),
         "footprint_corners": corners.map(|p| json!({"point":p,"terrain":height(p)})),
         "playable_footprint_terrain": footprint::terrain_extrema(terrain, corners),
-        "structural_audit_issue_count": adventuresim_building_generator::audit_plan(&recipe.plan).len(),
+        "structural_audit_issue_count": adventuresim_building_generator::audit_plan(&recipe.plan)?.len(),
         "grounded_nodes": supports, "exterior_thresholds":thresholds, "lod_minima": levels,
         "compound": input.compounds.iter().find(|p| p.front_building_id == id || p.rear_building_id == id),
         "garden": input.gardens.iter().find(|p| p.front_building_id == id),
@@ -328,13 +335,16 @@ fn lod_minima(
     plan: &adventuresim_building_generator::BuildingPlan,
     program: &BuildingProgram,
     offset: f32,
-) -> Vec<Value> {
+) -> Result<Vec<Value>, Box<dyn std::error::Error>> {
     let mut levels = Vec::new();
     for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
         let lod = if level == BuildingLodLevel::Shell {
-            compile_program_shell(program).unwrap_or_else(|| compile_building_lod(plan, level))
+            match compile_program_shell(program) {
+                Some(shell) => shell,
+                None => compile_building_lod(plan, level)?,
+            }
         } else {
-            compile_building_lod(plan, level)
+            compile_building_lod(plan, level)?
         };
         let minimum = lod
             .meshes
@@ -345,5 +355,5 @@ fn lod_minima(
         levels.push(json!({"level": level, "local_minimum": minimum,
             "world_minimum": minimum + offset}));
     }
-    levels
+    Ok(levels)
 }

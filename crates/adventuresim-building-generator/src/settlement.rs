@@ -42,34 +42,32 @@ impl BuildingProgram {
         initial_seed: u64,
         size: Option<crate::ServiceBuildingSize>,
     ) -> Result<Self, crate::GenerationError> {
-        let mut first_error = None;
-        for attempt in 0..VALID_RECIPE_ATTEMPTS {
-            let seed = if attempt == 0 {
-                initial_seed
-            } else {
-                RECIPE_ATTEMPT
-                    .seed(initial_seed, &[u64::from(attempt)])
-                    .to_u64()
-            };
+        let admit = |seed| {
             let mut program = Self::settlement(archetype, Some(usage), seed);
             if let Some(size) = size {
                 program = program.with_service_size(size);
             }
-            let generated = crate::generate(&program).and_then(|plan| {
+            crate::generate(&program).and_then(|plan| {
                 if plan.domestic_heating.is_some() {
                     crate::interior::validate_circulation(&plan)
                         .map_err(crate::GenerationError::BlockedDomesticCirculation)?;
                 }
-                Ok(plan)
-            });
-            match generated {
-                Ok(_) => return Ok(program),
-                Err(error) => {
-                    first_error.get_or_insert(error);
-                }
+                Ok(program)
+            })
+        };
+        let first_error = match admit(initial_seed) {
+            Ok(program) => return Ok(program),
+            Err(error) => error,
+        };
+        for attempt in 1..VALID_RECIPE_ATTEMPTS {
+            let seed = RECIPE_ATTEMPT
+                .seed(initial_seed, &[u64::from(attempt)])
+                .to_u64();
+            if let Ok(program) = admit(seed) {
+                return Ok(program);
             }
         }
-        Err(first_error.expect("the bounded recipe search always attempts the initial seed"))
+        Err(first_error)
     }
 
     /// The same compact recipe is used for playable buildings and distant shells.
@@ -232,8 +230,8 @@ mod tests {
                 program,
                 BuildingProgram::settlement(archetype, Some(usage), program.seed)
             );
-            let collision = compile_building_collision(&plan);
-            assert!(collision.bounds.max.x > collision.bounds.min.x);
+            let collision = compile_building_collision(&plan).unwrap();
+            assert!(collision.bounds.max().metres().x > collision.bounds.min().metres().x);
         }
     }
 

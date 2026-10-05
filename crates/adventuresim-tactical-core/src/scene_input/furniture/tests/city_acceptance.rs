@@ -59,11 +59,12 @@ fn real_city_places_market_vendors_behind_its_wide_street_reservations() {
                 .height_at(instance.position_metres.xz())
                 .is_some()
         );
-        for foot in &instance.scene.key.recipe().support_points_metres {
-            let point =
-                instance.position_metres.xz() + instance.orientation.local_to_world(foot.xz());
+        for foot in &instance.scene.key.recipe().unwrap().support_points_metres {
+            let point = instance.position_metres.xz()
+                + instance.orientation.local_to_world(foot.metres().xz());
             assert!(
-                (support.height_at(point).unwrap() - instance.position_metres.y - foot.y).abs()
+                (support.height_at(point).unwrap() - instance.position_metres.y - foot.metres().y)
+                    .abs()
                     <= 0.0451
             );
         }

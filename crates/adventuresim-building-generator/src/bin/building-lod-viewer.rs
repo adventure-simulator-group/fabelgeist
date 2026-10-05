@@ -60,15 +60,14 @@ struct Args {
 }
 
 #[cfg(not(target_family = "wasm"))]
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     if args.capture_output.is_some() && args.lod != LodChoice::Shell {
         eprintln!("--capture-output requires --lod shell");
         std::process::exit(2);
     }
-    let plan = generate(&BuildingProgram::fixture(args.fixture, args.seed))
-        .expect("curated building fixture must generate");
-    let lod = compile_building_lod(&plan, args.lod.into());
+    let plan = generate(&BuildingProgram::fixture(args.fixture, args.seed))?;
+    let lod = compile_building_lod(&plan, args.lod.into())?;
     let dimensions = plan.dimensions_metres();
     let maximum_height = lod
         .meshes
@@ -116,6 +115,7 @@ fn main() {
     if exit != AppExit::Success {
         std::process::exit(1);
     }
+    Ok(())
 }
 
 #[cfg(not(target_family = "wasm"))]

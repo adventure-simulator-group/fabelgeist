@@ -49,7 +49,11 @@ fn interior_representative_buildings_have_usable_furniture() {
                 .map(|p| p.key.interior_spec().unwrap().required_faces.len())
                 .sum::<usize>()
         );
-        assert!(paths.iter().all(|p| p.points.first().unwrap().storey == 0));
+        assert!(
+            paths
+                .iter()
+                .all(|p| p.points.first().unwrap().storey == crate::StoreyIndex::GROUND)
+        );
         eprintln!(
             "{usage:?}: {} furniture, {} paths, {} unmet budgets",
             layout.placements.len(),
@@ -84,12 +88,15 @@ fn interior_cathedral_rooms_share_continuous_paving_and_clear_doors() {
                 && plan.storeys[0]
                     .rooms
                     .iter()
-                    .any(|room| room.id == p.room_id && room.kind == role)),
+                    .any(
+                        |room| crate::RoomIndex::from_serialized(room.id) == p.room_id
+                            && room.kind == role
+                    )),
             "missing {kind:?} in {role:?}: {:?}",
             layout.unmet_budgets
         );
     }
-    let floor = super::architecture::Floor::new(&plan, 0);
+    let floor = super::architecture::Floor::new(&plan, 0).unwrap();
     for door in plan
         .opening_assemblies
         .iter()
@@ -230,9 +237,12 @@ fn interior_rejects_obstructed_door_and_overlapping_furniture() {
             FurnitureKind::StorageCrate,
             FurnitureVariant::Compact,
         ),
-        room_id: entrance.frame.inside_room.unwrap(),
-        storey: 0,
-        centre_metres: entrance.frame.origin - entrance.frame.outward * 0.5,
+        room_id: crate::RoomIndex::from_serialized(entrance.frame.inside_room.unwrap()),
+        storey: crate::StoreyIndex::from_serialized(0),
+        centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(
+            entrance.frame.origin - entrance.frame.outward * 0.5,
+        )
+        .unwrap(),
         facing: Direction::South,
     });
     assert!(matches!(
@@ -253,7 +263,11 @@ fn interior_layout_is_deterministic_and_paths_use_stairs() {
         serde_json::to_vec(&a).unwrap(),
         serde_json::to_vec(&b).unwrap()
     );
-    assert!(a.placements.iter().any(|p| p.storey > 0));
+    assert!(
+        a.placements
+            .iter()
+            .any(|p| p.storey > crate::StoreyIndex::GROUND)
+    );
     assert!(
         a.paths
             .iter()
@@ -281,10 +295,10 @@ fn interior_jetty_beams_bear_below_the_finished_floor() {
             .iter()
             .find(|s| s.id == jetty.floor_solid)
             .unwrap();
-        let underside = floor.centre.y - floor.size.y * 0.5;
+        let underside = floor.centre.metres().y - floor.size.metres().y * 0.5;
         for beam in &jetty.jetty_beams {
             let member = frame.members.iter().find(|m| m.id == *beam).unwrap();
-            assert!(member.start.y < underside && member.end.y < underside);
+            assert!(member.start.metres().y < underside && member.end.metres().y < underside);
         }
         for id in &jetty.floor_bearing_interfaces {
             let bearing = plan
@@ -293,7 +307,10 @@ fn interior_jetty_beams_bear_below_the_finished_floor() {
                 .iter()
                 .find(|i| i.id == *id)
                 .unwrap();
-            assert!(bearing.bounds.min.y <= underside && bearing.bounds.max.y >= underside);
+            assert!(
+                bearing.bounds.min().metres().y <= underside
+                    && bearing.bounds.max().metres().y >= underside
+            );
         }
         checked += 1;
     }
@@ -319,9 +336,25 @@ fn interior_counter_modules_are_contiguous_with_two_sided_access() {
         .iter()
         .find(|p| p.key.kind() == FurnitureKind::CounterRightEnd)
         .unwrap();
-    let width = centre.key.interior_spec().unwrap().size_metres.x;
-    assert!((left.centre_metres.distance(centre.centre_metres) - width).abs() < 0.001);
-    assert!((right.centre_metres.distance(centre.centre_metres) - width).abs() < 0.001);
+    let width = centre.key.interior_spec().unwrap().size_metres.metres().x;
+    assert!(
+        (left
+            .centre_metres
+            .metres()
+            .distance(centre.centre_metres.metres())
+            - width)
+            .abs()
+            < 0.001
+    );
+    assert!(
+        (right
+            .centre_metres
+            .metres()
+            .distance(centre.centre_metres.metres())
+            - width)
+            .abs()
+            < 0.001
+    );
     assert_eq!(left.facing, centre.facing);
     assert_eq!(right.facing, centre.facing);
     validate_layout(&plan, &layout).unwrap();
@@ -333,7 +366,8 @@ fn heated_household_recipes_preserve_access_to_every_room() {
     let obstructed = BuildingProgram::settlement(FachwerkCottage, Some(BuildingUse::Dwelling), 133);
     assert!(matches!(
         validate_circulation(&generate(&obstructed).unwrap()),
-        Err(InteriorLayoutError::DisconnectedRoom { room_id: 2, .. })
+        Err(InteriorLayoutError::DisconnectedRoom { room_id, .. })
+            if room_id == crate::RoomIndex::from_serialized(2)
     ));
     for archetype in [FachwerkCottage, TownHouse, HallHouse, FachwerkMerchantHouse] {
         for seed in [42, 47, 101] {

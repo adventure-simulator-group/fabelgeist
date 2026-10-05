@@ -173,9 +173,13 @@ fn support_boundary(
             .orientation
             .world_to_local(point - property.plot.centre_metres)
     };
-    let post = property.boundary.gate.post(property.boundary.gate.hinge);
-    let post_half = post.size_metres.x * 0.5;
-    let split = local(post.centre_metres.xz()).x - side * post_half;
+    let post = property
+        .boundary
+        .gate
+        .post(property.boundary.gate.hinge)
+        .map_err(|cause| SupportDiagnostic::boundary_construction(property, cause))?;
+    let post_half = post.size_metres.metres().x * 0.5;
+    let split = local(post.pose.plan_metres()).x - side * post_half;
     let contact_edge = front
         .contact
         .corners()
@@ -188,7 +192,7 @@ fn support_boundary(
             property,
             SupportConstraint::Bearing,
             SupportBoundary::FrontBearing,
-            post.centre_metres.xz(),
+            post.pose.plan_metres(),
             penetration,
             limits.contact_tolerance_metres,
         ));

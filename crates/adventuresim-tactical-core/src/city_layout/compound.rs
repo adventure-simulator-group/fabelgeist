@@ -4,7 +4,10 @@ use bevy::prelude::Reflect;
 use serde::{Deserialize, Serialize};
 
 mod boundary;
-pub use boundary::{CityBoundaryMaterial, CityBoundaryMember};
+pub use boundary::{
+    BoundaryGeometryError, BoundarySupportElement, CityBoundaryMaterial, CityBoundaryMember,
+    CityBoundaryPose,
+};
 
 pub(super) const COMPOUND_EDGE_MARGIN_METRES: f32 = 1.25;
 pub(super) const REAR_RANGE_DEPTH_METRES: f32 = 6.0;

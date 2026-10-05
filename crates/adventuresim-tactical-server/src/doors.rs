@@ -1,11 +1,14 @@
 //! Authoritative simulation for operable exterior building doors.
 
-use adventuresim_building_generator::{
-    BuildingCollision, BuildingPlan, DoorSpec, compile_operable_doors,
-};
+use adventuresim_building_generator::{BuildingCollision, BuildingPlan, compile_operable_doors};
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
 use bevy::{ecs::system::SystemParam, math::primitives::Cuboid, prelude::*};
+
+use adventuresim_building_generator::spatial_geometry::{
+    Position as ScenePosition, SpatialDirection,
+};
+use adventuresim_tactical_core::scene_coordinates::Scene;
 
 const DOOR_DENSITY_KILOGRAMS_PER_CUBIC_METRE: f32 = 150.0;
 #[cfg(test)]
@@ -22,9 +25,9 @@ const PASSAGE_RELEASE_INSIDE_METRES: f32 = 2.1;
 #[derive(Component)]
 pub(crate) struct DoorController {
     joint: Entity,
-    doorway_centre: Vec3,
-    tangent: Vec3,
-    outward: Vec3,
+    doorway_centre: ScenePosition<Scene>,
+    tangent: SpatialDirection<Scene>,
+    outward: SpatialDirection<Scene>,
     half_width_metres: f32,
     open_angle_radians: f32,
 }
@@ -86,10 +89,10 @@ impl DoorGrabber<'_, '_> {
         };
         if !can_grab_door_from_inside(
             actor_transform.translation,
-            door.doorway_centre_metres,
-            door.tangent,
-            door.outward,
-            door.size_metres.x * 0.5,
+            door.doorway_centre_metres.metres(),
+            door.tangent.vector(),
+            door.outward.vector(),
+            door.size_metres.metres().x * 0.5,
         ) {
             return false;
         }
@@ -118,35 +121,46 @@ pub(crate) fn spawn_building_doors(
     building_transform: &Transform,
     plan: &BuildingPlan,
     collision: &BuildingCollision,
-) {
-    let collision_origin = collision.bounds.centre();
-    for door in compile_operable_doors(plan) {
-        spawn_door(
-            commands,
-            building_entity,
-            building.id,
-            building_transform,
-            collision_origin,
-            door,
-        );
+) -> Result {
+    use adventuresim_building_generator::spatial_geometry::Position as GeometryPosition;
+    use adventuresim_tactical_core::scene_coordinates::{CollisionCentreDatum, Scene};
+    let datum = CollisionCentreDatum::new(
+        collision.bounds.centre()?,
+        GeometryPosition::<Scene>::from_metres(building_transform.translation)?,
+        building.orientation,
+    )?;
+    let doors = compile_operable_doors(plan)?
+        .into_iter()
+        .map(|door| datum.door(door))
+        .collect::<std::result::Result<Vec<_>, _>>()?;
+    for door in doors {
+        spawn_door(commands, building_entity, building.id, door)?;
     }
+    Ok(())
 }
 
 pub(super) fn spawn_door(
     commands: &mut Commands,
     building_entity: Entity,
     building_id: u64,
-    building_transform: &Transform,
-    collision_origin: Vec3,
-    door: DoorSpec,
-) {
-    let closed_centre = building_transform.transform_point(door.closed_centre - collision_origin);
-    let hinge_centre = building_transform.transform_point(door.hinge_centre - collision_origin);
-    let closed_rotation =
-        building_transform.rotation * Quat::from_rotation_y(door.closed_yaw_radians);
-    let tangent = building_transform.rotation * Vec3::new(door.tangent.x, 0.0, door.tangent.y);
-    let outward = building_transform.rotation * Vec3::new(door.outward.x, 0.0, door.outward.y);
-    let doorway_centre = hinge_centre + tangent * door.size_metres.x * 0.5;
+    pose: adventuresim_tactical_core::scene_coordinates::SceneDoorPose,
+) -> Result {
+    let door = pose.leaf;
+    let closed_centre = door.closed_centre.metres();
+    let hinge_centre = door.hinge_centre.metres();
+    let closed_rotation = pose.native_rotation();
+    let tangent = door.tangent.spatial();
+    let outward = door.outward.spatial();
+    let size = door.size_metres.metres();
+    let open_angle = door.open_angle_radians.radians();
+    let doorway_centre = ScenePosition::from_metres(hinge_centre + tangent.vector() * size.x * 0.5)
+        .map_err(
+            |cause| adventuresim_tactical_core::scene_input::SceneDoorError {
+                building_id,
+                opening_id: door.opening.0,
+                cause,
+            },
+        )?;
     let leaf = commands
         .spawn((
             Name::new(format!(
@@ -163,9 +177,9 @@ pub(super) fn spawn_door(
                 outward,
             },
             RigidBody::Dynamic,
-            Collider::cuboid(door.size_metres.x, door.size_metres.y, door.size_metres.z),
+            Collider::cuboid(size.x, size.y, size.z),
             MassPropertiesBundle::from_shape(
-                &Cuboid::from_size(door.size_metres),
+                &Cuboid::from_size(size),
                 DOOR_DENSITY_KILOGRAMS_PER_CUBIC_METRE,
             ),
             // The frame is represented by several independent terrain-layer
@@ -182,10 +196,10 @@ pub(super) fn spawn_door(
             Transform::from_translation(closed_centre).with_rotation(closed_rotation),
         ))
         .id();
-    let (minimum_angle, maximum_angle) = if door.open_angle_radians.is_sign_positive() {
-        (0.0, door.open_angle_radians)
+    let (minimum_angle, maximum_angle) = if open_angle.is_sign_positive() {
+        (0.0, open_angle)
     } else {
-        (door.open_angle_radians, 0.0)
+        (open_angle, 0.0)
     };
     let joint = commands
         .spawn((
@@ -210,9 +224,10 @@ pub(super) fn spawn_door(
         doorway_centre,
         tangent,
         outward,
-        half_width_metres: door.size_metres.x * 0.5,
-        open_angle_radians: door.open_angle_radians,
+        half_width_metres: size.x * 0.5,
+        open_angle_radians: open_angle,
     });
+    Ok(())
 }
 
 fn door_joint(
@@ -271,9 +286,11 @@ fn report_unseated_doors(
     const MIN_VERTICAL_ALIGNMENT: f32 = 0.995;
 
     for (door, controller, position, rotation, linear_velocity, angular_velocity) in &doors {
-        let leaf_hinge = position.0 + rotation.0 * Vec3::new(-door.size_metres.x * 0.5, 0.0, 0.0);
+        let leaf_hinge =
+            position.0 + rotation.0 * Vec3::new(-door.size_metres.metres().x * 0.5, 0.0, 0.0);
         let hinge_separation = leaf_hinge.distance(
-            controller.doorway_centre - controller.tangent * controller.half_width_metres,
+            controller.doorway_centre.metres()
+                - controller.tangent.vector() * controller.half_width_metres,
         );
         let vertical_alignment = (rotation.0 * Vec3::Y).dot(Vec3::Y);
         if hinge_separation > MAX_HINGE_SEPARATION_METRES
@@ -318,9 +335,9 @@ pub(crate) fn update_door_passages(
         for (_character_entity, character_transform, mut controller, mut exemptions) in
             &mut characters
         {
-            let offset = character_transform.translation - door.doorway_centre;
-            let signed_depth = offset.dot(door.outward);
-            let lateral_distance = offset.dot(door.tangent).abs();
+            let offset = character_transform.translation - door.doorway_centre.metres();
+            let signed_depth = offset.dot(door.outward.vector());
+            let lateral_distance = offset.dot(door.tangent.vector()).abs();
             let within_passage =
                 lateral_distance <= door.half_width_metres + DOOR_GRAB_LATERAL_MARGIN_METRES;
             let was_exempt = exemptions.contains(door_entity);
@@ -414,9 +431,9 @@ mod tests {
         let joint = world.spawn(RevoluteJoint::new(anchor, leaf)).id();
         world.entity_mut(leaf).insert(DoorController {
             joint,
-            doorway_centre: Vec3::ZERO,
-            tangent: Vec3::X,
-            outward: Vec3::Z,
+            doorway_centre: ScenePosition::ORIGIN,
+            tangent: SpatialDirection::from_normalized(Vec3::X).unwrap(),
+            outward: SpatialDirection::from_normalized(Vec3::Z).unwrap(),
             half_width_metres: 0.5,
             open_angle_radians: 1.0,
         });
@@ -509,16 +526,16 @@ mod tests {
                 SceneDoor {
                     building_id: 1,
                     opening_id: 2,
-                    size_metres: Vec3::new(1.0, 2.0, 0.08),
-                    doorway_centre_metres: Vec3::ZERO,
-                    tangent: Vec3::X,
-                    outward: Vec3::Z,
+                    size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions::from_metres(Vec3::new(1.0, 2.0, 0.08)).unwrap(),
+                    doorway_centre_metres: ScenePosition::ORIGIN,
+                    tangent: SpatialDirection::from_normalized(Vec3::X).unwrap(),
+                    outward: SpatialDirection::from_normalized(Vec3::Z).unwrap(),
                 },
                 DoorController {
                     joint,
-                    doorway_centre: Vec3::ZERO,
-                    tangent: Vec3::X,
-                    outward: Vec3::Z,
+                    doorway_centre: ScenePosition::ORIGIN,
+                    tangent: SpatialDirection::from_normalized(Vec3::X).unwrap(),
+                    outward: SpatialDirection::from_normalized(Vec3::Z).unwrap(),
                     half_width_metres: 0.5,
                     open_angle_radians: 1.0,
                 },

@@ -39,59 +39,7 @@ fn resolve_straight_stair_core(
     program: &BuildingProgram,
     footprint: &[Cell],
 ) -> Result<Option<StraightStairCore>, GenerationError> {
-    if program.storeys.len() > 1 && program.vertical_connections.is_empty() {
-        return Err(GenerationError::UnsatisfiedVerticalCirculation {
-            connection: 0,
-            reason: "a multi-storey programme declares no vertical connection".to_owned(),
-        });
-    }
-    for (connection, requirement) in program.vertical_connections.iter().enumerate() {
-        let (lowest_storey, highest_storey) = match *requirement {
-            VerticalConnectionRequirement::StraightStair {
-                lowest_storey,
-                highest_storey,
-                ..
-            }
-            | VerticalConnectionRequirement::TowerSpiral {
-                lowest_storey,
-                highest_storey,
-            } => (lowest_storey, highest_storey),
-        };
-        if lowest_storey >= highest_storey || usize::from(highest_storey) >= program.storeys.len() {
-            return Err(GenerationError::UnsatisfiedVerticalCirculation {
-                connection,
-                reason: format!(
-                    "invalid served-storey range {lowest_storey}..={highest_storey} for {} storeys",
-                    program.storeys.len()
-                ),
-            });
-        }
-    }
-    for lower_storey in 0..program.storeys.len().saturating_sub(1) as u16 {
-        let covered = program.vertical_connections.iter().any(|requirement| {
-            let (lowest_storey, highest_storey) = match *requirement {
-                VerticalConnectionRequirement::StraightStair {
-                    lowest_storey,
-                    highest_storey,
-                    ..
-                }
-                | VerticalConnectionRequirement::TowerSpiral {
-                    lowest_storey,
-                    highest_storey,
-                } => (lowest_storey, highest_storey),
-            };
-            lowest_storey <= lower_storey && highest_storey > lower_storey
-        });
-        if !covered {
-            return Err(GenerationError::UnsatisfiedVerticalCirculation {
-                connection: 0,
-                reason: format!(
-                    "no declared connector crosses storeys {lower_storey} and {}",
-                    lower_storey + 1
-                ),
-            });
-        }
-    }
+    validate_vertical_connections(program)?;
     let straight = program
         .vertical_connections
         .iter()
@@ -142,8 +90,8 @@ fn resolve_straight_stair_core(
     let (width, depth) = program.footprint.dimensions();
     let building_centre = Vec2::new(f32::from(width), f32::from(depth)) * 0.5;
     let mut candidates = Vec::new();
-    for z in 0..i16::try_from(depth).unwrap() {
-        for x in 0..i16::try_from(width).unwrap() {
+    for z in 0..i16::try_from(depth).map_err(|_| GenerationError::InvalidFootprint)? {
+        for x in 0..i16::try_from(width).map_err(|_| GenerationError::InvalidFootprint)? {
             let anchor = Cell::new(x, z);
             for direction in Direction::ALL {
                 let (long, lateral) = match direction {
@@ -193,7 +141,13 @@ fn resolve_straight_stair_core(
                 };
                 candidates.push((
                     centre_distance,
-                    cell_random(layout_seed(program), direction_salt, anchor, fabelgeist_determinism::StreamId::new("building.stair-placement")).next_u64(),
+                    cell_random(
+                        layout_seed(program),
+                        direction_salt,
+                        anchor,
+                        fabelgeist_determinism::StreamId::new("building.stair-placement"),
+                    )
+                    .next_u64(),
                     origin,
                     direction,
                     cells,
@@ -222,190 +176,6 @@ fn resolve_straight_stair_core(
     }))
 }
 
-fn allocate_rooms(
-    footprint: &[Cell],
-    width: u16,
-    depth: u16,
-    requirements: &[RoomRequirement],
-    seed: u64,
-    archetype: BuildingArchetype,
-    reservations: &BTreeMap<Cell, usize>,
-) -> BTreeMap<Cell, usize> {
-    let usable = footprint.iter().copied().collect::<BTreeSet<_>>();
-    let mut assignments = reservations.clone();
-    let mut room_seeds = vec![None; requirements.len()];
-    for (cell, room_index) in reservations {
-        room_seeds[*room_index].get_or_insert(*cell);
-    }
-
-    if let Some(passage_index) = requirements
-        .iter()
-        .position(|room| room.kind == RoomKind::Passage)
-    {
-        let passage_width = match archetype {
-            BuildingArchetype::CastleGatehouse => 2,
-            BuildingArchetype::CourtyardCastle => 4,
-            _ => 1,
-        };
-        let start_x = i16::try_from(width / 2).unwrap() - passage_width / 2;
-        let passage_depth = match archetype {
-            BuildingArchetype::CourtyardCastle => match requirements.len() {
-                0 => 0,
-                _ => 4,
-            },
-            _ => i16::try_from(depth).unwrap(),
-        };
-        for z in 0..passage_depth {
-            for x in start_x..start_x + passage_width {
-                let cell = Cell::new(x, z);
-                if usable.contains(&cell) {
-                    assignments.insert(cell, passage_index);
-                    room_seeds[passage_index].get_or_insert(cell);
-                }
-            }
-        }
-    }
-
-    let mut claimed_seeds = assignments.keys().copied().collect::<HashSet<_>>();
-    for (room_index, requirement) in requirements.iter().enumerate() {
-        if room_seeds[room_index].is_some() {
-            continue;
-        }
-        let selected = footprint
-            .iter()
-            .copied()
-            .filter(|cell| !claimed_seeds.contains(cell))
-            .min_by_key(|cell| seed_score(*cell, requirement, width, depth, room_index, seed))
-            .expect("room count is bounded by footprint cells");
-        assignments.insert(selected, room_index);
-        claimed_seeds.insert(selected);
-        room_seeds[room_index] = Some(selected);
-    }
-
-    while assignments.len() < footprint.len() {
-        let room_counts = room_counts(requirements.len(), &assignments);
-        let mut best: Option<(u64, u64, u64, Cell, usize)> = None;
-        for cell in footprint.iter().copied() {
-            if assignments.contains_key(&cell) {
-                continue;
-            }
-            let neighbouring_rooms = Direction::ALL
-                .into_iter()
-                .filter_map(|direction| assignments.get(&cell.neighbour(direction)).copied())
-                .collect::<BTreeSet<_>>();
-            for room_index in neighbouring_rooms {
-                if requirements[room_index].kind == RoomKind::Passage {
-                    continue;
-                }
-                let preferred = u64::from(requirements[room_index].preferred_cells.max(1));
-                let fill_ratio = room_counts[room_index] as u64 * 10_000 / preferred;
-                let seed_cell = room_seeds[room_index].expect("every room has a seed");
-                let distance =
-                    cell.x.abs_diff(seed_cell.x) as u64 + cell.z.abs_diff(seed_cell.z) as u64;
-                let same_room_neighbours = Direction::ALL
-                    .into_iter()
-                    .filter(|direction| {
-                        assignments.get(&cell.neighbour(*direction)) == Some(&room_index)
-                    })
-                    .count() as u64;
-                let geometry_score = distance * 8 + (4 - same_room_neighbours) * 12;
-                let candidate = (
-                    fill_ratio,
-                    geometry_score,
-                    cell_random(seed, room_index as u64, cell, fabelgeist_determinism::StreamId::new("building.room-growth")).index(97) as u64,
-                    cell,
-                    room_index,
-                );
-                if best.is_none_or(|current| candidate < current) {
-                    best = Some(candidate);
-                }
-            }
-        }
-        let (_, _, _, cell, room_index) =
-            best.expect("connected footprint always has an expansion edge");
-        assignments.insert(cell, room_index);
-    }
-
-    assignments
-}
-
-fn seed_score(
-    cell: Cell,
-    requirement: &RoomRequirement,
-    width: u16,
-    depth: u16,
-    room_index: usize,
-    seed: u64,
-) -> u64 {
-    let x = i32::from(cell.x);
-    let z = i32::from(cell.z);
-    let max_x = i32::from(width) - 1;
-    let max_z = i32::from(depth) - 1;
-    let centre_x = max_x / 2;
-    let centre_z = max_z / 2;
-    let exterior_distance = x.min(max_x - x).min(z).min(max_z - z).max(0) as u64;
-    let centre_distance =
-        (x - centre_x).unsigned_abs() as u64 + (z - centre_z).unsigned_abs() as u64;
-    let south_centre = z.unsigned_abs() as u64 * 8 + (x - centre_x).unsigned_abs() as u64;
-    let north_centre = (max_z - z).unsigned_abs() as u64 * 8 + (x - centre_x).unsigned_abs() as u64;
-    let west_centre = x.unsigned_abs() as u64 * 8 + (z - centre_z).unsigned_abs() as u64;
-    let east_centre = (max_x - x).unsigned_abs() as u64 * 8 + (z - centre_z).unsigned_abs() as u64;
-    let functional = match requirement.kind {
-        RoomKind::EntranceHall | RoomKind::Shop | RoomKind::Passage => south_centre,
-        RoomKind::StairHall => centre_distance,
-        RoomKind::Kitchen | RoomKind::Pantry => north_centre,
-        RoomKind::Workshop | RoomKind::Armoury | RoomKind::MillingFloor | RoomKind::KilnRoom | RoomKind::VatRoom => west_centre,
-        RoomKind::Guardroom | RoomKind::CountingRoom => east_centre,
-        RoomKind::GreatHall
-        | RoomKind::CommonRoom
-        | RoomKind::Gallery
-        | RoomKind::Chapel
-        | RoomKind::Nave
-        | RoomKind::Ward | RoomKind::Schoolroom | RoomKind::Stalls
-        | RoomKind::Chancel => north_centre + centre_distance,
-        RoomKind::Storage | RoomKind::Sacristy => west_centre + north_centre,
-        RoomKind::Bedchamber | RoomKind::TowerChamber => east_centre + north_centre,
-    };
-    functional * 1_000
-        + if requirement.needs_exterior {
-            exterior_distance * 4_000
-        } else {
-            0
-        }
-        + cell_random(seed, room_index as u64, cell, fabelgeist_determinism::StreamId::new("building.room-origin")).index(499) as u64
-}
-
-// Room indices identify authored programme slots; cells identify spatial samples.
-fn cell_random(seed: u64, room_slot: u64, cell: Cell, stream: fabelgeist_determinism::StreamId) -> fabelgeist_determinism::DeterministicRng {
-    stream.rng(seed, &[room_slot, cell.x as u16 as u64, cell.z as u16 as u64])
-}
-
-fn room_counts(room_count: usize, assignments: &BTreeMap<Cell, usize>) -> Vec<usize> {
-    let mut counts = vec![0; room_count];
-    for room in assignments.values().copied() {
-        counts[room] += 1;
-    }
-    counts
-}
-
-fn collect_rooms(
-    assignments: &BTreeMap<Cell, usize>,
-    requirements: &[RoomRequirement],
-) -> Vec<Room> {
-    requirements
-        .iter()
-        .enumerate()
-        .map(|(room_index, requirement)| Room {
-            id: room_index as u16,
-            kind: requirement.kind,
-            cells: assignments
-                .iter()
-                .filter_map(|(cell, assigned)| (*assigned == room_index).then_some(*cell))
-                .collect(),
-        })
-        .collect()
-}
-
 fn cells_are_connected(cells: &[Cell]) -> bool {
     let Some(first) = cells.first().copied() else {
         return false;
@@ -422,4 +192,75 @@ fn cells_are_connected(cells: &[Cell]) -> bool {
         }
     }
     reached.len() == cells.len()
+}
+
+// Room indices identify authored programme slots; cells identify spatial samples.
+fn cell_random(
+    seed: u64,
+    room_slot: u64,
+    cell: Cell,
+    stream: fabelgeist_determinism::StreamId,
+) -> fabelgeist_determinism::DeterministicRng {
+    stream.rng(
+        seed,
+        &[room_slot, cell.x as u16 as u64, cell.z as u16 as u64],
+    )
+}
+
+fn validate_vertical_connections(program: &BuildingProgram) -> Result<(), GenerationError> {
+    if program.storeys.len() > 1 && program.vertical_connections.is_empty() {
+        return Err(GenerationError::UnsatisfiedVerticalCirculation {
+            connection: 0,
+            reason: "a multi-storey programme declares no vertical connection".to_owned(),
+        });
+    }
+    for (connection, requirement) in program.vertical_connections.iter().enumerate() {
+        let (lowest_storey, highest_storey) = match *requirement {
+            VerticalConnectionRequirement::StraightStair {
+                lowest_storey,
+                highest_storey,
+                ..
+            }
+            | VerticalConnectionRequirement::TowerSpiral {
+                lowest_storey,
+                highest_storey,
+            } => (lowest_storey, highest_storey),
+        };
+        if lowest_storey >= highest_storey || usize::from(highest_storey) >= program.storeys.len() {
+            return Err(GenerationError::UnsatisfiedVerticalCirculation {
+                connection,
+                reason: format!(
+                    "invalid served-storey range {lowest_storey}..={highest_storey} for {} storeys",
+                    program.storeys.len()
+                ),
+            });
+        }
+    }
+    for lower_storey in 0..program.storeys.len().saturating_sub(1) {
+        let lower_storey = StoreyIndex::new(lower_storey).serialized_ordinal()?;
+        let covered = program.vertical_connections.iter().any(|requirement| {
+            let (lowest_storey, highest_storey) = match *requirement {
+                VerticalConnectionRequirement::StraightStair {
+                    lowest_storey,
+                    highest_storey,
+                    ..
+                }
+                | VerticalConnectionRequirement::TowerSpiral {
+                    lowest_storey,
+                    highest_storey,
+                } => (lowest_storey, highest_storey),
+            };
+            lowest_storey <= lower_storey && highest_storey > lower_storey
+        });
+        if !covered {
+            return Err(GenerationError::UnsatisfiedVerticalCirculation {
+                connection: 0,
+                reason: format!(
+                    "no declared connector crosses storeys {lower_storey} and {}",
+                    lower_storey + 1
+                ),
+            });
+        }
+    }
+    Ok(())
 }

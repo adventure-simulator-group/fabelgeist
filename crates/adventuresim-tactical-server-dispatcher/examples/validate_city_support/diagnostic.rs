@@ -29,7 +29,7 @@ pub(super) fn failed_property(
         })
         .ok_or("diagnostic member absent")?;
     let recipe = GeneratedBuildingRecipe::generate(placement.program.clone())?;
-    let origin = recipe.collision.bounds.centre().xz();
+    let origin = recipe.collision.bounds.centre()?.metres().xz();
     let contact = recipe
         .collision
         .ground_floor_contact_bounds()?
@@ -38,12 +38,12 @@ pub(super) fn failed_property(
         centre_metres: placement.centre_metres
             + placement
                 .orientation
-                .local_to_world(contact.centre().xz() - origin),
-        dimensions_metres: contact.plan_half_extents() * 2.0,
+                .local_to_world(contact.centre()?.metres().xz() - origin),
+        dimensions_metres: contact.plan_half_extents()?.metres() * 2.0,
         orientation: placement.orientation,
     };
-    let entries: Vec<_> = adventuresim_building_generator::compile_ground_entrances(&recipe.plan).into_iter().map(|entry| {
-        json!({"id":entry.id,"support":entry.support,"threshold_m":placement.centre_metres+placement.orientation.local_to_world(entry.threshold_metres-origin),"outward":placement.orientation.local_to_world(entry.outward)})
+    let entries: Vec<_> = adventuresim_building_generator::compile_ground_entrances(&recipe.plan)?.into_iter().map(|entry| {
+        json!({"id":entry.id,"support":entry.support,"threshold_m":placement.centre_metres+placement.orientation.local_to_world(entry.threshold_metres.metres()-origin),"outward":placement.orientation.local_to_world(entry.outward.vector())})
     }).collect();
     let point = diagnostic.location_metres;
     let mut streets: Vec<_> = layout

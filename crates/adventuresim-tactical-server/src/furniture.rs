@@ -13,7 +13,7 @@ pub(crate) fn on_furniture_added(
         Replicated,
         RigidBody::Static,
         CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-        furniture_collider(furniture.key),
+        furniture_collider(furniture.key)?,
     ));
     Ok(())
 }

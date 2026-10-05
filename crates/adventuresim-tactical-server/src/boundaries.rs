@@ -8,14 +8,16 @@ pub(crate) fn on_scene_boundary_added(
 ) -> Result {
     let (boundary, transform) = boundaries.get(event.entity)?;
     let collider = boundary.fixed_support.collider();
+    let gate = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
+        transform.translation.y,
+    )?;
+    let door = gate.door(boundary.boundary.gate.door(boundary.property_id)?)?;
     doors::spawn_door(
         &mut commands,
         event.entity,
         boundary.front_building_id,
-        transform,
-        Vec3::ZERO,
-        boundary.boundary.gate.door(boundary.property_id),
-    );
+        door,
+    )?;
     commands.entity(event.entity).insert((
         Replicated,
         RigidBody::Static,

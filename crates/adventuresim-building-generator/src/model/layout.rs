@@ -135,11 +135,20 @@ pub enum RoofPivotPolicy {
     KeepChildAttachment,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]
 pub enum RoofEditError {
+    #[error("roof assembly is absent")]
     MissingAssembly,
+    #[error("roof pitch is outside the project range")]
     PitchOutsideProjectRange,
+    #[error("roof edit requires a topology change")]
     TopologyEvent,
+    #[error("roof {roof:?} could not be reconstructed")]
+    Construction {
+        roof: RoofAssemblyId,
+        #[source]
+        cause: Box<crate::GenerationError>,
+    },
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]

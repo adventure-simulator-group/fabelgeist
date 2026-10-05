@@ -4,8 +4,8 @@ pub struct AuditIssue {
     pub message: String,
 }
 
-pub fn audit_plan(plan: &BuildingPlan) -> Vec<AuditIssue> {
-    let mut issues = crate::heating::audit(plan);
+pub fn audit_plan(plan: &BuildingPlan) -> Result<Vec<AuditIssue>, crate::GenerationError> {
+    let mut issues = crate::heating::audit(plan)?;
     audit_battlement_runs(plan, &mut issues);
 
     for (index, walk) in plan.wall_walks.iter().enumerate() {
@@ -47,7 +47,7 @@ pub fn audit_plan(plan: &BuildingPlan) -> Vec<AuditIssue> {
     }
 
     audit_defensive_circuit(plan, &mut issues);
-    audit_structural_assemblies(plan, &mut issues);
+    audit_structural_assemblies(plan, &mut issues)?;
 
     if matches!(
         plan.archetype,
@@ -107,7 +107,7 @@ pub fn audit_plan(plan: &BuildingPlan) -> Vec<AuditIssue> {
     }
     audit_fortified_profile(plan, &mut issues);
     audit_gatehouse_assemblies(plan, &mut issues);
-    issues
+    Ok(issues)
 }
 
 fn audit_battlement_runs(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
@@ -150,19 +150,24 @@ fn audit_battlement_runs(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
     }
 }
 
-fn audit_structural_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
-    enclosure::audit(plan, issues);
-    audit_resolved_geometry(plan, issues);
-    audit_wall_opening_assemblies(plan, issues);
+fn audit_structural_assemblies(
+    plan: &BuildingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<(), crate::GenerationError> {
+    enclosure::audit(plan, issues)?;
+    audit_resolved_geometry(plan, issues)?;
+    audit_wall_opening_assemblies(plan, issues)?;
     audit_crowns(plan, issues);
-    audit_projected_defenses(plan, issues);
+    audit_projected_defenses(plan, issues)?;
     audit_roof_assemblies(plan, issues);
     shed_dormers::audit(plan, issues);
     audit_church_assembly(plan, issues);
     bell_hanging::audit(plan, issues);
     crate::generator::small_church::audit_small_church(plan, issues);
-    audit_timber_frame(plan, issues);
+    audit_timber_frame(plan, issues)?;
     audit_vertical_circulation(plan, issues);
-    audit_artillery_castle(plan, issues);
-    crate::workplace::audit_workplace(plan, issues);
+    audit_artillery_castle(plan, issues)?;
+    crate::workplace::audit_workplace(plan, issues)?;
+
+    Ok(())
 }

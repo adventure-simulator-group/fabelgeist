@@ -1,5 +1,6 @@
 //! Furniture placement envelopes are authored independently of mesh compilation.
 use super::*;
+use crate::spatial_geometry::{CuboidDimensions, PositiveLength};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum FurnitureAccessFace {
@@ -11,16 +12,22 @@ pub enum FurnitureAccessFace {
 
 #[derive(Clone, Copy, Debug)]
 pub struct InteriorFurnitureSpec {
-    pub size_metres: Vec3,
+    pub size_metres: CuboidDimensions,
     pub required_faces: &'static [FurnitureAccessFace],
-    pub working_depth_metres: f32,
+    pub working_depth_metres: PositiveLength,
 }
 
 impl InteriorFurnitureSpec {
     pub const ACCESS_DEPTH_METRES: f32 = 0.75;
-    pub fn access_bounds(self, face: FurnitureAccessFace) -> CollisionBounds {
-        let half = self.size_metres * 0.5;
-        let depth = self.working_depth_metres;
+    pub fn access_bounds(
+        self,
+        face: FurnitureAccessFace,
+    ) -> Result<
+        crate::spatial_geometry::SpatialBounds<crate::furniture::FurnitureLocal>,
+        crate::spatial_geometry::GeometryError,
+    > {
+        let half = self.size_metres.metres() * 0.5;
+        let depth = self.working_depth_metres.metres();
         let (min, max) = match face {
             FurnitureAccessFace::Front => (
                 Vec3::new(-half.x, 0.0, -half.z - depth),
@@ -39,12 +46,12 @@ impl InteriorFurnitureSpec {
                 Vec3::new(half.x + depth, 1.9, half.z),
             ),
         };
-        CollisionBounds { min, max }
+        crate::spatial_geometry::SpatialBounds::from_metres(min, max)
     }
 }
 
 impl FurnitureKey {
-    pub fn interior_spec(self) -> Option<InteriorFurnitureSpec> {
+    pub fn interior_spec(self) -> Result<InteriorFurnitureSpec, FurnitureRecipeError> {
         use FurnitureAccessFace::*;
         use FurnitureKind::*;
         let (small, broad, required_faces): (_, _, &[FurnitureAccessFace]) = match self.kind {
@@ -93,19 +100,44 @@ impl FurnitureKey {
             Pulpit => ([1.2, 2.05, 2.65], [1.4, 2.05, 2.85], &[Front]),
             Bima => ([2.0, 1.2, 2.0], [2.2, 1.2, 2.2], &[Front]),
             TorahShrine => ([1.3, 1.95, 0.5], [1.6, 2.1, 0.6], &[Front]),
-            Barrel | CargoStack | TableBenchSet | CanvasStall | HitchingTrough => return None,
+            Barrel | CargoStack | TableBenchSet | CanvasStall | HitchingTrough => {
+                return Err(FurnitureRecipeError::MissingInteriorSpecification { key: self });
+            }
         };
-        Some(InteriorFurnitureSpec {
-            size_metres: Vec3::from_array(match self.variant {
-                FurnitureVariant::Compact => small,
-                FurnitureVariant::Broad => broad,
-            }),
-            required_faces,
-            working_depth_metres: match self.kind {
-                TreadleLoom | PrintingPress => 1.1,
-                SpinningStool => 1.0,
-                _ => InteriorFurnitureSpec::ACCESS_DEPTH_METRES,
-            },
-        })
+        let admission = || {
+            Ok(InteriorFurnitureSpec {
+                size_metres: CuboidDimensions::from_metres(Vec3::from_array(match self.variant {
+                    FurnitureVariant::Compact => small,
+                    FurnitureVariant::Broad => broad,
+                }))?,
+                required_faces,
+                working_depth_metres: PositiveLength::from_metres(match self.kind {
+                    TreadleLoom | PrintingPress => 1.1,
+                    SpinningStool => 1.0,
+                    _ => InteriorFurnitureSpec::ACCESS_DEPTH_METRES,
+                })?,
+            })
+        };
+        admission().map_err(|cause| FurnitureRecipeError::Specification { key: self, cause })
+    }
+}
+
+/// Placement authority follows the catalogue role, independently of geometry.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum FurniturePlacementRole {
+    Interior,
+    Outdoor,
+}
+
+impl FurnitureKey {
+    pub fn placement_role(self) -> FurniturePlacementRole {
+        match self.kind {
+            FurnitureKind::Barrel
+            | FurnitureKind::CargoStack
+            | FurnitureKind::TableBenchSet
+            | FurnitureKind::CanvasStall
+            | FurnitureKind::HitchingTrough => FurniturePlacementRole::Outdoor,
+            _ => FurniturePlacementRole::Interior,
+        }
     }
 }

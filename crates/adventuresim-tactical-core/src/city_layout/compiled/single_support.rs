@@ -57,17 +57,18 @@ impl CitySceneLayout {
                 let recipe = recipes.for_program(&placement.program)?;
                 let bearing =
                     bearing::SingleBearingProjection::from_recipe(property, placement, &recipe)?;
+                let origin = recipe.collision.bounds.centre()?.metres().xz();
                 let thresholds: Vec<_> = recipe
                     .ground_entrances
                     .iter()
                     .map(|door| {
-                        let local = door.threshold_metres - recipe.collision.bounds.centre().xz();
+                        let local = door.threshold_metres.metres() - origin;
                         DoorwaySupportBinding {
                             entrance: door.id,
                             support: door.support,
                             threshold_metres: placement.centre_metres
                                 + placement.orientation.local_to_world(local),
-                            outward: placement.orientation.local_to_world(door.outward),
+                            outward: placement.orientation.local_to_world(door.outward.vector()),
                         }
                     })
                     .collect();

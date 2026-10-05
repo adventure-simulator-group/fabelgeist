@@ -36,7 +36,7 @@ impl Street {
         places: &[super::protocol::Place],
         selected: &HashMap<PlaceId, u64>,
         generated: &mut GeneratedTacticalScene,
-    ) -> Self {
+    ) -> Result<Self, String> {
         let front_z = input
             .distant_buildings
             .iter()
@@ -69,7 +69,7 @@ impl Street {
             });
             let mut width = MINIMUM_BAY_METRES;
             if let Some(building) = building {
-                let before = building.transform();
+                let before = building.transform().map_err(|error| error.to_string())?;
                 let outward = building
                     .plan
                     .opening_assemblies
@@ -82,8 +82,13 @@ impl Street {
                     .map_or(Vec2::Y, |opening| opening.frame.outward);
                 let yaw = -outward.x.atan2(outward.y);
                 let orientation =
-                    BuildingOrientation::from_radians(yaw).expect("finite doorway direction");
-                let extent = building.collision.bounds.max - building.collision.bounds.min;
+                    BuildingOrientation::from_radians(yaw).ok_or("invalid doorway orientation")?;
+                let extent = building
+                    .collision
+                    .bounds
+                    .extent()
+                    .map_err(|error| error.to_string())?
+                    .metres();
                 let rotation = Quat::from_rotation_y(yaw);
                 let size =
                     (rotation * Vec3::X * extent.x).abs() + (rotation * Vec3::Z * extent.z).abs();
@@ -93,7 +98,13 @@ impl Street {
                 building.placement.centre_metres =
                     Vec2::new(street.width + width * 0.5, front_z - size.z * 0.5);
                 building.placement.base_elevation_metres = elevation;
-                moves.insert(building.placement.id, (before, building.transform()));
+                moves.insert(
+                    building.placement.id,
+                    (
+                        before,
+                        building.transform().map_err(|error| error.to_string())?,
+                    ),
+                );
             }
             street.bays.push(StreetBay {
                 id: place.id.0.clone(),
@@ -104,27 +115,11 @@ impl Street {
         for building in &mut generated.buildings {
             if let Some((_, after)) = moves.get_mut(&building.placement.id) {
                 building.placement.centre_metres.x -= street.width * 0.5;
-                *after = building.transform();
+                *after = building.transform().map_err(|error| error.to_string())?;
             }
         }
-        for furniture in &mut generated.furniture.instances {
-            if let FurnitureLocation::Interior { building_id, .. } = furniture.scene.location
-                && let Some((before, after)) = moves.get(&building_id)
-            {
-                let local = before
-                    .compute_affine()
-                    .inverse()
-                    .transform_point3(furniture.position_metres);
-                furniture.position_metres = after.transform_point(local);
-                let delta = (after.rotation * before.rotation.inverse())
-                    .to_euler(EulerRot::YXZ)
-                    .0;
-                furniture.orientation =
-                    BuildingOrientation::from_radians(furniture.orientation.yaw_radians() + delta)
-                        .expect("finite relocated furniture orientation");
-            }
-        }
-        street
+        relocate_interior_furniture(&mut generated.furniture, &moves)?;
+        Ok(street)
     }
 
     pub(super) fn camera(&self) -> Transform {
@@ -180,6 +175,30 @@ pub(super) fn build_ground(
     }
 }
 
+fn relocate_interior_furniture(
+    furniture: &mut FurnitureLayout,
+    moves: &HashMap<u64, (Transform, Transform)>,
+) -> Result<(), String> {
+    for furniture in &mut furniture.instances {
+        if let FurnitureLocation::Interior { building_id, .. } = furniture.scene.location
+            && let Some((before, after)) = moves.get(&building_id)
+        {
+            let local = before
+                .compute_affine()
+                .inverse()
+                .transform_point3(furniture.position_metres);
+            furniture.position_metres = after.transform_point(local);
+            let delta = (after.rotation * before.rotation.inverse())
+                .to_euler(EulerRot::YXZ)
+                .0;
+            furniture.orientation =
+                BuildingOrientation::from_radians(furniture.orientation.yaw_radians() + delta)
+                    .ok_or("invalid relocated furniture orientation")?;
+        }
+    }
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -202,7 +221,8 @@ mod tests {
             .take(2)
             .map(|placement| {
                 let plan = adventuresim_building_generator::generate(&placement.program).unwrap();
-                let collision = adventuresim_building_generator::compile_building_collision(&plan);
+                let collision =
+                    adventuresim_building_generator::compile_building_collision(&plan).unwrap();
                 GeneratedBuilding {
                     placement: placement.clone(),
                     plan,
@@ -230,15 +250,16 @@ mod tests {
         let originals: HashMap<_, _> = generated
             .buildings
             .iter()
-            .map(|b| (b.placement.id, b.transform()))
+            .map(|b| (b.placement.id, b.transform().unwrap()))
             .collect();
         let furniture = generated.furniture.instances.clone();
-        let street = Street::arrange(&input, &places, &selected, &mut generated);
+        let street = Street::arrange(&input, &places, &selected, &mut generated).unwrap();
         let mut previous_right = -street.width * 0.5;
         for building in &generated.buildings {
-            let pose = building.transform();
+            let pose = building.transform().unwrap();
             assert_eq!(pose.scale, Vec3::ONE);
-            let extent = building.collision.bounds.max - building.collision.bounds.min;
+            let extent =
+                building.collision.bounds.max().metres() - building.collision.bounds.min().metres();
             let size = (pose.rotation * Vec3::X * extent.x).abs()
                 + (pose.rotation * Vec3::Z * extent.z).abs();
             assert!(pose.translation.x - size.x * 0.5 >= previous_right);

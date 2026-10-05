@@ -80,7 +80,13 @@ fn bound_building_has_static_collision_without_rewriting_surrounding_source() {
             cover_height_cm: 0,
         })
     );
-    let exclusion = building.collision.bounds.plan_half_extents() + bevy::math::Vec2::splat(5.5);
+    let exclusion = building
+        .collision
+        .bounds
+        .plan_half_extents()
+        .unwrap()
+        .metres()
+        + bevy::math::Vec2::splat(5.5);
     assert!(generated.obstacles.iter().all(|obstacle| {
         let (x, z) = match *obstacle {
             GeneratedObstacle::Tree { x, z } | GeneratedObstacle::Rock { x, z, .. } => (x, z),

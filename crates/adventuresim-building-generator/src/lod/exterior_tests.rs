@@ -41,9 +41,9 @@ fn civilian_facades_keep_real_apertures_reveals_and_materials_with_bounded_geome
     ] {
         for seed in [42, 47, 101] {
             let mut plan = generate(&BuildingProgram::fixture(archetype, seed)).unwrap();
-            let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
-            let detail = crate::compile_building_detail(&plan);
-            let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
+            let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
+            let detail = crate::compile_building_detail(&plan).unwrap();
+            let shell = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
             eprintln!(
                 "{archetype:?}/{seed}: detail {}, facade {}, shell {}",
                 triangles(&detail.meshes),
@@ -93,7 +93,7 @@ fn civilian_facades_keep_real_apertures_reveals_and_materials_with_bounded_geome
                 facade_runs: extract_facade_runs(&plan),
                 meshes: Vec::new(),
             };
-            exterior::append_facades(&mut exterior, &plan, &excluded);
+            exterior::append_facades(&mut exterior, &plan, &excluded).unwrap();
             let mut checked = 0;
             for opening in plan.opening_assemblies.iter().filter(|opening| {
                 opening.use_kind == OpeningUse::Window
@@ -150,13 +150,13 @@ fn facade_reserves_only_operable_leaves_and_preserves_fixed_layers_and_bar_geome
         facade_runs: extract_facade_runs(&plan),
         meshes: Vec::new(),
     };
-    exterior::append_facades(&mut all, &plan, &BTreeSet::new());
+    exterior::append_facades(&mut all, &plan, &BTreeSet::new()).unwrap();
     let mut reserved = BuildingLod {
         level: BuildingLodLevel::Facade,
         facade_runs: extract_facade_runs(&plan),
         meshes: Vec::new(),
     };
-    exterior::append_facades(&mut reserved, &plan, &dynamic);
+    exterior::append_facades(&mut reserved, &plan, &dynamic).unwrap();
     assert!(triangles(&reserved.meshes) < triangles(&all.meshes));
     for mesh in reserved.meshes.iter().filter(|mesh| {
         matches!(
@@ -177,8 +177,8 @@ fn facade_reserves_only_operable_leaves_and_preserves_fixed_layers_and_bar_geome
             );
         }
     }
-    let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
-    let dynamic_shell = compile_static_building_lod(&plan, BuildingLodLevel::Shell);
+    let shell = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
+    let dynamic_shell = compile_static_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
     assert_eq!(
         serde_json::to_vec(&shell.meshes).unwrap(),
         serde_json::to_vec(&dynamic_shell.meshes).unwrap()

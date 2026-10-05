@@ -50,11 +50,19 @@ mod tests {
         let programs = [
             heated,
             BuildingProgram::validated_settlement(
-                crate::settlement_archetype(BuildingUse::Inn), BuildingUse::Inn, 47, None,
-            ).unwrap(),
+                crate::settlement_archetype(BuildingUse::Inn),
+                BuildingUse::Inn,
+                47,
+                None,
+            )
+            .unwrap(),
             BuildingProgram::validated_settlement(
-                crate::settlement_archetype(BuildingUse::GeneralShop), BuildingUse::GeneralShop, 42, None,
-            ).unwrap(),
+                crate::settlement_archetype(BuildingUse::GeneralShop),
+                BuildingUse::GeneralShop,
+                42,
+                None,
+            )
+            .unwrap(),
         ];
         for program in programs {
             let document = BuildingDocument {
@@ -64,7 +72,10 @@ mod tests {
             };
             match (generate(&document.program), generate_document(&document)) {
                 (Ok(runtime), Ok(authored)) => {
-                    assert_eq!(serde_json::to_value(runtime).unwrap(), serde_json::to_value(authored).unwrap());
+                    assert_eq!(
+                        serde_json::to_value(runtime).unwrap(),
+                        serde_json::to_value(authored).unwrap()
+                    );
                 }
                 (Err(runtime), Err(authored)) => assert_eq!(runtime, authored),
                 other => panic!("runtime and audited authoring construction differ: {other:?}"),
@@ -85,7 +96,7 @@ mod tests {
                     panic!("{archetype:?} seed {seed} must be supported: {error:?}")
                 });
                 assert!(
-                    crate::audit_plan(&plan).is_empty(),
+                    crate::audit_plan(&plan).unwrap().is_empty(),
                     "{archetype:?} seed {seed} has audit issues"
                 );
             }
@@ -119,7 +130,7 @@ mod tests {
         program.storeys[0].rooms.clear();
         assert!(matches!(
             generate(&program),
-            Err(GenerationError::EmptyStorey { level: 0 })
+            Err(GenerationError::EmptyStorey { level }) if level == StoreyIndex::GROUND
         ));
     }
 
@@ -171,6 +182,7 @@ mod tests {
             assert_eq!(straight_stairs, plan.storeys.len() - 1, "{archetype:?}");
             assert!(
                 crate::audit_plan(&plan)
+                    .unwrap()
                     .iter()
                     .all(|issue| issue.code != "invalid_vertical_circulation"),
                 "{archetype:?}"
@@ -188,6 +200,7 @@ mod tests {
         *start = Vec2::splat(-20.0);
         assert!(
             crate::audit_plan(&plan)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "invalid_vertical_circulation")
         );
@@ -199,6 +212,7 @@ mod tests {
             .expect("town-house seed one has a traversable timber route");
         assert!(
             crate::audit_plan(&plan)
+                .unwrap()
                 .iter()
                 .all(|issue| issue.code != "invalid_timber_circulation")
         );
@@ -233,7 +247,7 @@ mod tests {
             },
         )
         .unwrap();
-        assert!(crate::audit_plan(&plan).is_empty());
+        assert!(crate::audit_plan(&plan).unwrap().is_empty());
         assert!(
             plan.storeys[1].openings.iter().any(|opening| {
                 opening.wall == wall_index && opening.kind == OpeningKind::Window
@@ -277,7 +291,7 @@ mod tests {
             },
         )
         .unwrap();
-        assert!(crate::audit_plan(&edited_plan).is_empty());
+        assert!(crate::audit_plan(&edited_plan).unwrap().is_empty());
         assert!(edited.edits.iter().any(|edit| matches!(
             edit,
             BuildingEdit::AddOpening {
@@ -352,7 +366,7 @@ mod tests {
         )
         .unwrap();
         assert_eq!(plan.wall_style, crate::WallStyle::Brick);
-        assert!(crate::audit_plan(&plan).is_empty());
+        assert!(crate::audit_plan(&plan).unwrap().is_empty());
         let original_braces = plan
             .timber_frame
             .as_ref()
@@ -384,7 +398,7 @@ mod tests {
             .map(|member| (member.start, member.end))
             .collect::<Vec<_>>();
         assert_ne!(original_braces, edited_braces);
-        assert!(crate::audit_plan(&plan).is_empty());
+        assert!(crate::audit_plan(&plan).unwrap().is_empty());
     }
 
     #[test]
@@ -558,7 +572,7 @@ mod tests {
                     assert!(storey.openings.is_empty());
                     assert!(!workplace.passages.is_empty());
                     assert!(!workplace.walls.is_empty());
-                    assert!(crate::audit_plan(&first).is_empty());
+                    assert!(crate::audit_plan(&first).unwrap().is_empty());
                 } else {
                     assert!(
                         storey

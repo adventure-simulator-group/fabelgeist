@@ -175,8 +175,8 @@ impl FurnitureLayout {
         &mut self,
         building: &GeneratedBuilding,
         layout: adventuresim_building_generator::interior::InteriorLayout,
-    ) {
-        interior::install(self, building, layout);
+    ) -> Result<(), super::SceneInputError> {
+        interior::install(self, building, layout)
     }
     pub fn furnish_interiors(
         &mut self,
@@ -195,7 +195,5 @@ pub(super) fn generate(
     recipes: &mut super::GeneratedBuildingRecipes,
 ) -> Result<FurnitureLayout, super::SceneInputError> {
     let sites = sites::collect(input, buildings, recipes)?;
-    Ok(placement::generate(
-        input, &sites, terrain, ground, obstacles,
-    ))
+    placement::generate(input, &sites, terrain, ground, obstacles)
 }

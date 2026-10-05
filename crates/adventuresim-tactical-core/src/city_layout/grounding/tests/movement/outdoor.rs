@@ -50,7 +50,7 @@ impl OutdoorCollision {
         for instance in &furniture.instances {
             bodies.push((
                 Name::new(format!("Furniture {}", instance.scene.id.0)),
-                furniture_collider(instance.scene.key),
+                furniture_collider(instance.scene.key).unwrap(),
                 Transform::from_translation(instance.position_metres)
                     .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),
             ));

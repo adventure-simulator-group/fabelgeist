@@ -1,8 +1,11 @@
 /// Checks the resolved geometry cache against the grid-native gatehouse source.
 ///
 /// The tolerances below are project construction gates, not historical claims.
-fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
-    for defense in &plan.projected_defenses {
+fn audit_projected_defenses(
+    plan: &BuildingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<(), crate::GenerationError> {
+    let _: () = for defense in &plan.projected_defenses {
         let solids = plan
             .resolved_geometry
             .solids
@@ -15,54 +18,7 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             .iter()
             .filter(|void| void.owner == defense.owner)
             .collect::<Vec<_>>();
-        let expected_material_phase = match defense.kind {
-            ProjectedDefenseKind::Hoarding => {
-                defense.material == ProjectedDefenseMaterial::Timber
-                    && defense.phase == ProjectedDefensePhase::TemporaryCampaignWork
-                    && matches!(
-                        defense.deployment,
-                        ProjectedDefenseDeployment::SocketsOnly
-                            | ProjectedDefenseDeployment::Deployed
-                    )
-            }
-            _ => {
-                defense.material == ProjectedDefenseMaterial::Masonry
-                    && defense.phase == ProjectedDefensePhase::PermanentMainWork
-                    && defense.deployment == ProjectedDefenseDeployment::Permanent
-            }
-        };
-        if !expected_material_phase {
-            issues.push(issue(
-                "projected_defense_phase_material_mismatch",
-                format!(
-                    "projected defense owner {} has an incoherent material, phase, or deployment",
-                    defense.owner.0
-                ),
-            ));
-        }
-        let target_matches_installation = match defense.kind {
-            ProjectedDefenseKind::Machicolation => {
-                defense.tactical_target == ProjectedDefenseTarget::GateApproach
-            }
-            ProjectedDefenseKind::Breteche => {
-                defense.tactical_target == ProjectedDefenseTarget::ThreatenedWallFoot
-            }
-            ProjectedDefenseKind::Hoarding => {
-                defense.tactical_target == ProjectedDefenseTarget::CampaignSiegeFront
-            }
-            ProjectedDefenseKind::Bartizan => {
-                defense.tactical_target == ProjectedDefenseTarget::ThreatenedCorner
-            }
-        };
-        if !target_matches_installation {
-            issues.push(issue(
-                "projected_defense_tactical_target_mismatch",
-                format!(
-                    "projected defense owner {} lacks a coherent named tactical target",
-                    defense.owner.0
-                ),
-            ));
-        }
+        projected_defense_program::audit(defense, issues);
         let outward = match defense.path {
             ProjectedDefensePath::Linear { outward, .. }
             | ProjectedDefensePath::Round { outward, .. } => direction_vector(outward),
@@ -87,21 +43,8 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 .iter()
                 .filter(|solid| solid.role == SolidRole::DefenseHostWall)
                 .all(|solid| defense.host_wall_solids.contains(&solid.id));
-        let host_portal_is_cut = defense.host_portal_void.is_none_or(|id| {
-            plan.resolved_geometry.voids.iter().any(|void| {
-                void.id == id
-                    && void.owner == defense.host_owner
-                    && void.subtracts_from == defense.host_owner
-                    && void.role == VoidRole::AccessPortal
-            })
-        });
-        let host_bond_is_physical = defense.host_bond.is_none_or(|id| {
-            plan.resolved_geometry.junction_bonds.iter().any(|bond| {
-                bond.id == id
-                    && bond.owners.contains(&defense.owner)
-                    && bond.owners.contains(&defense.host_owner)
-            })
-        });
+        let host_portal_is_cut = projected_defense_program::host_portal_is_cut(plan, defense);
+        let host_bond_is_physical = projected_defense_program::host_bond_is_physical(plan, defense);
         let source_walls_are_exact = !defense.host_source_walls.is_empty()
             && defense.host_source_walls.iter().all(|source| {
                 let Some(storey) = plan
@@ -135,32 +78,40 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         .iter()
                         .find(|solid| solid.id == *id)
                         .is_some_and(|solid| {
-                            source_contains_plan(Vec2::new(solid.centre.x, solid.centre.z))
-                                || defense.host_source_walls.iter().any(|other| {
-                                    plan.storeys
-                                        .iter()
-                                        .find(|candidate| candidate.level == other.storey_level)
-                                        .and_then(|candidate| candidate.walls.get(other.wall_index))
-                                        .is_some_and(|other_wall| {
-                                            let other_centre = other_wall.centre();
-                                            let other_along = if other_wall.is_horizontal() {
-                                                Vec2::X
-                                            } else {
-                                                Vec2::Y
-                                            };
-                                            (Vec2::new(solid.centre.x, solid.centre.z)
-                                                - other_centre)
-                                                .dot(other_along)
+                            source_contains_plan(Vec2::new(
+                                solid.centre.metres().x,
+                                solid.centre.metres().z,
+                            )) || defense.host_source_walls.iter().any(|other| {
+                                plan.storeys
+                                    .iter()
+                                    .find(|candidate| candidate.level == other.storey_level)
+                                    .and_then(|candidate| candidate.walls.get(other.wall_index))
+                                    .is_some_and(|other_wall| {
+                                        let other_centre = other_wall.centre();
+                                        let other_along = if other_wall.is_horizontal() {
+                                            Vec2::X
+                                        } else {
+                                            Vec2::Y
+                                        };
+                                        (Vec2::new(
+                                            solid.centre.metres().x,
+                                            solid.centre.metres().z,
+                                        ) - other_centre)
+                                            .dot(other_along)
+                                            .abs()
+                                            <= crate::CELL_SIZE_METRES * 0.5 + 0.01
+                                            && (Vec2::new(
+                                                solid.centre.metres().x,
+                                                solid.centre.metres().z,
+                                            ) - other_centre)
+                                                .dot(direction_vector(other_wall.direction))
                                                 .abs()
-                                                <= crate::CELL_SIZE_METRES * 0.5 + 0.01
-                                                && (Vec2::new(solid.centre.x, solid.centre.z)
-                                                    - other_centre)
-                                                    .dot(direction_vector(other_wall.direction))
-                                                    .abs()
-                                                    <= 0.1
-                                        })
-                                }) && solid.centre.y - solid.size.y * 0.5 >= source_bottom - 0.01
-                                    && solid.centre.y + solid.size.y * 0.5 <= source_top + 0.01
+                                                <= 0.1
+                                    })
+                            }) && solid.centre.metres().y - solid.size.metres().y * 0.5
+                                >= source_bottom - 0.01
+                                && solid.centre.metres().y + solid.size.metres().y * 0.5
+                                    <= source_top + 0.01
                         })
                 });
                 let sampled_cover = [-0.4_f32, 0.0, 0.4].into_iter().all(|along_sample| {
@@ -198,12 +149,12 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 })
                         }) || plan.resolved_geometry.voids.iter().any(|void| {
                             void.owner == defense.host_owner
-                                && point.x >= void.bounds.min.x - 0.01
-                                && point.x <= void.bounds.max.x + 0.01
-                                && point.y >= void.bounds.min.y - 0.01
-                                && point.y <= void.bounds.max.y + 0.01
-                                && point.z >= void.bounds.min.z - 0.01
-                                && point.z <= void.bounds.max.z + 0.01
+                                && point.x >= void.bounds.min().metres().x - 0.01
+                                && point.x <= void.bounds.max().metres().x + 0.01
+                                && point.y >= void.bounds.min().metres().y - 0.01
+                                && point.y <= void.bounds.max().metres().y + 0.01
+                                && point.z >= void.bounds.min().metres().z - 0.01
+                                && point.z <= void.bounds.max().metres().z + 0.01
                         })
                     })
                 });
@@ -261,7 +212,7 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             .find(|solid| solid.id == *id)
                             .is_some_and(|solid| {
                                 solid.role == SolidRole::DefenseHostButtress
-                                    && solid.centre.y - solid.size.y * 0.5 <= 0.01
+                                    && solid.centre.metres().y - solid.size.metres().y * 0.5 <= 0.01
                                     && defense.host_wall_solids.iter().any(|wall_id| {
                                         host_solids
                                             .iter()
@@ -316,7 +267,10 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 joist.role == SolidRole::BeamJoist
                                     && resolved_solid_overlaps_bounds(
                                         joist,
-                                        (socket.bounds.min, socket.bounds.max),
+                                        (
+                                            socket.bounds.min().metres(),
+                                            socket.bounds.max().metres(),
+                                        ),
                                         0.01,
                                     )
                             })
@@ -341,7 +295,7 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     .floor_solids
                     .iter()
                     .filter_map(|id| solids.iter().find(|solid| solid.id == *id))
-                    .map(|solid| Vec2::new(solid.centre.x, solid.centre.z))
+                    .map(|solid| Vec2::new(solid.centre.metres().x, solid.centre.metres().z))
                     .reduce(|left, right| left + right)
                     .map(|sum| sum / defense.floor_solids.len().max(1) as f32);
                 defense.deployment == ProjectedDefenseDeployment::SocketsOnly
@@ -410,7 +364,7 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             });
         let has_portal = defense.access_portal.is_some_and(|id| {
             plan.resolved_geometry.voids.iter().any(|void| {
-                let size = void.bounds.max - void.bounds.min;
+                let size = void.bounds.max().metres() - void.bounds.min().metres();
                 void.id == id
                     && void.owner == defense.host_owner
                     && void.role == VoidRole::AccessPortal
@@ -605,7 +559,8 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         .support_interfaces
                         .iter()
                         .any(|bearing| {
-                            let size = bearing.bounds.max - bearing.bounds.min;
+                            let size =
+                                bearing.bounds.max().metres() - bearing.bounds.min().metres();
                             bearing.owner == defense.owner
                                 && bearing.node == node.id
                                 && size.x * size.z >= 0.08
@@ -624,11 +579,15 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 .find(|solid| solid.id == *floor_id)
                 .is_some_and(|floor| {
                     [-0.5_f32, 0.0, 0.5].into_iter().all(|sample| {
-                        let local_x = Vec2::new(floor.yaw_radians.cos(), -floor.yaw_radians.sin());
-                        let point = Vec2::new(floor.centre.x, floor.centre.z)
-                            + local_x * floor.size.x * sample;
+                        let local_x = Vec2::new(
+                            floor.yaw_radians.radians().cos(),
+                            -floor.yaw_radians.radians().sin(),
+                        );
+                        let point = Vec2::new(floor.centre.metres().x, floor.centre.metres().z)
+                            + local_x * floor.size.metres().x * sample;
                         support_nodes.iter().any(|node| {
-                            let support = Vec2::new(node.position.x, node.position.z);
+                            let support =
+                                Vec2::new(node.position.metres().x, node.position.metres().z);
                             (point - support).dot(support_tangent).abs() <= 0.75
                         })
                     })
@@ -685,14 +644,17 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     && !channels.is_empty()
                     && route.is_some_and(|route| {
                         channels.last().is_some_and(|channel| {
-                            let local_x =
-                                Vec2::new(channel.yaw_radians.cos(), -channel.yaw_radians.sin());
-                            let downhill = local_x * -channel.longfall_radians.signum();
-                            let endpoint = Vec2::new(channel.centre.x, channel.centre.z)
-                                + downhill * channel.size.x * 0.5;
+                            let local_x = Vec2::new(
+                                channel.yaw_radians.radians().cos(),
+                                -channel.yaw_radians.radians().sin(),
+                            );
+                            let downhill = local_x * -channel.longfall_radians.radians().signum();
+                            let endpoint =
+                                Vec2::new(channel.centre.metres().x, channel.centre.metres().z)
+                                    + downhill * channel.size.metres().x * 0.5;
                             endpoint.distance(Vec2::new(route.inlet.x, route.inlet.z)) <= 0.015
-                                && channel.longfall_radians.abs() >= 0.005
-                                && channel.centre.y + channel.size.y * 0.5
+                                && channel.longfall_radians.radians().abs() >= 0.005
+                                && channel.centre.metres().y + channel.size.metres().y * 0.5
                                     <= defense.floor_elevation_metres - 0.015
                         })
                     });
@@ -700,37 +662,44 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     let Some(floor) = solids.iter().find(|solid| solid.id == *floor_id) else {
                         return false;
                     };
-                    let local_x = Vec2::new(floor.yaw_radians.cos(), -floor.yaw_radians.sin());
-                    let local_z = Vec2::new(floor.yaw_radians.sin(), floor.yaw_radians.cos());
-                    let gradient =
-                        local_x * -floor.longfall_radians.signum() * floor.longfall_radians.abs()
-                            + local_z
-                                * floor.crossfall_radians.signum()
-                                * floor.crossfall_radians.abs();
+                    let local_x = Vec2::new(
+                        floor.yaw_radians.radians().cos(),
+                        -floor.yaw_radians.radians().sin(),
+                    );
+                    let local_z = Vec2::new(
+                        floor.yaw_radians.radians().sin(),
+                        floor.yaw_radians.radians().cos(),
+                    );
+                    let gradient = local_x
+                        * -floor.longfall_radians.radians().signum()
+                        * floor.longfall_radians.radians().abs()
+                        + local_z
+                            * floor.crossfall_radians.radians().signum()
+                            * floor.crossfall_radians.radians().abs();
                     if gradient.length() < 0.005 {
                         return false;
                     }
                     let downhill = gradient.normalize();
                     [-0.4_f32, 0.0, 0.4].into_iter().all(|x| {
                         [-0.4_f32, 0.0, 0.4].into_iter().all(|z| {
-                            let start = Vec2::new(floor.centre.x, floor.centre.z)
-                                + local_x * floor.size.x * x
-                                + local_z * floor.size.z * z;
+                            let start = Vec2::new(floor.centre.metres().x, floor.centre.metres().z)
+                                + local_x * floor.size.metres().x * x
+                                + local_z * floor.size.metres().z * z;
                             (0..=100).any(|step| {
                                 let point = start + downhill * step as f32 * 0.04;
                                 channels.iter().any(|channel| {
                                     resolved_solid_contains_point(
                                         channel,
-                                        Vec3::new(point.x, channel.centre.y, point.y),
+                                        Vec3::new(point.x, channel.centre.metres().y, point.y),
                                         0.025,
                                     )
                                 }) || route.is_some_and(|route| {
                                     plan.resolved_geometry.voids.iter().any(|void| {
                                         void.id == route.outlet_void
-                                            && point.x >= void.bounds.min.x - 0.025
-                                            && point.x <= void.bounds.max.x + 0.025
-                                            && point.y >= void.bounds.min.z - 0.025
-                                            && point.y <= void.bounds.max.z + 0.025
+                                            && point.x >= void.bounds.min().metres().x - 0.025
+                                            && point.x <= void.bounds.max().metres().x + 0.025
+                                            && point.y >= void.bounds.min().metres().z - 0.025
+                                            && point.y <= void.bounds.max().metres().z + 0.025
                                     })
                                 })
                             })
@@ -785,17 +754,21 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 }) else {
                     return false;
                 };
-                let local_z = Vec2::new(source.yaw_radians.sin(), source.yaw_radians.cos());
-                let physical_downhill = local_z * source.crossfall_radians.signum();
+                let local_z = Vec2::new(
+                    source.yaw_radians.radians().sin(),
+                    source.yaw_radians.radians().cos(),
+                );
+                let physical_downhill = local_z * source.crossfall_radians.radians().signum();
                 let weather_outward = match defense.path {
                     ProjectedDefensePath::Round { centre, .. }
                         if source.role == SolidRole::Coping =>
                     {
-                        (Vec2::new(source.centre.x, source.centre.z) - centre).normalize_or_zero()
+                        (Vec2::new(source.centre.metres().x, source.centre.metres().z) - centre)
+                            .normalize_or_zero()
                     }
                     _ => outward,
                 };
-                let gradient_outward = source.crossfall_radians.abs() >= 0.04
+                let gradient_outward = source.crossfall_radians.radians().abs() >= 0.04
                     && physical_downhill.dot(weather_outward) >= 0.8
                     && catchment.outward.dot(weather_outward) >= 0.8
                     && catchment.inner_elevation_metres > catchment.outer_elevation_metres + 0.01;
@@ -806,7 +779,8 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             void.id == route.outlet_void && void.role == VoidRole::Drain
                         });
                 let toe_reaches_inlet = if catchment.toe_channel_solids.is_empty() {
-                    let source_centre = Vec2::new(source.centre.x, source.centre.z);
+                    let source_centre =
+                        Vec2::new(source.centre.metres().x, source.centre.metres().z);
                     let expected = source_centre
                         + catchment.outward * catchment.width_metres * 0.5
                         + catchment.tangent * catchment.outlet_along_metres;
@@ -818,8 +792,8 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             .find(|solid| solid.id == *id)
                             .is_some_and(|channel| {
                                 channel.role == SolidRole::DrainageFloor
-                                    && channel.longfall_radians.abs() >= 0.005
-                                    && channel.centre.y + channel.size.y * 0.5
+                                    && channel.longfall_radians.radians().abs() >= 0.005
+                                    && channel.centre.metres().y + channel.size.metres().y * 0.5
                                         <= catchment.outer_elevation_metres + 0.005
                             })
                     }) && catchment.toe_channel_solids.last().is_some_and(|id| {
@@ -828,12 +802,14 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             .find(|solid| solid.id == *id)
                             .is_some_and(|channel| {
                                 let local_x = Vec2::new(
-                                    channel.yaw_radians.cos(),
-                                    -channel.yaw_radians.sin(),
+                                    channel.yaw_radians.radians().cos(),
+                                    -channel.yaw_radians.radians().sin(),
                                 );
-                                let downhill = local_x * -channel.longfall_radians.signum();
-                                let endpoint = Vec2::new(channel.centre.x, channel.centre.z)
-                                    + downhill * channel.size.x * 0.5;
+                                let downhill =
+                                    local_x * -channel.longfall_radians.radians().signum();
+                                let endpoint =
+                                    Vec2::new(channel.centre.metres().x, channel.centre.metres().z)
+                                        + downhill * channel.size.metres().x * 0.5;
                                 endpoint.distance(Vec2::new(route.inlet.x, route.inlet.z)) <= 0.02
                             })
                     })
@@ -876,55 +852,74 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 .copied()
                 .filter(|solid| solid.role == SolidRole::RoofPlate)
                 .collect::<Vec<_>>();
-            roof.is_some_and(|roof| {
-                bearing_node.is_some_and(|node| {
-                    roof.supported_by == [node.id]
-                        && node.supported_by.len() == 2
-                        && node.supported_by.iter().all(|parent| {
-                            plan.resolved_geometry
-                                .structural_nodes
-                                .iter()
-                                .any(|candidate| {
-                                    candidate.id == *parent
-                                        && candidate.owner == defense.owner
-                                        && !candidate.supported_by.is_empty()
-                                })
-                        })
-                }) && support_solids.len() == defense.roof_support_solids.len()
-                    && support_solids.len() >= 5
-                    && plates.len() == 2
-                    && plates.iter().all(|plate| {
-                        let expected_underside = roof.centre.y
-                            - (Vec2::new(plate.centre.x, plate.centre.z)
-                                - Vec2::new(roof.centre.x, roof.centre.z))
-                            .dot(outward)
-                                * roof.crossfall_radians.abs().tan()
-                            - roof.size.y * 0.5;
-                        let plate_top = plate.centre.y + plate.size.y * 0.5;
-                        let roof_contact = (plate_top - expected_underside).abs() <= 0.025
-                            && resolved_plan_overlap_area(roof, plate) >= 0.08;
-                        let local_x = Vec2::new(plate.yaw_radians.cos(), -plate.yaw_radians.sin());
-                        let bearing_samples = [-1.0_f32, 1.0].into_iter().all(|side| {
-                            let point = Vec2::new(plate.centre.x, plate.centre.z)
-                                + local_x * side * (plate.size.x * 0.5 - 0.47);
-                            support_solids.iter().any(|support| {
-                                support.id != plate.id
-                                    && support.role != SolidRole::RoofPlate
-                                    && (support.centre.y + support.size.y * 0.5
-                                        - (plate.centre.y - plate.size.y * 0.5))
-                                        .abs()
-                                        <= 0.025
-                                    && resolved_plan_overlap_area(support, plate) >= 0.014
-                                    && resolved_solid_contains_point(
-                                        support,
-                                        Vec3::new(point.x, support.centre.y, point.y),
-                                        0.12,
-                                    )
+            crate::geometry_index::try_any(roof, |roof| {
+                Ok::<bool, crate::GenerationError>(
+                    bearing_node.is_some_and(|node| {
+                        roof.supported_by == [node.id]
+                            && node.supported_by.len() == 2
+                            && node.supported_by.iter().all(|parent| {
+                                plan.resolved_geometry
+                                    .structural_nodes
+                                    .iter()
+                                    .any(|candidate| {
+                                        candidate.id == *parent
+                                            && candidate.owner == defense.owner
+                                            && !candidate.supported_by.is_empty()
+                                    })
                             })
-                        });
-                        roof_contact && bearing_samples
-                    })
-            })
+                    }) && support_solids.len() == defense.roof_support_solids.len()
+                        && support_solids.len() >= 5
+                        && plates.len() == 2
+                        && crate::geometry_index::try_all(plates.iter(), |plate| {
+                            let expected_underside = roof.centre.metres().y
+                                - (Vec2::new(plate.centre.metres().x, plate.centre.metres().z)
+                                    - Vec2::new(roof.centre.metres().x, roof.centre.metres().z))
+                                .dot(outward)
+                                    * roof.crossfall_radians.radians().abs().tan()
+                                - roof.size.metres().y * 0.5;
+                            let plate_top = plate.centre.metres().y + plate.size.metres().y * 0.5;
+                            let roof_contact = (plate_top - expected_underside).abs() <= 0.025
+                                && resolved_plan_overlap_area(roof, plate)? >= 0.08;
+                            let local_x = Vec2::new(
+                                plate.yaw_radians.radians().cos(),
+                                -plate.yaw_radians.radians().sin(),
+                            );
+                            let bearing_samples =
+                                crate::geometry_index::try_all([-1.0_f32, 1.0], |side| {
+                                    let point =
+                                        Vec2::new(plate.centre.metres().x, plate.centre.metres().z)
+                                            + local_x * side * (plate.size.metres().x * 0.5 - 0.47);
+                                    crate::geometry_index::try_any(
+                                        support_solids.iter(),
+                                        |support| {
+                                            Ok::<bool, crate::GenerationError>(
+                                                support.id != plate.id
+                                                    && support.role != SolidRole::RoofPlate
+                                                    && (support.centre.metres().y
+                                                        + support.size.metres().y * 0.5
+                                                        - (plate.centre.metres().y
+                                                            - plate.size.metres().y * 0.5))
+                                                        .abs()
+                                                        <= 0.025
+                                                    && resolved_plan_overlap_area(support, plate)?
+                                                        >= 0.014
+                                                    && resolved_solid_contains_point(
+                                                        support,
+                                                        Vec3::new(
+                                                            point.x,
+                                                            support.centre.metres().y,
+                                                            point.y,
+                                                        ),
+                                                        0.12,
+                                                    ),
+                                            )
+                                        },
+                                    )
+                                })?;
+                            Ok::<bool, crate::GenerationError>(roof_contact && bearing_samples)
+                        })?,
+                )
+            })?
         } else {
             defense.roof_support_solids.is_empty() && defense.roof_bearing_node.is_none()
         };
@@ -974,10 +969,10 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         let in_throat = defense.throat_voids.iter().any(|id| {
                             plan.resolved_geometry.voids.iter().any(|void| {
                                 void.id == *id
-                                    && point.x >= void.bounds.min.x
-                                    && point.x <= void.bounds.max.x
-                                    && point.y >= void.bounds.min.z
-                                    && point.y <= void.bounds.max.z
+                                    && point.x >= void.bounds.min().metres().x
+                                    && point.x <= void.bounds.max().metres().x
+                                    && point.y >= void.bounds.min().metres().z
+                                    && point.y <= void.bounds.max().metres().z
                             })
                         });
                         in_throat
@@ -1005,14 +1000,15 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     .iter()
                     .find(|void| void.id == *id)
                     .is_some_and(|void| {
-                        let size = void.bounds.max - void.bounds.min;
+                        let size = void.bounds.max().metres() - void.bounds.min().metres();
                         size.x.max(size.z) <= 0.2
                             && size.y <= 0.55
                             && solids
                                 .iter()
                                 .filter(|solid| solid.role == SolidRole::BartizanShell)
                                 .filter(|solid| {
-                                    Vec2::new(solid.centre.x, solid.centre.z).distance(centre)
+                                    Vec2::new(solid.centre.metres().x, solid.centre.metres().z)
+                                        .distance(centre)
                                         <= radius + 0.15
                                 })
                                 .count()
@@ -1060,5 +1056,6 @@ fn audit_projected_defenses(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 ),
             ));
         }
-    }
+    };
+    Ok(())
 }

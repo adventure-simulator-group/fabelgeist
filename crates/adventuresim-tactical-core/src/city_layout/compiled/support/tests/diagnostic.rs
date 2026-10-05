@@ -49,7 +49,7 @@ pub(super) fn save(
         let recipe =
             crate::scene_input::GeneratedBuildingRecipe::generate(building.program.clone())
                 .unwrap();
-        let origin = recipe.collision.bounds.centre().xz();
+        let origin = recipe.collision.bounds.centre().unwrap().metres().xz();
         let mut building_points = Vec::new();
         for solid in &recipe.collision.cuboids {
             let world: Vec<_> = solid
@@ -81,15 +81,22 @@ pub(super) fn save(
                     .unwrap()
                     .metres();
                 let centre = rotation
-                    * (solid.centre - bevy::math::Vec3::new(origin.x, 0.0, origin.y))
+                    * (solid.centre.metres() - bevy::math::Vec3::new(origin.x, 0.0, origin.y))
                     + bevy::math::Vec3::new(
                         building.centre_metres.x,
                         floor,
                         building.centre_metres.y,
                     );
                 let world_solid = adventuresim_building_generator::CollisionCuboid {
-                    centre,
-                    yaw_radians: solid.yaw_radians + building.orientation.yaw_radians(),
+                    centre:
+                        adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                            centre,
+                        )
+                        .unwrap(),
+                    yaw_radians: adventuresim_building_generator::spatial_geometry::Radians::new(
+                        solid.yaw_radians.radians() + building.orientation.yaw_radians(),
+                    )
+                    .unwrap(),
                     ..*solid
                 };
                 solids.push((building.id, solid.source, world.clone(), world_solid));
@@ -211,11 +218,11 @@ pub(super) fn save_property(
         .unwrap();
     let recipe =
         crate::scene_input::GeneratedBuildingRecipe::generate(building.program.clone()).unwrap();
-    let origin = recipe.collision.bounds.centre().xz();
+    let origin = recipe.collision.bounds.centre().unwrap().metres().xz();
     let value = serde_json::json!({"population":population,"seed":seed,"failure":diagnostic,
         "building":building,"property":layout.single_properties.iter().find(|p|p.id==diagnostic.property_id),
         "footprint":recipe.collision.ground_floor_footprint().unwrap().unwrap().vertices().iter().map(|p|building.centre_metres+building.orientation.local_to_world(p.metres()-origin)).collect::<Vec<_>>(),
-        "entrances":adventuresim_building_generator::compile_ground_entrances(&recipe.plan).iter().map(|e|serde_json::json!({"id":e.id,"support":e.support,"threshold":building.centre_metres+building.orientation.local_to_world(e.threshold_metres-origin),"outward":building.orientation.local_to_world(e.outward)})).collect::<Vec<_>>(),
+        "entrances":adventuresim_building_generator::compile_ground_entrances(&recipe.plan).unwrap().iter().map(|e|serde_json::json!({"id":e.id,"support":e.support,"threshold":building.centre_metres+building.orientation.local_to_world(e.threshold_metres.metres()-origin),"outward":building.orientation.local_to_world(e.outward.vector())})).collect::<Vec<_>>(),
         "streets":layout.streets.iter().filter(|s|s.contains(diagnostic.location_metres)).collect::<Vec<_>>(),
         "source_triangles":source.triangles().collect::<Vec<_>>()});
     let path = std::path::PathBuf::from(directory);

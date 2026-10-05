@@ -22,30 +22,40 @@ impl GroundContact {
         fixed.into_iter().flatten().chain(area.iter().copied())
     }
 }
-impl CollisionCuboid {
+impl CollisionCuboid<Architectural> {
     /// Classify exact signs after the existing f32 pose calculation. Edge
     /// intersections use the existing f32 interpolation. No tolerance merges
     /// different contacts. Computed corners also own the broad phase, avoiding
     /// disagreement with a separately rounded centre/half-extent AABB.
     pub fn ground_contact(self) -> Result<GroundContact, PlanGeometryError> {
-        let corners = self.corners()?;
-        if corners.points().iter().all(|p| p.y > 0.0) || corners.points().iter().all(|p| p.y < 0.0)
+        let corners = self
+            .corners()
+            .map_err(|error| PlanGeometryError::SolidConstruction {
+                solid: error.source_id,
+                cause: error.cause,
+            })?;
+        if corners.points().iter().all(|p| p.metres().y > 0.0)
+            || corners.points().iter().all(|p| p.metres().y < 0.0)
         {
             return Ok(GroundContact::Empty);
         }
         let point = |p: Vec3| {
-            ArchitecturalPlanPoint::from_metres(Vec2::new(p.x, p.z))
-                .ok_or(PlanGeometryError::NonFinite)
+            ArchitecturalPlanPoint::from_metres(Vec2::new(p.x, p.z)).map_err(|cause| {
+                PlanGeometryError::SolidConstruction {
+                    solid: self.source,
+                    cause,
+                }
+            })
         };
         let mut points = Vec::new();
         for &corner in corners.points() {
-            if corner.y == 0.0 {
-                points.push(point(corner)?);
+            if corner.metres().y == 0.0 {
+                points.push(point(corner.metres())?);
             }
         }
         for edge in corners.edges() {
-            let a = edge.start;
-            let b = edge.end;
+            let a = edge.start.metres();
+            let b = edge.end.metres();
             if (a.y < 0.0 && b.y > 0.0) || (a.y > 0.0 && b.y < 0.0) {
                 points.push(point(a + (b - a) * (-a.y / (b.y - a.y)))?);
             }
@@ -63,22 +73,24 @@ impl CollisionCuboid {
 mod tests {
     use super::*;
 
-    fn solid() -> CollisionCuboid {
-        CollisionCuboid {
-            source: ResolvedItemId(1),
-            centre: Vec3::ZERO,
-            size: Vec3::splat(2.0),
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        }
+    fn solid() -> CollisionCuboid<crate::spatial_geometry::Architectural> {
+        CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(
+            ResolvedItemId(1),
+            Vec3::ZERO,
+            Vec3::splat(2.0),
+            0.0,
+            0.0,
+            0.0,
+        )
+        .unwrap()
     }
 
     #[test]
     fn pitched_solid_contact_is_smaller_than_its_projected_envelope() {
         let solid = CollisionCuboid {
-            centre: Vec3::Y,
-            crossfall_radians: core::f32::consts::FRAC_PI_4,
+            centre: crate::spatial_geometry::Position::from_metres(Vec3::Y).unwrap(),
+            crossfall_radians: crate::spatial_geometry::Radians::new(core::f32::consts::FRAC_PI_4)
+                .unwrap(),
             ..solid()
         };
         let polygon = solid.ground_contact().unwrap();
@@ -92,32 +104,37 @@ mod tests {
             .map(|p| p.metres().y)
             .fold(f32::NEG_INFINITY, f32::max);
         assert!(max - min < 1.0, "the floor cuts only the lower tip");
-        assert!(solid.bounds().max.z - solid.bounds().min.z > 2.0);
+        assert!(
+            solid.bounds().unwrap().max().metres().z - solid.bounds().unwrap().min().metres().z
+                > 2.0
+        );
         let collision = BuildingCollision {
-            bounds: solid.bounds(),
+            bounds: solid.bounds().unwrap(),
             cuboids: vec![solid],
         };
         let contact = collision.ground_floor_contact_bounds().unwrap().unwrap();
         let expected_half_depth = 2.0_f32.sqrt() - 1.0;
-        assert!((contact.min.z + expected_half_depth).abs() < 0.000001);
-        assert!((contact.max.z - expected_half_depth).abs() < 0.000001);
-        assert_eq!(contact.min.y, 0.0);
-        assert_eq!(contact.max.y, 0.0);
-        assert_eq!(contact.min.x, -1.0);
-        assert_eq!(contact.max.x, 1.0);
+        assert!((contact.min().metres().z + expected_half_depth).abs() < 0.000001);
+        assert!((contact.max().metres().z - expected_half_depth).abs() < 0.000001);
+        assert_eq!(contact.min().metres().y, 0.0);
+        assert_eq!(contact.max().metres().y, 0.0);
+        assert_eq!(contact.min().metres().x, -1.0);
+        assert_eq!(contact.max().metres().x, 1.0);
     }
 
     #[test]
     fn buried_slab_keeps_its_top_contact_and_upper_projection_has_none() {
         let slab = CollisionCuboid {
-            centre: Vec3::new(0.0, -0.5, 0.0),
-            size: Vec3::new(2.0, 1.0, 3.0),
-            yaw_radians: 0.73,
+            centre: crate::spatial_geometry::Position::from_metres(Vec3::new(0.0, -0.5, 0.0))
+                .unwrap(),
+            size: crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(2.0, 1.0, 3.0))
+                .unwrap(),
+            yaw_radians: crate::spatial_geometry::Radians::new(0.73).unwrap(),
             ..solid()
         };
         assert_eq!(slab.ground_contact().unwrap().points().count(), 4);
         let upper = CollisionCuboid {
-            centre: Vec3::Y * 4.0,
+            centre: crate::spatial_geometry::Position::from_metres(Vec3::Y * 4.0).unwrap(),
             ..slab
         };
         assert!(matches!(
@@ -130,22 +147,23 @@ mod tests {
 #[cfg(test)]
 mod datum_regressions {
     use super::*;
-    fn cube() -> CollisionCuboid {
-        CollisionCuboid {
-            source: ResolvedItemId(1),
-            centre: Vec3::ZERO,
-            size: Vec3::splat(2.0),
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        }
+    fn cube() -> CollisionCuboid<crate::spatial_geometry::Architectural> {
+        CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(
+            ResolvedItemId(1),
+            Vec3::ZERO,
+            Vec3::splat(2.0),
+            0.0,
+            0.0,
+            0.0,
+        )
+        .unwrap()
     }
     #[test]
     fn rotated_point_and_edge_tangencies_keep_their_dimensionality() {
         let mut point = CollisionCuboid {
-            yaw_radians: 0.49,
-            crossfall_radians: 0.37,
-            longfall_radians: 0.61,
+            yaw_radians: crate::spatial_geometry::Radians::new(0.49).unwrap(),
+            crossfall_radians: crate::spatial_geometry::Radians::new(0.37).unwrap(),
+            longfall_radians: crate::spatial_geometry::Radians::new(0.61).unwrap(),
             ..cube()
         };
         let minimum = point
@@ -153,15 +171,15 @@ mod datum_regressions {
             .unwrap()
             .points()
             .iter()
-            .map(|p| p.y)
+            .map(|p| p.metres().y)
             .fold(f32::INFINITY, f32::min);
-        point.centre.y = -minimum;
+        point.centre = Position::from_metres(Vec3::Y * -minimum).unwrap();
         assert!(matches!(
             point.ground_contact().unwrap(),
             GroundContact::Point(_)
         ));
         let mut edge = CollisionCuboid {
-            crossfall_radians: 0.41,
+            crossfall_radians: crate::spatial_geometry::Radians::new(0.41).unwrap(),
             ..cube()
         };
         let minimum = edge
@@ -169,9 +187,9 @@ mod datum_regressions {
             .unwrap()
             .points()
             .iter()
-            .map(|p| p.y)
+            .map(|p| p.metres().y)
             .fold(f32::INFINITY, f32::min);
-        edge.centre.y = -minimum;
+        edge.centre = Position::from_metres(Vec3::Y * -minimum).unwrap();
         assert!(matches!(
             edge.ground_contact().unwrap(),
             GroundContact::Segment(_)
@@ -180,7 +198,7 @@ mod datum_regressions {
     #[test]
     fn adjacent_representable_elevations_do_not_acquire_a_contact_epsilon() {
         let contact = CollisionCuboid {
-            centre: Vec3::Y,
+            centre: crate::spatial_geometry::Position::from_metres(Vec3::Y).unwrap(),
             ..cube()
         };
         assert!(matches!(
@@ -188,7 +206,10 @@ mod datum_regressions {
             GroundContact::Area(_)
         ));
         let above = CollisionCuboid {
-            centre: Vec3::Y * f32::from_bits(1.0_f32.to_bits() + 1),
+            centre: crate::spatial_geometry::Position::from_metres(
+                Vec3::Y * f32::from_bits(1.0_f32.to_bits() + 1),
+            )
+            .unwrap(),
             ..cube()
         };
         assert!(matches!(
@@ -196,7 +217,10 @@ mod datum_regressions {
             GroundContact::Empty
         ));
         let below = CollisionCuboid {
-            centre: Vec3::Y * f32::from_bits(1.0_f32.to_bits() - 1),
+            centre: crate::spatial_geometry::Position::from_metres(
+                Vec3::Y * f32::from_bits(1.0_f32.to_bits() - 1),
+            )
+            .unwrap(),
             ..cube()
         };
         assert!(matches!(
@@ -204,7 +228,7 @@ mod datum_regressions {
             GroundContact::Area(_)
         ));
         let point = CollisionCuboid {
-            size: Vec3::ZERO,
+            size: crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::ZERO).unwrap(),
             ..cube()
         };
         assert!(matches!(
@@ -212,7 +236,7 @@ mod datum_regressions {
             GroundContact::Point(_)
         ));
         let segment = CollisionCuboid {
-            size: Vec3::X,
+            size: crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::X).unwrap(),
             ..cube()
         };
         assert!(matches!(
@@ -222,40 +246,66 @@ mod datum_regressions {
     }
     #[test]
     fn malformed_solids_report_errors_instead_of_absent_support() {
-        let invalid = CollisionCuboid {
-            centre: Vec3::splat(f32::NAN),
-            ..cube()
+        use crate::spatial_geometry::{CoordinateAxis, GeometryError, GeometryRole};
+        let construct = |centre, size| {
+            CollisionCuboid::<Architectural>::from_metres(
+                ResolvedItemId(17),
+                centre,
+                size,
+                0.0,
+                0.0,
+                0.0,
+            )
         };
-        assert_eq!(invalid.ground_contact(), Err(PlanGeometryError::NonFinite));
-        let negative = CollisionCuboid {
-            size: -Vec3::ONE,
-            ..cube()
-        };
+        let error = construct(Vec3::splat(f32::NAN), Vec3::ONE).unwrap_err();
+        assert_eq!(error.source_id, ResolvedItemId(17));
         assert_eq!(
-            negative.ground_contact(),
-            Err(PlanGeometryError::NegativeSolidDimension)
+            error.cause,
+            GeometryError::NonFinite {
+                role: GeometryRole::Position,
+                axis: CoordinateAxis::X
+            }
         );
+        assert_eq!(
+            construct(Vec3::ZERO, -Vec3::ONE).unwrap_err().cause,
+            GeometryError::NegativeExtent {
+                role: GeometryRole::CuboidDimensions,
+                axis: CoordinateAxis::X
+            }
+        );
+        let huge = construct(Vec3::splat(f32::MAX), Vec3::splat(f32::MAX)).unwrap();
+        assert!(matches!(
+            huge.ground_contact(),
+            Err(PlanGeometryError::SolidConstruction {
+                solid: ResolvedItemId(17),
+                cause: GeometryError::NonFinite {
+                    role: GeometryRole::Position,
+                    ..
+                }
+            })
+        ));
     }
 
     #[test]
     fn rotated_church_bearing_survives_inconsistent_aabb_rounding() {
         // Goslar building 14, parish-church programme seed 42, large service
         // size. The separately rounded AABB misses a real datum contact.
-        let solid = CollisionCuboid {
-            source: ResolvedItemId(1153222152317568514),
-            centre: Vec3::new(41.132202, 5.675, 10.5),
-            size: Vec3::new(2.7502518, 11.35, 0.9),
-            yaw_radians: -core::f32::consts::FRAC_PI_2,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        };
-        assert!(solid.bounds().min.y > 0.0);
+        let solid = CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(
+            ResolvedItemId(1153222152317568514),
+            Vec3::new(41.132202, 5.675, 10.5),
+            Vec3::new(2.7502518, 11.35, 0.9),
+            -core::f32::consts::FRAC_PI_2,
+            0.0,
+            0.0,
+        )
+        .unwrap();
+        assert!(solid.bounds().unwrap().min().metres().y > 0.0);
         let corners = solid.corners().unwrap();
         assert_eq!(
             corners
                 .points()
                 .iter()
-                .filter(|point| point.y == 0.0)
+                .filter(|point| point.metres().y == 0.0)
                 .count(),
             4
         );
@@ -271,5 +321,73 @@ mod datum_regressions {
                 .fold(f32::NEG_INFINITY, f32::max),
             41.582203
         );
+    }
+}
+
+#[cfg(test)]
+mod admission_tests {
+    use super::*;
+    #[test]
+    fn thin_sections_survive_both_ground_contact_consumers() {
+        for thickness in [0.000_001, f32::MIN_POSITIVE] {
+            let solid = CollisionCuboid::<Architectural>::from_metres(
+                ResolvedItemId(271),
+                Vec3::ZERO,
+                Vec3::new(2.0, thickness, 3.0),
+                0.0,
+                0.0,
+                0.0,
+            )
+            .unwrap();
+            let collision = BuildingCollision {
+                bounds: solid.bounds().unwrap(),
+                cuboids: vec![solid],
+            };
+            assert!(matches!(
+                solid.ground_contact().unwrap(),
+                GroundContact::Area(_)
+            ));
+            let bounds = collision.ground_floor_contact_bounds().unwrap().unwrap();
+            assert_eq!(bounds.min().metres(), Vec3::new(-1.0, 0.0, -1.5));
+            assert_eq!(bounds.max().metres(), Vec3::new(1.0, 0.0, 1.5));
+            assert_eq!(
+                collision
+                    .ground_floor_footprint()
+                    .unwrap()
+                    .unwrap()
+                    .polygon()
+                    .vertices()
+                    .len(),
+                4
+            );
+        }
+    }
+    #[test]
+    fn contact_consumers_preserve_overflow_identity_and_cause() {
+        let solid = CollisionCuboid::<Architectural>::from_metres(
+            ResolvedItemId(272),
+            Vec3::splat(f32::MAX),
+            Vec3::splat(f32::MAX),
+            0.0,
+            0.0,
+            0.0,
+        )
+        .unwrap();
+        let collision = BuildingCollision {
+            bounds: SpatialBounds::at(solid.centre),
+            cuboids: vec![solid],
+        };
+        for error in [
+            collision.ground_floor_contact_bounds().unwrap_err(),
+            collision.ground_floor_footprint().unwrap_err(),
+        ] {
+            assert!(matches!(
+                error,
+                PlanGeometryError::SolidConstruction {
+                    solid: ResolvedItemId(272),
+                    cause: GeometryError::NonFinite { .. }
+                }
+            ));
+        }
     }
 }

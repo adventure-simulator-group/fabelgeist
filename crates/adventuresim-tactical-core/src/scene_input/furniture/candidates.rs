@@ -15,6 +15,7 @@ const KIT_GAP_METRES: f32 = 0.25;
 
 pub(super) struct LocalItem {
     pub key: FurnitureKey,
+    pub recipe: &'static adventuresim_building_generator::furniture::FurnitureRecipe,
     pub offset: Vec2,
 }
 
@@ -33,7 +34,7 @@ impl Candidate {
         slot: u64,
         kind: FurnitureGroupKind,
         anchor: FurnitureAnchor,
-    ) -> Self {
+    ) -> Result<Self, adventuresim_building_generator::furniture::FurnitureRecipeError> {
         let (anchor_kind, anchor_id) = match anchor {
             FurnitureAnchor::Market { patch_index } => (0, u64::from(patch_index)),
             FurnitureAnchor::Building { id } => (1, id),
@@ -51,7 +52,8 @@ impl Candidate {
         let mut maximum = Vec2::splat(f32::NEG_INFINITY);
         for kind in composition::kinds(kind, id) {
             let key = FurnitureKey::natural(kind, variant);
-            let (min, max) = reservation_bounds(key);
+            let recipe = key.recipe()?;
+            let (min, max) = reservation_bounds(recipe);
             let offset = if items.is_empty() {
                 Vec2::ZERO
             } else {
@@ -59,13 +61,17 @@ impl Candidate {
             };
             minimum = minimum.min(min + offset);
             maximum = maximum.max(max + offset);
-            items.push(LocalItem { key, offset });
+            items.push(LocalItem {
+                key,
+                offset,
+                recipe,
+            });
         }
         let centre = (minimum + maximum) * 0.5;
         for item in &mut items {
             item.offset -= centre;
         }
-        Self {
+        Ok(Self {
             id: FurnitureGroupId(id),
             kind,
             anchor,
@@ -76,17 +82,30 @@ impl Candidate {
                 half_extents_metres: (maximum - minimum) * 0.5,
                 orientation: BuildingOrientation::IDENTITY,
             },
-        }
+        })
     }
 }
 
-pub(super) fn reservation_bounds(key: FurnitureKey) -> (Vec2, Vec2) {
-    let recipe = key.recipe();
-    let mut min = Vec2::new(recipe.bounds.min.x, recipe.bounds.min.z);
-    let mut max = Vec2::new(recipe.bounds.max.x, recipe.bounds.max.z);
+pub(super) fn reservation_bounds(
+    recipe: &adventuresim_building_generator::furniture::FurnitureRecipe,
+) -> (Vec2, Vec2) {
+    let mut min = Vec2::new(
+        recipe.bounds.min().metres().x,
+        recipe.bounds.min().metres().z,
+    );
+    let mut max = Vec2::new(
+        recipe.bounds.max().metres().x,
+        recipe.bounds.max().metres().z,
+    );
     for clearance in &recipe.clearances {
-        min = min.min(Vec2::new(clearance.bounds.min.x, clearance.bounds.min.z));
-        max = max.max(Vec2::new(clearance.bounds.max.x, clearance.bounds.max.z));
+        min = min.min(Vec2::new(
+            clearance.bounds.min().metres().x,
+            clearance.bounds.min().metres().z,
+        ));
+        max = max.max(Vec2::new(
+            clearance.bounds.max().metres().x,
+            clearance.bounds.max().metres().z,
+        ));
     }
     (min, max)
 }

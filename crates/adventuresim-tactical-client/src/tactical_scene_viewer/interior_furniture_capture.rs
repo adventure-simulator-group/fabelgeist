@@ -210,9 +210,9 @@ pub(super) fn setup_catalog(
     terrain: &SceneTerrain,
     profile: &str,
     output: &std::path::Path,
-) -> Option<Vec<BuildingReviewCamera>> {
+) -> Result<Option<Vec<BuildingReviewCamera>>> {
     if profile != PROFILE {
-        return None;
+        return Ok(None);
     }
     assert!(
         layout.instances.is_empty(),
@@ -226,7 +226,7 @@ pub(super) fn setup_catalog(
             (index / CATALOG_COLUMNS) as f32 - 3.0,
         ) * CATALOG_BAY_SPACING_METRES;
         let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey::natural(kind, variant));
-        let sizes = keys.map(|key| key.interior_spec().unwrap().size_metres);
+        let sizes = keys.map(|key| key.interior_spec().unwrap().size_metres.metres());
         let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);
         for (variant, key) in keys.into_iter().enumerate() {
             let x = if variant == 0 {
@@ -262,12 +262,12 @@ pub(super) fn setup_catalog(
     }
     cameras.push(joined_counters(layout, terrain));
     cameras.extend(finishes::stage(layout, terrain));
-    expect_furniture(commands, layout);
+    expect_furniture(commands, layout)?;
     std::fs::write(output.join("interior-catalog.json"), serde_json::to_vec_pretty(
             &serde_json::json!({ "left_variant": "Compact", "right_variant": "Broad", "finish_order": ["natural", "handled", "repaired", "painted"],
             "instances": layout.instances, "note": "Production furniture models staged as catalog specimens; building_id zero is reserved for these captures." })).unwrap())
         .expect("write catalog specimen evidence");
-    Some(cameras)
+    Ok(Some(cameras))
 }
 
 fn catalog_camera(kind: FurnitureKind, size: Vec3, ground: Vec3) -> BuildingReviewCamera {
@@ -332,11 +332,13 @@ fn joined_counters(layout: &mut FurnitureLayout, terrain: &SceneTerrain) -> Buil
     let size = FurnitureKey::natural(Counter, variant)
         .interior_spec()
         .unwrap()
-        .size_metres;
+        .size_metres
+        .metres();
     let corner = FurnitureKey::natural(CounterCorner, variant)
         .interior_spec()
         .unwrap()
-        .size_metres;
+        .size_metres
+        .metres();
     let first = (corner.x + size.x) * 0.5;
     let second = first + size.x;
     let bay = Vec2::new(80.0, 60.0);
@@ -384,11 +386,11 @@ pub(super) fn setup_rooms(
     layout: &FurnitureLayout,
     profile: &str,
     output: &std::path::Path,
-) -> Option<Vec<BuildingReviewCamera>> {
+) -> Result<Option<Vec<BuildingReviewCamera>>> {
     if profile != ROOMS_PROFILE {
-        return None;
+        return Ok(None);
     }
-    super::building_review::setup_geometry_requirements(commands, buildings, output);
+    super::building_review::setup_geometry_requirements(commands, buildings, output)?;
     let cameras = ROOM_USES
         .into_iter()
         .enumerate()
@@ -396,7 +398,7 @@ pub(super) fn setup_rooms(
             let building = buildings
                 .iter()
                 .find(|building| building.placement.program.usage == Some(usage))
-                .unwrap_or_else(|| panic!("furnished room fixture lacks {usage:?}"));
+                .ok_or_else(|| format!("furnished room fixture lacks {usage:?}"))?;
             use adventuresim_building_generator::RoomKind;
             let selection = match index {
                 0 | 1 => rooms::RoomSelection::Role(RoomKind::CommonRoom),
@@ -415,26 +417,29 @@ pub(super) fn setup_rooms(
             };
             rooms::camera(building, layout, selection)
         })
-        .collect();
-    expect_furniture(commands, layout);
+        .collect::<Result<Vec<_>>>()?;
+    expect_furniture(commands, layout)?;
     std::fs::write(
         output.join("interior-access-proofs.json"),
         serde_json::to_vec_pretty(&layout.interiors).unwrap(),
     )
     .expect("write room access proofs");
-    Some(cameras)
+    Ok(Some(cameras))
 }
 
-fn expect_furniture(commands: &mut Commands, layout: &FurnitureLayout) {
+fn expect_furniture(commands: &mut Commands, layout: &FurnitureLayout) -> Result {
     commands.insert_resource(super::furniture_readiness::ExpectedFurniture {
         instances: layout.instances.len() + layout.distant_instances.len(),
         batches: layout
             .instances
             .iter()
             .chain(&layout.distant_instances)
-            .map(|instance| instance.scene.key.recipe().meshes.len())
+            .map(|instance| instance.scene.key.recipe().map(|r| r.meshes.len()))
+            .collect::<std::result::Result<Vec<_>, _>>()?
+            .into_iter()
             .sum(),
     });
+    Ok(())
 }
 
 #[cfg(test)]
@@ -449,6 +454,7 @@ mod tests {
                     .interior_spec()
                     .unwrap()
                     .size_metres
+                    .metres()
             });
             let size = Vec3::new(
                 sizes[0].x + sizes[1].x + catalog_pair_gap(kind),

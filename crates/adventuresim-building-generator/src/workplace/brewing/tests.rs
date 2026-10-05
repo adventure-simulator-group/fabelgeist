@@ -1,4 +1,5 @@
 use super::*;
+use crate::spatial_geometry::Position;
 use crate::{audit_plan, compile_building_collision, generate, settlement_archetype};
 
 #[test]
@@ -9,7 +10,7 @@ fn brewing_vessels_have_usable_open_volume_and_solid_timber_bottoms() {
     let plan = generate(&program).unwrap();
     let workplace = plan.workplace.as_ref().unwrap();
     let centre = Vec3::new(2.0, 0.7, 2.24);
-    let collision = compile_building_collision(&plan);
+    let collision = compile_building_collision(&plan).unwrap();
     let contains = |point: Vec3| {
         collision
             .cuboids
@@ -27,8 +28,8 @@ fn brewing_vessels_have_usable_open_volume_and_solid_timber_bottoms() {
                     .find(|solid| solid.id == cuboid.source)
                     .unwrap();
                 let local = super::super::assembly::contact::rotation(solid).inverse()
-                    * (point - solid.centre);
-                (solid.size * 0.5 - local.abs()).min_element() > 0.0
+                    * (point - solid.centre.metres());
+                (solid.size.metres() * 0.5 - local.abs()).min_element() > 0.0
             })
     };
     assert!(
@@ -65,15 +66,26 @@ fn detached_vessel_hoops_are_rejected_by_the_architecture_audit() {
         })
         .unwrap()
         .solid;
-    plan.resolved_geometry
-        .solids
-        .iter_mut()
-        .find(|solid| solid.id == hoop)
-        .unwrap()
-        .centre
-        .y += 20.0;
+    {
+        let mut native_geometry = plan
+            .resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|solid| solid.id == hoop)
+            .unwrap()
+            .centre
+            .metres();
+        native_geometry.y += 20.0;
+        plan.resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|solid| solid.id == hoop)
+            .unwrap()
+            .centre = Position::from_metres(native_geometry).unwrap();
+    };
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "workplace_floating_part")
     );
@@ -89,10 +101,12 @@ fn malt_kiln_rejects_obstruction_of_its_continuous_exhaust_channel() {
     let vent = work
         .passages
         .iter()
-        .find(|passage| passage.min.y > 0.5 && passage.max.y > 3.0)
+        .find(|passage| {
+            passage.bounds.min().metres().y > 0.5 && passage.bounds.max().metres().y > 3.0
+        })
         .unwrap();
-    let centre = (vent.min + vent.max) * 0.5;
-    let collision = compile_building_collision(&plan);
+    let centre = (vent.bounds.min().metres() + vent.bounds.max().metres()) * 0.5;
+    let collision = compile_building_collision(&plan).unwrap();
     for cuboid in &collision.cuboids {
         let solid = plan
             .resolved_geometry
@@ -100,10 +114,10 @@ fn malt_kiln_rejects_obstruction_of_its_continuous_exhaust_channel() {
             .iter()
             .find(|solid| solid.id == cuboid.source)
             .unwrap();
-        let local =
-            super::super::assembly::contact::rotation(solid).inverse() * (centre - solid.centre);
+        let local = super::super::assembly::contact::rotation(solid).inverse()
+            * (centre - solid.centre.metres());
         assert!(
-            (solid.size * 0.5 - local.abs()).min_element() <= 0.0,
+            (solid.size.metres() * 0.5 - local.abs()).min_element() <= 0.0,
             "the kiln must not hide a solid cap under its visible outlet"
         );
     }
@@ -118,9 +132,10 @@ fn malt_kiln_rejects_obstruction_of_its_continuous_exhaust_channel() {
         .iter_mut()
         .find(|solid| solid.id == blocked)
         .unwrap()
-        .centre = centre;
+        .centre = Position::<crate::Architectural>::from_metres(centre).unwrap();
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "workplace_blocked_passage")
     );

@@ -28,6 +28,16 @@ mod tests;
 
 #[derive(Clone, Debug, PartialEq, thiserror::Error)]
 pub enum CityCompileError {
+    #[error(transparent)]
+    BoundaryGeometry(#[from] crate::city_layout::BoundaryGeometryError),
+    #[error(transparent)]
+    Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
+    #[error(transparent)]
+    Collision(#[from] adventuresim_building_generator::CollisionError),
+    #[error(transparent)]
+    Door(#[from] adventuresim_building_generator::DoorError),
+    #[error(transparent)]
+    Construction(#[from] adventuresim_building_generator::GenerationError),
     #[error("property {property:?} cannot be packed: {issue:?}")]
     Packing {
         property: CityPropertyId,
@@ -127,8 +137,8 @@ pub(crate) fn validate_scene_compound(
     rear: &crate::scene_input::GeneratedBuilding,
     streets: &[CityStreetPatch],
 ) -> Result<(), CityCompileError> {
-    let front_recipe = recipes::Recipe::from_generated(front);
-    let rear_recipe = recipes::Recipe::from_generated(rear);
+    let front_recipe = recipes::Recipe::from_generated(front)?;
+    let rear_recipe = recipes::Recipe::from_generated(rear)?;
     if !front_recipe.fits(&front.placement, compound.plot)
         || !rear_recipe.fits(&rear.placement, compound.plot)
     {

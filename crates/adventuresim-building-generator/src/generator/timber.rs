@@ -45,29 +45,28 @@ impl<'a> TimberFrameBuilder<'a> {
         )
     }
 
-    fn node(&mut self, point: Vec3) -> StructuralNodeId {
+    fn node(&mut self, point: Vec3) -> Result<StructuralNodeId, crate::GenerationError> {
         let key = Self::point_key(point);
         if let Some(id) = self.node_by_point.get(&key) {
-            return *id;
+            return Ok(*id);
         }
         let id = StructuralNodeId(self.next_node);
         self.next_node += 1;
         let grounded = point.y <= 0.011;
-        self.geometry.structural_nodes.push(StructuralNode {
-            id,
-            owner: self.owner,
-            kind: if grounded {
-                StructuralNodeKind::TimberFrameFoundation
-            } else {
-                StructuralNodeKind::TimberFrameJoint
-            },
-            position: point,
-            // Support edges are added only when a real member or measured
-            // bearing interface is created. Spatial proximity is not a load
-            // path: a nearby post must never support this node implicitly.
-            supported_by: Vec::new(),
-            grounded,
-        });
+        self.geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                id,
+                self.owner,
+                if grounded {
+                    StructuralNodeKind::TimberFrameFoundation
+                } else {
+                    StructuralNodeKind::TimberFrameJoint
+                },
+                point,
+                Vec::new(),
+                grounded,
+            )?);
         let joint_id = crate::TimberJointId(self.next_joint);
         self.next_joint += 1;
         self.joint_by_node.insert(id, self.joints.len());
@@ -86,7 +85,7 @@ impl<'a> TimberFrameBuilder<'a> {
             contact_area_square_metres: 0.0144,
         });
         self.node_by_point.insert(key, id);
-        id
+        Ok(id)
     }
 
     fn solid_role(role: crate::TimberMemberRole) -> SolidRole {
@@ -123,7 +122,7 @@ impl<'a> TimberFrameBuilder<'a> {
         end: Vec3,
         section: Vec2,
         phase: crate::TimberFramePhase,
-    ) -> crate::TimberMemberId {
+    ) -> Result<crate::TimberMemberId, crate::GenerationError> {
         let mut a = Self::point_key(start);
         let mut b = Self::point_key(end);
         if b < a {
@@ -141,10 +140,10 @@ impl<'a> TimberFrameBuilder<'a> {
             _ => role as u8,
         };
         if let Some(id) = self.member_by_key.get(&(role_key, a, b)) {
-            return *id;
+            return Ok(*id);
         }
-        let start_node = self.node(start);
-        let end_node = self.node(end);
+        let start_node = self.node(start)?;
+        let end_node = self.node(end)?;
         if (start.y - end.y).abs() > 0.05 {
             let (upper, lower) = if start.y > end.y {
                 (start_node, end_node)
@@ -184,38 +183,23 @@ impl<'a> TimberFrameBuilder<'a> {
         let longfall = -horizontal.atan2(delta.y);
         let solid_id =
             ResolvedItemId((1_u64 << 60) | (u64::from(self.owner.0) << 32) | self.next_member);
-        self.geometry.solids.push(ResolvedSolid {
-            id: solid_id,
-            owner: self.owner,
-            centre: (start + end) * 0.5,
-            size: Vec3::new(section.x, length, section.y),
-            yaw_radians: yaw,
-            crossfall_radians: 0.0,
-            longfall_radians: longfall,
-            role: Self::solid_role(role),
-            shape: crate::ResolvedSolidShape::Cuboid,
-            supported_by: vec![start_node, end_node],
-        });
-        let make_interface = |this: &mut Self, node, point: Vec3| {
-            let interface = ResolvedItemId(
-                (4_u64 << 60) | (u64::from(this.owner.0) << 32) | 0x100_000 | this.next_interface,
-            );
-            this.next_interface += 1;
-            let half = Vec3::new(section.x, section.x.min(section.y), section.y) * 0.5;
-            this.geometry.support_interfaces.push(SupportInterface {
-                id: interface,
-                owner: this.owner,
-                node,
-                bounds: ResolvedBounds {
-                    min: point - half,
-                    max: point + half,
-                },
-            });
-            interface
-        };
+        self.geometry.solids.push(ResolvedSolid::new(
+            CollisionCuboid::<Architectural>::from_metres(
+                solid_id,
+                (start + end) * 0.5,
+                Vec3::new(section.x, length, section.y),
+                yaw,
+                0.0,
+                longfall,
+            )?,
+            self.owner,
+            Self::solid_role(role),
+            crate::ResolvedSolidShape::Cuboid,
+            vec![start_node, end_node],
+        ));
         let support_interfaces = [
-            make_interface(self, start_node, start),
-            make_interface(self, end_node, end),
+            self.member_interface(start_node, start, section)?,
+            self.member_interface(end_node, end, section)?,
         ];
         self.joints[start_joint_index]
             .contact_interfaces
@@ -235,22 +219,37 @@ impl<'a> TimberFrameBuilder<'a> {
             end_node,
             start_joint,
             end_joint,
-            start,
-            end,
-            section_metres: section,
+            start: Position::<Architectural>::from_metres(start).map_err(|cause| {
+                crate::CollisionError {
+                    source_id: solid_id,
+                    cause,
+                }
+            })?,
+            end: Position::<Architectural>::from_metres(end).map_err(|cause| {
+                crate::CollisionError {
+                    source_id: solid_id,
+                    cause,
+                }
+            })?,
+            section_metres: PlanDimensions::from_metres(section).map_err(|cause| {
+                crate::CollisionError {
+                    source_id: solid_id,
+                    cause,
+                }
+            })?,
             solid: solid_id,
             support_interfaces,
             structural: role != crate::TimberMemberRole::Ornament,
         });
         self.member_by_key.insert((role_key, a, b), id);
-        id
+        Ok(id)
     }
 
     /// Resolve a node which lands on the body of a post/brace to that exact
     /// member. Facade rails and opening headers commonly meet a continuous
     /// post between its end joints; the measured intersection is a housed or
     /// lap bearing, while mere nearby geometry is deliberately ignored.
-    fn resolve_intermediate_member_bearings(&mut self) {
+    fn resolve_intermediate_member_bearings(&mut self) -> Result<(), crate::GenerationError> {
         let candidates = self
             .members
             .iter()
@@ -264,7 +263,7 @@ impl<'a> TimberFrameBuilder<'a> {
             .filter(|node| node.owner == self.owner && !node.grounded)
             .map(|node| node.id)
             .collect::<Vec<_>>();
-        for node_id in node_ids {
+        let _: () = for node_id in node_ids {
             let Some(point) = self
                 .geometry
                 .structural_nodes
@@ -277,20 +276,21 @@ impl<'a> TimberFrameBuilder<'a> {
             let bearing = candidates
                 .iter()
                 .filter_map(|member| {
-                    let delta = member.end - member.start;
+                    let delta = member.end.metres() - member.start.metres();
                     let length_squared = delta.length_squared();
-                    let t = ((point - member.start).dot(delta) / length_squared).clamp(0.0, 1.0);
+                    let t = ((point.metres() - member.start.metres()).dot(delta) / length_squared)
+                        .clamp(0.0, 1.0);
                     if t <= 0.001 || t >= 0.999 {
                         return None;
                     }
-                    let closest = member.start + delta * t;
-                    let distance = closest.distance(point);
-                    (distance <= member.section_metres.min_element() * 0.55 + 0.004)
+                    let closest = member.start.metres() + delta * t;
+                    let distance = closest.distance(point.metres());
+                    (distance <= member.section_metres.metres().min_element() * 0.55 + 0.004)
                         .then_some((member, distance))
                 })
                 .min_by(|left, right| left.1.total_cmp(&right.1));
             let Some((member, _)) = bearing else { continue };
-            let lower = if member.start.y <= member.end.y {
+            let lower = if member.start.metres().y <= member.end.metres().y {
                 member.start_node
             } else {
                 member.end_node
@@ -308,20 +308,23 @@ impl<'a> TimberFrameBuilder<'a> {
             );
             self.next_interface += 1;
             let half = Vec3::new(
-                member.section_metres.x,
-                member.section_metres.min_element(),
-                member.section_metres.y,
+                member.section_metres.metres().x,
+                member.section_metres.metres().min_element(),
+                member.section_metres.metres().y,
             ) * 0.45;
-            self.geometry.support_interfaces.push(SupportInterface {
-                id: interface,
-                owner: self.owner,
-                node: node_id,
-                bounds: ResolvedBounds {
-                    min: point - half,
-                    max: point + half,
-                },
-            });
-        }
+            self.geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    interface,
+                    self.owner,
+                    node_id,
+                    SpatialBounds::<Architectural>::from_metres(
+                        point.metres() - half,
+                        point.metres() + half,
+                    )?,
+                ));
+        };
+        Ok(())
     }
 
     /// Orient the physical timber-member/contact graph into an acyclic load
@@ -499,9 +502,9 @@ impl<'a> TimberFrameBuilder<'a> {
                 .filter_map(|member_id| {
                     let member = self.members.iter().find(|member| member.id == *member_id)?;
                     let axis = if member.start_node == joint.node {
-                        member.end - member.start
+                        member.end.metres() - member.start.metres()
                     } else if member.end_node == joint.node {
-                        member.start - member.end
+                        member.start.metres() - member.end.metres()
                     } else {
                         return None;
                     }
@@ -636,7 +639,7 @@ mod wall_infill_tests {
                     "wall {:?} infill setback is {setback} m",
                     wall.id
                 );
-                assert!(depth_metres >= 0.04 && solid.size.min_element() > 0.0);
+                assert!(depth_metres >= 0.04 && solid.size.metres().min_element() > 0.0);
                 checked += 1;
             }
         }
@@ -695,8 +698,10 @@ fn resolve_timber_frame_assembly(
     stairs: &mut [Stair],
     roof_assemblies: &mut [RoofAssembly],
     geometry: &mut ResolvedGeometry,
-) -> Option<crate::TimberFrameAssembly> {
-    let program_kind = program.archetype.timber_frame_program()?;
+) -> Result<Option<crate::TimberFrameAssembly>, GenerationError> {
+    let Some(program_kind) = program.archetype.timber_frame_program() else {
+        return Ok(None);
+    };
     let owner = GeometryOwnerId(82_000);
     let frame_material = if matches!(
         program_kind,
@@ -785,14 +790,14 @@ fn resolve_timber_frame_assembly(
                         right_bottom,
                         section,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    ),
+                    )?,
                     builder.member(
                         crate::TimberMemberRole::WallPlate,
                         left_top,
                         right_top,
                         section,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    ),
+                    )?,
                     builder.member(
                         if wall_index == 0 {
                             crate::TimberMemberRole::CornerPost
@@ -803,7 +808,7 @@ fn resolve_timber_frame_assembly(
                         left_top,
                         section,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    ),
+                    )?,
                     builder.member(
                         if wall_index + 1 == facade_walls.len() {
                             crate::TimberMemberRole::CornerPost
@@ -814,7 +819,7 @@ fn resolve_timber_frame_assembly(
                         right_top,
                         section,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    ),
+                    )?,
                 ];
                 let opening = wall
                     .opening_ids
@@ -830,7 +835,7 @@ fn resolve_timber_frame_assembly(
                     let half = void_bounds.map_or_else(
                         || opening.profile.interior_width_metres() * 0.5,
                         |bounds| {
-                            let size = bounds.max - bounds.min;
+                            let size = bounds.max().metres() - bounds.min().metres();
                             (size.x * tangent.x.abs() + size.z * tangent.y.abs()) * 0.5
                         },
                     );
@@ -842,7 +847,7 @@ fn resolve_timber_frame_assembly(
                                     + opening.profile.clear_height_metres(),
                             )
                         },
-                        |bounds| (bounds.min.y, bounds.max.y),
+                        |bounds| (bounds.min().metres().y, bounds.max().metres().y),
                     );
                     let left_jamb_plan = plane - tangent * half;
                     let right_jamb_plan = plane + tangent * half;
@@ -857,21 +862,21 @@ fn resolve_timber_frame_assembly(
                             left_jamb_top,
                             section * 0.9,
                             crate::TimberFramePhase::PrimaryConstruction,
-                        ),
+                        )?,
                         builder.member(
                             crate::TimberMemberRole::IntermediatePost,
                             right_jamb_bottom,
                             right_jamb_top,
                             section * 0.9,
                             crate::TimberFramePhase::PrimaryConstruction,
-                        ),
+                        )?,
                         builder.member(
                             crate::TimberMemberRole::Rail,
                             Vec3::new(left_jamb_plan.x, sill, left_jamb_plan.y),
                             Vec3::new(right_jamb_plan.x, sill, right_jamb_plan.y),
                             section * 0.88,
                             crate::TimberFramePhase::PrimaryConstruction,
-                        ),
+                        )?,
                         builder.member(
                             crate::TimberMemberRole::Rail,
                             Vec3::new(
@@ -886,7 +891,7 @@ fn resolve_timber_frame_assembly(
                             ),
                             section,
                             crate::TimberFramePhase::PrimaryConstruction,
-                        ),
+                        )?,
                     ]);
                     // Each side panel owns a closed triangular racking frame:
                     // the paired braces share one explicit jamb node and the
@@ -905,28 +910,28 @@ fn resolve_timber_frame_assembly(
                             left_brace_joint,
                             section * 0.74,
                             crate::TimberFramePhase::PrimaryConstruction,
-                        ),
+                        )?,
                         builder.member(
                             crate::TimberMemberRole::HeadBrace,
                             left_brace_joint,
                             left_top,
                             section * 0.70,
                             crate::TimberFramePhase::PrimaryConstruction,
-                        ),
+                        )?,
                         builder.member(
                             crate::TimberMemberRole::FootBrace,
                             right_bottom,
                             right_brace_joint,
                             section * 0.74,
                             crate::TimberFramePhase::PrimaryConstruction,
-                        ),
+                        )?,
                         builder.member(
                             crate::TimberMemberRole::HeadBrace,
                             right_brace_joint,
                             right_top,
                             section * 0.70,
                             crate::TimberFramePhase::PrimaryConstruction,
-                        ),
+                        )?,
                     ]);
                 } else {
                     let centre_plan = (left_plan + right_plan) * 0.5;
@@ -938,7 +943,7 @@ fn resolve_timber_frame_assembly(
                         centre_top,
                         section * 0.78,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    ));
+                    )?);
                     let waist = base + program.storey_height_metres * 0.56;
                     member_ids.push(builder.member(
                         crate::TimberMemberRole::Rail,
@@ -946,7 +951,7 @@ fn resolve_timber_frame_assembly(
                         Vec3::new(right_plan.x, waist, right_plan.y),
                         section * 0.78,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    ));
+                    )?);
                     let editor_style = edits.iter().rev().find_map(|edit| match edit {
                         BuildingEdit::SetTimberFrameStyle { style } => Some(*style),
                         _ => None,
@@ -976,7 +981,7 @@ fn resolve_timber_frame_assembly(
                         brace_end,
                         section * 0.76,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    ));
+                    )?);
                 }
                 member_ids.sort_unstable();
                 member_ids.dedup();
@@ -1011,21 +1016,23 @@ fn resolve_timber_frame_assembly(
             }
             storey_member_ids.sort_unstable();
             storey_member_ids.dedup();
-            let jetty = (level == 1 && program.upper_storey_projection_metres > 0.01).then(|| {
-                timber_jetty::JettyFrame {
-                    projection: program.upper_storey_projection_metres,
-                    storey_height: program.storey_height_metres,
-                    base,
-                    section,
-                    tangent,
-                    outward,
-                    facade_walls: &facade_walls,
-                    line_length,
-                    storey_id: next_storey,
-                    walls,
-                }
-                .build(&mut builder, &mut storey_member_ids)
-            });
+            let jetty = (level == 1 && program.upper_storey_projection_metres > 0.01)
+                .then(|| {
+                    timber_jetty::JettyFrame {
+                        projection: program.upper_storey_projection_metres,
+                        storey_height: program.storey_height_metres,
+                        base,
+                        section,
+                        tangent,
+                        outward,
+                        facade_walls: &facade_walls,
+                        line_length,
+                        storey_id: crate::TimberStoreyFrameId(next_storey),
+                        walls,
+                    }
+                    .build(&mut builder, &mut storey_member_ids)
+                })
+                .transpose()?;
             line_storeys.push(crate::TimberStoreyFrame {
                 id: crate::TimberStoreyFrameId(next_storey),
                 level,
@@ -1107,7 +1114,7 @@ fn resolve_timber_frame_assembly(
                     Vec3::new(plan.x, program.storey_height_metres, plan.y),
                     section * timber_hall::POST_SECTION_SCALE,
                     crate::TimberFramePhase::PrimaryConstruction,
-                ));
+                )?);
                 if index < count {
                     let next_along = stations[index + 1];
                     let next = row_centre + tangent * next_along;
@@ -1117,7 +1124,7 @@ fn resolve_timber_frame_assembly(
                         next,
                         program.storey_height_metres,
                         section,
-                    ));
+                    )?);
                 }
             }
             for index in 0..count {
@@ -1131,7 +1138,7 @@ fn resolve_timber_frame_assembly(
                     Vec3::new(b.x, program.storey_height_metres, b.y),
                     section * 1.2,
                     crate::TimberFramePhase::RoofConstruction,
-                ));
+                )?);
             }
             internal_lines.push(crate::TimberFrameLine {
                 id: crate::TimberFrameLineId(next_line),
@@ -1164,7 +1171,7 @@ fn resolve_timber_frame_assembly(
                 Vec3::new(b.x, program.storey_height_metres, b.y),
                 section * 1.1,
                 crate::TimberFramePhase::RoofConstruction,
-            );
+            )?;
             let mut transverse_members = vec![tie];
             transverse_members.extend(timber_hall::aisle_head_braces(
                 &mut builder,
@@ -1172,16 +1179,17 @@ fn resolve_timber_frame_assembly(
                 b,
                 program.storey_height_metres,
                 section,
-            ));
+            )?);
             transverse_members.extend(builder.members.iter().filter_map(|member| {
                 (member.role == crate::TimberMemberRole::PrimaryPost
-                    && ((member.start.distance(Vec3::new(a.x, 0.0, a.y)) <= 0.003
-                        && member
-                            .end
-                            .distance(Vec3::new(a.x, program.storey_height_metres, a.y))
-                            <= 0.003)
-                        || (member.start.distance(Vec3::new(b.x, 0.0, b.y)) <= 0.003
-                            && member.end.distance(Vec3::new(
+                    && ((member.start.metres().distance(Vec3::new(a.x, 0.0, a.y)) <= 0.003
+                        && member.end.metres().distance(Vec3::new(
+                            a.x,
+                            program.storey_height_metres,
+                            a.y,
+                        )) <= 0.003)
+                        || (member.start.metres().distance(Vec3::new(b.x, 0.0, b.y)) <= 0.003
+                            && member.end.metres().distance(Vec3::new(
                                 b.x,
                                 program.storey_height_metres,
                                 b.y,
@@ -1218,7 +1226,7 @@ fn resolve_timber_frame_assembly(
     // Do not overlay them with a second ground-to-roof post: that former
     // shortcut created nested positive-volume timbers and two competing load
     // authorities at every corner.
-    roof_frame::build(&mut builder, roofs, roof_assemblies, dormers, top, section);
+    roof_frame::build(&mut builder, roofs, roof_assemblies, dormers, top, section)?;
 
     let mut dormer_trimmer_members = Vec::new();
     for (dormer_index, dormer) in dormers.iter().enumerate() {
@@ -1248,10 +1256,10 @@ fn resolve_timber_frame_assembly(
             });
         let (rear_depth, front_depth) = exact_cut.map_or((-0.84_f32, 0.0_f32), |cut| {
             let projected = [
-                Vec2::new(cut.bounds.min.x, cut.bounds.min.z),
-                Vec2::new(cut.bounds.min.x, cut.bounds.max.z),
-                Vec2::new(cut.bounds.max.x, cut.bounds.min.z),
-                Vec2::new(cut.bounds.max.x, cut.bounds.max.z),
+                Vec2::new(cut.bounds.min().metres().x, cut.bounds.min().metres().z),
+                Vec2::new(cut.bounds.min().metres().x, cut.bounds.max().metres().z),
+                Vec2::new(cut.bounds.max().metres().x, cut.bounds.min().metres().z),
+                Vec2::new(cut.bounds.max().metres().x, cut.bounds.max().metres().z),
             ]
             .map(|point| (point - dormer.centre).dot(outward) / dormer.depth_metres);
             (
@@ -1283,7 +1291,7 @@ fn resolve_timber_frame_assembly(
                 Vec3::new(end.x, trimmer_height(end, front_depth), end.y),
                 section * 0.9,
                 crate::TimberFramePhase::RoofConstruction,
-            );
+            )?;
             dormer_trimmer_members.push(trimmer);
             local_trimmers.push(trimmer);
         }
@@ -1301,7 +1309,7 @@ fn resolve_timber_frame_assembly(
                 Vec3::new(end.x, trimmer_height(end, depth), end.y),
                 section * 0.9,
                 crate::TimberFramePhase::RoofConstruction,
-            );
+            )?;
             dormer_trimmer_members.push(trimmer);
             local_trimmers.push(trimmer);
         }
@@ -1329,14 +1337,14 @@ fn resolve_timber_frame_assembly(
                     Vec3::new(right.x, base, right.y),
                     section * 0.9,
                     crate::TimberFramePhase::RoofConstruction,
-                ),
+                )?,
                 builder.member(
                     crate::TimberMemberRole::WallPlate,
                     Vec3::new(left.x, top, left.y),
                     Vec3::new(right.x, top, right.y),
                     section * 0.9,
                     crate::TimberFramePhase::RoofConstruction,
-                ),
+                )?,
             ]);
             // The opening jamb posts below carry the compact dormer front.
             // Do not add a second pair of full-height corner posts: aligned
@@ -1365,21 +1373,21 @@ fn resolve_timber_frame_assembly(
                         apex,
                         section * 0.72,
                         crate::TimberFramePhase::RoofConstruction,
-                    ),
+                    )?,
                     builder.member(
                         crate::TimberMemberRole::Rafter,
                         Vec3::new(left.x, top, left.y),
                         apex,
                         section * 0.78,
                         crate::TimberFramePhase::RoofConstruction,
-                    ),
+                    )?,
                     builder.member(
                         crate::TimberMemberRole::Rafter,
                         Vec3::new(right.x, top, right.y),
                         apex,
                         section * 0.78,
                         crate::TimberFramePhase::RoofConstruction,
-                    ),
+                    )?,
                 ]);
             }
             if let Some(opening) = opening
@@ -1400,28 +1408,28 @@ fn resolve_timber_frame_assembly(
                         Vec3::new(left_jamb.x, top, left_jamb.y),
                         section * 0.78,
                         crate::TimberFramePhase::RoofConstruction,
-                    ),
+                    )?,
                     builder.member(
                         crate::TimberMemberRole::IntermediatePost,
                         Vec3::new(right_jamb.x, base, right_jamb.y),
                         Vec3::new(right_jamb.x, top, right_jamb.y),
                         section * 0.78,
                         crate::TimberFramePhase::RoofConstruction,
-                    ),
+                    )?,
                     builder.member(
                         crate::TimberMemberRole::Rail,
-                        Vec3::new(left_jamb.x, void_bounds.min.y, left_jamb.y),
-                        Vec3::new(right_jamb.x, void_bounds.min.y, right_jamb.y),
+                        Vec3::new(left_jamb.x, void_bounds.min().metres().y, left_jamb.y),
+                        Vec3::new(right_jamb.x, void_bounds.min().metres().y, right_jamb.y),
                         section * 0.75,
                         crate::TimberFramePhase::RoofConstruction,
-                    ),
+                    )?,
                     builder.member(
                         crate::TimberMemberRole::Rail,
-                        Vec3::new(left_jamb.x, void_bounds.max.y, left_jamb.y),
-                        Vec3::new(right_jamb.x, void_bounds.max.y, right_jamb.y),
+                        Vec3::new(left_jamb.x, void_bounds.max().metres().y, left_jamb.y),
+                        Vec3::new(right_jamb.x, void_bounds.max().metres().y, right_jamb.y),
                         section * 0.85,
                         crate::TimberFramePhase::RoofConstruction,
-                    ),
+                    )?,
                 ]);
             }
             member_ids.sort_unstable();
@@ -1445,9 +1453,9 @@ fn resolve_timber_frame_assembly(
         walls,
         openings,
         &mut bays,
-    );
+    )?;
 
-    timber_infill::resolve(&mut builder, walls, openings, &mut bays);
+    timber_infill::resolve(&mut builder, walls, openings, &mut bays)?;
 
     let (preferred_stair_origin, preferred_stair_axis, stair_width, stair_run) = stairs
         .iter()
@@ -1487,19 +1495,20 @@ fn resolve_timber_frame_assembly(
                     .find(|solid| {
                         solid.id == *id
                             && (!ground_route_only
-                                || (solid.centre.y - solid.size.y * 0.5 < 1.90
-                                    && solid.centre.y + solid.size.y * 0.5 > 0.02))
+                                || (solid.centre.metres().y - solid.size.metres().y * 0.5 < 1.90
+                                    && solid.centre.metres().y + solid.size.metres().y * 0.5
+                                        > 0.02))
                     })
                     .map(|solid| {
-                        let cosine = solid.yaw_radians.cos().abs();
-                        let sine = solid.yaw_radians.sin().abs();
+                        let cosine = solid.yaw_radians.radians().cos().abs();
+                        let sine = solid.yaw_radians.radians().sin().abs();
                         let half = Vec3::new(
-                            (solid.size.x * cosine + solid.size.z * sine) * 0.5,
-                            solid.size.y * 0.5,
-                            (solid.size.x * sine + solid.size.z * cosine) * 0.5,
+                            (solid.size.metres().x * cosine + solid.size.metres().z * sine) * 0.5,
+                            solid.size.metres().y * 0.5,
+                            (solid.size.metres().x * sine + solid.size.metres().z * cosine) * 0.5,
                         );
-                        let min = solid.centre - half;
-                        let max = solid.centre + half;
+                        let min = solid.centre.metres() - half;
+                        let max = solid.centre.metres() + half;
                         (Vec2::new(min.x, min.z), Vec2::new(max.x, max.z))
                     })
             })
@@ -1652,7 +1661,19 @@ fn resolve_timber_frame_assembly(
         let mut floor_joist_interfaces = Vec::new();
         let mut joist_girder_interfaces = Vec::new();
         let cut_bounds = (level > 0).then(|| stair_floor_cut(level));
-        let x_stations = floor_stations::with_stair(program, dimensions.x, cut_bounds);
+        let opening = cut_bounds
+            .map(|(min, max)| {
+                crate::spatial_geometry::SpatialBounds::from_metres(
+                    Vec3::new(min.x, 0.0, min.y),
+                    Vec3::new(max.x, 0.0, max.y),
+                )
+            })
+            .transpose()?;
+        let x_stations = floor_stations::with_stair(
+            program,
+            floor_stations::FloorWidth::from_metres(dimensions.x)?,
+            opening,
+        )?;
         let mut upper_girder_z = dimensions.y * 0.67;
         if (upper_girder_z - stair_end.y).abs() < 0.40 {
             upper_girder_z = (stair_end.y + 0.40).min(dimensions.y - 0.40);
@@ -1684,7 +1705,8 @@ fn resolve_timber_frame_assembly(
             // shared structural node is therefore a physical housed bearing,
             // not an interface floating at a member midpoint.
             for z in &girder_z_stations {
-                for pair in x_stations.windows(2) {
+                for stations in x_stations.windows(2) {
+                    let pair = [stations[0].metres(), stations[1].metres()];
                     if cut_bounds.is_some_and(|(cut_min, cut_max)| {
                         *z > cut_min.y - girder_section.x * 0.5
                             && *z < cut_max.y + girder_section.x * 0.5
@@ -1699,9 +1721,12 @@ fn resolve_timber_frame_assembly(
                         Vec3::new(pair[1], bearing_y, *z),
                         girder_section,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    ));
+                    )?);
                 }
-                for x in [x_stations[0], *x_stations.last().expect("floor x station")] {
+                for x in [
+                    x_stations[0].metres(),
+                    x_stations[x_stations.len() - 1].metres(),
+                ] {
                     let lower_y = if level == 1 {
                         0.0
                     } else {
@@ -1715,12 +1740,13 @@ fn resolve_timber_frame_assembly(
                         Vec3::new(x, bearing_y, *z),
                         section,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    );
+                    )?;
                 }
             }
-            for x in &x_stations {
+            for station in &x_stations {
+                let x = station.metres();
                 for pair in joist_z_stations.windows(2) {
-                    let midpoint = Vec2::new(*x, (pair[0] + pair[1]) * 0.5);
+                    let midpoint = Vec2::new(x, (pair[0] + pair[1]) * 0.5);
                     if midpoint.x > stair_min.x + 0.001
                         && midpoint.x < stair_max.x - 0.001
                         && midpoint.y > stair_min.y + 0.001
@@ -1730,22 +1756,24 @@ fn resolve_timber_frame_assembly(
                     }
                     joist_members.push(builder.member(
                         crate::TimberMemberRole::FloorJoist,
-                        Vec3::new(*x, bearing_y, pair[0]),
-                        Vec3::new(*x, bearing_y, pair[1]),
+                        Vec3::new(x, bearing_y, pair[0]),
+                        Vec3::new(x, bearing_y, pair[1]),
                         joist_section,
                         crate::TimberFramePhase::PrimaryConstruction,
-                    ));
+                    )?);
                 }
                 for z in &girder_z_stations {
                     let z = *z;
-                    let at = Vec3::new(*x, bearing_y, z);
+                    let at = Vec3::new(x, bearing_y, z);
                     let point_on = |member: &crate::TimberFrameMember| {
-                        let axis = member.end - member.start;
-                        let t = (at - member.start).dot(axis) / axis.length_squared().max(0.0001);
+                        let axis = member.end.metres() - member.start.metres();
+                        let t = (at - member.start.metres()).dot(axis)
+                            / axis.length_squared().max(0.0001);
                         (-0.001..=1.001).contains(&t)
                             && member
                                 .start
-                                .lerp(member.end, t.clamp(0.0, 1.0))
+                                .metres()
+                                .lerp(member.end.metres(), t.clamp(0.0, 1.0))
                                 .distance(at)
                                 <= 0.003
                     };
@@ -1764,7 +1792,7 @@ fn resolve_timber_frame_assembly(
                     }) {
                         continue;
                     }
-                    let node = builder.node(Vec3::new(*x, bearing_y, z));
+                    let node = builder.node(Vec3::new(x, bearing_y, z))?;
                     floor_supports.push(node);
                     let housed = ResolvedItemId(
                         (4_u64 << 60)
@@ -1773,26 +1801,29 @@ fn resolve_timber_frame_assembly(
                             | builder.next_interface,
                     );
                     builder.next_interface += 1;
-                    builder.geometry.support_interfaces.push(SupportInterface {
-                        id: housed,
-                        owner,
-                        node,
-                        bounds: ResolvedBounds {
-                            min: Vec3::new(
-                                *x - joist_section.x * 0.5,
-                                bearing_y - joist_section.y * 0.5,
-                                z - girder_section.x * 0.5,
-                            ),
-                            max: Vec3::new(
-                                *x + joist_section.x * 0.5,
-                                bearing_y + joist_section.y * 0.5,
-                                z + girder_section.x * 0.5,
-                            ),
-                        },
-                    });
+                    builder
+                        .geometry
+                        .support_interfaces
+                        .push(crate::SupportInterface::new(
+                            housed,
+                            owner,
+                            node,
+                            SpatialBounds::<Architectural>::from_metres(
+                                Vec3::new(
+                                    x - joist_section.x * 0.5,
+                                    bearing_y - joist_section.y * 0.5,
+                                    z - girder_section.x * 0.5,
+                                ),
+                                Vec3::new(
+                                    x + joist_section.x * 0.5,
+                                    bearing_y + joist_section.y * 0.5,
+                                    z + girder_section.x * 0.5,
+                                ),
+                            )?,
+                        ));
                     joist_girder_interfaces.push(housed);
-                    if *x >= stair_min.x - 0.001
-                        && *x <= stair_max.x + 0.001
+                    if x >= stair_min.x - 0.001
+                        && x <= stair_max.x + 0.001
                         && z >= stair_min.y - 0.001
                         && z <= stair_max.y + 0.001
                     {
@@ -1807,15 +1838,18 @@ fn resolve_timber_frame_assembly(
                     );
                     builder.next_interface += 1;
                     let contact_y = base - 0.16;
-                    builder.geometry.support_interfaces.push(SupportInterface {
-                        id: floor_contact,
-                        owner,
-                        node,
-                        bounds: ResolvedBounds {
-                            min: Vec3::new(*x - 0.055, contact_y - 0.004, z - 0.16),
-                            max: Vec3::new(*x + 0.055, contact_y + 0.004, z + 0.16),
-                        },
-                    });
+                    builder
+                        .geometry
+                        .support_interfaces
+                        .push(crate::SupportInterface::new(
+                            floor_contact,
+                            owner,
+                            node,
+                            SpatialBounds::<Architectural>::from_metres(
+                                Vec3::new(x - 0.055, contact_y - 0.004, z - 0.16),
+                                Vec3::new(x + 0.055, contact_y + 0.004, z + 0.16),
+                            )?,
+                        ));
                     floor_joist_interfaces.push(floor_contact);
                     bearing_interfaces.extend([housed, floor_contact]);
                 }
@@ -1826,28 +1860,34 @@ fn resolve_timber_frame_assembly(
             // invent an empty mortise at the centre of the room.
             let ground_node = StructuralNodeId(builder.next_node);
             builder.next_node += 1;
-            builder.geometry.structural_nodes.push(StructuralNode {
-                id: ground_node,
-                owner,
-                kind: StructuralNodeKind::TimberFrameFoundation,
-                position: Vec3::new(dimensions.x * 0.5, 0.0, dimensions.y * 0.5),
-                supported_by: Vec::new(),
-                grounded: true,
-            });
+            builder
+                .geometry
+                .structural_nodes
+                .push(crate::StructuralNode::from_metres(
+                    ground_node,
+                    owner,
+                    StructuralNodeKind::TimberFrameFoundation,
+                    Vec3::new(dimensions.x * 0.5, 0.0, dimensions.y * 0.5),
+                    Vec::new(),
+                    true,
+                )?);
             floor_supports.push(ground_node);
             let ground_bearing = ResolvedItemId(
                 (4_u64 << 60) | (u64::from(owner.0) << 32) | 0x3b0_000 | builder.next_interface,
             );
             builder.next_interface += 1;
-            builder.geometry.support_interfaces.push(SupportInterface {
-                id: ground_bearing,
-                owner,
-                node: ground_node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(dimensions.x * 0.5 - 0.25, -0.005, dimensions.y * 0.5 - 0.25),
-                    max: Vec3::new(dimensions.x * 0.5 + 0.25, 0.005, dimensions.y * 0.5 + 0.25),
-                },
-            });
+            builder
+                .geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    ground_bearing,
+                    owner,
+                    ground_node,
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(dimensions.x * 0.5 - 0.25, -0.005, dimensions.y * 0.5 - 0.25),
+                        Vec3::new(dimensions.x * 0.5 + 0.25, 0.005, dimensions.y * 0.5 + 0.25),
+                    )?,
+                ));
             bearing_interfaces.push(ground_bearing);
         }
         floor_supports.sort_unstable();
@@ -1900,7 +1940,9 @@ fn resolve_timber_frame_assembly(
                             .find(|interface| interface.id == *id)
                     })
                     .filter(|interface| {
-                        let centre = (interface.bounds.min + interface.bounds.max) * 0.5;
+                        let centre = (interface.bounds.min().metres()
+                            + interface.bounds.max().metres())
+                            * 0.5;
                         centre.x >= min.x - 0.001
                             && centre.x <= max.x + 0.001
                             && centre.z >= min.y - 0.001
@@ -1918,10 +1960,10 @@ fn resolve_timber_frame_assembly(
                     ]
                     .into_iter()
                     .find(|(_, point)| {
-                        point.x >= min.x - 0.001
-                            && point.x <= max.x + 0.001
-                            && point.z >= min.y - 0.001
-                            && point.z <= max.y + 0.001
+                        point.metres().x >= min.x - 0.001
+                            && point.metres().x <= max.x + 0.001
+                            && point.metres().z >= min.y - 0.001
+                            && point.metres().z <= max.y + 0.001
                     })
                 });
                 if let Some((node, point)) = endpoint {
@@ -1932,32 +1974,45 @@ fn resolve_timber_frame_assembly(
                             | builder.next_interface,
                     );
                     builder.next_interface += 1;
-                    builder.geometry.support_interfaces.push(SupportInterface {
-                        id: contact,
-                        owner,
-                        node,
-                        bounds: ResolvedBounds {
-                            min: Vec3::new(point.x - 0.06, base - 0.164, point.z - 0.06),
-                            max: Vec3::new(point.x + 0.06, base - 0.156, point.z + 0.06),
-                        },
-                    });
+                    builder
+                        .geometry
+                        .support_interfaces
+                        .push(crate::SupportInterface::new(
+                            contact,
+                            owner,
+                            node,
+                            SpatialBounds::<Architectural>::from_metres(
+                                Vec3::new(
+                                    point.metres().x - 0.06,
+                                    base - 0.164,
+                                    point.metres().z - 0.06,
+                                ),
+                                Vec3::new(
+                                    point.metres().x + 0.06,
+                                    base - 0.156,
+                                    point.metres().z + 0.06,
+                                ),
+                            )?,
+                        ));
                     floor_joist_interfaces.push(contact);
                     bearing_interfaces.push(contact);
                     piece_supports.push(node);
                 }
             }
-            builder.geometry.solids.push(ResolvedSolid {
-                id,
+            builder.geometry.solids.push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    id,
+                    Vec3::new((min.x + max.x) * 0.5, floor_centre_y, (min.y + max.y) * 0.5),
+                    Vec3::new(max.x - min.x, 0.16, max.y - min.y),
+                    0.0,
+                    0.0,
+                    0.0,
+                )?,
                 owner,
-                centre: Vec3::new((min.x + max.x) * 0.5, floor_centre_y, (min.y + max.y) * 0.5),
-                size: Vec3::new(max.x - min.x, 0.16, max.y - min.y),
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::FrameFloor,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: piece_supports,
-            });
+                SolidRole::FrameFloor,
+                crate::ResolvedSolidShape::Cuboid,
+                piece_supports,
+            ));
         }
         let route_surface = ResolvedItemId(
             (2_u64 << 60) | (u64::from(owner.0) << 32) | 0x0e00_0000 | u64::from(level + 1),
@@ -1965,10 +2020,10 @@ fn resolve_timber_frame_assembly(
         builder.geometry.surfaces.push(ResolvedSurface {
             id: route_surface,
             owner,
-            bounds: ResolvedBounds {
-                min: Vec3::new(0.15, base + 0.001, 0.15),
-                max: Vec3::new(dimensions.x - 0.15, base + 0.011, dimensions.y - 0.15),
-            },
+            bounds: SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(0.15, base + 0.001, 0.15),
+                Vec3::new(dimensions.x - 0.15, base + 0.011, dimensions.y - 0.15),
+            )?,
             role: SurfaceRole::TimberCirculation,
             shape: crate::ResolvedSurfaceShape::Planar,
         });
@@ -2032,10 +2087,10 @@ fn resolve_timber_frame_assembly(
             builder.geometry.surfaces.push(ResolvedSurface {
                 id,
                 owner,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(centre.x - 0.50, 0.001, centre.y - depth * 0.5),
-                    max: Vec3::new(centre.x + 0.50, 0.011, centre.y + depth * 0.5),
-                },
+                bounds: SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(centre.x - 0.50, 0.001, centre.y - depth * 0.5),
+                    Vec3::new(centre.x + 0.50, 0.011, centre.y + depth * 0.5),
+                )?,
                 role: SurfaceRole::TimberCirculation,
                 shape: crate::ResolvedSurfaceShape::Planar,
             });
@@ -2048,7 +2103,9 @@ fn resolve_timber_frame_assembly(
                 } else {
                     crate::TimberRouteNodeKind::Landing
                 },
-                position: Vec3::new(centre.x, 0.01, centre.y),
+                position: Position::<Architectural>::from_metres(Vec3::new(
+                    centre.x, 0.01, centre.y,
+                ))?,
                 level: 0,
             });
         }
@@ -2076,7 +2133,11 @@ fn resolve_timber_frame_assembly(
     circulation_nodes.push(crate::TimberRouteNode {
         surface: previous_surface,
         kind: crate::TimberRouteNodeKind::GroundFloor,
-        position: Vec3::new(ground_route_position.x, 0.01, ground_route_position.y),
+        position: Position::<Architectural>::from_metres(Vec3::new(
+            ground_route_position.x,
+            0.01,
+            ground_route_position.y,
+        ))?,
         level: 0,
     });
     // Route from the entry vestibule to the stair on a quarter-metre lattice,
@@ -2177,17 +2238,17 @@ fn resolve_timber_frame_assembly(
         builder.geometry.surfaces.push(ResolvedSurface {
             id: surface,
             owner,
-            bounds: ResolvedBounds {
-                min: Vec3::new(point.x - 0.45, 0.001, point.y - 0.45),
-                max: Vec3::new(point.x + 0.45, 0.011, point.y + 0.45),
-            },
+            bounds: SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(point.x - 0.45, 0.001, point.y - 0.45),
+                Vec3::new(point.x + 0.45, 0.011, point.y + 0.45),
+            )?,
             role: SurfaceRole::TimberCirculation,
             shape: crate::ResolvedSurfaceShape::Planar,
         });
         circulation_nodes.push(crate::TimberRouteNode {
             surface,
             kind: crate::TimberRouteNodeKind::Landing,
-            position: Vec3::new(point.x, 0.01, point.y),
+            position: Position::<Architectural>::from_metres(Vec3::new(point.x, 0.01, point.y))?,
             level: 0,
         });
         circulation_edges.push(crate::TimberRouteEdge {
@@ -2232,7 +2293,7 @@ fn resolve_timber_frame_assembly(
                     ),
                     section * 0.90,
                     crate::TimberFramePhase::PrimaryConstruction,
-                );
+                )?;
             }
         }
         // The upper floor itself is the eighteenth landing; do not place a
@@ -2254,63 +2315,62 @@ fn resolve_timber_frame_assembly(
                     | (u64::from(level) << 8)
                     | tread,
             );
-            let support_nodes = [-1.0_f32, 1.0]
-                .map(|side| {
-                    builder.node(Vec3::new(
-                        plan.x + flight_lateral.x * side * (stair_width * 0.5 - section.x * 0.5),
-                        y - 0.03,
-                        plan.y + flight_lateral.y * side * (stair_width * 0.5 - section.x * 0.5),
-                    ))
-                })
-                .to_vec();
+            let support_nodes = [-1.0_f32, 1.0].map(|side| {
+                builder.node(Vec3::new(
+                    plan.x + flight_lateral.x * side * (stair_width * 0.5 - section.x * 0.5),
+                    y - 0.03,
+                    plan.y + flight_lateral.y * side * (stair_width * 0.5 - section.x * 0.5),
+                ))
+            });
+            let [left, right] = support_nodes;
+            let support_nodes = vec![left?, right?];
             for node in &support_nodes {
                 let bearing = ResolvedItemId(
                     (4_u64 << 60) | (u64::from(owner.0) << 32) | 0x3c0_000 | builder.next_interface,
                 );
                 builder.next_interface += 1;
-                let node_position = builder
+                let node_position = builder.geometry.node(*node)?.position;
+                builder
                     .geometry
-                    .structural_nodes
-                    .iter()
-                    .find(|candidate| candidate.id == *node)
-                    .expect("stair bearing node exists")
-                    .position;
-                builder.geometry.support_interfaces.push(SupportInterface {
-                    id: bearing,
-                    owner,
-                    node: *node,
-                    bounds: ResolvedBounds {
-                        min: node_position - Vec3::new(0.18, 0.025, 0.18),
-                        max: node_position + Vec3::new(0.18, 0.035, 0.18),
-                    },
-                });
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        bearing,
+                        owner,
+                        *node,
+                        SpatialBounds::<Architectural>::from_metres(
+                            node_position.metres() - Vec3::new(0.18, 0.025, 0.18),
+                            node_position.metres() + Vec3::new(0.18, 0.035, 0.18),
+                        )?,
+                    ));
             }
-            builder.geometry.solids.push(ResolvedSolid {
-                id: solid_id,
+            builder.geometry.solids.push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    solid_id,
+                    Vec3::new(plan.x, y - 0.025, plan.y),
+                    Vec3::new(1.0, 0.05, going * 0.96),
+                    flight_axis.y.atan2(flight_axis.x) - std::f32::consts::FRAC_PI_2,
+                    0.0,
+                    0.0,
+                )?,
                 owner,
-                centre: Vec3::new(plan.x, y - 0.025, plan.y),
-                size: Vec3::new(1.0, 0.05, going * 0.96),
-                yaw_radians: flight_axis.y.atan2(flight_axis.x) - std::f32::consts::FRAC_PI_2,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::Landing,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: support_nodes,
-            });
+                SolidRole::Landing,
+                crate::ResolvedSolidShape::Cuboid,
+                support_nodes,
+            ));
             builder.geometry.surfaces.push(ResolvedSurface {
                 id: surface_id,
                 owner,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(plan.x - 0.50, y, plan.y - going * 0.48),
-                    max: Vec3::new(plan.x + 0.50, y + 0.01, plan.y + going * 0.48),
-                },
+                bounds: SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(plan.x - 0.50, y, plan.y - going * 0.48),
+                    Vec3::new(plan.x + 0.50, y + 0.01, plan.y + going * 0.48),
+                )?,
                 role: SurfaceRole::TimberCirculation,
                 shape: crate::ResolvedSurfaceShape::Planar,
             });
             circulation_nodes.push(crate::TimberRouteNode {
                 surface: surface_id,
                 kind: crate::TimberRouteNodeKind::StairTread,
-                position: Vec3::new(plan.x, y, plan.y),
+                position: Position::<Architectural>::from_metres(Vec3::new(plan.x, y, plan.y))?,
                 level,
             });
             circulation_edges.push(crate::TimberRouteEdge {
@@ -2332,11 +2392,11 @@ fn resolve_timber_frame_assembly(
         circulation_nodes.push(crate::TimberRouteNode {
             surface: floor.route_surface,
             kind: crate::TimberRouteNodeKind::UpperFloor,
-            position: Vec3::new(
+            position: Position::<Architectural>::from_metres(Vec3::new(
                 flight_origin.x + flight_axis.x * stair_run,
                 upper_y + 0.01,
                 flight_origin.y + flight_axis.y * stair_run,
-            ),
+            ))?,
             level,
         });
         previous_surface = floor.route_surface;
@@ -2348,11 +2408,12 @@ fn resolve_timber_frame_assembly(
                     .iter()
                     .find(|solid| solid.id == *id)
                     .map_or(f32::INFINITY, |solid| {
-                        let half = solid.size * 0.5;
-                        let plan = Vec2::new(solid.centre.x, solid.centre.z);
+                        let half = solid.size.metres() * 0.5;
+                        let plan = Vec2::new(solid.centre.metres().x, solid.centre.metres().z);
                         let arrival = flight_origin + flight_axis * stair_run;
                         let delta = (arrival - plan).abs() - Vec2::new(half.x, half.z);
-                        delta.max(Vec2::ZERO).length() * 100.0 + solid.size.x * solid.size.z
+                        delta.max(Vec2::ZERO).length() * 100.0
+                            + solid.size.metres().x * solid.size.metres().z
                     })
             };
             score(left).total_cmp(&score(right))
@@ -2366,10 +2427,10 @@ fn resolve_timber_frame_assembly(
         builder.geometry.voids.push(ResolvedVoid {
             id: void_id,
             owner,
-            bounds: ResolvedBounds {
-                min: Vec3::new(clear_min.x, upper_y - 0.16, clear_min.y),
-                max: Vec3::new(clear_max.x, upper_y - 0.001, clear_max.y),
-            },
+            bounds: SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(clear_min.x, upper_y - 0.16, clear_min.y),
+                Vec3::new(clear_max.x, upper_y - 0.001, clear_max.y),
+            )?,
             role: crate::VoidRole::AccessPortal,
             shape: crate::ResolvedVoidShape::Box,
             subtracts_from: owner,
@@ -2385,131 +2446,7 @@ fn resolve_timber_frame_assembly(
         floor_cut_voids,
     };
 
-    // Bind dormer curbs and child fronts to the authoritative Stage 4 roof
-    // framing / Stage 3 child-wall hosts only where an endpoint interface has
-    // positive physical contact. This intentionally replaces the former
-    // ground-to-dormer posts, which pierced the parent roof and drainage.
-    let endpoint_contacts = builder
-        .members
-        .iter()
-        .filter(|member| {
-            member.role == crate::TimberMemberRole::DormerTrimmer
-                || bays.iter().any(|bay| {
-                    bay.member_ids.contains(&member.id)
-                        && bay.wall.is_some_and(|wall_id| {
-                            walls.iter().any(|wall| {
-                                wall.id == wall_id
-                                    && matches!(
-                                        wall.source,
-                                        crate::WallSourceId::RoofChildFront { .. }
-                                    )
-                            })
-                        })
-                })
-        })
-        .flat_map(|member| {
-            [
-                (
-                    member.start_node,
-                    member.support_interfaces[0],
-                    member.role == crate::TimberMemberRole::DormerTrimmer,
-                ),
-                (
-                    member.end_node,
-                    member.support_interfaces[1],
-                    member.role == crate::TimberMemberRole::DormerTrimmer,
-                ),
-            ]
-        })
-        .collect::<Vec<_>>();
-    for (node_id, interface_id, is_dormer_trimmer) in endpoint_contacts {
-        let Some(interface) = builder
-            .geometry
-            .support_interfaces
-            .iter()
-            .find(|interface| interface.id == interface_id)
-            .cloned()
-        else {
-            continue;
-        };
-        let overlaps = |solid: &ResolvedSolid| {
-            let half = solid.size * 0.5;
-            let min = solid.centre - half;
-            let max = solid.centre + half;
-            let overlap = interface.bounds.max.min(max) - interface.bounds.min.max(min);
-            overlap.cmpgt(Vec3::splat(0.001)).all()
-        };
-        let mut external_supports = builder
-            .geometry
-            .solids
-            .iter()
-            .filter(|solid| {
-                matches!(
-                    solid.role,
-                    SolidRole::RoofFace | SolidRole::RoofFraming | SolidRole::RoofPlate
-                ) && overlaps(solid)
-            })
-            .flat_map(|solid| solid.supported_by.iter().copied())
-            .collect::<Vec<_>>();
-        if is_dormer_trimmer {
-            let node_position = builder
-                .geometry
-                .structural_nodes
-                .iter()
-                .find(|node| node.id == node_id)
-                .map(|node| node.position);
-            if let Some(position) = node_position {
-                let plan = Vec2::new(position.x, position.z);
-                for parent_roof in roof_assemblies.iter().filter(|roof| roof.parent.is_none()) {
-                    let on_parent_plane = parent_roof.faces.iter().any(|face| {
-                        let outline = face
-                            .polygon
-                            .iter()
-                            .map(|point| Vec2::new(point.x, point.z))
-                            .collect::<Vec<_>>();
-                        let inside_face = plan_point_in_polygon(plan, &outline)
-                            && !face.cutouts.iter().any(|cutout| {
-                                let cutout = cutout
-                                    .iter()
-                                    .map(|point| Vec2::new(point.x, point.z))
-                                    .collect::<Vec<_>>();
-                                plan_point_in_polygon(plan, &cutout)
-                            });
-                        let underside = face.underside_height_at(plan);
-                        inside_face && (underside - position.y).abs() <= 0.03
-                    });
-                    if on_parent_plane {
-                        external_supports.extend(parent_roof.support_nodes.iter().copied());
-                    }
-                }
-            }
-        }
-        for wall in walls.iter().filter(|wall| {
-            matches!(wall.source, crate::WallSourceId::RoofChildFront { .. })
-                && wall.host_solids.iter().any(|host| {
-                    builder
-                        .geometry
-                        .solids
-                        .iter()
-                        .find(|solid| solid.id == *host)
-                        .is_some_and(&overlaps)
-                })
-        }) {
-            external_supports.push(wall.support_node);
-        }
-        external_supports.sort_unstable();
-        external_supports.dedup();
-        if let Some(node) = builder
-            .geometry
-            .structural_nodes
-            .iter_mut()
-            .find(|node| node.id == node_id)
-        {
-            node.supported_by.extend(external_supports);
-            node.supported_by.sort_unstable();
-            node.supported_by.dedup();
-        }
-    }
+    builder.bind_child_bearings(&bays, walls, roof_assemblies);
 
     // Gable frame ends are inset from the exterior wall plates by the roof
     // build-up. Join that known contour offset with short, measured timber
@@ -2529,15 +2466,15 @@ fn resolve_timber_frame_assembly(
         .collect::<Vec<_>>();
     let mut gable_seats = Vec::new();
     for endpoint in gable_endpoints {
-        let endpoint_plan = Vec2::new(endpoint.x, endpoint.z);
+        let endpoint_plan = Vec2::new(endpoint.metres().x, endpoint.metres().z);
         let candidate = wall_plates
             .iter()
             .filter_map(|plate| {
-                if (plate.start.y - endpoint.y).abs() > 0.02 {
+                if (plate.start.metres().y - endpoint.metres().y).abs() > 0.02 {
                     return None;
                 }
-                let start = Vec2::new(plate.start.x, plate.start.z);
-                let end = Vec2::new(plate.end.x, plate.end.z);
+                let start = Vec2::new(plate.start.metres().x, plate.start.metres().z);
+                let end = Vec2::new(plate.end.metres().x, plate.end.metres().z);
                 let axis = end - start;
                 let t = (endpoint_plan - start).dot(axis) / axis.length_squared().max(0.0001);
                 if !(-0.001..=1.001).contains(&t) {
@@ -2549,20 +2486,23 @@ fn resolve_timber_frame_assembly(
             })
             .min_by(|left, right| left.0.total_cmp(&right.0));
         if let Some((_, projected)) = candidate {
-            gable_seats.push((Vec3::new(projected.x, endpoint.y, projected.y), endpoint));
+            gable_seats.push((
+                Vec3::new(projected.x, endpoint.metres().y, projected.y),
+                endpoint,
+            ));
         }
     }
     for (plate_point, gable_point) in gable_seats {
         builder.member(
             crate::TimberMemberRole::GableTie,
             plate_point,
-            gable_point,
+            gable_point.metres(),
             section,
             crate::TimberFramePhase::RoofConstruction,
-        );
+        )?;
     }
 
-    builder.resolve_intermediate_member_bearings();
+    builder.resolve_intermediate_member_bearings()?;
     builder.rebuild_physical_support_tree();
 
     let mut roof_bearing_interfaces = Vec::new();
@@ -2578,13 +2518,14 @@ fn resolve_timber_frame_assembly(
                 .find(|node| node.id == *id)
                 .map(|node| (*id, node.position))
         })
-        .filter(|(_, position)| position.y <= top + 0.25)
+        .filter(|(_, position)| position.metres().y <= top + 0.25)
         .collect::<Vec<_>>();
     main_roof_supports.sort_by(|left, right| {
         left.1
+            .metres()
             .x
-            .total_cmp(&right.1.x)
-            .then(left.1.z.total_cmp(&right.1.z))
+            .total_cmp(&right.1.metres().x)
+            .then(left.1.metres().z.total_cmp(&right.1.metres().z))
     });
     let roof_support_members = builder
         .members
@@ -2603,15 +2544,15 @@ fn resolve_timber_frame_assembly(
     let roof_seats = main_roof_supports
         .iter()
         .filter_map(|(_, position)| {
-            let point = Vec2::new(position.x, position.z);
+            let point = Vec2::new(position.metres().x, position.metres().z);
             roof_support_members
                 .iter()
                 .filter_map(|plate| {
-                    if (plate.start.y - position.y).abs() > 0.02 {
+                    if (plate.start.metres().y - position.metres().y).abs() > 0.02 {
                         return None;
                     }
-                    let start = Vec2::new(plate.start.x, plate.start.z);
-                    let end = Vec2::new(plate.end.x, plate.end.z);
+                    let start = Vec2::new(plate.start.metres().x, plate.start.metres().z);
+                    let end = Vec2::new(plate.end.metres().x, plate.end.metres().z);
                     let axis = end - start;
                     let t = (point - start).dot(axis) / axis.length_squared().max(0.0001);
                     if !(-0.001..=1.001).contains(&t) {
@@ -2626,23 +2567,28 @@ fn resolve_timber_frame_assembly(
                     (distance > 0.051 && distance <= 0.90).then_some((distance, projected))
                 })
                 .min_by(|left, right| left.0.total_cmp(&right.0))
-                .map(|(_, projected)| (Vec3::new(projected.x, position.y, projected.y), *position))
+                .map(|(_, projected)| {
+                    (
+                        Vec3::new(projected.x, position.metres().y, projected.y),
+                        *position,
+                    )
+                })
         })
         .collect::<Vec<_>>();
     for (plate_point, roof_point) in roof_seats {
         builder.member(
             crate::TimberMemberRole::Rafter,
             plate_point,
-            roof_point,
+            roof_point.metres(),
             section * 1.10,
             crate::TimberFramePhase::RoofConstruction,
-        );
+        )?;
     }
     // Regular truss stations above own the longitudinal ridge/collar purlins.
     // Do not connect this contour list by sort order: consecutive Stage 4
     // support IDs are not necessarily neighbours in the roof topology.
     for (roof_node_id, position) in main_roof_supports {
-        let bearing_node = builder.node(position);
+        let bearing_node = builder.node(position.metres())?;
         if let Some(node) = builder
             .geometry
             .structural_nodes
@@ -2665,21 +2611,24 @@ fn resolve_timber_frame_assembly(
             (4_u64 << 60) | (u64::from(owner.0) << 32) | 0x200_000 | builder.next_interface,
         );
         builder.next_interface += 1;
-        builder.geometry.support_interfaces.push(SupportInterface {
-            id: interface,
-            owner,
-            node: bearing_node,
-            bounds: ResolvedBounds {
-                min: position - Vec3::new(0.12, 0.08, 0.12),
-                max: position + Vec3::new(0.12, 0.08, 0.12),
-            },
-        });
+        builder
+            .geometry
+            .support_interfaces
+            .push(crate::SupportInterface::new(
+                interface,
+                owner,
+                bearing_node,
+                SpatialBounds::<Architectural>::from_metres(
+                    position.metres() - Vec3::new(0.12, 0.08, 0.12),
+                    position.metres() + Vec3::new(0.12, 0.08, 0.12),
+                )?,
+            ));
         roof_bearing_interfaces.push(interface);
     }
     // Roof contour seats may land on the interior of a continuous plate or
     // regular purlin. Resolve those measured point-on-member contacts after
     // the roof nodes exist so none remain synthetic orphan bearings.
-    builder.resolve_intermediate_member_bearings();
+    builder.resolve_intermediate_member_bearings()?;
     builder.rebuild_physical_support_tree();
     // Bind only genuinely intersecting parent/dormer framing solids to those
     // exact seats. A resolved roof item without physical contact is not
@@ -2709,10 +2658,18 @@ fn resolve_timber_frame_assembly(
             .iter_mut()
             .find(|solid| solid.id == roof_solid_id)
         {
-            let half = solid.size * 0.5;
+            let half = solid.size.metres() * 0.5;
             for sample in &bearing_samples {
-                let overlap = sample.bounds.max.min(solid.centre + half)
-                    - sample.bounds.min.max(solid.centre - half);
+                let overlap = sample
+                    .bounds
+                    .max()
+                    .metres()
+                    .min(solid.centre.metres() + half)
+                    - sample
+                        .bounds
+                        .min()
+                        .metres()
+                        .max(solid.centre.metres() - half);
                 if overlap.cmpgt(Vec3::splat(0.001)).all() {
                     solid.supported_by.push(sample.node);
                 }
@@ -2728,11 +2685,11 @@ fn resolve_timber_frame_assembly(
     // Roof-contour members and civic masonry contacts are added after the
     // first floor/frame pass; orient the final physical graph once more so no
     // late member is left with a nominal but ungrounded endpoint.
-    builder.resolve_intermediate_member_bearings();
+    builder.resolve_intermediate_member_bearings()?;
     builder.rebuild_physical_support_tree();
     builder.classify_physical_joints();
 
-    Some(crate::TimberFrameAssembly {
+    Ok(Some(crate::TimberFrameAssembly {
         id: crate::TimberFrameAssemblyId(1),
         program: program_kind,
         phase: crate::TimberFramePhase::PrimaryConstruction,
@@ -2747,5 +2704,5 @@ fn resolve_timber_frame_assembly(
         masonry_bearing_interfaces,
         roof_bearing_interfaces,
         dormer_trimmer_members,
-    })
+    }))
 }

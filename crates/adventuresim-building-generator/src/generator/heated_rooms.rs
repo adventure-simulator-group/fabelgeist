@@ -14,6 +14,7 @@ enum HeatingStoreyRole {
 pub(super) struct HeatingStorey<'a> {
     programme: &'a StoreyProgram,
     role: HeatingStoreyRole,
+    index: StoreyIndex,
 }
 impl<'a> HeatingStorey<'a> {
     pub fn for_program(program: &'a BuildingProgram, index: StoreyIndex) -> Option<Self> {
@@ -32,7 +33,11 @@ impl<'a> HeatingStorey<'a> {
         } else {
             HeatingStoreyRole::UpperStorage
         };
-        Some(Self { programme, role })
+        Some(Self {
+            programme,
+            role,
+            index,
+        })
     }
 }
 
@@ -53,36 +58,42 @@ struct HeatingBayAnchor {
     rear_offset: RearCellOffset,
 }
 impl HeatingBayAnchor {
-    const fn new(room: RoomKind, rear_cells: i16) -> Self {
-        Self {
+    fn new(room: RoomKind, rear_cells: i16) -> Result<Self, GenerationError> {
+        Ok(Self {
             room,
             rear_offset: RearCellOffset::from_cells(rear_cells)
-                .expect("authored heating anchor has a positive whole-cell offset"),
-        }
+                .ok_or(GenerationError::HeatingAnchor { cells: rear_cells })?,
+        })
     }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ReservationFailure {
+    AlreadyReserved,
+    OutsideFootprint,
 }
 
 pub(super) fn reserve(
     program: &BuildingProgram,
     storey: &HeatingStorey<'_>,
     footprint: &[Cell],
-    reservations: &mut BTreeMap<Cell, usize>,
+    reservations: &mut BTreeMap<Cell, RoomIndex>,
 ) -> Result<(), GenerationError> {
     let (_, depth) = program.footprint.dimensions();
     let anchors: &[HeatingBayAnchor] = match storey.role {
         HeatingStoreyRole::MasonrySupport => &[
-            HeatingBayAnchor::new(RoomKind::Storage, 1),
-            HeatingBayAnchor::new(RoomKind::Storage, 2),
-            HeatingBayAnchor::new(RoomKind::Storage, 3),
+            HeatingBayAnchor::new(RoomKind::Storage, 1)?,
+            HeatingBayAnchor::new(RoomKind::Storage, 2)?,
+            HeatingBayAnchor::new(RoomKind::Storage, 3)?,
         ],
         HeatingStoreyRole::HeatedRooms => &[
-            HeatingBayAnchor::new(RoomKind::Kitchen, 1),
-            HeatingBayAnchor::new(RoomKind::Kitchen, 2),
-            HeatingBayAnchor::new(RoomKind::CommonRoom, 3),
+            HeatingBayAnchor::new(RoomKind::Kitchen, 1)?,
+            HeatingBayAnchor::new(RoomKind::Kitchen, 2)?,
+            HeatingBayAnchor::new(RoomKind::CommonRoom, 3)?,
         ],
         HeatingStoreyRole::UpperStorage => &[
-            HeatingBayAnchor::new(RoomKind::Storage, 1),
-            HeatingBayAnchor::new(RoomKind::Storage, 2),
+            HeatingBayAnchor::new(RoomKind::Storage, 1)?,
+            HeatingBayAnchor::new(RoomKind::Storage, 2)?,
         ],
     };
     let mut reserve = |kind, x, rear_offset: RearCellOffset| {
@@ -92,11 +103,28 @@ pub(super) fn reserve(
             .iter()
             .position(|room| room.kind == kind)
         {
-            let cell = Cell::new(x, depth as i16 - rear_offset.cells());
-            if reservations.contains_key(&cell) || !footprint.contains(&cell) {
-                return Err(GenerationError::InvalidDomesticHeating);
+            let cell = Cell::new(
+                x,
+                i16::try_from(depth).map_err(|_| GenerationError::InvalidFootprint)?
+                    - rear_offset.cells(),
+            );
+            let room = RoomIndex::from_ordinal(index)?;
+            let reason = if reservations.contains_key(&cell) {
+                Some(ReservationFailure::AlreadyReserved)
+            } else if !footprint.contains(&cell) {
+                Some(ReservationFailure::OutsideFootprint)
+            } else {
+                None
+            };
+            if let Some(reason) = reason {
+                return Err(GenerationError::HeatingReservation {
+                    storey: storey.index,
+                    room,
+                    cell,
+                    reason,
+                });
             }
-            reservations.insert(cell, index);
+            reservations.insert(cell, room);
         }
         Ok(())
     };
@@ -115,7 +143,8 @@ pub(super) fn reserve(
             reserve(
                 RoomKind::Pantry,
                 2,
-                RearCellOffset::from_cells(rear_offset).expect("positive authored pantry offset"),
+                RearCellOffset::from_cells(rear_offset)
+                    .ok_or(GenerationError::HeatingAnchor { cells: rear_offset })?,
             )?;
         }
     }
@@ -135,7 +164,11 @@ struct HeatingDoorRecipe {
 }
 
 /// Heating-bay doors use the full room boundary, not a seeded one-cell notch.
-pub(super) fn doorway(program: &StoreyProgram, walls: &[WallSegment], openings: &mut [Opening]) {
+pub(super) fn doorway(
+    program: &StoreyProgram,
+    walls: &[WallSegment],
+    openings: &mut [Opening],
+) -> Result<(), GenerationError> {
     for recipe in [
         HeatingDoorRecipe {
             first_room: RoomKind::Kitchen,
@@ -153,13 +186,19 @@ pub(super) fn doorway(program: &StoreyProgram, walls: &[WallSegment], openings: 
             set_out: HeatingDoorSetOut::BehindHearth,
         },
     ] {
-        let pair = [recipe.first_room, recipe.second_room].map(|kind| {
-            program
+        let mut pair = [None; 2];
+        for (slot, kind) in [recipe.first_room, recipe.second_room]
+            .into_iter()
+            .enumerate()
+        {
+            pair[slot] = program
                 .rooms
                 .iter()
-                .position(|r| r.kind == kind)
-                .map(|index| index as u16)
-        });
+                .position(|room| room.kind == kind)
+                .map(RoomIndex::from_ordinal)
+                .transpose()?
+                .map(RoomIndex::serialized_ordinal);
+        }
         let [Some(first), Some(second)] = pair else {
             continue;
         };
@@ -186,6 +225,7 @@ pub(super) fn doorway(program: &StoreyProgram, walls: &[WallSegment], openings: 
             opening.wall = index;
         }
     }
+    Ok(())
 }
 
 #[cfg(test)]

@@ -127,7 +127,7 @@ pub(crate) fn validate_scene_gardens(
             building.placement.centre_metres,
             envelope(
                 &building.placement,
-                &recipes::Recipe::from_generated(building),
+                &recipes::Recipe::from_generated(building).map_err(|e| e.to_string())?,
             ),
         )?;
     }

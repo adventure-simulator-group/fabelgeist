@@ -71,7 +71,7 @@ fn benchmark_program_shell() {
     let plan = crate::generate(&program).unwrap();
     let start = std::time::Instant::now();
     for _ in 0..100 {
-        std::hint::black_box(compile_building_lod(&plan, BuildingLodLevel::Shell));
+        std::hint::black_box(compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap());
     }
     let semantic = start.elapsed();
     let start = std::time::Instant::now();

@@ -33,9 +33,9 @@ pub(in crate::scene_input::furniture) fn group_limit(building: &sites::Furniture
 pub(in crate::scene_input::furniture) fn building(
     input: &TacticalSceneInput,
     building: &sites::FurnitureSite,
-) -> Vec<Candidate> {
+) -> Result<Vec<Candidate>, adventuresim_building_generator::furniture::FurnitureRecipeError> {
     let Some(kind) = kind(building) else {
-        return Vec::new();
+        return Ok(Vec::new());
     };
     let half = building.half_extents;
     let mut candidates = Vec::new();
@@ -47,7 +47,7 @@ pub(in crate::scene_input::furniture) fn building(
             FurnitureAnchor::Building {
                 id: building.placement.id,
             },
-        );
+        )?;
         let size = candidate.footprint.half_extents_metres;
         let fraction = ((slot % FRONTAGE_SAMPLES) as f32 / (FRONTAGE_SAMPLES - 1) as f32 * 2.0
             - 1.0)
@@ -63,5 +63,5 @@ pub(in crate::scene_input::furniture) fn building(
         candidate.footprint.orientation = building.placement.orientation;
         candidates.push(candidate);
     }
-    candidates
+    Ok(candidates)
 }

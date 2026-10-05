@@ -35,7 +35,7 @@ fn an_invalid_occupied_programme_is_rejected_without_recipe_reselection() {
     assert!(matches!(
         palette.for_program(&invalid),
         Err(CityCompileError::Recipe {
-            source: adventuresim_building_generator::GenerationError::EmptyStorey { level: 0 },
+            source: adventuresim_building_generator::GenerationError::EmptyStorey { level: _ },
             ..
         })
     ));

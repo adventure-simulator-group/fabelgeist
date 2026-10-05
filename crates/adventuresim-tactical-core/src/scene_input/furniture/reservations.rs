@@ -66,7 +66,7 @@ pub(super) fn route(start: Vec2, end: Vec2, half_width: f32) -> FurnitureFootpri
 pub(super) fn routes(
     input: &TacticalSceneInput,
     buildings: &[sites::FurnitureSite],
-) -> Vec<FurnitureFootprint> {
+) -> Result<Vec<FurnitureFootprint>, adventuresim_building_generator::DoorError> {
     let mut routes = Vec::new();
     for patch in &input.streets {
         match *patch {
@@ -122,7 +122,7 @@ pub(super) fn routes(
                 access.half_width_metres,
             )
         }));
-        routes.push(FurnitureFootprint::gate_sweep(compound));
+        routes.push(FurnitureFootprint::gate_sweep(compound)?);
     }
     for garden in &input.gardens {
         routes.extend(
@@ -137,7 +137,7 @@ pub(super) fn routes(
             orientation: garden.cultivated_bounds.orientation,
         });
     }
-    routes
+    Ok(routes)
 }
 
 pub(super) fn obstacles(
@@ -145,7 +145,7 @@ pub(super) fn obstacles(
     terrain: &SceneTerrain,
     buildings: &[sites::FurnitureSite],
     obstacles: &[GeneratedObstacle],
-) -> Vec<FurnitureFootprint> {
+) -> Result<Vec<FurnitureFootprint>, super::super::SceneInputError> {
     let mut footprints = buildings
         .iter()
         .map(|building| FurnitureFootprint {
@@ -155,12 +155,14 @@ pub(super) fn obstacles(
         })
         .collect::<Vec<_>>();
     for compound in &input.compounds {
-        footprints.extend(compound.boundary.fixed_members().iter().map(|member| {
+        footprints.extend(compound.boundary.fixed_members()?.iter().map(|member| {
             FurnitureFootprint {
-                centre_metres: Vec2::new(member.centre_metres.x, member.centre_metres.z),
-                half_extents_metres: Vec2::new(member.size_metres.x, member.size_metres.z) * 0.5,
-                orientation: BuildingOrientation::from_radians(member.yaw_radians)
-                    .expect("validated boundary"),
+                centre_metres: member.pose.plan_metres(),
+                half_extents_metres: Vec2::new(
+                    member.size_metres.metres().x,
+                    member.size_metres.metres().z,
+                ) * 0.5,
+                orientation: member.orientation,
             }
         }));
     }
@@ -176,7 +178,7 @@ pub(super) fn obstacles(
             orientation: BuildingOrientation::IDENTITY,
         });
     }
-    footprints
+    Ok(footprints)
 }
 
 impl FurnitureFootprint {
@@ -188,23 +190,27 @@ impl FurnitureFootprint {
         }
     }
 
-    fn gate_sweep(compound: &crate::city_layout::CityCompound) -> Self {
-        let gate = compound.boundary.gate.door(compound.id);
-        let hinge = Vec2::new(gate.hinge_centre.x, gate.hinge_centre.z);
+    fn gate_sweep(
+        compound: &crate::city_layout::CityCompound,
+    ) -> Result<Self, adventuresim_building_generator::DoorError> {
+        let gate = compound.boundary.gate.door(compound.id)?;
+        let hinge = Vec2::new(gate.hinge_centre.metres().x, gate.hinge_centre.metres().z);
         // Reserve the inward quarter of the hinge's enclosing square for the
         // complete leaf sweep, independently of its current dynamic state.
-        Self {
+        Ok(Self {
             centre_metres: hinge
                 + compound
                     .boundary
                     .gate
                     .orientation
                     .local_to_world(Vec2::new(-compound.boundary.gate.hinge.sign(), 1.0))
-                    * gate.size_metres.x
+                    * gate.size_metres.metres().x
                     * 0.5,
-            half_extents_metres: Vec2::splat(gate.size_metres.x * 0.5 + gate.size_metres.z),
+            half_extents_metres: Vec2::splat(
+                gate.size_metres.metres().x * 0.5 + gate.size_metres.metres().z,
+            ),
             orientation: compound.boundary.gate.orientation,
-        }
+        })
     }
 }
 
@@ -226,25 +232,27 @@ mod tests {
                 property.boundary.gate.orientation =
                     BuildingOrientation::from_radians(yaw).unwrap();
                 property.boundary.gate.hinge = hinge;
-                let reservation = FurnitureFootprint::gate_sweep(&property);
-                let door = property.boundary.gate.door(property.id);
+                let reservation = FurnitureFootprint::gate_sweep(&property).unwrap();
+                let door = property.boundary.gate.door(property.id).unwrap();
                 for step in 0..=90 {
-                    let rotation =
-                        Quat::from_rotation_y(door.open_angle_radians * step as f32 / 90.0);
+                    let rotation = Quat::from_rotation_y(
+                        door.open_angle_radians.radians() * step as f32 / 90.0,
+                    );
                     for corner in [
                         Vec2::new(-1.0, -1.0),
                         Vec2::new(-1.0, 1.0),
                         Vec2::new(1.0, -1.0),
                         Vec2::ONE,
                     ] {
-                        let closed = door.closed_centre
-                            + Quat::from_rotation_y(door.closed_yaw_radians)
+                        let closed = door.closed_centre.metres()
+                            + Quat::from_rotation_y(door.closed_yaw_radians.radians())
                                 * Vec3::new(
-                                    corner.x * door.size_metres.x * 0.5,
+                                    corner.x * door.size_metres.metres().x * 0.5,
                                     0.0,
-                                    corner.y * door.size_metres.z * 0.5,
+                                    corner.y * door.size_metres.metres().z * 0.5,
                                 );
-                        let point = door.hinge_centre + rotation * (closed - door.hinge_centre);
+                        let point = door.hinge_centre.metres()
+                            + rotation * (closed - door.hinge_centre.metres());
                         assert!(
                             reservation.contains(Vec2::new(point.x, point.z)),
                             "yaw={yaw}, hinge={hinge:?}, step={step}"

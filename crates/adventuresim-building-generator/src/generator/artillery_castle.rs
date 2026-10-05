@@ -7,9 +7,9 @@ fn resolve_artillery_castle(
     walls: &mut Vec<crate::WallAssembly>,
     openings: &mut Vec<crate::OpeningAssembly>,
     geometry: &mut ResolvedGeometry,
-) -> Option<crate::ArtilleryCastleAssembly> {
+) -> Result<Option<crate::ArtilleryCastleAssembly>, crate::GenerationError> {
     if program.archetype != BuildingArchetype::ArtilleryRondelCastle {
-        return None;
+        return Ok(None);
     }
     let trace = [
         crate::GridPoint::new(-240, -180),
@@ -18,7 +18,11 @@ fn resolve_artillery_castle(
         crate::GridPoint::new(-240, 420),
     ];
     let crown = 6.0_f32;
-    let total_depth = crate::GridLength::new(90).expect("4.5m artillery curtain depth");
+    let total_depth =
+        crate::GridLength::new(90).ok_or(GenerationError::InvalidArtilleryGridLength {
+            owner: GeometryOwnerId(80_000),
+            units: 90,
+        })?;
     let mut curtains = Vec::new();
     let mut support_ids = Vec::new();
     let mut artillery_drainage_routes = Vec::new();
@@ -36,42 +40,42 @@ fn resolve_artillery_castle(
         let retaining_node = StructuralNodeId(revetment_node.0 + 1);
         let terreplein_node = StructuralNodeId(revetment_node.0 + 2);
         geometry.structural_nodes.extend([
-            StructuralNode {
-                id: revetment_node,
+            crate::StructuralNode::from_metres(
+                revetment_node,
                 owner,
-                kind: StructuralNodeKind::ArtilleryRevetmentBearing,
-                position: Vec3::new(
+                StructuralNodeKind::ArtilleryRevetmentBearing,
+                Vec3::new(
                     inner_mid.x + outward.x * 4.05,
                     0.0,
                     inner_mid.y + outward.y * 4.05,
                 ),
-                supported_by: Vec::new(),
-                grounded: true,
-            },
-            StructuralNode {
-                id: retaining_node,
+                Vec::new(),
+                true,
+            )?,
+            crate::StructuralNode::from_metres(
+                retaining_node,
                 owner,
-                kind: StructuralNodeKind::ArtilleryRetainingBearing,
-                position: Vec3::new(
+                StructuralNodeKind::ArtilleryRetainingBearing,
+                Vec3::new(
                     inner_mid.x + outward.x * 0.25,
                     0.0,
                     inner_mid.y + outward.y * 0.25,
                 ),
-                supported_by: Vec::new(),
-                grounded: true,
-            },
-            StructuralNode {
-                id: terreplein_node,
+                Vec::new(),
+                true,
+            )?,
+            crate::StructuralNode::from_metres(
+                terreplein_node,
                 owner,
-                kind: StructuralNodeKind::ArtilleryTerrepleinBearing,
-                position: Vec3::new(
+                StructuralNodeKind::ArtilleryTerrepleinBearing,
+                Vec3::new(
                     inner_mid.x + outward.x * 2.25,
                     5.55,
                     inner_mid.y + outward.y * 2.25,
                 ),
-                supported_by: vec![revetment_node, retaining_node],
-                grounded: false,
-            },
+                vec![revetment_node, retaining_node],
+                false,
+            )?,
         ]);
         let rev_plan = inner_mid + outward * 4.05;
         let earth_plan = inner_mid + outward * 2.25;
@@ -82,7 +86,7 @@ fn resolve_artillery_castle(
                            height: f32,
                            role: SolidRole,
                            supports: Vec<StructuralNodeId>| {
-            if direction == crate::Direction::South {
+            Ok::<_, crate::GenerationError>(if direction == crate::Direction::South {
                 [-3.5_f32, 15.5]
                     .into_iter()
                     .map(|x| {
@@ -96,7 +100,7 @@ fn resolve_artillery_castle(
                             supports.clone(),
                         )
                     })
-                    .collect::<Vec<_>>()
+                    .collect::<Result<Vec<_>, crate::GenerationError>>()?
             } else {
                 vec![projected_solid(
                     geometry,
@@ -110,8 +114,8 @@ fn resolve_artillery_castle(
                     0.0,
                     role,
                     supports,
-                )]
-            }
+                )?]
+            })
         };
         let revetments = split_layer(
             geometry,
@@ -120,7 +124,7 @@ fn resolve_artillery_castle(
             crown,
             SolidRole::ArtilleryRevetment,
             vec![revetment_node],
-        );
+        )?;
         let earths = split_layer(
             geometry,
             earth_plan,
@@ -128,7 +132,7 @@ fn resolve_artillery_castle(
             5.5,
             SolidRole::ArtilleryEarthCore,
             vec![revetment_node, retaining_node],
-        );
+        )?;
         let retainings = split_layer(
             geometry,
             retain_plan,
@@ -136,7 +140,7 @@ fn resolve_artillery_castle(
             crown,
             SolidRole::ArtilleryRetainingWall,
             vec![retaining_node],
-        );
+        )?;
         let deck_plan = inner_mid + outward * 1.95;
         let terreplein = projected_solid(
             geometry,
@@ -150,7 +154,7 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryTerreplein,
             vec![terreplein_node],
-        );
+        )?;
         let yaw = -tangent.y.atan2(tangent.x);
         let local_positive_z = Vec2::new(yaw.sin(), yaw.cos());
         if let Some(deck) = geometry
@@ -158,9 +162,9 @@ fn resolve_artillery_castle(
             .iter_mut()
             .find(|solid| solid.id == terreplein)
         {
-            deck.yaw_radians = yaw;
-            deck.size = Vec3::new(length, 0.22, 3.10);
-            deck.crossfall_radians = 0.025 * outward.dot(local_positive_z).signum();
+            deck.yaw_radians = Radians::new(yaw)?;
+            deck.size = CuboidDimensions::from_metres(Vec3::new(length, 0.22, 3.10))?;
+            deck.crossfall_radians = Radians::new(0.025 * outward.dot(local_positive_z).signum())?;
         }
         let parapet_plan = inner_mid + outward * 4.02;
         let parapet = projected_solid(
@@ -175,46 +179,66 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryParapet,
             vec![revetment_node],
-        );
+        )?;
         if let Some(solid) = geometry.solids.iter_mut().find(|solid| solid.id == parapet) {
             if tangent.x.abs() > 0.5 {
-                solid.size.x -= 1.8;
+                {
+                    let mut native_geometry = solid.size.metres();
+                    native_geometry.x -= 1.8;
+                    solid.size =
+                        CuboidDimensions::from_metres(native_geometry).map_err(|cause| {
+                            crate::CollisionError {
+                                source_id: solid.id,
+                                cause,
+                            }
+                        })?;
+                };
             } else {
-                solid.size.z -= 1.8;
+                {
+                    let mut native_geometry = solid.size.metres();
+                    native_geometry.z -= 1.8;
+                    solid.size =
+                        CuboidDimensions::from_metres(native_geometry).map_err(|cause| {
+                            crate::CollisionError {
+                                source_id: solid.id,
+                                cause,
+                            }
+                        })?;
+                };
             }
         }
         let route_surface = projected_surface(
             geometry,
             owner,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     deck_plan.x - tangent.x.abs() * length * 0.5 - outward.x.abs() * 1.25,
                     5.85,
                     deck_plan.y - tangent.y.abs() * length * 0.5 - outward.y.abs() * 1.25,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     deck_plan.x + tangent.x.abs() * length * 0.5 + outward.x.abs() * 1.25,
                     5.88,
                     deck_plan.y + tangent.y.abs() * length * 0.5 + outward.y.abs() * 1.25,
                 ),
-            },
+            )?,
             SurfaceRole::ArtilleryRoute,
         );
         let catchment = projected_surface(
             geometry,
             owner,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     deck_plan.x - tangent.x.abs() * length * 0.5 - outward.x.abs() * 1.65,
                     5.84,
                     deck_plan.y - tangent.y.abs() * length * 0.5 - outward.y.abs() * 1.65,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     deck_plan.x + tangent.x.abs() * length * 0.5 + outward.x.abs() * 1.65,
                     5.87,
                     deck_plan.y + tangent.y.abs() * length * 0.5 + outward.y.abs() * 1.65,
                 ),
-            },
+            )?,
             SurfaceRole::ArtilleryDrainage,
         );
         let channel_plan = inner_mid + outward * 3.55;
@@ -226,20 +250,15 @@ fn resolve_artillery_castle(
             yaw,
             SolidRole::DrainageFloor,
             vec![terreplein_node],
-        );
-        geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == channel)
-            .expect("artillery curtain gutter")
-            .longfall_radians = 0.010;
+        )?;
+        geometry.solid_mut(channel)?.longfall_radians = Radians::new(0.010)?;
         let inlet_plan = channel_plan - tangent * (length * 0.5 - 0.08);
         let route = projected_edge_drain(
             geometry,
             owner,
             Vec3::new(inlet_plan.x, 5.57, inlet_plan.y),
             outward,
-        );
+        )?;
         geometry.drainage_catchments.push(DrainageCatchment {
             id: catchment,
             owner,
@@ -304,30 +323,30 @@ fn resolve_artillery_castle(
         let bearing = StructuralNodeId(41_000_000 + index as u64 * 3);
         let deck_node = StructuralNodeId(bearing.0 + 1);
         geometry.structural_nodes.extend([
-            StructuralNode {
-                id: bearing,
+            crate::StructuralNode::from_metres(
+                bearing,
                 owner,
-                kind: StructuralNodeKind::ArtilleryRondelBearing,
-                position: Vec3::new(centre.x, 0.0, centre.y),
-                supported_by: Vec::new(),
-                grounded: true,
-            },
-            StructuralNode {
-                id: deck_node,
+                StructuralNodeKind::ArtilleryRondelBearing,
+                Vec3::new(centre.x, 0.0, centre.y),
+                Vec::new(),
+                true,
+            )?,
+            crate::StructuralNode::from_metres(
+                deck_node,
                 owner,
-                kind: StructuralNodeKind::ArtilleryTerrepleinBearing,
-                position: Vec3::new(centre.x, 5.55, centre.y),
-                supported_by: vec![bearing],
-                grounded: false,
-            },
+                StructuralNodeKind::ArtilleryTerrepleinBearing,
+                Vec3::new(centre.x, 5.55, centre.y),
+                vec![bearing],
+                false,
+            )?,
         ]);
         let casemate_void = projected_void(
             geometry,
             owner,
-            ResolvedBounds {
-                min: Vec3::new(centre.x - 2.5, 0.20, centre.y - 2.5),
-                max: Vec3::new(centre.x + 2.5, 2.75, centre.y + 2.5),
-            },
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(centre.x - 2.5, 0.20, centre.y - 2.5),
+                Vec3::new(centre.x + 2.5, 2.75, centre.y + 2.5),
+            )?,
             VoidRole::ArtilleryCasemate,
         );
         let floor = projected_solid(
@@ -338,7 +357,7 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryCasemateFloor,
             vec![bearing],
-        );
+        )?;
         let roof = projected_solid(
             geometry,
             owner,
@@ -347,13 +366,8 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryCasemateRoof,
             vec![bearing],
-        );
-        geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == roof)
-            .unwrap()
-            .shape = crate::ResolvedSolidShape::AnnularPrism {
+        )?;
+        geometry.solid_mut(roof)?.shape = crate::ResolvedSolidShape::AnnularPrism {
             inner_radius_metres: 1.10,
             outer_radius_metres: 2.60,
             inner_top_offset_metres: 0.0,
@@ -378,13 +392,8 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryTerreplein,
             vec![deck_node],
-        );
-        geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == terreplein)
-            .expect("rondel annular deck")
-            .shape = crate::ResolvedSolidShape::AnnularPrism {
+        )?;
+        geometry.solid_mut(terreplein)?.shape = crate::ResolvedSolidShape::AnnularPrism {
             inner_radius_metres: 1.10,
             outer_radius_metres: 4.80,
             inner_top_offset_metres: 0.035,
@@ -395,10 +404,10 @@ fn resolve_artillery_castle(
         let route = projected_surface(
             geometry,
             owner,
-            ResolvedBounds {
-                min: Vec3::new(centre.x - 3.5, 5.84, centre.y - 3.5),
-                max: Vec3::new(centre.x + 3.5, 5.87, centre.y + 3.5),
-            },
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(centre.x - 3.5, 5.84, centre.y - 3.5),
+                Vec3::new(centre.x + 3.5, 5.87, centre.y + 3.5),
+            )?,
             SurfaceRole::ArtilleryRoute,
         );
         let mut rondel_drainage = Vec::new();
@@ -420,23 +429,18 @@ fn resolve_artillery_castle(
                         -tangent.y.atan2(tangent.x),
                         SolidRole::DrainageFloor,
                         vec![deck_node],
-                    );
-                    geometry
-                        .solids
-                        .iter_mut()
-                        .find(|solid| solid.id == channel)
-                        .expect("rondel V gutter half")
-                        .longfall_radians = side * 0.015;
-                    channel
+                    )?;
+                    geometry.solid_mut(channel)?.longfall_radians = Radians::new(side * 0.015)?;
+                    Ok(channel)
                 })
-                .collect::<Vec<_>>();
+                .collect::<Result<Vec<_>, crate::GenerationError>>()?;
             let drain_surface = projected_surface(
                 geometry,
                 owner,
-                ResolvedBounds {
-                    min: Vec3::new(centre.x - 4.8, 5.64, centre.y - 4.8),
-                    max: Vec3::new(centre.x + 4.8, 5.88, centre.y + 4.8),
-                },
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(centre.x - 4.8, 5.64, centre.y - 4.8),
+                    Vec3::new(centre.x + 4.8, 5.88, centre.y + 4.8),
+                )?,
                 SurfaceRole::ArtilleryDrainage,
             );
             let route_id = projected_edge_drain(
@@ -444,7 +448,7 @@ fn resolve_artillery_castle(
                 owner,
                 Vec3::new(channel_plan.x, 5.61, channel_plan.y),
                 outward,
-            );
+            )?;
             geometry.drainage_catchments.push(DrainageCatchment {
                 id: drain_surface,
                 owner,
@@ -472,10 +476,12 @@ fn resolve_artillery_castle(
         };
         let mut bonds = [ResolvedItemId::default(); 2];
         for bond_index in 0..2 {
-            let interface = tower
-                .chord_interfaces()
-                .nth(bond_index)
-                .expect("two artillery returns");
+            let interface = tower.chord_interfaces().nth(bond_index).ok_or(
+                GenerationError::MissingRondelReturn {
+                    rondel: crate::ArtilleryRondelId(index as u64),
+                    return_index: bond_index,
+                },
+            )?;
             let toward = direction_vector(interface.toward_gate);
             let bond_centre =
                 centre + toward * (tower.radius_metres() - interface.bearing_depth.metres() * 0.5);
@@ -483,10 +489,10 @@ fn resolve_artillery_castle(
             geometry.junction_bonds.push(JunctionBond {
                 id,
                 owners: [owner, curtains[adjoining[bond_index].0 as usize].owner],
-                bounds: ResolvedBounds {
-                    min: Vec3::new(bond_centre.x - 1.25, 0.0, bond_centre.y - 1.25),
-                    max: Vec3::new(bond_centre.x + 1.25, crown + 0.25, bond_centre.y + 1.25),
-                },
+                bounds: SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(bond_centre.x - 1.25, 0.0, bond_centre.y - 1.25),
+                    Vec3::new(bond_centre.x + 1.25, crown + 0.25, bond_centre.y + 1.25),
+                )?,
                 minimum_interface_area_square_metres: 0.25,
                 maximum_penetration_metres: 1.25,
             });
@@ -509,7 +515,7 @@ fn resolve_artillery_castle(
             };
             let opening_id =
                 crate::OpeningAssemblyId(90_000 + index as u64 * 3 + station_index as u64);
-            let wall_index = walls.iter().position(|wall| matches!(wall.source, crate::WallSourceId::RoundTower { tower_index } if tower_index == index)).expect("artillery rondel radial host");
+            let wall_index = walls.iter().position(|wall| matches!(wall.source, crate::WallSourceId::RoundTower { tower_index } if tower_index == index)).ok_or(GenerationError::MissingWallSource { wall_source: crate::WallSourceId::RoundTower { tower_index: index } })?;
             let mut station_wall = walls[wall_index].clone();
             station_wall.id =
                 crate::WallAssemblyId(90_000 + index as u64 * 3 + station_index as u64);
@@ -534,8 +540,10 @@ fn resolve_artillery_castle(
                 &mut station_wall,
                 openings,
                 geometry,
-            );
-            let resolved_opening = openings.last().expect("artillery opening");
+            )?;
+            let resolved_opening = openings.last().ok_or(GenerationError::MissingOpening {
+                opening: opening_id,
+            })?;
             station_wall.host_solids = resolved_opening
                 .jamb_solids
                 .iter()
@@ -543,7 +551,7 @@ fn resolve_artillery_castle(
                 .chain([resolved_opening.head_solid, resolved_opening.spandrel_solid])
                 .collect();
             walls.push(station_wall);
-            let aperture_origin = openings.last().unwrap().frame.origin;
+            let aperture_origin = resolved_opening.frame.origin;
             geometry.junction_bonds.push(JunctionBond {
                 id: ResolvedItemId(
                     (7_u64 << 60) | (u64::from(owner.0) << 20) | (0x100 + station_index as u64),
@@ -552,18 +560,18 @@ fn resolve_artillery_castle(
                     owner,
                     GeometryOwnerId(83_000 + (index * 3 + station_index) as u32),
                 ],
-                bounds: ResolvedBounds {
-                    min: Vec3::new(
+                bounds: SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
                         aperture_origin.x - 0.9,
                         floor_for_artillery_level(level),
                         aperture_origin.y - 0.9,
                     ),
-                    max: Vec3::new(
+                    Vec3::new(
                         aperture_origin.x + 0.9,
                         floor_for_artillery_level(level) + 2.5,
                         aperture_origin.y + 0.9,
                     ),
-                },
+                )?,
                 minimum_interface_area_square_metres: 0.05,
                 maximum_penetration_metres: 1.25,
             });
@@ -576,18 +584,18 @@ fn resolve_artillery_castle(
                         curtains[adjoining[station_index].0 as usize].owner,
                         GeometryOwnerId(83_000 + (index * 3 + station_index) as u32),
                     ],
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(
+                    bounds: SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
                             aperture_origin.x - 1.25,
                             floor_for_artillery_level(level),
                             aperture_origin.y - 1.25,
                         ),
-                        max: Vec3::new(
+                        Vec3::new(
                             aperture_origin.x + 1.25,
                             floor_for_artillery_level(level) + 2.55,
                             aperture_origin.y + 1.25,
                         ),
-                    },
+                    )?,
                     minimum_interface_area_square_metres: 0.08,
                     maximum_penetration_metres: 1.25,
                 });
@@ -595,14 +603,7 @@ fn resolve_artillery_castle(
             station_ids.push(station.id);
             stations.push(station);
         }
-        let mut earth_clearances = vec![
-            geometry
-                .voids
-                .iter()
-                .find(|void| void.id == casemate_void)
-                .expect("rondel casemate void")
-                .bounds,
-        ];
+        let mut earth_clearances = vec![geometry.void(casemate_void)?.bounds];
         for station in stations.iter().filter(|station| {
             station.rondel == crate::ArtilleryRondelId(index as u64)
                 && station.level == crate::ArtilleryStationLevel::LowerCasemate
@@ -613,20 +614,20 @@ fn resolve_artillery_castle(
                 .iter()
                 .find(|surface| surface.id == station.stance_surface)
             {
-                earth_clearances.push(ResolvedBounds {
-                    min: stance.bounds.min - Vec3::new(0.02, 0.0, 0.02),
-                    max: stance.bounds.max + Vec3::new(0.02, 1.90, 0.02),
-                });
+                earth_clearances.push(SpatialBounds::<Architectural>::from_metres(
+                    stance.bounds.min().metres() - Vec3::new(0.02, 0.0, 0.02),
+                    stance.bounds.max().metres() + Vec3::new(0.02, 1.90, 0.02),
+                )?);
             }
             if let Some(mount) = geometry
                 .solids
                 .iter()
                 .find(|solid| solid.id == station.mount_solid)
             {
-                earth_clearances.push(ResolvedBounds {
-                    min: mount.centre - mount.size * 0.5,
-                    max: mount.centre + mount.size * 0.5,
-                });
+                earth_clearances.push(SpatialBounds::<Architectural>::from_metres(
+                    mount.centre.metres() - mount.size.metres() * 0.5,
+                    mount.centre.metres() + mount.size.metres() * 0.5,
+                )?);
             }
             if let Some(opening) = openings
                 .iter()
@@ -658,16 +659,22 @@ fn resolve_artillery_castle(
                     max = max.max(point + Vec3::Y * 5.50);
                 }
             }
-            ResolvedBounds { min, max }
+            Ok::<_, crate::GenerationError>(SpatialBounds::<Architectural>::from_metres(min, max)?)
         };
         for sector in 0..32 {
             let start = sector as f32 * std::f32::consts::TAU / 32.0;
             let end = (sector + 1) as f32 * std::f32::consts::TAU / 32.0;
-            let bounds = sector_bounds(start, end);
+            let bounds = sector_bounds(start, end)?;
             let reserved = earth_clearances.iter().any(|clearance| {
-                bounds.max.x.min(clearance.max.x) - bounds.min.x.max(clearance.min.x) > 0.005
-                    && bounds.max.y.min(clearance.max.y) - bounds.min.y.max(clearance.min.y) > 0.005
-                    && bounds.max.z.min(clearance.max.z) - bounds.min.z.max(clearance.min.z) > 0.005
+                bounds.max().metres().x.min(clearance.max().metres().x)
+                    - bounds.min().metres().x.max(clearance.min().metres().x)
+                    > 0.005
+                    && bounds.max().metres().y.min(clearance.max().metres().y)
+                        - bounds.min().metres().y.max(clearance.min().metres().y)
+                        > 0.005
+                    && bounds.max().metres().z.min(clearance.max().metres().z)
+                        - bounds.min().metres().z.max(clearance.min().metres().z)
+                        > 0.005
             });
             if reserved {
                 continue;
@@ -680,13 +687,8 @@ fn resolve_artillery_castle(
                 0.0,
                 SolidRole::ArtilleryEarthCore,
                 vec![bearing],
-            );
-            geometry
-                .solids
-                .iter_mut()
-                .find(|solid| solid.id == id)
-                .expect("rondel residual earth sector")
-                .shape = crate::ResolvedSolidShape::AnnularSectorPrism {
+            )?;
+            geometry.solid_mut(id)?.shape = crate::ResolvedSolidShape::AnnularSectorPrism {
                 inner_radius_metres: 3.60,
                 outer_radius_metres: 4.775,
                 start_angle_radians: start,
@@ -696,7 +698,7 @@ fn resolve_artillery_castle(
             };
             earths.push(id);
         }
-        let shell = walls.iter().find(|wall| matches!(wall.source, crate::WallSourceId::RoundTower { tower_index } if tower_index == index)).and_then(|wall| wall.host_solids.first()).copied().expect("rondel shell");
+        let shell = walls.iter().find(|wall| matches!(wall.source, crate::WallSourceId::RoundTower { tower_index } if tower_index == index)).and_then(|wall| wall.host_solids.first()).copied().ok_or(GenerationError::MissingRondelShell { rondel: crate::ArtilleryRondelId(index as u64) })?;
         let mut stair_solids = Vec::new();
         let stair_arrival_angle = inward.y.atan2(inward.x).rem_euclid(std::f32::consts::TAU);
         for tread in 0..32_u16 {
@@ -712,7 +714,7 @@ fn resolve_artillery_castle(
                 -radial.y.atan2(radial.x),
                 SolidRole::ArtilleryStairTread,
                 vec![bearing],
-            );
+            )?;
             stair_solids.push(tread_solid);
         }
         let mut parapet_solids = Vec::new();
@@ -751,13 +753,8 @@ fn resolve_artillery_castle(
                 0.0,
                 SolidRole::ArtilleryParapet,
                 vec![deck_node],
-            );
-            geometry
-                .solids
-                .iter_mut()
-                .find(|solid| solid.id == id)
-                .unwrap()
-                .shape = crate::ResolvedSolidShape::AnnularSectorPrism {
+            )?;
+            geometry.solid_mut(id)?.shape = crate::ResolvedSolidShape::AnnularSectorPrism {
                 inner_radius_metres: 5.00,
                 outer_radius_metres: 5.85,
                 start_angle_radians: start,
@@ -793,13 +790,8 @@ fn resolve_artillery_castle(
                 0.0,
                 SolidRole::ArtilleryStairGuard,
                 vec![deck_node],
-            );
-            geometry
-                .solids
-                .iter_mut()
-                .find(|solid| solid.id == id)
-                .expect("rondel stair-well guard")
-                .shape = crate::ResolvedSolidShape::AnnularSectorPrism {
+            )?;
+            geometry.solid_mut(id)?.shape = crate::ResolvedSolidShape::AnnularSectorPrism {
                 inner_radius_metres: 1.30,
                 outer_radius_metres: 1.43,
                 start_angle_radians: start,
@@ -817,7 +809,10 @@ fn resolve_artillery_castle(
             shell: crate::GridLength::new(
                 (tower.wall_thickness_metres / crate::GRID_UNIT_METRES).round() as i32,
             )
-            .expect("shell"),
+            .ok_or(GenerationError::InvalidArtilleryGridLength {
+                owner,
+                units: (tower.wall_thickness_metres / crate::GRID_UNIT_METRES).round() as i32,
+            })?,
             adjoining_curtains: adjoining,
             curtain_bonds: bonds,
             shell_solid: shell,
@@ -918,7 +913,7 @@ fn resolve_artillery_castle(
         let target = defense_targets
             .iter()
             .find(|target| target.id == target_id)
-            .unwrap()
+            .ok_or(GenerationError::MissingArtilleryTarget { target: target_id })?
             .clone();
         let mut candidates = stations
             .iter()
@@ -957,29 +952,26 @@ fn resolve_artillery_castle(
 
     let ditch_owner = GeometryOwnerId(82_000);
     let ditch_node = StructuralNodeId(42_000_000);
-    geometry.structural_nodes.push(StructuralNode {
-        id: ditch_node,
-        owner: ditch_owner,
-        kind: StructuralNodeKind::ArtilleryRevetmentBearing,
-        position: Vec3::new(6.0, -2.2, 6.0),
-        supported_by: Vec::new(),
-        grounded: true,
-    });
+    geometry
+        .structural_nodes
+        .push(crate::StructuralNode::from_metres(
+            ditch_node,
+            ditch_owner,
+            StructuralNodeKind::ArtilleryRevetmentBearing,
+            Vec3::new(6.0, -2.2, 6.0),
+            Vec::new(),
+            true,
+        )?);
     let ditch_void = projected_void(
         geometry,
         ditch_owner,
-        ResolvedBounds {
-            min: Vec3::new(-22.5, -2.19, -19.5),
-            max: Vec3::new(34.5, 0.0, 31.5),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(-22.5, -2.19, -19.5),
+            Vec3::new(34.5, 0.0, 31.5),
+        )?,
         VoidRole::DryDitch,
     );
-    geometry
-        .voids
-        .iter_mut()
-        .find(|void| void.id == ditch_void)
-        .unwrap()
-        .shape = crate::ResolvedVoidShape::RectangularRing {
+    geometry.void_mut(ditch_void)?.shape = crate::ResolvedVoidShape::RectangularRing {
         inner_min: Vec2::new(-16.7, -13.5),
         inner_max: Vec2::new(28.7, 25.5),
     };
@@ -998,13 +990,8 @@ fn resolve_artillery_castle(
             -tangent.y.atan2(tangent.x),
             SolidRole::DitchFloor,
             vec![ditch_node],
-        );
-        geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == floor)
-            .expect("sloped ditch floor")
-            .longfall_radians = 0.004;
+        )?;
+        geometry.solid_mut(floor)?.longfall_radians = Radians::new(0.004)?;
         floors.push(floor);
     }
     let mut scarp_solids = Vec::new();
@@ -1045,7 +1032,7 @@ fn resolve_artillery_castle(
             yaw,
             SolidRole::DitchScarp,
             vec![ditch_node],
-        ));
+        )?);
     }
     for (centre, size, yaw) in [
         (
@@ -1082,29 +1069,31 @@ fn resolve_artillery_castle(
             yaw,
             SolidRole::DitchCounterscarp,
             vec![ditch_node],
-        ));
+        )?);
     }
     let ditch_outlet = projected_surface(
         geometry,
         ditch_owner,
-        ResolvedBounds {
-            min: Vec3::new(31.5, -2.31, 28.5),
-            max: Vec3::new(32.5, -2.27, 29.5),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(31.5, -2.31, 28.5),
+            Vec3::new(32.5, -2.27, 29.5),
+        )?,
         SurfaceRole::DitchSplash,
     );
     let ditch_drain =
-        projected_edge_drain(geometry, ditch_owner, Vec3::new(32.0, -2.42, 29.0), Vec2::X);
+        projected_edge_drain(geometry, ditch_owner, Vec3::new(32.0, -2.42, 29.0), Vec2::X)?;
     let bridge_owner = GeometryOwnerId(82_100);
     let bridge_node = StructuralNodeId(42_100_000);
-    geometry.structural_nodes.push(StructuralNode {
-        id: bridge_node,
-        owner: bridge_owner,
-        kind: StructuralNodeKind::ArtilleryBridgeAbutment,
-        position: Vec3::new(6.0, 0.0, -17.0),
-        supported_by: Vec::new(),
-        grounded: true,
-    });
+    geometry
+        .structural_nodes
+        .push(crate::StructuralNode::from_metres(
+            bridge_node,
+            bridge_owner,
+            StructuralNodeKind::ArtilleryBridgeAbutment,
+            Vec3::new(6.0, 0.0, -17.0),
+            Vec::new(),
+            true,
+        )?);
     let inner_abutment = projected_solid(
         geometry,
         bridge_owner,
@@ -1113,7 +1102,7 @@ fn resolve_artillery_castle(
         0.0,
         SolidRole::ArtilleryBridgeAbutment,
         vec![bridge_node],
-    );
+    )?;
     let outer_abutment = projected_solid(
         geometry,
         bridge_owner,
@@ -1122,7 +1111,7 @@ fn resolve_artillery_castle(
         0.0,
         SolidRole::ArtilleryBridgeAbutment,
         vec![bridge_node],
-    );
+    )?;
     let fixed = projected_solid(
         geometry,
         bridge_owner,
@@ -1131,7 +1120,7 @@ fn resolve_artillery_castle(
         0.0,
         SolidRole::ArtilleryBridgeDeck,
         vec![bridge_node],
-    );
+    )?;
     let bridge_state = if program.seed % 1_000 == 702 {
         crate::BridgeState::Denied
     } else {
@@ -1145,49 +1134,53 @@ fn resolve_artillery_castle(
         0.0,
         SolidRole::ArtilleryBridgeDeck,
         vec![bridge_node],
-    );
-    let denied_gap = (bridge_state == crate::BridgeState::Denied).then(|| {
-        projected_void(
-            geometry,
-            bridge_owner,
-            ResolvedBounds {
-                min: Vec3::new(4.8, 0.0, -19.15),
-                max: Vec3::new(7.2, 2.0, -17.4),
-            },
-            VoidRole::BridgeDeniedGap,
-        )
-    });
+    )?;
+    let denied_gap = (bridge_state == crate::BridgeState::Denied)
+        .then(|| {
+            Ok::<_, crate::GenerationError>(projected_void(
+                geometry,
+                bridge_owner,
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(4.8, 0.0, -19.15),
+                    Vec3::new(7.2, 2.0, -17.4),
+                )?,
+                VoidRole::BridgeDeniedGap,
+            ))
+        })
+        .transpose()?;
     if bridge_state == crate::BridgeState::Denied {
         geometry.solids.retain(|solid| solid.id != removable);
     }
-    let bridge_route = (bridge_state == crate::BridgeState::Deployed).then(|| {
-        projected_surface(
-            geometry,
-            bridge_owner,
-            ResolvedBounds {
-                min: Vec3::new(4.9, 0.32, -19.0),
-                max: Vec3::new(7.1, 0.35, -13.6),
-            },
-            SurfaceRole::ArtilleryRoute,
-        )
-    });
+    let bridge_route = (bridge_state == crate::BridgeState::Deployed)
+        .then(|| {
+            Ok::<_, crate::GenerationError>(projected_surface(
+                geometry,
+                bridge_owner,
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(4.9, 0.32, -19.0),
+                    Vec3::new(7.1, 0.35, -13.6),
+                )?,
+                SurfaceRole::ArtilleryRoute,
+            ))
+        })
+        .transpose()?;
     let controls = [
         projected_surface(
             geometry,
             bridge_owner,
-            ResolvedBounds {
-                min: Vec3::new(4.7, 0.0, -13.5),
-                max: Vec3::new(5.7, 0.03, -12.5),
-            },
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(4.7, 0.0, -13.5),
+                Vec3::new(5.7, 0.03, -12.5),
+            )?,
             SurfaceRole::ArtilleryStance,
         ),
         projected_surface(
             geometry,
             bridge_owner,
-            ResolvedBounds {
-                min: Vec3::new(6.3, 0.0, -13.5),
-                max: Vec3::new(7.3, 0.03, -12.5),
-            },
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(6.3, 0.0, -13.5),
+                Vec3::new(7.3, 0.03, -12.5),
+            )?,
             SurfaceRole::ArtilleryStance,
         ),
     ];
@@ -1195,30 +1188,34 @@ fn resolve_artillery_castle(
     let gate_void = projected_void(
         geometry,
         gate_owner,
-        ResolvedBounds {
-            min: Vec3::new(4.4, 0.0, -13.55),
-            max: Vec3::new(7.6, 3.6, -8.95),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(4.4, 0.0, -13.55),
+            Vec3::new(7.6, 3.6, -8.95),
+        )?,
         VoidRole::Passage,
     );
     let gate_node = StructuralNodeId(42_200_000);
-    geometry.structural_nodes.push(StructuralNode {
-        id: gate_node,
-        owner: gate_owner,
-        kind: StructuralNodeKind::OpeningJamb,
-        position: Vec3::new(6.0, 0.0, -9.0),
-        supported_by: Vec::new(),
-        grounded: true,
-    });
+    geometry
+        .structural_nodes
+        .push(crate::StructuralNode::from_metres(
+            gate_node,
+            gate_owner,
+            StructuralNodeKind::OpeningJamb,
+            Vec3::new(6.0, 0.0, -9.0),
+            Vec::new(),
+            true,
+        )?);
     let chamber_node = StructuralNodeId(42_200_001);
-    geometry.structural_nodes.push(StructuralNode {
-        id: chamber_node,
-        owner: gate_owner,
-        kind: StructuralNodeKind::ArtilleryTerrepleinBearing,
-        position: Vec3::new(6.0, 5.58, -10.65),
-        supported_by: vec![gate_node],
-        grounded: false,
-    });
+    geometry
+        .structural_nodes
+        .push(crate::StructuralNode::from_metres(
+            chamber_node,
+            gate_owner,
+            StructuralNodeKind::ArtilleryTerrepleinBearing,
+            Vec3::new(6.0, 5.58, -10.65),
+            vec![gate_node],
+            false,
+        )?);
     let gate_leaf = projected_solid(
         geometry,
         gate_owner,
@@ -1227,7 +1224,7 @@ fn resolve_artillery_castle(
         0.0,
         SolidRole::OpeningClosure,
         vec![gate_node],
-    );
+    )?;
     let portcullis = projected_solid(
         geometry,
         gate_owner,
@@ -1236,7 +1233,7 @@ fn resolve_artillery_castle(
         0.0,
         SolidRole::OpeningClosure,
         vec![gate_node],
-    );
+    )?;
     let gate_chamber_solids = vec![
         projected_solid(
             geometry,
@@ -1246,7 +1243,7 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryCasemateFloor,
             vec![chamber_node],
-        ),
+        )?,
         projected_solid(
             geometry,
             gate_owner,
@@ -1255,7 +1252,7 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryCasemateRoof,
             vec![chamber_node],
-        ),
+        )?,
         projected_solid(
             geometry,
             gate_owner,
@@ -1264,7 +1261,7 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryRetainingWall,
             vec![chamber_node],
-        ),
+        )?,
         projected_solid(
             geometry,
             gate_owner,
@@ -1273,7 +1270,7 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryRetainingWall,
             vec![chamber_node],
-        ),
+        )?,
         projected_solid(
             geometry,
             gate_owner,
@@ -1282,7 +1279,7 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryRetainingWall,
             vec![chamber_node],
-        ),
+        )?,
         projected_solid(
             geometry,
             gate_owner,
@@ -1291,7 +1288,7 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryRetainingWall,
             vec![chamber_node],
-        ),
+        )?,
         projected_solid(
             geometry,
             gate_owner,
@@ -1300,7 +1297,7 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryGateMechanism,
             vec![chamber_node],
-        ),
+        )?,
         projected_solid(
             geometry,
             gate_owner,
@@ -1309,15 +1306,15 @@ fn resolve_artillery_castle(
             0.0,
             SolidRole::ArtilleryGateMechanism,
             vec![chamber_node],
-        ),
+        )?,
     ];
     let operator = projected_surface(
         geometry,
         gate_owner,
-        ResolvedBounds {
-            min: Vec3::new(4.65, 5.83, -11.7),
-            max: Vec3::new(7.35, 5.86, -9.4),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(4.65, 5.83, -11.7),
+            Vec3::new(7.35, 5.86, -9.4),
+        )?,
         SurfaceRole::ArtilleryStance,
     );
     let mut route_nodes = Vec::new();
@@ -1361,15 +1358,17 @@ fn resolve_artillery_castle(
     });
     let ramp_owner = GeometryOwnerId(82_300);
     let ramp_node = StructuralNodeId(42_300_000);
-    let retaining = retaining_support_node(&curtains, geometry);
-    geometry.structural_nodes.push(StructuralNode {
-        id: ramp_node,
-        owner: ramp_owner,
-        kind: StructuralNodeKind::ArtilleryTerrepleinBearing,
-        position: Vec3::new(20.5, 0.0, -5.0),
-        supported_by: vec![retaining],
-        grounded: false,
-    });
+    let retaining = retaining_support_node(&curtains, geometry)?;
+    geometry
+        .structural_nodes
+        .push(crate::StructuralNode::from_metres(
+            ramp_node,
+            ramp_owner,
+            StructuralNodeKind::ArtilleryTerrepleinBearing,
+            Vec3::new(20.5, 0.0, -5.0),
+            vec![retaining],
+            false,
+        )?);
     let ramp = projected_solid(
         geometry,
         ramp_owner,
@@ -1378,35 +1377,35 @@ fn resolve_artillery_castle(
         -std::f32::consts::FRAC_PI_2,
         SolidRole::ArtilleryRamp,
         vec![ramp_node],
-    );
+    )?;
     if let Some(solid) = geometry.solids.iter_mut().find(|solid| solid.id == ramp) {
-        solid.longfall_radians = (5.8_f32 / 22.0).atan();
+        solid.longfall_radians = Radians::new((5.8_f32 / 22.0).atan())?;
     }
     let court_surface = projected_surface(
         geometry,
         ramp_owner,
-        ResolvedBounds {
-            min: Vec3::new(4.0, 0.0, -7.5),
-            max: Vec3::new(8.0, 0.03, -3.5),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(4.0, 0.0, -7.5),
+            Vec3::new(8.0, 0.03, -3.5),
+        )?,
         SurfaceRole::ArtilleryRoute,
     );
     let ramp_bottom = projected_surface(
         geometry,
         ramp_owner,
-        ResolvedBounds {
-            min: Vec3::new(19.4, 0.0, -5.0),
-            max: Vec3::new(21.6, 0.03, -2.8),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(19.4, 0.0, -5.0),
+            Vec3::new(21.6, 0.03, -2.8),
+        )?,
         SurfaceRole::ArtilleryRoute,
     );
     let ramp_top = projected_surface(
         geometry,
         ramp_owner,
-        ResolvedBounds {
-            min: Vec3::new(19.4, 5.8, 14.8),
-            max: Vec3::new(21.6, 5.83, 17.0),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(19.4, 5.8, 14.8),
+            Vec3::new(21.6, 5.83, 17.0),
+        )?,
         SurfaceRole::ArtilleryRoute,
     );
     // Cut the inner retaining wall at the protected ramp landing.  The ramp
@@ -1415,10 +1414,10 @@ fn resolve_artillery_castle(
     let ramp_portal = projected_void(
         geometry,
         curtains[1].owner,
-        ResolvedBounds {
-            min: Vec3::new(23.65, 6.00, 14.85),
-            max: Vec3::new(27.50, 8.10, 16.95),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(23.65, 6.00, 14.85),
+            Vec3::new(27.50, 8.10, 16.95),
+        )?,
         VoidRole::AccessPortal,
     );
     for layer in 0..2 {
@@ -1433,23 +1432,45 @@ fn resolve_artillery_castle(
             .find(|solid| solid.id == old_id)
             .cloned()
         {
-            let original_min = old.centre.z - old.size.z * 0.5;
-            let original_max = old.centre.z + old.size.z * 0.5;
+            let original_min = old.centre.metres().z - old.size.metres().z * 0.5;
+            let original_max = old.centre.metres().z + old.size.metres().z * 0.5;
             let south_length = 14.85 - original_min;
             let north_length = original_max - 16.95;
             if let Some(south) = geometry.solids.iter_mut().find(|solid| solid.id == old_id) {
-                south.centre.z = original_min + south_length * 0.5;
-                south.size.z = south_length;
+                {
+                    let mut native_geometry = south.centre.metres();
+                    native_geometry.z = original_min + south_length * 0.5;
+                    south.centre = Position::<Architectural>::from_metres(native_geometry)
+                        .map_err(|cause| crate::CollisionError {
+                            source_id: south.id,
+                            cause,
+                        })?;
+                };
+                {
+                    let mut native_geometry = south.size.metres();
+                    native_geometry.z = south_length;
+                    south.size =
+                        CuboidDimensions::from_metres(native_geometry).map_err(|cause| {
+                            crate::CollisionError {
+                                source_id: south.id,
+                                cause,
+                            }
+                        })?;
+                };
             }
             let north = projected_solid(
                 geometry,
                 old.owner,
-                Vec3::new(old.centre.x, old.centre.y, 16.95 + north_length * 0.5),
-                Vec3::new(old.size.x, old.size.y, north_length),
-                old.yaw_radians,
+                Vec3::new(
+                    old.centre.metres().x,
+                    old.centre.metres().y,
+                    16.95 + north_length * 0.5,
+                ),
+                Vec3::new(old.size.metres().x, old.size.metres().y, north_length),
+                old.yaw_radians.radians(),
                 old.role,
                 old.supported_by,
-            );
+            )?;
             if layer == 0 {
                 curtains[1].retaining_solids = vec![old_id, north];
             } else {
@@ -1494,12 +1515,8 @@ fn resolve_artillery_castle(
     ]);
     let mut curtain_nodes = Vec::new();
     for curtain in &curtains {
-        let surface = geometry
-            .surfaces
-            .iter()
-            .find(|surface| surface.id == curtain.route_surface)
-            .unwrap();
-        let mut position = (surface.bounds.min + surface.bounds.max) * 0.5;
+        let surface = geometry.surface(curtain.route_surface)?;
+        let mut position = (surface.bounds.min().metres() + surface.bounds.max().metres()) * 0.5;
         if curtain.id == crate::ArtilleryCurtainId(0) {
             position.x = 10.5;
         }
@@ -1534,31 +1551,10 @@ fn resolve_artillery_castle(
     for (rondel_index, rondel) in rondels.iter().enumerate() {
         let surface = rondel.route_surfaces[0];
         let centre = rondel.anchor.metres();
-        let curtain_index = rondel
-            .adjoining_curtains
-            .into_iter()
-            .map(|id| id.0 as usize)
-            .min_by(|left, right| {
-                let lp = route_nodes
-                    .iter()
-                    .find(|node| node.id == curtain_nodes[*left])
-                    .unwrap()
-                    .position;
-                let rp = route_nodes
-                    .iter()
-                    .find(|node| node.id == curtain_nodes[*right])
-                    .unwrap()
-                    .position;
-                Vec2::new(lp.x, lp.z)
-                    .distance(centre)
-                    .total_cmp(&Vec2::new(rp.x, rp.z).distance(centre))
-            })
-            .unwrap();
-        let curtain_position = route_nodes
-            .iter()
-            .find(|node| node.id == curtain_nodes[curtain_index])
-            .unwrap()
-            .position;
+        let curtain_index =
+            artillery_route_geometry::nearest_curtain(rondel, &curtain_nodes, &route_nodes)?;
+        let curtain_position =
+            artillery_route_geometry::position(&route_nodes, curtain_nodes[curtain_index])?;
         let toward = towers[rondel_index]
             .chord_interfaces()
             .map(|interface| direction_vector(interface.toward_gate))
@@ -1571,7 +1567,10 @@ fn resolve_artillery_castle(
                         .length(),
                     )
             })
-            .unwrap();
+            .ok_or(GenerationError::MissingRondelReturn {
+                rondel: rondel.id,
+                return_index: 0,
+            })?;
         let position = Vec3::new(centre.x + toward.x * 3.5, 5.86, centre.y + toward.y * 3.5);
         let upper = add_route_node(surface, position, &mut route_nodes);
         let portal = Vec3::new(centre.x + toward.x * 5.1, 5.86, centre.y + toward.y * 5.1);
@@ -1607,12 +1606,9 @@ fn resolve_artillery_castle(
             station.rondel == crate::ArtilleryRondelId(rondel_index as u64)
                 && station.level == crate::ArtilleryStationLevel::LowerCasemate
         }) {
-            let lower_position = geometry
-                .surfaces
-                .iter()
-                .find(|item| item.id == station.stance_surface)
-                .map(|item| (item.bounds.min + item.bounds.max) * 0.5)
-                .unwrap();
+            let surface = geometry.surface(station.stance_surface)?;
+            let lower_position =
+                (surface.bounds.min().metres() + surface.bounds.max().metres()) * 0.5;
             let lower = add_route_node(station.stance_surface, lower_position, &mut route_nodes);
             let mut stair_path = vec![
                 position,
@@ -1627,7 +1623,7 @@ fn resolve_artillery_castle(
                     .solids
                     .iter()
                     .find(|solid| solid.id == *id)
-                    .map(|solid| solid.centre)
+                    .map(|solid| solid.centre.metres())
             }));
             stair_path.push(lower_position);
             route_edges.push(crate::ArtilleryRouteEdge {
@@ -1643,11 +1639,8 @@ fn resolve_artillery_castle(
         }
     }
     let operator_id = add_route_node(operator, Vec3::new(6.0, 5.84, -10.5), &mut route_nodes);
-    let curtain_operator_start = route_nodes
-        .iter()
-        .find(|node| node.id == curtain_nodes[0])
-        .unwrap()
-        .position;
+    let curtain_operator_start =
+        artillery_route_geometry::position(&route_nodes, curtain_nodes[0])?;
     route_edges.push(crate::ArtilleryRouteEdge {
         from: curtain_nodes[0],
         to: operator_id,
@@ -1676,16 +1669,8 @@ fn resolve_artillery_castle(
     });
     let route_owner = GeometryOwnerId(82_400);
     for edge in &mut route_edges {
-        let from = route_nodes
-            .iter()
-            .find(|node| node.id == edge.from)
-            .unwrap()
-            .position;
-        let to = route_nodes
-            .iter()
-            .find(|node| node.id == edge.to)
-            .unwrap()
-            .position;
+        let from = artillery_route_geometry::position(&route_nodes, edge.from)?;
+        let to = artillery_route_geometry::position(&route_nodes, edge.to)?;
         let curtain_pair = curtain_nodes
             .iter()
             .position(|id| *id == edge.from)
@@ -1703,7 +1688,12 @@ fn resolve_artillery_castle(
                             .adjoining_curtains
                             .contains(&crate::ArtilleryCurtainId(right as u64))
                 })
-                .unwrap();
+                .ok_or(GenerationError::MissingCurtainRondel {
+                    curtains: [
+                        crate::ArtilleryCurtainId(left as u64),
+                        crate::ArtilleryCurtainId(right as u64),
+                    ],
+                })?;
             let centre = towers[rondel_index].centre_metres();
             let mut directions = towers[rondel_index]
                 .chord_interfaces()
@@ -1779,7 +1769,7 @@ fn resolve_artillery_castle(
                         .solids
                         .iter()
                         .find(|solid| solid.id == *id)
-                        .map(|solid| solid.centre)
+                        .map(|solid| solid.centre.metres())
                 })
                 .collect::<Vec<_>>();
             points.sort_by(|a, b| a.y.total_cmp(&b.y));
@@ -1814,25 +1804,17 @@ fn resolve_artillery_castle(
         let id = projected_surface(
             geometry,
             route_owner,
-            ResolvedBounds {
-                min: from.min(to) - half,
-                max: from.max(to) + half,
-            },
+            SpatialBounds::<Architectural>::from_metres(from.min(to) - half, from.max(to) + half)?,
             SurfaceRole::ArtilleryRoute,
         );
-        geometry
-            .surfaces
-            .iter_mut()
-            .find(|surface| surface.id == id)
-            .unwrap()
-            .shape = crate::ResolvedSurfaceShape::RouteCorridor {
+        geometry.surface_mut(id)?.shape = crate::ResolvedSurfaceShape::RouteCorridor {
             start: from,
             end: to,
             width_metres: edge.width_metres,
         };
         edge.traversal_surface = Some(id);
     }
-    Some(crate::ArtilleryCastleAssembly {
+    Ok(Some(crate::ArtilleryCastleAssembly {
         id: crate::ArtilleryCastleAssemblyId(1),
         phase: crate::CastleConstructionPhase::ArtilleryRetrofit1544,
         trace,
@@ -1873,5 +1855,5 @@ fn resolve_artillery_castle(
         retained_keep_setback_metres: 4.5,
         support_interfaces: support_ids,
         drainage_routes: artillery_drainage_routes,
-    })
+    }))
 }

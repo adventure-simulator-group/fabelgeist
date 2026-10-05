@@ -83,7 +83,12 @@ mod tests {
             );
         }
         for building in generated.buildings.iter().filter(|b| b.placement.id >= 8) {
-            let half = building.collision.bounds.plan_half_extents();
+            let half = building
+                .collision
+                .bounds
+                .plan_half_extents()
+                .unwrap()
+                .metres();
             for z in [-0.9, 0.0, 0.9] {
                 for x in [-0.9, 0.0, 0.9] {
                     let point = building.placement.centre_metres

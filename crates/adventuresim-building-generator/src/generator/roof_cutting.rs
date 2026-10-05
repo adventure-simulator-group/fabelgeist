@@ -82,9 +82,9 @@ fn clip_plan_polygon_to_child_above_parent(
     mut polygon: Vec<Vec2>,
     parent: RoofPlaneEquation,
     child: RoofPlaneEquation,
-) -> Vec<Vec2> {
+) -> Result<Vec<Vec2>, crate::GenerationError> {
     if polygon.is_empty() {
-        return polygon;
+        return Ok(polygon);
     }
     let clearance =
         |point: Vec2| roof_plane_height(child, point) - roof_plane_height(parent, point);
@@ -109,15 +109,15 @@ fn clip_plan_polygon_to_child_above_parent(
             polygon.push(current);
         }
     }
-    polygon
+    Ok(polygon)
 }
 
 fn cut_parent_roof_face(
     assembly: &mut RoofAssembly,
     child: &RoofAssembly,
-    cut_bounds: ResolvedBounds,
+    cut_bounds: SpatialBounds<Architectural>,
     geometry: &mut ResolvedGeometry,
-) -> Vec<ResolvedItemId> {
+) -> Result<Vec<ResolvedItemId>, crate::GenerationError> {
     let mut cut_edges = Vec::new();
     let serial_base = assembly.edges.len();
     for face in &mut assembly.faces {
@@ -135,21 +135,13 @@ fn cut_parent_roof_face(
                 .collect::<Vec<_>>();
             let bounded = clip_plan_polygon_to_rect(
                 projected.clone(),
-                Vec2::new(cut_bounds.min.x, cut_bounds.min.z),
-                Vec2::new(cut_bounds.max.x, cut_bounds.max.z),
+                Vec2::new(cut_bounds.min().metres().x, cut_bounds.min().metres().z),
+                Vec2::new(cut_bounds.max().metres().x, cut_bounds.max().metres().z),
             );
             let mut clipped = clip_plan_polygon_to_convex(bounded, &child_projected);
             clipped =
-                clip_plan_polygon_to_child_above_parent(clipped, face.plane, child_face.plane);
-            let mut unique = Vec::new();
-            for point in clipped {
-                if !unique
-                    .iter()
-                    .any(|existing: &Vec2| existing.distance_squared(point) <= 0.000_004)
-                {
-                    unique.push(point);
-                }
-            }
+                clip_plan_polygon_to_child_above_parent(clipped, face.plane, child_face.plane)?;
+            let unique = unique_roof_cut_points(clipped);
             cut_points.extend(unique);
         }
         let unique = convex_plan_hull(cut_points);
@@ -175,31 +167,33 @@ fn cut_parent_roof_face(
                     (0x8_u64 << 60) | (assembly.id.0 << 16) | (0x800 + serial) as u64,
                 );
                 let delta = end - start;
-                geometry.solids.push(ResolvedSolid {
-                    id: flashing_id,
-                    owner: assembly.owner,
-                    centre: (start + end) * 0.5 + Vec3::Y * 0.012,
-                    // Leave a physical 80 mm outlet throat at each junction;
-                    // an unbroken flashing bar would seal the valley terminal.
-                    size: Vec3::new((delta.length() - 0.12).max(0.05), 0.024, 0.10),
-                    yaw_radians: delta.z.atan2(delta.x),
-                    crossfall_radians: 0.08,
-                    longfall_radians: 0.0,
-                    role: SolidRole::RoofFlashing,
-                    shape: crate::ResolvedSolidShape::Cuboid,
-                    supported_by: vec![assembly.support_nodes[0]],
-                });
-                geometry.support_interfaces.push(SupportInterface {
-                    id: ResolvedItemId(
-                        (0x9_u64 << 60) | (assembly.id.0 << 16) | (0x800 + serial) as u64,
-                    ),
-                    owner: assembly.owner,
-                    node: assembly.support_nodes[0],
-                    bounds: ResolvedBounds {
-                        min: (start + end) * 0.5 - Vec3::new(0.12, 0.04, 0.12),
-                        max: (start + end) * 0.5 + Vec3::new(0.12, 0.08, 0.12),
-                    },
-                });
+                geometry.solids.push(ResolvedSolid::new(
+                    CollisionCuboid::<Architectural>::from_metres(
+                        flashing_id,
+                        (start + end) * 0.5 + Vec3::Y * 0.012,
+                        Vec3::new((delta.length() - 0.12).max(0.05), 0.024, 0.10),
+                        delta.z.atan2(delta.x),
+                        0.08,
+                        0.0,
+                    )?,
+                    assembly.owner,
+                    SolidRole::RoofFlashing,
+                    crate::ResolvedSolidShape::Cuboid,
+                    vec![assembly.support_nodes[0]],
+                ));
+                geometry
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        ResolvedItemId(
+                            (0x9_u64 << 60) | (assembly.id.0 << 16) | (0x800 + serial) as u64,
+                        ),
+                        assembly.owner,
+                        assembly.support_nodes[0],
+                        SpatialBounds::<Architectural>::from_metres(
+                            (start + end) * 0.5 - Vec3::new(0.12, 0.04, 0.12),
+                            (start + end) * 0.5 + Vec3::new(0.12, 0.08, 0.12),
+                        )?,
+                    ));
                 cut_edges.push(edge_id);
                 assembly.edges.push(RoofEdge {
                     id: edge_id,
@@ -213,7 +207,7 @@ fn cut_parent_roof_face(
             }
         }
     }
-    cut_edges
+    Ok(cut_edges)
 }
 
 fn bind_child_valleys(
@@ -221,7 +215,7 @@ fn bind_child_valleys(
     child: &RoofAssembly,
     cut_edges: &[ResolvedItemId],
     geometry: &mut ResolvedGeometry,
-) -> Vec<ResolvedItemId> {
+) -> Result<Vec<ResolvedItemId>, crate::GenerationError> {
     let mut valleys = Vec::new();
     let mut candidates = cut_edges
         .iter()
@@ -249,13 +243,13 @@ fn bind_child_valleys(
             geometry.voids.push(ResolvedVoid {
                 id: outlet_id,
                 owner: parent.owner,
-                bounds: ResolvedBounds {
+                bounds: SpatialBounds::<Architectural>::from_metres(
                     // The terminal is an upward-open throat beginning at the
                     // weather surface. Extending it below the valley would
                     // falsely cut the receiving eave gutter or wall plate.
-                    min: low - Vec3::new(0.04, 0.0, 0.04),
-                    max: low + Vec3::new(0.04, 0.08, 0.04),
-                },
+                    low - Vec3::new(0.04, 0.0, 0.04),
+                    low + Vec3::new(0.04, 0.08, 0.04),
+                )?,
                 role: VoidRole::Drain,
                 shape: crate::ResolvedVoidShape::Box,
                 subtracts_from: parent.owner,
@@ -275,10 +269,21 @@ fn bind_child_valleys(
                 let delta = edge.end - edge.start;
                 let run = Vec2::new(delta.x, delta.z).length().max(0.01);
                 let uphill = (high - low).normalize_or_zero();
-                flashing.centre =
-                    (high + low) * 0.5 + uphill * 0.06 + Vec3::Y * (flashing.size.y * 0.5);
-                flashing.size.x = (delta.length() - 0.12).max(0.05);
-                flashing.longfall_radians = delta.y.atan2(run);
+                flashing.centre = Position::<Architectural>::from_metres(
+                    (high + low) * 0.5 + uphill * 0.06 + Vec3::Y * (flashing.size.metres().y * 0.5),
+                )?;
+                {
+                    let mut native_geometry = flashing.size.metres();
+                    native_geometry.x = (delta.length() - 0.12).max(0.05);
+                    flashing.size =
+                        CuboidDimensions::from_metres(native_geometry).map_err(|cause| {
+                            crate::CollisionError {
+                                source_id: flashing.id,
+                                cause,
+                            }
+                        })?;
+                };
+                flashing.longfall_radians = Radians::new(delta.y.atan2(run))?;
             }
             if let Some(face) = child.faces.iter().min_by(|left, right| {
                 let midpoint = (edge.start + edge.end) * 0.5;
@@ -299,16 +304,22 @@ fn bind_child_valleys(
             valleys.push(edge_id);
         }
     }
-    valleys
+    Ok(valleys)
 }
 
 fn trim_roof_edge_treatments_for_cut(
     owner: GeometryOwnerId,
-    cut: ResolvedBounds,
+    cut: SpatialBounds<Architectural>,
     geometry: &mut ResolvedGeometry,
-) {
-    let cut_centre = Vec2::new((cut.min.x + cut.max.x) * 0.5, (cut.min.z + cut.max.z) * 0.5);
-    let cut_half = Vec2::new((cut.max.x - cut.min.x) * 0.5, (cut.max.z - cut.min.z) * 0.5);
+) -> Result<(), crate::GenerationError> {
+    let cut_centre = Vec2::new(
+        (cut.min().metres().x + cut.max().metres().x) * 0.5,
+        (cut.min().metres().z + cut.max().metres().z) * 0.5,
+    );
+    let cut_half = Vec2::new(
+        (cut.max().metres().x - cut.min().metres().x) * 0.5,
+        (cut.max().metres().z - cut.min().metres().z) * 0.5,
+    );
     for solid in geometry.solids.iter_mut().filter(|solid| {
         solid.owner == owner
             && matches!(
@@ -316,21 +327,24 @@ fn trim_roof_edge_treatments_for_cut(
                 SolidRole::RoofEdgeTreatment | SolidRole::RoofGutter
             )
     }) {
-        let tangent = Vec2::new(solid.yaw_radians.cos(), solid.yaw_radians.sin());
-        let plan_scale = solid.longfall_radians.cos().abs().max(0.01);
+        let tangent = Vec2::new(
+            solid.yaw_radians.radians().cos(),
+            solid.yaw_radians.radians().sin(),
+        );
+        let plan_scale = solid.longfall_radians.radians().cos().abs().max(0.01);
         let normal = Vec2::new(-tangent.y, tangent.x);
-        let centre = Vec2::new(solid.centre.x, solid.centre.z);
+        let centre = Vec2::new(solid.centre.metres().x, solid.centre.metres().z);
         let offset = cut_centre - centre;
         let lateral_extent = cut_half.x * normal.x.abs() + cut_half.y * normal.y.abs();
-        if offset.dot(normal).abs() > lateral_extent + solid.size.z * 0.5 + 0.01 {
+        if offset.dot(normal).abs() > lateral_extent + solid.size.metres().z * 0.5 + 0.01 {
             continue;
         }
         let cut_along = (cut_half.x * tangent.x.abs() + cut_half.y * tangent.y.abs()) / plan_scale;
         let cut_centre_along = offset.dot(tangent) / plan_scale;
         let cut_min = cut_centre_along - cut_along;
         let cut_max = cut_centre_along + cut_along;
-        let old_min = -solid.size.x * 0.5;
-        let old_max = solid.size.x * 0.5;
+        let old_min = -solid.size.metres().x * 0.5;
+        let old_max = solid.size.metres().x * 0.5;
         if cut_max <= old_min + 0.01 || cut_min >= old_max - 0.01 {
             continue;
         }
@@ -346,32 +360,66 @@ fn trim_roof_edge_treatments_for_cut(
         };
         if let Some((from, to)) = kept {
             let shift = (from + to) * 0.5;
-            solid.centre.x += tangent.x * plan_scale * shift;
-            solid.centre.y += solid.longfall_radians.sin() * shift;
-            solid.centre.z += tangent.y * plan_scale * shift;
-            solid.size.x = to - from;
+            let mut centre = solid.centre.metres();
+            centre.x += tangent.x * plan_scale * shift;
+            centre.y += solid.longfall_radians.radians().sin() * shift;
+            centre.z += tangent.y * plan_scale * shift;
+            solid.centre = Position::<Architectural>::from_metres(centre).map_err(|cause| {
+                crate::CollisionError {
+                    source_id: solid.id,
+                    cause,
+                }
+            })?;
+            {
+                let mut native_geometry = solid.size.metres();
+                native_geometry.x = to - from;
+                solid.size = CuboidDimensions::from_metres(native_geometry).map_err(|cause| {
+                    crate::CollisionError {
+                        source_id: solid.id,
+                        cause,
+                    }
+                })?;
+            };
             let interface_id = ResolvedItemId((0x9_u64 << 60) | (solid.id.0 & ((1_u64 << 60) - 1)));
             if let Some(interface) = geometry
                 .support_interfaces
                 .iter_mut()
                 .find(|interface| interface.id == interface_id)
             {
-                interface.bounds.min = solid.centre - Vec3::new(0.08, 0.025, 0.08);
-                interface.bounds.max = solid.centre + Vec3::new(0.08, 0.025, 0.08);
+                interface.bounds = SpatialBounds::from_metres(
+                    solid.centre.metres() - Vec3::new(0.08, 0.025, 0.08),
+                    solid.centre.metres() + Vec3::new(0.08, 0.025, 0.08),
+                )?;
             }
         } else {
-            solid.size.x = 0.0;
+            {
+                let mut native_geometry = solid.size.metres();
+                native_geometry.x = 0.0;
+                solid.size = CuboidDimensions::from_metres(native_geometry).map_err(|cause| {
+                    crate::CollisionError {
+                        source_id: solid.id,
+                        cause,
+                    }
+                })?;
+            };
         }
     }
-    geometry.solids.retain(|solid| solid.size.x > 0.001);
+    geometry
+        .solids
+        .retain(|solid| solid.size.metres().x > 0.001);
+
+    Ok(())
 }
 
-fn trim_roof_boundary_edges_for_cut(assembly: &mut RoofAssembly, cut: ResolvedBounds) {
+fn trim_roof_boundary_edges_for_cut(
+    assembly: &mut RoofAssembly,
+    cut: SpatialBounds<Architectural>,
+) {
     let inside = |point: Vec3| {
-        point.x >= cut.min.x - 0.002
-            && point.x <= cut.max.x + 0.002
-            && point.z >= cut.min.z - 0.002
-            && point.z <= cut.max.z + 0.002
+        point.x >= cut.min().metres().x - 0.002
+            && point.x <= cut.max().metres().x + 0.002
+            && point.z >= cut.min().metres().z - 0.002
+            && point.z <= cut.max().metres().z + 0.002
     };
     for edge in assembly.edges.iter_mut().filter(|edge| {
         matches!(edge.kind, RoofEdgeKind::Eave | RoofEdgeKind::GableVerge)
@@ -386,8 +434,8 @@ fn trim_roof_boundary_edges_for_cut(assembly: &mut RoofAssembly, cut: ResolvedBo
         let delta = edge.end - edge.start;
         let mut intersections = Vec::new();
         for (axis_start, axis_delta, low, high) in [
-            (from.x, delta.x, cut.min.x, cut.max.x),
-            (from.z, delta.z, cut.min.z, cut.max.z),
+            (from.x, delta.x, cut.min().metres().x, cut.max().metres().x),
+            (from.z, delta.z, cut.min().metres().z, cut.max().metres().z),
         ] {
             if axis_delta.abs() <= 0.000_001 {
                 continue;
@@ -396,10 +444,10 @@ fn trim_roof_boundary_edges_for_cut(assembly: &mut RoofAssembly, cut: ResolvedBo
                 let t = (boundary - axis_start) / axis_delta;
                 if (0.0..=1.0).contains(&t) {
                     let point = from + delta * t;
-                    if point.x >= cut.min.x - 0.003
-                        && point.x <= cut.max.x + 0.003
-                        && point.z >= cut.min.z - 0.003
-                        && point.z <= cut.max.z + 0.003
+                    if point.x >= cut.min().metres().x - 0.003
+                        && point.x <= cut.max().metres().x + 0.003
+                        && point.z >= cut.min().metres().z - 0.003
+                        && point.z <= cut.max().metres().z + 0.003
                     {
                         intersections.push((t, point));
                     }
@@ -420,4 +468,17 @@ fn trim_roof_boundary_edges_for_cut(assembly: &mut RoofAssembly, cut: ResolvedBo
             edge.end = point - delta.normalize_or_zero() * 0.10;
         }
     }
+}
+
+fn unique_roof_cut_points(clipped: Vec<Vec2>) -> Vec<Vec2> {
+    let mut unique = Vec::new();
+    for point in clipped {
+        if !unique
+            .iter()
+            .any(|existing: &Vec2| existing.distance_squared(point) <= 0.000_004)
+        {
+            unique.push(point);
+        }
+    }
+    unique
 }

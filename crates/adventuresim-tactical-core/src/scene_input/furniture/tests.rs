@@ -103,8 +103,11 @@ fn production_review_input_places_every_furniture_family() {
 
 #[test]
 fn ordered_candidate_identity_separates_swapped_fields_and_anchor_kinds() {
-    let id =
-        |anchor, slot| candidates::Candidate::new(42, slot, FurnitureGroupKind::Vendor, anchor).id;
+    let id = |anchor, slot| {
+        candidates::Candidate::new(42, slot, FurnitureGroupKind::Vendor, anchor)
+            .unwrap()
+            .id
+    };
     assert_ne!(
         id(FurnitureAnchor::Building { id: 1 }, 2),
         id(FurnitureAnchor::Building { id: 2 }, 1)
@@ -248,13 +251,16 @@ fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
         }
     }
     for instance in first.instances {
-        for support in &instance.scene.key.recipe().support_points_metres {
+        for support in &instance.scene.key.recipe().unwrap().support_points_metres {
             let point = Vec2::new(instance.position_metres.x, instance.position_metres.z)
                 + instance
                     .orientation
-                    .local_to_world(Vec2::new(support.x, support.z));
+                    .local_to_world(Vec2::new(support.metres().x, support.metres().z));
             assert!(
-                (terrain.height_at(point).unwrap() - instance.position_metres.y - support.y).abs()
+                (terrain.height_at(point).unwrap()
+                    - instance.position_metres.y
+                    - support.metres().y)
+                    .abs()
                     < 0.001
             );
         }
@@ -355,14 +361,14 @@ fn unsupported_or_submerged_candidates_are_rejected_without_moving_terrain() {
 #[test]
 fn furniture_physics_blocks_real_members_and_keeps_stall_approach_open() {
     let barrel = FurnitureKey::natural(FurnitureKind::Barrel, FurnitureVariant::Compact);
-    let bounds = barrel.recipe().bounds;
-    let collider = furniture_collider(barrel);
+    let bounds = barrel.recipe().unwrap().bounds;
+    let collider = furniture_collider(barrel).unwrap();
     assert!(
         collider
             .cast_ray(
                 Vec3::ZERO,
                 Rotation::default(),
-                Vec3::new(0.0, bounds.max.y * 0.5, -4.0),
+                Vec3::new(0.0, bounds.max().metres().y * 0.5, -4.0),
                 Vec3::Z,
                 8.0,
                 false
@@ -370,9 +376,9 @@ fn furniture_physics_blocks_real_members_and_keeps_stall_approach_open() {
             .is_some()
     );
     let stall = FurnitureKey::natural(FurnitureKind::CanvasStall, FurnitureVariant::Compact);
-    let collider = furniture_collider(stall);
-    for member in &stall.recipe().colliders {
-        let ray = member.centre + Vec3::Y * 5.0;
+    let collider = furniture_collider(stall).unwrap();
+    for member in &stall.recipe().unwrap().colliders {
+        let ray = member.centre.metres() + Vec3::Y * 5.0;
         assert!(
             collider
                 .cast_ray(
@@ -386,13 +392,13 @@ fn furniture_physics_blocks_real_members_and_keeps_stall_approach_open() {
                 .is_some()
         );
     }
-    let recipe = stall.recipe();
+    let recipe = stall.recipe().unwrap();
     let clearance = recipe
         .clearances
         .first()
         .expect("stall access is explicitly reserved")
         .bounds;
-    let probe = clearance.centre();
+    let probe = clearance.centre().unwrap().metres();
     assert!(
         collider
             .cast_ray(

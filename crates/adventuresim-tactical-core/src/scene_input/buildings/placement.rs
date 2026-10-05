@@ -1,20 +1,35 @@
 //! The architectural ground floor, rather than the collider bottom, seats a building.
 use super::GeneratedBuilding;
-use bevy::prelude::{Quat, Transform};
+use bevy::prelude::Transform;
 
 impl GeneratedBuilding {
     /// Transform recentered render and collision geometry into the scene.
     /// Authored plan Y=0 is the floor datum. Floor slabs and footings may extend
     /// below it; those buried parts must not lift the walls or door thresholds.
-    pub fn transform(&self) -> Transform {
-        Transform::from_xyz(
-            self.placement.centre_metres.x,
-            self.placement.base_elevation_metres + self.collision.bounds.centre().y,
-            self.placement.centre_metres.y,
+    pub fn geometry_datum(
+        &self,
+    ) -> Result<
+        crate::scene_coordinates::CollisionCentreDatum,
+        adventuresim_building_generator::spatial_geometry::GeometryError,
+    > {
+        use crate::scene_coordinates::{ArchitecturalFloorDatum, ArchitecturalPlanProjection};
+        use adventuresim_building_generator::spatial_geometry::GeometryError;
+        let origin = self.collision.bounds.centre()?;
+        let plan =
+            ArchitecturalPlanProjection::from_placement(&self.placement, self.collision.bounds)?;
+        let floor = crate::city_layout::grounding::SupportElevation::from_metres(
+            self.placement.base_elevation_metres,
         )
-        .with_rotation(Quat::from_rotation_y(
-            self.placement.orientation.yaw_radians(),
-        ))
+        .ok_or(GeometryError::NonFinite {
+            role: adventuresim_building_generator::spatial_geometry::GeometryRole::Elevation,
+            axis: adventuresim_building_generator::spatial_geometry::CoordinateAxis::Y,
+        })?;
+        ArchitecturalFloorDatum { plan, floor }.collision_centre(origin)
+    }
+    pub fn transform(
+        &self,
+    ) -> Result<Transform, adventuresim_building_generator::spatial_geometry::GeometryError> {
+        Ok(self.geometry_datum()?.native_transform())
     }
 }
 
@@ -58,9 +73,10 @@ mod tests {
             )
             .unwrap();
             assert_eq!(generated[0].placement, placement);
-            let origin = generated[0].collision.bounds.centre();
+            let origin = generated[0].collision.bounds.centre().unwrap().metres();
             let world_floor = generated[0]
                 .transform()
+                .unwrap()
                 .transform_point(-Vec3::Y * origin.y);
             assert!((world_floor.y - floor).abs() < 0.000_01);
             let mut invalid = placement;
@@ -105,27 +121,32 @@ mod tests {
                 collision: recipe.collision,
             };
             assert!(
-                building.collision.bounds.min.y < 0.0,
+                building.collision.bounds.min().metres().y < 0.0,
                 "fixture needs a buried slab"
             );
-            let origin = building.collision.bounds.centre();
-            let transform = building.transform();
+            let origin = building.collision.bounds.centre().unwrap().metres();
+            let transform = building.transform().unwrap();
             let floor = transform.transform_point(Vec3::new(origin.x, 0.0, origin.z) - origin);
             assert!((floor.y - base).abs() < 0.000_01);
             assert!(floor.xz().distance(building.placement.centre_metres) < 0.000_01);
-            let bottom = transform.transform_point(building.collision.bounds.min - origin);
+            let bottom =
+                transform.transform_point(building.collision.bounds.min().metres() - origin);
             assert!(bottom.y < floor.y, "legitimate slab remains buried");
             let bearings = building
                 .plan
                 .resolved_geometry
                 .structural_nodes
                 .iter()
-                .filter(|node| node.grounded && node.position.y.abs() < 0.000_01)
+                .filter(|node| node.grounded && node.position.metres().y.abs() < 0.000_01)
                 .collect::<Vec<_>>();
             assert!(!bearings.is_empty());
             for bearing in bearings {
                 assert!(
-                    (transform.transform_point(bearing.position - origin).y - base).abs()
+                    (transform
+                        .transform_point(bearing.position.metres() - origin)
+                        .y
+                        - base)
+                        .abs()
                         < 0.000_01
                 );
             }

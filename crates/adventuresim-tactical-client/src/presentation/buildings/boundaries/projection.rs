@@ -95,26 +95,31 @@ pub(super) fn project_pending(
             .scene
             .boundary
             .gate
-            .door(boundary.scene.property_id);
+            .door(boundary.scene.property_id)?;
+        let pose = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
+            boundary.elevation_metres,
+        )?
+        .door(door)?;
+        let door = pose.leaf;
         commands
             .spawn((
                 DistantCityBuildingPresentation,
                 DistantBoundaryPresentation,
                 Visibility::default(),
-                Transform::from_xyz(0.0, boundary.elevation_metres, 0.0),
+                Transform::default(),
             ))
             .with_children(|parent| {
                 parent.spawn((
                     Mesh3d(meshes.add(crate::presentation::recipe_mesh::metric_cuboid(
-                        door.size_metres,
+                        door.size_metres.metres(),
                     ))),
                     MeshMaterial3d(
                         materials
                             .for_building(boundary.scene.front_building_id)
                             .get(BuildingLodMaterial::Timber),
                     ),
-                    Transform::from_translation(door.closed_centre)
-                        .with_rotation(Quat::from_rotation_y(door.closed_yaw_radians)),
+                    Transform::from_translation(door.closed_centre.metres())
+                        .with_rotation(pose.native_rotation()),
                 ));
             });
     }

@@ -67,7 +67,7 @@ pub(super) fn placement_score(
                 .unwrap_or(Direction::North)
                 .offset()
                 .as_vec2();
-            let progress = (placement.centre_metres - centre).dot(forward);
+            let progress = (placement.centre_metres.metres() - centre).dot(forward);
             if progress < 0.0 {
                 return f32::INFINITY;
             }
@@ -76,7 +76,7 @@ pub(super) fn placement_score(
         FurnitureKind::Altar | FurnitureKind::TorahShrine => {
             let back = -placement.facing.offset().as_vec2();
             let target = centre + back * (max - min) * 0.5;
-            placement.centre_metres.distance(target)
+            placement.centre_metres.metres().distance(target)
         }
         _ => ordinary,
     }

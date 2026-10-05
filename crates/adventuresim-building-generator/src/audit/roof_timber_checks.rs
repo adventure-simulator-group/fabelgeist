@@ -27,11 +27,12 @@ fn timber_roof_envelope_intrusions(plan: &BuildingPlan) -> Vec<crate::TimberMemb
                 )
         })
         .filter_map(|member| {
-            let clearance =
-                member.section_metres.max_element() * 0.75 + maximum_covering_thickness + 0.02;
+            let clearance = member.section_metres.metres().max_element() * 0.75
+                + maximum_covering_thickness
+                + 0.02;
             let intrudes = (0..=32).any(|sample| {
                 let t = sample as f32 / 32.0;
-                let point = member.start.lerp(member.end, t);
+                let point = member.start.metres().lerp(member.end.metres(), t);
                 let plan_point = Vec2::new(point.x, point.z);
                 let roof_height = roof_faces
                     .iter()
@@ -63,7 +64,7 @@ fn exposed_roof_child_support_posts(plan: &BuildingPlan) -> Vec<ResolvedItemId> 
                 let allowed_top = parent_id
                     .and_then(|id| plan.roof_assemblies.iter().find(|roof| roof.id == id))
                     .and_then(|parent| {
-                        let point = Vec2::new(solid.centre.x, solid.centre.z);
+                        let point = Vec2::new(solid.centre.metres().x, solid.centre.metres().z);
                         parent
                             .faces
                             .iter()
@@ -72,14 +73,14 @@ fn exposed_roof_child_support_posts(plan: &BuildingPlan) -> Vec<ResolvedItemId> 
                             .max_by(f32::total_cmp)
                     })
                     .unwrap_or(f32::NEG_INFINITY);
-                solid.centre.y + solid.size.y * 0.5 > allowed_top + 0.025
+                solid.centre.metres().y + solid.size.metres().y * 0.5 > allowed_top + 0.025
             }) && solid.role == SolidRole::RoofFraming
                 && matches!(solid.shape, crate::ResolvedSolidShape::Cuboid)
-                && solid.size.y > 0.35
-                && solid.size.y > solid.size.x * 2.0
-                && solid.size.y > solid.size.z * 2.0
-                && solid.longfall_radians.abs() < 0.01
-                && solid.crossfall_radians.abs() < 0.01
+                && solid.size.metres().y > 0.35
+                && solid.size.metres().y > solid.size.metres().x * 2.0
+                && solid.size.metres().y > solid.size.metres().z * 2.0
+                && solid.longfall_radians.radians().abs() < 0.01
+                && solid.crossfall_radians.radians().abs() < 0.01
         })
         .map(|solid| solid.id)
         .collect()
@@ -101,7 +102,7 @@ fn oversized_child_roof_flashings(plan: &BuildingPlan) -> Vec<ResolvedItemId> {
         .filter(|solid| {
             child_flashings.contains(&solid.id)
                 && solid.role == SolidRole::RoofFlashing
-                && (solid.size.y > 0.03 || solid.size.z > 0.12)
+                && (solid.size.metres().y > 0.03 || solid.size.metres().z > 0.12)
         })
         .map(|solid| solid.id)
         .collect()
@@ -177,10 +178,10 @@ fn invalid_dormer_trimmer_envelope(plan: &BuildingPlan) -> Vec<crate::TimberMemb
                     });
                 let (rear, front) = cut.map_or((-dormer.depth_metres * 0.84, 0.0), |cut| {
                     [
-                        Vec2::new(cut.bounds.min.x, cut.bounds.min.z),
-                        Vec2::new(cut.bounds.min.x, cut.bounds.max.z),
-                        Vec2::new(cut.bounds.max.x, cut.bounds.min.z),
-                        Vec2::new(cut.bounds.max.x, cut.bounds.max.z),
+                        Vec2::new(cut.bounds.min().metres().x, cut.bounds.min().metres().z),
+                        Vec2::new(cut.bounds.min().metres().x, cut.bounds.max().metres().z),
+                        Vec2::new(cut.bounds.max().metres().x, cut.bounds.min().metres().z),
+                        Vec2::new(cut.bounds.max().metres().x, cut.bounds.max().metres().z),
                     ]
                     .map(|point| (point - dormer.centre).dot(outward))
                     .into_iter()
@@ -189,7 +190,7 @@ fn invalid_dormer_trimmer_envelope(plan: &BuildingPlan) -> Vec<crate::TimberMemb
                     })
                 });
                 [member.start, member.end].iter().all(|point| {
-                    let relative = Vec2::new(point.x, point.z) - dormer.centre;
+                    let relative = Vec2::new(point.metres().x, point.metres().z) - dormer.centre;
                     let depth = relative.dot(outward);
                     depth >= rear - 0.025
                         && depth <= front + 0.025
@@ -227,11 +228,11 @@ fn oversized_attached_child_gutters(plan: &BuildingPlan) -> Vec<ResolvedItemId> 
                 .filter(|id| {
                     solids.get(id).is_none_or(|solid| {
                         if *id == network.channel_floor {
-                            solid.size.y > 0.025 || solid.size.z > 0.10
+                            solid.size.metres().y > 0.025 || solid.size.metres().z > 0.10
                         } else if network.collector_solids.contains(id) {
-                            solid.size.y > 0.025 || solid.size.z > 0.08
+                            solid.size.metres().y > 0.025 || solid.size.metres().z > 0.08
                         } else {
-                            solid.size.y > 0.05 || solid.size.z > 0.025
+                            solid.size.metres().y > 0.05 || solid.size.metres().z > 0.025
                         }
                     })
                 })
@@ -259,8 +260,8 @@ fn oversized_attached_child_gutters(plan: &BuildingPlan) -> Vec<ResolvedItemId> 
             .find(|void| void.id == network.outlet_void);
         if edge.zip(outlet).is_none_or(|(edge, outlet)| {
             let point = Vec2::new(
-                (outlet.bounds.min.x + outlet.bounds.max.x) * 0.5,
-                (outlet.bounds.min.z + outlet.bounds.max.z) * 0.5,
+                (outlet.bounds.min().metres().x + outlet.bounds.max().metres().x) * 0.5,
+                (outlet.bounds.min().metres().z + outlet.bounds.max().metres().z) * 0.5,
             );
             let start = Vec2::new(edge.start.x, edge.start.z);
             let delta = Vec2::new(edge.end.x - edge.start.x, edge.end.z - edge.start.z);

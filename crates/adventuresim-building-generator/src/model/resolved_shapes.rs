@@ -61,7 +61,7 @@ pub enum StructuralNodeKind {
     ArtilleryBridgeAbutment,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum SolidRole {
     DomesticHeating,
@@ -335,31 +335,97 @@ pub enum ResolvedVoidShape {
     },
 }
 
-#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
-pub struct ResolvedBounds {
-    pub min: Vec3,
-    pub max: Vec3,
-}
-
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct ResolvedSolid {
     pub id: ResolvedItemId,
     pub owner: GeometryOwnerId,
-    pub centre: Vec3,
-    pub size: Vec3,
-    pub yaw_radians: f32,
-    pub crossfall_radians: f32,
-    pub longfall_radians: f32,
+    pub centre: crate::spatial_geometry::Position<Architectural>,
+    pub size: crate::spatial_geometry::CuboidDimensions,
+    pub yaw_radians: crate::spatial_geometry::Radians,
+    pub crossfall_radians: crate::spatial_geometry::Radians,
+    pub longfall_radians: crate::spatial_geometry::Radians,
     pub role: SolidRole,
     pub shape: ResolvedSolidShape,
     pub supported_by: Vec<StructuralNodeId>,
+}
+
+/// The cuboid is the oriented envelope of the authored shape. Its geometry
+/// admission and physical identity are shared with tactical collision.
+impl ResolvedSolid {
+    pub fn new(
+        envelope: crate::CollisionCuboid<Architectural>,
+        owner: GeometryOwnerId,
+        role: SolidRole,
+        shape: ResolvedSolidShape,
+        supported_by: Vec<StructuralNodeId>,
+    ) -> Self {
+        Self {
+            id: envelope.source,
+            owner,
+            centre: envelope.centre,
+            size: envelope.size,
+            yaw_radians: envelope.yaw_radians,
+            crossfall_radians: envelope.crossfall_radians,
+            longfall_radians: envelope.longfall_radians,
+            role,
+            shape,
+            supported_by,
+        }
+    }
+    pub fn cuboid_envelope(&self) -> crate::CollisionCuboid<Architectural> {
+        crate::CollisionCuboid {
+            source: self.id,
+            centre: self.centre,
+            size: self.size,
+            yaw_radians: self.yaw_radians,
+            crossfall_radians: self.crossfall_radians,
+            longfall_radians: self.longfall_radians,
+        }
+    }
+}
+
+impl<'de> Deserialize<'de> for ResolvedSolid {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        // This is the existing serialized representation. Native values enter
+        // the shared checked envelope adapter before any resolved solid exists.
+        #[derive(Deserialize)]
+        struct SerializedSolid {
+            id: ResolvedItemId,
+            owner: GeometryOwnerId,
+            centre: Vec3,
+            size: Vec3,
+            yaw_radians: f32,
+            crossfall_radians: f32,
+            longfall_radians: f32,
+            role: SolidRole,
+            shape: ResolvedSolidShape,
+            supported_by: Vec<StructuralNodeId>,
+        }
+        let value = SerializedSolid::deserialize(deserializer)?;
+        let envelope = crate::CollisionCuboid::from_metres(
+            value.id,
+            value.centre,
+            value.size,
+            value.yaw_radians,
+            value.crossfall_radians,
+            value.longfall_radians,
+        )
+        .map_err(serde::de::Error::custom)?;
+        Ok(Self::new(
+            envelope,
+            value.owner,
+            value.role,
+            value.shape,
+            value.supported_by,
+        ))
+    }
 }
 
 #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub struct ResolvedSurface {
     pub id: ResolvedItemId,
     pub owner: GeometryOwnerId,
-    pub bounds: ResolvedBounds,
+    pub bounds: SpatialBounds<Architectural>,
     pub role: SurfaceRole,
     pub shape: ResolvedSurfaceShape,
 }
@@ -368,7 +434,7 @@ pub struct ResolvedSurface {
 pub struct ResolvedVoid {
     pub id: ResolvedItemId,
     pub owner: GeometryOwnerId,
-    pub bounds: ResolvedBounds,
+    pub bounds: SpatialBounds<Architectural>,
     pub role: VoidRole,
     pub shape: ResolvedVoidShape,
     pub subtracts_from: GeometryOwnerId,

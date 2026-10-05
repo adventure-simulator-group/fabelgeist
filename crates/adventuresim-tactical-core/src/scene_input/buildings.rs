@@ -20,9 +20,23 @@ const TERRACE_APRON_METRES: f32 = 4.0;
 const PARTY_WALL_PROJECTION_ALLOWANCE_METRES: f32 = 0.4;
 
 /// Rotation of one orthogonal building grid in the settlement plane.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, bevy::prelude::Reflect)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::prelude::Reflect)]
 #[serde(transparent)]
+#[reflect(opaque)]
 pub struct BuildingOrientation(f32);
+
+impl<'de> Deserialize<'de> for BuildingOrientation {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        let orientation = Self(f32::deserialize(d)?);
+        if orientation.is_valid() {
+            Ok(orientation)
+        } else {
+            Err(serde::de::Error::custom(
+                "building orientation must be finite and in [-pi, pi)",
+            ))
+        }
+    }
+}
 
 impl BuildingOrientation {
     pub const IDENTITY: Self = Self(0.0);
@@ -39,7 +53,14 @@ impl BuildingOrientation {
     pub fn from_frontage_tangent(tangent: Vec2) -> Option<Self> {
         (tangent.is_finite() && tangent.length_squared() > f32::EPSILON).then(|| {
             let tangent = tangent.normalize();
-            Self((-tangent.y).atan2(tangent.x))
+            let yaw = (-tangent.y).atan2(tangent.x);
+            // Signed zero can represent the positive endpoint of atan2's
+            // range. Canonicalize only that previously inadmissible endpoint.
+            Self(if yaw == core::f32::consts::PI {
+                -core::f32::consts::PI
+            } else {
+                yaw
+            })
         })
     }
 
@@ -133,15 +154,65 @@ pub struct SceneBuilding {
 }
 
 /// Compact identity and dimensions for one server-authoritative operable leaf.
-#[derive(Clone, Copy, Debug, PartialEq, Component, Serialize, Deserialize)]
+/// Positions and normalized directions are in the scene frame after explicit
+/// architectural-floor, collision-centre, or gate-datum conversion.
+#[derive(Clone, Copy, Debug, PartialEq, Component, Serialize)]
 #[component(immutable)]
 pub struct SceneDoor {
     pub building_id: u64,
     pub opening_id: u64,
-    pub size_metres: bevy::math::Vec3,
-    pub doorway_centre_metres: bevy::math::Vec3,
-    pub tangent: bevy::math::Vec3,
-    pub outward: bevy::math::Vec3,
+    pub size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions,
+    pub doorway_centre_metres: adventuresim_building_generator::spatial_geometry::Position<
+        crate::scene_coordinates::Scene,
+    >,
+    pub tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection<
+        crate::scene_coordinates::Scene,
+    >,
+    pub outward: adventuresim_building_generator::spatial_geometry::SpatialDirection<
+        crate::scene_coordinates::Scene,
+    >,
+}
+impl<'de> Deserialize<'de> for SceneDoor {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        use adventuresim_building_generator::spatial_geometry::{
+            LeafDimensions, Position, SpatialDirection,
+        };
+        #[derive(Deserialize)]
+        struct SerializedDoor {
+            building_id: u64,
+            opening_id: u64,
+            size_metres: bevy::math::Vec3,
+            doorway_centre_metres: bevy::math::Vec3,
+            tangent: bevy::math::Vec3,
+            outward: bevy::math::Vec3,
+        }
+        let value = SerializedDoor::deserialize(deserializer)?;
+        let construct = || {
+            Ok(Self {
+                building_id: value.building_id,
+                opening_id: value.opening_id,
+                size_metres: LeafDimensions::from_metres(value.size_metres)?,
+                doorway_centre_metres: Position::from_metres(value.doorway_centre_metres)?,
+                tangent: SpatialDirection::from_normalized(value.tangent)?,
+                outward: SpatialDirection::from_normalized(value.outward)?,
+            })
+        };
+        construct().map_err(|cause| {
+            serde::de::Error::custom(SceneDoorError {
+                building_id: value.building_id,
+                opening_id: value.opening_id,
+                cause,
+            })
+        })
+    }
+}
+#[derive(Debug, thiserror::Error)]
+#[error("building {building_id}, door {opening_id}: {cause}")]
+pub struct SceneDoorError {
+    pub building_id: u64,
+    pub opening_id: u64,
+    #[source]
+    pub cause: adventuresim_building_generator::spatial_geometry::GeometryError,
 }
 
 /// Compact identity and dimensions for one server-authoritative window casement.
@@ -271,17 +342,17 @@ pub(super) fn validate_building_pads(
     let footprints = buildings
         .iter()
         .map(|building| {
-            let half_extents = (building.collision.bounds.plan_half_extents()
+            let half_extents = (building.collision.bounds.plan_half_extents()?.metres()
                 - Vec2::splat(PARTY_WALL_PROJECTION_ALLOWANCE_METRES))
             .max(Vec2::splat(0.1));
-            (
+            Ok((
                 building.placement.id,
                 building.placement.centre_metres,
                 half_extents,
                 building.placement.orientation,
-            )
+            ))
         })
-        .collect::<Vec<_>>();
+        .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
     for (index, &(id, centre, half_extents, orientation)) in footprints.iter().enumerate() {
         for &(other_id, other_centre, other_half_extents, other_orientation) in
             &footprints[index + 1..]

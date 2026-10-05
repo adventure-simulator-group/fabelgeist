@@ -33,9 +33,13 @@ fn enclosure_mesh_closes_projecting_storey_corners() {
         let program = BuildingProgram::fixture(archetype, 47);
         let plan = generate(&program).unwrap();
         let representations = [
-            compile_building_detail(&plan).meshes,
-            compile_building_lod(&plan, BuildingLodLevel::Facade).meshes,
-            compile_building_lod(&plan, BuildingLodLevel::Shell).meshes,
+            compile_building_detail(&plan).unwrap().meshes,
+            compile_building_lod(&plan, BuildingLodLevel::Facade)
+                .unwrap()
+                .meshes,
+            compile_building_lod(&plan, BuildingLodLevel::Shell)
+                .unwrap()
+                .meshes,
         ];
         let (width, depth) = plan.footprint.dimensions();
         let size = Vec3::new(f32::from(width), 0.0, f32::from(depth)) * CELL_SIZE_METRES;
@@ -68,9 +72,13 @@ fn enclosure_mesh_closes_gable_rakes() {
     ] {
         let plan = generate(&BuildingProgram::fixture(archetype, 47)).unwrap();
         let representations = [
-            compile_building_detail(&plan).meshes,
-            compile_building_lod(&plan, BuildingLodLevel::Facade).meshes,
-            compile_building_lod(&plan, BuildingLodLevel::Shell).meshes,
+            compile_building_detail(&plan).unwrap().meshes,
+            compile_building_lod(&plan, BuildingLodLevel::Facade)
+                .unwrap()
+                .meshes,
+            compile_building_lod(&plan, BuildingLodLevel::Shell)
+                .unwrap()
+                .meshes,
         ];
         let roof = &plan.roof_assemblies[0];
         let recipe = plan.roofs[0];
@@ -114,6 +122,7 @@ fn enclosure_audit_rejects_lowered_and_narrowed_gables() {
         }
         assert!(
             audit_plan(&plan)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == crate::audit::enclosure::GABLE_GAP)
         );
@@ -134,8 +143,9 @@ fn enclosure_audit_rejects_missing_corner_material_without_a_declared_bond() {
         .filter(|solid| solid.role == SolidRole::FramePost)
         .min_by(|a, b| {
             a.centre
+                .metres()
                 .distance_squared(corner)
-                .total_cmp(&b.centre.distance_squared(corner))
+                .total_cmp(&b.centre.metres().distance_squared(corner))
         })
         .unwrap()
         .id;
@@ -160,6 +170,7 @@ fn enclosure_audit_rejects_missing_corner_material_without_a_declared_bond() {
     plan.resolved_geometry.junction_bonds.clear();
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == crate::audit::enclosure::WALL_GAP)
     );

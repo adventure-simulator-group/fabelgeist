@@ -24,7 +24,7 @@ pub fn furnish(
         for room in &storey.rooms {
             for budget in furniture_budgets(program, room) {
                 let mut placed = 0;
-                let candidates = candidates(plan, program, room, storey.level, budget);
+                let candidates = candidates(plan, program, room, storey.level, budget)?;
                 for group in candidates {
                     if placed == budget.count {
                         break;
@@ -37,7 +37,7 @@ pub fn furnish(
                         layout.placements.truncate(previous);
                         continue;
                     }
-                    let change = occupancy.add(&layout.placements[previous..]);
+                    let change = occupancy.add(&layout.placements[previous..])?;
                     let flood = occupancy.flood();
                     if nav.verify_rooms(&flood).is_err()
                         || nav.access_paths(&layout.placements, &flood).is_err()
@@ -50,8 +50,8 @@ pub fn furnish(
                 }
                 if placed < budget.count {
                     layout.unmet_budgets.push(UnmetFurnitureBudget {
-                        storey: storey.level,
-                        room_id: room.id,
+                        storey: crate::StoreyIndex::from_serialized(storey.level),
+                        room_id: crate::RoomIndex::from_serialized(room.id),
                         kind: budget.kind,
                         requested: budget.count,
                         placed,
@@ -64,7 +64,7 @@ pub fn furnish(
         return Err(InteriorLayoutError::EmptyLayout);
     }
     layout.paths = nav.access_paths(&layout.placements, &occupancy.flood())?;
-    super::finishes::assign(plan, program, &mut layout.placements);
+    super::finishes::assign(plan, program, &mut layout.placements)?;
     Ok(layout)
 }
 
@@ -78,7 +78,7 @@ pub fn validate_layout(
     if layout.placements.is_empty() {
         return Err(InteriorLayoutError::EmptyLayout);
     }
-    let flood = nav.flood(&layout.placements);
+    let flood = nav.flood(&layout.placements)?;
     nav.verify_rooms(&flood)?;
     nav.access_paths(&layout.placements, &flood)
 }
@@ -89,7 +89,7 @@ pub(super) fn candidates(
     room: &Room,
     storey: u16,
     budget: FurnitureBudget,
-) -> Vec<Vec<InteriorPlacement>> {
+) -> Result<Vec<Vec<InteriorPlacement>>, InteriorLayoutError> {
     let seed = fabelgeist_determinism::StreamId::new("building.room-furniture")
         .seed(program.seed, &[u64::from(room.id), u64::from(storey)])
         .to_u64();
@@ -105,9 +105,9 @@ pub(super) fn candidates(
     for variant in variants {
         all.extend(variant_candidates(
             plan, room, storey, budget, variant, seed,
-        ));
+        )?);
     }
-    all
+    Ok(all)
 }
 
 fn variant_candidates(
@@ -117,7 +117,7 @@ fn variant_candidates(
     budget: FurnitureBudget,
     variant: FurnitureVariant,
     seed: u64,
-) -> Vec<Vec<InteriorPlacement>> {
+) -> Result<Vec<Vec<InteriorPlacement>>, InteriorLayoutError> {
     let key = FurnitureKey::natural(budget.kind, variant);
     let (min, max) = super::geometry::room_bounds(room);
     let mut choices = Vec::new();
@@ -133,20 +133,19 @@ fn variant_candidates(
         }
         let template = InteriorPlacement {
             key,
-            room_id: room.id,
-            storey,
-            centre_metres: Vec2::ZERO,
+            room_id: crate::RoomIndex::from_serialized(room.id),
+            storey: crate::StoreyIndex::from_serialized(storey),
+            centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(Vec2::ZERO)?,
             facing,
         };
-        let prototype = super::composition::compose(template.clone());
-        let group_min = prototype
-            .iter()
-            .map(|p| p.footprint().centre - p.footprint().half)
-            .fold(Vec2::splat(f32::INFINITY), Vec2::min);
-        let group_max = prototype
-            .iter()
-            .map(|p| p.footprint().centre + p.footprint().half)
-            .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
+        let prototype = super::composition::compose(template.clone())?;
+        let mut group_min = Vec2::splat(f32::INFINITY);
+        let mut group_max = Vec2::splat(f32::NEG_INFINITY);
+        for placement in &prototype {
+            let footprint = placement.footprint()?;
+            group_min = group_min.min(footprint.centre - footprint.half);
+            group_max = group_max.max(footprint.centre + footprint.half);
+        }
         let start = min - group_min + Vec2::splat(WALL_SETBACK_METRES);
         let end = max - group_max - Vec2::splat(WALL_SETBACK_METRES);
         if start.cmpgt(end).any() {
@@ -165,10 +164,10 @@ fn variant_candidates(
                         centre,
                         (min + max) * 0.5,
                     ),
-                    centre_metres: centre,
+                    centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(centre)?,
                     ..template.clone()
                 };
-                if !p.footprint().inside_room(room) {
+                if !p.footprint()?.inside_room(room) {
                     continue;
                 }
                 let wall_distance = (centre + group_min - min)
@@ -195,11 +194,11 @@ fn variant_candidates(
                     .next_u64();
                 let score = super::room_facing::placement_score(plan, &p, min, max, score);
                 if score.is_finite() {
-                    choices.push((score, tie, super::composition::compose(p)));
+                    choices.push((score, tie, super::composition::compose(p)?));
                 }
             }
         }
     }
     choices.sort_by(|a, b| a.0.total_cmp(&b.0).then_with(|| a.1.cmp(&b.1)));
-    choices.into_iter().map(|(_, _, p)| p).collect()
+    Ok(choices.into_iter().map(|(_, _, p)| p).collect())
 }

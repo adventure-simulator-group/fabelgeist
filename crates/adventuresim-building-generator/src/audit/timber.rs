@@ -1,4 +1,7 @@
-fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+fn audit_timber_frame(
+    plan: &BuildingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<(), crate::GenerationError> {
     let expected = plan.archetype.timber_frame_program();
     let Some(expected) = expected else {
         if plan.timber_frame.is_some() {
@@ -7,14 +10,14 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 "non-civilian fixture declares a semantic timber-frame program".to_owned(),
             ));
         }
-        return;
+        return Ok(());
     };
     let Some(frame) = &plan.timber_frame else {
         issues.push(issue(
             "missing_authoritative_timber_frame",
             "civilian fixture has no semantic timber-frame assembly".to_owned(),
         ));
-        return;
+        return Ok(());
     };
     if frame.program != expected || frame.id.0 == 0 {
         issues.push(issue(
@@ -102,7 +105,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             && solids.get(&member.solid).is_some_and(|solid| {
                                 resolved_solid_overlaps_bounds(
                                     solid,
-                                    (interface.bounds.min, interface.bounds.max),
+                                    (
+                                        interface.bounds.min().metres(),
+                                        interface.bounds.max().metres(),
+                                    ),
                                     0.001,
                                 )
                             })
@@ -117,20 +123,26 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                     || solid.supported_by.contains(parent))
                                     && resolved_solid_overlaps_bounds(
                                         solid,
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (
+                                            interface.bounds.min().metres(),
+                                            interface.bounds.max().metres(),
+                                        ),
                                         0.001,
                                     )
                             }) || plan.roof_assemblies.iter().any(|roof| {
                                 roof.support_nodes.contains(parent)
                                     && roof.faces.iter().any(|face| {
-                                        let centre =
-                                            (interface.bounds.min + interface.bounds.max) * 0.5;
+                                        let centre = (interface.bounds.min().metres()
+                                            + interface.bounds.max().metres())
+                                            * 0.5;
                                         let point = Vec2::new(centre.x, centre.z);
                                         roof_face_contains_plan_point_inclusive(face, point)
                                             && roof_face_height(face, point).is_some_and(|_| {
                                                 let underside = face.underside_height_at(point);
-                                                underside >= interface.bounds.min.y - 0.002
-                                                    && underside <= interface.bounds.max.y + 0.002
+                                                underside
+                                                    >= interface.bounds.min().metres().y - 0.002
+                                                    && underside
+                                                        <= interface.bounds.max().metres().y + 0.002
                                             })
                                     })
                             }))
@@ -199,10 +211,11 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             )
         });
         let endpoint_contact = endpoints[0]
-            .is_some_and(|node| node.position.distance(member.start) <= 0.003)
-            && endpoints[1].is_some_and(|node| node.position.distance(member.end) <= 0.003)
+            .is_some_and(|node| node.position.metres().distance(member.start.metres()) <= 0.003)
+            && endpoints[1]
+                .is_some_and(|node| node.position.metres().distance(member.end.metres()) <= 0.003)
             && member.start_node != member.end_node
-            && member.start.distance(member.end) > 0.05;
+            && member.start.metres().distance(member.end.metres()) > 0.05;
         let joint_contact = member_joints[0].is_some_and(|joint| {
             joint.node == member.start_node
                 && joint.member_ids.contains(&member.id)
@@ -219,24 +232,33 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     && solid.is_some_and(|solid| {
                         resolved_solid_overlaps_bounds(
                             solid,
-                            (interface.bounds.min, interface.bounds.max),
+                            (
+                                interface.bounds.min().metres(),
+                                interface.bounds.max().metres(),
+                            ),
                             0.001,
                         )
                     })
             })
         });
         let solid_correspondence = solid.is_some_and(|solid| {
-            solid.centre.distance((member.start + member.end) * 0.5) <= 0.003
-                && (solid.size.y - member.start.distance(member.end)).abs() <= 0.003
-                && (solid.size.x - member.section_metres.x).abs() <= 0.003
-                && (solid.size.z - member.section_metres.y).abs() <= 0.003
+            solid
+                .centre
+                .metres()
+                .distance((member.start.metres() + member.end.metres()) * 0.5)
+                <= 0.003
+                && (solid.size.metres().y - member.start.metres().distance(member.end.metres()))
+                    .abs()
+                    <= 0.003
+                && (solid.size.metres().x - member.section_metres.metres().x).abs() <= 0.003
+                && (solid.size.metres().z - member.section_metres.metres().y).abs() <= 0.003
         });
         if !valid_role
             || !endpoint_contact
             || !joint_contact
             || !bearing_contact
             || !solid_correspondence
-            || member.section_metres.min_element() < 0.08
+            || member.section_metres.metres().min_element() < 0.08
             || member.structural == (member.role == crate::TimberMemberRole::Ornament)
         {
             issues.push(issue(
@@ -266,8 +288,8 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 crate::TimberMemberRole::PrimaryPost
                     | crate::TimberMemberRole::CornerPost
                     | crate::TimberMemberRole::IntermediatePost
-            ) && Vec2::new(left.start.x, left.start.z)
-                .distance(Vec2::new(right.start.x, right.start.z))
+            ) && Vec2::new(left.start.metres().x, left.start.metres().z)
+                .distance(Vec2::new(right.start.metres().x, right.start.metres().z))
                 < 0.02
                 && solids
                     .get(&left.solid)
@@ -394,7 +416,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 && solids.get(&member.solid).is_some_and(|solid| {
                                     resolved_solid_overlaps_bounds(
                                         solid,
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (
+                                            interface.bounds.min().metres(),
+                                            interface.bounds.max().metres(),
+                                        ),
                                         0.001,
                                     )
                                 })
@@ -407,9 +432,9 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             .filter_map(|member_id| {
                 let member = members.get(member_id)?;
                 let axis = if member.start_node == joint.node {
-                    member.end - member.start
+                    member.end.metres() - member.start.metres()
                 } else if member.end_node == joint.node {
-                    member.start - member.end
+                    member.start.metres() - member.end.metres()
                 } else {
                     return None;
                 }
@@ -557,7 +582,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         floor_solids.iter().any(|solid| {
                             bounds_overlap_3d(
                                 resolved_solid_bounds(solid),
-                                (interface.bounds.min, interface.bounds.max),
+                                (interface.bounds.min().metres(), interface.bounds.max().metres()),
                                 0.001,
                             )
                         })
@@ -570,14 +595,14 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             floor_solids.iter().any(|solid| {
                                 bounds_overlap_3d(
                                     resolved_solid_bounds(solid),
-                                    (interface.bounds.min, interface.bounds.max),
+                                    (interface.bounds.min().metres(), interface.bounds.max().metres()),
                                     0.001,
                                 )
                             }) && joists.iter().any(|member| {
                                 solids.get(&member.solid).is_some_and(|solid| {
                                     resolved_solid_overlaps_bounds(
                                         solid,
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (interface.bounds.min().metres(), interface.bounds.max().metres()),
                                         0.001,
                                     )
                                 })
@@ -590,7 +615,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 solids.get(&member.solid).is_some_and(|solid| {
                                     resolved_solid_overlaps_bounds(
                                         solid,
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (interface.bounds.min().metres(), interface.bounds.max().metres()),
                                         0.001,
                                     )
                                 })
@@ -598,7 +623,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 solids.get(&member.solid).is_some_and(|solid| {
                                     resolved_solid_overlaps_bounds(
                                         solid,
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (interface.bounds.min().metres(), interface.bounds.max().metres()),
                                         0.001,
                                     )
                                 })
@@ -611,7 +636,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 solid.supported_by.contains(&interface.node)
                                     && bounds_overlap_3d(
                                         resolved_solid_bounds(solid),
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (interface.bounds.min().metres(), interface.bounds.max().metres()),
                                         0.001,
                                     )
                             })
@@ -624,10 +649,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             } else {
                 floor.stair_connection.is_some_and(|point| {
                     surface.is_some_and(|surface| {
-                        point.x >= surface.bounds.min.x
-                            && point.x <= surface.bounds.max.x
-                            && point.y >= surface.bounds.min.z
-                            && point.y <= surface.bounds.max.z
+                        point.x >= surface.bounds.min().metres().x
+                            && point.x <= surface.bounds.max().metres().x
+                            && point.y >= surface.bounds.min().metres().z
+                            && point.y <= surface.bounds.max().metres().z
                     }) && plan.stairs.iter().any(|stair| match *stair {
                         crate::Stair::Straight { start, .. } => start.distance(point) <= 0.02,
                         crate::Stair::Spiral { centre, .. } => centre.distance(point) <= 0.02,
@@ -637,13 +662,13 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             let valid = floor_solids.len() == floor.floor_solids.len()
                 && floor_solids.iter().all(|solid| {
                     solid.role == SolidRole::FrameFloor
-                        && solid.size.y >= 0.12
+                        && solid.size.metres().y >= 0.12
                         && !solid.supported_by.is_empty()
                 })
                 && surface.is_some_and(|surface| {
                 surface.role == crate::SurfaceRole::TimberCirculation
-                    && surface.bounds.max.x - surface.bounds.min.x >= 0.90
-                    && surface.bounds.max.z - surface.bounds.min.z >= 0.90
+                    && surface.bounds.max().metres().x - surface.bounds.min().metres().x >= 0.90
+                    && surface.bounds.max().metres().z - surface.bounds.min().metres().z >= 0.90
             }) && joists.len() == floor.joist_members.len()
                 && (floor.level == 0 || joists.len() >= 3)
                 && joists
@@ -711,12 +736,12 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
     let node_geometry_valid = route_nodes.len() == circulation.nodes.len()
         && circulation.nodes.iter().all(|node| {
             route_surfaces.get(&node.surface).is_some_and(|surface| {
-                node.position.x >= surface.bounds.min.x - 0.01
-                    && node.position.x <= surface.bounds.max.x + 0.01
-                    && node.position.y >= surface.bounds.min.y - 0.02
-                    && node.position.y <= surface.bounds.max.y + 0.02
-                    && node.position.z >= surface.bounds.min.z - 0.01
-                    && node.position.z <= surface.bounds.max.z + 0.01
+                node.position.metres().x >= surface.bounds.min().metres().x - 0.01
+                    && node.position.metres().x <= surface.bounds.max().metres().x + 0.01
+                    && node.position.metres().y >= surface.bounds.min().metres().y - 0.02
+                    && node.position.metres().y <= surface.bounds.max().metres().y + 0.02
+                    && node.position.metres().z >= surface.bounds.min().metres().z - 0.01
+                    && node.position.metres().z <= surface.bounds.max().metres().z + 0.01
             })
         });
     let entry_geometry_valid = entry.is_some_and(|opening| {
@@ -749,15 +774,16 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         approach
             .zip(threshold)
             .is_some_and(|(approach, threshold)| {
-                let lateral = (Vec2::new(threshold.position.x, threshold.position.z)
-                    - opening.frame.origin)
-                    .dot(opening.frame.tangent)
-                    .abs();
+                let lateral =
+                    (Vec2::new(threshold.position.metres().x, threshold.position.metres().z)
+                        - opening.frame.origin)
+                        .dot(opening.frame.tangent)
+                        .abs();
                 lateral <= min_width * 0.5 - 0.45
-                    && threshold.position.x >= void.bounds.min.x - 0.01
-                    && threshold.position.x <= void.bounds.max.x + 0.01
-                    && threshold.position.z >= void.bounds.min.z - 0.01
-                    && threshold.position.z <= void.bounds.max.z + 0.01
+                    && threshold.position.metres().x >= void.bounds.min().metres().x - 0.01
+                    && threshold.position.metres().x <= void.bounds.max().metres().x + 0.01
+                    && threshold.position.metres().z >= void.bounds.min().metres().z - 0.01
+                    && threshold.position.metres().z <= void.bounds.max().metres().z + 0.01
                     && circulation.edges.iter().any(|edge| {
                         edge.from == approach.surface
                             && edge.to == threshold.surface
@@ -816,16 +842,22 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 solids.get(id).is_some_and(|solid| {
                     solid.role == SolidRole::Landing
                         && !solid.supported_by.is_empty()
-                        && (solid.centre.y + solid.size.y * 0.5 - node.position.y).abs() <= 0.012
-                        && Vec2::new(solid.centre.x, solid.centre.z)
-                            .distance(Vec2::new(node.position.x, node.position.z))
-                            <= 0.03
+                        && (solid.centre.metres().y + solid.size.metres().y * 0.5
+                            - node.position.metres().y)
+                            .abs()
+                            <= 0.012
+                        && Vec2::new(solid.centre.metres().x, solid.centre.metres().z).distance(
+                            Vec2::new(node.position.metres().x, node.position.metres().z),
+                        ) <= 0.03
                         && solid.supported_by.iter().all(|node_id| {
                             interfaces.values().any(|interface| {
                                 interface.node == *node_id
                                     && resolved_solid_overlaps_bounds(
                                         solid,
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (
+                                            interface.bounds.min().metres(),
+                                            interface.bounds.max().metres(),
+                                        ),
                                         0.001,
                                     )
                             })
@@ -849,7 +881,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 solids.get(solid_id).is_none_or(|solid| {
                                     !bounds_overlap_3d(
                                         resolved_solid_bounds(solid),
-                                        (void.bounds.min, void.bounds.max),
+                                        (void.bounds.min().metres(), void.bounds.max().metres()),
                                         0.001,
                                     )
                                 })
@@ -870,8 +902,8 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             ));
         };
         let plan_delta = Vec2::new(
-            to.position.x - from.position.x,
-            to.position.z - from.position.z,
+            to.position.metres().x - from.position.metres().x,
+            to.position.metres().z - from.position.metres().z,
         );
         let along = plan_delta.normalize_or_zero();
         let along = if along.length_squared() < 0.9 {
@@ -881,7 +913,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         };
         let across = Vec2::new(-along.y, along.x);
         (0..=12).find_map(|sample| {
-            let foot = from.position.lerp(to.position, sample as f32 / 12.0);
+            let foot = from
+                .position
+                .metres()
+                .lerp(to.position.metres(), sample as f32 / 12.0);
             solids.values().find_map(|solid| {
                 (matches!(
                     solid.role,
@@ -894,11 +929,11 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     edge.from,
                     edge.to,
                     sample,
-                    from.position,
-                    to.position,
+                    from.position.metres(),
+                    to.position.metres(),
                     solid.id,
-                    solid.centre,
-                    solid.size,
+                    solid.centre.metres(),
+                    solid.size.metres(),
                 ))
             })
         })
@@ -973,10 +1008,15 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 return false;
                             }
                             let mut sample_points = (0..=16)
-                                .map(|sample| member.start.lerp(member.end, sample as f32 / 16.0))
+                                .map(|sample| {
+                                    member
+                                        .start
+                                        .metres()
+                                        .lerp(member.end.metres(), sample as f32 / 16.0)
+                                })
                                 .collect::<Vec<_>>();
                             if let Some(solid) = solids.get(&member.solid) {
-                                sample_points.push(solid.centre);
+                                sample_points.push(solid.centre.metres());
                             }
                             sample_points.into_iter().any(|point| {
                                 let plan_point = Vec2::new(point.x, point.z);
@@ -1021,7 +1061,8 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                             .expect("audited opening has slices");
                                         (slice.width_metres, slice.height_metres)
                                     });
-                                let member_half = member.section_metres.min_element() * 0.48;
+                                let member_half =
+                                    member.section_metres.metres().min_element() * 0.48;
                                 lateral + member_half < width * 0.5 - 0.01
                                     && point.y - member_half > opening.sill_elevation_metres + 0.01
                                     && point.y + member_half
@@ -1198,7 +1239,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         crate::TimberMemberRole::HeadBrace
                             | crate::TimberMemberRole::FootBrace
                             | crate::TimberMemberRole::StoreyBrace
-                    ) && timber_bracing::closes_triangle(member,&storey_members)
+                    ) && timber_bracing::closes_triangle(member, &storey_members)
                 })
                 .collect::<Vec<_>>();
             let brace_cycles_valid = if line.internal || line.length_metres < 4.5 {
@@ -1207,7 +1248,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 let regions = valid_braces
                     .iter()
                     .map(|brace| {
-                        let midpoint = (brace.start + brace.end) * 0.5;
+                        let midpoint = (brace.start.metres() + brace.end.metres()) * 0.5;
                         let along = (Vec2::new(midpoint.x, midpoint.z) - line.origin)
                             .dot(line.tangent)
                             / line.length_metres
@@ -1262,7 +1303,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             floor.is_some_and(|floor| {
                                 resolved_solid_overlaps_bounds(
                                     floor,
-                                    (interface.bounds.min, interface.bounds.max),
+                                    (
+                                        interface.bounds.min().metres(),
+                                        interface.bounds.max().metres(),
+                                    ),
                                     0.001,
                                 )
                             }) && jetty.jetty_beams.iter().any(|beam| {
@@ -1272,7 +1316,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                     .is_some_and(|solid| {
                                         resolved_solid_overlaps_bounds(
                                             solid,
-                                            (interface.bounds.min, interface.bounds.max),
+                                            (
+                                                interface.bounds.min().metres(),
+                                                interface.bounds.max().metres(),
+                                            ),
                                             0.001,
                                         )
                                     })
@@ -1281,7 +1328,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     });
                 let beam_geometry_valid = jetty.jetty_beams.iter().all(|id| {
                     members.get(id).is_some_and(|beam| {
-                        let delta = beam.end - beam.start;
+                        let delta = beam.end.metres() - beam.start.metres();
                         let plan_delta = Vec2::new(delta.x, delta.z);
                         let inner_interface = interfaces.get(&beam.support_interfaces[0]);
                         let outer_interface = interfaces.get(&beam.support_interfaces[1]);
@@ -1295,7 +1342,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                         && solids.get(&girder.solid).is_some_and(|solid| {
                                             resolved_solid_overlaps_bounds(
                                                 solid,
-                                                (interface.bounds.min, interface.bounds.max),
+                                                (
+                                                    interface.bounds.min().metres(),
+                                                    interface.bounds.max().metres(),
+                                                ),
                                                 0.001,
                                             )
                                         })
@@ -1307,7 +1357,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                         && solids.get(&sill.solid).is_some_and(|solid| {
                                             resolved_solid_overlaps_bounds(
                                                 solid,
-                                                (interface.bounds.min, interface.bounds.max),
+                                                (
+                                                    interface.bounds.min().metres(),
+                                                    interface.bounds.max().metres(),
+                                                ),
                                                 0.001,
                                             )
                                         })
@@ -1328,7 +1381,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 ) && solids.get(&post.solid).is_some_and(|solid| {
                                     resolved_solid_overlaps_bounds(
                                         solid,
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (
+                                            interface.bounds.min().metres(),
+                                            interface.bounds.max().metres(),
+                                        ),
                                         0.001,
                                     )
                                 })
@@ -1339,7 +1395,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                         solids.get(id).is_some_and(|solid| {
                                             resolved_solid_overlaps_bounds(
                                                 solid,
-                                                (interface.bounds.min, interface.bounds.max),
+                                                (
+                                                    interface.bounds.min().metres(),
+                                                    interface.bounds.max().metres(),
+                                                ),
                                                 0.001,
                                             )
                                         })
@@ -1353,7 +1412,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                     .is_some_and(|solid| {
                                         resolved_solid_overlaps_bounds(
                                             solid,
-                                            (interface.bounds.min, interface.bounds.max),
+                                            (
+                                                interface.bounds.min().metres(),
+                                                interface.bounds.max().metres(),
+                                            ),
                                             0.001,
                                         )
                                     })
@@ -1374,10 +1436,11 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     || !knaggen_geometry_valid
                     || floor.is_none_or(|floor| {
                         floor.role != SolidRole::FrameFloor
-                            || floor.size.y < 0.12
-                            || floor.size.x.min(floor.size.z) > jetty.projection_metres + 0.05
-                            || floor.size.x * floor.size.z > polygon_area + 0.05
-                            || floor.size.x * floor.size.z
+                            || floor.size.metres().y < 0.12
+                            || floor.size.metres().x.min(floor.size.metres().z)
+                                > jetty.projection_metres + 0.05
+                            || floor.size.metres().x * floor.size.metres().z > polygon_area + 0.05
+                            || floor.size.metres().x * floor.size.metres().z
                                 < line.length_metres * jetty.projection_metres * 0.90
                             || !jetty.jetty_beams.iter().all(|beam| {
                                 members.get(beam).is_some_and(|member| {
@@ -1432,10 +1495,13 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     .find(|void| void.id == opening.void_id)
                     .is_some_and(|void| {
                         let expanded = 0.20;
-                        void.bounds.max.x >= surface.bounds.min.x - expanded
-                            && void.bounds.min.x <= surface.bounds.max.x + expanded
-                            && void.bounds.max.z >= surface.bounds.min.z - expanded
-                            && void.bounds.min.z <= surface.bounds.max.z + expanded
+                        void.bounds.max().metres().x >= surface.bounds.min().metres().x - expanded
+                            && void.bounds.min().metres().x
+                                <= surface.bounds.max().metres().x + expanded
+                            && void.bounds.max().metres().z
+                                >= surface.bounds.min().metres().z - expanded
+                            && void.bounds.min().metres().z
+                                <= surface.bounds.max().metres().z + expanded
                     })
         })
     });
@@ -1506,7 +1572,8 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 && ground_route_has_door
                 && jetty_count == 0
         }
-        crate::TimberFrameProgramKind::DirectRoofCottage | crate::TimberFrameProgramKind::CourtyardStorageRange => {
+        crate::TimberFrameProgramKind::DirectRoofCottage
+        | crate::TimberFrameProgramKind::CourtyardStorageRange => {
             jetty_count == 0
                 && frame
                     .facades
@@ -1530,8 +1597,11 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 && frame.masonry_bearing_interfaces.len() >= 4
                 && frame.members.iter().any(|member| {
                     member.role == crate::TimberMemberRole::Girder
-                        && Vec2::new(member.end.x - member.start.x, member.end.z - member.start.z)
-                            .length()
+                        && Vec2::new(
+                            member.end.metres().x - member.start.metres().x,
+                            member.end.metres().z - member.start.metres().z,
+                        )
+                        .length()
                             >= plan.dimensions_metres().min_element() * 0.75
                 })
                 && ground_route_has_door
@@ -1564,7 +1634,10 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     solids.get(&member.solid).is_some_and(|solid| {
                         resolved_solid_overlaps_bounds(
                             solid,
-                            (interface.bounds.min, interface.bounds.max),
+                            (
+                                interface.bounds.min().metres(),
+                                interface.bounds.max().metres(),
+                            ),
                             0.001,
                         )
                     })
@@ -1572,12 +1645,18 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     roof.support_nodes.iter().any(|roof_node_id| {
                         nodes.get(roof_node_id).is_some_and(|roof_node| {
                             roof_node.supported_by.contains(&interface.node)
-                                && roof_node.position.x >= interface.bounds.min.x - 0.001
-                                && roof_node.position.x <= interface.bounds.max.x + 0.001
-                                && roof_node.position.y >= interface.bounds.min.y - 0.001
-                                && roof_node.position.y <= interface.bounds.max.y + 0.001
-                                && roof_node.position.z >= interface.bounds.min.z - 0.001
-                                && roof_node.position.z <= interface.bounds.max.z + 0.001
+                                && roof_node.position.metres().x
+                                    >= interface.bounds.min().metres().x - 0.001
+                                && roof_node.position.metres().x
+                                    <= interface.bounds.max().metres().x + 0.001
+                                && roof_node.position.metres().y
+                                    >= interface.bounds.min().metres().y - 0.001
+                                && roof_node.position.metres().y
+                                    <= interface.bounds.max().metres().y + 0.001
+                                && roof_node.position.metres().z
+                                    >= interface.bounds.min().metres().z - 0.001
+                                && roof_node.position.metres().z
+                                    <= interface.bounds.max().metres().z + 0.001
                         })
                     })
                 })
@@ -1597,138 +1676,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             "timber frame lacks exact roof seats or dormer trimmers".to_owned(),
         ));
     }
-    let roof_envelope_intrusions = timber_roof_envelope_intrusions(plan);
-    if !roof_envelope_intrusions.is_empty() {
-        issues.push(issue(
-            "timber_intrudes_through_roof",
-            format!(
-                "roof-construction members leave the authoritative roof envelope: {:?}",
-                roof_envelope_intrusions
-            ),
-        ));
-    }
-    let exposed_child_supports = exposed_roof_child_support_posts(plan);
-    if !exposed_child_supports.is_empty() {
-        issues.push(issue(
-            "exposed_roof_child_support",
-            format!(
-                "roof children contain freestanding generic support posts outside their declared curb/front/cheek authority: {:?}",
-                exposed_child_supports
-            ),
-        ));
-    }
-    let oversized_child_flashings = oversized_child_roof_flashings(plan);
-    if !oversized_child_flashings.is_empty() {
-        issues.push(issue(
-            "invalid_child_roof_flashing_profile",
-            format!(
-                "child-roof flashing rises above the seated civilian seam profile: {:?}",
-                oversized_child_flashings
-            ),
-        ));
-    }
-    let invalid_child_drainage = invalid_attached_child_drainage(plan);
-    if !invalid_child_drainage.is_empty() {
-        issues.push(issue(
-            "invalid_child_roof_drainage",
-            format!(
-                "attached civilian roof drains bypass the containing parent weather face: {:?}",
-                invalid_child_drainage
-            ),
-        ));
-    }
-    let invalid_child_curb = invalid_dormer_trimmer_envelope(plan);
-    if !invalid_child_curb.is_empty() {
-        issues.push(issue(
-            "invalid_dormer_trimmer_envelope",
-            format!(
-                "dormer trimmers project outside the exact front-to-rear child enclosure: {:?}",
-                invalid_child_curb
-            ),
-        ));
-    }
-    let oversized_child_gutters = oversized_attached_child_gutters(plan);
-    if !oversized_child_gutters.is_empty() {
-        issues.push(issue(
-            "invalid_child_roof_drainage_profile",
-            format!(
-                "attached child roof uses a full-building gutter profile: {:?}",
-                oversized_child_gutters
-            ),
-        ));
-    }
-    let unseated_dormers = unseated_gabled_dormer_roofs(plan);
-    if !unseated_dormers.is_empty() {
-        issues.push(issue(
-            "unseated_dormer_roof",
-            format!(
-                "gabled dormer retains a free rear verge or misses the parent weather plane: {:?}",
-                unseated_dormers
-            ),
-        ));
-    }
-    let coplanar_openings = coplanar_timber_opening_faces(plan);
-    if !coplanar_openings.is_empty() {
-        issues.push(issue(
-            "coplanar_timber_opening_face",
-            format!(
-                "timber-wall opening solids reach the exposed frame plane: {:?}",
-                coplanar_openings
-            ),
-        ));
-    }
-    let undeclared_intersections = undeclared_timber_intersections(plan);
-    if !undeclared_intersections.is_empty() {
-        let mut role_counts = std::collections::BTreeMap::<String, usize>::new();
-        for (left, right) in &undeclared_intersections {
-            let roles = [left, right].map(|id| {
-                plan.resolved_geometry
-                    .solids
-                    .iter()
-                    .find(|solid| solid.id == *id)
-                    .map_or("missing".to_owned(), |solid| format!("{:?}", solid.role))
-            });
-            *role_counts
-                .entry(format!("{} x {}", roles[0], roles[1]))
-                .or_default() += 1;
-        }
-        let mut seen_roles = std::collections::HashSet::new();
-        let sample = undeclared_intersections
-            .iter()
-            .filter(|(left, right)| {
-                let key = [left, right]
-                    .into_iter()
-                    .filter_map(|id| {
-                        plan.resolved_geometry
-                            .solids
-                            .iter()
-                            .find(|solid| solid.id == *id)
-                    })
-                    .map(|solid| format!("{:?}", solid.role))
-                    .collect::<Vec<_>>()
-                    .join(" x ");
-                seen_roles.insert(key)
-            })
-            .take(20)
-            .map(|(left, right)| {
-                let describe = |id: ResolvedItemId| {
-                    plan.resolved_geometry
-                        .solids
-                        .iter()
-                        .find(|solid| solid.id == id)
-                        .map(|solid| (id, solid.role, solid.owner, solid.centre, solid.size))
-                };
-                (describe(*left), describe(*right))
-            })
-            .collect::<Vec<_>>();
-        issues.push(issue(
-            "undeclared_timber_intersection",
-            format!(
-                "{} timber pairs overlap without an exact typed joint or bearing interface; roles: {:?}; first pairs (id, role, owner): {:?}",
-                undeclared_intersections.len(), role_counts, sample
-            ),
-        ));
-    }
+    timber_roof_contacts::audit(plan, issues)?;
     let dormer_fronts_valid = frame.bays.iter().all(|bay| {
         let Some(wall_id) = bay.wall else {
             return true;
@@ -1770,7 +1718,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 .to_owned(),
         ));
     }
-    if plan
+    let _: () = if plan
         .resolved_geometry
         .solids
         .iter()
@@ -1780,5 +1728,6 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             "legacy_timber_frame_overlay",
             "accepted civilian fixture still contains legacy viewer/generic framing".to_owned(),
         ));
-    }
+    };
+    Ok(())
 }

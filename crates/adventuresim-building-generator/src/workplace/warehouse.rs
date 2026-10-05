@@ -24,7 +24,13 @@ pub(super) fn loading_roof(main: Vec2) -> RoofPiece {
     }
 }
 
-pub(super) fn fit_workplace(a: &mut Assembly<'_>, w: f32, d: f32) {
-    storage::storage_floors(a, w, d);
-    loading::loading_hood(a, w, d);
+pub(super) fn fit_workplace(
+    a: &mut Assembly<'_>,
+    w: f32,
+    d: f32,
+) -> Result<(), crate::GenerationError> {
+    storage::storage_floors(a, w, d)?;
+    loading::loading_hood(a, w, d)?;
+
+    Ok(())
 }
