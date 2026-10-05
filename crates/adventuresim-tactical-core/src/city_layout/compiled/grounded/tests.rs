@@ -85,7 +85,12 @@ fn accepted_support_seats_both_detail_levels_without_changing_physical_identity(
         assert!(
             grounded
                 .terrain()
-                .elevations_at(member.contact.centre_metres)
+                .elevations_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(
+                        member.contact.centre_metres
+                    )
+                    .unwrap()
+                )
                 .iter()
                 .any(|h| (h.metres() - member.elevation.metres()).abs()
                     < policy.limits.contact_tolerance_metres())

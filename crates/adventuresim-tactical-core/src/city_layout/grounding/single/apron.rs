@@ -182,7 +182,7 @@ impl PreparedApron {
         };
         surface
             .mesh
-            .append_outside_floor(&mesh, &surface.clipping_outlines[0]);
+            .append_outside_floor(&mesh, &surface.clipping_outlines[0])?;
         surface.regions.push(region);
         surface
             .clipping_outlines

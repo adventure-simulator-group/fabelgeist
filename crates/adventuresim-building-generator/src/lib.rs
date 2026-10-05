@@ -28,6 +28,7 @@ pub mod interior;
 mod lod;
 mod member_uv;
 mod model;
+pub mod plan_geometry;
 mod roof_enclosure;
 mod roof_tessellation;
 mod settlement;
@@ -44,7 +45,7 @@ pub use workplace::{
 
 pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};
 pub use collision::{
-    BuildingCollision, CollisionBounds, CollisionCuboid, GroundFloorFootprint,
+    BuildingCollision, CollisionBounds, CollisionCuboid, GroundContact, GroundFloorFootprint,
     compile_building_collision,
 };
 pub use detail::{

@@ -29,7 +29,7 @@ fn scene_observer_restores_separate_static_support_bodies_at_the_scene_transform
         BoundedSettlementTerrain::compile(
             &plans
                 .iter()
-                .map(CompoundSupportPlan::support_surface)
+                .map(|plan| plan.support_surface().unwrap())
                 .collect::<Vec<_>>(),
             &source,
             policy.embedment,

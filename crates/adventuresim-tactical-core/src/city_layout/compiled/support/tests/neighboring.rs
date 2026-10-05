@@ -56,7 +56,7 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
     );
     let surfaces: Vec<_> = compounds
         .iter()
-        .map(CompoundSupportPlan::support_surface)
+        .map(|plan| plan.support_surface().unwrap())
         .chain(singles.iter().map(|p| p.surface.clone()))
         .collect();
     let terrain = BoundedSettlementTerrain::compile(&surfaces, &source, policy.embedment).unwrap();
@@ -77,20 +77,24 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
         .collision
         .cuboids
         .iter()
-        .flat_map(|c| c.ground_contact_polygon())
+        .flat_map(|c| c.ground_contact().unwrap().points().collect::<Vec<_>>())
     {
         let world = placement.centre_metres
             + placement
                 .orientation
-                .local_to_world(point - recipe.collision.bounds.centre().xz());
+                .local_to_world(point.metres() - recipe.collision.bounds.centre().xz());
         assert!(
             terrain
-                .elevations_at(world)
+                .elevations_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(world).unwrap()
+                )
                 .iter()
                 .any(|height| (height.metres() - floor.floor.elevation.metres()).abs() < 0.001),
             "contact {world:?}, floor {:?}, support {:?}",
             floor.floor.elevation,
-            terrain.elevations_at(world)
+            terrain.elevations_at(
+                crate::scene_coordinates::ScenePlanPoint::from_metres(world).unwrap()
+            )
         );
     }
     let empty_corner = Vec2::new(-105.0, -297.9);
@@ -99,7 +103,9 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
     {
         assert!(
             (terrain
-                .highest_surface_at(empty_corner)
+                .highest_surface_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(empty_corner).unwrap()
+                )
                 .unwrap()
                 .elevation
                 .metres()

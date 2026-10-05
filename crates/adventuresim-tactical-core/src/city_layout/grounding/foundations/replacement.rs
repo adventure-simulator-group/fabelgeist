@@ -38,7 +38,11 @@ impl BoundedPropertyTerrain {
         })
     }
 
-    pub fn elevations_at(&self, point: Vec2) -> SurfaceElevations {
+    pub fn elevations_at(
+        &self,
+        scene_point: crate::scene_coordinates::ScenePlanPoint,
+    ) -> SurfaceElevations {
+        let point = scene_point.metres();
         let support = self
             .foundations
             .support_triangles

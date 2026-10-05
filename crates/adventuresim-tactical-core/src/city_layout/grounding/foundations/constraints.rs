@@ -13,8 +13,18 @@ pub(super) fn floor_shift(
     plan: &CompoundSupportPlan,
     geographic: &GeographicSurface,
 ) -> Result<f32, SupportDiagnostic> {
-    let original = plan.mesh();
-    let basis = plan.floor_translation_basis().mesh();
+    let original = plan.mesh()?;
+    let basis = plan.floor_translation_basis()?.mesh()?;
+    let invalid_triangle = |point| {
+        SupportDiagnostic::new(
+            &plan.property,
+            SupportConstraint::Reservation,
+            SupportBoundary::PropertyReservation,
+            point,
+            1.0,
+            0.0,
+        )
+    };
     let mut interval = FloorInterval {
         minimum: f64::NEG_INFINITY,
         maximum: f64::INFINITY,
@@ -26,9 +36,9 @@ pub(super) fn floor_shift(
         .zip(&basis.support_triangles)
     {
         let support = GroundTriangle::new(indices.map(|i| original.positions[i as usize]))
-            .expect("validated support triangle");
+            .ok_or_else(|| invalid_triangle(original.positions[indices[0] as usize].xz()))?;
         let shifted = GroundTriangle::new(shifted.map(|i| basis.positions[i as usize]))
-            .expect("unit translation retains horizontal triangle geometry");
+            .ok_or_else(|| invalid_triangle(basis.positions[shifted[0] as usize].xz()))?;
         let mut covered = 0.0;
         for source in geographic.intersecting(&support) {
             let polygon = support.intersection(source);
@@ -49,7 +59,7 @@ pub(super) fn floor_shift(
                 )?;
             }
         }
-        validate_coverage(&plan.support_surface(), &support, covered)?;
+        validate_coverage(&plan.support_surface()?, &support, covered)?;
     }
     interval.choose(plan)
 }
@@ -86,9 +96,16 @@ impl FloorInterval {
 
     fn choose(self, plan: &CompoundSupportPlan) -> Result<f32, SupportDiagnostic> {
         if self.minimum > self.maximum {
-            let control = self
-                .upper_control
-                .expect("bounded occupied bearing supplies an upper control");
+            let control = self.upper_control.ok_or_else(|| {
+                SupportDiagnostic::new(
+                    &plan.property,
+                    SupportConstraint::Reservation,
+                    SupportBoundary::GeographicSurface,
+                    plan.property.plot.centre_metres,
+                    1.0,
+                    0.0,
+                )
+            })?;
             return Err(rejection(plan, control, self.minimum));
         }
         let margin = f64::from(plan.limits.contact_tolerance_metres);

@@ -106,7 +106,9 @@ fn required_population_seed_matrix_retains_capacity_and_exact_members_on_gentle_
             for point in [member.contact.centre_metres, member.court_threshold_metres] {
                 assert!(
                     composed
-                        .elevations_at(point)
+                        .elevations_at(
+                            crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap()
+                        )
                         .iter()
                         .any(|height| (height.metres() - member.elevation.metres()).abs()
                             <= policy.limits.contact_tolerance_metres()),

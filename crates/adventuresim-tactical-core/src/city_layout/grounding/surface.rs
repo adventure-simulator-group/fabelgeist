@@ -102,13 +102,13 @@ impl PropertySupportSurface {
 impl CompoundSupportPlan {
     /// Freeze the accepted surface after floor, court, gate and doorway checks.
     /// Every property shares this representation when composing city terrain.
-    pub fn support_surface(&self) -> PropertySupportSurface {
-        PropertySupportSurface {
-            mesh: self.mesh(),
+    pub fn support_surface(&self) -> Result<PropertySupportSurface, SupportDiagnostic> {
+        Ok(PropertySupportSurface {
+            mesh: self.mesh()?,
             regions: self.support_regions(),
             clipping_outlines: self.source_clipping_outlines(),
             limits: self.limits,
             treatment: SupportGradingAttempt::Compound(self.treatment),
-        }
+        })
     }
 }

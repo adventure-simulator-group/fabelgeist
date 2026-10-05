@@ -19,7 +19,7 @@ struct PlacementDomain {
     frontage: ParcelFrontage,
     proposed: ParcelGeometry,
     allowed: FrontageInterval,
-    base_translation_metres: Vec2,
+    base_translation: PlanDisplacement,
 }
 impl PlacementDomain {
     fn from_frontage(
@@ -46,18 +46,46 @@ impl PlacementDomain {
             frontage,
             proposed,
             allowed,
-            base_translation_metres: Vec2::ZERO,
+            base_translation: PlanDisplacement::ZERO,
         })
     }
-    fn geometry_at_zero(&self) -> ParcelGeometry {
+    fn geometry_at_zero(&self) -> Result<ParcelGeometry, CoupledPackingIssue> {
         self.proposed
-            .translated(self.base_translation_metres, self.frontage.tangent())
+            .translated(self.base_translation, self.frontage.tangent())
+            .map_err(|issue| self.geometry_error(issue))
     }
-    fn delta_at(&self, displacement: FrontagePosition) -> PlanDisplacement {
+    fn geometry_error(
+        &self,
+        issue: adventuresim_building_generator::plan_geometry::PlanGeometryError,
+    ) -> CoupledPackingIssue {
+        CoupledPackingIssue::InvalidGeometry {
+            property: self.owner,
+            issue,
+        }
+    }
+    fn packing_error(&self, issue: CoupledPackingIssue) -> CityCompileError {
+        CityCompileError::Packing {
+            property: self.owner,
+            issue: CityPackingIssue::CoupledSearch {
+                block: self.frontage.block.id.0,
+                members: vec![self.owner],
+                issue,
+            },
+        }
+    }
+    fn delta_at(
+        &self,
+        displacement: FrontageDisplacement,
+    ) -> Result<PlanDisplacement, CoupledPackingIssue> {
         PlanDisplacement::from_metres(
-            self.base_translation_metres + self.frontage.tangent() * displacement.metres() as f32,
+            self.base_translation.metres()
+                + *self.frontage.tangent() * displacement.metres() as f32,
         )
-        .expect("finite constrained property displacement")
+        .ok_or_else(|| {
+            self.geometry_error(
+                adventuresim_building_generator::plan_geometry::PlanGeometryError::NonFinite,
+            )
+        })
     }
 }
 

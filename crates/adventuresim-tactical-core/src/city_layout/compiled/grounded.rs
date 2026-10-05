@@ -65,11 +65,12 @@ impl SelectedCityGrounding {
             .chain(singles.iter().map(|plan| plan.floor))
             .map(|member| (member.building_id, member))
             .collect();
-        let surfaces = compounds
+        let mut surfaces = compounds
             .iter()
             .map(CompoundSupportPlan::support_surface)
-            .chain(singles.into_iter().map(|plan| plan.surface))
-            .collect();
+            .collect::<Result<Vec<_>, _>>()
+            .map_err(CitySupportError::Support)?;
+        surfaces.extend(singles.into_iter().map(|plan| plan.surface));
         Ok(Self {
             layout: layout.clone(),
             geographic: geographic.clone(),

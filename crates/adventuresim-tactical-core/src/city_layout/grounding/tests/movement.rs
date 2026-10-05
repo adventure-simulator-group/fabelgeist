@@ -419,7 +419,7 @@ fn pedestrian_control_traverses_the_same_compound_on_a_level_court() {
         .find(|route| route.ends_at(member.court_threshold_metres))
         .unwrap();
     let mut walker = Walker::on_surface(
-        &plan.mesh(),
+        &plan.mesh().unwrap(),
         route.start_metres,
         plan.court_elevation().metres(),
     );
@@ -430,7 +430,7 @@ fn pedestrian_control_traverses_the_same_compound_on_a_level_court() {
 fn goslar_1238_pedestrian_traverses_both_court_stairs_without_jumping() {
     let fixture = Fixture::load();
     let plan = fixture.plan(terraced());
-    let mesh = plan.mesh();
+    let mesh = plan.mesh().unwrap();
     for member in plan.member_support() {
         let route = fixture
             .property
@@ -501,7 +501,7 @@ fn traverse_court(fixture: &Fixture) {
     let terrain = BoundedSettlementTerrain::compile(
         &(std::slice::from_ref(&plan))
             .iter()
-            .map(CompoundSupportPlan::support_surface)
+            .map(|plan| plan.support_surface().unwrap())
             .collect::<Vec<_>>(),
         &source,
         FoundationEmbedment::from_metres(0.2).unwrap(),
@@ -630,7 +630,7 @@ fn traverse_street(fixture: &Fixture) {
     let terrain = BoundedSettlementTerrain::compile(
         &(std::slice::from_ref(&plan))
             .iter()
-            .map(CompoundSupportPlan::support_surface)
+            .map(|plan| plan.support_surface().unwrap())
             .collect::<Vec<_>>(),
         &source,
         FoundationEmbedment::from_metres(0.2).unwrap(),

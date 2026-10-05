@@ -46,7 +46,7 @@ fn nested_margin_reuse_preserves_all_candidates_and_their_shared_edge_order() {
     let source = fixture.source();
     let plan = fixture.selected_plan(&source);
     let surface = BoundedSettlementTerrain::compile(
-        &[plan.support_surface()],
+        &[plan.support_surface().unwrap()],
         &source,
         FoundationEmbedment::from_metres(0.2).unwrap(),
     )

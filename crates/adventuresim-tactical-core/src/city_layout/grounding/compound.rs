@@ -102,7 +102,7 @@ pub(super) fn compile(
             ));
         }
     }
-    let (court_profile, court_stairs) = profiles::court(
+    let court = profiles::court(
         property,
         &mut levels,
         front_route,
@@ -118,9 +118,9 @@ pub(super) fn compile(
         limits,
         passage,
         split_frontage_metres: split,
-        court_profile,
+        court_profile: court.profile,
         passage_profile,
-        court_stairs,
+        court_stairs: court.stairs,
         treatment,
         street_entry: None,
     };
@@ -197,7 +197,7 @@ fn support_boundary(
 }
 
 fn validate_bearings(plan: &CompoundSupportPlan) -> Result<(), SupportDiagnostic> {
-    let mesh = plan.mesh();
+    let mesh = plan.mesh()?;
     for (member, boundary) in [
         (plan.levels.front, SupportBoundary::FrontBearing),
         (plan.levels.rear, SupportBoundary::RearBearing),
@@ -220,8 +220,7 @@ fn validate_bearings(plan: &CompoundSupportPlan) -> Result<(), SupportDiagnostic
         let contact_x = to_local(member.contact.centre_metres).x;
         let intersections = plan
             .court_profile
-            .points
-            .iter()
+            .points()
             .filter(|p| (minimum_z..=maximum_z).contains(&p.coordinate.metres()))
             .map(|p| {
                 plan.property.plot.centre_metres
@@ -246,7 +245,20 @@ fn validate_bearings(plan: &CompoundSupportPlan) -> Result<(), SupportDiagnostic
             // architectural floor selects its intended bearing elevation;
             // averaging the edge or selecting its upper level would be wrong.
             let error = mesh
-                .elevations_at(point)
+                .elevations_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(point).ok_or_else(
+                        || {
+                            SupportDiagnostic::new(
+                                &plan.property,
+                                SupportConstraint::Bearing,
+                                boundary,
+                                point,
+                                1.0,
+                                0.0,
+                            )
+                        },
+                    )?,
+                )
                 .iter()
                 .map(|height| (height.metres() - member.elevation.metres()).abs())
                 .fold(f32::INFINITY, f32::min);

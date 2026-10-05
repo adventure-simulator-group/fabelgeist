@@ -4,6 +4,7 @@ use crate::city_layout::grounding::*;
 use bevy::math::Vec3Swizzles;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
+mod bearing;
 
 /// A generated home or service property without a separate rear-range member.
 /// Its complete court and passage reservation survives recipe compilation.
@@ -54,38 +55,8 @@ impl CitySceneLayout {
                     },
                 )?;
                 let recipe = recipes.for_program(&placement.program)?;
-                let contact = recipe.collision.ground_floor_contact_bounds().ok_or(
-                    CitySupportError::MissingBinding {
-                        property: property.id,
-                        building: property.building_id,
-                        outward: Vec2::ZERO,
-                    },
-                )?;
-                let bearing = CityPlotBounds {
-                    centre_metres: placement.centre_metres
-                        + placement.orientation.local_to_world(
-                            contact.centre().xz() - recipe.collision.bounds.centre().xz(),
-                        ),
-                    dimensions_metres: contact.plan_half_extents() * 2.0,
-                    orientation: placement.orientation,
-                };
-                let footprint = recipe.collision.ground_floor_footprint().ok_or(
-                    CitySupportError::MissingBinding {
-                        property: property.id,
-                        building: property.building_id,
-                        outward: Vec2::ZERO,
-                    },
-                )?;
-                let bearing_outline = footprint
-                    .vertices()
-                    .iter()
-                    .map(|p| {
-                        placement.centre_metres
-                            + placement
-                                .orientation
-                                .local_to_world(*p - recipe.collision.bounds.centre().xz())
-                    })
-                    .collect();
+                let bearing =
+                    bearing::SingleBearingProjection::from_recipe(property, placement, &recipe)?;
                 let thresholds: Vec<_> = recipe
                     .ground_entrances
                     .iter()
@@ -102,8 +73,8 @@ impl CitySceneLayout {
                     .collect();
                 SingleBuildingSupportRequest {
                     property: *property,
-                    bearing,
-                    bearing_outline,
+                    bearing: bearing.bounds,
+                    bearing_outline: bearing.outline,
                     thresholds: &thresholds,
                     geographic,
                     streets: &self.streets,

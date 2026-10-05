@@ -62,7 +62,7 @@ fn empty_corners_of_combined_roof_and_ground_bounds_do_not_claim_occupancy() {
     assert!(bounds(Vec2::new(0.5, 2.5), Vec2::new(5.0, 9.0), 0.0).intersects(second.reservation));
     assert!(
         first
-            .forbidden_displacements(&second, Vec2::X, DVec2::ZERO)
+            .forbidden_displacements(&second, Dir2::X, DVec2::ZERO)
             .iter()
             .all(|range| !range.intersects(FrontageInterval {
                 minimum_metres: -0.001,

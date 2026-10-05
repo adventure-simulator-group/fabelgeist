@@ -1,4 +1,4 @@
-//! Joint geometric feasibility after inexpensive authored-position candidates.
+//! Joint geometric feasibility after inexpensive authored placement candidates.
 use super::*;
 use microlp::{ComparisonOp, OptimizationDirection, Problem, Variable};
 mod geometry;
@@ -38,13 +38,18 @@ pub(super) fn solve(
         }
     };
     let active = active.as_deref().unwrap_or(domains);
-    Ok(selected
+    selected
         .into_iter()
-        .map(|selected| PropertyTranslation {
-            domain: selected.domain,
-            displacement: active[selected.domain.index()].delta_at(selected.position),
+        .map(|selected| {
+            let domain = &active[selected.domain.index()];
+            Ok(PropertyTranslation {
+                domain: selected.domain,
+                displacement: domain
+                    .delta_at(selected.frontage_displacement)
+                    .map_err(|issue| domain.packing_error(issue))?,
+            })
         })
-        .collect())
+        .collect()
 }
 
 fn solve_at_fixed_setback(
@@ -81,12 +86,12 @@ fn solve_at_fixed_setback(
                 maximum: remaining_nodes,
             }));
         }
-        let Some(narrowed) = orderings::constrain(domains, &selected) else {
+        let Some(narrowed) = orderings::constrain(domains, &selected).map_err(failure)? else {
             continue;
         };
         let mut model = Model::new(&narrowed);
         model.append_geometry().map_err(failure)?;
-        model.problem = orderings::apply(&model, &selected);
+        model.problem = orderings::apply(&model, &selected).map_err(failure)?;
         let maximum = remaining_nodes
             .saturating_sub(explored)
             .min(MAX_ROW_ORDER_SEARCH_NODES);

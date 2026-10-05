@@ -32,7 +32,7 @@ pub(super) fn failed_property(
     let origin = recipe.collision.bounds.centre().xz();
     let contact = recipe
         .collision
-        .ground_floor_contact_bounds()
+        .ground_floor_contact_bounds()?
         .ok_or("missing bearing")?;
     let bearing = CityPlotBounds {
         centre_metres: placement.centre_metres
@@ -75,16 +75,18 @@ pub(super) fn failed_property(
         .take(4)
         .map(|(distance, street)| json!({"distance_m":distance,"street":street}))
         .collect();
-    let contacts:Vec<_>=recipe.collision.cuboids.iter().flat_map(|solid| {
-        solid.ground_contact_polygon().into_iter().map(|point| {
-            let world=placement.centre_metres+placement.orientation.local_to_world(point-origin);
+    let mut contacts = Vec::new();
+    for solid in &recipe.collision.cuboids {
+        let contact = solid.ground_contact()?;
+        contacts.extend(contact.points().map(|point| {
+            let world=placement.centre_metres+placement.orientation.local_to_world(point.metres()-origin);
             let local=property.plot.orientation.world_to_local(world-property.plot.centre_metres);
             let outside=(local.abs()-property.plot.dimensions_metres*0.5).max(Vec2::ZERO).length();
             let adjacent:Vec<_>=layout.single_properties.iter().filter(|p|p.id!=property.id&&p.plot.contains(world)).map(|p|p.id)
                 .chain(layout.compounds.iter().filter(|p|p.plot.contains(world)).map(|p|p.id)).collect();
             json!({"solid_id":solid.source,"point_m":world,"outside_reservation_m":outside,"adjacent_reservations":adjacent})
-        })
-    }).collect();
+        }));
+    }
     let maximum = contacts
         .iter()
         .filter_map(|p| p["outside_reservation_m"].as_f64())

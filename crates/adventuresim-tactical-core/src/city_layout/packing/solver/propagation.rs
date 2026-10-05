@@ -41,11 +41,11 @@ impl PlacementDomain {
         other: &Self,
         ranges: &[FrontageInterval],
     ) -> Vec<FrontageInterval> {
-        let at = |position| {
+        let at = |frontage_displacement| {
             self.proposed.conflicts(
                 &other.proposed,
                 self.frontage.tangent(),
-                other.frontage.tangent().as_dvec2() * position,
+                other.frontage.tangent().as_dvec2() * frontage_displacement,
             )
         };
         let mut unavoidable: Option<Vec<Option<FrontageInterval>>> = None;
@@ -98,7 +98,14 @@ mod tests {
     #[test]
     fn cross_frontage_propagation_preserves_clear_neighbor_choices() {
         let generated = CitySite::central_german_market_town().generate(42, 900, &economy());
-        let mut frontage = *generated.packing.frontages.values().next().unwrap();
+        let mut frontage = *generated
+            .packing
+            .as_ref()
+            .unwrap()
+            .frontages
+            .values()
+            .next()
+            .unwrap();
         frontage.block.corners = [
             Vec2::ZERO,
             Vec2::new(30.0, 0.0),
@@ -106,8 +113,7 @@ mod tests {
             Vec2::new(0.0, 30.0),
         ];
         let domain = |edge: usize, half_range: f64| {
-            let mut frontage = frontage;
-            frontage.edge = edge;
+            let frontage = ParcelFrontage::on_edge(frontage.lot, frontage.block, edge).unwrap();
             let bounds = CityPlotBounds {
                 centre_metres: Vec2::splat(10.0),
                 dimensions_metres: Vec2::splat(4.0),
@@ -115,7 +121,7 @@ mod tests {
             };
             PlacementDomain {
                 owner: CityPropertyId(edge as u64 + 1),
-                base_translation_metres: Vec2::ZERO,
+                base_translation: PlanDisplacement::ZERO,
                 proposed: ParcelGeometry {
                     reservation: bounds,
                     buildings: vec![bounds],

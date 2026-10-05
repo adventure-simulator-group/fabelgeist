@@ -60,9 +60,10 @@ fn indexed_source_retains_complete_rotated_intersections_and_interior_peak() {
             assert!(source.intersecting(&support).count() < source.triangles.len() / 10);
             controls.extend(exact.into_iter().flat_map(|(points, polygon)| {
                 let triangle = GroundTriangle::new(points).unwrap();
-                polygon
-                    .into_iter()
-                    .map(move |p| (p, SupportElevation(triangle.height_at(p))))
+                polygon.into_iter().map(move |p| GeographicHeightControl {
+                    point: crate::scene_coordinates::ScenePlanPoint::from_metres(p).unwrap(),
+                    elevation: SupportElevation(triangle.height_at(p)),
+                })
             }));
         }
         let range = source.height_range_in_outline(&outline).unwrap();
@@ -70,17 +71,17 @@ fn indexed_source_retains_complete_rotated_intersections_and_interior_peak() {
             range.minimum,
             *controls
                 .iter()
-                .min_by(|a, b| a.1.metres().total_cmp(&b.1.metres()))
+                .min_by(|a, b| a.elevation.metres().total_cmp(&b.elevation.metres()))
                 .unwrap()
         );
         assert_eq!(
             range.maximum,
             *controls
                 .iter()
-                .max_by(|a, b| a.1.metres().total_cmp(&b.1.metres()))
+                .max_by(|a, b| a.elevation.metres().total_cmp(&b.elevation.metres()))
                 .unwrap()
         );
-        assert_eq!(range.maximum.1.metres(), 4.0);
+        assert_eq!(range.maximum.elevation.metres(), 4.0);
     }
 }
 

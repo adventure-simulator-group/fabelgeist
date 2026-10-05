@@ -21,7 +21,7 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
     let forward = BoundedSettlementTerrain::compile(
         &plans
             .iter()
-            .map(CompoundSupportPlan::support_surface)
+            .map(|plan| plan.support_surface().unwrap())
             .collect::<Vec<_>>(),
         &source,
         embedment,
@@ -31,7 +31,7 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
     let reverse = BoundedSettlementTerrain::compile(
         &plans
             .iter()
-            .map(CompoundSupportPlan::support_surface)
+            .map(|plan| plan.support_surface().unwrap())
             .collect::<Vec<_>>(),
         &source,
         embedment,
@@ -43,7 +43,12 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
     for plan in plans {
         for member in plan.member_support() {
             let point = member.contact.centre_metres;
-            let heights: Vec<_> = forward.elevations_at(point).iter().collect();
+            let heights: Vec<_> = forward
+                .elevations_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
+                )
+                .iter()
+                .collect();
             assert_eq!(
                 heights.len(),
                 1,
@@ -51,7 +56,11 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
                 member.building_id
             );
             assert!((heights[0].metres() - member.elevation.metres()).abs() < 0.001);
-            let hit = forward.highest_surface_at(point).unwrap();
+            let hit = forward
+                .highest_surface_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
+                )
+                .unwrap();
             let normal = *hit.normal;
             assert!((normal - Vec3::Y).length() < 0.001);
         }
@@ -71,14 +80,14 @@ fn repeated_property_and_member_authority_are_rejected_before_clipping() {
     let embedment = FoundationEmbedment::from_metres(0.2).unwrap();
     let repeated = [plans[0].clone(), plans[0].clone()];
     assert!(matches!(
-        BoundedSettlementTerrain::compile(&repeated.iter().map(CompoundSupportPlan::support_surface).collect::<Vec<_>>(), &source, embedment),
+        BoundedSettlementTerrain::compile(&repeated.iter().map(|plan| plan.support_surface().unwrap()).collect::<Vec<_>>(), &source, embedment),
         Err(SettlementSupportError::DuplicateProperty { property }) if property == plans[0].property_id()
     ));
     let mut other = plans[1].clone();
     other.levels.front.building_id = plans[0].levels.front.building_id;
     other.property.front_building_id = plans[0].property.front_building_id;
     assert!(matches!(
-        BoundedSettlementTerrain::compile(&[plans[0].clone(), other].iter().map(CompoundSupportPlan::support_surface).collect::<Vec<_>>(), &source, embedment),
+        BoundedSettlementTerrain::compile(&[plans[0].clone(), other].iter().map(|plan| plan.support_surface().unwrap()).collect::<Vec<_>>(), &source, embedment),
         Err(SettlementSupportError::DuplicateMember { building, first, second })
             if building == plans[0].levels.front.building_id
                 && first == plans[0].property_id() && second == plans[1].property_id()
@@ -99,7 +108,7 @@ fn nearby_properties_are_not_merged_and_overlap_names_both_owners() {
     let error = BoundedSettlementTerrain::compile(
         &[plan.clone(), overlapping]
             .iter()
-            .map(CompoundSupportPlan::support_surface)
+            .map(|plan| plan.support_surface().unwrap())
             .collect::<Vec<_>>(),
         &source,
         FoundationEmbedment::from_metres(0.2).unwrap(),
@@ -153,7 +162,7 @@ fn retaining_edge_queries_keep_both_bound_levels_without_averaging() {
     let terrain = BoundedSettlementTerrain::compile(
         &(std::slice::from_ref(&plan))
             .iter()
-            .map(CompoundSupportPlan::support_surface)
+            .map(|plan| plan.support_surface().unwrap())
             .collect::<Vec<_>>(),
         &source,
         FoundationEmbedment::from_metres(0.2).unwrap(),
@@ -163,7 +172,7 @@ fn retaining_edge_queries_keep_both_bound_levels_without_averaging() {
     let edge =
         plan.reservation().centre_metres + plan.reservation().orientation.local_to_world(local);
     let heights: Vec<_> = terrain
-        .elevations_at(edge)
+        .elevations_at(crate::scene_coordinates::ScenePlanPoint::from_metres(edge).unwrap())
         .iter()
         .map(SupportElevation::metres)
         .collect();
@@ -174,8 +183,15 @@ fn retaining_edge_queries_keep_both_bound_levels_without_averaging() {
         .unwrap();
     assert!((selected.elevation.metres() - heights[0]).abs() < 0.001);
     assert!(
-        (terrain.highest_surface_at(edge).unwrap().elevation.metres() - heights.last().unwrap())
-            .abs()
+        (terrain
+            .highest_surface_at(
+                crate::scene_coordinates::ScenePlanPoint::from_metres(edge).unwrap()
+            )
+            .unwrap()
+            .elevation
+            .metres()
+            - heights.last().unwrap())
+        .abs()
             < 0.001
     );
 }
@@ -205,7 +221,7 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
     let accepted = BoundedSettlementTerrain::compile(
         &(std::slice::from_ref(&plan))
             .iter()
-            .map(CompoundSupportPlan::support_surface)
+            .map(|plan| plan.support_surface().unwrap())
             .collect::<Vec<_>>(),
         &source,
         FoundationEmbedment::from_metres(0.2).unwrap(),
@@ -279,7 +295,7 @@ fn unowned_source_query_does_not_extrapolate_a_nearby_graded_floor() {
     let fixture = Fixture::load_965();
     let source = fixture.source();
     let plan = fixture.selected_plan(&source);
-    let surface = plan.support_surface();
+    let surface = plan.support_surface().unwrap();
     let terrain = BoundedSettlementTerrain::compile(
         std::slice::from_ref(&surface),
         &source,
@@ -297,7 +313,7 @@ fn unowned_source_query_does_not_extrapolate_a_nearby_graded_floor() {
     assert!(!surface.contains(point));
     let expected = source.elevation_at(point).unwrap().metres();
     let observed = terrain
-        .highest_surface_at(point)
+        .highest_surface_at(crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap())
         .unwrap()
         .elevation
         .metres();
@@ -311,7 +327,7 @@ fn unowned_source_query_does_not_extrapolate_a_nearby_graded_floor() {
 fn ownership_broad_phase_includes_aprons_beyond_disjoint_rotated_plots() {
     let fixture = Fixture::load_965();
     let source = fixture.source();
-    let first = fixture.selected_plan(&source).support_surface();
+    let first = fixture.selected_plan(&source).support_surface().unwrap();
     assert!(
         first.support_regions().len() > 1,
         "fixture must have an external approach"

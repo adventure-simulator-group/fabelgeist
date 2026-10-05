@@ -60,10 +60,13 @@ impl SceneTerrain {
     /// Physical candidates at a retaining boundary remain distinct. A bound
     /// building uses its placement elevation; route/actor queries select their
     /// support using an explicit vertical ceiling.
-    pub fn support_elevations_at(&self, point: Vec2) -> SurfaceElevations {
+    pub fn support_elevations_at(
+        &self,
+        point: crate::scene_coordinates::ScenePlanPoint,
+    ) -> SurfaceElevations {
         match &self.geometry {
             TerrainGeometry::Sampled => self
-                .height_at(point)
+                .height_at(point.metres())
                 .and_then(crate::city_layout::grounding::SupportElevation::from_metres)
                 .map(SurfaceElevations::from_elevation)
                 .unwrap_or_default(),

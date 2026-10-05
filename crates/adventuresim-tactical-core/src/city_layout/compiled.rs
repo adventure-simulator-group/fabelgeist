@@ -110,7 +110,10 @@ pub struct CitySceneLayout {
 impl GeneratedCityLayout {
     /// Compile the selected roster, then solve its measured physical packing.
     pub fn compile(mut self, seed: u64) -> Result<CompiledCityLayout, CityCompileError> {
-        let context = std::mem::take(&mut self.packing);
+        let context = std::mem::replace(
+            &mut self.packing,
+            Ok(super::packing::CityPackingContext::default()),
+        )?;
         let mut compiled = self.compile_properties(seed)?;
         compiled.finalize_packing(&context)?;
         Ok(compiled)

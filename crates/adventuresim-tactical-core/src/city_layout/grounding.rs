@@ -39,12 +39,14 @@ mod stairs;
 #[cfg(test)]
 mod tests;
 pub use foundations::{
-    BoundedPropertyTerrain, BoundedSettlementTerrain, FoundationEmbedment, GeographicHeightRange,
-    GeographicRegionMeasurement, GeographicSurface, GeographicSurfaceComparison,
-    PropertyFoundationMesh, SettlementSupportError, SurfaceDifferenceControl,
+    BoundedPropertyTerrain, BoundedSettlementTerrain, FoundationEmbedment, GeographicHeightControl,
+    GeographicHeightRange, GeographicRegionMeasurement, GeographicSurface,
+    GeographicSurfaceComparison, PropertyFoundationMesh, SettlementSupportError,
+    SurfaceDifferenceControl,
 };
 pub use mesh::PropertySupportMesh;
-use profile::{ProfileCoordinate, ProfilePoint, SupportProfile};
+use mesh::SupportFaceRole;
+use profile::{FloorBasisRole, ProfileCoordinate, ProfilePoint, SupportProfile};
 use stairs::CourtStair;
 pub use stairs::CourtStairLimits;
 
@@ -187,14 +189,18 @@ impl CompoundSupportPlan {
         self.levels.court
     }
 
-    pub fn elevations_at(&self, point: Vec2) -> SurfaceElevations {
+    pub fn elevations_at(
+        &self,
+        scene_point: crate::scene_coordinates::ScenePlanPoint,
+    ) -> SurfaceElevations {
+        let point = scene_point.metres();
         if !self.contains(point) {
             return SurfaceElevations::default();
         }
         if let Some(entry) = &self.street_entry
             && entry.support_region.contains(point)
         {
-            return entry.mesh.elevations_at(point);
+            return entry.mesh.elevations_at(scene_point);
         }
         let local = self
             .property
@@ -210,9 +216,9 @@ impl CompoundSupportPlan {
         if offset >= -self.limits.contact_tolerance_metres || !self.property.plot.contains(point) {
             let distance = (point - self.passage.start_metres)
                 .dot((self.passage.end_metres - self.passage.start_metres).normalize());
-            heights.push(self.passage_profile.height_at(
-                ProfileCoordinate::from_metres(distance).expect("finite bound passage coordinate"),
-            ));
+            if let Some(coordinate) = ProfileCoordinate::from_metres(distance) {
+                heights.push(self.passage_profile.height_at(coordinate));
+            }
         }
         SurfaceElevations(heights)
     }
@@ -264,12 +270,16 @@ impl CompoundSupportPlan {
 
     /// Planar support triangles and internal retaining faces. Perimeter grading,
     /// source-triangle clipping and actor/gate collision remain separate checks.
-    pub fn mesh(&self) -> PropertySupportMesh {
-        let mut mesh = mesh::compile(self);
+    pub fn mesh(&self) -> Result<PropertySupportMesh, SupportDiagnostic> {
+        let attach_treatment = |mut error: SupportDiagnostic| {
+            error.attempted_treatment = SupportGradingAttempt::Compound(self.treatment);
+            error
+        };
+        let mut mesh = PropertySupportMesh::from_compound_plan(self).map_err(attach_treatment)?;
         if let Some(entry) = &self.street_entry {
-            mesh.append(&entry.mesh);
+            mesh.append(&entry.mesh).map_err(attach_treatment)?;
         }
-        mesh
+        Ok(mesh)
     }
 
     /// Compile closed foundation cells against complete source triangles.
@@ -279,7 +289,7 @@ impl CompoundSupportPlan {
         geographic: &GeographicSurface,
         embedment: FoundationEmbedment,
     ) -> Result<PropertyFoundationMesh, SupportDiagnostic> {
-        foundations::compile(&self.support_surface(), geographic, embedment)
+        foundations::compile(&self.support_surface()?, geographic, embedment)
     }
 
     pub fn stair_flights(
@@ -304,21 +314,38 @@ impl CompoundSupportPlan {
 
     /// A private unit translation evaluates the affine response at unchanged
     /// triangle locations. It is never installed or accepted as a support plan.
-    fn floor_translation_basis(&self) -> Self {
+    fn floor_translation_basis(&self) -> Result<Self, SupportDiagnostic> {
         let mut basis = self.clone();
         basis.levels.front.elevation.0 += 1.0;
         basis.levels.rear.elevation.0 += 1.0;
         basis.levels.court.0 += 1.0;
-        for point in &mut basis.court_profile.points {
-            point.elevation.0 += 1.0;
-        }
-        for point in basis.passage_profile.points.iter_mut().rev().take(2) {
-            point.elevation.0 += 1.0;
-        }
+        let invalid = |error: profile::ProfileError| {
+            SupportDiagnostic::new(
+                &self.property,
+                SupportConstraint::Reservation,
+                SupportBoundary::CourtLanding,
+                self.property.plot.centre_metres
+                    + self
+                        .property
+                        .plot
+                        .orientation
+                        .local_to_world(Vec2::Y * error.coordinate().metres()),
+                1.0,
+                0.0,
+            )
+        };
+        basis.court_profile = basis
+            .court_profile
+            .translated_for_floor_basis(FloorBasisRole::Court)
+            .map_err(invalid)?;
+        basis.passage_profile = basis
+            .passage_profile
+            .translated_for_floor_basis(FloorBasisRole::PassageTerminalLanding)
+            .map_err(invalid)?;
         for stair in &mut basis.court_stairs {
             stair.shift_floor(1.0);
         }
-        basis
+        Ok(basis)
     }
 
     /// Diagnose a selected point-query elevation. Complete cut/fill acceptance
@@ -326,11 +353,12 @@ impl CompoundSupportPlan {
     /// containment roundoff at an edge must not omit its displacement.
     pub fn validate_displacement_at(
         &self,
-        point: Vec2,
+        scene_point: crate::scene_coordinates::ScenePlanPoint,
         geographic_height: SupportElevation,
     ) -> Result<(), SupportDiagnostic> {
+        let point = scene_point.metres();
         let displacement = self
-            .elevations_at(point)
+            .elevations_at(scene_point)
             .iter()
             .map(|support| (support.metres() - geographic_height.metres()).abs())
             .fold(0.0, f32::max);

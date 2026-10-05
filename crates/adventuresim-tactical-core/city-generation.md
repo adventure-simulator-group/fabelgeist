@@ -420,6 +420,41 @@ contact polygons with the fixed post, since distance to the hinge line does not
 measure the available support corridor. A contact envelope alone is not proof
 that every point inside it is a structural bearing.
 
+## Geometry and support value contracts
+
+`GroundContact` distinguishes absent contact, a point, a segment and an area at
+architectural Y=0. The collision owner supplies posed corners and geometric
+edges; bit-coded corner indexing stays inside that owner. Classification uses
+the signs of the existing finite f32 corner calculation, exact equality for
+computed contact duplicates and f64 plan orientation. There is no proximity
+epsilon. Tangency does not establish area-bearing support. Invalid solids return
+`PlanGeometryError` instead of looking like absent support.
+
+`GroundFloorFootprint` owns an exact finite CCW convex architectural polygon.
+Its envelope intentionally fills between individual fixed-solid contacts.
+`ScenePlanPolygon` owns the rounded rigid projection of that physical polygon;
+its vertices retain the production calculation and order. Rounded nearly
+collinear scene edges need not satisfy exact mathematical convexity again.
+Arbitrary scene polygons pass the shared exact convex constructor. Rigid
+projections and translations reject nonfinite or collapsed coordinates without
+re-hulling, moving vertices or merging them with an epsilon. `ScenePlanPoint`
+and `PlanDisplacement` separate scene positions from translations. Frontage
+solver scalars are signed `FrontageDisplacement` values, distinct from either
+scene-space vector or ordinal table index.
+
+Support queries accept scene points. Highest exterior queries retain their
+intentional infinite vertical ceiling; a finite plan point does not impose a
+finite ray ceiling. Source extrema bind named locations and elevations, and
+selected floors bind an exact threshold and support elevation.
+
+Support profiles own nonempty, finite, ordered sequences with immutable public
+access. Passages additionally require strictly increasing ordinates and bounded
+grade. Courts retain repeated ordinates for vertical retaining faces. Exact
+queries at such an edge retain the original left-side convention. Interpolation
+uses the existing f32 calculation where finite; overflowing spans or elevation
+differences use a finite f64 convex interpolation. Affine floor-response probes
+preserve storage invariants and remain separate from final access acceptance.
+
 ## Single properties and street approaches
 
 Single properties retain their nominal packing reservation separately from the
@@ -779,3 +814,14 @@ comparison inputs bind front and rear members explicitly. Vista levels remain
 ordinals shared by the scene document, renderer markers and capture checks;
 their numeric wire encoding and scene cache identity are unchanged. Capture
 bounds reject nonfinite rendered scene coordinates.
+
+Computed corner signs also own datum-contact rejection. A separately rounded
+AABB can exclude a touching bottom face (Goslar church building 14 is a
+regression fixture). Generation 71 retains this contact and recomputes its
+bounded support outline; generated-product identity invalidates older cached
+support. Building programmes, physical membership and placement stay intact.
+
+Mesh assembly returns property-specific support diagnostics for index-capacity,
+invalid profile-coordinate and degenerate doorway-triangle failures. Scene
+producers propagate these rejections. Mesh construction does not publish an
+accepted surface after a rejected assembly.

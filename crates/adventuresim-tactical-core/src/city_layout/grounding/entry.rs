@@ -53,10 +53,13 @@ impl CompoundSupportPlan {
             [a, b]
         };
         let end = edge(landing_fraction, [floor; 2]);
-        let mut mesh = mesh::empty(&self);
-        mesh.quad([points[0], points[1], end[1], end[0]], false);
+        let mut mesh = PropertySupportMesh::empty_for_compound(&self);
+        mesh.quad(
+            [points[0], points[1], end[1], end[0]],
+            SupportFaceRole::Bearing,
+        )?;
         if mesh.maximum_grade() > self.limits.maximum_grade {
-            mesh = mesh::empty(&self);
+            mesh = PropertySupportMesh::empty_for_compound(&self);
             let rise = [points[0].y, points[1].y]
                 .map(|h| (h - floor).abs())
                 .into_iter()
@@ -79,11 +82,14 @@ impl CompoundSupportPlan {
                 let a = edge(landing_fraction * t, heights(t));
                 let b = edge(landing_fraction * next, heights(t));
                 let c = edge(landing_fraction * next, heights(next));
-                mesh.quad([a[0], a[1], b[1], b[0]], false);
-                mesh.quad([b[0], b[1], c[1], c[0]], true);
+                mesh.quad([a[0], a[1], b[1], b[0]], SupportFaceRole::Bearing)?;
+                mesh.quad([b[0], b[1], c[1], c[0]], SupportFaceRole::Retaining)?;
             }
         }
-        mesh.quad([end[0], end[1], points[2], points[3]], false);
+        mesh.quad(
+            [end[0], end[1], points[2], points[3]],
+            SupportFaceRole::Bearing,
+        )?;
         if mesh.maximum_grade() > self.limits.maximum_grade {
             return Err(self.street_rejection(
                 SupportConstraint::AccessGrade,

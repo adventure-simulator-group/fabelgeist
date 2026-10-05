@@ -12,7 +12,7 @@ pub(super) use geometry::GroundTriangle;
 pub use replacement::BoundedPropertyTerrain;
 pub use settlement::{BoundedSettlementTerrain, SettlementSupportError};
 pub use source::{
-    GeographicHeightRange, GeographicRegionMeasurement, GeographicSurface,
+    GeographicHeightControl, GeographicHeightRange, GeographicRegionMeasurement, GeographicSurface,
     GeographicSurfaceComparison, SurfaceDifferenceControl,
 };
 

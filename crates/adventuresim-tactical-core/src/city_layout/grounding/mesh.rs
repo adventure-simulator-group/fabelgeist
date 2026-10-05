@@ -1,5 +1,12 @@
 use super::*;
 use bevy::math::Vec3Swizzles;
+mod assembly;
+
+#[derive(Clone, Copy)]
+pub(super) enum SupportFaceRole {
+    Bearing,
+    Retaining,
+}
 mod union;
 
 /// Indexed metre-space surfaces. Each retaining face has distinct vertices on
@@ -28,33 +35,42 @@ impl PropertySupportMesh {
         )
     }
 
-    pub(super) fn quad(&mut self, points: [Vec3; 4], retaining: bool) {
-        let start = u32::try_from(self.positions.len())
-            .expect("bounded property profile fits in u32 vertex indices");
+    pub(super) fn quad(
+        &mut self,
+        points: [Vec3; 4],
+        role: SupportFaceRole,
+    ) -> Result<(), SupportDiagnostic> {
+        let start = self.vertex_start(points.len(), points[0].xz())?;
         self.positions.extend(points);
         let triangles = [[start, start + 2, start + 1], [start, start + 3, start + 2]];
-        if retaining {
+        if matches!(role, SupportFaceRole::Retaining) {
             self.retaining_triangles.extend(triangles);
         } else {
             self.support_triangles.extend(triangles);
         }
+        Ok(())
     }
 
-    pub(super) fn convex_floor(&mut self, outline: &[Vec2], elevation: SupportElevation) {
-        let start = u32::try_from(self.positions.len()).expect("bounded floor fits u32 indices");
-        self.positions.extend(
-            outline
-                .iter()
-                .map(|p| Vec3::new(p.x, elevation.metres(), p.y)),
-        );
+    pub(super) fn convex_floor(
+        &mut self,
+        outline: &crate::scene_coordinates::ScenePlanPolygon,
+        elevation: SupportElevation,
+    ) -> Result<(), SupportDiagnostic> {
+        let outline = outline.vertices();
+        let start = self.vertex_start(outline.len(), outline[0].metres())?;
+        self.positions.extend(outline.iter().map(|p| {
+            let point = p.metres();
+            Vec3::new(point.x, elevation.metres(), point.y)
+        }));
         self.support_triangles.extend(
             (1..outline.len() - 1).map(|i| [start, start + i as u32 + 1, start + i as u32]),
         );
+        Ok(())
     }
 
-    pub(super) fn append(&mut self, other: &Self) {
-        let offset =
-            u32::try_from(self.positions.len()).expect("bounded property fits u32 indices");
+    pub(super) fn append(&mut self, other: &Self) -> Result<(), SupportDiagnostic> {
+        let point = other.positions.first().map_or(Vec2::ZERO, |p| p.xz());
+        let offset = self.vertex_start(other.positions.len(), point)?;
         self.positions.extend_from_slice(&other.positions);
         self.support_triangles.extend(
             other
@@ -68,9 +84,14 @@ impl PropertySupportMesh {
                 .iter()
                 .map(|t| t.map(|i| i + offset)),
         );
+        Ok(())
     }
 
-    pub fn elevations_at(&self, point: Vec2) -> SurfaceElevations {
+    pub fn elevations_at(
+        &self,
+        scene_point: crate::scene_coordinates::ScenePlanPoint,
+    ) -> SurfaceElevations {
+        let point = scene_point.metres();
         let mut heights = self
             .support_triangles
             .iter()
@@ -110,22 +131,20 @@ impl PropertySupportMesh {
     }
 }
 
-pub(super) fn empty(plan: &CompoundSupportPlan) -> PropertySupportMesh {
-    PropertySupportMesh {
-        property_id: plan.property.id,
-        member_building_ids: vec![
-            plan.property.front_building_id,
-            plan.property.rear_building_id,
-        ],
-        positions: Vec::new(),
-        support_triangles: Vec::new(),
-        retaining_triangles: Vec::new(),
-        contact_tolerance_metres: plan.limits.contact_tolerance_metres,
+impl PropertySupportMesh {
+    pub(super) fn empty_for_compound(plan: &CompoundSupportPlan) -> Self {
+        PropertySupportMesh {
+            property_id: plan.property.id,
+            member_building_ids: vec![
+                plan.property.front_building_id,
+                plan.property.rear_building_id,
+            ],
+            positions: Vec::new(),
+            support_triangles: Vec::new(),
+            retaining_triangles: Vec::new(),
+            contact_tolerance_metres: plan.limits.contact_tolerance_metres,
+        }
     }
-}
-
-pub(super) fn compile(plan: &CompoundSupportPlan) -> PropertySupportMesh {
-    grid::compile(plan)
 }
 
 mod grid;

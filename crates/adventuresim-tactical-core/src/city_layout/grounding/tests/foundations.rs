@@ -12,7 +12,7 @@ pub(super) fn geographic_fixture() -> GeographicSurface {
 }
 
 pub(super) fn flat_source(plan: &CompoundSupportPlan, height: f32) -> Vec<[Vec3; 3]> {
-    let mesh = plan.mesh();
+    let mesh = plan.mesh().unwrap();
     let minimum = mesh
         .positions
         .iter()
@@ -91,10 +91,11 @@ fn a_coplanar_source_has_one_foundation_volume_instead_of_duplicate_zero_line_ce
         .unwrap();
     let area: f64 = plan
         .mesh()
+        .unwrap()
         .support_triangles
         .iter()
         .map(|indices| {
-            let mesh = plan.mesh();
+            let mesh = plan.mesh().unwrap();
             let [a, b, c] = indices.map(|i| mesh.positions[i as usize].xz().as_dvec2());
             (b - a).perp_dot(c - a).abs() * 0.5
         })
@@ -193,7 +194,12 @@ fn bounded_replacement_removes_interior_ground_without_changing_surrounding_reli
                     * member.contact.dimensions_metres;
                 let point =
                     member.contact.centre_metres + member.contact.orientation.local_to_world(local);
-                let heights: Vec<_> = terrain.elevations_at(point).iter().collect();
+                let heights: Vec<_> = terrain
+                    .elevations_at(
+                        crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
+                    )
+                    .iter()
+                    .collect();
                 assert!(!heights.is_empty());
                 assert!(
                     heights
@@ -213,7 +219,12 @@ fn bounded_replacement_removes_interior_ground_without_changing_surrounding_reli
                 if plan.contains(point.xz()) {
                     continue;
                 }
-                let heights: Vec<_> = terrain.elevations_at(point.xz()).iter().collect();
+                let heights: Vec<_> = terrain
+                    .elevations_at(
+                        crate::scene_coordinates::ScenePlanPoint::from_metres(point.xz()).unwrap(),
+                    )
+                    .iter()
+                    .collect();
                 assert!(
                     !heights.is_empty(),
                     "outside terrain was removed at {point:?}"

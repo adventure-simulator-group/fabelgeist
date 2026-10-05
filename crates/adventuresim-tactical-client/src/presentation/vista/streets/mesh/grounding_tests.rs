@@ -106,7 +106,12 @@ fn prepared_owned_ground_keeps_full_physical_support_across_graded_boundaries() 
             let centre = (points[0].as_dvec3() + points[1].as_dvec3() + points[2].as_dvec3()) / 3.0;
             for mut point in points.into_iter().chain([centre.as_vec3()]) {
                 point.y -= lift;
-                let heights = terrain.support_elevations_at(point.xz());
+                let heights = terrain.support_elevations_at(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                        point.xz(),
+                    )
+                    .unwrap(),
+                );
                 assert!(
                     heights
                         .iter()

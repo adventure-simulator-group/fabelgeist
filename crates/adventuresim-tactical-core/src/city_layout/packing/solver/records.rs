@@ -12,32 +12,10 @@ impl PackingDomainIndex {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub(super) struct FrontagePosition(f64);
-impl FrontagePosition {
-    pub(super) fn from_metres(metres: f64) -> Option<Self> {
-        metres.is_finite().then_some(Self(metres))
-    }
-    pub(super) fn metres(self) -> f64 {
-        self.0
-    }
-}
-
-#[derive(Clone, Copy, Debug)]
-pub(super) struct PlanDisplacement(Vec2);
-impl PlanDisplacement {
-    pub(super) fn from_metres(metres: Vec2) -> Option<Self> {
-        metres.is_finite().then_some(Self(metres))
-    }
-    pub(super) fn metres(self) -> Vec2 {
-        self.0
-    }
-}
-
 #[derive(Clone, Copy)]
 pub(super) struct FrontageSelection {
     pub(super) domain: PackingDomainIndex,
-    pub(super) position: FrontagePosition,
+    pub(super) frontage_displacement: FrontageDisplacement,
 }
 #[derive(Clone, Copy)]
 pub(super) struct PropertyTranslation {
@@ -61,32 +39,32 @@ impl ExploredSearchNodes {
     }
 }
 
-pub(super) struct FrontageCoordinates(Vec<FrontagePosition>);
-impl FrontageCoordinates {
+pub(super) struct FrontageDisplacements(Vec<FrontageDisplacement>);
+impl FrontageDisplacements {
     pub(super) fn from_solver(coordinates: Vec<f64>) -> Result<Self, CoupledPackingIssue> {
         coordinates
             .into_iter()
-            .map(FrontagePosition::from_metres)
+            .map(FrontageDisplacement::from_metres)
             .collect::<Option<Vec<_>>>()
             .map(Self)
             .ok_or(CoupledPackingIssue::NumericalFailure)
     }
-    pub(super) fn iter(&self) -> impl Iterator<Item = FrontagePosition> + '_ {
+    pub(super) fn iter(&self) -> impl Iterator<Item = FrontageDisplacement> + '_ {
         self.0.iter().copied()
     }
     pub(super) fn into_selections(self) -> Vec<FrontageSelection> {
         self.0
             .into_iter()
             .enumerate()
-            .map(|(index, position)| FrontageSelection {
+            .map(|(index, frontage_displacement)| FrontageSelection {
                 domain: PackingDomainIndex::new(index),
-                position,
+                frontage_displacement,
             })
             .collect()
     }
 }
 pub(super) struct CountedSearchOutcome {
-    pub(super) outcome: Result<FrontageCoordinates, CoupledPackingIssue>,
+    pub(super) outcome: Result<FrontageDisplacements, CoupledPackingIssue>,
     pub(super) explored_nodes: ExploredSearchNodes,
 }
 
@@ -96,15 +74,15 @@ mod tests {
     #[test]
     fn solver_coordinates_reject_nonfinite_values_without_losing_signed_positions() {
         assert!(matches!(
-            FrontageCoordinates::from_solver(vec![f64::NAN]),
+            FrontageDisplacements::from_solver(vec![f64::NAN]),
             Err(CoupledPackingIssue::NumericalFailure)
         ));
-        assert!(FrontageCoordinates::from_solver(vec![f64::INFINITY]).is_err());
+        assert!(FrontageDisplacements::from_solver(vec![f64::INFINITY]).is_err());
         assert!(PlanDisplacement::from_metres(Vec2::splat(f32::NAN)).is_none());
-        let selected = FrontageCoordinates::from_solver(vec![-2.0, 3.0])
+        let selected = FrontageDisplacements::from_solver(vec![-2.0, 3.0])
             .unwrap()
             .into_selections();
         assert_eq!(selected[1].domain.index(), 1);
-        assert_eq!(selected[0].position.metres(), -2.0);
+        assert_eq!(selected[0].frontage_displacement.metres(), -2.0);
     }
 }

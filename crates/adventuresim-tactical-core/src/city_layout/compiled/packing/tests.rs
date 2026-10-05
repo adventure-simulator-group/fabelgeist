@@ -8,7 +8,11 @@ fn measured_packing_retains_selected_roster_and_capacity() {
             population,
             &super::super::super::tests::economy(),
         );
-        let context = std::mem::take(&mut generated.packing);
+        let context = std::mem::replace(
+            &mut generated.packing,
+            Ok(super::super::super::packing::CityPackingContext::default()),
+        )
+        .unwrap();
         let mut compiled = generated.compile_properties(seed).unwrap();
         let before = compiled.clone();
         compiled.finalize_packing(&context).unwrap();
@@ -168,7 +172,11 @@ fn residence_authority_town_keeps_complete_buildable_properties() {
         6500,
         &SettlementEconomyProfile::stage_placeholder(),
     );
-    let context = std::mem::take(&mut generated.packing);
+    let context = std::mem::replace(
+        &mut generated.packing,
+        Ok(super::super::super::packing::CityPackingContext::default()),
+    )
+    .unwrap();
     let mut layout = generated.compile_properties(seed).unwrap();
     let before = layout.clone();
     let property = before
@@ -223,13 +231,14 @@ fn single_bearing_points(layout: &CompiledCityLayout, property: &CitySinglePrope
         .collision
         .ground_floor_footprint()
         .unwrap()
+        .unwrap()
         .vertices()
         .iter()
         .map(|point| {
             building.centre_metres
                 + building
                     .orientation
-                    .local_to_world(*point - Vec2::new(origin.x, origin.z))
+                    .local_to_world(point.metres() - Vec2::new(origin.x, origin.z))
         })
         .collect()
 }
@@ -287,7 +296,7 @@ fn large_population_frontage_retains_complete_measured_properties() {
     assert_eq!(city.unhoused_population, 0);
     assert!(city.unplaced_services.is_empty());
     let selected = city.lots.len();
-    let context = city.packing.clone();
+    let context = city.packing.clone().unwrap();
     let mut compiled = city
         .compile_properties(seed)
         .expect("fixed roster compiles");

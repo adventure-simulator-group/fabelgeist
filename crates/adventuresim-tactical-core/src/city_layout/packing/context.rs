@@ -11,17 +11,25 @@ pub(super) struct ParcelFrontage {
     pub lot: CityBuildingLot,
     pub block: CityBlock,
     pub edge: usize,
+    tangent: Dir2,
 }
 
 impl CityPackingContext {
-    pub fn from_selected(selected: &[CandidateLot], blocks: &[CityBlock]) -> Self {
+    pub fn from_selected(
+        selected: &[CandidateLot],
+        blocks: &[CityBlock],
+    ) -> Result<Self, CityCompileError> {
         let blocks: BTreeMap<_, _> = blocks.iter().map(|b| (b.id, *b)).collect();
-        Self {
+        Ok(Self {
             frontages: selected
                 .iter()
                 .map(|candidate| {
                     let lot = candidate.lot;
-                    let block = blocks[&candidate.block_key];
+                    let failure = || CityCompileError::Packing {
+                        property: CityPropertyId(lot.id),
+                        issue: CityPackingIssue::MissingFrontage,
+                    };
+                    let block = *blocks.get(&candidate.block_key).ok_or_else(failure)?;
                     let edge = (0..4)
                         .max_by(|&a, &b| {
                             let alignment = |i: usize| {
@@ -31,11 +39,14 @@ impl CityPackingContext {
                             };
                             alignment(a).total_cmp(&alignment(b)).then(b.cmp(&a))
                         })
-                        .expect("a block has four edges");
-                    (CityPropertyId(lot.id), ParcelFrontage { lot, block, edge })
+                        .ok_or_else(failure)?;
+                    Ok((
+                        CityPropertyId(lot.id),
+                        ParcelFrontage::on_edge(lot, block, edge)?,
+                    ))
                 })
-                .collect(),
-        }
+                .collect::<Result<_, CityCompileError>>()?,
+        })
     }
 }
 
@@ -48,6 +59,38 @@ pub(super) enum FrontagePriority {
 }
 
 impl ParcelFrontage {
+    pub(super) fn on_edge(
+        lot: CityBuildingLot,
+        block: CityBlock,
+        edge: usize,
+    ) -> Result<Self, CityCompileError> {
+        let failure = || CityCompileError::Packing {
+            property: CityPropertyId(lot.id),
+            issue: CityPackingIssue::MissingFrontage,
+        };
+        if block.corners.iter().any(|point| !point.is_finite())
+            || (0..block.corners.len()).any(|i| {
+                (block.corners[(i + 1) % block.corners.len()] - block.corners[i])
+                    .try_normalize()
+                    .is_none()
+            })
+        {
+            return Err(failure());
+        }
+        let start = *block.corners.get(edge).ok_or_else(failure)?;
+        let end = block.corners[(edge + 1) % block.corners.len()];
+        let tangent = (end - start)
+            .try_normalize()
+            .map(Dir2::new_unchecked)
+            .ok_or_else(failure)?;
+        Ok(Self {
+            lot,
+            block,
+            edge,
+            tangent,
+        })
+    }
+
     pub fn priority(self) -> FrontagePriority {
         use adventuresim_world_schema::settlement_buildings::ParishBuildingRole;
         match self.lot.service {
@@ -60,8 +103,8 @@ impl ParcelFrontage {
         }
     }
 
-    pub fn tangent(self) -> Vec2 {
-        (self.block.corners[(self.edge + 1) % 4] - self.block.corners[self.edge]).normalize()
+    pub fn tangent(self) -> Dir2 {
+        self.tangent
     }
 
     pub fn geometry(
@@ -79,12 +122,32 @@ impl ParcelFrontage {
             })?;
         let mut buildings = vec![front.body];
         if let Some(compound) = layout.compounds.iter().find(|p| p.id == id) {
-            buildings.push(envelopes[&compound.rear_building_id].body);
+            buildings.push(
+                envelopes
+                    .get(&compound.rear_building_id)
+                    .ok_or(CityCompileError::Packing {
+                        property: id,
+                        issue: CityPackingIssue::MissingBearing {
+                            building: compound.rear_building_id,
+                        },
+                    })?
+                    .body,
+            );
         }
         // Compound courts and enclosures own their complete support surface.
         // A single property's untouched rear garden is not a level foundation.
         let bearings = if layout.compounds.iter().any(|property| property.id == id) {
-            vec![reservation.corners().to_vec()]
+            vec![
+                reservation
+                    .plan_polygon()
+                    .map_err(|issue| CityCompileError::Packing {
+                        property: id,
+                        issue: CityPackingIssue::InvalidBearing {
+                            building: self.lot.id,
+                            issue,
+                        },
+                    })?,
+            ]
         } else {
             vec![front.bearing_outline.clone()]
         };
@@ -131,29 +194,33 @@ impl ParcelFrontage {
 pub(super) struct ParcelGeometry {
     pub reservation: CityPlotBounds,
     pub buildings: Vec<CityPlotBounds>,
-    pub bearings: Vec<Vec<Vec2>>,
+    pub bearings: Vec<ScenePlanPolygon>,
     pub garden: Option<gardens::CityGarden>,
 }
 impl ParcelGeometry {
-    pub fn translated(&self, delta: Vec2, tangent: Vec2) -> Self {
+    pub fn translated(
+        &self,
+        delta: PlanDisplacement,
+        tangent: Dir2,
+    ) -> Result<Self, adventuresim_building_generator::plan_geometry::PlanGeometryError> {
+        let translation = delta;
+        let delta = translation.metres();
         let mut geometry = self.clone();
         geometry.reservation.centre_metres += delta;
         for body in &mut geometry.buildings {
             body.centre_metres += delta;
         }
         for bearing in &mut geometry.bearings {
-            for point in bearing {
-                *point += delta;
-            }
+            *bearing = bearing.translated(translation)?;
         }
         if let Some(garden) = &mut geometry.garden {
-            garden.translate(delta, tangent);
+            garden.translate(delta, *tangent);
         }
-        geometry
+        Ok(geometry)
     }
 
     pub fn clears(&self, other: &Self) -> bool {
-        self.forbidden_displacements(other, Vec2::X, DVec2::ZERO)
+        self.forbidden_displacements(other, Dir2::X, DVec2::ZERO)
             .iter()
             .all(|range| range.minimum_metres >= 0.0 || range.maximum_metres <= 0.0)
             && self.garden_clears(other)
@@ -172,7 +239,7 @@ impl ParcelGeometry {
     pub fn forbidden_displacements(
         &self,
         other: &Self,
-        tangent: Vec2,
+        tangent: Dir2,
         other_translation_metres: DVec2,
     ) -> Vec<FrontageInterval> {
         self.conflicts(other, tangent, other_translation_metres)
@@ -188,7 +255,7 @@ impl ParcelGeometry {
     pub fn conflicts(
         &self,
         other: &Self,
-        tangent: Vec2,
+        tangent: Dir2,
         other_translation_metres: DVec2,
     ) -> Vec<Option<FrontageInterval>> {
         std::iter::once((
@@ -206,7 +273,7 @@ impl ParcelGeometry {
             FrontageInterval::overlap_displacements(
                 a,
                 b,
-                tangent,
+                *tangent,
                 clearance,
                 other_translation_metres,
             )
@@ -214,9 +281,9 @@ impl ParcelGeometry {
         .chain(self.bearings.iter().flat_map(|first| {
             other.bearings.iter().map(move |second| {
                 FrontageInterval::overlap_polygons(
-                    first,
-                    second,
-                    tangent,
+                    first.vertices(),
+                    second.vertices(),
+                    *tangent,
                     intervals::PackingClearance::PropertyBoundary,
                     other_translation_metres,
                 )

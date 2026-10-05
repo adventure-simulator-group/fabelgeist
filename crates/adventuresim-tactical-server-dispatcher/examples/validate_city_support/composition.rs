@@ -42,7 +42,12 @@ impl Composition {
         for triangle in geographic.triangles() {
             for point in triangle {
                 let query = Vec2::new(point.x, point.z);
-                let Some(hit) = surface.highest_surface_at(query) else {
+                let Some(hit) = surface.highest_surface_at(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                        query,
+                    )
+                    .ok_or("nonfinite support query")?,
+                ) else {
                     return Ok(Self {
                         accepted: false,
                         report: json!({

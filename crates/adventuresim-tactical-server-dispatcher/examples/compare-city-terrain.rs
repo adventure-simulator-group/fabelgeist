@@ -149,7 +149,7 @@ fn inspect_building(
     let plan = generate(&placement.program)?;
     let collision = adventuresim_building_generator::compile_building_collision(&plan);
     let footprint = collision
-        .ground_floor_footprint()
+        .ground_floor_footprint()?
         .ok_or("missing actual floor contact")?;
     let project = |p: Vec2| {
         placement.centre_metres
@@ -157,7 +157,21 @@ fn inspect_building(
                 .orientation
                 .local_to_world(p - collision.bounds.centre().xz())
     };
-    let outline: Vec<_> = footprint.vertices().iter().copied().map(project).collect();
+    let projection =
+        adventuresim_tactical_core::scene_coordinates::ArchitecturalPlanProjection::from_placement(
+            placement,
+            collision.bounds,
+        )?;
+    let scene_outline =
+        adventuresim_tactical_core::scene_coordinates::ScenePlanPolygon::from_architectural(
+            footprint.polygon(),
+            projection,
+        )?;
+    let outline: Vec<_> = scene_outline
+        .vertices()
+        .iter()
+        .map(|point| point.metres())
+        .collect();
     let thresholds: Vec<_> = compile_ground_entrances(&plan).into_iter().map(|entry| {
             let position = project(entry.threshold_metres);
             json!({"entrance": entry.id, "support":entry.support, "position_metres":position,
@@ -168,8 +182,8 @@ fn inspect_building(
         .iter()
         .map(|source| {
             let range = source.surface.height_range_in_outline(&outline);
-            json!({"source":source.role.output_name(),"minimum":range.map(|r|(r.minimum.0,r.minimum.1.metres())),
-                "maximum":range.map(|r|(r.maximum.0,r.maximum.1.metres()))})
+            json!({"source":source.role.output_name(),"minimum":range.map(|r|(r.minimum.point.metres(),r.minimum.elevation.metres())),
+                "maximum":range.map(|r|(r.maximum.point.metres(),r.maximum.elevation.metres()))})
         })
         .collect();
     let comparisons: Vec<_> = [
@@ -198,12 +212,17 @@ fn inspect_building(
             "complete_triangle_overlay":first.compare_in_outline(second, &outline)})
     })
     .collect();
+    let floor = SupportElevation::from_metres(placement.base_elevation_metres)
+        .ok_or(adventuresim_building_generator::plan_geometry::PlanGeometryError::NonFinite)?;
+    let corner_support = contacts
+        .map(|probe| probe.measure(&scene_outline, floor))
+        .transpose()?;
     Ok(json!({"building_id":placement.id,
             "property_id":input.properties.as_ref().and_then(|catalog|catalog.homes.iter()
                 .find(|home|home.building_id==placement.id).map(|home|&home.id)),
             "placement":placement,"actual_bearing_outline_metres":outline,
             "ranges":ranges,"comparisons":comparisons,"thresholds":thresholds,
-            "corner_support":contacts.map(|probe| probe.measure(&outline, placement.base_elevation_metres))}))
+            "corner_support":corner_support}))
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

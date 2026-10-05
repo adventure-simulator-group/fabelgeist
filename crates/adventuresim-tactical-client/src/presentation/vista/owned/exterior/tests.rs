@@ -109,7 +109,14 @@ fn coincident_internal_sides_are_removed_without_changing_bearings_or_closed_cel
                 assert!(visible.contains(&face.map(|i| f.positions[i as usize])));
             }
             let point = cells[0].iter().copied().sum::<Vec3>() / 3.0;
-            let hit = surface.highest_surface_at(point.xz()).unwrap();
+            let hit = surface
+                .highest_surface_at(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                        point.xz(),
+                    )
+                    .unwrap(),
+                )
+                .unwrap();
             let height = hit.elevation.metres();
             assert!((height - point.y).abs() < 0.001);
             assert!(

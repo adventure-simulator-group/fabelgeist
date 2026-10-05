@@ -288,7 +288,8 @@ impl SceneTerrain {
         stride: usize,
     ) -> Option<crate::city_layout::grounding::SurfaceHit> {
         if let TerrainGeometry::Owned(surface) = &self.geometry {
-            return surface.highest_surface_at(pos);
+            return surface
+                .highest_surface_at(crate::scene_coordinates::ScenePlanPoint::from_metres(pos)?);
         }
         if self.scale <= 0.0 || self.grid_width() < 2 || self.grid_depth() < 2 {
             return None;

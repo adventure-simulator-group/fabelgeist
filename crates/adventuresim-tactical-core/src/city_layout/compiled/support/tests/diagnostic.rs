@@ -53,9 +53,13 @@ pub(super) fn save(
         let mut building_points = Vec::new();
         for solid in &recipe.collision.cuboids {
             let world: Vec<_> = solid
-                .ground_contact_polygon()
-                .into_iter()
-                .map(|p| building.centre_metres + building.orientation.local_to_world(p - origin))
+                .ground_contact()
+                .unwrap()
+                .points()
+                .map(|p| {
+                    building.centre_metres
+                        + building.orientation.local_to_world(p.metres() - origin)
+                })
                 .collect();
             building_points.extend(world.iter().copied());
             if world.len() >= 3 {
@@ -66,7 +70,12 @@ pub(super) fn save(
                     .find(|p| p.member_building_ids().contains(&building.id))
                     .unwrap()
                     .mesh()
-                    .elevations_at(building.centre_metres)
+                    .elevations_at(
+                        crate::scene_coordinates::ScenePlanPoint::from_metres(
+                            building.centre_metres,
+                        )
+                        .unwrap(),
+                    )
                     .iter()
                     .max_by(|a, b| a.metres().total_cmp(&b.metres()))
                     .unwrap()
@@ -205,7 +214,7 @@ pub(super) fn save_property(
     let origin = recipe.collision.bounds.centre().xz();
     let value = serde_json::json!({"population":population,"seed":seed,"failure":diagnostic,
         "building":building,"property":layout.single_properties.iter().find(|p|p.id==diagnostic.property_id),
-        "footprint":recipe.collision.ground_floor_footprint().unwrap().vertices().iter().map(|p|building.centre_metres+building.orientation.local_to_world(*p-origin)).collect::<Vec<_>>(),
+        "footprint":recipe.collision.ground_floor_footprint().unwrap().unwrap().vertices().iter().map(|p|building.centre_metres+building.orientation.local_to_world(p.metres()-origin)).collect::<Vec<_>>(),
         "entrances":adventuresim_building_generator::compile_ground_entrances(&recipe.plan).iter().map(|e|serde_json::json!({"id":e.id,"support":e.support,"threshold":building.centre_metres+building.orientation.local_to_world(e.threshold_metres-origin),"outward":building.orientation.local_to_world(e.outward)})).collect::<Vec<_>>(),
         "streets":layout.streets.iter().filter(|s|s.contains(diagnostic.location_metres)).collect::<Vec<_>>(),
         "source_triangles":source.triangles().collect::<Vec<_>>()});

@@ -3,6 +3,10 @@ use super::*;
 use bevy::math::DVec2;
 use std::collections::BTreeMap;
 mod context;
+mod coordinates;
+use crate::scene_coordinates::{PlanDisplacement, ScenePlanPoint, ScenePlanPolygon};
+use bevy::math::Dir2;
+use coordinates::FrontageDisplacement;
 mod coupled_issue;
 pub use coupled_issue::CoupledPackingIssue;
 mod intervals;
@@ -22,6 +26,13 @@ pub enum CityPackingIssue {
         issue: CoupledPackingIssue,
     },
     MissingFrontage,
+    MissingMember {
+        building: u64,
+    },
+    InvalidBearing {
+        building: u64,
+        issue: adventuresim_building_generator::plan_geometry::PlanGeometryError,
+    },
     MissingBearing {
         building: u64,
     },
@@ -84,5 +95,5 @@ impl CompiledCityLayout {
 pub(in crate::city_layout) struct MeasuredBuildingEnvelope {
     pub building: u64,
     pub body: CityPlotBounds,
-    pub bearing_outline: Vec<Vec2>,
+    pub bearing_outline: ScenePlanPolygon,
 }

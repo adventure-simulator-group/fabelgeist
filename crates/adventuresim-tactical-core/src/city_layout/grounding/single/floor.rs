@@ -1,12 +1,18 @@
 //! Intersect complete bearing and exact doorway constraints before selecting a floor.
 use super::*;
+use crate::scene_coordinates::ScenePlanPoint;
+
+pub(super) struct SelectedFloor {
+    pub threshold: ScenePlanPoint,
+    pub elevation: SupportElevation,
+}
 
 pub(super) fn select(
     request: &SingleBuildingSupportRequest<'_>,
     doors: &[&DoorwaySupportBinding],
     aprons: &[apron::PreparedApron],
     owner: &PropertySupportSurface,
-) -> Result<(Vec2, SupportElevation), SupportDiagnostic> {
+) -> Result<SelectedFloor, SupportDiagnostic> {
     if doors.is_empty() {
         return Err(owner.rejection(
             SupportConstraint::ThresholdBinding,
@@ -18,7 +24,14 @@ pub(super) fn select(
     }
     let controls = request
         .geographic
-        .height_range_in_outline(&request.bearing_outline)
+        .height_range_in_outline(
+            &request
+                .bearing_outline
+                .vertices()
+                .iter()
+                .map(|point| point.metres())
+                .collect::<Vec<_>>(),
+        )
         .ok_or_else(|| {
             owner.rejection(
                 SupportConstraint::SourceSample,
@@ -29,14 +42,14 @@ pub(super) fn select(
             )
         })?;
     let permitted = request.policy.limits.maximum_displacement_metres;
-    let mut lower = controls.maximum.1.metres() - permitted;
-    let mut upper = controls.minimum.1.metres() + permitted;
+    let mut lower = controls.maximum.elevation.metres() - permitted;
+    let mut upper = controls.minimum.elevation.metres() + permitted;
     if lower > upper {
         return Err(owner.rejection(
             SupportConstraint::CutFill,
             SupportBoundary::GeographicSurface,
-            controls.maximum.0,
-            (controls.maximum.1.metres() - controls.minimum.1.metres()) * 0.5,
+            controls.maximum.point.metres(),
+            (controls.maximum.elevation.metres() - controls.minimum.elevation.metres()) * 0.5,
             permitted,
         ));
     }
@@ -84,5 +97,34 @@ pub(super) fn select(
     } else {
         (lower + upper) * 0.5
     };
-    Ok((doors[0].threshold_metres, SupportElevation(elevation)))
+    SelectedFloor::bind(*doors[0], elevation, owner)
+}
+
+impl SelectedFloor {
+    fn bind(
+        door: DoorwaySupportBinding,
+        elevation_metres: f32,
+        owner: &PropertySupportSurface,
+    ) -> Result<Self, SupportDiagnostic> {
+        Ok(SelectedFloor {
+            threshold: ScenePlanPoint::from_metres(door.threshold_metres).ok_or_else(|| {
+                owner.rejection(
+                    SupportConstraint::ThresholdBinding,
+                    SupportBoundary::FrontBearing,
+                    door.threshold_metres,
+                    1.0,
+                    0.0,
+                )
+            })?,
+            elevation: SupportElevation::from_metres(elevation_metres).ok_or_else(|| {
+                owner.rejection(
+                    SupportConstraint::CutFill,
+                    SupportBoundary::FrontBearing,
+                    door.threshold_metres,
+                    1.0,
+                    0.0,
+                )
+            })?,
+        })
+    }
 }

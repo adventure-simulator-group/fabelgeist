@@ -89,7 +89,11 @@ impl BoundedSettlementTerrain {
 
     /// All physical support candidates at an edge are retained. Architectural
     /// consumers select their exact bound floor rather than averaging levels.
-    pub fn elevations_at(&self, point: Vec2) -> SurfaceElevations {
+    pub fn elevations_at(
+        &self,
+        scene_point: crate::scene_coordinates::ScenePlanPoint,
+    ) -> SurfaceElevations {
+        let point = scene_point.metres();
         let mut heights: Vec<_> = self
             .query
             .triangles_at(self, point, self.contact_tolerance_metres)
@@ -154,7 +158,11 @@ impl BoundedSettlementTerrain {
     /// Highest exterior support is appropriate for an unbound exterior query.
     /// At retaining edges, callers with an actor or architectural datum use
     /// `surface_below` or `elevations_at` instead.
-    pub fn highest_surface_at(&self, point: Vec2) -> Option<super::super::SurfaceHit> {
+    pub fn highest_surface_at(
+        &self,
+        scene_point: crate::scene_coordinates::ScenePlanPoint,
+    ) -> Option<super::super::SurfaceHit> {
+        let point = scene_point.metres();
         self.surface_below(Vec3::new(point.x, f32::INFINITY, point.y))
     }
 
@@ -162,6 +170,10 @@ impl BoundedSettlementTerrain {
     /// caller supplies its actor/threshold clearance; no movement limit is
     /// invented here. Buried prism bottoms and vertical faces are not bearings.
     pub fn surface_below(&self, position: Vec3) -> Option<super::super::SurfaceHit> {
+        crate::scene_coordinates::ScenePlanPoint::from_metres(position.xz())?;
+        if position.y.is_nan() {
+            return None;
+        }
         self.query
             .triangles_at(self, position.xz(), self.contact_tolerance_metres)
             .filter_map(|triangle| {

@@ -44,8 +44,8 @@ impl Envelope<'_> {
                 geometry
                     .bearings
                     .iter()
-                    .flatten()
-                    .map(|point| axis.dot(point.as_dvec2()))
+                    .flat_map(|polygon| polygon.vertices())
+                    .map(|point| axis.dot(point.metres().as_dvec2()))
                     .fold((low, high), |(low, high), value| {
                         (low.min(value), high.max(value))
                     })

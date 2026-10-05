@@ -8,18 +8,29 @@ impl CompiledCityLayout {
                 .buildings
                 .iter_mut()
                 .find(|b| b.id == property.building_id)
-                .expect("single property retains its exact member");
+                .ok_or(CityCompileError::Packing {
+                    property: property.id,
+                    issue: CityPackingIssue::MissingMember {
+                        building: property.building_id,
+                    },
+                })?;
             let recipe = self.support_recipes.for_program(&building.program)?;
-            let footprint =
-                recipe
-                    .collision
-                    .ground_floor_footprint()
-                    .ok_or(CityCompileError::Packing {
-                        property: property.id,
-                        issue: CityPackingIssue::MissingBearing {
-                            building: building.id,
-                        },
-                    })?;
+            let footprint = recipe
+                .collision
+                .ground_floor_footprint()
+                .map_err(|issue| CityCompileError::Packing {
+                    property: property.id,
+                    issue: CityPackingIssue::InvalidBearing {
+                        building: building.id,
+                        issue,
+                    },
+                })?
+                .ok_or(CityCompileError::Packing {
+                    property: property.id,
+                    issue: CityPackingIssue::MissingBearing {
+                        building: building.id,
+                    },
+                })?;
             let origin = recipe.collision.bounds.centre();
             let (min, max) = footprint
                 .vertices()
@@ -29,7 +40,7 @@ impl CompiledCityLayout {
                         building.centre_metres
                             + building
                                 .orientation
-                                .local_to_world(*point - Vec2::new(origin.x, origin.z))
+                                .local_to_world(point.metres() - Vec2::new(origin.x, origin.z))
                             - property.plot.centre_metres,
                     )
                 })
@@ -68,7 +79,12 @@ impl CompiledCityLayout {
                 .buildings
                 .iter()
                 .find(|b| b.id == garden.front_building_id)
-                .expect("accepted garden retains its owner member");
+                .ok_or(CityCompileError::Packing {
+                    property: garden.owner,
+                    issue: CityPackingIssue::MissingMember {
+                        building: garden.front_building_id,
+                    },
+                })?;
             let recipe = self.support_recipes.for_program(&building.program)?;
             let bounds = gardens::envelope(building, &recipe);
             let (min, max) = bounds

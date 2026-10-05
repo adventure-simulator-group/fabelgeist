@@ -128,12 +128,17 @@ pub(super) fn compare(
         .max_by(f32::total_cmp)?;
     let candidates=[CourtTreatment::Level,CourtTreatment::Terraced(stairs)].map(|treatment| {
         match CompoundSupportPlan::compile(property,levels,limits,treatment) {
-            Ok(plan)=>json!({"treatment":treatment,
+            Ok(plan)=>{
+                let mesh = match plan.mesh() {
+                    Ok(mesh) => mesh,
+                    Err(error) => return json!({"treatment":treatment,"support_rejection":error}),
+                };
+                match quantities::measure(&plan,geographic,&height,thickness) { Ok(quantities)=>json!({"treatment":treatment,
                 "member_support":plan.member_support(),"court_elevation":plan.court_elevation(),
                 "gate_elevation":plan.gate_elevation(),"stair_flights":plan.stair_flights().collect::<Vec<_>>(),
-                "mesh_maximum_grade":plan.mesh().maximum_grade(),
-                "quantities":quantities::measure(&plan,geographic,&height,thickness),"mesh":plan.mesh(),
-            }),
+                "mesh_maximum_grade":mesh.maximum_grade(),
+                "quantities":quantities,"mesh":mesh,
+            }), Err(error)=>json!({"treatment":treatment,"property_id":property.id,"quantity_rejection":error}) }},
             Err(error)=>json!({"treatment":treatment,"support_rejection":error}),
         }
     });

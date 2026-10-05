@@ -28,7 +28,7 @@ impl<'a> Search<'a> {
                 })
             });
         CountedSearchOutcome {
-            outcome: result.and_then(FrontageCoordinates::from_solver),
+            outcome: result.and_then(FrontageDisplacements::from_solver),
             explored_nodes: ExploredSearchNodes::new(self.nodes),
         }
     }

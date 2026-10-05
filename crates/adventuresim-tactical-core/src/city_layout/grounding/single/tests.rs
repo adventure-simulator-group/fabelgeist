@@ -48,8 +48,8 @@ fn request<'a>(
             dimensions_metres: Vec2::new(8.0, 12.0),
             orientation: BuildingOrientation::IDENTITY,
         }
-        .corners()
-        .to_vec(),
+        .plan_polygon()
+        .unwrap(),
         thresholds: doors,
         geographic: source,
         streets: &[],
@@ -86,7 +86,9 @@ fn single_property_supports_all_doors_without_levelling_its_court_or_garden() {
     .unwrap();
     assert!(
         (terrain
-            .highest_surface_at(Vec2::ZERO)
+            .highest_surface_at(
+                crate::scene_coordinates::ScenePlanPoint::from_metres(Vec2::ZERO).unwrap()
+            )
             .unwrap()
             .elevation
             .metres()
@@ -98,7 +100,9 @@ fn single_property_supports_all_doors_without_levelling_its_court_or_garden() {
     assert!(!plan.surface.contains(garden));
     assert_eq!(
         terrain
-            .highest_surface_at(garden)
+            .highest_surface_at(
+                crate::scene_coordinates::ScenePlanPoint::from_metres(garden).unwrap()
+            )
             .unwrap()
             .elevation
             .metres(),
@@ -107,7 +111,10 @@ fn single_property_supports_all_doors_without_levelling_its_court_or_garden() {
     for door in doors {
         assert!(
             (terrain
-                .highest_surface_at(door.threshold_metres)
+                .highest_surface_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(door.threshold_metres)
+                        .unwrap()
+                )
                 .unwrap()
                 .elevation
                 .metres()
@@ -188,7 +195,9 @@ fn cut_banks_join_natural_ground_to_the_floor_without_adding_occupied_floor_heig
     assert!((hit - 1.0).abs() < 0.001, "cut face ray distance {hit}");
     assert!(
         (terrain
-            .highest_surface_at(Vec2::new(3.0, 5.0))
+            .highest_surface_at(
+                crate::scene_coordinates::ScenePlanPoint::from_metres(Vec2::new(3.0, 5.0)).unwrap()
+            )
             .unwrap()
             .elevation
             .metres()
@@ -198,7 +207,10 @@ fn cut_banks_join_natural_ground_to_the_floor_without_adding_occupied_floor_heig
     );
     assert!(
         (terrain
-            .highest_surface_at(Vec2::new(3.0, 6.001))
+            .highest_surface_at(
+                crate::scene_coordinates::ScenePlanPoint::from_metres(Vec2::new(3.0, 6.001))
+                    .unwrap()
+            )
             .unwrap()
             .elevation
             .metres()
@@ -249,7 +261,20 @@ fn a_contained_centre_cannot_authorize_bearings_outside_its_property() {
             .plot
             .contains(request.bearing.centre_metres)
     );
-    request.bearing_outline[0].x = -6.02;
+    let mut points: Vec<_> = request
+        .bearing_outline
+        .vertices()
+        .iter()
+        .map(|p| p.metres())
+        .collect();
+    points[0].x = -6.02;
+    request.bearing_outline = crate::scene_coordinates::ScenePlanPolygon::from_ordered_vertices(
+        points
+            .into_iter()
+            .map(|p| crate::scene_coordinates::ScenePlanPoint::from_metres(p).unwrap())
+            .collect(),
+    )
+    .unwrap();
     let error = request.select().unwrap_err();
     assert_eq!(error.property_id, CityPropertyId(7));
     assert_eq!(error.member_building_ids, [7]);
@@ -284,7 +309,10 @@ fn recessed_doorway_landings_share_the_floor_without_duplicate_bearings() {
     for door in doors {
         assert!(
             (terrain
-                .highest_surface_at(door.threshold_metres)
+                .highest_surface_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(door.threshold_metres)
+                        .unwrap()
+                )
                 .unwrap()
                 .elevation
                 .metres()
@@ -295,7 +323,9 @@ fn recessed_doorway_landings_share_the_floor_without_duplicate_bearings() {
         let approach = door.threshold_metres + door.outward * 0.5;
         assert!(
             (terrain
-                .highest_surface_at(approach)
+                .highest_surface_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(approach).unwrap()
+                )
                 .unwrap()
                 .elevation
                 .metres()
@@ -306,7 +336,10 @@ fn recessed_doorway_landings_share_the_floor_without_duplicate_bearings() {
     }
     assert_eq!(
         terrain
-            .highest_surface_at(Vec2::new(4.0, 11.0))
+            .highest_surface_at(
+                crate::scene_coordinates::ScenePlanPoint::from_metres(Vec2::new(4.0, 11.0))
+                    .unwrap()
+            )
             .unwrap()
             .elevation
             .metres(),

@@ -1,5 +1,6 @@
 //! Conservative ground-contact and fixed-post boundaries in one property frame.
 //! These measurements select support topology; they do not certify a foundation.
+use adventuresim_building_generator::plan_geometry::PlanGeometryError;
 use adventuresim_tactical_core::{
     city_layout::{CityCompound, CityPlotBounds},
     prelude::{BuildingOrientation, TacticalBuildingPlacement},
@@ -14,13 +15,18 @@ pub(super) fn describe(
     compound: &CityCompound,
     placement: &TacticalBuildingPlacement,
     recipe: &GeneratedBuildingRecipe,
-) -> Option<Value> {
-    let contact_region = contact_region(placement, recipe)?;
+) -> Result<Option<Value>, PlanGeometryError> {
+    let Some(contact_region) = contact_region(placement, recipe)? else {
+        return Ok(None);
+    };
     let post = compound.boundary.gate.post(compound.boundary.gate.hinge);
     let post_region = CityPlotBounds {
         centre_metres: post.centre_metres.xz(),
         dimensions_metres: post.size_metres.xz(),
-        orientation: BuildingOrientation::from_radians(post.yaw_radians)?,
+        orientation: match BuildingOrientation::from_radians(post.yaw_radians) {
+            Some(value) => value,
+            None => return Ok(None),
+        },
     };
     let local_bounds = |region: CityPlotBounds| {
         let points = region.corners().map(|p| {
@@ -51,8 +57,8 @@ pub(super) fn describe(
             .orientation
             .world_to_local(p - compound.plot.centre_metres)
     });
-    let closest = nearest_post_contact(compound, placement, recipe, &post_polygon);
-    Some(json!({
+    let closest = nearest_post_contact(compound, placement, recipe, &post_polygon)?;
+    Ok(Some(json!({
         "property_id":compound.id,
         "front_building_id":placement.id,
         "front_ground_contact_region":contact_region,
@@ -65,22 +71,24 @@ pub(super) fn describe(
         "post_and_contact_depth_intervals_overlap":post_min.y <= contact_max.y && contact_min.y <= post_max.y,
         "closest_actual_datum_contact_to_hinge_post":closest,
         "verification_scope":"Conservative projected envelopes in the property's orientation. Use actual bearing, retaining-solid and gate-sweep geometry for final support/collision acceptance. A hinge-line gap is not the clearance to its fixed post.",
-    }))
+    })))
 }
 
 pub(super) fn contact_region(
     placement: &TacticalBuildingPlacement,
     recipe: &GeneratedBuildingRecipe,
-) -> Option<CityPlotBounds> {
-    let contact = recipe.collision.ground_floor_contact_bounds()?;
-    Some(CityPlotBounds {
+) -> Result<Option<CityPlotBounds>, PlanGeometryError> {
+    let Some(contact) = recipe.collision.ground_floor_contact_bounds()? else {
+        return Ok(None);
+    };
+    Ok(Some(CityPlotBounds {
         centre_metres: placement.centre_metres
             + placement
                 .orientation
                 .local_to_world(contact.centre().xz() - recipe.collision.bounds.centre().xz()),
         dimensions_metres: contact.plan_half_extents() * 2.0,
         orientation: placement.orientation,
-    })
+    }))
 }
 
 fn nearest_post_contact(
@@ -88,39 +96,36 @@ fn nearest_post_contact(
     placement: &TacticalBuildingPlacement,
     recipe: &GeneratedBuildingRecipe,
     post_polygon: &[Vec2],
-) -> Option<Value> {
-    let mut contacts = recipe
+) -> Result<Option<Value>, PlanGeometryError> {
+    let contacts = recipe
         .collision
         .cuboids
         .iter()
-        .filter_map(|solid| {
+        .map(|solid| {
             let polygon = solid
-                .ground_contact_polygon()
-                .into_iter()
+                .ground_contact()?
+                .points()
                 .map(|p| {
                     let world = placement.centre_metres
                         + placement
                             .orientation
-                            .local_to_world(p - recipe.collision.bounds.centre().xz());
+                            .local_to_world(p.metres() - recipe.collision.bounds.centre().xz());
                     compound
                         .plot
                         .orientation
                         .world_to_local(world - compound.plot.centre_metres)
                 })
                 .collect::<Vec<_>>();
-            Some((
-                solid.source,
-                distance::between(&polygon, post_polygon)?,
-                polygon,
-            ))
+            Ok(distance::between(&polygon, post_polygon).map(|gap| (solid.source, gap, polygon)))
         })
-        .collect::<Vec<_>>();
+        .collect::<Result<Vec<_>, PlanGeometryError>>()?;
+    let mut contacts: Vec<_> = contacts.into_iter().flatten().collect();
     contacts.sort_by(|a, b| a.1.total_cmp(&b.1).then(a.0.cmp(&b.0)));
-    contacts.first().map(|(source, gap, polygon)| {
+    Ok(contacts.first().map(|(source, gap, polygon)| {
         json!({
             "fixed_solid_id":source, "solid_role":recipe.plan.resolved_geometry.solids.iter().find(|s|s.id==*source).map(|s|s.role), "gap_m":gap,"contact_polygon_in_property_frame_m":polygon,
         })
-    })
+    }))
 }
 
 #[cfg(test)]
@@ -140,7 +145,7 @@ mod tests {
             serde_json::from_value(fixture["front_distant_placement"].clone()).unwrap();
         let placement = TacticalBuildingPlacement::from(front);
         let recipe = GeneratedBuildingRecipe::generate(placement.program.clone()).unwrap();
-        let report = describe(&compound, &placement, &recipe).unwrap();
+        let report = describe(&compound, &placement, &recipe).unwrap().unwrap();
         assert_eq!(report["property_id"], 1238);
         assert_eq!(report["front_building_id"], 1238);
         assert_eq!(report["post_and_contact_depth_intervals_overlap"], true);

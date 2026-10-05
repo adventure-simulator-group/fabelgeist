@@ -59,13 +59,13 @@ pub(super) fn apply(
         compound::translate_property_access(
             &mut compound.access,
             delta,
-            context.frontages[&compound.id].tangent(),
+            *context.frontages[&compound.id].tangent(),
         );
     }
     for garden in &mut layout.gardens {
         garden.translate(
             translations[&garden.owner],
-            context.frontages[&garden.owner].tangent(),
+            *context.frontages[&garden.owner].tangent(),
         );
     }
     for yard in &mut layout.yards {

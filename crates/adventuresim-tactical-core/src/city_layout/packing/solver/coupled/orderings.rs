@@ -71,19 +71,23 @@ pub(super) fn rows(domains: &[PlacementDomain]) -> Vec<Vec<Vec<usize>>> {
 pub(super) fn constrain(
     domains: &[PlacementDomain],
     selected: &[&[usize]],
-) -> Option<Vec<PlacementDomain>> {
+) -> Result<Option<Vec<PlacementDomain>>, CoupledPackingIssue> {
+    let geometry = domains
+        .iter()
+        .map(PlacementDomain::geometry_at_zero)
+        .collect::<Result<Vec<_>, _>>()?;
     let mut narrowed = domains.to_vec();
     for row in selected {
         let constraints = row
             .iter()
             .enumerate()
             .flat_map(|(rank, &first)| {
+                let geometry = &geometry;
                 row[rank + 1..].iter().map(move |&second| {
                     let a = &domains[first];
-                    let b = &domains[second];
                     let axis = a.frontage.tangent().as_dvec2();
-                    let reach = Envelope::Ground(&a.geometry_at_zero()).projection(axis).1
-                        - Envelope::Ground(&b.geometry_at_zero()).projection(axis).0
+                    let reach = Envelope::Ground(&geometry[first]).projection(axis).1
+                        - Envelope::Ground(&geometry[second]).projection(axis).0
                         + intervals::PackingClearance::PropertyBoundary.metres()
                         + CityPlotBounds::COORDINATE_TOLERANCE_METRES;
                     (first, second, reach / axis.length_squared())
@@ -101,23 +105,30 @@ pub(super) fn constrain(
                 narrowed[first].allowed.maximum_metres.min(maximum);
         }
     }
-    narrowed
+    Ok(narrowed
         .iter()
         .all(|d| d.allowed.minimum_metres <= d.allowed.maximum_metres)
-        .then_some(narrowed)
+        .then_some(narrowed))
 }
 
-pub(super) fn apply(model: &Model<'_>, selected: &[&[usize]]) -> Problem {
+pub(super) fn apply(
+    model: &Model<'_>,
+    selected: &[&[usize]],
+) -> Result<Problem, CoupledPackingIssue> {
+    let geometry = model
+        .domains
+        .iter()
+        .map(PlacementDomain::geometry_at_zero)
+        .collect::<Result<Vec<_>, _>>()?;
     let mut problem = model.problem.clone();
     for row in selected {
         for (rank, &first) in row.iter().enumerate() {
             for &second in &row[rank + 1..] {
                 let a = &model.domains[first];
-                let b = &model.domains[second];
                 let axis = a.frontage.tangent().as_dvec2();
                 let coefficient = axis.dot(axis);
-                let reach = Envelope::Ground(&a.geometry_at_zero()).projection(axis).1
-                    - Envelope::Ground(&b.geometry_at_zero()).projection(axis).0
+                let reach = Envelope::Ground(&geometry[first]).projection(axis).1
+                    - Envelope::Ground(&geometry[second]).projection(axis).0
                     + intervals::PackingClearance::PropertyBoundary.metres()
                     + CityPlotBounds::COORDINATE_TOLERANCE_METRES;
                 problem.add_constraint(
@@ -131,7 +142,7 @@ pub(super) fn apply(model: &Model<'_>, selected: &[&[usize]]) -> Problem {
             }
         }
     }
-    problem
+    Ok(problem)
 }
 
 /// Explore combinations by total candidate rank, so one row cannot starve others.

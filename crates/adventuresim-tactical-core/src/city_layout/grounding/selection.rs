@@ -95,7 +95,7 @@ impl CompoundSupportRequest<'_> {
             self.geographic,
             self.stairs,
         )?;
-        plan.support_surface()
+        plan.support_surface()?
             .validate_source_controls(self.geographic)?;
         Ok(plan)
     }

@@ -21,8 +21,8 @@ pub(super) fn seat(domains: &[PlacementDomain]) -> Result<Vec<PlacementDomain>, 
                 })
                 .fold(f64::INFINITY, f64::min);
             let shift = (clearance - CityPlotBounds::COORDINATE_TOLERANCE_METRES).max(0.0);
-            seated.base_translation_metres = -normal * shift as f32;
-            let reservation = seated.geometry_at_zero().reservation;
+            seated.base_translation = PlanDisplacement::from_metres(-normal * shift as f32).ok_or_else(||domain.packing_error(domain.geometry_error(adventuresim_building_generator::plan_geometry::PlanGeometryError::NonFinite)))?;
+            let reservation = seated.geometry_at_zero().map_err(|issue|domain.packing_error(issue))?.reservation;
             seated.allowed = frontage
                 .available_displacement(reservation)
                 .ok_or_else(|| CityCompileError::Packing {

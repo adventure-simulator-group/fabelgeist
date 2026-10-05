@@ -131,11 +131,21 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         ]) {
             assert!(
                 terrain
-                    .support_elevations_at(point.xz())
+                    .support_elevations_at(
+                        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                            point.xz()
+                        )
+                        .unwrap()
+                    )
                     .iter()
                     .any(|h| (h.metres() - point.y).abs() < 0.001),
                 "presented {point:?}, canonical {:?}",
-                terrain.support_elevations_at(point.xz())
+                terrain.support_elevations_at(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                        point.xz()
+                    )
+                    .unwrap()
+                )
             );
         }
     }

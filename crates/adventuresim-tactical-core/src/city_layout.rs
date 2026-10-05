@@ -80,7 +80,7 @@ pub struct GeneratedCityLayout {
     pub demand_shortfalls: Vec<DemandShortfall>,
     pub parishes: Vec<ParishProgramme>,
     pub unhoused_population: u32,
-    packing: packing::CityPackingContext,
+    packing: Result<packing::CityPackingContext, CityCompileError>,
 }
 
 /// One rectangular building lot aligned to one locally straight street frontage.
@@ -143,7 +143,7 @@ impl CitySite {
                 demand_shortfalls: demand.shortfalls,
                 parishes: demand.parishes,
                 unhoused_population: resident_population,
-                packing: packing::CityPackingContext::default(),
+                packing: Ok(packing::CityPackingContext::default()),
             };
         }
 

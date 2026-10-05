@@ -1,8 +1,10 @@
 //! Single-building floors retain their reservation and bound every ground door.
 use super::*;
 use crate::city_layout::{CitySingleProperty, CityStreetPatch, SinglePropertyGradingPolicy};
+use crate::scene_coordinates::ScenePlanPolygon;
 use crate::scene_input::BuildingOrientation;
 mod apron;
+mod bearing;
 mod floor;
 #[cfg(test)]
 mod tests;
@@ -26,7 +28,7 @@ pub struct SingleBuildingSupportPlan {
 pub struct SingleBuildingSupportRequest<'a> {
     pub property: CitySingleProperty,
     pub bearing: CityPlotBounds,
-    pub bearing_outline: Vec<Vec2>,
+    pub bearing_outline: ScenePlanPolygon,
     pub thresholds: &'a [DoorwaySupportBinding],
     pub geographic: &'a GeographicSurface,
     pub streets: &'a [CityStreetPatch],
@@ -38,54 +40,7 @@ impl SingleBuildingSupportRequest<'_> {
     /// complete source intersections and all doorway approaches. Other courts
     /// and gardens retain natural terrain; this does not level the whole plot.
     pub fn select(self) -> Result<SingleBuildingSupportPlan, SupportDiagnostic> {
-        let mut surface = PropertySupportSurface {
-            mesh: PropertySupportMesh {
-                property_id: self.property.id,
-                member_building_ids: vec![self.property.building_id],
-                positions: Vec::new(),
-                support_triangles: Vec::new(),
-                retaining_triangles: Vec::new(),
-                contact_tolerance_metres: self.policy.limits.contact_tolerance_metres,
-            },
-            regions: vec![self.bearing],
-            clipping_outlines: vec![self.bearing_outline.iter().map(|p| p.as_dvec2()).collect()],
-            limits: self.policy.limits,
-            treatment: SupportGradingAttempt::SingleBuildingFloorAndEntrances,
-        };
-        if !self.bearing.is_valid()
-            || !self.property.plot.is_valid()
-            || self.bearing_outline.len() < 3
-            || self.bearing_outline.iter().any(|p| !p.is_finite())
-            || planar::signed_area(&surface.clipping_outlines[0]) <= f64::EPSILON
-        {
-            return Err(surface.rejection(
-                SupportConstraint::Reservation,
-                SupportBoundary::PropertyReservation,
-                self.bearing.centre_metres,
-                1.0,
-                0.0,
-            ));
-        }
-        if let Some(point) = self
-            .bearing_outline
-            .iter()
-            .find(|point| !self.property.plot.contains(**point))
-        {
-            let local = self
-                .property
-                .plot
-                .orientation
-                .world_to_local(*point - self.property.plot.centre_metres)
-                .abs();
-            let excess = (local - self.property.plot.dimensions_metres * 0.5).max_element();
-            return Err(surface.rejection(
-                SupportConstraint::Bearing,
-                SupportBoundary::PropertyReservation,
-                *point,
-                excess,
-                CityPlotBounds::COORDINATE_TOLERANCE_METRES as f32,
-            ));
-        }
+        let mut surface = PropertySupportSurface::for_single_bearing(&self)?;
         let mut thresholds = self.thresholds.to_vec();
         thresholds.sort_by_key(|threshold| threshold.entrance);
         if thresholds.is_empty()
@@ -112,8 +67,11 @@ impl SingleBuildingSupportRequest<'_> {
             .iter()
             .map(|door| apron::prepare(&self, **door, &surface))
             .collect::<Result<Vec<_>, _>>()?;
-        let (threshold, elevation) = floor::select(&self, &constructed, &aprons, &surface)?;
-        surface.mesh.convex_floor(&self.bearing_outline, elevation);
+        let selected = floor::select(&self, &constructed, &aprons, &surface)?;
+        let elevation = selected.elevation;
+        surface
+            .mesh
+            .convex_floor(&self.bearing_outline, elevation)?;
         for prepared in aprons {
             prepared.append_to(&self, elevation, &mut surface)?;
         }
@@ -123,7 +81,7 @@ impl SingleBuildingSupportRequest<'_> {
             floor: MemberSupport {
                 building_id: self.property.building_id,
                 contact: self.bearing,
-                court_threshold_metres: threshold,
+                court_threshold_metres: selected.threshold.metres(),
                 elevation,
             },
             thresholds,

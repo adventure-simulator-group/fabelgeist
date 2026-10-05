@@ -173,10 +173,10 @@ impl Inspection {
             })?;
         let placement = member_placement(input, compound.front_building_id)?;
         let recipe = recipes.get_or_generate(&placement.program)?;
-        comparison["support_boundaries"] = support_regions::describe(compound, &placement, recipe)
+        comparison["support_boundaries"] = support_regions::describe(compound, &placement, recipe)?
             .ok_or("compound front member has no ground-contact geometry")?;
         let lod = vista.lods.first().ok_or("source stages lack a vista LOD")?;
-        let contact = support_regions::contact_region(&placement, recipe)
+        let contact = support_regions::contact_region(&placement, recipe)?
             .ok_or("compound front member has no contact region")?;
         comparison["source_plot_triangle_extrema"] =
             footprint::vista_extrema(lod, vista.lods.get(1), &raw, compound.plot.corners());
@@ -184,7 +184,7 @@ impl Inspection {
             footprint::vista_extrema(lod, vista.lods.get(1), &raw, contact.corners());
         let rear_placement = member_placement(input, compound.rear_building_id)?;
         let rear_recipe = recipes.get_or_generate(&rear_placement.program)?;
-        let rear_contact = support_regions::contact_region(&rear_placement, rear_recipe)
+        let rear_contact = support_regions::contact_region(&rear_placement, rear_recipe)?
             .ok_or("compound rear member has no contact region")?;
         let proposed = solutions::ProposedCompoundLevels::from_capture(
             &comparison["candidates"][1]["front_court_rear_elevations_m"],
@@ -311,7 +311,7 @@ fn inspect(
         "id": id, "representation": representation, "program": program,
         "centre": centre, "base_elevation": elevation,
         "collision_minimum": recipe.collision.bounds.min.y,
-        "ground_floor_contact_bounds":recipe.collision.ground_floor_contact_bounds(),
+        "ground_floor_contact_bounds":recipe.collision.ground_floor_contact_bounds()?,
         "collision_origin": origin, "plan_to_world_vertical_offset": offset,
         "incorrect_collider_bottom_offset": elevation - recipe.collision.bounds.min.y,
         "centre_terrain": height(centre),

@@ -77,8 +77,8 @@ impl FrontageInterval {
     }
 
     pub(super) fn overlap_polygons(
-        first: &[Vec2],
-        second: &[Vec2],
+        first: &[ScenePlanPoint],
+        second: &[ScenePlanPoint],
         tangent: Vec2,
         clearance: PackingClearance,
         second_translation_metres: DVec2,
@@ -91,11 +91,15 @@ impl FrontageInterval {
                     .zip(outline.iter().cycle().skip(1))
                     .take(outline.len())
             })
-            .map(|(a, b)| (b.as_dvec2() - a.as_dvec2()).perp().normalize());
-        let interval = |outline: &[Vec2], axis: DVec2| {
+            .map(|(a, b)| {
+                (b.metres().as_dvec2() - a.metres().as_dvec2())
+                    .perp()
+                    .normalize()
+            });
+        let interval = |outline: &[ScenePlanPoint], axis: DVec2| {
             outline
                 .iter()
-                .map(|point| point.as_dvec2().dot(axis))
+                .map(|point| point.metres().as_dvec2().dot(axis))
                 .fold((f64::INFINITY, f64::NEG_INFINITY), |(min, max), p| {
                     (min.min(p), max.max(p))
                 })

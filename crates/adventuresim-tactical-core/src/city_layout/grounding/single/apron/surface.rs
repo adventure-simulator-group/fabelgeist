@@ -62,7 +62,10 @@ impl ApronSurfaceGeometry {
         let start = edge_at(0.0, source);
         let end = edge_at(flight_run, [floor.metres(); 2]);
         if along_grade.hypot(across_grade) <= bounds.limits.maximum_grade {
-            mesh.quad([start[1], start[0], end[0], end[1]], false);
+            mesh.quad(
+                [start[1], start[0], end[0], end[1]],
+                SupportFaceRole::Bearing,
+            )?;
         } else {
             let rise = source
                 .iter()
@@ -95,12 +98,15 @@ impl ApronSurfaceGeometry {
                 let a = edge_at(flight_run * t, heights(t));
                 let b = edge_at(flight_run * next, heights(t));
                 let c = edge_at(flight_run * next, heights(next));
-                mesh.quad([a[1], a[0], b[0], b[1]], false);
-                mesh.quad([b[1], b[0], c[0], c[1]], true);
+                mesh.quad([a[1], a[0], b[0], b[1]], SupportFaceRole::Bearing)?;
+                mesh.quad([b[1], b[0], c[0], c[1]], SupportFaceRole::Retaining)?;
             }
         }
         let inside = edge_at(run, [floor.metres(); 2]);
-        mesh.quad([end[1], end[0], inside[0], inside[1]], false);
+        mesh.quad(
+            [end[1], end[0], inside[0], inside[1]],
+            SupportFaceRole::Bearing,
+        )?;
         if mesh.maximum_grade() > bounds.limits.maximum_grade {
             return Err(reject(
                 SupportConstraint::AccessGrade,

@@ -17,6 +17,7 @@ pub enum SupportConstraint {
     ThresholdBearing,
     GateBinding,
     Reservation,
+    MeshIndexCapacity,
     Bearing,
     AccessGrade,
     StairGoing,
@@ -64,6 +65,27 @@ pub enum SupportDiagnosticUnit {
 }
 
 impl SupportDiagnostic {
+    pub(super) fn for_mesh(
+        mesh: &PropertySupportMesh,
+        constraint: SupportConstraint,
+        location: Vec2,
+        measured: f32,
+        permitted: f32,
+    ) -> Self {
+        Self {
+            property_id: mesh.property_id,
+            member_building_ids: mesh.member_building_ids.clone(),
+            constraint,
+            boundary: SupportBoundary::PropertyReservation,
+            location_metres: location,
+            measured,
+            permitted,
+            shortfall: (measured - permitted).max(0.0),
+            unit: constraint.diagnostic_unit(),
+            attempted_treatment: SupportGradingAttempt::NotSelected,
+        }
+    }
+
     pub(super) fn new(
         property: &CityCompound,
         constraint: SupportConstraint,
@@ -93,7 +115,8 @@ impl SupportConstraint {
             SupportConstraint::SurfaceCoverage | SupportConstraint::SurfaceOverlap => {
                 SupportDiagnosticUnit::SquareMetres
             }
-            SupportConstraint::MemberBinding
+            SupportConstraint::MeshIndexCapacity
+            | SupportConstraint::MemberBinding
             | SupportConstraint::ThresholdBinding
             | SupportConstraint::GateBinding
             | SupportConstraint::Reservation

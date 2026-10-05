@@ -38,6 +38,12 @@ pub enum CitySupportError {
         property: CityPropertyId,
         building: u64,
     },
+    #[error("property {property:?}, member {building} has invalid bearing: {issue}")]
+    InvalidBearing {
+        property: CityPropertyId,
+        building: u64,
+        issue: adventuresim_building_generator::plan_geometry::PlanGeometryError,
+    },
     #[error("building {building} support recipe changed its occupied programme")]
     ProgrammeChanged { building: u64 },
     #[error(
@@ -187,6 +193,11 @@ fn member(
     let contact = recipe
         .collision
         .ground_floor_contact_bounds()
+        .map_err(|issue| CitySupportError::InvalidBearing {
+            property: property.id,
+            building: placement.id,
+            issue,
+        })?
         .ok_or_else(binding)?;
     let threshold = recipe.door_point(placement, outward).ok_or_else(binding)?;
     Ok((

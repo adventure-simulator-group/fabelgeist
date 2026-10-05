@@ -1,5 +1,10 @@
 use super::*;
 
+pub(super) struct CourtSupportConstruction {
+    pub profile: SupportProfile,
+    pub stairs: Vec<CourtStair>,
+}
+
 pub(super) fn court(
     property: &CityCompound,
     levels: &mut CompoundSupportLevels,
@@ -7,7 +12,7 @@ pub(super) fn court(
     rear: &CityAccessSegment,
     limits: SupportLimits,
     treatment: CourtTreatment,
-) -> Result<(SupportProfile, Vec<CourtStair>), SupportDiagnostic> {
+) -> Result<CourtSupportConstruction, SupportDiagnostic> {
     let local = |point| {
         property
             .plot
@@ -74,12 +79,45 @@ pub(super) fn court(
         ProfilePoint::at_metres(maximum, levels.rear.elevation),
         ProfilePoint::at_metres(half_depth, levels.rear.elevation),
     ];
-    Ok((
-        SupportProfile {
-            points: points.to_vec(),
-        },
+    Ok(CourtSupportConstruction {
+        profile: court_sequence(property, points.into_iter().collect())?,
         stairs,
-    ))
+    })
+}
+
+fn court_sequence(
+    property: &CityCompound,
+    points: Vec<Option<ProfilePoint>>,
+) -> Result<SupportProfile, SupportDiagnostic> {
+    SupportProfile::stepped(
+        points
+            .into_iter()
+            .collect::<Option<Vec<_>>>()
+            .ok_or_else(|| {
+                SupportDiagnostic::new(
+                    property,
+                    SupportConstraint::Reservation,
+                    SupportBoundary::CourtLanding,
+                    property.court.centre_metres,
+                    1.0,
+                    0.0,
+                )
+            })?,
+    )
+    .map_err(|error| {
+        SupportDiagnostic::new(
+            property,
+            SupportConstraint::Reservation,
+            SupportBoundary::CourtLanding,
+            property.plot.centre_metres
+                + property
+                    .plot
+                    .orientation
+                    .local_to_world(Vec2::Y * error.coordinate().metres()),
+            1.0,
+            0.0,
+        )
+    })
 }
 
 pub(super) fn passage(
@@ -105,7 +143,19 @@ pub(super) fn passage(
     ];
     SupportProfile::checked(
         property,
-        points.to_vec(),
+        points
+            .into_iter()
+            .collect::<Option<Vec<_>>>()
+            .ok_or_else(|| {
+                SupportDiagnostic::new(
+                    property,
+                    SupportConstraint::Reservation,
+                    SupportBoundary::GateLanding,
+                    route.start_metres,
+                    1.0,
+                    0.0,
+                )
+            })?,
         limits,
         SupportBoundary::GateLanding,
         |distance| route.start_metres + direction * distance.metres(),

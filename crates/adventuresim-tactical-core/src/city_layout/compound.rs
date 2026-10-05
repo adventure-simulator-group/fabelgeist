@@ -24,6 +24,23 @@ pub struct CityPlotBounds {
 }
 
 impl CityPlotBounds {
+    pub(crate) fn plan_polygon(
+        self,
+    ) -> Result<
+        crate::scene_coordinates::ScenePlanPolygon,
+        adventuresim_building_generator::plan_geometry::PlanGeometryError,
+    > {
+        use crate::scene_coordinates::{ScenePlanPoint, ScenePlanPolygon};
+        use adventuresim_building_generator::plan_geometry::PlanGeometryError;
+        let points = self
+            .corners()
+            .into_iter()
+            .map(ScenePlanPoint::from_metres)
+            .collect::<Option<Vec<_>>>()
+            .ok_or(PlanGeometryError::NonFinite)?;
+        ScenePlanPolygon::from_ordered_vertices(points)
+    }
+
     /// Roundoff of bounded near-city f32 world poses, not extra owned land.
     /// Translation independently rounds a plot and its coincident child edge.
     pub const COORDINATE_TOLERANCE_METRES: f64 = 0.001;

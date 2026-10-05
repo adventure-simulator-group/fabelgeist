@@ -16,14 +16,19 @@ impl<'a> BlockSearch<'a> {
     }
     pub fn solve(mut self) -> Result<Vec<PropertyTranslation>, CityCompileError> {
         let mut accepted = Vec::new();
-        if self.search(&mut accepted) {
-            return Ok(accepted
+        if self.search(&mut accepted)? {
+            return accepted
                 .into_iter()
-                .map(|selected| PropertyTranslation {
-                    domain: selected.domain,
-                    displacement: self.domains[selected.domain.index()].delta_at(selected.position),
+                .map(|selected| {
+                    let domain = &self.domains[selected.domain.index()];
+                    Ok(PropertyTranslation {
+                        domain: selected.domain,
+                        displacement: domain
+                            .delta_at(selected.frontage_displacement)
+                            .map_err(|issue| domain.packing_error(issue))?,
+                    })
                 })
-                .collect());
+                .collect();
         }
         #[cfg(test)]
         self.dump_rejection();
@@ -41,16 +46,17 @@ impl<'a> BlockSearch<'a> {
         let mut allowed = Some(domain.allowed);
         for selected in accepted {
             let other = selected.domain;
-            let position = selected.position;
-            allowed = allowed
-                .and_then(|range| self.preserve_frontage_order(index, other, position, range));
+            let frontage_displacement = selected.frontage_displacement;
+            allowed = allowed.and_then(|range| {
+                self.preserve_frontage_order(index, other, frontage_displacement, range)
+            });
         }
         let mut free = allowed.into_iter().collect::<Vec<_>>();
         for selected in accepted {
             let other = selected.domain;
-            let position = selected.position;
+            let frontage_displacement = selected.frontage_displacement;
             let occupied = &self.domains[other.index()];
-            let delta = occupied.frontage.tangent().as_dvec2() * position.metres();
+            let delta = occupied.frontage.tangent().as_dvec2() * frontage_displacement.metres();
             for forbidden in domain.proposed.forbidden_displacements(
                 &occupied.proposed,
                 domain.frontage.tangent(),
@@ -68,7 +74,7 @@ impl<'a> BlockSearch<'a> {
         &self,
         index: PackingDomainIndex,
         other: PackingDomainIndex,
-        position: FrontagePosition,
+        frontage_displacement: FrontageDisplacement,
         range: FrontageInterval,
     ) -> Option<FrontageInterval> {
         let first = &self.domains[index.index()];
@@ -96,12 +102,16 @@ impl<'a> BlockSearch<'a> {
             .is_lt()
         {
             range.with_half_plane(
-                c + position.metres() * rate - b - CityPlotBounds::COORDINATE_TOLERANCE_METRES,
+                c + frontage_displacement.metres() * rate
+                    - b
+                    - CityPlotBounds::COORDINATE_TOLERANCE_METRES,
                 -rate,
             )
         } else {
             range.with_half_plane(
-                a - d - position.metres() * rate - CityPlotBounds::COORDINATE_TOLERANCE_METRES,
+                a - d
+                    - frontage_displacement.metres() * rate
+                    - CityPlotBounds::COORDINATE_TOLERANCE_METRES,
                 rate,
             )
         }
@@ -282,52 +292,63 @@ impl<'a> BlockSearch<'a> {
         candidates.dedup_by(|a, b| (*a - *b).abs() <= CityPlotBounds::COORDINATE_TOLERANCE_METRES);
         candidates
     }
-    fn search(&mut self, accepted: &mut Vec<FrontageSelection>) -> bool {
+    fn search(&mut self, accepted: &mut Vec<FrontageSelection>) -> Result<bool, CityCompileError> {
         if accepted.len() == self.domains.len() {
             let mut geometry = self
                 .domains
                 .iter()
                 .map(PlacementDomain::geometry_at_zero)
-                .collect::<Vec<_>>();
+                .collect::<Result<Vec<_>, _>>()
+                .map_err(|issue| self.domains[0].packing_error(issue))?;
             for selected in accepted.iter() {
                 let index = selected.domain;
-                let position = selected.position;
+                let frontage_displacement = selected.frontage_displacement;
                 let domain = &self.domains[index.index()];
-                geometry[index.index()] = domain.proposed.translated(
-                    domain.delta_at(position).metres(),
-                    domain.frontage.tangent(),
-                );
+                geometry[index.index()] = domain
+                    .proposed
+                    .translated(
+                        domain
+                            .delta_at(frontage_displacement)
+                            .map_err(|issue| domain.packing_error(issue))?,
+                        domain.frontage.tangent(),
+                    )
+                    .map_err(|issue| domain.packing_error(domain.geometry_error(issue)))?;
             }
             // Candidate pruning uses land and building intervals. Complete
             // rounded garden geometry remains an acceptance constraint, so
             // valid authored poses need no extra numerical garden setback.
-            return geometry
+            return Ok(geometry
                 .iter()
-                .all(|owner| geometry.iter().all(|other| owner.garden_clears(other)));
+                .all(|owner| geometry.iter().all(|other| owner.garden_clears(other))));
         }
         // Preserve the inexpensive authored search allocation independently of
         // the coupled solver's measured block-search budget.
         if self.states >= MAX_AUTHORED_PACKING_SEARCH_STATES {
-            return false;
+            return Ok(false);
         }
         let Some(choices) = self.next_domain(accepted) else {
-            return false;
+            return Ok(false);
         };
         for displacement in self.candidates(choices.domain, &choices.intervals, accepted) {
             self.states += 1;
             accepted.push(FrontageSelection {
                 domain: choices.domain,
-                position: FrontagePosition::from_metres(displacement).expect("finite candidate"),
+                frontage_displacement: FrontageDisplacement::from_metres(displacement).ok_or_else(
+                    || {
+                        self.domains[choices.domain.index()]
+                            .packing_error(CoupledPackingIssue::NumericalFailure)
+                    },
+                )?,
             });
-            if self.search(accepted) {
-                return true;
+            if self.search(accepted)? {
+                return Ok(true);
             }
             accepted.pop();
             if self.states >= MAX_AUTHORED_PACKING_SEARCH_STATES {
                 break;
             }
         }
-        false
+        Ok(false)
     }
 }
 

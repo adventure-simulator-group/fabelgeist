@@ -6,7 +6,7 @@ fn goslar_street_apron_join_is_internal_to_the_owned_union() {
     let fixture = Fixture::load();
     let source = fixture.source();
     let plan = fixture.selected_plan(&source);
-    let surface = plan.support_surface();
+    let surface = plan.support_surface().unwrap();
     let plot = fixture.property.plot;
     for segment in exterior(&surface.clipping_outlines) {
         let on_front = segment.iter().all(|point| {

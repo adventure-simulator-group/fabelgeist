@@ -147,7 +147,11 @@ impl Fixture {
             serde_json::from_value(value["front_distant_placement"].clone()).unwrap();
         let member = |placement: DistantBuildingPlacement, threshold, height| {
             let recipe = GeneratedBuildingRecipe::generate(placement.occupied_program()).unwrap();
-            let contact = recipe.collision.ground_floor_contact_bounds().unwrap();
+            let contact = recipe
+                .collision
+                .ground_floor_contact_bounds()
+                .unwrap()
+                .unwrap();
             MemberSupport {
                 building_id: placement.id,
                 contact: CityPlotBounds {
@@ -243,7 +247,7 @@ fn goslar_geographic_selection_seats_complete_triangles_and_retains_identity() {
         triangle.swap(0, 1);
     }
     let reordered = fixture.selected_plan(&GeographicSurface::from_triangles(triangles).unwrap());
-    assert_eq!(plan.mesh(), reordered.mesh());
+    assert_eq!(plan.mesh().unwrap(), reordered.mesh().unwrap());
     assert_eq!(plan.member_support(), reordered.member_support());
     assert_eq!(plan.reservation(), fixture.property.plot);
     assert_eq!(plan.property_id(), CityPropertyId(1238));
@@ -252,7 +256,7 @@ fn goslar_geographic_selection_seats_complete_triangles_and_retains_identity() {
     assert!((front.elevation.metres() - 21.042906).abs() < 0.001);
     assert!(front.elevation.metres() > plan.court_elevation().metres());
     assert!(plan.court_elevation().metres() > rear.elevation.metres());
-    assert!(plan.mesh().maximum_grade() <= 0.65);
+    assert!(plan.mesh().unwrap().maximum_grade() <= 0.65);
     let foundation = plan
         .foundations(&source, FoundationEmbedment::from_metres(0.2).unwrap())
         .unwrap();
@@ -264,7 +268,7 @@ fn goslar_geographic_selection_seats_complete_triangles_and_retains_identity() {
             "court_m": plan.court_elevation(),
             "gate_m": plan.gate_elevation(),
             "regions": plan.support_regions(),
-            "maximum_grade": plan.mesh().maximum_grade(),
+            "maximum_grade": plan.mesh().unwrap().maximum_grade(),
             "foundation_volume_m3": foundation.volume_cubic_metres(),
             "foundation_vertices": foundation.positions.len(),
             "support_triangles": foundation.support_triangles.len(),
@@ -277,7 +281,7 @@ fn goslar_geographic_selection_seats_complete_triangles_and_retains_identity() {
 fn goslar_1238_retains_bearings_and_generates_graded_triangles_with_separate_gate_support() {
     let fixture = Fixture::load();
     let plan = fixture.plan(terraced());
-    let mesh = plan.mesh();
+    let mesh = plan.mesh().unwrap();
     assert_eq!(mesh.property_id, CityPropertyId(1238));
     assert_eq!(mesh.member_building_ids, [1238, 17622]);
     assert!(
@@ -296,9 +300,11 @@ fn goslar_1238_retains_bearings_and_generates_graded_triangles_with_separate_gat
                 let point =
                     member.contact.centre_metres + member.contact.orientation.local_to_world(local);
                 assert!(
-                    mesh.elevations_at(point)
-                        .iter()
-                        .any(|h| (h.metres() - member.elevation.metres()).abs() < 0.001),
+                    mesh.elevations_at(
+                        crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap()
+                    )
+                    .iter()
+                    .any(|h| (h.metres() - member.elevation.metres()).abs() < 0.001),
                     "building {} bearing {:?} is unsupported",
                     member.building_id,
                     point
@@ -310,12 +316,16 @@ fn goslar_1238_retains_bearings_and_generates_graded_triangles_with_separate_gat
         for station in 0..=100 {
             let point = route.start_metres
                 + (route.end_metres - route.start_metres) * station as f32 / 100.0;
-            let expected = plan.elevations_at(point);
+            let expected = plan.elevations_at(
+                crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
+            );
             assert!(expected.iter().next().is_some());
             assert!(expected.iter().any(|expected| {
-                mesh.elevations_at(point)
-                    .iter()
-                    .any(|actual| (actual.metres() - expected.metres()).abs() < 0.001)
+                mesh.elevations_at(
+                    crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
+                )
+                .iter()
+                .any(|actual| (actual.metres() - expected.metres()).abs() < 0.001)
             }));
         }
     }
@@ -333,7 +343,7 @@ fn a_level_court_is_compared_without_lowering_the_separate_gate_to_the_front_flo
     );
     assert!(stepped.court_elevation().metres() < level.court_elevation().metres() - 1.3);
     assert_eq!(level.gate_elevation(), stepped.gate_elevation());
-    assert!(level.mesh().maximum_grade() <= 0.6501);
+    assert!(level.mesh().unwrap().maximum_grade() <= 0.6501);
 }
 
 #[test]
@@ -342,7 +352,7 @@ fn support_retains_horizontal_identity_and_is_independent_of_route_iteration_ord
     let original = fixture.plan(terraced());
     fixture.property.access.reverse();
     let reordered = fixture.plan(terraced());
-    assert_eq!(original.mesh(), reordered.mesh());
+    assert_eq!(original.mesh().unwrap(), reordered.mesh().unwrap());
     assert_eq!(original.member_support(), reordered.member_support());
     assert_eq!(original.reservation(), fixture.property.plot);
 }
@@ -397,9 +407,16 @@ fn a_cut_fill_shortfall_does_not_enlarge_the_property_reservation() {
     let fixture = Fixture::load();
     let plan = fixture.plan(terraced());
     let point = fixture.property.court.centre_metres;
-    let height = plan.elevations_at(point).iter().next().unwrap();
+    let height = plan
+        .elevations_at(crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap())
+        .iter()
+        .next()
+        .unwrap();
     let error = plan
-        .validate_displacement_at(point, elevation(height.metres() - 6.2))
+        .validate_displacement_at(
+            crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
+            elevation(height.metres() - 6.2),
+        )
         .unwrap_err();
     assert_eq!(error.constraint, SupportConstraint::CutFill);
     assert_eq!(error.boundary, SupportBoundary::GeographicSurface);
@@ -408,10 +425,15 @@ fn a_cut_fill_shortfall_does_not_enlarge_the_property_reservation() {
     assert!((error.shortfall - 0.2).abs() < 0.001);
     assert_eq!(plan.reservation(), fixture.property.plot);
     assert!(
-        plan.elevations_at(fixture.property.plot.centre_metres + Vec2::splat(100.0))
-            .iter()
-            .next()
-            .is_none()
+        plan.elevations_at(
+            crate::scene_coordinates::ScenePlanPoint::from_metres(
+                fixture.property.plot.centre_metres + Vec2::splat(100.0)
+            )
+            .unwrap()
+        )
+        .iter()
+        .next()
+        .is_none()
     );
 }
 
@@ -419,7 +441,7 @@ fn a_cut_fill_shortfall_does_not_enlarge_the_property_reservation() {
 fn gate_leaf_sweep_and_both_fixed_posts_have_level_support_above_the_front_floor() {
     let fixture = Fixture::load();
     let plan = fixture.plan(terraced());
-    let mesh = plan.mesh();
+    let mesh = plan.mesh().unwrap();
     let door = fixture.property.boundary.gate.door(fixture.property.id);
     let mut points = Vec::new();
     for step in 0..=180 {
@@ -453,9 +475,11 @@ fn gate_leaf_sweep_and_both_fixed_posts_have_level_support_above_the_front_floor
     }
     for point in points {
         assert!(
-            mesh.elevations_at(point)
-                .iter()
-                .any(|h| (h.metres() - plan.gate_elevation().metres()).abs() < 0.001),
+            mesh.elevations_at(
+                crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap()
+            )
+            .iter()
+            .any(|h| (h.metres() - plan.gate_elevation().metres()).abs() < 0.001),
             "unsupported gate swing or post at {:?}",
             point
         );
@@ -475,7 +499,12 @@ fn a_retaining_edge_exposes_both_levels_instead_of_inventing_one_shared_terrain_
         + bevy::math::Quat::from_rotation_y(post.yaw_radians)
             * Vec3::new(-post.size_metres.x * 0.5, 0.0, 0.0))
     .xz();
-    let heights = plan.mesh().elevations_at(point).iter().collect::<Vec<_>>();
+    let heights = plan
+        .mesh()
+        .unwrap()
+        .elevations_at(crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap())
+        .iter()
+        .collect::<Vec<_>>();
     assert_eq!(heights.len(), 2);
     assert!((heights[0].metres() - plan.member_support()[0].elevation.metres()).abs() < 0.001);
     assert!((heights[1].metres() - plan.gate_elevation().metres()).abs() < 0.001);
@@ -537,7 +566,10 @@ fn a_terraced_court_has_level_open_ground_and_narrow_discrete_stairs() {
                     .local_to_world(Vec2::new(x, z));
             assert!(
                 plan.mesh()
-                    .elevations_at(point)
+                    .unwrap()
+                    .elevations_at(
+                        crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap()
+                    )
                     .iter()
                     .all(
                         |height| (height.metres() - plan.court_elevation().metres()).abs() < 0.001

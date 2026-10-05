@@ -2,6 +2,20 @@
 use super::*;
 use crate::footprint::{clip, height_in_triangle};
 
+#[derive(Debug, serde::Serialize)]
+#[serde(rename_all = "snake_case")]
+pub(super) enum QuantityError {
+    Support {
+        diagnostic: adventuresim_tactical_core::city_layout::grounding::SupportDiagnostic,
+    },
+    NonFiniteLocation {
+        point: Vec2,
+    },
+    NonFiniteElevation {
+        point: Vec2,
+    },
+}
+
 const PERIMETER_QUANTITY_PROBE_METRES: f32 = 1.0;
 
 pub(super) fn measure(
@@ -9,8 +23,10 @@ pub(super) fn measure(
     geographic: &[[Vec3; 3]],
     terrain_height: &impl Fn(Vec2) -> Option<f32>,
     assumed_wall_thickness_metres: f32,
-) -> Value {
-    let mesh = plan.mesh();
+) -> Result<Value, QuantityError> {
+    let mesh = plan
+        .mesh()
+        .map_err(|diagnostic| QuantityError::Support { diagnostic })?;
     let mut covered = 0.0;
     let mut fill = 0.0;
     let mut cut = 0.0;
@@ -34,8 +50,12 @@ pub(super) fn measure(
                     maximum = (difference.abs(), *point);
                 }
                 if let Err(error) = plan.validate_displacement_at(
-                    *point,
-                    SupportElevation::from_metres(height_in_triangle(*source, *point)).unwrap(),
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                        *point,
+                    )
+                    .ok_or(QuantityError::NonFiniteLocation { point: *point })?,
+                    SupportElevation::from_metres(height_in_triangle(*source, *point))
+                        .ok_or(QuantityError::NonFiniteElevation { point: *point })?,
                 ) {
                     rejection.get_or_insert(error);
                 }
@@ -53,8 +73,8 @@ pub(super) fn measure(
             f64::from((b - a).cross(c - a).length()) * 0.5
         })
         .sum::<f64>();
-    let perimeter_faces = perimeter_faces(plan, terrain_height);
-    json!({
+    let perimeter_faces = perimeter_faces(plan, terrain_height)?;
+    Ok(json!({
         "covered_reservation_area_m2":covered,
         "required_reservation_area_m2":area(&plan.reservation().corners()),
         "fill_volume_m3":fill,"cut_volume_m3":cut,
@@ -66,15 +86,17 @@ pub(super) fn measure(
         "assumed_retaining_thickness_m":assumed_wall_thickness_metres,
         "masonry_volume_estimate_m3":perimeter_faces.map(|p|(internal_faces+p)*f64::from(assumed_wall_thickness_metres)),
         "quantity_scope":"Rough comparative quantities, not structural wall sizing or historical costs. Cut/fill integrates source/support triangle intersections; perimeter face area uses one-metre probes. Footings, cellar excavation, neighbouring levels and drainage are not represented. An absent perimeter estimate is not zero work.",
-    })
+    }))
 }
 
 fn perimeter_faces(
     plan: &CompoundSupportPlan,
     height: &impl Fn(Vec2) -> Option<f32>,
-) -> Option<f64> {
+) -> Result<Option<f64>, QuantityError> {
     let corners = plan.reservation().corners();
-    let mesh = plan.mesh();
+    let mesh = plan
+        .mesh()
+        .map_err(|diagnostic| QuantityError::Support { diagnostic })?;
     let mut total = 0.0;
     for i in 0..corners.len() {
         let a = corners[i];
@@ -84,19 +106,27 @@ fn perimeter_faces(
         let mut previous = None;
         for station in 0..=stations {
             let p = a.lerp(b, station as f32 / stations as f32);
-            let geographic = height(p)?;
+            let Some(geographic) = height(p) else {
+                return Ok(None);
+            };
             let difference = mesh
-                .elevations_at(p)
+                .elevations_at(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(p)
+                        .ok_or(QuantityError::NonFiniteLocation { point: p })?,
+                )
                 .iter()
                 .map(|h| (h.metres() - geographic).abs())
-                .max_by(f32::total_cmp)?;
+                .max_by(f32::total_cmp);
+            let Some(difference) = difference else {
+                return Ok(None);
+            };
             if let Some(value) = previous {
                 total += interval * f64::from(value + difference) * 0.5;
             }
             previous = Some(difference);
         }
     }
-    Some(total)
+    Ok(Some(total))
 }
 
 fn area(polygon: &[Vec2]) -> f64 {

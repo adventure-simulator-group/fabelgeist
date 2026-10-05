@@ -8,6 +8,10 @@ pub enum CoupledPackingIssue {
         property: CityPropertyId,
         issue: gardens::GardenIssue,
     },
+    InvalidGeometry {
+        property: CityPropertyId,
+        issue: adventuresim_building_generator::plan_geometry::PlanGeometryError,
+    },
     SolverRejected,
     InvalidModel,
     NumericalFailure,

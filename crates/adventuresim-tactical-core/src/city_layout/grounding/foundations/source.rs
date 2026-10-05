@@ -19,8 +19,15 @@ pub struct GeographicSurface {
 /// Extremal source controls at complete footprint/terrain intersections.
 #[derive(Clone, Copy, Debug)]
 pub struct GeographicHeightRange {
-    pub minimum: (Vec2, SupportElevation),
-    pub maximum: (Vec2, SupportElevation),
+    pub minimum: GeographicHeightControl,
+    pub maximum: GeographicHeightControl,
+}
+
+/// A finite source elevation bound to its exact scene-plane sampling location.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct GeographicHeightControl {
+    pub point: crate::scene_coordinates::ScenePlanPoint,
+    pub elevation: SupportElevation,
 }
 
 impl GeographicSurface {
@@ -64,19 +71,21 @@ impl GeographicSurface {
             .iter()
             .flat_map(|support| {
                 self.intersecting(support).flat_map(move |source| {
-                    support
-                        .intersection(source)
-                        .into_iter()
-                        .map(|p| (p, SupportElevation(source.height_at(p))))
+                    support.intersection(source).into_iter().map(|p| {
+                        Some(GeographicHeightControl {
+                            point: crate::scene_coordinates::ScenePlanPoint::from_metres(p)?,
+                            elevation: SupportElevation::from_metres(source.height_at(p))?,
+                        })
+                    })
                 })
             })
-            .collect();
+            .collect::<Option<Vec<_>>>()?;
         let minimum = *controls
             .iter()
-            .min_by(|a, b| a.1.metres().total_cmp(&b.1.metres()))?;
+            .min_by(|a, b| a.elevation.metres().total_cmp(&b.elevation.metres()))?;
         let maximum = *controls
             .iter()
-            .max_by(|a, b| a.1.metres().total_cmp(&b.1.metres()))?;
+            .max_by(|a, b| a.elevation.metres().total_cmp(&b.elevation.metres()))?;
         Some(GeographicHeightRange { minimum, maximum })
     }
 

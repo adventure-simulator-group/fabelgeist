@@ -41,7 +41,7 @@ impl<'a> Model<'a> {
             .domains
             .iter()
             .map(PlacementDomain::geometry_at_zero)
-            .collect::<Vec<_>>();
+            .collect::<Result<Vec<_>, _>>()?;
         let gardens = geometry
             .iter()
             .zip(self.domains)
@@ -219,7 +219,7 @@ impl Model<'_> {
         let domains = self
             .domains
             .iter()
-            .map(|d| serde_json::json!({"owner":d.owner,"allowed":d.allowed,"base_translation_metres":d.base_translation_metres}))
+            .map(|d| serde_json::json!({"owner":d.owner,"allowed":d.allowed,"base_translation_metres":d.base_translation.metres()}))
             .collect::<Vec<_>>();
         std::fs::write(
             directory.join(format!(

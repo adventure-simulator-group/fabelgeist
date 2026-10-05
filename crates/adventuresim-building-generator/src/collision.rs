@@ -11,10 +11,12 @@ use serde::{Deserialize, Serialize};
 
 use crate::{BuildingPlan, ResolvedItemId, ResolvedSolid, compile_window_bars};
 
+mod cuboid;
 mod footprint;
 mod gable;
 mod ground_contact;
 pub use footprint::GroundFloorFootprint;
+pub use ground_contact::GroundContact;
 mod intersection;
 
 #[cfg(test)]
@@ -86,20 +88,27 @@ impl BuildingCollision {
     /// higher geometry. Buried slabs touching the datum remain included.
     /// This bounds a footprint; it does not claim every enclosed point is a
     /// structural bearing. Both vertical bounds are the architectural datum.
-    pub fn ground_floor_contact_bounds(&self) -> Option<CollisionBounds> {
-        self.cuboids
-            .iter()
-            .copied()
-            .flat_map(CollisionCuboid::ground_contact_polygon)
-            .map(|point| Vec3::new(point.x, 0.0, point.y))
-            .map(|point| CollisionBounds {
-                min: point,
-                max: point,
-            })
-            .reduce(|a, b| CollisionBounds {
-                min: a.min.min(b.min),
-                max: a.max.max(b.max),
-            })
+    pub fn ground_floor_contact_bounds(
+        &self,
+    ) -> Result<Option<CollisionBounds>, crate::plan_geometry::PlanGeometryError> {
+        let mut bounds: Option<CollisionBounds> = None;
+        for solid in &self.cuboids {
+            for point in solid.ground_contact()?.points() {
+                let point = point.metres();
+                let point = Vec3::new(point.x, 0.0, point.y);
+                bounds = Some(match bounds {
+                    None => CollisionBounds {
+                        min: point,
+                        max: point,
+                    },
+                    Some(bounds) => CollisionBounds {
+                        min: bounds.min.min(point),
+                        max: bounds.max.max(point),
+                    },
+                });
+            }
+        }
+        Ok(bounds)
     }
 }
 
@@ -277,7 +286,7 @@ mod tests {
                 part(Vec3::new(0.0, -2.0, 0.0), Vec3::splat(1.0)),
             ],
         };
-        let contact = collision.ground_floor_contact_bounds().unwrap();
+        let contact = collision.ground_floor_contact_bounds().unwrap().unwrap();
         assert_eq!(contact.min, Vec3::new(-3.0, 0.0, -4.0));
         assert_eq!(contact.max, Vec3::new(3.0, 0.0, 4.0));
         assert!(collision.bounds.max.x > contact.max.x);
