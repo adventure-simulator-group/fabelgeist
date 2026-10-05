@@ -50,8 +50,6 @@ pub mod armor_recipes;
 pub mod bracer;
 pub mod clothing;
 mod clothing_material;
-#[cfg(feature = "offline-creator")]
-pub mod lod;
 pub mod nearest_vertex;
 pub use clothing_material::pbr as equipment_pbr;
 pub mod decoration;

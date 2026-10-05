@@ -52,7 +52,7 @@ pub(super) fn append(
 pub(super) fn extras(
     character_name: &str,
     recipe_version: u8,
-    lod: u8,
+    lod: fabelgeist_mhr::CharacterLod,
     shells: &[RiggedShell<'_>],
     sockets: &[RiggedSocket<'_>],
     attachments: &[Value],
@@ -173,7 +173,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "close_helmet",
             1,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],

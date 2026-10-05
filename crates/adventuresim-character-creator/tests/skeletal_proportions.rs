@@ -4,7 +4,7 @@ use adventuresim_character_creator::proportions::{joint_bases, model_parameters}
 use adventuresim_core::character_proportions::{BodyProportion, CharacterProportions};
 use burn::tensor::{Device, Tensor, TensorData};
 use fabelgeist_mhr::{
-    Mhr, MhrConfig,
+    CharacterLod, Mhr, MhrConfig, PoseCorrectivePolicy,
     math::{Transform, rotate_vector},
 };
 
@@ -28,7 +28,7 @@ fn evaluate(
                 &device,
             ),
             None,
-            false,
+            PoseCorrectivePolicy::Disabled,
         )
         .unwrap();
     let skeleton = output.skeleton_state.into_data().into_vec::<f32>().unwrap();
@@ -81,8 +81,8 @@ fn skeletal_proportions_match_mhr_joints_and_skinned_vertices_in_motion() {
     let model = Mhr::from_files(
         &assets,
         MhrConfig {
-            lod: fabelgeist_mhr::MIN_LOD,
-            pose_correctives: false,
+            lod: CharacterLod::Detailed,
+            pose_correctives: PoseCorrectivePolicy::Disabled,
         },
         &Device::default(),
     )
