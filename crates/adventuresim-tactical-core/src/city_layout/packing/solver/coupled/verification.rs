@@ -3,10 +3,11 @@ use super::*;
 
 pub(super) fn validate(
     domains: &[PlacementDomain],
-    positions: &[f64],
+    positions: &FrontageCoordinates,
 ) -> Result<(), CoupledPackingIssue> {
     let mut geometry = Vec::with_capacity(domains.len());
-    for (domain, &position) in domains.iter().zip(positions) {
+    for (domain, coordinate) in domains.iter().zip(positions.iter()) {
+        let position = coordinate.metres();
         let allowed = domain.allowed;
         if !position.is_finite()
             || position < allowed.minimum_metres
@@ -18,8 +19,10 @@ pub(super) fn validate(
                 permitted: allowed,
             });
         }
-        let delta = domain.delta_at(position);
-        let shape = domain.proposed.translated(delta, domain.frontage.tangent());
+        let delta = domain.delta_at(coordinate);
+        let shape = domain
+            .proposed
+            .translated(delta.metres(), domain.frontage.tangent());
         if let Some(garden) = &shape.garden {
             garden
                 .clearance_geometry()

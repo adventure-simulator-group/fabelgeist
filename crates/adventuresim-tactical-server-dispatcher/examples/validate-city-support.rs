@@ -70,7 +70,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .ungraded_vista
         .lods
         .iter()
-        .find(|lod| lod.level == 0)
+        .find(|lod| lod.level == adventuresim_tactical_core::scene_input::VistaLevelIndex::new(0))
         .ok_or("source near vista is absent")?;
     let geographic = if let Some(path) = &request.prepared_terrain {
         let capture: capture::PreparedTerrainCapture =

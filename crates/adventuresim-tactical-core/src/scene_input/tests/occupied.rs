@@ -97,7 +97,7 @@ fn bound_building_has_static_collision_without_rewriting_surrounding_source() {
 fn distant_buildings_affect_scene_identity_without_entering_tactical_generation() {
     let mut input = fixture();
     input.vista.lods.push(VistaLod {
-        level: 0,
+        level: crate::scene_input::VistaLevelIndex::new(0),
         width: 5,
         depth: 5,
         spacing_metres: 100.0,

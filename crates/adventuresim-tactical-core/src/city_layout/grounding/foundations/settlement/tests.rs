@@ -51,7 +51,8 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
                 member.building_id
             );
             assert!((heights[0].metres() - member.elevation.metres()).abs() < 0.001);
-            let (_, normal) = forward.highest_surface_at(point).unwrap();
+            let hit = forward.highest_surface_at(point).unwrap();
+            let normal = *hit.normal;
             assert!((normal - Vec3::Y).length() < 0.001);
         }
     }
@@ -171,8 +172,12 @@ fn retaining_edge_queries_keep_both_bound_levels_without_averaging() {
     let selected = terrain
         .surface_below(Vec3::new(edge.x, heights[0], edge.y))
         .unwrap();
-    assert!((selected.0 - heights[0]).abs() < 0.001);
-    assert!((terrain.highest_surface_at(edge).unwrap().0 - heights.last().unwrap()).abs() < 0.001);
+    assert!((selected.elevation.metres() - heights[0]).abs() < 0.001);
+    assert!(
+        (terrain.highest_surface_at(edge).unwrap().elevation.metres() - heights.last().unwrap())
+            .abs()
+            < 0.001
+    );
 }
 
 #[test]
@@ -291,7 +296,11 @@ fn unowned_source_query_does_not_extrapolate_a_nearby_graded_floor() {
             .local_to_world(Vec2::new(-plot.dimensions_metres.x * 0.5 - 0.0005, 0.0));
     assert!(!surface.contains(point));
     let expected = source.elevation_at(point).unwrap().metres();
-    let observed = terrain.highest_surface_at(point).unwrap().0;
+    let observed = terrain
+        .highest_surface_at(point)
+        .unwrap()
+        .elevation
+        .metres();
     assert!(
         (observed - expected).abs() < 0.001,
         "source {expected}, observed {observed}"

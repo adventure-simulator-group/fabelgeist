@@ -70,7 +70,7 @@ fn landform_cutout_crossing_playable_boundary_retains_distant_foundation_bearing
         })
         .collect();
     let lod = VistaLod {
-        level: 0,
+        level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(0),
         width: 9,
         depth: 9,
         spacing_metres: 50.0,

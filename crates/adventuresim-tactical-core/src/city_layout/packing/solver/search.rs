@@ -14,12 +14,15 @@ impl<'a> BlockSearch<'a> {
             rejection: None,
         }
     }
-    pub fn solve(mut self) -> Result<Vec<(usize, Vec2)>, CityCompileError> {
+    pub fn solve(mut self) -> Result<Vec<PropertyTranslation>, CityCompileError> {
         let mut accepted = Vec::new();
         if self.search(&mut accepted) {
             return Ok(accepted
                 .into_iter()
-                .map(|(index, position)| (index, self.domains[index].delta_at(position)))
+                .map(|selected| PropertyTranslation {
+                    domain: selected.domain,
+                    displacement: self.domains[selected.domain.index()].delta_at(selected.position),
+                })
                 .collect());
         }
         #[cfg(test)]
@@ -29,17 +32,25 @@ impl<'a> BlockSearch<'a> {
             MAX_BLOCK_PACKING_SEARCH_STATES.saturating_sub(self.states),
         )
     }
-    fn free_intervals(&self, index: usize, accepted: &[(usize, f64)]) -> Vec<FrontageInterval> {
-        let domain = &self.domains[index];
+    fn free_intervals(
+        &self,
+        index: PackingDomainIndex,
+        accepted: &[FrontageSelection],
+    ) -> Vec<FrontageInterval> {
+        let domain = &self.domains[index.index()];
         let mut allowed = Some(domain.allowed);
-        for &(other, position) in accepted {
+        for selected in accepted {
+            let other = selected.domain;
+            let position = selected.position;
             allowed = allowed
                 .and_then(|range| self.preserve_frontage_order(index, other, position, range));
         }
         let mut free = allowed.into_iter().collect::<Vec<_>>();
-        for &(other, position) in accepted {
-            let occupied = &self.domains[other];
-            let delta = occupied.frontage.tangent().as_dvec2() * position;
+        for selected in accepted {
+            let other = selected.domain;
+            let position = selected.position;
+            let occupied = &self.domains[other.index()];
+            let delta = occupied.frontage.tangent().as_dvec2() * position.metres();
             for forbidden in domain.proposed.forbidden_displacements(
                 &occupied.proposed,
                 domain.frontage.tangent(),
@@ -55,13 +66,13 @@ impl<'a> BlockSearch<'a> {
     }
     fn preserve_frontage_order(
         &self,
-        index: usize,
-        other: usize,
-        position: f64,
+        index: PackingDomainIndex,
+        other: PackingDomainIndex,
+        position: FrontagePosition,
         range: FrontageInterval,
     ) -> Option<FrontageInterval> {
-        let first = &self.domains[index];
-        let second = &self.domains[other];
+        let first = &self.domains[index.index()];
+        let second = &self.domains[other.index()];
         if first.frontage.edge != second.frontage.edge {
             return Some(range);
         }
@@ -85,29 +96,26 @@ impl<'a> BlockSearch<'a> {
             .is_lt()
         {
             range.with_half_plane(
-                c + position * rate - b - CityPlotBounds::COORDINATE_TOLERANCE_METRES,
+                c + position.metres() * rate - b - CityPlotBounds::COORDINATE_TOLERANCE_METRES,
                 -rate,
             )
         } else {
             range.with_half_plane(
-                a - d - position * rate - CityPlotBounds::COORDINATE_TOLERANCE_METRES,
+                a - d - position.metres() * rate - CityPlotBounds::COORDINATE_TOLERANCE_METRES,
                 rate,
             )
         }
     }
-    pub(super) fn propagate_frontage_capacity(
-        &self,
-        candidates: &mut [(usize, Vec<FrontageInterval>)],
-    ) {
+    pub(super) fn propagate_frontage_capacity(&self, candidates: &mut [DomainChoices]) {
         for edge in 0..4 {
             let tangent = self.domains[0].frontage.block.corners[(edge + 1) % 4]
                 - self.domains[0].frontage.block.corners[edge];
             let mut row: Vec<_> = (0..candidates.len())
-                .filter(|&i| self.domains[candidates[i].0].frontage.edge == edge)
+                .filter(|&i| self.domains[candidates[i].domain.index()].frontage.edge == edge)
                 .collect();
             row.sort_by(|&a, &b| {
                 let projection = |index: usize| {
-                    self.domains[candidates[index].0]
+                    self.domains[candidates[index].domain.index()]
                         .proposed
                         .reservation
                         .centre_metres
@@ -115,18 +123,18 @@ impl<'a> BlockSearch<'a> {
                         .dot(tangent.as_dvec2())
                 };
                 projection(a).total_cmp(&projection(b)).then(
-                    self.domains[candidates[a].0]
+                    self.domains[candidates[a].domain.index()]
                         .owner
-                        .cmp(&self.domains[candidates[b].0].owner),
+                        .cmp(&self.domains[candidates[b].domain.index()].owner),
                 )
             });
             for (rank, &left) in row.iter().enumerate() {
                 for &right in &row[rank + 1..] {
-                    let gap = self.row_gap(candidates[left].0, candidates[right].0);
-                    if let Some(first) = candidates[left].1.first() {
+                    let gap = self.row_gap(candidates[left].domain, candidates[right].domain);
+                    if let Some(first) = candidates[left].intervals.first() {
                         let minimum = first.minimum_metres + gap;
-                        candidates[right].1 = candidates[right]
-                            .1
+                        candidates[right].intervals = candidates[right]
+                            .intervals
                             .iter()
                             .filter_map(|range| range.with_half_plane(-minimum, 1.0))
                             .collect();
@@ -135,11 +143,11 @@ impl<'a> BlockSearch<'a> {
             }
             for (rank, &right) in row.iter().enumerate().rev() {
                 for &left in &row[..rank] {
-                    let gap = self.row_gap(candidates[left].0, candidates[right].0);
-                    if let Some(last) = candidates[right].1.last() {
+                    let gap = self.row_gap(candidates[left].domain, candidates[right].domain);
+                    if let Some(last) = candidates[right].intervals.last() {
                         let maximum = last.maximum_metres - gap;
-                        candidates[left].1 = candidates[left]
-                            .1
+                        candidates[left].intervals = candidates[left]
+                            .intervals
                             .iter()
                             .filter_map(|range| range.with_half_plane(maximum, -1.0))
                             .collect();
@@ -148,19 +156,20 @@ impl<'a> BlockSearch<'a> {
             }
         }
     }
-    fn row_gap(&self, first: usize, second: usize) -> f64 {
-        let a = &self.domains[first];
-        let b = &self.domains[second];
+    fn row_gap(&self, first: PackingDomainIndex, second: PackingDomainIndex) -> f64 {
+        let a = &self.domains[first.index()];
+        let b = &self.domains[second.index()];
         a.proposed
             .forbidden_displacements(&b.proposed, a.frontage.tangent(), DVec2::ZERO)
             .iter()
             .map(|forbidden| -forbidden.minimum_metres)
             .fold(f64::NEG_INFINITY, f64::max)
     }
-    fn next_domain(&mut self, accepted: &[(usize, f64)]) -> Option<(usize, Vec<FrontageInterval>)> {
+    fn next_domain(&mut self, accepted: &[FrontageSelection]) -> Option<DomainChoices> {
         let mut candidates = Vec::new();
-        for (index, domain) in self.domains.iter().enumerate() {
-            if accepted.iter().any(|(other, _)| *other == index) {
+        for (ordinal, domain) in self.domains.iter().enumerate() {
+            let index = PackingDomainIndex::new(ordinal);
+            if accepted.iter().any(|selected| selected.domain == index) {
                 continue;
             }
             let free = self.free_intervals(index, accepted);
@@ -173,17 +182,23 @@ impl<'a> BlockSearch<'a> {
                         available_displacement_metres: Some(domain.allowed),
                         blocking_properties: accepted
                             .iter()
-                            .map(|(i, _)| self.domains[*i].owner)
+                            .map(|selected| self.domains[selected.domain.index()].owner)
                             .collect(),
                     },
                 });
                 return None;
             }
-            candidates.push((index, free));
+            candidates.push(DomainChoices {
+                domain: index,
+                intervals: free,
+            });
         }
         self.propagate_domains(&mut candidates);
-        if let Some((index, _)) = candidates.iter().find(|(_, free)| free.is_empty()) {
-            let domain = &self.domains[*index];
+        if let Some(candidate) = candidates
+            .iter()
+            .find(|candidate| candidate.intervals.is_empty())
+        {
+            let domain = &self.domains[candidate.domain.index()];
             self.rejection = Some(CityCompileError::Packing {
                 property: domain.owner,
                 issue: CityPackingIssue::NoFreeFrontage {
@@ -203,28 +218,32 @@ impl<'a> BlockSearch<'a> {
             });
             return None;
         }
-        candidates.into_iter().min_by(|(a, af), (b, bf)| {
+        candidates.into_iter().min_by(|a, b| {
             let room = |intervals: &[FrontageInterval]| {
                 intervals
                     .iter()
                     .map(|i| i.maximum_metres - i.minimum_metres)
                     .sum::<f64>()
             };
-            self.domains[*a]
+            self.domains[a.domain.index()]
                 .frontage
                 .priority()
-                .cmp(&self.domains[*b].frontage.priority())
-                .then_with(|| room(af).total_cmp(&room(bf)))
-                .then(self.domains[*a].owner.cmp(&self.domains[*b].owner))
+                .cmp(&self.domains[b.domain.index()].frontage.priority())
+                .then_with(|| room(&a.intervals).total_cmp(&room(&b.intervals)))
+                .then(
+                    self.domains[a.domain.index()]
+                        .owner
+                        .cmp(&self.domains[b.domain.index()].owner),
+                )
         })
     }
     fn candidates(
         &self,
-        index: usize,
+        index: PackingDomainIndex,
         free: &[FrontageInterval],
-        accepted: &[(usize, f64)],
+        accepted: &[FrontageSelection],
     ) -> Vec<f64> {
-        let domain = &self.domains[index];
+        let domain = &self.domains[index.index()];
         let mut candidates: Vec<_> = free
             .iter()
             .flat_map(|interval| {
@@ -238,7 +257,11 @@ impl<'a> BlockSearch<'a> {
         // Future original poses supply contact boundaries, allowing an earlier
         // service to move just enough rather than consuming a later home's slot.
         for (other, remaining) in self.domains.iter().enumerate() {
-            if other == index || accepted.iter().any(|(i, _)| *i == other) {
+            if other == index.index()
+                || accepted
+                    .iter()
+                    .any(|selected| selected.domain.index() == other)
+            {
                 continue;
             }
             for forbidden in domain.proposed.forbidden_displacements(
@@ -259,18 +282,21 @@ impl<'a> BlockSearch<'a> {
         candidates.dedup_by(|a, b| (*a - *b).abs() <= CityPlotBounds::COORDINATE_TOLERANCE_METRES);
         candidates
     }
-    fn search(&mut self, accepted: &mut Vec<(usize, f64)>) -> bool {
+    fn search(&mut self, accepted: &mut Vec<FrontageSelection>) -> bool {
         if accepted.len() == self.domains.len() {
             let mut geometry = self
                 .domains
                 .iter()
                 .map(PlacementDomain::geometry_at_zero)
                 .collect::<Vec<_>>();
-            for &(index, position) in accepted.iter() {
-                let domain = &self.domains[index];
-                geometry[index] = domain
-                    .proposed
-                    .translated(domain.delta_at(position), domain.frontage.tangent());
+            for selected in accepted.iter() {
+                let index = selected.domain;
+                let position = selected.position;
+                let domain = &self.domains[index.index()];
+                geometry[index.index()] = domain.proposed.translated(
+                    domain.delta_at(position).metres(),
+                    domain.frontage.tangent(),
+                );
             }
             // Candidate pruning uses land and building intervals. Complete
             // rounded garden geometry remains an acceptance constraint, so
@@ -284,12 +310,15 @@ impl<'a> BlockSearch<'a> {
         if self.states >= MAX_AUTHORED_PACKING_SEARCH_STATES {
             return false;
         }
-        let Some((index, free)) = self.next_domain(accepted) else {
+        let Some(choices) = self.next_domain(accepted) else {
             return false;
         };
-        for displacement in self.candidates(index, &free, accepted) {
+        for displacement in self.candidates(choices.domain, &choices.intervals, accepted) {
             self.states += 1;
-            accepted.push((index, displacement));
+            accepted.push(FrontageSelection {
+                domain: choices.domain,
+                position: FrontagePosition::from_metres(displacement).expect("finite candidate"),
+            });
             if self.search(accepted) {
                 return true;
             }
@@ -316,7 +345,10 @@ impl BlockSearch<'_> {
             .domains
             .iter()
             .enumerate()
-            .map(|(index, _)| (index, self.free_intervals(index, &[])))
+            .map(|(index, _)| DomainChoices {
+                domain: PackingDomainIndex::new(index),
+                intervals: self.free_intervals(PackingDomainIndex::new(index), &[]),
+            })
             .collect();
         let mut propagated = candidates.clone();
         self.propagate_frontage_capacity(&mut propagated);
@@ -324,7 +356,7 @@ impl BlockSearch<'_> {
             "owner":domain.owner,"edge":domain.frontage.edge,"tangent":domain.frontage.tangent(),
             "allowed":domain.allowed,"reservation":domain.proposed.reservation,
             "buildings":domain.proposed.buildings,"bearings":domain.proposed.bearings,
-            "free":candidates[index].1,"propagated":propagated[index].1,
+            "free":candidates[index].intervals,"propagated":propagated[index].intervals,
             "pairs":self.domains.iter().enumerate().filter(|(i,_)|*i!=index).map(|(_,other)|serde_json::json!({"other":other.owner,"forbidden":domain.proposed.forbidden_displacements(&other.proposed,domain.frontage.tangent(),DVec2::ZERO)})).collect::<Vec<_>>()
         })).collect();
         std::fs::write(path.join(format!("packing-block-{}.json", self.domains[0].frontage.block.id.0)), serde_json::to_vec_pretty(&serde_json::json!({"states":self.states,"domains":domains,"block":format!("{:?}",self.domains[0].frontage.block)})).unwrap()).unwrap();

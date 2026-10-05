@@ -59,19 +59,19 @@ pub(super) fn vista_scatter_transform(
     hash: u64,
     lift: f32,
 ) -> Option<Transform> {
-    let (height, normal) = scenery_surface(
+    let hit = scenery_surface(
         lod,
         coarser_lod,
         playable_terrain,
         playable_half_extent,
         point,
     )?;
-    if normal.y < MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y {
+    if hit.normal.y < MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y {
         return None;
     }
     Some(
-        Transform::from_xyz(point.x, height + lift, point.y).with_rotation(
-            Quat::from_rotation_arc(Vec3::Y, normal)
+        Transform::from_xyz(point.x, hit.elevation.metres() + lift, point.y).with_rotation(
+            Quat::from_rotation_arc(Vec3::Y, *hit.normal)
                 * Quat::from_rotation_y(
                     streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,
                 ),
@@ -88,7 +88,7 @@ pub(super) fn tree_root_height(
     if terrain.property_surface().is_some() {
         return terrain
             .surface_below(Vec3::new(world.x, f32::INFINITY, world.y))
-            .map(|(height, _)| height);
+            .map(|hit| hit.elevation.metres());
     }
     presented_height_at(lod, world, coarser)
 }
@@ -101,7 +101,7 @@ fn scenery_surface(
     playable_terrain: &SceneTerrain,
     playable_half_extent: Vec2,
     point: Vec2,
-) -> Option<(f32, Vec3)> {
+) -> Option<adventuresim_tactical_core::city_layout::grounding::SurfaceHit> {
     if playable_terrain.property_surface().is_some() {
         return playable_terrain.surface_below(Vec3::new(point.x, f32::INFINITY, point.y));
     }
@@ -130,8 +130,8 @@ fn scenery_surface(
     };
     let tangent_x = Vec3::new(delta * 2.0, at(Vec2::X * delta) - at(-Vec2::X * delta), 0.0);
     let tangent_z = Vec3::new(0.0, at(Vec2::Y * delta) - at(-Vec2::Y * delta), delta * 2.0);
-    let normal = tangent_z.cross(tangent_x).normalize_or_zero();
-    Some((height, normal))
+    let normal = tangent_z.cross(tangent_x);
+    adventuresim_tactical_core::city_layout::grounding::SurfaceHit::from_geometry(height, normal)
 }
 
 #[cfg(test)]

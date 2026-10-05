@@ -71,11 +71,14 @@ impl SceneTerrain {
         }
     }
 
-    pub fn surface_below(&self, position: Vec3) -> Option<(f32, Vec3)> {
+    pub fn surface_below(
+        &self,
+        position: Vec3,
+    ) -> Option<crate::city_layout::grounding::SurfaceHit> {
         match &self.geometry {
             TerrainGeometry::Sampled => {
                 let sample = self.surface_at_stride(Vec2::new(position.x, position.z), 1)?;
-                (sample.0 <= position.y).then_some(sample)
+                (sample.elevation.metres() <= position.y).then_some(sample)
             }
             TerrainGeometry::Owned(surface) => surface.surface_below(position),
         }

@@ -4,6 +4,7 @@ use adventuresim_tactical_core::city_layout::grounding::{
     SupportElevation, SupportLimits,
 };
 use adventuresim_tactical_core::city_layout::{CityCompound, CityPlotBounds};
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::math::{Vec2, Vec3, Vec3Swizzles};
 use serde_json::{Value, json};
 #[path = "solutions/quantities.rs"]
@@ -27,10 +28,63 @@ pub(super) fn stair_limits() -> CourtStairLimits {
     .expect("authored comparison stair dimensions are valid")
 }
 
+#[derive(Debug, thiserror::Error)]
+pub(super) enum ComparisonInputError {
+    #[error("non-finite comparison threshold {attempted_metres:?}")]
+    NonFiniteThreshold { attempted_metres: Vec2 },
+    #[error("comparison requires three finite front/court/rear elevations")]
+    InvalidProposedLevels,
+}
+
+pub(super) struct ComparisonMember {
+    pub bearing: CityPlotBounds,
+    pub threshold: ScenePlanPoint,
+}
+impl ComparisonMember {
+    pub fn from_measurement(
+        bearing: CityPlotBounds,
+        threshold_metres: Vec2,
+    ) -> Result<Self, ComparisonInputError> {
+        Ok(Self {
+            bearing,
+            threshold: ScenePlanPoint::from_metres(threshold_metres).ok_or(
+                ComparisonInputError::NonFiniteThreshold {
+                    attempted_metres: threshold_metres,
+                },
+            )?,
+        })
+    }
+}
+pub(super) struct ComparisonMembers {
+    pub front: ComparisonMember,
+    pub rear: ComparisonMember,
+}
+pub(super) struct ProposedCompoundLevels {
+    pub front: SupportElevation,
+    pub court: SupportElevation,
+    pub rear: SupportElevation,
+}
+
+impl ProposedCompoundLevels {
+    /// Adapt the diagnostic producer's front/court/rear JSON array explicitly.
+    pub fn from_capture(value: &Value) -> Result<Self, ComparisonInputError> {
+        Self::decode_capture(value).ok_or(ComparisonInputError::InvalidProposedLevels)
+    }
+    fn decode_capture(value: &Value) -> Option<Self> {
+        let values: &[Value; 3] = value.as_array()?.as_slice().try_into().ok()?;
+        let elevation = |value: &Value| SupportElevation::from_metres(value.as_f64()? as f32);
+        Some(Self {
+            front: elevation(&values[0])?,
+            court: elevation(&values[1])?,
+            rear: elevation(&values[2])?,
+        })
+    }
+}
+
 pub(super) fn compare(
     property: &CityCompound,
-    members: [(CityPlotBounds, Vec2); 2],
-    proposed_levels_metres: [f32; 3],
+    members: ComparisonMembers,
+    proposed: ProposedCompoundLevels,
     geographic: &[[Vec3; 3]],
     height: impl Fn(Vec2) -> Option<f32>,
     maximum_grade: f32,
@@ -46,17 +100,17 @@ pub(super) fn compare(
     let levels = CompoundSupportLevels {
         front: MemberSupport {
             building_id: property.front_building_id,
-            contact: members[0].0,
-            court_threshold_metres: members[0].1,
-            elevation: elevation(proposed_levels_metres[0])?,
+            contact: members.front.bearing,
+            court_threshold_metres: members.front.threshold.metres(),
+            elevation: proposed.front,
         },
         rear: MemberSupport {
             building_id: property.rear_building_id,
-            contact: members[1].0,
-            court_threshold_metres: members[1].1,
-            elevation: elevation(proposed_levels_metres[2])?,
+            contact: members.rear.bearing,
+            court_threshold_metres: members.rear.threshold.metres(),
+            elevation: proposed.rear,
         },
-        court: elevation(proposed_levels_metres[1])?,
+        court: proposed.court,
         gate: elevation(height(property.boundary.gate.centre_metres)?)?,
         street: elevation(height(route.start_metres)?)?,
     };
@@ -91,4 +145,19 @@ pub(super) fn compare(
             "verification_scope":"Bounded construction decision experiment. Six-metre cut/fill and stair dimensions are explicit provisional modelling assumptions, not calibrated runtime limits or historical measurements. No production terrain is changed, no required positive fixture is accepted, and no retaining-wall collision capacity is asserted.",
         }),
     )
+}
+
+#[cfg(test)]
+mod input_tests {
+    use super::*;
+    #[test]
+    fn proposed_levels_reject_malformed_or_unrepresentable_capture_values() {
+        assert!(ProposedCompoundLevels::from_capture(&json!([1, 2])).is_err());
+        assert!(ProposedCompoundLevels::from_capture(&json!([1, 2, 3, 4])).is_err());
+        assert!(ProposedCompoundLevels::from_capture(&json!([1, 2, 1e100])).is_err());
+        let levels = ProposedCompoundLevels::from_capture(&json!([-1, 2, 3])).unwrap();
+        assert_eq!(levels.front.metres(), -1.0);
+        assert_eq!(levels.court.metres(), 2.0);
+        assert_eq!(levels.rear.metres(), 3.0);
+    }
 }

@@ -20,7 +20,7 @@ fn varied_lod(level: u8, spacing: f32) -> VistaLod {
         })
         .collect();
     VistaLod {
-        level,
+        level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(level),
         spacing_metres: spacing,
         width: 5,
         depth: 5,

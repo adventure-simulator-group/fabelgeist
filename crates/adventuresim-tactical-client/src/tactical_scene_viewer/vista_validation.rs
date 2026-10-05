@@ -2,44 +2,55 @@
 //! Fixture extent is an input contract, not a universal fifty-kilometre rule.
 use super::{TacticalGameplayCamera, VistaTerrain};
 use crate::presentation::VistaTerrainMesh;
-use adventuresim_tactical_core::scene_input::VistaSample;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+use adventuresim_tactical_core::scene_input::{VistaLevelIndex, VistaSample};
 use bevy::{camera::primitives::Aabb, prelude::*};
 use std::collections::BTreeMap;
 
 #[derive(Debug)]
 struct RingBounds {
-    minimum: Vec2,
-    maximum: Vec2,
+    minimum: ScenePlanPoint,
+    maximum: ScenePlanPoint,
 }
 
 impl RingBounds {
     fn from_points(points: impl IntoIterator<Item = Vec3>) -> Option<Self> {
-        let mut points = points.into_iter().map(|p| Vec2::new(p.x, p.z));
-        let first = points.next()?;
-        Some(points.fold(
+        let mut points = points
+            .into_iter()
+            .map(|p| ScenePlanPoint::from_metres(p.xz()));
+        let first = points.next()??;
+        points.try_fold(
             Self {
                 minimum: first,
                 maximum: first,
             },
-            |bounds, point| Self {
-                minimum: bounds.minimum.min(point),
-                maximum: bounds.maximum.max(point),
+            |mut bounds, point| {
+                let point = point?;
+                bounds.include(Self {
+                    minimum: point,
+                    maximum: point,
+                });
+                Some(bounds)
             },
-        ))
+        )
     }
     fn include(&mut self, other: Self) {
-        self.minimum = self.minimum.min(other.minimum);
-        self.maximum = self.maximum.max(other.maximum);
+        self.minimum =
+            ScenePlanPoint::from_metres(self.minimum.metres().min(other.minimum.metres()))
+                .expect("union of finite ring bounds");
+        self.maximum =
+            ScenePlanPoint::from_metres(self.maximum.metres().max(other.maximum.metres()))
+                .expect("union of finite ring bounds");
     }
     fn matches(&self, other: &Self) -> bool {
         let tolerance =
             adventuresim_tactical_core::city_layout::CityPlotBounds::COORDINATE_TOLERANCE_METRES
                 as f32;
-        (self.minimum - other.minimum)
+        (self.minimum.metres() - other.minimum.metres())
             .abs()
             .cmple(Vec2::splat(tolerance))
             .all()
-            && (self.maximum - other.maximum)
+            && (self.maximum.metres() - other.maximum.metres())
                 .abs()
                 .cmple(Vec2::splat(tolerance))
                 .all()
@@ -59,10 +70,15 @@ pub(super) type VistaQuery<'w, 's> = Query<
     (Without<Camera3d>, Without<TacticalGameplayCamera>),
 >;
 
-pub(super) struct VistaCaptureContract(Vec<(u8, RingBounds)>);
+struct ExpectedVistaRing {
+    level: VistaLevelIndex,
+    bounds: RingBounds,
+}
+
+pub(super) struct VistaCaptureContract(Vec<ExpectedVistaRing>);
 
 pub(super) struct VistaObservation {
-    pub presented_lods: Vec<u8>,
+    pub presented_lods: Vec<VistaLevelIndex>,
     pub chunks: usize,
     pub colliders: usize,
     pub matches_source: bool,
@@ -82,13 +98,15 @@ impl VistaCaptureContract {
                         lod.origin_east_metres as f32,
                         lod.origin_north_metres as f32,
                     );
-                    (
-                        lod.level,
-                        RingBounds {
-                            minimum: origin - half,
-                            maximum: origin + half,
+                    ExpectedVistaRing {
+                        level: lod.level,
+                        bounds: RingBounds {
+                            minimum: ScenePlanPoint::from_metres(origin - half)
+                                .expect("validated source ring minimum"),
+                            maximum: ScenePlanPoint::from_metres(origin + half)
+                                .expect("validated source ring maximum"),
                         },
-                    )
+                    }
                 })
                 .collect(),
         )
@@ -148,12 +166,16 @@ impl VistaCaptureContract {
             matches_source,
         }
     }
-    fn matches_bounds(&self, bounds: &BTreeMap<u8, RingBounds>, maximum_lods: usize) -> bool {
+    fn matches_bounds(
+        &self,
+        bounds: &BTreeMap<VistaLevelIndex, RingBounds>,
+        maximum_lods: usize,
+    ) -> bool {
         bounds.len() == self.0.len().min(maximum_lods)
-            && self.0.iter().take(maximum_lods).all(|(level, expected)| {
+            && self.0.iter().take(maximum_lods).all(|expected| {
                 bounds
-                    .get(level)
-                    .is_some_and(|observed| expected.matches(observed))
+                    .get(&expected.level)
+                    .is_some_and(|observed| expected.bounds.matches(observed))
             })
     }
 }

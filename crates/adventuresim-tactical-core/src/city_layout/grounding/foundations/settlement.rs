@@ -154,14 +154,14 @@ impl BoundedSettlementTerrain {
     /// Highest exterior support is appropriate for an unbound exterior query.
     /// At retaining edges, callers with an actor or architectural datum use
     /// `surface_below` or `elevations_at` instead.
-    pub fn highest_surface_at(&self, point: Vec2) -> Option<(f32, Vec3)> {
+    pub fn highest_surface_at(&self, point: Vec2) -> Option<super::super::SurfaceHit> {
         self.surface_below(Vec3::new(point.x, f32::INFINITY, point.y))
     }
 
     /// Select physical support below an explicit vertical query ceiling. The
     /// caller supplies its actor/threshold clearance; no movement limit is
     /// invented here. Buried prism bottoms and vertical faces are not bearings.
-    pub fn surface_below(&self, position: Vec3) -> Option<(f32, Vec3)> {
+    pub fn surface_below(&self, position: Vec3) -> Option<super::super::SurfaceHit> {
         self.query
             .triangles_at(self, position.xz(), self.contact_tolerance_metres)
             .filter_map(|triangle| {
@@ -170,10 +170,10 @@ impl BoundedSettlementTerrain {
                     return None;
                 }
                 let [a, b, c] = triangle.points();
-                let normal = (c - a).cross(b - a).normalize();
-                Some((height, normal))
+                let normal = (c - a).cross(b - a);
+                super::super::SurfaceHit::from_geometry(height, normal)
             })
-            .max_by(|a, b| a.0.total_cmp(&b.0))
+            .max_by(|a, b| a.elevation.metres().total_cmp(&b.elevation.metres()))
     }
 
     pub(crate) fn support_heights(&self) -> impl Iterator<Item = f32> + '_ {

@@ -98,7 +98,11 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
     assert!(!surfaces.iter().any(|s| s.contains(empty_corner)));
     {
         assert!(
-            (terrain.highest_surface_at(empty_corner).unwrap().0
+            (terrain
+                .highest_surface_at(empty_corner)
+                .unwrap()
+                .elevation
+                .metres()
                 - source.elevation_at(empty_corner).unwrap().metres())
             .abs()
                 < policy.limits.contact_tolerance_metres()

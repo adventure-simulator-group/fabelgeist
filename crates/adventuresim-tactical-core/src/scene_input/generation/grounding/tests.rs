@@ -32,7 +32,7 @@ fn city_input_for(seed: u64, population: u32) -> (TacticalSceneInput, CitySceneL
     };
     input.vista = VistaSample {
         lods: vec![VistaLod {
-            level: 0,
+            level: crate::scene_input::VistaLevelIndex::new(0),
             width: 41,
             depth: 41,
             spacing_metres: 50.0,
@@ -88,7 +88,8 @@ fn production_support_handoff_preserves_source_identity_members_and_programmes()
                 .terrain
                 .surface_below(Vec3::new(centre.x, floor + 0.001, centre.y))
                 .unwrap()
-                .0
+                .elevation
+                .metres()
                 - floor)
                 .abs()
                 < 0.001

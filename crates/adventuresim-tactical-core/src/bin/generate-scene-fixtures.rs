@@ -490,7 +490,7 @@ fn vista(
                     *height += playable_center_height - vista_center_height;
                 }
                 VistaLod {
-                    level,
+                    level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(level),
                     spacing_metres: sample.spacing_metres,
                     width: sample.width,
                     depth: sample.depth,

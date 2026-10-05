@@ -118,9 +118,9 @@ impl Capture {
         .ok_or("invalid geographic coordinate")?;
         let stages = ImportedTerrainCapture::sample(terrain, coordinates, input.seed)?;
         let source_compounds = input.compounds.iter().map(|property| {
-            let samples = ImportedTerrainCapture::sample_points(terrain, coordinates, property.plot.corners())?;
+            let samples = ImportedTerrainCapture::sample_points(terrain, coordinates, property.plot.corners().map(|point| adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(point).expect("validated property corner")))?;
             Ok(serde_json::json!({"property_id":property.id, "members":[property.front_building_id,property.rear_building_id], "source_samples":samples}))
-        }).collect::<Result<Vec<_>, String>>()?;
+        }).collect::<Result<Vec<_>, adventuresim_tactical_server_dispatcher::scene_input::TerrainCaptureError>>()?;
         std::fs::write(
             path,
             serde_json::to_vec(&serde_json::json!({
@@ -129,7 +129,7 @@ impl Capture {
                 "latitude_e7":coordinates.latitude().get(),
                 "longitude_e7":coordinates.longitude().get(),
                 "source_digest": stages.source_digest,
-                "absolute_elevation_metres": stages.absolute_elevation_metres,
+                "absolute_elevation_metres": stages.absolute_elevation.get(),
                 "source_transects": stages.source_transects,
                 "ungraded_vista": stages.ungraded_vista,
                 "source_compounds": source_compounds,

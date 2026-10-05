@@ -18,7 +18,12 @@ fn joists(program: &BuildingProgram, width: f32) -> Vec<f32> {
     // A seeded set-out could admit the plinth but put its bearing ledge into
     // a joist, while the next clear floor station met a roof girder.
     let pitch = MAXIMUM_JOIST_PITCH_METRES;
-    let set_out = if super::heated_rooms::applies(program, 1) {
+    let set_out = if super::heated_rooms::HeatingStorey::for_program(
+        program,
+        crate::StoreyIndex::FIRST_UPPER,
+    )
+    .is_some()
+    {
         UPPER_HEATED_BAY_SET_OUT_METRES
     } else {
         GROUNDED_HEATED_BAY_SET_OUT_METRES[fabelgeist_determinism::StreamId::new(

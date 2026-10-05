@@ -27,10 +27,12 @@ mod foundations;
 mod mesh;
 mod planar;
 mod profile;
+mod surface_hit;
 pub use diagnostic::{
     SupportBoundary, SupportConstraint, SupportDiagnostic, SupportDiagnosticUnit,
     SupportGradingAttempt,
 };
+pub use surface_hit::SurfaceHit;
 mod selection;
 pub use selection::CompoundSupportRequest;
 mod stairs;
@@ -42,7 +44,7 @@ pub use foundations::{
     PropertyFoundationMesh, SettlementSupportError, SurfaceDifferenceControl,
 };
 pub use mesh::PropertySupportMesh;
-use profile::{ProfilePoint, SupportProfile};
+use profile::{ProfileCoordinate, ProfilePoint, SupportProfile};
 use stairs::CourtStair;
 pub use stairs::CourtStairLimits;
 
@@ -208,7 +210,9 @@ impl CompoundSupportPlan {
         if offset >= -self.limits.contact_tolerance_metres || !self.property.plot.contains(point) {
             let distance = (point - self.passage.start_metres)
                 .dot((self.passage.end_metres - self.passage.start_metres).normalize());
-            heights.push(SupportElevation(self.passage_profile.height_at(distance)));
+            heights.push(self.passage_profile.height_at(
+                ProfileCoordinate::from_metres(distance).expect("finite bound passage coordinate"),
+            ));
         }
         SurfaceElevations(heights)
     }
@@ -288,7 +292,14 @@ impl CompoundSupportPlan {
         self.court_stairs
             .iter()
             .find_map(|stair| stair.height_at(local))
-            .unwrap_or_else(|| self.court_profile.height_at(local.y))
+            .unwrap_or_else(|| {
+                self.court_profile
+                    .height_at(
+                        ProfileCoordinate::from_metres(local.y)
+                            .expect("finite property-local point"),
+                    )
+                    .metres()
+            })
     }
 
     /// A private unit translation evaluates the affine response at unchanged
@@ -299,10 +310,10 @@ impl CompoundSupportPlan {
         basis.levels.rear.elevation.0 += 1.0;
         basis.levels.court.0 += 1.0;
         for point in &mut basis.court_profile.points {
-            point.height_metres += 1.0;
+            point.elevation.0 += 1.0;
         }
         for point in basis.passage_profile.points.iter_mut().rev().take(2) {
-            point.height_metres += 1.0;
+            point.elevation.0 += 1.0;
         }
         for stair in &mut basis.court_stairs {
             stair.shift_floor(1.0);

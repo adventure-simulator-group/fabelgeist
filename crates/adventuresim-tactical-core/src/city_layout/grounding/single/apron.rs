@@ -110,8 +110,15 @@ pub(super) struct PreparedApron {
     edge: Vec2,
 }
 
+/// Independent lower and upper floor constraints. A crossed pair represents
+/// infeasibility and is diagnosed by floor selection, never silently reordered.
+pub(super) struct FloorConstraints {
+    pub minimum: SupportElevation,
+    pub maximum: SupportElevation,
+}
+
 impl PreparedApron {
-    pub fn floor_interval(&self, policy: SinglePropertyGradingPolicy) -> (f32, f32) {
+    pub fn floor_interval(&self, policy: SinglePropertyGradingPolicy) -> FloorConstraints {
         let available = self.run - self.landing;
         let width = self.offset.length() * 2.0;
         let across = (self.source[0] - self.source[1]).abs() / width;
@@ -126,10 +133,12 @@ impl PreparedApron {
         } else {
             0.0
         };
-        (
-            self.source.into_iter().fold(f32::NEG_INFINITY, f32::max) - rise,
-            self.source.into_iter().fold(f32::INFINITY, f32::min) + rise,
-        )
+        FloorConstraints {
+            minimum: SupportElevation(
+                self.source.into_iter().fold(f32::NEG_INFINITY, f32::max) - rise,
+            ),
+            maximum: SupportElevation(self.source.into_iter().fold(f32::INFINITY, f32::min) + rise),
+        }
     }
 
     pub fn append_to(
@@ -179,5 +188,33 @@ impl PreparedApron {
             .clipping_outlines
             .push(region.corners().map(Vec2::as_dvec2).to_vec());
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod constraint_tests {
+    use super::*;
+    #[test]
+    fn impossible_crossfall_preserves_crossed_floor_constraints_for_rejection() {
+        let apron = PreparedApron {
+            outer: Vec2::Y * 4.0,
+            direction: Vec2::Y,
+            offset: Vec2::X,
+            run: 4.0,
+            landing: 0.5,
+            source: [6.0, -6.0],
+            edge: Vec2::ZERO,
+        };
+        let policy = SinglePropertyGradingPolicy {
+            limits: SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
+            stairs: CourtStairLimits::new(0.19, 0.25, 1.0, 1.05, 0.5).unwrap(),
+            embedment: FoundationEmbedment::from_metres(0.2).unwrap(),
+            doorway_apron: crate::city_layout::StreetApronDimensions::from_metres(Vec2::new(
+                1.0, 4.0,
+            ))
+            .unwrap(),
+        };
+        let bounds = apron.floor_interval(policy);
+        assert!(bounds.minimum.metres() > bounds.maximum.metres());
     }
 }

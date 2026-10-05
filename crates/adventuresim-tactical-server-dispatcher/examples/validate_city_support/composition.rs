@@ -42,7 +42,7 @@ impl Composition {
         for triangle in geographic.triangles() {
             for point in triangle {
                 let query = Vec2::new(point.x, point.z);
-                let Some((height, _)) = surface.highest_surface_at(query) else {
+                let Some(hit) = surface.highest_surface_at(query) else {
                     return Ok(Self {
                         accepted: false,
                         report: json!({
@@ -50,6 +50,7 @@ impl Composition {
                         }),
                     });
                 };
+                let height = hit.elevation.metres();
                 checksum += f64::from(height);
                 query_count += 1;
                 if plans.iter().all(|plan| !plan.contains(query)) {

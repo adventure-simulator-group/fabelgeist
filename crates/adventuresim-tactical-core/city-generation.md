@@ -756,3 +756,26 @@ declare shorter vistas than imported geographic scenes. A universal ring count
 or fifty-kilometre requirement would validate a fixture assumption rather than
 the declared scene. Per-view capture records report physical pixel dimensions;
 the window's logical dimensions can differ when the host display is scaled.
+
+Physical terrain queries return `SurfaceHit`, pairing a finite scene-relative
+`SupportElevation` with a validated unit normal. Highest-support queries retain
+an unrestricted ceiling; an actor-bound query uses its explicit ceiling. Profile
+ordinates are finite signed distances along the bound route or court, distinct
+from support elevations. Independent floor constraints retain both bounds even
+when they cross: infeasible access is rejected rather than repaired by swapping
+the bounds. Enclosure base and head observations remain distinct elevations.
+
+Packing selections associate a domain ordinal with a typed frontage position or
+plan displacement. Church, service and residence allocation precedence is an
+explicit role ordering. Counted search outcomes retain their node count on both
+success and rejection. LP coefficient tuples remain at the solver adapter.
+
+Source diagnostic samples use named `scene_point` and `absolute_elevation`
+fields. Scene-local positions are finite; absolute source heights reuse the
+world-schema elevation contract and remain distinct from relative support
+levels. Rejected source values retain a typed import error. Terrain comparisons
+select processing stages by role rather than by table position, and compound
+comparison inputs bind front and rear members explicitly. Vista levels remain
+ordinals shared by the scene document, renderer markers and capture checks;
+their numeric wire encoding and scene cache identity are unchanged. Capture
+bounds reject nonfinite rendered scene coordinates.

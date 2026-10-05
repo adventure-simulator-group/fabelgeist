@@ -85,18 +85,32 @@ fn single_property_supports_all_doors_without_levelling_its_court_or_garden() {
     )
     .unwrap();
     assert!(
-        (terrain.highest_surface_at(Vec2::ZERO).unwrap().0 - plan.floor.elevation.metres()).abs()
+        (terrain
+            .highest_surface_at(Vec2::ZERO)
+            .unwrap()
+            .elevation
+            .metres()
+            - plan.floor.elevation.metres())
+        .abs()
             < 0.001
     );
     let garden = Vec2::new(4.0, 11.0);
     assert!(!plan.surface.contains(garden));
     assert_eq!(
-        terrain.highest_surface_at(garden).unwrap().0,
+        terrain
+            .highest_surface_at(garden)
+            .unwrap()
+            .elevation
+            .metres(),
         source.elevation_at(garden).unwrap().metres()
     );
     for door in doors {
         assert!(
-            (terrain.highest_surface_at(door.threshold_metres).unwrap().0
+            (terrain
+                .highest_surface_at(door.threshold_metres)
+                .unwrap()
+                .elevation
+                .metres()
                 - plan.floor.elevation.metres())
             .abs()
                 < 0.001
@@ -173,12 +187,25 @@ fn cut_banks_join_natural_ground_to_the_floor_without_adding_occupied_floor_heig
         .unwrap();
     assert!((hit - 1.0).abs() < 0.001, "cut face ray distance {hit}");
     assert!(
-        (terrain.highest_surface_at(Vec2::new(3.0, 5.0)).unwrap().0
+        (terrain
+            .highest_surface_at(Vec2::new(3.0, 5.0))
+            .unwrap()
+            .elevation
+            .metres()
             - plan.floor.elevation.metres())
         .abs()
             < 0.001
     );
-    assert!((terrain.highest_surface_at(Vec2::new(3.0, 6.001)).unwrap().0 - 0.6001).abs() < 0.001);
+    assert!(
+        (terrain
+            .highest_surface_at(Vec2::new(3.0, 6.001))
+            .unwrap()
+            .elevation
+            .metres()
+            - 0.6001)
+            .abs()
+            < 0.001
+    );
 }
 
 #[test]
@@ -256,19 +283,33 @@ fn recessed_doorway_landings_share_the_floor_without_duplicate_bearings() {
     );
     for door in doors {
         assert!(
-            (terrain.highest_surface_at(door.threshold_metres).unwrap().0
+            (terrain
+                .highest_surface_at(door.threshold_metres)
+                .unwrap()
+                .elevation
+                .metres()
                 - plan.floor.elevation.metres())
             .abs()
                 < 0.001
         );
         let approach = door.threshold_metres + door.outward * 0.5;
         assert!(
-            (terrain.highest_surface_at(approach).unwrap().0 - plan.floor.elevation.metres()).abs()
+            (terrain
+                .highest_surface_at(approach)
+                .unwrap()
+                .elevation
+                .metres()
+                - plan.floor.elevation.metres())
+            .abs()
                 < 0.001
         );
     }
     assert_eq!(
-        terrain.highest_surface_at(Vec2::new(4.0, 11.0)).unwrap().0,
+        terrain
+            .highest_surface_at(Vec2::new(4.0, 11.0))
+            .unwrap()
+            .elevation
+            .metres(),
         source.elevation_at(Vec2::new(4.0, 11.0)).unwrap().metres()
     );
 }

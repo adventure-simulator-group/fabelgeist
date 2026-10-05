@@ -41,9 +41,9 @@ pub(super) fn select(
         ));
     }
     for (door, apron) in doors.iter().zip(aprons) {
-        let (minimum, maximum) = apron.floor_interval(request.policy);
-        let constrained_lower = lower.max(minimum);
-        let constrained_upper = upper.min(maximum);
+        let constraints = apron.floor_interval(request.policy);
+        let constrained_lower = lower.max(constraints.minimum.metres());
+        let constrained_upper = upper.min(constraints.maximum.metres());
         if constrained_lower > constrained_upper {
             return Err(owner.rejection(
                 SupportConstraint::AccessGrade,

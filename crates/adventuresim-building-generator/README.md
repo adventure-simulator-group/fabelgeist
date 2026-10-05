@@ -65,6 +65,15 @@ Review camera offsets for `main_gable` targets use the aperture's tangent,
 vertical and outward axes, so a negative third component inspects its interior.
 Native capture windows remain hidden and update continuously in the background.
 
+Heating reservations classify an occupied `StoreyIndex` into an architectural
+role: the ground storey supports the masonry bay, the first upper storey houses
+the kitchen and Stube, and later occupied storeys reserve storage above the bay.
+Absent storeys and programmes without the applicable heating recipe have no
+reservation. Rear anchors use positive whole-cell offsets from the footprint's
+rear edge; these are distinct from the finer construction-grid lengths. Recipe
+records name their room and offset, while doorway recipes retain explicit room
+roles and the selected heating-door set-out.
+
 Cottage and hall-house fixtures select a grounded domestic heating programme.
 A cooking hearth and rear-fed tiled stove stand on one masonry plinth, on
 opposite sides of a real kitchen/Stube partition. Only the fire-wall patch is

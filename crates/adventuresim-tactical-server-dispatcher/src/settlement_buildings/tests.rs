@@ -135,7 +135,7 @@ fn dense_city_layout_passes_tactical_pad_validation() {
         establishments: Vec::new(),
         vista: VistaSample {
             lods: vec![VistaLod {
-                level: 1,
+                level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(1),
                 spacing_metres: 1_000.0,
                 width: 41,
                 depth: 41,

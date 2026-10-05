@@ -39,16 +39,24 @@ impl CityPackingContext {
     }
 }
 
+/// Allocation roles in deliberate precedence order, separate from edge ordinals.
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+pub(super) enum FrontagePriority {
+    ParishChurch,
+    Service,
+    Residence,
+}
+
 impl ParcelFrontage {
-    pub fn priority(self) -> u8 {
+    pub fn priority(self) -> FrontagePriority {
         use adventuresim_world_schema::settlement_buildings::ParishBuildingRole;
         match self.lot.service {
             Some(BuildingDemand::Parish {
                 role: ParishBuildingRole::Church(_),
                 ..
-            }) => 0,
-            Some(_) => 1,
-            None => 2,
+            }) => FrontagePriority::ParishChurch,
+            Some(_) => FrontagePriority::Service,
+            None => FrontagePriority::Residence,
         }
     }
 

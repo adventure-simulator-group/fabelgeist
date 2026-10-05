@@ -17,6 +17,7 @@ mod marching_tetrahedra;
 pub mod physics;
 pub mod player;
 pub mod scene;
+pub mod scene_coordinates;
 mod scene_fault;
 mod scene_ground;
 pub mod scene_input;

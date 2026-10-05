@@ -7,7 +7,8 @@
 
 mod terrain_samples;
 pub use terrain_samples::{
-    EnvironmentalSample, SceneSource, TacticalSurface, TerrainSampleGrid, VistaLod, VistaSample,
+    EnvironmentalSample, SceneSource, TacticalSurface, TerrainSampleGrid, VistaLevelIndex,
+    VistaLod, VistaSample,
 };
 mod rock_recipe;
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};

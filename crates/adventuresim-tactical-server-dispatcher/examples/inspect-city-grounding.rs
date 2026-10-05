@@ -186,13 +186,15 @@ impl Inspection {
         let rear_recipe = recipes.get_or_generate(&rear_placement.program)?;
         let rear_contact = support_regions::contact_region(&rear_placement, rear_recipe)
             .ok_or("compound rear member has no contact region")?;
-        let proposed = comparison["candidates"][1]["front_court_rear_elevations_m"]
-            .as_array()
-            .ok_or("missing proposed terrace levels")?;
-        let proposed = [0, 1, 2].map(|i| proposed[i].as_f64().unwrap() as f32);
+        let proposed = solutions::ProposedCompoundLevels::from_capture(
+            &comparison["candidates"][1]["front_court_rear_elevations_m"],
+        )?;
         comparison["support_solution_comparison"] = solutions::compare(
             compound,
-            [(contact, front), (rear_contact, rear)],
+            solutions::ComparisonMembers {
+                front: solutions::ComparisonMember::from_measurement(contact, front)?,
+                rear: solutions::ComparisonMember::from_measurement(rear_contact, rear)?,
+            },
             proposed,
             &footprint::vista_triangles(lod, vista.lods.get(1), &raw, compound.plot.corners()),
             height,

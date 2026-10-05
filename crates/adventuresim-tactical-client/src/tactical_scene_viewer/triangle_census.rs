@@ -156,7 +156,7 @@ fn configure_wireframe_entities(commands: &mut Commands, meshes: &mut WireframeM
             Some((Color::srgb(0.08, 0.95, 1.0), 1.25))
         } else {
             vista.map(|lod| {
-                let color = match lod.0 {
+                let color = match lod.0.index() {
                     0 => Color::srgb(0.18, 1.0, 0.35),
                     1 => Color::srgb(1.0, 0.36, 0.82),
                     _ => Color::srgb(1.0, 0.25, 0.12),
@@ -253,7 +253,7 @@ fn terrain_wireframe_report(
             (
                 format!("vista LOD{}", lod.0),
                 vista_spacing.get(&lod.0).copied().unwrap_or_default(),
-                match lod.0 {
+                match lod.0.index() {
                     0 => "green",
                     1 => "magenta",
                     _ => "red",

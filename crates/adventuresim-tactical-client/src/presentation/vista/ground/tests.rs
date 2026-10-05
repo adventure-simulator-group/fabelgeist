@@ -29,7 +29,7 @@ fn owned_terrain(grade: f32) -> SceneTerrain {
 
 fn raw_lod() -> VistaLod {
     VistaLod {
-        level: 0,
+        level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(0),
         spacing_metres: 50.0,
         width: 11,
         depth: 11,
@@ -45,7 +45,7 @@ fn owned_vista_tree_roots_follow_support_across_detail_levels() {
     let terrain = owned_terrain(0.0);
     let lod = raw_lod();
     let mut coarse = lod.clone();
-    coarse.level = 1;
+    coarse.level = adventuresim_tactical_core::scene_input::VistaLevelIndex::new(1);
     coarse.spacing_metres = 250.0;
     for point in [Vec2::new(40.0, 30.0), Vec2::new(-45.0, -30.0)] {
         assert!((presented_height_at(&lod, point, Some(&coarse)).unwrap() - 7.0).abs() > 1.0);
@@ -61,9 +61,11 @@ fn owned_vista_rocks_use_support_normal_and_keep_the_existing_slope_gate() {
     let lod = raw_lod();
     let point = Vec2::new(40.0, 30.0);
     let terrain = owned_terrain(0.5);
-    let (height, normal) = terrain
+    let hit = terrain
         .surface_below(Vec3::new(point.x, f32::INFINITY, point.y))
         .unwrap();
+    let height = hit.elevation.metres();
+    let normal = *hit.normal;
     let rock = vista_scatter_transform(&lod, None, &terrain, Vec2::ONE, point, 42, 0.08).unwrap();
     assert!((rock.translation.y - height - 0.08).abs() < 0.001);
     assert!((rock.rotation * Vec3::Y - normal).length() < 0.001);
@@ -126,9 +128,11 @@ fn goslar_property_1236_vista_scenery_uses_accepted_support() {
         owner.elevation_at(point).is_some(),
         "reported point must lie on property 1236"
     );
-    let (height, normal) = terrain
+    let hit = terrain
         .surface_below(Vec3::new(point.x, f32::INFINITY, point.y))
         .unwrap();
+    let height = hit.elevation.metres();
+    let normal = *hit.normal;
     let lod = &input.vista.lods[0];
     let coarser = input.vista.lods.get(1);
     let raw = presented_height_at(lod, point, coarser).unwrap();
@@ -182,9 +186,11 @@ fn required_city_vista_scenery_matches_property_support() {
                 .sum::<Vec3>()
                 / 3.0;
             let world = Vec2::new(point.x, point.z);
-            let (height, normal) = terrain
+            let hit = terrain
                 .surface_below(Vec3::new(world.x, f32::INFINITY, world.y))
                 .unwrap();
+            let height = hit.elevation.metres();
+            let normal = *hit.normal;
             assert!(
                 (height - point.y).abs() < 0.001,
                 "fixture {}, property {:?}",

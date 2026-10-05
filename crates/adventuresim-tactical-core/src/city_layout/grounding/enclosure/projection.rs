@@ -177,20 +177,27 @@ impl MemberProjection<'_> {
         let mut base = [Vec3::ZERO; 3];
         for (j, point) in points.into_iter().enumerate() {
             let soil = triangle.height_f64(point) as f32;
-            let (bottom, head) =
-                member_levels(self.member, self.element, soil, self.gate, self.embedment);
-            if head <= bottom {
+            let levels = member_levels(self.member, self.element, soil, self.gate, self.embedment);
+            if levels.head.metres() <= levels.base.metres() {
                 return Err(BoundarySupportError::new(
                     self.property,
                     self.element,
                     BoundarySupportConstraint::PostHeadroom,
                     point.as_vec2(),
-                    f64::from(bottom - head),
+                    f64::from(levels.base.metres() - levels.head.metres()),
                     0.0,
                 ));
             }
-            top[j] = Vec3::new(point.x as f32, head - self.gate.metres(), point.y as f32);
-            base[j] = Vec3::new(point.x as f32, bottom - self.gate.metres(), point.y as f32);
+            top[j] = Vec3::new(
+                point.x as f32,
+                levels.head.metres() - self.gate.metres(),
+                point.y as f32,
+            );
+            base[j] = Vec3::new(
+                point.x as f32,
+                levels.base.metres() - self.gate.metres(),
+                point.y as f32,
+            );
         }
         Ok(BoundarySupportCell {
             positions_metres: [top[0], top[1], top[2], base[0], base[1], base[2]],
@@ -200,21 +207,33 @@ impl MemberProjection<'_> {
     }
 }
 
+struct MemberLevels {
+    base: SupportElevation,
+    head: SupportElevation,
+}
+
 fn member_levels(
     member: CityBoundaryMember,
     element: BoundarySupportElement,
     soil: f32,
     gate: SupportElevation,
     embedment: FoundationEmbedment,
-) -> (f32, f32) {
+) -> MemberLevels {
     let nominal_base = member.centre_metres.y - member.size_metres.y * 0.5;
     let nominal_head = member.centre_metres.y + member.size_metres.y * 0.5;
     match element {
-        BoundarySupportElement::GatePost(_) => {
-            (soil - embedment.metres(), gate.metres() + nominal_head)
-        }
-        BoundarySupportElement::Wall(_) => (soil - embedment.metres(), soil + nominal_head),
-        BoundarySupportElement::WallCap(_) => (soil + nominal_base, soil + nominal_head),
+        BoundarySupportElement::GatePost(_) => MemberLevels {
+            base: SupportElevation(soil - embedment.metres()),
+            head: SupportElevation(gate.metres() + nominal_head),
+        },
+        BoundarySupportElement::Wall(_) => MemberLevels {
+            base: SupportElevation(soil - embedment.metres()),
+            head: SupportElevation(soil + nominal_head),
+        },
+        BoundarySupportElement::WallCap(_) => MemberLevels {
+            base: SupportElevation(soil + nominal_base),
+            head: SupportElevation(soil + nominal_head),
+        },
         BoundarySupportElement::Owner | BoundarySupportElement::GateLanding => {
             unreachable!("fixed member element")
         }

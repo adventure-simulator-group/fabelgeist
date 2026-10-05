@@ -17,12 +17,17 @@ pub(super) fn compile(plan: &CompoundSupportPlan) -> PropertySupportMesh {
     let sign = (local(plan.passage.end_metres).y - begin).signum();
     let mut xs = vec![-half.x, half.x, plan.split_frontage_metres];
     let mut zs = vec![-half.y, half.y];
-    zs.extend(plan.court_profile.points.iter().map(|p| p.distance_metres));
+    zs.extend(
+        plan.court_profile
+            .points
+            .iter()
+            .map(|p| p.coordinate.metres()),
+    );
     zs.extend(
         plan.passage_profile
             .points
             .iter()
-            .map(|p| begin + sign * p.distance_metres),
+            .map(|p| begin + sign * p.coordinate.metres()),
     );
     for stair in &plan.court_stairs {
         let (x, z) = stair.local_cuts();
@@ -55,7 +60,14 @@ pub(super) fn compile(plan: &CompoundSupportPlan) -> PropertySupportMesh {
             }
             let side = plan.property.boundary.gate.hinge.opposite().sign();
             let heights = if (centre.x - plan.split_frontage_metres) * side > 0.0 {
-                [z[0], z[1]].map(|z| plan.passage_profile.height_at((z - begin) * sign))
+                [z[0], z[1]].map(|z| {
+                    plan.passage_profile
+                        .height_at(
+                            ProfileCoordinate::from_metres((z - begin) * sign)
+                                .expect("finite mesh profile coordinate"),
+                        )
+                        .metres()
+                })
             } else {
                 [plan.main_height(centre); 2]
             };
@@ -134,7 +146,7 @@ fn append_street_approach(
         plan.passage_profile
             .points
             .iter()
-            .map(|p| begin + sign * p.distance_metres)
+            .map(|p| begin + sign * p.coordinate.metres())
             .filter(|z| range.contains(z)),
     );
     rows.sort_by(f32::total_cmp);
@@ -147,8 +159,14 @@ fn append_street_approach(
         .x;
     let half_width = plan.passage.half_width_metres;
     for band in rows.windows(2) {
-        let heights =
-            [band[0], band[1]].map(|z| plan.passage_profile.height_at((z - begin) * sign));
+        let heights = [band[0], band[1]].map(|z| {
+            plan.passage_profile
+                .height_at(
+                    ProfileCoordinate::from_metres((z - begin) * sign)
+                        .expect("finite mesh profile coordinate"),
+                )
+                .metres()
+        });
         mesh.quad(
             [
                 world(plan, centre - half_width, band[0], heights[0]),

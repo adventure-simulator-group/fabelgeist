@@ -16,7 +16,7 @@ impl<'a> Search<'a> {
             numerical_failure: false,
         }
     }
-    pub(super) fn solve_counted(mut self) -> (Result<Vec<f64>, CoupledPackingIssue>, usize) {
+    pub(super) fn solve_counted(mut self) -> CountedSearchOutcome {
         let remaining = (0..self.model.pairs.len()).collect::<Vec<_>>();
         let result = self
             .visit(self.model.problem.clone(), remaining)
@@ -27,7 +27,10 @@ impl<'a> Search<'a> {
                     CoupledPackingIssue::SolverRejected
                 })
             });
-        (result, self.nodes)
+        CountedSearchOutcome {
+            outcome: result.and_then(FrontageCoordinates::from_solver),
+            explored_nodes: ExploredSearchNodes::new(self.nodes),
+        }
     }
     fn visit(
         &mut self,

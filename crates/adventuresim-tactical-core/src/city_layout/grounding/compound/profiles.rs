@@ -15,12 +15,12 @@ pub(super) fn court(
             .world_to_local(point - property.plot.centre_metres)
     };
     let court_z = local(property.court.centre_metres).y;
-    let floor = levels.front.elevation.metres();
+    let floor = levels.front.elevation;
     let mut stairs = Vec::new();
     match treatment {
         CourtTreatment::Level => {
-            levels.court = SupportElevation(floor);
-            levels.rear.elevation = SupportElevation(floor);
+            levels.court = floor;
+            levels.rear.elevation = floor;
         }
         CourtTreatment::Terraced(bounds) => {
             for (route, member) in [(front, levels.front), (rear, levels.rear)] {
@@ -67,17 +67,13 @@ pub(super) fn court(
     // Vertical terrace boundaries are retaining faces, not walkable ramps.
     // Only the explicitly reserved stair flights cross these boundaries.
     let points = [
-        (-half_depth, floor),
-        (minimum, floor),
-        (minimum, levels.court.metres()),
-        (maximum, levels.court.metres()),
-        (maximum, levels.rear.elevation.metres()),
-        (half_depth, levels.rear.elevation.metres()),
-    ]
-    .map(|(distance_metres, height_metres)| ProfilePoint {
-        distance_metres,
-        height_metres,
-    });
+        ProfilePoint::at_metres(-half_depth, floor),
+        ProfilePoint::at_metres(minimum, floor),
+        ProfilePoint::at_metres(minimum, levels.court),
+        ProfilePoint::at_metres(maximum, levels.court),
+        ProfilePoint::at_metres(maximum, levels.rear.elevation),
+        ProfilePoint::at_metres(half_depth, levels.rear.elevation),
+    ];
     Ok((
         SupportProfile {
             points: points.to_vec(),
@@ -100,22 +96,18 @@ pub(super) fn passage(
     let hinge = (door.hinge_centre.xz() - route.start_metres).dot(direction);
     let platform_end = hinge + door.horizontal_sweep_radius_metres() + route.half_width_metres;
     let points = [
-        (0.0, levels.street.metres()),
-        (route.half_width_metres, levels.street.metres()),
-        (gate - route.half_width_metres, levels.gate.metres()),
-        (platform_end, levels.gate.metres()),
-        (length - route.half_width_metres, levels.court.metres()),
-        (length, levels.court.metres()),
-    ]
-    .map(|(distance_metres, height_metres)| ProfilePoint {
-        distance_metres,
-        height_metres,
-    });
+        ProfilePoint::at_metres(0.0, levels.street),
+        ProfilePoint::at_metres(route.half_width_metres, levels.street),
+        ProfilePoint::at_metres(gate - route.half_width_metres, levels.gate),
+        ProfilePoint::at_metres(platform_end, levels.gate),
+        ProfilePoint::at_metres(length - route.half_width_metres, levels.court),
+        ProfilePoint::at_metres(length, levels.court),
+    ];
     SupportProfile::checked(
         property,
         points.to_vec(),
         limits,
         SupportBoundary::GateLanding,
-        |distance| route.start_metres + direction * distance,
+        |distance| route.start_metres + direction * distance.metres(),
     )
 }

@@ -16,7 +16,7 @@ const MAX_ROW_ORDER_SEARCH_NODES: usize = 128;
 pub(super) fn solve(
     domains: &[PlacementDomain],
     remaining_nodes: usize,
-) -> Result<Vec<(usize, Vec2)>, CityCompileError> {
+) -> Result<Vec<PropertyTranslation>, CityCompileError> {
     let first_budget = remaining_nodes / 2;
     let (selected, active) = match solve_at_fixed_setback(domains, first_budget) {
         Ok(positions) => (positions, None),
@@ -40,14 +40,17 @@ pub(super) fn solve(
     let active = active.as_deref().unwrap_or(domains);
     Ok(selected
         .into_iter()
-        .map(|(index, position)| (index, active[index].delta_at(position)))
+        .map(|selected| PropertyTranslation {
+            domain: selected.domain,
+            displacement: active[selected.domain.index()].delta_at(selected.position),
+        })
         .collect())
 }
 
 fn solve_at_fixed_setback(
     domains: &[PlacementDomain],
     remaining_nodes: usize,
-) -> Result<Vec<(usize, f64)>, CityCompileError> {
+) -> Result<Vec<FrontageSelection>, CityCompileError> {
     let failure = |issue| CityCompileError::Packing {
         property: domains[0].owner,
         issue: CityPackingIssue::CoupledSearch {
@@ -88,12 +91,12 @@ fn solve_at_fixed_setback(
             .saturating_sub(explored)
             .min(MAX_ROW_ORDER_SEARCH_NODES);
         let search = search::Search::new(&model, maximum);
-        let (result, nodes) = search.solve_counted();
-        explored += nodes;
-        if let Ok(positions) = result
+        let counted = search.solve_counted();
+        explored += counted.explored_nodes.count();
+        if let Ok(positions) = counted.outcome
             && verification::validate(domains, &positions).is_ok()
         {
-            return Ok(positions.into_iter().enumerate().collect());
+            return Ok(positions.into_selections());
         }
         if explored >= remaining_nodes {
             return Err(failure(CoupledPackingIssue::SearchBudget {

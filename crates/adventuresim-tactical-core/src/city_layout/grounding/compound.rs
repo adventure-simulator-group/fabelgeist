@@ -222,14 +222,14 @@ fn validate_bearings(plan: &CompoundSupportPlan) -> Result<(), SupportDiagnostic
             .court_profile
             .points
             .iter()
-            .filter(|p| (minimum_z..=maximum_z).contains(&p.distance_metres))
+            .filter(|p| (minimum_z..=maximum_z).contains(&p.coordinate.metres()))
             .map(|p| {
                 plan.property.plot.centre_metres
                     + plan
                         .property
                         .plot
                         .orientation
-                        .local_to_world(Vec2::new(contact_x, p.distance_metres))
+                        .local_to_world(Vec2::new(contact_x, p.coordinate.metres()))
             });
         for point in corners.into_iter().chain(intersections) {
             if !plan.property.plot.contains(point) {

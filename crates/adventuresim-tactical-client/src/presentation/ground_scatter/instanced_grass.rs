@@ -423,10 +423,10 @@ impl TuftPlacement for ScenePlacement<'_> {
     }
 
     fn height(&self, centre: Vec2) -> Option<f32> {
-        let (height, normal) =
-            self.terrain
-                .surface_below(Vec3::new(centre.x, f32::INFINITY, centre.y))?;
-        (normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(height)
+        let hit = self
+            .terrain
+            .surface_below(Vec3::new(centre.x, f32::INFINITY, centre.y))?;
+        (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation.metres())
     }
 
     fn community(&mut self, centre: Vec2) -> GrassCommunity {

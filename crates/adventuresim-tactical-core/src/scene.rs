@@ -268,20 +268,25 @@ impl SceneTerrain {
     }
 
     pub fn height_at(&self, pos: Vec2) -> Option<f32> {
-        self.surface_at_stride(pos, 1).map(|sample| sample.0)
+        self.surface_at_stride(pos, 1)
+            .map(|sample| sample.elevation.metres())
     }
 
     /// Samples the triangle surface used by the coarse render LOD.
     pub fn coarse_height_at(&self, pos: Vec2) -> Option<f32> {
         self.surface_at_stride(pos, self.coarse_stride.max(1))
-            .map(|sample| sample.0)
+            .map(|sample| sample.elevation.metres())
     }
 
     /// Samples the same triangle surface used by the rendered mesh and
     /// authoritative collider. Returning the triangle normal alongside the
     /// height keeps terrain IK from fitting a foot to a different, bilinear
     /// surface than the one visible beneath it.
-    fn surface_at_stride(&self, pos: Vec2, stride: usize) -> Option<(f32, Vec3)> {
+    fn surface_at_stride(
+        &self,
+        pos: Vec2,
+        stride: usize,
+    ) -> Option<crate::city_layout::grounding::SurfaceHit> {
         if let TerrainGeometry::Owned(surface) = &self.geometry {
             return surface.highest_surface_at(pos);
         }
@@ -335,13 +340,13 @@ impl SceneTerrain {
                 Vec3::new(0.0, x1y1 - x1y0, cell_scale_z),
             )
         };
-        let normal = tangent_z.cross(tangent_x).try_normalize()?;
-        Some((height, normal))
+        let normal = tangent_z.cross(tangent_x);
+        crate::city_layout::grounding::SurfaceHit::from_geometry(height, normal)
     }
 
     /// Returns the finite, normalized normal of the rendered/collided triangle.
     pub fn normal_at(&self, pos: Vec2) -> Option<Vec3> {
-        self.surface_at_stride(pos, 1).map(|sample| sample.1)
+        self.surface_at_stride(pos, 1).map(|sample| *sample.normal)
     }
 
     /// Install each shape on its own static body. Owned foundation compounds

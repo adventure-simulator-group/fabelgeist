@@ -42,7 +42,7 @@ mod tests {
             front: Vec3::new(0.0, 0.0, 200.0),
         };
         let mut lods = [VistaLod {
-            level: 0,
+            level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(0),
             width: 21,
             depth: 21,
             spacing_metres: 100.0,

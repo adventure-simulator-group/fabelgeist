@@ -19,7 +19,7 @@ use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_build
 
 mod geological_landforms;
 mod terrain_capture;
-pub use terrain_capture::ImportedTerrainCapture;
+pub use terrain_capture::{ImportedTerrainCapture, SourceElevationSample, TerrainCaptureError};
 
 const PLAYABLE_SIDE: u16 = 101;
 const PLAYABLE_SPACING_METRES: f32 = 1.0;
@@ -43,7 +43,7 @@ const SCARP_DEFAULT_COLLAR_CM: u16 = 400;
 
 #[derive(Clone, Copy)]
 struct VistaLodSpec {
-    level: u8,
+    level: adventuresim_tactical_core::scene_input::VistaLevelIndex,
     spacing_metres: f32,
     side: u16,
 }
@@ -51,7 +51,7 @@ struct VistaLodSpec {
 impl VistaLodSpec {
     const fn new(level: u8, spacing_metres: f32, side: u16) -> Self {
         Self {
-            level,
+            level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(level),
             spacing_metres,
             side,
         }
@@ -506,7 +506,7 @@ fn sample_city_vista(
                         spacing_metres: spec.spacing_metres,
                         center_elevation_metres: elevation_metres,
                         elevation_sampling: ElevationSampling::PreservePeaks,
-                        seed: seed ^ u64::from(spec.level),
+                        seed: seed ^ u64::from(spec.level.index()),
                     },
                 )?;
                 Ok(VistaLod {

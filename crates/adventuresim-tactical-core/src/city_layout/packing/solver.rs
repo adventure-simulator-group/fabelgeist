@@ -3,7 +3,9 @@ use super::*;
 use context::{ParcelFrontage, ParcelGeometry};
 mod coupled;
 mod propagation;
+mod records;
 mod search;
+use records::*;
 
 /// Operational cap per independent block, separate from land or access limits.
 const MAX_BLOCK_PACKING_SEARCH_STATES: usize = 100_000;
@@ -51,8 +53,11 @@ impl PlacementDomain {
         self.proposed
             .translated(self.base_translation_metres, self.frontage.tangent())
     }
-    fn delta_at(&self, displacement: f64) -> Vec2 {
-        self.base_translation_metres + self.frontage.tangent() * displacement as f32
+    fn delta_at(&self, displacement: FrontagePosition) -> PlanDisplacement {
+        PlanDisplacement::from_metres(
+            self.base_translation_metres + self.frontage.tangent() * displacement.metres() as f32,
+        )
+        .expect("finite constrained property displacement")
     }
 }
 
@@ -71,9 +76,9 @@ pub(super) fn solve(
     let mut translations = BTreeMap::new();
     for domains in blocks.into_values() {
         let selected = search::BlockSearch::new(&domains).solve()?;
-        translations.extend(selected.into_iter().map(|(index, delta)| {
-            let domain = &domains[index];
-            (domain.owner, delta)
+        translations.extend(selected.into_iter().map(|selected| {
+            let domain = &domains[selected.domain.index()];
+            (domain.owner, selected.displacement.metres())
         }));
     }
     Ok(translations)

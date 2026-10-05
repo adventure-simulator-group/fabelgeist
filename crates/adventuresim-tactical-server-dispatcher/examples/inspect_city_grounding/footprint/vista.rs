@@ -151,7 +151,7 @@ mod tests {
         let mut heights = vec![0.0; 81];
         heights[20] = 10.0;
         let lod = VistaLod {
-            level: 0,
+            level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(0),
             spacing_metres: 50.0,
             width: 9,
             depth: 9,
@@ -175,7 +175,7 @@ mod tests {
     #[test]
     fn vista_diagonal_is_distinct_from_the_playable_collision_diagonal() {
         let lod = VistaLod {
-            level: 0,
+            level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(0),
             spacing_metres: 50.0,
             width: 2,
             depth: 2,

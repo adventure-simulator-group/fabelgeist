@@ -3,7 +3,7 @@ use super::*;
 use search::BlockSearch;
 
 impl BlockSearch<'_> {
-    pub(super) fn propagate_domains(&self, candidates: &mut [(usize, Vec<FrontageInterval>)]) {
+    pub(super) fn propagate_domains(&self, candidates: &mut [DomainChoices]) {
         // A bounded propagation pass only removes impossible choices. Stopping
         // early can leave extra search work; it never accepts a collision.
         for _ in 0..self.domains.len().saturating_mul(self.domains.len()) {
@@ -11,21 +11,23 @@ impl BlockSearch<'_> {
             self.propagate_frontage_capacity(candidates);
             for first in 0..candidates.len() {
                 for second in 0..candidates.len() {
-                    if first == second || candidates[second].1.is_empty() {
+                    if first == second || candidates[second].intervals.is_empty() {
                         continue;
                     }
-                    let a = &self.domains[candidates[first].0];
-                    let b = &self.domains[candidates[second].0];
-                    for forbidden in a.unavoidable_conflicts(b, &candidates[second].1) {
-                        candidates[first].1 = candidates[first]
-                            .1
+                    let a = &self.domains[candidates[first].domain.index()];
+                    let b = &self.domains[candidates[second].domain.index()];
+                    for forbidden in a.unavoidable_conflicts(b, &candidates[second].intervals) {
+                        candidates[first].intervals = candidates[first]
+                            .intervals
                             .iter()
                             .flat_map(|interval| interval.without(forbidden))
                             .collect();
                     }
                 }
             }
-            if candidates.iter().any(|(_, intervals)| intervals.is_empty())
+            if candidates
+                .iter()
+                .any(|choices| choices.intervals.is_empty())
                 || unchanged(&previous, candidates)
             {
                 break;
@@ -71,19 +73,21 @@ impl PlacementDomain {
             .collect()
     }
 }
-fn unchanged(
-    previous: &[(usize, Vec<FrontageInterval>)],
-    current: &[(usize, Vec<FrontageInterval>)],
-) -> bool {
-    previous.iter().zip(current).all(|((_, a), (_, b))| {
-        a.len() == b.len()
-            && a.iter().zip(b).all(|(first, second)| {
-                (first.minimum_metres - second.minimum_metres).abs()
-                    <= CityPlotBounds::COORDINATE_TOLERANCE_METRES
-                    && (first.maximum_metres - second.maximum_metres).abs()
+fn unchanged(previous: &[DomainChoices], current: &[DomainChoices]) -> bool {
+    previous
+        .iter()
+        .zip(current)
+        .all(|(first_choices, second_choices)| {
+            let a = &first_choices.intervals;
+            let b = &second_choices.intervals;
+            a.len() == b.len()
+                && a.iter().zip(b).all(|(first, second)| {
+                    (first.minimum_metres - second.minimum_metres).abs()
                         <= CityPlotBounds::COORDINATE_TOLERANCE_METRES
-            })
-    })
+                        && (first.maximum_metres - second.maximum_metres).abs()
+                            <= CityPlotBounds::COORDINATE_TOLERANCE_METRES
+                })
+        })
 }
 
 #[cfg(test)]

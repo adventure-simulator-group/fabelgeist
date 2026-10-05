@@ -110,7 +110,7 @@ mod tests {
         VistaSample {
             lods: [(0, 2.0, 4.0), (1, 4.0, 8.0)]
                 .map(|(level, spacing, elevation)| VistaLod {
-                    level,
+                    level: crate::scene_input::VistaLevelIndex::new(level),
                     spacing_metres: spacing,
                     width: 5,
                     depth: 5,

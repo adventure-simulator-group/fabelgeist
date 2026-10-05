@@ -11,6 +11,7 @@ pub(super) mod pending;
 mod streams;
 use super::ground_scatter::TacticalGrassInstancedMaterial;
 use super::*;
+use adventuresim_tactical_core::scene_input::VistaLevelIndex;
 use adventuresim_tactical_core::vista_surface::*;
 use grass::spawn_near_vista_scatter;
 
@@ -20,6 +21,7 @@ mod surface;
 pub(crate) use streets::CityGroundMaterial;
 use streets::UrbanGround;
 pub(super) use surface::ActiveVistaSurface;
+pub(crate) use surface::{VistaTerrain, VistaTerrainMesh};
 
 /// Marker for a distant tree billboard spawned as part of a vista ring.
 #[derive(Component)]
@@ -97,7 +99,8 @@ pub(super) fn on_scene_vista_bundle(
             landform.map(|recipe| recipe.transition_collar()),
         );
         if meshes_for_lod.is_empty() {
-            warn!(level = lod.level, "Rejected malformed tactical vista LOD");
+            let level = lod.level.index();
+            warn!(level, "Rejected malformed tactical vista LOD");
             continue;
         }
         let half_extent = f32::from(lod.width.saturating_sub(1)) * lod.spacing_metres * 0.5;
@@ -624,14 +627,6 @@ fn clear_vista_weather() -> WeatherSnapshot {
     }
 }
 
-#[derive(Component, Clone, Copy)]
-pub(crate) struct VistaTerrain(pub(crate) u8);
-
-/// A terrain-surface chunk, excluding vista grass, rocks, and tree cards that
-/// also carry [`VistaTerrain`] for broad visibility isolation.
-#[derive(Component)]
-pub(crate) struct VistaTerrainMesh(pub(crate) u8);
-
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
 pub(in crate::presentation) struct TacticalVistaExtension {
     #[uniform(100)]
@@ -759,7 +754,7 @@ mod tests {
     #[test]
     fn coarse_vista_cells_are_clipped_to_the_playable_hole() {
         let lod = VistaLod {
-            level: 0,
+            level: VistaLevelIndex::new(0),
             spacing_metres: 250.0,
             width: 9,
             depth: 9,
@@ -892,7 +887,7 @@ mod tests {
             .collect::<Vec<_>>();
         let terrain = SceneTerrain::from_heightmap(5, 5, 25.0, heights).unwrap();
         let lod = VistaLod {
-            level: 0,
+            level: VistaLevelIndex::new(0),
             spacing_metres: 250.0,
             width: 3,
             depth: 3,
@@ -942,7 +937,7 @@ mod tests {
     fn finer_ring_morphs_onto_the_coarse_surface_at_its_outer_boundary() {
         let sample = EnvironmentalSample::default();
         let finer = VistaLod {
-            level: 0,
+            level: VistaLevelIndex::new(0),
             spacing_metres: 10.0,
             width: 5,
             depth: 5,
@@ -952,7 +947,7 @@ mod tests {
             environment: vec![sample; 25],
         };
         let coarse = VistaLod {
-            level: 1,
+            level: VistaLevelIndex::new(1),
             spacing_metres: 20.0,
             width: 5,
             depth: 5,
@@ -1001,7 +996,7 @@ mod tests {
         );
 
         let lod = VistaLod {
-            level: 0,
+            level: VistaLevelIndex::new(0),
             spacing_metres: 10.0,
             width: 3,
             depth: 3,
@@ -1060,7 +1055,7 @@ mod tests {
             ..default()
         };
         let lod = VistaLod {
-            level: 0,
+            level: VistaLevelIndex::new(0),
             spacing_metres: 10.0,
             width: 7,
             depth: 7,
@@ -1172,7 +1167,7 @@ mod tests {
             ..default()
         };
         let finer = VistaLod {
-            level: 0,
+            level: VistaLevelIndex::new(0),
             spacing_metres: 10.0,
             width: 5,
             depth: 5,
@@ -1182,7 +1177,7 @@ mod tests {
             environment: vec![forest; 25],
         };
         let coarse = VistaLod {
-            level: 1,
+            level: VistaLevelIndex::new(1),
             spacing_metres: 20.0,
             width: 5,
             depth: 5,
@@ -1223,7 +1218,7 @@ mod furniture_support_tests {
     fn furniture_support_matches_presented_triangles_at_seams_and_morphs() {
         let terrain = SceneTerrain::from_heightmap(5, 5, 2.0, vec![3.0; 25]).unwrap();
         let lod = VistaLod {
-            level: 0,
+            level: VistaLevelIndex::new(0),
             spacing_metres: 5.0,
             width: 9,
             depth: 9,
@@ -1233,7 +1228,7 @@ mod furniture_support_tests {
             environment: vec![EnvironmentalSample::default(); 81],
         };
         let coarser = VistaLod {
-            level: 1,
+            level: VistaLevelIndex::new(1),
             spacing_metres: 10.0,
             heights_metres: vec![7.0; 81],
             ..lod.clone()

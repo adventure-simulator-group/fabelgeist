@@ -51,7 +51,7 @@ impl<'a> CornerSupportProbe<'a> {
                 "cylinder_support_hit":cylinder_hit.map(|hit| json!({"foot_elevation_metres":start.y-hit.time_of_impact,"time_of_impact":hit.time_of_impact,"normal":hit.normal2})),
                 "nearest_solid_metres":nearest,"nearest_solid_distance_metres":nearest.distance(bearing),
                 "nearest_point_query_within_bound":nearest.distance(bearing)<=self.contact_bound_metres,
-                "height_query_below_floor_metres":below.map(|sample| sample.0),
+                "height_query_below_floor_metres":below.map(|sample| sample.elevation.metres()),
                 "all_support_elevations_metres":self.terrain.support_elevations_at(*point).iter().map(|h|h.metres()).collect::<Vec<_>>()})
         }).collect();
         json!({"colliders_materialized":self.colliders.len(),"contact_bound_metres":self.contact_bound_metres,

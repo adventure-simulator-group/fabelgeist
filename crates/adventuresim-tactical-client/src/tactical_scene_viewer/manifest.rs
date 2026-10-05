@@ -155,7 +155,7 @@ pub(super) struct RecursiveTreeLodSummary {
 #[derive(Serialize)]
 pub(super) struct VistaSummary {
     pub(super) supplied_lods: usize,
-    pub(super) presented_lods: Vec<u8>,
+    pub(super) presented_lods: Vec<adventuresim_tactical_core::scene_input::VistaLevelIndex>,
     pub(super) presented_chunks: usize,
     pub(super) diameter_metres: f32,
     pub(super) minimum_height_metres: f32,
