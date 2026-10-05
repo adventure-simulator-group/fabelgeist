@@ -212,18 +212,18 @@ impl SortScratch {
         Ok(Self {
             keys: Buffer::new(
                 context,
-                (capacity as u64) * 4,
-                storage.clone().with_label("sort keys"),
+                ((capacity as u64) * 4).into(),
+                storage.clone().with_label(("sort keys").into()),
             )?,
             values: Buffer::new(
                 context,
-                (capacity as u64) * 4,
-                storage.clone().with_label("sort values"),
+                ((capacity as u64) * 4).into(),
+                storage.clone().with_label(("sort values").into()),
             )?,
             histogram: Buffer::new(
                 context,
-                (RADIX as u64) * (tiles as u64) * 4,
-                storage.with_label("sort histogram"),
+                ((RADIX as u64) * (tiles as u64) * 4).into(),
+                storage.with_label(("sort histogram").into()),
             )?,
             capacity,
         })
@@ -297,11 +297,11 @@ impl RadixSort {
             ));
         }
         let needed = (count as u64) * 4;
-        if keys.size < needed || values.size < needed {
+        if u64::from(keys.size) < needed || u64::from(values.size) < needed {
             return Err(anyhow!(
                 "RadixSort: {count} elements need {needed} bytes; keys hold {}, values hold {}",
-                keys.size,
-                values.size
+                u64::from(keys.size),
+                u64::from(values.size)
             ));
         }
 

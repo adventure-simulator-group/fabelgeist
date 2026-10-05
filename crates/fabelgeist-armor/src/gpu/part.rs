@@ -8,6 +8,7 @@
 //! the final normals. Nothing is read back until [`PartBuild::read`].
 
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 mod layout;
@@ -70,17 +71,18 @@ impl PartBuild {
         Ok(Self {
             carriers: gpu.scratch(carriers as u64 * 12, "part carriers")?,
             heights: gpu.scratch(carriers as u64 * 4, "part heights")?,
-            shells: gpu.upload(&shell_table(&layout))?,
+            shells: gpu.upload(BufferUpload::from_elements(&shell_table(&layout)))?,
             hinges: gpu.scratch(hinges.max(1) as u64 * HINGE_WORDS as u64 * 4, "part hinges")?,
             status: gpu.scratch(4, "part status")?,
-            shell_of: gpu.upload(&layout.shell_of_carrier())?,
-            authored_carrier_triangles: gpu.upload(&carrier_indices)?,
-            carrier_triangle_shells: gpu.upload(&carrier_shells)?,
+            shell_of: gpu.upload(BufferUpload::from_elements(&layout.shell_of_carrier()))?,
+            authored_carrier_triangles: gpu
+                .upload(BufferUpload::from_elements(&carrier_indices))?,
+            carrier_triangle_shells: gpu.upload(BufferUpload::from_elements(&carrier_shells))?,
             carrier_triangles: gpu
                 .scratch(carrier_indices.len() as u64 * 4, "part carrier triangles")?,
-            sources: gpu.upload(&layout.sources())?,
-            authored_final_indices: gpu.upload(&final_indices)?,
-            final_triangle_shells: gpu.upload(&final_shells)?,
+            sources: gpu.upload(BufferUpload::from_elements(&layout.sources()))?,
+            authored_final_indices: gpu.upload(BufferUpload::from_elements(&final_indices))?,
+            final_triangle_shells: gpu.upload(BufferUpload::from_elements(&final_shells))?,
             final_indices: gpu.scratch(final_indices.len() as u64 * 4, "part triangles")?,
             walls: gpu.scratch(carriers as u64 * 24, "part walls")?,
             positions: gpu.scratch(finals as u64 * 12, "part positions")?,

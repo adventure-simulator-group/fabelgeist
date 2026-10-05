@@ -1,5 +1,6 @@
 use crate::{FrontFace, GpuMesh, PrimitiveTopology};
 use anyhow::{Result, ensure};
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use fabelgeist_gpu::{
     data::gpu::buffer::{Buffer, BufferDefinition},
     globals::WgpuContext,
@@ -13,18 +14,18 @@ fn upload<T: bytemuck::NoUninit>(
     definition: BufferDefinition,
 ) -> Result<Buffer> {
     if data.is_empty() {
-        let mut buffer = Buffer::new(context, 16, definition)?;
-        buffer.size = 0;
+        let mut buffer = Buffer::new(context, (16u64).into(), definition)?;
+        buffer.size = 0u64.into();
         Ok(buffer)
     } else {
-        Buffer::from_slice(context, data, definition)
+        Buffer::from_upload(context, BufferUpload::from_elements(data), definition)
     }
 }
 async fn read<T: bytemuck::AnyBitPattern>(
     buffer: &Buffer,
     context: &WgpuContext,
 ) -> Result<Vec<T>> {
-    if buffer.size == 0 {
+    if u64::from(buffer.size) == 0 {
         Ok(vec![])
     } else {
         buffer.read(context).await
@@ -153,9 +154,9 @@ impl MeshData {
         self.validate()?;
         let vertex = || {
             BufferDefinition::storage()
-                .with_vertex()
-                .with_copy_src()
-                .with_copy_dst()
+                .with_usage(BufferUse::Vertex)
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination)
         };
         Ok(GpuMesh {
             positions: upload(context, &self.positions, vertex())?,
@@ -169,9 +170,9 @@ impl MeshData {
                         context,
                         v,
                         BufferDefinition::storage()
-                            .with_index()
-                            .with_copy_src()
-                            .with_copy_dst(),
+                            .with_usage(BufferUse::Index)
+                            .with_usage(BufferUse::CopySource)
+                            .with_usage(BufferUse::CopyDestination),
                     )
                 })
                 .transpose()?,

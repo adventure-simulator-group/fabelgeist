@@ -4,6 +4,7 @@ use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use fabelgeist_gpu::data::gpu::signature::ResourceBaseType;
 use fabelgeist_gpu::data::gpu::texture::{Texture2d, Texture3d, TextureFormat};
 use fabelgeist_gpu::data::vector::{Vec2, Vec3};
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 
 pub struct Resource<'a, T>(&'a [T], pub TestResourceType);
 
@@ -114,10 +115,10 @@ pub fn upload<T: bytemuck::NoUninit>(
 ) -> Result<GpuResource> {
     {
         match resource_type {
-            TestResourceType::Buffer => Ok(Buffer::from_slice(
+            TestResourceType::Buffer => Ok(Buffer::from_upload(
                 context,
-                resource,
-                BufferDefinition::storage().with_copy_src(),
+                BufferUpload::from_elements(resource),
+                BufferDefinition::storage().with_usage(BufferUse::CopySource),
             )?
             .into()),
             TestResourceType::Texture2d(x, y, format) => {

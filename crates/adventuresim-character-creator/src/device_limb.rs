@@ -4,6 +4,7 @@ use anyhow::{Result, bail};
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{DevicePart, LimbArmorDesign, record_limb_armor};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::PassParameters;
 
 use crate::armor_frames::{FitRegion, Side};
@@ -106,8 +107,11 @@ impl DeviceWearer<'_> {
         parameters.insert("reserve", reserve);
         parameters.insert("pad3", 0.0f32);
         parameters.insert("frames", frame.frame.clone());
-        parameters.insert("shell_of", gpu.upload(&shell_of)?);
-        parameters.insert("bounds", gpu.upload(&bounds)?);
+        parameters.insert(
+            "shell_of",
+            gpu.upload(BufferUpload::from_elements(&shell_of))?,
+        );
+        parameters.insert("bounds", gpu.upload(BufferUpload::from_elements(&bounds))?);
         parameters.insert("carriers", part.carriers().clone());
         for entry in [TRIM_BOUNDS, TRIM] {
             let kernel = gpu

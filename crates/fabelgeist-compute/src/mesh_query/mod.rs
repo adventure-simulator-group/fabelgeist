@@ -12,6 +12,7 @@
 //! uploads as-is. Triangles are `u32` triples into the positions. Either
 //! target set can be narrowed to a list of candidate indices.
 
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 mod wgsl;
 
 use crate::prelude::*;
@@ -89,22 +90,22 @@ pub struct Hit {
 impl QueryHits {
     pub fn new(context: &WgpuContext, capacity: u32) -> Result<Self> {
         let capacity = capacity.max(1);
-        let storage = BufferDefinition::storage().with_copy_src();
+        let storage = BufferDefinition::storage().with_usage(BufferUse::CopySource);
         Ok(Self {
             nearest: Buffer::new(
                 context,
-                capacity as u64 * 4,
-                storage.clone().with_label("query nearest"),
+                (capacity as u64 * 4).into(),
+                storage.clone().with_label(("query nearest").into()),
             )?,
             weights: Buffer::new(
                 context,
-                capacity as u64 * 12,
-                storage.clone().with_label("query weights"),
+                (capacity as u64 * 12).into(),
+                storage.clone().with_label(("query weights").into()),
             )?,
             distances: Buffer::new(
                 context,
-                capacity as u64 * 4,
-                storage.with_label("query distances"),
+                (capacity as u64 * 4).into(),
+                storage.with_label(("query distances").into()),
             )?,
             capacity,
         })
@@ -150,10 +151,10 @@ impl MeshQuery {
             nearest_points: cache.get(context, &wgsl::nearest_points())?,
             closest_triangles: cache.get(context, &wgsl::closest_triangles())?,
             ray_triangles: cache.get(context, &wgsl::ray_triangles())?,
-            all_targets: Buffer::from_slice(
+            all_targets: Buffer::from_upload(
                 context,
-                &[0u32],
-                BufferDefinition::storage().with_label("query all targets"),
+                BufferUpload::from_elements(&[0u32]),
+                BufferDefinition::storage().with_label(("query all targets").into()),
             )?,
         })
     }

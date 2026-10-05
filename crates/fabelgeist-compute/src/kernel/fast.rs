@@ -234,11 +234,11 @@ impl FastPath {
         for (binding, buffer) in &bound {
             entries.push(wgpu::BindGroupEntry {
                 binding: *binding,
-                resource: if buffer.size < buffer.buffer.size() {
+                resource: if u64::from(buffer.size) < buffer.buffer.size() {
                     wgpu::BindingResource::Buffer(wgpu::BufferBinding {
                         buffer: &buffer.buffer,
                         offset: 0,
-                        size: std::num::NonZeroU64::new(buffer.size),
+                        size: std::num::NonZeroU64::new(u64::from(buffer.size)),
                     })
                 } else {
                     buffer.buffer.as_entire_binding()

@@ -228,11 +228,11 @@ impl ComputePass {
                 })?;
 
                 if let PassParameter::Buffer(gpu_buf) = val {
-                    let binding_resource = if gpu_buf.size < gpu_buf.buffer.size() {
+                    let binding_resource = if u64::from(gpu_buf.size) < gpu_buf.buffer.size() {
                         wgpu::BindingResource::Buffer(wgpu::BufferBinding {
                             buffer: &gpu_buf.buffer,
                             offset: 0,
-                            size: Some(std::num::NonZeroU64::new(gpu_buf.size).unwrap()),
+                            size: Some(std::num::NonZeroU64::new(u64::from(gpu_buf.size)).unwrap()),
                         })
                     } else {
                         gpu_buf.buffer.as_entire_binding()

@@ -1,6 +1,7 @@
 use super::kernels::{Params, dispatch};
 use super::shape_wgsl::design_words;
 use crate::{BreastplateDesign, Permille, gpu::ArmorGpu};
+use fabelgeist_gpu::prelude::BufferUpload;
 
 #[test]
 fn armscye_width_moves_its_boundary_without_moving_the_neck_or_waist() {
@@ -12,7 +13,9 @@ fn armscye_width_moves_its_boundary_without_moving_the_neck_or_waist() {
                 arm_opening_width: Permille(width),
                 ..Default::default()
             };
-            let plate = gpu.upload(&design_words(&design)).unwrap();
+            let plate = gpu
+                .upload(BufferUpload::from_elements(&design_words(&design)))
+                .unwrap();
             let points = gpu.scratch(5 * 12, "armscye boundary samples").unwrap();
             let mut batch = gpu.batch("independent armscye width");
             dispatch(
@@ -59,7 +62,9 @@ fn armscye_trim_preserves_the_retained_carrier_sections() {
                 arm_opening_width: Permille(width),
                 ..Default::default()
             };
-            let plate = gpu.upload(&design_words(&design)).unwrap();
+            let plate = gpu
+                .upload(BufferUpload::from_elements(&design_words(&design)))
+                .unwrap();
             let points = gpu.scratch(3 * 12, "retained carrier sections").unwrap();
             let mut batch = gpu.batch("armscye only trims the carrier");
             dispatch(
@@ -111,7 +116,9 @@ fn flank_return_preserves_the_neckline_at_coupled_neck_depths() {
                     side_return: Permille(side_return),
                     ..Default::default()
                 };
-                let plate = gpu.upload(&design_words(&design)).unwrap();
+                let plate = gpu
+                    .upload(BufferUpload::from_elements(&design_words(&design)))
+                    .unwrap();
                 let points = gpu.scratch(5 * 12, "flank boundary samples").unwrap();
                 let mut batch = gpu.batch("independent flank return");
                 dispatch(
@@ -185,7 +192,9 @@ fn coupled_flank_and_armscye_controls_cannot_reverse_chart_columns() {
             ..Default::default()
         };
         for rear in [false, true] {
-            let plate = gpu.upload(&design_words(&design)).unwrap();
+            let plate = gpu
+                .upload(BufferUpload::from_elements(&design_words(&design)))
+                .unwrap();
             let points = gpu.scratch(49 * 33 * 12, "coupled chart ordering").unwrap();
             let mut batch = gpu.batch("chart columns retain their orientation");
             dispatch(

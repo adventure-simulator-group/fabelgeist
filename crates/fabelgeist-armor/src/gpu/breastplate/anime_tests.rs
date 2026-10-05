@@ -6,6 +6,7 @@ use super::super::{
 };
 use super::*;
 use crate::{BreastplateDesign, Millimeters, Permille};
+use fabelgeist_gpu::prelude::BufferUpload;
 
 #[test]
 fn deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem() {
@@ -15,7 +16,9 @@ fn deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem() {
     let mut plate_words = shape_wgsl::design_words(&BreastplateDesign::default());
     plate_words[32] = 1.0;
     plate_words[37] = 1.0;
-    let plate = gpu.upload(&plate_words).unwrap();
+    let plate = gpu
+        .upload(BufferUpload::from_elements(&plate_words))
+        .unwrap();
     for (lift, valid, half_width) in [(12, true, 0.06), (8, false, 0.06), (12, true, 0.15)] {
         let mut original = Vec::new();
         for side in 0..2 {
@@ -38,9 +41,15 @@ fn deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem() {
         let references = (0..original.len() as u32 / 2)
             .map(|i| [i * 2, i * 2 + 1])
             .collect::<Vec<_>>();
-        let original = gpu.upload(&original).unwrap();
-        let references = gpu.upload(&references).unwrap();
-        let columns = gpu.upload(&[-1.0_f32, 0.0, 1.0, -1.0, 0.0, 1.0]).unwrap();
+        let original = gpu.upload(BufferUpload::from_elements(&original)).unwrap();
+        let references = gpu
+            .upload(BufferUpload::from_elements(&references))
+            .unwrap();
+        let columns = gpu
+            .upload(BufferUpload::from_elements(&[
+                -1.0_f32, 0.0, 1.0, -1.0, 0.0, 1.0,
+            ]))
+            .unwrap();
 
         let design = AnimeDesign {
             overlap: Millimeters(40),
@@ -49,8 +58,10 @@ fn deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem() {
             rear_chevron_slope: Permille(0),
             ..Default::default()
         };
-        let design = gpu.upload(&design_words(&design)).unwrap();
-        let status = gpu.upload(&[0_u32]).unwrap();
+        let design = gpu
+            .upload(BufferUpload::from_elements(&design_words(&design)))
+            .unwrap();
+        let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
         let bounds = gpu.scratch(32, "test course bounds").unwrap();
         let coordinates = (0..=6)
             .flat_map(|course| {
@@ -118,7 +129,11 @@ fn deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem() {
                     ("references", &references),
                     ("design", &design),
                     ("bounds", &bounds),
-                    ("coordinates", &gpu.upload(&coordinates).unwrap()),
+                    (
+                        "coordinates",
+                        &gpu.upload(BufferUpload::from_elements(&coordinates))
+                            .unwrap(),
+                    ),
                     ("positions", &positions),
                     ("links", &links),
                 ],

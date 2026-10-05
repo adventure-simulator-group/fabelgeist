@@ -7,6 +7,7 @@
 //! finds the body's depth at every flap section. Each step between the two
 //! reductions is one invocation.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::f32::consts::{PI, TAU};
 use std::sync::Arc;
 
@@ -162,11 +163,17 @@ impl DeviceWearer<'_> {
         parameters.insert("jaw", joint("c_jaw_null")?);
         parameters.insert("head", joint("c_head")?);
         parameters.insert("positions", self.body.positions.clone());
-        parameters.insert("support", gpu.upload(&support)?);
+        parameters.insert(
+            "support",
+            gpu.upload(BufferUpload::from_elements(&support))?,
+        );
         parameters.insert("joints", self.body.joints.clone());
         parameters.insert("frame", frame.frame.clone());
-        parameters.insert("design", gpu.upload(&design_words)?);
-        parameters.insert("work", gpu.upload(&work)?);
+        parameters.insert(
+            "design",
+            gpu.upload(BufferUpload::from_elements(&design_words))?,
+        );
+        parameters.insert("work", gpu.upload(BufferUpload::from_elements(&work))?);
         parameters.insert("fit", fit.clone());
         parameters.insert("status", frame.status.clone());
         let [landmarks, neck, boundary, sections, drape] = kernels(gpu)?;

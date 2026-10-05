@@ -10,6 +10,7 @@ use anyhow::Result;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_armor::{CuisseDesign, GreaveDesign, Millimeters, RerebraceDesign};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::FitRegion;
@@ -128,8 +129,14 @@ impl DeviceWearer<'_> {
         parameters.insert("positions", self.body.positions.clone());
         parameters.insert("joint_indices", self.body.joint_indices.clone());
         parameters.insert("joint_weights", self.body.joint_weights.clone());
-        parameters.insert("primary", self.gpu.upload(&primary)?);
-        parameters.insert("extra", self.gpu.upload(&extra)?);
+        parameters.insert(
+            "primary",
+            self.gpu.upload(BufferUpload::from_elements(&primary))?,
+        );
+        parameters.insert(
+            "extra",
+            self.gpu.upload(BufferUpload::from_elements(&extra))?,
+        );
         parameters.insert("frames", frame.frame.clone());
         parameters.insert("support", support.clone());
         let kernel = self

@@ -5,6 +5,8 @@ use super::*;
 use crate::device_coif::{CoifCarrier, fitted_coif_carrier};
 use fabelgeist_armor::{CoifDesign, PartFrame};
 use fabelgeist_cloth::{GarmentMesh, topology};
+#[cfg(test)]
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_math::Vec2;
 use std::collections::{HashMap, HashSet};
 
@@ -47,7 +49,7 @@ pub(super) fn coif(
 pub(super) fn surface_mesh(
     frame: &PartFrame,
     carrier: &CoifCarrier,
-    density: f32,
+    density: fabelgeist_shell::ParticleArealDensity,
 ) -> Result<GarmentMesh> {
     let count = carrier.positions.len();
     anyhow::ensure!(
@@ -519,8 +521,12 @@ mod tests {
         let gpu = crate::armor_gpu().unwrap();
         let design = CoifDesign::default();
         let frame = head();
-        let fit = gpu.upload(&fit_words(&design, &frame)).unwrap();
-        let placement = gpu.upload(&frame_words(&frame)).unwrap();
+        let fit = gpu
+            .upload(BufferUpload::from_elements(&fit_words(&design, &frame)))
+            .unwrap();
+        let placement = gpu
+            .upload(BufferUpload::from_elements(&frame_words(&frame)))
+            .unwrap();
         let mut batch = gpu.batch("coif carrier test");
         let part = record_coif(gpu, &mut batch, &design, &fit, &placement).unwrap();
         batch.submit();
@@ -537,7 +543,9 @@ mod tests {
             assert!(mesh.positions[a as usize].z > head().origin[2]);
         }
         assert!(
-            mesh.masses.iter().all(|m| *m > 0.0),
+            mesh.masses
+                .iter()
+                .all(|m| *m > fabelgeist_shell::ParticleMass::ZERO),
             "a vertex is in no triangle"
         );
         assert!(mesh.rest_lengths.iter().all(|l| *l > 0.0));

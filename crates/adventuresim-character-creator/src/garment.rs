@@ -548,7 +548,7 @@ mod tests {
         let build = build_garment(&pattern, &FitSettings::default(), &Fabric::CHAINMAIL).unwrap();
         let start = build.mesh.positions.clone();
         let mut points = start.clone();
-        let masses = vec![1.0; start.len()];
+        let masses = vec![fabelgeist_shell::ParticleInverseMass::UNIT_MASS; start.len()];
         let contacts = fabelgeist_cloth::surface_contact::SurfaceContacts::new(
             start.len(),
             build.mesh.triangles.clone(),

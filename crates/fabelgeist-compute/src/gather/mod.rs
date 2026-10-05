@@ -378,7 +378,7 @@ impl Gather {
         let output_num_elements = match output {
             GpuResource::Buffer(b) => {
                 parameters.insert("output", b.clone());
-                b.size / output_size.max(&1)
+                u64::from(b.size) / output_size.max(&1)
             }
             GpuResource::Texture2d(t) => {
                 parameters.insert("output", t.clone());

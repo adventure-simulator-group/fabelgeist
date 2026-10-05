@@ -4,6 +4,7 @@
 use anyhow::Result;
 use fabelgeist_armor::{PuffAndSlashDesign, PuffAndSlashKind, gpu::record_puff_and_slash};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use crate::armor_frames::{FitRegion, Wearer};
 use crate::armor_layer::ArmorLayerSurface;
@@ -37,8 +38,8 @@ impl DeviceWearer<'_> {
         );
         let gpu = self.gpu;
         let part = record_puff_and_slash(gpu, batch, design, &frame.frame)?;
-        let faces_buffer = gpu.upload(faces)?;
-        let positions = gpu.upload(&support.positions)?;
+        let faces_buffer = gpu.upload(BufferUpload::from_elements(faces))?;
+        let positions = gpu.upload(BufferUpload::from_elements(&support.positions))?;
         let capacity = faces.len() as u32 * SAMPLES_PER_TRIANGLE + 1;
         let samples = gpu.scratch(
             u64::from(capacity) * u64::from(SECTION_COUNT) * 8,

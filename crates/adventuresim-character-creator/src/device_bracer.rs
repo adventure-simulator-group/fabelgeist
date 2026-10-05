@@ -15,6 +15,7 @@ use fabelgeist_armor::gpu::bracer::{BracerBody, DeviceBracer, ForearmSkin};
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{ArmorGpu, BracerDesign, GeneratedArmor};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::bracer::{ForearmSide, ForearmSurfaceInput};
@@ -75,7 +76,7 @@ pub async fn generate_bracer_on_device_async(
         },
     )?;
     let seams = DeviceSeams::new(gpu, &SeamTopology::new(input.faces, input.texcoord_faces)?)?;
-    let atlas = gpu.upload(input.texcoords)?;
+    let atlas = gpu.upload(BufferUpload::from_elements(input.texcoords))?;
     let status = gpu.scratch(4, "bracer status")?;
 
     let mut batch = gpu.batch("bracer");
@@ -86,7 +87,7 @@ pub async fn generate_bracer_on_device_async(
         &mut batch,
         &body,
         [lowarm, wrist],
-        &gpu.upload(&supports)?,
+        &gpu.upload(BufferUpload::from_elements(&supports))?,
         &support,
         &axial,
         &status,
@@ -106,8 +107,8 @@ pub async fn generate_bracer_on_device_async(
     )?;
     batch.submit();
     for morph in input.morphs {
-        let positions = gpu.upload(&morph.positions)?;
-        let normals = gpu.upload(&morph.normals)?;
+        let positions = gpu.upload(BufferUpload::from_elements(&morph.positions))?;
+        let normals = gpu.upload(BufferUpload::from_elements(&morph.normals))?;
         let mut batch = gpu.batch("bracer morph");
         bracer.record_morph(
             gpu,

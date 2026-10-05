@@ -6,6 +6,7 @@
 //! safe time; it must never be interpreted as "no collision".
 //! See https://ipc-sim.github.io/C-IPC/ (additive conservative advancement).
 use fabelgeist_math::Vec3;
+use fabelgeist_xpbd::ConstraintGradient;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Pair {
@@ -17,7 +18,7 @@ pub(crate) enum Pair {
 pub(crate) struct Contact {
     /// A conservative lower bound for the first contact, in [0, 1].
     pub time: f64,
-    pub weights: [f32; 4],
+    pub weights: [ConstraintGradient; 4],
     pub normal: Vec3,
     pub distance: f64,
 }
@@ -155,7 +156,7 @@ fn sample(pair: Pair, p: [V; 4], time: f64, fallback: V) -> Contact {
     };
     Contact {
         time,
-        weights: weights.map(|w| w as f32),
+        weights: weights.map(ConstraintGradient::from),
         normal: Vec3::new(
             direction[0] as f32,
             direction[1] as f32,

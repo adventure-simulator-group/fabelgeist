@@ -2,6 +2,8 @@
 use anyhow::Result;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+#[cfg(test)]
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::DeviceWearer;
@@ -166,8 +168,8 @@ mod tests {
         words[PLANES as usize] = 0.1;
         words[OUTER_WIDTH as usize] = 0.1;
         words[OUTER_WIDTH as usize + 1] = 0.1;
-        let fit = gpu.upload(&words).unwrap();
-        let samples = gpu.upload(&positions).unwrap();
+        let fit = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
+        let samples = gpu.upload(BufferUpload::from_elements(&positions)).unwrap();
         let result = gpu.scratch(6 * 12, "collar regression samples").unwrap();
         let mut batch = gpu.batch("collar bulge regression");
         wearer
@@ -257,8 +259,8 @@ mod tests {
         words[HEM as usize + 1] = -0.1;
         words[OUTER_WIDTH as usize] = 0.1;
         words[OUTER_WIDTH as usize + 1] = 0.1;
-        let fit = gpu.upload(&words).unwrap();
-        let samples = gpu.upload(&positions).unwrap();
+        let fit = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
+        let samples = gpu.upload(BufferUpload::from_elements(&positions)).unwrap();
         let result = gpu.scratch(6 * 12, "collar regression samples").unwrap();
         let mut batch = gpu.batch("collar bulge regression");
         let layer_positions = [
@@ -317,7 +319,9 @@ mod tests {
         let mut unresolved = support;
         unresolved[(BIB_RAW + BIB_ROWS * BIB_COLUMNS - 1) as usize] =
             SUPPORT_TOLERANCE_METRES * 2.0;
-        let unresolved = gpu.upload(&unresolved).unwrap();
+        let unresolved = gpu
+            .upload(BufferUpload::from_elements(&unresolved))
+            .unwrap();
         let mut failure = gpu.batch("unresolved final bib support");
         dispatch(
             &wearer,

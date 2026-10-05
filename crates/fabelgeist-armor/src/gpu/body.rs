@@ -1,5 +1,6 @@
 //! A wearer's body on the device, and what armor takes from it.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, PointTargets, QueryHits};
@@ -56,13 +57,13 @@ impl GpuBody {
             return Err(GenerateError::InvalidSurface);
         }
         Ok(Self {
-            positions: gpu.upload(surface.positions)?,
-            normals: gpu.upload(surface.normals)?,
-            faces: gpu.upload(surface.faces)?,
-            texcoords: gpu.upload(surface.texcoords)?,
-            joint_indices: gpu.upload(surface.joint_indices)?,
-            joint_weights: gpu.upload(surface.joint_weights)?,
-            joints: gpu.upload(surface.joints)?,
+            positions: gpu.upload(BufferUpload::from_elements(surface.positions))?,
+            normals: gpu.upload(BufferUpload::from_elements(surface.normals))?,
+            faces: gpu.upload(BufferUpload::from_elements(surface.faces))?,
+            texcoords: gpu.upload(BufferUpload::from_elements(surface.texcoords))?,
+            joint_indices: gpu.upload(BufferUpload::from_elements(surface.joint_indices))?,
+            joint_weights: gpu.upload(BufferUpload::from_elements(surface.joint_weights))?,
+            joints: gpu.upload(BufferUpload::from_elements(surface.joints))?,
             vertex_count: vertices as u32,
             face_count: surface.faces.len() as u32,
             joint_count: surface.joints.len() as u32,

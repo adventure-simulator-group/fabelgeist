@@ -1,4 +1,5 @@
 use crate::prelude::*;
+use fabelgeist_gpu::prelude::BufferUse;
 
 use std::sync::{Arc, RwLock};
 
@@ -154,7 +155,7 @@ impl Scan {
         let (scan_blocks_pipeline, add_aux_pipeline, _element_type) =
             definition.get_or_create_pipelines(context)?;
 
-        let num_elements = (input.size / 4) as u32;
+        let num_elements = (u64::from(input.size) / 4) as u32;
         if num_elements == 0 {
             return Ok(input.clone());
         }
@@ -165,11 +166,11 @@ impl Scan {
         // Output buffer
         let output = fabelgeist_gpu::data::gpu::Buffer::new(
             context,
-            input.size,
+            (u64::from(input.size)).into(),
             fabelgeist_gpu::data::BufferDefinition::storage()
-                .with_label("output")
-                .with_copy_src()
-                .with_copy_dst(),
+                .with_label(("output").into())
+                .with_usage(BufferUse::CopySource)
+                .with_usage(BufferUse::CopyDestination),
         )?;
 
         if num_blocks <= 1 {
@@ -179,11 +180,11 @@ impl Scan {
 
             let aux = fabelgeist_gpu::data::gpu::Buffer::new(
                 context,
-                4,
+                (4u64).into(),
                 fabelgeist_gpu::data::BufferDefinition::storage()
-                    .with_label("aux")
-                    .with_copy_src()
-                    .with_copy_dst(),
+                    .with_label(("aux").into())
+                    .with_usage(BufferUse::CopySource)
+                    .with_usage(BufferUse::CopyDestination),
             )?;
             parameters.insert("aux", aux);
 
@@ -198,11 +199,11 @@ impl Scan {
         } else {
             let aux = fabelgeist_gpu::data::gpu::Buffer::new(
                 context,
-                (num_blocks as u64) * 4,
+                ((num_blocks as u64) * 4).into(),
                 fabelgeist_gpu::data::BufferDefinition::storage()
-                    .with_label("aux")
-                    .with_copy_src()
-                    .with_copy_dst(),
+                    .with_label(("aux").into())
+                    .with_usage(BufferUse::CopySource)
+                    .with_usage(BufferUse::CopyDestination),
             )?;
 
             // Pass 1
@@ -228,20 +229,20 @@ impl Scan {
                 let next_num_blocks = current_num_blocks.div_ceil(block_size);
                 let next_aux = fabelgeist_gpu::data::gpu::Buffer::new(
                     context,
-                    (next_num_blocks as u64) * 4,
+                    ((next_num_blocks as u64) * 4).into(),
                     fabelgeist_gpu::data::BufferDefinition::storage()
-                        .with_label("next_aux")
-                        .with_copy_src()
-                        .with_copy_dst(),
+                        .with_label(("next_aux").into())
+                        .with_usage(BufferUse::CopySource)
+                        .with_usage(BufferUse::CopyDestination),
                 )?;
 
                 let scanned_aux = fabelgeist_gpu::data::gpu::Buffer::new(
                     context,
-                    (current_num_blocks as u64) * 4,
+                    ((current_num_blocks as u64) * 4).into(),
                     fabelgeist_gpu::data::BufferDefinition::storage()
-                        .with_label("scanned_aux")
-                        .with_copy_src()
-                        .with_copy_dst(),
+                        .with_label(("scanned_aux").into())
+                        .with_usage(BufferUse::CopySource)
+                        .with_usage(BufferUse::CopyDestination),
                 )?;
 
                 let mut parameters_p2 =
@@ -291,7 +292,7 @@ impl Scan {
                     parameters_p3.insert("output", target.clone());
                     parameters_p3.insert("aux", current_aux.clone());
 
-                    let target_blocks = (target.size / 4) as u32;
+                    let target_blocks = (u64::from(target.size) / 4) as u32;
                     fabelgeist_gpu::data::gpu::ComputePass::dispatch(
                         context,
                         add_aux_pipeline.clone(),

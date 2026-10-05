@@ -6,6 +6,7 @@
 //! particles are all the same size and roughly evenly spread, which is the one
 //! case a grid wins outright.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use anyhow::anyhow;
@@ -93,35 +94,41 @@ impl SelfCollision {
 
             cells: Buffer::new(
                 context,
-                capacity as u64 * 4,
-                storage.clone().with_label("self-collision cells"),
+                (capacity as u64 * 4).into(),
+                storage.clone().with_label(("self-collision cells").into()),
             )?,
             indices: Buffer::new(
                 context,
-                capacity as u64 * 4,
-                storage.clone().with_label("self-collision indices"),
+                (capacity as u64 * 4).into(),
+                storage
+                    .clone()
+                    .with_label(("self-collision indices").into()),
             )?,
             starts: Buffer::new(
                 context,
-                (table_size as u64 + 1) * 4,
-                storage.clone().with_label("self-collision buckets"),
+                ((table_size as u64 + 1) * 4).into(),
+                storage
+                    .clone()
+                    .with_label(("self-collision buckets").into()),
             )?,
             corrections: Buffer::new(
                 context,
-                capacity as u64 * 16,
-                storage.clone().with_label("self-collision corrections"),
-            )?,
-            neighbour_starts: Buffer::from_slice(
-                context,
-                &starts_data,
+                (capacity as u64 * 16).into(),
                 storage
                     .clone()
-                    .with_label("self-collision adjacency starts"),
+                    .with_label(("self-collision corrections").into()),
             )?,
-            neighbours: Buffer::from_slice(
+            neighbour_starts: Buffer::from_upload(
                 context,
-                &flat,
-                storage.with_label("self-collision adjacency"),
+                BufferUpload::from_elements(&starts_data),
+                storage
+                    .clone()
+                    .with_label(("self-collision adjacency starts").into()),
+            )?,
+            neighbours: Buffer::from_upload(
+                context,
+                BufferUpload::from_elements(&flat),
+                storage.with_label(("self-collision adjacency").into()),
             )?,
             scratch: SortScratch::new(context, capacity)?,
 

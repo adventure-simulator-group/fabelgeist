@@ -1,6 +1,7 @@
 //! Running a metal bake through the device.
 
 use fabelgeist_compute::{KernelBatch, host_float};
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::MetalGpu;
@@ -202,10 +203,14 @@ fn record_image(
     let texels = size * size;
     let (sin, cos) = engraving.rotation.sin_cos();
     let (pixels, normal_map, strength) = match (&image.pixels, engraving.relief) {
-        (ReliefPixels::Height(heights), Relief::Height { .. }) => (gpu.upload(heights)?, 0u32, 0.0),
-        (ReliefPixels::Slopes(slopes), Relief::Normal { strength }) => {
-            (gpu.upload(slopes)?, 1, strength)
+        (ReliefPixels::Height(heights), Relief::Height { .. }) => {
+            (gpu.upload(BufferUpload::from_elements(heights))?, 0u32, 0.0)
         }
+        (ReliefPixels::Slopes(slopes), Relief::Normal { strength }) => (
+            gpu.upload(BufferUpload::from_elements(slopes))?,
+            1,
+            strength,
+        ),
         _ => return Err("the relief image does not match the engraving's relief".into()),
     };
     let mut sample = PassParameters::new();

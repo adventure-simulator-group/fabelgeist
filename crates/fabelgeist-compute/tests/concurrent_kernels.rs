@@ -3,6 +3,7 @@
 
 use fabelgeist_compute::{KernelBatch, KernelCache};
 use fabelgeist_gpu::prelude::*;
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 
 /// Writes its uniform into every output slot, after a busy loop over an
 /// uploaded input that keeps each submission in flight long enough for the
@@ -48,13 +49,17 @@ fn every_thread_sees_its_own_uniforms() -> Result<()> {
                     let value = thread * 1_000 + round + 1;
                     let output = Buffer::new(
                         context,
-                        count as u64 * 4,
-                        BufferDefinition::storage().with_copy_src(),
+                        (count as u64 * 4).into(),
+                        BufferDefinition::storage().with_usage(BufferUse::CopySource),
                     )
                     .unwrap();
                     let input: Vec<u32> = (0..20_000u32).map(|i| i ^ thread).collect();
-                    let input =
-                        Buffer::from_slice(context, &input, BufferDefinition::storage()).unwrap();
+                    let input = Buffer::from_upload(
+                        context,
+                        BufferUpload::from_elements(&input),
+                        BufferDefinition::storage(),
+                    )
+                    .unwrap();
                     let mut parameters = PassParameters::new();
                     parameters.insert("output", output.clone());
                     parameters.insert("input", input);
@@ -87,7 +92,11 @@ fn every_thread_sees_its_own_uniforms() -> Result<()> {
 fn a_long_open_batch_keeps_its_uniforms() -> Result<()> {
     let context = pollster::block_on(WgpuContext::new())?;
     let kernel = KernelCache::new().get(&context, FILL)?;
-    let input = Buffer::from_slice(&context, &[1u32], BufferDefinition::storage())?;
+    let input = Buffer::from_upload(
+        &context,
+        BufferUpload::from_elements(&[1u32]),
+        BufferDefinition::storage(),
+    )?;
     let parameters = |output: &Buffer, value: u32| {
         let mut parameters = PassParameters::new();
         parameters.insert("output", output.clone());
@@ -98,13 +107,13 @@ fn a_long_open_batch_keeps_its_uniforms() -> Result<()> {
         parameters.insert("pad1", 0u32);
         parameters
     };
-    let storage = BufferDefinition::storage().with_copy_src();
-    let held = Buffer::new(&context, 256, storage.clone())?;
+    let storage = BufferDefinition::storage().with_usage(BufferUse::CopySource);
+    let held = Buffer::new(&context, (256u64).into(), storage.clone())?;
     let mut open = KernelBatch::new(&context);
     open.dispatch_items(&kernel, &parameters(&held, 7), 64)?;
     std::thread::scope(|scope| {
         scope.spawn(|| {
-            let other = Buffer::new(&context, 256, storage.clone()).unwrap();
+            let other = Buffer::new(&context, (256u64).into(), storage.clone()).unwrap();
             for round in 0..3_000u32 {
                 let mut batch = KernelBatch::new(&context);
                 batch

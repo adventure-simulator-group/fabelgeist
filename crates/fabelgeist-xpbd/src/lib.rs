@@ -29,8 +29,14 @@ pub mod wgsl;
 
 pub use coloring::{Coloring, color, color_fixed};
 pub use constraint::ConstraintSet;
-pub use particles::Particles;
+pub use particles::{
+    ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
+    Particles,
+};
 pub use solver::{Solver, SolverSettings, SubstepHook};
+
+pub mod dynamics;
+pub use dynamics::*;
 
 #[cfg(test)]
 mod tests;

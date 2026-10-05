@@ -258,11 +258,11 @@ impl<'a> KernelBatch<'a> {
     /// Copy between buffers inside the batch, so that the copy is ordered
     /// against the dispatches around it.
     pub fn copy_buffer(&mut self, source: &Buffer, destination: &Buffer, bytes: u64) -> Result<()> {
-        if bytes > source.size || bytes > destination.size {
+        if bytes > u64::from(source.size) || bytes > u64::from(destination.size) {
             return Err(anyhow!(
                 "KernelBatch::copy_buffer: {bytes} bytes does not fit {} -> {}",
-                source.size,
-                destination.size
+                u64::from(source.size),
+                u64::from(destination.size)
             ));
         }
         self.encoder

@@ -10,6 +10,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{KernelBatch, host_float};
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::FitRegion;
@@ -64,7 +65,7 @@ impl DeviceWearer<'_> {
         }
         parameters.insert("joint_indices", self.body.joint_indices.clone());
         parameters.insert("joint_weights", self.body.joint_weights.clone());
-        parameters.insert("masks", gpu.upload(&masks)?);
+        parameters.insert("masks", gpu.upload(BufferUpload::from_elements(&masks))?);
         parameters.insert("support", support.clone());
         let kernel = gpu
             .cache()
@@ -113,7 +114,7 @@ fn counted(count: u32) -> PassParameters {
 /// A fresh pair of ordered-float axial bounds, lowest then highest.
 pub(crate) fn axial_bounds(gpu: &fabelgeist_armor::ArmorGpu, pairs: usize) -> Result<Buffer> {
     let words = [ORDERED_POSITIVE_INFINITY, ORDERED_NEGATIVE_INFINITY].repeat(pairs);
-    Ok(gpu.upload(&words)?)
+    Ok(gpu.upload(BufferUpload::from_elements(&words))?)
 }
 
 /// Record the axial extent of `count` points in `frame` into the bounds
@@ -166,7 +167,7 @@ pub(crate) fn record_sections(
             ordered(1.0),
         ]);
     }
-    let sections = gpu.upload(&words)?;
+    let sections = gpu.upload(BufferUpload::from_elements(&words))?;
     let mut parameters = counted(count);
     parameters.insert("frames", frame.clone());
     parameters.insert("bounds", bounds.clone());

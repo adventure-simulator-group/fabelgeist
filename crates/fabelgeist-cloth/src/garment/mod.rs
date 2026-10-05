@@ -11,6 +11,7 @@
 
 use anyhow::anyhow;
 use fabelgeist_math::{Vec2, Vec3};
+use fabelgeist_shell::{ParticleArealDensity, ParticleInverseMass, ParticleMass};
 
 use crate::topology::{self, BendQuad};
 use crate::triangulate::{PanelMesh, triangulate_with_segments};
@@ -155,7 +156,7 @@ pub struct GarmentMesh {
     /// Seam constraints: particle pairs to be pulled together.
     pub seams: Vec<[u32; 2]>,
     /// Per-particle mass, from the area it carries and the fabric density.
-    pub masses: Vec<f32>,
+    pub masses: Vec<ParticleMass>,
     /// Where each panel's vertices start, plus a final total.
     pub panel_offsets: Vec<u32>,
     pub panel_names: Vec<String>,
@@ -187,7 +188,7 @@ impl GarmentMesh {
         }
     }
 
-    pub fn inverse_masses(&self) -> Vec<f32> {
+    pub fn inverse_masses(&self) -> Vec<ParticleInverseMass> {
         topology::inverse_masses(&self.masses)
     }
 
@@ -218,7 +219,7 @@ pub fn build(
     panels: &[Panel],
     seams: &[Seam],
     target_edge: f32,
-    density: f32,
+    density: ParticleArealDensity,
 ) -> anyhow::Result<GarmentMesh> {
     if panels.is_empty() {
         return Ok(GarmentMesh::default());

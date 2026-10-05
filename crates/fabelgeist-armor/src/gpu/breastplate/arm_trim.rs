@@ -6,6 +6,7 @@ use super::{
 use crate::{GenerateError, gpu::ArmorGpu};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 impl Plate {
     pub(super) fn record_arm_trim(
@@ -28,7 +29,10 @@ impl Plate {
             },
             &[
                 ("plate", frame),
-                ("columns", &gpu.upload(&self.topology.columns)?),
+                (
+                    "columns",
+                    &gpu.upload(BufferUpload::from_elements(&self.topology.columns))?,
+                ),
                 ("distances", &self.arm_distances),
             ],
             self.count(),

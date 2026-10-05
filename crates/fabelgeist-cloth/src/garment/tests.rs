@@ -89,7 +89,7 @@ fn rotation_preserves_length() {
 #[test]
 fn builds_a_single_panel() {
     let panels = vec![Panel::new("only", square(0.4))];
-    let mesh = build(&panels, &[], 0.05, 0.2).unwrap();
+    let mesh = build(&panels, &[], 0.05, 0.2.into()).unwrap();
 
     assert!(mesh.particle_count() > 50, "too coarse to be a cloth");
     assert!(!mesh.triangles.is_empty());
@@ -123,9 +123,9 @@ fn builds_a_single_panel() {
     }
 
     // The total mass is the area times the density.
-    let total: f32 = mesh.masses.iter().sum();
+    let total: ParticleMass = mesh.masses.iter().sum();
     assert!(
-        (total - 0.16 * 0.2).abs() < 0.16 * 0.2 * 0.05,
+        (total - ParticleMass::from(0.16 * 0.2)).absolute() < ParticleMass::from(0.16 * 0.2 * 0.05),
         "a 0.4 m square at 0.2 kg/m^2 weighs {total}"
     );
 }
@@ -133,7 +133,7 @@ fn builds_a_single_panel() {
 #[test]
 fn sews_two_panels_together() {
     let (panels, seams) = tube();
-    let mesh = build(&panels, &seams, 0.03, 0.2).unwrap();
+    let mesh = build(&panels, &seams, 0.03, 0.2.into()).unwrap();
 
     assert_eq!(mesh.panel_count(), 2);
     assert!(!mesh.seams.is_empty(), "the seams produced no constraints");
@@ -165,7 +165,7 @@ fn sews_two_panels_together() {
 #[test]
 fn seam_pairs_run_along_the_edges() {
     let (panels, seams) = tube();
-    let mesh = build(&panels, &seams, 0.03, 0.2).unwrap();
+    let mesh = build(&panels, &seams, 0.03, 0.2.into()).unwrap();
 
     for &[a, b] in &mesh.seams {
         let distance = (mesh.positions[a as usize] - mesh.positions[b as usize]).length();
@@ -190,12 +190,12 @@ fn reversing_a_seam_flips_the_pairing() {
     let side_a = SeamSide { panel: 0, edge: 1 };
     let side_b = SeamSide { panel: 1, edge: 1 };
 
-    let forward = build(&panels, &[Seam::new(side_a, side_b)], 0.03, 0.2).unwrap();
+    let forward = build(&panels, &[Seam::new(side_a, side_b)], 0.03, 0.2.into()).unwrap();
     let reversed = build(
         &panels,
         &[Seam::new(side_a, side_b).reversed(true)],
         0.03,
-        0.2,
+        0.2.into(),
     )
     .unwrap();
 
@@ -224,7 +224,7 @@ fn reversing_a_seam_flips_the_pairing() {
 fn drops_seams_that_duplicate_a_mesh_edge() {
     let panels = vec![Panel::new("only", square(0.3))];
     let side = SeamSide { panel: 0, edge: 0 };
-    let mesh = build(&panels, &[Seam::new(side, side)], 0.05, 0.2).unwrap();
+    let mesh = build(&panels, &[Seam::new(side, side)], 0.05, 0.2.into()).unwrap();
 
     let edges: std::collections::HashSet<[u32; 2]> = mesh.edges.iter().copied().collect();
     for &[a, b] in &mesh.seams {
@@ -243,18 +243,18 @@ fn reports_a_bad_seam() {
         SeamSide { panel: 0, edge: 0 },
         SeamSide { panel: 9, edge: 0 },
     );
-    assert!(build(&panels, &[bad_panel], 0.05, 0.2).is_err());
+    assert!(build(&panels, &[bad_panel], 0.05, 0.2.into()).is_err());
 
     let bad_edge = Seam::new(
         SeamSide { panel: 0, edge: 0 },
         SeamSide { panel: 0, edge: 99 },
     );
-    assert!(build(&panels, &[bad_edge], 0.05, 0.2).is_err());
+    assert!(build(&panels, &[bad_edge], 0.05, 0.2.into()).is_err());
 }
 
 #[test]
 fn handles_no_panels() {
-    let mesh = build(&[], &[], 0.05, 0.2).unwrap();
+    let mesh = build(&[], &[], 0.05, 0.2.into()).unwrap();
     assert_eq!(mesh.particle_count(), 0);
     assert_eq!(mesh.panel_count(), 0);
 }
@@ -262,14 +262,14 @@ fn handles_no_panels() {
 #[test]
 fn rejects_a_nonsense_resolution() {
     let panels = vec![Panel::new("only", square(0.3))];
-    assert!(build(&panels, &[], 0.0, 0.2).is_err());
-    assert!(build(&panels, &[], -1.0, 0.2).is_err());
+    assert!(build(&panels, &[], 0.0, 0.2.into()).is_err());
+    assert!(build(&panels, &[], -1.0, 0.2.into()).is_err());
 }
 
 #[test]
 fn panel_lookup_covers_every_particle() {
     let (panels, seams) = tube();
-    let mesh = build(&panels, &seams, 0.04, 0.2).unwrap();
+    let mesh = build(&panels, &seams, 0.04, 0.2.into()).unwrap();
     for particle in 0..mesh.particle_count() as u32 {
         let panel = mesh.panel_of(particle);
         assert!(panel < mesh.panel_count());
@@ -283,7 +283,7 @@ fn panel_lookup_covers_every_particle() {
 #[test]
 fn adjacency_covers_edges_and_seams() {
     let (panels, seams) = tube();
-    let mesh = build(&panels, &seams, 0.04, 0.2).unwrap();
+    let mesh = build(&panels, &seams, 0.04, 0.2.into()).unwrap();
     let adjacency = mesh.adjacency();
 
     assert_eq!(adjacency.len(), mesh.particle_count());
@@ -318,7 +318,7 @@ fn material_positions_are_the_flat_rest_shape() {
         rotation: Vec3::new(0.0, 90.0, 0.0),
     };
     let panels = vec![Panel::new("front", square(0.3)).placed(placement)];
-    let mesh = build(&panels, &[], 0.05, 0.2).unwrap();
+    let mesh = build(&panels, &[], 0.05, 0.2.into()).unwrap();
 
     assert_eq!(mesh.material.len(), mesh.positions.len());
 
@@ -352,7 +352,7 @@ fn material_positions_are_the_flat_rest_shape() {
 #[test]
 fn panel_ranges_tile_the_mesh() {
     let (panels, seams) = tube();
-    let mesh = build(&panels, &seams, 0.05, 0.2).unwrap();
+    let mesh = build(&panels, &seams, 0.05, 0.2.into()).unwrap();
 
     let mut next = 0;
     for panel in 0..mesh.panel_count() {
@@ -388,7 +388,7 @@ fn different_length_sewn_edges_have_one_partner_per_vertex() {
             SeamSide { panel: 1, edge: 0 },
         )],
         0.2,
-        0.2,
+        0.2.into(),
     )
     .unwrap();
     let mut partners = std::collections::HashMap::new();
@@ -425,7 +425,7 @@ fn sewn_edges_have_bending_continuity_in_material_space() {
             SeamSide { panel: 1, edge: 0 },
         )],
         0.2,
-        0.2,
+        0.2.into(),
     )
     .unwrap();
     let hinges: Vec<_> = mesh

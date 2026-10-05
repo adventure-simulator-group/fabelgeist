@@ -1,5 +1,6 @@
 use super::*;
 use crate::prelude::*;
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 
 /// Samples per test: enough to meet the rare hard case of every operation.
 const SAMPLES: u32 = 1 << 18;
@@ -72,10 +73,10 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         library = wgsl(),
     );
     let kernel = Kernel::new(&context, source)?;
-    let definition = BufferDefinition::storage().with_copy_src();
-    let outputs = Buffer::from_slice(
+    let definition = BufferDefinition::storage().with_usage(BufferUse::CopySource);
+    let outputs = Buffer::from_upload(
         &context,
-        &vec![0f32; inputs.len() * expressions.len()],
+        BufferUpload::from_elements(&vec![0f32; inputs.len() * expressions.len()]),
         definition.clone(),
     )?;
     let mut parameters = PassParameters::new();
@@ -83,7 +84,10 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
     parameters.insert(ZERO_FIELD, 0u32);
     parameters.insert("pad0", 0u32);
     parameters.insert("pad1", 0u32);
-    parameters.insert("inputs", Buffer::from_slice(&context, inputs, definition)?);
+    parameters.insert(
+        "inputs",
+        Buffer::from_upload(&context, BufferUpload::from_elements(inputs), definition)?,
+    );
     parameters.insert("outputs", outputs.clone());
     let mut batch = KernelBatch::new(&context);
     batch.dispatch_items(&kernel, &parameters, inputs.len() as u32)?;

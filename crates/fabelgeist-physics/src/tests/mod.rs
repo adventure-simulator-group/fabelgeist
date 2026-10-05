@@ -168,8 +168,11 @@ async fn particles_settle_on_the_ground() -> Result<()> {
     let positions: Vec<Vec3> = (0..64)
         .map(|i| Vec3::new(i as f32 * 0.01, 1.0, 0.0))
         .collect();
-    let particles =
-        Particles::from_positions(&harness.context, &positions, &vec![1.0; positions.len()])?;
+    let particles = Particles::from_positions(
+        &harness.context,
+        &positions,
+        &vec![1.0.into(); positions.len()],
+    )?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(
@@ -216,8 +219,11 @@ async fn particles_stay_outside_a_sphere() -> Result<()> {
             positions.push(Vec3::new(x as f32 * 0.05, 1.5, z as f32 * 0.05));
         }
     }
-    let particles =
-        Particles::from_positions(&harness.context, &positions, &vec![1.0; positions.len()])?;
+    let particles = Particles::from_positions(
+        &harness.context,
+        &positions,
+        &vec![1.0.into(); positions.len()],
+    )?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(
@@ -265,7 +271,7 @@ async fn friction_holds_a_particle_on_a_slope() -> Result<()> {
     let mut travelled = Vec::new();
     for friction in [0.0f32, 0.8] {
         let start = Vec3::new(0.0, 0.02, 0.0);
-        let particles = Particles::from_positions(&harness.context, &[start], &[1.0])?;
+        let particles = Particles::from_positions(&harness.context, &[start], &[1.0.into()])?;
 
         let mut collisions = harness.collisions()?;
         collisions.set_colliders(
@@ -324,8 +330,11 @@ async fn particles_stay_outside_a_mesh() -> Result<()> {
             positions.push(Vec3::new(x as f32 * 0.05, 1.2, z as f32 * 0.05));
         }
     }
-    let particles =
-        Particles::from_positions(&harness.context, &positions, &vec![1.0; positions.len()])?;
+    let particles = Particles::from_positions(
+        &harness.context,
+        &positions,
+        &vec![1.0.into(); positions.len()],
+    )?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(&harness.context, vec![Collider::ground(-1.0)])?;
@@ -383,7 +392,7 @@ async fn a_moving_mesh_still_collides() -> Result<()> {
     let (base_positions, triangles) = sphere_mesh(16, 32, radius);
 
     let start = Vec3::new(0.0, 0.5, 0.0);
-    let particles = Particles::from_positions(&harness.context, &[start], &[1.0])?;
+    let particles = Particles::from_positions(&harness.context, &[start], &[1.0.into()])?;
 
     let mut collisions = harness.collisions()?;
     let mut mesh = MeshCollider::new(
@@ -450,7 +459,7 @@ async fn a_particle_started_inside_is_pushed_out() -> Result<()> {
 
     // Well inside, but off-centre so there is a nearest surface to leave by.
     let start = Vec3::new(0.15, 0.05, 0.0);
-    let particles = Particles::from_positions(&harness.context, &[start], &[1.0])?;
+    let particles = Particles::from_positions(&harness.context, &[start], &[1.0.into()])?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_mesh(Some(MeshCollider::new(
@@ -505,7 +514,7 @@ async fn a_particle_started_inside_is_pushed_out() -> Result<()> {
 async fn pinned_particles_ignore_collision() -> Result<()> {
     let harness = Harness::new().await?;
     let start = Vec3::new(0.0, -1.0, 0.0);
-    let particles = Particles::from_positions(&harness.context, &[start], &[0.0])?;
+    let particles = Particles::from_positions(&harness.context, &[start], &[0.0.into()])?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
@@ -567,7 +576,7 @@ async fn updating_collider_counts_is_rejected() -> Result<()> {
 async fn a_hook_chain_runs_every_hook() -> Result<()> {
     let harness = Harness::new().await?;
     let particles =
-        Particles::from_positions(&harness.context, &[Vec3::new(0.0, 1.0, 0.0)], &[1.0])?;
+        Particles::from_positions(&harness.context, &[Vec3::new(0.0, 1.0, 0.0)], &[1.0.into()])?;
 
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;

@@ -2,6 +2,7 @@
 
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::TorsoBody;
 use super::clip_carrier::ClippedCarrier;
@@ -62,7 +63,10 @@ impl Plate {
             },
             &[
                 ("positions", &self.positions),
-                ("columns", &gpu.upload(&self.topology.columns)?),
+                (
+                    "columns",
+                    &gpu.upload(BufferUpload::from_elements(&self.topology.columns))?,
+                ),
                 ("normals", &normals),
                 ("status", status),
             ],
@@ -171,21 +175,21 @@ impl Plates {
         self.back.rim_vertices = back.rim_vertices.clone();
         self.front.outer = self.front.topology.clone();
         self.back.outer = self.back.topology.clone();
-        self.front.positions = gpu.upload(&front.positions)?;
-        self.back.positions = gpu.upload(&back.positions)?;
+        self.front.positions = gpu.upload(BufferUpload::from_elements(&front.positions))?;
+        self.back.positions = gpu.upload(BufferUpload::from_elements(&back.positions))?;
         let coarse = front
             .carrier_positions(results.prefix::<[f32; 3]>(coarse, self.coarse.count() as usize));
         self.coarse
             .topology
             .cut_columns
             .clone_from(&self.front.topology.cut_columns);
-        self.coarse.positions = gpu.upload(&coarse)?;
-        extrusions.front = gpu.upload(&front.directions)?;
-        extrusions.back = gpu.upload(&back.directions)?;
+        self.coarse.positions = gpu.upload(BufferUpload::from_elements(&coarse))?;
+        extrusions.front = gpu.upload(BufferUpload::from_elements(&front.directions))?;
+        extrusions.back = gpu.upload(BufferUpload::from_elements(&back.directions))?;
         let carrier = (0..self.front.count())
             .map(|i| [f32::from_bits(i), f32::from_bits(i), 0.0])
             .collect::<Vec<_>>();
-        extrusions.carrier = gpu.upload(&carrier)?;
+        extrusions.carrier = gpu.upload(BufferUpload::from_elements(&carrier))?;
         Ok(())
     }
 
@@ -243,7 +247,10 @@ impl Plates {
                 ("plate", plate),
                 ("coarse", &self.coarse.positions),
                 ("coarse_normals", &coarse_normals),
-                ("columns", &gpu.upload(&front.topology.columns)?),
+                (
+                    "columns",
+                    &gpu.upload(BufferUpload::from_elements(&front.topology.columns))?,
+                ),
                 ("positions", &front.positions),
                 ("extrusion", &extrusions.front),
                 ("carrier", &extrusions.carrier),
@@ -273,8 +280,8 @@ impl Plates {
         let count = topology.sources.len() as u32;
         let triangles = (topology.indices.len() / 3) as u32;
         let shell = Shell {
-            sources: gpu.upload(&topology.sources)?,
-            indices: gpu.upload(&topology.indices)?,
+            sources: gpu.upload(BufferUpload::from_elements(&topology.sources))?,
+            indices: gpu.upload(BufferUpload::from_elements(&topology.indices))?,
             positions: gpu.scratch(count as u64 * 12, "breastplate positions")?,
             normals: VertexNormals::new(gpu.context(), count, triangles).map_err(device_error)?,
             topology,
@@ -362,7 +369,10 @@ impl Plates {
                 ("front", &self.front.positions),
                 ("back", &self.back.positions),
                 ("coarse", &self.coarse.positions),
-                ("eligible", &gpu.upload(torso.eligible)?),
+                (
+                    "eligible",
+                    &gpu.upload(BufferUpload::from_elements(torso.eligible))?,
+                ),
                 ("body_faces", &torso.body.faces),
                 ("body_local", body_local),
                 ("samples", &samples),

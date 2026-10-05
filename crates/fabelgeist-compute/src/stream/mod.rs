@@ -333,7 +333,11 @@ impl Stream {
         parameters.insert("output", output.clone());
 
         let (workgroups_x, workgroups_y, workgroups_z) = match input {
-            GpuResource::Buffer(_b) => (((inclusive_offsets.size / 4) as u32).div_ceil(64), 1, 1),
+            GpuResource::Buffer(_b) => (
+                ((u64::from(inclusive_offsets.size) / 4) as u32).div_ceil(64),
+                1,
+                1,
+            ),
             GpuResource::Texture2d(t) => (t.size.0.div_ceil(16), t.size.1.div_ceil(16), 1),
             GpuResource::Texture3d(t) => (
                 t.size.0.div_ceil(4),

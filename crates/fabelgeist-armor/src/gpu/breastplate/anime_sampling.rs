@@ -10,6 +10,7 @@ use crate::gpu::{ArmorGpu, device_error};
 use crate::{AnimeDesign, GenerateError};
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 pub(super) const LINK_WORDS: u64 = 3;
 pub(super) struct Sampled {
@@ -34,7 +35,7 @@ impl<'a> CourseSampler<'a> {
         input: &'a CourseInputs<'a>,
         design: &AnimeDesign,
     ) -> Result<Self, GenerateError> {
-        let design = gpu.upload(&design_words(design))?;
+        let design = gpu.upload(BufferUpload::from_elements(&design_words(design)))?;
         let bounds = gpu.scratch(32, "anime course bounds")?;
         let mut reference_ids =
             vec![[u32::MAX; 2]; (input.plates.front.count() + input.plates.back.count()) as usize];
@@ -42,8 +43,8 @@ impl<'a> CourseSampler<'a> {
             reference_ids[(mid & !OUTER_BIT) as usize][usize::from(mid & OUTER_BIT != 0)] =
                 vertex as u32;
         }
-        let references = gpu.upload(&reference_ids)?;
-        let columns = gpu.upload(
+        let references = gpu.upload(BufferUpload::from_elements(&reference_ids))?;
+        let columns = gpu.upload(BufferUpload::from_elements(
             &input
                 .plates
                 .front
@@ -53,7 +54,7 @@ impl<'a> CourseSampler<'a> {
                 .chain(&input.plates.back.topology.columns)
                 .copied()
                 .collect::<Vec<_>>(),
-        )?;
+        ))?;
         let params = Params {
             width: input.plates.front.width(),
             extra: input.plates.back.width(),
@@ -145,8 +146,14 @@ impl<'a> CourseSampler<'a> {
                 ("original", &self.source.positions),
                 ("references", &self.references),
                 ("design", &self.design),
-                ("bounds", &gpu.upload(&layout.bounds)?),
-                ("coordinates", &gpu.upload(&layout.coordinates)?),
+                (
+                    "bounds",
+                    &gpu.upload(BufferUpload::from_elements(&layout.bounds))?,
+                ),
+                (
+                    "coordinates",
+                    &gpu.upload(BufferUpload::from_elements(&layout.coordinates))?,
+                ),
                 ("positions", positions),
                 ("links", links),
             ],
@@ -163,8 +170,8 @@ impl<'a> CourseSampler<'a> {
         let count = layout.coordinates.len() as u32;
         let triangles = (layout.topology.indices.len() / 3) as u32;
         let mut shell = Shell {
-            sources: gpu.upload(&layout.topology.sources)?,
-            indices: gpu.upload(&layout.topology.indices)?,
+            sources: gpu.upload(BufferUpload::from_elements(&layout.topology.sources))?,
+            indices: gpu.upload(BufferUpload::from_elements(&layout.topology.indices))?,
             positions: gpu.scratch(count as u64 * 12, "anime positions")?,
             normals: VertexNormals::new(gpu.context(), count, triangles).map_err(device_error)?,
             topology: layout.topology.clone(),

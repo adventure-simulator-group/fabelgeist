@@ -1,3 +1,6 @@
+use crate::{
+    ArealDensityValidity, MassValidity, ParticleArealDensity, ParticleInverseMass, ParticleMass,
+};
 use crate::{BendQuad, SelfCollision, topology};
 use anyhow::{Result, ensure};
 use fabelgeist_math::Vec3;
@@ -12,10 +15,13 @@ pub struct ShellMesh {
     pub bends: Vec<BendQuad>,
     pub bend_weights: Vec<[f32; 8]>,
     pub seams: Vec<[u32; 2]>,
-    pub masses: Vec<f32>,
+    pub masses: Vec<ParticleMass>,
 }
 impl ShellMesh {
-    pub fn from_mesh(mesh: &fabelgeist_mesh::MeshData, areal_density: f32) -> Result<Self> {
+    pub fn from_mesh(
+        mesh: &fabelgeist_mesh::MeshData,
+        areal_density: ParticleArealDensity,
+    ) -> Result<Self> {
         let triangles = mesh.triangles()?;
         let positions = mesh
             .positions
@@ -24,9 +30,13 @@ impl ShellMesh {
             .collect();
         Self::new(positions, triangles, areal_density)
     }
-    pub fn new(positions: Vec<Vec3>, triangles: Vec<[u32; 3]>, areal_density: f32) -> Result<Self> {
+    pub fn new(
+        positions: Vec<Vec3>,
+        triangles: Vec<[u32; 3]>,
+        areal_density: ParticleArealDensity,
+    ) -> Result<Self> {
         ensure!(
-            areal_density.is_finite() && areal_density > 0.0,
+            areal_density.validity() == ArealDensityValidity::PositiveFinite,
             "areal density must be positive"
         );
         ensure!(
@@ -83,7 +93,11 @@ impl ShellMesh {
             "non-finite shell position"
         );
         ensure!(
-            self.masses.len() == n && self.masses.iter().all(|m| m.is_finite() && *m >= 0.0),
+            self.masses.len() == n
+                && self
+                    .masses
+                    .iter()
+                    .all(|m| m.validity() == MassValidity::FiniteNonnegative),
             "invalid shell masses"
         );
         ensure!(
@@ -114,7 +128,7 @@ impl ShellMesh {
         );
         Ok(())
     }
-    pub fn inverse_masses(&self) -> Vec<f32> {
+    pub fn inverse_masses(&self) -> Vec<ParticleInverseMass> {
         topology::inverse_masses(&self.masses)
     }
     pub fn adjacency(&self) -> Vec<Vec<u32>> {

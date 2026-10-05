@@ -193,9 +193,10 @@ fn builds_a_garment_from_a_preset() {
     }
 
     // And the masses are a garment's, not a sack of sand's.
-    let total: f32 = build.mesh.masses.iter().sum();
+    let total: fabelgeist_xpbd::ParticleMass = build.mesh.masses.iter().sum();
     assert!(
-        (0.05..5.0).contains(&total),
+        (fabelgeist_xpbd::ParticleMass::from(0.05)..fabelgeist_xpbd::ParticleMass::from(5.0))
+            .contains(&total),
         "the garment weighs {total} kg"
     );
 }

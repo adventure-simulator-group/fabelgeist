@@ -1,3 +1,4 @@
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_math::Vec2;
 use fabelgeist_physics::{Collider, Collisions};
 use fabelgeist_xpbd::{Solver, SolverSettings};
@@ -148,7 +149,7 @@ async fn a_pinned_sheet_hangs() -> Result<()> {
     let mut pinned = 0;
     for (index, position) in mesh.positions.iter().enumerate() {
         if position.y > top - 1e-4 {
-            inverse_masses[index] = 0.0;
+            inverse_masses[index] = fabelgeist_shell::ParticleInverseMass::PINNED;
             pinned += 1;
         }
     }
@@ -170,7 +171,7 @@ async fn a_pinned_sheet_hangs() -> Result<()> {
 
     let settled = cloth.read_positions(&harness.context).await?;
     for (index, position) in settled.iter().enumerate() {
-        if inverse_masses[index] == 0.0 {
+        if inverse_masses[index].mobility() == fabelgeist_shell::ParticleMobility::Prescribed {
             assert!(
                 (*position - mesh.positions[index]).length() < 1e-4,
                 "pinned particle {index} moved"
@@ -210,7 +211,7 @@ async fn bending_stiffness_changes_the_drape() -> Result<()> {
         let mut inverse_masses = mesh.inverse_masses();
         for (index, position) in mesh.positions.iter().enumerate() {
             if position.z < 0.0 {
-                inverse_masses[index] = 0.0;
+                inverse_masses[index] = fabelgeist_shell::ParticleInverseMass::PINNED;
             }
         }
 
@@ -529,7 +530,7 @@ async fn bend_scaling_grid() -> Result<()> {
             let mut inverse_masses = mesh.inverse_masses();
             for (index, position) in mesh.positions.iter().enumerate() {
                 if position.z < 0.0 {
-                    inverse_masses[index] = 0.0;
+                    inverse_masses[index] = fabelgeist_shell::ParticleInverseMass::PINNED;
                 }
             }
             let mut cloth = Cloth::new(&harness.context, &harness.cache, &mesh, fabric)?;
@@ -615,7 +616,7 @@ async fn coincident_non_neighbours_separate_and_pinned_particles_stay_fixed() ->
     let particles = fabelgeist_xpbd::Particles::from_positions(
         &harness.context,
         &[Vec3::default(), Vec3::default()],
-        &[0.0, 1.0],
+        &[0.0.into(), 1.0.into()],
     )?;
     let mut collision = crate::SelfCollision::new(
         &harness.context,
@@ -644,7 +645,7 @@ async fn interactive_step_blocks_a_triangle_interior_crossing() -> Result<()> {
             Vec3::new(0., 0.02, 0.),
         ],
         triangles: vec![[0, 1, 2]],
-        masses: vec![0., 0., 0., 1.],
+        masses: vec![0.0.into(), 0.0.into(), 0.0.into(), 1.0.into()],
         ..Default::default()
     };
     let mut cloth = Cloth::new(&harness.context, &harness.cache, &mesh, Fabric::COTTON)?;
@@ -660,7 +661,7 @@ async fn interactive_step_blocks_a_triangle_interior_crossing() -> Result<()> {
     cloth
         .particles
         .velocities
-        .write(&harness.context, &velocities)?;
+        .write(&harness.context, BufferUpload::from_elements(&velocities))?;
     cloth
         .step_interleaved(&harness.context, &solver, &mut collisions, 0.01)
         .await?;

@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 
 /// Deterministic pseudo-random keys. A fixed generator rather than a crate, so
 /// that a failure is reproducible from the test name alone.
@@ -24,9 +25,14 @@ async fn sorted(keys: &[u32], bits: u32) -> Result<(Vec<u32>, Vec<u32>)> {
     // that values travelled with their keys.
     let values: Vec<u32> = (0..count).collect();
 
-    let definition = BufferDefinition::storage().with_copy_src();
-    let key_buffer = Buffer::from_slice(&context, keys, definition.clone())?;
-    let value_buffer = Buffer::from_slice(&context, &values, definition)?;
+    let definition = BufferDefinition::storage().with_usage(BufferUse::CopySource);
+    let key_buffer = Buffer::from_upload(
+        &context,
+        BufferUpload::from_elements(keys),
+        definition.clone(),
+    )?;
+    let value_buffer =
+        Buffer::from_upload(&context, BufferUpload::from_elements(&values), definition)?;
     let mut scratch = SortScratch::new(&context, count)?;
 
     sort.run(
@@ -133,8 +139,12 @@ async fn accepts_degenerate_counts() -> Result<()> {
 
     let context = WgpuContext::new().await?;
     let sort = RadixSort::new(&context)?;
-    let definition = BufferDefinition::storage().with_copy_src();
-    let buffer = Buffer::from_slice(&context, &[0u32; 4], definition)?;
+    let definition = BufferDefinition::storage().with_usage(BufferUse::CopySource);
+    let buffer = Buffer::from_upload(
+        &context,
+        BufferUpload::from_elements(&[0u32; 4]),
+        definition,
+    )?;
     let mut scratch = SortScratch::new(&context, 4)?;
     let mut batch = KernelBatch::new(&context);
     sort.record(&mut batch, &buffer, &buffer, &mut scratch, 0, 32)?;
@@ -150,10 +160,15 @@ async fn accepts_degenerate_counts() -> Result<()> {
 async fn rejects_a_scratch_that_is_too_small() -> Result<()> {
     let context = WgpuContext::new().await?;
     let sort = RadixSort::new(&context)?;
-    let definition = BufferDefinition::storage().with_copy_src();
+    let definition = BufferDefinition::storage().with_usage(BufferUse::CopySource);
     let data: Vec<u32> = (0..1000).collect();
-    let key_buffer = Buffer::from_slice(&context, &data, definition.clone())?;
-    let value_buffer = Buffer::from_slice(&context, &data, definition)?;
+    let key_buffer = Buffer::from_upload(
+        &context,
+        BufferUpload::from_elements(&data),
+        definition.clone(),
+    )?;
+    let value_buffer =
+        Buffer::from_upload(&context, BufferUpload::from_elements(&data), definition)?;
     let mut scratch = SortScratch::new(&context, 100)?;
 
     let mut batch = KernelBatch::new(&context);

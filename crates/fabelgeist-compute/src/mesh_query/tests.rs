@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 
 /// Deterministic points in the unit cube, xorshift32 so that a failure is
 /// reproducible from the test name alone.
@@ -46,7 +47,11 @@ fn squared(a: [f32; 3], b: [f32; 3]) -> f32 {
 }
 
 fn buffer<T: bytemuck::NoUninit>(context: &WgpuContext, data: &[T]) -> Result<Buffer> {
-    Buffer::from_slice(context, data, BufferDefinition::storage().with_copy_src())
+    Buffer::from_upload(
+        context,
+        BufferUpload::from_elements(data),
+        BufferDefinition::storage().with_usage(BufferUse::CopySource),
+    )
 }
 
 #[tokio::test]

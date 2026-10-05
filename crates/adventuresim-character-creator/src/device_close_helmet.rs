@@ -5,6 +5,7 @@
 //! helmet's profile by one invocation. Which skin belongs to the head and
 //! neck is a matter of skin weights alone, so the host lists it once.
 
+use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
 use anyhow::Result;
@@ -81,11 +82,14 @@ impl DeviceWearer<'_> {
             parameters.insert(pad, 0u32);
         }
         parameters.insert("positions", self.body.positions.clone());
-        parameters.insert("support", gpu.upload(&support)?);
+        parameters.insert(
+            "support",
+            gpu.upload(BufferUpload::from_elements(&support))?,
+        );
         parameters.insert("frame", frame.frame.clone());
         parameters.insert(
             "design",
-            gpu.upload(&[
+            gpu.upload(BufferUpload::from_elements(&[
                 design.neck_length.metres(),
                 design.back_edge_lift.metres(),
                 design.fit.clearance.metres() + wall,
@@ -93,9 +97,9 @@ impl DeviceWearer<'_> {
                 wall,
                 design.temple_clearance.metres(),
                 0.0,
-            ])?,
+            ]))?,
         );
-        parameters.insert("bands", gpu.upload(&bands)?);
+        parameters.insert("bands", gpu.upload(BufferUpload::from_elements(&bands))?);
         parameters.insert("fit", fit.clone());
         parameters.insert("status", frame.status.clone());
         let [measure, profile] = kernels(gpu)?;

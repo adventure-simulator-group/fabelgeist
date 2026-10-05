@@ -6,6 +6,7 @@
 use anyhow::Result;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
 
 use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::DeviceWearer;
@@ -55,7 +56,7 @@ impl DeviceWearer<'_> {
             })
             .collect::<Vec<_>>();
         let layer_faces = triangles.len() as u32;
-        let triangles = self.gpu.upload(&triangles)?;
+        let triangles = self.gpu.upload(BufferUpload::from_elements(&triangles))?;
         let cage = format!("fn cage_word(i: u32) -> f32 {{\n    return fit[i];\n}}\n{CAGE}");
         dispatch(
             self,
@@ -236,8 +237,10 @@ mod tests {
                 words[HEM as usize..HEM as usize + 3].fill(-0.1);
                 words[FRONT as usize..FRONT as usize + 3].fill(0.09);
                 words[BACK as usize..BACK as usize + 3].fill(0.1);
-                let fit = gpu.upload(&words).unwrap();
-                let samples = gpu.upload(&body_points).unwrap();
+                let fit = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
+                let samples = gpu
+                    .upload(BufferUpload::from_elements(&body_points))
+                    .unwrap();
                 let output = gpu
                     .scratch(36 * 12, "seated collar and bib samples")
                     .unwrap();

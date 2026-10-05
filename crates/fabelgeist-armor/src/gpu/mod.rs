@@ -4,6 +4,7 @@
 //! family shares. One is enough for a whole process: its kernels are compiled
 //! once, and it may be used from any number of threads at once.
 
+use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use std::sync::Arc;
 
 use fabelgeist_compute::{
@@ -239,7 +240,7 @@ impl ArmorGpu {
             .iter()
             .map(|frame| {
                 frame.validate()?;
-                self.upload(&frame_words(frame))
+                self.upload(BufferUpload::from_elements(&frame_words(frame)))
             })
             .collect::<Result<Vec<_>, _>>()?;
         let buffers = buffers.iter().collect::<Vec<_>>();
@@ -251,20 +252,11 @@ impl ArmorGpu {
     }
 
     /// Upload plain data into a new storage buffer.
-    pub fn upload<T: bytemuck::NoUninit>(&self, data: &[T]) -> Result<Buffer, GenerateError> {
-        let bytes = bytemuck::cast_slice::<T, u8>(data);
-        // A buffer cannot be empty; an empty array still needs something bound.
-        let padded;
-        let bytes = if bytes.is_empty() {
-            padded = [0u8; 4];
-            &padded[..]
-        } else {
-            bytes
-        };
-        Buffer::from_bytes(
+    pub fn upload(&self, data: BufferUpload<'_>) -> Result<Buffer, GenerateError> {
+        Buffer::from_upload(
             &self.context,
-            bytes,
-            BufferDefinition::storage().with_copy_src(),
+            data.with_empty_word(),
+            BufferDefinition::storage().with_usage(BufferUse::CopySource),
         )
         .map_err(device_error)
     }
@@ -273,10 +265,10 @@ impl ArmorGpu {
     pub fn scratch(&self, bytes: u64, label: &str) -> Result<Buffer, GenerateError> {
         Buffer::new(
             &self.context,
-            bytes.max(4),
+            (bytes.max(4)).into(),
             BufferDefinition::storage()
-                .with_copy_src()
-                .with_label(label),
+                .with_usage(BufferUse::CopySource)
+                .with_label((label).into()),
         )
         .map_err(device_error)
     }
@@ -310,8 +302,8 @@ impl ArmorGpu {
         }
         let count = queries.len() as u32;
         let hits = QueryHits::new(&self.context, count).map_err(device_error)?;
-        let query_buffer = self.upload(queries)?;
-        let target_buffer = self.upload(targets)?;
+        let query_buffer = self.upload(BufferUpload::from_elements(queries))?;
+        let target_buffer = self.upload(BufferUpload::from_elements(targets))?;
         let mut batch = self.batch("armor nearest points");
         self.query
             .record_nearest_points(

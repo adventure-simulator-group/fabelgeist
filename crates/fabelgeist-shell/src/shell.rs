@@ -55,7 +55,7 @@ pub struct Shell {
     pub triangles: Vec<[u32; 3]>,
     /// Kept so the surface can be reset to its initial layout.
     initial_positions: Vec<Vec3>,
-    inverse_masses: Vec<f32>,
+    inverse_masses: Vec<crate::ParticleInverseMass>,
 }
 
 impl Shell {

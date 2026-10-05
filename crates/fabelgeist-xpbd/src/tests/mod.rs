@@ -5,7 +5,10 @@ use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 
-use crate::{ConstraintSet, Particles, Solver, SolverSettings};
+use crate::{
+    CompliancePerSubstep, ConstraintMultiplier, ConstraintSet, ConstraintViolation,
+    ParticleInverseMass, ParticleMobility, Particles, ProjectionActivity, Solver, SolverSettings,
+};
 
 /// The XPBD distance projection, written out on the host.
 ///
@@ -17,7 +20,7 @@ struct Reference {
     positions: Vec<Vec3>,
     previous: Vec<Vec3>,
     velocities: Vec<Vec3>,
-    inverse_masses: Vec<f32>,
+    inverse_masses: Vec<ParticleInverseMass>,
 }
 
 struct ReferenceConstraints {
@@ -40,7 +43,7 @@ impl Reference {
         for _ in 0..settings.substeps {
             for index in 0..self.positions.len() {
                 self.previous[index] = self.positions[index];
-                if self.inverse_masses[index] == 0.0 {
+                if self.inverse_masses[index].mobility() == ParticleMobility::Prescribed {
                     self.velocities[index] = Vec3::default();
                     continue;
                 }
@@ -54,7 +57,7 @@ impl Reference {
                 self.positions[index] += velocity * substep;
             }
 
-            let mut lambdas = vec![0.0f32; constraints.edges.len()];
+            let mut lambdas = vec![ConstraintMultiplier::ZERO; constraints.edges.len()];
             for _ in 0..settings.iterations.max(1) {
                 for color in 0..constraints.ranges.len() - 1 {
                     let range =
@@ -70,22 +73,29 @@ impl Reference {
                             continue;
                         }
                         let normal = delta_vector / distance;
-                        let value = distance - constraints.rest_lengths[c];
-                        let alpha_tilde = constraints.compliance / (substep * substep);
+                        let value =
+                            ConstraintViolation::from(distance - constraints.rest_lengths[c]);
+                        let alpha_tilde = CompliancePerSubstep::from(
+                            constraints.compliance / (substep * substep),
+                        );
                         let denominator = inverse_a + inverse_b + alpha_tilde;
-                        if denominator < 1e-12 {
+                        if denominator.distance_activity() == ProjectionActivity::Inactive {
                             continue;
                         }
-                        let delta_lambda = (-value - alpha_tilde * lambdas[c]) / denominator;
+                        let delta_lambda =
+                            value.multiplier_delta(alpha_tilde, lambdas[c], denominator);
                         lambdas[c] += delta_lambda;
-                        self.positions[a] += normal * (inverse_a * delta_lambda);
-                        self.positions[b] += normal * (-inverse_b * delta_lambda);
+                        self.positions[a] +=
+                            inverse_a.distance_correction(delta_lambda).along(normal);
+                        self.positions[b] += inverse_b
+                            .opposed_distance_correction(delta_lambda)
+                            .along(normal);
                     }
                 }
             }
 
             for index in 0..self.positions.len() {
-                if self.inverse_masses[index] == 0.0 {
+                if self.inverse_masses[index].mobility() == ParticleMobility::Prescribed {
                     self.velocities[index] = Vec3::default();
                 } else {
                     self.velocities[index] =
@@ -97,12 +107,15 @@ impl Reference {
 }
 
 /// A hanging chain: particle 0 pinned, the rest strung below it.
-fn chain(links: usize, spacing: f32) -> (Vec<Vec3>, Vec<f32>, Vec<[u32; 2]>, Vec<f32>) {
+fn chain(
+    links: usize,
+    spacing: f32,
+) -> (Vec<Vec3>, Vec<ParticleInverseMass>, Vec<[u32; 2]>, Vec<f32>) {
     let positions: Vec<Vec3> = (0..=links)
         .map(|i| Vec3::new(i as f32 * spacing, 0.0, 0.0))
         .collect();
-    let mut inverse_masses = vec![1.0f32; positions.len()];
-    inverse_masses[0] = 0.0;
+    let mut inverse_masses = vec![ParticleInverseMass::UNIT_MASS; positions.len()];
+    inverse_masses[0] = ParticleInverseMass::PINNED;
     let edges: Vec<[u32; 2]> = (0..links).map(|i| [i as u32, i as u32 + 1]).collect();
     let rest_lengths = vec![spacing; links];
     (positions, inverse_masses, edges, rest_lengths)
@@ -114,7 +127,7 @@ fn chain(links: usize, spacing: f32) -> (Vec<Vec3>, Vec<f32>, Vec<[u32; 2]>, Vec
 )]
 async fn run(
     positions: &[Vec3],
-    inverse_masses: &[f32],
+    inverse_masses: &[ParticleInverseMass],
     edges: &[[u32; 2]],
     rest_lengths: &[f32],
     compliance: f32,
@@ -294,7 +307,8 @@ async fn free_fall_matches_the_analytic_drop() -> Result<()> {
     let cache = KernelCache::new();
 
     let positions = vec![Vec3::default(); 100];
-    let particles = Particles::from_positions(&context, &positions, &vec![1.0; positions.len()])?;
+    let particles =
+        Particles::from_positions(&context, &positions, &vec![1.0.into(); positions.len()])?;
     let settings = SolverSettings {
         substeps: 20,
         damping: 0.0,
@@ -447,7 +461,11 @@ async fn a_colored_grid_solves_without_racing() -> Result<()> {
         for x in 0..width {
             positions.push(Vec3::new(x as f32 * spacing, 0.0, y as f32 * spacing));
             // The top row is pinned, so the sheet hangs.
-            inverse_masses.push(if y == 0 { 0.0 } else { 1.0 });
+            inverse_masses.push(if y == 0 {
+                ParticleInverseMass::PINNED
+            } else {
+                ParticleInverseMass::UNIT_MASS
+            });
         }
     }
 
@@ -525,13 +543,13 @@ async fn rejects_mismatched_inputs() -> Result<()> {
     let mut particles = Particles::new(&context, 4)?;
     assert!(
         particles
-            .write(&context, &[Vec3::default(); 2], &[1.0])
+            .write(&context, &[Vec3::default(); 2], &[1.0.into()])
             .is_err(),
         "two positions with one inverse mass must be rejected"
     );
     assert!(
         particles
-            .write(&context, &[Vec3::default(); 8], &[1.0; 8])
+            .write(&context, &[Vec3::default(); 8], &[1.0.into(); 8])
             .is_err(),
         "eight particles must not fit a capacity of four"
     );
@@ -544,7 +562,7 @@ async fn rejects_mismatched_inputs() -> Result<()> {
 async fn handles_empty_constraint_sets() -> Result<()> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
-    let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0])?;
+    let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0.into()])?;
     let mut set = ConstraintSet::distance(&context, &cache, "none", &[], &[], 0.0)?;
     assert_eq!(set.constraint_count(), 0);
 
@@ -559,7 +577,7 @@ async fn handles_empty_constraint_sets() -> Result<()> {
 async fn the_substep_hook_runs_every_substep() -> Result<()> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
-    let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0])?;
+    let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0.into()])?;
     let settings = SolverSettings {
         substeps: 7,
         ..Default::default()
