@@ -1,4 +1,4 @@
-//! Operable casements compiled from accepted window opening assemblies.
+//! Architectural window bars and casements, with leaf mesh compilation.
 
 use crate::CollisionResult;
 use crate::spatial_geometry::GeometryResult;
@@ -44,6 +44,11 @@ pub use spec::{
     WindowBarPresence, WindowBarSpec, WindowError, WindowErrorCause, WindowResult, WindowSpec,
 };
 
+/// Compile fixed bars for every opening declaring an iron-bar closure layer.
+///
+/// Fixed bars compile independently of the opening's operable state. Invalid
+/// frame or bar geometry returns [`crate::CollisionError`] with the bar's
+/// source identity, which encodes the opening identity and bar ordinal.
 pub fn compile_window_bars(plan: &BuildingPlan) -> CollisionResult<Vec<WindowBarSpec>> {
     plan.opening_assemblies
         .iter()
@@ -90,6 +95,11 @@ pub fn compile_window_bars(plan: &BuildingPlan) -> CollisionResult<Vec<WindowBar
         .collect()
 }
 
+/// Compile operable exterior windows with an inside-room binding.
+///
+/// Ineligible openings are excluded. A missing supported closure or invalid
+/// selected leaf geometry returns [`WindowError`] with the opening identity and
+/// available closure-source identities.
 pub fn compile_operable_windows(
     plan: &BuildingPlan,
 ) -> WindowResult<Vec<WindowSpec<Architectural>>> {

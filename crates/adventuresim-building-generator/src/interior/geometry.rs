@@ -70,7 +70,8 @@ impl Rect {
             PlanExtents::from_metres(Vec2::new(max.x - min.x, max.z - min.z) * 0.5)?,
         )
     }
-    /// Axis comparisons retain the original overlap tolerance and contact policy.
+    /// Require penetration beyond `GEOMETRY_EPSILON` on both architectural
+    /// X/Z axes. Edge contact and overlap within the tolerance return false.
     pub fn overlaps(self, other: Self) -> bool {
         (self.centre.metres() - other.centre.metres())
             .abs()
@@ -122,7 +123,9 @@ pub(super) fn room_contains(room: &Room, point: ArchitecturalPlanPoint) -> bool 
             .all()
     })
 }
-/// Explicit furniture-local to architectural rotation, preserving multiply order.
+/// Rotate a furniture-local displacement about Y into architectural X/Y/Z
+/// metres.
+/// Positive yaw turns local +X toward architectural -Z; height stays unchanged.
 pub(super) fn local_rotate(
     point: Displacement<FurnitureLocal>,
     yaw: Radians,
@@ -184,7 +187,15 @@ pub(super) fn floor_height(
 }
 
 impl InteriorPlacement {
-    /// Seat feet on the physical floor supporting this validated interior placement.
+    /// Return the architectural floor elevation supporting the placement
+    /// centre.
+    ///
+    /// Select the highest floor top containing the centre and within the
+    /// planner's floor-elevation tolerance of the nominal storey elevation.
+    ///
+    /// Returns [`super::InteriorLayoutError::MissingFloor`] with room and storey
+    /// identity if no floor qualifies. Invalid storey ordinals and geometry
+    /// propagate their admission errors.
     pub fn floor_height(&self, plan: &BuildingPlan) -> InteriorResult<Elevation<Architectural>> {
         let nominal = floor_height(plan, self.storey)?;
         let mut elevation: Option<f32> = None;

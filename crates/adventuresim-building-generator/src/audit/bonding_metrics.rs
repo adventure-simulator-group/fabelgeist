@@ -49,7 +49,10 @@ struct BondedInterfaceMetrics {
 }
 
 impl BondedInterfaceMetrics {
-    /// Native architectural axes in metres are sorted inside this contact kernel.
+    /// Classify contact from signed overlaps of architectural axis-aligned
+    /// bounds.
+    /// One axis permits a gap up to `CONTACT_TOLERANCE_METRES`; the other two
+    /// require positive overlap. Native metre arithmetic orders these overlaps.
     fn between(a: &ResolvedSolid, b: &ResolvedSolid) -> Result<Option<Self>> {
         let (a_min, a_max) = resolved_solid_bounds(a);
         let (b_min, b_max) = resolved_solid_bounds(b);

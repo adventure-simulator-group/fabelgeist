@@ -126,8 +126,10 @@ Height clipping and axis containment keep native arithmetic inside their
 bounded kernels; their inputs and outputs retain the declared frame. Rectangle
 and elevation-interval construction accepts checked leaves. Room bounds and
 entrance records own their associated construction paths.
-`InteriorPlacement::floor_height` finds the physical floor for its own position
-and storey before scene adapters place the furniture.
+`InteriorPlacement::floor_height` returns the highest physical floor top covering
+its centre within the planner's floor-elevation tolerance of the nominal storey
+elevation. If no floor qualifies, `MissingFloor` retains its room and storey
+identity. Scene adapters use that elevation to place the furniture.
 
 Equipment dispatch and connected recipes carry `PlanDimensions`; component
 catalogues name displacement and dimension leaves. Literal measurements are
