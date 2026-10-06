@@ -11,6 +11,7 @@ use crate::character::{Character, PARAMETERS_PER_JOINT};
 use crate::correctives::PoseCorrectives;
 use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
 use crate::skel_state;
+use crate::{MhrConfig, PoseCorrectiveAvailability, PoseCorrectivePolicy};
 
 /// Shape coefficients: 20 body, 20 head, 5 hands.
 pub const NUM_IDENTITY_BLEND_SHAPES: usize = 45;
@@ -19,30 +20,8 @@ pub const NUM_FACE_EXPRESSION_BLEND_SHAPES: usize = 72;
 /// Total blend shapes carried by an MHR rig.
 pub const NUM_BLEND_SHAPES: usize = NUM_IDENTITY_BLEND_SHAPES + NUM_FACE_EXPRESSION_BLEND_SHAPES;
 
-/// Supported runtime body detail, 4 (densest) through 6.
-pub const MIN_LOD: u8 = 4;
-pub const MAX_LOD: u8 = 6;
-
 const MODEL_DEFINITION: &str = "compact_v6_1.model";
 const CORRECTIVE_ACTIVATION: &str = "corrective_activation.npz";
-
-/// How to load a model.
-#[derive(Debug, Clone, Copy)]
-pub struct MhrConfig {
-    pub lod: u8,
-    /// Load the pose-corrective network. It dominates both load time and
-    /// memory (2.5 GiB of coefficients at LOD 0), so it can be turned off.
-    pub pose_correctives: bool,
-}
-
-impl Default for MhrConfig {
-    fn default() -> Self {
-        Self {
-            lod: MIN_LOD,
-            pose_correctives: true,
-        }
-    }
-}
 
 /// One forward pass.
 pub struct MhrOutput {
@@ -116,9 +95,6 @@ impl Mhr {
     /// Loads MHR through `fabelgeist-fs`, including `prism://project`, HTTP/blob,
     /// browser File System Access handles, and native filesystem paths.
     pub async fn from_uri(asset_dir: &str, config: MhrConfig, device: &Device) -> Result<Self> {
-        if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
-            bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
-        }
         let base = asset_dir.trim_end_matches(['/', '\\']);
         let read_asset = |name: String| async move {
             let direct = format!("{base}/{name}");
@@ -135,13 +111,13 @@ impl Mhr {
             }
         };
 
-        let fbx = read_asset(format!("lod{}.fbx", config.lod)).await?;
+        let fbx = read_asset(config.lod.rig_filename().into()).await?;
         let definition = String::from_utf8(read_asset(MODEL_DEFINITION.into()).await?)
             .map_err(|error| anyhow::anyhow!("MHR model definition is not UTF-8: {error}"))?;
-        let corrective_archives = if config.pose_correctives {
+        let corrective_archives = if config.pose_correctives == PoseCorrectivePolicy::Enabled {
             Some((
                 read_asset(CORRECTIVE_ACTIVATION.into()).await?,
-                read_asset(format!("corrective_blendshapes_lod{}.npz", config.lod)).await?,
+                read_asset(config.lod.corrective_basis_filename().into()).await?,
             ))
         } else {
             None
@@ -156,12 +132,9 @@ impl Mhr {
         config: MhrConfig,
         device: &Device,
     ) -> Result<Self> {
-        if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
-            bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
-        }
         let dir = resolve_asset_dir(asset_dir.as_ref())?;
 
-        let fbx_path = dir.join(format!("lod{}.fbx", config.lod));
+        let fbx_path = dir.join(config.lod.rig_filename());
         let fbx =
             std::fs::read(&fbx_path).with_context(|| format!("reading {}", fbx_path.display()))?;
         let character = Character::from_fbx_bytes(&fbx, true)
@@ -169,10 +142,10 @@ impl Mhr {
         let definition_path = dir.join(MODEL_DEFINITION);
         let definition = std::fs::read_to_string(&definition_path)
             .with_context(|| format!("reading {}", definition_path.display()))?;
-        let correctives = if config.pose_correctives {
+        let correctives = if config.pose_correctives == PoseCorrectivePolicy::Enabled {
             PoseCorrectives::load(
                 &dir.join(CORRECTIVE_ACTIVATION),
-                &dir.join(format!("corrective_blendshapes_lod{}.npz", config.lod)),
+                &dir.join(config.lod.corrective_basis_filename()),
                 character.skeleton.len(),
                 character.mesh.vertices.len(),
                 device,
@@ -193,11 +166,8 @@ impl Mhr {
         config: MhrConfig,
         device: &Device,
     ) -> Result<Self> {
-        if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
-            bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
-        }
         let character = Character::from_fbx_bytes(fbx, true).context("loading the MHR FBX")?;
-        let correctives = if config.pose_correctives {
+        let correctives = if config.pose_correctives == PoseCorrectivePolicy::Enabled {
             let (activation, basis) = corrective_archives
                 .context("pose correctives requested but their NPZ archives were not provided")?;
             PoseCorrectives::from_bytes(
@@ -401,8 +371,11 @@ impl Mhr {
         self.num_model_parameters
     }
 
-    pub fn has_pose_correctives(&self) -> bool {
-        self.correctives.is_some()
+    pub fn pose_corrective_availability(&self) -> PoseCorrectiveAvailability {
+        match self.correctives {
+            Some(_) => PoseCorrectiveAvailability::Available,
+            None => PoseCorrectiveAvailability::Unavailable,
+        }
     }
 
     pub fn device(&self) -> &Device {
@@ -425,7 +398,12 @@ impl Mhr {
         model_parameters: Tensor<2>,
         expression: Option<Tensor<2>>,
     ) -> Result<MhrOutput> {
-        self.forward_with(identity, model_parameters, expression, true)
+        self.forward_with(
+            identity,
+            model_parameters,
+            expression,
+            PoseCorrectivePolicy::Enabled,
+        )
     }
 
     /// As [`Mhr::forward`], but able to skip the pose correctives.
@@ -434,7 +412,7 @@ impl Mhr {
         identity: Tensor<2>,
         model_parameters: Tensor<2>,
         expression: Option<Tensor<2>>,
-        apply_correctives: bool,
+        apply_correctives: PoseCorrectivePolicy,
     ) -> Result<MhrOutput> {
         let batch = model_parameters.dims()[0];
         let joints = self.num_joints();
@@ -496,10 +474,11 @@ impl Mhr {
 
         let skeleton_state = self.skeleton_state(joint_parameters.clone());
 
-        let mut rest = rest.reshape([batch, vertices, 3]);
-        if apply_correctives && let Some(correctives) = &self.correctives {
-            rest = rest + correctives.forward(joint_parameters);
-        }
+        let rest = self.apply_pose_correctives(
+            rest.reshape([batch, vertices, 3]),
+            joint_parameters,
+            apply_correctives,
+        );
 
         let vertices = self.skin(skeleton_state.clone(), rest);
 
@@ -508,6 +487,22 @@ impl Mhr {
             vertices,
             skeleton_state,
         })
+    }
+
+    /// An enabled policy applies only a network that was actually loaded.
+    fn apply_pose_correctives(
+        &self,
+        rest: Tensor<3>,
+        joint_parameters: Tensor<3>,
+        policy: PoseCorrectivePolicy,
+    ) -> Tensor<3> {
+        if policy == PoseCorrectivePolicy::Enabled
+            && let Some(correctives) = &self.correctives
+        {
+            rest + correctives.forward(joint_parameters)
+        } else {
+            rest
+        }
     }
 
     /// Joint parameters `[batch, joints, 7]` to global skeleton states.

@@ -36,7 +36,7 @@ impl StudioCache {
         recipe: &CharacterRecipe,
     ) -> Result<Arc<GeneratedCharacter>> {
         let key = serde_json::to_vec(&(
-            model.lod,
+            model.config,
             &recipe.proportions,
             &recipe.identity,
             &recipe.expression,

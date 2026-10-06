@@ -60,6 +60,21 @@ network for direct comparison. Recipes contain model
 coordinates, not authoritative character state, and must be regenerated and
 validated when connected to game creation.
 
+## Runtime model choices
+
+The studio and export APIs share `fabelgeist_mhr::CharacterLod`: detailed
+(LOD 4), reduced (5), or minimal (6). The CLI admits `--lod` through that type;
+unsupported values fail before model loading. Detail controls select the same
+closed choices directly.
+
+`MhrConfig` also retains `PoseCorrectivePolicy`. The studio starts with
+correctives disabled, while the library default enables them. Reload requests,
+bare-body identity, and generation-cache keys include the complete
+configuration. The loaded network's availability is a separate state.
+Exported metadata retains numeric LOD values. The
+[MHR guide](../fabelgeist-mhr/README.md) documents the shared choices and their
+native admission boundaries.
+
 ## Inventory
 
 A recipe's `inventory` lists every article the character owns. Each has a

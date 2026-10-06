@@ -52,7 +52,7 @@ fn export_equipment_with_maps(
         GlbOutput::SharedTextures(path),
         "mail",
         1,
-        4,
+        fabelgeist_mhr::CharacterLod::Detailed,
         &RiggedMesh {
             positions: &positions,
             normals: &normals,

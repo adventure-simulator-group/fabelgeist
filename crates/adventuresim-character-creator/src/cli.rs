@@ -1,6 +1,6 @@
-use adventuresim_character_creator::lod::{MAX_CHARACTER_LOD, MIN_CHARACTER_LOD};
 use bevy::prelude::Resource;
 use clap::Parser;
+use fabelgeist_mhr::CharacterLod;
 use std::path::PathBuf;
 
 #[derive(Parser, Resource, Clone)]
@@ -12,9 +12,8 @@ pub(super) struct Args {
         default_value = "target/mhr-assets/v1.0.1/assets"
     )]
     pub(super) assets: PathBuf,
-    #[arg(long, default_value_t = MIN_CHARACTER_LOD,
-        value_parser = clap::value_parser!(u8).range(i64::from(MIN_CHARACTER_LOD)..=i64::from(MAX_CHARACTER_LOD)))]
-    pub(super) lod: u8,
+    #[arg(long, default_value_t = CharacterLod::Detailed)]
+    pub(super) lod: CharacterLod,
     #[arg(long, default_value = "assets_src/characters/mhr_base.json")]
     pub(super) recipe: PathBuf,
     #[arg(long, default_value = "assets_src/biped/unarmed/base.glb")]
@@ -67,4 +66,38 @@ pub(super) struct Args {
     /// Print JSON wall-clock timings for generation and export stages.
     #[arg(long)]
     pub(super) profile: bool,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn cli_admits_runtime_detail_at_the_argument_boundary() {
+        assert_eq!(
+            Args::try_parse_from(["studio"]).unwrap().lod,
+            CharacterLod::Detailed
+        );
+        for (spelling, expected) in [
+            ("4", CharacterLod::Detailed),
+            ("5", CharacterLod::Reduced),
+            ("6", CharacterLod::Minimal),
+        ] {
+            assert_eq!(
+                Args::try_parse_from(["studio", "--lod", spelling])
+                    .unwrap()
+                    .lod,
+                expected
+            );
+        }
+        for spelling in ["0", "3", "7", "255", "256", "-1", "not-a-detail"] {
+            assert!(Args::try_parse_from(["studio", "--lod", spelling]).is_err());
+        }
+        let rejected = match Args::try_parse_from(["studio", "--lod", "03"]) {
+            Err(error) => error,
+            Ok(_) => panic!("unsupported detail was accepted"),
+        };
+        assert_eq!(rejected.kind(), clap::error::ErrorKind::ValueValidation);
+        assert!(rejected.to_string().contains("03"));
+    }
 }

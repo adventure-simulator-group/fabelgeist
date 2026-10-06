@@ -2,38 +2,30 @@
 use super::*;
 
 pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio) {
-    let lod_changed = ui
-        .add(
-            egui::Slider::new(
-                &mut studio.selected_lod,
-                MIN_CHARACTER_LOD..=MAX_CHARACTER_LOD,
-            )
-            .text("Mesh LOD")
-            .custom_formatter(|value, _| {
-                let lod = value.round() as u8;
-                let vertices = CharacterLod::try_from(lod)
-                    .expect("slider bounds")
-                    .vertices();
-                format!("{lod} · {vertices} vertices")
-            }),
-        )
-        .changed();
-    if lod_changed {
-        studio.status = format!("Loading MHR LOD {}…", studio.selected_lod);
-    }
+    let previous = studio.selected_config;
+    egui::ComboBox::from_label("Mesh LOD")
+        .selected_text(format!(
+            "{} · {} vertices",
+            previous.lod,
+            previous.lod.vertices()
+        ))
+        .show_ui(ui, |ui: &mut egui::Ui| -> () {
+            for lod in CharacterLod::ALL {
+                ui.selectable_value(
+                    &mut studio.selected_config.lod,
+                    lod,
+                    format!("{lod} · {} vertices", lod.vertices()),
+                );
+            }
+        });
     ui.small("LOD 4 is highest fidelity; LOD 6 is lowest.");
-    if ui
-        .checkbox(&mut studio.selected_correctives, "Pose-corrective model")
-        .changed()
-    {
+    let mut enabled = studio.selected_config.pose_correctives == PoseCorrectivePolicy::Enabled;
+    ui.checkbox(&mut enabled, "Pose-corrective model");
+    studio.selected_config.pose_correctives = PoseCorrectivePolicy::from(enabled);
+    if previous != studio.selected_config {
         studio.status = format!(
             "Loading MHR LOD {} with correctives {}…",
-            studio.selected_lod,
-            if studio.selected_correctives {
-                "enabled"
-            } else {
-                "disabled"
-            }
+            studio.selected_config.lod, studio.selected_config.pose_correctives,
         );
     }
     ui.small("Correctives improve posed deformation but require substantially more memory.");

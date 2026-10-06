@@ -654,12 +654,12 @@ pub fn export_rigged_glb(
     output: GlbOutput<'_>,
     character_name: &str,
     recipe_version: u8,
-    lod: u8,
+    lod: fabelgeist_mhr::CharacterLod,
     mesh: &RiggedMesh<'_>,
     shells: &[RiggedShell<'_>],
     sockets: &[RiggedSocket<'_>],
 ) -> Result<()> {
-    validate(lod, mesh, shells, sockets)?;
+    validate(mesh, shells, sockets)?;
     let compact = shells
         .iter()
         .map(|shell| compact::CompactShell::new(mesh, shell))
@@ -1025,7 +1025,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "Test",
             1,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &bases,
                 morph_targets: &[],
@@ -1156,7 +1156,7 @@ mod tests {
             GlbOutput::Standalone(Path::new("unused.glb")),
             "Test",
             1,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -1234,7 +1234,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "Test",
             2,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &body_targets,
@@ -1339,7 +1339,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "Test",
             2,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -1466,7 +1466,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "leather_belt",
             1,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -1584,7 +1584,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "bracer",
             1,
-            4,
+            fabelgeist_mhr::CharacterLod::Detailed,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
