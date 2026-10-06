@@ -35,7 +35,7 @@ pub(super) fn validate(
         let floor = nav
             .floors
             .iter()
-            .find(|f| crate::StoreyIndex::from_serialized(f.level) == p.storey)
+            .find(|f| f.level == p.storey)
             .ok_or_else(|| error.clone())?;
         let room = plan
             .storeys
@@ -49,14 +49,20 @@ pub(super) fn validate(
             .ok_or_else(|| error.clone())?;
         let footprint = p.footprint()?;
         let elevation = floor
-            .height_at(p.centre_metres.metres())
+            .height_at(p.centre_metres)
             .ok_or_else(|| error.clone())?;
-        if !floor.supports(footprint, elevation)
-            || !floor.placement_clear(footprint, elevation, specification.size_metres.metres().y)
+        if !floor.supports(footprint, elevation)?
+            || !floor.placement_clear(
+                footprint,
+                elevation,
+                crate::spatial_geometry::PositiveLength::from_metres(
+                    specification.size_metres.metres().y,
+                )?,
+            )?
         {
             return Err(error);
         }
-        if !footprint.inside_room(room)
+        if !footprint.inside_room(room)?
             || floor
                 .obstacles
                 .iter()
@@ -71,7 +77,7 @@ pub(super) fn validate(
         }
         for &face in specification.required_faces {
             let access = p.access_rect(face)?;
-            if !access.inside_room(room)
+            if !access.inside_room(room)?
                 || floor.obstacles.iter().any(|o| o.overlaps(access))
                 || overlapping(
                     placements
@@ -123,8 +129,14 @@ mod tests {
                 for storey in &plan.storeys {
                     for room in &storey.rooms {
                         for budget in furniture_budgets(&program, room) {
-                            for group in
-                                candidates(&plan, &program, room, storey.level, budget).unwrap()
+                            for group in candidates(
+                                &plan,
+                                &program,
+                                room,
+                                crate::StoreyIndex::from_serialized(storey.level),
+                                budget,
+                            )
+                            .unwrap()
                             {
                                 let previous = placements.len();
                                 placements.extend(group);

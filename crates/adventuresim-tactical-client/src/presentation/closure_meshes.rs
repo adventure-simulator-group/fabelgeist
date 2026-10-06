@@ -46,7 +46,7 @@ impl ClosureMeshes {
 
     pub fn window(
         &mut self,
-        size: Vec3,
+        size: LeafDimensions,
         kind: WindowLeafKind,
         meshes: &mut Assets<Mesh>,
     ) -> Result<&[LeafSurface], ClosureMeshError> {
@@ -54,10 +54,10 @@ impl ClosureMeshes {
             WindowLeafKind::LeadedGlass => &mut self.glass,
             WindowLeafKind::TimberShutter => &mut self.shutters,
         };
-        let parts = match cache.entry(size.into()) {
+        let parts = match cache.entry(size.metres().into()) {
             std::collections::hash_map::Entry::Occupied(entry) => entry.into_mut(),
             std::collections::hash_map::Entry::Vacant(entry) => entry.insert(
-                compile_window_leaf(size, kind, ClosureState::Operable)?
+                compile_window_leaf(size.cuboid(), kind, ClosureState::Operable)?
                     .iter()
                     .map(|batch| LeafSurface {
                         mesh: meshes.add(super::recipe_mesh::recipe_mesh(batch, Vec3::ZERO)),
@@ -104,9 +104,13 @@ mod tests {
     fn window_cache_keeps_glazing_material_parts_and_distinguishes_shutters() {
         let mut meshes = Assets::<Mesh>::default();
         let mut cache = ClosureMeshes::default();
-        let size = Vec3::new(0.8, 1.2, 0.04);
-        let expected =
-            compile_window_leaf(size, WindowLeafKind::LeadedGlass, ClosureState::Operable).unwrap();
+        let size = LeafDimensions::from_metres(Vec3::new(0.8, 1.2, 0.04)).unwrap();
+        let expected = compile_window_leaf(
+            size.cuboid(),
+            WindowLeafKind::LeadedGlass,
+            ClosureState::Operable,
+        )
+        .unwrap();
         let first: Vec<_> = cache
             .window(size, WindowLeafKind::LeadedGlass, &mut meshes)
             .unwrap()

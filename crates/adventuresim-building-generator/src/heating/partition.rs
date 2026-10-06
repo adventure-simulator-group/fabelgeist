@@ -10,13 +10,17 @@ pub(super) fn cut(
     let wall = plan
         .wall_assemblies
         .iter_mut()
-        .find(|w| w.id == placement.wall)
+        .find(|w| w.id == placement.site.wall)
         .ok_or(HeatingConstructionError::MissingWall {
-            wall: placement.wall,
+            wall: placement.site.wall,
         })?;
-    let cut = placement.bounds(
-        Vec3::new(-0.48, 0.0, -0.16),
-        Vec3::new(0.48, super::placement::FIRE_WALL_PATCH_HEIGHT_METRES, 0.16),
+    let cut = placement.site.bounds(
+        crate::spatial_geometry::Displacement::from_metres(Vec3::new(-0.48, 0.0, -0.16))?,
+        crate::spatial_geometry::Displacement::from_metres(Vec3::new(
+            0.48,
+            super::placement::FIRE_WALL_PATCH_HEIGHT_METRES,
+            0.16,
+        ))?,
     )?;
     let old = wall.host_solids.clone();
     let solids = &mut plan.resolved_geometry.solids;

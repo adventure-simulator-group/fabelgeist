@@ -16,22 +16,25 @@ pub(super) fn exact_facade(plan: &BuildingPlan) -> bool {
 
 impl BuildingPlan {
     /// Operable openings whose Facade host has an actual aperture.
-    pub fn facade_dynamic_openings(&self) -> BTreeSet<crate::OpeningAssemblyId> {
+    pub fn facade_dynamic_openings(
+        &self,
+    ) -> Result<BTreeSet<crate::OpeningAssemblyId>, crate::GenerationError> {
         if !exact_facade(self) {
-            return BTreeSet::new();
+            return Ok(BTreeSet::new());
         }
         let walls = compilation::retained_facade_runs(self)
             .into_iter()
             .flat_map(|run| run.source_walls)
             .collect::<BTreeSet<_>>();
-        let dynamic = crate::detail::dynamic_closure_solids(self);
-        self.opening_assemblies
+        let dynamic = crate::detail::dynamic_closure_solids(self)?;
+        Ok(self
+            .opening_assemblies
             .iter()
             .filter(|opening| {
                 walls.contains(&opening.host_wall)
                     && opening.closure_solids.iter().any(|id| dynamic.contains(id))
             })
             .map(|opening| opening.id)
-            .collect()
+            .collect())
     }
 }

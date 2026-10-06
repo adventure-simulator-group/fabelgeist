@@ -17,10 +17,13 @@ pub(super) fn openings(
         .filter(|s| s.level > 0)
         .map(|storey| {
             let elevation = f32::from(storey.level) * plan.storey_height_metres;
-            let body = if storey.level <= placement.storey_level {
-                placement.body()?
+            let body = if StoreyIndex::from_serialized(storey.level) <= placement.site.storey_level
+            {
+                placement.site.body()?
             } else {
-                placement.shaft(elevation)?
+                placement
+                    .site
+                    .shaft(crate::spatial_geometry::Elevation::from_metres(elevation)?)?
             };
             let mut min = body.min().metres();
             let mut max = body.max().metres();
@@ -80,7 +83,7 @@ pub(super) fn supported(
     placement: Placement,
 ) -> Result<bool, crate::GenerationError> {
     let Some(frame) = &plan.timber_frame else {
-        return Ok(placement.storey_level == 0);
+        return Ok(placement.site.storey_level == StoreyIndex::GROUND);
     };
     for opening in openings(plan, placement)? {
         let Some(floor) = frame

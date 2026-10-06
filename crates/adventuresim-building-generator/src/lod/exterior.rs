@@ -60,7 +60,7 @@ pub(super) fn append_facades(
             detail.meshes.push(mesh);
         }
     }
-    for bar in crate::compile_window_bars(plan)
+    for bar in crate::compile_window_bars(plan)?
         .iter()
         .filter(|bar| openings.contains(&bar.opening))
     {

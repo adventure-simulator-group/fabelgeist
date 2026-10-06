@@ -76,11 +76,13 @@ pub fn compile_building_detail(
 pub fn compile_static_building_detail(
     plan: &BuildingPlan,
 ) -> Result<BuildingDetail, crate::GenerationError> {
-    compile_detail(plan, &dynamic_closure_solids(plan))
+    compile_detail(plan, &dynamic_closure_solids(plan)?)
 }
 
-pub(crate) fn dynamic_closure_solids(plan: &BuildingPlan) -> BTreeSet<crate::ResolvedItemId> {
-    crate::doors::operable_openings(plan)
+pub(crate) fn dynamic_closure_solids(
+    plan: &BuildingPlan,
+) -> Result<BTreeSet<crate::ResolvedItemId>, crate::GenerationError> {
+    Ok(crate::doors::operable_openings(plan)
         .filter_map(|opening| {
             opening
                 .closure_solids
@@ -94,11 +96,11 @@ pub(crate) fn dynamic_closure_solids(plan: &BuildingPlan) -> BTreeSet<crate::Res
                 .copied()
         })
         .chain(
-            compile_operable_windows(plan)
+            compile_operable_windows(plan)?
                 .into_iter()
                 .map(|window| window.source),
         )
-        .collect()
+        .collect())
 }
 
 /// One canonical architectural solid, shared by exact detail and facade LODs.
@@ -114,9 +116,9 @@ pub(crate) fn compile_bar_detail(bar: &crate::WindowBarSpec) -> BuildingDetail {
     append_cuboid_faces(
         &mut detail,
         BuildingLodMaterial::Iron,
-        bar.centre,
-        bar.size_metres,
-        Quat::from_rotation_y(bar.yaw_radians),
+        bar.centre.metres(),
+        bar.size_metres.metres(),
+        Quat::from_rotation_y(bar.yaw_radians.radians()),
         None,
     );
     detail
@@ -135,13 +137,13 @@ fn compile_detail(
         }
         compiler.append(&mut detail, solid)?;
     }
-    for bar in compile_window_bars(plan) {
+    for bar in compile_window_bars(plan)? {
         append_cuboid_faces(
             &mut detail,
             BuildingLodMaterial::Iron,
-            bar.centre,
-            bar.size_metres,
-            Quat::from_rotation_y(bar.yaw_radians),
+            bar.centre.metres(),
+            bar.size_metres.metres(),
+            Quat::from_rotation_y(bar.yaw_radians.radians()),
             None,
         );
     }
@@ -519,7 +521,7 @@ mod tests {
     fn static_playable_detail_reserves_operable_leaves_for_dynamic_entities() {
         let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
         let operable_doors = compile_operable_doors(&plan).unwrap();
-        let operable_windows = compile_operable_windows(&plan);
+        let operable_windows = compile_operable_windows(&plan).unwrap();
         assert!(!operable_windows.is_empty());
         let self_contained = compile_building_detail(&plan).unwrap();
         let static_detail = compile_static_building_detail(&plan).unwrap();
@@ -537,7 +539,7 @@ mod tests {
                 + operable_windows
                     .iter()
                     .map(|window| crate::compile_window_leaf(
-                        window.size_metres,
+                        window.size_metres.cuboid(),
                         window.leaf,
                         crate::ClosureState::Operable
                     )

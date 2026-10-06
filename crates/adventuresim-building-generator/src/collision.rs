@@ -201,12 +201,12 @@ pub fn compile_building_collision(
         .into_iter()
         .flatten()
         .collect::<Vec<_>>();
-    for bar in compile_window_bars(plan) {
+    for bar in compile_window_bars(plan)? {
         cuboids.push(CollisionCuboid::from_metres(
             bar.source,
-            bar.centre,
-            bar.size_metres,
-            bar.yaw_radians,
+            bar.centre.metres(),
+            bar.size_metres.metres(),
+            bar.yaw_radians.radians(),
             0.0,
             0.0,
         )?);
@@ -426,7 +426,7 @@ mod tests {
                     seed,
                 ))
                 .ok()?;
-                let bars = crate::compile_window_bars(&plan);
+                let bars = crate::compile_window_bars(&plan).unwrap();
                 (!bars.is_empty()).then_some((plan, bars))
             })
             .expect("seed range contains at least one barred merchant-house window");

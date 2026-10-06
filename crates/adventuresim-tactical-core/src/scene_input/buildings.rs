@@ -1,3 +1,4 @@
+mod window;
 use adventuresim_building_generator::{
     BuildingArchetype, BuildingCollision, BuildingPlan, BuildingProgram,
 };
@@ -5,6 +6,7 @@ use adventuresim_building_generator::{
 use adventuresim_building_generator::{compile_building_collision, generate};
 use bevy::{math::Vec2, prelude::Component};
 use serde::{Deserialize, Serialize};
+pub use window::{SceneWindow, SceneWindowError};
 
 use super::{GeneratedObstacle, SceneInputError, invalid};
 use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
@@ -213,20 +215,6 @@ pub struct SceneDoorError {
     pub opening_id: u64,
     #[source]
     pub cause: adventuresim_building_generator::spatial_geometry::GeometryError,
-}
-
-/// Compact identity and dimensions for one server-authoritative window casement.
-#[derive(Clone, Copy, Debug, PartialEq, Component, Serialize, Deserialize)]
-#[component(immutable)]
-pub struct SceneWindow {
-    pub leaf: adventuresim_building_generator::WindowLeafKind,
-    pub building_id: u64,
-    pub opening_id: u64,
-    pub size_metres: bevy::math::Vec3,
-    pub opening_centre_metres: bevy::math::Vec3,
-    pub tangent: bevy::math::Vec3,
-    pub outward: bevy::math::Vec3,
-    pub barred: bool,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]

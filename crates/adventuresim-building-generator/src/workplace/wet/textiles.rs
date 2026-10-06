@@ -1,21 +1,32 @@
+use super::super::components::RecipeComponent;
 use super::*;
-use crate::spatial_geometry::{CuboidDimensions, Position, RigidRotation};
+use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::Displacement;
+use crate::spatial_geometry::{
+    CuboidDimensions, Elevation, Position, PositiveLength, RigidRotation,
+};
 use bevy::math::Quat;
 
 pub(super) fn dye_frames(
     a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
+    dimensions: crate::spatial_geometry::PlanDimensions,
 ) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     let count = 2 + a.plan.size.extra_bays().min(1);
     for index in 0..count {
         let z = 2.0 + f32::from(index) * (d - 4.0) / f32::from(count - 1);
         let p = Vec2::new(w + 3.0, z);
-        drying_frame(a, p, 2.0, 3.2)?;
+        drying_frame(
+            a,
+            ArchitecturalPlanPoint::from_metres(p)?,
+            PositiveLength::from_metres(2.0)?,
+            PositiveLength::from_metres(3.2)?,
+        )?;
         draped_cloth(
             a,
-            p,
-            3.1,
+            ArchitecturalPlanPoint::from_metres(p)?,
+            Elevation::<crate::Architectural>::from_metres(3.1)?,
             if index % 2 == 0 {
                 WorkplaceMaterial::DyedCloth
             } else {
@@ -23,18 +34,27 @@ pub(super) fn dye_frames(
             },
         )?;
     }
-    folded_stock(a, Vec2::new(1.7, d - 2.3))?;
-    draining_bench(a, Vec2::new(w - 1.7, 2.2))?;
+    folded_stock(
+        a,
+        ArchitecturalPlanPoint::from_metres(Vec2::new(1.7, d - 2.3))?,
+    )?;
+    draining_bench(
+        a,
+        ArchitecturalPlanPoint::from_metres(Vec2::new(w - 1.7, 2.2))?,
+    )?;
 
     Ok(())
 }
 
 fn drying_frame(
     a: &mut Assembly<'_>,
-    p: Vec2,
-    width: f32,
-    height: f32,
+    p: ArchitecturalPlanPoint,
+    width: PositiveLength,
+    height: PositiveLength,
 ) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
+    let width = width.metres();
+    let height = height.metres();
     for x in [-width * 0.5, width * 0.5] {
         a.part(
             WorkplaceFeature::DryingFrame,
@@ -75,10 +95,12 @@ fn drying_frame(
 
 fn draped_cloth(
     a: &mut Assembly<'_>,
-    p: Vec2,
-    bar: f32,
+    p: ArchitecturalPlanPoint,
+    bar: Elevation<crate::Architectural>,
     material: WorkplaceMaterial,
 ) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
+    let bar = bar.metres();
     // An over-rail fold physically joins unequal front and back hanging lengths.
     a.part(
         WorkplaceFeature::Cloth,
@@ -87,7 +109,18 @@ fn draped_cloth(
         CuboidDimensions::from_metres(Vec3::new(1.58, 0.03, 0.28))?,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
-    let _: () = for (z, length) in [(-0.135, 1.75), (0.135, 1.32)] {
+    let _: () = for component in [
+        RecipeComponent {
+            offset: Displacement::from_metres(Vec3::new(0.0, 0.0, -0.135))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.56, 1.75, 0.03))?,
+        },
+        RecipeComponent {
+            offset: Displacement::from_metres(Vec3::new(0.0, 0.0, 0.135))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.56, 1.32, 0.03))?,
+        },
+    ] {
+        let z = component.offset.metres().z;
+        let length = component.dimensions.metres().y;
         for fold in 0..3 {
             let x = p.x - 0.53 + fold as f32 * 0.53;
             let hanging_length = length - fold as f32 * 0.035;
@@ -108,29 +141,82 @@ fn draped_cloth(
     Ok(())
 }
 
-pub(super) fn hide_frame(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
-    drying_frame(a, p, 2.8, 2.8)?;
-    let _: () = for (x, scale) in [(-0.7, 0.9), (0.7, 1.0)] {
-        hanging_hide(a, Vec2::new(p.x + x, p.y), 2.8, scale)?;
-    };
+pub(super) fn hide_frame(
+    a: &mut Assembly<'_>,
+    p: ArchitecturalPlanPoint,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
+    drying_frame(
+        a,
+        ArchitecturalPlanPoint::from_metres(p)?,
+        PositiveLength::from_metres(2.8)?,
+        PositiveLength::from_metres(2.8)?,
+    )?;
+    struct HidePlacement {
+        offset: Displacement<crate::Architectural>,
+        scale: f32,
+    }
+    for placement in [
+        HidePlacement {
+            offset: Displacement::from_metres(Vec3::new(-0.7, 0.0, 0.0))?,
+            scale: 0.9,
+        },
+        HidePlacement {
+            offset: Displacement::from_metres(Vec3::new(0.7, 0.0, 0.0))?,
+            scale: 1.0,
+        },
+    ] {
+        let x = placement.offset.metres().x;
+        let scale = placement.scale;
+        hanging_hide(
+            a,
+            ArchitecturalPlanPoint::from_metres(Vec2::new(p.x + x, p.y))?,
+            Elevation::<crate::Architectural>::from_metres(2.8)?,
+            scale,
+        )?;
+    }
     Ok(())
 }
 
 fn hanging_hide(
     a: &mut Assembly<'_>,
-    p: Vec2,
-    top: f32,
+    p: ArchitecturalPlanPoint,
+    top: Elevation<crate::Architectural>,
     scale: f32,
 ) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
+    let top = top.metres();
     // Neck, broad shoulders, tapered torso and unequal lower tails form a skin silhouette.
-    let _: () = for (x, drop, width, height) in [
-        (0.0, 0.12, 0.28, 0.24),
-        (0.0, 0.45, 0.98, 0.46),
-        (0.0, 0.90, 0.72, 0.46),
-        (0.0, 1.25, 0.48, 0.30),
-        (-0.16, 1.47, 0.18, 0.23),
-        (0.16, 1.43, 0.18, 0.15),
+    for component in [
+        RecipeComponent {
+            offset: Displacement::from_metres(Vec3::new(0.0, 0.12, 0.0))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.28, 0.24, 0.04))?,
+        },
+        RecipeComponent {
+            offset: Displacement::from_metres(Vec3::new(0.0, 0.45, 0.0))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.98, 0.46, 0.04))?,
+        },
+        RecipeComponent {
+            offset: Displacement::from_metres(Vec3::new(0.0, 0.90, 0.0))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.72, 0.46, 0.04))?,
+        },
+        RecipeComponent {
+            offset: Displacement::from_metres(Vec3::new(0.0, 1.25, 0.0))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.48, 0.30, 0.04))?,
+        },
+        RecipeComponent {
+            offset: Displacement::from_metres(Vec3::new(-0.16, 1.47, 0.0))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.18, 0.23, 0.04))?,
+        },
+        RecipeComponent {
+            offset: Displacement::from_metres(Vec3::new(0.16, 1.43, 0.0))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.18, 0.15, 0.04))?,
+        },
     ] {
+        let x = component.offset.metres().x;
+        let drop = component.offset.metres().y;
+        let width = component.dimensions.metres().x;
+        let height = component.dimensions.metres().y;
         a.part(
             WorkplaceFeature::Hide,
             WorkplaceMaterial::Hide,
@@ -139,14 +225,22 @@ fn hanging_hide(
                 top - drop * scale,
                 p.y - 0.11,
             ))?,
-            CuboidDimensions::from_metres(Vec3::new(width * scale, height * scale, 0.04))?,
+            CuboidDimensions::from_metres(Vec3::new(
+                width * scale,
+                height * scale,
+                component.dimensions.metres().z,
+            ))?,
             crate::workplace::WorkplacePartVisibility::Silhouette,
         )?;
-    };
+    }
     Ok(())
 }
 
-fn folded_stock(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+fn folded_stock(
+    a: &mut Assembly<'_>,
+    p: ArchitecturalPlanPoint,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     for x in [-0.7, 0.7] {
         for z in [-0.5, 0.5] {
             a.part(
@@ -188,7 +282,11 @@ fn folded_stock(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationEr
     Ok(())
 }
 
-fn draining_bench(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+fn draining_bench(
+    a: &mut Assembly<'_>,
+    p: ArchitecturalPlanPoint,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     for x in [-0.65, 0.65] {
         for z in [-0.7, 0.7] {
             a.part(

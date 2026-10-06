@@ -8,12 +8,11 @@ pub(super) use envelope::build_envelope;
 
 pub(super) fn fit_workplace(
     a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
+    dimensions: crate::spatial_geometry::PlanDimensions,
 ) -> Result<(), crate::GenerationError> {
     let _: () = match a.plan.kind {
-        WorkplaceKind::TimberYard => stock::timber_yard(a, w, d)?,
-        WorkplaceKind::Carpenter => stock::joinery(a, w, d)?,
+        WorkplaceKind::TimberYard => stock::timber_yard(a, dimensions)?,
+        WorkplaceKind::Carpenter => stock::joinery(a, dimensions)?,
         _ => unreachable!("only timber trades use the craft programme"),
     };
     Ok(())

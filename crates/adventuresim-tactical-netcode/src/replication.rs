@@ -215,14 +215,17 @@ mod tests {
 
     #[test]
     fn scene_window_round_trips_through_replication_codec() {
+        use adventuresim_building_generator::spatial_geometry::{
+            LeafDimensions, Position, SpatialDirection,
+        };
         let window = SceneWindow {
             leaf: adventuresim_building_generator::WindowLeafKind::LeadedGlass,
             building_id: 7,
             opening_id: 12,
-            size_metres: Vec3::new(0.9, 1.0, 0.025),
-            opening_centre_metres: Vec3::new(3.0, 1.5, -2.0),
-            tangent: Vec3::X,
-            outward: Vec3::NEG_Z,
+            size_metres: LeafDimensions::from_metres(Vec3::new(0.9, 1.0, 0.025)).unwrap(),
+            opening_centre_metres: Position::from_metres(Vec3::new(3.0, 1.5, -2.0)).unwrap(),
+            tangent: SpatialDirection::from_normalized(Vec3::X).unwrap(),
+            outward: SpatialDirection::from_normalized(Vec3::NEG_Z).unwrap(),
             barred: true,
         };
         let mut bytes = Vec::new();

@@ -14,7 +14,10 @@ use std::marker::PhantomData;
 pub struct Radians(f32);
 impl Radians {
     pub const ZERO: Self = Self(0.0);
-    pub fn new(value: f32) -> Result<Self, GeometryError> {
+    pub const QUARTER_TURN: Self = Self(std::f32::consts::FRAC_PI_2);
+    pub const NEGATIVE_QUARTER_TURN: Self = Self(-std::f32::consts::FRAC_PI_2);
+    pub const HALF_TURN: Self = Self(std::f32::consts::PI);
+    pub const fn new(value: f32) -> Result<Self, GeometryError> {
         if !value.is_finite() {
             return Err(GeometryError::NonFinite {
                 role: GeometryRole::Angle,

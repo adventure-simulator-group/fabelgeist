@@ -2,7 +2,39 @@
 use super::{
     ResolvedSolid, Result, SolidRole, Vec2, Vec3, VoidRole, resolved_solid_contains_point,
 };
+use crate::spatial_geometry::{GeometryError, Position, SignedLength};
 use crate::{Architectural, SpatialBounds};
+
+#[derive(Clone, Copy, Debug)]
+pub(super) struct RouteIdentity {
+    pub from: crate::ArtilleryRouteNodeId,
+    pub to: crate::ArtilleryRouteNodeId,
+}
+#[derive(Clone, Debug)]
+pub(super) struct RouteAssessment {
+    pub route: RouteIdentity,
+    pub outcome: RouteOutcome,
+}
+#[derive(Clone, Debug, PartialEq)]
+pub(super) enum RouteOutcome {
+    Clear,
+    MissingNode(crate::ArtilleryRouteNodeId),
+    MissingSurface(Option<ResolvedItemId>),
+    MissingConnector(ResolvedItemId),
+    MissingPortal(ResolvedItemId),
+    InvalidGeometry(GeometryError),
+    InvalidShape(ResolvedItemId),
+    InvalidConnector(ResolvedItemId),
+    InvalidPortal(ResolvedItemId),
+    InvalidPath,
+    PortalNotCrossed(ResolvedItemId),
+    Blocked(ResolvedItemId),
+}
+impl RouteAssessment {
+    pub fn is_clear(&self) -> bool {
+        self.outcome == RouteOutcome::Clear
+    }
+}
 use crate::{GeometryOwnerId, ResolvedItemId, geometry_index::BoundsIndex};
 
 const RAY_SAMPLE_COUNT: usize = 24;
@@ -19,12 +51,17 @@ pub(super) struct ArtilleryClearance<'a> {
 }
 
 impl<'a> ArtilleryClearance<'a> {
-    pub(super) fn route_blocked(&self, point: Vec3, connectors: &[ResolvedItemId]) -> Result<bool> {
+    fn route_blocker(
+        &self,
+        point: Position<Architectural>,
+        connectors: &[ResolvedItemId],
+    ) -> Result<Option<ResolvedItemId>> {
+        let inset = SignedLength::from_metres(-ROUTE_BLOCKER_INSET_METRES)?;
         Ok(self
             .spatial
-            .overlapping(SpatialBounds::<Architectural>::from_metres(point, point)?)
+            .overlapping(SpatialBounds::new(point, point)?)
             .into_iter()
-            .any(|i| {
+            .find_map(|i| {
                 let solid = &self.solids[i];
                 let supporting = connectors.contains(&solid.id)
                     || matches!(
@@ -38,12 +75,9 @@ impl<'a> ArtilleryClearance<'a> {
                             | SolidRole::OpeningClosure
                             | SolidRole::DrainageFloor
                     );
-                !supporting
-                    && super::artillery_route_solid_contains(
-                        solid,
-                        point,
-                        -ROUTE_BLOCKER_INSET_METRES,
-                    )
+                (!supporting
+                    && super::artillery_route_solid_contains(solid, point.metres(), inset.metres()))
+                .then_some(solid.id)
             }))
     }
 
@@ -61,10 +95,14 @@ impl<'a> ArtilleryClearance<'a> {
 
     pub(super) fn blocked(
         &self,
-        origin: Vec3,
-        target: Vec3,
+        origin: Position<Architectural>,
+        target: Position<Architectural>,
         opening_owner: GeometryOwnerId,
     ) -> Result<bool> {
+        // Ray interpolation and shape containment are one bounded native kernel.
+        let origin = origin.metres();
+        let target = target.metres();
+        let inset = SignedLength::from_metres(-BLOCKER_INSET_METRES)?;
         let exit = (EXIT_DISTANCE_METRES / (target - origin).length())
             .clamp(MIN_EXIT_FRACTION, MAX_EXIT_FRACTION);
         crate::geometry_index::try_any(0..RAY_SAMPLE_COUNT, |sample| {
@@ -84,7 +122,7 @@ impl<'a> ArtilleryClearance<'a> {
                                 | SolidRole::DitchCounterscarp
                                 | SolidRole::DrainageFloor
                         ) && solid.owner != opening_owner
-                            && resolved_solid_contains_point(solid, point, -BLOCKER_INSET_METRES)
+                            && resolved_solid_contains_point(solid, point, inset.metres())
                     }),
             )
         })
@@ -92,6 +130,22 @@ impl<'a> ArtilleryClearance<'a> {
 }
 
 impl ArtilleryClearance<'_> {
+    pub(super) fn first_route_failure(
+        &self,
+        edges: &[crate::ArtilleryRouteEdge],
+        solids: &std::collections::HashMap<ResolvedItemId, &ResolvedSolid>,
+        surfaces: &std::collections::HashMap<ResolvedItemId, &crate::ResolvedSurface>,
+        voids: &std::collections::HashMap<ResolvedItemId, &crate::ResolvedVoid>,
+        nodes: &std::collections::HashMap<crate::ArtilleryRouteNodeId, &crate::ArtilleryRouteNode>,
+    ) -> Result<Option<RouteAssessment>> {
+        for edge in edges {
+            let assessment = self.route_contract(edge, solids, surfaces, voids, nodes)?;
+            if !assessment.is_clear() {
+                return Ok(Some(assessment));
+            }
+        }
+        Ok(None)
+    }
     pub(super) fn route_contract(
         &self,
         edge: &crate::ArtilleryRouteEdge,
@@ -102,36 +156,46 @@ impl ArtilleryClearance<'_> {
             crate::ArtilleryRouteNodeId,
             &crate::ArtilleryRouteNode,
         >,
-    ) -> Result<bool> {
+    ) -> Result<RouteAssessment> {
+        let route = RouteIdentity {
+            from: edge.from,
+            to: edge.to,
+        };
+        let assess = |outcome| RouteAssessment { route, outcome };
+        for node in [edge.from, edge.to] {
+            if !route_nodes.contains_key(&node) {
+                return Ok(assess(RouteOutcome::MissingNode(node)));
+            }
+        }
         let Some((from, to)) = route_nodes.get(&edge.from).zip(route_nodes.get(&edge.to)) else {
-            return Ok(false);
+            return Ok(assess(RouteOutcome::MissingNode(edge.from)));
         };
         let Some(surface) = edge
             .traversal_surface
             .and_then(|id| surfaces.get(&id).copied())
         else {
-            return Ok(false);
+            return Ok(assess(RouteOutcome::MissingSurface(edge.traversal_surface)));
         };
+        let admission = || {
+            Position::<Architectural>::from_metres(from.position)?;
+            Position::<Architectural>::from_metres(to.position)?;
+            crate::spatial_geometry::PositiveLength::from_metres(edge.width_metres)?;
+            crate::spatial_geometry::PositiveLength::from_metres(edge.headroom_metres)?;
+            edge.sweep_path
+                .iter()
+                .copied()
+                .map(Position::<Architectural>::from_metres)
+                .collect::<std::result::Result<Vec<_>, GeometryError>>()
+        };
+        let sweep = match admission() {
+            Ok(sweep) => sweep,
+            Err(cause) => return Ok(assess(RouteOutcome::InvalidGeometry(cause))),
+        };
+        if let Some(outcome) = route_bindings(edge, solids, voids) {
+            return Ok(assess(outcome));
+        }
         let shape_valid = matches!(surface.shape, crate::ResolvedSurfaceShape::RouteCorridor { start, end, width_metres }
             if start.distance(from.position) <= 0.02 && end.distance(to.position) <= 0.02 && (width_metres-edge.width_metres).abs() <= 0.01);
-        let connectors_valid = edge.connector_solids.iter().all(|id| {
-            solids.get(id).is_some_and(|solid| {
-                matches!(
-                    solid.role,
-                    SolidRole::ArtilleryRamp
-                        | SolidRole::ArtilleryStairTread
-                        | SolidRole::ArtilleryBridgeDeck
-                )
-            })
-        });
-        let portal_valid = edge.portal_void.is_none_or(|id| {
-            voids.get(&id).is_some_and(|void| {
-                matches!(
-                    void.role,
-                    VoidRole::Passage | VoidRole::AccessPortal | VoidRole::ArtilleryCasemate
-                )
-            })
-        });
         let path_valid = edge.sweep_path.len() >= 2
             && edge
                 .sweep_path
@@ -160,18 +224,27 @@ impl ArtilleryClearance<'_> {
                 })
             })
         });
-        let swept_clear = self.route_sweep_clear(edge)?;
-        Result::<bool>::Ok(
-            shape_valid
-                && connectors_valid
-                && portal_valid
-                && path_valid
-                && portal_crossed
-                && swept_clear,
-        )
+        if !shape_valid {
+            return Ok(assess(RouteOutcome::InvalidShape(surface.id)));
+        }
+        if !path_valid {
+            return Ok(assess(RouteOutcome::InvalidPath));
+        }
+        if !portal_crossed && let Some(id) = edge.portal_void {
+            return Ok(assess(RouteOutcome::PortalNotCrossed(id)));
+        }
+        Ok(assess(match self.route_sweep_blocker(edge, &sweep)? {
+            Some(id) => RouteOutcome::Blocked(id),
+            None => RouteOutcome::Clear,
+        }))
     }
-    fn route_sweep_clear(&self, edge: &crate::ArtilleryRouteEdge) -> Result<bool> {
-        crate::geometry_index::try_all(edge.sweep_path.windows(2), |pair| {
+    fn route_sweep_blocker(
+        &self,
+        edge: &crate::ArtilleryRouteEdge,
+        sweep: &[Position<Architectural>],
+    ) -> Result<Option<ResolvedItemId>> {
+        for pair in sweep.windows(2) {
+            let pair = [pair[0].metres(), pair[1].metres()];
             let delta = Vec2::new(pair[1].x - pair[0].x, pair[1].z - pair[0].z);
             let along = if delta.length() > 0.01 {
                 delta.normalize()
@@ -180,17 +253,57 @@ impl ArtilleryClearance<'_> {
             };
             let across = Vec2::new(-along.y, along.x);
             let steps = ((pair[0].distance(pair[1]) / 0.35).ceil() as usize).max(1);
-            crate::geometry_index::try_all(0..=steps, |step| {
+            for step in 0..=steps {
                 let foot = pair[0].lerp(pair[1], step as f32 / steps as f32);
                 let samples = [-0.45_f32, 0.0, 0.45].into_iter().flat_map(|side| {
                     [0.25_f32, 1.0, 1.85].into_iter().map(move |height| {
                         foot + Vec3::new(across.x * side, height, across.y * side)
                     })
                 });
-                crate::geometry_index::try_all(samples, |point| {
-                    Result::<bool>::Ok(!self.route_blocked(point, &edge.connector_solids)?)
-                })
-            })
-        })
+                for point in samples {
+                    if let Some(id) =
+                        self.route_blocker(Position::from_metres(point)?, &edge.connector_solids)?
+                    {
+                        return Ok(Some(id));
+                    }
+                }
+            }
+        }
+        Ok(None)
     }
 }
+
+fn route_bindings(
+    edge: &crate::ArtilleryRouteEdge,
+    solids: &std::collections::HashMap<ResolvedItemId, &ResolvedSolid>,
+    voids: &std::collections::HashMap<ResolvedItemId, &crate::ResolvedVoid>,
+) -> Option<RouteOutcome> {
+    for &id in &edge.connector_solids {
+        let Some(solid) = solids.get(&id) else {
+            return Some(RouteOutcome::MissingConnector(id));
+        };
+        if !matches!(
+            solid.role,
+            SolidRole::ArtilleryRamp
+                | SolidRole::ArtilleryStairTread
+                | SolidRole::ArtilleryBridgeDeck
+        ) {
+            return Some(RouteOutcome::InvalidConnector(id));
+        }
+    }
+    if let Some(id) = edge.portal_void {
+        let Some(portal) = voids.get(&id) else {
+            return Some(RouteOutcome::MissingPortal(id));
+        };
+        if !matches!(
+            portal.role,
+            VoidRole::Passage | VoidRole::AccessPortal | VoidRole::ArtilleryCasemate
+        ) {
+            return Some(RouteOutcome::InvalidPortal(id));
+        }
+    }
+    None
+}
+
+#[cfg(test)]
+mod tests;

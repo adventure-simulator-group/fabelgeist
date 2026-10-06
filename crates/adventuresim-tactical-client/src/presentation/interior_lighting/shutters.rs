@@ -64,7 +64,7 @@ pub(super) fn update_shutter_light(
                     .normalize_or_zero();
                 (
                     window.opening_id,
-                    1.0 - tangent.dot(window.tangent).abs().clamp(0.0, 1.0),
+                    1.0 - tangent.dot(window.tangent.vector()).abs().clamp(0.0, 1.0),
                 )
             })
             .collect::<Vec<_>>();

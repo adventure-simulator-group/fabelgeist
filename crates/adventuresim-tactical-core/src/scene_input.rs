@@ -65,8 +65,8 @@ pub mod furniture;
 
 pub use buildings::{
     BuildingOrientation, DistantBuildingPlacement, DistantBuildingVariant, GeneratedBuilding,
-    SceneBuilding, SceneDoor, SceneDoorError, SceneWindow, TacticalBuildingPlacement,
-    compile_tactical_building_collider,
+    SceneBuilding, SceneDoor, SceneDoorError, SceneWindow, SceneWindowError,
+    TacticalBuildingPlacement, compile_tactical_building_collider,
 };
 
 pub const TREE_TRUNK_RADIUS_METRES: f32 = 0.35;

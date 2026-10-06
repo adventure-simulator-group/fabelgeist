@@ -455,3 +455,32 @@ fn penetration_updates_drainage_stations_at_the_cut_boundary() {
     assert_eq!(network.samples.len(), 1);
     assert_eq!(network.samples[0].surface_point.x, -0.01);
 }
+
+#[test]
+fn selection_reports_missing_room_and_storey_bindings_before_trying_roofs() {
+    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let wall = original
+        .wall_assemblies
+        .iter()
+        .find(|w| w.frame.inside_room.is_some() && w.frame.outside_room.is_some())
+        .unwrap()
+        .clone();
+    let mut missing_storey = original.clone();
+    missing_storey
+        .storeys
+        .retain(|s| s.level != wall.storey_level);
+    assert!(
+        matches!(super::placement::find(&missing_storey),Err(crate::GenerationError::HeatingConstruction(HeatingConstructionError::MissingStorey { wall:id,storey })) if id==wall.id && storey==StoreyIndex::from_serialized(wall.storey_level))
+    );
+    let mut missing_room = original;
+    missing_room
+        .wall_assemblies
+        .iter_mut()
+        .find(|w| w.id == wall.id)
+        .unwrap()
+        .frame
+        .inside_room = Some(65535);
+    assert!(
+        matches!(super::placement::find(&missing_room),Err(crate::GenerationError::HeatingConstruction(HeatingConstructionError::MissingRoom { wall:id,room,.. })) if id==wall.id && room==RoomIndex::from_serialized(65535))
+    );
+}

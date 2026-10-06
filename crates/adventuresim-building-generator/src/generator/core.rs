@@ -132,6 +132,8 @@ pub enum GenerationError {
     #[error(transparent)]
     Door(#[from] crate::DoorError),
     #[error(transparent)]
+    Window(#[from] crate::WindowError),
+    #[error(transparent)]
     Entrance(#[from] crate::EntranceError),
     #[error("domestic heating obstructs occupied-room circulation: {0}")]
     BlockedDomesticCirculation(crate::interior::InteriorLayoutError),

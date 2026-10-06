@@ -1,19 +1,37 @@
 use super::*;
 use crate::spatial_geometry::{CuboidDimensions, Position};
 
-pub(super) fn barn(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::GenerationError> {
+pub(super) fn barn(
+    a: &mut Assembly<'_>,
+    dimensions: crate::spatial_geometry::PlanDimensions,
+) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     for x in [1.4, w - 1.4] {
         for z in [d * 0.3, d * 0.65] {
-            bin(a, Vec2::new(x, z), Vec2::new(2.0, 3.0), 1.25)?;
+            bin(
+                a,
+                crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(x, z))?,
+                crate::spatial_geometry::PlanDimensions::from_metres(Vec2::new(2.0, 3.0))?,
+                crate::spatial_geometry::PositiveLength::from_metres(1.25)?,
+            )?;
         }
     }
     // The tall central threshing passage remains uninterrupted from front to rear.
-    rack(a, Vec2::new(w + 3.0, d - 2.4))?;
+    rack(
+        a,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w + 3.0, d - 2.4))?,
+    )?;
 
     Ok(())
 }
 
-pub(super) fn stable(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::GenerationError> {
+pub(super) fn stable(
+    a: &mut Assembly<'_>,
+    dimensions: crate::spatial_geometry::PlanDimensions,
+) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     for bay in 0..(d / 3.0) as u32 {
         let z = 1.5 + bay as f32 * 3.0;
         a.part(
@@ -30,17 +48,33 @@ pub(super) fn stable(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::
             CuboidDimensions::from_metres(Vec3::new(0.16, 2.1, 0.16))?,
             crate::workplace::WorkplacePartVisibility::Silhouette,
         )?;
-        trough(a, Vec2::new(0.8, z))?;
+        trough(
+            a,
+            crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(0.8, z))?,
+        )?;
     }
-    rack(a, Vec2::new(w + 3.0, d - 2.4))?;
+    rack(
+        a,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w + 3.0, d - 2.4))?,
+    )?;
 
     Ok(())
 }
 
-pub(super) fn granary(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::GenerationError> {
+pub(super) fn granary(
+    a: &mut Assembly<'_>,
+    dimensions: crate::spatial_geometry::PlanDimensions,
+) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     for x in [1.5] {
         for z in [2.5, d * 0.5] {
-            bin(a, Vec2::new(x, z), Vec2::new(2.0, 2.4), 1.4)?;
+            bin(
+                a,
+                crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(x, z))?,
+                crate::spatial_geometry::PlanDimensions::from_metres(Vec2::new(2.0, 2.4))?,
+                crate::spatial_geometry::PositiveLength::from_metres(1.4)?,
+            )?;
         }
     }
     // An elevated rear storage gallery is reached by a real flight with 0.18m risers.
@@ -97,9 +131,15 @@ pub(super) fn granary(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate:
         )?;
     }
     for x in [1.4, w * 0.5] {
-        bin_at(a, Vec2::new(x, d - 1.5), Vec2::new(1.6, 1.8), 1.3, 3.36)?;
+        bin_at(
+            a,
+            crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(x, d - 1.5))?,
+            crate::spatial_geometry::PlanDimensions::from_metres(Vec2::new(1.6, 1.8))?,
+            crate::spatial_geometry::PositiveLength::from_metres(1.3)?,
+            crate::spatial_geometry::Elevation::<crate::Architectural>::from_metres(3.36)?,
+        )?;
     }
-    upper_storage_floor(a, w, d)?;
+    upper_storage_floor(a, dimensions)?;
     // A freestanding loading frame makes the storage use legible without a decorative false door.
     let z = 1.2;
     for x in [0.7, 2.7] {
@@ -131,9 +171,10 @@ pub(super) fn granary(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate:
 
 pub(super) fn upper_storage_floor(
     a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
+    dimensions: crate::spatial_geometry::PlanDimensions,
 ) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     for z in [0.6, d * 0.5, d - 0.6] {
         for x in [0.4, w - 2.0] {
             a.part(

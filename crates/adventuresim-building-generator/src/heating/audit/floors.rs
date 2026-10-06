@@ -32,7 +32,10 @@ pub(super) fn audit(
             );
             continue;
         }
-        if !super::super::floor_bearings::valid(plan, storey.level) {
+        if !super::super::floor_bearings::valid(
+            plan,
+            crate::StoreyIndex::from_serialized(storey.level),
+        ) {
             fail(
                 issues,
                 "detached_heating_floor_bearing",

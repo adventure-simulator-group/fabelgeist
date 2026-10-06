@@ -12,10 +12,13 @@ const BOTTOM_THICKNESS_METRES: f32 = 0.16;
 
 pub(super) fn vat(
     a: &mut Assembly<'_>,
-    p: Vec2,
-    radius: f32,
-    height: f32,
+    p: crate::plan_geometry::ArchitecturalPlanPoint,
+    radius: crate::spatial_geometry::PositiveLength,
+    height: crate::spatial_geometry::PositiveLength,
 ) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
+    let radius = radius.metres();
+    let height = height.metres();
     let plank_depth = radius * 2.0 / BOTTOM_PLANK_COUNT as f32;
     for index in 0..BOTTOM_PLANK_COUNT {
         let z = -radius + (index as f32 + 0.5) * plank_depth;
@@ -45,9 +48,17 @@ pub(super) fn vat(
         oriented_part(
             a,
             WorkplaceMaterial::UnpaintedTimber,
-            Vec3::new(centre.x, height * 0.5, centre.y),
-            Vec3::new(stave_width, height, STAVE_THICKNESS_METRES),
-            angle,
+            crate::spatial_geometry::Position::<crate::Architectural>::from_metres(Vec3::new(
+                centre.x,
+                height * 0.5,
+                centre.y,
+            ))?,
+            crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(
+                stave_width,
+                height,
+                STAVE_THICKNESS_METRES,
+            ))?,
+            crate::spatial_geometry::Radians::new(angle)?,
         )?;
     }
     let _: () = for elevation in [height * 0.18, height * 0.8] {
@@ -58,13 +69,15 @@ pub(super) fn vat(
             oriented_part(
                 a,
                 WorkplaceMaterial::Iron,
-                Vec3::new(centre.x, elevation, centre.y),
-                Vec3::new(
+                crate::spatial_geometry::Position::<crate::Architectural>::from_metres(Vec3::new(
+                    centre.x, elevation, centre.y,
+                ))?,
+                crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(
                     2.0 * hoop_radius * (step * 0.5).tan(),
                     HOOP_HEIGHT_METRES,
                     HOOP_THICKNESS_METRES,
-                ),
-                angle,
+                ))?,
+                crate::spatial_geometry::Radians::new(angle)?,
             )?;
         }
     };
@@ -74,15 +87,16 @@ pub(super) fn vat(
 fn oriented_part(
     a: &mut Assembly<'_>,
     material: WorkplaceMaterial,
-    centre: Vec3,
-    size: Vec3,
-    yaw: f32,
+    centre: crate::spatial_geometry::Position<crate::Architectural>,
+    size: crate::spatial_geometry::CuboidDimensions,
+    yaw: crate::spatial_geometry::Radians,
 ) -> Result<(), crate::GenerationError> {
+    let yaw = yaw.radians();
     let id = a.part(
         WorkplaceFeature::Vat,
         material,
-        Position::<crate::Architectural>::from_metres(centre)?,
-        CuboidDimensions::from_metres(size)?,
+        centre,
+        size,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
     a.orient_part(

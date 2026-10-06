@@ -16,14 +16,27 @@ mod tests;
 
 pub(super) fn fit_workplace(
     a: &mut Assembly<'_>,
-    _w: f32,
-    _d: f32,
+    _dimensions: crate::spatial_geometry::PlanDimensions,
 ) -> Result<(), crate::GenerationError> {
-    drive::assemble(a, DRIVE_CENTRE)?;
-    milling::stone_and_hopper(a, DRIVE_CENTRE + Vec2::new(2.12, 0.0))?;
+    drive::assemble(
+        a,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(DRIVE_CENTRE)?,
+    )?;
+    milling::stone_and_hopper(
+        a,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(
+            DRIVE_CENTRE + Vec2::new(2.12, 0.0),
+        )?,
+    )?;
     let _: () = for bay in 0..=a.plan.size.extra_bays() {
         for x in [3.5, 9.0] {
-            milling::grain_bin(a, Vec2::new(x, 13.4 + f32::from(bay) * 3.0))?;
+            milling::grain_bin(
+                a,
+                crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(
+                    x,
+                    13.4 + f32::from(bay) * 3.0,
+                ))?,
+            )?;
         }
     };
     Ok(())

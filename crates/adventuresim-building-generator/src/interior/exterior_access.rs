@@ -1,40 +1,58 @@
-//! Outdoor routes use the same standing body and clipped obstacles as room access.
+//! Continuous standing-body sweeps retain the collision frame through clearance.
 use super::{geometry::*, obstruction::Obstruction};
-use crate::CollisionCuboid;
-use bevy::math::Vec2;
+use crate::spatial_geometry::{Elevation, GeometryFrame, Position};
+use crate::{CollisionCuboid, CollisionError, SpatialBounds};
+use bevy::math::{Vec2, Vec3};
 
-/// Height-clipped obstacles for repeated conservative standing-body sweeps.
-/// Coordinates and elevation belong to the input cuboids' coordinate system.
-pub struct StandingClearance(Vec<Rect>);
-
-impl StandingClearance {
-    pub fn new<F: crate::spatial_geometry::GeometryFrame>(
+pub struct StandingClearance<F: GeometryFrame>(Vec<SpatialBounds<F>>);
+impl<F: GeometryFrame> StandingClearance<F> {
+    pub fn new(
         cuboids: &[CollisionCuboid<F>],
-        floor: crate::spatial_geometry::Elevation<F>,
-    ) -> Result<Self, crate::CollisionError> {
-        let floor_elevation_metres = floor.metres();
+        floor: Elevation<F>,
+    ) -> Result<Self, CollisionError> {
         let mut rectangles = Vec::new();
         for solid in cuboids {
-            if let Some(rect) = Obstruction::new(*solid)?.projection(
-                floor_elevation_metres + FLOOR_CLEARANCE,
-                floor_elevation_metres + PERSON_HEIGHT,
-            ) {
-                rectangles.push(rect.expanded(PERSON_RADIUS));
+            let geometry = || {
+                let bottom = Elevation::from_metres(floor.metres() + FLOOR_CLEARANCE)?;
+                let top = Elevation::from_metres(floor.metres() + PERSON_HEIGHT)?;
+                Ok::<_, crate::spatial_geometry::GeometryError>((bottom, top))
+            };
+            let (bottom, top) = geometry().map_err(|cause| CollisionError {
+                source_id: solid.source,
+                cause,
+            })?;
+            if let Some(bounds) = Obstruction::new(*solid)?.projection(bottom, top)? {
+                let margin = Vec3::new(PERSON_RADIUS, 0.0, PERSON_RADIUS);
+                rectangles.push(
+                    SpatialBounds::from_metres(
+                        bounds.min().metres() - margin,
+                        bounds.max().metres() + margin,
+                    )
+                    .map_err(|cause| CollisionError {
+                        source_id: solid.source,
+                        cause,
+                    })?,
+                );
             }
         }
         Ok(Self(rectangles))
     }
-
-    pub fn is_clear(&self, start: Vec2, end: Vec2) -> bool {
+    pub fn is_clear(&self, start: Position<F>, end: Position<F>) -> bool {
         self.0
             .iter()
             .all(|&rect| !segment_intersects(rect, start, end))
     }
 }
-
-fn segment_intersects(rect: Rect, start: Vec2, end: Vec2) -> bool {
-    let min = rect.centre - rect.half;
-    let max = rect.centre + rect.half;
+/// Native slab intersection is bounded by admitted framed endpoints and bounds.
+fn segment_intersects<F: GeometryFrame>(
+    rect: SpatialBounds<F>,
+    start: Position<F>,
+    end: Position<F>,
+) -> bool {
+    let min = Vec2::new(rect.min().metres().x, rect.min().metres().z);
+    let max = Vec2::new(rect.max().metres().x, rect.max().metres().z);
+    let start = Vec2::new(start.metres().x, start.metres().z);
+    let end = Vec2::new(end.metres().x, end.metres().z);
     let delta = end - start;
     let (mut enter, mut leave) = (0.0_f32, 1.0_f32);
     for axis in 0..2 {
@@ -58,7 +76,9 @@ fn segment_intersects(rect: Rect, start: Vec2, end: Vec2) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use bevy::math::Vec3;
+    fn position(p: Vec2) -> Position<crate::Architectural> {
+        Position::from_metres(Vec3::new(p.x, 0.0, p.y)).unwrap()
+    }
     #[test]
     fn continuous_route_detects_thin_obstacle_between_sampling_stations() {
         let mut obstacle = CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(
@@ -74,14 +94,14 @@ mod tests {
         assert!(
             !StandingClearance::new(&[obstacle], floor)
                 .unwrap()
-                .is_clear(-Vec2::X, Vec2::X)
+                .is_clear(position(-Vec2::X), position(Vec2::X))
         );
         obstacle.centre =
             crate::spatial_geometry::Position::from_metres(Vec3::new(0.12, 3.0, 0.0)).unwrap();
         assert!(
             StandingClearance::new(&[obstacle], floor)
                 .unwrap()
-                .is_clear(-Vec2::X, Vec2::X)
+                .is_clear(position(-Vec2::X), position(Vec2::X))
         );
     }
 
@@ -108,14 +128,24 @@ mod tests {
                 let start = Vec2::new(x as f32 * 0.25, -2.0);
                 let end = Vec2::new(-start.x, 2.0);
                 let original = cuboids.iter().all(|s| {
-                    Obstruction::new(*s)
+                    let projection = Obstruction::new(*s)
                         .unwrap()
-                        .projection(floor + FLOOR_CLEARANCE, floor + PERSON_HEIGHT)
-                        .is_none_or(|rect| {
-                            !segment_intersects(rect.expanded(PERSON_RADIUS), start, end)
-                        })
+                        .projection(
+                            Elevation::from_metres(floor + FLOOR_CLEARANCE).unwrap(),
+                            Elevation::from_metres(floor + PERSON_HEIGHT).unwrap(),
+                        )
+                        .unwrap();
+                    projection.is_none_or(|bounds| {
+                        let margin = Vec3::new(PERSON_RADIUS, 0.0, PERSON_RADIUS);
+                        let expanded = SpatialBounds::from_metres(
+                            bounds.min().metres() - margin,
+                            bounds.max().metres() + margin,
+                        )
+                        .unwrap();
+                        !segment_intersects(expanded, position(start), position(end))
+                    })
                 });
-                assert_eq!(clearance.is_clear(start, end), original);
+                assert_eq!(clearance.is_clear(position(start), position(end)), original);
             }
         }
     }

@@ -11,6 +11,8 @@ pub enum CoordinateAxis {
 #[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum GeometryRole {
+    SignedLength,
+    Area,
     Position,
     Displacement,
     Elevation,

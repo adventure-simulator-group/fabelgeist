@@ -206,9 +206,13 @@ fn interior_floor_support_follows_rotated_landing_footprint() {
         crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(3.0, 0.16, 0.8)).unwrap();
     landing.yaw_radians =
         crate::spatial_geometry::Radians::new(std::f32::consts::FRAC_PI_4).unwrap();
-    let floor = super::architecture::Floor::new(&plan, 0).unwrap();
-    assert!(floor.contains(Vec2::new(5.2, 6.8)));
-    assert!(!floor.contains(Vec2::new(5.7, 7.5)));
+    let floor = super::architecture::Floor::new(&plan, crate::StoreyIndex::GROUND).unwrap();
+    assert!(floor.contains(
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(5.2, 6.8)).unwrap()
+    ));
+    assert!(!floor.contains(
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(5.7, 7.5)).unwrap()
+    ));
 }
 
 #[test]
@@ -227,8 +231,8 @@ fn interior_requires_physical_floors_without_archetype_descriptors() {
     plan.workplace = None;
     validate_layout(&plan, &layout).unwrap();
     plan.resolved_geometry.solids.clear();
-    let floor = super::architecture::Floor::new(&plan, 0).unwrap();
-    assert!(!floor.contains(layout.placements[0].centre_metres.metres()));
+    let floor = super::architecture::Floor::new(&plan, crate::StoreyIndex::GROUND).unwrap();
+    assert!(!floor.contains(layout.placements[0].centre_metres));
     assert!(validate_layout(&plan, &layout).is_err());
     assert!(
         furnish(

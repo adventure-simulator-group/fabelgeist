@@ -60,7 +60,7 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
         );
         let world_front = instance.orientation.local_to_world(-Vec2::Y);
         let expected_front = building.placement.orientation.local_to_world(
-            BuildingOrientation::from_radians(placement.yaw_radians())
+            BuildingOrientation::from_radians(placement.yaw_radians().radians())
                 .unwrap()
                 .local_to_world(-Vec2::Y),
         );

@@ -7,7 +7,7 @@ use super::{
     UnmetFurnitureBudget,
 };
 use crate::furniture::{FurnitureKey, FurnitureVariant};
-use crate::{BuildingPlan, BuildingProgram, Direction, Room};
+use crate::{BuildingPlan, BuildingProgram, Direction, Room, StoreyIndex};
 use bevy::math::Vec2;
 
 const WALL_SETBACK_METRES: f32 = crate::WALL_THICKNESS_METRES * 0.5 + 0.06;
@@ -18,13 +18,19 @@ pub fn furnish(
     program: &BuildingProgram,
 ) -> Result<InteriorLayout, InteriorLayoutError> {
     let nav = Navigation::new(plan)?;
-    let mut occupancy = Occupancy::new(&nav);
+    let mut occupancy = Occupancy::new(&nav)?;
     let mut layout = InteriorLayout::default();
     for storey in &plan.storeys {
         for room in &storey.rooms {
             for budget in furniture_budgets(program, room) {
                 let mut placed = 0;
-                let candidates = candidates(plan, program, room, storey.level, budget)?;
+                let candidates = candidates(
+                    plan,
+                    program,
+                    room,
+                    StoreyIndex::from_serialized(storey.level),
+                    budget,
+                )?;
                 for group in candidates {
                     if placed == budget.count {
                         break;
@@ -87,11 +93,14 @@ pub(super) fn candidates(
     plan: &BuildingPlan,
     program: &BuildingProgram,
     room: &Room,
-    storey: u16,
+    storey: StoreyIndex,
     budget: FurnitureBudget,
 ) -> Result<Vec<Vec<InteriorPlacement>>, InteriorLayoutError> {
     let seed = fabelgeist_determinism::StreamId::new("building.room-furniture")
-        .seed(program.seed, &[u64::from(room.id), u64::from(storey)])
+        .seed(
+            program.seed,
+            &[u64::from(room.id), u64::from(storey.serialized_ordinal()?)],
+        )
         .to_u64();
     let variants = if RNG_BUILDING_FURNITURE_SIZE
         .rng(seed, &[budget.kind as u64])
@@ -113,15 +122,16 @@ pub(super) fn candidates(
 fn variant_candidates(
     plan: &BuildingPlan,
     room: &Room,
-    storey: u16,
+    storey: StoreyIndex,
     budget: FurnitureBudget,
     variant: FurnitureVariant,
     seed: u64,
 ) -> Result<Vec<Vec<InteriorPlacement>>, InteriorLayoutError> {
     let key = FurnitureKey::natural(budget.kind, variant);
-    let (min, max) = super::geometry::room_bounds(room);
+    let bounds = super::geometry::room_bounds(room, storey)?;
+    let (min, max) = (bounds.min.metres(), bounds.max.metres());
     let mut choices = Vec::new();
-    let preferred_facing = super::room_facing::preferred_facing(plan, room, budget.kind, min, max);
+    let preferred_facing = super::room_facing::preferred_facing(plan, room, budget.kind, bounds)?;
     for facing in [
         Direction::South,
         Direction::North,
@@ -134,7 +144,7 @@ fn variant_candidates(
         let template = InteriorPlacement {
             key,
             room_id: crate::RoomIndex::from_serialized(room.id),
-            storey: crate::StoreyIndex::from_serialized(storey),
+            storey,
             centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(Vec2::ZERO)?,
             facing,
         };
@@ -143,8 +153,8 @@ fn variant_candidates(
         let mut group_max = Vec2::splat(f32::NEG_INFINITY);
         for placement in &prototype {
             let footprint = placement.footprint()?;
-            group_min = group_min.min(footprint.centre - footprint.half);
-            group_max = group_max.max(footprint.centre + footprint.half);
+            group_min = group_min.min(footprint.centre.metres() - footprint.half.metres());
+            group_max = group_max.max(footprint.centre.metres() + footprint.half.metres());
         }
         let start = min - group_min + Vec2::splat(WALL_SETBACK_METRES);
         let end = max - group_max - Vec2::splat(WALL_SETBACK_METRES);
@@ -161,13 +171,15 @@ fn variant_candidates(
                         room,
                         budget.kind,
                         facing,
-                        centre,
-                        (min + max) * 0.5,
+                        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(centre)?,
+                        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(
+                            (min + max) * 0.5,
+                        )?,
                     ),
                     centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(centre)?,
                     ..template.clone()
                 };
-                if !p.footprint()?.inside_room(room) {
+                if !p.footprint()?.inside_room(room)? {
                     continue;
                 }
                 let wall_distance = (centre + group_min - min)
@@ -192,7 +204,7 @@ fn variant_candidates(
                         ],
                     )
                     .next_u64();
-                let score = super::room_facing::placement_score(plan, &p, min, max, score);
+                let score = super::room_facing::placement_score(plan, &p, bounds, score)?;
                 if score.is_finite() {
                     choices.push((score, tie, super::composition::compose(p)?));
                 }

@@ -112,6 +112,9 @@ fn valid_tower_chord_bond(plan: &BuildingPlan, bond: &crate::JunctionBond) -> bo
     false
 }
 
+// Shape-local inverse rotation, annulus tests and signed tolerance
+// are one private native containment kernel. Audit callers sample the existing
+// resolved shape; this function exports only the ordinary containment predicate.
 fn resolved_solid_contains_point(solid: &ResolvedSolid, point: Vec3, tolerance: f32) -> bool {
     let relative = point - solid.centre.metres();
     let (sine, cosine) = solid.yaw_radians.radians().sin_cos();
@@ -414,65 +417,6 @@ fn resolved_solids_overlap_positive_volume(
             + right.size.metres().z * 0.5 * right_z.dot(axis).abs();
         left_radius + right_radius - delta.dot(axis).abs() > tolerance
     })
-}
-
-fn resolved_plan_overlap_area(
-    left: &ResolvedSolid,
-    right: &ResolvedSolid,
-) -> Result<f32> {
-    let local_x = Vec2::new(
-        left.yaw_radians.radians().cos(),
-        -left.yaw_radians.radians().sin(),
-    );
-    let local_z = Vec2::new(
-        left.yaw_radians.radians().sin(),
-        left.yaw_radians.radians().cos(),
-    );
-    let delta = Vec2::new(
-        right.centre.metres().x - left.centre.metres().x,
-        right.centre.metres().z - left.centre.metres().z,
-    );
-    let right_x = Vec2::new(
-        right.yaw_radians.radians().cos(),
-        -right.yaw_radians.radians().sin(),
-    );
-    let right_z = Vec2::new(
-        right.yaw_radians.radians().sin(),
-        right.yaw_radians.radians().cos(),
-    );
-    let overlap = |axis: Vec2, left_extent: f32| {
-        let right_extent = right.size.metres().x * 0.5 * right_x.dot(axis).abs()
-            + right.size.metres().z * 0.5 * right_z.dot(axis).abs();
-        (left_extent + right_extent - delta.dot(axis).abs()).max(0.0)
-    };
-    Ok(overlap(local_x, left.size.metres().x * 0.5) * overlap(local_z, left.size.metres().z * 0.5))
-}
-
-fn bonded_interface_metrics(
-    a: &ResolvedSolid,
-    b: &ResolvedSolid,
-) -> Option<(Vec3, Vec3, f32, f32)> {
-    let (a_min, a_max) = resolved_solid_bounds(a);
-    let (b_min, b_max) = resolved_solid_bounds(b);
-    let signed = a_max.min(b_max) - a_min.max(b_min);
-    let mut axes = [(signed.x, 0_usize), (signed.y, 1), (signed.z, 2)];
-    axes.sort_by(|left, right| left.0.total_cmp(&right.0));
-    if axes[0].0 < -0.025 || axes[1].0 <= 0.0 || axes[2].0 <= 0.0 {
-        return None;
-    }
-    let contact_min = a_min.max(b_min);
-    let mut contact_max = a_max.min(b_max);
-    if axes[0].0 < 0.0 {
-        let axis = axes[0].1;
-        let midpoint = (contact_min[axis] + contact_max[axis]) * 0.5;
-        contact_max[axis] = midpoint;
-    }
-    Some((
-        contact_min.min(contact_max),
-        contact_min.max(contact_max),
-        axes[1].0 * axes[2].0,
-        axes[0].0.max(0.0),
-    ))
 }
 
 /// Conservative cuboid-in-cavity test for resolved round shells.  This keeps

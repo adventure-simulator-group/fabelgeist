@@ -1,5 +1,7 @@
 //! Check actual folded-sheet coverage independently of the construction records.
+use super::super::weather_sections::{SheetSection, WeatherSide};
 use super::*;
+use crate::plan_geometry::ArchitecturalPlanPoint;
 
 pub(super) fn audit(
     plan: &BuildingPlan,
@@ -32,9 +34,18 @@ pub(super) fn audit(
     let min = Vec2::new(shaft.min().metres().x, shaft.min().metres().z);
     let max = Vec2::new(shaft.max().metres().x, shaft.max().metres().z);
     let highest = [min, Vec2::new(min.x, max.y), max, Vec2::new(max.x, min.y)]
-        .map(|p| super::super::placement::roof_height(face, p))
         .into_iter()
-        .fold(f32::NEG_INFINITY, f32::max);
+        .try_fold(f32::NEG_INFINITY, |high, p| {
+            Ok::<_, crate::GenerationError>(
+                high.max(
+                    super::super::placement::roof_height(
+                        face,
+                        ArchitecturalPlanPoint::from_metres(p)?,
+                    )?
+                    .metres(),
+                ),
+            )
+        })?;
     let tops = upstands
         .iter()
         .map(|s| Ok(s.cuboid_bounds()?.max().metres().y))
@@ -48,47 +59,40 @@ pub(super) fn audit(
     {
         return Ok(false);
     }
-    for (start, end, outward) in [
-        (min, Vec2::new(min.x, max.y), -Vec2::X),
-        (Vec2::new(max.x, min.y), max, Vec2::X),
-        (min, Vec2::new(max.x, min.y), -Vec2::Y),
-        (Vec2::new(min.x, max.y), max, Vec2::Y),
-    ] {
-        let low = super::super::placement::roof_height(face, start)
-            .min(super::super::placement::roof_height(face, end));
+    for side in WeatherSide::around(shaft)? {
+        let [start, end] = side.ends.map(|point| point.metres());
+        let low = super::super::placement::roof_height(
+            face,
+            ArchitecturalPlanPoint::from_metres(start)?,
+        )?
+        .metres()
+        .min(
+            super::super::placement::roof_height(face, ArchitecturalPlanPoint::from_metres(end)?)?
+                .metres(),
+        );
         // Require positive masonry engagement, apron contact and corner lap.
         let tangent = (end - start).normalize();
-        let ends = [start - tangent * 0.002, end + tangent * 0.002];
+        let side = WeatherSide {
+            ends: [
+                ArchitecturalPlanPoint::from_metres(start - tangent * 0.002)?,
+                ArchitecturalPlanPoint::from_metres(end + tangent * 0.002)?,
+            ],
+            outward: side.outward,
+        };
         if !covers(
             &upstands,
-            section(ends, outward, [-0.002, 0.004], [low - 0.01, top])?,
+            SheetSection::from_metres(-0.002, 0.004, low - 0.01, top)?.bounds(side)?,
         )? || !covers(
             &counter,
-            section(ends, outward, [-0.025, 0.012], [top, top + 0.003])?,
+            SheetSection::from_metres(-0.025, 0.012, top, top + 0.003)?.bounds(side)?,
         )? || !covers(
             &counter,
-            section(ends, outward, [0.008, 0.012], [top - 0.06, top])?,
+            SheetSection::from_metres(0.008, 0.012, top - 0.06, top)?.bounds(side)?,
         )? {
             return Ok(false);
         }
     }
     Ok(true)
-}
-
-fn section(
-    ends: [Vec2; 2],
-    outward: Vec2,
-    depth: [f32; 2],
-    height: [f32; 2],
-) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
-    let p = ends[0] + outward * depth[0];
-    let q = ends[1] + outward * depth[1];
-    let min = p.min(q);
-    let max = p.max(q);
-    Ok(SpatialBounds::<Architectural>::from_metres(
-        Vec3::new(min.x, height[0], min.y),
-        Vec3::new(max.x, height[1], max.y),
-    )?)
 }
 
 fn covers(

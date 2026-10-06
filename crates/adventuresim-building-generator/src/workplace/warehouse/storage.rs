@@ -7,9 +7,10 @@ const STAIR_STEP_COUNT: u32 = 18;
 
 pub(super) fn storage_floors(
     a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
+    dimensions: crate::spatial_geometry::PlanDimensions,
 ) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     let bays = (d / 3.0).ceil() as u32;
     for bay in 0..=bays {
         let z = 0.6 + (d - 1.2) * bay as f32 / bays as f32;

@@ -74,8 +74,8 @@ pub use roof_tessellation::{
     RoofSurface, RoofSurfaceTriangle, tessellate_roof_enclosure, tessellate_roof_face,
 };
 pub use windows::{
-    WindowBarSpec, WindowLeafKind, WindowSpec, compile_operable_windows, compile_window_bars,
-    compile_window_leaf,
+    WindowBarSpec, WindowError, WindowErrorCause, WindowLeafKind, WindowSpec,
+    compile_operable_windows, compile_window_bars, compile_window_leaf,
 };
 
 #[cfg(test)]

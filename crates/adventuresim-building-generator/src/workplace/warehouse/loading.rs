@@ -6,9 +6,10 @@ use crate::spatial_geometry::{
 
 pub(super) fn loading_hood(
     a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
+    dimensions: crate::spatial_geometry::PlanDimensions,
 ) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     let z = d * 0.25;
     for x in [w + 0.8, w + 4.8] {
         for end in [z - 2.2, z + 2.2] {
@@ -66,7 +67,10 @@ pub(super) fn loading_hood(
         CuboidDimensions::from_metres(Vec3::new(3.8, 0.24, 0.3))?,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
-    super::hoist::rig(a, Vec2::new(w + 2.8, z + 1.55))?;
+    super::hoist::rig(
+        a,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w + 2.8, z + 1.55))?,
+    )?;
 
     Ok(())
 }

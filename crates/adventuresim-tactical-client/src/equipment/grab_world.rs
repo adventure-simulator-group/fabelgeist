@@ -66,10 +66,10 @@ impl WorldGrabTargets<'_, '_> {
                         .filter_map(|(entity, transform, window)| {
                             can_grab_window_from_inside(
                                 actor.translation(),
-                                window.opening_centre_metres,
-                                window.tangent,
-                                window.outward,
-                                window.size_metres.x * 0.5,
+                                window.opening_centre_metres.metres(),
+                                window.tangent.vector(),
+                                window.outward.vector(),
+                                window.size_metres.metres().x * 0.5,
                             )
                             .then(|| transform.translation())
                             .filter(|position| self.visible(origin, *position))

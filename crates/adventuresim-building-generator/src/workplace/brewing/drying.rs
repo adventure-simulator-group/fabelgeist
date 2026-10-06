@@ -66,19 +66,30 @@ pub(in super::super) fn drying_wall(
 
 pub(in super::super) fn malthouse(
     a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
+    dimensions: crate::spatial_geometry::PlanDimensions,
 ) -> Result<(), crate::GenerationError> {
-    super::kiln::drying_kiln(a, Vec2::new(w + 3.0, d - 2.6))?;
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
+    super::kiln::drying_kiln(
+        a,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w + 3.0, d - 2.6))?,
+    )?;
     let _: () = for x in [2.2, w - 2.2] {
         for z in [2.4, d * 0.5, d - 2.4] {
-            drying_bed(a, Vec2::new(x, z))?;
+            drying_bed(
+                a,
+                crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(x, z))?,
+            )?;
         }
     };
     Ok(())
 }
 
-fn drying_bed(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+fn drying_bed(
+    a: &mut Assembly<'_>,
+    p: crate::plan_geometry::ArchitecturalPlanPoint,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     for x in [-0.8, 0.8] {
         a.part(
             WorkplaceFeature::Post,

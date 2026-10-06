@@ -28,21 +28,28 @@ pub(super) fn service_roof(main: Vec2) -> RoofPiece {
 
 pub(super) fn fit_workplace(
     a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
+    dimensions: crate::spatial_geometry::PlanDimensions,
 ) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     let _: () = match a.plan.kind {
         WorkplaceKind::Dyer => {
             soaking::dye_kettle(a, Vec2::new(1.7, 2.2))?;
-            textiles::dye_frames(a, w, d)?;
+            textiles::dye_frames(a, dimensions)?;
         }
         WorkplaceKind::Tannery => {
-            drying_canopy(a, w, d)?;
+            drying_canopy(a, dimensions)?;
             let count = 2 + a.plan.size.extra_bays();
             for bay in 0..count {
                 soaking::tank(a, Vec2::new(w + 3.8, 2.2 + f32::from(bay) * 3.0))?;
             }
-            textiles::hide_frame(a, Vec2::new(w + 3.8, d - 1.2))?;
+            textiles::hide_frame(
+                a,
+                crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(
+                    w + 3.8,
+                    d - 1.2,
+                ))?,
+            )?;
             soaking::fleshing_beam(a, Vec2::new(1.7, 2.2))?;
             soaking::fleshing_beam(a, Vec2::new(w - 1.7, d - 2.4))?;
         }
@@ -51,7 +58,12 @@ pub(super) fn fit_workplace(
     Ok(())
 }
 
-fn drying_canopy(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::GenerationError> {
+fn drying_canopy(
+    a: &mut Assembly<'_>,
+    dimensions: crate::spatial_geometry::PlanDimensions,
+) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     let front = 0.6;
     let back = d - 0.6;
     let bays = ((back - front) / 3.0).ceil() as u32;

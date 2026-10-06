@@ -14,7 +14,7 @@ pub(in crate::interior) struct Change {
 }
 
 impl<'a> Occupancy<'a> {
-    pub fn new(nav: &'a Navigation) -> Self {
+    pub fn new(nav: &'a Navigation) -> Result<Self, InteriorLayoutError> {
         let swept = nav
             .edges
             .iter()
@@ -25,24 +25,26 @@ impl<'a> Occupancy<'a> {
                     .iter()
                     .map(|&next| {
                         let b = nav.nodes[next];
-                        (a.storey == b.storey).then(|| {
-                            Rect::new(
-                                (a.position_metres.metres() + b.position_metres.metres()) * 0.5,
-                                (a.position_metres.metres() - b.position_metres.metres()).abs()
-                                    * 0.5
-                                    + Vec2::splat(PERSON_RADIUS),
-                            )
-                        })
+                        (a.storey == b.storey)
+                            .then(|| {
+                                Rect::from_metres(
+                                    (a.position_metres.metres() + b.position_metres.metres()) * 0.5,
+                                    (a.position_metres.metres() - b.position_metres.metres()).abs()
+                                        * 0.5
+                                        + Vec2::splat(PERSON_RADIUS),
+                                )
+                            })
+                            .transpose()
                     })
-                    .collect()
+                    .collect::<Result<Vec<_>, _>>()
             })
-            .collect();
-        Self {
+            .collect::<Result<Vec<_>, _>>()?;
+        Ok(Self {
             nav,
             nodes: vec![0; nav.nodes.len()],
             edges: nav.edges.iter().map(|edges| vec![0; edges.len()]).collect(),
             swept,
-        }
+        })
     }
 
     pub fn add(&mut self, placements: &[InteriorPlacement]) -> Result<Change, InteriorLayoutError> {
@@ -52,12 +54,14 @@ impl<'a> Occupancy<'a> {
         };
         for placement in placements {
             let footprint = placement.footprint()?;
-            let expanded = footprint.expanded(PERSON_RADIUS);
+            let expanded = footprint.expanded(
+                crate::spatial_geometry::SignedLength::from_metres(PERSON_RADIUS)?,
+            )?;
             for (index, node) in self.nav.nodes.iter().enumerate() {
                 if node.storey != placement.storey {
                     continue;
                 }
-                if expanded.contains(node.position_metres.metres()) {
+                if expanded.contains(node.position_metres) {
                     self.nodes[index] += 1;
                     change.nodes.push(index);
                 }
@@ -115,8 +119,12 @@ mod tests {
                 p.storey == nav.nodes[index].storey
                     && p.footprint()
                         .unwrap()
-                        .expanded(PERSON_RADIUS)
-                        .contains(nav.nodes[index].position_metres.metres())
+                        .expanded(
+                            crate::spatial_geometry::SignedLength::from_metres(PERSON_RADIUS)
+                                .unwrap(),
+                        )
+                        .unwrap()
+                        .contains(nav.nodes[index].position_metres)
             })
         };
         let mut queue = VecDeque::new();
@@ -131,11 +139,12 @@ mod tests {
                 }
                 let a = nav.nodes[index];
                 let b = nav.nodes[next];
-                let swept = Rect::new(
+                let swept = Rect::from_metres(
                     (a.position_metres.metres() + b.position_metres.metres()) * 0.5,
                     (a.position_metres.metres() - b.position_metres.metres()).abs() * 0.5
                         + Vec2::splat(PERSON_RADIUS),
-                );
+                )
+                .unwrap();
                 if a.storey == b.storey
                     && placements
                         .iter()
@@ -163,7 +172,7 @@ mod tests {
         let plan = crate::generate(&program).unwrap();
         let layout = crate::interior::furnish(&plan, &program).unwrap();
         let nav = Navigation::new(&plan).unwrap();
-        let mut occupancy = Occupancy::new(&nav);
+        let mut occupancy = Occupancy::new(&nav).unwrap();
         for length in 1..=layout.placements.len() {
             let candidate = &layout.placements[length - 1..length];
             occupancy.add(candidate).unwrap();

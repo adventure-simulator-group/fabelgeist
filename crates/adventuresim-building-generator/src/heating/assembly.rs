@@ -1,7 +1,9 @@
 //! Construct heated masonry with measured contacts and explicit empty smoke paths.
+use super::floor_bearings::BearingContact;
 use super::placement::Placement;
+use crate::spatial_geometry::{CuboidDimensions, Position, RigidRotation};
 use crate::*;
-use bevy::math::{Quat, Vec3};
+use bevy::math::Vec3;
 
 pub(super) struct Assembly<'a> {
     pub plan: DomesticHeatingPlan,
@@ -22,28 +24,22 @@ impl<'a> Assembly<'a> {
                 programme,
                 owner,
                 kitchen: HeatingRoom {
-                    storey_level: StoreyIndex::from_serialized(placement.storey_level),
-                    room_id: RoomIndex::from_serialized(placement.kitchen),
+                    storey_level: placement.site.storey_level,
+                    room_id: placement.site.kitchen,
                 },
                 heated_room: HeatingRoom {
-                    storey_level: StoreyIndex::from_serialized(placement.storey_level),
-                    room_id: RoomIndex::from_serialized(placement.stube),
+                    storey_level: placement.site.storey_level,
+                    room_id: placement.site.stube,
                 },
-                fire_wall: placement.wall,
-                centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(
-                    placement.centre,
-                )?,
-                kitchen_axis: crate::spatial_geometry::PlanDirection::from_normalized(
-                    placement.kitchen_axis,
-                )?,
-                floor_height_metres: crate::spatial_geometry::Elevation::from_metres(
-                    placement.floor_height,
-                )?,
+                fire_wall: placement.site.wall,
+                centre_metres: placement.site.centre,
+                kitchen_axis: placement.site.kitchen_axis,
+                floor_height_metres: placement.site.floor_height,
                 floors: vec![],
                 ground_support: StructuralNodeId(0),
                 parts: vec![],
                 passages: vec![],
-                operating_space: placement.operating_space()?,
+                operating_space: placement.site.operating_space()?,
                 roof: HeatingRoofPenetration {
                     roof: placement.roof,
                     face: placement.face,
@@ -58,10 +54,10 @@ impl<'a> Assembly<'a> {
         &mut self,
         kind: HeatingPartKind,
         material: BuildingLodMaterial,
-        min: Vec3,
-        max: Vec3,
+        min: crate::spatial_geometry::Displacement<super::placement::HearthLocal>,
+        max: crate::spatial_geometry::Displacement<super::placement::HearthLocal>,
     ) -> Result<ResolvedItemId, crate::GenerationError> {
-        let bounds = self.placement.bounds(min, max)?;
+        let bounds = self.placement.site.bounds(min, max)?;
         self.absolute_part(kind, material, bounds)
     }
     pub fn absolute_part(
@@ -73,26 +69,31 @@ impl<'a> Assembly<'a> {
         self.oriented_part(
             kind,
             material,
-            (bounds.min().metres() + bounds.max().metres()) * 0.5,
-            bounds.max().metres() - bounds.min().metres(),
-            Quat::IDENTITY,
+            Position::from_metres((bounds.min().metres() + bounds.max().metres()) * 0.5)?,
+            CuboidDimensions::from_metres(bounds.max().metres() - bounds.min().metres())?,
+            RigidRotation::IDENTITY,
         )
     }
     pub fn oriented_part(
         &mut self,
         kind: HeatingPartKind,
         material: BuildingLodMaterial,
-        centre: Vec3,
-        size: Vec3,
-        rotation: Quat,
+        centre: Position<Architectural>,
+        size: CuboidDimensions,
+        rotation: RigidRotation,
     ) -> Result<ResolvedItemId, crate::GenerationError> {
         let slot = self.plan.parts.len() as u64 + 1;
         let id = self.id(1, slot);
         let node = StructuralNodeId(96_000_000 + slot);
-        let (yaw, crossfall, longfall) = rotation.to_euler(bevy::math::EulerRot::YXZ);
+        let (yaw, crossfall, longfall) = rotation.quaternion().to_euler(bevy::math::EulerRot::YXZ);
         let solid = crate::ResolvedSolid::new(
             crate::CollisionCuboid::<crate::Architectural>::from_metres(
-                id, centre, size, yaw, crossfall, longfall,
+                id,
+                centre.metres(),
+                size.metres(),
+                yaw,
+                crossfall,
+                longfall,
             )?,
             self.plan.owner,
             SolidRole::DomesticHeating,
@@ -111,7 +112,7 @@ impl<'a> Assembly<'a> {
                     .first()
                     .copied()
                     .ok_or(HeatingConstructionError::MissingBearing { solid: source.id })?;
-                contacts.push((node, bounds));
+                contacts.push(BearingContact { node, bounds });
             }
         }
         self.geometry
@@ -120,8 +121,12 @@ impl<'a> Assembly<'a> {
                 node,
                 self.plan.owner,
                 StructuralNodeKind::WallBearing,
-                Vec3::new(centre.x, bounds.min().metres().y, centre.z),
-                contacts.iter().map(|(node, _)| *node).collect(),
+                Vec3::new(
+                    centre.metres().x,
+                    bounds.min().metres().y,
+                    centre.metres().z,
+                ),
+                contacts.iter().map(|contact| contact.node).collect(),
                 bounds.min().metres().y <= 0.001,
             )?);
         let bearings = if bounds.min().metres().y <= 0.001 {
@@ -134,7 +139,7 @@ impl<'a> Assembly<'a> {
                 ),
             )?]
         } else {
-            contacts.iter().map(|(_, bounds)| *bounds).collect()
+            contacts.iter().map(|contact| contact.bounds).collect()
         };
         for (index, bearing) in bearings.into_iter().enumerate() {
             self.geometry.support_interfaces.push(SupportInterface {
@@ -155,14 +160,14 @@ impl<'a> Assembly<'a> {
     pub fn passage(
         &mut self,
         kind: HeatingPassageKind,
-        min: Vec3,
-        max: Vec3,
+        min: crate::spatial_geometry::Displacement<super::placement::HearthLocal>,
+        max: crate::spatial_geometry::Displacement<super::placement::HearthLocal>,
     ) -> Result<(), crate::GenerationError> {
         let id = self.id(3, self.plan.passages.len() as u64 + 1);
         self.geometry.voids.push(ResolvedVoid {
             id,
             owner: self.plan.owner,
-            bounds: self.placement.bounds(min, max)?,
+            bounds: self.placement.site.bounds(min, max)?,
             role: VoidRole::Passage,
             shape: ResolvedVoidShape::Box,
             subtracts_from: self.plan.owner,

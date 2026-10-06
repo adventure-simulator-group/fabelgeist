@@ -29,32 +29,18 @@ impl WindowLeafKind {
     }
 }
 
-/// One inward-opening glazed casement in building-local coordinates.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-pub struct WindowSpec {
-    pub leaf: WindowLeafKind,
-    pub opening: OpeningAssemblyId,
-    pub source: ResolvedItemId,
-    pub closed_centre: Vec3,
-    pub hinge_centre: Vec3,
-    pub size_metres: Vec3,
-    pub closed_yaw_radians: f32,
-    pub tangent: Vec2,
-    pub outward: Vec2,
-    pub open_angle_radians: f32,
-    pub barred: bool,
-}
+#[cfg(test)]
+mod contract_tests;
+mod spec;
+use crate::spatial_geometry::{
+    Architectural, CuboidDimensions, GeometryError, LeafDimensions, PlanDirection, Position,
+    Radians,
+};
+pub use spec::{WindowBarSpec, WindowError, WindowErrorCause, WindowSpec};
 
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-pub struct WindowBarSpec {
-    pub opening: OpeningAssemblyId,
-    pub source: ResolvedItemId,
-    pub centre: Vec3,
-    pub size_metres: Vec3,
-    pub yaw_radians: f32,
-}
-
-pub fn compile_window_bars(plan: &BuildingPlan) -> Vec<WindowBarSpec> {
+pub fn compile_window_bars(
+    plan: &BuildingPlan,
+) -> Result<Vec<WindowBarSpec>, crate::CollisionError> {
     plan.opening_assemblies
         .iter()
         .filter(|opening| opening.closure.layers.contains(&ClosureKind::IronBars))
@@ -66,23 +52,39 @@ pub fn compile_window_bars(plan: &BuildingPlan) -> Vec<WindowBarSpec> {
                 let fraction = (index + 1) as f32 / (count + 1) as f32;
                 let offset = (fraction - 0.5) * width;
                 let plan_position = opening.frame.origin + opening.frame.tangent * offset;
-                WindowBarSpec {
-                    opening: opening.id,
-                    source: ResolvedItemId((7_u64 << 60) | (opening.id.0 << 8) | index as u64),
-                    centre: Vec3::new(
-                        plan_position.x,
-                        opening.sill_elevation_metres + height * 0.5,
-                        plan_position.y,
-                    ),
-                    size_metres: Vec3::new(0.035, height, 0.035),
-                    yaw_radians: -opening.frame.tangent.y.atan2(opening.frame.tangent.x),
-                }
+                let source = ResolvedItemId((7_u64 << 60) | (opening.id.0 << 8) | index as u64);
+                let admit = || -> Result<WindowBarSpec, GeometryError> {
+                    // Bars retain the authored frame without normalizing set-out arithmetic.
+                    PlanDirection::<Architectural>::from_normalized(opening.frame.tangent)?;
+                    PlanDirection::<Architectural>::from_normalized(opening.frame.outward)?;
+                    Ok(WindowBarSpec {
+                        opening: opening.id,
+                        source,
+                        centre: Position::from_metres(Vec3::new(
+                            plan_position.x,
+                            opening.sill_elevation_metres + height * 0.5,
+                            plan_position.y,
+                        ))?,
+                        size_metres: CuboidDimensions::from_metres(Vec3::new(
+                            0.035, height, 0.035,
+                        ))?,
+                        yaw_radians: Radians::new(
+                            -opening.frame.tangent.y.atan2(opening.frame.tangent.x),
+                        )?,
+                    })
+                };
+                admit().map_err(|cause| crate::CollisionError {
+                    source_id: source,
+                    cause,
+                })
             })
         })
         .collect()
 }
 
-pub fn compile_operable_windows(plan: &BuildingPlan) -> Vec<WindowSpec> {
+pub fn compile_operable_windows(
+    plan: &BuildingPlan,
+) -> Result<Vec<WindowSpec<Architectural>>, WindowError> {
     let solids = plan
         .resolved_geometry
         .solids
@@ -97,15 +99,25 @@ pub fn compile_operable_windows(plan: &BuildingPlan) -> Vec<WindowSpec> {
                 && opening.frame.inside_room.is_some()
                 && opening.frame.outside_room.is_none()
         })
-        .filter_map(|opening| {
-            let solid = opening.closure_solids.iter().find_map(|id| {
-                solids.get(id).copied().filter(|solid| {
-                    matches!(
-                        solid.role,
-                        SolidRole::LeadedGlazing | SolidRole::OpeningClosure
-                    )
+        .map(|opening| {
+            let solid = opening
+                .closure_solids
+                .iter()
+                .find_map(|id| {
+                    solids.get(id).copied().filter(|solid| {
+                        matches!(
+                            solid.role,
+                            SolidRole::LeadedGlazing | SolidRole::OpeningClosure
+                        )
+                    })
                 })
-            })?;
+                .ok_or_else(|| WindowError {
+                    opening: opening.id,
+                    source_id: opening.closure_solids.first().copied(),
+                    cause: WindowErrorCause::MissingClosure {
+                        sources: opening.closure_solids.clone(),
+                    },
+                })?;
             window_from_solid(
                 opening.id,
                 opening.frame.tangent,
@@ -123,38 +135,50 @@ fn window_from_solid(
     outward: Vec2,
     barred: bool,
     solid: &ResolvedSolid,
-) -> Option<WindowSpec> {
-    let tangent = tangent.normalize_or_zero();
-    let outward = outward.normalize_or_zero();
-    if tangent == Vec2::ZERO || outward == Vec2::ZERO {
-        return None;
-    }
-    let width = tangent.x.abs() * solid.size.metres().x + tangent.y.abs() * solid.size.metres().z;
-    let thickness =
-        outward.x.abs() * solid.size.metres().x + outward.y.abs() * solid.size.metres().z;
-    let hinge_centre = solid.centre.metres() - Vec3::new(tangent.x, 0.0, tangent.y) * width * 0.5;
-    let positive_swing = Quat::from_rotation_y(0.01) * Vec3::new(tangent.x, 0.0, tangent.y);
-    let enters_room = Vec2::new(positive_swing.x, positive_swing.z).dot(-outward) > 0.0;
-    Some(WindowSpec {
-        leaf: if solid.role == SolidRole::LeadedGlazing {
-            WindowLeafKind::LeadedGlass
-        } else {
-            WindowLeafKind::TimberShutter
-        },
+) -> Result<WindowSpec<Architectural>, WindowError> {
+    let admit = || -> Result<WindowSpec<Architectural>, GeometryError> {
+        let tangent_owner = PlanDirection::from_vector(tangent)?;
+        let outward_owner = PlanDirection::from_vector(outward)?;
+        let tangent = tangent_owner.vector();
+        let outward = outward_owner.vector();
+        let width =
+            tangent.x.abs() * solid.size.metres().x + tangent.y.abs() * solid.size.metres().z;
+        let thickness =
+            outward.x.abs() * solid.size.metres().x + outward.y.abs() * solid.size.metres().z;
+        let hinge_centre =
+            solid.centre.metres() - Vec3::new(tangent.x, 0.0, tangent.y) * width * 0.5;
+        let positive_swing = Quat::from_rotation_y(0.01) * Vec3::new(tangent.x, 0.0, tangent.y);
+        let enters_room = Vec2::new(positive_swing.x, positive_swing.z).dot(-outward) > 0.0;
+        Ok(WindowSpec {
+            leaf: if solid.role == SolidRole::LeadedGlazing {
+                WindowLeafKind::LeadedGlass
+            } else {
+                WindowLeafKind::TimberShutter
+            },
+            opening,
+            source: solid.id,
+            closed_centre: solid.centre,
+            hinge_centre: Position::from_metres(hinge_centre)?,
+            size_metres: LeafDimensions::from_metres(Vec3::new(
+                width,
+                solid.size.metres().y,
+                thickness.max(0.025),
+            ))?,
+            closed_yaw_radians: Radians::new(-tangent.y.atan2(tangent.x))?,
+            tangent: tangent_owner,
+            outward: outward_owner,
+            open_angle_radians: Radians::new(if enters_room {
+                CASEMENT_OPEN_ANGLE_RADIANS
+            } else {
+                -CASEMENT_OPEN_ANGLE_RADIANS
+            })?,
+            barred,
+        })
+    };
+    admit().map_err(|cause| WindowError {
         opening,
-        source: solid.id,
-        closed_centre: solid.centre.metres(),
-        hinge_centre,
-        size_metres: Vec3::new(width, solid.size.metres().y, thickness.max(0.025)),
-        closed_yaw_radians: -tangent.y.atan2(tangent.x),
-        tangent,
-        outward,
-        open_angle_radians: if enters_room {
-            CASEMENT_OPEN_ANGLE_RADIANS
-        } else {
-            -CASEMENT_OPEN_ANGLE_RADIANS
-        },
-        barred,
+        source_id: Some(solid.id),
+        cause: cause.into(),
     })
 }
 
@@ -174,7 +198,7 @@ mod tests {
                 seed,
             ))
             .expect("town house");
-            let windows = compile_operable_windows(&plan);
+            let windows = compile_operable_windows(&plan).unwrap();
             operable += windows.len();
             barred += windows.iter().filter(|window| window.barred).count();
             fixed += plan
@@ -194,10 +218,10 @@ mod tests {
     #[test]
     fn operable_windows_swing_toward_the_inside() {
         let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
-        for window in compile_operable_windows(&plan) {
-            let closed_arm = Vec3::new(window.tangent.x, 0.0, window.tangent.y);
-            let open_arm = Quat::from_rotation_y(window.open_angle_radians) * closed_arm;
-            assert!(Vec2::new(open_arm.x, open_arm.z).dot(-window.outward) > 0.0);
+        for window in compile_operable_windows(&plan).unwrap() {
+            let closed_arm = Vec3::new(window.tangent.vector().x, 0.0, window.tangent.vector().y);
+            let open_arm = Quat::from_rotation_y(window.open_angle_radians.radians()) * closed_arm;
+            assert!(Vec2::new(open_arm.x, open_arm.z).dot(-window.outward.vector()) > 0.0);
         }
     }
 }

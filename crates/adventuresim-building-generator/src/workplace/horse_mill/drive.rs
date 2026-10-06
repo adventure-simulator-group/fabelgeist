@@ -1,9 +1,14 @@
 use super::*;
+use crate::plan_geometry::ArchitecturalPlanPoint;
 use crate::spatial_geometry::{CuboidDimensions, Position, RigidRotation};
 use bevy::math::Quat;
 use std::f32::consts::{FRAC_PI_4, TAU};
 
-pub(super) fn assemble(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+pub(super) fn assemble(
+    a: &mut Assembly<'_>,
+    p: ArchitecturalPlanPoint,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     a.part(
         WorkplaceFeature::MillDrive,
         WorkplaceMaterial::DressedStone,
@@ -34,20 +39,21 @@ pub(super) fn assemble(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::Gener
         CuboidDimensions::from_metres(Vec3::new(9.6, 0.25, 0.35))?,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
-    cogwheel(a, p)?;
-    overhead_sweep(a, p)?;
+    cogwheel(a, ArchitecturalPlanPoint::from_metres(p)?)?;
+    overhead_sweep(a, ArchitecturalPlanPoint::from_metres(p)?)?;
 
     Ok(())
 }
 
-fn cogwheel(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+fn cogwheel(a: &mut Assembly<'_>, p: ArchitecturalPlanPoint) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     for spoke in 0..4 {
         oriented(
             a,
             WorkplaceFeature::MillDrive,
-            Vec3::new(p.x, 2.65, p.y),
-            Vec3::new(0.16, 0.2, 3.7),
-            Quat::from_rotation_y(spoke as f32 * FRAC_PI_4),
+            Position::<crate::Architectural>::from_metres(Vec3::new(p.x, 2.65, p.y))?,
+            CuboidDimensions::from_metres(Vec3::new(0.16, 0.2, 3.7))?,
+            RigidRotation::from_quaternion(Quat::from_rotation_y(spoke as f32 * FRAC_PI_4))?,
         )?;
     }
     let _: () = for tooth in 0..16 {
@@ -57,22 +63,26 @@ fn cogwheel(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError>
         oriented(
             a,
             WorkplaceFeature::MillDrive,
-            Vec3::new(point.x, 2.65, point.y),
-            Vec3::new(0.74, 0.24, 0.22),
-            Quat::from_rotation_y(angle),
+            Position::<crate::Architectural>::from_metres(Vec3::new(point.x, 2.65, point.y))?,
+            CuboidDimensions::from_metres(Vec3::new(0.74, 0.24, 0.22))?,
+            RigidRotation::from_quaternion(Quat::from_rotation_y(angle))?,
         )?;
         oriented(
             a,
             WorkplaceFeature::MillDrive,
-            Vec3::new(point.x, 2.39, point.y),
-            Vec3::new(0.14, 0.3, 0.14),
-            Quat::from_rotation_y(angle),
+            Position::<crate::Architectural>::from_metres(Vec3::new(point.x, 2.39, point.y))?,
+            CuboidDimensions::from_metres(Vec3::new(0.14, 0.3, 0.14))?,
+            RigidRotation::from_quaternion(Quat::from_rotation_y(angle))?,
         )?;
     };
     Ok(())
 }
 
-fn overhead_sweep(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+fn overhead_sweep(
+    a: &mut Assembly<'_>,
+    p: ArchitecturalPlanPoint,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     // The arm turns above every fixed mill component; only its unhitched draw rope descends.
     a.part(
         WorkplaceFeature::MillSweep,
@@ -113,18 +123,18 @@ fn overhead_sweep(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::Generation
 fn oriented(
     a: &mut Assembly<'_>,
     feature: WorkplaceFeature,
-    centre: Vec3,
-    size: Vec3,
-    rotation: Quat,
+    centre: Position<crate::Architectural>,
+    size: CuboidDimensions,
+    rotation: RigidRotation,
 ) -> Result<(), crate::GenerationError> {
     let id = a.part(
         feature,
         WorkplaceMaterial::UnpaintedTimber,
-        Position::<crate::Architectural>::from_metres(centre)?,
-        CuboidDimensions::from_metres(size)?,
+        centre,
+        size,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
-    a.orient_part(id, RigidRotation::from_quaternion(rotation)?)?;
+    a.orient_part(id, rotation)?;
 
     Ok(())
 }

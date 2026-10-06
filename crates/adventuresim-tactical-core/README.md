@@ -56,6 +56,18 @@ server; decoding validates its point, positive dimensions and normalized
 directions and reports the building/opening identity with the construction
 cause.
 
+`WindowSpec<Architectural>` converts only through
+`CollisionCentreDatum::window`, producing `SceneWindowPose`. Its private leaf
+and native rotation remain paired through read-only accessors, preserving the
+origin subtraction, quaternion product and translation order. Source/opening
+identities, hinge, dimensions, signed swing and barred flag survive conversion.
+Bars remain part of the static building geometry. The replicated `SceneWindow`
+carries admitted scene positions/directions and positive leaf dimensions;
+decoding applies the same leaf admission. Geometry admission errors retain the
+building and opening identity. This is the selected shared conversion handoff
+under #767, coordinated by #765. Wider physical building identity remains a
+separate #767 contract.
+
 Boundary walls and caps use ground-relative poses; gate posts use gate-relative
 poses. The member enum declares the datum before rendering or support metadata
 is produced. Consumers cannot infer it from a vector's height. Collision and

@@ -27,18 +27,45 @@ pub(super) fn service_roof(main: Vec2) -> RoofPiece {
     }
 }
 
-pub(super) fn brewery(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::GenerationError> {
-    service_frame(a, w, d)?;
+pub(super) fn brewery(
+    a: &mut Assembly<'_>,
+    dimensions: crate::spatial_geometry::PlanDimensions,
+) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
+    service_frame(a, dimensions)?;
     for z in [2.1, d * 0.5 - 0.7] {
-        vessels::vat(a, Vec2::new(w + 3.6, z), 0.95, 1.25)?;
+        vessels::vat(
+            a,
+            crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w + 3.6, z))?,
+            crate::spatial_geometry::PositiveLength::from_metres(0.95)?,
+            crate::spatial_geometry::PositiveLength::from_metres(1.25)?,
+        )?;
     }
-    vessels::vat(a, Vec2::new(2.0, 2.2), 1.05, 1.4)?;
+    vessels::vat(
+        a,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(2.0, 2.2))?,
+        crate::spatial_geometry::PositiveLength::from_metres(1.05)?,
+        crate::spatial_geometry::PositiveLength::from_metres(1.4)?,
+    )?;
     for z in [d * 0.55, d - 2.2] {
-        vessels::vat(a, Vec2::new(2.0, z), 1.05, 1.4)?;
+        vessels::vat(
+            a,
+            crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(2.0, z))?,
+            crate::spatial_geometry::PositiveLength::from_metres(1.05)?,
+            crate::spatial_geometry::PositiveLength::from_metres(1.4)?,
+        )?;
     }
-    brewing_bench(a, Vec2::new(w - 2.1, d - 3.0))?;
+    brewing_bench(
+        a,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w - 2.1, d - 3.0))?,
+    )?;
     // Broad masonry shoulders around an open firing mouth, with a continuous rear flue.
-    hearth(a, Vec2::new(w + 3.6, d - 1.65), 4.25)?;
+    hearth(
+        a,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w + 3.6, d - 1.65))?,
+        crate::spatial_geometry::Elevation::<crate::Architectural>::from_metres(4.25)?,
+    )?;
     a.passage(
         WorkplacePassagePurpose::OutdoorRoute,
         Position::<crate::Architectural>::from_metres(Vec3::new(w + 2.2, 0.05, d - 3.0))?,
@@ -48,7 +75,11 @@ pub(super) fn brewery(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate:
     Ok(())
 }
 
-fn brewing_bench(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+fn brewing_bench(
+    a: &mut Assembly<'_>,
+    p: crate::plan_geometry::ArchitecturalPlanPoint,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     for x in [-0.8, 0.8] {
         for z in [-1.2, 1.2] {
             a.part(
@@ -68,25 +99,47 @@ fn brewing_bench(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationE
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
     // A small open rinsing vessel on the working bench gives the surface a clear use.
-    let _: () = for (offset, size) in [
-        (Vec3::new(0.0, 0.0, 0.0), Vec3::new(1.3, 0.08, 1.3)),
-        (Vec3::new(-0.61, 0.2, 0.0), Vec3::new(0.08, 0.4, 1.3)),
-        (Vec3::new(0.61, 0.2, 0.0), Vec3::new(0.08, 0.4, 1.3)),
-        (Vec3::new(0.0, 0.2, -0.61), Vec3::new(1.3, 0.4, 0.08)),
-        (Vec3::new(0.0, 0.2, 0.61), Vec3::new(1.3, 0.4, 0.08)),
+    let _: () = for component in [
+        crate::workplace::components::RecipeComponent {
+            offset: crate::spatial_geometry::Displacement::from_metres(Vec3::new(0.0, 0.0, 0.0))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(1.3, 0.08, 1.3))?,
+        },
+        crate::workplace::components::RecipeComponent {
+            offset: crate::spatial_geometry::Displacement::from_metres(Vec3::new(-0.61, 0.2, 0.0))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.08, 0.4, 1.3))?,
+        },
+        crate::workplace::components::RecipeComponent {
+            offset: crate::spatial_geometry::Displacement::from_metres(Vec3::new(0.61, 0.2, 0.0))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(0.08, 0.4, 1.3))?,
+        },
+        crate::workplace::components::RecipeComponent {
+            offset: crate::spatial_geometry::Displacement::from_metres(Vec3::new(0.0, 0.2, -0.61))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(1.3, 0.4, 0.08))?,
+        },
+        crate::workplace::components::RecipeComponent {
+            offset: crate::spatial_geometry::Displacement::from_metres(Vec3::new(0.0, 0.2, 0.61))?,
+            dimensions: CuboidDimensions::from_metres(Vec3::new(1.3, 0.4, 0.08))?,
+        },
     ] {
         a.part(
             WorkplaceFeature::Trough,
             WorkplaceMaterial::UnpaintedTimber,
-            Position::<crate::Architectural>::from_metres(Vec3::new(p.x, 1.1, p.y) + offset)?,
-            CuboidDimensions::from_metres(size)?,
+            Position::<crate::Architectural>::from_metres(
+                Vec3::new(p.x, 1.1, p.y) + component.offset.metres(),
+            )?,
+            component.dimensions,
             crate::workplace::WorkplacePartVisibility::Silhouette,
         )?;
     };
     Ok(())
 }
 
-fn service_frame(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::GenerationError> {
+fn service_frame(
+    a: &mut Assembly<'_>,
+    dimensions: crate::spatial_geometry::PlanDimensions,
+) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     let front = 0.6;
     let back = d - 3.4;
     let bays = ((back - front) / 3.0).ceil() as u32;
@@ -131,7 +184,13 @@ fn service_frame(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::Gene
     Ok(())
 }
 
-fn hearth(a: &mut Assembly<'_>, p: Vec2, flue_top: f32) -> Result<(), crate::GenerationError> {
+fn hearth(
+    a: &mut Assembly<'_>,
+    p: crate::plan_geometry::ArchitecturalPlanPoint,
+    flue_top: crate::spatial_geometry::Elevation<crate::Architectural>,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
+    let flue_top = flue_top.metres();
     for x in [-0.9, 0.9] {
         a.part(
             WorkplaceFeature::Kiln,

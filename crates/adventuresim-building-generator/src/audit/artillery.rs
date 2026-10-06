@@ -445,7 +445,7 @@ fn audit_artillery_castle(
                     && (ray.origin.y - opening.sill_elevation_metres) >= 0.05
                     && (ray.origin.y - opening.sill_elevation_metres)
                         <= opening.profile.clear_height_metres() - 0.05;
-                let blocked = visibility.blocked(ray.origin, ray.target, opening.owner)?;
+                let blocked = visibility.blocked(crate::spatial_geometry::Position::from_metres(ray.origin)?, crate::spatial_geometry::Position::from_metres(ray.target)?, opening.owner)?;
                 Result::<bool>::Ok(
                     target_binding && aim_valid && origin_valid && !blocked,
                 )
@@ -558,9 +558,9 @@ fn audit_artillery_castle(
                 || surface.role == SurfaceRole::ArtilleryStance
         })
     });
-    let route_geometry_valid = crate::geometry_index::try_all(castle.route_edges.iter(), |edge| {
-        visibility.route_contract(edge, &solids, &surfaces, &voids, &route_nodes)
-    })?;
+    let route_failure = visibility.first_route_failure(
+        &castle.route_edges, &solids, &surfaces, &voids, &route_nodes,
+    )?;
     let stair_geometry_valid = castle.rondels.iter().all(|rondel| {
         rondel.stair_solids.len() >= 30
             && rondel.stair_solids.iter().all(|id| {
@@ -586,7 +586,7 @@ fn audit_artillery_castle(
     });
     if castle.route_nodes.len() < 12
         || !node_surfaces_valid
-        || !route_geometry_valid
+        || route_failure.is_some()
         || !stair_geometry_valid
         || !ramp_route_valid
         || castle.route_edges.iter().any(|edge| {
@@ -598,7 +598,7 @@ fn audit_artillery_castle(
     {
         issues.push(issue(
             "disconnected_artillery_route",
-            "artillery circulation lacks a swept gate/casemate/terreplein/ramp graph".to_owned(),
+            format!("artillery circulation lacks a swept gate/casemate/terreplein/ramp graph: {:?}", route_failure.as_ref().map(|failure| (failure.route.from, failure.route.to, &failure.outcome))),
         ));
     } else {
         let mut reached = std::collections::HashSet::from([castle.route_nodes[0].id]);

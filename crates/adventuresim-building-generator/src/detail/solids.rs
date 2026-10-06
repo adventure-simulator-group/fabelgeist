@@ -153,7 +153,7 @@ fn append_window_leaf(
         .iter()
         .find(|opening| opening.closure_solids.contains(&solid.id))
         .map_or(crate::ClosureState::Closed, |opening| opening.closure.state);
-    let _: () = for mesh in crate::compile_window_leaf(size.metres(), kind, state)? {
+    let _: () = for mesh in crate::compile_window_leaf(size, kind, state)? {
         let target = detail.mesh_mut(mesh.material);
         for indices in mesh.indices.as_chunks::<3>().0 {
             let vertices = indices.map(|index| mesh.vertices[index as usize]);

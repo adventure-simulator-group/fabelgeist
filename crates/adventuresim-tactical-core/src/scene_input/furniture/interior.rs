@@ -97,7 +97,7 @@ fn instance(
         },
         position_metres: Vec3::new(position.x, height, position.y),
         orientation: BuildingOrientation::from_radians(
-            building.placement.orientation.yaw_radians() + placement.yaw_radians(),
+            building.placement.orientation.yaw_radians() + placement.yaw_radians().radians(),
         )
         .ok_or(
             adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection,

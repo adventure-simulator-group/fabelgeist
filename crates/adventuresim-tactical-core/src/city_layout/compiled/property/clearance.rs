@@ -82,15 +82,22 @@ pub(in crate::city_layout::compiled) fn validate(
         &fixed,
         adventuresim_building_generator::spatial_geometry::Elevation::from_metres(0.0)?,
     )?;
-    if compound
-        .access
-        .iter()
-        .any(|route| !clearance.is_clear(local(route.start_metres), local(route.end_metres)))
-    {
-        return Err(CityCompileError::Compound {
-            property: compound.id,
-            issue: CompoundIssue::GateBlocksOpenPassage,
-        });
+    for route in &compound.access {
+        let start = local(route.start_metres);
+        let end = local(route.end_metres);
+        if !clearance.is_clear(
+            adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(
+                start.x, 0.0, start.y,
+            ))?,
+            adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(
+                end.x, 0.0, end.y,
+            ))?,
+        ) {
+            return Err(CityCompileError::Compound {
+                property: compound.id,
+                issue: CompoundIssue::GateBlocksOpenPassage,
+            });
+        }
     }
     Ok(())
 }
@@ -114,17 +121,24 @@ fn validate_building_routes(
             &recipe.collision.cuboids,
             adventuresim_building_generator::spatial_geometry::Elevation::from_metres(0.0)?,
         )?;
-        if compound
-            .access
-            .iter()
-            .any(|route| !clearance.is_clear(local(route.start_metres), local(route.end_metres)))
-        {
-            return Err(CityCompileError::Compound {
-                property: compound.id,
-                issue: CompoundIssue::AccessBlocked {
-                    building: placement.id,
-                },
-            });
+        for route in &compound.access {
+            let start = local(route.start_metres);
+            let end = local(route.end_metres);
+            if !clearance.is_clear(
+                adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                    Vec3::new(start.x, 0.0, start.y),
+                )?,
+                adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                    Vec3::new(end.x, 0.0, end.y),
+                )?,
+            ) {
+                return Err(CityCompileError::Compound {
+                    property: compound.id,
+                    issue: CompoundIssue::AccessBlocked {
+                        building: placement.id,
+                    },
+                });
+            }
         }
     }
     Ok(())

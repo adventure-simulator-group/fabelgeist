@@ -3,12 +3,17 @@ use crate::*;
 const INTERFACE_DEPTH_METRES: f32 = 0.004;
 const MINIMUM_CONTACT_METRES: f32 = 0.002;
 
+pub(super) struct BearingContact {
+    pub node: StructuralNodeId,
+    pub bounds: SpatialBounds<Architectural>,
+}
+
 pub(super) fn contacts(
     geometry: &ResolvedGeometry,
     members: &[TimberFrameMember],
     floor: &TimberFloorAssembly,
     bounds: SpatialBounds<Architectural>,
-) -> Result<Vec<(StructuralNodeId, SpatialBounds<Architectural>)>, crate::GenerationError> {
+) -> Result<Vec<BearingContact>, crate::GenerationError> {
     let mut contacts = Vec::new();
     for member in members
         .iter()
@@ -28,7 +33,10 @@ pub(super) fn contacts(
         }
         min.y = bounds.min().metres().y - INTERFACE_DEPTH_METRES;
         max.y = bounds.min().metres().y + INTERFACE_DEPTH_METRES;
-        contacts.push((member.start_node, SpatialBounds::from_metres(min, max)?));
+        contacts.push(BearingContact {
+            node: member.start_node,
+            bounds: SpatialBounds::from_metres(min, max)?,
+        });
     }
     Ok(contacts)
 }
@@ -41,7 +49,8 @@ pub(super) fn attach(
     slot: &mut u64,
 ) -> Result<(), crate::GenerationError> {
     piece.supported_by.clear();
-    for (node, bounds) in contacts(geometry, members, floor, piece.cuboid_bounds()?)? {
+    for contact in contacts(geometry, members, floor, piece.cuboid_bounds()?)? {
+        let BearingContact { node, bounds } = contact;
         *slot += 1;
         let id =
             ResolvedItemId((4_u64 << 60) | (u64::from(piece.owner.0) << 32) | 0x0950_0000 | *slot);
@@ -61,11 +70,15 @@ pub(super) fn attach(
     Ok(())
 }
 
-pub(super) fn valid(plan: &BuildingPlan, level: u16) -> bool {
+pub(super) fn valid(plan: &BuildingPlan, level: StoreyIndex) -> bool {
     let Some(frame) = &plan.timber_frame else {
         return false;
     };
-    let Some(floor) = frame.floors.iter().find(|f| f.level == level) else {
+    let Some(floor) = frame
+        .floors
+        .iter()
+        .find(|f| StoreyIndex::from_serialized(f.level) == level)
+    else {
         return false;
     };
     floor.floor_joist_interfaces.iter().all(|id| {

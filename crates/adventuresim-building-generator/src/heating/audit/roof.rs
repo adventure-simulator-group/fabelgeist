@@ -1,4 +1,5 @@
 use super::*;
+use crate::plan_geometry::ArchitecturalPlanPoint;
 pub(super) fn audit(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
@@ -78,11 +79,7 @@ pub(super) fn audit(
         .iter()
         .any(|t| polygon(&t.positions).intersection(&shaft).unsigned_area() > 0.00001);
     let edges_valid = edges(roof, face, h, actual_cut);
-    let high = [bounds.min().metres().x, bounds.max().metres().x]
-        .into_iter()
-        .flat_map(|x| [bounds.min().metres().z, bounds.max().metres().z].map(|z| Vec2::new(x, z)))
-        .map(|p| super::super::placement::roof_height(face, p))
-        .fold(0.0_f32, f32::max);
+    let high = highest_roof_corner(face, bounds)?.metres();
     let _: () = if !cut_valid || blocked || !edges_valid || bounds.max().metres().y < high + 0.5 {
         fail(
             issues,
@@ -228,4 +225,25 @@ fn sheet_section(
         return Ok(false);
     }
     Ok(true)
+}
+
+fn highest_roof_corner(
+    face: &RoofFace,
+    bounds: SpatialBounds<Architectural>,
+) -> Result<crate::spatial_geometry::Elevation<Architectural>, crate::GenerationError> {
+    let high = [bounds.min().metres().x, bounds.max().metres().x]
+        .into_iter()
+        .flat_map(|x| [bounds.min().metres().z, bounds.max().metres().z].map(|z| Vec2::new(x, z)))
+        .try_fold(0.0_f32, |high, p| {
+            Ok::<_, crate::GenerationError>(
+                high.max(
+                    super::super::placement::roof_height(
+                        face,
+                        ArchitecturalPlanPoint::from_metres(p)?,
+                    )?
+                    .metres(),
+                ),
+            )
+        })?;
+    Ok(crate::spatial_geometry::Elevation::from_metres(high)?)
 }

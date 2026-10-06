@@ -1,5 +1,6 @@
 use super::*;
-use crate::spatial_geometry::{CuboidDimensions, Position};
+use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::{CuboidDimensions, PlanDimensions, Position};
 
 const STACK_BAY_LENGTH_METRES: f32 = 4.5;
 const PLANK_THICKNESS_METRES: f32 = 0.12;
@@ -8,29 +9,53 @@ const MAX_RACK_SUPPORT_SPAN_METRES: f32 = 3.0;
 
 pub(super) fn timber_yard(
     a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
+    dimensions: PlanDimensions,
 ) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
     let bays = ((d - 3.0) / STACK_BAY_LENGTH_METRES) as u32;
     for x in [2.1, w - 2.1] {
         for bay in 0..bays {
             let z = 0.8 + STACK_BAY_LENGTH_METRES * (bay as f32 + 0.5);
-            timber_stack(a, Vec2::new(x, z), 2.8, 3.8, 5 + bay % 3)?;
+            timber_stack(
+                a,
+                ArchitecturalPlanPoint::from_metres(Vec2::new(x, z))?,
+                PlanDimensions::from_metres(Vec2::new(2.8, 3.8))?,
+                5 + bay % 3,
+            )?;
         }
     }
     // Cross-cutting trestles occupy a rear side bay, never the long handling lane.
-    saw_bench(a, Vec2::new(2.1, d - 1.25), Vec2::new(2.7, 1.0))?;
+    saw_bench(
+        a,
+        ArchitecturalPlanPoint::from_metres(Vec2::new(2.1, d - 1.25))?,
+        PlanDimensions::from_metres(Vec2::new(2.7, 1.0))?,
+    )?;
 
     Ok(())
 }
 
-pub(super) fn joinery(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::GenerationError> {
-    workpiece_on_trestles(a, Vec2::new(1.7, 2.2))?;
+pub(super) fn joinery(
+    a: &mut Assembly<'_>,
+    dimensions: PlanDimensions,
+) -> Result<(), crate::GenerationError> {
+    let w = dimensions.metres().x;
+    let d = dimensions.metres().y;
+    workpiece_on_trestles(a, ArchitecturalPlanPoint::from_metres(Vec2::new(1.7, 2.2))?)?;
     for x in [1.7, w - 1.7] {
         if x > w * 0.5 {
-            saw_bench(a, Vec2::new(x, 2.0), Vec2::new(2.2, 2.8))?;
+            saw_bench(
+                a,
+                ArchitecturalPlanPoint::from_metres(Vec2::new(x, 2.0))?,
+                PlanDimensions::from_metres(Vec2::new(2.2, 2.8))?,
+            )?;
         }
-        timber_stack(a, Vec2::new(x, d - 2.7), 2.2, 3.5, 4)?;
+        timber_stack(
+            a,
+            ArchitecturalPlanPoint::from_metres(Vec2::new(x, d - 2.7))?,
+            PlanDimensions::from_metres(Vec2::new(2.2, 3.5))?,
+            4,
+        )?;
     }
     // Wide shallow shelves on grounded standards hold shorter joinery stock.
     let rack_bays = ((d - 7.0) / MAX_RACK_SUPPORT_SPAN_METRES).ceil() as u32;
@@ -64,7 +89,11 @@ pub(super) fn joinery(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate:
     Ok(())
 }
 
-fn workpiece_on_trestles(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+fn workpiece_on_trestles(
+    a: &mut Assembly<'_>,
+    p: ArchitecturalPlanPoint,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     // A long squared beam is raised across two separate trestles for marking and joinery.
     for z in [-1.1, 1.1] {
         for x in [-0.65, 0.65] {
@@ -97,11 +126,13 @@ fn workpiece_on_trestles(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::Gen
 
 fn timber_stack(
     a: &mut Assembly<'_>,
-    p: Vec2,
-    width: f32,
-    length: f32,
+    p: ArchitecturalPlanPoint,
+    dimensions: PlanDimensions,
     tiers: u32,
 ) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
+    let width = dimensions.metres().x;
+    let length = dimensions.metres().y;
     for z in [-0.35, 0.35] {
         a.part(
             WorkplaceFeature::TimberStack,
@@ -150,7 +181,13 @@ fn timber_stack(
     Ok(())
 }
 
-fn saw_bench(a: &mut Assembly<'_>, p: Vec2, size: Vec2) -> Result<(), crate::GenerationError> {
+fn saw_bench(
+    a: &mut Assembly<'_>,
+    p: ArchitecturalPlanPoint,
+    size: PlanDimensions,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
+    let size = size.metres();
     for x in [-0.35, 0.35] {
         for z in [-0.35, 0.35] {
             a.part(

@@ -1,5 +1,7 @@
 //! Missing physical authorities are construction failures with their source identity.
-use crate::{HeatingPartKind, ResolvedItemId, RoofAssemblyId, StoreyIndex, WallAssemblyId};
+use crate::{
+    HeatingPartKind, ResolvedItemId, RoofAssemblyId, RoomIndex, StoreyIndex, WallAssemblyId,
+};
 
 #[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]
 pub enum HeatingConstructionError {
@@ -11,6 +13,17 @@ pub enum HeatingConstructionError {
     MissingVoid { void: ResolvedItemId },
     #[error("heating wall {wall:?} is absent")]
     MissingWall { wall: WallAssemblyId },
+    #[error("heating wall {wall:?} refers to absent storey {storey}")]
+    MissingStorey {
+        wall: WallAssemblyId,
+        storey: StoreyIndex,
+    },
+    #[error("heating wall {wall:?} refers to absent room {room} on storey {storey}")]
+    MissingRoom {
+        wall: WallAssemblyId,
+        storey: StoreyIndex,
+        room: RoomIndex,
+    },
     #[error("heating roof face {face:?} is absent")]
     MissingFace { face: ResolvedItemId },
     #[error("heating roof {roof:?} is absent")]

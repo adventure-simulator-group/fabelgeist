@@ -12,12 +12,16 @@ const CAME_WIDTH_METRES: f32 = 0.008;
 const CAME_DEPTH_METRES: f32 = 0.006;
 const LATCH_SIZE_METRES: Vec3 = Vec3::new(0.06, 0.012, 0.012);
 
-/// Centered on the closed leaf, matching the replicated collider dimensions.
+/// Compiles mesh parts around the closed leaf centre. `size` describes the leaf
+/// body; cames, straps and catches may extend beyond its collider dimensions.
+/// Fixed glazing permits degenerate cuboid dimensions. Operable callers supply
+/// the cuboid representation of admitted positive `LeafDimensions`.
 pub fn compile_window_leaf(
-    size: Vec3,
+    size: crate::spatial_geometry::CuboidDimensions,
     kind: WindowLeafKind,
     state: ClosureState,
 ) -> Result<Vec<LodMesh>, crate::CollisionError> {
+    let size = size.metres();
     let mut builder = Builder::default();
     if kind == WindowLeafKind::TimberShutter {
         let boards = (size.x / PANE_PITCH_METRES).ceil() as usize;
@@ -108,7 +112,8 @@ mod tests {
     #[test]
     fn fixed_leaded_lights_have_cames_but_only_operable_leaves_have_catches() {
         let fixed = compile_window_leaf(
-            Vec3::new(0.8, 1.2, 0.025),
+            crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(0.8, 1.2, 0.025))
+                .unwrap(),
             WindowLeafKind::LeadedGlass,
             ClosureState::Closed,
         )
@@ -124,7 +129,8 @@ mod tests {
                 .any(|mesh| mesh.material == BuildingLodMaterial::Iron)
         );
         let operable = compile_window_leaf(
-            Vec3::new(0.8, 1.2, 0.025),
+            crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(0.8, 1.2, 0.025))
+                .unwrap(),
             WindowLeafKind::TimberShutter,
             ClosureState::Operable,
         )

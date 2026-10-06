@@ -44,12 +44,12 @@ pub struct InteriorPlacement {
     pub facing: Direction,
 }
 impl InteriorPlacement {
-    pub fn yaw_radians(&self) -> f32 {
+    pub fn yaw_radians(&self) -> crate::spatial_geometry::Radians {
         match self.facing {
-            Direction::South => 0.0,
-            Direction::East => -std::f32::consts::FRAC_PI_2,
-            Direction::North => std::f32::consts::PI,
-            Direction::West => std::f32::consts::FRAC_PI_2,
+            Direction::South => crate::spatial_geometry::Radians::ZERO,
+            Direction::East => crate::spatial_geometry::Radians::NEGATIVE_QUARTER_TURN,
+            Direction::North => crate::spatial_geometry::Radians::HALF_TURN,
+            Direction::West => crate::spatial_geometry::Radians::QUARTER_TURN,
         }
     }
 }
@@ -86,6 +86,11 @@ pub enum InteriorLayoutError {
     Ordinal(#[from] crate::OrdinalError),
     #[error("room {room} on storey {storey} is absent")]
     MissingRoom {
+        storey: crate::StoreyIndex,
+        room: crate::RoomIndex,
+    },
+    #[error("room {room} on storey {storey} has no required cell geometry")]
+    EmptyRoomGeometry {
         storey: crate::StoreyIndex,
         room: crate::RoomIndex,
     },

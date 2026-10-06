@@ -1,12 +1,16 @@
 use super::*;
-use crate::spatial_geometry::{CuboidDimensions, Position, RigidRotation};
+use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::{
+    CuboidDimensions, Elevation, Position, PositiveLength, RigidRotation,
+};
 use bevy::math::Quat;
 use std::f32::consts::TAU;
 
 pub(super) fn stone_and_hopper(
     a: &mut Assembly<'_>,
-    p: Vec2,
+    p: ArchitecturalPlanPoint,
 ) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     a.part(
         WorkplaceFeature::Millstone,
         WorkplaceMaterial::DressedStone,
@@ -14,8 +18,18 @@ pub(super) fn stone_and_hopper(
         CuboidDimensions::from_metres(Vec3::new(1.65, 0.5, 1.65))?,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
-    stone_disc(a, p, 0.63, 0.26)?;
-    stone_disc(a, p, 0.89, 0.26)?;
+    stone_disc(
+        a,
+        ArchitecturalPlanPoint::from_metres(p)?,
+        Elevation::<crate::Architectural>::from_metres(0.63)?,
+        PositiveLength::from_metres(0.26)?,
+    )?;
+    stone_disc(
+        a,
+        ArchitecturalPlanPoint::from_metres(p)?,
+        Elevation::<crate::Architectural>::from_metres(0.89)?,
+        PositiveLength::from_metres(0.26)?,
+    )?;
     // One aligned driven spindle joins the lantern pinion to the upper runner stone.
     a.part(
         WorkplaceFeature::MillDrive,
@@ -48,7 +62,10 @@ pub(super) fn stone_and_hopper(
             crate::workplace::WorkplacePartVisibility::Silhouette,
         )?;
     }
-    hopper(a, p + Vec2::new(0.0, -1.2))?;
+    hopper(
+        a,
+        ArchitecturalPlanPoint::from_metres(p + Vec2::new(0.0, -1.2))?,
+    )?;
     a.part(
         WorkplaceFeature::Hopper,
         WorkplaceMaterial::UnpaintedTimber,
@@ -81,10 +98,13 @@ pub(super) fn stone_and_hopper(
 
 fn stone_disc(
     a: &mut Assembly<'_>,
-    p: Vec2,
-    y: f32,
-    height: f32,
+    p: ArchitecturalPlanPoint,
+    y: Elevation<crate::Architectural>,
+    height: PositiveLength,
 ) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
+    let y = y.metres();
+    let height = height.metres();
     // Grinding surfaces are a single stone, not wall masonry with mortar joints.
     let _: () = for slice in 0..9 {
         let z = (slice as f32 - 4.0) * 0.15;
@@ -100,7 +120,8 @@ fn stone_disc(
     Ok(())
 }
 
-fn hopper(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+fn hopper(a: &mut Assembly<'_>, p: ArchitecturalPlanPoint) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     for x in [-0.48, 0.48] {
         for z in [-0.32, 0.32] {
             a.part(
@@ -150,7 +171,11 @@ fn hopper(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
     Ok(())
 }
 
-pub(super) fn grain_bin(a: &mut Assembly<'_>, p: Vec2) -> Result<(), crate::GenerationError> {
+pub(super) fn grain_bin(
+    a: &mut Assembly<'_>,
+    p: ArchitecturalPlanPoint,
+) -> Result<(), crate::GenerationError> {
+    let p = p.metres();
     a.part(
         WorkplaceFeature::StorageBin,
         WorkplaceMaterial::UnpaintedTimber,

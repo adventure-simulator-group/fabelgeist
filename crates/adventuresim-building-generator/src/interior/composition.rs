@@ -3,7 +3,8 @@ use super::InteriorPlacement;
 use super::geometry::local_rotate;
 use crate::Direction;
 use crate::furniture::{FurnitureKey, FurnitureKind, InteriorFurnitureSpec};
-use bevy::math::Vec2;
+use crate::spatial_geometry::Displacement;
+use bevy::math::{Vec2, Vec3, Vec3Swizzles};
 
 const TABLE_SEATING_GAP_METRES: f32 = 0.4;
 const DESK_APPROACH_MARGIN_METRES: f32 = 0.05;
@@ -26,7 +27,12 @@ pub(super) fn compose(
                     key,
                     centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(
                         primary.centre_metres.metres()
-                            + local_rotate(offset, primary.yaw_radians()),
+                            + local_rotate(
+                                Displacement::from_metres(Vec3::new(offset.x, 0.0, offset.y))?,
+                                primary.yaw_radians(),
+                            )?
+                            .metres()
+                            .xz(),
                     )?,
                     facing: if sign < 0.0 {
                         primary.facing
@@ -50,7 +56,13 @@ pub(super) fn compose(
             group.push(InteriorPlacement {
                 key,
                 centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(
-                    primary.centre_metres.metres() + local_rotate(offset, primary.yaw_radians()),
+                    primary.centre_metres.metres()
+                        + local_rotate(
+                            Displacement::from_metres(Vec3::new(offset.x, 0.0, offset.y))?,
+                            primary.yaw_radians(),
+                        )?
+                        .metres()
+                        .xz(),
                 )?,
                 facing: primary.facing.opposite(),
                 ..primary.clone()
@@ -71,9 +83,15 @@ pub(super) fn compose(
                     centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(
                         primary.centre_metres.metres()
                             + local_rotate(
-                                Vec2::new((index as f32 - 1.0) * size.x, 0.0),
+                                Displacement::from_metres(Vec3::new(
+                                    (index as f32 - 1.0) * size.x,
+                                    0.0,
+                                    0.0,
+                                ))?,
                                 primary.yaw_radians(),
-                            ),
+                            )?
+                            .metres()
+                            .xz(),
                     )?,
                     ..primary.clone()
                 });

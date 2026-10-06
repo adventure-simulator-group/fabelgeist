@@ -1,24 +1,39 @@
 //! Sampled rigid bell sweeps against nearby collision solids and actual roof faces.
 use super::*;
+use crate::spatial_geometry::Radians;
 use bell_hanging::moving;
 use std::result::Result;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) enum BellSwingAssessment {
+    Clear,
+    MissingAxle {
+        bell: ResolvedItemId,
+    },
+    Blocked {
+        bell: ResolvedItemId,
+        source: ResolvedItemId,
+    },
+}
 
 const CONTACT_TOLERANCE_METRES: f32 = 0.001;
 const SWING_HALF_STEPS: i32 = 30;
 type Triangle = [Vec3; 3];
 
+// Mesh triangles stay native inside the sampled rigid sweep kernel. Fixed
+// cuboids and roof triangles retain their source IDs for obstruction reports.
 pub(super) fn is_clear(
     plan: &BuildingPlan,
     bell: &ResolvedSolid,
-    limit: f32,
-) -> Result<bool, crate::GenerationError> {
+    limit: Radians,
+) -> Result<BellSwingAssessment, crate::GenerationError> {
     let Some(axle) = plan
         .resolved_geometry
         .solids
         .iter()
         .find(|part| part.owner == bell.owner && part.role == SolidRole::ChurchBellAxle)
     else {
-        return Ok(false);
+        return Ok(BellSwingAssessment::MissingAxle { bell: bell.id });
     };
     let pivot = Vec3::new(
         bell.centre.metres().x,
@@ -58,44 +73,40 @@ pub(super) fn is_clear(
                 part.longfall_radians.radians(),
             );
             (
+                part.source,
                 part.centre.metres(),
                 rotation.inverse(),
                 part.size.metres() * 0.5 - Vec3::splat(CONTACT_TOLERANCE_METRES),
             )
         })
         .collect::<Vec<_>>();
-    let roofs =
-        plan.roof_assemblies
-            .iter()
-            .flat_map(|roof| {
-                roof.faces
-                    .iter()
-                    .flat_map(crate::tessellate_roof_face)
-                    .chain(roof.enclosure_faces.iter().flat_map(|face| {
-                        crate::tessellate_roof_enclosure(face, &plan.wall_assemblies)
-                    }))
-            })
-            .map(|triangle| triangle.positions)
-            .filter(|triangle| {
-                let (min, max) = bounds(*triangle);
-                pivot.clamp(min, max).distance_squared(pivot) <= radius_squared
-            })
-            .collect::<Vec<_>>();
+    let roofs = nearby_roof_triangles(plan, pivot, radius_squared);
     for step in -SWING_HALF_STEPS..=SWING_HALF_STEPS {
-        let rotation = Quat::from_rotation_x(limit * step as f32 / SWING_HALF_STEPS as f32);
+        let rotation =
+            Quat::from_rotation_x(limit.radians() * step as f32 / SWING_HALF_STEPS as f32);
         for triangle in &moving_triangles {
             let triangle = triangle.map(|p| pivot + rotation * (p - pivot));
-            if fixed.iter().any(|&(centre, inverse, half)| {
-                triangle_box(triangle.map(|p| inverse * (p - centre)), half)
-            }) || roofs
+            let source = fixed
                 .iter()
-                .any(|roof| triangles_intersect(triangle, *roof))
-            {
-                return Ok(false);
+                .find(|&&(_, centre, inverse, half)| {
+                    triangle_box(triangle.map(|p| inverse * (p - centre)), half)
+                })
+                .map(|entry| entry.0)
+                .or_else(|| {
+                    roofs
+                        .iter()
+                        .find(|(_, roof)| triangles_intersect(triangle, *roof))
+                        .map(|entry| entry.0)
+                });
+            if let Some(source) = source {
+                return Ok(BellSwingAssessment::Blocked {
+                    bell: bell.id,
+                    source,
+                });
             }
         }
     }
-    Ok(true)
+    Ok(BellSwingAssessment::Clear)
 }
 
 fn moving_mesh_triangles(
@@ -194,9 +205,61 @@ fn triangles_intersect(left: Triangle, right: Triangle) -> bool {
         })
 }
 
+fn nearby_roof_triangles(
+    plan: &BuildingPlan,
+    pivot: Vec3,
+    radius_squared: f32,
+) -> Vec<(crate::ResolvedItemId, Triangle)> {
+    let mut roofs = Vec::new();
+    for roof in &plan.roof_assemblies {
+        for face in &roof.faces {
+            roofs.extend(
+                crate::tessellate_roof_face(face)
+                    .into_iter()
+                    .map(|triangle| (face.id, triangle.positions)),
+            );
+        }
+        for face in &roof.enclosure_faces {
+            roofs.extend(
+                crate::tessellate_roof_enclosure(face, &plan.wall_assemblies)
+                    .into_iter()
+                    .map(|triangle| (face.id, triangle.positions)),
+            );
+        }
+    }
+    roofs.retain(|(_, triangle)| {
+        let (min, max) = bounds(*triangle);
+        pivot.clamp(min, max).distance_squared(pivot) <= radius_squared
+    });
+    roofs
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn missing_axle_reports_the_bell_identity() {
+        let mut plan = crate::generate(&crate::BuildingProgram::fixture(
+            BuildingArchetype::ParishChurch,
+            42,
+        ))
+        .unwrap();
+        let bell = plan
+            .resolved_geometry
+            .solids
+            .iter()
+            .find(|solid| solid.role == SolidRole::ChurchBell)
+            .unwrap()
+            .clone();
+        plan.resolved_geometry
+            .solids
+            .retain(|solid| solid.owner != bell.owner || solid.role != SolidRole::ChurchBellAxle);
+        assert_eq!(
+            is_clear(&plan, &bell, Radians::QUARTER_TURN).unwrap(),
+            BellSwingAssessment::MissingAxle { bell: bell.id }
+        );
+    }
 
     #[test]
     fn narrow_rotated_foreign_beam_blocks_bell_sweep() {
@@ -229,7 +292,9 @@ mod tests {
                 crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
         };
         plan.resolved_geometry.solids.push(obstruction);
-        assert!(!is_clear(&plan, &bell, std::f32::consts::FRAC_PI_6).unwrap());
+        assert!(
+            matches!(is_clear(&plan, &bell, Radians::new(std::f32::consts::FRAC_PI_6).unwrap()).unwrap(), BellSwingAssessment::Blocked { bell: id, source } if id == bell.id && source == ResolvedItemId(u64::MAX))
+        );
     }
 
     #[test]

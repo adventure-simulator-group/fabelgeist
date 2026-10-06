@@ -274,7 +274,7 @@ fn cached_building_levels(
     };
     let mut compiled = CompiledBuildingLevels {
         facade_openings: if detail == BuildingDetail::Dynamic {
-            plan.facade_dynamic_openings()
+            plan.facade_dynamic_openings()?
         } else {
             Default::default()
         },

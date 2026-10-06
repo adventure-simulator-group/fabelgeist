@@ -9,7 +9,9 @@ pub(super) struct ReviewView {
     pub(super) slug: String,
     building: u64,
     target: ReviewTarget,
-    /// Camera displacement from the target, in building-local metres.
+    /// Camera displacement from the target, in metres. Gable, opening and heating
+    /// targets use their target's local X/Z axes; other targets use architectural
+    /// axes. Y is vertical in either case.
     offset: Displacement<Architectural>,
     #[serde(default)]
     pub(super) openings: super::openings::OpeningPose,
@@ -142,13 +144,17 @@ impl ReviewView {
                     .mounting
                     .contact
             }
-            ReviewTarget::Window => {
-                compile_operable_windows(&building.plan)
-                    .into_iter()
-                    .min_by(|a, b| a.closed_centre.z.total_cmp(&b.closed_centre.z))
-                    .ok_or("review operable window is absent")?
-                    .closed_centre
-            }
+            ReviewTarget::Window => compile_operable_windows(&building.plan)?
+                .into_iter()
+                .min_by(|a, b| {
+                    a.closed_centre
+                        .metres()
+                        .z
+                        .total_cmp(&b.closed_centre.metres().z)
+                })
+                .ok_or("review operable window is absent")?
+                .closed_centre
+                .metres(),
             ReviewTarget::Exterior => bounds.centre()?.metres(),
             ReviewTarget::Interior => {
                 let passage = building

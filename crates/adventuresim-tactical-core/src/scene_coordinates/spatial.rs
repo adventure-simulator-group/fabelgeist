@@ -75,7 +75,7 @@ impl ArchitecturalFloorDatum {
 pub struct CollisionCentreDatum {
     origin: Position<Architectural>,
     centre: Position<Scene>,
-    orientation: BuildingOrientation,
+    pub(super) orientation: BuildingOrientation,
 }
 impl CollisionCentreDatum {
     pub fn new(

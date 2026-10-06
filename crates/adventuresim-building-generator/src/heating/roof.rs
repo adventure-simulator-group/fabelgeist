@@ -1,5 +1,6 @@
 //! A weather-face penetration cut through both roof skins and sealed with sheet lead.
 use super::{assembly::Assembly, placement::roof_height};
+use crate::plan_geometry::ArchitecturalPlanPoint;
 use crate::*;
 use bevy::math::{Mat3, Quat, Vec2, Vec3};
 const WEATHER_OVERLAP_METRES: f32 = 0.06;
@@ -10,13 +11,17 @@ const LEAD_THICKNESS_METRES: f32 = 0.006;
 pub(in crate::heating) const PAN_FALL_ADJUSTMENT: f32 = 0.04;
 
 pub(super) struct PenetrationFootprint {
-    pub cut_min: Vec2,
-    pub cut_max: Vec2,
-    pub weather_min: Vec2,
-    pub weather_max: Vec2,
+    pub cut: SpatialBounds<Architectural>,
+    pub weather: SpatialBounds<Architectural>,
 }
 impl PenetrationFootprint {
-    pub fn new(face: &RoofFace, centre: Vec2) -> Self {
+    /// Normal translation and clearance remain a native set-out kernel. Its
+    /// products are admitted before crossing the roof-selection handoff.
+    pub fn new(
+        face: &RoofFace,
+        centre: ArchitecturalPlanPoint,
+    ) -> Result<Self, crate::GenerationError> {
+        let centre = centre.metres();
         let half = Vec2::splat(super::placement::SHAFT_HALF_WIDTH_METRES);
         let normal = face.plane.normal.normalize();
         let translation = Vec2::new(normal.x, normal.z) * face.thickness_metres;
@@ -26,12 +31,13 @@ impl PenetrationFootprint {
             (centre + half).max(centre + half + translation) + Vec2::splat(CUT_CLEARANCE_METRES);
         let overlap = Vec2::splat(WEATHER_OVERLAP_METRES)
             + Vec2::new(normal.x, normal.z).abs() * LEAD_THICKNESS_METRES * 1.5;
-        Self {
-            cut_min,
-            cut_max,
-            weather_min: cut_min - overlap,
-            weather_max: cut_max + overlap,
-        }
+        let bounds = |min: Vec2, max: Vec2| {
+            SpatialBounds::from_metres(Vec3::new(min.x, 0.0, min.y), Vec3::new(max.x, 0.0, max.y))
+        };
+        Ok(Self {
+            cut: bounds(cut_min, cut_max)?,
+            weather: bounds(cut_min - overlap, cut_max + overlap)?,
+        })
     }
 }
 
@@ -51,17 +57,33 @@ pub(super) fn penetrate(
         .ok_or(HeatingConstructionError::MissingFace {
             face: a.plan.roof.face,
         })?;
-    let shaft = a.placement.shaft_section()?;
+    let shaft = a.placement.site.shaft_section()?;
     let inner_min = Vec2::new(shaft.min().metres().x, shaft.min().metres().z);
     let inner_max = Vec2::new(shaft.max().metres().x, shaft.max().metres().z);
     // The inward skin is translated along the normal. Include that translation
     // in the weather cut, so its entire extruded hole clears the vertical shaft.
-    let footprint = PenetrationFootprint::new(face, (inner_min + inner_max) * 0.5);
-    let min = footprint.cut_min;
-    let max = footprint.cut_max;
+    let footprint = PenetrationFootprint::new(
+        face,
+        ArchitecturalPlanPoint::from_metres((inner_min + inner_max) * 0.5)?,
+    )?;
+    let min = Vec2::new(
+        footprint.cut.min().metres().x,
+        footprint.cut.min().metres().z,
+    );
+    let max = Vec2::new(
+        footprint.cut.max().metres().x,
+        footprint.cut.max().metres().z,
+    );
     let mut contour = [min, Vec2::new(min.x, max.y), max, Vec2::new(max.x, min.y)]
-        .map(|p| Vec3::new(p.x, roof_height(face, p), p.y))
-        .to_vec();
+        .into_iter()
+        .map(|p| {
+            Ok(Vec3::new(
+                p.x,
+                roof_height(face, ArchitecturalPlanPoint::from_metres(p)?)?.metres(),
+                p.y,
+            ))
+        })
+        .collect::<Result<Vec<_>, crate::GenerationError>>()?;
     let area = |p: &[Vec3]| {
         p.iter()
             .zip(p.iter().cycle().skip(1))
@@ -94,7 +116,13 @@ pub(super) fn penetrate(
         } else {
             lower.y = inner_max.y - WEATHER_OVERLAP_METRES;
         }
-        let flashing = sheet(a, face, lower, upper, (inner_min + inner_max) * 0.5)?;
+        let flashing = sheet(
+            a,
+            face,
+            ArchitecturalPlanPoint::from_metres(lower)?,
+            ArchitecturalPlanPoint::from_metres(upper)?,
+            ArchitecturalPlanPoint::from_metres((inner_min + inner_max) * 0.5)?,
+        )?;
         roof.edges.push(RoofEdge {
             id: edge,
             start,
@@ -107,17 +135,20 @@ pub(super) fn penetrate(
         a.plan.roof.edges.push(edge);
         a.plan.roof.flashing.push(flashing);
     }
-    super::weathering::build(a, face, inner_min, inner_max)?;
+    super::weathering::build(a, face, shaft)?;
 
     Ok(())
 }
 fn sheet(
     a: &mut Assembly<'_>,
     face: &RoofFace,
-    min: Vec2,
-    max: Vec2,
-    shaft_centre: Vec2,
+    min: ArchitecturalPlanPoint,
+    max: ArchitecturalPlanPoint,
+    shaft_centre: ArchitecturalPlanPoint,
 ) -> Result<ResolvedItemId, crate::GenerationError> {
+    let min = min.metres();
+    let max = max.metres();
+    let shaft_centre = shaft_centre.metres();
     let roof_normal = face.plane.normal.normalize();
     let downhill = Vec3::new(roof_normal.x, 0.0, roof_normal.z).normalize();
     let normal = (roof_normal - downhill * roof_normal.y * PAN_FALL_ADJUSTMENT).normalize();
@@ -134,7 +165,8 @@ fn sheet(
         * PAN_FALL_ADJUSTMENT;
     let centre = Vec3::new(
         plan_centre.x,
-        roof_height(face, plan_centre) + height_adjustment,
+        roof_height(face, ArchitecturalPlanPoint::from_metres(plan_centre)?)?.metres()
+            + height_adjustment,
         plan_centre.y,
     );
     let size = Vec3::new(
@@ -145,9 +177,9 @@ fn sheet(
     a.oriented_part(
         HeatingPartKind::RoofFlashing,
         BuildingLodMaterial::LeadAlloy,
-        centre,
-        size,
-        rotation,
+        crate::spatial_geometry::Position::from_metres(centre)?,
+        crate::spatial_geometry::CuboidDimensions::from_metres(size)?,
+        crate::spatial_geometry::RigidRotation::from_quaternion(rotation)?,
     )
 }
 

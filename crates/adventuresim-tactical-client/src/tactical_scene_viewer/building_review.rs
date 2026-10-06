@@ -85,7 +85,9 @@ impl ReviewRequirements {
                 .sum(),
             windows: buildings
                 .iter()
-                .map(|b| compile_operable_windows(&b.plan).len())
+                .map(|b| compile_operable_windows(&b.plan).map(|windows| windows.len()))
+                .collect::<std::result::Result<Vec<_>, _>>()?
+                .into_iter()
                 .sum(),
             signs: BTreeMap::new(),
             output: output.to_owned(),

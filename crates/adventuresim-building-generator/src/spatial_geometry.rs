@@ -1,8 +1,9 @@
 //! Metre geometry keeps its coordinate frame and arithmetic role at API boundaries.
 //!
 //! Native vectors belong to the arithmetic inside these owners and to explicit
-//! mesh, serialization and framework adapters. Admission never uses a proximity
-//! tolerance: finite signed coordinates and zero displacement remain valid.
+//! mesh, serialization and framework adapters. Coordinate and displacement
+//! admission requires finite values and permits signed coordinates and zero
+//! displacement. Direction and rotation admission also checks normalization.
 
 mod bounds;
 mod clearance;
@@ -11,6 +12,8 @@ mod coordinates;
 mod dimensions;
 mod error;
 mod length;
+mod measurement;
+pub use measurement::{Area, SignedLength};
 mod orientation;
 pub use length::PositiveLength;
 

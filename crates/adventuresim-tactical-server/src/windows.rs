@@ -1,8 +1,6 @@
 //! Authoritative interaction and constrained motion for building casements.
 
-use adventuresim_building_generator::{
-    BuildingCollision, BuildingPlan, WindowSpec, compile_operable_windows,
-};
+use adventuresim_building_generator::{BuildingCollision, BuildingPlan, compile_operable_windows};
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
 use bevy::{ecs::system::SystemParam, prelude::*};
@@ -45,10 +43,10 @@ impl WindowGrabber<'_, '_> {
         };
         if !can_grab_window_from_inside(
             actor_transform.translation,
-            window.opening_centre_metres,
-            window.tangent,
-            window.outward,
-            window.size_metres.x * 0.5,
+            window.opening_centre_metres.metres(),
+            window.tangent.vector(),
+            window.outward.vector(),
+            window.size_metres.metres().x * 0.5,
         ) {
             return false;
         }
@@ -72,15 +70,15 @@ pub(crate) fn spawn_building_windows(
     plan: &BuildingPlan,
     collision: &BuildingCollision,
 ) -> Result {
-    let collision_origin = collision.bounds.centre()?.metres();
-    for window in compile_operable_windows(plan) {
-        spawn_window(
-            commands,
-            building,
-            building_transform,
-            collision_origin,
-            window,
-        );
+    use adventuresim_building_generator::spatial_geometry::Position as GeometryPosition;
+    use adventuresim_tactical_core::scene_coordinates::{CollisionCentreDatum, Scene};
+    let datum = CollisionCentreDatum::new(
+        collision.bounds.centre()?,
+        GeometryPosition::<Scene>::from_metres(building_transform.translation)?,
+        building.orientation,
+    )?;
+    for window in compile_operable_windows(plan)? {
+        spawn_window(commands, building, datum.window(window)?);
     }
     Ok(())
 }
@@ -88,16 +86,14 @@ pub(crate) fn spawn_building_windows(
 fn spawn_window(
     commands: &mut Commands,
     building: &SceneBuilding,
-    building_transform: &Transform,
-    collision_origin: Vec3,
-    window: WindowSpec,
+    pose: adventuresim_tactical_core::scene_coordinates::SceneWindowPose,
 ) {
-    let closed_centre = building_transform.transform_point(window.closed_centre - collision_origin);
-    let hinge_centre = building_transform.transform_point(window.hinge_centre - collision_origin);
-    let closed_rotation =
-        building_transform.rotation * Quat::from_rotation_y(window.closed_yaw_radians);
-    let tangent = building_transform.rotation * Vec3::new(window.tangent.x, 0.0, window.tangent.y);
-    let outward = building_transform.rotation * Vec3::new(window.outward.x, 0.0, window.outward.y);
+    let window = pose.leaf();
+    let closed_centre = window.closed_centre.metres();
+    let hinge_centre = window.hinge_centre.metres();
+    let closed_rotation = pose.native_rotation();
+    let tangent = window.tangent.spatial();
+    let outward = window.outward.spatial();
     commands.spawn((
         Name::new(format!(
             "Building {} window {} casement",
@@ -109,23 +105,23 @@ fn spawn_window(
             building_id: building.id,
             opening_id: window.opening.0,
             size_metres: window.size_metres,
-            opening_centre_metres: closed_centre,
+            opening_centre_metres: window.closed_centre,
             tangent,
             outward,
             barred: window.barred,
         },
         RigidBody::Kinematic,
         Collider::cuboid(
-            window.size_metres.x,
-            window.size_metres.y,
-            window.size_metres.z,
+            window.size_metres.metres().x,
+            window.size_metres.metres().y,
+            window.size_metres.metres().z,
         ),
         CollisionLayers::new(TACTICAL_WINDOW_LAYER, LayerMask::DEFAULT),
         Transform::from_translation(closed_centre).with_rotation(closed_rotation),
         WindowController {
             hinge_centre,
             closed_rotation,
-            open_angle_radians: window.open_angle_radians,
+            open_angle_radians: window.open_angle_radians.radians(),
             current_angle_radians: 0.0,
             open: false,
         },
@@ -147,8 +143,8 @@ fn animate_windows(
         controller.current_angle_radians += delta;
         transform.rotation =
             Quat::from_rotation_y(controller.current_angle_radians) * controller.closed_rotation;
-        transform.translation =
-            controller.hinge_centre + transform.rotation * Vec3::X * window.size_metres.x * 0.5;
+        transform.translation = controller.hinge_centre
+            + transform.rotation * Vec3::X * window.size_metres.metres().x * 0.5;
     }
 }
 
@@ -166,10 +162,10 @@ mod tests {
                     leaf: adventuresim_building_generator::WindowLeafKind::LeadedGlass,
                     building_id: 1,
                     opening_id: 2,
-                    size_metres: Vec3::new(1.0, 1.0, 0.025),
-                    opening_centre_metres: Vec3::ZERO,
-                    tangent: Vec3::X,
-                    outward: Vec3::Z,
+                    size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions::from_metres(Vec3::new(1.0, 1.0, 0.025)).unwrap(),
+                    opening_centre_metres: adventuresim_building_generator::spatial_geometry::Position::ORIGIN,
+                    tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::X).unwrap(),
+                    outward: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::Z).unwrap(),
                     barred: false,
                 },
                 WindowController {
@@ -212,6 +208,81 @@ mod tests {
                     windows.try_toggle_from_inside(outside, window)
                 })
                 .unwrap()
+        );
+    }
+    #[test]
+    fn converted_barred_window_keeps_collider_hinge_and_inward_swing() {
+        use adventuresim_building_generator::spatial_geometry::Position;
+        use adventuresim_building_generator::{BuildingArchetype, BuildingProgram, generate};
+        use adventuresim_tactical_core::scene_coordinates::{CollisionCentreDatum, Scene};
+        use adventuresim_tactical_core::scene_input::BuildingOrientation;
+        let program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 42);
+        let plan = generate(&program).unwrap();
+        let building = SceneBuilding {
+            id: 8,
+            program,
+            orientation: BuildingOrientation::from_radians(0.37).unwrap(),
+        };
+        let datum = CollisionCentreDatum::new(
+            Position::from_metres(Vec3::new(2.0, -1.0, 3.0)).unwrap(),
+            Position::<Scene>::from_metres(Vec3::new(-7.0, 4.0, 11.0)).unwrap(),
+            building.orientation,
+        )
+        .unwrap();
+        let mut leaf = compile_operable_windows(&plan).unwrap()[0];
+        leaf.barred = true;
+        let pose = datum.window(leaf).unwrap();
+        let converted = pose.leaf();
+        let mut world = World::new();
+        world
+            .run_system_once(move |mut commands: Commands| {
+                spawn_window(&mut commands, &building, pose)
+            })
+            .unwrap();
+        let entity = world
+            .query_filtered::<Entity, With<SceneWindow>>()
+            .single(&world)
+            .unwrap();
+        let window = *world.get::<SceneWindow>(entity).unwrap();
+        let controller = world.get::<WindowController>(entity).unwrap();
+        assert_eq!(controller.hinge_centre, converted.hinge_centre.metres());
+        assert_eq!(controller.closed_rotation, pose.native_rotation());
+        assert_eq!(window.opening_id, leaf.opening.0);
+        assert_eq!(window.building_id, 8);
+        assert!(window.barred);
+        assert_eq!(
+            world.get::<Transform>(entity).unwrap().translation,
+            converted.closed_centre.metres()
+        );
+        let half = world
+            .get::<Collider>(entity)
+            .unwrap()
+            .shape()
+            .as_cuboid()
+            .unwrap()
+            .half_extents;
+        assert_eq!(
+            Vec3::new(half.x, half.y, half.z),
+            leaf.size_metres.metres() * 0.5
+        );
+        world.get_mut::<WindowController>(entity).unwrap().open = true;
+        let mut time = Time::<()>::default();
+        time.advance_by(std::time::Duration::from_secs(1));
+        world.insert_resource(time);
+        world.run_system_once(animate_windows).unwrap();
+        let transform = world.get::<Transform>(entity).unwrap();
+        let expected_rotation =
+            Quat::from_rotation_y(converted.open_angle_radians.radians()) * pose.native_rotation();
+        assert_eq!(transform.rotation, expected_rotation);
+        assert_eq!(
+            transform.translation,
+            converted.hinge_centre.metres()
+                + expected_rotation * Vec3::X * leaf.size_metres.metres().x * 0.5
+        );
+        assert!(
+            (transform.translation - converted.closed_centre.metres())
+                .dot(converted.outward.spatial().vector())
+                < 0.0
         );
     }
 }
