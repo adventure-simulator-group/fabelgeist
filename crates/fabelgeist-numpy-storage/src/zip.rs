@@ -14,6 +14,11 @@ use std::path::Path;
 
 use anyhow::{Context, Result, bail};
 use flate2::read::DeflateDecoder;
+
+mod compression;
+use compression::ZipCompression;
+#[cfg(test)]
+mod compression_tests;
 use memmap2::Mmap;
 
 enum ArchiveData {
@@ -46,7 +51,7 @@ const ZIP64_LOCATOR: u32 = 0x0706_4b50;
 
 pub(crate) struct Entry {
     pub name: String,
-    compression: u16,
+    compression: ZipCompression,
     compressed_size: u64,
     uncompressed_size: u64,
     local_header_offset: u64,
@@ -155,7 +160,7 @@ impl ZipArchive {
             let comment_len = u16_at(&data, base + 32) as usize;
             let mut entry = Entry {
                 name: String::from_utf8_lossy(&data[base + 46..base + 46 + name_len]).into_owned(),
-                compression: u16_at(&data, base + 10),
+                compression: ZipCompression::from(u16_at(&data, base + 10)),
                 compressed_size: u32_at(&data, base + 20) as u64,
                 uncompressed_size: u32_at(&data, base + 24) as u64,
                 local_header_offset: u32_at(&data, base + 42) as u64,
@@ -218,15 +223,17 @@ impl ZipArchive {
         let raw = &self.data[start..end];
 
         match entry.compression {
-            0 => Ok(Cow::Borrowed(raw)),
-            8 => {
+            ZipCompression::Stored => Ok(Cow::Borrowed(raw)),
+            ZipCompression::Deflated => {
                 let mut out = Vec::with_capacity(entry.uncompressed_size as usize);
                 DeflateDecoder::new(raw)
                     .read_to_end(&mut out)
                     .with_context(|| format!("inflating zip entry {}", entry.name))?;
                 Ok(Cow::Owned(out))
             }
-            other => bail!("unsupported zip compression method {other}"),
+            ZipCompression::Unsupported(code) => {
+                bail!("unsupported zip compression method {code}")
+            }
         }
     }
 }
