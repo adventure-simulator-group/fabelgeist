@@ -30,6 +30,11 @@ Vertices per level of detail: 73 639 (LOD 0), 18 439, 10 661, 4 899, 2 461,
 971, 595 (LOD 6). The 127 joints, the parameter layout and the 117 blend shapes
 are the same at every LOD.
 
+## Model-definition parsing
+
+[Parser errors](model-definition-errors.md) documents the associated text
+constructor, structured rejections and preserved grammar/admission policy.
+
 ## Assets
 
 Download `assets.zip` from the
