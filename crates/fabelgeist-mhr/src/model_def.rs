@@ -3,6 +3,11 @@
 
 use std::collections::HashMap;
 
+mod set_name;
+pub use set_name::ParameterSetName;
+#[cfg(test)]
+mod set_names_tests;
+
 use anyhow::{Result, bail};
 
 use crate::character::{PARAMETERS_PER_JOINT, Skeleton};
@@ -35,7 +40,7 @@ pub struct ParameterTransform {
     /// Joint channels that any parameter drives.
     pub active_joint_parameters: Vec<bool>,
     /// Named parameter subsets from `[ParameterSets]`.
-    pub parameter_sets: HashMap<String, Vec<bool>>,
+    pub parameter_sets: HashMap<ParameterSetName, Vec<bool>>,
     pub limits: Vec<ParameterLimit>,
     pub num_joint_parameters: usize,
 }
@@ -237,7 +242,9 @@ fn parse_parameter_sets(lines: &[String], transform: &mut ParameterTransform) {
                 set[index] = true;
             }
         }
-        transform.parameter_sets.insert(tokens[1].to_string(), set);
+        transform
+            .parameter_sets
+            .insert(ParameterSetName::from(tokens[1]), set);
     }
 }
 
@@ -379,7 +386,10 @@ mod tests {
              limit b minmax [-0.5, 1.5]\n\
              limit a minmax [-0.25, 0.25] 0.1\n";
         let pt = parse_model_definition(text, &skeleton()).unwrap();
-        assert_eq!(pt.parameter_sets["rigid"], [true, false]);
+        assert_eq!(
+            pt.parameter_sets[&ParameterSetName::from("rigid")],
+            [true, false]
+        );
         assert_eq!(pt.limits.len(), 2);
         assert_eq!(pt.limits[0].weight, 1.0);
         // The trailing token is a solver weight, not a third bound.
