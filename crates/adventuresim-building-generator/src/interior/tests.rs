@@ -96,13 +96,15 @@ fn interior_cathedral_rooms_share_continuous_paving_and_clear_doors() {
             layout.unmet_budgets
         );
     }
-    let floor = super::architecture::Floor::new(&plan, 0).unwrap();
+    let floor = super::architecture::Floor::new(&plan, crate::StoreyIndex::GROUND).unwrap();
     for door in plan
         .opening_assemblies
         .iter()
         .filter(|d| d.use_kind == crate::OpeningUse::Door)
     {
-        assert!(floor.reserved.iter().any(|r| r.contains(door.frame.origin)));
+        assert!(floor.reserved.iter().any(|r| r.contains(
+            crate::plan_geometry::ArchitecturalPlanPoint::from_metres(door.frame.origin).unwrap()
+        )));
         for id in [door.frame.inside_room, door.frame.outside_room]
             .into_iter()
             .flatten()

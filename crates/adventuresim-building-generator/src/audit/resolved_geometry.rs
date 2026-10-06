@@ -375,24 +375,7 @@ fn audit_resolved_geometry(
     }
     for bond in &plan.resolved_geometry.junction_bonds {
         let valid_interface = valid_tower_chord_bond(plan, bond)
-            || plan.resolved_geometry.solids.iter().any(|a| {
-                a.owner == bond.owners[0]
-                    && plan.resolved_geometry.solids.iter().any(|b| {
-                        b.owner == bond.owners[1]
-                            && bonded_interface_metrics(a, b).is_some_and(
-                                |(contact_min, contact_max, area, penetration)| {
-                                    contact_min
-                                        .cmpge(bond.bounds.min().metres() - Vec3::splat(0.025))
-                                        .all()
-                                        && contact_max
-                                            .cmple(bond.bounds.max().metres() + Vec3::splat(0.025))
-                                            .all()
-                                        && area + 0.005 >= bond.minimum_interface_area_square_metres
-                                        && penetration <= bond.maximum_penetration_metres + 0.025
-                                },
-                            )
-                    })
-            });
+            || bonded_geometry_matches(plan, bond)?;
         if !valid_interface {
             issues.push(issue(
                 "invalid_crown_junction_bond",

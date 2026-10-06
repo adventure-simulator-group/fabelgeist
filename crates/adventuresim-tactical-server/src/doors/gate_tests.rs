@@ -44,8 +44,8 @@ fn assert_property_gate(boundary: GeneratedBoundary) {
         .world_mut()
         .query::<(Entity, &SceneDoor, &Transform, &Collider, &DoorController)>();
     let (entity, door, transform, collider, controller) = query.single(app.world()).unwrap();
-    assert_eq!(door.opening_id, spec.opening.0);
-    assert_eq!(door.building_id, building_id);
+    assert_eq!(door.opening_id, spec.opening);
+    assert_eq!(door.building_id, building_id.into());
     let ray = spec.closed_centre.metres() + Vec3::NEG_Z * 2.0;
     assert!(
         collider

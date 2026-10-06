@@ -18,13 +18,25 @@ fn fortified_spiral_landings_connect_all_occupied_rooms() {
         let plan = crate::generate(&program).unwrap();
         for index in 0..plan.stairs.len() {
             for landing in crate::spiral_stairs::landings(&plan, index) {
-                let floor = Floor::new(&plan, landing.storey).unwrap();
-                let rect = Rect::new(landing.position_metres, Vec2::splat(0.3));
+                let floor =
+                    Floor::new(&plan, crate::StoreyIndex::from_serialized(landing.storey)).unwrap();
+                let rect = Rect::from_metres(landing.position_metres, Vec2::splat(0.3)).unwrap();
                 assert!(
-                    floor.supports(rect, landing.elevation_metres),
+                    floor
+                        .supports(
+                            rect,
+                            crate::spatial_geometry::Elevation::from_metres(
+                                landing.elevation_metres
+                            )
+                            .unwrap()
+                        )
+                        .unwrap(),
                     "{usage:?}: unsupported {landing:?}"
                 );
-                assert!(floor.walkable(rect), "{usage:?}: blocked {landing:?}");
+                assert!(
+                    floor.walkable(rect).unwrap(),
+                    "{usage:?}: blocked {landing:?}"
+                );
             }
         }
         super::navigation::Navigation::new(&plan)

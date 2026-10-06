@@ -89,6 +89,82 @@ vertices, Bevy transforms and physics shapes retain the layouts required by
 their native adapters. Collection indexes, cardinalities and corner bit masks
 remain ordinary integers; the wider seed inventory belongs to #767.
 
+## Connected helper and window contracts
+
+`SignedLength` admits finite signed metres, including negative insets and zero
+set-out. `Area` admits finite nonnegative square metres, including empty
+overlap. Both live in `spatial_geometry`, share construction/decoding admission,
+and have opaque reflection. Audit corner gaps and bonding measurements return
+named records with architectural points, measured contact planes and checked
+measurements. A tolerated gap can put the measured lower plane above the upper
+plane; it is not an ordered physical bounds interval. Bond containment orders
+these planes componentwise for its bounds comparison. Ordinary
+containment and overlap predicates return `bool`. Artillery route assessments
+retain endpoint identities and distinguish missing bindings, invalid geometry
+and the obstructing source; bell-swing assessments retain the bell and blocker.
+The existing audit codes remain the presentation contract.
+
+Heating selection admits its room/storey indexes, architectural centre,
+kitchen direction and signed elevations before roof selection. A candidate has
+no roof identity until a named roof selection supplies one. `HearthLocal` uses
+Z into the kitchen and Y above its floor. Its X axis is `(-axis.y, axis.x)` in
+architectural X/Z, where `axis` is the kitchen direction's plan vector. Local
+displacements convert explicitly into architectural bounds. Missing
+required room/storey bindings fail with those identities. Folded sheet sections
+carry signed inner/outer depths, architectural elevations and admitted wall
+normals. The clipping, station, contact and weather-lap kernels retain their
+original arithmetic and tolerances.
+
+Interior rectangle centres remain `ArchitecturalPlanPoint` values and their
+half extents remain `PlanExtents` through placement, navigation and clearance.
+Signed expansion rejects reversed extents and permits zero extents. Furniture
+set-out uses `FurnitureLocal` displacements and `Radians` before explicit
+architectural rotation. Required empty rooms report room and storey identity.
+Height clipping and axis containment keep native arithmetic inside their
+bounded kernels; their inputs and outputs retain the declared frame.
+
+Equipment dispatch and connected recipes carry `PlanDimensions`; component
+catalogues name displacement and dimension leaves. Literal measurements are
+admitted where the authored component is constructed. Native station loops,
+trigonometry, material mesh arrays and dimensionless recipe multipliers stay
+inside set-out or mesh kernels. Source envelope authoring remains separate from
+these equipment records and is still covered by the wider generator audit.
+
+`WindowSpec<F>` carries framed positions/directions, `LeafDimensions` and
+`Radians`. Bars retain architectural positions, `CuboidDimensions` and angles.
+`compile_operable_windows` and `compile_window_bars` are fallible. An eligible
+operable opening without a closure reports `WindowError` with its opening
+identity and declared closure source IDs; ordinary ineligible openings are
+excluded. Bar geometry errors use the collision source identity, whose existing
+encoding includes the opening and bar ordinal. Fixed glazing uses
+`compile_window_leaf(CuboidDimensions, ...)`, while operable consumers require
+positive leaf dimensions, including thin positive geometry.
+
+`WindowBarPresence` distinguishes absent and present fixed bars across the leaf
+handoff and serializes directly as the named `bars` enum. Native decoding
+records retain metre vectors and radian scalars until admission can attach the
+opening and source identities to any geometry failure. Primitive leaf admission
+constructors accept those native representations; composite sheet sections
+accept checked lengths and elevations.
+
+Generation, collision, spatial geometry, interior layout and window operations
+reuse result aliases from their error owners. Mixed-error helpers preserve the
+individual error types, including geometry errors inside nested collections.
+Authored appliance courses use named checked bounds, and independent weathering
+audit margins remain distinct from construction folds.
+
+Issue [#765](https://github.com/adventure-simulator-group/fabelgeist/issues/765)
+tracks this ownership split: generator construction and admission belong to
+[#766](https://github.com/adventure-simulator-group/fabelgeist/issues/766), core
+scene conversions to
+[#767](https://github.com/adventure-simulator-group/fabelgeist/issues/767), and
+runtime adapters/controller state to
+[#770](https://github.com/adventure-simulator-group/fabelgeist/issues/770).
+[#784](https://github.com/adventure-simulator-group/fabelgeist/pull/784) supplied
+the stored geometry owners; the connected helpers and window handoff are the
+sequenced [#794](https://github.com/adventure-simulator-group/fabelgeist/issues/794)
+follow-up. This does not complete the wider slice audits or renderer acceptance.
+
 ## Geometry compilation
 
 Runtime generation performs input and construction checks. Exhaustive

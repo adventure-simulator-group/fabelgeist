@@ -174,9 +174,7 @@ fn blockers(building: &GeneratedBuilding, layout: &InteriorLayout) -> Result<Vec
             centre: adventuresim_building_generator::spatial_geometry::Position::from_metres(
                 translation,
             )?,
-            yaw: adventuresim_building_generator::spatial_geometry::Radians::new(
-                placement.yaw_radians(),
-            )?,
+            yaw: placement.yaw_radians(),
         };
         for &solid in &placement.key.recipe()?.colliders {
             result.push(Blocker {
@@ -219,7 +217,7 @@ fn furniture_subject(
     selection: RoomSelection,
 ) -> Result<Subject> {
     let size = placement.key.interior_spec().unwrap().size_metres.metres();
-    let rotation = Quat::from_rotation_y(placement.yaw_radians());
+    let rotation = Quat::from_rotation_y(placement.yaw_radians().radians());
     let translation = Vec3::new(
         placement.centre_metres.metres().x,
         furniture_floor_height(&building.plan, placement)?.metres(),

@@ -77,21 +77,27 @@ impl OpeningTarget {
                 outward: door.outward,
             });
         }
-        let window = compile_operable_windows(plan)
+        let window = compile_operable_windows(plan)?
             .into_iter()
             .find(|w| match self {
                 Self::Glazed => {
                     w.leaf == adventuresim_building_generator::WindowLeafKind::LeadedGlass
-                        && !w.barred
+                        && w.bars == adventuresim_building_generator::WindowBarPresence::Absent
                 }
                 Self::Shutter => {
                     w.leaf == adventuresim_building_generator::WindowLeafKind::TimberShutter
                 }
-                Self::Barred => w.barred,
+                Self::Barred => {
+                    w.bars == adventuresim_building_generator::WindowBarPresence::Present
+                }
                 Self::Door | Self::FixedGlazed => false,
             })
             .ok_or("review window treatment is absent")?;
-        OpeningFrame::from_metres(window.closed_centre, window.tangent, window.outward)
+        Ok(OpeningFrame {
+            centre: window.closed_centre,
+            tangent: window.tangent,
+            outward: window.outward,
+        })
     }
 }
 
@@ -158,10 +164,7 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
     commands: &mut Commands,
     building: &GeneratedBuilding,
 ) -> Result {
-    let transform = building.transform()?;
     let datum = building.geometry_datum()?;
-    let origin = building.collision.bounds.centre()?.metres();
-    let direction = |v: Vec2| transform.rotation * Vec3::new(v.x, 0.0, v.y);
     for leaf in compile_operable_doors(&building.plan)? {
         let pose = datum.door(leaf)?;
         let door = pose.leaf();
@@ -170,8 +173,10 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
         commands.spawn((
             Name::new("Fixture door"),
             SceneDoor {
-                building_id: building.placement.id,
-                opening_id: door.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    building.placement.id,
+                ),
+                opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
                 tangent: door.tangent.spatial(),
@@ -185,27 +190,30 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
             },
         ));
     }
-    for window in compile_operable_windows(&building.plan) {
-        let centre = transform.transform_point(window.closed_centre - origin);
-        let closed = Transform::from_translation(centre)
-            .with_rotation(transform.rotation * Quat::from_rotation_y(window.closed_yaw_radians));
+    for leaf in compile_operable_windows(&building.plan)? {
+        let pose = datum.window(leaf)?;
+        let window = pose.leaf();
+        let centre = window.closed_centre.metres();
+        let closed = Transform::from_translation(centre).with_rotation(pose.native_rotation());
         commands.spawn((
             Name::new("Fixture window"),
             SceneWindow {
                 leaf: window.leaf,
-                building_id: building.placement.id,
-                opening_id: window.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    building.placement.id,
+                ),
+                opening_id: window.opening,
                 size_metres: window.size_metres,
-                opening_centre_metres: centre,
-                tangent: direction(window.tangent),
-                outward: direction(window.outward),
-                barred: window.barred,
+                opening_centre_metres: window.closed_centre,
+                tangent: window.tangent.spatial(),
+                outward: window.outward.spatial(),
+                bars: window.bars,
             },
             closed,
             ReviewLeafPose {
                 closed,
-                hinge: transform.transform_point(window.hinge_centre - origin),
-                angle: window.open_angle_radians,
+                hinge: window.hinge_centre.metres(),
+                angle: window.open_angle_radians.radians(),
             },
         ));
     }

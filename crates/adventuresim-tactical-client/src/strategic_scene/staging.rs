@@ -47,7 +47,14 @@ pub(super) fn positions(
             };
             for direction in [Vec2::X, Vec2::Y, Vec2::NEG_X, Vec2::NEG_Y] {
                 let camera = centre + direction * CONVERSATION_DISTANCE_METRES;
-                if !clearance.is_clear(centre, camera) {
+                if !clearance.is_clear(
+                    adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                        Vec3::new(centre.x, height, centre.y),
+                    )?,
+                    adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                        Vec3::new(camera.x, height, camera.y),
+                    )?,
+                ) {
                     continue;
                 }
                 let anchor = Vec3::new(centre.x, height, centre.y);
@@ -114,7 +121,7 @@ fn obstacles(
                 placement.centre_metres.metres().y,
             ),
             size,
-            placement.yaw_radians(),
+            placement.yaw_radians().radians(),
             0.0,
             0.0,
         )?);

@@ -46,8 +46,6 @@ pub(super) fn spawn_building(
 ) -> Result {
     let transform = building.transform()?;
     let datum = building.geometry_datum()?;
-    let origin = building.collision.bounds.centre()?.metres();
-    let direction = |v: Vec2| transform.rotation * Vec3::new(v.x, 0.0, v.y);
     let mut entity = commands.spawn((
         Transform::from_translation(transform.translation).with_rotation(transform.rotation),
         ChildOf(root),
@@ -67,8 +65,10 @@ pub(super) fn spawn_building(
         let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
-                building_id: building.placement.id,
-                opening_id: door.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    building.placement.id,
+                ),
+                opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
                 tangent: door.tangent.spatial(),
@@ -78,22 +78,24 @@ pub(super) fn spawn_building(
             ChildOf(root),
         ));
     }
-    for window in compile_operable_windows(&building.plan) {
-        let centre = transform.transform_point(window.closed_centre - origin);
+    for leaf in compile_operable_windows(&building.plan)? {
+        let pose = datum.window(leaf)?;
+        let window = pose.leaf();
+        let centre = window.closed_centre.metres();
         commands.spawn((
             SceneWindow {
-                building_id: building.placement.id,
-                opening_id: window.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    building.placement.id,
+                ),
+                opening_id: window.opening,
                 leaf: window.leaf,
-                barred: window.barred,
+                bars: window.bars,
                 size_metres: window.size_metres,
-                opening_centre_metres: centre,
-                tangent: direction(window.tangent),
-                outward: direction(window.outward),
+                opening_centre_metres: window.closed_centre,
+                tangent: window.tangent.spatial(),
+                outward: window.outward.spatial(),
             },
-            Transform::from_translation(centre).with_rotation(
-                transform.rotation * Quat::from_rotation_y(window.closed_yaw_radians),
-            ),
+            Transform::from_translation(centre).with_rotation(pose.native_rotation()),
             ChildOf(root),
         ));
     }
@@ -108,7 +110,9 @@ pub(super) fn spawn_building(
             },
         ),
         SceneBuilding {
-            id: building.placement.id,
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                building.placement.id,
+            ),
             program: building.placement.program,
             orientation: building.placement.orientation,
         },
@@ -136,8 +140,10 @@ pub(super) fn spawn_props(
         let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
-                building_id: boundary.scene.front_building_id,
-                opening_id: door.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    boundary.scene.front_building_id,
+                ),
+                opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
                 tangent: door.tangent.spatial(),

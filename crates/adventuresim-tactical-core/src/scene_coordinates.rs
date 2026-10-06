@@ -6,11 +6,13 @@ use serde::{Deserialize, Serialize};
 
 mod polygon;
 mod spatial;
+mod window;
 pub use polygon::{ArchitecturalPlanProjection, ScenePlanPolygon};
 pub use spatial::{
     ArchitecturalFloorDatum, ArchitecturalGateDatum, CollisionCentreDatum, GateDatum, GateRelative,
     GroundRelative, PlotRelative, Scene, SceneDoorPose,
 };
+pub use window::SceneWindowPose;
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
 #[serde(transparent)]

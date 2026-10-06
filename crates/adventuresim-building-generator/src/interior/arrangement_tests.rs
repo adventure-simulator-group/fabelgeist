@@ -99,7 +99,7 @@ fn interior_narrow_inn_ground_room_cannot_combine_full_counter_and_dining_group(
             &plan,
             &program,
             room,
-            0,
+            crate::StoreyIndex::GROUND,
             FurnitureBudget {
                 kind,
                 count: 1,

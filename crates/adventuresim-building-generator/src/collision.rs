@@ -40,6 +40,9 @@ pub struct CollisionCuboid<F: GeometryFrame> {
     pub longfall_radians: Radians,
 }
 
+/// Collision operations preserve the represented member and geometry cause.
+pub type CollisionResult<T> = std::result::Result<T, CollisionError>;
+
 /// Construction failures retain the fixed member's physical identity and cause.
 #[derive(Clone, Debug, thiserror::Error, Eq, PartialEq)]
 #[error("collision member {source_id:?}: {cause}")]
@@ -57,7 +60,7 @@ impl<F: GeometryFrame> CollisionCuboid<F> {
         yaw_radians: f32,
         crossfall_radians: f32,
         longfall_radians: f32,
-    ) -> Result<Self, CollisionError> {
+    ) -> CollisionResult<Self> {
         let construct = || {
             Ok(Self {
                 source,
@@ -76,7 +79,7 @@ impl<F: GeometryFrame> CollisionCuboid<F> {
     /// Separately rounded centre/half-extent envelope used by placement. Contact
     /// exclusion must instead use computed corners, which can reach Y=0 even
     /// when this expression rounds its minimum above the datum.
-    pub fn bounds(self) -> Result<SpatialBounds<F>, CollisionError> {
+    pub fn bounds(self) -> CollisionResult<SpatialBounds<F>> {
         let half = self.size.metres() * 0.5;
         let orientation = bevy::math::Quat::from_rotation_y(self.yaw_radians.radians())
             * bevy::math::Quat::from_rotation_x(self.crossfall_radians.radians())
@@ -127,9 +130,7 @@ impl BuildingCollision {
 /// Compiles static collision from authoritative wall hosts and walkable timber
 /// surfaces and fixed main-gable glazing. Operable doors remain separate
 /// gameplay entities. This does not add collision for every roof enclosure.
-pub fn compile_building_collision(
-    plan: &BuildingPlan,
-) -> Result<BuildingCollision, CollisionError> {
+pub fn compile_building_collision(plan: &BuildingPlan) -> CollisionResult<BuildingCollision> {
     let solids = plan
         .resolved_geometry
         .solids
@@ -197,16 +198,16 @@ pub fn compile_building_collision(
         .into_iter()
         .filter_map(|id| solids.get(&id).copied())
         .map(|solid| collision_parts(plan, solid))
-        .collect::<Result<Vec<_>, _>>()?
+        .collect::<CollisionResult<Vec<_>>>()?
         .into_iter()
         .flatten()
         .collect::<Vec<_>>();
-    for bar in compile_window_bars(plan) {
+    for bar in compile_window_bars(plan)? {
         cuboids.push(CollisionCuboid::from_metres(
             bar.source,
-            bar.centre,
-            bar.size_metres,
-            bar.yaw_radians,
+            bar.centre.metres(),
+            bar.size_metres.metres(),
+            bar.yaw_radians.radians(),
             0.0,
             0.0,
         )?);
@@ -218,7 +219,7 @@ pub fn compile_building_collision(
 pub(crate) fn collision_parts(
     plan: &BuildingPlan,
     solid: &ResolvedSolid,
-) -> Result<Vec<CollisionCuboid<Architectural>>, CollisionError> {
+) -> CollisionResult<Vec<CollisionCuboid<Architectural>>> {
     if matches!(solid.shape, crate::ResolvedSolidShape::CylinderAlongX) {
         return crate::axle::collision(solid);
     }
@@ -267,7 +268,7 @@ pub(crate) fn collision_parts(
 fn collision_bounds(
     plan: &BuildingPlan,
     cuboids: &[CollisionCuboid<Architectural>],
-) -> Result<SpatialBounds<Architectural>, CollisionError> {
+) -> CollisionResult<SpatialBounds<Architectural>> {
     let dimensions = plan.dimensions_metres();
     let fallback =
         SpatialBounds::from_metres(Vec3::ZERO, Vec3::new(dimensions.x, 0.0, dimensions.y))
@@ -426,7 +427,7 @@ mod tests {
                     seed,
                 ))
                 .ok()?;
-                let bars = crate::compile_window_bars(&plan);
+                let bars = crate::compile_window_bars(&plan).unwrap();
                 (!bars.is_empty()).then_some((plan, bars))
             })
             .expect("seed range contains at least one barred merchant-house window");

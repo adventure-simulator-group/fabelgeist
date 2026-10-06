@@ -4,7 +4,11 @@ use super::*;
 const CONTACT_TOLERANCE_METRES: f32 = 0.001;
 const MINIMUM_CONTACT_AREA_SQUARE_METRES: f32 = 0.000_001;
 // Authored modest ringing envelope; it is not an unrestricted full-circle bell.
-const RINGING_CLEARANCE_RADIANS: f32 = std::f32::consts::FRAC_PI_6;
+const RINGING_CLEARANCE_RADIANS: crate::spatial_geometry::Radians =
+    match crate::spatial_geometry::Radians::new(std::f32::consts::FRAC_PI_6) {
+        Ok(angle) => angle,
+        Err(_) => unreachable!(),
+    };
 
 pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
     for bell in plan
@@ -68,11 +72,11 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 continue;
             }
         };
-        if !clear {
+        if !matches!(clear, super::bell_swing::BellSwingAssessment::Clear) {
             issues.push(issue(
                 "blocked_bell_swing",
                 format!(
-                    "bell {} intersects fixed timber within its authored ringing envelope",
+                    "bell {} cannot traverse its authored ringing envelope: {clear:?}",
                     bell.id.0
                 ),
             ));
@@ -153,7 +157,10 @@ mod tests {
                 .iter()
                 .find(|s| s.role == SolidRole::ChurchBell)
                 .unwrap();
-            assert!(super::bell_swing::is_clear(&plan, bell, RINGING_CLEARANCE_RADIANS).unwrap());
+            assert_eq!(
+                super::bell_swing::is_clear(&plan, bell, RINGING_CLEARANCE_RADIANS).unwrap(),
+                super::bell_swing::BellSwingAssessment::Clear
+            );
             let collision = crate::compile_building_collision(&plan).unwrap();
             for axle in plan
                 .resolved_geometry

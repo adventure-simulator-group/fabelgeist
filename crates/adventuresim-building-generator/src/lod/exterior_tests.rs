@@ -143,7 +143,7 @@ fn civilian_facades_keep_real_apertures_reveals_and_materials_with_bounded_geome
 #[test]
 fn facade_reserves_only_operable_leaves_and_preserves_fixed_layers_and_bar_geometry() {
     let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
-    let dynamic = crate::detail::dynamic_closure_solids(&plan);
+    let dynamic = crate::detail::dynamic_closure_solids(&plan).unwrap();
     assert!(!dynamic.is_empty());
     let mut all = BuildingLod {
         level: BuildingLodLevel::Facade,
@@ -192,10 +192,10 @@ fn dynamic_facade_capability_excludes_coarse_hosts_and_replaced_workplace_walls(
         BuildingArchetype::CastleGatehouse,
     ] {
         let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
-        assert!(plan.facade_dynamic_openings().is_empty());
+        assert!(plan.facade_dynamic_openings().unwrap().is_empty());
     }
     let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
-    let supported = plan.facade_dynamic_openings();
+    let supported = plan.facade_dynamic_openings().unwrap();
     assert!(!supported.is_empty());
     for id in supported {
         let opening = plan
@@ -222,7 +222,10 @@ fn a_workplace_owned_cell_excludes_the_entire_joined_run_from_dynamic_capability
             run.source_walls.len() > 1
                 && plan.opening_assemblies.iter().any(|opening| {
                     run.source_walls.contains(&opening.host_wall)
-                        && plan.facade_dynamic_openings().contains(&opening.id)
+                        && plan
+                            .facade_dynamic_openings()
+                            .unwrap()
+                            .contains(&opening.id)
                 })
         })
         .unwrap();
@@ -237,7 +240,7 @@ fn a_workplace_owned_cell_excludes_the_entire_joined_run_from_dynamic_capability
     .unwrap();
     work.walls = vec![run.source_walls[0]];
     plan.workplace = Some(work);
-    let capability = plan.facade_dynamic_openings();
+    let capability = plan.facade_dynamic_openings().unwrap();
     let retained = compilation::retained_facade_runs(&plan);
     for wall in run.source_walls {
         assert!(retained.iter().all(|run| !run.source_walls.contains(&wall)));

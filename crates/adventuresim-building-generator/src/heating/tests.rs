@@ -3,6 +3,53 @@ use bevy::math::Vec3;
 fn fixture(archetype: BuildingArchetype, seed: u64) -> BuildingPlan {
     generate(&BuildingProgram::fixture(archetype, seed)).unwrap()
 }
+
+#[test]
+fn folded_sheet_admission_preserves_signed_contact_and_rejects_reversed_planes() {
+    use super::weather_sections::{SheetSection, WeatherSide};
+    use crate::spatial_geometry::{Elevation, GeometryError, SignedLength};
+    let length = |value| SignedLength::from_metres(value).unwrap();
+    let elevation = |value| Elevation::<Architectural>::from_metres(value).unwrap();
+    let section = SheetSection::new(
+        length(-0.025),
+        length(0.012),
+        elevation(-1.0),
+        elevation(0.0),
+    )
+    .unwrap();
+    let shaft = SpatialBounds::from_metres(Vec3::ZERO, Vec3::ONE).unwrap();
+    for side in WeatherSide::around(shaft).unwrap() {
+        let bounds = section.bounds(side).unwrap();
+        assert_eq!(bounds.min().metres().y, -1.0);
+        assert_eq!(bounds.max().metres().y, 0.0);
+        let contact = SheetSection::new(length(0.0), length(0.0), elevation(-2.0), elevation(-2.0))
+            .unwrap()
+            .bounds(side)
+            .unwrap();
+        assert_eq!(contact.min().metres().y, contact.max().metres().y);
+    }
+    for result in [
+        SheetSection::new(
+            length(0.012),
+            length(-0.025),
+            elevation(-1.0),
+            elevation(0.0),
+        ),
+        SheetSection::new(
+            length(-0.025),
+            length(0.012),
+            elevation(0.0),
+            elevation(-1.0),
+        ),
+    ] {
+        assert!(matches!(
+            result,
+            Err(GenerationError::Geometry(
+                GeometryError::ReversedBounds { .. }
+            ))
+        ));
+    }
+}
 #[test]
 fn grounded_programme_preserves_roof_members_and_reaches_real_rooms() {
     for archetype in [
@@ -454,4 +501,33 @@ fn penetration_updates_drainage_stations_at_the_cut_boundary() {
         .unwrap();
     assert_eq!(network.samples.len(), 1);
     assert_eq!(network.samples[0].surface_point.x, -0.01);
+}
+
+#[test]
+fn selection_reports_missing_room_and_storey_bindings_before_trying_roofs() {
+    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let wall = original
+        .wall_assemblies
+        .iter()
+        .find(|w| w.frame.inside_room.is_some() && w.frame.outside_room.is_some())
+        .unwrap()
+        .clone();
+    let mut missing_storey = original.clone();
+    missing_storey
+        .storeys
+        .retain(|s| s.level != wall.storey_level);
+    assert!(
+        matches!(super::placement::find(&missing_storey),Err(crate::GenerationError::HeatingConstruction(HeatingConstructionError::MissingStorey { wall:id,storey })) if id==wall.id && storey==StoreyIndex::from_serialized(wall.storey_level))
+    );
+    let mut missing_room = original;
+    missing_room
+        .wall_assemblies
+        .iter_mut()
+        .find(|w| w.id == wall.id)
+        .unwrap()
+        .frame
+        .inside_room = Some(65535);
+    assert!(
+        matches!(super::placement::find(&missing_room),Err(crate::GenerationError::HeatingConstruction(HeatingConstructionError::MissingRoom { wall:id,room,.. })) if id==wall.id && room==RoomIndex::from_serialized(65535))
+    );
 }

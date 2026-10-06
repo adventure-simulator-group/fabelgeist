@@ -30,7 +30,7 @@ pub use geometry::furniture_floor_height;
 pub use placement::{furnish, validate_layout};
 
 /// Verify the completed architectural circulation before accepting a heated recipe.
-pub fn validate_circulation(plan: &crate::BuildingPlan) -> Result<(), InteriorLayoutError> {
+pub fn validate_circulation(plan: &crate::BuildingPlan) -> InteriorResult<()> {
     navigation::Navigation::new(plan).map(|_| ())
 }
 
@@ -44,12 +44,12 @@ pub struct InteriorPlacement {
     pub facing: Direction,
 }
 impl InteriorPlacement {
-    pub fn yaw_radians(&self) -> f32 {
+    pub fn yaw_radians(&self) -> crate::spatial_geometry::Radians {
         match self.facing {
-            Direction::South => 0.0,
-            Direction::East => -std::f32::consts::FRAC_PI_2,
-            Direction::North => std::f32::consts::PI,
-            Direction::West => std::f32::consts::FRAC_PI_2,
+            Direction::South => crate::spatial_geometry::Radians::ZERO,
+            Direction::East => crate::spatial_geometry::Radians::NEGATIVE_QUARTER_TURN,
+            Direction::North => crate::spatial_geometry::Radians::HALF_TURN,
+            Direction::West => crate::spatial_geometry::Radians::QUARTER_TURN,
         }
     }
 }
@@ -78,6 +78,9 @@ pub struct InteriorLayout {
     pub paths: Vec<FurnitureAccessPath>,
     pub unmet_budgets: Vec<UnmetFurnitureBudget>,
 }
+/// Interior planning operations retain their layout error classification.
+pub type InteriorResult<T> = std::result::Result<T, InteriorLayoutError>;
+
 #[derive(Clone, Debug, thiserror::Error, Eq, PartialEq)]
 pub enum InteriorLayoutError {
     #[error(transparent)]
@@ -86,6 +89,11 @@ pub enum InteriorLayoutError {
     Ordinal(#[from] crate::OrdinalError),
     #[error("room {room} on storey {storey} is absent")]
     MissingRoom {
+        storey: crate::StoreyIndex,
+        room: crate::RoomIndex,
+    },
+    #[error("room {room} on storey {storey} has no required cell geometry")]
+    EmptyRoomGeometry {
         storey: crate::StoreyIndex,
         room: crate::RoomIndex,
     },

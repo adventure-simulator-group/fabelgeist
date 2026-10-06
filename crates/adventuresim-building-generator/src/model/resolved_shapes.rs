@@ -18,6 +18,12 @@ pub struct WallAssemblyId(pub u64);
 )]
 pub struct OpeningAssemblyId(pub u64);
 
+impl std::fmt::Display for OpeningAssemblyId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
 #[derive(
     Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
 )]

@@ -1,5 +1,6 @@
 //! Validate the principal church's complete envelope and street approach.
 use super::*;
+use crate::city_layout::compiled::CityCompileResult as Result;
 use adventuresim_building_generator::interior::StandingClearance;
 use recipes::Recipe;
 
@@ -16,7 +17,7 @@ pub(super) fn validate(
     placement: &TacticalBuildingPlacement,
     recipe: &Recipe,
     streets: &[CityStreetPatch],
-) -> Result<(), CityCompileError> {
+) -> Result<()> {
     let error = |issue| CityCompileError::Church {
         building: lot.id,
         issue,
@@ -41,10 +42,13 @@ pub(super) fn validate(
     }
     let origin = recipe.collision.bounds.centre()?.metres();
     let physical = |p| {
-        placement
+        let point = placement
             .orientation
             .world_to_local(p - placement.centre_metres)
-            + Vec2::new(origin.x, origin.z)
+            + Vec2::new(origin.x, origin.z);
+        adventuresim_building_generator::spatial_geometry::Position::<
+            adventuresim_building_generator::Architectural,
+        >::from_metres(bevy::math::Vec3::new(point.x, 0.0, point.y))
     };
     // Door leaves are dynamic and excluded from static building collision.
     // This continuous body sweep includes the portal throat and its outer path.
@@ -52,7 +56,7 @@ pub(super) fn validate(
         &recipe.collision.cuboids,
         adventuresim_building_generator::spatial_geometry::Elevation::from_metres(0.0)?,
     )?
-    .is_clear(physical(door), physical(street))
+    .is_clear(physical(door)?, physical(street)?)
     {
         return Err(error(ChurchSitingIssue::ApproachBlocked));
     }

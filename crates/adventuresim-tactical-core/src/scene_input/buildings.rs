@@ -1,3 +1,5 @@
+use adventuresim_building_generator::spatial_geometry::GeometryResult;
+mod window;
 use adventuresim_building_generator::{
     BuildingArchetype, BuildingCollision, BuildingPlan, BuildingProgram,
 };
@@ -5,8 +7,11 @@ use adventuresim_building_generator::{
 use adventuresim_building_generator::{compile_building_collision, generate};
 use bevy::{math::Vec2, prelude::Component};
 use serde::{Deserialize, Serialize};
+mod identity;
+pub use identity::SceneBuildingId;
+pub use window::{SceneWindow, SceneWindowError};
 
-use super::{GeneratedObstacle, SceneInputError, invalid};
+use super::{GeneratedObstacle, SceneInputError, SceneInputResult, invalid};
 use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
 mod collision;
 mod exterior;
@@ -148,7 +153,7 @@ impl From<DistantBuildingPlacement> for TacticalBuildingPlacement {
 #[component(immutable)]
 #[serde(deny_unknown_fields)]
 pub struct SceneBuilding {
-    pub id: u64,
+    pub id: SceneBuildingId,
     pub program: BuildingProgram,
     pub orientation: BuildingOrientation,
 }
@@ -159,8 +164,8 @@ pub struct SceneBuilding {
 #[derive(Clone, Copy, Debug, PartialEq, Component, Serialize)]
 #[component(immutable)]
 pub struct SceneDoor {
-    pub building_id: u64,
-    pub opening_id: u64,
+    pub building_id: SceneBuildingId,
+    pub opening_id: adventuresim_building_generator::OpeningAssemblyId,
     pub size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions,
     pub doorway_centre_metres: adventuresim_building_generator::spatial_geometry::Position<
         crate::scene_coordinates::Scene,
@@ -189,8 +194,8 @@ impl<'de> Deserialize<'de> for SceneDoor {
         let value = SerializedDoor::deserialize(deserializer)?;
         let construct = || {
             Ok(Self {
-                building_id: value.building_id,
-                opening_id: value.opening_id,
+                building_id: value.building_id.into(),
+                opening_id: adventuresim_building_generator::OpeningAssemblyId(value.opening_id),
                 size_metres: LeafDimensions::from_metres(value.size_metres)?,
                 doorway_centre_metres: Position::from_metres(value.doorway_centre_metres)?,
                 tangent: SpatialDirection::from_normalized(value.tangent)?,
@@ -199,8 +204,8 @@ impl<'de> Deserialize<'de> for SceneDoor {
         };
         construct().map_err(|cause| {
             serde::de::Error::custom(SceneDoorError {
-                building_id: value.building_id,
-                opening_id: value.opening_id,
+                building_id: crate::scene_input::SceneBuildingId::from(value.building_id),
+                opening_id: adventuresim_building_generator::OpeningAssemblyId(value.opening_id),
                 cause,
             })
         })
@@ -209,24 +214,10 @@ impl<'de> Deserialize<'de> for SceneDoor {
 #[derive(Debug, thiserror::Error)]
 #[error("building {building_id}, door {opening_id}: {cause}")]
 pub struct SceneDoorError {
-    pub building_id: u64,
-    pub opening_id: u64,
+    pub building_id: SceneBuildingId,
+    pub opening_id: adventuresim_building_generator::OpeningAssemblyId,
     #[source]
     pub cause: adventuresim_building_generator::spatial_geometry::GeometryError,
-}
-
-/// Compact identity and dimensions for one server-authoritative window casement.
-#[derive(Clone, Copy, Debug, PartialEq, Component, Serialize, Deserialize)]
-#[component(immutable)]
-pub struct SceneWindow {
-    pub leaf: adventuresim_building_generator::WindowLeafKind,
-    pub building_id: u64,
-    pub opening_id: u64,
-    pub size_metres: bevy::math::Vec3,
-    pub opening_centre_metres: bevy::math::Vec3,
-    pub tangent: bevy::math::Vec3,
-    pub outward: bevy::math::Vec3,
-    pub barred: bool,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -267,7 +258,7 @@ impl BuildingPad {
 
 pub(super) fn validate_building_placements(
     placements: &[TacticalBuildingPlacement],
-) -> Result<(), SceneInputError> {
+) -> SceneInputResult<()> {
     if placements.len() > MAX_TACTICAL_BUILDINGS {
         return invalid("scene has too many tactical buildings");
     }
@@ -288,7 +279,7 @@ pub(super) fn validate_building_placements(
 
 pub(super) fn validate_distant_building_placements(
     placements: &[DistantBuildingPlacement],
-) -> Result<(), SceneInputError> {
+) -> SceneInputResult<()> {
     if placements.len() > MAX_CITY_BUILDING_INSTANCES {
         return invalid("scene has too many distant buildings");
     }
@@ -310,7 +301,7 @@ pub(super) fn validate_distant_building_placements(
 pub(super) fn prepare_buildings(
     placements: &[TacticalBuildingPlacement],
     recipes: &mut super::GeneratedBuildingRecipes,
-) -> Result<Vec<GeneratedBuilding>, SceneInputError> {
+) -> SceneInputResult<Vec<GeneratedBuilding>> {
     placements
         .iter()
         .cloned()
@@ -336,9 +327,7 @@ pub(super) fn prepare_buildings(
         .collect()
 }
 
-pub(super) fn validate_building_pads(
-    buildings: &[GeneratedBuilding],
-) -> Result<(), SceneInputError> {
+pub(super) fn validate_building_pads(buildings: &[GeneratedBuilding]) -> SceneInputResult<()> {
     let footprints = buildings
         .iter()
         .map(|building| {
@@ -352,7 +341,7 @@ pub(super) fn validate_building_pads(
                 building.placement.orientation,
             ))
         })
-        .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
+        .collect::<GeometryResult<Vec<_>>>()?;
     for (index, &(id, centre, half_extents, orientation)) in footprints.iter().enumerate() {
         for &(other_id, other_centre, other_half_extents, other_orientation) in
             &footprints[index + 1..]

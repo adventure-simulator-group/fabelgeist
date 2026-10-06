@@ -4,15 +4,18 @@ use bevy::{camera::visibility::VisibilityRange, prelude::*};
 
 #[derive(Component)]
 pub(crate) struct PresentedBuildingClosureMesh {
-    building: u64,
+    building: adventuresim_tactical_core::scene_input::SceneBuildingId,
     opening: adventuresim_building_generator::OpeningAssemblyId,
     pub(crate) facade: bool,
 }
 impl PresentedBuildingClosureMesh {
-    pub(super) fn new(building: u64, opening: u64) -> Self {
+    pub(super) fn new(
+        building: adventuresim_tactical_core::scene_input::SceneBuildingId,
+        opening: adventuresim_building_generator::OpeningAssemblyId,
+    ) -> Self {
         Self {
             building,
-            opening: adventuresim_building_generator::OpeningAssemblyId(opening),
+            opening,
             facade: false,
         }
     }
@@ -71,7 +74,7 @@ mod tests {
             .world_mut()
             .spawn((
                 super::super::SceneBuilding {
-                    id: 7,
+                    id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
                     program: BuildingProgram::fixture(BuildingArchetype::TownHouse, 42),
                     orientation: BuildingOrientation::IDENTITY,
                 },
@@ -87,7 +90,10 @@ mod tests {
         let entities = [1, 2, 2, 2, 3].map(|opening| {
             app.world_mut()
                 .spawn((
-                    PresentedBuildingClosureMesh::new(7, opening),
+                    PresentedBuildingClosureMesh::new(
+                        7.into(),
+                        adventuresim_building_generator::OpeningAssemblyId(opening),
+                    ),
                     building_lod_visibility(BuildingRenderLevel::Lod0),
                     open,
                 ))
