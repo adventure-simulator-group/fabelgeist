@@ -7,6 +7,12 @@ use anyhow::{Result, bail};
 
 use crate::character::{PARAMETERS_PER_JOINT, Skeleton};
 
+mod name;
+pub use name::ModelParameterName;
+
+#[cfg(test)]
+mod names_tests;
+
 /// `tx, ty, tz, rx, ry, rz, sc` — the seven channels of a momentum joint.
 pub const JOINT_PARAMETER_NAMES: [&str; PARAMETERS_PER_JOINT] =
     ["tx", "ty", "tz", "rx", "ry", "rz", "sc"];
@@ -29,7 +35,7 @@ pub struct ParameterLimit {
 #[derive(Debug, Default, Clone)]
 pub struct ParameterTransform {
     /// Model parameter names, in the order the `.model` file introduces them.
-    pub names: Vec<String>,
+    pub names: Vec<ModelParameterName>,
     pub transform: Vec<f32>,
     pub offsets: Vec<f32>,
     /// Joint channels that any parameter drives.
@@ -41,11 +47,31 @@ pub struct ParameterTransform {
 }
 
 impl ParameterTransform {
+    /// Appends one column per blend-shape coefficient, as momentum's
+    /// `Character::withBlendShape` does. The new columns drive no joint.
+    pub fn append_blend_shape_parameters(&mut self, count: usize) {
+        let old_columns = self.num_parameters();
+        let new_columns = old_columns + count;
+        let mut dense = vec![0.0; self.num_joint_parameters * new_columns];
+        for row in 0..self.num_joint_parameters {
+            let source = &self.transform[row * old_columns..(row + 1) * old_columns];
+            dense[row * new_columns..row * new_columns + old_columns].copy_from_slice(source);
+        }
+        self.transform = dense;
+        for index in 0..count {
+            self.names
+                .push(ModelParameterName::from(format!("blend_{index}")));
+        }
+        for set in self.parameter_sets.values_mut() {
+            set.resize(new_columns, false);
+        }
+    }
+
     pub fn num_parameters(&self) -> usize {
         self.names.len()
     }
 
-    pub fn parameter_index(&self, name: &str) -> Option<usize> {
+    pub fn parameter_index(&self, name: &ModelParameterName) -> Option<usize> {
         self.names.iter().position(|n| n == name)
     }
 
@@ -152,12 +178,12 @@ fn parse_expression(
         let Ok(weight) = factors[0].parse::<f32>() else {
             bail!("could not parse weight in: {line}");
         };
-        let name = factors[1];
+        let name = ModelParameterName::from(factors[1]);
 
         // The right side may name either a model parameter or a joint channel
         // defined earlier in the file, in which case its terms are copied.
-        let parameter = transform.parameter_index(name);
-        let reference = match name.split_once('.') {
+        let parameter = transform.parameter_index(&name);
+        let reference = match factors[1].split_once('.') {
             Some((joint, channel)) => skeleton.joint_index(joint).and_then(|joint| {
                 JOINT_PARAMETER_NAMES
                     .iter()
@@ -179,7 +205,7 @@ fn parse_expression(
             }
             (None, None) => {
                 let parameter = transform.names.len();
-                transform.names.push(name.to_string());
+                transform.names.push(name);
                 triplets.push((row, parameter, weight));
             }
         }
@@ -233,7 +259,8 @@ fn parse_parameter_sets(lines: &[String], transform: &mut ParameterTransform) {
         }
         let mut set = vec![false; transform.num_parameters()];
         for name in &tokens[2..] {
-            if let Some(index) = transform.parameter_index(name) {
+            let name = ModelParameterName::from(*name);
+            if let Some(index) = transform.parameter_index(&name) {
                 set[index] = true;
             }
         }
@@ -249,7 +276,8 @@ fn parse_limits(lines: &[String], transform: &mut ParameterTransform) {
         if tokens.len() < 4 || tokens[0] != "limit" || tokens[2] != "minmax" {
             continue;
         }
-        let Some(parameter) = transform.parameter_index(tokens[1]) else {
+        let name = ModelParameterName::from(tokens[1]);
+        let Some(parameter) = transform.parameter_index(&name) else {
             continue;
         };
         // `[min, max]`, optionally followed by a weight.
@@ -299,25 +327,6 @@ pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<Paramet
     Ok(transform)
 }
 
-/// Appends one column per blend-shape coefficient, as momentum's
-/// `Character::withBlendShape` does. The new columns drive no joint.
-pub fn append_blend_shape_parameters(transform: &mut ParameterTransform, count: usize) {
-    let old_columns = transform.num_parameters();
-    let new_columns = old_columns + count;
-    let mut dense = vec![0.0; transform.num_joint_parameters * new_columns];
-    for row in 0..transform.num_joint_parameters {
-        let source = &transform.transform[row * old_columns..(row + 1) * old_columns];
-        dense[row * new_columns..row * new_columns + old_columns].copy_from_slice(source);
-    }
-    transform.transform = dense;
-    for index in 0..count {
-        transform.names.push(format!("blend_{index}"));
-    }
-    for set in transform.parameter_sets.values_mut() {
-        set.resize(new_columns, false);
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -339,7 +348,14 @@ mod tests {
     #[test]
     fn parses_weights_and_parameter_order() {
         let pt = parse("root.tx = 10.0 * root_tx\nchild.rz = 1.0 * bend + 0.5 * lean\n");
-        assert_eq!(pt.names, ["root_tx", "bend", "lean"]);
+        assert_eq!(
+            pt.names,
+            [
+                ModelParameterName::from("root_tx"),
+                ModelParameterName::from("bend"),
+                ModelParameterName::from("lean")
+            ]
+        );
         assert_eq!(pt.row(0), [10.0, 0.0, 0.0]);
         // child.rz is row 1 * 7 + 5.
         assert_eq!(pt.row(12), [0.0, 1.0, 0.5]);
@@ -350,7 +366,13 @@ mod tests {
     #[test]
     fn a_joint_reference_copies_scaled_terms() {
         let pt = parse("root.rx = 1.0 * twist + 0.25 * lean\nchild.rx = -0.5 * root.rx\n");
-        assert_eq!(pt.names, ["twist", "lean"]);
+        assert_eq!(
+            pt.names,
+            [
+                ModelParameterName::from("twist"),
+                ModelParameterName::from("lean")
+            ]
+        );
         assert_eq!(pt.row(3), [1.0, 0.25]);
         assert_eq!(pt.row(10), [-0.5, -0.125]);
     }
@@ -393,8 +415,15 @@ mod tests {
     #[test]
     fn blend_shape_columns_are_appended_without_joint_influence() {
         let mut pt = parse("root.tx = 10.0 * root_tx\n");
-        append_blend_shape_parameters(&mut pt, 2);
-        assert_eq!(pt.names, ["root_tx", "blend_0", "blend_1"]);
+        pt.append_blend_shape_parameters(2);
+        assert_eq!(
+            pt.names,
+            [
+                ModelParameterName::from("root_tx"),
+                ModelParameterName::from("blend_0"),
+                ModelParameterName::from("blend_1")
+            ]
+        );
         assert_eq!(pt.row(0), [10.0, 0.0, 0.0]);
     }
 }
