@@ -84,6 +84,28 @@ geometry at about a quarter of the vertices — encodes each one in a local
 surface frame at rest, and rebuilds that frame from the generated vertices, so
 authored shading survives identity, expression, skinning and correctives.
 
+## Parameter bounds
+
+`model_def::ParameterBounds` is the bespoke type for an inclusive `minmax`
+interval. Its endpoints are private; `ParameterBounds::try_from((minimum,
+maximum))` rejects NaN and reversed endpoints. Equal endpoints and infinities
+are admitted, and their floating-point bits, including signed zero, are
+preserved. `ParameterLimit` carries this checked interval in its `bounds` field.
+
+The model-definition parser returns an error for invalid `minmax` endpoints on a
+known parameter. The existing `anyhow::Error` boundary retains a
+`ParameterBoundsAdmissionError` with the parameter and source line, and its
+`ParameterBoundsError` source classifies the invalid endpoints. Unknown
+parameters and unsupported limit kinds keep their existing skip behavior. Solver
+weights remain separate and do not affect clamping.
+
+`ParameterTransform::apply_limits` uses intervals in file order and preserves
+the standard `f32::clamp` behavior for parameter values. Convert an interval
+with `let (minimum, maximum) = bounds.into();` only at a numeric or presentation
+API that requires native endpoints; keep the interval intact when comparing
+contracts. The character creator compares it with an admitted interval from the
+shared `BodyProportion` limits before producing its translation basis.
+
 ## Task integration
 
 `Mhr` implements `burn_tasks::BodyModelTask`, the workspace's task trait for
