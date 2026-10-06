@@ -8,6 +8,7 @@ pub(super) const MASONRY_BEARING_METRES: f32 = 0.04;
 pub(super) const CLOSURE_LAP_METRES: f32 = 0.05;
 pub(super) const CLOSURE_THICKNESS_METRES: f32 = 0.02;
 const CUT_TOLERANCE_METRES: f32 = 0.001;
+pub(super) const PENETRATION_DEPTH_METRES: f32 = 0.16;
 
 pub(super) fn openings(
     plan: &BuildingPlan,
@@ -28,7 +29,7 @@ pub(super) fn openings(
             };
             let mut min = body.min().metres();
             let mut max = body.max().metres();
-            min.y = elevation - 0.16;
+            min.y = elevation - PENETRATION_DEPTH_METRES;
             max.y = elevation;
             let core = SpatialBounds::from_metres(min, max)?;
             let margin = Vec3::new(

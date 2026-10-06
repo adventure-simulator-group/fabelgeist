@@ -1,7 +1,5 @@
 //! Transforms generator-local furnishing and retains its circulation proof.
-use adventuresim_building_generator::interior::{
-    InteriorLayout, InteriorPlacement, furnish, furniture_floor_height,
-};
+use adventuresim_building_generator::interior::{InteriorLayout, InteriorPlacement, furnish};
 use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
@@ -61,7 +59,8 @@ fn instance(
             .orientation
             .local_to_world(placement.centre_metres.metres() - Vec2::new(origin.x, origin.z));
     let height = building.placement.base_elevation_metres
-        + furniture_floor_height(&building.plan, placement)
+        + placement
+            .floor_height(&building.plan)
             .map_err(|cause| super::super::SceneInputError::Interior {
                 building_id: building.placement.id,
                 cause,

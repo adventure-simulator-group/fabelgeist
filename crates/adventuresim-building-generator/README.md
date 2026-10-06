@@ -113,7 +113,9 @@ displacements convert explicitly into architectural bounds. Missing
 required room/storey bindings fail with those identities. Folded sheet sections
 carry signed inner/outer depths, architectural elevations and admitted wall
 normals. The clipping, station, contact and weather-lap kernels retain their
-original arithmetic and tolerances.
+original arithmetic and tolerances. Candidate clearance carries a named policy
+for replacing or retaining the host wall. Floor penetration depth has one
+construction owner; audits keep their independent acceptance margins.
 
 Interior rectangle centres remain `ArchitecturalPlanPoint` values and their
 half extents remain `PlanExtents` through placement, navigation and clearance.
@@ -121,7 +123,13 @@ Signed expansion rejects reversed extents and permits zero extents. Furniture
 set-out uses `FurnitureLocal` displacements and `Radians` before explicit
 architectural rotation. Required empty rooms report room and storey identity.
 Height clipping and axis containment keep native arithmetic inside their
-bounded kernels; their inputs and outputs retain the declared frame.
+bounded kernels; their inputs and outputs retain the declared frame. Rectangle
+and elevation-interval construction accepts checked leaves. Room bounds and
+entrance records own their associated construction paths.
+`InteriorPlacement::floor_height` returns the highest physical floor top covering
+its centre within the planner's floor-elevation tolerance of the nominal storey
+elevation. If no floor qualifies, `MissingFloor` retains its room and storey
+identity. Scene adapters use that elevation to place the furniture.
 
 Equipment dispatch and connected recipes carry `PlanDimensions`; component
 catalogues name displacement and dimension leaves. Literal measurements are
@@ -129,6 +137,10 @@ admitted where the authored component is constructed. Native station loops,
 trigonometry, material mesh arrays and dimensionless recipe multipliers stay
 inside set-out or mesh kernels. Source envelope authoring remains separate from
 these equipment records and is still covered by the wider generator audit.
+Connected wet-trade vessels and crate stacks receive architectural points or
+positions; craft framing and drying-wall helpers receive checked dimensions,
+heights and directions. Authored hide sizes select their dimensionless
+silhouette multiplier inside the set-out kernel.
 
 `WindowSpec<F>` carries framed positions/directions, `LeafDimensions` and
 `Radians`. Bars retain architectural positions, `CuboidDimensions` and angles.

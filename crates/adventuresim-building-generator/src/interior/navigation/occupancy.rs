@@ -2,6 +2,7 @@
 use super::*;
 use crate::interior::InteriorResult as Result;
 use crate::spatial_geometry::GeometryResult;
+use crate::spatial_geometry::PlanExtents;
 
 pub(in crate::interior) struct Occupancy<'a> {
     nav: &'a Navigation,
@@ -29,11 +30,17 @@ impl<'a> Occupancy<'a> {
                         let b = nav.nodes[next];
                         (a.storey == b.storey)
                             .then(|| {
-                                Rect::from_metres(
-                                    (a.position_metres.metres() + b.position_metres.metres()) * 0.5,
-                                    (a.position_metres.metres() - b.position_metres.metres()).abs()
-                                        * 0.5
-                                        + Vec2::splat(PERSON_RADIUS),
+                                Rect::new(
+                                    ArchitecturalPlanPoint::from_metres(
+                                        (a.position_metres.metres() + b.position_metres.metres())
+                                            * 0.5,
+                                    )?,
+                                    PlanExtents::from_metres(
+                                        (a.position_metres.metres() - b.position_metres.metres())
+                                            .abs()
+                                            * 0.5
+                                            + Vec2::splat(PERSON_RADIUS),
+                                    )?,
                                 )
                             })
                             .transpose()
@@ -141,10 +148,16 @@ mod tests {
                 }
                 let a = nav.nodes[index];
                 let b = nav.nodes[next];
-                let swept = Rect::from_metres(
-                    (a.position_metres.metres() + b.position_metres.metres()) * 0.5,
-                    (a.position_metres.metres() - b.position_metres.metres()).abs() * 0.5
-                        + Vec2::splat(PERSON_RADIUS),
+                let swept = Rect::new(
+                    ArchitecturalPlanPoint::from_metres(
+                        (a.position_metres.metres() + b.position_metres.metres()) * 0.5,
+                    )
+                    .unwrap(),
+                    PlanExtents::from_metres(
+                        (a.position_metres.metres() - b.position_metres.metres()).abs() * 0.5
+                            + Vec2::splat(PERSON_RADIUS),
+                    )
+                    .unwrap(),
                 )
                 .unwrap();
                 if a.storey == b.storey

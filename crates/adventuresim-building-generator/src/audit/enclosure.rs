@@ -143,9 +143,11 @@ fn corner_gap(
                             <= opening.profile.interior_width_metres() * 0.5
                 })
                 .map(|opening| {
-                    enclosure_sections::ElevationInterval::from_metres(
-                        opening.sill_elevation_metres,
-                        opening.sill_elevation_metres + opening.profile.clear_height_metres(),
+                    enclosure_sections::ElevationInterval::new(
+                        Elevation::from_metres(opening.sill_elevation_metres)?,
+                        Elevation::from_metres(
+                            opening.sill_elevation_metres + opening.profile.clear_height_metres(),
+                        )?,
                     )
                 })
                 .collect::<Result<Vec<_>>>()?,

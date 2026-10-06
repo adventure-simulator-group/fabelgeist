@@ -2,7 +2,7 @@
 use super::*;
 use crate::GenerationResult as Result;
 use crate::heating::floors::{
-    CLOSURE_LAP_METRES, CLOSURE_THICKNESS_METRES, MASONRY_BEARING_METRES,
+    CLOSURE_LAP_METRES, CLOSURE_THICKNESS_METRES, MASONRY_BEARING_METRES, PENETRATION_DEPTH_METRES,
 };
 
 pub(super) fn audit(
@@ -98,7 +98,7 @@ fn support(
         let valid = bounds.min().metres().y.abs() < GEOMETRY_TOLERANCE_METRES
             && (bounds.max().metres().y - footing.min().metres().y).abs()
                 < GEOMETRY_TOLERANCE_METRES
-            && expected.difference(&bearing).unsigned_area() < 0.00001
+            && expected.difference(&bearing).unsigned_area() < AREA_TOLERANCE_SQUARE_METRES
             && pier.supported_by.contains(&h.ground_support)
             && footings[0].supported_by.iter().any(|id| {
                 plan.resolved_geometry.structural_nodes.iter().any(|node| {
@@ -161,7 +161,7 @@ fn opening(
     let mut min = core.min().metres();
     let mut max = core.max().metres();
     max.y = f32::from(opening.storey_level.serialized_ordinal()?) * plan.storey_height_metres;
-    min.y = max.y - 0.16;
+    min.y = max.y - PENETRATION_DEPTH_METRES;
     let core = SpatialBounds::from_metres(min, max)?;
     let margin = Vec3::new(
         super::super::placement::TIMBER_CLEARANCE_METRES + MASONRY_BEARING_METRES,
@@ -319,6 +319,6 @@ fn cover_bearings(
         .intersection(&rect(bounds));
     Ok(required_inner.unsigned_area() > 0.001
         && required_outer.unsigned_area() > 0.001
-        && required_inner.difference(&masonry).unsigned_area() < 0.00001
-        && required_outer.difference(&deck).unsigned_area() < 0.00001)
+        && required_inner.difference(&masonry).unsigned_area() < AREA_TOLERANCE_SQUARE_METRES
+        && required_outer.difference(&deck).unsigned_area() < AREA_TOLERANCE_SQUARE_METRES)
 }

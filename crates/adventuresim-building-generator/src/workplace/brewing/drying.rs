@@ -7,11 +7,17 @@ use crate::spatial_geometry::{
 
 pub(in super::super) fn drying_wall(
     assembly: &mut Assembly<'_>,
-    x: f32,
-    depth: f32,
-    h: f32,
-    outward: Vec2,
+    origin: ArchitecturalPlanPoint,
+    depth: PositiveLength,
+    height: PositiveLength,
+    outward: PlanDirection<crate::Architectural>,
 ) -> Result<()> {
+    // The wall starts at origin and runs along architectural +Z in metres.
+    // Bay division and louver set-out remain a native authored-layout kernel.
+    let origin = origin.metres();
+    let depth = depth.metres();
+    let height_owner = height;
+    let height = height.metres();
     let bays = (depth / 2.5) as u32;
     let length = depth / bays as f32;
     let _: () = for bay in 0..bays {
@@ -20,19 +26,19 @@ pub(in super::super) fn drying_wall(
         let right = left + 1.4;
         for (from, to) in [(start, left), (right, start + length)] {
             assembly.wall(
-                ArchitecturalPlanPoint::try_from(Vec2::new(x, from))?,
-                ArchitecturalPlanPoint::try_from(Vec2::new(x, to))?,
-                PlanDirection::<crate::Architectural>::from_normalized(outward)?,
+                ArchitecturalPlanPoint::try_from(Vec2::new(origin.x, origin.y + from))?,
+                ArchitecturalPlanPoint::try_from(Vec2::new(origin.x, origin.y + to))?,
+                outward,
                 Elevation::<crate::Architectural>::from_metres(0.0)?,
-                PositiveLength::from_metres(h)?,
+                height_owner,
                 crate::workplace::assembly::WallConstruction::Masonry,
             )?;
         }
-        for (base, height) in [(0.0, 1.6), (2.6, h - 2.6)] {
+        for (base, height) in [(0.0, 1.6), (2.6, height - 2.6)] {
             assembly.wall(
-                ArchitecturalPlanPoint::try_from(Vec2::new(x, left))?,
-                ArchitecturalPlanPoint::try_from(Vec2::new(x, right))?,
-                PlanDirection::<crate::Architectural>::from_normalized(outward)?,
+                ArchitecturalPlanPoint::try_from(Vec2::new(origin.x, origin.y + left))?,
+                ArchitecturalPlanPoint::try_from(Vec2::new(origin.x, origin.y + right))?,
+                outward,
                 Elevation::<crate::Architectural>::from_metres(base)?,
                 PositiveLength::from_metres(height)?,
                 crate::workplace::assembly::WallConstruction::Masonry,
@@ -43,7 +49,11 @@ pub(in super::super) fn drying_wall(
             assembly.part(
                 WorkplaceFeature::Louver,
                 WorkplaceMaterial::Timber,
-                Position::<crate::Architectural>::from_metres(Vec3::new(x, 2.1, z))?,
+                Position::<crate::Architectural>::from_metres(Vec3::new(
+                    origin.x,
+                    2.1,
+                    origin.y + z,
+                ))?,
                 CuboidDimensions::from_metres(Vec3::new(0.5, 1.04, 0.09))?,
                 crate::workplace::WorkplacePartVisibility::Silhouette,
             )?;
@@ -53,9 +63,9 @@ pub(in super::super) fn drying_wall(
                 WorkplaceFeature::Louver,
                 WorkplaceMaterial::Timber,
                 Position::<crate::Architectural>::from_metres(Vec3::new(
-                    x,
+                    origin.x,
                     1.71 + row as f32 * 0.25,
-                    (left + right) * 0.5,
+                    origin.y + (left + right) * 0.5,
                 ))?,
                 CuboidDimensions::from_metres(Vec3::new(0.5, 0.12, 1.4))?,
                 crate::workplace::WorkplacePartVisibility::Silhouette,

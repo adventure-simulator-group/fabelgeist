@@ -126,7 +126,7 @@ fn variant_candidates(
     seed: u64,
 ) -> Result<Vec<Vec<InteriorPlacement>>> {
     let key = FurnitureKey::natural(budget.kind, variant);
-    let bounds = super::geometry::room_bounds(room, storey)?;
+    let bounds = super::geometry::RoomBounds::from_room(room, storey)?;
     let (min, max) = (bounds.min.metres(), bounds.max.metres());
     let mut choices = Vec::new();
     let preferred_facing = super::room_facing::preferred_facing(plan, room, budget.kind, bounds)?;

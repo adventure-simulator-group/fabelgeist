@@ -2,6 +2,9 @@ use super::{BuildingPlan, ResolvedSolid, Result, resolved_solid_bounds};
 use crate::spatial_geometry::{Area as MeasuredArea, SignedLength};
 use bevy::math::{Vec2, Vec3};
 
+const CONTACT_TOLERANCE_METRES: f32 = 0.025;
+const INTERFACE_AREA_TOLERANCE_SQUARE_METRES: f32 = 0.005;
+
 pub(super) fn resolved_plan_overlap_area(
     left: &ResolvedSolid,
     right: &ResolvedSolid,
@@ -45,49 +48,51 @@ struct BondedInterfaceMetrics {
     penetration: SignedLength,
 }
 
-/// Native axis sorting is confined to this measured-contact kernel.
-fn bonded_interface_metrics(
-    a: &ResolvedSolid,
-    b: &ResolvedSolid,
-) -> Result<Option<BondedInterfaceMetrics>> {
-    let (a_min, a_max) = resolved_solid_bounds(a);
-    let (b_min, b_max) = resolved_solid_bounds(b);
-    let signed = a_max.min(b_max) - a_min.max(b_min);
-    let mut axes = [(signed.x, 0_usize), (signed.y, 1), (signed.z, 2)];
-    axes.sort_by(|left, right| left.0.total_cmp(&right.0));
-    if axes[0].0 < -0.025 || axes[1].0 <= 0.0 || axes[2].0 <= 0.0 {
-        return Ok(None);
-    }
-    let contact_min = a_min.max(b_min);
-    let mut contact_max = a_max.min(b_max);
-    if axes[0].0 < 0.0 {
-        let axis = axes[0].1;
-        let midpoint = (contact_min[axis] + contact_max[axis]) * 0.5;
-        contact_max[axis] = midpoint;
-    }
-    Ok(Some(BondedInterfaceMetrics {
-        contact_min: crate::spatial_geometry::Position::from_metres(contact_min)?,
-        contact_max: crate::spatial_geometry::Position::from_metres(contact_max)?,
-        area: MeasuredArea::from_square_metres(axes[1].0 * axes[2].0)?,
-        penetration: SignedLength::from_metres(axes[0].0.max(0.0))?,
-    }))
-}
-
 impl BondedInterfaceMetrics {
+    /// Classify contact from signed overlaps of architectural axis-aligned
+    /// bounds.
+    /// One axis permits a gap up to `CONTACT_TOLERANCE_METRES`; the other two
+    /// require positive overlap. Native metre arithmetic orders these overlaps.
+    fn between(a: &ResolvedSolid, b: &ResolvedSolid) -> Result<Option<Self>> {
+        let (a_min, a_max) = resolved_solid_bounds(a);
+        let (b_min, b_max) = resolved_solid_bounds(b);
+        let signed = a_max.min(b_max) - a_min.max(b_min);
+        let mut axes = [(signed.x, 0_usize), (signed.y, 1), (signed.z, 2)];
+        axes.sort_by(|left, right| left.0.total_cmp(&right.0));
+        if axes[0].0 < -CONTACT_TOLERANCE_METRES || axes[1].0 <= 0.0 || axes[2].0 <= 0.0 {
+            return Ok(None);
+        }
+        let contact_min = a_min.max(b_min);
+        let mut contact_max = a_max.min(b_max);
+        if axes[0].0 < 0.0 {
+            let axis = axes[0].1;
+            let midpoint = (contact_min[axis] + contact_max[axis]) * 0.5;
+            contact_max[axis] = midpoint;
+        }
+        Ok(Some(Self {
+            contact_min: crate::spatial_geometry::Position::from_metres(contact_min)?,
+            contact_max: crate::spatial_geometry::Position::from_metres(contact_max)?,
+            area: MeasuredArea::from_square_metres(axes[1].0 * axes[2].0)?,
+            penetration: SignedLength::from_metres(axes[0].0.max(0.0))?,
+        }))
+    }
+
     fn fits(&self, bond: &crate::JunctionBond) -> bool {
         let contact_min = self.contact_min.metres();
         let contact_max = self.contact_max.metres();
         // Order sampled planes only for containment, including tolerated gaps.
         contact_min
             .min(contact_max)
-            .cmpge(bond.bounds.min().metres() - Vec3::splat(0.025))
+            .cmpge(bond.bounds.min().metres() - Vec3::splat(CONTACT_TOLERANCE_METRES))
             .all()
             && contact_min
                 .max(contact_max)
-                .cmple(bond.bounds.max().metres() + Vec3::splat(0.025))
+                .cmple(bond.bounds.max().metres() + Vec3::splat(CONTACT_TOLERANCE_METRES))
                 .all()
-            && self.area.square_metres() + 0.005 >= bond.minimum_interface_area_square_metres
-            && self.penetration.metres() <= bond.maximum_penetration_metres + 0.025
+            && self.area.square_metres() + INTERFACE_AREA_TOLERANCE_SQUARE_METRES
+                >= bond.minimum_interface_area_square_metres
+            && self.penetration.metres()
+                <= bond.maximum_penetration_metres + CONTACT_TOLERANCE_METRES
     }
 }
 pub(super) fn bonded_geometry_matches(
@@ -107,7 +112,8 @@ pub(super) fn bonded_geometry_matches(
                     .filter(|b| b.owner == bond.owners[1]),
                 |b| {
                     Ok::<_, crate::GenerationError>(
-                        bonded_interface_metrics(a, b)?.is_some_and(|metrics| metrics.fits(bond)),
+                        BondedInterfaceMetrics::between(a, b)?
+                            .is_some_and(|metrics| metrics.fits(bond)),
                     )
                 },
             )

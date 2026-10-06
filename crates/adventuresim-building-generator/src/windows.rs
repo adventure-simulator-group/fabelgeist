@@ -1,4 +1,4 @@
-//! Operable casements compiled from accepted window opening assemblies.
+//! Architectural window bars and casements, with leaf mesh compilation.
 
 use crate::CollisionResult;
 use crate::spatial_geometry::GeometryResult;
@@ -13,6 +13,9 @@ use crate::{
 };
 
 const CASEMENT_OPEN_ANGLE_RADIANS: f32 = 80.0 * core::f32::consts::PI / 180.0;
+const MINIMUM_LEAF_THICKNESS_METRES: f32 = 0.025;
+const SWING_DIRECTION_PROBE_RADIANS: f32 = 0.01;
+const THREE_BAR_MINIMUM_WIDTH_METRES: f32 = 0.9;
 mod leaf;
 pub use leaf::compile_window_leaf;
 
@@ -41,6 +44,11 @@ pub use spec::{
     WindowBarPresence, WindowBarSpec, WindowError, WindowErrorCause, WindowResult, WindowSpec,
 };
 
+/// Compile fixed bars for every opening declaring an iron-bar closure layer.
+///
+/// Fixed bars compile independently of the opening's operable state. Invalid
+/// frame or bar geometry returns [`crate::CollisionError`] with the bar's
+/// source identity, which encodes the opening identity and bar ordinal.
 pub fn compile_window_bars(plan: &BuildingPlan) -> CollisionResult<Vec<WindowBarSpec>> {
     plan.opening_assemblies
         .iter()
@@ -48,7 +56,11 @@ pub fn compile_window_bars(plan: &BuildingPlan) -> CollisionResult<Vec<WindowBar
         .flat_map(|opening| {
             let width = opening.profile.interior_width_metres();
             let height = opening.profile.clear_height_metres();
-            let count = if width >= 0.9 { 3 } else { 2 };
+            let count = if width >= THREE_BAR_MINIMUM_WIDTH_METRES {
+                3
+            } else {
+                2
+            };
             (0..count).map(move |index| {
                 let fraction = (index + 1) as f32 / (count + 1) as f32;
                 let offset = (fraction - 0.5) * width;
@@ -83,6 +95,11 @@ pub fn compile_window_bars(plan: &BuildingPlan) -> CollisionResult<Vec<WindowBar
         .collect()
 }
 
+/// Compile operable exterior windows with an inside-room binding.
+///
+/// Ineligible openings are excluded. A missing supported closure or invalid
+/// selected leaf geometry returns [`WindowError`] with the opening identity and
+/// available closure-source identities.
 pub fn compile_operable_windows(
     plan: &BuildingPlan,
 ) -> WindowResult<Vec<WindowSpec<Architectural>>> {
@@ -119,31 +136,38 @@ pub fn compile_operable_windows(
                         sources: opening.closure_solids.clone(),
                     },
                 })?;
-            window_from_solid(
-                opening.id,
-                opening.frame.tangent,
-                opening.frame.outward,
-                if opening.closure.layers.contains(&ClosureKind::IronBars) {
-                    WindowBarPresence::Present
-                } else {
-                    WindowBarPresence::Absent
-                },
-                solid,
-            )
+            let admit = || {
+                WindowSpec::from_solid(
+                    opening.id,
+                    PlanDirection::from_vector(opening.frame.tangent)?,
+                    PlanDirection::from_vector(opening.frame.outward)?,
+                    if opening.closure.layers.contains(&ClosureKind::IronBars) {
+                        WindowBarPresence::Present
+                    } else {
+                        WindowBarPresence::Absent
+                    },
+                    solid,
+                )
+            };
+            admit().map_err(|cause| WindowError {
+                opening: opening.id,
+                source_id: Some(solid.id),
+                cause: cause.into(),
+            })
         })
         .collect()
 }
 
-fn window_from_solid(
-    opening: OpeningAssemblyId,
-    tangent: Vec2,
-    outward: Vec2,
-    bars: WindowBarPresence,
-    solid: &ResolvedSolid,
-) -> WindowResult<WindowSpec<Architectural>> {
-    let admit = || -> GeometryResult<WindowSpec<Architectural>> {
-        let tangent_owner = PlanDirection::from_vector(tangent)?;
-        let outward_owner = PlanDirection::from_vector(outward)?;
+impl WindowSpec<Architectural> {
+    fn from_solid(
+        opening: OpeningAssemblyId,
+        tangent: PlanDirection<Architectural>,
+        outward: PlanDirection<Architectural>,
+        bars: WindowBarPresence,
+        solid: &ResolvedSolid,
+    ) -> GeometryResult<Self> {
+        let tangent_owner = tangent;
+        let outward_owner = outward;
         let tangent = tangent_owner.vector();
         let outward = outward_owner.vector();
         let width =
@@ -152,9 +176,10 @@ fn window_from_solid(
             outward.x.abs() * solid.size.metres().x + outward.y.abs() * solid.size.metres().z;
         let hinge_centre =
             solid.centre.metres() - Vec3::new(tangent.x, 0.0, tangent.y) * width * 0.5;
-        let positive_swing = Quat::from_rotation_y(0.01) * Vec3::new(tangent.x, 0.0, tangent.y);
+        let positive_swing = Quat::from_rotation_y(SWING_DIRECTION_PROBE_RADIANS)
+            * Vec3::new(tangent.x, 0.0, tangent.y);
         let enters_room = Vec2::new(positive_swing.x, positive_swing.z).dot(-outward) > 0.0;
-        Ok(WindowSpec {
+        Ok(Self {
             leaf: if solid.role == SolidRole::LeadedGlazing {
                 WindowLeafKind::LeadedGlass
             } else {
@@ -167,7 +192,7 @@ fn window_from_solid(
             size_metres: LeafDimensions::from_metres(Vec3::new(
                 width,
                 solid.size.metres().y,
-                thickness.max(0.025),
+                thickness.max(MINIMUM_LEAF_THICKNESS_METRES),
             ))?,
             closed_yaw_radians: Radians::new(-tangent.y.atan2(tangent.x))?,
             tangent: tangent_owner,
@@ -179,12 +204,7 @@ fn window_from_solid(
             })?,
             bars,
         })
-    };
-    admit().map_err(|cause| WindowError {
-        opening,
-        source_id: Some(solid.id),
-        cause: cause.into(),
-    })
+    }
 }
 
 #[cfg(test)]

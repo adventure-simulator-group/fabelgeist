@@ -2,7 +2,7 @@
 use super::*;
 use adventuresim_building_generator::{
     OpeningUse, Room, RoomKind, SolidRole, StoreyPlan,
-    interior::{InteriorLayout, InteriorPlacement, furniture_floor_height},
+    interior::{InteriorLayout, InteriorPlacement},
 };
 use sightlines::{Blocker, Owner, Subject};
 
@@ -58,7 +58,7 @@ pub(super) fn camera(
                 .expect("selected room has furniture");
             (
                 storey.level,
-                furniture_floor_height(&building.plan, placement)?.metres(),
+                placement.floor_height(&building.plan)?.metres(),
                 Some(room),
             )
         }
@@ -167,7 +167,7 @@ fn blockers(building: &GeneratedBuilding, layout: &InteriorLayout) -> Result<Vec
     for (index, placement) in layout.placements.iter().enumerate() {
         let translation = Vec3::new(
             placement.centre_metres.metres().x,
-            furniture_floor_height(&building.plan, placement)?.metres(),
+            placement.floor_height(&building.plan)?.metres(),
             placement.centre_metres.metres().y,
         );
         let pose = adventuresim_building_generator::furniture::ArchitecturalFurniturePose {
@@ -220,7 +220,7 @@ fn furniture_subject(
     let rotation = Quat::from_rotation_y(placement.yaw_radians().radians());
     let translation = Vec3::new(
         placement.centre_metres.metres().x,
-        furniture_floor_height(&building.plan, placement)?.metres(),
+        placement.floor_height(&building.plan)?.metres(),
         placement.centre_metres.metres().y,
     );
     let points = std::iter::once(Vec3::Y * size.y * 0.5)

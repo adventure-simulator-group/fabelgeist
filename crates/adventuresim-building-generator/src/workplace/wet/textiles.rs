@@ -148,38 +148,53 @@ fn draped_cloth(
     Ok(())
 }
 
+/// Authored skin sizes select the dimensionless silhouette multiplier at set-out.
+#[derive(Clone, Copy)]
+enum HideSize {
+    Small,
+    Full,
+}
+impl HideSize {
+    fn scale(self) -> f32 {
+        match self {
+            Self::Small => 0.9,
+            Self::Full => 1.0,
+        }
+    }
+}
+
 pub(super) fn hide_frame(
     assembly: &mut Assembly<'_>,
     centre: ArchitecturalPlanPoint,
 ) -> Result<()> {
-    let centre = centre.metres();
     drying_frame(
         assembly,
-        ArchitecturalPlanPoint::from_metres(centre)?,
+        centre,
         PositiveLength::from_metres(2.8)?,
         PositiveLength::from_metres(2.8)?,
     )?;
+    let centre = centre.metres();
     struct HidePlacement {
         offset: Displacement<crate::Architectural>,
-        scale: f32,
+        size: HideSize,
     }
     for placement in [
         HidePlacement {
             offset: Displacement::from_metres(Vec3::new(-0.7, 0.0, 0.0))?,
-            scale: 0.9,
+            size: HideSize::Small,
         },
         HidePlacement {
             offset: Displacement::from_metres(Vec3::new(0.7, 0.0, 0.0))?,
-            scale: 1.0,
+            size: HideSize::Full,
         },
     ] {
         let x = placement.offset.metres().x;
-        let scale = placement.scale;
+        let size = placement.size;
         hanging_hide(
             assembly,
             ArchitecturalPlanPoint::from_metres(Vec2::new(centre.x + x, centre.y))?,
             Elevation::<crate::Architectural>::from_metres(2.8)?,
-            scale,
+            size,
         )?;
     }
     Ok(())
@@ -189,10 +204,11 @@ fn hanging_hide(
     assembly: &mut Assembly<'_>,
     centre: ArchitecturalPlanPoint,
     top: Elevation<crate::Architectural>,
-    scale: f32,
+    size: HideSize,
 ) -> Result<()> {
     let centre = centre.metres();
     let top = top.metres();
+    let scale = size.scale();
     // Neck, broad shoulders, tapered torso and unequal lower tails form a skin silhouette.
     for component in [
         RecipeComponent {

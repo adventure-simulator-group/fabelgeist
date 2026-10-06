@@ -1,6 +1,8 @@
 //! Keep the architectural processional route open through furnished naves.
-use super::geometry::{PERSON_RADIUS, Rect, room_bounds};
+use super::geometry::{PERSON_RADIUS, Rect, RoomBounds};
 use crate::interior::InteriorResult as Result;
+use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::PlanExtents;
 use crate::{BuildingPlan, ChurchRouteKind, RoomKind};
 use bevy::math::Vec2;
 
@@ -13,16 +15,7 @@ pub(super) fn nave_routes(
     if let Some(church) = &plan.small_church {
         let route = church.public_route;
         if (route.min().metres().y - height).abs() <= PERSON_RADIUS {
-            routes.push(Rect::from_metres(
-                Vec2::new(
-                    route.min().metres().x + route.max().metres().x,
-                    route.min().metres().z + route.max().metres().z,
-                ) * 0.5,
-                Vec2::new(
-                    route.max().metres().x - route.min().metres().x,
-                    route.max().metres().z - route.min().metres().z,
-                ) * 0.5,
-            )?);
+            routes.push(Rect::from_bounds(route)?);
         }
     }
     if let Some(church) = &plan.church {
@@ -36,9 +29,11 @@ pub(super) fn nave_routes(
                 {
                     let a = Vec2::new(pair[0].x, pair[0].z);
                     let b = Vec2::new(pair[1].x, pair[1].z);
-                    routes.push(Rect::from_metres(
-                        (a + b) * 0.5,
-                        (b - a).abs() * 0.5 + Vec2::splat(route.width_metres * 0.5),
+                    routes.push(Rect::new(
+                        ArchitecturalPlanPoint::from_metres((a + b) * 0.5)?,
+                        PlanExtents::from_metres(
+                            (b - a).abs() * 0.5 + Vec2::splat(route.width_metres * 0.5),
+                        )?,
                     )?);
                 }
             }
@@ -53,13 +48,17 @@ pub(super) fn nave_routes(
             .iter()
             .filter(|room| room.kind == RoomKind::Nave)
         {
-            let bounds = room_bounds(room, crate::StoreyIndex::from_serialized(storey.level))?;
+            let bounds =
+                RoomBounds::from_room(room, crate::StoreyIndex::from_serialized(storey.level))?;
             let (min, max) = (bounds.min.metres(), bounds.max.metres());
             for route in &routes {
                 let a = min.max(route.centre.metres() - route.half.metres());
                 let b = max.min(route.centre.metres() + route.half.metres());
                 if a.cmplt(b).all() {
-                    intersections.push(Rect::from_metres((a + b) * 0.5, (b - a) * 0.5)?);
+                    intersections.push(Rect::new(
+                        ArchitecturalPlanPoint::from_metres((a + b) * 0.5)?,
+                        PlanExtents::from_metres((b - a) * 0.5)?,
+                    )?);
                 }
             }
         }
@@ -101,7 +100,7 @@ mod tests {
                 .iter()
                 .find(|r| r.kind == RoomKind::Nave)
                 .unwrap();
-            let bounds = room_bounds(nave, crate::StoreyIndex::GROUND).unwrap();
+            let bounds = RoomBounds::from_room(nave, crate::StoreyIndex::GROUND).unwrap();
             let (min, max) = (bounds.min.metres(), bounds.max.metres());
             assert!(pulpit.centre_metres.metres().y >= (min.y + max.y) * 0.5);
             assert_eq!(pulpit.facing, crate::Direction::South);

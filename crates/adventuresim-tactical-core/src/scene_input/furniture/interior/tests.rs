@@ -52,9 +52,7 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
         assert!(
             (instance.position_metres.y
                 - 4.2
-                - furniture_floor_height(&building.plan, placement)
-                    .unwrap()
-                    .metres())
+                - placement.floor_height(&building.plan).unwrap().metres())
             .abs()
                 < 0.0001
         );

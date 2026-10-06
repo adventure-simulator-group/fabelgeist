@@ -10,15 +10,12 @@ pub(super) struct ElevationInterval {
     pub high: Elevation<Architectural>,
 }
 impl ElevationInterval {
-    pub fn from_metres(low: f32, high: f32) -> Result<Self> {
+    pub fn new(low: Elevation<Architectural>, high: Elevation<Architectural>) -> Result<Self> {
         crate::SpatialBounds::<Architectural>::from_metres(
-            Vec3::new(0.0, low, 0.0),
-            Vec3::new(0.0, high, 0.0),
+            Vec3::new(0.0, low.metres(), 0.0),
+            Vec3::new(0.0, high.metres(), 0.0),
         )?;
-        Ok(Self {
-            low: Elevation::from_metres(low)?,
-            high: Elevation::from_metres(high)?,
-        })
+        Ok(Self { low, high })
     }
 }
 
@@ -46,7 +43,9 @@ pub(super) fn intervals(
             solid, origin, direction, depth, base, top,
         )
         .into_iter()
-        .map(|(low, high)| ElevationInterval::from_metres(low, high))
+        .map(|(low, high)| {
+            ElevationInterval::new(Elevation::from_metres(low)?, Elevation::from_metres(high)?)
+        })
         .collect::<Result<Vec<_>>>();
     }
     if !matches!(
@@ -73,7 +72,9 @@ pub(super) fn intervals(
                     section_interval(triangle, origin, direction, depth, base, top)
                 })
         })
-        .map(|(low, high)| ElevationInterval::from_metres(low, high))
+        .map(|(low, high)| {
+            ElevationInterval::new(Elevation::from_metres(low)?, Elevation::from_metres(high)?)
+        })
         .collect()
 }
 

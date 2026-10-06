@@ -26,7 +26,6 @@ mod spiral_tests;
 #[cfg(test)]
 mod tests;
 pub use budgets::{FurnitureBudget, FurniturePosition, furniture_budgets};
-pub use geometry::furniture_floor_height;
 pub use placement::{furnish, validate_layout};
 
 /// Verify the completed architectural circulation before accepting a heated recipe.

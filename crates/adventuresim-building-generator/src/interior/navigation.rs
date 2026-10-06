@@ -3,6 +3,7 @@ use super::geometry::*;
 use super::{FurnitureAccessPath, InteriorLayoutError, InteriorPlacement, InteriorWaypoint};
 use crate::BuildingPlan;
 use crate::interior::InteriorResult as Result;
+use crate::spatial_geometry::PlanExtents;
 use crate::{StoreyIndex, plan_geometry::ArchitecturalPlanPoint};
 use bevy::math::Vec2;
 use std::collections::{BTreeMap, VecDeque};
@@ -43,13 +44,13 @@ impl Navigation {
         nav.add_stairs(plan)?;
         for storey in &plan.storeys {
             for room in &storey.rooms {
-                room_bounds(room, StoreyIndex::from_serialized(storey.level))?;
+                RoomBounds::from_room(room, StoreyIndex::from_serialized(storey.level))?;
                 let mut ids = Vec::new();
                 for (index, node) in nav.nodes.iter().enumerate() {
                     if node.storey == StoreyIndex::from_serialized(storey.level)
-                        && Rect::from_metres(
-                            node.position_metres.metres(),
-                            Vec2::splat(PERSON_RADIUS),
+                        && Rect::new(
+                            node.position_metres,
+                            PlanExtents::from_metres(Vec2::splat(PERSON_RADIUS))?,
                         )?
                         .inside_room(room)?
                     {
@@ -83,12 +84,14 @@ impl Navigation {
                         let gx = i32::from(cx) * cell_steps + x;
                         let gz = i32::from(cz) * cell_steps + z;
                         let point = Vec2::new(gx as f32, gz as f32) * GRID_STEP;
-                        if floor.walkable(Rect::from_metres(point, Vec2::splat(PERSON_RADIUS))?)? {
+                        if floor.walkable(Rect::new(
+                            ArchitecturalPlanPoint::from_metres(point)?,
+                            PlanExtents::from_metres(Vec2::splat(PERSON_RADIUS))?,
+                        )?)? {
                             lookup.insert((floor.level, gx, gz), nodes.len());
                             nodes.push(InteriorWaypoint {
                                 storey: floor.level,
-                                position_metres:
-                                    crate::plan_geometry::ArchitecturalPlanPoint::try_from(point)?,
+                                position_metres: ArchitecturalPlanPoint::try_from(point)?,
                             });
                         }
                     }
@@ -105,9 +108,9 @@ impl Navigation {
                 if let Some(&other) = lookup.get(&(level, x + dx, z + dz)) {
                     let a = nodes[index].position_metres.metres();
                     let b = nodes[other].position_metres.metres();
-                    if floor.walkable(Rect::from_metres(
-                        (a + b) * 0.5,
-                        (a - b).abs() * 0.5 + Vec2::splat(PERSON_RADIUS),
+                    if floor.walkable(Rect::new(
+                        ArchitecturalPlanPoint::from_metres((a + b) * 0.5)?,
+                        PlanExtents::from_metres((a - b).abs() * 0.5 + Vec2::splat(PERSON_RADIUS))?,
                     )?)? {
                         edges[index].push(other);
                     }

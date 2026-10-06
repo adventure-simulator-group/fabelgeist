@@ -35,14 +35,23 @@ pub(super) fn fit_workplace(
     let depth = dimensions.metres().y;
     let _: () = match assembly.plan.kind {
         WorkplaceKind::Dyer => {
-            soaking::dye_kettle(assembly, Vec2::new(1.7, 2.2))?;
+            soaking::dye_kettle(
+                assembly,
+                ArchitecturalPlanPoint::from_metres(Vec2::new(1.7, 2.2))?,
+            )?;
             textiles::dye_frames(assembly, dimensions)?;
         }
         WorkplaceKind::Tannery => {
             drying_canopy(assembly, dimensions)?;
             let count = 2 + assembly.plan.size.extra_bays();
             for bay in 0..count {
-                soaking::tank(assembly, Vec2::new(width + 3.8, 2.2 + f32::from(bay) * 3.0))?;
+                soaking::tank(
+                    assembly,
+                    ArchitecturalPlanPoint::from_metres(Vec2::new(
+                        width + 3.8,
+                        2.2 + f32::from(bay) * 3.0,
+                    ))?,
+                )?;
             }
             textiles::hide_frame(
                 assembly,
@@ -51,8 +60,14 @@ pub(super) fn fit_workplace(
                     depth - 1.2,
                 ))?,
             )?;
-            soaking::fleshing_beam(assembly, Vec2::new(1.7, 2.2))?;
-            soaking::fleshing_beam(assembly, Vec2::new(width - 1.7, depth - 2.4))?;
+            soaking::fleshing_beam(
+                assembly,
+                ArchitecturalPlanPoint::from_metres(Vec2::new(1.7, 2.2))?,
+            )?;
+            soaking::fleshing_beam(
+                assembly,
+                ArchitecturalPlanPoint::from_metres(Vec2::new(width - 1.7, depth - 2.4))?,
+            )?;
         }
         _ => unreachable!("only dyeing and tanning use the wet-trade programme"),
     };
