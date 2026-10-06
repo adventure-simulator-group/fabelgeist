@@ -1,6 +1,10 @@
 //! Parser for the "Momentum Model Definition V1.0" text format
 //! (`compact_v6_1.model`), which maps model parameters onto joint parameters.
 
+mod solver_weight;
+
+pub use solver_weight::{SolverLimitWeight, SolverLimitWeightAdmissionError};
+
 use std::collections::HashMap;
 
 use anyhow::{Result, bail};
@@ -19,7 +23,7 @@ pub struct ParameterLimit {
     pub max: f32,
     /// How strongly a solver should enforce the bound; 1.0 unless the file says
     /// otherwise. Clamping ignores it.
-    pub weight: f32,
+    pub weight: SolverLimitWeight,
 }
 
 /// The linear map from model parameters to joint parameters.
@@ -241,7 +245,10 @@ fn parse_parameter_sets(lines: &[String], transform: &mut ParameterTransform) {
     }
 }
 
-fn parse_limits(lines: &[String], transform: &mut ParameterTransform) {
+fn parse_limits(
+    lines: &[String],
+    transform: &mut ParameterTransform,
+) -> std::result::Result<(), SolverLimitWeightAdmissionError> {
     for line in lines {
         let tokens = tokenize(line, " \t");
         // `limit <parameter> minmax [min, max]`; momentum's other limit kinds
@@ -265,10 +272,15 @@ fn parse_limits(lines: &[String], transform: &mut ParameterTransform) {
                 parameter,
                 min: bounds[0],
                 max: bounds[1],
-                weight: line[close + 1..].trim().parse().unwrap_or(1.0),
+                weight: SolverLimitWeight::from_model_token(
+                    line[close + 1..].trim(),
+                    line,
+                    tokens[1],
+                )?,
             });
         }
     }
+    Ok(())
 }
 
 /// Parses a `.model` file against a skeleton, producing the parameter transform.
@@ -293,7 +305,7 @@ pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<Paramet
         parse_parameter_sets(lines, &mut transform);
     }
     if let Some(lines) = sections.get("Limits") {
-        parse_limits(lines, &mut transform);
+        parse_limits(lines, &mut transform)?;
     }
 
     Ok(transform)
@@ -381,9 +393,9 @@ mod tests {
         let pt = parse_model_definition(text, &skeleton()).unwrap();
         assert_eq!(pt.parameter_sets["rigid"], [true, false]);
         assert_eq!(pt.limits.len(), 2);
-        assert_eq!(pt.limits[0].weight, 1.0);
+        assert_eq!(pt.limits[0].weight, SolverLimitWeight::DEFAULT);
         // The trailing token is a solver weight, not a third bound.
-        assert_eq!(pt.limits[1].weight, 0.1);
+        assert_eq!(pt.limits[1].weight, SolverLimitWeight::from(0.1));
 
         let mut parameters = [0.0, 3.0];
         pt.apply_limits(&mut parameters);
