@@ -10,8 +10,8 @@ use std::collections::HashMap;
 use anyhow::{Context, Result, bail};
 
 use crate::math::{
-    Mat4, Quat, Transform, affine_inverse, mat4_from_column_major, quat_from_euler_degrees,
-    quat_mul, rotation_order,
+    EulerOrder, Mat4, Quat, Transform, affine_inverse, mat4_from_column_major,
+    quat_from_euler_degrees, quat_mul,
 };
 use fabelgeist_fbx::{Object, Scene};
 
@@ -143,12 +143,12 @@ impl<'a> SkeletonBuilder<'a> {
             return;
         }
 
-        let order = rotation_order(object.node.property70_i64("RotationOrder", 0));
+        let order = EulerOrder::from_fbx_code(object.node.property70_i64("RotationOrder", 0));
         let local_rotation =
             quat_from_euler_degrees(object.node.property70_vec3("Lcl Rotation", [0.0; 3]), order);
         let pre_rotation = quat_from_euler_degrees(
             object.node.property70_vec3("PreRotation", [0.0; 3]),
-            [0, 1, 2],
+            EulerOrder::Xyz,
         );
         // momentum bakes any rest rotation into the joint's pre-rotation.
         let prerotation: Quat = quat_mul(pre_rotation, local_rotation);

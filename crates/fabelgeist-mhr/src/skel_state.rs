@@ -185,7 +185,7 @@ mod tests {
     #[test]
     fn euler_matches_the_host_implementation() {
         let angles = [0.3_f64, -0.7, 1.1];
-        let expected = math::quat_from_euler(angles, [0, 1, 2]).map(|v| v as f32);
+        let expected = math::quat_from_euler(angles, math::EulerOrder::Xyz).map(|v| v as f32);
         let actual = euler_xyz_to_quaternion(tensor(
             angles.iter().map(|v| *v as f32).collect(),
             [1, 1, 3],
@@ -241,7 +241,10 @@ mod tests {
         let locals: Vec<math::Transform> = (0..parents.len())
             .map(|i| math::Transform {
                 translation: [i as f64, 1.0, -0.5],
-                rotation: math::quat_from_euler([0.1 * i as f64, 0.2, -0.05], [0, 1, 2]),
+                rotation: math::quat_from_euler(
+                    [0.1 * i as f64, 0.2, -0.05],
+                    math::EulerOrder::Xyz,
+                ),
                 scale: 1.0,
             })
             .collect();
