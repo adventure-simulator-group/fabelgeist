@@ -25,8 +25,8 @@ pub use compiled::{
     ChurchSitingIssue, CityBusinessSite, CityCompileError, CityGroundingError,
     CityGroundingProjection, CityGroundingProjectionError, CityRecipePalette, CitySceneLayout,
     CitySingleProperty, CitySupportError, CompiledCityLayout, CompoundGradingPolicy, CompoundIssue,
-    GroundedCitySceneLayout, SelectedCityGrounding, SinglePropertyGradingPolicy,
-    StreetApronDimensions,
+    GardenClearanceError, GroundedCitySceneLayout, ProjectionBoundary, ProjectionOwnerContext,
+    SelectedCityGrounding, SinglePropertyGradingPolicy, StreetApronDimensions,
 };
 pub(crate) use compiled::{validate_scene_compound, validate_scene_gardens};
 pub use compound::{
@@ -107,7 +107,7 @@ struct CandidateLot {
 impl CitySite {
     pub fn generate(
         &self,
-        seed: u64,
+        seed: fabelgeist_determinism::Seed,
         resident_population: u32,
         economy: &SettlementEconomyProfile,
     ) -> GeneratedCityLayout {
@@ -128,7 +128,7 @@ impl CitySite {
             )
         });
         let demand = SettlementBuildingDemand::with_parish_policy(
-            seed,
+            seed.to_u64(),
             resident_population,
             economy,
             self.parish_policy,
@@ -196,14 +196,14 @@ fn block_is_inside_city(block: CityBlock, extent: DevelopmentExtent) -> bool {
     (centre.x / CITY_RADIUS_X_METRES).powi(2) + (centre.y / extent.radius_y_metres).powi(2) <= 1.0
 }
 
-fn block_lots(seed: u64, block: CityBlock) -> Vec<CandidateLot> {
+fn block_lots(seed: fabelgeist_determinism::Seed, block: CityBlock) -> Vec<CandidateLot> {
     let mut lots = Vec::new();
     for edge_index in 0..4 {
         append_frontage(
             &mut lots,
             seed,
             StreamId::new("city.frontage-identity")
-                .seed(block.key().0, &[edge_index as u64])
+                .seed(block.key().0.into(), &[edge_index as u64])
                 .to_u64(),
             block.key(),
             block.corners[edge_index],
@@ -217,7 +217,7 @@ fn block_lots(seed: u64, block: CityBlock) -> Vec<CandidateLot> {
 
 fn append_frontage(
     lots: &mut Vec<CandidateLot>,
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     run_key: u64,
     block_key: BlockId,
     start: Vec2,
@@ -232,7 +232,7 @@ fn append_frontage(
     let mut index = 0_u64;
     loop {
         let lot_key = StreamId::new("city.lot-identity")
-            .seed(run_key, &[index])
+            .seed(run_key.into(), &[index])
             .to_u64();
         let house_class = house_class(seed, lot_key, false);
         let compound_margin = if house_class == CityHouseClass::MerchantHouse {
@@ -265,7 +265,11 @@ fn append_frontage(
     }
 }
 
-fn passage_side(seed: u64, lot_key: u64, house_class: CityHouseClass) -> PropertySide {
+fn passage_side(
+    seed: fabelgeist_determinism::Seed,
+    lot_key: u64,
+    house_class: CityHouseClass,
+) -> PropertySide {
     if house_class == CityHouseClass::MerchantHouse
         && RNG_CITY_PASSAGE_SIDE.rng(seed, &[lot_key]).boolean()
     {
@@ -276,7 +280,7 @@ fn passage_side(seed: u64, lot_key: u64, house_class: CityHouseClass) -> Propert
 }
 
 fn candidate(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     lot_key: u64,
     block_key: BlockId,
     centre_metres: Vec2,
@@ -306,7 +310,11 @@ fn candidate(
     }
 }
 
-fn house_class(seed: u64, lot_key: u64, rear_court: bool) -> CityHouseClass {
+fn house_class(
+    seed: fabelgeist_determinism::Seed,
+    lot_key: u64,
+    rear_court: bool,
+) -> CityHouseClass {
     let mut random = StreamId::new("city.house-class").rng(seed, &[lot_key]);
     if rear_court {
         return if random.index(5) == 0 {

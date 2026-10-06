@@ -50,16 +50,16 @@ pub(super) fn choose_start_settlement(
                 organization.id
             );
             &settlements[NPC_SETTLEMENT_SELECTION_DOMAIN
-                .rng(selector, &[])
+                .rng(selector.into(), &[])
                 .index(settlements.len())]
         } else {
             eligible[NPC_SETTLEMENT_SELECTION_DOMAIN
-                .rng(selector, &[])
+                .rng(selector.into(), &[])
                 .index(eligible.len())]
         }
     } else {
         &settlements[NPC_SETTLEMENT_SELECTION_DOMAIN
-            .rng(selector, &[])
+            .rng(selector.into(), &[])
             .index(settlements.len())]
     };
 

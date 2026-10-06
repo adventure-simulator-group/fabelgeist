@@ -20,28 +20,28 @@ pub(super) const TREE_SCALE: StreamId = StreamId::new("visual.vista.tree-scale")
 
 pub(super) fn rock_cell(root: u64, x: i32, z: i32, spacing: f32) -> (u64, Vec2) {
     let seed = ROCK
-        .seed(root, &[x as u32 as u64, z as u32 as u64])
+        .seed(root.into(), &[x as u32 as u64, z as u32 as u64])
         .to_u64();
     let jitter = Vec2::new(
-        JITTER_X.rng(seed, &[]).inclusive_unit_f32() - 0.5,
-        JITTER_Z.rng(seed, &[]).inclusive_unit_f32() - 0.5,
+        JITTER_X.rng(seed.into(), &[]).inclusive_unit_f32() - 0.5,
+        JITTER_Z.rng(seed.into(), &[]).inclusive_unit_f32() - 0.5,
     ) * spacing
         * 0.72;
     (seed, jitter)
 }
 
 pub(super) fn tree_count_seed(root: u64, x: usize, z: usize) -> u64 {
-    TREE_COUNT.seed(root, &[x as u64, z as u64]).to_u64()
+    TREE_COUNT.seed(root.into(), &[x as u64, z as u64]).to_u64()
 }
 
 pub(super) fn tree_seed(root: u64, x: usize, z: usize, candidate: usize) -> u64 {
-    TREE.seed(root, &[x as u64, z as u64, candidate as u64])
+    TREE.seed(root.into(), &[x as u64, z as u64, candidate as u64])
         .to_u64()
 }
 
 pub(super) fn tree_jitter(seed: u64) -> Vec2 {
     Vec2::new(
-        JITTER_X.rng(seed, &[]).inclusive_unit_f32(),
-        TREE_JITTER_Z.rng(seed, &[]).inclusive_unit_f32(),
+        JITTER_X.rng(seed.into(), &[]).inclusive_unit_f32(),
+        TREE_JITTER_Z.rng(seed.into(), &[]).inclusive_unit_f32(),
     )
 }

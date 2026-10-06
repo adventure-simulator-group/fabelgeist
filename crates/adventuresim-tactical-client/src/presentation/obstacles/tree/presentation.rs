@@ -784,7 +784,10 @@ pub(in crate::presentation) fn ensure_vista_tree_variant(
 ) -> CachedVistaTreePresentation {
     let competition_key = (competition * 4095.0).round() as u64;
     let cache_key = StreamId::new("visual.tree.vista-cache-key")
-        .seed(variant_seed, &[competition_key, species.cache_salt()])
+        .seed(
+            variant_seed.into(),
+            &[competition_key, species.cache_salt()],
+        )
         .to_u64();
     if let Some(cached) = cache.variants.get(&cache_key) {
         return cached.clone();
@@ -867,7 +870,7 @@ pub(in crate::presentation) fn present_pending_trees(
         let competition_key = (competition * 4095.0).round() as u64;
         let cache_key = StreamId::new("visual.tree.playable-cache-key")
             .seed(
-                variant_seed,
+                variant_seed.into(),
                 &[competition_key, site_key, species.cache_salt()],
             )
             .to_u64();
@@ -991,11 +994,16 @@ mod tests {
         SceneEnvironment {
             scene_digest: "oak-site-test".into(),
             generation_version: 7,
-            latitude_microdegrees: 53_500_000,
-            longitude_microdegrees: 10_000_000,
+            latitude_microdegrees:
+                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
+                    .unwrap(),
+            longitude_microdegrees:
+                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
+                    .unwrap(),
             absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
             lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
-            absolute_elevation_metres: 420,
+            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(420)
+                .unwrap(),
             weather: WeatherSnapshot {
                 rules_version: adventuresim_tactical_core::prelude::WEATHER_RULES_VERSION,
                 interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(

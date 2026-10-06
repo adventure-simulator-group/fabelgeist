@@ -74,10 +74,14 @@ fn present(
         for site in sites {
             let transform = Transform::from_translation(site.root)
                 .with_rotation(Quat::from_rotation_y(
-                    streams::YAW.rng(site.hash, &[]).inclusive_unit_f32() * std::f32::consts::TAU,
+                    streams::YAW.rng(site.hash.into(), &[]).inclusive_unit_f32()
+                        * std::f32::consts::TAU,
                 ))
                 .with_scale(Vec3::splat(
-                    0.85 + streams::SCALE.rng(site.hash, &[]).inclusive_unit_f32() * 0.3,
+                    0.85 + streams::SCALE
+                        .rng(site.hash.into(), &[])
+                        .inclusive_unit_f32()
+                        * 0.3,
                 ));
             cache.spawn(&mut commands, site.species, transform);
             anchors.push(PlantCaptureAnchor {
@@ -111,20 +115,22 @@ fn placements(
         super::cover_mask::CoverageMask::new(ground, stable_text_seed(&environment.scene_digest));
     for z in 0..count_z {
         for x in 0..count_x {
-            let hash = streams::SITE.seed(seed, &[x as u64, z as u64]).to_u64();
-            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() > OCCUPANCY {
+            let hash = streams::SITE
+                .seed(seed.into(), &[x as u64, z as u64])
+                .to_u64();
+            if streams::PRESENCE.rng(hash.into(), &[]).inclusive_unit_f32() > OCCUPANCY {
                 continue;
             }
             let world = Vec2::new(
                 -terrain.width() * 0.5
                     + (x as f32
                         + 0.15
-                        + streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() * 0.7)
+                        + streams::JITTER_X.rng(hash.into(), &[]).inclusive_unit_f32() * 0.7)
                         * SITE_SPACING_METRES,
                 -terrain.depth() * 0.5
                     + (z as f32
                         + 0.15
-                        + streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() * 0.7)
+                        + streams::JITTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() * 0.7)
                         * SITE_SPACING_METRES,
             );
             let (Some(surface), Some(height), Some(normal)) = (
@@ -141,7 +147,7 @@ fn placements(
             // A shared macro-cell roll gives patches botanical coherence; roots
             // retain independent jitter so the planting lattice is not visible.
             let community = streams::COMMUNITY
-                .seed(seed, &[(x / 3) as u64, (z / 3) as u64])
+                .seed(seed.into(), &[(x / 3) as u64, (z / 3) as u64])
                 .to_u64();
             let weights = PlantSpecies::ALL.map(|species| {
                 (species.habitat_weight(habitat)
@@ -149,7 +155,7 @@ fn placements(
                 .round() as u64
             });
             let Ok(species) = streams::SPECIES
-                .rng(community, &[])
+                .rng(community.into(), &[])
                 .weighted_index(&weights)
             else {
                 continue;

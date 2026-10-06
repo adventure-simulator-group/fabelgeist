@@ -28,10 +28,10 @@ pub(super) fn generation_context(seed: u64, family: TemplateFamily) -> qg::Gener
     qg::GenerationContext {
         seed,
         observer_entropy_hi: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high")
-            .seed(seed, &[])
+            .seed(seed.into(), &[])
             .to_u64(),
         observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-low")
-            .seed(seed, &[])
+            .seed(seed.into(), &[])
             .to_u64(),
         settlement_id: "settlement:evaluator".into(),
         settlement_name: "Greifenhagen".into(),

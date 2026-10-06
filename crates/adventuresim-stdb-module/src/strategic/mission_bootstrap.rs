@@ -1319,9 +1319,9 @@ fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> R
             .ok_or("NPC party disappeared after leader assignment")?;
         party.name = format!("{}'s company", leader_name);
         party.current_settlement_id = Some(settlement_id.to_string());
-        party.physiology_target = 3.0 + streams::PHYSIOLOGY.rng(leader_id, &[]).index(3) as f32;
-        party.command_target = 3.0 + streams::COMMAND.rng(leader_id, &[]).index(3) as f32;
-        party.religion_target = 3.0 + streams::RELIGION.rng(leader_id, &[]).index(3) as f32;
+        party.physiology_target = 3.0 + streams::PHYSIOLOGY.rng(leader_id.into(), &[]).index(3) as f32;
+        party.command_target = 3.0 + streams::COMMAND.rng(leader_id.into(), &[]).index(3) as f32;
+        party.religion_target = 3.0 + streams::RELIGION.rng(leader_id.into(), &[]).index(3) as f32;
         ctx.db.party_authority().id().update(party);
 
         let requirements = streams::recruiting_role(leader_id);
@@ -1657,11 +1657,11 @@ fn materialize_preferred_generated_fixture(
         .ok_or("Current settlement not found")?;
 
     let now_minute = crate::time::refresh_clock(ctx)?.max(StrategicMinute::new(4_000));
-    let entropy = streams::FIXTURE.seed(character_id, &[seed_salt]).to_u64();
+    let entropy = streams::FIXTURE.seed(character_id.into(), &[seed_salt]).to_u64();
     let initial_context = qg::GenerationContext {
         seed: entropy,
-        observer_entropy_hi: streams::OBSERVER_HIGH.seed(entropy, &[]).to_u64(),
-        observer_entropy_lo: streams::OBSERVER_LOW.seed(entropy, &[]).to_u64(),
+        observer_entropy_hi: streams::OBSERVER_HIGH.seed(entropy.into(), &[]).to_u64(),
+        observer_entropy_lo: streams::OBSERVER_LOW.seed(entropy.into(), &[]).to_u64(),
         settlement_id: settlement_id.clone(),
         settlement_name: settlement.name.clone(),
         scope: adventuresim_core::local_problem::Scope::Settlement {
@@ -1676,7 +1676,7 @@ fn materialize_preferred_generated_fixture(
     let (context, generated) = (0..64_u64)
         .find_map(|offset| {
             let mut candidate = initial_context.clone();
-            candidate.seed = streams::FIXTURE_ATTEMPT.seed(entropy, &[offset]).to_u64();
+            candidate.seed = streams::FIXTURE_ATTEMPT.seed(entropy.into(), &[offset]).to_u64();
             let generated = qg::generate(&candidate).ok()?;
             preferred_fixture_is_suitable(family, &generated).then_some((candidate, generated))
         })
@@ -1778,14 +1778,14 @@ fn materialize_simulation_acceptance_outbreak(
         .find(&settlement_id)
         .ok_or("Quest acceptance outbreak settlement not found")?;
     let now_minute = crate::time::refresh_clock(ctx)?.max(StrategicMinute::new(4_000));
-    let entropy = streams::ACCEPTANCE.seed(character_id, &[policy_seed]).to_u64();
+    let entropy = streams::ACCEPTANCE.seed(character_id.into(), &[policy_seed]).to_u64();
     for candidate in 0..MAX_CANDIDATES {
         let candidate_entropy =
-            streams::ACCEPTANCE_CANDIDATE.seed(entropy, &[u64::from(candidate)]).to_u64();
+            streams::ACCEPTANCE_CANDIDATE.seed(entropy.into(), &[u64::from(candidate)]).to_u64();
         let context = qg::GenerationContext {
             seed: candidate_entropy,
-            observer_entropy_hi: streams::OBSERVER_HIGH.seed(candidate_entropy, &[]).to_u64(),
-            observer_entropy_lo: streams::OBSERVER_LOW.seed(candidate_entropy, &[]).to_u64(),
+            observer_entropy_hi: streams::OBSERVER_HIGH.seed(candidate_entropy.into(), &[]).to_u64(),
+            observer_entropy_lo: streams::OBSERVER_LOW.seed(candidate_entropy.into(), &[]).to_u64(),
             settlement_id: settlement_id.clone(),
             settlement_name: settlement.name.clone(),
             scope: adventuresim_core::local_problem::Scope::Settlement {

@@ -769,7 +769,7 @@ fn sample_mission_candidate(
         .map(|candidate| u64::from(candidate.weight))
         .collect::<Vec<_>>();
     let index = fabelgeist_determinism::StreamId::new("mission.outcome-selection")
-        .rng(mission_outcome_draw(mission, &candidates), &[])
+        .rng(mission_outcome_draw(mission, &candidates).into(), &[])
         .weighted_index(&weights)
         .ok()?;
     Some(candidates.remove(index))

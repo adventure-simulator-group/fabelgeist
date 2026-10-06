@@ -2,7 +2,7 @@
 
 use crate::prelude::*;
 use adventuresim_world_schema::{BestiaryCategory, BestiaryHours};
-use fabelgeist_determinism::DeterministicRng;
+use fabelgeist_determinism::{DeterministicRng, StreamId};
 use serde::Serialize;
 
 mod classification;
@@ -904,7 +904,7 @@ pub fn resolve_battle(
     opening: BattleOpening,
 ) -> BattleOutcome {
     let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
-    let mut random = fabelgeist_determinism::StreamId::new("combat.autoresolve").rng(seed, &[]);
+    let mut random = StreamId::new("combat.autoresolve").rng(seed.into(), &[]);
     let mut recorder = BattleRecorder::default();
     let mut resolution = None;
     let mut rounds = 0;

@@ -22,7 +22,7 @@ fn production_single_entrances_allow_full_width_entry_and_return() {
         &scene.obstacles,
         &scene.furniture,
     );
-    let terrain = scene.terrain.colliders();
+    let terrain = scene.terrain.colliders().unwrap();
     let mut buildings = scene.buildings;
     for distant in &input.distant_buildings {
         let placement = crate::scene_input::TacticalBuildingPlacement::from(*distant);
@@ -71,17 +71,17 @@ fn production_single_entrances_allow_full_width_entry_and_return() {
                 .orientation
                 .local_to_world(door.outward.vector());
             let tangent = Vec2::new(outward.y, -outward.x);
-            let threshold = building.placement.centre_metres
+            let threshold = building.placement.centre_metres.metres()
                 + building
                     .placement
                     .orientation
                     .local_to_world(door.threshold_metres.metres() - origin);
-            let outer = apron.centre_metres + outward * apron.dimensions_metres.y * 0.5;
+            let outer = apron.centre_metres() + outward * apron.dimensions_metres().y * 0.5;
             let skin = CharacterController::default().move_and_slide.skin_width;
             let tolerance = crate::city_layout::CompoundGradingPolicy::bounded_settlement()
                 .limits
                 .contact_tolerance_metres();
-            let edge_clearance = apron.dimensions_metres.x * 0.5
+            let edge_clearance = apron.dimensions_metres().x * 0.5
                 - HUMANOID_COLLISION_RADIUS_METRES
                 - skin
                 - tolerance;
@@ -103,7 +103,7 @@ fn production_single_entrances_allow_full_width_entry_and_return() {
                 let mut walker = gardens::occupied_walker(
                     start,
                     threshold,
-                    apron.dimensions_metres.length() + 6.0,
+                    apron.dimensions_metres().length() + 6.0,
                     &scene.terrain,
                     &terrain,
                     &buildings,
@@ -125,7 +125,7 @@ fn production_single_entrances_allow_full_width_entry_and_return() {
                     "lateral_metres":lateral,"start_metres":start,"target_metres":target,
                     "arrival_metres":arrival,"arrival_shortfall_metres":arrival_distance,
                     "return_metres":return_position,"return_shortfall_metres":return_distance,"permitted_metres":0.08,"pass":passed,
-                    "floor_metres":building.placement.base_elevation_metres,
+                    "floor_metres":building.placement.base_elevation_metres.metres(),
                     "transform_origin_metres":transform.translation}));
                 if !passed {
                     walker.capture_step_casts(return_position);
@@ -170,7 +170,11 @@ fn goslar_2_pedestrian_starts_on_the_source_clipped_rotated_stair() {
     ))
     .unwrap();
     let start = Vec2::new(26.832619, -31.933275);
-    let mut walker = Walker::on_collider(mesh.collider(), start, 0.89393);
+    let mut walker = Walker::on_collider(
+        mesh.collider().unwrap().into_solid().unwrap(),
+        start,
+        0.89393,
+    );
     walker.walk_to(Vec2::new(26.88, -32.45));
     walker.walk_to(start);
 }

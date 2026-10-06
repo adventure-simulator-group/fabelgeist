@@ -118,7 +118,7 @@ impl PatchAssets {
         for density in PebbleDensity::ALL {
             for variant in 0..MESH_VARIANTS {
                 let seed = StreamId::new("visual.ground-scatter.loose-stone.variant")
-                    .seed(0, &[variant])
+                    .seed(0.into(), &[variant])
                     .to_u64();
                 let hero = pebble_patch_mesh(seed, PebbleMeshLod::Hero, half_extent, density);
                 pebble_counts.push(hero.count_vertices() / HERO_PEBBLE_VERTICES);
@@ -203,7 +203,7 @@ impl PatchPlacement {
             return None;
         }
         let hash = StreamId::new("visual.ground-scatter.loose-stone.scatter")
-            .seed(base_seed, &[index as u64])
+            .seed(base_seed.into(), &[index as u64])
             .to_u64();
         let woodland = sample.cover == GroundCover::LeafLitter;
         let density = if woodland {
@@ -224,11 +224,11 @@ impl PatchPlacement {
         };
         let variant = density.asset_offset()
             + StreamId::new("visual.ground-scatter.loose-stone.spawn.mesh-variant")
-                .rng(hash, &[])
+                .rng(hash.into(), &[])
                 .index(MESH_VARIANTS as usize);
         let yaw = Quat::from_rotation_y(
             StreamId::new("visual.ground-scatter.loose-stone.spawn.yaw")
-                .rng(hash, &[])
+                .rng(hash.into(), &[])
                 .inclusive_unit_f32()
                 * core::f32::consts::TAU,
         );

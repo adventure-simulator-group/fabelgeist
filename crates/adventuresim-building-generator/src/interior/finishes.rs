@@ -17,7 +17,7 @@ pub(super) fn assign(
         };
         // Spatial placement identifies furniture independently of traversal order.
         let mut random = FINISH_DOMAIN.rng(
-            program.seed,
+            program.seed.into(),
             &[
                 placement.storey.index() as u64,
                 u64::from(placement.room_id.serialized_ordinal()),

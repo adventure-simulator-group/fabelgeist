@@ -31,7 +31,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     )])
     .unwrap();
     let economy = infer_settlement_economy(level, population, 3, level >= 3, &industries)?;
-    let city = CitySite::central_german_market_town().generate(seed, population, &economy);
+    let city = CitySite::central_german_market_town().generate((seed).into(), population, &economy);
     let (parishes, parish_error) = match city.parish_layout() {
         Ok(parishes) => (parishes, None),
         Err(error) => (Vec::new(), Some(error.to_string())),

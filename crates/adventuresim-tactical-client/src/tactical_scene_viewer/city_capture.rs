@@ -29,8 +29,9 @@ pub(super) fn capture_cameras(
     focus_candidates.sort_by(|left, right| {
         left.placement
             .centre_metres
+            .metres()
             .length_squared()
-            .total_cmp(&right.placement.centre_metres.length_squared())
+            .total_cmp(&right.placement.centre_metres.metres().length_squared())
     });
     let mut selected = None;
     for focus in focus_candidates {
@@ -70,20 +71,21 @@ pub(super) fn capture_cameras(
     };
     let centres = buildings
         .iter()
-        .map(|building| building.placement.centre_metres)
+        .map(|building| building.placement.centre_metres.metres())
         .chain(
             distant_buildings
                 .iter()
-                .map(|building| building.centre_metres),
+                .map(|building| building.centre_metres.metres()),
         )
         .collect::<Vec<_>>();
     let neighbourhood_bounds = Bounds2::from_points(centres.iter().copied().filter(|point| {
-        point.distance_squared(focus.placement.centre_metres) <= NEIGHBOURHOOD_RADIUS_METRES.powi(2)
+        point.distance_squared(focus.placement.centre_metres.metres())
+            <= NEIGHBOURHOOD_RADIUS_METRES.powi(2)
     }));
     let playable_bounds = Bounds2::from_points(
         buildings
             .iter()
-            .map(|building| building.placement.centre_metres),
+            .map(|building| building.placement.centre_metres.metres()),
     );
     let city_bounds = Bounds2::from_points(centres.into_iter());
 
@@ -187,14 +189,14 @@ impl PlacementBounds {
             .iter()
             .map(|building| {
                 Ok(Self {
-                    centre: building.placement.centre_metres,
+                    centre: building.placement.centre_metres.metres(),
                     half_extents: building.collision.bounds.plan_half_extents()?.metres(),
                     orientation: building.placement.orientation,
                 })
             })
             .collect::<Result<Vec<_>>>()?;
         bounds.extend(distant.iter().map(|building| Self {
-            centre: building.centre_metres,
+            centre: building.centre_metres.metres(),
             half_extents: building.occupied_program().plot_dimensions_metres() * 0.5,
             orientation: building.orientation,
         }));
@@ -293,10 +295,17 @@ mod tests {
 
     fn house(id: u64, centre: Vec2, orientation: BuildingOrientation) -> GeneratedBuilding {
         let placement = TacticalBuildingPlacement {
-            base_elevation_metres: 3.0,
-            id,
+            base_elevation_metres:
+                adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(
+                    3.0,
+                )
+                .unwrap(),
+            id: id.into(),
             program: BuildingProgram::fixture(BuildingArchetype::TownHouse, 42),
-            centre_metres: centre,
+            centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                centre,
+            )
+            .unwrap(),
             orientation,
         };
         let plan = generate(&placement.program).unwrap();
@@ -327,18 +336,26 @@ mod tests {
             prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
             usage: None,
             service_size: None,
-            id: 2,
+            id: (2).into(),
             archetype: BuildingArchetype::FachwerkCottage,
-            seed: 7,
-            centre_metres: Vec2::new(300.0, 240.0),
-            base_elevation_metres: 0.0,
+            seed: (7).into(),
+            centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::new(300.0, 240.0),
+            )
+            .unwrap(),
+            base_elevation_metres:
+                adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
             orientation: BuildingOrientation::IDENTITY,
         };
         let distant = [
             distant_city,
             DistantBuildingPlacement {
-                id: 3,
-                centre_metres: Vec2::new(70.0, 12.0),
+                id: (3).into(),
+                centre_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(70.0, 12.0),
+                    )
+                    .unwrap(),
                 ..distant_city
             },
         ];
@@ -347,7 +364,7 @@ mod tests {
             &buildings,
             &distant,
             &[corridor(BuildingOrientation::IDENTITY)],
-            &SceneTerrain::new(65, 65, 4.0, |_| 3.0),
+            &SceneTerrain::new(65, 65, 4.0, |_| 3.0).unwrap(),
             crate::tactical_scene_viewer::CITY_REVIEW_PROFILE,
         )
         .unwrap();
@@ -359,7 +376,10 @@ mod tests {
                 && camera.position.distance(camera.target) > 0.5
         }));
         assert!(cameras[5].position.y > cameras[0].position.y + 100.0);
-        assert_eq!(cameras[2].target.xz(), buildings[0].placement.centre_metres);
+        assert_eq!(
+            cameras[2].target.xz(),
+            buildings[0].placement.centre_metres.metres()
+        );
         assert_eq!(cameras[3].target.xz(), Vec2::new(35.0, 12.0));
         assert!(cameras[3].position.distance(cameras[3].target) < 75.0);
         assert!(cameras[5].position.distance(cameras[5].target) > 150.0);
@@ -380,7 +400,11 @@ mod tests {
                 .y
                 + 4.0,
         );
-        focus.placement.centre_metres = orientation.local_to_world(local_centre);
+        focus.placement.centre_metres =
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                orientation.local_to_world(local_centre),
+            )
+            .unwrap();
         let opposite = house(
             2,
             orientation.local_to_world(-local_centre),
@@ -388,7 +412,7 @@ mod tests {
         );
         let buildings = [focus, opposite];
         let street = corridor(orientation);
-        let terrain = SceneTerrain::new(65, 65, 4.0, |_| 3.0);
+        let terrain = SceneTerrain::new(65, 65, 4.0, |_| 3.0).unwrap();
         let cameras = capture_cameras(
             &buildings,
             &[],
@@ -408,7 +432,7 @@ mod tests {
                 let local = building
                     .placement
                     .orientation
-                    .world_to_local(point - building.placement.centre_metres);
+                    .world_to_local(point - building.placement.centre_metres.metres());
                 assert!(
                     local
                         .abs()
@@ -426,8 +450,9 @@ mod tests {
             }
             assert!((camera.position.y - 4.65).abs() < 0.001);
         }
-        let front_eye = orientation
-            .world_to_local(cameras[0].position.xz() - buildings[0].placement.centre_metres);
+        let front_eye = orientation.world_to_local(
+            cameras[0].position.xz() - buildings[0].placement.centre_metres.metres(),
+        );
         assert!(front_eye.y < 0.0, "the front is local negative Z");
     }
 }

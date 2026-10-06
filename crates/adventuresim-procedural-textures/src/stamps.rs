@@ -72,7 +72,12 @@ impl Parameters {
             for x in -2..=2 {
                 let cell = base + IVec2::new(x, y);
                 let random = |purpose: StreamId| {
-                    hash(params, cell, cells, purpose.seed(field_seed, &[]).to_u64())
+                    hash(
+                        params,
+                        cell,
+                        cells,
+                        purpose.seed(field_seed.into(), &[]).to_u64(),
+                    )
                 };
                 let site = cell.as_vec2()
                     + Vec2::splat(0.5)

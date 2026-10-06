@@ -59,7 +59,11 @@ fn scene_transfer_rejects_missing_recipes_changed_bindings_and_embedded_recipe_c
             .is_err()
     );
     let mut changed = input.clone();
-    changed.buildings[0].base_elevation_metres += 1.0;
+    changed.buildings[0].base_elevation_metres =
+        adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(
+            changed.buildings[0].base_elevation_metres.metres() + 1.0,
+        )
+        .unwrap();
     assert!(product().restore(&changed, &products).is_err());
     let mut wrong_program = product();
     wrong_program.placements[0].program.seed =

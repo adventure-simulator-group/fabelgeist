@@ -29,7 +29,7 @@ impl Parameters {
                             params,
                             corner,
                             cells,
-                            purpose.seed(field_seed, &[]).to_u64(),
+                            purpose.seed(field_seed.into(), &[]).to_u64(),
                         )
                     };
                     let position = corner.as_vec2()

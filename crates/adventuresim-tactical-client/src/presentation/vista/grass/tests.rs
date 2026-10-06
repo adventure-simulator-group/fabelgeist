@@ -24,7 +24,9 @@ fn owned_terrain(grade: f32) -> SceneTerrain {
         FoundationEmbedment::from_metres(0.2).unwrap(),
     )
     .unwrap();
-    SceneTerrain::new(3, 3, 1.0, |_| 0.0).with_property_surface(surface)
+    SceneTerrain::new(3, 3, 1.0, |_| 0.0)
+        .unwrap()
+        .with_property_surface(surface)
 }
 
 fn check(terrain: &SceneTerrain, check: impl FnOnce(VistaTuftPlacement<'_>)) {
@@ -90,7 +92,7 @@ fn owned_vista_roots_reject_missing_support_and_the_existing_steep_slope_limit()
 
 #[test]
 fn sampled_vista_scenes_retain_their_presented_heightfield_policy() {
-    let terrain = SceneTerrain::new(3, 3, 1.0, |_| 7.0);
+    let terrain = SceneTerrain::new(3, 3, 1.0, |_| 7.0).unwrap();
     check(&terrain, |placement| {
         let point = Vec2::new(40.0, 30.0);
         let expected = presented_vista_vertex_height(

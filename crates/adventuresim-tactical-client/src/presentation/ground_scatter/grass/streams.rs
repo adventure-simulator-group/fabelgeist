@@ -27,5 +27,5 @@ pub(super) const SPECIES: StreamId = StreamId::new("visual.ground-scatter.grass.
 pub(super) const WIDTH: StreamId = StreamId::new("visual.ground-scatter.grass.width");
 
 pub(super) fn blade_angle(seed: u64) -> f32 {
-    BLADE_ANGLE.rng(seed, &[]).inclusive_unit_f32() * core::f32::consts::TAU
+    BLADE_ANGLE.rng(seed.into(), &[]).inclusive_unit_f32() * core::f32::consts::TAU
 }

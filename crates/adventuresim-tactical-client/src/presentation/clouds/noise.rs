@@ -15,7 +15,7 @@ pub(super) fn non_periodic_value_noise_3d(position: Vec3, seed: u64) -> f32 {
         let lattice = cell + offset;
         streams::LATTICE
             .rng(
-                seed,
+                seed.into(),
                 &[
                     lattice.x as i64 as u64,
                     lattice.y as i64 as u64,
@@ -44,9 +44,32 @@ pub(super) fn cloud_seed(environment: &SceneEnvironment) -> u64 {
                 .period_index(360)
                 .expect("cloud seed period must be nonzero")
                 .to_le_bytes(),
-            &environment.latitude_microdegrees.to_le_bytes(),
-            &environment.longitude_microdegrees.to_le_bytes(),
+            &environment.latitude_microdegrees.get().to_le_bytes(),
+            &environment.longitude_microdegrees.get().to_le_bytes(),
         ],
     )
     .to_u64()
+}
+
+/// Native finite 3-D density lattice domain warp; seed and framing stay canonical.
+pub(super) fn density_warp(
+    coordinate: Vec3,
+    seed: fabelgeist_determinism::Seed,
+    slot: u64,
+) -> Vec3 {
+    use super::streams;
+    Vec3::new(
+        non_periodic_value_noise_3d(
+            coordinate * 0.36,
+            streams::WARP_X.seed(seed, &[slot]).to_u64(),
+        ),
+        non_periodic_value_noise_3d(
+            coordinate * 0.36 + Vec3::splat(13.7),
+            streams::WARP_Y.seed(seed, &[slot]).to_u64(),
+        ),
+        non_periodic_value_noise_3d(
+            coordinate * 0.36 + Vec3::new(4.1, 9.7, 17.3),
+            streams::WARP_Z.seed(seed, &[slot]).to_u64(),
+        ),
+    ) - Vec3::splat(0.5)
 }

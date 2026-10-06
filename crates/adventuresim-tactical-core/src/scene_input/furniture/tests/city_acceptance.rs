@@ -33,7 +33,7 @@ fn real_city_places_market_vendors_behind_its_wide_street_reservations() {
         );
     }
     for vendor in &vendors {
-        println!("vendor centre: {:?}", vendor.footprint.centre_metres);
+        println!("vendor centre: {:?}", vendor.footprint.centre().metres());
     }
     report_terrain_delta("massive-city", &input, &scene.terrain);
     assert!(
@@ -56,14 +56,19 @@ fn real_city_places_market_vendors_behind_its_wide_street_reservations() {
         assert!(
             scene
                 .terrain
-                .height_at(instance.position_metres.xz())
+                .height_at(instance.position_metres.metres().xz())
                 .is_some()
         );
         for foot in &instance.scene.key.recipe().unwrap().support_points_metres {
-            let point = instance.position_metres.xz()
+            let point = instance.position_metres.metres().xz()
                 + instance.orientation.local_to_world(foot.metres().xz());
             assert!(
-                (support.height_at(point).unwrap() - instance.position_metres.y - foot.metres().y)
+                (support
+                    .height_at(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap())
+                    .unwrap()
+                    .metres()
+                    - instance.position_metres.metres().y
+                    - foot.metres().y)
                     .abs()
                     <= 0.0451
             );

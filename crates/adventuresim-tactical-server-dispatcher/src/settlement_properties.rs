@@ -10,23 +10,23 @@ pub fn generated_homes(
     population_level: i32,
     population_estimate: u32,
     economy: &SettlementEconomyProfile,
-) -> Result<GeneratedHomeCatalog, String> {
-    let seed = adventuresim_core::settlement_population::settlement_building_seed(settlement_id);
+) -> Result<GeneratedHomeCatalog, SettlementPropertyProjectionError> {
+    let seed = fabelgeist_determinism::Seed::from_u64(
+        adventuresim_core::settlement_population::settlement_building_seed(settlement_id),
+    );
     let population = effective_population(population_level, population_estimate);
     let layout = CitySite::central_german_market_town().generate(seed, population, economy);
     if layout.unhoused_population > 0
         || !layout.unplaced_services.is_empty()
         || !layout.demand_shortfalls.is_empty()
     {
-        return Err("Generated settlement property capacity is incomplete".into());
+        return Err(SettlementPropertyProjectionError::Capacity);
     }
     layout
-        .compile(seed)
-        .map_err(|error| error.to_string())?
-        .partition(None)
-        .map_err(|error| error.to_string())?
+        .compile(seed)?
+        .partition(None)?
         .generated_homes(settlement_id, population)
-        .map_err(|error| error.to_string())
+        .map_err(SettlementPropertyProjectionError::from)
 }
 
 #[cfg(test)]
@@ -51,7 +51,12 @@ mod tests {
                     let (centre, orientation, program) = scene
                         .playable
                         .iter()
-                        .find(|building| building.id == home.building_id)
+                        .find(|building| {
+                            building.id
+                                == adventuresim_tactical_core::scene_input::SceneBuildingId(
+                                    home.building_id,
+                                )
+                        })
                         .map(|building| {
                             (
                                 building.centre_metres,
@@ -63,7 +68,12 @@ mod tests {
                             scene
                                 .distant
                                 .iter()
-                                .find(|building| building.id == home.building_id)
+                                .find(|building| {
+                                    building.id
+                                        == adventuresim_tactical_core::scene_input::SceneBuildingId(
+                                            home.building_id,
+                                        )
+                                })
                                 .map(|building| {
                                     (
                                         building.centre_metres,
@@ -74,7 +84,7 @@ mod tests {
                         })
                         .unwrap();
                     assert_eq!(
-                        centre,
+                        centre.metres(),
                         bevy::math::Vec2::new(home.east_metres, home.north_metres)
                     );
                     assert_eq!(orientation.yaw_radians(), home.yaw_radians);
@@ -101,4 +111,14 @@ mod tests {
             );
         }
     }
+}
+
+#[derive(Debug, thiserror::Error)]
+pub enum SettlementPropertyProjectionError {
+    #[error("generated settlement property capacity is incomplete")]
+    Capacity,
+    #[error(transparent)]
+    Compile(#[from] adventuresim_tactical_core::city_layout::CityCompileError),
+    #[error(transparent)]
+    Property(#[from] adventuresim_core::settlement_property::PropertyError),
 }

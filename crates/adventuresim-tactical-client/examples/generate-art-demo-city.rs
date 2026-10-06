@@ -17,10 +17,13 @@ fn curate(mut input: TacticalSceneInput) -> Result<TacticalSceneInput, String> {
         .ok_or("city industry must be valid")?,
     )
     .map_err(|error| format!("city economy: {error:?}"))?;
-    let city =
-        CitySite::central_german_market_town().generate(CITY_SEED, RESIDENT_POPULATION, &economy);
+    let city = CitySite::central_german_market_town().generate(
+        (CITY_SEED).into(),
+        RESIDENT_POPULATION,
+        &economy,
+    );
     let layout = city
-        .compile(CITY_SEED)
+        .compile((CITY_SEED).into())
         .and_then(|city| city.partition(None))
         .map_err(|error| error.to_string())?;
     input.establishments = layout

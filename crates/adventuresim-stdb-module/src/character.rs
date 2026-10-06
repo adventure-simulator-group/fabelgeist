@@ -809,7 +809,7 @@ pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> Res
     let names = petname::Petnames::default();
     let name_seed: u64 = ctx.random();
     let name = names.nouns[fabelgeist_determinism::StreamId::new("character.temporary-name")
-        .rng(name_seed, &[])
+        .rng(name_seed.into(), &[])
         .index(names.nouns.len())];
     let name = format!("bot-{name}");
 
@@ -1964,7 +1964,7 @@ impl NpcLifeFacts {
     /// reducer RNG. Authored organization and literacy can be overlaid by the
     /// population importer before creation.
     pub(crate) fn from_stable_seed(stable_seed: u64) -> Self {
-        let draw = NPC_LIFE_AGE_DOMAIN.rng(stable_seed, &[]).index(43);
+        let draw = NPC_LIFE_AGE_DOMAIN.rng(stable_seed.into(), &[]).index(43);
         Self {
             age_years: 18 + draw as u16,
             organization_id: None,

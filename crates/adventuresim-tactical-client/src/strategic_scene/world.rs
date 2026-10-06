@@ -157,9 +157,9 @@ mod tests {
         let text = include_str!("../../../../assets/tactical-scenes/massive-city.json");
         let document = SceneDocument::parse("city".into(), text);
         let mut input = document.input.unwrap();
-        input.seed = u64::MAX;
+        input.seed = (u64::MAX).into();
         let document = SceneDocument::parse("city".into(), &serde_json::to_string(&input).unwrap());
-        assert_eq!(document.input.unwrap().seed, u64::MAX);
+        assert_eq!(document.input.unwrap().seed, (u64::MAX).into());
         assert!(SceneDocument::parse("city".into(), "{}").input.is_err());
     }
 }

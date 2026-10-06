@@ -77,7 +77,7 @@ impl FloorInterval {
         control: Control,
     ) -> Result<(), SupportDiagnostic> {
         let displacement = control.support - control.source;
-        let permitted = f64::from(plan.limits.maximum_displacement_metres);
+        let permitted = f64::from(plan.limits.maximum_displacement_metres.metres());
         if control.coefficient.abs() <= f64::from(f32::EPSILON) {
             if displacement.abs() > permitted {
                 return Err(rejection(plan, control, 0.0));
@@ -101,14 +101,14 @@ impl FloorInterval {
                     &plan.property,
                     SupportConstraint::Reservation,
                     SupportBoundary::GeographicSurface,
-                    plan.property.plot.centre_metres,
+                    plan.property.plot.centre_metres(),
                     1.0,
                     0.0,
                 )
             })?;
             return Err(rejection(plan, control, self.minimum));
         }
-        let margin = f64::from(plan.limits.contact_tolerance_metres);
+        let margin = f64::from(plan.limits.contact_tolerance_metres.metres());
         let shift = if self.minimum + margin <= self.maximum - margin {
             0.0_f64.clamp(self.minimum + margin, self.maximum - margin)
         } else {
@@ -126,8 +126,8 @@ fn rejection(plan: &CompoundSupportPlan, control: Control, shift: f64) -> Suppor
         SupportBoundary::GeographicSurface,
         control.point,
         measured,
-        plan.limits.maximum_displacement_metres,
+        plan.limits.maximum_displacement_metres.metres(),
     );
-    error.attempted_treatment = SupportGradingAttempt::Compound(plan.treatment);
+    error.attempted_treatment = Box::new(SupportGradingAttempt::Compound(plan.treatment));
     error
 }

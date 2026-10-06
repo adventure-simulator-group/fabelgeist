@@ -59,8 +59,8 @@ pub(in crate::city_layout::compiled) fn validate(
     let local = |p| {
         compound
             .plot
-            .orientation
-            .world_to_local(p - compound.plot.centre_metres)
+            .orientation()
+            .world_to_local(p - compound.plot.centre_metres())
     };
     let fixed = fixed
         .into_iter()
@@ -73,7 +73,7 @@ pub(in crate::city_layout::compiled) fn validate(
                 member.source,
                 Vec3::new(centre.x, member.centre.metres().y, centre.y),
                 member.size.metres(),
-                member.yaw_radians.radians() - compound.plot.orientation.yaw_radians(),
+                member.yaw_radians.radians() - compound.plot.orientation().yaw_radians(),
                 member.crossfall_radians.radians(),
                 member.longfall_radians.radians(),
             )
@@ -84,8 +84,8 @@ pub(in crate::city_layout::compiled) fn validate(
         adventuresim_building_generator::spatial_geometry::Elevation::from_metres(0.0)?,
     )?;
     for route in &compound.access {
-        let start = local(route.start_metres);
-        let end = local(route.end_metres);
+        let start = local(route.start_metres());
+        let end = local(route.end_metres());
         if !clearance.is_clear(
             adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(
                 start.x, 0.0, start.y,
@@ -115,7 +115,7 @@ fn validate_building_routes(
         let local = |point| {
             placement
                 .orientation
-                .world_to_local(point - placement.centre_metres)
+                .world_to_local(point - placement.centre_metres.metres())
                 + Vec2::new(origin.x, origin.z)
         };
         let clearance = StandingClearance::new(
@@ -123,8 +123,8 @@ fn validate_building_routes(
             adventuresim_building_generator::spatial_geometry::Elevation::from_metres(0.0)?,
         )?;
         for route in &compound.access {
-            let start = local(route.start_metres);
-            let end = local(route.end_metres);
+            let start = local(route.start_metres());
+            let end = local(route.end_metres());
             if !clearance.is_clear(
                 adventuresim_building_generator::spatial_geometry::Position::from_metres(
                     Vec3::new(start.x, 0.0, start.y),

@@ -10,7 +10,7 @@ const GOLDEN_ANGLE: f32 = 2.399_963_1;
 // cuts triangles off an assembled mesh. Every recipe obeys the selected budget.
 pub(super) fn generate(p: &FlowerParameters, seed: u64, lod: PlantLod) -> PlantMesh {
     let phase = StreamId::new("plant.flower.phase")
-        .rng(seed, &[])
+        .rng(seed.into(), &[])
         .inclusive_unit_f32()
         * TAU;
     for reduction in 1..=40 {

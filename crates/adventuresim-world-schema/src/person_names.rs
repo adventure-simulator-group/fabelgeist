@@ -283,7 +283,7 @@ fn generate_personal_name_from_catalog(
         .get(&context.sex)
         .ok_or(NameCatalogError::EmptyEligibleNames)?;
     let family_index = FAMILY_STREAM
-        .rng(stable_seed.get(), &[])
+        .rng(stable_seed.get().into(), &[])
         .weighted_index(
             &family_weights
                 .iter()
@@ -300,10 +300,13 @@ fn generate_personal_name_from_catalog(
     if eligible_forms.is_empty() {
         return Err(NameCatalogError::EmptyEligibleNames);
     }
-    let form_selector =
-        NameFormSelectionSeed::new(FORM_SELECTOR_STREAM.rng(stable_seed.get(), &[]).next_u64());
+    let form_selector = NameFormSelectionSeed::new(
+        FORM_SELECTOR_STREAM
+            .rng(stable_seed.get().into(), &[])
+            .next_u64(),
+    );
     let form_index = FORM_STREAM
-        .rng(form_selector.get(), &[])
+        .rng(form_selector.get().into(), &[])
         .weighted_index(
             &eligible_forms
                 .iter()
@@ -315,7 +318,7 @@ fn generate_personal_name_from_catalog(
         Some(id) => Some(id),
         None => {
             let index = SURNAME_STREAM
-                .rng(stable_seed.get(), &[])
+                .rng(stable_seed.get().into(), &[])
                 .weighted_index(
                     &repertoire
                         .surnames
@@ -440,11 +443,11 @@ fn render_family_form(
     if forms.is_empty() {
         return Err(NameCatalogError::EmptyEligibleNames);
     }
-    Ok(
-        forms[FORM_STREAM.rng(selector.get(), &[]).index(forms.len())]
-            .text
-            .clone(),
-    )
+    Ok(forms[FORM_STREAM
+        .rng(selector.get().into(), &[])
+        .index(forms.len())]
+    .text
+    .clone())
 }
 
 fn render_surname(
@@ -476,7 +479,7 @@ fn render_surname(
         return Err(NameCatalogError::EmptyEligibleNames);
     }
     Ok(forms[SURNAME_FORM_STREAM
-        .rng(selector.get(), &[])
+        .rng(selector.get().into(), &[])
         .index(forms.len())]
     .text
     .clone())

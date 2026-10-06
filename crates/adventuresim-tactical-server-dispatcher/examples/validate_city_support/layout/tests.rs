@@ -29,10 +29,10 @@ fn fixture() -> (TacticalSceneInput, CitySceneLayout) {
 #[test]
 fn reproduction_accepts_bound_nonzero_floors_but_rejects_stale_projection() {
     let (input, layout) = fixture();
-    assert_ne!(input.buildings[0].base_elevation_metres, 0.0);
+    assert_ne!(input.buildings[0].base_elevation_metres.metres(), 0.0);
     verify(&input, &layout).unwrap();
     let mut changed = input.clone();
-    changed.buildings[0].base_elevation_metres += 0.01;
+    changed.buildings[0].base_elevation_metres.metres() += 0.01;
     let error = verify(&changed, &layout).unwrap_err();
     assert!(matches!(
         error.downcast_ref::<SceneInputError>(),
@@ -40,7 +40,7 @@ fn reproduction_accepts_bound_nonzero_floors_but_rejects_stale_projection() {
             if matches!(**error, CityGroundingProjectionError::PlacementMismatch)
     ));
     let mut changed = input;
-    changed.distant_buildings[0].base_elevation_metres += 0.01;
+    changed.distant_buildings[0].base_elevation_metres.metres() += 0.01;
     let error = verify(&changed, &layout).unwrap_err();
     assert!(matches!(
         error.downcast_ref::<SceneInputError>(),
@@ -85,7 +85,7 @@ fn imported_grounded_layouts_reproduce_exact_unseated_bindings() {
             input
                 .buildings
                 .iter()
-                .any(|p| p.base_elevation_metres != 0.0)
+                .any(|p| p.base_elevation_metres.metres() != 0.0)
         );
         let layout = reproduce(&input, &world).unwrap();
         assert!(

@@ -74,12 +74,21 @@ impl GrassCommunityProfile {
         // Stable low-frequency pseudo-fields stand in for finer soil data we
         // do not yet have. They modulate, but never invent, a habitat that the
         // scene/local environmental sample assigned zero weight.
-        let moisture_field =
-            0.68 + streams::MOISTURE.rng(site_hash, &[]).inclusive_unit_f32() * 0.64;
-        let exposure_field =
-            0.68 + streams::EXPOSURE.rng(site_hash, &[]).inclusive_unit_f32() * 0.64;
-        let fertility_field =
-            0.76 + streams::FERTILITY.rng(site_hash, &[]).inclusive_unit_f32() * 0.48;
+        let moisture_field = 0.68
+            + streams::MOISTURE
+                .rng(site_hash.into(), &[])
+                .inclusive_unit_f32()
+                * 0.64;
+        let exposure_field = 0.68
+            + streams::EXPOSURE
+                .rng(site_hash.into(), &[])
+                .inclusive_unit_f32()
+                * 0.64;
+        let fertility_field = 0.76
+            + streams::FERTILITY
+                .rng(site_hash.into(), &[])
+                .inclusive_unit_f32()
+                * 0.48;
         let weights = [
             self.weights[0] * fertility_field,
             self.weights[1] * exposure_field,
@@ -91,7 +100,7 @@ impl GrassCommunityProfile {
             (weight * adventuresim_world_schema::BASIS_POINTS_PER_WHOLE as f32).round() as u64
         });
         let selected = streams::COMMUNITY_SPECIES
-            .rng(site_hash, &[])
+            .rng(site_hash.into(), &[])
             .weighted_index(&weights)
             .expect("a grass habitat always has a positive mesic weight");
         [
@@ -120,14 +129,14 @@ pub(in crate::presentation) fn grass_community_at(
             let candidate = cell + bevy::math::IVec2::new(offset_x, offset_z);
             let hash = streams::COMMUNITY
                 .seed(
-                    seed,
+                    seed.into(),
                     &[candidate.x as u32 as u64, candidate.y as u32 as u64],
                 )
                 .to_u64();
             let site = (candidate.as_vec2()
                 + Vec2::new(
-                    0.18 + streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() * 0.64,
-                    0.18 + streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+                    0.18 + streams::JITTER_X.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
+                    0.18 + streams::JITTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
                 ))
                 * CELL_SIZE;
             let distance = point.distance_squared(site);
@@ -158,21 +167,24 @@ struct CommunitySite {
 impl CommunitySite {
     fn new(cell: bevy::math::IVec2, seed: u64) -> Self {
         let hash = streams::COMMUNITY
-            .seed(seed, &[cell.x as u32 as u64, cell.y as u32 as u64])
+            .seed(seed.into(), &[cell.x as u32 as u64, cell.y as u32 as u64])
             .to_u64();
         Self {
             position: (cell.as_vec2()
                 + Vec2::new(
-                    0.18 + streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() * 0.64,
-                    0.18 + streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+                    0.18 + streams::JITTER_X.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
+                    0.18 + streams::JITTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
                 ))
                 * COMMUNITY_CELL_SIZE_METRES,
             modulation: [
-                0.76 + streams::FERTILITY.rng(hash, &[]).inclusive_unit_f32() * 0.48,
-                0.68 + streams::EXPOSURE.rng(hash, &[]).inclusive_unit_f32() * 0.64,
-                0.68 + streams::MOISTURE.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+                0.76 + streams::FERTILITY
+                    .rng(hash.into(), &[])
+                    .inclusive_unit_f32()
+                    * 0.48,
+                0.68 + streams::EXPOSURE.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
+                0.68 + streams::MOISTURE.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
             ],
-            selection: streams::COMMUNITY_SPECIES.seed(hash, &[]),
+            selection: streams::COMMUNITY_SPECIES.seed(hash.into(), &[]),
         }
     }
     fn select(self, profile: GrassCommunityProfile) -> GrassCommunity {

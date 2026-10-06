@@ -4,7 +4,7 @@ use fabelgeist_determinism::StreamId;
 pub(super) fn obstacle_seed(position: Vec3) -> u64 {
     StreamId::new("visual.obstacle.position")
         .seed(
-            0,
+            0.into(),
             &[
                 u64::from(position.x.to_bits()),
                 u64::from(position.z.to_bits()),

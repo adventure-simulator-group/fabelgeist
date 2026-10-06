@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 #[serde(deny_unknown_fields)]
 pub(super) struct ReviewView {
     pub(super) slug: String,
-    building: u64,
+    building: adventuresim_tactical_core::scene_input::SceneBuildingId,
     target: ReviewTarget,
     /// Camera displacement from the target, in metres. Gable, opening and heating
     /// targets use their target's local X/Z axes; other targets use architectural
@@ -38,7 +38,7 @@ impl ReviewView {
     pub(super) fn camera(
         &self,
         buildings: &[GeneratedBuilding],
-        signs: &BTreeMap<u64, ShopSign>,
+        signs: &BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ShopSign>,
     ) -> Result<BuildingReviewCamera> {
         let building = buildings
             .iter()
@@ -101,7 +101,7 @@ impl ReviewView {
     fn target(
         &self,
         building: &GeneratedBuilding,
-        signs: &BTreeMap<u64, ShopSign>,
+        signs: &BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ShopSign>,
         gable: Option<&adventuresim_building_generator::WallAssembly>,
     ) -> Result<Position<Architectural>> {
         let bounds = building.collision.bounds;
@@ -196,10 +196,14 @@ mod tests {
         assert!(recipe.collision.bounds.min().metres().y < 0.0);
         let building = GeneratedBuilding {
             placement: TacticalBuildingPlacement {
-                base_elevation_metres: -2.0,
-                id: 304,
+                base_elevation_metres: adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(-2.0).unwrap(),
+                id: (304).into(),
                 program,
-                centre_metres: Vec2::new(9.5, -8.5),
+                centre_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(9.5, -8.5),
+                    )
+                    .unwrap(),
                 orientation: BuildingOrientation::from_radians(0.73).unwrap(),
             },
             plan: recipe.plan,
@@ -207,7 +211,7 @@ mod tests {
         };
         let view = ReviewView {
             slug: "floor-contact".into(),
-            building: 304,
+            building: 304.into(),
             target: ReviewTarget::PlotPoint(
                 Position::from_metres(Vec3::new(0.0, 0.05, -7.5)).unwrap(),
             ),

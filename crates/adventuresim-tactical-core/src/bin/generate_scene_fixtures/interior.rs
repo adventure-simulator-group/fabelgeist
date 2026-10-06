@@ -38,7 +38,10 @@ fn open_yard(_: f32, _: f32) -> EnvironmentalSample {
 }
 
 /// Stable IDs identify each building in both cutaway captures and layout proofs.
-pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
+pub(super) fn buildings() -> Result<
+    Vec<TacticalBuildingPlacement>,
+    adventuresim_building_generator::spatial_geometry::GeometryError,
+> {
     [
         BuildingUse::Dwelling,
         BuildingUse::Inn,
@@ -56,28 +59,33 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
     ]
     .into_iter()
     .enumerate()
-    .map(|(index, usage)| TacticalBuildingPlacement {
-        base_elevation_metres: 0.0,
-        id: index as u64 + 1,
-        program: BuildingProgram::validated_settlement(
-            settlement_archetype(usage),
-            usage,
-            42,
-            Some(ServiceBuildingSize::Medium),
-        )
-        .expect("curated interior review settlement recipe must validate"),
-        centre_metres: match usage {
-            BuildingUse::Castle => Vec2::new(0.0, 90.0),
-            BuildingUse::Cathedral => Vec2::new(0.0, -90.0),
-            BuildingUse::Weaver => Vec2::new(170.0, -90.0),
-            BuildingUse::PrintingHouse => Vec2::new(170.0, 0.0),
-            BuildingUse::WeighHouse => Vec2::new(170.0, 90.0),
-            _ => Vec2::new(
-                (index % 4) as f32 * 50.0 - 75.0,
-                (index / 4) as f32 * 80.0 - 40.0,
-            ),
-        },
-        orientation: BuildingOrientation::IDENTITY,
+    .map(|(index, usage)| {
+        Ok(TacticalBuildingPlacement {
+            base_elevation_metres:
+                adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId(index as u64 + 1),
+            program: BuildingProgram::validated_settlement(
+                settlement_archetype(usage),
+                usage,
+                42,
+                Some(ServiceBuildingSize::Medium),
+            )
+            .expect("curated interior review settlement recipe must validate"),
+            centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                match usage {
+                    BuildingUse::Castle => Vec2::new(0.0, 90.0),
+                    BuildingUse::Cathedral => Vec2::new(0.0, -90.0),
+                    BuildingUse::Weaver => Vec2::new(170.0, -90.0),
+                    BuildingUse::PrintingHouse => Vec2::new(170.0, 0.0),
+                    BuildingUse::WeighHouse => Vec2::new(170.0, 90.0),
+                    _ => Vec2::new(
+                        (index % 4) as f32 * 50.0 - 75.0,
+                        (index / 4) as f32 * 80.0 - 40.0,
+                    ),
+                },
+            )?,
+            orientation: BuildingOrientation::IDENTITY,
+        })
     })
     .collect()
 }

@@ -6,10 +6,10 @@ use super::*;
 /// provide 128 bits for durable action-receipt identity.
 pub fn opaque_strategic_encounter_id(seed: u64, roll_index: u64) -> String {
     let high = StreamId::new("encounter.identity-high")
-        .rng(seed, &[roll_index])
+        .rng(seed.into(), &[roll_index])
         .next_u64();
     let low = StreamId::new("encounter.identity-low")
-        .rng(seed, &[roll_index])
+        .rng(seed.into(), &[roll_index])
         .next_u64();
     format!("enc:{high:016x}{low:016x}")
 }

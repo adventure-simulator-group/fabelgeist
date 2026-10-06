@@ -118,7 +118,7 @@ impl LogicGridPuzzle {
     pub fn generate_with_spec(seed: u64, spec: LogicGridSpec) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
         let size = usize::from(spec.size);
-        let mut rng = LOGIC_GRID_GENERATION_DOMAIN.rng(seed, &[]);
+        let mut rng = LOGIC_GRID_GENERATION_DOMAIN.rng(seed.into(), &[]);
         let mut token_order = (0..spec.size).collect::<Vec<_>>();
         let mut road_order = (0..spec.size).collect::<Vec<_>>();
         shuffle(&mut token_order, &mut rng);

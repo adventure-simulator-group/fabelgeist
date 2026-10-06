@@ -1022,7 +1022,7 @@ pub fn select_quest_eligible(seed: u64, draw: u64) -> Option<&'static EncounterD
         .map(|definition| u64::from(definition.weight))
         .collect();
     let selected = StreamId::new("encounter.quest-selection")
-        .rng(seed, &[draw])
+        .rng(seed.into(), &[draw])
         .weighted_index(&weights)
         .expect("validated bounded encounter catalog weights");
     Some(eligible[selected])

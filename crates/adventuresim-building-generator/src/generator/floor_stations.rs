@@ -41,7 +41,7 @@ fn joists(
         GROUNDED_HEATED_BAY_SET_OUT_METRES[fabelgeist_determinism::StreamId::new(
             "building.heated-bay-set-out",
         )
-        .rng(program.seed, &[])
+        .rng(program.seed.into(), &[])
         .index(GROUNDED_HEATED_BAY_SET_OUT_METRES.len())]
     };
     let mut stations = vec![0.0];

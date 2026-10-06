@@ -57,7 +57,7 @@ pub(super) fn save(
                 .unwrap()
                 .points()
                 .map(|p| {
-                    building.centre_metres
+                    building.centre_metres.metres()
                         + building.orientation.local_to_world(p.metres() - origin)
                 })
                 .collect();
@@ -72,7 +72,7 @@ pub(super) fn save(
                     .mesh()
                     .elevations_at(
                         crate::scene_coordinates::ScenePlanPoint::from_metres(
-                            building.centre_metres,
+                            building.centre_metres.metres(),
                         )
                         .unwrap(),
                     )
@@ -83,9 +83,9 @@ pub(super) fn save(
                 let centre = rotation
                     * (solid.centre.metres() - bevy::math::Vec3::new(origin.x, 0.0, origin.y))
                     + bevy::math::Vec3::new(
-                        building.centre_metres.x,
+                        building.centre_metres.metres().x,
                         floor,
-                        building.centre_metres.y,
+                        building.centre_metres.metres().y,
                     );
                 let world_solid = adventuresim_building_generator::CollisionCuboid {
                     centre:
@@ -221,9 +221,9 @@ pub(super) fn save_property(
     let origin = recipe.collision.bounds.centre().unwrap().metres().xz();
     let value = serde_json::json!({"population":population,"seed":seed,"failure":diagnostic,
         "building":building,"property":layout.single_properties.iter().find(|p|p.id==diagnostic.property_id),
-        "footprint":recipe.collision.ground_floor_footprint().unwrap().unwrap().vertices().iter().map(|p|building.centre_metres+building.orientation.local_to_world(p.metres()-origin)).collect::<Vec<_>>(),
-        "entrances":adventuresim_building_generator::compile_ground_entrances(&recipe.plan).unwrap().iter().map(|e|serde_json::json!({"id":e.id,"support":e.support,"threshold":building.centre_metres+building.orientation.local_to_world(e.threshold_metres.metres()-origin),"outward":building.orientation.local_to_world(e.outward.vector())})).collect::<Vec<_>>(),
-        "streets":layout.streets.iter().filter(|s|s.contains(diagnostic.location_metres)).collect::<Vec<_>>(),
+        "footprint":recipe.collision.ground_floor_footprint().unwrap().unwrap().vertices().iter().map(|p|building.centre_metres.metres()+building.orientation.local_to_world(p.metres()-origin)).collect::<Vec<_>>(),
+        "entrances":adventuresim_building_generator::compile_ground_entrances(&recipe.plan).unwrap().iter().map(|e|serde_json::json!({"id":e.id,"support":e.support,"threshold":building.centre_metres.metres()+building.orientation.local_to_world(e.threshold_metres.metres()-origin),"outward":building.orientation.local_to_world(e.outward.vector())})).collect::<Vec<_>>(),
+        "streets":layout.streets.iter().filter(|s|s.contains(diagnostic.location_metres.attempted_metres())).collect::<Vec<_>>(),
         "source_triangles":source.triangles().collect::<Vec<_>>()});
     let path = std::path::PathBuf::from(directory);
     std::fs::create_dir_all(&path).unwrap();

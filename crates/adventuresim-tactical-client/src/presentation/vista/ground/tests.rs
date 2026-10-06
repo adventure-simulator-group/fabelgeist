@@ -24,7 +24,9 @@ fn owned_terrain(grade: f32) -> SceneTerrain {
         FoundationEmbedment::from_metres(0.2).unwrap(),
     )
     .unwrap();
-    SceneTerrain::new(3, 3, 1.0, |_| 0.0).with_property_surface(surface)
+    SceneTerrain::new(3, 3, 1.0, |_| 0.0)
+        .unwrap()
+        .with_property_surface(surface)
 }
 
 fn raw_lod() -> VistaLod {
@@ -62,7 +64,14 @@ fn owned_vista_rocks_use_support_normal_and_keep_the_existing_slope_gate() {
     let point = Vec2::new(40.0, 30.0);
     let terrain = owned_terrain(0.5);
     let hit = terrain
-        .surface_below(Vec3::new(point.x, f32::INFINITY, point.y))
+        .surface_below(
+            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                    bevy::math::Vec2::new(point.x, point.y),
+                )
+                .unwrap(),
+            ),
+        )
         .unwrap();
     let height = hit.elevation.metres();
     let normal = *hit.normal;
@@ -89,7 +98,7 @@ fn owned_vista_rocks_use_support_normal_and_keep_the_existing_slope_gate() {
 
 #[test]
 fn sampled_vista_trees_and_rocks_retain_the_presented_heightfield() {
-    let terrain = SceneTerrain::new(3, 3, 1.0, |_| 7.0);
+    let terrain = SceneTerrain::new(3, 3, 1.0, |_| 7.0).unwrap();
     let lod = raw_lod();
     let point = Vec2::new(40.0, 30.0);
     assert_eq!(
@@ -113,23 +122,35 @@ fn goslar_property_1236_vista_scenery_uses_accepted_support() {
     let terrain = &generated.terrain;
     let surface = terrain.property_surface().unwrap();
     let foundation = surface
-        .foundations
+        .foundations()
         .iter()
-        .find(|f| f.property_id == adventuresim_tactical_core::city_layout::CityPropertyId(1236))
+        .find(|f| f.property_id() == adventuresim_tactical_core::city_layout::CityPropertyId(1236))
         .unwrap();
     let owner = GeographicSurface::from_triangles(
         foundation
-            .support_triangles
+            .support_triangles()
             .iter()
-            .map(|t| t.map(|i| foundation.positions[i as usize])),
+            .map(|t| t.map(|i| foundation.positions()[i as usize])),
     )
     .unwrap();
     assert!(
-        owner.elevation_at(point).is_some(),
+        owner
+            .elevation_at(
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point)
+                    .unwrap()
+            )
+            .is_some(),
         "reported point must lie on property 1236"
     );
     let hit = terrain
-        .surface_below(Vec3::new(point.x, f32::INFINITY, point.y))
+        .surface_below(
+            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                    bevy::math::Vec2::new(point.x, point.y),
+                )
+                .unwrap(),
+            ),
+        )
         .unwrap();
     let height = hit.elevation.metres();
     let normal = *hit.normal;
@@ -175,19 +196,26 @@ fn required_city_vista_scenery_matches_property_support() {
         let terrain = &generated.terrain;
         let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
         let mut examined = 0;
-        for owner in &terrain.property_surface().unwrap().foundations {
+        for owner in terrain.property_surface().unwrap().foundations() {
             let triangle = owner
-                .support_triangles
+                .support_triangles()
                 .first()
                 .expect("accepted property has support");
             let point = triangle
                 .iter()
-                .map(|i| owner.positions[*i as usize])
+                .map(|i| owner.positions()[*i as usize])
                 .sum::<Vec3>()
                 / 3.0;
             let world = Vec2::new(point.x, point.z);
             let hit = terrain
-                .surface_below(Vec3::new(world.x, f32::INFINITY, world.y))
+                .surface_below(
+                    adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                            bevy::math::Vec2::new(world.x, world.y),
+                        )
+                        .unwrap(),
+                    ),
+                )
                 .unwrap();
             let height = hit.elevation.metres();
             let normal = *hit.normal;
@@ -195,7 +223,7 @@ fn required_city_vista_scenery_matches_property_support() {
                 (height - point.y).abs() < 0.001,
                 "fixture {}, property {:?}",
                 fixture["fixture"],
-                owner.property_id
+                owner.property_id()
             );
             for (i, lod) in input.vista.lods.iter().take(2).enumerate() {
                 let next = input.vista.lods.get(i + 1);

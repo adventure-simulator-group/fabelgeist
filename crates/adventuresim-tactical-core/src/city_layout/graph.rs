@@ -203,7 +203,7 @@ mod tests {
     fn old_quarter_has_shared_t_junctions_and_extension_has_regular_crossings() {
         for seed in [42, 47, 101] {
             let graph = CitySite::central_german_market_town()
-                .street_graph(seed, DevelopmentExtent::for_population(40_000));
+                .street_graph((seed).into(), DevelopmentExtent::for_population(40_000));
             let mut degrees = vec![0; graph.nodes.len()];
             for edge in &graph.edges {
                 assert_ne!(edge.nodes[0], edge.nodes[1]);
@@ -268,7 +268,7 @@ mod tests {
         ])
         .unwrap();
         for seed in [42, 101] {
-            let city = site.generate(seed, 900, &super::super::tests::economy());
+            let city = site.generate((seed).into(), 900, &super::super::tests::economy());
             assert_eq!(city.unhoused_population, 0);
             assert!(city.unplaced_services.is_empty());
             assert!(city.streets.iter().all(|street| street.is_valid()));
@@ -292,7 +292,7 @@ mod tests {
             Vec2::new(1800.0, 200.0),
         ];
         let city = CitySite::from_trade_route(anchors).unwrap().generate(
-            42,
+            (42).into(),
             900,
             &super::super::tests::economy(),
         );

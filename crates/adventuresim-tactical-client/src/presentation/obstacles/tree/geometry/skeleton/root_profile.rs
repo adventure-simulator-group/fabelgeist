@@ -64,7 +64,7 @@ mod tests {
         for seed in 0..256 {
             let crown_phase =
                 StreamId::new("visual.obstacles.tree.geometry.skeleton.oak-crown-phase")
-                    .rng(seed, &[])
+                    .rng(seed.into(), &[])
                     .inclusive_unit_f32()
                     * core::f32::consts::TAU;
             for root in procedural_oak_root_specs(seed, crown_phase) {
@@ -95,7 +95,7 @@ mod tests {
         };
         for seed in 0..32 {
             let phase = StreamId::new("visual.obstacles.tree.geometry.skeleton.oak-crown-phase")
-                .rng(seed, &[])
+                .rng(seed.into(), &[])
                 .inclusive_unit_f32()
                 * core::f32::consts::TAU;
             for root in procedural_oak_root_specs_with_gnarling(seed, phase, exposed) {

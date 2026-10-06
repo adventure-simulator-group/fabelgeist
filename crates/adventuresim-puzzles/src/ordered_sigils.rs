@@ -125,7 +125,7 @@ impl OrderedSigilPuzzle {
         let spec = spec.validate()?;
         const ORDERED_SIGIL_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
             fabelgeist_determinism::StreamId::new("puzzle.ordered_sigil");
-        let mut rng = ORDERED_SIGIL_GENERATION_DOMAIN.rng(seed, &[]);
+        let mut rng = ORDERED_SIGIL_GENERATION_DOMAIN.rng(seed.into(), &[]);
         let mut solution = Sigil::ALL;
         for end in (1..solution.len()).rev() {
             let selected = rng.index(end + 1);

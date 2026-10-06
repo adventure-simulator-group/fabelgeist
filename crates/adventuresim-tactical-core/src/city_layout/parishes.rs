@@ -9,16 +9,16 @@ pub const CITY_PARISH_PRECINCT_RADIUS_METRES: f32 = 90.0;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ParishResidenceAllocation {
-    pub building_id: u64,
+    pub building_id: crate::scene_input::SceneBuildingId,
     pub residents: ParishPopulation,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct CityParish {
     pub programme: ParishProgramme,
-    pub church_building_id: u64,
-    pub rectory_building_id: u64,
-    pub school_building_id: Option<u64>,
+    pub church_building_id: crate::scene_input::SceneBuildingId,
+    pub rectory_building_id: crate::scene_input::SceneBuildingId,
+    pub school_building_id: Option<crate::scene_input::SceneBuildingId>,
     pub residences: Vec<ParishResidenceAllocation>,
 }
 
@@ -48,9 +48,9 @@ impl GeneratedCityLayout {
                     population: ParishPopulation(0),
                     ..programme
                 },
-                church_building_id: church.id,
-                rectory_building_id: rectory.id,
-                school_building_id: member(ParishBuildingRole::TownSchool).map(|lot| lot.id),
+                church_building_id: church.id.into(),
+                rectory_building_id: rectory.id.into(),
+                school_building_id: member(ParishBuildingRole::TownSchool).map(|lot| lot.id.into()),
                 residences: Vec::new(),
             });
         }
@@ -79,7 +79,7 @@ impl GeneratedCityLayout {
                 remaining -= residents;
                 parish.programme.population.0 += residents;
                 parish.residences.push(ParishResidenceAllocation {
-                    building_id: lot.id,
+                    building_id: lot.id.into(),
                     residents: ParishPopulation(residents),
                 });
             }

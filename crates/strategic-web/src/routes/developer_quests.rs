@@ -215,8 +215,8 @@ async fn active_context(
     candidates.sort_by_key(|left| left.resident_character_id);
     let context = GenerationContext {
         seed,
-        observer_entropy_hi: OBSERVER_HIGH.rng(seed, &[]).next_u64(),
-        observer_entropy_lo: OBSERVER_LOW.rng(seed, &[]).next_u64(),
+        observer_entropy_hi: OBSERVER_HIGH.rng(seed.into(), &[]).next_u64(),
+        observer_entropy_lo: OBSERVER_LOW.rng(seed.into(), &[]).next_u64(),
         settlement_id: settlement_id.clone(),
         settlement_name: settlement.name.clone(),
         scope: adventuresim_core::local_problem::Scope::Settlement { settlement_id },

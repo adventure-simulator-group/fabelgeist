@@ -2145,7 +2145,7 @@ fn materialize_order_errantry(
         })
         .count() as u64;
     let suffix = errantry_suffix(character_id, ordinal, launch);
-    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id, &[ordinal]).to_u64();
+    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id.into(), &[ordinal]).to_u64();
     let road_definition =
         adventuresim_core::road_encounter_catalog::select_quest_eligible(seed, ordinal)
             .ok_or("No quest-eligible road encounter is available")?;

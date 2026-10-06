@@ -5,7 +5,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     let canonical = canonical_context(context)?;
     let context = &canonical;
     if context.requested_family == Some(TemplateFamily::Outbreak)
-        || (context.requested_family.is_none() && RNG_QUEST_FAMILY.rng(context.seed, &[]).index(7) == 0)
+        || (context.requested_family.is_none() && RNG_QUEST_FAMILY.rng(context.seed.into(), &[]).index(7) == 0)
     {
         return generate_outbreak(context);
     }
@@ -83,7 +83,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
         .filter(|index| *index != primary_witness && *index != secondary_witness)
         .collect::<Vec<_>>();
     fabelgeist_determinism::StreamId::new("quest.victim-target")
-        .rng(context.seed, &[]).shuffle(&mut victim_target_candidates);
+        .rng(context.seed.into(), &[]).shuffle(&mut victim_target_candidates);
     let (attack_pattern, pattern_bridge) = choose(
         context.seed,
         "module.attack_pattern",
@@ -214,7 +214,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     let uncorroborated_pattern_claim =
         "There may be a pattern, yet I cannot tell which details matter.".to_owned();
     let has_private_pattern_detail = fabelgeist_determinism::StreamId::new("quest.private-pattern-detail")
-        .rng(context.observer_entropy_hi, &[context.observer_entropy_lo]).boolean();
+        .rng(context.observer_entropy_hi.into(), &[context.observer_entropy_lo]).boolean();
     let evidence_site_label = if family == TemplateFamily::RecurringDepredation {
         "the latest incident site"
     } else {
@@ -876,7 +876,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
         DiseaseId::ShroudFever,
         DiseaseId::Bilwisschuss,
         DiseaseId::Kobeldunst,
-    ][fabelgeist_determinism::StreamId::new("quest.outbreak-disease").rng(context.seed, &[]).index(6)];
+    ][fabelgeist_determinism::StreamId::new("quest.outbreak-disease").rng(context.seed.into(), &[]).index(6)];
     let transmission_route = crate::disease::definition(disease).primary_community_vector;
     let carrier = ThreatId::Alp;
     let (site_kind, source, remediation, responsible_npc, carrier_threat) = match disease {

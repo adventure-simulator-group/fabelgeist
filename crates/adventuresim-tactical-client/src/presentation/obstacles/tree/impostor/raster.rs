@@ -118,7 +118,7 @@ fn stratified_tree_bake_leaves(
         }
         let shoot = &included[start..end];
         let mut random = StreamId::new("visual.tree.impostor-shoot-sampling")
-            .rng(shoot_id, &[u64::from(card.source_group)]);
+            .rng(shoot_id.into(), &[u64::from(card.source_group)]);
         if shoot.len() >= stride {
             let phase = random.index(stride);
             let before = sampled.len();
@@ -796,11 +796,15 @@ mod tests {
         let environment = SceneEnvironment {
             scene_digest: "4926dcc166599287c1966fd23ced047bd918de9f6b80ed1b8f9280159f094a6b".into(),
             generation_version: 8,
-            latitude_microdegrees: 53_500_000,
-            longitude_microdegrees: 10_000_000,
+            latitude_microdegrees:
+                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
+                    .unwrap(),
+            longitude_microdegrees:
+                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
+                    .unwrap(),
             absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
             lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
-            absolute_elevation_metres: 42,
+            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(42).unwrap(),
             weather: WeatherSnapshot {
                 rules_version: adventuresim_tactical_core::prelude::WEATHER_RULES_VERSION,
                 interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(

@@ -5,11 +5,11 @@ pub(super) fn setup_viewer(
     sequence: Res<CaptureSequence>,
     proportions: Res<CaptureBodyProportions>,
     armor: Res<harness::ArmorCapture>,
-) {
+) -> Result {
     let default_player = Player::default();
-    let mut generator = TerrainGenerator::new(0xA11C_E5E1);
+    let mut generator = TerrainGenerator::new(0xA11C_E5E1.into());
     generator.period = 200.0;
-    let terrain = generator.generate(100, if sequence.uses_flat_grid() { 0 } else { 30 }, 100);
+    let terrain = generator.generate(100, if sequence.uses_flat_grid() { 0 } else { 30 }, 100)?;
     let spawn_height =
         terrain.height_at(Vec2::ZERO).unwrap_or_default() + CAPTURE_ROOT_GROUND_OFFSET_METRES;
     commands.spawn((
@@ -65,6 +65,7 @@ pub(super) fn setup_viewer(
             ..default()
         },
     ));
+    Ok(())
 }
 
 pub(super) fn write_body_proportions(

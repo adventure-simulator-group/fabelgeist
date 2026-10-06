@@ -10,6 +10,7 @@ use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view
 mod generation;
 pub use generation::{
     personality_from_stable_seed, personality_from_stable_seed_with_demographics,
+    random_personality,
 };
 
 /// Gateway-safe, derived visibility of strategic temperament. Behavioral
@@ -593,136 +594,6 @@ pub fn conviction_strength_for_character(ctx: &ReducerContext, character_id: u64
         / f32::from(PERSONALITY_SCORE_LIMIT)
 }
 
-/// Generate a sparse profile with exactly two through four distinct axes.
-pub fn random_personality(
-    character_id: u64,
-    random: &mut DeterministicRng,
-) -> CharacterPersonality {
-    let mut result = CharacterPersonality::neutral(character_id);
-    let mut axes = [0_u8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    random.shuffle(&mut axes);
-    let count = 2 + random.index(3);
-    for axis in axes.into_iter().take(count) {
-        match axis {
-            0 => {
-                result.nerve = if random.boolean() {
-                    Nerve::Brave
-                } else {
-                    Nerve::Fearful
-                }
-            }
-            1 => {
-                result.drive = if random.boolean() {
-                    Drive::Ambitious
-                } else {
-                    Drive::Content
-                }
-            }
-            2 => {
-                result.outlook = if random.boolean() {
-                    Outlook::Sanguine
-                } else {
-                    Outlook::Brooding
-                }
-            }
-            3 => {
-                result.sociability = if random.boolean() {
-                    Sociability::Gregarious
-                } else {
-                    Sociability::Solitary
-                }
-            }
-            4 => {
-                result.conscience = match random.index(3) {
-                    0 => Conscience::Compassionate,
-                    1 => Conscience::Callous,
-                    _ => Conscience::Cruel,
-                }
-            }
-            5 => {
-                result.self_regard = if random.boolean() {
-                    SelfRegard::Proud
-                } else {
-                    SelfRegard::Humble
-                }
-            }
-            6 => {
-                result.conviction = if random.boolean() {
-                    Conviction::Zealous
-                } else {
-                    Conviction::Irreverent
-                }
-            }
-            7 => {
-                result.hygiene = if random.boolean() {
-                    Hygiene::Slovenly
-                } else {
-                    Hygiene::Cleanly
-                }
-            }
-            8 => {
-                result.temperance = if random.boolean() {
-                    Temperance::Temperate
-                } else {
-                    Temperance::Drunkard
-                }
-            }
-            9 => {
-                result.mirth = if random.boolean() {
-                    Mirth::Merry
-                } else {
-                    Mirth::Grave
-                }
-            }
-            10 => {
-                result.courtship = if random.boolean() {
-                    Courtship::Amorous
-                } else {
-                    Courtship::Proper
-                }
-            }
-            11 => {
-                result.transparency = if random.boolean() {
-                    Transparency::Open
-                } else {
-                    Transparency::Guarded
-                }
-            }
-            _ => {
-                result.self_knowledge = if random.boolean() {
-                    SelfKnowledge::Introspective
-                } else {
-                    SelfKnowledge::SelfDeceiving
-                }
-            }
-        }
-    }
-    result.sex = *random.choose(Sex::VARIANTS);
-    let presentation_roll = random.index(100);
-    result.presentation = match (result.sex, presentation_roll) {
-        (_, 0..=3) => Presentation::Ambiguous,
-        (Sex::Female, 4) => Presentation::Man,
-        (Sex::Male, 4) => Presentation::Woman,
-        (Sex::Female, _) => Presentation::Woman,
-        (Sex::Male, _) => Presentation::Man,
-    };
-    // Direction is generated from demographic sex rather than the public
-    // presentation signal. The signal is the only field attraction consumes.
-    result.inclination = match random.index(100) {
-        0 => Inclination::Neither,
-        1..=4 => Inclination::Either,
-        5..=9 => match result.sex {
-            Sex::Female => Inclination::Women,
-            Sex::Male => Inclination::Men,
-        },
-        _ => match result.sex {
-            Sex::Female => Inclination::Men,
-            Sex::Male => Inclination::Women,
-        },
-    };
-    result
-}
-
 /// Generate an NPC personality from an identity-stable seed.
 ///
 /// Reducer RNG is intentionally not involved. The same NPC therefore receives
@@ -766,7 +637,8 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
             // always-assigned demographic axes must still have real values.
             let generated = random_personality(
                 character_id,
-                &mut generation::PERSONALITY_GENERATION_DOMAIN.rng(ctx.random(), &[character_id]),
+                &mut generation::PERSONALITY_GENERATION_DOMAIN
+                    .rng(ctx.random::<u64>().into(), &[character_id]),
             );
             let mut neutral = CharacterPersonality::neutral(character_id);
             neutral.sex = generated.sex;
@@ -781,7 +653,8 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
 pub fn assign_random_personality(ctx: &ReducerContext, character_id: u64) {
     let row = random_personality(
         character_id,
-        &mut generation::PERSONALITY_GENERATION_DOMAIN.rng(ctx.random(), &[character_id]),
+        &mut generation::PERSONALITY_GENERATION_DOMAIN
+            .rng(ctx.random::<u64>().into(), &[character_id]),
     );
     reset_personality_from_visible(ctx, row);
 }

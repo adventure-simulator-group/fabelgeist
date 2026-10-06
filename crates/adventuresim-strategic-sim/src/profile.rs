@@ -86,8 +86,8 @@ fn bounded(base: f32, spread: f32, rng: &mut DeterministicRng) -> f32 {
 }
 
 fn generated_attributes(profile_seed: u64) -> PlayerAttributeValues {
-    let mut rng =
-        fabelgeist_determinism::StreamId::new("strategic.agent-attributes").rng(profile_seed, &[]);
+    let mut rng = fabelgeist_determinism::StreamId::new("strategic.agent-attributes")
+        .rng(profile_seed.into(), &[]);
     // Shared latent factors create plausible correlations while limb-specific noise
     // prevents profiles from being merely scalar copies of one another.
     let physique = rng.range_f32(1.3, 4.4);
@@ -114,14 +114,16 @@ fn generated_attributes(profile_seed: u64) -> PlayerAttributeValues {
 }
 
 pub fn generate_profile(seed: u64, agent_id: u32) -> AgentProfile {
-    let profile_seed = PROFILE_DOMAIN.seed(seed, &[u64::from(agent_id)]).to_u64();
+    let profile_seed = PROFILE_DOMAIN
+        .seed(seed.into(), &[u64::from(agent_id)])
+        .to_u64();
     let attributes = generated_attributes(profile_seed);
     let personality = generated_personality(
         &mut fabelgeist_determinism::StreamId::new("strategic.agent-personality")
-            .rng(profile_seed, &[]),
+            .rng(profile_seed.into(), &[]),
     );
-    let mut rng =
-        fabelgeist_determinism::StreamId::new("strategic.agent-preferences").rng(profile_seed, &[]);
+    let mut rng = fabelgeist_determinism::StreamId::new("strategic.agent-preferences")
+        .rng(profile_seed.into(), &[]);
     let build = derive_build(&personality, &attributes);
     let preferred_activity = if personality.conviction == Conviction::Zealous {
         ActivityPreference::Prayer

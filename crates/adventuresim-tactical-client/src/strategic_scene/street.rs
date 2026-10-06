@@ -34,18 +34,18 @@ impl Street {
     pub(super) fn arrange(
         input: &TacticalSceneInput,
         places: &[super::protocol::Place],
-        selected: &HashMap<PlaceId, u64>,
+        selected: &HashMap<PlaceId, adventuresim_tactical_core::scene_input::SceneBuildingId>,
         generated: &mut GeneratedTacticalScene,
     ) -> Result<Self, String> {
         let front_z = input
             .distant_buildings
             .iter()
-            .map(|b| b.centre_metres.y)
+            .map(|b| b.centre_metres.metres().y)
             .chain(
                 generated
                     .buildings
                     .iter()
-                    .map(|b| b.placement.centre_metres.y),
+                    .map(|b| b.placement.centre_metres.metres().y),
             )
             .fold(0.0, f32::max)
             + CITY_CLEARANCE_METRES;
@@ -96,8 +96,11 @@ impl Street {
                 street.height = street.height.max(extent.y + SKY_MARGIN_METRES);
                 building.placement.orientation = orientation;
                 building.placement.centre_metres =
-                    Vec2::new(street.width + width * 0.5, front_z - size.z * 0.5);
-                building.placement.base_elevation_metres = elevation;
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(street.width + width * 0.5, front_z - size.z * 0.5),
+                    )
+                    .map_err(|cause| cause.to_string())?;
+                building.placement.base_elevation_metres = adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(elevation).ok_or("invalid relocated floor elevation")?;
                 moves.insert(
                     building.placement.id,
                     (
@@ -114,7 +117,7 @@ impl Street {
         }
         for building in &mut generated.buildings {
             if let Some((_, after)) = moves.get_mut(&building.placement.id) {
-                building.placement.centre_metres.x -= street.width * 0.5;
+                building.placement.centre_metres.metres().x -= street.width * 0.5;
                 *after = building.transform().map_err(|error| error.to_string())?;
             }
         }
@@ -177,7 +180,10 @@ pub(super) fn build_ground(
 
 fn relocate_interior_furniture(
     furniture: &mut FurnitureLayout,
-    moves: &HashMap<u64, (Transform, Transform)>,
+    moves: &HashMap<
+        adventuresim_tactical_core::scene_input::SceneBuildingId,
+        (Transform, Transform),
+    >,
 ) -> Result<(), String> {
     for furniture in &mut furniture.instances {
         if let FurnitureLocation::Interior { building_id, .. } = furniture.scene.location
@@ -186,8 +192,12 @@ fn relocate_interior_furniture(
             let local = before
                 .compute_affine()
                 .inverse()
-                .transform_point3(furniture.position_metres);
-            furniture.position_metres = after.transform_point(local);
+                .transform_point3(furniture.position_metres.metres());
+            furniture.position_metres =
+                adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                    after.transform_point(local),
+                )
+                .map_err(|cause| cause.to_string())?;
             let delta = (after.rotation * before.rotation.inverse())
                 .to_euler(EulerRot::YXZ)
                 .0;
@@ -271,11 +281,11 @@ mod tests {
                     let old_local = originals[&building.placement.id]
                         .compute_affine()
                         .inverse()
-                        .transform_point3(before.position_metres);
+                        .transform_point3(before.position_metres.metres());
                     let new_local = pose
                         .compute_affine()
                         .inverse()
-                        .transform_point3(after.position_metres);
+                        .transform_point3(after.position_metres.metres());
                     assert!(old_local.distance(new_local) < 0.001);
                 }
             }

@@ -123,7 +123,7 @@ impl CavityStamp {
                         cx,
                         cy,
                         self.cells,
-                        purpose.seed(self.field_seed, &[]).to_u64(),
+                        purpose.seed(self.field_seed.into(), &[]).to_u64(),
                     )
                 };
                 let cluster = noise(

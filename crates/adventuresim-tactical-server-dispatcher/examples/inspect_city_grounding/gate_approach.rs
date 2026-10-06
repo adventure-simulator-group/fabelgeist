@@ -23,9 +23,9 @@ pub(super) fn inspect(
     if crossings.next().is_some() {
         return Ok(None);
     }
-    let length = route.start_metres.distance(gate);
-    let effective_run = (length - route.half_width_metres * 2.0).max(0.0);
-    let Some(street_height) = terrain_height(route.start_metres) else {
+    let length = route.start_metres().distance(gate);
+    let effective_run = (length - route.half_width_metres() * 2.0).max(0.0);
+    let Some(street_height) = terrain_height(route.start_metres()) else {
         return Ok(None);
     };
     let Some(natural_gate_height) = terrain_height(gate) else {
@@ -46,10 +46,10 @@ pub(super) fn inspect(
     Ok(Some(json!({
         "property_id":compound.id,
         "member_building_ids":[compound.front_building_id,compound.rear_building_id],
-        "street_endpoint":route.start_metres,"gate_centre":gate,
+        "street_endpoint":route.start_metres(),"gate_centre":gate,
         "street_elevation_m":street_height,"natural_gate_elevation_m":natural_gate_height,
         "approach_length_m":length,"effective_run_m":effective_run,
-        "landing_length_each_m":route.half_width_metres,
+        "landing_length_each_m":route.half_width_metres(),
         "maximum_candidate_grade":maximum_grade,
         "candidates":[report("gate_at_common_front_floor",common_floor),
             report("separate_gate_landing_at_source_height",natural_gate_height)],

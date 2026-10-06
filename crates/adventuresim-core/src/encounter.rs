@@ -448,7 +448,7 @@ impl EncounterRollDomain {
 }
 
 fn domain_random(seed: u64, index: u64, domain: EncounterRollDomain) -> DeterministicRng {
-    domain.stream().rng(seed, &[index])
+    domain.stream().rng(seed.into(), &[index])
 }
 
 /// Durable context for a goal-neutral narrative interruption roll. This uses

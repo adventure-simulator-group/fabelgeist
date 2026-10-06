@@ -752,7 +752,7 @@ pub(in crate::presentation) fn tree_impostor_material(
         parameters: Vec4::new(
             lod as f32,
             StreamId::new("visual.obstacles.tree.impostor.material-variation")
-                .rng(seed, &[])
+                .rng(seed.into(), &[])
                 .inclusive_unit_f32(),
             0.08 + lod as f32 * 0.018,
             1.0,

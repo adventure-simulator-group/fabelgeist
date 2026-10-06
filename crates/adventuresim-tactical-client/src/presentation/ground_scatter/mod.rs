@@ -426,13 +426,13 @@ fn foliage_transform(
     let terrain_rotation = Quat::from_rotation_arc(Vec3::Y, normal);
     let yaw = Quat::from_rotation_y(
         StreamId::new("visual.understory.yaw")
-            .rng(hash, &[])
+            .rng(hash.into(), &[])
             .inclusive_unit_f32()
             * core::f32::consts::TAU,
     );
     let scale = 0.72
         + StreamId::new("visual.understory.scale")
-            .rng(hash, &[])
+            .rng(hash.into(), &[])
             .inclusive_unit_f32()
             * 0.58;
     Some(
@@ -554,7 +554,7 @@ const FOLIAGE_SHADER: &str = "shaders/tactical_foliage.wgsl";
 
 fn scatter_seed(digest: &str, scene: &str) -> u64 {
     StreamId::new("visual.ground-scatter.mod.scene")
-        .seed(stable_text_seed(digest), &[stable_text_seed(scene)])
+        .seed(stable_text_seed(digest).into(), &[stable_text_seed(scene)])
         .to_u64()
 }
 

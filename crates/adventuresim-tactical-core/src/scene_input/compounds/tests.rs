@@ -26,10 +26,10 @@ fn compound_loaded_scene_rejects_broken_membership_and_authority() {
         archetype: rear.program.archetype,
         usage: rear.program.usage,
         service_size: rear.program.service_size,
-        seed: rear.program.seed,
+        seed: rear.program.seed.into(),
         centre_metres: rear.centre_metres,
         orientation: rear.orientation,
-        base_elevation_metres: 0.0,
+        base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
     });
     assert!(split.validate().is_err());
     let mut malformed = input;
@@ -85,17 +85,20 @@ fn sloped_compound_enclosures_bind_to_accepted_soil_without_rewriting_source_sam
         assert_eq!(boundary.scene, projected.scene);
         assert_eq!(boundary.elevation_metres, projected.elevation_metres);
         for item in &generated.furniture.instances {
-            if matches!(item.scene.location, FurnitureLocation::Interior { storey, .. } if storey > 0)
+            if matches!(item.scene.location, FurnitureLocation::Interior { storey, .. } if storey.index() > 0)
             {
                 continue;
             }
-            let point = Vec2::new(item.position_metres.x, item.position_metres.z);
+            let point = Vec2::new(
+                item.position_metres.metres().x,
+                item.position_metres.metres().z,
+            );
             for route in &compound.access {
-                let delta = route.end_metres - route.start_metres;
-                let t = ((point - route.start_metres).dot(delta) / delta.length_squared())
+                let delta = route.end_metres() - route.start_metres();
+                let t = ((point - route.start_metres()).dot(delta) / delta.length_squared())
                     .clamp(0.0, 1.0);
                 assert!(
-                    point.distance(route.start_metres + delta * t) >= route.half_width_metres,
+                    point.distance(route.start_metres() + delta * t) >= route.half_width_metres(),
                     "furniture {item:?} blocks property {:?}",
                     compound.id
                 );
@@ -107,11 +110,21 @@ fn sloped_compound_enclosures_bind_to_accepted_soil_without_rewriting_source_sam
 #[test]
 fn compound_rejects_a_loaded_route_ending_short_of_the_actual_store_door() {
     let mut input = fixture();
-    input.compounds[0].access.last_mut().unwrap().end_metres += Vec2::X;
+    let route = input.compounds[0].access.last_mut().unwrap();
+    route
+        .update_endpoints(
+            route.start(),
+            route
+                .end()
+                .translated(crate::scene_coordinates::PlanDisplacement::try_from(Vec2::X).unwrap())
+                .unwrap(),
+        )
+        .unwrap();
     let result = input.generate();
-    assert!(
-        matches!(result, Err(SceneInputError::Validation(message)) if message.contains("MissingRangeDoor"))
-    );
+    assert!(matches!(
+        result,
+        Err(SceneInputError::Validation(SceneValidationError::City(_)))
+    ));
 }
 
 #[test]
@@ -127,14 +140,42 @@ fn adjacent_compounds_keep_separate_support_owners_after_terrain_refinement() {
     let offset = Vec2::new(16.5, 0.0);
     let mut neighbour = input.compounds[0].clone();
     neighbour.id.0 += 1;
-    neighbour.front_building_id += 1;
-    neighbour.rear_building_id += 1;
-    neighbour.plot.centre_metres += offset;
-    neighbour.court.centre_metres += offset;
+    neighbour.front_building_id.0 += 1;
+    neighbour.rear_building_id.0 += 1;
+    neighbour
+        .plot
+        .relocate(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                neighbour.plot.centre_metres() + (offset),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+    neighbour
+        .court
+        .relocate(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                neighbour.court.centre_metres() + (offset),
+            )
+            .unwrap(),
+        )
+        .unwrap();
     neighbour.boundary.gate.centre_metres += offset;
     for route in &mut neighbour.access {
-        route.start_metres += offset;
-        route.end_metres += offset;
+        route
+            .update_endpoints(
+                crate::scene_coordinates::ScenePlanPoint::try_from(route.start_metres() + (offset))
+                    .unwrap(),
+                route.end(),
+            )
+            .unwrap();
+        route
+            .update_endpoints(
+                route.start(),
+                crate::scene_coordinates::ScenePlanPoint::try_from(route.end_metres() + (offset))
+                    .unwrap(),
+            )
+            .unwrap();
     }
     for wall in &mut neighbour.boundary.walls {
         wall.start_metres += offset;
@@ -145,8 +186,11 @@ fn adjacent_compounds_keep_separate_support_owners_after_terrain_refinement() {
         .iter()
         .cloned()
         .map(|mut building| {
-            building.id += 1;
-            building.centre_metres += offset;
+            building.id.0 += 1;
+            building.centre_metres = building
+                .centre_metres
+                .translated(crate::scene_coordinates::PlanDisplacement::try_from(offset).unwrap())
+                .unwrap();
             building
         })
         .collect::<Vec<_>>();
@@ -173,7 +217,7 @@ fn adjacent_compounds_keep_separate_support_owners_after_terrain_refinement() {
         assert_eq!(exact.elevation_metres, boundary.elevation_metres);
         let foundation = generated.terrain.property_foundation(compound.id).unwrap();
         assert_eq!(
-            foundation.member_building_ids,
+            foundation.member_building_ids(),
             [compound.front_building_id, compound.rear_building_id]
         );
     }

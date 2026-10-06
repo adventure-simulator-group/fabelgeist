@@ -202,7 +202,7 @@ fn cell_random(
     stream: fabelgeist_determinism::StreamId,
 ) -> fabelgeist_determinism::DeterministicRng {
     stream.rng(
-        seed,
+        seed.into(),
         &[room_slot, cell.x as u16 as u64, cell.z as u16 as u64],
     )
 }

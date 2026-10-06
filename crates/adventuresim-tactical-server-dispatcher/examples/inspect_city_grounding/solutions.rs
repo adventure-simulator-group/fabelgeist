@@ -17,15 +17,23 @@ const COMPARISON_MINIMUM_GOING_METRES: f32 = 0.25;
 const COMPARISON_STAIR_CLEAR_WIDTH_METRES: f32 = 1.0;
 const COMPARISON_LANDING_RUN_METRES: f32 = 0.5;
 
+const fn positive_comparison_length(
+    value: f32,
+) -> adventuresim_building_generator::spatial_geometry::PositiveLength {
+    match adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(value) {
+        Ok(length) => length,
+        Err(_) => panic!("authored comparison lengths must be positive"),
+    }
+}
+const COMPARISON_STAIRS: CourtStairLimits = CourtStairLimits::new(
+    positive_comparison_length(COMPARISON_MAXIMUM_RISER_METRES),
+    positive_comparison_length(COMPARISON_MINIMUM_GOING_METRES),
+    positive_comparison_length(COMPARISON_STAIR_CLEAR_WIDTH_METRES),
+    positive_comparison_length(COMPARISON_LANDING_RUN_METRES),
+    positive_comparison_length(COMPARISON_LANDING_RUN_METRES),
+);
 pub(super) fn stair_limits() -> CourtStairLimits {
-    CourtStairLimits::new(
-        COMPARISON_MAXIMUM_RISER_METRES,
-        COMPARISON_MINIMUM_GOING_METRES,
-        COMPARISON_STAIR_CLEAR_WIDTH_METRES,
-        COMPARISON_LANDING_RUN_METRES,
-        COMPARISON_LANDING_RUN_METRES,
-    )
-    .expect("authored comparison stair dimensions are valid")
+    COMPARISON_STAIRS
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -101,24 +109,32 @@ pub(super) fn compare(
         front: MemberSupport {
             building_id: property.front_building_id,
             contact: members.front.bearing,
-            court_threshold_metres: members.front.threshold.metres(),
+            court_threshold_metres: members.front.threshold,
             elevation: proposed.front,
         },
         rear: MemberSupport {
             building_id: property.rear_building_id,
             contact: members.rear.bearing,
-            court_threshold_metres: members.rear.threshold.metres(),
+            court_threshold_metres: members.rear.threshold,
             elevation: proposed.rear,
         },
         court: proposed.court,
         gate: elevation(height(property.boundary.gate.centre_metres)?)?,
-        street: elevation(height(route.start_metres)?)?,
+        street: elevation(height(route.start_metres())?)?,
     };
     let limits = SupportLimits::new(
-        maximum_grade,
-        PROVISIONAL_COMPARISON_CUT_FILL_METRES,
-        COMPARISON_CONTACT_TOLERANCE_METRES,
-    )?;
+        adventuresim_tactical_core::city_layout::grounding::SupportGrade::from_ratio(
+            maximum_grade,
+        )?,
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+            PROVISIONAL_COMPARISON_CUT_FILL_METRES,
+        )
+        .ok()?,
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+            COMPARISON_CONTACT_TOLERANCE_METRES,
+        )
+        .ok()?,
+    );
     let stairs = stair_limits();
     let thickness = property
         .boundary

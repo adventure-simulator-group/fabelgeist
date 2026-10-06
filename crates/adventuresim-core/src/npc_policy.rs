@@ -103,7 +103,7 @@ pub fn stable_candidate_order(
         (
             StreamId::new("npc.policy-rank")
                 .rng(
-                    actor_seed,
+                    actor_seed.into(),
                     &[candidate.policy_seed, actor_id, day, candidate.character_id],
                 )
                 .next_u64(),
@@ -120,7 +120,7 @@ pub fn stable_candidate_order(
 pub fn initial_npc_schedule(character_id: u64, policy_seed: u64) -> DailySchedule {
     let socializing_minutes = 60
         + 15 * StreamId::new("npc.initial-socializing")
-            .rng(policy_seed, &[character_id])
+            .rng(policy_seed.into(), &[character_id])
             .index(5) as u16;
     DailySchedule {
         socializing_minutes,

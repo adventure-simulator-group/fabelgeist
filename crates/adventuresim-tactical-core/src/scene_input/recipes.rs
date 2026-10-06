@@ -28,9 +28,14 @@ impl GeneratedBuildingRecipe {
 #[derive(Clone, Debug, Default)]
 pub struct GeneratedBuildingRecipes {
     recipes: Vec<GeneratedBuildingRecipe>,
-    pub sites: Vec<(BuildingProgram, super::furniture::FurnitureSiteRecipe)>,
+    pub sites: Vec<ProgramFurnitureSite>,
 }
 
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
+pub struct ProgramFurnitureSite {
+    pub program: BuildingProgram,
+    pub recipe: super::furniture::FurnitureSiteRecipe,
+}
 impl GeneratedBuildingRecipes {
     pub fn insert(&mut self, recipe: GeneratedBuildingRecipe) {
         self.recipes

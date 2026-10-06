@@ -23,7 +23,7 @@ const FINISH_INSTANCE_ID_BASE: u64 = 0x6669_6e69_7368_0000;
 pub(super) fn stage(
     layout: &mut FurnitureLayout,
     terrain: &SceneTerrain,
-) -> Vec<BuildingReviewCamera> {
+) -> Result<Vec<BuildingReviewCamera>> {
     FinishableFurnitureKind::ALL
         .into_iter()
         .enumerate()
@@ -49,20 +49,27 @@ pub(super) fn stage(
                         id: FurnitureInstanceId(FINISH_INSTANCE_ID_BASE + ordinal as u64),
                         key,
                         location: FurnitureLocation::Interior {
-                            building_id: 0,
-                            room_id: index as u16,
-                            storey: 0,
+                            building_id: (0).into(),
+                            room_id: adventuresim_building_generator::RoomIndex::from_serialized(
+                                index as u16,
+                            ),
+                            storey: adventuresim_building_generator::StoreyIndex::from_serialized(
+                                0,
+                            ),
                         },
                     },
-                    position_metres: Vec3::new(point.x, terrain.height_at(point).unwrap(), point.y),
+                    position_metres:
+                        adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                            Vec3::new(point.x, terrain.height_at(point).unwrap(), point.y),
+                        )?,
                     orientation: BuildingOrientation::from_radians(std::f32::consts::PI).unwrap(),
                 });
             }
-            catalog_camera(
+            Ok(catalog_camera(
                 kind.kind(),
                 Vec3::new(width, size.y, size.z),
                 Vec3::new(bay.x, terrain.height_at(bay).unwrap(), bay.y),
-            )
+            ))
         })
         .collect()
 }

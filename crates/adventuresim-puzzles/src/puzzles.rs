@@ -427,7 +427,7 @@ impl TruthfulWitnessPuzzle {
         let spec = spec.validate()?;
         const TRUTHFUL_WITNESS_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
             fabelgeist_determinism::StreamId::new("puzzle.truthful_witness");
-        let mut rng = TRUTHFUL_WITNESS_GENERATION_DOMAIN.rng(seed, &[]);
+        let mut rng = TRUTHFUL_WITNESS_GENERATION_DOMAIN.rng(seed.into(), &[]);
         let solution_path = WitnessPath::ALL[rng.index(WitnessPath::ALL.len())];
         let liar = Witness::ALL[rng.index(Witness::ALL.len())];
         let choices = Witness::ALL.map(|speaker| {
@@ -764,7 +764,7 @@ impl RuneTransformationPuzzle {
         let spec = spec.validate()?;
         const RUNE_TRANSFORMATION_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
             fabelgeist_determinism::StreamId::new("puzzle.rune_transformation");
-        let mut rng = RUNE_TRANSFORMATION_GENERATION_DOMAIN.rng(seed, &[]);
+        let mut rng = RUNE_TRANSFORMATION_GENERATION_DOMAIN.rng(seed.into(), &[]);
         let active_gates = RuneGate::ALL[..usize::from(spec.gate_count)].to_vec();
         let mut available_operations = RuneOperation::ALL.to_vec();
         shuffle(&mut available_operations, &mut rng);

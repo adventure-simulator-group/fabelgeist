@@ -111,8 +111,14 @@ pub(super) fn cell_allows_grass(
     cell_spacing: f32,
     jitter_fraction: f32,
 ) -> bool {
-    let jitter_x = streams::JITTER_X.rng(cell_hash, &[]).inclusive_unit_f32() - 0.5;
-    let jitter_z = streams::JITTER_Z.rng(cell_hash, &[]).inclusive_unit_f32() - 0.5;
+    let jitter_x = streams::JITTER_X
+        .rng(cell_hash.into(), &[])
+        .inclusive_unit_f32()
+        - 0.5;
+    let jitter_z = streams::JITTER_Z
+        .rng(cell_hash.into(), &[])
+        .inclusive_unit_f32()
+        - 0.5;
     let render_centre = Vec2::new(
         (x as f32 + jitter_x * jitter_fraction) * cell_spacing,
         (z as f32 + jitter_z * jitter_fraction) * cell_spacing,
@@ -179,7 +185,7 @@ impl GrassMeshLod {
             selected_for_lod
                 && (grass_density >= 1.0
                     || streams::DENSITY
-                        .rng(0, &[*index as u64])
+                        .rng(0.into(), &[*index as u64])
                         .inclusive_unit_f32()
                         < grass_density)
         })
@@ -197,7 +203,7 @@ impl GrassMeshLod {
         let stratum_row = row / stratum_side;
         let stratum_column = column / stratum_side;
         let stratum = stratum_row * strata_per_side + stratum_column;
-        let mut random = purpose.rng(0, &[stratum as u64]);
+        let mut random = purpose.rng(0.into(), &[stratum as u64]);
         let selected_row = if stratum_row == 0 {
             0
         } else if stratum_row + 1 == strata_per_side {
@@ -318,7 +324,7 @@ pub(in crate::presentation) fn grass_tuft_mesh(
         .filter(|index| {
             grass_density >= 1.0
                 || streams::DENSITY
-                    .rng(seed, &[*index as u64])
+                    .rng(seed.into(), &[*index as u64])
                     .inclusive_unit_f32()
                     < grass_density
         })
@@ -326,26 +332,27 @@ pub(in crate::presentation) fn grass_tuft_mesh(
             let row = index / grid_side;
             let column = index % grid_side;
             let hash = streams::BLADE_PLACEMENT
-                .seed(seed, &[index as u64])
+                .seed(seed.into(), &[index as u64])
                 .to_u64();
-            let jitter_x = (streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5)
+            let jitter_x = (streams::JITTER_X.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5)
                 * blade_spacing
                 * 0.46;
-            let jitter_z = (streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5)
+            let jitter_z = (streams::JITTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5)
                 * blade_spacing
                 * 0.46;
             let clump_vigor = 0.5 + 0.5 * (row as f32 * 0.31 + column as f32 * 0.17 + 0.8).sin();
             let height_scale = (0.50
-                + streams::HEIGHT.rng(hash, &[]).inclusive_unit_f32() * 0.62
+                + streams::HEIGHT.rng(hash.into(), &[]).inclusive_unit_f32() * 0.62
                 + clump_vigor * 0.20)
                 .clamp(0.50, 1.30);
-            let width_scale = 0.62 + streams::WIDTH.rng(hash, &[]).inclusive_unit_f32() * 0.76;
+            let width_scale =
+                0.62 + streams::WIDTH.rng(hash.into(), &[]).inclusive_unit_f32() * 0.76;
             GrassBlade {
                 offset_x: (column as f32 - centre) * blade_spacing + jitter_x,
                 offset_z: (row as f32 - centre) * blade_spacing + jitter_z,
                 height_scale,
                 width_scale,
-                seed: streams::BLADE.seed(seed, &[index as u64]).to_u64(),
+                seed: streams::BLADE.seed(seed.into(), &[index as u64]).to_u64(),
                 species,
             }
         })
@@ -420,7 +427,7 @@ pub(in crate::presentation) fn grass_species(community: GrassCommunity, hash: u6
         ),
     };
     let index = streams::SPECIES
-        .rng(hash, &[])
+        .rng(hash.into(), &[])
         .weighted_index(&weights)
         .expect("authored species weights are positive");
     species[index]
@@ -522,8 +529,8 @@ fn grass_ribbon_patch_mesh_with_rows(
     } in blades
     {
         let root = Vec3::new(offset_x, 0.0, offset_z);
-        let hash = streams::BLADE_STYLE.seed(blade_seed, &[]).to_u64();
-        let angle = streams::blade_angle(hash);
+        let hash = streams::BLADE_STYLE.seed(blade_seed.into(), &[]);
+        let angle = streams::blade_angle(hash.to_u64());
         let half_width = Vec3::new(angle.cos(), 0.0, angle.sin())
             * width
             * width_scale

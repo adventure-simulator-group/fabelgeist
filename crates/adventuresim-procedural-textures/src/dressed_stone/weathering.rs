@@ -171,7 +171,7 @@ fn edge_fracture(
 
 fn cell_id(x: i32, y: i32, field_seed: u64) -> u64 {
     streams::WEATHERING_CELL
-        .seed(field_seed, &[x as u32 as u64, y as u32 as u64])
+        .seed(field_seed.into(), &[x as u32 as u64, y as u32 as u64])
         .to_u64()
 }
 

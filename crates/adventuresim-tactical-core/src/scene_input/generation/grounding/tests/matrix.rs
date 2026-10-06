@@ -21,9 +21,9 @@ fn production_required_sizes_preserve_all_homes_services_bindings_and_soil_roots
         draft.weather = weather_at(
             seed,
             draft.absolute_minute,
-            draft.latitude_microdegrees,
-            draft.longitude_microdegrees,
-            draft.absolute_elevation_metres,
+            draft.latitude_microdegrees.get(),
+            draft.longitude_microdegrees.get(),
+            draft.absolute_elevation_metres.get(),
         );
         let homes = layout.generated_homes(&identity, population).unwrap();
         let original = draft.clone();
@@ -80,26 +80,26 @@ fn production_required_sizes_preserve_all_homes_services_bindings_and_soil_roots
                             compound.id
                         )
                     });
-            assert_eq!(enclosure.scene.property_id, compound.id);
+            assert_eq!(enclosure.scene().property_id(), compound.id);
             assert_eq!(
-                enclosure.scene.front_building_id,
+                enclosure.scene().front_building_id(),
                 compound.front_building_id
             );
-            assert_eq!(enclosure.scene.boundary, compound.boundary);
-            let _collider = enclosure.scene.fixed_support.collider();
-            enclosure_cells += enclosure.scene.fixed_support.cells.len();
+            assert_eq!(enclosure.scene().boundary(), &compound.boundary);
+            let _collider = enclosure.scene().fixed_support().collider().unwrap();
+            enclosure_cells += enclosure.scene().fixed_support().cells().len();
             let bytes = postcard::to_allocvec(&enclosure).unwrap();
             let replicated: crate::scene_input::GeneratedBoundary =
                 postcard::from_bytes(&bytes).unwrap();
-            assert_eq!(replicated.scene, enclosure.scene);
-            assert_eq!(replicated.elevation_metres, enclosure.elevation_metres);
+            assert_eq!(replicated.scene(), enclosure.scene());
+            assert_eq!(replicated.elevation_metres(), enclosure.elevation_metres());
         }
         for garden in &restored.gardens {
             let projection =
                 crate::scene_input::SceneGarden::project(garden.clone(), &generated.terrain)
                     .unwrap();
-            assert_eq!(projection.garden, *garden);
-            assert_eq!(projection.plant_support.len(), garden.plants.len());
+            assert_eq!(projection.garden(), garden);
+            assert_eq!(projection.plant_support().len(), garden.plants.len());
         }
         rows.push(serde_json::json!({"fixture":identity,"seed":seed,"population":population,
             "absolute_minute":340320,"schema":restored.schema_version,"generation":restored.generation_version,"input_digest":restored.digest().unwrap(),"bytes":encoded.len(),

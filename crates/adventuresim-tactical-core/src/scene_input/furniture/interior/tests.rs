@@ -8,8 +8,9 @@ use bevy::math::Vec3Swizzles;
 fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
     let usage = BuildingUse::Dwelling;
     let input = TacticalBuildingPlacement {
-        base_elevation_metres: 4.2,
-        id: 891,
+        base_elevation_metres: crate::city_layout::grounding::SupportElevation::from_metres(4.2)
+            .unwrap(),
+        id: (891).into(),
         program: BuildingProgram::validated_settlement(
             settlement_archetype(usage),
             usage,
@@ -17,7 +18,8 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
             None,
         )
         .unwrap(),
-        centre_metres: Vec2::new(12.0, -19.0),
+        centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(12.0, -19.0))
+            .unwrap(),
         orientation: BuildingOrientation::from_radians(0.73).unwrap(),
     };
     let buildings = prepare_buildings(
@@ -43,14 +45,12 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
         .unwrap();
     let origin = building.collision.bounds.centre().unwrap().metres();
     for (instance, placement) in furniture.instances.iter().zip(&proof.layout.placements) {
-        let local = building
-            .placement
-            .orientation
-            .world_to_local(instance.position_metres.xz() - building.placement.centre_metres)
-            + Vec2::new(origin.x, origin.z);
+        let local = building.placement.orientation.world_to_local(
+            instance.position_metres.metres().xz() - building.placement.centre_metres.metres(),
+        ) + Vec2::new(origin.x, origin.z);
         assert!(local.distance(placement.centre_metres.metres()) < 0.0001);
         assert!(
-            (instance.position_metres.y
+            (instance.position_metres.metres().y
                 - 4.2
                 - placement.floor_height(&building.plan).unwrap().metres())
             .abs()
@@ -67,8 +67,8 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
             instance.scene.location,
             FurnitureLocation::Interior {
                 building_id: building.placement.id,
-                room_id: placement.room_id.serialized_ordinal(),
-                storey: placement.storey.serialized_ordinal().unwrap(),
+                room_id: placement.room_id,
+                storey: placement.storey,
             }
         );
     }

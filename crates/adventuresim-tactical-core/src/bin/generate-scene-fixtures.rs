@@ -68,15 +68,15 @@ enum BuildingFixture {
     FacadeReview,
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     if let Some(path) = std::env::args()
         .skip_while(|arg| arg != "--support-source")
         .nth(1)
     {
         let path = PathBuf::from(path);
-        let input = support::ground_source_fixture(&path);
+        let input = support::ground_source_fixture(&path)?;
         write_fixture(&path, &input, false);
-        return;
+        return Ok(());
     }
     let check = std::env::args().any(|argument| argument == "--check");
     let repository = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
@@ -85,7 +85,7 @@ fn main() {
         fs::create_dir_all(&output).expect("create fixture directory");
     }
     let requested = std::env::args().skip_while(|arg| arg != "--fixture").nth(1);
-    let fixtures = fixtures();
+    let fixtures = fixtures()?;
     assert!(
         requested
             .as_ref()
@@ -96,10 +96,11 @@ fn main() {
         .into_iter()
         .filter(|fixture| requested.as_ref().is_none_or(|name| fixture.name == name))
     {
-        let input = build_fixture(fixture);
+        let input = build_fixture(fixture)?;
         let path = output.join(format!("{}.json", fixture.name));
         write_fixture(&path, &input, check);
     }
+    Ok(())
 }
 
 fn write_fixture(path: &std::path::Path, input: &TacticalSceneInput, check: bool) {
@@ -124,8 +125,8 @@ fn write_fixture(path: &std::path::Path, input: &TacticalSceneInput, check: bool
     }
 }
 
-fn fixtures() -> [Fixture; 29] {
-    [
+fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
+    Ok([
         gable::fixture(),
         heating::fixture(),
         facade::fixture(),
@@ -158,12 +159,12 @@ fn fixtures() -> [Fixture; 29] {
             rocky_open,
             clear(),
         ),
-        fault::fixture(),
-        geological::sandstone(),
-        geological::carbonate(),
-        geological::granite(),
-        geological::basalt(),
-        geological::slump(),
+        fault::fixture()?,
+        geological::sandstone()?,
+        geological::carbonate()?,
+        geological::granite()?,
+        geological::basalt()?,
+        geological::slump()?,
         fixture(
             "dense-woodland",
             "woodland",
@@ -258,7 +259,7 @@ fn fixtures() -> [Fixture; 29] {
             water_dominated,
             rain(8_000, 3_000),
         ),
-    ]
+    ])
 }
 
 const fn fixture(
@@ -286,9 +287,9 @@ const fn fixture(
 #[path = "generate_scene_fixtures/support.rs"]
 mod support;
 
-fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
-    let mut city = fixture_buildings(fixture.buildings);
-    support::declare_catalogue_properties(&mut city);
+fn build_fixture(fixture: Fixture) -> Result<TacticalSceneInput, Box<dyn std::error::Error>> {
+    let mut city = fixture_buildings(fixture.buildings)?;
+    support::declare_catalogue_properties(&mut city)?;
     let establishments =
         city.businesses
             .iter()
@@ -305,7 +306,9 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
                         format!("fixture:{}", fixture.scene_key),
                         site.key,
                     ),
-                    operator_character_id: site.building_id | (1_u64 << 63),
+                    operator_character_id: adventuresim_tactical_core::player::CharacterId(
+                        site.building_id.0 | (1_u64 << 63),
+                    ),
                     operator_name: operator_name.clone(),
                     shop_name: ShopName::for_operator(&operator_name, site.key.usage),
                 }
@@ -321,14 +324,29 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
         properties: None,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-        seed: fixture.seed,
+        seed: fixture.seed.into(),
         scene_key: fixture.scene_key.into(),
         source: SceneSource::SyntheticFixture(fixture.name.into()),
-        latitude_microdegrees: 53_500_000,
-        longitude_microdegrees: 10_000_000,
+        latitude_microdegrees: const {
+            match adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000) {
+                Some(value) => value,
+                None => panic!("invalid authored latitude"),
+            }
+        },
+        longitude_microdegrees: const {
+            match adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000) {
+                Some(value) => value,
+                None => panic!("invalid authored longitude"),
+            }
+        },
         absolute_minute: fixture.weather.interval_start_minute,
         lunar_phase_minute: fixture.weather.interval_start_minute,
-        absolute_elevation_metres: 42,
+        absolute_elevation_metres: const {
+            match adventuresim_world_schema::ElevationMeters::new(42) {
+                Some(elevation) => elevation,
+                None => panic!("invalid authored fixture elevation"),
+            }
+        },
         playable: grid(
             9,
             9,
@@ -348,33 +366,31 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
         vista,
         weather: fixture.weather,
     };
-    input
-        .ground_generated_city(
-            &city,
-            adventuresim_tactical_core::city_layout::CompoundGradingPolicy::bounded_settlement(),
-        )
-        .unwrap_or_else(|error| panic!("fixture {}: {error}", fixture.name))
+    Ok(input.ground_generated_city(
+        &city,
+        adventuresim_tactical_core::city_layout::CompoundGradingPolicy::bounded_settlement(),
+    )?)
 }
 
 fn fixture_buildings(
     buildings: BuildingFixture,
-) -> adventuresim_tactical_core::city_layout::CitySceneLayout {
+) -> Result<adventuresim_tactical_core::city_layout::CitySceneLayout, Box<dyn std::error::Error>> {
     use adventuresim_tactical_core::city_layout::CitySceneLayout;
-    match buildings {
+    Ok(match buildings {
         BuildingFixture::FacadeReview => CitySceneLayout {
-            playable: facade::buildings(),
+            playable: facade::buildings()?,
             ..Default::default()
         },
         BuildingFixture::GableReview => CitySceneLayout {
-            playable: gable::buildings(),
+            playable: gable::buildings()?,
             ..Default::default()
         },
         BuildingFixture::HeatingReview => CitySceneLayout {
-            playable: heating::buildings(),
+            playable: heating::buildings()?,
             ..Default::default()
         },
-        BuildingFixture::CompoundReview => compound::layout(),
-        BuildingFixture::GardenReview => garden::layout(),
+        BuildingFixture::CompoundReview => compound::layout()?,
+        BuildingFixture::GardenReview => garden::layout()?,
         BuildingFixture::Empty => CitySceneLayout::default(),
         BuildingFixture::InteriorFurnitureCatalog => CitySceneLayout {
             yards: interior::yards(),
@@ -382,7 +398,7 @@ fn fixture_buildings(
         },
         BuildingFixture::InteriorFurnitureRooms => CitySceneLayout {
             yards: interior::yards(),
-            playable: interior::buildings(),
+            playable: interior::buildings()?,
             ..Default::default()
         },
         BuildingFixture::Cottage => CitySceneLayout {
@@ -392,31 +408,31 @@ fn fixture_buildings(
                 42,
                 Vec2::new(12.0, 4.0),
                 BuildingOrientation::from_radians(core::f32::consts::FRAC_PI_2).unwrap(),
-            )],
+            )?],
             ..Default::default()
         },
         BuildingFixture::MassiveCity => CitySite::central_german_market_town()
             .generate(
-                47_114,
+                (47_114).into(),
                 MASSIVE_CITY_RESIDENT_POPULATION,
                 &massive_city_economy(),
             )
-            .compile(47_114)
+            .compile((47_114).into())
             .expect("city properties must compile")
             .partition(Some(MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES))
             .expect("city must fit tactical budget"),
         BuildingFixture::ParishReview => CitySceneLayout {
             yards: parish::yards(),
-            playable: parish::buildings(),
+            playable: parish::buildings()?,
             ..Default::default()
         },
         BuildingFixture::FurnitureReview => CitySceneLayout {
             streets: furniture::streets(),
             yards: furniture::yards(),
-            playable: furniture::buildings(),
+            playable: furniture::buildings()?,
             ..Default::default()
         },
-    }
+    })
 }
 
 fn building(
@@ -425,14 +441,20 @@ fn building(
     seed: u64,
     centre_metres: Vec2,
     orientation: BuildingOrientation,
-) -> TacticalBuildingPlacement {
-    TacticalBuildingPlacement {
-        base_elevation_metres: 0.0,
-        id,
+) -> Result<
+    TacticalBuildingPlacement,
+    adventuresim_building_generator::spatial_geometry::GeometryError,
+> {
+    Ok(TacticalBuildingPlacement {
+        base_elevation_metres:
+            adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+        id: adventuresim_tactical_core::scene_input::SceneBuildingId(id),
         program: BuildingProgram::fixture(archetype, seed),
-        centre_metres,
+        centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            centre_metres,
+        )?,
         orientation,
-    }
+    })
 }
 
 fn grid(

@@ -150,7 +150,7 @@ pub fn resolve_death_required_incident(
 ) -> Option<BattleOutcome> {
     (0..max_attempts).find_map(|attempt| {
         let seed = DEATH_REQUIRED_ATTEMPT
-            .seed(base_seed, &[u64::from(attempt)])
+            .seed(base_seed.into(), &[u64::from(attempt)])
             .to_u64();
         let outcome = resolve_battle(
             allies.to_vec(),

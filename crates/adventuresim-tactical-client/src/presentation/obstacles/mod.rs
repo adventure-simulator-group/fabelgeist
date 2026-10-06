@@ -42,7 +42,7 @@ pub(crate) fn oak_review_terminal_specimen(
     let seed = obstacle_seed(root);
     let variant_seed = crate::presentation::obstacles::tree::specimen::oak_variant_seed(
         StreamId::new("visual.tree.preview-variant")
-            .rng(seed, &[])
+            .rng(seed.into(), &[])
             .index(4),
     );
     let branches = procedural_tree_skeleton(variant_seed, canopy_competition(canopy_bps));

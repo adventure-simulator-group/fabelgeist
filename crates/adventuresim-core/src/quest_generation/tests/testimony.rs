@@ -362,7 +362,7 @@ fn context(seed: u64, family: TemplateFamily) -> GenerationContext {
     GenerationContext {
         seed,
         observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
-        observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
+        observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed.into(), &[]).to_u64(),
         settlement_id: "lubeck".into(),
         settlement_name: "Lubeck".into(),
         scope: Scope::Settlement {

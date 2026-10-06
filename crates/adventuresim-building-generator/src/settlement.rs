@@ -61,7 +61,7 @@ impl BuildingProgram {
         };
         for attempt in 1..VALID_RECIPE_ATTEMPTS {
             let seed = RECIPE_ATTEMPT
-                .seed(initial_seed, &[u64::from(attempt)])
+                .seed(initial_seed.into(), &[u64::from(attempt)])
                 .to_u64();
             if let Ok(program) = admit(seed) {
                 return Ok(program);
@@ -97,10 +97,10 @@ impl BuildingProgram {
                 | BuildingArchetype::ParishChurch
         ) {
             let roof = StreamId::new("building.roof-pitch")
-                .rng(seed, &[])
+                .rng(seed.into(), &[])
                 .range_f32(-1.0, 1.0);
             let height = StreamId::new("building.storey-height")
-                .rng(seed, &[])
+                .rng(seed.into(), &[])
                 .range_f32(-1.0, 1.0);
             // Half-hip gable framing needs the curated minimum pitch to clear
             // the opening heads below it. Vary those roofs upward from that seat.
@@ -209,7 +209,7 @@ mod tests {
                 let seed = if attempt == 0 {
                     42
                 } else {
-                    RECIPE_ATTEMPT.seed(42, &[attempt]).to_u64()
+                    RECIPE_ATTEMPT.seed(42.into(), &[attempt]).to_u64()
                 };
                 let program = BuildingProgram::settlement(archetype, Some(usage), seed);
                 match generate(&program) {

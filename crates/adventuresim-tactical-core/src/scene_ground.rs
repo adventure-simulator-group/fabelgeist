@@ -57,7 +57,7 @@ pub(crate) fn build_scene_ground(
                 }
                 let litter_roll = StreamId::new("terrain.tree-leaf-litter")
                     .rng(
-                        0,
+                        0.into(),
                         &[u64::from(x), u64::from(z), sample_x as u64, sample_z as u64],
                     )
                     .unit_f32();
@@ -71,10 +71,11 @@ pub(crate) fn build_scene_ground(
             }
         }
     }
-    let mut ground =
-        SceneGround::from_samples(width, depth, spacing, samples).ok_or_else(|| {
-            SceneInputError::Validation("generated ground-surface grid is invalid".into())
-        })?;
+    let mut ground = SceneGround::from_samples(width, depth, spacing, samples).ok_or({
+        crate::scene_input::SceneInputError::Validation(
+            crate::scene_input::SceneValidationError::GroundSurface,
+        )
+    })?;
     ground.urban = crate::scene::UrbanGroundSurfaces::new(streets, yards, buildings)?;
     Ok(ground)
 }

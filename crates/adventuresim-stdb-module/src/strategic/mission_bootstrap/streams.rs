@@ -18,7 +18,7 @@ pub(super) const RECRUITING_PARTY_COUNT: StreamId = StreamId::new("settlement.re
 
 pub(super) fn recruiting_role(seed: u64) -> adventuresim_core::capability::RoleRequirements {
     let mut requirements = adventuresim_core::capability::RoleRequirements::default();
-    let mut random = ROLE.rng(seed, &[]);
+    let mut random = ROLE.rng(seed.into(), &[]);
     if random.boolean() {
         requirements.melee = true;
     } else {

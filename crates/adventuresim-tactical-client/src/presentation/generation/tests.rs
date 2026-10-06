@@ -97,7 +97,7 @@ fn scene_transport_preserves_static_assets_and_full_width_seed() {
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
     .unwrap();
-    input.seed = u64::MAX;
+    input.seed = u64::MAX.into();
     let request = serde_json::to_string(&input).unwrap();
     let jobs = jobs(&request).unwrap();
     assert!(jobs[0].contains(&u64::MAX.to_string()));
@@ -132,13 +132,17 @@ fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
     let mut placement = adventuresim_tactical_core::scene_input::TacticalBuildingPlacement::from(
         original.distant_buildings[0],
     );
-    placement.centre_metres = bevy::math::Vec2::ZERO;
+    placement.centre_metres =
+        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            bevy::math::Vec2::ZERO,
+        )
+        .unwrap();
     let first = grounded_test_building(placement.clone(), 1.5);
     let grounded = grounded_test_building(placement, 5.0);
     assert_ne!(grounded.digest().unwrap(), first.digest().unwrap());
     assert!(
-        (grounded.buildings[0].base_elevation_metres
-            - first.buildings[0].base_elevation_metres
+        (grounded.buildings[0].base_elevation_metres.metres()
+            - first.buildings[0].base_elevation_metres.metres()
             - 3.5)
             .abs()
             < 0.001
@@ -208,10 +212,17 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
     .unwrap();
     input.buildings.push(
         adventuresim_tactical_core::scene_input::TacticalBuildingPlacement {
-            base_elevation_metres: 2.0,
-            id: 1,
+            base_elevation_metres:
+                adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(
+                    2.0,
+                )
+                .unwrap(),
+            id: 1.into(),
             program: BuildingProgram::fixture(BuildingArchetype::FachwerkCottage, 47),
-            centre_metres: bevy::math::Vec2::ZERO,
+            centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                bevy::math::Vec2::ZERO,
+            )
+            .unwrap(),
             orientation: adventuresim_tactical_core::scene_input::BuildingOrientation::IDENTITY,
         },
     );
@@ -306,13 +317,20 @@ fn grounded_test_building(
     let layout = CitySceneLayout {
         playable: input.buildings.clone(),
         single_properties: vec![CitySingleProperty {
-            id: CityPropertyId(placement.id),
+            id: CityPropertyId(placement.id.0),
             building_id: placement.id,
-            plot: CityPlotBounds {
-                centre_metres: placement.centre_metres,
-                dimensions_metres: bevy::math::Vec2::splat(35.0),
-                orientation: placement.orientation,
-            },
+            plot: CityPlotBounds::new(
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                    placement.centre_metres.metres(),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                    bevy::math::Vec2::splat(35.0),
+                )
+                .unwrap(),
+                placement.orientation,
+            )
+            .unwrap(),
         }],
         ..Default::default()
     };
@@ -339,7 +357,7 @@ fn owned_terrain_survives_scene_and_landscape_worker_transport() {
             .terrain
             .property_surface()
             .unwrap()
-            .foundations
+            .foundations()
             .is_empty()
     );
     let graphics = include_str!("../../../../../assets/config/tactical-graphics.yaml");
@@ -356,16 +374,16 @@ fn owned_terrain_survives_scene_and_landscape_worker_transport() {
             serde_json::to_value(&expected.terrain).unwrap()
         );
         let surface = actual.property_surface().unwrap();
-        for foundation in &surface.foundations {
+        for foundation in surface.foundations() {
             assert_eq!(
-                foundation.member_building_ids,
+                foundation.member_building_ids(),
                 input
                     .grounding
                     .as_ref()
                     .unwrap()
                     .surfaces()
                     .iter()
-                    .find(|p| p.property_id() == foundation.property_id)
+                    .find(|p| p.property_id() == foundation.property_id())
                     .unwrap()
                     .member_building_ids()
             );
@@ -399,7 +417,7 @@ fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
     let untouched = take_scene(&input).unwrap();
     assert_ne!(untouched.repairs.removed_corridor_obstacles, u32::MAX);
     assert_eq!(untouched.digest, input.digest().unwrap());
-    input.seed = input.seed.wrapping_add(1);
+    input.seed = fabelgeist_determinism::Seed::from_u64(input.seed.to_u64().wrapping_add(1));
     let changed = serde_json::to_string(&input).unwrap();
     assert_eq!(jobs(&changed).unwrap().len(), 1);
     assert!(take_scene(&input).is_err());
@@ -417,7 +435,7 @@ fn immutable_scene_retention_evicts_the_least_recent_input_within_its_bound() {
     .unwrap();
     let mut inputs = Vec::new();
     for seed in 1..=4 {
-        input.seed = seed;
+        input.seed = seed.into();
         let scene = input.generate_unfurnished(Default::default()).unwrap();
         products().retain_scene(scene);
         inputs.push(input.clone());
@@ -444,7 +462,11 @@ fn a_changed_grounding_binding_cannot_reuse_a_resident_scene_with_the_same_progr
     let mut placement = adventuresim_tactical_core::scene_input::TacticalBuildingPlacement::from(
         original.distant_buildings[0],
     );
-    placement.centre_metres = bevy::math::Vec2::ZERO;
+    placement.centre_metres =
+        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            bevy::math::Vec2::ZERO,
+        )
+        .unwrap();
     let first = grounded_test_building(placement.clone(), 1.5);
     let changed = grounded_test_building(placement, 5.0);
     let scene = first.generate_unfurnished(Default::default()).unwrap();
@@ -456,8 +478,8 @@ fn a_changed_grounding_binding_cannot_reuse_a_resident_scene_with_the_same_progr
     assert_eq!(preserved.buildings[0].placement, first.buildings[0]);
     assert_eq!(first.buildings[0].program, changed.buildings[0].program);
     assert_ne!(
-        first.buildings[0].base_elevation_metres,
-        changed.buildings[0].base_elevation_metres
+        first.buildings[0].base_elevation_metres.metres(),
+        changed.buildings[0].base_elevation_metres.metres()
     );
     clear_residency();
 }

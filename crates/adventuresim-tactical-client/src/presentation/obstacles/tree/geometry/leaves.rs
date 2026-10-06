@@ -61,10 +61,10 @@ pub(in crate::presentation) fn procedural_oak_leaves(
         let binormal = direction.cross(tangent).normalize();
         for leaf_index in 0..leaves_per_shoot {
             let leaf_seed = streams::LEAF
-                .seed(seed, &[shoot_identity(shoot), leaf_index])
+                .seed(seed.into(), &[shoot_identity(shoot), leaf_index])
                 .to_u64();
             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-                purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
+                purpose.rng(leaf_seed.into(), &[]).inclusive_unit_f32()
             };
             // Alternate leaves along each current-year shoot, then finish in
             // the tighter terminal flush characteristic of pedunculate oak.
@@ -171,10 +171,10 @@ fn procedural_beech_leaves(
         let spray_side = Vec3::Y.cross(spray_forward).normalize();
         for leaf_index in 0..leaves_per_shoot {
             let leaf_seed = streams::LEAF
-                .seed(seed, &[shoot_identity(shoot), leaf_index])
+                .seed(seed.into(), &[shoot_identity(shoot), leaf_index])
                 .to_u64();
             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-                purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
+                purpose.rng(leaf_seed.into(), &[]).inclusive_unit_f32()
             };
             let along = (0.1
                 + leaf_index as f32 / (leaves_per_shoot - 1) as f32 * 0.84
@@ -251,10 +251,10 @@ fn procedural_multistem_shrub_leaves(
         let (frame_right, frame_up) = branch_frame(direction);
         for leaf_index in 0..leaves_per_shoot {
             let leaf_seed = streams::LEAF
-                .seed(seed, &[shoot_identity(shoot), leaf_index])
+                .seed(seed.into(), &[shoot_identity(shoot), leaf_index])
                 .to_u64();
             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-                purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
+                purpose.rng(leaf_seed.into(), &[]).inclusive_unit_f32()
             };
             // Common hazel leaves are alternate and loosely distichous. The
             // golden-angle perturbation prevents a flat bilateral comb while
@@ -328,7 +328,7 @@ pub(in crate::presentation) fn oak_leaf_card_bounds(leaf: TreeLeaf) -> (Vec3, f3
 fn leaf_shadow_selector(leaf: TreeLeaf) -> f32 {
     let shoot_key = leaf.shoot_id;
     streams::SHOOT_THRESHOLD
-        .rng(shoot_key, &[])
+        .rng(shoot_key.into(), &[])
         .inclusive_unit_f32()
 }
 

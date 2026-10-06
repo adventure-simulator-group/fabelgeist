@@ -16,7 +16,10 @@ pub(super) fn fixture() -> Fixture {
     }
 }
 
-pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
+pub(super) fn buildings() -> Result<
+    Vec<TacticalBuildingPlacement>,
+    adventuresim_building_generator::spatial_geometry::GeometryError,
+> {
     [
         BuildingArchetype::FachwerkCottage,
         BuildingArchetype::HallHouse,
@@ -25,26 +28,34 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
     ]
     .into_iter()
     .enumerate()
-    .map(|(index, archetype)| TacticalBuildingPlacement {
-        base_elevation_metres: 0.0,
-        id: index as u64 + 1,
-        program: BuildingProgram::fixture(archetype, 42),
-        centre_metres: Vec2::new(
-            (index % 2) as f32 * 45.0 - 22.5,
-            (index / 2) as f32 * 45.0 - 22.5,
-        ),
-        orientation: BuildingOrientation::IDENTITY,
+    .map(|(index, archetype)| {
+        Ok(TacticalBuildingPlacement {
+            base_elevation_metres:
+                adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId(index as u64 + 1),
+            program: BuildingProgram::fixture(archetype, 42),
+            centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::new(
+                    (index % 2) as f32 * 45.0 - 22.5,
+                    (index / 2) as f32 * 45.0 - 22.5,
+                ),
+            )?,
+            orientation: BuildingOrientation::IDENTITY,
+        })
     })
-    .chain([TacticalBuildingPlacement {
-        base_elevation_metres: 0.0,
-        id: 5,
+    .chain([Ok(TacticalBuildingPlacement {
+        base_elevation_metres:
+            adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+        id: adventuresim_tactical_core::scene_input::SceneBuildingId(5),
         program: BuildingProgram::settlement(
             BuildingArchetype::HallHouse,
             Some(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling),
             2,
         ),
-        centre_metres: Vec2::new(-22.5, 67.5),
+        centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            Vec2::new(-22.5, 67.5),
+        )?,
         orientation: BuildingOrientation::IDENTITY,
-    }])
+    })])
     .collect()
 }

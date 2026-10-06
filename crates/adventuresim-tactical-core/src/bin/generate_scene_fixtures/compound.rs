@@ -19,21 +19,21 @@ pub(super) fn fixture() -> Fixture {
     }
 }
 
-pub(super) fn layout() -> CitySceneLayout {
+pub(super) fn layout() -> Result<CitySceneLayout, Box<dyn std::error::Error>> {
     let city = CitySite::central_german_market_town()
         .generate(
-            42,
+            (42).into(),
             900,
             &adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
         )
-        .compile(42)
+        .compile((42).into())
         .expect("review city compiles");
     let mut layout = CitySceneLayout::default();
     for (id, side, offset) in [
         (1, PropertySide::Left, Vec2::new(-18.0, 0.0)),
         (2, PropertySide::Right, Vec2::new(18.0, 0.0)),
     ] {
-        let property = isolate(&city, id, side, offset);
+        let property = isolate(&city, id, side, offset)?;
         layout.playable.extend(property.playable);
         layout.compounds.extend(property.compounds);
         layout.yards.extend(property.yards);
@@ -44,7 +44,7 @@ pub(super) fn layout() -> CitySceneLayout {
         half_width_metres: 3.5,
         surface: CityStreetSurface::CompactedEarth,
     });
-    layout
+    Ok(layout)
 }
 
 fn isolate(
@@ -52,7 +52,7 @@ fn isolate(
     id: u64,
     passage: PropertySide,
     offset: Vec2,
-) -> CitySceneLayout {
+) -> Result<CitySceneLayout, Box<dyn std::error::Error>> {
     let mut compound = city
         .compounds
         .iter()
@@ -64,7 +64,7 @@ fn isolate(
         .iter()
         .find(|b| b.id == compound.front_building_id)
         .unwrap();
-    let origin = front.centre_metres;
+    let origin = front.centre_metres.metres();
     let orientation = front.orientation;
     let local = |point| orientation.world_to_local(point - origin) + offset;
     let mut playable = city
@@ -75,20 +75,37 @@ fn isolate(
         .collect::<Vec<_>>();
     for building in &mut playable {
         building.id = if building.id == compound.front_building_id {
-            id
+            adventuresim_tactical_core::scene_input::SceneBuildingId(id)
         } else {
-            MAX_CITY_LOTS as u64 + id
+            adventuresim_tactical_core::scene_input::SceneBuildingId(MAX_CITY_LOTS as u64 + id)
         };
-        building.centre_metres = local(building.centre_metres);
+        building.centre_metres =
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(local(
+                building.centre_metres.metres(),
+            ))?;
         building.orientation = BuildingOrientation::IDENTITY;
     }
     for bounds in [&mut compound.plot, &mut compound.court] {
-        bounds.centre_metres = local(bounds.centre_metres);
-        bounds.orientation = BuildingOrientation::IDENTITY;
+        bounds.relocate(
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(local(
+                bounds.centre_metres(),
+            ))?,
+        )?;
+        bounds.rotate(BuildingOrientation::IDENTITY)?;
     }
     for access in &mut compound.access {
-        access.start_metres = local(access.start_metres);
-        access.end_metres = local(access.end_metres);
+        access.update_endpoints(
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(local(
+                access.start_metres(),
+            ))?,
+            access.end(),
+        )?;
+        access.update_endpoints(
+            access.start(),
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(local(
+                access.end_metres(),
+            ))?,
+        )?;
     }
     for wall in &mut compound.boundary.walls {
         wall.start_metres = local(wall.start_metres);
@@ -97,17 +114,18 @@ fn isolate(
     compound.boundary.gate.centre_metres = local(compound.boundary.gate.centre_metres);
     compound.boundary.gate.orientation = BuildingOrientation::IDENTITY;
     compound.id = CityPropertyId(id);
-    compound.front_building_id = id;
-    compound.rear_building_id = MAX_CITY_LOTS as u64 + id;
+    compound.front_building_id = adventuresim_tactical_core::scene_input::SceneBuildingId(id);
+    compound.rear_building_id =
+        adventuresim_tactical_core::scene_input::SceneBuildingId(MAX_CITY_LOTS as u64 + id);
     let yards = vec![CityYardPatch {
         corners_metres: compound.plot.corners(),
         surface: CityYardSurface::PackedEarth,
     }];
-    CitySceneLayout {
+    Ok(CitySceneLayout {
         playable,
         yards,
         parishes: Vec::new(),
         compounds: vec![compound],
         ..Default::default()
-    }
+    })
 }

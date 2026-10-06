@@ -28,8 +28,8 @@ fn distant_enclosures_wait_for_exact_support_and_reuse_the_playable_projection_o
         .unwrap();
     assert_eq!(projected.len(), generated.boundaries.len());
     for (distant, playable) in projected.iter().zip(&generated.boundaries) {
-        assert_eq!(distant.scene, playable.scene);
-        assert_eq!(distant.elevation_metres, playable.elevation_metres);
+        assert_eq!(distant.scene(), playable.scene());
+        assert_eq!(distant.elevation_metres(), playable.elevation_metres());
     }
     assert!(pending.0.is_none());
     assert!(

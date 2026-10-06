@@ -24,7 +24,7 @@ pub(super) fn correlated_field(
     let sample = |dx: i64, dy: i64, dt: i64| {
         domain
             .rng(
-                seed,
+                seed.into(),
                 &[
                     u64::from(WEATHER_RULES_VERSION),
                     (t0 + dt) as u64,

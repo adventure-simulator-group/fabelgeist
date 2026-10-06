@@ -111,11 +111,13 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
 
     fn height(&self, centre: Vec2) -> Option<f32> {
         if self.playable_terrain.property_surface().is_some() {
-            let hit = self.playable_terrain.surface_below(Vec3::new(
-                centre.x,
-                f32::INFINITY,
-                centre.y,
-            ))?;
+            let hit = self.playable_terrain.surface_below(
+                adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                        bevy::math::Vec2::new(centre.x, centre.y),
+                    )?,
+                ),
+            )?;
             return (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y)
                 .then_some(hit.elevation.metres());
         }
@@ -194,7 +196,7 @@ pub(super) fn spawn_near_vista_scatter(
         dryness: grass_dryness,
         wind_scale: 0.16 + bps(environment.weather.wind_speed_bps) * 0.36,
     };
-    let grass_seed = streams::GRASS.seed(scene_seed, &[]).to_u64();
+    let grass_seed = streams::GRASS.seed(scene_seed.into(), &[]).to_u64();
     #[cfg(target_family = "wasm")]
     let prepared = crate::presentation::generation::landscape::grass(&environment.scene_digest);
     #[cfg(not(target_family = "wasm"))]
@@ -271,7 +273,7 @@ fn scatter(
         return Default::default();
     }
     let grass_seed = streams::GRASS
-        .seed(stable_text_seed(&environment.scene_digest), &[])
+        .seed(stable_text_seed(&environment.scene_digest).into(), &[])
         .to_u64();
     let profile = GrassCommunityProfile::from_environment(environment);
     let placement = |outer_collar| VistaTuftPlacement {
@@ -315,7 +317,7 @@ fn scatter(
     scatter_cell_tufts(
         &mut batches[GrassMeshLod::Vista.tier_index()],
         &mut placement(tier_sward_collar_metres(GrassMeshLod::Vista, grass)),
-        streams::GRASS_LOD.seed(grass_seed, &[]).to_u64(),
+        streams::GRASS_LOD.seed(grass_seed.into(), &[]).to_u64(),
         GrassMeshLod::Vista,
         grass.placement.vista_patch_spacing_m,
         grass,

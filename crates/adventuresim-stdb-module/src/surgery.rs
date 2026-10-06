@@ -310,7 +310,7 @@ pub(crate) fn commit_aggregated_hit_injury(
     store_injury(ctx, injury);
     if let Some(kind) = projectile.filter(|_| cut_damage + blunt_damage > 0.0) {
         let random_depth = fabelgeist_determinism::StreamId::new("surgery.projectile-depth")
-            .rng(ctx.random(), &[character_id])
+            .rng(ctx.random::<u64>().into(), &[character_id])
             .index(151) as f32
             / 100.0;
         let total_damage = cut_damage.max(0.0) + blunt_damage.max(0.0);

@@ -88,7 +88,7 @@ mod tests {
                 let mut candidates = Vec::new();
                 append_frontage(
                     &mut candidates,
-                    seed,
+                    (seed).into(),
                     0,
                     BlockId(0),
                     Vec2::ZERO,
@@ -112,7 +112,7 @@ mod tests {
     #[test]
     fn reserved_courts_and_passages_do_not_overlap_neighbouring_plots() {
         let city = CitySite::central_german_market_town().generate(
-            42,
+            (42).into(),
             2000,
             &SettlementEconomyProfile::stage_placeholder(),
         );

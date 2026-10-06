@@ -31,7 +31,7 @@ impl StreamId {
     }
 
     /// Derive numeric context using fixed-width little-endian words.
-    pub fn seed(self, root: u64, context: &[u64]) -> Seed {
+    pub fn seed(self, root: Seed, context: &[u64]) -> Seed {
         let mut hasher = derivation_hasher(&root.to_le_bytes(), self);
         for value in context {
             let field = value.to_le_bytes();
@@ -41,13 +41,13 @@ impl StreamId {
         finish(hasher)
     }
 
-    pub fn rng(self, root: u64, context: &[u64]) -> crate::DeterministicRng {
+    pub fn rng(self, root: Seed, context: &[u64]) -> crate::DeterministicRng {
         self.seed(root, context).rng()
     }
 }
 
 /// Eight little-endian bytes used directly as the SplitMix64 initial state.
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct Seed([u8; 8]);
 
 impl Seed {
@@ -86,6 +86,24 @@ impl Seed {
     }
 }
 
+// Numeric documents preserve the root word; derivation still frames its eight
+// little-endian bytes exactly once.
+impl serde::Serialize for Seed {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_u64(self.to_u64())
+    }
+}
+impl<'de> serde::Deserialize<'de> for Seed {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        <u64 as serde::Deserialize>::deserialize(deserializer).map(Self::from_u64)
+    }
+}
+impl From<u64> for Seed {
+    fn from(word: u64) -> Self {
+        Self::from_u64(word)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -107,9 +125,12 @@ mod tests {
                         original.update(&(field.len() as u64).to_le_bytes());
                         original.update(field);
                     }
-                    assert_eq!(stream.seed(root, &context), finish(original));
                     assert_eq!(
-                        stream.seed(root, &context),
+                        stream.seed(Seed::from_u64(root), &context),
+                        finish(original)
+                    );
+                    assert_eq!(
+                        stream.seed(Seed::from_u64(root), &context),
                         Seed::derive(
                             &root.to_le_bytes(),
                             stream,

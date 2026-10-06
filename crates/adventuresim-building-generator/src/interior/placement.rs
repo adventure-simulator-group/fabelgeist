@@ -96,12 +96,12 @@ pub(super) fn candidates(
 ) -> Result<Vec<Vec<InteriorPlacement>>> {
     let seed = fabelgeist_determinism::StreamId::new("building.room-furniture")
         .seed(
-            program.seed,
+            program.seed.into(),
             &[u64::from(room.id), u64::from(storey.serialized_ordinal()?)],
         )
         .to_u64();
     let variants = if RNG_BUILDING_FURNITURE_SIZE
-        .rng(seed, &[budget.kind as u64])
+        .rng(seed.into(), &[budget.kind as u64])
         .boolean()
     {
         vec![FurnitureVariant::Broad, FurnitureVariant::Compact]
@@ -192,7 +192,7 @@ fn variant_candidates(
                 };
                 let tie = fabelgeist_determinism::StreamId::new("building.furniture-placement")
                     .rng(
-                        seed,
+                        seed.into(),
                         &[
                             u64::from(x),
                             u64::from(z),

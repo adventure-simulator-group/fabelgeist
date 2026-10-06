@@ -64,7 +64,7 @@ impl Default for CombatRandom {
 
 impl CombatRandom {
     pub(crate) fn seeded(seed: u64) -> Self {
-        Self(fabelgeist_determinism::StreamId::new("combat.tactical").rng(seed, &[]))
+        Self(fabelgeist_determinism::StreamId::new("combat.tactical").rng(seed.into(), &[]))
     }
 
     pub(crate) fn unit_f32(&mut self) -> f32 {

@@ -595,10 +595,6 @@ path = "crates/adventuresim-tactical-client/src/presentation/sky/mod.rs"
 ceiling = 539
 
 [[files]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-ceiling = 593
-
-[[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
 ceiling = 676
 
@@ -1587,11 +1583,6 @@ ceiling = 393
 path = "crates/adventuresim-stdb-module/src/outbreak.rs"
 item = "materialize_patient_corpse"
 ceiling = 127
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/personality.rs"
-item = "random_personality"
-ceiling = 126
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/relationship/commitments.rs"
@@ -13896,13 +13887,6 @@ occurrences = 1
 rule = "semantic-family:e7-coordinates"
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
 item = "<module>"
-fingerprint = "10000000"
-occurrences = 1
-
-[[findings]]
-rule = "semantic-family:e7-coordinates"
-path = "crates/adventuresim-tactical-core/src/scene_input/environment.rs"
-item = "SceneEnvironmentFixture::snapshot"
 fingerprint = "10000000"
 occurrences = 1
 

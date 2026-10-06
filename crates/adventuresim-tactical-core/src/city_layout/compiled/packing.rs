@@ -63,7 +63,9 @@ impl CompiledCityLayout {
                 .into_iter()
                 .flatten()
             {
-                if centre(parish.church_building_id)?.distance(centre(member)?)
+                if centre(parish.church_building_id)?
+                    .metres()
+                    .distance(centre(member)?.metres())
                     > CITY_PARISH_PRECINCT_RADIUS_METRES
                 {
                     return Err(CityCompileError::Parish {

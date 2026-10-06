@@ -3,7 +3,7 @@ use super::*;
 
 pub(super) fn deterministic_child_focus(seed: u64) -> ChildActivityFocus {
     let choice = fabelgeist_determinism::StreamId::new("character.child-focus")
-        .rng(seed, &[])
+        .rng(seed.into(), &[])
         .index(4);
     match choice {
         0 => ChildActivityFocus::Play,

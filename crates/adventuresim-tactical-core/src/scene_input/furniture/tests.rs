@@ -49,8 +49,8 @@ fn fixture() -> (
     .enumerate()
     .map(
         |(index, (usage, centre_metres))| TacticalBuildingPlacement {
-            base_elevation_metres: 0.0,
-            id: index as u64 + 1,
+            base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
+            id: (index as u64 + 1).into(),
             program: BuildingProgram::validated_settlement(
                 settlement_archetype(usage),
                 usage,
@@ -58,7 +58,8 @@ fn fixture() -> (
                 Some(ServiceBuildingSize::Small),
             )
             .unwrap(),
-            centre_metres,
+            centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(centre_metres)
+                .unwrap(),
             orientation: BuildingOrientation::IDENTITY,
         },
     )
@@ -104,22 +105,27 @@ fn production_review_input_places_every_furniture_family() {
 #[test]
 fn ordered_candidate_identity_separates_swapped_fields_and_anchor_kinds() {
     let id = |anchor, slot| {
-        candidates::Candidate::new(42, slot, FurnitureGroupKind::Vendor, anchor)
+        candidates::LocalCandidate::new(42.into(), slot, FurnitureGroupKind::Vendor, anchor)
+            .unwrap()
+            .place(
+                crate::scene_coordinates::ScenePlanPoint::ORIGIN,
+                BuildingOrientation::IDENTITY,
+            )
             .unwrap()
             .id
     };
     assert_ne!(
-        id(FurnitureAnchor::Building { id: 1 }, 2),
-        id(FurnitureAnchor::Building { id: 2 }, 1)
+        id(FurnitureAnchor::Building { id: 1.into() }, 2),
+        id(FurnitureAnchor::Building { id: 2.into() }, 1)
     );
     assert_ne!(
         id(FurnitureAnchor::Market { patch_index: 1 }, 2),
-        id(FurnitureAnchor::Building { id: 1 }, 2)
+        id(FurnitureAnchor::Building { id: 1.into() }, 2)
     );
     let mut unique = std::collections::BTreeSet::new();
     for anchor in 0..64 {
         for slot in 0..48 {
-            assert!(unique.insert(id(FurnitureAnchor::Building { id: anchor }, slot)));
+            assert!(unique.insert(id(FurnitureAnchor::Building { id: anchor.into() }, slot)));
             assert!(unique.insert(id(
                 FurnitureAnchor::Market {
                     patch_index: anchor as u32
@@ -137,7 +143,7 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
         "/../../assets/tactical-scenes/furniture-review.json"
     )))
     .unwrap();
-    input.seed += 1;
+    input.seed = fabelgeist_determinism::Seed::from_u64(input.seed.to_u64() + 1);
     input.weather.ground_moisture_bps = 8500;
     let width = usize::from(input.playable.width);
     for (index, height) in input.playable.heights_metres.iter_mut().enumerate() {
@@ -161,13 +167,20 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
             .buildings
             .iter()
             .map(|building| CitySingleProperty {
-                id: CityPropertyId(building.id),
+                id: CityPropertyId(building.id.0),
                 building_id: building.id,
-                plot: CityPlotBounds {
-                    centre_metres: building.centre_metres,
-                    dimensions_metres: Vec2::splat(35.0),
-                    orientation: building.orientation,
-                },
+                plot: CityPlotBounds::new(
+                    crate::scene_coordinates::ScenePlanPoint::try_from(
+                        building.centre_metres.metres(),
+                    )
+                    .unwrap(),
+                    adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                        Vec2::splat(35.0),
+                    )
+                    .unwrap(),
+                    building.orientation,
+                )
+                .unwrap(),
             })
             .collect(),
         ..Default::default()
@@ -252,13 +265,15 @@ fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
     }
     for instance in first.instances {
         for support in &instance.scene.key.recipe().unwrap().support_points_metres {
-            let point = Vec2::new(instance.position_metres.x, instance.position_metres.z)
-                + instance
-                    .orientation
-                    .local_to_world(Vec2::new(support.metres().x, support.metres().z));
+            let point = Vec2::new(
+                instance.position_metres.metres().x,
+                instance.position_metres.metres().z,
+            ) + instance
+                .orientation
+                .local_to_world(Vec2::new(support.metres().x, support.metres().z));
             assert!(
                 (terrain.height_at(point).unwrap()
-                    - instance.position_metres.y
+                    - instance.position_metres.metres().y
                     - support.metres().y)
                     .abs()
                     < 0.001
@@ -284,7 +299,7 @@ fn inserted_street_obstruction_removes_every_conflicting_group() {
         .iter()
         .find(|group| group.kind == FurnitureGroupKind::Vendor)
         .unwrap();
-    let centre = group.footprint.centre_metres;
+    let centre = group.footprint.centre().metres();
     input.streets.push(CityStreetPatch::Corridor {
         start_metres: centre - Vec2::X * 12.0,
         end_metres: centre + Vec2::X * 12.0,

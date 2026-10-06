@@ -246,7 +246,7 @@ impl ValidatedSchedule {
             }
         });
         if weights.iter().any(|weight| *weight != 0) {
-            let mut random = StreamId::new("schedule.redistribution").rng(seed, &[]);
+            let mut random = StreamId::new("schedule.redistribution").rng(seed.into(), &[]);
             for _ in 0..segments {
                 let selected = random
                     .weighted_index(&weights)

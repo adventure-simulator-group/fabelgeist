@@ -73,7 +73,8 @@ pub(super) fn vista_scatter_transform(
         Transform::from_xyz(point.x, hit.elevation.metres() + lift, point.y).with_rotation(
             Quat::from_rotation_arc(Vec3::Y, *hit.normal)
                 * Quat::from_rotation_y(
-                    streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,
+                    streams::ROCK_YAW.rng(hash.into(), &[]).inclusive_unit_f32()
+                        * core::f32::consts::TAU,
                 ),
         ),
     )
@@ -87,7 +88,13 @@ pub(super) fn tree_root_height(
 ) -> Option<f32> {
     if terrain.property_surface().is_some() {
         return terrain
-            .surface_below(Vec3::new(world.x, f32::INFINITY, world.y))
+            .surface_below(
+                adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                        bevy::math::Vec2::new(world.x, world.y),
+                    )?,
+                ),
+            )
             .map(|hit| hit.elevation.metres());
     }
     presented_height_at(lod, world, coarser)
@@ -103,7 +110,13 @@ fn scenery_surface(
     point: Vec2,
 ) -> Option<adventuresim_tactical_core::city_layout::grounding::SurfaceHit> {
     if playable_terrain.property_surface().is_some() {
-        return playable_terrain.surface_below(Vec3::new(point.x, f32::INFINITY, point.y));
+        return playable_terrain.surface_below(
+            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                    bevy::math::Vec2::new(point.x, point.y),
+                )?,
+            ),
+        );
     }
     let origin = Vec2::new(
         lod.origin_east_metres as f32,

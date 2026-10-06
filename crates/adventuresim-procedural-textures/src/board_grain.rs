@@ -48,7 +48,7 @@ impl Parameters {
                 params,
                 IVec2::ZERO,
                 IVec2::ONE,
-                purpose.seed(id, &[]).to_u64(),
+                purpose.seed(id.into(), &[]).to_u64(),
             )
         };
         let mut across = uv.x;

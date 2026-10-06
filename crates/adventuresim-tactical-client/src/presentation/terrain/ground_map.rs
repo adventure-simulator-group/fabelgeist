@@ -117,7 +117,7 @@ pub(super) fn ground_mask_noise(seed: u64, point: Vec2) -> f32 {
         let x = i64::from(coordinate.x as i32) as u64;
         let y = i64::from(coordinate.y as i32) as u64;
         terrain_streams::GROUND_MASK_LATTICE
-            .rng(seed, &[x, y])
+            .rng(seed.into(), &[x, y])
             .inclusive_unit_f32()
     };
     let bottom = hash(Vec2::ZERO).lerp(hash(Vec2::X), curve.x);

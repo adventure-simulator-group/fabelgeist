@@ -311,7 +311,7 @@ pub fn definition(id: &str) -> Option<&'static FoodDefinition> {
 
 pub fn deterministic_initial_contamination(seed: u64) -> f32 {
     let unit = fabelgeist_determinism::StreamId::new("food.initial-contamination")
-        .rng(seed, &[])
+        .rng(seed.into(), &[])
         .unit_f64();
     let log_min = (MIN_INITIAL_CONTAMINATION as f64).ln();
     let log_max = (MAX_INITIAL_CONTAMINATION as f64).ln();

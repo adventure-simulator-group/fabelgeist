@@ -1,17 +1,49 @@
 //! Exact owned surfaces shared by single buildings and compound properties.
 use super::*;
+mod floor;
 mod validation;
-pub use validation::SupportSurfaceIssue;
+pub use floor::{FloorBearing, FloorBearingConstructionError, FloorBearingIssue, FloorRegion};
+pub use validation::{SupportSurfaceAdmissionError, SupportSurfaceIssue};
 
 /// Accepted architectural support, with explicit ownership and clipping bounds.
 /// This projection contains no recipe selection or tactical simulation state.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(try_from = "SupportSurfaceWire")]
 pub struct PropertySupportSurface {
     pub(super) mesh: PropertySupportMesh,
+    pub(super) floor_bearings: Vec<FloorBearing>,
     pub(super) regions: Vec<CityPlotBounds>,
     pub(super) clipping_outlines: Vec<Vec<bevy::math::DVec2>>,
     pub(super) limits: SupportLimits,
     pub(super) treatment: SupportGradingAttempt,
+}
+
+#[derive(Deserialize)]
+struct SupportSurfaceWire {
+    mesh: PropertySupportMesh,
+    floor_bearings: Vec<FloorBearing>,
+    regions: Vec<CityPlotBounds>,
+    clipping_outlines: Vec<Vec<bevy::math::DVec2>>,
+    limits: SupportLimits,
+    treatment: SupportGradingAttempt,
+}
+
+impl TryFrom<SupportSurfaceWire> for PropertySupportSurface {
+    type Error = SupportSurfaceAdmissionError;
+    fn try_from(wire: SupportSurfaceWire) -> Result<Self, Self::Error> {
+        let surface = Self {
+            mesh: wire.mesh,
+            floor_bearings: wire.floor_bearings,
+            regions: wire.regions,
+            clipping_outlines: wire.clipping_outlines,
+            limits: wire.limits,
+            treatment: wire.treatment,
+        };
+        surface
+            .validate_encoded()
+            .map_err(|issue| SupportSurfaceAdmissionError::for_mesh(&surface.mesh, issue))?;
+        Ok(surface)
+    }
 }
 
 impl PropertySupportSurface {
@@ -19,7 +51,7 @@ impl PropertySupportSurface {
         self.mesh.property_id
     }
 
-    pub fn member_building_ids(&self) -> &[u64] {
+    pub fn member_building_ids(&self) -> &[crate::scene_input::SceneBuildingId] {
         &self.mesh.member_building_ids
     }
 
@@ -37,7 +69,8 @@ impl PropertySupportSurface {
         }
     }
 
-    pub fn contains(&self, point: Vec2) -> bool {
+    pub fn contains(&self, point: crate::scene_coordinates::ScenePlanPoint) -> bool {
+        let point = point.metres();
         self.clipping_outlines.iter().any(|outline| {
             (0..outline.len()).all(|i| {
                 (outline[(i + 1) % outline.len()] - outline[i])
@@ -85,17 +118,19 @@ impl PropertySupportSurface {
         permitted: f32,
     ) -> SupportDiagnostic {
         SupportDiagnostic {
+            entrance: None,
             construction_failure: None,
             property_id: self.property_id(),
             member_building_ids: self.mesh.member_building_ids.clone(),
             constraint,
             boundary,
-            location_metres,
-            measured,
-            permitted,
-            shortfall: (measured - permitted).max(0.0),
-            unit: constraint.diagnostic_unit(),
-            attempted_treatment: self.treatment,
+            location_metres: SupportDiagnosticLocation::from_attempt_metres(location_metres),
+            violation: SupportViolation::maximum(
+                constraint.diagnostic_unit(),
+                f64::from(measured),
+                f64::from(permitted),
+            ),
+            attempted_treatment: Box::new(self.treatment),
         }
     }
 }
@@ -106,6 +141,12 @@ impl CompoundSupportPlan {
     pub fn support_surface(&self) -> Result<PropertySupportSurface, SupportDiagnostic> {
         Ok(PropertySupportSurface {
             mesh: self.mesh()?,
+            floor_bearings: self
+                .member_support()
+                .into_iter()
+                .map(|member| FloorBearing::from_member(self, member))
+                .collect::<Result<Vec<_>, _>>()
+                .map_err(|cause| SupportDiagnostic::floor_geometry(&self.property, cause))?,
             regions: self.support_regions(),
             clipping_outlines: self.source_clipping_outlines(),
             limits: self.limits,

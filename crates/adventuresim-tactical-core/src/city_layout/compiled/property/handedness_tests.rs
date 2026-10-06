@@ -3,7 +3,7 @@ use super::*;
 #[test]
 fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
     let city = CitySite::central_german_market_town().generate(
-        42,
+        (42).into(),
         900,
         &super::super::super::tests::economy(),
     );
@@ -30,7 +30,7 @@ fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
                     ..original
                 };
                 let front = front_recipe
-                    .place(lot.id, lot.centre_metres, lot.orientation)
+                    .place((lot.id).into(), lot.centre_metres, lot.orientation)
                     .unwrap();
                 let world = |p| lot.orientation.local_to_world(p);
                 let street_y =
@@ -56,7 +56,16 @@ fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
                 assert_ne!(property.front_building_id, property.rear_building_id);
                 assert!(rear.program.usage.is_none());
                 let mut broken = property.clone();
-                broken.access[0].end_metres = front.centre_metres;
+                let route = &mut broken.access[0];
+                route
+                    .update_endpoints(
+                        route.start(),
+                        crate::scene_coordinates::ScenePlanPoint::try_from(
+                            front.centre_metres.metres(),
+                        )
+                        .unwrap(),
+                    )
+                    .unwrap();
                 assert!(
                     clearance::validate(&broken, &front, &front_recipe, &rear, &range).is_err()
                 );

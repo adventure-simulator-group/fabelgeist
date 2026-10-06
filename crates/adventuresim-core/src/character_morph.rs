@@ -37,7 +37,7 @@ pub struct CharacterMorphWeights([f32; IDENTITY_MORPH_COUNT]);
 impl CharacterMorphWeights {
     pub fn from_character_id(character_id: u64) -> Self {
         let mut random = fabelgeist_determinism::StreamId::new("character.identity-morph")
-            .rng(character_id, &[]);
+            .rng(character_id.into(), &[]);
         Self(std::array::from_fn(|_| {
             let unit = random.inclusive_unit_f32();
             (unit * 2.0 - 1.0) * MAX_IDENTITY_VARIATION

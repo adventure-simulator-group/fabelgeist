@@ -973,7 +973,7 @@ fn result_kind(kind: InvestigationActionKind, success: bool) -> ActionResultKind
 
 fn domain_roll(seed: u64, attempt: u32, kind: InvestigationActionKind) -> u16 {
     StreamId::new("investigation.action")
-        .rng(seed, &[u64::from(attempt), kind as u64])
+        .rng(seed.into(), &[u64::from(attempt), kind as u64])
         .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u16
 }
 

@@ -36,7 +36,7 @@ fn accepted_surfaces_require_selected_treatment_and_exact_member_arity() {
         Err(SupportSurfaceIssue::Treatment)
     );
     let mut extra_member = original.clone();
-    extra_member.mesh.member_building_ids.push(10);
+    extra_member.mesh.member_building_ids.push((10).into());
     assert_eq!(
         extra_member.validate_encoded(),
         Err(SupportSurfaceIssue::Treatment)

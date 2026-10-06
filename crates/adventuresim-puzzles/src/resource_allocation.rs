@@ -190,7 +190,7 @@ impl ResourceAllocationPuzzle {
         spec: ResourceAllocationSpec,
     ) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
-        let mut rng = RESOURCE_ALLOCATION_GENERATION_DOMAIN.rng(seed, &[]);
+        let mut rng = RESOURCE_ALLOCATION_GENERATION_DOMAIN.rng(seed.into(), &[]);
         for _ in 0..512 {
             let mut provisions = ProvisionId::ALL.to_vec();
             let mut hazards = JourneyHazard::ALL.to_vec();

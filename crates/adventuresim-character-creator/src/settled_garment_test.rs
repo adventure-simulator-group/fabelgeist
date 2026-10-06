@@ -24,7 +24,7 @@ fn wearer(seed: u64) -> CharacterRecipe {
     };
     recipe.proportions =
         adventuresim_core::character_proportions::CharacterProportions::from_character_id(seed);
-    let mut rng = character_controls::IDENTITY_STREAM.rng(seed, &[]);
+    let mut rng = character_controls::IDENTITY_STREAM.rng(seed.into(), &[]);
     for value in &mut recipe.identity {
         *value = rng.range_f32(
             -character_controls::RANDOM_IDENTITY_LIMIT,

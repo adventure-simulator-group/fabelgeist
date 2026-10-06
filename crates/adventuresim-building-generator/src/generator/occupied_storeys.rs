@@ -117,7 +117,7 @@ fn allocate_storey(
         depth,
         &storey_program.rooms,
         ROOM_ALLOCATION
-            .seed(layout_seed, &[level.index() as u64])
+            .seed(layout_seed.into(), &[level.index() as u64])
             .to_u64(),
         program.archetype,
         &reservations,
@@ -137,7 +137,7 @@ fn allocate_storey(
         &storey_program.rooms,
         program.archetype,
         OPENING_LAYOUT
-            .seed(layout_seed, &[level.index() as u64])
+            .seed(layout_seed.into(), &[level.index() as u64])
             .to_u64(),
         level,
         straight_stair_core,

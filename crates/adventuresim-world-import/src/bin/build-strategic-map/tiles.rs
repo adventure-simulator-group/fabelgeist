@@ -113,22 +113,22 @@ impl ForestField {
         let warp_x = fractal_noise(
             base_x * 0.23,
             base_y * 0.23,
-            streams::BOUNDARY_WARP_X_BROAD.seed(0, &[]).to_u64(),
+            streams::BOUNDARY_WARP_X_BROAD.seed(0.into(), &[]).to_u64(),
         ) * 0.40
             + fractal_noise(
                 base_x * 1.19,
                 base_y * 1.19,
-                streams::BOUNDARY_WARP_X_FINE.seed(0, &[]).to_u64(),
+                streams::BOUNDARY_WARP_X_FINE.seed(0.into(), &[]).to_u64(),
             ) * 0.14;
         let warp_y = fractal_noise(
             base_x * 0.23,
             base_y * 0.23,
-            streams::BOUNDARY_WARP_Y_BROAD.seed(0, &[]).to_u64(),
+            streams::BOUNDARY_WARP_Y_BROAD.seed(0.into(), &[]).to_u64(),
         ) * 0.40
             + fractal_noise(
                 base_x * 1.19,
                 base_y * 1.19,
-                streams::BOUNDARY_WARP_Y_FINE.seed(0, &[]).to_u64(),
+                streams::BOUNDARY_WARP_Y_FINE.seed(0.into(), &[]).to_u64(),
             ) * 0.14;
         let x = base_x + warp_x;
         let y = base_y + warp_y;
@@ -143,12 +143,12 @@ impl ForestField {
         let boundary_detail = fractal_noise(
             x * 1.71,
             y * 1.71,
-            streams::BOUNDARY_DETAIL_BROAD.seed(0, &[]).to_u64(),
+            streams::BOUNDARY_DETAIL_BROAD.seed(0.into(), &[]).to_u64(),
         ) * 5.4
             + fractal_noise(
                 x * 4.83,
                 y * 4.83,
-                streams::BOUNDARY_DETAIL_FINE.seed(0, &[]).to_u64(),
+                streams::BOUNDARY_DETAIL_FINE.seed(0.into(), &[]).to_u64(),
             ) * 1.65;
         interpolated + boundary_detail
     }
@@ -344,12 +344,12 @@ impl ReliefField {
         let warp_x = fractal_noise(
             x * 0.07,
             y * 0.07,
-            streams::RELIEF_WARP_X.seed(0, &[]).to_u64(),
+            streams::RELIEF_WARP_X.seed(0.into(), &[]).to_u64(),
         ) * 0.46;
         let warp_y = fractal_noise(
             x * 0.07,
             y * 0.07,
-            streams::RELIEF_WARP_Y.seed(0, &[]).to_u64(),
+            streams::RELIEF_WARP_Y.seed(0.into(), &[]).to_u64(),
         ) * 0.46;
         let x = x + warp_x;
         let y = y + warp_y;
@@ -375,7 +375,7 @@ impl ReliefField {
         ) + fractal_noise(
             x * 0.83,
             y * 0.83,
-            streams::RELIEF_DETAIL.seed(0, &[]).to_u64(),
+            streams::RELIEF_DETAIL.seed(0.into(), &[]).to_u64(),
         ) * 5.0;
         score >= 10.0
     }
@@ -714,7 +714,7 @@ fn draw_parchment_texture(pixmap: &mut Pixmap, scale: f64, origin: (f64, f64), p
     for cell_y in first_y..=last_y {
         for cell_x in first_x..=last_x {
             let mut random =
-                streams::PARCHMENT.rng(u64::from(zoom), &[cell_x as u64, cell_y as u64]);
+                streams::PARCHMENT.rng(u64::from(zoom).into(), &[cell_x as u64, cell_y as u64]);
             let x = cell_x as f64 * cell_size + 8.0 + random.unit_f64() * 96.0 - origin.0;
             let y = cell_y as f64 * cell_size + 8.0 + random.unit_f64() * 96.0 - origin.1;
             let length = 3.0 + random.unit_f64() * 8.0;

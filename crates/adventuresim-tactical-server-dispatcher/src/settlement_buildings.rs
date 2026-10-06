@@ -9,7 +9,7 @@ use adventuresim_world_schema::settlement_buildings::BusinessId;
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct SettlementBusinessOperatorProfile {
     pub business_id: BusinessId,
-    pub operator_character_id: u64,
+    pub operator_character_id: adventuresim_tactical_core::player::CharacterId,
     pub operator_name: RenderedPersonalName,
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -31,7 +31,9 @@ pub fn place_settlement_buildings(
     settlement: &SettlementSceneProfile,
     playable_half_extent_metres: f32,
 ) -> Result<CitySceneLayout, CityCompileError> {
-    let seed = adventuresim_core::settlement_population::settlement_building_seed(&settlement.id);
+    let seed = fabelgeist_determinism::Seed::from_u64(
+        adventuresim_core::settlement_population::settlement_building_seed(&settlement.id),
+    );
     CitySite::central_german_market_town()
         .generate(seed, settlement.effective_population(), &settlement.economy)
         .compile(seed)?

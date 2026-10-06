@@ -74,7 +74,7 @@ impl TextureParameters {
         purpose: fabelgeist_determinism::StreamId,
         context: &[u64],
     ) -> fabelgeist_determinism::DeterministicRng {
-        purpose.rng(self.seed, context)
+        purpose.rng(self.seed.into(), context)
     }
 
     pub(crate) fn field_seed(
@@ -82,7 +82,7 @@ impl TextureParameters {
         purpose: fabelgeist_determinism::StreamId,
         context: &[u64],
     ) -> u64 {
-        purpose.seed(self.seed, context).to_u64()
+        purpose.seed(self.seed.into(), context).to_u64()
     }
 }
 

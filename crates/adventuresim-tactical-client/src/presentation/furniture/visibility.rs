@@ -50,16 +50,12 @@ pub(super) fn update_interior_visibility(
         let FurnitureLocation::Interior { building_id, .. } = instance.location else {
             continue;
         };
-        let next = if exhibition.is_some()
-            || visible_owners
-                .get(&adventuresim_tactical_core::scene_input::SceneBuildingId::from(building_id))
-                .copied()
-                .unwrap_or(false)
-        {
-            Visibility::Inherited
-        } else {
-            Visibility::Hidden
-        };
+        let next =
+            if exhibition.is_some() || visible_owners.get(&building_id).copied().unwrap_or(false) {
+                Visibility::Inherited
+            } else {
+                Visibility::Hidden
+            };
         if *visibility != next {
             *visibility = next;
         }
@@ -93,9 +89,9 @@ mod tests {
                     id: FurnitureInstanceId(id),
                     key: FurnitureKey::natural(FurnitureKind::Bed, FurnitureVariant::Compact),
                     location: FurnitureLocation::Interior {
-                        building_id: 1,
-                        room_id: 2,
-                        storey: 1,
+                        building_id: 1.into(),
+                        room_id: adventuresim_building_generator::RoomIndex::from_serialized(2),
+                        storey: adventuresim_building_generator::StoreyIndex::from_serialized(1),
                     },
                 },
                 GlobalTransform::from_xyz(x, 0.0, 0.0),
@@ -166,9 +162,9 @@ mod tests {
         );
         let mut specimen = *app.world().get::<SceneFurniture>(fixture).unwrap();
         specimen.location = FurnitureLocation::Interior {
-            building_id: 0,
-            room_id: 0,
-            storey: 0,
+            building_id: 0.into(),
+            room_id: adventuresim_building_generator::RoomIndex::from_serialized(0),
+            storey: adventuresim_building_generator::StoreyIndex::from_serialized(0),
         };
         app.world_mut().entity_mut(fixture).insert(specimen);
         app.update();

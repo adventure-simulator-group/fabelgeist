@@ -33,7 +33,7 @@ impl CityBuildingLot {
 }
 
 pub(super) fn place_services(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     population: u32,
     blocks: &[CityBlock],
     candidates: &[CandidateLot],
@@ -89,19 +89,17 @@ pub(super) fn place_services(
 }
 
 fn request_choices(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     radius: f32,
     blocks: &BTreeMap<BlockId, CityBlock>,
     candidates: &[CandidateLot],
     request: BuildingDemand,
     placed: &[CandidateLot],
 ) -> Vec<CandidateLot> {
-    let key = SERVICE_SITING_DOMAIN
-        .seed(
-            seed,
-            &[request.usage() as u64, u64::from(request.ordinal())],
-        )
-        .to_u64();
+    let key = SERVICE_SITING_DOMAIN.seed(
+        seed,
+        &[request.usage() as u64, u64::from(request.ordinal())],
+    );
     let district = request.usage().definition().district;
     let mut program = BuildingProgram::settlement(
         settlement_archetype(request.usage()),

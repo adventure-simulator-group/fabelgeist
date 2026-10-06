@@ -43,7 +43,7 @@ pub(super) struct Recipe {
 impl CityRecipePalette {
     pub(super) fn front(
         &mut self,
-        seed: u64,
+        seed: fabelgeist_determinism::Seed,
         lot: CityBuildingLot,
     ) -> Result<Arc<Recipe>, CityCompileError> {
         let choice = RECIPE_SELECTION_DOMAIN
@@ -200,7 +200,7 @@ impl Recipe {
 
     pub fn place(
         &self,
-        id: u64,
+        id: crate::scene_input::SceneBuildingId,
         centre_metres: Vec2,
         orientation: BuildingOrientation,
     ) -> Result<TacticalBuildingPlacement, CityCompileError> {
@@ -216,10 +216,10 @@ impl Recipe {
             _ => orientation,
         };
         Ok(TacticalBuildingPlacement {
-            base_elevation_metres: 0.0,
+            base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
             id,
             program: self.program.clone(),
-            centre_metres,
+            centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(centre_metres)?,
             orientation,
         })
     }
@@ -267,6 +267,10 @@ impl Recipe {
             Vec2::new(self.render_min.x, self.render_max.y),
         ]
         .into_iter()
-        .all(|p| bounds.contains(placement.centre_metres + placement.orientation.local_to_world(p)))
+        .all(|p| {
+            bounds.contains(
+                placement.centre_metres.metres() + placement.orientation.local_to_world(p),
+            )
+        })
     }
 }

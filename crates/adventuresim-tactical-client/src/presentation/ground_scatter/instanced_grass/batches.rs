@@ -63,7 +63,7 @@ pub(in crate::presentation) fn spawn_tuft_batches(
                     species,
                     streams::TUFT_MESH
                         .seed(
-                            base_seed,
+                            base_seed.into(),
                             &[species.index() as u64, lod.tier_index() as u64],
                         )
                         .to_u64(),

@@ -1,15 +1,15 @@
 mod batching;
+mod mesh;
+use mesh::GroundLitterMeshData;
 mod streams;
 use batching::append_litter_batch;
 
 use adventuresim_tactical_core::prelude::{GroundCover, SceneGround, SceneTerrain};
 use bevy::{
-    asset::RenderAssetUsages,
     camera::visibility::VisibilityRange,
     color::ColorToComponents,
     light::NotShadowCaster,
     math::FloatExt,
-    mesh::{Indices, PrimitiveTopology},
     prelude::{
         Color, Commands, Handle, Mesh, Mesh3d, MeshMaterial3d, Name, StandardMaterial, Transform,
         Vec2, Vec3, default,
@@ -114,9 +114,9 @@ pub(super) fn spawn(
         };
         for pass in 0..DRY_LEAF_PASSES_PER_SAMPLE {
             let hash = streams::LEAF_PATCH
-                .seed(base_seed, &[index as u64, pass])
+                .seed(base_seed.into(), &[index as u64, pass])
                 .to_u64();
-            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= density * 0.97 {
+            if streams::PRESENCE.rng(hash.into(), &[]).inclusive_unit_f32() >= density * 0.97 {
                 continue;
             }
             let Some(transform) =
@@ -131,7 +131,7 @@ pub(super) fn spawn(
             append_litter_batch(
                 meshes,
                 &assets.dry_leaf_meshes[streams::DRY_LEAF_MESHES_VARIANT
-                    .rng(hash, &[])
+                    .rng(hash.into(), &[])
                     .index(assets.dry_leaf_meshes.len())],
                 transform,
                 LITTER_BATCH_CELL_METRES,
@@ -141,9 +141,9 @@ pub(super) fn spawn(
         }
         for pass in 0..TWIG_PASSES_PER_SAMPLE {
             let hash = streams::TWIG_PATCH
-                .seed(base_seed, &[index as u64, pass])
+                .seed(base_seed.into(), &[index as u64, pass])
                 .to_u64();
-            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= density * 0.62 {
+            if streams::PRESENCE.rng(hash.into(), &[]).inclusive_unit_f32() >= density * 0.62 {
                 continue;
             }
             let Some(transform) =
@@ -157,7 +157,7 @@ pub(super) fn spawn(
             append_litter_batch(
                 meshes,
                 &assets.twig_meshes[streams::TWIG_MESHES_VARIANT
-                    .rng(hash, &[])
+                    .rng(hash.into(), &[])
                     .index(assets.twig_meshes.len())],
                 transform,
                 LITTER_BATCH_CELL_METRES,
@@ -172,9 +172,9 @@ pub(super) fn spawn(
         };
         for pass in 0..WOODLAND_PLANT_PASSES_PER_SAMPLE {
             let hash = streams::PLANT_PATCH
-                .seed(base_seed, &[index as u64, pass])
+                .seed(base_seed.into(), &[index as u64, pass])
                 .to_u64();
-            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= plant_chance {
+            if streams::PRESENCE.rng(hash.into(), &[]).inclusive_unit_f32() >= plant_chance {
                 continue;
             }
             let Some(transform) =
@@ -185,7 +185,7 @@ pub(super) fn spawn(
             append_litter_batch(
                 meshes,
                 &assets.woodland_plant_meshes[streams::WOODLAND_PLANT_MESHES_VARIANT
-                    .rng(hash, &[])
+                    .rng(hash.into(), &[])
                     .index(assets.woodland_plant_meshes.len())],
                 transform,
                 LITTER_BATCH_CELL_METRES,
@@ -337,8 +337,14 @@ fn forest_floor_patch_transform(
     let jitter = ground.grid_scale() * 0.78;
     let position = cell_origin
         + Vec2::new(
-            streams::CELL_JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5,
-            streams::CELL_JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5,
+            streams::CELL_JITTER_X
+                .rng(hash.into(), &[])
+                .inclusive_unit_f32()
+                - 0.5,
+            streams::CELL_JITTER_Z
+                .rng(hash.into(), &[])
+                .inclusive_unit_f32()
+                - 0.5,
         ) * jitter;
     if ground.ground_at(position).is_none_or(|sample| {
         !matches!(
@@ -372,27 +378,31 @@ pub(super) fn dry_leaf_patch_mesh(variant: u64) -> Mesh {
     const CLUSTER_COUNT: u64 = 7;
     let clusters = (0..CLUSTER_COUNT)
         .map(|cluster| {
-            let hash = streams::LEAF_CLUSTER.seed(variant, &[cluster]).to_u64();
+            let hash = streams::LEAF_CLUSTER
+                .seed(variant.into(), &[cluster])
+                .to_u64();
             Vec2::new(
-                streams::CENTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5,
-                streams::CENTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5,
+                streams::CENTER_X.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5,
+                streams::CENTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5,
             ) * 0.68
         })
         .collect::<Vec<_>>();
     for leaf in 0..DRY_LEAVES_PER_PATCH {
-        let hash = streams::LEAF.seed(variant, &[leaf]).to_u64();
-        let scatter_angle =
-            streams::SCATTER_ANGLE.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU;
+        let hash = streams::LEAF.seed(variant.into(), &[leaf]).to_u64();
+        let scatter_angle = streams::SCATTER_ANGLE
+            .rng(hash.into(), &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU;
         let centre = if leaf < STRATIFIED_LEAVES {
             let column = leaf % STRATIFIED_COLUMNS;
             let row = leaf / STRATIFIED_COLUMNS;
             let jitter = Vec2::new(
                 streams::STRATUM_JITTER_X
-                    .rng(hash, &[])
+                    .rng(hash.into(), &[])
                     .inclusive_unit_f32()
                     - 0.5,
                 streams::STRATUM_JITTER_Z
-                    .rng(hash, &[])
+                    .rng(hash.into(), &[])
                     .inclusive_unit_f32()
                     - 0.5,
             ) * 0.075;
@@ -403,22 +413,30 @@ pub(super) fn dry_leaf_patch_mesh(variant: u64) -> Mesh {
                 + jitter
         } else {
             let cluster = clusters[leaf as usize % clusters.len()];
-            let radial = 0.025 + streams::RADIAL.rng(hash, &[]).inclusive_unit_f32() * 0.12;
+            let radial = 0.025 + streams::RADIAL.rng(hash.into(), &[]).inclusive_unit_f32() * 0.12;
             cluster + Vec2::new(scatter_angle.cos(), scatter_angle.sin()) * radial
         };
-        let angle = streams::ANGLE.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU;
+        let angle =
+            streams::ANGLE.rng(hash.into(), &[]).inclusive_unit_f32() * core::f32::consts::TAU;
         let long = Vec2::new(angle.cos(), angle.sin())
-            * (0.045 + streams::LENGTH.rng(hash, &[]).inclusive_unit_f32() * 0.040);
+            * (0.045 + streams::LENGTH.rng(hash.into(), &[]).inclusive_unit_f32() * 0.040);
         let side = Vec2::new(-long.y, long.x)
-            * (0.45 + streams::WIDTH.rng(hash, &[]).inclusive_unit_f32() * 0.18);
+            * (0.45 + streams::WIDTH.rng(hash.into(), &[]).inclusive_unit_f32() * 0.18);
         data.append_cambered_leaf(
             centre,
             long,
             side,
             if leaf % 5 == 0 {
-                0.004 + streams::LEAF_HEIGHT.rng(hash, &[]).inclusive_unit_f32() * 0.008
+                0.004
+                    + streams::LEAF_HEIGHT
+                        .rng(hash.into(), &[])
+                        .inclusive_unit_f32()
+                        * 0.008
             } else {
-                streams::LEAF_HEIGHT.rng(hash, &[]).inclusive_unit_f32() * 0.0015
+                streams::LEAF_HEIGHT
+                    .rng(hash.into(), &[])
+                    .inclusive_unit_f32()
+                    * 0.0015
             },
             hash,
             leaf_colors[leaf as usize % leaf_colors.len()],
@@ -437,25 +455,34 @@ pub(super) fn twig_patch_mesh(variant: u64) -> Mesh {
         Color::srgb_u8(62, 40, 25),
     ];
     for twig in 0..TWIGS_PER_PATCH {
-        let hash = streams::TWIG.seed(variant, &[twig]).to_u64();
+        let hash = streams::TWIG.seed(variant.into(), &[twig]).to_u64();
         let centre = Vec2::new(
-            streams::CENTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5,
-            streams::CENTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5,
+            streams::CENTER_X.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5,
+            streams::CENTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5,
         ) * 1.02;
-        let angle = streams::ANGLE.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU;
+        let angle =
+            streams::ANGLE.rng(hash.into(), &[]).inclusive_unit_f32() * core::f32::consts::TAU;
         let long = Vec2::new(angle.cos(), angle.sin())
-            * (0.075 + streams::LENGTH.rng(hash, &[]).inclusive_unit_f32() * 0.07);
+            * (0.075 + streams::LENGTH.rng(hash.into(), &[]).inclusive_unit_f32() * 0.07);
         let lateral = Vec2::new(-long.y, long.x).normalize_or_zero();
         let start = Vec3::new(centre.x - long.x, -0.004, centre.y - long.y);
-        let bend = (streams::WIDTH.rng(hash, &[]).inclusive_unit_f32() - 0.5) * 0.055;
+        let bend = (streams::WIDTH.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5) * 0.055;
         let middle = Vec3::new(
             centre.x + lateral.x * bend,
-            0.002 + streams::TWIG_LIFT.rng(hash, &[]).inclusive_unit_f32() * 0.004,
+            0.002
+                + streams::TWIG_LIFT
+                    .rng(hash.into(), &[])
+                    .inclusive_unit_f32()
+                    * 0.004,
             centre.y + lateral.y * bend,
         );
         let end = Vec3::new(centre.x + long.x, -0.006, centre.y + long.y);
-        let sides = 5 + streams::TWIG_SIDES.rng(hash, &[]).index(2) as u32;
-        let radius = 0.006 + streams::TWIG_RADIUS.rng(hash, &[]).inclusive_unit_f32() * 0.005;
+        let sides = 5 + streams::TWIG_SIDES.rng(hash.into(), &[]).index(2) as u32;
+        let radius = 0.006
+            + streams::TWIG_RADIUS
+                .rng(hash.into(), &[])
+                .inclusive_unit_f32()
+                * 0.005;
         let color = twig_colors[twig as usize % twig_colors.len()];
         data.append_bent_twig(
             start,
@@ -469,14 +496,19 @@ pub(super) fn twig_patch_mesh(variant: u64) -> Mesh {
             centre,
             color,
         );
-        if twig < 2 && streams::TWIG_FORK.rng(hash, &[]).inclusive_unit_f32() > 0.46 {
+        if twig < 2
+            && streams::TWIG_FORK
+                .rng(hash.into(), &[])
+                .inclusive_unit_f32()
+                > 0.46
+        {
             let attach = middle.lerp(end, 0.22);
             let direction = (end - middle).normalize();
             let lateral = Vec3::new(-direction.z, 0.12, direction.x).normalize();
             let fork_end = attach
                 + (direction * 0.38
                     + lateral
-                        * if streams::TWIG_FORK_SIDE.rng(hash, &[]).boolean() {
+                        * if streams::TWIG_FORK_SIDE.rng(hash.into(), &[]).boolean() {
                             0.62
                         } else {
                             -0.62
@@ -514,293 +546,47 @@ pub(super) fn woodland_plant_patch_mesh(variant: u64) -> Mesh {
     ];
     let plant_count = 2 + variant % 2;
     for plant in 0..plant_count {
-        let plant_hash = streams::PLANT.seed(variant, &[plant]).to_u64();
+        let plant_hash = streams::PLANT.seed(variant.into(), &[plant]).to_u64();
         let centre = Vec2::new(
             streams::PLANT_CENTER_X
-                .rng(plant_hash, &[])
+                .rng(plant_hash.into(), &[])
                 .inclusive_unit_f32()
                 - 0.5,
             streams::PLANT_CENTER_Z
-                .rng(plant_hash, &[])
+                .rng(plant_hash.into(), &[])
                 .inclusive_unit_f32()
                 - 0.5,
         ) * 0.62;
-        let leaf_count = 5 + streams::LEAF_COUNT.rng(plant_hash, &[]).index(3) as u64;
+        let leaf_count = 5 + streams::LEAF_COUNT.rng(plant_hash.into(), &[]).index(3) as u64;
         let phase = streams::PLANT_PHASE
-            .rng(plant_hash, &[])
+            .rng(plant_hash.into(), &[])
             .inclusive_unit_f32()
             * core::f32::consts::TAU;
         for leaf in 0..leaf_count {
-            let hash = streams::PLANT_LEAF.seed(plant_hash, &[leaf]).to_u64();
+            let hash = streams::PLANT_LEAF
+                .seed(plant_hash.into(), &[leaf])
+                .to_u64();
             let angle = phase
                 + leaf as f32 * core::f32::consts::TAU / leaf_count as f32
-                + (streams::CENTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5) * 0.28;
-            let length = 0.11 + streams::LENGTH.rng(hash, &[]).inclusive_unit_f32() * 0.075;
-            let width = length * (0.19 + streams::WIDTH.rng(hash, &[]).inclusive_unit_f32() * 0.08);
+                + (streams::CENTER_X.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5) * 0.28;
+            let length = 0.11 + streams::LENGTH.rng(hash.into(), &[]).inclusive_unit_f32() * 0.075;
+            let width =
+                length * (0.19 + streams::WIDTH.rng(hash.into(), &[]).inclusive_unit_f32() * 0.08);
             data.append_rosette_leaf(
                 centre,
                 Vec2::new(angle.cos(), angle.sin()),
                 length,
                 width,
-                0.055 + streams::TWIG_RADIUS.rng(hash, &[]).inclusive_unit_f32() * 0.055,
+                0.055
+                    + streams::TWIG_RADIUS
+                        .rng(hash.into(), &[])
+                        .inclusive_unit_f32()
+                        * 0.055,
                 palette[(plant as usize + leaf as usize) % palette.len()],
             );
         }
     }
     data.into_mesh()
-}
-
-impl GroundLitterMeshData {
-    fn append_rosette_leaf(
-        &mut self,
-        root: Vec2,
-        direction: Vec2,
-        length: f32,
-        width: f32,
-        rise: f32,
-        color: Color,
-    ) {
-        let base = self.positions.len() as u32;
-        let side = Vec2::new(-direction.y, direction.x);
-        let centre = |along: f32, lateral: f32, height: f32| {
-            let point = root + direction * (length * along) + side * (width * lateral);
-            Vec3::new(point.x, height, point.y)
-        };
-        let positions = [
-            centre(0.0, -0.18, 0.002),
-            centre(0.0, 0.18, 0.002),
-            centre(0.38, -1.0, rise * 0.72),
-            centre(0.38, 1.0, rise * 0.72),
-            centre(0.76, -0.62, rise),
-            centre(0.76, 0.62, rise),
-            centre(1.0, 0.0, rise * 0.82),
-        ];
-        let normal = Vec3::new(-direction.x * 0.24, 0.94, -direction.y * 0.24).normalize();
-        let linear_color = color.to_linear().to_f32_array();
-        for (index, position) in positions.into_iter().enumerate() {
-            self.positions.push(position.to_array());
-            self.normals.push(normal.to_array());
-            self.uvs.push([
-                if index % 2 == 0 { 0.0 } else { 1.0 },
-                [0.0, 0.0, 0.38, 0.38, 0.76, 0.76, 1.0][index],
-            ]);
-            self.roots.push(root.to_array());
-            self.colors.push(linear_color);
-        }
-        self.indices.extend_from_slice(&[
-            base,
-            base + 2,
-            base + 1,
-            base + 1,
-            base + 2,
-            base + 3,
-            base + 2,
-            base + 4,
-            base + 3,
-            base + 3,
-            base + 4,
-            base + 5,
-            base + 4,
-            base + 6,
-            base + 5,
-        ]);
-    }
-
-    #[expect(
-        clippy::too_many_arguments,
-        reason = "this domain boundary names each independent input explicitly"
-    )]
-    fn append_bent_twig(
-        &mut self,
-        start: Vec3,
-        middle: Vec3,
-        end: Vec3,
-        start_radius: f32,
-        middle_radius: f32,
-        end_radius: f32,
-        sides: u32,
-        cap_start: bool,
-        root: Vec2,
-        color: Color,
-    ) {
-        let base = self.positions.len() as u32;
-        let direction = (end - start).normalize();
-        let reference = if direction.y.abs() < 0.9 {
-            Vec3::Y
-        } else {
-            Vec3::X
-        };
-        let right = direction.cross(reference).normalize();
-        let forward = right.cross(direction).normalize();
-        let linear_color = color.to_linear().to_f32_array();
-        let near_tip = middle.lerp(end, 0.86);
-        let late_tip = middle.lerp(end, 0.97);
-        for (ring, (centre, radius)) in [
-            (start, start_radius),
-            (middle, middle_radius),
-            (near_tip, middle_radius.lerp(end_radius, 0.72)),
-            (late_tip, end_radius),
-        ]
-        .into_iter()
-        .enumerate()
-        {
-            for side_index in 0..sides {
-                let phase = side_index as f32 * core::f32::consts::TAU / sides as f32;
-                let normal = right * phase.cos() + forward * phase.sin();
-                self.positions.push((centre + normal * radius).to_array());
-                self.normals.push(normal.to_array());
-                self.uvs
-                    .push([side_index as f32 / sides as f32, ring as f32 / 3.0]);
-                self.roots.push(root.to_array());
-                self.colors.push(linear_color);
-            }
-        }
-        for ring in 0..3_u32 {
-            let from = base + ring * sides;
-            let to = from + sides;
-            for side_index in 0..sides {
-                let next = (side_index + 1) % sides;
-                self.indices.extend_from_slice(&[
-                    from + side_index,
-                    to + side_index,
-                    to + next,
-                    from + side_index,
-                    to + next,
-                    from + next,
-                ]);
-            }
-        }
-        if cap_start {
-            let cap = self.positions.len() as u32;
-            self.positions.push(start.to_array());
-            self.normals.push((-direction).to_array());
-            self.uvs.push([0.5, 0.0]);
-            self.roots.push(root.to_array());
-            self.colors.push(linear_color);
-            for side_index in 0..sides {
-                let next = (side_index + 1) % sides;
-                self.indices
-                    .extend_from_slice(&[cap, base + side_index, base + next]);
-            }
-        }
-        let apex = self.positions.len() as u32;
-        self.positions.push(end.to_array());
-        self.normals.push(direction.to_array());
-        self.uvs.push([0.5, 1.0]);
-        self.roots.push(root.to_array());
-        self.colors.push(linear_color);
-        let tip_ring = base + sides * 3;
-        for side_index in 0..sides {
-            let next = (side_index + 1) % sides;
-            self.indices
-                .extend_from_slice(&[tip_ring + side_index, apex, tip_ring + next]);
-        }
-    }
-
-    fn into_mesh(self) -> Mesh {
-        let mut mesh = Mesh::new(
-            PrimitiveTopology::TriangleList,
-            RenderAssetUsages::MAIN_WORLD,
-        );
-        mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, self.positions);
-        mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, self.normals);
-        mesh.insert_attribute(Mesh::ATTRIBUTE_UV_0, self.uvs);
-        mesh.insert_attribute(Mesh::ATTRIBUTE_UV_1, self.roots);
-        mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, self.colors);
-        mesh.insert_indices(Indices::U32(self.indices));
-        mesh
-    }
-}
-
-#[derive(Default)]
-struct GroundLitterMeshData {
-    positions: Vec<[f32; 3]>,
-    normals: Vec<[f32; 3]>,
-    uvs: Vec<[f32; 2]>,
-    roots: Vec<[f32; 2]>,
-    colors: Vec<[f32; 4]>,
-    indices: Vec<u32>,
-}
-
-impl GroundLitterMeshData {
-    fn append_cambered_leaf(
-        &mut self,
-        centre: Vec2,
-        long: Vec2,
-        side: Vec2,
-        height: f32,
-        seed: u64,
-        color: Color,
-    ) {
-        let base = self.positions.len() as u32;
-        // Fallen leaves should curl without becoming little tents. Build the
-        // varied plate first, then seat its lowest vertex just below the local
-        // patch ground plane so every instance visibly makes contact.
-        let elevated = height >= 0.004;
-        let long_slope = (streams::LONG_SLOPE.rng(seed, &[]).inclusive_unit_f32() - 0.5)
-            * if elevated { 0.12 } else { 0.035 };
-        let side_slope = (streams::SIDE_SLOPE.rng(seed, &[]).inclusive_unit_f32() - 0.5)
-            * if elevated { 0.08 } else { 0.025 };
-        let camber = if elevated {
-            0.004 + streams::CAMBER.rng(seed, &[]).inclusive_unit_f32() * 0.007
-        } else {
-            0.0012 + streams::CAMBER.rng(seed, &[]).inclusive_unit_f32() * 0.0022
-        };
-        let curl = (streams::CURL.rng(seed, &[]).inclusive_unit_f32() - 0.5)
-            * if elevated { 0.007 } else { 0.002 };
-        let burial = 0.0007
-            + height.min(0.006) * 0.15
-            + streams::BURIAL.rng(seed, &[]).inclusive_unit_f32() * 0.001;
-        let long3 = Vec3::new(long.x, long_slope * long.length(), long.y);
-        let side3 = Vec3::new(side.x, side_slope * side.length(), side.y);
-        let centre3 = Vec3::new(centre.x, 0.0, centre.y);
-        let outline = [
-            (0.0, -1.0),
-            (0.82, -0.55),
-            (1.0, 0.0),
-            (0.74, 0.58),
-            (0.0, 1.0),
-            (-0.74, 0.58),
-            (-1.0, 0.0),
-            (-0.82, -0.55),
-        ];
-        let mut leaf_positions = Vec::with_capacity(9);
-        leaf_positions.push(centre3 + Vec3::Y * camber);
-        for (u, v) in outline {
-            let lift = camber * (1.0 - u * u) * (1.0 - v * v) + curl * v * v;
-            leaf_positions.push(centre3 + long3 * v + side3 * u + Vec3::Y * lift);
-        }
-        let minimum_y = leaf_positions
-            .iter()
-            .map(|point| point.y)
-            .fold(f32::INFINITY, f32::min);
-        for point in &mut leaf_positions {
-            point.y += height - minimum_y - burial;
-        }
-        let mut leaf_normals = [Vec3::ZERO; 9];
-        for outline_index in 0..8_usize {
-            let left = 1 + outline_index;
-            let right = 1 + (outline_index + 1) % 8;
-            let face = (leaf_positions[right] - leaf_positions[0])
-                .cross(leaf_positions[left] - leaf_positions[0]);
-            leaf_normals[0] += face;
-            leaf_normals[left] += face;
-            leaf_normals[right] += face;
-            self.indices
-                .extend_from_slice(&[base, base + right as u32, base + left as u32]);
-        }
-        for (index, point) in leaf_positions.into_iter().enumerate() {
-            self.positions.push(point.to_array());
-            self.normals
-                .push(leaf_normals[index].normalize().to_array());
-            self.roots.push(centre.to_array());
-        }
-        self.uvs.push([0.5, 0.5]);
-        self.uvs
-            .extend(outline.map(|(u, v)| [0.5 + u * 0.5, 0.5 + v * 0.5]));
-        let color = color.to_linear().to_f32_array();
-        self.colors.extend_from_slice(&[color; 9]);
-    }
 }
 
 #[cfg(test)]
@@ -845,7 +631,7 @@ mod tests {
                 (0..9).any(|index| {
                     streams::PRESENCE
                         .rng(
-                            streams::PLANT_PATCH.seed(*base_seed, &[index, 0]).to_u64(),
+                            streams::PLANT_PATCH.seed((*base_seed).into(), &[index, 0]),
                             &[],
                         )
                         .inclusive_unit_f32()
@@ -1196,11 +982,16 @@ mod tests {
             let mut expected_triangles = 0;
             let mut expected_boundaries = 0;
             for twig in 0..TWIGS_PER_PATCH {
-                let hash = streams::TWIG.seed(variant, &[twig]).to_u64();
+                let hash = streams::TWIG.seed(variant.into(), &[twig]).to_u64();
                 let sides = 5 + (hash % 2) as usize;
                 expected_vertices += sides * 4 + 2;
                 expected_triangles += sides * 8;
-                if twig < 2 && streams::TWIG_FORK.rng(hash, &[]).inclusive_unit_f32() > 0.46 {
+                if twig < 2
+                    && streams::TWIG_FORK
+                        .rng(hash.into(), &[])
+                        .inclusive_unit_f32()
+                        > 0.46
+                {
                     expected_vertices += sides * 4 + 1;
                     expected_triangles += sides * 7;
                     expected_boundaries += sides;

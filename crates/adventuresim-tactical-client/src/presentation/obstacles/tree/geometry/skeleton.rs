@@ -57,7 +57,9 @@ pub(in crate::presentation) fn procedural_woody_plant_skeleton(
         WoodyPlantForm::MatureBeech => {
             procedural_beech_skeleton(seed, canopy_competition, parameters)
         }
-        WoodyPlantForm::MultiStemShrub => procedural_multistem_shrub_skeleton(seed, parameters),
+        WoodyPlantForm::MultiStemShrub => {
+            procedural_multistem_shrub_skeleton(seed.into(), parameters)
+        }
     }
 }
 
@@ -65,7 +67,7 @@ fn oak_primary_scaffold_phase(crown_phase: f32, primary_index: u64, primary_seed
     crown_phase
         + primary_index as f32 * 2.399_963_1
         + (streams::PRIMARY_PHASE
-            .rng(primary_seed, &[])
+            .rng(primary_seed.into(), &[])
             .inclusive_unit_f32()
             - 0.5)
             * 0.42
@@ -103,8 +105,9 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
     canopy_competition: f32,
     gnarling: OakGnarlingParameters,
 ) -> Vec<TreeBranchSegment> {
-    let seed_unit_draw =
-        |purpose: fabelgeist_determinism::StreamId| purpose.rng(seed, &[]).inclusive_unit_f32();
+    let seed_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+        purpose.rng(seed.into(), &[]).inclusive_unit_f32()
+    };
     let mut branches = Vec::new();
     let canopy_competition = canopy_competition.clamp(0.0, 1.0);
     let crown_phase = seed_unit_draw(streams::OAK_CROWN_PHASE) * core::f32::consts::TAU;
@@ -169,9 +172,11 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
         } else {
             (primary_index - 4) as f32
         };
-        let primary_seed = streams::OAK_PRIMARY.seed(seed, &[primary_index]).to_u64();
+        let primary_seed = streams::OAK_PRIMARY
+            .seed(seed.into(), &[primary_index])
+            .to_u64();
         let primary_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-            purpose.rng(primary_seed, &[]).inclusive_unit_f32()
+            purpose.rng(primary_seed.into(), &[]).inclusive_unit_f32()
         };
         let phase = oak_primary_scaffold_phase(crown_phase, primary_index, primary_seed);
         let outward = Vec3::new(phase.cos(), 0.0, phase.sin());
@@ -299,10 +304,10 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
         let secondary_count = if dominant { 18_u64 } else { 11_u64 };
         for secondary_index in 0..secondary_count {
             let secondary_seed = streams::OAK_SECONDARY
-                .seed(primary_seed, &[secondary_index])
+                .seed(primary_seed.into(), &[secondary_index])
                 .to_u64();
             let secondary_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-                purpose.rng(secondary_seed, &[]).inclusive_unit_f32()
+                purpose.rng(secondary_seed.into(), &[]).inclusive_unit_f32()
             };
             // The last axis inherits the scaffold direction and carries
             // foliage over its end. The remaining axes alternate laterally,
@@ -382,10 +387,10 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
             };
             for shoot_index in 0..shoot_count {
                 let shoot_seed = streams::OAK_SHOOT
-                    .seed(secondary_seed, &[shoot_index])
+                    .seed(secondary_seed.into(), &[shoot_index])
                     .to_u64();
                 let shoot_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-                    purpose.rng(shoot_seed, &[]).inclusive_unit_f32()
+                    purpose.rng(shoot_seed.into(), &[]).inclusive_unit_f32()
                 };
                 let first_attach = 0.08_f32.lerp(0.22, canopy_competition);
                 let attach =
@@ -446,7 +451,7 @@ fn oak_clustered_shoot_attach(
     (center
         + (within - 0.5) * spread
         + (streams::SHOOT_ATTACHMENT
-            .rng(shoot_seed, &[])
+            .rng(shoot_seed.into(), &[])
             .inclusive_unit_f32()
             - 0.5)
             * 0.018)
@@ -465,9 +470,9 @@ fn append_oak_knots(
 ) {
     let count = (gnarling.knot_frequency.clamp(0.0, 1.0) * 6.0).round() as u64;
     for index in 0..count {
-        let knot_seed = streams::KNOT.seed(seed, &[index]).to_u64();
+        let knot_seed = streams::KNOT.seed(seed.into(), &[index]).to_u64();
         let knot_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-            purpose.rng(knot_seed, &[]).inclusive_unit_f32()
+            purpose.rng(knot_seed.into(), &[]).inclusive_unit_f32()
         };
         let attach = 0.1 + knot_unit_draw(streams::KNOT_ATTACHMENT) * 0.68;
         let center = sample_polyline(trunk, attach);
@@ -505,7 +510,7 @@ fn procedural_beech_skeleton(
     let crown_radius = parameters.crown_radius_metres * (1.0 - competition * 0.18);
     let clear_bole_fraction = 0.38 + competition * 0.14;
     let crown_phase = streams::BEECH_CROWN_PHASE
-        .rng(seed, &[])
+        .rng(seed.into(), &[])
         .inclusive_unit_f32()
         * core::f32::consts::TAU;
     let trunk_base = Vec3::new(0.0, -TREE_TRUNK_HEIGHT_METRES * 0.5, 0.0);
@@ -533,9 +538,11 @@ fn procedural_beech_skeleton(
     append_beech_roots(&mut branches, seed, crown_phase, trunk_base);
 
     for primary_index in 0..20_u64 {
-        let primary_seed = streams::BEECH_PRIMARY.seed(seed, &[primary_index]).to_u64();
+        let primary_seed = streams::BEECH_PRIMARY
+            .seed(seed.into(), &[primary_index])
+            .to_u64();
         let primary_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-            purpose.rng(primary_seed, &[]).inclusive_unit_f32()
+            purpose.rng(primary_seed.into(), &[]).inclusive_unit_f32()
         };
         let layer = primary_index as f32 / 19.0;
         let height_fraction = (clear_bole_fraction
@@ -587,10 +594,10 @@ fn procedural_beech_skeleton(
 
         for secondary_index in 0..5_u64 {
             let secondary_seed = streams::BEECH_SECONDARY
-                .seed(primary_seed, &[secondary_index])
+                .seed(primary_seed.into(), &[secondary_index])
                 .to_u64();
             let secondary_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-                purpose.rng(secondary_seed, &[]).inclusive_unit_f32()
+                purpose.rng(secondary_seed.into(), &[]).inclusive_unit_f32()
             };
             let along = (0.12
                 + secondary_index as f32 * 0.17
@@ -626,10 +633,10 @@ fn procedural_beech_skeleton(
             );
             for twig_index in 0..6_u64 {
                 let twig_seed = streams::BEECH_TWIG
-                    .seed(secondary_seed, &[twig_index])
+                    .seed(secondary_seed.into(), &[twig_index])
                     .to_u64();
                 let twig_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-                    purpose.rng(twig_seed, &[]).inclusive_unit_f32()
+                    purpose.rng(twig_seed.into(), &[]).inclusive_unit_f32()
                 };
                 let twig_start = sample_polyline(&secondary_points, 0.1 + twig_index as f32 * 0.15);
                 let (right, up) = branch_frame(direction);
@@ -660,13 +667,13 @@ fn procedural_beech_skeleton(
 }
 
 fn procedural_multistem_shrub_skeleton(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     parameters: WoodyPlantParameters,
 ) -> Vec<TreeBranchSegment> {
     let mut branches = Vec::new();
     let stem_count = u64::from(parameters.basal_stems.max(3));
     for stem_index in 0..stem_count {
-        let stem_seed = streams::SHRUB_STEM.seed(seed, &[stem_index]).to_u64();
+        let stem_seed = streams::SHRUB_STEM.seed(seed, &[stem_index]);
         let stem_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
             purpose.rng(stem_seed, &[]).inclusive_unit_f32()
         };
@@ -708,7 +715,7 @@ fn procedural_multistem_shrub_skeleton(
             let length = parameters.crown_radius_metres
                 * (0.42
                     + streams::BRANCH_LENGTH
-                        .rng(branch_seed, &[])
+                        .rng(branch_seed.into(), &[])
                         .inclusive_unit_f32()
                         * 0.34)
                 * (1.0 - attach * 0.22);
@@ -753,7 +760,7 @@ fn procedural_multistem_shrub_skeleton(
         for tip_index in 0..5_u64 {
             let tip_seed = streams::SHRUB_TIP.seed(stem_seed, &[tip_index]).to_u64();
             let tip_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-                purpose.rng(tip_seed, &[]).inclusive_unit_f32()
+                purpose.rng(tip_seed.into(), &[]).inclusive_unit_f32()
             };
             let phase = tip_index as f32 * 2.399_963_1 + tip_unit_draw(streams::TIP_PHASE) * 0.4;
             let direction = (stem_direction * 0.5
@@ -835,7 +842,7 @@ mod tests {
                     index,
                     24,
                     0.08,
-                    streams::TEST_SHOOT.seed(42, &[index]).to_u64(),
+                    streams::TEST_SHOOT.seed(42.into(), &[index]).to_u64(),
                 )
             })
             .collect::<Vec<_>>();
@@ -859,7 +866,7 @@ mod tests {
                     index,
                     24,
                     0.08,
-                    streams::TEST_SHOOT.seed(42, &[index]).to_u64(),
+                    streams::TEST_SHOOT.seed(42.into(), &[index]).to_u64(),
                 )
             })
             .collect::<Vec<_>>();
@@ -869,8 +876,10 @@ mod tests {
     #[test]
     fn procedural_tree_has_a_deterministic_four_order_branch_hierarchy() {
         let branches = procedural_tree_skeleton(42, 0.0);
-        let crown_phase =
-            streams::OAK_CROWN_PHASE.rng(42, &[]).inclusive_unit_f32() * core::f32::consts::TAU;
+        let crown_phase = streams::OAK_CROWN_PHASE
+            .rng(42.into(), &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU;
         let roots = procedural_oak_root_specs(42, crown_phase);
         let counts = (0..=3)
             .map(|depth| {
@@ -897,7 +906,9 @@ mod tests {
     #[test]
     fn oak_root_plan_is_deterministic_bounded_and_irregular() {
         for seed in 0..4_096 {
-            let crown_phase = streams::OAK_CROWN_PHASE.rng(seed, &[]).inclusive_unit_f32()
+            let crown_phase = streams::OAK_CROWN_PHASE
+                .rng(seed.into(), &[])
+                .inclusive_unit_f32()
                 * core::f32::consts::TAU;
             let roots = procedural_oak_root_specs(seed, crown_phase);
             assert_eq!(roots, procedural_oak_root_specs(seed, crown_phase));
@@ -934,7 +945,9 @@ mod tests {
     #[test]
     fn dominant_buttresses_follow_major_scaffold_loads_and_vary_in_scale() {
         for seed in [7, 42, 91, 4_096] {
-            let crown_phase = streams::OAK_CROWN_PHASE.rng(seed, &[]).inclusive_unit_f32()
+            let crown_phase = streams::OAK_CROWN_PHASE
+                .rng(seed.into(), &[])
+                .inclusive_unit_f32()
                 * core::f32::consts::TAU;
             let roots = procedural_oak_root_specs(seed, crown_phase);
             let dominant = roots
@@ -942,7 +955,9 @@ mod tests {
                 .filter(|root| root.dominant)
                 .collect::<Vec<_>>();
             for primary_index in 0..dominant.len() as u64 {
-                let primary_seed = streams::OAK_PRIMARY.seed(seed, &[primary_index]).to_u64();
+                let primary_seed = streams::OAK_PRIMARY
+                    .seed(seed.into(), &[primary_index])
+                    .to_u64();
                 let load_phase =
                     oak_primary_scaffold_phase(crown_phase, primary_index, primary_seed);
                 assert!(
@@ -973,7 +988,9 @@ mod tests {
     fn root_forks_attach_to_parent_curves_and_contacts_circle_the_trunk() {
         let mut observed_forks = 0;
         for seed in 0..256 {
-            let crown_phase = streams::OAK_CROWN_PHASE.rng(seed, &[]).inclusive_unit_f32()
+            let crown_phase = streams::OAK_CROWN_PHASE
+                .rng(seed.into(), &[])
+                .inclusive_unit_f32()
                 * core::f32::consts::TAU;
             let roots = procedural_oak_root_specs(seed, crown_phase);
             let root_points = roots
@@ -1007,7 +1024,10 @@ mod tests {
     fn visual_root_geometry_can_extend_beyond_the_authoritative_trunk_proxy() {
         let roots = procedural_oak_root_specs(
             42,
-            streams::OAK_CROWN_PHASE.rng(42, &[]).inclusive_unit_f32() * core::f32::consts::TAU,
+            streams::OAK_CROWN_PHASE
+                .rng(42.into(), &[])
+                .inclusive_unit_f32()
+                * core::f32::consts::TAU,
         );
         assert!(
             roots

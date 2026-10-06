@@ -9,7 +9,7 @@ fn context(seed: u64, ordinal: u16) -> GenerationContext {
         seed,
         observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
         observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high")
-            .seed(seed, &[])
+            .seed(seed.into(), &[])
             .to_u64(),
         settlement_id: "developer".into(),
         settlement_name: "Developer settlement".into(),

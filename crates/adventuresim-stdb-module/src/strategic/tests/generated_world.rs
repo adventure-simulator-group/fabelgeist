@@ -6,7 +6,7 @@ fn generated_case(
         &adventuresim_core::quest_generation::GenerationContext {
             seed,
             observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
-            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(seed, &[]).to_u64(),
+            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(seed.into(), &[]).to_u64(),
             settlement_id: "test-settlement".into(),
             settlement_name: "Test Settlement".into(),
             scope: adventuresim_core::local_problem::Scope::Settlement {
@@ -225,7 +225,7 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
     let context = adventuresim_core::quest_generation::GenerationContext {
         seed: generated.generation_seed,
         observer_entropy_hi: generated.generation_seed ^ 0x6f62_7365_7276_6572,
-        observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(generated.generation_seed, &[]).to_u64(),
+        observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(generated.generation_seed.into(), &[]).to_u64(),
         settlement_id: "test-settlement".into(),
         settlement_name: "Test Settlement".into(),
         scope: adventuresim_core::local_problem::Scope::Settlement {

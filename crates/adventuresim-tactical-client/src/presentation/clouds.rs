@@ -676,20 +676,8 @@ fn baked_cloud_density(
     // finite 3-D lattice. Height is an independent coordinate, not a planar
     // translation, so integrating a ray cannot turn a single 2-D field into
     // radial wedges.
-    let warp = Vec3::new(
-        non_periodic_value_noise_3d(
-            coordinate * 0.36,
-            streams::WARP_X.seed(seed, &[slot]).to_u64(),
-        ),
-        non_periodic_value_noise_3d(
-            coordinate * 0.36 + Vec3::splat(13.7),
-            streams::WARP_Y.seed(seed, &[slot]).to_u64(),
-        ),
-        non_periodic_value_noise_3d(
-            coordinate * 0.36 + Vec3::new(4.1, 9.7, 17.3),
-            streams::WARP_Z.seed(seed, &[slot]).to_u64(),
-        ),
-    ) - Vec3::splat(0.5);
+    let seed = fabelgeist_determinism::Seed::from(seed);
+    let warp = noise::density_warp(coordinate, seed, slot);
     let warped = coordinate + warp * Vec3::new(0.85, 0.42, 0.85);
     // Three incommensurate, non-periodic frequencies form clustered lobes;
     // no individual octave can reveal a repeated cell over the dome.
@@ -772,7 +760,7 @@ fn cloud_bake_lighting_variation(
     non_periodic_value_noise_3d(
         cloud_density_coordinate(world, height, layer, seed, evolution) * 3.17
             + Vec3::new(2.1, 7.3, 11.9),
-        streams::VERTICAL.seed(seed, &[slot]).to_u64(),
+        streams::VERTICAL.seed(seed.into(), &[slot]).to_u64(),
     )
 }
 
@@ -1174,11 +1162,15 @@ mod tests {
         SceneEnvironment {
             scene_digest: "cloud-parameter-test".into(),
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-            latitude_microdegrees: 53_500_000,
-            longitude_microdegrees: 10_000_000,
+            latitude_microdegrees:
+                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
+                    .unwrap(),
+            longitude_microdegrees:
+                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
+                    .unwrap(),
             absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100_000),
             lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100_000),
-            absolute_elevation_metres: 20,
+            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(20).unwrap(),
             weather: WeatherSnapshot {
                 rules_version: WEATHER_RULES_VERSION,
                 interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(

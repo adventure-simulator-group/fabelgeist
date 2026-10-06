@@ -18,7 +18,18 @@ fn elevation(metres: f32) -> SupportElevation {
 }
 
 fn terraced() -> CourtTreatment {
-    CourtTreatment::Terraced(CourtStairLimits::new(0.19, 0.25, 1.0, 0.5, 0.5).unwrap())
+    CourtTreatment::Terraced(CourtStairLimits::new(
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.19)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.25)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.0)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+            .unwrap(),
+    ))
 }
 
 impl Fixture {
@@ -38,9 +49,22 @@ impl Fixture {
         let sample = |point| geographic.elevation_at(point).unwrap();
         observations.front.elevation = sample(threshold);
         observations.rear.elevation = sample(observations.rear.court_threshold_metres);
-        observations.court = sample(self.property.court.centre_metres);
-        observations.gate = sample(self.property.boundary.gate.centre_metres);
-        observations.street = sample(self.property.access[0].start_metres);
+        observations.court = sample(
+            crate::scene_coordinates::ScenePlanPoint::try_from(self.property.court.centre_metres())
+                .unwrap(),
+        );
+        observations.gate = sample(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                self.property.boundary.gate.centre_metres,
+            )
+            .unwrap(),
+        );
+        observations.street = sample(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                self.property.access[0].start_metres(),
+            )
+            .unwrap(),
+        );
         CompoundSupportRequest {
             property: &self.property,
             observations,
@@ -48,19 +72,39 @@ impl Fixture {
             street_apron: serde_json::from_value(chosen["street_entry_apron"].clone()).unwrap(),
             geographic,
             limits: SupportLimits::new(
-                metres("maximum_grade"),
-                metres("maximum_displacement_m"),
-                metres("contact_tolerance_m"),
-            )
-            .unwrap(),
+                crate::city_layout::grounding::SupportGrade::from_ratio(metres("maximum_grade"))
+                    .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("maximum_displacement_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("contact_tolerance_m"),
+                )
+                .unwrap(),
+            ),
             stairs: CourtStairLimits::new(
-                metres("maximum_riser_m"),
-                metres("minimum_going_m"),
-                metres("clear_stair_width_m"),
-                metres("endpoint_landing_run_m"),
-                metres("court_landing_run_m"),
-            )
-            .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("maximum_riser_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("minimum_going_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("clear_stair_width_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("endpoint_landing_run_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("court_landing_run_m"),
+                )
+                .unwrap(),
+            ),
             embedment: FoundationEmbedment::from_metres(metres("foundation_embedment_m")).unwrap(),
         }
         .select()
@@ -77,21 +121,39 @@ impl Fixture {
             &self.property,
             self.levels,
             SupportLimits::new(
-                metres("maximum_grade"),
-                metres("maximum_displacement_m"),
-                metres("contact_tolerance_m"),
-            )
-            .unwrap(),
-            CourtTreatment::Terraced(
-                CourtStairLimits::new(
-                    metres("maximum_riser_m"),
-                    metres("minimum_going_m"),
-                    metres("clear_stair_width_m"),
-                    metres("endpoint_landing_run_m"),
-                    metres("court_landing_run_m"),
+                crate::city_layout::grounding::SupportGrade::from_ratio(metres("maximum_grade"))
+                    .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("maximum_displacement_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("contact_tolerance_m"),
                 )
                 .unwrap(),
             ),
+            CourtTreatment::Terraced(CourtStairLimits::new(
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("maximum_riser_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("minimum_going_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("clear_stair_width_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("endpoint_landing_run_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("court_landing_run_m"),
+                )
+                .unwrap(),
+            )),
         )
         .unwrap();
         let threshold: Vec2 =
@@ -99,17 +161,31 @@ impl Fixture {
         let apron: CityPlotBounds =
             serde_json::from_value(chosen["street_entry_apron"].clone()).unwrap();
         plan.bind_street_entry(
-            threshold,
+            crate::scene_coordinates::ScenePlanPoint::try_from(threshold).unwrap(),
             apron,
             &foundations::geographic_fixture(),
             CourtStairLimits::new(
-                metres("maximum_riser_m"),
-                metres("minimum_going_m"),
-                metres("clear_stair_width_m"),
-                metres("endpoint_landing_run_m"),
-                metres("court_landing_run_m"),
-            )
-            .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("maximum_riser_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("minimum_going_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("clear_stair_width_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("endpoint_landing_run_m"),
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    metres("court_landing_run_m"),
+                )
+                .unwrap(),
+            ),
         )
         .unwrap()
     }
@@ -154,15 +230,22 @@ impl Fixture {
                 .unwrap();
             MemberSupport {
                 building_id: placement.id,
-                contact: CityPlotBounds {
-                    centre_metres: placement.centre_metres
-                        + placement.orientation.local_to_world(
-                            contact.centre().unwrap().metres().xz()
-                                - recipe.collision.bounds.centre().unwrap().metres().xz(),
-                        ),
-                    dimensions_metres: contact.plan_half_extents().unwrap().metres() * 2.0,
-                    orientation: placement.orientation,
-                },
+                contact: CityPlotBounds::new(
+                    crate::scene_coordinates::ScenePlanPoint::try_from(
+                        placement.centre_metres.metres()
+                            + placement.orientation.local_to_world(
+                                contact.centre().unwrap().metres().xz()
+                                    - recipe.collision.bounds.centre().unwrap().metres().xz(),
+                            ),
+                    )
+                    .unwrap(),
+                    adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                        contact.plan_half_extents().unwrap().metres() * 2.0,
+                    )
+                    .unwrap(),
+                    placement.orientation,
+                )
+                .unwrap(),
                 court_threshold_metres: serde_json::from_value(value[threshold].clone()).unwrap(),
                 elevation: elevation(value[height].as_f64().unwrap() as f32),
             }
@@ -186,7 +269,15 @@ impl Fixture {
         CompoundSupportPlan::compile(
             &self.property,
             self.levels,
-            SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
+            SupportLimits::new(
+                crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                    .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    0.001,
+                )
+                .unwrap(),
+            ),
             court,
         )
         .unwrap()
@@ -199,22 +290,42 @@ fn a_declared_street_apron_that_is_too_short_reports_its_constraint_without_expa
     let mut apron: CityPlotBounds =
         serde_json::from_value(fixture.document["doorway_solution"]["street_entry_apron"].clone())
             .unwrap();
-    let inner_edge = apron.centre_metres
-        + apron.orientation.local_to_world(Vec2::Y) * apron.dimensions_metres.y * 0.5;
-    apron.dimensions_metres.y = 1.0;
-    apron.centre_metres = inner_edge - apron.orientation.local_to_world(Vec2::Y) * 0.5;
+    let inner_edge = apron.centre_metres()
+        + apron.orientation().local_to_world(Vec2::Y) * apron.dimensions_metres().y * 0.5;
+    apron
+        .resize(
+            adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                bevy::math::Vec2::new(apron.dimensions_metres().x, 1.0),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+    apron
+        .relocate(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                inner_edge - apron.orientation().local_to_world(Vec2::Y) * 0.5,
+            )
+            .unwrap(),
+        )
+        .unwrap();
     fixture.document["doorway_solution"]["street_entry_apron"] =
         serde_json::to_value(apron).unwrap();
     let error = fixture.try_selected_plan(&fixture.source()).unwrap_err();
     assert_eq!(error.property_id, CityPropertyId(965));
-    assert_eq!(error.member_building_ids, [965, 17349]);
+    assert_eq!(
+        error.member_building_ids,
+        [965, 17349].map(crate::scene_input::SceneBuildingId)
+    );
     assert_eq!(error.constraint, SupportConstraint::StairGoing);
     assert_eq!(error.boundary, SupportBoundary::StreetLanding);
-    assert_eq!(error.location_metres, apron.centre_metres);
+    assert_eq!(
+        error.location_metres.attempted_metres(),
+        apron.centre_metres()
+    );
     println!("short_apron={}", serde_json::to_string(&error).unwrap());
-    assert!(error.measured > error.permitted);
-    assert!((error.permitted - 1.26).abs() < 0.001);
-    assert!(error.shortfall > 0.1);
+    assert!(error.violation.actual_value() > error.violation.limit_value());
+    assert!((error.violation.limit_value() - 1.26).abs() < 0.001);
+    assert!(error.violation.discrepancy_value() > 0.1);
 }
 
 #[test]
@@ -253,7 +364,10 @@ fn goslar_geographic_selection_seats_complete_triangles_and_retains_identity() {
     assert_eq!(plan.reservation(), fixture.property.plot);
     assert_eq!(plan.property_id(), CityPropertyId(1238));
     let [front, rear] = plan.member_support();
-    assert_eq!([front.building_id, rear.building_id], [1238, 17622]);
+    assert_eq!(
+        [front.building_id, rear.building_id],
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
     assert!((front.elevation.metres() - 21.042906).abs() < 0.001);
     assert!(front.elevation.metres() > plan.court_elevation().metres());
     assert!(plan.court_elevation().metres() > rear.elevation.metres());
@@ -284,7 +398,10 @@ fn goslar_1238_retains_bearings_and_generates_graded_triangles_with_separate_gat
     let plan = fixture.plan(terraced());
     let mesh = plan.mesh().unwrap();
     assert_eq!(mesh.property_id, CityPropertyId(1238));
-    assert_eq!(mesh.member_building_ids, [1238, 17622]);
+    assert_eq!(
+        mesh.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
     assert!(
         mesh.maximum_grade() <= 0.6501,
         "triangle grade {}",
@@ -294,12 +411,12 @@ fn goslar_1238_retains_bearings_and_generates_graded_triangles_with_separate_gat
     assert!(plan.gate_elevation().metres() - plan.member_support()[0].elevation.metres() > 2.19);
     assert!((18.48..18.50).contains(&plan.member_support()[1].elevation.metres()));
     for member in plan.member_support() {
-        let half = member.contact.dimensions_metres * 0.5;
+        let half = member.contact.dimensions_metres() * 0.5;
         for x in 0..=10 {
             for z in 0..=10 {
                 let local = Vec2::new(x as f32 / 10.0, z as f32 / 10.0) * 2.0 * half - half;
-                let point =
-                    member.contact.centre_metres + member.contact.orientation.local_to_world(local);
+                let point = member.contact.centre_metres()
+                    + member.contact.orientation().local_to_world(local);
                 assert!(
                     mesh.elevations_at(
                         crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap()
@@ -315,8 +432,8 @@ fn goslar_1238_retains_bearings_and_generates_graded_triangles_with_separate_gat
     }
     for route in &fixture.property.access {
         for station in 0..=100 {
-            let point = route.start_metres
-                + (route.end_metres - route.start_metres) * station as f32 / 100.0;
+            let point = route.start_metres()
+                + (route.end_metres() - route.start_metres()) * station as f32 / 100.0;
             let expected = plan.elevations_at(
                 crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
             );
@@ -366,21 +483,31 @@ fn intentionally_invalid_gate_approach_reports_exact_identity_location_and_short
     let error = CompoundSupportPlan::compile(
         &fixture.property,
         levels,
-        SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
+        SupportLimits::new(
+            crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        ),
         terraced(),
     )
     .unwrap_err();
     assert_eq!(error.property_id, CityPropertyId(1238));
-    assert_eq!(error.member_building_ids, [1238, 17622]);
+    assert_eq!(
+        error.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
     assert_eq!(error.constraint, SupportConstraint::AccessGrade);
     assert_eq!(error.boundary, SupportBoundary::GateLanding);
-    assert_eq!(error.measured, 1.0);
-    assert!((error.permitted - 0.455).abs() < 0.001);
-    assert!((error.shortfall - 0.545).abs() < 0.001);
+    assert_eq!(error.violation.actual_value(), 1.0);
+    assert!((error.violation.limit_value() - 0.455).abs() < 0.001);
+    assert!((error.violation.discrepancy_value() - 0.545).abs() < 0.001);
     assert!(
         error
             .location_metres
-            .distance(fixture.property.access[0].start_metres)
+            .attempted_metres()
+            .distance(fixture.property.access[0].start_metres())
             < 0.401
     );
 }
@@ -388,18 +515,29 @@ fn intentionally_invalid_gate_approach_reports_exact_identity_location_and_short
 #[test]
 fn missing_exact_threshold_binding_is_rejected_instead_of_selecting_a_nearby_route() {
     let mut fixture = Fixture::load();
-    fixture.levels.front.court_threshold_metres += Vec2::X;
+    fixture.levels.front.court_threshold_metres = fixture
+        .levels
+        .front
+        .court_threshold_metres
+        .translated(crate::scene_coordinates::PlanDisplacement::try_from(Vec2::X).unwrap())
+        .unwrap();
     let error = CompoundSupportPlan::compile(
         &fixture.property,
         fixture.levels,
-        SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
+        SupportLimits::new(
+            crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        ),
         terraced(),
     )
     .unwrap_err();
     assert_eq!(error.constraint, SupportConstraint::ThresholdBinding);
     assert_eq!(
-        error.location_metres,
-        fixture.levels.front.court_threshold_metres
+        error.location_metres.attempted_metres(),
+        fixture.levels.front.court_threshold_metres.metres()
     );
 }
 
@@ -407,7 +545,7 @@ fn missing_exact_threshold_binding_is_rejected_instead_of_selecting_a_nearby_rou
 fn a_cut_fill_shortfall_does_not_enlarge_the_property_reservation() {
     let fixture = Fixture::load();
     let plan = fixture.plan(terraced());
-    let point = fixture.property.court.centre_metres;
+    let point = fixture.property.court.centre_metres();
     let height = plan
         .elevations_at(crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap())
         .iter()
@@ -421,14 +559,14 @@ fn a_cut_fill_shortfall_does_not_enlarge_the_property_reservation() {
         .unwrap_err();
     assert_eq!(error.constraint, SupportConstraint::CutFill);
     assert_eq!(error.boundary, SupportBoundary::GeographicSurface);
-    assert!((error.measured - 6.2).abs() < 0.001);
-    assert_eq!(error.permitted, 6.0);
-    assert!((error.shortfall - 0.2).abs() < 0.001);
+    assert!((error.violation.actual_value() - 6.2).abs() < 0.001);
+    assert_eq!(error.violation.limit_value(), 6.0);
+    assert!((error.violation.discrepancy_value() - 0.2).abs() < 0.001);
     assert_eq!(plan.reservation(), fixture.property.plot);
     assert!(
         plan.elevations_at(
             crate::scene_coordinates::ScenePlanPoint::from_metres(
-                fixture.property.plot.centre_metres + Vec2::splat(100.0)
+                fixture.property.plot.centre_metres() + Vec2::splat(100.0)
             )
             .unwrap()
         )
@@ -539,25 +677,45 @@ fn a_complete_bearing_rejects_an_interior_ramp_even_when_its_corners_are_level()
     let x = fixture
         .property
         .plot
-        .orientation
-        .world_to_local(contact.centre_metres - fixture.property.plot.centre_metres)
+        .orientation()
+        .world_to_local(contact.centre_metres() - fixture.property.plot.centre_metres())
         .x;
-    contact.centre_metres = fixture.property.plot.centre_metres
-        + fixture
-            .property
-            .plot
-            .orientation
-            .local_to_world(Vec2::new(x, 0.0));
-    contact.dimensions_metres.y = 30.0;
+    contact
+        .relocate(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                fixture.property.plot.centre_metres()
+                    + fixture
+                        .property
+                        .plot
+                        .orientation()
+                        .local_to_world(Vec2::new(x, 0.0)),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+    contact
+        .resize(
+            adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                bevy::math::Vec2::new(contact.dimensions_metres().x, 30.0),
+            )
+            .unwrap(),
+        )
+        .unwrap();
     let error = CompoundSupportPlan::compile(
         &fixture.property,
         fixture.levels,
-        SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
+        SupportLimits::new(
+            crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        ),
         terraced(),
     )
     .unwrap_err();
     assert_eq!(error.constraint, SupportConstraint::Bearing);
-    assert!(error.measured > 0.99);
+    assert!(error.violation.actual_value() > 0.99);
 }
 
 #[test]
@@ -575,11 +733,11 @@ fn a_terraced_court_has_level_open_ground_and_narrow_discrete_stairs() {
     }
     for x in [-4.0, 2.0] {
         for z in [3.0, 4.0, 5.0, 6.0, 7.0] {
-            let point = fixture.property.plot.centre_metres
+            let point = fixture.property.plot.centre_metres()
                 + fixture
                     .property
                     .plot
-                    .orientation
+                    .orientation()
                     .local_to_world(Vec2::new(x, z));
             assert!(
                 plan.mesh()
@@ -599,25 +757,44 @@ fn a_terraced_court_has_level_open_ground_and_narrow_discrete_stairs() {
 #[test]
 fn stair_run_failure_reports_the_required_going_without_changing_floor_levels() {
     let fixture = Fixture::load();
-    let treatment =
-        CourtTreatment::Terraced(CourtStairLimits::new(0.19, 0.35, 1.0, 0.5, 0.5).unwrap());
+    let treatment = CourtTreatment::Terraced(CourtStairLimits::new(
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.19)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.35)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.0)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+            .unwrap(),
+    ));
     let error = CompoundSupportPlan::compile(
         &fixture.property,
         fixture.levels,
-        SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
+        SupportLimits::new(
+            crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        ),
         treatment,
     )
     .unwrap_err();
     assert_eq!(error.constraint, SupportConstraint::StairGoing);
-    assert_eq!(error.unit, SupportDiagnosticUnit::Metres);
+    assert_eq!(error.violation.unit(), SupportDiagnosticUnit::Metres);
     assert_eq!(
-        error.attempted_treatment,
+        *error.attempted_treatment,
         SupportGradingAttempt::Compound(treatment)
     );
-    assert!((error.measured - 2.8).abs() < 0.001);
-    assert!((error.permitted - 2.060).abs() < 0.001);
-    assert!((error.shortfall - 0.740).abs() < 0.001);
-    assert_eq!(error.member_building_ids, [1238, 17622]);
+    assert!((error.violation.actual_value() - 2.8).abs() < 0.001);
+    assert!((error.violation.limit_value() - 2.060).abs() < 0.001);
+    assert!((error.violation.discrepancy_value() - 0.740).abs() < 0.001);
+    assert_eq!(
+        error.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
 }
 
 #[test]
@@ -628,39 +805,67 @@ fn full_landing_failure_reports_the_old_floor_constraints_without_relaxing_grade
     let error = CompoundSupportPlan::compile(
         &fixture.property,
         fixture.levels,
-        SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
+        SupportLimits::new(
+            crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        ),
         terraced(),
     )
     .unwrap_err();
     assert_eq!(error.constraint, SupportConstraint::AccessGrade);
-    assert_eq!(error.member_building_ids, [1238, 17622]);
-    assert!((error.measured - 1.469_004).abs() < 0.001);
-    assert!((error.permitted - 1.339).abs() < 0.001);
-    assert!((error.shortfall - 0.130_004).abs() < 0.001);
-    assert_eq!(error.unit, SupportDiagnosticUnit::Metres);
+    assert_eq!(
+        error.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
+    assert!((error.violation.actual_value() - 1.469_004).abs() < 0.001);
+    assert!((error.violation.limit_value() - 1.339).abs() < 0.001);
+    assert!((error.violation.discrepancy_value() - 0.130_004).abs() < 0.001);
+    assert_eq!(error.violation.unit(), SupportDiagnosticUnit::Metres);
 }
 
 #[test]
 fn insufficient_stair_width_reports_its_reserved_boundary_instead_of_clipping() {
     let fixture = Fixture::load();
-    let treatment =
-        CourtTreatment::Terraced(CourtStairLimits::new(0.19, 0.25, 20.0, 0.5, 0.5).unwrap());
+    let treatment = CourtTreatment::Terraced(CourtStairLimits::new(
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.19)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.25)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(20.0)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+            .unwrap(),
+    ));
     let error = CompoundSupportPlan::compile(
         &fixture.property,
         fixture.levels,
-        SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
+        SupportLimits::new(
+            crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        ),
         treatment,
     )
     .unwrap_err();
     assert_eq!(error.constraint, SupportConstraint::StairClearance);
     assert_eq!(error.boundary, SupportBoundary::PropertyReservation);
     assert_eq!(error.property_id, CityPropertyId(1238));
-    assert_eq!(error.member_building_ids, [1238, 17622]);
-    assert_eq!(error.permitted, 0.0);
-    assert!(error.shortfall > 1.0);
-    assert_eq!(error.unit, SupportDiagnosticUnit::Metres);
     assert_eq!(
-        error.attempted_treatment,
+        error.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
+    assert_eq!(error.violation.limit_value(), 0.0);
+    assert!(error.violation.discrepancy_value() > 1.0);
+    assert_eq!(error.violation.unit(), SupportDiagnosticUnit::Metres);
+    assert_eq!(
+        *error.attempted_treatment,
         SupportGradingAttempt::Compound(treatment)
     );
 }

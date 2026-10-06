@@ -214,8 +214,8 @@ impl SettlementBuildingDemand {
                     });
                     break;
                 }
-                let capacity =
-                    range.sample(CAPACITY_DOMAIN.seed(seed, &[usage as u64, u64::from(ordinal)]));
+                let capacity = range
+                    .sample(CAPACITY_DOMAIN.seed(seed.into(), &[usage as u64, u64::from(ordinal)]));
                 plan.buildings.push(BuildingDemand::Service {
                     usage,
                     ordinal,

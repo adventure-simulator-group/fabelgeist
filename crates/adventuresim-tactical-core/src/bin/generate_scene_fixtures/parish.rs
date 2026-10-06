@@ -22,7 +22,10 @@ fn open_yard(_: f32, _: f32) -> EnvironmentalSample {
     sample(TacticalSurface::Open, 0, 0, 0, 0)
 }
 
-pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
+pub(super) fn buildings() -> Result<
+    Vec<TacticalBuildingPlacement>,
+    adventuresim_building_generator::spatial_geometry::GeometryError,
+> {
     [BuildingUse::Chapel, BuildingUse::ParishChurch]
         .into_iter()
         .enumerate()
@@ -34,17 +37,25 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
             ]
             .into_iter()
             .enumerate()
-            .map(move |(column, size)| TacticalBuildingPlacement {
-                base_elevation_metres: 0.0,
-                id: (row * 3 + column + 1) as u64,
-                program: BuildingProgram::settlement(
-                    BuildingArchetype::ParishChurch,
-                    Some(usage),
-                    42,
-                )
-                .with_service_size(size),
-                centre_metres: Vec2::new((column as f32 - 1.0) * 60.0, 45.0 - row as f32 * 90.0),
-                orientation: BuildingOrientation::from_radians(-std::f32::consts::PI).unwrap(),
+            .map(move |(column, size)| {
+                Ok(TacticalBuildingPlacement {
+                    base_elevation_metres:
+                        adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+                    id: adventuresim_tactical_core::scene_input::SceneBuildingId(
+                        (row * 3 + column + 1) as u64,
+                    ),
+                    program: BuildingProgram::settlement(
+                        BuildingArchetype::ParishChurch,
+                        Some(usage),
+                        42,
+                    )
+                    .with_service_size(size),
+                    centre_metres:
+                        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                            Vec2::new((column as f32 - 1.0) * 60.0, 45.0 - row as f32 * 90.0),
+                        )?,
+                    orientation: BuildingOrientation::from_radians(-std::f32::consts::PI).unwrap(),
+                })
             })
         })
         .collect()

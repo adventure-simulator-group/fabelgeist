@@ -43,7 +43,7 @@ pub(super) fn select_species(hash: u64, habitat: UnderstoryHabitat) -> Understor
         (weight * f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)).round() as u64
     });
     let index = streams::SPECIES
-        .rng(hash, &[])
+        .rng(hash.into(), &[])
         .weighted_index(&weights)
         .expect("habitat base weights are positive and bounded");
     [
@@ -61,7 +61,7 @@ fn community_hash(base_seed: u64, x: i32, z: i32) -> u64 {
     let community_z = z.div_euclid(4);
     streams::COMMUNITY
         .seed(
-            base_seed,
+            base_seed.into(),
             &[community_x as u32 as u64, community_z as u32 as u64],
         )
         .to_u64()
@@ -72,7 +72,7 @@ fn community_density_multiplier(hash: u64) -> f32 {
     // Dense cores, loose margins, and mostly open cells keep shrubs from
     // reading as evenly-spaced miniature trees across the whole landscape.
     let structure = streams::COMMUNITY_STRUCTURE
-        .rng(hash, &[])
+        .rng(hash.into(), &[])
         .inclusive_unit_f32();
     if structure < 0.25 {
         2.5
@@ -127,15 +127,15 @@ pub(super) fn placements(
     for z in 0..count_z {
         for x in 0..count_x {
             let hash = streams::SPECIMEN
-                .seed(base_seed, &[x as u32 as u64, z as u32 as u64])
+                .seed(base_seed.into(), &[x as u32 as u64, z as u32 as u64])
                 .to_u64();
             let community = community_hash(base_seed, x, z);
             let local_chance = (chance * community_density_multiplier(community)).min(0.82);
-            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= local_chance {
+            if streams::PRESENCE.rng(hash.into(), &[]).inclusive_unit_f32() >= local_chance {
                 continue;
             }
-            let jitter_x = streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5;
-            let jitter_z = streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5;
+            let jitter_x = streams::JITTER_X.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5;
+            let jitter_z = streams::JITTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5;
             let world_x = -half_x + (x as f32 + 0.5 + jitter_x * 0.72) * spacing;
             let world_z = -half_z + (z as f32 + 0.5 + jitter_z * 0.72) * spacing;
             let species = select_species(community, habitat);
@@ -193,8 +193,9 @@ mod tests {
         let mut open = 0;
         let mut mean = 0.0;
         for cell in 0..4_096_u64 {
-            let multiplier =
-                community_density_multiplier(streams::TEST_COMMUNITY.seed(cell, &[]).to_u64());
+            let multiplier = community_density_multiplier(
+                streams::TEST_COMMUNITY.seed(cell.into(), &[]).to_u64(),
+            );
             dense += usize::from(multiplier > 2.0);
             open += usize::from(multiplier < 0.2);
             mean += multiplier;
@@ -210,8 +211,10 @@ mod tests {
         let count = |habitat, species| {
             (0..4_096_u64)
                 .filter(|seed| {
-                    select_species(streams::TEST_SPECIES.seed(*seed, &[]).to_u64(), habitat)
-                        == species
+                    select_species(
+                        streams::TEST_SPECIES.seed((*seed).into(), &[]).to_u64(),
+                        habitat,
+                    ) == species
                 })
                 .count()
         };

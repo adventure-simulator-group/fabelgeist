@@ -82,9 +82,7 @@ pub(crate) fn spawn_generated_buildings(
         let mut entity = commands.spawn((
             Name::new(format!("Tactical building {}", building.placement.id)),
             SceneBuilding {
-                id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
-                    building.placement.id,
-                ),
+                id: building.placement.id,
                 program: building.placement.program,
                 orientation: building.placement.orientation,
             },

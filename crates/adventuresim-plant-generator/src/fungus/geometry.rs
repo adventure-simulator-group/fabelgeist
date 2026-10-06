@@ -80,7 +80,7 @@ pub(super) fn generate(p: &FungusParameters, seed: u64, detail: PlantLod) -> Pla
     let profile = Profile {
         p,
         phase: StreamId::new("plant.fungus.phase")
-            .rng(seed, &[])
+            .rng(seed.into(), &[])
             .unit_f32()
             * TAU,
     };
@@ -156,12 +156,12 @@ fn ornaments(mesh: &mut PlantMesh, profile: &Profile, seed: u64, detail: PlantLo
         let angle = source_index as f32 * GOLDEN_ANGLE
             + profile.phase
             + StreamId::new("plant.fungus.ornament-angle")
-                .rng(seed, &[source_index as u64])
+                .rng(seed.into(), &[source_index as u64])
                 .unit_f32()
                 * 0.3;
         let scale = 0.7
             + StreamId::new("plant.fungus.ornament-scale")
-                .rng(seed, &[source_index as u64])
+                .rng(seed.into(), &[source_index as u64])
                 .unit_f32()
                 * 0.6;
         let (point, normal) = attachment::cap(profile, detail, r, angle);

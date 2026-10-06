@@ -188,12 +188,12 @@ fn weather_material(
     let bearing = f32::from(environment.weather.atmosphere.wind_direction_degrees).to_radians();
     let seed = StreamId::new("visual.weather.interval")
         .seed(
-            stable_text_seed(&environment.scene_digest),
+            stable_text_seed(&environment.scene_digest).into(),
             &[environment.weather.interval_start_minute.get()],
         )
         .to_u64();
     let seed = StreamId::new("visual.weather.shader-seed")
-        .rng(seed, &[])
+        .rng(seed.into(), &[])
         .index(65_521) as f32;
     let radius = match layer {
         WeatherParticle::Impact => 18.0,
@@ -227,10 +227,10 @@ fn weather_particle_mesh(capacity: usize) -> Mesh {
     const QUAD_CORNERS: [[f32; 2]; 4] = [[-1.0, -1.0], [1.0, -1.0], [1.0, 1.0], [-1.0, 1.0]];
     for index in 0..capacity {
         let seed_a = StreamId::new("visual.weather.particle-primary")
-            .rng(0, &[index as u64])
+            .rng(0.into(), &[index as u64])
             .inclusive_unit_f32();
         let seed_b = StreamId::new("visual.weather.particle-secondary")
-            .rng(0, &[index as u64])
+            .rng(0.into(), &[index as u64])
             .inclusive_unit_f32();
         let rank = (index as f32 + 0.5) / capacity as f32;
         let base = positions.len() as u32;

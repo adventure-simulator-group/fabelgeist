@@ -3,7 +3,10 @@ use bevy::math::{FloatExt, IVec2, Vec2};
 
 fn lattice_value(seed: u64, cell: IVec2) -> f32 {
     adventuresim_tactical_core::terrain_streams::GROUND_MASK_LATTICE
-        .rng(seed, &[i64::from(cell.x) as u64, i64::from(cell.y) as u64])
+        .rng(
+            seed.into(),
+            &[i64::from(cell.x) as u64, i64::from(cell.y) as u64],
+        )
         .inclusive_unit_f32()
 }
 

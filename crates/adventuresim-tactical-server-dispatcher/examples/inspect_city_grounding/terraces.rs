@@ -35,7 +35,7 @@ pub(super) fn compare(
     let Some(rear_run) = stairs.available_run_metres(rear_route) else {
         return Ok(None);
     };
-    let Some(court_source) = terrain_height(compound.court.centre_metres) else {
+    let Some(court_source) = terrain_height(compound.court.centre_metres()) else {
         return Ok(None);
     };
     let Some(rear_source) = terrain_height(rear_threshold) else {

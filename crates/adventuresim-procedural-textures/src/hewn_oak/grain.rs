@@ -238,7 +238,7 @@ fn anatomical_marks(
                     iy,
                     cells[0],
                     cells[1],
-                    purpose.seed(field_seed, &[]).to_u64(),
+                    purpose.seed(field_seed.into(), &[]).to_u64(),
                 )
             };
             if random(streams::MARK_PRESENCE) < 1.0 - params.hewn_oak_grain.anatomical_mark_density

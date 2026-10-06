@@ -48,7 +48,7 @@ fn capture_drive(mut walkers: Query<(&LinearVelocity, &mut LastDriveVelocity)>) 
 
 impl Walker {
     fn on_surface(mesh: &PropertySupportMesh, start: Vec2, elevation: f32) -> Self {
-        Self::on_collider(mesh.collider(), start, elevation)
+        Self::on_collider(mesh.collider().unwrap(), start, elevation)
     }
 
     fn on_collider(surface: Collider, start: Vec2, elevation: f32) -> Self {
@@ -197,8 +197,7 @@ impl Walker {
                 .iter()
                 .find(|m| m.building_id == placement.id)
                 .unwrap()
-                .elevation
-                .metres();
+                .elevation;
             let recipe = GeneratedBuildingRecipe::generate(placement.program.clone()).unwrap();
             let building = GeneratedBuilding {
                 placement,
@@ -207,7 +206,7 @@ impl Walker {
             };
             self.app.world_mut().spawn((
                 crate::scene_input::SceneBuilding {
-                    id: crate::scene_input::SceneBuildingId::from(building.placement.id),
+                    id: building.placement.id,
                     program: building.placement.program.clone(),
                     orientation: building.placement.orientation,
                 },
@@ -417,14 +416,14 @@ fn pedestrian_control_traverses_the_same_compound_on_a_level_court() {
         .property
         .access
         .iter()
-        .find(|route| route.ends_at(member.court_threshold_metres))
+        .find(|route| route.ends_at(member.court_threshold_metres.metres()))
         .unwrap();
     let mut walker = Walker::on_surface(
         &plan.mesh().unwrap(),
-        route.start_metres,
+        route.start_metres(),
         plan.court_elevation().metres(),
     );
-    walker.walk_to(route.end_metres);
+    walker.walk_to(route.end_metres());
 }
 
 #[test]
@@ -437,11 +436,11 @@ fn goslar_1238_pedestrian_traverses_both_court_stairs_without_jumping() {
             .property
             .access
             .iter()
-            .find(|route| route.ends_at(member.court_threshold_metres))
+            .find(|route| route.ends_at(member.court_threshold_metres.metres()))
             .unwrap();
         let mut walker =
-            Walker::on_surface(&mesh, route.start_metres, plan.court_elevation().metres());
-        let arrived = walker.walk_to(route.end_metres);
+            Walker::on_surface(&mesh, route.start_metres(), plan.court_elevation().metres());
+        let arrived = walker.walk_to(route.end_metres());
         let bottom = 0.95;
         assert!(
             (arrived.y - bottom - member.elevation.metres()).abs() < 0.08,
@@ -450,7 +449,7 @@ fn goslar_1238_pedestrian_traverses_both_court_stairs_without_jumping() {
             member.elevation.metres(),
             arrived.y - bottom
         );
-        walker.walk_to(route.start_metres);
+        walker.walk_to(route.start_metres());
     }
 }
 
@@ -469,14 +468,14 @@ fn goslar_1238_pedestrian_traverses_closed_foundations_without_jumping() {
             .property
             .access
             .iter()
-            .find(|r| r.ends_at(member.court_threshold_metres))
+            .find(|r| r.ends_at(member.court_threshold_metres.metres()))
             .unwrap();
         let mut walker = Walker::on_collider(
-            foundation.collider(),
-            route.start_metres,
+            foundation.collider().unwrap().into_solid().unwrap(),
+            route.start_metres(),
             plan.court_elevation().metres(),
         );
-        let arrived = walker.walk_to(route.end_metres);
+        let arrived = walker.walk_to(route.end_metres());
         assert!(
             (arrived.y - 0.95 - member.elevation.metres()).abs() < 0.08,
             "foundation member {}, floor {}, feet {}, arrived {arrived:?}",
@@ -484,7 +483,7 @@ fn goslar_1238_pedestrian_traverses_closed_foundations_without_jumping() {
             member.elevation.metres(),
             arrived.y - 0.95,
         );
-        walker.walk_to(route.start_metres);
+        walker.walk_to(route.start_metres());
     }
 }
 
@@ -515,21 +514,30 @@ fn traverse_court(fixture: &Fixture) {
         .find(|r| r.contains_centreline(fixture.property.boundary.gate.centre_metres))
         .unwrap();
     let mut walker = Walker::on_colliders(
-        terrain.colliders(),
-        passage.start_metres,
+        terrain.colliders().unwrap(),
+        passage.start_metres(),
         plan.levels.street.metres(),
     );
     walker.install_property_buildings(&plan, fixture);
-    let (boundary, gate) = crate::city_layout::grounding::BoundarySupportMesh::project(
+    let crate::city_layout::grounding::BoundarySupportProjection {
+        mesh: boundary,
+        gate_elevation: gate,
+    } = crate::city_layout::grounding::BoundarySupportMesh::project(
         &fixture.property,
-        &terrain.foundations[0],
-        SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
+        &terrain.foundations()[0],
+        SupportLimits::new(
+            crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        ),
         FoundationEmbedment::from_metres(0.2).unwrap(),
     )
     .unwrap();
     walker.app.world_mut().spawn((
         RigidBody::Static,
-        boundary.collider(),
+        boundary.collider().unwrap().into_solid().unwrap(),
         Transform::from_xyz(0.0, gate.metres(), 0.0),
     ));
     let door = fixture
@@ -553,16 +561,16 @@ fn traverse_court(fixture: &Fixture) {
             .with_rotation(rotation * Quat::from_rotation_y(door.closed_yaw_radians.radians())),
     ));
     walker.walk_to(fixture.property.boundary.gate.centre_metres);
-    walker.walk_to(passage.end_metres);
+    walker.walk_to(passage.end_metres());
     for member in plan.member_support() {
         let route = fixture
             .property
             .access
             .iter()
-            .find(|r| r.ends_at(member.court_threshold_metres))
+            .find(|r| r.ends_at(member.court_threshold_metres.metres()))
             .unwrap();
-        walker.walk_to(route.start_metres);
-        let arrived = walker.walk_to(route.end_metres);
+        walker.walk_to(route.start_metres());
+        let arrived = walker.walk_to(route.end_metres());
         assert!(
             (arrived.y - 0.95 - member.elevation.metres()).abs() < 0.08,
             "geographic member {}, floor {}, feet {}",
@@ -570,11 +578,11 @@ fn traverse_court(fixture: &Fixture) {
             member.elevation.metres(),
             arrived.y - 0.95
         );
-        walker.walk_to(route.start_metres);
+        walker.walk_to(route.start_metres());
     }
-    walker.walk_to(passage.end_metres);
+    walker.walk_to(passage.end_metres());
     walker.walk_to(fixture.property.boundary.gate.centre_metres);
-    walker.walk_to(passage.start_metres);
+    walker.walk_to(passage.start_metres());
 }
 
 #[test]
@@ -592,17 +600,17 @@ fn a_surface_only_door_landing_does_not_count_as_usable_architectural_access() {
         .property
         .access
         .iter()
-        .find(|r| r.ends_at(rear.court_threshold_metres))
+        .find(|r| r.ends_at(rear.court_threshold_metres.metres()))
         .unwrap();
     let mut walker = Walker::on_colliders(
-        terrain.colliders(),
-        route.start_metres,
+        terrain.colliders().unwrap(),
+        route.start_metres(),
         plan.court_elevation().metres(),
     );
     walker.install_property_buildings(&plan, &fixture);
-    let stopped = walker.attempt_walk_to(route.end_metres);
+    let stopped = walker.attempt_walk_to(route.end_metres());
     assert!(
-        stopped.xz().distance(route.end_metres) > 0.2,
+        stopped.xz().distance(route.end_metres()) > 0.2,
         "undersized landing unexpectedly permits doorway entry: {stopped:?}"
     );
     assert!(stopped.y - 0.95 - rear.elevation.metres() > 0.1);
@@ -648,16 +656,19 @@ fn traverse_street(fixture: &Fixture) {
     .unwrap();
     let value = &fixture.document;
     let threshold: Vec2 = serde_json::from_value(value["front_street_threshold"].clone()).unwrap();
-    let outward = fixture.property.plot.orientation.local_to_world(-Vec2::Y);
+    let outward = fixture.property.plot.orientation().local_to_world(-Vec2::Y);
     let external_run = value["doorway_solution"]["street_entry_apron"]["dimensions_metres"][1]
         .as_f64()
         .unwrap() as f32;
     let street = threshold + outward * (external_run + 2.0);
     let inside = threshold - outward * 0.65;
     let mut walker = Walker::on_colliders(
-        terrain.colliders(),
+        terrain.colliders().unwrap(),
         street,
-        source.elevation_at(street).unwrap().metres(),
+        source
+            .elevation_at(crate::scene_coordinates::ScenePlanPoint::try_from(street).unwrap())
+            .unwrap()
+            .metres(),
     );
     walker.install_property_buildings(&plan, fixture);
     let entered = walker.walk_to(inside);

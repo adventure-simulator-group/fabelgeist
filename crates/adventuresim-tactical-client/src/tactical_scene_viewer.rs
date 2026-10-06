@@ -1763,12 +1763,12 @@ fn setup_scene(
     let city_half_extent_metres = input
         .buildings
         .iter()
-        .map(|building| building.centre_metres.abs().max_element())
+        .map(|building| building.centre_metres.metres().abs().max_element())
         .chain(
             input
                 .distant_buildings
                 .iter()
-                .map(|building| building.centre_metres.abs().max_element()),
+                .map(|building| building.centre_metres.metres().abs().max_element()),
         )
         .fold(0.0, f32::max);
     let mut expected_trees = 0;
@@ -1896,7 +1896,8 @@ fn setup_scene(
         obstacle_count += 1;
         let yaw = match kind {
             SceneObstacle::Rock(recipe) => {
-                (recipe.seed >> 40) as f32 / ((1_u32 << 24) - 1) as f32 * core::f32::consts::TAU
+                (recipe.seed.to_u64() >> 40) as f32 / ((1_u32 << 24) - 1) as f32
+                    * core::f32::consts::TAU
             }
             SceneObstacle::Tree => 0.0,
         };
@@ -2137,7 +2138,7 @@ fn setup_scene(
         ground,
         terrain,
         terrain_patch.as_ref(),
-    );
+    )?;
     commands.trigger(SceneVistaBundle {
         properties: input.properties.clone(),
         scene_digest: digest.clone(),
@@ -2161,10 +2162,10 @@ fn setup_scene(
         input_path,
         output,
         digest,
-        seed: input.seed,
+        seed: input.seed.to_u64(),
         absolute_minute,
-        latitude_microdegrees,
-        longitude_microdegrees,
+        latitude_microdegrees: latitude_microdegrees.get(),
+        longitude_microdegrees: longitude_microdegrees.get(),
         canopy_bps,
         generation_version: input.generation_version,
         scene_source: input.source,

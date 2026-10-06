@@ -45,7 +45,7 @@ struct Request {
 #[derive(Deserialize)]
 struct TerrainStages {
     input_digest: String,
-    source_digest: String,
+    source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest,
     ungraded_vista: adventuresim_tactical_core::scene_input::VistaSample,
 }
 
@@ -113,12 +113,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let enclosures = contacts::measure_enclosures(&input, &graded.terrain)?;
     let contacts = request
         .collision_probes
-        .then(|| contacts::CornerSupportProbe::new(&graded.terrain));
+        .then(|| contacts::CornerSupportProbe::new(&graded.terrain))
+        .transpose()?;
     let buildings = request.selected_building_reports(&input, &sources, contacts.as_ref())?;
     let presented =
         GeographicSurface::from_presented_scene(&natural.terrain, &stages.ungraded_vista)
             .ok_or("complete source presentation is invalid")?;
-    let garden_measurements = gardens::measure(&input, &presented, &graded.terrain);
+    let garden_measurements = gardens::measure(&input, &presented, &graded.terrain)?;
     let report: Value = json!({"input_digest":stages.input_digest,"source_digest":stages.source_digest,
         "seed":input.seed,"absolute_minute":input.absolute_minute,"schema":input.schema_version,
         "generation":input.generation_version,"vista_spacing_metres":lod.spacing_metres,
@@ -152,8 +153,9 @@ fn inspect_building(
         .ground_floor_footprint()?
         .ok_or("missing actual floor contact")?;
     let origin = collision.bounds.centre()?.metres().xz();
-    let project =
-        |p: Vec2| placement.centre_metres + placement.orientation.local_to_world(p - origin);
+    let project = |p: Vec2| {
+        placement.centre_metres.metres() + placement.orientation.local_to_world(p - origin)
+    };
     let projection =
         adventuresim_tactical_core::scene_coordinates::ArchitecturalPlanProjection::from_placement(
             placement,
@@ -170,15 +172,15 @@ fn inspect_building(
         .map(|point| point.metres())
         .collect();
     let thresholds: Vec<_> = compile_ground_entrances(&plan)?.into_iter().map(|entry| {
-            let position = project(entry.threshold_metres.metres());
-            json!({"entrance": entry.id, "support":entry.support, "position_metres":position,
+            let position = adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(project(entry.threshold_metres.metres()))?;
+            Ok(json!({"entrance": entry.id, "support":entry.support, "position_metres":position,
                 "elevations":sources.iter().map(|source| (source.role.output_name(), source.surface.elevation_at(position)
-                    .map(SupportElevation::metres))).collect::<std::collections::BTreeMap<_,_>>()})
-        }).collect();
+                    .map(SupportElevation::metres))).collect::<std::collections::BTreeMap<_,_>>()}))
+        }).collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
     let ranges: Vec<_> = sources
         .iter()
         .map(|source| {
-            let range = source.surface.height_range_in_outline(&outline);
+            let range = source.surface.height_range_in_outline(&scene_outline);
             json!({"source":source.role.output_name(),"minimum":range.map(|r|(r.minimum.point.metres(),r.minimum.elevation.metres())),
                 "maximum":range.map(|r|(r.maximum.point.metres(),r.maximum.elevation.metres()))})
         })
@@ -206,17 +208,17 @@ fn inspect_building(
         let first = comparison.first.source(sources);
         let second = comparison.second.source(sources);
         json!({"first":comparison.first.output_name(), "second":comparison.second.output_name(),
-            "complete_triangle_overlay":first.compare_in_outline(second, &outline)})
+            "complete_triangle_overlay":first.compare_in_outline(second, &scene_outline)})
     })
     .collect();
-    let floor = SupportElevation::from_metres(placement.base_elevation_metres)
+    let floor = SupportElevation::from_metres(placement.base_elevation_metres.metres())
         .ok_or(adventuresim_building_generator::plan_geometry::PlanGeometryError::NonFinite)?;
     let corner_support = contacts
         .map(|probe| probe.measure(&scene_outline, floor))
         .transpose()?;
     Ok(json!({"building_id":placement.id,
             "property_id":input.properties.as_ref().and_then(|catalog|catalog.homes.iter()
-                .find(|home|home.building_id==placement.id).map(|home|&home.id)),
+                .find(|home|home.building_id==placement.id.0).map(|home|&home.id)),
             "placement":placement,"actual_bearing_outline_metres":outline,
             "ranges":ranges,"comparisons":comparisons,"thresholds":thresholds,
             "corner_support":corner_support}))
@@ -320,7 +322,7 @@ impl Request {
     ) -> Result<Vec<Value>, Box<dyn std::error::Error>> {
         let mut buildings = Vec::new();
         for placement in &input.buildings {
-            if !self.building_id.is_empty() && !self.building_id.contains(&placement.id) {
+            if !self.building_id.is_empty() && !self.building_id.contains(&placement.id.0) {
                 continue;
             }
             buildings.push(inspect_building(input, placement, sources, contacts)?);
@@ -329,7 +331,7 @@ impl Request {
             || self
                 .building_id
                 .iter()
-                .any(|id| !input.buildings.iter().any(|building| building.id == *id))
+                .any(|id| !input.buildings.iter().any(|building| building.id.0 == *id))
         {
             return Err("requested exact playable building is absent".into());
         }

@@ -423,9 +423,13 @@ impl TuftPlacement for ScenePlacement<'_> {
     }
 
     fn height(&self, centre: Vec2) -> Option<f32> {
-        let hit = self
-            .terrain
-            .surface_below(Vec3::new(centre.x, f32::INFINITY, centre.y))?;
+        let hit = self.terrain.surface_below(
+            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                    bevy::math::Vec2::new(centre.x, centre.y),
+                )?,
+            ),
+        )?;
         (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation.metres())
     }
 
@@ -468,7 +472,7 @@ pub(in crate::presentation) fn scatter_cell_tufts(
     for z in minimum.y..=maximum.y {
         for x in minimum.x..=maximum.x {
             let cell_hash = streams::CELL
-                .seed(base_seed, &[x as u32 as u64, z as u32 as u64])
+                .seed(base_seed.into(), &[x as u32 as u64, z as u32 as u64])
                 .to_u64();
             if !placement.cell_allows(
                 cell_hash,
@@ -483,7 +487,7 @@ pub(in crate::presentation) fn scatter_cell_tufts(
             for tuft_z in 0..side {
                 for tuft_x in 0..side {
                     let variation = variation::TuftVariation::new(
-                        streams::TUFT.seed(cell_hash, &[tuft_x as u64, tuft_z as u64]),
+                        streams::TUFT.seed(cell_hash.into(), &[tuft_x as u64, tuft_z as u64]),
                     );
                     let jitter = variation.jitter * footprint * 0.35;
                     let centre =

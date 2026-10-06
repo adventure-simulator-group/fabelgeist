@@ -105,7 +105,7 @@ impl CharacterProportions {
 
     /// Stable cosmetic variation; does not alter tactical physics or reach.
     pub fn from_character_id(id: u64) -> Self {
-        let mut random = SKELETAL_SEED_DOMAIN.rng(id, &[]);
+        let mut random = SKELETAL_SEED_DOMAIN.rng(id.into(), &[]);
         Self(std::array::from_fn(|index| {
             let unit = fabelgeist_determinism::inclusive_unit_f32(random.next_u64());
             (unit * 2.0 - 1.0) * BodyProportion::ALL[index].limit() * GENERATED_RANGE_FRACTION

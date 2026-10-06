@@ -173,7 +173,7 @@ async fn operators(
                         ordinal: row.business_id.key.ordinal,
                     },
                 ),
-                operator_character_id: person.id,
+                operator_character_id: adventuresim_tactical_core::player::CharacterId(person.id),
                 operator_name: RenderedPersonalName::try_from(person.name.clone())
                     .map_err(unavailable)?,
             })

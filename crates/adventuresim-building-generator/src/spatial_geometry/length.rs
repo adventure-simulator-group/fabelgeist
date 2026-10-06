@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 pub struct PositiveLength(f32);
 
 impl PositiveLength {
-    pub fn from_metres(value: f32) -> Result<Self, GeometryError> {
+    pub const fn from_metres(value: f32) -> Result<Self, GeometryError> {
         let role = GeometryRole::PositiveLength;
         let axis = CoordinateAxis::X;
         if !value.is_finite() {
@@ -25,7 +25,7 @@ impl PositiveLength {
         }
         Ok(Self(value))
     }
-    pub fn metres(self) -> f32 {
+    pub const fn metres(self) -> f32 {
         self.0
     }
 }

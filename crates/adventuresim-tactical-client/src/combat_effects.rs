@@ -194,7 +194,7 @@ fn combat_sound_seed(
     *sequence = sequence.wrapping_add(1);
     Some(
         StreamId::new("audio.combat-event")
-            .seed(character_id, &[*sequence])
+            .seed((character_id).into(), &[*sequence])
             .to_u64(),
     )
 }
@@ -220,10 +220,10 @@ fn play_impact_sound(
         u64::from(world_point.z.to_bits()),
     ];
     let variant = StreamId::new("audio.combat-variant")
-        .rng(seed, &context)
+        .rng((seed).into(), &context)
         .index(3);
     let pitch_fraction = StreamId::new("audio.combat-pitch")
-        .rng(seed, &context)
+        .rng((seed).into(), &context)
         .inclusive_unit_f32();
     let pitch = config.combat.impact_pitch_randomization;
     let speed = pitch[0] + pitch_fraction * (pitch[1] - pitch[0]);

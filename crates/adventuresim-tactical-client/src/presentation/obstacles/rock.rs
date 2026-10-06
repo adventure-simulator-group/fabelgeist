@@ -172,7 +172,7 @@ mod tests {
 
     fn recipe(seed: u64, archetype: RockArchetype) -> RockRecipe {
         RockRecipe {
-            seed,
+            seed: seed.into(),
             archetype,
             lithology: RockLithology::Granite,
             dimensions_cm: match archetype {

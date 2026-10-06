@@ -16,7 +16,10 @@ pub(super) fn fixture() -> Fixture {
     }
 }
 
-pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
+pub(super) fn buildings() -> Result<
+    Vec<TacticalBuildingPlacement>,
+    adventuresim_building_generator::spatial_geometry::GeometryError,
+> {
     [
         BuildingArchetype::TownHouse,
         BuildingArchetype::FachwerkMerchantHouse,
@@ -27,12 +30,20 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
         [42, 47, 101]
             .into_iter()
             .enumerate()
-            .map(move |(column, seed)| TacticalBuildingPlacement {
-                base_elevation_metres: 0.0,
-                id: (row * 3 + column + 1) as u64,
-                program: BuildingProgram::fixture(archetype, seed),
-                centre_metres: Vec2::new((column as f32 - 1.0) * 40.0, row as f32 * 45.0 - 22.5),
-                orientation: BuildingOrientation::IDENTITY,
+            .map(move |(column, seed)| {
+                Ok(TacticalBuildingPlacement {
+                    base_elevation_metres:
+                        adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+                    id: adventuresim_tactical_core::scene_input::SceneBuildingId(
+                        (row * 3 + column + 1) as u64,
+                    ),
+                    program: BuildingProgram::fixture(archetype, seed),
+                    centre_metres:
+                        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                            Vec2::new((column as f32 - 1.0) * 40.0, row as f32 * 45.0 - 22.5),
+                        )?,
+                    orientation: BuildingOrientation::IDENTITY,
+                })
             })
     })
     .collect()

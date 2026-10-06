@@ -299,12 +299,12 @@ fn species_index(species: UnderstorySpecies) -> usize {
 
 fn shrub_instance(hash: u64, position: Vec3) -> InstanceData {
     let yaw = StreamId::new("visual.understory.yaw")
-        .rng(hash, &[])
+        .rng(hash.into(), &[])
         .inclusive_unit_f32()
         * core::f32::consts::TAU;
     let scale = 0.72
         + StreamId::new("visual.understory.scale")
-            .rng(hash, &[])
+            .rng(hash.into(), &[])
             .inclusive_unit_f32()
             * 0.58;
     InstanceData {
@@ -312,7 +312,7 @@ fn shrub_instance(hash: u64, position: Vec3) -> InstanceData {
         scale,
         rotation: yaw,
         seed: (StreamId::new("visual.ground-scatter.instanced-understory.shader-seed")
-            .seed(hash, &[])
+            .seed(hash.into(), &[])
             .to_u64()
             & 0xffff_ffff) as u32,
         ..Default::default()

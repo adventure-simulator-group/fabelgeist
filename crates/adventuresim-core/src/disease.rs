@@ -11,6 +11,9 @@ use serde::{Deserialize, Serialize};
 pub const DISEASE_RULESET_VERSION: u16 = 1;
 pub const PHYSIOLOGY_VITALS_THRESHOLD: f32 = 2.0;
 
+mod entropy;
+pub use entropy::{contact_exposure_seed, severity_seed};
+
 mod identity;
 pub use identity::{DiseaseId, ParseDiseaseIdError};
 
@@ -1335,15 +1338,6 @@ pub struct DiseaseState {
     pub terminal_failure: Option<TerminalFailure>,
 }
 
-pub fn severity_seed(e: InfectionEpisode) -> u64 {
-    StreamId::new("disease.severity")
-        .rng(
-            e.id,
-            &[e.character_id, e.disease_id as u64, e.contracted_at.get()],
-        )
-        .next_u64()
-}
-
 pub fn outbreak_exposure_seed(character_id: u64, outbreak_id: &str) -> u64 {
     Seed::derive(
         &character_id.to_le_bytes(),
@@ -1352,18 +1346,6 @@ pub fn outbreak_exposure_seed(character_id: u64, outbreak_id: &str) -> u64 {
     )
     .rng()
     .next_u64()
-}
-
-/// Minute-specific contact draws are independent of neighboring exposures.
-pub fn contact_exposure_seed(
-    target_id: u64,
-    source_id: u64,
-    source_episode_id: u64,
-    minute: StrategicMinute,
-) -> u64 {
-    StreamId::new("disease.contact-exposure")
-        .rng(target_id, &[source_id, source_episode_id, minute.get()])
-        .next_u64()
 }
 
 /// True while an episode of the same disease remains unresolved at the
@@ -2246,7 +2228,7 @@ fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
         DiseaseId::Erysipelas => {
             let limb =
                 [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
-                    .rng(episode.id, &[])
+                    .rng(episode.id.into(), &[])
                     .index(4)];
             vec![(limb, 1.0), (Chest, 0.35)]
         }
@@ -2262,7 +2244,7 @@ fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
         DiseaseId::Plague => {
             let limb =
                 [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
-                    .rng(episode.id, &[])
+                    .rng(episode.id.into(), &[])
                     .index(4)];
             vec![(Chest, 1.0), (Abdomen, 0.75), (Head, 0.55), (limb, 0.8)]
         }
@@ -2280,7 +2262,7 @@ fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
         DiseaseId::Bilwisschuss => {
             let limb =
                 [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
-                    .rng(episode.id, &[])
+                    .rng(episode.id.into(), &[])
                     .index(4)];
             vec![(limb, 1.0), (Head, 0.3)]
         }
@@ -2313,7 +2295,7 @@ pub fn observed_symptoms(
         Symptom::Rash,
         Symptom::Trembling,
     ];
-    let mut random = StreamId::new("disease.incidental-symptoms").rng(seed_episode.id, &[]);
+    let mut random = StreamId::new("disease.incidental-symptoms").rng(seed_episode.id.into(), &[]);
     for _ in 0..2 {
         let finding = INCIDENTAL[random.index(INCIDENTAL.len())];
         if !symptoms.contains(&finding) {

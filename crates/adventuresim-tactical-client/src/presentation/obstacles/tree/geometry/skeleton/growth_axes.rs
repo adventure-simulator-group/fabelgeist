@@ -57,10 +57,10 @@ pub(super) fn append_shrub_shoots(
 ) {
     for shoot_index in 0..5_u64 {
         let shoot_seed = streams::SHRUB_SHOOT
-            .seed(branch_seed, &[shoot_index])
+            .seed(branch_seed.into(), &[shoot_index])
             .to_u64();
         let shoot_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-            purpose.rng(shoot_seed, &[]).inclusive_unit_f32()
+            purpose.rng(shoot_seed.into(), &[]).inclusive_unit_f32()
         };
         let along = 0.18 + shoot_index as f32 * 0.19;
         let shoot_start = sample_polyline(branch_points, along);
