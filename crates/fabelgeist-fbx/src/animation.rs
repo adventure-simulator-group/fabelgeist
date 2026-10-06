@@ -16,7 +16,7 @@
 //! any pre/post-rotation — because composing those is a rig question, not a
 //! container question.
 
-use crate::{Prop, Scene};
+use crate::{FbxPropertyName, Prop, Scene};
 
 /// FBX stores times as integer ticks of this many per second.
 const TICKS_PER_SECOND: f64 = 46_186_158_000.0;
@@ -206,8 +206,8 @@ impl Scene {
 
     /// The stack's declared time span, when the exporter wrote one.
     fn stack_duration(&self, stack: &crate::Object) -> Option<f64> {
-        let start = stack.node.property70("LocalStart")?;
-        let stop = stack.node.property70("LocalStop")?;
+        let start = stack.node.property70(FbxPropertyName::LOCAL_START)?;
+        let stop = stack.node.property70(FbxPropertyName::LOCAL_STOP)?;
         let start = start.props.get(4).and_then(Prop::as_i64)?;
         let stop = stop.props.get(4).and_then(Prop::as_i64)?;
         let span = ticks_to_seconds(stop) - ticks_to_seconds(start);
@@ -267,7 +267,14 @@ impl Scene {
         let mut channel = TransformChannel::default();
 
         if let Some(object) = self.get(curve_node) {
-            for (index, name) in ["d|X", "d|Y", "d|Z"].into_iter().enumerate() {
+            for (index, name) in [
+                FbxPropertyName::CURVE_X,
+                FbxPropertyName::CURVE_Y,
+                FbxPropertyName::CURVE_Z,
+            ]
+            .into_iter()
+            .enumerate()
+            {
                 if let Some(value) = object
                     .node
                     .property70(name)

@@ -13,7 +13,7 @@ use crate::math::{
     Mat4, Quat, Transform, affine_inverse, mat4_from_column_major, quat_from_euler_degrees,
     quat_mul, rotation_order,
 };
-use fabelgeist_fbx::{Object, Scene};
+use fabelgeist_fbx::{FbxPropertyName, Object, Scene};
 
 /// Momentum allows at most eight joint influences per vertex.
 pub const MAX_SKIN_JOINTS: usize = 8;
@@ -131,7 +131,12 @@ impl<'a> SkeletonBuilder<'a> {
         if object.is_null_node() {
             // Nulls are collision primitives or locators; neither is a joint.
             // A null at the top of the file is just a grouping node, so keep descending.
-            if parent.is_none() && object.node.property70("col_type").is_none() {
+            if parent.is_none()
+                && object
+                    .node
+                    .property70(FbxPropertyName::COLLISION_TYPE)
+                    .is_none()
+            {
                 for child in self.scene.children(object.id).collect::<Vec<_>>() {
                     self.visit(child, None);
                 }
@@ -143,16 +148,28 @@ impl<'a> SkeletonBuilder<'a> {
             return;
         }
 
-        let order = rotation_order(object.node.property70_i64("RotationOrder", 0));
-        let local_rotation =
-            quat_from_euler_degrees(object.node.property70_vec3("Lcl Rotation", [0.0; 3]), order);
+        let order = rotation_order(
+            object
+                .node
+                .property70_i64(FbxPropertyName::ROTATION_ORDER, 0),
+        );
+        let local_rotation = quat_from_euler_degrees(
+            object
+                .node
+                .property70_vec3(FbxPropertyName::LOCAL_ROTATION, [0.0; 3]),
+            order,
+        );
         let pre_rotation = quat_from_euler_degrees(
-            object.node.property70_vec3("PreRotation", [0.0; 3]),
+            object
+                .node
+                .property70_vec3(FbxPropertyName::PRE_ROTATION, [0.0; 3]),
             [0, 1, 2],
         );
         // momentum bakes any rest rotation into the joint's pre-rotation.
         let prerotation: Quat = quat_mul(pre_rotation, local_rotation);
-        let offset = object.node.property70_vec3("Lcl Translation", [0.0; 3]);
+        let offset = object
+            .node
+            .property70_vec3(FbxPropertyName::LOCAL_TRANSLATION, [0.0; 3]);
 
         let index = self.skeleton.len();
         self.skeleton.names.push(object.name.clone());
@@ -526,3 +543,6 @@ mod tests {
         assert!(triangulate(&[0, 1, 2]).is_err());
     }
 }
+
+#[cfg(test)]
+mod property_tests;
