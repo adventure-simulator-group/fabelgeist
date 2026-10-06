@@ -12,7 +12,7 @@ pub struct ComputeShader {
 impl ComputeShader {
     pub fn new(context: &WgpuContext, code: String) -> Result<ComputeShader> {
         // 1. Naga Parse & Deep Validation
-        let is_glsl = shader::detect_from_code(&code) == "glsl";
+        let language = shader::ShaderLanguage::from_source_text(&code);
         let naga_res = parse_naga(&code, wgpu::naga::ShaderStage::Compute)
             .map_err(|e| anyhow::anyhow!("Compute Shader Parse Error: {}", e))?;
 
@@ -33,17 +33,16 @@ impl ComputeShader {
         };
 
         // 2. Convert to WGSL for WGPU compatibility (if it was GLSL)
-        let wgsl_code = if is_glsl {
-            match wgpu::naga::back::wgsl::write_string(
+        let wgsl_code = match language {
+            shader::ShaderLanguage::Glsl => match wgpu::naga::back::wgsl::write_string(
                 &naga_res,
                 &info,
                 wgpu::naga::back::wgsl::WriterFlags::empty(),
             ) {
                 Ok(s) => s,
                 Err(e) => return Err(anyhow!("Failed to convert GLSL to WGSL: {}", e)),
-            }
-        } else {
-            code.clone()
+            },
+            shader::ShaderLanguage::Wgsl => code.clone(),
         };
 
         // 3. WGPU Validation & Creation

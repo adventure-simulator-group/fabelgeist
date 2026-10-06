@@ -1,5 +1,8 @@
 use anyhow::anyhow;
 
+mod language;
+pub use language::ShaderLanguage;
+
 #[derive(Debug, Clone)]
 pub struct UniformMember {
     pub name: String,
@@ -40,34 +43,26 @@ pub struct ReflectionData {
     pub vertex_entry_point: String,
 }
 
-pub fn detect_from_code(code: &str) -> String {
-    if code.contains("#version") {
-        return "glsl".to_string();
-    }
-    "wgsl".to_string()
-}
-
 pub fn parse_naga(
     code: &str,
     stage: wgpu::naga::ShaderStage,
 ) -> anyhow::Result<wgpu::naga::Module> {
-    let lang = detect_from_code(code);
-
-    if lang == "glsl" {
-        let mut frontend = wgpu::naga::front::glsl::Frontend::default();
-        frontend
-            .parse(
-                &wgpu::naga::front::glsl::Options {
-                    stage,
-                    defines: Default::default(),
-                },
-                code,
-            )
-            .map_err(|e| anyhow!("GLSL Parse Error: {:?}", e))
-    } else {
-        wgpu::naga::front::wgsl::parse_str(code).map_err(|e| {
+    match ShaderLanguage::from_source_text(code) {
+        ShaderLanguage::Glsl => {
+            let mut frontend = wgpu::naga::front::glsl::Frontend::default();
+            frontend
+                .parse(
+                    &wgpu::naga::front::glsl::Options {
+                        stage,
+                        defines: Default::default(),
+                    },
+                    code,
+                )
+                .map_err(|e| anyhow!("GLSL Parse Error: {:?}", e))
+        }
+        ShaderLanguage::Wgsl => wgpu::naga::front::wgsl::parse_str(code).map_err(|e| {
             let message = e.emit_to_string(code);
             anyhow!("WGSL Parse Error: {}", message)
-        })
+        }),
     }
 }
