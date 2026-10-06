@@ -62,7 +62,7 @@ async fn a_sheet_falls_and_settles_on_the_ground() -> Result<()> {
     )?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 12,
+        substeps: 12.into(),
         ..cloth.settings()
     })?;
     for _ in 0..180 {
@@ -102,7 +102,7 @@ async fn a_falling_sheet_does_not_stretch() -> Result<()> {
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 15,
+        substeps: 15.into(),
         ..cloth.settings()
     })?;
     for _ in 0..120 {
@@ -162,7 +162,7 @@ async fn a_pinned_sheet_hangs() -> Result<()> {
 
     let mut collisions = harness.collisions()?;
     let solver = harness.solver(SolverSettings {
-        substeps: 15,
+        substeps: 15.into(),
         ..cloth.settings()
     })?;
     for _ in 0..240 {
@@ -222,7 +222,7 @@ async fn bending_stiffness_changes_the_drape() -> Result<()> {
 
         let mut collisions = harness.collisions()?;
         let solver = harness.solver(SolverSettings {
-            substeps: 15,
+            substeps: 15.into(),
             ..cloth.settings()
         })?;
         for _ in 0..240 {
@@ -290,7 +290,7 @@ async fn seams_pull_panels_together() -> Result<()> {
     let mut collisions = harness.collisions()?;
     // No gravity: this is about the seams, not about falling.
     let solver = harness.solver(SolverSettings {
-        substeps: 15,
+        substeps: 15.into(),
         gravity: Vec3::default(),
         damping: 2.0,
         ..Default::default()
@@ -347,7 +347,7 @@ async fn self_collision_keeps_layers_apart() -> Result<()> {
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 15,
+        substeps: 15.into(),
         ..cloth.settings()
     })?;
     for _ in 0..240 {
@@ -400,7 +400,7 @@ async fn layers_merge_without_self_collision() -> Result<()> {
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 15,
+        substeps: 15.into(),
         ..cloth.settings()
     })?;
     for _ in 0..240 {
@@ -439,7 +439,7 @@ async fn a_sheet_drapes_over_a_sphere() -> Result<()> {
     )?;
 
     let solver = harness.solver(SolverSettings {
-        substeps: 15,
+        substeps: 15.into(),
         ..cloth.settings()
     })?;
     for _ in 0..300 {
@@ -539,7 +539,7 @@ async fn bend_scaling_grid() -> Result<()> {
                 .write(&harness.context, &mesh.positions, &inverse_masses)?;
             let mut collisions = harness.collisions()?;
             let solver = harness.solver(SolverSettings {
-                substeps: 8,
+                substeps: 8.into(),
                 ..cloth.settings()
             })?;
             for _ in 0..100 {
@@ -579,7 +579,7 @@ async fn interleaved_submission_gives_the_same_result() -> Result<()> {
             vec![Collider::ground(0.0).with_friction(0.4)],
         )?;
         let solver = harness.solver(SolverSettings {
-            substeps: 10,
+            substeps: 10.into(),
             ..cloth.settings()
         })?;
 
@@ -650,7 +650,7 @@ async fn interactive_step_blocks_a_triangle_interior_crossing() -> Result<()> {
     };
     let mut cloth = Cloth::new(&harness.context, &harness.cache, &mesh, Fabric::COTTON)?;
     let solver = harness.solver(SolverSettings {
-        substeps: 1,
+        substeps: 1.into(),
         gravity: Vec3::default(),
         damping: 0.,
         ..cloth.settings()

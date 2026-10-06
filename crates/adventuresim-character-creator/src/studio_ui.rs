@@ -406,7 +406,9 @@ fn animation(
             egui::Slider::new(&mut settings.collision_distance, 0.03..=0.3)
                 .text("Collision search distance (m)"),
         );
-        ui.add(egui::Slider::new(&mut settings.substeps, 1..=8).text("Substeps"));
+        let mut substeps = u32::from(settings.substeps);
+        ui.add(egui::Slider::new(&mut substeps, 1..=8).text("Substeps"));
+        settings.substeps = substeps.into();
         ui.add(egui::Slider::new(&mut settings.iterations, 1..=12).text("Constraint iterations"));
         ui.small("More substeps and iterations increase simulation cost.");
         if ui.button("Reset simulation parameters").clicked() {

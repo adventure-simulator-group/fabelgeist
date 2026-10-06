@@ -6,7 +6,9 @@ use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 use fabelgeist_physics::Collisions;
-use fabelgeist_xpbd::{ConstraintSet, Particles, Solver, SolverSettings, SubstepHook};
+use fabelgeist_xpbd::{
+    ConstraintSet, Particles, Solver, SolverSettings, SubstepCount, SubstepHook,
+};
 
 use crate::ShellMaterial;
 use crate::ShellMesh;
@@ -20,7 +22,7 @@ use crate::wgsl;
 pub struct HostContactSchedule {
     /// GPU substeps swept by one host projection. Zero leaves contact to the
     /// GPU collider and self-collision kernels.
-    pub interval_substeps: u32,
+    pub interval_substeps: SubstepCount,
     /// Projection sweeps in one surface contact solve.
     pub iterations: u32,
     /// Alternations between an outer layer and surface contacts.
@@ -30,7 +32,7 @@ pub struct HostContactSchedule {
 impl Default for HostContactSchedule {
     fn default() -> Self {
         Self {
-            interval_substeps: 1,
+            interval_substeps: SubstepCount::from(1),
             iterations: 4,
             outer_layer_passes: 4,
         }
@@ -246,14 +248,14 @@ impl Shell {
         if !delta.is_finite() || delta <= 0.0 {
             return Ok(());
         }
-        let count = solver.settings.substeps.max(1);
-        let substep = delta / count as f32;
+        let count = solver.settings.substeps.at_least_one();
+        let substep = delta / u32::from(count) as f32;
         let schedule = self.host_contacts;
         let interval = schedule.interval_substeps;
         collisions.particle_radius = self.material.particle_radius();
         let mut interval_start = None;
-        for index in 0..count {
-            if interval > 1 && index % interval == 0 {
+        for index in 0..u32::from(count) {
+            if interval > SubstepCount::from(1) && index % u32::from(interval) == 0 {
                 // Sweep the whole interval, not only its last GPU substep.
                 interval_start = Some(self.particles.read_positions(context).await?);
             }
@@ -270,12 +272,14 @@ impl Shell {
                 substep,
             )?;
             batch.submit();
-            if interval > 0 && ((index + 1) % interval == 0 || index + 1 == count) {
+            if !interval.is_empty()
+                && ((index + 1) % u32::from(interval) == 0 || index + 1 == u32::from(count))
+            {
                 self.project_host_contacts(context, schedule, interval_start.take().as_deref())
                     .await?;
             }
         }
-        if interval == 0 {
+        if interval.is_empty() {
             // Bound the queue: a caller stepping on a timer must not outrun the GPU.
             context.submitted_work_done().await;
         }

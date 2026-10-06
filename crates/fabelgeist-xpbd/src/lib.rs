@@ -33,7 +33,7 @@ pub use particles::{
     ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
     Particles,
 };
-pub use solver::{Solver, SolverSettings, SubstepHook};
+pub use solver::{Solver, SolverSettings, SubstepCount, SubstepHook};
 
 pub mod dynamics;
 pub use dynamics::*;
