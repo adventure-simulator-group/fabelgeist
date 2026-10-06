@@ -1,5 +1,6 @@
 //! Static horse-driven grist mill with an honest animal circuit and overhead sweep clearance.
 use super::{assembly::Assembly, *};
+use crate::GenerationResult;
 
 mod clearance;
 mod drive;
@@ -15,23 +16,23 @@ const ANIMAL_TRACK_OUTER_METRES: f32 = 4.5;
 mod tests;
 
 pub(super) fn fit_workplace(
-    a: &mut Assembly<'_>,
+    assembly: &mut Assembly<'_>,
     _dimensions: crate::spatial_geometry::PlanDimensions,
-) -> Result<(), crate::GenerationError> {
+) -> GenerationResult<()> {
     drive::assemble(
-        a,
+        assembly,
         crate::plan_geometry::ArchitecturalPlanPoint::from_metres(DRIVE_CENTRE)?,
     )?;
     milling::stone_and_hopper(
-        a,
+        assembly,
         crate::plan_geometry::ArchitecturalPlanPoint::from_metres(
             DRIVE_CENTRE + Vec2::new(2.12, 0.0),
         )?,
     )?;
-    let _: () = for bay in 0..=a.plan.size.extra_bays() {
+    let _: () = for bay in 0..=assembly.plan.size.extra_bays() {
         for x in [3.5, 9.0] {
             milling::grain_bin(
-                a,
+                assembly,
                 crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(
                     x,
                     13.4 + f32::from(bay) * 3.0,

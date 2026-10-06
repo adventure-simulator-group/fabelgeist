@@ -1,12 +1,10 @@
 //! Replace only the fire-wall patch; preserve the room boundary and other timber.
 use super::placement::Placement;
+use crate::GenerationResult as Result;
 use crate::*;
 use bevy::math::Vec3;
 
-pub(super) fn cut(
-    plan: &mut BuildingPlan,
-    placement: Placement,
-) -> Result<(), crate::GenerationError> {
+pub(super) fn cut(plan: &mut BuildingPlan, placement: Placement) -> Result<()> {
     let wall = plan
         .wall_assemblies
         .iter_mut()
@@ -15,9 +13,13 @@ pub(super) fn cut(
             wall: placement.site.wall,
         })?;
     let cut = placement.site.bounds(
-        crate::spatial_geometry::Displacement::from_metres(Vec3::new(-0.48, 0.0, -0.16))?,
         crate::spatial_geometry::Displacement::from_metres(Vec3::new(
-            0.48,
+            -super::placement::CORE_HALF_WIDTH_METRES,
+            0.0,
+            -0.16,
+        ))?,
+        crate::spatial_geometry::Displacement::from_metres(Vec3::new(
+            super::placement::CORE_HALF_WIDTH_METRES,
             super::placement::FIRE_WALL_PATCH_HEIGHT_METRES,
             0.16,
         ))?,
@@ -54,7 +56,7 @@ pub(super) fn cut(
 fn subtract(
     source: SpatialBounds<Architectural>,
     cut: SpatialBounds<Architectural>,
-) -> Result<Vec<SpatialBounds<Architectural>>, crate::GenerationError> {
+) -> Result<Vec<SpatialBounds<Architectural>>> {
     let min = source.min().metres().max(cut.min().metres());
     let max = source.max().metres().min(cut.max().metres());
     if (max - min).min_element() <= 0.001 {

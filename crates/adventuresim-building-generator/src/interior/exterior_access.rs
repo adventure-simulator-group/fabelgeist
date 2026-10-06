@@ -1,15 +1,13 @@
 //! Continuous standing-body sweeps retain the collision frame through clearance.
 use super::{geometry::*, obstruction::Obstruction};
+use crate::CollisionResult as Result;
 use crate::spatial_geometry::{Elevation, GeometryFrame, Position};
 use crate::{CollisionCuboid, CollisionError, SpatialBounds};
 use bevy::math::{Vec2, Vec3};
 
 pub struct StandingClearance<F: GeometryFrame>(Vec<SpatialBounds<F>>);
 impl<F: GeometryFrame> StandingClearance<F> {
-    pub fn new(
-        cuboids: &[CollisionCuboid<F>],
-        floor: Elevation<F>,
-    ) -> Result<Self, CollisionError> {
+    pub fn new(cuboids: &[CollisionCuboid<F>], floor: Elevation<F>) -> Result<Self> {
         let mut rectangles = Vec::new();
         for solid in cuboids {
             let geometry = || {

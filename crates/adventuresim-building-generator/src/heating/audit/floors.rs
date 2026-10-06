@@ -1,5 +1,6 @@
 //! Independent checks of downward support and finished occupied-floor openings.
 use super::*;
+use crate::GenerationResult as Result;
 use crate::heating::floors::{
     CLOSURE_LAP_METRES, CLOSURE_THICKNESS_METRES, MASONRY_BEARING_METRES,
 };
@@ -8,7 +9,7 @@ pub(super) fn audit(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     support(plan, h, issues)?;
     shoulders(plan, h, issues)?;
     if h.floors.len() != plan.storeys.iter().filter(|s| s.level > 0).count() {
@@ -68,7 +69,7 @@ fn support(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let footings = part(plan, h, HeatingPartKind::Footing);
     let piers = part(plan, h, HeatingPartKind::SupportPier);
     if footings.len() != 1
@@ -144,7 +145,7 @@ fn opening(
     h: &DomesticHeatingPlan,
     opening: &HeatingFloorPenetration,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let solids = if opening.storey_level <= h.kitchen.storey_level {
         part(plan, h, HeatingPartKind::Footing)
     } else {
@@ -202,7 +203,7 @@ fn closures(
     core: SpatialBounds<Architectural>,
     cut: SpatialBounds<Architectural>,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let lap = Vec3::new(CLOSURE_LAP_METRES, 0.0, CLOSURE_LAP_METRES);
     let outer = SpatialBounds::<Architectural>::from_metres(
         cut.min().metres() - lap,
@@ -248,7 +249,7 @@ fn shoulders(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let _: () = for shoulder in part(plan, h, HeatingPartKind::FlueShoulder) {
         let bounds = shoulder.cuboid_bounds()?;
         let mut bearing = geo::MultiPolygon::new(vec![]);
@@ -283,7 +284,7 @@ fn cover_bearings(
     cut: SpatialBounds<Architectural>,
     outer: SpatialBounds<Architectural>,
     bounds: SpatialBounds<Architectural>,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     let bearing_at = bounds.min().metres().y;
     let mut deck = geo::MultiPolygon::new(vec![]);
     let mut masonry = geo::MultiPolygon::new(vec![]);

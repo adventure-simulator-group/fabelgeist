@@ -60,13 +60,25 @@ cause.
 `CollisionCentreDatum::window`, producing `SceneWindowPose`. Its private leaf
 and native rotation remain paired through read-only accessors, preserving the
 origin subtraction, quaternion product and translation order. Source/opening
-identities, hinge, dimensions, signed swing and barred flag survive conversion.
+identities, hinge, dimensions, signed swing and fixed bar presence survive
+conversion.
 Bars remain part of the static building geometry. The replicated `SceneWindow`
 carries admitted scene positions/directions and positive leaf dimensions;
 decoding applies the same leaf admission. Geometry admission errors retain the
 building and opening identity. This is the selected shared conversion handoff
 under #767, coordinated by #765. Wider physical building identity remains a
 separate #767 contract.
+
+`SceneBuildingId` is the shared identity of an installed physical building and
+its door/window leaves. Opening identities reuse the generator's
+`OpeningAssemblyId`; both keep their native numeric wire representation.
+Source placement numbers are admitted when scene components are installed.
+`WindowBarPresence` describes fixed bars separately from mutable controller
+state and serializes directly as the named `bars` enum. Wider property,
+geographic and support-query identities remain part of #767.
+
+Scene input validation and city compilation reuse their owning result aliases.
+Geometry, collision and opening errors keep distinct aliases at shared handoffs.
 
 Boundary walls and caps use ground-relative poses; gate posts use gate-relative
 poses. The member enum declares the datum before rendering or support metadata

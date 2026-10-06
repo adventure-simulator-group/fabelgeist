@@ -50,12 +50,16 @@ pub(super) fn update_interior_visibility(
         let FurnitureLocation::Interior { building_id, .. } = instance.location else {
             continue;
         };
-        let next =
-            if exhibition.is_some() || visible_owners.get(&building_id).copied().unwrap_or(false) {
-                Visibility::Inherited
-            } else {
-                Visibility::Hidden
-            };
+        let next = if exhibition.is_some()
+            || visible_owners
+                .get(&adventuresim_tactical_core::scene_input::SceneBuildingId::from(building_id))
+                .copied()
+                .unwrap_or(false)
+        {
+            Visibility::Inherited
+        } else {
+            Visibility::Hidden
+        };
         if *visibility != next {
             *visibility = next;
         }
@@ -74,7 +78,7 @@ mod tests {
     fn owner(app: &mut App, id: u64) {
         app.world_mut().spawn((
             SceneBuilding {
-                id,
+                id: id.into(),
                 program: BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 47),
                 orientation: BuildingOrientation::from_radians(0.0).unwrap(),
             },

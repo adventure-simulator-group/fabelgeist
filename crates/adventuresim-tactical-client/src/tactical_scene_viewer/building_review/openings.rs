@@ -82,12 +82,14 @@ impl OpeningTarget {
             .find(|w| match self {
                 Self::Glazed => {
                     w.leaf == adventuresim_building_generator::WindowLeafKind::LeadedGlass
-                        && !w.barred
+                        && w.bars == adventuresim_building_generator::WindowBarPresence::Absent
                 }
                 Self::Shutter => {
                     w.leaf == adventuresim_building_generator::WindowLeafKind::TimberShutter
                 }
-                Self::Barred => w.barred,
+                Self::Barred => {
+                    w.bars == adventuresim_building_generator::WindowBarPresence::Present
+                }
                 Self::Door | Self::FixedGlazed => false,
             })
             .ok_or("review window treatment is absent")?;
@@ -171,8 +173,10 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
         commands.spawn((
             Name::new("Fixture door"),
             SceneDoor {
-                building_id: building.placement.id,
-                opening_id: door.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    building.placement.id,
+                ),
+                opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
                 tangent: door.tangent.spatial(),
@@ -195,13 +199,15 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
             Name::new("Fixture window"),
             SceneWindow {
                 leaf: window.leaf,
-                building_id: building.placement.id,
-                opening_id: window.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    building.placement.id,
+                ),
+                opening_id: window.opening,
                 size_metres: window.size_metres,
                 opening_centre_metres: window.closed_centre,
                 tangent: window.tangent.spatial(),
                 outward: window.outward.spatial(),
-                barred: window.barred,
+                bars: window.bars,
             },
             closed,
             ReviewLeafPose {

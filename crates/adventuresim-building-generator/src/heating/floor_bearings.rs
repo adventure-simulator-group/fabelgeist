@@ -1,4 +1,5 @@
 //! Re-measure deck bearings after board cuts; the joists and their joints stay intact.
+use crate::GenerationResult as Result;
 use crate::*;
 const INTERFACE_DEPTH_METRES: f32 = 0.004;
 const MINIMUM_CONTACT_METRES: f32 = 0.002;
@@ -13,7 +14,7 @@ pub(super) fn contacts(
     members: &[TimberFrameMember],
     floor: &TimberFloorAssembly,
     bounds: SpatialBounds<Architectural>,
-) -> Result<Vec<BearingContact>, crate::GenerationError> {
+) -> Result<Vec<BearingContact>> {
     let mut contacts = Vec::new();
     for member in members
         .iter()
@@ -47,7 +48,7 @@ pub(super) fn attach(
     floor: &mut TimberFloorAssembly,
     piece: &mut ResolvedSolid,
     slot: &mut u64,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     piece.supported_by.clear();
     for contact in contacts(geometry, members, floor, piece.cuboid_bounds()?)? {
         let BearingContact { node, bounds } = contact;

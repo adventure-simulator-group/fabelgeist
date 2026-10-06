@@ -4,6 +4,7 @@
 //! walls, opening assemblies, timber members, floors, and roof framing. It is
 //! render-only; tactical collision remains independently compiled.
 
+use crate::GenerationResult;
 use std::collections::{BTreeMap, BTreeSet};
 
 use bevy::math::{Quat, Vec2, Vec3};
@@ -66,22 +67,18 @@ impl BuildingDetail {
 }
 
 /// Compiles the authoritative high-detail representation used in playable space.
-pub fn compile_building_detail(
-    plan: &BuildingPlan,
-) -> Result<BuildingDetail, crate::GenerationError> {
+pub fn compile_building_detail(plan: &BuildingPlan) -> GenerationResult<BuildingDetail> {
     compile_detail(plan, &BTreeSet::new())
 }
 
 /// Compiles high detail while reserving operable exterior leaves for dynamic entities.
-pub fn compile_static_building_detail(
-    plan: &BuildingPlan,
-) -> Result<BuildingDetail, crate::GenerationError> {
+pub fn compile_static_building_detail(plan: &BuildingPlan) -> GenerationResult<BuildingDetail> {
     compile_detail(plan, &dynamic_closure_solids(plan)?)
 }
 
 pub(crate) fn dynamic_closure_solids(
     plan: &BuildingPlan,
-) -> Result<BTreeSet<crate::ResolvedItemId>, crate::GenerationError> {
+) -> GenerationResult<BTreeSet<crate::ResolvedItemId>> {
     Ok(crate::doors::operable_openings(plan)
         .filter_map(|opening| {
             opening
@@ -107,7 +104,7 @@ pub(crate) fn dynamic_closure_solids(
 pub fn compile_solid_detail(
     plan: &BuildingPlan,
     solid: &ResolvedSolid,
-) -> Result<BuildingDetail, crate::GenerationError> {
+) -> GenerationResult<BuildingDetail> {
     SolidDetailCompiler::new(plan).compile(solid)
 }
 
@@ -127,7 +124,7 @@ pub(crate) fn compile_bar_detail(bar: &crate::WindowBarSpec) -> BuildingDetail {
 fn compile_detail(
     plan: &BuildingPlan,
     excluded_solids: &BTreeSet<crate::ResolvedItemId>,
-) -> Result<BuildingDetail, crate::GenerationError> {
+) -> GenerationResult<BuildingDetail> {
     let mut detail = BuildingDetail { meshes: Vec::new() };
     let compiler = SolidDetailCompiler::new(plan);
 

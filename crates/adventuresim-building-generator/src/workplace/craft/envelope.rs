@@ -13,26 +13,26 @@ const HANDLING_LANE_HALF_WIDTH_METRES: f32 = 1.6;
 pub(in super::super) fn build_envelope(
     a: &mut Assembly<'_>,
     program: &BuildingProgram,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let (width, depth) = program.footprint.dimensions();
-    let w = f32::from(width) * crate::CELL_SIZE_METRES;
-    let d = f32::from(depth) * crate::CELL_SIZE_METRES;
+    let width = f32::from(width) * crate::CELL_SIZE_METRES;
+    let depth = f32::from(depth) * crate::CELL_SIZE_METRES;
     let h = program.storey_height_metres;
     a.part(
         WorkplaceFeature::Floor,
         WorkplaceMaterial::Masonry,
-        Position::<crate::Architectural>::from_metres(Vec3::new(w * 0.5, 0.08, d * 0.5))?,
-        CuboidDimensions::from_metres(Vec3::new(w, 0.16, d))?,
+        Position::<crate::Architectural>::from_metres(Vec3::new(width * 0.5, 0.08, depth * 0.5))?,
+        CuboidDimensions::from_metres(Vec3::new(width, 0.16, depth))?,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
-    perimeter_frame(a, w, d, h)?;
+    perimeter_frame(a, width, depth, h)?;
     if a.plan.kind == WorkplaceKind::Carpenter {
-        joinery_walls(a, w, d, h)?;
+        joinery_walls(a, width, depth, h)?;
     } else {
         // The low rear windbreak leaves both long sides open for air-drying.
         a.wall(
-            ArchitecturalPlanPoint::try_from(Vec2::new(0.0, d))?,
-            ArchitecturalPlanPoint::try_from(Vec2::new(w, d))?,
+            ArchitecturalPlanPoint::try_from(Vec2::new(0.0, depth))?,
+            ArchitecturalPlanPoint::try_from(Vec2::new(width, depth))?,
             PlanDirection::<crate::Architectural>::from_normalized(Vec2::Y)?,
             Elevation::<crate::Architectural>::from_metres(0.0)?,
             PositiveLength::from_metres(1.1)?,
@@ -42,28 +42,23 @@ pub(in super::super) fn build_envelope(
     a.passage(
         WorkplacePassagePurpose::GroundFloorCirculation,
         Position::<crate::Architectural>::from_metres(Vec3::new(
-            w * 0.5 - HANDLING_LANE_HALF_WIDTH_METRES,
+            width * 0.5 - HANDLING_LANE_HALF_WIDTH_METRES,
             0.18,
             0.0,
         ))?,
         Position::<crate::Architectural>::from_metres(Vec3::new(
-            w * 0.5 + HANDLING_LANE_HALF_WIDTH_METRES,
+            width * 0.5 + HANDLING_LANE_HALF_WIDTH_METRES,
             2.7,
-            d - 0.35,
+            depth - 0.35,
         ))?,
     )?;
 
     Ok(())
 }
 
-fn perimeter_frame(
-    a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
-    h: f32,
-) -> Result<(), crate::GenerationError> {
-    let bays = (d / STRUCTURAL_BAY_METRES).ceil() as u32;
-    for x in [0.0, w] {
+fn perimeter_frame(a: &mut Assembly<'_>, width: f32, depth: f32, h: f32) -> Result<()> {
+    let bays = (depth / STRUCTURAL_BAY_METRES).ceil() as u32;
+    for x in [0.0, width] {
         for bay in 0..=bays {
             a.part(
                 WorkplaceFeature::Post,
@@ -71,7 +66,7 @@ fn perimeter_frame(
                 Position::<crate::Architectural>::from_metres(Vec3::new(
                     x,
                     (h - WALL_PLATE_DEPTH_METRES) * 0.5,
-                    d * bay as f32 / bays as f32,
+                    depth * bay as f32 / bays as f32,
                 ))?,
                 CuboidDimensions::from_metres(Vec3::new(
                     POST_SECTION_METRES,
@@ -83,7 +78,7 @@ fn perimeter_frame(
         }
         a.wall(
             ArchitecturalPlanPoint::try_from(Vec2::new(x, 0.0))?,
-            ArchitecturalPlanPoint::try_from(Vec2::new(x, d))?,
+            ArchitecturalPlanPoint::try_from(Vec2::new(x, depth))?,
             PlanDirection::<crate::Architectural>::from_normalized(if x == 0.0 {
                 Vec2::NEG_X
             } else {
@@ -94,10 +89,10 @@ fn perimeter_frame(
             crate::workplace::assembly::WallConstruction::TimberBoards,
         )?;
     }
-    let _: () = for z in [0.0, d] {
+    let _: () = for z in [0.0, depth] {
         a.wall(
             ArchitecturalPlanPoint::try_from(Vec2::new(0.0, z))?,
-            ArchitecturalPlanPoint::try_from(Vec2::new(w, z))?,
+            ArchitecturalPlanPoint::try_from(Vec2::new(width, z))?,
             PlanDirection::<crate::Architectural>::from_normalized(if z == 0.0 {
                 Vec2::NEG_Y
             } else {
@@ -111,17 +106,12 @@ fn perimeter_frame(
     Ok(())
 }
 
-fn joinery_walls(
-    a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
-    h: f32,
-) -> Result<(), crate::GenerationError> {
+fn joinery_walls(a: &mut Assembly<'_>, width: f32, depth: f32, h: f32) -> Result<()> {
     let porch = JOINERY_PORCH_DEPTH_METRES;
-    for x in [0.0, w] {
+    for x in [0.0, width] {
         a.wall(
             ArchitecturalPlanPoint::try_from(Vec2::new(x, porch))?,
-            ArchitecturalPlanPoint::try_from(Vec2::new(x, d))?,
+            ArchitecturalPlanPoint::try_from(Vec2::new(x, depth))?,
             PlanDirection::<crate::Architectural>::from_normalized(if x == 0.0 {
                 Vec2::NEG_X
             } else {
@@ -132,7 +122,7 @@ fn joinery_walls(
             crate::workplace::assembly::WallConstruction::TimberBoards,
         )?;
         // Boarding seams express the enclosed shop while the front working bay stays open.
-        for board in 0..((d - porch) / 0.24) as u32 {
+        for board in 0..((depth - porch) / 0.24) as u32 {
             a.part(
                 WorkplaceFeature::Boarding,
                 WorkplaceMaterial::Timber,
@@ -147,16 +137,16 @@ fn joinery_walls(
         }
     }
     a.wall(
-        ArchitecturalPlanPoint::try_from(Vec2::new(0.0, d))?,
-        ArchitecturalPlanPoint::try_from(Vec2::new(w, d))?,
+        ArchitecturalPlanPoint::try_from(Vec2::new(0.0, depth))?,
+        ArchitecturalPlanPoint::try_from(Vec2::new(width, depth))?,
         PlanDirection::<crate::Architectural>::from_normalized(Vec2::Y)?,
         Elevation::<crate::Architectural>::from_metres(0.0)?,
         PositiveLength::from_metres(h)?,
         crate::workplace::assembly::WallConstruction::TimberBoards,
     )?;
-    let left = w * 0.5 - 1.85;
-    let right = w - left;
-    for (start, end) in [(0.0, left), (right, w)] {
+    let left = width * 0.5 - 1.85;
+    let right = width - left;
+    for (start, end) in [(0.0, left), (right, width)] {
         a.wall(
             ArchitecturalPlanPoint::try_from(Vec2::new(start, porch))?,
             ArchitecturalPlanPoint::try_from(Vec2::new(end, porch))?,

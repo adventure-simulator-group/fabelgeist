@@ -1,13 +1,11 @@
 //! Admit doorway and stair approaches before connecting the navigation graph.
 use super::*;
+use crate::interior::InteriorResult as Result;
 use crate::spatial_geometry::{Elevation, PlanDirection};
 use crate::{Architectural, OpeningUse, Stair};
 
 impl Navigation {
-    pub(super) fn enter_front_door(
-        &mut self,
-        plan: &BuildingPlan,
-    ) -> Result<(), InteriorLayoutError> {
+    pub(super) fn enter_front_door(&mut self, plan: &BuildingPlan) -> Result<()> {
         let entrance = entrance_position(plan)?.ok_or(InteriorLayoutError::MissingFrontDoor)?;
         let threshold = entrance.threshold.metres();
         let start = entrance.approach.metres();
@@ -36,7 +34,7 @@ impl Navigation {
         self.connect(self.entry, inside);
         Ok(())
     }
-    pub(super) fn add_doors(&mut self, plan: &BuildingPlan) -> Result<(), InteriorLayoutError> {
+    pub(super) fn add_doors(&mut self, plan: &BuildingPlan) -> Result<()> {
         for opening in plan.opening_assemblies.iter().filter(|o| {
             matches!(o.use_kind, OpeningUse::Door | OpeningUse::Gate)
                 && o.frame.outside_room.is_some()
@@ -62,7 +60,7 @@ impl Navigation {
         }
         Ok(())
     }
-    pub(super) fn add_stairs(&mut self, plan: &BuildingPlan) -> Result<(), InteriorLayoutError> {
+    pub(super) fn add_stairs(&mut self, plan: &BuildingPlan) -> Result<()> {
         for (index, stair) in plan.stairs.iter().enumerate() {
             if let Stair::Straight {
                 start,
@@ -126,11 +124,7 @@ impl Navigation {
         }
         Ok(())
     }
-    fn ensure_node(
-        &mut self,
-        level: StoreyIndex,
-        point: ArchitecturalPlanPoint,
-    ) -> Result<usize, InteriorLayoutError> {
+    fn ensure_node(&mut self, level: StoreyIndex, point: ArchitecturalPlanPoint) -> Result<usize> {
         let admitted = point;
         let point = point.metres();
         let key = NavigationPointKey {
@@ -160,7 +154,7 @@ impl Navigation {
         &mut self,
         level: StoreyIndex,
         point: ArchitecturalPlanPoint,
-    ) -> Result<Option<usize>, InteriorLayoutError> {
+    ) -> Result<Option<usize>> {
         let native_point = point.metres();
         let Some(floor) = self.floors.iter().find(|f| f.level == level) else {
             return Ok(None);
@@ -225,7 +219,7 @@ impl Navigation {
         level: StoreyIndex,
         end: ArchitecturalPlanPoint,
         outward: PlanDirection<Architectural>,
-    ) -> Result<Option<usize>, InteriorLayoutError> {
+    ) -> Result<Option<usize>> {
         let end = end.metres();
         let outward = outward.vector();
         const LANDING_HALF_DEPTH_METRES: f32 = 0.45;
@@ -252,14 +246,14 @@ struct Entrance {
     approach: ArchitecturalPlanPoint,
 }
 impl Entrance {
-    fn from_metres(threshold: Vec2, approach: Vec2) -> Result<Self, InteriorLayoutError> {
+    fn from_metres(threshold: Vec2, approach: Vec2) -> Result<Self> {
         Ok(Self {
             threshold: ArchitecturalPlanPoint::from_metres(threshold)?,
             approach: ArchitecturalPlanPoint::from_metres(approach)?,
         })
     }
 }
-fn entrance_position(plan: &BuildingPlan) -> Result<Option<Entrance>, InteriorLayoutError> {
+fn entrance_position(plan: &BuildingPlan) -> Result<Option<Entrance>> {
     if let Some(workplace) = &plan.workplace {
         let dimensions = plan.dimensions_metres();
         for p in &workplace.passages {
@@ -333,7 +327,7 @@ fn entrance_position(plan: &BuildingPlan) -> Result<Option<Entrance>, InteriorLa
 fn represented_storey(
     plan: &BuildingPlan,
     elevation: Elevation<Architectural>,
-) -> Result<StoreyIndex, InteriorLayoutError> {
+) -> Result<StoreyIndex> {
     use crate::spatial_geometry::PositiveLength;
     let level = crate::StoreyIndex::from_elevation(
         elevation,

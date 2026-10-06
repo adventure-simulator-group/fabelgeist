@@ -1,10 +1,11 @@
 use super::*;
+use crate::GenerationResult as Result;
 use crate::plan_geometry::ArchitecturalPlanPoint;
 pub(super) fn audit(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let Some(roof) = plan.roof_assemblies.iter().find(|r| r.id == h.roof.roof) else {
         fail(
             issues,
@@ -96,7 +97,7 @@ fn weathering(
     face: &RoofFace,
     cut: &[Vec3],
     shaft: SpatialBounds<Architectural>,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     const MINIMUM_WEATHER_LAP_METRES: f32 = 0.02;
     let margin = Vec3::new(MINIMUM_WEATHER_LAP_METRES, 0.0, MINIMUM_WEATHER_LAP_METRES);
     let Some(first) = cut.first() else {
@@ -179,7 +180,7 @@ fn sheet_section(
     solid: &ResolvedSolid,
     face: &RoofFace,
     shaft: SpatialBounds<Architectural>,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     let rotation = bevy::math::Quat::from_euler(
         bevy::math::EulerRot::YXZ,
         solid.yaw_radians.radians(),
@@ -230,7 +231,7 @@ fn sheet_section(
 fn highest_roof_corner(
     face: &RoofFace,
     bounds: SpatialBounds<Architectural>,
-) -> Result<crate::spatial_geometry::Elevation<Architectural>, crate::GenerationError> {
+) -> Result<crate::spatial_geometry::Elevation<Architectural>> {
     let high = [bounds.min().metres().x, bounds.max().metres().x]
         .into_iter()
         .flat_map(|x| [bounds.min().metres().z, bounds.max().metres().z].map(|z| Vec2::new(x, z)))

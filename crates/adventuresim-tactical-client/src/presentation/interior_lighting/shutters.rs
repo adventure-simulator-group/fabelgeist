@@ -7,13 +7,16 @@ const APERTURE_CHANGE_TOLERANCE: f32 = 0.001;
 
 #[derive(Clone)]
 pub(super) struct ShutterLight {
-    pub opening_id: u64,
+    pub opening_id: adventuresim_building_generator::OpeningAssemblyId,
     pub contributions: Vec<(usize, LightSample)>,
     pub openness: f32,
 }
 
 impl InteriorField {
-    fn update_apertures(&mut self, apertures: &[(u64, f32)]) -> bool {
+    fn update_apertures(
+        &mut self,
+        apertures: &[(adventuresim_building_generator::OpeningAssemblyId, f32)],
+    ) -> bool {
         let mut changed = false;
         for shutter in &mut self.shutters {
             let openness = apertures

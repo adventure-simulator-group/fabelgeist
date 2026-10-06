@@ -47,8 +47,8 @@ pub use workplace::{
 
 pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};
 pub use collision::{
-    BuildingCollision, CollisionCuboid, CollisionError, CuboidCorners, GroundContact,
-    GroundFloorFootprint, compile_building_collision,
+    BuildingCollision, CollisionCuboid, CollisionError, CollisionResult, CuboidCorners,
+    GroundContact, GroundFloorFootprint, compile_building_collision,
 };
 pub use detail::{
     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, BuildingKit, TimberComponent,
@@ -57,8 +57,8 @@ pub use detail::{
 pub use doors::{DoorError, DoorErrorCause, DoorSpec, compile_operable_doors};
 pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};
 pub use generator::{
-    AllocationFailure, GenerationError, ReservationFailure, edit_document, generate,
-    generate_document, set_roof_pitch,
+    AllocationFailure, GenerationError, GenerationResult, ReservationFailure, edit_document,
+    generate, generate_document, set_roof_pitch,
 };
 pub use heating::{
     DomesticHeatingPlan, DomesticHeatingProgramme, HeatingConstructionError,
@@ -74,8 +74,8 @@ pub use roof_tessellation::{
     RoofSurface, RoofSurfaceTriangle, tessellate_roof_enclosure, tessellate_roof_face,
 };
 pub use windows::{
-    WindowBarSpec, WindowError, WindowErrorCause, WindowLeafKind, WindowSpec,
-    compile_operable_windows, compile_window_bars, compile_window_leaf,
+    WindowBarPresence, WindowBarSpec, WindowError, WindowErrorCause, WindowLeafKind, WindowResult,
+    WindowSpec, compile_operable_windows, compile_window_bars, compile_window_leaf,
 };
 
 #[cfg(test)]

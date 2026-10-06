@@ -1,6 +1,9 @@
 use super::geometry::*;
 use super::obstruction::Obstruction;
+use crate::CollisionResult;
+use crate::interior::InteriorResult;
 use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::GeometryResult;
 use crate::spatial_geometry::{Elevation, PositiveLength};
 use crate::{BuildingPlan, CELL_SIZE_METRES, OpeningUse, SolidRole, Stair};
 use bevy::math::Vec2;
@@ -20,10 +23,7 @@ pub(super) struct Floor {
     supports: Vec<FloorSupport>,
 }
 impl Floor {
-    pub fn new(
-        plan: &BuildingPlan,
-        level: crate::StoreyIndex,
-    ) -> Result<Self, super::InteriorLayoutError> {
+    pub fn new(plan: &BuildingPlan, level: crate::StoreyIndex) -> InteriorResult<Self> {
         let height = floor_height(plan, level)?;
         let native_height = height.metres();
         let solids = architectural_solids(plan)?;
@@ -62,7 +62,7 @@ impl Floor {
                     )?,
                 })
             })
-            .collect::<Result<Vec<_>, super::InteriorLayoutError>>()?;
+            .collect::<InteriorResult<Vec<_>>>()?;
         Ok(Self {
             level,
             cells,
@@ -81,7 +81,7 @@ impl Floor {
         &self,
         rect: Rect,
         height: Elevation<crate::Architectural>,
-    ) -> Result<bool, crate::spatial_geometry::GeometryError> {
+    ) -> GeometryResult<bool> {
         rect.all_samples(|point| {
             self.contains(point)
                 && self.supports.iter().any(|s| {
@@ -105,14 +105,14 @@ impl Floor {
         rect: Rect,
         bottom: Elevation<crate::Architectural>,
         height: PositiveLength,
-    ) -> Result<bool, super::InteriorLayoutError> {
+    ) -> InteriorResult<bool> {
         let low = Elevation::from_metres(bottom.metres() + GEOMETRY_EPSILON)?;
         let high = Elevation::from_metres(bottom.metres() + height.metres())?;
         Ok(!crate::geometry_index::try_any(&self.solids, |s| {
             s.intersects(rect, low, high)
         })?)
     }
-    pub fn walkable(&self, rect: Rect) -> Result<bool, crate::spatial_geometry::GeometryError> {
+    pub fn walkable(&self, rect: Rect) -> GeometryResult<bool> {
         Ok(rect.all_samples(|p| self.contains(p))?
             && !self.obstacles.iter().any(|o| o.overlaps(rect)))
     }
@@ -122,7 +122,7 @@ fn circulation_reservations(
     plan: &BuildingPlan,
     height: Elevation<crate::Architectural>,
     obstacles: &mut Vec<Rect>,
-) -> Result<Vec<Rect>, super::InteriorLayoutError> {
+) -> InteriorResult<Vec<Rect>> {
     let mut reserved = door_reservations(plan, height)?;
     reserved.extend(super::church::nave_routes(plan, height)?);
     let height = height.metres();
@@ -214,7 +214,7 @@ fn circulation_reservations(
 fn door_reservations(
     plan: &BuildingPlan,
     height: Elevation<crate::Architectural>,
-) -> Result<Vec<Rect>, super::InteriorLayoutError> {
+) -> InteriorResult<Vec<Rect>> {
     let height = height.metres();
     plan.opening_assemblies
         .iter()
@@ -233,7 +233,7 @@ fn door_reservations(
 
 fn architectural_solids(
     plan: &BuildingPlan,
-) -> Result<Vec<Obstruction<crate::Architectural>>, crate::CollisionError> {
+) -> CollisionResult<Vec<Obstruction<crate::Architectural>>> {
     let floor_ids = plan
         .resolved_geometry
         .solids
@@ -246,7 +246,7 @@ fn architectural_solids(
         .into_iter()
         .filter(|s| !floor_ids.contains(&s.source))
         .map(Obstruction::new)
-        .collect::<Result<Vec<_>, _>>()?;
+        .collect::<CollisionResult<Vec<_>>>()?;
     solids.extend(
         plan.resolved_geometry
             .solids
@@ -266,11 +266,11 @@ fn architectural_solids(
                 )
             })
             .map(|s| crate::collision::collision_parts(plan, s))
-            .collect::<Result<Vec<_>, _>>()?
+            .collect::<CollisionResult<Vec<_>>>()?
             .into_iter()
             .flatten()
             .map(Obstruction::new)
-            .collect::<Result<Vec<_>, _>>()?,
+            .collect::<CollisionResult<Vec<_>>>()?,
     );
     Ok(solids)
 }

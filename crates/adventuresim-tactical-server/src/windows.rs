@@ -54,8 +54,8 @@ impl WindowGrabber<'_, '_> {
         debug!(
             actor = ?actor,
             window = ?window_entity,
-            building_id = window.building_id,
-            opening_id = window.opening_id,
+            building_id = window.building_id.0,
+            opening_id = window.opening_id.0,
             open = controller.open,
             "Toggled interior window catch"
         );
@@ -103,12 +103,12 @@ fn spawn_window(
         SceneWindow {
             leaf: window.leaf,
             building_id: building.id,
-            opening_id: window.opening.0,
+            opening_id: window.opening,
             size_metres: window.size_metres,
             opening_centre_metres: window.closed_centre,
             tangent,
             outward,
-            barred: window.barred,
+            bars: window.bars,
         },
         RigidBody::Kinematic,
         Collider::cuboid(
@@ -160,13 +160,13 @@ mod tests {
             .spawn((
                 SceneWindow {
                     leaf: adventuresim_building_generator::WindowLeafKind::LeadedGlass,
-                    building_id: 1,
-                    opening_id: 2,
+                    building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(1),
+                    opening_id: adventuresim_building_generator::OpeningAssemblyId(2),
                     size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions::from_metres(Vec3::new(1.0, 1.0, 0.025)).unwrap(),
                     opening_centre_metres: adventuresim_building_generator::spatial_geometry::Position::ORIGIN,
                     tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::X).unwrap(),
                     outward: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::Z).unwrap(),
-                    barred: false,
+                    bars: adventuresim_building_generator::WindowBarPresence::Absent,
                 },
                 WindowController {
                     hinge_centre: Vec3::NEG_X * 0.5,
@@ -219,7 +219,7 @@ mod tests {
         let program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 42);
         let plan = generate(&program).unwrap();
         let building = SceneBuilding {
-            id: 8,
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(8),
             program,
             orientation: BuildingOrientation::from_radians(0.37).unwrap(),
         };
@@ -230,7 +230,7 @@ mod tests {
         )
         .unwrap();
         let mut leaf = compile_operable_windows(&plan).unwrap()[0];
-        leaf.barred = true;
+        leaf.bars = adventuresim_building_generator::WindowBarPresence::Present;
         let pose = datum.window(leaf).unwrap();
         let converted = pose.leaf();
         let mut world = World::new();
@@ -247,9 +247,12 @@ mod tests {
         let controller = world.get::<WindowController>(entity).unwrap();
         assert_eq!(controller.hinge_centre, converted.hinge_centre.metres());
         assert_eq!(controller.closed_rotation, pose.native_rotation());
-        assert_eq!(window.opening_id, leaf.opening.0);
-        assert_eq!(window.building_id, 8);
-        assert!(window.barred);
+        assert_eq!(window.opening_id, leaf.opening);
+        assert_eq!(window.building_id, 8.into());
+        assert_eq!(
+            window.bars,
+            adventuresim_building_generator::WindowBarPresence::Present
+        );
         assert_eq!(
             world.get::<Transform>(entity).unwrap().translation,
             converted.closed_centre.metres()

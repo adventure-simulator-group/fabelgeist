@@ -1,5 +1,7 @@
 //! Select a kitchen/Stube bay against the complete structure.
+use crate::GenerationResult;
 use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::GeometryResult;
 use crate::spatial_geometry::{Displacement, Elevation, PlanDirection, SignedLength};
 use crate::{Architectural, RoomIndex, SpatialBounds, StoreyIndex};
 
@@ -22,6 +24,7 @@ use bevy::math::{Vec2, Vec3};
 
 pub(super) const FIRE_WALL_PATCH_HEIGHT_METRES: f32 = 2.0;
 pub(super) const CORE_WIDTH_METRES: f32 = 0.96;
+pub(super) const CORE_HALF_WIDTH_METRES: f32 = CORE_WIDTH_METRES * 0.5;
 pub(super) const CORE_HALF_DEPTH_METRES: f32 = 0.9;
 pub(super) const TIMBER_CLEARANCE_METRES: f32 = 0.08;
 const STATION_STEP_METRES: f32 = 0.05;
@@ -34,14 +37,14 @@ pub(super) enum HearthSection {
     Extended,
 }
 impl HearthSection {
-    pub fn shaft_offset(self) -> Result<SignedLength, crate::spatial_geometry::GeometryError> {
+    pub fn shaft_offset(self) -> GeometryResult<SignedLength> {
         SignedLength::from_metres(match self {
             Self::Compact => 0.55,
             Self::Deep => 1.2,
             Self::Extended => 1.5,
         })
     }
-    pub fn front(self) -> Result<SignedLength, crate::spatial_geometry::GeometryError> {
+    pub fn front(self) -> GeometryResult<SignedLength> {
         SignedLength::from_metres(match self {
             Self::Compact => CORE_HALF_DEPTH_METRES,
             Self::Deep => 1.55,
@@ -69,7 +72,7 @@ impl PlacementCandidate {
         self,
         min: Displacement<HearthLocal>,
         max: Displacement<HearthLocal>,
-    ) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+    ) -> GenerationResult<SpatialBounds<Architectural>> {
         SpatialBounds::<HearthLocal>::from_metres(min.metres(), max.metres())?;
         let axis = self.kitchen_axis.vector();
         let tangent = Vec2::new(-axis.y, axis.x);
@@ -85,7 +88,7 @@ impl PlacementCandidate {
             a.max(b),
         )?)
     }
-    pub fn support(self) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+    pub fn support(self) -> GenerationResult<SpatialBounds<Architectural>> {
         let bounds = self.body()?;
         let ledge = Vec3::new(
             super::floors::MASONRY_BEARING_METRES,
@@ -98,9 +101,7 @@ impl PlacementCandidate {
         max.y = self.floor_height.metres();
         Ok(SpatialBounds::from_metres(min, max)?)
     }
-    pub fn shaft_shoulder(
-        self,
-    ) -> Result<Option<SpatialBounds<Architectural>>, crate::GenerationError> {
+    pub fn shaft_shoulder(self) -> GenerationResult<Option<SpatialBounds<Architectural>>> {
         let Some(top) = self.next_floor else {
             return Ok(None);
         };
@@ -115,7 +116,7 @@ impl PlacementCandidate {
         min.y = self.floor_height.metres() + 2.2;
         Ok(Some(SpatialBounds::from_metres(min, max)?))
     }
-    pub fn body(self) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+    pub fn body(self) -> GenerationResult<SpatialBounds<Architectural>> {
         self.bounds(
             Displacement::from_metres(Vec3::new(
                 -CORE_WIDTH_METRES * 0.5,
@@ -129,7 +130,7 @@ impl PlacementCandidate {
             ))?,
         )
     }
-    pub fn operating_space(self) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+    pub fn operating_space(self) -> GenerationResult<SpatialBounds<Architectural>> {
         self.bounds(
             Displacement::from_metres(Vec3::new(
                 -CORE_WIDTH_METRES * 0.5,
@@ -146,7 +147,7 @@ impl PlacementCandidate {
     pub fn shaft(
         self,
         top: Elevation<Architectural>,
-    ) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+    ) -> GenerationResult<SpatialBounds<Architectural>> {
         let centre = self.centre.metres()
             + self.kitchen_axis.vector() * self.section.shaft_offset()?.metres();
         Ok(SpatialBounds::<Architectural>::from_metres(
@@ -164,15 +165,12 @@ impl PlacementCandidate {
     }
     /// The horizontal shaft footprint is an admitted zero-height section at
     /// its lower datum; it never constructs a reversed dummy vertical range.
-    pub fn shaft_section(self) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+    pub fn shaft_section(self) -> GenerationResult<SpatialBounds<Architectural>> {
         self.shaft(Elevation::from_metres(
             self.floor_height.metres() + SHAFT_BASE_ABOVE_FLOOR_METRES,
         )?)
     }
-    pub fn flue_top(
-        self,
-        face: &RoofFace,
-    ) -> Result<Elevation<Architectural>, crate::GenerationError> {
+    pub fn flue_top(self, face: &RoofFace) -> GenerationResult<Elevation<Architectural>> {
         const OUTLET_ABOVE_UPSLOPE_ROOF_METRES: f32 = 0.8;
         // Only the horizontal section is needed; use an admitted zero-height
         // section at the shaft base rather than a reversed vertical interval.
@@ -196,7 +194,7 @@ impl PlacementCandidate {
         plan: &BuildingPlan,
         bounds: SpatialBounds<Architectural>,
         replace_wall: bool,
-    ) -> Result<bool, crate::GenerationError> {
+    ) -> GenerationResult<bool> {
         let wall = plan
             .wall_assemblies
             .iter()
@@ -216,7 +214,7 @@ impl PlacementCandidate {
                 )
         }))
     }
-    fn clear_doors(self, plan: &BuildingPlan) -> Result<bool, crate::GenerationError> {
+    fn clear_doors(self, plan: &BuildingPlan) -> GenerationResult<bool> {
         let body = self.body()?;
         Ok(plan
             .opening_assemblies
@@ -241,7 +239,7 @@ impl PlacementCandidate {
     }
 }
 
-pub(super) fn find(plan: &BuildingPlan) -> Result<Option<Placement>, crate::GenerationError> {
+pub(super) fn find(plan: &BuildingPlan) -> GenerationResult<Option<Placement>> {
     for wall in &plan.wall_assemblies {
         let (Some(inside), Some(outside)) = (wall.frame.inside_room, wall.frame.outside_room)
         else {
@@ -335,7 +333,7 @@ pub(super) fn find(plan: &BuildingPlan) -> Result<Option<Placement>, crate::Gene
 pub(super) fn roof_height(
     face: &RoofFace,
     point: ArchitecturalPlanPoint,
-) -> Result<Elevation<Architectural>, crate::GenerationError> {
+) -> GenerationResult<Elevation<Architectural>> {
     let point = point.metres();
     Ok(Elevation::from_metres(
         -(face.plane.normal.x * point.x + face.plane.normal.z * point.y + face.plane.constant)
@@ -348,7 +346,7 @@ fn station_offsets(
     plan: &BuildingPlan,
     wall: &crate::WallAssembly,
     limit: SignedLength,
-) -> Result<Vec<SignedLength>, crate::GenerationError> {
+) -> GenerationResult<Vec<SignedLength>> {
     let limit = limit.metres();
     let mut stations = (0..=((2.0 * limit / STATION_STEP_METRES).floor() as usize))
         .map(|step| -limit + step as f32 * STATION_STEP_METRES)
@@ -360,7 +358,7 @@ fn station_offsets(
             .iter()
             .filter(|s| s.role == SolidRole::FrameJoist)
             .map(|s| s.cuboid_bounds())
-            .collect::<Result<Vec<_>, _>>()?;
+            .collect::<GenerationResult<Vec<_>>>()?;
         joists.sort_by(|a, b| a.min().metres().x.total_cmp(&b.min().metres().x));
         joists.dedup_by(|a, b| (a.min().metres().x - b.min().metres().x).abs() < 0.001);
         stations.extend(
@@ -377,7 +375,7 @@ fn station_offsets(
     Ok(stations
         .into_iter()
         .map(SignedLength::from_metres)
-        .collect::<Result<_, _>>()?)
+        .collect::<GeometryResult<_>>()?)
 }
 
 struct KitchenPair<'a> {
@@ -391,7 +389,7 @@ fn kitchen_pair<'a>(
     wall: &crate::WallAssembly,
     inside: u16,
     outside: u16,
-) -> Result<Option<KitchenPair<'a>>, crate::GenerationError> {
+) -> GenerationResult<Option<KitchenPair<'a>>> {
     let level = StoreyIndex::from_serialized(wall.storey_level);
     let storey = plan
         .storeys

@@ -3,6 +3,53 @@ use bevy::math::Vec3;
 fn fixture(archetype: BuildingArchetype, seed: u64) -> BuildingPlan {
     generate(&BuildingProgram::fixture(archetype, seed)).unwrap()
 }
+
+#[test]
+fn folded_sheet_admission_preserves_signed_contact_and_rejects_reversed_planes() {
+    use super::weather_sections::{SheetSection, WeatherSide};
+    use crate::spatial_geometry::{Elevation, GeometryError, SignedLength};
+    let length = |value| SignedLength::from_metres(value).unwrap();
+    let elevation = |value| Elevation::<Architectural>::from_metres(value).unwrap();
+    let section = SheetSection::new(
+        length(-0.025),
+        length(0.012),
+        elevation(-1.0),
+        elevation(0.0),
+    )
+    .unwrap();
+    let shaft = SpatialBounds::from_metres(Vec3::ZERO, Vec3::ONE).unwrap();
+    for side in WeatherSide::around(shaft).unwrap() {
+        let bounds = section.bounds(side).unwrap();
+        assert_eq!(bounds.min().metres().y, -1.0);
+        assert_eq!(bounds.max().metres().y, 0.0);
+        let contact = SheetSection::new(length(0.0), length(0.0), elevation(-2.0), elevation(-2.0))
+            .unwrap()
+            .bounds(side)
+            .unwrap();
+        assert_eq!(contact.min().metres().y, contact.max().metres().y);
+    }
+    for result in [
+        SheetSection::new(
+            length(0.012),
+            length(-0.025),
+            elevation(-1.0),
+            elevation(0.0),
+        ),
+        SheetSection::new(
+            length(-0.025),
+            length(0.012),
+            elevation(0.0),
+            elevation(-1.0),
+        ),
+    ] {
+        assert!(matches!(
+            result,
+            Err(GenerationError::Geometry(
+                GeometryError::ReversedBounds { .. }
+            ))
+        ));
+    }
+}
 #[test]
 fn grounded_programme_preserves_roof_members_and_reaches_real_rooms() {
     for archetype in [

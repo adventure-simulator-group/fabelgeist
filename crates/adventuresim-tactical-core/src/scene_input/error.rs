@@ -1,5 +1,8 @@
 //! Scene input failures preserve bounded support diagnostics without large stack results.
 use thiserror::Error;
+/// Scene input validation and generation retain the owning admission error.
+pub type SceneInputResult<T> = std::result::Result<T, SceneInputError>;
+
 #[derive(Debug, Error)]
 pub enum SceneInputError {
     #[error(transparent)]

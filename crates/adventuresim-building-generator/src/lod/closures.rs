@@ -1,5 +1,6 @@
 //! The exact exterior owner decides which dynamic leaves survive into Facade.
 use super::*;
+use crate::GenerationResult as Result;
 use std::collections::BTreeSet;
 
 pub(super) fn exact_facade(plan: &BuildingPlan) -> bool {
@@ -16,9 +17,7 @@ pub(super) fn exact_facade(plan: &BuildingPlan) -> bool {
 
 impl BuildingPlan {
     /// Operable openings whose Facade host has an actual aperture.
-    pub fn facade_dynamic_openings(
-        &self,
-    ) -> Result<BTreeSet<crate::OpeningAssemblyId>, crate::GenerationError> {
+    pub fn facade_dynamic_openings(&self) -> Result<BTreeSet<crate::OpeningAssemblyId>> {
         if !exact_facade(self) {
             return Ok(BTreeSet::new());
         }

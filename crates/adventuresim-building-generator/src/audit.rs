@@ -15,7 +15,7 @@ use crate::{
 };
 
 /// Audit operations that can fail with a generation error.
-type Result<T> = std::result::Result<T, crate::GenerationError>;
+use crate::GenerationResult as Result;
 
 include!("audit/core.rs");
 include!("audit/vertical_circulation.rs");

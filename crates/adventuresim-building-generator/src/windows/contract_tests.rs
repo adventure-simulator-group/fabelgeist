@@ -66,10 +66,12 @@ fn invalid_frame_or_leaf_reports_the_actual_window_binding() {
 }
 
 #[test]
-fn window_and_bar_decoding_preserve_wire_fields_and_checked_roles() {
+fn window_and_bar_decoding_admit_named_roles_and_checked_geometry() {
     let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
     let window = compile_operable_windows(&plan).unwrap()[0];
     let wire = serde_json::to_value(window).unwrap();
+    assert_eq!(wire["bars"], serde_json::to_value(window.bars).unwrap());
+    assert!(wire.get("barred").is_none());
     assert_eq!(
         wire["closed_centre"],
         serde_json::to_value(window.closed_centre.metres()).unwrap()
@@ -92,6 +94,7 @@ fn window_and_bar_decoding_preserve_wire_fields_and_checked_roles() {
         ("outward", serde_json::json!([2, 0])),
         ("size_metres", serde_json::json!([1, 2, 0])),
         ("closed_yaw_radians", serde_json::Value::Null),
+        ("bars", serde_json::json!(true)),
     ] {
         let mut invalid = wire.clone();
         invalid[field] = value;

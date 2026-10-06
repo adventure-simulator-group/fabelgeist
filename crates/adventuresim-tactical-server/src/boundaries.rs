@@ -15,7 +15,7 @@ pub(crate) fn on_scene_boundary_added(
     doors::spawn_door(
         &mut commands,
         event.entity,
-        boundary.front_building_id,
+        boundary.front_building_id.into(),
         door,
     )?;
     commands.entity(event.entity).insert((

@@ -167,7 +167,7 @@ mod tests {
 
     fn building() -> SceneBuilding {
         SceneBuilding {
-            id: 7,
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
             program: BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 47),
             orientation: BuildingOrientation::from_radians(0.73).unwrap(),
         }
@@ -197,8 +197,8 @@ mod tests {
     #[test]
     fn scene_door_round_trips_through_replication_codec() {
         let door = SceneDoor {
-            building_id: 7,
-            opening_id: 11,
+            building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
+            opening_id: adventuresim_building_generator::OpeningAssemblyId(11),
             size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions::from_metres(Vec3::new(1.0, 2.1, 0.07)).unwrap(),
             doorway_centre_metres: adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(3.0, 1.05, -2.0)).unwrap(),
             tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::X).unwrap(),
@@ -220,13 +220,13 @@ mod tests {
         };
         let window = SceneWindow {
             leaf: adventuresim_building_generator::WindowLeafKind::LeadedGlass,
-            building_id: 7,
-            opening_id: 12,
+            building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
+            opening_id: adventuresim_building_generator::OpeningAssemblyId(12),
             size_metres: LeafDimensions::from_metres(Vec3::new(0.9, 1.0, 0.025)).unwrap(),
             opening_centre_metres: Position::from_metres(Vec3::new(3.0, 1.5, -2.0)).unwrap(),
             tangent: SpatialDirection::from_normalized(Vec3::X).unwrap(),
             outward: SpatialDirection::from_normalized(Vec3::NEG_Z).unwrap(),
-            barred: true,
+            bars: adventuresim_building_generator::WindowBarPresence::Present,
         };
         let mut bytes = Vec::new();
         postcard_utils::to_extend_mut(&window, &mut bytes).unwrap();

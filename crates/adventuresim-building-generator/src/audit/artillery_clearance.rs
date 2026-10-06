@@ -2,7 +2,7 @@
 use super::{
     ResolvedSolid, Result, SolidRole, Vec2, Vec3, VoidRole, resolved_solid_contains_point,
 };
-use crate::spatial_geometry::{GeometryError, Position, SignedLength};
+use crate::spatial_geometry::{GeometryError, GeometryResult, Position, SignedLength};
 use crate::{Architectural, SpatialBounds};
 
 #[derive(Clone, Copy, Debug)]
@@ -185,7 +185,7 @@ impl ArtilleryClearance<'_> {
                 .iter()
                 .copied()
                 .map(Position::<Architectural>::from_metres)
-                .collect::<std::result::Result<Vec<_>, GeometryError>>()
+                .collect::<GeometryResult<Vec<_>>>()
         };
         let sweep = match admission() {
             Ok(sweep) => sweep,

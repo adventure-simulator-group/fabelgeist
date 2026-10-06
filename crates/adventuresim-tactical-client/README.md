@@ -559,6 +559,11 @@ dimensions through installation and presentation. The closure mesh cache accepts
 cache/mesh adapter. Fixed glazing still admits thin or degenerate cuboid geometry.
 Cache keys, shared handles and material selection keep their native layouts.
 Core's paired `SceneWindowPose` supplies the converted leaf and native rotation.
+Building closure visibility and shutter lighting carry `SceneBuildingId` and
+`OpeningAssemblyId` through their joins. Material palette selection extracts the
+native building number only at the existing deterministic seed/hash adapter.
+Fixed bar presence uses the named `WindowBarPresence` enum in both scene APIs
+and the serialized `bars` field.
 
 Window animation and catch decisions remain transient server state. The mutable
 controller's current angle and ordinary toggle `bool` are a documented #770

@@ -28,6 +28,8 @@ pub(super) enum ClosureMeshError {
     MissingPrimaryMaterial { kind: WindowLeafKind },
 }
 
+type Result<T> = std::result::Result<T, ClosureMeshError>;
+
 #[derive(Default, Resource)]
 pub(super) struct ClosureMeshes {
     doors: HashMap<Dimensions, Handle<Mesh>>,
@@ -49,7 +51,7 @@ impl ClosureMeshes {
         size: LeafDimensions,
         kind: WindowLeafKind,
         meshes: &mut Assets<Mesh>,
-    ) -> Result<&[LeafSurface], ClosureMeshError> {
+    ) -> Result<&[LeafSurface]> {
         let cache = match kind {
             WindowLeafKind::LeadedGlass => &mut self.glass,
             WindowLeafKind::TimberShutter => &mut self.shutters,

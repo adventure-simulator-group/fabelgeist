@@ -1,19 +1,20 @@
 use super::*;
+use crate::GenerationResult as Result;
 use crate::plan_geometry::ArchitecturalPlanPoint;
 use crate::spatial_geometry::{
     CuboidDimensions, Elevation, PlanDirection, Position, PositiveLength,
 };
 
 pub(super) fn loading_hood(
-    a: &mut Assembly<'_>,
+    assembly: &mut Assembly<'_>,
     dimensions: crate::spatial_geometry::PlanDimensions,
-) -> Result<(), crate::GenerationError> {
-    let w = dimensions.metres().x;
-    let d = dimensions.metres().y;
-    let z = d * 0.25;
-    for x in [w + 0.8, w + 4.8] {
+) -> Result<()> {
+    let width = dimensions.metres().x;
+    let depth = dimensions.metres().y;
+    let z = depth * 0.25;
+    for x in [width + 0.8, width + 4.8] {
         for end in [z - 2.2, z + 2.2] {
-            a.part(
+            assembly.part(
                 WorkplaceFeature::Post,
                 WorkplaceMaterial::Timber,
                 Position::<crate::Architectural>::from_metres(Vec3::new(x, 1.7, end))?,
@@ -23,9 +24,9 @@ pub(super) fn loading_hood(
         }
     }
     for end in [z - 2.2, z + 2.2] {
-        a.wall(
-            ArchitecturalPlanPoint::try_from(Vec2::new(w + 0.8, end))?,
-            ArchitecturalPlanPoint::try_from(Vec2::new(w + 4.8, end))?,
+        assembly.wall(
+            ArchitecturalPlanPoint::try_from(Vec2::new(width + 0.8, end))?,
+            ArchitecturalPlanPoint::try_from(Vec2::new(width + 4.8, end))?,
             PlanDirection::<crate::Architectural>::from_normalized(if end < z {
                 Vec2::NEG_Y
             } else {
@@ -36,11 +37,11 @@ pub(super) fn loading_hood(
             crate::workplace::assembly::WallConstruction::TimberBoards,
         )?;
     }
-    for x in [w + 0.8, w + 4.8] {
-        a.wall(
+    for x in [width + 0.8, width + 4.8] {
+        assembly.wall(
             ArchitecturalPlanPoint::try_from(Vec2::new(x, z - 2.2))?,
             ArchitecturalPlanPoint::try_from(Vec2::new(x, z + 2.2))?,
-            PlanDirection::<crate::Architectural>::from_normalized(if x < w + 2.8 {
+            PlanDirection::<crate::Architectural>::from_normalized(if x < width + 2.8 {
                 Vec2::NEG_X
             } else {
                 Vec2::X
@@ -51,8 +52,8 @@ pub(super) fn loading_hood(
         )?;
     }
     // A grounded lifting frame occupies the rear edge of the hood, beside the clear cart path.
-    for x in [w + 1.1, w + 4.5] {
-        a.part(
+    for x in [width + 1.1, width + 4.5] {
+        assembly.part(
             WorkplaceFeature::LoadingHoist,
             WorkplaceMaterial::Timber,
             Position::<crate::Architectural>::from_metres(Vec3::new(x, 1.5, z + 1.55))?,
@@ -60,16 +61,19 @@ pub(super) fn loading_hood(
             crate::workplace::WorkplacePartVisibility::Silhouette,
         )?;
     }
-    a.part(
+    assembly.part(
         WorkplaceFeature::LoadingHoist,
         WorkplaceMaterial::Timber,
-        Position::<crate::Architectural>::from_metres(Vec3::new(w + 2.8, 3.12, z + 1.55))?,
+        Position::<crate::Architectural>::from_metres(Vec3::new(width + 2.8, 3.12, z + 1.55))?,
         CuboidDimensions::from_metres(Vec3::new(3.8, 0.24, 0.3))?,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
     super::hoist::rig(
-        a,
-        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w + 2.8, z + 1.55))?,
+        assembly,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(
+            width + 2.8,
+            z + 1.55,
+        ))?,
     )?;
 
     Ok(())

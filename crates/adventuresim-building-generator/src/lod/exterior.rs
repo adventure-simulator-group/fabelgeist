@@ -1,5 +1,6 @@
 //! Exterior triangle selection from authoritative wall and opening assemblies.
 use super::*;
+use crate::GenerationResult as Result;
 use crate::{ResolvedSolid, WallAssembly};
 // Keep perpendicular jamb reveals and wall-end returns that close corners.
 const EXTERIOR_FACE_DOT_TOLERANCE: f32 = 0.001;
@@ -26,7 +27,7 @@ pub(super) fn append_facades(
     lod: &mut BuildingLod,
     plan: &BuildingPlan,
     excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let (contexts, openings) = facade_contexts(&lod.facade_runs, plan, excluded);
     let compiler = crate::detail::SolidDetailCompiler::new(plan);
     // Real inner skins enclose views through open civilian windows.
@@ -147,7 +148,7 @@ pub(super) fn append_outward_solid(
     compiler: &crate::detail::SolidDetailCompiler<'_>,
     solid: &ResolvedSolid,
     wall: Option<&WallAssembly>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let minimum_dot = if plan.church.is_some() {
         -EXTERIOR_FACE_DOT_TOLERANCE
     } else {

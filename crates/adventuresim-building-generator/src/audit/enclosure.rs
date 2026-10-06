@@ -10,7 +10,8 @@ use crate::spatial_geometry::{Architectural, Elevation, PlanDirection, Position,
 
 struct CornerGap {
     position: Position<Architectural>,
-    walls: [crate::WallAssemblyId; 2],
+    first_wall: crate::WallAssemblyId,
+    second_wall: crate::WallAssemblyId,
 }
 
 use super::{Result, enclosure_sections, issue};
@@ -74,8 +75,8 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) -> Result
                         WALL_GAP,
                         format!(
                             "walls {} and {} leave an exterior corner open at {:?}",
-                            gap.walls[0].0,
-                            gap.walls[1].0,
+                            gap.first_wall.0,
+                            gap.second_wall.0,
                             gap.position.metres()
                         ),
                     ));
@@ -156,7 +157,8 @@ fn corner_gap(
             if low > covered_to + JUNCTION_TOLERANCE_METRES {
                 return Ok(Some(CornerGap {
                     position: Position::from_metres(point + Vec3::Y * ((low + covered_to) * 0.5))?,
-                    walls: [a.id, b.id],
+                    first_wall: a.id,
+                    second_wall: b.id,
                 }));
             }
             covered_to = covered_to.max(high);
@@ -164,7 +166,8 @@ fn corner_gap(
         if covered_to < top - JUNCTION_TOLERANCE_METRES {
             return Ok(Some(CornerGap {
                 position: Position::from_metres(point + Vec3::Y * ((top + covered_to) * 0.5))?,
-                walls: [a.id, b.id],
+                first_wall: a.id,
+                second_wall: b.id,
             }));
         }
     }

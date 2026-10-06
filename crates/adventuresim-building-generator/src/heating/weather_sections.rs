@@ -1,7 +1,8 @@
 //! Shared folded-sheet sections retain signed depth, elevation and wall direction.
+use crate::GenerationResult as Result;
 use crate::plan_geometry::ArchitecturalPlanPoint;
 use crate::spatial_geometry::{Elevation, PlanDirection, SignedLength};
-use crate::{Architectural, GenerationError, SpatialBounds};
+use crate::{Architectural, SpatialBounds};
 use bevy::math::{Vec2, Vec3};
 
 #[derive(Clone, Copy)]
@@ -10,10 +11,10 @@ pub(super) struct WeatherSide {
     pub outward: PlanDirection<Architectural>,
 }
 impl WeatherSide {
-    pub fn around(bounds: SpatialBounds<Architectural>) -> Result<[Self; 4], GenerationError> {
+    pub fn around(bounds: SpatialBounds<Architectural>) -> Result<[Self; 4]> {
         let min = Vec2::new(bounds.min().metres().x, bounds.min().metres().z);
         let max = Vec2::new(bounds.max().metres().x, bounds.max().metres().z);
-        let side = |start, end, outward| -> Result<Self, GenerationError> {
+        let side = |start, end, outward| -> Result<Self> {
             Ok(Self {
                 ends: [
                     ArchitecturalPlanPoint::from_metres(start)?,
@@ -32,34 +33,31 @@ impl WeatherSide {
 }
 
 pub(super) struct SheetSection {
-    pub inner: SignedLength,
-    pub outer: SignedLength,
-    pub lower: Elevation<Architectural>,
-    pub upper: Elevation<Architectural>,
+    inner: SignedLength,
+    outer: SignedLength,
+    lower: Elevation<Architectural>,
+    upper: Elevation<Architectural>,
 }
 impl SheetSection {
-    pub fn from_metres(
-        inner: f32,
-        outer: f32,
-        lower: f32,
-        upper: f32,
-    ) -> Result<Self, GenerationError> {
+    pub fn new(
+        inner: SignedLength,
+        outer: SignedLength,
+        lower: Elevation<Architectural>,
+        upper: Elevation<Architectural>,
+    ) -> Result<Self> {
         SpatialBounds::<Architectural>::from_metres(
-            Vec3::new(inner, lower, 0.0),
-            Vec3::new(outer, upper, 0.0),
+            Vec3::new(inner.metres(), lower.metres(), 0.0),
+            Vec3::new(outer.metres(), upper.metres(), 0.0),
         )?;
         Ok(Self {
-            inner: SignedLength::from_metres(inner)?,
-            outer: SignedLength::from_metres(outer)?,
-            lower: Elevation::from_metres(lower)?,
-            upper: Elevation::from_metres(upper)?,
+            inner,
+            outer,
+            lower,
+            upper,
         })
     }
     /// Offset/axis arithmetic stays native here; the admitted bounds preserve contact.
-    pub fn bounds(
-        &self,
-        side: WeatherSide,
-    ) -> Result<SpatialBounds<Architectural>, GenerationError> {
+    pub fn bounds(&self, side: WeatherSide) -> Result<SpatialBounds<Architectural>> {
         let p = side.ends[0].metres() + side.outward.vector() * self.inner.metres();
         let q = side.ends[1].metres() + side.outward.vector() * self.outer.metres();
         Self::admit_bounds(p, q, self.lower, self.upper)
@@ -68,7 +66,7 @@ impl SheetSection {
         &self,
         side: WeatherSide,
         lap: SignedLength,
-    ) -> Result<SpatialBounds<Architectural>, GenerationError> {
+    ) -> Result<SpatialBounds<Architectural>> {
         let tangent = (side.ends[1].metres() - side.ends[0].metres()).normalize();
         let p = side.ends[0].metres() + side.outward.vector() * self.inner.metres()
             - tangent * lap.metres();
@@ -82,7 +80,7 @@ impl SheetSection {
         q: Vec2,
         lower: Elevation<Architectural>,
         upper: Elevation<Architectural>,
-    ) -> Result<SpatialBounds<Architectural>, GenerationError> {
+    ) -> Result<SpatialBounds<Architectural>> {
         let min = p.min(q);
         let max = p.max(q);
         Ok(SpatialBounds::from_metres(

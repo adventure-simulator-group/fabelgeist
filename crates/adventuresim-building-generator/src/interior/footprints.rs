@@ -1,6 +1,7 @@
 //! Incremental checks retain the architecture proof of the accepted prefix.
 use super::{InteriorLayoutError, InteriorPlacement, navigation::Navigation};
 use crate::BuildingPlan;
+use crate::interior::InteriorResult as Result;
 
 /// `accepted` placements must already have passed this check against this plan.
 /// Use zero when validating an untrusted or edited layout.
@@ -9,7 +10,7 @@ pub(super) fn validate(
     nav: &Navigation,
     placements: &[InteriorPlacement],
     accepted: usize,
-) -> Result<(), InteriorLayoutError> {
+) -> Result<()> {
     for (index, p) in placements.iter().enumerate() {
         // Accepted objects already satisfy static architecture and each other.
         // New objects can still obstruct their usable faces.
@@ -98,7 +99,7 @@ pub(super) fn validate(
 fn overlapping<'a>(
     placements: impl Iterator<Item = &'a InteriorPlacement>,
     rect: super::geometry::Rect,
-) -> Result<bool, InteriorLayoutError> {
+) -> Result<bool> {
     for placement in placements {
         if placement.footprint()?.overlaps(rect) {
             return Ok(true);

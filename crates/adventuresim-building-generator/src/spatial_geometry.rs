@@ -20,7 +20,7 @@ pub use length::PositiveLength;
 pub use bounds::SpatialBounds;
 pub use coordinates::{Architectural, Displacement, Elevation, GeometryFrame, Position};
 pub use dimensions::{CuboidDimensions, LeafDimensions, PlanDimensions, PlanExtents};
-pub use error::{CoordinateAxis, GeometryError, GeometryRole};
+pub use error::{CoordinateAxis, GeometryError, GeometryResult, GeometryRole};
 pub use orientation::{PlanDirection, Radians, RigidRotation, SpatialDirection};
 
 #[cfg(test)]

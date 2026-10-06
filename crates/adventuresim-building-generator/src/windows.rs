@@ -1,5 +1,7 @@
 //! Operable casements compiled from accepted window opening assemblies.
 
+use crate::CollisionResult;
+use crate::spatial_geometry::GeometryResult;
 use std::collections::BTreeMap;
 
 use bevy::math::{Quat, Vec2, Vec3};
@@ -33,14 +35,13 @@ impl WindowLeafKind {
 mod contract_tests;
 mod spec;
 use crate::spatial_geometry::{
-    Architectural, CuboidDimensions, GeometryError, LeafDimensions, PlanDirection, Position,
-    Radians,
+    Architectural, CuboidDimensions, LeafDimensions, PlanDirection, Position, Radians,
 };
-pub use spec::{WindowBarSpec, WindowError, WindowErrorCause, WindowSpec};
+pub use spec::{
+    WindowBarPresence, WindowBarSpec, WindowError, WindowErrorCause, WindowResult, WindowSpec,
+};
 
-pub fn compile_window_bars(
-    plan: &BuildingPlan,
-) -> Result<Vec<WindowBarSpec>, crate::CollisionError> {
+pub fn compile_window_bars(plan: &BuildingPlan) -> CollisionResult<Vec<WindowBarSpec>> {
     plan.opening_assemblies
         .iter()
         .filter(|opening| opening.closure.layers.contains(&ClosureKind::IronBars))
@@ -53,7 +54,7 @@ pub fn compile_window_bars(
                 let offset = (fraction - 0.5) * width;
                 let plan_position = opening.frame.origin + opening.frame.tangent * offset;
                 let source = ResolvedItemId((7_u64 << 60) | (opening.id.0 << 8) | index as u64);
-                let admit = || -> Result<WindowBarSpec, GeometryError> {
+                let admit = || -> GeometryResult<WindowBarSpec> {
                     // Bars retain the authored frame without normalizing set-out arithmetic.
                     PlanDirection::<Architectural>::from_normalized(opening.frame.tangent)?;
                     PlanDirection::<Architectural>::from_normalized(opening.frame.outward)?;
@@ -84,7 +85,7 @@ pub fn compile_window_bars(
 
 pub fn compile_operable_windows(
     plan: &BuildingPlan,
-) -> Result<Vec<WindowSpec<Architectural>>, WindowError> {
+) -> WindowResult<Vec<WindowSpec<Architectural>>> {
     let solids = plan
         .resolved_geometry
         .solids
@@ -122,7 +123,11 @@ pub fn compile_operable_windows(
                 opening.id,
                 opening.frame.tangent,
                 opening.frame.outward,
-                opening.closure.layers.contains(&ClosureKind::IronBars),
+                if opening.closure.layers.contains(&ClosureKind::IronBars) {
+                    WindowBarPresence::Present
+                } else {
+                    WindowBarPresence::Absent
+                },
                 solid,
             )
         })
@@ -133,10 +138,10 @@ fn window_from_solid(
     opening: OpeningAssemblyId,
     tangent: Vec2,
     outward: Vec2,
-    barred: bool,
+    bars: WindowBarPresence,
     solid: &ResolvedSolid,
-) -> Result<WindowSpec<Architectural>, WindowError> {
-    let admit = || -> Result<WindowSpec<Architectural>, GeometryError> {
+) -> WindowResult<WindowSpec<Architectural>> {
+    let admit = || -> GeometryResult<WindowSpec<Architectural>> {
         let tangent_owner = PlanDirection::from_vector(tangent)?;
         let outward_owner = PlanDirection::from_vector(outward)?;
         let tangent = tangent_owner.vector();
@@ -172,7 +177,7 @@ fn window_from_solid(
             } else {
                 -CASEMENT_OPEN_ANGLE_RADIANS
             })?,
-            barred,
+            bars,
         })
     };
     admit().map_err(|cause| WindowError {
@@ -200,7 +205,10 @@ mod tests {
             .expect("town house");
             let windows = compile_operable_windows(&plan).unwrap();
             operable += windows.len();
-            barred += windows.iter().filter(|window| window.barred).count();
+            barred += windows
+                .iter()
+                .filter(|window| window.bars == WindowBarPresence::Present)
+                .count();
             fixed += plan
                 .opening_assemblies
                 .iter()

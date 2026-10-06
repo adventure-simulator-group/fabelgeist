@@ -2,6 +2,7 @@ use super::architecture::Floor;
 use super::geometry::*;
 use super::{FurnitureAccessPath, InteriorLayoutError, InteriorPlacement, InteriorWaypoint};
 use crate::BuildingPlan;
+use crate::interior::InteriorResult as Result;
 use crate::{StoreyIndex, plan_geometry::ArchitecturalPlanPoint};
 use bevy::math::Vec2;
 use std::collections::{BTreeMap, VecDeque};
@@ -35,7 +36,7 @@ pub(super) struct Flood {
     pub entry: usize,
 }
 impl Navigation {
-    pub fn new(plan: &BuildingPlan) -> Result<Self, InteriorLayoutError> {
+    pub fn new(plan: &BuildingPlan) -> Result<Self> {
         let mut nav = Self::lattice(plan)?;
         nav.enter_front_door(plan)?;
         nav.add_doors(plan)?;
@@ -66,12 +67,12 @@ impl Navigation {
         nav.verify_rooms(&empty)?;
         Ok(nav)
     }
-    fn lattice(plan: &BuildingPlan) -> Result<Self, InteriorLayoutError> {
+    fn lattice(plan: &BuildingPlan) -> Result<Self> {
         let floors = plan
             .storeys
             .iter()
             .map(|s| Floor::new(plan, StoreyIndex::from_serialized(s.level)))
-            .collect::<Result<Vec<_>, _>>()?;
+            .collect::<Result<Vec<_>>>()?;
         let mut nodes = Vec::new();
         let mut lookup = BTreeMap::new();
         for floor in &floors {
@@ -136,12 +137,12 @@ impl Navigation {
             node_lookup,
         })
     }
-    pub fn flood(&self, placements: &[InteriorPlacement]) -> Result<Flood, InteriorLayoutError> {
+    pub fn flood(&self, placements: &[InteriorPlacement]) -> Result<Flood> {
         let mut occupancy = Occupancy::new(self)?;
         occupancy.add(placements)?;
         Ok(occupancy.flood())
     }
-    pub fn verify_rooms(&self, flood: &Flood) -> Result<(), InteriorLayoutError> {
+    pub fn verify_rooms(&self, flood: &Flood) -> Result<()> {
         for room in &self.room_nodes {
             if !room.nodes.iter().any(|&n| flood.parents[n].is_some()) {
                 return Err(InteriorLayoutError::DisconnectedRoom {
@@ -156,7 +157,7 @@ impl Navigation {
         &self,
         placements: &[InteriorPlacement],
         flood: &Flood,
-    ) -> Result<Vec<FurnitureAccessPath>, InteriorLayoutError> {
+    ) -> Result<Vec<FurnitureAccessPath>> {
         let mut paths = Vec::new();
         for (index, p) in placements.iter().enumerate() {
             for &face in p.key.interior_spec()?.required_faces {

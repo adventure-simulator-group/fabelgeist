@@ -1,5 +1,6 @@
 //! One shape and finish compiler shared by full detail and exterior selection.
 use super::*;
+use crate::GenerationResult as Result;
 
 pub(crate) struct SolidDetailCompiler<'a> {
     plan: &'a BuildingPlan,
@@ -14,20 +15,13 @@ impl<'a> SolidDetailCompiler<'a> {
         }
     }
 
-    pub(crate) fn compile(
-        &self,
-        solid: &ResolvedSolid,
-    ) -> Result<BuildingDetail, crate::GenerationError> {
+    pub(crate) fn compile(&self, solid: &ResolvedSolid) -> Result<BuildingDetail> {
         let mut detail = BuildingDetail { meshes: Vec::new() };
         self.append(&mut detail, solid)?;
         Ok(detail)
     }
 
-    pub(super) fn append(
-        &self,
-        detail: &mut BuildingDetail,
-        solid: &ResolvedSolid,
-    ) -> Result<(), crate::GenerationError> {
+    pub(super) fn append(&self, detail: &mut BuildingDetail, solid: &ResolvedSolid) -> Result<()> {
         if stove_tiles::append(detail, self.plan, solid)? {
             return Ok(());
         }
@@ -84,7 +78,7 @@ fn append_shaped_solid(
     material: BuildingLodMaterial,
     solid: &ResolvedSolid,
     wall: Option<&crate::WallAssembly>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     if matches!(solid.shape, ResolvedSolidShape::CylinderAlongX) {
         detail.meshes.push(crate::axle::mesh(solid));
         return Ok(());
@@ -130,7 +124,7 @@ fn append_window_leaf(
     solid: &ResolvedSolid,
     wall: Option<&crate::WallAssembly>,
     kind: crate::WindowLeafKind,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let (size, rotation) = if let Some(wall) = wall {
         let tangent = wall.frame.tangent.abs();
         let outward = wall.frame.outward.abs();

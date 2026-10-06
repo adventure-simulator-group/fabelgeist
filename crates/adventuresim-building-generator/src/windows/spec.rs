@@ -1,11 +1,19 @@
 //! Window records retain frame, leaf role and opening identity during decoding.
 use super::WindowLeafKind;
+use crate::spatial_geometry::GeometryResult as Result;
 use crate::spatial_geometry::{
     Architectural, CuboidDimensions, GeometryError, GeometryFrame, LeafDimensions, PlanDirection,
     Position, Radians,
 };
 use crate::{OpeningAssemblyId, ResolvedItemId};
 use serde::{Deserialize, Serialize};
+
+/// Fixed bars accompany the opening independently of its movable casement.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub enum WindowBarPresence {
+    Absent,
+    Present,
+}
 
 /// One operable casement in the declared coordinate frame.
 /// Geometry leaves are checked individually; generator compilation chooses the
@@ -33,7 +41,7 @@ pub struct WindowSpec<F: GeometryFrame> {
     pub tangent: PlanDirection<F>,
     pub outward: PlanDirection<F>,
     pub open_angle_radians: Radians,
-    pub barred: bool,
+    pub bars: WindowBarPresence,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
@@ -44,6 +52,9 @@ pub struct WindowBarSpec {
     pub size_metres: CuboidDimensions,
     pub yaw_radians: Radians,
 }
+
+/// Window compilation and conversion preserve opening/source identities.
+pub type WindowResult<T> = std::result::Result<T, WindowError>;
 
 #[derive(Clone, Debug, thiserror::Error, Eq, PartialEq)]
 #[error("window {opening:?}, source {source_id:?}: {cause}")]
@@ -62,8 +73,11 @@ pub enum WindowErrorCause {
 }
 
 impl<'de, F: GeometryFrame> Deserialize<'de> for WindowSpec<F> {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
         #[derive(Deserialize)]
+        // Wire vectors carry F-frame metre positions, leaf-local width/height/
+        // thickness, normalized F-plan directions and yaw angles in radians.
+        // Admit them together so geometry errors retain opening/source identity.
         struct NativeWindow {
             leaf: WindowLeafKind,
             opening: OpeningAssemblyId,
@@ -75,10 +89,10 @@ impl<'de, F: GeometryFrame> Deserialize<'de> for WindowSpec<F> {
             tangent: bevy::math::Vec2,
             outward: bevy::math::Vec2,
             open_angle_radians: f32,
-            barred: bool,
+            bars: WindowBarPresence,
         }
         let v = NativeWindow::deserialize(d)?;
-        let admit = || -> Result<Self, GeometryError> {
+        let admit = || -> Result<Self> {
             Ok(Self {
                 leaf: v.leaf,
                 opening: v.opening,
@@ -90,7 +104,7 @@ impl<'de, F: GeometryFrame> Deserialize<'de> for WindowSpec<F> {
                 tangent: PlanDirection::from_normalized(v.tangent)?,
                 outward: PlanDirection::from_normalized(v.outward)?,
                 open_angle_radians: Radians::new(v.open_angle_radians)?,
-                barred: v.barred,
+                bars: v.bars,
             })
         };
         admit().map_err(|cause| {
@@ -103,7 +117,7 @@ impl<'de, F: GeometryFrame> Deserialize<'de> for WindowSpec<F> {
     }
 }
 impl<'de> Deserialize<'de> for WindowBarSpec {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
         #[derive(Deserialize)]
         struct NativeBar {
             opening: OpeningAssemblyId,
@@ -113,7 +127,7 @@ impl<'de> Deserialize<'de> for WindowBarSpec {
             yaw_radians: f32,
         }
         let v = NativeBar::deserialize(d)?;
-        let admit = || -> Result<Self, GeometryError> {
+        let admit = || -> Result<Self> {
             Ok(Self {
                 opening: v.opening,
                 source: v.source,

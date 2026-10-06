@@ -1,6 +1,7 @@
 //! One leaf mesh shared by fixed glazing and server-operated casements.
 use super::WindowLeafKind;
 use crate::ClosureState;
+use crate::CollisionResult as Result;
 use crate::{
     BuildingLodMaterial, LodMesh,
     furniture::builder::{Builder, CollisionPolicy},
@@ -20,7 +21,7 @@ pub fn compile_window_leaf(
     size: crate::spatial_geometry::CuboidDimensions,
     kind: WindowLeafKind,
     state: ClosureState,
-) -> Result<Vec<LodMesh>, crate::CollisionError> {
+) -> Result<Vec<LodMesh>> {
     let size = size.metres();
     let mut builder = Builder::default();
     if kind == WindowLeafKind::TimberShutter {

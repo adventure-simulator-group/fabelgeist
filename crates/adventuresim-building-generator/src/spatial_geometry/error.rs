@@ -1,3 +1,4 @@
+use crate::spatial_geometry::GeometryResult as Result;
 use bevy::math::InvalidDirectionError;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Serialize)]
@@ -31,6 +32,9 @@ pub enum GeometryRole {
     ClearanceVolume,
     PositiveLength,
 }
+
+/// Checked spatial construction and measurement operations.
+pub type GeometryResult<T> = std::result::Result<T, GeometryError>;
 
 #[derive(Debug, thiserror::Error, PartialEq, serde::Serialize)]
 pub enum GeometryError {
@@ -99,7 +103,7 @@ impl Clone for GeometryError {
 }
 impl Eq for GeometryError {}
 
-pub(super) fn finite(value: bevy::math::Vec3, role: GeometryRole) -> Result<(), GeometryError> {
+pub(super) fn finite(value: bevy::math::Vec3, role: GeometryRole) -> Result<()> {
     for (axis, component) in [CoordinateAxis::X, CoordinateAxis::Y, CoordinateAxis::Z]
         .into_iter()
         .zip(value.to_array())
@@ -114,7 +118,7 @@ pub(super) fn finite(value: bevy::math::Vec3, role: GeometryRole) -> Result<(), 
 fn serialize_direction_error<S: serde::Serializer>(
     source: &InvalidDirectionError,
     serializer: S,
-) -> Result<S::Ok, S::Error> {
+) -> std::result::Result<S::Ok, S::Error> {
     serializer.serialize_str(match source {
         InvalidDirectionError::Zero => "zero",
         InvalidDirectionError::Infinite => "infinite",

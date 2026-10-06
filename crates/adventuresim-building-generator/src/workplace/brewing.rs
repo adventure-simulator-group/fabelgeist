@@ -1,5 +1,6 @@
 //! Small preindustrial brewing yards and ventilated malt-drying houses.
 use super::{assembly::Assembly, *};
+use crate::GenerationResult;
 use crate::plan_geometry::ArchitecturalPlanPoint;
 use crate::spatial_geometry::{
     CuboidDimensions, Elevation, PlanDirection, Position, PositiveLength,
@@ -28,73 +29,83 @@ pub(super) fn service_roof(main: Vec2) -> RoofPiece {
 }
 
 pub(super) fn brewery(
-    a: &mut Assembly<'_>,
+    assembly: &mut Assembly<'_>,
     dimensions: crate::spatial_geometry::PlanDimensions,
-) -> Result<(), crate::GenerationError> {
-    let w = dimensions.metres().x;
-    let d = dimensions.metres().y;
-    service_frame(a, dimensions)?;
-    for z in [2.1, d * 0.5 - 0.7] {
+) -> GenerationResult<()> {
+    let width = dimensions.metres().x;
+    let depth = dimensions.metres().y;
+    service_frame(assembly, dimensions)?;
+    for z in [2.1, depth * 0.5 - 0.7] {
         vessels::vat(
-            a,
-            crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w + 3.6, z))?,
+            assembly,
+            crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(width + 3.6, z))?,
             crate::spatial_geometry::PositiveLength::from_metres(0.95)?,
             crate::spatial_geometry::PositiveLength::from_metres(1.25)?,
         )?;
     }
     vessels::vat(
-        a,
+        assembly,
         crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(2.0, 2.2))?,
         crate::spatial_geometry::PositiveLength::from_metres(1.05)?,
         crate::spatial_geometry::PositiveLength::from_metres(1.4)?,
     )?;
-    for z in [d * 0.55, d - 2.2] {
+    for z in [depth * 0.55, depth - 2.2] {
         vessels::vat(
-            a,
+            assembly,
             crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(2.0, z))?,
             crate::spatial_geometry::PositiveLength::from_metres(1.05)?,
             crate::spatial_geometry::PositiveLength::from_metres(1.4)?,
         )?;
     }
     brewing_bench(
-        a,
-        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w - 2.1, d - 3.0))?,
+        assembly,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(
+            width - 2.1,
+            depth - 3.0,
+        ))?,
     )?;
     // Broad masonry shoulders around an open firing mouth, with a continuous rear flue.
     hearth(
-        a,
-        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(w + 3.6, d - 1.65))?,
+        assembly,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(
+            width + 3.6,
+            depth - 1.65,
+        ))?,
         crate::spatial_geometry::Elevation::<crate::Architectural>::from_metres(4.25)?,
     )?;
-    a.passage(
+    assembly.passage(
         WorkplacePassagePurpose::OutdoorRoute,
-        Position::<crate::Architectural>::from_metres(Vec3::new(w + 2.2, 0.05, d - 3.0))?,
-        Position::<crate::Architectural>::from_metres(Vec3::new(w + 5.0, 2.3, d - 2.85))?,
+        Position::<crate::Architectural>::from_metres(Vec3::new(width + 2.2, 0.05, depth - 3.0))?,
+        Position::<crate::Architectural>::from_metres(Vec3::new(width + 5.0, 2.3, depth - 2.85))?,
     )?;
 
     Ok(())
 }
 
 fn brewing_bench(
-    a: &mut Assembly<'_>,
-    p: crate::plan_geometry::ArchitecturalPlanPoint,
-) -> Result<(), crate::GenerationError> {
-    let p = p.metres();
+    assembly: &mut Assembly<'_>,
+    centre: crate::plan_geometry::ArchitecturalPlanPoint,
+) -> GenerationResult<()> {
+    let centre = centre.metres();
     for x in [-0.8, 0.8] {
         for z in [-1.2, 1.2] {
-            a.part(
+            assembly.part(
                 WorkplaceFeature::Counter,
                 WorkplaceMaterial::UnpaintedTimber,
-                Position::<crate::Architectural>::from_metres(Vec3::new(p.x + x, 0.45, p.y + z))?,
+                Position::<crate::Architectural>::from_metres(Vec3::new(
+                    centre.x + x,
+                    0.45,
+                    centre.y + z,
+                ))?,
                 CuboidDimensions::from_metres(Vec3::new(0.18, 0.9, 0.18))?,
                 crate::workplace::WorkplacePartVisibility::Silhouette,
             )?;
         }
     }
-    a.part(
+    assembly.part(
         WorkplaceFeature::Counter,
         WorkplaceMaterial::UnpaintedTimber,
-        Position::<crate::Architectural>::from_metres(Vec3::new(p.x, 0.98, p.y))?,
+        Position::<crate::Architectural>::from_metres(Vec3::new(centre.x, 0.98, centre.y))?,
         CuboidDimensions::from_metres(Vec3::new(2.0, 0.16, 2.8))?,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
@@ -121,11 +132,11 @@ fn brewing_bench(
             dimensions: CuboidDimensions::from_metres(Vec3::new(1.3, 0.4, 0.08))?,
         },
     ] {
-        a.part(
+        assembly.part(
             WorkplaceFeature::Trough,
             WorkplaceMaterial::UnpaintedTimber,
             Position::<crate::Architectural>::from_metres(
-                Vec3::new(p.x, 1.1, p.y) + component.offset.metres(),
+                Vec3::new(centre.x, 1.1, centre.y) + component.offset.metres(),
             )?,
             component.dimensions,
             crate::workplace::WorkplacePartVisibility::Silhouette,
@@ -135,18 +146,18 @@ fn brewing_bench(
 }
 
 fn service_frame(
-    a: &mut Assembly<'_>,
+    assembly: &mut Assembly<'_>,
     dimensions: crate::spatial_geometry::PlanDimensions,
-) -> Result<(), crate::GenerationError> {
-    let w = dimensions.metres().x;
-    let d = dimensions.metres().y;
+) -> GenerationResult<()> {
+    let width = dimensions.metres().x;
+    let depth = dimensions.metres().y;
     let front = 0.6;
-    let back = d - 3.4;
+    let back = depth - 3.4;
     let bays = ((back - front) / 3.0).ceil() as u32;
-    for x in [w + 2.0, w + 5.2] {
+    for x in [width + 2.0, width + 5.2] {
         for bay in 0..=bays {
             let z = front + (back - front) * bay as f32 / bays as f32;
-            a.part(
+            assembly.part(
                 WorkplaceFeature::Post,
                 WorkplaceMaterial::Timber,
                 Position::<crate::Architectural>::from_metres(Vec3::new(x, 1.3, z))?,
@@ -154,10 +165,10 @@ fn service_frame(
                 crate::workplace::WorkplacePartVisibility::Silhouette,
             )?;
         }
-        a.wall(
+        assembly.wall(
             ArchitecturalPlanPoint::try_from(Vec2::new(x, front))?,
             ArchitecturalPlanPoint::try_from(Vec2::new(x, back))?,
-            PlanDirection::<crate::Architectural>::from_normalized(if x < w + 3.0 {
+            PlanDirection::<crate::Architectural>::from_normalized(if x < width + 3.0 {
                 Vec2::NEG_X
             } else {
                 Vec2::X
@@ -168,9 +179,9 @@ fn service_frame(
         )?;
     }
     let _: () = for z in [front, back] {
-        a.wall(
-            ArchitecturalPlanPoint::try_from(Vec2::new(w + 2.0, z))?,
-            ArchitecturalPlanPoint::try_from(Vec2::new(w + 5.2, z))?,
+        assembly.wall(
+            ArchitecturalPlanPoint::try_from(Vec2::new(width + 2.0, z))?,
+            ArchitecturalPlanPoint::try_from(Vec2::new(width + 5.2, z))?,
             PlanDirection::<crate::Architectural>::from_normalized(if z == front {
                 Vec2::NEG_Y
             } else {
@@ -185,57 +196,57 @@ fn service_frame(
 }
 
 fn hearth(
-    a: &mut Assembly<'_>,
-    p: crate::plan_geometry::ArchitecturalPlanPoint,
+    assembly: &mut Assembly<'_>,
+    centre: crate::plan_geometry::ArchitecturalPlanPoint,
     flue_top: crate::spatial_geometry::Elevation<crate::Architectural>,
-) -> Result<(), crate::GenerationError> {
-    let p = p.metres();
+) -> GenerationResult<()> {
+    let centre = centre.metres();
     let flue_top = flue_top.metres();
     for x in [-0.9, 0.9] {
-        a.part(
+        assembly.part(
             WorkplaceFeature::Kiln,
             WorkplaceMaterial::Masonry,
-            Position::<crate::Architectural>::from_metres(Vec3::new(p.x + x, 0.7, p.y))?,
+            Position::<crate::Architectural>::from_metres(Vec3::new(centre.x + x, 0.7, centre.y))?,
             CuboidDimensions::from_metres(Vec3::new(0.5, 1.4, 2.2))?,
             crate::workplace::WorkplacePartVisibility::Silhouette,
         )?;
     }
-    a.part(
+    assembly.part(
         WorkplaceFeature::Kiln,
         WorkplaceMaterial::Masonry,
-        Position::<crate::Architectural>::from_metres(Vec3::new(p.x, 0.7, p.y + 0.85))?,
+        Position::<crate::Architectural>::from_metres(Vec3::new(centre.x, 0.7, centre.y + 0.85))?,
         CuboidDimensions::from_metres(Vec3::new(1.3, 1.4, 0.5))?,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
-    a.part(
+    assembly.part(
         WorkplaceFeature::Kiln,
         WorkplaceMaterial::Iron,
-        Position::<crate::Architectural>::from_metres(Vec3::new(p.x, 1.5, p.y - 0.35))?,
+        Position::<crate::Architectural>::from_metres(Vec3::new(centre.x, 1.5, centre.y - 0.35))?,
         CuboidDimensions::from_metres(Vec3::new(2.3, 0.2, 1.5))?,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
     // Hollow square shaft directly over the rear masonry. Its opening is never capped.
     for x in [-0.34, 0.34] {
-        a.part(
+        assembly.part(
             WorkplaceFeature::Flue,
             WorkplaceMaterial::Masonry,
             Position::<crate::Architectural>::from_metres(Vec3::new(
-                p.x + x,
+                centre.x + x,
                 (1.4 + flue_top) * 0.5,
-                p.y + 0.75,
+                centre.y + 0.75,
             ))?,
             CuboidDimensions::from_metres(Vec3::new(0.18, flue_top - 1.4, 0.86))?,
             crate::workplace::WorkplacePartVisibility::Silhouette,
         )?;
     }
     let _: () = for z in [-0.34, 0.34] {
-        a.part(
+        assembly.part(
             WorkplaceFeature::Flue,
             WorkplaceMaterial::Masonry,
             Position::<crate::Architectural>::from_metres(Vec3::new(
-                p.x,
+                centre.x,
                 (1.4 + flue_top) * 0.5,
-                p.y + 0.75 + z,
+                centre.y + 0.75 + z,
             ))?,
             CuboidDimensions::from_metres(Vec3::new(0.5, flue_top - 1.4, 0.18))?,
             crate::workplace::WorkplacePartVisibility::Silhouette,

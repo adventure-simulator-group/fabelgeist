@@ -1,6 +1,7 @@
 //! Shared room orientation makes seating and ward beds form coherent ensembles.
-use super::{InteriorLayoutError, geometry::RoomBounds};
+use super::geometry::RoomBounds;
 use crate::furniture::FurnitureKind;
+use crate::interior::InteriorResult as Result;
 use crate::plan_geometry::ArchitecturalPlanPoint;
 use crate::{BuildingPlan, Direction, Room, RoomKind, StoreyIndex};
 use bevy::math::Vec2;
@@ -10,7 +11,7 @@ pub(super) fn preferred_facing(
     room: &Room,
     kind: FurnitureKind,
     bounds: RoomBounds,
-) -> Result<Option<Direction>, InteriorLayoutError> {
+) -> Result<Option<Direction>> {
     let min = bounds.min.metres();
     let max = bounds.max.metres();
     if kind == FurnitureKind::WardBed && room.kind == RoomKind::Ward {
@@ -48,7 +49,7 @@ fn room_direction(
     plan: &BuildingPlan,
     kind: RoomKind,
     origin: ArchitecturalPlanPoint,
-) -> Result<Option<Direction>, InteriorLayoutError> {
+) -> Result<Option<Direction>> {
     for storey in &plan.storeys {
         if let Some(room) = storey.rooms.iter().find(|r| r.kind == kind) {
             // The mean cell centre preserves the authored room-facing arithmetic.
@@ -70,7 +71,7 @@ pub(super) fn placement_score(
     placement: &super::InteriorPlacement,
     bounds: RoomBounds,
     ordinary: f32,
-) -> Result<f32, InteriorLayoutError> {
+) -> Result<f32> {
     // Scores use distances and projected progress in metres; infinity rejects
     // a candidate.
     let min = bounds.min.metres();

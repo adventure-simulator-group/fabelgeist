@@ -26,6 +26,9 @@ pub use recipes::CityRecipePalette;
 #[cfg(test)]
 mod tests;
 
+/// Accepted city-property compilation preserves its shared error classification.
+pub type CityCompileResult<T> = std::result::Result<T, CityCompileError>;
+
 #[derive(Clone, Debug, PartialEq, thiserror::Error)]
 pub enum CityCompileError {
     #[error(transparent)]
@@ -119,7 +122,7 @@ pub struct CitySceneLayout {
 
 impl GeneratedCityLayout {
     /// Compile the selected roster, then solve its measured physical packing.
-    pub fn compile(mut self, seed: u64) -> Result<CompiledCityLayout, CityCompileError> {
+    pub fn compile(mut self, seed: u64) -> CityCompileResult<CompiledCityLayout> {
         let context = std::mem::replace(
             &mut self.packing,
             Ok(super::packing::CityPackingContext::default()),
@@ -136,7 +139,7 @@ pub(crate) fn validate_scene_compound(
     front: &crate::scene_input::GeneratedBuilding,
     rear: &crate::scene_input::GeneratedBuilding,
     streets: &[CityStreetPatch],
-) -> Result<(), CityCompileError> {
+) -> CityCompileResult<()> {
     let front_recipe = recipes::Recipe::from_generated(front)?;
     let rear_recipe = recipes::Recipe::from_generated(rear)?;
     if !front_recipe.fits(&front.placement, compound.plot)
@@ -171,7 +174,7 @@ impl CompiledCityLayout {
     pub fn partition(
         self,
         playable_half_extent_metres: Option<f32>,
-    ) -> Result<CitySceneLayout, CityCompileError> {
+    ) -> CityCompileResult<CitySceneLayout> {
         let mut playable_members = BTreeSet::new();
         let mut compound_members = BTreeSet::new();
         for compound in &self.compounds {

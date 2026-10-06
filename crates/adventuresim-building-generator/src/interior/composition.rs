@@ -3,15 +3,14 @@ use super::InteriorPlacement;
 use super::geometry::local_rotate;
 use crate::Direction;
 use crate::furniture::{FurnitureKey, FurnitureKind, InteriorFurnitureSpec};
+use crate::interior::InteriorResult as Result;
 use crate::spatial_geometry::Displacement;
 use bevy::math::{Vec2, Vec3, Vec3Swizzles};
 
 const TABLE_SEATING_GAP_METRES: f32 = 0.4;
 const DESK_APPROACH_MARGIN_METRES: f32 = 0.05;
 
-pub(super) fn compose(
-    primary: InteriorPlacement,
-) -> Result<Vec<InteriorPlacement>, super::InteriorLayoutError> {
+pub(super) fn compose(primary: InteriorPlacement) -> Result<Vec<InteriorPlacement>> {
     let mut group = vec![primary.clone()];
     let size = primary.key.interior_spec()?.size_metres.metres();
     match primary.key.kind() {

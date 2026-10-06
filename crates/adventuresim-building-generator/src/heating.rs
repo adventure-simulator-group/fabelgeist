@@ -1,4 +1,5 @@
 //! Room-owned domestic heating with physical smoke routes and weathering.
+use crate::GenerationResult as Result;
 mod appliances;
 mod error;
 pub use error::HeatingConstructionError;
@@ -18,10 +19,7 @@ mod weathering;
 use crate::*;
 pub use model::*;
 
-pub(crate) fn resolve(
-    program: &BuildingProgram,
-    plan: &mut BuildingPlan,
-) -> Result<(), GenerationError> {
+pub(crate) fn resolve(program: &BuildingProgram, plan: &mut BuildingPlan) -> Result<()> {
     let Some(programme) = program.domestic_heating else {
         return Ok(());
     };

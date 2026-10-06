@@ -1,12 +1,13 @@
 //! Keep the architectural processional route open through furnished naves.
 use super::geometry::{PERSON_RADIUS, Rect, room_bounds};
+use crate::interior::InteriorResult as Result;
 use crate::{BuildingPlan, ChurchRouteKind, RoomKind};
 use bevy::math::Vec2;
 
 pub(super) fn nave_routes(
     plan: &BuildingPlan,
     height: crate::spatial_geometry::Elevation<crate::Architectural>,
-) -> Result<Vec<Rect>, super::InteriorLayoutError> {
+) -> Result<Vec<Rect>> {
     let height = height.metres();
     let mut routes = Vec::new();
     if let Some(church) = &plan.small_church {

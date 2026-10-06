@@ -1,5 +1,6 @@
 //! Coopered vessels assembled from the same oriented timber and iron cuboids as the building.
 use super::*;
+use crate::GenerationResult as Result;
 use crate::spatial_geometry::{CuboidDimensions, Position, RigidRotation};
 use std::f32::consts::TAU;
 
@@ -11,25 +12,25 @@ const BOTTOM_PLANK_COUNT: u32 = 12;
 const BOTTOM_THICKNESS_METRES: f32 = 0.16;
 
 pub(super) fn vat(
-    a: &mut Assembly<'_>,
-    p: crate::plan_geometry::ArchitecturalPlanPoint,
+    assembly: &mut Assembly<'_>,
+    centre: crate::plan_geometry::ArchitecturalPlanPoint,
     radius: crate::spatial_geometry::PositiveLength,
     height: crate::spatial_geometry::PositiveLength,
-) -> Result<(), crate::GenerationError> {
-    let p = p.metres();
+) -> Result<()> {
+    let centre = centre.metres();
     let radius = radius.metres();
     let height = height.metres();
     let plank_depth = radius * 2.0 / BOTTOM_PLANK_COUNT as f32;
     for index in 0..BOTTOM_PLANK_COUNT {
         let z = -radius + (index as f32 + 0.5) * plank_depth;
         let half_width = (radius * radius - z * z).sqrt();
-        a.part(
+        assembly.part(
             WorkplaceFeature::Vat,
             WorkplaceMaterial::UnpaintedTimber,
             Position::<crate::Architectural>::from_metres(Vec3::new(
-                p.x,
+                centre.x,
                 BOTTOM_THICKNESS_METRES * 0.5,
-                p.y + z,
+                centre.y + z,
             ))?,
             CuboidDimensions::from_metres(Vec3::new(
                 half_width * 2.0,
@@ -44,9 +45,9 @@ pub(super) fn vat(
     for index in 0..STAVE_COUNT {
         let angle = index as f32 * step;
         let direction = Vec2::new(angle.sin(), angle.cos());
-        let centre = p + direction * radius;
+        let centre = centre + direction * radius;
         oriented_part(
-            a,
+            assembly,
             WorkplaceMaterial::UnpaintedTimber,
             crate::spatial_geometry::Position::<crate::Architectural>::from_metres(Vec3::new(
                 centre.x,
@@ -65,9 +66,9 @@ pub(super) fn vat(
         for index in 0..STAVE_COUNT {
             let angle = index as f32 * step;
             let hoop_radius = radius + (STAVE_THICKNESS_METRES + HOOP_THICKNESS_METRES) * 0.5;
-            let centre = p + Vec2::new(angle.sin(), angle.cos()) * hoop_radius;
+            let centre = centre + Vec2::new(angle.sin(), angle.cos()) * hoop_radius;
             oriented_part(
-                a,
+                assembly,
                 WorkplaceMaterial::Iron,
                 crate::spatial_geometry::Position::<crate::Architectural>::from_metres(Vec3::new(
                     centre.x, elevation, centre.y,
@@ -85,21 +86,21 @@ pub(super) fn vat(
 }
 
 fn oriented_part(
-    a: &mut Assembly<'_>,
+    assembly: &mut Assembly<'_>,
     material: WorkplaceMaterial,
     centre: crate::spatial_geometry::Position<crate::Architectural>,
     size: crate::spatial_geometry::CuboidDimensions,
     yaw: crate::spatial_geometry::Radians,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let yaw = yaw.radians();
-    let id = a.part(
+    let id = assembly.part(
         WorkplaceFeature::Vat,
         material,
         centre,
         size,
         crate::workplace::WorkplacePartVisibility::Silhouette,
     )?;
-    a.orient_part(
+    assembly.orient_part(
         id,
         RigidRotation::from_quaternion(bevy::math::Quat::from_rotation_y(yaw))?,
     )?;

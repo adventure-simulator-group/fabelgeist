@@ -1,5 +1,6 @@
 //! Scalar set-out distances and overlap areas retain their units and admission.
 use super::{CoordinateAxis, GeometryError, GeometryRole};
+use crate::spatial_geometry::GeometryResult as Result;
 use bevy::reflect::Reflect;
 use serde::{Deserialize, Serialize};
 
@@ -15,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct SignedLength(f32);
 impl SignedLength {
     pub const ZERO: Self = Self(0.0);
-    pub fn from_metres(value: f32) -> Result<Self, GeometryError> {
+    pub fn from_metres(value: f32) -> Result<Self> {
         if !value.is_finite() {
             return Err(GeometryError::NonFinite {
                 role: GeometryRole::SignedLength,
@@ -29,7 +30,7 @@ impl SignedLength {
     }
 }
 impl<'de> Deserialize<'de> for SignedLength {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
         Self::from_metres(f32::deserialize(d)?).map_err(serde::de::Error::custom)
     }
 }
@@ -46,7 +47,7 @@ impl<'de> Deserialize<'de> for SignedLength {
 pub struct Area(f32);
 impl Area {
     pub const ZERO: Self = Self(0.0);
-    pub fn from_square_metres(value: f32) -> Result<Self, GeometryError> {
+    pub fn from_square_metres(value: f32) -> Result<Self> {
         let role = GeometryRole::Area;
         let axis = CoordinateAxis::X;
         if !value.is_finite() {
@@ -62,7 +63,7 @@ impl Area {
     }
 }
 impl<'de> Deserialize<'de> for Area {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
         Self::from_square_metres(f32::deserialize(d)?).map_err(serde::de::Error::custom)
     }
 }

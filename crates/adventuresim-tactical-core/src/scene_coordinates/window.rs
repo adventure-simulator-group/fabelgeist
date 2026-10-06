@@ -1,7 +1,9 @@
 //! Explicit architectural casement conversion preserves the native pose product.
 use super::{CollisionCentreDatum, Scene};
+use adventuresim_building_generator::WindowResult;
+use adventuresim_building_generator::spatial_geometry::GeometryResult;
 use adventuresim_building_generator::spatial_geometry::{
-    Architectural, GeometryError, PlanDirection, Radians, RigidRotation,
+    Architectural, PlanDirection, Radians, RigidRotation,
 };
 use adventuresim_building_generator::{WindowError, WindowSpec};
 use bevy::math::{Quat, Vec2, Vec3};
@@ -21,13 +23,13 @@ impl SceneWindowPose {
     }
 }
 impl CollisionCentreDatum {
-    pub fn window(self, leaf: WindowSpec<Architectural>) -> Result<SceneWindowPose, WindowError> {
+    pub fn window(self, leaf: WindowSpec<Architectural>) -> WindowResult<SceneWindowPose> {
         let transform = self.native_transform();
         let direction = |value: PlanDirection<Architectural>| {
             let v = transform.rotation * Vec3::new(value.vector().x, 0.0, value.vector().y);
             PlanDirection::from_normalized(Vec2::new(v.x, v.z))
         };
-        let admit = || -> Result<SceneWindowPose, GeometryError> {
+        let admit = || -> GeometryResult<SceneWindowPose> {
             Ok(SceneWindowPose {
                 native_rotation: RigidRotation::from_quaternion(
                     transform.rotation * Quat::from_rotation_y(leaf.closed_yaw_radians.radians()),
@@ -45,7 +47,7 @@ impl CollisionCentreDatum {
                     tangent: direction(leaf.tangent)?,
                     outward: direction(leaf.outward)?,
                     open_angle_radians: leaf.open_angle_radians,
-                    barred: leaf.barred,
+                    bars: leaf.bars,
                 },
             })
         };
@@ -84,7 +86,7 @@ mod tests {
                 assert_eq!(scene.source, original.source);
                 assert_eq!(scene.opening, original.opening);
                 assert_eq!(scene.size_metres, original.size_metres);
-                assert_eq!(scene.barred, original.barred);
+                assert_eq!(scene.bars, original.bars);
                 assert_eq!(
                     scene.closed_centre.metres(),
                     transform.transform_point(original.closed_centre.metres() - origin.metres())

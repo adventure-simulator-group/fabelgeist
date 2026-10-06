@@ -148,7 +148,7 @@ fn on_scene_building_added(
         establishment.and_then(|establishment| {
             establishment.shop_name.clone().and_then(|name| {
                 adventuresim_building_generator::signs::ShopSign::for_establishment(
-                    adventuresim_building_generator::signs::EstablishmentId(building.id),
+                    adventuresim_building_generator::signs::EstablishmentId(building.id.0),
                     establishment.business_id.key.usage,
                     name,
                 )
@@ -174,7 +174,7 @@ fn on_scene_building_added(
                 .ok_or("playable building needs interior lighting")?,
         ))
         .with_children(|parent| {
-            spawn_building_levels(parent, building.id, &compiled, &materials);
+            spawn_building_levels(parent, building.id.0, &compiled, &materials);
             signs.spawn(parent, resolved_sign.as_ref(), &compiled, &mut meshes);
         });
     Ok(())

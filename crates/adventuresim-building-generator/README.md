@@ -136,10 +136,22 @@ these equipment records and is still covered by the wider generator audit.
 operable opening without a closure reports `WindowError` with its opening
 identity and declared closure source IDs; ordinary ineligible openings are
 excluded. Bar geometry errors use the collision source identity, whose existing
-encoding includes the opening and bar ordinal. Valid serialized field names and
-native layouts remain unchanged. Fixed glazing uses
+encoding includes the opening and bar ordinal. Fixed glazing uses
 `compile_window_leaf(CuboidDimensions, ...)`, while operable consumers require
 positive leaf dimensions, including thin positive geometry.
+
+`WindowBarPresence` distinguishes absent and present fixed bars across the leaf
+handoff and serializes directly as the named `bars` enum. Native decoding
+records retain metre vectors and radian scalars until admission can attach the
+opening and source identities to any geometry failure. Primitive leaf admission
+constructors accept those native representations; composite sheet sections
+accept checked lengths and elevations.
+
+Generation, collision, spatial geometry, interior layout and window operations
+reuse result aliases from their error owners. Mixed-error helpers preserve the
+individual error types, including geometry errors inside nested collections.
+Authored appliance courses use named checked bounds, and independent weathering
+audit margins remain distinct from construction folds.
 
 Issue [#765](https://github.com/adventure-simulator-group/fabelgeist/issues/765)
 tracks this ownership split: generator construction and admission belong to

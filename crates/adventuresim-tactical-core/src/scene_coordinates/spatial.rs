@@ -1,6 +1,7 @@
 //! Tactical core owns the handoff from architectural to scene and gate datums.
 use super::ArchitecturalPlanProjection;
 use crate::{city_layout::grounding::SupportElevation, scene_input::BuildingOrientation};
+use adventuresim_building_generator::spatial_geometry::GeometryResult as Result;
 use adventuresim_building_generator::spatial_geometry::{
     Architectural, Displacement, GeometryError, GeometryFrame, PlanDirection, Position, Radians,
     RigidRotation,
@@ -53,10 +54,7 @@ pub struct ArchitecturalFloorDatum {
     pub floor: SupportElevation,
 }
 impl ArchitecturalFloorDatum {
-    pub fn collision_centre(
-        self,
-        origin: Position<Architectural>,
-    ) -> Result<CollisionCentreDatum, GeometryError> {
+    pub fn collision_centre(self, origin: Position<Architectural>) -> Result<CollisionCentreDatum> {
         CollisionCentreDatum::new(
             origin,
             Position::from_metres(Vec3::new(
@@ -82,7 +80,7 @@ impl CollisionCentreDatum {
         origin: Position<Architectural>,
         centre: Position<Scene>,
         orientation: BuildingOrientation,
-    ) -> Result<Self, GeometryError> {
+    ) -> Result<Self> {
         if !orientation.is_valid() {
             return Err(GeometryError::InvalidProjection);
         }
@@ -96,7 +94,7 @@ impl CollisionCentreDatum {
         Transform::from_translation(self.centre.metres())
             .with_rotation(Quat::from_rotation_y(self.orientation.yaw_radians()))
     }
-    pub fn point(self, point: Position<Architectural>) -> Result<Position<Scene>, GeometryError> {
+    pub fn point(self, point: Position<Architectural>) -> Result<Position<Scene>> {
         Position::from_metres(
             self.native_transform()
                 .transform_point(point.metres() - self.origin.metres()),
@@ -105,20 +103,20 @@ impl CollisionCentreDatum {
     pub fn displacement(
         self,
         displacement: Displacement<Architectural>,
-    ) -> Result<Displacement<Scene>, GeometryError> {
+    ) -> Result<Displacement<Scene>> {
         Displacement::from_metres(self.native_transform().rotation * displacement.metres())
     }
-    pub fn architectural_point(
-        self,
-        point: Position<Scene>,
-    ) -> Result<Position<Architectural>, GeometryError> {
+    pub fn architectural_point(self, point: Position<Scene>) -> Result<Position<Architectural>> {
         let transform = self.native_transform();
         Position::from_metres(
             transform.rotation.inverse() * (point.metres() - transform.translation)
                 + self.origin.metres(),
         )
     }
-    pub fn door(self, leaf: DoorSpec<Architectural>) -> Result<SceneDoorPose, DoorError> {
+    pub fn door(
+        self,
+        leaf: DoorSpec<Architectural>,
+    ) -> std::result::Result<SceneDoorPose, DoorError> {
         let rotation = self.native_transform().rotation;
         let direction = |value: PlanDirection<Architectural>| {
             let value = rotation * Vec3::new(value.vector().x, 0.0, value.vector().y);
@@ -157,7 +155,7 @@ impl CollisionCentreDatum {
 #[derive(Clone, Copy, Debug)]
 pub struct GateDatum(pub SupportElevation);
 impl GateDatum {
-    pub fn from_metres(metres: f32) -> Result<Self, GeometryError> {
+    pub fn from_metres(metres: f32) -> Result<Self> {
         SupportElevation::from_metres(metres)
             .map(Self)
             .ok_or(GeometryError::NonFinite {
@@ -165,16 +163,16 @@ impl GateDatum {
                 axis: adventuresim_building_generator::spatial_geometry::CoordinateAxis::Y,
             })
     }
-    pub fn point(self, point: Position<GateRelative>) -> Result<Position<Scene>, GeometryError> {
+    pub fn point(self, point: Position<GateRelative>) -> Result<Position<Scene>> {
         Position::from_metres(point.metres() + Vec3::Y * self.0.metres())
     }
-    pub fn gate_point(
-        self,
-        point: Position<Scene>,
-    ) -> Result<Position<GateRelative>, GeometryError> {
+    pub fn gate_point(self, point: Position<Scene>) -> Result<Position<GateRelative>> {
         Position::from_metres(point.metres() - Vec3::Y * self.0.metres())
     }
-    pub fn door(self, leaf: DoorSpec<GateRelative>) -> Result<SceneDoorPose, DoorError> {
+    pub fn door(
+        self,
+        leaf: DoorSpec<GateRelative>,
+    ) -> std::result::Result<SceneDoorPose, DoorError> {
         let construct = || {
             Ok(SceneDoorPose {
                 native_rotation: RigidRotation::from_quaternion(Quat::from_rotation_y(
@@ -231,10 +229,7 @@ pub struct ArchitecturalGateDatum {
     pub floor: adventuresim_building_generator::spatial_geometry::Elevation<GateRelative>,
 }
 impl ArchitecturalGateDatum {
-    pub fn point(
-        self,
-        point: Position<Architectural>,
-    ) -> Result<Position<GateRelative>, GeometryError> {
+    pub fn point(self, point: Position<Architectural>) -> Result<Position<GateRelative>> {
         if !self.plan.orientation.is_valid() {
             return Err(GeometryError::InvalidProjection);
         }

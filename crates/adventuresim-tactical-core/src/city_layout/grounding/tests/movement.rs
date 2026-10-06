@@ -207,7 +207,7 @@ impl Walker {
             };
             self.app.world_mut().spawn((
                 crate::scene_input::SceneBuilding {
-                    id: building.placement.id,
+                    id: crate::scene_input::SceneBuildingId::from(building.placement.id),
                     program: building.placement.program.clone(),
                     orientation: building.placement.orientation,
                 },

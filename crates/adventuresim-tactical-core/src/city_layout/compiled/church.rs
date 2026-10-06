@@ -1,5 +1,6 @@
 //! Validate the principal church's complete envelope and street approach.
 use super::*;
+use crate::city_layout::compiled::CityCompileResult as Result;
 use adventuresim_building_generator::interior::StandingClearance;
 use recipes::Recipe;
 
@@ -16,7 +17,7 @@ pub(super) fn validate(
     placement: &TacticalBuildingPlacement,
     recipe: &Recipe,
     streets: &[CityStreetPatch],
-) -> Result<(), CityCompileError> {
+) -> Result<()> {
     let error = |issue| CityCompileError::Church {
         building: lot.id,
         issue,

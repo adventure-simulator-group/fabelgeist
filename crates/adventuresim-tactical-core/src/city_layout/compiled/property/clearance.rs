@@ -1,6 +1,7 @@
 use super::*;
+use crate::city_layout::compiled::CityCompileResult as Result;
 use adventuresim_building_generator::{
-    CollisionCuboid, ResolvedItemId, interior::StandingClearance,
+    CollisionCuboid, CollisionResult, ResolvedItemId, interior::StandingClearance,
 };
 use bevy::math::{Quat, Vec3};
 
@@ -10,7 +11,7 @@ pub(in crate::city_layout::compiled) fn validate(
     front_recipe: &Recipe,
     rear: &TacticalBuildingPlacement,
     rear_recipe: &Recipe,
-) -> Result<(), CityCompileError> {
+) -> Result<()> {
     validate_building_routes(compound, front, front_recipe, rear, rear_recipe)?;
     use crate::scene_coordinates::PlotRelative;
     let mut fixed = compound
@@ -19,7 +20,7 @@ pub(in crate::city_layout::compiled) fn validate(
         .into_iter()
         .enumerate()
         .map(|(index, member)| member.packing_cuboid(ResolvedItemId(index as u64)))
-        .collect::<Result<Vec<_>, _>>()?;
+        .collect::<CollisionResult<Vec<_>>>()?;
     for member in &fixed {
         let rotation = Quat::from_rotation_y(member.yaw_radians.radians());
         if [-1.0, 1.0].into_iter().any(|x| {
@@ -77,7 +78,7 @@ pub(in crate::city_layout::compiled) fn validate(
                 member.longfall_radians.radians(),
             )
         })
-        .collect::<Result<Vec<_>, _>>()?;
+        .collect::<CollisionResult<Vec<_>>>()?;
     let clearance = StandingClearance::new(
         &fixed,
         adventuresim_building_generator::spatial_geometry::Elevation::from_metres(0.0)?,
@@ -108,7 +109,7 @@ fn validate_building_routes(
     front_recipe: &Recipe,
     rear: &TacticalBuildingPlacement,
     rear_recipe: &Recipe,
-) -> Result<(), CityCompileError> {
+) -> Result<()> {
     for (placement, recipe) in [(front, front_recipe), (rear, rear_recipe)] {
         let origin = recipe.collision.bounds.centre()?.metres();
         let local = |point| {

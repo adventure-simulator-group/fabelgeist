@@ -35,8 +35,10 @@ pub(super) fn spawn_boundaries(
         let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
-                building_id: boundary.scene.front_building_id,
-                opening_id: door.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    boundary.scene.front_building_id,
+                ),
+                opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
                 tangent: door.tangent.spatial(),
@@ -64,7 +66,9 @@ pub(super) fn spawn_tactical_buildings(
         commands.entity(entity).insert((
             Name::new(format!("Tactical building {}", building.placement.id)),
             SceneBuilding {
-                id: building.placement.id,
+                id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    building.placement.id,
+                ),
                 program: building.placement.program,
                 orientation: building.placement.orientation,
             },

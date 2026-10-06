@@ -65,7 +65,7 @@ pub mod furniture;
 
 pub use buildings::{
     BuildingOrientation, DistantBuildingPlacement, DistantBuildingVariant, GeneratedBuilding,
-    SceneBuilding, SceneDoor, SceneDoorError, SceneWindow, SceneWindowError,
+    SceneBuilding, SceneBuildingId, SceneDoor, SceneDoorError, SceneWindow, SceneWindowError,
     TacticalBuildingPlacement, compile_tactical_building_collider,
 };
 
@@ -150,10 +150,10 @@ pub enum GeneratedObstacle {
 }
 
 mod error;
-pub use error::SceneInputError;
+pub use error::{SceneInputError, SceneInputResult};
 
 impl TacticalSceneInput {
-    pub fn load(path: &Path) -> Result<Self, SceneInputError> {
+    pub fn load(path: &Path) -> SceneInputResult<Self> {
         let length = fs::metadata(path)?.len();
         if length == 0 || length > MAX_SCENE_INPUT_BYTES {
             return Err(SceneInputError::Validation(
@@ -165,12 +165,12 @@ impl TacticalSceneInput {
         Ok(input)
     }
 
-    pub fn validate(&self) -> Result<(), SceneInputError> {
+    pub fn validate(&self) -> SceneInputResult<()> {
         self.validate_source()?;
         self.validate_grounding()
     }
 
-    pub fn digest(&self) -> Result<String, SceneInputError> {
+    pub fn digest(&self) -> SceneInputResult<String> {
         self.validate()?;
         let bytes = serde_json::to_vec(self)?;
         Ok(Sha256::digest(bytes)
@@ -229,7 +229,7 @@ fn refine_authoritative_terrain(
     obstacle_spacing: f32,
     moisture_bps: u16,
     building_pads: &[buildings::BuildingPad],
-) -> Result<SceneTerrain, SceneInputError> {
+) -> SceneInputResult<SceneTerrain> {
     let influences = TerrainDetailObstacles::from_obstacles(terrain, obstacles, obstacle_spacing);
     let detail_seed = streams::DETAIL.seed(seed, &[]).to_u64();
     let noise = DetailNoise::new(detail_seed);
@@ -780,7 +780,7 @@ fn repair_playable_terrain(
     spacing: f32,
     heights: &mut [f32],
     environment: &mut [EnvironmentalSample],
-) -> Result<SceneRepairReport, SceneInputError> {
+) -> SceneInputResult<SceneRepairReport> {
     let original_heights = heights.to_vec();
     crate::scene::grade::constrain(heights, width, depth, spacing, MAX_PLAYABLE_GRADE)?;
 
@@ -834,11 +834,7 @@ fn is_tree_camera_clearance_cell(_x: usize, z: usize, depth: usize) -> bool {
     z.abs_diff(center_z) <= 1
 }
 
-fn validate_grid(
-    grid: &TerrainSampleGrid,
-    max_side: usize,
-    label: &str,
-) -> Result<(), SceneInputError> {
+fn validate_grid(grid: &TerrainSampleGrid, max_side: usize, label: &str) -> SceneInputResult<()> {
     let width = usize::from(grid.width);
     let depth = usize::from(grid.depth);
     if width < 2 || depth < 2 || width > max_side || depth > max_side {
@@ -877,7 +873,7 @@ fn validate_grid(
     Ok(())
 }
 
-fn validate_weather(weather: WeatherSnapshot) -> Result<(), SceneInputError> {
+fn validate_weather(weather: WeatherSnapshot) -> SceneInputResult<()> {
     if weather.rules_version != WEATHER_RULES_VERSION
         || weather.wind_speed_bps > BASIS_POINTS_PER_WHOLE
         || weather.intensity_bps > BASIS_POINTS_PER_WHOLE
@@ -913,7 +909,7 @@ fn validate_weather(weather: WeatherSnapshot) -> Result<(), SceneInputError> {
     Ok(())
 }
 
-fn invalid<T>(message: impl Into<String>) -> Result<T, SceneInputError> {
+fn invalid<T>(message: impl Into<String>) -> SceneInputResult<T> {
     Err(SceneInputError::Validation(message.into()))
 }
 

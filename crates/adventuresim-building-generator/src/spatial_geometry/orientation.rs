@@ -1,4 +1,5 @@
 use super::{CoordinateAxis, GeometryError, GeometryFrame, GeometryRole};
+use crate::spatial_geometry::GeometryResult as Result;
 use bevy::{
     math::{Dir2, Dir3, Vec2, Vec3},
     reflect::Reflect,
@@ -17,7 +18,7 @@ impl Radians {
     pub const QUARTER_TURN: Self = Self(std::f32::consts::FRAC_PI_2);
     pub const NEGATIVE_QUARTER_TURN: Self = Self(-std::f32::consts::FRAC_PI_2);
     pub const HALF_TURN: Self = Self(std::f32::consts::PI);
-    pub const fn new(value: f32) -> Result<Self, GeometryError> {
+    pub const fn new(value: f32) -> Result<Self> {
         if !value.is_finite() {
             return Err(GeometryError::NonFinite {
                 role: GeometryRole::Angle,
@@ -31,7 +32,7 @@ impl Radians {
     }
 }
 impl<'de> Deserialize<'de> for Radians {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
         Self::new(f32::deserialize(d)?).map_err(serde::de::Error::custom)
     }
 }
@@ -47,12 +48,12 @@ pub struct PlanDirection<F: GeometryFrame> {
     frame: PhantomData<F>,
 }
 impl<F: GeometryFrame> PlanDirection<F> {
-    pub fn from_vector(value: Vec2) -> Result<Self, GeometryError> {
+    pub fn from_vector(value: Vec2) -> Result<Self> {
         Dir2::new(value).map_err(|source| GeometryError::Direction { source })?;
         // Keep the generator's original reciprocal-multiply normalization.
         Self::from_normalized(value.normalize_or_zero())
     }
-    pub fn from_normalized(value: Vec2) -> Result<Self, GeometryError> {
+    pub fn from_normalized(value: Vec2) -> Result<Self> {
         Dir2::new(value).map_err(|source| GeometryError::Direction { source })?;
         if !value.is_normalized() {
             return Err(GeometryError::UnnormalizedDirection);
@@ -75,7 +76,7 @@ impl<F: GeometryFrame> PlanDirection<F> {
     }
 }
 impl<'de, F: GeometryFrame> Deserialize<'de> for PlanDirection<F> {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
         Self::from_normalized(Vec2::deserialize(d)?).map_err(serde::de::Error::custom)
     }
 }
@@ -89,7 +90,7 @@ impl<'de, F: GeometryFrame> Deserialize<'de> for PlanDirection<F> {
 pub struct RigidRotation(bevy::math::Quat);
 impl RigidRotation {
     pub const IDENTITY: Self = Self(bevy::math::Quat::IDENTITY);
-    pub fn from_quaternion(value: bevy::math::Quat) -> Result<Self, GeometryError> {
+    pub fn from_quaternion(value: bevy::math::Quat) -> Result<Self> {
         if !value.is_finite() || !value.is_normalized() {
             return Err(GeometryError::InvalidRotation);
         }
@@ -100,7 +101,7 @@ impl RigidRotation {
     }
 }
 impl<'de> Deserialize<'de> for RigidRotation {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
         Self::from_quaternion(bevy::math::Quat::deserialize(d)?).map_err(serde::de::Error::custom)
     }
 }
@@ -116,11 +117,11 @@ pub struct SpatialDirection<F: GeometryFrame> {
     frame: PhantomData<F>,
 }
 impl<F: GeometryFrame> SpatialDirection<F> {
-    pub fn from_vector(value: Vec3) -> Result<Self, GeometryError> {
+    pub fn from_vector(value: Vec3) -> Result<Self> {
         Dir3::new(value).map_err(|source| GeometryError::Direction { source })?;
         Self::from_normalized(value.normalize_or_zero())
     }
-    pub fn from_normalized(value: Vec3) -> Result<Self, GeometryError> {
+    pub fn from_normalized(value: Vec3) -> Result<Self> {
         Dir3::new(value).map_err(|source| GeometryError::Direction { source })?;
         if !value.is_normalized() {
             return Err(GeometryError::UnnormalizedDirection);
@@ -135,7 +136,7 @@ impl<F: GeometryFrame> SpatialDirection<F> {
     }
 }
 impl<'de, F: GeometryFrame> Deserialize<'de> for SpatialDirection<F> {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
         Self::from_normalized(Vec3::deserialize(d)?).map_err(serde::de::Error::custom)
     }
 }

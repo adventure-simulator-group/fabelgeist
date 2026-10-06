@@ -24,6 +24,9 @@ fn grid_point(position: Vec2) -> GridPoint {
     GridPoint::new(x, z)
 }
 
+/// Building generation operations share one construction error.
+pub type GenerationResult<T> = std::result::Result<T, GenerationError>;
+
 #[derive(Clone, Debug, Error, Eq, PartialEq)]
 pub enum GenerationError {
     #[error("crown {owner:?} has invalid channel set-out: {cause}")]
@@ -194,12 +197,12 @@ fn layout_seed(program: &BuildingProgram) -> u64 {
 ///
 /// Exhaustive geometric proofs are explicit: tests and inspection tools call
 /// [`crate::audit_plan`]. Editor documents also run that audit before acceptance.
-pub fn generate(program: &BuildingProgram) -> Result<BuildingPlan, GenerationError> {
+pub fn generate(program: &BuildingProgram) -> GenerationResult<BuildingPlan> {
     generate_unchecked(program, &[])
 }
 
 /// Regenerates and audits a versioned editor document.
-pub fn generate_document(document: &BuildingDocument) -> Result<BuildingPlan, GenerationError> {
+pub fn generate_document(document: &BuildingDocument) -> GenerationResult<BuildingPlan> {
     if document.schema_version != BUILDING_DOCUMENT_SCHEMA_VERSION {
         return Err(GenerationError::UnsupportedDocumentSchema {
             found: document.schema_version,
@@ -286,14 +289,14 @@ pub fn generate_document(document: &BuildingDocument) -> Result<BuildingPlan, Ge
 pub fn edit_document(
     document: &BuildingDocument,
     edit: BuildingEdit,
-) -> Result<(BuildingDocument, BuildingPlan), GenerationError> {
+) -> GenerationResult<(BuildingDocument, BuildingPlan)> {
     let mut candidate = document.clone();
     candidate.edits.push(edit);
     let plan = generate_document(&candidate)?;
     Ok((candidate, plan))
 }
 
-fn validate_generated_plan(plan: BuildingPlan) -> Result<BuildingPlan, GenerationError> {
+fn validate_generated_plan(plan: BuildingPlan) -> GenerationResult<BuildingPlan> {
     let issues = crate::audit_plan(&plan)?;
     if issues.is_empty() {
         Ok(plan)

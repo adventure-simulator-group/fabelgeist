@@ -1,5 +1,7 @@
 //! Candidate furniture changes only the affected navigation nodes and edges.
 use super::*;
+use crate::interior::InteriorResult as Result;
+use crate::spatial_geometry::GeometryResult;
 
 pub(in crate::interior) struct Occupancy<'a> {
     nav: &'a Navigation,
@@ -14,7 +16,7 @@ pub(in crate::interior) struct Change {
 }
 
 impl<'a> Occupancy<'a> {
-    pub fn new(nav: &'a Navigation) -> Result<Self, InteriorLayoutError> {
+    pub fn new(nav: &'a Navigation) -> Result<Self> {
         let swept = nav
             .edges
             .iter()
@@ -36,9 +38,9 @@ impl<'a> Occupancy<'a> {
                             })
                             .transpose()
                     })
-                    .collect::<Result<Vec<_>, _>>()
+                    .collect::<GeometryResult<Vec<_>>>()
             })
-            .collect::<Result<Vec<_>, _>>()?;
+            .collect::<GeometryResult<Vec<_>>>()?;
         Ok(Self {
             nav,
             nodes: vec![0; nav.nodes.len()],
@@ -47,7 +49,7 @@ impl<'a> Occupancy<'a> {
         })
     }
 
-    pub fn add(&mut self, placements: &[InteriorPlacement]) -> Result<Change, InteriorLayoutError> {
+    pub fn add(&mut self, placements: &[InteriorPlacement]) -> Result<Change> {
         let mut change = Change {
             nodes: Vec::new(),
             edges: Vec::new(),

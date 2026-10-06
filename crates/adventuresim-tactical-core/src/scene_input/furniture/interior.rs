@@ -6,6 +6,7 @@ use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 use super::*;
+use crate::scene_input::SceneInputResult as Result;
 
 const INTERIOR_INSTANCE_DOMAIN: StreamId = StreamId::new("furniture.interior-identity");
 
@@ -21,7 +22,7 @@ pub struct InteriorBuildingLayout {
 pub(super) fn append(
     furniture: &mut FurnitureLayout,
     buildings: &[GeneratedBuilding],
-) -> Result<(), super::super::SceneInputError> {
+) -> Result<()> {
     for building in buildings {
         let layout = furnish(&building.plan, &building.placement.program).map_err(|cause| {
             super::super::SceneInputError::Interior {
@@ -38,7 +39,7 @@ pub(super) fn install(
     furniture: &mut FurnitureLayout,
     building: &GeneratedBuilding,
     layout: InteriorLayout,
-) -> Result<(), super::super::SceneInputError> {
+) -> Result<()> {
     for placement in &layout.placements {
         furniture.instances.push(instance(building, placement)?);
     }
@@ -52,7 +53,7 @@ pub(super) fn install(
 fn instance(
     building: &GeneratedBuilding,
     placement: &InteriorPlacement,
-) -> Result<GeneratedFurniture, super::super::SceneInputError> {
+) -> Result<GeneratedFurniture> {
     let origin = building.collision.bounds.centre()?.metres();
     let position = building.placement.centre_metres
         + building

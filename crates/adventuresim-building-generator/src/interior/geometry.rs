@@ -1,9 +1,9 @@
 use super::InteriorPlacement;
 use crate::furniture::FurnitureLocal;
+use crate::interior::InteriorResult;
 use crate::plan_geometry::ArchitecturalPlanPoint;
-use crate::spatial_geometry::{
-    Displacement, Elevation, GeometryError, PlanExtents, Radians, SignedLength,
-};
+use crate::spatial_geometry::GeometryResult;
+use crate::spatial_geometry::{Displacement, Elevation, PlanExtents, Radians, SignedLength};
 use crate::{
     Architectural, BuildingPlan, CELL_SIZE_METRES, Room, RoomIndex, SpatialBounds, StoreyIndex,
 };
@@ -29,7 +29,7 @@ pub(super) struct FloorFootprint {
     inverse_cosine: f32,
 }
 impl FloorFootprint {
-    pub fn from_solid(solid: &crate::ResolvedSolid) -> Result<Self, GeometryError> {
+    pub fn from_solid(solid: &crate::ResolvedSolid) -> GeometryResult<Self> {
         Ok(Self {
             centre: ArchitecturalPlanPoint::from_metres(Vec2::new(
                 solid.centre.metres().x,
@@ -55,20 +55,20 @@ impl FloorFootprint {
     }
 }
 impl Rect {
-    pub fn new(centre: ArchitecturalPlanPoint, half: PlanExtents) -> Result<Self, GeometryError> {
+    pub fn new(centre: ArchitecturalPlanPoint, half: PlanExtents) -> GeometryResult<Self> {
         // Sampling requires finite endpoints and span, in addition to finite leaves.
         ArchitecturalPlanPoint::from_metres(centre.metres() - half.metres())?;
         ArchitecturalPlanPoint::from_metres(centre.metres() + half.metres())?;
         PlanExtents::from_metres(half.metres() * 2.0)?;
         Ok(Self { centre, half })
     }
-    pub fn from_metres(centre: Vec2, half: Vec2) -> Result<Self, GeometryError> {
+    pub fn from_metres(centre: Vec2, half: Vec2) -> GeometryResult<Self> {
         Self::new(
             ArchitecturalPlanPoint::from_metres(centre)?,
             PlanExtents::from_metres(half)?,
         )
     }
-    pub fn from_bounds(bounds: SpatialBounds<Architectural>) -> Result<Self, GeometryError> {
+    pub fn from_bounds(bounds: SpatialBounds<Architectural>) -> GeometryResult<Self> {
         let min = bounds.min().metres();
         let max = bounds.max().metres();
         Self::from_metres(
@@ -89,20 +89,20 @@ impl Rect {
             .cmple(self.half.metres() + Vec2::splat(GEOMETRY_EPSILON))
             .all()
     }
-    pub fn expanded(self, margin: SignedLength) -> Result<Self, GeometryError> {
+    pub fn expanded(self, margin: SignedLength) -> GeometryResult<Self> {
         Self::new(
             self.centre,
             PlanExtents::from_metres(self.half.metres() + Vec2::splat(margin.metres()))?,
         )
     }
-    pub fn inside_room(self, room: &Room) -> Result<bool, GeometryError> {
+    pub fn inside_room(self, room: &Room) -> GeometryResult<bool> {
         self.all_samples(|point| room_contains(room, point))
     }
     /// Grid stepping stays native; each callback receives an architectural point.
     pub fn all_samples(
         self,
         mut predicate: impl FnMut(ArchitecturalPlanPoint) -> bool,
-    ) -> Result<bool, GeometryError> {
+    ) -> GeometryResult<bool> {
         let min = self.centre.metres() - self.half.metres();
         let max = self.centre.metres() + self.half.metres();
         let steps = ((max - min) / GRID_STEP).ceil().as_uvec2();
@@ -132,7 +132,7 @@ pub(super) fn room_contains(room: &Room, point: ArchitecturalPlanPoint) -> bool 
 pub(super) fn local_rotate(
     point: Displacement<FurnitureLocal>,
     yaw: Radians,
-) -> Result<Displacement<Architectural>, GeometryError> {
+) -> GeometryResult<Displacement<Architectural>> {
     let point = point.metres();
     let yaw = yaw.radians();
     Displacement::from_metres(Vec3::new(
@@ -142,7 +142,7 @@ pub(super) fn local_rotate(
     ))
 }
 impl InteriorPlacement {
-    pub(super) fn footprint(&self) -> Result<Rect, super::InteriorLayoutError> {
+    pub(super) fn footprint(&self) -> InteriorResult<Rect> {
         let size = self.key.interior_spec()?.size_metres.metres();
         let half = local_rotate(
             Displacement::from_metres(Vec3::new(size.x * 0.5, 0.0, size.z * 0.5))?,
@@ -158,7 +158,7 @@ impl InteriorPlacement {
     pub(super) fn access_rect(
         &self,
         face: crate::furniture::FurnitureAccessFace,
-    ) -> Result<Rect, super::InteriorLayoutError> {
+    ) -> InteriorResult<Rect> {
         let b = self.key.interior_spec()?.access_bounds(face)?;
         let centre = Displacement::from_metres(Vec3::new(
             (b.min().metres().x + b.max().metres().x) * 0.5,
@@ -181,7 +181,7 @@ impl InteriorPlacement {
 pub(super) fn floor_height(
     plan: &BuildingPlan,
     level: StoreyIndex,
-) -> Result<Elevation<Architectural>, super::InteriorLayoutError> {
+) -> InteriorResult<Elevation<Architectural>> {
     Ok(Elevation::from_metres(
         f32::from(level.serialized_ordinal()?) * plan.storey_height_metres,
     )?)
@@ -191,7 +191,7 @@ pub(super) fn floor_height(
 pub fn furniture_floor_height(
     plan: &BuildingPlan,
     placement: &InteriorPlacement,
-) -> Result<Elevation<Architectural>, super::InteriorLayoutError> {
+) -> InteriorResult<Elevation<Architectural>> {
     let nominal = floor_height(plan, placement.storey)?;
     let mut elevation: Option<f32> = None;
     for solid in plan
@@ -223,10 +223,7 @@ pub(super) struct RoomBounds {
     pub min: ArchitecturalPlanPoint,
     pub max: ArchitecturalPlanPoint,
 }
-pub(super) fn room_bounds(
-    room: &Room,
-    storey: StoreyIndex,
-) -> Result<RoomBounds, super::InteriorLayoutError> {
+pub(super) fn room_bounds(room: &Room, storey: StoreyIndex) -> InteriorResult<RoomBounds> {
     if room.cells.is_empty() {
         return Err(super::InteriorLayoutError::EmptyRoomGeometry {
             storey,

@@ -1,5 +1,6 @@
 //! Select the actual covering above an unobstructed vertical smoke shaft.
 use super::placement::{Placement, PlacementCandidate};
+use crate::GenerationResult as Result;
 use crate::{BuildingPlan, RoofAssemblyId, RoofFace};
 use bevy::math::{Vec2, Vec3};
 use geo::{Area, BooleanOps, Intersects};
@@ -14,7 +15,7 @@ pub(super) struct RoofSelection<'a> {
 pub(super) fn find(
     plan: &BuildingPlan,
     placement: PlacementCandidate,
-) -> Result<Option<RoofSelection<'_>>, crate::GenerationError> {
+) -> Result<Option<RoofSelection<'_>>> {
     let probe = placement.centre.metres()
         + placement.kitchen_axis.vector() * placement.section.shaft_offset()?.metres();
     for roof in &plan.roof_assemblies {
@@ -50,10 +51,7 @@ fn footprint(min: Vec2, max: Vec2) -> geo::Polygon<f32> {
     geo::Rect::new(geo::coord! {x:min.x,y:min.y}, geo::coord! {x:max.x,y:max.y}).to_polygon()
 }
 
-fn fits(
-    face: &RoofFace,
-    probe: crate::plan_geometry::ArchitecturalPlanPoint,
-) -> Result<bool, crate::GenerationError> {
+fn fits(face: &RoofFace, probe: crate::plan_geometry::ArchitecturalPlanPoint) -> Result<bool> {
     let weather = super::roof::PenetrationFootprint::new(face, probe)?;
     let min = weather.weather.min().metres();
     let max = weather.weather.max().metres();
@@ -72,7 +70,7 @@ fn clear_other_roofs(
     plan: &BuildingPlan,
     placement: PlacementCandidate,
     target: &RoofFace,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     let shaft = placement.shaft(placement.flue_top(target)?)?;
     let rect = footprint(
         Vec2::new(shaft.min().metres().x, shaft.min().metres().z),
@@ -118,7 +116,7 @@ pub(super) fn weather_clear(
     plan: &BuildingPlan,
     placement: Placement,
     face: &RoofFace,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     let mut roofs = vec![
         plan.roof_assemblies
             .iter()

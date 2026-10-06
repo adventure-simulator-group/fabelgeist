@@ -1,6 +1,7 @@
 //! Construct heated masonry with measured contacts and explicit empty smoke paths.
 use super::floor_bearings::BearingContact;
 use super::placement::Placement;
+use crate::GenerationResult as Result;
 use crate::spatial_geometry::{CuboidDimensions, Position, RigidRotation};
 use crate::*;
 use bevy::math::Vec3;
@@ -16,7 +17,7 @@ impl<'a> Assembly<'a> {
         placement: Placement,
         owner: GeometryOwnerId,
         programme: DomesticHeatingProgramme,
-    ) -> Result<Self, crate::GenerationError> {
+    ) -> Result<Self> {
         Ok(Self {
             geometry,
             placement,
@@ -56,7 +57,7 @@ impl<'a> Assembly<'a> {
         material: BuildingLodMaterial,
         min: crate::spatial_geometry::Displacement<super::placement::HearthLocal>,
         max: crate::spatial_geometry::Displacement<super::placement::HearthLocal>,
-    ) -> Result<ResolvedItemId, crate::GenerationError> {
+    ) -> Result<ResolvedItemId> {
         let bounds = self.placement.site.bounds(min, max)?;
         self.absolute_part(kind, material, bounds)
     }
@@ -65,7 +66,7 @@ impl<'a> Assembly<'a> {
         kind: HeatingPartKind,
         material: BuildingLodMaterial,
         bounds: SpatialBounds<Architectural>,
-    ) -> Result<ResolvedItemId, crate::GenerationError> {
+    ) -> Result<ResolvedItemId> {
         self.oriented_part(
             kind,
             material,
@@ -81,7 +82,7 @@ impl<'a> Assembly<'a> {
         centre: Position<Architectural>,
         size: CuboidDimensions,
         rotation: RigidRotation,
-    ) -> Result<ResolvedItemId, crate::GenerationError> {
+    ) -> Result<ResolvedItemId> {
         let slot = self.plan.parts.len() as u64 + 1;
         let id = self.id(1, slot);
         let node = StructuralNodeId(96_000_000 + slot);
@@ -162,7 +163,7 @@ impl<'a> Assembly<'a> {
         kind: HeatingPassageKind,
         min: crate::spatial_geometry::Displacement<super::placement::HearthLocal>,
         max: crate::spatial_geometry::Displacement<super::placement::HearthLocal>,
-    ) -> Result<(), crate::GenerationError> {
+    ) -> Result<()> {
         let id = self.id(3, self.plan.passages.len() as u64 + 1);
         self.geometry.voids.push(ResolvedVoid {
             id,
@@ -175,7 +176,7 @@ impl<'a> Assembly<'a> {
         self.plan.passages.push(HeatingPassage { kind, void: id });
         Ok(())
     }
-    pub fn bearing(&self, id: ResolvedItemId) -> Result<StructuralNodeId, crate::GenerationError> {
+    pub fn bearing(&self, id: ResolvedItemId) -> Result<StructuralNodeId> {
         let solid = self
             .geometry
             .solids

@@ -65,8 +65,10 @@ pub(super) fn spawn_building(
         let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
-                building_id: building.placement.id,
-                opening_id: door.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    building.placement.id,
+                ),
+                opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
                 tangent: door.tangent.spatial(),
@@ -82,10 +84,12 @@ pub(super) fn spawn_building(
         let centre = window.closed_centre.metres();
         commands.spawn((
             SceneWindow {
-                building_id: building.placement.id,
-                opening_id: window.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    building.placement.id,
+                ),
+                opening_id: window.opening,
                 leaf: window.leaf,
-                barred: window.barred,
+                bars: window.bars,
                 size_metres: window.size_metres,
                 opening_centre_metres: window.closed_centre,
                 tangent: window.tangent.spatial(),
@@ -106,7 +110,9 @@ pub(super) fn spawn_building(
             },
         ),
         SceneBuilding {
-            id: building.placement.id,
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                building.placement.id,
+            ),
             program: building.placement.program,
             orientation: building.placement.orientation,
         },
@@ -134,8 +140,10 @@ pub(super) fn spawn_props(
         let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
-                building_id: boundary.scene.front_building_id,
-                opening_id: door.opening.0,
+                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
+                    boundary.scene.front_building_id,
+                ),
+                opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
                 tangent: door.tangent.spatial(),

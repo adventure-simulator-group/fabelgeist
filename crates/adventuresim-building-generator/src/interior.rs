@@ -30,7 +30,7 @@ pub use geometry::furniture_floor_height;
 pub use placement::{furnish, validate_layout};
 
 /// Verify the completed architectural circulation before accepting a heated recipe.
-pub fn validate_circulation(plan: &crate::BuildingPlan) -> Result<(), InteriorLayoutError> {
+pub fn validate_circulation(plan: &crate::BuildingPlan) -> InteriorResult<()> {
     navigation::Navigation::new(plan).map(|_| ())
 }
 
@@ -78,6 +78,9 @@ pub struct InteriorLayout {
     pub paths: Vec<FurnitureAccessPath>,
     pub unmet_budgets: Vec<UnmetFurnitureBudget>,
 }
+/// Interior planning operations retain their layout error classification.
+pub type InteriorResult<T> = std::result::Result<T, InteriorLayoutError>;
+
 #[derive(Clone, Debug, thiserror::Error, Eq, PartialEq)]
 pub enum InteriorLayoutError {
     #[error(transparent)]

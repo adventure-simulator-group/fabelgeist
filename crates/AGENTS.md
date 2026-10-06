@@ -42,10 +42,20 @@ governed by the repository-root generation rule instead.
 - Give each record field its semantic domain type, reusing existing owners and
   enforcing relevant invariants. Naming a field does not justify leaving its
   domain unit, bound, or state encoded in a naked primitive.
+- Unit-named primitive leaf constructors may accept native numbers or vectors
+  at literal, decoding and framework boundaries. Composite domain APIs accept
+  existing checked leaves. Carry those leaves between operations rather than
+  repeatedly extracting and admitting native values. Document the frame, unit
+  and reason for each native numerical-kernel handoff; being private does not
+  alone justify a primitive API.
 - Use enums for closed domain roles and states. Distinguish an ordinal index
   from the role selected by that index: use a domain index type when meaningful
   and classify it into a role at the owning boundary. Do not replace arbitrary
   indices with enums that merely enumerate numbers.
+- Use named enums for domain roles or states carried between APIs, including
+  two-state roles when the variants communicate meaning. Keep `bool` for
+  ordinary named predicates and genuinely primitive flags at explicit adapters.
+  A Boolean wire representation does not determine the domain type.
 - Unit `()` and tuples required by external or framework APIs are valid. Keep
   required positional representations at those boundaries and convert domain
   records through explicit adapters.
@@ -56,6 +66,15 @@ governed by the repository-root generation rule instead.
   intrinsically clear `0` and `1`, small indexes and dimensions, authored
   catalog data, isolated test fixtures, and local format tokens inline when a
   name would only add indirection.
+- Inline authored geometry must make its component role, units and axis/frame
+  interpretation clear at construction. Shared dimensional relationships,
+  acceptance thresholds and tolerances have a named owner. An authored-catalog
+  registry scope does not exempt policy logic embedded in the same file.
+- Give semantically distinct pair members named fields, or destructure a fixed
+  homogeneous pair into meaningful names. Use checked access for externally
+  supplied or otherwise unproven dynamic indices. Direct indexing is valid for
+  fixed arrays and bounds established by construction or control flow; do not
+  invent missing-element outcomes for guaranteed elements.
 - Do not branch on mutable human-facing prose. Return a stable typed error or
   code from the authoritative boundary and map it to presentation text once.
 
@@ -80,6 +99,15 @@ governed by the repository-root generation rule instead.
 
 ## Functions, methods, and constructors
 
+- Use descriptive names for domain parameters and locals, such as `assembly`,
+  `centre`, `dimensions` or `clearance`. Reserve short names for obvious
+  mathematical axes and tightly scoped iterator/index variables; a visible type
+  does not by itself justify abbreviating a domain role.
+- In a cohesive module whose fallible APIs share one error type, use or reuse
+  an owning `Result<T>` alias. Where error types differ, preserve the
+  distinctions with descriptive aliases or explicit standard results. Do not
+  widen an error solely to shorten signatures. Framework and trait error
+  parameters remain explicit.
 - Keep control flow flat with pattern matching (`if let`, `while let`, and
   `let ... else`) and early returns. Prefer `?` for error propagation rather
   than nesting success and failure branches.

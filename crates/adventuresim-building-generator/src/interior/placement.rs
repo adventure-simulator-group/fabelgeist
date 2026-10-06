@@ -1,3 +1,4 @@
+use crate::interior::InteriorResult as Result;
 const RNG_BUILDING_FURNITURE_SIZE: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("building.furniture-size");
 use super::budgets::{FurnitureBudget, FurniturePosition, furniture_budgets};
@@ -13,10 +14,7 @@ use bevy::math::Vec2;
 const WALL_SETBACK_METRES: f32 = crate::WALL_THICKNESS_METRES * 0.5 + 0.06;
 const CANDIDATE_STEP_METRES: f32 = 0.5;
 
-pub fn furnish(
-    plan: &BuildingPlan,
-    program: &BuildingProgram,
-) -> Result<InteriorLayout, InteriorLayoutError> {
+pub fn furnish(plan: &BuildingPlan, program: &BuildingProgram) -> Result<InteriorLayout> {
     let nav = Navigation::new(plan)?;
     let mut occupancy = Occupancy::new(&nav)?;
     let mut layout = InteriorLayout::default();
@@ -78,7 +76,7 @@ pub fn furnish(
 pub fn validate_layout(
     plan: &BuildingPlan,
     layout: &InteriorLayout,
-) -> Result<Vec<FurnitureAccessPath>, InteriorLayoutError> {
+) -> Result<Vec<FurnitureAccessPath>> {
     let nav = Navigation::new(plan)?;
     super::footprints::validate(plan, &nav, &layout.placements, 0)?;
     if layout.placements.is_empty() {
@@ -95,7 +93,7 @@ pub(super) fn candidates(
     room: &Room,
     storey: StoreyIndex,
     budget: FurnitureBudget,
-) -> Result<Vec<Vec<InteriorPlacement>>, InteriorLayoutError> {
+) -> Result<Vec<Vec<InteriorPlacement>>> {
     let seed = fabelgeist_determinism::StreamId::new("building.room-furniture")
         .seed(
             program.seed,
@@ -126,7 +124,7 @@ fn variant_candidates(
     budget: FurnitureBudget,
     variant: FurnitureVariant,
     seed: u64,
-) -> Result<Vec<Vec<InteriorPlacement>>, InteriorLayoutError> {
+) -> Result<Vec<Vec<InteriorPlacement>>> {
     let key = FurnitureKey::natural(budget.kind, variant);
     let bounds = super::geometry::room_bounds(room, storey)?;
     let (min, max) = (bounds.min.metres(), bounds.max.metres());

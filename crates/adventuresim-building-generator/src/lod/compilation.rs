@@ -1,11 +1,9 @@
 //! Select semantic exterior assemblies and compile their render representations.
 use super::*;
+use crate::GenerationResult as Result;
 
 /// Compiles a render-only LOD from the accepted semantic plan.
-pub fn compile_building_lod(
-    plan: &BuildingPlan,
-    level: BuildingLodLevel,
-) -> Result<BuildingLod, crate::GenerationError> {
+pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Result<BuildingLod> {
     compile(plan, level, &std::collections::BTreeSet::new())
 }
 
@@ -14,14 +12,14 @@ pub fn compile_building_lod(
 pub fn compile_static_building_lod(
     plan: &BuildingPlan,
     level: BuildingLodLevel,
-) -> Result<BuildingLod, crate::GenerationError> {
+) -> Result<BuildingLod> {
     compile(plan, level, &crate::detail::dynamic_closure_solids(plan)?)
 }
 
 pub(crate) fn compile_components(
     plan: &BuildingPlan,
     excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
-) -> Result<BuildingLod, crate::GenerationError> {
+) -> Result<BuildingLod> {
     compile(plan, BuildingLodLevel::Facade, excluded)
 }
 
@@ -29,7 +27,7 @@ fn compile(
     plan: &BuildingPlan,
     level: BuildingLodLevel,
     excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
-) -> Result<BuildingLod, crate::GenerationError> {
+) -> Result<BuildingLod> {
     if plan.small_church.is_some() {
         return small_church::compile(plan, level, excluded);
     }

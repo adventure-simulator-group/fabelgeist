@@ -1,6 +1,7 @@
 //! Folded lead at the stack: upstands, masonry reglets and overlapping skirts.
 use super::weather_sections::{SheetSection, WeatherSide};
 use super::{assembly::Assembly, placement::roof_height};
+use crate::GenerationResult as Result;
 use crate::plan_geometry::ArchitecturalPlanPoint;
 use crate::spatial_geometry::SignedLength;
 use crate::*;
@@ -14,10 +15,10 @@ const COUNTERFLASHING_DROP_METRES: f32 = 0.08;
 const FOOT_LAP_METRES: f32 = 0.02;
 
 pub(super) fn build(
-    a: &mut Assembly<'_>,
+    assembly: &mut Assembly<'_>,
     face: &RoofFace,
     shaft: SpatialBounds<Architectural>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let min = Vec2::new(shaft.min().metres().x, shaft.min().metres().z);
     let max = Vec2::new(shaft.max().metres().x, shaft.max().metres().z);
     let top = [min, Vec2::new(min.x, max.y), max, Vec2::new(max.x, min.y)]
@@ -34,36 +35,36 @@ pub(super) fn build(
             .metres()
             .min(roof_height(face, end)?.metres());
         strip(
-            a,
+            assembly,
             HeatingPartKind::RoofUpstand,
             side,
-            SheetSection::from_metres(
-                -SHEET_THICKNESS_METRES,
-                SHEET_THICKNESS_METRES,
-                low - FOOT_LAP_METRES,
-                top,
+            SheetSection::new(
+                SignedLength::from_metres(-SHEET_THICKNESS_METRES)?,
+                SignedLength::from_metres(SHEET_THICKNESS_METRES)?,
+                crate::spatial_geometry::Elevation::from_metres(low - FOOT_LAP_METRES)?,
+                crate::spatial_geometry::Elevation::from_metres(top)?,
             )?,
         )?;
         strip(
-            a,
+            assembly,
             HeatingPartKind::RoofCounterFlashing,
             side,
-            SheetSection::from_metres(
-                -MASONRY_EMBED_METRES,
-                COUNTERFLASHING_OVERHANG_METRES,
-                top,
-                top + SHEET_THICKNESS_METRES,
+            SheetSection::new(
+                SignedLength::from_metres(-MASONRY_EMBED_METRES)?,
+                SignedLength::from_metres(COUNTERFLASHING_OVERHANG_METRES)?,
+                crate::spatial_geometry::Elevation::from_metres(top)?,
+                crate::spatial_geometry::Elevation::from_metres(top + SHEET_THICKNESS_METRES)?,
             )?,
         )?;
         strip(
-            a,
+            assembly,
             HeatingPartKind::RoofCounterFlashing,
             side,
-            SheetSection::from_metres(
-                SHEET_THICKNESS_METRES,
-                COUNTERFLASHING_OVERHANG_METRES,
-                top - COUNTERFLASHING_DROP_METRES,
-                top + SHEET_THICKNESS_METRES,
+            SheetSection::new(
+                SignedLength::from_metres(SHEET_THICKNESS_METRES)?,
+                SignedLength::from_metres(COUNTERFLASHING_OVERHANG_METRES)?,
+                crate::spatial_geometry::Elevation::from_metres(top - COUNTERFLASHING_DROP_METRES)?,
+                crate::spatial_geometry::Elevation::from_metres(top + SHEET_THICKNESS_METRES)?,
             )?,
         )?;
     }
@@ -71,12 +72,12 @@ pub(super) fn build(
 }
 
 fn strip(
-    a: &mut Assembly<'_>,
+    assembly: &mut Assembly<'_>,
     kind: HeatingPartKind,
     side: WeatherSide,
     section: SheetSection,
-) -> Result<(), crate::GenerationError> {
-    a.absolute_part(
+) -> Result<()> {
+    assembly.absolute_part(
         kind,
         BuildingLodMaterial::LeadAlloy,
         section.lapped_bounds(side, SignedLength::from_metres(SHEET_THICKNESS_METRES)?)?,

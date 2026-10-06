@@ -1,5 +1,6 @@
 //! Height clipping is a bounded native kernel between framed cuboid and bounds contracts.
 use super::geometry::Rect;
+use crate::CollisionResult as Result;
 use crate::spatial_geometry::{Elevation, GeometryFrame, PlanExtents, Position};
 use crate::{Architectural, CollisionError, ResolvedItemId, SpatialBounds};
 use bevy::math::{Vec2, Vec3};
@@ -13,7 +14,7 @@ pub(super) struct Obstruction<F: GeometryFrame> {
     footprint_half: PlanExtents,
 }
 impl<F: GeometryFrame> Obstruction<F> {
-    pub fn new(solid: crate::CollisionCuboid<F>) -> Result<Self, CollisionError> {
+    pub fn new(solid: crate::CollisionCuboid<F>) -> Result<Self> {
         let topology = solid.corners()?;
         let corners = topology.points().map(|point| point.metres());
         let bounds = SpatialBounds::<F>::from_metres(
@@ -74,7 +75,7 @@ impl<F: GeometryFrame> Obstruction<F> {
         &self,
         bottom: Elevation<F>,
         top: Elevation<F>,
-    ) -> Result<Option<SpatialBounds<F>>, CollisionError> {
+    ) -> Result<Option<SpatialBounds<F>>> {
         if self.top.metres() <= bottom.metres() || self.bottom.metres() >= top.metres() {
             return Ok(None);
         }
@@ -121,7 +122,7 @@ impl Obstruction<Architectural> {
         &self,
         bottom: Elevation<Architectural>,
         top: Elevation<Architectural>,
-    ) -> Result<Option<Rect>, CollisionError> {
+    ) -> Result<Option<Rect>> {
         self.projection(bottom, top)?
             .map(|bounds| {
                 Rect::from_bounds(bounds).map_err(|cause| CollisionError {
@@ -136,7 +137,7 @@ impl Obstruction<Architectural> {
         rect: Rect,
         bottom: Elevation<Architectural>,
         top: Elevation<Architectural>,
-    ) -> Result<bool, CollisionError> {
+    ) -> Result<bool> {
         // Retain the cheap horizontal rejection before allocating clipping points.
         // These axis comparisons use the same centre/half-extent arithmetic as Rect.
         let centre = self.footprint_centre.metres();
