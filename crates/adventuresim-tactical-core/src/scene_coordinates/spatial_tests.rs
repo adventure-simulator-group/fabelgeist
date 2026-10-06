@@ -96,16 +96,16 @@ fn architectural_floor_and_collision_centre_datums_preserve_native_arithmetic() 
     for hinge in [-0.7, 0.7] {
         let original = leaf::<Architectural>(hinge);
         let pose = datum.door(original).unwrap();
-        assert_eq!(pose.leaf.opening, original.opening);
-        assert_eq!(pose.leaf.source, original.source);
-        assert_eq!(pose.leaf.size_metres, original.size_metres);
-        assert_eq!(pose.leaf.open_angle_radians, original.open_angle_radians);
+        assert_eq!(pose.leaf().opening, original.opening);
+        assert_eq!(pose.leaf().source, original.source);
+        assert_eq!(pose.leaf().size_metres, original.size_metres);
+        assert_eq!(pose.leaf().open_angle_radians, original.open_angle_radians);
         assert_eq!(
-            pose.leaf.closed_centre.metres(),
+            pose.leaf().closed_centre.metres(),
             transform.transform_point(original.closed_centre.metres() - origin.metres())
         );
         assert_eq!(
-            pose.leaf.hinge_centre.metres(),
+            pose.leaf().hinge_centre.metres(),
             transform.transform_point(original.hinge_centre.metres() - origin.metres())
         );
         assert_eq!(
@@ -114,14 +114,14 @@ fn architectural_floor_and_collision_centre_datums_preserve_native_arithmetic() 
         );
         assert!(
             datum
-                .architectural_point(pose.leaf.hinge_centre)
+                .architectural_point(pose.leaf().hinge_centre)
                 .unwrap()
                 .metres()
                 .distance(original.hinge_centre.metres())
                 < 0.00001
         );
         assert!(
-            (pose.leaf.horizontal_sweep_radius_metres().unwrap()
+            (pose.leaf().horizontal_sweep_radius_metres().unwrap()
                 - original.horizontal_sweep_radius_metres().unwrap())
             .abs()
                 < 0.00001
@@ -135,18 +135,18 @@ fn gate_datum_changes_only_elevation_and_preserves_both_hinges() {
         let original = leaf::<GateRelative>(hinge);
         let pose = datum.door(original).unwrap();
         assert_eq!(
-            pose.leaf.closed_centre.metres(),
+            pose.leaf().closed_centre.metres(),
             original.closed_centre.metres() + Vec3::Y * -5.25
         );
         assert_eq!(
-            pose.leaf.hinge_centre.metres(),
+            pose.leaf().hinge_centre.metres(),
             original.hinge_centre.metres() + Vec3::Y * -5.25
         );
-        assert_eq!(pose.leaf.tangent.vector(), original.tangent.vector());
-        assert_eq!(pose.leaf.outward.vector(), original.outward.vector());
+        assert_eq!(pose.leaf().tangent.vector(), original.tangent.vector());
+        assert_eq!(pose.leaf().outward.vector(), original.outward.vector());
         for (scene, gate) in [
-            (pose.leaf.closed_centre, original.closed_centre),
-            (pose.leaf.hinge_centre, original.hinge_centre),
+            (pose.leaf().closed_centre, original.closed_centre),
+            (pose.leaf().hinge_centre, original.hinge_centre),
         ] {
             assert!(
                 datum
@@ -157,11 +157,11 @@ fn gate_datum_changes_only_elevation_and_preserves_both_hinges() {
                     < 0.00001
             );
         }
-        assert_eq!(pose.leaf.size_metres, original.size_metres);
-        assert_eq!(pose.leaf.opening, original.opening);
-        assert_eq!(pose.leaf.source, original.source);
+        assert_eq!(pose.leaf().size_metres, original.size_metres);
+        assert_eq!(pose.leaf().opening, original.opening);
+        assert_eq!(pose.leaf().source, original.source);
         assert_eq!(
-            pose.leaf.horizontal_sweep_radius_metres().unwrap(),
+            pose.leaf().horizontal_sweep_radius_metres().unwrap(),
             original.horizontal_sweep_radius_metres().unwrap()
         );
     }

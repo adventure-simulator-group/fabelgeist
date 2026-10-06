@@ -145,7 +145,7 @@ pub(super) fn spawn_door(
     building_id: u64,
     pose: adventuresim_tactical_core::scene_coordinates::SceneDoorPose,
 ) -> Result {
-    let door = pose.leaf;
+    let door = pose.leaf();
     let closed_centre = door.closed_centre.metres();
     let hinge_centre = door.hinge_centre.metres();
     let closed_rotation = pose.native_rotation();

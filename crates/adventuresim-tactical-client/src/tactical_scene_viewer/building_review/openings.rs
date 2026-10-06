@@ -115,10 +115,10 @@ impl ReviewLeafPose {
         pose: adventuresim_tactical_core::scene_coordinates::SceneDoorPose,
     ) -> Self {
         Self {
-            closed: Transform::from_translation(pose.leaf.closed_centre.metres())
+            closed: Transform::from_translation(pose.leaf().closed_centre.metres())
                 .with_rotation(pose.native_rotation()),
-            hinge: pose.leaf.hinge_centre.metres(),
-            angle: pose.leaf.open_angle_radians.radians(),
+            hinge: pose.leaf().hinge_centre.metres(),
+            angle: pose.leaf().open_angle_radians.radians(),
         }
     }
 
@@ -164,7 +164,7 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
     let direction = |v: Vec2| transform.rotation * Vec3::new(v.x, 0.0, v.y);
     for leaf in compile_operable_doors(&building.plan)? {
         let pose = datum.door(leaf)?;
-        let door = pose.leaf;
+        let door = pose.leaf();
         let centre = door.closed_centre.metres();
         let closed = Transform::from_translation(centre).with_rotation(pose.native_rotation());
         commands.spawn((

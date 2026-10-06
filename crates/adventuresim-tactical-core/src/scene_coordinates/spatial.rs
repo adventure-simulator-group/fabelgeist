@@ -203,9 +203,18 @@ impl GateDatum {
 
 /// The scene leaf and its original native quaternion product are one conversion
 /// result. Native rotation is an adapter output, not a second authoring input.
+/// The paired values can only be constructed by the datum conversions.
+///
+/// ```compile_fail
+/// use adventuresim_building_generator::spatial_geometry::Radians;
+/// use adventuresim_tactical_core::scene_coordinates::SceneDoorPose;
+/// fn change_yaw(mut pose: SceneDoorPose, yaw: Radians) {
+///     pose.leaf.closed_yaw_radians = yaw;
+/// }
+/// ```
 #[derive(Clone, Copy, Debug)]
 pub struct SceneDoorPose {
-    pub leaf: DoorSpec<Scene>,
+    leaf: DoorSpec<Scene>,
     native_rotation: RigidRotation,
 }
 
@@ -240,6 +249,12 @@ impl ArchitecturalGateDatum {
 }
 
 impl SceneDoorPose {
+    /// The converted scene leaf. Changing the returned copy leaves this pose intact.
+    pub fn leaf(self) -> DoorSpec<Scene> {
+        self.leaf
+    }
+
+    /// Original quaternion product retained at rendering and physics boundaries.
     pub fn native_rotation(self) -> Quat {
         self.native_rotation.quaternion()
     }

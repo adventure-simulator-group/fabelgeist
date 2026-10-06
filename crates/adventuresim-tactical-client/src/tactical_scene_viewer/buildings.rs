@@ -30,7 +30,7 @@ pub(super) fn spawn_boundaries(
             boundary.elevation_metres,
         )?
         .door(door)?;
-        let door = pose.leaf;
+        let door = pose.leaf();
         let elevation = Vec3::Y * boundary.elevation_metres;
         let centre = door.closed_centre.metres();
         commands.spawn((

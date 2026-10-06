@@ -49,10 +49,12 @@ explicit inverse for admitted scene points.
 which preserves opening and source identities, both hinge positions, leaf
 dimensions, directions and signed sweep. Its native rotation preserves the
 established quaternion product at the renderer and physics boundaries. The
-leaf's yaw is the corresponding finite scalar representation. `SceneDoor`
-carries the scene pose needed by the transient server; decoding validates its
-point, positive dimensions and normalized directions and reports the
-building/opening identity with the construction cause.
+leaf's yaw is the corresponding finite scalar representation. Both values
+are private and exposed through read-only accessors so callers cannot change
+one independently. `SceneDoor` carries the scene pose needed by the transient
+server; decoding validates its point, positive dimensions and normalized
+directions and reports the building/opening identity with the construction
+cause.
 
 Boundary walls and caps use ground-relative poses; gate posts use gate-relative
 poses. The member enum declares the datum before rendering or support metadata

@@ -134,7 +134,10 @@ Detail, Facade and Shell retain the same bay and fixed glass. Static collision
 includes this bay and glazing; general roof-enclosure collision remains outside
 this change. There is no attic room or operable-window access contract.
 Changing pitch on an aperture-bearing roof returns `TopologyEvent` before any
-mutation; unchanged-pitch requests are no-ops.
+mutation; unchanged-pitch requests are no-ops. Other supported pitch edits
+reconstruct the roof and resolved geometry before committing either. A
+construction error retains its roof identity and cause and leaves the entire
+plan unchanged.
 
 The `gable-review` fixture covers both house programmes at seeds 42, 47 and
 101. Its production capture profile includes matched Detail, Facade and Shell

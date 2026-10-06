@@ -63,7 +63,7 @@ pub(super) fn spawn_building(
     let entity = entity.id();
     for leaf in compile_operable_doors(&building.plan)? {
         let pose = datum.door(leaf)?;
-        let door = pose.leaf;
+        let door = pose.leaf();
         let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
@@ -131,7 +131,7 @@ pub(super) fn spawn_props(
             boundary.elevation_metres,
         )?
         .door(door)?;
-        let door = pose.leaf;
+        let door = pose.leaf();
         let elevation = Vec3::Y * boundary.elevation_metres;
         let centre = door.closed_centre.metres();
         commands.spawn((

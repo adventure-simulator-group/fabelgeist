@@ -100,7 +100,7 @@ pub(super) fn project_pending(
             boundary.elevation_metres,
         )?
         .door(door)?;
-        let door = pose.leaf;
+        let door = pose.leaf();
         commands
             .spawn((
                 DistantCityBuildingPresentation,

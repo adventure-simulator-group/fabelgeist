@@ -1,6 +1,7 @@
-/// Recomputes an existing roof graph under its declared pivot policy.  A
-/// child intersection that would need a new topological cut is rejected
-/// explicitly instead of silently detaching the child.
+/// Recomputes an existing roof graph under its declared pivot policy.
+/// Changing pitch on roofs with child, parent, inset-wall or heating attachments
+/// requires a topology change and is rejected. Unchanged-pitch requests are no-ops.
+/// Any error leaves the plan unchanged.
 pub fn set_roof_pitch(
     plan: &mut BuildingPlan,
     id: RoofAssemblyId,
@@ -9,11 +10,12 @@ pub fn set_roof_pitch(
     if !(15.0..=75.0).contains(&pitch_degrees) {
         return Err(RoofEditError::PitchOutsideProjectRange);
     }
-    let assembly = plan
+    let assembly_index = plan
         .roof_assemblies
-        .iter_mut()
-        .find(|roof| roof.id == id)
+        .iter()
+        .position(|roof| roof.id == id)
         .ok_or(RoofEditError::MissingAssembly)?;
+    let assembly = &plan.roof_assemblies[assembly_index];
     let old_pitch = assembly
         .faces
         .first()
@@ -56,75 +58,93 @@ pub fn set_roof_pitch(
         }
         RoofPivotPolicy::KeepRidge => max_y - (max_y - y) * factor,
     };
-    let mut reconstruct = || -> Result<(), GenerationError> {
-        for face in &mut assembly.faces {
-            for point in &mut face.polygon {
-                point.y = scale_y(point.y);
-            }
-            let bounds = roof_polygon_bounds(face.id, &face.polygon)?;
-            face.plane = roof_plane(&face.polygon);
-            face.pitch_degrees = pitch_degrees;
-            if let Some(surface) = plan
-                .resolved_geometry
-                .surfaces
-                .iter_mut()
-                .find(|surface| surface.id == face.drainage_catchment)
-            {
-                surface.bounds = bounds;
-            }
-            if let Some(catchment) = plan
-                .resolved_geometry
-                .drainage_catchments
-                .iter_mut()
-                .find(|catchment| catchment.id == face.drainage_catchment)
-            {
-                let centre = face.polygon.iter().copied().sum::<Vec3>() / face.polygon.len() as f32;
-                let low = face
-                    .polygon
-                    .iter()
-                    .min_by(|a, b| a.y.total_cmp(&b.y))
-                    .copied()
-                    .ok_or(GenerationError::EmptyRoofFace { face: face.id })?;
-                catchment.centre = centre;
-                catchment.inner_elevation_metres = face
-                    .polygon
-                    .iter()
-                    .map(|point| point.y)
-                    .fold(f32::NEG_INFINITY, f32::max);
-                catchment.outer_elevation_metres = low.y;
-                if let Some(route) = plan
-                    .resolved_geometry
-                    .drainage_routes
-                    .iter_mut()
-                    .find(|route| route.id == catchment.outlet_route)
-                {
-                    route.inlet = centre;
-                    route.outlet = low;
-                }
-            }
-        }
-        gable_enclosure::update_pitch(
-            &mut assembly.enclosure_faces,
-            &assembly.faces,
-            assembly
-                .source_piece_index
-                .filter(|_| assembly.kind == RoofKind::Gable)
-                .map(|index| plan.roofs[index]),
-            &plan.wall_assemblies,
-            min_y,
-            scale_y,
-        );
-        for edge in &mut assembly.edges {
-            edge.start.y = scale_y(edge.start.y);
-            edge.end.y = scale_y(edge.end.y);
-        }
-        refresh_edge_weathering(assembly, &mut plan.resolved_geometry)?;
-        Ok(())
-    };
-    reconstruct().map_err(|cause| RoofEditError::Construction {
+    let mut reconstructed = assembly.clone();
+    let mut geometry = plan.resolved_geometry.clone();
+    reconstruct_roof_pitch(
+        &mut reconstructed,
+        &mut geometry,
+        plan,
+        pitch_degrees,
+        min_y,
+        scale_y,
+    )
+    .map_err(|cause| RoofEditError::Construction {
         roof: id,
         cause: Box::new(cause),
-    })
+    })?;
+    plan.roof_assemblies[assembly_index] = reconstructed;
+    plan.resolved_geometry = geometry;
+    Ok(())
+}
+
+fn reconstruct_roof_pitch(
+    assembly: &mut RoofAssembly,
+    geometry: &mut ResolvedGeometry,
+    plan: &BuildingPlan,
+    pitch_degrees: f32,
+    min_y: f32,
+    scale_y: impl Fn(f32) -> f32,
+) -> Result<(), GenerationError> {
+    for face in &mut assembly.faces {
+        for point in &mut face.polygon {
+            point.y = scale_y(point.y);
+        }
+        let bounds = roof_polygon_bounds(face.id, &face.polygon)?;
+        face.plane = roof_plane(&face.polygon);
+        face.pitch_degrees = pitch_degrees;
+        if let Some(surface) = geometry
+            .surfaces
+            .iter_mut()
+            .find(|surface| surface.id == face.drainage_catchment)
+        {
+            surface.bounds = bounds;
+        }
+        if let Some(catchment) = geometry
+            .drainage_catchments
+            .iter_mut()
+            .find(|catchment| catchment.id == face.drainage_catchment)
+        {
+            let centre = face.polygon.iter().copied().sum::<Vec3>() / face.polygon.len() as f32;
+            let low = face
+                .polygon
+                .iter()
+                .min_by(|a, b| a.y.total_cmp(&b.y))
+                .copied()
+                .ok_or(GenerationError::EmptyRoofFace { face: face.id })?;
+            catchment.centre = centre;
+            catchment.inner_elevation_metres = face
+                .polygon
+                .iter()
+                .map(|point| point.y)
+                .fold(f32::NEG_INFINITY, f32::max);
+            catchment.outer_elevation_metres = low.y;
+            if let Some(route) = geometry
+                .drainage_routes
+                .iter_mut()
+                .find(|route| route.id == catchment.outlet_route)
+            {
+                route.inlet = centre;
+                route.outlet = low;
+            }
+        }
+    }
+    gable_enclosure::update_pitch(
+        &mut assembly.enclosure_faces,
+        &assembly.faces,
+        assembly
+            .source_piece_index
+            .filter(|_| assembly.kind == RoofKind::Gable)
+            .map(|index| plan.roofs[index]),
+        &plan.wall_assemblies,
+        min_y,
+        &scale_y,
+    );
+    for edge in &mut assembly.edges {
+        edge.start.y = scale_y(edge.start.y);
+        edge.end.y = scale_y(edge.end.y);
+    }
+    refresh_edge_weathering(assembly, geometry)?;
+    Ok(())
 }
 
 fn refresh_edge_weathering(
@@ -205,4 +225,127 @@ fn refresh_edge_weathering(
         }
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod roof_edit_transaction_tests {
+    use super::*;
+    use crate::spatial_geometry::{CoordinateAxis, GeometryError, GeometryRole};
+
+    fn editable_plan() -> BuildingPlan {
+        generate(&BuildingProgram::fixture(
+            BuildingArchetype::CastleGatehouse,
+            42,
+        ))
+        .unwrap()
+    }
+
+    fn editable_roof(plan: &BuildingPlan) -> usize {
+        plan.roof_assemblies
+            .iter()
+            .position(|roof| {
+                roof.children.is_empty() && roof.parent.is_none() && roof.faces.len() >= 2
+            })
+            .unwrap()
+    }
+
+    #[test]
+    fn roof_edit_rejects_a_later_invalid_face_without_changing_the_plan() {
+        let mut plan = editable_plan();
+        let index = editable_roof(&plan);
+        let roof = &mut plan.roof_assemblies[index];
+        let id = roof.id;
+        let face = &mut roof.faces[1];
+        let face_id = face.id;
+        face.polygon.truncate(2);
+        let before = postcard::to_allocvec(&plan).unwrap();
+
+        let error = set_roof_pitch(&mut plan, id, 75.0).unwrap_err();
+
+        assert_eq!(
+            error,
+            RoofEditError::Construction {
+                roof: id,
+                cause: Box::new(GenerationError::InvalidRoofFace {
+                    face: face_id,
+                    vertices: 2,
+                }),
+            }
+        );
+        assert_eq!(postcard::to_allocvec(&plan).unwrap(), before);
+    }
+
+    #[test]
+    fn roof_edit_rejects_a_later_face_overflow_without_changing_the_plan() {
+        let mut plan = editable_plan();
+        let index = editable_roof(&plan);
+        let roof = &mut plan.roof_assemblies[index];
+        let id = roof.id;
+        roof.pivot_policy = RoofPivotPolicy::KeepEave;
+        let face = &mut roof.faces[1];
+        let face_id = face.id;
+        face.polygon[1].y = f32::MAX;
+        let before = postcard::to_allocvec(&plan).unwrap();
+
+        let error = set_roof_pitch(&mut plan, id, 75.0).unwrap_err();
+
+        assert_eq!(
+            error,
+            RoofEditError::Construction {
+                roof: id,
+                cause: Box::new(GenerationError::RoofFaceConstruction {
+                    face: face_id,
+                    cause: GeometryError::NonFinite {
+                        role: GeometryRole::Position,
+                        axis: CoordinateAxis::Y,
+                    },
+                }),
+            }
+        );
+        assert_eq!(postcard::to_allocvec(&plan).unwrap(), before);
+    }
+
+    #[test]
+    fn roof_edit_rejects_weathering_overflow_without_changing_the_plan() {
+        let mut plan = editable_plan();
+        let index = editable_roof(&plan);
+        let weathering = plan
+            .resolved_geometry
+            .solids
+            .iter()
+            .find(|solid| {
+                matches!(
+                    solid.role,
+                    SolidRole::RoofEdgeTreatment | SolidRole::RoofGutter
+                )
+            })
+            .unwrap()
+            .id;
+        let roof = &mut plan.roof_assemblies[index];
+        let id = roof.id;
+        let edge = roof
+            .edges
+            .iter_mut()
+            .find(|edge| edge.kind == RoofEdgeKind::Eave)
+            .unwrap();
+        // Bind a weathering solid to exercise rejection after face and edge updates.
+        edge.flashing = Some(weathering);
+        edge.start.x = f32::MAX;
+        edge.end.x = f32::MAX;
+        let before = postcard::to_allocvec(&plan).unwrap();
+
+        let error = set_roof_pitch(&mut plan, id, 75.0).unwrap_err();
+
+        assert_eq!(
+            error,
+            RoofEditError::Construction {
+                roof: id,
+                cause: Box::new(GenerationError::Geometry(GeometryError::NonFinite {
+                    role: GeometryRole::Position,
+                    axis: CoordinateAxis::X,
+                })),
+            }
+        );
+        assert_eq!(postcard::to_allocvec(&plan).unwrap(), before);
+    }
 }

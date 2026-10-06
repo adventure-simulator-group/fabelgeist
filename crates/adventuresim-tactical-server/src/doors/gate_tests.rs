@@ -27,7 +27,7 @@ fn assert_property_gate(boundary: GeneratedBoundary) {
     .unwrap()
     .door(spec)
     .unwrap()
-    .leaf;
+    .leaf();
     let mut app = App::new();
     app.add_plugins((MinimalPlugins, PhysicsPlugins::default(), TransformPlugin));
     app.add_observer(super::super::boundaries::on_scene_boundary_added);

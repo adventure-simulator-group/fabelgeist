@@ -187,7 +187,7 @@ pub struct RoofFace {
 }
 
 impl RoofFace {
-    /// Height of the inward-offset plane at fixed world X/Z. Thickness is
+    /// Height of the inward-offset plane at fixed architectural X/Z. Thickness is
     /// measured normal to the slope, so its vertical effect is t / normal.y.
     pub(crate) fn underside_height_at(&self, point: Vec2) -> f32 {
         let normal = self.plane.normal;

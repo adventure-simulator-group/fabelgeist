@@ -16,7 +16,7 @@ use crate::spatial_geometry::{
 
 const EXTERIOR_DOOR_OPEN_ANGLE_RADIANS: f32 = 100.0 * core::f32::consts::PI / 180.0;
 
-/// A single operable exterior leaf in building-local coordinates.
+/// A single operable exterior leaf in the declared spatial frame.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
 #[serde(bound = "")]
 pub struct DoorSpec<F: GeometryFrame> {
