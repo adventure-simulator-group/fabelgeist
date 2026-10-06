@@ -1,7 +1,7 @@
 fn audit_artillery_castle(
     plan: &BuildingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let inherited = matches!(
         plan.archetype,
         BuildingArchetype::CastleGatehouse
@@ -446,11 +446,11 @@ fn audit_artillery_castle(
                     && (ray.origin.y - opening.sill_elevation_metres)
                         <= opening.profile.clear_height_metres() - 0.05;
                 let blocked = visibility.blocked(ray.origin, ray.target, opening.owner)?;
-                Ok::<bool, crate::GenerationError>(
+                Result::<bool>::Ok(
                     target_binding && aim_valid && origin_valid && !blocked,
                 )
             })?;
-            Ok::<bool, crate::GenerationError>(
+            Result::<bool>::Ok(
                 stance_centre.is_some_and(recoil_contains)
                     && mount.is_some_and(|solid| recoil_contains(solid.centre.metres()))
                     && ranges

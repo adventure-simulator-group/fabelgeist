@@ -1,6 +1,7 @@
 //! Sampled rigid bell sweeps against nearby collision solids and actual roof faces.
 use super::*;
 use bell_hanging::moving;
+use std::result::Result;
 
 const CONTACT_TOLERANCE_METRES: f32 = 0.001;
 const SWING_HALF_STEPS: i32 = 30;

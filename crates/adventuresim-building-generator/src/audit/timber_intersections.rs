@@ -1,6 +1,6 @@
 fn undeclared_timber_intersections(
     plan: &BuildingPlan,
-) -> Result<Vec<(ResolvedItemId, ResolvedItemId)>, crate::GenerationError> {
+) -> Result<Vec<(ResolvedItemId, ResolvedItemId)>> {
     let Some(frame) = &plan.timber_frame else {
         return Ok(Vec::new());
     };
@@ -493,12 +493,12 @@ fn overlap_inside_interface(
 
 fn checked_solid_bounds(
     plan: &BuildingPlan,
-) -> Result<crate::geometry_index::BoundsIndex, crate::GenerationError> {
+) -> Result<crate::geometry_index::BoundsIndex> {
     let bounds = plan
         .resolved_geometry
         .solids
         .iter()
         .map(ResolvedSolid::query_bounds)
-        .collect::<Result<Vec<_>, _>>()?;
+        .collect::<Result<Vec<_>>>()?;
     crate::geometry_index::BoundsIndex::new(bounds)
 }

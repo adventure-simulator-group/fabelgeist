@@ -5,7 +5,7 @@ use crate::{
     AuditIssue, BuildingPlan, CELL_SIZE_METRES, SolidRole, WallAssembly, WallSegment, WallSourceId,
 };
 
-use super::{enclosure_sections, issue};
+use super::{Result, enclosure_sections, issue};
 
 pub(crate) const WALL_GAP: &str = "wall_corner_enclosure_gap";
 pub(crate) const GABLE_GAP: &str = "roof_gable_enclosure_gap";
@@ -32,10 +32,7 @@ fn resolved_wall(plan: &BuildingPlan, level: u16, index: usize) -> Option<&WallA
     })
 }
 
-pub(super) fn audit(
-    plan: &BuildingPlan,
-    issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) -> Result<()> {
     for storey in &plan.storeys {
         for (index, left) in storey
             .walls
@@ -84,7 +81,7 @@ fn corner_gap(
     corner: Vec2,
     a: &WallAssembly,
     b: &WallAssembly,
-) -> Result<Option<Vec3>, crate::GenerationError> {
+) -> Result<Option<Vec3>> {
     let outward = a.frame.outward + b.frame.outward;
     let projection = plan.upper_storey_projection_metres * f32::from(a.storey_level.min(1));
     let centre = corner + outward * projection;

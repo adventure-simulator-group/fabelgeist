@@ -1,4 +1,5 @@
 //! Apertures contribute coverage only with intact geometry and reciprocal owners.
+use super::Result;
 use bevy::math::Vec3;
 
 use crate::{
@@ -11,7 +12,7 @@ pub(super) fn valid(
     plan: &BuildingPlan,
     wall: &WallAssembly,
     opening: &OpeningAssembly,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     let WallSourceId::RoofGable { roof, enclosure } = wall.source else {
         return Ok(false);
     };
@@ -64,7 +65,7 @@ pub(super) fn valid(
             .chain(opening.sill_solid),
         |id| {
             crate::geometry_index::try_any(plan.resolved_geometry.solids.iter(), |s| {
-                Ok::<bool, crate::GenerationError>(
+                Result::<bool>::Ok(
                     s.id == id && s.owner == wall.owner && material_depth_matches(wall, s)?,
                 )
             })
@@ -98,7 +99,7 @@ fn fixed_glass(
     plan: &BuildingPlan,
     wall: &WallAssembly,
     opening: &OpeningAssembly,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     if opening.closure_solids.len() != 1
         || opening.closure.layers != [crate::ClosureKind::LeadedGlazing]
     {
@@ -183,10 +184,7 @@ pub(super) fn shared_head(plan: &BuildingPlan, opening: &OpeningAssembly) -> boo
         })
 }
 
-pub(super) fn material_depth_matches(
-    wall: &WallAssembly,
-    solid: &ResolvedSolid,
-) -> Result<bool, crate::GenerationError> {
+pub(super) fn material_depth_matches(wall: &WallAssembly, solid: &ResolvedSolid) -> Result<bool> {
     let n = Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y);
     let bounds = solid.cuboid_bounds()?;
     let centre = (bounds.min().metres() + bounds.max().metres()) * 0.5;

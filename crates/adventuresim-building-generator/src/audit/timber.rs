@@ -1,7 +1,7 @@
 fn audit_timber_frame(
     plan: &BuildingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let expected = plan.archetype.timber_frame_program();
     let Some(expected) = expected else {
         if plan.timber_frame.is_some() {

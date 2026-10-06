@@ -4,7 +4,7 @@ pub struct AuditIssue {
     pub message: String,
 }
 
-pub fn audit_plan(plan: &BuildingPlan) -> Result<Vec<AuditIssue>, crate::GenerationError> {
+pub fn audit_plan(plan: &BuildingPlan) -> Result<Vec<AuditIssue>> {
     let mut issues = crate::heating::audit(plan)?;
     audit_battlement_runs(plan, &mut issues);
 
@@ -153,7 +153,7 @@ fn audit_battlement_runs(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
 fn audit_structural_assemblies(
     plan: &BuildingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     enclosure::audit(plan, issues)?;
     audit_resolved_geometry(plan, issues)?;
     audit_wall_opening_assemblies(plan, issues)?;

@@ -4,7 +4,7 @@
 fn audit_projected_defenses(
     plan: &BuildingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let _: () = for defense in &plan.projected_defenses {
         let solids = plan
             .resolved_geometry
@@ -853,7 +853,7 @@ fn audit_projected_defenses(
                 .filter(|solid| solid.role == SolidRole::RoofPlate)
                 .collect::<Vec<_>>();
             crate::geometry_index::try_any(roof, |roof| {
-                Ok::<bool, crate::GenerationError>(
+                Result::<bool>::Ok(
                     bearing_node.is_some_and(|node| {
                         roof.supported_by == [node.id]
                             && node.supported_by.len() == 2
@@ -892,7 +892,7 @@ fn audit_projected_defenses(
                                     crate::geometry_index::try_any(
                                         support_solids.iter(),
                                         |support| {
-                                            Ok::<bool, crate::GenerationError>(
+                                            Result::<bool>::Ok(
                                                 support.id != plate.id
                                                     && support.role != SolidRole::RoofPlate
                                                     && (support.centre.metres().y
@@ -916,7 +916,7 @@ fn audit_projected_defenses(
                                         },
                                     )
                                 })?;
-                            Ok::<bool, crate::GenerationError>(roof_contact && bearing_samples)
+                            Result::<bool>::Ok(roof_contact && bearing_samples)
                         })?,
                 )
             })?

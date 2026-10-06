@@ -1,9 +1,6 @@
 //! Physical roof envelope and cross-authority contact diagnostics for a timber frame.
 use super::*;
-pub(super) fn audit(
-    plan: &BuildingPlan,
-    issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) -> Result<()> {
     let roof_envelope_intrusions = timber_roof_envelope_intrusions(plan);
     if !roof_envelope_intrusions.is_empty() {
         issues.push(issue(
@@ -99,10 +96,7 @@ impl ContactRoles {
         format!("{} x {}", label(self.left), label(self.right))
     }
 }
-fn audit_intersections(
-    plan: &BuildingPlan,
-    issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+fn audit_intersections(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) -> Result<()> {
     let undeclared_intersections = undeclared_timber_intersections(plan)?;
     if !undeclared_intersections.is_empty() {
         let mut role_counts = std::collections::BTreeMap::<ContactRoles, usize>::new();

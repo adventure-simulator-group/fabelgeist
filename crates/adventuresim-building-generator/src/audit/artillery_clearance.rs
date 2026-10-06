@@ -1,5 +1,7 @@
 //! Preserve the sampled firing contract while querying only nearby blockers.
-use super::{ResolvedSolid, SolidRole, Vec2, Vec3, VoidRole, resolved_solid_contains_point};
+use super::{
+    ResolvedSolid, Result, SolidRole, Vec2, Vec3, VoidRole, resolved_solid_contains_point,
+};
 use crate::{Architectural, SpatialBounds};
 use crate::{GeometryOwnerId, ResolvedItemId, geometry_index::BoundsIndex};
 
@@ -17,11 +19,7 @@ pub(super) struct ArtilleryClearance<'a> {
 }
 
 impl<'a> ArtilleryClearance<'a> {
-    pub(super) fn route_blocked(
-        &self,
-        point: Vec3,
-        connectors: &[ResolvedItemId],
-    ) -> Result<bool, crate::GenerationError> {
+    pub(super) fn route_blocked(&self, point: Vec3, connectors: &[ResolvedItemId]) -> Result<bool> {
         Ok(self
             .spatial
             .overlapping(SpatialBounds::<Architectural>::from_metres(point, point)?)
@@ -49,14 +47,14 @@ impl<'a> ArtilleryClearance<'a> {
             }))
     }
 
-    pub(super) fn new(solids: &'a [ResolvedSolid]) -> Result<Self, crate::GenerationError> {
+    pub(super) fn new(solids: &'a [ResolvedSolid]) -> Result<Self> {
         Ok(Self {
             solids,
             spatial: BoundsIndex::new(
                 solids
                     .iter()
                     .map(ResolvedSolid::query_bounds)
-                    .collect::<Result<Vec<_>, _>>()?,
+                    .collect::<Result<Vec<_>>>()?,
             )?,
         })
     }
@@ -66,14 +64,14 @@ impl<'a> ArtilleryClearance<'a> {
         origin: Vec3,
         target: Vec3,
         opening_owner: GeometryOwnerId,
-    ) -> Result<bool, crate::GenerationError> {
+    ) -> Result<bool> {
         let exit = (EXIT_DISTANCE_METRES / (target - origin).length())
             .clamp(MIN_EXIT_FRACTION, MAX_EXIT_FRACTION);
         crate::geometry_index::try_any(0..RAY_SAMPLE_COUNT, |sample| {
             let t = exit
                 + (TARGET_APPROACH_FRACTION - exit) * sample as f32 / (RAY_SAMPLE_COUNT - 1) as f32;
             let point = origin.lerp(target, t);
-            Ok::<bool, crate::GenerationError>(
+            Result::<bool>::Ok(
                 self.spatial
                     .overlapping(SpatialBounds::<Architectural>::from_metres(point, point)?)
                     .into_iter()
@@ -104,7 +102,7 @@ impl ArtilleryClearance<'_> {
             crate::ArtilleryRouteNodeId,
             &crate::ArtilleryRouteNode,
         >,
-    ) -> Result<bool, crate::GenerationError> {
+    ) -> Result<bool> {
         let Some((from, to)) = route_nodes.get(&edge.from).zip(route_nodes.get(&edge.to)) else {
             return Ok(false);
         };
@@ -163,7 +161,7 @@ impl ArtilleryClearance<'_> {
             })
         });
         let swept_clear = self.route_sweep_clear(edge)?;
-        Ok::<bool, crate::GenerationError>(
+        Result::<bool>::Ok(
             shape_valid
                 && connectors_valid
                 && portal_valid
@@ -172,10 +170,7 @@ impl ArtilleryClearance<'_> {
                 && swept_clear,
         )
     }
-    fn route_sweep_clear(
-        &self,
-        edge: &crate::ArtilleryRouteEdge,
-    ) -> Result<bool, crate::GenerationError> {
+    fn route_sweep_clear(&self, edge: &crate::ArtilleryRouteEdge) -> Result<bool> {
         crate::geometry_index::try_all(edge.sweep_path.windows(2), |pair| {
             let delta = Vec2::new(pair[1].x - pair[0].x, pair[1].z - pair[0].z);
             let along = if delta.length() > 0.01 {
@@ -193,9 +188,7 @@ impl ArtilleryClearance<'_> {
                     })
                 });
                 crate::geometry_index::try_all(samples, |point| {
-                    Ok::<bool, crate::GenerationError>(
-                        !self.route_blocked(point, &edge.connector_solids)?,
-                    )
+                    Result::<bool>::Ok(!self.route_blocked(point, &edge.connector_solids)?)
                 })
             })
         })

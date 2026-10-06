@@ -1,7 +1,7 @@
 fn audit_wall_opening_assemblies(
     plan: &BuildingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     use crate::{
         ClosureKind, OpeningHeadKind, OpeningProfile, OpeningUse, ResolvedItemId,
         WallMaterialClass, WallSourceId,
@@ -663,7 +663,7 @@ fn audit_wall_opening_assemblies(
                     && interface.node == opening.spandrel_node
             });
         let contact_valid = crate::geometry_index::try_any(head_solid, |head_solid| {
-            Ok::<bool, crate::GenerationError>(
+            Result::<bool>::Ok(
                 crate::geometry_index::try_all(
                     bearing_interfaces.into_iter().zip(opening.jamb_solids),
                     |(interface, jamb_id)| {
@@ -681,7 +681,7 @@ fn audit_wall_opening_assemblies(
                         let contact_max =
                             head_max.min(jamb_max).min(interface.bounds.max().metres());
                         let size = contact_max - contact_min;
-                        Ok::<bool, crate::GenerationError>(
+                        Result::<bool>::Ok(
                             size.min_element() > 0.001 && {
                                 let mut extents = [size.x, size.y, size.z];
                                 extents.sort_by(f32::total_cmp);
@@ -690,7 +690,7 @@ fn audit_wall_opening_assemblies(
                         )
                     },
                 )? && crate::geometry_index::try_any(spandrel_solid, |spandrel| {
-                    Ok::<bool, crate::GenerationError>(
+                    Result::<bool>::Ok(
                         spandrel.supported_by == [opening.spandrel_node]
                             && crate::geometry_index::try_any(wall_above, |interface| {
                                 let bounds = head_solid.cuboid_bounds()?;
@@ -704,7 +704,7 @@ fn audit_wall_opening_assemblies(
                                     .min(spandrel_max)
                                     .min(interface.bounds.max().metres());
                                 let size = contact_max - contact_min;
-                                Ok::<bool, crate::GenerationError>(
+                                Result::<bool>::Ok(
                                     size.min_element() > 0.001 && {
                                         let mut extents = [size.x, size.y, size.z];
                                         extents.sort_by(f32::total_cmp);

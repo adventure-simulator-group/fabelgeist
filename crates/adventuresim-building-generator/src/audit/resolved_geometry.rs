@@ -1,7 +1,7 @@
 fn audit_resolved_geometry(
     plan: &BuildingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     if plan.resolved_geometry.schema_version != 2 {
         issues.push(issue(
             "stale_resolver_schema",

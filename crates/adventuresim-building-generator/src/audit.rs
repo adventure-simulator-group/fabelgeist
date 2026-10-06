@@ -14,6 +14,9 @@ use crate::{
     StructuralNodeId, SurfaceRole, TowerPortalKind, VoidRole, WALL_THICKNESS_METRES, WallWalk,
 };
 
+/// Audit operations that can fail with a generation error.
+type Result<T> = std::result::Result<T, crate::GenerationError>;
+
 include!("audit/core.rs");
 include!("audit/vertical_circulation.rs");
 include!("audit/artillery.rs");

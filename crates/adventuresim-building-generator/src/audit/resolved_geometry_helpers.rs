@@ -419,7 +419,7 @@ fn resolved_solids_overlap_positive_volume(
 fn resolved_plan_overlap_area(
     left: &ResolvedSolid,
     right: &ResolvedSolid,
-) -> Result<f32, crate::GenerationError> {
+) -> Result<f32> {
     let local_x = Vec2::new(
         left.yaw_radians.radians().cos(),
         -left.yaw_radians.radians().sin(),

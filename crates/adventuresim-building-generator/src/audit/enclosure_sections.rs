@@ -1,4 +1,5 @@
 //! Sections of non-box opening surrounds retain their real splayed and arched shape.
+use super::Result;
 use crate::{BuildingPlan, ResolvedSolid, ResolvedSolidShape};
 use bevy::math::{Vec2, Vec3};
 
@@ -12,7 +13,7 @@ pub(super) fn intervals(
     depth: f32,
     base: f32,
     top: f32,
-) -> Result<Vec<(f32, f32)>, crate::GenerationError> {
+) -> Result<Vec<(f32, f32)>> {
     if matches!(
         solid.shape,
         ResolvedSolidShape::Cuboid | ResolvedSolidShape::TimberPanelPrism { .. }

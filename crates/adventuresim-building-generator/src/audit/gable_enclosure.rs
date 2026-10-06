@@ -2,7 +2,7 @@
 use bevy::math::{Vec2, Vec3};
 use geo::{Area, BooleanOps, Coord, LineString, MultiPolygon, Polygon};
 
-use super::{enclosure::GABLE_GAP, issue};
+use super::{Result, enclosure::GABLE_GAP, issue};
 use crate::{
     AuditIssue, BuildingPlan, ROOF_ENCLOSURE_THICKNESS_METRES, RidgeAxis, RoofAssembly, RoofKind,
     RoofPiece, WallSourceId,
@@ -131,11 +131,7 @@ impl GableSection {
         polygon(&points)
     }
 
-    fn coverage(
-        &self,
-        plan: &BuildingPlan,
-        roof: &RoofAssembly,
-    ) -> Result<MultiPolygon<f32>, crate::GenerationError> {
+    fn coverage(&self, plan: &BuildingPlan, roof: &RoofAssembly) -> Result<MultiPolygon<f32>> {
         let mut union = MultiPolygon(Vec::new());
         for face in &roof.enclosure_faces {
             if face.polygon.len() < 3 {
@@ -214,17 +210,14 @@ impl GableSection {
     }
 }
 
-pub(super) fn audit(
-    plan: &BuildingPlan,
-    issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) -> Result<()> {
     for wall in plan
         .wall_assemblies
         .iter()
         .filter(|w| matches!(w.source, WallSourceId::RoofGable { .. }))
     {
         if !crate::geometry_index::try_any(plan.opening_assemblies.iter(), |o| {
-            Ok::<bool, crate::GenerationError>(
+            Result::<bool>::Ok(
                 o.host_wall == wall.id && super::gable_openings::valid(plan, wall, o)?,
             )
         })? {
