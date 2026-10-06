@@ -156,7 +156,7 @@ pub(super) fn occupied_walker(
     );
     for building in buildings {
         let shape = &building.collider;
-        let transform = building.building.transform();
+        let transform = building.building.transform().unwrap();
         if inside(transform.translation, shape, transform.rotation) {
             walker
                 .app
@@ -177,20 +177,24 @@ pub(super) fn occupied_walker(
             boundary.scene.fixed_support.collider(),
             Transform::from_xyz(0.0, boundary.elevation_metres, 0.0),
         ));
-        let door = compound.boundary.gate.door(compound.id);
+        let door = compound.boundary.gate.door(compound.id).unwrap();
         let rotation = Quat::from_rotation_y(if open_property == Some(compound.id) {
-            door.open_angle_radians
+            door.open_angle_radians.radians()
         } else {
             0.0
         });
-        let leaf = door.hinge_centre
-            + rotation * (door.closed_centre - door.hinge_centre)
+        let leaf = door.hinge_centre.metres()
+            + rotation * (door.closed_centre.metres() - door.hinge_centre.metres())
             + Vec3::Y * boundary.elevation_metres;
         walker.app.world_mut().spawn((
             RigidBody::Static,
-            Collider::cuboid(door.size_metres.x, door.size_metres.y, door.size_metres.z),
+            Collider::cuboid(
+                door.size_metres.metres().x,
+                door.size_metres.metres().y,
+                door.size_metres.metres().z,
+            ),
             Transform::from_translation(leaf)
-                .with_rotation(rotation * Quat::from_rotation_y(door.closed_yaw_radians)),
+                .with_rotation(rotation * Quat::from_rotation_y(door.closed_yaw_radians.radians())),
         ));
     }
     for _ in 0..64 {
@@ -207,7 +211,8 @@ pub(super) struct OccupiedBuilding {
 
 impl From<crate::scene_input::GeneratedBuilding> for OccupiedBuilding {
     fn from(building: crate::scene_input::GeneratedBuilding) -> Self {
-        let collider = crate::scene_input::compile_tactical_building_collider(&building.collision);
+        let collider =
+            crate::scene_input::compile_tactical_building_collider(&building.collision).unwrap();
         Self { building, collider }
     }
 }

@@ -5,7 +5,7 @@ use crate::{
     AuditIssue, BuildingPlan, CELL_SIZE_METRES, SolidRole, WallAssembly, WallSegment, WallSourceId,
 };
 
-use super::{enclosure_sections, issue};
+use super::{Result, enclosure_sections, issue};
 
 pub(crate) const WALL_GAP: &str = "wall_corner_enclosure_gap";
 pub(crate) const GABLE_GAP: &str = "roof_gable_enclosure_gap";
@@ -32,7 +32,7 @@ fn resolved_wall(plan: &BuildingPlan, level: u16, index: usize) -> Option<&WallA
     })
 }
 
-pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) -> Result<()> {
     for storey in &plan.storeys {
         for (index, left) in storey
             .walls
@@ -59,7 +59,7 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 ) else {
                     continue;
                 };
-                if let Some(point) = corner_gap(plan, corner, a, b) {
+                if let Some(point) = corner_gap(plan, corner, a, b)? {
                     issues.push(issue(
                         WALL_GAP,
                         format!(
@@ -71,7 +71,9 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             }
         }
     }
-    super::gable_enclosure::audit(plan, issues);
+    super::gable_enclosure::audit(plan, issues)?;
+
+    Ok(())
 }
 
 fn corner_gap(
@@ -79,7 +81,7 @@ fn corner_gap(
     corner: Vec2,
     a: &WallAssembly,
     b: &WallAssembly,
-) -> Option<Vec3> {
+) -> Result<Option<Vec3>> {
     let outward = a.frame.outward + b.frame.outward;
     let projection = plan.upper_storey_projection_metres * f32::from(a.storey_level.min(1));
     let centre = corner + outward * projection;
@@ -101,12 +103,12 @@ fn corner_gap(
         .collect::<Vec<_>>();
     for offset in [-SECTION_CLEARANCE_METRES, 0.0, SECTION_CLEARANCE_METRES] {
         let point = Vec3::new(centre.x, 0.0, centre.y) + transverse * offset;
-        let mut intervals = solids
-            .iter()
-            .flat_map(|solid| {
-                enclosure_sections::intervals(plan, solid, point, direction, depth, base, top)
-            })
-            .collect::<Vec<_>>();
+        let mut intervals = Vec::new();
+        for solid in &solids {
+            intervals.extend(enclosure_sections::intervals(
+                plan, solid, point, direction, depth, base, top,
+            )?);
+        }
         // Apertures explicitly declare the heights at which enclosure is absent.
         intervals.extend(
             plan.opening_assemblies
@@ -129,13 +131,13 @@ fn corner_gap(
         let mut covered_to = base;
         for (low, high) in intervals {
             if low > covered_to + JUNCTION_TOLERANCE_METRES {
-                return Some(point + Vec3::Y * ((low + covered_to) * 0.5));
+                return Ok(Some(point + Vec3::Y * ((low + covered_to) * 0.5)));
             }
             covered_to = covered_to.max(high);
         }
         if covered_to < top - JUNCTION_TOLERANCE_METRES {
-            return Some(point + Vec3::Y * ((top + covered_to) * 0.5));
+            return Ok(Some(point + Vec3::Y * ((top + covered_to) * 0.5)));
         }
     }
-    None
+    Ok(None)
 }

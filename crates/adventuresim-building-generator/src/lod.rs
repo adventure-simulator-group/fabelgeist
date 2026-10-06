@@ -265,8 +265,9 @@ impl BuildingLod {
         {
             return &mut self.meshes[index];
         }
+        let index = self.meshes.len();
         self.meshes.push(LodMesh::new(material));
-        self.meshes.last_mut().expect("mesh was just inserted")
+        &mut self.meshes[index]
     }
 }
 
@@ -466,7 +467,7 @@ mod tests {
             .iter()
             .filter(|wall| wall.frame.outside_room.is_none() && wall.radial_frame.is_none())
             .count();
-        let lod = compile_building_lod(&plan, BuildingLodLevel::Facade);
+        let lod = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
         let exterior_ids = plan
             .wall_assemblies
             .iter()
@@ -513,7 +514,7 @@ mod tests {
         assert!(!interior_ids.is_empty());
 
         for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
-            let lod = compile_building_lod(&plan, level);
+            let lod = compile_building_lod(&plan, level).unwrap();
             assert!(
                 lod.facade_runs
                     .iter()
@@ -529,8 +530,8 @@ mod tests {
             42,
         ))
         .unwrap();
-        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
-        let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
+        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
+        let shell = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
         let triangle_count = |lod: &BuildingLod| {
             lod.meshes
                 .iter()
@@ -613,7 +614,7 @@ mod tests {
         let expected_plane = wall.frame.origin.dot(wall.frame.outward)
             + wall.thickness_metres * 0.5
             + FACADE_DETAIL_OFFSET_METRES;
-        let midpoint = (brace.start + brace.end) * 0.5;
+        let midpoint = (brace.start.metres() + brace.end.metres()) * 0.5;
         let expected_midpoint = midpoint + outward * (expected_plane - midpoint.dot(outward));
         assert!(mesh.vertices.as_chunks::<4>().0.iter().any(|quad| {
             let centroid = quad.iter().map(|vertex| vertex.position).sum::<Vec3>() * 0.25;
@@ -639,7 +640,7 @@ mod tests {
                 .any(|crown| matches!(crown.path, CrownPath::Round { .. }))
         );
 
-        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
+        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
         assert!(
             facade.meshes.iter().any(|mesh| {
                 mesh.material == BuildingLodMaterial::CrownMasonry && !mesh.vertices.is_empty()
@@ -647,7 +648,7 @@ mod tests {
             "the facade representation must retain geometric straight crowns"
         );
 
-        let lod = compile_building_lod(&plan, BuildingLodLevel::Shell);
+        let lod = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
         assert!(
             lod.meshes
                 .iter()

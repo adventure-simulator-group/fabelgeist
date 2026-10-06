@@ -13,11 +13,13 @@ pub(in crate::city_layout::compiled) fn validate_access(
         issue,
     };
     let front_door = front_recipe
-        .door_point(front, Vec2::Y)
-        .ok_or(error(CompoundIssue::MissingCourtDoor))?;
+        .door_point(front, adventuresim_building_generator::Direction::North)?
+        .ok_or(error(CompoundIssue::MissingCourtDoor))?
+        .metres();
     let rear_door = rear_recipe
-        .door_point(rear, -Vec2::Y)
-        .ok_or(error(CompoundIssue::MissingRangeDoor))?;
+        .door_point(rear, adventuresim_building_generator::Direction::South)?
+        .ok_or(error(CompoundIssue::MissingRangeDoor))?
+        .metres();
     let endpoints = |route: &CityAccessSegment| [route.start_metres, route.end_metres];
     let near = |a: Vec2, b: Vec2| a.distance(b) <= CityAccessSegment::JOIN_TOLERANCE_METRES;
     let mut connected = BTreeSet::new();

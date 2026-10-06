@@ -1,4 +1,5 @@
 use super::*;
+use crate::spatial_geometry::Position;
 use crate::{
     BuildingLodLevel, audit_plan, compile_building_collision, compile_building_detail,
     compile_building_lod, generate, settlement_archetype,
@@ -23,7 +24,7 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                     .unwrap_or_else(|error| panic!("{kind:?} {size:?} {seed}: {error:?}"));
                 let work = plan.workplace.as_ref().unwrap();
                 assert!(!work.passages.is_empty());
-                let collision = compile_building_collision(&plan);
+                let collision = compile_building_collision(&plan).unwrap();
                 for part in work.parts.iter().filter(|part| {
                     !matches!(
                         part.feature,
@@ -39,11 +40,11 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                         part.feature
                     );
                 }
-                let detail = compile_building_detail(&plan);
+                let detail = compile_building_detail(&plan).unwrap();
                 assert!(!detail.meshes.is_empty());
                 assert_gable_uvs(&detail.meshes, work, program.storey_height_metres);
                 for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
-                    let lod = compile_building_lod(&plan, level);
+                    let lod = compile_building_lod(&plan, level).unwrap();
                     assert_gable_uvs(&lod.meshes, work, program.storey_height_metres);
                     assert!(
                         lod.meshes.iter().any(|mesh| matches!(
@@ -52,15 +53,20 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                         )),
                         "{kind:?} roof finish disappeared at {level:?}"
                     );
-                    for part in work.parts.iter().filter(|part| part.silhouette) {
+                    for part in work
+                        .parts
+                        .iter()
+                        .filter(|part| part.silhouette.contributes_to_silhouette())
+                    {
                         let solid = plan
                             .resolved_geometry
                             .solids
                             .iter()
                             .find(|solid| solid.id == part.solid)
                             .unwrap();
-                        let corner = solid.centre
-                            + super::assembly::contact::rotation(solid) * (solid.size * 0.5);
+                        let corner = solid.centre.metres()
+                            + super::assembly::contact::rotation(solid)
+                                * (solid.size.metres() * 0.5);
                         assert!(
                             lod.meshes
                                 .iter()
@@ -78,7 +84,7 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                 }
                 assert_eq!(
                     program.plot_dimensions_metres(),
-                    work.plot_dimensions_metres
+                    work.plot_dimensions_metres.metres()
                 );
             }
         }
@@ -149,15 +155,16 @@ fn workplace_audit_rejects_blocked_passage_and_missing_equipment() {
         .unwrap()
         .solid;
     let passage = &workplace.passages[0];
-    let centre = (passage.min + passage.max) * 0.5;
+    let centre = (passage.bounds.min().metres() + passage.bounds.max().metres()) * 0.5;
     plan.resolved_geometry
         .solids
         .iter_mut()
         .find(|solid| solid.id == stall)
         .unwrap()
-        .centre = centre;
+        .centre = Position::<crate::Architectural>::from_metres(centre).unwrap();
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "workplace_blocked_passage")
     );
@@ -168,6 +175,7 @@ fn workplace_audit_rejects_blocked_passage_and_missing_equipment() {
         .retain(|part| part.feature != WorkplaceFeature::Stall);
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "workplace_missing_function")
     );

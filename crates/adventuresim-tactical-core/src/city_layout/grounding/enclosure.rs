@@ -1,7 +1,7 @@
 //! Enclosures bind to accepted property triangles, without additional grading.
 use super::foundations::GroundTriangle;
 use super::*;
-use crate::city_layout::{CityBoundaryMaterial, CityBoundaryMember, PropertySide};
+use crate::city_layout::{CityBoundaryMaterial, CityBoundaryMember};
 use bevy::math::{DVec2, Quat, Vec3Swizzles};
 mod projection;
 
@@ -33,19 +33,12 @@ impl BoundarySupportCell {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum BoundarySupportElement {
-    Owner,
-    GateLanding,
-    Wall(usize),
-    WallCap(usize),
-    GatePost(PropertySide),
-}
+pub use crate::city_layout::compound::BoundarySupportElement;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum BoundarySupportConstraint {
+    Construction,
     OwnerBinding,
     Coverage,
     MissingGateDatum,
@@ -59,6 +52,8 @@ pub enum BoundarySupportConstraint {
     "property {property_id:?}, members {member_building_ids:?}, {element:?}: {constraint:?} at {location_metres:?}, measured {measured}, permitted {permitted}, shortfall {shortfall} ({unit:?})"
 )]
 pub struct BoundarySupportError {
+    #[source]
+    pub construction_failure: Option<crate::city_layout::BoundaryGeometryError>,
     pub property_id: CityPropertyId,
     pub member_building_ids: [u64; 2],
     pub element: BoundarySupportElement,
@@ -71,6 +66,21 @@ pub struct BoundarySupportError {
 }
 
 impl BoundarySupportError {
+    pub(crate) fn construction(
+        property: &CityCompound,
+        cause: crate::city_layout::BoundaryGeometryError,
+    ) -> Self {
+        let mut error = Self::new(
+            property,
+            cause.element,
+            BoundarySupportConstraint::Construction,
+            property.plot.centre_metres,
+            1.0,
+            0.0,
+        );
+        error.construction_failure = Some(cause);
+        error
+    }
     pub(crate) fn new(
         property: &CityCompound,
         element: BoundarySupportElement,
@@ -80,6 +90,7 @@ impl BoundarySupportError {
         permitted: f64,
     ) -> Self {
         Self {
+            construction_failure: None,
             property_id: property.id,
             member_building_ids: [property.front_building_id, property.rear_building_id],
             element,
@@ -89,7 +100,8 @@ impl BoundarySupportError {
             permitted,
             shortfall: (measured - permitted).max(0.0),
             unit: match constraint {
-                BoundarySupportConstraint::OwnerBinding
+                BoundarySupportConstraint::Construction
+                | BoundarySupportConstraint::OwnerBinding
                 | BoundarySupportConstraint::MissingGateDatum => SupportDiagnosticUnit::Count,
                 BoundarySupportConstraint::Coverage => SupportDiagnosticUnit::SquareMetres,
                 BoundarySupportConstraint::AmbiguousGateDatum

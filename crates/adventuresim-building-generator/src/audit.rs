@@ -14,6 +14,9 @@ use crate::{
     StructuralNodeId, SurfaceRole, TowerPortalKind, VoidRole, WALL_THICKNESS_METRES, WallWalk,
 };
 
+/// Audit operations that can fail with a generation error.
+type Result<T> = std::result::Result<T, crate::GenerationError>;
+
 include!("audit/core.rs");
 include!("audit/vertical_circulation.rs");
 include!("audit/artillery.rs");
@@ -28,16 +31,23 @@ include!("audit/church.rs");
 include!("audit/roofs.rs");
 #[path = "audit/bearing.rs"]
 mod bearing;
+mod church_program;
+mod crown_profile;
 pub(crate) mod enclosure;
 mod enclosure_geometry;
 mod enclosure_sections;
 mod gable_enclosure;
 mod gable_openings;
 mod junction_bearing;
+mod projected_defense_program;
+mod roof_graph;
 mod shed_dormers;
 #[path = "audit/support.rs"]
 mod support;
 mod timber_bracing;
+mod timber_roof_contacts;
+mod wall_frame;
+
 #[path = "audit/wall_counts.rs"]
 mod wall_counts;
 include!("audit/wall_openings.rs");

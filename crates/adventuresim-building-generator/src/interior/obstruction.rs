@@ -1,26 +1,38 @@
 //! Project only the portion of a rotated architectural cuboid at usable height.
 use super::geometry::Rect;
-use bevy::math::{Quat, Vec2, Vec3};
+use bevy::math::{Vec2, Vec3};
 
-pub(super) struct Obstruction {
-    corners: [Vec3; 8],
+pub(super) struct Obstruction<F: crate::spatial_geometry::GeometryFrame> {
+    corners: crate::CuboidCorners<F>,
     bottom: f32,
     top: f32,
     footprint: Rect,
 }
-impl Obstruction {
-    pub fn new(centre: Vec3, size: Vec3, yaw: f32, crossfall: f32, longfall: f32) -> Self {
-        let rotation = Quat::from_rotation_y(yaw)
-            * Quat::from_rotation_x(crossfall)
-            * Quat::from_rotation_z(longfall);
-        let corners = std::array::from_fn(|index| {
-            let signs = Vec3::new(
-                if index & 1 == 0 { -1.0 } else { 1.0 },
-                if index & 2 == 0 { -1.0 } else { 1.0 },
-                if index & 4 == 0 { -1.0 } else { 1.0 },
-            );
-            centre + rotation * (size * signs * 0.5)
-        });
+impl<F: crate::spatial_geometry::GeometryFrame> Obstruction<F> {
+    pub fn new(solid: crate::CollisionCuboid<F>) -> Result<Self, crate::CollisionError> {
+        let topology = solid.corners()?;
+        // Height clipping is a private native arithmetic kernel. Admission and
+        // traversal retain the input's frame and physical source identity.
+        let corners = topology.points().map(|point| point.metres());
+        let bounds = crate::SpatialBounds::<F>::from_metres(
+            corners
+                .into_iter()
+                .fold(Vec3::splat(f32::INFINITY), Vec3::min),
+            corners
+                .into_iter()
+                .fold(Vec3::splat(f32::NEG_INFINITY), Vec3::max),
+        )
+        .map_err(|cause| crate::CollisionError {
+            source_id: solid.source,
+            cause,
+        })?;
+        bounds
+            .centre()
+            .and_then(|_| bounds.extent())
+            .map_err(|cause| crate::CollisionError {
+                source_id: solid.source,
+                cause,
+            })?;
         let bottom = corners.iter().map(|c| c.y).fold(f32::INFINITY, f32::min);
         let top = corners
             .iter()
@@ -34,12 +46,12 @@ impl Obstruction {
             .iter()
             .map(|p| Vec2::new(p.x, p.z))
             .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
-        Self {
-            corners,
+        Ok(Self {
+            corners: topology,
             bottom,
             top,
             footprint: Rect::new((min + max) * 0.5, (max - min) * 0.5),
-        }
+        })
     }
     pub fn intersects(&self, rect: Rect, bottom: f32, top: f32) -> bool {
         self.footprint.overlaps(rect)
@@ -53,24 +65,20 @@ impl Obstruction {
         }
         let mut points = self
             .corners
+            .points()
             .iter()
-            .copied()
+            .map(|point| point.metres())
             .filter(|p| p.y >= bottom && p.y <= top)
             .collect::<Vec<_>>();
-        for (index, &a) in self.corners.iter().enumerate() {
-            for bit in [1, 2, 4] {
-                if index & bit != 0 {
-                    continue;
-                }
-                let b = self.corners[index | bit];
-                if (a.y - b.y).abs() < f32::EPSILON {
-                    continue;
-                }
-                for height in [bottom, top] {
-                    let t = (height - a.y) / (b.y - a.y);
-                    if (0.0..=1.0).contains(&t) {
-                        points.push(a + (b - a) * t);
-                    }
+        for edge in self.corners.edges() {
+            let [a, b] = [edge.start.metres(), edge.end.metres()];
+            if (a.y - b.y).abs() < f32::EPSILON {
+                continue;
+            }
+            for height in [bottom, top] {
+                let t = (height - a.y) / (b.y - a.y);
+                if (0.0..=1.0).contains(&t) {
+                    points.push(a + (b - a) * t);
                 }
             }
         }
@@ -89,12 +97,17 @@ impl Obstruction {
 #[test]
 fn tilted_beam_only_blocks_where_it_intersects_head_height() {
     let beam = Obstruction::new(
-        Vec3::new(0.0, 2.0, 0.0),
-        Vec3::new(4.0, 0.1, 0.1),
-        0.0,
-        0.0,
-        std::f32::consts::FRAC_PI_4,
-    );
+        crate::CollisionCuboid::<crate::Architectural>::from_metres(
+            crate::ResolvedItemId(7),
+            Vec3::new(0.0, 2.0, 0.0),
+            Vec3::new(4.0, 0.1, 0.1),
+            0.0,
+            0.0,
+            std::f32::consts::FRAC_PI_4,
+        )
+        .unwrap(),
+    )
+    .unwrap();
     let projected = beam.projection(0.15, 1.8).unwrap();
     assert!(projected.contains(Vec2::new(-1.0, 0.0)));
     assert!(!projected.contains(Vec2::new(1.0, 0.0)));

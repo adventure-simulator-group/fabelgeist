@@ -10,7 +10,7 @@ pub(super) fn assign(
     plan: &BuildingPlan,
     program: &BuildingProgram,
     placements: &mut [InteriorPlacement],
-) {
+) -> Result<(), super::InteriorLayoutError> {
     for placement in placements {
         let Some(kind) = FinishableFurnitureKind::from_kind(placement.key.kind()) else {
             continue;
@@ -19,26 +19,29 @@ pub(super) fn assign(
         let mut random = FINISH_DOMAIN.rng(
             program.seed,
             &[
-                u64::from(placement.storey),
-                u64::from(placement.room_id),
+                placement.storey.index() as u64,
+                u64::from(placement.room_id.serialized_ordinal()),
                 placement.key.kind() as u64,
                 placement.key.variant() as u64,
-                u64::from(placement.centre_metres.x.to_bits()),
-                u64::from(placement.centre_metres.y.to_bits()),
+                u64::from(placement.centre_metres.metres().x.to_bits()),
+                u64::from(placement.centre_metres.metres().y.to_bits()),
                 placement.facing as u64,
             ],
         );
         let room = plan
             .storeys
             .iter()
-            .find(|storey| storey.level == placement.storey)
+            .find(|storey| crate::StoreyIndex::from_serialized(storey.level) == placement.storey)
             .and_then(|storey| {
                 storey
                     .rooms
                     .iter()
-                    .find(|room| room.id == placement.room_id)
+                    .find(|room| crate::RoomIndex::from_serialized(room.id) == placement.room_id)
             })
-            .expect("accepted placement belongs to a room");
+            .ok_or(super::InteriorLayoutError::MissingRoom {
+                storey: placement.storey,
+                room: placement.room_id,
+            })?;
         let states = if room.kind == RoomKind::Workshop {
             [
                 FurnitureWoodState::Natural,
@@ -62,4 +65,5 @@ pub(super) fn assign(
             states[random.index(states.len())],
         );
     }
+    Ok(())
 }

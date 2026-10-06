@@ -80,9 +80,9 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
         .flat_map(|c| c.ground_contact().unwrap().points().collect::<Vec<_>>())
     {
         let world = placement.centre_metres
-            + placement
-                .orientation
-                .local_to_world(point.metres() - recipe.collision.bounds.centre().xz());
+            + placement.orientation.local_to_world(
+                point.metres() - recipe.collision.bounds.centre().unwrap().metres().xz(),
+            );
         assert!(
             terrain
                 .elevations_at(

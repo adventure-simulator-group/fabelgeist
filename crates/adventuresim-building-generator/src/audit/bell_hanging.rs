@@ -44,7 +44,7 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             .iter()
             .filter(|part| {
                 part.role == SolidRole::ChurchBellFrame
-                    && part.size.z > part.size.x
+                    && part.size.metres().z > part.size.metres().x
                     && plan.resolved_geometry.solids.iter().any(|support| {
                         !parts.iter().any(|part| part.id == support.id)
                             && support.id != bell.id
@@ -61,7 +61,14 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 ),
             ));
         }
-        if !super::bell_swing::is_clear(plan, bell, RINGING_CLEARANCE_RADIANS) {
+        let clear = match super::bell_swing::is_clear(plan, bell, RINGING_CLEARANCE_RADIANS) {
+            Ok(clear) => clear,
+            Err(error) => {
+                issues.push(issue("invalid_bell_collision", error.to_string()));
+                continue;
+            }
+        };
+        if !clear {
             issues.push(issue(
                 "blocked_bell_swing",
                 format!(
@@ -85,8 +92,10 @@ pub(super) fn moving(role: SolidRole) -> bool {
 }
 
 fn contacts(a: &ResolvedSolid, b: &ResolvedSolid) -> bool {
-    let overlap = (a.centre + a.size * 0.5).min(b.centre + b.size * 0.5)
-        - (a.centre - a.size * 0.5).max(b.centre - b.size * 0.5);
+    let overlap = (a.centre.metres() + a.size.metres() * 0.5)
+        .min(b.centre.metres() + b.size.metres() * 0.5)
+        - (a.centre.metres() - a.size.metres() * 0.5)
+            .max(b.centre.metres() - b.size.metres() * 0.5);
     let mut extents = overlap.to_array();
     extents.sort_by(f32::total_cmp);
     extents[0] >= -CONTACT_TOLERANCE_METRES
@@ -110,7 +119,13 @@ mod tests {
             assert!(issues.is_empty(), "{archetype:?}: {issues:?}");
             for part in &mut plan.resolved_geometry.solids {
                 if part.role == SolidRole::ChurchBellCrown {
-                    part.centre.y += 0.7;
+                    {
+                        let mut native_geometry = part.centre.metres();
+                        native_geometry.y += 0.7;
+                        part.centre =
+                            crate::spatial_geometry::Position::from_metres(native_geometry)
+                                .unwrap();
+                    };
                 }
             }
             audit(&plan, &mut issues);
@@ -138,12 +153,8 @@ mod tests {
                 .iter()
                 .find(|s| s.role == SolidRole::ChurchBell)
                 .unwrap();
-            assert!(super::bell_swing::is_clear(
-                &plan,
-                bell,
-                RINGING_CLEARANCE_RADIANS
-            ));
-            let collision = crate::compile_building_collision(&plan);
+            assert!(super::bell_swing::is_clear(&plan, bell, RINGING_CLEARANCE_RADIANS).unwrap());
+            let collision = crate::compile_building_collision(&plan).unwrap();
             for axle in plan
                 .resolved_geometry
                 .solids
@@ -159,16 +170,21 @@ mod tests {
                 for part in parts {
                     let rotation = Quat::from_euler(
                         bevy::math::EulerRot::YXZ,
-                        part.yaw_radians,
-                        part.crossfall_radians,
-                        part.longfall_radians,
+                        part.yaw_radians.radians(),
+                        part.crossfall_radians.radians(),
+                        part.longfall_radians.radians(),
                     );
                     for y in [-1.0, 1.0] {
                         for z in [-1.0, 1.0] {
                             let point = rotation
-                                * Vec3::new(0.0, y * part.size.y * 0.5, z * part.size.z * 0.5);
+                                * Vec3::new(
+                                    0.0,
+                                    y * part.size.metres().y * 0.5,
+                                    z * part.size.metres().z * 0.5,
+                                );
                             assert!(
-                                Vec2::new(point.y, point.z).length() <= axle.size.y * 0.5 + 0.00001
+                                Vec2::new(point.y, point.z).length()
+                                    <= axle.size.metres().y * 0.5 + 0.00001
                             );
                         }
                     }

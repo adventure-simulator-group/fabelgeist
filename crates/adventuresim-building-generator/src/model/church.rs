@@ -41,7 +41,7 @@ pub struct ChurchBayAssembly {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ChurchCrossingAssembly {
-    pub bounds: ResolvedBounds,
+    pub bounds: SpatialBounds<Architectural>,
     pub pier_nodes: [StructuralNodeId; 4],
     pub pier_solids: [ResolvedItemId; 4],
     pub arch_solids: [ResolvedItemId; 4],

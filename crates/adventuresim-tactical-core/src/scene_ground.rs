@@ -75,7 +75,7 @@ pub(crate) fn build_scene_ground(
         SceneGround::from_samples(width, depth, spacing, samples).ok_or_else(|| {
             SceneInputError::Validation("generated ground-surface grid is invalid".into())
         })?;
-    ground.urban = crate::scene::UrbanGroundSurfaces::new(streets, yards, buildings);
+    ground.urban = crate::scene::UrbanGroundSurfaces::new(streets, yards, buildings)?;
     Ok(ground)
 }
 

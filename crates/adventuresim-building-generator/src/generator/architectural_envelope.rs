@@ -11,12 +11,12 @@ impl BuildingPlan {
             program,
             &mut self.wall_assemblies,
             &mut self.resolved_geometry,
-        );
+        )?;
         self.small_church = small_church::resolve(
             program,
             &mut self.wall_assemblies,
             &mut self.resolved_geometry,
-        );
+        )?;
         self.church = urban_church::resolve(
             program,
             &self.square_towers,
@@ -24,7 +24,7 @@ impl BuildingPlan {
             &mut self.opening_assemblies,
             &mut self.stairs,
             &mut self.resolved_geometry,
-        );
+        )?;
         fortified_envelope::resolve(
             program,
             &self.towers,
@@ -33,14 +33,14 @@ impl BuildingPlan {
             &mut self.wall_assemblies,
             &mut self.opening_assemblies,
             &mut self.resolved_geometry,
-        );
+        )?;
         self.artillery_castle = resolve_artillery_castle(
             program,
             &self.towers,
             &mut self.wall_assemblies,
             &mut self.opening_assemblies,
             &mut self.resolved_geometry,
-        );
+        )?;
 
         let (roof_assemblies, timber_frame) = framed_roofs::resolve(
             program,
@@ -58,11 +58,11 @@ impl BuildingPlan {
         self.timber_frame = timber_frame;
         // Corner bonds must be resolved against the final timber-infill depth,
         // after the semantic frame has replaced the exterior structural layer.
-        wall_corner_bonds::resolve(&self.wall_assemblies, &mut self.resolved_geometry);
+        wall_corner_bonds::resolve(&self.wall_assemblies, &mut self.resolved_geometry)?;
         if let Some(church) = &mut self.church {
             church.roof_assemblies = self.roof_assemblies.iter().map(|roof| roof.id).collect();
         }
 
-        Ok(church_ground::resolve(crate::spiral_stairs::resolve(self)))
+        church_ground::resolve(crate::spiral_stairs::resolve(self)?)
     }
 }

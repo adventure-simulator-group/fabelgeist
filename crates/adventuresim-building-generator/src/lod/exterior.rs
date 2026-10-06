@@ -26,7 +26,7 @@ pub(super) fn append_facades(
     lod: &mut BuildingLod,
     plan: &BuildingPlan,
     excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
-) {
+) -> Result<(), crate::GenerationError> {
     let (contexts, openings) = facade_contexts(&lod.facade_runs, plan, excluded);
     let compiler = crate::detail::SolidDetailCompiler::new(plan);
     // Real inner skins enclose views through open civilian windows.
@@ -41,7 +41,7 @@ pub(super) fn append_facades(
         let Some(outwards) = contexts.get(&solid.id) else {
             continue;
         };
-        for mut mesh in compiler.compile(solid).meshes {
+        for mut mesh in compiler.compile(solid)?.meshes {
             mesh.indices = mesh
                 .indices
                 .as_chunks::<3>()
@@ -69,7 +69,7 @@ pub(super) fn append_facades(
             .extend(crate::detail::compile_bar_detail(bar).meshes);
     }
     crate::detail::resolve_masonry_surfaces(&mut detail);
-    for mesh in detail.meshes {
+    let _: () = for mesh in detail.meshes {
         let target = lod.mesh_mut(mesh.material);
         for triangle in mesh.indices.as_chunks::<3>().0 {
             let vertices = triangle.map(|index| mesh.vertices[index as usize]);
@@ -79,7 +79,8 @@ pub(super) fn append_facades(
                 vertices.map(|v| v.uv),
             );
         }
-    }
+    };
+    Ok(())
 }
 
 type FacadeContexts = std::collections::BTreeMap<crate::ResolvedItemId, Vec<Vec3>>;
@@ -146,14 +147,14 @@ pub(super) fn append_outward_solid(
     compiler: &crate::detail::SolidDetailCompiler<'_>,
     solid: &ResolvedSolid,
     wall: Option<&WallAssembly>,
-) {
+) -> Result<(), crate::GenerationError> {
     let minimum_dot = if plan.church.is_some() {
         -EXTERIOR_FACE_DOT_TOLERANCE
     } else {
         OUTWARD_FACE_DOT_MINIMUM
     };
     let outward = wall.map(|wall| Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y));
-    for mesh in compiler.compile(solid).meshes {
+    let _: () = for mesh in compiler.compile(solid)?.meshes {
         let target = lod.mesh_mut(mesh.material);
         for triangle in mesh.indices.as_chunks::<3>().0 {
             let vertices = triangle.map(|index| mesh.vertices[index as usize]);
@@ -166,5 +167,6 @@ pub(super) fn append_outward_solid(
                 vertices.map(|v| v.uv),
             );
         }
-    }
+    };
+    Ok(())
 }

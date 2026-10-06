@@ -135,11 +135,20 @@ pub enum RoofPivotPolicy {
     KeepChildAttachment,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]
 pub enum RoofEditError {
+    #[error("roof assembly is absent")]
     MissingAssembly,
+    #[error("roof pitch is outside the project range")]
     PitchOutsideProjectRange,
+    #[error("roof edit requires a topology change")]
     TopologyEvent,
+    #[error("roof {roof:?} could not be reconstructed")]
+    Construction {
+        roof: RoofAssemblyId,
+        #[source]
+        cause: Box<crate::GenerationError>,
+    },
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -178,7 +187,7 @@ pub struct RoofFace {
 }
 
 impl RoofFace {
-    /// Height of the inward-offset plane at fixed world X/Z. Thickness is
+    /// Height of the inward-offset plane at fixed architectural X/Z. Thickness is
     /// measured normal to the slope, so its vertical effect is t / normal.y.
     pub(crate) fn underside_height_at(&self, point: Vec2) -> f32 {
         let normal = self.plane.normal;

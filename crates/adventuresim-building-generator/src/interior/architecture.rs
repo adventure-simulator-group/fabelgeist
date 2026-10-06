@@ -14,13 +14,13 @@ pub(super) struct Floor {
     pub cells: BTreeSet<(i16, i16)>,
     pub obstacles: Vec<Rect>,
     pub reserved: Vec<Rect>,
-    solids: Vec<Obstruction>,
+    solids: Vec<Obstruction<crate::Architectural>>,
     supports: Vec<FloorSupport>,
 }
 impl Floor {
-    pub fn new(plan: &BuildingPlan, level: u16) -> Self {
+    pub fn new(plan: &BuildingPlan, level: u16) -> Result<Self, super::InteriorLayoutError> {
         let height = floor_height(plan, level);
-        let solids = architectural_solids(plan);
+        let solids = architectural_solids(plan)?;
         let mut obstacles = solids
             .iter()
             .filter_map(|s| s.projection(height + FLOOR_CLEARANCE, height + PERSON_HEIGHT))
@@ -40,20 +40,22 @@ impl Floor {
             .solids
             .iter()
             .filter(|s| is_floor(plan, s))
-            .filter(|s| (s.centre.y + s.size.y * 0.5 - height).abs() <= PERSON_RADIUS)
+            .filter(|s| {
+                (s.centre.metres().y + s.size.metres().y * 0.5 - height).abs() <= PERSON_RADIUS
+            })
             .map(|s| FloorSupport {
                 rect: FloorFootprint::from_solid(s),
-                elevation: s.centre.y + s.size.y * 0.5,
+                elevation: s.centre.metres().y + s.size.metres().y * 0.5,
             })
             .collect::<Vec<_>>();
-        Self {
+        Ok(Self {
             level,
             cells,
             obstacles,
             reserved,
             solids,
             supports: floor_solids,
-        }
+        })
     }
     pub fn contains(&self, point: Vec2) -> bool {
         let cell = (point / CELL_SIZE_METRES).floor().as_ivec2();
@@ -95,19 +97,33 @@ fn circulation_reservations(
     reserved.extend(super::church::nave_routes(plan, height));
     if let Some(heating) = &plan.domestic_heating {
         let space = heating.operating_space;
-        if height < space.max.y && height + PERSON_HEIGHT > space.min.y {
+        if height < space.max().metres().y && height + PERSON_HEIGHT > space.min().metres().y {
             reserved.push(Rect::new(
-                Vec2::new(space.min.x + space.max.x, space.min.z + space.max.z) * 0.5,
-                Vec2::new(space.max.x - space.min.x, space.max.z - space.min.z) * 0.5,
+                Vec2::new(
+                    space.min().metres().x + space.max().metres().x,
+                    space.min().metres().z + space.max().metres().z,
+                ) * 0.5,
+                Vec2::new(
+                    space.max().metres().x - space.min().metres().x,
+                    space.max().metres().z - space.min().metres().z,
+                ) * 0.5,
             ));
         }
     }
     if let Some(workplace) = &plan.workplace {
         for passage in &workplace.passages {
-            if passage.min.y < height + PERSON_HEIGHT && passage.max.y > height + FLOOR_CLEARANCE {
+            if passage.bounds.min().metres().y < height + PERSON_HEIGHT
+                && passage.bounds.max().metres().y > height + FLOOR_CLEARANCE
+            {
                 reserved.push(Rect::new(
-                    Vec2::new(passage.min.x + passage.max.x, passage.min.z + passage.max.z) * 0.5,
-                    Vec2::new(passage.max.x - passage.min.x, passage.max.z - passage.min.z) * 0.5,
+                    Vec2::new(
+                        passage.bounds.min().metres().x + passage.bounds.max().metres().x,
+                        passage.bounds.min().metres().z + passage.bounds.max().metres().z,
+                    ) * 0.5,
+                    Vec2::new(
+                        passage.bounds.max().metres().x - passage.bounds.min().metres().x,
+                        passage.bounds.max().metres().z - passage.bounds.min().metres().z,
+                    ) * 0.5,
                 ));
             }
         }
@@ -178,7 +194,9 @@ fn door_reservations(plan: &BuildingPlan, height: f32) -> Vec<Rect> {
         .collect()
 }
 
-fn architectural_solids(plan: &BuildingPlan) -> Vec<Obstruction> {
+fn architectural_solids(
+    plan: &BuildingPlan,
+) -> Result<Vec<Obstruction<crate::Architectural>>, crate::CollisionError> {
     let floor_ids = plan
         .resolved_geometry
         .solids
@@ -186,20 +204,12 @@ fn architectural_solids(plan: &BuildingPlan) -> Vec<Obstruction> {
         .filter(|s| is_floor(plan, s) || s.role == SolidRole::StairTread)
         .map(|s| s.id)
         .collect::<BTreeSet<_>>();
-    let mut solids = crate::compile_building_collision(plan)
+    let mut solids = crate::compile_building_collision(plan)?
         .cuboids
         .into_iter()
         .filter(|s| !floor_ids.contains(&s.source))
-        .map(|s| {
-            Obstruction::new(
-                s.centre,
-                s.size,
-                s.yaw_radians,
-                s.crossfall_radians,
-                s.longfall_radians,
-            )
-        })
-        .collect::<Vec<_>>();
+        .map(Obstruction::new)
+        .collect::<Result<Vec<_>, _>>()?;
     solids.extend(
         plan.resolved_geometry
             .solids
@@ -218,18 +228,14 @@ fn architectural_solids(plan: &BuildingPlan) -> Vec<Obstruction> {
                         | SolidRole::ChurchCrossingArch
                 )
             })
-            .flat_map(|s| crate::collision::collision_parts(plan, s))
-            .map(|s| {
-                Obstruction::new(
-                    s.centre,
-                    s.size,
-                    s.yaw_radians,
-                    s.crossfall_radians,
-                    s.longfall_radians,
-                )
-            }),
+            .map(|s| crate::collision::collision_parts(plan, s))
+            .collect::<Result<Vec<_>, _>>()?
+            .into_iter()
+            .flatten()
+            .map(Obstruction::new)
+            .collect::<Result<Vec<_>, _>>()?,
     );
-    solids
+    Ok(solids)
 }
 pub(super) fn is_floor(plan: &BuildingPlan, solid: &crate::ResolvedSolid) -> bool {
     matches!(

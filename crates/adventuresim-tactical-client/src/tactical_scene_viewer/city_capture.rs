@@ -17,11 +17,11 @@ pub(super) fn capture_cameras(
     streets: &[CityStreetPatch],
     terrain: &SceneTerrain,
     profile: &str,
-) -> Vec<BuildingReviewCamera> {
+) -> Result<Vec<BuildingReviewCamera>> {
     if profile != super::CITY_REVIEW_PROFILE {
-        return Vec::new();
+        return Ok(Vec::new());
     }
-    let bounds = PlacementBounds::collect(buildings, distant_buildings);
+    let bounds = PlacementBounds::collect(buildings, distant_buildings)?;
     let clear = |point| {
         bounds.iter().all(|bounds| !bounds.contains(point)) && terrain.height_at(point).is_some()
     };
@@ -32,20 +32,22 @@ pub(super) fn capture_cameras(
             .length_squared()
             .total_cmp(&right.placement.centre_metres.length_squared())
     });
-    let (focus, facade_target, street) = focus_candidates
-        .into_iter()
-        .find_map(|focus| {
-            let transform = focus.transform();
-            let width = f32::from(focus.placement.program.footprint.dimensions().0)
-                * adventuresim_building_generator::CELL_SIZE_METRES;
-            let target = transform.transform_point(
-                Vec3::new(width * 0.5, 2.4, 0.0) - focus.collision.bounds.centre(),
-            );
-            let outward = focus.placement.orientation.local_to_world(Vec2::NEG_Y);
-            StreetPosition::nearest(streets, target.xz(), outward, &clear)
-                .map(|street| (focus, target, street))
-        })
-        .expect("city-review fixture has no clear street corridor facing a playable building");
+    let mut selected = None;
+    for focus in focus_candidates {
+        let transform = focus.transform()?;
+        let width = f32::from(focus.placement.program.footprint.dimensions().0)
+            * adventuresim_building_generator::CELL_SIZE_METRES;
+        let target = transform.transform_point(
+            Vec3::new(width * 0.5, 2.4, 0.0) - focus.collision.bounds.centre()?.metres(),
+        );
+        let outward = focus.placement.orientation.local_to_world(Vec2::NEG_Y);
+        if let Some(street) = StreetPosition::nearest(streets, target.xz(), outward, &clear) {
+            selected = Some((focus, target, street));
+            break;
+        }
+    }
+    let (focus, facade_target, street) =
+        selected.ok_or("city review has no clear street corridor facing a playable building")?;
     let eye = |point: Vec2| {
         Vec3::new(
             point.x,
@@ -85,7 +87,7 @@ pub(super) fn capture_cameras(
     );
     let city_bounds = Bounds2::from_points(centres.into_iter());
 
-    vec![
+    Ok(vec![
         BuildingReviewCamera {
             position: eye(street.point()),
             target: facade_target,
@@ -101,7 +103,7 @@ pub(super) fn capture_cameras(
         city_bounds.edge_camera(),
         city_bounds.aerial_camera(),
         city_bounds.horizon_camera(),
-    ]
+    ])
 }
 
 #[derive(Clone, Copy)]
@@ -177,20 +179,26 @@ struct PlacementBounds {
 }
 
 impl PlacementBounds {
-    fn collect(buildings: &[GeneratedBuilding], distant: &[DistantBuildingPlacement]) -> Vec<Self> {
-        buildings
+    fn collect(
+        buildings: &[GeneratedBuilding],
+        distant: &[DistantBuildingPlacement],
+    ) -> Result<Vec<Self>> {
+        let mut bounds = buildings
             .iter()
-            .map(|building| Self {
-                centre: building.placement.centre_metres,
-                half_extents: building.collision.bounds.plan_half_extents(),
-                orientation: building.placement.orientation,
+            .map(|building| {
+                Ok(Self {
+                    centre: building.placement.centre_metres,
+                    half_extents: building.collision.bounds.plan_half_extents()?.metres(),
+                    orientation: building.placement.orientation,
+                })
             })
-            .chain(distant.iter().map(|building| Self {
-                centre: building.centre_metres,
-                half_extents: building.occupied_program().plot_dimensions_metres() * 0.5,
-                orientation: building.orientation,
-            }))
-            .collect()
+            .collect::<Result<Vec<_>>>()?;
+        bounds.extend(distant.iter().map(|building| Self {
+            centre: building.centre_metres,
+            half_extents: building.occupied_program().plot_dimensions_metres() * 0.5,
+            orientation: building.orientation,
+        }));
+        Ok(bounds)
     }
 
     fn contains(&self, point: Vec2) -> bool {
@@ -294,7 +302,7 @@ mod tests {
         let plan = generate(&placement.program).unwrap();
         GeneratedBuilding {
             placement,
-            collision: compile_building_collision(&plan),
+            collision: compile_building_collision(&plan).unwrap(),
             plan,
         }
     }
@@ -341,7 +349,8 @@ mod tests {
             &[corridor(BuildingOrientation::IDENTITY)],
             &SceneTerrain::new(65, 65, 4.0, |_| 3.0),
             crate::tactical_scene_viewer::CITY_REVIEW_PROFILE,
-        );
+        )
+        .unwrap();
 
         assert_eq!(cameras.len(), 7);
         assert!(cameras.iter().all(|camera| {
@@ -360,7 +369,17 @@ mod tests {
     fn eye_level_views_stay_in_rotated_street_outside_both_rows_of_buildings() {
         let orientation = BuildingOrientation::from_radians(0.63).unwrap();
         let mut focus = house(1, Vec2::ZERO, orientation);
-        let local_centre = Vec2::new(0.0, focus.collision.bounds.plan_half_extents().y + 4.0);
+        let local_centre = Vec2::new(
+            0.0,
+            focus
+                .collision
+                .bounds
+                .plan_half_extents()
+                .unwrap()
+                .metres()
+                .y
+                + 4.0,
+        );
         focus.placement.centre_metres = orientation.local_to_world(local_centre);
         let opposite = house(
             2,
@@ -376,7 +395,8 @@ mod tests {
             &[street],
             &terrain,
             crate::tactical_scene_viewer::CITY_REVIEW_PROFILE,
-        );
+        )
+        .unwrap();
 
         for camera in &cameras[..2] {
             let point = camera.position.xz();
@@ -392,7 +412,14 @@ mod tests {
                 assert!(
                     local
                         .abs()
-                        .cmpgt(building.collision.bounds.plan_half_extents())
+                        .cmpgt(
+                            building
+                                .collision
+                                .bounds
+                                .plan_half_extents()
+                                .unwrap()
+                                .metres()
+                        )
                         .any(),
                     "eye must be outside every placed building"
                 );

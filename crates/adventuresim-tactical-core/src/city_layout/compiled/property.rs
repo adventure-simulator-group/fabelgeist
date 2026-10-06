@@ -46,7 +46,7 @@ pub(super) fn compile(
             front_half.y + court_depth + compound::REAR_RANGE_DEPTH_METRES * 0.5,
         )),
         lot.orientation,
-    );
+    )?;
     let plot = CityPlotBounds::from(plots::reservation(lot));
     if !front_recipe.fits(front, plot) || !range_recipe.fits(&rear, plot) {
         return Err(CityCompileError::Compound {
@@ -55,17 +55,19 @@ pub(super) fn compile(
         });
     }
     let front_door = front_recipe
-        .door_point(front, Vec2::Y)
+        .door_point(front, adventuresim_building_generator::Direction::North)?
         .ok_or(CityCompileError::Compound {
             property: id,
             issue: CompoundIssue::MissingCourtDoor,
-        })?;
+        })?
+        .metres();
     let rear_door = range_recipe
-        .door_point(&rear, -Vec2::Y)
+        .door_point(&rear, adventuresim_building_generator::Direction::South)?
         .ok_or(CityCompileError::Compound {
             property: id,
             issue: CompoundIssue::MissingRangeDoor,
-        })?;
+        })?
+        .metres();
     let boundary = boundary(lot);
     let court = CityPlotBounds {
         centre_metres: world(Vec2::new(

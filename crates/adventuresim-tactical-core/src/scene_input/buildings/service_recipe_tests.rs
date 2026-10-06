@@ -55,7 +55,7 @@ fn sized_church_and_workplace_recipes_survive_distant_transport_with_playable_ge
             let distant_plan = generate(&reconstructed).unwrap();
             assert!(!playable.collision.cuboids.is_empty());
             assert_eq!(
-                compile_building_collision(&distant_plan),
+                compile_building_collision(&distant_plan).unwrap(),
                 playable.collision,
                 "{usage:?} {size:?} changed physical geometry after distant reconstruction"
             );

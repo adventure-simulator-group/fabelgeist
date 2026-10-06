@@ -212,8 +212,8 @@ impl Walker {
                     orientation: building.placement.orientation,
                 },
                 RigidBody::Static,
-                compile_tactical_building_collider(&building.collision),
-                building.transform(),
+                compile_tactical_building_collider(&building.collision).unwrap(),
+                building.transform().unwrap(),
                 ExactBuildingGeometry(building),
             ));
         }
@@ -308,18 +308,19 @@ impl Walker {
             };
             let point = building
                 .transform()
+                .unwrap()
                 .compute_affine()
                 .inverse()
                 .transform_point3(hit.point2)
-                + building.collision.bounds.centre();
+                + building.collision.bounds.centre().unwrap().metres();
             for cuboid in &building.collision.cuboids {
-                let rotation = Quat::from_rotation_y(cuboid.yaw_radians)
-                    * Quat::from_rotation_x(cuboid.crossfall_radians)
-                    * Quat::from_rotation_z(cuboid.longfall_radians);
-                let offset = rotation.inverse() * (point - cuboid.centre);
+                let rotation = Quat::from_rotation_y(cuboid.yaw_radians.radians())
+                    * Quat::from_rotation_x(cuboid.crossfall_radians.radians())
+                    * Quat::from_rotation_z(cuboid.longfall_radians.radians());
+                let offset = rotation.inverse() * (point - cuboid.centre.metres());
                 if offset
                     .abs()
-                    .cmple(cuboid.size * 0.5 + Vec3::splat(0.001))
+                    .cmple(cuboid.size.metres() * 0.5 + Vec3::splat(0.001))
                     .all()
                 {
                     let solid = building
@@ -531,16 +532,25 @@ fn traverse_court(fixture: &Fixture) {
         boundary.collider(),
         Transform::from_xyz(0.0, gate.metres(), 0.0),
     ));
-    let door = fixture.property.boundary.gate.door(fixture.property.id);
-    let rotation = Quat::from_rotation_y(door.open_angle_radians);
-    let open_centre = door.hinge_centre
-        + rotation * (door.closed_centre - door.hinge_centre)
+    let door = fixture
+        .property
+        .boundary
+        .gate
+        .door(fixture.property.id)
+        .unwrap();
+    let rotation = Quat::from_rotation_y(door.open_angle_radians.radians());
+    let open_centre = door.hinge_centre.metres()
+        + rotation * (door.closed_centre.metres() - door.hinge_centre.metres())
         + Vec3::Y * gate.metres();
     walker.app.world_mut().spawn((
         RigidBody::Static,
-        Collider::cuboid(door.size_metres.x, door.size_metres.y, door.size_metres.z),
+        Collider::cuboid(
+            door.size_metres.metres().x,
+            door.size_metres.metres().y,
+            door.size_metres.metres().z,
+        ),
         Transform::from_translation(open_centre)
-            .with_rotation(rotation * Quat::from_rotation_y(door.closed_yaw_radians)),
+            .with_rotation(rotation * Quat::from_rotation_y(door.closed_yaw_radians.radians())),
     ));
     walker.walk_to(fixture.property.boundary.gate.centre_metres);
     walker.walk_to(passage.end_metres);

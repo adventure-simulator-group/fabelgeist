@@ -157,9 +157,10 @@ impl Fixture {
                 contact: CityPlotBounds {
                     centre_metres: placement.centre_metres
                         + placement.orientation.local_to_world(
-                            contact.centre().xz() - recipe.collision.bounds.centre().xz(),
+                            contact.centre().unwrap().metres().xz()
+                                - recipe.collision.bounds.centre().unwrap().metres().xz(),
                         ),
-                    dimensions_metres: contact.plan_half_extents() * 2.0,
+                    dimensions_metres: contact.plan_half_extents().unwrap().metres() * 2.0,
                     orientation: placement.orientation,
                 },
                 court_threshold_metres: serde_json::from_value(value[threshold].clone()).unwrap(),
@@ -442,17 +443,24 @@ fn gate_leaf_sweep_and_both_fixed_posts_have_level_support_above_the_front_floor
     let fixture = Fixture::load();
     let plan = fixture.plan(terraced());
     let mesh = plan.mesh().unwrap();
-    let door = fixture.property.boundary.gate.door(fixture.property.id);
+    let door = fixture
+        .property
+        .boundary
+        .gate
+        .door(fixture.property.id)
+        .unwrap();
     let mut points = Vec::new();
     for step in 0..=180 {
-        let angle = door.open_angle_radians * step as f32 / 180.0;
+        let angle = door.open_angle_radians.radians() * step as f32 / 180.0;
         let pivot = bevy::math::Quat::from_rotation_y(angle);
-        let rotation = bevy::math::Quat::from_rotation_y(door.closed_yaw_radians + angle);
-        let centre = door.hinge_centre + pivot * (door.closed_centre - door.hinge_centre);
+        let rotation = bevy::math::Quat::from_rotation_y(door.closed_yaw_radians.radians() + angle);
+        let centre = door.hinge_centre.metres()
+            + pivot * (door.closed_centre.metres() - door.hinge_centre.metres());
         for x in [-1.0, 1.0] {
             for z in [-1.0, 1.0] {
                 points.push(
-                    (centre + rotation * (door.size_metres * Vec3::new(x, 0.0, z) * 0.5)).xz(),
+                    (centre + rotation * (door.size_metres.metres() * Vec3::new(x, 0.0, z) * 0.5))
+                        .xz(),
                 );
             }
         }
@@ -461,13 +469,17 @@ fn gate_leaf_sweep_and_both_fixed_posts_have_level_support_above_the_front_floor
         super::super::PropertySide::Left,
         super::super::PropertySide::Right,
     ] {
-        let post = fixture.property.boundary.gate.post(side);
+        let post = fixture.property.boundary.gate.post(side).unwrap();
         for x in [-1.0, 1.0] {
             for z in [-1.0, 1.0] {
                 points.push(
-                    (post.centre_metres
-                        + bevy::math::Quat::from_rotation_y(post.yaw_radians)
-                            * (post.size_metres * Vec3::new(x, 0.0, z) * 0.5))
+                    (post
+                        .packing_cuboid(adventuresim_building_generator::ResolvedItemId(0))
+                        .unwrap()
+                        .centre
+                        .metres()
+                        + bevy::math::Quat::from_rotation_y(post.orientation.yaw_radians())
+                            * (post.size_metres.metres() * Vec3::new(x, 0.0, z) * 0.5))
                         .xz(),
                 );
             }
@@ -494,10 +506,15 @@ fn a_retaining_edge_exposes_both_levels_instead_of_inventing_one_shared_terrain_
         .property
         .boundary
         .gate
-        .post(fixture.property.boundary.gate.hinge);
-    let point = (post.centre_metres
-        + bevy::math::Quat::from_rotation_y(post.yaw_radians)
-            * Vec3::new(-post.size_metres.x * 0.5, 0.0, 0.0))
+        .post(fixture.property.boundary.gate.hinge)
+        .unwrap();
+    let point = (post
+        .packing_cuboid(adventuresim_building_generator::ResolvedItemId(0))
+        .unwrap()
+        .centre
+        .metres()
+        + bevy::math::Quat::from_rotation_y(post.orientation.yaw_radians())
+            * Vec3::new(-post.size_metres.metres().x * 0.5, 0.0, 0.0))
     .xz();
     let heights = plan
         .mesh()

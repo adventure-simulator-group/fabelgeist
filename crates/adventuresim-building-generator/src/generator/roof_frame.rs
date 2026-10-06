@@ -20,7 +20,7 @@ mod tests {
                     .unwrap_or_else(|error| panic!("{width} cells at {pitch} degrees: {error:?}"));
                 for member in &plan.timber_frame.as_ref().unwrap().members {
                     assert!(
-                        member.start.distance(member.end)
+                        member.start.metres().distance(member.end.metres())
                             > crate::MINIMUM_TIMBER_MEMBER_LENGTH_METRES
                     );
                 }
@@ -41,9 +41,11 @@ fn separated_joints(points: &[Vec3]) -> Vec<Vec3> {
         return Vec::new();
     }
     let mut result = vec![first];
+    let mut previous = first;
     for &point in &points[1..points.len() - 1] {
-        if point.distance(last) > minimum && point.distance(*result.last().unwrap()) > minimum {
+        if point.distance(last) > minimum && point.distance(previous) > minimum {
             result.push(point);
+            previous = point;
         }
     }
     result.push(last);
@@ -57,8 +59,8 @@ pub(super) fn build(
     dormers: &[RoofDormer],
     top: f32,
     section: Vec2,
-) {
-    if let Some(roof) = roofs.first() {
+) -> Result<(), crate::GenerationError> {
+    let _: () = if let Some(roof) = roofs.first() {
         let half_width = if roof.ridge_axis == RidgeAxis::X {
             roof.size.y * 0.5
         } else {
@@ -110,9 +112,9 @@ pub(super) fn build(
                 top,
                 section,
             );
-            roof_frames.push(truss.build(builder, top, section));
+            roof_frames.push(truss.build(builder, top, section)?);
             if roof.kind == RoofKind::Gable && (frame_index == 0 || frame_index == frame_count) {
-                truss.frame_infill(builder, section);
+                truss.frame_infill(builder, section)?;
             }
         }
         for pair in roof_frames.windows(2) {
@@ -127,10 +129,11 @@ pub(super) fn build(
                     right,
                     section * 1.05,
                     crate::TimberFramePhase::RoofConstruction,
-                );
+                )?;
             }
         }
-    }
+    };
+    Ok(())
 }
 
 /// End trusses follow the upper wall envelope, including a jettied gable.
@@ -175,7 +178,11 @@ struct Truss {
 impl Truss {
     /// Subdivide the end wall into timber-supported infill panels. Interior
     /// roof trusses remain open; only the two enclosing gables need this frame.
-    fn frame_infill(self, builder: &mut TimberFrameBuilder<'_>, section: Vec2) {
+    fn frame_infill(
+        self,
+        builder: &mut TimberFrameBuilder<'_>,
+        section: Vec2,
+    ) -> Result<(), crate::GenerationError> {
         const MAXIMUM_INFILL_BAY_WIDTH_METRES: f32 = 1.8;
         const MAXIMUM_INFILL_PANEL_HEIGHT_METRES: f32 = 1.5;
         let centre = (self.left_base + self.right_base) * 0.5;
@@ -186,7 +193,7 @@ impl Truss {
             levels.extend((1..rows).map(|row| low + (high - low) * row as f32 / rows as f32));
         }
         levels.sort_by(f32::total_cmp);
-        for (base, rake) in [
+        let _: () = for (base, rake) in [
             (self.left_base, self.left_rafter),
             (self.right_base, self.right_rafter),
         ] {
@@ -211,7 +218,7 @@ impl Truss {
                         pair[1],
                         section * COLLAR_SECTION_FACTOR,
                         crate::TimberFramePhase::RoofConstruction,
-                    );
+                    )?;
                 }
                 posts.push((foot, head));
             }
@@ -235,10 +242,11 @@ impl Truss {
                         pair[1],
                         section * COLLAR_SECTION_FACTOR,
                         crate::TimberFramePhase::RoofConstruction,
-                    );
+                    )?;
                 }
             }
-        }
+        };
+        Ok(())
     }
 
     fn new(
@@ -306,7 +314,7 @@ impl Truss {
         builder: &mut TimberFrameBuilder<'_>,
         top: f32,
         section: Vec2,
-    ) -> (Vec3, Vec3, Vec3) {
+    ) -> Result<(Vec3, Vec3, Vec3), crate::GenerationError> {
         let Self {
             left_base,
             right_base,
@@ -323,7 +331,7 @@ impl Truss {
                     seat,
                     section,
                     crate::TimberFramePhase::RoofConstruction,
-                );
+                )?;
             }
         }
         builder.member(
@@ -332,14 +340,14 @@ impl Truss {
             right_base,
             section,
             crate::TimberFramePhase::RoofConstruction,
-        );
+        )?;
         builder.member(
             crate::TimberMemberRole::GablePost,
             Vec3::new(gable_centre.x, top, gable_centre.y),
             apex,
             section,
             crate::TimberFramePhase::RoofConstruction,
-        );
+        )?;
         let collar_left = left_rafter.lerp(apex, 0.58);
         let collar_right = right_rafter.lerp(apex, 0.58);
         for (base, collar) in [(left_rafter, collar_left), (right_rafter, collar_right)] {
@@ -349,14 +357,14 @@ impl Truss {
                 collar,
                 section * 0.9,
                 crate::TimberFramePhase::RoofConstruction,
-            );
+            )?;
             builder.member(
                 crate::TimberMemberRole::Rafter,
                 collar,
                 apex,
                 section * 0.9,
                 crate::TimberFramePhase::RoofConstruction,
-            );
+            )?;
         }
         builder.member(
             crate::TimberMemberRole::Collar,
@@ -364,8 +372,8 @@ impl Truss {
             collar_right,
             section * COLLAR_SECTION_FACTOR,
             crate::TimberFramePhase::RoofConstruction,
-        );
+        )?;
 
-        (collar_left, apex, collar_right)
+        Ok((collar_left, apex, collar_right))
     }
 }

@@ -124,17 +124,18 @@ impl EditableBuildingAssembly {
         if let Some(index) = self.storeys.iter().position(|storey| storey.level == level) {
             return &mut self.storeys[index];
         }
-        self.storeys.push(StoreyPlan {
-            level,
-            rooms: Vec::new(),
-            walls: Vec::new(),
-            openings: Vec::new(),
-        });
         self.storeys.sort_by_key(|storey| storey.level);
-        self.storeys
-            .iter_mut()
-            .find(|storey| storey.level == level)
-            .expect("new storey must be present")
+        let index = self.storeys.partition_point(|storey| storey.level < level);
+        self.storeys.insert(
+            index,
+            StoreyPlan {
+                level,
+                rooms: Vec::new(),
+                walls: Vec::new(),
+                openings: Vec::new(),
+            },
+        );
+        &mut self.storeys[index]
     }
 
     pub(super) fn has_wall(&self, selector: WallSelector) -> bool {

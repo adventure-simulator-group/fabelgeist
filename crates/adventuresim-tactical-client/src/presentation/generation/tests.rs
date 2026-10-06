@@ -163,15 +163,18 @@ fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
     let recipe =
         adventuresim_tactical_core::scene_input::GeneratedBuildingRecipe::generate(program.clone())
             .unwrap();
-    let expected = adventuresim_building_generator::compile_static_building_detail(&recipe.plan);
+    let expected =
+        adventuresim_building_generator::compile_static_building_detail(&recipe.plan).unwrap();
     let job = serde_json::to_string(&GenerationJob::Venue(Box::new(program.clone()))).unwrap();
     let bytes = generate(&job, &dependencies(&job).unwrap()).unwrap();
     receive(&job, &bytes).unwrap();
     let geometry = take_venue_geometry(&program).unwrap();
     assert_eq!(geometry.detail.len(), expected.meshes.len());
     for (prepared, expected) in geometry.detail.into_iter().zip(&expected.meshes) {
-        let expected =
-            super::super::recipe_mesh::recipe_mesh(expected, recipe.collision.bounds.centre());
+        let expected = super::super::recipe_mesh::recipe_mesh(
+            expected,
+            recipe.collision.bounds.centre().unwrap().metres(),
+        );
         let actual = prepared.into_mesh();
         for attribute in [
             bevy::mesh::Mesh::ATTRIBUTE_POSITION,

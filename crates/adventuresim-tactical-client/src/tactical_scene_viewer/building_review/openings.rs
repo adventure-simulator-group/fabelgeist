@@ -3,7 +3,7 @@ use adventuresim_building_generator::{compile_operable_doors, compile_operable_w
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
-#[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub(super) enum OpeningTarget {
     Door,
@@ -13,11 +13,33 @@ pub(super) enum OpeningTarget {
     FixedGlazed,
 }
 
+pub(super) struct OpeningFrame {
+    pub centre: adventuresim_building_generator::spatial_geometry::Position<
+        adventuresim_building_generator::spatial_geometry::Architectural,
+    >,
+    pub tangent: adventuresim_building_generator::spatial_geometry::PlanDirection<
+        adventuresim_building_generator::spatial_geometry::Architectural,
+    >,
+    pub outward: adventuresim_building_generator::spatial_geometry::PlanDirection<
+        adventuresim_building_generator::spatial_geometry::Architectural,
+    >,
+}
+impl OpeningFrame {
+    fn from_metres(centre: Vec3, tangent: Vec2, outward: Vec2) -> Result<Self> {
+        use adventuresim_building_generator::spatial_geometry::{PlanDirection, Position};
+        Ok(Self {
+            centre: Position::from_metres(centre)?,
+            tangent: PlanDirection::from_normalized(tangent)?,
+            outward: PlanDirection::from_normalized(outward)?,
+        })
+    }
+}
+
 impl OpeningTarget {
     pub(super) fn frame(
         self,
         plan: &adventuresim_building_generator::BuildingPlan,
-    ) -> (Vec3, Vec2, Vec2) {
+    ) -> Result<OpeningFrame> {
         if matches!(self, Self::FixedGlazed) {
             use adventuresim_building_generator::{ClosureKind, ClosureState, WallSourceId};
             let opening = plan
@@ -32,8 +54,8 @@ impl OpeningTarget {
                                 && !matches!(wall.source, WallSourceId::RoofGable { .. })
                         })
                 })
-                .expect("review fixed civilian glazing");
-            return (
+                .ok_or("review fixed civilian glazing is absent")?;
+            return OpeningFrame::from_metres(
                 Vec3::new(
                     opening.frame.origin.x,
                     opening.sill_elevation_metres + opening.profile.clear_height_metres() * 0.5,
@@ -45,11 +67,15 @@ impl OpeningTarget {
         }
 
         if matches!(self, Self::Door) {
-            let door = compile_operable_doors(plan)
+            let door = compile_operable_doors(plan)?
                 .into_iter()
                 .next()
-                .expect("review door");
-            return (door.closed_centre, door.tangent, door.outward);
+                .ok_or("review door is absent")?;
+            return Ok(OpeningFrame {
+                centre: door.closed_centre,
+                tangent: door.tangent,
+                outward: door.outward,
+            });
         }
         let window = compile_operable_windows(plan)
             .into_iter()
@@ -64,8 +90,8 @@ impl OpeningTarget {
                 Self::Barred => w.barred,
                 Self::Door | Self::FixedGlazed => false,
             })
-            .expect("review requires selected window treatment");
-        (window.closed_centre, window.tangent, window.outward)
+            .ok_or("review window treatment is absent")?;
+        OpeningFrame::from_metres(window.closed_centre, window.tangent, window.outward)
     }
 }
 
@@ -85,15 +111,14 @@ pub(in crate::tactical_scene_viewer) struct ReviewLeafPose {
 }
 
 impl ReviewLeafPose {
-    pub(in crate::tactical_scene_viewer) fn boundary_gate(
-        door: adventuresim_building_generator::DoorSpec,
-        elevation: Vec3,
+    pub(in crate::tactical_scene_viewer) fn from_scene(
+        pose: adventuresim_tactical_core::scene_coordinates::SceneDoorPose,
     ) -> Self {
         Self {
-            closed: Transform::from_translation(door.closed_centre + elevation)
-                .with_rotation(Quat::from_rotation_y(door.closed_yaw_radians)),
-            hinge: door.hinge_centre + elevation,
-            angle: door.open_angle_radians,
+            closed: Transform::from_translation(pose.leaf().closed_centre.metres())
+                .with_rotation(pose.native_rotation()),
+            hinge: pose.leaf().hinge_centre.metres(),
+            angle: pose.leaf().open_angle_radians.radians(),
         }
     }
 
@@ -132,29 +157,31 @@ pub(super) fn select_pose(
 pub(in crate::tactical_scene_viewer) fn spawn_openings(
     commands: &mut Commands,
     building: &GeneratedBuilding,
-) {
-    let transform = building.transform();
-    let origin = building.collision.bounds.centre();
+) -> Result {
+    let transform = building.transform()?;
+    let datum = building.geometry_datum()?;
+    let origin = building.collision.bounds.centre()?.metres();
     let direction = |v: Vec2| transform.rotation * Vec3::new(v.x, 0.0, v.y);
-    for door in compile_operable_doors(&building.plan) {
-        let centre = transform.transform_point(door.closed_centre - origin);
-        let closed = Transform::from_translation(centre)
-            .with_rotation(transform.rotation * Quat::from_rotation_y(door.closed_yaw_radians));
+    for leaf in compile_operable_doors(&building.plan)? {
+        let pose = datum.door(leaf)?;
+        let door = pose.leaf();
+        let centre = door.closed_centre.metres();
+        let closed = Transform::from_translation(centre).with_rotation(pose.native_rotation());
         commands.spawn((
             Name::new("Fixture door"),
             SceneDoor {
                 building_id: building.placement.id,
                 opening_id: door.opening.0,
                 size_metres: door.size_metres,
-                doorway_centre_metres: centre,
-                tangent: direction(door.tangent),
-                outward: direction(door.outward),
+                doorway_centre_metres: door.closed_centre,
+                tangent: door.tangent.spatial(),
+                outward: door.outward.spatial(),
             },
             closed,
             ReviewLeafPose {
                 closed,
-                hinge: transform.transform_point(door.hinge_centre - origin),
-                angle: door.open_angle_radians,
+                hinge: door.hinge_centre.metres(),
+                angle: door.open_angle_radians.radians(),
             },
         ));
     }
@@ -182,4 +209,5 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
             },
         ));
     }
+    Ok(())
 }

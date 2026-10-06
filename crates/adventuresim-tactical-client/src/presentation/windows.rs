@@ -26,11 +26,13 @@ fn on_scene_window_added(
     materials: Res<TacticalBuildingMaterials>,
 ) -> Result {
     let window = windows.get(event.entity)?;
-    let batches = cache.window(window.size_metres, window.leaf, &mut meshes);
+    let batches = cache.window(window.size_metres, window.leaf, &mut meshes)?;
     let body = batches
         .iter()
         .find(|batch| batch.material == window.leaf.material())
-        .expect("window leaf has its primary material");
+        .ok_or(
+            super::closure_meshes::ClosureMeshError::MissingPrimaryMaterial { kind: window.leaf },
+        )?;
     commands.entity(event.entity).insert((
         PresentedWindowCasement,
         Mesh3d(body.mesh.clone()),

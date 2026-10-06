@@ -1,6 +1,7 @@
 //! Rules-based furnishing with metre-space envelopes and front-door access proofs.
 use crate::Direction;
 use crate::furniture::{FurnitureAccessFace, FurnitureKey, FurnitureKind};
+#[cfg(test)]
 use bevy::math::Vec2;
 use serde::{Deserialize, Serialize};
 #[cfg(test)]
@@ -37,9 +38,9 @@ pub fn validate_circulation(plan: &crate::BuildingPlan) -> Result<(), InteriorLa
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InteriorPlacement {
     pub key: FurnitureKey,
-    pub room_id: u16,
-    pub storey: u16,
-    pub centre_metres: Vec2,
+    pub room_id: crate::RoomIndex,
+    pub storey: crate::StoreyIndex,
+    pub centre_metres: crate::plan_geometry::ArchitecturalPlanPoint,
     pub facing: Direction,
 }
 impl InteriorPlacement {
@@ -54,8 +55,8 @@ impl InteriorPlacement {
 }
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InteriorWaypoint {
-    pub storey: u16,
-    pub position_metres: Vec2,
+    pub storey: crate::StoreyIndex,
+    pub position_metres: crate::plan_geometry::ArchitecturalPlanPoint,
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FurnitureAccessPath {
@@ -65,8 +66,8 @@ pub struct FurnitureAccessPath {
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UnmetFurnitureBudget {
-    pub storey: u16,
-    pub room_id: u16,
+    pub storey: crate::StoreyIndex,
+    pub room_id: crate::RoomIndex,
     pub kind: FurnitureKind,
     pub requested: usize,
     pub placed: usize,
@@ -79,10 +80,37 @@ pub struct InteriorLayout {
 }
 #[derive(Clone, Debug, thiserror::Error, Eq, PartialEq)]
 pub enum InteriorLayoutError {
+    #[error(transparent)]
+    StoreyElevation(#[from] crate::StoreyElevationError),
+    #[error(transparent)]
+    Ordinal(#[from] crate::OrdinalError),
+    #[error("room {room} on storey {storey} is absent")]
+    MissingRoom {
+        storey: crate::StoreyIndex,
+        room: crate::RoomIndex,
+    },
+    #[error("navigation floor on storey {storey} is absent")]
+    MissingStoreyFloor { storey: crate::StoreyIndex },
+    #[error("furniture {placement_index} has a broken access path at node {node}")]
+    BrokenAccessPath { placement_index: usize, node: usize },
+    #[error("furniture in room {room} on storey {storey} has no physical supporting floor")]
+    MissingFloor {
+        storey: crate::StoreyIndex,
+        room: crate::RoomIndex,
+    },
+    #[error(transparent)]
+    Furniture(#[from] crate::furniture::FurnitureRecipeError),
+    #[error("invalid architectural collision: {0}")]
+    Collision(#[from] crate::CollisionError),
+    #[error("invalid interior geometry: {0}")]
+    Geometry(#[from] crate::spatial_geometry::GeometryError),
     #[error("building has no accessible ground-floor front door")]
     MissingFrontDoor,
     #[error("room {room_id} on storey {storey} is disconnected from the front door")]
-    DisconnectedRoom { storey: u16, room_id: u16 },
+    DisconnectedRoom {
+        storey: crate::StoreyIndex,
+        room_id: crate::RoomIndex,
+    },
     #[error("stair {index} has an inaccessible landing")]
     InvalidStair { index: usize },
     #[error("furniture {index} intersects architecture, another object, or a reserved doorway")]

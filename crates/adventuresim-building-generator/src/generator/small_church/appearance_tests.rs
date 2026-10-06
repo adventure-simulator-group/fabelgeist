@@ -9,7 +9,7 @@ fn pointed_window_crowns_remain_open_in_detail_and_collision() {
             42,
         ))
         .unwrap();
-        let collision = crate::compile_building_collision(&plan);
+        let collision = crate::compile_building_collision(&plan).unwrap();
         for opening in plan
             .opening_assemblies
             .iter()
@@ -30,7 +30,7 @@ fn pointed_window_crowns_remain_open_in_detail_and_collision() {
                 .iter()
                 .find(|solid| solid.id == opening.head_solid)
                 .unwrap();
-            let detail = crate::detail::compile_solid_detail(&plan, solid);
+            let detail = crate::detail::compile_solid_detail(&plan, solid).unwrap();
             let tangent = Vec3::new(opening.frame.tangent.x, 0.0, opening.frame.tangent.y);
             let clear = Vec3::new(
                 opening.frame.origin.x,
@@ -42,10 +42,12 @@ fn pointed_window_crowns_remain_open_in_detail_and_collision() {
                 "arch crown rendered as a solid box"
             );
             assert!(
-                !collision
-                    .cuboids
-                    .iter()
-                    .any(|cuboid| { (clear - cuboid.centre).abs().cmplt(cuboid.size * 0.5).all() }),
+                !collision.cuboids.iter().any(|cuboid| {
+                    (clear - cuboid.centre.metres())
+                        .abs()
+                        .cmplt(cuboid.size.metres() * 0.5)
+                        .all()
+                }),
                 "arch crown blocks tactical collision"
             );
             let bearing = clear + tangent * (width_metres * 0.5 + 0.04);
@@ -113,10 +115,16 @@ fn pointed_and_segmental_panels_follow_the_authored_spring_and_crown() {
     panel.id = ResolvedItemId(u64::MAX);
     panel.owner = GeometryOwnerId(u32::MAX);
     panel.role = SolidRole::LeadedGlazing;
-    panel.centre = Vec3::ZERO;
+    panel.centre =
+        crate::spatial_geometry::Position::<crate::Architectural>::from_metres(Vec3::ZERO).unwrap();
     for pointed in [false, true] {
         let rise = if pointed { 1.4 } else { 0.5 };
-        panel.size = Vec3::new(2.0, 2.0 + rise, 0.05);
+        panel.size = crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(
+            2.0,
+            2.0 + rise,
+            0.05,
+        ))
+        .unwrap();
         panel.shape = if pointed {
             crate::ResolvedSolidShape::PointedArchRing {
                 clear_span_metres: 2.0,
@@ -133,9 +141,9 @@ fn pointed_and_segmental_panels_follow_the_authored_spring_and_crown() {
                 ring_depth_metres: 0.2,
             }
         };
-        let detail = crate::detail::compile_solid_detail(&plan, &panel);
-        let spring = 2.0 - panel.size.y * 0.5;
-        let crown = panel.size.y * 0.5;
+        let detail = crate::detail::compile_solid_detail(&plan, &panel).unwrap();
+        let spring = 2.0 - panel.size.metres().y * 0.5;
+        let crown = panel.size.metres().y * 0.5;
         assert!(detail_covers(
             &detail,
             Vec3::X,

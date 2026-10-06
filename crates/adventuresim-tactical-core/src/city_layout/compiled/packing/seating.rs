@@ -31,7 +31,7 @@ impl CompiledCityLayout {
                         building: building.id,
                     },
                 })?;
-            let origin = recipe.collision.bounds.centre();
+            let origin = recipe.collision.bounds.centre()?.metres();
             let (min, max) = footprint
                 .vertices()
                 .iter()

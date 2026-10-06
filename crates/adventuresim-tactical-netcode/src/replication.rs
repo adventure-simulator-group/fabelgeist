@@ -138,7 +138,9 @@ mod tests {
             let instance = SceneFurniture {
                 id: FurnitureInstanceId(u64::MAX),
                 key,
-                location: if key.interior_spec().is_some() {
+                location: if key.placement_role()
+                    == adventuresim_building_generator::furniture::FurniturePlacementRole::Interior
+                {
                     FurnitureLocation::Interior {
                         building_id: u64::MAX - 1,
                         room_id: u16::MAX,
@@ -197,10 +199,10 @@ mod tests {
         let door = SceneDoor {
             building_id: 7,
             opening_id: 11,
-            size_metres: Vec3::new(1.0, 2.1, 0.07),
-            doorway_centre_metres: Vec3::new(3.0, 1.05, -2.0),
-            tangent: Vec3::X,
-            outward: Vec3::NEG_Z,
+            size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions::from_metres(Vec3::new(1.0, 2.1, 0.07)).unwrap(),
+            doorway_centre_metres: adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(3.0, 1.05, -2.0)).unwrap(),
+            tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::X).unwrap(),
+            outward: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::NEG_Z).unwrap(),
         };
         let mut bytes = Vec::new();
         postcard_utils::to_extend_mut(&door, &mut bytes).unwrap();

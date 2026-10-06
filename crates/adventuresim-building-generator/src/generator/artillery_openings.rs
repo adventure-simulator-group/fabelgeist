@@ -9,16 +9,24 @@ fn floor_for_artillery_level(level: crate::ArtilleryStationLevel) -> f32 {
 fn retaining_support_node(
     curtains: &[crate::ArtilleryCurtainAssembly],
     geometry: &ResolvedGeometry,
-) -> StructuralNodeId {
+) -> Result<StructuralNodeId, crate::GenerationError> {
+    let curtain = crate::ArtilleryCurtainId(1);
+    let owner = curtains
+        .iter()
+        .find(|candidate| candidate.id == curtain)
+        .ok_or(crate::GenerationError::MissingArtilleryCurtain { curtain })?
+        .owner;
     geometry
         .structural_nodes
         .iter()
         .find(|node| {
-            node.owner == curtains[1].owner
-                && node.kind == StructuralNodeKind::ArtilleryRetainingBearing
+            node.owner == owner && node.kind == StructuralNodeKind::ArtilleryRetainingBearing
         })
         .map(|node| node.id)
-        .expect("east retaining support")
+        .ok_or(crate::GenerationError::MissingBearing {
+            owner,
+            kind: StructuralNodeKind::ArtilleryRetainingBearing,
+        })
 }
 
 fn resolve_artillery_gun_opening(
@@ -30,11 +38,14 @@ fn resolve_artillery_gun_opening(
     wall: &mut crate::WallAssembly,
     openings: &mut Vec<crate::OpeningAssembly>,
     geometry: &mut ResolvedGeometry,
-) -> crate::ArtilleryFireStation {
+) -> Result<crate::ArtilleryFireStation, crate::GenerationError> {
     let owner = GeometryOwnerId(83_000 + (rondel_index * 3 + station_index) as u32);
     let tangent = Vec2::new(-facing.y, facing.x);
     let radius = 6.0_f32;
-    let centre = wall.radial_frame.unwrap().centre;
+    let centre = wall
+        .radial_frame
+        .ok_or(crate::GenerationError::MissingRadialFrame { wall: wall.id })?
+        .centre;
     let origin = centre + facing * radius;
     let floor = if level == crate::ArtilleryStationLevel::LowerCasemate {
         0.20
@@ -56,38 +67,27 @@ fn resolve_artillery_gun_opening(
     let jamb_nodes = [StructuralNodeId(node_base), StructuralNodeId(node_base + 1)];
     let head_node = StructuralNodeId(node_base + 2);
     let spandrel_node = StructuralNodeId(node_base + 3);
-    for (side, node) in [-1.0_f32, 1.0].into_iter().zip(jamb_nodes) {
-        geometry.structural_nodes.push(StructuralNode {
-            id: node,
+    opening_jambs::OpeningJambSetOut::from_metres(
+        jamb_nodes,
+        owner,
+        wall.support_node,
+        origin,
+        tangent,
+        interior_width,
+        floor,
+    )?
+    .append_nodes(geometry)?;
+    geometry.structural_nodes.extend(
+        opening_jambs::OpeningHeadSetOut::from_metres(
+            [head_node, spandrel_node],
             owner,
-            kind: StructuralNodeKind::OpeningJamb,
-            position: Vec3::new(
-                origin.x + tangent.x * side * interior_width * 0.5,
-                floor,
-                origin.y + tangent.y * side * interior_width * 0.5,
-            ),
-            supported_by: vec![wall.support_node],
-            grounded: false,
-        });
-    }
-    geometry.structural_nodes.extend([
-        StructuralNode {
-            id: head_node,
-            owner,
-            kind: StructuralNodeKind::OpeningHead,
-            position: Vec3::new(origin.x, sill + interior_height, origin.y),
-            supported_by: jamb_nodes.to_vec(),
-            grounded: false,
-        },
-        StructuralNode {
-            id: spandrel_node,
-            owner,
-            kind: StructuralNodeKind::OpeningSpandrel,
-            position: Vec3::new(origin.x, sill + interior_height + 0.2, origin.y),
-            supported_by: vec![head_node],
-            grounded: false,
-        },
-    ]);
+            jamb_nodes,
+            origin,
+            sill + interior_height,
+            sill + interior_height + 0.2,
+        )?
+        .nodes()?,
+    );
     wall.frame = crate::WallLocalFrame {
         origin,
         tangent,
@@ -128,16 +128,11 @@ fn resolve_artillery_gun_opening(
                 } else {
                     jamb_nodes[1]
                 },
-            );
-            geometry
-                .solids
-                .iter_mut()
-                .find(|solid| solid.id == id)
-                .unwrap()
-                .yaw_radians = yaw;
-            id
+            )?;
+            geometry.solid_mut(id)?.yaw_radians = Radians::new(yaw)?;
+            Ok(id)
         })
-        .collect::<Vec<_>>();
+        .collect::<Result<Vec<_>, crate::GenerationError>>()?;
     let jamb = [jamb[0], jamb[1]];
     let depth_sign = if tangent.x.abs() > 0.5 {
         if facing.y >= 0.0 { 1 } else { -1 }
@@ -161,7 +156,7 @@ fn resolve_artillery_gun_opening(
             exterior_depth_sign: depth_sign,
         },
         head_node,
-    );
+    )?;
     let spandrel = wall_solid(
         geometry,
         owner,
@@ -171,14 +166,9 @@ fn resolve_artillery_gun_opening(
         SolidRole::OpeningSpandrel,
         crate::ResolvedSolidShape::Cuboid,
         spandrel_node,
-    );
+    )?;
     for id in [head, spandrel] {
-        geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == id)
-            .unwrap()
-            .yaw_radians = yaw;
+        geometry.solid_mut(id)?.yaw_radians = Radians::new(yaw)?;
     }
     let half_t = tangent.abs() * interior_width * 0.5;
     let half_d = facing.abs() * thickness * 0.6;
@@ -186,18 +176,18 @@ fn resolve_artillery_gun_opening(
         geometry,
         owner,
         0,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_t.x - half_d.x,
                 sill,
                 origin.y - half_t.y - half_d.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_t.x + half_d.x,
                 sill + interior_height,
                 origin.y + half_t.y + half_d.y,
             ),
-        },
+        )?,
         opening_id,
         exterior_width,
         interior_width,
@@ -209,18 +199,18 @@ fn resolve_artillery_gun_opening(
         geometry,
         owner,
         10,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_t.x - half_d.x,
                 sill,
                 origin.y - half_t.y - half_d.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_t.x + half_d.x,
                 sill + interior_height,
                 origin.y + half_t.y + half_d.y,
             ),
-        },
+        )?,
         SurfaceRole::LeftJambReveal,
         crate::ResolvedSurfaceShape::SplayedJamb {
             side: -1,
@@ -233,18 +223,18 @@ fn resolve_artillery_gun_opening(
         geometry,
         owner,
         11,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_t.x - half_d.x,
                 sill,
                 origin.y - half_t.y - half_d.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_t.x + half_d.x,
                 sill + interior_height,
                 origin.y + half_t.y + half_d.y,
             ),
-        },
+        )?,
         SurfaceRole::RightJambReveal,
         crate::ResolvedSurfaceShape::SplayedJamb {
             side: 1,
@@ -269,18 +259,18 @@ fn resolve_artillery_gun_opening(
         geometry,
         owner,
         12,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_t.x - half_d.x,
                 sill - 0.04,
                 origin.y - half_t.y - half_d.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_t.x + half_d.x,
                 sill + 0.02,
                 origin.y + half_t.y + half_d.y,
             ),
-        },
+        )?,
         SurfaceRole::WeatherSill,
         crate::ResolvedSurfaceShape::WeatherSill {
             interior_elevation_metres: sill,
@@ -292,18 +282,18 @@ fn resolve_artillery_gun_opening(
         geometry,
         owner,
         13,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_t.x - half_d.x,
                 sill + exterior_height,
                 origin.y - half_t.y - half_d.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_t.x + half_d.x,
                 sill + interior_height,
                 origin.y + half_t.y + half_d.y,
             ),
-        },
+        )?,
         SurfaceRole::Intrados,
         crate::ResolvedSurfaceShape::Planar,
     );
@@ -313,18 +303,18 @@ fn resolve_artillery_gun_opening(
         geometry,
         owner,
         14,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 exterior_plan.x - tangent.x.abs() * exterior_width * 0.5 - facing.x.abs() * 0.006,
                 sill,
                 exterior_plan.y - tangent.y.abs() * exterior_width * 0.5 - facing.y.abs() * 0.006,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 exterior_plan.x + tangent.x.abs() * exterior_width * 0.5 + facing.x.abs() * 0.006,
                 sill + exterior_height,
                 exterior_plan.y + tangent.y.abs() * exterior_width * 0.5 + facing.y.abs() * 0.006,
             ),
-        },
+        )?,
         SurfaceRole::ExteriorThroat,
         crate::ResolvedSurfaceShape::Planar,
     );
@@ -332,18 +322,18 @@ fn resolve_artillery_gun_opening(
         geometry,
         owner,
         15,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 interior_plan.x - tangent.x.abs() * interior_width * 0.5 - facing.x.abs() * 0.006,
                 sill,
                 interior_plan.y - tangent.y.abs() * interior_width * 0.5 - facing.y.abs() * 0.006,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 interior_plan.x + tangent.x.abs() * interior_width * 0.5 + facing.x.abs() * 0.006,
                 sill + interior_height,
                 interior_plan.y + tangent.y.abs() * interior_width * 0.5 + facing.y.abs() * 0.006,
             ),
-        },
+        )?,
         SurfaceRole::InteriorMouth,
         crate::ResolvedSurfaceShape::Planar,
     );
@@ -351,10 +341,10 @@ fn resolve_artillery_gun_opening(
     let stance = projected_surface(
         geometry,
         owner,
-        ResolvedBounds {
-            min: Vec3::new(stance_plan.x - 0.5, floor, stance_plan.y - 0.5),
-            max: Vec3::new(stance_plan.x + 0.5, floor + 0.03, stance_plan.y + 0.5),
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(stance_plan.x - 0.5, floor, stance_plan.y - 0.5),
+            Vec3::new(stance_plan.x + 0.5, floor + 0.03, stance_plan.y + 0.5),
+        )?,
         SurfaceRole::ArtilleryStance,
     );
     let mount_pos = origin - facing * (thickness * 0.5 + 0.85);
@@ -366,7 +356,7 @@ fn resolve_artillery_gun_opening(
         0.0,
         SolidRole::WeaponMount,
         vec![wall.support_node],
-    );
+    )?;
     let mut ray_indices = Vec::new();
     let mut rays = Vec::new();
     let eye = Vec3::new(
@@ -426,37 +416,41 @@ fn resolve_artillery_gun_opening(
             let p = origin + tangent * side * (exterior_width * 0.5 + side_width * 0.5);
             let ext = tangent.abs() * side_width * 0.5 + facing.abs() * thickness * 0.5;
             let id = ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | slot);
-            geometry.support_interfaces.push(SupportInterface {
-                id,
-                owner,
-                node: head_node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(p.x - ext.x, sill + interior_height - 0.16, p.y - ext.y),
-                    max: Vec3::new(p.x + ext.x, sill + interior_height + 0.02, p.y + ext.y),
-                },
-            });
-            id
+            geometry
+                .support_interfaces
+                .push(crate::SupportInterface::new(
+                    id,
+                    owner,
+                    head_node,
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(p.x - ext.x, sill + interior_height - 0.16, p.y - ext.y),
+                        Vec3::new(p.x + ext.x, sill + interior_height + 0.02, p.y + ext.y),
+                    )?,
+                ));
+            Ok(id)
         })
-        .collect::<Vec<_>>();
+        .collect::<Result<Vec<_>, crate::GenerationError>>()?;
     let interfaces = [interfaces[0], interfaces[1]];
     let above = ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | 52);
-    geometry.support_interfaces.push(SupportInterface {
-        id: above,
-        owner,
-        node: spandrel_node,
-        bounds: ResolvedBounds {
-            min: Vec3::new(
-                origin.x - tangent.x.abs() * 0.75 - facing.x.abs() * 0.6,
-                sill + interior_height + 0.17,
-                origin.y - tangent.y.abs() * 0.75 - facing.y.abs() * 0.6,
-            ),
-            max: Vec3::new(
-                origin.x + tangent.x.abs() * 0.75 + facing.x.abs() * 0.6,
-                sill + interior_height + 0.26,
-                origin.y + tangent.y.abs() * 0.75 + facing.y.abs() * 0.6,
-            ),
-        },
-    });
+    geometry
+        .support_interfaces
+        .push(crate::SupportInterface::new(
+            above,
+            owner,
+            spandrel_node,
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
+                    origin.x - tangent.x.abs() * 0.75 - facing.x.abs() * 0.6,
+                    sill + interior_height + 0.17,
+                    origin.y - tangent.y.abs() * 0.75 - facing.y.abs() * 0.6,
+                ),
+                Vec3::new(
+                    origin.x + tangent.x.abs() * 0.75 + facing.x.abs() * 0.6,
+                    sill + interior_height + 0.26,
+                    origin.y + tangent.y.abs() * 0.75 + facing.y.abs() * 0.6,
+                ),
+            )?,
+        ));
     let opening = crate::OpeningAssembly {
         id: opening_id,
         owner,
@@ -517,20 +511,22 @@ fn resolve_artillery_gun_opening(
     };
     wall.opening_ids.push(opening_id);
     openings.push(opening);
-    let vent = (level == crate::ArtilleryStationLevel::LowerCasemate).then(|| {
-        projected_void(
-            geometry,
-            owner,
-            ResolvedBounds {
-                min: Vec3::new(centre.x - 0.15, 2.45, centre.y - 0.15),
-                max: Vec3::new(centre.x + 0.15, 3.25, centre.y + 0.15),
-            },
-            VoidRole::ArtillerySmokeVent,
-        )
-    });
+    let vent = (level == crate::ArtilleryStationLevel::LowerCasemate)
+        .then(|| {
+            Ok::<_, crate::GenerationError>(projected_void(
+                geometry,
+                owner,
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(centre.x - 0.15, 2.45, centre.y - 0.15),
+                    Vec3::new(centre.x + 0.15, 3.25, centre.y + 0.15),
+                )?,
+                VoidRole::ArtillerySmokeVent,
+            ))
+        })
+        .transpose()?;
     let recoil_centre = origin - facing * (thickness * 0.5 + 2.0);
     let recoil_half = facing.abs() * 2.0 + tangent.abs() * 1.25;
-    crate::ArtilleryFireStation {
+    Ok(crate::ArtilleryFireStation {
         id: crate::ArtilleryStationId((rondel_index * 3 + station_index) as u64),
         rondel: crate::ArtilleryRondelId(rondel_index as u64),
         level,
@@ -538,19 +534,19 @@ fn resolve_artillery_gun_opening(
         opening: opening_id,
         stance_surface: stance,
         mount_solid: mount,
-        recoil_envelope: ResolvedBounds {
-            min: Vec3::new(
+        recoil_envelope: SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 recoil_centre.x - recoil_half.x,
                 floor,
                 recoil_centre.y - recoil_half.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 recoil_centre.x + recoil_half.x,
                 floor + 2.1,
                 recoil_centre.y + recoil_half.y,
             ),
-        },
+        )?,
         smoke_vent: vent,
         rays,
-    }
+    })
 }

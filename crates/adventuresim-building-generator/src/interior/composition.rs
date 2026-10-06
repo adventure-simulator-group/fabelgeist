@@ -8,13 +8,15 @@ use bevy::math::Vec2;
 const TABLE_SEATING_GAP_METRES: f32 = 0.4;
 const DESK_APPROACH_MARGIN_METRES: f32 = 0.05;
 
-pub(super) fn compose(primary: InteriorPlacement) -> Vec<InteriorPlacement> {
+pub(super) fn compose(
+    primary: InteriorPlacement,
+) -> Result<Vec<InteriorPlacement>, super::InteriorLayoutError> {
     let mut group = vec![primary.clone()];
-    let size = primary.key.interior_spec().unwrap().size_metres;
+    let size = primary.key.interior_spec()?.size_metres.metres();
     match primary.key.kind() {
         FurnitureKind::DiningTable => {
             let key = FurnitureKey::natural(FurnitureKind::Bench, primary.key.variant());
-            let bench = key.interior_spec().unwrap().size_metres;
+            let bench = key.interior_spec()?.size_metres.metres();
             for sign in [-1.0, 1.0] {
                 let offset = Vec2::new(
                     0.0,
@@ -22,8 +24,10 @@ pub(super) fn compose(primary: InteriorPlacement) -> Vec<InteriorPlacement> {
                 );
                 group.push(InteriorPlacement {
                     key,
-                    centre_metres: primary.centre_metres
-                        + local_rotate(offset, primary.yaw_radians()),
+                    centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(
+                        primary.centre_metres.metres()
+                            + local_rotate(offset, primary.yaw_radians()),
+                    )?,
                     facing: if sign < 0.0 {
                         primary.facing
                     } else {
@@ -35,7 +39,7 @@ pub(super) fn compose(primary: InteriorPlacement) -> Vec<InteriorPlacement> {
         }
         FurnitureKind::WritingDesk => {
             let key = FurnitureKey::natural(FurnitureKind::Chair, primary.key.variant());
-            let chair = key.interior_spec().unwrap().size_metres;
+            let chair = key.interior_spec()?.size_metres.metres();
             let offset = Vec2::new(
                 0.0,
                 -(size.z * 0.5
@@ -45,7 +49,9 @@ pub(super) fn compose(primary: InteriorPlacement) -> Vec<InteriorPlacement> {
             );
             group.push(InteriorPlacement {
                 key,
-                centre_metres: primary.centre_metres + local_rotate(offset, primary.yaw_radians()),
+                centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(
+                    primary.centre_metres.metres() + local_rotate(offset, primary.yaw_radians()),
+                )?,
                 facing: primary.facing.opposite(),
                 ..primary.clone()
             });
@@ -62,18 +68,20 @@ pub(super) fn compose(primary: InteriorPlacement) -> Vec<InteriorPlacement> {
             {
                 group.push(InteriorPlacement {
                     key: FurnitureKey::natural(kind, primary.key.variant()),
-                    centre_metres: primary.centre_metres
-                        + local_rotate(
-                            Vec2::new((index as f32 - 1.0) * size.x, 0.0),
-                            primary.yaw_radians(),
-                        ),
+                    centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(
+                        primary.centre_metres.metres()
+                            + local_rotate(
+                                Vec2::new((index as f32 - 1.0) * size.x, 0.0),
+                                primary.yaw_radians(),
+                            ),
+                    )?,
                     ..primary.clone()
                 });
             }
         }
         _ => {}
     }
-    group
+    Ok(group)
 }
 
 pub(super) fn direction_towards(vector: Vec2) -> Direction {

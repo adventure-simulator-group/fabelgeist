@@ -8,26 +8,21 @@ use bevy::math::Vec2;
 pub struct StandingClearance(Vec<Rect>);
 
 impl StandingClearance {
-    pub fn new(cuboids: &[CollisionCuboid], floor_elevation_metres: f32) -> Self {
-        Self(
-            cuboids
-                .iter()
-                .filter_map(|solid| {
-                    Obstruction::new(
-                        solid.centre,
-                        solid.size,
-                        solid.yaw_radians,
-                        solid.crossfall_radians,
-                        solid.longfall_radians,
-                    )
-                    .projection(
-                        floor_elevation_metres + FLOOR_CLEARANCE,
-                        floor_elevation_metres + PERSON_HEIGHT,
-                    )
-                    .map(|rect| rect.expanded(PERSON_RADIUS))
-                })
-                .collect(),
-        )
+    pub fn new<F: crate::spatial_geometry::GeometryFrame>(
+        cuboids: &[CollisionCuboid<F>],
+        floor: crate::spatial_geometry::Elevation<F>,
+    ) -> Result<Self, crate::CollisionError> {
+        let floor_elevation_metres = floor.metres();
+        let mut rectangles = Vec::new();
+        for solid in cuboids {
+            if let Some(rect) = Obstruction::new(*solid)?.projection(
+                floor_elevation_metres + FLOOR_CLEARANCE,
+                floor_elevation_metres + PERSON_HEIGHT,
+            ) {
+                rectangles.push(rect.expanded(PERSON_RADIUS));
+            }
+        }
+        Ok(Self(rectangles))
     }
 
     pub fn is_clear(&self, start: Vec2, end: Vec2) -> bool {
@@ -66,46 +61,59 @@ mod tests {
     use bevy::math::Vec3;
     #[test]
     fn continuous_route_detects_thin_obstacle_between_sampling_stations() {
-        let mut obstacle = CollisionCuboid {
-            source: crate::ResolvedItemId(1),
-            centre: Vec3::new(0.12, 0.9, 0.0),
-            size: Vec3::new(0.01, 1.8, 2.0),
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        };
-        assert!(!StandingClearance::new(&[obstacle], 0.0).is_clear(-Vec2::X, Vec2::X));
-        obstacle.centre.y = 3.0;
-        assert!(StandingClearance::new(&[obstacle], 0.0).is_clear(-Vec2::X, Vec2::X));
+        let mut obstacle = CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(
+            crate::ResolvedItemId(1),
+            Vec3::new(0.12, 0.9, 0.0),
+            Vec3::new(0.01, 1.8, 2.0),
+            0.0,
+            0.0,
+            0.0,
+        )
+        .unwrap();
+        let floor = crate::spatial_geometry::Elevation::from_metres(0.0).unwrap();
+        assert!(
+            !StandingClearance::new(&[obstacle], floor)
+                .unwrap()
+                .is_clear(-Vec2::X, Vec2::X)
+        );
+        obstacle.centre =
+            crate::spatial_geometry::Position::from_metres(Vec3::new(0.12, 3.0, 0.0)).unwrap();
+        assert!(
+            StandingClearance::new(&[obstacle], floor)
+                .unwrap()
+                .is_clear(-Vec2::X, Vec2::X)
+        );
     }
 
     #[test]
     fn prepared_clearance_preserves_rotated_obstacles_at_multiple_heights() {
-        let cuboids = [0.0, 0.3, 1.1].map(|angle| CollisionCuboid {
-            source: crate::ResolvedItemId(1),
-            centre: Vec3::new(angle, 1.2, -angle),
-            size: Vec3::new(2.0, 0.3, 0.2),
-            yaw_radians: angle,
-            crossfall_radians: angle * 0.5,
-            longfall_radians: angle,
+        let cuboids = [0.0, 0.3, 1.1].map(|angle| {
+            CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(
+                crate::ResolvedItemId(1),
+                Vec3::new(angle, 1.2, -angle),
+                Vec3::new(2.0, 0.3, 0.2),
+                angle,
+                angle * 0.5,
+                angle,
+            )
+            .unwrap()
         });
         for floor in [-1.0, 0.0, 0.2, 1.0, 3.0] {
-            let clearance = StandingClearance::new(&cuboids, floor);
+            let clearance = StandingClearance::new(
+                &cuboids,
+                crate::spatial_geometry::Elevation::from_metres(floor).unwrap(),
+            )
+            .unwrap();
             for x in -8..=8 {
                 let start = Vec2::new(x as f32 * 0.25, -2.0);
                 let end = Vec2::new(-start.x, 2.0);
                 let original = cuboids.iter().all(|s| {
-                    Obstruction::new(
-                        s.centre,
-                        s.size,
-                        s.yaw_radians,
-                        s.crossfall_radians,
-                        s.longfall_radians,
-                    )
-                    .projection(floor + FLOOR_CLEARANCE, floor + PERSON_HEIGHT)
-                    .is_none_or(|rect| {
-                        !segment_intersects(rect.expanded(PERSON_RADIUS), start, end)
-                    })
+                    Obstruction::new(*s)
+                        .unwrap()
+                        .projection(floor + FLOOR_CLEARANCE, floor + PERSON_HEIGHT)
+                        .is_none_or(|rect| {
+                            !segment_intersects(rect.expanded(PERSON_RADIUS), start, end)
+                        })
                 });
                 assert_eq!(clearance.is_clear(start, end), original);
             }

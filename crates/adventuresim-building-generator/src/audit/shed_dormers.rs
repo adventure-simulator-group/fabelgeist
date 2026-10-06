@@ -158,21 +158,24 @@ fn seated_head_flashing(
     let midpoint = (edge.start + edge.end) * 0.5;
     let rotation = Quat::from_euler(
         bevy::math::EulerRot::YXZ,
-        solid.yaw_radians,
-        solid.crossfall_radians,
-        solid.longfall_radians,
+        solid.yaw_radians.radians(),
+        solid.crossfall_radians.radians(),
+        solid.longfall_radians.radians(),
     );
     let along = (edge.end - edge.start).normalize();
     let across = Vec3::Y.cross(along).normalize();
-    let local_seam = rotation.inverse() * (midpoint - solid.centre);
+    let local_seam = rotation.inverse() * (midpoint - solid.centre.metres());
     (rotation * Vec3::X).dot(along).abs() > 0.999
-        && (rotation * Vec3::Z * solid.size.z).dot(across).abs() > CONTACT_TOLERANCE_METRES
+        && (rotation * Vec3::Z * solid.size.metres().z)
+            .dot(across)
+            .abs()
+            > CONTACT_TOLERANCE_METRES
         && local_seam
             .abs()
-            .cmple(solid.size * 0.5 + Vec3::splat(0.001))
+            .cmple(solid.size.metres() * 0.5 + Vec3::splat(0.001))
             .all()
-        && solid.centre.distance(midpoint) < CONTACT_TOLERANCE_METRES
-        && (solid.size.x - (edge.end - edge.start).length()).abs() < 0.15
+        && solid.centre.metres().distance(midpoint) < CONTACT_TOLERANCE_METRES
+        && (solid.size.metres().x - (edge.end - edge.start).length()).abs() < 0.15
 }
 
 #[cfg(test)]
@@ -226,24 +229,43 @@ mod tests {
                     }
                 }
                 3 => {
-                    plan.resolved_geometry
+                    let mut native_geometry = plan
+                        .resolved_geometry
                         .solids
                         .iter_mut()
                         .find(|solid| solid.id == head)
                         .unwrap()
                         .centre
-                        .y += 0.5
-                }
-                4 => plan.roof_assemblies[child].enclosure_faces[0]
-                    .polygon
-                    .clear(),
-                _ => {
+                        .metres();
+                    native_geometry.y += 0.5;
                     plan.resolved_geometry
                         .solids
                         .iter_mut()
                         .find(|solid| solid.id == head)
                         .unwrap()
-                        .yaw_radians += std::f32::consts::FRAC_PI_2
+                        .centre =
+                        crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+                }
+                4 => plan.roof_assemblies[child].enclosure_faces[0]
+                    .polygon
+                    .clear(),
+                _ => {
+                    let mut native_geometry = plan
+                        .resolved_geometry
+                        .solids
+                        .iter_mut()
+                        .find(|solid| solid.id == head)
+                        .unwrap()
+                        .yaw_radians
+                        .radians();
+                    native_geometry += std::f32::consts::FRAC_PI_2;
+                    plan.resolved_geometry
+                        .solids
+                        .iter_mut()
+                        .find(|solid| solid.id == head)
+                        .unwrap()
+                        .yaw_radians =
+                        crate::spatial_geometry::Radians::new(native_geometry).unwrap();
                 }
             }
             let mut issues = Vec::new();

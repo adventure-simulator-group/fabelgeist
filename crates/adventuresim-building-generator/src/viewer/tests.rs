@@ -398,7 +398,8 @@ mod tests {
             ProjectedProofKind::Machicolation,
             None,
             SceneSetup::EditorBuilding,
-        );
+        )
+        .unwrap();
         configure_editor_scene(&mut world, &plan, false);
         world.insert_resource(EditorRuntime::new(
             document,
@@ -456,7 +457,7 @@ mod tests {
             .find(|solid| solid.id == first_tread)
             .expect("resolved first timber stair tread");
         assert!(
-            (Vec2::new(first_tread.centre.x, first_tread.centre.z)
+            (Vec2::new(first_tread.centre.metres().x, first_tread.centre.metres().z)
                 - (start + axis * (run_metres / 18.0)))
                 .length()
                 < 0.02,
@@ -473,7 +474,8 @@ mod tests {
             ProjectedProofKind::Machicolation,
             None,
             SceneSetup::EditorBuilding,
-        );
+        )
+        .unwrap();
         let mut programme_names = programme_world.query::<&Name>();
         assert!(
             programme_names
@@ -959,9 +961,9 @@ mod tests {
                 _ => unreachable!(),
             };
             let mesh = arched_spandrel_mesh(
-                solid.size.x.max(solid.size.z),
-                solid.size.y,
-                solid.size.x.min(solid.size.z),
+                solid.size.metres().x.max(solid.size.metres().z),
+                solid.size.metres().y,
+                solid.size.metres().x.min(solid.size.metres().z),
                 rise,
                 radius,
             );
@@ -1000,10 +1002,20 @@ mod tests {
         duplicated.push(duplicated[0].clone());
         assert_ne!(expected, fingerprints(&duplicated));
         let mut moved = plan.resolved_geometry.solids.clone();
-        moved[0].centre.x += 0.05;
+        let mut centre = moved[0].centre.metres();
+        centre.x += 0.05;
+        moved[0].centre =
+            adventuresim_building_generator::spatial_geometry::Position::from_metres(centre)
+                .unwrap();
         assert_ne!(expected, fingerprints(&moved));
         let mut resized = plan.resolved_geometry.solids.clone();
-        resized[0].size.y += 0.05;
+        let mut dimensions = resized[0].size.metres();
+        dimensions.y += 0.05;
+        resized[0].size =
+            adventuresim_building_generator::spatial_geometry::CuboidDimensions::from_metres(
+                dimensions,
+            )
+            .unwrap();
         assert_ne!(expected, fingerprints(&resized));
     }
 

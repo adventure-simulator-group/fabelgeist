@@ -8,7 +8,10 @@ pub(super) struct OpeningObstacles<'a> {
 }
 
 impl<'a> OpeningObstacles<'a> {
-    pub(super) fn new(members: &[crate::TimberFrameMember], solids: &'a [ResolvedSolid]) -> Self {
+    pub(super) fn new(
+        members: &[crate::TimberFrameMember],
+        solids: &'a [ResolvedSolid],
+    ) -> Result<Self, crate::GenerationError> {
         let mut by_id = BTreeMap::new();
         for solid in solids {
             by_id.entry(solid.id).or_insert(solid);
@@ -17,8 +20,13 @@ impl<'a> OpeningObstacles<'a> {
             .iter()
             .filter_map(|member| by_id.get(&member.solid).map(|solid| (member.id, *solid)))
             .collect();
-        let bounds = BoundsIndex::new(members.iter().map(|(_, solid)| solid.cuboid_bounds()));
-        Self { members, bounds }
+        let bounds = BoundsIndex::new(
+            members
+                .iter()
+                .map(|(_, solid)| solid.cuboid_bounds())
+                .collect::<Result<Vec<_>, _>>()?,
+        )?;
+        Ok(Self { members, bounds })
     }
 
     pub(super) fn intersects(
@@ -26,12 +34,12 @@ impl<'a> OpeningObstacles<'a> {
         bounds: (Vec3, Vec3),
         tie: crate::TimberMemberId,
         head: crate::TimberMemberId,
-    ) -> bool {
-        self.bounds
-            .overlapping(ResolvedBounds {
-                min: bounds.0,
-                max: bounds.1,
-            })
+    ) -> Result<bool, crate::GenerationError> {
+        Ok(self
+            .bounds
+            .overlapping(SpatialBounds::<Architectural>::from_metres(
+                bounds.0, bounds.1,
+            )?)
             .into_iter()
             .any(|index| {
                 let (id, solid) = self.members[index];
@@ -42,7 +50,7 @@ impl<'a> OpeningObstacles<'a> {
                         bounds,
                         CONTACT_TOLERANCE_METRES,
                     )
-            })
+            }))
     }
 }
 
@@ -60,7 +68,7 @@ mod tests {
                 let plan = crate::generate(&BuildingProgram::fixture(archetype, seed)).unwrap();
                 let frame = plan.timber_frame.as_ref().unwrap();
                 let solids = &plan.resolved_geometry.solids;
-                let obstacles = OpeningObstacles::new(&frame.members, solids);
+                let obstacles = OpeningObstacles::new(&frame.members, solids).unwrap();
                 let excluded = [frame.members[0].id, frame.members[1].id];
                 let mut contacts = 0;
                 let mut misses = 0;
@@ -71,7 +79,7 @@ mod tests {
                         Vec3::new(1.3, 0.7, -0.4),
                         Vec3::splat(50.0),
                     ] {
-                        let centre = (member.start + member.end) * 0.5 + offset;
+                        let centre = (member.start.metres() + member.end.metres()) * 0.5 + offset;
                         let half = Vec3::new(0.55, 0.5, 0.2);
                         let bounds = (centre - half, centre + half);
                         let exhaustive = frame
@@ -91,7 +99,9 @@ mod tests {
                                     })
                             });
                         assert_eq!(
-                            obstacles.intersects(bounds, excluded[0], excluded[1]),
+                            obstacles
+                                .intersects(bounds, excluded[0], excluded[1])
+                                .unwrap(),
                             exhaustive,
                             "{archetype:?} seed {seed}, candidate {bounds:?}"
                         );

@@ -30,7 +30,7 @@ pub(super) fn stage(
         .map(|(index, kind)| {
             let bay = Vec2::new(100.0, (index as f32 - 2.0) * CATALOG_BAY_SPACING_METRES);
             let key = FurnitureKey::natural(kind.kind(), FurnitureVariant::Compact);
-            let size = key.interior_spec().unwrap().size_metres;
+            let size = key.interior_spec().unwrap().size_metres.metres();
             let width = size.x * FurnitureWoodState::ALL.len() as f32
                 + CATALOG_PAIR_GAP_METRES * (FurnitureWoodState::ALL.len() - 1) as f32;
             for (state_index, state) in FurnitureWoodState::ALL.into_iter().enumerate() {

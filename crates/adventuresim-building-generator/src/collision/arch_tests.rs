@@ -30,21 +30,31 @@ fn diagonal_arch_collision_preserves_its_local_clear_crown() {
     let tangent = rotation * Vec3::X;
     wall.frame.tangent = Vec2::new(tangent.x, tangent.z);
     let mut solid = solid;
-    solid.size.x = 0.8;
-    solid.size.z = 0.8;
-    let sections = collision_parts(&plan, &solid);
+    {
+        let mut native_geometry = solid.size.metres();
+        native_geometry.x = 0.8;
+        solid.size =
+            crate::spatial_geometry::CuboidDimensions::from_metres(native_geometry).unwrap();
+    };
+    {
+        let mut native_geometry = solid.size.metres();
+        native_geometry.z = 0.8;
+        solid.size =
+            crate::spatial_geometry::CuboidDimensions::from_metres(native_geometry).unwrap();
+    };
+    let sections = collision_parts(&plan, &solid).unwrap();
     assert!(sections.len() > 1);
-    let clear = solid.centre - Vec3::Y * 0.1;
+    let clear = solid.centre.metres() - Vec3::Y * 0.1;
     assert!(!sections.iter().any(|section| {
-        let inverse = bevy::math::Quat::from_rotation_y(-section.yaw_radians);
-        (inverse * (clear - section.centre))
+        let inverse = bevy::math::Quat::from_rotation_y(-section.yaw_radians.radians());
+        (inverse * (clear - section.centre.metres()))
             .abs()
-            .cmplt(section.size * 0.5)
+            .cmplt(section.size.metres() * 0.5)
             .all()
     }));
     assert!(
         sections
             .iter()
-            .all(|section| section.yaw_radians.abs() > 0.1)
+            .all(|section| section.yaw_radians.radians().abs() > 0.1)
     );
 }

@@ -1719,7 +1719,7 @@ fn setup_scene(
     mut images: ResMut<Assets<Image>>,
     procedural_assets: Res<ProceduralTextureAssets>,
     mut understory_cache: ResMut<WoodyUnderstoryPresentationCache>,
-) {
+) -> Result {
     let setup = setup.0.take().expect("scene setup runs exactly once");
     let SceneSetupData {
         input,
@@ -1785,32 +1785,34 @@ fn setup_scene(
         &terrain,
         &profile,
         &output,
-    );
-    let building_interior_cameras = interior_furniture_capture::setup_rooms(
+    )?;
+    let building_interior_cameras = match interior_furniture_capture::setup_rooms(
         &mut commands,
         &buildings,
         &furniture,
         &profile,
         &output,
-    )
-    .unwrap_or_else(|| interior_capture::capture_cameras(&buildings, &profile));
-    let city_exterior_cameras = building_review::setup(
+    )? {
+        Some(cameras) => cameras,
+        None => interior_capture::capture_cameras(&buildings, &profile)?,
+    };
+    let city_exterior_cameras = match building_review::setup(
         &mut commands,
         &buildings,
         boundaries.len(),
         &input_path,
         &output,
         &profile,
-    )
-    .unwrap_or_else(|| {
-        city_capture::capture_cameras(
+    )? {
+        Some(cameras) => cameras,
+        None => city_capture::capture_cameras(
             &buildings,
             &distant_buildings,
             &input.streets,
             &terrain,
             &profile,
-        )
-    });
+        )?,
+    };
     let city_exterior_cameras = furniture_capture::setup(
         &mut commands,
         &furniture,
@@ -1819,12 +1821,12 @@ fn setup_scene(
         &output,
         &mut meshes,
         &mut materials,
-    )
+    )?
     .unwrap_or(city_exterior_cameras);
     let city_exterior_cameras = catalog_cameras.unwrap_or(city_exterior_cameras);
-    furniture_capture::spawn(&mut commands, &furniture);
-    spawn_tactical_buildings(&mut commands, buildings);
-    buildings::spawn_boundaries(&mut commands, boundaries);
+    furniture_capture::spawn(&mut commands, &furniture)?;
+    spawn_tactical_buildings(&mut commands, buildings)?;
+    buildings::spawn_boundaries(&mut commands, boundaries)?;
     for garden in gardens {
         commands.spawn((garden, Transform::default()));
     }
@@ -2220,6 +2222,7 @@ fn setup_scene(
     if let Some(sample_frames) = scene_performance_benchmark_frames {
         commands.insert_resource(ScenePerformanceBenchmarkState::new(sample_frames));
     }
+    Ok(())
 }
 
 fn vista_metrics(input: &TacticalSceneInput) -> (f32, f32, f32, Vec3, Vec3) {

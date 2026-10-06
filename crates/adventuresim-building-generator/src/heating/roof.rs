@@ -35,16 +35,25 @@ impl PenetrationFootprint {
     }
 }
 
-pub(super) fn penetrate(a: &mut Assembly<'_>, roofs: &mut [RoofAssembly]) {
-    let roof = roofs.iter_mut().find(|r| r.id == a.plan.roof.roof).unwrap();
+pub(super) fn penetrate(
+    a: &mut Assembly<'_>,
+    roofs: &mut [RoofAssembly],
+) -> Result<(), crate::GenerationError> {
+    let roof = roofs.iter_mut().find(|r| r.id == a.plan.roof.roof).ok_or(
+        HeatingConstructionError::MissingRoof {
+            roof: a.plan.roof.roof,
+        },
+    )?;
     let face = roof
         .faces
         .iter_mut()
         .find(|f| f.id == a.plan.roof.face)
-        .unwrap();
-    let shaft = a.placement.shaft(0.0);
-    let inner_min = Vec2::new(shaft.min.x, shaft.min.z);
-    let inner_max = Vec2::new(shaft.max.x, shaft.max.z);
+        .ok_or(HeatingConstructionError::MissingFace {
+            face: a.plan.roof.face,
+        })?;
+    let shaft = a.placement.shaft_section()?;
+    let inner_min = Vec2::new(shaft.min().metres().x, shaft.min().metres().z);
+    let inner_max = Vec2::new(shaft.max().metres().x, shaft.max().metres().z);
     // The inward skin is translated along the normal. Include that translation
     // in the weather cut, so its entire extruded hole clears the vertical shaft.
     let footprint = PenetrationFootprint::new(face, (inner_min + inner_max) * 0.5);
@@ -85,7 +94,7 @@ pub(super) fn penetrate(a: &mut Assembly<'_>, roofs: &mut [RoofAssembly]) {
         } else {
             lower.y = inner_max.y - WEATHER_OVERLAP_METRES;
         }
-        let flashing = sheet(a, face, lower, upper, (inner_min + inner_max) * 0.5);
+        let flashing = sheet(a, face, lower, upper, (inner_min + inner_max) * 0.5)?;
         roof.edges.push(RoofEdge {
             id: edge,
             start,
@@ -98,7 +107,9 @@ pub(super) fn penetrate(a: &mut Assembly<'_>, roofs: &mut [RoofAssembly]) {
         a.plan.roof.edges.push(edge);
         a.plan.roof.flashing.push(flashing);
     }
-    super::weathering::build(a, face, inner_min, inner_max);
+    super::weathering::build(a, face, inner_min, inner_max)?;
+
+    Ok(())
 }
 fn sheet(
     a: &mut Assembly<'_>,
@@ -106,7 +117,7 @@ fn sheet(
     min: Vec2,
     max: Vec2,
     shaft_centre: Vec2,
-) -> ResolvedItemId {
+) -> Result<ResolvedItemId, crate::GenerationError> {
     let roof_normal = face.plane.normal.normalize();
     let downhill = Vec3::new(roof_normal.x, 0.0, roof_normal.z).normalize();
     let normal = (roof_normal - downhill * roof_normal.y * PAN_FALL_ADJUSTMENT).normalize();

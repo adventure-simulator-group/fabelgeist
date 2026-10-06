@@ -188,25 +188,22 @@ impl UrbanGroundSurfaces {
         streets: &[CityStreetPatch],
         yards: &[CityYardPatch],
         buildings: &[GeneratedBuilding],
-    ) -> Self {
+    ) -> Result<Self, adventuresim_building_generator::spatial_geometry::GeometryError> {
         let buildings = buildings
             .iter()
-            .map(|building| CityPlotBounds {
+            .map(|building| Ok(CityPlotBounds {
                 centre_metres: building.placement.centre_metres,
-                dimensions_metres: building.collision.bounds.plan_half_extents() * 2.0,
+                dimensions_metres: building.collision.bounds.plan_half_extents()?.metres() * 2.0,
                 orientation: building.placement.orientation,
-            })
-            .collect::<Vec<_>>();
-        let lookup = OnceLock::new();
-        lookup
-            .set(UrbanGroundLookup::new(streets, yards, &buildings))
-            .expect("new urban ground lookup is empty");
-        Self {
+            }))
+            .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
+        let lookup = OnceLock::from(UrbanGroundLookup::new(streets, yards, &buildings));
+        Ok(Self {
             streets: streets.to_vec(),
             yards: yards.to_vec(),
             buildings,
             lookup,
-        }
+        })
     }
 
     pub fn surface_at(&self, position: Vec2) -> Option<GroundSurface> {

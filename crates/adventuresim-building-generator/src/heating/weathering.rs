@@ -10,13 +10,18 @@ const COUNTERFLASHING_OVERHANG_METRES: f32 = 0.016;
 const COUNTERFLASHING_DROP_METRES: f32 = 0.08;
 const FOOT_LAP_METRES: f32 = 0.02;
 
-pub(super) fn build(a: &mut Assembly<'_>, face: &RoofFace, min: Vec2, max: Vec2) {
+pub(super) fn build(
+    a: &mut Assembly<'_>,
+    face: &RoofFace,
+    min: Vec2,
+    max: Vec2,
+) -> Result<(), crate::GenerationError> {
     let top = [min, Vec2::new(min.x, max.y), max, Vec2::new(max.x, min.y)]
         .map(|p| roof_height(face, p))
         .into_iter()
         .fold(f32::NEG_INFINITY, f32::max)
         + UPSTAND_HEIGHT_METRES;
-    for (start, end, outward) in [
+    let _: () = for (start, end, outward) in [
         (min, Vec2::new(min.x, max.y), -Vec2::X),
         (Vec2::new(max.x, min.y), max, Vec2::X),
         (min, Vec2::new(max.x, min.y), -Vec2::Y),
@@ -30,7 +35,7 @@ pub(super) fn build(a: &mut Assembly<'_>, face: &RoofFace, min: Vec2, max: Vec2)
             outward,
             [-SHEET_THICKNESS_METRES, SHEET_THICKNESS_METRES],
             [low - FOOT_LAP_METRES, top],
-        );
+        )?;
         strip(
             a,
             HeatingPartKind::RoofCounterFlashing,
@@ -38,7 +43,7 @@ pub(super) fn build(a: &mut Assembly<'_>, face: &RoofFace, min: Vec2, max: Vec2)
             outward,
             [-MASONRY_EMBED_METRES, COUNTERFLASHING_OVERHANG_METRES],
             [top, top + SHEET_THICKNESS_METRES],
-        );
+        )?;
         strip(
             a,
             HeatingPartKind::RoofCounterFlashing,
@@ -49,8 +54,9 @@ pub(super) fn build(a: &mut Assembly<'_>, face: &RoofFace, min: Vec2, max: Vec2)
                 top - COUNTERFLASHING_DROP_METRES,
                 top + SHEET_THICKNESS_METRES,
             ],
-        );
-    }
+        )?;
+    };
+    Ok(())
 }
 
 fn strip(
@@ -60,7 +66,7 @@ fn strip(
     outward: Vec2,
     depth: [f32; 2],
     height: [f32; 2],
-) {
+) -> Result<(), crate::GenerationError> {
     let tangent = (ends[1] - ends[0]).normalize();
     let p = ends[0] + outward * depth[0] - tangent * SHEET_THICKNESS_METRES;
     let q = ends[1] + outward * depth[1] + tangent * SHEET_THICKNESS_METRES;
@@ -69,9 +75,11 @@ fn strip(
     a.absolute_part(
         kind,
         BuildingLodMaterial::LeadAlloy,
-        ResolvedBounds {
-            min: Vec3::new(min.x, height[0], min.y),
-            max: Vec3::new(max.x, height[1], max.y),
-        },
-    );
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(min.x, height[0], min.y),
+            Vec3::new(max.x, height[1], max.y),
+        )?,
+    )?;
+
+    Ok(())
 }

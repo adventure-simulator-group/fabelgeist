@@ -39,7 +39,7 @@ fn grounded_programme_preserves_roof_members_and_reaches_real_rooms() {
                     .iter()
                     .all(|s| s.role != SolidRole::DomesticHeating)
             );
-            assert!(audit_plan(&heated).is_empty());
+            assert!(audit_plan(&heated).unwrap().is_empty());
         }
     }
 }
@@ -55,6 +55,7 @@ fn smoke_and_weather_mutations_fail_closed() {
         .pop();
     assert!(
         audit_plan(&missing_route)
+            .unwrap()
             .iter()
             .any(|i| i.code == "incomplete_domestic_smoke_route")
     );
@@ -81,11 +82,16 @@ fn smoke_and_weather_mutations_fail_closed() {
         .unwrap()
         .clone();
     plug.id = ResolvedItemId(u64::MAX - 1);
-    plug.centre = (bore.min + bore.max) * 0.5;
-    plug.size = Vec3::new(0.1, 0.1, 0.1);
+    plug.centre = crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+        (bore.min().metres() + bore.max().metres()) * 0.5,
+    )
+    .unwrap();
+    plug.size =
+        crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(0.1, 0.1, 0.1)).unwrap();
     blocked.resolved_geometry.solids.push(plug);
     assert!(
         audit_plan(&blocked)
+            .unwrap()
             .iter()
             .any(|i| i.code == "blocked_domestic_smoke_route")
     );
@@ -100,6 +106,7 @@ fn smoke_and_weather_mutations_fail_closed() {
     face.cutouts.remove(h.roof.cutout_index);
     assert!(
         audit_plan(&roof_blocked)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_heating_roof_penetration")
     );
@@ -107,6 +114,7 @@ fn smoke_and_weather_mutations_fail_closed() {
     orphan.domestic_heating = None;
     assert!(
         audit_plan(&orphan)
+            .unwrap()
             .iter()
             .any(|i| i.code == "unowned_domestic_heating")
     );
@@ -114,7 +122,7 @@ fn smoke_and_weather_mutations_fail_closed() {
 #[test]
 fn collision_and_both_lods_retain_the_canonical_stack() {
     let plan = fixture(BuildingArchetype::FachwerkCottage, 42);
-    let collision = compile_building_collision(&plan);
+    let collision = compile_building_collision(&plan).unwrap();
     for part in &plan.domestic_heating.as_ref().unwrap().parts {
         assert!(collision.cuboids.iter().any(|c| c.source == part.solid));
         if !matches!(
@@ -132,9 +140,9 @@ fn collision_and_both_lods_retain_the_canonical_stack() {
             .iter()
             .find(|s| s.id == part.solid)
             .unwrap();
-        let detail = compile_solid_detail(&plan, solid);
+        let detail = compile_solid_detail(&plan, solid).unwrap();
         for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
-            let lod = compile_building_lod(&plan, level);
+            let lod = compile_building_lod(&plan, level).unwrap();
             for vertex in detail.meshes.iter().flat_map(|m| &m.vertices) {
                 assert!(
                     lod.meshes
@@ -176,20 +184,32 @@ fn folded_weathering_requires_every_return_and_downstream_lap() {
             .retain(|p| p.solid != part.solid);
         assert!(
             audit(&missing)
+                .unwrap()
                 .iter()
                 .any(|i| i.code == "invalid_heating_roof_penetration")
         );
         let mut shifted = original.clone();
-        shifted
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|s| s.id == part.solid)
-            .unwrap()
-            .centre
-            .y += 0.05;
+        {
+            let mut native_geometry = shifted
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == part.solid)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry.y += 0.05;
+            shifted
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == part.solid)
+                .unwrap()
+                .centre = crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+        };
         assert!(
             audit(&shifted)
+                .unwrap()
                 .iter()
                 .any(|i| i.code == "invalid_heating_roof_penetration")
         );
@@ -210,12 +230,17 @@ fn folded_weathering_requires_every_return_and_downstream_lap() {
             .iter_mut()
             .find(|s| s.id == *id)
             .unwrap();
-        let distance = (face.plane.normal.dot(sheet.centre) + face.plane.constant)
+        let distance = (face.plane.normal.dot(sheet.centre.metres()) + face.plane.constant)
             / face.plane.normal.length();
-        sheet.centre -= normal * distance * 2.0;
+        {
+            let mut native_geometry = sheet.centre.metres();
+            native_geometry -= normal * distance * 2.0;
+            sheet.centre = crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+        };
     }
     assert!(
         audit(&inverted)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_heating_roof_penetration")
     );
@@ -271,7 +296,7 @@ fn missing_appliance_material_and_displaced_weathering_are_rejected() {
             wall.host_solids.retain(|id| *id != part.solid);
         }
         assert!(
-            audit(&missing).iter().any(|i| matches!(
+            audit(&missing).unwrap().iter().any(|i| matches!(
                 i.code,
                 "open_domestic_appliance" | "incomplete_domestic_fire_wall"
             )),
@@ -282,14 +307,25 @@ fn missing_appliance_material_and_displaced_weathering_are_rejected() {
     for displacement in [Vec3::X * 0.1, Vec3::Y * 0.12] {
         let mut shifted = original.clone();
         let id = shifted.domestic_heating.as_ref().unwrap().roof.flashing[0];
-        shifted
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|s| s.id == id)
-            .unwrap()
-            .centre += displacement;
-        let issues = audit(&shifted);
+        {
+            let mut native_geometry = shifted
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == id)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry += displacement;
+            shifted
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == id)
+                .unwrap()
+                .centre = crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+        };
+        let issues = audit(&shifted).unwrap();
         assert!(
             issues
                 .iter()
@@ -310,6 +346,7 @@ fn missing_appliance_material_and_displaced_weathering_are_rejected() {
     cut[1].x -= 0.1;
     assert!(
         audit(&enlarged)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_heating_roof_penetration")
     );
@@ -364,14 +401,26 @@ fn rotated_masonry_and_tilted_flashing_do_not_count_as_sealed_material() {
             .find(|p| p.kind == kind)
             .unwrap()
             .solid;
-        changed
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|s| s.id == id)
-            .unwrap()
-            .crossfall_radians += 0.1;
-        assert!(audit(&changed).iter().any(|i| matches!(
+        {
+            let mut native_geometry = changed
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == id)
+                .unwrap()
+                .crossfall_radians
+                .radians();
+            native_geometry += 0.1;
+            changed
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == id)
+                .unwrap()
+                .crossfall_radians =
+                crate::spatial_geometry::Radians::new(native_geometry).unwrap();
+        };
+        assert!(audit(&changed).unwrap().iter().any(|i| matches!(
             i.code,
             "invalid_domestic_appliance_shape" | "invalid_heating_roof_penetration"
         )));

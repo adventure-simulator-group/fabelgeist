@@ -28,10 +28,10 @@ fn principal_parish_has_a_distinct_supported_programme_in_every_representation()
         let church = plan.church.as_ref().unwrap();
         assert_eq!(church.program, ChurchProgram::URBAN_BRICK_BASILICA);
         assert_eq!(program.frontage_direction(), Direction::West);
-        let collision = compile_building_collision(&plan);
-        let origin = collision.bounds.centre();
+        let collision = compile_building_collision(&plan).unwrap();
+        let origin = collision.bounds.centre().unwrap().metres();
         let half = program.plot_dimensions_metres() * 0.5;
-        let detail = compile_building_detail(&plan);
+        let detail = compile_building_detail(&plan).unwrap();
         for mesh in &detail.meshes {
             for vertex in &mesh.vertices {
                 let p = vertex.position - origin;
@@ -43,7 +43,7 @@ fn principal_parish_has_a_distinct_supported_programme_in_every_representation()
             }
         }
         for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
-            let lod = compile_building_lod(&plan, level);
+            let lod = compile_building_lod(&plan, level).unwrap();
             let highest = lod
                 .meshes
                 .iter()
@@ -109,6 +109,7 @@ fn principal_programme_rejects_missing_or_corrupt_authority() {
     plan.church = None;
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|i| i.code == "missing_church_program")
     );
@@ -125,6 +126,7 @@ fn principal_tower_rejects_missing_bearing_and_landing() {
         .retain(|node| node.id != tower.stair_bearing_node);
     assert!(
         audit_plan(&no_bearing)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_church_circulation")
     );
@@ -135,6 +137,7 @@ fn principal_tower_rejects_missing_bearing_and_landing() {
         .retain(|solid| solid.id != tower.landing_solids[0]);
     assert!(
         audit_plan(&no_landing)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_church_circulation")
     );
@@ -151,10 +154,16 @@ fn principal_tower_rejects_missing_bearing_and_landing() {
         .iter_mut()
         .find(|v| v.id == portal_void)
         .unwrap();
-    aperture.bounds.min.z += 1.0;
-    aperture.bounds.max.z += 1.0;
+    {
+        let mut native_min = aperture.bounds.min().metres();
+        let mut native_max = aperture.bounds.max().metres();
+        native_min.z += 1.0;
+        native_max.z += 1.0;
+        aperture.bounds = crate::SpatialBounds::from_metres(native_min, native_max).unwrap();
+    };
     assert!(
         audit_plan(&shifted_portal)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_church_circulation")
     );

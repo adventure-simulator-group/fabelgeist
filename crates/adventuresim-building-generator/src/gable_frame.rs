@@ -34,20 +34,23 @@ pub(crate) fn members<'a>(
         .iter()
         .filter(|member| {
             member.role == TimberMemberRole::GableTie
-                && (member.start.y - base).abs() < FRAME_PLANE_TOLERANCE_METRES
-                && (member.end.y - base).abs() < FRAME_PLANE_TOLERANCE_METRES
-                && (member.start - member.end).dot(outward).abs() < FRAME_PLANE_TOLERANCE_METRES
-                && (member.start.dot(outward) - plane).abs() < GABLE_WALL_BUILDUP_METRES
+                && (member.start.metres().y - base).abs() < FRAME_PLANE_TOLERANCE_METRES
+                && (member.end.metres().y - base).abs() < FRAME_PLANE_TOLERANCE_METRES
+                && (member.start.metres() - member.end.metres())
+                    .dot(outward)
+                    .abs()
+                    < FRAME_PLANE_TOLERANCE_METRES
+                && (member.start.metres().dot(outward) - plane).abs() < GABLE_WALL_BUILDUP_METRES
         })
         .min_by(|a, b| {
-            (a.start.dot(outward) - plane)
+            (a.start.metres().dot(outward) - plane)
                 .abs()
-                .total_cmp(&(b.start.dot(outward) - plane).abs())
+                .total_cmp(&(b.start.metres().dot(outward) - plane).abs())
         });
     let Some(tie) = tie else {
         return Vec::new();
     };
-    let frame_plane = tie.start.dot(outward);
+    let frame_plane = tie.start.metres().dot(outward);
     frame
         .members
         .iter()
@@ -59,10 +62,12 @@ pub(crate) fn members<'a>(
                     | TimberMemberRole::Rafter
                     | TimberMemberRole::Collar
                     | TimberMemberRole::Rail
-            ) && (member.start.dot(outward) - frame_plane).abs() < FRAME_PLANE_TOLERANCE_METRES
-                && (member.end.dot(outward) - frame_plane).abs() < FRAME_PLANE_TOLERANCE_METRES
-                && member.start.y >= base - FRAME_PLANE_TOLERANCE_METRES
-                && member.end.y >= base - FRAME_PLANE_TOLERANCE_METRES
+            ) && (member.start.metres().dot(outward) - frame_plane).abs()
+                < FRAME_PLANE_TOLERANCE_METRES
+                && (member.end.metres().dot(outward) - frame_plane).abs()
+                    < FRAME_PLANE_TOLERANCE_METRES
+                && member.start.metres().y >= base - FRAME_PLANE_TOLERANCE_METRES
+                && member.end.metres().y >= base - FRAME_PLANE_TOLERANCE_METRES
         })
         .collect()
 }
@@ -87,8 +92,8 @@ mod tests {
                 for face in &roof.enclosure_faces {
                     let outward = normal(face);
                     for member in members(face, frame) {
-                        let reveal = member.start.dot(outward)
-                            + member.section_metres.min_element() * 0.5
+                        let reveal = member.start.metres().dot(outward)
+                            + member.section_metres.metres().min_element() * 0.5
                             - face.polygon[0].dot(outward);
                         assert!((0.007..=0.05).contains(&reveal), "{archetype:?}: {reveal}");
                         checked += 1;

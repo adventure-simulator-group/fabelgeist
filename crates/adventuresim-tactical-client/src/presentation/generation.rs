@@ -109,7 +109,8 @@ pub(crate) fn take_scene(input: &TacticalSceneInput) -> Result<GeneratedTactical
             .ok_or("interior generation was not completed before installation")?;
         scene
             .furniture
-            .install_interior(building, venue.interior.clone());
+            .install_interior(building, venue.interior.clone())
+            .map_err(|cause| cause.to_string())?;
     }
     Ok(scene)
 }

@@ -83,7 +83,7 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
             .unwrap();
         assert_eq!(rear.program.archetype, BuildingArchetype::StorageRange);
         assert_eq!(rear.program.usage, None);
-        let gate = compound.boundary.gate.door(compound.id);
+        let gate = compound.boundary.gate.door(compound.id).unwrap();
         assert!(gate.opening.0 > u64::from(u32::MAX));
     }
     let partition = compiled.clone().partition(None).unwrap();

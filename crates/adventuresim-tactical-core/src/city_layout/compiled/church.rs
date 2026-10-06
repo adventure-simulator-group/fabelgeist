@@ -26,8 +26,9 @@ pub(super) fn validate(
         return Err(error(ChurchSitingIssue::GeometryOutsidePlot));
     }
     let door = recipe
-        .door_point(placement, -Vec2::X)
-        .ok_or(error(ChurchSitingIssue::MissingWestPortal))?;
+        .door_point(placement, adventuresim_building_generator::Direction::West)?
+        .ok_or(error(ChurchSitingIssue::MissingWestPortal))?
+        .metres();
     let local_door = lot.orientation.world_to_local(door - lot.centre_metres);
     let apron = services::SERVICE_EDGE_CLEARANCE_METRES - ORDINARY_STREET_HALF_WIDTH_METRES;
     let street = lot.centre_metres
@@ -38,7 +39,7 @@ pub(super) fn validate(
     if !plot.contains(door) || !streets.iter().any(|patch| patch.contains(street)) {
         return Err(error(ChurchSitingIssue::StreetDisconnected));
     }
-    let origin = recipe.collision.bounds.centre();
+    let origin = recipe.collision.bounds.centre()?.metres();
     let physical = |p| {
         placement
             .orientation
@@ -47,8 +48,11 @@ pub(super) fn validate(
     };
     // Door leaves are dynamic and excluded from static building collision.
     // This continuous body sweep includes the portal throat and its outer path.
-    if !StandingClearance::new(&recipe.collision.cuboids, 0.0)
-        .is_clear(physical(door), physical(street))
+    if !StandingClearance::new(
+        &recipe.collision.cuboids,
+        adventuresim_building_generator::spatial_geometry::Elevation::from_metres(0.0)?,
+    )?
+    .is_clear(physical(door), physical(street))
     {
         return Err(error(ChurchSitingIssue::ApproachBlocked));
     }
@@ -87,7 +91,9 @@ mod tests {
                 half_width_metres: ORDINARY_STREET_HALF_WIDTH_METRES,
                 surface: CityStreetSurface::Fieldstone,
             };
-            let placement = recipe.place(lot.id, lot.centre_metres, lot.orientation);
+            let placement = recipe
+                .place(lot.id, lot.centre_metres, lot.orientation)
+                .unwrap();
             validate(lot, &placement, &recipe, &[street]).unwrap();
             assert_eq!(
                 validate(lot, &placement, &recipe, &[]),
@@ -118,16 +124,9 @@ mod tests {
             let door = blocked
                 .doors
                 .iter()
-                .find(|d| d.outward == -Vec2::X)
+                .find(|d| d.outward.vector() == -Vec2::X)
                 .unwrap();
-            blocked.collision.cuboids.push(CollisionCuboid {
-                source: ResolvedItemId(999_000),
-                centre: Vec3::new(door.closed_centre.x - 1.0, 1.0, door.closed_centre.z),
-                size: Vec3::new(0.2, 2.0, 3.0),
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-            });
+            blocked.collision.cuboids.push(CollisionCuboid::<adventuresim_building_generator::spatial_geometry::Architectural>::from_metres(ResolvedItemId(999_000), Vec3::new(door.closed_centre.metres().x - 1.0, 1.0, door.closed_centre.metres().z), Vec3::new(0.2, 2.0, 3.0), 0.0, 0.0, 0.0).unwrap());
             assert_eq!(
                 validate(lot, &placement, &blocked, &[street]),
                 Err(CityCompileError::Church {

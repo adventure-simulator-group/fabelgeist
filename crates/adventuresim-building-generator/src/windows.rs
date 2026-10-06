@@ -129,9 +129,10 @@ fn window_from_solid(
     if tangent == Vec2::ZERO || outward == Vec2::ZERO {
         return None;
     }
-    let width = tangent.x.abs() * solid.size.x + tangent.y.abs() * solid.size.z;
-    let thickness = outward.x.abs() * solid.size.x + outward.y.abs() * solid.size.z;
-    let hinge_centre = solid.centre - Vec3::new(tangent.x, 0.0, tangent.y) * width * 0.5;
+    let width = tangent.x.abs() * solid.size.metres().x + tangent.y.abs() * solid.size.metres().z;
+    let thickness =
+        outward.x.abs() * solid.size.metres().x + outward.y.abs() * solid.size.metres().z;
+    let hinge_centre = solid.centre.metres() - Vec3::new(tangent.x, 0.0, tangent.y) * width * 0.5;
     let positive_swing = Quat::from_rotation_y(0.01) * Vec3::new(tangent.x, 0.0, tangent.y);
     let enters_room = Vec2::new(positive_swing.x, positive_swing.z).dot(-outward) > 0.0;
     Some(WindowSpec {
@@ -142,9 +143,9 @@ fn window_from_solid(
         },
         opening,
         source: solid.id,
-        closed_centre: solid.centre,
+        closed_centre: solid.centre.metres(),
         hinge_centre,
-        size_metres: Vec3::new(width, solid.size.y, thickness.max(0.025)),
+        size_metres: Vec3::new(width, solid.size.metres().y, thickness.max(0.025)),
         closed_yaw_radians: -tangent.y.atan2(tangent.x),
         tangent,
         outward,

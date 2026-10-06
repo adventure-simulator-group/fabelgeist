@@ -10,8 +10,8 @@ use bevy::math::{Quat, Vec2, Vec3};
 
 use crate::{
     BuildingLodMaterial, BuildingPlan, LodMesh, ResolvedSolid, ResolvedSolidShape, RoofMaterial,
-    RoofSurface, SolidRole, WallMaterialClass, WallStyle, compile_operable_doors,
-    compile_operable_windows, compile_window_bars, tessellate_roof_enclosure, tessellate_roof_face,
+    RoofSurface, SolidRole, WallMaterialClass, WallStyle, compile_operable_windows,
+    compile_window_bars, tessellate_roof_enclosure, tessellate_roof_face,
 };
 
 /// Physical metres represented by one unit in exact-detail mesh UV space.
@@ -59,25 +59,40 @@ impl BuildingDetail {
         {
             return &mut self.meshes[index];
         }
+        let index = self.meshes.len();
         self.meshes.push(LodMesh::new(material));
-        self.meshes.last_mut().expect("mesh was just inserted")
+        &mut self.meshes[index]
     }
 }
 
 /// Compiles the authoritative high-detail representation used in playable space.
-pub fn compile_building_detail(plan: &BuildingPlan) -> BuildingDetail {
+pub fn compile_building_detail(
+    plan: &BuildingPlan,
+) -> Result<BuildingDetail, crate::GenerationError> {
     compile_detail(plan, &BTreeSet::new())
 }
 
 /// Compiles high detail while reserving operable exterior leaves for dynamic entities.
-pub fn compile_static_building_detail(plan: &BuildingPlan) -> BuildingDetail {
+pub fn compile_static_building_detail(
+    plan: &BuildingPlan,
+) -> Result<BuildingDetail, crate::GenerationError> {
     compile_detail(plan, &dynamic_closure_solids(plan))
 }
 
 pub(crate) fn dynamic_closure_solids(plan: &BuildingPlan) -> BTreeSet<crate::ResolvedItemId> {
-    compile_operable_doors(plan)
-        .into_iter()
-        .map(|door| door.source)
+    crate::doors::operable_openings(plan)
+        .filter_map(|opening| {
+            opening
+                .closure_solids
+                .iter()
+                .find(|id| {
+                    plan.resolved_geometry
+                        .solids
+                        .iter()
+                        .any(|solid| solid.id == **id)
+                })
+                .copied()
+        })
         .chain(
             compile_operable_windows(plan)
                 .into_iter()
@@ -87,7 +102,10 @@ pub(crate) fn dynamic_closure_solids(plan: &BuildingPlan) -> BTreeSet<crate::Res
 }
 
 /// One canonical architectural solid, shared by exact detail and facade LODs.
-pub fn compile_solid_detail(plan: &BuildingPlan, solid: &ResolvedSolid) -> BuildingDetail {
+pub fn compile_solid_detail(
+    plan: &BuildingPlan,
+    solid: &ResolvedSolid,
+) -> Result<BuildingDetail, crate::GenerationError> {
     SolidDetailCompiler::new(plan).compile(solid)
 }
 
@@ -107,7 +125,7 @@ pub(crate) fn compile_bar_detail(bar: &crate::WindowBarSpec) -> BuildingDetail {
 fn compile_detail(
     plan: &BuildingPlan,
     excluded_solids: &BTreeSet<crate::ResolvedItemId>,
-) -> BuildingDetail {
+) -> Result<BuildingDetail, crate::GenerationError> {
     let mut detail = BuildingDetail { meshes: Vec::new() };
     let compiler = SolidDetailCompiler::new(plan);
 
@@ -115,7 +133,7 @@ fn compile_detail(
         if excluded_solids.contains(&solid.id) {
             continue;
         }
-        compiler.append(&mut detail, solid);
+        compiler.append(&mut detail, solid)?;
     }
     for bar in compile_window_bars(plan) {
         append_cuboid_faces(
@@ -135,7 +153,7 @@ fn compile_detail(
     for mesh in &mut detail.meshes {
         mesh.remap_vertices();
     }
-    detail
+    Ok(detail)
 }
 
 fn append_roofs(detail: &mut BuildingDetail, plan: &BuildingPlan) {
@@ -168,7 +186,10 @@ fn roof_surface_material(exterior: RoofMaterial, surface: RoofSurface) -> Buildi
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{BuildingArchetype, BuildingProgram, CELL_SIZE_METRES, Direction, generate};
+    use crate::{
+        BuildingArchetype, BuildingProgram, CELL_SIZE_METRES, Direction, compile_operable_doors,
+        generate,
+    };
 
     #[derive(Clone, Copy)]
     struct AuditTriangle {
@@ -273,7 +294,7 @@ mod tests {
             42,
         ))
         .unwrap();
-        let detail = compile_building_detail(&plan);
+        let detail = compile_building_detail(&plan).unwrap();
 
         assert!(detail.meshes.iter().any(|mesh| {
             matches!(
@@ -355,7 +376,7 @@ mod tests {
                     let wall_top = wall.base_elevation_metres + wall.height_metres;
                     let maximum_solid_top = solids
                         .iter()
-                        .map(|solid| solid.centre.y + solid.size.y * 0.5)
+                        .map(|solid| solid.centre.metres().y + solid.size.metres().y * 0.5)
                         .fold(f32::NEG_INFINITY, f32::max);
                     assert!(
                         (maximum_solid_top - wall_top).abs() <= 0.001,
@@ -375,9 +396,9 @@ mod tests {
                                 .filter(|solid| { solid.role == SolidRole::FrameInfill })
                                 .all(|solid| {
                                     let depth = if wall.frame.tangent.x.abs() > 0.5 {
-                                        solid.size.z
+                                        solid.size.metres().z
                                     } else {
-                                        solid.size.x
+                                        solid.size.metres().x
                                     };
                                     depth < wall.thickness_metres
                                 })
@@ -425,7 +446,8 @@ mod tests {
                         let endpoint = source.centre() + tangent * sign * CELL_SIZE_METRES * 0.5;
                         let has_post = plan.resolved_geometry.solids.iter().any(|solid| {
                             solid.role == SolidRole::FramePost
-                                && Vec2::new(solid.centre.x, solid.centre.z).distance(endpoint)
+                                && Vec2::new(solid.centre.metres().x, solid.centre.metres().z)
+                                    .distance(endpoint)
                                     <= 0.001
                         });
                         let has_perpendicular_or_exterior = storey.walls.iter().any(|other| {
@@ -496,11 +518,11 @@ mod tests {
     #[test]
     fn static_playable_detail_reserves_operable_leaves_for_dynamic_entities() {
         let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
-        let operable_doors = compile_operable_doors(&plan);
+        let operable_doors = compile_operable_doors(&plan).unwrap();
         let operable_windows = compile_operable_windows(&plan);
         assert!(!operable_windows.is_empty());
-        let self_contained = compile_building_detail(&plan);
-        let static_detail = compile_static_building_detail(&plan);
+        let self_contained = compile_building_detail(&plan).unwrap();
+        let static_detail = compile_static_building_detail(&plan).unwrap();
         let triangle_count = |detail: &BuildingDetail| {
             detail
                 .meshes
@@ -519,6 +541,7 @@ mod tests {
                         window.leaf,
                         crate::ClosureState::Operable
                     )
+                    .unwrap()
                     .iter()
                     .map(|mesh| mesh.indices.len() / 3)
                     .sum::<usize>())
@@ -550,7 +573,7 @@ mod tests {
             42,
         ))
         .unwrap();
-        let detail = compile_building_detail(&plan);
+        let detail = compile_building_detail(&plan).unwrap();
         let expected_cuboids = plan
             .resolved_geometry
             .solids
@@ -584,7 +607,7 @@ mod tests {
             BuildingArchetype::FachwerkMerchantHouse,
         ] {
             let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
-            let detail = compile_building_detail(&plan);
+            let detail = compile_building_detail(&plan).unwrap();
             assert_eq!(
                 coplanar_overlap_count(&detail),
                 0,
@@ -602,7 +625,7 @@ mod tests {
             BuildingArchetype::FachwerkMerchantHouse,
         ] {
             let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
-            let detail = compile_building_detail(&plan);
+            let detail = compile_building_detail(&plan).unwrap();
             for mesh in detail.meshes.iter().filter(|mesh| {
                 matches!(
                     mesh.material,
@@ -641,7 +664,7 @@ mod tests {
         .unwrap();
         // Isolate wall surfaces: roof linings have their own planar UV basis.
         plan.roof_assemblies.clear();
-        let detail = compile_building_detail(&plan);
+        let detail = compile_building_detail(&plan).unwrap();
         let plaster = detail
             .meshes
             .iter()
@@ -750,10 +773,11 @@ mod tests {
             let outward = Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y);
             let inner_plane =
                 wall.frame.origin.dot(wall.frame.outward) - wall.thickness_metres * 0.5;
-            let rotation = Quat::from_rotation_y(solid.yaw_radians)
-                * Quat::from_rotation_x(solid.crossfall_radians)
-                * Quat::from_rotation_z(solid.longfall_radians);
-            let (centre, size) = render_cuboid_placement(solid, Some(wall), true, rotation);
+            let rotation = Quat::from_rotation_y(solid.yaw_radians.radians())
+                * Quat::from_rotation_x(solid.crossfall_radians.radians())
+                * Quat::from_rotation_z(solid.longfall_radians.radians());
+            let (centre, size) =
+                render_cuboid_placement(solid, Some(wall), true, rotation).unwrap();
             let projected_half_extent = [
                 (rotation * Vec3::X).dot(outward).abs() * size.x,
                 (rotation * Vec3::Y).dot(outward).abs() * size.y,
@@ -770,7 +794,7 @@ mod tests {
                 member.id,
                 solid.role,
                 wall.id,
-                solid.yaw_radians,
+                solid.yaw_radians.radians(),
                 centre.dot(outward) - projected_half_extent,
             );
             checked += 1;

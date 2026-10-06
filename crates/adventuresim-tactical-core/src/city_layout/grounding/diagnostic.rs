@@ -41,9 +41,17 @@ pub enum SupportBoundary {
     GeographicSurface,
 }
 
+#[derive(Clone, Debug, PartialEq, Serialize)]
+pub enum SupportConstructionError {
+    Door(adventuresim_building_generator::DoorError),
+    Boundary(crate::city_layout::BoundaryGeometryError),
+}
+
 /// Rejection identifies the immutable property, members and precise shortfall.
 #[derive(Clone, Debug, PartialEq, Serialize)]
 pub struct SupportDiagnostic {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub construction_failure: Option<SupportConstructionError>,
     pub property_id: CityPropertyId,
     pub member_building_ids: Vec<u64>,
     pub constraint: SupportConstraint,
@@ -65,6 +73,36 @@ pub enum SupportDiagnosticUnit {
 }
 
 impl SupportDiagnostic {
+    pub(super) fn boundary_construction(
+        property: &CityCompound,
+        cause: crate::city_layout::BoundaryGeometryError,
+    ) -> Self {
+        let mut diagnostic = Self::new(
+            property,
+            SupportConstraint::GateBinding,
+            SupportBoundary::GateLanding,
+            property.boundary.gate.centre_metres,
+            1.0,
+            0.0,
+        );
+        diagnostic.construction_failure = Some(SupportConstructionError::Boundary(cause));
+        diagnostic
+    }
+    pub(super) fn gate_construction(
+        property: &CityCompound,
+        cause: adventuresim_building_generator::DoorError,
+    ) -> Self {
+        let mut diagnostic = Self::new(
+            property,
+            SupportConstraint::GateBinding,
+            SupportBoundary::GateLanding,
+            property.boundary.gate.centre_metres,
+            1.0,
+            0.0,
+        );
+        diagnostic.construction_failure = Some(SupportConstructionError::Door(cause));
+        diagnostic
+    }
     pub(super) fn for_mesh(
         mesh: &PropertySupportMesh,
         constraint: SupportConstraint,
@@ -73,6 +111,7 @@ impl SupportDiagnostic {
         permitted: f32,
     ) -> Self {
         Self {
+            construction_failure: None,
             property_id: mesh.property_id,
             member_building_ids: mesh.member_building_ids.clone(),
             constraint,
@@ -95,6 +134,7 @@ impl SupportDiagnostic {
         permitted: f32,
     ) -> Self {
         Self {
+            construction_failure: None,
             property_id: property.id,
             member_building_ids: vec![property.front_building_id, property.rear_building_id],
             constraint,

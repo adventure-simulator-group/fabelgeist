@@ -6,17 +6,19 @@ pub(super) fn append(
     archetype: BuildingArchetype,
     openings: &mut Vec<Opening>,
     occupied_walls: &mut HashSet<usize>,
-) {
-    let entrance_room = requirements
-        .iter()
-        .position(|room| matches!(room.kind, RoomKind::EntranceHall | RoomKind::Passage))
-        .unwrap_or(0) as u16;
+) -> Result<(), GenerationError> {
+    let entrance_room = RoomIndex::from_ordinal(
+        requirements
+            .iter()
+            .position(|room| matches!(room.kind, RoomKind::EntranceHall | RoomKind::Passage))
+            .unwrap_or(0),
+    )?;
     let mut entrance_candidates = walls
         .iter()
         .enumerate()
         .filter(|(_, wall)| {
             wall.exterior()
-                && wall.inside_room == entrance_room
+                && wall.inside_room == entrance_room.serialized_ordinal()
                 && wall.direction == Direction::South
         })
         .collect::<Vec<_>>();
@@ -57,13 +59,13 @@ pub(super) fn append(
         });
         occupied_walls.insert(*wall_index);
     }
-    if requirements[usize::from(entrance_room)].kind == RoomKind::Passage {
+    if requirements[entrance_room.index()].kind == RoomKind::Passage {
         let mut exit_candidates = walls
             .iter()
             .enumerate()
             .filter(|(_, wall)| {
                 wall.exterior()
-                    && wall.inside_room == entrance_room
+                    && wall.inside_room == entrance_room.serialized_ordinal()
                     && wall.direction == Direction::North
             })
             .collect::<Vec<_>>();
@@ -84,6 +86,7 @@ pub(super) fn append(
     if archetype == BuildingArchetype::FachwerkMerchantHouse {
         append_court_exit(walls, requirements, openings, occupied_walls);
     }
+    Ok(())
 }
 
 /// A merchant's working ground floor opens onto its court independently of the

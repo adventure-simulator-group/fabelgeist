@@ -8,22 +8,22 @@ const MINIMUM_BRACED_DOUBLE_AREA: f32 = 0.08;
 pub(super) fn closes_triangle(brace: &TimberFrameMember, members: &[&TimberFrameMember]) -> bool {
     members
         .iter()
-        .filter(|first| first.id != brace.id && point_on_member(brace.start, first))
+        .filter(|first| first.id != brace.id && point_on_member(brace.start.metres(), first))
         .any(|first| {
             members
                 .iter()
                 .filter(|second| {
                     second.id != brace.id
                         && second.id != first.id
-                        && point_on_member(brace.end, second)
+                        && point_on_member(brace.end.metres(), second)
                 })
                 .any(|second| {
                     [(first.start_node, first.start), (first.end_node, first.end)]
                         .into_iter()
                         .any(|(node, point)| {
                             (node == second.start_node || node == second.end_node)
-                                && (brace.end - brace.start)
-                                    .cross(point - brace.start)
+                                && (brace.end.metres() - brace.start.metres())
+                                    .cross(point.metres() - brace.start.metres())
                                     .length()
                                     > MINIMUM_BRACED_DOUBLE_AREA
                         })
@@ -31,9 +31,9 @@ pub(super) fn closes_triangle(brace: &TimberFrameMember, members: &[&TimberFrame
         })
 }
 fn point_on_member(point: Vec3, member: &TimberFrameMember) -> bool {
-    let axis = member.end - member.start;
-    let t = ((point - member.start).dot(axis) / axis.length_squared()).clamp(0.0, 1.0);
-    point.distance(member.start + axis * t) <= JOINT_ALIGNMENT_METRES
+    let axis = member.end.metres() - member.start.metres();
+    let t = ((point - member.start.metres()).dot(axis) / axis.length_squared()).clamp(0.0, 1.0);
+    point.distance(member.start.metres() + axis * t) <= JOINT_ALIGNMENT_METRES
 }
 
 #[test]
@@ -50,11 +50,15 @@ fn high_knee_braces_require_exact_contact_with_the_post_and_tie() {
         .iter()
         .find(|m| {
             m.role == crate::TimberMemberRole::HeadBrace
-                && m.start.y > 1.8
+                && m.start.metres().y > 1.8
                 && closes_triangle(m, &members)
         })
         .unwrap();
     let mut detached = brace.clone();
-    detached.start += Vec3::new(0.17, 0.13, 0.11);
+    {
+        let mut native_geometry = detached.start.metres();
+        native_geometry += Vec3::new(0.17, 0.13, 0.11);
+        detached.start = crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+    };
     assert!(!closes_triangle(&detached, &members));
 }

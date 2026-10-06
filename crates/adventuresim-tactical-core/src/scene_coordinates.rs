@@ -5,7 +5,12 @@ use bevy::math::Vec2;
 use serde::{Deserialize, Serialize};
 
 mod polygon;
+mod spatial;
 pub use polygon::{ArchitecturalPlanProjection, ScenePlanPolygon};
+pub use spatial::{
+    ArchitecturalFloorDatum, ArchitecturalGateDatum, CollisionCentreDatum, GateDatum, GateRelative,
+    GroundRelative, PlotRelative, Scene, SceneDoorPose,
+};
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
 #[serde(transparent)]
@@ -16,6 +21,20 @@ impl ScenePlanPoint {
     }
     pub fn metres(self) -> Vec2 {
         self.0
+    }
+}
+impl TryFrom<Vec2> for ScenePlanPoint {
+    type Error = adventuresim_building_generator::spatial_geometry::GeometryError;
+    fn try_from(metres: Vec2) -> Result<Self, Self::Error> {
+        use adventuresim_building_generator::spatial_geometry::{CoordinateAxis, GeometryRole};
+        Self::from_metres(metres).ok_or(Self::Error::NonFinite {
+            role: GeometryRole::Position,
+            axis: if !metres.x.is_finite() {
+                CoordinateAxis::X
+            } else {
+                CoordinateAxis::Z
+            },
+        })
     }
 }
 impl PlanVertex for ScenePlanPoint {
@@ -54,3 +73,6 @@ mod tests {
         assert!(serde_json::from_str::<ScenePlanPoint>("[0,null]").is_err());
     }
 }
+
+#[cfg(test)]
+mod spatial_tests;

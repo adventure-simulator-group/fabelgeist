@@ -50,7 +50,13 @@ pub(super) fn declare_catalogue_properties(layout: &mut CitySceneLayout) {
                     .y;
                 CityPlotBounds {
                     centre_metres: placement.centre_metres,
-                    dimensions_metres: recipe.collision.bounds.plan_half_extents() * 2.0
+                    dimensions_metres: recipe
+                        .collision
+                        .bounds
+                        .plan_half_extents()
+                        .expect("admitted review bounds")
+                        .metres()
+                        * 2.0
                         + Vec2::splat(approach * 2.0),
                     orientation: placement.orientation,
                 }
@@ -78,7 +84,13 @@ pub(super) fn arrange_catalogue_grid(buildings: &mut [TacticalBuildingPlacement]
         let recipe = recipes
             .get_or_generate(&building.program)
             .expect("accepted review building programme");
-        let half = recipe.collision.bounds.plan_half_extents() + Vec2::splat(approach);
+        let half = recipe
+            .collision
+            .bounds
+            .plan_half_extents()
+            .expect("admitted review bounds")
+            .metres()
+            + Vec2::splat(approach);
         let extent = [Vec2::new(half.x, half.y), Vec2::new(half.x, -half.y)]
             .map(|p| building.orientation.local_to_world(p).abs())
             .into_iter()

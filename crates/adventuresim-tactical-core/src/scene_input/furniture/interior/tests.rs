@@ -31,21 +31,31 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
     let proof = &furniture.interiors[0];
     assert_eq!(proof.building_id, building.placement.id);
     assert!(!proof.layout.placements.is_empty());
-    assert!(proof.layout.placements.iter().any(|p| p.storey > 0));
+    assert!(
+        proof
+            .layout
+            .placements
+            .iter()
+            .any(|p| p.storey > adventuresim_building_generator::StoreyIndex::GROUND)
+    );
     assert_eq!(furniture.instances.len(), proof.layout.placements.len());
     adventuresim_building_generator::interior::validate_layout(&building.plan, &proof.layout)
         .unwrap();
-    let origin = building.collision.bounds.centre();
+    let origin = building.collision.bounds.centre().unwrap().metres();
     for (instance, placement) in furniture.instances.iter().zip(&proof.layout.placements) {
         let local = building
             .placement
             .orientation
             .world_to_local(instance.position_metres.xz() - building.placement.centre_metres)
             + Vec2::new(origin.x, origin.z);
-        assert!(local.distance(placement.centre_metres) < 0.0001);
+        assert!(local.distance(placement.centre_metres.metres()) < 0.0001);
         assert!(
-            (instance.position_metres.y - 4.2 - furniture_floor_height(&building.plan, placement))
-                .abs()
+            (instance.position_metres.y
+                - 4.2
+                - furniture_floor_height(&building.plan, placement)
+                    .unwrap()
+                    .metres())
+            .abs()
                 < 0.0001
         );
         let world_front = instance.orientation.local_to_world(-Vec2::Y);
@@ -59,8 +69,8 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
             instance.scene.location,
             FurnitureLocation::Interior {
                 building_id: building.placement.id,
-                room_id: placement.room_id,
-                storey: placement.storey,
+                room_id: placement.room_id.serialized_ordinal(),
+                storey: placement.storey.serialized_ordinal().unwrap(),
             }
         );
     }

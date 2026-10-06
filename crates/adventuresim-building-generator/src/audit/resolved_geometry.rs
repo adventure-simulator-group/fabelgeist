@@ -1,4 +1,7 @@
-fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+fn audit_resolved_geometry(
+    plan: &BuildingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<()> {
     if plan.resolved_geometry.schema_version != 2 {
         issues.push(issue(
             "stale_resolver_schema",
@@ -19,7 +22,7 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         .collect::<std::collections::HashMap<_, _>>();
     let mut item_ids = std::collections::HashSet::new();
     for (index, solid) in plan.resolved_geometry.solids.iter().enumerate() {
-        if solid.size.min_element() <= 0.0
+        if solid.size.metres().min_element() <= 0.0
             || !owners.contains(&solid.owner)
             || !item_ids.insert(solid.id)
             || solid.supported_by.is_empty()
@@ -54,19 +57,8 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             ));
         }
     }
-    let mut support = support::GroundSupport::new(&nodes);
-    for node in nodes.values() {
-        if !support.reaches_ground(node.id) {
-            issues.push(issue(
-                "unsupported_resolved_structure",
-                format!(
-                    "structural node {} {:?} at {:?} supports {:?} does not reach ground through an acyclic graph",
-                    node.id.0, node.kind, node.position, node.supported_by
-                ),
-            ));
-        }
-    }
-    for (a, b) in crate::geometry_index::overlapping_solids(&plan.resolved_geometry.solids) {
+    support::GroundSupport::new(&nodes).audit(issues);
+    for (a, b) in crate::geometry_index::overlapping_solids(&plan.resolved_geometry.solids)? {
         let separated_by_chord =
             (matches!(a.shape, crate::ResolvedSolidShape::RoundTowerShell { .. })
                 && tower_chord_void_separates(plan, a, b))
@@ -138,9 +130,7 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                         && bay.opening.is_some_and(|opening_id| {
                                             plan.opening_assemblies.iter().any(|opening| {
                                                 opening.id == opening_id
-                                                    && opening
-                                                        .closure_solids
-                                                        .contains(&closure.id)
+                                                    && opening.closure_solids.contains(&closure.id)
                                             })
                                         })
                                 }) || plan.opening_assemblies.iter().any(|opening| {
@@ -155,17 +145,19 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                     else {
                                         return false;
                                     };
-                                    let size = void.bounds.max - void.bounds.min;
+                                    let size =
+                                        void.bounds.max().metres() - void.bounds.min().metres();
                                     let half = (size.x * opening.frame.tangent.x.abs()
                                         + size.z * opening.frame.tangent.y.abs())
                                         * 0.5;
-                                    let point = Vec2::new(member.start.x, member.start.z);
+                                    let point =
+                                        Vec2::new(member.start.metres().x, member.start.metres().z);
                                     ((point - opening.frame.origin)
                                         .dot(opening.frame.tangent)
                                         .abs()
                                         - half)
                                         .abs()
-                                        <= member.section_metres.x * 0.6 + 0.02
+                                        <= member.section_metres.metres().x * 0.6 + 0.02
                                 }))
                         })
                 })
@@ -189,13 +181,15 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 | SolidRole::FrameFloor
                                 | SolidRole::FrameGableMember
                                 | SolidRole::FrameDormerTrimmer,
-                            SolidRole::WallHost | SolidRole::FrameInfill
+                            SolidRole::WallHost
+                                | SolidRole::FrameInfill
                                 | SolidRole::OpeningJamb
                                 | SolidRole::OpeningSill
                                 | SolidRole::OpeningHead
                                 | SolidRole::OpeningSpandrel
                         ) | (
-                            SolidRole::WallHost | SolidRole::FrameInfill
+                            SolidRole::WallHost
+                                | SolidRole::FrameInfill
                                 | SolidRole::OpeningJamb
                                 | SolidRole::OpeningSill
                                 | SolidRole::OpeningHead
@@ -237,7 +231,7 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                     .iter()
                                     .find(|member| member.solid == timber.id)
                                     .map_or(0.0, |member| {
-                                        member.section_metres.max_element() + 0.05
+                                        member.section_metres.metres().max_element() + 0.05
                                     })
                             && frame.members.iter().any(|member| {
                                 member.solid == timber.id
@@ -254,15 +248,15 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                                     resolved_solid_overlaps_bounds(
                                                         timber,
                                                         (
-                                                            interface.bounds.min,
-                                                            interface.bounds.max,
+                                                            interface.bounds.min().metres(),
+                                                            interface.bounds.max().metres(),
                                                         ),
                                                         0.001,
                                                     ) && resolved_solid_overlaps_bounds(
                                                         gutter,
                                                         (
-                                                            interface.bounds.min,
-                                                            interface.bounds.max,
+                                                            interface.bounds.min().metres(),
+                                                            interface.bounds.max().metres(),
                                                         ),
                                                         0.001,
                                                     )
@@ -271,24 +265,18 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                         || {
                                             let (min, max) = resolved_solid_bounds(gutter);
                                             let endpoint_radius =
-                                                member.section_metres.max_element() * 0.6
+                                                member.section_metres.metres().max_element() * 0.6
                                                     + 0.02;
-                                            [member.start, member.end].into_iter().any(
-                                                |point| {
-                                                    point
-                                                        .cmpge(
-                                                            min - Vec3::splat(endpoint_radius),
-                                                        )
+                                            [member.start, member.end].into_iter().any(|point| {
+                                                point
+                                                    .metres()
+                                                    .cmpge(min - Vec3::splat(endpoint_radius))
+                                                    .all()
+                                                    && point
+                                                        .metres()
+                                                        .cmple(max + Vec3::splat(endpoint_radius))
                                                         .all()
-                                                        && point
-                                                            .cmple(
-                                                                max + Vec3::splat(
-                                                                    endpoint_radius,
-                                                                ),
-                                                            )
-                                                            .all()
-                                                },
-                                            )
+                                            })
                                         })
                             })
                     })
@@ -307,7 +295,10 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                         .is_some_and(|interface| {
                                             resolved_solid_overlaps_bounds(
                                                 roof,
-                                                (interface.bounds.min, interface.bounds.max),
+                                                (
+                                                    interface.bounds.min().metres(),
+                                                    interface.bounds.max().metres(),
+                                                ),
                                                 0.015,
                                             )
                                         })
@@ -328,7 +319,7 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                             | crate::TimberMemberRole::Rafter
                                     )
                                     && penetration
-                                        <= member.section_metres.max_element() + 0.05
+                                        <= member.section_metres.metres().max_element() + 0.05
                                     && frame.bays.iter().any(|bay| {
                                         bay.member_ids.contains(&member.id)
                                             && bay.wall.is_some_and(|wall_id| {
@@ -360,10 +351,10 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     bond.owners.contains(&a.owner)
                         && bond.owners.contains(&b.owner)
                         && overlap_min
-                            .cmpge(bond.bounds.min - Vec3::splat(0.025))
+                            .cmpge(bond.bounds.min().metres() - Vec3::splat(0.025))
                             .all()
                         && overlap_max
-                            .cmple(bond.bounds.max + Vec3::splat(0.025))
+                            .cmple(bond.bounds.max().metres() + Vec3::splat(0.025))
                             .all()
                         && penetration <= bond.maximum_penetration_metres + 0.025
                         && bond.minimum_interface_area_square_metres > 0.0
@@ -381,7 +372,7 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 ));
             }
         }
-}
+    }
     for bond in &plan.resolved_geometry.junction_bonds {
         let valid_interface = valid_tower_chord_bond(plan, bond)
             || plan.resolved_geometry.solids.iter().any(|a| {
@@ -391,10 +382,10 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             && bonded_interface_metrics(a, b).is_some_and(
                                 |(contact_min, contact_max, area, penetration)| {
                                     contact_min
-                                        .cmpge(bond.bounds.min - Vec3::splat(0.025))
+                                        .cmpge(bond.bounds.min().metres() - Vec3::splat(0.025))
                                         .all()
                                         && contact_max
-                                            .cmple(bond.bounds.max + Vec3::splat(0.025))
+                                            .cmple(bond.bounds.max().metres() + Vec3::splat(0.025))
                                             .all()
                                         && area + 0.005 >= bond.minimum_interface_area_square_metres
                                         && penetration <= bond.maximum_penetration_metres + 0.025
@@ -413,7 +404,7 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         }
     }
     for (index, void) in plan.resolved_geometry.voids.iter().enumerate() {
-        let void_bounds = (void.bounds.min, void.bounds.max);
+        let void_bounds = (void.bounds.min().metres(), void.bounds.max().metres());
         let blocking_solid = plan.resolved_geometry.solids.iter().find(|solid| {
             let exact_opening_piece = (void.role == VoidRole::WallOpening)
                 && plan.opening_assemblies.iter().any(|opening| {
@@ -426,12 +417,12 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             let round_shell_clears_central_room = void.role == VoidRole::ArtilleryCasemate
                 && matches!(solid.shape, crate::ResolvedSolidShape::RoundTowerShell { inner_radius_metres, .. } if {
                     let corners = [
-                        Vec2::new(void.bounds.min.x, void.bounds.min.z),
-                        Vec2::new(void.bounds.min.x, void.bounds.max.z),
-                        Vec2::new(void.bounds.max.x, void.bounds.min.z),
-                        Vec2::new(void.bounds.max.x, void.bounds.max.z),
+                        Vec2::new(void.bounds.min().metres().x, void.bounds.min().metres().z),
+                        Vec2::new(void.bounds.min().metres().x, void.bounds.max().metres().z),
+                        Vec2::new(void.bounds.max().metres().x, void.bounds.min().metres().z),
+                        Vec2::new(void.bounds.max().metres().x, void.bounds.max().metres().z),
                     ];
-                    corners.into_iter().all(|corner| corner.distance(Vec2::new(solid.centre.x, solid.centre.z)) < inner_radius_metres - 0.01)
+                    corners.into_iter().all(|corner| corner.distance(Vec2::new(solid.centre.metres().x, solid.centre.metres().z)) < inner_radius_metres - 0.01)
                 });
             let artillery_scupper_subtraction = void.role == VoidRole::Drain
                 && plan.artillery_castle.as_ref().is_some_and(|castle| {
@@ -511,14 +502,14 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 format!(
                     "resolved void {index} {:?} {:?}..{:?} is not an open subtraction from its owner; blocker={:?}",
                     void.role,
-                    void.bounds.min,
-                    void.bounds.max,
+                    void.bounds.min().metres(),
+                    void.bounds.max().metres(),
                     blocking_solid.map(|solid| (solid.id, solid.role, solid.centre, solid.size))
                 ),
             ));
         }
     }
-    for route in &plan.resolved_geometry.drainage_routes {
+    let _: () = for route in &plan.resolved_geometry.drainage_routes {
         let outward_drop = route.inlet.y - route.outlet.y;
         if outward_drop < 0.04
             || !plan
@@ -535,5 +526,6 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 ),
             ));
         }
-    }
+    };
+    Ok(())
 }

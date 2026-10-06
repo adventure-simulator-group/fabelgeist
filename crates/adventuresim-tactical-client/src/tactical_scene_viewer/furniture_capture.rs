@@ -9,18 +9,19 @@ pub(super) const PROFILE: &str = "furniture-review";
 const EYE_HEIGHT_METRES: f32 = 1.65;
 const CAMERA_OBJECT_CLEARANCE_METRES: f32 = 3.0;
 
-pub(super) fn spawn(commands: &mut Commands, layout: &FurnitureLayout) {
+pub(super) fn spawn(commands: &mut Commands, layout: &FurnitureLayout) -> Result {
     for instance in &layout.instances {
         commands.spawn((
             Name::new(format!("Furniture {}", instance.scene.id.0)),
             instance.scene,
             RigidBody::Static,
             CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-            furniture_collider(instance.scene.key),
+            furniture_collider(instance.scene.key)?,
             Transform::from_translation(instance.position_metres)
                 .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),
         ));
     }
+    Ok(())
 }
 
 pub(super) fn setup(
@@ -31,10 +32,10 @@ pub(super) fn setup(
     output: &std::path::Path,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
-) -> Option<Vec<BuildingReviewCamera>> {
-    write_layout(layout, output);
+) -> Result<Option<Vec<BuildingReviewCamera>>> {
+    write_layout(layout, output)?;
     if profile != PROFILE {
-        return None;
+        return Ok(None);
     }
     let camera = |position, target| BuildingReviewCamera {
         position,
@@ -58,10 +59,10 @@ pub(super) fn setup(
             } else {
                 matching.next()
             }
-            .expect("furniture review must exercise every supported family");
-            let bounds = instance.scene.key.recipe().bounds;
+            .ok_or_else(|| format!("furniture review lacks {kind:?}"))?;
+            let bounds = instance.scene.key.recipe()?.bounds;
             let distance =
-                bounds.plan_half_extents().max_element() + CAMERA_OBJECT_CLEARANCE_METRES;
+                bounds.plan_half_extents()?.metres().max_element() + CAMERA_OBJECT_CLEARANCE_METRES;
             let offset = instance
                 .orientation
                 .local_to_world(Vec2::new(distance * 0.6, -distance));
@@ -69,12 +70,12 @@ pub(super) fn setup(
             let height = terrain
                 .height_at(point)
                 .expect("furniture camera stays on playable terrain");
-            camera(
+            Ok(camera(
                 Vec3::new(point.x, height + EYE_HEIGHT_METRES, point.y),
-                instance.position_metres + Vec3::Y * bounds.centre().y,
-            )
+                instance.position_metres + Vec3::Y * bounds.centre()?.metres().y,
+            ))
         })
-        .collect::<Vec<_>>();
+        .collect::<Result<Vec<_>>>()?;
     let market = layout
         .groups
         .iter()
@@ -109,21 +110,25 @@ pub(super) fn setup(
             .instances
             .iter()
             .chain(&layout.distant_instances)
-            .map(|instance| instance.scene.key.recipe().meshes.len())
+            .map(|instance| instance.scene.key.recipe().map(|r| r.meshes.len()))
+            .collect::<std::result::Result<Vec<_>, _>>()?
+            .into_iter()
             .sum(),
     });
     super::furniture_overlay::annotate(commands, layout, terrain, meshes, materials);
-    Some(cameras)
+    Ok(Some(cameras))
 }
 
-fn write_layout(layout: &FurnitureLayout, output: &std::path::Path) {
+fn write_layout(layout: &FurnitureLayout, output: &std::path::Path) -> Result {
+    let instances = layout.instances.iter().map(|instance| {
+        let recipe = instance.scene.key.recipe()?;
+        Ok::<_, adventuresim_building_generator::furniture::FurnitureRecipeError>(serde_json::json!({
+            "scene": instance.scene, "position_metres": instance.position_metres, "orientation": instance.orientation,
+            "colliders": recipe.colliders.len(), "triangles": recipe.meshes.iter().map(|mesh| mesh.indices.len() / 3).sum::<usize>(),
+        }))
+    }).collect::<std::result::Result<Vec<_>, _>>()?;
     let evidence = serde_json::json!({
-        "instances": layout.instances.iter().map(|instance| serde_json::json!({
-            "scene": instance.scene, "position_metres": instance.position_metres,
-            "orientation": instance.orientation,
-            "colliders": instance.scene.key.recipe().colliders.len(),
-            "triangles": instance.scene.key.recipe().meshes.iter().map(|mesh| mesh.indices.len() / 3).sum::<usize>(),
-        })).collect::<Vec<_>>(),
+        "instances": instances,
         "distant_instances": layout.distant_instances,
         "groups": layout.groups,
         "reserved_routes": layout.reserved_routes,
@@ -131,7 +136,7 @@ fn write_layout(layout: &FurnitureLayout, output: &std::path::Path) {
     });
     std::fs::write(
         output.join("furniture-layout.json"),
-        serde_json::to_vec_pretty(&evidence).unwrap(),
-    )
-    .expect("write authoritative furniture placement evidence");
+        serde_json::to_vec_pretty(&evidence)?,
+    )?;
+    Ok(())
 }

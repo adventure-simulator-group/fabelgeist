@@ -85,6 +85,7 @@ impl PropertySupportSurface {
         permitted: f32,
     ) -> SupportDiagnostic {
         SupportDiagnostic {
+            construction_failure: None,
             property_id: self.property_id(),
             member_building_ids: self.mesh.member_building_ids.clone(),
             constraint,

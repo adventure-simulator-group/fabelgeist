@@ -2,19 +2,23 @@
 use super::*;
 use crate::SolidRole;
 
-pub(super) fn append_buttresses(lod: &mut BuildingLod, plan: &BuildingPlan) {
+pub(super) fn append_buttresses(
+    lod: &mut BuildingLod,
+    plan: &BuildingPlan,
+) -> Result<(), crate::GenerationError> {
     if plan.church.is_none() {
-        return;
+        return Ok(());
     }
     let compiler = crate::detail::SolidDetailCompiler::new(plan);
-    for solid in plan
+    let _: () = for solid in plan
         .resolved_geometry
         .solids
         .iter()
         .filter(|solid| solid.role == SolidRole::WallButtress)
     {
-        exterior::append_outward_solid(lod, plan, &compiler, solid, None);
-    }
+        exterior::append_outward_solid(lod, plan, &compiler, solid, None)?;
+    };
+    Ok(())
 }
 
 #[cfg(test)]
@@ -27,10 +31,10 @@ mod tests {
         let program = BuildingProgram::fixture(BuildingArchetype::ParishChurch, 42)
             .with_service_size(ServiceBuildingSize::Large);
         let plan = generate(&program).unwrap();
-        let detail = crate::compile_building_detail(&plan);
+        let detail = crate::compile_building_detail(&plan).unwrap();
         let count = |meshes: &[LodMesh]| meshes.iter().map(|m| m.indices.len() / 3).sum::<usize>();
         for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
-            let lod = compile_building_lod(&plan, level);
+            let lod = compile_building_lod(&plan, level).unwrap();
             assert!(
                 count(&lod.meshes) < count(&detail.meshes) / 2,
                 "{level:?}: {} triangles versus {} detail triangles",
@@ -77,7 +81,7 @@ mod tests {
                         .iter()
                         .filter(|s| wall.host_solids.contains(&s.id))
                     {
-                        for mesh in crate::compile_solid_detail(&plan, solid).meshes {
+                        for mesh in crate::compile_solid_detail(&plan, solid).unwrap().meshes {
                             if !matches!(mesh.material, BuildingLodMaterial::Wall(_)) {
                                 continue;
                             }
@@ -104,7 +108,7 @@ mod tests {
                 .iter()
                 .filter(|s| s.role == SolidRole::WallButtress)
             {
-                let detail = crate::compile_solid_detail(&plan, solid);
+                let detail = crate::compile_solid_detail(&plan, solid).unwrap();
                 for point in detail
                     .meshes
                     .iter()

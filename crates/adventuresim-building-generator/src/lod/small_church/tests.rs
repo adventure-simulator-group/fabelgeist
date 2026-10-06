@@ -28,9 +28,9 @@ fn church_lods_reduce_triangles_without_losing_canonical_roof_silhouettes() {
                 continue;
             }
             let plan = plan(usage, size);
-            let detail = compile_building_detail(&plan);
-            let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
-            let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
+            let detail = compile_building_detail(&plan).unwrap();
+            let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
+            let shell = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
             let (detail_count, facade_count, shell_count) = (
                 triangles(&detail.meshes),
                 triangles(&facade.meshes),
@@ -77,7 +77,7 @@ fn church_lods_reduce_triangles_without_losing_canonical_roof_silhouettes() {
                             BuildingLodMaterial::Timber | BuildingLodMaterial::InteriorTimber
                         ))
                         .flat_map(|mesh| &mesh.vertices)
-                        .all(|vertex| vertex.position.y >= stage.min.y - 0.001
+                        .all(|vertex| vertex.position.y >= stage.min().metres().y - 0.001
                             || mesh_is_door_vertex(&plan, vertex.position)),
                     "hidden floor-to-belfry supports remain in {:?}",
                     lod.level
@@ -102,7 +102,7 @@ fn mesh_is_door_vertex(plan: &BuildingPlan, point: Vec3) -> bool {
 #[test]
 fn facade_windows_remain_actual_openings_in_the_wall_surface() {
     let plan = plan(BuildingUse::ParishChurch, ServiceBuildingSize::Medium);
-    let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
+    let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
     let windows = plan
         .opening_assemblies
         .iter()
@@ -169,9 +169,9 @@ fn facade_windows_remain_actual_openings_in_the_wall_surface() {
 fn boarded_belfry_skirts_keep_their_exact_material_at_both_lod_levels() {
     for usage in [BuildingUse::Chapel, BuildingUse::ParishChurch] {
         let plan = plan(usage, ServiceBuildingSize::Small);
-        let detail = compile_building_detail(&plan);
-        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
-        let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
+        let detail = compile_building_detail(&plan).unwrap();
+        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
+        let shell = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
         let skirts = plan
             .roof_assemblies
             .iter()

@@ -29,7 +29,7 @@ impl GeneratedCityLayout {
         let mut businesses = Vec::new();
         for lot in self.lots {
             let recipe = palette.front(seed, lot)?;
-            let front = recipe.place(lot.id, lot.centre_metres, lot.orientation);
+            let front = recipe.place(lot.id, lot.centre_metres, lot.orientation)?;
             if let Some(key) = lot.service.and_then(BuildingDemand::business_key) {
                 businesses.push(CityBusinessSite {
                     building_id: front.id,

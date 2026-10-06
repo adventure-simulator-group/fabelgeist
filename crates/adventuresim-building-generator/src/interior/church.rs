@@ -7,10 +7,16 @@ pub(super) fn nave_routes(plan: &BuildingPlan, height: f32) -> Vec<Rect> {
     let mut routes = Vec::new();
     if let Some(church) = &plan.small_church {
         let route = church.public_route;
-        if (route.min.y - height).abs() <= PERSON_RADIUS {
+        if (route.min().metres().y - height).abs() <= PERSON_RADIUS {
             routes.push(Rect::new(
-                Vec2::new(route.min.x + route.max.x, route.min.z + route.max.z) * 0.5,
-                Vec2::new(route.max.x - route.min.x, route.max.z - route.min.z) * 0.5,
+                Vec2::new(
+                    route.min().metres().x + route.max().metres().x,
+                    route.min().metres().z + route.max().metres().z,
+                ) * 0.5,
+                Vec2::new(
+                    route.max().metres().x - route.min().metres().x,
+                    route.max().metres().z - route.min().metres().z,
+                ) * 0.5,
             ));
         }
     }
@@ -69,7 +75,7 @@ mod tests {
             assert!(layout.placements.iter().all(|placement| {
                 !routes
                     .iter()
-                    .any(|route| route.overlaps(placement.footprint()))
+                    .any(|route| route.overlaps(placement.footprint().unwrap()))
             }));
             validate_layout(&plan, &layout).unwrap();
             let pulpit = layout
@@ -83,7 +89,7 @@ mod tests {
                 .find(|r| r.kind == RoomKind::Nave)
                 .unwrap();
             let (min, max) = room_bounds(nave);
-            assert!(pulpit.centre_metres.y >= (min.y + max.y) * 0.5);
+            assert!(pulpit.centre_metres.metres().y >= (min.y + max.y) * 0.5);
             assert_eq!(pulpit.facing, crate::Direction::South);
         }
     }

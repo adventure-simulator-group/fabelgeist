@@ -1,5 +1,6 @@
 //! Select a kitchen/Stube bay against the complete structure.
-use crate::{BuildingPlan, ResolvedBounds, RoofFace, RoomKind, SolidRole, WallAssemblyId};
+use crate::{Architectural, SpatialBounds};
+use crate::{BuildingPlan, RoofFace, RoomKind, SolidRole, WallAssemblyId};
 use bevy::math::{Vec2, Vec3};
 
 pub(super) const FIRE_WALL_PATCH_HEIGHT_METRES: f32 = 2.0;
@@ -8,6 +9,7 @@ pub(super) const CORE_HALF_DEPTH_METRES: f32 = 0.9;
 pub(super) const TIMBER_CLEARANCE_METRES: f32 = 0.08;
 const STATION_STEP_METRES: f32 = 0.05;
 pub(super) const SHAFT_HALF_WIDTH_METRES: f32 = 0.3;
+const SHAFT_BASE_ABOVE_FLOOR_METRES: f32 = 2.1;
 #[derive(Clone, Copy, Debug)]
 pub(super) enum HearthSection {
     Compact,
@@ -48,7 +50,11 @@ pub(super) struct Placement {
     pub face: crate::ResolvedItemId,
 }
 impl Placement {
-    pub fn bounds(self, min: Vec3, max: Vec3) -> ResolvedBounds {
+    pub fn bounds(
+        self,
+        min: Vec3,
+        max: Vec3,
+    ) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
         let tangent = Vec2::new(-self.kitchen_axis.y, self.kitchen_axis.x);
         let point = |v: Vec3| {
             let p = self.centre + tangent * v.x + self.kitchen_axis * v.z;
@@ -56,44 +62,48 @@ impl Placement {
         };
         let a = point(min);
         let b = point(max);
-        ResolvedBounds {
-            min: a.min(b),
-            max: a.max(b),
-        }
+        Ok(SpatialBounds::<Architectural>::from_metres(
+            a.min(b),
+            a.max(b),
+        )?)
     }
-    pub fn support(self) -> ResolvedBounds {
-        let mut bounds = self.body();
+    pub fn support(self) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+        let bounds = self.body()?;
         let ledge = Vec3::new(
             super::floors::MASONRY_BEARING_METRES,
             0.0,
             super::floors::MASONRY_BEARING_METRES,
         );
-        bounds.min -= ledge;
-        bounds.max += ledge;
-        bounds.min.y = 0.0;
-        bounds.max.y = self.floor_height;
-        bounds
+        let mut min = bounds.min().metres() - ledge;
+        let mut max = bounds.max().metres() + ledge;
+        min.y = 0.0;
+        max.y = self.floor_height;
+        Ok(SpatialBounds::from_metres(min, max)?)
     }
-    pub fn shaft_shoulder(self) -> Option<ResolvedBounds> {
-        let top = self.next_floor?;
-        let mut bounds = self.shaft(top);
+    pub fn shaft_shoulder(
+        self,
+    ) -> Result<Option<SpatialBounds<Architectural>>, crate::GenerationError> {
+        let Some(top) = self.next_floor else {
+            return Ok(None);
+        };
+        let bounds = self.shaft(top)?;
         let ledge = Vec3::new(
             super::floors::MASONRY_BEARING_METRES,
             0.0,
             super::floors::MASONRY_BEARING_METRES,
         );
-        bounds.min -= ledge;
-        bounds.max += ledge;
-        bounds.min.y = self.floor_height + 2.2;
-        Some(bounds)
+        let mut min = bounds.min().metres() - ledge;
+        let max = bounds.max().metres() + ledge;
+        min.y = self.floor_height + 2.2;
+        Ok(Some(SpatialBounds::from_metres(min, max)?))
     }
-    pub fn body(self) -> ResolvedBounds {
+    pub fn body(self) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
         self.bounds(
             Vec3::new(-CORE_WIDTH_METRES * 0.5, 0.0, -CORE_HALF_DEPTH_METRES),
             Vec3::new(CORE_WIDTH_METRES * 0.5, 2.2, self.section.front()),
         )
     }
-    pub fn operating_space(self) -> ResolvedBounds {
+    pub fn operating_space(self) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
         self.bounds(
             Vec3::new(-CORE_WIDTH_METRES * 0.5, 0.02, self.section.front()),
             Vec3::new(
@@ -103,51 +113,67 @@ impl Placement {
             ),
         )
     }
-    pub fn shaft(self, top: f32) -> ResolvedBounds {
+    pub fn shaft(self, top: f32) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
         let centre = self.centre + self.kitchen_axis * self.section.shaft_offset();
-        ResolvedBounds {
-            min: Vec3::new(
+        Ok(SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 centre.x - SHAFT_HALF_WIDTH_METRES,
-                self.floor_height + 2.1,
+                self.floor_height + SHAFT_BASE_ABOVE_FLOOR_METRES,
                 centre.y - SHAFT_HALF_WIDTH_METRES,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 centre.x + SHAFT_HALF_WIDTH_METRES,
                 top,
                 centre.y + SHAFT_HALF_WIDTH_METRES,
             ),
-        }
+        )?)
     }
-    pub fn flue_top(self, face: &RoofFace) -> f32 {
+    /// The horizontal shaft footprint is an admitted zero-height section at
+    /// its lower datum; it never constructs a reversed dummy vertical range.
+    pub fn shaft_section(self) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+        self.shaft(self.floor_height + SHAFT_BASE_ABOVE_FLOOR_METRES)
+    }
+    pub fn flue_top(self, face: &RoofFace) -> Result<f32, crate::GenerationError> {
         const OUTLET_ABOVE_UPSLOPE_ROOF_METRES: f32 = 0.8;
-        let shaft = self.shaft(0.0);
-        [shaft.min.x, shaft.max.x]
+        // Only the horizontal section is needed; use an admitted zero-height
+        // section at the shaft base rather than a reversed vertical interval.
+        let shaft = self.shaft_section()?;
+        Ok([shaft.min().metres().x, shaft.max().metres().x]
             .into_iter()
-            .flat_map(|x| [shaft.min.z, shaft.max.z].map(|z| Vec2::new(x, z)))
+            .flat_map(|x| [shaft.min().metres().z, shaft.max().metres().z].map(|z| Vec2::new(x, z)))
             .map(|point| roof_height(face, point))
             .fold(0.0_f32, f32::max)
-            + OUTLET_ABOVE_UPSLOPE_ROOF_METRES
+            + OUTLET_ABOVE_UPSLOPE_ROOF_METRES)
     }
-    fn clear(self, plan: &BuildingPlan, bounds: ResolvedBounds, replace_wall: bool) -> bool {
+    fn clear(
+        self,
+        plan: &BuildingPlan,
+        bounds: SpatialBounds<Architectural>,
+        replace_wall: bool,
+    ) -> Result<bool, crate::GenerationError> {
         let wall = plan
             .wall_assemblies
             .iter()
             .find(|w| w.id == self.wall)
-            .unwrap();
+            .ok_or(crate::HeatingConstructionError::MissingWall { wall: self.wall })?;
         let margin = Vec3::new(TIMBER_CLEARANCE_METRES, 0.0, TIMBER_CLEARANCE_METRES);
-        !plan.resolved_geometry.solids.iter().any(|solid| {
+        Ok(!plan.resolved_geometry.solids.iter().any(|solid| {
             !(replace_wall && wall.host_solids.contains(&solid.id))
                 && !matches!(solid.role, SolidRole::FrameFloor | SolidRole::InteriorFloor)
                 && crate::solid_overlap::overlaps_bounds(
                     solid,
-                    (bounds.min - margin, bounds.max + margin),
+                    (
+                        bounds.min().metres() - margin,
+                        bounds.max().metres() + margin,
+                    ),
                     0.001,
                 )
-        })
+        }))
     }
-    fn clear_doors(self, plan: &BuildingPlan) -> bool {
-        let body = self.body();
-        plan.opening_assemblies
+    fn clear_doors(self, plan: &BuildingPlan) -> Result<bool, crate::GenerationError> {
+        let body = self.body()?;
+        Ok(plan
+            .opening_assemblies
             .iter()
             .filter(|o| {
                 matches!(
@@ -161,15 +187,15 @@ impl Placement {
                     + o.frame.outward.abs() * (width + 0.3);
                 let min = o.frame.origin - half;
                 let max = o.frame.origin + half;
-                body.max.x <= min.x
-                    || body.min.x >= max.x
-                    || body.max.z <= min.y
-                    || body.min.z >= max.y
-            })
+                body.max().metres().x <= min.x
+                    || body.min().metres().x >= max.x
+                    || body.max().metres().z <= min.y
+                    || body.min().metres().z >= max.y
+            }))
     }
 }
 
-pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
+pub(super) fn find(plan: &BuildingPlan) -> Result<Option<Placement>, crate::GenerationError> {
     for wall in &plan.wall_assemblies {
         let Some(storey) = plan.storeys.iter().find(|s| s.level == wall.storey_level) else {
             continue;
@@ -200,7 +226,7 @@ pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
         if limit < 0.0 {
             continue;
         }
-        let stations = station_offsets(plan, wall, limit);
+        let stations = station_offsets(plan, wall, limit)?;
         for (section, station) in [
             HearthSection::Compact,
             HearthSection::Deep,
@@ -232,29 +258,29 @@ pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
                 roof: crate::RoofAssemblyId(0),
                 face: crate::ResolvedItemId(0),
             };
-            let Some((roof, face)) = super::roof_route::find(plan, candidate) else {
+            let Some((roof, face)) = super::roof_route::find(plan, candidate)? else {
                 continue;
             };
             candidate.roof = roof;
             candidate.face = face.id;
-            let top = candidate.flue_top(face);
-            if candidate.clear(plan, candidate.body(), true)
-                && candidate.clear(plan, candidate.shaft(top), false)
-                && candidate.clear(plan, candidate.operating_space(), false)
-                && candidate.clear_doors(plan)
+            let top = candidate.flue_top(face)?;
+            if candidate.clear(plan, candidate.body()?, true)?
+                && candidate.clear(plan, candidate.shaft(top)?, false)?
+                && candidate.clear(plan, candidate.operating_space()?, false)?
+                && candidate.clear_doors(plan)?
                 && (candidate.storey_level == 0
-                    || candidate.clear(plan, candidate.support(), false))
-                && candidate
-                    .shaft_shoulder()
-                    .is_none_or(|b| candidate.clear(plan, b, false))
-                && super::floors::supported(plan, candidate)
-                && super::roof_route::weather_clear(plan, candidate, face)
+                    || candidate.clear(plan, candidate.support()?, false)?)
+                && crate::geometry_index::try_all(candidate.shaft_shoulder()?, |b| {
+                    candidate.clear(plan, b, false)
+                })?
+                && super::floors::supported(plan, candidate)?
+                && super::roof_route::weather_clear(plan, candidate, face)?
             {
-                return Some(candidate);
+                return Ok(Some(candidate));
             }
         }
     }
-    None
+    Ok(None)
 }
 
 pub(super) fn roof_height(face: &RoofFace, point: Vec2) -> f32 {
@@ -263,7 +289,11 @@ pub(super) fn roof_height(face: &RoofFace, point: Vec2) -> f32 {
 }
 
 /// Include actual joist-bay centres; a fixed sampling step can miss a narrow valid bay.
-fn station_offsets(plan: &BuildingPlan, wall: &crate::WallAssembly, limit: f32) -> Vec<f32> {
+fn station_offsets(
+    plan: &BuildingPlan,
+    wall: &crate::WallAssembly,
+    limit: f32,
+) -> Result<Vec<f32>, crate::GenerationError> {
     let mut stations = (0..=((2.0 * limit / STATION_STEP_METRES).floor() as usize))
         .map(|step| -limit + step as f32 * STATION_STEP_METRES)
         .collect::<Vec<_>>();
@@ -274,18 +304,19 @@ fn station_offsets(plan: &BuildingPlan, wall: &crate::WallAssembly, limit: f32) 
             .iter()
             .filter(|s| s.role == SolidRole::FrameJoist)
             .map(|s| s.cuboid_bounds())
-            .collect::<Vec<_>>();
-        joists.sort_by(|a, b| a.min.x.total_cmp(&b.min.x));
-        joists.dedup_by(|a, b| (a.min.x - b.min.x).abs() < 0.001);
+            .collect::<Result<Vec<_>, _>>()?;
+        joists.sort_by(|a, b| a.min().metres().x.total_cmp(&b.min().metres().x));
+        joists.dedup_by(|a, b| (a.min().metres().x - b.min().metres().x).abs() < 0.001);
         stations.extend(
             joists
                 .windows(2)
                 .map(|pair| {
-                    ((pair[0].max.x + pair[1].min.x) * 0.5 - wall.frame.origin.x)
+                    ((pair[0].max().metres().x + pair[1].min().metres().x) * 0.5
+                        - wall.frame.origin.x)
                         / wall.frame.tangent.x
                 })
                 .filter(|station| station.abs() <= limit),
         );
     }
-    stations
+    Ok(stations)
 }

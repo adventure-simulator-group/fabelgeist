@@ -23,10 +23,10 @@ pub(super) struct FloorFootprint {
 impl FloorFootprint {
     pub fn from_solid(solid: &crate::ResolvedSolid) -> Self {
         Self {
-            centre: Vec2::new(solid.centre.x, solid.centre.z),
-            half: Vec2::new(solid.size.x, solid.size.z) * 0.5,
-            inverse_sine: (-solid.yaw_radians).sin(),
-            inverse_cosine: (-solid.yaw_radians).cos(),
+            centre: Vec2::new(solid.centre.metres().x, solid.centre.metres().z),
+            half: Vec2::new(solid.size.metres().x, solid.size.metres().z) * 0.5,
+            inverse_sine: (-solid.yaw_radians.radians()).sin(),
+            inverse_cosine: (-solid.yaw_radians.radians()).cos(),
         }
     }
     pub fn contains(self, point: Vec2) -> bool {
@@ -82,23 +82,28 @@ pub(super) fn local_rotate(point: Vec2, yaw: f32) -> Vec2 {
     )
 }
 impl InteriorPlacement {
-    pub(super) fn footprint(&self) -> Rect {
-        let size = self.key.interior_spec().expect("interior key").size_metres;
+    pub(super) fn footprint(&self) -> Result<Rect, super::InteriorLayoutError> {
+        let size = self.key.interior_spec()?.size_metres.metres();
         let half = local_rotate(Vec2::new(size.x, size.z) * 0.5, self.yaw_radians()).abs();
-        Rect::new(self.centre_metres, half)
+        Ok(Rect::new(self.centre_metres.metres(), half))
     }
-    pub(super) fn access_rect(&self, face: crate::furniture::FurnitureAccessFace) -> Rect {
-        let b = self
-            .key
-            .interior_spec()
-            .expect("interior key")
-            .access_bounds(face);
-        let centre = Vec2::new((b.min.x + b.max.x) * 0.5, (b.min.z + b.max.z) * 0.5);
-        let half = Vec2::new(b.max.x - b.min.x, b.max.z - b.min.z) * 0.5;
-        Rect::new(
-            self.centre_metres + local_rotate(centre, self.yaw_radians()),
+    pub(super) fn access_rect(
+        &self,
+        face: crate::furniture::FurnitureAccessFace,
+    ) -> Result<Rect, super::InteriorLayoutError> {
+        let b = self.key.interior_spec()?.access_bounds(face)?;
+        let centre = Vec2::new(
+            (b.min().metres().x + b.max().metres().x) * 0.5,
+            (b.min().metres().z + b.max().metres().z) * 0.5,
+        );
+        let half = Vec2::new(
+            b.max().metres().x - b.min().metres().x,
+            b.max().metres().z - b.min().metres().z,
+        ) * 0.5;
+        Ok(Rect::new(
+            self.centre_metres.metres() + local_rotate(centre, self.yaw_radians()),
             local_rotate(half, self.yaw_radians()).abs(),
-        )
+        ))
     }
 }
 pub(super) fn floor_height(plan: &BuildingPlan, level: u16) -> f32 {
@@ -107,19 +112,29 @@ pub(super) fn floor_height(plan: &BuildingPlan, level: u16) -> f32 {
 
 /// Seat feet on the physical floor supporting a validated interior placement.
 ///
-/// Panics if the placement has not passed `furnish` or `validate_layout` and no
-/// physical floor supports its centre. Missing slabs never imply a nominal floor.
-pub fn furniture_floor_height(plan: &BuildingPlan, placement: &InteriorPlacement) -> f32 {
-    let nominal = floor_height(plan, placement.storey);
-    plan.resolved_geometry
+/// Missing slabs are construction failures; they never imply a nominal floor.
+pub fn furniture_floor_height(
+    plan: &BuildingPlan,
+    placement: &InteriorPlacement,
+) -> Result<
+    crate::spatial_geometry::Elevation<crate::spatial_geometry::Architectural>,
+    super::InteriorLayoutError,
+> {
+    let nominal = floor_height(plan, placement.storey.serialized_ordinal()?);
+    let elevation = plan
+        .resolved_geometry
         .solids
         .iter()
         .filter(|s| super::architecture::is_floor(plan, s))
-        .filter(|s| FloorFootprint::from_solid(s).contains(placement.centre_metres))
-        .map(|s| s.centre.y + s.size.y * 0.5)
+        .filter(|s| FloorFootprint::from_solid(s).contains(placement.centre_metres.metres()))
+        .map(|s| s.centre.metres().y + s.size.metres().y * 0.5)
         .filter(|y| (*y - nominal).abs() <= PERSON_RADIUS)
         .max_by(f32::total_cmp)
-        .expect("validated interior furniture has a physical supporting floor")
+        .ok_or(super::InteriorLayoutError::MissingFloor {
+            storey: placement.storey,
+            room: placement.room_id,
+        })?;
+    Ok(crate::spatial_geometry::Elevation::from_metres(elevation)?)
 }
 
 pub(super) fn room_bounds(room: &Room) -> (Vec2, Vec2) {

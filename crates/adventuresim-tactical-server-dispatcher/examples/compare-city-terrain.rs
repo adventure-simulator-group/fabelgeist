@@ -147,16 +147,13 @@ fn inspect_building(
     contacts: Option<&contacts::CornerSupportProbe>,
 ) -> Result<Value, Box<dyn std::error::Error>> {
     let plan = generate(&placement.program)?;
-    let collision = adventuresim_building_generator::compile_building_collision(&plan);
+    let collision = adventuresim_building_generator::compile_building_collision(&plan)?;
     let footprint = collision
         .ground_floor_footprint()?
         .ok_or("missing actual floor contact")?;
-    let project = |p: Vec2| {
-        placement.centre_metres
-            + placement
-                .orientation
-                .local_to_world(p - collision.bounds.centre().xz())
-    };
+    let origin = collision.bounds.centre()?.metres().xz();
+    let project =
+        |p: Vec2| placement.centre_metres + placement.orientation.local_to_world(p - origin);
     let projection =
         adventuresim_tactical_core::scene_coordinates::ArchitecturalPlanProjection::from_placement(
             placement,
@@ -172,8 +169,8 @@ fn inspect_building(
         .iter()
         .map(|point| point.metres())
         .collect();
-    let thresholds: Vec<_> = compile_ground_entrances(&plan).into_iter().map(|entry| {
-            let position = project(entry.threshold_metres);
+    let thresholds: Vec<_> = compile_ground_entrances(&plan)?.into_iter().map(|entry| {
+            let position = project(entry.threshold_metres.metres());
             json!({"entrance": entry.id, "support":entry.support, "position_metres":position,
                 "elevations":sources.iter().map(|source| (source.role.output_name(), source.surface.elevation_at(position)
                     .map(SupportElevation::metres))).collect::<std::collections::BTreeMap<_,_>>()})

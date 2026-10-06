@@ -1,12 +1,12 @@
 fn resolved_solid_bounds(solid: &ResolvedSolid) -> (Vec3, Vec3) {
-    let cosine = solid.yaw_radians.cos().abs();
-    let sine = solid.yaw_radians.sin().abs();
+    let cosine = solid.yaw_radians.radians().cos().abs();
+    let sine = solid.yaw_radians.radians().sin().abs();
     let half = Vec3::new(
-        (solid.size.x * cosine + solid.size.z * sine) * 0.5,
-        solid.size.y * 0.5,
-        (solid.size.x * sine + solid.size.z * cosine) * 0.5,
+        (solid.size.metres().x * cosine + solid.size.metres().z * sine) * 0.5,
+        solid.size.metres().y * 0.5,
+        (solid.size.metres().x * sine + solid.size.metres().z * cosine) * 0.5,
     );
-    (solid.centre - half, solid.centre + half)
+    (solid.centre.metres() - half, solid.centre.metres() + half)
 }
 
 fn tower_chord_void_separates(
@@ -113,14 +113,14 @@ fn valid_tower_chord_bond(plan: &BuildingPlan, bond: &crate::JunctionBond) -> bo
 }
 
 fn resolved_solid_contains_point(solid: &ResolvedSolid, point: Vec3, tolerance: f32) -> bool {
-    let relative = point - solid.centre;
-    let (sine, cosine) = solid.yaw_radians.sin_cos();
+    let relative = point - solid.centre.metres();
+    let (sine, cosine) = solid.yaw_radians.radians().sin_cos();
     let local = Vec3::new(
         relative.x * cosine - relative.z * sine,
         relative.y,
         relative.x * sine + relative.z * cosine,
     );
-    let half = solid.size * 0.5 + Vec3::splat(tolerance);
+    let half = solid.size.metres() * 0.5 + Vec3::splat(tolerance);
     if !local.abs().cmple(half).all() {
         return false;
     }
@@ -169,8 +169,11 @@ fn artillery_route_solid_contains(solid: &ResolvedSolid, point: Vec3, tolerance:
         ..
     } = solid.shape
     {
-        let radial =
-            Vec2::new(point.x - solid.centre.x, point.z - solid.centre.z).normalize_or_zero();
+        let radial = Vec2::new(
+            point.x - solid.centre.metres().x,
+            point.z - solid.centre.metres().z,
+        )
+        .normalize_or_zero();
         if chord_interfaces.into_iter().flatten().any(|interface| {
             radial.dot(direction_vector(interface.toward_gate))
                 > (outer_radius_metres - interface.bearing_depth.metres()) / outer_radius_metres
@@ -309,24 +312,27 @@ fn oriented_occupant_overlaps_solid(
     if solid_max.y.min(foot.y + 1.90) - solid_min.y.max(foot.y) <= tolerance {
         return false;
     }
-    let cosine = solid.yaw_radians.cos();
-    let sine = solid.yaw_radians.sin();
+    let cosine = solid.yaw_radians.radians().cos();
+    let sine = solid.yaw_radians.radians().sin();
     let solid_x = Vec2::new(cosine, -sine);
     let solid_z = Vec2::new(sine, cosine);
-    let delta = Vec2::new(solid.centre.x - foot.x, solid.centre.z - foot.z);
+    let delta = Vec2::new(
+        solid.centre.metres().x - foot.x,
+        solid.centre.metres().z - foot.z,
+    );
     [along, across, solid_x, solid_z].into_iter().all(|axis| {
         let occupant_radius = 0.10 * along.dot(axis).abs() + 0.45 * across.dot(axis).abs();
-        let solid_radius = solid.size.x * 0.5 * solid_x.dot(axis).abs()
-            + solid.size.z * 0.5 * solid_z.dot(axis).abs();
+        let solid_radius = solid.size.metres().x * 0.5 * solid_x.dot(axis).abs()
+            + solid.size.metres().z * 0.5 * solid_z.dot(axis).abs();
         occupant_radius + solid_radius - delta.dot(axis).abs() > tolerance
     })
 }
 
 fn oriented_cuboids_overlap(a: &ResolvedSolid, b: &ResolvedSolid, tolerance: f32) -> bool {
     let rotation = |solid: &ResolvedSolid| {
-        Quat::from_rotation_y(solid.yaw_radians)
-            * Quat::from_rotation_x(solid.crossfall_radians)
-            * Quat::from_rotation_z(solid.longfall_radians)
+        Quat::from_rotation_y(solid.yaw_radians.radians())
+            * Quat::from_rotation_x(solid.crossfall_radians.radians())
+            * Quat::from_rotation_z(solid.longfall_radians.radians())
     };
     let a_rotation = rotation(a);
     let b_rotation = rotation(b);
@@ -340,9 +346,9 @@ fn oriented_cuboids_overlap(a: &ResolvedSolid, b: &ResolvedSolid, tolerance: f32
         b_rotation * Vec3::Y,
         b_rotation * Vec3::Z,
     ];
-    let delta = b.centre - a.centre;
-    let a_half = a.size * 0.5;
-    let b_half = b.size * 0.5;
+    let delta = b.centre.metres() - a.centre.metres();
+    let a_half = a.size.metres() * 0.5;
+    let b_half = b.size.metres() * 0.5;
     let radius = |half: Vec3, axes: [Vec3; 3], axis: Vec3| {
         half.x * axes[0].dot(axis).abs()
             + half.y * axes[1].dot(axis).abs()
@@ -371,48 +377,75 @@ fn resolved_solids_overlap_positive_volume(
     tolerance: f32,
 ) -> bool {
     let left_vertical = (
-        left.centre.y - left.size.y * 0.5,
-        left.centre.y + left.size.y * 0.5,
+        left.centre.metres().y - left.size.metres().y * 0.5,
+        left.centre.metres().y + left.size.metres().y * 0.5,
     );
     let right_vertical = (
-        right.centre.y - right.size.y * 0.5,
-        right.centre.y + right.size.y * 0.5,
+        right.centre.metres().y - right.size.metres().y * 0.5,
+        right.centre.metres().y + right.size.metres().y * 0.5,
     );
     if left_vertical.1.min(right_vertical.1) - left_vertical.0.max(right_vertical.0) <= tolerance {
         return false;
     }
-    let left_x = Vec2::new(left.yaw_radians.cos(), -left.yaw_radians.sin());
-    let left_z = Vec2::new(left.yaw_radians.sin(), left.yaw_radians.cos());
-    let right_x = Vec2::new(right.yaw_radians.cos(), -right.yaw_radians.sin());
-    let right_z = Vec2::new(right.yaw_radians.sin(), right.yaw_radians.cos());
+    let left_x = Vec2::new(
+        left.yaw_radians.radians().cos(),
+        -left.yaw_radians.radians().sin(),
+    );
+    let left_z = Vec2::new(
+        left.yaw_radians.radians().sin(),
+        left.yaw_radians.radians().cos(),
+    );
+    let right_x = Vec2::new(
+        right.yaw_radians.radians().cos(),
+        -right.yaw_radians.radians().sin(),
+    );
+    let right_z = Vec2::new(
+        right.yaw_radians.radians().sin(),
+        right.yaw_radians.radians().cos(),
+    );
     let delta = Vec2::new(
-        right.centre.x - left.centre.x,
-        right.centre.z - left.centre.z,
+        right.centre.metres().x - left.centre.metres().x,
+        right.centre.metres().z - left.centre.metres().z,
     );
     [left_x, left_z, right_x, right_z].into_iter().all(|axis| {
-        let left_radius =
-            left.size.x * 0.5 * left_x.dot(axis).abs() + left.size.z * 0.5 * left_z.dot(axis).abs();
-        let right_radius = right.size.x * 0.5 * right_x.dot(axis).abs()
-            + right.size.z * 0.5 * right_z.dot(axis).abs();
+        let left_radius = left.size.metres().x * 0.5 * left_x.dot(axis).abs()
+            + left.size.metres().z * 0.5 * left_z.dot(axis).abs();
+        let right_radius = right.size.metres().x * 0.5 * right_x.dot(axis).abs()
+            + right.size.metres().z * 0.5 * right_z.dot(axis).abs();
         left_radius + right_radius - delta.dot(axis).abs() > tolerance
     })
 }
 
-fn resolved_plan_overlap_area(left: &ResolvedSolid, right: &ResolvedSolid) -> f32 {
-    let local_x = Vec2::new(left.yaw_radians.cos(), -left.yaw_radians.sin());
-    let local_z = Vec2::new(left.yaw_radians.sin(), left.yaw_radians.cos());
-    let delta = Vec2::new(
-        right.centre.x - left.centre.x,
-        right.centre.z - left.centre.z,
+fn resolved_plan_overlap_area(
+    left: &ResolvedSolid,
+    right: &ResolvedSolid,
+) -> Result<f32> {
+    let local_x = Vec2::new(
+        left.yaw_radians.radians().cos(),
+        -left.yaw_radians.radians().sin(),
     );
-    let right_x = Vec2::new(right.yaw_radians.cos(), -right.yaw_radians.sin());
-    let right_z = Vec2::new(right.yaw_radians.sin(), right.yaw_radians.cos());
+    let local_z = Vec2::new(
+        left.yaw_radians.radians().sin(),
+        left.yaw_radians.radians().cos(),
+    );
+    let delta = Vec2::new(
+        right.centre.metres().x - left.centre.metres().x,
+        right.centre.metres().z - left.centre.metres().z,
+    );
+    let right_x = Vec2::new(
+        right.yaw_radians.radians().cos(),
+        -right.yaw_radians.radians().sin(),
+    );
+    let right_z = Vec2::new(
+        right.yaw_radians.radians().sin(),
+        right.yaw_radians.radians().cos(),
+    );
     let overlap = |axis: Vec2, left_extent: f32| {
-        let right_extent = right.size.x * 0.5 * right_x.dot(axis).abs()
-            + right.size.z * 0.5 * right_z.dot(axis).abs();
+        let right_extent = right.size.metres().x * 0.5 * right_x.dot(axis).abs()
+            + right.size.metres().z * 0.5 * right_z.dot(axis).abs();
         (left_extent + right_extent - delta.dot(axis).abs()).max(0.0)
     };
-    overlap(local_x, left.size.x * 0.5) * overlap(local_z, left.size.z * 0.5)
+    Ok(overlap(local_x, left.size.metres().x * 0.5) * overlap(local_z, left.size.metres().z * 0.5))
 }
 
 fn bonded_interface_metrics(
@@ -453,15 +486,16 @@ fn round_shell_clears_inner_solid(shell: &ResolvedSolid, inner: &ResolvedSolid) 
     else {
         return false;
     };
-    let rotation = Quat::from_rotation_y(inner.yaw_radians);
-    let half = inner.size * 0.5;
-    [(-1.0,-1.0),(-1.0,1.0),(1.0,-1.0),(1.0,1.0)]
-    .map(|(x,z)| {
-        let corner = inner.centre + rotation * Vec3::new(x * half.x, 0.0, z * half.z);
-        Vec2::new(corner.x,corner.z)
-    })
-    .into_iter()
-    .all(|corner| {
-        corner.distance(Vec2::new(shell.centre.x, shell.centre.z)) <= inner_radius_metres - 0.005
-    })
+    let rotation = Quat::from_rotation_y(inner.yaw_radians.radians());
+    let half = inner.size.metres() * 0.5;
+    [(-1.0, -1.0), (-1.0, 1.0), (1.0, -1.0), (1.0, 1.0)]
+        .map(|(x, z)| {
+            let corner = inner.centre.metres() + rotation * Vec3::new(x * half.x, 0.0, z * half.z);
+            Vec2::new(corner.x, corner.z)
+        })
+        .into_iter()
+        .all(|corner| {
+            corner.distance(Vec2::new(shell.centre.metres().x, shell.centre.metres().z))
+                <= inner_radius_metres - 0.005
+        })
 }

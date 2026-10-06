@@ -30,25 +30,28 @@ fn empty_room() -> BuildingPlan {
     for door in &mut plan.opening_assemblies {
         door.frame.inside_room = Some(0);
     }
-    plan.resolved_geometry
-        .solids
-        .retain(|s| s.role == SolidRole::FrameFloor && (s.centre.y + s.size.y * 0.5).abs() < 0.001);
+    plan.resolved_geometry.solids.retain(|s| {
+        s.role == SolidRole::FrameFloor
+            && (s.centre.metres().y + s.size.metres().y * 0.5).abs() < 0.001
+    });
     plan
 }
 fn placement(kind: FurnitureKind, variant: FurnitureVariant) -> InteriorPlacement {
     InteriorPlacement {
         key: FurnitureKey::natural(kind, variant),
-        room_id: 0,
-        storey: 0,
-        centre_metres: Vec2::new(4.5, 7.5),
+        room_id: crate::RoomIndex::from_serialized(0),
+        storey: crate::StoreyIndex::from_serialized(0),
+        centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(Vec2::new(4.5, 7.5))
+            .unwrap(),
         facing: Direction::South,
     }
 }
 fn add_solid(plan: &mut BuildingPlan, centre: Vec3, size: Vec3) {
     let mut solid = plan.resolved_geometry.solids[0].clone();
     solid.id = ResolvedItemId(9_000_000 + plan.resolved_geometry.solids.len() as u64);
-    solid.centre = centre;
-    solid.size = size;
+    solid.centre =
+        crate::spatial_geometry::Position::<crate::Architectural>::from_metres(centre).unwrap();
+    solid.size = crate::spatial_geometry::CuboidDimensions::from_metres(size).unwrap();
     solid.role = SolidRole::FramePost;
     plan.resolved_geometry.solids.push(solid);
 }
@@ -141,7 +144,7 @@ fn interior_routes_start_at_the_door_and_reject_a_blocked_threshold() {
     };
     let door = plan.opening_assemblies[0].frame.origin;
     let paths = validate_layout(&plan, &layout).unwrap();
-    assert_eq!(paths[0].points[0].position_metres, door);
+    assert_eq!(paths[0].points[0].position_metres.metres(), door);
     // The inside approach remains free, but the actual threshold is sealed.
     add_solid(
         &mut plan,
@@ -179,8 +182,9 @@ fn interior_requires_floor_under_the_whole_footprint() {
     {
         let mut floor = source.clone();
         floor.id = ResolvedItemId(8_000_000 + index as u64);
-        floor.centre = centre;
-        floor.size = size;
+        floor.centre =
+            crate::spatial_geometry::Position::<crate::Architectural>::from_metres(centre).unwrap();
+        floor.size = crate::spatial_geometry::CuboidDimensions::from_metres(size).unwrap();
         plan.resolved_geometry.solids.push(floor);
     }
     assert!(matches!(
@@ -194,10 +198,15 @@ fn interior_floor_support_follows_rotated_landing_footprint() {
     let mut plan = empty_room();
     plan.resolved_geometry.solids.truncate(1);
     let landing = &mut plan.resolved_geometry.solids[0];
-    landing.centre = Vec3::new(4.5, -0.08, 7.5);
-    landing.size = Vec3::new(3.0, 0.16, 0.8);
-    landing.yaw_radians = std::f32::consts::FRAC_PI_4;
-    let floor = super::architecture::Floor::new(&plan, 0);
+    landing.centre = crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+        Vec3::new(4.5, -0.08, 7.5),
+    )
+    .unwrap();
+    landing.size =
+        crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(3.0, 0.16, 0.8)).unwrap();
+    landing.yaw_radians =
+        crate::spatial_geometry::Radians::new(std::f32::consts::FRAC_PI_4).unwrap();
+    let floor = super::architecture::Floor::new(&plan, 0).unwrap();
     assert!(floor.contains(Vec2::new(5.2, 6.8)));
     assert!(!floor.contains(Vec2::new(5.7, 7.5)));
 }
@@ -218,8 +227,8 @@ fn interior_requires_physical_floors_without_archetype_descriptors() {
     plan.workplace = None;
     validate_layout(&plan, &layout).unwrap();
     plan.resolved_geometry.solids.clear();
-    let floor = super::architecture::Floor::new(&plan, 0);
-    assert!(!floor.contains(layout.placements[0].centre_metres));
+    let floor = super::architecture::Floor::new(&plan, 0).unwrap();
+    assert!(!floor.contains(layout.placements[0].centre_metres.metres()));
     assert!(validate_layout(&plan, &layout).is_err());
     assert!(
         furnish(

@@ -14,7 +14,7 @@ pub struct GeneratedBuildingRecipe {
 impl GeneratedBuildingRecipe {
     pub fn generate(program: BuildingProgram) -> Result<Self, GenerationError> {
         let plan = generate(&program)?;
-        let collision = compile_building_collision(&plan);
+        let collision = compile_building_collision(&plan)?;
         Ok(Self {
             program,
             plan,

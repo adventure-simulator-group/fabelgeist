@@ -32,6 +32,8 @@ pub struct CompoundGradingPolicy {
 #[derive(Debug, thiserror::Error)]
 pub enum CitySupportError {
     #[error(transparent)]
+    Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
+    #[error(transparent)]
     Compilation(#[from] CityCompileError),
     #[error("property {property:?} lacks exact member {building}")]
     MissingBuilding {
@@ -125,20 +127,29 @@ fn plan_property(
         })
     };
     let front_placement = building(property.front_building_id)?;
-    let (mut front, recipe) = member(property, front_placement, Vec2::Y, recipes, geographic)?;
-    let threshold =
-        recipe
-            .door_point(front_placement, -Vec2::Y)
-            .ok_or(CitySupportError::MissingBinding {
-                property: property.id,
-                building: front.building_id,
-                outward: -Vec2::Y,
-            })?;
+    let (mut front, recipe) = member(
+        property,
+        front_placement,
+        adventuresim_building_generator::Direction::North,
+        recipes,
+        geographic,
+    )?;
+    let threshold = recipe
+        .door_point(
+            front_placement,
+            adventuresim_building_generator::Direction::South,
+        )?
+        .ok_or(CitySupportError::MissingBinding {
+            property: property.id,
+            building: front.building_id,
+            outward: -Vec2::Y,
+        })?
+        .metres();
     front.elevation = sample(property, geographic, threshold)?;
     let (rear, _) = member(
         property,
         building(property.rear_building_id)?,
-        -Vec2::Y,
+        adventuresim_building_generator::Direction::South,
         recipes,
         geographic,
     )?;
@@ -174,7 +185,7 @@ fn plan_property(
 fn member(
     property: &CityCompound,
     placement: &TacticalBuildingPlacement,
-    outward: Vec2,
+    outward: adventuresim_building_generator::Direction,
     recipes: &mut CityRecipePalette,
     geographic: &GeographicSurface,
 ) -> Result<(MemberSupport, std::sync::Arc<recipes::Recipe>), CitySupportError> {
@@ -188,7 +199,7 @@ fn member(
     let binding = || CitySupportError::MissingBinding {
         property: property.id,
         building: placement.id,
-        outward,
+        outward: outward.offset().as_vec2(),
     };
     let contact = recipe
         .collision
@@ -199,16 +210,20 @@ fn member(
             issue,
         })?
         .ok_or_else(binding)?;
-    let threshold = recipe.door_point(placement, outward).ok_or_else(binding)?;
+    let threshold = recipe
+        .door_point(placement, outward)?
+        .ok_or_else(binding)?
+        .metres();
     Ok((
         MemberSupport {
             building_id: placement.id,
             contact: CityPlotBounds {
                 centre_metres: placement.centre_metres
                     + placement.orientation.local_to_world(
-                        contact.centre().xz() - recipe.collision.bounds.centre().xz(),
+                        contact.centre()?.metres().xz()
+                            - recipe.collision.bounds.centre()?.metres().xz(),
                     ),
-                dimensions_metres: contact.plan_half_extents() * 2.0,
+                dimensions_metres: contact.plan_half_extents()?.metres() * 2.0,
                 orientation: placement.orientation,
             },
             court_threshold_metres: threshold,
