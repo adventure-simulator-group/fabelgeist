@@ -21,6 +21,11 @@ use flate2::read::ZlibDecoder;
 
 pub mod animation;
 
+mod binary_layout;
+use binary_layout::{FbxVersion, HeaderFormat};
+#[cfg(test)]
+mod binary_layout_tests;
+
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 
 /// A typed FBX property value.
@@ -169,7 +174,7 @@ impl Node {
 struct Reader<'a> {
     data: &'a [u8],
     pos: usize,
-    version: u32,
+    version: FbxVersion,
 }
 
 impl<'a> Reader<'a> {
@@ -203,16 +208,14 @@ impl<'a> Reader<'a> {
 
     /// Node headers went 32-bit -> 64-bit in FBX 7500.
     fn header_word(&mut self) -> Result<u64> {
-        if self.version >= 7500 {
-            self.u64()
-        } else {
-            Ok(self.u32()? as u64)
+        match self.version.format() {
+            HeaderFormat::Wide => self.u64(),
+            HeaderFormat::Narrow => Ok(self.u32()? as u64),
         }
     }
 
     fn header_size(&self) -> usize {
-        // 3 header words + the 1-byte name length.
-        if self.version >= 7500 { 25 } else { 13 }
+        self.version.format().record_width()
     }
 }
 
@@ -348,7 +351,8 @@ pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
         }
         bail!("not a binary FBX file");
     }
-    let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
+    // The checked 27-byte file header contains the four-byte version at 23.
+    let version = FbxVersion::from(u32::from_le_bytes([data[23], data[24], data[25], data[26]]));
     let mut reader = Reader {
         data,
         pos: 27,
