@@ -18,7 +18,9 @@ fn bonding_preserves_tolerated_gap_planes_and_zero_overlap() {
     let mut right = left.clone();
     right.id = ResolvedItemId(794);
     right.centre = Position::from_metres(Vec3::new(2.02, 0.0, 0.0)).unwrap();
-    let contact = bonded_interface_metrics(&left, &right).unwrap().unwrap();
+    let contact = BondedInterfaceMetrics::between(&left, &right)
+        .unwrap()
+        .unwrap();
     assert!(contact.contact_min.metres().x > contact.contact_max.metres().x);
     assert_eq!(contact.penetration, SignedLength::ZERO);
     assert_eq!(contact.area.square_metres(), 4.0);
@@ -45,10 +47,16 @@ fn bonding_preserves_tolerated_gap_planes_and_zero_overlap() {
         );
     }
     right.centre = Position::from_metres(Vec3::new(2.03, 0.0, 0.0)).unwrap();
-    assert!(bonded_interface_metrics(&left, &right).unwrap().is_none());
+    assert!(
+        BondedInterfaceMetrics::between(&left, &right)
+            .unwrap()
+            .is_none()
+    );
     right.centre = Position::from_metres(Vec3::new(1.0, 0.0, 0.0)).unwrap();
     right.size = CuboidDimensions::from_metres(Vec3::new(0.0, 2.0, 2.0)).unwrap();
-    let contact = bonded_interface_metrics(&left, &right).unwrap().unwrap();
+    let contact = BondedInterfaceMetrics::between(&left, &right)
+        .unwrap()
+        .unwrap();
     assert_eq!(contact.penetration, SignedLength::ZERO);
     assert_eq!(contact.area.square_metres(), 4.0);
 }

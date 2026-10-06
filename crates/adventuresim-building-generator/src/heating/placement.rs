@@ -19,6 +19,31 @@ pub(super) struct Placement {
     pub face: crate::ResolvedItemId,
 }
 
+impl Placement {
+    fn is_usable(self, plan: &BuildingPlan, face: &RoofFace) -> GenerationResult<bool> {
+        let top = self.site.flue_top(face)?;
+        Ok(self
+            .site
+            .clear(plan, self.site.body()?, HostWallPolicy::Replace)?
+            && self
+                .site
+                .clear(plan, self.site.shaft(top)?, HostWallPolicy::Retain)?
+            && self
+                .site
+                .clear(plan, self.site.operating_space()?, HostWallPolicy::Retain)?
+            && self.site.clear_doors(plan)?
+            && (self.site.storey_level == StoreyIndex::GROUND
+                || self
+                    .site
+                    .clear(plan, self.site.support()?, HostWallPolicy::Retain)?)
+            && crate::geometry_index::try_all(self.site.shaft_shoulder()?, |bounds| {
+                self.site.clear(plan, bounds, HostWallPolicy::Retain)
+            })?
+            && super::floors::supported(plan, self)?
+            && super::roof_route::weather_clear(plan, self, face)?)
+    }
+}
+
 use crate::{BuildingPlan, RoofFace, RoomKind, SolidRole, WallAssemblyId};
 use bevy::math::{Vec2, Vec3};
 
@@ -54,6 +79,15 @@ impl HearthSection {
 }
 const OPERATING_DEPTH_METRES: f32 = 0.75;
 const PARTITION_END_RESERVE_METRES: f32 = 0.16;
+const SOLID_OVERLAP_TOLERANCE_METRES: f32 = 0.001;
+const JOIST_PLANE_TOLERANCE_METRES: f32 = 0.001;
+const DOOR_CLEARANCE_METRES: f32 = 0.3;
+
+#[derive(Clone, Copy)]
+enum HostWallPolicy {
+    Replace,
+    Retain,
+}
 
 #[derive(Clone, Copy, Debug)]
 pub(super) struct PlacementCandidate {
@@ -193,7 +227,7 @@ impl PlacementCandidate {
         self,
         plan: &BuildingPlan,
         bounds: SpatialBounds<Architectural>,
-        replace_wall: bool,
+        host_wall: HostWallPolicy,
     ) -> GenerationResult<bool> {
         let wall = plan
             .wall_assemblies
@@ -202,7 +236,7 @@ impl PlacementCandidate {
             .ok_or(crate::HeatingConstructionError::MissingWall { wall: self.wall })?;
         let margin = Vec3::new(TIMBER_CLEARANCE_METRES, 0.0, TIMBER_CLEARANCE_METRES);
         Ok(!plan.resolved_geometry.solids.iter().any(|solid| {
-            !(replace_wall && wall.host_solids.contains(&solid.id))
+            !(matches!(host_wall, HostWallPolicy::Replace) && wall.host_solids.contains(&solid.id))
                 && !matches!(solid.role, SolidRole::FrameFloor | SolidRole::InteriorFloor)
                 && crate::solid_overlap::overlaps_bounds(
                     solid,
@@ -210,7 +244,7 @@ impl PlacementCandidate {
                         bounds.min().metres() - margin,
                         bounds.max().metres() + margin,
                     ),
-                    0.001,
+                    SOLID_OVERLAP_TOLERANCE_METRES,
                 )
         }))
     }
@@ -227,8 +261,8 @@ impl PlacementCandidate {
             })
             .all(|o| {
                 let width = o.profile.interior_width_metres();
-                let half = o.frame.tangent.abs() * (width * 0.5 + 0.3)
-                    + o.frame.outward.abs() * (width + 0.3);
+                let half = o.frame.tangent.abs() * (width * 0.5 + DOOR_CLEARANCE_METRES)
+                    + o.frame.outward.abs() * (width + DOOR_CLEARANCE_METRES);
                 let min = o.frame.origin - half;
                 let max = o.frame.origin + half;
                 body.max().metres().x <= min.x
@@ -245,7 +279,13 @@ pub(super) fn find(plan: &BuildingPlan) -> GenerationResult<Option<Placement>> {
         else {
             continue;
         };
-        let Some(pair) = kitchen_pair(plan, wall, inside, outside)? else {
+        let Some(pair) = KitchenPair::from_wall(
+            plan,
+            wall,
+            RoomIndex::from_serialized(inside),
+            RoomIndex::from_serialized(outside),
+        )?
+        else {
             continue;
         };
         let KitchenPair {
@@ -304,25 +344,7 @@ pub(super) fn find(plan: &BuildingPlan) -> GenerationResult<Option<Placement>> {
                 roof: selected.roof,
                 face: face.id,
             };
-            let top = candidate.site.flue_top(face)?;
-            if candidate.site.clear(plan, candidate.site.body()?, true)?
-                && candidate
-                    .site
-                    .clear(plan, candidate.site.shaft(top)?, false)?
-                && candidate
-                    .site
-                    .clear(plan, candidate.site.operating_space()?, false)?
-                && candidate.site.clear_doors(plan)?
-                && (candidate.site.storey_level == StoreyIndex::GROUND
-                    || candidate
-                        .site
-                        .clear(plan, candidate.site.support()?, false)?)
-                && crate::geometry_index::try_all(candidate.site.shaft_shoulder()?, |b| {
-                    candidate.site.clear(plan, b, false)
-                })?
-                && super::floors::supported(plan, candidate)?
-                && super::roof_route::weather_clear(plan, candidate, face)?
-            {
+            if candidate.is_usable(plan, face)? {
                 return Ok(Some(candidate));
             }
         }
@@ -360,7 +382,9 @@ fn station_offsets(
             .map(|s| s.cuboid_bounds())
             .collect::<GenerationResult<Vec<_>>>()?;
         joists.sort_by(|a, b| a.min().metres().x.total_cmp(&b.min().metres().x));
-        joists.dedup_by(|a, b| (a.min().metres().x - b.min().metres().x).abs() < 0.001);
+        joists.dedup_by(|a, b| {
+            (a.min().metres().x - b.min().metres().x).abs() < JOIST_PLANE_TOLERANCE_METRES
+        });
         stations.extend(
             joists
                 .windows(2)
@@ -384,45 +408,50 @@ struct KitchenPair<'a> {
     stube: RoomIndex,
     axis: PlanDirection<Architectural>,
 }
-fn kitchen_pair<'a>(
-    plan: &'a BuildingPlan,
-    wall: &crate::WallAssembly,
-    inside: u16,
-    outside: u16,
-) -> GenerationResult<Option<KitchenPair<'a>>> {
-    let level = StoreyIndex::from_serialized(wall.storey_level);
-    let storey = plan
-        .storeys
-        .iter()
-        .find(|s| s.level == wall.storey_level)
-        .ok_or(crate::HeatingConstructionError::MissingStorey {
-            wall: wall.id,
-            storey: level,
-        })?;
-    let room = |id| {
-        storey.rooms.iter().find(|r| r.id == id).ok_or(
-            crate::HeatingConstructionError::MissingRoom {
+impl<'a> KitchenPair<'a> {
+    fn from_wall(
+        plan: &'a BuildingPlan,
+        wall: &crate::WallAssembly,
+        inside: RoomIndex,
+        outside: RoomIndex,
+    ) -> GenerationResult<Option<Self>> {
+        let level = StoreyIndex::from_serialized(wall.storey_level);
+        let storey = plan
+            .storeys
+            .iter()
+            .find(|s| s.level == wall.storey_level)
+            .ok_or(crate::HeatingConstructionError::MissingStorey {
                 wall: wall.id,
                 storey: level,
-                room: RoomIndex::from_serialized(id),
+            })?;
+        let room = |id: RoomIndex| {
+            storey
+                .rooms
+                .iter()
+                .find(|r| RoomIndex::from_serialized(r.id) == id)
+                .ok_or(crate::HeatingConstructionError::MissingRoom {
+                    wall: wall.id,
+                    storey: level,
+                    room: id,
+                })
+        };
+        let inside_room = room(inside)?;
+        let outside_room = room(outside)?;
+        let pair = match (inside_room.kind, outside_room.kind) {
+            (RoomKind::Kitchen, RoomKind::CommonRoom | RoomKind::GreatHall) => Self {
+                storey,
+                kitchen: inside,
+                stube: outside,
+                axis: PlanDirection::from_normalized(-wall.frame.outward)?,
             },
-        )
-    };
-    let a = room(inside)?;
-    let b = room(outside)?;
-    let (kitchen, stube, axis) = match (a.kind, b.kind) {
-        (RoomKind::Kitchen, RoomKind::CommonRoom | RoomKind::GreatHall) => {
-            (a.id, b.id, -wall.frame.outward)
-        }
-        (RoomKind::CommonRoom | RoomKind::GreatHall, RoomKind::Kitchen) => {
-            (b.id, a.id, wall.frame.outward)
-        }
-        _ => return Ok(None),
-    };
-    Ok(Some(KitchenPair {
-        storey,
-        kitchen: RoomIndex::from_serialized(kitchen),
-        stube: RoomIndex::from_serialized(stube),
-        axis: PlanDirection::from_normalized(axis)?,
-    }))
+            (RoomKind::CommonRoom | RoomKind::GreatHall, RoomKind::Kitchen) => Self {
+                storey,
+                kitchen: outside,
+                stube: inside,
+                axis: PlanDirection::from_normalized(wall.frame.outward)?,
+            },
+            _ => return Ok(None),
+        };
+        Ok(Some(pair))
+    }
 }

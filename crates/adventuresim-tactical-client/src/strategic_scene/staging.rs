@@ -1,7 +1,7 @@
 //! Conversation positions use the furnished tactical building's circulation proof.
 use adventuresim_building_generator::{
     CollisionCuboid, ResolvedItemId,
-    interior::{InteriorLayout, StandingClearance, furniture_floor_height},
+    interior::{InteriorLayout, StandingClearance},
 };
 use adventuresim_tactical_core::prelude::GeneratedBuilding;
 use bevy::prelude::*;
@@ -117,7 +117,7 @@ fn obstacles(
             ResolvedItemId(0),
             Vec3::new(
                 placement.centre_metres.metres().x,
-                furniture_floor_height(&building.plan, placement)?.metres() + size.y * 0.5,
+                placement.floor_height(&building.plan)?.metres() + size.y * 0.5,
                 placement.centre_metres.metres().y,
             ),
             size,

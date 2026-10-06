@@ -7,6 +7,7 @@ use bevy::math::{Mat3, Quat, Vec2, Vec3};
 const WEATHER_OVERLAP_METRES: f32 = 0.06;
 pub(super) const CUT_CLEARANCE_METRES: f32 = 0.015;
 const LEAD_THICKNESS_METRES: f32 = 0.006;
+const VERTICAL_EDGE_TOLERANCE_METRES: f32 = 0.001;
 // A shallow change of fall lets a continuous pan emerge from below the uphill
 // tiles to above the downhill tiles without an upward step in its water route.
 pub(in crate::heating) const PAN_FALL_ADJUSTMENT: f32 = 0.04;
@@ -84,7 +85,7 @@ pub(super) fn penetrate(assembly: &mut Assembly<'_>, roofs: &mut [RoofAssembly])
         p.iter()
             .zip(p.iter().cycle().skip(1))
             .take(p.len())
-            .map(|(assembly, b)| assembly.x * b.z - b.x * assembly.z)
+            .map(|(left, right)| left.x * right.z - right.x * left.z)
             .sum::<f32>()
     };
     if area(&contour).signum() == area(&face.polygon).signum() {
@@ -101,7 +102,7 @@ pub(super) fn penetrate(assembly: &mut Assembly<'_>, roofs: &mut [RoofAssembly])
         let q = Vec2::new(end.x, end.z);
         let mut lower = p.min(q) - Vec2::splat(WEATHER_OVERLAP_METRES);
         let mut upper = p.max(q) + Vec2::splat(WEATHER_OVERLAP_METRES);
-        if (p.x - q.x).abs() < 0.001 {
+        if (p.x - q.x).abs() < VERTICAL_EDGE_TOLERANCE_METRES {
             if p.x < inner_min.x {
                 upper.x = inner_min.x + WEATHER_OVERLAP_METRES;
             } else {

@@ -5,7 +5,7 @@ use crate::{BuildingPlan, RoofAssemblyId, RoofFace};
 use bevy::math::{Vec2, Vec3};
 use geo::{Area, BooleanOps, Intersects};
 
-const OVERLAP_AREA_TOLERANCE: f32 = 0.00001;
+const OVERLAP_AREA_TOLERANCE_SQUARE_METRES: f32 = 0.00001;
 
 pub(super) struct RoofSelection<'a> {
     pub roof: RoofAssemblyId,
@@ -59,7 +59,7 @@ fn fits(face: &RoofFace, probe: crate::plan_geometry::ArchitecturalPlanPoint) ->
     Ok(rect
         .difference(&geo::Polygon::new(ring(&face.polygon, Vec3::ZERO), vec![]))
         .unsigned_area()
-        < OVERLAP_AREA_TOLERANCE
+        < OVERLAP_AREA_TOLERANCE_SQUARE_METRES
         && !face
             .cutouts
             .iter()
@@ -86,7 +86,8 @@ fn clear_other_roofs(
                     ring(&face.polygon, offset),
                     face.cutouts.iter().map(|cut| ring(cut, offset)).collect(),
                 );
-                if rect.intersection(&solid).unsigned_area() > OVERLAP_AREA_TOLERANCE {
+                if rect.intersection(&solid).unsigned_area() > OVERLAP_AREA_TOLERANCE_SQUARE_METRES
+                {
                     return Ok(false);
                 }
             }

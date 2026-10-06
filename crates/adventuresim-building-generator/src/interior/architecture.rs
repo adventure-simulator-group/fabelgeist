@@ -4,6 +4,7 @@ use crate::CollisionResult;
 use crate::interior::InteriorResult;
 use crate::plan_geometry::ArchitecturalPlanPoint;
 use crate::spatial_geometry::GeometryResult;
+use crate::spatial_geometry::PlanExtents;
 use crate::spatial_geometry::{Elevation, PositiveLength};
 use crate::{BuildingPlan, CELL_SIZE_METRES, OpeningUse, SolidRole, Stair};
 use bevy::math::Vec2;
@@ -129,16 +130,7 @@ fn circulation_reservations(
     if let Some(heating) = &plan.domestic_heating {
         let space = heating.operating_space;
         if height < space.max().metres().y && height + PERSON_HEIGHT > space.min().metres().y {
-            reserved.push(Rect::from_metres(
-                Vec2::new(
-                    space.min().metres().x + space.max().metres().x,
-                    space.min().metres().z + space.max().metres().z,
-                ) * 0.5,
-                Vec2::new(
-                    space.max().metres().x - space.min().metres().x,
-                    space.max().metres().z - space.min().metres().z,
-                ) * 0.5,
-            )?);
+            reserved.push(Rect::from_bounds(space)?);
         }
     }
     if let Some(workplace) = &plan.workplace {
@@ -146,16 +138,7 @@ fn circulation_reservations(
             if passage.bounds.min().metres().y < height + PERSON_HEIGHT
                 && passage.bounds.max().metres().y > height + FLOOR_CLEARANCE
             {
-                reserved.push(Rect::from_metres(
-                    Vec2::new(
-                        passage.bounds.min().metres().x + passage.bounds.max().metres().x,
-                        passage.bounds.min().metres().z + passage.bounds.max().metres().z,
-                    ) * 0.5,
-                    Vec2::new(
-                        passage.bounds.max().metres().x - passage.bounds.min().metres().x,
-                        passage.bounds.max().metres().z - passage.bounds.min().metres().z,
-                    ) * 0.5,
-                )?);
+                reserved.push(Rect::from_bounds(passage.bounds.bounds())?);
             }
         }
     }
@@ -177,9 +160,11 @@ fn circulation_reservations(
                 }
                 let axis = direction.offset().as_vec2();
                 let lateral = Vec2::new(-axis.y, axis.x);
-                let flight = Rect::from_metres(
-                    start + axis * run_metres * 0.5,
-                    axis.abs() * run_metres * 0.5 + lateral.abs() * width_metres * 0.5,
+                let flight = Rect::new(
+                    ArchitecturalPlanPoint::from_metres(start + axis * run_metres * 0.5)?,
+                    PlanExtents::from_metres(
+                        axis.abs() * run_metres * 0.5 + lateral.abs() * width_metres * 0.5,
+                    )?,
                 )?;
                 reserved.push(flight.expanded(
                     crate::spatial_geometry::SignedLength::from_metres(PERSON_RADIUS)?,
@@ -195,14 +180,17 @@ fn circulation_reservations(
                 if height >= base_height_metres - FLOOR_CLEARANCE
                     && height <= base_height_metres + rise_metres + FLOOR_CLEARANCE
                 {
-                    reserved.push(Rect::from_metres(
-                        centre,
-                        Vec2::splat(outer_radius_metres + PERSON_RADIUS),
+                    reserved.push(Rect::new(
+                        ArchitecturalPlanPoint::from_metres(centre)?,
+                        PlanExtents::from_metres(Vec2::splat(outer_radius_metres + PERSON_RADIUS))?,
                     )?);
                     // Spiral travel uses its physical landing links, never a
                     // horizontal shortcut through the flight at room height.
                     if let Some((min, max)) = crate::spiral_stairs::well_bounds(*stair) {
-                        obstacles.push(Rect::from_metres((min + max) * 0.5, (max - min) * 0.5)?);
+                        obstacles.push(Rect::new(
+                            ArchitecturalPlanPoint::from_metres((min + max) * 0.5)?,
+                            PlanExtents::from_metres((max - min) * 0.5)?,
+                        )?);
                     }
                 }
             }
@@ -226,7 +214,10 @@ fn door_reservations(
             let width = o.profile.interior_width_metres();
             let half = o.frame.tangent.abs() * (width * 0.5 + PERSON_RADIUS)
                 + o.frame.outward.abs() * (width + PERSON_RADIUS);
-            Ok(Rect::from_metres(o.frame.origin, half)?)
+            Ok(Rect::new(
+                ArchitecturalPlanPoint::from_metres(o.frame.origin)?,
+                PlanExtents::from_metres(half)?,
+            )?)
         })
         .collect()
 }

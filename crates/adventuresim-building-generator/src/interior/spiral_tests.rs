@@ -2,6 +2,8 @@
 use super::architecture::Floor;
 use super::geometry::Rect;
 use super::*;
+use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::PlanExtents;
 use crate::{BuildingProgram, ServiceBuildingSize};
 use adventuresim_world_schema::settlement_buildings::BuildingUse;
 
@@ -20,7 +22,11 @@ fn fortified_spiral_landings_connect_all_occupied_rooms() {
             for landing in crate::spiral_stairs::landings(&plan, index) {
                 let floor =
                     Floor::new(&plan, crate::StoreyIndex::from_serialized(landing.storey)).unwrap();
-                let rect = Rect::from_metres(landing.position_metres, Vec2::splat(0.3)).unwrap();
+                let rect = Rect::new(
+                    ArchitecturalPlanPoint::from_metres(landing.position_metres).unwrap(),
+                    PlanExtents::from_metres(Vec2::splat(0.3)).unwrap(),
+                )
+                .unwrap();
                 assert!(
                     floor
                         .supports(

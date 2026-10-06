@@ -111,13 +111,14 @@ pub(super) fn storage_floors(
     )?;
     let _: () = for z in [2.4, depth * 0.4, depth - 3.0] {
         for base in [0.16, UPPER_FLOOR_METRES] {
-            crate_stack(assembly, Vec3::new(1.8, base, z))?;
+            crate_stack(assembly, Position::from_metres(Vec3::new(1.8, base, z))?)?;
         }
     };
     Ok(())
 }
 
-fn crate_stack(assembly: &mut Assembly<'_>, base: Vec3) -> Result<()> {
+fn crate_stack(assembly: &mut Assembly<'_>, base: Position<crate::Architectural>) -> Result<()> {
+    let base = base.metres();
     for offset in [-0.55, 0.55] {
         assembly.part(
             WorkplaceFeature::StorageBin,

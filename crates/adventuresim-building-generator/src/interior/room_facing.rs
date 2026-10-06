@@ -53,7 +53,10 @@ fn room_direction(
     for storey in &plan.storeys {
         if let Some(room) = storey.rooms.iter().find(|r| r.kind == kind) {
             // The mean cell centre preserves the authored room-facing arithmetic.
-            super::geometry::room_bounds(room, StoreyIndex::from_serialized(storey.level))?;
+            super::geometry::RoomBounds::from_room(
+                room,
+                StoreyIndex::from_serialized(storey.level),
+            )?;
             let centre = ArchitecturalPlanPoint::from_metres(
                 room.cells.iter().map(|cell| cell.centre()).sum::<Vec2>() / room.cells.len() as f32,
             )?;

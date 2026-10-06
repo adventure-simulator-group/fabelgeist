@@ -45,6 +45,17 @@ const TARGET_APPROACH_FRACTION: f32 = 0.88;
 const BLOCKER_INSET_METRES: f32 = 0.02;
 const ROUTE_BLOCKER_INSET_METRES: f32 = 0.015;
 
+const ROUTE_ENDPOINT_TOLERANCE_METRES: f32 = 0.02;
+const ROUTE_WIDTH_TOLERANCE_METRES: f32 = 0.01;
+const MAX_ROUTE_SEGMENT_METRES: f32 = 3.0;
+const PORTAL_CROSSING_SAMPLE_STEPS: usize = 8;
+const PORTAL_SAMPLE_HEIGHT_METRES: f32 = 0.25;
+const PORTAL_BOUNDS_TOLERANCE_METRES: f32 = 0.02;
+const SWEEP_AXIS_MIN_LENGTH_METRES: f32 = 0.01;
+const SWEEP_SAMPLE_SPACING_METRES: f32 = 0.35;
+const SWEEP_LATERAL_OFFSETS_METRES: [f32; 3] = [-0.45, 0.0, 0.45];
+const SWEEP_SAMPLE_HEIGHTS_METRES: [f32; 3] = [0.25, 1.0, 1.85];
+
 pub(super) struct ArtilleryClearance<'a> {
     solids: &'a [ResolvedSolid],
     spatial: BoundsIndex,
@@ -194,31 +205,39 @@ impl ArtilleryClearance<'_> {
         if let Some(outcome) = route_bindings(edge, solids, voids) {
             return Ok(assess(outcome));
         }
+        // Endpoint and portal comparisons retain native architectural metres
+        // inside the sampled route-validation kernel after leaf admission.
         let shape_valid = matches!(surface.shape, crate::ResolvedSurfaceShape::RouteCorridor { start, end, width_metres }
-            if start.distance(from.position) <= 0.02 && end.distance(to.position) <= 0.02 && (width_metres-edge.width_metres).abs() <= 0.01);
+            if start.distance(from.position) <= ROUTE_ENDPOINT_TOLERANCE_METRES && end.distance(to.position) <= ROUTE_ENDPOINT_TOLERANCE_METRES && (width_metres-edge.width_metres).abs() <= ROUTE_WIDTH_TOLERANCE_METRES);
         let path_valid = edge.sweep_path.len() >= 2
-            && edge
-                .sweep_path
-                .first()
-                .is_some_and(|point| point.distance(from.position) <= 0.02)
-            && edge
-                .sweep_path
-                .last()
-                .is_some_and(|point| point.distance(to.position) <= 0.02)
+            && edge.sweep_path.first().is_some_and(|point| {
+                point.distance(from.position) <= ROUTE_ENDPOINT_TOLERANCE_METRES
+            })
+            && edge.sweep_path.last().is_some_and(|point| {
+                point.distance(to.position) <= ROUTE_ENDPOINT_TOLERANCE_METRES
+            })
             && edge
                 .sweep_path
                 .windows(2)
-                .all(|pair| pair[0].distance(pair[1]) <= 3.0);
+                .all(|pair| pair[0].distance(pair[1]) <= MAX_ROUTE_SEGMENT_METRES);
         let portal_crossed = edge.portal_void.is_none_or(|id| {
             voids.get(&id).is_some_and(|void| {
                 edge.sweep_path.windows(2).any(|pair| {
-                    (0..=8).any(|sample| {
-                        let point = pair[0].lerp(pair[1], sample as f32 / 8.0) + Vec3::Y * 0.25;
+                    (0..=PORTAL_CROSSING_SAMPLE_STEPS).any(|sample| {
+                        let point = pair[0]
+                            .lerp(pair[1], sample as f32 / PORTAL_CROSSING_SAMPLE_STEPS as f32)
+                            + Vec3::Y * PORTAL_SAMPLE_HEIGHT_METRES;
                         point
-                            .cmpge(void.bounds.min().metres() - Vec3::splat(0.02))
+                            .cmpge(
+                                void.bounds.min().metres()
+                                    - Vec3::splat(PORTAL_BOUNDS_TOLERANCE_METRES),
+                            )
                             .all()
                             && point
-                                .cmple(void.bounds.max().metres() + Vec3::splat(0.02))
+                                .cmple(
+                                    void.bounds.max().metres()
+                                        + Vec3::splat(PORTAL_BOUNDS_TOLERANCE_METRES),
+                                )
                                 .all()
                     })
                 })
@@ -246,17 +265,18 @@ impl ArtilleryClearance<'_> {
         for pair in sweep.windows(2) {
             let pair = [pair[0].metres(), pair[1].metres()];
             let delta = Vec2::new(pair[1].x - pair[0].x, pair[1].z - pair[0].z);
-            let along = if delta.length() > 0.01 {
+            let along = if delta.length() > SWEEP_AXIS_MIN_LENGTH_METRES {
                 delta.normalize()
             } else {
                 Vec2::X
             };
             let across = Vec2::new(-along.y, along.x);
-            let steps = ((pair[0].distance(pair[1]) / 0.35).ceil() as usize).max(1);
+            let steps =
+                ((pair[0].distance(pair[1]) / SWEEP_SAMPLE_SPACING_METRES).ceil() as usize).max(1);
             for step in 0..=steps {
                 let foot = pair[0].lerp(pair[1], step as f32 / steps as f32);
-                let samples = [-0.45_f32, 0.0, 0.45].into_iter().flat_map(|side| {
-                    [0.25_f32, 1.0, 1.85].into_iter().map(move |height| {
+                let samples = SWEEP_LATERAL_OFFSETS_METRES.into_iter().flat_map(|side| {
+                    SWEEP_SAMPLE_HEIGHTS_METRES.into_iter().map(move |height| {
                         foot + Vec3::new(across.x * side, height, across.y * side)
                     })
                 });

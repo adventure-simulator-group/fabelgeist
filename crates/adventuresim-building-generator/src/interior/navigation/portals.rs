@@ -1,17 +1,18 @@
 //! Admit doorway and stair approaches before connecting the navigation graph.
 use super::*;
 use crate::interior::InteriorResult as Result;
+use crate::spatial_geometry::PlanExtents;
 use crate::spatial_geometry::{Elevation, PlanDirection};
 use crate::{Architectural, OpeningUse, Stair};
 
 impl Navigation {
     pub(super) fn enter_front_door(&mut self, plan: &BuildingPlan) -> Result<()> {
-        let entrance = entrance_position(plan)?.ok_or(InteriorLayoutError::MissingFrontDoor)?;
+        let entrance = Entrance::from_plan(plan)?.ok_or(InteriorLayoutError::MissingFrontDoor)?;
         let threshold = entrance.threshold.metres();
         let start = entrance.approach.metres();
-        let swept = Rect::from_metres(
-            (threshold + start) * 0.5,
-            (threshold - start).abs() * 0.5 + Vec2::splat(PERSON_RADIUS),
+        let swept = Rect::new(
+            ArchitecturalPlanPoint::from_metres((threshold + start) * 0.5)?,
+            PlanExtents::from_metres((threshold - start).abs() * 0.5 + Vec2::splat(PERSON_RADIUS))?,
         )?;
         if self
             .floors
@@ -159,7 +160,10 @@ impl Navigation {
         let Some(floor) = self.floors.iter().find(|f| f.level == level) else {
             return Ok(None);
         };
-        if !floor.walkable(Rect::from_metres(native_point, Vec2::splat(PERSON_RADIUS))?)? {
+        if !floor.walkable(Rect::new(
+            point,
+            PlanExtents::from_metres(Vec2::splat(PERSON_RADIUS))?,
+        )?)? {
             return Ok(None);
         }
         let mut targets = self
@@ -188,13 +192,17 @@ impl Navigation {
                 Vec2::new(native_point.x, position.y),
                 Vec2::new(position.x, native_point.y),
             ] {
-                let first = Rect::from_metres(
-                    (native_point + elbow) * 0.5,
-                    (native_point - elbow).abs() * 0.5 + Vec2::splat(PERSON_RADIUS),
+                let first = Rect::new(
+                    ArchitecturalPlanPoint::from_metres((native_point + elbow) * 0.5)?,
+                    PlanExtents::from_metres(
+                        (native_point - elbow).abs() * 0.5 + Vec2::splat(PERSON_RADIUS),
+                    )?,
                 )?;
-                let second = Rect::from_metres(
-                    (position + elbow) * 0.5,
-                    (position - elbow).abs() * 0.5 + Vec2::splat(PERSON_RADIUS),
+                let second = Rect::new(
+                    ArchitecturalPlanPoint::from_metres((position + elbow) * 0.5)?,
+                    PlanExtents::from_metres(
+                        (position - elbow).abs() * 0.5 + Vec2::splat(PERSON_RADIUS),
+                    )?,
                 )?;
                 if floor.walkable(first)? && floor.walkable(second)? {
                     connections[quadrant] =
@@ -246,82 +254,98 @@ struct Entrance {
     approach: ArchitecturalPlanPoint,
 }
 impl Entrance {
-    fn from_metres(threshold: Vec2, approach: Vec2) -> Result<Self> {
-        Ok(Self {
-            threshold: ArchitecturalPlanPoint::from_metres(threshold)?,
-            approach: ArchitecturalPlanPoint::from_metres(approach)?,
-        })
+    fn new(threshold: ArchitecturalPlanPoint, approach: ArchitecturalPlanPoint) -> Self {
+        Self {
+            threshold,
+            approach,
+        }
     }
-}
-fn entrance_position(plan: &BuildingPlan) -> Result<Option<Entrance>> {
-    if let Some(workplace) = &plan.workplace {
+    fn from_plan(plan: &BuildingPlan) -> Result<Option<Self>> {
+        if let Some(workplace) = &plan.workplace {
+            return Self::from_workplace(plan, workplace);
+        }
+        let entrance = plan
+            .opening_assemblies
+            .iter()
+            .find(|o| {
+                matches!(o.use_kind, OpeningUse::Door | OpeningUse::Gate)
+                    && o.frame.outside_room.is_none()
+                    && o.sill_elevation_metres.abs() < FLOOR_CLEARANCE
+            })
+            .filter(|o| o.profile.interior_width_metres() >= PERSON_RADIUS * 2.0)
+            .map(|o| {
+                let half_wall = plan
+                    .wall_assemblies
+                    .iter()
+                    .find(|w| w.id == o.host_wall)
+                    .map_or(crate::WALL_THICKNESS_METRES * 0.5, |w| {
+                        w.thickness_metres * 0.5
+                    });
+                Ok(Self::new(
+                    ArchitecturalPlanPoint::from_metres(o.frame.origin)?,
+                    ArchitecturalPlanPoint::from_metres(
+                        o.frame.origin
+                            - o.frame.outward
+                                * (PERSON_RADIUS
+                                    + half_wall.max(crate::WALL_THICKNESS_METRES)
+                                    + GEOMETRY_EPSILON),
+                    )?,
+                ))
+            });
+        entrance.transpose()
+    }
+    fn from_workplace(
+        plan: &BuildingPlan,
+        workplace: &crate::WorkplacePlan,
+    ) -> Result<Option<Self>> {
         let dimensions = plan.dimensions_metres();
-        for p in &workplace.passages {
+        for passage in &workplace.passages {
             let centre = Vec2::new(
-                p.bounds.min().metres().x + p.bounds.max().metres().x,
-                p.bounds.min().metres().z + p.bounds.max().metres().z,
+                passage.bounds.min().metres().x + passage.bounds.max().metres().x,
+                passage.bounds.min().metres().z + passage.bounds.max().metres().z,
             ) * 0.5;
             let inset = PERSON_RADIUS + crate::WALL_THICKNESS_METRES;
-            let entrance = if p.bounds.min().metres().z <= GEOMETRY_EPSILON
-                && p.bounds.max().metres().x - p.bounds.min().metres().x >= PERSON_RADIUS * 2.0
+            let entrance = if passage.bounds.min().metres().z <= GEOMETRY_EPSILON
+                && passage.bounds.max().metres().x - passage.bounds.min().metres().x
+                    >= PERSON_RADIUS * 2.0
             {
-                Some((Vec2::new(centre.x, 0.0), Vec2::new(centre.x, inset)))
-            } else if p.bounds.min().metres().x <= GEOMETRY_EPSILON
-                && p.bounds.max().metres().z - p.bounds.min().metres().z >= PERSON_RADIUS * 2.0
-            {
-                Some((Vec2::new(0.0, centre.y), Vec2::new(inset, centre.y)))
-            } else if p.bounds.max().metres().z >= dimensions.y - GEOMETRY_EPSILON
-                && p.bounds.max().metres().x - p.bounds.min().metres().x >= PERSON_RADIUS * 2.0
-            {
-                Some((
-                    Vec2::new(centre.x, dimensions.y),
-                    Vec2::new(centre.x, dimensions.y - inset),
+                Some(Self::new(
+                    ArchitecturalPlanPoint::from_metres(Vec2::new(centre.x, 0.0))?,
+                    ArchitecturalPlanPoint::from_metres(Vec2::new(centre.x, inset))?,
                 ))
-            } else if p.bounds.max().metres().x >= dimensions.x - GEOMETRY_EPSILON
-                && p.bounds.max().metres().z - p.bounds.min().metres().z >= PERSON_RADIUS * 2.0
+            } else if passage.bounds.min().metres().x <= GEOMETRY_EPSILON
+                && passage.bounds.max().metres().z - passage.bounds.min().metres().z
+                    >= PERSON_RADIUS * 2.0
             {
-                Some((
-                    Vec2::new(dimensions.x, centre.y),
-                    Vec2::new(dimensions.x - inset, centre.y),
+                Some(Self::new(
+                    ArchitecturalPlanPoint::from_metres(Vec2::new(0.0, centre.y))?,
+                    ArchitecturalPlanPoint::from_metres(Vec2::new(inset, centre.y))?,
+                ))
+            } else if passage.bounds.max().metres().z >= dimensions.y - GEOMETRY_EPSILON
+                && passage.bounds.max().metres().x - passage.bounds.min().metres().x
+                    >= PERSON_RADIUS * 2.0
+            {
+                Some(Self::new(
+                    ArchitecturalPlanPoint::from_metres(Vec2::new(centre.x, dimensions.y))?,
+                    ArchitecturalPlanPoint::from_metres(Vec2::new(centre.x, dimensions.y - inset))?,
+                ))
+            } else if passage.bounds.max().metres().x >= dimensions.x - GEOMETRY_EPSILON
+                && passage.bounds.max().metres().z - passage.bounds.min().metres().z
+                    >= PERSON_RADIUS * 2.0
+            {
+                Some(Self::new(
+                    ArchitecturalPlanPoint::from_metres(Vec2::new(dimensions.x, centre.y))?,
+                    ArchitecturalPlanPoint::from_metres(Vec2::new(dimensions.x - inset, centre.y))?,
                 ))
             } else {
                 None
             };
-            if let Some((threshold, approach)) = entrance {
-                return Ok(Some(Entrance::from_metres(threshold, approach)?));
+            if let Some(entrance) = entrance {
+                return Ok(Some(entrance));
             }
         }
-        return Ok(None);
+        Ok(None)
     }
-    let entrance = plan
-        .opening_assemblies
-        .iter()
-        .find(|o| {
-            matches!(o.use_kind, OpeningUse::Door | OpeningUse::Gate)
-                && o.frame.outside_room.is_none()
-                && o.sill_elevation_metres.abs() < FLOOR_CLEARANCE
-        })
-        .filter(|o| o.profile.interior_width_metres() >= PERSON_RADIUS * 2.0)
-        .map(|o| {
-            let half_wall = plan
-                .wall_assemblies
-                .iter()
-                .find(|w| w.id == o.host_wall)
-                .map_or(crate::WALL_THICKNESS_METRES * 0.5, |w| {
-                    w.thickness_metres * 0.5
-                });
-            (
-                o.frame.origin,
-                o.frame.origin
-                    - o.frame.outward
-                        * (PERSON_RADIUS
-                            + half_wall.max(crate::WALL_THICKNESS_METRES)
-                            + GEOMETRY_EPSILON),
-            )
-        });
-    entrance
-        .map(|(threshold, approach)| Entrance::from_metres(threshold, approach))
-        .transpose()
 }
 
 fn represented_storey(
