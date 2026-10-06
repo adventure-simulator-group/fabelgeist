@@ -21,6 +21,11 @@ use flate2::read::ZlibDecoder;
 
 pub mod animation;
 
+mod array_encoding;
+use array_encoding::FbxArrayEncodingCode;
+#[cfg(test)]
+mod array_encoding_tests;
+
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 
 /// A typed FBX property value.
@@ -219,11 +224,11 @@ impl<'a> Reader<'a> {
 fn decode_array<T: Copy>(
     raw: &[u8],
     count: usize,
-    encoding: u32,
+    encoding: FbxArrayEncodingCode,
     parse: impl Fn(&[u8]) -> T,
     width: usize,
 ) -> Result<Vec<T>> {
-    let bytes = if encoding == 0 {
+    let bytes = if encoding.is_uncompressed() {
         raw.to_vec()
     } else {
         let mut out = Vec::with_capacity(count * width);
@@ -256,7 +261,7 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
             b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
             b'f' | b'd' | b'l' | b'i' | b'b' => {
                 let count = reader.u32()? as usize;
-                let encoding = reader.u32()?;
+                let encoding = FbxArrayEncodingCode::from(reader.u32()?);
                 let compressed_len = reader.u32()? as usize;
                 let raw = reader.take(compressed_len)?;
                 match kind {
