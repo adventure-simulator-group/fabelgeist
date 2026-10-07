@@ -93,6 +93,7 @@ pub(super) fn show(
     mut armory: ResMut<armory::Armory>,
     mut wardrobe: ResMut<wardrobe_tab::WardrobeTab>,
     mut shot: ResMut<studio_scene::ShotRequest>,
+    hair: Res<hair_preview::HairPreview>,
 ) {
     let Ok(ctx) = contexts.ctx_mut() else { return };
     // egui points equal logical window pixels at bevy_egui's default scale.
@@ -119,7 +120,9 @@ pub(super) fn show(
                 .id_salt(("creator_controls", studio.tab))
                 .auto_shrink(false)
                 .show(ui, |ui| match studio.tab {
-                    StudioTab::Character => character_controls::show(ui, &mut studio, &mut shot.0),
+                    StudioTab::Character => {
+                        character_controls::show(ui, &mut studio, &mut shot.0, &hair)
+                    }
                     StudioTab::Inventory => {
                         inventory_ui::show(ui, &mut studio, &mut catalog, &mut drape_job)
                     }

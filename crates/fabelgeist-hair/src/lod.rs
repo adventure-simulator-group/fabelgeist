@@ -274,7 +274,7 @@ pub struct Band {
     pub form: Form,
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Form {
     /// A share of the strands at a level.
     Strands {

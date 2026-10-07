@@ -121,6 +121,8 @@ struct Studio {
     wardrobe: wardrobe_tab::WardrobeLibrary,
     tab: studio_ui::StudioTab,
     inventory: inventory_ui::InventoryView,
+    /// The level of detail the hair is drawn at.
+    hair_form: fabelgeist_hair::lod::Form,
 }
 
 impl Studio {
@@ -154,6 +156,7 @@ impl Studio {
             },
             tab: studio_ui::StudioTab::Character,
             inventory: inventory_ui::InventoryView::default(),
+            hair_form: fabelgeist_hair::lod::Form::Cards { level: 0 },
         }
     }
 }

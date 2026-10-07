@@ -71,17 +71,34 @@ layered cuts, ponytails, buns, braids, afros, dreadlocks and more. Its
 **Redness** from ashen to red, as Blender's Principled Hair takes them.
 
 A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
-bust, then cut into hair cards: strips along the groom's locks, each showing
-a painted bundle of strands from a shared atlas and cut out by its coverage.
-Growing takes one to two seconds; changing only the colour, or the body,
-reuses the grown cards. Each generated body places them on its own head,
-stretched to its width across the ears, its depth from the back of the skull
-to the tip of the nose and its crown, and turned to face where the eyes look.
-The cards are skinned wholly to `c_head`, so they follow the walk preview,
-and the rigged GLB exports them as a `hair` shell on the same joint.
+bust (half a second to a second), then placed on each generated body on the
+same thread (one to two seconds). Placing stretches the bust's head to the
+character's width across the ears, its depth from the back of the skull to
+the tip of the nose and its crown, and turns it to face where the eyes look.
+The bust is only fitted to the head's extent, so wherever the character's
+skull is fuller its strands would lie under the skin: each strand is lifted
+whole until its root sits on the skin, then shrinkwrapped around the
+character's body, keeping its length, before its levels of detail are
+prepared against that body. Long hair therefore falls over the character's
+own shoulders. Changing only the colour or the level of detail reuses the
+placed hair.
 
-The hair collides with the mannequin's head and shoulders while it grows,
-not with the character's, so long styles can pass through broad shoulders.
+**Level of detail** shows any of the hair crate's forms: its strands at the
+groom's own point count and at 24, 12 and 6 points each, drawn as ribbons,
+or its fine and coarse cut of hair cards (strips along the locks, each
+showing a painted bundle of strands from a shared atlas, cut out by its
+coverage). **Strands drawn** draws a share of a strand level, each ribbon
+wider by the inverse of the share so the head stays covered; the preview
+draws at most a million and a half ribbon vertices. The level is the
+studio's choice, not the recipe's: a game picks it from the head's size on
+screen. The scalp under the hair is shaded as the hair crate shades its own
+head, tinted where roots grow and darkened where hair lies over it, so no
+level shows bare skin between its strands.
+
+The hair is skinned wholly to `c_head`, so it follows the walk preview, and
+the rigged GLB exports its fine cards as a `hair` shell on the same joint,
+following the head through every body morph channel. The export does not
+carry the scalp shade.
 
 ## Inventory
 

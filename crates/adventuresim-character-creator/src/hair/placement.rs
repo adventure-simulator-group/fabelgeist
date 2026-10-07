@@ -119,6 +119,25 @@ impl HeadPlacement {
         );
         normalize(carried).unwrap_or(n)
     }
+
+    /// A model-space point, back in the bust's frame.
+    pub fn bust_point(&self, p: [f32; 3]) -> [f32; 3] {
+        let offset = sub(p, self.origin);
+        let [sx, sy, sz] = self.scale;
+        let [x, y, z] = self.axes;
+        [
+            dot(offset, x) / (sx * sx),
+            dot(offset, y) / (sy * sy),
+            dot(offset, z) / (sz * sz),
+        ]
+    }
+
+    /// A model-space normal, back in the bust's frame: the inverse of
+    /// [`Self::normal`].
+    pub fn bust_normal(&self, n: [f32; 3]) -> [f32; 3] {
+        let [x, y, z] = self.axes;
+        normalize([dot(n, x), dot(n, y), dot(n, z)]).unwrap_or(n)
+    }
 }
 
 /// A head's extent along the side and forward axes, and its crown's height.

@@ -140,6 +140,9 @@ pub(super) fn spawn_armor(
     Ok(())
 }
 
+/// The previewed body's skin colour, sRGB.
+pub(super) const SKIN_COLOR: Color = Color::srgb(0.64, 0.39, 0.30);
+
 pub(super) fn spawn_body(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
@@ -168,7 +171,7 @@ pub(super) fn spawn_body(
             // Skin is a rough dielectric with a small amount of diffuse
             // transmission. This keeps thin features such as the nose, ears,
             // and fingers warm instead of crushing them to black.
-            base_color: Color::srgb(0.64, 0.39, 0.30),
+            base_color: SKIN_COLOR,
             metallic: 0.0,
             perceptual_roughness: 0.52,
             reflectance: 0.46,

@@ -1,62 +1,146 @@
 //! The hair on the previewed character.
 //!
-//! A hairstyle is grown once, on a worker thread, in the hair crate's bust
-//! frame; every body the studio generates then only places the grown cards
-//! on its head. The hair is skinned wholly to the head joint, so it follows
-//! the walk preview as the head does.
+//! A worker thread grows a hairstyle on the hair crate's bust (once per
+//! style) and places it on the generated body (once per body): the strands
+//! are carried onto the character's head and every level of detail is
+//! prepared there, kept outside the character's own skin. The studio then
+//! draws the level the Hair page picks, skinned wholly to the head joint so
+//! it follows the walk preview, and shades the scalp under it.
 use super::*;
 use adventuresim_character_creator::hair::{
-    GroomedHair, HAIR_ROUGHNESS, HairCards, HairDesign, HeadPlacement, HeadSkin, preset_label,
-};
-use bevy::{
-    asset::RenderAssetUsages,
-    image::{ImageAddressMode, ImageFilterMode, ImageSampler, ImageSamplerDescriptor},
-    mesh::{Indices, VertexAttributeValues},
-    render::render_resource::{Extent3d, TextureDimension, TextureFormat},
+    BodySurface, GroomedHair, HairDesign, HeadPlacement, HeadSkin, PlacedHair, SkinCover,
+    preset_label,
 };
 use fabelgeist_hair::Preset;
+use fabelgeist_hair::lod::Form;
 use std::sync::Arc;
 use std::thread::JoinHandle;
 
-/// Atlas texels with less coverage than this are cut away.
-const COVERAGE_CUTOFF: f32 = 0.5;
+mod assets;
+mod scalp_shade;
 
-/// The hair mesh shown on the character, and the design it shows.
+use assets::HairAssets;
+
+/// The hair mesh shown on the character: the design and the form it draws.
 #[derive(Component)]
-pub(super) struct HairMesh(HairDesign);
-
-/// The grown hairstyle and the worker growing the next one.
-#[derive(Resource, Default)]
-pub(super) struct HairPreview {
-    grown: Option<GrownStyle>,
-    worker: Option<(Preset, JoinHandle<GroomedHair>)>,
+pub(super) struct HairMesh {
+    design: HairDesign,
+    form: Form,
 }
 
-struct GrownStyle {
-    hair: Arc<GroomedHair>,
+/// The grown and placed hair, and the worker preparing the next.
+#[derive(Resource, Default)]
+pub(super) struct HairPreview {
+    grown: Option<Arc<GroomedHair>>,
+    placed: Option<PlacedStyle>,
+    worker: Option<Worker>,
+}
+
+/// Hair placed on one generated body.
+pub(super) struct PlacedStyle {
+    pub(super) hair: PlacedHair,
+    body: Arc<GeneratedCharacter>,
+    /// How much hair covers each body vertex, for shading the scalp.
+    cover: Vec<SkinCover>,
     atlas: Handle<Image>,
 }
 
-impl HairPreview {
-    /// The grown hairstyle, if it is `preset`.
-    fn grown(&self, preset: Preset) -> Option<&GrownStyle> {
-        self.grown
-            .as_ref()
-            .filter(|grown| grown.hair.preset == preset)
+struct Worker {
+    preset: Preset,
+    body: Arc<GeneratedCharacter>,
+    handle: JoinHandle<Result<Prepared>>,
+}
+
+/// What a worker hands back.
+struct Prepared {
+    grown: Arc<GroomedHair>,
+    placed: PlacedHair,
+    cover: Vec<SkinCover>,
+}
+
+/// A body's copy of what placing hair on it reads, for the worker to own.
+pub(super) struct BodyHead {
+    positions: Vec<[f32; 3]>,
+    normals: Vec<[f32; 3]>,
+    faces: Vec<[u32; 3]>,
+    joint_indices: Vec<[u32; 8]>,
+    joint_weights: Vec<[f32; 8]>,
+    joint_names: Vec<String>,
+    global_joint_states: Vec<[f32; 8]>,
+}
+
+impl BodyHead {
+    pub(super) fn new(model: &BodyModel, generated: &GeneratedCharacter) -> Self {
+        let character = &model.mhr.character;
+        Self {
+            positions: generated.positions.clone(),
+            normals: generated.normals.clone(),
+            faces: character.mesh.faces.clone(),
+            joint_indices: character.skin_weights.index.clone(),
+            joint_weights: character.skin_weights.weight.clone(),
+            joint_names: character.skeleton.names.clone(),
+            global_joint_states: generated.global_joint_states.clone(),
+        }
     }
 
-    /// Start growing `preset` unless it is grown or growing already; true
-    /// when a worker started. A worker growing another style is left to
-    /// finish and its hair dropped.
-    fn request(&mut self, preset: Preset) -> bool {
-        let growing = self.worker.as_ref().map(|(growing, _)| *growing);
-        if self.grown(preset).is_some() || growing == Some(preset) {
+    /// Where the bust's head lies on this body.
+    pub(super) fn placement(&self, hair: &GroomedHair) -> Result<HeadPlacement> {
+        let skin = HeadSkin {
+            positions: &self.positions,
+            joint_indices: &self.joint_indices,
+            joint_weights: &self.joint_weights,
+            joint_names: &self.joint_names,
+            global_joint_states: &self.global_joint_states,
+        };
+        Ok(HeadPlacement::fit(&skin, hair.head())?)
+    }
+
+    /// `hair` placed on this body, kept outside its skin.
+    pub(super) fn place(&self, hair: &GroomedHair) -> Result<PlacedHair> {
+        let placement = self.placement(hair)?;
+        let body = BodySurface {
+            positions: &self.positions,
+            faces: &self.faces,
+        };
+        Ok(hair.place(&placement, &body))
+    }
+}
+
+impl HairPreview {
+    /// The placed hair, if it is `preset` on `body`.
+    fn placed(&self, preset: Preset, body: &Arc<GeneratedCharacter>) -> Option<&PlacedStyle> {
+        self.placed
+            .as_ref()
+            .filter(|placed| placed.preset() == preset && Arc::ptr_eq(&placed.body, body))
+    }
+
+    /// Start preparing `preset` on `body` unless that is placed or under way
+    /// already; true when a worker started. A worker on another style or
+    /// body is left to finish and its hair dropped.
+    fn request(&mut self, preset: Preset, body: &Arc<GeneratedCharacter>, head: BodyHead) -> bool {
+        let under_way = self
+            .worker
+            .as_ref()
+            .is_some_and(|worker| worker.preset == preset && Arc::ptr_eq(&worker.body, body));
+        if self.placed(preset, body).is_some() || under_way {
             return false;
         }
-        self.worker = Some((
+        let grown = self.grown.clone().filter(|grown| grown.preset == preset);
+        let handle = std::thread::spawn(move || {
+            let grown = grown.unwrap_or_else(|| Arc::new(GroomedHair::grow(preset)));
+            let placed = head.place(&grown)?;
+            let cover = placed.cover(&head.positions, &head.normals);
+            Ok(Prepared {
+                grown,
+                placed,
+                cover,
+            })
+        });
+        self.worker = Some(Worker {
             preset,
-            std::thread::spawn(move || GroomedHair::grow(preset)),
-        ));
+            body: body.clone(),
+            handle,
+        });
         true
     }
 
@@ -65,39 +149,91 @@ impl HairPreview {
         if !self
             .worker
             .as_ref()
-            .is_some_and(|(_, worker)| worker.is_finished())
+            .is_some_and(|worker| worker.handle.is_finished())
         {
             return Ok(());
         }
-        let Some((_, worker)) = self.worker.take() else {
+        let Some(worker) = self.worker.take() else {
             return Ok(());
         };
-        let hair = worker
+        let prepared = worker
+            .handle
             .join()
-            .map_err(|_| anyhow::anyhow!("the hair worker panicked"))?;
-        let atlas = images.add(atlas_image(&hair));
-        self.grown = Some(GrownStyle {
-            hair: Arc::new(hair),
+            .map_err(|_| anyhow::anyhow!("the hair worker panicked"))??;
+        let atlas = images.add(assets::atlas_image(&prepared.placed));
+        self.grown = Some(prepared.grown);
+        self.placed = Some(PlacedStyle {
+            hair: prepared.placed,
+            body: worker.body,
+            cover: prepared.cover,
             atlas,
         });
         Ok(())
     }
 }
 
-/// The assets hair is made of.
-#[derive(bevy::ecs::system::SystemParam)]
-pub(super) struct HairAssets<'w> {
-    meshes: ResMut<'w, Assets<Mesh>>,
-    materials: ResMut<'w, Assets<StandardMaterial>>,
-    images: ResMut<'w, Assets<Image>>,
+impl PlacedStyle {
+    fn preset(&self) -> Preset {
+        self.hair.preset
+    }
 }
 
-/// Keep the shown hair in step with the recipe: grow a new style, recolour,
-/// and place it again on every body the studio regenerates (which despawns
-/// it with the rest of the character).
+/// A level of detail the Hair page offers, and its name there.
+pub(super) struct FormChoice {
+    pub(super) form: Form,
+    pub(super) label: String,
+}
+
+impl HairPreview {
+    /// The levels of detail of the placed hair, finest first; none until
+    /// it is placed.
+    pub(super) fn form_choices(&self) -> Vec<FormChoice> {
+        let Some(placed) = &self.placed else {
+            return Vec::new();
+        };
+        let hair = &placed.hair;
+        hair.forms()
+            .into_iter()
+            .map(|form| FormChoice {
+                form,
+                label: match form {
+                    Form::Strands { level, .. } => {
+                        format!("Strands, {} points each", hair.strand_points(level))
+                    }
+                    Form::Cards { level } => format!("Cards, {} strips", hair.card_count(level)),
+                },
+            })
+            .collect()
+    }
+
+    /// How many strands `form` draws of the placed hair's, and of how many.
+    pub(super) fn strands_drawn(&self, form: Form) -> Option<StrandsDrawn> {
+        let hair = &self.placed.as_ref()?.hair;
+        Some(StrandsDrawn {
+            drawn: hair.strands_drawn(form),
+            all: hair.strand_count(),
+        })
+    }
+
+    /// Whether hair is still being grown or placed.
+    pub(super) fn preparing(&self) -> bool {
+        self.worker.is_some()
+    }
+}
+
+/// Strands drawn out of a groom's.
+pub(super) struct StrandsDrawn {
+    pub(super) drawn: usize,
+    pub(super) all: usize,
+}
+
+/// Keep the shown hair in step with the recipe and the Hair page: grow and
+/// place a new style, place it again on every body the studio regenerates
+/// (which despawns it with the rest of the character), and redraw it when
+/// its colour or level of detail changes.
 #[expect(
     clippy::too_many_arguments,
-    reason = "Bevy injects the studio, body caches and the assets the hair is made of"
+    reason = "Bevy injects the studio, body caches, the shown meshes and their assets"
 )]
 pub(super) fn refresh(
     mut commands: Commands,
@@ -107,159 +243,72 @@ pub(super) fn refresh(
     model: Res<BodyModel>,
     walk: Res<WalkPreview>,
     shown: Query<(Entity, &HairMesh)>,
+    bodies: scalp_shade::Bodies,
     mut assets: HairAssets,
+    mut contexts: EguiContexts,
 ) {
-    let wanted = studio.recipe.hair;
-    if let Some(design) = wanted
-        && preview.request(design.preset)
-    {
-        studio.status = format!(
-            "Growing {} hair",
-            preset_label(design.preset).to_lowercase()
-        );
-    }
     if let Err(error) = preview.collect(&mut assets.images) {
-        studio.status = format!("{error:#}");
+        studio.status = format!("Hair could not be placed: {error:#}");
     }
-    let current = shown.iter().find(|(_, shown)| Some(shown.0) == wanted);
-    for (entity, _) in shown.iter().filter(|(_, shown)| Some(shown.0) != wanted) {
-        commands.entity(entity).despawn();
+    let wanted = studio.recipe.hair.map(|design| (design, studio.hair_form));
+    for (entity, mesh) in &shown {
+        if Some((mesh.design, mesh.form)) != wanted {
+            commands.entity(entity).despawn();
+        }
     }
-    // Wait for the body the hair goes on, and for the hair itself.
-    let (Some(design), None) = (wanted, current) else {
+    let Some((design, form)) = wanted else {
+        scalp_shade::clear(&mut commands, &bodies, &mut assets.meshes);
         return;
     };
-    if studio.dirty || walk.joints.is_empty() {
+    // A level of detail is drawn once its slider is let go.
+    if studio.dirty || walk.joints.is_empty() || studio_generation::dragging(&mut contexts) {
         return;
     }
-    let Some(grown) = preview.grown(design.preset) else {
-        return;
-    };
     let recipe = studio.recipe.clone();
-    let placed = cache.body(&model, &recipe).and_then(|generated| {
-        let (cards, placement) = place(&grown.hair, &model, &generated)?;
-        hair_mesh(cards, placement.head_joint)
-    });
-    let mesh = match placed {
-        Ok(placed) => placed,
+    let body = match cache.body(&model, &recipe) {
+        Ok(body) => body,
         Err(error) => {
-            studio.status = format!("Hair could not be placed: {error:#}");
+            studio.status = format!("{error:#}");
             return;
         }
     };
+    let Some(placed) = preview.placed(design.preset, &body) else {
+        if preview.request(design.preset, &body, BodyHead::new(&model, &body)) {
+            studio.status = format!(
+                "Growing {} hair",
+                preset_label(design.preset).to_lowercase()
+            );
+        }
+        return;
+    };
+    scalp_shade::apply(
+        &mut commands,
+        &bodies,
+        &mut assets.meshes,
+        design,
+        &placed.cover,
+    );
+    if shown
+        .iter()
+        .any(|(_, mesh)| (mesh.design, mesh.form) == (design, form))
+    {
+        return;
+    }
     let Some(skin) = animation_preview::skin(&walk) else {
         return;
     };
-    commands.spawn((
-        CharacterMesh,
-        HairMesh(design),
-        Name::new("Hair"),
-        skin,
-        Mesh3d(assets.meshes.add(mesh)),
-        MeshMaterial3d(
-            assets
-                .materials
-                .add(hair_material(design, grown.atlas.clone())),
-        ),
-    ));
-}
-
-/// `hair`'s cards placed on the head of the `generated` body.
-pub(super) fn place(
-    hair: &GroomedHair,
-    model: &BodyModel,
-    generated: &GeneratedCharacter,
-) -> Result<(HairCards, HeadPlacement)> {
-    let character = &model.mhr.character;
-    let skin = HeadSkin {
-        positions: &generated.positions,
-        joint_indices: &character.skin_weights.index,
-        joint_weights: &character.skin_weights.weight,
-        joint_names: &character.skeleton.names,
-        global_joint_states: &generated.global_joint_states,
-    };
-    let placement = HeadPlacement::fit(&skin, hair.head())?;
-    Ok((hair.place(&placement), placement))
-}
-
-/// The placed cards as a mesh skinned wholly to the head joint, their baked
-/// occlusion as vertex colour.
-fn hair_mesh(cards: HairCards, head_joint: u32) -> Result<Mesh> {
-    let count = cards.positions.len();
-    let head = u16::try_from(head_joint).context("the head joint index exceeds a skin index")?;
-    let colors: Vec<[f32; 4]> = cards
-        .occlusion
-        .iter()
-        .map(|&visible| [visible, visible, visible, 1.0])
-        .collect();
-    Ok(Mesh::new(
-        PrimitiveTopology::TriangleList,
-        RenderAssetUsages::default(),
-    )
-    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, cards.positions)
-    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, cards.normals)
-    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, cards.texcoords)
-    .with_inserted_attribute(Mesh::ATTRIBUTE_COLOR, colors)
-    .with_inserted_attribute(
-        Mesh::ATTRIBUTE_JOINT_INDEX,
-        VertexAttributeValues::Uint16x4(vec![[head, 0, 0, 0]; count]),
-    )
-    .with_inserted_attribute(
-        Mesh::ATTRIBUTE_JOINT_WEIGHT,
-        vec![[1.0f32, 0.0, 0.0, 0.0]; count],
-    )
-    .with_inserted_indices(Indices::U32(cards.faces.into_flattened())))
-}
-
-fn hair_material(design: HairDesign, atlas: Handle<Image>) -> StandardMaterial {
-    let [red, green, blue] = design.pigment.color();
-    StandardMaterial {
-        base_color: Color::linear_rgb(red, green, blue),
-        base_color_texture: Some(atlas),
-        alpha_mode: AlphaMode::Mask(COVERAGE_CUTOFF),
-        perceptual_roughness: HAIR_ROUGHNESS,
-        metallic: 0.0,
-        double_sided: true,
-        cull_mode: None,
-        ..default()
+    match assets.hair_mesh(placed, form) {
+        Ok(mesh) => {
+            let material = assets.hair_material(design, form, placed.atlas.clone());
+            commands.spawn((
+                CharacterMesh,
+                HairMesh { design, form },
+                Name::new("Hair"),
+                skin,
+                Mesh3d(mesh),
+                MeshMaterial3d(material),
+            ));
+        }
+        Err(error) => studio.status = format!("Hair could not be drawn: {error:#}"),
     }
-}
-
-/// The card atlas with its mip chain, shade as grey and coverage as alpha.
-fn atlas_image(hair: &GroomedHair) -> Image {
-    let levels = hair.atlas_levels();
-    let (width, height) = levels
-        .first()
-        .map_or((1, 1), |level| (level.width, level.height));
-    let base = levels
-        .first()
-        .map_or_else(Vec::new, |level| level.rgba.clone());
-    let mut image = Image::new(
-        Extent3d {
-            width,
-            height,
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        base,
-        TextureFormat::Rgba8Unorm,
-        RenderAssetUsages::RENDER_WORLD,
-    );
-    // The whole chain, largest level first, as wgpu uploads mipmaps.
-    image.data = Some(
-        levels
-            .iter()
-            .flat_map(|level| level.rgba.iter().copied())
-            .collect(),
-    );
-    image.texture_descriptor.mip_level_count = levels.len() as u32;
-    image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
-        address_mode_u: ImageAddressMode::ClampToEdge,
-        address_mode_v: ImageAddressMode::ClampToEdge,
-        mag_filter: ImageFilterMode::Linear,
-        min_filter: ImageFilterMode::Linear,
-        mipmap_filter: ImageFilterMode::Linear,
-        ..default()
-    });
-    image
 }

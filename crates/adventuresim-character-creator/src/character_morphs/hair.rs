@@ -1,16 +1,18 @@
 //! Hair placed again on every sampled head, for the body's morph channels.
 use super::*;
-use adventuresim_character_creator::hair::{GroomedHair, HairCards, HeadPlacement, HeadSkin};
+use adventuresim_character_creator::hair::{GroomedHair, HairGeometry, HeadPlacement, HeadSkin};
 
 impl CharacterMorphs {
-    /// One target per body channel: `base`, the cards placed on the
-    /// recipe's own head, moved to where they lie on the sampled head. Like
-    /// clothing, a fit target keeps only what the head joint does not carry.
+    /// One target per body channel: `base`, the hair as `placement` puts it
+    /// on the recipe's own head, carried to where the same placement puts it
+    /// on the sampled head. Like clothing, a fit target keeps only what the
+    /// head joint does not carry.
     pub(crate) fn hair(
         &self,
         model: &BodyModel,
         hair: &GroomedHair,
-        base: &HairCards,
+        base: &HairGeometry,
+        placement: &HeadPlacement,
     ) -> Result<Vec<MorphDelta>> {
         let character = &model.mhr.character;
         self.samples
@@ -23,8 +25,8 @@ impl CharacterMorphs {
                     joint_names: &character.skeleton.names,
                     global_joint_states: &sample.global_joint_states,
                 };
-                let placement = HeadPlacement::fit(&skin, hair.head())?;
-                let placed = hair.place(&placement);
+                let sampled = HeadPlacement::fit(&skin, hair.head())?;
+                let placed = base.carried(placement, &sampled);
                 let mut delta = MorphDelta::between(
                     sample.name.clone(),
                     &base.positions,
