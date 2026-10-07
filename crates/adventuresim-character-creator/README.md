@@ -41,8 +41,9 @@ joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
 The left panel has five tabs. **Character** edits skeletal proportions
-(**Build**), identity shape (**Body**, **Head** and **Hands**) and
-**Expression**; double-click a slider to return it to neutral. **Inventory**
+(**Build**), identity shape (**Body**, **Head** and **Hands**),
+**Expression** and **Hair** (see below); double-click a slider to return it
+to neutral. **Inventory**
 holds everything the character owns (see below). **Armory** reshapes the
 catalog's parametric equipment. **Wardrobe** drapes clothes once and saves
 them for any body. **Output** loads the body model, saves and loads recipes,
@@ -59,6 +60,28 @@ model** checkbox reloads the selected LOD with or without MHR's corrective
 network for direct comparison. Recipes contain model
 coordinates, not authoritative character state, and must be regenerated and
 validated when connected to game creation.
+
+## Hair
+
+A recipe's `hair` is a hairstyle and its pigment, or `null` for a bald head.
+The **Hair** page offers the 24 hairstyles of `fabelgeist-hair`, a strand
+hair groomer after DiffLocks (Rosu et al., CVPR 2025): crops, bobs, long and
+layered cuts, ponytails, buns, braids, afros, dreadlocks and more. Its
+**Melanin** slider runs from white through blond and brown to black, and
+**Redness** from ashen to red, as Blender's Principled Hair takes them.
+
+A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
+bust, then cut into hair cards: strips along the groom's locks, each showing
+a painted bundle of strands from a shared atlas and cut out by its coverage.
+Growing takes one to two seconds; changing only the colour, or the body,
+reuses the grown cards. Each generated body places them on its own head,
+stretched to its width across the ears, its depth from the back of the skull
+to the tip of the nose and its crown, and turned to face where the eyes look.
+The cards are skinned wholly to `c_head`, so they follow the walk preview,
+and the rigged GLB exports them as a `hair` shell on the same joint.
+
+The hair collides with the mannequin's head and shoulders while it grows,
+not with the character's, so long styles can pass through broad shoulders.
 
 ## Inventory
 

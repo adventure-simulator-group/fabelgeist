@@ -47,6 +47,8 @@ mod drape_preview;
 mod drape_worker;
 mod fabric_controls;
 mod garment_controls;
+mod hair_controls;
+mod hair_preview;
 mod inventory_ui;
 mod metal_controls;
 mod metal_preview;
@@ -301,6 +303,7 @@ fn run_studio(
         .init_resource::<armory::Armory>()
         .init_resource::<studio_cache::StudioCache>()
         .init_resource::<wardrobe_tab::WardrobeTab>()
+        .init_resource::<hair_preview::HairPreview>()
         .add_systems(Startup, (setup, armory::setup, animation_preview::request))
         .add_systems(
             EguiPrimaryContextPass,
@@ -313,6 +316,7 @@ fn run_studio(
                 animation_preview::prepare,
                 regenerate_mesh,
                 drape_preview::poll.after(regenerate_mesh),
+                hair_preview::refresh.after(regenerate_mesh),
                 drape_preview::refresh_mail.after(drape_preview::poll),
                 (
                     armory::enter_or_leave,

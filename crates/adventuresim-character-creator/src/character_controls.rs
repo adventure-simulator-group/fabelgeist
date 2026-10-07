@@ -19,15 +19,17 @@ pub(super) enum CharacterPage {
     Build,
     Identity(IdentityGroup),
     Expression,
+    Hair,
 }
 
 impl CharacterPage {
-    const ALL: [Self; 5] = [
+    const ALL: [Self; 6] = [
         Self::Build,
         Self::Identity(IdentityGroup::Body),
         Self::Identity(IdentityGroup::Head),
         Self::Identity(IdentityGroup::Hands),
         Self::Expression,
+        Self::Hair,
     ];
 
     fn label(self) -> &'static str {
@@ -35,6 +37,7 @@ impl CharacterPage {
             Self::Build => "Build",
             Self::Identity(group) => group.label(),
             Self::Expression => "Expression",
+            Self::Hair => "Hair",
         }
     }
 
@@ -45,13 +48,14 @@ impl CharacterPage {
             Self::Identity(IdentityGroup::Head) => "The shape of the head and face.",
             Self::Identity(IdentityGroup::Hands) => "The shape of the hands.",
             Self::Expression => "The resting facial expression.",
+            Self::Hair => "The hairstyle and its colour.",
         }
     }
 
     /// The camera shot that shows what this page edits.
     fn shot(self) -> Shot {
         match self {
-            Self::Identity(IdentityGroup::Head) | Self::Expression => Shot::Portrait,
+            Self::Identity(IdentityGroup::Head) | Self::Expression | Self::Hair => Shot::Portrait,
             Self::Build | Self::Identity(_) => Shot::FullBody,
         }
     }
@@ -62,6 +66,7 @@ impl CharacterPage {
             Self::Build => recipe.proportions = CharacterProportions::default(),
             Self::Identity(group) => recipe.identity[group.range()].fill(0.0),
             Self::Expression => recipe.reset_face(),
+            Self::Hair => recipe.hair = None,
         }
     }
 }
@@ -91,7 +96,8 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, shot: &mut Option<Sho
                     .clicked()
                 {
                     page.reset(&mut studio.recipe);
-                    studio.dirty = true;
+                    // Hair grows apart from the body.
+                    studio.dirty |= page != CharacterPage::Hair;
                 }
             });
         });
@@ -100,6 +106,7 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, shot: &mut Option<Sho
             CharacterPage::Build => build(ui, studio),
             CharacterPage::Identity(group) => identity(ui, studio, group),
             CharacterPage::Expression => expression(ui, studio),
+            CharacterPage::Hair => hair_controls::show(ui, studio),
         }
     });
 }
