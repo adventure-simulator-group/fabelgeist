@@ -199,12 +199,24 @@ pub enum Command {
         precipitation: f32,
     },
     GlobalShadowing(bool),
+    /// Whether plants spread by seed.
+    Seeding(bool),
+    /// Whether plants and vines die.
+    Mortality(bool),
     Profile(Profile),
     /// Clear the plants within `radius` of `(x, z)`.
     Gap {
         x: f32,
         z: f32,
         radius: f32,
+    },
+    /// Sow a seed of `species` -- the snapshot's species, the climbers
+    /// after the plants -- where one thrown from `origin` along `direction`
+    /// lands.
+    Sow {
+        species: usize,
+        origin: [f32; 3],
+        direction: [f32; 3],
     },
 }
 
@@ -315,6 +327,8 @@ fn run(
                     state.ecosystem.climate.precipitation = precipitation;
                     state.ecosystem.refresh_species();
                 }
+                Command::Seeding(enabled) => state.ecosystem.settings.seeding = enabled,
+                Command::Mortality(enabled) => state.ecosystem.settings.mortality = enabled,
                 Command::GlobalShadowing(enabled) => {
                     state.ecosystem.settings.global_shadowing = enabled
                 }
@@ -324,6 +338,22 @@ fn run(
                 }
                 Command::Gap { x, z, radius } => {
                     state.ecosystem.clear(x, z, radius);
+                }
+                Command::Sow {
+                    species,
+                    origin,
+                    direction,
+                } => {
+                    let ecosystem = &mut state.ecosystem;
+                    let thrown = (Vec3::from_array(origin), Vec3::from_array(direction));
+                    if let Some([x, z]) = ecosystem.landing(thrown.0, thrown.1) {
+                        let plants = ecosystem.species.len();
+                        if species < plants {
+                            ecosystem.plant(species, x, z);
+                        } else {
+                            ecosystem.plant_vine(species - plants, x, z);
+                        }
+                    }
                 }
             }
             dirty = true;

@@ -126,6 +126,13 @@ pub struct Plant {
     pub root_vigor: f32,
     pub flowering: bool,
     pub alive: bool,
+    /// Is kept rather than dying: where it would die -- starved, too dark,
+    /// or come to its age -- it is [`preserved`](Plant::preserved) as it is.
+    pub immortal: bool,
+    /// Came to where it would have died, and stays as it was then: it grows,
+    /// sheds and seeds no more, but stands, shading and crowding what grows
+    /// round it.
+    pub preserved: bool,
     /// Leaves an unbranched plant's tip has put out, all told: fractional,
     /// growing continuously. A palm's fronds are the last few of them.
     pub crown_leaves: f32,
@@ -256,6 +263,8 @@ impl Plant {
             root_vigor: 1.0,
             flowering: false,
             alive: true,
+            immortal: false,
+            preserved: false,
             crown_leaves: 0.0,
             next_module: 1,
             seed_clock: 0.0,
@@ -319,7 +328,12 @@ impl Plant {
         dt: f32,
     ) -> GrowthOutcome {
         let mut outcome = GrowthOutcome::default();
-        if !self.alive {
+        if !self.alive || self.preserved {
+            return outcome;
+        }
+        // Its age come, it senesces -- or, kept, stays as it is.
+        if self.immortal && self.age >= species.max_age {
+            self.end();
             return outcome;
         }
         let (lambda, determinacy) = self.architecture(species);
@@ -340,7 +354,7 @@ impl Plant {
         self.root_vigor = (species.vigor_scale * self.modules[0].light_total).min(cap);
         self.modules[0].vigor = self.root_vigor;
         if self.root_vigor < species.vigor_min {
-            self.alive = false;
+            self.end();
             return outcome;
         }
 
@@ -436,7 +450,7 @@ impl Plant {
         if self.modules[0].age >= A_MATURE
             && exposure[0] / (carried[0] as f32) < species.light_compensation
         {
-            self.alive = false;
+            self.end();
             return outcome;
         }
         let mut keep = vec![true; count];
@@ -551,12 +565,25 @@ impl Plant {
         outcome
     }
 
+    /// Where the plant would die: it dies, or, [`immortal`](Plant::immortal),
+    /// is preserved as it is.
+    fn end(&mut self) {
+        if self.immortal {
+            self.preserved = true;
+            for module in &mut self.modules {
+                module.rate = 0.0;
+            }
+        } else {
+            self.alive = false;
+        }
+    }
+
     /// Grow for `dt` years -- any span, a step or a frame of one -- at the
     /// rates the last [`Plant::regulate`] set: modules lengthen (Eqs. 5-10
     /// through their age), stems add wood, and a palm's tip puts out fronds.
     /// Call [`Plant::update_geometry`] after to see it.
     pub fn develop(&mut self, species: &PlantType, dt: f32) {
-        if !self.alive || dt <= 0.0 {
+        if !self.alive || self.preserved || dt <= 0.0 {
             return;
         }
         self.age += dt;
@@ -707,6 +734,10 @@ impl Plant {
     /// Recompute every node, diameter and bounding sphere from the modules'
     /// ages and orientations (Eqs. 7-10).
     pub fn update_geometry(&mut self, species: &PlantType, prototypes: &PrototypeLibrary) {
+        // Kept as it was: not even its sag settles further.
+        if self.preserved {
+            return;
+        }
         let up = Vec3::new(0.0, 1.0, 0.0);
         let g1 = species.tropism_decay.max(1e-3);
         let g2 = species.tropism_strength;
@@ -1261,6 +1292,68 @@ mod tests {
             plant.grow(&species, &prototypes, 1.0);
         }
         assert!(!plant.alive);
+    }
+
+    /// Grow `plant` in `light` for `years`, half a year at a time.
+    fn grown(
+        mut plant: Plant,
+        species: &PlantType,
+        prototypes: &PrototypeLibrary,
+        light: f32,
+        years: f32,
+    ) -> Plant {
+        for _ in 0..(years / 0.5) as usize {
+            for m in &mut plant.modules {
+                m.light = light;
+                m.fresh = false;
+            }
+            plant.grow(species, prototypes, 0.5);
+            plant.update_geometry(species, prototypes);
+        }
+        plant
+    }
+
+    #[test]
+    fn kept_from_dying_a_plant_stays_as_it_was() {
+        // Starved in the dark: kept as the seedling it was, even once lit.
+        let (species, prototypes, mut plant) = seedling();
+        plant.immortal = true;
+        let plant = grown(plant, &species, &prototypes, 0.01, 3.0);
+        assert!(plant.alive && plant.preserved);
+        let (height, modules) = (plant.height(), plant.modules.len());
+        let plant = grown(plant, &species, &prototypes, 1.0, 10.0);
+        assert_eq!(
+            (plant.height(), plant.modules.len()),
+            (height, modules),
+            "it grew on"
+        );
+
+        // Come to its age: kept as it was then, its crown whole.
+        let old = PlantType {
+            max_age: 12.0,
+            senescence_years: 3.0,
+            ..PlantType::default()
+        };
+        let mut plant = Plant::new(
+            1,
+            0,
+            &old,
+            &prototypes,
+            Vec3::new(0.0, 0.0, 0.0),
+            1.0,
+            Rng::new(3),
+        );
+        plant.immortal = true;
+        let plant = grown(plant, &old, &prototypes, 1.0, 13.0);
+        assert!(plant.alive && plant.preserved, "age {}", plant.age);
+        let (age, height, modules) = (plant.age, plant.height(), plant.modules.len());
+        assert!((12.0..12.6).contains(&age), "kept at {age}, past its age");
+        let plant = grown(plant, &old, &prototypes, 1.0, 30.0);
+        assert_eq!(
+            (plant.age, plant.height(), plant.modules.len()),
+            (age, height, modules)
+        );
+        assert!(modules > 5, "kept without its crown");
     }
 
     #[test]

@@ -7,8 +7,9 @@ use fabelgeist_botany::scenes::Scene;
 #[error("unknown scene `{0}`")]
 pub struct SceneLookupError(String);
 
-/// The scene whose name, lowercased with spaces as hyphens, starts with
-/// `name`: `boreal` finds the boreal forest.
+/// The scene whose name, lowercased with every run of other characters as
+/// one hyphen, starts with `name`: `boreal` finds the boreal forest and
+/// `castle-unplanted` the unplanted castle.
 pub fn scene_named(name: &str) -> Result<Scene, SceneLookupError> {
     let wanted = name.to_lowercase();
     Scene::ALL
@@ -18,5 +19,13 @@ pub fn scene_named(name: &str) -> Result<Scene, SceneLookupError> {
 }
 
 fn slug(name: &str) -> String {
-    name.to_lowercase().replace(' ', "-")
+    let mut slug = String::with_capacity(name.len());
+    for letter in name.chars() {
+        if letter.is_alphanumeric() {
+            slug.extend(letter.to_lowercase());
+        } else if !slug.ends_with('-') {
+            slug.push('-');
+        }
+    }
+    slug
 }
