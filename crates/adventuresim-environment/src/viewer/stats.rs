@@ -2,7 +2,7 @@
 
 use std::collections::VecDeque;
 
-use eframe::egui::{self, Color32, Pos2, Sense, Shape, Stroke, Ui, Vec2};
+use bevy_egui::egui::{self, Color32, Pos2, Sense, Shape, Stroke, Ui, Vec2};
 use fabelgeist_botany::Biome;
 use fabelgeist_botany::viewer::sim::{Snapshot, SpeciesInfo};
 
