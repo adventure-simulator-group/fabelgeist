@@ -1,0 +1,146 @@
+[
+  {
+    "label": "wgsl_empty",
+    "source": "",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "wgsl_comments_unicode_controls",
+    "source": "// café 東京 😀\n\t/* text */\r\n",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "wgsl_scalars",
+    "source": "const neg_zero: f32 = -0.0; const small: f32 = 1e-30; const large: f32 = 1e30; const hex: u32 = 0xffffffffu; const truth: bool = true;",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "wgsl_helpers",
+    "source": "fn helper(v: f32) -> f32 { return v + 1.0; }",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "wgsl_three_entries",
+    "source": "@compute @workgroup_size(2,3,4) fn z_compute() {}\n@vertex fn a_vertex() -> @builtin(position) vec4<f32> {return vec4<f32>(0.0);}\n@fragment fn m_fragment() -> @location(0) vec4<f32> {return vec4<f32>(1.0);}",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "wgsl_bindings",
+    "source": "struct Params { scale: f32, count: u32, };\n@group(0) @binding(0) var<storage,read_write> values: array<f32>;\n@group(0) @binding(1) var<uniform> params: Params;\n@compute @workgroup_size(4) fn main(@builtin(global_invocation_id) id: vec3<u32>){if(id.x < params.count){values[id.x] *= params.scale;}}",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "wgsl_unicode_identifier",
+    "source": "const café: f32 = 1.0;",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "wgsl_bad_token",
+    "source": "@compute @workgroup_size(1) fn main( {",
+    "outcome": "Rejected",
+    "diagnostic": "WGSL Parse Error: error: expected identifier, found \"{\"\n  ┌─ wgsl:1:38\n  │\n1 │ @compute @workgroup_size(1) fn main( {\n  │                                      ^ expected identifier\n\n"
+  },
+  {
+    "label": "wgsl_line_span",
+    "source": "// first line\n\nconst value: f32 = ;\n",
+    "outcome": "Rejected",
+    "diagnostic": "WGSL Parse Error: error: expected expression, found \";\"\n  ┌─ wgsl:3:20\n  │\n3 │ const value: f32 = ;\n  │                    ^ expected expression\n\n"
+  },
+  {
+    "label": "wgsl_unknown_type",
+    "source": "var<private> value: nonexistent;",
+    "outcome": "Rejected",
+    "diagnostic": "WGSL Parse Error: error: no definition in scope for identifier: `nonexistent`\n  ┌─ wgsl:1:21\n  │\n1 │ var<private> value: nonexistent;\n  │                     ^^^^^^^^^^^ unknown identifier\n\n"
+  },
+  {
+    "label": "wgsl_nul",
+    "source": "const x: f32 = 1.0;\u0000",
+    "outcome": "Rejected",
+    "diagnostic": "WGSL Parse Error: error: expected global item (`struct`, `const`, `var`, `alias`, `fn`, `diagnostic`, `enable`, `requires`, `;`) or the end of the file, found \"\\0\"\n  ┌─ wgsl:1:20\n  │\n1 │ const x: f32 = 1.0;�\n  │                    ^ expected global item (`struct`, `const`, `var`, `alias`, `fn`, `diagnostic`, `enable`, `requires`, `;`) or the end of the file\n\n"
+  },
+  {
+    "label": "wgsl_control",
+    "source": "const x: f32 = 1.0;\u001b",
+    "outcome": "Rejected",
+    "diagnostic": "WGSL Parse Error: error: expected global item (`struct`, `const`, `var`, `alias`, `fn`, `diagnostic`, `enable`, `requires`, `;`) or the end of the file, found \"\\u{1b}\"\n  ┌─ wgsl:1:20\n  │\n1 │ const x: f32 = 1.0;�\n  │                    ^ expected global item (`struct`, `const`, `var`, `alias`, `fn`, `diagnostic`, `enable`, `requires`, `;`) or the end of the file\n\n"
+  },
+  {
+    "label": "comment_dispatch",
+    "source": "// #version 450\n@compute @workgroup_size(1) fn main() {}",
+    "outcome": "Rejected",
+    "diagnostic": "GLSL Parse Error: ParseErrors { errors: [Error { kind: PreprocessorError(UnexpectedCharacter), meta: Span { start: 0, end: 0 } }, Error { kind: InvalidToken(Identifier(\"mpute\"), [Eof]), meta: Span { start: 19, end: 24 } }] }"
+  },
+  {
+    "label": "wgsl_assignment_frontend_rejection",
+    "source": "@compute @workgroup_size(1) fn main(){ var x: i32 = 1; x = 1.0; }",
+    "outcome": "Rejected",
+    "diagnostic": "WGSL Parse Error: error: automatic conversions cannot convert elements of `{AbstractFloat}` to `i32`\n  ┌─ wgsl:1:56\n  │\n1 │ @compute @workgroup_size(1) fn main(){ var x: i32 = 1; x = 1.0; }\n  │                                                        ^   ^^^ this expression has type {AbstractFloat}\n  │                                                        │    \n  │                                                        a value with elements of type i32 is required here\n\n"
+  },
+  {
+    "label": "glsl_minimal",
+    "source": "#version 450\nvoid main() {}",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "glsl_constants",
+    "source": "#version 450\nconst float negzero = -0.0; const float tiny = 1e-30; void main() {}",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "glsl_compute_layout",
+    "source": "#version 450\nlayout(local_size_x=2,local_size_y=3,local_size_z=4) in; void main() {}",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "glsl_bad_token",
+    "source": "#version 450\nvoid main( {",
+    "outcome": "Rejected",
+    "diagnostic": "GLSL Parse Error: ParseErrors { errors: [Error { kind: InvalidToken(LeftBrace, [Token(RightParen)]), meta: Span { start: 24, end: 25 } }] }"
+  },
+  {
+    "label": "glsl_multiline",
+    "source": "#version 450\n\nfloat x = ;\nvoid main() {}",
+    "outcome": "Rejected",
+    "diagnostic": "GLSL Parse Error: ParseErrors { errors: [Error { kind: InvalidToken(Semicolon, [Token(LeftParen), IntLiteral, FloatLiteral, BoolLiteral]), meta: Span { start: 24, end: 25 } }] }"
+  },
+  {
+    "label": "glsl_multiple",
+    "source": "#version 450\nvoid main(){ missing_one(); missing_two(); }",
+    "outcome": "Rejected",
+    "diagnostic": "GLSL Parse Error: ParseErrors { errors: [Error { kind: SemanticError(\"Unknown function 'missing_one'\"), meta: Span { start: 26, end: 39 } }] }"
+  },
+  {
+    "label": "glsl_unicode_comments",
+    "source": "#version 450\n// café 東京 😀\nvoid main() {}",
+    "outcome": "Admitted",
+    "diagnostic": null
+  },
+  {
+    "label": "glsl_nul",
+    "source": "#version 450\nvoid main() {}\u0000",
+    "outcome": "Rejected",
+    "diagnostic": "GLSL Parse Error: ParseErrors { errors: [Error { kind: PreprocessorError(UnexpectedCharacter), meta: Span { start: 0, end: 0 } }] }"
+  },
+  {
+    "label": "version_substring_in_text",
+    "source": "/* #version */\n",
+    "outcome": "Rejected",
+    "diagnostic": "GLSL Parse Error: ParseErrors { errors: [Error { kind: SemanticError(\"Missing entry point\"), meta: Span { start: 0, end: 0 } }] }"
+  },
+  {
+    "label": "wgsl_validation_only_discard",
+    "source": "@compute @workgroup_size(1) fn main(){ discard; }",
+    "outcome": "Admitted",
+    "diagnostic": null
+  }
+]
