@@ -67,7 +67,8 @@ impl FurnitureFootprint {
     pub fn orientation(self) -> BuildingOrientation {
         self.orientation
     }
-    /// Native vectors are confined to the separating-axis collision kernel.
+    /// Scene east/north metre corners for footprint clearance, occupancy bounds
+    /// and terrain sampling.
     pub fn corners(self) -> [Vec2; 4] {
         [
             Vec2::new(-1.0, -1.0),
