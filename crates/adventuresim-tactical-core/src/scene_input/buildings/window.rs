@@ -43,7 +43,7 @@ impl<'de> Deserialize<'de> for SceneWindow {
         #[derive(Deserialize)]
         struct NativeWindow {
             leaf: adventuresim_building_generator::WindowLeafKind,
-            building_id: u64,
+            building_id: crate::scene_input::SceneBuildingId,
             opening_id: u64,
             size_metres: bevy::math::Vec3,
             opening_centre_metres: bevy::math::Vec3,
@@ -55,7 +55,7 @@ impl<'de> Deserialize<'de> for SceneWindow {
         let admit = || -> Result<Self> {
             Ok(Self {
                 leaf: v.leaf,
-                building_id: v.building_id.into(),
+                building_id: v.building_id,
                 opening_id: adventuresim_building_generator::OpeningAssemblyId(v.opening_id),
                 size_metres: LeafDimensions::from_metres(v.size_metres)?,
                 opening_centre_metres: Position::from_metres(v.opening_centre_metres)?,
@@ -66,7 +66,7 @@ impl<'de> Deserialize<'de> for SceneWindow {
         };
         admit().map_err(|cause| {
             serde::de::Error::custom(SceneWindowError {
-                building_id: crate::scene_input::SceneBuildingId::from(v.building_id),
+                building_id: v.building_id,
                 opening_id: adventuresim_building_generator::OpeningAssemblyId(v.opening_id),
                 cause,
             })

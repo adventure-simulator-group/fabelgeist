@@ -69,7 +69,11 @@ mod tests {
     };
     #[test]
     fn rotated_window_pose_retains_hinges_dimensions_and_native_product() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         let origin = Position::<Architectural>::from_metres(Vec3::new(7.0, -2.0, 9.0)).unwrap();
         let centre = Position::<Scene>::from_metres(Vec3::new(-17.0, 3.5, 21.0)).unwrap();
         for angle in [0.0, 0.37, std::f32::consts::FRAC_PI_2] {

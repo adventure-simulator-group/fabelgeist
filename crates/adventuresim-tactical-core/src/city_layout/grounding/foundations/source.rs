@@ -45,21 +45,30 @@ impl GeographicSurface {
         &self,
         segment: [bevy::math::DVec2; 2],
         tolerance_metres: f32,
-    ) -> impl Iterator<Item = &GroundTriangle> {
+    ) -> Result<impl Iterator<Item = &GroundTriangle>, SupportGeometryIssue> {
         let bounds = PlanarBounds::from_points(segment)
-            .expect("an owned boundary has finite endpoints")
+            .ok_or(SupportGeometryIssue::NonFinite)?
             .expanded(f64::from(tolerance_metres) * self.boundary_extension_factor);
-        self.query
+        Ok(self
+            .query
             .intersections(bounds)
             .into_iter()
-            .map(|i| &self.triangles[i])
+            .map(|i| &self.triangles[i]))
     }
 
     pub fn height_range_in(&self, region: CityPlotBounds) -> Option<GeographicHeightRange> {
-        self.height_range_in_outline(&region.corners())
+        self.height_range_in_outline(&region.plan_polygon().ok()?)
     }
 
-    pub fn height_range_in_outline(&self, outline: &[Vec2]) -> Option<GeographicHeightRange> {
+    pub fn height_range_in_outline(
+        &self,
+        outline: &crate::scene_coordinates::ScenePlanPolygon,
+    ) -> Option<GeographicHeightRange> {
+        let outline: Vec<_> = outline
+            .vertices()
+            .iter()
+            .map(|point| point.metres())
+            .collect();
         let support: Vec<_> = (1..outline.len().saturating_sub(1))
             .filter_map(|i| {
                 GroundTriangle::new(
@@ -154,13 +163,17 @@ impl GeographicSurface {
 
     /// Sample the canonical source triangle, without bilinear interpolation.
     /// Complete coverage and overlap validation still belongs to compilation.
-    pub fn elevation_at(&self, point: Vec2) -> Option<SupportElevation> {
+    pub fn elevation_at(
+        &self,
+        point: crate::scene_coordinates::ScenePlanPoint,
+    ) -> Option<SupportElevation> {
+        let point = point.metres();
         self.query
             .intersections(PlanarBounds::from_points([point.as_dvec2()])?)
             .into_iter()
             .map(|i| &self.triangles[i])
             .find(|triangle| triangle.contains(point, 0.0))
-            .map(|triangle| SupportElevation(triangle.height_at(point)))
+            .and_then(|triangle| SupportElevation::from_metres(triangle.height_at(point)))
     }
 }
 

@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use std::{
     fs,
     io::{self, Write},
@@ -96,7 +97,7 @@ struct GenerationArgs {
     #[arg(value_enum)]
     kind: Option<KindArg>,
     #[arg(long)]
-    seed: Option<u64>,
+    seed: Option<Seed>,
     /// Read a GenerationRequest from JSON. Its spec is used; --seed can override its seed.
     #[arg(long)]
     request: Option<PathBuf>,
@@ -156,7 +157,7 @@ struct GenerationArgs {
 }
 
 impl GenerationArgs {
-    fn request(&self, seed: Option<u64>) -> Result<GenerationRequest, String> {
+    fn request(&self, seed: Option<Seed>) -> Result<GenerationRequest, String> {
         if let Some(path) = &self.request {
             let mut request: GenerationRequest =
                 serde_json::from_str(&fs::read_to_string(path).map_err(|error| error.to_string())?)
@@ -210,16 +211,16 @@ impl GenerationArgs {
             }
         };
         Ok(GenerationRequest {
-            seed: seed.unwrap_or(0),
+            seed: seed.unwrap_or_default(),
             spec,
         })
     }
 
-    fn starting_seed(&self) -> Result<u64, String> {
+    fn starting_seed(&self) -> Result<Seed, String> {
         Ok(self.request(self.seed)?.seed)
     }
 
-    fn generate(&self, seed: Option<u64>) -> Result<PuzzleAuthority, String> {
+    fn generate(&self, seed: Option<Seed>) -> Result<PuzzleAuthority, String> {
         PuzzleAuthority::generate_request(self.request(seed)?).map_err(str::to_owned)
     }
 }
@@ -255,7 +256,7 @@ fn main() -> Result<(), String> {
             let mut answer_necessary = 0_u64;
             let starting_seed = generation.starting_seed()?;
             for offset in 0..count {
-                let seed = starting_seed.wrapping_add(offset);
+                let seed = starting_seed.wrapping_offset(offset);
                 let puzzle = generation.generate(Some(seed)).map_err(|error| {
                     format!(
                         "seed {seed}: {error}\nReplay with the same arguments and --seed {seed}"
@@ -300,7 +301,7 @@ fn main() -> Result<(), String> {
             let mut found = 0;
             let starting_seed = generation.starting_seed()?;
             for offset in 0..search {
-                let seed = starting_seed.wrapping_add(offset);
+                let seed = starting_seed.wrapping_offset(offset);
                 let puzzle = match generation.generate(Some(seed)) {
                     Ok(puzzle) => puzzle,
                     Err(_) => continue,
@@ -321,7 +322,7 @@ fn main() -> Result<(), String> {
         Command::Validate { generation, count } => {
             let starting_seed = generation.starting_seed()?;
             for offset in 0..count {
-                let seed = starting_seed.wrapping_add(offset);
+                let seed = starting_seed.wrapping_offset(offset);
                 let puzzle = generation
                     .generate(Some(seed))
                     .map_err(|error| format!("seed {seed}: {error}"))?;

@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::seed_type::Seed;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct NpcPolicy {
     pub character_id: u64,
     pub home_settlement_id: String,
-    pub policy_seed: u64,
+    pub policy_seed: Seed,
 }
 
 impl __sdk::InModule for NpcPolicy {
@@ -22,7 +24,7 @@ impl __sdk::InModule for NpcPolicy {
 pub struct NpcPolicyCols {
     pub character_id: __sdk::__query_builder::Col<NpcPolicy, u64>,
     pub home_settlement_id: __sdk::__query_builder::Col<NpcPolicy, String>,
-    pub policy_seed: __sdk::__query_builder::Col<NpcPolicy, u64>,
+    pub policy_seed: __sdk::__query_builder::Col<NpcPolicy, Seed>,
 }
 
 impl __sdk::__query_builder::HasCols for NpcPolicy {

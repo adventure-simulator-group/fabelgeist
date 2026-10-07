@@ -1,4 +1,6 @@
 //! Shared leaf morphology adapted from adventure-simulator-group/leaves.
+use fabelgeist_determinism::Seed;
+
 #[cfg_attr(test, derive(serde::Serialize))]
 pub(super) struct LeafUniform {
     // half length, maximum half width, widest point (base=0), base exponent
@@ -41,7 +43,7 @@ pub(super) struct LeafUniform {
 
 macro_rules! pack { ($s:ident; $($field:ident),*) => {[$($s.$field),*]}; }
 impl LeafUniform {
-    pub(super) fn new(shape: &super::LeafShape, size: u32, seed: u64) -> Self {
+    pub(super) fn new(shape: &super::LeafShape, size: u32, seed: Seed) -> Self {
         Self {
             profile: pack!(shape; half_length, half_width, widest_at, base_exponent),
             shape: pack!(shape; tip_exponent, base_width, tip_width, asymmetry),
@@ -60,7 +62,7 @@ impl LeafUniform {
             hierarchy: pack!(shape; bipinnate, pinna_count, leaflet_count, pinna_length),
             landmarks: pack!(shape; basal_obliquity, landmark_lobes, landmark_side_bias, apex_truncation),
             planar: pack!(shape; frond, fan_segmentation, peltate_depth, longitudinal_veins),
-            render: [size as f32, size as f32, (seed % 65536) as f32, 0.0],
+            render: [size as f32, size as f32, (seed.to_u64() % 65536) as f32, 0.0],
         }
         .constrained()
     }

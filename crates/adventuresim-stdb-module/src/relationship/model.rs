@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 // Owns the cohesive relationship, household, commitment, courtship, pregnancy,
 // lifecycle-failure, and socializing schema.
 /// Marks a normal full Character as being advanced by deterministic NPC policy
@@ -9,7 +10,7 @@ pub struct NpcPolicy {
     #[primary_key]
     pub character_id: u64,
     pub home_settlement_id: String,
-    pub policy_seed: u64,
+    pub policy_seed: Seed,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
@@ -321,9 +322,9 @@ pub struct Pregnancy {
     pub conceived_minute: StrategicMinute,
     pub due_minute: StrategicMinute,
     pub reserved_child_id: u64,
-    pub child_name_seed: u64,
+    pub child_name_seed: adventuresim_core::courtship::ChildNameSeed,
     pub child_sex: Sex,
-    pub child_home_seed: u64,
+    pub child_home_seed: adventuresim_core::courtship::HouseholdPlacementSeed,
     pub birth_settlement_id: String,
     pub birth_residence_holding_id: Option<String>,
     pub status: PregnancyStatus,

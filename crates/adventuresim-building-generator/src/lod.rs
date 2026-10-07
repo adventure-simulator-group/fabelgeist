@@ -459,7 +459,7 @@ mod tests {
     fn fachwerk_lod_joins_wall_cells_and_emits_uv_mapped_details() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let exterior_wall_count = plan
@@ -502,7 +502,7 @@ mod tests {
     fn facade_and_shell_lods_omit_interior_walls() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let interior_ids = plan
@@ -527,7 +527,7 @@ mod tests {
     fn fachwerk_shell_retains_semantic_facades_with_bounded_triangle_count() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
@@ -562,7 +562,7 @@ mod tests {
     fn fachwerk_detail_quads_lie_on_the_outer_member_faces() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let frame = plan.timber_frame.as_ref().unwrap();
@@ -626,7 +626,7 @@ mod tests {
     fn castle_shell_uses_alpha_mask_batches_for_straight_and_round_crowns() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::CourtyardCastle,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         assert!(

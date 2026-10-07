@@ -3,17 +3,19 @@ use super::*;
 use crate::scene_input::{DistantBuildingPlacement, TacticalBuildingPlacement};
 use adventuresim_building_generator::BuildingArchetype;
 use adventuresim_world_schema::settlement_buildings::BusinessKey;
+use fabelgeist_determinism::Seed;
 
 mod assembly;
 mod church;
 mod gardens;
+pub use gardens::GardenClearanceError;
 mod grounded;
 mod homes;
 mod packing;
 mod single_support;
 pub use grounded::{
     CityGroundingError, CityGroundingProjection, CityGroundingProjectionError,
-    GroundedCitySceneLayout, SelectedCityGrounding,
+    GroundedCitySceneLayout, ProjectionBoundary, ProjectionOwnerContext, SelectedCityGrounding,
 };
 mod support;
 pub(crate) use gardens::validate_scene_gardens;
@@ -48,7 +50,7 @@ pub enum CityCompileError {
     },
     #[error("church {building} is not buildable: {issue:?}")]
     Church {
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
         issue: ChurchSitingIssue,
     },
     #[error("parish {parish:?} lacks its precinct or resident catchment")]
@@ -62,7 +64,7 @@ pub enum CityCompileError {
     #[error("{archetype:?} recipe from seed {seed} failed: {source}")]
     Recipe {
         archetype: BuildingArchetype,
-        seed: u64,
+        seed: Seed,
         source: adventuresim_building_generator::GenerationError,
     },
     #[error("property {property:?} is not buildable: {issue:?}")]
@@ -77,7 +79,9 @@ pub enum CompoundIssue {
     MissingCourtDoor,
     MissingRangeDoor,
     GeometryOutsidePlot,
-    AccessBlocked { building: u64 },
+    AccessBlocked {
+        building: crate::scene_input::SceneBuildingId,
+    },
     GateBlocksOpenPassage,
     GateSweepBlocked,
     StreetDisconnected,
@@ -101,7 +105,7 @@ pub struct CompiledCityLayout {
 /// The physical building selected for one settlement-local business key.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct CityBusinessSite {
-    pub building_id: u64,
+    pub building_id: crate::scene_input::SceneBuildingId,
     pub key: BusinessKey,
 }
 
@@ -122,7 +126,10 @@ pub struct CitySceneLayout {
 
 impl GeneratedCityLayout {
     /// Compile the selected roster, then solve its measured physical packing.
-    pub fn compile(mut self, seed: u64) -> CityCompileResult<CompiledCityLayout> {
+    pub fn compile(
+        mut self,
+        seed: fabelgeist_determinism::Seed,
+    ) -> CityCompileResult<CompiledCityLayout> {
         let context = std::mem::replace(
             &mut self.packing,
             Ok(super::packing::CityPackingContext::default()),
@@ -175,16 +182,23 @@ impl CompiledCityLayout {
         self,
         playable_half_extent_metres: Option<f32>,
     ) -> CityCompileResult<CitySceneLayout> {
+        let playable_region = playable_half_extent_metres
+            .map(|extent| {
+                let dimensions =
+                    adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                        Vec2::splat(extent * 2.0),
+                    )?;
+                CityPlotBounds::new(
+                    crate::scene_coordinates::ScenePlanPoint::ORIGIN,
+                    dimensions,
+                    BuildingOrientation::IDENTITY,
+                )
+            })
+            .transpose()?;
         let mut playable_members = BTreeSet::new();
         let mut compound_members = BTreeSet::new();
         for compound in &self.compounds {
-            let playable = playable_half_extent_metres.is_some_and(|extent| {
-                compound.plot.intersects(CityPlotBounds {
-                    centre_metres: Vec2::ZERO,
-                    dimensions_metres: Vec2::splat(extent * 2.0),
-                    orientation: BuildingOrientation::IDENTITY,
-                })
-            });
+            let playable = playable_region.is_some_and(|region| compound.plot.intersects(region));
             compound_members.extend([compound.front_building_id, compound.rear_building_id]);
             if playable {
                 playable_members.extend([compound.front_building_id, compound.rear_building_id]);
@@ -192,13 +206,7 @@ impl CompiledCityLayout {
         }
         for garden in &self.gardens {
             compound_members.insert(garden.front_building_id);
-            if playable_half_extent_metres.is_some_and(|extent| {
-                garden.plot.intersects(CityPlotBounds {
-                    centre_metres: Vec2::ZERO,
-                    dimensions_metres: Vec2::splat(extent * 2.0),
-                    orientation: BuildingOrientation::IDENTITY,
-                })
-            }) {
+            if playable_region.is_some_and(|region| garden.plot.intersects(region)) {
                 playable_members.insert(garden.front_building_id);
             }
         }
@@ -216,8 +224,9 @@ impl CompiledCityLayout {
         for building in self.buildings {
             if playable_members.contains(&building.id)
                 || (!compound_members.contains(&building.id)
-                    && playable_half_extent_metres
-                        .is_some_and(|extent| building.centre_metres.abs().max_element() <= extent))
+                    && playable_half_extent_metres.is_some_and(|extent| {
+                        building.centre_metres.metres().abs().max_element() <= extent
+                    }))
             {
                 result.playable.push(building);
             } else {

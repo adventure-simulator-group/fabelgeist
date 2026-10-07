@@ -10,6 +10,7 @@ license.workspace = true
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+fabelgeist-determinism.workspace = true
 adventuresim-procedural-materials.workspace = true
 adventuresim-procedural-textures.workspace = true
 bevy = { workspace = true, features = ["default_app", "std", "bevy_winit", "web", "webgpu", "3d_bevy_render", "ui_bevy_render", "png", "tonemapping_luts", "zstd_rust"] }

@@ -142,9 +142,9 @@ mod tests {
                     == adventuresim_building_generator::furniture::FurniturePlacementRole::Interior
                 {
                     FurnitureLocation::Interior {
-                        building_id: u64::MAX - 1,
-                        room_id: u16::MAX,
-                        storey: u16::MAX,
+                        building_id: adventuresim_tactical_core::scene_input::SceneBuildingId(u64::MAX - 1),
+                        room_id: adventuresim_tactical_core::scene_input::furniture::RoomIndex::from_serialized(u16::MAX),
+                        storey: adventuresim_tactical_core::scene_input::furniture::StoreyIndex::from_serialized(u16::MAX),
                     }
                 } else {
                     FurnitureLocation::Outdoor {
@@ -168,7 +168,10 @@ mod tests {
     fn building() -> SceneBuilding {
         SceneBuilding {
             id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
-            program: BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 47),
+            program: BuildingProgram::fixture(
+                BuildingArchetype::FachwerkMerchantHouse,
+                fabelgeist_determinism::Seed::from_u64(47),
+            ),
             orientation: BuildingOrientation::from_radians(0.73).unwrap(),
         }
     }

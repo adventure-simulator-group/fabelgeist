@@ -33,7 +33,11 @@ pub(super) fn run_tactical_batch(
         .map_err(|error| error.to_string())?;
     let mut writer = BufWriter::new(file);
     for offset in 0..args.tactical_seeds {
-        let outcome = resolve_tactical_server_melee_duel(john, opponent, args.first_seed + offset);
+        let outcome = resolve_tactical_server_melee_duel(
+            john,
+            opponent,
+            args.first_seed.wrapping_offset(offset),
+        );
         batch.simulated_seconds += f64::from(outcome.simulated_seconds);
         record_tactical_causal(&mut batch.causal, &outcome, &john.name);
         match &outcome.resolution {
@@ -96,7 +100,7 @@ pub(super) fn run_autoresolve_batch(
         let outcome = resolve_battle(
             vec![john.combatant.clone()],
             vec![opponent.combatant.clone()],
-            args.first_seed + offset,
+            args.first_seed.wrapping_offset(offset),
             BattleOpening::Normal,
         );
         record_autoresolve_outcome(&mut batch, &outcome, john, opponent);

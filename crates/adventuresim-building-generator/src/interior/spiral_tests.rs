@@ -13,7 +13,7 @@ fn fortified_spiral_landings_connect_all_occupied_rooms() {
         let program = BuildingProgram::validated_settlement(
             crate::settlement_archetype(usage),
             usage,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             Some(ServiceBuildingSize::Medium),
         )
         .unwrap();

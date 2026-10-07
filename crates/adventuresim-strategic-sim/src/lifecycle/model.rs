@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 pub const LIFECYCLE_REPORT_VERSION: u32 = 1;
@@ -114,7 +115,7 @@ pub struct LifecycleReport {
     pub format_version: u32,
     pub evidence_tier: String,
     pub cadence: LifecycleCadence,
-    pub seed: u64,
+    pub seed: Seed,
     pub elapsed_days: u64,
     pub passed: bool,
     pub normalized_digest: String,

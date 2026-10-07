@@ -6,7 +6,7 @@ use crate::{BuildingArchetype, ResolvedItemId};
 fn bonding_preserves_tolerated_gap_planes_and_zero_overlap() {
     let plan = crate::generate(&crate::BuildingProgram::fixture(
         BuildingArchetype::TownHouse,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let mut left = plan.resolved_geometry.solids[0].clone();

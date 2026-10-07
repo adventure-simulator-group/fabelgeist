@@ -9,6 +9,8 @@ use adventuresim_tactical_core::scene_coordinates::{ScenePlanPoint, ScenePlanPol
 
 #[derive(Debug, thiserror::Error)]
 pub(super) enum CornerProbeError {
+    #[error(transparent)]
+    Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
     #[error("no physical support collider at {point:?}")]
     MissingSupport { point: ScenePlanPoint },
     #[error("unsupported collider pair at {point:?}")]
@@ -25,14 +27,17 @@ pub(super) struct CornerSupportProbe<'a> {
 }
 
 impl<'a> CornerSupportProbe<'a> {
-    pub(super) fn new(terrain: &'a SceneTerrain) -> Self {
-        Self {
+    pub(super) fn new(
+        terrain: &'a SceneTerrain,
+    ) -> Result<Self, adventuresim_tactical_core::city_layout::grounding::SupportColliderError>
+    {
+        Ok(Self {
             terrain,
-            colliders: terrain.colliders(),
+            colliders: terrain.colliders()?,
             contact_bound_metres: CompoundGradingPolicy::bounded_settlement()
                 .limits
                 .contact_tolerance_metres(),
-        }
+        })
     }
 
     pub(super) fn measure(
@@ -63,7 +68,7 @@ impl<'a> CornerSupportProbe<'a> {
                     .map_err(|_| CornerProbeError::UnsupportedShapeCast { point:*scene_point }))
                 .collect::<Result<Vec<_>,_>>()?;
             let cylinder_hit = cylinder_hits.into_iter().flatten().min_by(|a,b| a.time_of_impact.total_cmp(&b.time_of_impact));
-            let below = self.terrain.surface_below(bearing + Vec3::Y * self.contact_bound_metres);
+            let below = self.terrain.surface_below(adventuresim_tactical_core::city_layout::grounding::SupportQuery::try_from(bearing + Vec3::Y * self.contact_bound_metres)?);
             Ok(json!({"bearing_metres":bearing,"ray_support_height_metres":hit.map(|hit| start.y - hit.0),
                 "ray_support_within_bound":hit.is_some_and(|hit| (start.y-hit.0-floor).abs()<=self.contact_bound_metres),
                 "cylinder_support_hit":cylinder_hit.map(|hit| json!({"foot_elevation_metres":start.y-hit.time_of_impact,"time_of_impact":hit.time_of_impact,"normal":hit.normal2})),
@@ -86,12 +91,12 @@ pub(super) fn measure_enclosures(
     let mut enclosures = Vec::new();
     for compound in &input.compounds {
         let boundary = GeneratedBoundary::project(compound, terrain)?;
-        let _collider = boundary.scene.fixed_support.collider();
+        let _collider = boundary.scene().fixed_support().collider()?;
         enclosures.push(json!({"property_id":compound.id,"member_building_ids":[compound.front_building_id,compound.rear_building_id],
-            "gate_elevation_metres":boundary.elevation_metres,"cells":boundary.scene.fixed_support.cells.len(),
-            "triangles":boundary.scene.fixed_support.cells.len()*8,
-            "minimum_masonry_base_metres":boundary.scene.fixed_support.cells.iter().flat_map(|c|c.positions_metres[3..].iter())
-                .map(|p|p.y+boundary.elevation_metres).fold(f32::INFINITY,f32::min)}));
+            "gate_elevation_metres":boundary.elevation_metres().metres(),"cells":boundary.scene().fixed_support().cells().len(),
+            "triangles":boundary.scene().fixed_support().cells().len()*8,
+            "minimum_masonry_base_metres":boundary.scene().fixed_support().cells().iter().flat_map(|c|c.positions()[3..].iter())
+                .map(|p|p.metres().y+boundary.elevation_metres().metres()).fold(f32::INFINITY,f32::min)}));
     }
     Ok(enclosures)
 }

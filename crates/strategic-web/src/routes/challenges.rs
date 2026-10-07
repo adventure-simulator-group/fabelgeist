@@ -290,7 +290,9 @@ mod tests {
             PuzzleKind::RuneTransformation,
             PuzzleKind::TruthfulWitnesses,
         ] {
-            let projection = PuzzleAuthority::generate(kind, 43).projection();
+            let projection =
+                PuzzleAuthority::generate(kind, fabelgeist_determinism::Seed::from_u64(43))
+                    .projection();
             let markup = puzzle_page(
                 "challenge:test",
                 "case:test",
@@ -387,15 +389,21 @@ mod tests {
             rune_result: None,
             ..ChallengeForm::default()
         };
-        let ordered_projection =
-            PuzzleAuthority::generate(PuzzleKind::OrderedSigils, 1).projection();
+        let ordered_projection = PuzzleAuthority::generate(
+            PuzzleKind::OrderedSigils,
+            fabelgeist_determinism::Seed::from_u64(1),
+        )
+        .projection();
         assert!(matches!(
             submission_for(&ordered_projection, &ordered),
             Ok(PuzzleSubmission::OrderedSigils { .. })
         ));
 
-        let witness_projection =
-            PuzzleAuthority::generate(PuzzleKind::TruthfulWitnesses, 2).projection();
+        let witness_projection = PuzzleAuthority::generate(
+            PuzzleKind::TruthfulWitnesses,
+            fabelgeist_determinism::Seed::from_u64(2),
+        )
+        .projection();
         assert!(submission_for(&witness_projection, &ordered).is_err());
         let witness = ChallengeForm {
             safe_path: Some("Moon".into()),
@@ -413,8 +421,11 @@ mod tests {
             Ok(PuzzleSubmission::TruthfulWitnesses { .. })
         ));
 
-        let rune_projection =
-            PuzzleAuthority::generate(PuzzleKind::RuneTransformation, 3).projection();
+        let rune_projection = PuzzleAuthority::generate(
+            PuzzleKind::RuneTransformation,
+            fabelgeist_determinism::Seed::from_u64(3),
+        )
+        .projection();
         let rune = ChallengeForm {
             rune_result: Some("Rose".into()),
             safe_path: None,
@@ -431,7 +442,11 @@ mod tests {
             Ok(PuzzleSubmission::RuneTransformation { .. })
         ));
 
-        let grid_projection = PuzzleAuthority::generate(PuzzleKind::LogicGrid, 4).projection();
+        let grid_projection = PuzzleAuthority::generate(
+            PuzzleKind::LogicGrid,
+            fabelgeist_determinism::Seed::from_u64(4),
+        )
+        .projection();
         let PuzzleProjection::LogicGrid(grid) = &grid_projection else {
             unreachable!()
         };
@@ -449,8 +464,11 @@ mod tests {
             Ok(PuzzleSubmission::LogicGrid { .. })
         ));
 
-        let allocation_projection =
-            PuzzleAuthority::generate(PuzzleKind::ResourceAllocation, 5).projection();
+        let allocation_projection = PuzzleAuthority::generate(
+            PuzzleKind::ResourceAllocation,
+            fabelgeist_determinism::Seed::from_u64(5),
+        )
+        .projection();
         let allocation_form = ChallengeForm {
             provision_0: Some("selected".into()),
             ..ChallengeForm::default()

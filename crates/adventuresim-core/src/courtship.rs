@@ -1137,8 +1137,8 @@ mod tests {
             "wittenberg",
         );
         assert_eq!(first, reversed);
-        assert_ne!(first.identity.get(), first.name.get());
-        assert_ne!(first.identity.get(), first.home.get());
+        assert_ne!(first.identity.get(), first.name.get().to_u64());
+        assert_ne!(first.identity.get(), first.home.get().to_u64());
         assert_ne!(
             first,
             deterministic_child_seeds(

@@ -33,6 +33,13 @@ governed by the repository-root generation rule instead.
   enums, newtypes, and validated structs so invalid combinations are rejected
   by the compiler. Keep raw strings, numbers, and containers at explicit system
   boundaries or where the value is genuinely primitive.
+- Repeated primitive-to-bespoke conversions at internal call sites indicate an
+  incomplete producer migration. Carry the bespoke type through producer
+  fields, return types and parameters; convert at the actual literal, decoding,
+  storage or framework boundary. Avoid extracting a primitive only to admit it
+  again in the next application operation. Numeric fixtures and required native
+  adapters remain valid boundaries; conversion count is a review signal, not a
+  blanket prohibition on `From` or `TryFrom`.
 - Do not carry a naked primitive through domain logic when a bespoke type can
   express its unit, invariant, authority, or allowed state more precisely.
 - Represent domain records with small structs and named fields. Avoid positional

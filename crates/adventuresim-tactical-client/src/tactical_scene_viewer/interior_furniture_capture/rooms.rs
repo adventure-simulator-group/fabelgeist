@@ -329,7 +329,7 @@ mod tests {
         let program = BuildingProgram::settlement(
             BuildingArchetype::WalledKeep,
             Some(BuildingUse::Castle),
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let plan = generate(&program).unwrap();
         let collision = compile_building_collision(&plan).unwrap();

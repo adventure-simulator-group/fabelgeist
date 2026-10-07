@@ -8,9 +8,9 @@ fn building(usage: BuildingUse) -> (BuildingProgram, BuildingPlan) {
         settlement_archetype(usage),
         usage,
         if usage == BuildingUse::GeneralShop {
-            0
+            fabelgeist_determinism::Seed::from_u64(0)
         } else {
-            42
+            fabelgeist_determinism::Seed::from_u64(42)
         },
         None,
     )
@@ -74,7 +74,7 @@ fn interior_cathedral_rooms_share_continuous_paving_and_clear_doors() {
     let program = BuildingProgram::settlement(
         settlement_archetype(BuildingUse::Cathedral),
         Some(BuildingUse::Cathedral),
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     )
     .with_service_size(crate::ServiceBuildingSize::Medium);
     let plan = generate(&program).unwrap();
@@ -120,7 +120,7 @@ fn interior_woad_store_door_approaches_clear_structural_posts() {
     let program = BuildingProgram::validated_settlement(
         settlement_archetype(BuildingUse::WoadStore),
         BuildingUse::WoadStore,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
         Some(crate::ServiceBuildingSize::Medium),
     )
     .unwrap();
@@ -138,7 +138,11 @@ fn interior_every_use_has_an_exhaustive_room_budget() {
             .collect(),
     };
     for usage in BuildingUse::ALL {
-        let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42);
+        let program = BuildingProgram::settlement(
+            settlement_archetype(usage),
+            Some(usage),
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let budgets = furniture_budgets(&program, &room);
         assert!(!budgets.is_empty(), "{usage:?}");
         assert!(budgets.iter().all(|b| b.count > 0));
@@ -163,7 +167,7 @@ fn interior_all_settlement_uses_generate_accessible_layouts() {
 
 #[test]
 fn interior_civilian_seed_matrix() {
-    for seed in [42, 47, 101] {
+    for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
         for usage in BuildingUse::ALL
             .into_iter()
             .filter(|u| !matches!(u, BuildingUse::Castle | BuildingUse::Arsenal))
@@ -202,7 +206,7 @@ fn interior_civilian_sizes_and_fixture_programs() {
             let program = BuildingProgram::validated_settlement(
                 settlement_archetype(usage),
                 usage,
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 Some(size),
             )
             .unwrap_or_else(|error| panic!("{usage:?} {size:?}: {error}"));
@@ -219,7 +223,8 @@ fn interior_civilian_sizes_and_fixture_programs() {
         crate::BuildingArchetype::Cathedral,
         crate::BuildingArchetype::ParishChurch,
     ] {
-        let program = BuildingProgram::fixture(archetype, 42);
+        let program =
+            BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate(&program).unwrap_or_else(|error| panic!("{archetype:?}: {error}"));
         furnish(&plan, &program).unwrap_or_else(|error| panic!("{archetype:?}: {error}"));
     }
@@ -365,14 +370,18 @@ fn interior_counter_modules_are_contiguous_with_two_sided_access() {
 #[test]
 fn heated_household_recipes_preserve_access_to_every_room() {
     use crate::BuildingArchetype::*;
-    let obstructed = BuildingProgram::settlement(FachwerkCottage, Some(BuildingUse::Dwelling), 133);
+    let obstructed = BuildingProgram::settlement(
+        FachwerkCottage,
+        Some(BuildingUse::Dwelling),
+        fabelgeist_determinism::Seed::from_u64(133),
+    );
     assert!(matches!(
         validate_circulation(&generate(&obstructed).unwrap()),
         Err(InteriorLayoutError::DisconnectedRoom { room_id, .. })
             if room_id == crate::RoomIndex::from_serialized(2)
     ));
     for archetype in [FachwerkCottage, TownHouse, HallHouse, FachwerkMerchantHouse] {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let program =
                 BuildingProgram::validated_settlement(archetype, BuildingUse::Dwelling, seed, None)
                     .unwrap();

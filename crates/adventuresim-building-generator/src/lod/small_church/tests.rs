@@ -6,8 +6,12 @@ use adventuresim_world_schema::settlement_buildings::BuildingUse;
 
 fn plan(usage: BuildingUse, size: ServiceBuildingSize) -> BuildingPlan {
     generate(
-        &BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-            .with_service_size(size),
+        &BuildingProgram::settlement(
+            settlement_archetype(usage),
+            Some(usage),
+            fabelgeist_determinism::Seed::from_u64(42),
+        )
+        .with_service_size(size),
     )
     .unwrap()
 }

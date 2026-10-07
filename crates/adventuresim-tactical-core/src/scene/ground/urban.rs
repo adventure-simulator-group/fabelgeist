@@ -191,11 +191,7 @@ impl UrbanGroundSurfaces {
     ) -> Result<Self, adventuresim_building_generator::spatial_geometry::GeometryError> {
         let buildings = buildings
             .iter()
-            .map(|building| Ok(CityPlotBounds {
-                centre_metres: building.placement.centre_metres,
-                dimensions_metres: building.collision.bounds.plan_half_extents()?.metres() * 2.0,
-                orientation: building.placement.orientation,
-            }))
+            .map(|building| CityPlotBounds::new(crate::scene_coordinates::ScenePlanPoint::try_from(building.placement.centre_metres.metres())?,adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(building.collision.bounds.plan_half_extents()?.metres() * 2.0)?,building.placement.orientation))
             .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
         let lookup = OnceLock::from(UrbanGroundLookup::new(streets, yards, &buildings));
         Ok(Self {
@@ -331,7 +327,7 @@ mod tests {
 
     #[test]
     fn subcell_garden_ownership_survives_transport_without_clearing_neighbouring_grass() {
-        let terrain = SceneTerrain::new(4, 4, 2.0, |_| 0.0);
+        let terrain = SceneTerrain::new(4, 4, 2.0, |_| 0.0).unwrap();
         let mut ground = SceneGround::uniform_for_terrain(
             &terrain,
             GroundSurface {

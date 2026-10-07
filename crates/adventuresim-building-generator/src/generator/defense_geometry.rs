@@ -149,7 +149,7 @@ fn derive_bartizans(program: &BuildingProgram) -> Vec<Bartizan> {
     let depth = f32::from(depth) * CELL_SIZE_METRES;
     let top = program.storeys.len() as f32 * program.storey_height_metres;
     match program.archetype {
-        BuildingArchetype::CastleGatehouse if program.seed % 1_000 == 203 => vec![
+        BuildingArchetype::CastleGatehouse if program.seed.to_u64() % 1_000 == 203 => vec![
             Bartizan {
                 // Keep the unroofed bartizan on its own grounded buttress bay,
                 // beyond the resolved south gate-tower radius. It remains a

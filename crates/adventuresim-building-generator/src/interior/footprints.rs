@@ -122,7 +122,7 @@ mod tests {
             BuildingArchetype::TownHouse,
             BuildingArchetype::FachwerkMerchantHouse,
         ] {
-            for seed in [42, 47] {
+            for seed in [42, 47].map(fabelgeist_determinism::Seed::from_u64) {
                 let program = BuildingProgram::fixture(archetype, seed);
                 let plan = crate::generate(&program).unwrap();
                 let nav = Navigation::new(&plan).unwrap();

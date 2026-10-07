@@ -2,6 +2,7 @@
 
 mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3};
+use fabelgeist_determinism::Seed;
 
 use super::{
     MasonryColors, SrgbColor, SurfaceTextureSet, image_rgba_mipped, palette::albedo_image,
@@ -41,7 +42,7 @@ const MORTAR_ROUGHNESS: u8 = 236;
 struct StoneSample {
     height: f32,
     stone_coverage: f32,
-    stone_id: u64,
+    stone_id: Seed,
     edge_distance: f32,
 }
 
@@ -50,7 +51,7 @@ fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
     t * t * (3.0 - 2.0 * t)
 }
 
-fn course_id(params: &crate::TextureParameters, course: i32) -> u64 {
+fn course_id(params: &crate::TextureParameters, course: i32) -> Seed {
     params.field_seed(
         streams::COURSE,
         &[course.rem_euclid(params.dressed_stone.courses) as u64],
@@ -60,7 +61,7 @@ fn course_id(params: &crate::TextureParameters, course: i32) -> u64 {
 fn block_count(params: &crate::TextureParameters, course: i32) -> usize {
     params.dressed_stone.min_blocks_per_course
         + params
-            .rng(streams::BLOCK_COUNT, &[course_id(params, course)])
+            .rng(streams::BLOCK_COUNT, &[course_id(params, course).to_u64()])
             .index(
                 params.dressed_stone.max_blocks_per_course
                     - params.dressed_stone.min_blocks_per_course
@@ -68,8 +69,11 @@ fn block_count(params: &crate::TextureParameters, course: i32) -> usize {
             )
 }
 
-fn block_id(params: &crate::TextureParameters, course: i32, block: usize) -> u64 {
-    params.field_seed(streams::BLOCK, &[course_id(params, course), block as u64])
+fn block_id(params: &crate::TextureParameters, course: i32, block: usize) -> Seed {
+    params.field_seed(
+        streams::BLOCK,
+        &[course_id(params, course).to_u64(), block as u64],
+    )
 }
 
 fn course_weights(params: &crate::TextureParameters) -> ([f32; COURSES as usize], f32) {
@@ -78,7 +82,10 @@ fn course_weights(params: &crate::TextureParameters) -> ([f32; COURSES as usize]
     for course in 0..params.dressed_stone.courses {
         let weight = params.dressed_stone.course_weights_weight_1
             + params
-                .rng(streams::COURSE_HEIGHT, &[course_id(params, course)])
+                .rng(
+                    streams::COURSE_HEIGHT,
+                    &[course_id(params, course).to_u64()],
+                )
                 .inclusive_unit_f32()
                 * params.dressed_stone.course_weights_weight_2;
         weights[course as usize] = weight;
@@ -110,7 +117,11 @@ fn block_weights(params: &crate::TextureParameters, course: i32) -> ([f32; BLOCK
         .enumerate()
     {
         let id = block_id(params, course, block);
-        *weight = 0.79 + params.rng(streams::BLOCK_WIDTH, &[id]).inclusive_unit_f32() * 0.42;
+        *weight = 0.79
+            + params
+                .element_rng(streams::BLOCK_WIDTH, id)
+                .inclusive_unit_f32()
+                * 0.42;
         total += *weight;
     }
     (weights, total)
@@ -125,7 +136,10 @@ fn course_offset(params: &crate::TextureParameters, course: i32) -> f32 {
     };
     (alternating / block_count(params, course) as f32
         + (params
-            .rng(streams::COURSE_OFFSET, &[course_id(params, course)])
+            .rng(
+                streams::COURSE_OFFSET,
+                &[course_id(params, course).to_u64()],
+            )
             .inclusive_unit_f32()
             - 0.5)
             * 0.035)
@@ -149,45 +163,50 @@ fn block_at(params: &crate::TextureParameters, course: i32, u: f32) -> (usize, f
 fn periodic_wave(
     params: &crate::TextureParameters,
     coordinate: f32,
-    id: u64,
-    field_seed: u64,
+    id: Seed,
+    field_seed: Seed,
 ) -> f32 {
     let phase = params
-        .rng(streams::WAVE_PHASE, &[id, field_seed])
+        .rng(streams::WAVE_PHASE, &[id.to_u64(), field_seed.to_u64()])
         .inclusive_unit_f32()
         * std::f32::consts::TAU;
     let phase_two = params
-        .rng(streams::WAVE_SECONDARY_PHASE, &[id, field_seed])
+        .rng(
+            streams::WAVE_SECONDARY_PHASE,
+            &[id.to_u64(), field_seed.to_u64()],
+        )
         .inclusive_unit_f32()
         * std::f32::consts::TAU;
     (coordinate * std::f32::consts::TAU + phase).sin() * 0.54
         + (coordinate * std::f32::consts::TAU * 2.0 + phase_two).sin() * 0.18
 }
 
-fn tool_marks(params: &crate::TextureParameters, local_x: f32, local_y: f32, id: u64) -> f32 {
+fn tool_marks(params: &crate::TextureParameters, local_x: f32, local_y: f32, id: Seed) -> f32 {
     if params
-        .rng(streams::TOOL_MARKS_PRESENCE, &[id])
+        .element_rng(streams::TOOL_MARKS_PRESENCE, id)
         .inclusive_unit_f32()
         < 0.56
     {
         return 0.0;
     }
-    let mark_count = 2 + params.rng(streams::TOOL_COUNT, &[id]).index(4);
+    let mark_count = 2 + params.element_rng(streams::TOOL_COUNT, id).index(4);
     let base_angle = -params.dressed_stone.tool_marks_base_angle_1
-        + params.rng(streams::TOOL_ANGLE, &[id]).inclusive_unit_f32()
+        + params
+            .element_rng(streams::TOOL_ANGLE, id)
+            .inclusive_unit_f32()
             * params.dressed_stone.tool_marks_base_angle_2;
     let mut relief = 0.0_f32;
     for mark in 0..mark_count {
-        let mark_id = params.field_seed(streams::TOOL_MARK, &[id, mark as u64]);
+        let mark_id = params.field_seed(streams::TOOL_MARK, &[id.to_u64(), mark as u64]);
         let center_x = params
-            .rng(streams::TOOL_CENTER_X, &[mark_id])
+            .element_rng(streams::TOOL_CENTER_X, mark_id)
             .inclusive_unit_f32()
             .mul_add(
                 params.dressed_stone.tool_marks_center_x_1,
                 -params.dressed_stone.tool_marks_center_x_2,
             );
         let center_y = params
-            .rng(streams::TOOL_CENTER_Y, &[mark_id])
+            .element_rng(streams::TOOL_CENTER_Y, mark_id)
             .inclusive_unit_f32()
             .mul_add(
                 params.dressed_stone.tool_marks_center_y_1,
@@ -195,7 +214,7 @@ fn tool_marks(params: &crate::TextureParameters, local_x: f32, local_y: f32, id:
             );
         let angle = base_angle
             + (params
-                .rng(streams::TOOL_ANGLE_JITTER, &[mark_id])
+                .element_rng(streams::TOOL_ANGLE_JITTER, mark_id)
                 .inclusive_unit_f32()
                 - 0.5)
                 * params.dressed_stone.tool_marks_angle;
@@ -205,18 +224,18 @@ fn tool_marks(params: &crate::TextureParameters, local_x: f32, local_y: f32, id:
         let mut across = -dx * angle.sin() + dy * angle.cos();
         let half_length = params.dressed_stone.tool_marks_half_length_1
             + params
-                .rng(streams::TOOL_LENGTH, &[mark_id])
+                .element_rng(streams::TOOL_LENGTH, mark_id)
                 .inclusive_unit_f32()
                 * params.dressed_stone.tool_marks_half_length_2;
         across += (along * along - half_length * half_length * 0.33)
             * (params
-                .rng(streams::TOOL_CURVATURE, &[mark_id])
+                .element_rng(streams::TOOL_CURVATURE, mark_id)
                 .inclusive_unit_f32()
                 - 0.5)
             * 0.62;
         let width = params.dressed_stone.tool_marks_width_1
             + params
-                .rng(streams::TOOL_WIDTH, &[mark_id])
+                .element_rng(streams::TOOL_WIDTH, mark_id)
                 .inclusive_unit_f32()
                 * params.dressed_stone.tool_marks_width_2;
         let taper = smoothstep(
@@ -225,14 +244,14 @@ fn tool_marks(params: &crate::TextureParameters, local_x: f32, local_y: f32, id:
             1.0 - along.abs() / half_length,
         );
         let gap_center = (params
-            .rng(streams::TOOL_GAP_CENTER, &[mark_id])
+            .element_rng(streams::TOOL_GAP_CENTER, mark_id)
             .inclusive_unit_f32()
             - 0.5)
             * half_length;
         let gap_radius = half_length
             * (params.dressed_stone.tool_marks_gap_radius_1
                 + params
-                    .rng(streams::TOOL_GAP_WIDTH, &[mark_id])
+                    .element_rng(streams::TOOL_GAP_WIDTH, mark_id)
                     .inclusive_unit_f32()
                     * params.dressed_stone.tool_marks_gap_radius_2);
         let interruption = smoothstep(
@@ -247,7 +266,7 @@ fn tool_marks(params: &crate::TextureParameters, local_x: f32, local_y: f32, id:
             * interruption
             * (0.004
                 + params
-                    .rng(streams::TOOL_DEPTH, &[mark_id])
+                    .element_rng(streams::TOOL_DEPTH, mark_id)
                     .inclusive_unit_f32()
                     * 0.005);
     }
@@ -260,14 +279,15 @@ fn sample_stonework(params: &crate::TextureParameters, u: f32, v: f32) -> StoneS
     let (course, local_y, course_height) = course_at(params, v);
     let (block, local_x, block_width) = block_at(params, course, u);
     let id = block_id(params, course, block);
-    let unit_draw =
-        |purpose: fabelgeist_determinism::StreamId| params.rng(purpose, &[id]).inclusive_unit_f32();
+    let unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+        params.element_rng(purpose, id).inclusive_unit_f32()
+    };
     let x = local_x * 2.0 - 1.0;
     let y = local_y * 2.0 - 1.0;
 
     let bed_joint = (params.dressed_stone.sample_stonework_bed_joint_1
         + params
-            .rng(streams::BED_JOINT, &[course_id(params, course)])
+            .rng(streams::BED_JOINT, &[course_id(params, course).to_u64()])
             .inclusive_unit_f32()
             * params.dressed_stone.sample_stonework_bed_joint_2)
         / params.dressed_stone.tile_metres
@@ -360,14 +380,14 @@ fn stone_color(
     colors: &MasonryColors<6>,
 ) -> ([u8; 3], u8) {
     let unit = colors.units[params
-        .rng(streams::PALETTE, &[sample.stone_id])
+        .rng(streams::PALETTE, &[sample.stone_id.to_u64()])
         .index(colors.units.len())];
     let color = colors.mortar.covered_by(unit, sample.stone_coverage).0;
     let roughness = if sample.edge_distance > 0.0 {
         params.dressed_stone.mortar_roughness
     } else {
         params.dressed_stone.stone_roughness_palette[params
-            .rng(streams::PALETTE, &[sample.stone_id])
+            .rng(streams::PALETTE, &[sample.stone_id.to_u64()])
             .index(params.dressed_stone.stone_roughness_palette.len())]
     };
     (color, roughness)
@@ -556,7 +576,7 @@ mod tests {
     fn joints_are_recessed_while_faces_remain_planar() {
         let params = &crate::TextureParameters::default();
         let mut joints = Vec::new();
-        let mut faces = std::collections::BTreeMap::<u64, Vec<f32>>::new();
+        let mut faces = std::collections::BTreeMap::<Seed, Vec<f32>>::new();
         for y in 0..256 {
             for x in 0..256 {
                 let sample =

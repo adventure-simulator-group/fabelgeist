@@ -48,10 +48,10 @@ fn distant_gardens_wait_for_the_exact_terrain_and_project_only_once() {
         .query::<&SceneGarden>()
         .single(app.world())
         .unwrap();
-    assert_eq!(projected.garden, garden);
+    assert_eq!(projected.garden(), &garden);
     assert!(
         projected
-            .plant_support
+            .plant_support()
             .iter()
             .all(|support| support.elevation.metres() == 4.0)
     );

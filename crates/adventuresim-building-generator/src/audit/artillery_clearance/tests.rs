@@ -65,7 +65,7 @@ fn route_assessments_distinguish_binding_geometry_and_obstruction_with_identity(
     edge.width_metres = 0.9;
     let plan = crate::generate(&crate::BuildingProgram::fixture(
         crate::BuildingArchetype::TownHouse,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let mut blocker = plan.resolved_geometry.solids[0].clone();

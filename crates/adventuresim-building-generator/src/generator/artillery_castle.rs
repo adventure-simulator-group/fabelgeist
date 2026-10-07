@@ -1121,7 +1121,7 @@ fn resolve_artillery_castle(
         SolidRole::ArtilleryBridgeDeck,
         vec![bridge_node],
     )?;
-    let bridge_state = if program.seed % 1_000 == 702 {
+    let bridge_state = if program.seed.to_u64() % 1_000 == 702 {
         crate::BridgeState::Denied
     } else {
         crate::BridgeState::Deployed

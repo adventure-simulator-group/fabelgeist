@@ -39,7 +39,7 @@ fn civilian_facades_keep_real_apertures_reveals_and_materials_with_bounded_geome
         BuildingArchetype::TownHouse,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let mut plan = generate(&BuildingProgram::fixture(archetype, seed)).unwrap();
             let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
             let detail = crate::compile_building_detail(&plan).unwrap();
@@ -142,7 +142,11 @@ fn civilian_facades_keep_real_apertures_reveals_and_materials_with_bounded_geome
 
 #[test]
 fn facade_reserves_only_operable_leaves_and_preserves_fixed_layers_and_bar_geometry() {
-    let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+    let plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
     let dynamic = crate::detail::dynamic_closure_solids(&plan).unwrap();
     assert!(!dynamic.is_empty());
     let mut all = BuildingLod {
@@ -191,10 +195,18 @@ fn dynamic_facade_capability_excludes_coarse_hosts_and_replaced_workplace_walls(
         BuildingArchetype::StorageRange,
         BuildingArchetype::CastleGatehouse,
     ] {
-        let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            archetype,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         assert!(plan.facade_dynamic_openings().unwrap().is_empty());
     }
-    let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+    let plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
     let supported = plan.facade_dynamic_openings().unwrap();
     assert!(!supported.is_empty());
     for id in supported {
@@ -215,7 +227,11 @@ fn dynamic_facade_capability_excludes_coarse_hosts_and_replaced_workplace_walls(
 
 #[test]
 fn a_workplace_owned_cell_excludes_the_entire_joined_run_from_dynamic_capability() {
-    let mut plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+    let mut plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
     let run = extract_facade_runs(&plan)
         .into_iter()
         .find(|run| {
@@ -233,7 +249,7 @@ fn a_workplace_owned_cell_excludes_the_entire_joined_run_from_dynamic_capability
     let mut work = generate(&BuildingProgram::settlement(
         crate::settlement_archetype(usage),
         Some(usage),
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap()
     .workplace

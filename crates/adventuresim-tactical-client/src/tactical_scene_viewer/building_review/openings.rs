@@ -173,9 +173,7 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
         commands.spawn((
             Name::new("Fixture door"),
             SceneDoor {
-                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
-                    building.placement.id,
-                ),
+                building_id: building.placement.id,
                 opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
@@ -199,9 +197,7 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
             Name::new("Fixture window"),
             SceneWindow {
                 leaf: window.leaf,
-                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
-                    building.placement.id,
-                ),
+                building_id: building.placement.id,
                 opening_id: window.opening,
                 size_metres: window.size_metres,
                 opening_centre_metres: window.closed_centre,

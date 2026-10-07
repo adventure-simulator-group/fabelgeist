@@ -110,12 +110,12 @@ impl ParcelFrontage {
     pub fn geometry(
         self,
         layout: &CompiledCityLayout,
-        envelopes: &BTreeMap<u64, MeasuredBuildingEnvelope>,
+        envelopes: &BTreeMap<crate::scene_input::SceneBuildingId, MeasuredBuildingEnvelope>,
     ) -> Result<ParcelGeometry, CityCompileError> {
         let id = CityPropertyId(self.lot.id);
-        let reservation = CityPlotBounds::from(plots::reservation(self.lot));
+        let reservation = CityPlotBounds::try_from(plots::reservation(self.lot))?;
         let front = envelopes
-            .get(&self.lot.id)
+            .get(&crate::scene_input::SceneBuildingId(self.lot.id))
             .ok_or(CityCompileError::Packing {
                 property: id,
                 issue: CityPackingIssue::MissingFrontage,
@@ -143,7 +143,7 @@ impl ParcelFrontage {
                     .map_err(|issue| CityCompileError::Packing {
                         property: id,
                         issue: CityPackingIssue::InvalidBearing {
-                            building: self.lot.id,
+                            building: self.lot.id.into(),
                             issue,
                         },
                     })?,
@@ -206,15 +206,15 @@ impl ParcelGeometry {
         let translation = delta;
         let delta = translation.metres();
         let mut geometry = self.clone();
-        geometry.reservation.centre_metres += delta;
+        geometry.reservation = geometry.reservation.translated(translation)?;
         for body in &mut geometry.buildings {
-            body.centre_metres += delta;
+            *body = body.translated(translation)?;
         }
         for bearing in &mut geometry.bearings {
             *bearing = bearing.translated(translation)?;
         }
         if let Some(garden) = &mut geometry.garden {
-            garden.translate(delta, *tangent);
+            garden.translate(delta, *tangent)?;
         }
         Ok(geometry)
     }

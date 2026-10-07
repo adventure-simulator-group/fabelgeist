@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use crate::{
     character::{
         character, character__view, character_attributes, character_limbs, character_skills,
@@ -932,7 +933,7 @@ pub struct InvestigationActionCapability {
     pub target_id: String,
     /// Captured environment key; generated bindings pin it to the manifest.
     pub target_terrain: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub evidence_age_origin_minute: StrategicMinute,
     pub uncertainty_bps: u16,
     pub safe_summary: String,

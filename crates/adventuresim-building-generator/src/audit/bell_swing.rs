@@ -260,7 +260,7 @@ mod tests {
     fn missing_axle_reports_the_bell_identity() {
         let mut plan = crate::generate(&crate::BuildingProgram::fixture(
             BuildingArchetype::ParishChurch,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let bell = plan
@@ -283,7 +283,7 @@ mod tests {
     fn narrow_rotated_foreign_beam_blocks_bell_sweep() {
         let mut plan = crate::generate(&crate::BuildingProgram::fixture(
             BuildingArchetype::ParishChurch,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let bell = plan

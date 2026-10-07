@@ -22,7 +22,11 @@ fn economy(population: u32, level: i32) -> SettlementEconomyProfile {
 fn capacities_cover_each_eligible_catchment_without_an_unnecessary_last_building() {
     for population in [1, 120, 900, 6_500, 40_000] {
         let economy = economy(population, 4);
-        let demand = SettlementBuildingDemand::new(42, population, &economy);
+        let demand = SettlementBuildingDemand::new(
+            fabelgeist_determinism::Seed::from_u64(42),
+            population,
+            &economy,
+        );
         assert!(demand.shortfalls.is_empty());
         for usage in BuildingUse::ALL {
             let definition = usage.definition();
@@ -70,17 +74,19 @@ fn capacities_cover_each_eligible_catchment_without_an_unnecessary_last_building
 #[test]
 fn business_ordinals_are_stable_coordinates_not_iteration_positions() {
     let economy = economy(40_000, 4);
-    let plan = SettlementBuildingDemand::new(42, 40_000, &economy);
+    let plan =
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 40_000, &economy);
     let assigned = plan
         .buildings
         .iter()
         .filter_map(|demand| demand.business_key())
         .collect::<Vec<_>>();
-    let repeated = SettlementBuildingDemand::new(42, 40_000, &economy)
-        .buildings
-        .iter()
-        .filter_map(|demand| demand.business_key())
-        .collect::<Vec<_>>();
+    let repeated =
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 40_000, &economy)
+            .buildings
+            .iter()
+            .filter_map(|demand| demand.business_key())
+            .collect::<Vec<_>>();
     assert_eq!(assigned, repeated);
 
     let mut reverse_consumption = plan.buildings.iter().rev().collect::<Vec<_>>();
@@ -120,7 +126,8 @@ fn global_business_identity_includes_its_settlement_scope() {
 #[test]
 fn specialist_presence_is_owned_by_the_economy() {
     let village = economy(120, 1);
-    let village_plan = SettlementBuildingDemand::new(42, 120, &village);
+    let village_plan =
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 120, &village);
     assert!(
         !village_plan
             .buildings
@@ -130,7 +137,7 @@ fn specialist_presence_is_owned_by_the_economy() {
     let mut town = economy(8_000, 4);
     assert!(town.has_service(SettlementService::Weaponsmith));
     assert!(
-        SettlementBuildingDemand::new(42, 8_000, &town)
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 8_000, &town)
             .buildings
             .iter()
             .any(|b| b.usage() == BuildingUse::Weaponsmith)
@@ -138,7 +145,7 @@ fn specialist_presence_is_owned_by_the_economy() {
     town.services
         .retain(|s| *s != SettlementService::Weaponsmith);
     assert!(
-        !SettlementBuildingDemand::new(42, 8_000, &town)
+        !SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 8_000, &town)
             .buildings
             .iter()
             .any(|b| b.usage() == BuildingUse::Weaponsmith)
@@ -148,10 +155,18 @@ fn specialist_presence_is_owned_by_the_economy() {
 #[test]
 fn parish_growth_is_deterministic_and_does_not_duplicate_cathedrals() {
     let economy = economy(8_000, 4);
-    let small = SettlementBuildingDemand::new(42, 4_000, &economy);
-    let large = SettlementBuildingDemand::new(42, 8_000, &economy);
-    assert_eq!(large, SettlementBuildingDemand::new(42, 8_000, &economy));
-    assert_ne!(large, SettlementBuildingDemand::new(43, 8_000, &economy));
+    let small =
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 4_000, &economy);
+    let large =
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 8_000, &economy);
+    assert_eq!(
+        large,
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 8_000, &economy)
+    );
+    assert_ne!(
+        large,
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(43), 8_000, &economy)
+    );
     let churches = |plan: &SettlementBuildingDemand| {
         plan.buildings
             .iter()
@@ -179,11 +194,15 @@ fn parish_growth_is_deterministic_and_does_not_duplicate_cathedrals() {
 fn empty_and_extreme_populations_are_bounded_and_shortfalls_are_explicit() {
     let economy = economy(40_000, 4);
     assert!(
-        SettlementBuildingDemand::new(42, 0, &economy)
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 0, &economy)
             .buildings
             .is_empty()
     );
-    let extreme = SettlementBuildingDemand::new(42, u32::MAX, &economy);
+    let extreme = SettlementBuildingDemand::new(
+        fabelgeist_determinism::Seed::from_u64(42),
+        u32::MAX,
+        &economy,
+    );
     assert_eq!(extreme.buildings.len(), MAX_SERVICE_BUILDINGS);
     assert!(!extreme.shortfalls.is_empty());
 }
@@ -192,7 +211,11 @@ fn empty_and_extreme_populations_are_bounded_and_shortfalls_are_explicit() {
 fn parish_programmes_keep_population_roles_and_physical_scale_separate() {
     let economy = economy(30_000, 4);
     for population in [0, 250, 900, 3_001, 30_000] {
-        let plan = SettlementBuildingDemand::new(42, population, &economy);
+        let plan = SettlementBuildingDemand::new(
+            fabelgeist_determinism::Seed::from_u64(42),
+            population,
+            &economy,
+        );
         assert_eq!(
             plan.parishes.iter().map(|p| p.population.0).sum::<u32>(),
             population
@@ -232,9 +255,10 @@ fn parish_programmes_keep_population_roles_and_physical_scale_separate() {
             }
         }
     }
-    let normal = SettlementBuildingDemand::new(42, 30_000, &economy);
+    let normal =
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 30_000, &economy);
     let church_rich = SettlementBuildingDemand::with_parish_policy(
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
         30_000,
         &economy,
         AuthoredParishPolicy {
@@ -255,7 +279,8 @@ fn parish_programmes_keep_population_roles_and_physical_scale_separate() {
     secular
         .services
         .retain(|service| *service != SettlementService::Temple);
-    let plan = SettlementBuildingDemand::new(42, 30_000, &secular);
+    let plan =
+        SettlementBuildingDemand::new(fabelgeist_determinism::Seed::from_u64(42), 30_000, &secular);
     assert!(plan.parishes.is_empty());
     assert!(
         !plan

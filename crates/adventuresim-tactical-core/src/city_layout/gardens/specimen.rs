@@ -3,6 +3,7 @@ use bevy::{
     math::{Vec2, Vec3},
     prelude::Reflect,
 };
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 use std::sync::LazyLock;
 
@@ -22,7 +23,7 @@ pub enum GardenSpecimen {
 #[serde(deny_unknown_fields)]
 pub struct GardenSpecimenEnvelope {
     pub geometry_revision: u16,
-    pub seed: u64,
+    pub seed: Seed,
     pub hull_metres: Vec<Vec2>,
     pub min_height_metres: f32,
     pub max_height_metres: f32,

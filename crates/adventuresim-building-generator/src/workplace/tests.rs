@@ -4,8 +4,9 @@ use crate::{
     BuildingLodLevel, audit_plan, compile_building_collision, compile_building_detail,
     compile_building_lod, generate, settlement_archetype,
 };
+use fabelgeist_determinism::Seed;
 
-fn recipe(kind: WorkplaceKind, size: ServiceBuildingSize, seed: u64) -> BuildingProgram {
+fn recipe(kind: WorkplaceKind, size: ServiceBuildingSize, seed: Seed) -> BuildingProgram {
     BuildingProgram::settlement(settlement_archetype(kind.usage()), Some(kind.usage()), seed)
         .with_service_size(size)
 }
@@ -18,7 +19,7 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
             ServiceBuildingSize::Medium,
             ServiceBuildingSize::Large,
         ] {
-            for seed in [0, 42, 101] {
+            for seed in [0, 42, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let program = recipe(kind, size, seed);
                 let plan = generate(&program)
                     .unwrap_or_else(|error| panic!("{kind:?} {size:?} {seed}: {error:?}"));
@@ -130,8 +131,8 @@ fn capacity_changes_working_space_and_roundtrips_recipe() {
         };
         let small = ServiceBuildingSize::for_capacity(kind.usage(), range.minimum).unwrap();
         let large = ServiceBuildingSize::for_capacity(kind.usage(), range.maximum).unwrap();
-        let small = recipe(kind, small, 42);
-        let large = recipe(kind, large, 42);
+        let small = recipe(kind, small, fabelgeist_determinism::Seed::from_u64(42));
+        let large = recipe(kind, large, fabelgeist_determinism::Seed::from_u64(42));
         assert!(small.plot_dimensions_metres().y < large.plot_dimensions_metres().y);
         let encoded = serde_json::to_string(&large).unwrap();
         let restored: BuildingProgram = serde_json::from_str(&encoded).unwrap();
@@ -144,7 +145,7 @@ fn workplace_audit_rejects_blocked_passage_and_missing_equipment() {
     let mut plan = generate(&recipe(
         WorkplaceKind::Stable,
         ServiceBuildingSize::Small,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let workplace = plan.workplace.as_ref().unwrap();

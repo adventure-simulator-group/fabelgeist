@@ -43,7 +43,9 @@ pub(super) fn scatter_ground_without_patch(
     for z in 0..ground.grid_depth() {
         for x in 0..ground.grid_width() {
             let point = Vec2::new(x as f32, z as f32) * ground.grid_scale() - half_size;
-            if collar.contains(point) {
+            if adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point)
+                .is_ok_and(|point| collar.contains(point))
+            {
                 samples[z * ground.grid_width() + x] = GroundSurface {
                     substrate: GroundSubstrate::Water,
                     cover: GroundCover::Bare,

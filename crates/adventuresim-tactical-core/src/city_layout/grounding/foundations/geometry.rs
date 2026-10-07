@@ -7,12 +7,14 @@ mod cuts;
 pub(super) use cuts::SourceCutRegions;
 
 #[derive(Clone, Debug)]
-pub(in crate::city_layout::grounding) struct GroundTriangle([Vec3; 3]);
+pub(in crate::city_layout::grounding) struct GroundTriangle(
+    [adventuresim_building_generator::spatial_geometry::Position<crate::scene_coordinates::Scene>;
+        3],
+);
 
 impl GroundTriangle {
     pub fn bounds(&self) -> PlanarBounds {
-        PlanarBounds::from_points(self.0.map(|p| p.xz().as_dvec2()))
-            .expect("ground triangles contain three finite points")
+        PlanarBounds::from_triangle(self.0.map(crate::scene_coordinates::ScenePlanPoint::from))
     }
 
     pub fn new(mut points: [Vec3; 3]) -> Option<Self> {
@@ -29,14 +31,20 @@ impl GroundTriangle {
         }
         let first = (0..3).min_by(|a, b| compare_point(points[*a], points[*b]))?;
         points.rotate_left(first);
-        Some(Self(points))
+        let [a, b, c] = points;
+        use adventuresim_building_generator::spatial_geometry::Position;
+        Some(Self([
+            Position::from_metres(a).ok()?,
+            Position::from_metres(b).ok()?,
+            Position::from_metres(c).ok()?,
+        ]))
     }
 
     /// Offset all three half-planes by a distance. The resulting triangle is
     /// homothetic about its incenter; the farthest vertex displacement bounds
     /// both coordinate expansions, including acute corners.
     pub fn boundary_extension_factor(&self) -> f64 {
-        let points = self.0.map(|p| p.xz().as_dvec2());
+        let points = self.points().map(|p| p.xz().as_dvec2());
         let lengths = [
             points[1].distance(points[2]),
             points[2].distance(points[0]),
@@ -55,9 +63,9 @@ impl GroundTriangle {
     }
 
     pub fn compare(&self, other: &Self) -> Ordering {
-        self.0
+        self.points()
             .iter()
-            .zip(other.0.iter())
+            .zip(other.points().iter())
             .map(|(a, b)| compare_point(*a, *b))
             .find(|order| !order.is_eq())
             .unwrap_or(Ordering::Equal)
@@ -68,7 +76,7 @@ impl GroundTriangle {
     }
 
     pub(in crate::city_layout::grounding) fn height_f64(&self, point: bevy::math::DVec2) -> f64 {
-        let [a, b, c] = self.0;
+        let [a, b, c] = self.points();
         let ab = b.xz().as_dvec2() - a.xz().as_dvec2();
         let ac = c.xz().as_dvec2() - a.xz().as_dvec2();
         let ap = point - a.xz().as_dvec2();
@@ -87,22 +95,22 @@ impl GroundTriangle {
     }
 
     pub fn area(&self) -> f64 {
-        area(&self.0.map(|p| p.xz()))
+        area(&self.points().map(|p| p.xz()))
     }
 
     pub fn perimeter(&self) -> f64 {
         (0..3)
             .map(|i| {
-                self.0[i]
+                self.points()[i]
                     .xz()
                     .as_dvec2()
-                    .distance(self.0[(i + 1) % 3].xz().as_dvec2())
+                    .distance(self.points()[(i + 1) % 3].xz().as_dvec2())
             })
             .sum()
     }
 
     pub fn centre(&self) -> Vec2 {
-        (self.0[0].xz() + self.0[1].xz() + self.0[2].xz()) / 3.0
+        (self.points()[0].xz() + self.points()[1].xz() + self.points()[2].xz()) / 3.0
     }
 
     /// A float query denotes its rounding cell. Admit that cell at a declared
@@ -122,21 +130,21 @@ impl GroundTriangle {
 
     pub fn contains(&self, point: Vec2, tolerance_metres: f32) -> bool {
         (0..3).all(|i| {
-            let a = self.0[i].xz().as_dvec2();
-            let edge = self.0[(i + 1) % 3].xz().as_dvec2() - a;
+            let a = self.points()[i].xz().as_dvec2();
+            let edge = self.points()[(i + 1) % 3].xz().as_dvec2() - a;
             edge.perp_dot(point.as_dvec2() - a) >= -f64::from(tolerance_metres) * edge.length()
         })
     }
 
     pub fn points(&self) -> [Vec3; 3] {
-        self.0
+        self.0.map(|position| position.metres())
     }
 
     pub(in crate::city_layout::grounding::foundations) fn outside_regions(
         &self,
         regions: &SourceCutRegions,
     ) -> Vec<Self> {
-        let mut pieces = vec![self.0.map(|p| p.xz().as_dvec2()).to_vec()];
+        let mut pieces = vec![self.points().map(|p| p.xz().as_dvec2()).to_vec()];
         for region in regions.intersecting(self) {
             pieces = pieces
                 .into_iter()
@@ -159,7 +167,7 @@ impl GroundTriangle {
     /// affine elevation. This is a same-property surface union, not a change to
     /// grading ownership or a proximity-based terrace merge.
     pub fn outside_outline(&self, outline: &[bevy::math::DVec2]) -> Vec<Self> {
-        subtract(self.0.map(|p| p.xz().as_dvec2()).to_vec(), outline)
+        subtract(self.points().map(|p| p.xz().as_dvec2()).to_vec(), outline)
             .into_iter()
             .flat_map(|polygon| {
                 (1..polygon.len().saturating_sub(1)).filter_map(move |i| {
@@ -172,10 +180,10 @@ impl GroundTriangle {
     }
 
     pub fn intersection(&self, other: &Self) -> Vec<Vec2> {
-        let mut polygon = self.0.map(|p| p.xz().as_dvec2()).to_vec();
+        let mut polygon = self.points().map(|p| p.xz().as_dvec2()).to_vec();
         for index in 0..3 {
-            let a = other.0[index].xz().as_dvec2();
-            let edge = other.0[(index + 1) % 3].xz().as_dvec2() - a;
+            let a = other.points()[index].xz().as_dvec2();
+            let edge = other.points()[(index + 1) % 3].xz().as_dvec2() - a;
             polygon = clip(polygon, |p| edge.perp_dot(p - a));
         }
         polygon.into_iter().map(|p| p.as_vec2()).collect()

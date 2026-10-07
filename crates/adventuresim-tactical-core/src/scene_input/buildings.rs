@@ -1,3 +1,4 @@
+use super::SceneValidationError;
 use adventuresim_building_generator::spatial_geometry::GeometryResult;
 mod window;
 use adventuresim_building_generator::{
@@ -97,12 +98,12 @@ impl BuildingOrientation {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct TacticalBuildingPlacement {
-    pub id: u64,
+    pub id: SceneBuildingId,
     pub program: BuildingProgram,
-    pub centre_metres: Vec2,
+    pub centre_metres: crate::scene_coordinates::ScenePlanPoint,
     /// Scene elevation of architectural Y=0, retained through detail changes.
     /// Buried slabs and footings extend below this datum.
-    pub base_elevation_metres: f32,
+    pub base_elevation_metres: crate::city_layout::grounding::SupportElevation,
     pub orientation: BuildingOrientation,
 }
 
@@ -112,14 +113,14 @@ pub struct TacticalBuildingPlacement {
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct DistantBuildingPlacement {
-    pub id: u64,
+    pub id: SceneBuildingId,
     pub prosperity: adventuresim_world_schema::ProsperityTier,
     pub archetype: BuildingArchetype,
     pub usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
     pub service_size: Option<adventuresim_building_generator::ServiceBuildingSize>,
-    pub seed: u64,
-    pub centre_metres: Vec2,
-    pub base_elevation_metres: f32,
+    pub seed: fabelgeist_determinism::Seed,
+    pub centre_metres: crate::scene_coordinates::ScenePlanPoint,
+    pub base_elevation_metres: crate::city_layout::grounding::SupportElevation,
     pub orientation: BuildingOrientation,
 }
 
@@ -184,7 +185,7 @@ impl<'de> Deserialize<'de> for SceneDoor {
         };
         #[derive(Deserialize)]
         struct SerializedDoor {
-            building_id: u64,
+            building_id: crate::scene_input::SceneBuildingId,
             opening_id: u64,
             size_metres: bevy::math::Vec3,
             doorway_centre_metres: bevy::math::Vec3,
@@ -194,7 +195,7 @@ impl<'de> Deserialize<'de> for SceneDoor {
         let value = SerializedDoor::deserialize(deserializer)?;
         let construct = || {
             Ok(Self {
-                building_id: value.building_id.into(),
+                building_id: value.building_id,
                 opening_id: adventuresim_building_generator::OpeningAssemblyId(value.opening_id),
                 size_metres: LeafDimensions::from_metres(value.size_metres)?,
                 doorway_centre_metres: Position::from_metres(value.doorway_centre_metres)?,
@@ -204,7 +205,7 @@ impl<'de> Deserialize<'de> for SceneDoor {
         };
         construct().map_err(|cause| {
             serde::de::Error::custom(SceneDoorError {
-                building_id: crate::scene_input::SceneBuildingId::from(value.building_id),
+                building_id: value.building_id,
                 opening_id: adventuresim_building_generator::OpeningAssemblyId(value.opening_id),
                 cause,
             })
@@ -232,7 +233,7 @@ pub(crate) struct BuildingPad {
     pub centre: Vec2,
     pub half_extents: Vec2,
     pub orientation: BuildingOrientation,
-    pub elevation_metres: f32,
+    pub elevation_metres: crate::city_layout::grounding::SupportElevation,
 }
 
 impl BuildingPad {
@@ -260,18 +261,18 @@ pub(super) fn validate_building_placements(
     placements: &[TacticalBuildingPlacement],
 ) -> SceneInputResult<()> {
     if placements.len() > MAX_TACTICAL_BUILDINGS {
-        return invalid("scene has too many tactical buildings");
+        return invalid(SceneValidationError::BuildingCount);
     }
     let mut ids = std::collections::BTreeSet::new();
     for placement in placements {
-        if placement.id == 0 || !ids.insert(placement.id) {
-            return invalid("building identity is zero or duplicated");
+        if placement.id.0 == 0 || !ids.insert(placement.id) {
+            return invalid(SceneValidationError::BuildingIdentity);
         }
-        if !placement.centre_metres.is_finite()
-            || !placement.base_elevation_metres.is_finite()
+        if !placement.centre_metres.metres().is_finite()
+            || !placement.base_elevation_metres.metres().is_finite()
             || !placement.orientation.is_valid()
         {
-            return invalid("building placement is invalid");
+            return invalid(SceneValidationError::BuildingPlacement);
         }
     }
     Ok(())
@@ -281,18 +282,18 @@ pub(super) fn validate_distant_building_placements(
     placements: &[DistantBuildingPlacement],
 ) -> SceneInputResult<()> {
     if placements.len() > MAX_CITY_BUILDING_INSTANCES {
-        return invalid("scene has too many distant buildings");
+        return invalid(SceneValidationError::DistantBuildingCount);
     }
     let mut ids = std::collections::BTreeSet::new();
     for placement in placements {
-        if placement.id == 0 || !ids.insert(placement.id) {
-            return invalid("distant building identity is zero or duplicated");
+        if placement.id.0 == 0 || !ids.insert(placement.id) {
+            return invalid(SceneValidationError::DistantBuildingIdentity);
         }
-        if !placement.centre_metres.is_finite()
-            || !placement.base_elevation_metres.is_finite()
+        if !placement.centre_metres.metres().is_finite()
+            || !placement.base_elevation_metres.metres().is_finite()
             || !placement.orientation.is_valid()
         {
-            return invalid("distant building placement is invalid");
+            return invalid(SceneValidationError::DistantBuildingPlacement);
         }
     }
     Ok(())
@@ -313,10 +314,10 @@ pub(super) fn prepare_buildings(
                     super::GeneratedBuildingRecipe::generate(placement.program.clone())
                 })
                 .map_err(|error| {
-                    SceneInputError::Validation(format!(
-                        "building {} program is invalid: {error}",
-                        placement.id
-                    ))
+                    SceneInputError::Validation(SceneValidationError::BuildingProgram {
+                        building: placement.id,
+                        source: error,
+                    })
                 })?;
             Ok(GeneratedBuilding {
                 placement,
@@ -336,7 +337,7 @@ pub(super) fn validate_building_pads(buildings: &[GeneratedBuilding]) -> SceneIn
             .max(Vec2::splat(0.1));
             Ok((
                 building.placement.id,
-                building.placement.centre_metres,
+                building.placement.centre_metres.metres(),
                 half_extents,
                 building.placement.orientation,
             ))
@@ -354,9 +355,10 @@ pub(super) fn validate_building_pads(buildings: &[GeneratedBuilding]) -> SceneIn
                 other_half_extents,
                 other_orientation,
             ) {
-                return invalid(format!(
-                    "building {id} footprint overlaps building {other_id}"
-                ));
+                return invalid(SceneValidationError::BuildingOverlap {
+                    building: id,
+                    other: other_id,
+                });
             }
         }
     }
@@ -448,13 +450,13 @@ mod occupied_recipe_tests {
     fn distant_buildings_reconstruct_the_same_occupied_recipe() {
         let placement = DistantBuildingPlacement {
             prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
-            id: 1,
+            id: (1).into(),
             archetype: BuildingArchetype::HallHouse,
             usage: Some(BuildingUse::Stable),
             service_size: Some(adventuresim_building_generator::ServiceBuildingSize::Large),
-            seed: 42,
-            centre_metres: Vec2::ZERO,
-            base_elevation_metres: 0.0,
+            seed: 42.into(),
+            centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::ZERO).unwrap(),
+            base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
             orientation: BuildingOrientation::IDENTITY,
         };
         assert_eq!(
@@ -462,13 +464,16 @@ mod occupied_recipe_tests {
             BuildingProgram::settlement(
                 BuildingArchetype::HallHouse,
                 Some(BuildingUse::Stable),
-                42
+                fabelgeist_determinism::Seed::from_u64(42)
             )
             .with_service_size(adventuresim_building_generator::ServiceBuildingSize::Large)
         );
         assert_ne!(
             placement.occupied_program(),
-            BuildingProgram::fixture(BuildingArchetype::HallHouse, 42)
+            BuildingProgram::fixture(
+                BuildingArchetype::HallHouse,
+                fabelgeist_determinism::Seed::from_u64(42)
+            )
         );
     }
 }

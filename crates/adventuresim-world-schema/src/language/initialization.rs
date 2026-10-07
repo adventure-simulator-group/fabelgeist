@@ -9,7 +9,7 @@ pub fn initial_oral_languages(
     npc: bool,
 ) -> OralLanguageHours {
     let selected = StreamId::new("character.vernacular")
-        .rng(character_id, &[])
+        .rng(character_id.into(), &[])
         .weighted_index(&[
             u64::from(profile.east_central_bp),
             u64::from(profile.west_central_bp),
@@ -23,7 +23,7 @@ pub fn initial_oral_languages(
     ][selected];
     let yiddish = npc
         && YIDDISH_INCIDENCE_DOMAIN
-            .rng(character_id, &[])
+            .rng(character_id.into(), &[])
             .index(usize::from(crate::BASIS_POINTS_PER_WHOLE))
             < usize::from(profile.yiddish_incidence_bp);
     let mut hours = OralLanguageHours::default();

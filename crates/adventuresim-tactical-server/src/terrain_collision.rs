@@ -8,16 +8,13 @@ pub(super) fn colliders(
     prepared: Option<&SceneTerrainPatch>,
 ) -> Result<Vec<Collider>> {
     if let Some(patch) = prepared {
-        return Ok(patch.colliders_with_terrain(terrain));
+        return Ok(patch.colliders_with_terrain(terrain)?);
     }
-    recipe.map_or_else(
-        || Ok(terrain.colliders()),
-        |recipe| {
-            terrain_landform_patch(terrain, *recipe)
-                .map(|patch| patch.colliders_with_terrain(terrain))
-                .map_err(|reason| BevyError::from(reason.to_owned()))
-        },
-    )
+    let Some(recipe) = recipe else {
+        return Ok(terrain.colliders()?);
+    };
+    let patch = terrain_landform_patch(terrain, *recipe)?;
+    Ok(patch.colliders_with_terrain(terrain)?)
 }
 
 pub(super) fn spawn_scene(

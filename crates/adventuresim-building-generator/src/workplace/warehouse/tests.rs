@@ -11,7 +11,7 @@ fn warehouses_provide_loading_routes_to_two_real_storage_floors() {
         ServiceBuildingSize::Medium,
         ServiceBuildingSize::Large,
     ] {
-        for seed in [0, 42, 101] {
+        for seed in [0, 42, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let usage = BuildingUse::Warehouse;
             let program =
                 BuildingProgram::settlement(settlement_archetype(usage), Some(usage), seed)
@@ -76,7 +76,7 @@ fn warehouse_audit_rejects_a_detached_loading_hook() {
     let program = BuildingProgram::settlement(
         settlement_archetype(BuildingUse::Warehouse),
         Some(BuildingUse::Warehouse),
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     );
     let mut plan = generate(&program).unwrap();
     let hook = plan

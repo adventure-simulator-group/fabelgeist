@@ -14,7 +14,7 @@ pub(super) fn rows(domains: &[PlacementDomain]) -> Vec<Vec<Vec<usize>>> {
                     domains[index]
                         .proposed
                         .reservation
-                        .centre_metres
+                        .centre_metres()
                         .as_dvec2()
                         .dot(domains[index].frontage.tangent().as_dvec2())
                 };
@@ -29,8 +29,8 @@ pub(super) fn rows(domains: &[PlacementDomain]) -> Vec<Vec<Vec<usize>>> {
             for component in [1, 0] {
                 let mut sorted = original.clone();
                 sorted.sort_by(|&a, &b| {
-                    domains[a].proposed.reservation.dimensions_metres[component]
-                        .total_cmp(&domains[b].proposed.reservation.dimensions_metres[component])
+                    domains[a].proposed.reservation.dimensions_metres()[component]
+                        .total_cmp(&domains[b].proposed.reservation.dimensions_metres()[component])
                 });
                 orders.push(sorted.clone());
                 let mut reversed = sorted.clone();

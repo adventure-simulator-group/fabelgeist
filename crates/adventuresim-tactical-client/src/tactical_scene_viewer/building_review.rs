@@ -44,7 +44,7 @@ pub(super) fn is_profile(profile: &str) -> bool {
 #[derive(Resource, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 struct ReviewFixture {
-    signs: BTreeMap<u64, ShopSign>,
+    signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ShopSign>,
     views: Vec<cameras::ReviewView>,
 }
 
@@ -54,7 +54,7 @@ pub(super) struct ReviewRequirements {
     boundaries: usize,
     doors: usize,
     windows: usize,
-    signs: BTreeMap<u64, ExpectedSign>,
+    signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ExpectedSign>,
     output: std::path::PathBuf,
 }
 
@@ -171,7 +171,11 @@ pub(super) fn setup(
     Ok(Some(cameras))
 }
 
-pub(super) fn insert_authored_sign(world: &mut World, entity: Entity, id: u64) {
+pub(super) fn insert_authored_sign(
+    world: &mut World,
+    entity: Entity,
+    id: adventuresim_tactical_core::scene_input::SceneBuildingId,
+) {
     let sign = world
         .get_resource::<ReviewFixture>()
         .and_then(|fixture| fixture.signs.get(&id))

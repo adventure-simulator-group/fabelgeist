@@ -3,11 +3,12 @@ use adventuresim_core::{
     quest_catalog::{QUEST_CATALOG_DIGEST, catalog},
     quest_generation::{CATALOG_REVISION, GenerationContext, audit, generate, test_witnesses},
 };
+use fabelgeist_determinism::Seed;
 
-fn context(seed: u64, ordinal: u16) -> GenerationContext {
+fn context(seed: Seed, ordinal: u16) -> GenerationContext {
     GenerationContext {
         seed,
-        observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
+        observer_entropy_hi: seed.to_u64() ^ 0x6f62_7365_7276_6572,
         observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high")
             .seed(seed, &[])
             .to_u64(),
@@ -35,7 +36,11 @@ fn main() {
         Some("validate") => {
             let catalog = catalog();
             for ordinal in 0..2 {
-                generate(&context(0x187, ordinal)).unwrap_or_else(|e| panic!("{e:?}"));
+                generate(&context(
+                    fabelgeist_determinism::Seed::from_u64(0x187),
+                    ordinal,
+                ))
+                .unwrap_or_else(|e| panic!("{e:?}"));
             }
             println!(
                 "catalog {CATALOG_REVISION}: valid ({} monsters, {} documents, digest {})",

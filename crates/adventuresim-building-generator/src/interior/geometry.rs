@@ -293,7 +293,7 @@ mod tests {
     fn empty_required_room_reports_its_actual_room_and_storey() {
         let plan = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::TownHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let mut room = plan.storeys[0].rooms[0].clone();

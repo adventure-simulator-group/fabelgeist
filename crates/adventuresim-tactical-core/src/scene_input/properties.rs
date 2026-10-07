@@ -5,18 +5,18 @@ use bevy::math::Vec2;
 pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError> {
     let Some(catalog) = &input.properties else {
         if matches!(input.source, SceneSource::ImportedPackage(_)) && !input.streets.is_empty() {
-            return invalid("an imported settlement needs its physical home catalog");
+            return invalid(SceneValidationError::MissingHomeCatalog);
         }
         return Ok(());
     };
     catalog
         .validate(&catalog.settlement_id, catalog.population)
-        .map_err(|error| SceneInputError::Validation(error.to_string()))?;
+        .map_err(|error| SceneInputError::Validation(SceneValidationError::HomeCatalog(error)))?;
     for home in &catalog.homes {
         let placement = input
             .buildings
             .iter()
-            .find(|building| building.id == home.building_id)
+            .find(|building| building.id == crate::scene_input::SceneBuildingId(home.building_id))
             .map(|building| {
                 (
                     building.centre_metres,
@@ -28,7 +28,9 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
                 input
                     .distant_buildings
                     .iter()
-                    .find(|building| building.id == home.building_id)
+                    .find(|building| {
+                        building.id == crate::scene_input::SceneBuildingId(home.building_id)
+                    })
                     .map(|building| {
                         (
                             building.centre_metres,
@@ -38,9 +40,12 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
                     })
             });
         let Some((centre, orientation, program)) = placement else {
-            return invalid("a registered home is absent from the scene");
+            return invalid(SceneValidationError::MissingHome {
+                home: home.id.clone(),
+                building: crate::scene_input::SceneBuildingId(home.building_id),
+            });
         };
-        if centre != Vec2::new(home.east_metres, home.north_metres)
+        if centre.metres() != Vec2::new(home.east_metres, home.north_metres)
             || orientation.yaw_radians() != home.yaw_radians
             || program.usage
                 != Some(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling)
@@ -51,7 +56,11 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
                 * adventuresim_building_generator::CELL_SIZE_METRES
                 != home.depth_metres
         {
-            return invalid("registered home and physical building disagree");
+            return invalid(SceneValidationError::HomeBinding {
+                home: home.id.clone(),
+                building: crate::scene_input::SceneBuildingId(home.building_id),
+                location: Some(centre),
+            });
         }
     }
     Ok(())
@@ -78,27 +87,31 @@ mod tests {
             .enumerate()
             .map(|(index, class)| {
                 let building = DistantBuildingPlacement {
-                    id: index as u64 + 1,
+                    id: (index as u64 + 1).into(),
                     prosperity: adventuresim_world_schema::ProsperityTier::Subsistence,
                     archetype: class.archetype(),
                     usage: Some(
                         adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling,
                     ),
                     service_size: None,
-                    seed: 42,
-                    centre_metres: Vec2::new(index as f32 * 30.0, 20.0),
-                    base_elevation_metres: 0.0,
+                    seed: 42.into(),
+                    centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                        index as f32 * 30.0,
+                        20.0,
+                    ))
+                    .unwrap(),
+                    base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
                     orientation: BuildingOrientation::IDENTITY,
                 };
                 input.distant_buildings.push(building);
                 GeneratedHome {
-                    id: PropertyId::new(settlement, building.id).unwrap(),
-                    building_id: building.id,
+                    id: PropertyId::new(settlement, building.id.0).unwrap(),
+                    building_id: building.id.0,
                     tier: class.housing_tier(),
                     resident_capacity: class.resident_capacity(),
                     market_reserve: market.reserve(class.housing_tier()),
-                    east_metres: building.centre_metres.x,
-                    north_metres: building.centre_metres.y,
+                    east_metres: building.centre_metres.metres().x,
+                    north_metres: building.centre_metres.metres().y,
                     yaw_radians: 0.0,
                     width_metres: class.frontage_width_metres(),
                     depth_metres: class.depth_metres(),
@@ -120,7 +133,10 @@ mod tests {
         input.distant_buildings.pop();
         assert!(validate(&input).is_err());
         input = original.clone();
-        input.distant_buildings[0].centre_metres.x += 1.0;
+        input.distant_buildings[0].centre_metres = input.distant_buildings[0]
+            .centre_metres
+            .translated(crate::scene_coordinates::PlanDisplacement::from_metres(Vec2::X).unwrap())
+            .unwrap();
         assert!(validate(&input).is_err());
         input = original.clone();
         input.distant_buildings[0].orientation = BuildingOrientation::from_radians(0.5).unwrap();

@@ -242,7 +242,7 @@ fn exact_capability(owner: u64, case_id: &str, site_id: &str) -> InvestigationAc
         target_kind: action::InvestigationTargetKind::Site,
         target_id: site_id.into(),
         target_terrain: "forest".into(),
-        seed: 1,
+        seed: fabelgeist_determinism::Seed::from_u64(1),
         evidence_age_origin_minute: StrategicMinute::ZERO,
         uncertainty_bps: 9_000,
         safe_summary: "Inspect".into(),
@@ -499,7 +499,7 @@ fn correction_reset_waits_for_final_replacement_support() {
         || panic!("a supported correction must not consume a replacement seed")
     ));
     assert_eq!(same_site_replacement.version, 1);
-    assert_eq!(same_site_replacement.seed, 1);
+    assert_eq!(same_site_replacement.seed, fabelgeist_determinism::Seed::from_u64(1));
     assert_eq!(
         contiguous_failed_attempts(
             "capability",
@@ -515,10 +515,10 @@ fn correction_reset_waits_for_final_replacement_support() {
     assert!(reset_capability_progress_if_unsupported(
         &mut unsupported_replacement,
         false,
-        || 77
+        || fabelgeist_determinism::Seed::from_u64(77)
     ));
     assert_eq!(unsupported_replacement.version, 2);
-    assert_eq!(unsupported_replacement.seed, 77);
+    assert_eq!(unsupported_replacement.seed, fabelgeist_determinism::Seed::from_u64(77));
     assert_eq!(
         contiguous_failed_attempts(
             "capability",
@@ -535,7 +535,7 @@ fn correction_reset_waits_for_final_replacement_support() {
         || panic!("replay must not consume a replacement seed")
     ));
     assert_eq!(unsupported_replacement.version, 2);
-    assert_eq!(unsupported_replacement.seed, 77);
+    assert_eq!(unsupported_replacement.seed, fabelgeist_determinism::Seed::from_u64(77));
 }
 
 #[test]

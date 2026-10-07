@@ -16,7 +16,11 @@ fn capture_near_edge_promotion_preserves_accepted_surface_and_complete_bindings(
     let input = TacticalSceneInput::load(&path).unwrap();
     let input_bytes = serde_json::to_vec(&input).unwrap();
     let before = input.generate().unwrap();
-    let member = *input.distant_buildings.iter().find(|b| b.id == 15).unwrap();
+    let member = *input
+        .distant_buildings
+        .iter()
+        .find(|b| b.id == (15).into())
+        .unwrap();
     let far_member = *input.distant_buildings.last().unwrap();
     let contract = Contract(Some(Document {
         version: CONTRACT_VERSION,
@@ -135,14 +139,14 @@ fn promoted_garden_owner_retains_planting_and_accepted_root_elevations() {
     let projected = generated
         .gardens
         .iter()
-        .find(|g| g.garden.owner == garden.owner)
+        .find(|g| g.garden().owner == garden.owner)
         .unwrap();
-    assert_eq!(projected.garden, *garden);
+    assert_eq!(projected.garden(), garden);
     assert_eq!(
         *projected,
         SceneGarden::project(garden.clone(), &generated.terrain).unwrap()
     );
-    assert_eq!(projected.plant_support.len(), garden.plants.len());
+    assert_eq!(projected.plant_support().len(), garden.plants.len());
     assert_eq!(generated.gardens.len(), input.gardens.len());
     assert!(
         !crate::tactical_scene_viewer::buildings::distant_placements(&input, &generated.buildings)
@@ -184,14 +188,14 @@ fn altering_the_source_partition_still_rejects_a_stale_projection() {
     let index = input
         .distant_buildings
         .iter()
-        .position(|b| b.id == 15)
+        .position(|b| b.id == (15).into())
         .unwrap();
     let member = input.distant_buildings.remove(index);
     input.buildings.push(member.into());
     assert!(matches!(
         input.generate_unfurnished(GeneratedBuildingRecipes::default()),
         Err(SceneInputError::GroundingProjection(error))
-            if matches!(*error, CityGroundingProjectionError::SourceMismatch)
+            if matches!(*error, CityGroundingProjectionError::SourceMismatch { .. })
     ));
 }
 
@@ -239,10 +243,13 @@ fn required_capture_members_preserve_all_accepted_production_terrain() {
             let boundary = after
                 .boundaries
                 .iter()
-                .find(|b| b.scene.property_id == compound.id)
+                .find(|b| b.scene().property_id() == compound.id)
                 .unwrap();
-            assert_eq!(boundary.scene.front_building_id, compound.front_building_id);
-            assert_eq!(boundary.scene.boundary, compound.boundary);
+            assert_eq!(
+                boundary.scene().front_building_id(),
+                compound.front_building_id
+            );
+            assert_eq!(boundary.scene().boundary(), &compound.boundary);
             assert_eq!(
                 serde_json::to_vec(boundary).unwrap(),
                 serde_json::to_vec(&GeneratedBoundary::project(compound, &after.terrain).unwrap())
@@ -259,9 +266,9 @@ fn required_capture_members_preserve_all_accepted_production_terrain() {
             let planting = after
                 .gardens
                 .iter()
-                .find(|g| g.garden.owner == garden.owner)
+                .find(|g| g.garden().owner == garden.owner)
                 .unwrap();
-            assert_eq!(planting.garden, *garden);
+            assert_eq!(planting.garden(), garden);
             assert_eq!(
                 *planting,
                 SceneGarden::project(garden.clone(), &after.terrain).unwrap()
