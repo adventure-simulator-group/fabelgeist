@@ -264,6 +264,13 @@ pub struct VineNode {
     pub birth_sag: f32,
     /// Starts a shoot of its own rather than carrying its parent's on.
     pub lateral: bool,
+    /// Years its leaves have stood below the compensation point without a
+    /// break, and how far they have fallen since, zero to one. Leaves fall
+    /// after a year in the dark, over half a year, and old wood does not
+    /// leaf again: a step's light going up and down about the compensation
+    /// point leaves them be.
+    pub dark: f32,
+    pub bare: f32,
 }
 
 /// A growing shoot tip.
@@ -287,6 +294,11 @@ pub struct Vine {
     pub nodes: Vec<VineNode>,
     pub shoots: Vec<Shoot>,
     pub alive: bool,
+    /// Is kept rather than dying ([`Plant::immortal`]).
+    pub immortal: bool,
+    /// Kept as it was where it would have died ([`Plant::preserved`]): it
+    /// grows no more, but holds on to what it climbed.
+    pub preserved: bool,
     rng: Rng,
 }
 
@@ -573,6 +585,8 @@ impl Vine {
             sag: 0.0,
             birth_sag: 0.0,
             lateral: false,
+            dark: 0.0,
+            bare: 0.0,
         };
         let tip = VineNode {
             parent: 0,
@@ -594,23 +608,22 @@ impl Vine {
                 active: true,
             }],
             alive: true,
+            immortal: false,
+            preserved: false,
             rng,
         }
     }
 
     /// How leafy a node is, zero to one: its leaves open over its first
-    /// months, are kept while lit -- for as long as the species keeps them --
-    /// and fall in the dark.
+    /// months, are kept for as long as the species keeps them, and fall
+    /// after a year in the dark ([`VineNode::bare`]).
     pub fn leafiness(&self, node: &VineNode, species: &VineType) -> f32 {
         let years = self.age - node.born;
         let opening = (years / 0.3).clamp(0.0, 1.0);
         let kept = species
             .leaf_years
             .map_or(1.0, |limit| (1.0 - (years - limit) / 0.5).clamp(0.0, 1.0));
-        let lit = ((node.exposure - 0.5 * species.light_compensation)
-            / (0.5 * species.light_compensation))
-            .clamp(0.0, 1.0);
-        opening * kept * lit
+        opening * kept * (1.0 - node.bare)
     }
 
     /// The sphere each node's leaves fill, and its parent's index among
@@ -650,10 +663,18 @@ impl Vine {
         if !self.alive || years <= 0.0 {
             return;
         }
+        if self.preserved {
+            // Still on the branches it holds, wherever they grow.
+            self.settle(species, supports);
+            return;
+        }
         self.age += years;
         let ease = 1.0 - (-years / 0.3).exp();
         for node in &mut self.nodes {
             node.lit += (node.light - node.lit) * ease;
+            if node.bare > 0.0 {
+                node.bare = (node.bare + years / 0.5).min(1.0);
+            }
         }
         for s in 0..self.shoots.len() {
             let mut left = self.shoots[s].rate * years;
@@ -765,6 +786,8 @@ impl Vine {
             normal: Vec3::new(0.0, 0.0, 0.0),
             birth_sag: laid.sag,
             lateral: false,
+            dark: 0.0,
+            bare: 0.0,
             ..laid
         });
         self.shoots[s].node = (self.nodes.len() - 1) as u32;
@@ -1015,12 +1038,23 @@ impl Vine {
     /// each node's light: shoots are given their rates, those in the dark
     /// stop, new shoots break where it is lit, and stems thicken.
     pub fn regulate(&mut self, species: &VineType, dt: f32) {
-        if !self.alive {
+        if !self.alive || self.preserved {
             return;
         }
         if self.age > species.max_age {
-            self.alive = false;
+            self.end();
             return;
+        }
+        // Leaves left in the dark a year begin to fall.
+        for node in &mut self.nodes {
+            if node.exposure < species.light_compensation {
+                node.dark += dt;
+            } else {
+                node.dark = 0.0;
+            }
+            if node.dark >= 1.0 && node.bare == 0.0 {
+                node.bare = 1e-3;
+            }
         }
         // Rates: light as a tree's shoots, and the hydraulic ceiling.
         for shoot in &mut self.shoots {
@@ -1094,6 +1128,18 @@ impl Vine {
             }
         }
         if self.shoots.is_empty() && self.nodes.iter().all(|n| self.leafiness(n, species) < 0.05) {
+            self.end();
+        }
+    }
+
+    /// Where the vine would die: it dies, or, immortal, is preserved as it is.
+    fn end(&mut self) {
+        if self.immortal {
+            self.preserved = true;
+            for shoot in &mut self.shoots {
+                shoot.active = false;
+            }
+        } else {
             self.alive = false;
         }
     }
@@ -1123,6 +1169,8 @@ impl Vine {
             normal: Vec3::new(0.0, 0.0, 0.0),
             birth_sag: node.sag,
             lateral: true,
+            dark: 0.0,
+            bare: 0.0,
             ..node
         });
         self.shoots.push(Shoot {
@@ -1176,6 +1224,50 @@ impl Vine {
 mod tests {
     use super::*;
     use std::f32::consts::PI;
+
+    #[test]
+    fn leaves_ride_out_a_flickering_light_and_fall_after_a_year_in_the_dark() {
+        let species = VineType::ivy();
+        let terrain = Terrain::flat(40.0, 40.0);
+        let prototypes = PrototypeLibrary::halle();
+        let bark = BarkIndex::default();
+        let supports = Supports {
+            terrain: &terrain,
+            obstacles: None,
+            plants: &[],
+            prototypes: &prototypes,
+            bark: &bark,
+        };
+        let mut vine = Vine::new(1, 0, &species, Vec3::new(0.0, 10.0, 0.0), Rng::new(1));
+        vine.shoots.clear();
+        // Its leaves open.
+        vine.develop(&species, &supports, 0.5);
+        let c = species.light_compensation;
+        let step = |vine: &mut Vine, exposure: f32| {
+            for node in &mut vine.nodes {
+                node.exposure = exposure;
+                node.light = exposure;
+            }
+            vine.regulate(&species, 0.5);
+            vine.develop(&species, &supports, 0.5);
+            vine.leafiness(&vine.nodes[1], &species)
+        };
+        // A step's light either side of the compensation point: the leaves
+        // stay, every step.
+        for k in 0..20 {
+            let leafy = step(&mut vine, if k % 2 == 0 { 0.8 * c } else { 1.2 * c });
+            if k > 0 {
+                assert!(leafy > 0.99, "step {k}: leaves at {leafy}");
+            }
+        }
+        // A year and a half in the dark: they fall, and lit again, stay bare.
+        for _ in 0..3 {
+            step(&mut vine, 0.5 * c);
+        }
+        for _ in 0..4 {
+            assert_eq!(step(&mut vine, 1.0), 0.0, "old wood leafed again");
+        }
+    }
 
     #[test]
     fn a_shoot_held_out_level_bends_as_a_cantilever_under_its_weight() {

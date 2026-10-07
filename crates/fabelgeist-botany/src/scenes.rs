@@ -26,15 +26,19 @@ pub enum Scene {
     /// the towers and walls, ivy climbing them and the trees, honeysuckle
     /// twining through the shrubs by the houses.
     Castle,
+    /// The same castle and village with nothing growing yet: bare ground to
+    /// sow, its species and climbers ready.
+    EmptyCastle,
 }
 
 impl Scene {
-    pub const ALL: [Scene; 5] = [
+    pub const ALL: [Scene; 6] = [
         Scene::MixedForest,
         Scene::BorealForest,
         Scene::Savanna,
         Scene::Rainforest,
         Scene::Castle,
+        Scene::EmptyCastle,
     ];
 
     pub const fn name(self) -> &'static str {
@@ -44,6 +48,7 @@ impl Scene {
             Scene::Savanna => "Savanna",
             Scene::Rainforest => "Rainforest",
             Scene::Castle => "Castle and village",
+            Scene::EmptyCastle => "Castle, unplanted",
         }
     }
 
@@ -51,7 +56,8 @@ impl Scene {
     /// host until [`Ecosystem::with_gpu`] is called.
     pub fn build(self, seed: u64) -> Ecosystem {
         let (terrain, climate, species, plants, settings) = match self {
-            Scene::Castle => return castle(seed),
+            Scene::Castle => return castle(seed, true),
+            Scene::EmptyCastle => return castle(seed, false),
             Scene::MixedForest => (
                 Terrain::flat(60.0, 60.0),
                 Climate::new(12.0, 672.0),
@@ -140,8 +146,8 @@ fn castle_ground(x: f32, z: f32) -> f32 {
         + 0.8 * (x * 0.05).sin() * (z * 0.04).cos()
 }
 
-/// [`Scene::Castle`].
-fn castle(seed: u64) -> Ecosystem {
+/// [`Scene::Castle`], or with nothing planted, [`Scene::EmptyCastle`].
+fn castle(seed: u64, planted: bool) -> Ecosystem {
     let structure = medieval::settlement(&castle_ground, 7);
     // Nothing roots under a building, nor in the foundations at its foot.
     let index = SolidIndex::new(structure.solids.clone(), 2.0);
@@ -168,6 +174,9 @@ fn castle(seed: u64) -> Ecosystem {
     })
     .with_obstacles(structure)
     .with_vines(vec![VineType::ivy(), VineType::honeysuckle()]);
+    if !planted {
+        return ecosystem;
+    }
 
     let mut rng = Rng::new(seed ^ 0x00ca_571e);
     let mut pick = |points: &[[f32; 3]]| {
@@ -217,12 +226,38 @@ fn castle(seed: u64) -> Ecosystem {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use fabelgeist_math::Vec3;
 
     #[test]
     fn every_scene_builds_with_plants() {
-        for scene in Scene::ALL {
+        for scene in Scene::ALL.into_iter().filter(|s| *s != Scene::EmptyCastle) {
             let ecosystem = scene.build(1);
             assert!(!ecosystem.plants.is_empty(), "{}", scene.name());
         }
+    }
+
+    #[test]
+    fn seeds_thrown_at_the_empty_castle_land_on_open_soil() {
+        let mut ecosystem = Scene::EmptyCastle.build(1);
+        assert!(ecosystem.plants.is_empty() && ecosystem.vines.is_empty());
+        let down = Vec3::new(0.0, -1.0, 0.0);
+        // Straight down onto open ground, outside the walls.
+        let [x, z] = ecosystem
+            .landing(Vec3::new(-20.0, 60.0, 30.0), down)
+            .expect("open ground");
+        assert!((x + 20.0).abs() < 1e-3 && (z - 30.0).abs() < 1e-3);
+        assert!(ecosystem.plant(0, x, z).is_some());
+        // Thrown level from the west at the south-west corner tower: it
+        // falls to the drum's foot on that side.
+        let wall = ecosystem.landing(Vec3::new(-30.0, 6.0, 3.0), Vec3::new(1.0, 0.0, 0.0));
+        let [x, z] = wall.expect("the foot of the tower");
+        assert!(ecosystem.terrain.is_open(x, z));
+        assert!(x < -15.0, "on the tower's west side, not behind it");
+        let from_tower = (x + 15.0).hypot(z - 3.0);
+        assert!(
+            (3.4..5.0).contains(&from_tower),
+            "{from_tower} m from the tower's axis"
+        );
+        assert!(ecosystem.plant_vine(0, x, z).is_some());
     }
 }

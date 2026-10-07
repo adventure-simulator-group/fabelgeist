@@ -26,6 +26,10 @@ pub struct SceneControls {
     temperature: f32,
     precipitation: f32,
     global_shadowing: bool,
+    /// Whether plants spread seed, and whether plants and vines die; kept
+    /// from scene to scene.
+    seeding: bool,
+    mortality: bool,
     pub view: View,
 }
 
@@ -38,6 +42,8 @@ impl SceneControls {
             temperature: 0.0,
             precipitation: 0.0,
             global_shadowing: true,
+            seeding: true,
+            mortality: true,
             view: View {
                 sun_azimuth: 0.9,
                 sun_elevation: 0.75,
@@ -55,6 +61,14 @@ impl SceneControls {
         self.scene = scene;
         self.temperature = climate.temperature;
         self.precipitation = climate.precipitation;
+    }
+
+    /// What a new scene is told so its life follows the switches.
+    pub fn life(&self) -> [Command; 2] {
+        [
+            Command::Seeding(self.seeding),
+            Command::Mortality(self.mortality),
+        ]
     }
 
     pub fn toggle_play(&mut self) -> Command {
@@ -89,6 +103,14 @@ impl SceneControls {
             requests.push(Request::Send(Command::GlobalShadowing(
                 self.global_shadowing,
             )));
+        }
+        let seeding = ui.checkbox(&mut self.seeding, "Plants spread seeds");
+        if seeding.changed() {
+            requests.push(Request::Send(Command::Seeding(self.seeding)));
+        }
+        let mortality = ui.checkbox(&mut self.mortality, "Plants die (off: kept as they were)");
+        if mortality.changed() {
+            requests.push(Request::Send(Command::Mortality(self.mortality)));
         }
         ui.checkbox(&mut self.view.shadows, "Sun shadows");
         ui.checkbox(&mut self.view.leaves, "Foliage");

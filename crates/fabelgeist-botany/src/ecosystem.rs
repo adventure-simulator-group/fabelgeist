@@ -38,6 +38,14 @@ pub struct EcosystemSettings {
     pub shadow_decay: f32,
     /// Plants beyond this are not seeded.
     pub max_plants: usize,
+    /// Plants spread by seed. Off, only what is planted grows -- a shrub
+    /// still renews its clump from the root, where it stands.
+    pub seeding: bool,
+    /// Plants and vines die: starved, in the dark, or of age. Off, each is
+    /// kept instead as it is where it would have died -- growing no more,
+    /// still shading and crowding what grows round it
+    /// ([`Plant::preserved`]); turned back on, what was kept dies.
+    pub mortality: bool,
     /// A seed landing closer than this to a standing plant's base does not
     /// take root.
     pub seed_spacing: f32,
@@ -62,6 +70,8 @@ impl Default for EcosystemSettings {
             shadow_decay: 0.97,
             max_plants: 500_000,
             seed_spacing: 1.0,
+            seeding: true,
+            mortality: true,
             bud_crowding_limit: 0.5,
             seed: 1,
         }
@@ -250,6 +260,48 @@ impl Ecosystem {
         ));
         self.rebuild_bark();
         Some(self.vines.len() - 1)
+    }
+
+    /// Where a seed thrown from `origin` along `direction` comes to rest, as
+    /// `(x, z)`: the first ground it meets -- or, if it meets a building
+    /// first, the open soil at the building's foot on the side it struck.
+    /// `None` if it comes down nowhere a plant may root.
+    pub fn landing(&self, origin: Vec3, direction: Vec3) -> Option<[f32; 2]> {
+        let d = direction.normalize();
+        let (low, _) = self.terrain.height_range();
+        let mut t = 0.0f32;
+        for _ in 0..4096 {
+            let p = origin + d * t;
+            if p.y < low - 1.0 && d.y <= 0.0 {
+                return None;
+            }
+            let above = p.y - self.terrain.height_at(p.x, p.z);
+            if above <= 0.01 {
+                return self.terrain.is_open(p.x, p.z).then_some([p.x, p.z]);
+            }
+            let solid = self
+                .obstacles
+                .as_ref()
+                .map_or(f32::INFINITY, |o| o.distance(p));
+            if solid <= 0.01 {
+                // Struck a wall: it falls to the wall's foot, on this side.
+                let normal = self.obstacles.as_ref().and_then(|o| o.normal(p))?;
+                let out = Vec3::new(normal.x, 0.0, normal.z);
+                let out = if out.length() > 1e-3 {
+                    out.normalize()
+                } else {
+                    Vec3::new(-d.x, 0.0, -d.z).normalize()
+                };
+                return (0..=16)
+                    .map(|k| p + out * (0.25 * k as f32))
+                    .find(|q| self.terrain.is_open(q.x, q.z))
+                    .map(|q| [q.x, q.z]);
+            }
+            // The height field is no distance: step a fraction of the
+            // height above it.
+            t += (above * 0.5).min(solid).max(0.02);
+        }
+        None
     }
 
     /// Everything a vine can touch now.
@@ -584,6 +636,7 @@ impl Ecosystem {
         let clock = Instant::now();
         let species = &self.species;
         let prototypes = &self.prototypes;
+        let mortality = self.settings.mortality;
         let outcomes: Vec<_> = self
             .plants
             .par_iter_mut()
@@ -605,6 +658,10 @@ impl Ecosystem {
                     } else {
                         q
                     };
+                }
+                plant.immortal = !mortality;
+                if mortality && plant.preserved {
+                    plant.alive = false;
                 }
                 plant.regulate(s, prototypes, dt)
             })
@@ -694,7 +751,7 @@ impl Ecosystem {
         let prototypes = &self.prototypes;
         self.plants
             .par_iter_mut()
-            .filter(|p| p.alive)
+            .filter(|p| p.alive && !p.preserved)
             .for_each(|plant| plant.update_geometry(&species[plant.species as usize], prototypes));
         report.geometry = clock.elapsed();
 
@@ -717,15 +774,24 @@ impl Ecosystem {
             .collect();
         self.plants.retain(|p| p.alive && !p.modules.is_empty());
         report.died = (before - self.plants.len()) as u32;
-        report.germinated = self.disperse(&seeds) + self.sprout(dt);
+        let sown = if self.settings.seeding {
+            self.disperse(&seeds)
+        } else {
+            0
+        };
+        report.germinated = sown + self.sprout(dt);
         report.seeding = clock.elapsed();
 
         // 6. Vines: rates, new shoots and wood, and their holds on whatever
         // plants are left.
         let vine_species = &self.vine_species;
-        self.vines
-            .par_iter_mut()
-            .for_each(|vine| vine.regulate(&vine_species[vine.species as usize], dt));
+        self.vines.par_iter_mut().for_each(|vine| {
+            vine.immortal = !mortality;
+            if mortality && vine.preserved {
+                vine.alive = false;
+            }
+            vine.regulate(&vine_species[vine.species as usize], dt)
+        });
         self.refresh_vines();
 
         report.time = self.time;
@@ -806,7 +872,12 @@ impl Ecosystem {
             let (species, origin, age, reserves) = {
                 let p = &self.plants[i];
                 let s = &self.species[p.species as usize];
-                let reserves = (p.root_vigor / p.root_vigor_cap(s).max(1e-6)).clamp(0.0, 1.0);
+                // A kept stem sends up no more.
+                let reserves = if p.preserved {
+                    0.0
+                } else {
+                    (p.root_vigor / p.root_vigor_cap(s).max(1e-6)).clamp(0.0, 1.0)
+                };
                 (p.species, p.clump, p.age, reserves)
             };
             let (rate, most) = {
@@ -945,6 +1016,28 @@ mod tests {
         let (a, b) = (&stepped.plants[0], &smooth.plants[0]);
         assert_eq!(a.modules.len(), b.modules.len());
         assert!((a.height() - b.height()).abs() < 0.01 * a.height());
+    }
+
+    #[test]
+    fn without_seeding_only_what_was_planted_grows() {
+        let species = PlantType::default();
+        let climate = Climate::new(species.temperature_optimum, species.precipitation_optimum);
+        let grown = |seeding: bool| {
+            let mut ecosystem =
+                Ecosystem::new(Terrain::flat(40.0, 40.0), climate, vec![species.clone()])
+                    .with_settings(EcosystemSettings {
+                        seeding,
+                        ..EcosystemSettings::default()
+                    });
+            ecosystem.plant(0, 0.0, 0.0);
+            // Past its flowering age, so it seeds if it may.
+            while ecosystem.time < 100.0 {
+                pollster::block_on(ecosystem.step()).unwrap();
+            }
+            ecosystem.plants.len()
+        };
+        assert!(grown(true) > 1, "a flowering tree should seed");
+        assert_eq!(grown(false), 1);
     }
 
     #[test]

@@ -47,6 +47,11 @@ impl Stats {
         self.biome = Some(snapshot.biome);
     }
 
+    /// The species growing, the climbers after the plants.
+    pub fn species(&self) -> &[SpeciesInfo] {
+        &self.species
+    }
+
     /// A new scene starts a new population curve.
     pub fn forget_history(&mut self) {
         self.history.clear();

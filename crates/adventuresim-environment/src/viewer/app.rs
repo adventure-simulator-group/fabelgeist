@@ -11,6 +11,7 @@ use crate::frame_times::FrameTimes;
 use crate::navigation;
 use crate::profile_controls;
 use crate::scene_controls::{Request, START_SPEED, SceneControls};
+use crate::sowing::Sowing;
 use crate::stats::Stats;
 use crate::view_texture::{self, PixelSize, ViewTexture};
 
@@ -39,6 +40,7 @@ pub struct EnvironmentViewer {
     controls: SceneControls,
     profile: Profile,
     tab: Tab,
+    sowing: Sowing,
     frame_times: FrameTimes,
 }
 
@@ -58,6 +60,7 @@ impl EnvironmentViewer {
             controls: SceneControls::new(scene),
             profile,
             tab: Tab::Scene,
+            sowing: Sowing::default(),
             frame_times: FrameTimes::new(),
         })
     }
@@ -82,8 +85,12 @@ impl EnvironmentViewer {
             Request::Reset(scene) => {
                 self.controls.adopt_climate(scene);
                 self.stats.forget_history();
+                self.sowing.forget_species();
                 self.simulation.send(Command::Reset(scene));
                 self.simulation.send(Command::Play(self.controls.playing));
+                for command in self.controls.life() {
+                    self.simulation.send(command);
+                }
             }
             Request::CutGap => {
                 let [lo, hi] = self.view.bounds();
@@ -111,6 +118,9 @@ impl EnvironmentViewer {
             if input.key_pressed(Key::R) {
                 requests.push(Request::Reset(self.controls.scene));
             }
+            if input.key_pressed(Key::S) {
+                self.sowing.toggle();
+            }
         });
     }
 
@@ -124,12 +134,13 @@ impl EnvironmentViewer {
         ui.separator();
         egui::ScrollArea::vertical().show(ui, |ui| match self.tab {
             Tab::Scene => {
+                self.sowing.show(ui, self.stats.species());
                 self.controls.show(ui, requests);
                 ui.separator();
                 self.stats.show(ui, self.frame_times.rate());
                 ui.separator();
                 ui.weak("Drag orbit, right-drag pan, wheel zoom");
-                ui.weak("Space play/pause, G gap, R reset");
+                ui.weak("Space play/pause, G gap, R reset, S sow");
             }
             Tab::Profile => {
                 if profile_controls::show(ui, &mut self.profile) {
@@ -153,6 +164,19 @@ impl EnvironmentViewer {
             .sense(Sense::click_and_drag());
         let response = ui.add_sized(Vec2::new(size.x, size.y), image);
         navigation::steer(ui, &response, &mut self.camera);
+        if !self.sowing.active() {
+            return;
+        }
+        if response.hovered() {
+            ui.ctx().set_cursor_icon(egui::CursorIcon::Crosshair);
+        }
+        // A click, not the end of an orbit, sows.
+        if response.clicked()
+            && let Some(at) = response.interact_pointer_pos()
+        {
+            let seed = self.sowing.throw(&self.camera, response.rect, at);
+            self.simulation.send(seed);
+        }
     }
 }
 

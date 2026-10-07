@@ -11,7 +11,8 @@
 //!
 //! Drag to orbit, right-drag to pan, wheel to zoom. Space plays and pauses,
 //! G cuts a gap in the canopy where the camera is looking, R resets the
-//! scene.
+//! scene. With sowing on (S), a click sows the species picked in the panel
+//! where the cursor points: on the ground, or at the foot of a wall.
 //!
 //! With `--snapshot out.png` it opens no window: it grows the scene for
 //! `--years`, renders one frame and writes it. `--closeup` frames the
@@ -27,6 +28,7 @@ mod navigation;
 mod profile_controls;
 mod scene_controls;
 mod snapshot;
+mod sowing;
 mod stats;
 mod view_texture;
 

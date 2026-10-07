@@ -18,8 +18,16 @@ cargo run --release -p adventuresim-environment --features viewer --bin environm
 
 Drag to orbit, right-drag to pan and use the wheel to zoom. Space plays and
 pauses, G cuts a gap in the canopy where the camera looks, and R resets the
-scene. The **Scene** tab chooses the scene, speed, climate and lighting; the
-**Profile** tab trades detail for speed.
+scene. The **Scene** tab chooses the scene, speed, climate and lighting, and
+whether plants spread seed and whether they die; the **Profile** tab trades
+detail for speed.
+
+**Sowing** plants by hand: pick a species (the climbers follow the plants),
+switch **Sow** on (or press S), and click the view. The seed is thrown from
+the eye through the clicked pixel and takes root where it lands, on open
+ground or at the foot of the wall it hits. *Castle, unplanted* is bare
+ground around the castle and village, its species and climbers ready to
+sow.
 
 Without a window, `--snapshot <png>` grows a scene for `--years` and renders
 one frame:
