@@ -34,6 +34,7 @@ use bevy::{
     light::NotShadowCaster,
     prelude::*,
 };
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 #[cfg(test)]
@@ -50,7 +51,7 @@ pub(crate) struct TreeLeafTriangleCount(pub(crate) usize);
 
 #[derive(Resource, Default)]
 pub(in crate::presentation) struct TreePresentationCache {
-    variants: std::collections::HashMap<u64, CachedTreePresentation>,
+    variants: std::collections::HashMap<Seed, CachedTreePresentation>,
     oak_bark_material: Option<Handle<TacticalTreeBarkMaterial>>,
     beech_bark_material: Option<Handle<TacticalTreeBarkMaterial>>,
     oak_aggregate_bark_material: Option<Handle<TacticalTreeAggregateBarkMaterial>>,
@@ -63,7 +64,7 @@ pub(in crate::presentation) struct TreePresentationCache {
 impl TreePresentationCache {
     pub(in crate::presentation) fn weather_occlusion_branches(
         &self,
-        cache_key: u64,
+        cache_key: Seed,
     ) -> Option<&[super::TreeBranchSegment]> {
         self.variants
             .get(&cache_key)
@@ -117,7 +118,7 @@ pub(crate) struct TreeAssetResidencyDiagnostics {
 
 #[derive(Resource, Default)]
 pub(in crate::presentation) struct VistaTreePresentationCache {
-    variants: std::collections::HashMap<u64, CachedVistaTreePresentation>,
+    variants: std::collections::HashMap<Seed, CachedVistaTreePresentation>,
 }
 
 #[derive(Clone)]
@@ -128,7 +129,7 @@ pub(in crate::presentation) struct CachedVistaTreePresentation {
 }
 
 struct CachedTreePresentation {
-    variant_seed: u64,
+    variant_seed: Seed,
     species: TreePresentationSpecies,
     species_name: &'static str,
     branches: Vec<super::TreeBranchSegment>,
@@ -170,7 +171,7 @@ pub(crate) struct PresentedTree;
 
 #[derive(Component, Clone)]
 pub(in crate::presentation) struct StreamedTreePresentation {
-    cache_key: u64,
+    cache_key: Seed,
     resident_mask: u8,
     resident_leaf_mask: u8,
     active_mask: u8,
@@ -178,7 +179,7 @@ pub(in crate::presentation) struct StreamedTreePresentation {
 }
 
 impl StreamedTreePresentation {
-    pub(in crate::presentation) fn weather_occlusion_cache_key(&self) -> u64 {
+    pub(in crate::presentation) fn weather_occlusion_cache_key(&self) -> Seed {
         self.cache_key
     }
 }
@@ -189,7 +190,7 @@ pub(in crate::presentation) struct StreamedTreeChild;
 fn spawn_cached_tree(
     commands: &mut Commands,
     entity: Entity,
-    cache_key: u64,
+    cache_key: Seed,
     species_name: &'static str,
 ) {
     commands.entity(entity).insert((
@@ -773,7 +774,7 @@ fn tree_cluster_aabb(center: Vec3, radius: f32) -> Aabb {
     reason = "vista tree preparation receives independent asset stores and the optional fixed-scene prebake"
 )]
 pub(in crate::presentation) fn ensure_vista_tree_variant(
-    variant_seed: u64,
+    variant_seed: Seed,
     competition: f32,
     species: TreePresentationSpecies,
     meshes: &mut Assets<Mesh>,
@@ -784,11 +785,7 @@ pub(in crate::presentation) fn ensure_vista_tree_variant(
 ) -> CachedVistaTreePresentation {
     let competition_key = (competition * 4095.0).round() as u64;
     let cache_key = StreamId::new("visual.tree.vista-cache-key")
-        .seed(
-            variant_seed.into(),
-            &[competition_key, species.cache_salt()],
-        )
-        .to_u64();
+        .seed(variant_seed, &[competition_key, species.cache_salt()]);
     if let Some(cached) = cache.variants.get(&cache_key) {
         return cached.clone();
     }
@@ -868,12 +865,10 @@ pub(in crate::presentation) fn present_pending_trees(
         let (variant_index, variant_seed) =
             super::specimen::oak_variant_for_site(transform.translation);
         let competition_key = (competition * 4095.0).round() as u64;
-        let cache_key = StreamId::new("visual.tree.playable-cache-key")
-            .seed(
-                variant_seed.into(),
-                &[competition_key, site_key, species.cache_salt()],
-            )
-            .to_u64();
+        let cache_key = StreamId::new("visual.tree.playable-cache-key").seed(
+            variant_seed,
+            &[competition_key, site_key, species.cache_salt()],
+        );
         if !tree_cache.variants.contains_key(&cache_key) {
             let (branches, leaves) = playable_tree_source(
                 species,
@@ -980,7 +975,7 @@ pub(in crate::presentation) fn present_pending_trees(
 pub(super) fn oak_gnarling_for_test_site(
     recipe: OakGnarlingParameters,
     environment: &SceneEnvironment,
-    tree_seed: u64,
+    tree_seed: Seed,
 ) -> OakGnarlingParameters {
     oak_gnarling_for_site(recipe, environment, tree_seed)
 }
@@ -1030,13 +1025,21 @@ mod tests {
     #[test]
     fn stable_site_not_current_weather_drives_oak_growth_history() {
         let site = environment(2_000, 8_000, 0);
-        let first = oak_gnarling_for_site(OAK_GNARLING_SHOWCASE[0], &site, 42);
+        let first = oak_gnarling_for_site(
+            OAK_GNARLING_SHOWCASE[0],
+            &site,
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let mut storm = site.clone();
         storm.weather.wind_speed_bps = 10_000;
         storm.weather.intensity_bps = 10_000;
         assert_eq!(
             first,
-            oak_gnarling_for_site(OAK_GNARLING_SHOWCASE[0], &storm, 42)
+            oak_gnarling_for_site(
+                OAK_GNARLING_SHOWCASE[0],
+                &storm,
+                fabelgeist_determinism::Seed::from_u64(42)
+            )
         );
         assert_eq!(oak_site_key(&site), oak_site_key(&storm));
     }
@@ -1121,7 +1124,7 @@ mod tests {
 
     #[test]
     fn distant_request_does_not_generate_near_tree_geometry() {
-        let variant_seed = 42;
+        let variant_seed = fabelgeist_determinism::Seed::from_u64(42);
         let branches = procedural_tree_skeleton(variant_seed, 0.0);
         let leaves = procedural_oak_leaves(variant_seed, &branches, 0.0);
         let mut cached = CachedTreePresentation {
@@ -1174,7 +1177,7 @@ mod tests {
 
     #[test]
     fn aggregate_residency_records_exact_lod_tier_geometry_budgets() {
-        let variant_seed = 42;
+        let variant_seed = fabelgeist_determinism::Seed::from_u64(42);
         let branches = procedural_tree_skeleton(variant_seed, 0.0);
         let leaves = procedural_oak_leaves(variant_seed, &branches, 0.0);
         let mut cached = CachedTreePresentation {
@@ -1218,8 +1221,9 @@ mod tests {
 
     #[test]
     fn complete_live_oak_mesh_suite_remains_constructible() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
         let mut vertex_count = procedural_tree_branch_mesh(&branches, 0).count_vertices();
         vertex_count += procedural_woody_mid_trunk_mesh(&branches).count_vertices();
         for primary_group in 0..TREE_PRIMARY_GROUP_COUNT {
@@ -1248,9 +1252,21 @@ mod tests {
     fn exposed_hilly_sites_share_wind_direction_and_gnarl_more_than_shelter() {
         let exposed = environment(1_000, 9_000, 0);
         let sheltered = environment(9_000, 0, 0);
-        let exposed_a = oak_gnarling_for_site(OAK_GNARLING_SHOWCASE[0], &exposed, 7);
-        let exposed_b = oak_gnarling_for_site(OAK_GNARLING_SHOWCASE[0], &exposed, 91);
-        let sheltered = oak_gnarling_for_site(OAK_GNARLING_SHOWCASE[0], &sheltered, 7);
+        let exposed_a = oak_gnarling_for_site(
+            OAK_GNARLING_SHOWCASE[0],
+            &exposed,
+            fabelgeist_determinism::Seed::from_u64(7),
+        );
+        let exposed_b = oak_gnarling_for_site(
+            OAK_GNARLING_SHOWCASE[0],
+            &exposed,
+            fabelgeist_determinism::Seed::from_u64(91),
+        );
+        let sheltered = oak_gnarling_for_site(
+            OAK_GNARLING_SHOWCASE[0],
+            &sheltered,
+            fabelgeist_determinism::Seed::from_u64(7),
+        );
         assert_eq!(
             exposed_a.stress_azimuth_radians,
             exposed_b.stress_azimuth_radians
@@ -1290,10 +1306,19 @@ mod tests {
 
     #[test]
     fn beech_whole_tree_billboard_uses_beech_geometry_and_palette() {
-        let branches = procedural_woody_plant_skeleton(42, 0.7, COMMON_BEECH_PARAMETERS);
-        let leaves = procedural_woody_plant_leaves(42, &branches, 0.7, COMMON_BEECH_PARAMETERS);
+        let branches = procedural_woody_plant_skeleton(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.7,
+            COMMON_BEECH_PARAMETERS,
+        );
+        let leaves = procedural_woody_plant_leaves(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            0.7,
+            COMMON_BEECH_PARAMETERS,
+        );
         let bake = bake_tree_lod_with_style(
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             &branches,
             &leaves,
             4,

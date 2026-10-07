@@ -178,7 +178,7 @@ pub(crate) fn validate_scene_gardens(
                 building.archetype,
                 building.usage,
                 building.service_size,
-                building.seed.to_u64(),
+                building.seed,
             )
             .map_err(|source| GardenClearanceError::Recipe {
                 building: building.id,

@@ -3,9 +3,11 @@ use adventuresim_world_schema::settlement_buildings::{AuthoredParishPolicy, Pari
 
 #[test]
 fn parishes_own_real_housing_and_nearby_support_buildings() {
-    for (seed, population) in [(42, 900), (101, 6_500), (47_114, 30_000)] {
+    for (seed, population) in [(42, 900), (101, 6_500), (47_114, 30_000)]
+        .map(|(seed, population)| (fabelgeist_determinism::Seed::from_u64(seed), population))
+    {
         let city = CitySite::central_german_market_town().generate(
-            (seed).into(),
+            seed,
             population,
             &super::super::tests::economy(),
         );
@@ -93,7 +95,11 @@ fn incomplete_precinct_is_unplaced_as_a_group() {
         .filter(|block| !block.is_market())
         .flat_map(|block| block_lots((42).into(), block))
         .collect::<Vec<_>>();
-    let demand = SettlementBuildingDemand::new(42, 900, &super::super::tests::economy());
+    let demand = SettlementBuildingDemand::new(
+        fabelgeist_determinism::Seed::from_u64(42),
+        900,
+        &super::super::tests::economy(),
+    );
     let parish_requests = demand
         .buildings
         .iter()
@@ -134,7 +140,11 @@ fn precinct_retries_a_later_church_site_when_the_first_cannot_fit_dependents() {
         .filter(|block| !block.is_market())
         .flat_map(|block| block_lots((42).into(), block))
         .collect::<Vec<_>>();
-    let demand = SettlementBuildingDemand::new(42, 900, &super::super::tests::economy());
+    let demand = SettlementBuildingDemand::new(
+        fabelgeist_determinism::Seed::from_u64(42),
+        900,
+        &super::super::tests::economy(),
+    );
     let requests = demand
         .buildings
         .iter()

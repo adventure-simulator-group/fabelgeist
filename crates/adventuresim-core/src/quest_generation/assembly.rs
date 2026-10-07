@@ -5,7 +5,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     let canonical = canonical_context(context)?;
     let context = &canonical;
     if context.requested_family == Some(TemplateFamily::Outbreak)
-        || (context.requested_family.is_none() && RNG_QUEST_FAMILY.rng(context.seed.into(), &[]).index(7) == 0)
+        || (context.requested_family.is_none() && RNG_QUEST_FAMILY.rng(context.seed, &[]).index(7) == 0)
     {
         return generate_outbreak(context);
     }
@@ -83,7 +83,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
         .filter(|index| *index != primary_witness && *index != secondary_witness)
         .collect::<Vec<_>>();
     fabelgeist_determinism::StreamId::new("quest.victim-target")
-        .rng(context.seed.into(), &[]).shuffle(&mut victim_target_candidates);
+        .rng(context.seed, &[]).shuffle(&mut victim_target_candidates);
     let (attack_pattern, pattern_bridge) = choose(
         context.seed,
         "module.attack_pattern",
@@ -876,7 +876,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
         DiseaseId::ShroudFever,
         DiseaseId::Bilwisschuss,
         DiseaseId::Kobeldunst,
-    ][fabelgeist_determinism::StreamId::new("quest.outbreak-disease").rng(context.seed.into(), &[]).index(6)];
+    ][fabelgeist_determinism::StreamId::new("quest.outbreak-disease").rng(context.seed, &[]).index(6)];
     let transmission_route = crate::disease::definition(disease).primary_community_vector;
     let carrier = ThreatId::Alp;
     let (site_kind, source, remediation, responsible_npc, carrier_threat) = match disease {
@@ -894,7 +894,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
             }),
             None,
         ),
-        DiseaseId::Influenza if (context.seed / 5).is_multiple_of(2) => (
+        DiseaseId::Influenza if (context.seed.to_u64() / 5).is_multiple_of(2) => (
             SiteKind::OccupiedHouse,
             OutbreakSource::Sanitation {
                 practice: OutbreakSanitationPractice::UnwashedSharedBedding,
@@ -1278,7 +1278,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
                 &format!("{}:{patient_ref}", problem_id),
             );
             let episode = crate::disease::InfectionEpisode {
-                id: episode_id,
+                id: episode_id.to_u64(),
                 character_id: resident_character_id,
                 disease_id: disease,
                 contracted_at: exposed_at,
@@ -1323,7 +1323,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
             OutbreakExposure {
                 patient_ref,
                 patient_character_id: resident_character_id,
-                episode_id,
+                episode_id: episode_id.to_u64(),
                 exposed_at,
                 became_symptomatic_at,
                 died_at,

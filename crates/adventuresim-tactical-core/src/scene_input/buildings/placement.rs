@@ -107,8 +107,13 @@ mod tests {
                 3.0,
             ),
         ] {
-            let program =
-                BuildingProgram::validated_settlement(archetype, usage, seed, size).unwrap();
+            let program = BuildingProgram::validated_settlement(
+                archetype,
+                usage,
+                fabelgeist_determinism::Seed::from_u64(seed),
+                size,
+            )
+            .unwrap();
             let recipe = GeneratedBuildingRecipe::generate(program.clone()).unwrap();
             let building = GeneratedBuilding {
                 placement: TacticalBuildingPlacement {

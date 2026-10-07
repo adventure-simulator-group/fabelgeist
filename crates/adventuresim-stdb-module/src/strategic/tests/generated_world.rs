@@ -1,12 +1,14 @@
+use fabelgeist_determinism::Seed;
+
 fn generated_case(
-    seed: u64,
+    seed: Seed,
     family: adventuresim_core::quest_generation::TemplateFamily,
 ) -> adventuresim_core::quest_generation::GeneratedCase {
     adventuresim_core::quest_generation::generate(
         &adventuresim_core::quest_generation::GenerationContext {
             seed,
-            observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
-            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(seed.into(), &[]).to_u64(),
+            observer_entropy_hi: seed.to_u64() ^ 0x6f62_7365_7276_6572,
+            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(seed, &[]).to_u64(),
             settlement_id: "test-settlement".into(),
             settlement_name: "Test Settlement".into(),
             scope: adventuresim_core::local_problem::Scope::Settlement {
@@ -105,9 +107,9 @@ fn acceptance_fixture_selects_before_materialization_without_rewriting_sites() {
         .nth(1)
         .expect("ordinary generated quest materialization");
     assert!(ordinary_generation.contains("ordinary_generated_site_distance_m(seed, &site.id.0)"));
-    assert!((4_000..21_000).contains(&ordinary_generated_site_distance_m(0, "site:fixture")));
+    assert!((4_000..21_000).contains(&ordinary_generated_site_distance_m(fabelgeist_determinism::Seed::from_u64(0), "site:fixture")));
     assert!((0..64).all(|index| {
-        (4_000..21_000).contains(&ordinary_generated_site_distance_m(u64::MAX, &format!("site:{index}")))
+        (4_000..21_000).contains(&ordinary_generated_site_distance_m(Seed::from_u64(u64::MAX), &format!("site:{index}")))
     }));
     let selector = source
         .split("fn materialize_simulation_acceptance_outbreak")
@@ -128,11 +130,11 @@ fn generated_return_and_expose_bind_only_the_authored_case_and_recipient() {
     };
     use adventuresim_dialogue::InvestigationAction;
 
-    let incidental = (0..1024)
+    let incidental = (0..1024).map(Seed::from_u64)
         .map(|seed| generated_case(seed, TemplateFamily::DisappearanceOrLoss))
         .find(|generated| generated.cause == CanonicalCause::IncidentalLoss)
         .unwrap();
-    let fabricated = (0..1024)
+    let fabricated = (0..1024).map(Seed::from_u64)
         .map(|seed| generated_case(seed, TemplateFamily::DisappearanceOrLoss))
         .find(|generated| generated.cause == CanonicalCause::FabricatedClaim)
         .unwrap();
@@ -210,7 +212,7 @@ fn generated_return_and_expose_bind_only_the_authored_case_and_recipient() {
 #[test]
 fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
     use adventuresim_core::quest_generation::TemplateFamily;
-    let generated = generated_case(11, TemplateFamily::DisappearanceOrLoss);
+    let generated = generated_case(fabelgeist_determinism::Seed::from_u64(11), TemplateFamily::DisappearanceOrLoss);
     let generated_case = CaseAuthority {
         id: generated.canonical_case_id.clone(),
         investigation_case_id: generated.canonical_case_id.clone(),
@@ -224,8 +226,8 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
     };
     let context = adventuresim_core::quest_generation::GenerationContext {
         seed: generated.generation_seed,
-        observer_entropy_hi: generated.generation_seed ^ 0x6f62_7365_7276_6572,
-        observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(generated.generation_seed.into(), &[]).to_u64(),
+        observer_entropy_hi: generated.generation_seed.to_u64() ^ 0x6f62_7365_7276_6572,
+        observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(generated.generation_seed, &[]).to_u64(),
         settlement_id: "test-settlement".into(),
         settlement_name: "Test Settlement".into(),
         scope: adventuresim_core::local_problem::Scope::Settlement {
@@ -268,7 +270,7 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
     assert!(validated_generated_dialogue_manifest(&wrong_objective, Some(&authority)).is_err());
     let mut mutations = Vec::new();
     let mut wrong_seed = authority.clone();
-    wrong_seed.seed ^= 1;
+    wrong_seed.seed = wrong_seed.seed.xor_word(1);
     mutations.push(wrong_seed);
     let mut wrong_catalog = authority.clone();
     wrong_catalog.catalog_revision = "old-catalog".into();
@@ -306,7 +308,7 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
     ));
     mutations.push(mutate_context(
         &authority,
-        |context| context.seed ^= 1,
+        |context| context.seed = context.seed.xor_word(1),
         true,
     ));
     mutations.push(mutate_context(
@@ -422,8 +424,8 @@ fn generated_hostile_materialization_preserves_manifest_identity_across_links() 
         quest_generation::{CanonicalCause, TemplateFamily},
     };
 
-    let recurring = generated_case(7, TemplateFamily::RecurringDepredation);
-    let disappearance = (0..1024)
+    let recurring = generated_case(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation);
+    let disappearance = (0..1024).map(Seed::from_u64)
         .map(|seed| generated_case(seed, TemplateFamily::DisappearanceOrLoss))
         .find(|generated| matches!(generated.cause, CanonicalCause::Hostile(_)))
         .expect("disappearance family has a hostile seed");
@@ -551,7 +553,7 @@ fn generated_hostile_materialization_preserves_manifest_identity_across_links() 
 fn generated_combat_eligibility_fails_closed_across_site_group_and_finale_authority() {
     use adventuresim_core::quest_generation::TemplateFamily;
 
-    let generated = generated_case(7, TemplateFamily::RecurringDepredation);
+    let generated = generated_case(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation);
     let (hostile_group_id, hostile_site_id, threat, _) = generated
         .hostile_groups
         .first()

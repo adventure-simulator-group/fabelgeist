@@ -2,6 +2,7 @@ mod details;
 pub(in crate::presentation) mod grass;
 mod natural;
 use details::*;
+use fabelgeist_determinism::Seed;
 mod pigment;
 use pigment::{VistaVertexColors, vista_sward_coverage};
 #[cfg(test)]
@@ -801,26 +802,19 @@ mod tests {
     #[test]
     fn vista_tree_density_scales_with_physical_cell_area() {
         let small = (0..64_u64)
-            .map(|seed| {
-                vista_tree_candidate_count(
-                    1.0,
-                    50.0,
-                    streams::TEST_COUNT.seed(seed.into(), &[]).to_u64(),
-                )
-            })
+            .map(fabelgeist_determinism::Seed::from_u64)
+            .map(|seed| vista_tree_candidate_count(1.0, 50.0, streams::TEST_COUNT.seed(seed, &[])))
             .sum::<usize>();
         let large = (0..64_u64)
-            .map(|seed| {
-                vista_tree_candidate_count(
-                    1.0,
-                    100.0,
-                    streams::TEST_COUNT.seed(seed.into(), &[]).to_u64(),
-                )
-            })
+            .map(fabelgeist_determinism::Seed::from_u64)
+            .map(|seed| vista_tree_candidate_count(1.0, 100.0, streams::TEST_COUNT.seed(seed, &[])))
             .sum::<usize>();
         assert!(small > 0);
         assert!(large >= small * 3);
-        assert_eq!(vista_tree_candidate_count(0.0, 250.0, 0), 0);
+        assert_eq!(
+            vista_tree_candidate_count(0.0, 250.0, fabelgeist_determinism::Seed::from_u64(0)),
+            0
+        );
     }
 
     #[test]

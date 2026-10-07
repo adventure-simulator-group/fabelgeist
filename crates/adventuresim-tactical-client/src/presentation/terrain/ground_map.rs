@@ -2,6 +2,7 @@
 use super::*;
 #[cfg(test)]
 use adventuresim_tactical_core::terrain_streams;
+use fabelgeist_determinism::Seed;
 mod noise;
 use noise::GroundMaskNoise;
 
@@ -108,7 +109,7 @@ fn encode_canopy_floor_distance(
 }
 
 #[cfg(test)]
-pub(super) fn ground_mask_noise(seed: u64, point: Vec2) -> f32 {
+pub(super) fn ground_mask_noise(seed: Seed, point: Vec2) -> f32 {
     let cell = point.floor();
     let local = point - cell;
     let curve = local * local * (Vec2::splat(3.0) - local * 2.0);
@@ -117,7 +118,7 @@ pub(super) fn ground_mask_noise(seed: u64, point: Vec2) -> f32 {
         let x = i64::from(coordinate.x as i32) as u64;
         let y = i64::from(coordinate.y as i32) as u64;
         terrain_streams::GROUND_MASK_LATTICE
-            .rng(seed.into(), &[x, y])
+            .rng(seed, &[x, y])
             .inclusive_unit_f32()
     };
     let bottom = hash(Vec2::ZERO).lerp(hash(Vec2::X), curve.x);
@@ -125,7 +126,7 @@ pub(super) fn ground_mask_noise(seed: u64, point: Vec2) -> f32 {
     bottom.lerp(top, curve.y)
 }
 
-pub(super) fn organic_ground_pixels(ground: &SceneGround, seed: u64) -> (u32, u32, Vec<u8>) {
+pub(super) fn organic_ground_pixels(ground: &SceneGround, seed: Seed) -> (u32, u32, Vec<u8>) {
     let source_width = ground.grid_width();
     let source_depth = ground.grid_depth();
     let width = (source_width - 1) * GROUND_PRESENTATION_SAMPLES_PER_CELL + 1;
@@ -137,22 +138,22 @@ pub(super) fn organic_ground_pixels(ground: &SceneGround, seed: u64) -> (u32, u3
     let fine_x_offset = Vec2::new(31.7, 5.9);
     let fine_y_offset = Vec2::new(-7.7, 23.1);
     let broad_x = GroundMaskNoise::new(
-        seed ^ 0x2f31_9a87,
+        seed.xor_word(0x2f31_9a87),
         Vec2::ZERO,
         maximum * BROAD_WARP_NOISE_SCALE,
     );
     let broad_y = GroundMaskNoise::new(
-        seed ^ 0x91b7_43cd,
+        seed.xor_word(0x91b7_43cd),
         broad_offset,
         maximum * BROAD_WARP_NOISE_SCALE + broad_offset,
     );
     let fine_x = GroundMaskNoise::new(
-        seed ^ 0x6d25_e9f1,
+        seed.xor_word(0x6d25_e9f1),
         fine_x_offset,
         maximum * FINE_WARP_NOISE_SCALE + fine_x_offset,
     );
     let fine_y = GroundMaskNoise::new(
-        seed ^ 0xc4ab_1283,
+        seed.xor_word(0xc4ab_1283),
         fine_y_offset,
         maximum * FINE_WARP_NOISE_SCALE + fine_y_offset,
     );
@@ -191,7 +192,7 @@ pub(super) fn organic_ground_pixels(ground: &SceneGround, seed: u64) -> (u32, u3
 
 pub(in crate::presentation) fn grass_cover_mask_pixels(
     ground: &SceneGround,
-    seed: u64,
+    seed: Seed,
 ) -> (u32, u32, Vec<u8>) {
     let (width, height, ground_pixels) = organic_ground_pixels(ground, seed);
     let mut mask = vec![0_u8; width as usize * height as usize];
@@ -223,7 +224,7 @@ pub(in crate::presentation) fn grass_cover_mask_pixels(
     (width, height, mask)
 }
 
-pub(super) fn ground_map_image(ground: Option<&SceneGround>, seed: u64) -> Image {
+pub(super) fn ground_map_image(ground: Option<&SceneGround>, seed: Seed) -> Image {
     let (width, height, pixels) = ground.map_or_else(
         || (1, 1, vec![0, 0, 0, 0]),
         |ground| organic_ground_pixels(ground, seed),

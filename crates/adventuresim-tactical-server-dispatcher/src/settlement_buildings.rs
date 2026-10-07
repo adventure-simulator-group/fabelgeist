@@ -31,9 +31,7 @@ pub fn place_settlement_buildings(
     settlement: &SettlementSceneProfile,
     playable_half_extent_metres: f32,
 ) -> Result<CitySceneLayout, CityCompileError> {
-    let seed = fabelgeist_determinism::Seed::from_u64(
-        adventuresim_core::settlement_population::settlement_building_seed(&settlement.id),
-    );
+    let seed = adventuresim_core::settlement_population::settlement_building_seed(&settlement.id);
     CitySite::central_german_market_town()
         .generate(seed, settlement.effective_population(), &settlement.economy)
         .compile(seed)?

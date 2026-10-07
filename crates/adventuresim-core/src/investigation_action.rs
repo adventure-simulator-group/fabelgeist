@@ -10,7 +10,7 @@ pub use vocabulary::{
 };
 
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
-use fabelgeist_determinism::StreamId;
+use fabelgeist_determinism::{Seed, StreamId};
 use serde::{Deserialize, Serialize};
 
 use crate::{
@@ -296,7 +296,7 @@ pub struct StrategicCost {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ResolutionInput {
-    pub seed: u64,
+    pub seed: Seed,
     pub attempt_index: u32,
     pub kind: InvestigationActionKind,
     pub terrain: Terrain,
@@ -857,7 +857,7 @@ pub fn resolve(input: ResolutionInput) -> Resolution {
         resulting_uncertainty_bps,
         risk_bps,
         risk_triggered: domain_roll(
-            input.seed ^ 0x5249_534b_5f52_4f4c,
+            input.seed.xor_word(0x5249_534b_5f52_4f4c),
             input.attempt_index,
             input.kind,
         ) < risk_bps,
@@ -931,7 +931,7 @@ pub fn resolve_with_bounded_progress(
         resolution.result = result_kind(input.kind, success);
         resolution.risk_bps = 500;
         resolution.risk_triggered = domain_roll(
-            input.seed ^ 0x5249_534b_5f52_4f4c,
+            input.seed.xor_word(0x5249_534b_5f52_4f4c),
             input.attempt_index,
             input.kind,
         ) < resolution.risk_bps;
@@ -971,9 +971,9 @@ fn result_kind(kind: InvestigationActionKind, success: bool) -> ActionResultKind
     }
 }
 
-fn domain_roll(seed: u64, attempt: u32, kind: InvestigationActionKind) -> u16 {
+fn domain_roll(seed: Seed, attempt: u32, kind: InvestigationActionKind) -> u16 {
     StreamId::new("investigation.action")
-        .rng(seed.into(), &[u64::from(attempt), kind as u64])
+        .rng(seed, &[u64::from(attempt), kind as u64])
         .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u16
 }
 
@@ -983,7 +983,7 @@ mod tests {
 
     fn input(kind: InvestigationActionKind) -> ResolutionInput {
         ResolutionInput {
-            seed: 42,
+            seed: fabelgeist_determinism::Seed::from_u64(42),
             attempt_index: 0,
             kind,
             terrain: Terrain::Forest,
@@ -1096,7 +1096,7 @@ mod tests {
             candidate.target_terrain = Terrain::Forest;
             candidate.evidence_age_minutes = if high_skill { 0 } else { 600_000 };
             let mut saw_ordinary_early_success = false;
-            for seed in 0..128 {
+            for seed in (0..128).map(fabelgeist_determinism::Seed::from_u64) {
                 candidate.seed = seed;
                 let ordinary = resolve(candidate);
                 assert_eq!(ordinary.effective_skill_bps, expected_effective);
@@ -1149,6 +1149,7 @@ mod tests {
         candidate.terrain = Terrain::Road;
         candidate.evidence_age_minutes = 600_000;
         let failing_seed = (0..u64::MAX)
+            .map(fabelgeist_determinism::Seed::from_u64)
             .find(|seed| {
                 !resolve_with_bounded_progress(
                     ResolutionInput {
@@ -1194,7 +1195,7 @@ mod tests {
     #[test]
     fn failures_never_delete_the_route() {
         let mut hard = input(InvestigationActionKind::ReacquireTracks);
-        hard.seed = 2;
+        hard.seed = fabelgeist_determinism::Seed::from_u64(2);
         hard.skills.terrain_bps = 0;
         hard.skills.assistance_bps = 0;
         hard.skills.familiarity_bps = 0;

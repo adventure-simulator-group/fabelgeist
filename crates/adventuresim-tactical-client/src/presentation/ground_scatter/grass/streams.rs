@@ -1,4 +1,5 @@
 //! Named random purposes owned by this generator. Names are part of its replay contract.
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 pub(super) const FAR_ROOT: StreamId = StreamId::new("visual.grass.far-root");
@@ -26,6 +27,6 @@ pub(super) const PANICLE: StreamId = StreamId::new("visual.ground-scatter.grass.
 pub(super) const SPECIES: StreamId = StreamId::new("visual.ground-scatter.grass.species");
 pub(super) const WIDTH: StreamId = StreamId::new("visual.ground-scatter.grass.width");
 
-pub(super) fn blade_angle(seed: u64) -> f32 {
-    BLADE_ANGLE.rng(seed.into(), &[]).inclusive_unit_f32() * core::f32::consts::TAU
+pub(super) fn blade_angle(seed: Seed) -> f32 {
+    BLADE_ANGLE.rng(seed, &[]).inclusive_unit_f32() * core::f32::consts::TAU
 }

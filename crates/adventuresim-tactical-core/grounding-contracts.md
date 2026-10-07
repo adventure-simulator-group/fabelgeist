@@ -63,7 +63,7 @@ lattice coordinates, interpolation, little-endian framing and cache eviction
 retain their existing arithmetic. Source and placement mismatch errors retain
 all affected property, member and location identities.
 
-Scene schema 28 requires exact floor-bearing and ordered property binding
+Scene schema 29 requires exact floor-bearing and ordered property binding
 records. Compound floor bindings identify the authored constant-floor cell
 partitions; approaches and stair flights retain independent levels. Internal
 partition edges do not expand the contact allowance. Contact bounds are
@@ -71,8 +71,9 @@ envelopes rather than complete structural bearing polygons. Single buildings
 retain their exact architectural bearing footprints. Access passages retain
 their independent levels. Admission checks affine heights and polygon-union
 coverage with the existing contact allowance. Placement floor datums must match
-their bindings exactly. The generation version is 71. Existing numeric
-representations stay unchanged. Transient browser products use the executable
-and cache-format digest as their existing cache authority. A different
-executable receives a different product cache; no compatibility decoding path is
-provided.
+their bindings exactly. The generation version is 72. Seed producers serialize
+named `Seed` records with a `word` field, including building programmes and the
+scene root. Seed words and little-endian sampling inputs remain unchanged.
+Transient browser products use the executable and cache-format digest as their
+existing cache authority. A different executable receives a different product
+cache; no compatibility decoding path is provided.

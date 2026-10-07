@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 use super::{MAX_MINIMIZATION_SUBSETS, ORDERED_SIGIL_COUNT, ORDERED_SIGIL_RULES_VERSION, Sigil};
@@ -83,7 +84,7 @@ impl OrderedSigilClue {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct OrderedSigilPuzzle {
     pub rules_version: u16,
-    pub seed: u64,
+    pub seed: Seed,
     pub spec: OrderedSigilSpec,
     pub solution: [Sigil; ORDERED_SIGIL_COUNT],
     pub clues: Vec<OrderedSigilClue>,
@@ -109,23 +110,23 @@ pub enum SubmissionError {
 }
 
 impl OrderedSigilPuzzle {
-    pub fn generate(seed: u64) -> Self {
+    pub fn generate(seed: Seed) -> Self {
         Self::generate_with_spec(seed, OrderedSigilSpec::default())
             .expect("current ordered-sigil rules are supported")
     }
 
-    pub fn generate_versioned(rules_version: u16, seed: u64) -> Result<Self, &'static str> {
+    pub fn generate_versioned(rules_version: u16, seed: Seed) -> Result<Self, &'static str> {
         if rules_version != ORDERED_SIGIL_RULES_VERSION {
             return Err("unsupported ordered-sigil rules version");
         }
         Self::generate_with_spec(seed, OrderedSigilSpec::default())
     }
 
-    pub fn generate_with_spec(seed: u64, spec: OrderedSigilSpec) -> Result<Self, &'static str> {
+    pub fn generate_with_spec(seed: Seed, spec: OrderedSigilSpec) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
         const ORDERED_SIGIL_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
             fabelgeist_determinism::StreamId::new("puzzle.ordered_sigil");
-        let mut rng = ORDERED_SIGIL_GENERATION_DOMAIN.rng(seed.into(), &[]);
+        let mut rng = ORDERED_SIGIL_GENERATION_DOMAIN.rng(seed, &[]);
         let mut solution = Sigil::ALL;
         for end in (1..solution.len()).rev() {
             let selected = rng.index(end + 1);

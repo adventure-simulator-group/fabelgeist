@@ -5,10 +5,11 @@ pub use adventuresim_core::personality::{
 };
 use adventuresim_world_schema::Sex;
 use fabelgeist_determinism::DeterministicRng;
+use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 
 mod generation;
-pub use generation::{
+pub(crate) use generation::{
     personality_from_stable_seed, personality_from_stable_seed_with_demographics,
     random_personality,
 };
@@ -607,7 +608,7 @@ pub fn personality_or_neutral(ctx: &ReducerContext, character_id: u64) -> Charac
         .unwrap_or_else(|| CharacterPersonality::neutral(character_id))
 }
 
-pub fn initialize_npc_personality(ctx: &ReducerContext, character_id: u64, stable_seed: u64) {
+pub fn initialize_npc_personality(ctx: &ReducerContext, character_id: u64, stable_seed: Seed) {
     if ctx
         .db
         .character_personality()
@@ -617,7 +618,10 @@ pub fn initialize_npc_personality(ctx: &ReducerContext, character_id: u64, stabl
     {
         initialize_personality_from_visible(
             ctx,
-            personality_from_stable_seed(character_id, stable_seed),
+            personality_from_stable_seed(
+                crate::character::CharacterId::new(character_id),
+                stable_seed,
+            ),
         );
     }
 }
@@ -631,14 +635,17 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
         .is_none()
     {
         let row = if npc {
-            personality_from_stable_seed(character_id, character_id)
+            personality_from_stable_seed(
+                crate::character::CharacterId::new(character_id),
+                Seed::from_u64(character_id),
+            )
         } else {
             // Non-candidate characters remain behaviorally neutral, but the
             // always-assigned demographic axes must still have real values.
             let generated = random_personality(
-                character_id,
+                crate::character::CharacterId::new(character_id),
                 &mut generation::PERSONALITY_GENERATION_DOMAIN
-                    .rng(ctx.random::<u64>().into(), &[character_id]),
+                    .rng(ctx.random::<Seed>(), &[character_id]),
             );
             let mut neutral = CharacterPersonality::neutral(character_id);
             neutral.sex = generated.sex;
@@ -652,9 +659,8 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
 
 pub fn assign_random_personality(ctx: &ReducerContext, character_id: u64) {
     let row = random_personality(
-        character_id,
-        &mut generation::PERSONALITY_GENERATION_DOMAIN
-            .rng(ctx.random::<u64>().into(), &[character_id]),
+        crate::character::CharacterId::new(character_id),
+        &mut generation::PERSONALITY_GENERATION_DOMAIN.rng(ctx.random::<Seed>(), &[character_id]),
     );
     reset_personality_from_visible(ctx, row);
 }
@@ -868,7 +874,10 @@ mod tests {
     #[test]
     fn generated_profiles_are_sparse_and_axes_are_mutually_exclusive() {
         for seed in 0..100_u64 {
-            let personality = personality_from_stable_seed(seed, seed);
+            let personality = personality_from_stable_seed(
+                crate::character::CharacterId::new(seed),
+                Seed::from_u64(seed),
+            );
             assert!((2..=4).contains(&personality.non_neutral_count()));
             let scores = CharacterPersonalityScores::from_visible(&personality);
             let projected = project_scores(&scores, &personality);
@@ -881,9 +890,18 @@ mod tests {
 
     #[test]
     fn stable_npc_profiles_ignore_generation_order_and_ambient_randomness() {
-        let first = personality_from_stable_seed(77, 0xabc);
-        let _unrelated = personality_from_stable_seed(91, 0xdef);
-        let repeated = personality_from_stable_seed(77, 0xabc);
+        let first = personality_from_stable_seed(
+            crate::character::CharacterId::new(77),
+            fabelgeist_determinism::Seed::from_u64(0xabc),
+        );
+        let _unrelated = personality_from_stable_seed(
+            crate::character::CharacterId::new(91),
+            fabelgeist_determinism::Seed::from_u64(0xdef),
+        );
+        let repeated = personality_from_stable_seed(
+            crate::character::CharacterId::new(77),
+            fabelgeist_determinism::Seed::from_u64(0xabc),
+        );
         assert_eq!(first.character_id, repeated.character_id);
         assert_eq!(first.nerve, repeated.nerve);
         assert_eq!(first.drive, repeated.drive);
@@ -906,11 +924,15 @@ mod tests {
 
     #[test]
     fn finalized_demographics_do_not_perturb_behavioral_personality_draws() {
-        let man =
-            personality_from_stable_seed_with_demographics(77, 0xabc, Sex::Male, Presentation::Man);
+        let man = personality_from_stable_seed_with_demographics(
+            crate::character::CharacterId::new(77),
+            fabelgeist_determinism::Seed::from_u64(0xabc),
+            Sex::Male,
+            Presentation::Man,
+        );
         let woman = personality_from_stable_seed_with_demographics(
-            77,
-            0xabc,
+            crate::character::CharacterId::new(77),
+            fabelgeist_determinism::Seed::from_u64(0xabc),
             Sex::Female,
             Presentation::Woman,
         );

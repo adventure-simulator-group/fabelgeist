@@ -1,3 +1,4 @@
+
 fn footprint_cells(footprint: Footprint) -> Result<Vec<Cell>, GenerationError> {
     let (width, depth) = footprint.dimensions();
     if width < 3 || depth < 3 || width > i16::MAX as u16 || depth > i16::MAX as u16 {
@@ -196,13 +197,13 @@ fn cells_are_connected(cells: &[Cell]) -> bool {
 
 // Room indices identify authored programme slots; cells identify spatial samples.
 fn cell_random(
-    seed: u64,
+    seed: Seed,
     room_slot: u64,
     cell: Cell,
     stream: fabelgeist_determinism::StreamId,
 ) -> fabelgeist_determinism::DeterministicRng {
     stream.rng(
-        seed.into(),
+        seed,
         &[room_slot, cell.x as u16 as u64, cell.z as u16 as u64],
     )
 }

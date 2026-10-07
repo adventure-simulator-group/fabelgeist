@@ -1,6 +1,7 @@
 //! Validated daily allocations and read-only, location-dependent redistribution.
 use crate::activity::{ACTIVITY_SEGMENT_MINUTES, ActivityLocation, LocationActivity};
 use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 /// A parsed organization allocation: zero minutes cannot carry a stale
@@ -217,7 +218,7 @@ impl ValidatedSchedule {
     /// Calculate against the supplied context without consuming caller RNG or
     /// changing the saved allocation. Callers resolve current organization
     /// eligibility before constructing this value. The seed is character ID.
-    pub fn effective_at(self, location: ActivityLocation, seed: u64) -> DailySchedule {
+    pub fn effective_at(self, location: ActivityLocation, seed: Seed) -> DailySchedule {
         let available = [
             true,
             location.allows(LocationActivity::Carousing),
@@ -246,7 +247,7 @@ impl ValidatedSchedule {
             }
         });
         if weights.iter().any(|weight| *weight != 0) {
-            let mut random = StreamId::new("schedule.redistribution").rng(seed.into(), &[]);
+            let mut random = StreamId::new("schedule.redistribution").rng(seed, &[]);
             for _ in 0..segments {
                 let selected = random
                     .weighted_index(&weights)
@@ -297,7 +298,7 @@ mod tests {
         let location = ActivityLocation::Settlement { has_inn: false };
         let mut labor = 0_u64;
         let mut social = 0_u64;
-        for seed in 0..4_000 {
+        for seed in (0..4_000).map(fabelgeist_determinism::Seed::from_u64) {
             let preview = validated.effective_at(location, seed);
             assert_eq!(preview, validated.effective_at(location, seed));
             assert_eq!(preview.allocated_minutes(), 300);
@@ -324,8 +325,14 @@ mod tests {
             ..Default::default()
         };
         let validated = ValidatedSchedule::try_from(proposed).unwrap();
-        let preview = validated.effective_at(ActivityLocation::NamedOutdoorLocation, 7);
-        let execution = validated.effective_at(ActivityLocation::Settlement { has_inn: false }, 7);
+        let preview = validated.effective_at(
+            ActivityLocation::NamedOutdoorLocation,
+            fabelgeist_determinism::Seed::from_u64(7),
+        );
+        let execution = validated.effective_at(
+            ActivityLocation::Settlement { has_inn: false },
+            fabelgeist_determinism::Seed::from_u64(7),
+        );
         assert_eq!(preview, proposed);
         assert_eq!(
             execution,

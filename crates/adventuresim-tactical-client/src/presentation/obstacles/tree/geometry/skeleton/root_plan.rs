@@ -1,13 +1,14 @@
 //! Surface-root placement and species-specific root morphology.
 use super::*;
+use fabelgeist_determinism::Seed;
 
-pub(super) fn root_plan_angles(plan_seed: u64, crown_phase: f32, root_count: usize) -> Vec<f32> {
+pub(super) fn root_plan_angles(plan_seed: Seed, crown_phase: f32, root_count: usize) -> Vec<f32> {
     // Allocate the full circle as unequal positive gaps. Normalizing the
     // weights keeps complete coverage without returning to equal radial rays.
     let gap_weights = (0..root_count)
         .map(|index| {
             0.62 + streams::ROOT_GAP
-                .rng(plan_seed.into(), &[index as u64])
+                .rng(plan_seed, &[index as u64])
                 .inclusive_unit_f32()
                 * 0.82
         })
@@ -15,7 +16,7 @@ pub(super) fn root_plan_angles(plan_seed: u64, crown_phase: f32, root_count: usi
     let gap_total = gap_weights.iter().sum::<f32>();
     let rotation = crown_phase
         + streams::ROOT_ROTATION
-            .rng(plan_seed.into(), &[])
+            .rng(plan_seed, &[])
             .inclusive_unit_f32()
             * 0.74;
     let mut cursor = rotation;
@@ -29,26 +30,24 @@ pub(super) fn root_plan_angles(plan_seed: u64, crown_phase: f32, root_count: usi
 }
 
 pub(super) fn procedural_oak_root_specs_with_gnarling(
-    seed: u64,
+    seed: Seed,
     crown_phase: f32,
     gnarling: OakGnarlingParameters,
 ) -> Vec<OakRootSpec> {
-    let plan_seed = streams::ROOT_PLAN.seed(seed.into(), &[]);
+    let plan_seed = streams::ROOT_PLAN.seed(seed, &[]);
     let root_count = OAK_ROOT_MIN_COUNT
         + streams::ROOT_COUNT
             .rng(plan_seed, &[])
             .index(OAK_ROOT_MAX_COUNT - OAK_ROOT_MIN_COUNT + 1);
     let dominant_count = 2 + streams::DOMINANT_ROOT_COUNT.rng(plan_seed, &[]).index(2);
 
-    let mut angles = root_plan_angles(plan_seed.to_u64(), crown_phase, root_count);
+    let mut angles = root_plan_angles(plan_seed, crown_phase, root_count);
 
     // Pull distinct nearby roots toward the heaviest scaffold axes. This is a
     // restrained azimuthal bias, not a one-root-per-branch radial layout.
     let mut dominant = vec![false; root_count];
     for primary_index in 0..dominant_count as u64 {
-        let primary_seed = streams::OAK_PRIMARY
-            .seed(seed.into(), &[primary_index])
-            .to_u64();
+        let primary_seed = streams::OAK_PRIMARY.seed(seed, &[primary_index]);
         let load_phase = oak_primary_scaffold_phase(crown_phase, primary_index, primary_seed);
         let nearest = angles
             .iter()
@@ -84,9 +83,9 @@ pub(super) fn procedural_oak_root_specs_with_gnarling(
         .into_iter()
         .enumerate()
         .map(|(index, angle)| {
-            let root_seed = streams::OAK_ROOT.seed(plan_seed, &[index as u64]).to_u64();
+            let root_seed = streams::OAK_ROOT.seed(plan_seed, &[index as u64]);
             let root_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-                purpose.rng(root_seed.into(), &[]).inclusive_unit_f32()
+                purpose.rng(root_seed, &[]).inclusive_unit_f32()
             };
             let is_dominant = dominant[index];
             let reach = (if is_dominant {
@@ -106,10 +105,7 @@ pub(super) fn procedural_oak_root_specs_with_gnarling(
                     fork_count += 1;
                     OakRootFork {
                         attach: 0.54 + root_unit_draw(streams::OAK_ROOT_FORK_ATTACH) * 0.17,
-                        angle_offset: if streams::ROOT_FORK_SIDE
-                            .rng(root_seed.into(), &[])
-                            .boolean()
-                        {
+                        angle_offset: if streams::ROOT_FORK_SIDE.rng(root_seed, &[]).boolean() {
                             0.5 + root_unit_draw(streams::OAK_ROOT_FORK_ANGLE) * 0.35
                         } else {
                             -0.5 - root_unit_draw(streams::OAK_ROOT_FORK_ANGLE) * 0.35
@@ -135,7 +131,7 @@ pub(super) fn procedural_oak_root_specs_with_gnarling(
 
 pub(super) fn append_beech_roots(
     branches: &mut Vec<TreeBranchSegment>,
-    seed: u64,
+    seed: Seed,
     crown_phase: f32,
     trunk_base: Vec3,
 ) {
@@ -144,11 +140,9 @@ pub(super) fn append_beech_roots(
     // a metre, softening the trunk-ground junction without creating oak-like
     // buttresses or changing the authoritative cylindrical collider.
     for root_index in 0..3_u64 {
-        let root_seed = streams::BEECH_ROOT
-            .seed(seed.into(), &[root_index])
-            .to_u64();
+        let root_seed = streams::BEECH_ROOT.seed(seed, &[root_index]);
         let root_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-            purpose.rng(root_seed.into(), &[]).inclusive_unit_f32()
+            purpose.rng(root_seed, &[]).inclusive_unit_f32()
         };
         let phase = crown_phase
             + root_index as f32 * 2.399_963_1

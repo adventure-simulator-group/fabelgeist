@@ -114,7 +114,7 @@ pub(crate) fn run_editor_script(path: &std::path::Path) -> Result<String, String
     let bytes = fs::read(path).map_err(|error| error.to_string())?;
     let commands = serde_json::from_slice::<Vec<EditorCommand>>(&bytes)
         .map_err(|error| format!("invalid editor command script: {error}"))?;
-    let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+    let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
     let plan = generate_document(&document).map_err(|error| error.to_string())?;
     let mut runtime = EditorRuntime::new(
         document,

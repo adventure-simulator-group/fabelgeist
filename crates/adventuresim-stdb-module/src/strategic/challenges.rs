@@ -757,7 +757,7 @@ pub(crate) fn party_at_bound_road_challenge(
 
 fn narrative_encounter_occurrence_id(
     party_id: &str,
-    seed: u64,
+    seed: Seed,
     origin_slug: &str,
     journey: &PartyJourney,
     selection: &adventuresim_core::encounter::NarrativeSelection,
@@ -882,7 +882,7 @@ pub(crate) fn materialize_chance_narrative_encounter(
     Ok(())
 }
 
-fn narrative_combat_roll(seed: u64, occurrence_id: &str) -> u64 {
+fn narrative_combat_roll(seed: Seed, occurrence_id: &str) -> u64 {
     fabelgeist_determinism::Seed::derive(
         &seed.to_le_bytes(),
         fabelgeist_determinism::StreamId::new("encounter.narrative-combat"),
@@ -2145,7 +2145,7 @@ fn materialize_order_errantry(
         })
         .count() as u64;
     let suffix = errantry_suffix(character_id, ordinal, launch);
-    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id.into(), &[ordinal]).to_u64();
+    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id.into(), &[ordinal]);
     let road_definition =
         adventuresim_core::road_encounter_catalog::select_quest_eligible(seed, ordinal)
             .ok_or("No quest-eligible road encounter is available")?;
@@ -2582,12 +2582,12 @@ mod challenge_source_boundary_tests {
     #[test]
     fn authored_combat_dispatch_is_generic_deterministic_and_single_pending() {
         assert_eq!(
-            narrative_combat_roll(7, "occurrence:a"),
-            narrative_combat_roll(7, "occurrence:a")
+            narrative_combat_roll(fabelgeist_determinism::Seed::from_u64(7), "occurrence:a"),
+            narrative_combat_roll(fabelgeist_determinism::Seed::from_u64(7), "occurrence:a")
         );
         assert_ne!(
-            narrative_combat_roll(7, "occurrence:a"),
-            narrative_combat_roll(7, "occurrence:b")
+            narrative_combat_roll(fabelgeist_determinism::Seed::from_u64(7), "occurrence:a"),
+            narrative_combat_roll(fabelgeist_determinism::Seed::from_u64(7), "occurrence:b")
         );
         let source = crate::production_source(include_str!("challenges.rs"));
         let dispatch = source

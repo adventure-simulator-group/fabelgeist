@@ -16,6 +16,7 @@ use adventuresim_tactical_netcode::{
 };
 use bevy::prelude::*;
 use fabelgeist_determinism::DeterministicRng;
+use fabelgeist_determinism::Seed;
 use std::{cmp::Ordering, path::PathBuf};
 
 use crate::{
@@ -63,8 +64,8 @@ impl Default for CombatRandom {
 }
 
 impl CombatRandom {
-    pub(crate) fn seeded(seed: u64) -> Self {
-        Self(fabelgeist_determinism::StreamId::new("combat.tactical").rng(seed.into(), &[]))
+    pub(crate) fn seeded(seed: Seed) -> Self {
+        Self(fabelgeist_determinism::StreamId::new("combat.tactical").rng(seed, &[]))
     }
 
     pub(crate) fn unit_f32(&mut self) -> f32 {
@@ -524,7 +525,9 @@ mod tests {
         let mut app = App::new();
         app.insert_resource(Time::<()>::default())
             .init_resource::<TacticalCombatConfig>()
-            .insert_resource(CombatRandom::seeded(1))
+            .insert_resource(CombatRandom::seeded(
+                fabelgeist_determinism::Seed::from_u64(1),
+            ))
             .init_resource::<RecordedAttacks>()
             .init_resource::<RecordedRangedAttacks>()
             .add_observer(record_attack)
@@ -620,7 +623,9 @@ mod tests {
     fn untargeted_windup_only_reacts_on_the_nearest_enemy() {
         let mut app = App::new();
         app.init_resource::<TacticalCombatConfig>()
-            .insert_resource(CombatRandom::seeded(1));
+            .insert_resource(CombatRandom::seeded(
+                fabelgeist_determinism::Seed::from_u64(1),
+            ));
         app.add_observer(on_attack_started);
         let attacker = app
             .world_mut()
@@ -680,7 +685,9 @@ mod tests {
         let mut app = App::new();
         app.insert_resource(Time::<()>::default())
             .init_resource::<TacticalCombatConfig>()
-            .insert_resource(CombatRandom::seeded(1))
+            .insert_resource(CombatRandom::seeded(
+                fabelgeist_determinism::Seed::from_u64(1),
+            ))
             .add_observer(on_attack_started)
             .add_observer(crate::combat::apply_defend_intent)
             .add_systems(Update, tick_bot_reactions);
@@ -1111,7 +1118,9 @@ mod tests {
         let mut app = App::new();
         app.insert_resource(Time::<()>::default())
             .init_resource::<TacticalCombatConfig>()
-            .insert_resource(CombatRandom::seeded(1))
+            .insert_resource(CombatRandom::seeded(
+                fabelgeist_determinism::Seed::from_u64(1),
+            ))
             .init_resource::<RecordedAttacks>()
             .add_observer(record_attack)
             .add_observer(apply_deterministic_test_hit)

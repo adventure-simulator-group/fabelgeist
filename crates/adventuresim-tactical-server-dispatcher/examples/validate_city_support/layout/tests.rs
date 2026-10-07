@@ -63,7 +63,7 @@ fn reproduction_accepts_bound_nonzero_floors_but_rejects_stale_projection() {
 fn reproduction_rejects_changed_programme_identity_transform_and_membership() {
     let (input, layout) = fixture();
     let mut programme = layout.clone();
-    programme.playable[0].program.seed += 1;
+    programme.playable[0].program.seed = programme.playable[0].program.seed.wrapping_offset(1);
     let mut identity = layout.clone();
     identity.playable[0].id.0 += 1;
     let mut horizontal = layout.clone();

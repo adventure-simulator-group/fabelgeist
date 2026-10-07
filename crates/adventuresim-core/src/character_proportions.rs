@@ -104,8 +104,8 @@ impl CharacterProportions {
     }
 
     /// Stable cosmetic variation; does not alter tactical physics or reach.
-    pub fn from_character_id(id: u64) -> Self {
-        let mut random = SKELETAL_SEED_DOMAIN.rng(id.into(), &[]);
+    pub fn from_seed(seed: fabelgeist_determinism::Seed) -> Self {
+        let mut random = SKELETAL_SEED_DOMAIN.rng(seed, &[]);
         Self(std::array::from_fn(|index| {
             let unit = fabelgeist_determinism::inclusive_unit_f32(random.next_u64());
             (unit * 2.0 - 1.0) * BodyProportion::ALL[index].limit() * GENERATED_RANGE_FRACTION
@@ -166,9 +166,15 @@ mod tests {
 
     #[test]
     fn skeletal_proportions_are_stable_bounded_and_validate_serialization() {
-        let first = CharacterProportions::from_character_id(42);
-        assert_eq!(first, CharacterProportions::from_character_id(42));
-        assert_ne!(first, CharacterProportions::from_character_id(43));
+        let first = CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(42));
+        assert_eq!(
+            first,
+            CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(42))
+        );
+        assert_ne!(
+            first,
+            CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(43))
+        );
         assert_eq!(
             first,
             serde_json::from_str(&serde_json::to_string(&first).unwrap()).unwrap()

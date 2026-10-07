@@ -25,8 +25,9 @@ impl BoundaryBatches {
         elevation: f32,
         material: Handle<StandardMaterial>,
     ) {
+        let vertices = member.native_positions();
         let centre =
-            member.native_positions().iter().copied().sum::<Vec3>() / 6.0 + Vec3::Y * elevation;
+            vertices.iter().copied().sum::<Vec3>() / vertices.len() as f32 + Vec3::Y * elevation;
         let cell = (centre.xz() / BOUNDARY_BATCH_METRES).floor().as_ivec2();
         let origin = Vec3::new(cell.x as f32, 0.0, cell.y as f32) * BOUNDARY_BATCH_METRES;
         let mesh = mesh(member, origin - Vec3::Y * elevation);

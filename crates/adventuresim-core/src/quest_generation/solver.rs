@@ -592,7 +592,7 @@ fn deterministic_witness_order(context: &GenerationContext) -> Vec<usize> {
     let mut indices = (0..context.witness_candidates.len()).collect::<Vec<_>>();
     indices.sort_by_key(|index| context.witness_candidates[*index].resident_character_id);
     fabelgeist_determinism::StreamId::new("quest.witness-order")
-        .rng(context.seed.into(), &[]).shuffle(&mut indices);
+        .rng(context.seed, &[]).shuffle(&mut indices);
     indices
 }
 

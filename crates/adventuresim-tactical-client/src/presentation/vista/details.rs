@@ -1,5 +1,6 @@
 //! Distant rock and tree presentation from the admitted source terrain.
 use super::*;
+use fabelgeist_determinism::Seed;
 
 #[expect(
     clippy::too_many_arguments,
@@ -11,7 +12,7 @@ pub(super) fn spawn_vista_rocks(
     coarser_lod: Option<&VistaLod>,
     playable_half_extent: Vec2,
     playable_terrain: &SceneTerrain,
-    scene_seed: u64,
+    scene_seed: Seed,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
 ) {
@@ -49,11 +50,7 @@ pub(super) fn spawn_vista_rocks(
                 * (1.0 - bps(sample.water_bps))
                 * (1.0 - bps(sample.wetland_bps) * 0.75)
                 * (1.0 - bps(sample.canopy_bps) * 0.42);
-            if streams::ROCK_PRESENCE
-                .rng(hash.into(), &[])
-                .inclusive_unit_f32()
-                > exposed * 0.46
-            {
+            if streams::ROCK_PRESENCE.rng(hash, &[]).inclusive_unit_f32() > exposed * 0.46 {
                 continue;
             }
             let lift = 0.08;
@@ -68,11 +65,7 @@ pub(super) fn spawn_vista_rocks(
             ) else {
                 continue;
             };
-            let scale = 0.55
-                + streams::ROCK_SCALE
-                    .rng(hash.into(), &[])
-                    .inclusive_unit_f32()
-                    * 1.35;
+            let scale = 0.55 + streams::ROCK_SCALE.rng(hash, &[]).inclusive_unit_f32() * 1.35;
             transform.scale = Vec3::new(scale, scale * 0.72, scale * 0.9);
             spawn_rock_bands(
                 commands, lod.level, &near_mesh, &far_mesh, &material, transform,
@@ -225,9 +218,7 @@ pub(super) fn spawn_vista_trees(
                 // stand at regional distance, not a survey-accurate stem.
                 let scale = vista_tree_scale(
                     lod.spacing_metres,
-                    streams::TREE_SCALE
-                        .rng(hash.into(), &[])
-                        .inclusive_unit_f32(),
+                    streams::TREE_SCALE.rng(hash, &[]).inclusive_unit_f32(),
                 );
                 let card_height = cached
                     .provenance
@@ -289,12 +280,12 @@ pub(super) fn vista_tree_visibility(
     }
 }
 
-pub(super) fn vista_tree_candidate_count(canopy: f32, spacing_metres: f32, seed: u64) -> usize {
+pub(super) fn vista_tree_candidate_count(canopy: f32, spacing_metres: f32, seed: Seed) -> usize {
     let expected = canopy.clamp(0.0, 1.0) * spacing_metres * spacing_metres / 3_200.0;
     expected.floor() as usize
         + usize::from(
             streams::TREE_COUNT_FRACTION
-                .rng(seed.into(), &[])
+                .rng(seed, &[])
                 .inclusive_unit_f32()
                 < expected.fract(),
         )

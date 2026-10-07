@@ -3,6 +3,8 @@
 //! The module reducer enforces both gateway identity and the compiled
 //! development capability. Browser-local developer mode only controls display.
 
+const DEVELOPER_SEED: fabelgeist_determinism::Seed =
+    fabelgeist_determinism::Seed::from_u64(0x0ddc_0ffe);
 const OBSERVER_HIGH: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("quest.developer-observer-high");
 const OBSERVER_LOW: fabelgeist_determinism::StreamId =
@@ -32,6 +34,7 @@ use axum::{
     response::{Html, IntoResponse, Redirect, Response},
     routing::{get, post},
 };
+use fabelgeist_determinism::Seed;
 use serde::Deserialize;
 use serde_json::{Value, json};
 
@@ -131,7 +134,7 @@ async fn trigger_incident(
 async fn active_context(
     state: &AppState,
     session: &Session,
-    seed: u64,
+    seed: Seed,
 ) -> Result<(u64, SettlementView, GenerationContext), StatusCode> {
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let character = state
@@ -215,8 +218,8 @@ async fn active_context(
     candidates.sort_by_key(|left| left.resident_character_id);
     let context = GenerationContext {
         seed,
-        observer_entropy_hi: OBSERVER_HIGH.rng(seed.into(), &[]).next_u64(),
-        observer_entropy_lo: OBSERVER_LOW.rng(seed.into(), &[]).next_u64(),
+        observer_entropy_hi: OBSERVER_HIGH.rng(seed, &[]).next_u64(),
+        observer_entropy_lo: OBSERVER_LOW.rng(seed, &[]).next_u64(),
         settlement_id: settlement_id.clone(),
         settlement_name: settlement.name.clone(),
         scope: adventuresim_core::local_problem::Scope::Settlement { settlement_id },
@@ -244,10 +247,12 @@ async fn schema(
     if !development_enabled(&state).await {
         return Err(StatusCode::NOT_FOUND);
     }
-    let seed = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
-        .as_nanos() as u64;
+    let seed = Seed::from_u64(
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
+            .as_nanos() as u64,
+    );
     let (_, settlement, context) = active_context(&state, &session, seed).await?;
     let generated = adventuresim_core::quest_generation::generate(&context)
         .map_err(|_| StatusCode::UNPROCESSABLE_ENTITY)?;
@@ -267,7 +272,7 @@ async fn spawn(
     if !development_enabled(&state).await {
         return StatusCode::NOT_FOUND.into_response();
     }
-    let (character_id, _, context) = match active_context(&state, &session, 0x0ddc_0ffe).await {
+    let (character_id, _, context) = match active_context(&state, &session, DEVELOPER_SEED).await {
         Ok(context) => context,
         Err(status) => {
             let (code, message) = match status {

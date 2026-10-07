@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::child_name_seed_type::ChildNameSeed;
+use super::household_placement_seed_type::HouseholdPlacementSeed;
 use super::pregnancy_status_type::PregnancyStatus;
 use super::sex_type::Sex;
 use super::strategic_minute_type::StrategicMinute;
@@ -18,9 +20,9 @@ pub struct Pregnancy {
     pub conceived_minute: StrategicMinute,
     pub due_minute: StrategicMinute,
     pub reserved_child_id: u64,
-    pub child_name_seed: u64,
+    pub child_name_seed: ChildNameSeed,
     pub child_sex: Sex,
-    pub child_home_seed: u64,
+    pub child_home_seed: HouseholdPlacementSeed,
     pub birth_settlement_id: String,
     pub birth_residence_holding_id: Option<String>,
     pub status: PregnancyStatus,
@@ -43,9 +45,9 @@ pub struct PregnancyCols {
     pub conceived_minute: __sdk::__query_builder::Col<Pregnancy, StrategicMinute>,
     pub due_minute: __sdk::__query_builder::Col<Pregnancy, StrategicMinute>,
     pub reserved_child_id: __sdk::__query_builder::Col<Pregnancy, u64>,
-    pub child_name_seed: __sdk::__query_builder::Col<Pregnancy, u64>,
+    pub child_name_seed: __sdk::__query_builder::Col<Pregnancy, ChildNameSeed>,
     pub child_sex: __sdk::__query_builder::Col<Pregnancy, Sex>,
-    pub child_home_seed: __sdk::__query_builder::Col<Pregnancy, u64>,
+    pub child_home_seed: __sdk::__query_builder::Col<Pregnancy, HouseholdPlacementSeed>,
     pub birth_settlement_id: __sdk::__query_builder::Col<Pregnancy, String>,
     pub birth_residence_holding_id: __sdk::__query_builder::Col<Pregnancy, Option<String>>,
     pub status: __sdk::__query_builder::Col<Pregnancy, PregnancyStatus>,

@@ -8,7 +8,7 @@ pub(super) fn fixture() -> Fixture {
         ..super::fixture(
             "gable-review",
             "city",
-            47_125,
+            fabelgeist_determinism::Seed::from_u64(47_125),
             flat,
             |_, _| sample(TacticalSurface::Open, 0, 0, 0, 0),
             clear(),
@@ -28,6 +28,7 @@ pub(super) fn buildings() -> Result<
     .enumerate()
     .flat_map(|(row, archetype)| {
         [42, 47, 101]
+            .map(fabelgeist_determinism::Seed::from_u64)
             .into_iter()
             .enumerate()
             .map(move |(column, seed)| {

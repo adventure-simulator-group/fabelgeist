@@ -3,14 +3,16 @@ use super::*;
 #[test]
 fn principal_parish_retains_street_access_and_exact_recipe_across_city_partitions() {
     use adventuresim_building_generator::ServiceBuildingSize;
-    for (seed, population) in [(42, 900), (47_114, 30_000)] {
+    for (seed, population) in [(42, 900), (47_114, 30_000)]
+        .map(|(seed, population)| (fabelgeist_determinism::Seed::from_u64(seed), population))
+    {
         let city = CitySite::central_german_market_town().generate(
-            (seed).into(),
+            seed,
             population,
             &super::super::tests::economy(),
         );
         let lots = city.lots.clone();
-        let compiled = city.compile((seed).into()).unwrap();
+        let compiled = city.compile(seed).unwrap();
         let principals = compiled
             .buildings
             .iter()

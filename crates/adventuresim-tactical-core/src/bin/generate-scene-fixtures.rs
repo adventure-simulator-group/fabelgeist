@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use std::{fs, path::PathBuf};
 
 use adventuresim_building_generator::signs::ShopName;
@@ -35,7 +36,7 @@ const MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES: f32 = 50.0;
 struct Fixture {
     name: &'static str,
     scene_key: &'static str,
-    seed: u64,
+    seed: Seed,
     terrain: fn(f32, f32) -> f32,
     environment: fn(f32, f32) -> EnvironmentalSample,
     weather: WeatherSnapshot,
@@ -141,7 +142,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
             ..fixture(
                 "flat-dry-grassland",
                 "grassland",
-                47_101,
+                fabelgeist_determinism::Seed::from_u64(47_101),
                 flat,
                 dry_open,
                 clear(),
@@ -149,12 +150,19 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         },
         Fixture {
             buildings: BuildingFixture::MassiveCity,
-            ..fixture("massive-city", "city", 47_114, flat, dry_open, clear())
+            ..fixture(
+                "massive-city",
+                "city",
+                fabelgeist_determinism::Seed::from_u64(47_114),
+                flat,
+                dry_open,
+                clear(),
+            )
         },
         fixture(
             "steep-open-hillside",
             "hillside",
-            47_102,
+            fabelgeist_determinism::Seed::from_u64(47_102),
             hillside,
             rocky_open,
             clear(),
@@ -168,7 +176,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         fixture(
             "dense-woodland",
             "woodland",
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             rolling,
             dense_woods,
             clear(),
@@ -176,7 +184,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         fixture(
             "sparse-woodland",
             "woodland",
-            47_105,
+            fabelgeist_determinism::Seed::from_u64(47_105),
             rolling,
             sparse_woods,
             clear(),
@@ -184,7 +192,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         fixture(
             "saturated-wetland",
             "wetland",
-            47_105,
+            fabelgeist_determinism::Seed::from_u64(47_105),
             wetland,
             saturated,
             rain(7_500, 4_000),
@@ -192,7 +200,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         fixture(
             "cultivated-roadside",
             "roadside",
-            47_106,
+            fabelgeist_determinism::Seed::from_u64(47_106),
             roadside,
             cultivated_road,
             clear(),
@@ -200,7 +208,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         fixture(
             "snow-covered-ground",
             "snowfield",
-            47_107,
+            fabelgeist_determinism::Seed::from_u64(47_107),
             snowfield,
             snow_open,
             snow(6_500, 2_500),
@@ -208,7 +216,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         fixture(
             "light-rain-low-wind",
             "rain",
-            47_112,
+            fabelgeist_determinism::Seed::from_u64(47_112),
             rolling,
             wet_open,
             rain(2_500, 2_000),
@@ -216,7 +224,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         fixture(
             "heavy-rain-high-wind",
             "storm",
-            47_108,
+            fabelgeist_determinism::Seed::from_u64(47_108),
             rolling,
             wet_open,
             rain(9_500, 9_000),
@@ -224,7 +232,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         fixture(
             "severe-downpour",
             "severe-storm",
-            47_113,
+            fabelgeist_determinism::Seed::from_u64(47_113),
             rolling,
             wet_open,
             rain(10_000, 10_000),
@@ -234,7 +242,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
             ..fixture(
                 "valley-distant-ridge",
                 "valley",
-                47_109,
+                fabelgeist_determinism::Seed::from_u64(47_109),
                 valley,
                 dry_open,
                 clear(),
@@ -245,7 +253,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
             ..fixture(
                 "narrow-peak-lod-boundary",
                 "mountain",
-                47_110,
+                fabelgeist_determinism::Seed::from_u64(47_110),
                 rolling,
                 dry_open,
                 clear(),
@@ -254,7 +262,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
         fixture(
             "playability-repair-required",
             "floodplain",
-            47_111,
+            fabelgeist_determinism::Seed::from_u64(47_111),
             blocked,
             water_dominated,
             rain(8_000, 3_000),
@@ -265,7 +273,7 @@ fn fixtures() -> Result<[Fixture; 29], Box<dyn std::error::Error>> {
 const fn fixture(
     name: &'static str,
     scene_key: &'static str,
-    seed: u64,
+    seed: Seed,
     terrain: fn(f32, f32) -> f32,
     environment: fn(f32, f32) -> EnvironmentalSample,
     weather: WeatherSnapshot,
@@ -324,7 +332,7 @@ fn build_fixture(fixture: Fixture) -> Result<TacticalSceneInput, Box<dyn std::er
         properties: None,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-        seed: fixture.seed.into(),
+        seed: fixture.seed,
         scene_key: fixture.scene_key.into(),
         source: SceneSource::SyntheticFixture(fixture.name.into()),
         latitude_microdegrees: const {
@@ -405,7 +413,7 @@ fn fixture_buildings(
             playable: vec![building(
                 1,
                 BuildingArchetype::FachwerkCottage,
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 Vec2::new(12.0, 4.0),
                 BuildingOrientation::from_radians(core::f32::consts::FRAC_PI_2).unwrap(),
             )?],
@@ -438,7 +446,7 @@ fn fixture_buildings(
 fn building(
     id: u64,
     archetype: BuildingArchetype,
-    seed: u64,
+    seed: Seed,
     centre_metres: Vec2,
     orientation: BuildingOrientation,
 ) -> Result<

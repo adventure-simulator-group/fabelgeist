@@ -54,7 +54,7 @@ fn fixture() -> (
             program: BuildingProgram::validated_settlement(
                 settlement_archetype(usage),
                 usage,
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 Some(ServiceBuildingSize::Small),
             )
             .unwrap(),
@@ -143,7 +143,7 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
         "/../../assets/tactical-scenes/furniture-review.json"
     )))
     .unwrap();
-    input.seed = fabelgeist_determinism::Seed::from_u64(input.seed.to_u64() + 1);
+    input.seed = input.seed.wrapping_offset(1);
     input.weather.ground_moisture_bps = 8500;
     let width = usize::from(input.playable.width);
     for (index, height) in input.playable.heights_metres.iter_mut().enumerate() {

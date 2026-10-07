@@ -1,7 +1,7 @@
 //! Historically sourced personal-name identities, generation, and rendering.
 
 use crate::{Culture, OfficialReligion, Sex, calendar::CalendarYear};
-use fabelgeist_determinism::StreamId;
+use fabelgeist_determinism::{Seed, StreamId};
 use serde::{Deserialize, Serialize};
 use std::sync::OnceLock;
 
@@ -51,30 +51,38 @@ name_id!(SurnameId);
 
 /// Stable selector used when choosing a culture/register-specific name form.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
-#[serde(transparent)]
-pub struct NameFormSelectionSeed(u64);
+#[serde(deny_unknown_fields)]
+pub struct NameFormSelectionSeed {
+    seed: Seed,
+}
 
 impl NameFormSelectionSeed {
-    pub const fn new(value: u64) -> Self {
-        Self(value)
+    pub const fn new(seed: Seed) -> Self {
+        Self { seed }
     }
 
-    pub const fn get(self) -> u64 {
-        self.0
+    pub const fn get(self) -> Seed {
+        self.seed
     }
 }
 
 /// Stable deterministic input to name-family and form selection.
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
-pub struct NameStableSeed(u64);
+pub struct NameStableSeed(fabelgeist_determinism::Seed);
 
 impl NameStableSeed {
     pub const fn new(value: u64) -> Self {
-        Self(value)
+        Self(fabelgeist_determinism::Seed::from_u64(value))
     }
 
-    pub const fn get(self) -> u64 {
+    pub const fn get(self) -> fabelgeist_determinism::Seed {
         self.0
+    }
+}
+
+impl From<fabelgeist_determinism::Seed> for NameStableSeed {
+    fn from(value: fabelgeist_determinism::Seed) -> Self {
+        Self(value)
     }
 }
 
@@ -185,7 +193,7 @@ impl PersonalNameIdentity {
                 full_name: full_name.into(),
             },
             native_culture,
-            form_selector: NameFormSelectionSeed::new(0),
+            form_selector: NameFormSelectionSeed::new(fabelgeist_determinism::Seed::from_u64(0)),
             surname_id: None,
         }
     }
@@ -283,7 +291,7 @@ fn generate_personal_name_from_catalog(
         .get(&context.sex)
         .ok_or(NameCatalogError::EmptyEligibleNames)?;
     let family_index = FAMILY_STREAM
-        .rng(stable_seed.get().into(), &[])
+        .rng(stable_seed.get(), &[])
         .weighted_index(
             &family_weights
                 .iter()
@@ -300,13 +308,10 @@ fn generate_personal_name_from_catalog(
     if eligible_forms.is_empty() {
         return Err(NameCatalogError::EmptyEligibleNames);
     }
-    let form_selector = NameFormSelectionSeed::new(
-        FORM_SELECTOR_STREAM
-            .rng(stable_seed.get().into(), &[])
-            .next_u64(),
-    );
+    let form_selector =
+        NameFormSelectionSeed::new(FORM_SELECTOR_STREAM.rng(stable_seed.get(), &[]).next_seed());
     let form_index = FORM_STREAM
-        .rng(form_selector.get().into(), &[])
+        .rng(form_selector.get(), &[])
         .weighted_index(
             &eligible_forms
                 .iter()
@@ -318,7 +323,7 @@ fn generate_personal_name_from_catalog(
         Some(id) => Some(id),
         None => {
             let index = SURNAME_STREAM
-                .rng(stable_seed.get().into(), &[])
+                .rng(stable_seed.get(), &[])
                 .weighted_index(
                     &repertoire
                         .surnames
@@ -443,11 +448,11 @@ fn render_family_form(
     if forms.is_empty() {
         return Err(NameCatalogError::EmptyEligibleNames);
     }
-    Ok(forms[FORM_STREAM
-        .rng(selector.get().into(), &[])
-        .index(forms.len())]
-    .text
-    .clone())
+    Ok(
+        forms[FORM_STREAM.rng(selector.get(), &[]).index(forms.len())]
+            .text
+            .clone(),
+    )
 }
 
 fn render_surname(
@@ -479,7 +484,7 @@ fn render_surname(
         return Err(NameCatalogError::EmptyEligibleNames);
     }
     Ok(forms[SURNAME_FORM_STREAM
-        .rng(selector.get().into(), &[])
+        .rng(selector.get(), &[])
         .index(forms.len())]
     .text
     .clone())
@@ -593,7 +598,7 @@ mod tests {
                 recorded_form: henne.text.clone(),
             },
             native_culture: Culture::German,
-            form_selector: NameFormSelectionSeed::new(7),
+            form_selector: NameFormSelectionSeed::new(fabelgeist_determinism::Seed::from_u64(7)),
             surname_id: None,
         };
         assert_eq!(
@@ -677,7 +682,7 @@ mod tests {
                 native_form_id: NameFormId::new("johannes_hans_de"),
             },
             native_culture: Culture::German,
-            form_selector: NameFormSelectionSeed::new(31),
+            form_selector: NameFormSelectionSeed::new(fabelgeist_determinism::Seed::from_u64(31)),
             surname_id: Some(SurnameId::new("becker")),
         };
         let everyday = render_personal_name(
@@ -789,7 +794,7 @@ mod tests {
                 "heinrich",
                 Culture::German,
                 NameRegister::Everyday,
-                NameFormSelectionSeed::new(11),
+                NameFormSelectionSeed::new(fabelgeist_determinism::Seed::from_u64(11)),
             )
             .unwrap(),
             "Heinrich"
@@ -800,7 +805,7 @@ mod tests {
                 "heinrich",
                 Culture::German,
                 NameRegister::Documentary,
-                NameFormSelectionSeed::new(11),
+                NameFormSelectionSeed::new(fabelgeist_determinism::Seed::from_u64(11)),
             )
             .unwrap(),
             "Heinricus"
@@ -815,7 +820,7 @@ mod tests {
                 native_form_id: NameFormId::new("anna_de"),
             },
             native_culture: Culture::German,
-            form_selector: NameFormSelectionSeed::new(17),
+            form_selector: NameFormSelectionSeed::new(fabelgeist_determinism::Seed::from_u64(17)),
             surname_id: Some(SurnameId::new("pfeiffer")),
         };
         assert!(

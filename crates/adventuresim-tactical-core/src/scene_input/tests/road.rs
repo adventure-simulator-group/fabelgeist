@@ -17,13 +17,11 @@ fn goslar_road_rut_preserves_the_cross_runtime_source_vertex() {
         &[],
     )
     .unwrap();
-    let seed = streams::DETAIL
-        .seed(3_918_113_949_425_128_608.into(), &[])
-        .to_u64();
+    let seed = streams::DETAIL.seed(3_918_113_949_425_128_608.into(), &[]);
     let relief = road_surface_relief(
         Vec2::new(-43.5, -39.5),
         &ground,
-        &crate::scene_input::detail_noise::DetailNoise::new(seed.into()),
+        &crate::scene_input::detail_noise::DetailNoise::new(seed),
     );
     assert_eq!((7.0 + relief).to_bits(), 7.023_172_4_f32.to_bits());
 }

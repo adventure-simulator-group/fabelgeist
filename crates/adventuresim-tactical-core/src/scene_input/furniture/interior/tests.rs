@@ -14,7 +14,7 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
         program: BuildingProgram::validated_settlement(
             settlement_archetype(usage),
             usage,
-            47_101,
+            fabelgeist_determinism::Seed::from_u64(47_101),
             None,
         )
         .unwrap(),

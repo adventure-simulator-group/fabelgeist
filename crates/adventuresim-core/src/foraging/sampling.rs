@@ -8,7 +8,7 @@ pub(super) enum ForageDraw {
 }
 
 impl ForageDraw {
-    pub(super) fn below(self, seed: u64, source: &str, item: &str, upper: u64) -> u64 {
+    pub(super) fn below(self, seed: Seed, source: &str, item: &str, upper: u64) -> u64 {
         let purpose = StreamId::new(match self {
             Self::FractionalYield => "foraging.fractional-yield",
             Self::BaseYield => "foraging.base-yield",

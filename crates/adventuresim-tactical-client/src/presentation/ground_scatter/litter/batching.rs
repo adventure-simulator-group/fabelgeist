@@ -94,9 +94,9 @@ mod tests {
     fn prototypes_survive_between_scenes_while_batches_upload_only() {
         let mut meshes = bevy::prelude::Assets::<Mesh>::default();
         for prototype in [
-            dry_leaf_patch_mesh(0),
-            twig_patch_mesh(0),
-            woodland_plant_patch_mesh(0),
+            dry_leaf_patch_mesh(0).unwrap(),
+            twig_patch_mesh(0).unwrap(),
+            woodland_plant_patch_mesh(0).unwrap(),
         ] {
             assert_eq!(prototype.asset_usage, RenderAssetUsages::MAIN_WORLD);
             let source = meshes.add(prototype);

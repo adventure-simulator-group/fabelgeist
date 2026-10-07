@@ -3,26 +3,27 @@ use super::*;
 use crate::{city_layout::CitySite, scene_input::tests::fixture};
 use adventuresim_world_schema::SettlementEconomyProfile;
 use bevy::math::{Vec2, Vec3};
+use fabelgeist_determinism::Seed;
 
 mod matrix;
 
 fn city_input() -> (TacticalSceneInput, CitySceneLayout) {
-    city_input_for(42, 900)
+    city_input_for(fabelgeist_determinism::Seed::from_u64(42), 900)
 }
 
-fn city_input_for(seed: u64, population: u32) -> (TacticalSceneInput, CitySceneLayout) {
+fn city_input_for(seed: Seed, population: u32) -> (TacticalSceneInput, CitySceneLayout) {
     let layout = CitySite::central_german_market_town()
         .generate(
-            (seed).into(),
+            seed,
             population,
             &SettlementEconomyProfile::stage_placeholder(),
         )
-        .compile((seed).into())
+        .compile(seed)
         .unwrap()
         .partition(Some(50.0))
         .unwrap();
     let mut input = fixture();
-    input.seed = seed.into();
+    input.seed = seed;
     input.playable = TerrainSampleGrid {
         width: 101,
         depth: 101,

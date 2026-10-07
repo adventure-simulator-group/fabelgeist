@@ -2,13 +2,14 @@ use super::*;
 use adventuresim_world_schema::{
     IgneousRock, SedimentaryRock, SurfaceLithology, UnconsolidatedDeposit,
 };
+use fabelgeist_determinism::Seed;
 
 pub(super) fn sandstone() -> Result<Fixture, Box<dyn std::error::Error>> {
     fixture(
         "sandstone-alcove",
         TerrainLandformKind::SandstoneAlcove,
         SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
-        47_115,
+        fabelgeist_determinism::Seed::from_u64(47_115),
     )
 }
 
@@ -17,7 +18,7 @@ pub(super) fn carbonate() -> Result<Fixture, Box<dyn std::error::Error>> {
         "carbonate-dissolution",
         TerrainLandformKind::CarbonateDissolution,
         SurfaceLithology::Sedimentary(SedimentaryRock::Limestone),
-        47_116,
+        fabelgeist_determinism::Seed::from_u64(47_116),
     )
 }
 
@@ -26,7 +27,7 @@ pub(super) fn granite() -> Result<Fixture, Box<dyn std::error::Error>> {
         "granite-joint-rockfall",
         TerrainLandformKind::GraniteJointRockfall,
         SurfaceLithology::Igneous(IgneousRock::Granite),
-        47_117,
+        fabelgeist_determinism::Seed::from_u64(47_117),
     )
 }
 
@@ -35,7 +36,7 @@ pub(super) fn basalt() -> Result<Fixture, Box<dyn std::error::Error>> {
         "basalt-cooling-columns",
         TerrainLandformKind::BasaltCoolingColumns,
         SurfaceLithology::Igneous(IgneousRock::Basalt),
-        47_118,
+        fabelgeist_determinism::Seed::from_u64(47_118),
     )
 }
 
@@ -44,7 +45,7 @@ pub(super) fn slump() -> Result<Fixture, Box<dyn std::error::Error>> {
         "cohesive-slump-headscarp",
         TerrainLandformKind::CohesiveSlumpHeadscarp,
         SurfaceLithology::Unconsolidated(UnconsolidatedDeposit::Clay),
-        47_119,
+        fabelgeist_determinism::Seed::from_u64(47_119),
     )
 }
 
@@ -52,7 +53,7 @@ fn fixture(
     name: &'static str,
     kind: TerrainLandformKind,
     lithology: SurfaceLithology,
-    seed: u64,
+    seed: Seed,
 ) -> Result<Fixture, Box<dyn std::error::Error>> {
     Ok(Fixture {
         name,
@@ -70,10 +71,10 @@ fn fixture(
                 surface: TerrainSurfaceRecipe::new(
                     lithology,
                     TerrainSurfaceSource::AuthoredFixture,
-                    seed.into(),
+                    seed,
                     [10_000, 0],
                 )?,
-                seed: seed.into(),
+                seed,
                 origin_cm: [0, 0],
                 tangent_permyriad: [10_000, 0],
                 relief_cm: 600,

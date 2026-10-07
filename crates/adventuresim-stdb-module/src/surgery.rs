@@ -11,6 +11,8 @@ mod authority_tests;
 #[path = "surgery/projectile_authority_tests.rs"]
 mod projectile_authority_tests;
 
+mod entropy;
+
 use adventuresim_core::physiology::BodyRegion;
 use adventuresim_core::prelude::*;
 pub use adventuresim_core::projectile::ProjectileKind;
@@ -309,20 +311,17 @@ pub(crate) fn commit_aggregated_hit_injury(
     }
     store_injury(ctx, injury);
     if let Some(kind) = projectile.filter(|_| cut_damage + blunt_damage > 0.0) {
-        let random_depth = fabelgeist_determinism::StreamId::new("surgery.projectile-depth")
-            .rng(ctx.random::<u64>().into(), &[character_id])
-            .index(151) as f32
-            / 100.0;
+        let random_depth = entropy::ProjectileDepthContribution::sample(
+            ctx,
+            crate::character::CharacterId::new(character_id),
+        );
         let total_damage = cut_damage.max(0.0) + blunt_damage.max(0.0);
         ctx.db.retained_projectile().insert(RetainedProjectile {
             id: 0,
             character_id,
             limb,
             kind,
-            extraction_dc: adventuresim_core::surgery::projectile_extraction_dc(
-                total_damage,
-                random_depth,
-            ),
+            extraction_dc: projectile_extraction_dc(total_damage, random_depth.points()),
             source_damage: total_damage,
         });
     }

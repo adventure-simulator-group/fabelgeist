@@ -8,7 +8,7 @@ pub(super) fn fixture() -> Fixture {
         ..super::fixture(
             "heating-review",
             "city",
-            47_126,
+            fabelgeist_determinism::Seed::from_u64(47_126),
             flat,
             |_, _| sample(TacticalSurface::Open, 0, 0, 0, 0),
             clear(),
@@ -21,15 +21,42 @@ pub(super) fn buildings() -> Result<
     adventuresim_building_generator::spatial_geometry::GeometryError,
 > {
     let mut buildings = [
-        (BuildingArchetype::FachwerkCottage, 42),
-        (BuildingArchetype::FachwerkCottage, 47),
-        (BuildingArchetype::FachwerkCottage, 101),
-        (BuildingArchetype::HallHouse, 42),
-        (BuildingArchetype::HallHouse, 47),
-        (BuildingArchetype::HallHouse, 101),
-        (BuildingArchetype::HallHouse, u64::MAX),
-        (BuildingArchetype::TownHouse, 11),
-        (BuildingArchetype::FachwerkMerchantHouse, 0),
+        (
+            BuildingArchetype::FachwerkCottage,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ),
+        (
+            BuildingArchetype::FachwerkCottage,
+            fabelgeist_determinism::Seed::from_u64(47),
+        ),
+        (
+            BuildingArchetype::FachwerkCottage,
+            fabelgeist_determinism::Seed::from_u64(101),
+        ),
+        (
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ),
+        (
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(47),
+        ),
+        (
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(101),
+        ),
+        (
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(u64::MAX),
+        ),
+        (
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(11),
+        ),
+        (
+            BuildingArchetype::FachwerkMerchantHouse,
+            fabelgeist_determinism::Seed::from_u64(0),
+        ),
     ]
     .into_iter()
     .enumerate()
@@ -78,7 +105,10 @@ mod tests {
             adventuresim_tactical_core::scene_input::SceneBuildingId(8)
         );
         assert_eq!(programmes[7].1.archetype, BuildingArchetype::TownHouse);
-        assert_eq!(programmes[7].1.seed, 11);
+        assert_eq!(
+            programmes[7].1.seed,
+            fabelgeist_determinism::Seed::from_u64(11)
+        );
         assert_eq!(
             programmes[8].0,
             adventuresim_tactical_core::scene_input::SceneBuildingId(9)
@@ -87,7 +117,10 @@ mod tests {
             programmes[8].1.archetype,
             BuildingArchetype::FachwerkMerchantHouse
         );
-        assert_eq!(programmes[8].1.seed, 0);
+        assert_eq!(
+            programmes[8].1.seed,
+            fabelgeist_determinism::Seed::from_u64(0)
+        );
         let generated = input.generate().unwrap();
         for building in &generated.buildings {
             assert_eq!(

@@ -1,5 +1,6 @@
 use super::terrain::terrain_heightmap_image;
 use super::*;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 const WEATHER_SHADER: &str = "shaders/tactical_weather.wgsl";
@@ -186,14 +187,12 @@ fn weather_material(
         _ => 0.0,
     };
     let bearing = f32::from(environment.weather.atmosphere.wind_direction_degrees).to_radians();
-    let seed = StreamId::new("visual.weather.interval")
-        .seed(
-            stable_text_seed(&environment.scene_digest).into(),
-            &[environment.weather.interval_start_minute.get()],
-        )
-        .to_u64();
+    let seed = StreamId::new("visual.weather.interval").seed(
+        stable_text_seed(&environment.scene_digest),
+        &[environment.weather.interval_start_minute.get()],
+    );
     let seed = StreamId::new("visual.weather.shader-seed")
-        .rng(seed.into(), &[])
+        .rng(seed, &[])
         .index(65_521) as f32;
     let radius = match layer {
         WeatherParticle::Impact => 18.0,

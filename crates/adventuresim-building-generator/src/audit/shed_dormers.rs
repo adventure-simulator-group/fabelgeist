@@ -185,7 +185,7 @@ mod tests {
     fn shed_audit_rejects_open_cheeks_raised_coverings_and_displaced_head_weathering() {
         let source = crate::generate(&crate::BuildingProgram::fixture(
             BuildingArchetype::HallHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let parent = &source.roof_assemblies[0];

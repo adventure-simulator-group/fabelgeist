@@ -3,7 +3,7 @@ use adventuresim_tactical_core::prelude::*;
 use adventuresim_world_schema::*;
 
 const RESIDENT_POPULATION: u32 = 30_000;
-const CITY_SEED: u64 = 47_114;
+const CITY_SEED: fabelgeist_determinism::Seed = fabelgeist_determinism::Seed::from_u64(47_114);
 
 fn curate(mut input: TacticalSceneInput) -> Result<TacticalSceneInput, String> {
     let economy = infer_settlement_economy(
@@ -17,13 +17,10 @@ fn curate(mut input: TacticalSceneInput) -> Result<TacticalSceneInput, String> {
         .ok_or("city industry must be valid")?,
     )
     .map_err(|error| format!("city economy: {error:?}"))?;
-    let city = CitySite::central_german_market_town().generate(
-        (CITY_SEED).into(),
-        RESIDENT_POPULATION,
-        &economy,
-    );
+    let city =
+        CitySite::central_german_market_town().generate(CITY_SEED, RESIDENT_POPULATION, &economy);
     let layout = city
-        .compile((CITY_SEED).into())
+        .compile(CITY_SEED)
         .and_then(|city| city.partition(None))
         .map_err(|error| error.to_string())?;
     input.establishments = layout

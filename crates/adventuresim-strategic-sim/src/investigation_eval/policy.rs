@@ -301,7 +301,7 @@ mod tests {
     fn prompt_has_no_raw_closing_delimiter() {
         let frame = crate::investigation_eval::InvestigationEnvironment::generate(
             crate::investigation_eval::EvalCaseConfig::fixture(
-                3,
+                fabelgeist_determinism::Seed::from_u64(3),
                 adventuresim_core::quest_generation::TemplateFamily::RecurringDepredation,
             ),
         )

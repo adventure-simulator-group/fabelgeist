@@ -25,7 +25,7 @@ fn window_closure_variant(
         return WindowClosureVariant::Shutter;
     }
     let mut random = fabelgeist_determinism::StreamId::new("building.window-closure")
-        .rng(program.seed.into(), &[opening.0, u64::from(storey_level)]);
+        .rng(program.seed, &[opening.0, u64::from(storey_level)]);
     if storey_level == 0 && random.index(5) == 0 {
         WindowClosureVariant::BarredCasement
     } else if random.index(4) == 0 {

@@ -1,4 +1,5 @@
 use crate::interior::InteriorResult as Result;
+use fabelgeist_determinism::Seed;
 const RNG_BUILDING_FURNITURE_SIZE: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("building.furniture-size");
 use super::budgets::{FurnitureBudget, FurniturePosition, furniture_budgets};
@@ -94,14 +95,12 @@ pub(super) fn candidates(
     storey: StoreyIndex,
     budget: FurnitureBudget,
 ) -> Result<Vec<Vec<InteriorPlacement>>> {
-    let seed = fabelgeist_determinism::StreamId::new("building.room-furniture")
-        .seed(
-            program.seed.into(),
-            &[u64::from(room.id), u64::from(storey.serialized_ordinal()?)],
-        )
-        .to_u64();
+    let seed = fabelgeist_determinism::StreamId::new("building.room-furniture").seed(
+        program.seed,
+        &[u64::from(room.id), u64::from(storey.serialized_ordinal()?)],
+    );
     let variants = if RNG_BUILDING_FURNITURE_SIZE
-        .rng(seed.into(), &[budget.kind as u64])
+        .rng(seed, &[budget.kind as u64])
         .boolean()
     {
         vec![FurnitureVariant::Broad, FurnitureVariant::Compact]
@@ -123,7 +122,7 @@ fn variant_candidates(
     storey: StoreyIndex,
     budget: FurnitureBudget,
     variant: FurnitureVariant,
-    seed: u64,
+    seed: Seed,
 ) -> Result<Vec<Vec<InteriorPlacement>>> {
     let key = FurnitureKey::natural(budget.kind, variant);
     let bounds = super::geometry::RoomBounds::from_room(room, storey)?;
@@ -192,7 +191,7 @@ fn variant_candidates(
                 };
                 let tie = fabelgeist_determinism::StreamId::new("building.furniture-placement")
                     .rng(
-                        seed.into(),
+                        seed,
                         &[
                             u64::from(x),
                             u64::from(z),

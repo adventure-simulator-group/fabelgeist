@@ -2,14 +2,15 @@
 mod streams;
 use super::{Parameters, smooth};
 use crate::TextureParameters;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
-fn random(params: &TextureParameters, x: i32, y: i32, cells: [i32; 2], field_seed: u64) -> f32 {
+fn random(params: &TextureParameters, x: i32, y: i32, cells: [i32; 2], field_seed: Seed) -> f32 {
     params
         .rng(
             streams::LATTICE,
             &[
-                field_seed,
+                field_seed.to_u64(),
                 x.rem_euclid(cells[0]) as u64,
                 y.rem_euclid(cells[1]) as u64,
             ],
@@ -22,7 +23,7 @@ pub(super) fn noise(
     u: f32,
     v: f32,
     cells: [i32; 2],
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * cells[0] as f32;
     let y = v.rem_euclid(1.0) * cells[1] as f32;
@@ -102,7 +103,7 @@ struct CavityStamp {
     radius: f32,
     edge: f32,
     angular: bool,
-    field_seed: u64,
+    field_seed: Seed,
 }
 impl CavityStamp {
     fn sample(&self, params: &TextureParameters, u: f32, v: f32) -> f32 {
@@ -123,7 +124,7 @@ impl CavityStamp {
                         cx,
                         cy,
                         self.cells,
-                        purpose.seed(self.field_seed.into(), &[]).to_u64(),
+                        purpose.seed(self.field_seed, &[]),
                     )
                 };
                 let cluster = noise(

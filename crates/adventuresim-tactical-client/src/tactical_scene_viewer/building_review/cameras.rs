@@ -188,7 +188,7 @@ mod tests {
         let program = BuildingProgram::validated_settlement(
             BuildingArchetype::TownHouse,
             BuildingUse::Dwelling,
-            6_514_374_187_028_306_242,
+            fabelgeist_determinism::Seed::from_u64(6_514_374_187_028_306_242),
             None,
         )
         .unwrap();

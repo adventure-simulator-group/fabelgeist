@@ -128,7 +128,7 @@ impl CitySite {
             )
         });
         let demand = SettlementBuildingDemand::with_parish_policy(
-            seed.to_u64(),
+            seed,
             resident_population,
             economy,
             self.parish_policy,

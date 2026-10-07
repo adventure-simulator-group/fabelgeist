@@ -5,6 +5,7 @@ use crate::presentation::ground_scatter::{
     GrassWorld, MINIMUM_GRASS_SLOPE_NORMAL_Y, TierSpeciesBatches, TuftPigment, TuftPlacement,
     grass_scatter_density, scatter_cell_tufts, spawn_tuft_batches,
 };
+use fabelgeist_determinism::Seed;
 
 #[derive(serde::Serialize, serde::Deserialize)]
 pub(in crate::presentation) struct PreparedGrass {
@@ -84,7 +85,7 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
     /// the boundary exact. Rejecting cells that sit wholly inside it as well is
     /// pure speed: those cells would query support height once per tuft only
     /// to discard every one.
-    fn cell_allows(&self, _cell_hash: u64, cell: IVec2, cell_spacing: f32, _jitter: f32) -> bool {
+    fn cell_allows(&self, _cell_hash: Seed, cell: IVec2, cell_spacing: f32, _jitter: f32) -> bool {
         let centre = cell.as_vec2() * cell_spacing;
         let interior = self.playable_half_extent - Vec2::splat(cell_spacing);
         centre.x.abs() > interior.x || centre.y.abs() > interior.y
@@ -196,7 +197,7 @@ pub(super) fn spawn_near_vista_scatter(
         dryness: grass_dryness,
         wind_scale: 0.16 + bps(environment.weather.wind_speed_bps) * 0.36,
     };
-    let grass_seed = streams::GRASS.seed(scene_seed.into(), &[]).to_u64();
+    let grass_seed = streams::GRASS.seed(scene_seed, &[]);
     #[cfg(target_family = "wasm")]
     let prepared = crate::presentation::generation::landscape::grass(&environment.scene_digest);
     #[cfg(not(target_family = "wasm"))]
@@ -272,9 +273,7 @@ fn scatter(
     if !grass.enabled {
         return Default::default();
     }
-    let grass_seed = streams::GRASS
-        .seed(stable_text_seed(&environment.scene_digest).into(), &[])
-        .to_u64();
+    let grass_seed = streams::GRASS.seed(stable_text_seed(&environment.scene_digest), &[]);
     let profile = GrassCommunityProfile::from_environment(environment);
     let placement = |outer_collar| VistaTuftPlacement {
         lod,
@@ -317,7 +316,7 @@ fn scatter(
     scatter_cell_tufts(
         &mut batches[GrassMeshLod::Vista.tier_index()],
         &mut placement(tier_sward_collar_metres(GrassMeshLod::Vista, grass)),
-        streams::GRASS_LOD.seed(grass_seed.into(), &[]).to_u64(),
+        streams::GRASS_LOD.seed(grass_seed, &[]),
         GrassMeshLod::Vista,
         grass.placement.vista_patch_spacing_m,
         grass,

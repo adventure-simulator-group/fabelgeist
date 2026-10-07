@@ -7,7 +7,14 @@ pub(super) fn fixture() -> Fixture {
     Fixture {
         buildings: BuildingFixture::FurnitureReview,
         playable_spacing_metres: 20.0,
-        ..super::fixture("furniture-review", "city", 47_122, flat, open_yard, clear())
+        ..super::fixture(
+            "furniture-review",
+            "city",
+            fabelgeist_determinism::Seed::from_u64(47_122),
+            flat,
+            open_yard,
+            clear(),
+        )
     }
 }
 
@@ -46,7 +53,7 @@ pub(super) fn buildings() -> Result<
             program: BuildingProgram::validated_settlement(
                 settlement_archetype(usage),
                 usage,
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 Some(ServiceBuildingSize::Medium),
             )
             .expect("curated furniture review service must validate"),

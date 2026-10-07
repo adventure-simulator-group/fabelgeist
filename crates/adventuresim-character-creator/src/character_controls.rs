@@ -139,9 +139,9 @@ fn expression(ui: &mut egui::Ui, studio: &mut Studio) {
 
 /// A new random build and identity; the expression is kept.
 pub(super) fn randomize(studio: &mut Studio) {
-    studio.seed = studio.seed.wrapping_add(1);
-    studio.recipe.proportions = CharacterProportions::from_character_id(studio.seed);
-    let mut rng = IDENTITY_STREAM.rng(studio.seed.into(), &[]);
+    studio.seed = studio.seed.wrapping_offset(1);
+    studio.recipe.proportions = CharacterProportions::from_seed(studio.seed);
+    let mut rng = IDENTITY_STREAM.rng(studio.seed, &[]);
     for value in &mut studio.recipe.identity {
         *value = rng.range_f32(-RANDOM_IDENTITY_LIMIT, RANDOM_IDENTITY_LIMIT);
     }

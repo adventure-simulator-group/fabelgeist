@@ -73,8 +73,8 @@ pub(super) fn write_body_proportions(
     explicit: Option<adventuresim_core::character_proportions::CharacterProportions>,
 ) {
     let proportions = explicit.unwrap_or_else(|| {
-        adventuresim_core::character_proportions::CharacterProportions::from_character_id(
-            default_tactical_character_id(),
+        adventuresim_core::character_proportions::CharacterProportions::from_seed(
+            fabelgeist_determinism::Seed::from_u64(default_tactical_character_id()),
         )
     });
     fs::write(

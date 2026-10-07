@@ -1,5 +1,6 @@
 //! Construct retained GPU instance batches from the procedural tuft lattice.
 use super::*;
+use fabelgeist_determinism::Seed;
 
 #[derive(serde::Serialize, serde::Deserialize)]
 struct PackedTufts(
@@ -32,7 +33,7 @@ pub(in crate::presentation) fn spawn_tuft_batches(
     batches: &mut TierSpeciesBatches,
     label: &str,
     marker: impl Bundle + Clone,
-    base_seed: u64,
+    base_seed: Seed,
     pigment: TuftPigment,
     grass: &crate::presentation::config::GrassConfig,
 ) {
@@ -61,12 +62,10 @@ pub(in crate::presentation) fn spawn_tuft_batches(
                     lod,
                     pigment.density,
                     species,
-                    streams::TUFT_MESH
-                        .seed(
-                            base_seed.into(),
-                            &[species.index() as u64, lod.tier_index() as u64],
-                        )
-                        .to_u64(),
+                    streams::TUFT_MESH.seed(
+                        base_seed,
+                        &[species.index() as u64, lod.tier_index() as u64],
+                    ),
                     grass,
                 ),
             );

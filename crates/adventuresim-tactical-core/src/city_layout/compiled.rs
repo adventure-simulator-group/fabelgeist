@@ -3,6 +3,7 @@ use super::*;
 use crate::scene_input::{DistantBuildingPlacement, TacticalBuildingPlacement};
 use adventuresim_building_generator::BuildingArchetype;
 use adventuresim_world_schema::settlement_buildings::BusinessKey;
+use fabelgeist_determinism::Seed;
 
 mod assembly;
 mod church;
@@ -63,7 +64,7 @@ pub enum CityCompileError {
     #[error("{archetype:?} recipe from seed {seed} failed: {source}")]
     Recipe {
         archetype: BuildingArchetype,
-        seed: u64,
+        seed: Seed,
         source: adventuresim_building_generator::GenerationError,
     },
     #[error("property {property:?} is not buildable: {issue:?}")]
@@ -235,7 +236,7 @@ impl CompiledCityLayout {
                     archetype: building.program.archetype,
                     usage: building.program.usage,
                     service_size: building.program.service_size,
-                    seed: building.program.seed.into(),
+                    seed: building.program.seed,
                     centre_metres: building.centre_metres,
                     orientation: building.orientation,
                     base_elevation_metres: building.base_elevation_metres,

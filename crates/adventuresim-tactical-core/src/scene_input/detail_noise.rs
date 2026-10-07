@@ -129,8 +129,9 @@ mod tests {
             (47, Vec2::new(-43.5, -39.5)),
             (101, Vec2::new(120.125, -0.875)),
             (42, Vec2::new(-0.001, 0.001)),
-        ];
-        let expected = queries.map(|(seed, point)| noise.sample(seed.into(), point).to_bits());
+        ]
+        .map(|(seed, point)| (fabelgeist_determinism::Seed::from_u64(seed), point));
+        let expected = queries.map(|(seed, point)| noise.sample(seed, point).to_bits());
         assert_ne!(expected[0], expected[1]);
         for east in 0..=MAXIMUM_RETAINED_LATTICE_CONTROLS {
             noise.sample(900.into(), Vec2::new(east as f32, 900.0));
@@ -138,11 +139,9 @@ mod tests {
         }
         for index in (0..queries.len()).rev() {
             let (seed, point) = queries[index];
-            assert_eq!(noise.sample(seed.into(), point).to_bits(), expected[index]);
+            assert_eq!(noise.sample(seed, point).to_bits(), expected[index]);
             assert_eq!(
-                DetailNoise::new(42.into())
-                    .sample(seed.into(), point)
-                    .to_bits(),
+                DetailNoise::new(42.into()).sample(seed, point).to_bits(),
                 expected[index]
             );
         }

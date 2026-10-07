@@ -950,7 +950,7 @@ mod tests {
             establishments: Vec::new(),
             vista: VistaSample::default(),
             weather: weather_at(
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
                 53_500_000,
                 10_000_000,
@@ -1321,10 +1321,10 @@ mod tests {
 
     #[test]
     fn generated_rock_recipes_are_deterministic_and_fit_the_collision_proxy() {
-        for seed in [0, 1, 42, u64::MAX] {
-            let recipe = rock_recipe(seed.into());
-            assert_eq!(recipe, rock_recipe(seed.into()));
-            assert_eq!(recipe.seed, seed.into());
+        for seed in [0, 1, 42, u64::MAX].map(fabelgeist_determinism::Seed::from_u64) {
+            let recipe = rock_recipe(seed);
+            assert_eq!(recipe, rock_recipe(seed));
+            assert_eq!(recipe.seed, seed);
             assert!(
                 recipe
                     .dimensions_cm

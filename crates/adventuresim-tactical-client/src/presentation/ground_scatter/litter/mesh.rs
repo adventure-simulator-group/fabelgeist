@@ -1,21 +1,22 @@
 //! Native patch-local metre mesh construction for renderer-owned litter.
+use super::geometry::{BentTwig, CamberedLeaf, RosetteLeaf, TwigBase};
 use super::*;
 use bevy::{
     asset::RenderAssetUsages,
     mesh::{Indices, PrimitiveTopology},
 };
+use bevy::{color::LinearRgba, math::Vec3Swizzles};
+use fabelgeist_determinism::Seed;
 
 impl GroundLitterMeshData {
-    pub(super) fn append_rosette_leaf(
-        &mut self,
-        root: Vec2,
-        direction: Vec2,
-        length: f32,
-        width: f32,
-        rise: f32,
-        color: Color,
-    ) {
+    pub(super) fn append_rosette_leaf(&mut self, leaf: RosetteLeaf, color: Color) {
         let base = self.positions.len() as u32;
+        // Native mesh kernel: patch-local X/Z metres and normalized plan axes.
+        let root = leaf.root.metres().xz();
+        let direction = leaf.direction.vector();
+        let length = leaf.length.metres();
+        let width = leaf.width.metres();
+        let rise = leaf.rise.metres();
         let side = Vec2::new(-direction.y, direction.x);
         let centre = |along: f32, lateral: f32, height: f32| {
             let point = root + direction * (length * along) + side * (width * lateral);
@@ -31,7 +32,7 @@ impl GroundLitterMeshData {
             centre(1.0, 0.0, rise * 0.82),
         ];
         let normal = Vec3::new(-direction.x * 0.24, 0.94, -direction.y * 0.24).normalize();
-        let linear_color = color.to_linear().to_f32_array();
+        let linear_color = color.to_linear();
         for (index, position) in positions.into_iter().enumerate() {
             self.positions.push(position.to_array());
             self.normals.push(normal.to_array());
@@ -61,24 +62,18 @@ impl GroundLitterMeshData {
         ]);
     }
 
-    #[expect(
-        clippy::too_many_arguments,
-        reason = "this domain boundary names each independent input explicitly"
-    )]
-    pub(super) fn append_bent_twig(
-        &mut self,
-        start: Vec3,
-        middle: Vec3,
-        end: Vec3,
-        start_radius: f32,
-        middle_radius: f32,
-        end_radius: f32,
-        sides: u32,
-        cap_start: bool,
-        root: Vec2,
-        color: Color,
-    ) {
+    pub(super) fn append_bent_twig(&mut self, twig: BentTwig, color: Color) {
         let base = self.positions.len() as u32;
+        // Native mesh kernel: checked patch-local metre stations and radii.
+        let [start_station, middle_station, end_station] = twig.stations;
+        let start = start_station.centre.metres();
+        let middle = middle_station.centre.metres();
+        let end = end_station.centre.metres();
+        let start_radius = start_station.radius.metres();
+        let middle_radius = middle_station.radius.metres();
+        let end_radius = end_station.radius.metres();
+        let sides = twig.cross_section.sides();
+        let root = twig.root.metres().xz();
         let direction = (end - start).normalize();
         let reference = if direction.y.abs() < 0.9 {
             Vec3::Y
@@ -87,7 +82,7 @@ impl GroundLitterMeshData {
         };
         let right = direction.cross(reference).normalize();
         let forward = right.cross(direction).normalize();
-        let linear_color = color.to_linear().to_f32_array();
+        let linear_color = color.to_linear();
         let near_tip = middle.lerp(end, 0.86);
         let late_tip = middle.lerp(end, 0.97);
         for (ring, (centre, radius)) in [
@@ -125,7 +120,7 @@ impl GroundLitterMeshData {
                 ]);
             }
         }
-        if cap_start {
+        if matches!(twig.base, TwigBase::Closed) {
             let cap = self.positions.len() as u32;
             self.positions.push(start.to_array());
             self.normals.push((-direction).to_array());
@@ -161,7 +156,13 @@ impl GroundLitterMeshData {
         mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, self.normals);
         mesh.insert_attribute(Mesh::ATTRIBUTE_UV_0, self.uvs);
         mesh.insert_attribute(Mesh::ATTRIBUTE_UV_1, self.roots);
-        mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, self.colors);
+        mesh.insert_attribute(
+            Mesh::ATTRIBUTE_COLOR,
+            self.colors
+                .into_iter()
+                .map(|color| color.to_f32_array())
+                .collect::<Vec<_>>(),
+        );
         mesh.insert_indices(Indices::U32(self.indices));
         mesh
     }
@@ -173,45 +174,36 @@ pub(super) struct GroundLitterMeshData {
     normals: Vec<[f32; 3]>,
     uvs: Vec<[f32; 2]>,
     roots: Vec<[f32; 2]>,
-    colors: Vec<[f32; 4]>,
+    colors: Vec<LinearRgba>,
     indices: Vec<u32>,
 }
 
 impl GroundLitterMeshData {
-    pub(super) fn append_cambered_leaf(
-        &mut self,
-        centre: Vec2,
-        long: Vec2,
-        side: Vec2,
-        height: f32,
-        seed: u64,
-        color: Color,
-    ) {
+    pub(super) fn append_cambered_leaf(&mut self, leaf: CamberedLeaf, seed: Seed, color: Color) {
         let base = self.positions.len() as u32;
         // Fallen leaves should curl without becoming little tents. Build the
         // varied plate first, then seat its lowest vertex just below the local
         // patch ground plane so every instance visibly makes contact.
+        // Native mesh kernel: checked patch-local metre point and spans.
+        let centre = leaf.centre.metres().xz();
+        let long = leaf.long.metres().xz();
+        let side = leaf.side.metres().xz();
+        let height = leaf.height.metres();
         let elevated = height >= 0.004;
-        let long_slope = (streams::LONG_SLOPE
-            .rng(seed.into(), &[])
-            .inclusive_unit_f32()
-            - 0.5)
+        let long_slope = (streams::LONG_SLOPE.rng(seed, &[]).inclusive_unit_f32() - 0.5)
             * if elevated { 0.12 } else { 0.035 };
-        let side_slope = (streams::SIDE_SLOPE
-            .rng(seed.into(), &[])
-            .inclusive_unit_f32()
-            - 0.5)
+        let side_slope = (streams::SIDE_SLOPE.rng(seed, &[]).inclusive_unit_f32() - 0.5)
             * if elevated { 0.08 } else { 0.025 };
         let camber = if elevated {
-            0.004 + streams::CAMBER.rng(seed.into(), &[]).inclusive_unit_f32() * 0.007
+            0.004 + streams::CAMBER.rng(seed, &[]).inclusive_unit_f32() * 0.007
         } else {
-            0.0012 + streams::CAMBER.rng(seed.into(), &[]).inclusive_unit_f32() * 0.0022
+            0.0012 + streams::CAMBER.rng(seed, &[]).inclusive_unit_f32() * 0.0022
         };
-        let curl = (streams::CURL.rng(seed.into(), &[]).inclusive_unit_f32() - 0.5)
+        let curl = (streams::CURL.rng(seed, &[]).inclusive_unit_f32() - 0.5)
             * if elevated { 0.007 } else { 0.002 };
         let burial = 0.0007
             + height.min(0.006) * 0.15
-            + streams::BURIAL.rng(seed.into(), &[]).inclusive_unit_f32() * 0.001;
+            + streams::BURIAL.rng(seed, &[]).inclusive_unit_f32() * 0.001;
         let long3 = Vec3::new(long.x, long_slope * long.length(), long.y);
         let side3 = Vec3::new(side.x, side_slope * side.length(), side.y);
         let centre3 = Vec3::new(centre.x, 0.0, centre.y);
@@ -259,7 +251,7 @@ impl GroundLitterMeshData {
         self.uvs.push([0.5, 0.5]);
         self.uvs
             .extend(outline.map(|(u, v)| [0.5 + u * 0.5, 0.5 + v * 0.5]));
-        let color = color.to_linear().to_f32_array();
+        let color = color.to_linear();
         self.colors.extend_from_slice(&[color; 9]);
     }
 }

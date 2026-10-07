@@ -26,7 +26,7 @@ fn compound_loaded_scene_rejects_broken_membership_and_authority() {
         archetype: rear.program.archetype,
         usage: rear.program.usage,
         service_size: rear.program.service_size,
-        seed: rear.program.seed.into(),
+        seed: rear.program.seed,
         centre_metres: rear.centre_metres,
         orientation: rear.orientation,
         base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,

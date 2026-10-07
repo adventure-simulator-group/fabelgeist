@@ -1,6 +1,7 @@
 use super::{FertileSurface, FungusParameters};
 use crate::{PlantLod, PlantMesh};
 use bevy::math::Vec3;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 use std::f32::consts::{PI, TAU};
 mod attachment;
@@ -75,12 +76,12 @@ impl Profile<'_> {
     }
 }
 
-pub(super) fn generate(p: &FungusParameters, seed: u64, detail: PlantLod) -> PlantMesh {
+pub(super) fn generate(p: &FungusParameters, seed: Seed, detail: PlantLod) -> PlantMesh {
     let mut mesh = PlantMesh::default();
     let profile = Profile {
         p,
         phase: StreamId::new("plant.fungus.phase")
-            .rng(seed.into(), &[])
+            .rng(seed, &[])
             .unit_f32()
             * TAU,
     };
@@ -146,7 +147,7 @@ fn veil(mesh: &mut PlantMesh, profile: &Profile, n: usize) {
     });
 }
 
-fn ornaments(mesh: &mut PlantMesh, profile: &Profile, seed: u64, detail: PlantLod) {
+fn ornaments(mesh: &mut PlantMesh, profile: &Profile, seed: Seed, detail: PlantLod) {
     let p = profile.p;
     let count = usize::from(p.ornament_count).min(detail.samples(24, 6, 0));
     const GOLDEN_ANGLE: f32 = 2.399_963_1;
@@ -156,12 +157,12 @@ fn ornaments(mesh: &mut PlantMesh, profile: &Profile, seed: u64, detail: PlantLo
         let angle = source_index as f32 * GOLDEN_ANGLE
             + profile.phase
             + StreamId::new("plant.fungus.ornament-angle")
-                .rng(seed.into(), &[source_index as u64])
+                .rng(seed, &[source_index as u64])
                 .unit_f32()
                 * 0.3;
         let scale = 0.7
             + StreamId::new("plant.fungus.ornament-scale")
-                .rng(seed.into(), &[source_index as u64])
+                .rng(seed, &[source_index as u64])
                 .unit_f32()
                 * 0.6;
         let (point, normal) = attachment::cap(profile, detail, r, angle);

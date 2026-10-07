@@ -163,7 +163,7 @@ pub struct SettlementBuildingDemand {
 }
 
 impl SettlementBuildingDemand {
-    pub fn new(seed: u64, population: u32, economy: &SettlementEconomyProfile) -> Self {
+    pub fn new(seed: Seed, population: u32, economy: &SettlementEconomyProfile) -> Self {
         Self::with_parish_policy(
             seed,
             population,
@@ -173,7 +173,7 @@ impl SettlementBuildingDemand {
     }
 
     pub fn with_parish_policy(
-        seed: u64,
+        seed: Seed,
         population: u32,
         economy: &SettlementEconomyProfile,
         policy: AuthoredParishPolicy,
@@ -214,8 +214,8 @@ impl SettlementBuildingDemand {
                     });
                     break;
                 }
-                let capacity = range
-                    .sample(CAPACITY_DOMAIN.seed(seed.into(), &[usage as u64, u64::from(ordinal)]));
+                let capacity =
+                    range.sample(CAPACITY_DOMAIN.seed(seed, &[usage as u64, u64::from(ordinal)]));
                 plan.buildings.push(BuildingDemand::Service {
                     usage,
                     ordinal,

@@ -75,7 +75,10 @@ mod tests {
         app.world_mut().spawn((
             SceneBuilding {
                 id: id.into(),
-                program: BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 47),
+                program: BuildingProgram::fixture(
+                    BuildingArchetype::FachwerkMerchantHouse,
+                    fabelgeist_determinism::Seed::from_u64(47),
+                ),
                 orientation: BuildingOrientation::from_radians(0.0).unwrap(),
             },
             GlobalTransform::IDENTITY,

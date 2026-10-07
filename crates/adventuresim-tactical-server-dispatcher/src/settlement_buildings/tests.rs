@@ -94,8 +94,7 @@ fn missing_estimate_uses_the_shared_population_level_fallback() {
     let buildings = place_settlement_buildings(&settlement, 50.0).unwrap();
     let expected = CitySite::central_german_market_town()
         .generate(
-            (adventuresim_core::settlement_population::settlement_building_seed(&settlement.id))
-                .into(),
+            adventuresim_core::settlement_population::settlement_building_seed(&settlement.id),
             population,
             &settlement.economy,
         )
@@ -163,7 +162,7 @@ fn dense_city_layout_passes_tactical_pad_validation() {
             }],
         },
         weather: adventuresim_core::weather::weather_at(
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             adventuresim_world_schema::calendar::StrategicMinute::new(1),
             53_500_000,
             10_000_000,
@@ -193,10 +192,9 @@ fn large_city_uses_valid_deterministic_recipes_and_preserves_all_plots() {
         buildings.playable.len() + buildings.distant.len(),
         CitySite::central_german_market_town()
             .generate(
-                (adventuresim_core::settlement_population::settlement_building_seed(
+                adventuresim_core::settlement_population::settlement_building_seed(
                     "massive-city-3229",
-                ))
-                .into(),
+                ),
                 100_000,
                 &economy(100_000)
             )
@@ -219,7 +217,10 @@ fn large_city_uses_valid_deterministic_recipes_and_preserves_all_plots() {
 #[test]
 fn city_house_class_dimensions_match_generated_programmes() {
     for house_class in CityHouseClass::ALL {
-        let program = BuildingProgram::fixture(house_class.archetype(), 42);
+        let program = BuildingProgram::fixture(
+            house_class.archetype(),
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let (width_cells, depth_cells) = program.footprint.dimensions();
         assert_eq!(
             bevy::math::Vec2::new(

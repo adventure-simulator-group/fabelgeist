@@ -1,5 +1,6 @@
 //! Spatially coherent grass communities and local habitat selection.
 use super::*;
+use fabelgeist_determinism::Seed;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(in crate::presentation) enum GrassCommunity {
@@ -70,25 +71,16 @@ impl GrassCommunityProfile {
     }
 
     #[cfg(test)]
-    fn select(self, site_hash: u64) -> GrassCommunity {
+    fn select(self, site_hash: Seed) -> GrassCommunity {
         // Stable low-frequency pseudo-fields stand in for finer soil data we
         // do not yet have. They modulate, but never invent, a habitat that the
         // scene/local environmental sample assigned zero weight.
-        let moisture_field = 0.68
-            + streams::MOISTURE
-                .rng(site_hash.into(), &[])
-                .inclusive_unit_f32()
-                * 0.64;
-        let exposure_field = 0.68
-            + streams::EXPOSURE
-                .rng(site_hash.into(), &[])
-                .inclusive_unit_f32()
-                * 0.64;
-        let fertility_field = 0.76
-            + streams::FERTILITY
-                .rng(site_hash.into(), &[])
-                .inclusive_unit_f32()
-                * 0.48;
+        let moisture_field =
+            0.68 + streams::MOISTURE.rng(site_hash, &[]).inclusive_unit_f32() * 0.64;
+        let exposure_field =
+            0.68 + streams::EXPOSURE.rng(site_hash, &[]).inclusive_unit_f32() * 0.64;
+        let fertility_field =
+            0.76 + streams::FERTILITY.rng(site_hash, &[]).inclusive_unit_f32() * 0.48;
         let weights = [
             self.weights[0] * fertility_field,
             self.weights[1] * exposure_field,
@@ -100,7 +92,7 @@ impl GrassCommunityProfile {
             (weight * adventuresim_world_schema::BASIS_POINTS_PER_WHOLE as f32).round() as u64
         });
         let selected = streams::COMMUNITY_SPECIES
-            .rng(site_hash.into(), &[])
+            .rng(site_hash, &[])
             .weighted_index(&weights)
             .expect("a grass habitat always has a positive mesic weight");
         [
@@ -114,7 +106,7 @@ impl GrassCommunityProfile {
 #[cfg(test)]
 pub(in crate::presentation) fn grass_community_at(
     point: Vec2,
-    seed: u64,
+    seed: Seed,
     profile: GrassCommunityProfile,
 ) -> GrassCommunity {
     // Jittered Voronoi cells create coherent 12-40 m sward communities. A
@@ -123,20 +115,18 @@ pub(in crate::presentation) fn grass_community_at(
     const CELL_SIZE: f32 = 24.0;
     let cell = (point / CELL_SIZE).floor().as_ivec2();
     let mut nearest_distance = f32::INFINITY;
-    let mut nearest_hash = 0;
+    let mut nearest_hash = Seed::from_u64(0);
     for offset_z in -1..=1 {
         for offset_x in -1..=1 {
             let candidate = cell + bevy::math::IVec2::new(offset_x, offset_z);
-            let hash = streams::COMMUNITY
-                .seed(
-                    seed.into(),
-                    &[candidate.x as u32 as u64, candidate.y as u32 as u64],
-                )
-                .to_u64();
+            let hash = streams::COMMUNITY.seed(
+                seed,
+                &[candidate.x as u32 as u64, candidate.y as u32 as u64],
+            );
             let site = (candidate.as_vec2()
                 + Vec2::new(
-                    0.18 + streams::JITTER_X.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
-                    0.18 + streams::JITTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
+                    0.18 + streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+                    0.18 + streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() * 0.64,
                 ))
                 * CELL_SIZE;
             let distance = point.distance_squared(site);
@@ -152,7 +142,7 @@ pub(in crate::presentation) fn grass_community_at(
 /// Temporary habitat lattice shared by all tufts sampled during a scatter pass.
 /// Site positions and random fields depend on the seed, never the local profile.
 pub(in crate::presentation) struct GrassCommunityField {
-    seed: u64,
+    seed: Seed,
     sites: std::collections::BTreeMap<(i32, i32), CommunitySite>,
     neighbourhood: Option<(bevy::math::IVec2, [CommunitySite; 9])>,
 }
@@ -165,26 +155,21 @@ struct CommunitySite {
 }
 
 impl CommunitySite {
-    fn new(cell: bevy::math::IVec2, seed: u64) -> Self {
-        let hash = streams::COMMUNITY
-            .seed(seed.into(), &[cell.x as u32 as u64, cell.y as u32 as u64])
-            .to_u64();
+    fn new(cell: bevy::math::IVec2, seed: Seed) -> Self {
+        let hash = streams::COMMUNITY.seed(seed, &[cell.x as u32 as u64, cell.y as u32 as u64]);
         Self {
             position: (cell.as_vec2()
                 + Vec2::new(
-                    0.18 + streams::JITTER_X.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
-                    0.18 + streams::JITTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
+                    0.18 + streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+                    0.18 + streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() * 0.64,
                 ))
                 * COMMUNITY_CELL_SIZE_METRES,
             modulation: [
-                0.76 + streams::FERTILITY
-                    .rng(hash.into(), &[])
-                    .inclusive_unit_f32()
-                    * 0.48,
-                0.68 + streams::EXPOSURE.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
-                0.68 + streams::MOISTURE.rng(hash.into(), &[]).inclusive_unit_f32() * 0.64,
+                0.76 + streams::FERTILITY.rng(hash, &[]).inclusive_unit_f32() * 0.48,
+                0.68 + streams::EXPOSURE.rng(hash, &[]).inclusive_unit_f32() * 0.64,
+                0.68 + streams::MOISTURE.rng(hash, &[]).inclusive_unit_f32() * 0.64,
             ],
-            selection: streams::COMMUNITY_SPECIES.seed(hash.into(), &[]),
+            selection: streams::COMMUNITY_SPECIES.seed(hash, &[]),
         }
     }
     fn select(self, profile: GrassCommunityProfile) -> GrassCommunity {
@@ -205,7 +190,7 @@ impl CommunitySite {
 const COMMUNITY_CELL_SIZE_METRES: f32 = 24.0;
 
 impl GrassCommunityField {
-    pub(in crate::presentation) fn new(seed: u64) -> Self {
+    pub(in crate::presentation) fn new(seed: Seed) -> Self {
         Self {
             seed,
             sites: Default::default(),
@@ -249,7 +234,10 @@ impl GrassCommunityField {
 
 #[test]
 fn cached_habitat_matches_uncached_across_cells_seeds_and_profiles() {
-    for seed in [0, 42, u64::MAX] {
+    for seed in ([0, 42, u64::MAX])
+        .into_iter()
+        .map(fabelgeist_determinism::Seed::from_u64)
+    {
         let mut field = GrassCommunityField::new(seed);
         for z in -16..=16 {
             for x in -16..=16 {

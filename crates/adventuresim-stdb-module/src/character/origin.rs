@@ -17,7 +17,7 @@ pub(super) fn choose_start_settlement(
             if options.mode.is_npc() {
                 options.stable_seed
             } else {
-                ctx.random::<u64>()
+                ctx.random::<fabelgeist_determinism::Seed>()
             }
         },
         |spec| spec.settlement_selector,
@@ -50,16 +50,16 @@ pub(super) fn choose_start_settlement(
                 organization.id
             );
             &settlements[NPC_SETTLEMENT_SELECTION_DOMAIN
-                .rng(selector.into(), &[])
+                .rng(selector, &[])
                 .index(settlements.len())]
         } else {
             eligible[NPC_SETTLEMENT_SELECTION_DOMAIN
-                .rng(selector.into(), &[])
+                .rng(selector, &[])
                 .index(eligible.len())]
         }
     } else {
         &settlements[NPC_SETTLEMENT_SELECTION_DOMAIN
-            .rng(selector.into(), &[])
+            .rng(selector, &[])
             .index(settlements.len())]
     };
 

@@ -16,6 +16,7 @@ use bevy::{
     },
     shader::ShaderRef,
 };
+use fabelgeist_determinism::Seed;
 
 use crate::presentation::obstacles::rock::rock_color;
 
@@ -188,7 +189,7 @@ fn pebble_lod_visibility(lod: PebbleMeshLod) -> VisibilityRange {
     }
 }
 
-fn scree_patch_coverage(seed: u64, point: Vec2, normal: Vec3) -> f32 {
+fn scree_patch_coverage(seed: Seed, point: Vec2, normal: Vec3) -> f32 {
     let downhill = Vec2::new(normal.x, normal.z).normalize_or_zero();
     let downhill = if downhill.length_squared() > 0.001 {
         downhill
@@ -196,15 +197,15 @@ fn scree_patch_coverage(seed: u64, point: Vec2, normal: Vec3) -> f32 {
         Vec2::X
     };
     let across = Vec2::new(-downhill.y, downhill.x);
-    let broad = scree_noise(seed ^ 0x7363_7265_655f_6272, point / 4.8);
+    let broad = scree_noise(seed.xor_word(0x7363_7265_655f_6272), point / 4.8);
     // Stretch the second field along the fall line so loose material gathers
     // into downhill trains rather than evenly stippling the whole substrate.
     let streak_point = Vec2::new(point.dot(across) / 2.2, point.dot(downhill) / 8.5);
-    let streak = scree_noise(seed ^ 0x7363_7265_655f_7374, streak_point);
+    let streak = scree_noise(seed.xor_word(0x7363_7265_655f_7374), streak_point);
     broad * 0.58 + streak * 0.42
 }
 
-fn scree_noise(seed: u64, point: Vec2) -> f32 {
+fn scree_noise(seed: Seed, point: Vec2) -> f32 {
     let cell = point.floor();
     let local = point - cell;
     let curve = local * local * (Vec2::splat(3.0) - local * 2.0);
@@ -212,9 +213,7 @@ fn scree_noise(seed: u64, point: Vec2) -> f32 {
         let coordinate = cell + offset;
         let x = i64::from(coordinate.x as i32) as u64;
         let y = i64::from(coordinate.y as i32) as u64;
-        streams::LATTICE
-            .rng(seed.into(), &[x, y])
-            .inclusive_unit_f32()
+        streams::LATTICE.rng(seed, &[x, y]).inclusive_unit_f32()
     };
     let bottom_left = hash(Vec2::ZERO);
     let bottom = bottom_left + (hash(Vec2::X) - bottom_left) * curve.x;
@@ -224,24 +223,16 @@ fn scree_noise(seed: u64, point: Vec2) -> f32 {
 }
 
 fn pebble_survives(
-    seed: u64,
-    hash: u64,
+    seed: Seed,
+    hash: Seed,
     centre: Vec2,
     half_extent: f32,
     density: PebbleDensity,
 ) -> bool {
     let cluster = |salt: u64| {
         Vec2::new(
-            streams::CLUSTER_X
-                .rng(seed.into(), &[salt])
-                .inclusive_unit_f32()
-                * 2.0
-                - 1.0,
-            streams::CLUSTER_Z
-                .rng(seed.into(), &[salt])
-                .inclusive_unit_f32()
-                * 2.0
-                - 1.0,
+            streams::CLUSTER_X.rng(seed, &[salt]).inclusive_unit_f32() * 2.0 - 1.0,
+            streams::CLUSTER_Z.rng(seed, &[salt]).inclusive_unit_f32() * 2.0 - 1.0,
         ) * half_extent
             * 0.7
     };
@@ -255,13 +246,13 @@ fn pebble_survives(
         PebbleDensity::Sparse => 0.035 + influence * 0.42,
         PebbleDensity::Dense => 0.09 + influence * 0.76,
     };
-    streams::PRESENCE.rng(hash.into(), &[]).inclusive_unit_f32() < chance
+    streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() < chance
 }
 
-fn pebble_facet_scale(hash: u64, segment: usize, density: PebbleDensity) -> f32 {
+fn pebble_facet_scale(hash: Seed, segment: usize, density: PebbleDensity) -> f32 {
     if density == PebbleDensity::Woodland {
         0.82 + streams::FACET
-            .rng(hash.into(), &[segment as u64])
+            .rng(hash, &[segment as u64])
             .inclusive_unit_f32()
             * 0.28
     } else {
@@ -270,7 +261,7 @@ fn pebble_facet_scale(hash: u64, segment: usize, density: PebbleDensity) -> f32 
 }
 
 fn pebble_patch_mesh(
-    seed: u64,
+    seed: Seed,
     lod: PebbleMeshLod,
     half_extent: f32,
     density: PebbleDensity,
@@ -294,10 +285,9 @@ fn pebble_patch_mesh(
     let mut indices = Vec::with_capacity(PEBBLE_CANDIDATES_PER_PATCH * triangles_per_pebble * 3);
 
     for pebble in 0..PEBBLE_CANDIDATES_PER_PATCH {
-        let hash = streams::PEBBLE.seed(seed.into(), &[pebble as u64]).to_u64();
-        let unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-            purpose.rng(hash.into(), &[]).inclusive_unit_f32()
-        };
+        let hash = streams::PEBBLE.seed(seed, &[pebble as u64]);
+        let unit_draw =
+            |purpose: fabelgeist_determinism::StreamId| purpose.rng(hash, &[]).inclusive_unit_f32();
         let radius = MIN_PEBBLE_RADIUS_METRES
             + unit_draw(streams::RADIUS) * (MAX_PEBBLE_RADIUS_METRES - MIN_PEBBLE_RADIUS_METRES);
         // Jittered low-discrepancy points avoid overlap and the large random
@@ -403,21 +393,21 @@ fn pebble_patch_mesh(
     mesh
 }
 
-fn pebble_billboard_patch_mesh(seed: u64, half_extent: f32, density: PebbleDensity) -> Mesh {
+fn pebble_billboard_patch_mesh(seed: Seed, half_extent: f32, density: PebbleDensity) -> Mesh {
     let mut positions = Vec::with_capacity(PEBBLE_CANDIDATES_PER_PATCH * BILLBOARD_VERTICES);
     let mut centres = Vec::with_capacity(PEBBLE_CANDIDATES_PER_PATCH * BILLBOARD_VERTICES);
     let mut uvs = Vec::with_capacity(PEBBLE_CANDIDATES_PER_PATCH * BILLBOARD_VERTICES);
     let mut indices = Vec::with_capacity(PEBBLE_CANDIDATES_PER_PATCH * BILLBOARD_TRIANGLES * 3);
 
     for pebble in 0..PEBBLE_CANDIDATES_PER_PATCH {
-        let hash = streams::PEBBLE.seed(seed.into(), &[pebble as u64]).to_u64();
+        let hash = streams::PEBBLE.seed(seed, &[pebble as u64]);
         let radius = MIN_PEBBLE_RADIUS_METRES
-            + streams::RADIUS.rng(hash.into(), &[]).inclusive_unit_f32()
+            + streams::RADIUS.rng(hash, &[]).inclusive_unit_f32()
                 * (MAX_PEBBLE_RADIUS_METRES - MIN_PEBBLE_RADIUS_METRES);
         let column = pebble % PEBBLE_PATCH_COLUMNS;
         let row = pebble / PEBBLE_PATCH_COLUMNS;
-        let jitter_x = streams::JITTER_X.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5;
-        let jitter_z = streams::JITTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() - 0.5;
+        let jitter_x = streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5;
+        let jitter_z = streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5;
         let centre = Vec3::new(
             ((column as f32 + 0.5 + jitter_x * 0.88) / PEBBLE_PATCH_COLUMNS as f32 * 2.0 - 1.0)
                 * half_extent,
@@ -434,8 +424,7 @@ fn pebble_billboard_patch_mesh(seed: u64, half_extent: f32, density: PebbleDensi
         ) {
             continue;
         }
-        let height =
-            radius * (0.85 + streams::HEIGHT.rng(hash.into(), &[]).inclusive_unit_f32() * 0.45);
+        let height = radius * (0.85 + streams::HEIGHT.rng(hash, &[]).inclusive_unit_f32() * 0.45);
         let sprite_centre = centre + Vec3::Y * height * 0.5;
         let base = positions.len() as u32;
 
@@ -471,9 +460,23 @@ mod tests {
 
     #[test]
     fn pebble_lods_use_rounded_meshes_and_one_quad_per_distant_stone() {
-        let hero = pebble_patch_mesh(7, PebbleMeshLod::Hero, 1.0, PebbleDensity::Dense);
-        let near = pebble_patch_mesh(7, PebbleMeshLod::Near, 1.0, PebbleDensity::Dense);
-        let billboard = pebble_billboard_patch_mesh(7, 1.0, PebbleDensity::Dense);
+        let hero = pebble_patch_mesh(
+            fabelgeist_determinism::Seed::from_u64(7),
+            PebbleMeshLod::Hero,
+            1.0,
+            PebbleDensity::Dense,
+        );
+        let near = pebble_patch_mesh(
+            fabelgeist_determinism::Seed::from_u64(7),
+            PebbleMeshLod::Near,
+            1.0,
+            PebbleDensity::Dense,
+        );
+        let billboard = pebble_billboard_patch_mesh(
+            fabelgeist_determinism::Seed::from_u64(7),
+            1.0,
+            PebbleDensity::Dense,
+        );
         let pebble_count = hero.count_vertices() / HERO_PEBBLE_VERTICES;
         assert!((8..=32).contains(&pebble_count), "{pebble_count}");
         assert_eq!(hero.count_vertices(), pebble_count * HERO_PEBBLE_VERTICES);
@@ -529,14 +532,29 @@ mod tests {
 
     #[test]
     fn scree_density_is_clustered_and_preserved_across_lods() {
-        let woodland = pebble_patch_mesh(19, PebbleMeshLod::Hero, 1.0, PebbleDensity::Woodland)
-            .count_vertices()
+        let woodland = pebble_patch_mesh(
+            fabelgeist_determinism::Seed::from_u64(19),
+            PebbleMeshLod::Hero,
+            1.0,
+            PebbleDensity::Woodland,
+        )
+        .count_vertices()
             / HERO_PEBBLE_VERTICES;
-        let sparse = pebble_patch_mesh(19, PebbleMeshLod::Hero, 1.0, PebbleDensity::Sparse)
-            .count_vertices()
+        let sparse = pebble_patch_mesh(
+            fabelgeist_determinism::Seed::from_u64(19),
+            PebbleMeshLod::Hero,
+            1.0,
+            PebbleDensity::Sparse,
+        )
+        .count_vertices()
             / HERO_PEBBLE_VERTICES;
-        let dense = pebble_patch_mesh(19, PebbleMeshLod::Hero, 1.0, PebbleDensity::Dense)
-            .count_vertices()
+        let dense = pebble_patch_mesh(
+            fabelgeist_determinism::Seed::from_u64(19),
+            PebbleMeshLod::Hero,
+            1.0,
+            PebbleDensity::Dense,
+        )
+        .count_vertices()
             / HERO_PEBBLE_VERTICES;
         assert!(woodland > 0);
         assert!(sparse > woodland, "woodland {woodland}, sparse {sparse}");
@@ -544,7 +562,13 @@ mod tests {
 
         let normal = Vec3::new(0.25, 0.9, -0.15).normalize();
         let samples = (0..80)
-            .map(|step| scree_patch_coverage(77, Vec2::new(step as f32 * 0.5, 3.0), normal))
+            .map(|step| {
+                scree_patch_coverage(
+                    fabelgeist_determinism::Seed::from_u64(77),
+                    Vec2::new(step as f32 * 0.5, 3.0),
+                    normal,
+                )
+            })
             .collect::<Vec<_>>();
         assert!(
             samples
@@ -565,7 +589,7 @@ mod tests {
         let patch_area = (half_extent * 2.0).powi(2);
         let stone_count = (0..MESH_VARIANTS)
             .map(|variant| {
-                let seed = streams::VARIANT.seed(0.into(), &[variant]).to_u64();
+                let seed = streams::VARIANT.seed(0.into(), &[variant]);
                 pebble_patch_mesh(
                     seed,
                     PebbleMeshLod::Hero,

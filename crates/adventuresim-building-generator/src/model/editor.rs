@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_determinism::Seed;
 
 /// Stable grid address used by editor commands. Unlike resolved mesh IDs, this
 /// remains meaningful when the building is regenerated after an edit.
@@ -49,7 +50,7 @@ pub struct BuildingDocument {
 }
 
 impl BuildingDocument {
-    pub fn fixture(archetype: BuildingArchetype, seed: u64) -> Self {
+    pub fn fixture(archetype: BuildingArchetype, seed: Seed) -> Self {
         Self {
             schema_version: BUILDING_DOCUMENT_SCHEMA_VERSION,
             program: BuildingProgram::fixture(archetype, seed),

@@ -9,6 +9,7 @@ pub use choice::{EncounterChoice, EncounterChoiceParseError};
 mod receipt;
 use crate::bestiary::{ActivityTime, Habitat, ThreatId, select_habitat_relation};
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::{DeterministicRng, StreamId};
 pub use receipt::{opaque_strategic_encounter_id, strategic_encounter_retry_matches};
 use serde::{Deserialize, Serialize};
@@ -185,7 +186,7 @@ pub fn available_choices(
 
 /// Returns the first encounter in `(completed, completed + requested]`.
 pub fn first_encounter(
-    seed: u64,
+    seed: Seed,
     completed: u64,
     requested: u64,
     context_at: impl FnMut(u64) -> EncounterContext,
@@ -197,7 +198,7 @@ pub fn first_encounter(
 /// canonical boundary. Existing entropy domains and boundary traversal remain
 /// unchanged, preserving retry and chunk invariance.
 pub fn first_encounter_with_problem(
-    seed: u64,
+    seed: Seed,
     completed: u64,
     requested: u64,
     mut context_at: impl FnMut(u64) -> EncounterContext,
@@ -213,7 +214,7 @@ pub fn first_encounter_with_problem(
 }
 
 pub fn select_at(
-    seed: u64,
+    seed: Seed,
     index: u64,
     minute: u64,
     context: EncounterContext,
@@ -222,7 +223,7 @@ pub fn select_at(
 }
 
 fn select_at_with_problem(
-    seed: u64,
+    seed: Seed,
     index: u64,
     minute: u64,
     context: EncounterContext,
@@ -358,7 +359,7 @@ fn encounter_weight(id: ThreatId, habitat: Habitat, night: bool) -> u32 {
 ///
 /// This is exposed separately so a strategic interruption can recompute the
 /// count from the authoritative party membership at the encounter boundary.
-pub fn enemy_count(seed: u64, index: u64, combat_capable_members: u16) -> u16 {
+pub fn enemy_count(seed: Seed, index: u64, combat_capable_members: u16) -> u16 {
     let capable = combat_capable_members.max(1);
     let spread = (capable / 2).max(1);
     capable.saturating_add(
@@ -399,7 +400,7 @@ pub const fn awareness_from_rolls(
 /// A separate domain ensures the second whole-party sneak check cannot perturb
 /// selection, enemy awareness, or later journey rolls.
 pub fn sneak_succeeds(
-    seed: u64,
+    seed: Seed,
     roll_index: u64,
     party_stealth: u16,
     enemy_awareness: u16,
@@ -447,8 +448,8 @@ impl EncounterRollDomain {
     }
 }
 
-fn domain_random(seed: u64, index: u64, domain: EncounterRollDomain) -> DeterministicRng {
-    domain.stream().rng(seed.into(), &[index])
+fn domain_random(seed: Seed, index: u64, domain: EncounterRollDomain) -> DeterministicRng {
+    domain.stream().rng(seed, &[index])
 }
 
 /// Durable context for a goal-neutral narrative interruption roll. This uses
@@ -482,7 +483,7 @@ pub const fn next_combat_roll_after_reached_boundary(boundary_minute: u64) -> u6
 /// accumulated camp-rest cursor for rest, so splitting a reducer call cannot
 /// introduce another roll.
 pub fn first_narrative_encounter(
-    seed: u64,
+    seed: Seed,
     completed: u64,
     requested: u64,
     context: NarrativeContext,
@@ -500,7 +501,7 @@ pub fn first_narrative_encounter(
 }
 
 pub fn narrative_selection_at(
-    seed: u64,
+    seed: Seed,
     index: u64,
     boundary_minute: u64,
     context: NarrativeContext,
@@ -560,10 +561,19 @@ mod tests {
 
     #[test]
     fn strategic_encounter_ids_are_deterministic_opaque_and_128_bit() {
-        let id = opaque_strategic_encounter_id(7, 11);
-        assert_eq!(id, opaque_strategic_encounter_id(7, 11));
-        assert_ne!(id, opaque_strategic_encounter_id(7, 12));
-        assert_ne!(id, opaque_strategic_encounter_id(8, 11));
+        let id = opaque_strategic_encounter_id(fabelgeist_determinism::Seed::from_u64(7), 11);
+        assert_eq!(
+            id,
+            opaque_strategic_encounter_id(fabelgeist_determinism::Seed::from_u64(7), 11)
+        );
+        assert_ne!(
+            id,
+            opaque_strategic_encounter_id(fabelgeist_determinism::Seed::from_u64(7), 12)
+        );
+        assert_ne!(
+            id,
+            opaque_strategic_encounter_id(fabelgeist_determinism::Seed::from_u64(8), 11)
+        );
         assert_eq!(id.len(), 36);
         assert!(id.starts_with("enc:"));
         assert!(id[4..].bytes().all(|byte| byte.is_ascii_hexdigit()));
@@ -625,17 +635,32 @@ mod tests {
     #[test]
     fn narrative_travel_and_rest_are_chunk_and_retry_invariant() {
         for kind in [NarrativeBoundaryKind::Travel, NarrativeBoundaryKind::Rest] {
-            let whole = first_narrative_encounter(88, 0, 7_200, narrative(kind));
+            let whole = first_narrative_encounter(
+                fabelgeist_determinism::Seed::from_u64(88),
+                0,
+                7_200,
+                narrative(kind),
+            );
             assert_eq!(
                 whole,
-                first_narrative_encounter(88, 0, 7_200, narrative(kind))
+                first_narrative_encounter(
+                    fabelgeist_determinism::Seed::from_u64(88),
+                    0,
+                    7_200,
+                    narrative(kind)
+                )
             );
             let interval = match kind {
                 NarrativeBoundaryKind::Travel => NARRATIVE_TRAVEL_INTERVAL_MINUTES,
                 NarrativeBoundaryKind::Rest => NARRATIVE_REST_INTERVAL_MINUTES,
             };
             let by_boundaries = (1..=7_200 / interval).find_map(|index| {
-                narrative_selection_at(88, index, index * interval, narrative(kind))
+                narrative_selection_at(
+                    fabelgeist_determinism::Seed::from_u64(88),
+                    index,
+                    index * interval,
+                    narrative(kind),
+                )
             });
             assert_eq!(whole, by_boundaries);
         }
@@ -657,7 +682,7 @@ mod tests {
 
     #[test]
     fn narrative_never_selects_in_settlement_or_over_an_interruption() {
-        for seed in 0..10_000 {
+        for seed in (0..10_000).map(fabelgeist_determinism::Seed::from_u64) {
             assert!(
                 narrative_selection_at(
                     seed,
@@ -688,14 +713,26 @@ mod tests {
     #[test]
     fn chunks_and_retries_are_invariant() {
         let all: Vec<_> = (1..=20)
-            .filter_map(|i| select_at(91, i, i * ENCOUNTER_ROLL_INTERVAL_MINUTES, context()))
+            .filter_map(|i| {
+                select_at(
+                    fabelgeist_determinism::Seed::from_u64(91),
+                    i,
+                    i * ENCOUNTER_ROLL_INTERVAL_MINUTES,
+                    context(),
+                )
+            })
             .collect();
         let chunked: Vec<_> = [0, 720, 1440, 2160, 2880]
             .windows(2)
             .flat_map(|w| {
                 let mut found = Vec::new();
                 let mut at = w[0];
-                while let Some(e) = first_encounter(91, at, w[1] - at, |_| context()) {
+                while let Some(e) = first_encounter(
+                    fabelgeist_determinism::Seed::from_u64(91),
+                    at,
+                    w[1] - at,
+                    |_| context(),
+                ) {
                     at = e.boundary_minute;
                     found.push(e);
                 }
@@ -709,8 +746,12 @@ mod tests {
             chunked
         );
         assert_eq!(
-            first_encounter(91, 0, 2880, |_| context()),
-            first_encounter(91, 0, 2880, |_| context())
+            first_encounter(fabelgeist_determinism::Seed::from_u64(91), 0, 2880, |_| {
+                context()
+            }),
+            first_encounter(fabelgeist_determinism::Seed::from_u64(91), 0, 2880, |_| {
+                context()
+            })
         );
     }
 
@@ -718,6 +759,7 @@ mod tests {
     fn baseline_is_low_and_modifiers_raise_frequency() {
         let count = |mut c: EncounterContext| {
             (0..10_000)
+                .map(fabelgeist_determinism::Seed::from_u64)
                 .filter(|i| {
                     c.combat_capable_members = 4;
                     select_at(*i, 1, 180, c).is_some()
@@ -744,6 +786,7 @@ mod tests {
                 ..context()
             };
             (0..100_000)
+                .map(fabelgeist_determinism::Seed::from_u64)
                 .filter(|seed| select_at(*seed, 1, 180, c).is_some())
                 .count()
         };
@@ -771,7 +814,7 @@ mod tests {
                 ..context()
             };
             let mut counts = [0_usize; 3];
-            for seed in 0..100_000 {
+            for seed in (0..100_000).map(fabelgeist_determinism::Seed::from_u64) {
                 if let Some(selection) = select_at(seed, 1, 180, c) {
                     counts[selection.archetype as usize] += 1;
                 }
@@ -795,15 +838,26 @@ mod tests {
 
     #[test]
     fn enemy_count_is_stable_and_scales_from_boundary_membership() {
-        assert_eq!(enemy_count(42, 7, 4), enemy_count(42, 7, 4));
-        assert!((4..=6).contains(&enemy_count(42, 7, 4)));
-        assert!((8..=12).contains(&enemy_count(42, 7, 8)));
+        assert_eq!(
+            enemy_count(fabelgeist_determinism::Seed::from_u64(42), 7, 4),
+            enemy_count(fabelgeist_determinism::Seed::from_u64(42), 7, 4)
+        );
+        assert!((4..=6).contains(&enemy_count(
+            fabelgeist_determinism::Seed::from_u64(42),
+            7,
+            4
+        )));
+        assert!((8..=12).contains(&enemy_count(
+            fabelgeist_determinism::Seed::from_u64(42),
+            7,
+            8
+        )));
     }
 
     #[test]
     fn all_awareness_states_and_independent_rolls_exist() {
         let mut seen = [false; 4];
-        for seed in 0..100_000 {
+        for seed in (0..100_000).map(fabelgeist_determinism::Seed::from_u64) {
             if let Some(e) = select_at(
                 seed,
                 1,
@@ -903,6 +957,7 @@ mod tests {
         };
         assert!(
             (0..50_000)
+                .map(fabelgeist_determinism::Seed::from_u64)
                 .filter_map(|seed| select_at(seed, 1, 180, road_with_undead_quest))
                 .all(|selection| selection.archetype != EncounterArchetype::Undead)
         );
@@ -910,7 +965,7 @@ mod tests {
 
     #[test]
     fn absent_problem_preserves_roll_domains_and_problem_scan_is_chunk_invariant() {
-        for seed in 0..2_000 {
+        for seed in (0..2_000).map(fabelgeist_determinism::Seed::from_u64) {
             assert_eq!(
                 select_at(seed, 1, 180, context()),
                 select_at_with_problem(seed, 1, 180, context(), None)
@@ -922,10 +977,29 @@ mod tests {
                 archetype: Some(EncounterArchetype::Bandits),
             })
         };
-        let whole = first_encounter_with_problem(42, 0, 720, |_| context(), influence);
-        let first = first_encounter_with_problem(42, 0, 360, |_| context(), influence);
-        let split =
-            first.or_else(|| first_encounter_with_problem(42, 360, 360, |_| context(), influence));
+        let whole = first_encounter_with_problem(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0,
+            720,
+            |_| context(),
+            influence,
+        );
+        let first = first_encounter_with_problem(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0,
+            360,
+            |_| context(),
+            influence,
+        );
+        let split = first.or_else(|| {
+            first_encounter_with_problem(
+                fabelgeist_determinism::Seed::from_u64(42),
+                360,
+                360,
+                |_| context(),
+                influence,
+            )
+        });
         assert_eq!(whole, split);
     }
 
@@ -937,6 +1011,7 @@ mod tests {
         });
         assert!(
             (0..20_000)
+                .map(fabelgeist_determinism::Seed::from_u64)
                 .filter_map(|seed| select_at_with_problem(seed, 1, 180, context(), influence))
                 .all(|selection| selection.archetype != EncounterArchetype::Undead)
         );

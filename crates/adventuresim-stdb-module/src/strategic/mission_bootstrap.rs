@@ -1324,7 +1324,7 @@ fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> R
         party.religion_target = 3.0 + streams::RELIGION.rng(leader_id.into(), &[]).index(3) as f32;
         ctx.db.party_authority().id().update(party);
 
-        let requirements = streams::recruiting_role(leader_id);
+        let requirements = streams::recruiting_role(fabelgeist_determinism::Seed::from_u64(leader_id));
         ctx.db
             .party_recruitment_role()
             .insert(PartyRecruitmentRole {
@@ -1592,7 +1592,7 @@ fn generate_quest_for_settlement(ctx: &ReducerContext, settlement_id: &str) -> R
             let validated = validate_quest_generation_authority(&row)?;
             Ok::<_, String>(count + u16::from(validated.context.settlement_id == settlement_id))
         })?;
-    let seed = ctx.random::<u64>();
+    let seed = ctx.random::<Seed>();
     let observer_entropy_hi = ctx.random::<u64>();
     let observer_entropy_lo = ctx.random::<u64>();
     let now_minute = crate::time::refresh_clock(ctx)?;
@@ -1640,7 +1640,7 @@ fn materialize_preferred_generated_fixture(
     ctx: &ReducerContext,
     character_id: u64,
     family: adventuresim_core::quest_generation::TemplateFamily,
-    seed_salt: u64,
+    seed_salt: Seed,
 ) -> Result<String, String> {
     use adventuresim_core::quest_generation as qg;
 
@@ -1657,17 +1657,17 @@ fn materialize_preferred_generated_fixture(
         .ok_or("Current settlement not found")?;
 
     let now_minute = crate::time::refresh_clock(ctx)?.max(StrategicMinute::new(4_000));
-    let entropy = streams::FIXTURE.seed(character_id.into(), &[seed_salt]).to_u64();
+    let entropy = streams::FIXTURE.seed(character_id.into(), &[seed_salt.to_u64()]);
     let initial_context = qg::GenerationContext {
         seed: entropy,
-        observer_entropy_hi: streams::OBSERVER_HIGH.seed(entropy.into(), &[]).to_u64(),
-        observer_entropy_lo: streams::OBSERVER_LOW.seed(entropy.into(), &[]).to_u64(),
+        observer_entropy_hi: streams::OBSERVER_HIGH.seed(entropy, &[]).to_u64(),
+        observer_entropy_lo: streams::OBSERVER_LOW.seed(entropy, &[]).to_u64(),
         settlement_id: settlement_id.clone(),
         settlement_name: settlement.name.clone(),
         scope: adventuresim_core::local_problem::Scope::Settlement {
             settlement_id: settlement_id.clone(),
         },
-        ordinal: (seed_salt as u16).max(1),
+        ordinal: (seed_salt.to_u64() as u16).max(1),
         now_minute,
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(family),
@@ -1676,7 +1676,7 @@ fn materialize_preferred_generated_fixture(
     let (context, generated) = (0..64_u64)
         .find_map(|offset| {
             let mut candidate = initial_context.clone();
-            candidate.seed = streams::FIXTURE_ATTEMPT.seed(entropy.into(), &[offset]).to_u64();
+            candidate.seed = streams::FIXTURE_ATTEMPT.seed(entropy, &[offset]);
             let generated = qg::generate(&candidate).ok()?;
             preferred_fixture_is_suitable(family, &generated).then_some((candidate, generated))
         })
@@ -1735,7 +1735,7 @@ fn materialize_preferred_generated_fixture(
     Ok(generated.problem_id)
 }
 
-fn ordinary_generated_site_distance_m(seed: u64, site_id: &str) -> u64 {
+fn ordinary_generated_site_distance_m(seed: Seed, site_id: &str) -> u64 {
     4_000 + fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(),
         streams::SITE_DISTANCE,
         &[site_id.as_bytes()]).rng().index(17_000) as u64
@@ -1760,7 +1760,7 @@ fn preferred_fixture_is_suitable(
 fn materialize_simulation_acceptance_outbreak(
     ctx: &ReducerContext,
     character_id: u64,
-    policy_seed: u64,
+    policy_seed: Seed,
 ) -> Result<String, String> {
     use adventuresim_core::quest_generation as qg;
 
@@ -1778,14 +1778,14 @@ fn materialize_simulation_acceptance_outbreak(
         .find(&settlement_id)
         .ok_or("Quest acceptance outbreak settlement not found")?;
     let now_minute = crate::time::refresh_clock(ctx)?.max(StrategicMinute::new(4_000));
-    let entropy = streams::ACCEPTANCE.seed(character_id.into(), &[policy_seed]).to_u64();
+    let entropy = streams::ACCEPTANCE.seed(character_id.into(), &[policy_seed.to_u64()]);
     for candidate in 0..MAX_CANDIDATES {
         let candidate_entropy =
-            streams::ACCEPTANCE_CANDIDATE.seed(entropy.into(), &[u64::from(candidate)]).to_u64();
+            streams::ACCEPTANCE_CANDIDATE.seed(entropy, &[u64::from(candidate)]);
         let context = qg::GenerationContext {
             seed: candidate_entropy,
-            observer_entropy_hi: streams::OBSERVER_HIGH.seed(candidate_entropy.into(), &[]).to_u64(),
-            observer_entropy_lo: streams::OBSERVER_LOW.seed(candidate_entropy.into(), &[]).to_u64(),
+            observer_entropy_hi: streams::OBSERVER_HIGH.seed(candidate_entropy, &[]).to_u64(),
+            observer_entropy_lo: streams::OBSERVER_LOW.seed(candidate_entropy, &[]).to_u64(),
             settlement_id: settlement_id.clone(),
             settlement_name: settlement.name.clone(),
             scope: adventuresim_core::local_problem::Scope::Settlement {
@@ -1891,7 +1891,7 @@ fn seed_outbreak_demo(ctx: &ReducerContext, character_id: u64) -> Result<String,
         ctx,
         character_id,
         adventuresim_core::quest_generation::TemplateFamily::Outbreak,
-        0x4f55_5442_5245_414b,
+        fabelgeist_determinism::Seed::from_u64(0x4f55_5442_5245_414b),
     )
 }
 
@@ -1986,7 +1986,7 @@ fn ensure_simulation_quest_provisioning_environment(
 
 pub(crate) fn seed_simulation_quest_fixture_inner(
     ctx: &ReducerContext,
-    policy_seed: u64,
+    policy_seed: Seed,
     direct_leader_id: u64,
     generated_leader_id: u64,
 ) -> Result<SimulationQuestFixtureSeed, String> {
@@ -2547,7 +2547,7 @@ mod developer_quest_source_tests {
             preferred_fixture_site_distance_m(TemplateFamily::Outbreak),
             None
         );
-        assert!(ordinary_generated_site_distance_m(0, "site:fixture") >= 4_000);
+        assert!(ordinary_generated_site_distance_m(fabelgeist_determinism::Seed::from_u64(0), "site:fixture") >= 4_000);
     }
 
     #[test]

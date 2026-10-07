@@ -7,8 +7,15 @@ use adventuresim_world_schema::calendar::StrategicMinute;
 fn production_required_sizes_preserve_all_homes_services_bindings_and_soil_roots() {
     let cases = [900, 6500, 12000]
         .into_iter()
-        .flat_map(|population| [42, 47, 101].map(|seed| (population, seed)))
-        .chain(std::iter::once((30000, 101)));
+        .flat_map(|population| {
+            [42, 47, 101]
+                .map(fabelgeist_determinism::Seed::from_u64)
+                .map(|seed| (population, seed))
+        })
+        .chain(std::iter::once((
+            30000,
+            fabelgeist_determinism::Seed::from_u64(101),
+        )));
     let mut rows = Vec::new();
     for (population, seed) in cases {
         let started = std::time::Instant::now();

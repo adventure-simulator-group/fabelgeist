@@ -30,7 +30,10 @@ fn bound_building_has_static_collision_without_rewriting_surrounding_source() {
         base_elevation_metres: crate::city_layout::grounding::SupportElevation::from_metres(2.0)
             .unwrap(),
         id: (7).into(),
-        program: BuildingProgram::fixture(BuildingArchetype::FachwerkCottage, 42),
+        program: BuildingProgram::fixture(
+            BuildingArchetype::FachwerkCottage,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ),
         centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(bevy::math::Vec2::ZERO)
             .unwrap(),
         orientation: BuildingOrientation::from_radians(core::f32::consts::FRAC_PI_2).unwrap(),

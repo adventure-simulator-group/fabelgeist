@@ -2,6 +2,7 @@
 mod streams;
 use crate::TextureParameters;
 use bevy::math::{IVec2, Vec2};
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 #[cfg(test)]
 mod tests;
@@ -23,12 +24,12 @@ crate::parameters::parameter_block! {
     }
 }
 
-pub(crate) fn hash(params: &TextureParameters, cell: IVec2, cells: IVec2, field_seed: u64) -> f32 {
+pub(crate) fn hash(params: &TextureParameters, cell: IVec2, cells: IVec2, field_seed: Seed) -> f32 {
     params
         .rng(
             streams::LATTICE,
             &[
-                field_seed,
+                field_seed.to_u64(),
                 cell.x.rem_euclid(cells.x) as u64,
                 cell.y.rem_euclid(cells.y) as u64,
             ],
@@ -41,7 +42,7 @@ pub(crate) fn smooth(t: f32) -> f32 {
     t * t * (3.0 - 2.0 * t)
 }
 
-pub(crate) fn noise(params: &TextureParameters, uv: Vec2, cells: IVec2, field_seed: u64) -> f32 {
+pub(crate) fn noise(params: &TextureParameters, uv: Vec2, cells: IVec2, field_seed: Seed) -> f32 {
     let p = uv.rem_euclid(Vec2::ONE) * cells.as_vec2();
     let cell = p.floor().as_ivec2();
     let f = p - p.floor();
@@ -63,7 +64,7 @@ pub(crate) struct Sample {
 
 impl Parameters {
     /// A two-cell search contains every allowed rotated stamp, including its feather.
-    pub(crate) fn sample(&self, params: &TextureParameters, uv: Vec2, field_seed: u64) -> Sample {
+    pub(crate) fn sample(&self, params: &TextureParameters, uv: Vec2, field_seed: Seed) -> Sample {
         let cells = IVec2::from_array(self.cells);
         let p = uv.rem_euclid(Vec2::ONE) * cells.as_vec2();
         let base = p.floor().as_ivec2();
@@ -71,14 +72,8 @@ impl Parameters {
         for y in -2..=2 {
             for x in -2..=2 {
                 let cell = base + IVec2::new(x, y);
-                let random = |purpose: StreamId| {
-                    hash(
-                        params,
-                        cell,
-                        cells,
-                        purpose.seed(field_seed.into(), &[]).to_u64(),
-                    )
-                };
+                let random =
+                    |purpose: StreamId| hash(params, cell, cells, purpose.seed(field_seed, &[]));
                 let site = cell.as_vec2()
                     + Vec2::splat(0.5)
                     + (Vec2::new(random(streams::SITE_X), random(streams::SITE_Y))
@@ -90,7 +85,7 @@ impl Parameters {
                     params,
                     site / cells.as_vec2(),
                     IVec2::from_array(self.cluster_cells),
-                    params.field_seed(streams::CLUSTER, &[field_seed]),
+                    params.field_seed(streams::CLUSTER, &[field_seed.to_u64()]),
                 );
                 let density = self.density
                     * (1.0 - self.cluster_strength + cluster * 2.0 * self.cluster_strength);

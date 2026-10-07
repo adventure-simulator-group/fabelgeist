@@ -5,7 +5,7 @@ pub(super) fn fixture() -> Result<Fixture, Box<dyn std::error::Error>> {
     Ok(Fixture {
         name: "fault-scarp-cliff",
         scene_key: "fault-scarp",
-        seed: 47_114,
+        seed: fabelgeist_determinism::Seed::from_u64(47_114),
         terrain: rolling,
         environment: rocky_open,
         weather: clear(),

@@ -8,8 +8,11 @@ use crate::{
 use bevy::math::Vec3;
 
 fn empty_room() -> BuildingPlan {
-    let mut plan =
-        crate::generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+    let mut plan = crate::generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
     plan.storeys.truncate(1);
     plan.storeys[0].rooms = vec![Room {
         id: 0,
@@ -237,7 +240,10 @@ fn interior_requires_physical_floors_without_archetype_descriptors() {
     assert!(
         furnish(
             &plan,
-            &BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)
+            &BuildingProgram::fixture(
+                BuildingArchetype::TownHouse,
+                fabelgeist_determinism::Seed::from_u64(42)
+            )
         )
         .is_err()
     );

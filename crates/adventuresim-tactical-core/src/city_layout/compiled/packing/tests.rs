@@ -2,9 +2,11 @@ use super::*;
 
 #[test]
 fn measured_packing_retains_selected_roster_and_capacity() {
-    for (seed, population) in [(42, 900), (101, 6500)] {
+    for (seed, population) in [(42, 900), (101, 6500)]
+        .map(|(seed, population)| (fabelgeist_determinism::Seed::from_u64(seed), population))
+    {
         let mut generated = CitySite::central_german_market_town().generate(
-            (seed).into(),
+            seed,
             population,
             &super::super::super::tests::economy(),
         );
@@ -13,7 +15,7 @@ fn measured_packing_retains_selected_roster_and_capacity() {
             Ok(super::super::super::packing::CityPackingContext::default()),
         )
         .unwrap();
-        let mut compiled = generated.compile_properties((seed).into()).unwrap();
+        let mut compiled = generated.compile_properties(seed).unwrap();
         let before = compiled.clone();
         compiled.finalize_packing(&context).unwrap();
         if population == 6500 {
@@ -179,7 +181,7 @@ fn twelve_thousand_seed_47_retains_garden_bounds() {
 fn residence_authority_town_keeps_complete_buildable_properties() {
     let seed = adventuresim_core::settlement_population::settlement_building_seed("town");
     let mut generated = CitySite::central_german_market_town().generate(
-        (seed).into(),
+        seed,
         6500,
         &SettlementEconomyProfile::stage_placeholder(),
     );
@@ -188,7 +190,7 @@ fn residence_authority_town_keeps_complete_buildable_properties() {
         Ok(super::super::super::packing::CityPackingContext::default()),
     )
     .unwrap();
-    let mut layout = generated.compile_properties((seed).into()).unwrap();
+    let mut layout = generated.compile_properties(seed).unwrap();
     let before = layout.clone();
     let property = before
         .single_properties
@@ -258,12 +260,8 @@ fn single_bearing_points(layout: &CompiledCityLayout, property: &CitySinglePrope
 fn insufficient_owned_plot_rejects_the_exact_member_without_programme_substitution() {
     let seed = adventuresim_core::settlement_population::settlement_building_seed("town");
     let mut layout = CitySite::central_german_market_town()
-        .generate(
-            (seed).into(),
-            6500,
-            &SettlementEconomyProfile::stage_placeholder(),
-        )
-        .compile_properties((seed).into())
+        .generate(seed, 6500, &SettlementEconomyProfile::stage_placeholder())
+        .compile_properties(seed)
         .unwrap();
     let before = layout
         .buildings
@@ -315,13 +313,13 @@ fn large_population_frontage_retains_complete_measured_properties() {
     .unwrap();
     let seed =
         adventuresim_core::settlement_population::settlement_building_seed("massive-city-3229");
-    let city = CitySite::central_german_market_town().generate((seed).into(), population, &economy);
+    let city = CitySite::central_german_market_town().generate(seed, population, &economy);
     assert_eq!(city.unhoused_population, 0);
     assert!(city.unplaced_services.is_empty());
     let selected = city.lots.len();
     let context = city.packing.clone().unwrap();
     let mut compiled = city
-        .compile_properties((seed).into())
+        .compile_properties(seed)
         .expect("fixed roster compiles");
     let original_buildings = compiled.buildings.clone();
     let original_gardens = compiled.gardens.clone();

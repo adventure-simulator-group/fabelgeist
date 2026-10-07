@@ -301,7 +301,10 @@ mod tests {
                 )
                 .unwrap(),
             id: id.into(),
-            program: BuildingProgram::fixture(BuildingArchetype::TownHouse, 42),
+            program: BuildingProgram::fixture(
+                BuildingArchetype::TownHouse,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ),
             centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
                 centre,
             )

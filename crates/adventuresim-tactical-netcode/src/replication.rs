@@ -168,7 +168,10 @@ mod tests {
     fn building() -> SceneBuilding {
         SceneBuilding {
             id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
-            program: BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 47),
+            program: BuildingProgram::fixture(
+                BuildingArchetype::FachwerkMerchantHouse,
+                fabelgeist_determinism::Seed::from_u64(47),
+            ),
             orientation: BuildingOrientation::from_radians(0.73).unwrap(),
         }
     }

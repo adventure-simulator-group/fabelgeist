@@ -183,7 +183,10 @@ mod tests {
                 base_elevation_metres:
                     adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
                 id: (index as u64 + 1).into(),
-                program: BuildingProgram::fixture(archetype, 42),
+                program: BuildingProgram::fixture(
+                    archetype,
+                    fabelgeist_determinism::Seed::from_u64(42),
+                ),
                 centre_metres:
                     adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
                         Vec2::new(index as f32 * 30.0, 0.0),

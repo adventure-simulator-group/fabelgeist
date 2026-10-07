@@ -261,7 +261,7 @@ fn run_core_loop_inner(
         .map(|id| generate_profile(config.seed, id))
         .collect::<Vec<_>>();
     let character_ids = (0..config.population)
-        .map(|id| fabelgeist_determinism::StreamId::new("simulation.character-identity").seed(config.seed.into(), &[u64::from(id)]).to_u64())
+        .map(|id| fabelgeist_determinism::StreamId::new("simulation.character-identity").seed(config.seed, &[u64::from(id)]).to_u64())
         .collect::<Vec<_>>();
     let mut runner = LiveRunner {
         connection,
@@ -329,7 +329,7 @@ fn run_core_loop_inner(
         .claim_simulation_run_then(
             bootstrap_token.clone(),
             config.run_nonce.clone(),
-            config.seed,
+            config.seed.into(),
             cb,
         ));
     runner.call(result)?;
@@ -786,7 +786,7 @@ fn run_core_loop_inner(
             let profile = runner.profiles[leader_agent as usize].clone();
             let fixture_lane = fixture_quest_lane(quest_lane_plan.as_ref(), leader, party_id);
             let selector = fabelgeist_determinism::StreamId::new("simulation.quest-decision")
-                .rng(config.seed.into(), &[u64::from(leader_agent), u64::from(cycle)]).unit_f64();
+                .rng(config.seed, &[u64::from(leader_agent), u64::from(cycle)]).unit_f64();
             let quest_propensity = profile.activity_vs_quest_propensity;
             let wants_quest = fixture_lane.is_some()
                 || (!profile.build.activity_only && selector < f64::from(quest_propensity));

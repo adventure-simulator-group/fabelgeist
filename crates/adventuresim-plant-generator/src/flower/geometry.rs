@@ -1,6 +1,7 @@
 use super::{Corolla, FlowerParameters, LeafArrangement};
 use crate::{PlantLod, PlantMesh};
 use bevy::math::{Quat, Vec3};
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 use std::f32::consts::{PI, TAU};
 
@@ -8,9 +9,9 @@ const GOLDEN_ANGLE: f32 = 2.399_963_1;
 
 // Complexity reduction samples organs across their original arrangement, never
 // cuts triangles off an assembled mesh. Every recipe obeys the selected budget.
-pub(super) fn generate(p: &FlowerParameters, seed: u64, lod: PlantLod) -> PlantMesh {
+pub(super) fn generate(p: &FlowerParameters, seed: Seed, lod: PlantLod) -> PlantMesh {
     let phase = StreamId::new("plant.flower.phase")
-        .rng(seed.into(), &[])
+        .rng(seed, &[])
         .inclusive_unit_f32()
         * TAU;
     for reduction in 1..=40 {

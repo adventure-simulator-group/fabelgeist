@@ -104,7 +104,7 @@ fn request_choices(
     let mut program = BuildingProgram::settlement(
         settlement_archetype(request.usage()),
         Some(request.usage()),
-        0,
+        fabelgeist_determinism::Seed::from_u64(0),
     );
     if let Some(size) = ServiceBuildingSize::for_demand(request) {
         program = program.with_service_size(size);

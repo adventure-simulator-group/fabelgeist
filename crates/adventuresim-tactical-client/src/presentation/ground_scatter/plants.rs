@@ -12,6 +12,7 @@ use adventuresim_tactical_core::prelude::{
 };
 use adventuresim_world_schema::calendar::StrategicMinute;
 use bevy::prelude::*;
+use fabelgeist_determinism::Seed;
 mod lod;
 pub(crate) use lod::PlantLodInstance;
 use lod::SpecimenCache;
@@ -21,7 +22,7 @@ const MAX_SPECIMENS: usize = 512;
 const MIN_SLOPE_NORMAL_Y: f32 = 0.8;
 const ROOT_EMBED_METRES: f32 = 0.002;
 const OCCUPANCY: f32 = 0.32;
-const PLANT_SEED: u64 = 0x504c_414e_5453;
+const PLANT_SEED: Seed = Seed::from_u64(0x504c_414e_5453);
 #[cfg(test)]
 mod tests;
 
@@ -67,21 +68,18 @@ fn present(
         cache.prepare(&mut meshes, &mut materials);
         let masked = landform.map(|l| scatter_ground_without_patch(ground, l.transition_collar()));
         let ground = masked.as_ref().unwrap_or(ground);
-        let seed =
-            stable_text_seed(&id.0) ^ stable_text_seed(&environment.scene_digest) ^ PLANT_SEED;
+        let seed = stable_text_seed(&id.0)
+            .xor_word(stable_text_seed(&environment.scene_digest).to_u64())
+            .xor_word(PLANT_SEED.to_u64());
         let sites = placements(terrain, ground, environment, seed);
         let mut anchors = Vec::new();
         for site in sites {
             let transform = Transform::from_translation(site.root)
                 .with_rotation(Quat::from_rotation_y(
-                    streams::YAW.rng(site.hash.into(), &[]).inclusive_unit_f32()
-                        * std::f32::consts::TAU,
+                    streams::YAW.rng(site.hash, &[]).inclusive_unit_f32() * std::f32::consts::TAU,
                 ))
                 .with_scale(Vec3::splat(
-                    0.85 + streams::SCALE
-                        .rng(site.hash.into(), &[])
-                        .inclusive_unit_f32()
-                        * 0.3,
+                    0.85 + streams::SCALE.rng(site.hash, &[]).inclusive_unit_f32() * 0.3,
                 ));
             cache.spawn(&mut commands, site.species, transform);
             anchors.push(PlantCaptureAnchor {
@@ -99,14 +97,14 @@ fn present(
 struct PlantSite {
     root: Vec3,
     species: PlantSpecies,
-    hash: u64,
+    hash: Seed,
 }
 
 fn placements(
     terrain: &SceneTerrain,
     ground: &SceneGround,
     environment: &SceneEnvironment,
-    seed: u64,
+    seed: Seed,
 ) -> Vec<PlantSite> {
     let count_x = (terrain.width() / SITE_SPACING_METRES).floor() as i32;
     let count_z = (terrain.depth() / SITE_SPACING_METRES).floor() as i32;
@@ -115,22 +113,20 @@ fn placements(
         super::cover_mask::CoverageMask::new(ground, stable_text_seed(&environment.scene_digest));
     for z in 0..count_z {
         for x in 0..count_x {
-            let hash = streams::SITE
-                .seed(seed.into(), &[x as u64, z as u64])
-                .to_u64();
-            if streams::PRESENCE.rng(hash.into(), &[]).inclusive_unit_f32() > OCCUPANCY {
+            let hash = streams::SITE.seed(seed, &[x as u64, z as u64]);
+            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() > OCCUPANCY {
                 continue;
             }
             let world = Vec2::new(
                 -terrain.width() * 0.5
                     + (x as f32
                         + 0.15
-                        + streams::JITTER_X.rng(hash.into(), &[]).inclusive_unit_f32() * 0.7)
+                        + streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() * 0.7)
                         * SITE_SPACING_METRES,
                 -terrain.depth() * 0.5
                     + (z as f32
                         + 0.15
-                        + streams::JITTER_Z.rng(hash.into(), &[]).inclusive_unit_f32() * 0.7)
+                        + streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() * 0.7)
                         * SITE_SPACING_METRES,
             );
             let (Some(surface), Some(height), Some(normal)) = (
@@ -146,16 +142,14 @@ fn placements(
             let habitat = habitat(surface, environment);
             // A shared macro-cell roll gives patches botanical coherence; roots
             // retain independent jitter so the planting lattice is not visible.
-            let community = streams::COMMUNITY
-                .seed(seed.into(), &[(x / 3) as u64, (z / 3) as u64])
-                .to_u64();
+            let community = streams::COMMUNITY.seed(seed, &[(x / 3) as u64, (z / 3) as u64]);
             let weights = PlantSpecies::ALL.map(|species| {
                 (species.habitat_weight(habitat)
                     * f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE))
                 .round() as u64
             });
             let Ok(species) = streams::SPECIES
-                .rng(community.into(), &[])
+                .rng(community, &[])
                 .weighted_index(&weights)
             else {
                 continue;

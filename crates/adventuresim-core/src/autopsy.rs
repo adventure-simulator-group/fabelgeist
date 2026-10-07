@@ -9,6 +9,7 @@ use crate::autoresolve::{
 };
 use crate::prelude::BodyPart;
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 pub const SCENE_MINUTES: u64 = 90;
@@ -145,13 +146,11 @@ pub fn resolve_death_required_incident(
     allies: &[Combatant],
     enemies: &[Combatant],
     victim_enemy_id: u64,
-    base_seed: u64,
+    base_seed: Seed,
     max_attempts: u16,
 ) -> Option<BattleOutcome> {
     (0..max_attempts).find_map(|attempt| {
-        let seed = DEATH_REQUIRED_ATTEMPT
-            .seed(base_seed.into(), &[u64::from(attempt)])
-            .to_u64();
+        let seed = DEATH_REQUIRED_ATTEMPT.seed(base_seed, &[u64::from(attempt)]);
         let outcome = resolve_battle(
             allies.to_vec(),
             enemies.to_vec(),

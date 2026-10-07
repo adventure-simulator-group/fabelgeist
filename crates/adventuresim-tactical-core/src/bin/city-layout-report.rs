@@ -14,9 +14,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap_or(6_500);
     let seed = arguments
         .next()
-        .map(|s| s.parse::<u64>())
+        .map(|s| s.parse::<fabelgeist_determinism::Seed>())
         .transpose()?
-        .unwrap_or(42);
+        .unwrap_or(fabelgeist_determinism::Seed::from_u64(42));
     if arguments.next().is_some() {
         return Err("usage: city-layout-report [population] [seed]".into());
     }
@@ -31,7 +31,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     )])
     .unwrap();
     let economy = infer_settlement_economy(level, population, 3, level >= 3, &industries)?;
-    let city = CitySite::central_german_market_town().generate((seed).into(), population, &economy);
+    let city = CitySite::central_german_market_town().generate(seed, population, &economy);
     let (parishes, parish_error) = match city.parish_layout() {
         Ok(parishes) => (parishes, None),
         Err(error) => (Vec::new(), Some(error.to_string())),

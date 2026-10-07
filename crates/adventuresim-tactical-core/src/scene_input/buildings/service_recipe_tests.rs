@@ -15,8 +15,13 @@ fn sized_church_and_workplace_recipes_survive_distant_transport_with_playable_ge
             ServiceBuildingSize::Large,
         ] {
             let archetype = settlement_archetype(usage);
-            let program =
-                BuildingProgram::validated_settlement(archetype, usage, 42, Some(size)).unwrap();
+            let program = BuildingProgram::validated_settlement(
+                archetype,
+                usage,
+                fabelgeist_determinism::Seed::from_u64(42),
+                Some(size),
+            )
+            .unwrap();
             let orientation = BuildingOrientation::from_radians(0.37).unwrap();
             let centre_metres = Vec2::new(80.0, 35.0);
             let playable = prepare_buildings(
@@ -41,7 +46,7 @@ fn sized_church_and_workplace_recipes_survive_distant_transport_with_playable_ge
                 archetype,
                 usage: Some(usage),
                 service_size: program.service_size,
-                seed: program.seed.into(),
+                seed: program.seed,
                 centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(centre_metres)
                     .unwrap(),
                 base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,

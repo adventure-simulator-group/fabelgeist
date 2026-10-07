@@ -4,8 +4,8 @@ const BUILDING_PLAN: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("settlement.building-plan");
 
 /// Canonical city and business-demand seed for one settlement identity.
-pub fn settlement_building_seed(settlement_id: &str) -> u64 {
-    fabelgeist_determinism::Seed::derive(settlement_id.as_bytes(), BUILDING_PLAN, &[]).to_u64()
+pub fn settlement_building_seed(settlement_id: &str) -> fabelgeist_determinism::Seed {
+    fabelgeist_determinism::Seed::derive(settlement_id.as_bytes(), BUILDING_PLAN, &[])
 }
 
 pub(super) fn choose_age(

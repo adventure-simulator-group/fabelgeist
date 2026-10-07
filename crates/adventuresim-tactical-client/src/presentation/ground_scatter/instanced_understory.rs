@@ -9,6 +9,7 @@
 //! stop casting shadows; at their band distances the cast shadows were
 //! already faint.
 
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 use std::sync::Arc;
 
@@ -172,7 +173,7 @@ pub(super) fn spawn(
     cache: &WoodyUnderstoryPresentationCache,
     terrain: &SceneTerrain,
     ground: &SceneGround,
-    base_seed: u64,
+    base_seed: Seed,
     chance: f32,
     habitat: UnderstoryHabitat,
 ) {
@@ -297,14 +298,14 @@ fn species_index(species: UnderstorySpecies) -> usize {
     }
 }
 
-fn shrub_instance(hash: u64, position: Vec3) -> InstanceData {
+fn shrub_instance(hash: Seed, position: Vec3) -> InstanceData {
     let yaw = StreamId::new("visual.understory.yaw")
-        .rng(hash.into(), &[])
+        .rng(hash, &[])
         .inclusive_unit_f32()
         * core::f32::consts::TAU;
     let scale = 0.72
         + StreamId::new("visual.understory.scale")
-            .rng(hash.into(), &[])
+            .rng(hash, &[])
             .inclusive_unit_f32()
             * 0.58;
     InstanceData {
@@ -312,7 +313,7 @@ fn shrub_instance(hash: u64, position: Vec3) -> InstanceData {
         scale,
         rotation: yaw,
         seed: (StreamId::new("visual.ground-scatter.instanced-understory.shader-seed")
-            .seed(hash.into(), &[])
+            .seed(hash, &[])
             .to_u64()
             & 0xffff_ffff) as u32,
         ..Default::default()

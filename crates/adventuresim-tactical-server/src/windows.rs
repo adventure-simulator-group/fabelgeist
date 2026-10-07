@@ -216,7 +216,10 @@ mod tests {
         use adventuresim_building_generator::{BuildingArchetype, BuildingProgram, generate};
         use adventuresim_tactical_core::scene_coordinates::{CollisionCentreDatum, Scene};
         use adventuresim_tactical_core::scene_input::BuildingOrientation;
-        let program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 42);
+        let program = BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let plan = generate(&program).unwrap();
         let building = SceneBuilding {
             id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(8),

@@ -64,7 +64,7 @@ Both playable and distant scene placements carry `base_elevation_metres`, the
 scene elevation of architectural Y=0. Promotion copies the exact programme,
 identity, horizontal placement, orientation and floor datum. Generated buildings
 read that placement instead of retaining a second, mutable pad elevation. Scene
-schema 28 and generation version 71 require floor datums and accepted property
+schema 29 and generation version 72 require floor datums and accepted property
 support directly; previous formats are rejected. A changed floor invalidates the
 scene product while equal programmes retain the same façade recipe keys.
 
@@ -268,7 +268,7 @@ thresholds can select support below an explicit vertical ceiling. Refinement and
 sample rewrites are rejected after installation. The server, capture viewer and
 art viewer install the resulting colliders on independent static bodies attached
 to the transient scene. A restored scene regenerates those bodies from immutable
-geometry. Scene schema version 28 and terrain generation version 71 invalidate
+geometry. Scene schema version 29 and terrain generation version 72 invalidate
 older generated products.
 
 `GroundedCitySceneLayout::support_projection` encodes complete accepted plans

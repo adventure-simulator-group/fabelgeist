@@ -128,10 +128,8 @@ impl DistantBuildingPlacement {
     /// The occupied recipe is retained for promotion into a playable venue.
     pub fn occupied_program(self) -> BuildingProgram {
         let mut program = match self.usage {
-            Some(usage) => {
-                BuildingProgram::settlement(self.archetype, Some(usage), self.seed.to_u64())
-            }
-            None => BuildingProgram::fixture(self.archetype, self.seed.to_u64()),
+            Some(usage) => BuildingProgram::settlement(self.archetype, Some(usage), self.seed),
+            None => BuildingProgram::fixture(self.archetype, self.seed),
         };
         if let Some(size) = self.service_size {
             program = program.with_service_size(size);
@@ -466,13 +464,16 @@ mod occupied_recipe_tests {
             BuildingProgram::settlement(
                 BuildingArchetype::HallHouse,
                 Some(BuildingUse::Stable),
-                42
+                fabelgeist_determinism::Seed::from_u64(42)
             )
             .with_service_size(adventuresim_building_generator::ServiceBuildingSize::Large)
         );
         assert_ne!(
             placement.occupied_program(),
-            BuildingProgram::fixture(BuildingArchetype::HallHouse, 42)
+            BuildingProgram::fixture(
+                BuildingArchetype::HallHouse,
+                fabelgeist_determinism::Seed::from_u64(42)
+            )
         );
     }
 }

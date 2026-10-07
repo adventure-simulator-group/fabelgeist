@@ -86,7 +86,10 @@ mod tests {
 
     #[test]
     fn reuse_preserves_geometry_and_distinguishes_complete_programs() {
-        let program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 42);
+        let program = BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let mut recipes = GeneratedBuildingRecipes::default();
         let plan = &recipes.get_or_generate(&program).unwrap().plan as *const BuildingPlan;
         assert_eq!(
@@ -94,7 +97,7 @@ mod tests {
             &recipes.get_or_generate(&program).unwrap().plan as *const _
         );
         let mut changed = program.clone();
-        changed.seed = 47;
+        changed.seed = fabelgeist_determinism::Seed::from_u64(47);
         recipes.get_or_generate(&changed).unwrap();
         let moved = recipes.take(&program).unwrap();
         assert!(recipes.take(&program).is_none());

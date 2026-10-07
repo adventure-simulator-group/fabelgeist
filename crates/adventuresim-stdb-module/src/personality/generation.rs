@@ -1,4 +1,6 @@
 use super::*;
+use crate::character::CharacterId;
+use fabelgeist_determinism::Seed;
 
 /// Stable entropy purpose for persisted character personality generation.
 pub(super) const PERSONALITY_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
@@ -13,14 +15,17 @@ const PRESENTATION: fabelgeist_determinism::StreamId =
 const INCLINATION: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("character.personality.inclination");
 
-pub fn personality_from_stable_seed(character_id: u64, stable_seed: u64) -> CharacterPersonality {
+pub(crate) fn personality_from_stable_seed(
+    character_id: CharacterId,
+    stable_seed: Seed,
+) -> CharacterPersonality {
     let sex = *SEX
-        .rng(stable_seed.into(), &[character_id])
+        .rng(stable_seed, &[character_id.get()])
         .choose(Sex::VARIANTS);
     let presentation = match (
         sex,
         PRESENTATION
-            .rng(stable_seed.into(), &[character_id])
+            .rng(stable_seed, &[character_id.get()])
             .index(100),
     ) {
         (_, 0..=3) => Presentation::Ambiguous,
@@ -32,18 +37,18 @@ pub fn personality_from_stable_seed(character_id: u64, stable_seed: u64) -> Char
     personality_from_stable_seed_with_demographics(character_id, stable_seed, sex, presentation)
 }
 
-pub fn personality_from_stable_seed_with_demographics(
-    character_id: u64,
-    stable_seed: u64,
+pub(crate) fn personality_from_stable_seed_with_demographics(
+    character_id: CharacterId,
+    stable_seed: Seed,
     sex: Sex,
     presentation: Presentation,
 ) -> CharacterPersonality {
-    let mut behavior = BEHAVIOR.rng(stable_seed.into(), &[character_id]);
+    let mut behavior = BEHAVIOR.rng(stable_seed, &[character_id.get()]);
     let mut result = random_personality(character_id, &mut behavior);
     result.sex = sex;
     result.presentation = presentation;
     result.inclination = match INCLINATION
-        .rng(stable_seed.into(), &[character_id])
+        .rng(stable_seed, &[character_id.get()])
         .index(100)
     {
         0 => Inclination::Neither,
@@ -61,11 +66,11 @@ pub fn personality_from_stable_seed_with_demographics(
 }
 
 /// Generate a sparse profile with exactly two through four distinct axes.
-pub fn random_personality(
-    character_id: u64,
+pub(crate) fn random_personality(
+    character_id: CharacterId,
     random: &mut DeterministicRng,
 ) -> CharacterPersonality {
-    let mut result = CharacterPersonality::neutral(character_id);
+    let mut result = CharacterPersonality::neutral(character_id.get());
     let mut axes = [0_u8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     random.shuffle(&mut axes);
     let count = 2 + random.index(3);

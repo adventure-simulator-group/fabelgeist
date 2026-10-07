@@ -41,7 +41,7 @@ fn joists(
         GROUNDED_HEATED_BAY_SET_OUT_METRES[fabelgeist_determinism::StreamId::new(
             "building.heated-bay-set-out",
         )
-        .rng(program.seed.into(), &[])
+        .rng(program.seed, &[])
         .index(GROUNDED_HEATED_BAY_SET_OUT_METRES.len())]
     };
     let mut stations = vec![0.0];
@@ -86,13 +86,16 @@ mod tests {
     use super::*;
     #[test]
     fn heated_bays_keep_edge_bearings_and_maximum_pitch_across_dimensions_and_seeds() {
-        let mut program = BuildingProgram::fixture(crate::BuildingArchetype::TownHouse, 0);
+        let mut program = BuildingProgram::fixture(
+            crate::BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(0),
+        );
         program.domestic_heating = Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove);
         for width in (3..24)
             .map(|cells| cells as f32 * crate::CELL_SIZE_METRES)
             .chain([11.0])
         {
-            for seed in [0, 42, 47, 101, u64::MAX] {
+            for seed in [0, 42, 47, 101, u64::MAX].map(fabelgeist_determinism::Seed::from_u64) {
                 program.seed = seed;
                 let stations = joists(&program, FloorWidth::from_metres(width).unwrap()).unwrap();
                 assert_eq!(stations[0].metres(), EDGE_BEARING_INSET_METRES);

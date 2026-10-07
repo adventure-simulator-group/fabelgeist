@@ -5,7 +5,7 @@ use crate::{
     stamps::{hash, noise, smooth},
 };
 use bevy::math::{IVec2, Vec2};
-use fabelgeist_determinism::StreamId;
+use fabelgeist_determinism::{Seed, StreamId};
 #[cfg(test)]
 mod tests;
 
@@ -42,15 +42,9 @@ pub(crate) struct Sample {
 }
 
 impl Parameters {
-    fn at(&self, params: &TextureParameters, uv: Vec2, id: u64) -> Sample {
-        let random = |purpose: StreamId| {
-            hash(
-                params,
-                IVec2::ZERO,
-                IVec2::ONE,
-                purpose.seed(id.into(), &[]).to_u64(),
-            )
-        };
+    fn at(&self, params: &TextureParameters, uv: Vec2, id: Seed) -> Sample {
+        let random =
+            |purpose: StreamId| hash(params, IVec2::ZERO, IVec2::ONE, purpose.seed(id, &[]));
         let mut across = uv.x;
         if random(streams::KNOT_PRESENCE) < self.knot_fraction {
             let center = Vec2::new(
@@ -74,7 +68,7 @@ impl Parameters {
             params,
             Vec2::new(across, uv.y),
             IVec2::from_array(self.wander_cells),
-            params.field_seed(streams::RING_WANDER, &[id]),
+            params.field_seed(streams::RING_WANDER, &[id.to_u64()]),
         ) - 0.5;
         let coordinate = across + warp * self.ring_wander;
         let phase = coordinate * self.ring_count as f32 + random(streams::RING_PHASE);
@@ -85,7 +79,7 @@ impl Parameters {
                     params,
                     IVec2::new(ring, 0),
                     IVec2::new(4096, 1),
-                    params.field_seed(streams::RING_WIDTH, &[id]),
+                    params.field_seed(streams::RING_WIDTH, &[id.to_u64()]),
                 ) * 2.0
                     * self.ring_width_variation);
         let t = phase.rem_euclid(1.0);
@@ -94,7 +88,7 @@ impl Parameters {
             params,
             IVec2::new(ring, 0),
             IVec2::new(4096, 1),
-            params.field_seed(streams::RING_COLOR, &[id]),
+            params.field_seed(streams::RING_COLOR, &[id.to_u64()]),
         ) < self.dark_ring_fraction;
         let dark = u8::from(colored && t < width * (1.0 + self.ring_shoulder)) as f32;
         let fiber = (coordinate * self.fiber_count as f32 * std::f32::consts::TAU).sin();
@@ -109,7 +103,7 @@ impl Parameters {
         params: &TextureParameters,
         uv: Vec2,
         footprint: Vec2,
-        id: u64,
+        id: Seed,
     ) -> Sample {
         let mut out = Sample::default();
         for y in 0..4 {

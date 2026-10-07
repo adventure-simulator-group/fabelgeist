@@ -11,9 +11,7 @@ pub fn generated_homes(
     population_estimate: u32,
     economy: &SettlementEconomyProfile,
 ) -> Result<GeneratedHomeCatalog, SettlementPropertyProjectionError> {
-    let seed = fabelgeist_determinism::Seed::from_u64(
-        adventuresim_core::settlement_population::settlement_building_seed(settlement_id),
-    );
+    let seed = adventuresim_core::settlement_population::settlement_building_seed(settlement_id);
     let population = effective_population(population_level, population_estimate);
     let layout = CitySite::central_german_market_town().generate(seed, population, economy);
     if layout.unhoused_population > 0

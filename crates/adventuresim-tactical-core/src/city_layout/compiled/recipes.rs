@@ -4,13 +4,15 @@ use adventuresim_building_generator::{
     compile_building_detail, compile_operable_doors, generate,
 };
 use bevy::math::Vec3;
+use fabelgeist_determinism::Seed;
 use std::{collections::BTreeMap, sync::Arc};
 mod catalogue;
 #[cfg(test)]
 mod tests;
 
 const RECIPE_SELECTION_DOMAIN: StreamId = StreamId::new("city.building-recipe");
-const CURATED_RECIPE_SEEDS: [u64; 3] = [42, 47, 101];
+const CURATED_RECIPE_SEEDS: [Seed; 3] =
+    [Seed::from_u64(42), Seed::from_u64(47), Seed::from_u64(101)];
 
 /// Lightweight immutable recipes retained from accepted city compilation.
 /// The memo contains programmes, bearings, thresholds and measured envelopes;
@@ -26,7 +28,7 @@ struct RecipeKey {
     archetype_slug: &'static str,
     usage: Option<BuildingUse>,
     size: Option<ServiceBuildingSize>,
-    seed: u64,
+    seed: Seed,
 }
 
 #[derive(Debug, PartialEq)]
@@ -73,7 +75,7 @@ impl CityRecipePalette {
         archetype: BuildingArchetype,
         usage: Option<BuildingUse>,
         size: Option<ServiceBuildingSize>,
-        seed: u64,
+        seed: Seed,
     ) -> Result<Arc<Recipe>, CityCompileError> {
         let key = RecipeKey {
             archetype_slug: archetype.slug(),

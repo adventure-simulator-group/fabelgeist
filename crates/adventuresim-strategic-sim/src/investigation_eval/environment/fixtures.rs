@@ -1,7 +1,8 @@
 //! Seeded evaluator fixture context and stable witness identities.
 use super::*;
+use fabelgeist_determinism::Seed;
 
-pub(super) fn generation_context(seed: u64, family: TemplateFamily) -> qg::GenerationContext {
+pub(super) fn generation_context(seed: Seed, family: TemplateFamily) -> qg::GenerationContext {
     let circumstances = BTreeSet::from([
         Circumstance::NightWindow,
         Circumstance::SecretRiversideMeeting,
@@ -28,17 +29,17 @@ pub(super) fn generation_context(seed: u64, family: TemplateFamily) -> qg::Gener
     qg::GenerationContext {
         seed,
         observer_entropy_hi: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high")
-            .seed(seed.into(), &[])
+            .seed(seed, &[])
             .to_u64(),
         observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-low")
-            .seed(seed.into(), &[])
+            .seed(seed, &[])
             .to_u64(),
         settlement_id: "settlement:evaluator".into(),
         settlement_name: "Greifenhagen".into(),
         scope: adventuresim_core::local_problem::Scope::Settlement {
             settlement_id: "settlement:evaluator".into(),
         },
-        ordinal: (seed & u64::from(u16::MAX)) as u16,
+        ordinal: (seed.to_u64() & u64::from(u16::MAX)) as u16,
         now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(family),

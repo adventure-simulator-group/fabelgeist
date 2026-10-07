@@ -10,7 +10,7 @@ pub(super) fn fixture() -> Fixture {
         ..super::fixture(
             "parish-review",
             "grassland",
-            47_121,
+            fabelgeist_determinism::Seed::from_u64(47_121),
             flat,
             open_yard,
             clear(),
@@ -47,7 +47,7 @@ pub(super) fn buildings() -> Result<
                     program: BuildingProgram::settlement(
                         BuildingArchetype::ParishChurch,
                         Some(usage),
-                        42,
+                        fabelgeist_determinism::Seed::from_u64(42),
                     )
                     .with_service_size(size),
                     centre_metres:

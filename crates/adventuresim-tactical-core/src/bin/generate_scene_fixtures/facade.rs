@@ -8,7 +8,7 @@ pub(super) fn fixture() -> Fixture {
         ..super::fixture(
             "facade-review",
             "city",
-            47_127,
+            fabelgeist_determinism::Seed::from_u64(47_127),
             flat,
             |_, _| sample(TacticalSurface::Open, 0, 0, 0, 0),
             clear(),
@@ -33,7 +33,10 @@ pub(super) fn buildings() -> Result<
             base_elevation_metres:
                 adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
             id: adventuresim_tactical_core::scene_input::SceneBuildingId(index as u64 + 1),
-            program: BuildingProgram::fixture(archetype, 42),
+            program: BuildingProgram::fixture(
+                archetype,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ),
             centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
                 Vec2::new(
                     (index % 2) as f32 * 45.0 - 22.5,
@@ -50,7 +53,7 @@ pub(super) fn buildings() -> Result<
         program: BuildingProgram::settlement(
             BuildingArchetype::HallHouse,
             Some(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling),
-            2,
+            fabelgeist_determinism::Seed::from_u64(2),
         ),
         centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
             Vec2::new(-22.5, 67.5),

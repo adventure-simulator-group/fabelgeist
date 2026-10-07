@@ -11,7 +11,7 @@ pub(super) fn fixture() -> Fixture {
         ..super::fixture(
             "compound-review",
             "city",
-            47_124,
+            fabelgeist_determinism::Seed::from_u64(47_124),
             flat,
             |_, _| sample(TacticalSurface::Open, 0, 0, 0, 0),
             clear(),

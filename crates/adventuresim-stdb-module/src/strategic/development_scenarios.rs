@@ -393,7 +393,7 @@ pub(crate) fn materialize_gallery_item(ctx: &ReducerContext, index: usize) -> Re
                 ctx,
                 THREAT_ID,
                 adventuresim_core::quest_generation::TemplateFamily::RecurringDepredation,
-                0x5448_5245_4154_0001,
+                fabelgeist_determinism::Seed::from_u64(0x5448_5245_4154_0001),
             )?;
             ensure_recurring_threat_offer_awareness(ctx, &threat_problem_id)?;
             crate::local_problem::discover_development_problem(

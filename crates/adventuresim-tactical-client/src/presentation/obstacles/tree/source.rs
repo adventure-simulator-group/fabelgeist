@@ -8,6 +8,7 @@ use super::{
 };
 use crate::presentation::SceneEnvironment;
 use bevy::prelude::*;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -59,10 +60,9 @@ pub(crate) fn tree_species_for_site(
     let community_z = (position.z / 30.0).floor() as i32;
     let community = ((community_x as u32 as u64) << 32) | community_z as u32 as u64;
     let hash = StreamId::new("visual.obstacles.tree.source.community")
-        .seed(oak_site_key(environment).into(), &[community])
-        .to_u64();
+        .seed(oak_site_key(environment).into(), &[community]);
     if RNG_VISUAL_OBSTACLES_TREE_SOURCE_SPECIES
-        .rng(hash.into(), &[])
+        .rng(hash, &[])
         .inclusive_unit_f32()
         < probability
     {
@@ -97,7 +97,7 @@ pub(super) fn oak_site_key(environment: &SceneEnvironment) -> u64 {
 pub(super) fn oak_gnarling_for_site(
     mut recipe: OakGnarlingParameters,
     environment: &SceneEnvironment,
-    tree_seed: u64,
+    tree_seed: Seed,
 ) -> OakGnarlingParameters {
     let canopy = crate::presentation::procedural::bps(environment.canopy_bps);
     let open_exposure = 1.0 - canopy;
@@ -108,13 +108,13 @@ pub(super) fn oak_gnarling_for_site(
         ((f32::from(environment.absolute_elevation_metres.get()) - 40.0) / 900.0).clamp(0.0, 1.0);
     let susceptibility = 0.72
         + StreamId::new("visual.obstacles.tree.source.susceptibility")
-            .rng(tree_seed.into(), &[])
+            .rng(tree_seed, &[])
             .inclusive_unit_f32()
             * 0.28;
     let wind_exposure =
         (open_exposure * 0.46 + slope * 0.34 + elevation * 0.2).clamp(0.0, 1.0) * susceptibility;
     let age_and_wounds = StreamId::new("visual.obstacles.tree.source.age-wounds")
-        .rng(tree_seed.into(), &[])
+        .rng(tree_seed, &[])
         .inclusive_unit_f32();
     let location = u64::from(environment.latitude_microdegrees.get() as u32) << 32
         | u64::from(environment.longitude_microdegrees.get() as u32);
@@ -164,7 +164,7 @@ pub(super) fn oak_gnarling_for_site(
 }
 
 pub(super) fn vista_tree_source(
-    variant_seed: u64,
+    variant_seed: Seed,
     competition: f32,
     species: TreePresentationSpecies,
 ) -> (Vec<TreeBranchSegment>, Vec<TreeLeaf>) {
@@ -190,7 +190,7 @@ pub(super) fn vista_tree_source(
 
 pub(super) fn playable_tree_source(
     species: TreePresentationSpecies,
-    variant_seed: u64,
+    variant_seed: Seed,
     variant_index: usize,
     competition: f32,
     environment: &SceneEnvironment,

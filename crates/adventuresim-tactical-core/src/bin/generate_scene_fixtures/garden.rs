@@ -9,7 +9,7 @@ pub(super) fn fixture() -> Fixture {
         ..super::fixture(
             "garden-review",
             "city",
-            47_127,
+            fabelgeist_determinism::Seed::from_u64(47_127),
             flat,
             |_, _| sample(TacticalSurface::Open, 0, 0, 0, 0),
             clear(),
@@ -103,7 +103,7 @@ pub(super) fn layout() -> Result<CitySceneLayout, Box<dyn std::error::Error>> {
         archetype: front.program.archetype,
         usage: front.program.usage,
         service_size: front.program.service_size,
-        seed: front.program.seed.into(),
+        seed: front.program.seed,
         centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
             offset,
         )?,

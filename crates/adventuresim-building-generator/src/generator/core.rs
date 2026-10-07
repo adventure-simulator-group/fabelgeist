@@ -1,3 +1,5 @@
+use fabelgeist_determinism::Seed;
+
 const STRAIGHT_STAIR_RUN_METRES: f32 = 3.2;
 
 #[derive(Clone, Debug)]
@@ -183,11 +185,11 @@ pub enum GenerationError {
 /// not the host castle's room/circulation randomization. This keeps isolated
 /// proofs comparable to the accepted seed-42 host instead of accidentally
 /// introducing an unrelated disconnected layout.
-fn layout_seed(program: &BuildingProgram) -> u64 {
+fn layout_seed(program: &BuildingProgram) -> Seed {
     if program.archetype == BuildingArchetype::CastleGatehouse
-        && matches!(program.seed % 1_000, 201..=203)
+        && matches!(program.seed.to_u64() % 1_000, 201..=203)
     {
-        42
+        Seed::from_u64(42)
     } else {
         program.seed
     }

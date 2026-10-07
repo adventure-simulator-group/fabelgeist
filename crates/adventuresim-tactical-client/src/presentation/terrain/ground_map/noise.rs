@@ -1,12 +1,10 @@
 //! Reuse exact deterministic lattice values across dense raster samples.
 use bevy::math::{FloatExt, IVec2, Vec2};
+use fabelgeist_determinism::Seed;
 
-fn lattice_value(seed: u64, cell: IVec2) -> f32 {
+fn lattice_value(seed: Seed, cell: IVec2) -> f32 {
     adventuresim_tactical_core::terrain_streams::GROUND_MASK_LATTICE
-        .rng(
-            seed.into(),
-            &[i64::from(cell.x) as u64, i64::from(cell.y) as u64],
-        )
+        .rng(seed, &[i64::from(cell.x) as u64, i64::from(cell.y) as u64])
         .inclusive_unit_f32()
 }
 
@@ -17,7 +15,7 @@ pub(super) struct GroundMaskNoise {
 }
 
 impl GroundMaskNoise {
-    pub(super) fn new(seed: u64, minimum: Vec2, maximum: Vec2) -> Self {
+    pub(super) fn new(seed: Seed, minimum: Vec2, maximum: Vec2) -> Self {
         let origin = minimum.floor().as_ivec2();
         // Bilinear interpolation also reads the next lattice corner.
         let end = maximum.floor().as_ivec2() + IVec2::ONE;
@@ -52,7 +50,10 @@ mod tests {
 
     #[test]
     fn dense_lookup_preserves_scalar_noise_at_boundaries_and_negative_coordinates() {
-        for seed in [0, 42, u64::MAX] {
+        for seed in ([0, 42, u64::MAX])
+            .into_iter()
+            .map(fabelgeist_determinism::Seed::from_u64)
+        {
             let minimum = Vec2::new(-17.3, -9.1);
             let maximum = Vec2::new(19.0, 31.7);
             let noise = GroundMaskNoise::new(seed, minimum, maximum);
@@ -70,7 +71,11 @@ mod tests {
     #[ignore = "explicit CPU microbenchmark; never run alongside browser measurements"]
     fn benchmark_dense_ground_noise() {
         let start = std::time::Instant::now();
-        let noise = GroundMaskNoise::new(42, Vec2::ZERO, Vec2::splat(38.0));
+        let noise = GroundMaskNoise::new(
+            fabelgeist_determinism::Seed::from_u64(42),
+            Vec2::ZERO,
+            Vec2::splat(38.0),
+        );
         for z in 0..601 {
             for x in 0..601 {
                 let point = Vec2::new(x as f32, z as f32) / 6.0 * 0.38;
@@ -82,7 +87,10 @@ mod tests {
         for z in 0..601 {
             for x in 0..601 {
                 let point = Vec2::new(x as f32, z as f32) / 6.0 * 0.38;
-                std::hint::black_box(ground_mask_noise(42, point));
+                std::hint::black_box(ground_mask_noise(
+                    fabelgeist_determinism::Seed::from_u64(42),
+                    point,
+                ));
             }
         }
         eprintln!(

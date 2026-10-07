@@ -24,13 +24,14 @@ fn required_population_seed_matrix_retains_capacity_and_exact_members_on_gentle_
         .into_iter()
         .flat_map(|population| {
             [42, 47, 101]
+                .map(fabelgeist_determinism::Seed::from_u64)
                 .into_iter()
                 .map(move |seed| (population, seed))
         })
-        .chain([(30000, 101)]);
+        .chain([(30000, fabelgeist_determinism::Seed::from_u64(101))]);
     for (population, seed) in cases {
         let generated = CitySite::central_german_market_town().generate(
-            (seed).into(),
+            seed,
             population,
             &super::super::super::tests::economy(),
         );
@@ -41,7 +42,7 @@ fn required_population_seed_matrix_retains_capacity_and_exact_members_on_gentle_
         assert!(generated.unplaced_services.is_empty());
         assert!(generated.demand_shortfalls.is_empty());
         let layout = generated
-            .compile((seed).into())
+            .compile(seed)
             .unwrap_or_else(|error| panic!("population {population}, seed {seed}: {error:?}"))
             .partition(Some(50.0))
             .unwrap();

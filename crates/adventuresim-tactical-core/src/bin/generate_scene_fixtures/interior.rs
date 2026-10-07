@@ -10,7 +10,7 @@ pub(super) fn catalog_fixture() -> Fixture {
         ..super::fixture(
             "interior-furniture-catalog",
             "grassland",
-            47_123,
+            fabelgeist_determinism::Seed::from_u64(47_123),
             flat,
             open_yard,
             clear(),
@@ -25,7 +25,7 @@ pub(super) fn rooms_fixture() -> Fixture {
         ..super::fixture(
             "interior-furniture-rooms",
             "grassland",
-            47_124,
+            fabelgeist_determinism::Seed::from_u64(47_124),
             flat,
             open_yard,
             clear(),
@@ -67,7 +67,7 @@ pub(super) fn buildings() -> Result<
             program: BuildingProgram::validated_settlement(
                 settlement_archetype(usage),
                 usage,
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 Some(ServiceBuildingSize::Medium),
             )
             .expect("curated interior review settlement recipe must validate"),

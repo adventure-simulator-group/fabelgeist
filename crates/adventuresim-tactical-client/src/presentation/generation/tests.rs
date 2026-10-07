@@ -1,5 +1,6 @@
 use super::*;
 use adventuresim_building_generator::BuildingArchetype;
+use fabelgeist_determinism::Seed;
 static TEST_PRODUCTS: Mutex<()> = Mutex::new(());
 
 #[test]
@@ -71,7 +72,10 @@ fn massive_city_workers_prepare_only_shared_exteriors() {
 fn worker_products_round_trip_geometry_and_reject_wrong_inputs() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency();
-    let program = BuildingProgram::fixture(BuildingArchetype::FachwerkCottage, u64::MAX);
+    let program = BuildingProgram::fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(u64::MAX),
+    );
     let job = serde_json::to_string(&GenerationJob::Building(Box::new(program.clone()))).unwrap();
     let bytes = generate(&job, &dependencies(&job).unwrap()).unwrap();
     receive(&job, &bytes).unwrap();
@@ -84,7 +88,7 @@ fn worker_products_round_trip_geometry_and_reject_wrong_inputs() {
     assert!(take_facade(&program).is_err());
     assert!(receive(&job, b"truncated").is_err());
     let mut changed = program;
-    changed.seed = 42;
+    changed.seed = fabelgeist_determinism::Seed::from_u64(42);
     let changed = serde_json::to_string(&GenerationJob::Building(Box::new(changed))).unwrap();
     assert!(receive(&changed, &bytes).is_err());
 }
@@ -163,7 +167,10 @@ fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
 fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency();
-    let program = BuildingProgram::fixture(BuildingArchetype::FachwerkCottage, 47);
+    let program = BuildingProgram::fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(47),
+    );
     let recipe =
         adventuresim_tactical_core::scene_input::GeneratedBuildingRecipe::generate(program.clone())
             .unwrap();
@@ -218,7 +225,10 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
                 )
                 .unwrap(),
             id: 1.into(),
-            program: BuildingProgram::fixture(BuildingArchetype::FachwerkCottage, 47),
+            program: BuildingProgram::fixture(
+                BuildingArchetype::FachwerkCottage,
+                fabelgeist_determinism::Seed::from_u64(47),
+            ),
             centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
                 bevy::math::Vec2::ZERO,
             )
@@ -417,7 +427,7 @@ fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
     let untouched = take_scene(&input).unwrap();
     assert_ne!(untouched.repairs.removed_corridor_obstacles, u32::MAX);
     assert_eq!(untouched.digest, input.digest().unwrap());
-    input.seed = fabelgeist_determinism::Seed::from_u64(input.seed.to_u64().wrapping_add(1));
+    input.seed = input.seed.wrapping_offset(1);
     let changed = serde_json::to_string(&input).unwrap();
     assert_eq!(jobs(&changed).unwrap().len(), 1);
     assert!(take_scene(&input).is_err());
@@ -434,12 +444,15 @@ fn immutable_scene_retention_evicts_the_least_recent_input_within_its_bound() {
     ))
     .unwrap();
     let mut inputs = Vec::new();
-    for seed in 1..=4 {
-        input.seed = seed.into();
+    for seed in (1..=4)
+        .into_iter()
+        .map(fabelgeist_determinism::Seed::from_u64)
+    {
+        input.seed = seed;
         let scene = input.generate_unfurnished(Default::default()).unwrap();
         products().retain_scene(scene);
         inputs.push(input.clone());
-        if seed == 3 {
+        if seed == Seed::from_u64(3) {
             assert!(products().scene_is_prepared(&inputs[0]).unwrap());
         }
     }

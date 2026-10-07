@@ -75,7 +75,10 @@ mod tests {
             .spawn((
                 super::super::SceneBuilding {
                     id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
-                    program: BuildingProgram::fixture(BuildingArchetype::TownHouse, 42),
+                    program: BuildingProgram::fixture(
+                        BuildingArchetype::TownHouse,
+                        fabelgeist_determinism::Seed::from_u64(42),
+                    ),
                     orientation: BuildingOrientation::IDENTITY,
                 },
                 FacadeOpenings(

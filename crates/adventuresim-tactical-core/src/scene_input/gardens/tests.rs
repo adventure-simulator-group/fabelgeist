@@ -297,7 +297,7 @@ fn distant_garden_projection_retains_roots_membership_and_horizontal_geometry() 
         archetype: owner.program.archetype,
         usage: owner.program.usage,
         service_size: owner.program.service_size,
-        seed: owner.program.seed.into(),
+        seed: owner.program.seed,
         centre_metres: owner.centre_metres,
         orientation: owner.orientation,
         base_elevation_metres: owner.base_elevation_metres,

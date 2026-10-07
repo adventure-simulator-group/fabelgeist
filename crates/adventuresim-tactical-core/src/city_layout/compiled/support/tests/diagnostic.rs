@@ -1,10 +1,11 @@
 //! Optional bounded evidence export; ordinary tests have no filesystem output.
 use super::*;
 use bevy::math::Vec3Swizzles;
+use fabelgeist_determinism::Seed;
 
 pub(super) fn save(
     population: u32,
-    seed: u64,
+    seed: Seed,
     layout: &CitySceneLayout,
     source: &GeographicSurface,
     surfaces: &[PropertySupportSurface],
@@ -192,7 +193,7 @@ fn clip_to_polygon(points: &[Vec2], outline: &[Vec2]) -> Vec<Vec2> {
 
 pub(super) fn save_property(
     population: u32,
-    seed: u64,
+    seed: Seed,
     layout: &CitySceneLayout,
     source: &GeographicSurface,
     error: &CitySupportError,

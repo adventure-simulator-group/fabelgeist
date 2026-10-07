@@ -12,7 +12,9 @@ fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
     let range = palette.range().unwrap();
     let mut cache = ClearanceCache::default();
     // Exact occupied merchant programmes retain the same physical specimens.
-    for seed in [7989866213631017260, 269418199818528039, 6006670756388891727] {
+    for seed in [7989866213631017260, 269418199818528039, 6006670756388891727]
+        .map(fabelgeist_determinism::Seed::from_u64)
+    {
         let front_recipe = palette
             .get(
                 original.archetype(),

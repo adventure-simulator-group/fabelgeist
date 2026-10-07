@@ -48,7 +48,7 @@ fn check(terrain: &SceneTerrain, check: impl FnOnce(VistaTuftPlacement<'_>)) {
         playable_ground: &ground,
         urban_ground: &urban,
         profile: GrassCommunityProfile::from_environment(&environment),
-        communities: GrassCommunityField::new(42),
+        communities: GrassCommunityField::new(fabelgeist_determinism::Seed::from_u64(42)),
         outer_collar: 100.0,
     });
 }

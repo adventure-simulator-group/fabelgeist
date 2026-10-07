@@ -70,7 +70,7 @@ fn compact_support_rejects_a_different_source_floor_programme_or_horizontal_pose
                     )
                     .unwrap()
             }
-            _ => altered[0].program.seed = altered[0].program.seed.wrapping_add(1),
+            _ => altered[0].program.seed = altered[0].program.seed.wrapping_offset(1),
         }
         assert!(matches!(
             projection.reconstruct(&source, &altered),
