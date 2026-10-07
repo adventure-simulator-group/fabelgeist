@@ -71,7 +71,12 @@ impl CharacterPage {
     }
 }
 
-pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, shot: &mut Option<Shot>) {
+pub(super) fn show(
+    ui: &mut egui::Ui,
+    studio: &mut Studio,
+    shot: &mut Option<Shot>,
+    hair: &hair_preview::HairPreview,
+) {
     ui.horizontal_wrapped(|ui| {
         for page in CharacterPage::ALL {
             if ui
@@ -106,7 +111,7 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, shot: &mut Option<Sho
             CharacterPage::Build => build(ui, studio),
             CharacterPage::Identity(group) => identity(ui, studio, group),
             CharacterPage::Expression => expression(ui, studio),
-            CharacterPage::Hair => hair_controls::show(ui, studio),
+            CharacterPage::Hair => hair_controls::show(ui, studio, hair),
         }
     });
 }
