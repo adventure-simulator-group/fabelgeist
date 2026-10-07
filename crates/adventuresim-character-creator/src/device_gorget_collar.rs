@@ -124,6 +124,7 @@ mod tests {
     use crate::armor_frames::Wearer;
     use crate::device_gorget_cage::*;
     use fabelgeist_armor::ArmorGpu;
+    use fabelgeist_compute::KernelBatchLabel;
 
     #[test]
     fn intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body() {
@@ -171,7 +172,7 @@ mod tests {
         let fit = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
         let samples = gpu.upload(BufferUpload::from_elements(&positions)).unwrap();
         let result = gpu.scratch(6 * 12, "collar regression samples").unwrap();
-        let mut batch = gpu.batch("collar bulge regression");
+        let mut batch = gpu.batch(KernelBatchLabel::from("collar bulge regression"));
         wearer
             .record_collar_fit(&mut batch, &fit, &samples, 0.002)
             .unwrap();
@@ -262,7 +263,7 @@ mod tests {
         let fit = gpu.upload(BufferUpload::from_elements(&words)).unwrap();
         let samples = gpu.upload(BufferUpload::from_elements(&positions)).unwrap();
         let result = gpu.scratch(6 * 12, "collar regression samples").unwrap();
-        let mut batch = gpu.batch("collar bulge regression");
+        let mut batch = gpu.batch(KernelBatchLabel::from("collar bulge regression"));
         let layer_positions = [
             [-0.3, -0.0017, -0.3],
             [0.3, -0.0017, -0.3],
@@ -322,7 +323,7 @@ mod tests {
         let unresolved = gpu
             .upload(BufferUpload::from_elements(&unresolved))
             .unwrap();
-        let mut failure = gpu.batch("unresolved final bib support");
+        let mut failure = gpu.batch(KernelBatchLabel::from("unresolved final bib support"));
         dispatch(
             &wearer,
             &mut failure,

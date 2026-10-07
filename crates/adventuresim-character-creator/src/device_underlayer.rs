@@ -10,6 +10,7 @@
 //! Each realization is recorded and submitted in turn, and everything is
 //! read back once at the end.
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::BufferUpload;
 mod direction;
 mod gap;
@@ -176,7 +177,7 @@ impl Fit<'_> {
         let base_positions = gpu.upload(BufferUpload::from_elements(body.positions))?;
         let base_normals = gpu.upload(BufferUpload::from_elements(body.normals))?;
         let neutral = gpu.scratch(vector_bytes, "underlayer directions")?;
-        let mut batch = gpu.batch("underlayer wearer");
+        let mut batch = gpu.batch(KernelBatchLabel::from("underlayer wearer"));
         ws.record_weld(&mut batch, &base_positions, &links)?;
         ws.record_constraints(&mut batch, &base_positions, 0)?;
         ws.record_directions(&mut batch, &base_normals, &links, 1, &neutral)?;
@@ -199,7 +200,7 @@ impl Fit<'_> {
 
         // Bone proportion translations keep the wearer's offset vectors.
         for positions in &samples {
-            let mut batch = gpu.batch("underlayer proportion sample");
+            let mut batch = gpu.batch(KernelBatchLabel::from("underlayer proportion sample"));
             ws.record_weld(&mut batch, positions, &links)?;
             ws.record_standoff(&mut batch, positions, &directions, &links)?;
             batch.submit();
@@ -213,7 +214,7 @@ impl Fit<'_> {
             let positions = gpu.upload(BufferUpload::from_elements(morph.positions))?;
             let normals = gpu.upload(BufferUpload::from_elements(morph.normals))?;
             let directions = gpu.scratch(vector_bytes, "underlayer directions")?;
-            let mut batch = gpu.batch("underlayer morph sample");
+            let mut batch = gpu.batch(KernelBatchLabel::from("underlayer morph sample"));
             ws.record_weld(&mut batch, &positions, &links)?;
             ws.record_constraints(&mut batch, &positions, 0)?;
             ws.record_directions(&mut batch, &normals, &links, sets, &directions)?;
@@ -250,7 +251,7 @@ impl Fit<'_> {
         let all_normals = gpu.scratch(shell_bytes * total, "underlayer shell normals")?;
         let all_status = gpu.scratch(4 * total, "underlayer normal status")?;
         for (index, realization) in (0u64..).zip(realizations) {
-            let mut batch = gpu.batch("underlayer shell");
+            let mut batch = gpu.batch(KernelBatchLabel::from("underlayer shell"));
             ws.record_layers(
                 &mut batch,
                 &realization.positions,
@@ -328,7 +329,7 @@ impl Fit<'_> {
         };
         let joints = gpu.scratch(count * INFLUENCES as u64 * 4, "underlayer joints")?;
         let floats = gpu.scratch(count * SKIN_FLOATS as u64 * 4, "underlayer skin")?;
-        let mut batch = gpu.batch("underlayer skin");
+        let mut batch = gpu.batch(KernelBatchLabel::from("underlayer skin"));
         ws.record_skin(&mut batch, &sources, &joints, &floats)?;
         batch.submit();
         Ok((joints, floats))

@@ -4,6 +4,7 @@
 //! family shares. One is enough for a whole process: its kernels are compiled
 //! once, and it may be used from any number of threads at once.
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use std::sync::Arc;
 
@@ -224,7 +225,7 @@ impl ArmorGpu {
         }
     }
 
-    pub fn batch(&self, label: &str) -> KernelBatch<'_> {
+    pub fn batch(&self, label: KernelBatchLabel<'_>) -> KernelBatch<'_> {
         KernelBatch::labelled(&self.context, label)
     }
 
@@ -244,7 +245,7 @@ impl ArmorGpu {
             })
             .collect::<Result<Vec<_>, _>>()?;
         let buffers = buffers.iter().collect::<Vec<_>>();
-        let mut batch = self.batch("armor in host frames");
+        let mut batch = self.batch(KernelBatchLabel::from("armor in host frames"));
         let mut part = record(&mut batch, &buffers)?;
         part.record_shells(self, &mut batch)?;
         batch.submit();
@@ -304,7 +305,7 @@ impl ArmorGpu {
         let hits = QueryHits::new(&self.context, count).map_err(device_error)?;
         let query_buffer = self.upload(BufferUpload::from_elements(queries))?;
         let target_buffer = self.upload(BufferUpload::from_elements(targets))?;
-        let mut batch = self.batch("armor nearest points");
+        let mut batch = self.batch(KernelBatchLabel::from("armor nearest points"));
         self.query
             .record_nearest_points(
                 &mut batch,

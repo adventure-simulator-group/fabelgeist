@@ -5,6 +5,7 @@
 //! moving positions -- the substep's own velocity update turns those moves
 //! into velocity changes, so there is no impulse arithmetic here at all.
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::BufferUpload;
 use std::sync::Arc;
 
@@ -202,7 +203,7 @@ impl Collisions {
         search_radius: f32,
         passes: u32,
     ) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, "push out");
+        let mut batch = KernelBatch::labelled(context, KernelBatchLabel::from("push out"));
         for _ in 0..passes {
             self.record_push_out(&mut batch, particles, search_radius)?;
         }

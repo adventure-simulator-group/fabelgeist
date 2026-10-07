@@ -2,6 +2,7 @@
 //! the loop that steps it.
 
 use anyhow::anyhow;
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
@@ -225,7 +226,7 @@ impl Shell {
         collisions: &mut Collisions,
         delta: f32,
     ) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, "cloth step");
+        let mut batch = KernelBatch::labelled(context, KernelBatchLabel::from("cloth step"));
         self.record_step(&mut batch, solver, collisions, delta)?;
         batch.submit();
         Ok(())
@@ -257,7 +258,8 @@ impl Shell {
                 // Sweep the whole interval, not only its last GPU substep.
                 interval_start = Some(self.particles.read_positions(context).await?);
             }
-            let mut batch = KernelBatch::labelled(context, "surface contact substep");
+            let mut batch =
+                KernelBatch::labelled(context, KernelBatchLabel::from("surface contact substep"));
             let mut hook = ShellHook {
                 collisions,
                 self_collision: &mut self.self_collision,

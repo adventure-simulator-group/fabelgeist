@@ -15,7 +15,10 @@
 //! hundreds of submits per frame is a lost frame. [`KernelBatch`] records into
 //! a single encoder and submits once.
 
+mod batch_label;
 mod fast;
+
+pub use batch_label::KernelBatchLabel;
 
 use crate::prelude::*;
 use std::collections::HashMap;
@@ -186,13 +189,21 @@ pub struct KernelBatch<'a> {
 
 impl<'a> KernelBatch<'a> {
     pub fn new(context: &'a WgpuContext) -> Self {
-        Self::labelled(context, "KernelBatch")
+        Self::labelled(context, KernelBatchLabel::from("KernelBatch"))
     }
 
-    pub fn labelled(context: &'a WgpuContext, label: &str) -> Self {
+    /// Create a batch with an exact native diagnostic label.
+    ///
+    /// The label is borrowed only while the encoder is created; it need not
+    /// live as long as the context or returned batch.
+    pub fn labelled(context: &'a WgpuContext, label: KernelBatchLabel<'_>) -> Self {
         let encoder = context
             .device
-            .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: Some(label) });
+            // wgpu copies this diagnostic spelling during encoder creation. This
+            // descriptor is the only native string projection of the batch label.
+            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                label: Some(label.into()),
+            });
         Self {
             context,
             encoder,

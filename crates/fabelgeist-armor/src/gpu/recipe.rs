@@ -1,6 +1,7 @@
 //! A part's shells as the host describes them, and their recording.
 
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
 
@@ -133,7 +134,7 @@ impl PartRecipe {
     ) -> Result<BuiltPart, GenerateError> {
         frame.validate()?;
         let frames = gpu.upload(BufferUpload::from_elements(&frame_words(frame)))?;
-        let mut batch = gpu.batch("armor part");
+        let mut batch = gpu.batch(KernelBatchLabel::from("armor part"));
         let mut part = self.record(gpu, &mut batch, design, &[&frames])?;
         part.record_shells(gpu, &mut batch)?;
         batch.submit();

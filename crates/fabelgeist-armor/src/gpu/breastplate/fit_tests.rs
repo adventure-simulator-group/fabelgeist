@@ -7,6 +7,7 @@ use super::{
     topology::{SKIRT_SAMPLES, V_SAMPLES},
 };
 use crate::{BreastplateDesign, Millimeters, gpu::ArmorGpu};
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::BufferUpload;
 
 #[test]
@@ -70,7 +71,7 @@ fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray() {
         torso_count: 2,
         ..Default::default()
     };
-    let mut batch = gpu.batch("ray-preserving outer support");
+    let mut batch = gpu.batch(KernelBatchLabel::from("ray-preserving outer support"));
     dispatch(
         &gpu,
         &mut batch,
@@ -181,7 +182,7 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
         torso_count: 2,
         ..Params::default()
     };
-    let mut batch = gpu.batch("local support enclosure and seam");
+    let mut batch = gpu.batch(KernelBatchLabel::from("local support enclosure and seam"));
     dispatch(
         &gpu,
         &mut batch,
@@ -297,7 +298,7 @@ fn apply_support(
     let support = gpu.upload(BufferUpload::from_elements(support)).unwrap();
     let envelope = gpu.upload(BufferUpload::from_elements(envelope)).unwrap();
     let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
-    let mut batch = gpu.batch("final support application fixture");
+    let mut batch = gpu.batch(KernelBatchLabel::from("final support application fixture"));
     dispatch(
         gpu,
         &mut batch,
@@ -355,7 +356,9 @@ fn rear_enclosure_preserves_the_actual_preceding_lap() {
         .collect::<Vec<_>>();
     let front = gpu.upload(BufferUpload::from_elements(&front)).unwrap();
     let back = gpu.upload(BufferUpload::from_elements(&back)).unwrap();
-    let mut batch = gpu.batch("rear side lap followed by enclosure");
+    let mut batch = gpu.batch(KernelBatchLabel::from(
+        "rear side lap followed by enclosure",
+    ));
     for side in 0..2 {
         dispatch(
             &gpu,
@@ -459,7 +462,7 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
             .scratch(count as u64 * 4, "skirt flare target radii")
             .unwrap();
         let status = gpu.upload(BufferUpload::from_elements(&[0_u32])).unwrap();
-        let mut batch = gpu.batch("body-supported skirt flare");
+        let mut batch = gpu.batch(KernelBatchLabel::from("body-supported skirt flare"));
         dispatch(
             &gpu,
             &mut batch,
@@ -500,7 +503,7 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
         let envelope = gpu
             .scratch(count as u64 * 4, "measured skirt envelope")
             .unwrap();
-        let mut smoothing = gpu.batch("actual skirt support dilation");
+        let mut smoothing = gpu.batch(KernelBatchLabel::from("actual skirt support dilation"));
         dispatch(
             &gpu,
             &mut smoothing,

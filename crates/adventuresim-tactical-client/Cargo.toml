@@ -115,6 +115,7 @@ required-features = ["debug"]
 
 [dev-dependencies]
 fabelgeist-bvh = { path = "../fabelgeist-bvh", default-features = false }
+fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
 fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
 gltf = { version = "1.4", default-features = false, features = ["utils", "names"] }
 pollster = "0.4"

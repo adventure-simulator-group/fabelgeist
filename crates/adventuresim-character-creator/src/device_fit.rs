@@ -12,6 +12,7 @@ use fabelgeist_armor::{
     HelmetDesign, LimbArmorDesign, PartFrame, TASSET_SUSPENSION_GAP_M,
 };
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_compute::KernelBatchLabel;
 
 use crate::armor_frames::{FitRegion, Wearer};
 use crate::armor_layer::ArmorLayerSurface;
@@ -136,7 +137,7 @@ pub async fn fit_piece_async(
     let mut recordings = Vec::with_capacity(bodies.len());
     let mut skin = None;
     for (index, (device, host)) in bodies.iter().copied().zip(&hosts).enumerate() {
-        let mut batch = gpu.batch("fitted armor");
+        let mut batch = gpu.batch(KernelBatchLabel::from("fitted armor"));
         let wearer = DeviceWearer {
             gpu,
             body: device,

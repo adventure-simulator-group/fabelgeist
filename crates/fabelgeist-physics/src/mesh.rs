@@ -7,6 +7,7 @@
 
 use anyhow::anyhow;
 use fabelgeist_bvh::gpu::{BvhKernels, GpuBvh, TraversalConfig, traversal_source};
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::*;
@@ -167,14 +168,16 @@ impl MeshCollider {
     }
 
     pub fn rebuild(&mut self, context: &WgpuContext) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, "mesh collider rebuild");
+        let mut batch =
+            KernelBatch::labelled(context, KernelBatchLabel::from("mesh collider rebuild"));
         self.record_rebuild(&mut batch)?;
         batch.submit();
         Ok(())
     }
 
     pub fn refit(&mut self, context: &WgpuContext) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, "mesh collider refit");
+        let mut batch =
+            KernelBatch::labelled(context, KernelBatchLabel::from("mesh collider refit"));
         self.record_refit(&mut batch)?;
         batch.submit();
         Ok(())
