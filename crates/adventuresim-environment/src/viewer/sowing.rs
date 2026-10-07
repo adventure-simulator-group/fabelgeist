@@ -2,8 +2,8 @@
 //! through the clicked pixel, takes root where botany says it lands -- on
 //! open ground, or at the foot of the wall it hits.
 
-use eframe::egui::{self, Pos2, Rect, Ui};
-use fabelgeist_botany::viewer::camera::{self, OrbitCamera};
+use bevy::math::Ray3d;
+use bevy_egui::egui::{self, Ui};
 use fabelgeist_botany::viewer::sim::{Command, SpeciesInfo};
 
 #[derive(Default)]
@@ -50,24 +50,13 @@ impl Sowing {
         });
     }
 
-    /// The seed a click at `at` throws, the view showing `camera` in `view`.
-    pub fn throw(&self, camera: &OrbitCamera, view: Rect, at: Pos2) -> Command {
-        let x = (at.x - view.left()) / view.width().max(1.0) * 2.0 - 1.0;
-        let y = 1.0 - (at.y - view.top()) / view.height().max(1.0) * 2.0;
-        let (forward, right, up) = camera.basis();
-        let tan = (camera.fov_y * 0.5).tan();
-        let aspect = view.width() / view.height().max(1.0);
-        let direction = camera::add(
-            forward,
-            camera::add(
-                camera::scale(right, x * tan * aspect),
-                camera::scale(up, y * tan),
-            ),
-        );
+    /// The seed a click throws along `ray`, from the eye through the
+    /// clicked pixel.
+    pub fn throw(&self, ray: Ray3d) -> Command {
         Command::Sow {
             species: self.species,
-            origin: camera.eye(),
-            direction,
+            origin: ray.origin.to_array(),
+            direction: ray.direction.to_array(),
         }
     }
 }

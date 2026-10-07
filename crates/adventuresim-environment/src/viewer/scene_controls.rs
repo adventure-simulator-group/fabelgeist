@@ -2,15 +2,35 @@
 
 use std::f32::consts::TAU;
 
-use eframe::egui::{self, Slider, Ui};
+use bevy_egui::egui::{self, Slider, Ui};
 use fabelgeist_botany::scenes::Scene;
-use fabelgeist_botany::viewer::renderer::View;
 use fabelgeist_botany::viewer::sim::Command;
 
 /// Years a second at which the speed slider means "as fast as it goes".
 const UNLIMITED_SPEED: f32 = 200.0;
 /// The speed a scene starts at, simulated years a wall-clock second.
 pub const START_SPEED: f32 = 20.0;
+
+/// Where the sun stands, and whether it casts shadows.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Lighting {
+    /// Around the vertical, radians.
+    pub sun_azimuth: f32,
+    /// Above the horizon, radians.
+    pub sun_elevation: f32,
+    pub shadows: bool,
+}
+
+impl Default for Lighting {
+    /// The sun a scene starts with.
+    fn default() -> Self {
+        Self {
+            sun_azimuth: 0.9,
+            sun_elevation: 0.75,
+            shadows: true,
+        }
+    }
+}
 
 /// What the panel asks of the viewer beyond the simulation's commands.
 pub enum Request {
@@ -30,7 +50,9 @@ pub struct SceneControls {
     /// from scene to scene.
     seeding: bool,
     mortality: bool,
-    pub view: View,
+    pub lighting: Lighting,
+    /// Whether the foliage is drawn.
+    pub leaves: bool,
 }
 
 impl SceneControls {
@@ -44,12 +66,8 @@ impl SceneControls {
             global_shadowing: true,
             seeding: true,
             mortality: true,
-            view: View {
-                sun_azimuth: 0.9,
-                sun_elevation: 0.75,
-                shadows: true,
-                leaves: true,
-            },
+            lighting: Lighting::default(),
+            leaves: true,
         };
         controls.adopt_climate(scene);
         controls
@@ -112,11 +130,11 @@ impl SceneControls {
         if mortality.changed() {
             requests.push(Request::Send(Command::Mortality(self.mortality)));
         }
-        ui.checkbox(&mut self.view.shadows, "Sun shadows");
-        ui.checkbox(&mut self.view.leaves, "Foliage");
+        ui.checkbox(&mut self.lighting.shadows, "Sun shadows");
+        ui.checkbox(&mut self.leaves, "Foliage");
         ui.weak("Sun: direction, height");
-        ui.add(Slider::new(&mut self.view.sun_azimuth, 0.0..=TAU).text("direction"));
-        ui.add(Slider::new(&mut self.view.sun_elevation, 0.08..=1.5).text("height"));
+        ui.add(Slider::new(&mut self.lighting.sun_azimuth, 0.0..=TAU).text("direction"));
+        ui.add(Slider::new(&mut self.lighting.sun_elevation, 0.08..=1.5).text("height"));
     }
 
     fn time(&mut self, ui: &mut Ui, requests: &mut Vec<Request>) {
