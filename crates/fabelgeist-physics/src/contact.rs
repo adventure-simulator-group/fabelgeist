@@ -185,11 +185,10 @@ impl Collisions {
         // it equal to the current position means no motion to rub against and
         // a box centred on the particle, which is what a static recovery
         // wants.
-        batch.copy_buffer(
-            &particles.positions,
-            &particles.previous,
-            particles.count() as u64 * 16,
-        )?;
+        // Each active native position record stores four f32 values (16 bytes).
+        // Copy the active prefix rather than the buffers' allocated capacity.
+        let active_bytes = BufferByteLength::from(particles.count() as u64 * 16);
+        batch.copy_buffer(&particles.positions, &particles.previous, active_bytes)?;
         self.record_mesh(batch, particles, search_radius)?;
         Ok(())
     }

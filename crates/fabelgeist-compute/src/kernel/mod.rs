@@ -15,7 +15,10 @@
 //! hundreds of submits per frame is a lost frame. [`KernelBatch`] records into
 //! a single encoder and submits once.
 
+mod copy_error;
 mod fast;
+
+pub use copy_error::{BufferCopyError, BufferCopyResult};
 
 use crate::prelude::*;
 use std::collections::HashMap;
@@ -257,16 +260,39 @@ impl<'a> KernelBatch<'a> {
 
     /// Copy between buffers inside the batch, so that the copy is ordered
     /// against the dispatches around it.
-    pub fn copy_buffer(&mut self, source: &Buffer, destination: &Buffer, bytes: u64) -> Result<()> {
-        if bytes > u64::from(source.size) || bytes > u64::from(destination.size) {
-            return Err(anyhow!(
-                "KernelBatch::copy_buffer: {bytes} bytes does not fit {} -> {}",
-                u64::from(source.size),
-                u64::from(destination.size)
-            ));
+    ///
+    /// The requested length must fit both logical buffer extents. Alignment,
+    /// usage, overlap and native allocation validation remain with the SDK.
+    /// A rejected extent records no copy and does not change dispatch count.
+    ///
+    /// Native byte counts require explicit admission:
+    ///
+    /// ```compile_fail
+    /// use fabelgeist_compute::KernelBatch;
+    /// use fabelgeist_gpu::prelude::Buffer;
+    ///
+    /// fn copy(batch: &mut KernelBatch<'_>, source: &Buffer, destination: &Buffer) {
+    ///     let _ = batch.copy_buffer(source, destination, 4u64);
+    /// }
+    /// ```
+    pub fn copy_buffer(
+        &mut self,
+        source: &Buffer,
+        destination: &Buffer,
+        bytes: BufferByteLength,
+    ) -> BufferCopyResult<()> {
+        if bytes > source.size || bytes > destination.size {
+            return Err(BufferCopyError::new(bytes, source.size, destination.size));
         }
-        self.encoder
-            .copy_buffer_to_buffer(&source.buffer, 0, &destination.buffer, 0, bytes);
+        // The SDK takes a native byte length; both zero offsets select the
+        // beginning of the source and destination buffers.
+        self.encoder.copy_buffer_to_buffer(
+            &source.buffer,
+            0,
+            &destination.buffer,
+            0,
+            u64::from(bytes),
+        );
         Ok(())
     }
 
