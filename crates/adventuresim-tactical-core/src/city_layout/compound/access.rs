@@ -87,10 +87,27 @@ impl CityAccessSegment {
             self.end_metres.translated(end_delta)?,
         )
     }
-    pub fn ends_at(self, point: Vec2) -> bool {
-        self.end_metres().distance(point) <= Self::JOIN_TOLERANCE_METRES
+    /// Threshold binding keeps its scene frame through the domain predicate.
+    /// ```compile_fail
+    /// use adventuresim_tactical_core::city_layout::CityAccessSegment;
+    /// use bevy::math::Vec2;
+    /// fn unadmitted(route: CityAccessSegment, point: Vec2) -> bool {
+    ///     route.ends_at(point)
+    /// }
+    /// ```
+    pub fn ends_at(self, point: ScenePlanPoint) -> bool {
+        self.end_metres().distance(point.metres()) <= Self::JOIN_TOLERANCE_METRES
     }
-    pub fn contains_centreline(self, point: Vec2) -> bool {
+    /// Gate binding consumes an admitted scene point before affine clipping.
+    /// ```compile_fail
+    /// use adventuresim_tactical_core::city_layout::CityAccessSegment;
+    /// use adventuresim_building_generator::plan_geometry::ArchitecturalPlanPoint;
+    /// fn wrong_frame(route: CityAccessSegment, point: ArchitecturalPlanPoint) -> bool {
+    ///     route.contains_centreline(point)
+    /// }
+    /// ```
+    pub fn contains_centreline(self, point: ScenePlanPoint) -> bool {
+        let point = point.metres();
         let delta = self.end_metres() - self.start_metres();
         if delta.length_squared() <= f32::EPSILON {
             return false;

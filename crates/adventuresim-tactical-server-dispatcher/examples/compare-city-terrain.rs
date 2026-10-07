@@ -296,7 +296,12 @@ mod stage_tests {
         assert_eq!(
             TerrainStageRole::UngradedNearVista
                 .source(&sources)
-                .elevation_at(Vec2::splat(0.25))
+                .elevation_at(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::splat(0.25)
+                    )
+                    .unwrap()
+                )
                 .unwrap()
                 .metres(),
             1.0
@@ -304,7 +309,12 @@ mod stage_tests {
         assert_eq!(
             TerrainStageRole::BoundedSupport
                 .source(&sources)
-                .elevation_at(Vec2::splat(0.25))
+                .elevation_at(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::splat(0.25)
+                    )
+                    .unwrap()
+                )
                 .unwrap()
                 .metres(),
             4.0

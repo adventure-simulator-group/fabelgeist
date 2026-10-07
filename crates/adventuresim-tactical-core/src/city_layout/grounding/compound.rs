@@ -9,10 +9,13 @@ pub(super) fn street_gate_level(
     levels: CompoundSupportLevels,
     limits: SupportLimits,
 ) -> Result<SupportElevation, SupportDiagnostic> {
+    let gate =
+        crate::scene_coordinates::ScenePlanPoint::try_from(property.boundary.gate.centre_metres)
+            .map_err(|cause| SupportDiagnostic::gate_position(property, cause))?;
     let mut routes = property
         .access
         .iter()
-        .filter(|route| route.contains_centreline(property.boundary.gate.centre_metres));
+        .filter(|route| route.contains_centreline(gate));
     let route = routes
         .next()
         .filter(|_| routes.next().is_none())
@@ -57,11 +60,14 @@ pub(super) fn compile(
         SupportDiagnostic::new(property, constraint, boundary, location, 1.0, 0.0)
     };
     validate_inputs(property, levels)?;
+    let gate =
+        crate::scene_coordinates::ScenePlanPoint::try_from(property.boundary.gate.centre_metres)
+            .map_err(|cause| SupportDiagnostic::gate_position(property, cause))?;
     let route_to = |member: MemberSupport| {
         let mut routes = property
             .access
             .iter()
-            .filter(|route| route.ends_at(member.court_threshold_metres.metres()));
+            .filter(|route| route.ends_at(member.court_threshold_metres));
         let first = routes.next();
         first.filter(|_| routes.next().is_none()).ok_or(binding(
             SupportConstraint::ThresholdBinding,
@@ -74,7 +80,7 @@ pub(super) fn compile(
     let mut gate_routes = property
         .access
         .iter()
-        .filter(|route| route.contains_centreline(property.boundary.gate.centre_metres));
+        .filter(|route| route.contains_centreline(gate));
     let passage = gate_routes
         .next()
         .filter(|_| gate_routes.next().is_none())

@@ -416,7 +416,7 @@ fn pedestrian_control_traverses_the_same_compound_on_a_level_court() {
         .property
         .access
         .iter()
-        .find(|route| route.ends_at(member.court_threshold_metres.metres()))
+        .find(|route| route.ends_at(member.court_threshold_metres))
         .unwrap();
     let mut walker = Walker::on_surface(
         &plan.mesh().unwrap(),
@@ -436,7 +436,7 @@ fn goslar_1238_pedestrian_traverses_both_court_stairs_without_jumping() {
             .property
             .access
             .iter()
-            .find(|route| route.ends_at(member.court_threshold_metres.metres()))
+            .find(|route| route.ends_at(member.court_threshold_metres))
             .unwrap();
         let mut walker =
             Walker::on_surface(&mesh, route.start_metres(), plan.court_elevation().metres());
@@ -468,7 +468,7 @@ fn goslar_1238_pedestrian_traverses_closed_foundations_without_jumping() {
             .property
             .access
             .iter()
-            .find(|r| r.ends_at(member.court_threshold_metres.metres()))
+            .find(|r| r.ends_at(member.court_threshold_metres))
             .unwrap();
         let mut walker = Walker::on_collider(
             foundation.collider().unwrap().into_solid().unwrap(),
@@ -511,7 +511,14 @@ fn traverse_court(fixture: &Fixture) {
         .property
         .access
         .iter()
-        .find(|r| r.contains_centreline(fixture.property.boundary.gate.centre_metres))
+        .find(|r| {
+            r.contains_centreline(
+                crate::scene_coordinates::ScenePlanPoint::try_from(
+                    fixture.property.boundary.gate.centre_metres,
+                )
+                .unwrap(),
+            )
+        })
         .unwrap();
     let mut walker = Walker::on_colliders(
         terrain.colliders().unwrap(),
@@ -567,7 +574,7 @@ fn traverse_court(fixture: &Fixture) {
             .property
             .access
             .iter()
-            .find(|r| r.ends_at(member.court_threshold_metres.metres()))
+            .find(|r| r.ends_at(member.court_threshold_metres))
             .unwrap();
         walker.walk_to(route.start_metres());
         let arrived = walker.walk_to(route.end_metres());
@@ -600,7 +607,7 @@ fn a_surface_only_door_landing_does_not_count_as_usable_architectural_access() {
         .property
         .access
         .iter()
-        .find(|r| r.ends_at(rear.court_threshold_metres.metres()))
+        .find(|r| r.ends_at(rear.court_threshold_metres))
         .unwrap();
     let mut walker = Walker::on_colliders(
         terrain.colliders().unwrap(),

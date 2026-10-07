@@ -99,6 +99,22 @@ impl SupportDiagnostic {
         diagnostic.construction_failure = Some(Box::new(SupportConstructionError::Floor(cause)));
         diagnostic
     }
+    pub(in crate::city_layout) fn gate_position(
+        property: &CityCompound,
+        cause: adventuresim_building_generator::spatial_geometry::GeometryError,
+    ) -> Self {
+        let mut diagnostic = Self::new(
+            property,
+            SupportConstraint::GateBinding,
+            SupportBoundary::GateLanding,
+            property.boundary.gate.centre_metres,
+            1.0,
+            0.0,
+        );
+        diagnostic.construction_failure =
+            Some(Box::new(SupportConstructionError::FramedGeometry(cause)));
+        diagnostic
+    }
     pub(super) fn boundary_construction(
         property: &CityCompound,
         cause: crate::city_layout::BoundaryGeometryError,

@@ -188,10 +188,15 @@ fn plan_property(
         recipes,
         geographic,
     )?;
+    let gate =
+        crate::scene_coordinates::ScenePlanPoint::try_from(property.boundary.gate.centre_metres)
+            .map_err(|cause| {
+                CitySupportError::Support(SupportDiagnostic::gate_position(property, cause))
+            })?;
     let mut routes = property
         .access
         .iter()
-        .filter(|r| r.contains_centreline(property.boundary.gate.centre_metres));
+        .filter(|r| r.contains_centreline(gate));
     let passage =
         routes
             .next()
@@ -209,13 +214,7 @@ fn plan_property(
             front,
             rear,
             court: sample(property, geographic, property.court.centre())?,
-            gate: sample(
-                property,
-                geographic,
-                crate::scene_coordinates::ScenePlanPoint::try_from(
-                    property.boundary.gate.centre_metres,
-                )?,
-            )?,
+            gate: sample(property, geographic, gate)?,
             street: sample(property, geographic, passage.start())?,
         },
         threshold,

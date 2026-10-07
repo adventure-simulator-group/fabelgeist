@@ -13,10 +13,15 @@ pub(super) fn inspect(
     maximum_grade: f32,
 ) -> Result<Option<Value>, adventuresim_building_generator::DoorError> {
     let gate = compound.boundary.gate.centre_metres;
+    let Some(gate_point) =
+        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(gate)
+    else {
+        return Ok(None);
+    };
     let mut crossings = compound
         .access
         .iter()
-        .filter(|route| route.contains_centreline(gate));
+        .filter(|route| route.contains_centreline(gate_point));
     let Some(route) = crossings.next() else {
         return Ok(None);
     };
@@ -76,7 +81,7 @@ mod tests {
         let street = fixture["street_approach_source_m"].as_f64().unwrap() as f32;
         let gate = fixture["gate_source_m"].as_f64().unwrap() as f32;
         let height = |point| {
-            Some(if point == compound.access[0].start_metres {
+            Some(if point == compound.access[0].start_metres() {
                 street
             } else {
                 gate

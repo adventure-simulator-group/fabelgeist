@@ -869,3 +869,43 @@ fn insufficient_stair_width_reports_its_reserved_boundary_instead_of_clipping() 
         SupportGradingAttempt::Compound(treatment)
     );
 }
+
+#[test]
+fn nonfinite_gate_binding_retains_its_owner_location_and_construction_cause() {
+    let policy = crate::city_layout::CompoundGradingPolicy::bounded_settlement();
+    for east in [f32::NAN, f32::INFINITY, f32::NEG_INFINITY] {
+        let mut fixture = Fixture::load();
+        fixture.property.boundary.gate.centre_metres.x = east;
+        let error = CompoundSupportPlan::compile(
+            &fixture.property,
+            fixture.levels,
+            policy.limits,
+            CourtTreatment::Level,
+        )
+        .unwrap_err();
+        assert_eq!(error.constraint, SupportConstraint::GateBinding);
+        assert_eq!(error.boundary, SupportBoundary::GateLanding);
+        assert_eq!(error.property_id, fixture.property.id);
+        assert_eq!(
+            error.member_building_ids,
+            [
+                fixture.property.front_building_id,
+                fixture.property.rear_building_id
+            ]
+        );
+        assert_eq!(
+            error.location_metres.attempted_metres().x.to_bits(),
+            east.to_bits()
+        );
+        assert_eq!(
+            error.location_metres.attempted_metres().y,
+            fixture.property.boundary.gate.centre_metres.y
+        );
+        assert!(matches!(
+            error.construction_failure.as_deref(),
+            Some(SupportConstructionError::FramedGeometry(
+                adventuresim_building_generator::spatial_geometry::GeometryError::NonFinite { .. }
+            ))
+        ));
+    }
+}

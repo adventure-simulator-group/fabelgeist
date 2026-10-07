@@ -37,7 +37,7 @@ impl CompoundSupportRequest<'_> {
             self.property
                 .access
                 .iter()
-                .find(|route| route.ends_at(member.court_threshold_metres.metres()))
+                .find(|route| route.ends_at(member.court_threshold_metres))
                 .ok_or_else(|| {
                     SupportDiagnostic::new(
                         self.property,

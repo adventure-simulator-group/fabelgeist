@@ -15,6 +15,8 @@ pub(super) fn compare(
     maximum_grade: f32,
 ) -> Result<Option<Value>, adventuresim_building_generator::DoorError> {
     let route_to = |threshold: Vec2| {
+        let threshold =
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(threshold)?;
         let mut matches = compound
             .access
             .iter()
@@ -113,7 +115,7 @@ mod tests {
     fn goslar_1238_requires_a_stepped_court_and_reserves_both_landings() {
         let fixture = Fixture::load();
         let height = |point: Vec2| {
-            Some(if point == fixture.compound.court.centre_metres {
+            Some(if point == fixture.compound.court.centre_metres() {
                 fixture.court_source_m
             } else {
                 fixture.rear_source_m
@@ -128,6 +130,7 @@ mod tests {
                 height,
                 0.65,
             )
+            .unwrap()
             .unwrap()
         };
         let report = run(&fixture.compound);
@@ -149,7 +152,7 @@ mod tests {
                 fixture
                     .compound
                     .court
-                    .contains((route.start_metres + route.end_metres) * 0.5),
+                    .contains((route.start_metres() + route.end_metres()) * 0.5),
                 "an access ramp crosses the reserved court rather than bypassing it"
             );
         }
@@ -157,8 +160,8 @@ mod tests {
             assert!(terraced[key].as_f64().unwrap() <= 0.650_001);
         }
         let route_length = fixture.compound.access[2]
-            .start_metres
-            .distance(fixture.compound.access[2].end_metres);
+            .start_metres()
+            .distance(fixture.compound.access[2].end_metres());
         assert!(
             terraced["front_available_flight_run_m"].as_f64().unwrap()
                 <= f64::from(route_length) - 0.999
@@ -181,6 +184,7 @@ mod tests {
                 |_| Some(0.0),
                 0.65
             )
+            .unwrap()
             .is_none()
         );
     }

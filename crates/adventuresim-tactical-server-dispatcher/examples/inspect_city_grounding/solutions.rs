@@ -98,10 +98,11 @@ pub(super) fn compare(
     maximum_grade: f32,
 ) -> Option<Value> {
     let elevation = SupportElevation::from_metres;
+    let gate = ScenePlanPoint::from_metres(property.boundary.gate.centre_metres)?;
     let mut gate_routes = property
         .access
         .iter()
-        .filter(|r| r.contains_centreline(property.boundary.gate.centre_metres));
+        .filter(|r| r.contains_centreline(gate));
     let route = gate_routes
         .next()
         .filter(|_| gate_routes.next().is_none())?;
