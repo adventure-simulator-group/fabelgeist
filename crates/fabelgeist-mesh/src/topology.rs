@@ -23,6 +23,7 @@ pub enum PrimitiveTopology {
     TriangleStrip,
 }
 
+#[cfg(feature = "gpu")]
 impl From<PrimitiveTopology> for wgpu::PrimitiveTopology {
     fn from(value: PrimitiveTopology) -> Self {
         match value {
