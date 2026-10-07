@@ -2,6 +2,7 @@
 use super::protocol::PlaceId;
 use adventuresim_building_generator::OpeningUse;
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::scene_coordinates::PlanDisplacement;
 use bevy::prelude::*;
 use serde::Serialize;
 use std::collections::HashMap;
@@ -115,9 +116,14 @@ impl Street {
             });
             street.width += width;
         }
+        let centering = PlanDisplacement::try_from(Vec2::new(-street.width * 0.5, 0.0))
+            .map_err(|error| error.to_string())?;
         for building in &mut generated.buildings {
             if let Some((_, after)) = moves.get_mut(&building.placement.id) {
-                building.placement.centre_metres.metres().x -= street.width * 0.5;
+                let centre = building.placement.centre_metres;
+                building.placement.centre_metres = centre
+                    .translated(centering)
+                    .map_err(|error| error.to_string())?;
                 *after = building.transform().map_err(|error| error.to_string())?;
             }
         }
@@ -264,9 +270,19 @@ mod tests {
             .collect();
         let furniture = generated.furniture.instances.clone();
         let street = Street::arrange(&input, &places, &selected, &mut generated).unwrap();
-        let mut previous_right = -street.width * 0.5;
-        for building in &generated.buildings {
+        let mut bay_left = -street.width * 0.5;
+        let mut previous_right = bay_left;
+        for (building, bay) in generated.buildings.iter().zip(&street.bays) {
             let pose = building.transform().unwrap();
+            let bay_centre = bay_left + bay.width * 0.5;
+            assert!(
+                (pose.translation.x - bay_centre).abs() < 0.001,
+                "building {} is at {}, expected centered bay at {}",
+                building.placement.id,
+                pose.translation.x,
+                bay_centre,
+            );
+            bay_left += bay.width;
             assert_eq!(pose.scale, Vec3::ONE);
             let extent =
                 building.collision.bounds.max().metres() - building.collision.bounds.min().metres();
@@ -290,6 +306,8 @@ mod tests {
                 }
             }
         }
+        assert!(previous_right <= street.width * 0.5);
+        assert_eq!(street.camera().translation.x, 0.0);
         assert!(street.camera().translation.z > street.front.z);
         assert!((street.camera().translation.y - street.front.y - EYE_HEIGHT_METRES).abs() < 0.001);
     }
