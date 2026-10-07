@@ -47,6 +47,26 @@ impl TryFrom<SupportSurfaceWire> for PropertySupportSurface {
 }
 
 impl PropertySupportSurface {
+    /// Admit completed producer geometry before publishing its immutable owner.
+    /// Decoding uses the same geometry and floor proof in `validate_encoded`.
+    pub(super) fn admit_generated(self) -> Result<Self, SupportDiagnostic> {
+        if let Err(issue) = self.validate_encoded() {
+            let mut diagnostic = self.rejection(
+                SupportConstraint::Reservation,
+                SupportBoundary::PropertyReservation,
+                self.regions
+                    .first()
+                    .map_or(Vec2::ZERO, |region| region.centre_metres()),
+                1.0,
+                0.0,
+            );
+            diagnostic.construction_failure =
+                Some(Box::new(SupportConstructionError::Surface(issue)));
+            return Err(diagnostic);
+        }
+        Ok(self)
+    }
+
     pub fn property_id(&self) -> CityPropertyId {
         self.mesh.property_id
     }
@@ -139,7 +159,7 @@ impl CompoundSupportPlan {
     /// Freeze the accepted surface after floor, court, gate and doorway checks.
     /// Every property shares this representation when composing city terrain.
     pub fn support_surface(&self) -> Result<PropertySupportSurface, SupportDiagnostic> {
-        Ok(PropertySupportSurface {
+        PropertySupportSurface {
             mesh: self.mesh()?,
             floor_bearings: self
                 .member_support()
@@ -151,6 +171,7 @@ impl CompoundSupportPlan {
             clipping_outlines: self.source_clipping_outlines(),
             limits: self.limits,
             treatment: SupportGradingAttempt::Compound(self.treatment),
-        })
+        }
+        .admit_generated()
     }
 }

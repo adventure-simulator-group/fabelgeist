@@ -1,7 +1,7 @@
 //! Reject malformed compact geometry before indexing or source compilation.
 use super::*;
 
-#[derive(Clone, Copy, Debug, PartialEq, thiserror::Error)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, thiserror::Error)]
 pub enum SupportSurfaceIssue {
     #[error("building {building} floor binding rejected: {issue}")]
     Floor {

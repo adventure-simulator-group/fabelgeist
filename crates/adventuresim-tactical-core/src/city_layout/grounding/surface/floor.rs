@@ -1,6 +1,7 @@
 //! Authored floor regions bind decoded support to each member datum.
 use super::*;
 mod region;
+use crate::city_layout::grounding::planar::query::PlanarBounds;
 use crate::scene_coordinates::{ScenePlanPoint, ScenePlanPolygon};
 use bevy::math::{DVec2, Vec3Swizzles};
 pub use region::FloorRegion;
@@ -119,7 +120,7 @@ impl FloorBearing {
         )
     }
 }
-#[derive(Clone, Copy, Debug, PartialEq, thiserror::Error)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, thiserror::Error)]
 pub enum FloorBearingIssue {
     #[error("floor binding has invalid ordered physical membership")]
     Members,
@@ -198,6 +199,8 @@ impl PropertySupportSurface {
             .iter()
             .map(|p| p.metres().as_dvec2())
             .collect();
+        let bounds = PlanarBounds::from_points(outline.iter().copied())
+            .ok_or(FloorBearingIssue::Geometry)?;
         let mut missing = vec![outline.clone()];
         let mut without_wrong_level = vec![outline.clone()];
         let mut wrong_control = None;
@@ -206,6 +209,11 @@ impl PropertySupportSurface {
             let points = indices.map(|i| self.mesh.positions()[i as usize]);
             let triangle =
                 foundations::GroundTriangle::new(points).ok_or(FloorBearingIssue::Geometry)?;
+            // Exact disjoint bounds cannot contribute floor area. Edge contact
+            // remains a candidate for the existing clipping calculation.
+            if !bounds.intersects(triangle.bounds()) {
+                continue;
+            }
             let mut face = points.map(|p| p.xz().as_dvec2()).to_vec();
             if planar::signed_area(&face) < 0.0 {
                 face.reverse();

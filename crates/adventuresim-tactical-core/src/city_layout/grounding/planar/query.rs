@@ -52,7 +52,7 @@ impl PlanarBounds {
         }
     }
 
-    fn intersects(self, other: Self) -> bool {
+    pub fn intersects(self, other: Self) -> bool {
         !self.minimum.cmpgt(other.maximum).any() && !self.maximum.cmplt(other.minimum).any()
     }
 }

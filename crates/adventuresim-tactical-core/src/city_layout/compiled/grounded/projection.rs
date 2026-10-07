@@ -246,7 +246,8 @@ impl CityGroundingProjection {
     }
 
     /// Check complete immutable physical bindings without expanding terrain.
-    /// Source triangles are checked separately during reconstruction.
+    /// Surfaces are admitted at construction or decoding; this checks only
+    /// cross-owner bindings. Source triangles are checked during reconstruction.
     pub fn validate_bindings(
         &self,
         placements: &[TacticalBuildingPlacement],
@@ -260,14 +261,6 @@ impl CityGroundingProjection {
             return Err(CityGroundingProjectionError::Embedment);
         }
         self.validate_owned_surfaces()?;
-        for surface in &self.surfaces {
-            surface
-                .validate_encoded()
-                .map_err(|issue| CityGroundingProjectionError::Surface {
-                    property: surface.property_id(),
-                    issue,
-                })?;
-        }
         let mut members = BTreeSet::new();
         let mut owners = BTreeMap::new();
         for surface in &self.surfaces {

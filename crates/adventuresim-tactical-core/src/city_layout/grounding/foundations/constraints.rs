@@ -13,7 +13,8 @@ pub(super) fn floor_shift(
     plan: &CompoundSupportPlan,
     geographic: &GeographicSurface,
 ) -> Result<f32, SupportDiagnostic> {
-    let original = plan.mesh()?;
+    let surface = plan.support_surface()?;
+    let original = surface.mesh();
     let basis = plan.floor_translation_basis()?.mesh()?;
     let invalid_triangle = |point| {
         SupportDiagnostic::new(
@@ -59,7 +60,7 @@ pub(super) fn floor_shift(
                 )?;
             }
         }
-        validate_coverage(&plan.support_surface()?, &support, covered)?;
+        validate_coverage(&surface, &support, covered)?;
     }
     interval.choose(plan)
 }

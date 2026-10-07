@@ -43,6 +43,7 @@ pub enum SupportBoundary {
 
 #[derive(Clone, Debug, PartialEq, Serialize)]
 pub enum SupportConstructionError {
+    Surface(SupportSurfaceIssue),
     Floor(super::surface::FloorBearingConstructionError),
     FramedGeometry(adventuresim_building_generator::spatial_geometry::GeometryError),
     Geometry(SupportGeometryIssue),

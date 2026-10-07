@@ -99,6 +99,7 @@ impl SingleBuildingSupportRequest<'_> {
             prepared.append_to(&self, elevation, &mut surface)?;
         }
         surface.validate_source_controls(self.geographic)?;
+        let surface = surface.admit_generated()?;
         Ok(SingleBuildingSupportPlan {
             property: self.property,
             floor: MemberSupport {
