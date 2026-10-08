@@ -212,6 +212,48 @@ test("cached product rejection regenerates corruption and preserves preparation 
   }
 });
 
+test("destination cancellation prevents installation during cache open, lookup and worker generation", async () => {
+  const { createGenerationPool } = await pool;
+  const source = fs.readFileSync(path.join(__dirname, "../static/strategic-generation.js"), "utf8")
+    .replace(/^import .*;\r?\n/gm, "").replace("export async function", "async function");
+  for (const stage of ["open", "lookup", "worker"]) {
+    const controller = new AbortController();
+    let finishOpen, finishLookup, lateReply, closed = 0, terminated = 0, installed = 0;
+    const job = '{"Building":{"seed":18446744073709551615}}';
+    const cache = {
+      get: () => stage === "lookup" ? new Promise(resolve => { finishLookup = resolve; }) : undefined,
+      put() { throw Error("Cancelled product persisted"); },
+      remove() { throw Error("Cancelled product evicted"); },
+      close() { closed++; return Promise.resolve({ status: "flushed" }); },
+    };
+    const worker = { postMessage(message) {
+      if (message.kind === "initialize") queueMicrotask(() => this.onmessage({
+        data: { kind: "ready", dispatch: message.dispatch } }));
+      else { const handler = this.onmessage; lateReply = () => handler({ data: {
+        kind: "generated", dispatch: message.dispatch, bytes: new Uint8Array([1]), milliseconds: 1 } }); }
+    }, terminate() { terminated++; } };
+    const prepare = Function("createGenerationPool", "openGeneratedCache", "window",
+      `${source}\nreturn prepareGeneratedScene;`)(
+      module => createGenerationPool(module, { hardwareConcurrency: 2, createWorker: () => worker }),
+      () => stage === "open" ? new Promise(resolve => { finishOpen = resolve; }) : Promise.resolve(cache), {});
+    const runtime = { generationModule: {}, generationRevision: "fixture",
+      wasm_begin_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
+      wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
+      wasm_generation_dependencies: () => new Uint8Array(),
+      wasm_receive_job() { installed++; },
+    };
+    const running = prepare(runtime, "opaque scene", [], { signal: controller.signal });
+    const rejected = assert.rejects(running, error => error.name === "AbortError" || error.code === "cancelled");
+    await new Promise(resolve => setImmediate(resolve));
+    controller.abort();
+    finishOpen?.(cache); finishLookup?.(new Uint8Array([1]));
+    await rejected; lateReply?.();
+    assert.equal(installed, 0); assert.equal(closed, 1);
+    assert.equal(terminated, stage === "worker" ? 1 : 0);
+    assert.equal(worker.onmessage, stage === "worker" ? null : undefined);
+  }
+});
+
 test("a stale dispatch cannot satisfy a later job on the same worker", async () => {
   const { createGenerationPool } = await pool;
   let previousDispatch;
