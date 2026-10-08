@@ -23,6 +23,3 @@ pub mod zip;
 pub use npy::{Dtype, NpyArray};
 pub use npz::Npz;
 pub use zip::ZipArchive;
-
-/// Reads a standalone `.npy` file.
-pub use npy::read as read_npy;

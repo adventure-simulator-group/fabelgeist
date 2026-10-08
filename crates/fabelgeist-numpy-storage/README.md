@@ -24,3 +24,7 @@ let weights = archive.array("layer0")?.to_tensor::<2>(&Device::default())?;
 - Fortran-ordered arrays are rejected rather than silently transposed.
 
 Used by `fabelgeist-mhr` for the MHR pose-corrective tensors.
+
+See [NPY decoder and file-reader errors](npy-errors.md) for
+associated admission, classifications, native causes and the current parsing
+limits.

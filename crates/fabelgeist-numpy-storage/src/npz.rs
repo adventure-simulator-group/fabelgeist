@@ -8,7 +8,7 @@ use std::path::Path;
 
 use anyhow::{Context, Result};
 
-use crate::npy::{self, NpyArray};
+use crate::npy::NpyArray;
 use crate::zip::ZipArchive;
 
 /// A memory-mapped `.npz` archive.
@@ -59,7 +59,7 @@ impl Npz {
             .find(|member| matches(member, name))
             .with_context(|| format!("archive has no member {name:?}"))?;
         let bytes = self.archive.entry_bytes(entry)?;
-        npy::parse(&bytes).with_context(|| format!("reading array {name:?}"))
+        NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {name:?}"))
     }
 }
 
