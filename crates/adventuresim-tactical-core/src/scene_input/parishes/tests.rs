@@ -29,8 +29,7 @@ fn fixture() -> TacticalSceneInput {
             usage: Some(lot.building_use().unwrap_or(BuildingUse::Dwelling)),
             service_size: lot.service_size(),
             seed: 42.into(),
-            centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(lot.centre_metres)
-                .unwrap(),
+            centre_metres: lot.centre_metres,
             base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
             orientation: lot.orientation,
         })

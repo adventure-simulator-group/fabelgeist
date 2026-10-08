@@ -30,22 +30,9 @@ impl Fixture {
         let sample = |point| geographic.elevation_at(point).unwrap();
         observations.front.elevation = sample(threshold);
         observations.rear.elevation = sample(observations.rear.court_threshold_metres);
-        observations.court = sample(
-            crate::scene_coordinates::ScenePlanPoint::try_from(self.property.court.centre_metres())
-                .unwrap(),
-        );
-        observations.gate = sample(
-            crate::scene_coordinates::ScenePlanPoint::try_from(
-                self.property.boundary.gate.centre_metres,
-            )
-            .unwrap(),
-        );
-        observations.street = sample(
-            crate::scene_coordinates::ScenePlanPoint::try_from(
-                self.property.access[0].start_metres(),
-            )
-            .unwrap(),
-        );
+        observations.court = sample(self.property.court.centre());
+        observations.gate = sample(self.property.boundary.gate.centre_metres);
+        observations.street = sample(self.property.access[0].start());
         CompoundSupportRequest {
             property: &self.property,
             observations,
