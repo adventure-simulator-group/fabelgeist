@@ -2,39 +2,42 @@ use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn wasm_landscape_jobs(input_json: &str, graphics: &str) -> Result<String, JsValue> {
-    let jobs = super::landscape::jobs(input_json, graphics).map_err(|e| JsValue::from_str(&e))?;
-    serde_json::to_string(&jobs).map_err(|e| JsValue::from_str(&e.to_string()))
+    let jobs = super::landscape::jobs(input_json, graphics).map_err(JsValue::from)?;
+    serde_json::to_string(&jobs)
+        .map_err(|error| JsValue::from(super::PreparationError::from(error)))
 }
 
 #[wasm_bindgen]
 pub fn wasm_generation_jobs(input_json: &str) -> Result<String, JsValue> {
-    let jobs = super::jobs(input_json).map_err(|error| JsValue::from_str(&error))?;
-    serde_json::to_string(&jobs).map_err(|error| JsValue::from_str(&error.to_string()))
+    let jobs = super::jobs(input_json).map_err(JsValue::from)?;
+    serde_json::to_string(&jobs)
+        .map_err(|error| JsValue::from(super::PreparationError::from(error)))
 }
 
 #[wasm_bindgen]
-pub fn wasm_begin_generation() {
-    super::products().begin_generation();
+pub fn wasm_begin_generation() -> Result<(), JsValue> {
+    super::products().map_err(JsValue::from)?.begin_generation();
+    Ok(())
 }
 
 #[wasm_bindgen]
 pub fn wasm_generate_job(job_json: &str, dependencies: &[u8]) -> Result<Vec<u8>, JsValue> {
-    super::generate(job_json, dependencies).map_err(|error| JsValue::from_str(&error))
+    super::generate(job_json, dependencies).map_err(JsValue::from)
 }
 
 #[wasm_bindgen]
 pub fn wasm_generation_dependencies(job_json: &str) -> Result<Vec<u8>, JsValue> {
-    super::dependencies(job_json).map_err(|error| JsValue::from_str(&error))
+    super::dependencies(job_json).map_err(JsValue::from)
 }
 
 #[wasm_bindgen]
 pub fn wasm_venue_jobs(input_json: &str, view_json: &str) -> Result<String, JsValue> {
-    let jobs =
-        super::venue_jobs(input_json, view_json).map_err(|error| JsValue::from_str(&error))?;
-    serde_json::to_string(&jobs).map_err(|error| JsValue::from_str(&error.to_string()))
+    let jobs = super::venue_jobs(input_json, view_json).map_err(JsValue::from)?;
+    serde_json::to_string(&jobs)
+        .map_err(|error| JsValue::from(super::PreparationError::from(error)))
 }
 
 #[wasm_bindgen]
 pub fn wasm_receive_job(job_json: &str, bytes: &[u8]) -> Result<(), JsValue> {
-    super::receive(job_json, bytes).map_err(|error| JsValue::from_str(&error))
+    super::receive(job_json, bytes).map_err(JsValue::from)
 }

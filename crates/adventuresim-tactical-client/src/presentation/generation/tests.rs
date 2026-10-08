@@ -6,7 +6,7 @@ static TEST_PRODUCTS: Mutex<()> = Mutex::new(());
 #[test]
 fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let input_json = include_str!("../../../../../assets/tactical-scenes/sparse-woodland.json");
     let input: TacticalSceneInput = serde_json::from_str(input_json).unwrap();
     let graphics = include_str!("../../../../../assets/config/tactical-graphics.yaml");
@@ -19,7 +19,7 @@ fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
         receive(&job, &generate(&job, &dependencies(&job).unwrap()).unwrap()).unwrap();
     }
     let digest = input.digest().unwrap();
-    let grass = landscape::grass(&digest).unwrap();
+    let grass = landscape::grass(&digest).unwrap().unwrap();
     let expected_scene = input.generate().unwrap();
     let expected = crate::presentation::vista::grass::PreparedGrass::new(
         &input,
@@ -43,17 +43,17 @@ fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
     assert_ne!(graphics, changed);
     assert_eq!(landscape::jobs(input_json, &changed).unwrap().len(), 2);
     assert!(
-        landscape::grass(&digest).is_none(),
+        landscape::grass(&digest).unwrap().is_none(),
         "old-quality placements must not be used"
     );
-    clear_residency();
-    assert!(landscape::ground(&digest).is_none());
+    clear_residency().unwrap();
+    assert!(landscape::ground(&digest).unwrap().is_none());
 }
 
 #[test]
 fn massive_city_workers_prepare_only_shared_exteriors() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
     let requests = jobs(input).unwrap();
     assert!(
@@ -71,7 +71,7 @@ fn massive_city_workers_prepare_only_shared_exteriors() {
 #[test]
 fn worker_products_round_trip_geometry_and_reject_wrong_inputs() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let program = BuildingProgram::fixture(
         BuildingArchetype::FachwerkCottage,
         fabelgeist_determinism::Seed::from_u64(u64::MAX),
@@ -85,18 +85,29 @@ fn worker_products_round_trip_geometry_and_reject_wrong_inputs() {
         serde_json::to_value(&actual).unwrap(),
         serde_json::to_value(&expected).unwrap()
     );
-    assert!(take_facade(&program).is_err());
-    assert!(receive(&job, b"truncated").is_err());
+    assert!(matches!(
+        take_facade(&program),
+        Err(PreparationError::NotPrepared {
+            product: ProductKind::Facade
+        })
+    ));
+    assert!(matches!(
+        receive(&job, b"truncated"),
+        Err(PreparationError::ProductDecode(_))
+    ));
     let mut changed = program;
     changed.seed = fabelgeist_determinism::Seed::from_u64(42);
     let changed = serde_json::to_string(&GenerationJob::Building(Box::new(changed))).unwrap();
-    assert!(receive(&changed, &bytes).is_err());
+    assert!(matches!(
+        receive(&changed, &bytes),
+        Err(PreparationError::ProductMismatch)
+    ));
 }
 
 #[test]
 fn scene_transport_preserves_static_assets_and_full_width_seed() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -114,22 +125,27 @@ fn scene_transport_preserves_static_assets_and_full_width_seed() {
         serde_json::to_value(expected).unwrap()
     );
     assert!(take_scene(&input).is_ok());
-    clear_residency();
-    assert!(take_scene(&input).is_err());
-    assert!(super::jobs("{}").is_err());
+    clear_residency().unwrap();
+    assert!(matches!(
+        take_scene(&input),
+        Err(PreparationError::NotPrepared {
+            product: ProductKind::Scene
+        })
+    ));
+    assert!(matches!(super::jobs("{}"), Err(PreparationError::Json(_))));
 }
 
 #[test]
 fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
     let requests = jobs(input).unwrap();
     for request in requests.iter().skip(1) {
         let GenerationJob::Building(program) = serde_json::from_str(request).unwrap() else {
             panic!("facade job");
         };
-        retain_facade(&program);
+        retain_facade(&program).unwrap();
     }
     assert_eq!(jobs(input).unwrap().len(), 1);
     let original: TacticalSceneInput = serde_json::from_str(input).unwrap();
@@ -159,14 +175,14 @@ fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
         1,
         "valid new floor/source bindings invalidate the scene without regenerating resident facades"
     );
-    clear_residency();
+    clear_residency().unwrap();
     assert_eq!(jobs(input).unwrap(), requests);
 }
 
 #[test]
 fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let program = BuildingProgram::fixture(
         BuildingArchetype::FachwerkCottage,
         fabelgeist_determinism::Seed::from_u64(47),
@@ -204,7 +220,7 @@ fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
         );
     }
     assert_eq!(
-        products().venues[0].interior,
+        products().unwrap().venues[0].interior,
         adventuresim_building_generator::interior::furnish(&recipe.plan, &program).unwrap()
     );
 }
@@ -212,7 +228,7 @@ fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
 #[test]
 fn parallel_building_products_preserve_the_complete_tactical_scene() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -259,7 +275,7 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
 #[ignore = "records cold preparation and warm recipe residency to GENERATION_BENCHMARK_OUTPUT"]
 fn independent_city_generation_benchmark() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
     let started = std::time::Instant::now();
     let mut requests = venue_jobs(input, r#"{"places":[],"people":[]}"#).unwrap();
@@ -280,7 +296,7 @@ fn independent_city_generation_benchmark() {
         receive(job, &product).unwrap();
         receive_seconds += started.elapsed().as_secs_f64();
         if let GenerationJob::Building(program) = serde_json::from_str(job).unwrap() {
-            retain_facade(&program);
+            retain_facade(&program).unwrap();
         }
     }
     let started = std::time::Instant::now();
@@ -306,7 +322,7 @@ fn independent_city_generation_benchmark() {
     let path = std::env::var("GENERATION_BENCHMARK_OUTPUT").expect("benchmark output path");
     std::fs::write(path, serde_json::to_vec_pretty(&report).unwrap()).unwrap();
     println!("{report}");
-    clear_residency();
+    clear_residency().unwrap();
 }
 
 /// Explicit authored producer reservation, rather than an unbound occupied draft.
@@ -352,7 +368,7 @@ fn grounded_test_building(
 #[test]
 fn owned_terrain_survives_scene_and_landscape_worker_transport() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let source = include_str!("../../../../../assets/tactical-scenes/compound-review.json");
     let input: TacticalSceneInput = serde_json::from_str(source).unwrap();
     for job in venue_jobs(source, r#"{"places":[],"people":[]}"#).unwrap() {
@@ -404,13 +420,13 @@ fn owned_terrain_survives_scene_and_landscape_worker_transport() {
         serde_json::to_value(actual.terrain).unwrap(),
         serde_json::to_value(expected.terrain).unwrap()
     );
-    clear_residency();
+    clear_residency().unwrap();
 }
 
 #[test]
 fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -419,7 +435,7 @@ fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
     for job in jobs(&request).unwrap() {
         receive(&job, &generate(&job, &dependencies(&job).unwrap()).unwrap()).unwrap();
     }
-    products().begin_generation();
+    products().unwrap().begin_generation();
     assert!(jobs(&request).unwrap().is_empty());
     let mut installed = take_scene(&input).unwrap();
     installed.obstacles.clear();
@@ -430,15 +446,20 @@ fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
     input.seed = input.seed.wrapping_offset(1);
     let changed = serde_json::to_string(&input).unwrap();
     assert_eq!(jobs(&changed).unwrap().len(), 1);
-    assert!(take_scene(&input).is_err());
-    clear_residency();
+    assert!(matches!(
+        take_scene(&input),
+        Err(PreparationError::NotPrepared {
+            product: ProductKind::Scene
+        })
+    ));
+    clear_residency().unwrap();
     assert_eq!(jobs(&request).unwrap().len(), 1);
 }
 
 #[test]
 fn immutable_scene_retention_evicts_the_least_recent_input_within_its_bound() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -450,24 +471,27 @@ fn immutable_scene_retention_evicts_the_least_recent_input_within_its_bound() {
     {
         input.seed = seed;
         let scene = input.generate_unfurnished(Default::default()).unwrap();
-        products().retain_scene(scene);
+        products().unwrap().retain_scene(scene);
         inputs.push(input.clone());
         if seed == Seed::from_u64(3) {
-            assert!(products().scene_is_prepared(&inputs[0]).unwrap());
+            assert_eq!(
+                products().unwrap().scene_readiness(&inputs[0]).unwrap(),
+                SceneReadiness::Prepared
+            );
         }
     }
-    assert_eq!(products().scenes.len(), 3);
+    assert_eq!(products().unwrap().scenes.len(), 3);
     assert!(take_scene(&inputs[0]).is_ok());
     assert!(take_scene(&inputs[1]).is_err());
     assert!(take_scene(&inputs[2]).is_ok());
     assert!(take_scene(&inputs[3]).is_ok());
-    clear_residency();
+    clear_residency().unwrap();
 }
 
 #[test]
 fn a_changed_grounding_binding_cannot_reuse_a_resident_scene_with_the_same_programme() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
-    clear_residency();
+    clear_residency().unwrap();
     let original: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/massive-city.json"
     ))
@@ -483,16 +507,27 @@ fn a_changed_grounding_binding_cannot_reuse_a_resident_scene_with_the_same_progr
     let first = grounded_test_building(placement.clone(), 1.5);
     let changed = grounded_test_building(placement, 5.0);
     let scene = first.generate_unfurnished(Default::default()).unwrap();
-    products().retain_scene(scene);
-    assert!(products().scene_is_prepared(&first).unwrap());
-    assert!(!products().scene_is_prepared(&changed).unwrap());
-    assert!(products().scene_for_installation(&changed).is_err());
-    let preserved = products().scene_for_installation(&first).unwrap();
+    products().unwrap().retain_scene(scene);
+    assert_eq!(
+        products().unwrap().scene_readiness(&first).unwrap(),
+        SceneReadiness::Prepared
+    );
+    assert_eq!(
+        products().unwrap().scene_readiness(&changed).unwrap(),
+        SceneReadiness::Missing
+    );
+    assert!(
+        products()
+            .unwrap()
+            .scene_for_installation(&changed)
+            .is_err()
+    );
+    let preserved = products().unwrap().scene_for_installation(&first).unwrap();
     assert_eq!(preserved.buildings[0].placement, first.buildings[0]);
     assert_eq!(first.buildings[0].program, changed.buildings[0].program);
     assert_ne!(
         first.buildings[0].base_elevation_metres.metres(),
         changed.buildings[0].base_elevation_metres.metres()
     );
-    clear_residency();
+    clear_residency().unwrap();
 }

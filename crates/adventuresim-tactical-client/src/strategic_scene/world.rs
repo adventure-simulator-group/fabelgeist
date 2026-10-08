@@ -86,7 +86,8 @@ fn prepare(
     retained: &mut RetainedScene,
 ) -> Result<(), String> {
     #[cfg(target_family = "wasm")]
-    let mut generated = crate::presentation::generation::take_scene(input)?;
+    let mut generated =
+        crate::presentation::generation::take_scene(input).map_err(|error| error.to_string())?;
     #[cfg(not(target_family = "wasm"))]
     let mut generated = input.generate().map_err(|e| e.to_string())?;
     retained.venues = buildings::prepare_venues(input, view, &mut generated, &mut retained.street)?;
