@@ -4,7 +4,7 @@ use adventuresim_core::character_proportions::{
     BODY_PROPORTION_COUNT, BodyProportion, CharacterProportions, JointProportionBasis,
 };
 use anyhow::{Context, Result, ensure};
-use fabelgeist_mhr::{Mhr, character::PARAMETERS_PER_JOINT};
+use fabelgeist_mhr::{Mhr, character::PARAMETERS_PER_JOINT, model_def::ParameterBounds};
 
 const CENTIMETRES_PER_METRE: f32 = 100.0;
 
@@ -41,10 +41,7 @@ pub fn joint_bases(
             .iter()
             .find(|limit| limit.parameter == column)
             .context("MHR body proportion has no limits")?;
-        ensure!(
-            limits.min == -proportion.limit() && limits.max == proportion.limit(),
-            "MHR body proportion limits differ from the shared contract"
-        );
+        ensure_shared_proportion_bounds(limits.bounds, proportion)?;
         for (joint, basis) in bases.iter_mut().enumerate() {
             for axis in 0..3 {
                 basis.translation_metres[proportion.index()][axis] = transform
@@ -62,3 +59,19 @@ pub fn joint_bases(
     }
     Ok(bases)
 }
+
+fn ensure_shared_proportion_bounds(
+    bounds: ParameterBounds,
+    proportion: BodyProportion,
+) -> Result<()> {
+    let shared = ParameterBounds::try_from((-proportion.limit(), proportion.limit()))
+        .context("shared body proportion bounds are invalid")?;
+    ensure!(
+        bounds == shared,
+        "MHR body proportion limits differ from the shared contract"
+    );
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests;
