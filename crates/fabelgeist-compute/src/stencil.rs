@@ -1,25 +1,20 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
+use fabelgeist_gpu::data::gpu::shader::{ShaderSource, parse_naga};
 use fabelgeist_gpu::data::gpu::signature::ResourceBaseType;
 use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
 
-fn sanitize_type_name(t: &str) -> String {
-    t.replace("<", "_")
-        .replace(">", "")
-        .replace(" ", "")
-        .replace(",", "_")
-}
-
-fn get_swizzle(components: usize) -> &'static str {
-    match components {
-        1 => ".x",
-        2 => ".xy",
-        3 => ".xyz",
-        _ => "",
-    }
-}
+type StencilPipelineCache = HashMap<
+    (
+        ResourceDescriptor,                // input_res
+        ResourceDescriptor,                // output_res
+        Vec<(String, ResourceDescriptor)>, // secondary_resources
+        u32,                               // boundary_mode
+    ),
+    Arc<(ComputePipeline, u64, u64)>,
+>;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct StencilSignature {
@@ -37,22 +32,14 @@ pub struct StencilSignature {
     pub param_names: Vec<String>,
 }
 
-type StencilPipelineCache = HashMap<
-    (
-        ResourceDescriptor,                // input_res
-        ResourceDescriptor,                // output_res
-        Vec<(String, ResourceDescriptor)>, // secondary_resources
-        u32,                               // boundary_mode
-    ),
-    Arc<(ComputePipeline, u64, u64)>,
->;
-
 #[derive(Clone, Debug)]
 pub struct StencilDefinition {
     pub code: String,
     pub boundary_mode: u32,
     pub cache: Arc<RwLock<StencilPipelineCache>>,
 }
+
+pub struct Stencil;
 
 impl Default for StencilDefinition {
     fn default() -> Self {
@@ -818,10 +805,8 @@ impl StencilDefinition {
         }
         full_code.push_str("}\n");
 
-        let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code.as_str().into(),
-            wgpu::naga::ShaderStage::Compute,
-        )?;
+        let shader_source = ShaderSource::from(full_code);
+        let module = parse_naga(&shader_source, wgpu::naga::ShaderStage::Compute)?;
 
         let mut input_size = 0;
         let mut output_size = 0;
@@ -852,7 +837,7 @@ impl StencilDefinition {
             output_size = calculate_size("output", &module);
         }
 
-        let shader = ComputeShader::new(context, full_code.into())?;
+        let shader = ComputeShader::new(context, shader_source)?;
         let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
         Ok((pipeline, input_size, output_size))
     }
@@ -897,8 +882,6 @@ impl StencilDefinition {
         Ok(arc_info)
     }
 }
-
-pub struct Stencil;
 
 impl Stencil {
     pub fn execute(
@@ -1003,6 +986,22 @@ impl Stencil {
         )?;
 
         Ok(())
+    }
+}
+
+fn sanitize_type_name(t: &str) -> String {
+    t.replace("<", "_")
+        .replace(">", "")
+        .replace(" ", "")
+        .replace(",", "_")
+}
+
+fn get_swizzle(components: usize) -> &'static str {
+    match components {
+        1 => ".x",
+        2 => ".xy",
+        3 => ".xyz",
+        _ => "",
     }
 }
 
