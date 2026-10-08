@@ -41,14 +41,16 @@ export async function prepareGeneratedScene(runtime, input, venues) {
         metrics.dependencyMilliseconds += performance.now() - started;
         metrics.dependencyBytes += bytes.byteLength;
         return bytes;
-      }, async resolveJob(job) {
+      }, async resolveJob(job, signal) {
         const readStarted = performance.now();
         const bytes = await cache.get(job);
+        signal.throwIfAborted();
         metrics.cacheLookupMilliseconds += performance.now() - readStarted;
         if (bytes) {
           try { receive(job, bytes); metrics.cacheHits++; return { status: "reused" }; }
-          catch { await cache.remove(job); }
+          catch { signal.throwIfAborted(); await cache.remove(job); }
         }
+        signal.throwIfAborted();
         metrics.cacheMisses++;
         return { status: "generate", job };
       } });

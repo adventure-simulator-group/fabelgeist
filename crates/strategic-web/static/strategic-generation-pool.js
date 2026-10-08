@@ -29,6 +29,7 @@ export function createGenerationPool(module, options = {}) {
   const concurrency = workerCapacity(options.hardwareConcurrency ?? navigator.hardwareConcurrency ?? 2);
   const workers = [];
   const pending = new Set();
+  const cancellation = new AbortController();
   let phase = "idle", nextDispatch = 1;
   function exchange(worker, message) {
     return new Promise((resolve, reject) => {
@@ -95,7 +96,7 @@ export function createGenerationPool(module, options = {}) {
           if (typeof candidate !== "string") {
             throw new GenerationPoolError("invalid-job", "Generation jobs require their exact serialized Rust address");
           }
-          const decision = jobOptions.resolveJob ? await jobOptions.resolveJob(candidate)
+          const decision = jobOptions.resolveJob ? await jobOptions.resolveJob(candidate, cancellation.signal)
             : { status: "generate", job: candidate };
           if (phase === "closed") throw new GenerationPoolError("cancelled", "Scene generation cancelled");
           if (failed) continue;
@@ -137,6 +138,8 @@ export function createGenerationPool(module, options = {}) {
   }
   function close() {
     phase = "closed";
+    if (!cancellation.signal.aborted) cancellation.abort(
+      new GenerationPoolError("cancelled", "Scene generation cancelled"));
     for (const cancel of pending) cancel();
     for (const worker of workers.filter(Boolean)) worker.terminate();
     workers.length = 0;
