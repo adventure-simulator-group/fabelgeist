@@ -370,7 +370,7 @@ impl MapDefinition {
 
         // 3. Parse with naga to get struct sizes for validation
         let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
+            &full_code.as_str().into(),
             wgpu::naga::ShaderStage::Compute,
         )?;
 
@@ -405,7 +405,7 @@ impl MapDefinition {
             output_size = calculate_size("output", &module);
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, full_code.into())?;
         let pipeline = ComputePipeline::new(context, shader)?;
 
         Ok((pipeline, input_size, output_size))

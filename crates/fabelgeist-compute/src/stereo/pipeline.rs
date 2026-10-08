@@ -96,7 +96,7 @@ impl Kernels {
     fn new(context: &WgpuContext) -> Result<Self> {
         let with_rays = |source: &str| format!("{COMMON}\n{source}");
         let compile = |name: &str, code: String| {
-            Kernel::new(context, code)
+            Kernel::new(context, code.into())
                 .map_err(|error| anyhow!("compiling the {name} kernel: {error:#}"))
         };
         Ok(Self {

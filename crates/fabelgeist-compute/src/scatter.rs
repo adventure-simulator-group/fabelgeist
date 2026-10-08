@@ -273,7 +273,7 @@ impl ScatterDefinition {
         full_code.push_str("}\n");
 
         let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
+            &full_code.as_str().into(),
             wgpu::naga::ShaderStage::Compute,
         )?;
 
@@ -305,7 +305,7 @@ impl ScatterDefinition {
             output_size = calculate_size("output", &module);
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, full_code.into())?;
         let pipeline = ComputePipeline::new(context, shader)?;
 
         Ok((pipeline, input_size, output_size))

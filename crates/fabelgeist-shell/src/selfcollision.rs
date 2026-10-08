@@ -85,11 +85,11 @@ impl SelfCollision {
 
         let storage = BufferDefinition::storage();
         Ok(Self {
-            hash: cache.get(context, wgsl::HASH)?,
-            clear_ranges: cache.get(context, wgsl::CLEAR_RANGES)?,
-            cell_ranges: cache.get(context, wgsl::CELL_RANGES)?,
-            collide: cache.get(context, wgsl::SELF_COLLIDE)?,
-            apply: cache.get(context, wgsl::APPLY_CORRECTIONS)?,
+            hash: cache.get(context, &wgsl::HASH.into())?,
+            clear_ranges: cache.get(context, &wgsl::CLEAR_RANGES.into())?,
+            cell_ranges: cache.get(context, &wgsl::CELL_RANGES.into())?,
+            collide: cache.get(context, &wgsl::SELF_COLLIDE.into())?,
+            apply: cache.get(context, &wgsl::APPLY_CORRECTIONS.into())?,
             sort: RadixSort::with_cache(context, cache)?,
 
             cells: Buffer::new(

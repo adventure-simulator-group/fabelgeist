@@ -1,7 +1,9 @@
 use anyhow::anyhow;
+pub use language::ShaderLanguage;
+pub use source::ShaderSource;
 
 mod language;
-pub use language::ShaderLanguage;
+mod source;
 
 #[derive(Debug, Clone)]
 pub struct UniformMember {
@@ -44,10 +46,10 @@ pub struct ReflectionData {
 }
 
 pub fn parse_naga(
-    code: &str,
+    code: &ShaderSource<'_>,
     stage: wgpu::naga::ShaderStage,
 ) -> anyhow::Result<wgpu::naga::Module> {
-    match ShaderLanguage::from_source_text(code) {
+    match code.language() {
         ShaderLanguage::Glsl => {
             let mut frontend = wgpu::naga::front::glsl::Frontend::default();
             frontend
@@ -56,12 +58,12 @@ pub fn parse_naga(
                         stage,
                         defines: Default::default(),
                     },
-                    code,
+                    code.as_str(),
                 )
                 .map_err(|e| anyhow!("GLSL Parse Error: {:?}", e))
         }
-        ShaderLanguage::Wgsl => wgpu::naga::front::wgsl::parse_str(code).map_err(|e| {
-            let message = e.emit_to_string(code);
+        ShaderLanguage::Wgsl => wgpu::naga::front::wgsl::parse_str(code.as_str()).map_err(|e| {
+            let message = e.emit_to_string(code.as_str());
             anyhow!("WGSL Parse Error: {}", message)
         }),
     }

@@ -127,8 +127,8 @@ impl Solver {
         settings: SolverSettings,
     ) -> Result<Self> {
         Ok(Self {
-            predict: cache.get(context, wgsl::PREDICT)?,
-            finalize: cache.get(context, wgsl::FINALIZE)?,
+            predict: cache.get(context, &wgsl::PREDICT.into())?,
+            finalize: cache.get(context, &wgsl::FINALIZE.into())?,
             settings,
         })
     }

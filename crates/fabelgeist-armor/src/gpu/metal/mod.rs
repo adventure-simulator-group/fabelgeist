@@ -23,7 +23,9 @@ mod tests;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, KernelCache};
-use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, PassParameters, WgpuContext};
+use fabelgeist_gpu::prelude::{
+    Buffer, BufferDefinition, PassParameters, ShaderSource, WgpuContext,
+};
 
 use crate::material::{Metal, MetalTextures};
 
@@ -51,14 +53,15 @@ impl MetalGpu {
     /// scopes, which must not interleave with another thread's, so no bake
     /// compiles anything later.
     pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self, String> {
-        let kernel = |source: String| cache.get(context, &source).map_err(device_error);
+        let kernel =
+            |source: ShaderSource<'static>| cache.get(context, &source).map_err(device_error);
         Ok(Self {
-            scratches: kernel(textures::scratches_source())?,
-            engraving: kernel(textures::engraving_source())?,
-            cut_slopes: kernel(textures::cut_slopes_source())?,
-            finish: kernel(finish::finish_source())?,
-            ornament: kernel(ornament::ornament_source())?,
-            bake: kernel(textures::bake_source())?,
+            scratches: kernel(textures::scratches_source().into())?,
+            engraving: kernel(textures::engraving_source().into())?,
+            cut_slopes: kernel(textures::cut_slopes_source().into())?,
+            finish: kernel(finish::finish_source().into())?,
+            ornament: kernel(ornament::ornament_source().into())?,
+            bake: kernel(textures::bake_source().into())?,
             context: context.clone(),
         })
     }

@@ -116,7 +116,7 @@ impl DeviceWearer<'_> {
         for entry in [TRIM_BOUNDS, TRIM] {
             let kernel = gpu
                 .cache()
-                .get(gpu.context(), &trim_source(entry))
+                .get(gpu.context(), &trim_source(entry).into())
                 .map_err(device_error)?;
             batch
                 .dispatch_items(&kernel, &parameters, part.carrier_count())

@@ -271,11 +271,11 @@ impl StreamDefinition {
         full_code.push_str("}\n");
 
         let _module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
+            &full_code.as_str().into(),
             wgpu::naga::ShaderStage::Compute,
         )?;
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, full_code.into())?;
         let pipeline = ComputePipeline::new(context, shader)?;
 
         Ok(pipeline)

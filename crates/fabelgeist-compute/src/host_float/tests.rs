@@ -72,7 +72,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         library = wgsl(),
     );
-    let kernel = Kernel::new(&context, source)?;
+    let kernel = Kernel::new(&context, source.into())?;
     let definition = BufferDefinition::storage().with_usage(BufferUse::CopySource);
     let outputs = Buffer::from_upload(
         &context,
@@ -266,6 +266,6 @@ async fn the_zero_hook_is_required() -> Result<()> {
          @compute @workgroup_size(1)\nfn main() {{ values[0] = host_add(values[0], 1.0); }}\n",
         wgsl()
     );
-    assert!(Kernel::new(&context, source).is_err());
+    assert!(Kernel::new(&context, source.into()).is_err());
     Ok(())
 }

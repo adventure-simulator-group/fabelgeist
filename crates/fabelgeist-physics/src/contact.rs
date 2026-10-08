@@ -43,8 +43,8 @@ impl Collisions {
     pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
         const INITIAL_CAPACITY: u32 = 16;
         Ok(Self {
-            analytic_kernel: cache.get(context, &wgsl::analytic_source())?,
-            mesh_kernel: cache.get(context, &MeshCollider::kernel_source())?,
+            analytic_kernel: cache.get(context, &wgsl::analytic_source().into())?,
+            mesh_kernel: cache.get(context, &MeshCollider::kernel_source().into())?,
             colliders: Vec::new(),
             collider_buffer: Buffer::new(
                 context,

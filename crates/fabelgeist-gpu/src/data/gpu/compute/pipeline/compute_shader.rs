@@ -1,18 +1,19 @@
-use crate::data::{gpu::shader::parse_naga, shader};
+use crate::data::gpu::shader::{ShaderLanguage, ShaderSource, parse_naga};
 use crate::globals::WgpuContext;
 use anyhow::{Result, anyhow};
 use std::sync::{Arc, Mutex};
 
 #[derive(Clone, Debug, Default)]
 pub struct ComputeShader {
-    pub code: String,
+    pub code: ShaderSource<'static>,
     pub module: Option<Arc<wgpu::ShaderModule>>,
     pub error: Arc<Mutex<Option<String>>>,
 }
 impl ComputeShader {
-    pub fn new(context: &WgpuContext, code: String) -> Result<ComputeShader> {
+    pub fn new(context: &WgpuContext, code: ShaderSource<'_>) -> Result<ComputeShader> {
+        let code = code.into_owned();
         // 1. Naga Parse & Deep Validation
-        let language = shader::ShaderLanguage::from_source_text(&code);
+        let language = code.language();
         let naga_res = parse_naga(&code, wgpu::naga::ShaderStage::Compute)
             .map_err(|e| anyhow::anyhow!("Compute Shader Parse Error: {}", e))?;
 
@@ -25,7 +26,7 @@ impl ComputeShader {
             info
         } else {
             let e = validator.validate(&naga_res).unwrap_err();
-            let message = e.emit_to_string(&code);
+            let message = e.emit_to_string(code.as_str());
             return Err(anyhow::anyhow!(
                 "Compute Shader Validation Error: {}",
                 message
@@ -34,7 +35,7 @@ impl ComputeShader {
 
         // 2. Convert to WGSL for WGPU compatibility (if it was GLSL)
         let wgsl_code = match language {
-            shader::ShaderLanguage::Glsl => match wgpu::naga::back::wgsl::write_string(
+            ShaderLanguage::Glsl => match wgpu::naga::back::wgsl::write_string(
                 &naga_res,
                 &info,
                 wgpu::naga::back::wgsl::WriterFlags::empty(),
@@ -42,7 +43,7 @@ impl ComputeShader {
                 Ok(s) => s,
                 Err(e) => return Err(anyhow!("Failed to convert GLSL to WGSL: {}", e)),
             },
-            shader::ShaderLanguage::Wgsl => code.clone(),
+            ShaderLanguage::Wgsl => code.as_str().to_owned(),
         };
 
         // 3. WGPU Validation & Creation
@@ -72,7 +73,7 @@ impl ComputeShader {
         }
 
         let definition = ComputeShader {
-            code: code.clone(),
+            code,
             module,
             error,
         };

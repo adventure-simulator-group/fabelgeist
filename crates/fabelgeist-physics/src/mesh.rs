@@ -98,7 +98,7 @@ impl MeshCollider {
             )?,
             bvh: GpuBvh::new(context, bvh_kernels, triangle_count)?,
             surface,
-            triangle_bounds: cache.get(context, wgsl::TRIANGLE_BOUNDS)?,
+            triangle_bounds: cache.get(context, &wgsl::TRIANGLE_BOUNDS.into())?,
             vertex_count: positions.len() as u32,
             triangle_count,
         };

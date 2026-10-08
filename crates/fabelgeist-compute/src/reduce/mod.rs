@@ -158,7 +158,7 @@ fn main(
         );
 
         let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
+            &full_code.as_str().into(),
             wgpu::naga::ShaderStage::Compute,
         )?;
 
@@ -180,7 +180,7 @@ fn main(
             element_size = layouter[base].size as u64;
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, full_code.into())?;
         let pipeline = ComputePipeline::new(context, shader)?;
 
         let mut cache = self.cache.write().unwrap();

@@ -48,12 +48,12 @@ impl BvhKernels {
 
     pub fn with_cache(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
         Ok(Self {
-            bounds: cache.get(context, &shaders::bounds_source())?,
-            codes: cache.get(context, &shaders::codes_source())?,
-            hierarchy: cache.get(context, &shaders::hierarchy_source())?,
-            clear_bounds: cache.get(context, &shaders::clear_bounds_source())?,
-            refit: cache.get(context, &shaders::refit_source())?,
-            gather_bounds: cache.get(context, &shaders::gather_bounds_source())?,
+            bounds: cache.get(context, &shaders::bounds_source().into())?,
+            codes: cache.get(context, &shaders::codes_source().into())?,
+            hierarchy: cache.get(context, &shaders::hierarchy_source().into())?,
+            clear_bounds: cache.get(context, &shaders::clear_bounds_source().into())?,
+            refit: cache.get(context, &shaders::refit_source().into())?,
+            gather_bounds: cache.get(context, &shaders::gather_bounds_source().into())?,
             sort: RadixSort::with_cache(context, cache)?,
         })
     }

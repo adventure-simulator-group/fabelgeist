@@ -131,8 +131,8 @@ fn main(
             block_size = block_size
         );
 
-        let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code)?;
-        let add_aux_shader = ComputeShader::new(context, add_aux_code)?;
+        let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code.into())?;
+        let add_aux_shader = ComputeShader::new(context, add_aux_code.into())?;
 
         let p1 = ComputePipeline::new(context, scan_blocks_shader)?;
         let p2 = ComputePipeline::new(context, add_aux_shader)?;
