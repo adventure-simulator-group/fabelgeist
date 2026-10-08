@@ -1,6 +1,6 @@
 //! Exact identity for named parameter subsets in a Momentum model definition.
 
-use derive_more::{Debug, Display, From};
+use derive_more::{AsRef, Debug, Display, From};
 
 /// A parameter-set key with exact, case-sensitive text identity.
 ///
@@ -14,6 +14,8 @@ use derive_more::{Debug, Display, From};
 /// let name = ParameterSetName::from("rigid");
 /// let transform = ParameterTransform::default();
 /// assert_eq!(transform.parameter_sets.get(&name), None);
+/// let text: &str = name.as_ref();
+/// assert_eq!(text, "rigid");
 /// ```
 ///
 /// Lookup requires the set identity rather than raw text:
@@ -29,14 +31,8 @@ use derive_more::{Debug, Display, From};
 /// use fabelgeist_mhr::ParameterTransform;
 /// ParameterTransform::default().parameter_sets.insert(String::from("rigid"), vec![]);
 /// ```
-#[derive(Clone, Debug, Display, From, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(AsRef, Clone, Debug, Display, From, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[as_ref(str)]
 #[from(String, &str)]
 #[debug("{_0:?}")]
 pub struct ParameterSetName(String);
-
-/// Borrow text only for serialization or presentation boundaries.
-impl<'a> From<&'a ParameterSetName> for &'a str {
-    fn from(name: &'a ParameterSetName) -> Self {
-        &name.0
-    }
-}
