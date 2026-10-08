@@ -133,6 +133,11 @@ promotes f32 matmuls to tf32, and a 10-bit mantissa there costs ~2e-4 relative
 accuracy on every joint angle and translation — which the kinematic chain then
 amplifies to visible error. The tensor is 204 x 889, so the exact form is free.
 
+## Solver limit weights
+
+Parameter limits retain a bespoke solver weight. See the
+[solver-weight contract](solver-weights.md) for admission and metadata behavior.
+
 ## Known gaps
 
 - Locators, collision geometry and FBX animation stacks are skipped; only what
