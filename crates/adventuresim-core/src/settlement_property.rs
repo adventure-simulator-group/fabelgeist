@@ -11,6 +11,7 @@ pub use residence::{HomeCapacity, HomeSupplyRole, HouseholdRequest, ResidentCoun
 mod residence;
 
 const MAX_PROPERTY_CATALOG_BYTES: usize = 4 * 1024 * 1024;
+pub type PropertyResult<T> = std::result::Result<T, PropertyError>;
 
 /// A settlement-scoped front building. Rear stores are parts of its property,
 /// not extra homes. Identity does not include a player, household or tenancy.
@@ -74,7 +75,7 @@ pub enum PropertyError {
 }
 
 impl PropertyId {
-    pub fn new(settlement: &str, building_id: u64) -> Result<Self, PropertyError> {
+    pub fn new(settlement: &str, building_id: u64) -> PropertyResult<Self> {
         StrategicIdentityComponent::try_new(settlement)
             .map_err(|_| PropertyError::InvalidIdentity)?;
         if building_id == 0 {
@@ -113,24 +114,20 @@ impl HousingMarketReserve {
 }
 
 impl GeneratedHomeCatalog {
-    pub fn digest(&self) -> Result<String, PropertyError> {
+    pub fn digest(&self) -> PropertyResult<String> {
         use sha2::{Digest, Sha256};
         let bytes = serde_json::to_vec(self).map_err(|_| PropertyError::InvalidCatalog)?;
         Ok(format!("{:x}", Sha256::digest(bytes)))
     }
 
-    pub fn parse(json: &str) -> Result<Self, PropertyError> {
+    pub fn parse(json: &str) -> PropertyResult<Self> {
         if json.len() > MAX_PROPERTY_CATALOG_BYTES {
             return Err(PropertyError::InvalidCatalog);
         }
         serde_json::from_str(json).map_err(|_| PropertyError::InvalidCatalog)
     }
 
-    pub fn validate(
-        &self,
-        settlement: &str,
-        population: ResidentCount,
-    ) -> Result<(), PropertyError> {
+    pub fn validate(&self, settlement: &str, population: ResidentCount) -> PropertyResult<()> {
         if self.settlement_id != settlement
             || self.population != population
             || self.seed != crate::settlement_population::settlement_building_seed(settlement)
@@ -172,10 +169,7 @@ impl GeneratedHomeCatalog {
 
     /// Known families are allocated as groups. Remaining residents are bounded
     /// household counts, with no invented character rows or membership records.
-    pub fn allocate(
-        &self,
-        families: &[HouseholdRequest],
-    ) -> Result<Vec<HouseholdHome>, PropertyError> {
+    pub fn allocate(&self, families: &[HouseholdRequest]) -> PropertyResult<Vec<HouseholdHome>> {
         self.validate(&self.settlement_id, self.population)?;
         let mut family_ids = BTreeSet::new();
         if families.iter().any(|request| {

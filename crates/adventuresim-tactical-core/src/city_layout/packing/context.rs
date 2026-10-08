@@ -25,6 +25,12 @@ pub(super) struct ParcelGeometry {
     pub garden: Option<gardens::CityGarden>,
 }
 
+struct BoundsConflict {
+    first: CityPlotBounds,
+    second: CityPlotBounds,
+    clearance: intervals::PackingClearance,
+}
+
 /// Allocation roles in deliberate precedence order, separate from edge ordinals.
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub(super) enum FrontagePriority {
@@ -274,26 +280,33 @@ impl ParcelGeometry {
         tangent: Dir2,
         other_translation_metres: DVec2,
     ) -> Result<Vec<Option<FrontageInterval>>, intervals::FrontageIntervalError> {
-        std::iter::once((
-            self.reservation,
-            other.reservation,
-            intervals::PackingClearance::PropertyBoundary,
-        ))
-        .chain(self.buildings.iter().flat_map(|a| {
-            other
-                .buildings
-                .iter()
-                .map(move |b| (*a, *b, intervals::PackingClearance::BuildingBody))
-        }))
-        .map(|(a, b, clearance)| {
-            FrontageInterval::overlap_displacements(
-                a,
-                b,
-                *tangent,
-                clearance,
-                other_translation_metres,
-            )
+        std::iter::once(BoundsConflict {
+            first: self.reservation,
+            second: other.reservation,
+            clearance: intervals::PackingClearance::PropertyBoundary,
         })
+        .chain(self.buildings.iter().flat_map(|a| {
+            other.buildings.iter().map(move |b| BoundsConflict {
+                first: *a,
+                second: *b,
+                clearance: intervals::PackingClearance::BuildingBody,
+            })
+        }))
+        .map(
+            |BoundsConflict {
+                 first,
+                 second,
+                 clearance,
+             }| {
+                FrontageInterval::overlap_displacements(
+                    first,
+                    second,
+                    *tangent,
+                    clearance,
+                    other_translation_metres,
+                )
+            },
+        )
         .chain(self.bearings.iter().flat_map(|first| {
             other.bearings.iter().map(move |second| {
                 FrontageInterval::overlap_polygons(

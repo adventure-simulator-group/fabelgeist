@@ -49,9 +49,11 @@ pub(super) fn place_services(
         .copied()
         .map(|block| (block.key(), block))
         .collect::<BTreeMap<_, _>>();
-    let radius = ((population.get() as f32 / REFERENCE_CITY_POPULATION).sqrt()
-        * REFERENCE_CITY_RADIUS_METRES)
-        .max(SERVICE_SPREAD_METRES);
+    let radius = adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+        ((population.get() as f32 / REFERENCE_CITY_POPULATION).sqrt()
+            * REFERENCE_CITY_RADIUS_METRES)
+            .max(SERVICE_SPREAD_METRES),
+    )?;
     let mut placed = Vec::<CandidateLot>::new();
     let mut unplaced = Vec::new();
     let mut cursor = 0;
@@ -100,7 +102,7 @@ pub(super) fn place_services(
 
 fn request_choices(
     seed: fabelgeist_determinism::Seed,
-    radius: f32,
+    radius: adventuresim_building_generator::spatial_geometry::PositiveLength,
     blocks: &BTreeMap<BlockId, CityBlock>,
     candidates: &[CandidateLot],
     request: BuildingDemand,
@@ -128,13 +130,8 @@ fn request_choices(
         let candidate =
             service_candidate(*candidate, request, PlanDimensions::from_metres(footprint)?)?;
         if inside_block(candidate, blocks[&candidate.block_key])?
-            && parish_siting_distance(
-                request,
-                candidate.lot.centre_metres.metres(),
-                placed,
-                radius,
-            )
-            .is_some()
+            && parish_siting_distance(request, candidate.lot.centre_metres, placed, radius)
+                .is_some()
         {
             choices.push(candidate);
         }
@@ -142,12 +139,9 @@ fn request_choices(
     // Seeded ranks are expensive. Cache each complete key once while retaining
     // the stable ordering of equal ranks and the exact accepted property sites.
     choices.sort_by_cached_key(|candidate| {
-        if let Some(distance) = parish_siting_distance(
-            request,
-            candidate.lot.centre_metres.metres(),
-            placed,
-            radius,
-        ) && matches!(request, BuildingDemand::Parish { .. })
+        if let Some(distance) =
+            parish_siting_distance(request, candidate.lot.centre_metres, placed, radius)
+            && matches!(request, BuildingDemand::Parish { .. })
         {
             return (
                 (distance * 100.0) as u32,
@@ -160,9 +154,9 @@ fn request_choices(
         let distance = candidate.lot.centre_metres.metres().length();
         let target = match district {
             BuildingDistrict::Market => 0.0,
-            BuildingDistrict::Edge => radius,
+            BuildingDistrict::Edge => radius.metres(),
             BuildingDistrict::Neighbourhood | BuildingDistrict::Craft => {
-                radius
+                radius.metres()
                     * StreamId::new("city.service-district-radius")
                         .rng(key, &[])
                         .inclusive_unit_f32()
@@ -184,10 +178,14 @@ fn request_choices(
 /// spread through the developed radius instead of repeating a radial lottery.
 fn parish_siting_distance(
     request: BuildingDemand,
-    centre: Vec2,
+    centre: ScenePlanPoint,
     placed: &[CandidateLot],
-    radius: f32,
+    radius: adventuresim_building_generator::spatial_geometry::PositiveLength,
 ) -> Option<f32> {
+    // Native scene-plane distance/rank kernel. Keep the original metre
+    // arithmetic after accepting the shared position and positive radius.
+    let centre = centre.metres();
+    let radius = radius.metres();
     let BuildingDemand::Parish { parish, role } = request else {
         return Some(0.0);
     };

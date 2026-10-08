@@ -3,6 +3,7 @@ use super::*;
 use adventuresim_building_generator::CELL_SIZE_METRES;
 use adventuresim_core::settlement_property::{
     GeneratedHome, GeneratedHomeCatalog, HousingMarketReserve, PropertyError, PropertyId,
+    PropertyResult,
 };
 
 struct HomePlanning {
@@ -17,7 +18,7 @@ impl CitySceneLayout {
         &self,
         settlement_id: &str,
         population: ResidentCount,
-    ) -> Result<GeneratedHomeCatalog, PropertyError> {
+    ) -> PropertyResult<GeneratedHomeCatalog> {
         let mut homes = self
             .playable
             .iter()
@@ -64,7 +65,7 @@ impl CitySceneLayout {
                     })
                 },
             )
-            .collect::<Result<Vec<_>, PropertyError>>()?;
+            .collect::<PropertyResult<Vec<_>>>()?;
         let catalog = GeneratedHomeCatalog {
             settlement_id: settlement_id.to_owned(),
             population,

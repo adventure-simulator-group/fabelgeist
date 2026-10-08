@@ -27,8 +27,8 @@ Core admits the measured asset envelope before transforming its hull into
 checked scene points and adding the shader's wind displacement in world metres.
 Malformed or invalid measured geometry has a structured specimen error. The
 asset-native hull and height values remain an explicit renderer-local metre
-boundary; they do not acquire a different scene or architectural datum. Nominal botanical height and crown radius are not clearance
-bounds. Beds, lanes, other plants and all resolved building projections remain
+boundary; they do not acquire a different scene or architectural datum.
+Nominal botanical height and crown radius are not clearance bounds. Beds, lanes, other plants and all resolved building projections remain
 clear of the complete accepted specimen. Clients use the supplied pose without
 sampling a new position, changing scale or discarding an accepted plant.
 

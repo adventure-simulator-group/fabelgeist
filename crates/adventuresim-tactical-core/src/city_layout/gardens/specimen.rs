@@ -12,6 +12,7 @@ use std::sync::LazyLock;
 pub const GARDEN_LEAF_WIND_CLEARANCE_METRES: f32 = 0.04;
 pub const GARDEN_LEAF_WIND_STRENGTH_METRES: f32 = 0.035;
 const ENVELOPE_TOLERANCE_METRES: f32 = 0.00001;
+pub type GardenSpecimenResult<T> = std::result::Result<T, GardenSpecimenError>;
 
 #[derive(Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -39,8 +40,8 @@ pub enum GardenSpecimenError {
 }
 
 impl GardenSpecimen {
-    pub fn envelope(self) -> Result<&'static GardenSpecimenEnvelope, GardenSpecimenError> {
-        static HAZEL: LazyLock<Result<GardenSpecimenEnvelope, GardenSpecimenError>> =
+    pub fn envelope(self) -> GardenSpecimenResult<&'static GardenSpecimenEnvelope> {
+        static HAZEL: LazyLock<GardenSpecimenResult<GardenSpecimenEnvelope>> =
             LazyLock::new(|| {
                 let envelope: GardenSpecimenEnvelope = serde_json::from_str(include_str!(
                     "../../../../../content/tactical/garden-hazel-envelope.json"
@@ -58,7 +59,7 @@ impl GardenSpecimen {
 impl GardenSpecimenEnvelope {
     /// Asset-native metre vectors retain the renderer's local coordinate
     /// representation. They enter scene planning only through world_hull.
-    fn validate(&self) -> Result<(), GardenSpecimenError> {
+    fn validate(&self) -> GardenSpecimenResult<()> {
         if !self.min_height_metres.is_finite()
             || !self.max_height_metres.is_finite()
             || self.min_height_metres > self.max_height_metres

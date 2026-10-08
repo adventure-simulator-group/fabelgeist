@@ -309,8 +309,10 @@ fn append_frontage(
             seed,
             lot_key,
             block_key,
-            street_point
-                + inward * (street_half_width + compound_margin + footprint.metres().y * 0.5),
+            ScenePlanPoint::try_from(
+                street_point
+                    + inward * (street_half_width + compound_margin + footprint.metres().y * 0.5),
+            )?,
             tangent,
             house_class,
             LotPosition::StreetFrontage,
@@ -339,7 +341,7 @@ fn candidate(
     seed: fabelgeist_determinism::Seed,
     lot_key: CityPropertyId,
     block_key: BlockId,
-    centre_metres: Vec2,
+    centre_metres: ScenePlanPoint,
     frontage_tangent: Vec2,
     house_class: CityHouseClass,
     position: LotPosition,
@@ -348,7 +350,7 @@ fn candidate(
         lot: CityBuildingLot {
             passage_side: passage_side(seed, lot_key, house_class),
             id: lot_key,
-            centre_metres: ScenePlanPoint::try_from(centre_metres)?,
+            centre_metres,
             orientation: BuildingOrientation::from_frontage_tangent(frontage_tangent)
                 .ok_or(GeometryError::InvalidProjection)?,
             house_class,
