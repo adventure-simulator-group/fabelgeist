@@ -22,7 +22,8 @@ pub struct SurfaceContacts {
 }
 
 impl SurfaceContacts {
-    pub fn new(count: usize, faces: Vec<[u32; 3]>) -> Self {
+    pub fn new(count: fabelgeist_xpbd::ParticleInputCount, faces: Vec<[u32; 3]>) -> Self {
+        let count = usize::from(count);
         let seam_copies = vec![BTreeSet::new(); count];
         let mut edges = BTreeSet::new();
         for face in &faces {
@@ -78,7 +79,7 @@ impl SurfaceContacts {
             .filter(|f| f.iter().all(|&i| (i as usize) < count))
             .collect();
         triangles.extend(faces.iter().map(|f| f.map(|i| i + count as u32)));
-        let mut next = Self::new(count + positions.len(), triangles);
+        let mut next = Self::new((count + positions.len()).into(), triangles);
         next.seam_copies[..count].clone_from_slice(&self.seam_copies[..count]);
         next.fixed_bounds = FixedBounds::new(&next.faces, &next.edges, count, positions);
         next.static_positions = positions.to_vec();
@@ -103,7 +104,7 @@ impl SurfaceContacts {
         let mut previous = match interval_start {
             Some(start) => {
                 anyhow::ensure!(
-                    start.len() == particles.count() as usize,
+                    start.len() == usize::from(particles.count()),
                     "interval start does not match the particle count"
                 );
                 start.to_vec()
@@ -117,7 +118,7 @@ impl SurfaceContacts {
                 );
                 records
                     .positions()
-                    .take(particles.count() as usize)
+                    .take(usize::from(particles.count()))
                     .collect()
             }
         };
@@ -204,7 +205,7 @@ mod tests {
         ];
         let mut previous = p.clone();
         previous[3].y = 0.1;
-        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
+        let contacts = SurfaceContacts::new(4usize.into(), vec![[0, 1, 2]]);
         contacts.solve(
             &mut p,
             &previous,
@@ -224,7 +225,7 @@ mod tests {
             Vec3::new(1., 0., 1.),
         ];
         let previous = p.clone();
-        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2], [1, 3, 2]]);
+        let contacts = SurfaceContacts::new(4usize.into(), vec![[0, 1, 2], [1, 3, 2]]);
         assert_eq!(
             contacts.solve(&mut p, &previous, &[1.0.into(); 4], 0.01, 2),
             0
@@ -242,7 +243,7 @@ mod tests {
             Vec3::new(1., 0.001, 1.),
         ];
         let previous = p.clone();
-        let contacts = SurfaceContacts::new(6, vec![[0, 1, 2], [3, 4, 5]]);
+        let contacts = SurfaceContacts::new(6usize.into(), vec![[0, 1, 2], [3, 4, 5]]);
         assert!(contacts.solve(&mut p, &previous, &[1.0.into(); 6], 0.01, 4) > 0);
         assert!(
             ccd::proximity(
@@ -269,7 +270,7 @@ mod tests {
         for p in &mut end[3..] {
             p.y = -10.0;
         }
-        let contacts = SurfaceContacts::new(6, vec![[0, 1, 2], [3, 4, 5]]);
+        let contacts = SurfaceContacts::new(6usize.into(), vec![[0, 1, 2], [3, 4, 5]]);
         contacts.solve(
             &mut end,
             &previous,
@@ -310,7 +311,7 @@ mod tests {
             p.z = 1.0;
         }
         let body_end = end[..3].to_vec();
-        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
+        let contacts = SurfaceContacts::new(4usize.into(), vec![[0, 1, 2]]);
         contacts.solve(
             &mut end,
             &previous,
@@ -338,7 +339,7 @@ mod tests {
         end[0].z = 0.5;
         end[1].z = 1.5;
         end[2].z = 1.0;
-        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
+        let contacts = SurfaceContacts::new(4usize.into(), vec![[0, 1, 2]]);
         contacts.solve(
             &mut end,
             &previous,
@@ -385,7 +386,7 @@ mod gpu_contact_regression {
             &context,
             fabelgeist_xpbd::ParticleVelocities::from(velocity.as_slice()).upload(),
         )?;
-        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
+        let contacts = SurfaceContacts::new(4usize.into(), vec![[0, 1, 2]]);
         assert!(
             contacts
                 .project_particles(&context, &particles, 0.005, 4, None)
@@ -420,7 +421,7 @@ mod gpu_contact_regression {
             &context,
             fabelgeist_xpbd::ParticlePositions::new(&end, &masses)?.upload(),
         )?;
-        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
+        let contacts = SurfaceContacts::new(4usize.into(), vec![[0, 1, 2]]);
         // The last substep alone stays below the triangle.
         assert_eq!(
             contacts
@@ -450,8 +451,8 @@ mod gpu_contact_regression {
             Vec3::new(0., 1., 0.),
         ];
         let previous = positions.clone();
-        let contacts =
-            SurfaceContacts::new(6, vec![[0, 1, 2], [3, 4, 5]]).with_seams(&[[1, 3], [2, 5]]);
+        let contacts = SurfaceContacts::new(6usize.into(), vec![[0, 1, 2], [3, 4, 5]])
+            .with_seams(&[[1, 3], [2, 5]]);
         assert_eq!(
             contacts.solve(&mut positions, &previous, &[1.0.into(); 6], 0.005, 4),
             0
@@ -473,7 +474,7 @@ mod relative_velocity_regression {
         ];
         let mut end = previous.clone();
         end[3].y = -0.1;
-        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
+        let contacts = SurfaceContacts::new(4usize.into(), vec![[0, 1, 2]]);
         let solve = |boost: Vec3| -> Vec<Vec3> {
             let mut positions = end.clone();
             let mut velocities = vec![boost; 4];
@@ -519,7 +520,7 @@ mod fold_regression {
         ];
         let mut positions = previous.clone();
         positions[3].y = -0.1;
-        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2], [1, 3, 2]]);
+        let contacts = SurfaceContacts::new(4usize.into(), vec![[0, 1, 2], [1, 3, 2]]);
         assert!(
             contacts.solve(
                 &mut positions,
@@ -544,7 +545,7 @@ mod obstacle_regression {
             Vec3::new(0.0, 1.0, 0.1),
         ];
         let mut positions: Vec<_> = previous.iter().map(|p| Vec3::new(p.x, p.y, -0.1)).collect();
-        let mut contacts = SurfaceContacts::new(3, vec![[0, 1, 2]]);
+        let mut contacts = SurfaceContacts::new(3usize.into(), vec![[0, 1, 2]]);
         contacts.set_static_surface(
             &[
                 Vec3::new(-0.1, -0.1, 0.0),
@@ -572,7 +573,7 @@ mod fixed_bounds_regression {
             Vec3::new(0.0, 0.1, 0.1),
         ];
         let end: Vec<_> = start.iter().map(|p| Vec3::new(p.x, -0.1, p.z)).collect();
-        let mut contacts = SurfaceContacts::new(3, vec![[0, 1, 2]]);
+        let mut contacts = SurfaceContacts::new(3usize.into(), vec![[0, 1, 2]]);
         let body = [
             Vec3::new(-1., 0., -1.),
             Vec3::new(0., 0., 1.),
@@ -607,7 +608,7 @@ mod obstacle_clearance_regression {
             Vec3::new(0., 0.1, 0.002),
         ];
         let mut points = start.clone();
-        let mut contacts = SurfaceContacts::new(3, vec![[0, 1, 2]]);
+        let mut contacts = SurfaceContacts::new(3usize.into(), vec![[0, 1, 2]]);
         contacts.set_static_surface(
             &[
                 Vec3::new(-1., -1., 0.),

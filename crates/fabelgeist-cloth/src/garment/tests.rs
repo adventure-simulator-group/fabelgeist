@@ -91,10 +91,16 @@ fn builds_a_single_panel() {
     let panels = vec![Panel::new("only", square(0.4))];
     let mesh = build(&panels, &[], 0.05, 0.2.into()).unwrap();
 
-    assert!(mesh.particle_count() > 50, "too coarse to be a cloth");
+    assert!(
+        usize::from(mesh.particle_count()) > 50,
+        "too coarse to be a cloth"
+    );
     assert!(!mesh.triangles.is_empty());
     assert_eq!(mesh.panel_count(), 1);
-    assert_eq!(mesh.panel_offsets, vec![0, mesh.particle_count() as u32]);
+    assert_eq!(
+        mesh.panel_offsets,
+        vec![0, u32::from(mesh.particle_count().gpu_count())]
+    );
     assert!(mesh.seams.is_empty(), "one panel has nothing to sew to");
 
     // Rest lengths are the flat layout's own lengths, so the panel starts
@@ -255,7 +261,7 @@ fn reports_a_bad_seam() {
 #[test]
 fn handles_no_panels() {
     let mesh = build(&[], &[], 0.05, 0.2.into()).unwrap();
-    assert_eq!(mesh.particle_count(), 0);
+    assert_eq!(usize::from(mesh.particle_count()), 0);
     assert_eq!(mesh.panel_count(), 0);
 }
 
@@ -270,7 +276,7 @@ fn rejects_a_nonsense_resolution() {
 fn panel_lookup_covers_every_particle() {
     let (panels, seams) = tube();
     let mesh = build(&panels, &seams, 0.04, 0.2.into()).unwrap();
-    for particle in 0..mesh.particle_count() as u32 {
+    for particle in 0..u32::from(mesh.particle_count().gpu_count()) {
         let panel = mesh.panel_of(particle);
         assert!(panel < mesh.panel_count());
         assert!(particle >= mesh.panel_offsets[panel]);
@@ -286,7 +292,7 @@ fn adjacency_covers_edges_and_seams() {
     let mesh = build(&panels, &seams, 0.04, 0.2.into()).unwrap();
     let adjacency = mesh.adjacency();
 
-    assert_eq!(adjacency.len(), mesh.particle_count());
+    assert_eq!(adjacency.len(), usize::from(mesh.particle_count()));
     for &[a, b] in &mesh.edges {
         assert!(
             adjacency[a as usize].contains(&b),
@@ -364,7 +370,7 @@ fn panel_ranges_tile_the_mesh() {
         }
         next = range.end;
     }
-    assert_eq!(next, mesh.particle_count());
+    assert_eq!(next, usize::from(mesh.particle_count()));
 }
 
 #[test]

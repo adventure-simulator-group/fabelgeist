@@ -18,8 +18,8 @@ impl ParticleSnapshot {
             ]);
         }
         Self(serde_json::json!({
-            "count": particles.count() as usize,
-            "capacity": particles.capacity() as usize,
+            "count": usize::from(particles.count()),
+            "capacity": usize::from(particles.capacity()),
             "positions": positions.into_iter().map(f32::to_bits).collect::<Vec<_>>(),
             "previous": previous.into_iter().map(f32::to_bits).collect::<Vec<_>>(),
             "velocities": velocities.into_iter().map(f32::to_bits).collect::<Vec<_>>(),
@@ -50,13 +50,13 @@ async fn preserves_original_particle_words_and_admission_priority() {
     }
     for case in fixture["cases"].as_array().unwrap() {
         let requested = case["requested"].as_u64().unwrap() as u32;
-        let mut particles = Particles::new(&context, requested).unwrap();
+        let mut particles = Particles::new(&context, requested.into()).unwrap();
         let states = case["states"].as_array().unwrap();
         assert_eq!(
             ParticleSnapshot::capture(&particles, &context).await.0,
             states[0]
         );
-        let n = particles.capacity() as usize;
+        let n = usize::from(particles.capacity());
         particles
             .write(&context, &positions[..n], &masses[..n])
             .unwrap();

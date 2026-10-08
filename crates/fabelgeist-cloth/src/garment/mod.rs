@@ -163,8 +163,8 @@ pub struct GarmentMesh {
 }
 
 impl GarmentMesh {
-    pub fn particle_count(&self) -> usize {
-        self.positions.len()
+    pub fn particle_count(&self) -> fabelgeist_shell::ParticleInputCount {
+        self.positions.len().into()
     }
 
     pub fn panel_count(&self) -> usize {
@@ -194,7 +194,7 @@ impl GarmentMesh {
 
     /// The mesh's edge adjacency, for the self-collision pass to skip.
     pub fn adjacency(&self) -> Vec<Vec<u32>> {
-        let mut adjacency = crate::SelfCollision::adjacency(self.positions.len(), &self.edges);
+        let mut adjacency = crate::SelfCollision::adjacency(self.particle_count(), &self.edges);
         // Seam partners are held together by a constraint too, and a
         // self-collision pass fighting a seam is what keeps a garment from
         // ever closing.

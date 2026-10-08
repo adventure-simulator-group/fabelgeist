@@ -170,7 +170,7 @@ fn builds_a_garment_from_a_preset() {
     let build = build_garment(&spec, &settings, &Fabric::COTTON).expect("the preset builds");
 
     assert!(
-        build.mesh.particle_count() > 500,
+        usize::from(build.mesh.particle_count()) > 500,
         "only {} particles for a whole garment",
         build.mesh.particle_count()
     );
@@ -332,7 +332,7 @@ fn resolution_controls_the_particle_count() {
     .unwrap();
 
     assert!(
-        fine.mesh.particle_count() > coarse.mesh.particle_count() * 2,
+        usize::from(fine.mesh.particle_count()) > usize::from(coarse.mesh.particle_count()) * 2,
         "halving the resolution went from {} to {} particles",
         coarse.mesh.particle_count(),
         fine.mesh.particle_count()
@@ -403,7 +403,7 @@ async fn a_preset_garment_sews_itself_together() -> anyhow::Result<()> {
     }
 
     let positions = fit.positions().await?;
-    assert_eq!(positions.len(), build.mesh.particle_count());
+    assert_eq!(positions.len(), usize::from(build.mesh.particle_count()));
     assert!(
         positions.iter().all(|p| p.iter().all(|c| c.is_finite())),
         "the solve blew up"
@@ -455,7 +455,7 @@ async fn a_garment_stays_outside_a_body() -> anyhow::Result<()> {
         .positions
         .iter()
         .fold(Vec3::default(), |acc, p| acc + *p)
-        * (1.0 / build.mesh.particle_count() as f32);
+        * (1.0 / usize::from(build.mesh.particle_count()) as f32);
     let radius = 0.12f32;
     fit.collisions.set_colliders(
         &fit.context,
