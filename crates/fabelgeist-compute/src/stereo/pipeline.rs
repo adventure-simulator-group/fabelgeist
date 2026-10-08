@@ -1,6 +1,7 @@
 //! The stages after a match, one kernel each, recorded into one submit a frame.
 
 use super::rig::{Grid, Matrix3, Rectified};
+use crate::kernel::KernelBatchLabel;
 use crate::kernel::{Kernel, KernelBatch};
 use anyhow::{Result, anyhow, ensure};
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
@@ -502,7 +503,7 @@ impl StereoDepth {
     /// wait on the queue, to know it is done.
     pub fn run(&mut self, context: &WgpuContext, motion: Option<Matrix4>) -> Result<()> {
         let motion = motion.unwrap_or(STILL);
-        let mut batch = KernelBatch::labelled(context, "stereo depth");
+        let mut batch = KernelBatch::labelled(context, KernelBatchLabel::from("stereo depth"));
         for stage in Stage::ALL {
             self.record(stage, &mut batch, &motion)?;
         }

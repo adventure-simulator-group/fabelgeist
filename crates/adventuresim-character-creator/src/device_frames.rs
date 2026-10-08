@@ -13,6 +13,7 @@ use fabelgeist_armor::gpu::body::{BodySurface, GpuBody};
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_armor::gpu::{Staged, Staging};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
@@ -149,7 +150,7 @@ impl DeviceWearer<'_> {
     }
 
     pub async fn read_frame_async(&self, region: FitRegion) -> Result<fabelgeist_armor::PartFrame> {
-        let mut batch = self.gpu.batch("armor frame");
+        let mut batch = self.gpu.batch(KernelBatchLabel::from("armor frame"));
         let frame = self.record_frame(&mut batch, region)?;
         batch.submit();
         DeviceFrame::check_status(self.gpu.read_async::<u32>(&frame.status).await?[0], region)?;

@@ -24,6 +24,7 @@
 //! are an optional wgpu feature and this is nowhere near the bottleneck for
 //! the tens of thousands of elements a cloth solve sorts.
 
+use crate::kernel::KernelBatchLabel;
 use crate::prelude::*;
 use std::sync::Arc;
 
@@ -359,7 +360,7 @@ impl RadixSort {
         count: u32,
         bits: u32,
     ) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, "RadixSort");
+        let mut batch = KernelBatch::labelled(context, KernelBatchLabel::from("RadixSort"));
         self.record(&mut batch, keys, values, scratch, count, bits)?;
         batch.submit();
         Ok(())
