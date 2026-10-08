@@ -113,7 +113,7 @@ impl FastPath {
         context: &WgpuContext,
         code: &str,
         module: &wgpu::ShaderModule,
-        entry_point: &str,
+        entry_point: &ShaderEntryPoint,
         reflection: &fabelgeist_gpu::data::gpu::shader::ReflectionData,
     ) -> Option<Self> {
         // One bind group only. Everything the solver writes uses group 0, and
@@ -188,7 +188,7 @@ impl FastPath {
                 label: Some("Kernel Pipeline"),
                 layout: Some(&pipeline_layout),
                 module,
-                entry_point: Some(entry_point),
+                entry_point: Some(entry_point.into()),
                 compilation_options: wgpu::PipelineCompilationOptions::default(),
                 cache: None,
             });

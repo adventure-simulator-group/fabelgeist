@@ -27,7 +27,7 @@ use std::sync::{Arc, RwLock};
 pub struct Kernel {
     pub pipeline: ComputePipeline,
     pub workgroup_size: [u32; 3],
-    pub entry_point: String,
+    pub entry_point: ShaderEntryPoint,
     /// The cached dispatch path, when this kernel's shape allows one.
     ///
     /// Without it every dispatch builds a uniform buffer and a bind group,
@@ -73,7 +73,7 @@ impl Kernel {
             .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
             .ok_or_else(|| anyhow!("Kernel: no compute entry point"))?;
         let workgroup_size = entry.workgroup_size;
-        let entry_point = entry.name.clone();
+        let entry_point = ShaderEntryPoint::from(entry.name.clone());
 
         if workgroup_size.contains(&0) {
             return Err(anyhow!(
