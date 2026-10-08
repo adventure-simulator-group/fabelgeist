@@ -1,3 +1,80 @@
+#[cfg(test)]
+mod map_quest_tests {
+    use super::*;
+
+    #[test]
+    fn exact_owned_case_sites_use_the_current_settlement_as_the_map_origin() {
+        let source = SETTLEMENTS_SOURCE;
+        let map = source
+            .rsplit_once("\npub(super) async fn settlement_map(")
+            .map(|(_, tail)| tail)
+            .and_then(|tail| tail.split("fn settlement_html_travel_available").next())
+            .expect("settlement map route");
+
+        assert!(map.contains("for site in &case_sites"));
+        assert!(map.contains("straight_line_distance_m(site, settlement)"));
+        assert!(!map.contains("site.origin_settlement_id == settlement.id"));
+    }
+
+    #[test]
+    fn html_case_site_travel_does_not_depend_on_optional_map_data() {
+        assert!(settlement_html_travel_available(true, true));
+        assert!(!settlement_html_travel_available(false, true));
+        assert!(!settlement_html_travel_available(true, false));
+    }
+
+    fn quest(status: ContractStatus) -> BackendContract {
+        BackendContract {
+            id: "active".into(),
+            case_id: "case:active".into(),
+            title: "Active quest".into(),
+            description: String::new(),
+            difficulty: 1,
+            gold_reward: 1,
+            xp_reward: 1,
+            settlement_id: "issuer".into(),
+            service_id: "inn".into(),
+            issuer_resident_character_id: 0,
+            status,
+            accepted_by: Some("party".into()),
+            opposition_wording: "unknown opposition".into(),
+            opposition_count_wording: "an unknown number of".into(),
+            opposition_count: 0,
+            opposition_combat_power: 0,
+            accepted_at_minute: None,
+            paid_at_minute: None,
+            distance_m: 0,
+        }
+    }
+
+    #[test]
+    fn accepted_active_quest_can_only_be_abandoned_before_reaching_its_location() {
+        assert!(can_abandon_active_contract(
+            &quest(ContractStatus::Accepted),
+            None
+        ));
+        assert!(!can_abandon_active_contract(
+            &quest(ContractStatus::Accepted),
+            Some("active")
+        ));
+        assert!(!can_abandon_active_contract(
+            &quest(ContractStatus::ReadyToReport),
+            None
+        ));
+    }
+
+    #[test]
+    fn case_site_badge_requires_an_explicit_active_contract_case_match() {
+        let active = quest(ContractStatus::Accepted);
+
+        assert!(case_site_has_active_contract("case:active", Some(&active)));
+        assert!(!case_site_has_active_contract(
+            "case:reported-decoy",
+            Some(&active)
+        ));
+        assert!(!case_site_has_active_contract("case:active", None));
+    }
+}
 #[derive(Default, Deserialize)]
 pub(super) struct LocationMapQuery {
     destination: Option<String>,
@@ -20,7 +97,7 @@ pub(super) async fn settlement_map(
     super::entry::activate_settlement(&state, &id);
     let map_data_initialized = crate::strategic_map::has_geographic_source(settlement);
     let edges = if map_data_initialized {
-        cached_travel_edges(&state.db).await
+        TRAVEL_EDGE_CACHE.load(&state.db).await
     } else {
         None
     };
@@ -123,36 +200,15 @@ pub(super) async fn settlement_map(
             .iter_mut()
             .find(|destination| destination.id == selected_id)
     {
-        let goal = if let Some(site) = case_sites
-            .iter()
-            .find(|site| site.case_site_id.value == destination.id)
-        {
-            super::super::wgs84_latitude_longitude_degrees(site.latitude_e_7, site.longitude_e_7)
-                .ok()
-        } else {
-            settlements
-                .iter()
-                .find(|candidate| candidate.id == destination.id)
-                .map(|candidate| (candidate.latitude, candidate.longitude))
-        };
-        if let Some(goal) = goal {
-            let terrain_profile = if let Some((character, _)) = active_character.as_ref() {
-                crate::routes::party_terrain_profile(&state, character)
-                    .await
-                    .unwrap_or_default()
-                    .0
-            } else {
-                adventuresim_terrain::TerrainSkillProfile::default()
-            };
-            crate::routes::travel::apply_terrain_route(
-                destination,
-                state.terrain.as_deref(),
-                (settlement.latitude, settlement.longitude),
-                goal,
-                terrain_profile,
+        destination
+            .apply_selected_terrain(
+                &state,
+                settlement,
+                &settlements,
+                &case_sites,
+                active_character.as_ref().map(|(character, _)| character),
             )
             .await;
-        }
     }
     let party_members = get_active_party_members(
         &state,
@@ -296,82 +352,4 @@ pub(super) fn can_abandon_active_contract(
     current_case_site_id: Option<&str>,
 ) -> bool {
     contract.status == ContractStatus::Accepted && current_case_site_id.is_none()
-}
-
-#[cfg(test)]
-mod map_quest_tests {
-    use super::*;
-
-    #[test]
-    fn exact_owned_case_sites_use_the_current_settlement_as_the_map_origin() {
-        let source = SETTLEMENTS_SOURCE;
-        let map = source
-            .split("async fn settlement_map(")
-            .nth(1)
-            .and_then(|tail| tail.split("fn settlement_html_travel_available").next())
-            .expect("settlement map route");
-
-        assert!(map.contains("for site in &case_sites"));
-        assert!(map.contains("straight_line_distance_m(site, settlement)"));
-        assert!(!map.contains("site.origin_settlement_id == settlement.id"));
-    }
-
-    #[test]
-    fn html_case_site_travel_does_not_depend_on_optional_map_data() {
-        assert!(settlement_html_travel_available(true, true));
-        assert!(!settlement_html_travel_available(false, true));
-        assert!(!settlement_html_travel_available(true, false));
-    }
-
-    fn quest(status: ContractStatus) -> BackendContract {
-        BackendContract {
-            id: "active".into(),
-            case_id: "case:active".into(),
-            title: "Active quest".into(),
-            description: String::new(),
-            difficulty: 1,
-            gold_reward: 1,
-            xp_reward: 1,
-            settlement_id: "issuer".into(),
-            service_id: "inn".into(),
-            issuer_resident_character_id: 0,
-            status,
-            accepted_by: Some("party".into()),
-            opposition_wording: "unknown opposition".into(),
-            opposition_count_wording: "an unknown number of".into(),
-            opposition_count: 0,
-            opposition_combat_power: 0,
-            accepted_at_minute: None,
-            paid_at_minute: None,
-            distance_m: 0,
-        }
-    }
-
-    #[test]
-    fn accepted_active_quest_can_only_be_abandoned_before_reaching_its_location() {
-        assert!(can_abandon_active_contract(
-            &quest(ContractStatus::Accepted),
-            None
-        ));
-        assert!(!can_abandon_active_contract(
-            &quest(ContractStatus::Accepted),
-            Some("active")
-        ));
-        assert!(!can_abandon_active_contract(
-            &quest(ContractStatus::ReadyToReport),
-            None
-        ));
-    }
-
-    #[test]
-    fn case_site_badge_requires_an_explicit_active_contract_case_match() {
-        let active = quest(ContractStatus::Accepted);
-
-        assert!(case_site_has_active_contract("case:active", Some(&active)));
-        assert!(!case_site_has_active_contract(
-            "case:reported-decoy",
-            Some(&active)
-        ));
-        assert!(!case_site_has_active_contract("case:active", None));
-    }
 }

@@ -4,6 +4,608 @@
 //! defined here are deliberately narrower presentation or joined-query views;
 //! none duplicate a persisted row.
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // Native row-projection fixture; production routing uses generated rows.
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct TravelEdgeView {
+        id: u64,
+        from_node_id: u64,
+        to_node_id: u64,
+        route: adventuresim_world_schema::TravelRoute,
+        length_m: u32,
+        slope_multiplier: f32,
+        terrain: adventuresim_world_schema::RouteTerrain,
+        certainty: u8,
+        section: String,
+    }
+
+    impl TryFrom<sats::TravelEdge> for TravelEdgeView {
+        type Error = serde_json::Error;
+
+        fn try_from(row: sats::TravelEdge) -> Result<Self, Self::Error> {
+            let sats::TravelEdge {
+                id,
+                from_node_id,
+                to_node_id,
+                route,
+                provenance: _,
+                toll_at: _,
+                length_m,
+                slope_multiplier,
+                terrain,
+                certainty,
+                section,
+                sources: _,
+            } = row;
+            Ok(Self {
+                id,
+                from_node_id,
+                to_node_id,
+                route: sats_to_serde(&route)?,
+                length_m,
+                slope_multiplier,
+                terrain: sats_to_serde(&terrain)?,
+                certainty,
+                section,
+            })
+        }
+    }
+
+    fn generated_role_requirements() -> sats::RoleRequirements {
+        sats::RoleRequirements {
+            melee: true,
+            ranged: false,
+            weapon_precision: 0.75,
+            heavy: true,
+            quarter_armor: true,
+            half_armor: false,
+            three_quarter_armor: false,
+            full_armor: false,
+            athletics: 2,
+            endurance: 3,
+            physiology: 4,
+            surgery: 5,
+            command: 1,
+            religion: 2,
+        }
+    }
+
+    fn generated_settlement() -> sats::Settlement {
+        sats::Settlement {
+            id: "lubeck".into(),
+            name: "Lubeck".into(),
+            coord_x: 10.6866,
+            coord_y: 53.8655,
+            population_level: 5,
+            population_estimate: 22_000,
+            category: sats::SettlementCategory::City,
+            elevation: sats::ElevationMeters { meters: 0 },
+            land_use: sats::LandUseProfile {
+                cropland: sats::LandUseFraction { basis_points: 0 },
+                grazing: sats::LandUseFraction { basis_points: 0 },
+                built_up: sats::LandUseFraction { basis_points: 0 },
+                natural: sats::LandUseFraction {
+                    basis_points: 10_000,
+                },
+            },
+            forest_cover: sats::ForestCover::Open,
+            potential_vegetation: sats::PotentialVegetation::Categorical(
+                sats::PotentialVegetationClass::Grassland,
+            ),
+            historical_vegetation: sats::HistoricalVegetation::Fallback(
+                sats::FallbackHistoricalVegetation {
+                    cover: sats::FallbackHistoricalVegetationCover::Grassland,
+                    method: sats::FallbackHistoricalVegetationMethod::PotentialEnvelopeV4,
+                },
+            ),
+            tree_species: sats::TreeSpeciesProfile::Inferred(sats::InferredTreeSpeciesProfile {
+                species: Vec::new(),
+            }),
+            soil: sats::SoilProfile {
+                wrb_group: sats::WrbReferenceGroup::Regosol,
+                parent_material: sats::SurfaceLithology::Unconsolidated(
+                    sats::UnconsolidatedDeposit::Sand,
+                ),
+                properties: sats::SoilProperties {
+                    substrate: sats::SoilSubstrate::RockOutcrop(sats::RockOutcropSoil {
+                        stones: sats::StoneContentPercent { percent: 100 },
+                    }),
+                    water_regime: sats::SoilWaterRegime::UsuallyDry,
+                    agricultural_limitation: sats::AgriculturalLimitation::ShallowRock,
+                },
+                acidity: sats::SoilAcidity::Neutral,
+                cation_exchange_capacity: sats::CationExchangeCapacity::Low,
+                fertility: sats::SoilFertility::Low,
+                confidence: sats::SoilBasisPoints { value: 1_000 },
+                evidence: sats::SoilEvidence::DeterministicInference,
+            },
+            geology: sats::SurfaceGeology::Inferred(sats::InferredGeologicSetting {
+                lithology: sats::SurfaceLithology::Unconsolidated(
+                    sats::UnconsolidatedDeposit::Sand,
+                ),
+                age: sats::GeologicEra::Quaternary,
+            }),
+            religious_status: sats::SettlementReligiousStatus::Established(
+                sats::OfficialReligion::RomanCatholic,
+            ),
+            languages: sats::SettlementLanguageProfile {
+                east_central_bp: 10_000,
+                west_central_bp: 0,
+                low_bp: 0,
+                yiddish_incidence_bp: 125,
+            },
+            drought: sats::DroughtProfile::Inferred(sats::DroughtHistory {
+                current_summer: sats::PalmerDroughtSeverityIndex { milli_units: 0 },
+                twenty_year_mean: sats::PalmerDroughtSeverityIndex { milli_units: 0 },
+                drought_summers: 0,
+                wet_summers: 0,
+            }),
+            hydrology: sats::SettlementHydrology {
+                flowing: None,
+                inland: None,
+                marine: None,
+            },
+            industries: sats::InferredIndustryProfile {
+                outputs: vec![sats::IndustryEvidence::Fallback(
+                    sats::FallbackIndustry::WoodlandFuelwood,
+                )],
+            },
+            economy: sats::SettlementEconomyProfile {
+                rules_version: 10,
+                prosperity_score: 0,
+                prosperity_tier: sats::ProsperityTier::Subsistence,
+                services: vec![sats::SettlementService::Inn],
+                specializations: Vec::new(),
+                stock: vec![sats::SettlementStock {
+                    category: sats::StockCategory::GeneralGoods,
+                    abundance: 1,
+                    provenance: sats::ProfileFactProvenance::DeterministicGapFill,
+                }],
+            },
+            scene_key: "lubeck-market".into(),
+            religion_id: "roman_catholic".into(),
+            currency_id: "lubeck_penny".into(),
+            source_node_id: Some(52),
+            sources: "fixture evidence".into(),
+        }
+    }
+
+    fn generated_travel_edge() -> sats::TravelEdge {
+        sats::TravelEdge {
+            id: 41,
+            from_node_id: 52,
+            to_node_id: 53,
+            route: sats::TravelRoute::Land(sats::LandRoute {
+                bridge: None,
+                water_crossings: Vec::new(),
+            }),
+            provenance: sats::TravelEdgeProvenance::DocumentedViabundus,
+            toll_at: None,
+            length_m: 1_250,
+            slope_multiplier: 1.25,
+            terrain: sats::RouteTerrain {
+                elevation_profile: sats::RouteElevationProfile {
+                    samples: vec![
+                        sats::RouteElevationSample {
+                            progress: sats::EdgeProgressPermille { permille: 0 },
+                            elevation: sats::ElevationMeters { meters: 0 },
+                        },
+                        sats::RouteElevationSample {
+                            progress: sats::EdgeProgressPermille { permille: 1_000 },
+                            elevation: sats::ElevationMeters { meters: 0 },
+                        },
+                    ],
+                },
+                ascent: sats::RouteVerticalMeters { meters: 0 },
+                descent: sats::RouteVerticalMeters { meters: 0 },
+                max_uphill_grade: sats::RouteSignedGradePermille { permille: 0 },
+                max_downhill_grade: sats::RouteSignedGradePermille { permille: 0 },
+                mean_slope: sats::RouteSlopePermille { permille: 0 },
+                max_slope: sats::RouteSlopePermille { permille: 0 },
+                dominant_aspect: sats::DominantAspect::Flat,
+                roughness: sats::RouteRoughnessMeters { meters: 0 },
+                relief: sats::RouteReliefMeters { meters: 0 },
+                landforms: Vec::new(),
+                class: sats::RouteTerrainClass::Flat,
+                water_adjacencies: Vec::new(),
+                seasonal_risks: Vec::new(),
+                encounter_tags: vec![sats::RouteEncounterTag::Flat],
+            },
+            certainty: 90,
+            section: "52:53".into(),
+            sources: "fixture evidence".into(),
+        }
+    }
+
+    fn generated_item() -> sats::Item {
+        sats::Item {
+            id: "arming_sword".into(),
+            weight: 1.25,
+            exterior_volume_ml: 900,
+            slot: sats::Slot::AnyHolding,
+            kind: sats::CatalogItemKind::Weapon,
+            equipment_placements: vec![sats::PersistedEquipmentPlacement {
+                id: "right_hand".into(),
+                occupancy: vec![sats::OccupancyRequirement {
+                    fit_zone: None,
+                    location: sats::EquipmentLocation::RightHand,
+                    channel: sats::EquipmentChannel::Held,
+                    order: 2,
+                }],
+                parents: vec![sats::ParentRequirement {
+                    location: None,
+                    channel: sats::EquipmentChannel::Mount,
+                    order: 3,
+                }],
+                protection: vec![sats::EquipmentBodyPart::RightArm],
+            }],
+            attachment_tags: vec!["blade".into()],
+            attachment_points: vec![sats::PersistedEquipmentAttachmentPoint {
+                id: "pommel".into(),
+                channel: sats::EquipmentChannel::Accessory,
+                capacity: 2,
+                order: 4,
+                accepts_tags: vec!["charm".into()],
+            }],
+            repairable: true,
+            preferred_melee_style: sats::MeleeAttackStyle::Stab,
+            reach: 1.1,
+            block: 0.4,
+            coverage: 0.5,
+            precision: 0.6,
+            resistance: 0.7,
+            padding: 0.8,
+            flexibility: 0.9,
+            range_of_motion: 1.0,
+            moment_of_inertia_kg_m_2: 1.2,
+            balance: 1.3,
+            melee: true,
+            ranged: false,
+            weapon_skills: sats::WeaponSkillDistribution {
+                polearm: 0.0,
+                axe: 0.0,
+                bludgeon: 0.0,
+                sword: 1.0,
+                knife: 0.1,
+                bow: 0.0,
+                crossbow: 0.0,
+                firearm: 0.0,
+                throw: 0.2,
+            },
+            base_value: Some(25),
+            nutrition_kcal: 0.0,
+            water_capacity_ml: 0,
+            container_capacity_ml: 0,
+            alcohol_serving_ml: 0,
+            alcohol_abv_basis_points: 0,
+            alcohol_net_hydration_ml: 0,
+            alcohol_disinfectant_effectiveness: 0,
+            alcohol_disinfectant_focused: false,
+            alcohol_potable: false,
+            quality: 3,
+            durability_yield: 0.11,
+            durability_fracture: 0.22,
+            durability_wear: 0.33,
+            durability_failure_share: 0.44,
+            edge_sensitivity: 0.55,
+            handling_sensitivity: 0.66,
+        }
+    }
+
+    #[test]
+    fn generated_rows_map_to_views_with_explicit_enrichment_and_gateway_fields() {
+        let character = CharacterView::from(sats::Character {
+            id: 7,
+            scan_id: 700,
+            name: "Ada".into(),
+            xp: 12,
+            level: 3,
+            current_settlement_id: Some("lubeck".into()),
+            party_id: Some("party:7".into()),
+            server: sats::spacetimedb_sdk::Identity::ZERO,
+            temporary: false,
+            age_years: 24,
+            alive: true,
+            party_treatment_decision: sats::ContextualDecisionState::Allowed,
+        });
+        assert_eq!((character.id, character.name.as_str()), (7, "Ada"));
+        assert_eq!(character.current_case_site_id, None);
+        assert_eq!(character.social_notification_count, 0);
+        assert!(!character.automatic_social_chat_enabled);
+
+        let settlement = SettlementView::try_from(generated_settlement()).unwrap();
+        assert_eq!(
+            (settlement.id.as_str(), settlement.name.as_str()),
+            ("lubeck", "Lubeck")
+        );
+        assert_eq!(
+            (settlement.longitude, settlement.latitude),
+            (10.6866, 53.8655)
+        );
+        assert_eq!(settlement.languages.east_central_bp, 10_000);
+        assert_eq!(settlement.industries.outputs().len(), 1);
+        assert_eq!(settlement.economy.rules_version, 10);
+        assert_eq!(settlement.source_node_id, Some(52));
+
+        let travel_edge = TravelEdgeView::try_from(generated_travel_edge()).unwrap();
+        assert_eq!(
+            (
+                travel_edge.id,
+                travel_edge.from_node_id,
+                travel_edge.to_node_id
+            ),
+            (41, 52, 53)
+        );
+        assert!(matches!(
+            travel_edge.route,
+            adventuresim_world_schema::TravelRoute::Land(_)
+        ));
+        assert_eq!(
+            travel_edge.terrain,
+            adventuresim_world_schema::RouteTerrain::stage_placeholder()
+        );
+        assert_eq!((travel_edge.length_m, travel_edge.certainty), (1_250, 90));
+
+        let case_battle = CaseBattleView::try_from(sats::BackendCaseBattle {
+            gateway_bucket: 6,
+            owner_character_id: 7,
+            public_case_id: "case:1".into(),
+            party_id: "party:7".into(),
+            battle_id: "battle:1".into(),
+            mission_id: "mission:1".into(),
+            case_site_id: sats::CaseSiteId {
+                value: "site:1".into(),
+            },
+        })
+        .unwrap();
+        assert_eq!(case_battle.gateway_bucket, 6);
+        assert_eq!(case_battle.case_site_id.as_str(), "site:1");
+
+        let party = PartyView::try_from(sats::Party {
+            id: "party:7".into(),
+            gateway_bucket: 5,
+            name: "Company".into(),
+            leader_id: 7,
+            current_settlement_id: None,
+            current_case_site_id: Some(sats::CaseSiteId {
+                value: "site:1".into(),
+            }),
+            active_contract_id: Some("contract:1".into()),
+            is_solo: false,
+            camp_fatigue_percent: 25,
+            walking_minutes_per_day: 480,
+            travel_at_night: true,
+            journey_start_minute_of_day: 360,
+            wilderness_canonical_anchor_minute: Some(adventuresim_stdb_client::StrategicMinute {
+                minutes: 1_000,
+            }),
+            wilderness_elapsed_minutes: 90,
+            camp_destination: None,
+            camp_remaining_minutes: 30,
+            physiology_target: 2.0,
+            command_target: 3.0,
+            religion_target: 4.0,
+        })
+        .unwrap();
+        assert_eq!(party.gateway_bucket, 5);
+        assert_eq!(party.current_case_site_id.as_deref(), Some("site:1"));
+
+        let request = PartyActionRequestView::from(sats::PartyActionRequest {
+            id: 11,
+            gateway_bucket: 4,
+            party_id: "party:7".into(),
+            requester_id: 7,
+            action_kind: "travel".into(),
+            summary: "Travel".into(),
+            payload: "{}".into(),
+        });
+        assert_eq!((request.id, request.gateway_bucket), (11, 4));
+
+        let route = PartyJourneyRouteView::from(sats::PartyJourneyRoute {
+            party_id: "party:7".into(),
+            gateway_bucket: 3,
+            package_digest: "a".repeat(64),
+            weather_rules_version: 2,
+            weather_interval_start: sats::StrategicMinute { minutes: 10 },
+            precipitation: sats::Precipitation::Rain,
+            intensity_bps: 100,
+            ground_moisture_bps: 200,
+            snow_cover_bps: 300,
+            distance_m: 400,
+            minutes: 500,
+            points: Vec::new(),
+            spans: Vec::new(),
+            return_route: None,
+        });
+        assert_eq!((route.gateway_bucket, route.minutes), (3, 500));
+
+        let equipped = EquippedItemView::from(sats::CharacterEquippedItem {
+            inventory_item_id: 21,
+            character_id: 7,
+            placement_id: "right_hand".into(),
+        });
+        assert_eq!((equipped.inventory_item_id, equipped.character_id), (21, 7));
+        assert!(equipped.item_name.is_empty());
+
+        let role = RecruitmentRoleView::from(sats::PartyRecruitmentRole {
+            id: 31,
+            party_id: "party:7".into(),
+            purpose: sats::RecruitmentRolePurpose::Specialized,
+            name: "Vanguard".into(),
+            requirements: generated_role_requirements(),
+            quantity: 2,
+        });
+        assert!(role.requirements.melee);
+        assert_eq!(role.purpose, sats::RecruitmentRolePurpose::Specialized);
+        assert_eq!(role.autoresolve_combat_power, 0);
+
+        let server = MissionServerView::from(sats::TacticalServer {
+            identity: sats::spacetimedb_sdk::Identity::ZERO,
+            gateway_bucket: 2,
+            mission_id: "mission:1".into(),
+            scene_key: "forest".into(),
+            party_id: "party:7".into(),
+            addr: "127.0.0.1:3000".into(),
+            cert_digest: "cert".into(),
+            authorized_party_member_ids: vec![7, 8],
+            required_enemy_kills: 3,
+            enemy_difficulty: 4,
+            enemy_combat_scale_bps: 5,
+            countermeasure_multiplier_bps: 6,
+            normalized_combat_power: 7,
+            enemy_character_ids: vec![9],
+            party_has_surprise: true,
+        });
+        assert_eq!(
+            (server.gateway_bucket, server.status),
+            (2, MissionStatus::Ready)
+        );
+        assert_eq!(server.character_id, None);
+
+        let server_request = MissionServerRequestView::from(sats::TacticalServerRequest {
+            mission_id: "mission:2".into(),
+            gateway_bucket: 1,
+            scene_key: "road".into(),
+            settlement: None,
+            party_id: "party:7".into(),
+            requested_by: 7,
+            longitude_e_7: 100,
+            latitude_e_7: 200,
+            absolute_minute: adventuresim_stdb_client::StrategicMinute { minutes: 300 },
+            lunar_phase_minute: sats::StrategicMinute { minutes: 400 },
+            authorized_party_member_ids: vec![7, 8],
+            required_enemy_kills: 9,
+            enemy_difficulty: 10,
+            enemy_combat_scale_bps: 11,
+            countermeasure_multiplier_bps: 12,
+            normalized_combat_power: 13,
+            enemy_character_ids: vec![14],
+            party_has_surprise: false,
+        });
+        assert_eq!(
+            (
+                server_request.gateway_bucket,
+                server_request.required_enemy_kills
+            ),
+            (1, 9)
+        );
+
+        let item = CatalogItemView::from(generated_item());
+        assert_eq!(
+            (item.kind, item.slot),
+            (CatalogItemKind::Weapon, Slot::AnyHolding)
+        );
+        assert_eq!(item.equipment_placements[0].occupancy[0].order, 2);
+        assert_eq!(item.equipment_placements[0].parents[0].order, 3);
+        assert_eq!(item.attachment_points[0].accepts_tags, ["charm"]);
+        assert_eq!(item.weapon_skills.sword, 1.0);
+        assert_eq!(item.preferred_melee_style, MeleeAttackStyle::Stab);
+        assert_eq!(item.moment_of_inertia_kg_m_2, 1.2);
+        assert_eq!(
+            (
+                item.durability_yield,
+                item.durability_fracture,
+                item.durability_wear,
+                item.durability_failure_share,
+                item.edge_sensitivity,
+                item.handling_sensitivity,
+            ),
+            (0.11, 0.22, 0.33, 0.44, 0.55, 0.66)
+        );
+    }
+
+    #[test]
+    fn personality_conversion_maps_every_axis_family() {
+        let mut row = sats::CharacterPersonality {
+            character_id: 7,
+            projection_character_id: 9,
+            nerve: sats::Nerve::Brave,
+            drive: sats::Drive::Ambitious,
+            outlook: sats::Outlook::Brooding,
+            sociability: sats::Sociability::Gregarious,
+            conscience: sats::Conscience::Cruel,
+            self_regard: sats::SelfRegard::Humble,
+            conviction: sats::Conviction::Irreverent,
+            hygiene: sats::Hygiene::Cleanly,
+            temperance: sats::Temperance::Drunkard,
+            mirth: sats::Mirth::Merry,
+            courtship: sats::Courtship::Proper,
+            transparency: sats::Transparency::Guarded,
+            self_knowledge: sats::SelfKnowledge::SelfDeceiving,
+            sex: sats::Sex::Female,
+            presentation: sats::Presentation::Woman,
+            inclination: sats::Inclination::Neither,
+        };
+        let mapped = core_personality(&row);
+        assert_eq!(mapped.nerve, Nerve::Brave);
+        assert_eq!(mapped.self_knowledge, SelfKnowledge::SelfDeceiving);
+        assert_eq!(mapped.inclination, Inclination::Neither);
+        assert_eq!(mapped.sex, Sex::Female);
+        row.sex = sats::Sex::Male;
+        assert_eq!(core_personality(&row).sex, Sex::Male);
+    }
+
+    #[test]
+    fn generated_nested_rows_serialize_strictly() {
+        let languages = sats::SettlementLanguageProfile {
+            east_central_bp: 5_000,
+            west_central_bp: 3_000,
+            low_bp: 2_000,
+            yiddish_incidence_bp: 100,
+        };
+        let converted: adventuresim_world_schema::SettlementLanguageProfile =
+            sats_to_serde(&languages).unwrap();
+        assert_eq!(converted.east_central_bp, 5_000);
+        let mut encoded = serde_json::to_value(SerdeWrapper::from_ref(&languages)).unwrap();
+        encoded["unexpected"] = serde_json::json!(1);
+        assert!(
+            serde_json::from_value::<SerdeWrapper<sats::SettlementLanguageProfile>>(encoded)
+                .is_err()
+        );
+    }
+
+    #[test]
+    fn gateway_fields_are_removed_only_by_explicit_projection() {
+        let row = sats::PartyActionRequest {
+            id: 11,
+            gateway_bucket: 4,
+            party_id: "party:1".into(),
+            requester_id: 7,
+            action_kind: "travel".into(),
+            summary: "Travel".into(),
+            payload: "{}".into(),
+        };
+        let view = PartyActionRequestView::from(row);
+        assert_eq!((view.id, view.party_id.as_str()), (11, "party:1"));
+    }
+
+    #[test]
+    fn typed_investigation_availability_is_wording_invariant() {
+        let generated = sats::InvestigationActionAvailability::Unavailable(
+            sats::InvestigationActionUnavailableFields {
+                reason: sats::InvestigationActionUnavailableReason::TravelRequired,
+                can_travel_to_required_site: true,
+                wait_minutes: 45,
+            },
+        );
+        let outcome = core_investigation_action_availability(&generated);
+        let (can_travel, wait_minutes) = match outcome {
+            InvestigationActionAvailability::Available => (false, 0),
+            InvestigationActionAvailability::Unavailable {
+                reason: InvestigationActionUnavailableReason::TravelRequired,
+                can_travel_to_required_site,
+                wait_minutes,
+            } => (can_travel_to_required_site, wait_minutes),
+            InvestigationActionAvailability::Unavailable { .. } => panic!("wrong reason"),
+        };
+        assert!(can_travel);
+        assert_eq!(wait_minutes, 45);
+    }
+}
 use super::item_kind::catalog_item_kind;
 pub use adventuresim_core::{
     capability::RoleRequirements,
@@ -471,51 +1073,6 @@ impl TryFrom<sats::Settlement> for SettlementView {
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct TravelEdgeView {
-    pub id: u64,
-    pub from_node_id: u64,
-    pub to_node_id: u64,
-    pub route: adventuresim_world_schema::TravelRoute,
-    pub length_m: u32,
-    pub slope_multiplier: f32,
-    pub terrain: adventuresim_world_schema::RouteTerrain,
-    pub certainty: u8,
-    pub section: String,
-}
-
-impl TryFrom<sats::TravelEdge> for TravelEdgeView {
-    type Error = serde_json::Error;
-
-    fn try_from(row: sats::TravelEdge) -> Result<Self, Self::Error> {
-        let sats::TravelEdge {
-            id,
-            from_node_id,
-            to_node_id,
-            route,
-            provenance: _,
-            toll_at: _,
-            length_m,
-            slope_multiplier,
-            terrain,
-            certainty,
-            section,
-            sources: _,
-        } = row;
-        Ok(Self {
-            id,
-            from_node_id,
-            to_node_id,
-            route: sats_to_serde(&route)?,
-            length_m,
-            slope_multiplier,
-            terrain: sats_to_serde(&terrain)?,
-            certainty,
-            section,
-        })
-    }
-}
 #[derive(Debug, Clone, PartialEq)]
 pub struct CaseBattleView {
     pub gateway_bucket: u8,
@@ -1962,561 +2519,5 @@ pub fn role_requirements(row: &sats::RoleRequirements) -> RoleRequirements {
         surgery,
         command,
         religion,
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    fn generated_role_requirements() -> sats::RoleRequirements {
-        sats::RoleRequirements {
-            melee: true,
-            ranged: false,
-            weapon_precision: 0.75,
-            heavy: true,
-            quarter_armor: true,
-            half_armor: false,
-            three_quarter_armor: false,
-            full_armor: false,
-            athletics: 2,
-            endurance: 3,
-            physiology: 4,
-            surgery: 5,
-            command: 1,
-            religion: 2,
-        }
-    }
-
-    fn generated_settlement() -> sats::Settlement {
-        sats::Settlement {
-            id: "lubeck".into(),
-            name: "Lubeck".into(),
-            coord_x: 10.6866,
-            coord_y: 53.8655,
-            population_level: 5,
-            population_estimate: 22_000,
-            category: sats::SettlementCategory::City,
-            elevation: sats::ElevationMeters { meters: 0 },
-            land_use: sats::LandUseProfile {
-                cropland: sats::LandUseFraction { basis_points: 0 },
-                grazing: sats::LandUseFraction { basis_points: 0 },
-                built_up: sats::LandUseFraction { basis_points: 0 },
-                natural: sats::LandUseFraction {
-                    basis_points: 10_000,
-                },
-            },
-            forest_cover: sats::ForestCover::Open,
-            potential_vegetation: sats::PotentialVegetation::Categorical(
-                sats::PotentialVegetationClass::Grassland,
-            ),
-            historical_vegetation: sats::HistoricalVegetation::Fallback(
-                sats::FallbackHistoricalVegetation {
-                    cover: sats::FallbackHistoricalVegetationCover::Grassland,
-                    method: sats::FallbackHistoricalVegetationMethod::PotentialEnvelopeV4,
-                },
-            ),
-            tree_species: sats::TreeSpeciesProfile::Inferred(sats::InferredTreeSpeciesProfile {
-                species: Vec::new(),
-            }),
-            soil: sats::SoilProfile {
-                wrb_group: sats::WrbReferenceGroup::Regosol,
-                parent_material: sats::SurfaceLithology::Unconsolidated(
-                    sats::UnconsolidatedDeposit::Sand,
-                ),
-                properties: sats::SoilProperties {
-                    substrate: sats::SoilSubstrate::RockOutcrop(sats::RockOutcropSoil {
-                        stones: sats::StoneContentPercent { percent: 100 },
-                    }),
-                    water_regime: sats::SoilWaterRegime::UsuallyDry,
-                    agricultural_limitation: sats::AgriculturalLimitation::ShallowRock,
-                },
-                acidity: sats::SoilAcidity::Neutral,
-                cation_exchange_capacity: sats::CationExchangeCapacity::Low,
-                fertility: sats::SoilFertility::Low,
-                confidence: sats::SoilBasisPoints { value: 1_000 },
-                evidence: sats::SoilEvidence::DeterministicInference,
-            },
-            geology: sats::SurfaceGeology::Inferred(sats::InferredGeologicSetting {
-                lithology: sats::SurfaceLithology::Unconsolidated(
-                    sats::UnconsolidatedDeposit::Sand,
-                ),
-                age: sats::GeologicEra::Quaternary,
-            }),
-            religious_status: sats::SettlementReligiousStatus::Established(
-                sats::OfficialReligion::RomanCatholic,
-            ),
-            languages: sats::SettlementLanguageProfile {
-                east_central_bp: 10_000,
-                west_central_bp: 0,
-                low_bp: 0,
-                yiddish_incidence_bp: 125,
-            },
-            drought: sats::DroughtProfile::Inferred(sats::DroughtHistory {
-                current_summer: sats::PalmerDroughtSeverityIndex { milli_units: 0 },
-                twenty_year_mean: sats::PalmerDroughtSeverityIndex { milli_units: 0 },
-                drought_summers: 0,
-                wet_summers: 0,
-            }),
-            hydrology: sats::SettlementHydrology {
-                flowing: None,
-                inland: None,
-                marine: None,
-            },
-            industries: sats::InferredIndustryProfile {
-                outputs: vec![sats::IndustryEvidence::Fallback(
-                    sats::FallbackIndustry::WoodlandFuelwood,
-                )],
-            },
-            economy: sats::SettlementEconomyProfile {
-                rules_version: 10,
-                prosperity_score: 0,
-                prosperity_tier: sats::ProsperityTier::Subsistence,
-                services: vec![sats::SettlementService::Inn],
-                specializations: Vec::new(),
-                stock: vec![sats::SettlementStock {
-                    category: sats::StockCategory::GeneralGoods,
-                    abundance: 1,
-                    provenance: sats::ProfileFactProvenance::DeterministicGapFill,
-                }],
-            },
-            scene_key: "lubeck-market".into(),
-            religion_id: "roman_catholic".into(),
-            currency_id: "lubeck_penny".into(),
-            source_node_id: Some(52),
-            sources: "fixture evidence".into(),
-        }
-    }
-
-    fn generated_travel_edge() -> sats::TravelEdge {
-        sats::TravelEdge {
-            id: 41,
-            from_node_id: 52,
-            to_node_id: 53,
-            route: sats::TravelRoute::Land(sats::LandRoute {
-                bridge: None,
-                water_crossings: Vec::new(),
-            }),
-            provenance: sats::TravelEdgeProvenance::DocumentedViabundus,
-            toll_at: None,
-            length_m: 1_250,
-            slope_multiplier: 1.25,
-            terrain: sats::RouteTerrain {
-                elevation_profile: sats::RouteElevationProfile {
-                    samples: vec![
-                        sats::RouteElevationSample {
-                            progress: sats::EdgeProgressPermille { permille: 0 },
-                            elevation: sats::ElevationMeters { meters: 0 },
-                        },
-                        sats::RouteElevationSample {
-                            progress: sats::EdgeProgressPermille { permille: 1_000 },
-                            elevation: sats::ElevationMeters { meters: 0 },
-                        },
-                    ],
-                },
-                ascent: sats::RouteVerticalMeters { meters: 0 },
-                descent: sats::RouteVerticalMeters { meters: 0 },
-                max_uphill_grade: sats::RouteSignedGradePermille { permille: 0 },
-                max_downhill_grade: sats::RouteSignedGradePermille { permille: 0 },
-                mean_slope: sats::RouteSlopePermille { permille: 0 },
-                max_slope: sats::RouteSlopePermille { permille: 0 },
-                dominant_aspect: sats::DominantAspect::Flat,
-                roughness: sats::RouteRoughnessMeters { meters: 0 },
-                relief: sats::RouteReliefMeters { meters: 0 },
-                landforms: Vec::new(),
-                class: sats::RouteTerrainClass::Flat,
-                water_adjacencies: Vec::new(),
-                seasonal_risks: Vec::new(),
-                encounter_tags: vec![sats::RouteEncounterTag::Flat],
-            },
-            certainty: 90,
-            section: "52:53".into(),
-            sources: "fixture evidence".into(),
-        }
-    }
-
-    fn generated_item() -> sats::Item {
-        sats::Item {
-            id: "arming_sword".into(),
-            weight: 1.25,
-            exterior_volume_ml: 900,
-            slot: sats::Slot::AnyHolding,
-            kind: sats::CatalogItemKind::Weapon,
-            equipment_placements: vec![sats::PersistedEquipmentPlacement {
-                id: "right_hand".into(),
-                occupancy: vec![sats::OccupancyRequirement {
-                    fit_zone: None,
-                    location: sats::EquipmentLocation::RightHand,
-                    channel: sats::EquipmentChannel::Held,
-                    order: 2,
-                }],
-                parents: vec![sats::ParentRequirement {
-                    location: None,
-                    channel: sats::EquipmentChannel::Mount,
-                    order: 3,
-                }],
-                protection: vec![sats::EquipmentBodyPart::RightArm],
-            }],
-            attachment_tags: vec!["blade".into()],
-            attachment_points: vec![sats::PersistedEquipmentAttachmentPoint {
-                id: "pommel".into(),
-                channel: sats::EquipmentChannel::Accessory,
-                capacity: 2,
-                order: 4,
-                accepts_tags: vec!["charm".into()],
-            }],
-            repairable: true,
-            preferred_melee_style: sats::MeleeAttackStyle::Stab,
-            reach: 1.1,
-            block: 0.4,
-            coverage: 0.5,
-            precision: 0.6,
-            resistance: 0.7,
-            padding: 0.8,
-            flexibility: 0.9,
-            range_of_motion: 1.0,
-            moment_of_inertia_kg_m_2: 1.2,
-            balance: 1.3,
-            melee: true,
-            ranged: false,
-            weapon_skills: sats::WeaponSkillDistribution {
-                polearm: 0.0,
-                axe: 0.0,
-                bludgeon: 0.0,
-                sword: 1.0,
-                knife: 0.1,
-                bow: 0.0,
-                crossbow: 0.0,
-                firearm: 0.0,
-                throw: 0.2,
-            },
-            base_value: Some(25),
-            nutrition_kcal: 0.0,
-            water_capacity_ml: 0,
-            container_capacity_ml: 0,
-            alcohol_serving_ml: 0,
-            alcohol_abv_basis_points: 0,
-            alcohol_net_hydration_ml: 0,
-            alcohol_disinfectant_effectiveness: 0,
-            alcohol_disinfectant_focused: false,
-            alcohol_potable: false,
-            quality: 3,
-            durability_yield: 0.11,
-            durability_fracture: 0.22,
-            durability_wear: 0.33,
-            durability_failure_share: 0.44,
-            edge_sensitivity: 0.55,
-            handling_sensitivity: 0.66,
-        }
-    }
-
-    #[test]
-    fn generated_rows_map_to_views_with_explicit_enrichment_and_gateway_fields() {
-        let character = CharacterView::from(sats::Character {
-            id: 7,
-            scan_id: 700,
-            name: "Ada".into(),
-            xp: 12,
-            level: 3,
-            current_settlement_id: Some("lubeck".into()),
-            party_id: Some("party:7".into()),
-            server: sats::spacetimedb_sdk::Identity::ZERO,
-            temporary: false,
-            age_years: 24,
-            alive: true,
-            party_treatment_decision: sats::ContextualDecisionState::Allowed,
-        });
-        assert_eq!((character.id, character.name.as_str()), (7, "Ada"));
-        assert_eq!(character.current_case_site_id, None);
-        assert_eq!(character.social_notification_count, 0);
-        assert!(!character.automatic_social_chat_enabled);
-
-        let settlement = SettlementView::try_from(generated_settlement()).unwrap();
-        assert_eq!(
-            (settlement.id.as_str(), settlement.name.as_str()),
-            ("lubeck", "Lubeck")
-        );
-        assert_eq!(
-            (settlement.longitude, settlement.latitude),
-            (10.6866, 53.8655)
-        );
-        assert_eq!(settlement.languages.east_central_bp, 10_000);
-        assert_eq!(settlement.industries.outputs().len(), 1);
-        assert_eq!(settlement.economy.rules_version, 10);
-        assert_eq!(settlement.source_node_id, Some(52));
-
-        let travel_edge = TravelEdgeView::try_from(generated_travel_edge()).unwrap();
-        assert_eq!(
-            (
-                travel_edge.id,
-                travel_edge.from_node_id,
-                travel_edge.to_node_id
-            ),
-            (41, 52, 53)
-        );
-        assert!(matches!(
-            travel_edge.route,
-            adventuresim_world_schema::TravelRoute::Land(_)
-        ));
-        assert_eq!(
-            travel_edge.terrain,
-            adventuresim_world_schema::RouteTerrain::stage_placeholder()
-        );
-        assert_eq!((travel_edge.length_m, travel_edge.certainty), (1_250, 90));
-
-        let case_battle = CaseBattleView::try_from(sats::BackendCaseBattle {
-            gateway_bucket: 6,
-            owner_character_id: 7,
-            public_case_id: "case:1".into(),
-            party_id: "party:7".into(),
-            battle_id: "battle:1".into(),
-            mission_id: "mission:1".into(),
-            case_site_id: sats::CaseSiteId {
-                value: "site:1".into(),
-            },
-        })
-        .unwrap();
-        assert_eq!(case_battle.gateway_bucket, 6);
-        assert_eq!(case_battle.case_site_id.as_str(), "site:1");
-
-        let party = PartyView::try_from(sats::Party {
-            id: "party:7".into(),
-            gateway_bucket: 5,
-            name: "Company".into(),
-            leader_id: 7,
-            current_settlement_id: None,
-            current_case_site_id: Some(sats::CaseSiteId {
-                value: "site:1".into(),
-            }),
-            active_contract_id: Some("contract:1".into()),
-            is_solo: false,
-            camp_fatigue_percent: 25,
-            walking_minutes_per_day: 480,
-            travel_at_night: true,
-            journey_start_minute_of_day: 360,
-            wilderness_canonical_anchor_minute: Some(adventuresim_stdb_client::StrategicMinute {
-                minutes: 1_000,
-            }),
-            wilderness_elapsed_minutes: 90,
-            camp_destination: None,
-            camp_remaining_minutes: 30,
-            physiology_target: 2.0,
-            command_target: 3.0,
-            religion_target: 4.0,
-        })
-        .unwrap();
-        assert_eq!(party.gateway_bucket, 5);
-        assert_eq!(party.current_case_site_id.as_deref(), Some("site:1"));
-
-        let request = PartyActionRequestView::from(sats::PartyActionRequest {
-            id: 11,
-            gateway_bucket: 4,
-            party_id: "party:7".into(),
-            requester_id: 7,
-            action_kind: "travel".into(),
-            summary: "Travel".into(),
-            payload: "{}".into(),
-        });
-        assert_eq!((request.id, request.gateway_bucket), (11, 4));
-
-        let route = PartyJourneyRouteView::from(sats::PartyJourneyRoute {
-            party_id: "party:7".into(),
-            gateway_bucket: 3,
-            package_digest: "a".repeat(64),
-            weather_rules_version: 2,
-            weather_interval_start: sats::StrategicMinute { minutes: 10 },
-            precipitation: sats::Precipitation::Rain,
-            intensity_bps: 100,
-            ground_moisture_bps: 200,
-            snow_cover_bps: 300,
-            distance_m: 400,
-            minutes: 500,
-            points: Vec::new(),
-            spans: Vec::new(),
-            return_route: None,
-        });
-        assert_eq!((route.gateway_bucket, route.minutes), (3, 500));
-
-        let equipped = EquippedItemView::from(sats::CharacterEquippedItem {
-            inventory_item_id: 21,
-            character_id: 7,
-            placement_id: "right_hand".into(),
-        });
-        assert_eq!((equipped.inventory_item_id, equipped.character_id), (21, 7));
-        assert!(equipped.item_name.is_empty());
-
-        let role = RecruitmentRoleView::from(sats::PartyRecruitmentRole {
-            id: 31,
-            party_id: "party:7".into(),
-            purpose: sats::RecruitmentRolePurpose::Specialized,
-            name: "Vanguard".into(),
-            requirements: generated_role_requirements(),
-            quantity: 2,
-        });
-        assert!(role.requirements.melee);
-        assert_eq!(role.purpose, sats::RecruitmentRolePurpose::Specialized);
-        assert_eq!(role.autoresolve_combat_power, 0);
-
-        let server = MissionServerView::from(sats::TacticalServer {
-            identity: sats::spacetimedb_sdk::Identity::ZERO,
-            gateway_bucket: 2,
-            mission_id: "mission:1".into(),
-            scene_key: "forest".into(),
-            party_id: "party:7".into(),
-            addr: "127.0.0.1:3000".into(),
-            cert_digest: "cert".into(),
-            authorized_party_member_ids: vec![7, 8],
-            required_enemy_kills: 3,
-            enemy_difficulty: 4,
-            enemy_combat_scale_bps: 5,
-            countermeasure_multiplier_bps: 6,
-            normalized_combat_power: 7,
-            enemy_character_ids: vec![9],
-            party_has_surprise: true,
-        });
-        assert_eq!(
-            (server.gateway_bucket, server.status),
-            (2, MissionStatus::Ready)
-        );
-        assert_eq!(server.character_id, None);
-
-        let server_request = MissionServerRequestView::from(sats::TacticalServerRequest {
-            mission_id: "mission:2".into(),
-            gateway_bucket: 1,
-            scene_key: "road".into(),
-            settlement: None,
-            party_id: "party:7".into(),
-            requested_by: 7,
-            longitude_e_7: 100,
-            latitude_e_7: 200,
-            absolute_minute: adventuresim_stdb_client::StrategicMinute { minutes: 300 },
-            lunar_phase_minute: sats::StrategicMinute { minutes: 400 },
-            authorized_party_member_ids: vec![7, 8],
-            required_enemy_kills: 9,
-            enemy_difficulty: 10,
-            enemy_combat_scale_bps: 11,
-            countermeasure_multiplier_bps: 12,
-            normalized_combat_power: 13,
-            enemy_character_ids: vec![14],
-            party_has_surprise: false,
-        });
-        assert_eq!(
-            (
-                server_request.gateway_bucket,
-                server_request.required_enemy_kills
-            ),
-            (1, 9)
-        );
-
-        let item = CatalogItemView::from(generated_item());
-        assert_eq!(
-            (item.kind, item.slot),
-            (CatalogItemKind::Weapon, Slot::AnyHolding)
-        );
-        assert_eq!(item.equipment_placements[0].occupancy[0].order, 2);
-        assert_eq!(item.equipment_placements[0].parents[0].order, 3);
-        assert_eq!(item.attachment_points[0].accepts_tags, ["charm"]);
-        assert_eq!(item.weapon_skills.sword, 1.0);
-        assert_eq!(item.preferred_melee_style, MeleeAttackStyle::Stab);
-        assert_eq!(item.moment_of_inertia_kg_m_2, 1.2);
-        assert_eq!(
-            (
-                item.durability_yield,
-                item.durability_fracture,
-                item.durability_wear,
-                item.durability_failure_share,
-                item.edge_sensitivity,
-                item.handling_sensitivity,
-            ),
-            (0.11, 0.22, 0.33, 0.44, 0.55, 0.66)
-        );
-    }
-
-    #[test]
-    fn personality_conversion_maps_every_axis_family() {
-        let mut row = sats::CharacterPersonality {
-            character_id: 7,
-            projection_character_id: 9,
-            nerve: sats::Nerve::Brave,
-            drive: sats::Drive::Ambitious,
-            outlook: sats::Outlook::Brooding,
-            sociability: sats::Sociability::Gregarious,
-            conscience: sats::Conscience::Cruel,
-            self_regard: sats::SelfRegard::Humble,
-            conviction: sats::Conviction::Irreverent,
-            hygiene: sats::Hygiene::Cleanly,
-            temperance: sats::Temperance::Drunkard,
-            mirth: sats::Mirth::Merry,
-            courtship: sats::Courtship::Proper,
-            transparency: sats::Transparency::Guarded,
-            self_knowledge: sats::SelfKnowledge::SelfDeceiving,
-            sex: sats::Sex::Female,
-            presentation: sats::Presentation::Woman,
-            inclination: sats::Inclination::Neither,
-        };
-        let mapped = core_personality(&row);
-        assert_eq!(mapped.nerve, Nerve::Brave);
-        assert_eq!(mapped.self_knowledge, SelfKnowledge::SelfDeceiving);
-        assert_eq!(mapped.inclination, Inclination::Neither);
-        assert_eq!(mapped.sex, Sex::Female);
-        row.sex = sats::Sex::Male;
-        assert_eq!(core_personality(&row).sex, Sex::Male);
-    }
-
-    #[test]
-    fn generated_nested_rows_serialize_strictly() {
-        let languages = sats::SettlementLanguageProfile {
-            east_central_bp: 5_000,
-            west_central_bp: 3_000,
-            low_bp: 2_000,
-            yiddish_incidence_bp: 100,
-        };
-        let converted: adventuresim_world_schema::SettlementLanguageProfile =
-            sats_to_serde(&languages).unwrap();
-        assert_eq!(converted.east_central_bp, 5_000);
-        let mut encoded = serde_json::to_value(SerdeWrapper::from_ref(&languages)).unwrap();
-        encoded["unexpected"] = serde_json::json!(1);
-        assert!(
-            serde_json::from_value::<SerdeWrapper<sats::SettlementLanguageProfile>>(encoded)
-                .is_err()
-        );
-    }
-
-    #[test]
-    fn gateway_fields_are_removed_only_by_explicit_projection() {
-        let row = sats::PartyActionRequest {
-            id: 11,
-            gateway_bucket: 4,
-            party_id: "party:1".into(),
-            requester_id: 7,
-            action_kind: "travel".into(),
-            summary: "Travel".into(),
-            payload: "{}".into(),
-        };
-        let view = PartyActionRequestView::from(row);
-        assert_eq!((view.id, view.party_id.as_str()), (11, "party:1"));
-    }
-
-    #[test]
-    fn typed_investigation_availability_is_wording_invariant() {
-        let generated = sats::InvestigationActionAvailability::Unavailable(
-            sats::InvestigationActionUnavailableFields {
-                reason: sats::InvestigationActionUnavailableReason::TravelRequired,
-                can_travel_to_required_site: true,
-                wait_minutes: 45,
-            },
-        );
-        let outcome = core_investigation_action_availability(&generated);
-        let (can_travel, wait_minutes) = match outcome {
-            InvestigationActionAvailability::Available => (false, 0),
-            InvestigationActionAvailability::Unavailable {
-                reason: InvestigationActionUnavailableReason::TravelRequired,
-                can_travel_to_required_site,
-                wait_minutes,
-            } => (can_travel_to_required_site, wait_minutes),
-            InvestigationActionAvailability::Unavailable { .. } => panic!("wrong reason"),
-        };
-        assert!(can_travel);
-        assert_eq!(wait_minutes, 45);
     }
 }

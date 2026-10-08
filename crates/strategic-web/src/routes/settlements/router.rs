@@ -1,68 +1,3 @@
-use crate::location_urls::LocationKind;
-use crate::location_urls::patterns as paths;
-use crate::spacetimedb as db;
-use adventuresim_core::{
-    equipment::{EncumbranceSummary, encumbrance_capacity_kg},
-    item_references::{STANDARD_TRAVEL_RATION_ID, STANDARD_WATERSKIN_ID},
-    physical_object::OperationalCustody,
-    prelude::{PartyProvisioningInputs, STRATEGIC_TRAVEL_KCAL_PER_DAY, Skill},
-    strategic_schedule::{CombatTrainingProfile, EquippedCombatItem},
-    strategic_time::{is_walking_time, minutes_until_next_walking_start},
-};
-use adventuresim_stdb_client::{
-    Character as DbCharacter, Item as DbItem, PartyJourneyRoute as DbPartyJourneyRoute,
-    Settlement as DbSettlement,
-};
-use adventuresim_world_schema::OfficialReligion;
-use axum::{
-    Form, Json, Router,
-    extract::{Path, Query, State, rejection::FormRejection},
-    http::StatusCode,
-    response::{Html, IntoResponse, Redirect, Response},
-    routing::{get, post},
-};
-use futures_util::{
-    future::join_all,
-    stream::{self, StreamExt},
-};
-use maud::Markup;
-use serde::{Deserialize, Serialize};
-use serde_json::json;
-use std::collections::{HashMap, HashSet};
-
-#[derive(Clone, Debug, Default, Deserialize)]
-struct BuildingQuery {
-    building: Option<String>,
-    corpse: Option<String>,
-    medical: Option<String>,
-    forage: Option<bool>,
-    forage_receipt: Option<String>,
-    forage_error: Option<String>,
-    social_feedback: Option<String>,
-}
-
-impl BuildingQuery {
-    fn valid_for<'a>(&'a self, location: &LocationView) -> Option<&'a str> {
-        self.building
-            .as_deref()
-            .and_then(|building| location.valid_building(building))
-    }
-
-    fn append_to_location(&self, location: &LocationView, path: String) -> String {
-        self.valid_for(location).map_or_else(
-            || path.clone(),
-            |building| crate::location_urls::with_query(&path, "building", building),
-        )
-    }
-
-    async fn append_to(&self, state: &AppState, kind: &str, id: &str, path: String) -> String {
-        match resolve_location(state, kind, id).await {
-            LocationLookup::Found(location) => self.append_to_location(&location, path),
-            LocationLookup::NotFound | LocationLookup::Unavailable => path,
-        }
-    }
-}
-
 #[cfg(test)]
 mod building_query_tests {
     use super::{BuildingQuery, SETTLEMENTS_SOURCE, merchant_service_location};
@@ -214,16 +149,45 @@ mod building_query_tests {
         assert!(!source.contains("format!(\"camp|"));
     }
 }
+use crate::location_urls::LocationKind;
+use crate::location_urls::patterns as paths;
+use crate::spacetimedb as db;
+use adventuresim_core::{
+    equipment::{EncumbranceSummary, encumbrance_capacity_kg},
+    item_references::{STANDARD_TRAVEL_RATION_ID, STANDARD_WATERSKIN_ID},
+    physical_object::OperationalCustody,
+    prelude::{PartyProvisioningInputs, STRATEGIC_TRAVEL_KCAL_PER_DAY, Skill},
+    strategic_schedule::{CombatTrainingProfile, EquippedCombatItem},
+    strategic_time::{is_walking_time, minutes_until_next_walking_start},
+};
+use adventuresim_stdb_client::{
+    Character as DbCharacter, Item as DbItem, PartyJourneyRoute as DbPartyJourneyRoute,
+    Settlement as DbSettlement,
+};
+use adventuresim_world_schema::OfficialReligion;
+use axum::{
+    Form, Json, Router,
+    extract::{Path, Query, State, rejection::FormRejection},
+    http::StatusCode,
+    response::{Html, IntoResponse, Redirect, Response},
+    routing::{get, post},
+};
+use futures_util::{
+    future::join_all,
+    stream::{self, StreamExt},
+};
+use maud::Markup;
+use serde::{Deserialize, Serialize};
+use serde_json::json;
+use std::collections::{HashMap, HashSet};
 
 use super::inventory_forms::{
     DiscardInventoryForm, MerchantOfferForm, PartyOfferForm, PartyPoolTransferForm,
 };
 use super::redirect_to_local;
 use super::travel::{
-    CaseSiteKnowledgePresentation, ItineraryForecastSources, TravelDestination, TravelForm,
-    TravelProvisionForecast, active_contract_tooltip, cached_travel_edges,
-    connected_destinations,
-    populate_itinerary_forecasts,
+    CaseSiteKnowledgePresentation, ItineraryForecastSources, TRAVEL_EDGE_CACHE, TravelDestination,
+    TravelForm, TravelProvisionForecast, connected_destinations, populate_itinerary_forecasts,
 };
 use super::{
     AppState, PartyAction, PartyActionOutcome, SocialActionId, SocialDuration,
@@ -248,20 +212,53 @@ use crate::spacetimedb::{
     PartyInventoryItem, PartyItemAmount, PartyJourney, PartyJourneyRouteView, PartyMember,
     PartyStake, PartyView, Personality, RecruitmentOffer, RecruitmentOfferStatus,
     RecruitmentRoleView, ReligionHoursExt, ReligiousDemand, RepairOrder, RetainedProjectile,
-    RoleRequirements, ScheduleAllocation, SettlementAlias, SettlementDescription,
-    SettlementSmith, SettlementView, SocialAddress, SocialBelief,
-    SocialChatOutcome, StrategicEncounter, StrategicEncounterStatus,
+    RoleRequirements, ScheduleAllocation, SettlementAlias, SettlementDescription, SettlementSmith,
+    SettlementView, SocialAddress, SocialBelief, SocialChatOutcome, StrategicEncounter,
+    StrategicEncounterStatus,
 };
 use crate::spacetimedb::{party_by_id, settlement_by_id, sql_string_literal};
 use crate::templates::settlement::{
-    ActivityPreviewRates, CampTravelDestination, ChildPresentation, LocationView, Storefront,
+    ActivityPreviewRates, CampTravelDestination, ChildPresentation, LocationView,
     RelationshipPresentation, RestServiceKind, RestSummary, SoapRestPreview, SocialPresentation,
-    WeddingPresentation, camp_page, live_merchant_shop_page, merchants_page, party_discard_page,
-    party_inventory_page, party_personal_page, party_pool_page, party_social_dialog,
-    party_stats_page, religion_page, rest_default_minutes, rest_result_page, settlement_map_page,
-    settlement_overview_page, settlement_residence_page, settlement_resident_location_page,
-    surgery_dialog,
+    Storefront, WeddingPresentation, camp_page, live_merchant_shop_page, merchants_page,
+    party_discard_page, party_inventory_page, party_personal_page, party_pool_page,
+    party_social_dialog, party_stats_page, religion_page, rest_default_minutes, rest_result_page,
+    settlement_map_page, settlement_overview_page, settlement_residence_page,
+    settlement_resident_location_page, surgery_dialog,
 };
+
+#[derive(Clone, Debug, Default, Deserialize)]
+struct BuildingQuery {
+    building: Option<String>,
+    corpse: Option<String>,
+    medical: Option<String>,
+    forage: Option<bool>,
+    forage_receipt: Option<String>,
+    forage_error: Option<String>,
+    social_feedback: Option<String>,
+}
+
+impl BuildingQuery {
+    fn valid_for<'a>(&'a self, location: &LocationView) -> Option<&'a str> {
+        self.building
+            .as_deref()
+            .and_then(|building| location.valid_building(building))
+    }
+
+    fn append_to_location(&self, location: &LocationView, path: String) -> String {
+        self.valid_for(location).map_or_else(
+            || path.clone(),
+            |building| crate::location_urls::with_query(&path, "building", building),
+        )
+    }
+
+    async fn append_to(&self, state: &AppState, kind: &str, id: &str, path: String) -> String {
+        match resolve_location(state, kind, id).await {
+            LocationLookup::Found(location) => self.append_to_location(&location, path),
+            LocationLookup::NotFound | LocationLookup::Unavailable => path,
+        }
+    }
+}
 
 fn contained_water_ml_for_custody(
     objects: &[InventoryObject],

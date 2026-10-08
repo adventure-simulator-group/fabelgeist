@@ -3,36 +3,6 @@
 //! Route registration stays in this facade. Handler modules own their forms,
 //! policy, database reads, rendering adapters, and behavior-local tests.
 
-#[cfg(test)]
-pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
-    include_str!("router.rs"),
-    include_str!("medical.rs"),
-    include_str!("residences.rs"),
-    include_str!("overview.rs"),
-    include_str!("camp.rs"),
-    include_str!("service_quests.rs"),
-    include_str!("party/location_personal.rs"),
-    include_str!("party/cooking.rs"),
-    include_str!("party/ingredient_preparation.rs"),
-    include_str!("party/training_activity.rs"),
-    include_str!("party/inventory_medical.rs"),
-    include_str!("party/social.rs"),
-    include_str!("party/transfers.rs"),
-    include_str!("religion_party.rs"),
-    include_str!("commerce.rs"),
-    include_str!("rest.rs"),
-    include_str!("religion.rs"),
-    include_str!("rendering.rs"),
-    include_str!("encumbrance.rs"),
-    include_str!("rest_preview.rs"),
-    include_str!("social_tests.rs"),
-    include_str!("rest_tests.rs"),
-    include_str!("herbalist_tests.rs"),
-    include_str!("encumbrance_tests.rs"),
-);
-
-include!("router.rs");
-
 mod entry;
 
 mod medical {
@@ -53,6 +23,8 @@ mod camp {
     use adventuresim_world_schema::calendar::StrategicMinute;
     include!("camp.rs");
 }
+mod service_quest_offers;
+
 mod service_quests {
     use super::*;
     include!("service_quests.rs");
@@ -161,3 +133,33 @@ pub(crate) use party::medical_presentation;
 pub(crate) use rest::{RestForm, field_shelter_argument, travel_rest_minutes};
 pub(crate) use rest_preview::soap_rest_preview;
 pub(crate) use service_quests::living_party_members;
+#[cfg(test)]
+pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
+    include_str!("router.rs"),
+    include_str!("medical.rs"),
+    include_str!("residences.rs"),
+    include_str!("overview.rs"),
+    include_str!("camp.rs"),
+    include_str!("service_quests.rs"),
+    include_str!("service_quest_offers.rs"),
+    include_str!("party/location_personal.rs"),
+    include_str!("party/cooking.rs"),
+    include_str!("party/ingredient_preparation.rs"),
+    include_str!("party/training_activity.rs"),
+    include_str!("party/inventory_medical.rs"),
+    include_str!("party/social.rs"),
+    include_str!("party/transfers.rs"),
+    include_str!("religion_party.rs"),
+    include_str!("commerce.rs"),
+    include_str!("rest.rs"),
+    include_str!("religion.rs"),
+    include_str!("rendering.rs"),
+    include_str!("encumbrance.rs"),
+    include_str!("rest_preview.rs"),
+    include_str!("social_tests.rs"),
+    include_str!("rest_tests.rs"),
+    include_str!("herbalist_tests.rs"),
+    include_str!("encumbrance_tests.rs"),
+);
+
+include!("router.rs");
