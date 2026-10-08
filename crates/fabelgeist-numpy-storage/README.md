@@ -24,3 +24,32 @@ let weights = archive.array("layer0")?.to_tensor::<2>(&Device::default())?;
 - Fortran-ordered arrays are rejected rather than silently transposed.
 
 Used by `fabelgeist-mhr` for the MHR pose-corrective tensors.
+
+## Archive compression
+
+The archive reader retains a bespoke compression choice from central-directory
+admission through member decoding. Stored members borrow the original bytes;
+DEFLATE members own their decoded output. Unsupported method codes remain
+available as metadata for name and size queries, then fail when bytes are
+requested. Local-header corruption and payload bounds are checked before that
+unsupported-method error, preserving diagnostic precedence.
+
+The central directory selects the method; a different method in the local header
+does not change that existing policy. The two-byte wire code is admitted at its
+decoding boundary and retained as a purpose-specific diagnostic code for
+unsupported methods. Checksums, protection flags, counts, offsets, member
+identity and wider archive errors remain separate concepts. This contract
+preserves their existing behavior and adds no compatibility decoding.
+
+PKWARE APPNOTE section 4.4.5 defines the two-byte compression method field:
+code 0 stores bytes without compression, and code 8 uses DEFLATE. The reader
+classifies these codes at central-directory admission; its explicit conversion
+retains every other `u16` as an unsupported code for the original diagnostic.
+`ZipCompressionCode` derives decimal display without changing that message.
+
+[PKWARE ZIP format specification, section 4.4.5](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT)
+
+Entry byte lengths and local-header offsets still use retained `u64` values.
+Their complete ZIP32/ZIP64 admission, metadata-return and byte-access boundary
+needs a separate value migration. This compression contract does not establish
+semantic ownership for those fields or change their native cast/overflow policy.
