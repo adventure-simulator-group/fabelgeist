@@ -1,4 +1,7 @@
-fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+fn audit_artillery_castle(
+    plan: &BuildingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<()> {
     let inherited = matches!(
         plan.archetype,
         BuildingArchetype::CastleGatehouse
@@ -14,17 +17,17 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 "an inherited medieval fixture was relabelled or retrofitted by the artillery assembly".to_owned(),
             ));
         }
-        return;
+        return Ok(());
     }
     if plan.archetype != BuildingArchetype::ArtilleryRondelCastle {
-        return;
+        return Ok(());
     }
     let Some(castle) = &plan.artillery_castle else {
         issues.push(issue(
             "missing_artillery_castle",
             "the artillery fixture has no authoritative assembly".to_owned(),
         ));
-        return;
+        return Ok(());
     };
     if castle.phase != crate::CastleConstructionPhase::ArtilleryRetrofit1544
         || plan.castle_phase != Some(crate::CastleConstructionPhase::ArtilleryRetrofit1544)
@@ -50,7 +53,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             "artillery enceinte is not one four-corner cardinal rectangle".to_owned(),
         ));
     }
-    let visibility = artillery_clearance::ArtilleryClearance::new(&plan.resolved_geometry.solids);
+    let visibility = artillery_clearance::ArtilleryClearance::new(&plan.resolved_geometry.solids)?;
     let solids = plan
         .resolved_geometry
         .solids
@@ -89,7 +92,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     && catchment.toe_channel_solids.iter().all(|id| {
                         solids.get(id).is_some_and(|solid| {
                             solid.role == SolidRole::DrainageFloor
-                                && solid.longfall_radians.abs() >= 0.004
+                                && solid.longfall_radians.radians().abs() >= 0.004
                         })
                     })
                     && plan.resolved_geometry.drainage_routes.iter().any(|route| {
@@ -129,12 +132,13 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             || !roles
             || solids
                 .get(&curtain.parapet_solid)
-                .is_none_or(|s| s.role != SolidRole::ArtilleryParapet || s.size.y < 1.25)
+                .is_none_or(|s| s.role != SolidRole::ArtilleryParapet || s.size.metres().y < 1.25)
             || surfaces
                 .get(&curtain.route_surface)
                 .is_none_or(|s| s.role != SurfaceRole::ArtilleryRoute)
             || solids.get(&curtain.terreplein_solid).is_none_or(|solid| {
-                solid.role != SolidRole::ArtilleryTerreplein || solid.crossfall_radians.abs() < 0.02
+                solid.role != SolidRole::ArtilleryTerreplein
+                    || solid.crossfall_radians.radians().abs() < 0.02
             })
             || !valid_artillery_drain(
                 curtain.drainage_catchment,
@@ -171,7 +175,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 } => {
                     0.5 * (outer_radius_metres.powi(2) - inner_radius_metres.powi(2))
                         * (end_angle_radians - start_angle_radians)
-                        * solid.size.y
+                        * solid.size.metres().y
                 }
                 _ => 0.0,
             })
@@ -273,17 +277,20 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         });
         let mut earth_forbidden = Vec::new();
         if let Some(void) = voids.get(&rondel.casemate_void) {
-            earth_forbidden.push((void.bounds.min, void.bounds.max));
+            earth_forbidden.push((void.bounds.min().metres(), void.bounds.max().metres()));
         }
         for station in castle.stations.iter().filter(|station| {
             station.rondel == rondel.id
                 && station.level == crate::ArtilleryStationLevel::LowerCasemate
         }) {
-            earth_forbidden.push((station.recoil_envelope.min, station.recoil_envelope.max));
+            earth_forbidden.push((
+                station.recoil_envelope.min().metres(),
+                station.recoil_envelope.max().metres(),
+            ));
             if let Some(surface) = surfaces.get(&station.stance_surface) {
                 earth_forbidden.push((
-                    surface.bounds.min - Vec3::new(0.02, 0.0, 0.02),
-                    surface.bounds.max + Vec3::new(0.02, 1.90, 0.02),
+                    surface.bounds.min().metres() - Vec3::new(0.02, 0.0, 0.02),
+                    surface.bounds.max().metres() + Vec3::new(0.02, 1.90, 0.02),
                 ));
             }
             if let Some(mount) = solids.get(&station.mount_solid) {
@@ -292,10 +299,10 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             if let Some(opening) = openings.get(&station.opening)
                 && let Some(void) = voids.get(&opening.void_id)
             {
-                earth_forbidden.push((void.bounds.min, void.bounds.max));
+                earth_forbidden.push((void.bounds.min().metres(), void.bounds.max().metres()));
             }
             if let Some(vent) = station.smoke_vent.and_then(|id| voids.get(&id)) {
-                earth_forbidden.push((vent.bounds.min, vent.bounds.max));
+                earth_forbidden.push((vent.bounds.min().metres(), vent.bounds.max().metres()));
             }
         }
         let earth_intrudes = rondel
@@ -342,16 +349,16 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             })
             || earth_volume < 100.0 || earth_samples.iter().filter(|covered|**covered).count()<18 || max_earth_gap>6 || earth_intrudes || route_intrudes
             || rondel.parapet_solids.len()<18
-            || rondel.parapet_solids.iter().any(|id|solids.get(id).is_none_or(|solid|solid.role!=SolidRole::ArtilleryParapet||solid.size.y<1.25||!matches!(solid.shape,crate::ResolvedSolidShape::AnnularSectorPrism{inner_radius_metres,outer_radius_metres,..} if outer_radius_metres-inner_radius_metres>=0.80)))
+            || rondel.parapet_solids.iter().any(|id|solids.get(id).is_none_or(|solid|solid.role!=SolidRole::ArtilleryParapet||solid.size.metres().y<1.25||!matches!(solid.shape,crate::ResolvedSolidShape::AnnularSectorPrism{inner_radius_metres,outer_radius_metres,..} if outer_radius_metres-inner_radius_metres>=0.80)))
             || parapet_samples.iter().filter(|covered|**covered).count()<36 || max_parapet_gap>12
             || rondel.stair_guard_solids.len()<20
-            || rondel.stair_guard_solids.iter().any(|id|solids.get(id).is_none_or(|solid|solid.role!=SolidRole::ArtilleryStairGuard||solid.size.y<0.90||!matches!(solid.shape,crate::ResolvedSolidShape::AnnularSectorPrism{inner_radius_metres,outer_radius_metres,..} if inner_radius_metres>=1.25&&outer_radius_metres-inner_radius_metres>=0.10)))
+            || rondel.stair_guard_solids.iter().any(|id|solids.get(id).is_none_or(|solid|solid.role!=SolidRole::ArtilleryStairGuard||solid.size.metres().y<0.90||!matches!(solid.shape,crate::ResolvedSolidShape::AnnularSectorPrism{inner_radius_metres,outer_radius_metres,..} if inner_radius_metres>=1.25&&outer_radius_metres-inner_radius_metres>=0.10)))
             || guard_samples.iter().filter(|covered|**covered).count()<54
             || max_guard_gap>10
             || !(0.90..=1.35).contains(&guard_opening_chord)
             || !arrival_clear
             || voids.get(&rondel.casemate_void).is_none_or(|v|v.role!=VoidRole::ArtilleryCasemate)
-            || solids.get(&rondel.casemate_roof).is_none_or(|s|s.centre.y-s.size.y*0.5 < 2.1)
+            || solids.get(&rondel.casemate_roof).is_none_or(|s|s.centre.metres().y-s.size.metres().y*0.5 < 2.1)
             || solids.get(&rondel.terreplein_solid).is_none_or(|solid| {
                 !matches!(
                     solid.shape,
@@ -392,13 +399,15 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
     for station in &castle.stations {
         let opening = openings.get(&station.opening);
         let stance = surfaces.get(&station.stance_surface);
-        let recoil = station.recoil_envelope.max - station.recoil_envelope.min;
+        let recoil =
+            station.recoil_envelope.max().metres() - station.recoil_envelope.min().metres();
         for ray in &station.rays {
             target_kinds.insert(ray.target_kind);
         }
-        let station_geometry_valid = opening.is_some_and(|opening| {
-            let stance_centre =
-                stance.map(|surface| (surface.bounds.min + surface.bounds.max) * 0.5);
+        let station_geometry_valid = crate::geometry_index::try_any(opening, |opening| {
+            let stance_centre = stance.map(|surface| {
+                (surface.bounds.min().metres() + surface.bounds.max().metres()) * 0.5
+            });
             let mount = solids.get(&station.mount_solid);
             let ranges = station
                 .rays
@@ -407,13 +416,13 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 .collect::<std::collections::HashSet<_>>();
             let recoil_contains = |point: Vec3| {
                 point
-                    .cmpge(station.recoil_envelope.min - Vec3::splat(0.01))
+                    .cmpge(station.recoil_envelope.min().metres() - Vec3::splat(0.01))
                     .all()
                     && point
-                        .cmple(station.recoil_envelope.max + Vec3::splat(0.01))
+                        .cmple(station.recoil_envelope.max().metres() + Vec3::splat(0.01))
                         .all()
             };
-            let rays_valid = station.rays.iter().all(|ray| {
+            let rays_valid = crate::geometry_index::try_all(station.rays.iter(), |ray| {
                 let target_binding = artillery_targets.get(&ray.target_id).is_some_and(|target| {
                     target.kind == ray.target_kind
                         && (Vec2::new(
@@ -436,32 +445,36 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     && (ray.origin.y - opening.sill_elevation_metres) >= 0.05
                     && (ray.origin.y - opening.sill_elevation_metres)
                         <= opening.profile.clear_height_metres() - 0.05;
-                let blocked = visibility.blocked(ray.origin, ray.target, opening.owner);
-                target_binding && aim_valid && origin_valid && !blocked
-            });
-            stance_centre.is_some_and(recoil_contains)
-                && mount.is_some_and(|solid| recoil_contains(solid.centre))
-                && ranges
-                    == std::collections::HashSet::from([
-                        crate::ProjectedDefenseRange::Near,
-                        crate::ProjectedDefenseRange::Middle,
-                        crate::ProjectedDefenseRange::Far,
-                    ])
-                && rays_valid
-        });
+                let blocked = visibility.blocked(crate::spatial_geometry::Position::from_metres(ray.origin)?, crate::spatial_geometry::Position::from_metres(ray.target)?, opening.owner)?;
+                Result::<bool>::Ok(
+                    target_binding && aim_valid && origin_valid && !blocked,
+                )
+            })?;
+            Result::<bool>::Ok(
+                stance_centre.is_some_and(recoil_contains)
+                    && mount.is_some_and(|solid| recoil_contains(solid.centre.metres()))
+                    && ranges
+                        == std::collections::HashSet::from([
+                            crate::ProjectedDefenseRange::Near,
+                            crate::ProjectedDefenseRange::Middle,
+                            crate::ProjectedDefenseRange::Far,
+                        ])
+                    && rays_valid,
+            )
+        })?;
         let smoke_valid = station.level != crate::ArtilleryStationLevel::LowerCasemate
             || station.smoke_vent.is_some_and(|id| {
                 voids.get(&id).is_some_and(|void| {
                     void.role == VoidRole::ArtillerySmokeVent
-                        && void.bounds.max.y > 3.0
-                        && void.bounds.max.y - void.bounds.min.y >= 0.6
+                        && void.bounds.max().metres().y > 3.0
+                        && void.bounds.max().metres().y - void.bounds.min().metres().y >= 0.6
                 })
             });
         if opening.is_none_or(|opening| {
             opening.use_kind != crate::OpeningUse::GunLoop
                 || opening.closure.layers != [crate::ClosureKind::OpenMilitary]
         }) || stance.is_none_or(|surface| {
-            let size = surface.bounds.max - surface.bounds.min;
+            let size = surface.bounds.max().metres() - surface.bounds.min().metres();
             size.x.max(size.z) < 1.0 || size.x.min(size.z) < 0.9
         }) || recoil.x.max(recoil.z) < 4.0
             || recoil.x.min(recoil.z) < 2.5
@@ -545,38 +558,17 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 || surface.role == SurfaceRole::ArtilleryStance
         })
     });
-    let route_geometry_valid = castle.route_edges.iter().all(|edge| {
-        let Some((from, to)) = route_nodes.get(&edge.from).zip(route_nodes.get(&edge.to)) else { return false; };
-        let Some(surface) = edge.traversal_surface.and_then(|id| surfaces.get(&id).copied()) else { return false; };
-        let shape_valid = matches!(surface.shape, crate::ResolvedSurfaceShape::RouteCorridor { start, end, width_metres }
-            if start.distance(from.position) <= 0.02 && end.distance(to.position) <= 0.02 && (width_metres-edge.width_metres).abs() <= 0.01);
-        let connectors_valid = edge.connector_solids.iter().all(|id| solids.get(id).is_some_and(|solid| matches!(solid.role,
-            SolidRole::ArtilleryRamp | SolidRole::ArtilleryStairTread | SolidRole::ArtilleryBridgeDeck)));
-        let portal_valid = edge.portal_void.is_none_or(|id| voids.get(&id).is_some_and(|void| matches!(void.role, VoidRole::Passage | VoidRole::AccessPortal | VoidRole::ArtilleryCasemate)));
-        let path_valid=edge.sweep_path.len()>=2&&edge.sweep_path.first().is_some_and(|point|point.distance(from.position)<=0.02)&&edge.sweep_path.last().is_some_and(|point|point.distance(to.position)<=0.02)
-            && edge.sweep_path.windows(2).all(|pair|pair[0].distance(pair[1])<=3.0);
-        let portal_crossed=edge.portal_void.is_none_or(|id|voids.get(&id).is_some_and(|void|edge.sweep_path.windows(2).any(|pair|{
-            (0..=8).any(|sample|{let point=pair[0].lerp(pair[1],sample as f32/8.0)+Vec3::Y*0.25;point.cmpge(void.bounds.min-Vec3::splat(0.02)).all()&&point.cmple(void.bounds.max+Vec3::splat(0.02)).all()})
-        })));
-        let swept_clear=edge.sweep_path.windows(2).all(|pair|{
-            let delta=Vec2::new(pair[1].x-pair[0].x,pair[1].z-pair[0].z);let along=if delta.length()>0.01{delta.normalize()}else{Vec2::X};let across=Vec2::new(-along.y,along.x);
-            let steps=((pair[0].distance(pair[1])/0.35).ceil() as usize).max(1);
-            (0..=steps).all(|step|{
-                let foot=pair[0].lerp(pair[1],step as f32/steps as f32);
-                let samples=[-0.45_f32,0.0,0.45].into_iter().flat_map(|side|[0.25_f32,1.0,1.85].into_iter().map(move|height|foot+Vec3::new(across.x*side,height,across.y*side)));
-                samples.into_iter().all(|point| !visibility.route_blocked(point, &edge.connector_solids))
-            })
-        });
-        shape_valid && connectors_valid && portal_valid && path_valid && portal_crossed && swept_clear
-    });
+    let route_failure = visibility.first_route_failure(
+        &castle.route_edges, &solids, &surfaces, &voids, &route_nodes,
+    )?;
     let stair_geometry_valid = castle.rondels.iter().all(|rondel| {
         rondel.stair_solids.len() >= 30
             && rondel.stair_solids.iter().all(|id| {
                 solids.get(id).is_some_and(|solid| {
                     solid.role == SolidRole::ArtilleryStairTread
-                        && solid.size.x >= 0.9
-                        && solid.size.y <= 0.20
-                        && solid.size.z >= 0.35
+                        && solid.size.metres().x >= 0.9
+                        && solid.size.metres().y <= 0.20
+                        && solid.size.metres().z >= 0.35
                 })
             })
             && castle.route_edges.iter().any(|edge| {
@@ -594,7 +586,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
     });
     if castle.route_nodes.len() < 12
         || !node_surfaces_valid
-        || !route_geometry_valid
+        || route_failure.is_some()
         || !stair_geometry_valid
         || !ramp_route_valid
         || castle.route_edges.iter().any(|edge| {
@@ -606,7 +598,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
     {
         issues.push(issue(
             "disconnected_artillery_route",
-            "artillery circulation lacks a swept gate/casemate/terreplein/ramp graph".to_owned(),
+            format!("artillery circulation lacks a swept gate/casemate/terreplein/ramp graph: {:?}", route_failure.as_ref().map(|failure| (failure.route.from, failure.route.to, &failure.outcome))),
         ));
     } else {
         let mut reached = std::collections::HashSet::from([castle.route_nodes[0].id]);
@@ -654,7 +646,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         && surfaces
             .get(&castle.gate_operator_surface)
             .is_some_and(|surface| {
-                let size = surface.bounds.max - surface.bounds.min;
+                let size = surface.bounds.max().metres() - surface.bounds.min().metres();
                 surface.role == SurfaceRole::ArtilleryStance && size.x * size.z >= 6.0
             })
         && castle.route_edges.iter().any(|edge| {
@@ -669,7 +661,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         matches!(void.shape,
         crate::ResolvedVoidShape::RectangularRing { inner_min, inner_max }
             if inner_max.x-inner_min.x >= 40.0 && inner_max.y-inner_min.y >= 34.0
-                && void.bounds.min.y <= -2.0 && void.bounds.max.y <= 0.01)
+                && void.bounds.min().metres().y <= -2.0 && void.bounds.max().metres().y <= 0.01)
     });
     if castle.service_ramp_solids.is_empty()
         || !gate_chamber_valid
@@ -689,10 +681,11 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             "ditch, service ramp, or deployed/denied bridge state is not physical".to_owned(),
         ));
     }
-    if castle.retained_keep_setback_metres < 4.0 {
+    let _: () = if castle.retained_keep_setback_metres < 4.0 {
         issues.push(issue(
             "artillery_keep_clearance",
             "retained keep crowds artillery circulation/recoil".to_owned(),
         ));
-    }
+    };
+    Ok(())
 }

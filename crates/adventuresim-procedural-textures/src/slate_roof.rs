@@ -8,6 +8,7 @@
 
 mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use fabelgeist_determinism::Seed;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -23,13 +24,13 @@ const COURSE_FACE_END: f32 = 0.88;
 #[derive(Clone, Copy, Debug)]
 struct SlateSample {
     height: f32,
-    piece_id: u64,
+    piece_id: Seed,
     contact: f32,
     edge_wear: f32,
     cleavage: f32,
 }
 
-fn piece_id(params: &crate::TextureParameters, canonical_row: i32, column: i32) -> u64 {
+fn piece_id(params: &crate::TextureParameters, canonical_row: i32, column: i32) -> Seed {
     params.field_seed(
         streams::PIECE,
         &[
@@ -55,8 +56,11 @@ fn piece_coordinates(params: &crate::TextureParameters, u: f32, row: i32) -> (i3
     (canonical_row, column, scaled - column as f32 - 0.5)
 }
 
-fn lower_edge(params: &crate::TextureParameters, local_x: f32, id: u64) -> f32 {
-    let heel_bias = (params.rng(streams::HEEL_BIAS, &[id]).inclusive_unit_f32() - 0.5)
+fn lower_edge(params: &crate::TextureParameters, local_x: f32, id: Seed) -> f32 {
+    let heel_bias = (params
+        .element_rng(streams::HEEL_BIAS, id)
+        .inclusive_unit_f32()
+        - 0.5)
         * params.slate_roof.lower_edge_heel_bias;
     let left_clip = ((-local_x - params.slate_roof.lower_edge_left_clip_1)
         / params.slate_roof.lower_edge_left_clip_2)
@@ -67,22 +71,47 @@ fn lower_edge(params: &crate::TextureParameters, local_x: f32, id: u64) -> f32 {
     let asymmetry = left_clip
         * (params.slate_roof.lower_edge_asymmetry_1
             + params
-                .rng(streams::TAIL_AMPLITUDE, &[id])
+                .element_rng(streams::TAIL_AMPLITUDE, id)
                 .inclusive_unit_f32()
                 * params.slate_roof.lower_edge_asymmetry_2)
         + right_clip
             * (params.slate_roof.lower_edge_asymmetry_3
-                + params.rng(streams::TAIL_PHASE, &[id]).inclusive_unit_f32()
+                + params
+                    .element_rng(streams::TAIL_PHASE, id)
+                    .inclusive_unit_f32()
                     * params.slate_roof.lower_edge_asymmetry_4);
     let chip_segment = ((local_x + 0.5) * params.slate_roof.lower_edge_chip_segment).floor() as u64;
     let chip = ((params
-        .rng(streams::TAIL_CHIP, &[id, chip_segment])
+        .rng(streams::TAIL_CHIP, &[id.to_u64(), chip_segment])
         .inclusive_unit_f32()
         - params.slate_roof.lower_edge_chip_1)
         / params.slate_roof.lower_edge_chip_2)
         .clamp(0.0, 1.0)
         * params.slate_roof.lower_edge_chip_3;
     params.slate_roof.course_face_end + heel_bias - asymmetry - chip
+}
+
+// Native texture kernel: horizontal fractional coordinates within a slate
+// piece. Adjacent boundary seeds retain their ordered material-context framing.
+fn piece_side_distance(
+    params: &crate::TextureParameters,
+    local_x: f32,
+    piece: Seed,
+    next_piece: Seed,
+) -> f32 {
+    let left_boundary = -0.5
+        + (params
+            .element_rng(streams::BOUNDARY, piece)
+            .inclusive_unit_f32()
+            - 0.5)
+            * params.slate_roof.sample_slate_left_boundary;
+    let right_boundary = 0.5
+        + (params
+            .element_rng(streams::BOUNDARY, next_piece)
+            .inclusive_unit_f32()
+            - 0.5)
+            * params.slate_roof.sample_slate_right_boundary;
+    (local_x - left_boundary).min(right_boundary - local_x)
 }
 
 fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSample {
@@ -95,19 +124,12 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
     let (canonical_row, column, local_x) = piece_coordinates(params, u, row);
     let id = piece_id(params, canonical_row, column);
 
-    let left_boundary = -0.5
-        + (params.rng(streams::BOUNDARY, &[id]).inclusive_unit_f32() - 0.5)
-            * params.slate_roof.sample_slate_left_boundary;
-    let right_boundary = 0.5
-        + (params
-            .rng(
-                streams::BOUNDARY,
-                &[piece_id(params, canonical_row, column + 1)],
-            )
-            .inclusive_unit_f32()
-            - 0.5)
-            * params.slate_roof.sample_slate_right_boundary;
-    let side_distance = (local_x - left_boundary).min(right_boundary - local_x);
+    let side_distance = piece_side_distance(
+        params,
+        local_x,
+        id,
+        piece_id(params, canonical_row, column + 1),
+    );
     let side_joint =
         (1.0 - side_distance / params.slate_roof.sample_slate_side_joint).clamp(0.0, 1.0);
     let face_end = lower_edge(params, local_x, id);
@@ -121,7 +143,7 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
         piece_id(params, under_row, under_column)
     };
     let unit_draw = |purpose: fabelgeist_determinism::StreamId| {
-        params.rng(purpose, &[active_id]).inclusive_unit_f32()
+        params.element_rng(purpose, active_id).inclusive_unit_f32()
     };
     let active_local_x = if front {
         local_x
@@ -174,7 +196,7 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
     let wear_cell = ((local_x + 0.5) * params.slate_roof.sample_slate_wear_cell).floor() as u64;
     let edge_wear = edge_band
         * ((params
-            .rng(streams::WEAR, &[id, wear_cell])
+            .rng(streams::WEAR, &[id.to_u64(), wear_cell])
             .inclusive_unit_f32()
             - params.slate_roof.sample_slate_edge_wear_1)
             / params.slate_roof.sample_slate_edge_wear_2)
@@ -191,11 +213,11 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
 
 fn color_and_roughness(params: &crate::TextureParameters, sample: SlateSample) -> ([u8; 3], u8) {
     let mineral = params
-        .rng(streams::MINERAL, &[sample.piece_id])
+        .rng(streams::MINERAL, &[sample.piece_id.to_u64()])
         .inclusive_unit_f32()
         - 0.5;
     let cool_shift = (params
-        .rng(streams::COOL_SHIFT, &[sample.piece_id])
+        .rng(streams::COOL_SHIFT, &[sample.piece_id.to_u64()])
         .inclusive_unit_f32()
         - 0.5)
         * params.slate_roof.color_and_roughness_cool_shift;

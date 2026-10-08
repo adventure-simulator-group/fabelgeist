@@ -2,6 +2,7 @@
 mod leaf;
 use adventuresim_procedural_textures::{ControlBounds, ControlPath, TextureRecipeId};
 use bevy_egui::egui::{self, Ui};
+use fabelgeist_determinism::Seed;
 use serde_json::Value;
 
 pub(crate) fn draw(
@@ -13,13 +14,18 @@ pub(crate) fn draw(
 ) -> bool {
     let allowed = recipe.control_paths();
     let mut changed = false;
-    if let Some(seed) = values
-        .get_mut("seed")
-        .filter(|_| allowed.iter().any(|path| path.as_str() == "/seed"))
-    {
+    if let Some(seed) = values.pointer_mut(ControlPath::SEED_WORD).filter(|_| {
+        allowed
+            .iter()
+            .any(|path| path.as_str() == ControlPath::SEED)
+    }) {
+        // The integer widget edits the word inside the named Seed document.
+        let Some(mut number) = seed.as_u64() else {
+            ui.label("Invalid seed word");
+            return false;
+        };
         ui.horizontal(|ui| {
             ui.label("Seed");
-            let mut number = seed.as_u64().unwrap_or_default();
             if ui.add(egui::DragValue::new(&mut number)).changed() {
                 *seed = number.into();
                 changed = true;
@@ -29,7 +35,7 @@ pub(crate) fn draw(
                 .on_hover_text("Try the next deterministic seed")
                 .clicked()
             {
-                *seed = number.wrapping_add(1).into();
+                *seed = Seed::from_u64(number).wrapping_offset(1).to_u64().into();
                 changed = true;
             }
         });

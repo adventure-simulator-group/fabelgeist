@@ -6,7 +6,9 @@ use bevy::math::{Quat, Vec2};
 fn stall_stock_is_supported_inside_counter_and_broad_display_has_more_goods() {
     let mut grain_spans = Vec::new();
     for variant in FurnitureVariant::ALL {
-        let recipe = FurnitureKey::natural(FurnitureKind::CanvasStall, variant).recipe();
+        let recipe = FurnitureKey::natural(FurnitureKind::CanvasStall, variant)
+            .recipe()
+            .unwrap();
         let counter_half_width = match variant {
             FurnitureVariant::Compact => 1.1,
             FurnitureVariant::Broad => 1.55,
@@ -15,8 +17,8 @@ fn stall_stock_is_supported_inside_counter_and_broad_display_has_more_goods() {
             .colliders
             .iter()
             .filter(|collider| {
-                let min_y = collider.centre.y - collider.size.y * 0.5;
-                let max_y = collider.centre.y + collider.size.y * 0.5;
+                let min_y = collider.centre.metres().y - collider.size.metres().y * 0.5;
+                let max_y = collider.centre.metres().y + collider.size.metres().y * 0.5;
                 min_y >= 0.849 && max_y < 1.5
             })
             .collect::<Vec<_>>();
@@ -54,30 +56,37 @@ fn stall_stock_is_supported_inside_counter_and_broad_display_has_more_goods() {
     assert!(grain_spans[1] > grain_spans[0] + 0.8);
 }
 
-fn rotation(cuboid: &CollisionCuboid) -> Quat {
-    Quat::from_rotation_y(cuboid.yaw_radians)
-        * Quat::from_rotation_x(cuboid.crossfall_radians)
-        * Quat::from_rotation_z(cuboid.longfall_radians)
+fn rotation(cuboid: &CollisionCuboid<crate::furniture::FurnitureLocal>) -> Quat {
+    Quat::from_rotation_y(cuboid.yaw_radians.radians())
+        * Quat::from_rotation_x(cuboid.crossfall_radians.radians())
+        * Quat::from_rotation_z(cuboid.longfall_radians.radians())
 }
 
-fn corners(cuboid: &CollisionCuboid) -> [Vec3; 8] {
+fn corners(cuboid: &CollisionCuboid<crate::furniture::FurnitureLocal>) -> [Vec3; 8] {
     std::array::from_fn(|index| {
         let sign = Vec3::new(
             if index & 1 == 0 { -1.0 } else { 1.0 },
             if index & 2 == 0 { -1.0 } else { 1.0 },
             if index & 4 == 0 { -1.0 } else { 1.0 },
         );
-        cuboid.centre + rotation(cuboid) * (cuboid.size * 0.5 * sign)
+        cuboid.centre.metres() + rotation(cuboid) * (cuboid.size.metres() * 0.5 * sign)
     })
 }
 
-fn contains(cuboid: &CollisionCuboid, point: Vec3, tolerance: f32) -> bool {
-    let local = rotation(cuboid).inverse() * (point - cuboid.centre);
-    (cuboid.size * 0.5 + Vec3::splat(tolerance) - local.abs()).min_element() >= 0.0
+fn contains(
+    cuboid: &CollisionCuboid<crate::furniture::FurnitureLocal>,
+    point: Vec3,
+    tolerance: f32,
+) -> bool {
+    let local = rotation(cuboid).inverse() * (point - cuboid.centre.metres());
+    (cuboid.size.metres() * 0.5 + Vec3::splat(tolerance) - local.abs()).min_element() >= 0.0
 }
 
 /// Independent corner-projection oracle checks the pitched canopy members as oriented boxes.
-fn touches(a: &CollisionCuboid, b: &CollisionCuboid) -> bool {
+fn touches(
+    a: &CollisionCuboid<crate::furniture::FurnitureLocal>,
+    b: &CollisionCuboid<crate::furniture::FurnitureLocal>,
+) -> bool {
     let axes_a = [Vec3::X, Vec3::Y, Vec3::Z].map(|axis| rotation(a) * axis);
     let axes_b = [Vec3::X, Vec3::Y, Vec3::Z].map(|axis| rotation(b) * axis);
     let points_a = corners(a);
@@ -133,42 +142,44 @@ fn all_members_grounded(recipe: &FurnitureRecipe) -> bool {
 #[test]
 fn cached_furniture_has_finite_ground_centred_footprints_and_real_support_contacts() {
     for key in FurnitureKey::ALL {
-        let recipe = key.recipe();
-        assert!(std::ptr::eq(recipe, key.recipe()));
-        assert!(recipe.bounds.min.is_finite() && recipe.bounds.max.is_finite());
-        assert!(recipe.bounds.min.y.abs() < 0.001);
+        let recipe = key.recipe().unwrap();
+        assert!(std::ptr::eq(recipe, key.recipe().unwrap()));
         assert!(
-            (recipe.bounds.min.x + recipe.bounds.max.x).abs() < 0.001
-                && (recipe.bounds.min.z + recipe.bounds.max.z).abs() < 0.001
+            recipe.bounds.min().metres().is_finite() && recipe.bounds.max().metres().is_finite()
+        );
+        assert!(recipe.bounds.min().metres().y.abs() < 0.001);
+        assert!(
+            (recipe.bounds.min().metres().x + recipe.bounds.max().metres().x).abs() < 0.001
+                && (recipe.bounds.min().metres().z + recipe.bounds.max().metres().z).abs() < 0.001
         );
         assert!(recipe.support_points_metres.len() >= 4);
         for point in &recipe.support_points_metres {
-            assert!(point.y.abs() < 0.001);
+            assert!(point.metres().y.abs() < 0.001);
             assert!(
                 recipe
                     .meshes
                     .iter()
                     .flat_map(|mesh| &mesh.vertices)
-                    .any(|vertex| vertex.position.distance(*point) < 0.001)
+                    .any(|vertex| vertex.position.distance(point.metres()) < 0.001)
             );
             assert!(
                 recipe
                     .colliders
                     .iter()
-                    .any(|collider| contains(collider, *point, 0.002)),
+                    .any(|collider| contains(collider, point.metres(), 0.002)),
                 "{key:?} unsupported ground sample {point:?}"
             );
         }
         let support_min = recipe
             .support_points_metres
             .iter()
-            .copied()
+            .map(|point| point.metres())
             .reduce(Vec3::min)
             .unwrap();
         let support_max = recipe
             .support_points_metres
             .iter()
-            .copied()
+            .map(|point| point.metres())
             .reduce(Vec3::max)
             .unwrap();
         assert!(
@@ -179,11 +190,11 @@ fn cached_furniture_has_finite_ground_centred_footprints_and_real_support_contac
             "{key:?} lacks a stable spread of ground contacts"
         );
         for collider in &recipe.colliders {
-            assert!(collider.size.min_element() > 0.0);
+            assert!(collider.size.metres().min_element() > 0.0);
             for point in corners(collider) {
                 assert!(
-                    (point - recipe.bounds.min).min_element() >= -0.025
-                        && (recipe.bounds.max - point).min_element() >= -0.025,
+                    (point - recipe.bounds.min().metres()).min_element() >= -0.025
+                        && (recipe.bounds.max().metres() - point).min_element() >= -0.025,
                     "{key:?} collider outside visible bounds"
                 );
             }
@@ -229,19 +240,20 @@ fn cached_furniture_has_finite_ground_centred_footprints_and_real_support_contac
 #[test]
 fn authored_access_and_working_clearances_are_not_blocked_by_their_own_furniture() {
     for key in FurnitureKey::ALL {
-        let recipe = key.recipe();
+        let recipe = key.recipe().unwrap();
         assert!(!recipe.clearances.is_empty());
         for clearance in &recipe.clearances {
             let bounds = clearance.bounds;
-            assert!((bounds.max - bounds.min).min_element() > 0.0);
-            let corridor = CollisionCuboid {
-                source: crate::ResolvedItemId(0),
-                centre: (bounds.min + bounds.max) * 0.5,
-                size: bounds.max - bounds.min - Vec3::splat(0.04),
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-            };
+            assert!((bounds.max().metres() - bounds.min().metres()).min_element() > 0.0);
+            let corridor = CollisionCuboid::<crate::furniture::FurnitureLocal>::from_metres(
+                crate::ResolvedItemId(0),
+                (bounds.min().metres() + bounds.max().metres()) * 0.5,
+                bounds.max().metres() - bounds.min().metres() - Vec3::splat(0.04),
+                0.0,
+                0.0,
+                0.0,
+            )
+            .unwrap();
             assert!(
                 recipe
                     .colliders
@@ -257,7 +269,9 @@ fn authored_access_and_working_clearances_are_not_blocked_by_their_own_furniture
 #[test]
 fn trough_water_and_sagging_canvas_are_visible_without_solid_fill_collision() {
     for variant in FurnitureVariant::ALL {
-        let trough = FurnitureKey::natural(FurnitureKind::HitchingTrough, variant).recipe();
+        let trough = FurnitureKey::natural(FurnitureKind::HitchingTrough, variant)
+            .recipe()
+            .unwrap();
         let water = trough
             .meshes
             .iter()
@@ -290,7 +304,9 @@ fn trough_water_and_sagging_canvas_are_visible_without_solid_fill_collision() {
             )),
             "water has no physical basin bottom"
         );
-        let stall = FurnitureKey::natural(FurnitureKind::CanvasStall, variant).recipe();
+        let stall = FurnitureKey::natural(FurnitureKind::CanvasStall, variant)
+            .recipe()
+            .unwrap();
         let canvas = stall
             .meshes
             .iter()
@@ -328,12 +344,17 @@ fn trough_water_and_sagging_canvas_are_visible_without_solid_fill_collision() {
 fn stability_check_rejects_detached_frames_and_barrels_have_a_bilged_coopered_outline() {
     let mut detached = FurnitureKey::natural(FurnitureKind::CanvasStall, FurnitureVariant::Compact)
         .recipe()
+        .unwrap()
         .clone();
     let mut floating = detached.members[0];
-    floating.centre.y += 5.0;
+    floating.centre =
+        crate::spatial_geometry::Position::from_metres(floating.centre.metres() + Vec3::Y * 5.0)
+            .unwrap();
     detached.members.push(floating);
     assert!(!all_members_grounded(&detached));
-    let barrel = FurnitureKey::natural(FurnitureKind::Barrel, FurnitureVariant::Compact).recipe();
+    let barrel = FurnitureKey::natural(FurnitureKind::Barrel, FurnitureVariant::Compact)
+        .recipe()
+        .unwrap();
     let timber = barrel
         .meshes
         .iter()

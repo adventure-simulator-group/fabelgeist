@@ -33,7 +33,7 @@ pub struct QuestGenerationAuthority {
     pub settlement_id: String,
     pub settlement_name: String,
     #[index(btree)]
-    pub seed: u64,
+    pub seed: Seed,
     pub catalog_revision: String,
     pub context_snapshot_json: String,
     pub context_commitment: String,
@@ -491,7 +491,7 @@ pub struct ActivityIncidentEntropy {
     pub id: String,
     #[index(btree)]
     pub character_id: u64,
-    pub seed: u64,
+    pub seed: Seed,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
@@ -677,7 +677,7 @@ pub struct PartyJourney {
 pub struct PartyJourneyEncounterAuthority {
     #[primary_key]
     pub party_id: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub next_roll: u64,
     pub narrative_rest_elapsed_minutes: u64,
 }
@@ -1121,7 +1121,7 @@ pub struct AutoresolveReport {
     pub battle_id: String,
     #[index(btree)]
     pub party_id: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub victor: String,
     pub rounds: u32,
     pub summary: String,

@@ -14,7 +14,7 @@ pub struct GeneratedBuildingRecipe {
 impl GeneratedBuildingRecipe {
     pub fn generate(program: BuildingProgram) -> Result<Self, GenerationError> {
         let plan = generate(&program)?;
-        let collision = compile_building_collision(&plan);
+        let collision = compile_building_collision(&plan)?;
         Ok(Self {
             program,
             plan,
@@ -28,9 +28,14 @@ impl GeneratedBuildingRecipe {
 #[derive(Clone, Debug, Default)]
 pub struct GeneratedBuildingRecipes {
     recipes: Vec<GeneratedBuildingRecipe>,
-    pub sites: Vec<(BuildingProgram, super::furniture::FurnitureSiteRecipe)>,
+    pub sites: Vec<ProgramFurnitureSite>,
 }
 
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
+pub struct ProgramFurnitureSite {
+    pub program: BuildingProgram,
+    pub recipe: super::furniture::FurnitureSiteRecipe,
+}
 impl GeneratedBuildingRecipes {
     pub fn insert(&mut self, recipe: GeneratedBuildingRecipe) {
         self.recipes
@@ -81,7 +86,10 @@ mod tests {
 
     #[test]
     fn reuse_preserves_geometry_and_distinguishes_complete_programs() {
-        let program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 42);
+        let program = BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let mut recipes = GeneratedBuildingRecipes::default();
         let plan = &recipes.get_or_generate(&program).unwrap().plan as *const BuildingPlan;
         assert_eq!(
@@ -89,7 +97,7 @@ mod tests {
             &recipes.get_or_generate(&program).unwrap().plan as *const _
         );
         let mut changed = program.clone();
-        changed.seed = 47;
+        changed.seed = fabelgeist_determinism::Seed::from_u64(47);
         recipes.get_or_generate(&changed).unwrap();
         let moved = recipes.take(&program).unwrap();
         assert!(recipes.take(&program).is_none());

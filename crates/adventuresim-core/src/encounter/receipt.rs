@@ -1,10 +1,11 @@
 //! Opaque strategic encounter identities and retry receipt validation.
 use super::*;
+use fabelgeist_determinism::Seed;
 
 /// Observer-safe, deterministic identity for a strategic encounter. The two
 /// independently domain-separated words retain no readable journey shape and
 /// provide 128 bits for durable action-receipt identity.
-pub fn opaque_strategic_encounter_id(seed: u64, roll_index: u64) -> String {
+pub fn opaque_strategic_encounter_id(seed: Seed, roll_index: u64) -> String {
     let high = StreamId::new("encounter.identity-high")
         .rng(seed, &[roll_index])
         .next_u64();

@@ -15,18 +15,28 @@ fn distant_furniture_reserves_the_occupied_footprint_and_unscaled_doors() {
         let program = distant.occupied_program();
         let generated = recipes.get_or_generate(&program).unwrap();
         let bounds = generated.collision.bounds;
-        assert_eq!(site.half_extents, bounds.plan_half_extents());
+        assert_eq!(
+            site.half_extents.metres(),
+            bounds.plan_half_extents().unwrap().metres()
+        );
         assert_eq!(site.placement.program.usage, distant.usage);
-        let origin = Vec2::new(bounds.centre().x, bounds.centre().z);
+        let origin = Vec2::new(
+            bounds.centre().unwrap().metres().x,
+            bounds.centre().unwrap().metres().z,
+        );
         for door in generated.plan.opening_assemblies.iter().filter(|opening| {
             opening.use_kind == OpeningUse::Door && opening.frame.outside_room.is_none()
         }) {
-            let approach = distant.centre_metres
+            let approach = distant.centre_metres.metres()
                 + distant.orientation.local_to_world(
                     door.frame.origin - origin
                         + door.frame.outward * reservations::DOOR_APPROACH_METRES * 0.5,
                 );
-            assert!(site.routes.iter().any(|route| route.contains(approach)));
+            assert!(
+                site.routes.iter().any(|route| route.contains(
+                    crate::scene_coordinates::ScenePlanPoint::try_from(approach).unwrap()
+                ))
+            );
         }
         if !programs.contains(&program) {
             programs.push(program);
@@ -61,12 +71,15 @@ fn carpenter_passage_reserves_the_reported_exterior_approach() {
         serde_json::from_value(fixture["placement"].clone()).unwrap();
     let recipe =
         crate::scene_input::GeneratedBuildingRecipe::generate(placement.program.clone()).unwrap();
-    let site =
-        FurnitureSiteRecipe::new(&recipe.plan, recipe.collision.bounds).place(placement.clone());
+    let site = FurnitureSiteRecipe::new(&recipe.plan, recipe.collision.bounds)
+        .unwrap()
+        .place(placement.clone())
+        .unwrap();
     let contact: Vec2 = serde_json::from_value(fixture["blocked_contact_metres"].clone()).unwrap();
-    assert_eq!(placement.id, 9);
+    assert_eq!(placement.id, (9).into());
     assert!(
-        !site.routes.iter().any(|route| route.contains(contact)),
+        !site.routes.iter().any(|route| route
+            .contains(crate::scene_coordinates::ScenePlanPoint::try_from(contact).unwrap())),
         "fixture must retain the missing recipe-only exterior reservation"
     );
     let surface: crate::city_layout::grounding::PropertySupportSurface =
@@ -77,24 +90,30 @@ fn carpenter_passage_reserves_the_reported_exterior_approach() {
         .doorway_approaches()
         .iter()
         .copied()
-        .map(FurnitureFootprint::accepted_approach)
+        .map(|region| FurnitureFootprint::accepted_approach(region).unwrap())
         .collect();
-    assert!(routes.iter().any(|route| route.contains(contact)));
-    for entrance in adventuresim_building_generator::compile_ground_entrances(&recipe.plan) {
-        let start = placement.centre_metres
+    assert!(routes.iter().any(|route| {
+        route.contains(crate::scene_coordinates::ScenePlanPoint::try_from(contact).unwrap())
+    }));
+    for entrance in adventuresim_building_generator::compile_ground_entrances(&recipe.plan).unwrap()
+    {
+        let start = placement.centre_metres.metres()
+            + placement.orientation.local_to_world(
+                entrance.threshold_metres.metres()
+                    - recipe.collision.bounds.centre().unwrap().metres().xz(),
+            );
+        let outside = start
             + placement
                 .orientation
-                .local_to_world(entrance.threshold_metres - recipe.collision.bounds.centre().xz());
-        let outside = start
-            + placement.orientation.local_to_world(entrance.outward)
+                .local_to_world(entrance.outward.vector())
                 * reservations::DOOR_APPROACH_METRES
                 * 0.5;
-        assert!(routes.iter().any(|route| route.contains(outside)));
+        assert!(routes.iter().any(|route| {
+            route.contains(crate::scene_coordinates::ScenePlanPoint::try_from(outside).unwrap())
+        }));
     }
-    assert!(
-        !routes
-            .iter()
-            .any(|route| route.contains(Vec2::splat(10000.0)))
-    );
+    assert!(!routes.iter().any(|route| route.contains(
+        crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::splat(10000.0)).unwrap()
+    )));
     assert_eq!(site.placement, placement);
 }

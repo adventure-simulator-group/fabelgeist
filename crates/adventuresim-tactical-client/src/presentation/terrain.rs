@@ -6,6 +6,7 @@ use adventuresim_procedural_textures::{
 };
 #[cfg(test)]
 use adventuresim_tactical_core::terrain_streams as streams;
+use fabelgeist_determinism::Seed;
 pub(super) use ground_map::grass_cover_mask_pixels;
 use ground_map::ground_map_image;
 #[cfg(test)]
@@ -392,7 +393,7 @@ struct TerrainShapeSample {
 )]
 #[cfg(test)]
 fn terrain_surface_relief(
-    seed: u64,
+    seed: Seed,
     point: Vec2,
     terrain: &SceneTerrain,
     ground: Option<&SceneGround>,
@@ -409,8 +410,8 @@ fn terrain_surface_relief(
         return road_surface_relief(seed, point, ground.expect("road came from SceneGround"));
     }
 
-    let broad = signed_ground_noise(streams::BROAD.seed(seed, &[]).to_u64(), point / 3.2) * 0.024;
-    let fine = signed_ground_noise(streams::FINE.seed(seed, &[]).to_u64(), point / 0.92) * 0.009;
+    let broad = signed_ground_noise(streams::BROAD.seed(seed, &[]), point / 3.2) * 0.024;
+    let fine = signed_ground_noise(streams::FINE.seed(seed, &[]), point / 0.92) * 0.009;
     let clod_strength = match surface.map(|surface| surface.substrate) {
         Some(GroundSubstrate::Stone) => 0.0,
         Some(GroundSubstrate::Gravel) => 0.25,
@@ -459,13 +460,13 @@ fn terrain_surface_relief(
 }
 
 #[cfg(test)]
-fn signed_ground_noise(seed: u64, point: Vec2) -> f32 {
+fn signed_ground_noise(seed: Seed, point: Vec2) -> f32 {
     ground_mask_noise(seed, point) * 2.0 - 1.0
 }
 
 #[cfg(test)]
-fn terrain_clod_relief(seed: u64, point: Vec2) -> f32 {
-    let field = ground_mask_noise(streams::CLOD.seed(seed, &[]).to_u64(), point / 0.58);
+fn terrain_clod_relief(seed: Seed, point: Vec2) -> f32 {
+    let field = ground_mask_noise(streams::CLOD.seed(seed, &[]), point / 0.58);
     terrain_smoothstep(0.69, 0.91, field) * 0.022 - 0.003
 }
 
@@ -502,7 +503,7 @@ fn terrain_shape_sample(
 
 #[cfg(test)]
 fn drainage_relief(
-    seed: u64,
+    seed: Seed,
     point: Vec2,
     shape: TerrainShapeSample,
     environment: &SceneEnvironment,
@@ -512,9 +513,9 @@ fn drainage_relief(
         return 0.0;
     }
     let normal = Vec2::new(-shape.downhill.y, shape.downhill.x);
-    let warp = signed_ground_noise(streams::RILL_WARP.seed(seed, &[]).to_u64(), point / 5.5) * 0.85;
+    let warp = signed_ground_noise(streams::RILL_WARP.seed(seed, &[]), point / 5.5) * 0.85;
     let spacing =
-        2.6 + ground_mask_noise(streams::RILL_SPACING.seed(seed, &[]).to_u64(), point / 11.0) * 1.4;
+        2.6 + ground_mask_noise(streams::RILL_SPACING.seed(seed, &[]), point / 11.0) * 1.4;
     let across = point.dot(normal) + warp;
     let distance = periodic_distance(across, spacing);
     let channel = 1.0 - terrain_smoothstep(0.08, 0.34, distance);
@@ -525,10 +526,9 @@ fn drainage_relief(
 }
 
 #[cfg(test)]
-fn soil_creep_relief(seed: u64, point: Vec2, shape: TerrainShapeSample) -> f32 {
+fn soil_creep_relief(seed: Seed, point: Vec2, shape: TerrainShapeSample) -> f32 {
     let slope_weight = terrain_smoothstep(0.035, 0.22, shape.slope);
-    let warp =
-        signed_ground_noise(streams::CREEP_WARP.seed(seed, &[]).to_u64(), point / 7.0) * 0.55;
+    let warp = signed_ground_noise(streams::CREEP_WARP.seed(seed, &[]), point / 7.0) * 0.55;
     let downhill_coordinate = point.dot(shape.downhill) + warp;
     let distance = periodic_distance(downhill_coordinate, 3.1);
     let ridge = 1.0 - terrain_smoothstep(0.12, 0.52, distance);
@@ -540,7 +540,7 @@ fn soil_creep_relief(seed: u64, point: Vec2, shape: TerrainShapeSample) -> f32 {
 /// adds readable form rather than sub-pixel noise.
 #[cfg(test)]
 fn rocky_substrate_relief(
-    seed: u64,
+    seed: Seed,
     point: Vec2,
     shape: Option<TerrainShapeSample>,
     strength: f32,
@@ -556,8 +556,7 @@ fn rocky_substrate_relief(
     let slope_weight = shape
         .map(|shape| terrain_smoothstep(0.018, 0.18, shape.slope))
         .unwrap_or(0.35);
-    let warp =
-        signed_ground_noise(streams::STRATA_WARP.seed(seed, &[]).to_u64(), point / 6.5) * 0.72;
+    let warp = signed_ground_noise(streams::STRATA_WARP.seed(seed, &[]), point / 6.5) * 0.72;
     let contour = point.dot(downhill) + warp;
     let ledge_distance = periodic_distance(contour, 2.15);
     let shelf =
@@ -565,13 +564,13 @@ fn rocky_substrate_relief(
 
     let fracture_a = periodic_distance(
         point.dot(across)
-            + signed_ground_noise(streams::FRACTURE_A.seed(seed, &[]).to_u64(), point / 4.8) * 0.4,
+            + signed_ground_noise(streams::FRACTURE_A.seed(seed, &[]), point / 4.8) * 0.4,
         3.7,
     );
     let diagonal = (across * 0.72 + downhill * 0.69).normalize_or_zero();
     let fracture_b = periodic_distance(
         point.dot(diagonal)
-            + signed_ground_noise(streams::FRACTURE_B.seed(seed, &[]).to_u64(), point / 5.6) * 0.34,
+            + signed_ground_noise(streams::FRACTURE_B.seed(seed, &[]), point / 5.6) * 0.34,
         5.3,
     );
     let crack = (1.0 - terrain_smoothstep(0.035, 0.17, fracture_a))
@@ -584,7 +583,7 @@ fn rocky_substrate_relief(
 /// and downhill debris tail visually seat each generated rock in the landform.
 #[cfg(test)]
 fn boulder_ground_relief(
-    seed: u64,
+    seed: Seed,
     point: Vec2,
     shape: Option<TerrainShapeSample>,
     rocks: &[DetailRockInfluence],
@@ -597,15 +596,13 @@ fn boulder_ground_relief(
         if distance > radius * 5.0 {
             continue;
         }
-        let rock_seed = streams::ROCK_INFLUENCE
-            .seed(
-                seed,
-                &[
-                    u64::from(rock.centre.x.to_bits()),
-                    u64::from(rock.centre.y.to_bits()),
-                ],
-            )
-            .to_u64();
+        let rock_seed = streams::ROCK_INFLUENCE.seed(
+            seed,
+            &[
+                u64::from(rock.centre.x.to_bits()),
+                u64::from(rock.centre.y.to_bits()),
+            ],
+        );
         let fallback_angle = streams::ROCK_DOWNHILL
             .rng(rock_seed, &[])
             .inclusive_unit_f32()
@@ -630,7 +627,7 @@ fn boulder_ground_relief(
         let lateral = 1.0 - terrain_smoothstep(tail_width * 0.42, tail_width, across);
         let granular = 0.72
             + ground_mask_noise(
-                streams::ROCK_DEBRIS.seed(rock_seed, &[]).to_u64(),
+                streams::ROCK_DEBRIS.seed(rock_seed, &[]),
                 Vec2::new(downstream / 1.7, across / 0.8),
             ) * 0.28;
         let debris_tail = longitudinal * lateral * granular * 0.034;
@@ -647,7 +644,7 @@ fn periodic_distance(value: f32, period: f32) -> f32 {
 }
 
 #[cfg(test)]
-fn tree_root_relief(seed: u64, point: Vec2, tree_positions: &[Vec2]) -> f32 {
+fn tree_root_relief(seed: Seed, point: Vec2, tree_positions: &[Vec2]) -> f32 {
     let mut relief = 0.0;
     for &tree in tree_positions {
         let offset = point - tree;
@@ -655,12 +652,10 @@ fn tree_root_relief(seed: u64, point: Vec2, tree_positions: &[Vec2]) -> f32 {
         if radius > 8.0 {
             continue;
         }
-        let tree_seed = streams::TREE_ROOTS
-            .seed(
-                seed,
-                &[u64::from(tree.x.to_bits()), u64::from(tree.y.to_bits())],
-            )
-            .to_u64();
+        let tree_seed = streams::TREE_ROOTS.seed(
+            seed,
+            &[u64::from(tree.x.to_bits()), u64::from(tree.y.to_bits())],
+        );
         let mound = (-(radius / 1.35).powi(2)).exp() * 0.045;
         let basin = terrain_smoothstep(0.9, 1.8, radius)
             * (1.0 - terrain_smoothstep(5.2, 7.7, radius))
@@ -694,7 +689,7 @@ fn wrapped_angle_difference(left: f32, right: f32) -> f32 {
 }
 
 #[cfg(test)]
-fn road_surface_relief(seed: u64, point: Vec2, ground: &SceneGround) -> f32 {
+fn road_surface_relief(seed: Seed, point: Vec2, ground: &SceneGround) -> f32 {
     let is_road = |sample: Vec2| {
         ground
             .ground_at(sample)
@@ -735,7 +730,7 @@ fn road_surface_relief(seed: u64, point: Vec2, ground: &SceneGround) -> f32 {
     let crown = (1.0 - (across / half_width).powi(2)).max(0.0) * 0.026;
     let travelled = point.dot(tangent);
     let irregularity = signed_ground_noise(
-        streams::ROAD_RUT.seed(seed, &[]).to_u64(),
+        streams::ROAD_RUT.seed(seed, &[]),
         Vec2::new(travelled / 2.4, across / 1.1),
     ) * 0.004;
     (crown - ruts * 0.038 + irregularity).clamp(-0.048, 0.032)
@@ -1126,7 +1121,8 @@ mod tests {
 
     #[test]
     fn camera_local_detail_patch_samples_canonical_surface_and_morphs_to_coarse_lod() {
-        let coarse = SceneTerrain::new(64, 64, 1.0, |point| point.x * 0.01 + point.y * 0.02);
+        let coarse =
+            SceneTerrain::new(64, 64, 1.0, |point| point.x * 0.01 + point.y * 0.02).unwrap();
         let terrain = coarse
             .refined(0.5, |point, base| {
                 base + (point.x * core::f32::consts::PI).sin()
@@ -1231,18 +1227,42 @@ mod tests {
 
     #[test]
     fn camera_local_detail_patch_respects_a_volumetric_transition_cutout() {
-        let terrain = SceneTerrain::new(64, 64, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(64, 64, 1.0, |_| 0.0).unwrap();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("detail-cutout");
         let vista = ActiveVistaSurface::default();
         let collar = TerrainTransitionCollar::irregular_ellipse(
-            Vec2::ZERO,
-            Vec2::X,
-            3.0,
-            3.0,
-            1.0,
-            0,
-            0.0,
-            0,
+            adventuresim_tactical_core::prelude::TerrainCollarParameters {
+                origin: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                    Vec2::ZERO,
+                )
+                .unwrap(),
+                tangent:
+                    adventuresim_building_generator::spatial_geometry::PlanDirection::from_vector(
+                        Vec2::X,
+                    )
+                    .unwrap(),
+                half_length:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        3.0,
+                    )
+                    .unwrap(),
+                half_width:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        3.0,
+                    )
+                    .unwrap(),
+                width:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        1.0,
+                    )
+                    .unwrap(),
+                seed: 0.into(),
+                wander: adventuresim_tactical_core::prelude::RuptureWander::from_metres(0.0)
+                    .unwrap(),
+                width_variation:
+                    adventuresim_tactical_core::prelude::CollarWidthVariation::from_basis_points(0)
+                        .unwrap(),
+            },
         )
         .unwrap();
         let mesh =
@@ -1265,13 +1285,16 @@ mod tests {
                 })
                 .sum::<Vec2>()
                 / 3.0;
-            assert!(!collar.cuts_out(centre));
+            assert!(
+                !adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(centre)
+                    .is_ok_and(|point| collar.cuts_out(point))
+            );
         }
     }
 
     #[test]
     fn detail_relief_preserves_water_flatness_and_builds_a_crowned_rutted_road() {
-        let terrain = SceneTerrain::new(16, 16, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(16, 16, 1.0, |_| 0.0).unwrap();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("surface-processes");
         let vista = ActiveVistaSurface::default();
         let water = SceneGround::uniform_for_terrain(
@@ -1283,7 +1306,7 @@ mod tests {
         );
         assert_eq!(
             terrain_surface_relief(
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 Vec2::ZERO,
                 &terrain,
                 Some(&water),
@@ -1312,12 +1335,28 @@ mod tests {
             })
             .collect();
         let road = SceneGround::from_samples(width, width, scale, samples).unwrap();
-        let crown = road_surface_relief(42, Vec2::ZERO, &road);
+        let crown = road_surface_relief(
+            fabelgeist_determinism::Seed::from_u64(42),
+            Vec2::ZERO,
+            &road,
+        );
         let left_rut = (1..=12)
-            .map(|step| road_surface_relief(42, Vec2::new(0.0, -(step as f32) * 0.1), &road))
+            .map(|step| {
+                road_surface_relief(
+                    fabelgeist_determinism::Seed::from_u64(42),
+                    Vec2::new(0.0, -(step as f32) * 0.1),
+                    &road,
+                )
+            })
             .fold(f32::INFINITY, f32::min);
         let right_rut = (1..=12)
-            .map(|step| road_surface_relief(42, Vec2::new(0.0, step as f32 * 0.1), &road))
+            .map(|step| {
+                road_surface_relief(
+                    fabelgeist_determinism::Seed::from_u64(42),
+                    Vec2::new(0.0, step as f32 * 0.1),
+                    &road,
+                )
+            })
             .fold(f32::INFINITY, f32::min);
         assert!(crown > 0.015, "road needs a readable crown: {crown}");
         assert!(left_rut < -0.005, "left wheel rut missing: {left_rut}");
@@ -1333,7 +1372,12 @@ mod tests {
         };
         let strata = (-32..=32)
             .map(|step| {
-                rocky_substrate_relief(91, Vec2::new(step as f32 * 0.125, 0.37), Some(shape), 1.0)
+                rocky_substrate_relief(
+                    fabelgeist_determinism::Seed::from_u64(91),
+                    Vec2::new(step as f32 * 0.125, 0.37),
+                    Some(shape),
+                    1.0,
+                )
             })
             .collect::<Vec<_>>();
         let strata_range = strata.iter().copied().fold(f32::NEG_INFINITY, f32::max)
@@ -1347,10 +1391,30 @@ mod tests {
             centre: Vec2::ZERO,
             radius: 1.5,
         };
-        let socket = boulder_ground_relief(91, Vec2::ZERO, Some(shape), &[rock]);
-        let contact_apron = boulder_ground_relief(91, Vec2::new(1.5, 0.0), Some(shape), &[rock]);
-        let downstream = boulder_ground_relief(91, Vec2::new(2.2, 0.0), Some(shape), &[rock]);
-        let upstream = boulder_ground_relief(91, Vec2::new(-2.2, 0.0), Some(shape), &[rock]);
+        let socket = boulder_ground_relief(
+            fabelgeist_determinism::Seed::from_u64(91),
+            Vec2::ZERO,
+            Some(shape),
+            &[rock],
+        );
+        let contact_apron = boulder_ground_relief(
+            fabelgeist_determinism::Seed::from_u64(91),
+            Vec2::new(1.5, 0.0),
+            Some(shape),
+            &[rock],
+        );
+        let downstream = boulder_ground_relief(
+            fabelgeist_determinism::Seed::from_u64(91),
+            Vec2::new(2.2, 0.0),
+            Some(shape),
+            &[rock],
+        );
+        let upstream = boulder_ground_relief(
+            fabelgeist_determinism::Seed::from_u64(91),
+            Vec2::new(-2.2, 0.0),
+            Some(shape),
+            &[rock],
+        );
         assert!(socket < -0.035, "boulder socket missing: {socket}");
         assert!(
             contact_apron > 0.015,
@@ -1372,12 +1436,22 @@ mod tests {
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("directional-relief");
         let along_flow = (0..20)
             .map(|step| {
-                drainage_relief(71, Vec2::new(step as f32 * 0.25, 0.0), shape, &environment)
+                drainage_relief(
+                    fabelgeist_determinism::Seed::from_u64(71),
+                    Vec2::new(step as f32 * 0.25, 0.0),
+                    shape,
+                    &environment,
+                )
             })
             .collect::<Vec<_>>();
         let across_flow = (0..20)
             .map(|step| {
-                drainage_relief(71, Vec2::new(0.0, step as f32 * 0.25), shape, &environment)
+                drainage_relief(
+                    fabelgeist_determinism::Seed::from_u64(71),
+                    Vec2::new(0.0, step as f32 * 0.25),
+                    shape,
+                    &environment,
+                )
             })
             .collect::<Vec<_>>();
         let range = |samples: &[f32]| {
@@ -1389,21 +1463,34 @@ mod tests {
             "rills should vary more across flow than along it"
         );
         assert!(across_flow.iter().any(|relief| *relief < -0.012));
-        assert!(soil_creep_relief(71, Vec2::new(0.0, 0.0), shape) >= 0.0);
+        assert!(
+            soil_creep_relief(
+                fabelgeist_determinism::Seed::from_u64(71),
+                Vec2::new(0.0, 0.0),
+                shape
+            ) >= 0.0
+        );
 
         let tree = Vec2::new(2.0, -1.0);
         let radial_samples = (0..360)
             .map(|degree| {
                 let angle = degree as f32 * core::f32::consts::PI / 180.0;
                 tree_root_relief(
-                    71,
+                    fabelgeist_determinism::Seed::from_u64(71),
                     tree + Vec2::new(angle.cos(), angle.sin()) * 2.4,
                     &[tree],
                 )
             })
             .collect::<Vec<_>>();
         assert!(radial_samples.iter().copied().fold(0.0, f32::max) > 0.045);
-        assert_eq!(tree_root_relief(71, tree + Vec2::splat(8.0), &[tree]), 0.0);
+        assert_eq!(
+            tree_root_relief(
+                fabelgeist_determinism::Seed::from_u64(71),
+                tree + Vec2::splat(8.0),
+                &[tree]
+            ),
+            0.0
+        );
     }
 
     #[test]
@@ -1420,9 +1507,10 @@ mod tests {
             }
         }
         let ground = SceneGround::from_samples(7, 7, 2.0, samples).expect("valid ground");
-        let (width, depth, pixels) = organic_ground_pixels(&ground, 42);
-        let repeated = organic_ground_pixels(&ground, 42);
-        let changed = organic_ground_pixels(&ground, 43);
+        let (width, depth, pixels) =
+            organic_ground_pixels(&ground, fabelgeist_determinism::Seed::from_u64(42));
+        let repeated = organic_ground_pixels(&ground, fabelgeist_determinism::Seed::from_u64(42));
+        let changed = organic_ground_pixels(&ground, fabelgeist_determinism::Seed::from_u64(43));
         assert_eq!((width, depth), (37, 37));
         assert_eq!((width, depth, pixels.clone()), repeated);
         assert_ne!(pixels, changed.2);
@@ -1492,8 +1580,10 @@ mod tests {
             }
         }
         let ground = SceneGround::from_samples(17, 17, 2.0, samples).unwrap();
-        let (_, _, values) = grass_cover_mask_pixels(&ground, 91);
-        let (_, _, repeated) = grass_cover_mask_pixels(&ground, 91);
+        let (_, _, values) =
+            grass_cover_mask_pixels(&ground, fabelgeist_determinism::Seed::from_u64(91));
+        let (_, _, repeated) =
+            grass_cover_mask_pixels(&ground, fabelgeist_determinism::Seed::from_u64(91));
         assert_eq!(values, repeated);
         let values = values.as_slice();
         assert!(values.contains(&0), "non-grass must reject every blade");

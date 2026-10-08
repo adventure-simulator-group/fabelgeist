@@ -73,9 +73,9 @@ pub(super) fn aisle_head_braces(
     b: Vec2,
     height: f32,
     section: Vec2,
-) -> [crate::TimberMemberId; 2] {
+) -> Result<[crate::TimberMemberId; 2], crate::GenerationError> {
     let reach = KNEE_BRACE_REACH_METRES.min(a.distance(b) * KNEE_BRACE_MAXIMUM_BAY_SHARE);
-    [(a, b), (b, a)].map(|(post, opposite)| {
+    let [first, second] = [(a, b), (b, a)].map(|(post, opposite)| {
         let direction = (opposite - post).normalize_or_zero();
         let brace_section = section * KNEE_BRACE_SECTION_SCALE;
         let reach = clear_plate_reach(
@@ -85,7 +85,7 @@ pub(super) fn aisle_head_braces(
             height,
             reach,
             brace_section,
-        );
+        )?;
         let tie_contact = post + direction * reach;
         builder.member(
             crate::TimberMemberRole::HeadBrace,
@@ -94,7 +94,8 @@ pub(super) fn aisle_head_braces(
             brace_section,
             crate::TimberFramePhase::PrimaryConstruction,
         )
-    })
+    });
+    Ok([first?, second?])
 }
 
 /// Keep the complete diagonal section above partition plates crossed by its bay.
@@ -105,23 +106,27 @@ fn clear_plate_reach(
     height: f32,
     desired: f32,
     section: Vec2,
-) -> f32 {
+) -> Result<f32, crate::GenerationError> {
     let half = section.length() * 0.5;
     let end = post + direction * desired;
     let min = post.min(end) - Vec2::splat(half);
     let max = post.max(end) + Vec2::splat(half);
-    geometry
+    let mut reach = desired;
+    for solid in geometry
         .solids
         .iter()
         .filter(|solid| solid.role == SolidRole::FramePlate)
-        .map(yaw_bounds)
-        .filter(|bounds| {
-            bounds.min.x < max.x
-                && bounds.max.x > min.x
-                && bounds.min.z < max.y
-                && bounds.max.z > min.y
-                && bounds.max.y < height
-        })
-        .map(|bounds| height - bounds.max.y - half - KNEE_BRACE_PLATE_CLEARANCE_METRES)
-        .fold(desired, f32::min)
+    {
+        let bounds = yaw_bounds(solid)?;
+        if bounds.min().metres().x < max.x
+            && bounds.max().metres().x > min.x
+            && bounds.min().metres().z < max.y
+            && bounds.max().metres().z > min.y
+            && bounds.max().metres().y < height
+        {
+            reach = reach
+                .min(height - bounds.max().metres().y - half - KNEE_BRACE_PLATE_CLEARANCE_METRES);
+        }
+    }
+    Ok(reach)
 }

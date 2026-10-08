@@ -5,17 +5,17 @@ use bevy::math::{Quat, Vec2, Vec3};
 fn planes(solid: &ResolvedSolid) -> Vec<(Vec3, f32)> {
     match solid.shape {
         ResolvedSolidShape::Cuboid => {
-            let rotation = Quat::from_rotation_y(solid.yaw_radians)
-                * Quat::from_rotation_x(solid.crossfall_radians)
-                * Quat::from_rotation_z(solid.longfall_radians);
+            let rotation = Quat::from_rotation_y(solid.yaw_radians.radians())
+                * Quat::from_rotation_x(solid.crossfall_radians.radians())
+                * Quat::from_rotation_z(solid.longfall_radians.radians());
             [Vec3::X, Vec3::Y, Vec3::Z]
                 .into_iter()
-                .zip(solid.size.to_array())
+                .zip(solid.size.metres().to_array())
                 .flat_map(|(axis, length)| {
                     let normal = rotation * axis;
                     [
-                        (normal, -normal.dot(solid.centre) - length * 0.5),
-                        (-normal, normal.dot(solid.centre) - length * 0.5),
+                        (normal, -normal.dot(solid.centre.metres()) - length * 0.5),
+                        (-normal, normal.dot(solid.centre.metres()) - length * 0.5),
                     ]
                 })
                 .collect()

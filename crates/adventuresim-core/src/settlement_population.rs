@@ -635,7 +635,10 @@ mod tests {
 
     #[test]
     fn building_plan_seed_is_stable_per_settlement_identity() {
-        assert_eq!(settlement_building_seed("same"), 16_612_061_259_017_072_879);
+        assert_eq!(
+            settlement_building_seed("same"),
+            fabelgeist_determinism::Seed::from_u64(16_612_061_259_017_072_879)
+        );
         assert_ne!(
             settlement_building_seed("same"),
             settlement_building_seed("different")

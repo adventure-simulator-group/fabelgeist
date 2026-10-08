@@ -10,11 +10,12 @@ use bevy::prelude::Component;
 pub struct SceneEnvironment {
     pub scene_digest: String,
     pub generation_version: u16,
-    pub latitude_microdegrees: i32,
-    pub longitude_microdegrees: i32,
+    pub latitude_microdegrees: adventuresim_world_schema::coordinates::LatitudeMicrodegrees,
+    pub longitude_microdegrees: adventuresim_world_schema::coordinates::LongitudeMicrodegrees,
     pub absolute_minute: StrategicMinute,
     pub lunar_phase_minute: StrategicMinute,
-    pub absolute_elevation_metres: i16,
+    #[serde(with = "super::absolute_elevation_wire")]
+    pub absolute_elevation_metres: adventuresim_world_schema::ElevationMeters,
     pub weather: WeatherSnapshot,
     pub canopy_bps: u16,
     pub wetland_bps: u16,
@@ -35,12 +36,12 @@ impl SceneEnvironmentFixture {
             Self::TemperateHills => SceneEnvironment {
                 scene_digest: scene_digest.into(),
                 generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-                latitude_microdegrees: 53_500_000,
-                longitude_microdegrees: 10_000_000,
+                latitude_microdegrees: FIXTURE_LATITUDE,
+                longitude_microdegrees: FIXTURE_LONGITUDE,
                 absolute_minute: StrategicMinute::ZERO.saturating_add_minutes(MINUTES_PER_DAY / 2),
                 lunar_phase_minute: StrategicMinute::ZERO
                     .saturating_add_minutes(MINUTES_PER_DAY / 2),
-                absolute_elevation_metres: 20,
+                absolute_elevation_metres: FIXTURE_ELEVATION,
                 weather: WeatherSnapshot {
                     rules_version: WEATHER_RULES_VERSION,
                     interval_start_minute:
@@ -64,3 +65,22 @@ impl SceneEnvironmentFixture {
         }
     }
 }
+
+// Authored fixture coordinates are checked during constant evaluation.
+const FIXTURE_LATITUDE: adventuresim_world_schema::coordinates::LatitudeMicrodegrees =
+    match adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000) {
+        Some(value) => value,
+        None => panic!("invalid fixture latitude"),
+    };
+const FIXTURE_LONGITUDE: adventuresim_world_schema::coordinates::LongitudeMicrodegrees =
+    match adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(
+        10 * adventuresim_world_schema::coordinates::LongitudeMicrodegrees::UNITS_PER_DEGREE,
+    ) {
+        Some(value) => value,
+        None => panic!("invalid fixture longitude"),
+    };
+const FIXTURE_ELEVATION: adventuresim_world_schema::ElevationMeters =
+    match adventuresim_world_schema::ElevationMeters::new(20) {
+        Some(value) => value,
+        None => panic!("invalid fixture elevation"),
+    };

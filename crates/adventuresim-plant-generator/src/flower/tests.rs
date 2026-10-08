@@ -6,8 +6,14 @@ fn all_presets_produce_bounded_deterministic_nondegenerate_geometry() {
     for species in FlowerSpecies::ALL {
         let p = species.parameters();
         for detail in PlantLod::ALL {
-            let mesh = p.generate(42, detail).unwrap();
-            assert_eq!(mesh, p.generate(42, detail).unwrap());
+            let mesh = p
+                .generate(fabelgeist_determinism::Seed::from_u64(42), detail)
+                .unwrap();
+            assert_eq!(
+                mesh,
+                p.generate(fabelgeist_determinism::Seed::from_u64(42), detail)
+                    .unwrap()
+            );
             assert!(!mesh.indices.is_empty());
             assert!(
                 mesh.indices.len() / 3 <= detail.triangle_budget(),
@@ -40,22 +46,34 @@ fn all_presets_produce_bounded_deterministic_nondegenerate_geometry() {
 fn invalid_documents_fail_before_generation() {
     let mut p = FlowerSpecies::Daisy.parameters();
     p.height_m = f32::NAN;
-    assert!(p.generate(0, PlantLod::Medium).is_err());
+    assert!(
+        p.generate(fabelgeist_determinism::Seed::from_u64(0), PlantLod::Medium)
+            .is_err()
+    );
     p.height_m = 0.1;
     p.heads = u8::MAX;
-    assert!(p.generate(0, PlantLod::Medium).is_err());
+    assert!(
+        p.generate(fabelgeist_determinism::Seed::from_u64(0), PlantLod::Medium)
+            .is_err()
+    );
 }
 
 #[test]
 fn seed_and_shape_edits_change_geometry_and_lod_preserves_extent() {
     for species in FlowerSpecies::ALL {
         let p = species.parameters();
-        let close = p.generate(42, PlantLod::High).unwrap();
-        let field = p.generate(42, PlantLod::Medium).unwrap();
+        let close = p
+            .generate(fabelgeist_determinism::Seed::from_u64(42), PlantLod::High)
+            .unwrap();
+        let field = p
+            .generate(fabelgeist_determinism::Seed::from_u64(42), PlantLod::Medium)
+            .unwrap();
         assert!(field.indices.len() < close.indices.len());
         assert_ne!(
             close.positions,
-            p.generate(99, PlantLod::High).unwrap().positions
+            p.generate(fabelgeist_determinism::Seed::from_u64(99), PlantLod::High)
+                .unwrap()
+                .positions
         );
         let extent = |m: &PlantMesh| m.positions.iter().map(|v| v[1]).fold(0.0, f32::max);
         assert!((extent(&close) - extent(&field)).abs() < 0.005);
@@ -63,7 +81,10 @@ fn seed_and_shape_edits_change_geometry_and_lod_preserves_extent() {
         edited.petal_length_m *= 1.2;
         assert_ne!(
             close.positions,
-            edited.generate(42, PlantLod::High).unwrap().positions
+            edited
+                .generate(fabelgeist_determinism::Seed::from_u64(42), PlantLod::High)
+                .unwrap()
+                .positions
         );
         assert_eq!(
             p,

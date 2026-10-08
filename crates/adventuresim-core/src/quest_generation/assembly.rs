@@ -214,7 +214,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     let uncorroborated_pattern_claim =
         "There may be a pattern, yet I cannot tell which details matter.".to_owned();
     let has_private_pattern_detail = fabelgeist_determinism::StreamId::new("quest.private-pattern-detail")
-        .rng(context.observer_entropy_hi, &[context.observer_entropy_lo]).boolean();
+        .rng(context.observer_entropy_hi.into(), &[context.observer_entropy_lo]).boolean();
     let evidence_site_label = if family == TemplateFamily::RecurringDepredation {
         "the latest incident site"
     } else {
@@ -894,7 +894,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
             }),
             None,
         ),
-        DiseaseId::Influenza if (context.seed / 5).is_multiple_of(2) => (
+        DiseaseId::Influenza if (context.seed.to_u64() / 5).is_multiple_of(2) => (
             SiteKind::OccupiedHouse,
             OutbreakSource::Sanitation {
                 practice: OutbreakSanitationPractice::UnwashedSharedBedding,
@@ -1278,7 +1278,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
                 &format!("{}:{patient_ref}", problem_id),
             );
             let episode = crate::disease::InfectionEpisode {
-                id: episode_id,
+                id: episode_id.to_u64(),
                 character_id: resident_character_id,
                 disease_id: disease,
                 contracted_at: exposed_at,
@@ -1323,7 +1323,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
             OutbreakExposure {
                 patient_ref,
                 patient_character_id: resident_character_id,
-                episode_id,
+                episode_id: episode_id.to_u64(),
                 exposed_at,
                 became_symptomatic_at,
                 died_at,

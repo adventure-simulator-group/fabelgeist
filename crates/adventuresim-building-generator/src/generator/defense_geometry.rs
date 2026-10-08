@@ -149,7 +149,7 @@ fn derive_bartizans(program: &BuildingProgram) -> Vec<Bartizan> {
     let depth = f32::from(depth) * CELL_SIZE_METRES;
     let top = program.storeys.len() as f32 * program.storey_height_metres;
     match program.archetype {
-        BuildingArchetype::CastleGatehouse if program.seed % 1_000 == 203 => vec![
+        BuildingArchetype::CastleGatehouse if program.seed.to_u64() % 1_000 == 203 => vec![
             Bartizan {
                 // Keep the unroofed bartizan on its own grounded buttress bay,
                 // beyond the resolved south gate-tower radius. It remains a
@@ -182,47 +182,44 @@ fn projected_solid(
     yaw_radians: f32,
     role: SolidRole,
     supported_by: Vec<StructuralNodeId>,
-) -> ResolvedItemId {
+) -> Result<ResolvedItemId, crate::GenerationError> {
     let index = geometry.solids.len();
     let id = ResolvedItemId((1_u64 << 60) | (u64::from(owner.0) << 32) | index as u64);
-    let solid = ResolvedSolid {
-        id,
+    let solid = ResolvedSolid::new(
+        CollisionCuboid::<Architectural>::from_metres(id, centre, size, yaw_radians, 0.0, 0.0)?,
         owner,
-        centre,
-        size,
-        yaw_radians,
-        crossfall_radians: 0.0,
-        longfall_radians: 0.0,
         role,
-        shape: crate::ResolvedSolidShape::Cuboid,
-        supported_by: supported_by.clone(),
-    };
+        crate::ResolvedSolidShape::Cuboid,
+        supported_by.clone(),
+    );
     let bottom = centre.y - size.y * 0.5;
-    geometry.support_interfaces.push(SupportInterface {
-        id: ResolvedItemId((4_u64 << 60) | index as u64),
-        owner,
-        node: supported_by[0],
-        bounds: ResolvedBounds {
-            min: Vec3::new(
-                centre.x - size.x * 0.5,
-                bottom - 0.015,
-                centre.z - size.z * 0.5,
-            ),
-            max: Vec3::new(
-                centre.x + size.x * 0.5,
-                bottom + 0.015,
-                centre.z + size.z * 0.5,
-            ),
-        },
-    });
+    geometry
+        .support_interfaces
+        .push(crate::SupportInterface::new(
+            ResolvedItemId((4_u64 << 60) | index as u64),
+            owner,
+            supported_by[0],
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
+                    centre.x - size.x * 0.5,
+                    bottom - 0.015,
+                    centre.z - size.z * 0.5,
+                ),
+                Vec3::new(
+                    centre.x + size.x * 0.5,
+                    bottom + 0.015,
+                    centre.z + size.z * 0.5,
+                ),
+            )?,
+        ));
     geometry.solids.push(solid);
-    id
+    Ok(id)
 }
 
 fn projected_void(
     geometry: &mut ResolvedGeometry,
     owner: GeometryOwnerId,
-    bounds: ResolvedBounds,
+    bounds: SpatialBounds<Architectural>,
     role: VoidRole,
 ) -> ResolvedItemId {
     let index = geometry.voids.len();
@@ -241,7 +238,7 @@ fn projected_void(
 fn projected_surface(
     geometry: &mut ResolvedGeometry,
     owner: GeometryOwnerId,
-    bounds: ResolvedBounds,
+    bounds: SpatialBounds<Architectural>,
     role: SurfaceRole,
 ) -> ResolvedItemId {
     let index = geometry.surfaces.len();
@@ -261,16 +258,16 @@ fn projected_edge_drain(
     owner: GeometryOwnerId,
     inlet: Vec3,
     direction: Vec2,
-) -> ResolvedItemId {
+) -> Result<ResolvedItemId, crate::GenerationError> {
     let far = inlet + Vec3::new(direction.x * 0.12, -0.02, direction.y * 0.12);
     let lateral = Vec3::new(direction.y.abs() * 0.01, 0.0, direction.x.abs() * 0.01);
     let outlet_void = projected_void(
         geometry,
         owner,
-        ResolvedBounds {
-            min: inlet.min(far) - lateral - Vec3::Y * 0.045,
-            max: inlet.max(far) + lateral + Vec3::Y * 0.045,
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            inlet.min(far) - lateral - Vec3::Y * 0.045,
+            inlet.max(far) + lateral + Vec3::Y * 0.045,
+        )?,
         VoidRole::Drain,
     );
     let id = ResolvedItemId((5_u64 << 60) | geometry.drainage_routes.len() as u64);
@@ -281,7 +278,7 @@ fn projected_edge_drain(
         inlet,
         outlet: far + Vec3::new(direction.x * 0.25, -0.08, direction.y * 0.25),
     });
-    id
+    Ok(id)
 }
 
 /// Resolves a mono-pitch defense roof into a physical catchment, a lowered
@@ -298,37 +295,27 @@ fn resolve_linear_roof_weathering(
     depth: f32,
     yaw: f32,
     support: StructuralNodeId,
-) -> (ResolvedItemId, Vec<ResolvedItemId>) {
-    let roof = geometry
-        .solids
-        .iter()
-        .find(|solid| solid.id == roof_id)
-        .expect("roof catchment solid")
-        .clone();
+) -> Result<(ResolvedItemId, Vec<ResolvedItemId>), crate::GenerationError> {
+    let roof = geometry.solid(roof_id)?.clone();
     let local_positive_z = Vec2::new(yaw.sin(), yaw.cos());
     let crossfall = 0.12 * outward.dot(local_positive_z).signum();
-    geometry
-        .solids
-        .iter_mut()
-        .find(|solid| solid.id == roof_id)
-        .expect("roof catchment solid")
-        .crossfall_radians = crossfall;
+    geometry.solid_mut(roof_id)?.crossfall_radians = Radians::new(crossfall)?;
     let inner_edge = midpoint - outward * depth * 0.5;
     let flashing = projected_solid(
         geometry,
         owner,
         Vec3::new(
             inner_edge.x - outward.x * 0.035,
-            roof.centre.y + 0.13,
+            roof.centre.metres().y + 0.13,
             inner_edge.y - outward.y * 0.035,
         ),
         Vec3::new(length + 0.18, 0.26, 0.08),
         yaw,
         SolidRole::RoofFlashing,
         vec![support],
-    );
+    )?;
     let roof_half_drop = crossfall.abs().tan() * depth * 0.5;
-    let toe_elevation = roof.centre.y - roof_half_drop;
+    let toe_elevation = roof.centre.metres().y - roof_half_drop;
     let channel_length = length + 0.24;
     let channel_centre_plan = midpoint + outward * (depth * 0.5 + 0.06) - tangent * 0.055;
     let channel = projected_solid(
@@ -343,27 +330,22 @@ fn resolve_linear_roof_weathering(
         yaw,
         SolidRole::DrainageFloor,
         vec![support],
-    );
-    geometry
-        .solids
-        .iter_mut()
-        .find(|solid| solid.id == channel)
-        .expect("roof eave channel")
-        .longfall_radians = -0.018;
+    )?;
+    geometry.solid_mut(channel)?.longfall_radians = Radians::new(-0.018)?;
     let inlet_plan = channel_centre_plan + tangent * ((channel_length - 0.11) * 0.5 + 0.018);
     let route = projected_edge_drain(
         geometry,
         owner,
         Vec3::new(inlet_plan.x, toe_elevation - 0.015, inlet_plan.y),
         outward,
-    );
+    )?;
     let surface = projected_surface(
         geometry,
         owner,
-        ResolvedBounds {
-            min: roof.centre - roof.size * 0.5,
-            max: roof.centre + roof.size * 0.5,
-        },
+        SpatialBounds::<Architectural>::from_metres(
+            roof.centre.metres() - roof.size.metres() * 0.5,
+            roof.centre.metres() + roof.size.metres() * 0.5,
+        )?,
         SurfaceRole::Drainage,
     );
     let catchment = ResolvedItemId((7_u64 << 60) | geometry.drainage_catchments.len() as u64);
@@ -374,16 +356,16 @@ fn resolve_linear_roof_weathering(
         toe_channel_solids: vec![channel],
         drainage_surface: surface,
         outlet_route: route,
-        centre: roof.centre,
+        centre: roof.centre.metres(),
         tangent,
         outward,
         length_metres: length,
         width_metres: depth,
-        inner_elevation_metres: roof.centre.y + roof_half_drop,
+        inner_elevation_metres: roof.centre.metres().y + roof_half_drop,
         outer_elevation_metres: toe_elevation,
         outlet_along_metres: (channel_length - 0.11) * 0.5,
     });
-    (catchment, vec![roof_id, channel, flashing])
+    Ok((catchment, vec![roof_id, channel, flashing]))
 }
 
 fn resolve_linear_coping_weathering(
@@ -396,7 +378,7 @@ fn resolve_linear_coping_weathering(
     elevation: f32,
     yaw: f32,
     support: StructuralNodeId,
-) -> (ResolvedItemId, Vec<ResolvedItemId>) {
+) -> Result<(ResolvedItemId, Vec<ResolvedItemId>), crate::GenerationError> {
     let coping = projected_solid(
         geometry,
         owner,
@@ -409,15 +391,10 @@ fn resolve_linear_coping_weathering(
         yaw,
         SolidRole::Coping,
         vec![support],
-    );
+    )?;
     let local_positive_z = Vec2::new(yaw.sin(), yaw.cos());
     let crossfall = 0.07 * outward.dot(local_positive_z).signum();
-    geometry
-        .solids
-        .iter_mut()
-        .find(|solid| solid.id == coping)
-        .expect("projected coping")
-        .crossfall_radians = crossfall;
+    geometry.solid_mut(coping)?.crossfall_radians = Radians::new(crossfall)?;
     let toe = elevation - 0.06 - crossfall.abs().tan() * 0.16;
     let inlet_plan = centre + tangent * (length * 0.5 - 0.06) + outward * 0.2;
     let route = projected_edge_drain(
@@ -425,24 +402,24 @@ fn resolve_linear_coping_weathering(
         owner,
         Vec3::new(inlet_plan.x, toe - 0.06, inlet_plan.y),
         outward,
-    );
+    )?;
     let surface = projected_surface(
         geometry,
         owner,
-        ResolvedBounds {
-            min: Vec3::new(centre.x, toe, centre.y)
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(centre.x, toe, centre.y)
                 - Vec3::new(
                     tangent.x.abs() * length * 0.5 + outward.x.abs() * 0.16,
                     0.0,
                     tangent.y.abs() * length * 0.5 + outward.y.abs() * 0.16,
                 ),
-            max: Vec3::new(centre.x, elevation + 0.06, centre.y)
+            Vec3::new(centre.x, elevation + 0.06, centre.y)
                 + Vec3::new(
                     tangent.x.abs() * length * 0.5 + outward.x.abs() * 0.16,
                     0.0,
                     tangent.y.abs() * length * 0.5 + outward.y.abs() * 0.16,
                 ),
-        },
+        )?,
         SurfaceRole::Drainage,
     );
     let catchment = ResolvedItemId((7_u64 << 60) | geometry.drainage_catchments.len() as u64);
@@ -462,5 +439,5 @@ fn resolve_linear_coping_weathering(
         outer_elevation_metres: toe,
         outlet_along_metres: length * 0.5 - 0.06,
     });
-    (catchment, vec![coping])
+    Ok((catchment, vec![coping]))
 }

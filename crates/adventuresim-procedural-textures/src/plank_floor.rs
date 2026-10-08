@@ -6,6 +6,7 @@
 
 mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3};
+use fabelgeist_determinism::Seed;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -85,7 +86,7 @@ fn growth_field(
     params: &crate::TextureParameters,
     local_u: f32,
     v: f32,
-    board_id: u64,
+    board_id: Seed,
 ) -> (f32, f32) {
     let size = params.size(PLANK_FLOOR_TEXTURE_SIZE) as f32;
     let sample = params.plank_floor.grain.filtered(
@@ -214,7 +215,7 @@ fn value_noise_1d(
     params: &crate::TextureParameters,
     value: f32,
     cells: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let scaled = value.rem_euclid(1.0) * cells as f32;
     let first = scaled.floor() as i32;
@@ -223,7 +224,7 @@ fn value_noise_1d(
         params
             .rng(
                 streams::LATTICE,
-                &[field_seed, index.rem_euclid(cells) as u64],
+                &[field_seed.to_u64(), index.rem_euclid(cells) as u64],
             )
             .inclusive_unit_f32()
     };

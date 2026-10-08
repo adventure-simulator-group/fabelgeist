@@ -1,6 +1,9 @@
+use crate::{Architectural, SpatialBounds};
 mod storey_index;
 use std::fmt;
-pub use storey_index::StoreyIndex;
+pub use storey_index::{OrdinalError, RecipeOrdinalRole, StoreyElevationError, StoreyIndex};
+mod room_index;
+pub use room_index::RoomIndex;
 
 use bevy::math::{IVec2, Vec2, Vec3};
 use clap::ValueEnum;

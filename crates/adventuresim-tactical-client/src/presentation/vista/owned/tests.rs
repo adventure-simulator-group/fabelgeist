@@ -101,10 +101,12 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
     let canonical = terrain.physical_geographic_surface().unwrap();
     for garden in &input.gardens {
         let comparison = presented
-            .compare_in_outline(&canonical, &garden.plot.corners())
+            .compare_in_outline(&canonical, &adventuresim_tactical_core::scene_coordinates::ScenePlanPolygon::from_ordered_vertices((garden.plot.corners()).iter().copied().map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from).collect::<Result<Vec<_>, _>>().unwrap()).unwrap())
             .unwrap();
         assert!(
-            (comparison.covered_area_square_metres - comparison.required_area_square_metres).abs()
+            (comparison.covered_area_square_metres.square_metres()
+                - comparison.required_area_square_metres.square_metres())
+            .abs()
                 < 0.01,
             "property {:?}: {comparison:?}",
             garden.owner
@@ -113,10 +115,11 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         // presented face against all canonical candidates below; a pairwise
         // single-valued comparison across that edge invents a height error.
         for route in &garden.access {
-            for p in [route.start_metres, route.end_metres] {
+            for p in [route.start_metres(), route.end_metres()] {
                 assert!(
-                    (presented.elevation_at(p).unwrap().metres() - terrain.height_at(p).unwrap())
-                        .abs()
+                    (presented.elevation_at(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(p).unwrap()).unwrap().metres()
+                        - terrain.height_at(p).unwrap())
+                    .abs()
                         < 0.001
                 );
             }
@@ -155,8 +158,15 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         Vec2::new(1.01, 0.37),
     ] {
         assert!(
-            (presented.elevation_at(point).unwrap().metres() - terrain.height_at(point).unwrap())
-                .abs()
+            (presented
+                .elevation_at(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point)
+                        .unwrap()
+                )
+                .unwrap()
+                .metres()
+                - terrain.height_at(point).unwrap())
+            .abs()
                 < 0.001
         );
     }

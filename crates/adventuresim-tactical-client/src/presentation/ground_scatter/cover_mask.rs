@@ -1,5 +1,6 @@
 use super::*;
 use crate::presentation::grass_cover_mask_pixels;
+use fabelgeist_determinism::Seed;
 
 /// CPU-side sampler over the same feathered cover mask the legacy renderer
 /// binds as a texture.
@@ -12,7 +13,7 @@ pub(super) struct CoverageMask {
 }
 
 impl CoverageMask {
-    pub(super) fn new(ground: &SceneGround, seed: u64) -> Self {
+    pub(super) fn new(ground: &SceneGround, seed: Seed) -> Self {
         let (width, height, pixels) = grass_cover_mask_pixels(ground, seed);
         Self {
             width: width as usize,

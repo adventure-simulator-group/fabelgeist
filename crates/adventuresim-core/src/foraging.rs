@@ -4,6 +4,7 @@
 //! authoritative. Displayed market prices never participate in discovery.
 
 mod sampling;
+use fabelgeist_determinism::Seed;
 use sampling::ForageDraw;
 
 use adventuresim_world_schema::calendar::StrategicMinute;
@@ -393,7 +394,7 @@ pub fn stealth_dc_millirank(environment: ForageEnvironment, minutes: u64) -> Opt
 /// categories, then over the locally available resources in each category.
 /// Terrain checks contribute at most +50% discovery and +50% yield.
 pub fn resolve(
-    seed: u64,
+    seed: Seed,
     environment: ForageEnvironment,
     source_ids: &[String],
     minutes: u64,
@@ -484,7 +485,7 @@ pub fn resolve(
 /// This accepts a partial elapsed duration so interrupted illegal work can
 /// still be noticed without granting partial forage yields.
 pub fn resolve_stealth(
-    seed: u64,
+    seed: Seed,
     environment: ForageEnvironment,
     elapsed_minutes: u64,
     stealth_check_millirank: u16,
@@ -839,10 +840,26 @@ mod tests {
 
     #[test]
     fn shared_budget_and_resolution_are_deterministic() {
-        let one = resolve(7, legal(), &["plants".into()], 8 * 60, 2_000, 0).unwrap();
-        let again = resolve(7, legal(), &["plants".into()], 8 * 60, 2_000, 0).unwrap();
+        let one = resolve(
+            fabelgeist_determinism::Seed::from_u64(7),
+            legal(),
+            &["plants".into()],
+            8 * 60,
+            2_000,
+            0,
+        )
+        .unwrap();
+        let again = resolve(
+            fabelgeist_determinism::Seed::from_u64(7),
+            legal(),
+            &["plants".into()],
+            8 * 60,
+            2_000,
+            0,
+        )
+        .unwrap();
         let split = resolve(
-            7,
+            fabelgeist_determinism::Seed::from_u64(7),
             legal(),
             &["plants".into(), "low_game".into()],
             8 * 60,
@@ -854,7 +871,7 @@ mod tests {
         assert_eq!(
             split,
             resolve(
-                7,
+                fabelgeist_determinism::Seed::from_u64(7),
                 legal(),
                 &["plants".into(), "low_game".into()],
                 8 * 60,
@@ -899,7 +916,7 @@ mod tests {
     #[test]
     fn target_order_cannot_change_resolution() {
         let first = resolve(
-            91,
+            fabelgeist_determinism::Seed::from_u64(91),
             legal(),
             &["low_game".into(), "plants".into()],
             8 * 60,
@@ -908,7 +925,7 @@ mod tests {
         )
         .unwrap();
         let reversed = resolve(
-            91,
+            fabelgeist_determinism::Seed::from_u64(91),
             legal(),
             &["plants".into(), "low_game".into()],
             8 * 60,
@@ -932,7 +949,12 @@ mod tests {
     fn interrupted_illegal_elapsed_time_still_resolves_exposure() {
         let mut environment = legal();
         environment.cultivated = true;
-        let (dc, noticed) = resolve_stealth(7, environment, 30, 0);
+        let (dc, noticed) = resolve_stealth(
+            fabelgeist_determinism::Seed::from_u64(7),
+            environment,
+            30,
+            0,
+        );
         assert_eq!(dc, Some(CULTIVATED_STEALTH_DC_MILLIRANK));
         assert_eq!(noticed, Some(false));
     }
@@ -980,6 +1002,7 @@ mod tests {
         };
         let calories = |check| {
             (0..256_u64)
+                .map(fabelgeist_determinism::Seed::from_u64)
                 .map(|seed| {
                     resolve(seed, forest, &["plants".into()], 8 * 60, check, 0)
                         .unwrap()
@@ -1027,7 +1050,17 @@ mod tests {
     #[test]
     fn unavailable_sources_are_rejected_and_harmful_beasts_need_no_license() {
         assert!(!source_available(ForageSource::Fish, legal()));
-        assert!(resolve(7, legal(), &["fish".into()], 60, 0, 0).is_err());
+        assert!(
+            resolve(
+                fabelgeist_determinism::Seed::from_u64(7),
+                legal(),
+                &["fish".into()],
+                60,
+                0,
+                0
+            )
+            .is_err()
+        );
         assert!(!ForageSource::HarmfulBeasts.requires_license());
         assert!(ForageSource::Plants.requires_license());
     }

@@ -3,6 +3,18 @@
 use super::*;
 use super::{Storefront, inventory::*};
 
+pub(super) fn merchant_sell_action_controls(
+    id: u64,
+    item_id: &str,
+    price: u32,
+    quantity: u32,
+    target: u32,
+    can_sell: bool,
+) -> Markup {
+    html! { div class="inventory-row-actions" { (merchant_sale_action(id, item_id, price, quantity, target, can_sell, true)) } }
+}
+
+#[cfg(test)]
 pub(super) fn merchant_sell_repair_controls(
     id: u64,
     item_id: &str,
@@ -13,15 +25,29 @@ pub(super) fn merchant_sell_repair_controls(
     repair: Option<Markup>,
 ) -> Markup {
     let has_repair = repair.is_some();
-    let item_name = item_display_name(item_id);
     html! { div class=(if has_repair { "inventory-row-actions smith-player-actions" } else { "inventory-row-actions" }) {
         @if let Some(repair) = repair { (repair) }
+        (merchant_sale_action(id, item_id, price, quantity, target, can_sell, has_repair))
+    } }
+}
+
+fn merchant_sale_action(
+    id: u64,
+    item_id: &str,
+    price: u32,
+    quantity: u32,
+    target: u32,
+    can_sell: bool,
+    has_repair: bool,
+) -> Markup {
+    let item_name = item_display_name(item_id);
+    html! {
         @if can_sell {
             button type="button" class="trade-transfer trade-transfer-left" data-dynamic-transfer data-default-transfer-mode="one" data-merchant-sell=(id) data-item-name=(item_id) data-merchant-sell-price=(price) data-transfer-mode="one" data-count=(quantity) data-target=(target) data-label-one=(format!("Sell one {item_name}")) data-label-target=(format!("Sell surplus {item_name}")) data-label-all=(format!("Sell all {item_name}")) aria-label=(format!("Sell one {item_name}")) title=(format!("Sell one {item_name}")) { (transfer_glyph(1)) }
         } @else if has_repair {
             (disabled_transfer_button("left", "Equipped items cannot be sold"))
         }
-    } }
+    }
 }
 
 pub(super) fn condition_bar(

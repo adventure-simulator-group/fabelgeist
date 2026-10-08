@@ -5,8 +5,8 @@ fn resolve_roof_child_front_openings(
     walls: &mut Vec<crate::WallAssembly>,
     openings: &mut Vec<crate::OpeningAssembly>,
     geometry: &mut ResolvedGeometry,
-) {
-    for (index, dormer) in dormers.iter().copied().enumerate() {
+) -> Result<(), crate::GenerationError> {
+    let _: () = for (index, dormer) in dormers.iter().copied().enumerate() {
         let roof_id = RoofAssemblyId(1_000 + index as u64);
         let parent_owner = roofs
             .iter()
@@ -86,16 +86,18 @@ fn resolve_roof_child_front_openings(
         let height = (top - base).max(1.15);
         let thickness = 0.20;
         let wall_node = StructuralNodeId((u64::from(owner.0) << 16) | 1);
-        geometry.structural_nodes.push(StructuralNode {
-            id: wall_node,
-            owner,
-            kind: StructuralNodeKind::RoofWallPlate,
-            position: Vec3::new(origin.x, base, origin.y),
-            supported_by: facade_wall
-                .map(|(_, node)| vec![node])
-                .unwrap_or_else(|| parent_support_nodes.clone()),
-            grounded: false,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                wall_node,
+                owner,
+                StructuralNodeKind::RoofWallPlate,
+                Vec3::new(origin.x, base, origin.y),
+                facade_wall
+                    .map(|(_, node)| vec![node])
+                    .unwrap_or_else(|| parent_support_nodes.clone()),
+                false,
+            )?);
         // The child facade/cheeks carry the child roof; the parent roof carries
         // their curb/trimmers.  Do not reverse this edge (wall -> child roof),
         // which forms a semantic cycle and previously encouraged generic
@@ -112,39 +114,36 @@ fn resolve_roof_child_front_openings(
             }
         }
         let (wall, opening) = roof_wall_opening::RectangularRoofWindow {
-            wall_id, opening_id, owner,
+            wall_id,
+            opening_id,
+            owner,
             source: crate::WallSourceId::RoofChildFront { roof: roof_id },
-            origin, tangent, outward, base, width, height, thickness, wall_node,
+            origin,
+            tangent,
+            outward,
+            base,
+            width,
+            height,
+            thickness,
+            wall_node,
             opening_width: (width - 0.42).clamp(0.48, 0.82),
             clear_height: (height - 0.44).clamp(0.68, 1.12),
-            sill_height: 0.22, head_height: 0.14, head_member: None,
-            storey_level: program.storeys.len() as u16,
+            sill_height: 0.22,
+            head_height: 0.14,
+            head_member: None,
+            storey_level: StoreyIndex::new(program.storeys.len()).serialized_ordinal()?,
             ornamental_frame: program.archetype.timber_frame_program().is_none(),
-        }.build(geometry);
+        }
+        .build(geometry)?;
         walls.push(wall);
         openings.push(opening);
-        for (bond_slot, roof_owner) in parent_owner.into_iter().enumerate() {
-            geometry.junction_bonds.push(JunctionBond {
-                id: ResolvedItemId(
-                    (0x6_u64 << 60) | (u64::from(owner.0) << 16) | (1 + bond_slot as u64),
-                ),
-                owners: [roof_owner, owner],
-                bounds: ResolvedBounds {
-                    min: Vec3::new(
-                        origin.x - tangent.x.abs() * width * 0.55 - outward.x.abs() * 0.30,
-                        base - 0.12,
-                        origin.y - tangent.y.abs() * width * 0.55 - outward.y.abs() * 0.30,
-                    ),
-                    max: Vec3::new(
-                        origin.x + tangent.x.abs() * width * 0.55 + outward.x.abs() * 0.30,
-                        top + 0.18,
-                        origin.y + tangent.y.abs() * width * 0.55 + outward.y.abs() * 0.30,
-                    ),
-                },
-                minimum_interface_area_square_metres: 0.005,
-                maximum_penetration_metres: 0.18,
-            });
-        }
+        roof_child_enclosure::bond_front_wall(
+            geometry,
+            &walls[walls.len() - 1],
+            parent_owner,
+            base,
+            top,
+        )?;
         if dormer.kind == DormerKind::TransverseGable
             && let (Some(parent_id), Some((facade_id, _))) = (child.parent, facade_wall)
             && let Some(parent) = roofs.iter_mut().find(|roof| roof.id == parent_id)
@@ -155,5 +154,6 @@ fn resolve_roof_child_front_openings(
         {
             link.facade_wall = Some(facade_id);
         }
-    }
+    };
+    Ok(())
 }

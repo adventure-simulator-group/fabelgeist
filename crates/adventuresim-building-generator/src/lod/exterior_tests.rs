@@ -39,11 +39,11 @@ fn civilian_facades_keep_real_apertures_reveals_and_materials_with_bounded_geome
         BuildingArchetype::TownHouse,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let mut plan = generate(&BuildingProgram::fixture(archetype, seed)).unwrap();
-            let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
-            let detail = crate::compile_building_detail(&plan);
-            let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
+            let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
+            let detail = crate::compile_building_detail(&plan).unwrap();
+            let shell = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
             eprintln!(
                 "{archetype:?}/{seed}: detail {}, facade {}, shell {}",
                 triangles(&detail.meshes),
@@ -93,7 +93,7 @@ fn civilian_facades_keep_real_apertures_reveals_and_materials_with_bounded_geome
                 facade_runs: extract_facade_runs(&plan),
                 meshes: Vec::new(),
             };
-            exterior::append_facades(&mut exterior, &plan, &excluded);
+            exterior::append_facades(&mut exterior, &plan, &excluded).unwrap();
             let mut checked = 0;
             for opening in plan.opening_assemblies.iter().filter(|opening| {
                 opening.use_kind == OpeningUse::Window
@@ -142,21 +142,25 @@ fn civilian_facades_keep_real_apertures_reveals_and_materials_with_bounded_geome
 
 #[test]
 fn facade_reserves_only_operable_leaves_and_preserves_fixed_layers_and_bar_geometry() {
-    let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
-    let dynamic = crate::detail::dynamic_closure_solids(&plan);
+    let plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
+    let dynamic = crate::detail::dynamic_closure_solids(&plan).unwrap();
     assert!(!dynamic.is_empty());
     let mut all = BuildingLod {
         level: BuildingLodLevel::Facade,
         facade_runs: extract_facade_runs(&plan),
         meshes: Vec::new(),
     };
-    exterior::append_facades(&mut all, &plan, &BTreeSet::new());
+    exterior::append_facades(&mut all, &plan, &BTreeSet::new()).unwrap();
     let mut reserved = BuildingLod {
         level: BuildingLodLevel::Facade,
         facade_runs: extract_facade_runs(&plan),
         meshes: Vec::new(),
     };
-    exterior::append_facades(&mut reserved, &plan, &dynamic);
+    exterior::append_facades(&mut reserved, &plan, &dynamic).unwrap();
     assert!(triangles(&reserved.meshes) < triangles(&all.meshes));
     for mesh in reserved.meshes.iter().filter(|mesh| {
         matches!(
@@ -177,8 +181,8 @@ fn facade_reserves_only_operable_leaves_and_preserves_fixed_layers_and_bar_geome
             );
         }
     }
-    let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
-    let dynamic_shell = compile_static_building_lod(&plan, BuildingLodLevel::Shell);
+    let shell = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
+    let dynamic_shell = compile_static_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
     assert_eq!(
         serde_json::to_vec(&shell.meshes).unwrap(),
         serde_json::to_vec(&dynamic_shell.meshes).unwrap()
@@ -191,11 +195,19 @@ fn dynamic_facade_capability_excludes_coarse_hosts_and_replaced_workplace_walls(
         BuildingArchetype::StorageRange,
         BuildingArchetype::CastleGatehouse,
     ] {
-        let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
-        assert!(plan.facade_dynamic_openings().is_empty());
+        let plan = generate(&BuildingProgram::fixture(
+            archetype,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
+        assert!(plan.facade_dynamic_openings().unwrap().is_empty());
     }
-    let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
-    let supported = plan.facade_dynamic_openings();
+    let plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
+    let supported = plan.facade_dynamic_openings().unwrap();
     assert!(!supported.is_empty());
     for id in supported {
         let opening = plan
@@ -215,14 +227,21 @@ fn dynamic_facade_capability_excludes_coarse_hosts_and_replaced_workplace_walls(
 
 #[test]
 fn a_workplace_owned_cell_excludes_the_entire_joined_run_from_dynamic_capability() {
-    let mut plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+    let mut plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    ))
+    .unwrap();
     let run = extract_facade_runs(&plan)
         .into_iter()
         .find(|run| {
             run.source_walls.len() > 1
                 && plan.opening_assemblies.iter().any(|opening| {
                     run.source_walls.contains(&opening.host_wall)
-                        && plan.facade_dynamic_openings().contains(&opening.id)
+                        && plan
+                            .facade_dynamic_openings()
+                            .unwrap()
+                            .contains(&opening.id)
                 })
         })
         .unwrap();
@@ -230,14 +249,14 @@ fn a_workplace_owned_cell_excludes_the_entire_joined_run_from_dynamic_capability
     let mut work = generate(&BuildingProgram::settlement(
         crate::settlement_archetype(usage),
         Some(usage),
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap()
     .workplace
     .unwrap();
     work.walls = vec![run.source_walls[0]];
     plan.workplace = Some(work);
-    let capability = plan.facade_dynamic_openings();
+    let capability = plan.facade_dynamic_openings().unwrap();
     let retained = compilation::retained_facade_runs(&plan);
     for wall in run.source_walls {
         assert!(retained.iter().all(|run| !run.source_walls.contains(&wall)));

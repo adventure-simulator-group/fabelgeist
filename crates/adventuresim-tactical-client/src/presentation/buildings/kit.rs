@@ -50,7 +50,7 @@ impl ComponentCache {
             for batch in self.get(instance.component, meshes) {
                 let mut batch = batch.clone();
                 batch.transform =
-                    Mat4::from_translation(-compiled.local_origin) * instance.transform;
+                    Mat4::from_translation(-compiled.local_origin.metres()) * instance.transform;
                 batch.uv_offset = instance.uv_offset;
                 if compiled.detail == BuildingDetail::Static {
                     compiled.lod0.push(batch.clone());
@@ -73,7 +73,7 @@ pub(super) fn install_facade(
         source
             .iter()
             .map(|batch| {
-                let mut mesh = recipe_mesh(batch, prepared.local_origin);
+                let mut mesh = recipe_mesh(batch, prepared.local_origin.metres());
                 mesh.asset_usage = RenderAssetUsages::MAIN_WORLD;
                 CompiledBuildingBatch {
                     material: batch.material,

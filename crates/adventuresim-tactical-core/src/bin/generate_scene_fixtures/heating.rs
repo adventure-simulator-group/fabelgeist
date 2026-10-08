@@ -8,7 +8,7 @@ pub(super) fn fixture() -> Fixture {
         ..super::fixture(
             "heating-review",
             "city",
-            47_126,
+            fabelgeist_determinism::Seed::from_u64(47_126),
             flat,
             |_, _| sample(TacticalSurface::Open, 0, 0, 0, 0),
             clear(),
@@ -16,17 +16,47 @@ pub(super) fn fixture() -> Fixture {
     }
 }
 
-pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
+pub(super) fn buildings() -> Result<
+    Vec<TacticalBuildingPlacement>,
+    adventuresim_building_generator::spatial_geometry::GeometryError,
+> {
     let mut buildings = [
-        (BuildingArchetype::FachwerkCottage, 42),
-        (BuildingArchetype::FachwerkCottage, 47),
-        (BuildingArchetype::FachwerkCottage, 101),
-        (BuildingArchetype::HallHouse, 42),
-        (BuildingArchetype::HallHouse, 47),
-        (BuildingArchetype::HallHouse, 101),
-        (BuildingArchetype::HallHouse, u64::MAX),
-        (BuildingArchetype::TownHouse, 11),
-        (BuildingArchetype::FachwerkMerchantHouse, 0),
+        (
+            BuildingArchetype::FachwerkCottage,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ),
+        (
+            BuildingArchetype::FachwerkCottage,
+            fabelgeist_determinism::Seed::from_u64(47),
+        ),
+        (
+            BuildingArchetype::FachwerkCottage,
+            fabelgeist_determinism::Seed::from_u64(101),
+        ),
+        (
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ),
+        (
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(47),
+        ),
+        (
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(101),
+        ),
+        (
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(u64::MAX),
+        ),
+        (
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(11),
+        ),
+        (
+            BuildingArchetype::FachwerkMerchantHouse,
+            fabelgeist_determinism::Seed::from_u64(0),
+        ),
     ]
     .into_iter()
     .enumerate()
@@ -40,17 +70,21 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
                 adventuresim_building_generator::DomesticHeatingProgramme::HearthAndRearFedStove,
             );
         }
-        TacticalBuildingPlacement {
-            base_elevation_metres: 0.0,
-            id: index as u64 + 1,
+        Ok(TacticalBuildingPlacement {
+            base_elevation_metres:
+                adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId(index as u64 + 1),
             program,
-            centre_metres: Vec2::ZERO,
+            centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::ZERO,
+            )?,
             orientation: BuildingOrientation::IDENTITY,
-        }
+        })
     })
-    .collect::<Vec<_>>();
-    super::support::arrange_catalogue_grid(&mut buildings, 3);
-    buildings
+    .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>(
+    )?;
+    super::support::arrange_catalogue_grid(&mut buildings, 3)?;
+    Ok(buildings)
 }
 
 #[cfg(test)]
@@ -59,34 +93,53 @@ mod tests {
 
     #[test]
     fn upper_heating_specimens_have_bare_playable_ground_beneath_them() {
-        let input = super::super::build_fixture(fixture());
+        let input = super::super::build_fixture(fixture()).unwrap();
         assert_eq!(input.buildings.len(), 9);
         let programmes = input
             .buildings
             .iter()
             .map(|b| (b.id, b.program.clone()))
             .collect::<Vec<_>>();
-        assert_eq!(programmes[7].0, 8);
+        assert_eq!(
+            programmes[7].0,
+            adventuresim_tactical_core::scene_input::SceneBuildingId(8)
+        );
         assert_eq!(programmes[7].1.archetype, BuildingArchetype::TownHouse);
-        assert_eq!(programmes[7].1.seed, 11);
-        assert_eq!(programmes[8].0, 9);
+        assert_eq!(
+            programmes[7].1.seed,
+            fabelgeist_determinism::Seed::from_u64(11)
+        );
+        assert_eq!(
+            programmes[8].0,
+            adventuresim_tactical_core::scene_input::SceneBuildingId(9)
+        );
         assert_eq!(
             programmes[8].1.archetype,
             BuildingArchetype::FachwerkMerchantHouse
         );
-        assert_eq!(programmes[8].1.seed, 0);
+        assert_eq!(
+            programmes[8].1.seed,
+            fabelgeist_determinism::Seed::from_u64(0)
+        );
         let generated = input.generate().unwrap();
         for building in &generated.buildings {
             assert_eq!(
                 building.placement.program,
-                programmes[(building.placement.id - 1) as usize].1
+                programmes[(building.placement.id.0 - 1) as usize].1
             );
         }
-        for building in generated.buildings.iter().filter(|b| b.placement.id >= 8) {
-            let half = building.collision.bounds.plan_half_extents();
+        for building in generated.buildings.iter().filter(|b| {
+            b.placement.id >= adventuresim_tactical_core::scene_input::SceneBuildingId(8)
+        }) {
+            let half = building
+                .collision
+                .bounds
+                .plan_half_extents()
+                .unwrap()
+                .metres();
             for z in [-0.9, 0.0, 0.9] {
                 for x in [-0.9, 0.0, 0.9] {
-                    let point = building.placement.centre_metres
+                    let point = building.placement.centre_metres.metres()
                         + building
                             .placement
                             .orientation

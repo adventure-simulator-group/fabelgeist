@@ -20,7 +20,7 @@ pub(super) fn ensure_scenario_character_at(
             mode: crate::character::CharacterCreationMode::Player,
             create_solo_party: true,
             materialize_generated_carry: true,
-            stable_seed: character_id,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(character_id),
             initial_time_minute: None,
             field_actor: false,
             npc_personality: None,

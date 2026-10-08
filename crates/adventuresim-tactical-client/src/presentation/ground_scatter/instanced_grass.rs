@@ -15,6 +15,7 @@
 
 mod streams;
 mod variation;
+use fabelgeist_determinism::Seed;
 use std::sync::Arc;
 
 use adventuresim_tactical_core::prelude::{SceneEnvironment, SceneGround, SceneTerrain};
@@ -102,7 +103,7 @@ fn present_instanced_grass(
         ) * settings.config.grass.density_scale;
         let wind_scale = 0.16 + bps(environment.weather.wind_speed_bps) * 0.36;
         let grass = &settings.config.grass;
-        let base_seed = stable_text_seed(&environment.scene_digest) ^ 0x6772_6173_735f_6c6f;
+        let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
         #[cfg(target_family = "wasm")]
         let prepared = crate::presentation::generation::landscape::grass(&environment.scene_digest);
         #[cfg(not(target_family = "wasm"))]
@@ -153,7 +154,7 @@ pub(in crate::presentation) fn prepare_scene_tufts(
         super::scene_mask::scatter_ground_without_patch(ground, recipe.transition_collar())
     });
     let ground = masked_ground.as_ref().unwrap_or(ground);
-    let base_seed = stable_text_seed(&environment.scene_digest) ^ 0x6772_6173_735f_6c6f;
+    let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
     let mut placement = ScenePlacement {
         terrain,
         ground,
@@ -180,7 +181,7 @@ pub(in crate::presentation) fn prepare_scene_tufts(
     scatter_cell_tufts(
         &mut batches[GrassMeshLod::Vista.tier_index()],
         &mut placement,
-        base_seed ^ 0x7669_7374_615f_6c6f,
+        base_seed.xor_word(0x7669_7374_615f_6c6f),
         GrassMeshLod::Vista,
         grass.placement.vista_patch_spacing_m,
         grass,
@@ -365,7 +366,7 @@ pub(in crate::presentation) trait TuftPlacement {
     fn lattice_bounds(&self, cell_spacing: f32) -> (IVec2, IVec2);
 
     /// Whether this jittered lattice cell may carry tufts at all.
-    fn cell_allows(&self, cell_hash: u64, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool;
+    fn cell_allows(&self, cell_hash: Seed, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool;
 
     /// Ground-cover coverage at a tuft centre; 0 leaves the site bare.
     fn coverage(&self, centre: Vec2) -> u8;
@@ -406,7 +407,7 @@ impl TuftPlacement for ScenePlacement<'_> {
         )
     }
 
-    fn cell_allows(&self, cell_hash: u64, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool {
+    fn cell_allows(&self, cell_hash: Seed, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool {
         cell_allows_grass(
             self.terrain,
             self.ground,
@@ -423,9 +424,13 @@ impl TuftPlacement for ScenePlacement<'_> {
     }
 
     fn height(&self, centre: Vec2) -> Option<f32> {
-        let hit = self
-            .terrain
-            .surface_below(Vec3::new(centre.x, f32::INFINITY, centre.y))?;
+        let hit = self.terrain.surface_below(
+            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                    bevy::math::Vec2::new(centre.x, centre.y),
+                )?,
+            ),
+        )?;
         (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation.metres())
     }
 
@@ -451,7 +456,7 @@ pub(in crate::presentation) struct TuftPigment {
 pub(in crate::presentation) fn scatter_cell_tufts(
     species_batches: &mut [Vec<InstanceData>; GrassSpecies::ALL.len()],
     placement: &mut impl TuftPlacement,
-    base_seed: u64,
+    base_seed: Seed,
     lod: GrassMeshLod,
     cell_spacing: f32,
     grass: &crate::presentation::config::GrassConfig,
@@ -467,9 +472,7 @@ pub(in crate::presentation) fn scatter_cell_tufts(
     let mut emitted = 0_u32;
     for z in minimum.y..=maximum.y {
         for x in minimum.x..=maximum.x {
-            let cell_hash = streams::CELL
-                .seed(base_seed, &[x as u32 as u64, z as u32 as u64])
-                .to_u64();
+            let cell_hash = streams::CELL.seed(base_seed, &[x as u32 as u64, z as u32 as u64]);
             if !placement.cell_allows(
                 cell_hash,
                 IVec2::new(x, z),

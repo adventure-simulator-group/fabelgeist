@@ -54,9 +54,9 @@ pub fn establish_pregnancy(
         conceived_minute,
         due_minute,
         reserved_child_id,
-        child_name_seed: seeds.name.get(),
+        child_name_seed: seeds.name,
         child_sex: seeds.sex,
-        child_home_seed: seeds.home.get(),
+        child_home_seed: seeds.home,
         birth_settlement_id: birth_settlement_id.to_owned(),
         birth_residence_holding_id,
         status: PregnancyStatus::Active,
@@ -486,7 +486,7 @@ pub fn settle_due_births(
                 mode: crate::character::CharacterCreationMode::Newborn,
                 create_solo_party: false,
                 materialize_generated_carry: false,
-                stable_seed: pregnancy.child_name_seed,
+                stable_seed: pregnancy.child_name_seed.get(),
                 initial_time_minute: Some(pregnancy.due_minute),
                 field_actor: false,
                 npc_personality: None,
@@ -506,14 +506,14 @@ pub fn settle_due_births(
             crate::character::CharacterId::new(father.id),
             crate::character::CharacterId::new(mother.id),
             pregnancy.due_minute,
-            NameStableSeed::new(pregnancy.child_name_seed),
+            NameStableSeed::from(pregnancy.child_name_seed.get()),
             pregnancy.child_sex,
         ).map_err(|error| error.to_string())?;
         initialize_npc_policy(
             ctx,
             child_id,
             settlement_id.clone(),
-            pregnancy.child_home_seed,
+            pregnancy.child_home_seed.get(),
         )?;
         crate::continuity::initialize_child_continuity(
             ctx,
@@ -521,7 +521,7 @@ pub fn settle_due_births(
             mother.id,
             father.id,
             pregnancy.due_minute,
-            pregnancy.child_home_seed,
+            pregnancy.child_home_seed.get(),
         );
         ctx.db
             .child_identity_reservation()

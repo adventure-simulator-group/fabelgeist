@@ -7,12 +7,12 @@ pub(crate) fn triangle_overlaps_solid(
     solid: &ResolvedSolid,
     tolerance: f32,
 ) -> bool {
-    let rotation = Quat::from_rotation_y(solid.yaw_radians)
-        * Quat::from_rotation_x(solid.crossfall_radians)
-        * Quat::from_rotation_z(solid.longfall_radians);
+    let rotation = Quat::from_rotation_y(solid.yaw_radians.radians())
+        * Quat::from_rotation_x(solid.crossfall_radians.radians())
+        * Quat::from_rotation_z(solid.longfall_radians.radians());
     triangle_overlaps_bounds(
-        triangle.map(|p| rotation.inverse() * (p - solid.centre)),
-        (-solid.size * 0.5, solid.size * 0.5),
+        triangle.map(|p| rotation.inverse() * (p - solid.centre.metres())),
+        (-solid.size.metres() * 0.5, solid.size.metres() * 0.5),
         tolerance,
     )
 }
@@ -51,13 +51,13 @@ pub(crate) fn triangle_overlaps_bounds(
 pub(crate) fn overlaps_bounds(solid: &ResolvedSolid, bounds: (Vec3, Vec3), tolerance: f32) -> bool {
     let bounds_centre = (bounds.0 + bounds.1) * 0.5;
     let bounds_half = (bounds.1 - bounds.0) * 0.5;
-    let rotation = Quat::from_rotation_y(solid.yaw_radians)
-        * Quat::from_rotation_x(solid.crossfall_radians)
-        * Quat::from_rotation_z(solid.longfall_radians);
+    let rotation = Quat::from_rotation_y(solid.yaw_radians.radians())
+        * Quat::from_rotation_x(solid.crossfall_radians.radians())
+        * Quat::from_rotation_z(solid.longfall_radians.radians());
     let solid_axes = [rotation * Vec3::X, rotation * Vec3::Y, rotation * Vec3::Z];
     let world_axes = [Vec3::X, Vec3::Y, Vec3::Z];
-    let solid_half = solid.size * 0.5;
-    let delta = bounds_centre - solid.centre;
+    let solid_half = solid.size.metres() * 0.5;
+    let delta = bounds_centre - solid.centre.metres();
     let mut axes = Vec::with_capacity(15);
     axes.extend(world_axes);
     axes.extend(solid_axes);

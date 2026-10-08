@@ -27,24 +27,24 @@ pub enum CityPackingIssue {
     },
     MissingFrontage,
     MissingMember {
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
     },
     InvalidBearing {
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
         issue: adventuresim_building_generator::plan_geometry::PlanGeometryError,
     },
     MissingBearing {
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
     },
     BearingOutsidePlot {
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
         minimum_local_metres: Vec2,
         maximum_local_metres: Vec2,
         plot_half_dimensions_metres: Vec2,
     },
     BuildingOverlap {
-        first: u64,
-        second: u64,
+        first: crate::scene_input::SceneBuildingId,
+        second: crate::scene_input::SceneBuildingId,
     },
     SearchBudget {
         block: u64,
@@ -59,7 +59,7 @@ pub enum CityPackingIssue {
         blocking_properties: Vec<CityPropertyId>,
     },
     GardenBlocked {
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
     },
     Garden {
         issue: gardens::GardenIssue,
@@ -81,7 +81,7 @@ impl CompiledCityLayout {
         let translations = solver::solve(self, context, &envelope_map)?;
         #[cfg(test)]
         let original_gardens = self.gardens.clone();
-        let building_translations = projection::apply(self, context, &translations);
+        let building_translations = projection::apply(self, context, &translations)?;
         let validation = projection::validate_gardens(self, envelopes, &building_translations);
         #[cfg(test)]
         tests::record_garden_failure(&original_gardens, self, &translations, &validation);
@@ -93,7 +93,7 @@ impl CompiledCityLayout {
 /// Elevated projections constrain building pairs; floor contacts constrain land.
 #[derive(Clone, Debug)]
 pub(in crate::city_layout) struct MeasuredBuildingEnvelope {
-    pub building: u64,
+    pub building: crate::scene_input::SceneBuildingId,
     pub body: CityPlotBounds,
     pub bearing_outline: ScenePlanPolygon,
 }

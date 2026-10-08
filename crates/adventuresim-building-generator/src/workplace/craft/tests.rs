@@ -1,4 +1,5 @@
 use super::*;
+use crate::spatial_geometry::Position;
 use crate::{BuildingArchetype, audit_plan, generate, settlement_archetype};
 
 #[test]
@@ -9,14 +10,18 @@ fn timber_trades_keep_visible_supported_stock_outside_the_handling_lane() {
             ServiceBuildingSize::Medium,
             ServiceBuildingSize::Large,
         ] {
-            for seed in [0, 42, 101] {
+            for seed in [0, 42, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let program =
                     BuildingProgram::settlement(settlement_archetype(usage), Some(usage), seed)
                         .with_service_size(size);
                 let plan = generate(&program)
                     .unwrap_or_else(|error| panic!("{usage:?} {size:?} {seed}: {error:?}"));
                 let work = plan.workplace.as_ref().unwrap();
-                assert!(work.passages[0].max.x - work.passages[0].min.x >= 3.0);
+                assert!(
+                    work.passages[0].bounds.max().metres().x
+                        - work.passages[0].bounds.min().metres().x
+                        >= 3.0
+                );
                 assert!(
                     work.parts
                         .iter()
@@ -59,9 +64,13 @@ fn timber_trades_keep_visible_supported_stock_outside_the_handling_lane() {
                     .iter_mut()
                     .find(|solid| solid.id == stock.solid)
                     .unwrap()
-                    .centre = (passage.min + passage.max) * 0.5;
+                    .centre = Position::<crate::Architectural>::from_metres(
+                    (passage.bounds.min().metres() + passage.bounds.max().metres()) * 0.5,
+                )
+                .unwrap();
                 assert!(
                     audit_plan(&blocked)
+                        .unwrap()
                         .iter()
                         .any(|issue| issue.code == "workplace_blocked_passage")
                 );
@@ -74,7 +83,11 @@ fn timber_trades_keep_visible_supported_stock_outside_the_handling_lane() {
 fn armorers_reserve_the_shared_forge_without_losing_their_shop_identity() {
     let usage = BuildingUse::Armorer;
     assert_eq!(settlement_archetype(usage), BuildingArchetype::Workplace);
-    let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42);
+    let program = BuildingProgram::settlement(
+        settlement_archetype(usage),
+        Some(usage),
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     assert_eq!(program.usage, Some(usage));
     let plan = generate(&program).unwrap();
     let work = plan.workplace.unwrap();
@@ -85,7 +98,7 @@ fn armorers_reserve_the_shared_forge_without_losing_their_shop_identity() {
             .any(|part| part.feature == WorkplaceFeature::Forge)
     );
     assert!(
-        work.plot_dimensions_metres.x
+        work.plot_dimensions_metres.metres().x
             > f32::from(program.footprint.dimensions().0) * crate::CELL_SIZE_METRES
     );
 }

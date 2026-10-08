@@ -9,7 +9,7 @@ pub(super) fn assemble(
     pitch: f32,
     walls: &mut Vec<crate::WallAssembly>,
     geometry: &mut ResolvedGeometry,
-) -> SmallChurchPlan {
+) -> Result<SmallChurchPlan, crate::GenerationError> {
     let initial_walls = walls.len();
     let mut builder = Fittings {
         geometry,
@@ -20,19 +20,19 @@ pub(super) fn assemble(
         Vec3::new(d.width() * 0.5, 0.08, d.nave_depth() * 0.5),
         Vec3::new(d.width() - 0.5, 0.16, d.nave_depth() - 0.5),
         SolidRole::ChurchFloor,
-    );
+    )?;
     if d.chancel_cells > 0 {
         builder.part(
             Vec3::new(d.width() * 0.5, 0.08, (d.depth() + d.nave_depth()) * 0.5),
             Vec3::new(d.width() - 3.5, 0.16, d.depth() - d.nave_depth() - 0.5),
             SolidRole::ChurchFloor,
-        );
+        )?;
         let span = 3.0 * CELL_SIZE_METRES;
         builder.part(
             Vec3::new(d.width() * 0.5, 0.08, d.nave_depth()),
             Vec3::new(span, 0.16, 0.5),
             SolidRole::ChurchFloor,
-        );
+        )?;
         for x in [-1.0, 1.0] {
             builder.part(
                 Vec3::new(
@@ -42,13 +42,13 @@ pub(super) fn assemble(
                 ),
                 Vec3::new(0.2, 2.85, 0.5),
                 SolidRole::ChurchPier,
-            );
+            )?;
         }
         builder.part(
             Vec3::new(d.width() * 0.5, 3.0, d.nave_depth()),
             Vec3::new(span, 0.3, 0.5),
             SolidRole::BeamJoist,
-        );
+        )?;
         builder.band(
             Vec2::new(d.width() * 0.5, d.nave_depth()),
             Vec2::X,
@@ -56,40 +56,44 @@ pub(super) fn assemble(
             3.15,
             d.nave_eave - 3.15,
             crate::WallMaterialClass::RubbleMasonry,
-        );
+        )?;
     }
-    belfry(&mut builder, d, pitch);
-    SmallChurchPlan {
+    belfry(&mut builder, d, pitch)?;
+    Ok(SmallChurchPlan {
         kind: d.kind,
         size: d.size,
         nave_bays: d.nave_cells / 2,
         nave_depth_metres: d.nave_depth(),
         chancel_eave_metres: (d.chancel_cells > 0).then_some(d.chancel_eave),
-        belfry_stage: ResolvedBounds {
-            min: Vec3::new(
+        belfry_stage: SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 d.bell_centre().x - 1.05,
                 d.bell_floor(pitch),
                 d.bell_centre().y - 1.05,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 d.bell_centre().x + 1.05,
                 d.bell_floor(pitch) + 1.65,
                 d.bell_centre().y + 1.05,
             ),
-        },
+        )?,
         fittings: builder.ids,
         bearing_walls: builder.walls[initial_walls..]
             .iter()
             .map(|wall| wall.id)
             .collect(),
-        public_route: ResolvedBounds {
-            min: Vec3::new(d.width() * 0.5 - 0.6, 0.18, 0.3),
-            max: Vec3::new(d.width() * 0.5 + 0.6, 2.35, d.depth() - 0.4),
-        },
-    }
+        public_route: SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(d.width() * 0.5 - 0.6, 0.18, 0.3),
+            Vec3::new(d.width() * 0.5 + 0.6, 2.35, d.depth() - 0.4),
+        )?,
+    })
 }
 
-fn belfry(builder: &mut Fittings<'_>, d: Dimensions, pitch: f32) {
+fn belfry(
+    builder: &mut Fittings<'_>,
+    d: Dimensions,
+    pitch: f32,
+) -> Result<(), crate::GenerationError> {
     let centre = d.bell_centre();
     let floor = d.bell_floor(pitch);
     let cap = floor + 1.65;
@@ -100,7 +104,7 @@ fn belfry(builder: &mut Fittings<'_>, d: Dimensions, pitch: f32) {
                 Vec3::new(centre.x + x, cap * 0.5, centre.y + z),
                 Vec3::new(0.18, cap, 0.18),
                 SolidRole::BeamJoist,
-            );
+            )?;
         }
     }
     for z in [-0.85, 0.85] {
@@ -108,7 +112,7 @@ fn belfry(builder: &mut Fittings<'_>, d: Dimensions, pitch: f32) {
             Vec3::new(centre.x, floor - 0.10, centre.y + z),
             Vec3::new(1.88, 0.20, 0.22),
             SolidRole::BeamJoist,
-        );
+        )?;
         builder.band(
             centre + Vec2::Y * z,
             Vec2::X,
@@ -116,7 +120,7 @@ fn belfry(builder: &mut Fittings<'_>, d: Dimensions, pitch: f32) {
             cap - 0.2,
             0.2,
             crate::WallMaterialClass::InternalTimber,
-        );
+        )?;
     }
     for x in [-0.85, 0.85] {
         builder.band(
@@ -126,7 +130,7 @@ fn belfry(builder: &mut Fittings<'_>, d: Dimensions, pitch: f32) {
             cap - 0.2,
             0.2,
             crate::WallMaterialClass::InternalTimber,
-        );
+        )?;
     }
     for part in (bell_hanging::BellHanging {
         bell_top: Vec3::new(centre.x, floor + 1.15, centre.y),
@@ -138,38 +142,33 @@ fn belfry(builder: &mut Fittings<'_>, d: Dimensions, pitch: f32) {
     })
     .parts()
     {
-        builder.part(part.centre, part.size, part.role);
+        builder.part(part.centre, part.size, part.role)?;
     }
     let bell = builder.part(
         Vec3::new(centre.x, floor + 0.84, centre.y),
         Vec3::new(0.62, 0.62, 0.62),
         SolidRole::ChurchBell,
-    );
-    builder
-        .geometry
-        .solids
-        .iter_mut()
-        .find(|solid| solid.id == bell)
-        .unwrap()
-        .shape = crate::ResolvedSolidShape::BellShell;
+    )?;
+    builder.geometry.solid_mut(bell)?.shape = crate::ResolvedSolidShape::BellShell;
     // Open sound stage: the space between slats is geometry, not a painted black panel.
-    for level in 0..4 {
+    let _: () = for level in 0..4 {
         let y = floor + 0.2 + level as f32 * 0.3;
         for z in [-0.85, 0.85] {
             builder.part(
                 Vec3::new(centre.x, y, centre.y + z),
                 Vec3::new(1.7, 0.10, 0.18),
                 SolidRole::BeamJoist,
-            );
+            )?;
         }
         for x in [-0.85, 0.85] {
             builder.part(
                 Vec3::new(centre.x + x, y, centre.y),
                 Vec3::new(0.18, 0.10, 1.7),
                 SolidRole::BeamJoist,
-            );
+            )?;
         }
-    }
+    };
+    Ok(())
 }
 
 struct Fittings<'a> {
@@ -179,7 +178,12 @@ struct Fittings<'a> {
 }
 
 impl Fittings<'_> {
-    fn part(&mut self, centre: Vec3, size: Vec3, role: SolidRole) -> ResolvedItemId {
+    fn part(
+        &mut self,
+        centre: Vec3,
+        size: Vec3,
+        role: SolidRole,
+    ) -> Result<ResolvedItemId, crate::GenerationError> {
         let slot = self.ids.len() as u64 + 1;
         let id = StructuralNodeId(NODE_BASE + slot);
         let min = centre - size * 0.5;
@@ -189,21 +193,24 @@ impl Fittings<'_> {
             .solids
             .iter()
             .filter(|solid| {
-                let extent = solid.size * 0.5;
-                let overlap =
-                    (max.min(solid.centre + extent) - min.max(solid.centre - extent)).min_element();
+                let extent = solid.size.metres() * 0.5;
+                let overlap = (max.min(solid.centre.metres() + extent)
+                    - min.max(solid.centre.metres() - extent))
+                .min_element();
                 overlap >= -CONTACT_METRES
             })
             .flat_map(|solid| solid.supported_by.iter().copied())
             .collect();
-        self.geometry.structural_nodes.push(StructuralNode {
-            id,
-            owner: OWNER,
-            kind: StructuralNodeKind::WallBearing,
-            position: Vec3::new(centre.x, min.y, centre.z),
-            supported_by: parents,
-            grounded: min.y <= CONTACT_METRES,
-        });
+        self.geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                id,
+                OWNER,
+                StructuralNodeKind::WallBearing,
+                Vec3::new(centre.x, min.y, centre.z),
+                parents,
+                min.y <= CONTACT_METRES,
+            )?);
         let solid = wall_solid(
             self.geometry,
             OWNER,
@@ -213,9 +220,9 @@ impl Fittings<'_> {
             role,
             crate::bell::shape_for_role(role),
             id,
-        );
+        )?;
         self.ids.push(solid);
-        solid
+        Ok(solid)
     }
 
     fn band(
@@ -226,7 +233,7 @@ impl Fittings<'_> {
         base: f32,
         height: f32,
         material: crate::WallMaterialClass,
-    ) {
+    ) -> Result<(), crate::GenerationError> {
         let thickness = if material == crate::WallMaterialClass::InternalTimber {
             0.18
         } else {
@@ -241,7 +248,7 @@ impl Fittings<'_> {
             Vec3::new(origin.x, base + height * 0.5, origin.y),
             size,
             SolidRole::WallHost,
-        );
+        )?;
         let node = self.geometry.solids.last().unwrap().supported_by[0];
         let index = self.walls.len() as u64;
         self.walls.push(crate::WallAssembly {
@@ -272,5 +279,7 @@ impl Fittings<'_> {
             opening_ids: Vec::new(),
             replaced_by_owner: None,
         });
+
+        Ok(())
     }
 }

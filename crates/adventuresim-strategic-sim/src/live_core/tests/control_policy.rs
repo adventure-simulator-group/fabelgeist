@@ -147,7 +147,7 @@ fn public_contract_matchup_uses_readiness_count_difficulty_and_fails_closed() {
 
 #[test]
 fn generated_action_score_prefers_progress_then_fit_then_public_costs() {
-    let mut profile = generate_profile(42, 0);
+    let mut profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     profile.initial_skills.insight = 8_000.0;
     profile.initial_skills.stealth = 1_000.0;
     let inspect = projected_action("z", "inspect_site");
@@ -194,7 +194,7 @@ fn generated_action_score_prefers_progress_then_fit_then_public_costs() {
 
 #[test]
 fn generated_skill_fit_exactly_mirrors_public_action_skill_mapping() {
-    let mut profile = generate_profile(42, 0);
+    let mut profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     profile.initial_skills.insight = 8_000.0;
     profile.initial_skills.stealth = 2_000.0;
     for method in [
@@ -222,7 +222,7 @@ fn generated_skill_fit_exactly_mirrors_public_action_skill_mapping() {
 
 #[test]
 fn party_grouping_balances_roles_and_promotes_quest_capable_leaders() {
-    let mut profiles = (0..6).map(|id| generate_profile(9, id)).collect::<Vec<_>>();
+    let mut profiles = (0..6).map(|id| generate_profile(fabelgeist_determinism::Seed::from_u64(9), id)).collect::<Vec<_>>();
     let roles = [
         BuildRole::FrontLine,
         BuildRole::FrontLine,
@@ -289,7 +289,7 @@ fn generated_defeat_policy_suppresses_work_until_public_capability_changes() {
 
 #[test]
 fn departure_preflights_the_selected_travel_action_not_a_longer_alternative() {
-    let profile = generate_profile(42, 0);
+    let profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     let mut selected = projected_action("selected-62", "search");
     selected.availability =
         InvestigationActionAvailability::Unavailable(InvestigationActionUnavailableFields {

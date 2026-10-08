@@ -136,7 +136,12 @@ impl PreparedVenue {
             Some(_) => return Err("venue recipe does not match its program".into()),
             None => GeneratedBuildingRecipe::generate(program).map_err(|e| e.to_string())?,
         };
-        let origin = recipe.collision.bounds.centre();
+        let origin = recipe
+            .collision
+            .bounds
+            .centre()
+            .map_err(|error| error.to_string())?
+            .metres();
         let batches = |meshes: Vec<LodMesh>| {
             meshes
                 .iter()
@@ -144,11 +149,21 @@ impl PreparedVenue {
                 .collect()
         };
         let geometry = VenueGeometry {
-            detail: batches(compile_static_building_detail(&recipe.plan).meshes),
-            facade: batches(
-                compile_static_building_lod(&recipe.plan, BuildingLodLevel::Facade).meshes,
+            detail: batches(
+                compile_static_building_detail(&recipe.plan)
+                    .map_err(|error| error.to_string())?
+                    .meshes,
             ),
-            shell: batches(compile_building_lod(&recipe.plan, BuildingLodLevel::Shell).meshes),
+            facade: batches(
+                compile_static_building_lod(&recipe.plan, BuildingLodLevel::Facade)
+                    .map_err(|error| error.to_string())?
+                    .meshes,
+            ),
+            shell: batches(
+                compile_building_lod(&recipe.plan, BuildingLodLevel::Shell)
+                    .map_err(|error| error.to_string())?
+                    .meshes,
+            ),
         };
         let interior = furnish(&recipe.plan, &recipe.program).map_err(|e| e.to_string())?;
         Ok(Self {

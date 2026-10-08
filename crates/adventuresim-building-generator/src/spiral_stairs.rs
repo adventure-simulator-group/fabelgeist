@@ -1,8 +1,9 @@
 //! Fortified spiral flights, occupied floors and landing portals share resolved solids.
+use crate::{Architectural, SpatialBounds};
 use crate::{
-    BuildingArchetype, BuildingPlan, GeometryOwnerId, ResolvedBounds, ResolvedGeometry,
-    ResolvedItemId, ResolvedSolid, ResolvedSolidShape, SolidRole, Stair, StructuralNode,
-    StructuralNodeId, StructuralNodeKind, SupportInterface,
+    BuildingArchetype, BuildingPlan, GeometryOwnerId, ResolvedGeometry, ResolvedItemId,
+    ResolvedSolid, ResolvedSolidShape, SolidRole, Stair, StructuralNodeId, StructuralNodeKind,
+    SupportInterface,
 };
 use bevy::math::{Vec2, Vec3};
 
@@ -67,7 +68,7 @@ pub fn well_bounds(stair: Stair) -> Option<(Vec2, Vec2)> {
     Some((centre - half, centre + half))
 }
 
-pub(crate) fn resolve(mut plan: BuildingPlan) -> BuildingPlan {
+pub(crate) fn resolve(mut plan: BuildingPlan) -> Result<BuildingPlan, crate::GenerationError> {
     if !matches!(
         plan.archetype,
         BuildingArchetype::CastleGatehouse
@@ -75,7 +76,7 @@ pub(crate) fn resolve(mut plan: BuildingPlan) -> BuildingPlan {
             | BuildingArchetype::WalledKeep
             | BuildingArchetype::ArtilleryRondelCastle
     ) {
-        return plan;
+        return Ok(plan);
     }
     let mut flights = plan
         .stairs
@@ -89,11 +90,11 @@ pub(crate) fn resolve(mut plan: BuildingPlan) -> BuildingPlan {
         landing_policy::resolve(&plan, flight);
     }
     if keep_core::owns_occupied_storeys(plan.archetype) {
-        floors::resolve(&mut plan, &flights);
+        floors::resolve(&mut plan, &flights)?;
     }
     for (index, flight) in flights {
         let owner = GeometryOwnerId(FIRST_FLIGHT_OWNER + index as u32);
-        let bearing = foundation(&mut plan.resolved_geometry, owner, flight.centre);
+        let bearing = foundation(&mut plan.resolved_geometry, owner, flight.centre)?;
         for (member_index, member) in flight.members.into_iter().enumerate() {
             append(
                 &mut plan.resolved_geometry,
@@ -101,28 +102,30 @@ pub(crate) fn resolve(mut plan: BuildingPlan) -> BuildingPlan {
                 member_index,
                 bearing,
                 member,
-            );
+            )?;
         }
     }
-    bearings::resolve(&mut plan.resolved_geometry);
-    plan
+    bearings::resolve(&mut plan.resolved_geometry)?;
+    Ok(plan)
 }
 
 fn foundation(
     geometry: &mut ResolvedGeometry,
     owner: GeometryOwnerId,
     centre: Vec2,
-) -> StructuralNodeId {
+) -> Result<StructuralNodeId, crate::GenerationError> {
     let id = StructuralNodeId(NODE_DOMAIN | (u64::from(owner.0) << 32));
-    geometry.structural_nodes.push(StructuralNode {
-        id,
-        owner,
-        kind: StructuralNodeKind::WallBearing,
-        position: Vec3::new(centre.x, 0.0, centre.y),
-        supported_by: Vec::new(),
-        grounded: true,
-    });
-    id
+    geometry
+        .structural_nodes
+        .push(crate::StructuralNode::from_metres(
+            id,
+            owner,
+            StructuralNodeKind::WallBearing,
+            Vec3::new(centre.x, 0.0, centre.y),
+            Vec::new(),
+            true,
+        )?);
+    Ok(id)
 }
 
 fn append(
@@ -131,20 +134,22 @@ fn append(
     index: usize,
     bearing: StructuralNodeId,
     member: SpiralMember,
-) {
+) -> Result<(), crate::GenerationError> {
     let suffix = (u64::from(owner.0) << 32) | index as u64;
-    geometry.solids.push(ResolvedSolid {
-        id: ResolvedItemId(ITEM_DOMAIN | suffix),
+    geometry.solids.push(crate::ResolvedSolid::new(
+        crate::CollisionCuboid::<crate::Architectural>::from_metres(
+            ResolvedItemId(ITEM_DOMAIN | suffix),
+            member.centre,
+            member.size,
+            member.yaw_radians,
+            0.0,
+            0.0,
+        )?,
         owner,
-        centre: member.centre,
-        size: member.size,
-        yaw_radians: member.yaw_radians,
-        crossfall_radians: 0.0,
-        longfall_radians: 0.0,
-        role: member.role,
-        shape: ResolvedSolidShape::Cuboid,
-        supported_by: vec![bearing],
-    });
+        member.role,
+        ResolvedSolidShape::Cuboid,
+        vec![bearing],
+    ));
     // The interface is the member's lower contact slab. Flight treads embed
     // into their continuous newel; floor panels share the masonry deck bearing.
     let rotation = bevy::math::Quat::from_rotation_y(member.yaw_radians);
@@ -156,13 +161,15 @@ fn append(
         id: ResolvedItemId(SUPPORT_DOMAIN | suffix),
         owner,
         node: bearing,
-        bounds: ResolvedBounds {
+        bounds: SpatialBounds::<Architectural>::from_metres(
             min,
-            max: Vec3::new(
+            Vec3::new(
                 member.centre.x + half.x,
                 min.y + BEARING_OVERLAP_METRES,
                 member.centre.z + half.z,
             ),
-        },
+        )?,
     });
+
+    Ok(())
 }

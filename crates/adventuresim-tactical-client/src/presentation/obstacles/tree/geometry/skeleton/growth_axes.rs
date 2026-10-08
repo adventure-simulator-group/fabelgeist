@@ -1,5 +1,6 @@
 //! Woody centerline deformation and terminal shoot placement.
 use super::*;
+use fabelgeist_determinism::Seed;
 
 pub(super) fn oak_trunk_points(
     canopy_competition: f32,
@@ -49,16 +50,14 @@ pub(super) fn oak_trunk_points(
 
 pub(super) fn append_shrub_shoots(
     branches: &mut Vec<TreeBranchSegment>,
-    branch_seed: u64,
+    branch_seed: Seed,
     branch_points: &[Vec3],
     branch_start_radius: f32,
     direction: Vec3,
     (primary_group, secondary_group): (u8, u16),
 ) {
     for shoot_index in 0..5_u64 {
-        let shoot_seed = streams::SHRUB_SHOOT
-            .seed(branch_seed, &[shoot_index])
-            .to_u64();
+        let shoot_seed = streams::SHRUB_SHOOT.seed(branch_seed, &[shoot_index]);
         let shoot_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
             purpose.rng(shoot_seed, &[]).inclusive_unit_f32()
         };

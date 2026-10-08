@@ -30,7 +30,7 @@ pub(super) fn resolve(
         wall_assemblies,
         opening_assemblies,
         resolved_geometry,
-    );
+    )?;
     let timber_frame = resolve_timber_frame_assembly(
         program,
         edits,
@@ -41,6 +41,6 @@ pub(super) fn resolve(
         stairs,
         &mut roof_assemblies,
         resolved_geometry,
-    );
+    )?;
     Ok((roof_assemblies, timber_frame))
 }

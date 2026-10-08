@@ -4,6 +4,7 @@ mod presets;
 #[cfg(test)]
 mod tests;
 use crate::{GenerationError, Pigment, PlantLod, PlantMesh, parameters::bounded};
+use fabelgeist_determinism::Seed;
 pub use presets::FlowerSpecies;
 use serde::{Deserialize, Serialize};
 
@@ -94,7 +95,7 @@ impl FlowerParameters {
         Ok(())
     }
 
-    pub fn generate(&self, seed: u64, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
+    pub fn generate(&self, seed: Seed, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
         self.validate()?;
         Ok(geometry::generate(self, seed, detail))
     }

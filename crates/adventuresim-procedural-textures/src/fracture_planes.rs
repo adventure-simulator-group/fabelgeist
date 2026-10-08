@@ -3,6 +3,7 @@ const RNG_TEXTURE_FRACTURE_PLANES_TRIANGULATION: fabelgeist_determinism::StreamI
     fabelgeist_determinism::StreamId::new("texture.fracture-planes.triangulation");
 use crate::{TextureParameters, stamps::hash};
 use bevy::math::{IVec2, Vec2};
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 crate::parameters::parameter_block! {
     pub struct Parameters {
@@ -13,7 +14,7 @@ crate::parameters::parameter_block! {
     }
 }
 impl Parameters {
-    pub(crate) fn sample(&self, params: &TextureParameters, uv: Vec2, field_seed: u64) -> f32 {
+    pub(crate) fn sample(&self, params: &TextureParameters, uv: Vec2, field_seed: Seed) -> f32 {
         let cells = IVec2::from_array(self.cells);
         let p = uv.rem_euclid(Vec2::ONE) * cells.as_vec2();
         let base = p.floor().as_ivec2();
@@ -25,12 +26,7 @@ impl Parameters {
                 let vertices = [IVec2::ZERO, IVec2::X, IVec2::ONE, IVec2::Y].map(|offset| {
                     let corner = cell + offset;
                     let random = |purpose: StreamId| {
-                        hash(
-                            params,
-                            corner,
-                            cells,
-                            purpose.seed(field_seed, &[]).to_u64(),
-                        )
+                        hash(params, corner, cells, purpose.seed(field_seed, &[]))
                     };
                     let position = corner.as_vec2()
                         + (Vec2::new(
@@ -49,7 +45,10 @@ impl Parameters {
                     params,
                     cell,
                     cells,
-                    params.field_seed(RNG_TEXTURE_FRACTURE_PLANES_TRIANGULATION, &[field_seed]),
+                    params.field_seed(
+                        RNG_TEXTURE_FRACTURE_PLANES_TRIANGULATION,
+                        &[field_seed.to_u64()],
+                    ),
                 ) < 0.5
                 {
                     [[0, 1, 2], [0, 2, 3]]
@@ -96,9 +95,17 @@ mod tests {
         for y in 0..128 {
             for x in 0..128 {
                 let p = Vec2::new(x as f32 / 128.0, y as f32 / 128.0);
-                let h = planes.sample(&params, p, 17);
+                let h = planes.sample(&params, p, fabelgeist_determinism::Seed::from_u64(17));
                 for axis in [Vec2::X, Vec2::Y] {
-                    assert!((h - planes.sample(&params, p + axis * epsilon, 17)).abs() < 0.001);
+                    assert!(
+                        (h - planes.sample(
+                            &params,
+                            p + axis * epsilon,
+                            fabelgeist_determinism::Seed::from_u64(17)
+                        ))
+                        .abs()
+                            < 0.001
+                    );
                 }
             }
         }
@@ -112,8 +119,16 @@ mod tests {
         for y in 0..32 {
             for x in 0..32 {
                 let p = Vec2::new(x as f32 / 32.0, y as f32 / 32.0);
-                let a = planes.sample(&params, p, 17);
-                assert!((a - planes.sample(&params, p + Vec2::ONE, 17)).abs() < 0.00001);
+                let a = planes.sample(&params, p, fabelgeist_determinism::Seed::from_u64(17));
+                assert!(
+                    (a - planes.sample(
+                        &params,
+                        p + Vec2::ONE,
+                        fabelgeist_determinism::Seed::from_u64(17)
+                    ))
+                    .abs()
+                        < 0.00001
+                );
                 lo = lo.min(a);
                 hi = hi.max(a);
             }

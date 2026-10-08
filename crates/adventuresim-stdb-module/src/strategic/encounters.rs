@@ -1,3 +1,4 @@
+
 fn encounter_terrain_at(route: Option<&PartyJourneyRoute>, minute: u64) -> JourneyTerrainKind {
     route
         .and_then(|route| {
@@ -208,7 +209,7 @@ fn current_party_fatigue_percent(ctx: &ReducerContext, member_ids: &[u64]) -> u8
         .min(100) as u8
 }
 
-pub(crate) fn opaque_strategic_encounter_id(seed: u64, roll_index: u64) -> String {
+pub(crate) fn opaque_strategic_encounter_id(seed: Seed, roll_index: u64) -> String {
     adventuresim_core::encounter::opaque_strategic_encounter_id(seed, roll_index)
 }
 
@@ -1018,7 +1019,7 @@ fn commit_autoresolve_outcome(
 fn resolve_random_encounter_battle(
     ctx: &ReducerContext,
     encounter: &StrategicEncounter,
-    seed: u64,
+    seed: Seed,
     opening: BattleOpening,
 ) -> Result<String, String> {
     let member_ids = living_party_member_ids(ctx, &encounter.party_id);
@@ -1051,7 +1052,7 @@ fn resolve_random_encounter_battle(
             )
         })
         .collect::<Result<Vec<_>, String>>()?;
-    let outcome = resolve_battle(allies, enemies, seed ^ encounter.roll_index, opening);
+    let outcome = resolve_battle(allies, enemies, seed.xor_word(encounter.roll_index), opening);
     commit_autoresolve_outcome(
         ctx,
         &encounter.encounter_id,

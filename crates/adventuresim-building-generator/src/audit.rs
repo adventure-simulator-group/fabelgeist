@@ -14,12 +14,17 @@ use crate::{
     StructuralNodeId, SurfaceRole, TowerPortalKind, VoidRole, WALL_THICKNESS_METRES, WallWalk,
 };
 
+/// Audit operations that can fail with a generation error.
+use crate::GenerationResult as Result;
+
 include!("audit/core.rs");
 include!("audit/vertical_circulation.rs");
 include!("audit/artillery.rs");
 mod artillery_clearance;
 mod bell_hanging;
 mod bell_swing;
+mod bonding_metrics;
+use bonding_metrics::{bonded_geometry_matches, resolved_plan_overlap_area};
 #[cfg(test)]
 mod spatial_tests;
 include!("audit/timber_geometry.rs");
@@ -28,16 +33,23 @@ include!("audit/church.rs");
 include!("audit/roofs.rs");
 #[path = "audit/bearing.rs"]
 mod bearing;
+mod church_program;
+mod crown_profile;
 pub(crate) mod enclosure;
 mod enclosure_geometry;
 mod enclosure_sections;
 mod gable_enclosure;
 mod gable_openings;
 mod junction_bearing;
+mod projected_defense_program;
+mod roof_graph;
 mod shed_dormers;
 #[path = "audit/support.rs"]
 mod support;
 mod timber_bracing;
+mod timber_roof_contacts;
+mod wall_frame;
+
 #[path = "audit/wall_counts.rs"]
 mod wall_counts;
 include!("audit/wall_openings.rs");

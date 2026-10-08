@@ -10,6 +10,7 @@ use bevy::{prelude::*, window::WindowResolution};
 use bevy_egui::{EguiPlugin, EguiPrimaryContextPass};
 use bevy_panorbit_camera::{PanOrbitCamera, PanOrbitCameraPlugin};
 use clap::{Parser, ValueEnum};
+use fabelgeist_determinism::Seed;
 use recipe::{Family, Recipe};
 use std::path::PathBuf;
 
@@ -34,8 +35,8 @@ struct Options {
     family: Family,
     #[arg(long, default_value_t = 0)]
     preset: usize,
-    #[arg(long, default_value_t = 42)]
-    seed: u64,
+    #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(42))]
+    seed: Seed,
     #[arg(long)]
     document: Option<PathBuf>,
     #[arg(long)]

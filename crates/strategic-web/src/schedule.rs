@@ -6,6 +6,7 @@ use adventuresim_core::{
     },
 };
 use adventuresim_stdb_client::ScheduleAllocation;
+use fabelgeist_determinism::Seed;
 
 pub(crate) fn validate(
     mut schedule: ScheduleAllocation,
@@ -41,10 +42,10 @@ pub(crate) fn validate(
 pub(crate) fn effective(
     schedule: &ScheduleAllocation,
     location: ActivityLocation,
-    character_id: u64,
+    redistribution_seed: Seed,
 ) -> Result<ScheduleAllocation, ScheduleParseError> {
     let core = ValidatedSchedule::try_from(core_allocation(schedule))?
-        .effective_at(location, character_id);
+        .effective_at(location, redistribution_seed);
     Ok(ScheduleAllocation {
         reading_minutes: core.reading_minutes,
         combat_training_minutes: core.combat_training_minutes,
@@ -88,7 +89,7 @@ impl SchedulePreview {
         character_id: u64,
     ) -> Result<Self, ScheduleParseError> {
         let effective = ValidatedSchedule::try_from(core_allocation(schedule))?
-            .effective_at(location, character_id);
+            .effective_at(location, Seed::from_u64(character_id));
         Ok(Self {
             effective,
             leisure_minutes: adventuresim_world_schema::calendar::MINUTES_PER_DAY

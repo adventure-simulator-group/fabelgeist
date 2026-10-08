@@ -1,17 +1,32 @@
 //! Plant roots use the same immutable soil triangles as collision and rendering.
 use super::*;
-use bevy::math::Vec2;
 
 #[derive(Clone, Debug, PartialEq, thiserror::Error)]
 pub enum GardenSupportError {
+    #[error("property {property:?}, building {building}, plant {plant:?}: invalid garden identity")]
+    Identity {
+        property: crate::city_layout::CityPropertyId,
+        building: crate::scene_input::SceneBuildingId,
+        plant: Option<GardenPlantId>,
+    },
+    #[error(
+        "property {property:?}, building {building}, root {index} expected {expected:?}, received {actual:?}"
+    )]
+    Membership {
+        property: crate::city_layout::CityPropertyId,
+        building: crate::scene_input::SceneBuildingId,
+        index: usize,
+        expected: Option<GardenPlantId>,
+        actual: Option<GardenPlantId>,
+    },
     #[error(
         "property {property:?}, building {building}, plant {plant:?} lacks soil support at {location_metres:?}"
     )]
     MissingSoil {
         property: crate::city_layout::CityPropertyId,
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
         plant: GardenPlantId,
-        location_metres: Vec2,
+        location_metres: crate::scene_coordinates::ScenePlanPoint,
     },
 }
 
@@ -25,7 +40,7 @@ impl SceneGarden {
             .iter()
             .map(|plant| {
                 let elevation = terrain
-                    .height_at(plant.centre_metres)
+                    .height_at(plant.centre_metres.metres())
                     .and_then(SupportElevation::from_metres)
                     .ok_or(GardenSupportError::MissingSoil {
                         property: garden.owner,
@@ -39,10 +54,7 @@ impl SceneGarden {
                 })
             })
             .collect::<Result<_, GardenSupportError>>()?;
-        Ok(Self {
-            garden,
-            plant_support,
-        })
+        Self::from_support(garden, plant_support)
     }
 }
 

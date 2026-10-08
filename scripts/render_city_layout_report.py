@@ -31,7 +31,7 @@ def render(report: dict) -> str:
            '<rect width="100%" height="100%" fill="#f7f3e9"/>',
            '<g font-family="Segoe UI, sans-serif" fill="#292c28">',
            f'<text x="45" y="55" font-size="28">Settlement building demand</text>',
-           f'<text x="45" y="90" font-size="17">Population {report["population"]:,} · seed {report["seed"]} · {len(lots):,} buildings</text>']
+           f'<text x="45" y="90" font-size="17">Population {report["population"]:,} · seed {report["seed"]["word"]} · {len(lots):,} buildings</text>']
     for street in report["streets"]:
         if street["shape"] == "corridor":
             a, b = point(street["start_metres"]), point(street["end_metres"])

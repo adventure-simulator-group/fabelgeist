@@ -1,4 +1,5 @@
 use super::*;
+use crate::spatial_geometry::Position;
 use crate::{
     BuildingArchetype, audit_plan, compile_building_collision, generate, settlement_archetype,
 };
@@ -10,7 +11,7 @@ fn warehouses_provide_loading_routes_to_two_real_storage_floors() {
         ServiceBuildingSize::Medium,
         ServiceBuildingSize::Large,
     ] {
-        for seed in [0, 42, 101] {
+        for seed in [0, 42, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let usage = BuildingUse::Warehouse;
             let program =
                 BuildingProgram::settlement(settlement_archetype(usage), Some(usage), seed)
@@ -21,12 +22,12 @@ fn warehouses_provide_loading_routes_to_two_real_storage_floors() {
             let (width, depth) = program.footprint.dimensions();
             let w = f32::from(width) * crate::CELL_SIZE_METRES;
             let d = f32::from(depth) * crate::CELL_SIZE_METRES;
-            let collision = compile_building_collision(&plan);
+            let collision = compile_building_collision(&plan).unwrap();
             let occupied = |point: Vec3| {
                 collision.cuboids.iter().any(|cuboid| {
-                    let local = bevy::math::Quat::from_rotation_y(-cuboid.yaw_radians)
-                        * (point - cuboid.centre);
-                    (cuboid.size * 0.5 - local.abs()).min_element() > 0.0
+                    let local = bevy::math::Quat::from_rotation_y(-cuboid.yaw_radians.radians())
+                        * (point - cuboid.centre.metres());
+                    (cuboid.size.metres() * 0.5 - local.abs()).min_element() > 0.0
                 })
             };
             for z in [d * 0.25, d * 0.5] {
@@ -75,7 +76,7 @@ fn warehouse_audit_rejects_a_detached_loading_hook() {
     let program = BuildingProgram::settlement(
         settlement_archetype(BuildingUse::Warehouse),
         Some(BuildingUse::Warehouse),
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     );
     let mut plan = generate(&program).unwrap();
     let hook = plan
@@ -90,15 +91,26 @@ fn warehouse_audit_rejects_a_detached_loading_hook() {
         })
         .unwrap()
         .solid;
-    plan.resolved_geometry
-        .solids
-        .iter_mut()
-        .find(|solid| solid.id == hook)
-        .unwrap()
-        .centre
-        .y += 20.0;
+    {
+        let mut native_geometry = plan
+            .resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|solid| solid.id == hook)
+            .unwrap()
+            .centre
+            .metres();
+        native_geometry.y += 20.0;
+        plan.resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|solid| solid.id == hook)
+            .unwrap()
+            .centre = Position::from_metres(native_geometry).unwrap();
+    };
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "workplace_floating_part")
     );

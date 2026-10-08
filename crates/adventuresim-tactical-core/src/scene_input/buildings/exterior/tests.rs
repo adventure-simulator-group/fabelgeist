@@ -14,8 +14,8 @@ fn facade_shell_and_occupied_detail_share_the_same_physical_plan() {
             continue;
         }
         let plan = generate(&program).unwrap();
-        let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
-        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
+        let shell = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
+        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
         assert!(!shell.meshes.is_empty());
         assert!(!facade.meshes.is_empty());
         let bounds = |meshes: &[adventuresim_building_generator::LodMesh]| {

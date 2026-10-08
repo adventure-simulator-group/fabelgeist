@@ -3,9 +3,14 @@ use adventuresim_character_creator::{
     garment::{DrapeStage, SettledGarment, drape, pattern::shapes},
     inventory::Article,
 };
+use fabelgeist_determinism::Seed;
 
 /// Bodies the saved garment is worn on, as the studio rolls them.
-const WEARER_SEEDS: [u64; 3] = [7, 1545, 90210];
+const WEARER_SEEDS: [Seed; 3] = [
+    Seed::from_u64(7),
+    Seed::from_u64(1545),
+    Seed::from_u64(90210),
+];
 /// How much further from a new wearer than from its own body a fitted garment
 /// may sit on average, in metres: it keeps the fit it settled with.
 const MAXIMUM_ADDED_DISTANCE_M: f32 = 0.01;
@@ -17,13 +22,13 @@ fn crosses(warnings: &[String]) -> bool {
         .any(|warning| warning.contains("intersect the wearer"))
 }
 
-fn wearer(seed: u64) -> CharacterRecipe {
+fn wearer(seed: Seed) -> CharacterRecipe {
     let mut recipe = CharacterRecipe {
         inventory: Default::default(),
         ..CharacterRecipe::default()
     };
     recipe.proportions =
-        adventuresim_core::character_proportions::CharacterProportions::from_character_id(seed);
+        adventuresim_core::character_proportions::CharacterProportions::from_seed(seed);
     let mut rng = character_controls::IDENTITY_STREAM.rng(seed, &[]);
     for value in &mut recipe.identity {
         *value = rng.range_f32(

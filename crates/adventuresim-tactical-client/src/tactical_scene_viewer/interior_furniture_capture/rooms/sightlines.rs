@@ -14,7 +14,7 @@ pub(super) enum Owner {
 
 pub(super) struct Blocker {
     pub owner: Owner,
-    pub solid: CollisionCuboid,
+    pub solid: CollisionCuboid<adventuresim_building_generator::spatial_geometry::Architectural>,
 }
 
 pub(super) struct Subject {
@@ -38,14 +38,14 @@ struct PreparedBlocker {
 impl From<&Blocker> for PreparedBlocker {
     fn from(blocker: &Blocker) -> Self {
         let solid = &blocker.solid;
-        let rotation = Quat::from_rotation_y(solid.yaw_radians)
-            * Quat::from_rotation_x(solid.crossfall_radians)
-            * Quat::from_rotation_z(solid.longfall_radians);
+        let rotation = Quat::from_rotation_y(solid.yaw_radians.radians())
+            * Quat::from_rotation_x(solid.crossfall_radians.radians())
+            * Quat::from_rotation_z(solid.longfall_radians.radians());
         let [x, y, z] = [Vec3::X, Vec3::Y, Vec3::Z].map(|axis| (rotation * axis).abs());
-        let half = solid.size * 0.5;
+        let half = solid.size.metres() * 0.5;
         Self {
             owner: blocker.owner,
-            centre: solid.centre,
+            centre: solid.centre.metres(),
             inverse_rotation: rotation.inverse(),
             half,
             world_half: x * half.x + y * half.y + z * half.z,
@@ -179,18 +179,16 @@ pub(super) fn choose(
 mod tests {
     use super::*;
 
-    fn wall() -> CollisionCuboid {
-        CollisionCuboid {
-            source: ResolvedItemId(1),
-            centre: Vec3::ZERO,
-            size: Vec3::new(0.2, 3.0, 2.0),
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        }
+    fn wall() -> CollisionCuboid<adventuresim_building_generator::spatial_geometry::Architectural> {
+        CollisionCuboid::<adventuresim_building_generator::spatial_geometry::Architectural>::from_metres(ResolvedItemId(1), Vec3::ZERO, Vec3::new(0.2, 3.0, 2.0), 0.0, 0.0, 0.0).unwrap()
     }
 
-    fn segment_hit(eye: Vec3, target: Vec3, solid: &CollisionCuboid, margin: f32) -> Option<f32> {
+    fn segment_hit(
+        eye: Vec3,
+        target: Vec3,
+        solid: &CollisionCuboid<adventuresim_building_generator::spatial_geometry::Architectural>,
+        margin: f32,
+    ) -> Option<f32> {
         PreparedBlocker::from(&Blocker {
             owner: Owner::Architecture(solid.source),
             solid: *solid,
@@ -201,18 +199,25 @@ mod tests {
     #[test]
     fn broad_bounds_preserve_hits_on_rotated_sloping_and_padded_shapes() {
         let mut solid = wall();
-        solid.centre = Vec3::new(12.0, 4.0, -7.0);
-        solid.yaw_radians = 0.8;
-        solid.crossfall_radians = 0.3;
-        solid.longfall_radians = -0.2;
-        let rotation = Quat::from_rotation_y(solid.yaw_radians)
-            * Quat::from_rotation_x(solid.crossfall_radians)
-            * Quat::from_rotation_z(solid.longfall_radians);
-        let eye = solid.centre + rotation * Vec3::new(-2.0, 0.0, 0.0);
-        let target = solid.centre + rotation * Vec3::new(2.0, 0.0, 0.0);
+        solid.centre = adventuresim_building_generator::spatial_geometry::Position::from_metres(
+            Vec3::new(12.0, 4.0, -7.0),
+        )
+        .unwrap();
+        solid.yaw_radians =
+            adventuresim_building_generator::spatial_geometry::Radians::new(0.8).unwrap();
+        solid.crossfall_radians =
+            adventuresim_building_generator::spatial_geometry::Radians::new(0.3).unwrap();
+        solid.longfall_radians =
+            adventuresim_building_generator::spatial_geometry::Radians::new(-0.2).unwrap();
+        let rotation = Quat::from_rotation_y(solid.yaw_radians.radians())
+            * Quat::from_rotation_x(solid.crossfall_radians.radians())
+            * Quat::from_rotation_z(solid.longfall_radians.radians());
+        let eye = solid.centre.metres() + rotation * Vec3::new(-2.0, 0.0, 0.0);
+        let target = solid.centre.metres() + rotation * Vec3::new(2.0, 0.0, 0.0);
         let hit = segment_hit(eye, target, &solid, 0.0).unwrap();
         assert!((hit - 0.475).abs() < 0.0001);
-        let padded_corner = solid.centre + rotation * (solid.size * 0.5 + Vec3::splat(0.05));
+        let padded_corner =
+            solid.centre.metres() + rotation * (solid.size.metres() * 0.5 + Vec3::splat(0.05));
         assert!(segment_hit(padded_corner, padded_corner, &solid, 0.0).is_none());
         assert!(
             segment_hit(
@@ -246,7 +251,10 @@ mod tests {
             )
             .is_none()
         );
-        partition.yaw_radians = std::f32::consts::FRAC_PI_2;
+        partition.yaw_radians = adventuresim_building_generator::spatial_geometry::Radians::new(
+            std::f32::consts::FRAC_PI_2,
+        )
+        .unwrap();
         assert!(
             segment_hit(
                 Vec3::new(0.0, 1.0, -2.0),
