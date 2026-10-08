@@ -8,7 +8,8 @@ const invalidCachedProductCodes = new Set([
   "generation/scene-bindings-mismatch",
 ]);
 
-export async function prepareGeneratedScene(runtime, input, venues) {
+export async function prepareGeneratedScene(runtime, input, venues, { signal } = {}) {
+  signal?.throwIfAborted();
   const started = performance.now();
   runtime.wasm_begin_generation();
   // Rust owns numeric parsing: JSON.parse would truncate 64-bit scene seeds.
@@ -26,7 +27,10 @@ export async function prepareGeneratedScene(runtime, input, venues) {
   };
   const cache = await openGeneratedCache(runtime.generationRevision);
   const pool = createGenerationPool(runtime.generationModule);
+  const cancel = () => pool.close();
+  signal?.addEventListener("abort", cancel, { once: true });
   try {
+    signal?.throwIfAborted();
     // A cache miss starts generation immediately; unrelated cache reads must
     // not postpone the destination's critical scene job. Workers are lazy, so
     // a completely cached destination never instantiates another Wasm runtime.
@@ -78,6 +82,7 @@ export async function prepareGeneratedScene(runtime, input, venues) {
     metrics.workers += (await run(landscapeJobs)).createdWorkers;
     metrics.milliseconds = performance.now() - started;
   } finally {
+    signal?.removeEventListener("abort", cancel);
     pool.close();
     // Storage is optional and does not delay asset readiness.
     window.strategicGenerationCacheSettled = cache.close();

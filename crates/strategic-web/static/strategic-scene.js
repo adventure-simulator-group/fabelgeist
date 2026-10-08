@@ -1,5 +1,5 @@
 // Layout and semantic identity bridge for the single persistent Bevy canvas.
-import { prepareGeneratedScene } from "./strategic-generation.js";
+import { createSceneRequests } from "./strategic-scene-request.js";
 const kinds = { "public-square": "square", residences: "residence", keep: "keep",
   merchants: "market", weapons: "smith", armor: "armor", clothing: "tailor",
   herbalist: "apothecary", books: "books", inn: "inn", religion: "church",
@@ -71,20 +71,6 @@ export function installStrategicScene(command, runtimePromise) {
   let refreshPending = false;
   let revision = 0;
   const equipment = new Map();
-  let sceneLocation, scenePending, sceneError = false;
-  async function loadScene(location, settlement, venues) {
-    if (scenePending || sceneError) return;
-    scenePending = true;
-    try {
-      const response = await (window.strategicFetch || fetch)(`/api/scene-assets${settlement ? `?settlement=${encodeURIComponent(settlement)}` : ""}`, { headers: { Accept: "application/json" } });
-      if (!response.ok) throw new Error(`Could not prepare tactical scene (${response.status})`);
-      const input = await response.text();
-      await prepareGeneratedScene(await runtimePromise, input, venues);
-      command({ type: "prepare-strategic-scene", location, input_json: input });
-      sceneLocation = location;
-    } catch (error) { sceneError = true; fail(error); }
-    finally { scenePending = false; schedule(); }
-  }
   let equipmentPending = false, equipmentEpoch = 0, equipmentError = false;
   const metrics = { navigations: [], bootStarted: performance.now() };
   window.strategicRendererMetrics = metrics;
@@ -98,6 +84,10 @@ export function installStrategicScene(command, runtimePromise) {
     status.hidden = false; status.textContent = "Scene unavailable";
     console.error("strategic scene failed", error);
   };
+  const sceneRequests = createSceneRequests({ runtimePromise,
+    install: ({ location, input }) => command({ type: "prepare-strategic-scene", location, input_json: input }),
+    changed: state => { if (state.phase === "failed") fail(state.cause); schedule(); },
+  });
   runtimePromise.then(value => { runtime = value; schedule(); }).catch(fail);
 
   function resetEquipment() {
@@ -192,6 +182,7 @@ export function installStrategicScene(command, runtimePromise) {
   }
 
   function hideScene() {
+    if (sceneRequests.state.phase === "loading") sceneRequests.cancel();
     clearTimeout(statusTimer);
     setClip([]); status.hidden = true;
     if (retainedView) {
@@ -271,8 +262,9 @@ export function installStrategicScene(command, runtimePromise) {
     }
     const activeMember = page.querySelector(".party-portrait.active[data-character-id]");
     if (rosterPending) return;
-    if (sceneLocation !== locationId) {
-      loadScene(locationId, nav?.dataset.settlementId, { places, people: [...people.values()] });
+    if (sceneRequests.state.phase !== "prepared" || sceneRequests.state.location !== locationId) {
+      sceneRequests.request({ location: locationId, settlement: nav?.dataset.settlementId,
+        venues: { places, people: [...people.values()] } });
       return;
     }
     const missingEquipment = [...people.keys()].filter(id => !equipment.has(id));
@@ -326,7 +318,7 @@ export function installStrategicScene(command, runtimePromise) {
     metrics.state = state;
     if (streetChanged) schedule();
     if (state.error) { fail(new Error(state.error)); return; }
-    const ready = !scenePending && !sceneError && !rosterPending && !equipmentPending && !equipmentError && state.ready && state.revision === revision;
+    const ready = sceneRequests.state.phase === "prepared" && !rosterPending && !equipmentPending && !equipmentError && state.ready && state.revision === revision;
     status.hidden = ready || metrics.navigations.length > 0;
     document.body.toggleAttribute("data-strategic-scene-ready", ready);
     if (ready && changedAt !== undefined) {
@@ -339,6 +331,7 @@ export function installStrategicScene(command, runtimePromise) {
 
   document.addEventListener("strategic-page-mounted", mount);
   document.addEventListener("strategic-page-unmounting", () => {
+    if (sceneRequests.state.phase === "loading") sceneRequests.cancel();
     surface.style.clipPath = "inset(100%)"; clearTimeout(statusTimer);
   });
   document.addEventListener("strategic-character-selected", event => {
@@ -347,6 +340,7 @@ export function installStrategicScene(command, runtimePromise) {
   });
   document.addEventListener("strategic-forge-selected", () => { previewForge = true; schedule(); });
   document.addEventListener("strategic-tactical-started", () => {
+    if (sceneRequests.state.phase === "loading") sceneRequests.cancel();
     lastPayload = undefined; clearTimeout(statusTimer); status.hidden = true;
   });
   document.addEventListener("strategic-tactical-ended", schedule);

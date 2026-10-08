@@ -107,6 +107,8 @@ async function serve() {
       if (fs.existsSync(saved)) file = saved;
     }
     if (url.pathname.startsWith("/tactical/")) file = path.join(root, "crates/adventuresim-stdb-module/static", url.pathname.slice(10));
+    if (url.pathname.startsWith("/tactical/assets/config/"))
+      file = path.join(root, "assets/config", path.basename(url.pathname));
     if (process.env.STRATEGIC_WASM_DIR && url.pathname.startsWith("/tactical/wasm/"))
       file = path.join(root, process.env.STRATEGIC_WASM_DIR, path.basename(url.pathname));
     if (file) {

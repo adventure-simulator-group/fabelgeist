@@ -12,6 +12,9 @@ writes, buffer ownership, resource budgets and preparation diagnostics.
 [Generated product workers](generation-workers.md) describes preparation phases,
 dispatch identity, transferable products and cancellation.
 
+[Scene document requests](scene-requests.md) describes destination cancellation,
+preparation ownership and reuse in the persistent renderer.
+
 ```
 ┌─────────────────┐     HTTP     ┌──────────────────┐
 │  Browser        │◄────────────►│  strategic-web   │
