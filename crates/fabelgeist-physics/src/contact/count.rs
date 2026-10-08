@@ -27,6 +27,8 @@ impl ColliderCount {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) struct ColliderCapacity(u32);
 impl ColliderCapacity {
+    // Reserve 16 collider slots (1 KiB). Larger lists grow the buffer
+    // to the next power of two.
     pub(super) const INITIAL: Self = Self(16);
     pub(super) fn for_count(count: ColliderCount) -> Self {
         Self(count.0.next_power_of_two() as u32)
