@@ -240,9 +240,7 @@ impl GpuMesh {
             context,
             pipeline.clone(),
             PassParameters::from(parameters),
-            workgroups,
-            1,
-            1,
+            [workgroups, 1, 1].into(),
         )?;
 
         Ok(GpuMesh {

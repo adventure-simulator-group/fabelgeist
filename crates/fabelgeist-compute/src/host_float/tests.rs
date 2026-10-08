@@ -90,7 +90,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
     );
     parameters.insert("outputs", outputs.clone());
     let mut batch = KernelBatch::new(&context);
-    batch.dispatch_items(&kernel, &parameters, inputs.len() as u32)?;
+    batch.dispatch_items(&kernel, &parameters, (inputs.len() as u32).into())?;
     batch.submit();
     outputs.read(&context).await
 }

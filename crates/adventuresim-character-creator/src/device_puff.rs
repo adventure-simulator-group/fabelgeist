@@ -72,11 +72,11 @@ impl DeviceWearer<'_> {
         for (entry, grid) in [
             (
                 include_str!("device_puff_sections.wgsl"),
-                Grid::Singles(SECTION_COUNT),
+                Grid::Singles([SECTION_COUNT, 1, 1].into()),
             ),
             (
                 include_str!("device_puff_fit.wgsl"),
-                Grid::Items(part.carrier_count()),
+                Grid::Items((part.carrier_count()).into()),
             ),
         ] {
             dispatch(

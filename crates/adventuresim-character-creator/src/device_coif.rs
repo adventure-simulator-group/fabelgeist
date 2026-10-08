@@ -179,19 +179,19 @@ impl DeviceWearer<'_> {
         let [landmarks, neck, boundary, sections, drape] = kernels(gpu)?;
         let samples = (support.len() / 3) as u32;
         batch
-            .dispatch(&landmarks, &parameters, [1, 1, 1])
+            .dispatch(&landmarks, &parameters, [1, 1, 1].into())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&neck, &parameters, samples)
+            .dispatch_items(&neck, &parameters, (samples).into())
             .map_err(device_error)?;
         batch
-            .dispatch(&boundary, &parameters, [1, 1, 1])
+            .dispatch(&boundary, &parameters, [1, 1, 1].into())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&sections, &parameters, samples)
+            .dispatch_items(&sections, &parameters, (samples).into())
             .map_err(device_error)?;
         batch
-            .dispatch(&drape, &parameters, [1, 1, 1])
+            .dispatch(&drape, &parameters, [1, 1, 1].into())
             .map_err(device_error)?;
         Ok(fit)
     }

@@ -35,7 +35,7 @@ impl Plate {
                 ),
                 ("distances", &self.arm_distances),
             ],
-            self.count(),
+            (self.count()).into(),
         )
     }
 }

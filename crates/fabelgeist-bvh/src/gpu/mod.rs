@@ -219,19 +219,19 @@ impl GpuBvh {
         // kernel does this job with a count of one.
         let mut clear_scene = self.params(1);
         clear_scene.insert("node_bounds", self.scene_bounds.clone());
-        batch.dispatch(&self.kernels.clear_bounds, &clear_scene, [1, 1, 1])?;
+        batch.dispatch(&self.kernels.clear_bounds, &clear_scene, [1, 1, 1].into())?;
 
         let mut bounds = params.clone();
         bounds.insert("primitive_bounds", primitive_bounds.clone());
         bounds.insert("scene_bounds", self.scene_bounds.clone());
-        batch.dispatch_items(&self.kernels.bounds, &bounds, count)?;
+        batch.dispatch_items(&self.kernels.bounds, &bounds, (count).into())?;
 
         let mut codes = params.clone();
         codes.insert("primitive_bounds", primitive_bounds.clone());
         codes.insert("scene_bounds", self.scene_bounds.clone());
         codes.insert("codes", self.codes.clone());
         codes.insert("indices", self.indices.clone());
-        batch.dispatch_items(&self.kernels.codes, &codes, count)?;
+        batch.dispatch_items(&self.kernels.codes, &codes, (count).into())?;
 
         self.kernels.sort.record(
             batch,
@@ -247,7 +247,11 @@ impl GpuBvh {
         hierarchy.insert("nodes", self.nodes.clone());
         hierarchy.insert("parents", self.parents.clone());
         hierarchy.insert("right_children", self.right_children.clone());
-        batch.dispatch_items(&self.kernels.hierarchy, &hierarchy, count.saturating_sub(1))?;
+        batch.dispatch_items(
+            &self.kernels.hierarchy,
+            &hierarchy,
+            (count.saturating_sub(1)).into(),
+        )?;
 
         self.record_refit_passes(batch, primitive_bounds, count)?;
         Ok(())
@@ -282,19 +286,19 @@ impl GpuBvh {
 
         let mut clear = params.clone();
         clear.insert("node_bounds", self.node_bounds.clone());
-        batch.dispatch_items(&self.kernels.clear_bounds, &clear, nodes)?;
+        batch.dispatch_items(&self.kernels.clear_bounds, &clear, (nodes).into())?;
 
         let mut refit = params.clone();
         refit.insert("primitive_bounds", primitive_bounds.clone());
         refit.insert("indices", self.indices.clone());
         refit.insert("parents", self.parents.clone());
         refit.insert("node_bounds", self.node_bounds.clone());
-        batch.dispatch_items(&self.kernels.refit, &refit, count)?;
+        batch.dispatch_items(&self.kernels.refit, &refit, (count).into())?;
 
         let mut gather = params;
         gather.insert("node_bounds", self.node_bounds.clone());
         gather.insert("nodes", self.nodes.clone());
-        batch.dispatch_items(&self.kernels.gather_bounds, &gather, nodes)?;
+        batch.dispatch_items(&self.kernels.gather_bounds, &gather, (nodes).into())?;
 
         Ok(())
     }

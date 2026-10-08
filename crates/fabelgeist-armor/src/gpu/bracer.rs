@@ -119,7 +119,7 @@ impl Layout {
             .dispatch_items(
                 &*kernel(gpu, &bracer_wgsl::displace(), true)?,
                 &parameters,
-                vertices,
+                (vertices).into(),
             )
             .map_err(device_error)?;
         Ok(BracerMesh {
@@ -236,7 +236,7 @@ impl Layout {
             .dispatch(
                 &*kernel(gpu, bracer_wgsl::AXIS, true)?,
                 &parameters,
-                [1, 1, 1],
+                [1, 1, 1].into(),
             )
             .map_err(device_error)?;
 
@@ -257,7 +257,7 @@ impl Layout {
         parameters.insert("status", self.status.clone());
         let contour = kernel(gpu, &bracer_contour_wgsl::contour(), true)?;
         batch
-            .dispatch(&contour, &parameters, [ALONG + 1, 1, 1])
+            .dispatch(&contour, &parameters, [ALONG + 1, 1, 1].into())
             .map_err(device_error)?;
         Ok(axis)
     }
@@ -281,7 +281,7 @@ impl Layout {
             .dispatch_items(
                 &*kernel(gpu, bracer_wgsl::INDICES, false)?,
                 &parameters,
-                quads,
+                (quads).into(),
             )
             .map_err(device_error)?;
         Ok(())
@@ -361,7 +361,7 @@ impl DeviceBracer {
             .dispatch_items(
                 &*kernel(gpu, bracer_wgsl::SKIN, false)?,
                 &parameters,
-                samples,
+                (samples).into(),
             )
             .map_err(device_error)?;
         Ok(())

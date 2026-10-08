@@ -70,7 +70,7 @@ impl Plate {
                 ("normals", &normals),
                 ("status", status),
             ],
-            self.count(),
+            (self.count()).into(),
         )?;
         Ok(normals)
     }
@@ -255,7 +255,7 @@ impl Plates {
                 ("extrusion", &extrusions.front),
                 ("carrier", &extrusions.carrier),
             ],
-            front.count(),
+            (front.count()).into(),
         )?;
         Ok(extrusions)
     }
@@ -311,7 +311,7 @@ impl Plates {
                 ("back_extrusion", &extrusions.back),
                 ("positions", &shell.positions),
             ],
-            count,
+            (count).into(),
         )?;
         let mut shell = shell;
         gpu.normals(NormalWeighting::Area)
@@ -377,7 +377,7 @@ impl Plates {
                 ("body_local", body_local),
                 ("samples", &samples),
             ],
-            queries,
+            (queries).into(),
         )?;
         let correspondence = Correspondence {
             skin: gpu.scratch(
@@ -403,7 +403,7 @@ impl Plates {
                 ("carrier", &extrusions.carrier),
                 ("morph_samples", &correspondence.morph_samples),
             ],
-            front + back,
+            (front + back).into(),
         )?;
         dispatch(
             gpu,
@@ -421,7 +421,7 @@ impl Plates {
                 ("body_joint_weights", &torso.body.joint_weights),
                 ("skin", &correspondence.skin),
             ],
-            shell.count(),
+            (shell.count()).into(),
         )?;
         Ok(correspondence)
     }

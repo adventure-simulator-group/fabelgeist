@@ -87,7 +87,7 @@ fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray() {
             ("columns", &columns),
             ("status", &status),
         ],
-        count as u32,
+        (count as u32).into(),
     )
     .unwrap();
     dispatch(
@@ -97,7 +97,7 @@ fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray() {
         &[],
         params,
         &[("support_radii", &support), ("envelope", &envelope)],
-        count as u32,
+        (count as u32).into(),
     )
     .unwrap();
     dispatch(
@@ -114,7 +114,7 @@ fn body_support_uses_the_outer_envelope_and_preserves_the_chart_ray() {
             ("support_radii", &support),
             ("status", &status),
         ],
-        count as u32,
+        (count as u32).into(),
     )
     .unwrap();
     batch.submit();
@@ -206,7 +206,7 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
             ),
             ("status", &status),
         ],
-        count as u32,
+        (count as u32).into(),
     )
     .unwrap();
     dispatch(
@@ -216,7 +216,7 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
         &[],
         params,
         &[("support_radii", &support_radii), ("envelope", &envelope)],
-        count as u32,
+        (count as u32).into(),
     )
     .unwrap();
     dispatch(
@@ -242,7 +242,7 @@ fn local_support_clears_its_body_ray_and_cannot_jump_from_skirt_to_neck() {
             ),
             ("status", &status),
         ],
-        count as u32,
+        (count as u32).into(),
     )
     .unwrap();
     batch.submit();
@@ -317,7 +317,7 @@ fn apply_support(
             ("envelope", &envelope),
             ("status", &status),
         ],
-        count as u32,
+        (count as u32).into(),
     )
     .unwrap();
     batch.submit();
@@ -369,7 +369,7 @@ fn rear_enclosure_preserves_the_actual_preceding_lap() {
                 ..Default::default()
             },
             &[("plate", &plate), ("front", &front), ("positions", &back)],
-            rows as u32,
+            (rows as u32).into(),
         )
         .unwrap();
     }
@@ -490,7 +490,7 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
                 ),
                 ("status", &status),
             ],
-            count as u32,
+            (count as u32).into(),
         )
         .unwrap();
         batch.submit();
@@ -512,7 +512,7 @@ fn body_seating_retains_authored_skirt_flare_without_moving_the_waist() {
                 ..Default::default()
             },
             &[("support_radii", &measured), ("envelope", &envelope)],
-            count as u32,
+            (count as u32).into(),
         )
         .unwrap();
         smoothing.submit();

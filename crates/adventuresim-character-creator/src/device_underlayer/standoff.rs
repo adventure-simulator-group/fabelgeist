@@ -54,7 +54,7 @@ impl Workspace<'_> {
             .dispatch_items(
                 &*kernel(convergence_source())?,
                 &parameters,
-                self.vertex_count,
+                (self.vertex_count).into(),
             )
             .map_err(device_error)?;
         self.record_sweeps(batch, positions, directions, links)?;
@@ -66,7 +66,11 @@ impl Workspace<'_> {
         parameters.insert("rooms", self.rooms.clone());
         parameters.insert("compression", self.compression.clone());
         batch
-            .dispatch_items(&*kernel(lower_source())?, &parameters, self.vertex_count)
+            .dispatch_items(
+                &*kernel(lower_source())?,
+                &parameters,
+                (self.vertex_count).into(),
+            )
             .map_err(device_error)?;
         Ok(())
     }

@@ -51,7 +51,7 @@ impl Workspace<'_> {
             .get(gpu.context(), &layers_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
+            .dispatch_items(&kernel, &parameters, (self.plan.vertex_count()).into())
             .map_err(device_error)?;
         Ok(())
     }
@@ -85,7 +85,7 @@ impl Workspace<'_> {
             .get(gpu.context(), &skin_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
+            .dispatch_items(&kernel, &parameters, (self.plan.vertex_count()).into())
             .map_err(device_error)?;
         Ok(())
     }

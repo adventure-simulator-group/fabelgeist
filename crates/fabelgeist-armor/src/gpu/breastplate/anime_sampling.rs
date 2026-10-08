@@ -76,7 +76,7 @@ impl<'a> CourseSampler<'a> {
                 ("status", input.status),
                 ("columns", &columns),
             ],
-            2,
+            (2).into(),
         )?;
         Ok(Self {
             input,
@@ -157,7 +157,7 @@ impl<'a> CourseSampler<'a> {
                 ("positions", positions),
                 ("links", links),
             ],
-            layout.coordinates.len() as u32,
+            (layout.coordinates.len() as u32).into(),
         )
     }
 
@@ -193,7 +193,7 @@ impl<'a> CourseSampler<'a> {
                 ("original_skin", self.input.skin),
                 ("skin", &skin),
             ],
-            count,
+            (count).into(),
         )?;
         gpu.normals(NormalWeighting::Area)
             .record(

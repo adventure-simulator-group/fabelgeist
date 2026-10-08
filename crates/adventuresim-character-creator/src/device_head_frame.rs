@@ -78,16 +78,16 @@ impl DeviceWearer<'_> {
         let vertices = self.body.vertex_count;
         let [top, orient, bounds, finish] = kernels(gpu)?;
         batch
-            .dispatch_items(&top, &parameters, vertices)
+            .dispatch_items(&top, &parameters, (vertices).into())
             .map_err(device_error)?;
         batch
-            .dispatch(&orient, &parameters, [1, 1, 1])
+            .dispatch(&orient, &parameters, [1, 1, 1].into())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&bounds, &parameters, vertices)
+            .dispatch_items(&bounds, &parameters, (vertices).into())
             .map_err(device_error)?;
         batch
-            .dispatch(&finish, &parameters, [1, 1, 1])
+            .dispatch(&finish, &parameters, [1, 1, 1].into())
             .map_err(device_error)?;
         Ok(frame)
     }

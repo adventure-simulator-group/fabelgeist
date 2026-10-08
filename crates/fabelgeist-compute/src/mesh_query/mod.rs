@@ -200,7 +200,7 @@ impl MeshQuery {
             self.parameters(query_count, targets.count, targets.candidates, hits)?;
         parameters.insert("queries", queries.clone());
         parameters.insert("positions", targets.positions.clone());
-        batch.dispatch_items(&self.nearest_points, &parameters, query_count)?;
+        batch.dispatch_items(&self.nearest_points, &parameters, (query_count).into())?;
         Ok(())
     }
 
@@ -218,7 +218,7 @@ impl MeshQuery {
         parameters.insert("queries", queries.clone());
         parameters.insert("positions", targets.positions.clone());
         parameters.insert("triangles", targets.triangles.clone());
-        batch.dispatch_items(&self.closest_triangles, &parameters, query_count)?;
+        batch.dispatch_items(&self.closest_triangles, &parameters, (query_count).into())?;
         Ok(())
     }
 
@@ -247,7 +247,7 @@ impl MeshQuery {
         parameters.insert("directions", rays.directions.clone());
         parameters.insert("positions", targets.positions.clone());
         parameters.insert("triangles", targets.triangles.clone());
-        batch.dispatch_items(&self.ray_triangles, &parameters, rays.count)?;
+        batch.dispatch_items(&self.ray_triangles, &parameters, (rays.count).into())?;
         Ok(())
     }
 }

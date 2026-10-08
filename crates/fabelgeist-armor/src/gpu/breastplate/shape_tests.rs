@@ -28,7 +28,7 @@ fn armscye_width_moves_its_boundary_without_moving_the_neck_or_waist() {
                     ..Default::default()
                 },
                 &[("plate", &plate), ("points", &points)],
-                1,
+                (1).into(),
             )
             .unwrap();
             batch.submit();
@@ -77,7 +77,7 @@ fn armscye_trim_preserves_the_retained_carrier_sections() {
                     ..Default::default()
                 },
                 &[("plate", &plate), ("points", &points)],
-                1,
+                (1).into(),
             )
             .unwrap();
             batch.submit();
@@ -131,7 +131,7 @@ fn flank_return_preserves_the_neckline_at_coupled_neck_depths() {
                         ..Default::default()
                     },
                     &[("plate", &plate), ("points", &points)],
-                    1,
+                    (1).into(),
                 )
                 .unwrap();
                 batch.submit();
@@ -207,7 +207,7 @@ fn coupled_flank_and_armscye_controls_cannot_reverse_chart_columns() {
                     ..Default::default()
                 },
                 &[("plate", &plate), ("points", &points)],
-                1,
+                (1).into(),
             )
             .unwrap();
             batch.submit();

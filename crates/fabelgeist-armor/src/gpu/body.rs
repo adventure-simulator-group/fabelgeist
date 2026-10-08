@@ -142,7 +142,7 @@ impl Correspondence {
         gather.insert("joint_indices", correspondence.joint_indices.clone());
         gather.insert("joint_weights", correspondence.joint_weights.clone());
         batch
-            .dispatch_items(&*gather_kernel(gpu)?, &gather, count)
+            .dispatch_items(&*gather_kernel(gpu)?, &gather, (count).into())
             .map_err(device_error)?;
         Ok(correspondence)
     }

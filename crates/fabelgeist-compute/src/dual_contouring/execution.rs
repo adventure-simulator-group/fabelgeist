@@ -256,9 +256,7 @@ impl DualContouring {
             context,
             definition.deinterleave_pipeline.clone(),
             deinterleave_params,
-            workgroups_x,
-            1,
-            1,
+            [workgroups_x, 1, 1].into(),
         )?;
 
         Ok((out_positions, out_normals, output_indices, output_indirect))

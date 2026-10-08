@@ -69,7 +69,9 @@ fn every_thread_sees_its_own_uniforms() -> Result<()> {
                     parameters.insert("pad1", 0u32);
                     barrier.wait();
                     let mut batch = KernelBatch::new(context);
-                    batch.dispatch_items(kernel, &parameters, count).unwrap();
+                    batch
+                        .dispatch_items(kernel, &parameters, (count).into())
+                        .unwrap();
                     batch.submit();
                     let read: Vec<u32> = pollster::block_on(output.read(context)).unwrap();
                     let bad = read.iter().filter(|v| **v != value).count();
@@ -110,14 +112,14 @@ fn a_long_open_batch_keeps_its_uniforms() -> Result<()> {
     let storage = BufferDefinition::storage().with_usage(BufferUse::CopySource);
     let held = Buffer::new(&context, (256u64).into(), storage.clone())?;
     let mut open = KernelBatch::new(&context);
-    open.dispatch_items(&kernel, &parameters(&held, 7), 64)?;
+    open.dispatch_items(&kernel, &parameters(&held, 7), (64).into())?;
     std::thread::scope(|scope| {
         scope.spawn(|| {
             let other = Buffer::new(&context, (256u64).into(), storage.clone()).unwrap();
             for round in 0..3_000u32 {
                 let mut batch = KernelBatch::new(&context);
                 batch
-                    .dispatch_items(&kernel, &parameters(&other, round), 64)
+                    .dispatch_items(&kernel, &parameters(&other, round), (64).into())
                     .unwrap();
                 batch.submit();
             }

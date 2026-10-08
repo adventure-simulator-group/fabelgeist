@@ -346,7 +346,7 @@ pub(crate) fn record(
     parameters.insert("shells", build.shells.clone());
     parameters.insert("status", build.status.clone());
     batch
-        .dispatch_items(&kernel.0, &parameters, slots.total)
+        .dispatch_items(&kernel.0, &parameters, (slots.total).into())
         .map_err(device_error)?;
     Ok(())
 }

@@ -158,13 +158,13 @@ impl DeviceSurface {
                 .map_err(device_error)
         };
         batch
-            .dispatch_items(&*kernel(MARK)?, &parameters, seams.face_count)
+            .dispatch_items(&*kernel(MARK)?, &parameters, (seams.face_count).into())
             .map_err(device_error)?;
         batch
-            .dispatch(&*kernel(COMPACT)?, &parameters, [1, 1, 1])
+            .dispatch(&*kernel(COMPACT)?, &parameters, [1, 1, 1].into())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&*kernel(FACES)?, &parameters, seams.face_count)
+            .dispatch_items(&*kernel(FACES)?, &parameters, (seams.face_count).into())
             .map_err(device_error)?;
         Ok(surface)
     }

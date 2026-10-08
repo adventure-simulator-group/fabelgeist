@@ -134,7 +134,7 @@ impl PartBuild {
             winding.insert("shells", self.shells.clone());
             winding.insert("wound", wound.clone());
             batch
-                .dispatch_items(&kernels.winding, &winding, count)
+                .dispatch_items(&kernels.winding, &winding, (count).into())
                 .map_err(device_error)?;
         }
         for (weighting, output) in [
@@ -164,7 +164,7 @@ impl PartBuild {
         walls.insert("walls", self.walls.clone());
         walls.insert("status", self.status.clone());
         batch
-            .dispatch_items(&kernels.walls, &walls, carriers)
+            .dispatch_items(&kernels.walls, &walls, (carriers).into())
             .map_err(device_error)?;
 
         let finals = self.layout.final_count;
@@ -177,7 +177,7 @@ impl PartBuild {
         assemble.insert("walls", self.walls.clone());
         assemble.insert("positions", self.positions.clone());
         batch
-            .dispatch_items(&kernels.assemble, &assemble, finals)
+            .dispatch_items(&kernels.assemble, &assemble, (finals).into())
             .map_err(device_error)?;
         if let Some(frame) = &self.placement {
             super::placement::record(

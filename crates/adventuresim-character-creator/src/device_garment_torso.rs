@@ -85,7 +85,7 @@ impl DeviceWearer<'_> {
                 Word::F("flare", design.flare.unit()),
                 Word::F("kind", kind),
             ],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )?;
         let support = self.record_region_support(batch, &[FitRegion::Torso, FitRegion::Hips])?;
         dispatch(
@@ -98,7 +98,7 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[],
-            Grid::Singles(CAGE_SECTIONS),
+            Grid::Singles([CAGE_SECTIONS, 1, 1].into()),
         )?;
         let part = record_garment_torso(
             self.gpu,

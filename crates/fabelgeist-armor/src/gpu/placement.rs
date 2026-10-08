@@ -53,7 +53,7 @@ pub(crate) fn record(
         .dispatch_items(
             &*kernel(gpu)?,
             &parameters,
-            placement.count.max(placement.hinge_count),
+            (placement.count.max(placement.hinge_count)).into(),
         )
         .map_err(device_error)?;
     Ok(())
