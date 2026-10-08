@@ -30,6 +30,30 @@ Vertices per level of detail: 73 639 (LOD 0), 18 439, 10 661, 4 899, 2 461,
 971, 595 (LOD 6). The 127 joints, the parameter layout and the 117 blend shapes
 are the same at every LOD.
 
+## Parameter-set names
+
+`ParameterSetName` identifies one named subset from a Momentum Human Rig (MHR)
+`.model` file's `[ParameterSets]` section. The parser admits the exact token
+once and retains this bespoke type as the key in
+`ParameterTransform::parameter_sets`. Queries supply the same key type. Names
+are case-sensitive and unnormalized; construction accepts open text without
+asserting membership or file grammar. Repeated keys replace the previous
+membership mask. Unknown parameter names are omitted, and an empty set remains
+valid. Appending blend-shape columns retains the keys and extends each mask with
+`false`.
+
+```rust
+use fabelgeist_mhr::{ParameterSetName, ParameterTransform};
+
+let name = ParameterSetName::from("rigid");
+let transform = ParameterTransform::default();
+assert_eq!(transform.parameter_sets.get(&name), None);
+```
+
+Text adapters serve native serialization and presentation. Parameter-column
+names, membership masks, counts, numerical values and parser errors are separate
+concepts; this key contract preserves their current behavior.
+
 ## Assets
 
 Download `assets.zip` from the
