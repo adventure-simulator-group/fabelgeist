@@ -69,7 +69,7 @@ impl<'a> Workspace<'a> {
             sources: gpu.upload(BufferUpload::from_elements(&plan.sources))?,
             status: gpu.scratch(4, "underlayer status")?,
             sort: RadixSort::with_cache(gpu.context(), gpu.cache()).map_err(device_error)?,
-            sort_scratch: SortScratch::new(gpu.context(), capacity).map_err(device_error)?,
+            sort_scratch: SortScratch::new(gpu.context(), capacity.into()).map_err(device_error)?,
             keys: gpu.scratch(capacity as u64 * 4, "underlayer sort keys")?,
             values: gpu.scratch(capacity as u64 * 4, "underlayer sort values")?,
             quantized: gpu.scratch(vertices * 12, "underlayer weld keys")?,

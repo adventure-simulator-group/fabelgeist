@@ -52,8 +52,8 @@ impl Workspace<'_> {
                 &self.keys,
                 &self.values,
                 &mut self.sort_scratch,
-                count,
-                32,
+                count.into(),
+                32.into(),
             )
             .map_err(device_error)?;
         let mut parameters = PassParameters::new();

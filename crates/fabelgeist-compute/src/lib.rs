@@ -75,7 +75,10 @@ pub use reshape::*;
 pub use scan::*;
 pub use scatter::*;
 pub use simplex_noise::RenderSimplex;
-pub use sort::{RadixSort, SortScratch};
+pub use sort::{
+    RadixSort, ScratchGrowth, SortDigit, SortDigits, SortItemCount, SortKeyWidth, SortPassCount,
+    SortScratch,
+};
 pub use stencil::*;
 pub use stream::*;
 pub use transpose::*;
