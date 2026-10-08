@@ -1,7 +1,9 @@
 //! Immutable scene access segments admitted before route or support queries.
 use super::*;
 use crate::scene_coordinates::{PlanDisplacement, ScenePlanPoint};
-use adventuresim_building_generator::spatial_geometry::{GeometryError, PositiveLength};
+use adventuresim_building_generator::spatial_geometry::{
+    GeometryError, GeometryResult, PositiveLength,
+};
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, Reflect)]
 #[reflect(opaque)]
 #[serde(try_from = "AccessWire")]
@@ -19,7 +21,7 @@ struct AccessWire {
 }
 impl TryFrom<AccessWire> for CityAccessSegment {
     type Error = GeometryError;
-    fn try_from(wire: AccessWire) -> Result<Self, GeometryError> {
+    fn try_from(wire: AccessWire) -> Result<Self, Self::Error> {
         Self::new(wire.start_metres, wire.end_metres, wire.half_width_metres)
     }
 }
@@ -29,7 +31,7 @@ impl CityAccessSegment {
         start: ScenePlanPoint,
         end: ScenePlanPoint,
         half_width: PositiveLength,
-    ) -> Result<Self, GeometryError> {
+    ) -> GeometryResult<Self> {
         if !(end.metres() - start.metres()).is_finite() {
             return Err(GeometryError::InvalidProjection);
         }
@@ -62,11 +64,11 @@ impl CityAccessSegment {
         &mut self,
         start: ScenePlanPoint,
         end: ScenePlanPoint,
-    ) -> Result<(), GeometryError> {
+    ) -> GeometryResult<()> {
         *self = Self::new(start, end, self.half_width_metres)?;
         Ok(())
     }
-    pub fn resize_half_width(&mut self, half_width: PositiveLength) -> Result<(), GeometryError> {
+    pub fn resize_half_width(&mut self, half_width: PositiveLength) -> GeometryResult<()> {
         *self = Self::new(self.start_metres, self.end_metres, half_width)?;
         Ok(())
     }
@@ -74,14 +76,14 @@ impl CityAccessSegment {
         self,
         start: ScenePlanPoint,
         end: ScenePlanPoint,
-    ) -> Result<Self, GeometryError> {
+    ) -> GeometryResult<Self> {
         Self::new(start, end, self.half_width_metres)
     }
     pub fn translated(
         self,
         start_delta: PlanDisplacement,
         end_delta: PlanDisplacement,
-    ) -> Result<Self, GeometryError> {
+    ) -> GeometryResult<Self> {
         self.with_endpoints(
             self.start_metres.translated(start_delta)?,
             self.end_metres.translated(end_delta)?,
@@ -123,7 +125,7 @@ pub(in crate::city_layout) fn translate_property_access(
     access: &mut [CityAccessSegment],
     delta: PlanDisplacement,
     tangent: bevy::math::Dir2,
-) -> Result<(), GeometryError> {
+) -> GeometryResult<()> {
     for (index, segment) in access.iter_mut().enumerate() {
         let start_delta = if index == 0 {
             PlanDisplacement::try_from(*tangent * delta.metres().dot(*tangent))?

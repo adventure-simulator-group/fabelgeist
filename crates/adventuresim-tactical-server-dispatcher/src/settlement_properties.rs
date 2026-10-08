@@ -22,13 +22,13 @@ pub fn generated_homes(
     economy: &SettlementEconomyProfile,
 ) -> Result<GeneratedHomeCatalog, SettlementPropertyProjectionError> {
     let seed = adventuresim_core::settlement_population::settlement_building_seed(settlement_id);
-    let population = effective_population(population_level, population_estimate);
-    let layout = CitySite::central_german_market_town()?.generate(
-        seed,
-        adventuresim_core::settlement_property::ResidentCount::new(population),
-        economy,
-    )?;
-    if layout.unhoused_population.get() > 0
+    let population = adventuresim_core::settlement_property::ResidentCount::new(
+        effective_population(population_level, population_estimate),
+    );
+    let layout = CitySite::central_german_market_town()
+        .map_err(adventuresim_tactical_core::city_layout::CityCompileError::from)?
+        .generate(seed, population, economy)?;
+    if layout.unhoused_population != adventuresim_core::settlement_property::ResidentCount::ZERO
         || !layout.unplaced_services.is_empty()
         || !layout.demand_shortfalls.is_empty()
     {
@@ -37,10 +37,7 @@ pub fn generated_homes(
     layout
         .compile(seed)?
         .partition(None)?
-        .generated_homes(
-            settlement_id,
-            adventuresim_core::settlement_property::ResidentCount::new(population),
-        )
+        .generated_homes(settlement_id, population)
         .map_err(SettlementPropertyProjectionError::from)
 }
 

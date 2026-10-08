@@ -68,6 +68,18 @@ impl GardenSpecimenEnvelope {
         {
             return Err(GardenSpecimenError::InvalidGeometry);
         }
+        // The native asset must own a positive-area CCW hull before its rigid
+        // scene projection. Widening this admission sum cannot overflow f64
+        // for finite f32 asset coordinates.
+        let twice_area = self
+            .hull_metres
+            .iter()
+            .zip(self.hull_metres.iter().cycle().skip(1))
+            .map(|(a, b)| a.as_dvec2().perp_dot(b.as_dvec2()))
+            .sum::<f64>();
+        if twice_area <= 0.0 {
+            return Err(GardenSpecimenError::InvalidGeometry);
+        }
         for index in 0..self.hull_metres.len() {
             let a = self.hull_metres[index];
             let b = self.hull_metres[(index + 1) % self.hull_metres.len()];
@@ -95,5 +107,31 @@ impl GardenSpecimenEnvelope {
                     (*b - *a).perp_dot(Vec2::new(point.x, point.z) - *a) / b.distance(*a)
                         >= -ENVELOPE_TOLERANCE_METRES
                 })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn native_asset_admission_rejects_collapsed_or_reversed_hulls() {
+        let source = include_str!("../../../../../content/tactical/garden-hazel-envelope.json");
+        let mut envelope: GardenSpecimenEnvelope = serde_json::from_str(source).unwrap();
+        envelope.validate().unwrap();
+        envelope.hull_metres.reverse();
+        assert_eq!(
+            envelope.validate(),
+            Err(GardenSpecimenError::InvalidGeometry)
+        );
+        envelope.hull_metres = vec![Vec2::ZERO, Vec2::X, Vec2::X * 2.0];
+        assert_eq!(
+            envelope.validate(),
+            Err(GardenSpecimenError::InvalidGeometry)
+        );
+        envelope.hull_metres = vec![Vec2::ZERO, Vec2::X, Vec2::X];
+        assert_eq!(
+            envelope.validate(),
+            Err(GardenSpecimenError::InvalidGeometry)
+        );
     }
 }
