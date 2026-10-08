@@ -17,9 +17,9 @@ mod shader_corrections;
 use gpu_bake::AtmosphereBakeGpu;
 use shader_corrections::AtmosphereShaderCorrections;
 
-// Bevy #24884 contains the native fix. Delete this backport when 0.20 is released
-// and the project upgrades: https://github.com/bevyengine/bevy/pull/24884
-todo_or_die::crates_io!("bevy", ">=0.20.0");
+// Bevy #24884 contains the native fix. The build script requires removal when
+// this project's selected Bevy reaches 0.20; a new upstream release alone does
+// not make the backport obsolete: https://github.com/bevyengine/bevy/pull/24884
 
 /// 64 * 64 * 6 RGBA16F texels = 192 KiB.
 const ATMOSPHERE_IBL_CUBEMAP_SIZE: u32 = 64;
