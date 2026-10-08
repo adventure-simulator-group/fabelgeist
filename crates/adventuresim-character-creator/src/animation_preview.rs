@@ -1,3 +1,5 @@
+use fabelgeist_shell::SubstepCount;
+
 mod cloth_motion;
 mod cloth_render;
 #[cfg(test)]
@@ -40,7 +42,7 @@ pub struct SimulationSettings {
     pub follow_strength: f32,
     pub collision_margin: f32,
     pub collision_distance: f32,
-    pub substeps: u32,
+    pub substeps: SubstepCount,
     pub iterations: u32,
 }
 impl Default for SimulationSettings {
@@ -55,7 +57,7 @@ impl Default for SimulationSettings {
             follow_strength: 1.0,
             collision_margin: 0.006,
             collision_distance: 0.08,
-            substeps: 2,
+            substeps: SubstepCount::from(2),
             iterations: 3,
         }
     }
@@ -470,6 +472,42 @@ fn blend_point(point: Vec3, indices: [u32; 8], weights: [f32; 8], matrices: &[Ma
 #[cfg(test)]
 mod deformation_tests {
     use super::*;
+
+    #[test]
+    fn preview_zero_uses_one_substep_and_multiple_counts_subdivide_motion() {
+        #[derive(Debug, PartialEq, Eq)]
+        struct MotionSnapshot {
+            // Native float bits expose exact current and previous positions.
+            current: [u32; 3],
+            previous: [u32; 3],
+        }
+        let mut results = Vec::new();
+        for native in [0, 1, 3] {
+            let mut skin = ClothSkin::new(
+                GarmentForm::Upper,
+                vec![[0.0; 3]],
+                vec![],
+                vec![],
+                vec![[0; 8]],
+                vec![[0.0; 8]],
+            );
+            let settings = SimulationSettings {
+                substeps: native.into(),
+                damping: 0.0,
+                iterations: 0,
+                ..Default::default()
+            };
+            simulate(&mut skin, None, None, 1.0 / 60.0, &settings);
+            results.push(MotionSnapshot {
+                current: skin.current[0].to_array().map(f32::to_bits),
+                previous: skin.previous[0].to_array().map(f32::to_bits),
+            });
+        }
+        assert_eq!(results[0], results[1]);
+        assert_ne!(results[1], results[2]);
+        assert!(f32::from_bits(results[2].current[1]) < 0.0);
+        assert!(f32::from_bits(results[2].previous[1]) < 0.0);
+    }
 
     #[test]
     fn cloth_preserves_opposite_leg_motion_in_last_four_influences() {

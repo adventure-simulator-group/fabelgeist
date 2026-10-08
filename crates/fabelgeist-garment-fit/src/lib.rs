@@ -21,7 +21,7 @@ use fabelgeist_garment_code::pattern::PatternSpec;
 use fabelgeist_gpu::prelude::WgpuContext;
 use fabelgeist_math::{Vec2, Vec3};
 use fabelgeist_physics::{Collider, Collisions, MeshCollider, MeshSurface};
-use fabelgeist_xpbd::{Solver, SolverSettings};
+use fabelgeist_xpbd::{Solver, SolverSettings, SubstepCount};
 
 pub mod pose;
 
@@ -42,7 +42,7 @@ pub struct FitSettings {
     /// Target mesh edge, in centimetres. The resolution knob: it decides the
     /// particle count and the finest fold the fabric can make.
     pub resolution_cm: f32,
-    pub substeps: u32,
+    pub substeps: SubstepCount,
     /// How far a garment particle is held off the body surface.
     pub body_offset_cm: f32,
     pub self_collision: bool,
@@ -64,7 +64,7 @@ pub struct FitSettings {
     /// garment crumpling onto the floor is where they part: every substep
     /// keeps its edges within 50% of rest, off leaves one at 50%, and once a
     /// frame stretches one by 235% -- a sparse pass is worse than none.
-    pub host_contact_interval: u32,
+    pub host_contact_interval: SubstepCount,
 }
 
 impl Default for FitSettings {
@@ -74,14 +74,14 @@ impl Default for FitSettings {
             // roughly 60 ms. Finer is available on the slider and costs
             // roughly the square.
             resolution_cm: 2.5,
-            substeps: 12,
+            substeps: SubstepCount::from(12),
             body_offset_cm: 0.6,
             self_collision: true,
             gravity: true,
             // The bundled GarmentCode bodies are around this tall; the tab
             // overwrites it from whichever body is selected.
             body_height_cm: 164.0,
-            host_contact_interval: 1,
+            host_contact_interval: SubstepCount::from(1),
         }
     }
 }

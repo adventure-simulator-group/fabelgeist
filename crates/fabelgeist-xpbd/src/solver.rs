@@ -26,12 +26,15 @@ use crate::constraint::ConstraintSet;
 use crate::particles::Particles;
 use crate::wgsl;
 
+mod substep_count;
+pub use substep_count::SubstepCount;
+
 /// How the substep loop is driven.
 #[derive(Clone, Copy, Debug)]
 pub struct SolverSettings {
     /// Substeps per call to [`Solver::step`]. More is stiffer and steadier;
     /// the cost is linear.
-    pub substeps: u32,
+    pub substeps: SubstepCount,
     /// Constraint sweeps within each substep. XPBD wants one; more helps a
     /// badly conditioned set converge, at the price of the compliance meaning
     /// slightly less than it says.
@@ -49,7 +52,7 @@ pub struct SolverSettings {
 impl Default for SolverSettings {
     fn default() -> Self {
         Self {
-            substeps: 10,
+            substeps: SubstepCount::from(10),
             iterations: 1,
             // Metres per second squared, and the rest of the stack is in
             // metres, so a garment in centimetres has to be scaled on the way
@@ -143,12 +146,12 @@ impl Solver {
         delta: f32,
     ) -> Result<()> {
         let count = particles.count();
-        if count == 0 || delta <= 0.0 || self.settings.substeps == 0 {
+        if count == 0 || delta <= 0.0 || self.settings.substeps.is_empty() {
             return Ok(());
         }
-        let substep = delta / self.settings.substeps as f32;
+        let substep = delta / u32::from(self.settings.substeps) as f32;
 
-        for _ in 0..self.settings.substeps {
+        for _ in 0..u32::from(self.settings.substeps) {
             self.record_substep(batch, particles, constraints, hook, substep)?;
         }
         Ok(())
@@ -205,12 +208,12 @@ impl Solver {
         delta: f32,
     ) -> Result<()> {
         let count = particles.count();
-        if count == 0 || delta <= 0.0 || self.settings.substeps == 0 {
+        if count == 0 || delta <= 0.0 || self.settings.substeps.is_empty() {
             return Ok(());
         }
-        let substep = delta / self.settings.substeps as f32;
+        let substep = delta / u32::from(self.settings.substeps) as f32;
 
-        for _ in 0..self.settings.substeps {
+        for _ in 0..u32::from(self.settings.substeps) {
             let mut batch = KernelBatch::labelled(context, "xpbd substep");
             self.record_substep(&mut batch, particles, constraints, hook, substep)?;
             batch.submit();
