@@ -18,37 +18,33 @@ const REVIEW_ARCHETYPES: [BuildingArchetype; 4] = [
 pub(super) fn capture_cameras(
     buildings: &[GeneratedBuilding],
     profile: &str,
-) -> Vec<BuildingReviewCamera> {
+) -> Result<Vec<BuildingReviewCamera>> {
     if profile != super::INTERIOR_REVIEW_PROFILE {
-        return Vec::new();
+        return Ok(Vec::new());
     }
-    let mut cameras = REVIEW_ARCHETYPES
-        .into_iter()
-        .flat_map(|archetype| {
-            let building = buildings
-                .iter()
-                .find(|building| building.plan.archetype == archetype)
-                .unwrap_or_else(|| panic!("interior-review fixture lacks {}", archetype.slug()));
-            [
-                camera_for_storey(building, 0, 0),
-                camera_for_storey(building, 1, 1),
-            ]
-        })
-        .collect::<Vec<_>>();
+    let mut cameras = Vec::new();
+    for archetype in REVIEW_ARCHETYPES {
+        let building = buildings
+            .iter()
+            .find(|building| building.plan.archetype == archetype)
+            .ok_or_else(|| format!("interior review lacks {}", archetype.slug()))?;
+        cameras.push(camera_for_storey(building, 0, 0)?);
+        cameras.push(camera_for_storey(building, 1, 1)?);
+    }
     let hall_house = buildings
         .iter()
         .find(|building| building.plan.archetype == BuildingArchetype::HallHouse)
         .expect("interior-review fixture lacks hall-house plaster proof");
-    cameras.push(plaster_raking_camera(hall_house));
+    cameras.push(plaster_raking_camera(hall_house)?);
     let merchant_house = buildings
         .iter()
         .find(|building| building.plan.archetype == BuildingArchetype::FachwerkMerchantHouse)
         .expect("interior-review fixture lacks merchant-house partition proof");
-    cameras.push(partition_review_camera(merchant_house));
-    cameras
+    cameras.push(partition_review_camera(merchant_house)?);
+    Ok(cameras)
 }
 
-fn partition_review_camera(building: &GeneratedBuilding) -> BuildingReviewCamera {
+fn partition_review_camera(building: &GeneratedBuilding) -> Result<BuildingReviewCamera> {
     let storey = &building.plan.storeys[0];
     let room = storey
         .rooms
@@ -67,17 +63,17 @@ fn partition_review_camera(building: &GeneratedBuilding) -> BuildingReviewCamera
         .expect("partition review building has an internal wall facing its largest room");
     let centroid =
         room.cells.iter().map(|cell| cell.centre()).sum::<Vec2>() / room.cells.len() as f32;
-    let local_origin = building.collision.bounds.centre();
-    let transform = building.transform();
-    BuildingReviewCamera {
+    let local_origin = building.collision.bounds.centre()?.metres();
+    let transform = building.transform()?;
+    Ok(BuildingReviewCamera {
         position: transform.transform_point(Vec3::new(centroid.x, 1.48, centroid.y) - local_origin),
         target: transform
             .transform_point(Vec3::new(wall.centre().x, 1.38, wall.centre().y) - local_origin),
         plaster_raking_light: None,
-    }
+    })
 }
 
-fn plaster_raking_camera(building: &GeneratedBuilding) -> BuildingReviewCamera {
+fn plaster_raking_camera(building: &GeneratedBuilding) -> Result<BuildingReviewCamera> {
     let storey = &building.plan.storeys[0];
     let room = storey
         .rooms
@@ -108,8 +104,8 @@ fn plaster_raking_camera(building: &GeneratedBuilding) -> BuildingReviewCamera {
         Vec2::Y
     };
     let wall_face = wall.centre() + inward_local * (WALL_THICKNESS_METRES * 0.5 + 0.002);
-    let local_origin = building.collision.bounds.centre();
-    let building_transform = building.transform();
+    let local_origin = building.collision.bounds.centre()?.metres();
+    let building_transform = building.transform()?;
     let wall_point = building_transform
         .transform_point(Vec3::new(wall_face.x, 1.42, wall_face.y) - local_origin);
     let inward_normal =
@@ -120,7 +116,7 @@ fn plaster_raking_camera(building: &GeneratedBuilding) -> BuildingReviewCamera {
     let light_direction = tangent * incidence.cos() + inward_normal * incidence.sin();
     let light_position =
         wall_point + light_direction * PLASTER_REVIEW_LIGHT_TANGENT_DISTANCE_METRES;
-    BuildingReviewCamera {
+    Ok(BuildingReviewCamera {
         position: wall_point + inward_normal * PLASTER_REVIEW_CAMERA_DISTANCE_METRES,
         target: wall_point,
         plaster_raking_light: Some(PlasterRakingLight {
@@ -128,14 +124,14 @@ fn plaster_raking_camera(building: &GeneratedBuilding) -> BuildingReviewCamera {
             inward_normal,
             position: light_position,
         }),
-    }
+    })
 }
 
 fn camera_for_storey(
     building: &GeneratedBuilding,
     preferred_storey: usize,
     angle_variant: usize,
-) -> BuildingReviewCamera {
+) -> Result<BuildingReviewCamera> {
     let storey = building
         .plan
         .storeys
@@ -159,17 +155,17 @@ fn camera_for_storey(
         })
         .expect("generated room has a cell");
     let eye_height = f32::from(storey.level) * building.plan.storey_height_metres + 1.65;
-    let local_origin = building.collision.bounds.centre();
-    let transform = building.transform();
+    let local_origin = building.collision.bounds.centre()?.metres();
+    let transform = building.transform()?;
     let eye = camera_cell.centre();
     let position = transform.transform_point(Vec3::new(eye.x, eye_height, eye.y) - local_origin);
     let target = transform
         .transform_point(Vec3::new(centroid.x, eye_height + 0.08, centroid.y) - local_origin);
-    BuildingReviewCamera {
+    Ok(BuildingReviewCamera {
         position,
         target,
         plaster_raking_light: None,
-    }
+    })
 }
 
 #[cfg(test)]
@@ -184,10 +180,18 @@ mod tests {
             .into_iter()
             .enumerate()
             .map(|(index, archetype)| TacticalBuildingPlacement {
-                base_elevation_metres: 0.0,
-                id: index as u64 + 1,
-                program: BuildingProgram::fixture(archetype, 42),
-                centre_metres: Vec2::new(index as f32 * 30.0, 0.0),
+                base_elevation_metres:
+                    adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+                id: (index as u64 + 1).into(),
+                program: BuildingProgram::fixture(
+                    archetype,
+                    fabelgeist_determinism::Seed::from_u64(42),
+                ),
+                centre_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(index as f32 * 30.0, 0.0),
+                    )
+                    .unwrap(),
                 orientation: BuildingOrientation::IDENTITY,
             })
             .collect::<Vec<_>>();
@@ -195,7 +199,7 @@ mod tests {
             .into_iter()
             .map(|placement| {
                 let plan = generate(&placement.program).unwrap();
-                let collision = compile_building_collision(&plan);
+                let collision = compile_building_collision(&plan).unwrap();
                 GeneratedBuilding {
                     placement,
                     plan,
@@ -206,7 +210,8 @@ mod tests {
         let cameras = capture_cameras(
             &buildings,
             crate::tactical_scene_viewer::INTERIOR_REVIEW_PROFILE,
-        );
+        )
+        .unwrap();
 
         assert_eq!(cameras.len(), REVIEW_ARCHETYPES.len() * 2 + 2);
         assert!(cameras.iter().all(|camera| {

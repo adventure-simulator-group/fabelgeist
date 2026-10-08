@@ -6,7 +6,7 @@ impl GeneratedCityLayout {
     /// generated envelopes and access before exposing any placement to a consumer.
     pub(super) fn compile_properties(
         mut self,
-        seed: u64,
+        seed: fabelgeist_determinism::Seed,
     ) -> Result<CompiledCityLayout, CityCompileError> {
         if self.unhoused_population > 0
             || !self.unplaced_services.is_empty()
@@ -29,7 +29,7 @@ impl GeneratedCityLayout {
         let mut businesses = Vec::new();
         for lot in self.lots {
             let recipe = palette.front(seed, lot)?;
-            let front = recipe.place(lot.id, lot.centre_metres, lot.orientation);
+            let front = recipe.place(lot.id.into(), lot.centre_metres, lot.orientation)?;
             if let Some(key) = lot.service.and_then(BuildingDemand::business_key) {
                 businesses.push(CityBusinessSite {
                     building_id: front.id,
@@ -39,7 +39,7 @@ impl GeneratedCityLayout {
             if recipe.program.church_program.is_some() {
                 church::validate(lot, &front, &recipe, &self.streets)?;
             }
-            envelopes.push((front.id, gardens::envelope(&front, &recipe)));
+            envelopes.push((front.id, gardens::envelope(&front, &recipe)?));
             if let Some(garden) = gardens::compile(seed, lot, &front, &recipe, &self.streets) {
                 gardens.push(garden);
             }
@@ -53,7 +53,7 @@ impl GeneratedCityLayout {
                     &self.streets,
                     &mut clearance_cache,
                 )?;
-                envelopes.push((rear.id, gardens::envelope(&rear, &range)));
+                envelopes.push((rear.id, gardens::envelope(&rear, &range)?));
                 buildings.push(rear);
                 compounds.push(compound);
             }
@@ -61,7 +61,7 @@ impl GeneratedCityLayout {
                 single_properties.push(CitySingleProperty {
                     id: CityPropertyId(lot.id),
                     building_id: front.id,
-                    plot: plots::reservation(lot).into(),
+                    plot: CityPlotBounds::try_from(plots::reservation(lot))?,
                 });
             }
             buildings.push(front);

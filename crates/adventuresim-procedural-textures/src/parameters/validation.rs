@@ -1,5 +1,5 @@
 //! Bounds at the preset boundary keep editable coefficients finite and sampling work bounded.
-use super::TextureParameters;
+use super::{ControlPath, TextureParameters};
 use serde_json::Value;
 use std::fmt;
 
@@ -21,6 +21,13 @@ pub struct ControlBounds {
 }
 impl ControlBounds {
     pub fn for_default(path: &str, default: &serde_json::Number) -> Self {
+        if path == ControlPath::SEED_WORD {
+            return Self {
+                min: 0.0,
+                max: u64::MAX as f64,
+                integer: true,
+            };
+        }
         let value = default.as_f64().unwrap_or_default();
         let name = path
             .split('/')
@@ -61,7 +68,6 @@ impl ControlBounds {
             _ if color && integer => (0.0, 255.0),
             _ if color && !integer && value <= 1.0 => (0.0, 1.0),
             "cluster_child_variants" => (1.0, 4.0),
-            "seed" => (0.0, u64::MAX as f64),
             "index_of_refraction" => (1.0, 3.0),
             "courses" | "rows"
                 if path.starts_with("/dressed_stone/") || path.starts_with("/rubble_masonry/") =>
@@ -225,8 +231,10 @@ fn validate_node(path: &str, value: &Value, default: &Value) -> Result<(), Param
             }
         }
         (Value::Number(value), Value::Number(default)) => {
-            if path == "/seed" {
-                return Ok(());
+            if path == ControlPath::SEED_WORD {
+                return value.as_u64().map(|_| ()).ok_or_else(|| {
+                    ParameterError("Seed word must be an unsigned 64-bit integer".into())
+                });
             }
             let bounds = ControlBounds::for_default(path, default);
             let number = value.as_f64().unwrap_or(f64::NAN);

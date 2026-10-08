@@ -76,12 +76,12 @@ pub(crate) fn advance_stationary_character_to(
         effective_organization_schedule(ctx, character_id, &saved_schedule.downtime);
     let effective_schedule = if execution_location.policy == ActivityLocation::JourneyCamp {
         let camp_schedule = allowed_camp_schedule(&organization_schedule);
-        effective_location_schedule(&camp_schedule, execution_location.policy, character_id)
+        effective_location_schedule(&camp_schedule, execution_location.policy, fabelgeist_determinism::Seed::from_u64(character_id))
     } else {
         effective_location_schedule(
             &organization_schedule,
             execution_location.policy,
-            character_id,
+            fabelgeist_determinism::Seed::from_u64(character_id),
         )
     };
     let injury_limit = crate::surgery::preview_injury_boundary(

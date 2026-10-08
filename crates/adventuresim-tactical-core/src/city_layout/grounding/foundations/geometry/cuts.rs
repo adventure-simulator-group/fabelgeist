@@ -7,17 +7,17 @@ pub(in crate::city_layout::grounding::foundations) struct SourceCutRegions {
 }
 
 impl SourceCutRegions {
-    pub fn from_outlines(outlines: Vec<Vec<bevy::math::DVec2>>) -> Self {
+    pub fn from_outlines(
+        outlines: Vec<Vec<bevy::math::DVec2>>,
+    ) -> Result<Self, SupportGeometryIssue> {
         let query = PlanarQueryIndex::from_bounds(
             outlines
                 .iter()
-                .map(|outline| {
-                    PlanarBounds::from_points(outline.iter().copied())
-                        .expect("declared grading regions contain finite outline vertices")
-                })
-                .collect(),
+                .map(|outline| PlanarBounds::from_points(outline.iter().copied()))
+                .collect::<Option<Vec<_>>>()
+                .ok_or(SupportGeometryIssue::Query)?,
         );
-        Self { outlines, query }
+        Ok(Self { outlines, query })
     }
 
     pub fn intersecting(

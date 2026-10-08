@@ -1,7 +1,7 @@
 //! Geological rock recipe sampling for a stable obstacle seed.
 use super::*;
 
-pub(super) fn rock_recipe(seed: u64) -> RockRecipe {
+pub(super) fn rock_recipe(seed: fabelgeist_determinism::Seed) -> RockRecipe {
     let archetype = match rock_streams::ROCK_ARCHETYPE.rng(seed, &[]).index(3) {
         0 => RockArchetype::Rounded,
         1 => RockArchetype::Angular,
@@ -31,4 +31,9 @@ pub(super) fn rock_recipe(seed: u64) -> RockRecipe {
         dimensions_cm,
         collision_radius_cm: (ROCK_RADIUS_METRES * 100.0) as u16,
     }
+}
+
+pub(super) fn wrapped_angle_difference(left: f32, right: f32) -> f32 {
+    (left - right + core::f32::consts::PI).rem_euclid(core::f32::consts::TAU)
+        - core::f32::consts::PI
 }

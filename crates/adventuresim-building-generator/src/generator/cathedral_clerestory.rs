@@ -9,7 +9,7 @@ fn resolve_cathedral_clerestory_walls(
     roofs: &[RoofPiece],
     walls: &mut Vec<crate::WallAssembly>,
     geometry: &mut ResolvedGeometry,
-) {
+) -> Result<(), crate::GenerationError> {
     let lower_supports = |base: f32, walls: &[crate::WallAssembly]| {
         let mut supports = walls
             .iter()
@@ -24,7 +24,7 @@ fn resolve_cathedral_clerestory_walls(
         supports
     };
 
-    for (slot, (roof_index, high_side, outward)) in [
+    let _: () = for (slot, (roof_index, high_side, outward)) in [
         (1_usize, Direction::East, Vec2::NEG_X),
         (2_usize, Direction::West, Vec2::X),
     ]
@@ -72,14 +72,16 @@ fn resolve_cathedral_clerestory_walls(
         let wall_id = crate::WallAssemblyId(900_000 + slot as u64);
         let node = StructuralNodeId(2_900_000 + slot as u64);
         let supports = lower_supports(base, walls);
-        geometry.structural_nodes.push(StructuralNode {
-            id: node,
-            owner,
-            kind: StructuralNodeKind::WallBearing,
-            position: Vec3::new(origin.x, base, origin.y),
-            supported_by: supports,
-            grounded: false,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                node,
+                owner,
+                StructuralNodeKind::WallBearing,
+                Vec3::new(origin.x, base, origin.y),
+                supports,
+                false,
+            )?);
         let host = wall_solid(
             geometry,
             owner,
@@ -89,13 +91,8 @@ fn resolve_cathedral_clerestory_walls(
             SolidRole::WallHost,
             crate::ResolvedSolidShape::Cuboid,
             node,
-        );
-        geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == host)
-            .expect("new clerestory wall solid")
-            .yaw_radians = std::f32::consts::FRAC_PI_2;
+        )?;
+        geometry.solid_mut(host)?.yaw_radians = Radians::new(std::f32::consts::FRAC_PI_2)?;
         walls.push(crate::WallAssembly {
             id: wall_id,
             owner,
@@ -120,5 +117,6 @@ fn resolve_cathedral_clerestory_walls(
             opening_ids: Vec::new(),
             replaced_by_owner: None,
         });
-    }
+    };
+    Ok(())
 }

@@ -24,12 +24,22 @@ fn finish_keys_roundtrip_without_aliases_or_unsupported_states() {
 fn finishes_preserve_physical_envelopes_and_replace_only_authored_surfaces() {
     for kind in FinishableFurnitureKind::ALL {
         for variant in FurnitureVariant::ALL {
-            let natural = FurnitureKey::natural(kind.kind(), variant).recipe();
+            let natural = FurnitureKey::natural(kind.kind(), variant)
+                .recipe()
+                .unwrap();
             for state in FurnitureWoodState::ALL {
                 let key = FurnitureKey::wood(kind, variant, state);
-                let recipe = key.recipe();
-                assert_eq!(recipe.bounds.min, natural.bounds.min, "{key:?}");
-                assert_eq!(recipe.bounds.max, natural.bounds.max, "{key:?}");
+                let recipe = key.recipe().unwrap();
+                assert_eq!(
+                    recipe.bounds.min().metres(),
+                    natural.bounds.min().metres(),
+                    "{key:?}"
+                );
+                assert_eq!(
+                    recipe.bounds.max().metres(),
+                    natural.bounds.max().metres(),
+                    "{key:?}"
+                );
                 assert_eq!(
                     recipe.support_points_metres, natural.support_points_metres,
                     "{key:?}"

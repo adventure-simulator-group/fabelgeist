@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_determinism::Seed;
 
 /// Stable grid address used by editor commands. Unlike resolved mesh IDs, this
 /// remains meaningful when the building is regenerated after an edit.
@@ -49,7 +50,7 @@ pub struct BuildingDocument {
 }
 
 impl BuildingDocument {
-    pub fn fixture(archetype: BuildingArchetype, seed: u64) -> Self {
+    pub fn fixture(archetype: BuildingArchetype, seed: Seed) -> Self {
         Self {
             schema_version: BUILDING_DOCUMENT_SCHEMA_VERSION,
             program: BuildingProgram::fixture(archetype, seed),
@@ -124,17 +125,18 @@ impl EditableBuildingAssembly {
         if let Some(index) = self.storeys.iter().position(|storey| storey.level == level) {
             return &mut self.storeys[index];
         }
-        self.storeys.push(StoreyPlan {
-            level,
-            rooms: Vec::new(),
-            walls: Vec::new(),
-            openings: Vec::new(),
-        });
         self.storeys.sort_by_key(|storey| storey.level);
-        self.storeys
-            .iter_mut()
-            .find(|storey| storey.level == level)
-            .expect("new storey must be present")
+        let index = self.storeys.partition_point(|storey| storey.level < level);
+        self.storeys.insert(
+            index,
+            StoreyPlan {
+                level,
+                rooms: Vec::new(),
+                walls: Vec::new(),
+                openings: Vec::new(),
+            },
+        );
+        &mut self.storeys[index]
     }
 
     pub(super) fn has_wall(&self, selector: WallSelector) -> bool {

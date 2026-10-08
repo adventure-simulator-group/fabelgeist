@@ -1,6 +1,7 @@
 use super::*;
+use crate::city_layout::compiled::CityCompileResult as Result;
 use adventuresim_building_generator::{
-    CollisionCuboid, ResolvedItemId, interior::StandingClearance,
+    CollisionCuboid, CollisionResult, ResolvedItemId, interior::StandingClearance,
 };
 use bevy::math::{Quat, Vec3};
 
@@ -10,27 +11,22 @@ pub(in crate::city_layout::compiled) fn validate(
     front_recipe: &Recipe,
     rear: &TacticalBuildingPlacement,
     rear_recipe: &Recipe,
-) -> Result<(), CityCompileError> {
+) -> Result<()> {
     validate_building_routes(compound, front, front_recipe, rear, rear_recipe)?;
+    use crate::scene_coordinates::PlotRelative;
     let mut fixed = compound
         .boundary
-        .fixed_members()
-        .iter()
+        .fixed_members()?
+        .into_iter()
         .enumerate()
-        .map(|(index, member)| CollisionCuboid {
-            source: ResolvedItemId(index as u64),
-            centre: member.centre_metres,
-            size: member.size_metres,
-            yaw_radians: member.yaw_radians,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        })
-        .collect::<Vec<_>>();
+        .map(|(index, member)| member.packing_cuboid(ResolvedItemId(index as u64)))
+        .collect::<CollisionResult<Vec<_>>>()?;
     for member in &fixed {
-        let rotation = Quat::from_rotation_y(member.yaw_radians);
+        let rotation = Quat::from_rotation_y(member.yaw_radians.radians());
         if [-1.0, 1.0].into_iter().any(|x| {
             [-1.0, 1.0].into_iter().any(|z| {
-                let p = member.centre + rotation * (member.size * Vec3::new(x, 0.0, z) * 0.5);
+                let p = member.centre.metres()
+                    + rotation * (member.size.metres() * Vec3::new(x, 0.0, z) * 0.5);
                 !compound.plot.contains(Vec2::new(p.x, p.z))
             })
         }) {
@@ -40,47 +36,69 @@ pub(in crate::city_layout::compiled) fn validate(
             });
         }
     }
-    let door = compound.boundary.gate.door(compound.id);
+    let door = compound.boundary.gate.door(compound.id)?;
     let mut obstacles = fixed.clone();
-    obstacles.extend(super::gate_sweep::building_solids(front, front_recipe));
-    obstacles.extend(super::gate_sweep::building_solids(rear, rear_recipe));
-    if !super::gate_sweep::clear(door, &obstacles) {
+    obstacles.extend(super::gate_sweep::building_solids(front, front_recipe)?);
+    obstacles.extend(super::gate_sweep::building_solids(rear, rear_recipe)?);
+    if !super::gate_sweep::clear(door, &obstacles)? {
         return Err(CityCompileError::Compound {
             property: compound.id,
             issue: CompoundIssue::GateSweepBlocked,
         });
     }
-    let swing = Quat::from_rotation_y(door.open_angle_radians);
-    fixed.push(CollisionCuboid {
-        source: door.source,
-        centre: door.hinge_centre + swing * (door.closed_centre - door.hinge_centre),
-        size: door.size_metres,
-        yaw_radians: door.closed_yaw_radians + door.open_angle_radians,
-        crossfall_radians: 0.0,
-        longfall_radians: 0.0,
-    });
+    let swing = Quat::from_rotation_y(door.open_angle_radians.radians());
+    fixed.push(CollisionCuboid::from_metres(
+        door.source,
+        door.hinge_centre.metres()
+            + swing * (door.closed_centre.metres() - door.hinge_centre.metres()),
+        door.size_metres.metres(),
+        door.closed_yaw_radians.radians() + door.open_angle_radians.radians(),
+        0.0,
+        0.0,
+    )?);
     let local = |p| {
         compound
             .plot
-            .orientation
-            .world_to_local(p - compound.plot.centre_metres)
+            .orientation()
+            .world_to_local(p - compound.plot.centre_metres())
     };
-    for member in &mut fixed {
-        let centre = local(Vec2::new(member.centre.x, member.centre.z));
-        member.centre.x = centre.x;
-        member.centre.z = centre.y;
-        member.yaw_radians -= compound.plot.orientation.yaw_radians();
-    }
-    let clearance = StandingClearance::new(&fixed, 0.0);
-    if compound
-        .access
-        .iter()
-        .any(|route| !clearance.is_clear(local(route.start_metres), local(route.end_metres)))
-    {
-        return Err(CityCompileError::Compound {
-            property: compound.id,
-            issue: CompoundIssue::GateBlocksOpenPassage,
-        });
+    let fixed = fixed
+        .into_iter()
+        .map(|member| {
+            let centre = local(Vec2::new(
+                member.centre.metres().x,
+                member.centre.metres().z,
+            ));
+            CollisionCuboid::<PlotRelative>::from_metres(
+                member.source,
+                Vec3::new(centre.x, member.centre.metres().y, centre.y),
+                member.size.metres(),
+                member.yaw_radians.radians() - compound.plot.orientation().yaw_radians(),
+                member.crossfall_radians.radians(),
+                member.longfall_radians.radians(),
+            )
+        })
+        .collect::<CollisionResult<Vec<_>>>()?;
+    let clearance = StandingClearance::new(
+        &fixed,
+        adventuresim_building_generator::spatial_geometry::Elevation::from_metres(0.0)?,
+    )?;
+    for route in &compound.access {
+        let start = local(route.start_metres());
+        let end = local(route.end_metres());
+        if !clearance.is_clear(
+            adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(
+                start.x, 0.0, start.y,
+            ))?,
+            adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(
+                end.x, 0.0, end.y,
+            ))?,
+        ) {
+            return Err(CityCompileError::Compound {
+                property: compound.id,
+                issue: CompoundIssue::GateBlocksOpenPassage,
+            });
+        }
     }
     Ok(())
 }
@@ -91,27 +109,37 @@ fn validate_building_routes(
     front_recipe: &Recipe,
     rear: &TacticalBuildingPlacement,
     rear_recipe: &Recipe,
-) -> Result<(), CityCompileError> {
+) -> Result<()> {
     for (placement, recipe) in [(front, front_recipe), (rear, rear_recipe)] {
-        let origin = recipe.collision.bounds.centre();
+        let origin = recipe.collision.bounds.centre()?.metres();
         let local = |point| {
             placement
                 .orientation
-                .world_to_local(point - placement.centre_metres)
+                .world_to_local(point - placement.centre_metres.metres())
                 + Vec2::new(origin.x, origin.z)
         };
-        let clearance = StandingClearance::new(&recipe.collision.cuboids, 0.0);
-        if compound
-            .access
-            .iter()
-            .any(|route| !clearance.is_clear(local(route.start_metres), local(route.end_metres)))
-        {
-            return Err(CityCompileError::Compound {
-                property: compound.id,
-                issue: CompoundIssue::AccessBlocked {
-                    building: placement.id,
-                },
-            });
+        let clearance = StandingClearance::new(
+            &recipe.collision.cuboids,
+            adventuresim_building_generator::spatial_geometry::Elevation::from_metres(0.0)?,
+        )?;
+        for route in &compound.access {
+            let start = local(route.start_metres());
+            let end = local(route.end_metres());
+            if !clearance.is_clear(
+                adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                    Vec3::new(start.x, 0.0, start.y),
+                )?,
+                adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                    Vec3::new(end.x, 0.0, end.y),
+                )?,
+            ) {
+                return Err(CityCompileError::Compound {
+                    property: compound.id,
+                    issue: CompoundIssue::AccessBlocked {
+                        building: placement.id,
+                    },
+                });
+            }
         }
     }
     Ok(())

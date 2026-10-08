@@ -41,10 +41,13 @@ mod tests {
     fn broad_phase_matches_exact_intersection_for_rotated_multicell_footprints() {
         let mut index = Occupancy::default();
         let footprints = (0..20)
-            .map(|i| FurnitureFootprint {
-                centre_metres: Vec2::new(i as f32 * 7.0 - 60.0, i as f32 - 10.0),
-                half_extents_metres: Vec2::new(20.0, 2.0),
-                orientation: BuildingOrientation::from_radians(i as f32 * 0.3).unwrap(),
+            .map(|i| {
+                FurnitureFootprint::from_metres(
+                    Vec2::new(i as f32 * 7.0 - 60.0, i as f32 - 10.0),
+                    Vec2::new(20.0, 2.0),
+                    BuildingOrientation::from_radians(i as f32 * 0.3).unwrap(),
+                )
+                .unwrap()
             })
             .collect::<Vec<_>>();
         for f in &footprints {
@@ -52,11 +55,12 @@ mod tests {
         }
         for x in -30..30 {
             for z in -30..30 {
-                let q = FurnitureFootprint {
-                    centre_metres: Vec2::new(x as f32 * 3.0, z as f32 * 3.0),
-                    half_extents_metres: Vec2::new(2.0, 4.0),
-                    orientation: BuildingOrientation::from_radians(0.6).unwrap(),
-                };
+                let q = FurnitureFootprint::from_metres(
+                    Vec2::new(x as f32 * 3.0, z as f32 * 3.0),
+                    Vec2::new(2.0, 4.0),
+                    BuildingOrientation::from_radians(0.6).unwrap(),
+                )
+                .unwrap();
                 assert_eq!(
                     index.intersects(q),
                     footprints.iter().any(|f| f.intersects(q))

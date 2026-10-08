@@ -1,33 +1,45 @@
 //! Re-measure deck bearings after board cuts; the joists and their joints stay intact.
+use crate::GenerationResult as Result;
 use crate::*;
 const INTERFACE_DEPTH_METRES: f32 = 0.004;
 const MINIMUM_CONTACT_METRES: f32 = 0.002;
+
+pub(super) struct BearingContact {
+    pub node: StructuralNodeId,
+    pub bounds: SpatialBounds<Architectural>,
+}
 
 pub(super) fn contacts(
     geometry: &ResolvedGeometry,
     members: &[TimberFrameMember],
     floor: &TimberFloorAssembly,
-    bounds: ResolvedBounds,
-) -> Vec<(StructuralNodeId, ResolvedBounds)> {
-    members
+    bounds: SpatialBounds<Architectural>,
+) -> Result<Vec<BearingContact>> {
+    let mut contacts = Vec::new();
+    for member in members
         .iter()
         .filter(|m| floor.joist_members.contains(&m.id))
-        .filter_map(|member| {
-            let solid = geometry.solids.iter().find(|s| s.id == member.solid)?;
-            let joist = solid.cuboid_bounds();
-            if (joist.max.y - bounds.min.y).abs() > MINIMUM_CONTACT_METRES {
-                return None;
-            }
-            let mut min = joist.min.max(bounds.min);
-            let mut max = joist.max.min(bounds.max);
-            if max.x - min.x < MINIMUM_CONTACT_METRES || max.z - min.z < MINIMUM_CONTACT_METRES {
-                return None;
-            }
-            min.y = bounds.min.y - INTERFACE_DEPTH_METRES;
-            max.y = bounds.min.y + INTERFACE_DEPTH_METRES;
-            Some((member.start_node, ResolvedBounds { min, max }))
-        })
-        .collect()
+    {
+        let Some(solid) = geometry.solids.iter().find(|s| s.id == member.solid) else {
+            continue;
+        };
+        let joist = solid.cuboid_bounds()?;
+        if (joist.max().metres().y - bounds.min().metres().y).abs() > MINIMUM_CONTACT_METRES {
+            continue;
+        }
+        let mut min = joist.min().metres().max(bounds.min().metres());
+        let mut max = joist.max().metres().min(bounds.max().metres());
+        if max.x - min.x < MINIMUM_CONTACT_METRES || max.z - min.z < MINIMUM_CONTACT_METRES {
+            continue;
+        }
+        min.y = bounds.min().metres().y - INTERFACE_DEPTH_METRES;
+        max.y = bounds.min().metres().y + INTERFACE_DEPTH_METRES;
+        contacts.push(BearingContact {
+            node: member.start_node,
+            bounds: SpatialBounds::from_metres(min, max)?,
+        });
+    }
+    Ok(contacts)
 }
 
 pub(super) fn attach(
@@ -36,9 +48,10 @@ pub(super) fn attach(
     floor: &mut TimberFloorAssembly,
     piece: &mut ResolvedSolid,
     slot: &mut u64,
-) {
+) -> Result<()> {
     piece.supported_by.clear();
-    for (node, bounds) in contacts(geometry, members, floor, piece.cuboid_bounds()) {
+    for contact in contacts(geometry, members, floor, piece.cuboid_bounds()?)? {
+        let BearingContact { node, bounds } = contact;
         *slot += 1;
         let id =
             ResolvedItemId((4_u64 << 60) | (u64::from(piece.owner.0) << 32) | 0x0950_0000 | *slot);
@@ -54,13 +67,19 @@ pub(super) fn attach(
     }
     piece.supported_by.sort_unstable();
     piece.supported_by.dedup();
+
+    Ok(())
 }
 
-pub(super) fn valid(plan: &BuildingPlan, level: u16) -> bool {
+pub(super) fn valid(plan: &BuildingPlan, level: StoreyIndex) -> bool {
     let Some(frame) = &plan.timber_frame else {
         return false;
     };
-    let Some(floor) = frame.floors.iter().find(|f| f.level == level) else {
+    let Some(floor) = frame
+        .floors
+        .iter()
+        .find(|f| StoreyIndex::from_serialized(f.level) == level)
+    else {
         return false;
     };
     floor.floor_joist_interfaces.iter().all(|id| {
@@ -82,7 +101,10 @@ pub(super) fn valid(plan: &BuildingPlan, level: u16) -> bool {
                     solid.id == member.solid
                         && crate::solid_overlap::overlaps_bounds(
                             solid,
-                            (interface.bounds.min, interface.bounds.max),
+                            (
+                                interface.bounds.min().metres(),
+                                interface.bounds.max().metres(),
+                            ),
                             MINIMUM_CONTACT_METRES,
                         )
                 })

@@ -4,7 +4,7 @@ fn observer_text_avoids_generator_authority_and_internal_demographics() {
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
     ] {
-        for seed in 0..512 {
+        for seed in (0..512).map(fabelgeist_determinism::Seed::from_u64) {
             let case = generate(&context(seed, family)).unwrap();
             for testimony in case.witnesses.iter().flat_map(|witness| &witness.testimony) {
                 let text = testimony.spoken_text.to_ascii_lowercase();
@@ -62,7 +62,7 @@ fn every_pattern_becomes_an_earned_observer_clue_and_executable_condition() {
     ] {
         let mut prelearning_blueprints = BTreeSet::new();
         for (pattern, event_prefix, summary_fragment, condition_shape) in expected.clone() {
-            let case = (0..4_096)
+            let case = (0..4_096).map(fabelgeist_determinism::Seed::from_u64)
                 .map(|seed| generate(&context(seed, family)).unwrap())
                 .find(|case| case.canonical_events[0].object.starts_with(event_prefix))
                 .expect("pattern must be reachable");
@@ -200,7 +200,7 @@ fn victim_cohort_binding_accepts_exact_authority_and_rejects_drift() {
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
     ] {
-        let (source, case) = (0..4_096)
+        let (source, case) = (0..4_096).map(fabelgeist_determinism::Seed::from_u64)
             .map(|seed| {
                 let source = context(seed, family);
                 let case = generate(&source).unwrap();
@@ -324,7 +324,7 @@ fn visible_developer_witnesses_preserve_all_presentations_and_pattern_targets() 
         "presentation remains part of the visible commitment"
     );
 
-    let (source, generated) = (0..4_096)
+    let (source, generated) = (0..4_096).map(fabelgeist_determinism::Seed::from_u64)
         .map(|seed| {
             let mut source = context(seed, TemplateFamily::RecurringDepredation);
             source.witness_candidates = candidates.clone();
@@ -365,7 +365,7 @@ fn victim_specific_is_hard_zero_without_an_unused_persistent_target() {
         .unwrap();
     assert_eq!(victim.weight.plausibility, 0);
     assert!(victim.impossible.is_some());
-    for seed in 0..256 {
+    for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
         let mut source = context(seed, TemplateFamily::RecurringDepredation);
         source.witness_candidates.truncate(2);
         let case = generate(&source).unwrap();
@@ -392,13 +392,13 @@ fn oversized_candidate_domains_fail_before_ordering_or_tracing() {
         MAX_SOLVER_CANDIDATES + 1
     ];
     assert_eq!(
-        weighted_order(1, "oversized", &candidates),
+        weighted_order(fabelgeist_determinism::Seed::from_u64(1), "oversized", &candidates),
         Err(GenerationError::CandidateLimit)
     );
-    let mut oversized = context(1, TemplateFamily::RecurringDepredation);
+    let mut oversized = context(fabelgeist_determinism::Seed::from_u64(1), TemplateFamily::RecurringDepredation);
     oversized.witness_candidates = vec![test_witnesses()[0].clone(); MAX_SOLVER_CANDIDATES + 1];
     assert_eq!(generate(&oversized), Err(GenerationError::CandidateLimit));
-    let mut oversized_bytes = context(1, TemplateFamily::RecurringDepredation);
+    let mut oversized_bytes = context(fabelgeist_determinism::Seed::from_u64(1), TemplateFamily::RecurringDepredation);
     oversized_bytes.witness_candidates[0].visible_description = "x".repeat(65 * 1024);
     assert_eq!(
         generate(&oversized_bytes),

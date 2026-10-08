@@ -12,7 +12,11 @@ const STRIP_DEPTH_METRES: f32 = 56.0;
 const OLD_SEAM_OFFSET_METRES: f32 = 18.0;
 const OLD_SEAM_PHASE: f32 = 0.45;
 
-pub(super) fn build(site: &CitySite, seed: u64, extent: DevelopmentExtent) -> StreetGraph {
+pub(super) fn build(
+    site: &CitySite,
+    seed: fabelgeist_determinism::Seed,
+    extent: DevelopmentExtent,
+) -> StreetGraph {
     let strip_count = extent.strip_count;
     let market_strip = extent.market_strip();
     let cuts = (0..strip_count)
@@ -137,7 +141,12 @@ fn point(site: &CitySite, seam: usize, x: f32, market_strip: usize) -> Vec2 {
     Vec2::new(x, old + (regular - old) * extension + site.route_height(x))
 }
 
-fn strip_cuts(site: &CitySite, seed: u64, strip: usize, market_strip: usize) -> Vec<f32> {
+fn strip_cuts(
+    site: &CitySite,
+    seed: fabelgeist_determinism::Seed,
+    strip: usize,
+    market_strip: usize,
+) -> Vec<f32> {
     let mut anchors = vec![
         -SITE_HALF_WIDTH_METRES,
         0.0,
@@ -161,8 +170,7 @@ fn strip_cuts(site: &CitySite, seed: u64, strip: usize, market_strip: usize) -> 
             continue;
         }
         let sample = StreamId::new("city.street-span")
-            .seed(seed, &[strip as u64, u64::from(left.to_bits())])
-            .to_u64();
+            .seed(seed, &[strip as u64, u64::from(left.to_bits())]);
         let length = if left >= EXTENSION_START_METRES {
             EXTENSION_BLOCK_METRES
         } else {

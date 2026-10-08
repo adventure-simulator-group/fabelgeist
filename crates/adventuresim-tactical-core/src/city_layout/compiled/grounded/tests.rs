@@ -22,15 +22,34 @@ pub(super) fn fixture() -> (CitySceneLayout, GeographicSurface, CompoundGradingP
     )
     .unwrap();
     let policy = CompoundGradingPolicy {
-        limits: SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
-        stairs: CourtStairLimits::new(0.19, 0.25, 1.0, 1.05, 0.5).unwrap(),
+        limits: SupportLimits::new(
+            crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        ),
+        stairs: CourtStairLimits::new(
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.19)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.25)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.05)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+                .unwrap(),
+        ),
         embedment: FoundationEmbedment::from_metres(0.2).unwrap(),
         street_apron: StreetApronDimensions::from_metres(Vec2::new(1.0, 2.0)).unwrap(),
     };
     (layout, source, policy)
 }
 
-fn placements(layout: &CitySceneLayout) -> BTreeMap<u64, TacticalBuildingPlacement> {
+fn placements(
+    layout: &CitySceneLayout,
+) -> BTreeMap<crate::scene_input::SceneBuildingId, TacticalBuildingPlacement> {
     layout
         .playable
         .iter()
@@ -74,12 +93,16 @@ fn accepted_support_seats_both_detail_levels_without_changing_physical_identity(
             p, expected,
             "programme, horizontal transform or identity changed"
         );
-        let expected_floor = if id == 1238 { 21.042906 } else { 19.056694 };
-        assert!((p.base_elevation_metres - expected_floor).abs() < 0.001);
+        let expected_floor = if id == (1238).into() {
+            21.042906
+        } else {
+            19.056694
+        };
+        assert!((p.base_elevation_metres.metres() - expected_floor).abs() < 0.001);
     }
     assert_eq!(
-        grounded.terrain().foundations[0].member_building_ids,
-        [1238, 17622]
+        grounded.terrain().foundations()[0].member_building_ids(),
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
     );
     for member in layout.plan_compound_support(&source, policy).unwrap()[0].member_support() {
         assert!(
@@ -87,7 +110,7 @@ fn accepted_support_seats_both_detail_levels_without_changing_physical_identity(
                 .terrain()
                 .elevations_at(
                     crate::scene_coordinates::ScenePlanPoint::from_metres(
-                        member.contact.centre_metres
+                        member.contact.centre_metres()
                     )
                     .unwrap()
                 )
@@ -130,13 +153,17 @@ fn missing_or_duplicate_physical_bindings_are_rejected_before_floor_selection() 
     let original = layout.clone();
     assert!(matches!(
         SelectedCityGrounding::select(&layout, &source, policy),
-        Err(CityGroundingError::UnboundBuilding { building: 1238 })
+        Err(CityGroundingError::UnboundBuilding {
+            building: crate::scene_input::SceneBuildingId(1238)
+        })
     ));
     assert_eq!(layout, original);
     layout.playable.push(layout.playable[0].clone());
     assert!(matches!(
         SelectedCityGrounding::select(&layout, &source, policy),
-        Err(CityGroundingError::DuplicateBuilding { building: 1238 })
+        Err(CityGroundingError::DuplicateBuilding {
+            building: crate::scene_input::SceneBuildingId(1238)
+        })
     ));
 }
 
@@ -145,14 +172,14 @@ fn ownership_rejection_publishes_no_partial_floor_projection() {
     let (mut layout, source, policy) = fixture();
     let mut other = layout.compounds[0].clone();
     other.id = CityPropertyId(1239);
-    other.front_building_id = 1239;
-    other.rear_building_id = 17623;
+    other.front_building_id = (1239).into();
+    other.rear_building_id = (17623).into();
     layout.compounds.push(other);
     let mut front = layout.playable[0].clone();
-    front.id = 1239;
+    front.id = (1239).into();
     layout.playable.push(front);
     let mut rear = layout.distant[0];
-    rear.id = 17623;
+    rear.id = (17623).into();
     layout.distant.push(rear);
     let original = layout.clone();
     let selected = SelectedCityGrounding::select(&layout, &source, policy).unwrap();
@@ -178,7 +205,7 @@ fn duplicate_ownership_diagnostics_are_independent_of_property_iteration_order()
             SelectedCityGrounding::select(&layout, &source, policy),
             Err(CityGroundingError::Terrain(
                 SettlementSupportError::DuplicateMember {
-                    building: 1238,
+                    building: crate::scene_input::SceneBuildingId(1238),
                     first: CityPropertyId(1238),
                     second: CityPropertyId(1239)
                 }

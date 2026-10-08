@@ -1,6 +1,6 @@
 //! Slaty cleavage: warped terraces, aligned split ledges and edge delamination.
 use crate::TextureParameters;
-use fabelgeist_determinism::StreamId;
+use fabelgeist_determinism::{Seed, StreamId};
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
@@ -26,7 +26,7 @@ fn smooth(value: f32) -> f32 {
     x * x * (3.0 - 2.0 * x)
 }
 
-fn noise(params: &TextureParameters, x: f32, y: f32, id: u64) -> f32 {
+fn noise(params: &TextureParameters, x: f32, y: f32, id: Seed) -> f32 {
     let ix = x.floor() as i32;
     let iy = y.floor() as i32;
     let random = |dx: i32, dy: i32| {
@@ -34,7 +34,7 @@ fn noise(params: &TextureParameters, x: f32, y: f32, id: u64) -> f32 {
             .rng(
                 StreamId::new("texture.slate-roof.cleft.lattice"),
                 &[
-                    id,
+                    id.to_u64(),
                     ix.wrapping_add(dx) as u32 as u64,
                     iy.wrapping_add(dy) as u32 as u64,
                 ],
@@ -60,13 +60,16 @@ pub(super) fn sample(
     params: &TextureParameters,
     x: f32,
     y: f32,
-    id: u64,
+    id: Seed,
     edge_distance: f32,
 ) -> Split {
     let p = &params.slate_roof.cleft;
     let angle = p.split_direction
         + (params
-            .rng(StreamId::new("texture.slate-roof.cleft.split-angle"), &[id])
+            .rng(
+                StreamId::new("texture.slate-roof.cleft.split-angle"),
+                &[id.to_u64()],
+            )
             .inclusive_unit_f32()
             - 0.5)
             * p.direction_variation;
@@ -77,20 +80,29 @@ pub(super) fn sample(
         params,
         along * p.warp_frequency,
         across * p.warp_frequency,
-        params.field_seed(StreamId::new("texture.slate-roof.cleft.broad-cleft"), &[id]),
+        params.field_seed(
+            StreamId::new("texture.slate-roof.cleft.broad-cleft"),
+            &[id.to_u64()],
+        ),
     );
     let fracture = noise(
         params,
         along * p.fracture_frequency,
         across * p.fracture_frequency,
-        params.field_seed(StreamId::new("texture.slate-roof.cleft.fracture"), &[id]),
+        params.field_seed(
+            StreamId::new("texture.slate-roof.cleft.fracture"),
+            &[id.to_u64()],
+        ),
     ) - 0.5;
     let layers = p.layer_count as f32;
     let level = (across
         + (broad - 0.5) * p.warp_strength
         + fracture * p.fracture_strength
         + params
-            .rng(StreamId::new("texture.slate-roof.cleft.layer-phase"), &[id])
+            .rng(
+                StreamId::new("texture.slate-roof.cleft.layer-phase"),
+                &[id.to_u64()],
+            )
             .inclusive_unit_f32())
         * layers;
     let phase = level - level.floor();
@@ -107,7 +119,10 @@ pub(super) fn sample(
         params,
         along * p.flake_frequency,
         across * p.flake_frequency,
-        params.field_seed(StreamId::new("texture.slate-roof.cleft.flake"), &[id]),
+        params.field_seed(
+            StreamId::new("texture.slate-roof.cleft.flake"),
+            &[id.to_u64()],
+        ),
     );
     let reach = (1.0 - edge_distance.max(0.0) / p.flake_reach).clamp(0.0, 1.0);
     let flake =
@@ -118,7 +133,10 @@ pub(super) fn sample(
         height: (terrace
             - across
             - params
-                .rng(StreamId::new("texture.slate-roof.cleft.layer-phase"), &[id])
+                .rng(
+                    StreamId::new("texture.slate-roof.cleft.layer-phase"),
+                    &[id.to_u64()],
+                )
                 .inclusive_unit_f32()
             + 0.5 / layers)
             * p.layer_depth
@@ -138,9 +156,21 @@ mod tests {
         for i in 0..200 {
             let x = (i as f32 + 0.5) / 200.0 - 0.5;
             let y = 0.43;
-            let center = sample(&p, x, y, 77, 1.0);
-            let left = sample(&p, x - step, y, 77, 1.0);
-            let right = sample(&p, x + step, y, 77, 1.0);
+            let center = sample(&p, x, y, fabelgeist_determinism::Seed::from_u64(77), 1.0);
+            let left = sample(
+                &p,
+                x - step,
+                y,
+                fabelgeist_determinism::Seed::from_u64(77),
+                1.0,
+            );
+            let right = sample(
+                &p,
+                x + step,
+                y,
+                fabelgeist_determinism::Seed::from_u64(77),
+                1.0,
+            );
             if [center.edge, left.edge, right.edge]
                 .into_iter()
                 .all(|e| e == 0.0)
@@ -167,7 +197,7 @@ mod tests {
         let mut steps = 0;
         // Local chips are sparse: evaluate a corpus of piece identities instead
         // of requiring one particular random edge to contain damage.
-        for id in 0..16 {
+        for id in (0..16).map(fabelgeist_determinism::Seed::from_u64) {
             for i in 0..300 {
                 let x = (i as f32 + 0.5) / 300.0 - 0.5;
                 let edge = sample(&p, x, 0.8, id, 0.0);

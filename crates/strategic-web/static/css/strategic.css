@@ -1234,12 +1234,17 @@ tr[data-container-parent-object-id] .inventory-item-name { padding-left:1rem; }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.smith-wares-scroll .trade-inventory-table :is(.currency-parent-row, .alcohol-parent-row, .food-parent-row) .inventory-item-label {
+.trade-inventory-table :is(.currency-parent-row, .alcohol-parent-row, .food-parent-row) .inventory-item-label {
   display: inline-block;
   max-width: calc(100% - 1.5rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   vertical-align: middle;
 }
-.smith-wares-scroll .trade-inventory-table :is(.currency-parent-row, .alcohol-parent-row, .food-parent-row) .currency-disclosure {
+.trade-inventory-table :is(.currency-parent-row, .alcohol-parent-row, .food-parent-row) .currency-disclosure {
+  display: inline-flex;
+  align-items: center;
   vertical-align: middle;
 }
 .repair-custody-panel {
@@ -1384,6 +1389,30 @@ tr[data-container-parent-object-id] .inventory-item-name { padding-left:1rem; }
 .inventory-weight,
 .inventory-gold {
   min-width: 3ch;
+}
+
+/* Let inventory numbers size their columns from the widest visible value. */
+.inventory-browser .trade-inventory-table col:is(
+  .inventory-column-count,
+  .inventory-column-target,
+  .inventory-column-weight,
+  .inventory-column-gold
+) {
+  width: auto;
+}
+.inventory-browser .trade-inventory-table :is(
+  .inventory-column-count,
+  .inventory-column-target,
+  .inventory-column-weight,
+  .inventory-column-gold,
+  .inventory-count,
+  .inventory-target,
+  .inventory-weight,
+  .inventory-gold
+) {
+  width: auto;
+  min-width: max-content;
+  font-variant-numeric: tabular-nums;
 }
 
 .trade-inventory-row {

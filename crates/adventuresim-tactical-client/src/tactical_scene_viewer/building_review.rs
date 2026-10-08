@@ -44,7 +44,7 @@ pub(super) fn is_profile(profile: &str) -> bool {
 #[derive(Resource, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 struct ReviewFixture {
-    signs: BTreeMap<u64, ShopSign>,
+    signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ShopSign>,
     views: Vec<cameras::ReviewView>,
 }
 
@@ -54,7 +54,7 @@ pub(super) struct ReviewRequirements {
     boundaries: usize,
     doors: usize,
     windows: usize,
-    signs: BTreeMap<u64, ExpectedSign>,
+    signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ExpectedSign>,
     output: std::path::PathBuf,
 }
 
@@ -64,27 +64,34 @@ struct ExpectedSign {
 }
 
 impl ReviewRequirements {
-    fn for_buildings(buildings: &[GeneratedBuilding], output: &Path) -> Self {
+    fn for_buildings(buildings: &[GeneratedBuilding], output: &Path) -> Result<Self> {
         for building in buildings {
-            assert!(
-                adventuresim_building_generator::audit_plan(&building.plan).is_empty(),
-                "review building must pass the structural audit"
-            );
+            if !adventuresim_building_generator::audit_plan(&building.plan)?.is_empty() {
+                return Err(format!(
+                    "review building {} fails the structural audit",
+                    building.placement.id
+                )
+                .into());
+            }
         }
-        Self {
+        Ok(Self {
             buildings: buildings.len(),
             boundaries: 0,
             doors: buildings
                 .iter()
-                .map(|b| compile_operable_doors(&b.plan).len())
+                .map(|b| compile_operable_doors(&b.plan).map(|doors| doors.len()))
+                .collect::<std::result::Result<Vec<_>, _>>()?
+                .into_iter()
                 .sum(),
             windows: buildings
                 .iter()
-                .map(|b| compile_operable_windows(&b.plan).len())
+                .map(|b| compile_operable_windows(&b.plan).map(|windows| windows.len()))
+                .collect::<std::result::Result<Vec<_>, _>>()?
+                .into_iter()
                 .sum(),
             signs: BTreeMap::new(),
             output: output.to_owned(),
-        }
+        })
     }
 }
 
@@ -93,8 +100,9 @@ pub(super) fn setup_geometry_requirements(
     commands: &mut Commands,
     buildings: &[GeneratedBuilding],
     output: &Path,
-) {
-    commands.insert_resource(ReviewRequirements::for_buildings(buildings, output));
+) -> Result {
+    commands.insert_resource(ReviewRequirements::for_buildings(buildings, output)?);
+    Ok(())
 }
 
 pub(super) fn setup(
@@ -104,16 +112,15 @@ pub(super) fn setup(
     input: &Path,
     output: &Path,
     profile: &str,
-) -> Option<Vec<BuildingReviewCamera>> {
+) -> Result<Option<Vec<BuildingReviewCamera>>> {
     if !is_profile(profile) {
-        return None;
+        return Ok(None);
     }
     let path = input.with_extension("review.json");
-    let bytes =
-        std::fs::read(&path).expect("building review requires its checked-in .review.json fixture");
-    let fixture: ReviewFixture =
-        serde_json::from_slice(&bytes).expect("valid building review inputs");
-    let specs = super::selected_capture_views(profile, &[]).expect("known review profile");
+    let bytes = std::fs::read(&path)?;
+    let fixture: ReviewFixture = serde_json::from_slice(&bytes)?;
+    let specs =
+        super::selected_capture_views(profile, &[]).map_err(bevy::ecs::error::BevyError::from)?;
     assert_eq!(
         fixture.views.len(),
         specs.len() - 1,
@@ -122,14 +129,14 @@ pub(super) fn setup(
     for (view, spec) in fixture.views.iter().zip(&specs[1..]) {
         assert_eq!(view.slug, spec.slug);
     }
-    let mut requirements = ReviewRequirements::for_buildings(buildings, output);
+    let mut requirements = ReviewRequirements::for_buildings(buildings, output)?;
     requirements.boundaries = boundaries;
     requirements.doors += boundaries;
     for (&id, sign) in &fixture.signs {
         let building = buildings
             .iter()
             .find(|b| b.placement.id == id)
-            .expect("sign building exists");
+            .ok_or_else(|| format!("review sign building {id} is absent"))?;
         assert!(
             building
                 .placement
@@ -139,7 +146,8 @@ pub(super) fn setup(
                 .is_some(),
             "sign requires a public shopfront"
         );
-        let site = SignSite::for_plan(&building.plan).expect("review sign has structural support");
+        let site = SignSite::for_plan(&building.plan)
+            .ok_or_else(|| format!("review sign building {id} lacks structural support"))?;
         assert!(
             site.supports(&building.plan, sign.mount),
             "review sign must fit its specified mount"
@@ -156,14 +164,18 @@ pub(super) fn setup(
         .views
         .iter()
         .map(|view| view.camera(buildings, &fixture.signs))
-        .collect();
-    std::fs::write(output.join("input.review.json"), bytes).expect("copy review provenance");
+        .collect::<Result<Vec<_>>>()?;
+    std::fs::write(output.join("input.review.json"), bytes)?;
     commands.insert_resource(requirements);
     commands.insert_resource(fixture);
-    Some(cameras)
+    Ok(Some(cameras))
 }
 
-pub(super) fn insert_authored_sign(world: &mut World, entity: Entity, id: u64) {
+pub(super) fn insert_authored_sign(
+    world: &mut World,
+    entity: Entity,
+    id: adventuresim_tactical_core::scene_input::SceneBuildingId,
+) {
     let sign = world
         .get_resource::<ReviewFixture>()
         .and_then(|fixture| fixture.signs.get(&id))

@@ -11,14 +11,46 @@ fn roof_plane(polygon: &[Vec3]) -> RoofPlaneEquation {
     }
 }
 
-fn roof_polygon_bounds(polygon: &[Vec3]) -> ResolvedBounds {
+fn roof_polygon_bounds(
+    face: ResolvedItemId,
+    polygon: &[Vec3],
+) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+    if polygon.len() < 3 {
+        return Err(GenerationError::InvalidRoofFace {
+            face,
+            vertices: polygon.len(),
+        });
+    }
+    let cause = |cause| GenerationError::RoofFaceConstruction { face, cause };
     let mut min = Vec3::splat(f32::INFINITY);
     let mut max = Vec3::splat(f32::NEG_INFINITY);
     for point in polygon {
+        Position::<Architectural>::from_metres(*point).map_err(cause)?;
         min = min.min(*point);
         max = max.max(*point);
     }
-    ResolvedBounds { min, max }
+    SpatialBounds::<Architectural>::from_metres(min, max).map_err(cause)
+}
+
+#[cfg(test)]
+mod roof_admission_tests {
+    use super::*;
+    use crate::spatial_geometry::{CoordinateAxis, GeometryError, GeometryRole};
+
+    #[test]
+    fn roof_bounds_reject_nonfinite_vertices_without_reducing_them_away() {
+        let face = ResolvedItemId(441);
+        let vertices = [Vec3::ZERO, Vec3::ONE, Vec3::new(2.0, 3.0, f32::NAN)];
+        assert!(
+            matches!(roof_polygon_bounds(face, &vertices), Err(GenerationError::RoofFaceConstruction {
+            face: source,
+            cause: GeometryError::NonFinite { role: GeometryRole::Position, axis: CoordinateAxis::Z },
+        }) if source == face)
+        );
+        assert!(
+            matches!(roof_polygon_bounds(face, &vertices[..2]), Err(GenerationError::InvalidRoofFace { face: source, vertices: 2 }) if source == face)
+        );
+    }
 }
 
 pub(crate) fn roof_face_polygons(roof: RoofPiece, high_side: Option<Direction>) -> Vec<Vec<Vec3>> {

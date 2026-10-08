@@ -6,7 +6,7 @@ pub(super) fn check(
     source: &GeographicSurface,
     output: Option<&std::path::Path>,
 ) -> Result<Value, Box<dyn std::error::Error>> {
-    let projection = grounded.support_projection();
+    let projection = grounded.support_projection()?;
     let encoded = serde_json::to_vec(&projection)?;
     let decoded: CityGroundingProjection = serde_json::from_slice(&encoded)?;
     let placements: Vec<_> = grounded

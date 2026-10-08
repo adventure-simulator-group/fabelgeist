@@ -1,6 +1,8 @@
-fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, ResolvedItemId)> {
+fn undeclared_timber_intersections(
+    plan: &BuildingPlan,
+) -> Result<Vec<(ResolvedItemId, ResolvedItemId)>> {
     let Some(frame) = &plan.timber_frame else {
-        return Vec::new();
+        return Ok(Vec::new());
     };
     let solids = plan
         .resolved_geometry
@@ -20,16 +22,14 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
         .map(|member| (member.solid, member))
         .collect::<std::collections::HashMap<_, _>>();
 
-    let spatial = crate::geometry_index::BoundsIndex::new(
-        plan.resolved_geometry.solids.iter().map(ResolvedSolid::query_bounds),
-    );
+    let spatial = checked_solid_bounds(plan)?;
     let mut failures = Vec::new();
     let mut checked = std::collections::HashSet::new();
     for member in &frame.members {
         let Some(a) = solids.get(&member.solid).copied() else {
             continue;
         };
-        for candidate in spatial.overlapping(a.query_bounds()) {
+        for candidate in spatial.overlapping(a.query_bounds()?) {
             let b = &plan.resolved_geometry.solids[candidate];
             // Member-to-member construction is already governed by the exact
             // TimberFrameJoint participant/contact audit, including action and
@@ -121,6 +121,7 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                         let member_reaches_wall = [member.start, member.end, a.centre]
                             .into_iter()
                             .any(|point| {
+                                let point = point.metres();
                                 let local = Vec2::new(point.x, point.z) - wall.frame.origin;
                                 local.dot(wall.frame.tangent).abs()
                                     <= wall.length_metres * 0.5 + 0.25
@@ -131,8 +132,9 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                             });
                         wall.material == crate::WallMaterialClass::TimberInfill
                             && member_reaches_wall
-                            && a.centre.y + a.size.y * 0.5 >= wall.base_elevation_metres - 0.20
-                            && a.centre.y - a.size.y * 0.5
+                            && a.centre.metres().y + a.size.metres().y * 0.5
+                                >= wall.base_elevation_metres - 0.20
+                            && a.centre.metres().y - a.size.metres().y * 0.5
                                 <= wall.base_elevation_metres + wall.height_metres + 0.20
                     });
                 (same_or_adjacent_bay || local_recessed_composite)
@@ -153,8 +155,9 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                                     | crate::TimberMemberRole::Rafter
                                     | crate::TimberMemberRole::Collar
                                     | crate::TimberMemberRole::Purlin
-                            ) && ((a.centre.y - wall.base_elevation_metres).abs() <= 0.20
-                                || (a.centre.y - (wall.base_elevation_metres + wall.height_metres))
+                            ) && ((a.centre.metres().y - wall.base_elevation_metres).abs() <= 0.20
+                                || (a.centre.metres().y
+                                    - (wall.base_elevation_metres + wall.height_metres))
                                     .abs()
                                     <= 0.20)
                         })
@@ -171,8 +174,8 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                         wall.frame.origin + wall.frame.tangent * half,
                     ];
                     let member_endpoints = [
-                        Vec2::new(member.start.x, member.start.z),
-                        Vec2::new(member.end.x, member.end.z),
+                        Vec2::new(member.start.metres().x, member.start.metres().z),
+                        Vec2::new(member.end.metres().x, member.end.metres().z),
                     ];
                     member_endpoints.iter().any(|point| {
                         endpoints
@@ -188,7 +191,8 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                             | crate::TimberMemberRole::Rafter
                             | crate::TimberMemberRole::Collar
                             | crate::TimberMemberRole::Purlin
-                    ) && (a.centre.y - (wall.base_elevation_metres + wall.height_metres))
+                    ) && (a.centre.metres().y
+                        - (wall.base_elevation_metres + wall.height_metres))
                         .abs()
                         <= 0.40
                         || matches!(
@@ -196,7 +200,7 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                             crate::TimberMemberRole::FloorJoist
                                 | crate::TimberMemberRole::Girder
                                 | crate::TimberMemberRole::JettyBeam
-                        ) && (a.centre.y - wall.base_elevation_metres).abs() <= 0.40
+                        ) && (a.centre.metres().y - wall.base_elevation_metres).abs() <= 0.40
                 }
             });
             let exact_hall_transverse_infill = frame.program
@@ -211,28 +215,32 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                         })
                 });
             let exact_masonry_plinth_join = plan.wall_assemblies.iter().any(|wall| {
-                    let owns_other = wall.host_solids.contains(&b.id)
-                        || plan.opening_assemblies.iter().any(|opening| {
-                            opening.host_wall == wall.id
-                                && (opening.jamb_solids.contains(&b.id)
-                                    || opening.sill_solid == Some(b.id)
-                                    || opening.head_solid == b.id
-                                    || opening.spandrel_solid == b.id)
-                        });
-                    let wall_top = wall.base_elevation_metres + wall.height_metres;
-                    owns_other
-                        && wall.storey_level == 0
-                        && wall.material == crate::WallMaterialClass::CivilianMasonry
-                        && member.structural
-                        && ([member.start.y, member.end.y, a.centre.y]
-                            .into_iter()
-                            .any(|height| (height - wall_top).abs() <= 0.40)
-                            || frame.internal_lines.iter().any(|line| {
-                                line.storeys
-                                    .iter()
-                                    .any(|storey| storey.member_ids.contains(&member.id))
-                            }))
-                });
+                let owns_other = wall.host_solids.contains(&b.id)
+                    || plan.opening_assemblies.iter().any(|opening| {
+                        opening.host_wall == wall.id
+                            && (opening.jamb_solids.contains(&b.id)
+                                || opening.sill_solid == Some(b.id)
+                                || opening.head_solid == b.id
+                                || opening.spandrel_solid == b.id)
+                    });
+                let wall_top = wall.base_elevation_metres + wall.height_metres;
+                owns_other
+                    && wall.storey_level == 0
+                    && wall.material == crate::WallMaterialClass::CivilianMasonry
+                    && member.structural
+                    && ([
+                        member.start.metres().y,
+                        member.end.metres().y,
+                        a.centre.metres().y,
+                    ]
+                    .into_iter()
+                    .any(|height| (height - wall_top).abs() <= 0.40)
+                        || frame.internal_lines.iter().any(|line| {
+                            line.storeys
+                                .iter()
+                                .any(|storey| storey.member_ids.contains(&member.id))
+                        }))
+            });
             let exact_frame_floor_join = b.role == SolidRole::FrameFloor
                 && (frame.floors.iter().any(|floor| {
                     (floor.floor_solid == b.id || floor.floor_solids.contains(&b.id))
@@ -240,9 +248,11 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                             || floor.girder_members.contains(&member.id)
                             || {
                                 let (floor_min, floor_max) = resolved_solid_bounds(b);
-                                [member.start.y, member.end.y].into_iter().any(|height| {
-                                    height >= floor_min.y - 0.08 && height <= floor_max.y + 0.08
-                                })
+                                [member.start.metres().y, member.end.metres().y]
+                                    .into_iter()
+                                    .any(|height| {
+                                        height >= floor_min.y - 0.08 && height <= floor_max.y + 0.08
+                                    })
                             })
                 }) || frame
                     .facades
@@ -258,9 +268,12 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                                 jetty.jetty_beams.contains(&member.id)
                                     || jetty.knaggen.contains(&member.id)
                                     || jetty.corner_supports.contains(&member.id)
-                                    || [member.start.y, member.end.y].into_iter().any(|height| {
-                                        height >= floor_min.y - 0.08 && height <= floor_max.y + 0.08
-                                    })
+                                    || [member.start.metres().y, member.end.metres().y]
+                                        .into_iter()
+                                        .any(|height| {
+                                            height >= floor_min.y - 0.08
+                                                && height <= floor_max.y + 0.08
+                                        })
                             })
                         })
                     }));
@@ -270,11 +283,15 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                 && frame.floors.iter().any(|floor| {
                     floor.girder_members.contains(&member.id) && {
                         let (landing_min, landing_max) = resolved_solid_bounds(b);
-                        [member.start.y, member.end.y, a.centre.y]
-                            .into_iter()
-                            .any(|height| {
-                                height >= landing_min.y - 0.08 && height <= landing_max.y + 0.08
-                            })
+                        [
+                            member.start.metres().y,
+                            member.end.metres().y,
+                            a.centre.metres().y,
+                        ]
+                        .into_iter()
+                        .any(|height| {
+                            height >= landing_min.y - 0.08 && height <= landing_max.y + 0.08
+                        })
                     }
                 });
             let exact_child_roof_join = (frame.dormer_trimmer_members.contains(&member.id)
@@ -309,7 +326,8 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                                                 edge.end.z - edge.start.z,
                                             );
                                             [member.start, member.end].into_iter().all(|point| {
-                                                let point = Vec2::new(point.x, point.z);
+                                                let point =
+                                                    Vec2::new(point.metres().x, point.metres().z);
                                                 let along = ((point - a).dot(delta)
                                                     / delta.length_squared().max(0.000_001))
                                                 .clamp(0.0, 1.0);
@@ -333,36 +351,8 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                                 })
                             })
                     }));
-            let exact_child_front_roof_join = matches!(
-                member.role,
-                crate::TimberMemberRole::GableTie
-                    | crate::TimberMemberRole::GablePost
-                    | crate::TimberMemberRole::WallPlate
-                    | crate::TimberMemberRole::Sill
-                    | crate::TimberMemberRole::Rafter
-                    | crate::TimberMemberRole::Collar
-                    | crate::TimberMemberRole::Purlin
-            ) && frame.bays.iter().any(|bay| {
-                bay.member_ids.contains(&member.id)
-                    && bay.wall.is_some_and(|wall_id| {
-                        plan.wall_assemblies
-                            .iter()
-                            .find(|wall| wall.id == wall_id)
-                            .is_some_and(|wall| {
-                                matches!(
-                                    wall.source,
-                                    crate::WallSourceId::RoofChildFront { roof }
-                                        if plan.roof_assemblies.iter().any(|assembly| {
-                                            (assembly.id == roof && assembly.owner == b.owner)
-                                                || assembly.children.iter().any(|child| {
-                                                    child.child == roof
-                                                        && child.flashing_ids.contains(&b.id)
-                                                })
-                                        })
-                                )
-                            })
-                    })
-            });
+            let exact_child_front_roof_join =
+                timber_roof_contacts::child_front_join(plan, frame, member, b);
             let declared = exact_opening_composite
                 || exact_partition_join
                 || exact_hall_transverse_infill
@@ -412,7 +402,7 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
     }
     failures.sort_unstable();
     failures.dedup();
-    failures
+    Ok(failures)
 }
 
 fn coplanar_timber_opening_faces(plan: &BuildingPlan) -> Vec<crate::OpeningAssemblyId> {
@@ -447,14 +437,17 @@ fn coplanar_timber_opening_faces(plan: &BuildingPlan) -> Vec<crate::OpeningAssem
                 .chain(opening.sill_solid)
                 .chain([opening.head_solid, opening.spandrel_solid])
                 .filter_map(|id| solids.get(&id).copied())
-                .filter(|solid| !(solid.id == opening.head_solid && gable_openings::shared_head(plan, opening)))
+                .filter(|solid| {
+                    !(solid.id == opening.head_solid && gable_openings::shared_head(plan, opening))
+                })
                 .any(|solid| {
                     let half_depth = if wall.frame.outward.x.abs() > 0.5 {
-                        solid.size.x * 0.5
+                        solid.size.metres().x * 0.5
                     } else {
-                        solid.size.z * 0.5
+                        solid.size.metres().z * 0.5
                     };
-                    let centre = Vec2::new(solid.centre.x, solid.centre.z).dot(wall.frame.outward);
+                    let centre = Vec2::new(solid.centre.metres().x, solid.centre.metres().z)
+                        .dot(wall.frame.outward);
                     centre + half_depth > wall_exterior - 0.009
                 });
             if reaches_frame_plane {
@@ -475,11 +468,37 @@ fn overlap_inside_interface(
     let overlap_min = a_min.max(b_min);
     let overlap_max = a_max.min(b_max);
     overlap_min
-        .cmpge(interface.bounds.min - Vec3::splat(0.012))
+        .cmpge(interface.bounds.min().metres() - Vec3::splat(0.012))
         .all()
         && overlap_max
-            .cmple(interface.bounds.max + Vec3::splat(0.012))
+            .cmple(interface.bounds.max().metres() + Vec3::splat(0.012))
             .all()
-        && resolved_solid_overlaps_bounds(a, (interface.bounds.min, interface.bounds.max), 0.001)
-        && resolved_solid_overlaps_bounds(b, (interface.bounds.min, interface.bounds.max), 0.001)
+        && resolved_solid_overlaps_bounds(
+            a,
+            (
+                interface.bounds.min().metres(),
+                interface.bounds.max().metres(),
+            ),
+            0.001,
+        )
+        && resolved_solid_overlaps_bounds(
+            b,
+            (
+                interface.bounds.min().metres(),
+                interface.bounds.max().metres(),
+            ),
+            0.001,
+        )
+}
+
+fn checked_solid_bounds(
+    plan: &BuildingPlan,
+) -> Result<crate::geometry_index::BoundsIndex> {
+    let bounds = plan
+        .resolved_geometry
+        .solids
+        .iter()
+        .map(ResolvedSolid::query_bounds)
+        .collect::<Result<Vec<_>>>()?;
+    crate::geometry_index::BoundsIndex::new(bounds)
 }

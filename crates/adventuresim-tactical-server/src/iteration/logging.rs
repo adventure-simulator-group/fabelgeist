@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use std::collections::HashMap;
 
 use adventuresim_tactical_core::{inventory::ArmorLayerContact, prelude::*};
@@ -161,7 +162,7 @@ pub enum TacticalDuelResolution {
 
 #[derive(Clone, Debug, Serialize)]
 pub struct TacticalMeleeOutcome {
-    pub seed: u64,
+    pub seed: Seed,
     pub resolution: TacticalDuelResolution,
     pub simulated_ticks: u64,
     pub simulated_seconds: f32,

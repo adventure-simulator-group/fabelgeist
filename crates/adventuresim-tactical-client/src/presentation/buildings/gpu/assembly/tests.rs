@@ -201,9 +201,9 @@ fn only_static_outdoor_props_enter_shared_gpu_geometry() {
     for index in 0..4 {
         let location = if index == 3 {
             FurnitureLocation::Interior {
-                building_id: 1,
-                room_id: 2,
-                storey: 0,
+                building_id: 1.into(),
+                room_id: adventuresim_building_generator::RoomIndex::from_serialized(2),
+                storey: adventuresim_building_generator::StoreyIndex::from_serialized(0),
             }
         } else {
             FurnitureLocation::Outdoor {

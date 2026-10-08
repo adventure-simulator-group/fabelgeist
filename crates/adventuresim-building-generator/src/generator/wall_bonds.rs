@@ -59,8 +59,8 @@ fn resolve_gatehouse_tower_chord_bonds(
     defenses: &[ProjectedDefenseAssembly],
     walls: &[crate::WallAssembly],
     geometry: &mut ResolvedGeometry,
-) {
-    for (tower_index, tower) in towers.iter().copied().enumerate() {
+) -> Result<(), crate::GenerationError> {
+    let _: () = for (tower_index, tower) in towers.iter().copied().enumerate() {
         let Some(round_wall) = walls.iter().find(|wall| {
             matches!(
                 wall.source,
@@ -101,18 +101,19 @@ fn resolve_gatehouse_tower_chord_bonds(
                             | (slot as u64 + 0x800),
                     ),
                     owners: [round_wall.owner, target_owner],
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(point.x - horizontal.x, 0.0, point.y - horizontal.y),
-                        max: Vec3::new(
+                    bounds: SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(point.x - horizontal.x, 0.0, point.y - horizontal.y),
+                        Vec3::new(
                             point.x + horizontal.x,
                             tower.wall_height_metres,
                             point.y + horizontal.y,
                         ),
-                    },
+                    )?,
                     minimum_interface_area_square_metres: 0.08,
                     maximum_penetration_metres: 0.08,
                 });
             }
         }
-    }
+    };
+    Ok(())
 }

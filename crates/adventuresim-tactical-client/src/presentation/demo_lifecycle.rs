@@ -70,7 +70,7 @@ mod tests {
         let mut cache = buildings::TacticalBuildingMeshCache::default();
         let program = adventuresim_building_generator::BuildingProgram::fixture(
             adventuresim_building_generator::BuildingArchetype::TownHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         cache.recipes.get_or_generate(&program).unwrap();
         assert!(!cache.recipes.is_empty());

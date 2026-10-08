@@ -79,7 +79,7 @@ mod tests {
                 native_form_id: NameFormId::new(form.id.clone()),
             },
             native_culture: Culture::German,
-            form_selector: NameFormSelectionSeed::new(0),
+            form_selector: NameFormSelectionSeed::new(fabelgeist_determinism::Seed::from_u64(0)),
             surname_id: None,
         }
     }

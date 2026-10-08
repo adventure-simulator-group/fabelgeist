@@ -2,6 +2,7 @@ use crate::{
     GenerationError, PlantLod, PlantMesh, flower::FlowerSpecies, fungus::FungusSpecies,
     habitat::PlantHabitat,
 };
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 /// Botanical catalog identity, separate from continuous organ parameters.
@@ -22,7 +23,7 @@ impl PlantSpecies {
         Self::Fungus(FungusSpecies::Chanterelle),
         Self::Fungus(FungusSpecies::CommonPuffball),
     ];
-    pub fn generate(self, seed: u64, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
+    pub fn generate(self, seed: Seed, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
         match self {
             Self::Flower(s) => s.parameters().generate(seed, detail),
             Self::Fungus(s) => s.parameters().generate(seed, detail),

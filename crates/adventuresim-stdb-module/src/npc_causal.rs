@@ -7,6 +7,7 @@
 
 use adventuresim_core::courtship::ADULT_AGE_YEARS;
 use adventuresim_world_schema::calendar::StrategicMinute;
+use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, ScheduleAt, SpacetimeType, Table, TimeDuration, reducer, table};
 
 use crate::CharacterTime;
@@ -194,7 +195,7 @@ fn has_initialized_schedule_decision(ctx: &ReducerContext, character_id: u64) ->
 fn initialize_saved_schedule_once(
     ctx: &ReducerContext,
     character_id: u64,
-    policy_seed: u64,
+    policy_seed: Seed,
     minute: StrategicMinute,
 ) -> Result<(), String> {
     let day = minute.day_index();
@@ -324,7 +325,7 @@ include!("npc_causal/romance_candidates.rs");
 fn settle_romance_decision(
     ctx: &ReducerContext,
     character_id: u64,
-    policy_seed: u64,
+    policy_seed: Seed,
     minute: StrategicMinute,
 ) -> Result<(), String> {
     let day = minute.day_index();
@@ -431,7 +432,7 @@ fn settle_romance_decision(
 
 fn stable_romance_candidates(
     character_id: u64,
-    policy_seed: u64,
+    policy_seed: Seed,
     day: u64,
     candidates: impl IntoIterator<Item = adventuresim_core::npc_policy::NpcCandidate>,
 ) -> Result<Vec<adventuresim_core::npc_policy::NpcCandidate>, String> {

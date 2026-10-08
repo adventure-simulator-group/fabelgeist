@@ -3,15 +3,18 @@
 //! dimension merely because an earlier candidate becomes buildable.
 use super::*;
 
-const TOWN_DWELLING_SEEDS: [u64; 3] = [
-    6514374187028306242,
-    244875683185724721,
-    15522022947284468661,
+const TOWN_DWELLING_SEEDS: [Seed; 3] = [
+    Seed::from_u64(6514374187028306242),
+    Seed::from_u64(244875683185724721),
+    Seed::from_u64(15522022947284468661),
 ];
-const MERCHANT_DWELLING_SEEDS: [u64; 3] =
-    [7989866213631017260, 269418199818528039, 6006670756388891727];
+const MERCHANT_DWELLING_SEEDS: [Seed; 3] = [
+    Seed::from_u64(7989866213631017260),
+    Seed::from_u64(269418199818528039),
+    Seed::from_u64(6006670756388891727),
+];
 
-pub(super) fn seed(archetype: BuildingArchetype, usage: BuildingUse, choice: usize) -> u64 {
+pub(super) fn seed(archetype: BuildingArchetype, usage: BuildingUse, choice: usize) -> Seed {
     match (archetype, usage) {
         (BuildingArchetype::TownHouse, BuildingUse::Dwelling) => TOWN_DWELLING_SEEDS[choice],
         (BuildingArchetype::FachwerkMerchantHouse, BuildingUse::Dwelling) => {

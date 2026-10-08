@@ -49,14 +49,31 @@ fn foliage_uses_hardware_multisample_coverage() {
 fn volumetric_patch_footprint_suppresses_all_heightfield_scatter() {
     let ground = SceneGround::from_samples(9, 9, 1.0, vec![GroundSurface::default(); 81]).unwrap();
     let collar = TerrainTransitionCollar::irregular_ellipse(
-        Vec2::ZERO,
-        Vec2::X,
-        2.0,
-        2.0,
-        0.5,
-        17,
-        0.2,
-        1_000,
+        adventuresim_tactical_core::prelude::TerrainCollarParameters {
+            origin: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::ZERO,
+            )
+            .unwrap(),
+            tangent: adventuresim_building_generator::spatial_geometry::PlanDirection::from_vector(
+                Vec2::X,
+            )
+            .unwrap(),
+            half_length:
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(2.0)
+                    .unwrap(),
+            half_width:
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(2.0)
+                    .unwrap(),
+            width: adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                0.5,
+            )
+            .unwrap(),
+            seed: 17.into(),
+            wander: adventuresim_tactical_core::prelude::RuptureWander::from_metres(0.2).unwrap(),
+            width_variation:
+                adventuresim_tactical_core::prelude::CollarWidthVariation::from_basis_points(1_000)
+                    .unwrap(),
+        },
     )
     .unwrap();
     let masked = scatter_ground_without_patch(&ground, collar);
@@ -65,7 +82,9 @@ fn volumetric_patch_footprint_suppresses_all_heightfield_scatter() {
         for x in 0..masked.grid_width() {
             let point = Vec2::new(x as f32 - 4.0, z as f32 - 4.0);
             let sample = masked.samples()[z * masked.grid_width() + x];
-            if collar.contains(point) {
+            if adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point)
+                .is_ok_and(|point| collar.contains(point))
+            {
                 assert_eq!(sample.cover, GroundCover::Bare);
                 assert_eq!(sample.substrate, GroundSubstrate::Water);
                 assert_eq!(sample.cover_density_bps, 0);

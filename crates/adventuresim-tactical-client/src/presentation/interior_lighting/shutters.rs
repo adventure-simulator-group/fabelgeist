@@ -7,13 +7,16 @@ const APERTURE_CHANGE_TOLERANCE: f32 = 0.001;
 
 #[derive(Clone)]
 pub(super) struct ShutterLight {
-    pub opening_id: u64,
+    pub opening_id: adventuresim_building_generator::OpeningAssemblyId,
     pub contributions: Vec<(usize, LightSample)>,
     pub openness: f32,
 }
 
 impl InteriorField {
-    fn update_apertures(&mut self, apertures: &[(u64, f32)]) -> bool {
+    fn update_apertures(
+        &mut self,
+        apertures: &[(adventuresim_building_generator::OpeningAssemblyId, f32)],
+    ) -> bool {
         let mut changed = false;
         for shutter in &mut self.shutters {
             let openness = apertures
@@ -64,7 +67,7 @@ pub(super) fn update_shutter_light(
                     .normalize_or_zero();
                 (
                     window.opening_id,
-                    1.0 - tangent.dot(window.tangent).abs().clamp(0.0, 1.0),
+                    1.0 - tangent.dot(window.tangent.vector()).abs().clamp(0.0, 1.0),
                 )
             })
             .collect::<Vec<_>>();
@@ -83,7 +86,7 @@ mod tests {
     fn opening_and_closing_a_shutter_adds_and_removes_only_its_daylight() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkCottage,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let mut field = InteriorField::from_plan(&plan, Vec3::ZERO);

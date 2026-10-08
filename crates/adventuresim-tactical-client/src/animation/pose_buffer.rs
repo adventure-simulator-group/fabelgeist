@@ -2330,7 +2330,7 @@ mod tests {
             .map(|joint| joint.bind)
             .collect::<Vec<_>>();
         let mut next = previous.clone();
-        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.5);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.5).unwrap();
         conform_upcoming_pose_to_terrain(
             &definition,
             &mut next,
@@ -2456,7 +2456,7 @@ mod tests {
             .collect::<Vec<_>>();
         let before =
             local_pose_global(&definition, &next, 3, &mut vec![None; next.len()]).translation;
-        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0).unwrap();
 
         conform_upcoming_pose_to_terrain(
             &definition,
@@ -2498,7 +2498,7 @@ mod tests {
                 joint("r_foot", Some(5), Vec3::new(0.0, -1.003, 0.0)),
             ],
         };
-        let terrain = SceneTerrain::new(4, 4, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(4, 4, 1.0, |_| 0.0).unwrap();
         let paths = [
             Vec2::new(-0.12, 0.0),
             Vec2::new(0.12, 0.0),
@@ -2586,7 +2586,7 @@ mod tests {
             .iter()
             .map(|joint| joint.bind)
             .collect::<Vec<_>>();
-        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0).unwrap();
         let mut plants = [None; 2];
         let mut first = authored.clone();
         conform_upcoming_pose_to_terrain(

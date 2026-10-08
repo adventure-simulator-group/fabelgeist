@@ -34,7 +34,7 @@ pub(crate) fn spawn_building_openings(
     transform: &Transform,
     plan: &BuildingPlan,
     collision: &BuildingCollision,
-) {
+) -> Result {
     doors::spawn_building_doors(
         commands,
         building_entity,
@@ -42,8 +42,9 @@ pub(crate) fn spawn_building_openings(
         transform,
         plan,
         collision,
-    );
-    windows::spawn_building_windows(commands, building, transform, plan, collision);
+    )?;
+    windows::spawn_building_windows(commands, building, transform, plan, collision)?;
+    Ok(())
 }
 
 pub(crate) fn on_scene_building_added(
@@ -53,7 +54,7 @@ pub(crate) fn on_scene_building_added(
 ) -> Result {
     let (building, transform) = buildings.get(event.entity)?;
     let plan = generate_building(&building.program)?;
-    let collision = compile_building_collision(&plan);
+    let collision = compile_building_collision(&plan)?;
     spawn_building_openings(
         &mut commands,
         event.entity,
@@ -61,12 +62,12 @@ pub(crate) fn on_scene_building_added(
         transform,
         &plan,
         &collision,
-    );
+    )?;
     commands.entity(event.entity).insert((
         Replicated,
         RigidBody::Static,
         CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-        compile_tactical_building_collider(&collision),
+        compile_tactical_building_collider(&collision)?,
     ));
     Ok(())
 }
@@ -75,9 +76,9 @@ pub(crate) fn spawn_generated_buildings(
     commands: &mut Commands,
     buildings: Vec<GeneratedBuilding>,
     establishments: &[SceneEstablishment],
-) {
+) -> Result {
     for building in buildings {
-        let transform = building.transform();
+        let transform = building.transform()?;
         let mut entity = commands.spawn((
             Name::new(format!("Tactical building {}", building.placement.id)),
             SceneBuilding {
@@ -94,4 +95,5 @@ pub(crate) fn spawn_generated_buildings(
             entity.insert(establishment.clone());
         }
     }
+    Ok(())
 }

@@ -8,9 +8,9 @@ fn building(usage: BuildingUse) -> (BuildingProgram, BuildingPlan) {
         settlement_archetype(usage),
         usage,
         if usage == BuildingUse::GeneralShop {
-            0
+            fabelgeist_determinism::Seed::from_u64(0)
         } else {
-            42
+            fabelgeist_determinism::Seed::from_u64(42)
         },
         None,
     )
@@ -49,7 +49,11 @@ fn interior_representative_buildings_have_usable_furniture() {
                 .map(|p| p.key.interior_spec().unwrap().required_faces.len())
                 .sum::<usize>()
         );
-        assert!(paths.iter().all(|p| p.points.first().unwrap().storey == 0));
+        assert!(
+            paths
+                .iter()
+                .all(|p| p.points.first().unwrap().storey == crate::StoreyIndex::GROUND)
+        );
         eprintln!(
             "{usage:?}: {} furniture, {} paths, {} unmet budgets",
             layout.placements.len(),
@@ -70,7 +74,7 @@ fn interior_cathedral_rooms_share_continuous_paving_and_clear_doors() {
     let program = BuildingProgram::settlement(
         settlement_archetype(BuildingUse::Cathedral),
         Some(BuildingUse::Cathedral),
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     )
     .with_service_size(crate::ServiceBuildingSize::Medium);
     let plan = generate(&program).unwrap();
@@ -84,18 +88,23 @@ fn interior_cathedral_rooms_share_continuous_paving_and_clear_doors() {
                 && plan.storeys[0]
                     .rooms
                     .iter()
-                    .any(|room| room.id == p.room_id && room.kind == role)),
+                    .any(
+                        |room| crate::RoomIndex::from_serialized(room.id) == p.room_id
+                            && room.kind == role
+                    )),
             "missing {kind:?} in {role:?}: {:?}",
             layout.unmet_budgets
         );
     }
-    let floor = super::architecture::Floor::new(&plan, 0);
+    let floor = super::architecture::Floor::new(&plan, crate::StoreyIndex::GROUND).unwrap();
     for door in plan
         .opening_assemblies
         .iter()
         .filter(|d| d.use_kind == crate::OpeningUse::Door)
     {
-        assert!(floor.reserved.iter().any(|r| r.contains(door.frame.origin)));
+        assert!(floor.reserved.iter().any(|r| r.contains(
+            crate::plan_geometry::ArchitecturalPlanPoint::from_metres(door.frame.origin).unwrap()
+        )));
         for id in [door.frame.inside_room, door.frame.outside_room]
             .into_iter()
             .flatten()
@@ -111,7 +120,7 @@ fn interior_woad_store_door_approaches_clear_structural_posts() {
     let program = BuildingProgram::validated_settlement(
         settlement_archetype(BuildingUse::WoadStore),
         BuildingUse::WoadStore,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
         Some(crate::ServiceBuildingSize::Medium),
     )
     .unwrap();
@@ -129,7 +138,11 @@ fn interior_every_use_has_an_exhaustive_room_budget() {
             .collect(),
     };
     for usage in BuildingUse::ALL {
-        let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42);
+        let program = BuildingProgram::settlement(
+            settlement_archetype(usage),
+            Some(usage),
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let budgets = furniture_budgets(&program, &room);
         assert!(!budgets.is_empty(), "{usage:?}");
         assert!(budgets.iter().all(|b| b.count > 0));
@@ -154,7 +167,7 @@ fn interior_all_settlement_uses_generate_accessible_layouts() {
 
 #[test]
 fn interior_civilian_seed_matrix() {
-    for seed in [42, 47, 101] {
+    for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
         for usage in BuildingUse::ALL
             .into_iter()
             .filter(|u| !matches!(u, BuildingUse::Castle | BuildingUse::Arsenal))
@@ -193,7 +206,7 @@ fn interior_civilian_sizes_and_fixture_programs() {
             let program = BuildingProgram::validated_settlement(
                 settlement_archetype(usage),
                 usage,
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 Some(size),
             )
             .unwrap_or_else(|error| panic!("{usage:?} {size:?}: {error}"));
@@ -210,7 +223,8 @@ fn interior_civilian_sizes_and_fixture_programs() {
         crate::BuildingArchetype::Cathedral,
         crate::BuildingArchetype::ParishChurch,
     ] {
-        let program = BuildingProgram::fixture(archetype, 42);
+        let program =
+            BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate(&program).unwrap_or_else(|error| panic!("{archetype:?}: {error}"));
         furnish(&plan, &program).unwrap_or_else(|error| panic!("{archetype:?}: {error}"));
     }
@@ -230,9 +244,12 @@ fn interior_rejects_obstructed_door_and_overlapping_furniture() {
             FurnitureKind::StorageCrate,
             FurnitureVariant::Compact,
         ),
-        room_id: entrance.frame.inside_room.unwrap(),
-        storey: 0,
-        centre_metres: entrance.frame.origin - entrance.frame.outward * 0.5,
+        room_id: crate::RoomIndex::from_serialized(entrance.frame.inside_room.unwrap()),
+        storey: crate::StoreyIndex::from_serialized(0),
+        centre_metres: crate::plan_geometry::ArchitecturalPlanPoint::try_from(
+            entrance.frame.origin - entrance.frame.outward * 0.5,
+        )
+        .unwrap(),
         facing: Direction::South,
     });
     assert!(matches!(
@@ -253,7 +270,11 @@ fn interior_layout_is_deterministic_and_paths_use_stairs() {
         serde_json::to_vec(&a).unwrap(),
         serde_json::to_vec(&b).unwrap()
     );
-    assert!(a.placements.iter().any(|p| p.storey > 0));
+    assert!(
+        a.placements
+            .iter()
+            .any(|p| p.storey > crate::StoreyIndex::GROUND)
+    );
     assert!(
         a.paths
             .iter()
@@ -281,10 +302,10 @@ fn interior_jetty_beams_bear_below_the_finished_floor() {
             .iter()
             .find(|s| s.id == jetty.floor_solid)
             .unwrap();
-        let underside = floor.centre.y - floor.size.y * 0.5;
+        let underside = floor.centre.metres().y - floor.size.metres().y * 0.5;
         for beam in &jetty.jetty_beams {
             let member = frame.members.iter().find(|m| m.id == *beam).unwrap();
-            assert!(member.start.y < underside && member.end.y < underside);
+            assert!(member.start.metres().y < underside && member.end.metres().y < underside);
         }
         for id in &jetty.floor_bearing_interfaces {
             let bearing = plan
@@ -293,7 +314,10 @@ fn interior_jetty_beams_bear_below_the_finished_floor() {
                 .iter()
                 .find(|i| i.id == *id)
                 .unwrap();
-            assert!(bearing.bounds.min.y <= underside && bearing.bounds.max.y >= underside);
+            assert!(
+                bearing.bounds.min().metres().y <= underside
+                    && bearing.bounds.max().metres().y >= underside
+            );
         }
         checked += 1;
     }
@@ -319,9 +343,25 @@ fn interior_counter_modules_are_contiguous_with_two_sided_access() {
         .iter()
         .find(|p| p.key.kind() == FurnitureKind::CounterRightEnd)
         .unwrap();
-    let width = centre.key.interior_spec().unwrap().size_metres.x;
-    assert!((left.centre_metres.distance(centre.centre_metres) - width).abs() < 0.001);
-    assert!((right.centre_metres.distance(centre.centre_metres) - width).abs() < 0.001);
+    let width = centre.key.interior_spec().unwrap().size_metres.metres().x;
+    assert!(
+        (left
+            .centre_metres
+            .metres()
+            .distance(centre.centre_metres.metres())
+            - width)
+            .abs()
+            < 0.001
+    );
+    assert!(
+        (right
+            .centre_metres
+            .metres()
+            .distance(centre.centre_metres.metres())
+            - width)
+            .abs()
+            < 0.001
+    );
     assert_eq!(left.facing, centre.facing);
     assert_eq!(right.facing, centre.facing);
     validate_layout(&plan, &layout).unwrap();
@@ -330,13 +370,18 @@ fn interior_counter_modules_are_contiguous_with_two_sided_access() {
 #[test]
 fn heated_household_recipes_preserve_access_to_every_room() {
     use crate::BuildingArchetype::*;
-    let obstructed = BuildingProgram::settlement(FachwerkCottage, Some(BuildingUse::Dwelling), 133);
+    let obstructed = BuildingProgram::settlement(
+        FachwerkCottage,
+        Some(BuildingUse::Dwelling),
+        fabelgeist_determinism::Seed::from_u64(133),
+    );
     assert!(matches!(
         validate_circulation(&generate(&obstructed).unwrap()),
-        Err(InteriorLayoutError::DisconnectedRoom { room_id: 2, .. })
+        Err(InteriorLayoutError::DisconnectedRoom { room_id, .. })
+            if room_id == crate::RoomIndex::from_serialized(2)
     ));
     for archetype in [FachwerkCottage, TownHouse, HallHouse, FachwerkMerchantHouse] {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let program =
                 BuildingProgram::validated_settlement(archetype, BuildingUse::Dwelling, seed, None)
                     .unwrap();

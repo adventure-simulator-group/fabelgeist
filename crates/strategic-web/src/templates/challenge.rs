@@ -338,7 +338,7 @@ mod tests {
     #[test]
     fn every_puzzle_is_a_no_js_shared_chat_visual_without_private_truth() {
         for kind in adventuresim_puzzles::PuzzleKind::ALL {
-            let puzzle = PuzzleAuthority::generate(kind, 4);
+            let puzzle = PuzzleAuthority::generate(kind, fabelgeist_determinism::Seed::from_u64(4));
             let markup = puzzle_page(
                 "challenge:test",
                 "case:test",
@@ -367,8 +367,10 @@ mod tests {
 
     #[test]
     fn submitted_answer_remains_in_the_solved_chat_until_the_player_leaves() {
-        let puzzle =
-            PuzzleAuthority::generate(adventuresim_puzzles::PuzzleKind::RuneTransformation, 4);
+        let puzzle = PuzzleAuthority::generate(
+            adventuresim_puzzles::PuzzleKind::RuneTransformation,
+            fabelgeist_determinism::Seed::from_u64(4),
+        );
         let submission = PuzzleSubmission::RuneTransformation {
             result: Sigil::Sword,
         };
@@ -401,8 +403,10 @@ mod tests {
 
     #[test]
     fn rune_prompt_requires_three_inferred_gate_laws_in_route_order() {
-        let puzzle =
-            PuzzleAuthority::generate(adventuresim_puzzles::PuzzleKind::RuneTransformation, 19);
+        let puzzle = PuzzleAuthority::generate(
+            adventuresim_puzzles::PuzzleKind::RuneTransformation,
+            fabelgeist_determinism::Seed::from_u64(19),
+        );
         let markup = puzzle_page(
             "challenge:test",
             "case:test",
@@ -429,7 +433,10 @@ mod tests {
 
     #[test]
     fn new_puzzle_families_are_fully_chat_native() {
-        let grid = PuzzleAuthority::generate(adventuresim_puzzles::PuzzleKind::LogicGrid, 41);
+        let grid = PuzzleAuthority::generate(
+            adventuresim_puzzles::PuzzleKind::LogicGrid,
+            fabelgeist_determinism::Seed::from_u64(41),
+        );
         let grid_markup = puzzle_page(
             "challenge:grid",
             "case:test",
@@ -448,8 +455,10 @@ mod tests {
         assert!(grid_markup.contains("grid_token_0"));
         assert!(grid_markup.contains("grid_road_0"));
 
-        let allocation =
-            PuzzleAuthority::generate(adventuresim_puzzles::PuzzleKind::ResourceAllocation, 42);
+        let allocation = PuzzleAuthority::generate(
+            adventuresim_puzzles::PuzzleKind::ResourceAllocation,
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let allocation_markup = puzzle_page(
             "challenge:allocation",
             "case:test",

@@ -553,6 +553,24 @@ order; complete chunks retain clipping, normals, pigments and mesh indices.
 These buffers contain only current mesh output and are released after
 preparation. They do not retain another terrain or collision representation.
 
+Operable windows retain checked scene positions/directions and positive leaf
+dimensions through installation and presentation. The closure mesh cache accepts
+`LeafDimensions` and converts to the cuboid mesh contract at its explicit native
+cache/mesh adapter. Fixed glazing still admits thin or degenerate cuboid geometry.
+Cache keys, shared handles and material selection keep their native layouts.
+Core's paired `SceneWindowPose` supplies the converted leaf and native rotation.
+Building closure visibility and shutter lighting carry `SceneBuildingId` and
+`OpeningAssemblyId` through their joins. Material palette selection extracts the
+native building number only at the existing deterministic seed/hash adapter.
+Fixed bar presence uses the named `WindowBarPresence` enum in both scene APIs
+and the serialized `bars` field.
+
+Window animation and catch decisions remain transient server state. The mutable
+controller's current angle and ordinary toggle `bool` are a documented #770
+handoff under #765; distinguishing controller missing/blocked outcomes is outside
+the selected #794 geometry change. Generator admission belongs to #766 and the
+shared architectural-to-scene conversion belongs to #767.
+
 Outdoor furniture arrives as compact immutable recipe references and normal
 entity transforms. Shared mesh handles and the building material palette
 render each accepted instance. Small furniture fades over 180-230 metres;

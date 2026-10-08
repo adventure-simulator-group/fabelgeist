@@ -47,8 +47,8 @@ fn fixed(
     elevation: f32,
     materials: &TacticalBuildingMaterials,
 ) {
-    for cell in &boundary.fixed_support.cells {
-        let material = match cell.material {
+    for cell in boundary.fixed_support().cells() {
+        let material = match cell.material() {
             CityBoundaryMaterial::Masonry => BuildingLodMaterial::Wall(
                 adventuresim_building_generator::WallMaterialClass::RubbleMasonry,
             ),
@@ -59,7 +59,7 @@ fn fixed(
             cell,
             elevation,
             materials
-                .for_building(boundary.front_building_id)
+                .for_building(boundary.front_building_id().0)
                 .get(material),
         );
     }

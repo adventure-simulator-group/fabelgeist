@@ -255,7 +255,7 @@ fn rest_for_minutes(
     let effective_schedule = effective_location_schedule(
         &effective_organization_schedule(ctx, character_id, &saved_schedule.downtime),
         activity_execution_location(ctx, character_id)?.policy,
-        character_id,
+        fabelgeist_determinism::Seed::from_u64(character_id),
     );
     let conversation_choice = character.party_id.as_ref().and_then(|party_id| {
         let snapshot: Vec<_> = crate::strategic::living_party_member_ids(ctx, party_id)

@@ -39,3 +39,40 @@ pub(super) fn append(
         ));
     }
 }
+
+pub(super) fn bond_front_wall(
+    geometry: &mut ResolvedGeometry,
+    wall: &crate::WallAssembly,
+    parent_owner: Option<GeometryOwnerId>,
+    base: f32,
+    top: f32,
+) -> Result<(), GenerationError> {
+    let owner = wall.owner;
+    let origin = wall.frame.origin;
+    let tangent = wall.frame.tangent;
+    let outward = wall.frame.outward;
+    let width = wall.length_metres;
+    for (bond_slot, roof_owner) in parent_owner.into_iter().enumerate() {
+        geometry.junction_bonds.push(JunctionBond {
+            id: ResolvedItemId(
+                (0x6_u64 << 60) | (u64::from(owner.0) << 16) | (1 + bond_slot as u64),
+            ),
+            owners: [roof_owner, owner],
+            bounds: SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
+                    origin.x - tangent.x.abs() * width * 0.55 - outward.x.abs() * 0.30,
+                    base - 0.12,
+                    origin.y - tangent.y.abs() * width * 0.55 - outward.y.abs() * 0.30,
+                ),
+                Vec3::new(
+                    origin.x + tangent.x.abs() * width * 0.55 + outward.x.abs() * 0.30,
+                    top + 0.18,
+                    origin.y + tangent.y.abs() * width * 0.55 + outward.y.abs() * 0.30,
+                ),
+            )?,
+            minimum_interface_area_square_metres: 0.005,
+            maximum_penetration_metres: 0.18,
+        });
+    }
+    Ok(())
+}

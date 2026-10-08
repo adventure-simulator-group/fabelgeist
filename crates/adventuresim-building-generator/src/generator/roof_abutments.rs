@@ -2,9 +2,9 @@ fn resolve_roof_abutment_contours(
     assemblies: &mut [RoofAssembly],
     walls: &[crate::WallAssembly],
     geometry: &mut ResolvedGeometry,
-) {
-    let contacts = roof_contacts::RoofContacts::new(walls, &geometry.solids);
-    for assembly in assemblies {
+) -> Result<(), crate::GenerationError> {
+    let contacts = roof_contacts::RoofContacts::new(walls, &geometry.solids)?;
+    let _: () = for assembly in assemblies {
         for (kind_slot, (edge_kind, abutment_kind)) in [
             (RoofEdgeKind::WallAbutment, RoofAbutmentKind::Wall),
             (RoofEdgeKind::TowerAbutment, RoofAbutmentKind::Tower),
@@ -38,55 +38,11 @@ fn resolve_roof_abutment_contours(
                     let t = station as f32 / station_count as f32;
                     let point = edge.start.lerp(edge.end, t);
                     let plan_point = Vec2::new(point.x, point.z);
-                    let host = walls
-                        .iter()
-                        .filter(|wall| {
-                            if abutment_kind == RoofAbutmentKind::Tower {
-                                matches!(wall.source, crate::WallSourceId::SquareTowerFace { .. })
-                            } else {
-                                !matches!(wall.source, crate::WallSourceId::RoofChildFront { .. })
-                            }
-                        })
-                        .filter_map(|wall| {
-                            let offset = plan_point - wall.frame.origin;
-                            let signed_normal = offset.dot(wall.frame.outward);
-                            // A weatherable roof abutment lies on the exterior
-                            // masonry face, never the wall centreline. Clipped
-                            // fragments on the interior side are opening-cut
-                            // boundaries, not valid contact contours.
-                            let normal_distance =
-                                (signed_normal - wall.thickness_metres * 0.5).abs();
-                            let along = offset.dot(wall.frame.tangent).abs();
-                            let corner_return = if abutment_kind == RoofAbutmentKind::Tower {
-                                wall.thickness_metres * 0.5
-                            } else {
-                                0.0
-                            };
-                            (normal_distance <= wall.thickness_metres * 0.5 + 0.18
-                                && along <= wall.length_metres * 0.5 + corner_return + 0.18
-                                && point.y >= wall.base_elevation_metres - 0.08
-                                && point.y
-                                    <= wall.base_elevation_metres + wall.height_metres + 0.18)
-                                .then_some((wall, normal_distance))
-                        })
-                        .min_by(|(left_wall, left), (right_wall, right)| {
-                            let priority = |wall: &crate::WallAssembly| {
-                                if abutment_kind == RoofAbutmentKind::Wall
-                                    && matches!(
-                                        wall.source,
-                                        crate::WallSourceId::ChurchArcade { .. }
-                                    )
-                                {
-                                    0_u8
-                                } else {
-                                    1_u8
-                                }
-                            };
-                            priority(left_wall)
-                                .cmp(&priority(right_wall))
-                                .then_with(|| left.total_cmp(right))
-                        });
-                    let Some((host, _)) = host else { continue };
+                    let Some(host) =
+                        roof_contacts::abutment_host(walls, abutment_kind, point, plan_point)
+                    else {
+                        continue;
+                    };
                     if samples.len() == first_edge_sample
                         && let Some(old) = old_flashing
                     {
@@ -131,27 +87,31 @@ fn resolve_roof_abutment_contours(
                             0.0,
                         ),
                     ] {
-                        geometry.solids.push(ResolvedSolid {
-                            id,
-                            owner: assembly.owner,
-                            centre,
-                            size,
-                            yaw_radians: tangent_yaw,
-                            crossfall_radians: crossfall,
-                            longfall_radians: 0.0,
-                            role: SolidRole::RoofFlashing,
-                            shape: crate::ResolvedSolidShape::Cuboid,
-                            supported_by: vec![host.support_node],
-                        });
-                        geometry.support_interfaces.push(SupportInterface {
-                            id: ResolvedItemId((0x9_u64 << 60) | (id.0 & 0x0FFF_FFFF_FFFF_FFFF)),
-                            owner: assembly.owner,
-                            node: host.support_node,
-                            bounds: ResolvedBounds {
-                                min: centre - size * 0.18,
-                                max: centre + size * 0.18,
-                            },
-                        });
+                        geometry.solids.push(ResolvedSolid::new(
+                            CollisionCuboid::<Architectural>::from_metres(
+                                id,
+                                centre,
+                                size,
+                                tangent_yaw,
+                                crossfall,
+                                0.0,
+                            )?,
+                            assembly.owner,
+                            SolidRole::RoofFlashing,
+                            crate::ResolvedSolidShape::Cuboid,
+                            vec![host.support_node],
+                        ));
+                        geometry
+                            .support_interfaces
+                            .push(crate::SupportInterface::new(
+                                ResolvedItemId((0x9_u64 << 60) | (id.0 & 0x0FFF_FFFF_FFFF_FFFF)),
+                                assembly.owner,
+                                host.support_node,
+                                SpatialBounds::<Architectural>::from_metres(
+                                    centre - size * 0.18,
+                                    centre + size * 0.18,
+                                )?,
+                            ));
                     }
                     samples.push(RoofAbutmentSample {
                         point,
@@ -165,7 +125,7 @@ fn resolve_roof_abutment_contours(
                     // positive interface instead of assigning the whole strip
                     // to whichever face happened to win the nearest-host query.
                     let weathering = &geometry.solids[geometry.solids.len() - 3..];
-                    let bonded_hosts = contacts.touching(weathering);
+                    let bonded_hosts = contacts.touching(weathering)?;
                     for bonded_owner in bonded_hosts {
                         geometry.junction_bonds.push(JunctionBond {
                             id: ResolvedItemId(
@@ -176,10 +136,10 @@ fn resolve_roof_abutment_contours(
                                     | (u64::from(bonded_owner.0) & 0xFFF),
                             ),
                             owners: [assembly.owner, bonded_owner],
-                            bounds: ResolvedBounds {
-                                min: point - Vec3::new(0.40, 0.25, 0.40),
-                                max: point + Vec3::new(0.40, 0.40, 0.40),
-                            },
+                            bounds: SpatialBounds::<Architectural>::from_metres(
+                                point - Vec3::new(0.40, 0.25, 0.40),
+                                point + Vec3::new(0.40, 0.40, 0.40),
+                            )?,
                             minimum_interface_area_square_metres: 0.0005,
                             maximum_penetration_metres: 0.50,
                         });
@@ -219,13 +179,19 @@ fn resolve_roof_abutment_contours(
                     edge.flashing = None;
                 }
             }
-            if samples.is_empty() {
-                continue;
-            }
-            let lower_sample = samples
+            let Some(lower_sample) = samples
                 .iter()
                 .min_by(|left, right| left.point.y.total_cmp(&right.point.y))
-                .expect("non-empty abutment samples");
+            else {
+                continue;
+            };
+            let Some(upper_sample) = samples
+                .iter()
+                .max_by(|left, right| left.point.y.total_cmp(&right.point.y))
+            else {
+                continue;
+            };
+            let inlet = upper_sample.point + Vec3::Y * 0.03;
             let lower = lower_sample.point;
             let lower_outward = walls
                 .iter()
@@ -240,10 +206,10 @@ fn resolve_roof_abutment_contours(
             geometry.voids.push(ResolvedVoid {
                 id: outlet,
                 owner: assembly.owner,
-                bounds: ResolvedBounds {
-                    min: outlet_point - Vec3::splat(0.055),
-                    max: outlet_point + Vec3::splat(0.055),
-                },
+                bounds: SpatialBounds::<Architectural>::from_metres(
+                    outlet_point - Vec3::splat(0.055),
+                    outlet_point + Vec3::splat(0.055),
+                )?,
                 role: VoidRole::Drain,
                 shape: crate::ResolvedVoidShape::Box,
                 subtracts_from: assembly.owner,
@@ -252,12 +218,7 @@ fn resolve_roof_abutment_contours(
                 id: route,
                 owner: assembly.owner,
                 outlet_void: outlet,
-                inlet: samples
-                    .iter()
-                    .max_by(|left, right| left.point.y.total_cmp(&right.point.y))
-                    .expect("non-empty abutment samples")
-                    .point
-                    + Vec3::Y * 0.03,
+                inlet,
                 outlet: outlet_point,
             });
             assembly.abutments.push(RoofAbutmentAssembly {
@@ -285,5 +246,6 @@ fn resolve_roof_abutment_contours(
                 }
             }
         }
-    }
+    };
+    Ok(())
 }

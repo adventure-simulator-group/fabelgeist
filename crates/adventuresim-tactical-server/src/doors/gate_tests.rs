@@ -13,19 +13,30 @@ fn property_gate_has_authoritative_collision_hinge_and_passage_control() {
 }
 
 fn assert_property_gate(boundary: GeneratedBoundary) {
-    let building_id = boundary.scene.front_building_id;
+    let building_id = boundary.scene().front_building_id();
     let spec = boundary
-        .scene
-        .boundary
+        .scene()
+        .boundary()
         .gate
-        .door(boundary.scene.property_id);
-    let elevation = Vec3::Y * boundary.elevation_metres;
+        .door(boundary.scene().property_id())
+        .unwrap();
+    let elevation = Vec3::Y * boundary.elevation_metres().metres();
+    let spec = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
+        boundary.elevation_metres().metres(),
+    )
+    .unwrap()
+    .door(spec)
+    .unwrap()
+    .leaf();
     let mut app = App::new();
     app.add_plugins((MinimalPlugins, PhysicsPlugins::default(), TransformPlugin));
     app.add_observer(super::super::boundaries::on_scene_boundary_added);
     let anchor = app
         .world_mut()
-        .spawn((boundary.scene, Transform::from_translation(elevation)))
+        .spawn((
+            boundary.into_scene(),
+            Transform::from_translation(elevation),
+        ))
         .id();
     app.world_mut().flush();
     assert_eq!(
@@ -36,9 +47,9 @@ fn assert_property_gate(boundary: GeneratedBoundary) {
         .world_mut()
         .query::<(Entity, &SceneDoor, &Transform, &Collider, &DoorController)>();
     let (entity, door, transform, collider, controller) = query.single(app.world()).unwrap();
-    assert_eq!(door.opening_id, spec.opening.0);
+    assert_eq!(door.opening_id, spec.opening);
     assert_eq!(door.building_id, building_id);
-    let ray = spec.closed_centre + elevation + Vec3::NEG_Z * 2.0;
+    let ray = spec.closed_centre.metres() + Vec3::NEG_Z * 2.0;
     assert!(
         collider
             .cast_ray(
@@ -51,9 +62,9 @@ fn assert_property_gate(boundary: GeneratedBoundary) {
             )
             .is_some()
     );
-    let rotation = Quat::from_rotation_y(spec.open_angle_radians);
-    let open_centre =
-        spec.hinge_centre + elevation + rotation * (spec.closed_centre - spec.hinge_centre);
+    let rotation = Quat::from_rotation_y(spec.open_angle_radians.radians());
+    let open_centre = spec.hinge_centre.metres()
+        + rotation * (spec.closed_centre.metres() - spec.hinge_centre.metres());
     assert!(
         collider
             .cast_ray(
@@ -67,8 +78,8 @@ fn assert_property_gate(boundary: GeneratedBoundary) {
             .is_none()
     );
     let joint = controller.joint;
-    let doorway = controller.doorway_centre;
-    let outward = controller.outward;
+    let doorway = controller.doorway_centre.metres();
+    let outward = controller.outward.vector();
     let gate_entity = entity;
     let mut exemption = DoorPassageExemptions::default();
     exemption.grant(gate_entity);
@@ -86,6 +97,6 @@ fn assert_property_gate(boundary: GeneratedBoundary) {
             .unwrap()
             .motor
             .target_position,
-        spec.open_angle_radians
+        spec.open_angle_radians.radians()
     );
 }

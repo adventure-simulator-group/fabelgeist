@@ -329,7 +329,7 @@ fn run_core_loop_inner(
         .claim_simulation_run_then(
             bootstrap_token.clone(),
             config.run_nonce.clone(),
-            config.seed,
+            config.seed.into(),
             cb,
         ));
     runner.call(result)?;

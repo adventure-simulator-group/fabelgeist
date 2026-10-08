@@ -1,8 +1,9 @@
+
 #[derive(Clone, Debug, Deserialize)]
 struct OpeningsSuiteManifest {
     fixture: String,
     view: String,
-    seed: u64,
+    seed: Seed,
     resolver_schema_version: u16,
     resolved_geometry_hash: String,
     source_revision: String,
@@ -275,7 +276,7 @@ fn validate_openings_suite_records(
     for (expected, manifest) in records {
         if manifest.fixture != expected.fixture
             || manifest.view != expected.view
-            || manifest.seed != 42
+            || manifest.seed != fabelgeist_determinism::Seed::from_u64(42)
             || manifest.opening_profile.as_deref() != expected.opening_profile
             || manifest.wall_section_kind.as_deref() != expected.wall_section_kind
             || manifest.resolver_schema_version != 2

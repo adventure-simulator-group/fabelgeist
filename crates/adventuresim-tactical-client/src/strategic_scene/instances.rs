@@ -23,7 +23,8 @@ pub(super) fn spawn_obstacles(
                 z,
                 SceneObstacle::Rock(recipe),
                 recipe.collision_radius_metres(),
-                (recipe.seed >> 40) as f32 / ((1_u32 << 24) - 1) as f32 * std::f32::consts::TAU,
+                (recipe.seed.to_u64() >> 40) as f32 / ((1_u32 << 24) - 1) as f32
+                    * std::f32::consts::TAU,
             ),
         };
         let position = Vec2::new(f32::from(x), f32::from(z)) * input.playable.spacing_metres
@@ -43,10 +44,9 @@ pub(super) fn spawn_building(
     building: GeneratedBuilding,
     root: Entity,
     input: Option<&TacticalSceneInput>,
-) {
-    let transform = building.transform();
-    let origin = building.collision.bounds.centre();
-    let direction = |v: Vec2| transform.rotation * Vec3::new(v.x, 0.0, v.y);
+) -> Result {
+    let transform = building.transform()?;
+    let datum = building.geometry_datum()?;
     let mut entity = commands.spawn((
         Transform::from_translation(transform.translation).with_rotation(transform.rotation),
         ChildOf(root),
@@ -60,38 +60,39 @@ pub(super) fn spawn_building(
         entity.insert(establishment.clone());
     }
     let entity = entity.id();
-    for door in compile_operable_doors(&building.plan) {
-        let centre = transform.transform_point(door.closed_centre - origin);
+    for leaf in compile_operable_doors(&building.plan)? {
+        let pose = datum.door(leaf)?;
+        let door = pose.leaf();
+        let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
                 building_id: building.placement.id,
-                opening_id: door.opening.0,
+                opening_id: door.opening,
                 size_metres: door.size_metres,
-                doorway_centre_metres: centre,
-                tangent: direction(door.tangent),
-                outward: direction(door.outward),
+                doorway_centre_metres: door.closed_centre,
+                tangent: door.tangent.spatial(),
+                outward: door.outward.spatial(),
             },
-            Transform::from_translation(centre)
-                .with_rotation(transform.rotation * Quat::from_rotation_y(door.closed_yaw_radians)),
+            Transform::from_translation(centre).with_rotation(pose.native_rotation()),
             ChildOf(root),
         ));
     }
-    for window in compile_operable_windows(&building.plan) {
-        let centre = transform.transform_point(window.closed_centre - origin);
+    for leaf in compile_operable_windows(&building.plan)? {
+        let pose = datum.window(leaf)?;
+        let window = pose.leaf();
+        let centre = window.closed_centre.metres();
         commands.spawn((
             SceneWindow {
                 building_id: building.placement.id,
-                opening_id: window.opening.0,
+                opening_id: window.opening,
                 leaf: window.leaf,
-                barred: window.barred,
+                bars: window.bars,
                 size_metres: window.size_metres,
-                opening_centre_metres: centre,
-                tangent: direction(window.tangent),
-                outward: direction(window.outward),
+                opening_centre_metres: window.closed_centre,
+                tangent: window.tangent.spatial(),
+                outward: window.outward.spatial(),
             },
-            Transform::from_translation(centre).with_rotation(
-                transform.rotation * Quat::from_rotation_y(window.closed_yaw_radians),
-            ),
+            Transform::from_translation(centre).with_rotation(pose.native_rotation()),
             ChildOf(root),
         ));
     }
@@ -111,39 +112,38 @@ pub(super) fn spawn_building(
             orientation: building.placement.orientation,
         },
     ));
+    Ok(())
 }
 
 pub(super) fn spawn_props(
     commands: &mut Commands,
     generated: &mut GeneratedTacticalScene,
     root: Entity,
-) {
+) -> Result {
     for boundary in generated.boundaries.drain(..) {
-        let door = boundary
-            .scene
-            .boundary
-            .gate
-            .door(boundary.scene.property_id);
-        let elevation = Vec3::Y * boundary.elevation_metres;
-        let centre = door.closed_centre + elevation;
+        let elevation = boundary.elevation_metres();
+        let scene = boundary.into_scene();
+        let door = scene.boundary().gate.door(scene.property_id())?;
+        let pose = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
+            elevation.metres(),
+        )?
+        .door(door)?;
+        let door = pose.leaf();
+        let elevation = Vec3::Y * elevation.metres();
+        let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
-                building_id: boundary.scene.front_building_id,
-                opening_id: door.opening.0,
+                building_id: scene.front_building_id(),
+                opening_id: door.opening,
                 size_metres: door.size_metres,
-                doorway_centre_metres: centre,
-                tangent: Vec3::new(door.tangent.x, 0.0, door.tangent.y),
-                outward: Vec3::new(door.outward.x, 0.0, door.outward.y),
+                doorway_centre_metres: door.closed_centre,
+                tangent: door.tangent.spatial(),
+                outward: door.outward.spatial(),
             },
-            Transform::from_translation(centre)
-                .with_rotation(Quat::from_rotation_y(door.closed_yaw_radians)),
+            Transform::from_translation(centre).with_rotation(pose.native_rotation()),
             ChildOf(root),
         ));
-        commands.spawn((
-            boundary.scene,
-            Transform::from_translation(elevation),
-            ChildOf(root),
-        ));
+        commands.spawn((scene, Transform::from_translation(elevation), ChildOf(root)));
     }
     for garden in generated.gardens.drain(..) {
         commands.spawn((garden, Transform::default(), ChildOf(root)));
@@ -151,9 +151,10 @@ pub(super) fn spawn_props(
     for furniture in &generated.furniture.instances {
         commands.spawn((
             furniture.scene,
-            Transform::from_translation(furniture.position_metres)
+            Transform::from_translation(furniture.position_metres.metres())
                 .with_rotation(Quat::from_rotation_y(furniture.orientation.yaw_radians())),
             ChildOf(root),
         ));
     }
+    Ok(())
 }

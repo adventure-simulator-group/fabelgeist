@@ -22,7 +22,7 @@ impl TacticalSceneInput {
             || self.yards != layout.yards
             || self.parishes != layout.parishes
         {
-            return invalid("grounding requires the exact unbound producer layout");
+            return invalid(SceneValidationError::ProducerLayout);
         }
         if self.buildings.is_empty() && self.distant_buildings.is_empty() {
             self.validate()?;
@@ -30,11 +30,11 @@ impl TacticalSceneInput {
         }
         let prepared = self.prepare_geographic_terrain(&mut GeneratedBuildingRecipes::default())?;
         let source = GeographicSurface::from_presented_scene(&prepared.terrain, &self.vista)
-            .ok_or_else(|| {
-                SceneInputError::Validation("geographic support source is invalid".into())
-            })?;
+            .ok_or(SceneInputError::Validation(
+                SceneValidationError::GeographicSupport,
+            ))?;
         let grounded = SelectedCityGrounding::select(layout, &source, policy)?.compile()?;
-        self.grounding = Some(grounded.support_projection());
+        self.grounding = Some(grounded.support_projection()?);
         let (layout, _, _) = grounded.into_parts();
         self.buildings = layout.playable;
         self.distant_buildings = layout.distant;
@@ -63,10 +63,11 @@ impl TacticalSceneInput {
             (None, true) => Ok(()),
             (Some(projection), false) => {
                 projection.validate_bindings(&placements)?;
+                projection.validate_compound_bindings(&self.compounds)?;
                 Ok(())
             }
-            (None, false) => invalid("occupied scene lacks accepted property support"),
-            (Some(_), true) => invalid("empty scene must not carry property support"),
+            (None, false) => invalid(SceneValidationError::MissingSupport),
+            (Some(_), true) => invalid(SceneValidationError::UnexpectedSupport),
         }
     }
 }

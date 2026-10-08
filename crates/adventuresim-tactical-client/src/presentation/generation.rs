@@ -52,10 +52,7 @@ struct PreparedProducts {
     scenes: Vec<GeneratedTacticalScene>,
     facades: Vec<PreparedFacade>,
     resident_facades: Vec<BuildingProgram>,
-    sites: Vec<(
-        BuildingProgram,
-        adventuresim_tactical_core::scene_input::furniture::FurnitureSiteRecipe,
-    )>,
+    sites: Vec<adventuresim_tactical_core::scene_input::ProgramFurnitureSite>,
     venues: Vec<venue::PreparedVenue>,
     placements: Vec<adventuresim_tactical_core::scene_input::TacticalBuildingPlacement>,
 }
@@ -109,7 +106,8 @@ pub(crate) fn take_scene(input: &TacticalSceneInput) -> Result<GeneratedTactical
             .ok_or("interior generation was not completed before installation")?;
         scene
             .furniture
-            .install_interior(building, venue.interior.clone());
+            .install_interior(building, venue.interior.clone())
+            .map_err(|cause| cause.to_string())?;
     }
     Ok(scene)
 }
@@ -182,10 +180,7 @@ fn venue_jobs(input_json: &str, view_json: &str) -> Result<Vec<String>, String> 
 struct Dependencies {
     grass: Option<landscape::GrassDependencies>,
     ground: Option<landscape::GroundDependencies>,
-    sites: Vec<(
-        BuildingProgram,
-        adventuresim_tactical_core::scene_input::furniture::FurnitureSiteRecipe,
-    )>,
+    sites: Vec<adventuresim_tactical_core::scene_input::ProgramFurnitureSite>,
     recipe: Option<adventuresim_tactical_core::scene_input::GeneratedBuildingRecipe>,
     playable: Vec<adventuresim_tactical_core::scene_input::GeneratedBuildingRecipe>,
 }
@@ -356,10 +351,17 @@ fn receive(job_json: &str, bytes: &[u8]) -> Result<(), String> {
             if *program == facade.program =>
         {
             let mut products = products();
-            if !products.sites.iter().any(|(p, _)| p == &facade.program) {
-                products
-                    .sites
-                    .push((facade.program.clone(), facade.site.clone()));
+            if !products
+                .sites
+                .iter()
+                .any(|site| site.program == facade.program)
+            {
+                products.sites.push(
+                    adventuresim_tactical_core::scene_input::ProgramFurnitureSite {
+                        program: facade.program.clone(),
+                        recipe: facade.site.clone(),
+                    },
+                );
             }
             products.facades.push(*facade);
         }

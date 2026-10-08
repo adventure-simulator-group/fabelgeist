@@ -25,14 +25,14 @@ pub(super) fn ensure_understory_presentations(
         ),
         (
             &mut cache.blackthorn,
-            0x00b1_ac7a_0e31_u64,
+            fabelgeist_determinism::Seed::from_u64(0x00b1_ac7a_0e31_u64),
             BLACKTHORN_PARAMETERS,
             Color::srgb_u8(61, 52, 44),
             blackthorn_leaf_material(procedural_assets),
         ),
         (
             &mut cache.hawthorn,
-            0x00a7_a74a_0e51_u64,
+            fabelgeist_determinism::Seed::from_u64(0x00a7_a74a_0e51_u64),
             COMMON_HAWTHORN_PARAMETERS,
             Color::srgb_u8(91, 76, 60),
             hawthorn_leaf_material(procedural_assets),
