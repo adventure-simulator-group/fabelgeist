@@ -1,3 +1,6 @@
+use super::SceneValidationError;
+use adventuresim_building_generator::spatial_geometry::GeometryResult;
+mod window;
 use adventuresim_building_generator::{
     BuildingArchetype, BuildingCollision, BuildingPlan, BuildingProgram,
 };
@@ -5,8 +8,11 @@ use adventuresim_building_generator::{
 use adventuresim_building_generator::{compile_building_collision, generate};
 use bevy::{math::Vec2, prelude::Component};
 use serde::{Deserialize, Serialize};
+mod identity;
+pub use identity::SceneBuildingId;
+pub use window::{SceneWindow, SceneWindowError};
 
-use super::{GeneratedObstacle, SceneInputError, invalid};
+use super::{GeneratedObstacle, SceneInputError, SceneInputResult, invalid};
 use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
 mod collision;
 mod exterior;
@@ -20,9 +26,23 @@ const TERRACE_APRON_METRES: f32 = 4.0;
 const PARTY_WALL_PROJECTION_ALLOWANCE_METRES: f32 = 0.4;
 
 /// Rotation of one orthogonal building grid in the settlement plane.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, bevy::prelude::Reflect)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::prelude::Reflect)]
 #[serde(transparent)]
+#[reflect(opaque)]
 pub struct BuildingOrientation(f32);
+
+impl<'de> Deserialize<'de> for BuildingOrientation {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        let orientation = Self(f32::deserialize(d)?);
+        if orientation.is_valid() {
+            Ok(orientation)
+        } else {
+            Err(serde::de::Error::custom(
+                "building orientation must be finite and in [-pi, pi)",
+            ))
+        }
+    }
+}
 
 impl BuildingOrientation {
     pub const IDENTITY: Self = Self(0.0);
@@ -39,7 +59,14 @@ impl BuildingOrientation {
     pub fn from_frontage_tangent(tangent: Vec2) -> Option<Self> {
         (tangent.is_finite() && tangent.length_squared() > f32::EPSILON).then(|| {
             let tangent = tangent.normalize();
-            Self((-tangent.y).atan2(tangent.x))
+            let yaw = (-tangent.y).atan2(tangent.x);
+            // Signed zero can represent the positive endpoint of atan2's
+            // range. Canonicalize only that previously inadmissible endpoint.
+            Self(if yaw == core::f32::consts::PI {
+                -core::f32::consts::PI
+            } else {
+                yaw
+            })
         })
     }
 
@@ -71,12 +98,12 @@ impl BuildingOrientation {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct TacticalBuildingPlacement {
-    pub id: u64,
+    pub id: SceneBuildingId,
     pub program: BuildingProgram,
-    pub centre_metres: Vec2,
+    pub centre_metres: crate::scene_coordinates::ScenePlanPoint,
     /// Scene elevation of architectural Y=0, retained through detail changes.
     /// Buried slabs and footings extend below this datum.
-    pub base_elevation_metres: f32,
+    pub base_elevation_metres: crate::city_layout::grounding::SupportElevation,
     pub orientation: BuildingOrientation,
 }
 
@@ -86,14 +113,14 @@ pub struct TacticalBuildingPlacement {
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct DistantBuildingPlacement {
-    pub id: u64,
+    pub id: SceneBuildingId,
     pub prosperity: adventuresim_world_schema::ProsperityTier,
     pub archetype: BuildingArchetype,
     pub usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
     pub service_size: Option<adventuresim_building_generator::ServiceBuildingSize>,
-    pub seed: u64,
-    pub centre_metres: Vec2,
-    pub base_elevation_metres: f32,
+    pub seed: fabelgeist_determinism::Seed,
+    pub centre_metres: crate::scene_coordinates::ScenePlanPoint,
+    pub base_elevation_metres: crate::city_layout::grounding::SupportElevation,
     pub orientation: BuildingOrientation,
 }
 
@@ -127,35 +154,71 @@ impl From<DistantBuildingPlacement> for TacticalBuildingPlacement {
 #[component(immutable)]
 #[serde(deny_unknown_fields)]
 pub struct SceneBuilding {
-    pub id: u64,
+    pub id: SceneBuildingId,
     pub program: BuildingProgram,
     pub orientation: BuildingOrientation,
 }
 
 /// Compact identity and dimensions for one server-authoritative operable leaf.
-#[derive(Clone, Copy, Debug, PartialEq, Component, Serialize, Deserialize)]
+/// Positions and normalized directions are in the scene frame after explicit
+/// architectural-floor, collision-centre, or gate-datum conversion.
+#[derive(Clone, Copy, Debug, PartialEq, Component, Serialize)]
 #[component(immutable)]
 pub struct SceneDoor {
-    pub building_id: u64,
-    pub opening_id: u64,
-    pub size_metres: bevy::math::Vec3,
-    pub doorway_centre_metres: bevy::math::Vec3,
-    pub tangent: bevy::math::Vec3,
-    pub outward: bevy::math::Vec3,
+    pub building_id: SceneBuildingId,
+    pub opening_id: adventuresim_building_generator::OpeningAssemblyId,
+    pub size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions,
+    pub doorway_centre_metres: adventuresim_building_generator::spatial_geometry::Position<
+        crate::scene_coordinates::Scene,
+    >,
+    pub tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection<
+        crate::scene_coordinates::Scene,
+    >,
+    pub outward: adventuresim_building_generator::spatial_geometry::SpatialDirection<
+        crate::scene_coordinates::Scene,
+    >,
 }
-
-/// Compact identity and dimensions for one server-authoritative window casement.
-#[derive(Clone, Copy, Debug, PartialEq, Component, Serialize, Deserialize)]
-#[component(immutable)]
-pub struct SceneWindow {
-    pub leaf: adventuresim_building_generator::WindowLeafKind,
-    pub building_id: u64,
-    pub opening_id: u64,
-    pub size_metres: bevy::math::Vec3,
-    pub opening_centre_metres: bevy::math::Vec3,
-    pub tangent: bevy::math::Vec3,
-    pub outward: bevy::math::Vec3,
-    pub barred: bool,
+impl<'de> Deserialize<'de> for SceneDoor {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        use adventuresim_building_generator::spatial_geometry::{
+            LeafDimensions, Position, SpatialDirection,
+        };
+        #[derive(Deserialize)]
+        struct SerializedDoor {
+            building_id: crate::scene_input::SceneBuildingId,
+            opening_id: u64,
+            size_metres: bevy::math::Vec3,
+            doorway_centre_metres: bevy::math::Vec3,
+            tangent: bevy::math::Vec3,
+            outward: bevy::math::Vec3,
+        }
+        let value = SerializedDoor::deserialize(deserializer)?;
+        let construct = || {
+            Ok(Self {
+                building_id: value.building_id,
+                opening_id: adventuresim_building_generator::OpeningAssemblyId(value.opening_id),
+                size_metres: LeafDimensions::from_metres(value.size_metres)?,
+                doorway_centre_metres: Position::from_metres(value.doorway_centre_metres)?,
+                tangent: SpatialDirection::from_normalized(value.tangent)?,
+                outward: SpatialDirection::from_normalized(value.outward)?,
+            })
+        };
+        construct().map_err(|cause| {
+            serde::de::Error::custom(SceneDoorError {
+                building_id: value.building_id,
+                opening_id: adventuresim_building_generator::OpeningAssemblyId(value.opening_id),
+                cause,
+            })
+        })
+    }
+}
+#[derive(Debug, thiserror::Error)]
+#[error("building {building_id}, door {opening_id}: {cause}")]
+pub struct SceneDoorError {
+    pub building_id: SceneBuildingId,
+    pub opening_id: adventuresim_building_generator::OpeningAssemblyId,
+    #[source]
+    pub cause: adventuresim_building_generator::spatial_geometry::GeometryError,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -170,7 +233,7 @@ pub(crate) struct BuildingPad {
     pub centre: Vec2,
     pub half_extents: Vec2,
     pub orientation: BuildingOrientation,
-    pub elevation_metres: f32,
+    pub elevation_metres: crate::city_layout::grounding::SupportElevation,
 }
 
 impl BuildingPad {
@@ -196,20 +259,20 @@ impl BuildingPad {
 
 pub(super) fn validate_building_placements(
     placements: &[TacticalBuildingPlacement],
-) -> Result<(), SceneInputError> {
+) -> SceneInputResult<()> {
     if placements.len() > MAX_TACTICAL_BUILDINGS {
-        return invalid("scene has too many tactical buildings");
+        return invalid(SceneValidationError::BuildingCount);
     }
     let mut ids = std::collections::BTreeSet::new();
     for placement in placements {
-        if placement.id == 0 || !ids.insert(placement.id) {
-            return invalid("building identity is zero or duplicated");
+        if placement.id.0 == 0 || !ids.insert(placement.id) {
+            return invalid(SceneValidationError::BuildingIdentity);
         }
-        if !placement.centre_metres.is_finite()
-            || !placement.base_elevation_metres.is_finite()
+        if !placement.centre_metres.metres().is_finite()
+            || !placement.base_elevation_metres.metres().is_finite()
             || !placement.orientation.is_valid()
         {
-            return invalid("building placement is invalid");
+            return invalid(SceneValidationError::BuildingPlacement);
         }
     }
     Ok(())
@@ -217,20 +280,20 @@ pub(super) fn validate_building_placements(
 
 pub(super) fn validate_distant_building_placements(
     placements: &[DistantBuildingPlacement],
-) -> Result<(), SceneInputError> {
+) -> SceneInputResult<()> {
     if placements.len() > MAX_CITY_BUILDING_INSTANCES {
-        return invalid("scene has too many distant buildings");
+        return invalid(SceneValidationError::DistantBuildingCount);
     }
     let mut ids = std::collections::BTreeSet::new();
     for placement in placements {
-        if placement.id == 0 || !ids.insert(placement.id) {
-            return invalid("distant building identity is zero or duplicated");
+        if placement.id.0 == 0 || !ids.insert(placement.id) {
+            return invalid(SceneValidationError::DistantBuildingIdentity);
         }
-        if !placement.centre_metres.is_finite()
-            || !placement.base_elevation_metres.is_finite()
+        if !placement.centre_metres.metres().is_finite()
+            || !placement.base_elevation_metres.metres().is_finite()
             || !placement.orientation.is_valid()
         {
-            return invalid("distant building placement is invalid");
+            return invalid(SceneValidationError::DistantBuildingPlacement);
         }
     }
     Ok(())
@@ -239,7 +302,7 @@ pub(super) fn validate_distant_building_placements(
 pub(super) fn prepare_buildings(
     placements: &[TacticalBuildingPlacement],
     recipes: &mut super::GeneratedBuildingRecipes,
-) -> Result<Vec<GeneratedBuilding>, SceneInputError> {
+) -> SceneInputResult<Vec<GeneratedBuilding>> {
     placements
         .iter()
         .cloned()
@@ -251,10 +314,10 @@ pub(super) fn prepare_buildings(
                     super::GeneratedBuildingRecipe::generate(placement.program.clone())
                 })
                 .map_err(|error| {
-                    SceneInputError::Validation(format!(
-                        "building {} program is invalid: {error}",
-                        placement.id
-                    ))
+                    SceneInputError::Validation(SceneValidationError::BuildingProgram {
+                        building: placement.id,
+                        source: error,
+                    })
                 })?;
             Ok(GeneratedBuilding {
                 placement,
@@ -265,23 +328,21 @@ pub(super) fn prepare_buildings(
         .collect()
 }
 
-pub(super) fn validate_building_pads(
-    buildings: &[GeneratedBuilding],
-) -> Result<(), SceneInputError> {
+pub(super) fn validate_building_pads(buildings: &[GeneratedBuilding]) -> SceneInputResult<()> {
     let footprints = buildings
         .iter()
         .map(|building| {
-            let half_extents = (building.collision.bounds.plan_half_extents()
+            let half_extents = (building.collision.bounds.plan_half_extents()?.metres()
                 - Vec2::splat(PARTY_WALL_PROJECTION_ALLOWANCE_METRES))
             .max(Vec2::splat(0.1));
-            (
+            Ok((
                 building.placement.id,
-                building.placement.centre_metres,
+                building.placement.centre_metres.metres(),
                 half_extents,
                 building.placement.orientation,
-            )
+            ))
         })
-        .collect::<Vec<_>>();
+        .collect::<GeometryResult<Vec<_>>>()?;
     for (index, &(id, centre, half_extents, orientation)) in footprints.iter().enumerate() {
         for &(other_id, other_centre, other_half_extents, other_orientation) in
             &footprints[index + 1..]
@@ -294,9 +355,10 @@ pub(super) fn validate_building_pads(
                 other_half_extents,
                 other_orientation,
             ) {
-                return invalid(format!(
-                    "building {id} footprint overlaps building {other_id}"
-                ));
+                return invalid(SceneValidationError::BuildingOverlap {
+                    building: id,
+                    other: other_id,
+                });
             }
         }
     }
@@ -388,13 +450,13 @@ mod occupied_recipe_tests {
     fn distant_buildings_reconstruct_the_same_occupied_recipe() {
         let placement = DistantBuildingPlacement {
             prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
-            id: 1,
+            id: (1).into(),
             archetype: BuildingArchetype::HallHouse,
             usage: Some(BuildingUse::Stable),
             service_size: Some(adventuresim_building_generator::ServiceBuildingSize::Large),
-            seed: 42,
-            centre_metres: Vec2::ZERO,
-            base_elevation_metres: 0.0,
+            seed: 42.into(),
+            centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::ZERO).unwrap(),
+            base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
             orientation: BuildingOrientation::IDENTITY,
         };
         assert_eq!(
@@ -402,13 +464,16 @@ mod occupied_recipe_tests {
             BuildingProgram::settlement(
                 BuildingArchetype::HallHouse,
                 Some(BuildingUse::Stable),
-                42
+                fabelgeist_determinism::Seed::from_u64(42)
             )
             .with_service_size(adventuresim_building_generator::ServiceBuildingSize::Large)
         );
         assert_ne!(
             placement.occupied_program(),
-            BuildingProgram::fixture(BuildingArchetype::HallHouse, 42)
+            BuildingProgram::fixture(
+                BuildingArchetype::HallHouse,
+                fabelgeist_determinism::Seed::from_u64(42)
+            )
         );
     }
 }

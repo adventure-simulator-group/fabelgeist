@@ -38,11 +38,14 @@ impl Rectangle {
     }
 }
 
-pub(super) fn resolve(plan: &mut BuildingPlan, flights: &[(usize, SpiralFlight)]) {
+pub(super) fn resolve(
+    plan: &mut BuildingPlan,
+    flights: &[(usize, SpiralFlight)],
+) -> Result<(), crate::GenerationError> {
     let centre = plan.dimensions_metres() * 0.5;
-    let bearing = foundation(&mut plan.resolved_geometry, FLOOR_OWNER, centre);
+    let bearing = foundation(&mut plan.resolved_geometry, FLOOR_OWNER, centre)?;
     let mut index = 0;
-    for storey in &plan.storeys {
+    let _: () = for storey in &plan.storeys {
         let cells = storey
             .rooms
             .iter()
@@ -89,9 +92,10 @@ pub(super) fn resolve(plan: &mut BuildingPlan, flights: &[(usize, SpiralFlight)]
                         yaw_radians: 0.0,
                         role: SolidRole::InteriorFloor,
                     },
-                );
+                )?;
                 index += 1;
             }
         }
-    }
+    };
+    Ok(())
 }

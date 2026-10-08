@@ -14,9 +14,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap_or(6_500);
     let seed = arguments
         .next()
-        .map(|s| s.parse::<u64>())
+        .map(|s| s.parse::<fabelgeist_determinism::Seed>())
         .transpose()?
-        .unwrap_or(42);
+        .unwrap_or(fabelgeist_determinism::Seed::from_u64(42));
     if arguments.next().is_some() {
         return Err("usage: city-layout-report [population] [seed]".into());
     }

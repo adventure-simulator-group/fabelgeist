@@ -6,15 +6,19 @@ use super::{
 use crate::BuildingLodMaterial;
 use bevy::math::{Quat, Vec3};
 
-pub(super) fn assemble(builder: &mut Builder, key: FurnitureKey) {
-    let size = key.interior_spec().unwrap().size_metres;
+pub(super) fn assemble(
+    builder: &mut Builder,
+    key: FurnitureKey,
+) -> Result<(), super::FurnitureRecipeError> {
+    let size = key.interior_spec()?.size_metres.metres();
     match key.kind {
         FurnitureKind::BaptismalFont => font(builder, size),
         FurnitureKind::Pulpit => pulpit(builder, size),
         FurnitureKind::Bima => bima(builder, size),
         FurnitureKind::TorahShrine => shrine(builder, size),
-        _ => unreachable!("worship furniture dispatch"),
+        _ => return Err(super::FurnitureRecipeError::MissingRecipe { key }),
     }
+    Ok(())
 }
 
 fn font(builder: &mut Builder, size: Vec3) {

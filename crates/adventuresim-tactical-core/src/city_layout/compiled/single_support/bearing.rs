@@ -2,7 +2,7 @@
 use super::*;
 pub(super) struct SingleBearingProjection {
     pub bounds: CityPlotBounds,
-    pub outline: crate::scene_coordinates::ScenePlanPolygon,
+    pub region: crate::city_layout::grounding::FloorRegion,
 }
 impl SingleBearingProjection {
     pub(super) fn from_recipe(
@@ -21,16 +21,21 @@ impl SingleBearingProjection {
             .ok_or(CitySupportError::MissingBinding {
                 property: property.id,
                 building: property.building_id,
-                outward: Vec2::ZERO,
+                binding: super::super::support::SupportBindingRole::GroundBearing,
             })?;
-        let bounds = CityPlotBounds {
-            centre_metres: placement.centre_metres
-                + placement
-                    .orientation
-                    .local_to_world(contact.centre().xz() - recipe.collision.bounds.centre().xz()),
-            dimensions_metres: contact.plan_half_extents() * 2.0,
-            orientation: placement.orientation,
-        };
+        let bounds = CityPlotBounds::new(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                placement.centre_metres.metres()
+                    + placement.orientation.local_to_world(
+                        contact.centre()?.metres().xz()
+                            - recipe.collision.bounds.centre()?.metres().xz(),
+                    ),
+            )?,
+            adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                contact.plan_half_extents()?.metres() * 2.0,
+            )?,
+            placement.orientation,
+        )?;
         let footprint = recipe
             .collision
             .ground_floor_footprint()
@@ -42,7 +47,7 @@ impl SingleBearingProjection {
             .ok_or(CitySupportError::MissingBinding {
                 property: property.id,
                 building: property.building_id,
-                outward: Vec2::ZERO,
+                binding: super::super::support::SupportBindingRole::GroundBearing,
             })?;
         let invalid = |issue| CitySupportError::InvalidBearing {
             property: property.id,
@@ -53,12 +58,12 @@ impl SingleBearingProjection {
             placement,
             recipe.collision.bounds,
         )
-        .map_err(invalid)?;
-        let outline = crate::scene_coordinates::ScenePlanPolygon::from_architectural(
+        .map_err(|cause| invalid(cause.into()))?;
+        let region = crate::city_layout::grounding::FloorRegion::from_architectural(
             footprint.polygon(),
             projection,
         )
         .map_err(invalid)?;
-        Ok(Self { bounds, outline })
+        Ok(Self { bounds, region })
     }
 }

@@ -4,6 +4,7 @@
 //! authoritative scheduler supplies a bounded snapshot, records the selected
 //! outcome, and only then advances personal time.
 
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 use crate::strategic_schedule::DailySchedule;
@@ -15,7 +16,7 @@ pub const NPC_HOUSING_RESERVE_PERIODS: u64 = 1;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct NpcCandidate {
     pub character_id: u64,
-    pub policy_seed: u64,
+    pub policy_seed: Seed,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -87,7 +88,7 @@ impl std::error::Error for ConflictingCandidate {}
 /// snapshots count once; conflicting policy seeds for one identity are rejected.
 pub fn stable_candidate_order(
     actor_id: u64,
-    actor_seed: u64,
+    actor_seed: Seed,
     day: u64,
     candidates: impl IntoIterator<Item = NpcCandidate>,
 ) -> Result<Vec<NpcCandidate>, ConflictingCandidate> {
@@ -104,7 +105,12 @@ pub fn stable_candidate_order(
             StreamId::new("npc.policy-rank")
                 .rng(
                     actor_seed,
-                    &[candidate.policy_seed, actor_id, day, candidate.character_id],
+                    &[
+                        candidate.policy_seed.to_u64(),
+                        actor_id,
+                        day,
+                        candidate.character_id,
+                    ],
                 )
                 .next_u64(),
             candidate.character_id,
@@ -117,7 +123,7 @@ pub fn stable_candidate_order(
 /// Conservative saved plan used exactly once for a new NPC policy. Work
 /// produces income, conversation exercises ordinary Socializing target
 /// priority, and all remaining time is Leisure.
-pub fn initial_npc_schedule(character_id: u64, policy_seed: u64) -> DailySchedule {
+pub fn initial_npc_schedule(character_id: u64, policy_seed: Seed) -> DailySchedule {
     let socializing_minutes = 60
         + 15 * StreamId::new("npc.initial-socializing")
             .rng(policy_seed, &[character_id])
@@ -156,14 +162,18 @@ mod tests {
         let forward: Vec<_> = (1..=40)
             .map(|character_id| NpcCandidate {
                 character_id,
-                policy_seed: character_id * 7,
+                policy_seed: Seed::from_u64(character_id * 7),
             })
             .collect();
         let mut reverse = forward.clone();
         reverse.reverse();
         reverse.push(forward[0]);
-        let first = stable_candidate_order(99, 123, 45, forward).unwrap();
-        let second = stable_candidate_order(99, 123, 45, reverse).unwrap();
+        let first =
+            stable_candidate_order(99, fabelgeist_determinism::Seed::from_u64(123), 45, forward)
+                .unwrap();
+        let second =
+            stable_candidate_order(99, fabelgeist_determinism::Seed::from_u64(123), 45, reverse)
+                .unwrap();
         assert_eq!(first, second);
         assert_eq!(first.len(), NPC_ROMANCE_CANDIDATE_CAP);
     }
@@ -173,16 +183,16 @@ mod tests {
         let candidates = [
             NpcCandidate {
                 character_id: 7,
-                policy_seed: 11,
+                policy_seed: fabelgeist_determinism::Seed::from_u64(11),
             },
             NpcCandidate {
                 character_id: 7,
-                policy_seed: 12,
+                policy_seed: fabelgeist_determinism::Seed::from_u64(12),
             },
         ];
         for candidates in [candidates, [candidates[1], candidates[0]]] {
             assert_eq!(
-                stable_candidate_order(1, 2, 3, candidates),
+                stable_candidate_order(1, fabelgeist_determinism::Seed::from_u64(2), 3, candidates),
                 Err(ConflictingCandidate(7))
             );
         }
@@ -191,7 +201,7 @@ mod tests {
     #[test]
     fn initial_schedule_has_income_socializing_and_quarter_hour_units() {
         for character_id in 1..20 {
-            let schedule = initial_npc_schedule(character_id, character_id * 11);
+            let schedule = initial_npc_schedule(character_id, Seed::from_u64(character_id * 11));
             assert!(schedule.labor > 0);
             assert!((60..=120).contains(&schedule.socializing_minutes));
             assert_eq!(schedule.labor % NPC_SCHEDULE_QUANTUM_MINUTES, 0);

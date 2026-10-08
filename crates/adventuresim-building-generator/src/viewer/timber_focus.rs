@@ -32,7 +32,9 @@ fn timber_target_component_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<Str
             adventuresim_building_generator::TimberFrameProgramKind::DirectRoofCottage => {
                 "direct-roof/gable"
             }
-            adventuresim_building_generator::TimberFrameProgramKind::CourtyardStorageRange => "storage-range/ground-frame",
+            adventuresim_building_generator::TimberFrameProgramKind::CourtyardStorageRange => {
+                "storage-range/ground-frame"
+            }
             adventuresim_building_generator::TimberFrameProgramKind::CivicMasonryTimberHall => {
                 "civic-hall/broad-span"
             }
@@ -93,7 +95,9 @@ fn timber_section_proof(view: ViewerView) -> bool {
 }
 
 fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
-    if view == ViewerView::TimberJettyUnderside { return jetty_bearing::item_ids(plan); }
+    if view == ViewerView::TimberJettyUnderside {
+        return jetty_bearing::item_ids(plan);
+    }
     use adventuresim_building_generator::TimberMemberRole as Role;
     let Some(frame) = &plan.timber_frame else {
         return Vec::new();
@@ -209,22 +213,22 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 .iter()
                 .filter(|member| member.role == Role::Girder)
                 .max_by(|left, right| {
-                    left.start
-                        .distance(left.end)
-                        .total_cmp(&right.start.distance(right.end))
+                    left.start.metres()
+                        .distance(left.end.metres())
+                        .total_cmp(&right.start.metres().distance(right.end.metres()))
                 })
-                .map(|member| (member.start + member.end) * 0.5);
+                .map(|member| (member.start.metres() + member.end.metres()) * 0.5);
             frame
                 .members
                 .iter()
                 .filter(|member| {
                     member.role == Role::Sill
-                        && (member.start.y - plan.storey_height_metres).abs() <= 0.02
+                        && (member.start.metres().y - plan.storey_height_metres).abs() <= 0.02
                 })
                 .min_by(|left, right| {
                     let distance = |member: &adventuresim_building_generator::TimberFrameMember| {
                         hall_girder_centre.map_or(0.0, |centre| {
-                            ((member.start + member.end) * 0.5).distance(centre)
+                            ((member.start.metres() + member.end.metres()) * 0.5).distance(centre)
                         })
                     };
                     distance(left).total_cmp(&distance(right))
@@ -273,7 +277,7 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
             .members
             .iter()
             .find(|member| member_ids.contains(&member.id) && member.role == Role::Sill)
-            .map(|member| (member.start + member.end) * 0.5);
+            .map(|member| (member.start.metres() + member.end.metres()) * 0.5);
         if let Some(centre) = target_centre {
             member_ids.extend(
                 frame
@@ -281,7 +285,9 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                     .iter()
                     .filter(|member| {
                         member.role == Role::Sill
-                            && ((member.start + member.end) * 0.5).distance(centre) <= 5.5
+                            && ((member.start.metres() + member.end.metres()) * 0.5)
+                                .distance(centre)
+                                <= 5.5
                     })
                     .map(|member| member.id),
             );
@@ -292,9 +298,11 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 .iter()
                 .filter(|member| member.role == Role::Girder)
                 .min_by(|left, right| {
-                    ((left.start + left.end) * 0.5)
+                    ((left.start.metres() + left.end.metres()) * 0.5)
                         .distance(centre)
-                        .total_cmp(&((right.start + right.end) * 0.5).distance(centre))
+                        .total_cmp(
+                            &((right.start.metres() + right.end.metres()) * 0.5).distance(centre),
+                        )
                 })
         }) {
             member_ids.insert(girder.id);
@@ -312,7 +320,8 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                     matches!(
                         member.role,
                         Role::TransverseTie | Role::GableTie | Role::GablePost | Role::Rafter
-                    ) || (member.role == Role::Purlin && member.start.distance(member.end) >= 3.0)
+                    ) || (member.role == Role::Purlin
+                        && member.start.metres().distance(member.end.metres()) >= 3.0)
                 })
                 .map(|member| member.id),
         );
@@ -327,7 +336,12 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
             .members
             .iter()
             .filter(|member| member_ids.contains(&member.id))
-            .flat_map(|member| [coordinate(member.start), coordinate(member.end)])
+            .flat_map(|member| {
+                [
+                    coordinate(member.start.metres()),
+                    coordinate(member.end.metres()),
+                ]
+            })
             .fold(f32::INFINITY, f32::min);
         member_ids.retain(|id| {
             frame
@@ -335,8 +349,8 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 .iter()
                 .find(|member| member.id == *id)
                 .is_some_and(|member| {
-                    (coordinate(member.start) - end_plane).abs() <= 0.45
-                        && (coordinate(member.end) - end_plane).abs() <= 0.45
+                    (coordinate(member.start.metres()) - end_plane).abs() <= 0.45
+                        && (coordinate(member.end.metres()) - end_plane).abs() <= 0.45
                 })
         });
     }
@@ -349,7 +363,7 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 .iter()
                 .find(|member| member.id == *id)
                 .is_some_and(|member| {
-                    let centre = (member.start + member.end) * 0.5;
+                    let centre = (member.start.metres() + member.end.metres()) * 0.5;
                     Vec2::new(centre.x, centre.z).distance(dormer.centre)
                         <= dormer.width_metres.max(dormer.depth_metres) * 0.75
                 })
@@ -425,7 +439,7 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 .iter()
                 .find(|member| member.id == *id)
                 .is_some_and(|member| {
-                    let centre = (member.start + member.end) * 0.5;
+                    let centre = (member.start.metres() + member.end.metres()) * 0.5;
                     (Vec2::new(centre.x, centre.z) - line.origin)
                         .dot(line.tangent)
                         .abs()
@@ -453,12 +467,12 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                     .iter()
                     .find(|solid| solid.id == *id)
             })
-            .map(|solid| solid.centre)
+            .map(|solid| solid.centre.metres())
             .sum::<Vec3>()
             / frame.circulation.stair_solids.len().max(1) as f32;
         let near_stair = |solid: &adventuresim_building_generator::ResolvedSolid,
                           clearance: f32| {
-            let delta = (solid.centre - stair_centre).abs() - solid.size * 0.5;
+            let delta = (solid.centre.metres() - stair_centre).abs() - solid.size.metres() * 0.5;
             Vec2::new(delta.x.max(0.0), delta.z.max(0.0)).length() <= clearance
         };
         if view == ViewerView::TimberSupportLoad {
@@ -526,7 +540,7 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                                 == adventuresim_building_generator::TimberRouteNodeKind::StairTread
                                 || (node.kind
                                     == adventuresim_building_generator::TimberRouteNodeKind::Landing
-                                    && Vec2::new(node.position.x, node.position.z)
+                                    && Vec2::new(node.position.metres().x, node.position.metres().z)
                                         .distance(Vec2::new(stair_centre.x, stair_centre.z))
                                         <= 2.0)
                         }
@@ -563,15 +577,15 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 .filter(|solid| {
                     matches!(solid.role, SolidRole::RoofPlate | SolidRole::RoofFraming)
                         && bearing_interfaces.iter().any(|interface| {
-                            let half = solid.size * 0.5;
-                            let min = solid.centre - half;
-                            let max = solid.centre + half;
-                            min.x <= interface.bounds.max.x + 0.02
-                                && max.x >= interface.bounds.min.x - 0.02
-                                && min.y <= interface.bounds.max.y + 0.02
-                                && max.y >= interface.bounds.min.y - 0.02
-                                && min.z <= interface.bounds.max.z + 0.02
-                                && max.z >= interface.bounds.min.z - 0.02
+                            let half = solid.size.metres() * 0.5;
+                            let min = solid.centre.metres() - half;
+                            let max = solid.centre.metres() + half;
+                            min.x <= interface.bounds.max().metres().x + 0.02
+                                && max.x >= interface.bounds.min().metres().x - 0.02
+                                && min.y <= interface.bounds.max().metres().y + 0.02
+                                && max.y >= interface.bounds.min().metres().y - 0.02
+                                && min.z <= interface.bounds.max().metres().z + 0.02
+                                && max.z >= interface.bounds.min().metres().z - 0.02
                         })
                 })
                 .map(|solid| solid.id.0),
@@ -582,7 +596,7 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
             .members
             .iter()
             .filter(|member| member_ids.contains(&member.id))
-            .map(|member| (member.start + member.end) * 0.5)
+            .map(|member| (member.start.metres() + member.end.metres()) * 0.5)
             .collect::<Vec<_>>();
         // Only include the parent rafters physically adjacent to this dormer
         // curb. Pulling every roof-bearing solid into the proof produced
@@ -596,7 +610,7 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 .filter(|solid| {
                     trimmer_centres
                         .iter()
-                        .any(|centre| centre.distance(solid.centre) <= 2.5)
+                        .any(|centre| centre.distance(solid.centre.metres()) <= 2.5)
                 })
                 .map(|solid| solid.id.0),
         );
@@ -644,7 +658,7 @@ fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
             .members
             .iter()
             .find(|member| member_ids.contains(&member.id))
-            .map(|member| (member.start + member.end) * 0.5);
+            .map(|member| (member.start.metres() + member.end.metres()) * 0.5);
         if let Some(wall) = sill_centre.and_then(|centre| {
             plan.wall_assemblies
                 .iter()
@@ -713,10 +727,11 @@ fn timber_camera(plan: &BuildingPlan, view: ViewerView, origin: Vec2) -> Option<
         .filter(|solid| ids.contains(&solid.id.0) && !removed.contains(&solid.id.0))
         .collect::<Vec<_>>();
     let camera_focused = &focused;
-    let focus = timber_framing::target(plan, view, camera_focused) + Vec3::new(origin.x, 0.0, origin.y);
+    let focus =
+        timber_framing::target(plan, view, camera_focused) + Vec3::new(origin.x, 0.0, origin.y);
     let span = camera_focused
         .iter()
-        .map(|solid| solid.size.length())
+        .map(|solid| solid.size.metres().length())
         .fold(4.0_f32, f32::max)
         .clamp(4.0, 20.0);
     let focus_extent = timber_framing::extent(camera_focused);
@@ -956,7 +971,7 @@ fn timber_cut_plane(plan: &BuildingPlan, view: ViewerView) -> Option<[f32; 4]> {
                     Some((opening, bounds))
                 })
         {
-            let centre = (bounds.min + bounds.max) * 0.5;
+            let centre = (bounds.min().metres() + bounds.max().metres()) * 0.5;
             let normal = opening.frame.tangent;
             [
                 normal.x,
@@ -981,7 +996,7 @@ fn timber_cut_plane(plan: &BuildingPlan, view: ViewerView) -> Option<[f32; 4]> {
                 .filter(|member| {
                     member.role == adventuresim_building_generator::TimberMemberRole::GableTie
                 })
-                .flat_map(|member| [member.start, member.end])
+                .flat_map(|member| [member.start.metres(), member.end.metres()])
                 .map(|point| if ridge_x { point.x } else { point.z })
                 .fold(f32::INFINITY, f32::min);
             let cut = if end_plane.is_finite() {
@@ -1024,9 +1039,9 @@ fn timber_section_removed_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec
         .iter()
         .filter(|solid| focused.contains(&solid.id.0))
         .filter(|solid| {
-            plane[0] * solid.centre.x
-                + plane[1] * solid.centre.y
-                + plane[2] * solid.centre.z
+            plane[0] * solid.centre.metres().x
+                + plane[1] * solid.centre.metres().y
+                + plane[2] * solid.centre.metres().z
                 + plane[3]
                 > 0.05
         })

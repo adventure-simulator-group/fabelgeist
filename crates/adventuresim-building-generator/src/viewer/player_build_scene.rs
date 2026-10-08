@@ -75,7 +75,13 @@ fn setup_player_build_scene(world: &mut World, document: &PlayerBuildDocument) {
         role: EditorVisibilityRole::Structure,
     });
     for stair in document.assembly.stairs.iter().copied() {
-        spawn_stair(world, &palette, stair, origin, document.assembly.storey_height_metres);
+        spawn_stair(
+            world,
+            &palette,
+            stair,
+            origin,
+            document.assembly.storey_height_metres,
+        );
     }
     world.remove_resource::<PlayerBuildSpawnContext>();
     world.insert_resource(PlayerBuildSpawnContext {
@@ -122,10 +128,13 @@ fn player_stair_floor_cuts(
     stairs
         .iter()
         .filter_map(|stair| match *stair {
-            Stair::Spiral { base_height_metres, rise_metres, .. }
-                if floor_y > base_height_metres && floor_y <= base_height_metres + rise_metres => {
-                    adventuresim_building_generator::spiral_stairs::well_bounds(*stair)
-                }
+            Stair::Spiral {
+                base_height_metres,
+                rise_metres,
+                ..
+            } if floor_y > base_height_metres && floor_y <= base_height_metres + rise_metres => {
+                adventuresim_building_generator::spiral_stairs::well_bounds(*stair)
+            }
             Stair::Straight {
                 start,
                 direction,
@@ -369,14 +378,19 @@ fn rebuild_editor_scene(world: &mut World) {
         }
         let plan = world.resource::<EditorRuntime>().plan.clone();
         if world.resource::<EditorRuntime>().show_generated_building {
-            setup(
+            if let Err(cause) = setup(
                 world,
                 &plan,
                 ViewerView::Exterior,
                 ProjectedProofKind::Machicolation,
                 None,
                 SceneSetup::EditorBuilding,
-            );
+            ) {
+                let mut runtime = world.resource_mut::<EditorRuntime>();
+                runtime.error = Some(cause.to_string());
+                runtime.pending_rebuild = false;
+                return;
+            };
             configure_editor_scene(world, &plan, false);
         }
         world.resource_mut::<EditorRuntime>().pending_rebuild = false;

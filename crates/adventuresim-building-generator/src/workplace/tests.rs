@@ -1,10 +1,12 @@
 use super::*;
+use crate::spatial_geometry::Position;
 use crate::{
     BuildingLodLevel, audit_plan, compile_building_collision, compile_building_detail,
     compile_building_lod, generate, settlement_archetype,
 };
+use fabelgeist_determinism::Seed;
 
-fn recipe(kind: WorkplaceKind, size: ServiceBuildingSize, seed: u64) -> BuildingProgram {
+fn recipe(kind: WorkplaceKind, size: ServiceBuildingSize, seed: Seed) -> BuildingProgram {
     BuildingProgram::settlement(settlement_archetype(kind.usage()), Some(kind.usage()), seed)
         .with_service_size(size)
 }
@@ -17,13 +19,13 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
             ServiceBuildingSize::Medium,
             ServiceBuildingSize::Large,
         ] {
-            for seed in [0, 42, 101] {
+            for seed in [0, 42, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let program = recipe(kind, size, seed);
                 let plan = generate(&program)
                     .unwrap_or_else(|error| panic!("{kind:?} {size:?} {seed}: {error:?}"));
                 let work = plan.workplace.as_ref().unwrap();
                 assert!(!work.passages.is_empty());
-                let collision = compile_building_collision(&plan);
+                let collision = compile_building_collision(&plan).unwrap();
                 for part in work.parts.iter().filter(|part| {
                     !matches!(
                         part.feature,
@@ -39,11 +41,11 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                         part.feature
                     );
                 }
-                let detail = compile_building_detail(&plan);
+                let detail = compile_building_detail(&plan).unwrap();
                 assert!(!detail.meshes.is_empty());
                 assert_gable_uvs(&detail.meshes, work, program.storey_height_metres);
                 for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
-                    let lod = compile_building_lod(&plan, level);
+                    let lod = compile_building_lod(&plan, level).unwrap();
                     assert_gable_uvs(&lod.meshes, work, program.storey_height_metres);
                     assert!(
                         lod.meshes.iter().any(|mesh| matches!(
@@ -52,15 +54,20 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                         )),
                         "{kind:?} roof finish disappeared at {level:?}"
                     );
-                    for part in work.parts.iter().filter(|part| part.silhouette) {
+                    for part in work
+                        .parts
+                        .iter()
+                        .filter(|part| part.silhouette.contributes_to_silhouette())
+                    {
                         let solid = plan
                             .resolved_geometry
                             .solids
                             .iter()
                             .find(|solid| solid.id == part.solid)
                             .unwrap();
-                        let corner = solid.centre
-                            + super::assembly::contact::rotation(solid) * (solid.size * 0.5);
+                        let corner = solid.centre.metres()
+                            + super::assembly::contact::rotation(solid)
+                                * (solid.size.metres() * 0.5);
                         assert!(
                             lod.meshes
                                 .iter()
@@ -78,7 +85,7 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                 }
                 assert_eq!(
                     program.plot_dimensions_metres(),
-                    work.plot_dimensions_metres
+                    work.plot_dimensions_metres.metres()
                 );
             }
         }
@@ -124,8 +131,8 @@ fn capacity_changes_working_space_and_roundtrips_recipe() {
         };
         let small = ServiceBuildingSize::for_capacity(kind.usage(), range.minimum).unwrap();
         let large = ServiceBuildingSize::for_capacity(kind.usage(), range.maximum).unwrap();
-        let small = recipe(kind, small, 42);
-        let large = recipe(kind, large, 42);
+        let small = recipe(kind, small, fabelgeist_determinism::Seed::from_u64(42));
+        let large = recipe(kind, large, fabelgeist_determinism::Seed::from_u64(42));
         assert!(small.plot_dimensions_metres().y < large.plot_dimensions_metres().y);
         let encoded = serde_json::to_string(&large).unwrap();
         let restored: BuildingProgram = serde_json::from_str(&encoded).unwrap();
@@ -138,7 +145,7 @@ fn workplace_audit_rejects_blocked_passage_and_missing_equipment() {
     let mut plan = generate(&recipe(
         WorkplaceKind::Stable,
         ServiceBuildingSize::Small,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let workplace = plan.workplace.as_ref().unwrap();
@@ -149,15 +156,16 @@ fn workplace_audit_rejects_blocked_passage_and_missing_equipment() {
         .unwrap()
         .solid;
     let passage = &workplace.passages[0];
-    let centre = (passage.min + passage.max) * 0.5;
+    let centre = (passage.bounds.min().metres() + passage.bounds.max().metres()) * 0.5;
     plan.resolved_geometry
         .solids
         .iter_mut()
         .find(|solid| solid.id == stall)
         .unwrap()
-        .centre = centre;
+        .centre = Position::<crate::Architectural>::from_metres(centre).unwrap();
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "workplace_blocked_passage")
     );
@@ -168,6 +176,7 @@ fn workplace_audit_rejects_blocked_passage_and_missing_equipment() {
         .retain(|part| part.feature != WorkplaceFeature::Stall);
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "workplace_missing_function")
     );

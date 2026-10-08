@@ -132,7 +132,7 @@ fn spawn_artillery_proof_markers(
                 {
                     for supporting in &node.supported_by {
                         if let Some(base)=plan.resolved_geometry.structural_nodes.iter().find(|candidate|candidate.id==*supporting) {
-                            spawn_artillery_marker_segment(world,&support_material,node.position+offset,base.position+offset,0.10,"artillery authoritative support edge");
+                            spawn_artillery_marker_segment(world,&support_material,node.position.metres()+offset,base.position.metres()+offset,0.10,"artillery authoritative support edge");
                         }
                     }
                 }

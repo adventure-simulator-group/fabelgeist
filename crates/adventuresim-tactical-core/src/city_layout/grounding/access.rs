@@ -6,7 +6,8 @@ pub(in crate::city_layout) fn access_regions(
     plot: CityPlotBounds,
     streets: &[CityStreetPatch],
     edge: Vec2,
-) -> Vec<Vec<bevy::math::DVec2>> {
+) -> adventuresim_building_generator::spatial_geometry::GeometryResult<Vec<Vec<bevy::math::DVec2>>>
+{
     let mut regions = vec![plot];
     for street in streets {
         let CityStreetPatch::Corridor {
@@ -24,18 +25,22 @@ pub(in crate::city_layout) fn access_regions(
         if side == 0.0 {
             continue;
         }
-        regions.push(CityPlotBounds {
-            centre_metres: (start_metres + end_metres) * 0.5
-                + normal * side * half_width_metres * 0.5,
-            dimensions_metres: Vec2::new(start_metres.distance(end_metres), half_width_metres),
-            orientation: BuildingOrientation::from_frontage_tangent(tangent)
-                .expect("finite nonzero bound doorway/street axis"),
-        });
+        regions.push(CityPlotBounds::new(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                (start_metres + end_metres) * 0.5 + normal * side * half_width_metres * 0.5,
+            )?,
+            adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                Vec2::new(start_metres.distance(end_metres), half_width_metres),
+            )?,
+            BuildingOrientation::from_frontage_tangent(tangent).ok_or(
+                adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection,
+            )?,
+        )?);
     }
-    regions
+    Ok(regions
         .into_iter()
         .map(|r| r.corners().map(Vec2::as_dvec2).to_vec())
-        .collect()
+        .collect())
 }
 
 pub(in crate::city_layout) fn available_run(

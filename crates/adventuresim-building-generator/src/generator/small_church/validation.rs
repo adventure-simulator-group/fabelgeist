@@ -14,9 +14,11 @@ pub(crate) fn audit_small_church(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
         if solid.role == SolidRole::OpeningClosure {
             continue;
         }
-        let min = solid.centre - solid.size * 0.5;
-        let max = solid.centre + solid.size * 0.5;
-        if (max.min(church.public_route.max) - min.max(church.public_route.min)).min_element()
+        let min = solid.centre.metres() - solid.size.metres() * 0.5;
+        let max = solid.centre.metres() + solid.size.metres() * 0.5;
+        if (max.min(church.public_route.max().metres())
+            - min.max(church.public_route.min().metres()))
+        .min_element()
             > 0.025
         {
             issues.push(AuditIssue {

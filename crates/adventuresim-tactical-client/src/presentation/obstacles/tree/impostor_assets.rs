@@ -20,6 +20,7 @@ use bevy::{
     prelude::*,
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
+use fabelgeist_determinism::Seed;
 use flate2::read::GzDecoder;
 #[cfg(test)]
 use flate2::{Compression, write::GzEncoder};
@@ -59,7 +60,7 @@ impl PreparedTreeImpostorAsset {
         &self,
         usage: PreparedTreeImpostorUsage,
         species: TreePresentationSpecies,
-        seed: u64,
+        seed: Seed,
         lod: u8,
     ) -> Option<TreeLodBake> {
         self.bakes
@@ -263,7 +264,7 @@ impl<'w> PreparedTreeImpostors<'w> {
 struct PreparedTreeLodBake {
     usage: PreparedTreeImpostorUsage,
     species: u8,
-    seed: u64,
+    seed: Seed,
     lod: u8,
     bake_version: u32,
     source_geometry_hash: u64,

@@ -14,12 +14,18 @@ pub use specimen::{
 #[serde(transparent)]
 pub struct GardenPlantId(pub u64);
 
-#[derive(Clone, Copy, Debug, PartialEq, Reflect, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Reflect, Serialize)]
+#[reflect(opaque)]
 #[serde(transparent)]
 pub struct GardenPlantScale(f32);
 impl GardenPlantScale {
-    pub const fn new(value: f32) -> Self {
-        Self(value)
+    pub const STANDARD: Self = Self(0.75);
+    pub const fn new(value: f32) -> Option<Self> {
+        if value.is_finite() && value > 0.0 {
+            Some(Self(value))
+        } else {
+            None
+        }
     }
     pub const fn value(self) -> f32 {
         self.0
@@ -29,13 +35,20 @@ impl GardenPlantScale {
     }
 }
 
+impl<'de> Deserialize<'de> for GardenPlantScale {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        Self::new(f32::deserialize(d)?)
+            .ok_or_else(|| serde::de::Error::custom("plant scale must be finite and positive"))
+    }
+}
+
 /// An accepted plan position; the scene generator owns its terrain grounding.
 #[derive(Clone, Copy, Debug, PartialEq, Reflect, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct GardenPlantPlacement {
     pub id: GardenPlantId,
     pub specimen: GardenSpecimen,
-    pub centre_metres: Vec2,
+    pub centre_metres: crate::scene_coordinates::ScenePlanPoint,
     pub orientation: BuildingOrientation,
     pub scale: GardenPlantScale,
 }
@@ -46,7 +59,8 @@ impl GardenPlantPlacement {
             .hull_metres
             .iter()
             .map(|point| {
-                self.centre_metres + self.orientation.local_to_world(*point * self.scale.value())
+                self.centre_metres.metres()
+                    + self.orientation.local_to_world(*point * self.scale.value())
             })
             .collect()
     }
@@ -56,7 +70,7 @@ impl GardenPlantPlacement {
 #[serde(deny_unknown_fields)]
 pub struct CityGarden {
     pub owner: CityPropertyId,
-    pub front_building_id: u64,
+    pub front_building_id: crate::scene_input::SceneBuildingId,
     pub plot: CityPlotBounds,
     pub cultivated_bounds: CityPlotBounds,
     pub beds: Vec<CityPlotBounds>,

@@ -30,7 +30,10 @@ struct Candidate {
 }
 
 impl Candidate {
-    fn find(builder: &TimberFrameBuilder<'_>, face: &RoofEnclosureFace) -> Option<Self> {
+    fn find(
+        builder: &TimberFrameBuilder<'_>,
+        face: &RoofEnclosureFace,
+    ) -> Result<Option<Self>, crate::GenerationError> {
         let normal = face.normal();
         let outward = Vec2::new(normal.x, normal.z).round();
         let tangent = if outward.x.abs() > 0.5 {
@@ -39,23 +42,26 @@ impl Candidate {
             Vec2::X
         };
         let plane = face.polygon[0].dot(normal);
-        let tie = builder
+        let Some(tie) = builder
             .members
             .iter()
             .find(|member| {
                 member.role == crate::TimberMemberRole::GableTie
-                    && (member.start.dot(normal) - plane).abs() < BAY_DEPTH_METRES
-                    && (member.end - member.start)
+                    && (member.start.metres().dot(normal) - plane).abs() < BAY_DEPTH_METRES
+                    && (member.end.metres() - member.start.metres())
                         .normalize()
                         .dot(Vec3::new(tangent.x, 0.0, tangent.y))
                         .abs()
                         > 0.99
-            })?
-            .clone();
-        let midpoint = (tie.start + tie.end) * 0.5;
+            })
+            .cloned()
+        else {
+            return Ok(None);
+        };
+        let midpoint = (tie.start.metres() + tie.end.metres()) * 0.5;
         let centre = Vec2::new(midpoint.x, midpoint.z);
         let origin = centre + outward * (plane - centre.dot(outward) - BAY_DEPTH_METRES * 0.5);
-        let base = midpoint.y + tie.section_metres.x * 0.5 - CONTACT_TOLERANCE_METRES;
+        let base = midpoint.y + tie.section_metres.metres().x * 0.5 - CONTACT_TOLERANCE_METRES;
         let heads = builder
             .members
             .iter()
@@ -63,19 +69,20 @@ impl Candidate {
                 matches!(
                     member.role,
                     crate::TimberMemberRole::Rail | crate::TimberMemberRole::Collar
-                ) && (member.start.y - member.end.y).abs() < CONTACT_TOLERANCE_METRES
-                    && (member.start.dot(normal) - tie.start.dot(normal)).abs()
+                ) && (member.start.metres().y - member.end.metres().y).abs()
+                    < CONTACT_TOLERANCE_METRES
+                    && (member.start.metres().dot(normal) - tie.start.metres().dot(normal)).abs()
                         < CONTACT_TOLERANCE_METRES
-                    && (member.end.dot(normal) - tie.end.dot(normal)).abs()
+                    && (member.end.metres().dot(normal) - tie.end.metres().dot(normal)).abs()
                         < CONTACT_TOLERANCE_METRES
-                    && member.start.y - member.section_metres.x * 0.5 - base
+                    && member.start.metres().y - member.section_metres.metres().x * 0.5 - base
                         >= CLEAR_HEIGHT_METRES + MINIMUM_SILL_HEIGHT_METRES
             })
             .cloned()
             .collect::<Vec<_>>();
-        let obstacles = OpeningObstacles::new(&builder.members, &builder.geometry.solids);
+        let obstacles = OpeningObstacles::new(&builder.members, &builder.geometry.solids)?;
         for head in heads {
-            let half_span = tie.start.distance(tie.end) * 0.5;
+            let half_span = tie.start.metres().distance(tie.end.metres()) * 0.5;
             let steps = (half_span / CANDIDATE_STEP_METRES) as usize;
             for side in [-1.0, 1.0] {
                 for station in 0..steps {
@@ -93,23 +100,30 @@ impl Candidate {
                         frame,
                         base,
                         tie: tie.clone(),
-                        height: head.start.y + head.section_metres.x * 0.5 + SPANDREL_HEIGHT_METRES
+                        height: head.start.metres().y
+                            + head.section_metres.metres().x * 0.5
+                            + SPANDREL_HEIGHT_METRES
                             - base,
                         head: head.clone(),
                     };
-                    if candidate.fits(&obstacles, face) {
-                        return Some(candidate);
+                    if candidate.fits(&obstacles, face)? {
+                        return Ok(Some(candidate));
                     }
                 }
             }
         }
-        None
+        Ok(None)
     }
 
-    fn fits(&self, obstacles: &OpeningObstacles<'_>, face: &RoofEnclosureFace) -> bool {
+    fn fits(
+        &self,
+        obstacles: &OpeningObstacles<'_>,
+        face: &RoofEnclosureFace,
+    ) -> Result<bool, crate::GenerationError> {
         // Include the complete new frame, which projects beyond the plaster face
         // and bears on the tie upper face. Only the typed tie/head contacts may overlap.
-        let tie_plane = Vec2::new(self.tie.start.x, self.tie.start.z).dot(self.frame.outward);
+        let tie_plane =
+            Vec2::new(self.tie.start.metres().x, self.tie.start.metres().z).dot(self.frame.outward);
         let frame_shift = tie_plane - self.frame.origin.dot(self.frame.outward);
         let depth_min = (-BAY_DEPTH_METRES * 0.5).min(frame_shift - JAMB_WIDTH_METRES * 0.5);
         let depth_max = (BAY_DEPTH_METRES * 0.5).max(frame_shift + JAMB_WIDTH_METRES * 0.5);
@@ -128,16 +142,18 @@ impl Candidate {
                 origin.y + half.y,
             ),
         );
-        let head_start = Vec2::new(self.head.start.x, self.head.start.z).dot(self.frame.tangent);
-        let head_end = Vec2::new(self.head.end.x, self.head.end.z).dot(self.frame.tangent);
+        let head_start = Vec2::new(self.head.start.metres().x, self.head.start.metres().z)
+            .dot(self.frame.tangent);
+        let head_end =
+            Vec2::new(self.head.end.metres().x, self.head.end.metres().z).dot(self.frame.tangent);
         let centre = origin.dot(self.frame.tangent);
         if centre - BAY_WIDTH_METRES * 0.5 < head_start.min(head_end)
             || centre + BAY_WIDTH_METRES * 0.5 > head_start.max(head_end)
         {
-            return false;
+            return Ok(false);
         }
-        if obstacles.intersects(bounds, self.tie.id, self.head.id) {
-            return false;
+        if obstacles.intersects(bounds, self.tie.id, self.head.id)? {
+            return Ok(false);
         }
         let tangent = face.tangent();
         let project = |p: Vec2, y| Vec2::new(Vec3::new(p.x, y, p.y).dot(tangent), y);
@@ -149,10 +165,10 @@ impl Candidate {
             project(right, self.base + self.height),
             project(left, self.base + self.height),
         ]);
-        MultiPolygon(vec![bay])
+        Ok(MultiPolygon(vec![bay])
             .difference(&face.residual(&[]))
             .unsigned_area()
-            < 0.0001
+            < 0.0001)
     }
 }
 
@@ -163,14 +179,14 @@ pub(super) fn resolve(
     walls: &mut Vec<crate::WallAssembly>,
     openings: &mut Vec<crate::OpeningAssembly>,
     bays: &mut Vec<crate::TimberFrameBay>,
-) {
+) -> Result<(), crate::GenerationError> {
     if !matches!(
         program.archetype,
         BuildingArchetype::TownHouse | BuildingArchetype::FachwerkMerchantHouse
     ) {
-        return;
+        return Ok(());
     }
-    for roof in roofs
+    let _: () = for roof in roofs
         .iter_mut()
         .filter(|roof| roof.parent.is_none() && roof.kind == RoofKind::Gable)
     {
@@ -178,7 +194,7 @@ pub(super) fn resolve(
             if face.material != RoofMaterial::TimberInfill || face.polygon.len() < 3 {
                 continue;
             }
-            let Some(candidate) = Candidate::find(builder, face) else {
+            let Some(candidate) = Candidate::find(builder, face)? else {
                 continue;
             };
             let slot = roof.id.0 * IDS_PER_GABLE + index as u64;
@@ -187,14 +203,17 @@ pub(super) fn resolve(
             let owner = GeometryOwnerId(GABLE_OWNER_ID_BASE + slot as u32);
             let wall_node = StructuralNodeId((u64::from(owner.0) << 16) | 1);
             let frame = candidate.frame;
-            builder.geometry.structural_nodes.push(StructuralNode {
-                id: wall_node,
-                owner,
-                kind: StructuralNodeKind::RoofWallPlate,
-                position: Vec3::new(frame.origin.x, candidate.base, frame.origin.y),
-                supported_by: vec![candidate.tie.start_node, candidate.tie.end_node],
-                grounded: false,
-            });
+            builder
+                .geometry
+                .structural_nodes
+                .push(crate::StructuralNode::from_metres(
+                    wall_node,
+                    owner,
+                    StructuralNodeKind::RoofWallPlate,
+                    Vec3::new(frame.origin.x, candidate.base, frame.origin.y),
+                    vec![candidate.tie.start_node, candidate.tie.end_node],
+                    false,
+                )?);
             let (wall, opening) = roof_wall_opening::RectangularRoofWindow {
                 wall_id,
                 opening_id,
@@ -212,36 +231,20 @@ pub(super) fn resolve(
                 thickness: BAY_DEPTH_METRES,
                 opening_width: CLEAR_WIDTH_METRES,
                 clear_height: CLEAR_HEIGHT_METRES,
-                sill_height: candidate.head.start.y
-                    - candidate.head.section_metres.x * 0.5
+                sill_height: candidate.head.start.metres().y
+                    - candidate.head.section_metres.metres().x * 0.5
                     - CLEAR_HEIGHT_METRES
                     - candidate.base,
-                head_height: candidate.head.section_metres.x,
+                head_height: candidate.head.section_metres.metres().x,
                 head_member: Some(candidate.head.clone()),
                 wall_node,
-                storey_level: program.storeys.len() as u16,
+                storey_level: StoreyIndex::new(program.storeys.len()).serialized_ordinal()?,
                 ornamental_frame: false,
             }
-            .build(builder.geometry);
-            // The fixed glass covers the complete clear section. It stays behind
-            // the jambs and remains a bounded solid in every representation.
-            for id in &opening.closure_solids {
-                let solid = builder
-                    .geometry
-                    .solids
-                    .iter_mut()
-                    .find(|solid| solid.id == *id)
-                    .unwrap();
-                solid.size = Vec3::new(
-                    frame.tangent.x.abs() * CLEAR_WIDTH_METRES
-                        + frame.outward.x.abs() * crate::FIXED_GABLE_GLAZING_DEPTH_METRES,
-                    CLEAR_HEIGHT_METRES,
-                    frame.tangent.y.abs() * CLEAR_WIDTH_METRES
-                        + frame.outward.y.abs() * crate::FIXED_GABLE_GLAZING_DEPTH_METRES,
-                );
-            }
-            measured_bearings(builder.geometry, &opening);
-            let member_ids = frame_members(builder, &candidate, &opening);
+            .build(builder.geometry)?;
+            resize_glazing(builder.geometry, &opening, frame)?;
+            measured_bearings(builder.geometry, &opening)?;
+            let member_ids = frame_members(builder, &candidate, &opening)?;
             let bay_id =
                 crate::TimberFrameBayId(bays.iter().map(|bay| bay.id.0).max().unwrap_or(0) + 1);
             bays.push(crate::TimberFrameBay {
@@ -255,17 +258,23 @@ pub(super) fn resolve(
             walls.push(wall);
             openings.push(opening);
         }
-    }
+    };
+    Ok(())
 }
 
-fn measured_bearings(geometry: &mut ResolvedGeometry, opening: &crate::OpeningAssembly) {
+fn measured_bearings(
+    geometry: &mut ResolvedGeometry,
+    opening: &crate::OpeningAssembly,
+) -> Result<(), crate::GenerationError> {
     let head = geometry
         .solids
         .iter()
         .find(|s| s.id == opening.head_solid)
-        .unwrap()
-        .cuboid_bounds();
-    for (id, solid) in opening
+        .ok_or(GenerationError::MissingSolid {
+            solid: opening.head_solid,
+        })?
+        .cuboid_bounds()?;
+    let _: () = for (id, solid) in opening
         .head_bearing_interfaces
         .into_iter()
         .zip(opening.jamb_solids)
@@ -275,25 +284,26 @@ fn measured_bearings(geometry: &mut ResolvedGeometry, opening: &crate::OpeningAs
             .solids
             .iter()
             .find(|s| s.id == solid)
-            .unwrap()
-            .cuboid_bounds();
+            .ok_or(GenerationError::MissingSolid { solid })?
+            .cuboid_bounds()?;
         let interface = geometry
             .support_interfaces
             .iter_mut()
             .find(|i| i.id == id)
-            .unwrap();
-        interface.bounds = ResolvedBounds {
-            min: head.min.max(contact.min),
-            max: head.max.min(contact.max),
-        };
-    }
+            .ok_or(GenerationError::MissingInterface { interface: id })?;
+        interface.bounds = SpatialBounds::<Architectural>::from_metres(
+            head.min().metres().max(contact.min().metres()),
+            head.max().metres().min(contact.max().metres()),
+        )?;
+    };
+    Ok(())
 }
 
 fn frame_members(
     builder: &mut TimberFrameBuilder<'_>,
     candidate: &Candidate,
     opening: &crate::OpeningAssembly,
-) -> Vec<crate::TimberMemberId> {
+) -> Result<Vec<crate::TimberMemberId>, crate::GenerationError> {
     // Reserve a separate ID range so later original floor and roof members
     // keep their identities when optional apertures are inserted.
     let counters = (
@@ -308,7 +318,11 @@ fn frame_members(
     builder.next_joint = GABLE_MEMBER_ID_BASE + slot * IDS_PER_GABLE;
     builder.next_interface = GABLE_INTERFACE_ID_BASE + slot * IDS_PER_GABLE;
     let frame = candidate.frame;
-    let tie_plane = Vec2::new(candidate.tie.start.x, candidate.tie.start.z).dot(frame.outward);
+    let tie_plane = Vec2::new(
+        candidate.tie.start.metres().x,
+        candidate.tie.start.metres().z,
+    )
+    .dot(frame.outward);
     let origin = frame.origin + frame.outward * (tie_plane - frame.origin.dot(frame.outward));
     let point = |x: f32, y: f32| {
         let p = origin + frame.tangent * x;
@@ -320,10 +334,10 @@ fn frame_members(
         members.push(builder.member(
             crate::TimberMemberRole::IntermediatePost,
             point(x, candidate.base),
-            point(x, candidate.head.start.y),
+            point(x, candidate.head.start.metres().y),
             Vec2::splat(JAMB_WIDTH_METRES),
             crate::TimberFramePhase::RoofConstruction,
-        ));
+        )?);
     }
     let height = opening.sill_elevation_metres - candidate.base;
     let y = candidate.base + height * 0.5;
@@ -333,7 +347,7 @@ fn frame_members(
         point(half, y),
         Vec2::new(height, FRAME_DEPTH_METRES),
         crate::TimberFramePhase::RoofConstruction,
-    ));
+    )?);
     members.push(candidate.head.id);
     (
         builder.next_member,
@@ -341,8 +355,32 @@ fn frame_members(
         builder.next_joint,
         builder.next_interface,
     ) = counters;
-    members
+    Ok(members)
 }
 
 #[cfg(test)]
 mod tests;
+
+fn resize_glazing(
+    geometry: &mut ResolvedGeometry,
+    opening: &crate::OpeningAssembly,
+    frame: crate::WallLocalFrame,
+) -> Result<(), GenerationError> {
+    // The fixed glass covers the complete clear section. It stays behind
+    // the jambs and remains a bounded solid in every representation.
+    for id in &opening.closure_solids {
+        let solid = geometry
+            .solids
+            .iter_mut()
+            .find(|solid| solid.id == *id)
+            .ok_or(GenerationError::MissingSolid { solid: *id })?;
+        solid.size = crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(
+            frame.tangent.x.abs() * CLEAR_WIDTH_METRES
+                + frame.outward.x.abs() * crate::FIXED_GABLE_GLAZING_DEPTH_METRES,
+            CLEAR_HEIGHT_METRES,
+            frame.tangent.y.abs() * CLEAR_WIDTH_METRES
+                + frame.outward.y.abs() * crate::FIXED_GABLE_GLAZING_DEPTH_METRES,
+        ))?;
+    }
+    Ok(())
+}

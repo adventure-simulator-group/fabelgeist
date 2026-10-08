@@ -5,18 +5,22 @@ use adventuresim_tactical_core::{
 use bevy::mesh::VertexAttributeValues;
 
 fn cell(centre: Vec3) -> BoundarySupportCell {
-    BoundarySupportCell {
-        positions_metres: [
+    BoundarySupportCell::new(
+        [
             centre + Vec3::new(0.0, 2.0, 0.0),
             centre + Vec3::new(7.0, 3.0, 0.0),
             centre + Vec3::new(0.0, 2.0, 0.4),
             centre,
             centre + Vec3::new(7.0, 1.0, 0.0),
             centre + Vec3::new(0.0, 0.0, 0.4),
-        ],
-        material: CityBoundaryMaterial::Masonry,
-        element: BoundarySupportElement::Wall(0),
-    }
+        ]
+        .map(|p| {
+            adventuresim_building_generator::spatial_geometry::Position::from_metres(p).unwrap()
+        }),
+        CityBoundaryMaterial::Masonry,
+        BoundarySupportElement::Wall(0),
+    )
+    .unwrap()
 }
 
 #[test]
@@ -43,7 +47,7 @@ fn merged_terraced_enclosures_keep_exact_world_vertices_and_finite_surface_attri
         assert!(
             cells
                 .iter()
-                .flat_map(|cell| cell.positions_metres)
+                .flat_map(|cell| cell.native_positions())
                 .any(|p| (p + Vec3::Y * 15.0).abs_diff_eq(world, 0.0001))
         );
     }

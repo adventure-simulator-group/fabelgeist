@@ -2,7 +2,7 @@
 use super::PersonalityAxis;
 use fabelgeist_determinism::{Seed, StreamId};
 
-pub(super) fn testimony_assessment(seed: u64, proposition: &str) -> f32 {
+pub(super) fn testimony_assessment(seed: Seed, proposition: &str) -> f32 {
     Seed::derive(
         &seed.to_le_bytes(),
         StreamId::new("social.testimony-assessment"),
@@ -12,29 +12,29 @@ pub(super) fn testimony_assessment(seed: u64, proposition: &str) -> f32 {
     .inclusive_unit_f32()
 }
 
-pub(super) fn check(seed: u64, participants: [u64; 2]) -> f32 {
+pub(super) fn check(seed: Seed, participants: [u64; 2]) -> f32 {
     StreamId::new("social.claim-challenge")
         .rng(seed, &participants)
         .inclusive_unit_f32()
 }
 
-pub(super) fn casual_chat(seed: u64) -> fabelgeist_determinism::DeterministicRng {
+pub(super) fn casual_chat(seed: Seed) -> fabelgeist_determinism::DeterministicRng {
     StreamId::new("social.casual-chat").rng(seed, &[])
 }
 
-pub(super) fn presentation(seed: u64, observer: u64, subject: u64) -> f32 {
+pub(super) fn presentation(seed: Seed, observer: u64, subject: u64) -> f32 {
     StreamId::new("social.presentation-contact")
         .rng(seed, &[observer, subject])
         .inclusive_unit_f32()
 }
 
 pub(super) struct ActionDraws {
-    seed: u64,
+    seed: Seed,
     actor: u64,
     target: u64,
 }
 impl ActionDraws {
-    pub(super) fn new(seed: u64, actor: u64, target: u64) -> Self {
+    pub(super) fn new(seed: Seed, actor: u64, target: u64) -> Self {
         Self {
             seed,
             actor,

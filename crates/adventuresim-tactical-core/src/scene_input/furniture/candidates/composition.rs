@@ -7,7 +7,7 @@ const VENDOR_COMPOSITIONS: usize = 4;
 
 pub(super) fn kinds(kind: FurnitureGroupKind, identity: u64) -> Vec<FurnitureKind> {
     use FurnitureKind::{Barrel, CanvasStall, CargoStack, HitchingTrough, TableBenchSet};
-    let mut random = COMPOSITION_DOMAIN.rng(identity, &[]);
+    let mut random = COMPOSITION_DOMAIN.rng(identity.into(), &[]);
     match kind {
         FurnitureGroupKind::Vendor => match random.index(VENDOR_COMPOSITIONS) {
             0 => vec![CanvasStall],

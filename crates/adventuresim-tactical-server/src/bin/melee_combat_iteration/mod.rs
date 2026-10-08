@@ -1,5 +1,6 @@
 //! Accelerated, deterministic headless melee combat iteration runner.
 
+use fabelgeist_determinism::Seed;
 use std::{
     collections::BTreeMap,
     fs::{self, File},
@@ -42,8 +43,8 @@ struct Args {
     tactical_seeds: u64,
     #[arg(long, default_value_t = 1_000)]
     autoresolve_seeds: u64,
-    #[arg(long, default_value_t = 1)]
-    first_seed: u64,
+    #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(1))]
+    first_seed: Seed,
 }
 
 #[derive(Serialize)]

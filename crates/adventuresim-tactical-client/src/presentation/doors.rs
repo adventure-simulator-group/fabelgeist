@@ -39,7 +39,7 @@ pub(in crate::presentation) fn on_scene_door_added(
         Mesh3d(cache.door(door.size_metres, &mut meshes)),
         MeshMaterial3d(
             materials
-                .for_building(door.building_id)
+                .for_building(door.building_id.0)
                 .get(BuildingLodMaterial::Timber),
         ),
         Visibility::default(),
@@ -51,9 +51,7 @@ pub(in crate::presentation) fn on_scene_door_added(
         },
         OutlineMode::FloodFlat,
     ));
-    if !adventuresim_tactical_core::city_layout::CityGate::owns_opening(
-        adventuresim_building_generator::OpeningAssemblyId(door.opening_id),
-    ) {
+    if !adventuresim_tactical_core::city_layout::CityGate::owns_opening(door.opening_id) {
         commands.entity(event.entity).insert((
             super::building_lod_visibility(super::BuildingRenderLevel::Lod0),
             building_closures::PresentedBuildingClosureMesh::new(door.building_id, door.opening_id),

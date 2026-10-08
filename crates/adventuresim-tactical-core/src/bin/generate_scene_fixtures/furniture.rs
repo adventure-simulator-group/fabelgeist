@@ -7,7 +7,14 @@ pub(super) fn fixture() -> Fixture {
     Fixture {
         buildings: BuildingFixture::FurnitureReview,
         playable_spacing_metres: 20.0,
-        ..super::fixture("furniture-review", "city", 47_122, flat, open_yard, clear())
+        ..super::fixture(
+            "furniture-review",
+            "city",
+            fabelgeist_determinism::Seed::from_u64(47_122),
+            flat,
+            open_yard,
+            clear(),
+        )
     }
 }
 
@@ -15,7 +22,10 @@ fn open_yard(_: f32, _: f32) -> EnvironmentalSample {
     sample(TacticalSurface::Open, 0, 0, 0, 0)
 }
 
-pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
+pub(super) fn buildings() -> Result<
+    Vec<TacticalBuildingPlacement>,
+    adventuresim_building_generator::spatial_geometry::GeometryError,
+> {
     [
         (
             BuildingUse::Inn,
@@ -35,21 +45,24 @@ pub(super) fn buildings() -> Vec<TacticalBuildingPlacement> {
     ]
     .into_iter()
     .enumerate()
-    .map(
-        |(index, (usage, centre_metres, yaw))| TacticalBuildingPlacement {
-            base_elevation_metres: 0.0,
-            id: index as u64 + 1,
+    .map(|(index, (usage, centre_metres, yaw))| {
+        Ok(TacticalBuildingPlacement {
+            base_elevation_metres:
+                adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId(index as u64 + 1),
             program: BuildingProgram::validated_settlement(
                 settlement_archetype(usage),
                 usage,
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 Some(ServiceBuildingSize::Medium),
             )
             .expect("curated furniture review service must validate"),
-            centre_metres,
+            centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                centre_metres,
+            )?,
             orientation: BuildingOrientation::from_radians(yaw).unwrap(),
-        },
-    )
+        })
+    })
     .collect()
 }
 

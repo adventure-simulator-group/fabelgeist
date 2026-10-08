@@ -32,13 +32,13 @@ impl CitySceneLayout {
                 let tier = class.housing_tier();
                 let (width, depth) = program.footprint.dimensions();
                 Ok(GeneratedHome {
-                    id: PropertyId::new(settlement_id, id)?,
-                    building_id: id,
+                    id: PropertyId::new(settlement_id, id.0)?,
+                    building_id: id.0,
                     tier,
                     resident_capacity: class.resident_capacity(),
                     market_reserve: market.reserve(tier),
-                    east_metres: centre.x,
-                    north_metres: centre.y,
+                    east_metres: centre.metres().x,
+                    north_metres: centre.metres().y,
                     yaw_radians: orientation.yaw_radians(),
                     width_metres: f32::from(width) * CELL_SIZE_METRES,
                     depth_metres: f32::from(depth) * CELL_SIZE_METRES,

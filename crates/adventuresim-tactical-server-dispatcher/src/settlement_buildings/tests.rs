@@ -31,7 +31,12 @@ fn layout(id: &str, population: u32) -> CitySceneLayout {
     place_settlement_buildings(&settlement(id, population), 50.0).unwrap()
 }
 
-fn ordered_centres(layout: &CitySceneLayout) -> Vec<(u64, bevy::math::Vec2)> {
+fn ordered_centres(
+    layout: &CitySceneLayout,
+) -> Vec<(
+    adventuresim_tactical_core::scene_input::SceneBuildingId,
+    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint,
+)> {
     let mut centres = layout
         .playable
         .iter()
@@ -58,12 +63,13 @@ fn layout_is_stable_and_population_increases_occupied_cells() {
     );
     assert!(town.playable.len() + town.distant.len() < city.playable.len() + city.distant.len());
     assert!(city.playable.iter().all(|building| {
-        building.centre_metres.abs().max_element() <= 50.0 && building.orientation.is_valid()
+        building.centre_metres.metres().abs().max_element() <= 50.0
+            && building.orientation.is_valid()
     }));
     assert!(
         city.distant
             .iter()
-            .all(|building| building.centre_metres.abs().max_element() > 50.0)
+            .all(|building| building.centre_metres.metres().abs().max_element() > 50.0)
     );
 }
 
@@ -109,14 +115,24 @@ fn dense_city_layout_passes_tactical_pad_validation() {
         properties: None,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-        seed: 42,
+        seed: 42.into(),
         scene_key: "city".into(),
         source: SceneSource::SyntheticFixture("city".into()),
-        latitude_microdegrees: 53_500_000,
-        longitude_microdegrees: 10_000_000,
+        latitude_microdegrees: const {
+            match adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000) {
+                Some(value) => value,
+                None => panic!("invalid authored latitude"),
+            }
+        },
+        longitude_microdegrees: const {
+            match adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000) {
+                Some(value) => value,
+                None => panic!("invalid authored longitude"),
+            }
+        },
         absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(1),
         lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(1),
-        absolute_elevation_metres: 0,
+        absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(0).unwrap(),
         playable: TerrainSampleGrid {
             width: 101,
             depth: 101,
@@ -146,7 +162,7 @@ fn dense_city_layout_passes_tactical_pad_validation() {
             }],
         },
         weather: adventuresim_core::weather::weather_at(
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             adventuresim_world_schema::calendar::StrategicMinute::new(1),
             53_500_000,
             10_000_000,
@@ -201,7 +217,10 @@ fn large_city_uses_valid_deterministic_recipes_and_preserves_all_plots() {
 #[test]
 fn city_house_class_dimensions_match_generated_programmes() {
     for house_class in CityHouseClass::ALL {
-        let program = BuildingProgram::fixture(house_class.archetype(), 42);
+        let program = BuildingProgram::fixture(
+            house_class.archetype(),
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let (width_cells, depth_cells) = program.footprint.dimensions();
         assert_eq!(
             bevy::math::Vec2::new(

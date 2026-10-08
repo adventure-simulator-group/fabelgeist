@@ -1,4 +1,7 @@
-fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+fn audit_wall_opening_assemblies(
+    plan: &BuildingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<()> {
     use crate::{
         ClosureKind, OpeningHeadKind, OpeningProfile, OpeningUse, ResolvedItemId,
         WallMaterialClass, WallSourceId,
@@ -36,23 +39,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
     for wall in &plan.wall_assemblies {
         if !wall_ids.insert(wall.id)
             || !wall_sources.insert(wall.source)
-            || (wall.frame.tangent.length() - 1.0).abs() > 0.001
-            || (wall.frame.outward.length() - 1.0).abs() > 0.001
-            || wall.frame.tangent.dot(wall.frame.outward).abs() > 0.001
-            || (!matches!(wall.source, WallSourceId::ChurchApse { .. })
-                && !matches!(
-                    (wall.frame.tangent, wall.frame.outward),
-                    (
-                        Vec2 {
-                            x: -1.0 | 0.0 | 1.0,
-                            y: -1.0 | 0.0 | 1.0
-                        },
-                        Vec2 {
-                            x: -1.0 | 0.0 | 1.0,
-                            y: -1.0 | 0.0 | 1.0
-                        }
-                    )
-                ))
+            || !wall_frame::valid(wall)
         {
             issues.push(issue(
                 "invalid_wall_authority",
@@ -103,59 +90,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                 ),
             ));
         }
-        match wall.source {
-            crate::WallSourceId::RoundTower { tower_index } => {
-                let tower = plan.towers.get(tower_index);
-                let radial = wall.radial_frame;
-                let shell = wall.host_solids.first().and_then(|id| solids.get(id));
-                let valid = tower.is_some_and(|tower| {
-                    radial.is_some_and(|radial| {
-                        radial.centre.distance(tower.centre_metres()) <= 0.001
-                            && radial.reference_outward.length_squared() > 0.99
-                    }) && shell.is_some_and(|shell| {
-                        matches!(
-                            shell.shape,
-                            crate::ResolvedSolidShape::RoundTowerShell {
-                                outer_radius_metres,
-                                inner_radius_metres,
-                                chord_interfaces,
-                            } if (outer_radius_metres - tower.radius_metres()).abs() <= 0.001
-                                && (outer_radius_metres - inner_radius_metres
-                                    - wall.thickness_metres).abs() <= 0.001
-                                && chord_interfaces
-                                    == [tower.chord_interface, tower.secondary_chord_interface]
-                        )
-                    })
-                });
-                if !valid {
-                    issues.push(issue(
-                        "invalid_round_wall_authority",
-                        format!("round wall {} drifts from its grid tower shell", wall.id.0),
-                    ));
-                }
-            }
-            WallSourceId::StoreyWall { .. }
-            | WallSourceId::CurtainWall { .. }
-            | WallSourceId::WorkplaceWall { .. }
-            | WallSourceId::ArtilleryCurtain { .. }
-            | WallSourceId::SquareTowerFace { .. }
-            | WallSourceId::ChurchClerestory { .. }
-            | WallSourceId::RoofGable { .. }
-            | WallSourceId::RoofChildFront { .. }
-            | WallSourceId::ChurchExterior { .. }
-            | WallSourceId::ChurchArcade { .. }
-            | WallSourceId::ChurchCrossing { .. }
-            | WallSourceId::ChurchApse { .. }
-            | WallSourceId::ChurchTowerFace { .. } => {
-                if wall.radial_frame.is_some() {
-                    issues.push(issue(
-                        "invalid_wall_authority",
-                        format!("linear wall {} declares a radial frame", wall.id.0),
-                    ));
-                }
-            }
-            WallSourceId::ArtilleryRondel { .. } => {}
-        }
+        wall_frame::audit_radial(plan, wall, &solids, issues);
         if wall.host_solids.is_empty()
             || wall.host_solids.iter().any(|id| {
                 solids.get(id).is_none_or(|solid| {
@@ -197,9 +132,9 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                         && solid.role == SolidRole::WallHost)
                 })
                 .any(|solid| {
-                    let centre = Vec2::new(solid.centre.x, solid.centre.z);
-                    let radial_extent = wall.frame.outward.x.abs() * solid.size.x * 0.5
-                        + wall.frame.outward.y.abs() * solid.size.z * 0.5;
+                    let centre = Vec2::new(solid.centre.metres().x, solid.centre.metres().z);
+                    let radial_extent = wall.frame.outward.x.abs() * solid.size.metres().x * 0.5
+                        + wall.frame.outward.y.abs() * solid.size.metres().z * 0.5;
                     (centre.dot(wall.frame.outward) + radial_extent - expected_face).abs() > 0.015
                 });
             if discontinuous {
@@ -250,8 +185,10 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
             ));
             continue;
         };
-        let depth = opening.frame.outward.x.abs() * (void.bounds.max.x - void.bounds.min.x)
-            + opening.frame.outward.y.abs() * (void.bounds.max.z - void.bounds.min.z);
+        let depth = opening.frame.outward.x.abs()
+            * (void.bounds.max().metres().x - void.bounds.min().metres().x)
+            + opening.frame.outward.y.abs()
+                * (void.bounds.max().metres().z - void.bounds.min().metres().z);
         if void.role != VoidRole::WallOpening
             || void.owner != opening.owner
             || void.subtracts_from != opening.owner
@@ -456,7 +393,8 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
         };
         if !exact_piece(opening.jamb_solids[0], SolidRole::OpeningJamb)
             || !exact_piece(opening.jamb_solids[1], SolidRole::OpeningJamb)
-            || !(exact_piece(opening.head_solid, SolidRole::OpeningHead) || gable_openings::shared_head(plan, opening))
+            || !(exact_piece(opening.head_solid, SolidRole::OpeningHead)
+                || gable_openings::shared_head(plan, opening))
             || !exact_piece(opening.spandrel_solid, SolidRole::OpeningSpandrel)
             || opening.reveal_surfaces.len() < 6
             || opening.reveal_surfaces.iter().any(|id| {
@@ -495,7 +433,8 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                             * side
                             * (exterior_width_for_layout + side_width)
                             * 0.5;
-                    Vec2::new(solid.centre.x, solid.centre.z).distance(expected) <= 0.015
+                    Vec2::new(solid.centre.metres().x, solid.centre.metres().z).distance(expected)
+                        <= 0.015
                 })
             });
         if !jambs_on_declared_reveals {
@@ -549,8 +488,9 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                 })
             };
             let tangent_depth = opening.frame.tangent.x.abs()
-                * (void.bounds.max.x - void.bounds.min.x)
-                + opening.frame.tangent.y.abs() * (void.bounds.max.z - void.bounds.min.z);
+                * (void.bounds.max().metres().x - void.bounds.min().metres().x)
+                + opening.frame.tangent.y.abs()
+                    * (void.bounds.max().metres().z - void.bounds.min().metres().z);
             let exact_splayed_head = solids.get(&opening.head_solid).is_some_and(|solid| {
                 matches!(
                     solid.shape,
@@ -722,47 +662,62 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                     && interface.owner == opening.owner
                     && interface.node == opening.spandrel_node
             });
-        let contact_valid =
-            head_solid.is_some_and(|head_solid| {
-                bearing_interfaces.into_iter().zip(opening.jamb_solids).all(
+        let contact_valid = crate::geometry_index::try_any(head_solid, |head_solid| {
+            Result::<bool>::Ok(
+                crate::geometry_index::try_all(
+                    bearing_interfaces.into_iter().zip(opening.jamb_solids),
                     |(interface, jamb_id)| {
                         let Some(interface) = interface else {
-                            return false;
+                            return Ok(false);
                         };
                         let Some(jamb) = solids.get(&jamb_id) else {
-                            return false;
+                            return Ok(false);
                         };
-                        let bounds = head_solid.cuboid_bounds();
-                        let (head_min, head_max) = (bounds.min, bounds.max);
+                        let bounds = head_solid.cuboid_bounds()?;
+                        let (head_min, head_max) = (bounds.min().metres(), bounds.max().metres());
                         let (jamb_min, jamb_max) = resolved_solid_bounds(jamb);
-                        let contact_min = head_min.max(jamb_min).max(interface.bounds.min);
-                        let contact_max = head_max.min(jamb_max).min(interface.bounds.max);
+                        let contact_min =
+                            head_min.max(jamb_min).max(interface.bounds.min().metres());
+                        let contact_max =
+                            head_max.min(jamb_max).min(interface.bounds.max().metres());
                         let size = contact_max - contact_min;
-                        size.min_element() > 0.001 && {
-                            let mut extents = [size.x, size.y, size.z];
-                            extents.sort_by(f32::total_cmp);
-                            extents[1] * extents[2] >= 0.01
-                        }
-                    },
-                ) && spandrel_solid.is_some_and(|spandrel| {
-                    spandrel.supported_by == [opening.spandrel_node]
-                        && wall_above.is_some_and(|interface| {
-                            let bounds = head_solid.cuboid_bounds();
-                        let (head_min, head_max) = (bounds.min, bounds.max);
-                            let (spandrel_min, spandrel_max) = resolved_solid_bounds(spandrel);
-                            let contact_min = head_min.max(spandrel_min).max(interface.bounds.min);
-                            let contact_max = head_max.min(spandrel_max).min(interface.bounds.max);
-                            let size = contact_max - contact_min;
+                        Result::<bool>::Ok(
                             size.min_element() > 0.001 && {
                                 let mut extents = [size.x, size.y, size.z];
                                 extents.sort_by(f32::total_cmp);
-                                extents[1] * extents[2] >= 0.02
-                            }
-                        })
-                })
-            });
+                                extents[1] * extents[2] >= 0.01
+                            },
+                        )
+                    },
+                )? && crate::geometry_index::try_any(spandrel_solid, |spandrel| {
+                    Result::<bool>::Ok(
+                        spandrel.supported_by == [opening.spandrel_node]
+                            && crate::geometry_index::try_any(wall_above, |interface| {
+                                let bounds = head_solid.cuboid_bounds()?;
+                                let (head_min, head_max) =
+                                    (bounds.min().metres(), bounds.max().metres());
+                                let (spandrel_min, spandrel_max) = resolved_solid_bounds(spandrel);
+                                let contact_min = head_min
+                                    .max(spandrel_min)
+                                    .max(interface.bounds.min().metres());
+                                let contact_max = head_max
+                                    .min(spandrel_max)
+                                    .min(interface.bounds.max().metres());
+                                let size = contact_max - contact_min;
+                                Result::<bool>::Ok(
+                                    size.min_element() > 0.001 && {
+                                        let mut extents = [size.x, size.y, size.z];
+                                        extents.sort_by(f32::total_cmp);
+                                        extents[1] * extents[2] >= 0.02
+                                    },
+                                )
+                            })?,
+                    )
+                })?,
+            )
+        })?;
         if !contact_valid {
-            issues.push(issue("false_opening_head_load_path", format!("opening {} head lacks measured two-ended bearing or distinct upper-spandrel contact; head={:?} spandrel={:?} bearings={:?} wall_above={:?}", opening.id.0, head_solid.map(|solid| (solid.centre, solid.size)), spandrel_solid.map(|solid| (solid.centre, solid.size)), bearing_interfaces.map(|interface| interface.map(|interface| (interface.bounds.min, interface.bounds.max))), wall_above.map(|interface| (interface.bounds.min, interface.bounds.max)))));
+            issues.push(issue("false_opening_head_load_path", format!("opening {} head lacks measured two-ended bearing or distinct upper-spandrel contact; head={:?} spandrel={:?} bearings={:?} wall_above={:?}", opening.id.0, head_solid.map(|solid| (solid.centre, solid.size)), spandrel_solid.map(|solid| (solid.centre, solid.size)), bearing_interfaces.map(|interface| interface.map(|interface| (interface.bounds.min().metres(), interface.bounds.max().metres()))), wall_above.map(|interface| (interface.bounds.min().metres(), interface.bounds.max().metres())))));
         }
         let wide_cathedral_light = opening.use_kind == OpeningUse::Window
             && matches!(opening.profile, OpeningProfile::PointedTwoCentred { width_metres, .. } if width_metres >= 0.90);
@@ -792,8 +747,12 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                     bearing.is_some_and(|interface| {
                         let (mullion_min, mullion_max) = resolved_solid_bounds(mullion);
                         let (sill_min, sill_max) = resolved_solid_bounds(sill);
-                        let contact_min = mullion_min.max(sill_min).max(interface.bounds.min);
-                        let contact_max = mullion_max.min(sill_max).min(interface.bounds.max);
+                        let contact_min = mullion_min
+                            .max(sill_min)
+                            .max(interface.bounds.min().metres());
+                        let contact_max = mullion_max
+                            .min(sill_max)
+                            .min(interface.bounds.max().metres());
                         let size = contact_max - contact_min;
                         size.min_element() > 0.001 && size.x.max(size.z) >= 0.06
                     })
@@ -914,7 +873,9 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
             }
             OpeningProfile::Rectangular { .. } => matches!(
                 opening.head_kind,
-                OpeningHeadKind::TimberLintel | OpeningHeadKind::TimberFrameMember { .. } | OpeningHeadKind::StoneLintel
+                OpeningHeadKind::TimberLintel
+                    | OpeningHeadKind::TimberFrameMember { .. }
+                    | OpeningHeadKind::StoneLintel
             ),
             OpeningProfile::ArrowLoop {
                 exterior_height_metres,
@@ -946,4 +907,6 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
         }
     }
     wall_counts::audit_opening_count(plan, issues);
+
+    Ok(())
 }

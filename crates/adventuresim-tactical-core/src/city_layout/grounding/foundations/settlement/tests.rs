@@ -39,10 +39,10 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
     .unwrap();
     assert_eq!(forward, reverse);
     assert_eq!(forward.foundations.len(), 2);
-    assert_eq!(forward.colliders().len(), 3);
+    assert_eq!(forward.colliders().unwrap().len(), 3);
     for plan in plans {
         for member in plan.member_support() {
-            let point = member.contact.centre_metres;
+            let point = member.contact.centre_metres();
             let heights: Vec<_> = forward
                 .elevations_at(
                     crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
@@ -101,10 +101,10 @@ fn nearby_properties_are_not_merged_and_overlap_names_both_owners() {
     let plan = fixture.selected_plan(&source);
     let mut overlapping = plan.clone();
     overlapping.property.id = CityPropertyId(966);
-    overlapping.levels.front.building_id = 966;
-    overlapping.levels.rear.building_id = 17350;
-    overlapping.property.front_building_id = 966;
-    overlapping.property.rear_building_id = 17350;
+    overlapping.levels.front.building_id = (966).into();
+    overlapping.levels.rear.building_id = (17350).into();
+    overlapping.property.front_building_id = (966).into();
+    overlapping.property.rear_building_id = (17350).into();
     let error = BoundedSettlementTerrain::compile(
         &[plan.clone(), overlapping]
             .iter()
@@ -119,39 +119,49 @@ fn nearby_properties_are_not_merged_and_overlap_names_both_owners() {
             first: CityPropertyId(965), second: CityPropertyId(966),
             first_members, second_members,
             area_square_metres, ..
-        } if first_members == [965, 17349] && second_members == [966, 17350] && area_square_metres > 500.0
+        } if first_members == [965, 17349].map(crate::scene_input::SceneBuildingId) && second_members == [966, 17350].map(crate::scene_input::SceneBuildingId) && area_square_metres.square_metres() > 500.0
     ));
-    let touching = CityPlotBounds {
-        centre_metres: plan.reservation().centre_metres
-            + plan.reservation().orientation.local_to_world(Vec2::X)
-                * plan.reservation().dimensions_metres.x,
-        ..plan.reservation()
-    };
+    let touching = (plan.reservation())
+        .relocated(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                plan.reservation().centre_metres()
+                    + plan.reservation().orientation().local_to_world(Vec2::X)
+                        * plan.reservation().dimensions_metres().x,
+            )
+            .unwrap(),
+        )
+        .unwrap();
     // Rectangle rotation is represented in f32; use an axis-aligned exact
     // edge control to distinguish a shared boundary from overlapping area.
-    let first = CityPlotBounds {
-        centre_metres: Vec2::ZERO,
-        dimensions_metres: Vec2::splat(2.0),
-        orientation: crate::scene_input::BuildingOrientation::IDENTITY,
-    };
+    let first = CityPlotBounds::new(
+        crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::ZERO).unwrap(),
+        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+            Vec2::splat(2.0),
+        )
+        .unwrap(),
+        crate::scene_input::BuildingOrientation::IDENTITY,
+    )
+    .unwrap();
     assert_eq!(
         overlap(
             first,
-            CityPlotBounds {
-                centre_metres: Vec2::X * 2.0,
-                ..first
-            },
+            (first)
+                .relocated(
+                    crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::X * 2.0).unwrap()
+                )
+                .unwrap(),
             &first.corners().map(Vec2::as_dvec2),
-            &CityPlotBounds {
-                centre_metres: Vec2::X * 2.0,
-                ..first
-            }
-            .corners()
-            .map(Vec2::as_dvec2)
+            &(first)
+                .relocated(
+                    crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::X * 2.0).unwrap()
+                )
+                .unwrap()
+                .corners()
+                .map(Vec2::as_dvec2)
         ),
         None
     );
-    assert!(!plan.reservation().contains(touching.centre_metres));
+    assert!(!plan.reservation().contains(touching.centre_metres()));
 }
 
 #[test]
@@ -170,7 +180,7 @@ fn retaining_edge_queries_keep_both_bound_levels_without_averaging() {
     .unwrap();
     let local = Vec2::new(plan.split_frontage_metres, -5.0);
     let edge =
-        plan.reservation().centre_metres + plan.reservation().orientation.local_to_world(local);
+        plan.reservation().centre_metres() + plan.reservation().orientation().local_to_world(local);
     let heights: Vec<_> = terrain
         .elevations_at(crate::scene_coordinates::ScenePlanPoint::from_metres(edge).unwrap())
         .iter()
@@ -179,7 +189,12 @@ fn retaining_edge_queries_keep_both_bound_levels_without_averaging() {
     assert!(heights.len() >= 2, "retaining edge {edge:?}: {heights:?}");
     assert!(heights.last().unwrap() - heights[0] > 0.1);
     let selected = terrain
-        .surface_below(Vec3::new(edge.x, heights[0], edge.y))
+        .surface_below(
+            crate::city_layout::grounding::SupportQuery::try_from(Vec3::new(
+                edge.x, heights[0], edge.y,
+            ))
+            .unwrap(),
+        )
         .unwrap();
     assert!((selected.elevation.metres() - heights[0]).abs() < 0.001);
     assert!(
@@ -212,7 +227,7 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
                 - Vec2::splat((side - 1) as f32 * 0.5))
                 * spacing;
             source
-                .elevation_at(point)
+                .elevation_at(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap())
                 .map_or(20.0, SupportElevation::metres)
         })
         .collect();
@@ -231,12 +246,12 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
     let encoded = postcard::to_allocvec(&bound).unwrap();
     let decoded: SceneTerrain = postcard::from_bytes(&encoded).unwrap();
     assert_eq!(bound, decoded);
-    assert_eq!(bound.colliders().len(), 2);
+    assert_eq!(bound.colliders().unwrap().len(), 2);
     let fine = bound.mesh_components_with_stride_filtered(1, |_| true);
     let coarse = bound.mesh_components_with_stride_filtered(5, |_| true);
     assert_eq!(fine, coarse, "terrain LOD changed an accepted foundation");
     for member in plan.member_support() {
-        let point = member.contact.centre_metres;
+        let point = member.contact.centre_metres();
         let expected = member.elevation.metres();
         let rendered = fine
             .1
@@ -260,6 +275,7 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
         assert!((bound.coarse_height_at(point).unwrap() - expected).abs() < 0.001);
         let mut hits = bound
             .colliders()
+            .unwrap()
             .iter()
             .filter_map(|collider| {
                 collider.cast_ray(
@@ -283,7 +299,8 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
     // into a heightfield or invalidate its support contract.
     assert!(!bound.rewrite_heights(|_, _| 0.0));
     assert_eq!(
-        bound.constrain_max_grade(0.65),
+        bound
+            .constrain_max_grade(crate::scene::grade::TerrainGradeLimit::from_ratio(0.65).unwrap()),
         Err(crate::scene::TerrainGradeError::OwnedSurface)
     );
     assert!(bound.refined(1.0, |_, h| h).is_none());
@@ -306,12 +323,15 @@ fn unowned_source_query_does_not_extrapolate_a_nearby_graded_floor() {
     // boundary may have a different floor: a contact-sized exterior point must
     // retain its source height, rather than extrapolating that floor outward.
     let plot = plan.reservation();
-    let point = plot.centre_metres
+    let point = plot.centre_metres()
         + plot
-            .orientation
-            .local_to_world(Vec2::new(-plot.dimensions_metres.x * 0.5 - 0.0005, 0.0));
-    assert!(!surface.contains(point));
-    let expected = source.elevation_at(point).unwrap().metres();
+            .orientation()
+            .local_to_world(Vec2::new(-plot.dimensions_metres().x * 0.5 - 0.0005, 0.0));
+    assert!(!surface.contains(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()));
+    let expected = source
+        .elevation_at(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap())
+        .unwrap()
+        .metres();
     let observed = terrain
         .highest_surface_at(crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap())
         .unwrap()
@@ -334,17 +354,24 @@ fn ownership_broad_phase_includes_aprons_beyond_disjoint_rotated_plots() {
     );
     let plot = first.support_regions()[0];
     let offset = plot
-        .orientation
-        .local_to_world(Vec2::new(0.0, -plot.dimensions_metres.y - 2.0));
+        .orientation()
+        .local_to_world(Vec2::new(0.0, -plot.dimensions_metres().y - 2.0));
     let mut second = first.clone();
     second.mesh.property_id = CityPropertyId(966);
-    second.mesh.member_building_ids = vec![966, 17350];
+    second.mesh.member_building_ids = vec![(966).into(), 17350.into()];
     for point in &mut second.mesh.positions {
         point.x += offset.x;
         point.z += offset.y;
     }
     for region in &mut second.regions {
-        region.centre_metres += offset;
+        region
+            .relocate(
+                crate::scene_coordinates::ScenePlanPoint::try_from(
+                    region.centre_metres() + (offset),
+                )
+                .unwrap(),
+            )
+            .unwrap();
     }
     for point in second.clipping_outlines.iter_mut().flatten() {
         *point += offset.as_dvec2();
@@ -371,5 +398,5 @@ fn ownership_broad_phase_includes_aprons_beyond_disjoint_rotated_plots() {
     assert!(matches!(error, SettlementSupportError::OwnershipOverlap{
         first:CityPropertyId(965), second:CityPropertyId(966), first_region, second_region,
         location_metres, area_square_metres, ..
-    }if (first_region,second_region,location_metres,area_square_metres)==expected));
+    }if (first_region,second_region,location_metres.metres(),area_square_metres.square_metres())==expected));
 }

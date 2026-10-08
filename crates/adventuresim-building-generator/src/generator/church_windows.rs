@@ -17,7 +17,7 @@ fn resolve_church_pointed_window(
     serial: u64,
     profile: ChurchWindowProfile,
     geometry: &mut ResolvedGeometry,
-) -> crate::OpeningAssembly {
+) -> Result<crate::OpeningAssembly, crate::GenerationError> {
     let owner = wall.owner;
     let origin = wall.frame.origin;
     let tangent = wall.frame.tangent;
@@ -46,49 +46,40 @@ fn resolve_church_pointed_window(
         StructuralNodeId(8_000_000 + serial * 8),
         StructuralNodeId(8_000_001 + serial * 8),
     ];
-    for (side, node_id) in [-1.0_f32, 1.0].into_iter().zip(jamb_nodes) {
-        geometry.structural_nodes.push(StructuralNode {
-            id: node_id,
-            owner,
-            kind: StructuralNodeKind::OpeningJamb,
-            position: Vec3::new(
-                origin.x + tangent.x * side * width * 0.5,
-                base,
-                origin.y + tangent.y * side * width * 0.5,
-            ),
-            supported_by: vec![wall.support_node],
-            grounded: false,
-        });
-    }
+    opening_jambs::OpeningJambSetOut::from_metres(
+        jamb_nodes,
+        owner,
+        wall.support_node,
+        origin,
+        tangent,
+        width,
+        base,
+    )?
+    .append_nodes(geometry)?;
     let head_node = StructuralNodeId(8_000_002 + serial * 8);
     let spandrel_node = StructuralNodeId(8_000_003 + serial * 8);
     let tracery_node = StructuralNodeId(8_000_004 + serial * 8);
-    geometry.structural_nodes.extend([
-        StructuralNode {
-            id: head_node,
+    geometry.structural_nodes.extend(
+        opening_jambs::OpeningHeadSetOut::from_metres(
+            [head_node, spandrel_node],
             owner,
-            kind: StructuralNodeKind::OpeningHead,
-            position: Vec3::new(origin.x, sill + apex, origin.y),
-            supported_by: jamb_nodes.to_vec(),
-            grounded: false,
-        },
-        StructuralNode {
-            id: spandrel_node,
+            jamb_nodes,
+            origin,
+            sill + apex,
+            sill + apex + 0.20,
+        )?
+        .nodes()?,
+    );
+    geometry
+        .structural_nodes
+        .push(crate::StructuralNode::from_metres(
+            tracery_node,
             owner,
-            kind: StructuralNodeKind::OpeningSpandrel,
-            position: Vec3::new(origin.x, sill + apex + 0.20, origin.y),
-            supported_by: vec![head_node],
-            grounded: false,
-        },
-        StructuralNode {
-            id: tracery_node,
-            owner,
-            kind: StructuralNodeKind::MullionBearing,
-            position: Vec3::new(origin.x, sill, origin.y),
-            supported_by: vec![wall.support_node],
-            grounded: false,
-        },
-    ]);
+            StructuralNodeKind::MullionBearing,
+            Vec3::new(origin.x, sill, origin.y),
+            vec![wall.support_node],
+            false,
+        )?);
 
     let side_width = (wall.length_metres - width) * 0.5;
     let mut jamb_solids = [ResolvedItemId::default(); 2];
@@ -108,7 +99,7 @@ fn resolve_church_pointed_window(
             SolidRole::OpeningJamb,
             crate::ResolvedSolidShape::Cuboid,
             jamb_nodes[index],
-        );
+        )?;
         jamb_solids[index] = id;
         host_solids.push(id);
     }
@@ -126,7 +117,7 @@ fn resolve_church_pointed_window(
         SolidRole::OpeningSill,
         crate::ResolvedSolidShape::Cuboid,
         wall.support_node,
-    );
+    )?;
     host_solids.push(sill_solid);
     let ring_depth = 0.24_f32;
     let head_solid = wall_solid(
@@ -152,7 +143,7 @@ fn resolve_church_pointed_window(
             ring_depth_metres: ring_depth,
         },
         head_node,
-    );
+    )?;
     host_solids.push(head_solid);
     let spandrel_bottom = sill + apex + ring_depth - 0.025;
     let spandrel_height = (wall_top - spandrel_bottom).max(0.08);
@@ -169,7 +160,7 @@ fn resolve_church_pointed_window(
         SolidRole::OpeningSpandrel,
         crate::ResolvedSolidShape::Cuboid,
         spandrel_node,
-    );
+    )?;
     host_solids.push(spandrel_solid);
 
     let mullion_height = spring;
@@ -190,7 +181,7 @@ fn resolve_church_pointed_window(
         SolidRole::Mullion,
         crate::ResolvedSolidShape::Cuboid,
         tracery_node,
-    );
+    )?;
     let transom = wall_solid(
         geometry,
         owner,
@@ -204,7 +195,7 @@ fn resolve_church_pointed_window(
         SolidRole::Mullion,
         crate::ResolvedSolidShape::Cuboid,
         tracery_node,
-    );
+    )?;
     host_solids.extend([mullion, transom]);
 
     let half_tangent = tangent.abs() * width * 0.5;
@@ -220,18 +211,18 @@ fn resolve_church_pointed_window(
         geometry,
         owner,
         slot,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_tangent.x - half_depth.x,
                 sill,
                 origin.y - half_tangent.y - half_depth.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_tangent.x + half_depth.x,
                 sill + apex,
                 origin.y + half_tangent.y + half_depth.y,
             ),
-        },
+        )?,
         opening_id,
         width,
         width,
@@ -250,10 +241,10 @@ fn resolve_church_pointed_window(
             geometry,
             owner,
             surface_slot,
-            ResolvedBounds {
-                min: Vec3::new(point.x - extent.x, sill, point.y - extent.y),
-                max: Vec3::new(point.x + extent.x, sill + apex, point.y + extent.y),
-            },
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(point.x - extent.x, sill, point.y - extent.y),
+                Vec3::new(point.x + extent.x, sill + apex, point.y + extent.y),
+            )?,
             role,
             crate::ResolvedSurfaceShape::SplayedJamb {
                 side,
@@ -267,18 +258,18 @@ fn resolve_church_pointed_window(
         geometry,
         owner,
         slot + 12,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_tangent.x - half_depth.x,
                 sill - 0.035,
                 origin.y - half_tangent.y - half_depth.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_tangent.x + half_depth.x,
                 sill + 0.015,
                 origin.y + half_tangent.y + half_depth.y,
             ),
-        },
+        )?,
         SurfaceRole::WeatherSill,
         crate::ResolvedSurfaceShape::WeatherSill {
             interior_elevation_metres: sill,
@@ -290,18 +281,18 @@ fn resolve_church_pointed_window(
         geometry,
         owner,
         slot + 13,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_tangent.x - half_depth.x,
                 sill + spring - 0.015,
                 origin.y - half_tangent.y - half_depth.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_tangent.x + half_depth.x,
                 sill + apex,
                 origin.y + half_tangent.y + half_depth.y,
             ),
-        },
+        )?,
         SurfaceRole::Intrados,
         crate::ResolvedSurfaceShape::PointedIntrados {
             clear_span_metres: width,
@@ -320,18 +311,18 @@ fn resolve_church_pointed_window(
             geometry,
             owner,
             surface_slot,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     point.x - half_tangent.x - depth.x,
                     sill,
                     point.y - half_tangent.y - depth.y,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     point.x + half_tangent.x + depth.x,
                     sill + apex,
                     point.y + half_tangent.y + depth.y,
                 ),
-            },
+            )?,
             role,
             crate::ResolvedSurfaceShape::Planar,
         ));
@@ -362,7 +353,7 @@ fn resolve_church_pointed_window(
                 ring_depth_metres: 0.025,
             },
             tracery_node,
-        ));
+        )?);
     }
 
     let bearing_width = 0.15_f32;
@@ -371,61 +362,69 @@ fn resolve_church_pointed_window(
         let point = origin + tangent * side * (width * 0.5 + bearing_width * 0.5);
         let extent = tangent.abs() * bearing_width * 0.5 + outward.abs() * thickness * 0.5;
         let id = ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | local);
-        geometry.support_interfaces.push(SupportInterface {
-            id,
-            owner,
-            node: head_node,
-            bounds: ResolvedBounds {
-                min: Vec3::new(
-                    point.x - extent.x,
-                    sill + spring - 0.025,
-                    point.y - extent.y,
-                ),
-                max: Vec3::new(
-                    point.x + extent.x,
-                    sill + spring + 0.025,
-                    point.y + extent.y,
-                ),
-            },
-        });
-        id
+        geometry
+            .support_interfaces
+            .push(crate::SupportInterface::new(
+                id,
+                owner,
+                head_node,
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
+                        point.x - extent.x,
+                        sill + spring - 0.025,
+                        point.y - extent.y,
+                    ),
+                    Vec3::new(
+                        point.x + extent.x,
+                        sill + spring + 0.025,
+                        point.y + extent.y,
+                    ),
+                )?,
+            ));
+        Ok::<_, crate::GenerationError>(id)
     });
+    let [first, second] = head_bearing_interfaces;
+    let head_bearing_interfaces = [first?, second?];
     let wall_above_interface =
         ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | (slot + 52));
-    geometry.support_interfaces.push(SupportInterface {
-        id: wall_above_interface,
-        owner,
-        node: spandrel_node,
-        bounds: ResolvedBounds {
-            min: Vec3::new(
-                origin.x - half_tangent.x - half_depth.x,
-                spandrel_bottom - 0.025,
-                origin.y - half_tangent.y - half_depth.y,
-            ),
-            max: Vec3::new(
-                origin.x + half_tangent.x + half_depth.x,
-                spandrel_bottom + 0.025,
-                origin.y + half_tangent.y + half_depth.y,
-            ),
-        },
-    });
-    geometry.support_interfaces.push(SupportInterface {
-        id: ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | (slot + 53)),
-        owner,
-        node: tracery_node,
-        bounds: ResolvedBounds {
-            min: Vec3::new(
-                origin.x - tangent.x.abs() * 0.05 - outward.x.abs() * thickness * 0.18,
-                sill - 0.025,
-                origin.y - tangent.y.abs() * 0.05 - outward.y.abs() * thickness * 0.18,
-            ),
-            max: Vec3::new(
-                origin.x + tangent.x.abs() * 0.05 + outward.x.abs() * thickness * 0.18,
-                sill + 0.01,
-                origin.y + tangent.y.abs() * 0.05 + outward.y.abs() * thickness * 0.18,
-            ),
-        },
-    });
+    geometry
+        .support_interfaces
+        .push(crate::SupportInterface::new(
+            wall_above_interface,
+            owner,
+            spandrel_node,
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
+                    origin.x - half_tangent.x - half_depth.x,
+                    spandrel_bottom - 0.025,
+                    origin.y - half_tangent.y - half_depth.y,
+                ),
+                Vec3::new(
+                    origin.x + half_tangent.x + half_depth.x,
+                    spandrel_bottom + 0.025,
+                    origin.y + half_tangent.y + half_depth.y,
+                ),
+            )?,
+        ));
+    geometry
+        .support_interfaces
+        .push(crate::SupportInterface::new(
+            ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | (slot + 53)),
+            owner,
+            tracery_node,
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
+                    origin.x - tangent.x.abs() * 0.05 - outward.x.abs() * thickness * 0.18,
+                    sill - 0.025,
+                    origin.y - tangent.y.abs() * 0.05 - outward.y.abs() * thickness * 0.18,
+                ),
+                Vec3::new(
+                    origin.x + tangent.x.abs() * 0.05 + outward.x.abs() * thickness * 0.18,
+                    sill + 0.01,
+                    origin.y + tangent.y.abs() * 0.05 + outward.y.abs() * thickness * 0.18,
+                ),
+            )?,
+        ));
 
     // `wall_solid` emits local X-length/Z-depth cuboids.  Cardinal walls need
     // no transform; apse chords rotate every resolved masonry, mullion, and
@@ -433,12 +432,12 @@ fn resolve_church_pointed_window(
     let wall_yaw = -tangent.y.atan2(tangent.x);
     for id in host_solids.iter().chain(&closure_solids) {
         if let Some(item) = geometry.solids.iter_mut().find(|item| item.id == *id) {
-            item.yaw_radians = wall_yaw;
+            item.yaw_radians = Radians::new(wall_yaw)?;
         }
     }
     wall.host_solids = host_solids;
     wall.opening_ids = vec![opening_id];
-    crate::OpeningAssembly {
+    Ok(crate::OpeningAssembly {
         id: opening_id,
         owner,
         host_wall: wall.id,
@@ -482,5 +481,5 @@ fn resolve_church_pointed_window(
             .collect(),
         head_bearing_interfaces,
         wall_above_interface,
-    }
+    })
 }

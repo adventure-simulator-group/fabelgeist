@@ -12,8 +12,12 @@ fn component_instances_preserve_detailed_and_facade_surfaces() {
         BuildingArchetype::FachwerkCottage,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
-        let kit = BuildingKit::new(&plan);
+        let plan = generate(&BuildingProgram::fixture(
+            archetype,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
+        let kit = BuildingKit::new(&plan).unwrap();
         assert!(!kit.instances.is_empty());
         for instance in &kit.instances {
             let solid = plan
@@ -22,7 +26,7 @@ fn component_instances_preserve_detailed_and_facade_surfaces() {
                 .iter()
                 .find(|solid| solid.id == instance.source)
                 .unwrap();
-            let expected = compile_solid_detail(&plan, solid);
+            let expected = compile_solid_detail(&plan, solid).unwrap();
             let actual = instance.component.meshes();
             assert_eq!(actual.len(), expected.meshes.len());
             for (a, b) in actual.iter().zip(&expected.meshes) {
@@ -49,11 +53,16 @@ fn component_instances_preserve_detailed_and_facade_surfaces() {
         for facade in [false, true] {
             let (expected, residual) = if facade {
                 (
-                    compile_building_lod(&plan, crate::BuildingLodLevel::Facade).meshes,
-                    kit.facade().meshes,
+                    compile_building_lod(&plan, crate::BuildingLodLevel::Facade)
+                        .unwrap()
+                        .meshes,
+                    kit.facade().unwrap().meshes,
                 )
             } else {
-                (compile_building_detail(&plan).meshes, kit.detail().meshes)
+                (
+                    compile_building_detail(&plan).unwrap().meshes,
+                    kit.detail().unwrap().meshes,
+                )
             };
             let instanced: usize = kit
                 .instances

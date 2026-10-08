@@ -1,5 +1,8 @@
 //! Candidate furniture changes only the affected navigation nodes and edges.
 use super::*;
+use crate::interior::InteriorResult as Result;
+use crate::spatial_geometry::GeometryResult;
+use crate::spatial_geometry::PlanExtents;
 
 pub(in crate::interior) struct Occupancy<'a> {
     nav: &'a Navigation,
@@ -14,7 +17,7 @@ pub(in crate::interior) struct Change {
 }
 
 impl<'a> Occupancy<'a> {
-    pub fn new(nav: &'a Navigation) -> Self {
+    pub fn new(nav: &'a Navigation) -> Result<Self> {
         let swept = nav
             .edges
             .iter()
@@ -25,33 +28,44 @@ impl<'a> Occupancy<'a> {
                     .iter()
                     .map(|&next| {
                         let b = nav.nodes[next];
-                        (a.storey == b.storey).then(|| {
-                            Rect::new(
-                                (a.position_metres + b.position_metres) * 0.5,
-                                (a.position_metres - b.position_metres).abs() * 0.5
-                                    + Vec2::splat(PERSON_RADIUS),
-                            )
-                        })
+                        (a.storey == b.storey)
+                            .then(|| {
+                                Rect::new(
+                                    ArchitecturalPlanPoint::from_metres(
+                                        (a.position_metres.metres() + b.position_metres.metres())
+                                            * 0.5,
+                                    )?,
+                                    PlanExtents::from_metres(
+                                        (a.position_metres.metres() - b.position_metres.metres())
+                                            .abs()
+                                            * 0.5
+                                            + Vec2::splat(PERSON_RADIUS),
+                                    )?,
+                                )
+                            })
+                            .transpose()
                     })
-                    .collect()
+                    .collect::<GeometryResult<Vec<_>>>()
             })
-            .collect();
-        Self {
+            .collect::<GeometryResult<Vec<_>>>()?;
+        Ok(Self {
             nav,
             nodes: vec![0; nav.nodes.len()],
             edges: nav.edges.iter().map(|edges| vec![0; edges.len()]).collect(),
             swept,
-        }
+        })
     }
 
-    pub fn add(&mut self, placements: &[InteriorPlacement]) -> Change {
+    pub fn add(&mut self, placements: &[InteriorPlacement]) -> Result<Change> {
         let mut change = Change {
             nodes: Vec::new(),
             edges: Vec::new(),
         };
         for placement in placements {
-            let footprint = placement.footprint();
-            let expanded = footprint.expanded(PERSON_RADIUS);
+            let footprint = placement.footprint()?;
+            let expanded = footprint.expanded(
+                crate::spatial_geometry::SignedLength::from_metres(PERSON_RADIUS)?,
+            )?;
             for (index, node) in self.nav.nodes.iter().enumerate() {
                 if node.storey != placement.storey {
                     continue;
@@ -68,7 +82,7 @@ impl<'a> Occupancy<'a> {
                 }
             }
         }
-        change
+        Ok(change)
     }
 
     pub fn remove(&mut self, change: Change) {
@@ -113,7 +127,12 @@ mod tests {
             placements.iter().any(|p| {
                 p.storey == nav.nodes[index].storey
                     && p.footprint()
-                        .expanded(PERSON_RADIUS)
+                        .unwrap()
+                        .expanded(
+                            crate::spatial_geometry::SignedLength::from_metres(PERSON_RADIUS)
+                                .unwrap(),
+                        )
+                        .unwrap()
                         .contains(nav.nodes[index].position_metres)
             })
         };
@@ -130,14 +149,21 @@ mod tests {
                 let a = nav.nodes[index];
                 let b = nav.nodes[next];
                 let swept = Rect::new(
-                    (a.position_metres + b.position_metres) * 0.5,
-                    (a.position_metres - b.position_metres).abs() * 0.5
-                        + Vec2::splat(PERSON_RADIUS),
-                );
+                    ArchitecturalPlanPoint::from_metres(
+                        (a.position_metres.metres() + b.position_metres.metres()) * 0.5,
+                    )
+                    .unwrap(),
+                    PlanExtents::from_metres(
+                        (a.position_metres.metres() - b.position_metres.metres()).abs() * 0.5
+                            + Vec2::splat(PERSON_RADIUS),
+                    )
+                    .unwrap(),
+                )
+                .unwrap();
                 if a.storey == b.storey
                     && placements
                         .iter()
-                        .any(|p| p.storey == a.storey && p.footprint().overlaps(swept))
+                        .any(|p| p.storey == a.storey && p.footprint().unwrap().overlaps(swept))
                 {
                     continue;
                 }
@@ -154,27 +180,27 @@ mod tests {
         let program = crate::BuildingProgram::validated_settlement(
             crate::settlement_archetype(BuildingUse::Hospital),
             BuildingUse::Hospital,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             None,
         )
         .unwrap();
         let plan = crate::generate(&program).unwrap();
         let layout = crate::interior::furnish(&plan, &program).unwrap();
         let nav = Navigation::new(&plan).unwrap();
-        let mut occupancy = Occupancy::new(&nav);
+        let mut occupancy = Occupancy::new(&nav).unwrap();
         for length in 1..=layout.placements.len() {
             let candidate = &layout.placements[length - 1..length];
-            occupancy.add(candidate);
+            occupancy.add(candidate).unwrap();
             let expected = reference(&nav, &layout.placements[..length]);
             assert_eq!(occupancy.flood().parents, expected);
-            let duplicate = occupancy.add(candidate);
+            let duplicate = occupancy.add(candidate).unwrap();
             occupancy.remove(duplicate);
             assert_eq!(occupancy.flood().parents, expected);
         }
         let mut obstruction = layout.placements[0].clone();
         obstruction.storey = nav.nodes[nav.entry].storey;
         obstruction.centre_metres = nav.nodes[nav.entry].position_metres;
-        let change = occupancy.add(&[obstruction]);
+        let change = occupancy.add(&[obstruction]).unwrap();
         assert!(occupancy.flood().parents.iter().all(Option::is_none));
         occupancy.remove(change);
         assert!(occupancy.flood().parents[nav.entry].is_some());

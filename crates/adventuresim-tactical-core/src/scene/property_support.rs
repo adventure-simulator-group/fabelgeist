@@ -76,14 +76,14 @@ impl SceneTerrain {
 
     pub fn surface_below(
         &self,
-        position: Vec3,
+        query: crate::city_layout::grounding::SupportQuery,
     ) -> Option<crate::city_layout::grounding::SurfaceHit> {
         match &self.geometry {
             TerrainGeometry::Sampled => {
-                let sample = self.surface_at_stride(Vec2::new(position.x, position.z), 1)?;
-                (sample.elevation.metres() <= position.y).then_some(sample)
+                let sample = self.surface_at_stride(query.point.metres(), 1)?;
+                query.permits(sample.elevation, 0.0).then_some(sample)
             }
-            TerrainGeometry::Owned(surface) => surface.surface_below(position),
+            TerrainGeometry::Owned(surface) => surface.surface_below(query),
         }
     }
 
@@ -100,8 +100,7 @@ impl SceneTerrain {
             if !keep_triangle(Vec2::new(centre.x, centre.z)) {
                 continue;
             }
-            let start = u32::try_from(positions.len())
-                .expect("bounded owned terrain fits u32 presentation indices");
+            let start = positions.len() as u32;
             positions.extend(triangle.map(|point| point.to_array()));
             indices.extend([start, start + 1, start + 2]);
             uvs.extend(triangle.map(|p| [p.x / self.width() + 0.5, p.z / self.depth() + 0.5]));
@@ -119,19 +118,27 @@ impl SceneTerrain {
             return None;
         };
         surface
-            .foundations
+            .foundations()
             .iter()
-            .find(|foundation| foundation.property_id == property)
+            .find(|foundation| foundation.property_id() == property)
     }
 
-    pub(crate) fn foundation_colliders(&self) -> Vec<Collider> {
+    pub(crate) fn foundation_colliders(
+        &self,
+    ) -> Result<Vec<Collider>, crate::city_layout::grounding::SupportColliderError> {
         match &self.geometry {
-            TerrainGeometry::Sampled => Vec::new(),
+            TerrainGeometry::Sampled => Ok(Vec::new()),
             TerrainGeometry::Owned(surface) => surface
-                .foundations
+                .foundations()
                 .iter()
                 .map(crate::city_layout::grounding::PropertyFoundationMesh::collider)
-                .collect(),
+                .collect::<Result<Vec<_>, _>>()
+                .map(|colliders| {
+                    colliders
+                        .into_iter()
+                        .filter_map(crate::city_layout::grounding::SupportCollision::into_solid)
+                        .collect()
+                }),
         }
     }
 
@@ -145,23 +152,26 @@ impl SceneTerrain {
                 let mut positions = Vec::new();
                 let mut indices = Vec::new();
                 for (triangle, winding) in surface
-                    .natural_triangles
+                    .natural_triangles()
                     .iter()
                     .map(|t| (t, [0, 2, 1]))
                     .chain(
                         surface
-                            .foundations
+                            .foundations()
                             .iter()
-                            .flat_map(|f| f.cut_faces.iter())
+                            .flat_map(|f| f.cut_faces().iter())
                             .map(|t| (t, [0, 1, 2])),
                     )
                 {
                     let centre = triangle.iter().copied().sum::<Vec3>() / 3.0;
-                    if collar.cuts_out(Vec2::new(centre.x, centre.z)) {
+                    if crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                        centre.x, centre.z,
+                    ))
+                    .is_ok_and(|point| collar.cuts_out(point))
+                    {
                         continue;
                     }
-                    let start = u32::try_from(positions.len())
-                        .expect("bounded natural terrain fits u32 collision indices");
+                    let start = positions.len() as u32;
                     positions.extend(triangle);
                     indices.push(winding.map(|i| start + i));
                 }

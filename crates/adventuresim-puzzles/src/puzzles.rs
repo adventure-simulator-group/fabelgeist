@@ -1,5 +1,5 @@
 use super::WitnessPath;
-use fabelgeist_determinism::DeterministicRng;
+use fabelgeist_determinism::{DeterministicRng, Seed};
 use serde::{Deserialize, Serialize};
 
 use super::{
@@ -46,7 +46,7 @@ impl PuzzleKind {
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct GenerationRequest {
-    pub seed: u64,
+    pub seed: Seed,
     pub spec: PuzzleSpec,
 }
 
@@ -159,7 +159,7 @@ pub enum PuzzleSubmissionError {
 }
 
 impl PuzzleAuthority {
-    pub fn generate(kind: PuzzleKind, seed: u64) -> Self {
+    pub fn generate(kind: PuzzleKind, seed: Seed) -> Self {
         Self::generate_request(GenerationRequest {
             seed,
             spec: PuzzleSpec::standard(kind),
@@ -188,7 +188,7 @@ impl PuzzleAuthority {
         })
     }
 
-    pub fn standard_request(kind: PuzzleKind, seed: u64) -> GenerationRequest {
+    pub fn standard_request(kind: PuzzleKind, seed: Seed) -> GenerationRequest {
         GenerationRequest {
             seed,
             spec: PuzzleSpec::standard(kind),
@@ -395,7 +395,7 @@ impl WitnessStatement {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct TruthfulWitnessPuzzle {
     pub rules_version: u16,
-    pub seed: u64,
+    pub seed: Seed,
     pub spec: TruthfulWitnessSpec,
     pub solution_path: WitnessPath,
     pub liar: Witness,
@@ -411,19 +411,19 @@ pub struct TruthfulWitnessProjection {
 }
 
 impl TruthfulWitnessPuzzle {
-    pub fn generate(seed: u64) -> Self {
+    pub fn generate(seed: Seed) -> Self {
         Self::generate_with_spec(seed, TruthfulWitnessSpec::default())
             .expect("current truthful-witness rules are supported")
     }
 
-    pub fn generate_versioned(rules_version: u16, seed: u64) -> Result<Self, &'static str> {
+    pub fn generate_versioned(rules_version: u16, seed: Seed) -> Result<Self, &'static str> {
         if rules_version != TRUTHFUL_WITNESS_RULES_VERSION {
             return Err("unsupported truthful-witness rules version");
         }
         Self::generate_with_spec(seed, TruthfulWitnessSpec::default())
     }
 
-    pub fn generate_with_spec(seed: u64, spec: TruthfulWitnessSpec) -> Result<Self, &'static str> {
+    pub fn generate_with_spec(seed: Seed, spec: TruthfulWitnessSpec) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
         const TRUTHFUL_WITNESS_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
             fabelgeist_determinism::StreamId::new("puzzle.truthful_witness");
@@ -725,7 +725,7 @@ impl RuneExample {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct RuneTransformationPuzzle {
     pub rules_version: u16,
-    pub seed: u64,
+    pub seed: Seed,
     pub spec: RuneTransformationSpec,
     pub gate_laws: Vec<RuneGateLaw>,
     pub examples: Vec<RuneExample>,
@@ -745,12 +745,12 @@ pub struct RuneTransformationProjection {
 }
 
 impl RuneTransformationPuzzle {
-    pub fn generate(seed: u64) -> Self {
+    pub fn generate(seed: Seed) -> Self {
         Self::generate_with_spec(seed, RuneTransformationSpec::default())
             .expect("current rune-transformation rules are supported")
     }
 
-    pub fn generate_versioned(rules_version: u16, seed: u64) -> Result<Self, &'static str> {
+    pub fn generate_versioned(rules_version: u16, seed: Seed) -> Result<Self, &'static str> {
         if rules_version != RUNE_TRANSFORMATION_RULES_VERSION {
             return Err("unsupported rune-transformation rules version");
         }
@@ -758,7 +758,7 @@ impl RuneTransformationPuzzle {
     }
 
     pub fn generate_with_spec(
-        seed: u64,
+        seed: Seed,
         spec: RuneTransformationSpec,
     ) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
@@ -956,7 +956,7 @@ mod tests {
 
     #[test]
     fn generated_witness_puzzles_prove_one_safe_path_without_redundant_statements() {
-        for seed in 0..1_000 {
+        for seed in (0..1_000).map(fabelgeist_determinism::Seed::from_u64) {
             let puzzle = TruthfulWitnessPuzzle::generate(seed);
             puzzle.validate().unwrap();
             assert!(
@@ -974,7 +974,7 @@ mod tests {
 
     #[test]
     fn generated_rune_puzzles_prove_one_result_without_exposing_the_chosen_rule() {
-        for seed in 0..1_000 {
+        for seed in (0..1_000).map(fabelgeist_determinism::Seed::from_u64) {
             let puzzle = RuneTransformationPuzzle::generate(seed);
             puzzle.validate().unwrap();
             let projection = serde_json::to_string(&puzzle.projection()).unwrap();
@@ -1003,7 +1003,8 @@ mod tests {
     #[test]
     fn puzzle_envelope_replays_and_checks_every_engine() {
         for (ordinal, kind) in PuzzleKind::ALL.into_iter().enumerate() {
-            let puzzle = PuzzleAuthority::generate(kind, ordinal as u64 + 40);
+            let puzzle =
+                PuzzleAuthority::generate(kind, Seed::from_u64(40).wrapping_offset(ordinal as u64));
             puzzle.validate().unwrap();
             assert_eq!(puzzle.replay().unwrap(), puzzle);
             let answer = match &puzzle {
@@ -1045,7 +1046,7 @@ mod tests {
     fn generation_specs_are_serializable_validated_and_replayed_exactly() {
         let requests = [
             GenerationRequest {
-                seed: 70,
+                seed: fabelgeist_determinism::Seed::from_u64(70),
                 spec: PuzzleSpec::OrderedSigils(OrderedSigilSpec {
                     allow_exact: false,
                     allow_before: true,
@@ -1055,14 +1056,14 @@ mod tests {
                 }),
             },
             GenerationRequest {
-                seed: 71,
+                seed: fabelgeist_determinism::Seed::from_u64(71),
                 spec: PuzzleSpec::TruthfulWitnesses(TruthfulWitnessSpec {
                     require_unique_liar: true,
                     ..TruthfulWitnessSpec::default()
                 }),
             },
             GenerationRequest {
-                seed: 72,
+                seed: fabelgeist_determinism::Seed::from_u64(72),
                 spec: PuzzleSpec::RuneTransformation(RuneTransformationSpec {
                     gate_count: 2,
                     route_length: 4,
@@ -1086,7 +1087,7 @@ mod tests {
     #[test]
     fn rune_complexity_parameters_change_the_measured_structure() {
         let easy = PuzzleAuthority::generate_request(GenerationRequest {
-            seed: 99,
+            seed: fabelgeist_determinism::Seed::from_u64(99),
             spec: PuzzleSpec::RuneTransformation(RuneTransformationSpec {
                 gate_count: 1,
                 route_length: 1,
@@ -1097,7 +1098,10 @@ mod tests {
             }),
         })
         .unwrap();
-        let hard = PuzzleAuthority::generate(PuzzleKind::RuneTransformation, 99);
+        let hard = PuzzleAuthority::generate(
+            PuzzleKind::RuneTransformation,
+            fabelgeist_determinism::Seed::from_u64(99),
+        );
         let easy_analysis = easy.analysis();
         let hard_analysis = hard.analysis();
         assert!(hard_analysis.fact_count > easy_analysis.fact_count);
@@ -1109,7 +1113,7 @@ mod tests {
     #[test]
     fn invalid_complexity_combinations_fail_before_generation() {
         let result = PuzzleAuthority::generate_request(GenerationRequest {
-            seed: 1,
+            seed: fabelgeist_determinism::Seed::from_u64(1),
             spec: PuzzleSpec::RuneTransformation(RuneTransformationSpec {
                 gate_count: 1,
                 route_length: 2,

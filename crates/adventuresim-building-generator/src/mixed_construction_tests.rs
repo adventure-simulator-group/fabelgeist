@@ -2,7 +2,7 @@ use crate::*;
 
 #[test]
 fn merchant_upper_frame_bears_on_actual_masonry_lower_walls() {
-    for seed in [42, 47, 101] {
+    for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
             seed,
@@ -48,7 +48,7 @@ fn merchant_upper_frame_bears_on_actual_masonry_lower_walls() {
     }
     let cottage = generate(&BuildingProgram::fixture(
         BuildingArchetype::FachwerkCottage,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     assert!(

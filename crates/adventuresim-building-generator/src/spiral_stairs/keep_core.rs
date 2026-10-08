@@ -35,13 +35,18 @@ pub(crate) fn stair(program: &BuildingProgram) -> Option<Stair> {
     })
 }
 
-pub(crate) fn reserved_cells(program: &BuildingProgram, footprint: &[Cell]) -> Vec<Cell> {
+pub(crate) fn reserved_cells(
+    program: &BuildingProgram,
+    footprint: &[Cell],
+) -> Result<Vec<Cell>, crate::GenerationError> {
     let Some(stair) = stair(program) else {
-        return Vec::new();
+        return Ok(Vec::new());
     };
-    let flight =
-        compile_flight(stair, program.storey_height_metres).expect("authored keep flight is valid");
-    let (well_min, well_max) = well_bounds(stair).expect("keep circulation uses a spiral");
+    let missing_flight = || crate::GenerationError::MissingKeepFlight {
+        archetype: program.archetype,
+    };
+    let flight = compile_flight(stair, program.storey_height_metres).ok_or_else(missing_flight)?;
+    let (well_min, well_max) = well_bounds(stair).ok_or_else(missing_flight)?;
     // Reserve walking space around the shaft before walls and their doors exist.
     let mut min = well_min - Vec2::splat(STAIR_AISLE_WIDTH_METRES);
     let mut max = well_max + Vec2::splat(STAIR_AISLE_WIDTH_METRES);
@@ -53,7 +58,7 @@ pub(crate) fn reserved_cells(program: &BuildingProgram, footprint: &[Cell]) -> V
         min = min.min(landing.position_metres - Vec2::splat(LANDING_WALL_CLEARANCE_METRES));
         max = max.max(landing.position_metres + Vec2::splat(LANDING_WALL_CLEARANCE_METRES));
     }
-    footprint
+    Ok(footprint
         .iter()
         .copied()
         .filter(|cell| {
@@ -61,5 +66,5 @@ pub(crate) fn reserved_cells(program: &BuildingProgram, footprint: &[Cell]) -> V
             let half = Vec2::splat(CELL_SIZE_METRES * 0.5);
             (centre + half).cmpgt(min).all() && (centre - half).cmplt(max).all()
         })
-        .collect()
+        .collect())
 }

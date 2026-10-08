@@ -10,6 +10,8 @@ use crate::{
         CharacterContextRole, ContextualDecisionState, InteractionPresentationDecision,
     },
 };
+#[cfg(runtime_catalog)]
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeSet, sync::OnceLock};
 
@@ -1006,7 +1008,7 @@ pub fn encounter(id: &str) -> Option<&'static EncounterDefinition> {
 }
 
 #[cfg(runtime_catalog)]
-pub fn select_quest_eligible(seed: u64, draw: u64) -> Option<&'static EncounterDefinition> {
+pub fn select_quest_eligible(seed: Seed, draw: u64) -> Option<&'static EncounterDefinition> {
     let mut eligible: Vec<_> = definitions()
         .iter()
         .filter(|definition| {
@@ -1227,8 +1229,8 @@ mod tests {
 
     #[test]
     fn quest_selection_is_deterministic_weighted_and_eligible() {
-        let first = select_quest_eligible(42, 7).unwrap();
-        let second = select_quest_eligible(42, 7).unwrap();
+        let first = select_quest_eligible(fabelgeist_determinism::Seed::from_u64(42), 7).unwrap();
+        let second = select_quest_eligible(fabelgeist_determinism::Seed::from_u64(42), 7).unwrap();
         assert_eq!(first.id, second.id);
         assert!(!first.quest_reward_eligibility.is_empty());
     }

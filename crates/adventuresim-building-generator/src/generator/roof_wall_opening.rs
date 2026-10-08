@@ -41,11 +41,11 @@ impl RectangularRoofWindow {
     pub(super) fn build(
         self,
         geometry: &mut ResolvedGeometry,
-    ) -> (crate::WallAssembly, crate::OpeningAssembly) {
-        let nodes = self.nodes(geometry);
-        let solids = self.solids(&nodes, geometry);
-        let opening = self.opening(&nodes, &solids, geometry);
-        (self.wall(solids), opening)
+    ) -> Result<(crate::WallAssembly, crate::OpeningAssembly), crate::GenerationError> {
+        let nodes = self.nodes(geometry)?;
+        let solids = self.solids(&nodes, geometry)?;
+        let opening = self.opening(&nodes, &solids, geometry)?;
+        Ok((self.wall(solids), opening))
     }
     fn local_size(&self, width: f32, height: f32, depth: f32) -> Vec3 {
         if self.tangent.x.abs() > 0.5 {
@@ -54,7 +54,10 @@ impl RectangularRoofWindow {
             Vec3::new(depth, height, width)
         }
     }
-    fn nodes(&self, geometry: &mut ResolvedGeometry) -> WindowNodes {
+    fn nodes(
+        &self,
+        geometry: &mut ResolvedGeometry,
+    ) -> Result<WindowNodes, crate::GenerationError> {
         let Self {
             owner,
             origin,
@@ -75,49 +78,59 @@ impl RectangularRoofWindow {
             StructuralNodeId(wall_node.0 + 2),
         ];
         for (side, node) in [-1.0_f32, 1.0].into_iter().zip(jamb_nodes) {
-            geometry.structural_nodes.push(StructuralNode {
-                id: node,
-                owner,
-                kind: StructuralNodeKind::OpeningJamb,
-                position: Vec3::new(
-                    origin.x + tangent.x * side * (width + opening_width) * 0.25,
-                    base,
-                    origin.y + tangent.y * side * (width + opening_width) * 0.25,
-                ),
-                supported_by: vec![wall_node],
-                grounded: false,
-            });
+            geometry
+                .structural_nodes
+                .push(crate::StructuralNode::from_metres(
+                    node,
+                    owner,
+                    StructuralNodeKind::OpeningJamb,
+                    Vec3::new(
+                        origin.x + tangent.x * side * (width + opening_width) * 0.25,
+                        base,
+                        origin.y + tangent.y * side * (width + opening_width) * 0.25,
+                    ),
+                    vec![wall_node],
+                    false,
+                )?);
         }
         let head_node = StructuralNodeId(wall_node.0 + 3);
         let spandrel_node = StructuralNodeId(wall_node.0 + 4);
-        geometry.structural_nodes.push(StructuralNode {
-            id: head_node,
-            owner,
-            kind: StructuralNodeKind::OpeningHead,
-            position: Vec3::new(
-                origin.x,
-                base + sill_height + clear_height + head_height * 0.5,
-                origin.y,
-            ),
-            supported_by: jamb_nodes.to_vec(),
-            grounded: false,
-        });
-        geometry.structural_nodes.push(StructuralNode {
-            id: spandrel_node,
-            owner,
-            kind: StructuralNodeKind::OpeningSpandrel,
-            position: Vec3::new(origin.x, top, origin.y),
-            supported_by: vec![head_node],
-            grounded: false,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                head_node,
+                owner,
+                StructuralNodeKind::OpeningHead,
+                Vec3::new(
+                    origin.x,
+                    base + sill_height + clear_height + head_height * 0.5,
+                    origin.y,
+                ),
+                jamb_nodes.to_vec(),
+                false,
+            )?);
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                spandrel_node,
+                owner,
+                StructuralNodeKind::OpeningSpandrel,
+                Vec3::new(origin.x, top, origin.y),
+                vec![head_node],
+                false,
+            )?);
 
-        WindowNodes {
+        Ok(WindowNodes {
             jamb_nodes,
             head_node,
             spandrel_node,
-        }
+        })
     }
-    fn solids(&self, nodes: &WindowNodes, geometry: &mut ResolvedGeometry) -> WindowSolids {
+    fn solids(
+        &self,
+        nodes: &WindowNodes,
+        geometry: &mut ResolvedGeometry,
+    ) -> Result<WindowSolids, crate::GenerationError> {
         let Self {
             owner,
             origin,
@@ -158,7 +171,7 @@ impl RectangularRoofWindow {
                 SolidRole::OpeningJamb,
                 crate::ResolvedSolidShape::Cuboid,
                 node,
-            );
+            )?;
             host_solids.push(solid);
             jamb_solids[target] = solid;
         }
@@ -171,7 +184,7 @@ impl RectangularRoofWindow {
             SolidRole::OpeningSill,
             crate::ResolvedSolidShape::Cuboid,
             wall_node,
-        );
+        )?;
         host_solids.push(sill_solid);
         let head_solid = if let Some(member) = &head_member {
             member.solid
@@ -185,7 +198,7 @@ impl RectangularRoofWindow {
                 SolidRole::OpeningHead,
                 crate::ResolvedSolidShape::Cuboid,
                 head_node,
-            )
+            )?
         };
         if head_member.is_none() {
             host_solids.push(head_solid);
@@ -200,18 +213,21 @@ impl RectangularRoofWindow {
             SolidRole::OpeningSpandrel,
             crate::ResolvedSolidShape::Cuboid,
             spandrel_node,
-        );
+        )?;
         host_solids.push(spandrel_solid);
-        host_solids.extend(self.ornaments(geometry));
-        WindowSolids {
+        host_solids.extend(self.ornaments(geometry)?);
+        Ok(WindowSolids {
             host_solids,
             jamb_solids,
             sill_solid,
             head_solid,
             spandrel_solid,
-        }
+        })
     }
-    fn ornaments(&self, geometry: &mut ResolvedGeometry) -> Vec<ResolvedItemId> {
+    fn ornaments(
+        &self,
+        geometry: &mut ResolvedGeometry,
+    ) -> Result<Vec<ResolvedItemId>, crate::GenerationError> {
         let Self {
             owner,
             origin,
@@ -264,17 +280,17 @@ impl RectangularRoofWindow {
                 SolidRole::FrameMember,
                 crate::ResolvedSolidShape::Cuboid,
                 wall_node,
-            ));
+            )?);
         }
 
-        host_solids
+        Ok(host_solids)
     }
     fn opening(
         &self,
         nodes: &WindowNodes,
         solids: &WindowSolids,
         geometry: &mut ResolvedGeometry,
-    ) -> crate::OpeningAssembly {
+    ) -> Result<crate::OpeningAssembly, crate::GenerationError> {
         let Self {
             wall_id,
             opening_id,
@@ -303,11 +319,11 @@ impl RectangularRoofWindow {
             spandrel_solid,
             ..
         } = *solids;
-        let void_id = self.void(geometry);
-        let reveal_surfaces = self.reveals(geometry);
-        let closure_solids = self.closures(nodes, geometry);
-        let (bearing_ids, wall_above_interface) = self.bearings(nodes, geometry);
-        crate::OpeningAssembly {
+        let void_id = self.void(geometry)?;
+        let reveal_surfaces = self.reveals(geometry)?;
+        let closure_solids = self.closures(nodes, geometry)?;
+        let (bearing_ids, wall_above_interface) = self.bearings(nodes, geometry)?;
+        Ok(crate::OpeningAssembly {
             id: opening_id,
             owner,
             host_wall: wall_id,
@@ -352,7 +368,7 @@ impl RectangularRoofWindow {
                 .collect(),
             head_bearing_interfaces: bearing_ids,
             wall_above_interface,
-        }
+        })
     }
     fn wall(&self, solids: WindowSolids) -> crate::WallAssembly {
         let Self {

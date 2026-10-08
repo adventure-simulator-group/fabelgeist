@@ -34,10 +34,10 @@ impl<'a> ActivityWear<'a> {
         self.groups.iter().fold(Vec2::ZERO, |combined, group| {
             let footprint = group.footprint;
             let local = footprint
-                .orientation
-                .world_to_local(point - footprint.centre_metres)
+                .orientation()
+                .world_to_local(point - footprint.centre().metres())
                 .abs();
-            let inside = (footprint.half_extents_metres - local).min_element();
+            let inside = (footprint.half_extents().metres() - local).min_element();
             let feather = (inside / ACTIVITY_FEATHER_METRES).clamp(0.0, 1.0);
             let coverage = feather * feather * (3.0 - 2.0 * feather);
             let (wear, dampness) = match group.kind {
@@ -58,11 +58,18 @@ mod tests {
 
     #[test]
     fn accepted_rotated_activity_stays_inside_its_footprint() {
-        let footprint = FurnitureFootprint {
-            centre_metres: Vec2::new(7.0, -3.0),
-            half_extents_metres: Vec2::new(3.0, 2.0),
-            orientation: BuildingOrientation::from_radians(0.7).unwrap(),
-        };
+        let footprint = FurnitureFootprint::new(
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(Vec2::new(
+                7.0, -3.0,
+            ))
+            .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PlanExtents::from_metres(Vec2::new(
+                3.0, 2.0,
+            ))
+            .unwrap(),
+            BuildingOrientation::from_radians(0.7).unwrap(),
+        )
+        .unwrap();
         let groups = [FurnitureGroup {
             id: FurnitureGroupId(1),
             kind: FurnitureGroupKind::HorseStop,
@@ -73,7 +80,7 @@ mod tests {
             partition::bounds(group.footprint.corners())
         });
         let wear = ActivityWear::for_patch(footprint.corners(), &index);
-        assert!(wear.at(footprint.centre_metres).x > 0.8);
+        assert!(wear.at(footprint.centre().metres()).x > 0.8);
         for corner in footprint.corners() {
             assert!(wear.at(corner).length() < 0.001);
         }
