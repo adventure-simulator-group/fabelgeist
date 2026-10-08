@@ -220,9 +220,9 @@ impl CityGarden {
             if self
                 .beds
                 .iter()
-                .any(|bed| overlaps(&hull, &bed.corners(), GARDEN_LEAF_WIND_CLEARANCE_METRES))
+                .any(|bed| overlaps(hull, &bed.corners(), GARDEN_LEAF_WIND_CLEARANCE_METRES))
                 || routes.iter().any(|route| {
-                    overlaps(&hull, &route.corners(), GARDEN_LEAF_WIND_CLEARANCE_METRES)
+                    overlaps(hull, &route.corners(), GARDEN_LEAF_WIND_CLEARANCE_METRES)
                 })
             {
                 return Err(GardenIssue::PlantObstructsWorkingSpace);
@@ -233,7 +233,7 @@ impl CityGarden {
                 .any(|(other_index, other)| {
                     other.id == plant.id
                         || overlaps(
-                            &hull,
+                            hull,
                             &hulls[other_index],
                             GARDEN_LEAF_WIND_CLEARANCE_METRES * 2.0,
                         )
