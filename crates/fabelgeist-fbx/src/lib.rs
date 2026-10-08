@@ -19,9 +19,66 @@ use std::io::Read;
 use anyhow::{Context, Result, anyhow, bail};
 use flate2::read::ZlibDecoder;
 
-pub mod animation;
+use property_count::FbxPropertyCount;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
+
+pub mod animation;
+mod property_count;
+
+/// One node record of the FBX tree.
+#[derive(Debug, Clone)]
+pub struct Node {
+    pub name: String,
+    pub props: Vec<Prop>,
+    pub children: Vec<Node>,
+}
+
+struct Reader<'a> {
+    data: &'a [u8],
+    pos: usize,
+    version: u32,
+}
+
+/// An entry of the `Objects` block.
+#[derive(Debug)]
+pub struct Object {
+    pub id: i64,
+    /// Object name with the `\0\x01Class` suffix and any `namespace:` prefix removed.
+    pub name: String,
+    /// Object name with its namespace intact, e.g. `mixamorig:Hips`.
+    ///
+    /// Rig profiles are usually written against the namespaced name, so an
+    /// importer wants this one even though momentum matches on the stripped one.
+    pub qualified: String,
+    /// The sub-class token, e.g. `LimbNode`, `Mesh`, `Cluster`, `BlendShapeChannel`.
+    pub class: String,
+    /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
+    pub kind: String,
+    pub node: Node,
+}
+
+/// One entry of the connection list.
+#[derive(Debug, Clone)]
+pub struct Link {
+    /// The object being connected in.
+    pub from: i64,
+    /// The property it connects to, for object-property (`OP`) links.
+    ///
+    /// Animation is addressed entirely through these: a curve node connects to
+    /// a model's `Lcl Rotation`, and a curve connects to that node's `d|X`.
+    pub property: Option<String>,
+}
+
+/// The object table plus the connection graph of an FBX file.
+pub struct Scene {
+    pub objects: Vec<Object>,
+    /// The file's top-level records, kept for `GlobalSettings` and friends.
+    pub roots: Vec<Node>,
+    by_id: HashMap<i64, usize>,
+    /// Incoming links per object id, in file order (id 0 is the scene root).
+    links: HashMap<i64, Vec<Link>>,
+}
 
 /// A typed FBX property value.
 #[derive(Debug, Clone)]
@@ -93,14 +150,6 @@ impl Prop {
     }
 }
 
-/// One node record of the FBX tree.
-#[derive(Debug, Clone)]
-pub struct Node {
-    pub name: String,
-    pub props: Vec<Prop>,
-    pub children: Vec<Node>,
-}
-
 impl Node {
     pub fn child(&self, name: &str) -> Option<&Node> {
         self.children.iter().find(|c| c.name == name)
@@ -166,12 +215,6 @@ impl Node {
     }
 }
 
-struct Reader<'a> {
-    data: &'a [u8],
-    pos: usize,
-    version: u32,
-}
-
 impl<'a> Reader<'a> {
     fn take(&mut self, len: usize) -> Result<&'a [u8]> {
         let end = self
@@ -216,173 +259,6 @@ impl<'a> Reader<'a> {
     }
 }
 
-fn decode_array<T: Copy>(
-    raw: &[u8],
-    count: usize,
-    encoding: u32,
-    parse: impl Fn(&[u8]) -> T,
-    width: usize,
-) -> Result<Vec<T>> {
-    let bytes = if encoding == 0 {
-        raw.to_vec()
-    } else {
-        let mut out = Vec::with_capacity(count * width);
-        ZlibDecoder::new(raw)
-            .read_to_end(&mut out)
-            .context("inflating FBX array property")?;
-        out
-    };
-    if bytes.len() < count * width {
-        bail!(
-            "FBX array property is short: {} bytes for {count} x {width}",
-            bytes.len()
-        );
-    }
-    Ok((0..count)
-        .map(|i| parse(&bytes[i * width..(i + 1) * width]))
-        .collect())
-}
-
-fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
-    let mut props = Vec::with_capacity(count);
-    for _ in 0..count {
-        let kind = reader.u8()?;
-        let prop = match kind {
-            b'Y' => Prop::I16(i16::from_le_bytes(reader.take(2)?.try_into().unwrap())),
-            b'C' => Prop::Bool(reader.u8()? != 0),
-            b'I' => Prop::I32(i32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
-            b'F' => Prop::F32(f32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
-            b'D' => Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
-            b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
-            b'f' | b'd' | b'l' | b'i' | b'b' => {
-                let count = reader.u32()? as usize;
-                let encoding = reader.u32()?;
-                let compressed_len = reader.u32()? as usize;
-                let raw = reader.take(compressed_len)?;
-                match kind {
-                    b'f' => Prop::ArrF32(decode_array(
-                        raw,
-                        count,
-                        encoding,
-                        |b| f32::from_le_bytes(b.try_into().unwrap()),
-                        4,
-                    )?),
-                    b'd' => Prop::ArrF64(decode_array(
-                        raw,
-                        count,
-                        encoding,
-                        |b| f64::from_le_bytes(b.try_into().unwrap()),
-                        8,
-                    )?),
-                    b'i' => Prop::ArrI32(decode_array(
-                        raw,
-                        count,
-                        encoding,
-                        |b| i32::from_le_bytes(b.try_into().unwrap()),
-                        4,
-                    )?),
-                    b'l' => Prop::ArrI64(decode_array(
-                        raw,
-                        count,
-                        encoding,
-                        |b| i64::from_le_bytes(b.try_into().unwrap()),
-                        8,
-                    )?),
-                    _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
-                }
-            }
-            b'S' => {
-                let len = reader.u32()? as usize;
-                Prop::Str(reader.take(len)?.to_vec())
-            }
-            b'R' => {
-                let len = reader.u32()? as usize;
-                Prop::Raw(reader.take(len)?.to_vec())
-            }
-            other => bail!("unknown FBX property type {:?}", other as char),
-        };
-        props.push(prop);
-    }
-    Ok(props)
-}
-
-/// Reads one node record. Returns `None` for the null record that terminates a list.
-fn read_node(reader: &mut Reader<'_>) -> Result<Option<Node>> {
-    let end_offset = reader.header_word()? as usize;
-    let num_props = reader.header_word()? as usize;
-    let _prop_list_len = reader.header_word()?;
-    let name_len = reader.u8()? as usize;
-    let name = String::from_utf8_lossy(reader.take(name_len)?).into_owned();
-
-    if end_offset == 0 {
-        return Ok(None);
-    }
-
-    let props = read_props(reader, num_props)?;
-
-    let mut children = Vec::new();
-    let sentinel = reader.header_size();
-    while reader.pos + sentinel <= end_offset {
-        match read_node(reader)? {
-            Some(child) => children.push(child),
-            None => break,
-        }
-    }
-    reader.pos = end_offset;
-
-    Ok(Some(Node {
-        name,
-        props,
-        children,
-    }))
-}
-
-/// Parses the top-level node list of a binary FBX file.
-pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
-    const MAGIC: &[u8] = b"Kaydara FBX Binary  \x00";
-    if data.len() < 27 || &data[..MAGIC.len()] != MAGIC {
-        // ASCII FBX is a different format sharing the extension. Saying so is
-        // more use than "not a binary FBX file", because the fix is a re-export.
-        if data.starts_with(b"; FBX") || data.starts_with(b"\xef\xbb\xbf; FBX") {
-            bail!("this is an ASCII FBX file; re-export it as binary FBX");
-        }
-        bail!("not a binary FBX file");
-    }
-    let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
-    let mut reader = Reader {
-        data,
-        pos: 27,
-        version,
-    };
-
-    let mut roots = Vec::new();
-    while reader.pos + reader.header_size() <= data.len() {
-        match read_node(&mut reader)? {
-            Some(node) => roots.push(node),
-            None => break,
-        }
-    }
-    Ok(roots)
-}
-
-/// An entry of the `Objects` block.
-#[derive(Debug)]
-pub struct Object {
-    pub id: i64,
-    /// Object name with the `\0\x01Class` suffix and any `namespace:` prefix removed.
-    pub name: String,
-    /// Object name with its namespace intact, e.g. `mixamorig:Hips`.
-    ///
-    /// Rig profiles are usually written against the namespaced name, so an
-    /// importer wants this one even though momentum matches on the stripped one.
-    pub qualified: String,
-    /// The sub-class token, e.g. `LimbNode`, `Mesh`, `Cluster`, `BlendShapeChannel`.
-    pub class: String,
-    /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
-    pub kind: String,
-    pub node: Node,
-}
-
 impl Object {
     /// OpenFBX maps `Model::Root` onto a limb node, which is why `body_world`
     /// becomes joint 0 of the MHR skeleton rather than a plain null node.
@@ -397,50 +273,6 @@ impl Object {
     pub fn is_node(&self) -> bool {
         self.kind == "Model"
     }
-}
-
-/// One entry of the connection list.
-#[derive(Debug, Clone)]
-pub struct Link {
-    /// The object being connected in.
-    pub from: i64,
-    /// The property it connects to, for object-property (`OP`) links.
-    ///
-    /// Animation is addressed entirely through these: a curve node connects to
-    /// a model's `Lcl Rotation`, and a curve connects to that node's `d|X`.
-    pub property: Option<String>,
-}
-
-/// The object table plus the connection graph of an FBX file.
-pub struct Scene {
-    pub objects: Vec<Object>,
-    /// The file's top-level records, kept for `GlobalSettings` and friends.
-    pub roots: Vec<Node>,
-    by_id: HashMap<i64, usize>,
-    /// Incoming links per object id, in file order (id 0 is the scene root).
-    links: HashMap<i64, Vec<Link>>,
-}
-
-fn object_name(raw: &[u8]) -> String {
-    let name = match raw.windows(2).position(|w| w == [0, 1]) {
-        Some(pos) => &raw[..pos],
-        None => raw,
-    };
-    let name = String::from_utf8_lossy(name).into_owned();
-    // momentum strips namespaces before matching joints against the .model file.
-    match name.rfind(':') {
-        Some(pos) => name[pos + 1..].to_string(),
-        None => name,
-    }
-}
-
-/// The object name with any namespace left on, e.g. `mixamorig:Hips`.
-fn qualified_name(raw: &[u8]) -> String {
-    let name = match raw.windows(2).position(|w| w == [0, 1]) {
-        Some(pos) => &raw[..pos],
-        None => raw,
-    };
-    String::from_utf8_lossy(name).into_owned()
 }
 
 impl Scene {
@@ -554,3 +386,176 @@ impl Scene {
             .filter(move |o| o.kind == kind && o.class == class)
     }
 }
+
+/// Parses the top-level node list of a binary FBX file.
+pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
+    const MAGIC: &[u8] = b"Kaydara FBX Binary  \x00";
+    if data.len() < 27 || &data[..MAGIC.len()] != MAGIC {
+        // ASCII FBX is a different format sharing the extension. Saying so is
+        // more use than "not a binary FBX file", because the fix is a re-export.
+        if data.starts_with(b"; FBX") || data.starts_with(b"\xef\xbb\xbf; FBX") {
+            bail!("this is an ASCII FBX file; re-export it as binary FBX");
+        }
+        bail!("not a binary FBX file");
+    }
+    let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
+    let mut reader = Reader {
+        data,
+        pos: 27,
+        version,
+    };
+
+    let mut roots = Vec::new();
+    while reader.pos + reader.header_size() <= data.len() {
+        match read_node(&mut reader)? {
+            Some(node) => roots.push(node),
+            None => break,
+        }
+    }
+    Ok(roots)
+}
+
+fn decode_array<T: Copy>(
+    raw: &[u8],
+    count: usize,
+    encoding: u32,
+    parse: impl Fn(&[u8]) -> T,
+    width: usize,
+) -> Result<Vec<T>> {
+    let bytes = if encoding == 0 {
+        raw.to_vec()
+    } else {
+        let mut out = Vec::with_capacity(count * width);
+        ZlibDecoder::new(raw)
+            .read_to_end(&mut out)
+            .context("inflating FBX array property")?;
+        out
+    };
+    if bytes.len() < count * width {
+        bail!(
+            "FBX array property is short: {} bytes for {count} x {width}",
+            bytes.len()
+        );
+    }
+    Ok((0..count)
+        .map(|i| parse(&bytes[i * width..(i + 1) * width]))
+        .collect())
+}
+
+fn read_props(reader: &mut Reader<'_>, count: FbxPropertyCount) -> Result<Vec<Prop>> {
+    let mut props = Vec::with_capacity(count.native_len());
+    for _ in 0..count.native_len() {
+        let kind = reader.u8()?;
+        let prop = match kind {
+            b'Y' => Prop::I16(i16::from_le_bytes(reader.take(2)?.try_into().unwrap())),
+            b'C' => Prop::Bool(reader.u8()? != 0),
+            b'I' => Prop::I32(i32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
+            b'F' => Prop::F32(f32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
+            b'D' => Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
+            b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
+            b'f' | b'd' | b'l' | b'i' | b'b' => {
+                let count = reader.u32()? as usize;
+                let encoding = reader.u32()?;
+                let compressed_len = reader.u32()? as usize;
+                let raw = reader.take(compressed_len)?;
+                match kind {
+                    b'f' => Prop::ArrF32(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| f32::from_le_bytes(b.try_into().unwrap()),
+                        4,
+                    )?),
+                    b'd' => Prop::ArrF64(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| f64::from_le_bytes(b.try_into().unwrap()),
+                        8,
+                    )?),
+                    b'i' => Prop::ArrI32(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| i32::from_le_bytes(b.try_into().unwrap()),
+                        4,
+                    )?),
+                    b'l' => Prop::ArrI64(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| i64::from_le_bytes(b.try_into().unwrap()),
+                        8,
+                    )?),
+                    _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
+                }
+            }
+            b'S' => {
+                let len = reader.u32()? as usize;
+                Prop::Str(reader.take(len)?.to_vec())
+            }
+            b'R' => {
+                let len = reader.u32()? as usize;
+                Prop::Raw(reader.take(len)?.to_vec())
+            }
+            other => bail!("unknown FBX property type {:?}", other as char),
+        };
+        props.push(prop);
+    }
+    Ok(props)
+}
+
+/// Reads one node record. Returns `None` for the null record that terminates a list.
+fn read_node(reader: &mut Reader<'_>) -> Result<Option<Node>> {
+    let end_offset = reader.header_word()? as usize;
+    let num_props = FbxPropertyCount::from(reader.header_word()?);
+    let _prop_list_len = reader.header_word()?;
+    let name_len = reader.u8()? as usize;
+    let name = String::from_utf8_lossy(reader.take(name_len)?).into_owned();
+
+    if end_offset == 0 {
+        return Ok(None);
+    }
+
+    let props = read_props(reader, num_props)?;
+
+    let mut children = Vec::new();
+    let sentinel = reader.header_size();
+    while reader.pos + sentinel <= end_offset {
+        match read_node(reader)? {
+            Some(child) => children.push(child),
+            None => break,
+        }
+    }
+    reader.pos = end_offset;
+
+    Ok(Some(Node {
+        name,
+        props,
+        children,
+    }))
+}
+
+fn object_name(raw: &[u8]) -> String {
+    let name = match raw.windows(2).position(|w| w == [0, 1]) {
+        Some(pos) => &raw[..pos],
+        None => raw,
+    };
+    let name = String::from_utf8_lossy(name).into_owned();
+    // momentum strips namespaces before matching joints against the .model file.
+    match name.rfind(':') {
+        Some(pos) => name[pos + 1..].to_string(),
+        None => name,
+    }
+}
+
+/// The object name with any namespace left on, e.g. `mixamorig:Hips`.
+fn qualified_name(raw: &[u8]) -> String {
+    let name = match raw.windows(2).position(|w| w == [0, 1]) {
+        Some(pos) => &raw[..pos],
+        None => raw,
+    };
+    String::from_utf8_lossy(name).into_owned()
+}
+#[cfg(test)]
+mod property_count_tests;
