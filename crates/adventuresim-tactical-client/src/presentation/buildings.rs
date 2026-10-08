@@ -231,7 +231,7 @@ fn cached_building_levels(
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Facade {
         let prepared = super::generation::take_facade(program)?;
-        return Ok(kit::install_facade(cache, prepared, meshes));
+        return kit::install_facade(cache, prepared, meshes);
     }
 
     let generated;

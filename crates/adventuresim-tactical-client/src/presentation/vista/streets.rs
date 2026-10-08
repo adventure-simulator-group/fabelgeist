@@ -62,8 +62,13 @@ impl CityGroundAssets<'_> {
         };
         #[cfg(target_family = "wasm")]
         let prepared =
-            crate::presentation::generation::landscape::ground(&environment.scene_digest)
-                .unwrap_or_else(build_ground);
+            match crate::presentation::generation::landscape::ground(&environment.scene_digest) {
+                Ok(prepared) => prepared.unwrap_or_else(build_ground),
+                Err(error) => {
+                    warn!(%error, "Could not access prepared city ground");
+                    return;
+                }
+            };
         #[cfg(not(target_family = "wasm"))]
         let prepared = build_ground();
         let network = self

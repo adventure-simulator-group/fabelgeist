@@ -23,10 +23,11 @@ impl GroundProduct {
         input: &TacticalSceneInput,
         graphics: String,
         dependencies: GroundDependencies,
-    ) -> Result<Self, String> {
-        let config = crate::presentation::config::TacticalGraphicsConfig::parse(&graphics)?;
+    ) -> PreparationResult<Self> {
+        let config = crate::presentation::config::TacticalGraphicsConfig::parse(&graphics)
+            .map_err(|message| PreparationError::GraphicsConfiguration { message })?;
         Ok(Self {
-            digest: input.digest().map_err(|e| e.to_string())?,
+            digest: input.digest()?,
             ground: Arc::new(PreparedCityGround::from_scene(
                 input,
                 &dependencies.terrain,
@@ -38,11 +39,12 @@ impl GroundProduct {
     }
 }
 
-pub(super) fn jobs(input_json: &str, graphics: &str) -> Result<Vec<String>, String> {
-    crate::presentation::config::TacticalGraphicsConfig::parse(graphics)?;
-    let input: TacticalSceneInput = serde_json::from_str(input_json).map_err(|e| e.to_string())?;
-    let digest = input.digest().map_err(|e| e.to_string())?;
-    let mut products = products();
+pub(super) fn jobs(input_json: &str, graphics: &str) -> PreparationResult<Vec<String>> {
+    crate::presentation::config::TacticalGraphicsConfig::parse(graphics)
+        .map_err(|message| PreparationError::GraphicsConfiguration { message })?;
+    let input: TacticalSceneInput = serde_json::from_str(input_json)?;
+    let digest = input.digest()?;
+    let mut products = products()?;
     products.active_ground = Some((digest.clone(), graphics.to_owned()));
     let mut jobs = Vec::new();
     if let Some(index) = products
@@ -72,29 +74,35 @@ pub(super) fn jobs(input_json: &str, graphics: &str) -> Result<Vec<String>, Stri
         });
     }
     jobs.into_iter()
-        .map(|job| serde_json::to_string(&job).map_err(|e| e.to_string()))
+        .map(|job| serde_json::to_string(&job).map_err(PreparationError::from))
         .collect()
 }
 
-pub(super) fn retain(ground: GroundProduct) {
-    let mut products = products();
+pub(super) fn retain(ground: GroundProduct) -> PreparationResult<()> {
+    let mut products = products()?;
     products.ground.push(ground);
     if products.ground.len() > RETAINED_SCENE_PRODUCTS {
         products.ground.remove(0);
     }
+    Ok(())
 }
 
-pub(in crate::presentation) fn ground(digest: &str) -> Option<Arc<PreparedCityGround>> {
-    let products = products();
-    let (_, graphics) = products
+pub(in crate::presentation) fn ground(
+    digest: &str,
+) -> PreparationResult<Option<Arc<PreparedCityGround>>> {
+    let products = products()?;
+    let Some((_, graphics)) = products
         .active_ground
         .as_ref()
-        .filter(|(active, _)| active == digest)?;
-    products
+        .filter(|(active, _)| active == digest)
+    else {
+        return Ok(None);
+    };
+    Ok(products
         .ground
         .iter()
         .find(|p| p.digest == digest && p.graphics == *graphics)
-        .map(|p| p.ground.clone())
+        .map(|p| p.ground.clone()))
 }
 
 #[derive(Serialize, Deserialize)]
@@ -115,10 +123,11 @@ impl GrassProduct {
         input: &TacticalSceneInput,
         graphics: String,
         dependencies: GrassDependencies,
-    ) -> Result<Self, String> {
-        let config = crate::presentation::config::TacticalGraphicsConfig::parse(&graphics)?;
+    ) -> PreparationResult<Self> {
+        let config = crate::presentation::config::TacticalGraphicsConfig::parse(&graphics)
+            .map_err(|message| PreparationError::GraphicsConfiguration { message })?;
         Ok(Self {
-            digest: input.digest().map_err(|e| e.to_string())?,
+            digest: input.digest()?,
             grass: Arc::new(PreparedGrass::new(
                 input,
                 &dependencies.terrain,
@@ -130,15 +139,20 @@ impl GrassProduct {
     }
 }
 
-pub(in crate::presentation) fn grass(digest: &str) -> Option<Arc<PreparedGrass>> {
-    let products = products();
-    let (_, graphics) = products
+pub(in crate::presentation) fn grass(
+    digest: &str,
+) -> PreparationResult<Option<Arc<PreparedGrass>>> {
+    let products = products()?;
+    let Some((_, graphics)) = products
         .active_ground
         .as_ref()
-        .filter(|(active, _)| active == digest)?;
-    products
+        .filter(|(active, _)| active == digest)
+    else {
+        return Ok(None);
+    };
+    Ok(products
         .grass
         .iter()
         .find(|p| p.digest == digest && p.graphics == *graphics)
-        .map(|p| p.grass.clone())
+        .map(|p| p.grass.clone()))
 }
