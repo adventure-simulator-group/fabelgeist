@@ -279,8 +279,11 @@ pub fn live_merchant_shop_page(
                         @let service_matches = definition.is_some_and(|definition| if matches!(shop, Storefront::Armor) { definition.kind == crate::spacetimedb::CatalogItemKind::Armor } else if matches!(shop, Storefront::Clothing) { definition.kind == crate::spacetimedb::CatalogItemKind::Clothing } else { matches!(definition.kind, crate::spacetimedb::CatalogItemKind::Weapon | crate::spacetimedb::CatalogItemKind::Shield) });
                         @let can_sell = !is_currency && !is_equipped;
                         td class="inventory-item-type" { (item_type_icon(&item.item_id)) }
-                        td class="inventory-item-name" { (item_name_with_food_lot(&item.item_id, &food_display_name, definition, food_lot)) @if !matches!(shop, Storefront::Herbalist | Storefront::Weapons) && (can_sell || service_matches) { (merchant_sell_repair_controls(item.id, &item.item_id, sell_price, item.quantity, target, can_sell, service_matches.then(|| repair_submit_control(settlement, service_id, item.id, condition, repair_skill)))) } }
+                        td class="inventory-item-name" { (item_name_with_food_lot(&item.item_id, &food_display_name, definition, food_lot)) @if !matches!(shop, Storefront::Herbalist | Storefront::Weapons) && (can_sell || service_matches) { (merchant_sell_action_controls(item.id, &item.item_id, sell_price, item.quantity, target, can_sell)) } }
                         td class="inventory-count" { @if matches!(shop, Storefront::Weapons) { (format!("{:.3} kg", measured_fraction.map_or(0.0, adventuresim_core::inventory_measurement::ConsumableFractionMicros::as_unit_f32) * definition.map_or(0.0, |definition| definition.weight))) } @else { (quantity_target_control(item.quantity, target, &item.item_id, false)) } } td class="inventory-equipped" { (equipment_control(item, definition, is_equipped, true, equip)) } td class="inventory-durability" { @if durable_item { (condition_bar(condition, service_matches.then_some(repair_skill))) } @else { "—" } } td class="inventory-weight" { (merchant_inventory_weight(definition, food_lot)) } td class="inventory-gold" { (sell_price) }
+                        @if matches!(shop, Storefront::Armor | Storefront::Clothing) {
+                            td class="inventory-repair-cell" { @if service_matches { (repair_submit_control(settlement, service_id, item.id, condition, repair_skill)) } }
+                        }
                     }}
                     @for target in personal_targets.iter().filter(|target| target.quantity > 0 && !inventory.iter().any(|item| item.item_id == target.item_id) && items.iter().find(|definition| definition.id == target.item_id).is_some_and(|definition| shop.shows_inventory(definition))) {
                         @let definition = items.iter().find(|definition| definition.id == target.item_id);
@@ -296,6 +299,7 @@ pub fn live_merchant_shop_page(
                             td class="inventory-durability" { "—" }
                             td class="inventory-weight" { (item_weight(definition)) }
                             td class="inventory-gold" { (item_value(definition)) }
+                            @if matches!(shop, Storefront::Armor | Storefront::Clothing) { td class="inventory-repair-cell" {} }
                         }
                     }
                 }))

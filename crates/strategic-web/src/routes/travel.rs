@@ -18,11 +18,50 @@ use serde::Deserialize;
 use crate::spacetimedb::{
     BackendContract, CharacterAttributes, CharacterLimbs, CharacterStats, CharacterTime,
     CharacterTrainingSchedule, DestinationKnowledgeStage, PartyView, ScheduleAllocation,
-    SettlementView, TravelEdgeView,
+    SettlementView, SpacetimeClient,
 };
 
 const TERRAIN_PLAN_TIMEOUT: Duration = Duration::from_secs(10);
 const TERRAIN_PLAN_CACHE_ENTRIES: usize = 128;
+static TRAVEL_EDGE_CACHE: tokio::sync::OnceCell<Arc<Vec<TravelEdgeTopology>>> =
+    tokio::sync::OnceCell::const_new();
+
+#[derive(Clone, Copy)]
+pub(crate) struct TravelEdgeTopology {
+    from_node_id: u64,
+    to_node_id: u64,
+    length_m: u32,
+}
+
+pub(crate) async fn cached_travel_edges(
+    db: &SpacetimeClient,
+) -> Option<Arc<Vec<TravelEdgeTopology>>> {
+    match TRAVEL_EDGE_CACHE
+        .get_or_try_init(|| async {
+            db.query_sats::<adventuresim_stdb_client::TravelEdge>("SELECT * FROM travel_edge")
+                .await
+                .map(|edges| {
+                    Arc::new(
+                        edges
+                            .into_iter()
+                            .map(|edge| TravelEdgeTopology {
+                                from_node_id: edge.from_node_id,
+                                to_node_id: edge.to_node_id,
+                                length_m: edge.length_m,
+                            })
+                            .collect(),
+                    )
+                })
+        })
+        .await
+    {
+        Ok(edges) => Some(Arc::clone(edges)),
+        Err(error) => {
+            tracing::warn!(%error, "failed to load travel edge cache");
+            None
+        }
+    }
+}
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 struct TerrainPlanKey {
@@ -490,7 +529,7 @@ pub(crate) fn populate_itinerary_forecasts(
 pub(crate) fn connected_destinations(
     origin: &SettlementView,
     settlements: &[SettlementView],
-    edges: &[TravelEdgeView],
+    edges: &[TravelEdgeTopology],
 ) -> Vec<TravelDestination> {
     let Some(origin_node) = origin.source_node_id else {
         return settlements

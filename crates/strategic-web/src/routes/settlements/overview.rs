@@ -17,23 +17,28 @@ pub(super) async fn settlement_map(
     let Some(settlement) = settlements.iter().find(|settlement| settlement.id == id) else {
         return Html("<h1>Settlement not found</h1>".to_string());
     };
-    super::entry::activate_settlement(&state, &id).await;
-    let edges: Vec<TravelEdgeView> = state
-        .db
-        .query_sats_into::<adventuresim_stdb_client::TravelEdge, TravelEdgeView>(
-            "SELECT * FROM travel_edge",
-        )
-        .await
-        .unwrap_or_default();
+    super::entry::activate_settlement(&state, &id);
     let map_data_initialized = crate::strategic_map::has_geographic_source(settlement);
+    let edges = if map_data_initialized {
+        cached_travel_edges(&state.db).await
+    } else {
+        None
+    };
     let mut destinations = if map_data_initialized {
-        connected_destinations(settlement, &settlements, &edges)
+        connected_destinations(
+            settlement,
+            &settlements,
+            edges.as_deref().map_or(&[], Vec::as_slice),
+        )
     } else {
         Vec::new()
     };
     let quests: Vec<BackendContract> = state
         .db
-        .query_sats("SELECT * FROM backend_contracts")
+        .query_sats(&format!(
+            "SELECT * FROM backend_contracts WHERE settlement_id = {}",
+            sql_string_literal(&id)
+        ))
         .await
         .unwrap_or_default();
     let active_character = get_active_character(&state, session.character_id_u64()).await;

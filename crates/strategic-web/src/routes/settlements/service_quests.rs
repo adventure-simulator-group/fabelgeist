@@ -360,14 +360,16 @@ pub(super) async fn service_quest_offers(
         ))
         .await
         .unwrap_or_default();
-    let edges: Vec<TravelEdgeView> = state
-        .db
-        .query_sats_into::<adventuresim_stdb_client::TravelEdge, TravelEdgeView>(
-            "SELECT * FROM travel_edge",
-        )
-        .await
-        .unwrap_or_default();
-    let neighboring_name = connected_destinations(settlement, &settlements, &edges)
+    let edges = if crate::strategic_map::has_geographic_source(settlement) {
+        cached_travel_edges(&state.db).await
+    } else {
+        None
+    };
+    let neighboring_name = connected_destinations(
+        settlement,
+        &settlements,
+        edges.as_deref().map_or(&[], Vec::as_slice),
+    )
         .first()
         .map(|destination| destination.name.clone())
         .unwrap_or_else(|| "the next settlement".to_string());

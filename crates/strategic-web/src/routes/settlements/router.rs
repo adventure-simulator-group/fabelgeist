@@ -179,7 +179,7 @@ mod building_query_tests {
     #[test]
     fn settlement_entry_activates_activity_without_a_local_server_bypass() {
         for source in [include_str!("medical.rs"), include_str!("overview.rs")] {
-            assert!(source.contains("entry::activate_settlement(&state, &id).await"));
+            assert!(source.contains("entry::activate_settlement(&state, &id);"));
         }
         let activation = include_str!("entry.rs");
         assert!(activation.contains("ensure_settlement_activity"));
@@ -221,7 +221,8 @@ use super::inventory_forms::{
 use super::redirect_to_local;
 use super::travel::{
     CaseSiteKnowledgePresentation, ItineraryForecastSources, TravelDestination, TravelForm,
-    TravelProvisionForecast, active_contract_tooltip, connected_destinations,
+    TravelProvisionForecast, active_contract_tooltip, cached_travel_edges,
+    connected_destinations,
     populate_itinerary_forecasts,
 };
 use super::{
@@ -249,7 +250,7 @@ use crate::spacetimedb::{
     RecruitmentRoleView, ReligionHoursExt, ReligiousDemand, RepairOrder, RetainedProjectile,
     RoleRequirements, ScheduleAllocation, SettlementAlias, SettlementDescription,
     SettlementSmith, SettlementView, SocialAddress, SocialBelief,
-    SocialChatOutcome, StrategicEncounter, StrategicEncounterStatus, TravelEdgeView,
+    SocialChatOutcome, StrategicEncounter, StrategicEncounterStatus,
 };
 use crate::spacetimedb::{party_by_id, settlement_by_id, sql_string_literal};
 use crate::templates::settlement::{
