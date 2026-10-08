@@ -163,7 +163,7 @@ pub struct SettlementBuildingDemand {
 }
 
 impl SettlementBuildingDemand {
-    pub fn new(seed: u64, population: u32, economy: &SettlementEconomyProfile) -> Self {
+    pub fn new(seed: Seed, population: u32, economy: &SettlementEconomyProfile) -> Self {
         Self::with_parish_policy(
             seed,
             population,
@@ -173,7 +173,7 @@ impl SettlementBuildingDemand {
     }
 
     pub fn with_parish_policy(
-        seed: u64,
+        seed: Seed,
         population: u32,
         economy: &SettlementEconomyProfile,
         policy: AuthoredParishPolicy,

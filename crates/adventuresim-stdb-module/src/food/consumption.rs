@@ -76,7 +76,7 @@ pub(crate) fn expose_food_water_dysentery(
         prior,
         protected_dose,
     ) {
-        let episode_id = seed.max(1);
+        let episode_id = seed.max(fabelgeist_determinism::Seed::from_u64(1));
         let place = crate::foraging::current_strategic_place(ctx, character_id)?;
         crate::world_event::commit_food_water_infection(
             ctx,
@@ -91,7 +91,7 @@ pub(crate) fn expose_food_water_dysentery(
             prior,
             consumed_fraction_bps,
             "dysentery",
-            episode_id,
+            episode_id.to_u64(),
             minute,
         )?;
     }

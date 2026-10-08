@@ -3,6 +3,7 @@ use adventuresim_core::{
     quest_generation::{CausalBridge, FactorTrace, RouteClass, TemplateFamily},
 };
 use adventuresim_world_schema::calendar::StrategicMinute;
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 use std::{fmt, str::FromStr};
 
@@ -387,7 +388,7 @@ pub struct DeveloperCaseAnalysis {
     pub family: TemplateFamily,
     pub canonical_case_id: String,
     pub canonical_cause: String,
-    pub generation_seed: u64,
+    pub generation_seed: Seed,
     pub catalog_revision: String,
     pub true_site: String,
     pub factor_trace: Vec<FactorTrace>,

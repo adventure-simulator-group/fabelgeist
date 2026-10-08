@@ -1,3 +1,4 @@
+use super::{TerrainRecipeError, TerrainRecipeResult};
 use adventuresim_world_schema::{
     IgneousRock, MetamorphicRock, MixedLithology, SedimentaryRock, SurfaceLithology,
     UnconsolidatedDeposit,
@@ -69,27 +70,59 @@ pub struct TerrainSurfaceParameters {
 
 /// Required geological surface truth for every implicit terrain patch.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[serde(try_from = "SurfaceWire")]
 pub struct TerrainSurfaceRecipe {
-    pub lithology: SurfaceLithology,
-    pub source: TerrainSurfaceSource,
-    pub structure: TerrainGeologicStructure,
+    lithology: SurfaceLithology,
+    source: TerrainSurfaceSource,
+    structure: TerrainGeologicStructure,
 }
 
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct SurfaceWire {
+    lithology: SurfaceLithology,
+    source: TerrainSurfaceSource,
+    structure: TerrainGeologicStructure,
+}
+impl TryFrom<SurfaceWire> for TerrainSurfaceRecipe {
+    type Error = TerrainRecipeError;
+    fn try_from(wire: SurfaceWire) -> TerrainRecipeResult<Self> {
+        Self::from_structure(wire.lithology, wire.source, wire.structure)
+    }
+}
 impl TerrainSurfaceRecipe {
-    pub fn new(
+    pub fn from_structure(
         lithology: SurfaceLithology,
         source: TerrainSurfaceSource,
-        seed: u64,
-        tangent_permyriad: [i16; 2],
-    ) -> Self {
-        let preset = TerrainSurfacePreset::from_lithology(lithology);
-        let structure = inferred_structure(preset, seed, tangent_permyriad);
-        Self {
+        structure: TerrainGeologicStructure,
+    ) -> TerrainRecipeResult<Self> {
+        let surface = Self {
             lithology,
             source,
             structure,
-        }
+        };
+        surface.validate()?;
+        Ok(surface)
+    }
+    pub const fn lithology(self) -> SurfaceLithology {
+        self.lithology
+    }
+    pub const fn source(self) -> TerrainSurfaceSource {
+        self.source
+    }
+    pub const fn structure(self) -> TerrainGeologicStructure {
+        self.structure
+    }
+
+    pub fn new(
+        lithology: SurfaceLithology,
+        source: TerrainSurfaceSource,
+        seed: fabelgeist_determinism::Seed,
+        tangent_permyriad: [i16; 2],
+    ) -> TerrainRecipeResult<Self> {
+        let preset = TerrainSurfacePreset::from_lithology(lithology);
+        let structure = inferred_structure(preset, seed, tangent_permyriad);
+        Self::from_structure(lithology, source, structure)
     }
 
     pub const fn preset(self) -> TerrainSurfacePreset {
@@ -100,14 +133,14 @@ impl TerrainSurfaceRecipe {
         self.preset().parameters()
     }
 
-    pub fn validate(self) -> Result<(), &'static str> {
+    pub fn validate(self) -> TerrainRecipeResult<()> {
         let parameters = self.parameters();
         if !(0.18..=4.0).contains(&parameters.grain_tile_metres)
             || !(0.004..=0.055).contains(&parameters.microrelief_metres)
             || !(0.55..=1.0).contains(&parameters.roughness[0])
             || !(parameters.roughness[0]..=1.0).contains(&parameters.roughness[1])
         {
-            return Err("terrain surface parameters are outside physical bounds");
+            return Err(TerrainRecipeError::SurfaceParameters);
         }
         match self.structure {
             TerrainGeologicStructure::Massive => {}
@@ -124,7 +157,7 @@ impl TerrainSurfaceRecipe {
                     || !(2..=120).contains(&warp_cm)
                     || cross_bedding_bps > 5_000
                 {
-                    return Err("bedded terrain structure is outside bounds");
+                    return Err(TerrainRecipeError::Bedding);
                 }
             }
             TerrainGeologicStructure::Foliated {
@@ -134,7 +167,7 @@ impl TerrainSurfaceRecipe {
             } => {
                 validate_normal(normal_permyriad)?;
                 if !(8..=350).contains(&band_spacing_cm) || !(2..=90).contains(&warp_cm) {
-                    return Err("foliated terrain structure is outside bounds");
+                    return Err(TerrainRecipeError::Foliation);
                 }
             }
         }
@@ -142,14 +175,14 @@ impl TerrainSurfaceRecipe {
     }
 }
 
-fn validate_normal(normal: [i16; 3]) -> Result<(), &'static str> {
+fn validate_normal(normal: [i16; 3]) -> TerrainRecipeResult<()> {
     let squared = normal
         .into_iter()
         .map(|component| i64::from(component).pow(2))
         .sum::<i64>();
     ((98_000_000..=102_000_000).contains(&squared))
         .then_some(())
-        .ok_or("terrain geological structure normal is not normalized")
+        .ok_or(TerrainRecipeError::StructureNormal)
 }
 
 impl TerrainSurfacePreset {
@@ -265,7 +298,7 @@ const fn parameters(
 
 fn inferred_structure(
     preset: TerrainSurfacePreset,
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     tangent_permyriad: [i16; 2],
 ) -> TerrainGeologicStructure {
     // EGDI supplies unit lithology, not a local measured column, dip, or
@@ -385,15 +418,17 @@ mod tests {
             let first = TerrainSurfaceRecipe::new(
                 lithology,
                 TerrainSurfaceSource::AuthoredFixture,
-                42,
+                42.into(),
                 [10_000, 0],
-            );
+            )
+            .unwrap();
             let second = TerrainSurfaceRecipe::new(
                 lithology,
                 TerrainSurfaceSource::AuthoredFixture,
-                42,
+                42.into(),
                 [10_000, 0],
-            );
+            )
+            .unwrap();
             assert_eq!(first, second, "{lithology:?}");
             first.validate().unwrap();
             let parameters = first.parameters();
@@ -418,9 +453,10 @@ mod tests {
                 TerrainSurfaceRecipe::new(
                     lithology,
                     TerrainSurfaceSource::AuthoredFixture,
-                    7,
+                    7.into(),
                     [10_000, 0]
                 )
+                .unwrap()
                 .structure,
                 TerrainGeologicStructure::Massive
             );
@@ -429,9 +465,10 @@ mod tests {
             TerrainSurfaceRecipe::new(
                 SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
                 TerrainSurfaceSource::AuthoredFixture,
-                7,
+                7.into(),
                 [10_000, 0]
             )
+            .unwrap()
             .structure,
             TerrainGeologicStructure::Bedded {
                 cross_bedding_bps: 1..,
@@ -442,9 +479,10 @@ mod tests {
             TerrainSurfaceRecipe::new(
                 SurfaceLithology::Metamorphic(MetamorphicRock::Schist),
                 TerrainSurfaceSource::AuthoredFixture,
-                7,
+                7.into(),
                 [10_000, 0]
             )
+            .unwrap()
             .structure,
             TerrainGeologicStructure::Foliated { .. }
         ));

@@ -2,7 +2,7 @@
 use bevy::math::{Vec2, Vec3};
 use geo::{Area, BooleanOps, Coord, LineString, MultiPolygon, Polygon};
 
-use super::{enclosure::GABLE_GAP, issue};
+use super::{Result, enclosure::GABLE_GAP, issue};
 use crate::{
     AuditIssue, BuildingPlan, ROOF_ENCLOSURE_THICKNESS_METRES, RidgeAxis, RoofAssembly, RoofKind,
     RoofPiece, WallSourceId,
@@ -131,7 +131,7 @@ impl GableSection {
         polygon(&points)
     }
 
-    fn coverage(&self, plan: &BuildingPlan, roof: &RoofAssembly) -> MultiPolygon<f32> {
+    fn coverage(&self, plan: &BuildingPlan, roof: &RoofAssembly) -> Result<MultiPolygon<f32>> {
         let mut union = MultiPolygon(Vec::new());
         for face in &roof.enclosure_faces {
             if face.polygon.len() < 3 {
@@ -168,11 +168,11 @@ impl GableSection {
                     }
                     && face.inset_walls.contains(&wall.id)
             }) {
-                for solid in super::gable_openings::material(plan, wall)
-                    .into_iter()
-                    .filter(|solid| super::gable_openings::material_depth_matches(wall, solid))
-                {
-                    for mesh in crate::compile_solid_detail(plan, solid).meshes {
+                for solid in super::gable_openings::material(plan, wall) {
+                    if !super::gable_openings::material_depth_matches(wall, solid)? {
+                        continue;
+                    }
+                    for mesh in crate::compile_solid_detail(plan, solid)?.meshes {
                         for indices in mesh.indices.as_chunks::<3>().0 {
                             let vertices = indices.map(|i| mesh.vertices[i as usize]);
                             if vertices[0].normal.dot(n) > PARALLEL_ALIGNMENT {
@@ -188,7 +188,7 @@ impl GableSection {
                     .iter()
                     .filter(|opening| opening.host_wall == wall.id)
                 {
-                    if !super::gable_openings::valid(plan, wall, opening) {
+                    if !super::gable_openings::valid(plan, wall, opening)? {
                         continue;
                     }
                     let half =
@@ -206,21 +206,21 @@ impl GableSection {
                 }
             }
         }
-        union
+        Ok(union)
     }
 }
 
-pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) -> Result<()> {
     for wall in plan
         .wall_assemblies
         .iter()
         .filter(|w| matches!(w.source, WallSourceId::RoofGable { .. }))
     {
-        if !plan
-            .opening_assemblies
-            .iter()
-            .any(|o| o.host_wall == wall.id && super::gable_openings::valid(plan, wall, o))
-        {
+        if !crate::geometry_index::try_any(plan.opening_assemblies.iter(), |o| {
+            Result::<bool>::Ok(
+                o.host_wall == wall.id && super::gable_openings::valid(plan, wall, o)?,
+            )
+        })? {
             issues.push(issue(
                 GABLE_GAP,
                 format!(
@@ -230,7 +230,7 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             ));
         }
     }
-    for roof in plan
+    let _: () = for roof in plan
         .roof_assemblies
         .iter()
         .filter(|roof| roof.kind == RoofKind::Gable && roof.parent.is_none())
@@ -244,7 +244,7 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         for sign in [-1.0, 1.0] {
             let section = GableSection::new(plan, recipe, sign);
             let expected = section.expected(roof, recipe.base_height_metres);
-            let missing = MultiPolygon(vec![expected]).difference(&section.coverage(plan, roof));
+            let missing = MultiPolygon(vec![expected]).difference(&section.coverage(plan, roof)?);
             let area = missing.unsigned_area();
             if area > AREA_TOLERANCE_SQUARE_METRES {
                 let witness = missing.0[0].exterior().0[0];
@@ -253,5 +253,6 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 issues.push(issue(GABLE_GAP, format!("roof {} gable toward {:?} leaves {area:.6} square metres open near {point:?}", roof.id.0, section.outward)));
             }
         }
-    }
+    };
+    Ok(())
 }

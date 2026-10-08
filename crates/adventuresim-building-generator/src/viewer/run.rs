@@ -1,8 +1,9 @@
+
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn run(
     archetype: BuildingArchetype,
     view: ViewerView,
-    seed: u64,
+    seed: Seed,
     output: Option<PathBuf>,
     settle_frames: u32,
     projected_kind: ProjectedProofKind,
@@ -12,14 +13,14 @@ pub(crate) fn run(
     player_build_document_path: Option<PathBuf>,
 ) {
     let seed = if view == ViewerView::ArtilleryBridgeDenied {
-        702
+        Seed::from_u64(702)
     } else if projected_view(view) {
         match (projected_kind, view) {
-            (ProjectedProofKind::Breteche, _) => 201,
-            (ProjectedProofKind::Hoarding, ViewerView::ProjectedSockets) => 42,
-            (ProjectedProofKind::Hoarding, _) => 202,
-            (ProjectedProofKind::Bartizan, _) => 203,
-            (ProjectedProofKind::Machicolation, _) => 42,
+            (ProjectedProofKind::Breteche, _) => Seed::from_u64(201),
+            (ProjectedProofKind::Hoarding, ViewerView::ProjectedSockets) => Seed::from_u64(42),
+            (ProjectedProofKind::Hoarding, _) => Seed::from_u64(202),
+            (ProjectedProofKind::Bartizan, _) => Seed::from_u64(203),
+            (ProjectedProofKind::Machicolation, _) => Seed::from_u64(42),
         }
     } else {
         seed
@@ -302,7 +303,8 @@ pub(crate) fn run(
         .collect::<Vec<_>>();
     let mut expected_roof_render_items = expected_roof_render_items;
     if (timber_isolated_view(view) && view != ViewerView::TimberGableRoofBearing)
-        || matches!(view, ViewerView::Cutaway | ViewerView::TowerPortalDetail) {
+        || matches!(view, ViewerView::Cutaway | ViewerView::TowerPortalDetail)
+    {
         expected_roof_render_items.clear();
     }
     let roof_render_multiset_hash =
@@ -584,7 +586,10 @@ pub(crate) fn run(
         .expect("write generated building plan");
     }
 
-    let plan_audit = audit_plan(&plan);
+    let plan_audit = audit_plan(&plan).unwrap_or_else(|cause| {
+        eprintln!("building audit construction failed: {cause}");
+        std::process::exit(2);
+    });
     for issue in &plan_audit {
         eprintln!("plan audit {}: {}", issue.code, issue.message);
     }
@@ -1092,9 +1097,11 @@ pub(crate) fn run(
         wall_section_kind: wall_section_kind(view),
         focused_assembly_owner_id: architectural_owner,
         focused_resolved_geometry_hash: architectural_focus_hash,
-        horizontal_section_height_metres: (view == ViewerView::Cutaway).then_some(cutaway::CUT_HEIGHT_METRES),
+        horizontal_section_height_metres: (view == ViewerView::Cutaway)
+            .then_some(cutaway::CUT_HEIGHT_METRES),
         surface_sample_polygon: None,
-        section_cut_applied: view == ViewerView::Cutaway || section_proof(view)
+        section_cut_applied: view == ViewerView::Cutaway
+            || section_proof(view)
             || church_section_proof(view)
             || timber_section_proof(view)
             || artillery_section_proof(view)
@@ -1355,7 +1362,7 @@ pub(crate) fn run(
     }
     let startup_plan = plan.clone();
     app.add_systems(Startup, move |world: &mut World| {
-        setup(
+        if let Err(cause) = setup(
             world,
             &startup_plan,
             view,
@@ -1366,7 +1373,11 @@ pub(crate) fn run(
             } else {
                 SceneSetup::Full
             },
-        );
+        ) {
+            eprintln!("building scene construction failed: {cause}");
+            world.write_message(AppExit::error());
+            return;
+        };
         if editor {
             configure_editor_scene(world, &startup_plan, true);
         }
@@ -1379,7 +1390,10 @@ pub(crate) fn run(
                 .expect("editor visibility system must run after initial scene setup");
         }
     })
-    .add_systems(Last, (sample_polygon::prepare_sample, capture_when_ready).chain());
+    .add_systems(
+        Last,
+        (sample_polygon::prepare_sample, capture_when_ready).chain(),
+    );
     let exit = app.run();
     if exit != AppExit::Success {
         std::process::exit(1);

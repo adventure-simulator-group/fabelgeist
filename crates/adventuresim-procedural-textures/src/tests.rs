@@ -256,7 +256,7 @@ fn forest_litter_is_periodic_dense_and_retains_soil_gaps() {
     let mut exposed = 0_usize;
     let mut minimum_ao = 1.0_f32;
     let mut maximum_repeat_error = 0.0_f32;
-    for seed in 0..4 {
+    for seed in (0..4).map(fabelgeist_determinism::Seed::from_u64) {
         params.seed = seed;
         for y in 0..128 {
             for x in 0..128 {

@@ -23,19 +23,40 @@ pub struct ScenePlanPolygon(Vec<ScenePlanPoint>);
 impl ArchitecturalPlanProjection {
     pub fn from_placement(
         placement: &crate::scene_input::TacticalBuildingPlacement,
-        bounds: adventuresim_building_generator::CollisionBounds,
-    ) -> Result<Self, PlanGeometryError> {
+        bounds: adventuresim_building_generator::spatial_geometry::SpatialBounds<
+            adventuresim_building_generator::spatial_geometry::Architectural,
+        >,
+    ) -> Result<Self, adventuresim_building_generator::spatial_geometry::GeometryError> {
         use bevy::math::Vec3Swizzles;
         if !placement.orientation.is_valid() {
-            return Err(PlanGeometryError::InvalidProjection);
+            return Err(
+                adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection,
+            );
         }
         Ok(Self {
-            centre: ScenePlanPoint::from_metres(placement.centre_metres)
-                .ok_or(PlanGeometryError::NonFinite)?,
-            origin: ArchitecturalPlanPoint::from_metres(bounds.centre().xz())
-                .ok_or(PlanGeometryError::NonFinite)?,
+            centre: ScenePlanPoint::try_from(placement.centre_metres.metres())?,
+            origin: ArchitecturalPlanPoint::try_from(bounds.centre()?.metres().xz())?,
             orientation: placement.orientation,
         })
+    }
+
+    /// Project one admitted architectural point with the established f32 order.
+    pub fn point(
+        self,
+        point: ArchitecturalPlanPoint,
+    ) -> Result<ScenePlanPoint, adventuresim_building_generator::spatial_geometry::GeometryError>
+    {
+        if !self.orientation.is_valid() {
+            return Err(
+                adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection,
+            );
+        }
+        ScenePlanPoint::try_from(
+            self.centre.metres()
+                + self
+                    .orientation
+                    .local_to_world(point.metres() - self.origin.metres()),
+        )
     }
 }
 

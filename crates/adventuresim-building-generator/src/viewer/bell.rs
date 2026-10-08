@@ -9,7 +9,7 @@ pub(super) fn focus(plan: &BuildingPlan, origin: Vec2) -> Vec3 {
         .iter()
         .find(|solid| solid.role == SolidRole::ChurchBell)
         .expect("church bell exists");
-    bell.centre + Vec3::new(origin.x, bell.size.y * 0.3, origin.y)
+    bell.centre.metres() + Vec3::new(origin.x, bell.size.metres().y * 0.3, origin.y)
 }
 
 pub(super) fn spawn(
@@ -18,9 +18,10 @@ pub(super) fn spawn(
     solid: &ResolvedSolid,
     origin: Vec2,
     view: Option<ViewerView>,
-) {
-    let transform = Transform::from_translation(solid.centre + Vec3::new(origin.x, 0.0, origin.y));
-    for batch in adventuresim_building_generator::compile_solid_detail(plan, solid).meshes {
+) -> Result<(), adventuresim_building_generator::GenerationError> {
+    let transform =
+        Transform::from_translation(solid.centre.metres() + Vec3::new(origin.x, 0.0, origin.y));
+    for batch in adventuresim_building_generator::compile_solid_detail(plan, solid)?.meshes {
         let bronze = batch.material == BuildingLodMaterial::Bronze;
         let material = world
             .resource_mut::<Assets<StandardMaterial>>()
@@ -41,7 +42,7 @@ pub(super) fn spawn(
             .iter()
             .map(|indices| {
                 indices
-                    .map(|i| batch.vertices[i as usize].position - solid.centre)
+                    .map(|i| batch.vertices[i as usize].position - solid.centre.metres())
                     .to_vec()
             })
             .collect::<Vec<_>>();
@@ -58,7 +59,7 @@ pub(super) fn spawn(
             ResolvedRenderItem {
                 id: solid.id.0,
                 fingerprint: stable_u64(&serde_json::to_vec(solid).unwrap()),
-                local_half_size: solid.size * 0.5,
+                local_half_size: solid.size.metres() * 0.5,
             },
             Mesh3d(mesh),
             MeshMaterial3d(material),
@@ -69,10 +70,10 @@ pub(super) fn spawn(
     if view == Some(ViewerView::ChurchTowerBellUnderside) && solid.role == SolidRole::ChurchBell {
         // Photometry uses the actual bell envelope; the open suspension frame
         // would otherwise make sky determine the lighting quartiles.
-        let centre = solid.centre + Vec3::new(origin.x, 0.0, origin.y);
+        let centre = solid.centre.metres() + Vec3::new(origin.x, 0.0, origin.y);
         world.insert_resource(sample_polygon::SampleBounds {
-            min: centre - solid.size * 0.5,
-            max: centre + solid.size * 0.5,
+            min: centre - solid.size.metres() * 0.5,
+            max: centre + solid.size.metres() * 0.5,
         });
         // This diagnostic light exposes the cavity; production illumination is
         // assessed separately by tactical captures.
@@ -87,4 +88,6 @@ pub(super) fn spawn(
             EditorBuildingEntity,
         ));
     }
+
+    Ok(())
 }

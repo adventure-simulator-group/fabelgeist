@@ -19,7 +19,7 @@ fn production_garden_routes_allow_entry_tending_and_return() {
         &scene.obstacles,
         &scene.furniture,
     );
-    let terrain = scene.terrain.colliders();
+    let terrain = scene.terrain.colliders().unwrap();
     let mut buildings = scene.buildings;
     for placement in &input.distant_buildings {
         let placement = crate::scene_input::TacticalBuildingPlacement::from(*placement);
@@ -48,14 +48,14 @@ fn production_garden_routes_allow_entry_tending_and_return() {
             &input,
         );
         let targets = [
-            garden.access[0].end_metres,
-            garden.access[1].end_metres,
-            garden.access[2].start_metres,
-            garden.access[2].end_metres,
-            garden.access[2].start_metres,
-            garden.access[1].end_metres,
-            garden.access[0].end_metres,
-            garden.access[0].start_metres,
+            garden.access[0].end_metres(),
+            garden.access[1].end_metres(),
+            garden.access[2].start_metres(),
+            garden.access[2].end_metres(),
+            garden.access[2].start_metres(),
+            garden.access[1].end_metres(),
+            garden.access[0].end_metres(),
+            garden.access[0].start_metres(),
         ];
         let mut visits = Vec::new();
         for (index, target) in targets.into_iter().enumerate() {
@@ -111,9 +111,9 @@ fn garden_walker(
     input: &TacticalSceneInput,
 ) -> Walker {
     occupied_walker(
-        garden.access[0].start_metres,
-        garden.plot.centre_metres,
-        garden.plot.dimensions_metres.length() + 6.0,
+        garden.access[0].start_metres(),
+        garden.plot.centre_metres(),
+        garden.plot.dimensions_metres().length() + 6.0,
         ground,
         terrain,
         buildings,
@@ -156,7 +156,7 @@ pub(super) fn occupied_walker(
     );
     for building in buildings {
         let shape = &building.collider;
-        let transform = building.building.transform();
+        let transform = building.building.transform().unwrap();
         if inside(transform.translation, shape, transform.rotation) {
             walker
                 .app
@@ -166,31 +166,41 @@ pub(super) fn occupied_walker(
     }
     outdoor.install(&mut walker.app, inside);
     for compound in &input.compounds {
-        if compound.plot.centre_metres.distance(centre)
-            > radius + compound.plot.dimensions_metres.length()
+        if compound.plot.centre_metres().distance(centre)
+            > radius + compound.plot.dimensions_metres().length()
         {
             continue;
         }
         let boundary = crate::scene_input::GeneratedBoundary::project(compound, ground).unwrap();
         walker.app.world_mut().spawn((
             RigidBody::Static,
-            boundary.scene.fixed_support.collider(),
-            Transform::from_xyz(0.0, boundary.elevation_metres, 0.0),
+            boundary
+                .scene()
+                .fixed_support()
+                .collider()
+                .unwrap()
+                .into_solid()
+                .unwrap(),
+            Transform::from_xyz(0.0, boundary.elevation_metres().metres(), 0.0),
         ));
-        let door = compound.boundary.gate.door(compound.id);
+        let door = compound.boundary.gate.door(compound.id).unwrap();
         let rotation = Quat::from_rotation_y(if open_property == Some(compound.id) {
-            door.open_angle_radians
+            door.open_angle_radians.radians()
         } else {
             0.0
         });
-        let leaf = door.hinge_centre
-            + rotation * (door.closed_centre - door.hinge_centre)
-            + Vec3::Y * boundary.elevation_metres;
+        let leaf = door.hinge_centre.metres()
+            + rotation * (door.closed_centre.metres() - door.hinge_centre.metres())
+            + Vec3::Y * boundary.elevation_metres().metres();
         walker.app.world_mut().spawn((
             RigidBody::Static,
-            Collider::cuboid(door.size_metres.x, door.size_metres.y, door.size_metres.z),
+            Collider::cuboid(
+                door.size_metres.metres().x,
+                door.size_metres.metres().y,
+                door.size_metres.metres().z,
+            ),
             Transform::from_translation(leaf)
-                .with_rotation(rotation * Quat::from_rotation_y(door.closed_yaw_radians)),
+                .with_rotation(rotation * Quat::from_rotation_y(door.closed_yaw_radians.radians())),
         ));
     }
     for _ in 0..64 {
@@ -207,7 +217,8 @@ pub(super) struct OccupiedBuilding {
 
 impl From<crate::scene_input::GeneratedBuilding> for OccupiedBuilding {
     fn from(building: crate::scene_input::GeneratedBuilding) -> Self {
-        let collider = crate::scene_input::compile_tactical_building_collider(&building.collision);
+        let collider =
+            crate::scene_input::compile_tactical_building_collider(&building.collision).unwrap();
         Self { building, collider }
     }
 }

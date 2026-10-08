@@ -1,3 +1,5 @@
+use fabelgeist_determinism::Seed;
+
 #[derive(Resource)]
 struct CaptureState {
     output: Option<PathBuf>,
@@ -13,7 +15,7 @@ struct CaptureManifest {
     schema_version: u16,
     fixture: &'static str,
     view: &'static str,
-    seed: u64,
+    seed: Seed,
     resolution: [u32; 2],
     room_count: usize,
     wall_count: usize,

@@ -60,7 +60,7 @@ fn startup_registers_and_resubscribes_gateway_before_seeding() {
 
 #[test]
 fn live_schedule_reallocates_disabled_tactical_crime_to_legal_labor() {
-    let mut profile = generate_profile(42, 0);
+    let mut profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     profile.schedule.combat_training_minutes = 17;
     profile.schedule.apprenticeship_minutes = 60;
     profile.schedule.profession_practice_minutes = 60;
@@ -194,7 +194,7 @@ fn committed_reserve_keeps_visible_medical_cost_and_attainable_cash_target() {
 
 #[test]
 fn prayer_switches_to_installed_labor_plan_under_reserve_pressure() {
-    let mut profile = generate_profile(42, 0);
+    let mut profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     profile.preferred_activity = ActivityPreference::Prayer;
     profile.schedule.labor = 0;
     profile.schedule.thievery = 0;

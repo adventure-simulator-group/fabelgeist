@@ -6,7 +6,9 @@ use std::collections::BTreeSet;
 
 /// Catalogue layouts author their own sites. Generated cities already retain
 /// authoritative reservations and never pass through this authoring operation.
-pub(super) fn declare_catalogue_properties(layout: &mut CitySceneLayout) {
+pub(super) fn declare_catalogue_properties(
+    layout: &mut CitySceneLayout,
+) -> Result<(), Box<dyn std::error::Error>> {
     let bound: BTreeSet<_> = layout
         .compounds
         .iter()
@@ -40,6 +42,7 @@ pub(super) fn declare_catalogue_properties(layout: &mut CitySceneLayout) {
             .iter()
             .find(|g| g.front_building_id == placement.id)
             .map(|garden| garden.plot)
+            .map(Ok)
             .unwrap_or_else(|| {
                 // Art catalogues reserve a doorway approach on each side.
                 // The support planner still clips each approach and proves
@@ -48,24 +51,39 @@ pub(super) fn declare_catalogue_properties(layout: &mut CitySceneLayout) {
                     .street_apron
                     .dimensions_metres()
                     .y;
-                CityPlotBounds {
-                    centre_metres: placement.centre_metres,
-                    dimensions_metres: recipe.collision.bounds.plan_half_extents() * 2.0
-                        + Vec2::splat(approach * 2.0),
-                    orientation: placement.orientation,
-                }
-            });
+                CityPlotBounds::new(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        placement.centre_metres.metres(),
+                    )?,
+                    adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                        recipe
+                            .collision
+                            .bounds
+                            .plan_half_extents()
+                            .expect("admitted review bounds")
+                            .metres()
+                            * 2.0
+                            + Vec2::splat(approach * 2.0),
+                    )?,
+                    placement.orientation,
+                )
+                .map_err(|error| -> Box<dyn std::error::Error> { error.into() })
+            })?;
         layout.single_properties.push(CitySingleProperty {
-            id: CityPropertyId(placement.id),
+            id: CityPropertyId(placement.id.0),
             building_id: placement.id,
             plot,
         });
     }
+    Ok(())
 }
 
 /// Review grids space whole compiled property reservations, including access,
 /// instead of assuming that authored building centres establish separation.
-pub(super) fn arrange_catalogue_grid(buildings: &mut [TacticalBuildingPlacement], columns: usize) {
+pub(super) fn arrange_catalogue_grid(
+    buildings: &mut [TacticalBuildingPlacement],
+    columns: usize,
+) -> Result<(), adventuresim_building_generator::spatial_geometry::GeometryError> {
     const REVIEW_SITE_GAP_METRES: f32 = 4.0;
     assert!(columns > 0, "catalogue grid has at least one column");
     let approach = CompoundGradingPolicy::bounded_settlement()
@@ -78,7 +96,13 @@ pub(super) fn arrange_catalogue_grid(buildings: &mut [TacticalBuildingPlacement]
         let recipe = recipes
             .get_or_generate(&building.program)
             .expect("accepted review building programme");
-        let half = recipe.collision.bounds.plan_half_extents() + Vec2::splat(approach);
+        let half = recipe
+            .collision
+            .bounds
+            .plan_half_extents()
+            .expect("admitted review bounds")
+            .metres()
+            + Vec2::splat(approach);
         let extent = [Vec2::new(half.x, half.y), Vec2::new(half.x, -half.y)]
             .map(|p| building.orientation.local_to_world(p).abs())
             .into_iter()
@@ -89,19 +113,23 @@ pub(super) fn arrange_catalogue_grid(buildings: &mut [TacticalBuildingPlacement]
     spacing += Vec2::splat(REVIEW_SITE_GAP_METRES);
     let rows = buildings.len().div_ceil(columns);
     for (index, building) in buildings.iter_mut().enumerate() {
-        building.centre_metres = Vec2::new(
-            (index % columns) as f32 - (columns - 1) as f32 * 0.5,
-            (index / columns) as f32 - rows.saturating_sub(1) as f32 * 0.5,
-        ) * spacing;
+        building.centre_metres =
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::new(
+                    (index % columns) as f32 - (columns - 1) as f32 * 0.5,
+                    (index / columns) as f32 - rows.saturating_sub(1) as f32 * 0.5,
+                ) * spacing,
+            )?;
     }
+    Ok(())
 }
 
 /// Generate support from an explicitly authored, current-format draft.
 /// This is authoring only: production loading rejects unbound occupied scenes.
-pub(super) fn ground_source_fixture(path: &std::path::Path) -> TacticalSceneInput {
-    let input: TacticalSceneInput =
-        serde_json::from_slice(&std::fs::read(path).expect("read authored source fixture"))
-            .expect("parse current-format authored source fixture");
+pub(super) fn ground_source_fixture(
+    path: &std::path::Path,
+) -> Result<TacticalSceneInput, Box<dyn std::error::Error>> {
+    let input: TacticalSceneInput = serde_json::from_slice(&std::fs::read(path)?)?;
     assert!(
         matches!(input.source, SceneSource::SyntheticFixture(_)),
         "catalogue authoring cannot synthesize imported property reservations"
@@ -116,11 +144,10 @@ pub(super) fn ground_source_fixture(path: &std::path::Path) -> TacticalSceneInpu
         parishes: input.parishes.clone(),
         ..Default::default()
     };
-    declare_catalogue_properties(&mut layout);
+    declare_catalogue_properties(&mut layout)?;
     let original = input.clone();
-    let accepted = input
-        .ground_generated_city(&layout, CompoundGradingPolicy::bounded_settlement())
-        .expect("complete authored support");
+    let accepted =
+        input.ground_generated_city(&layout, CompoundGradingPolicy::bounded_settlement())?;
     for (before, after) in original.buildings.iter().zip(&accepted.buildings) {
         assert_eq!(before.id, after.id);
         assert_eq!(before.program, after.program);
@@ -138,5 +165,5 @@ pub(super) fn ground_source_fixture(path: &std::path::Path) -> TacticalSceneInpu
     }
     assert_eq!(original.properties, accepted.properties);
     assert_eq!(original.establishments, accepted.establishments);
-    accepted
+    Ok(accepted)
 }

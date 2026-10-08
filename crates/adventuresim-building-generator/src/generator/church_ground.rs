@@ -15,9 +15,9 @@ const ROOM_KINDS: [RoomKind; 5] = [
     RoomKind::EntranceHall,
 ];
 
-pub(super) fn resolve(mut plan: BuildingPlan) -> BuildingPlan {
+pub(super) fn resolve(mut plan: BuildingPlan) -> Result<BuildingPlan, crate::GenerationError> {
     let Some(church) = plan.church.as_ref() else {
-        return plan;
+        return Ok(plan);
     };
     let envelope = Envelope::new(&plan, church);
     let old_floors = church.floor_solids.iter().copied().collect::<BTreeSet<_>>();
@@ -32,8 +32,8 @@ pub(super) fn resolve(mut plan: BuildingPlan) -> BuildingPlan {
     let patches = merge_tiles(&tiles);
     plan.storeys = vec![occupied_storey(&tiles)];
     envelope.relabel_frames(&mut plan);
-    replace_floor_solids(&mut plan, &source, &old_floors, &patches);
-    plan
+    replace_floor_solids(&mut plan, &source, &old_floors, &patches)?;
+    Ok(plan)
 }
 
 struct Envelope {
@@ -218,7 +218,7 @@ fn replace_floor_solids(
     source: &ResolvedSolid,
     old: &BTreeSet<ResolvedItemId>,
     patches: &[(Vec2, Vec2)],
-) {
+) -> Result<(), crate::GenerationError> {
     let old_interfaces = old
         .iter()
         .map(|id| ResolvedItemId((4_u64 << 60) | ((id.0 & ((1_u64 << 60) - 1)) + 1)))
@@ -235,47 +235,53 @@ fn replace_floor_solids(
             (1_u64 << 60) | (u64::from(source.owner.0) << 32) | FLOOR_SLOT_DOMAIN | index as u64,
         );
         let centre = (min + max) * 0.5;
-        plan.resolved_geometry.solids.push(ResolvedSolid {
-            id,
-            owner: source.owner,
-            centre: Vec3::new(centre.x, -FLOOR_THICKNESS_METRES * 0.5, centre.y),
-            size: Vec3::new(max.x - min.x, FLOOR_THICKNESS_METRES, max.y - min.y),
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-            role: SolidRole::ChurchFloor,
-            shape: crate::ResolvedSolidShape::Cuboid,
-            supported_by: source.supported_by.clone(),
-        });
+        plan.resolved_geometry
+            .solids
+            .push(crate::ResolvedSolid::new(
+                crate::CollisionCuboid::<crate::Architectural>::from_metres(
+                    id,
+                    Vec3::new(centre.x, -FLOOR_THICKNESS_METRES * 0.5, centre.y),
+                    Vec3::new(max.x - min.x, FLOOR_THICKNESS_METRES, max.y - min.y),
+                    0.0,
+                    0.0,
+                    0.0,
+                )?,
+                source.owner,
+                SolidRole::ChurchFloor,
+                crate::ResolvedSolidShape::Cuboid,
+                source.supported_by.clone(),
+            ));
         for &node in &source.supported_by {
             plan.resolved_geometry
                 .support_interfaces
-                .push(SupportInterface {
-                    id: ResolvedItemId(
+                .push(crate::SupportInterface::new(
+                    ResolvedItemId(
                         (4_u64 << 60)
                             | (u64::from(source.owner.0) << 32)
                             | FLOOR_SLOT_DOMAIN
                             | index as u64,
                     ),
-                    owner: source.owner,
+                    source.owner,
                     node,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
                             min.x,
                             -FLOOR_THICKNESS_METRES - FLOOR_BEARING_TOLERANCE_METRES,
                             min.y,
                         ),
-                        max: Vec3::new(
+                        Vec3::new(
                             max.x,
                             -FLOOR_THICKNESS_METRES + FLOOR_BEARING_TOLERANCE_METRES,
                             max.y,
                         ),
-                    },
-                });
+                    )?,
+                ));
         }
         floors.push(id);
     }
     let church = plan.church.as_mut().unwrap();
     church.floor_solids = floors.clone();
     church.choir.floor_solids = floors;
+
+    Ok(())
 }

@@ -3,14 +3,15 @@ use super::*;
 use crate::{city_layout::CitySite, scene_input::tests::fixture};
 use adventuresim_world_schema::SettlementEconomyProfile;
 use bevy::math::{Vec2, Vec3};
+use fabelgeist_determinism::Seed;
 
 mod matrix;
 
 fn city_input() -> (TacticalSceneInput, CitySceneLayout) {
-    city_input_for(42, 900)
+    city_input_for(fabelgeist_determinism::Seed::from_u64(42), 900)
 }
 
-fn city_input_for(seed: u64, population: u32) -> (TacticalSceneInput, CitySceneLayout) {
+fn city_input_for(seed: Seed, population: u32) -> (TacticalSceneInput, CitySceneLayout) {
     let layout = CitySite::central_german_market_town()
         .generate(
             seed,
@@ -81,12 +82,19 @@ fn production_support_handoff_preserves_source_identity_members_and_programmes()
     assert_eq!(generated.repairs.levelled_building_samples, 0);
     assert_eq!(generated.buildings.len(), restored.buildings.len());
     for building in &generated.buildings {
-        let floor = building.placement.base_elevation_metres;
-        let centre = building.placement.centre_metres;
+        let floor = building.placement.base_elevation_metres.metres();
+        let centre = building.placement.centre_metres.metres();
         assert!(
             (generated
                 .terrain
-                .surface_below(Vec3::new(centre.x, floor + 0.001, centre.y))
+                .surface_below(
+                    crate::city_layout::grounding::SupportQuery::try_from(Vec3::new(
+                        centre.x,
+                        floor + 0.001,
+                        centre.y
+                    ))
+                    .unwrap()
+                )
                 .unwrap()
                 .elevation
                 .metres()
@@ -100,13 +108,18 @@ fn production_support_handoff_preserves_source_identity_members_and_programmes()
             .find(|b| b.id == building.placement.id)
             .unwrap();
         assert_eq!(building.placement.program, expected.program);
-        assert_eq!(building.placement.centre_metres, expected.centre_metres);
+        assert_eq!(
+            building.placement.centre_metres.metres(),
+            expected.centre_metres.metres()
+        );
         assert_eq!(building.placement.orientation, expected.orientation);
     }
     for point in [Vec2::new(900.0, 900.0), Vec2::new(-900.0, -900.0)] {
         assert_eq!(
             generated.terrain.height_at(point),
-            source.elevation_at(point).map(|h| h.metres())
+            source
+                .elevation_at(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap())
+                .map(|h| h.metres())
         );
     }
 }
@@ -121,21 +134,30 @@ fn occupied_inputs_reject_missing_stale_and_mismatched_support_without_fallback(
     missing.grounding = None;
     assert!(missing.generate().is_err());
     let mut changed = input.clone();
-    changed.buildings[0].base_elevation_metres += 0.01;
+    changed.buildings[0].base_elevation_metres =
+        crate::city_layout::grounding::SupportElevation::from_metres(
+            changed.buildings[0].base_elevation_metres.metres() + 0.01,
+        )
+        .unwrap();
     assert!(matches!(
         changed.validate(),
         Err(SceneInputError::GroundingProjection(error))
-            if matches!(*error, crate::city_layout::CityGroundingProjectionError::PlacementMismatch)
+            if matches!(*error, crate::city_layout::CityGroundingProjectionError::PlacementMismatch { .. })
     ));
     let mut stale = input;
     stale.vista.lods[0].heights_metres[0] += 0.01;
     assert!(matches!(
         stale.generate(),
         Err(SceneInputError::GroundingProjection(error))
-            if matches!(*error, crate::city_layout::CityGroundingProjectionError::SourceMismatch)
+            if matches!(*error, crate::city_layout::CityGroundingProjectionError::SourceMismatch { .. })
     ));
     let (draft, mut wrong) = city_input();
-    wrong.playable[0].centre_metres.x += 0.01;
+    wrong.playable[0].centre_metres = wrong.playable[0]
+        .centre_metres
+        .translated(
+            crate::scene_coordinates::PlanDisplacement::try_from(Vec2::new(0.01, 0.0)).unwrap(),
+        )
+        .unwrap();
     assert!(
         draft
             .ground_generated_city(&wrong, CompoundGradingPolicy::bounded_settlement())
@@ -177,12 +199,19 @@ fn prepared_support_phase_matches_full_generation_and_rejects_removed_members() 
         "scene input is invalid: garden owner must reference an occupied front building"
     );
     let mut mismatched = input;
-    mismatched.distant_buildings[0].base_elevation_metres += 0.01;
+    mismatched.distant_buildings[0].base_elevation_metres =
+        crate::city_layout::grounding::SupportElevation::from_metres(
+            mismatched.distant_buildings[0]
+                .base_elevation_metres
+                .metres()
+                + 0.01,
+        )
+        .unwrap();
     let rejection = mismatched.prepare_supported_terrain(&mut GeneratedBuildingRecipes::default());
     assert!(
         matches!(&rejection,
         Err(SceneInputError::GroundingProjection(error))
-            if matches!(**error, crate::city_layout::CityGroundingProjectionError::PlacementMismatch)),
+            if matches!(**error, crate::city_layout::CityGroundingProjectionError::PlacementMismatch { .. })),
         "specific placement rejection: {rejection:?}"
     );
 }

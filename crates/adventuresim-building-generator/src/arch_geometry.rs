@@ -51,7 +51,7 @@ impl ArchGeometry {
         let tangent = wall
             .map_or_else(
                 || {
-                    if solid.size.z > solid.size.x {
+                    if solid.size.metres().z > solid.size.metres().x {
                         Vec3::Z
                     } else {
                         Vec3::X
@@ -62,12 +62,12 @@ impl ArchGeometry {
             .normalize();
         let outward = tangent.cross(Vec3::Y);
         Some(Self {
-            centre: solid.centre,
+            centre: solid.centre.metres(),
             tangent,
             outward,
-            width: solid.size.dot(tangent.abs()),
-            height: solid.size.y,
-            depth: solid.size.dot(outward.abs()),
+            width: solid.size.metres().dot(tangent.abs()),
+            height: solid.size.metres().y,
+            depth: solid.size.metres().dot(outward.abs()),
             clear_span,
             spring,
             rise,

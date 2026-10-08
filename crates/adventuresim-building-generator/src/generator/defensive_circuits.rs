@@ -1,16 +1,18 @@
 fn resolved_solid_contains_point(solid: &ResolvedSolid, point: Vec3, tolerance: f32) -> bool {
-    let relative = point - solid.centre;
-    let (sine, cosine) = solid.yaw_radians.sin_cos();
+    let relative = point - solid.centre.metres();
+    let (sine, cosine) = solid.yaw_radians.radians().sin_cos();
     let local = Vec3::new(
         relative.x * cosine - relative.z * sine,
         relative.y,
         relative.x * sine + relative.z * cosine,
     );
-    let half = solid.size * 0.5 + Vec3::splat(tolerance);
+    let half = solid.size.metres() * 0.5 + Vec3::splat(tolerance);
     local.abs().cmple(half).all()
 }
 
-fn linear_walk_bounds_for_geometry(walk: WallWalk) -> ResolvedBounds {
+fn linear_walk_bounds_for_geometry(
+    walk: WallWalk,
+) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
     let WallWalk::Linear {
         start,
         end,
@@ -24,10 +26,10 @@ fn linear_walk_bounds_for_geometry(walk: WallWalk) -> ResolvedBounds {
     let inward = -direction_vector(outward) * width_metres;
     let min = start.min(end).min(start + inward).min(end + inward);
     let max = start.max(end).max(start + inward).max(end + inward);
-    ResolvedBounds {
-        min: Vec3::new(min.x, elevation_metres - 0.08, min.y),
-        max: Vec3::new(max.x, elevation_metres, max.y),
-    }
+    Ok(SpatialBounds::<Architectural>::from_metres(
+        Vec3::new(min.x, elevation_metres - 0.08, min.y),
+        Vec3::new(max.x, elevation_metres, max.y),
+    )?)
 }
 
 fn derive_wall_walks(

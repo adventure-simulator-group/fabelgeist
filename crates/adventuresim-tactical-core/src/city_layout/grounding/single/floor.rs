@@ -17,31 +17,24 @@ pub(super) fn select(
         return Err(owner.rejection(
             SupportConstraint::ThresholdBinding,
             SupportBoundary::FrontBearing,
-            request.bearing.centre_metres,
+            request.bearing.centre_metres(),
             1.0,
             0.0,
         ));
     }
     let controls = request
         .geographic
-        .height_range_in_outline(
-            &request
-                .bearing_outline
-                .vertices()
-                .iter()
-                .map(|point| point.metres())
-                .collect::<Vec<_>>(),
-        )
+        .height_range_in_outline(request.bearing_region.outline())
         .ok_or_else(|| {
             owner.rejection(
                 SupportConstraint::SourceSample,
                 SupportBoundary::GeographicSurface,
-                request.bearing.centre_metres,
+                request.bearing.centre_metres(),
                 1.0,
                 0.0,
             )
         })?;
-    let permitted = request.policy.limits.maximum_displacement_metres;
+    let permitted = request.policy.limits.maximum_displacement_metres.metres();
     let mut lower = controls.maximum.elevation.metres() - permitted;
     let mut upper = controls.minimum.elevation.metres() + permitted;
     if lower > upper {
@@ -61,7 +54,7 @@ pub(super) fn select(
             return Err(owner.rejection(
                 SupportConstraint::AccessGrade,
                 SupportBoundary::StreetLanding,
-                door.threshold_metres,
+                door.threshold_metres.metres(),
                 constrained_lower - constrained_upper,
                 0.0,
             ));
@@ -79,7 +72,7 @@ pub(super) fn select(
                     owner.rejection(
                         SupportConstraint::SourceSample,
                         SupportBoundary::GeographicSurface,
-                        entry.threshold_metres,
+                        entry.threshold_metres.metres(),
                         1.0,
                         0.0,
                     )
@@ -91,7 +84,7 @@ pub(super) fn select(
         .map(|h| f64::from(h.metres()))
         .sum::<f64>()
         / observations.len() as f64;
-    let tolerance = request.policy.limits.contact_tolerance_metres;
+    let tolerance = request.policy.limits.contact_tolerance_metres.metres();
     let elevation = if lower + tolerance <= upper - tolerance {
         (preferred as f32).clamp(lower + tolerance, upper - tolerance)
     } else {
@@ -107,20 +100,12 @@ impl SelectedFloor {
         owner: &PropertySupportSurface,
     ) -> Result<Self, SupportDiagnostic> {
         Ok(SelectedFloor {
-            threshold: ScenePlanPoint::from_metres(door.threshold_metres).ok_or_else(|| {
-                owner.rejection(
-                    SupportConstraint::ThresholdBinding,
-                    SupportBoundary::FrontBearing,
-                    door.threshold_metres,
-                    1.0,
-                    0.0,
-                )
-            })?,
+            threshold: door.threshold_metres,
             elevation: SupportElevation::from_metres(elevation_metres).ok_or_else(|| {
                 owner.rejection(
                     SupportConstraint::CutFill,
                     SupportBoundary::FrontBearing,
-                    door.threshold_metres,
+                    door.threshold_metres.metres(),
                     1.0,
                     0.0,
                 )

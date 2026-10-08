@@ -1,53 +1,82 @@
 use super::*;
-use adventuresim_building_generator::{CollisionCuboid, DoorSpec};
+use crate::scene_coordinates::{ArchitecturalGateDatum, ArchitecturalPlanProjection, GateRelative};
+use adventuresim_building_generator::spatial_geometry::{Elevation, Radians};
+use adventuresim_building_generator::{CollisionCuboid, CollisionError, DoorSpec, GenerationError};
 use bevy::math::{Quat, Vec3};
 
 const SWEEP_STEP_RADIANS: f32 = core::f32::consts::PI / 180.0;
 
 /// Each enlarged sample contains the complete angular interval around it.
 /// Candidate filtering uses bounding spheres; the final test uses oriented solids.
-pub(super) fn clear(door: DoorSpec, solids: &[CollisionCuboid]) -> bool {
-    let radius = door.horizontal_sweep_radius_metres();
+pub(super) fn clear(
+    door: DoorSpec<GateRelative>,
+    solids: &[CollisionCuboid<GateRelative>],
+) -> Result<bool, GenerationError> {
+    let radius = door.horizontal_sweep_radius_metres()?;
     let candidates = solids
         .iter()
         .filter(|solid| {
-            solid.centre.distance(door.hinge_centre)
-                <= radius.hypot(door.size_metres.y * 0.5) + solid.size.length() * 0.5
+            solid.centre.metres().distance(door.hinge_centre.metres())
+                <= radius.hypot(door.size_metres.metres().y * 0.5)
+                    + solid.size.metres().length() * 0.5
         })
         .collect::<Vec<_>>();
-    let steps = (door.open_angle_radians.abs() / SWEEP_STEP_RADIANS).ceil() as usize;
-    let step = door.open_angle_radians / steps as f32;
+    let steps = (door.open_angle_radians.radians().abs() / SWEEP_STEP_RADIANS).ceil() as usize;
+    let step = door.open_angle_radians.radians() / steps as f32;
     let padding = radius * step.abs() * 0.5;
-    (0..steps).all(|index| {
+    for index in 0..steps {
         let angle = step * (index as f32 + 0.5);
-        let leaf = CollisionCuboid {
-            source: door.source,
-            centre: door.hinge_centre
-                + Quat::from_rotation_y(angle) * (door.closed_centre - door.hinge_centre),
-            size: door.size_metres + Vec3::new(padding, 0.0, padding) * 2.0,
-            yaw_radians: door.closed_yaw_radians + angle,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        };
-        candidates.iter().all(|solid| !leaf.intersects(**solid))
-    })
+        let leaf = CollisionCuboid::from_metres(
+            door.source,
+            door.hinge_centre.metres()
+                + Quat::from_rotation_y(angle)
+                    * (door.closed_centre.metres() - door.hinge_centre.metres()),
+            door.size_metres.metres() + Vec3::new(padding, 0.0, padding) * 2.0,
+            door.closed_yaw_radians.radians() + angle,
+            0.0,
+            0.0,
+        )?;
+        if candidates.iter().any(|solid| leaf.intersects(**solid)) {
+            return Ok(false);
+        }
+    }
+    Ok(true)
 }
 
 pub(super) fn building_solids(
     placement: &TacticalBuildingPlacement,
     recipe: &Recipe,
-) -> Vec<CollisionCuboid> {
-    let origin = recipe.collision.bounds.centre();
-    let rotation = Quat::from_rotation_y(placement.orientation.yaw_radians());
-    let translation = Vec3::new(placement.centre_metres.x, 0.0, placement.centre_metres.y);
+) -> Result<Vec<CollisionCuboid<GateRelative>>, GenerationError> {
+    let datum = ArchitecturalGateDatum {
+        plan: ArchitecturalPlanProjection::from_placement(placement, recipe.collision.bounds)
+            .map_err(|_| {
+                adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection
+            })?,
+        floor: Elevation::ZERO,
+    };
     recipe
         .collision
         .cuboids
         .iter()
-        .map(|solid| CollisionCuboid {
-            centre: rotation * (solid.centre - Vec3::new(origin.x, 0.0, origin.z)) + translation,
-            yaw_radians: solid.yaw_radians + placement.orientation.yaw_radians(),
-            ..*solid
+        .map(|solid| {
+            let construct = || {
+                Ok(CollisionCuboid {
+                    source: solid.source,
+                    centre: datum.point(solid.centre)?,
+                    size: solid.size,
+                    yaw_radians: Radians::new(
+                        solid.yaw_radians.radians() + placement.orientation.yaw_radians(),
+                    )?,
+                    crossfall_radians: solid.crossfall_radians,
+                    longfall_radians: solid.longfall_radians,
+                })
+            };
+            construct().map_err(|cause| {
+                GenerationError::Collision(CollisionError {
+                    source_id: solid.source,
+                    cause,
+                })
+            })
         })
         .collect()
 }
@@ -71,31 +100,28 @@ mod tests {
                     height_metres: 1.8,
                 },
             };
-            let door = boundary.gate.door(CityPropertyId(1));
+            let door = boundary.gate.door(CityPropertyId(1)).unwrap();
             let mut solids = boundary
                 .fixed_members()
-                .iter()
-                .map(|member| CollisionCuboid {
-                    source: door.source,
-                    centre: member.centre_metres,
-                    size: member.size_metres,
-                    yaw_radians: member.yaw_radians,
-                    crossfall_radians: 0.0,
-                    longfall_radians: 0.0,
-                })
+                .unwrap()
+                .into_iter()
+                .map(|member| member.packing_cuboid(door.source).unwrap())
                 .collect::<Vec<_>>();
-            assert!(clear(door, &solids));
-            solids.push(CollisionCuboid {
-                source: door.source,
-                centre: door.hinge_centre
-                    + Quat::from_rotation_y(door.open_angle_radians * 0.5)
-                        * (door.closed_centre - door.hinge_centre),
-                size: Vec3::splat(0.01),
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-            });
-            assert!(!clear(door, &solids));
+            assert!(clear(door, &solids).unwrap());
+            solids.push(
+                CollisionCuboid::<crate::scene_coordinates::GateRelative>::from_metres(
+                    door.source,
+                    door.hinge_centre.metres()
+                        + Quat::from_rotation_y(door.open_angle_radians.radians() * 0.5)
+                            * (door.closed_centre.metres() - door.hinge_centre.metres()),
+                    Vec3::splat(0.01),
+                    0.0,
+                    0.0,
+                    0.0,
+                )
+                .unwrap(),
+            );
+            assert!(!clear(door, &solids).unwrap());
         }
     }
 }

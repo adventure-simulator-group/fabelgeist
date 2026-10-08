@@ -1,5 +1,6 @@
 //! Long masonry storehouses with two usable storage levels and a covered loading apron.
 use super::{assembly::Assembly, *};
+use crate::GenerationResult;
 use crate::{GableProfile, RidgeAxis, RoofKind, RoofPiece};
 
 mod envelope;
@@ -24,7 +25,12 @@ pub(super) fn loading_roof(main: Vec2) -> RoofPiece {
     }
 }
 
-pub(super) fn fit_workplace(a: &mut Assembly<'_>, w: f32, d: f32) {
-    storage::storage_floors(a, w, d);
-    loading::loading_hood(a, w, d);
+pub(super) fn fit_workplace(
+    assembly: &mut Assembly<'_>,
+    dimensions: crate::spatial_geometry::PlanDimensions,
+) -> GenerationResult<()> {
+    storage::storage_floors(assembly, dimensions)?;
+    loading::loading_hood(assembly, dimensions)?;
+
+    Ok(())
 }

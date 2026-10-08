@@ -306,7 +306,7 @@ pub struct StartingCharacterSpec {
     pub attributes: StartingAttributes,
     pub skills: StartingSkills,
     pub currency: u32,
-    pub settlement_selector: u64,
+    pub settlement_selector: fabelgeist_determinism::Seed,
     pub inventory: Vec<StartingItem>,
     pub age_tier: StartingAgeTier,
     pub profession: Option<StartingProfession>,
@@ -409,7 +409,7 @@ pub fn default_character(identity_seed: &str) -> StartingCharacterSpec {
         },
         skills,
         currency: 100,
-        settlement_selector: random("default-character-settlement", identity_seed, 0).next_u64(),
+        settlement_selector: random("default-character-settlement", identity_seed, 0).next_seed(),
         inventory: {
             let mut inventory = basic_clothing();
             inventory.extend([
@@ -622,7 +622,7 @@ pub fn generate(
         },
         skills: StartingSkills::default(),
         currency: currency_base + (random("currency", seed, slot).index(61)) as u32,
-        settlement_selector: random("settlement", seed, slot).next_u64(),
+        settlement_selector: random("settlement", seed, slot).next_seed(),
         inventory,
         age_tier,
         profession: None,
@@ -635,7 +635,7 @@ pub fn generate(
     simulate_starting_life(&mut spec, seed, slot)?;
     names::assign(
         &mut spec,
-        tier_random("personal-name", seed, age_tier, slot).next_u64(),
+        tier_random("personal-name", seed, age_tier, slot).next_seed(),
     );
     Ok(spec)
 }
@@ -963,7 +963,7 @@ fn simulate_starting_life(
         .and_then(adventuresim_world_schema::OfficialReligion::from_id);
     let result =
         crate::life_simulation::simulate_life(crate::life_simulation::LifeSimulationInput {
-            stable_seed: tier_random("life-simulation", seed, spec.age_tier, slot).next_u64(),
+            stable_seed: tier_random("life-simulation", seed, spec.age_tier, slot).next_seed(),
             age_years: spec.age_years,
             attributes: &spec.attributes,
             organization,
@@ -1474,7 +1474,7 @@ fn apply_professional_start(
         role_name: assigned_role.name.clone(),
     });
     spec.religion_id = religion_id;
-    spec.settlement_selector = tier_random("settlement", seed, spec.age_tier, slot).next_u64();
+    spec.settlement_selector = tier_random("settlement", seed, spec.age_tier, slot).next_seed();
     Ok(())
 }
 

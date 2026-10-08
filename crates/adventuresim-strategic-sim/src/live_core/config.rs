@@ -1,6 +1,7 @@
 //! Core-loop configuration, shared limits, and stable domain mappings.
 
 use super::*;
+use fabelgeist_determinism::Seed;
 
 pub(super) const ACTION_TIMEOUT: Duration = Duration::from_secs(20);
 /// Severe but non-incapacitating injuries can reduce overland pace enough for
@@ -49,7 +50,7 @@ pub(super) fn default_simulation_disease() -> String {
 pub struct CoreLoopConfig {
     pub host: String,
     pub database: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub population: u32,
     pub cycles: u32,
     pub duration_days: u32,

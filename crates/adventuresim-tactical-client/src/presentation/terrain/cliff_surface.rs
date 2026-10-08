@@ -97,7 +97,7 @@ pub(super) fn enable_cliff_surface(
         parameters.roughness[1],
     );
     let basis_points_per_whole = f32::from(BASIS_POINTS_PER_WHOLE);
-    let (normal, mode, structure) = match recipe.structure {
+    let (normal, mode, structure) = match recipe.structure() {
         TerrainGeologicStructure::Massive => ([0.0, 1.0, 0.0], 0.0, Vec4::ZERO),
         TerrainGeologicStructure::Bedded {
             normal_permyriad,
@@ -160,7 +160,7 @@ mod tests {
                 images.get(shared).unwrap().sampler
             );
         }
-        let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0).unwrap();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("cliff-material");
         let graphics = TacticalGraphicsSettings::default();
         let mut material = terrain_material(
@@ -176,9 +176,10 @@ mod tests {
         let sandstone = TerrainSurfaceRecipe::new(
             SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
             TerrainSurfaceSource::AuthoredFixture,
-            47_115,
+            47_115.into(),
             [10_000, 0],
-        );
+        )
+        .unwrap();
         enable_cliff_surface(&mut material, sandstone);
         assert_eq!(material.extension.cliff_palette_a.w, 1.0);
         assert_eq!(material.extension.cliff_structure_a.w, 1.0);
@@ -190,9 +191,10 @@ mod tests {
         let granite = TerrainSurfaceRecipe::new(
             SurfaceLithology::Igneous(IgneousRock::Granite),
             TerrainSurfaceSource::AuthoredFixture,
-            47_117,
+            47_117.into(),
             [10_000, 0],
-        );
+        )
+        .unwrap();
         enable_cliff_surface(&mut material, granite);
         assert_eq!(material.extension.cliff_structure_a.w, 0.0);
     }

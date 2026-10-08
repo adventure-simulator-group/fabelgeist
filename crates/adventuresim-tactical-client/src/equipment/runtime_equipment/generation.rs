@@ -36,9 +36,9 @@ impl FitKey {
             BodyShapeKey::new(
                 &canonical.names,
                 Some(id.0),
-                explicit
-                    .map(|p| p.0)
-                    .unwrap_or_else(|| CharacterProportions::from_character_id(id.0)),
+                explicit.map(|p| p.0).unwrap_or_else(|| {
+                    CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(id.0))
+                }),
                 canonical.rig.reference,
             )
         } else {

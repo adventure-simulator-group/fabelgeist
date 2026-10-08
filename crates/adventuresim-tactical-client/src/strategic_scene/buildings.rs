@@ -19,8 +19,9 @@ impl Venue {
         layout: &InteriorLayout,
     ) -> Result<Self, String> {
         let bounds = building.collision.bounds;
-        let transform = building.transform();
-        let positions = super::staging::positions(building, layout);
+        let transform = building.transform().map_err(|error| error.to_string())?;
+        let positions =
+            super::staging::positions(building, layout).map_err(|error| error.to_string())?;
         let anchor = positions
             .first()
             .ok_or("building has no clear conversation position")?
@@ -35,11 +36,18 @@ impl Venue {
         });
         let outward = transform.rotation * outward;
         // A standing-eye perspective from the real approach, with the entire facade in view.
-        let distance = (bounds.max - bounds.min).xz().max_element() * 0.8 + 4.0;
+        let distance = bounds
+            .extent()
+            .map_err(|error| error.to_string())?
+            .metres()
+            .xz()
+            .max_element()
+            * 0.8
+            + 4.0;
         let target = transform.translation;
         let eye = Vec3::new(
             target.x,
-            building.placement.base_elevation_metres + 1.7,
+            building.placement.base_elevation_metres.metres() + 1.7,
             target.z,
         ) + outward * distance;
         Ok(Self {
@@ -63,11 +71,20 @@ pub(super) fn prepare_venues(
         .furnish_interiors(&promoted)
         .map_err(|e| e.to_string())?;
     generated.buildings.extend(promoted);
-    *street = view
+    *street = if view
         .places
         .iter()
         .any(|place| place.kind != PlaceKind::Camp)
-        .then(|| super::street::Street::arrange(input, &view.places, &selected, generated));
+    {
+        Some(super::street::Street::arrange(
+            input,
+            &view.places,
+            &selected,
+            generated,
+        )?)
+    } else {
+        None
+    };
     for place in &view.places {
         let mut venue = if let Some(building) = selected
             .get(&place.id)
@@ -113,7 +130,10 @@ fn select_buildings(
 ) -> Result<
     (
         Vec<GeneratedBuilding>,
-        std::collections::HashMap<super::protocol::PlaceId, u64>,
+        std::collections::HashMap<
+            super::protocol::PlaceId,
+            adventuresim_tactical_core::scene_input::SceneBuildingId,
+        >,
     ),
     String,
 > {
@@ -187,7 +207,7 @@ mod tests {
         .unwrap();
         let placement = input.buildings[0].clone();
         let plan = adventuresim_building_generator::generate(&placement.program).unwrap();
-        let collision = adventuresim_building_generator::compile_building_collision(&plan);
+        let collision = adventuresim_building_generator::compile_building_collision(&plan).unwrap();
         let building = GeneratedBuilding {
             placement,
             plan,
@@ -199,7 +219,7 @@ mod tests {
         )
         .unwrap();
         let venue = Venue::from_building(&building, &layout).unwrap();
-        let pose = building.transform();
+        let pose = building.transform().unwrap();
         let field = crate::presentation::interior_lighting::InteriorField::from_plan(
             &building.plan,
             Vec3::ZERO,
@@ -209,15 +229,18 @@ mod tests {
             .compute_affine()
             .inverse()
             .transform_point3(venue.anchor)
-            + building.collision.bounds.centre();
+            + building.collision.bounds.centre().unwrap().metres();
         let bounds = building.collision.bounds;
-        assert!(local.x >= bounds.min.x && local.x <= bounds.max.x);
-        assert!(local.z >= bounds.min.z && local.z <= bounds.max.z);
+        assert!(local.x >= bounds.min().metres().x && local.x <= bounds.max().metres().x);
+        assert!(local.z >= bounds.min().metres().z && local.z <= bounds.max().metres().z);
         assert!(local.y >= -0.001 && local.y < 0.3, "floor: {local:?}");
         assert!(
             field.daylight_at(local + Vec3::Y) > 0.0,
             "selected room must receive actual daylight: {local:?}"
         );
-        assert!((venue.approach.y - building.placement.base_elevation_metres - 1.7).abs() < 0.01);
+        assert!(
+            (venue.approach.y - building.placement.base_elevation_metres.metres() - 1.7).abs()
+                < 0.01
+        );
     }
 }

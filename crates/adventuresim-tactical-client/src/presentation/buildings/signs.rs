@@ -59,7 +59,7 @@ impl SignAssets<'_> {
         let parts = self.cache.compile(
             &sign,
             site,
-            compiled.local_origin,
+            compiled.local_origin.metres(),
             SignDetail::Board,
             SignRenderAssets {
                 meshes,
@@ -75,7 +75,7 @@ impl SignAssets<'_> {
                 PresentedSign {
                     sign,
                     site,
-                    origin: compiled.local_origin,
+                    origin: compiled.local_origin.metres(),
                     lettering: None,
                 },
             ))

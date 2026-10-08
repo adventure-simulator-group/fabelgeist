@@ -1,7 +1,8 @@
 //! Child focus and age-appropriate training allocation.
 use super::*;
+use fabelgeist_determinism::Seed;
 
-pub(super) fn deterministic_child_focus(seed: u64) -> ChildActivityFocus {
+pub(super) fn deterministic_child_focus(seed: Seed) -> ChildActivityFocus {
     let choice = fabelgeist_determinism::StreamId::new("character.child-focus")
         .rng(seed, &[])
         .index(4);

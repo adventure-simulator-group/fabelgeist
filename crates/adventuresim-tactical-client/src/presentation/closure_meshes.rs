@@ -1,4 +1,5 @@
 //! Shared geometry permits independent operable leaves to instance in PBR passes.
+use adventuresim_building_generator::spatial_geometry::LeafDimensions;
 use adventuresim_building_generator::{
     BuildingLodMaterial, ClosureState, WindowLeafKind, compile_window_leaf,
 };
@@ -19,6 +20,16 @@ pub(super) struct LeafSurface {
     pub material: BuildingLodMaterial,
 }
 
+#[derive(Debug, thiserror::Error)]
+pub(super) enum ClosureMeshError {
+    #[error(transparent)]
+    Construction(#[from] adventuresim_building_generator::CollisionError),
+    #[error("window leaf {kind:?} has no primary material")]
+    MissingPrimaryMaterial { kind: WindowLeafKind },
+}
+
+type Result<T> = std::result::Result<T, ClosureMeshError>;
+
 #[derive(Default, Resource)]
 pub(super) struct ClosureMeshes {
     doors: HashMap<Dimensions, Handle<Mesh>>,
@@ -27,7 +38,8 @@ pub(super) struct ClosureMeshes {
 }
 
 impl ClosureMeshes {
-    pub fn door(&mut self, size: Vec3, meshes: &mut Assets<Mesh>) -> Handle<Mesh> {
+    pub fn door(&mut self, size: LeafDimensions, meshes: &mut Assets<Mesh>) -> Handle<Mesh> {
+        let size = size.metres();
         self.doors
             .entry(size.into())
             .or_insert_with(|| meshes.add(Cuboid::from_size(size)))
@@ -36,23 +48,27 @@ impl ClosureMeshes {
 
     pub fn window(
         &mut self,
-        size: Vec3,
+        size: LeafDimensions,
         kind: WindowLeafKind,
         meshes: &mut Assets<Mesh>,
-    ) -> &[LeafSurface] {
+    ) -> Result<&[LeafSurface]> {
         let cache = match kind {
             WindowLeafKind::LeadedGlass => &mut self.glass,
             WindowLeafKind::TimberShutter => &mut self.shutters,
         };
-        cache.entry(size.into()).or_insert_with(|| {
-            compile_window_leaf(size, kind, ClosureState::Operable)
-                .iter()
-                .map(|batch| LeafSurface {
-                    mesh: meshes.add(super::recipe_mesh::recipe_mesh(batch, Vec3::ZERO)),
-                    material: batch.material,
-                })
-                .collect()
-        })
+        let parts = match cache.entry(size.metres().into()) {
+            std::collections::hash_map::Entry::Occupied(entry) => entry.into_mut(),
+            std::collections::hash_map::Entry::Vacant(entry) => entry.insert(
+                compile_window_leaf(size.cuboid(), kind, ClosureState::Operable)?
+                    .iter()
+                    .map(|batch| LeafSurface {
+                        mesh: meshes.add(super::recipe_mesh::recipe_mesh(batch, Vec3::ZERO)),
+                        material: batch.material,
+                    })
+                    .collect(),
+            ),
+        };
+        Ok(parts)
     }
 }
 
@@ -64,11 +80,17 @@ mod tests {
     fn repeated_leaves_share_geometry_without_sharing_transforms() {
         let mut meshes = Assets::<Mesh>::default();
         let mut cache = ClosureMeshes::default();
-        let size = Vec3::new(1.0, 2.0, 0.05);
+        let size = LeafDimensions::from_metres(Vec3::new(1.0, 2.0, 0.05)).unwrap();
         let first = cache.door(size, &mut meshes);
         let repeated = cache.door(size, &mut meshes);
         assert_eq!(first, repeated);
-        assert_ne!(first, cache.door(size * 2.0, &mut meshes));
+        assert_ne!(
+            first,
+            cache.door(
+                LeafDimensions::from_metres(size.metres() * 2.0).unwrap(),
+                &mut meshes
+            )
+        );
         let mut world = World::new();
         let closed = world.spawn((Mesh3d(first), Transform::IDENTITY)).id();
         let open = world.spawn((Mesh3d(repeated), Transform::IDENTITY)).id();
@@ -84,11 +106,16 @@ mod tests {
     fn window_cache_keeps_glazing_material_parts_and_distinguishes_shutters() {
         let mut meshes = Assets::<Mesh>::default();
         let mut cache = ClosureMeshes::default();
-        let size = Vec3::new(0.8, 1.2, 0.04);
-        let expected =
-            compile_window_leaf(size, WindowLeafKind::LeadedGlass, ClosureState::Operable);
+        let size = LeafDimensions::from_metres(Vec3::new(0.8, 1.2, 0.04)).unwrap();
+        let expected = compile_window_leaf(
+            size.cuboid(),
+            WindowLeafKind::LeadedGlass,
+            ClosureState::Operable,
+        )
+        .unwrap();
         let first: Vec<_> = cache
             .window(size, WindowLeafKind::LeadedGlass, &mut meshes)
+            .unwrap()
             .iter()
             .map(|part| (part.mesh.clone(), part.material))
             .collect();
@@ -100,14 +127,18 @@ mod tests {
                 source.indices.len()
             );
         }
-        let again = cache.window(size, WindowLeafKind::LeadedGlass, &mut meshes);
+        let again = cache
+            .window(size, WindowLeafKind::LeadedGlass, &mut meshes)
+            .unwrap();
         assert!(
             first
                 .iter()
                 .zip(again)
                 .all(|((mesh, _), part)| *mesh == part.mesh)
         );
-        let shutter = cache.window(size, WindowLeafKind::TimberShutter, &mut meshes);
+        let shutter = cache
+            .window(size, WindowLeafKind::TimberShutter, &mut meshes)
+            .unwrap();
         assert!(
             shutter
                 .iter()

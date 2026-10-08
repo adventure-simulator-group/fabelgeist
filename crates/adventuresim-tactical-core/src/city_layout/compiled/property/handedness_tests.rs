@@ -3,7 +3,7 @@ use super::*;
 #[test]
 fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
     let city = CitySite::central_german_market_town().generate(
-        42,
+        (42).into(),
         900,
         &super::super::super::tests::economy(),
     );
@@ -12,7 +12,9 @@ fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
     let range = palette.range().unwrap();
     let mut cache = ClearanceCache::default();
     // Exact occupied merchant programmes retain the same physical specimens.
-    for seed in [7989866213631017260, 269418199818528039, 6006670756388891727] {
+    for seed in [7989866213631017260, 269418199818528039, 6006670756388891727]
+        .map(fabelgeist_determinism::Seed::from_u64)
+    {
         let front_recipe = palette
             .get(
                 original.archetype(),
@@ -29,7 +31,9 @@ fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
                     passage_side,
                     ..original
                 };
-                let front = front_recipe.place(lot.id, lot.centre_metres, lot.orientation);
+                let front = front_recipe
+                    .place((lot.id).into(), lot.centre_metres, lot.orientation)
+                    .unwrap();
                 let world = |p| lot.orientation.local_to_world(p);
                 let street_y =
                     -lot.footprint_metres.y * 0.5 - compound::COMPOUND_EDGE_MARGIN_METRES - 3.5;
@@ -54,7 +58,16 @@ fn both_outer_passages_preserve_full_court_routes_and_inward_gate_sweeps() {
                 assert_ne!(property.front_building_id, property.rear_building_id);
                 assert!(rear.program.usage.is_none());
                 let mut broken = property.clone();
-                broken.access[0].end_metres = front.centre_metres;
+                let route = &mut broken.access[0];
+                route
+                    .update_endpoints(
+                        route.start(),
+                        crate::scene_coordinates::ScenePlanPoint::try_from(
+                            front.centre_metres.metres(),
+                        )
+                        .unwrap(),
+                    )
+                    .unwrap();
                 assert!(
                     clearance::validate(&broken, &front, &front_recipe, &rear, &range).is_err()
                 );

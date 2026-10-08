@@ -248,6 +248,7 @@ pub mod chat_with_party_member_reducer;
 pub mod child_activity_focus_type;
 pub mod child_development_type;
 pub mod child_identity_reservation_type;
+pub mod child_name_seed_type;
 pub mod child_stage_type;
 pub mod chivalric_virtue_type;
 pub mod choose_dialogue_topic_reducer;
@@ -449,6 +450,7 @@ pub mod hostile_surrender_mode_type;
 pub mod hostile_surrender_outcome_type;
 pub mod hostile_surrender_receipt_type;
 pub mod household_member_type;
+pub mod household_placement_seed_type;
 pub mod household_property_occupancy_type;
 pub mod household_role_type;
 pub mod household_type;
@@ -810,6 +812,7 @@ pub mod seed_simulation_equipment_damage_reducer;
 pub mod seed_simulation_quest_fixture_reducer;
 pub mod seed_simulation_world_reducer;
 pub mod seed_standalone_tactical_mission_reducer;
+pub mod seed_type;
 pub mod select_browser_character_reducer;
 pub mod self_knowledge_type;
 pub mod self_regard_type;
@@ -1226,6 +1229,7 @@ pub use chat_with_party_member_reducer::chat_with_party_member;
 pub use child_activity_focus_type::ChildActivityFocus;
 pub use child_development_type::ChildDevelopment;
 pub use child_identity_reservation_type::ChildIdentityReservation;
+pub use child_name_seed_type::ChildNameSeed;
 pub use child_stage_type::ChildStage;
 pub use chivalric_virtue_type::ChivalricVirtue;
 pub use choose_dialogue_topic_reducer::choose_dialogue_topic;
@@ -1427,6 +1431,7 @@ pub use hostile_surrender_mode_type::HostileSurrenderMode;
 pub use hostile_surrender_outcome_type::HostileSurrenderOutcome;
 pub use hostile_surrender_receipt_type::HostileSurrenderReceipt;
 pub use household_member_type::HouseholdMember;
+pub use household_placement_seed_type::HouseholdPlacementSeed;
 pub use household_property_occupancy_type::HouseholdPropertyOccupancy;
 pub use household_role_type::HouseholdRole;
 pub use household_type::Household;
@@ -1788,6 +1793,7 @@ pub use seed_simulation_equipment_damage_reducer::seed_simulation_equipment_dama
 pub use seed_simulation_quest_fixture_reducer::seed_simulation_quest_fixture;
 pub use seed_simulation_world_reducer::seed_simulation_world;
 pub use seed_standalone_tactical_mission_reducer::seed_standalone_tactical_mission;
+pub use seed_type::Seed;
 pub use select_browser_character_reducer::select_browser_character;
 pub use self_knowledge_type::SelfKnowledge;
 pub use self_regard_type::SelfRegard;
@@ -2133,7 +2139,7 @@ pub enum Reducer {
     ClaimSimulationRun {
         bootstrap_token: String,
         nonce: String,
-        policy_seed: u64,
+        policy_seed: Seed,
     },
     ClearBrowserCharacterSelection {
         owner_key: String,
@@ -2666,7 +2672,7 @@ pub enum Reducer {
     SeedNpcPolicyForDevelopment {
         character_id: u64,
         home_settlement_id: String,
-        policy_seed: u64,
+        policy_seed: Seed,
     },
     SeedSimulationDisease {
         nonce: String,

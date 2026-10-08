@@ -85,7 +85,8 @@ mod tests {
 
     #[test]
     fn matches_linear_scan_for_randomized_queries_and_source_orders() {
-        let mut rng = fabelgeist_determinism::StreamId::new("test.nearest-vertex").rng(19, &[]);
+        let mut rng =
+            fabelgeist_determinism::StreamId::new("test.nearest-vertex").rng(19.into(), &[]);
         let mut random = || rng.range_f32(-10.0, 10.0);
         for count in [1, 2, 3, 17, 128, 1023] {
             let mut points = (0..count)

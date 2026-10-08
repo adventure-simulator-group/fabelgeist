@@ -6,7 +6,7 @@ pub(super) fn finish(
     params: &crate::TextureParameters,
     u: f32,
     v: f32,
-    best: (f32, u64, f32, f32, f32),
+    best: (f32, Seed, f32, f32, f32),
 ) -> BrickSample {
     let (edge_distance, id, local_x, local_y, minimum_half_extent) = best;
     let antialias = params.handmade_brick.sample_brickwork_antialias
@@ -15,12 +15,18 @@ pub(super) fn finish(
     let brick_coverage = ((antialias - edge_distance) / (antialias * 2.0)).clamp(0.0, 1.0);
     let face_noise = face_noise(params, local_x, local_y, id);
     let cup_strength = (params
-        .rng(StreamId::new("texture.handmade-brick.surface.cup"), &[id])
+        .rng(
+            StreamId::new("texture.handmade-brick.surface.cup"),
+            &[id.to_u64()],
+        )
         .inclusive_unit_f32()
         - 0.5)
         * params.handmade_brick.cupping;
     let twist_strength = (params
-        .rng(StreamId::new("texture.handmade-brick.surface.twist"), &[id])
+        .rng(
+            StreamId::new("texture.handmade-brick.surface.twist"),
+            &[id.to_u64()],
+        )
         .inclusive_unit_f32()
         - 0.5)
         * params.handmade_brick.twist;
@@ -63,7 +69,7 @@ pub(super) fn finish(
                                 + (params
                                     .rng(
                                         StreamId::new("texture.handmade-brick.surface.recession"),
-                                        &[id],
+                                        &[id.to_u64()],
                                     )
                                     .inclusive_unit_f32()
                                     - 0.5)
@@ -84,7 +90,7 @@ mod tests {
         let mut draft = full.clone();
         draft.resolution = crate::BakeResolution::Draft;
         for i in -20..20 {
-            let unit = (i as f32 / 100.0, 17, 0.2, 0.3, 0.03);
+            let unit = (i as f32 / 100.0, Seed::from_u64(17), 0.2, 0.3, 0.03);
             assert_eq!(
                 finish(&full, 0.21, 0.35, unit).height,
                 finish(&draft, 0.21, 0.35, unit).height

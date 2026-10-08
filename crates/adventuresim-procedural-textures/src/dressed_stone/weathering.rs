@@ -2,6 +2,7 @@
 
 mod streams;
 use super::smoothstep;
+use fabelgeist_determinism::Seed;
 
 const DAMAGED_EDGE_PROBABILITY: f32 = 0.32;
 const CHIP_HALF_WIDTH_METRES: [f32; 2] = [0.012, 0.045];
@@ -40,13 +41,13 @@ pub(super) fn edge_profile(
     local: [f32; 2],
     half_size: [f32; 2],
     distances: [f32; 4],
-    id: u64,
+    id: Seed,
 ) -> EdgeProfile {
     let mut distance = f32::NEG_INFINITY;
     let mut exposed_chip = 0.0_f32;
     let mut bevel = 0.0_f32;
     for (edge, original_distance) in distances.into_iter().enumerate() {
-        let edge_id = params.field_seed(streams::EDGE, &[id, edge as u64]);
+        let edge_id = params.field_seed(streams::EDGE, &[id.to_u64(), edge as u64]);
         let along_axis = usize::from(edge < 2);
         let along = local[along_axis] * half_size[along_axis];
         let (cut, spall) = edge_fracture(
@@ -60,7 +61,7 @@ pub(super) fn edge_profile(
         let width = between(
             params.dressed_stone_weathering.bevel_width_metres,
             params
-                .rng(streams::EDGE_RADIUS, &[edge_id])
+                .element_rng(streams::EDGE_RADIUS, edge_id)
                 .inclusive_unit_f32(),
         ) * (1.0
             + params.dressed_stone_weathering.bevel_width_variation
@@ -79,9 +80,9 @@ pub(super) fn edge_profile(
     // stays planar. This is a second shape family, separate from edge notches.
     for (corner, (horizontal, vertical)) in [(0, 2), (0, 3), (1, 2), (1, 3)].into_iter().enumerate()
     {
-        let corner_id = params.field_seed(streams::CORNER, &[id, corner as u64]);
+        let corner_id = params.field_seed(streams::CORNER, &[id.to_u64(), corner as u64]);
         if params
-            .rng(streams::LATTICE, &[corner_id])
+            .element_rng(streams::LATTICE, corner_id)
             .inclusive_unit_f32()
             >= params.dressed_stone_weathering.corner_fracture_probability
         {
@@ -90,7 +91,7 @@ pub(super) fn edge_profile(
         let cut = between(
             params.dressed_stone_weathering.corner_fracture_metres,
             params
-                .rng(streams::CORNER_RADIUS, &[corner_id])
+                .element_rng(streams::CORNER_RADIUS, corner_id)
                 .inclusive_unit_f32(),
         );
         let diagonal =
@@ -123,17 +124,17 @@ fn edge_fracture(
     along: f32,
     half_length: f32,
     distance: f32,
-    id: u64,
+    id: Seed,
 ) -> (f32, f32) {
     if params
-        .rng(streams::DAMAGED_EDGE_PRESENCE, &[id])
+        .element_rng(streams::DAMAGED_EDGE_PRESENCE, id)
         .inclusive_unit_f32()
         >= params.dressed_stone_weathering.damaged_edge_probability
     {
         return (0.0, 0.0);
     }
     let center = (params
-        .rng(streams::DAMAGED_EDGE_CENTER, &[id])
+        .element_rng(streams::DAMAGED_EDGE_CENTER, id)
         .inclusive_unit_f32()
         - 0.5)
         * half_length
@@ -141,13 +142,13 @@ fn edge_fracture(
     let width = between(
         params.dressed_stone_weathering.chip_half_width_metres,
         params
-            .rng(streams::DAMAGED_EDGE_WIDTH, &[id])
+            .element_rng(streams::DAMAGED_EDGE_WIDTH, id)
             .inclusive_unit_f32(),
     );
     let depth = between(
         params.dressed_stone_weathering.chip_depth_metres,
         params
-            .rng(streams::DAMAGED_EDGE_DEPTH, &[id])
+            .element_rng(streams::DAMAGED_EDGE_DEPTH, id)
             .inclusive_unit_f32(),
     );
     let mut cut = 0.0_f32;
@@ -169,10 +170,8 @@ fn edge_fracture(
     (cut, spall)
 }
 
-fn cell_id(x: i32, y: i32, field_seed: u64) -> u64 {
-    streams::WEATHERING_CELL
-        .seed(field_seed, &[x as u32 as u64, y as u32 as u64])
-        .to_u64()
+fn cell_id(x: i32, y: i32, field_seed: Seed) -> Seed {
+    streams::WEATHERING_CELL.seed(field_seed, &[x as u32 as u64, y as u32 as u64])
 }
 
 fn noise(
@@ -180,7 +179,7 @@ fn noise(
     x: f32,
     y: f32,
     cell_metres: f32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = x / cell_metres;
     let y = y / cell_metres;
@@ -189,19 +188,28 @@ fn noise(
     let tx = smoothstep(0.0, 1.0, x - x.floor());
     let ty = smoothstep(0.0, 1.0, y - y.floor());
     let bottom = params
-        .rng(streams::LATTICE, &[cell_id(ix, iy, field_seed)])
+        .rng(streams::LATTICE, &[cell_id(ix, iy, field_seed).to_u64()])
         .inclusive_unit_f32()
         * (1.0 - tx)
         + params
-            .rng(streams::LATTICE, &[cell_id(ix + 1, iy, field_seed)])
+            .rng(
+                streams::LATTICE,
+                &[cell_id(ix + 1, iy, field_seed).to_u64()],
+            )
             .inclusive_unit_f32()
             * tx;
     let top = params
-        .rng(streams::LATTICE, &[cell_id(ix, iy + 1, field_seed)])
+        .rng(
+            streams::LATTICE,
+            &[cell_id(ix, iy + 1, field_seed).to_u64()],
+        )
         .inclusive_unit_f32()
         * (1.0 - tx)
         + params
-            .rng(streams::LATTICE, &[cell_id(ix + 1, iy + 1, field_seed)])
+            .rng(
+                streams::LATTICE,
+                &[cell_id(ix + 1, iy + 1, field_seed).to_u64()],
+            )
             .inclusive_unit_f32()
             * tx;
     (bottom * (1.0 - ty) + top * ty) * 2.0 - 1.0
@@ -218,44 +226,54 @@ pub(super) fn face_detail(
     params: &crate::TextureParameters,
     x: f32,
     y: f32,
-    id: u64,
+    id: Seed,
 ) -> FaceDetail {
     let cell_x = (x / params.dressed_stone_weathering.pore_cell_metres).floor() as i32;
     let cell_y = (y / params.dressed_stone_weathering.pore_cell_metres).floor() as i32;
     let mut pore = 0.0_f32;
     for iy in (cell_y - 1)..=(cell_y + 1) {
         for ix in (cell_x - 1)..=(cell_x + 1) {
-            let pore_id = cell_id(ix, iy, params.field_seed(streams::PORE_CELL, &[id]));
+            let pore_id = cell_id(
+                ix,
+                iy,
+                params.field_seed(streams::PORE_CELL, &[id.to_u64()]),
+            );
             let grouping = (noise(
                 params,
                 ix as f32 * params.dressed_stone_weathering.pore_cell_metres,
                 iy as f32 * params.dressed_stone_weathering.pore_cell_metres,
                 params.dressed_stone_weathering.mineral_patch_metres * 2.0,
-                params.field_seed(streams::PORE_GROUPING, &[id]),
+                params.field_seed(streams::PORE_GROUPING, &[id.to_u64()]),
             ) + 1.0)
                 .clamp(0.0, 1.0);
             if params
-                .rng(streams::LATTICE, &[pore_id])
+                .element_rng(streams::LATTICE, pore_id)
                 .inclusive_unit_f32()
                 >= params.dressed_stone_weathering.pore_probability * grouping
             {
                 continue;
             }
             let dx = x
-                - (ix as f32 + params.rng(streams::PORE_X, &[pore_id]).inclusive_unit_f32())
+                - (ix as f32
+                    + params
+                        .element_rng(streams::PORE_X, pore_id)
+                        .inclusive_unit_f32())
                     * params.dressed_stone_weathering.pore_cell_metres;
             let dy = y
-                - (iy as f32 + params.rng(streams::PORE_Y, &[pore_id]).inclusive_unit_f32())
+                - (iy as f32
+                    + params
+                        .element_rng(streams::PORE_Y, pore_id)
+                        .inclusive_unit_f32())
                     * params.dressed_stone_weathering.pore_cell_metres;
             let radius = between(
                 params.dressed_stone_weathering.pore_radius_metres,
                 params
-                    .rng(streams::PORE_WIDTH, &[pore_id])
+                    .element_rng(streams::PORE_WIDTH, pore_id)
                     .inclusive_unit_f32(),
             );
             let aspect = params.dressed_stone_weathering.face_detail_aspect_1
                 + params
-                    .rng(streams::PORE_DEPTH, &[pore_id])
+                    .element_rng(streams::PORE_DEPTH, pore_id)
                     .inclusive_unit_f32()
                     * params.dressed_stone_weathering.face_detail_aspect_2;
             let radial_distance = ((dx * aspect).powi(2) + (dy / aspect).powi(2)).sqrt();
@@ -269,14 +287,14 @@ pub(super) fn face_detail(
             x,
             y,
             params.dressed_stone_weathering.mineral_patch_metres,
-            params.field_seed(streams::MINERAL, &[id]),
+            params.field_seed(streams::MINERAL, &[id.to_u64()]),
         ),
         grain: noise(
             params,
             x,
             y,
             params.dressed_stone_weathering.stone_grain_metres,
-            params.field_seed(streams::GRAIN, &[id]),
+            params.field_seed(streams::GRAIN, &[id.to_u64()]),
         ),
     }
 }
@@ -290,7 +308,7 @@ mod tests {
         let params = &crate::TextureParameters::default();
         let mut chipped = 0;
         let mut intact = 0;
-        for id in 0..128 {
+        for id in (0..128).map(fabelgeist_determinism::Seed::from_u64) {
             let mut lost_boundary = false;
             for step in 0..128 {
                 let y = step as f32 / 64.0 - 1.0;
@@ -317,8 +335,15 @@ mod tests {
         let params = &crate::TextureParameters::default();
         let samples = (0..200)
             .flat_map(|y| {
-                (0..200)
-                    .map(move |x| face_detail(params, x as f32 * 0.003, y as f32 * 0.003, 37).pore)
+                (0..200).map(move |x| {
+                    face_detail(
+                        params,
+                        x as f32 * 0.003,
+                        y as f32 * 0.003,
+                        fabelgeist_determinism::Seed::from_u64(37),
+                    )
+                    .pore
+                })
             })
             .collect::<Vec<_>>();
         let coverage =

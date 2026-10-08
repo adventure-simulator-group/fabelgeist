@@ -66,13 +66,13 @@ mod tests {
             lods: vec![],
         });
         app.world_mut().spawn((
-            SceneTerrain::new(3, 3, 1.0, |_| 0.0),
+            SceneTerrain::new(3, 3, 1.0, |_| 0.0).unwrap(),
             input.environment_snapshot("unrelated".into()),
         ));
         app.update();
         assert!(app.world().resource::<Presented>().0.is_empty());
         app.world_mut().spawn((
-            SceneTerrain::new(3, 3, 1.0, |_| 0.0),
+            SceneTerrain::new(3, 3, 1.0, |_| 0.0).unwrap(),
             input.environment_snapshot("accepted".into()),
         ));
         app.update();

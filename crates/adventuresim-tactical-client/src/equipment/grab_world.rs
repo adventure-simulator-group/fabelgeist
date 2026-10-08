@@ -51,10 +51,10 @@ impl WorldGrabTargets<'_, '_> {
                 .chain(self.doors.iter().filter_map(|(entity, transform, door)| {
                     can_grab_door_from_inside(
                         actor.translation(),
-                        door.doorway_centre_metres,
-                        door.tangent,
-                        door.outward,
-                        door.size_metres.x * 0.5,
+                        door.doorway_centre_metres.metres(),
+                        door.tangent.vector(),
+                        door.outward.vector(),
+                        door.size_metres.metres().x * 0.5,
                     )
                     .then(|| transform.translation())
                     .filter(|position| self.visible(origin, *position))
@@ -66,10 +66,10 @@ impl WorldGrabTargets<'_, '_> {
                         .filter_map(|(entity, transform, window)| {
                             can_grab_window_from_inside(
                                 actor.translation(),
-                                window.opening_centre_metres,
-                                window.tangent,
-                                window.outward,
-                                window.size_metres.x * 0.5,
+                                window.opening_centre_metres.metres(),
+                                window.tangent.vector(),
+                                window.outward.vector(),
+                                window.size_metres.metres().x * 0.5,
                             )
                             .then(|| transform.translation())
                             .filter(|position| self.visible(origin, *position))

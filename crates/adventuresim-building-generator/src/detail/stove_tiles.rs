@@ -10,34 +10,33 @@ pub(super) fn append(
     detail: &mut BuildingDetail,
     plan: &BuildingPlan,
     solid: &ResolvedSolid,
-) -> bool {
+) -> Result<bool, crate::GenerationError> {
     let Some(heating) = &plan.domestic_heating else {
-        return false;
+        return Ok(false);
     };
     if !heating
         .parts
         .iter()
         .any(|part| part.solid == solid.id && part.kind == crate::HeatingPartKind::TiledStove)
     {
-        return false;
+        return Ok(false);
     }
-    let bounds =
-        plan.resolved_geometry
-            .solids
+    let mut bounds = (Vec3::splat(f32::INFINITY), Vec3::splat(f32::NEG_INFINITY));
+    for member in plan.resolved_geometry.solids.iter().filter(|s| {
+        heating
+            .parts
             .iter()
-            .filter(|s| {
-                heating.parts.iter().any(|part| {
-                    part.solid == s.id && part.kind == crate::HeatingPartKind::TiledStove
-                })
-            })
-            .map(ResolvedSolid::cuboid_bounds)
-            .fold(
-                (Vec3::splat(f32::INFINITY), Vec3::splat(f32::NEG_INFINITY)),
-                |(min, max), b| (min.min(b.min), max.max(b.max)),
-            );
-    let kitchen = Vec3::new(heating.kitchen_axis.x, 0.0, heating.kitchen_axis.y);
+            .any(|part| part.solid == s.id && part.kind == crate::HeatingPartKind::TiledStove)
+    }) {
+        let measured = member.cuboid_bounds()?;
+        bounds = (
+            bounds.0.min(measured.min().metres()),
+            bounds.1.max(measured.max().metres()),
+        );
+    }
+    let kitchen = heating.kitchen_axis.spatial().vector();
     let mut plain = BuildingDetail { meshes: Vec::new() };
-    append_oriented_cuboid(&mut plain, BuildingLodMaterial::GlazedTile, solid, None);
+    append_oriented_cuboid(&mut plain, BuildingLodMaterial::GlazedTile, solid, None)?;
     for mesh in plain.meshes {
         for face in mesh.vertices.as_chunks::<4>().0 {
             let normal = face[0].normal;
@@ -67,7 +66,7 @@ pub(super) fn append(
             }
         }
     }
-    true
+    Ok(true)
 }
 
 fn append_face(
@@ -175,7 +174,7 @@ mod tests {
             BuildingArchetype::FachwerkCottage,
             BuildingArchetype::HallHouse,
         ] {
-            for seed in [42, 47, 101] {
+            for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let plan = generate(&BuildingProgram::fixture(archetype, seed)).unwrap();
                 let heating = plan.domestic_heating.as_ref().unwrap();
                 let solids = heating
@@ -194,21 +193,21 @@ mod tests {
                 let mut recessed = 0;
                 let mut joint_sides = 0;
                 for solid in solids {
-                    let bounds = solid.cuboid_bounds();
-                    let detail = compile_solid_detail(&plan, solid);
+                    let bounds = solid.cuboid_bounds().unwrap();
+                    let detail = compile_solid_detail(&plan, solid).unwrap();
                     for mesh in detail.meshes {
                         triangles += mesh.indices.len() / 3;
                         for vertex in &mesh.vertices {
                             assert!(
                                 vertex
                                     .position
-                                    .cmpge(bounds.min - Vec3::splat(0.0001))
+                                    .cmpge(bounds.min().metres() - Vec3::splat(0.0001))
                                     .all()
                             );
                             assert!(
                                 vertex
                                     .position
-                                    .cmple(bounds.max + Vec3::splat(0.0001))
+                                    .cmple(bounds.max().metres() + Vec3::splat(0.0001))
                                     .all()
                             );
                         }
@@ -237,12 +236,13 @@ mod tests {
                 assert!((500..2000).contains(&triangles), "tile budget: {triangles}");
                 assert!(
                     compile_heating_lod(&plan)
+                        .unwrap()
                         .meshes
                         .iter()
                         .all(|m| m.material != BuildingLodMaterial::GlazedTile
                             && m.material != BuildingLodMaterial::Earthenware)
                 );
-                assert!(crate::audit_plan(&plan).is_empty());
+                assert!(crate::audit_plan(&plan).unwrap().is_empty());
             }
         }
     }

@@ -7,7 +7,7 @@ use serde::{Deserializer, Serializer, de::Error};
 #[serde(remote = "PropertyFoundationMesh")]
 struct FoundationDocument {
     property_id: CityPropertyId,
-    member_building_ids: Vec<u64>,
+    member_building_ids: Vec<crate::scene_input::SceneBuildingId>,
     #[serde(with = "crate::geometry_transport")]
     positions: Vec<Vec3>,
     #[serde(with = "crate::geometry_transport")]
@@ -21,7 +21,7 @@ struct FoundationDocument {
 #[derive(Serialize, Deserialize)]
 struct FoundationCells {
     property_id: CityPropertyId,
-    member_building_ids: Vec<u64>,
+    member_building_ids: Vec<crate::scene_input::SceneBuildingId>,
     #[serde(with = "crate::geometry_transport::binary")]
     positions: Vec<Vec3>,
     #[serde(with = "crate::geometry_transport::binary")]
@@ -32,7 +32,7 @@ struct FoundationCells {
 #[derive(Serialize)]
 struct FoundationCellsRef<'a> {
     property_id: CityPropertyId,
-    member_building_ids: &'a [u64],
+    member_building_ids: &'a [crate::scene_input::SceneBuildingId],
     #[serde(with = "crate::geometry_transport::binary")]
     positions: &'a [Vec3],
     #[serde(with = "crate::geometry_transport::binary")]
@@ -56,6 +56,7 @@ fn cell_count(positions: &[Vec3]) -> Result<usize, FoundationEncodingIssue> {
 
 impl Serialize for PropertyFoundationMesh {
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        self.validate().map_err(serde::ser::Error::custom)?;
         if serializer.is_human_readable() {
             return FoundationDocument::serialize(self, serializer);
         }
@@ -85,7 +86,9 @@ impl Serialize for PropertyFoundationMesh {
 impl<'de> Deserialize<'de> for PropertyFoundationMesh {
     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         if deserializer.is_human_readable() {
-            return FoundationDocument::deserialize(deserializer);
+            let mesh = FoundationDocument::deserialize(deserializer)?;
+            mesh.validate().map_err(D::Error::custom)?;
+            return Ok(mesh);
         }
         let cells = FoundationCells::deserialize(deserializer)?;
         let count = cell_count(&cells.positions).map_err(D::Error::custom)?;
@@ -103,6 +106,7 @@ impl<'de> Deserialize<'de> for PropertyFoundationMesh {
             mesh.solid_triangles
                 .extend(FOUNDATION_PRISM_TRIANGLES.map(|t| t.map(|i| i + start)));
         }
+        mesh.validate().map_err(D::Error::custom)?;
         Ok(mesh)
     }
 }

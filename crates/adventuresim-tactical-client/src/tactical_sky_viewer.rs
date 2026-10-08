@@ -216,7 +216,7 @@ pub(super) fn run(view: SkyView, output: PathBuf, settle_frames: u32) {
     }
 }
 
-fn setup_view(world: &mut World, view: SkyView) {
+fn setup_view(world: &mut World, view: SkyView) -> bevy::ecs::error::Result {
     let configuration = sky_view_configuration(view);
     let absolute_minute = configuration.absolute_minute;
     let mut camera_query =
@@ -274,11 +274,12 @@ fn setup_view(world: &mut World, view: SkyView) {
         SceneEnvironment {
             scene_digest: format!("sky-{}", view.id()),
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-            latitude_microdegrees: LATITUDE.get(),
-            longitude_microdegrees: LONGITUDE.get(),
+            latitude_microdegrees: LATITUDE,
+            longitude_microdegrees: LONGITUDE,
             absolute_minute,
             lunar_phase_minute: absolute_minute,
-            absolute_elevation_metres: 20,
+            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(20)
+                .ok_or("invalid authored sky elevation")?,
             weather: WeatherSnapshot {
                 rules_version: WEATHER_RULES_VERSION,
                 interval_start_minute: absolute_minute,
@@ -308,6 +309,7 @@ fn setup_view(world: &mut World, view: SkyView) {
             .single(world)
             .is_ok()
     );
+    Ok(())
 }
 
 fn observe_extracted_sky_camera(

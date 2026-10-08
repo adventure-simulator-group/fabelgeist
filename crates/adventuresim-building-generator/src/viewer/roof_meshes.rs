@@ -105,7 +105,10 @@ fn spawn_resolved_roof(
     let _ = geometry;
 }
 
-fn roof_enclosure_prism_mesh(enclosure: &RoofEnclosureFace, walls: &[adventuresim_building_generator::WallAssembly]) -> Mesh {
+fn roof_enclosure_prism_mesh(
+    enclosure: &RoofEnclosureFace,
+    walls: &[adventuresim_building_generator::WallAssembly],
+) -> Mesh {
     let faces = adventuresim_building_generator::tessellate_roof_enclosure(enclosure, walls)
         .into_iter()
         .map(|triangle| triangle.positions.to_vec())

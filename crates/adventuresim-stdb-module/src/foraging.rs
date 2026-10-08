@@ -67,7 +67,7 @@ pub struct ForageAttemptAuthority {
     pub authority_input_digest: String,
     pub environment_digest: String,
     pub canonical_place: String,
-    pub resolution_seed: u64,
+    pub resolution_seed: fabelgeist_determinism::Seed,
     pub started_at: StrategicMinute,
     pub completed_at: StrategicMinute,
     pub requested_minutes: u64,
@@ -521,7 +521,7 @@ fn resolution_seed(
     started_at: StrategicMinute,
     attestation: &ForageEnvironmentAttestation,
     sources: &[String],
-) -> u64 {
+) -> fabelgeist_determinism::Seed {
     let mut hasher = Sha256::new();
     hasher.update(b"forage-resolution-v2");
     hasher.update(private_entropy.to_le_bytes());
@@ -533,11 +533,11 @@ fn resolution_seed(
         hasher.update((source.len() as u64).to_le_bytes());
         hasher.update(source.as_bytes());
     }
-    u64::from_le_bytes(
+    fabelgeist_determinism::Seed::from_u64(u64::from_le_bytes(
         hasher.finalize()[..8]
             .try_into()
             .expect("eight digest bytes"),
-    )
+    ))
 }
 
 fn encode_digest(bytes: &[u8]) -> String {
@@ -597,7 +597,7 @@ fn forage_authority_digest(
     attempt_generation: u64,
     terrain_check: u16,
     stealth_check: u16,
-    resolution_seed: u64,
+    resolution_seed: fabelgeist_determinism::Seed,
 ) -> [u8; 32] {
     let mut hash = Sha256::new();
     let mut frame = |bytes: &[u8]| {
@@ -665,7 +665,7 @@ fn build_forage_planner(
     attempt_generation: u64,
     terrain_check: u16,
     stealth_check: u16,
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
 ) -> Result<foraging::ForagePlanningOutcome, String> {
     let actor = CustodyCharacterId::try_new(character_id).map_err(|error| error.to_string())?;
     let coordinates = ActionCoordinates::try_new(

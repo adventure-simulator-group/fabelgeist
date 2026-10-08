@@ -206,8 +206,9 @@ fn spawn_resolved_architectural_surfaces(
         {
             continue;
         }
-        let centre = (surface.bounds.min + surface.bounds.max) * 0.5;
-        let size = (surface.bounds.max - surface.bounds.min).max(Vec3::splat(0.008));
+        let centre = (surface.bounds.min().metres() + surface.bounds.max().metres()) * 0.5;
+        let size =
+            (surface.bounds.max().metres() - surface.bounds.min().metres()).max(Vec3::splat(0.008));
         let opening = plan
             .opening_assemblies
             .iter()

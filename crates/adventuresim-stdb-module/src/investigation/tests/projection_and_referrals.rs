@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 #[test]
 fn bestiary_deduction_projection_is_observer_scoped_and_score_free() {
     let source = INVESTIGATION_SOURCE;
@@ -93,7 +94,7 @@ fn bounded_progress_history_is_exact_contiguous_and_nontransferable() {
 #[test]
 fn bounded_failure_wording_snapshots_progress_and_live_alternate_truthfully() {
     let input = action::ResolutionInput {
-        seed: 1,
+        seed: fabelgeist_determinism::Seed::from_u64(1),
         attempt_index: 0,
         kind: action::InvestigationActionKind::ReacquireTracks,
         terrain: action::Terrain::Road,
@@ -110,7 +111,7 @@ fn bounded_failure_wording_snapshots_progress_and_live_alternate_truthfully() {
         },
         weather: action::WeatherAuthority::Clear { snow_cover_bps: 0 },
     };
-    let progress = (0..u64::MAX)
+    let progress = (0..u64::MAX).map(fabelgeist_determinism::Seed::from_u64)
         .find_map(|seed| {
             let progress =
                 action::resolve_with_bounded_progress(action::ResolutionInput { seed, ..input }, 0);
@@ -253,7 +254,7 @@ fn exact_site_provenance_accepts_only_valid_manual_or_generated_tuples() {
         quest_generation::{GenerationContext, TemplateFamily, generate, test_witnesses},
     };
     let context = GenerationContext {
-        seed: 19,
+        seed: fabelgeist_determinism::Seed::from_u64(19),
         observer_entropy_hi: 23,
         observer_entropy_lo: 29,
         settlement_id: "lubeck".into(),
@@ -339,7 +340,7 @@ fn explicit_secondary_referral_and_context_are_exact() {
         quest_generation::{GenerationContext, TemplateFamily, generate, test_witnesses},
     };
     let generated = generate(&GenerationContext {
-        seed: 7,
+        seed: fabelgeist_determinism::Seed::from_u64(7),
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
         settlement_id: "riverdale".into(),
@@ -494,10 +495,10 @@ fn both_generated_families_issue_root_and_successor_action_text() {
     for (seed, family) in [
         (7, TemplateFamily::RecurringDepredation),
         (11, TemplateFamily::DisappearanceOrLoss),
-    ] {
+    ].map(|(word, family)| (Seed::from_u64(word), family)) {
         let context = GenerationContext {
             seed,
-            observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
+            observer_entropy_hi: seed.to_u64() ^ 0x6f62_7365_7276_6572,
             observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
             settlement_id: "lubeck".into(),
             settlement_name: "Lubeck".into(),
@@ -568,10 +569,10 @@ fn root_rumor_then_every_referred_witness_pipeline_is_valid_in_both_families() {
     for (seed, family) in [
         (7, TemplateFamily::RecurringDepredation),
         (11, TemplateFamily::DisappearanceOrLoss),
-    ] {
+    ].map(|(word, family)| (Seed::from_u64(word), family)) {
         let mut context = GenerationContext {
             seed,
-            observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
+            observer_entropy_hi: seed.to_u64() ^ 0x6f62_7365_7276_6572,
             observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
             settlement_id: "lubeck".into(),
             settlement_name: "Lubeck".into(),

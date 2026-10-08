@@ -9,11 +9,11 @@ mod storage;
 mod tests;
 mod work;
 
-pub(super) fn assemble(builder: &mut Builder, key: FurnitureKey) {
-    let size = key
-        .interior_spec()
-        .expect("interior trade dimensions")
-        .size_metres;
+pub(super) fn assemble(
+    builder: &mut Builder,
+    key: FurnitureKey,
+) -> Result<(), super::FurnitureRecipeError> {
+    let size = key.interior_spec()?.size_metres.metres();
     use FurnitureKind::*;
     match key.kind {
         Counter | CounterLeftEnd | CounterRightEnd | CounterCorner => {
@@ -27,8 +27,9 @@ pub(super) fn assemble(builder: &mut Builder, key: FurnitureKey) {
         ArmourStand => racks::armour_stand(builder, size),
         GrainBin | KneadingTrough | FeedTrough => storage::trough(builder, size, key.kind),
         StorageCrate => storage::crate_box(builder, size),
-        _ => unreachable!("non-trade furniture dispatched to trade recipes"),
+        _ => return Err(super::FurnitureRecipeError::MissingRecipe { key }),
     }
+    Ok(())
 }
 
 /// Four legs remain within the authored envelope; the top touches each leg.

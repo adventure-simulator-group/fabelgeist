@@ -1,7 +1,55 @@
 use super::*;
 use bevy::math::Vec3;
-fn fixture(archetype: BuildingArchetype, seed: u64) -> BuildingPlan {
+use fabelgeist_determinism::Seed;
+fn fixture(archetype: BuildingArchetype, seed: Seed) -> BuildingPlan {
     generate(&BuildingProgram::fixture(archetype, seed)).unwrap()
+}
+
+#[test]
+fn folded_sheet_admission_preserves_signed_contact_and_rejects_reversed_planes() {
+    use super::weather_sections::{SheetSection, WeatherSide};
+    use crate::spatial_geometry::{Elevation, GeometryError, SignedLength};
+    let length = |value| SignedLength::from_metres(value).unwrap();
+    let elevation = |value| Elevation::<Architectural>::from_metres(value).unwrap();
+    let section = SheetSection::new(
+        length(-0.025),
+        length(0.012),
+        elevation(-1.0),
+        elevation(0.0),
+    )
+    .unwrap();
+    let shaft = SpatialBounds::from_metres(Vec3::ZERO, Vec3::ONE).unwrap();
+    for side in WeatherSide::around(shaft).unwrap() {
+        let bounds = section.bounds(side).unwrap();
+        assert_eq!(bounds.min().metres().y, -1.0);
+        assert_eq!(bounds.max().metres().y, 0.0);
+        let contact = SheetSection::new(length(0.0), length(0.0), elevation(-2.0), elevation(-2.0))
+            .unwrap()
+            .bounds(side)
+            .unwrap();
+        assert_eq!(contact.min().metres().y, contact.max().metres().y);
+    }
+    for result in [
+        SheetSection::new(
+            length(0.012),
+            length(-0.025),
+            elevation(-1.0),
+            elevation(0.0),
+        ),
+        SheetSection::new(
+            length(-0.025),
+            length(0.012),
+            elevation(0.0),
+            elevation(-1.0),
+        ),
+    ] {
+        assert!(matches!(
+            result,
+            Err(GenerationError::Geometry(
+                GeometryError::ReversedBounds { .. }
+            ))
+        ));
+    }
 }
 #[test]
 fn grounded_programme_preserves_roof_members_and_reaches_real_rooms() {
@@ -9,7 +57,7 @@ fn grounded_programme_preserves_roof_members_and_reaches_real_rooms() {
         BuildingArchetype::FachwerkCottage,
         BuildingArchetype::HallHouse,
     ] {
-        for seed in [42, 47, 101, u64::MAX] {
+        for seed in [42, 47, 101, u64::MAX].map(fabelgeist_determinism::Seed::from_u64) {
             let heated = fixture(archetype, seed);
             let mut program = BuildingProgram::fixture(archetype, seed);
             program.domestic_heating = None;
@@ -39,13 +87,16 @@ fn grounded_programme_preserves_roof_members_and_reaches_real_rooms() {
                     .iter()
                     .all(|s| s.role != SolidRole::DomesticHeating)
             );
-            assert!(audit_plan(&heated).is_empty());
+            assert!(audit_plan(&heated).unwrap().is_empty());
         }
     }
 }
 #[test]
 fn smoke_and_weather_mutations_fail_closed() {
-    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let mut missing_route = original.clone();
     missing_route
         .domestic_heating
@@ -55,6 +106,7 @@ fn smoke_and_weather_mutations_fail_closed() {
         .pop();
     assert!(
         audit_plan(&missing_route)
+            .unwrap()
             .iter()
             .any(|i| i.code == "incomplete_domestic_smoke_route")
     );
@@ -81,11 +133,16 @@ fn smoke_and_weather_mutations_fail_closed() {
         .unwrap()
         .clone();
     plug.id = ResolvedItemId(u64::MAX - 1);
-    plug.centre = (bore.min + bore.max) * 0.5;
-    plug.size = Vec3::new(0.1, 0.1, 0.1);
+    plug.centre = crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+        (bore.min().metres() + bore.max().metres()) * 0.5,
+    )
+    .unwrap();
+    plug.size =
+        crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(0.1, 0.1, 0.1)).unwrap();
     blocked.resolved_geometry.solids.push(plug);
     assert!(
         audit_plan(&blocked)
+            .unwrap()
             .iter()
             .any(|i| i.code == "blocked_domestic_smoke_route")
     );
@@ -100,6 +157,7 @@ fn smoke_and_weather_mutations_fail_closed() {
     face.cutouts.remove(h.roof.cutout_index);
     assert!(
         audit_plan(&roof_blocked)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_heating_roof_penetration")
     );
@@ -107,14 +165,18 @@ fn smoke_and_weather_mutations_fail_closed() {
     orphan.domestic_heating = None;
     assert!(
         audit_plan(&orphan)
+            .unwrap()
             .iter()
             .any(|i| i.code == "unowned_domestic_heating")
     );
 }
 #[test]
 fn collision_and_both_lods_retain_the_canonical_stack() {
-    let plan = fixture(BuildingArchetype::FachwerkCottage, 42);
-    let collision = compile_building_collision(&plan);
+    let plan = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
+    let collision = compile_building_collision(&plan).unwrap();
     for part in &plan.domestic_heating.as_ref().unwrap().parts {
         assert!(collision.cuboids.iter().any(|c| c.source == part.solid));
         if !matches!(
@@ -132,9 +194,9 @@ fn collision_and_both_lods_retain_the_canonical_stack() {
             .iter()
             .find(|s| s.id == part.solid)
             .unwrap();
-        let detail = compile_solid_detail(&plan, solid);
+        let detail = compile_solid_detail(&plan, solid).unwrap();
         for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
-            let lod = compile_building_lod(&plan, level);
+            let lod = compile_building_lod(&plan, level).unwrap();
             for vertex in detail.meshes.iter().flat_map(|m| &m.vertices) {
                 assert!(
                     lod.meshes
@@ -149,7 +211,10 @@ fn collision_and_both_lods_retain_the_canonical_stack() {
 
 #[test]
 fn folded_weathering_requires_every_return_and_downstream_lap() {
-    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     for part in original
         .domestic_heating
         .as_ref()
@@ -176,20 +241,32 @@ fn folded_weathering_requires_every_return_and_downstream_lap() {
             .retain(|p| p.solid != part.solid);
         assert!(
             audit(&missing)
+                .unwrap()
                 .iter()
                 .any(|i| i.code == "invalid_heating_roof_penetration")
         );
         let mut shifted = original.clone();
-        shifted
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|s| s.id == part.solid)
-            .unwrap()
-            .centre
-            .y += 0.05;
+        {
+            let mut native_geometry = shifted
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == part.solid)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry.y += 0.05;
+            shifted
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == part.solid)
+                .unwrap()
+                .centre = crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+        };
         assert!(
             audit(&shifted)
+                .unwrap()
                 .iter()
                 .any(|i| i.code == "invalid_heating_roof_penetration")
         );
@@ -210,19 +287,27 @@ fn folded_weathering_requires_every_return_and_downstream_lap() {
             .iter_mut()
             .find(|s| s.id == *id)
             .unwrap();
-        let distance = (face.plane.normal.dot(sheet.centre) + face.plane.constant)
+        let distance = (face.plane.normal.dot(sheet.centre.metres()) + face.plane.constant)
             / face.plane.normal.length();
-        sheet.centre -= normal * distance * 2.0;
+        {
+            let mut native_geometry = sheet.centre.metres();
+            native_geometry -= normal * distance * 2.0;
+            sheet.centre = crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+        };
     }
     assert!(
         audit(&inverted)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_heating_roof_penetration")
     );
 }
 #[test]
 fn roof_pitch_change_is_atomic() {
-    let mut plan = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let mut plan = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let id = plan.domestic_heating.as_ref().unwrap().roof.roof;
     let pitch = plan
         .roof_assemblies
@@ -242,7 +327,10 @@ fn roof_pitch_change_is_atomic() {
 
 #[test]
 fn missing_appliance_material_and_displaced_weathering_are_rejected() {
-    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     for part in original
         .domestic_heating
         .as_ref()
@@ -271,7 +359,7 @@ fn missing_appliance_material_and_displaced_weathering_are_rejected() {
             wall.host_solids.retain(|id| *id != part.solid);
         }
         assert!(
-            audit(&missing).iter().any(|i| matches!(
+            audit(&missing).unwrap().iter().any(|i| matches!(
                 i.code,
                 "open_domestic_appliance" | "incomplete_domestic_fire_wall"
             )),
@@ -282,14 +370,25 @@ fn missing_appliance_material_and_displaced_weathering_are_rejected() {
     for displacement in [Vec3::X * 0.1, Vec3::Y * 0.12] {
         let mut shifted = original.clone();
         let id = shifted.domestic_heating.as_ref().unwrap().roof.flashing[0];
-        shifted
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|s| s.id == id)
-            .unwrap()
-            .centre += displacement;
-        let issues = audit(&shifted);
+        {
+            let mut native_geometry = shifted
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == id)
+                .unwrap()
+                .centre
+                .metres();
+            native_geometry += displacement;
+            shifted
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == id)
+                .unwrap()
+                .centre = crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+        };
+        let issues = audit(&shifted).unwrap();
         assert!(
             issues
                 .iter()
@@ -310,6 +409,7 @@ fn missing_appliance_material_and_displaced_weathering_are_rejected() {
     cut[1].x -= 0.1;
     assert!(
         audit(&enlarged)
+            .unwrap()
             .iter()
             .any(|i| i.code == "invalid_heating_roof_penetration")
     );
@@ -321,7 +421,8 @@ fn settlement_height_and_roof_variation_preserves_the_heating_core() {
         BuildingArchetype::FachwerkCottage,
         BuildingArchetype::HallHouse,
     ] {
-        for seed in [0, 1, 2, 17, 42, 47, 101, u64::MAX] {
+        for seed in [0, 1, 2, 17, 42, 47, 101, u64::MAX].map(fabelgeist_determinism::Seed::from_u64)
+        {
             let program = BuildingProgram::settlement(
                 archetype,
                 Some(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling),
@@ -352,7 +453,10 @@ fn settlement_height_and_roof_variation_preserves_the_heating_core() {
 
 #[test]
 fn rotated_masonry_and_tilted_flashing_do_not_count_as_sealed_material() {
-    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     for kind in [HeatingPartKind::TiledStove, HeatingPartKind::RoofFlashing] {
         let mut changed = original.clone();
         let id = changed
@@ -364,14 +468,26 @@ fn rotated_masonry_and_tilted_flashing_do_not_count_as_sealed_material() {
             .find(|p| p.kind == kind)
             .unwrap()
             .solid;
-        changed
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|s| s.id == id)
-            .unwrap()
-            .crossfall_radians += 0.1;
-        assert!(audit(&changed).iter().any(|i| matches!(
+        {
+            let mut native_geometry = changed
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == id)
+                .unwrap()
+                .crossfall_radians
+                .radians();
+            native_geometry += 0.1;
+            changed
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == id)
+                .unwrap()
+                .crossfall_radians =
+                crate::spatial_geometry::Radians::new(native_geometry).unwrap();
+        };
+        assert!(audit(&changed).unwrap().iter().any(|i| matches!(
             i.code,
             "invalid_domestic_appliance_shape" | "invalid_heating_roof_penetration"
         )));
@@ -380,7 +496,10 @@ fn rotated_masonry_and_tilted_flashing_do_not_count_as_sealed_material() {
 
 #[test]
 fn penetration_updates_drainage_stations_at_the_cut_boundary() {
-    let mut plan = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let mut plan = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let face = plan.domestic_heating.as_ref().unwrap().roof.face;
     let network = plan
         .resolved_geometry
@@ -405,4 +524,36 @@ fn penetration_updates_drainage_stations_at_the_cut_boundary() {
         .unwrap();
     assert_eq!(network.samples.len(), 1);
     assert_eq!(network.samples[0].surface_point.x, -0.01);
+}
+
+#[test]
+fn selection_reports_missing_room_and_storey_bindings_before_trying_roofs() {
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
+    let wall = original
+        .wall_assemblies
+        .iter()
+        .find(|w| w.frame.inside_room.is_some() && w.frame.outside_room.is_some())
+        .unwrap()
+        .clone();
+    let mut missing_storey = original.clone();
+    missing_storey
+        .storeys
+        .retain(|s| s.level != wall.storey_level);
+    assert!(
+        matches!(super::placement::find(&missing_storey),Err(crate::GenerationError::HeatingConstruction(HeatingConstructionError::MissingStorey { wall:id,storey })) if id==wall.id && storey==StoreyIndex::from_serialized(wall.storey_level))
+    );
+    let mut missing_room = original;
+    missing_room
+        .wall_assemblies
+        .iter_mut()
+        .find(|w| w.id == wall.id)
+        .unwrap()
+        .frame
+        .inside_room = Some(65535);
+    assert!(
+        matches!(super::placement::find(&missing_room),Err(crate::GenerationError::HeatingConstruction(HeatingConstructionError::MissingRoom { wall:id,room,.. })) if id==wall.id && room==RoomIndex::from_serialized(65535))
+    );
 }

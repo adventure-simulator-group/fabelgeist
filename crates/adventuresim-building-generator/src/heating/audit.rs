@@ -1,4 +1,5 @@
 //! Independent checks of ownership, smoke continuity, masonry and weather cuts.
+use crate::GenerationResult as Result;
 use crate::*;
 use bevy::math::{Vec2, Vec3};
 use geo::{Area, BooleanOps};
@@ -9,8 +10,9 @@ mod roof;
 pub(super) mod roof_route;
 mod weathering;
 const GEOMETRY_TOLERANCE_METRES: f32 = 0.002;
+const AREA_TOLERANCE_SQUARE_METRES: f32 = 0.00001;
 
-pub(crate) fn audit(plan: &BuildingPlan) -> Vec<AuditIssue> {
+pub(crate) fn audit(plan: &BuildingPlan) -> Result<Vec<AuditIssue>> {
     let mut issues = Vec::new();
     let Some(h) = &plan.domestic_heating else {
         if plan
@@ -25,16 +27,16 @@ pub(crate) fn audit(plan: &BuildingPlan) -> Vec<AuditIssue> {
                 "heating geometry has no programme",
             );
         }
-        return issues;
+        return Ok(issues);
     };
-    ownership(plan, h, &mut issues);
-    clearance(plan, h, &mut issues);
-    bearings(plan, h, &mut issues);
-    floors::audit(plan, h, &mut issues);
-    passages(plan, h, &mut issues);
-    enclosures::audit(plan, h, &mut issues);
-    roof::audit(plan, h, &mut issues);
-    issues
+    ownership(plan, h, &mut issues)?;
+    clearance(plan, h, &mut issues)?;
+    bearings(plan, h, &mut issues)?;
+    floors::audit(plan, h, &mut issues)?;
+    passages(plan, h, &mut issues)?;
+    enclosures::audit(plan, h, &mut issues)?;
+    roof::audit(plan, h, &mut issues)?;
+    Ok(issues)
 }
 fn fail(issues: &mut Vec<AuditIssue>, code: &'static str, message: &str) {
     issues.push(AuditIssue {
@@ -42,31 +44,43 @@ fn fail(issues: &mut Vec<AuditIssue>, code: &'static str, message: &str) {
         message: message.to_owned(),
     });
 }
-fn ownership(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<AuditIssue>) {
+fn ownership(
+    plan: &BuildingPlan,
+    h: &DomesticHeatingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<()> {
     let room = |r: HeatingRoom| {
         plan.storeys
             .iter()
-            .find(|s| s.level == r.storey_level)
-            .and_then(|s| s.rooms.iter().find(|room| room.id == r.room_id))
+            .find(|s| StoreyIndex::from_serialized(s.level) == r.storey_level)
+            .and_then(|s| {
+                s.rooms
+                    .iter()
+                    .find(|room| RoomIndex::from_serialized(room.id) == r.room_id)
+            })
     };
     let wall = plan.wall_assemblies.iter().find(|w| w.id == h.fire_wall);
     let valid = h.kitchen.storey_level == h.heated_room.storey_level
-        && (h.floor_height_metres - f32::from(h.kitchen.storey_level) * plan.storey_height_metres)
+        && (h.floor_height_metres.metres()
+            - f32::from(h.kitchen.storey_level.serialized_ordinal()?) * plan.storey_height_metres)
             .abs()
             < GEOMETRY_TOLERANCE_METRES
         && room(h.kitchen).is_some_and(|r| r.kind == RoomKind::Kitchen)
         && room(h.heated_room)
             .is_some_and(|r| matches!(r.kind, RoomKind::CommonRoom | RoomKind::GreatHall))
         && wall.is_some_and(|w| {
-            w.storey_level == h.kitchen.storey_level
+            StoreyIndex::from_serialized(w.storey_level) == h.kitchen.storey_level
                 && w.owner == h.owner
                 && w.opening_ids.is_empty()
-                && [w.frame.inside_room, w.frame.outside_room].contains(&Some(h.kitchen.room_id))
                 && [w.frame.inside_room, w.frame.outside_room]
-                    .contains(&Some(h.heated_room.room_id))
+                    .contains(&Some(h.kitchen.room_id.serialized_ordinal()))
+                && [w.frame.inside_room, w.frame.outside_room]
+                    .contains(&Some(h.heated_room.room_id.serialized_ordinal()))
         })
         && plan.resolved_geometry.structural_nodes.iter().any(|n| {
-            n.id == h.ground_support && n.grounded && n.position.y.abs() < GEOMETRY_TOLERANCE_METRES
+            n.id == h.ground_support
+                && n.grounded
+                && n.position.metres().y.abs() < GEOMETRY_TOLERANCE_METRES
         });
     let ids = h.parts.iter().map(|p| p.solid).collect::<BTreeSet<_>>();
     let actual = plan
@@ -93,13 +107,22 @@ fn ownership(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audi
             "heating parts, ground bearing or kitchen/Stube references disagree",
         );
     }
+
+    Ok(())
 }
-fn clearance(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<AuditIssue>) {
+fn clearance(
+    plan: &BuildingPlan,
+    h: &DomesticHeatingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<()> {
     let ids = h.parts.iter().map(|p| p.solid).collect::<BTreeSet<_>>();
     if plan.resolved_geometry.solids.iter().any(|s| {
         crate::solid_overlap::overlaps_bounds(
             s,
-            (h.operating_space.min, h.operating_space.max),
+            (
+                h.operating_space.min().metres(),
+                h.operating_space.max().metres(),
+            ),
             GEOMETRY_TOLERANCE_METRES,
         )
     }) {
@@ -123,7 +146,7 @@ fn clearance(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audi
                         solid.longfall_radians,
                     ]
                     .into_iter()
-                    .any(|angle| angle.abs() > 0.0001)))
+                    .any(|angle| angle.radians().abs() > 0.0001)))
         {
             fail(
                 issues,
@@ -132,7 +155,7 @@ fn clearance(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audi
             );
         }
     }
-    for part in h.parts.iter().filter(|p| {
+    let _: () = for part in h.parts.iter().filter(|p| {
         matches!(
             p.kind,
             HeatingPartKind::Flue | HeatingPartKind::FlueShoulder
@@ -146,7 +169,7 @@ fn clearance(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audi
         else {
             continue;
         };
-        let b = flue.cuboid_bounds();
+        let b = flue.cuboid_bounds()?;
         let margin = Vec3::new(
             super::placement::TIMBER_CLEARANCE_METRES,
             0.0,
@@ -160,7 +183,7 @@ fn clearance(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audi
             .any(|s| {
                 crate::solid_overlap::overlaps_bounds(
                     s,
-                    (b.min - margin, b.max + margin),
+                    (b.min().metres() - margin, b.max().metres() + margin),
                     GEOMETRY_TOLERANCE_METRES,
                 )
             })
@@ -171,9 +194,14 @@ fn clearance(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audi
                 "the completed flue intersects retained construction or its clearance band",
             );
         }
-    }
+    };
+    Ok(())
 }
-fn passages(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<AuditIssue>) {
+fn passages(
+    plan: &BuildingPlan,
+    h: &DomesticHeatingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<()> {
     use HeatingPassageKind::*;
     let expected = [
         HearthMouth,
@@ -203,17 +231,17 @@ fn passages(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audit
             "incomplete_domestic_smoke_route",
             "the hearth, stove return, hood and outdoor flue need unique passages",
         );
-        return;
+        return Ok(());
     }
     let routes = routes.map(Option::unwrap);
     for route in routes {
         if route.owner != h.owner
             || route.subtracts_from != h.owner
-            || (route.bounds.max - route.bounds.min).min_element() < 0.1
+            || (route.bounds.max().metres() - route.bounds.min().metres()).min_element() < 0.1
             || plan.resolved_geometry.solids.iter().any(|s| {
                 crate::solid_overlap::overlaps_bounds(
                     s,
-                    (route.bounds.min, route.bounds.max),
+                    (route.bounds.min().metres(), route.bounds.max().metres()),
                     GEOMETRY_TOLERANCE_METRES,
                 )
             })
@@ -232,7 +260,9 @@ fn passages(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audit
             if reached.iter().any(|other| {
                 let a = routes[index].bounds;
                 let b = routes[*other].bounds;
-                (a.max.min(b.max) - a.min.max(b.min)).min_element() > GEOMETRY_TOLERANCE_METRES
+                (a.max().metres().min(b.max().metres()) - a.min().metres().max(b.min().metres()))
+                    .min_element()
+                    > GEOMETRY_TOLERANCE_METRES
             }) {
                 reached.insert(index);
             }
@@ -248,14 +278,16 @@ fn passages(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audit
             "the stove and hearth do not connect to the outdoor bore",
         );
     }
-    flue_shell(plan, h, routes[4].bounds, issues);
+    flue_shell(plan, h, routes[4].bounds, issues)?;
+
+    Ok(())
 }
 fn flue_shell(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
-    bore: ResolvedBounds,
+    bore: SpatialBounds<Architectural>,
     issues: &mut Vec<AuditIssue>,
-) {
+) -> Result<()> {
     let flues = h
         .parts
         .iter()
@@ -273,27 +305,25 @@ fn flue_shell(
             "open_domestic_flue_shell",
             "the flue lacks a complete masonry shell",
         );
-        return;
+        return Ok(());
     }
-    let outer = flues
-        .iter()
-        .map(|s| s.cuboid_bounds())
-        .fold(flues[0].cuboid_bounds(), |a, b| ResolvedBounds {
-            min: a.min.min(b.min),
-            max: a.max.max(b.max),
-        });
+    let mut outer = flues[0].cuboid_bounds()?;
+    for solid in &flues {
+        outer = outer.union(solid.cuboid_bounds()?);
+    }
     let expected = rect(outer).difference(&rect(bore));
-    for fraction in [0.01, 0.5, 0.99] {
-        let y = outer.min.y + (outer.max.y - outer.min.y) * fraction;
+    let _: () = for fraction in [0.01, 0.5, 0.99] {
+        let y =
+            outer.min().metres().y + (outer.max().metres().y - outer.min().metres().y) * fraction;
         let mut actual = geo::MultiPolygon::new(vec![]);
         for solid in &flues {
-            let b = solid.cuboid_bounds();
-            if b.min.y <= y && b.max.y >= y {
+            let b = solid.cuboid_bounds()?;
+            if b.min().metres().y <= y && b.max().metres().y >= y {
                 actual = actual.union(&rect(b));
             }
         }
-        if expected.difference(&actual).unsigned_area() > 0.00001
-            || actual.intersection(&rect(bore)).unsigned_area() > 0.00001
+        if expected.difference(&actual).unsigned_area() > AREA_TOLERANCE_SQUARE_METRES
+            || actual.intersection(&rect(bore)).unsigned_area() > AREA_TOLERANCE_SQUARE_METRES
         {
             fail(
                 issues,
@@ -302,12 +332,13 @@ fn flue_shell(
             );
             break;
         }
-    }
+    };
+    Ok(())
 }
-fn rect(bounds: ResolvedBounds) -> geo::Polygon<f32> {
+fn rect(bounds: SpatialBounds<Architectural>) -> geo::Polygon<f32> {
     geo::Rect::new(
-        geo::coord! {x:bounds.min.x,y:bounds.min.z},
-        geo::coord! {x:bounds.max.x,y:bounds.max.z},
+        geo::coord! {x:bounds.min().metres().x,y:bounds.min().metres().z},
+        geo::coord! {x:bounds.max().metres().x,y:bounds.max().metres().z},
     )
     .to_polygon()
 }
@@ -318,8 +349,12 @@ fn polygon(points: &[Vec3]) -> geo::Polygon<f32> {
     )
 }
 
-fn bearings(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<AuditIssue>) {
-    for part in &h.parts {
+fn bearings(
+    plan: &BuildingPlan,
+    h: &DomesticHeatingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<()> {
+    let _: () = for part in &h.parts {
         let Some(solid) = plan
             .resolved_geometry
             .solids
@@ -338,7 +373,7 @@ fn bearings(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audit
                 continue;
             };
             if node.grounded {
-                if solid.cuboid_bounds().min.y > GEOMETRY_TOLERANCE_METRES {
+                if solid.cuboid_bounds()?.min().metres().y > GEOMETRY_TOLERANCE_METRES {
                     fail(
                         issues,
                         "detached_heating_bearing",
@@ -348,25 +383,37 @@ fn bearings(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audit
                 continue;
             }
             if node.supported_by.is_empty()
-                || node.supported_by.iter().any(|parent| {
-                    !plan
-                        .resolved_geometry
-                        .solids
-                        .iter()
-                        .filter(|s| s.id != solid.id && s.supported_by.contains(parent))
-                        .any(|support| {
-                            super::contact::measured(solid, support).is_some_and(|contact| {
-                                plan.resolved_geometry.support_interfaces.iter().any(|i| {
-                                    i.node == *node_id
-                                        && i.owner == h.owner
-                                        && i.bounds.min.distance(contact.min)
-                                            < GEOMETRY_TOLERANCE_METRES
-                                        && i.bounds.max.distance(contact.max)
-                                            < GEOMETRY_TOLERANCE_METRES
-                                })
-                            })
-                        })
-                })
+                || crate::geometry_index::try_any(node.supported_by.iter(), |parent| {
+                    Ok::<bool, crate::GenerationError>(!crate::geometry_index::try_any(
+                        plan.resolved_geometry
+                            .solids
+                            .iter()
+                            .filter(|s| s.id != solid.id && s.supported_by.contains(parent)),
+                        |support| {
+                            crate::geometry_index::try_any(
+                                super::contact::measured(solid, support)?,
+                                |contact| {
+                                    Ok::<bool, crate::GenerationError>(
+                                        plan.resolved_geometry.support_interfaces.iter().any(|i| {
+                                            i.node == *node_id
+                                                && i.owner == h.owner
+                                                && i.bounds
+                                                    .min()
+                                                    .metres()
+                                                    .distance(contact.min().metres())
+                                                    < GEOMETRY_TOLERANCE_METRES
+                                                && i.bounds
+                                                    .max()
+                                                    .metres()
+                                                    .distance(contact.max().metres())
+                                                    < GEOMETRY_TOLERANCE_METRES
+                                        }),
+                                    )
+                                },
+                            )
+                        },
+                    )?)
+                })?
             {
                 fail(
                     issues,
@@ -375,5 +422,6 @@ fn bearings(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audit
                 );
             }
         }
-    }
+    };
+    Ok(())
 }

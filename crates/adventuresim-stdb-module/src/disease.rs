@@ -1422,7 +1422,7 @@ fn party_contact_episodes_through(
                     );
                     if disease::acquisition_succeeds(seed, definition, immunity, prior, exposure) {
                         proposals.push(InfectionEpisode {
-                            id: seed,
+                            id: seed.to_u64(),
                             character_id,
                             disease_id: source_episode.disease_id,
                             contracted_at: at,
@@ -1568,7 +1568,8 @@ fn outbreak_episodes_through(
             .any(|episode| episode.disease_id == disease_id && episode.contracted_at == at)
         {
             episodes.push(InfectionEpisode {
-                id: disease::outbreak_exposure_seed(character_id, &format!("{}:{at}", outbreak.id)),
+                id: disease::outbreak_exposure_seed(character_id, &format!("{}:{at}", outbreak.id))
+                    .to_u64(),
                 character_id,
                 disease_id,
                 contracted_at: at,
@@ -1636,7 +1637,8 @@ fn outbreak_episodes_through(
                     id: disease::outbreak_exposure_seed(
                         character_id,
                         &format!("{}:{at}", problem.id),
-                    ),
+                    )
+                    .to_u64(),
                     character_id,
                     disease_id,
                     contracted_at: at,

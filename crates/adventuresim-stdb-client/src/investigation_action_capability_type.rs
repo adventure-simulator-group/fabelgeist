@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::investigation_provenance_kind_type::InvestigationProvenanceKind;
 use super::investigation_target_kind_type::InvestigationTargetKind;
+use super::seed_type::Seed;
 use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
@@ -21,7 +22,7 @@ pub struct InvestigationActionCapability {
     pub target_kind: InvestigationTargetKind,
     pub target_id: String,
     pub target_terrain: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub evidence_age_origin_minute: StrategicMinute,
     pub uncertainty_bps: u16,
     pub safe_summary: String,
@@ -53,7 +54,7 @@ pub struct InvestigationActionCapabilityCols {
         __sdk::__query_builder::Col<InvestigationActionCapability, InvestigationTargetKind>,
     pub target_id: __sdk::__query_builder::Col<InvestigationActionCapability, String>,
     pub target_terrain: __sdk::__query_builder::Col<InvestigationActionCapability, String>,
-    pub seed: __sdk::__query_builder::Col<InvestigationActionCapability, u64>,
+    pub seed: __sdk::__query_builder::Col<InvestigationActionCapability, Seed>,
     pub evidence_age_origin_minute:
         __sdk::__query_builder::Col<InvestigationActionCapability, StrategicMinute>,
     pub uncertainty_bps: __sdk::__query_builder::Col<InvestigationActionCapability, u16>,

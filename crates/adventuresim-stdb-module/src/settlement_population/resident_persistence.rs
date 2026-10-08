@@ -1,5 +1,6 @@
 //! Persist finalized resident drafts without revising their demographics.
 use super::*;
+use fabelgeist_determinism::Seed;
 
 const CLERIC: &str = "cleric";
 const REEVE: &str = "reeve";
@@ -11,7 +12,7 @@ struct PreparedResident {
     profile: population::GeneratedPopulationProfile,
     provider: bool,
     age_band: AgeBand,
-    stable_seed: u64,
+    stable_seed: Seed,
 }
 
 impl PreparedResident {
@@ -34,7 +35,7 @@ impl PreparedResident {
             profile,
             provider,
             age_band,
-            stable_seed: resident_random(&draft.seed, ResidentEntropyStream::Identity).next_u64(),
+            stable_seed: resident_random(&draft.seed, ResidentEntropyStream::Identity).next_seed(),
         })
     }
 
@@ -135,7 +136,7 @@ fn insert_identity(
     .map_err(|error| error.to_string())?
     .into_string();
     let personality = crate::personality::personality_from_stable_seed_with_demographics(
-        draft.character_id(),
+        crate::character::CharacterId::new(draft.character_id()),
         prepared.stable_seed,
         draft.sex,
         draft.presentation,

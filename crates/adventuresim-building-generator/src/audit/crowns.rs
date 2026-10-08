@@ -16,25 +16,7 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
     }
     for crown in &plan.crowns {
         let p = crown.profile;
-        let merlon_top =
-            p.breastwork_height_metres + p.merlon_height_metres + p.coping_height_metres;
-        if !(0.8..=1.0).contains(&p.breastwork_height_metres)
-            || !(1.5..=1.8).contains(&merlon_top)
-            || p.thickness_metres < 0.35
-            || !(0.35..=0.6).contains(&p.crenel_width_metres)
-            || p.walk_clear_width_metres < 0.9
-            || p.inner_guard_height_metres < 0.9
-            || p.firing_height_metres <= p.breastwork_height_metres
-            || p.firing_height_metres >= merlon_top
-        {
-            issues.push(issue(
-                "unsafe_crown_profile",
-                format!(
-                    "crown owner {} violates the declared cover/clearance envelope",
-                    crown.owner.0
-                ),
-            ));
-        }
+        crown_profile::audit(crown, issues);
         let solids = plan
             .resolved_geometry
             .solids
@@ -59,13 +41,14 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 CrownPath::Straight { start, end, .. }
                     if (end - start).x.abs() >= (end - start).y.abs() =>
                 {
-                    solid.size.z
+                    solid.size.metres().z
                 }
-                CrownPath::Straight { .. } => solid.size.x,
-                CrownPath::Round { .. } => solid.size.z,
+                CrownPath::Straight { .. } => solid.size.metres().x,
+                CrownPath::Round { .. } => solid.size.metres().z,
             };
             solid.role == SolidRole::Coping
-                && (solid.crossfall_radians.abs() < 0.02 || transverse < p.thickness_metres + 0.02)
+                && (solid.crossfall_radians.radians().abs() < 0.02
+                    || transverse < p.thickness_metres + 0.02)
         }) {
             issues.push(issue(
                 "bad_crown_coping",
@@ -171,8 +154,11 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     catchment.inner_elevation_metres - catchment.outer_elevation_metres >= 0.04;
                 let solid_slopes_outward = solid.is_some_and(|solid| {
                     let slab_width = catchment.width_metres - CROWN_DRAIN_CHANNEL_WIDTH_METRES;
-                    let local_z = Vec2::new(solid.yaw_radians.sin(), solid.yaw_radians.cos());
-                    let downhill = local_z * solid.crossfall_radians.signum();
+                    let local_z = Vec2::new(
+                        solid.yaw_radians.radians().sin(),
+                        solid.yaw_radians.radians().cos(),
+                    );
+                    let downhill = local_z * solid.crossfall_radians.radians().signum();
                     let expected_slope = ((catchment.inner_elevation_metres
                         - catchment.outer_elevation_metres)
                         / slab_width)
@@ -181,12 +167,13 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         - catchment.outward * (CROWN_DRAIN_CHANNEL_WIDTH_METRES * 0.5);
                     solid.role == SolidRole::WalkSurface
                         && solid.owner == crown.owner
-                        && solid.crossfall_radians.abs() >= 0.01
-                        && (solid.crossfall_radians.abs() - expected_slope).abs() < 0.002
+                        && solid.crossfall_radians.radians().abs() >= 0.01
+                        && (solid.crossfall_radians.radians().abs() - expected_slope).abs() < 0.002
                         && downhill.dot(catchment.outward) >= 0.98
-                        && (solid.size.x - catchment.length_metres).abs() < 0.01
-                        && (solid.size.z - slab_width).abs() < 0.01
-                        && Vec2::new(solid.centre.x, solid.centre.z).distance(expected_centre)
+                        && (solid.size.metres().x - catchment.length_metres).abs() < 0.01
+                        && (solid.size.metres().z - slab_width).abs() < 0.01
+                        && Vec2::new(solid.centre.metres().x, solid.centre.metres().z)
+                            .distance(expected_centre)
                             < 0.01
                 });
                 let surface_is_drainage = surface.is_some_and(|surface| {
@@ -202,18 +189,25 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     let channel_segments = channels
                         .iter()
                         .map(|channel| {
-                            let local_x =
-                                Vec2::new(channel.yaw_radians.cos(), -channel.yaw_radians.sin());
-                            let downhill = local_x * -channel.longfall_radians.signum();
-                            let centre = Vec2::new(channel.centre.x, channel.centre.z);
+                            let local_x = Vec2::new(
+                                channel.yaw_radians.radians().cos(),
+                                -channel.yaw_radians.radians().sin(),
+                            );
+                            let downhill = local_x * -channel.longfall_radians.radians().signum();
+                            let centre =
+                                Vec2::new(channel.centre.metres().x, channel.centre.metres().z);
                             (
-                                centre - downhill * channel.size.x * 0.5,
-                                centre + downhill * channel.size.x * 0.5,
-                                channel.centre.y
-                                    + channel.size.y * 0.5
-                                    + channel.longfall_radians.tan().abs() * channel.size.x * 0.5,
-                                channel.centre.y + channel.size.y * 0.5
-                                    - channel.longfall_radians.tan().abs() * channel.size.x * 0.5,
+                                centre - downhill * channel.size.metres().x * 0.5,
+                                centre + downhill * channel.size.metres().x * 0.5,
+                                channel.centre.metres().y
+                                    + channel.size.metres().y * 0.5
+                                    + channel.longfall_radians.radians().tan().abs()
+                                        * channel.size.metres().x
+                                        * 0.5,
+                                channel.centre.metres().y + channel.size.metres().y * 0.5
+                                    - channel.longfall_radians.radians().tan().abs()
+                                        * channel.size.metres().x
+                                        * 0.5,
                                 *channel,
                             )
                         })
@@ -251,7 +245,7 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         channel_segments.iter().all(|(start, end, _, _, channel)| {
                             !(0..=4).any(|sample| {
                                 let point = start.lerp(*end, sample as f32 / 4.0);
-                                let point = Vec3::new(point.x, channel.centre.y, point.y);
+                                let point = Vec3::new(point.x, channel.centre.metres().y, point.y);
                                 let blocker = plan.resolved_geometry.solids.iter().find(|solid| {
                                     solid.owner == crown.owner
                                         && solid.id != catchment.walk_solid
@@ -274,7 +268,7 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     let roles_and_fall = channel_segments.iter().all(|(_, _, _, _, channel)| {
                         channel.role == SolidRole::DrainageChannel
                             && channel.owner == crown.owner
-                            && channel.longfall_radians < -0.0005
+                            && channel.longfall_radians.radians() < -0.0005
                     });
                     let endpoint_matches =
                         channel_segments
@@ -301,7 +295,7 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 solid.owner == crown.owner
                                     && resolved_solid_overlaps_bounds(
                                         solid,
-                                        (void.bounds.min, void.bounds.max),
+                                        (void.bounds.min().metres(), void.bounds.max().metres()),
                                         0.001,
                                     )
                             })
@@ -437,11 +431,11 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         && surface.role == SurfaceRole::Stance
                         && sample
                             .stance
-                            .cmpge(surface.bounds.min - Vec3::splat(0.02))
+                            .cmpge(surface.bounds.min().metres() - Vec3::splat(0.02))
                             .all()
                         && sample
                             .stance
-                            .cmple(surface.bounds.max + Vec3::splat(0.02))
+                            .cmple(surface.bounds.max().metres() + Vec3::splat(0.02))
                             .all()
                 });
                 let blocked = solids.iter().any(|solid| {
@@ -602,12 +596,13 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         ) {
                             return false;
                         }
-                        let centre =
-                            (Vec2::new(solid.centre.x, solid.centre.z) - start).dot(tangent);
+                        let centre = (Vec2::new(solid.centre.metres().x, solid.centre.metres().z)
+                            - start)
+                            .dot(tangent);
                         let half = if tangent.x.abs() >= tangent.y.abs() {
-                            solid.size.x * 0.5
+                            solid.size.metres().x * 0.5
                         } else {
-                            solid.size.z * 0.5
+                            solid.size.metres().z * 0.5
                         };
                         centre + half > splice_min + 0.02 && centre - half < splice_max - 0.02
                     });
@@ -643,10 +638,11 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     .iter()
                     .filter(|solid| solid.role == SolidRole::Merlon)
                     .map(|solid| {
-                        let radial = Vec2::new(solid.centre.x, solid.centre.z) - centre;
+                        let radial =
+                            Vec2::new(solid.centre.metres().x, solid.centre.metres().z) - centre;
                         (
                             radial.y.atan2(radial.x).rem_euclid(std::f32::consts::TAU),
-                            solid.size.x,
+                            solid.size.metres().x,
                         )
                     })
                     .collect::<Vec<_>>();
@@ -735,10 +731,12 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 }
                 let Some(WallWalk::Round { stairwell_radius_metres, .. }) = plan.wall_walks.iter().find(|walk| matches!(walk, WallWalk::Round { centre: walk_centre, .. } if (*walk_centre-centre).length()<0.02)) else { continue; };
                 let Some(arrival) = plan.stairs.iter().find_map(|stair| match *stair {
-                    Stair::Spiral { centre: stair_centre, .. }
-                        if (stair_centre - centre).length() < 0.02 => {
-                            crate::spiral_stairs::arrival_angle(*stair)
-                        }
+                    Stair::Spiral {
+                        centre: stair_centre,
+                        ..
+                    } if (stair_centre - centre).length() < 0.02 => {
+                        crate::spiral_stairs::arrival_angle(*stair)
+                    }
                     _ => None,
                 }) else {
                     continue;
@@ -830,7 +828,8 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     .iter()
                     .filter(|solid| {
                         solid.role == SolidRole::Merlon
-                            && Vec2::new(solid.centre.x, solid.centre.z).distance(junction.position)
+                            && Vec2::new(solid.centre.metres().x, solid.centre.metres().z)
+                                .distance(junction.position)
                                 < 0.08
                     })
                     .count();

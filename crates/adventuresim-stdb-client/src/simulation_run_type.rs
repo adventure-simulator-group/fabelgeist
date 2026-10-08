@@ -4,13 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::seed_type::Seed;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct SimulationRun {
     pub id: u64,
     pub nonce: String,
     pub owner: __sdk::Identity,
-    pub policy_seed: u64,
+    pub policy_seed: Seed,
     pub claimed_micros: i64,
 }
 
@@ -25,7 +27,7 @@ pub struct SimulationRunCols {
     pub id: __sdk::__query_builder::Col<SimulationRun, u64>,
     pub nonce: __sdk::__query_builder::Col<SimulationRun, String>,
     pub owner: __sdk::__query_builder::Col<SimulationRun, __sdk::Identity>,
-    pub policy_seed: __sdk::__query_builder::Col<SimulationRun, u64>,
+    pub policy_seed: __sdk::__query_builder::Col<SimulationRun, Seed>,
     pub claimed_micros: __sdk::__query_builder::Col<SimulationRun, i64>,
 }
 

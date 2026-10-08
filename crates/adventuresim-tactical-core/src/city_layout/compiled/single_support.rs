@@ -11,7 +11,7 @@ mod bearing;
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CitySingleProperty {
     pub id: CityPropertyId,
-    pub building_id: u64,
+    pub building_id: crate::scene_input::SceneBuildingId,
     pub plot: CityPlotBounds,
 }
 
@@ -30,6 +30,7 @@ impl CitySceneLayout {
         geographic: &GeographicSurface,
         policy: SinglePropertyGradingPolicy,
     ) -> Result<Vec<SingleBuildingSupportPlan>, CitySupportError> {
+        self.validate_physical_support_members()?;
         let mut recipes = self.support_recipes.clone();
         let mut properties: Vec<_> = self.single_properties.iter().collect();
         properties.sort_by_key(|property| property.id);
@@ -57,24 +58,24 @@ impl CitySceneLayout {
                 let recipe = recipes.for_program(&placement.program)?;
                 let bearing =
                     bearing::SingleBearingProjection::from_recipe(property, placement, &recipe)?;
+                let origin = recipe.collision.bounds.centre()?.metres().xz();
                 let thresholds: Vec<_> = recipe
                     .ground_entrances
                     .iter()
                     .map(|door| {
-                        let local = door.threshold_metres - recipe.collision.bounds.centre().xz();
-                        DoorwaySupportBinding {
+                        let local = door.threshold_metres.metres() - origin;
+                        Ok(DoorwaySupportBinding {
                             entrance: door.id,
                             support: door.support,
-                            threshold_metres: placement.centre_metres
-                                + placement.orientation.local_to_world(local),
-                            outward: placement.orientation.local_to_world(door.outward),
-                        }
+                            threshold_metres: crate::scene_coordinates::ScenePlanPoint::try_from(placement.centre_metres.metres() + placement.orientation.local_to_world(local))?,
+                            outward: adventuresim_building_generator::spatial_geometry::PlanDirection::from_normalized(placement.orientation.local_to_world(door.outward.vector()))?,
+                        })
                     })
-                    .collect();
+                    .collect::<Result<_, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
                 SingleBuildingSupportRequest {
                     property: *property,
                     bearing: bearing.bounds,
-                    bearing_outline: bearing.outline,
+                    bearing_region: bearing.region,
                     thresholds: &thresholds,
                     geographic,
                     streets: &self.streets,

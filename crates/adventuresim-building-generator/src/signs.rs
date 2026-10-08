@@ -138,13 +138,13 @@ impl ShopSign {
         Some(Self {
             emblem: TradeEmblem::for_use(usage),
             name,
-            mount: if SIGN_MOUNT.rng(id.0, &[]).boolean() {
+            mount: if SIGN_MOUNT.rng(id.0.into(), &[]).boolean() {
                 SignMount::Wall
             } else {
                 SignMount::Projecting
             },
             font: SignFont::GrenzeGotisch,
-            finish: if SIGN_FINISH.rng(id.0, &[]).boolean() {
+            finish: if SIGN_FINISH.rng(id.0.into(), &[]).boolean() {
                 SignFinish::PalePaint
             } else {
                 SignFinish::DarkWood
