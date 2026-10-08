@@ -778,3 +778,9 @@ reason = "Feature-gated bootstrap-capability-guarded social request and executio
 kind = "fixture"
 path = "crates/adventuresim-stdb-module/src/investigation/authority_tests.rs"
 reason = "Feature-gated bootstrap-capability-guarded investigation storage, snapshot, and prerequisite acceptance fixtures."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-fbx/src/connection.rs"
+item = "FbxConnectionProperty::from"
+reason = "Classifies six exact native FBX connection tokens into transform and axis roles, preserving all other decoded spellings."

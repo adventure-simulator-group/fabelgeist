@@ -10573,50 +10573,8 @@ occurrences = 1
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/fabelgeist-fbx/src/animation.rs"
-item = "Scene::collect_layer"
-fingerprint = "string:LclRotation"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/animation.rs"
-item = "Scene::collect_layer"
-fingerprint = "string:LclScaling"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/animation.rs"
-item = "Scene::collect_layer"
-fingerprint = "string:LclTranslation"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/animation.rs"
 item = "Scene::takes"
 fingerprint = "string:AnimationLayer"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/animation.rs"
-item = "Scene::takes"
-fingerprint = "string:Lcl Rotation"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/animation.rs"
-item = "Scene::takes"
-fingerprint = "string:Lcl Scaling"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/animation.rs"
-item = "Scene::takes"
-fingerprint = "string:Lcl Translation"
 occurrences = 1
 
 [[findings]]
@@ -10628,35 +10586,14 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/animation.rs"
-item = "Scene::transform_channel"
-fingerprint = "string:d|X"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/animation.rs"
-item = "Scene::transform_channel"
-fingerprint = "string:d|Y"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/animation.rs"
-item = "Scene::transform_channel"
-fingerprint = "string:d|Z"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/lib.rs"
+path = "crates/fabelgeist-fbx/src/scene.rs"
 item = "Scene::from_roots"
 fingerprint = "string:Connections"
 occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/fabelgeist-fbx/src/lib.rs"
+path = "crates/fabelgeist-fbx/src/scene.rs"
 item = "Scene::from_roots"
 fingerprint = "string:Objects"
 occurrences = 1
