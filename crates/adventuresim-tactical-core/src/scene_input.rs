@@ -7,12 +7,12 @@
 
 mod terrain_samples;
 pub use terrain_samples::{
-    EnvironmentalSample, SceneSource, TacticalSurface, TerrainSampleGrid, VistaLevelIndex,
-    VistaLod, VistaSample,
+    EnvironmentalSample, SceneSource, SourcePackageDigest, TacticalSurface, TerrainSampleGrid,
+    VistaLevelIndex, VistaLod, VistaSample,
 };
 mod rock_recipe;
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
-use rock_recipe::rock_recipe;
+use rock_recipe::{rock_recipe, wrapped_angle_difference};
 mod rock_streams;
 use crate::terrain_streams as streams;
 use std::{fs, path::Path};
@@ -52,7 +52,7 @@ pub use descriptor::{
     MAX_SCENE_INPUT_BYTES, TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
     TacticalSceneInput,
 };
-use detail_noise::DetailNoise;
+use detail_noise::{DetailNoise, value_noise};
 use detail_obstacles::{TerrainDetailObstacles, TerrainRockInfluence};
 mod generated;
 mod generation;
@@ -60,13 +60,13 @@ mod validation;
 pub use generation::{SupportedSceneTerrain, UngradedSceneTerrain};
 mod recipes;
 pub use generated::{GeneratedTacticalScene, SceneRepairReport};
-pub use recipes::{GeneratedBuildingRecipe, GeneratedBuildingRecipes};
+pub use recipes::{GeneratedBuildingRecipe, GeneratedBuildingRecipes, ProgramFurnitureSite};
 pub mod furniture;
 
 pub use buildings::{
     BuildingOrientation, DistantBuildingPlacement, DistantBuildingVariant, GeneratedBuilding,
-    SceneBuilding, SceneDoor, SceneDoorError, SceneWindow, TacticalBuildingPlacement,
-    compile_tactical_building_collider,
+    SceneBuilding, SceneBuildingId, SceneDoor, SceneDoorError, SceneWindow, SceneWindowError,
+    TacticalBuildingPlacement, compile_tactical_building_collider,
 };
 
 pub const TREE_TRUNK_RADIUS_METRES: f32 = 0.35;
@@ -82,8 +82,6 @@ const MAX_VISTA_LEVELS: usize = 8;
 const MAX_VISTA_SAMPLES: usize = 2_000_000;
 const MAX_TEMPLATE_BYTES: usize = 128;
 const MAX_SOURCE_ID_BYTES: usize = 128;
-/// Repair grade of the procedural ground surface, distinct from motor limits.
-pub const MAX_PLAYABLE_GRADE: f32 = 0.65;
 const AUTHORITATIVE_DETAIL_SPACING_METRES: f32 = 0.5;
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
@@ -114,7 +112,7 @@ pub enum RockLithology {
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct RockRecipe {
-    pub seed: u64,
+    pub seed: fabelgeist_determinism::Seed,
     pub archetype: RockArchetype,
     pub lithology: RockLithology,
     pub dimensions_cm: [u16; 3],
@@ -149,28 +147,29 @@ pub enum GeneratedObstacle {
     Rock { x: u16, z: u16, recipe: RockRecipe },
 }
 
+mod absolute_elevation_wire;
 mod error;
-pub use error::SceneInputError;
+mod validation_error;
+pub use error::{SceneInputError, SceneInputResult};
+pub use validation_error::{SampleGridKind, SceneValidationError};
 
 impl TacticalSceneInput {
-    pub fn load(path: &Path) -> Result<Self, SceneInputError> {
+    pub fn load(path: &Path) -> SceneInputResult<Self> {
         let length = fs::metadata(path)?.len();
         if length == 0 || length > MAX_SCENE_INPUT_BYTES {
-            return Err(SceneInputError::Validation(
-                "file exceeds the 32 MiB bound".into(),
-            ));
+            return Err(SceneInputError::Validation(SceneValidationError::FileSize));
         }
         let input: Self = serde_json::from_slice(&fs::read(path)?)?;
         input.validate()?;
         Ok(input)
     }
 
-    pub fn validate(&self) -> Result<(), SceneInputError> {
+    pub fn validate(&self) -> SceneInputResult<()> {
         self.validate_source()?;
         self.validate_grounding()
     }
 
-    pub fn digest(&self) -> Result<String, SceneInputError> {
+    pub fn digest(&self) -> SceneInputResult<String> {
         self.validate()?;
         let bytes = serde_json::to_vec(self)?;
         Ok(Sha256::digest(bytes)
@@ -222,16 +221,16 @@ struct TerrainShapeSample {
 /// rendering, and the server heightfield collider. The original grid is kept
 /// implicitly as `SceneTerrain`'s coarse render LOD.
 fn refine_authoritative_terrain(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     terrain: &SceneTerrain,
     ground: &SceneGround,
     obstacles: &[GeneratedObstacle],
     obstacle_spacing: f32,
     moisture_bps: u16,
     building_pads: &[buildings::BuildingPad],
-) -> Result<SceneTerrain, SceneInputError> {
-    let influences = TerrainDetailObstacles::from_obstacles(terrain, obstacles, obstacle_spacing);
-    let detail_seed = streams::DETAIL.seed(seed, &[]).to_u64();
+) -> SceneInputResult<SceneTerrain> {
+    let influences = TerrainDetailObstacles::from_obstacles(terrain, obstacles, obstacle_spacing)?;
+    let detail_seed = streams::DETAIL.seed(seed, &[]);
     let noise = DetailNoise::new(detail_seed);
     let mut terrain = terrain
         .refined(AUTHORITATIVE_DETAIL_SPACING_METRES, |point, base_height| {
@@ -239,7 +238,7 @@ fn refine_authoritative_terrain(
                 .iter()
                 .find(|pad| pad.contains_level_ground(point))
             {
-                pad.elevation_metres
+                pad.elevation_metres.metres()
             } else if building_pads.iter().any(|pad| pad.contains_apron(point)) {
                 base_height
             } else {
@@ -255,21 +254,21 @@ fn refine_authoritative_terrain(
                     )
             }
         })
-        .ok_or_else(|| {
-            SceneInputError::Validation("authoritative detail terrain is invalid".into())
-        })?;
-    terrain.constrain_max_grade(MAX_PLAYABLE_GRADE)?;
+        .ok_or(SceneInputError::Validation(
+            SceneValidationError::DetailTerrain,
+        ))?;
+    terrain.constrain_max_grade(crate::scene::grade::TerrainGradeLimit::PLAYABLE)?;
     terrain.rewrite_heights(|point, height| {
         building_pads
             .iter()
             .find(|pad| pad.contains_level_ground(point))
-            .map_or(height, |pad| pad.elevation_metres)
+            .map_or(height, |pad| pad.elevation_metres.metres())
     });
     Ok(terrain)
 }
 
 fn authoritative_surface_relief(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     point: bevy::math::Vec2,
     terrain: &SceneTerrain,
     ground: &SceneGround,
@@ -353,7 +352,11 @@ fn terrain_shape_sample(
     })
 }
 
-fn signed_ground_noise(seed: u64, point: bevy::math::Vec2, noise: &DetailNoise) -> f32 {
+fn signed_ground_noise(
+    seed: fabelgeist_determinism::Seed,
+    point: bevy::math::Vec2,
+    noise: &DetailNoise,
+) -> f32 {
     noise.sample(seed, point) * 2.0 - 1.0
 }
 
@@ -396,7 +399,7 @@ fn soil_creep_relief(
 }
 
 fn rocky_substrate_relief(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     point: bevy::math::Vec2,
     shape: Option<TerrainShapeSample>,
     strength: f32,
@@ -434,7 +437,7 @@ fn rocky_substrate_relief(
 }
 
 fn boulder_ground_relief(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     point: bevy::math::Vec2,
     shape: Option<TerrainShapeSample>,
     rocks: &[TerrainRockInfluence],
@@ -443,21 +446,19 @@ fn boulder_ground_relief(
     use bevy::math::Vec2;
     let mut relief = 0.0;
     for rock in rocks {
-        let offset = point - rock.centre;
+        let offset = point - rock.centre.metres();
         let distance = offset.length();
-        let radius = rock.radius.max(0.35);
+        let radius = rock.radius.metres().max(0.35);
         if distance > radius * 5.0 {
             continue;
         }
-        let rock_seed = streams::ROCK_INFLUENCE
-            .seed(
-                seed,
-                &[
-                    u64::from(rock.centre.x.to_bits()),
-                    u64::from(rock.centre.y.to_bits()),
-                ],
-            )
-            .to_u64();
+        let rock_seed = streams::ROCK_INFLUENCE.seed(
+            seed,
+            &[
+                u64::from(rock.centre.metres().x.to_bits()),
+                u64::from(rock.centre.metres().y.to_bits()),
+            ],
+        );
         let fallback_angle = streams::ROCK_DOWNHILL
             .rng(rock_seed, &[])
             .inclusive_unit_f32()
@@ -480,7 +481,7 @@ fn boulder_ground_relief(
         let lateral = 1.0 - detail_smoothstep(tail_width * 0.42, tail_width, across);
         let granular = 0.72
             + noise.sample(
-                streams::ROCK_DEBRIS.seed(rock_seed, &[]).to_u64(),
+                streams::ROCK_DEBRIS.seed(rock_seed, &[]),
                 Vec2::new(downstream / 1.7, across / 0.8),
             ) * 0.28;
         relief += socket + apron + longitudinal * lateral * granular * 0.034;
@@ -489,23 +490,22 @@ fn boulder_ground_relief(
 }
 
 fn tree_root_relief(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     point: bevy::math::Vec2,
-    tree_positions: &[bevy::math::Vec2],
+    tree_positions: &[crate::scene_coordinates::ScenePlanPoint],
 ) -> f32 {
     let mut relief = 0.0;
     for &tree in tree_positions {
+        let tree = tree.metres();
         let offset = point - tree;
         let radius = offset.length();
         if radius > 8.0 {
             continue;
         }
-        let tree_seed = streams::TREE_ROOTS
-            .seed(
-                seed,
-                &[u64::from(tree.x.to_bits()), u64::from(tree.y.to_bits())],
-            )
-            .to_u64();
+        let tree_seed = streams::TREE_ROOTS.seed(
+            seed,
+            &[u64::from(tree.x.to_bits()), u64::from(tree.y.to_bits())],
+        );
         let mound = libm::expf(-(radius / 1.35).powi(2)) * 0.045;
         let basin = detail_smoothstep(0.9, 1.8, radius)
             * (1.0 - detail_smoothstep(5.2, 7.7, radius))
@@ -585,11 +585,6 @@ fn road_surface_relief(point: bevy::math::Vec2, ground: &SceneGround, noise: &De
 fn periodic_distance(value: f32, period: f32) -> f32 {
     let wrapped = value.rem_euclid(period);
     wrapped.min(period - wrapped)
-}
-
-fn wrapped_angle_difference(left: f32, right: f32) -> f32 {
-    (left - right + core::f32::consts::PI).rem_euclid(core::f32::consts::TAU)
-        - core::f32::consts::PI
 }
 
 fn detail_smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
@@ -707,7 +702,7 @@ fn lerp(left: f32, right: f32, amount: f32) -> f32 {
 /// The result therefore feeds the rendered mesh, height queries, IK, and the
 /// authoritative server collider instead of becoming client-only displacement.
 fn add_authoritative_microrelief(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     width: usize,
     depth: usize,
     spacing: f32,
@@ -736,7 +731,7 @@ fn add_authoritative_microrelief(
             let world_z = z as f32 * spacing;
             let broad = value_noise(seed, world_x, world_z, 6.0);
             let fine = value_noise(
-                streams::MICRORELIEF_FINE.seed(seed, &[]).to_u64(),
+                streams::MICRORELIEF_FINE.seed(seed, &[]),
                 world_x,
                 world_z,
                 2.25,
@@ -751,38 +746,21 @@ fn add_authoritative_microrelief(
     adjusted
 }
 
-fn value_noise(seed: u64, x: f32, z: f32, cell_size: f32) -> f32 {
-    let gx = x / cell_size;
-    let gz = z / cell_size;
-    let x0 = gx.floor() as i32;
-    let z0 = gz.floor() as i32;
-    let tx = smoothstep(gx - x0 as f32);
-    let tz = smoothstep(gz - z0 as f32);
-    let sample = |ix: i32, iz: i32| {
-        streams::VALUE_LATTICE
-            .rng(seed, &[ix as u32 as u64, iz as u32 as u64])
-            .inclusive_unit_f32()
-            * 2.0
-            - 1.0
-    };
-    let north = sample(x0, z0) + (sample(x0 + 1, z0) - sample(x0, z0)) * tx;
-    let south = sample(x0, z0 + 1) + (sample(x0 + 1, z0 + 1) - sample(x0, z0 + 1)) * tx;
-    north + (south - north) * tz
-}
-
-fn smoothstep(value: f32) -> f32 {
-    value * value * (3.0 - 2.0 * value)
-}
-
 fn repair_playable_terrain(
     width: usize,
     depth: usize,
     spacing: f32,
     heights: &mut [f32],
     environment: &mut [EnvironmentalSample],
-) -> Result<SceneRepairReport, SceneInputError> {
+) -> SceneInputResult<SceneRepairReport> {
     let original_heights = heights.to_vec();
-    crate::scene::grade::constrain(heights, width, depth, spacing, MAX_PLAYABLE_GRADE)?;
+    crate::scene::grade::constrain(
+        heights,
+        width,
+        depth,
+        spacing,
+        crate::scene::TerrainGradeLimit::PLAYABLE.ratio(),
+    )?;
 
     let mut repaired_water_samples = 0;
     for z in 0..depth {
@@ -837,28 +815,28 @@ fn is_tree_camera_clearance_cell(_x: usize, z: usize, depth: usize) -> bool {
 fn validate_grid(
     grid: &TerrainSampleGrid,
     max_side: usize,
-    label: &str,
-) -> Result<(), SceneInputError> {
+    grid_kind: SampleGridKind,
+) -> SceneInputResult<()> {
     let width = usize::from(grid.width);
     let depth = usize::from(grid.depth);
     if width < 2 || depth < 2 || width > max_side || depth > max_side {
-        return invalid(format!("{label} dimensions are out of bounds"));
+        return invalid(SceneValidationError::GridDimensions { grid: grid_kind });
     }
     if !grid.spacing_metres.is_finite() || !(0.25..=2_000.0).contains(&grid.spacing_metres) {
-        return invalid(format!("{label} spacing is out of bounds"));
+        return invalid(SceneValidationError::GridSpacing { grid: grid_kind });
     }
-    let expected = width
-        .checked_mul(depth)
-        .ok_or_else(|| SceneInputError::Validation(format!("{label} dimensions overflow")))?;
+    let expected = width.checked_mul(depth).ok_or({
+        SceneInputError::Validation(SceneValidationError::GridOverflow { grid: grid_kind })
+    })?;
     if grid.heights_metres.len() != expected || grid.environment.len() != expected {
-        return invalid(format!("{label} sample counts do not match dimensions"));
+        return invalid(SceneValidationError::GridSamples { grid: grid_kind });
     }
     if grid
         .heights_metres
         .iter()
         .any(|height| !height.is_finite() || !(-12_000.0..=12_000.0).contains(height))
     {
-        return invalid(format!("{label} contains an invalid height"));
+        return invalid(SceneValidationError::GridHeight { grid: grid_kind });
     }
     if grid.environment.iter().any(|sample| {
         [
@@ -872,12 +850,12 @@ fn validate_grid(
         .into_iter()
         .any(|value| value > BASIS_POINTS_PER_WHOLE)
     }) {
-        return invalid(format!("{label} contains an invalid environment sample"));
+        return invalid(SceneValidationError::GridEnvironment { grid: grid_kind });
     }
     Ok(())
 }
 
-fn validate_weather(weather: WeatherSnapshot) -> Result<(), SceneInputError> {
+fn validate_weather(weather: WeatherSnapshot) -> SceneInputResult<()> {
     if weather.rules_version != WEATHER_RULES_VERSION
         || weather.wind_speed_bps > BASIS_POINTS_PER_WHOLE
         || weather.intensity_bps > BASIS_POINTS_PER_WHOLE
@@ -908,13 +886,13 @@ fn validate_weather(weather: WeatherSnapshot) -> Result<(), SceneInputError> {
                     )
                 })))
     {
-        return invalid("weather snapshot is invalid");
+        return invalid(SceneValidationError::Weather);
     }
     Ok(())
 }
 
-fn invalid<T>(message: impl Into<String>) -> Result<T, SceneInputError> {
-    Err(SceneInputError::Validation(message.into()))
+fn invalid<T>(issue: SceneValidationError) -> SceneInputResult<T> {
+    Err(SceneInputError::Validation(issue))
 }
 
 #[cfg(test)]
@@ -942,14 +920,18 @@ mod tests {
             properties: None,
             schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-            seed: 42,
+            seed: 42.into(),
             scene_key: "woodland".into(),
             source: SceneSource::SyntheticFixture("dense-woodland".into()),
-            latitude_microdegrees: 53_500_000,
-            longitude_microdegrees: 10_000_000,
+            latitude_microdegrees:
+                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
+                    .unwrap(),
+            longitude_microdegrees:
+                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
+                    .unwrap(),
             absolute_minute: StrategicMinute::new(123_456),
             lunar_phase_minute: StrategicMinute::new(123_456),
-            absolute_elevation_metres: 80,
+            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(80).unwrap(),
             playable: TerrainSampleGrid {
                 width: 3,
                 depth: 3,
@@ -968,7 +950,7 @@ mod tests {
             establishments: Vec::new(),
             vista: VistaSample::default(),
             weather: weather_at(
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
                 53_500_000,
                 10_000_000,
@@ -1072,9 +1054,9 @@ mod tests {
         let mut first = vec![0.0; width * depth];
         let mut second = first.clone();
         let first_count =
-            add_authoritative_microrelief(91, width, depth, 1.0, &mut first, &environment);
+            add_authoritative_microrelief(91.into(), width, depth, 1.0, &mut first, &environment);
         let second_count =
-            add_authoritative_microrelief(91, width, depth, 1.0, &mut second, &environment);
+            add_authoritative_microrelief(91.into(), width, depth, 1.0, &mut second, &environment);
         assert_eq!(first, second);
         assert_eq!(first_count, second_count);
         assert!(first_count > 0);
@@ -1109,8 +1091,9 @@ mod tests {
         input.playable.heights_metres.pop();
         assert!(input.validate().is_err());
         input = fixture();
-        input.latitude_microdegrees = 90_000_001;
-        assert!(input.validate().is_err());
+        let mut encoded = serde_json::to_value(&input).unwrap();
+        encoded["latitude_microdegrees"] = serde_json::json!(90_000_001);
+        assert!(serde_json::from_value::<TacticalSceneInput>(encoded).is_err());
     }
 
     #[test]
@@ -1220,9 +1203,12 @@ mod tests {
         for (name, lithology) in expected {
             let input = TacticalSceneInput::load(&root.join(format!("{name}.json"))).unwrap();
             let recipe = input.landform.expect("landform fixture has a recipe");
-            assert_eq!(recipe.surface.lithology, lithology, "{name}");
-            assert_eq!(recipe.surface.source, TerrainSurfaceSource::AuthoredFixture);
-            recipe.surface.validate().unwrap();
+            assert_eq!(recipe.surface().lithology(), lithology, "{name}");
+            assert_eq!(
+                recipe.surface().source(),
+                TerrainSurfaceSource::AuthoredFixture
+            );
+            recipe.surface().validate().unwrap();
         }
 
         let mut missing_surface: serde_json::Value =
@@ -1323,7 +1309,7 @@ mod tests {
 
     #[test]
     fn obstacle_kind_has_a_stable_wire_round_trip() {
-        let recipe = rock_recipe(42);
+        let recipe = rock_recipe(42.into());
         for obstacle in [SceneObstacle::Tree, SceneObstacle::Rock(recipe)] {
             let bytes = postcard::to_allocvec(&obstacle).unwrap();
             assert_eq!(
@@ -1335,7 +1321,7 @@ mod tests {
 
     #[test]
     fn generated_rock_recipes_are_deterministic_and_fit_the_collision_proxy() {
-        for seed in [0, 1, 42, u64::MAX] {
+        for seed in [0, 1, 42, u64::MAX].map(fabelgeist_determinism::Seed::from_u64) {
             let recipe = rock_recipe(seed);
             assert_eq!(recipe, rock_recipe(seed));
             assert_eq!(recipe.seed, seed);
@@ -1379,13 +1365,13 @@ mod tests {
                 if x + 1 < width {
                     assert!(
                         (height(x, z) - height(x + 1, z)).abs()
-                            <= spacing * MAX_PLAYABLE_GRADE + 0.001
+                            <= spacing * crate::scene::TerrainGradeLimit::PLAYABLE.ratio() + 0.001
                     );
                 }
                 if z + 1 < depth {
                     assert!(
                         (height(x, z) - height(x, z + 1)).abs()
-                            <= spacing * MAX_PLAYABLE_GRADE + 0.001
+                            <= spacing * crate::scene::TerrainGradeLimit::PLAYABLE.ratio() + 0.001
                     );
                 }
             }

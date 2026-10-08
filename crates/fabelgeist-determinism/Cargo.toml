@@ -5,10 +5,19 @@ edition.workspace = true
 repository.workspace = true
 license.workspace = true
 
+[features]
+spacetimedb = ["dep:rand08", "dep:spacetimedb-sats"]
+
 [dependencies]
 blake3.workspace = true
+serde.workspace = true
 rand = { version = "=0.9.5", default-features = false, features = ["alloc"] }
 rand_xoshiro.workspace = true
+spacetimedb-sats = { workspace = true, optional = true }
+rand08 = { package = "rand", version = "=0.8.8", default-features = false, optional = true }
+
+[dev-dependencies]
+serde_json.workspace = true
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
 wasm-bindgen-test = "=0.3.76"

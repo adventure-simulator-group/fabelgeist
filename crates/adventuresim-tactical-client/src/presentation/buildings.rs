@@ -148,7 +148,7 @@ fn on_scene_building_added(
         establishment.and_then(|establishment| {
             establishment.shop_name.clone().and_then(|name| {
                 adventuresim_building_generator::signs::ShopSign::for_establishment(
-                    adventuresim_building_generator::signs::EstablishmentId(building.id),
+                    adventuresim_building_generator::signs::EstablishmentId(building.id.0),
                     establishment.business_id.key.usage,
                     name,
                 )
@@ -174,7 +174,7 @@ fn on_scene_building_added(
                 .ok_or("playable building needs interior lighting")?,
         ))
         .with_children(|parent| {
-            spawn_building_levels(parent, building.id, &compiled, &materials);
+            spawn_building_levels(parent, building.id.0, &compiled, &materials);
             signs.spawn(parent, resolved_sign.as_ref(), &compiled, &mut meshes);
         });
     Ok(())
@@ -274,7 +274,7 @@ fn cached_building_levels(
     };
     let mut compiled = CompiledBuildingLevels {
         facade_openings: if detail == BuildingDetail::Dynamic {
-            plan.facade_dynamic_openings()
+            plan.facade_dynamic_openings()?
         } else {
             Default::default()
         },
@@ -414,7 +414,7 @@ mod tests {
     fn prepared_geometry_and_replicated_recipes_produce_the_same_meshes() {
         let program = BuildingProgram::fixture(
             adventuresim_building_generator::BuildingArchetype::TownHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let plan = generate(&program).unwrap();
         let collision = compile_building_collision(&plan).unwrap();
@@ -497,7 +497,7 @@ mod tests {
     fn city_consumes_prepared_recipes_and_reuses_resident_meshes() {
         let program = BuildingProgram::fixture(
             adventuresim_building_generator::BuildingArchetype::TownHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let mut meshes = Assets::default();
         let mut cache = TacticalBuildingMeshCache::default();

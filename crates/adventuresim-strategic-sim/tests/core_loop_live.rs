@@ -18,7 +18,7 @@ fn authoritative_core_loop_is_isolated_and_branch_tolerant() {
         host: std::env::var("ADVENTURESIM_SIM_HOST")
             .unwrap_or_else(|_| "http://127.0.0.1:3000".into()),
         database,
-        seed: 42,
+        seed: fabelgeist_determinism::Seed::from_u64(42),
         population: 8,
         cycles: 12,
         duration_days: 14,

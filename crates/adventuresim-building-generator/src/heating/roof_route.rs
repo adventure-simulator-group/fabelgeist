@@ -1,20 +1,34 @@
 //! Select the actual covering above an unobstructed vertical smoke shaft.
-use super::placement::Placement;
+use super::placement::{Placement, PlacementCandidate};
+use crate::GenerationResult as Result;
 use crate::{BuildingPlan, RoofAssemblyId, RoofFace};
 use bevy::math::{Vec2, Vec3};
 use geo::{Area, BooleanOps, Intersects};
 
-const OVERLAP_AREA_TOLERANCE: f32 = 0.00001;
+const OVERLAP_AREA_TOLERANCE_SQUARE_METRES: f32 = 0.00001;
+
+pub(super) struct RoofSelection<'a> {
+    pub roof: RoofAssemblyId,
+    pub face: &'a RoofFace,
+}
 
 pub(super) fn find(
     plan: &BuildingPlan,
-    placement: Placement,
-) -> Result<Option<(RoofAssemblyId, &RoofFace)>, crate::GenerationError> {
-    let probe = placement.centre + placement.kitchen_axis * placement.section.shaft_offset();
+    placement: PlacementCandidate,
+) -> Result<Option<RoofSelection<'_>>> {
+    let probe = placement.centre.metres()
+        + placement.kitchen_axis.vector() * placement.section.shaft_offset()?.metres();
     for roof in &plan.roof_assemblies {
         for face in &roof.faces {
-            if fits(face, probe) && clear_other_roofs(plan, placement, face)? {
-                return Ok(Some((roof.id, face)));
+            if fits(
+                face,
+                crate::plan_geometry::ArchitecturalPlanPoint::from_metres(probe)?,
+            )? && clear_other_roofs(plan, placement, face)?
+            {
+                return Ok(Some(RoofSelection {
+                    roof: roof.id,
+                    face,
+                }));
             }
         }
     }
@@ -37,23 +51,26 @@ fn footprint(min: Vec2, max: Vec2) -> geo::Polygon<f32> {
     geo::Rect::new(geo::coord! {x:min.x,y:min.y}, geo::coord! {x:max.x,y:max.y}).to_polygon()
 }
 
-fn fits(face: &RoofFace, probe: Vec2) -> bool {
-    let weather = super::roof::PenetrationFootprint::new(face, probe);
-    let rect = footprint(weather.weather_min, weather.weather_max);
-    rect.difference(&geo::Polygon::new(ring(&face.polygon, Vec3::ZERO), vec![]))
+fn fits(face: &RoofFace, probe: crate::plan_geometry::ArchitecturalPlanPoint) -> Result<bool> {
+    let weather = super::roof::PenetrationFootprint::new(face, probe)?;
+    let min = weather.weather.min().metres();
+    let max = weather.weather.max().metres();
+    let rect = footprint(Vec2::new(min.x, min.z), Vec2::new(max.x, max.z));
+    Ok(rect
+        .difference(&geo::Polygon::new(ring(&face.polygon, Vec3::ZERO), vec![]))
         .unsigned_area()
-        < OVERLAP_AREA_TOLERANCE
+        < OVERLAP_AREA_TOLERANCE_SQUARE_METRES
         && !face
             .cutouts
             .iter()
-            .any(|cut| rect.intersects(&geo::Polygon::new(ring(cut, Vec3::ZERO), vec![])))
+            .any(|cut| rect.intersects(&geo::Polygon::new(ring(cut, Vec3::ZERO), vec![]))))
 }
 
 fn clear_other_roofs(
     plan: &BuildingPlan,
-    placement: Placement,
+    placement: PlacementCandidate,
     target: &RoofFace,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     let shaft = placement.shaft(placement.flue_top(target)?)?;
     let rect = footprint(
         Vec2::new(shaft.min().metres().x, shaft.min().metres().z),
@@ -69,7 +86,8 @@ fn clear_other_roofs(
                     ring(&face.polygon, offset),
                     face.cutouts.iter().map(|cut| ring(cut, offset)).collect(),
                 );
-                if rect.intersection(&solid).unsigned_area() > OVERLAP_AREA_TOLERANCE {
+                if rect.intersection(&solid).unsigned_area() > OVERLAP_AREA_TOLERANCE_SQUARE_METRES
+                {
                     return Ok(false);
                 }
             }
@@ -99,20 +117,24 @@ pub(super) fn weather_clear(
     plan: &BuildingPlan,
     placement: Placement,
     face: &RoofFace,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     let mut roofs = vec![
         plan.roof_assemblies
             .iter()
             .find(|roof| roof.id == placement.roof)
-            .unwrap()
+            .ok_or(crate::HeatingConstructionError::MissingRoof {
+                roof: placement.roof,
+            })?
             .clone(),
     ];
     let mut geometry = crate::ResolvedGeometry::default();
     let owner = plan
         .wall_assemblies
         .iter()
-        .find(|wall| wall.id == placement.wall)
-        .unwrap()
+        .find(|wall| wall.id == placement.site.wall)
+        .ok_or(crate::HeatingConstructionError::MissingWall {
+            wall: placement.site.wall,
+        })?
         .owner;
     let mut assembly = super::assembly::Assembly::new(
         &mut geometry,
@@ -124,7 +146,7 @@ pub(super) fn weather_clear(
     Ok(!super::audit::roof_route::obstructed(
         plan,
         face.id,
-        placement.shaft(placement.flue_top(face)?)?,
+        placement.site.shaft(placement.site.flue_top(face)?)?,
         &geometry.solids.iter().collect::<Vec<_>>(),
     ))
 }
@@ -134,7 +156,10 @@ mod tests {
     use super::*;
     #[test]
     fn a_flue_under_a_shed_uses_its_covering_and_requires_the_parent_cut() {
-        let mut programme = crate::BuildingProgram::fixture(crate::BuildingArchetype::HallHouse, 2);
+        let mut programme = crate::BuildingProgram::fixture(
+            crate::BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(2),
+        );
         programme.domestic_heating = None;
         let mut plan = crate::generate(&programme).unwrap();
         let placement = super::super::placement::find(&plan)
@@ -146,7 +171,7 @@ mod tests {
             .find(|roof| roof.id == placement.roof)
             .unwrap();
         let parent = roof.parent.expect("this route exits the shed covering");
-        assert!(find(&plan, placement).unwrap().is_some());
+        assert!(find(&plan, placement.site).unwrap().is_some());
         for face in &mut plan
             .roof_assemblies
             .iter_mut()
@@ -156,6 +181,6 @@ mod tests {
         {
             face.cutouts.clear();
         }
-        assert!(find(&plan, placement).unwrap().is_none());
+        assert!(find(&plan, placement.site).unwrap().is_none());
     }
 }

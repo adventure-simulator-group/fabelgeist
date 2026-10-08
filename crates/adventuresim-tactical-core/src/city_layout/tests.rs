@@ -10,11 +10,11 @@ pub(super) fn economy() -> SettlementEconomyProfile {
 
 #[test]
 fn city_lots_are_deterministic_and_follow_many_connected_street_segments() {
-    let small = CitySite::central_german_market_town().generate(42, 8_000, &economy());
-    let large = CitySite::central_german_market_town().generate(42, 40_000, &economy());
+    let small = CitySite::central_german_market_town().generate((42).into(), 8_000, &economy());
+    let large = CitySite::central_german_market_town().generate((42).into(), 40_000, &economy());
     assert_eq!(
         small,
-        CitySite::central_german_market_town().generate(42, 8_000, &economy())
+        CitySite::central_german_market_town().generate((42).into(), 8_000, &economy())
     );
     assert!(small.lots.len() < large.lots.len());
     assert!(large.unplaced_services.is_empty());
@@ -33,7 +33,7 @@ fn city_lots_are_deterministic_and_follow_many_connected_street_segments() {
 fn population_is_represented_by_physical_house_capacity() {
     for population in [900, 6_500, 40_000] {
         let lots = CitySite::central_german_market_town()
-            .generate(42, population, &economy())
+            .generate((42).into(), population, &economy())
             .lots;
         let mut market = adventuresim_core::settlement_property::HousingMarketReserve::default();
         let capacity = lots
@@ -55,7 +55,7 @@ fn population_is_represented_by_physical_house_capacity() {
 #[test]
 fn accepted_building_footprints_do_not_overlap() {
     let lots = CitySite::central_german_market_town()
-        .generate(42, 40_000, &economy())
+        .generate((42).into(), 40_000, &economy())
         .lots;
     for (index, lot) in lots.iter().enumerate() {
         assert!(
@@ -69,7 +69,7 @@ fn accepted_building_footprints_do_not_overlap() {
 #[test]
 fn building_south_side_faces_out_of_its_block() {
     let block = CitySite::central_german_market_town()
-        .street_graph(42, DevelopmentExtent::for_population(40_000))
+        .street_graph((42).into(), DevelopmentExtent::for_population(40_000))
         .blocks[0];
     let tangent = (block.corners[1] - block.corners[0]).normalize();
     let inward = Vec2::new(-tangent.y, tangent.x);
@@ -79,7 +79,7 @@ fn building_south_side_faces_out_of_its_block() {
 
 #[test]
 fn street_surfaces_are_mixed_grass_free_patches_from_the_same_graph() {
-    let city = CitySite::central_german_market_town().generate(42, 40_000, &economy());
+    let city = CitySite::central_german_market_town().generate((42).into(), 40_000, &economy());
     assert!(city.streets.len() > 100);
     for surface in [
         CityStreetSurface::CompactedEarth,
@@ -112,7 +112,7 @@ fn street_surfaces_are_mixed_grass_free_patches_from_the_same_graph() {
 
 #[test]
 fn every_selected_lot_belongs_to_a_deterministic_developed_yard() {
-    let city = CitySite::central_german_market_town().generate(42, 40_000, &economy());
+    let city = CitySite::central_german_market_town().generate((42).into(), 40_000, &economy());
     assert!(!city.yards.is_empty());
     assert!(city.yards.iter().all(|yard| yard.is_valid()));
     assert!(
@@ -136,7 +136,8 @@ fn every_selected_lot_belongs_to_a_deterministic_developed_yard() {
 #[test]
 fn every_street_corridor_connects_to_the_market_network() {
     for population in [120, 900, 6_500] {
-        let city = CitySite::central_german_market_town().generate(42, population, &economy());
+        let city =
+            CitySite::central_german_market_town().generate((42).into(), population, &economy());
         let corridors = city
             .streets
             .iter()
@@ -172,7 +173,7 @@ fn every_street_corridor_connects_to_the_market_network() {
 
 #[test]
 fn extreme_population_reports_shortfall_without_claiming_capacity() {
-    let city = CitySite::central_german_market_town().generate(42, u32::MAX, &economy());
+    let city = CitySite::central_german_market_town().generate((42).into(), u32::MAX, &economy());
     assert_eq!(city.unhoused_population, u32::MAX);
     assert!(!city.unplaced_services.is_empty());
 }

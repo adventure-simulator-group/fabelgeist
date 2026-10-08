@@ -1,4 +1,3 @@
-#[cfg(not(target_family = "wasm"))]
 use adventuresim_building_generator::{
     BuildingArchetype, BuildingLodLevel, BuildingLodMaterial, BuildingProgram, LodMesh,
     WallMaterialClass, compile_building_lod, generate,
@@ -18,6 +17,8 @@ use bevy::{
 use bevy_panorbit_camera::{PanOrbitCamera, PanOrbitCameraPlugin};
 #[cfg(not(target_family = "wasm"))]
 use clap::{Parser, ValueEnum};
+#[cfg(not(target_family = "wasm"))]
+use fabelgeist_determinism::Seed;
 #[cfg(not(target_family = "wasm"))]
 use std::path::PathBuf;
 
@@ -50,8 +51,8 @@ struct Args {
     fixture: BuildingArchetype,
     #[arg(long, value_enum, default_value_t = LodChoice::Facade)]
     lod: LodChoice,
-    #[arg(long, default_value_t = 42)]
-    seed: u64,
+    #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(42))]
+    seed: Seed,
     /// Fresh directory for a deterministic moving Shell-LOD GPU capture.
     #[arg(long)]
     capture_output: Option<PathBuf>,

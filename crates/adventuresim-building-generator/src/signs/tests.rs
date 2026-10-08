@@ -33,9 +33,13 @@ fn storefront_sites_clear_entrances_and_keep_both_mounts_above_pedestrians() {
         BuildingUse::Bakehouse,
         BuildingUse::Stable,
     ] {
-        let program =
-            BuildingProgram::validated_settlement(settlement_archetype(usage), usage, 42, None)
-                .unwrap();
+        let program = BuildingProgram::validated_settlement(
+            settlement_archetype(usage),
+            usage,
+            fabelgeist_determinism::Seed::from_u64(42),
+            None,
+        )
+        .unwrap();
         let plan = generate(&program).unwrap();
         let site =
             SignSite::for_plan(&plan).unwrap_or_else(|| panic!("{usage:?} has no sign site"));

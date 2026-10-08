@@ -85,7 +85,11 @@ mod tests {
             BuildingArchetype::FachwerkMerchantHouse,
             BuildingArchetype::StorageRange,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(
+                archetype,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ))
+            .unwrap();
             let frame = plan.timber_frame.as_ref().unwrap();
             let mut checked = 0;
             for roof in plan.roof_assemblies.iter().filter(|r| r.parent.is_none()) {

@@ -5,7 +5,7 @@ use crate::{BuildingArchetype, BuildingProgram, OpeningUse, generate};
 fn diagonal_arch_collision_preserves_its_local_clear_crown() {
     let mut plan = generate(&BuildingProgram::fixture(
         BuildingArchetype::ParishChurch,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let opening = plan

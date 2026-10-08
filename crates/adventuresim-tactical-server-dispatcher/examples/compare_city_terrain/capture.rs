@@ -14,7 +14,7 @@ pub(super) enum TerrainPreparationPurpose {
 pub(super) struct PreparedTerrainCapture {
     pub purpose: TerrainPreparationPurpose,
     pub input_digest: String,
-    pub source_digest: String,
+    pub source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest,
     pub terrain: SceneTerrain,
 }
 

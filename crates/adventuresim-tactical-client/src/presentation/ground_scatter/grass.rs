@@ -19,6 +19,7 @@ use community::grass_community_at;
 pub(in crate::presentation) use community::{
     GrassCommunity, GrassCommunityField, GrassCommunityProfile,
 };
+use fabelgeist_determinism::Seed;
 
 use crate::presentation::{
     bps,
@@ -105,7 +106,7 @@ fn grass_patch_placement_with_spacing(
 pub(super) fn cell_allows_grass(
     terrain: &SceneTerrain,
     ground: &SceneGround,
-    cell_hash: u64,
+    cell_hash: fabelgeist_determinism::Seed,
     x: i32,
     z: i32,
     cell_spacing: f32,
@@ -179,7 +180,7 @@ impl GrassMeshLod {
             selected_for_lod
                 && (grass_density >= 1.0
                     || streams::DENSITY
-                        .rng(0, &[*index as u64])
+                        .rng(0.into(), &[*index as u64])
                         .inclusive_unit_f32()
                         < grass_density)
         })
@@ -197,7 +198,7 @@ impl GrassMeshLod {
         let stratum_row = row / stratum_side;
         let stratum_column = column / stratum_side;
         let stratum = stratum_row * strata_per_side + stratum_column;
-        let mut random = purpose.rng(0, &[stratum as u64]);
+        let mut random = purpose.rng(0.into(), &[stratum as u64]);
         let selected_row = if stratum_row == 0 {
             0
         } else if stratum_row + 1 == strata_per_side {
@@ -308,7 +309,7 @@ pub(in crate::presentation) fn grass_tuft_mesh(
     lod: GrassMeshLod,
     grass_density: f32,
     species: GrassSpecies,
-    seed: u64,
+    seed: Seed,
     grass: &GrassConfig,
 ) -> Mesh {
     let grid_side = lod.configured_tier(grass).native_blades_per_tuft_side;
@@ -325,9 +326,7 @@ pub(in crate::presentation) fn grass_tuft_mesh(
         .map(|index| {
             let row = index / grid_side;
             let column = index % grid_side;
-            let hash = streams::BLADE_PLACEMENT
-                .seed(seed, &[index as u64])
-                .to_u64();
+            let hash = streams::BLADE_PLACEMENT.seed(seed, &[index as u64]);
             let jitter_x = (streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5)
                 * blade_spacing
                 * 0.46;
@@ -345,7 +344,7 @@ pub(in crate::presentation) fn grass_tuft_mesh(
                 offset_z: (row as f32 - centre) * blade_spacing + jitter_z,
                 height_scale,
                 width_scale,
-                seed: streams::BLADE.seed(seed, &[index as u64]).to_u64(),
+                seed: streams::BLADE.seed(seed, &[index as u64]),
                 species,
             }
         })
@@ -379,7 +378,7 @@ struct GrassBlade {
     offset_z: f32,
     height_scale: f32,
     width_scale: f32,
-    seed: u64,
+    seed: Seed,
     species: GrassSpecies,
 }
 
@@ -404,7 +403,10 @@ pub(in crate::presentation) enum GrassSpecies {
     YorkshireFog,
 }
 
-pub(in crate::presentation) fn grass_species(community: GrassCommunity, hash: u64) -> GrassSpecies {
+pub(in crate::presentation) fn grass_species(
+    community: GrassCommunity,
+    hash: Seed,
+) -> GrassSpecies {
     let (species, weights) = match community {
         GrassCommunity::MesicMeadow => (
             [GrassSpecies::FalseOatGrass, GrassSpecies::Cocksfoot],
@@ -522,7 +524,7 @@ fn grass_ribbon_patch_mesh_with_rows(
     } in blades
     {
         let root = Vec3::new(offset_x, 0.0, offset_z);
-        let hash = streams::BLADE_STYLE.seed(blade_seed, &[]).to_u64();
+        let hash = streams::BLADE_STYLE.seed(blade_seed, &[]);
         let angle = streams::blade_angle(hash);
         let half_width = Vec3::new(angle.cos(), 0.0, angle.sin())
             * width
@@ -889,20 +891,20 @@ mod tests {
             weights: [0.0, 0.0, 1.0],
         };
         assert_eq!(
-            grass_community_at(point, 42, mesic),
+            grass_community_at(point, fabelgeist_determinism::Seed::from_u64(42), mesic),
             GrassCommunity::MesicMeadow
         );
         assert_eq!(
-            grass_community_at(point, 42, lean),
+            grass_community_at(point, fabelgeist_determinism::Seed::from_u64(42), lean),
             GrassCommunity::LeanSward
         );
         assert_eq!(
-            grass_community_at(point, 42, wet),
+            grass_community_at(point, fabelgeist_determinism::Seed::from_u64(42), wet),
             GrassCommunity::WetTussock
         );
         assert_eq!(
-            grass_community_at(point, 42, wet),
-            grass_community_at(point, 42, wet)
+            grass_community_at(point, fabelgeist_determinism::Seed::from_u64(42), wet),
+            grass_community_at(point, fabelgeist_determinism::Seed::from_u64(42), wet)
         );
     }
 
@@ -932,7 +934,7 @@ mod tests {
     #[test]
     fn near_far_and_vista_resolve_the_same_world_community() {
         let profile = GrassCommunityProfile::from_site_drivers(0.48, 0.42);
-        let seed = 0x51a7_7eed;
+        let seed = fabelgeist_determinism::Seed::from_u64(0x51a7_7eed);
         for point in [
             Vec2::new(-24.01, 11.8),
             Vec2::new(-23.99, 11.8),
@@ -958,7 +960,7 @@ mod tests {
                 GrassMeshLod::Near,
                 1.0,
                 species,
-                0x5eed,
+                fabelgeist_determinism::Seed::from_u64(0x5eed),
                 &grass,
             )
         };
@@ -997,7 +999,7 @@ mod tests {
                     offset_z: 0.0,
                     height_scale: 1.0,
                     width_scale: 1.0,
-                    seed: 0,
+                    seed: fabelgeist_determinism::Seed::from_u64(0),
                     species,
                 }],
             );
@@ -1018,6 +1020,7 @@ mod tests {
     #[test]
     fn near_seed_heads_are_crossed_clusters_with_rigid_attachment_metadata() {
         let flowering_seed = (0..4_096)
+            .map(fabelgeist_determinism::Seed::from_u64)
             .find(|seed| {
                 let mesh = grass_ribbon_patch_mesh(
                     0.026,
@@ -1115,7 +1118,7 @@ mod tests {
                         offset_z: 0.0,
                         height_scale: 1.0,
                         width_scale: 1.0,
-                        seed: 0,
+                        seed: fabelgeist_determinism::Seed::from_u64(0),
                         species,
                     }],
                 );

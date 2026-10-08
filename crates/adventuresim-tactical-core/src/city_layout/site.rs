@@ -68,7 +68,11 @@ impl CitySite {
             + (pair[1].y - pair[0].y) * ((x - pair[0].x) / (pair[1].x - pair[0].x)).clamp(0.0, 1.0)
     }
 
-    pub(super) fn street_graph(&self, seed: u64, extent: DevelopmentExtent) -> StreetGraph {
+    pub(super) fn street_graph(
+        &self,
+        seed: fabelgeist_determinism::Seed,
+        extent: DevelopmentExtent,
+    ) -> StreetGraph {
         subdivision::build(self, seed, extent)
     }
 }

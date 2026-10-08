@@ -1,5 +1,6 @@
 use adventuresim_strategic_sim::*;
 use clap::{Parser, Subcommand, ValueEnum};
+use fabelgeist_determinism::Seed;
 use std::{
     fs,
     io::Read,
@@ -19,8 +20,8 @@ enum Command {
     QuestAnalyze {
         #[arg(long, value_enum, default_value_t = EvalPolicyArg::Mock)]
         policy: EvalPolicyArg,
-        #[arg(long, default_value_t = 41)]
-        seed: u64,
+        #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(41))]
+        seed: Seed,
         #[arg(long, default_value_t = 4)]
         cases_per_template: u32,
         #[arg(long)]
@@ -49,8 +50,8 @@ enum Command {
     },
     /// Emit a reviewable fixture candidate from a bounded non-solving run.
     QuestAnalyzePromote {
-        #[arg(long, default_value_t = 41)]
-        seed: u64,
+        #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(41))]
+        seed: Seed,
         #[arg(long, value_enum, default_value_t = EvalFamilyArg::RecurringDepredation)]
         family: EvalFamilyArg,
         #[arg(long, default_value_t = 1)]
@@ -66,8 +67,8 @@ enum Command {
         config: Option<PathBuf>,
         #[arg(long)]
         output: Option<PathBuf>,
-        #[arg(long, default_value_t = 1)]
-        seed: u64,
+        #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(1))]
+        seed: Seed,
         #[arg(long, default_value_t = 100)]
         population: u32,
         #[arg(long, default_value_t = DEFAULT_SIMULATION_DAYS)]
@@ -82,8 +83,8 @@ enum Command {
     },
     /// Run a matched labor/thievery pair with common initial circumstances.
     Matched {
-        #[arg(long, default_value_t = 1)]
-        seed: u64,
+        #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(1))]
+        seed: Seed,
         #[arg(long, default_value_t = DEFAULT_MATCHED_DAYS)]
         days: u32,
         #[arg(long)]
@@ -96,8 +97,8 @@ enum Command {
         /// Must be a unique `adventuresim-sim-*` database published for this run.
         #[arg(long)]
         database: String,
-        #[arg(long, default_value_t = 1)]
-        seed: u64,
+        #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(1))]
+        seed: Seed,
         #[arg(long, default_value_t = 2)]
         population: u32,
         #[arg(long, default_value_t = 1)]
@@ -132,8 +133,8 @@ enum Command {
         /// New directory which will receive immutable whole/daily reports.
         #[arg(long)]
         output_dir: PathBuf,
-        #[arg(long, default_value_t = 42)]
-        seed: u64,
+        #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(42))]
+        seed: Seed,
     },
 }
 

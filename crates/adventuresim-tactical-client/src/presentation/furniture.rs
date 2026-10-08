@@ -120,7 +120,7 @@ fn on_vista_furniture(
         commands.spawn((
             VistaFurniturePresentation,
             instance.scene,
-            Transform::from_translation(instance.position_metres)
+            Transform::from_translation(instance.position_metres.metres())
                 .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),
         ));
     }

@@ -2,7 +2,7 @@
 fn exact_referred_witness_projects_clues_and_completes_contact_root_idempotently() {
     use crate::investigation::process_report;
 
-    let mut source = context(11, TemplateFamily::DisappearanceOrLoss);
+    let mut source = context(fabelgeist_determinism::Seed::from_u64(11), TemplateFamily::DisappearanceOrLoss);
     for (index, witness) in source.witness_candidates.iter_mut().enumerate() {
         witness.resident_character_id = 9_007_199_254_740_993 + index as u64;
     }
@@ -244,7 +244,7 @@ fn recurring_routes_unlock_only_after_exact_referred_contact() {
         InvestigationActionKind::LayAmbush => "lay_ambush",
         InvestigationActionKind::ApproachLead => "approach_lead",
     };
-    for seed in [0, 7, 41, 255] {
+    for seed in [0, 7, 41, 255].map(fabelgeist_determinism::Seed::from_u64) {
         let generated = generate(&context(seed, TemplateFamily::RecurringDepredation)).unwrap();
         let contact = generated
             .actions
@@ -324,8 +324,8 @@ fn physical_evidence_has_deterministic_inspection_topics_and_hidden_difficulty()
     assert!(!evidence_check_passes(2_499, 2_500));
     assert!(evidence_check_passes(2_500, 2_500));
     assert!(evidence_check_passes(4_000, 2_500));
-    let first = generate(&context(41, TemplateFamily::RecurringDepredation)).unwrap();
-    let replay = generate(&context(41, TemplateFamily::RecurringDepredation)).unwrap();
+    let first = generate(&context(fabelgeist_determinism::Seed::from_u64(41), TemplateFamily::RecurringDepredation)).unwrap();
+    let replay = generate(&context(fabelgeist_determinism::Seed::from_u64(41), TemplateFamily::RecurringDepredation)).unwrap();
     assert_eq!(first.evidence, replay.evidence);
     assert!(first.evidence.iter().all(|evidence| {
         !evidence.portrait_label.is_empty()
@@ -381,7 +381,7 @@ fn pawprint_bestiary_implications_are_atomic_and_do_not_reveal_ancestry() {
 
 #[test]
 fn arbitrary_single_root_graph_does_not_satisfy_entry_invariant() {
-    let mut generated = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let mut generated = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     let root = generated
         .actions
         .iter_mut()
@@ -390,7 +390,7 @@ fn arbitrary_single_root_graph_does_not_satisfy_entry_invariant() {
     root.kind = InvestigationActionKind::Watch;
     assert!(validate(&generated).is_err());
 
-    let mut generated = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let mut generated = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     let root_id = generated
         .actions
         .iter()
@@ -413,7 +413,7 @@ fn arbitrary_single_root_graph_does_not_satisfy_entry_invariant() {
 #[test]
 fn family_entry_validation_rejects_kind_route_target_and_prerequisite_substitutions() {
     for mutate in 0..4 {
-        let mut generated = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+        let mut generated = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
         let root_id = generated
             .actions
             .iter()
@@ -438,7 +438,7 @@ fn family_entry_validation_rejects_kind_route_target_and_prerequisite_substituti
         );
     }
     for mutate in 0..4 {
-        let mut generated = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+        let mut generated = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
         let root_id = generated
             .actions
             .iter()
@@ -466,7 +466,7 @@ fn family_entry_validation_rejects_kind_route_target_and_prerequisite_substituti
         );
     }
     for mutate in 0..4 {
-        let mut generated = generate(&context(11, TemplateFamily::DisappearanceOrLoss)).unwrap();
+        let mut generated = generate(&context(fabelgeist_determinism::Seed::from_u64(11), TemplateFamily::DisappearanceOrLoss)).unwrap();
         let physical = generated
             .actions
             .iter_mut()
@@ -487,7 +487,7 @@ fn family_entry_validation_rejects_kind_route_target_and_prerequisite_substituti
 
 #[test]
 fn action_graph_validation_rejects_missing_stranded_and_unreachable_exact_routes() {
-    let mut missing = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let mut missing = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     missing
         .actions
         .iter_mut()
@@ -508,11 +508,11 @@ fn action_graph_validation_rejects_missing_stranded_and_unreachable_exact_routes
     assert!(validate(&missing).is_err());
 
     let mut missing_alternate =
-        generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+        generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     missing_alternate.actions[0].alternate = ActionId::new("missing-alternate");
     assert!(validate(&missing_alternate).is_err());
 
-    let mut stranded = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let mut stranded = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     let search_id = stranded
         .actions
         .iter()
@@ -546,7 +546,7 @@ fn action_graph_validation_rejects_missing_stranded_and_unreachable_exact_routes
         .prerequisite = Some(follow_id);
     assert!(validate(&stranded).is_err());
 
-    let mut exact = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let mut exact = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     let physical_resolution_id = exact
         .actions
         .iter()

@@ -229,7 +229,11 @@ mod tests {
 
     #[test]
     fn town_house_exterior_doors_compile_as_inward_swinging_cuboids() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         let doors = compile_operable_doors(&plan).unwrap();
 
         assert!(!doors.is_empty());
@@ -243,7 +247,11 @@ mod tests {
 
     #[test]
     fn sweep_radius_bounds_rotated_leaf_corners_with_offset_hinges() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         for mut door in compile_operable_doors(&plan).unwrap() {
             door.hinge_centre = door
                 .hinge_centre

@@ -40,14 +40,22 @@ fn aggregate(params: &crate::TextureParameters, x: f32, y: f32) -> f32 {
                 iy.rem_euclid(params.dressed_stone_weathering_mortar.aggregate_cells),
                 params.field_seed(streams::AGGREGATE, &[]),
             );
-            let dx = px - ix as f32 - params.rng(streams::AGGREGATE_X, &[id]).inclusive_unit_f32();
-            let dy = py - iy as f32 - params.rng(streams::AGGREGATE_Y, &[id]).inclusive_unit_f32();
+            let dx = px
+                - ix as f32
+                - params
+                    .element_rng(streams::AGGREGATE_X, id)
+                    .inclusive_unit_f32();
+            let dy = py
+                - iy as f32
+                - params
+                    .element_rng(streams::AGGREGATE_Y, id)
+                    .inclusive_unit_f32();
             let radius = super::between(
                 params
                     .dressed_stone_weathering_mortar
                     .aggregate_radius_cells,
                 params
-                    .rng(streams::AGGREGATE_RADIUS, &[id])
+                    .element_rng(streams::AGGREGATE_RADIUS, id)
                     .inclusive_unit_f32(),
             );
             let dome = (1.0 - (dx * dx + dy * dy) / (radius * radius)).max(0.0);
@@ -72,15 +80,26 @@ fn strokes(params: &crate::TextureParameters, x: f32, y: f32) -> (f32, f32) {
                 params.field_seed(streams::STROKE, &[]),
             );
             if params
-                .rng(streams::STROKE_PRESENCE, &[id])
+                .element_rng(streams::STROKE_PRESENCE, id)
                 .inclusive_unit_f32()
                 > params.dressed_stone_weathering_mortar.stroke_density
             {
                 continue;
             }
-            let dx = px - ix as f32 - params.rng(streams::GRAIN_X, &[id]).inclusive_unit_f32();
-            let dy = py - iy as f32 - params.rng(streams::GRAIN_Y, &[id]).inclusive_unit_f32();
-            let angle = (params.rng(streams::GRAIN_ANGLE, &[id]).inclusive_unit_f32() - 0.5)
+            let dx = px
+                - ix as f32
+                - params
+                    .element_rng(streams::GRAIN_X, id)
+                    .inclusive_unit_f32();
+            let dy = py
+                - iy as f32
+                - params
+                    .element_rng(streams::GRAIN_Y, id)
+                    .inclusive_unit_f32();
+            let angle = (params
+                .element_rng(streams::GRAIN_ANGLE, id)
+                .inclusive_unit_f32()
+                - 0.5)
                 * params.dressed_stone_weathering_mortar.stroke_angle_spread;
             let (sin, cos) = angle.sin_cos();
             let along = dx * cos + dy * sin;

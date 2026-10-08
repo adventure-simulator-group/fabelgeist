@@ -30,7 +30,7 @@ impl OutdoorCollision {
                     z,
                     Collider::sphere(recipe.collision_radius_metres()),
                     recipe.collision_radius_metres(),
-                    (recipe.seed >> 40) as f32 / ((1_u32 << 24) - 1) as f32
+                    (recipe.seed.to_u64() >> 40) as f32 / ((1_u32 << 24) - 1) as f32
                         * core::f32::consts::TAU,
                 ),
             };
@@ -51,7 +51,7 @@ impl OutdoorCollision {
             bodies.push((
                 Name::new(format!("Furniture {}", instance.scene.id.0)),
                 furniture_collider(instance.scene.key).unwrap(),
-                Transform::from_translation(instance.position_metres)
+                Transform::from_translation(instance.position_metres.metres())
                     .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),
             ));
         }

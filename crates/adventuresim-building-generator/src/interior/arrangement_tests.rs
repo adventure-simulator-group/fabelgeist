@@ -6,7 +6,7 @@ use adventuresim_world_schema::settlement_buildings::BuildingUse;
 
 #[test]
 fn interior_ward_and_inn_arrangements_preserve_service_and_access() {
-    for seed in [42, 47, 101] {
+    for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
         for size in [None, Some(ServiceBuildingSize::Medium)] {
             for usage in [BuildingUse::Inn, BuildingUse::Hospital] {
                 let program = BuildingProgram::validated_settlement(
@@ -83,7 +83,7 @@ fn interior_narrow_inn_ground_room_cannot_combine_full_counter_and_dining_group(
     let program = BuildingProgram::validated_settlement(
         settlement_archetype(BuildingUse::Inn),
         BuildingUse::Inn,
-        21,
+        fabelgeist_determinism::Seed::from_u64(21),
         None,
     )
     .unwrap();
@@ -99,7 +99,7 @@ fn interior_narrow_inn_ground_room_cannot_combine_full_counter_and_dining_group(
             &plan,
             &program,
             room,
-            0,
+            crate::StoreyIndex::GROUND,
             FurnitureBudget {
                 kind,
                 count: 1,

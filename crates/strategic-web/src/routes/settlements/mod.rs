@@ -4,101 +4,6 @@
 //! policy, database reads, rendering adapters, and behavior-local tests.
 
 #[cfg(test)]
-pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
-    include_str!("router.rs"),
-    include_str!("medical.rs"),
-    include_str!("residences.rs"),
-    include_str!("overview.rs"),
-    include_str!("camp.rs"),
-    include_str!("service_quests.rs"),
-    include_str!("party/location_personal.rs"),
-    include_str!("party/cooking.rs"),
-    include_str!("party/ingredient_preparation.rs"),
-    include_str!("party/training_activity.rs"),
-    include_str!("party/inventory_medical.rs"),
-    include_str!("party/social.rs"),
-    include_str!("party/transfers.rs"),
-    include_str!("religion_party.rs"),
-    include_str!("commerce.rs"),
-    include_str!("rest.rs"),
-    include_str!("religion.rs"),
-    include_str!("rendering.rs"),
-    include_str!("encumbrance.rs"),
-    include_str!("rest_preview.rs"),
-    include_str!("social_tests.rs"),
-    include_str!("rest_tests.rs"),
-    include_str!("herbalist_tests.rs"),
-    include_str!("encumbrance_tests.rs"),
-);
-
-include!("router.rs");
-
-mod entry;
-
-mod medical {
-    use super::*;
-    include!("medical.rs");
-}
-mod residences {
-    use super::*;
-    use adventuresim_world_schema::calendar::StrategicMinute;
-    include!("residences.rs");
-}
-mod overview {
-    use super::*;
-    include!("overview.rs");
-}
-mod camp {
-    use super::*;
-    use adventuresim_world_schema::calendar::StrategicMinute;
-    include!("camp.rs");
-}
-mod service_quests {
-    use super::*;
-    include!("service_quests.rs");
-}
-mod party {
-    use super::*;
-    include!("party/mod.rs");
-    include!("social_tests.rs");
-}
-mod commerce {
-    use super::*;
-    include!("commerce.rs");
-}
-mod rest {
-    use super::*;
-    use adventuresim_world_schema::calendar::StrategicMinute;
-    include!("rest.rs");
-    include!("rest_tests.rs");
-    include!("herbalist_tests.rs");
-}
-mod religion {
-    use super::*;
-    include!("religion.rs");
-    include!("religion_party.rs");
-}
-mod rendering {
-    use super::*;
-    include!("rendering.rs");
-}
-mod encumbrance {
-    use super::*;
-    include!("encumbrance.rs");
-    include!("encumbrance_tests.rs");
-}
-mod rest_preview {
-    use super::AppState;
-    use crate::spacetimedb::{
-        CatalogItemView, CharacterFilth, CharacterView, InventoryItem, InventoryItemAmount,
-        PartyInventoryItem, PartyItemAmount, Personality,
-    };
-    use crate::templates::settlement::SoapRestPreview;
-    use adventuresim_core::item_references::SOFT_SOAP_ID;
-    include!("rest_preview.rs");
-}
-
-#[cfg(test)]
 use camp::camp_continue_block_reason;
 use camp::{
     bandage_camp_counterparty, camp, change_camp_destination, contact_camp_counterparty,
@@ -161,3 +66,99 @@ pub(crate) use party::medical_presentation;
 pub(crate) use rest::{RestForm, field_shelter_argument, travel_rest_minutes};
 pub(crate) use rest_preview::soap_rest_preview;
 pub(crate) use service_quests::living_party_members;
+mod entry;
+
+mod medical {
+    use super::*;
+    include!("medical.rs");
+}
+mod residences {
+    use super::*;
+    use adventuresim_world_schema::calendar::StrategicMinute;
+    include!("residences.rs");
+}
+mod overview {
+    use super::*;
+    include!("overview.rs");
+}
+mod camp {
+    use super::*;
+    use adventuresim_world_schema::calendar::StrategicMinute;
+    include!("camp.rs");
+}
+mod service_quest_offers;
+
+mod service_quests {
+    use super::*;
+    include!("service_quests.rs");
+}
+mod party {
+    use super::*;
+    include!("party/mod.rs");
+    include!("social_tests.rs");
+}
+mod commerce {
+    use super::*;
+    include!("commerce.rs");
+}
+mod rest {
+    use super::*;
+    use adventuresim_world_schema::calendar::StrategicMinute;
+    include!("rest.rs");
+    include!("rest_tests.rs");
+    include!("herbalist_tests.rs");
+}
+mod religion {
+    use super::*;
+    include!("religion.rs");
+    include!("religion_party.rs");
+}
+mod rendering {
+    use super::*;
+    include!("rendering.rs");
+}
+mod encumbrance {
+    use super::*;
+    include!("encumbrance.rs");
+    include!("encumbrance_tests.rs");
+}
+mod rest_preview {
+    use super::AppState;
+    use crate::spacetimedb::{
+        CatalogItemView, CharacterFilth, CharacterView, InventoryItem, InventoryItemAmount,
+        PartyInventoryItem, PartyItemAmount, Personality,
+    };
+    use crate::templates::settlement::SoapRestPreview;
+    use adventuresim_core::item_references::SOFT_SOAP_ID;
+    include!("rest_preview.rs");
+}
+#[cfg(test)]
+pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
+    include_str!("router.rs"),
+    include_str!("medical.rs"),
+    include_str!("residences.rs"),
+    include_str!("overview.rs"),
+    include_str!("camp.rs"),
+    include_str!("service_quests.rs"),
+    include_str!("service_quest_offers.rs"),
+    include_str!("party/location_personal.rs"),
+    include_str!("party/cooking.rs"),
+    include_str!("party/ingredient_preparation.rs"),
+    include_str!("party/training_activity.rs"),
+    include_str!("party/inventory_medical.rs"),
+    include_str!("party/social.rs"),
+    include_str!("party/transfers.rs"),
+    include_str!("religion_party.rs"),
+    include_str!("commerce.rs"),
+    include_str!("rest.rs"),
+    include_str!("religion.rs"),
+    include_str!("rendering.rs"),
+    include_str!("encumbrance.rs"),
+    include_str!("rest_preview.rs"),
+    include_str!("social_tests.rs"),
+    include_str!("rest_tests.rs"),
+    include_str!("herbalist_tests.rs"),
+    include_str!("encumbrance_tests.rs"),
+);
+
+include!("router.rs");

@@ -1,8 +1,13 @@
 //! Reject malformed compact geometry before indexing or source compilation.
 use super::*;
 
-#[derive(Clone, Copy, Debug, PartialEq, thiserror::Error)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, thiserror::Error)]
 pub enum SupportSurfaceIssue {
+    #[error("building {building} floor binding rejected: {issue}")]
+    Floor {
+        building: crate::scene_input::SceneBuildingId,
+        issue: FloorBearingIssue,
+    },
     #[error("invalid property identity or member bindings")]
     Members,
     #[error("accepted treatment does not match the property members")]
@@ -13,11 +18,32 @@ pub enum SupportSurfaceIssue {
     Topology,
     #[error("support grade {measured_grade} exceeds {permitted_grade} m/m")]
     Grade {
-        measured_grade: f32,
-        permitted_grade: f32,
+        measured_grade: GeographicGrade,
+        permitted_grade: SupportGrade,
     },
 }
 
+/// Decoding reports the exact owner before malformed storage can be indexed.
+#[derive(Clone, Debug, PartialEq, thiserror::Error)]
+#[error("property {property:?}, members {member_building_ids:?}: {issue}")]
+pub struct SupportSurfaceAdmissionError {
+    pub property: CityPropertyId,
+    pub member_building_ids: Vec<crate::scene_input::SceneBuildingId>,
+    #[source]
+    pub issue: SupportSurfaceIssue,
+}
+impl SupportSurfaceAdmissionError {
+    pub(in crate::city_layout::grounding) fn for_mesh(
+        mesh: &PropertySupportMesh,
+        issue: SupportSurfaceIssue,
+    ) -> Self {
+        Self {
+            property: mesh.property_id,
+            member_building_ids: mesh.member_building_ids.clone(),
+            issue,
+        }
+    }
+}
 impl PropertySupportSurface {
     pub(crate) fn validate_encoded(&self) -> Result<(), SupportSurfaceIssue> {
         let members = &self.mesh.member_building_ids;
@@ -25,7 +51,7 @@ impl PropertySupportSurface {
             || self.property_id().0 > crate::city_layout::MAX_CITY_LOTS as u64
             || members.is_empty()
             || members.len() > 2
-            || members.contains(&0)
+            || members.iter().any(|id| id.0 == 0)
             || members
                 .iter()
                 .enumerate()
@@ -41,12 +67,7 @@ impl PropertySupportSurface {
         if !treatment_matches_members {
             return Err(SupportSurfaceIssue::Treatment);
         }
-        if SupportLimits::new(
-            self.limits.maximum_grade,
-            self.limits.maximum_displacement_metres,
-            self.limits.contact_tolerance_metres,
-        ) != Some(self.limits)
-            || self.mesh.contact_tolerance_metres != self.limits.contact_tolerance_metres
+        if self.mesh.contact_tolerance_metres != self.limits.contact_tolerance_metres.metres()
             || self.regions.is_empty()
             || self.regions.len() != self.clipping_outlines.len()
             || self.regions.iter().any(|region| !region.is_valid())
@@ -99,13 +120,14 @@ impl PropertySupportSurface {
             return Err(SupportSurfaceIssue::Bounds);
         }
         let measured_grade = self.mesh.maximum_grade();
-        if measured_grade > self.limits.maximum_grade {
+        if measured_grade > self.limits.maximum_grade.ratio() {
             return Err(SupportSurfaceIssue::Grade {
-                measured_grade,
+                measured_grade: GeographicGrade::from_ratio(f64::from(measured_grade))
+                    .ok_or(SupportSurfaceIssue::Topology)?,
                 permitted_grade: self.limits.maximum_grade,
             });
         }
-        Ok(())
+        self.validate_floors()
     }
 }
 

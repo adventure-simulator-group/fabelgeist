@@ -16,6 +16,8 @@ use super::types::QueryResponse;
 mod sats;
 use sats::decode_sats_query_response;
 
+const SPACETIMEDB_REQUEST_TIMEOUT: Duration = Duration::from_secs(60);
+
 #[derive(Debug, thiserror::Error)]
 pub enum SpacetimeError {
     #[error("HTTP error: {0}")]
@@ -75,7 +77,7 @@ impl SpacetimeClient {
     pub fn new(base_url: impl Into<String>, database: impl Into<String>) -> Result<Self> {
         Ok(Self {
             http: Client::builder()
-                .timeout(Duration::from_secs(10))
+                .timeout(SPACETIMEDB_REQUEST_TIMEOUT)
                 .connect_timeout(Duration::from_secs(3))
                 .build()?,
             base_url: base_url.into(),

@@ -1,19 +1,23 @@
 //! Lightweight frontage geometry shared by tactical and distant building sites.
 use super::*;
+use crate::scene_input::SceneValidationError;
 use crate::scene_input::{SceneInputError, TacticalBuildingPlacement};
 use adventuresim_building_generator::{BuildingPlan, OpeningUse};
+mod local;
 #[cfg(test)]
 mod tests;
+use adventuresim_building_generator::spatial_geometry::PlanExtents;
+use local::LocalReservation;
 #[derive(Clone)]
 pub(super) struct FurnitureSite {
     pub placement: TacticalBuildingPlacement,
-    pub half_extents: Vec2,
+    pub half_extents: PlanExtents,
     pub routes: Vec<FurnitureFootprint>,
 }
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct FurnitureSiteRecipe {
-    half_extents: Vec2,
-    routes: Vec<FurnitureFootprint>,
+    half_extents: PlanExtents,
+    routes: Vec<LocalReservation>,
 }
 impl FurnitureSiteRecipe {
     pub fn new(
@@ -31,11 +35,11 @@ impl FurnitureSiteRecipe {
             .filter(|o| o.use_kind == OpeningUse::Door && o.frame.outside_room.is_none())
         {
             let start = opening.frame.origin - origin;
-            routes.push(reservations::route(
+            routes.push(LocalReservation::route(
                 start,
                 start + opening.frame.outward * reservations::DOOR_APPROACH_METRES,
                 opening.profile.exterior_width_metres() * 0.5 + reservations::DOOR_SHOULDER_METRES,
-            ));
+            )?);
         }
         if let Some(workplace) = &plan.workplace {
             for passage in &workplace.passages {
@@ -47,37 +51,32 @@ impl FurnitureSiteRecipe {
                     passage.bounds.max().metres().x,
                     passage.bounds.max().metres().z,
                 );
-                routes.push(FurnitureFootprint {
-                    centre_metres: (min + max) * 0.5 - origin,
-                    half_extents_metres: (max - min) * 0.5,
-                    orientation: BuildingOrientation::IDENTITY,
-                });
+                routes.push(LocalReservation::from_metres(
+                    (min + max) * 0.5 - origin,
+                    (max - min) * 0.5,
+                    BuildingOrientation::IDENTITY,
+                )?);
             }
         }
         Ok(Self {
-            half_extents: bounds.plan_half_extents()?.metres(),
+            half_extents: bounds.plan_half_extents()?,
             routes,
         })
     }
-    fn place(&self, placement: TacticalBuildingPlacement) -> FurnitureSite {
+    fn place(
+        &self,
+        placement: TacticalBuildingPlacement,
+    ) -> Result<FurnitureSite, SceneInputError> {
         let routes = self
             .routes
             .iter()
-            .map(|r| FurnitureFootprint {
-                centre_metres: placement.centre_metres
-                    + placement.orientation.local_to_world(r.centre_metres),
-                half_extents_metres: r.half_extents_metres,
-                orientation: BuildingOrientation::from_radians(
-                    placement.orientation.yaw_radians() + r.orientation.yaw_radians(),
-                )
-                .unwrap(),
-            })
-            .collect();
-        FurnitureSite {
+            .map(|route| route.place(&placement))
+            .collect::<Result<Vec<_>, _>>()?;
+        Ok(FurnitureSite {
             placement,
             half_extents: self.half_extents,
             routes,
-        }
+        })
     }
 }
 pub(super) fn collect(
@@ -89,24 +88,30 @@ pub(super) fn collect(
         .iter()
         .map(|b| {
             FurnitureSiteRecipe::new(&b.plan, b.collision.bounds)
-                .map(|r| r.place(b.placement.clone()))
+                .and_then(|r| r.place(b.placement.clone()))
         })
         .collect::<Result<Vec<_>, _>>()?;
     for distant in &input.distant_buildings {
         let program = distant.occupied_program();
-        let recipe = if let Some((_, recipe)) =
-            recipes.sites.iter().find(|(key, _)| *key == program)
-        {
-            recipe.clone()
+        let recipe = if let Some(site) = recipes.sites.iter().find(|site| site.program == program) {
+            site.recipe.clone()
         } else {
             let generated = recipes.get_or_generate(&program).map_err(|e| {
-                SceneInputError::Validation(format!("distant furniture site {}: {e}", distant.id))
+                SceneInputError::Validation(SceneValidationError::FurnitureSite {
+                    building: distant.id,
+                    source: e,
+                })
             })?;
             let recipe = FurnitureSiteRecipe::new(&generated.plan, generated.collision.bounds)?;
-            recipes.sites.push((program.clone(), recipe.clone()));
+            recipes
+                .sites
+                .push(crate::scene_input::recipes::ProgramFurnitureSite {
+                    program: program.clone(),
+                    recipe: recipe.clone(),
+                });
             recipe
         };
-        sites.push(recipe.place((*distant).into()));
+        sites.push(recipe.place((*distant).into())?);
     }
     Ok(sites)
 }

@@ -13,23 +13,95 @@ const MAX_ACCESS_HALF_WIDTH_METRES: f32 = 2.0;
 /// Horizontal coordinates remain in the scene's shared settlement frame.
 #[derive(Clone, Debug, PartialEq, Component, Serialize, Deserialize)]
 #[component(immutable)]
-#[serde(deny_unknown_fields)]
+#[serde(try_from = "SceneBoundaryWire")]
 pub struct SceneBoundary {
-    pub property_id: CityPropertyId,
-    pub front_building_id: u64,
-    pub boundary: CityBoundary,
-    pub fixed_support: crate::city_layout::grounding::BoundarySupportMesh,
+    property_id: CityPropertyId,
+    front_building_id: crate::scene_input::SceneBuildingId,
+    boundary: CityBoundary,
+    fixed_support: crate::city_layout::grounding::BoundarySupportMesh,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(try_from = "GeneratedBoundaryWire")]
 pub struct GeneratedBoundary {
-    pub scene: SceneBoundary,
-    pub elevation_metres: f32,
+    scene: SceneBoundary,
+    elevation_metres: crate::city_layout::grounding::SupportElevation,
 }
 
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct SceneBoundaryWire {
+    property_id: CityPropertyId,
+    front_building_id: crate::scene_input::SceneBuildingId,
+    boundary: CityBoundary,
+    fixed_support: crate::city_layout::grounding::BoundarySupportMesh,
+}
+impl TryFrom<SceneBoundaryWire> for SceneBoundary {
+    type Error = crate::city_layout::grounding::enclosure::BoundaryAdmissionError;
+    fn try_from(wire: SceneBoundaryWire) -> Result<Self, Self::Error> {
+        wire.fixed_support.binding().validate_scene(
+            wire.property_id,
+            wire.front_building_id,
+            &wire.boundary,
+        )?;
+        Ok(Self {
+            property_id: wire.property_id,
+            front_building_id: wire.front_building_id,
+            boundary: wire.boundary,
+            fixed_support: wire.fixed_support,
+        })
+    }
+}
+impl SceneBoundary {
+    pub fn property_id(&self) -> CityPropertyId {
+        self.property_id
+    }
+    pub fn front_building_id(&self) -> crate::scene_input::SceneBuildingId {
+        self.front_building_id
+    }
+    pub fn boundary(&self) -> &CityBoundary {
+        &self.boundary
+    }
+    pub fn fixed_support(&self) -> &crate::city_layout::grounding::BoundarySupportMesh {
+        &self.fixed_support
+    }
+}
+#[derive(Deserialize)]
+struct GeneratedBoundaryWire {
+    scene: SceneBoundary,
+    elevation_metres: crate::city_layout::grounding::SupportElevation,
+}
+impl TryFrom<GeneratedBoundaryWire> for GeneratedBoundary {
+    type Error = crate::city_layout::grounding::enclosure::BoundaryAdmissionError;
+    fn try_from(wire: GeneratedBoundaryWire) -> Result<Self, Self::Error> {
+        let expected = wire.scene.fixed_support.binding().gate();
+        if wire.elevation_metres != expected {
+            return Err(Self::Error::Datum {
+                property: wire.scene.property_id,
+                expected,
+                actual: wire.elevation_metres,
+            });
+        }
+        Ok(Self {
+            scene: wire.scene,
+            elevation_metres: wire.elevation_metres,
+        })
+    }
+}
+impl GeneratedBoundary {
+    pub fn scene(&self) -> &SceneBoundary {
+        &self.scene
+    }
+    pub fn elevation_metres(&self) -> crate::city_layout::grounding::SupportElevation {
+        self.elevation_metres
+    }
+    pub fn into_scene(self) -> SceneBoundary {
+        self.scene
+    }
+}
 pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError> {
     if input.compounds.len() > MAX_CITY_LOTS {
-        return invalid("scene exceeds compound count bound");
+        return invalid(SceneValidationError::CompoundCount);
     }
     let mut buildings = BTreeMap::new();
     for (id, archetype, usage, playable) in input
@@ -44,7 +116,7 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
         )
     {
         if buildings.insert(id, (archetype, usage, playable)).is_some() {
-            return invalid("building identity occurs in both simulation and distant presentation");
+            return invalid(SceneValidationError::SplitBuildingAuthority);
         }
     }
     let mut ids = BTreeSet::new();
@@ -56,13 +128,19 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
             || !members.insert(compound.front_building_id)
             || !members.insert(compound.rear_building_id)
         {
-            return invalid("compound identity or membership is invalid");
+            return invalid(SceneValidationError::CompoundIdentity {
+                owner: super::validation_error::SceneOwnerContext::compound(compound),
+            });
         }
         let Some(front) = buildings.get(&compound.front_building_id) else {
-            return invalid("compound front building is missing");
+            return invalid(SceneValidationError::MissingCompoundFront {
+                owner: super::validation_error::SceneOwnerContext::compound(compound),
+            });
         };
         let Some(rear) = buildings.get(&compound.rear_building_id) else {
-            return invalid("compound rear building is missing");
+            return invalid(SceneValidationError::MissingCompoundRear {
+                owner: super::validation_error::SceneOwnerContext::compound(compound),
+            });
         };
         use adventuresim_building_generator::BuildingArchetype;
         if front.0 != BuildingArchetype::FachwerkMerchantHouse
@@ -70,7 +148,9 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
             || rear.1.is_some()
             || front.2 != rear.2
         {
-            return invalid("compound members have invalid roles or split simulation authority");
+            return invalid(SceneValidationError::CompoundMemberAuthority {
+                owner: super::validation_error::SceneOwnerContext::compound(compound),
+            });
         }
         validate_geometry(compound)?;
     }
@@ -81,7 +161,7 @@ fn validate_geometry(compound: &CityCompound) -> Result<(), SceneInputError> {
     let bounded = |v: f32| v.is_finite() && v > 0.0 && v <= MAX_PROPERTY_EXTENT_METRES;
     if !compound.plot.is_valid()
         || !compound.court.is_valid()
-        || compound.plot.dimensions_metres.max_element() > MAX_PROPERTY_EXTENT_METRES
+        || compound.plot.dimensions_metres().max_element() > MAX_PROPERTY_EXTENT_METRES
         || compound
             .court
             .corners()
@@ -91,17 +171,21 @@ fn validate_geometry(compound: &CityCompound) -> Result<(), SceneInputError> {
         || compound.access.len() > MAX_PROPERTY_ACCESS_SEGMENTS
         || compound.boundary.walls.len() > MAX_PROPERTY_WALL_SEGMENTS
     {
-        return invalid("compound plot, court or route count is invalid");
+        return invalid(SceneValidationError::CompoundPlot {
+            owner: super::validation_error::SceneOwnerContext::compound(compound),
+        });
     }
     for route in &compound.access {
-        if !route.start_metres.is_finite()
-            || !route.end_metres.is_finite()
-            || !bounded(route.half_width_metres)
-            || route.half_width_metres > MAX_ACCESS_HALF_WIDTH_METRES
-            || route.start_metres.distance(route.end_metres) > MAX_PROPERTY_EXTENT_METRES
-            || !compound.plot.contains(route.end_metres)
+        if !route.start_metres().is_finite()
+            || !route.end_metres().is_finite()
+            || !bounded(route.half_width_metres())
+            || route.half_width_metres() > MAX_ACCESS_HALF_WIDTH_METRES
+            || route.start_metres().distance(route.end_metres()) > MAX_PROPERTY_EXTENT_METRES
+            || !compound.plot.contains(route.end_metres())
         {
-            return invalid("compound access route is invalid");
+            return invalid(SceneValidationError::CompoundAccess {
+                owner: super::validation_error::SceneOwnerContext::compound(compound),
+            });
         }
     }
     for wall in &compound.boundary.walls {
@@ -113,7 +197,9 @@ fn validate_geometry(compound: &CityCompound) -> Result<(), SceneInputError> {
             || !compound.plot.contains(wall.start_metres)
             || !compound.plot.contains(wall.end_metres)
         {
-            return invalid("compound boundary wall is invalid");
+            return invalid(SceneValidationError::CompoundWall {
+                owner: super::validation_error::SceneOwnerContext::compound(compound),
+            });
         }
     }
     let gate = compound.boundary.gate;
@@ -122,7 +208,9 @@ fn validate_geometry(compound: &CityCompound) -> Result<(), SceneInputError> {
         || !bounded(gate.width_metres)
         || !bounded(gate.height_metres)
     {
-        return invalid("compound gate is invalid");
+        return invalid(SceneValidationError::CompoundGate {
+            owner: super::validation_error::SceneOwnerContext::compound(compound),
+        });
     }
     Ok(())
 }
@@ -143,22 +231,22 @@ impl GeneratedBoundary {
                 compound,
                 BoundarySupportElement::Owner,
                 BoundarySupportConstraint::OwnerBinding,
-                compound.plot.centre_metres,
+                compound.plot.centre_metres(),
                 1.0,
                 0.0,
             )
         })?;
         let policy = crate::city_layout::CompoundGradingPolicy::bounded_settlement();
-        let (fixed_support, elevation) =
+        let projection =
             BoundarySupportMesh::project(compound, foundation, policy.limits, policy.embedment)?;
         Ok(Self {
             scene: SceneBoundary {
                 property_id: compound.id,
                 front_building_id: compound.front_building_id,
                 boundary: compound.boundary.clone(),
-                fixed_support,
+                fixed_support: projection.mesh,
             },
-            elevation_metres: elevation.metres(),
+            elevation_metres: projection.gate_elevation,
         })
     }
 }
@@ -194,9 +282,13 @@ pub(super) fn validate_generated(
         let rear = buildings
             .iter()
             .find(|b| b.placement.id == compound.rear_building_id)
-            .expect("input validation requires both members to share authority");
+            .ok_or_else(|| {
+                SceneInputError::Validation(SceneValidationError::MissingCompoundRear {
+                    owner: super::validation_error::SceneOwnerContext::compound(compound),
+                })
+            })?;
         crate::city_layout::validate_scene_compound(compound, front, rear, streets)
-            .map_err(|error| SceneInputError::Validation(error.to_string()))?;
+            .map_err(|error| SceneInputError::Validation(SceneValidationError::City(error)))?;
     }
     Ok(())
 }

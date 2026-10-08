@@ -879,7 +879,7 @@ fn audit_projected_defenses(
                                 - roof.size.metres().y * 0.5;
                             let plate_top = plate.centre.metres().y + plate.size.metres().y * 0.5;
                             let roof_contact = (plate_top - expected_underside).abs() <= 0.025
-                                && resolved_plan_overlap_area(roof, plate)? >= 0.08;
+                                && resolved_plan_overlap_area(roof, plate)?.square_metres() >= 0.08;
                             let local_x = Vec2::new(
                                 plate.yaw_radians.radians().cos(),
                                 -plate.yaw_radians.radians().sin(),
@@ -901,7 +901,7 @@ fn audit_projected_defenses(
                                                             - plate.size.metres().y * 0.5))
                                                         .abs()
                                                         <= 0.025
-                                                    && resolved_plan_overlap_area(support, plate)?
+                                                    && resolved_plan_overlap_area(support, plate)?.square_metres()
                                                         >= 0.014
                                                     && resolved_solid_contains_point(
                                                         support,

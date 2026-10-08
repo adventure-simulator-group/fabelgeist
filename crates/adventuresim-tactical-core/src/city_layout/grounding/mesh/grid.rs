@@ -9,44 +9,19 @@ impl PropertySupportMesh {
         plan: &CompoundSupportPlan,
     ) -> Result<Self, SupportDiagnostic> {
         let mut mesh = Self::empty_for_compound(plan);
-        let half = plan.property.plot.dimensions_metres * 0.5;
-        let local = |point| {
-            plan.property
-                .plot
-                .orientation
-                .world_to_local(point - plan.property.plot.centre_metres)
-        };
-        let begin = local(plan.passage.start_metres).y;
-        let sign = (local(plan.passage.end_metres).y - begin).signum();
-        let mut xs = vec![-half.x, half.x, plan.split_frontage_metres];
-        let mut zs = vec![-half.y, half.y];
-        zs.extend(plan.court_profile.points().map(|p| p.coordinate.metres()));
-        zs.extend(
-            plan.passage_profile
-                .points()
-                .map(|p| begin + sign * p.coordinate.metres()),
-        );
-        for stair in &plan.court_stairs {
-            let (x, z) = stair.local_cuts();
-            xs.extend(x);
-            zs.extend(z);
-        }
-        if let Some(entry) = &plan.street_entry {
-            for corner in entry.support_region.corners() {
-                let point = local(corner);
-                xs.push(point.x);
-                zs.push(point.y);
-            }
-        }
-        bounded_cuts(&mut xs, half.x, plan.limits.contact_tolerance_metres);
-        bounded_cuts(&mut zs, half.y, plan.limits.contact_tolerance_metres);
+        let CompoundGrid {
+            xs,
+            zs,
+            begin,
+            sign,
+        } = CompoundGrid::from_plan(plan);
         let columns = xs.len() - 1;
         let mut cells = Vec::new();
         for z in zs.windows(2) {
             for x in xs.windows(2) {
                 let centre = Vec2::new((x[0] + x[1]) * 0.5, (z[0] + z[1]) * 0.5);
-                let point = plan.property.plot.centre_metres
-                    + plan.property.plot.orientation.local_to_world(centre);
+                let point = plan.property.plot.centre_metres()
+                    + plan.property.plot.orientation().local_to_world(centre);
                 if plan
                     .street_entry
                     .as_ref()
@@ -62,7 +37,8 @@ impl PropertySupportMesh {
                         profile_height(plan, z[1], begin, sign)?,
                     ]
                 } else {
-                    [plan.main_height(centre); 2]
+                    [plan.main_height(centre).ok_or_else(|| SupportDiagnostic::framed_geometry(
+                        &plan.property, point, adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection))?.metres(); 2]
                 };
                 let points = [
                     world(plan, x[0], z[0], heights[0]),
@@ -75,17 +51,23 @@ impl PropertySupportMesh {
             }
         }
         append_retaining_faces(&mut mesh, &cells, columns)?;
-        append_street_approach(plan, &mut mesh, begin, sign, half.y)?;
+        append_street_approach(
+            plan,
+            &mut mesh,
+            begin,
+            sign,
+            plan.property.plot.dimensions_metres().y * 0.5,
+        )?;
         Ok(mesh)
     }
 }
 
 fn world(plan: &CompoundSupportPlan, x: f32, z: f32, height: f32) -> Vec3 {
-    let p = plan.property.plot.centre_metres
+    let p = plan.property.plot.centre_metres()
         + plan
             .property
             .plot
-            .orientation
+            .orientation()
             .local_to_world(Vec2::new(x, z));
     Vec3::new(p.x, height, p.y)
 }
@@ -144,14 +126,14 @@ fn append_street_approach(
             .filter(|z| range.contains(z)),
     );
     rows.sort_by(f32::total_cmp);
-    rows.dedup_by(|a, b| (*a - *b).abs() <= plan.limits.contact_tolerance_metres);
+    rows.dedup_by(|a, b| (*a - *b).abs() <= plan.limits.contact_tolerance_metres.metres());
     let centre = plan
         .property
         .plot
-        .orientation
-        .world_to_local(plan.passage.start_metres - plan.property.plot.centre_metres)
+        .orientation()
+        .world_to_local(plan.passage.start_metres() - plan.property.plot.centre_metres())
         .x;
-    let half_width = plan.passage.half_width_metres;
+    let half_width = plan.passage.half_width_metres();
     for band in rows.windows(2) {
         let heights = [
             profile_height(plan, band[0], begin, sign)?,
@@ -182,10 +164,114 @@ fn profile_height(
                 &plan.property,
                 SupportConstraint::Reservation,
                 SupportBoundary::GateLanding,
-                plan.passage.start_metres,
+                plan.passage.start_metres(),
                 1.0,
                 0.0,
             )
         })?;
     Ok(plan.passage_profile.height_at(coordinate).metres())
+}
+
+/// Native plot-local metre partitions shared by mesh authoring and floor records.
+struct CompoundGrid {
+    xs: Vec<f32>,
+    zs: Vec<f32>,
+    begin: f32,
+    sign: f32,
+}
+impl CompoundGrid {
+    fn from_plan(plan: &CompoundSupportPlan) -> Self {
+        let half = plan.property.plot.dimensions_metres() * 0.5;
+        let local = |point| {
+            plan.property
+                .plot
+                .orientation()
+                .world_to_local(point - plan.property.plot.centre_metres())
+        };
+        let begin = local(plan.passage.start_metres()).y;
+        let sign = (local(plan.passage.end_metres()).y - begin).signum();
+        let mut xs = vec![-half.x, half.x, plan.split_frontage_metres];
+        let mut zs = vec![-half.y, half.y];
+        zs.extend(plan.court_profile.points().map(|p| p.coordinate.metres()));
+        zs.extend(
+            plan.passage_profile
+                .points()
+                .map(|p| begin + sign * p.coordinate.metres()),
+        );
+        for stair in &plan.court_stairs {
+            let (x, z) = stair.local_cuts();
+            xs.extend(x);
+            zs.extend(z);
+        }
+        if let Some(entry) = &plan.street_entry {
+            for corner in entry.support_region.corners() {
+                let point = local(corner);
+                xs.push(point.x);
+                zs.push(point.y);
+            }
+        }
+        bounded_cuts(
+            &mut xs,
+            half.x,
+            plan.limits.contact_tolerance_metres.metres(),
+        );
+        bounded_cuts(
+            &mut zs,
+            half.y,
+            plan.limits.contact_tolerance_metres.metres(),
+        );
+        Self {
+            xs,
+            zs,
+            begin,
+            sign,
+        }
+    }
+}
+pub(in crate::city_layout::grounding) fn floor_regions(
+    plan: &CompoundSupportPlan,
+    member: MemberSupport,
+) -> Result<Vec<surface::FloorRegion>, surface::FloorBearingConstructionError> {
+    use crate::scene_coordinates::{ScenePlanPoint, ScenePlanPolygon};
+    let grid = CompoundGrid::from_plan(plan);
+    let breaks: Vec<_> = plan
+        .court_profile
+        .points()
+        .map(|p| p.coordinate.metres())
+        .collect();
+    let mut regions = Vec::new();
+    for z in grid.zs.windows(2) {
+        for x in grid.xs.windows(2) {
+            let centre = Vec2::new((x[0] + x[1]) * 0.5, (z[0] + z[1]) * 0.5);
+            let point = plan.property.plot.centre_metres()
+                + plan.property.plot.orientation().local_to_world(centre);
+            let on_member_plateau = if member.building_id == plan.levels.front.building_id {
+                centre.y <= breaks[1]
+            } else {
+                centre.y >= breaks[breaks.len() - 2]
+            };
+            let main_side = (centre.x - plan.split_frontage_metres)
+                * plan.property.boundary.gate.hinge.opposite().sign()
+                <= 0.0;
+            if !on_member_plateau
+                || !main_side
+                || plan.main_height(centre) != Some(member.elevation)
+                || plan
+                    .street_entry
+                    .as_ref()
+                    .is_some_and(|entry| entry.support_region.contains(point))
+            {
+                continue;
+            }
+            regions.push(surface::FloorRegion::from_scene(
+                ScenePlanPolygon::from_ordered_vertices(
+                    [(x[0], z[0]), (x[1], z[0]), (x[1], z[1]), (x[0], z[1])]
+                        .into_iter()
+                        .map(|(x, z)| ScenePlanPoint::try_from(world(plan, x, z, 0.0).xz()))
+                        .collect::<Result<Vec<_>, _>>()?,
+                )?,
+            )?);
+        }
+    }
+    Ok(regions)
 }

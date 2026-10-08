@@ -4,13 +4,15 @@ use adventuresim_building_generator::{
     compile_building_detail, compile_operable_doors, generate,
 };
 use bevy::math::Vec3;
+use fabelgeist_determinism::Seed;
 use std::{collections::BTreeMap, sync::Arc};
 mod catalogue;
 #[cfg(test)]
 mod tests;
 
 const RECIPE_SELECTION_DOMAIN: StreamId = StreamId::new("city.building-recipe");
-const CURATED_RECIPE_SEEDS: [u64; 3] = [42, 47, 101];
+const CURATED_RECIPE_SEEDS: [Seed; 3] =
+    [Seed::from_u64(42), Seed::from_u64(47), Seed::from_u64(101)];
 
 /// Lightweight immutable recipes retained from accepted city compilation.
 /// The memo contains programmes, bearings, thresholds and measured envelopes;
@@ -26,7 +28,7 @@ struct RecipeKey {
     archetype_slug: &'static str,
     usage: Option<BuildingUse>,
     size: Option<ServiceBuildingSize>,
-    seed: u64,
+    seed: Seed,
 }
 
 #[derive(Debug, PartialEq)]
@@ -43,7 +45,7 @@ pub(super) struct Recipe {
 impl CityRecipePalette {
     pub(super) fn front(
         &mut self,
-        seed: u64,
+        seed: fabelgeist_determinism::Seed,
         lot: CityBuildingLot,
     ) -> Result<Arc<Recipe>, CityCompileError> {
         let choice = RECIPE_SELECTION_DOMAIN
@@ -73,7 +75,7 @@ impl CityRecipePalette {
         archetype: BuildingArchetype,
         usage: Option<BuildingUse>,
         size: Option<ServiceBuildingSize>,
-        seed: u64,
+        seed: Seed,
     ) -> Result<Arc<Recipe>, CityCompileError> {
         let key = RecipeKey {
             archetype_slug: archetype.slug(),
@@ -200,7 +202,7 @@ impl Recipe {
 
     pub fn place(
         &self,
-        id: u64,
+        id: crate::scene_input::SceneBuildingId,
         centre_metres: Vec2,
         orientation: BuildingOrientation,
     ) -> Result<TacticalBuildingPlacement, CityCompileError> {
@@ -216,10 +218,10 @@ impl Recipe {
             _ => orientation,
         };
         Ok(TacticalBuildingPlacement {
-            base_elevation_metres: 0.0,
+            base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
             id,
             program: self.program.clone(),
-            centre_metres,
+            centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(centre_metres)?,
             orientation,
         })
     }
@@ -267,6 +269,10 @@ impl Recipe {
             Vec2::new(self.render_min.x, self.render_max.y),
         ]
         .into_iter()
-        .all(|p| bounds.contains(placement.centre_metres + placement.orientation.local_to_world(p)))
+        .all(|p| {
+            bounds.contains(
+                placement.centre_metres.metres() + placement.orientation.local_to_world(p),
+            )
+        })
     }
 }

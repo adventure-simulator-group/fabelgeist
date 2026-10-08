@@ -11,6 +11,9 @@ use serde::{Deserialize, Serialize};
 pub const DISEASE_RULESET_VERSION: u16 = 1;
 pub const PHYSIOLOGY_VITALS_THRESHOLD: f32 = 2.0;
 
+mod entropy;
+pub use entropy::{contact_exposure_seed, severity_seed};
+
 mod identity;
 pub use identity::{DiseaseId, ParseDiseaseIdError};
 
@@ -717,7 +720,7 @@ pub fn resolve_acquisition_timeline(
                 let mut attempt_definition = *definition(candidate.disease_id);
                 attempt_definition.base_acquisition = attempt.base_acquisition;
                 acquisition_succeeds(
-                    candidate.id,
+                    Seed::from_u64(candidate.id),
                     &attempt_definition,
                     target_immunity,
                     prior,
@@ -759,7 +762,7 @@ pub fn resolve_acquisition_timeline(
             );
             if acquisition_succeeds(id, &source_definition, target_immunity, prior, exposure) {
                 candidates.push(InfectionEpisode {
-                    id,
+                    id: id.to_u64(),
                     character_id: source.character_id,
                     disease_id: source.disease_id,
                     contracted_at: minute,
@@ -822,7 +825,7 @@ pub fn resolve_acquisition_timeline(
                         exposure,
                     ) {
                         candidates.push(InfectionEpisode {
-                            id: seed,
+                            id: seed.to_u64(),
                             character_id: target_id,
                             disease_id: source_episode.disease_id,
                             contracted_at: minute,
@@ -1335,35 +1338,14 @@ pub struct DiseaseState {
     pub terminal_failure: Option<TerminalFailure>,
 }
 
-pub fn severity_seed(e: InfectionEpisode) -> u64 {
-    StreamId::new("disease.severity")
-        .rng(
-            e.id,
-            &[e.character_id, e.disease_id as u64, e.contracted_at.get()],
-        )
-        .next_u64()
-}
-
-pub fn outbreak_exposure_seed(character_id: u64, outbreak_id: &str) -> u64 {
+pub fn outbreak_exposure_seed(character_id: u64, outbreak_id: &str) -> Seed {
     Seed::derive(
         &character_id.to_le_bytes(),
         StreamId::new("disease.outbreak-exposure"),
         &[outbreak_id.as_bytes()],
     )
     .rng()
-    .next_u64()
-}
-
-/// Minute-specific contact draws are independent of neighboring exposures.
-pub fn contact_exposure_seed(
-    target_id: u64,
-    source_id: u64,
-    source_episode_id: u64,
-    minute: StrategicMinute,
-) -> u64 {
-    StreamId::new("disease.contact-exposure")
-        .rng(target_id, &[source_id, source_episode_id, minute.get()])
-        .next_u64()
+    .next_seed()
 }
 
 /// True while an episode of the same disease remains unresolved at the
@@ -1526,7 +1508,7 @@ pub fn protected_presence_exposure_source(
 }
 
 pub fn severity(e: InfectionEpisode, immunity: f32) -> f32 {
-    let unit = fabelgeist_determinism::unit_f64(severity_seed(e));
+    let unit = severity_seed(e).unit_f64();
     let innate = (immunity / 5.0).clamp(0.0, 1.0);
     ((0.72 + unit as f32 * 0.56) * (1.0 - innate * 0.62)).max(if immunity <= 0.0 {
         1.85
@@ -1535,7 +1517,7 @@ pub fn severity(e: InfectionEpisode, immunity: f32) -> f32 {
     })
 }
 pub fn acquisition_succeeds(
-    seed: u64,
+    seed: Seed,
     definition: &DiseaseDefinition,
     immunity: f32,
     prior_immunity: f32,
@@ -1544,14 +1526,14 @@ pub fn acquisition_succeeds(
     let resistance = (immunity / 5.0).clamp(0.0, 1.0) * 0.72 + prior_immunity.clamp(0.0, 0.95);
     let chance =
         (definition.base_acquisition * exposure.max(0.0) * (1.0 - resistance)).clamp(0.0, 1.0);
-    fabelgeist_determinism::unit_f64(seed) < chance as f64
+    seed.unit_f64() < chance as f64
 }
 
 /// Absolute exposure minute at which an outbreak infects this character. Using
 /// a threshold on cumulative continuous exposure makes one 24-hour update
 /// identical to twenty-four one-hour updates.
 pub fn exposure_threshold_minute(
-    seed: u64,
+    seed: Seed,
     outbreak_start: StrategicMinute,
     intensity: f32,
     base_acquisition: f32,
@@ -1564,7 +1546,7 @@ pub fn exposure_threshold_minute(
     if hazard <= 0.0 {
         return None;
     }
-    let unit = fabelgeist_determinism::unit_f64(seed).clamp(f64::EPSILON, 1.0 - f64::EPSILON);
+    let unit = seed.unit_f64().clamp(f64::EPSILON, 1.0 - f64::EPSILON);
     let minutes = (-unit.ln() / (hazard as f64)).ceil() as u64;
     Some(outbreak_start.saturating_add_minutes(minutes))
 }
@@ -2246,7 +2228,7 @@ fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
         DiseaseId::Erysipelas => {
             let limb =
                 [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
-                    .rng(episode.id, &[])
+                    .rng(episode.id.into(), &[])
                     .index(4)];
             vec![(limb, 1.0), (Chest, 0.35)]
         }
@@ -2262,7 +2244,7 @@ fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
         DiseaseId::Plague => {
             let limb =
                 [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
-                    .rng(episode.id, &[])
+                    .rng(episode.id.into(), &[])
                     .index(4)];
             vec![(Chest, 1.0), (Abdomen, 0.75), (Head, 0.55), (limb, 0.8)]
         }
@@ -2280,7 +2262,7 @@ fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
         DiseaseId::Bilwisschuss => {
             let limb =
                 [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
-                    .rng(episode.id, &[])
+                    .rng(episode.id.into(), &[])
                     .index(4)];
             vec![(limb, 1.0), (Head, 0.3)]
         }
@@ -2313,7 +2295,7 @@ pub fn observed_symptoms(
         Symptom::Rash,
         Symptom::Trembling,
     ];
-    let mut random = StreamId::new("disease.incidental-symptoms").rng(seed_episode.id, &[]);
+    let mut random = StreamId::new("disease.incidental-symptoms").rng(seed_episode.id.into(), &[]);
     for _ in 0..2 {
         let finding = INCIDENTAL[random.index(INCIDENTAL.len())];
         if !symptoms.contains(&finding) {
@@ -2405,7 +2387,7 @@ mod tests {
     fn seed_is_domain_stable_and_uses_identity() {
         assert_eq!(
             severity_seed(e(1, DiseaseId::Influenza)),
-            3728249043455261031
+            fabelgeist_determinism::Seed::from_u64(3728249043455261031)
         );
         assert_ne!(
             severity_seed(e(1, DiseaseId::Influenza)),
@@ -2582,8 +2564,15 @@ mod tests {
 
     #[test]
     fn continuous_exposure_is_chunk_invariant() {
-        let at =
-            exposure_threshold_minute(42, StrategicMinute::new(100), 0.8, 0.65, 2.0, 0.0).unwrap();
+        let at = exposure_threshold_minute(
+            fabelgeist_determinism::Seed::from_u64(42),
+            StrategicMinute::new(100),
+            0.8,
+            0.65,
+            2.0,
+            0.0,
+        )
+        .unwrap();
         let whole = at > StrategicMinute::new(100) && at <= StrategicMinute::new(100 + 30 * DAY);
         let chunks = (0..30).any(|day| {
             at > StrategicMinute::new(100 + day * DAY)
@@ -2891,7 +2880,9 @@ mod tests {
         let residual = residual_exposure(1.0, TransmissionVector::CloseContact, 5.0);
         assert!(residual > 0.0);
         assert!(
-            (0..10_000).any(|seed| { acquisition_succeeds(seed, definition, 0.0, 0.0, residual) })
+            (0..10_000)
+                .map(fabelgeist_determinism::Seed::from_u64)
+                .any(|seed| { acquisition_succeeds(seed, definition, 0.0, 0.0, residual) })
         );
     }
 
@@ -3309,7 +3300,7 @@ mod tests {
         let third_at = second_at + duration + 1;
         let to = third_at;
         let definition = definition(DiseaseId::Influenza);
-        let threshold_seed = ((0.55_f64 * (1_u64 << 53) as f64) as u64) << 11;
+        let threshold_seed = Seed::from_u64(((0.55_f64 * (1_u64 << 53) as f64) as u64) << 11);
         assert!(acquisition_succeeds(
             threshold_seed,
             definition,
@@ -3336,7 +3327,7 @@ mod tests {
             [
                 AcquisitionAttempt::exposure(episode(61, first_at), 0.65, 1_000.0),
                 AcquisitionAttempt::exposure(
-                    episode(threshold_seed, threshold_at),
+                    episode(threshold_seed.to_u64(), threshold_at),
                     definition.base_acquisition,
                     1.0,
                 ),
@@ -3374,7 +3365,7 @@ mod tests {
         assert!(
             !whole.proposals[&7]
                 .iter()
-                .any(|episode| episode.id == threshold_seed),
+                .any(|episode| episode.id == threshold_seed.to_u64()),
             "the threshold-sensitive roll must be rejected by immunity acquired during this run"
         );
 

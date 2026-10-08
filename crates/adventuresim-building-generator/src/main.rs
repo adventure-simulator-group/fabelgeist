@@ -4,6 +4,7 @@
 mod viewer;
 
 #[cfg(not(target_family = "wasm"))]
+use fabelgeist_determinism::Seed;
 use std::path::PathBuf;
 
 #[cfg(not(target_family = "wasm"))]
@@ -261,8 +262,8 @@ struct Args {
     view: ViewerView,
 
     /// Deterministic generation seed.
-    #[arg(long, default_value_t = 42)]
-    seed: u64,
+    #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(42))]
+    seed: Seed,
 
     /// PNG output path. Omit to leave the interactive viewer open.
     #[arg(long)]

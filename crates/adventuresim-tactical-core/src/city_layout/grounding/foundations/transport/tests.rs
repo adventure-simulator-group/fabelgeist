@@ -69,3 +69,30 @@ fn incomplete_or_changed_prisms_cannot_be_silently_encoded_as_canonical_cells() 
     bytes.pop();
     assert!(ciborium::from_reader::<PropertyFoundationMesh, _>(bytes.as_slice()).is_err());
 }
+
+#[test]
+fn malformed_binary_cells_reject_nonfinite_pairs_reversed_heights_and_members() {
+    let fixture = Fixture::load();
+    let source = fixture.source();
+    let mesh = fixture
+        .selected_plan(&source)
+        .foundations(&source, FoundationEmbedment::from_metres(0.2).unwrap())
+        .unwrap();
+    for case in 0..5 {
+        let mut wire = FoundationCells {
+            property_id: mesh.property_id,
+            member_building_ids: mesh.member_building_ids.clone(),
+            positions: mesh.positions.clone(),
+            cut_faces: mesh.cut_faces.clone(),
+        };
+        match case {
+            0 => wire.positions[0].y = f32::NAN,
+            1 => wire.positions[3].x += 1.0,
+            2 => wire.positions[3].y = wire.positions[0].y + 1.0,
+            3 => wire.member_building_ids.push(wire.member_building_ids[0]),
+            _ => wire.cut_faces.push([Vec3::splat(f32::INFINITY); 3]),
+        }
+        let encoded = postcard::to_allocvec(&wire).unwrap();
+        assert!(postcard::from_bytes::<PropertyFoundationMesh>(&encoded).is_err());
+    }
+}

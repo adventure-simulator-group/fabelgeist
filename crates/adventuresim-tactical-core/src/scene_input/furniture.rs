@@ -9,6 +9,7 @@ use serde::{Deserialize, Serialize};
 use super::{BuildingOrientation, GeneratedBuilding, GeneratedObstacle, TacticalSceneInput};
 use crate::scene::{SceneGround, SceneTerrain};
 
+pub use adventuresim_building_generator::{RoomIndex, StoreyIndex};
 mod candidates;
 mod collision;
 mod ground;
@@ -40,9 +41,9 @@ pub enum FurnitureLocation {
         group_id: FurnitureGroupId,
     },
     Interior {
-        building_id: u64,
-        room_id: u16,
-        storey: u16,
+        building_id: crate::scene_input::SceneBuildingId,
+        room_id: adventuresim_building_generator::RoomIndex,
+        storey: adventuresim_building_generator::StoreyIndex,
     },
 }
 
@@ -59,7 +60,9 @@ pub struct SceneFurniture {
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, Reflect)]
 pub struct GeneratedFurniture {
     pub scene: SceneFurniture,
-    pub position_metres: Vec3,
+    pub position_metres: adventuresim_building_generator::spatial_geometry::Position<
+        crate::scene_coordinates::Scene,
+    >,
     pub orientation: BuildingOrientation,
 }
 
@@ -75,68 +78,11 @@ pub enum FurnitureGroupKind {
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize, Reflect)]
 pub enum FurnitureAnchor {
     Market { patch_index: u32 },
-    Building { id: u64 },
+    Building { id: super::SceneBuildingId },
 }
 
-/// Physical kit bounds plus the access/workspace that must remain unobstructed.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, Reflect)]
-pub struct FurnitureFootprint {
-    pub centre_metres: Vec2,
-    pub half_extents_metres: Vec2,
-    pub orientation: BuildingOrientation,
-}
-
-impl FurnitureFootprint {
-    pub fn corners(self) -> [Vec2; 4] {
-        [
-            Vec2::new(-1.0, -1.0),
-            Vec2::new(1.0, -1.0),
-            Vec2::ONE,
-            Vec2::new(-1.0, 1.0),
-        ]
-        .map(|corner| {
-            self.centre_metres
-                + self
-                    .orientation
-                    .local_to_world(corner * self.half_extents_metres)
-        })
-    }
-
-    pub fn contains(self, point: Vec2) -> bool {
-        self.orientation
-            .world_to_local(point - self.centre_metres)
-            .abs()
-            .cmple(self.half_extents_metres)
-            .all()
-    }
-
-    pub fn intersects(self, other: Self) -> bool {
-        let axes = [
-            self.orientation.local_to_world(Vec2::X),
-            self.orientation.local_to_world(Vec2::Y),
-            other.orientation.local_to_world(Vec2::X),
-            other.orientation.local_to_world(Vec2::Y),
-        ];
-        axes.into_iter().all(|axis| {
-            let radius = |footprint: Self| {
-                footprint
-                    .orientation
-                    .local_to_world(Vec2::X)
-                    .dot(axis)
-                    .abs()
-                    * footprint.half_extents_metres.x
-                    + footprint
-                        .orientation
-                        .local_to_world(Vec2::Y)
-                        .dot(axis)
-                        .abs()
-                        * footprint.half_extents_metres.y
-            };
-            (self.centre_metres - other.centre_metres).dot(axis).abs()
-                < radius(self) + radius(other)
-        })
-    }
-}
+mod footprint;
+pub use footprint::FurnitureFootprint;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Reflect)]
 pub struct FurnitureGroup {

@@ -51,9 +51,12 @@ mod tests {
         let centre = Vec2::new(26.0, 3.0);
         let radius = fixture["radius_metres"].as_f64().unwrap() as f32;
         assert_eq!(surface.property_id().0, 1);
-        assert_eq!(surface.member_building_ids(), [1]);
+        assert_eq!(
+            surface.member_building_ids(),
+            [1].map(crate::scene_input::SceneBuildingId)
+        );
         assert!(
-            !surface.contains(centre),
+            !surface.contains(crate::scene_coordinates::ScenePlanPoint::try_from(centre).unwrap()),
             "fixture must expose the centre-only omission"
         );
         assert!(
@@ -69,6 +72,7 @@ mod tests {
         assert!(!surface.intersects_disc(centre, 0.0));
         let before = serde_json::to_value(&surface).unwrap();
         let mut reversed = before.clone();
+        reversed["regions"].as_array_mut().unwrap().reverse();
         reversed["clipping_outlines"]
             .as_array_mut()
             .unwrap()

@@ -235,7 +235,7 @@ mod roof_edit_transaction_tests {
     fn editable_plan() -> BuildingPlan {
         generate(&BuildingProgram::fixture(
             BuildingArchetype::CastleGatehouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap()
     }

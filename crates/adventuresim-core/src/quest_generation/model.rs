@@ -304,7 +304,7 @@ impl Weight {
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct GenerationContext {
-    pub seed: u64,
+    pub seed: fabelgeist_determinism::Seed,
     /// Independently sampled, private entropy used only to mint observer-facing IDs.
     pub observer_entropy_hi: u64,
     pub observer_entropy_lo: u64,
@@ -1144,7 +1144,7 @@ pub struct GeneratedDialogueProducer {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct GeneratedCase {
     pub catalog_revision: String,
-    pub generation_seed: u64,
+    pub generation_seed: fabelgeist_determinism::Seed,
     pub template_id: String,
     pub configured_routes: Vec<String>,
     pub configured_objectives: Vec<String>,
@@ -1197,7 +1197,7 @@ struct Candidate<T> {
     factors: Vec<&'static str>,
 }
 
-fn hash(seed: u64, domain: &str) -> u64 {
+fn hash(seed: fabelgeist_determinism::Seed, domain: &str) -> u64 {
     fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(),
         fabelgeist_determinism::StreamId::new("quest.identity"), &[domain.as_bytes()]).to_u64()
 }

@@ -712,7 +712,7 @@ mod tests {
         let report = AutoresolveReport {
             battle_id: "battle:quest-1".into(),
             party_id: "party-1".into(),
-            seed: 42,
+            seed: fabelgeist_determinism::Seed::from_u64(42).into(),
             victor: "players".into(),
             rounds: 3,
             summary: "3 rounds: 2 players against 3 enemies; players prevailed.".into(),

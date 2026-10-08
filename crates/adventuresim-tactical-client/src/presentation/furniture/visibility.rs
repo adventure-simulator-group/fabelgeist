@@ -74,8 +74,11 @@ mod tests {
     fn owner(app: &mut App, id: u64) {
         app.world_mut().spawn((
             SceneBuilding {
-                id,
-                program: BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 47),
+                id: id.into(),
+                program: BuildingProgram::fixture(
+                    BuildingArchetype::FachwerkMerchantHouse,
+                    fabelgeist_determinism::Seed::from_u64(47),
+                ),
                 orientation: BuildingOrientation::from_radians(0.0).unwrap(),
             },
             GlobalTransform::IDENTITY,
@@ -89,9 +92,9 @@ mod tests {
                     id: FurnitureInstanceId(id),
                     key: FurnitureKey::natural(FurnitureKind::Bed, FurnitureVariant::Compact),
                     location: FurnitureLocation::Interior {
-                        building_id: 1,
-                        room_id: 2,
-                        storey: 1,
+                        building_id: 1.into(),
+                        room_id: adventuresim_building_generator::RoomIndex::from_serialized(2),
+                        storey: adventuresim_building_generator::StoreyIndex::from_serialized(1),
                     },
                 },
                 GlobalTransform::from_xyz(x, 0.0, 0.0),
@@ -162,9 +165,9 @@ mod tests {
         );
         let mut specimen = *app.world().get::<SceneFurniture>(fixture).unwrap();
         specimen.location = FurnitureLocation::Interior {
-            building_id: 0,
-            room_id: 0,
-            storey: 0,
+            building_id: 0.into(),
+            room_id: adventuresim_building_generator::RoomIndex::from_serialized(0),
+            storey: adventuresim_building_generator::StoreyIndex::from_serialized(0),
         };
         app.world_mut().entity_mut(fixture).insert(specimen);
         app.update();

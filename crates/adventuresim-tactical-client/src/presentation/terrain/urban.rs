@@ -154,6 +154,7 @@ mod tests {
     #[test]
     fn late_vista_switches_existing_base_to_fine_topology_and_can_restore_natural_lod() {
         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
+            .unwrap()
             .refined(0.5, |point, base| base + point.x.sin() * 0.02)
             .unwrap();
         let fine_count = terrain.mesh().count_vertices();

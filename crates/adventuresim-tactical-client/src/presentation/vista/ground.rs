@@ -1,5 +1,6 @@
 //! Select the physical surface for vista meshes and scenery placement.
 use super::*;
+use fabelgeist_determinism::Seed;
 
 const MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y: f32 = 0.72;
 const VISTA_SCENERY_NORMAL_SAMPLE_DISTANCE_METRES: f32 = 2.0;
@@ -56,7 +57,7 @@ pub(super) fn vista_scatter_transform(
     playable_terrain: &SceneTerrain,
     playable_half_extent: Vec2,
     point: Vec2,
-    hash: u64,
+    hash: Seed,
     lift: f32,
 ) -> Option<Transform> {
     let hit = scenery_surface(
@@ -87,7 +88,13 @@ pub(super) fn tree_root_height(
 ) -> Option<f32> {
     if terrain.property_surface().is_some() {
         return terrain
-            .surface_below(Vec3::new(world.x, f32::INFINITY, world.y))
+            .surface_below(
+                adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                        bevy::math::Vec2::new(world.x, world.y),
+                    )?,
+                ),
+            )
             .map(|hit| hit.elevation.metres());
     }
     presented_height_at(lod, world, coarser)
@@ -103,7 +110,13 @@ fn scenery_surface(
     point: Vec2,
 ) -> Option<adventuresim_tactical_core::city_layout::grounding::SurfaceHit> {
     if playable_terrain.property_surface().is_some() {
-        return playable_terrain.surface_below(Vec3::new(point.x, f32::INFINITY, point.y));
+        return playable_terrain.surface_below(
+            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                    bevy::math::Vec2::new(point.x, point.y),
+                )?,
+            ),
+        );
     }
     let origin = Vec2::new(
         lod.origin_east_metres as f32,

@@ -106,8 +106,8 @@ impl DoorGrabber<'_, '_> {
         debug!(
             actor = ?actor,
             door = ?door_entity,
-            building_id = door.building_id,
-            opening_id = door.opening_id,
+            building_id = door.building_id.0,
+            opening_id = door.opening_id.0,
             "Accepted interior door grab"
         );
         true
@@ -142,7 +142,7 @@ pub(crate) fn spawn_building_doors(
 pub(super) fn spawn_door(
     commands: &mut Commands,
     building_entity: Entity,
-    building_id: u64,
+    building_id: adventuresim_tactical_core::scene_input::SceneBuildingId,
     pose: adventuresim_tactical_core::scene_coordinates::SceneDoorPose,
 ) -> Result {
     let door = pose.leaf();
@@ -157,7 +157,7 @@ pub(super) fn spawn_door(
         .map_err(
             |cause| adventuresim_tactical_core::scene_input::SceneDoorError {
                 building_id,
-                opening_id: door.opening.0,
+                opening_id: door.opening,
                 cause,
             },
         )?;
@@ -170,7 +170,7 @@ pub(super) fn spawn_door(
             Replicated,
             SceneDoor {
                 building_id,
-                opening_id: door.opening.0,
+                opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: doorway_centre,
                 tangent,
@@ -261,8 +261,8 @@ fn log_door_collision_start(
         return;
     };
     debug!(
-        building_id = door.building_id,
-        opening_id = door.opening_id,
+        building_id = door.building_id.0,
+        opening_id = door.opening_id.0,
         other = ?event.collider2,
         position = ?position.0,
         rotation = ?rotation.0,
@@ -297,8 +297,8 @@ fn report_unseated_doors(
             || vertical_alignment < MIN_VERTICAL_ALIGNMENT
         {
             warn!(
-                building_id = door.building_id,
-                opening_id = door.opening_id,
+                building_id = door.building_id.0,
+                opening_id = door.opening_id.0,
                 hinge_separation_metres = hinge_separation,
                 vertical_alignment,
                 position = ?position.0,
@@ -524,8 +524,8 @@ mod tests {
         let door = world
             .spawn((
                 SceneDoor {
-                    building_id: 1,
-                    opening_id: 2,
+                    building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(1),
+                    opening_id: adventuresim_building_generator::OpeningAssemblyId(2),
                     size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions::from_metres(Vec3::new(1.0, 2.0, 0.08)).unwrap(),
                     doorway_centre_metres: ScenePosition::ORIGIN,
                     tangent: SpatialDirection::from_normalized(Vec3::X).unwrap(),

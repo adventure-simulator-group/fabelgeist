@@ -27,7 +27,7 @@ pub(super) fn install(
     };
     let origin = recipe.collision.bounds.centre()?;
     let compiled = Arc::new(CompiledBuildingLevels {
-        facade_openings: recipe.plan.facade_dynamic_openings(),
+        facade_openings: recipe.plan.facade_dynamic_openings()?,
         interior: Some(super::super::interior_lighting::InteriorField::from_plan(
             &recipe.plan,
             origin.metres(),

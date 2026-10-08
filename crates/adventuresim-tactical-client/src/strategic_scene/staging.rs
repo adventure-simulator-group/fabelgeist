@@ -1,7 +1,7 @@
 //! Conversation positions use the furnished tactical building's circulation proof.
 use adventuresim_building_generator::{
     CollisionCuboid, ResolvedItemId,
-    interior::{InteriorLayout, StandingClearance, furniture_floor_height},
+    interior::{InteriorLayout, StandingClearance},
 };
 use adventuresim_tactical_core::prelude::GeneratedBuilding;
 use bevy::prelude::*;
@@ -47,7 +47,14 @@ pub(super) fn positions(
             };
             for direction in [Vec2::X, Vec2::Y, Vec2::NEG_X, Vec2::NEG_Y] {
                 let camera = centre + direction * CONVERSATION_DISTANCE_METRES;
-                if !clearance.is_clear(centre, camera) {
+                if !clearance.is_clear(
+                    adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                        Vec3::new(centre.x, height, centre.y),
+                    )?,
+                    adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                        Vec3::new(camera.x, height, camera.y),
+                    )?,
+                ) {
                     continue;
                 }
                 let anchor = Vec3::new(centre.x, height, centre.y);
@@ -110,11 +117,11 @@ fn obstacles(
             ResolvedItemId(0),
             Vec3::new(
                 placement.centre_metres.metres().x,
-                furniture_floor_height(&building.plan, placement)?.metres() + size.y * 0.5,
+                placement.floor_height(&building.plan)?.metres() + size.y * 0.5,
                 placement.centre_metres.metres().y,
             ),
             size,
-            placement.yaw_radians(),
+            placement.yaw_radians().radians(),
             0.0,
             0.0,
         )?);

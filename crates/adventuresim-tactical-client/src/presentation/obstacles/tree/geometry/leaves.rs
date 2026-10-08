@@ -1,4 +1,5 @@
 mod selection;
+use fabelgeist_determinism::Seed;
 pub(in crate::presentation) use selection::detailed_flat_card_group_leaves;
 use selection::sparse_woody_far_card_leaves;
 #[cfg(test)]
@@ -37,7 +38,7 @@ pub(in crate::presentation) struct TreeLeaf {
 }
 
 pub(in crate::presentation) fn procedural_oak_leaves(
-    seed: u64,
+    seed: Seed,
     branches: &[TreeBranchSegment],
     canopy_competition: f32,
 ) -> Vec<TreeLeaf> {
@@ -60,9 +61,7 @@ pub(in crate::presentation) fn procedural_oak_leaves(
         };
         let binormal = direction.cross(tangent).normalize();
         for leaf_index in 0..leaves_per_shoot {
-            let leaf_seed = streams::LEAF
-                .seed(seed, &[shoot_identity(shoot), leaf_index])
-                .to_u64();
+            let leaf_seed = streams::LEAF.seed(seed, &[shoot_identity(shoot), leaf_index]);
             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
                 purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
             };
@@ -133,7 +132,7 @@ pub(in crate::presentation) fn procedural_oak_leaves(
 }
 
 pub(in crate::presentation) fn procedural_woody_plant_leaves(
-    seed: u64,
+    seed: Seed,
     branches: &[TreeBranchSegment],
     canopy_competition: f32,
     parameters: WoodyPlantParameters,
@@ -151,7 +150,7 @@ pub(in crate::presentation) fn procedural_woody_plant_leaves(
 /// The broad, mostly horizontal leaf planes build a closed shade-casting crown
 /// from the existing twig and leaf budget instead of filling it by count.
 fn procedural_beech_leaves(
-    seed: u64,
+    seed: Seed,
     branches: &[TreeBranchSegment],
     parameters: WoodyPlantParameters,
 ) -> Vec<TreeLeaf> {
@@ -170,9 +169,7 @@ fn procedural_beech_leaves(
         };
         let spray_side = Vec3::Y.cross(spray_forward).normalize();
         for leaf_index in 0..leaves_per_shoot {
-            let leaf_seed = streams::LEAF
-                .seed(seed, &[shoot_identity(shoot), leaf_index])
-                .to_u64();
+            let leaf_seed = streams::LEAF.seed(seed, &[shoot_identity(shoot), leaf_index]);
             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
                 purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
             };
@@ -237,7 +234,7 @@ fn procedural_beech_leaves(
 }
 
 fn procedural_multistem_shrub_leaves(
-    seed: u64,
+    seed: Seed,
     branches: &[TreeBranchSegment],
     parameters: WoodyPlantParameters,
 ) -> Vec<TreeLeaf> {
@@ -250,9 +247,7 @@ fn procedural_multistem_shrub_leaves(
         let direction = (shoot.end - shoot.start).normalize();
         let (frame_right, frame_up) = branch_frame(direction);
         for leaf_index in 0..leaves_per_shoot {
-            let leaf_seed = streams::LEAF
-                .seed(seed, &[shoot_identity(shoot), leaf_index])
-                .to_u64();
+            let leaf_seed = streams::LEAF.seed(seed, &[shoot_identity(shoot), leaf_index]);
             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
                 purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
             };
@@ -328,7 +323,7 @@ pub(in crate::presentation) fn oak_leaf_card_bounds(leaf: TreeLeaf) -> (Vec3, f3
 fn leaf_shadow_selector(leaf: TreeLeaf) -> f32 {
     let shoot_key = leaf.shoot_id;
     streams::SHOOT_THRESHOLD
-        .rng(shoot_key, &[])
+        .rng(shoot_key.into(), &[])
         .inclusive_unit_f32()
 }
 
@@ -606,8 +601,9 @@ mod tests {
 
     #[test]
     fn production_oak_has_finite_cambered_leaf_geometry() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
         assert!((45_000..60_000).contains(&leaves.len()));
         assert!(leaves.iter().all(|leaf| leaf.petiole_start.is_finite()
             && leaf.center.is_finite()
@@ -676,8 +672,9 @@ mod tests {
 
     #[test]
     fn alpha_leaf_lod_uses_exactly_two_triangles_per_leaf() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
         let mesh = procedural_oak_leaf_card_mesh(&leaves);
         assert_eq!(mesh.count_vertices(), leaves.len() * 4);
         assert_eq!(
@@ -688,8 +685,9 @@ mod tests {
 
     #[test]
     fn detailed_flat_cards_keep_a_stable_balanced_three_quarters_per_cluster() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
         let source_count = leaves.len();
         let mut retained_count = 0;
 
@@ -747,8 +745,9 @@ mod tests {
 
     #[test]
     fn textured_leaf_lod_uses_exactly_eight_triangles_per_leaf() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
         let mesh = procedural_oak_textured_leaf_mesh(&leaves);
         assert_eq!(mesh.count_vertices(), leaves.len() * 9);
         assert_eq!(
@@ -759,8 +758,9 @@ mod tests {
 
     #[test]
     fn leaf_shadow_transmission_is_stable_per_shoot_and_well_distributed() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
         let mut shoots = std::collections::BTreeMap::new();
         for leaf in leaves {
             let key = (leaf.primary_group, leaf.secondary_group, leaf.shoot_id);

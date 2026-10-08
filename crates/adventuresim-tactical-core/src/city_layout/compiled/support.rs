@@ -12,6 +12,12 @@ mod tests;
 pub struct StreetApronDimensions(Vec2);
 
 impl StreetApronDimensions {
+    pub const fn new(
+        width: adventuresim_building_generator::spatial_geometry::PositiveLength,
+        run: adventuresim_building_generator::spatial_geometry::PositiveLength,
+    ) -> Self {
+        Self(Vec2::new(width.metres(), run.metres()))
+    }
     pub fn dimensions_metres(self) -> Vec2 {
         self.0
     }
@@ -29,8 +35,18 @@ pub struct CompoundGradingPolicy {
     pub street_apron: StreetApronDimensions,
 }
 
+#[derive(Clone, Copy, Debug)]
+pub enum SupportBindingRole {
+    GroundBearing,
+    Threshold(adventuresim_building_generator::Direction),
+}
+
 #[derive(Debug, thiserror::Error)]
 pub enum CitySupportError {
+    #[error("physical building {building} occurs twice in support inputs")]
+    DuplicateBuilding {
+        building: crate::scene_input::SceneBuildingId,
+    },
     #[error(transparent)]
     Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
     #[error(transparent)]
@@ -38,41 +54,55 @@ pub enum CitySupportError {
     #[error("property {property:?} lacks exact member {building}")]
     MissingBuilding {
         property: CityPropertyId,
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
     },
     #[error("property {property:?}, member {building} has invalid bearing: {issue}")]
     InvalidBearing {
         property: CityPropertyId,
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
         issue: adventuresim_building_generator::plan_geometry::PlanGeometryError,
     },
     #[error("building {building} support recipe changed its occupied programme")]
-    ProgrammeChanged { building: u64 },
-    #[error(
-        "property {property:?}, member {building} lacks unique {outward:?} threshold or ground bearing"
-    )]
+    ProgrammeChanged {
+        building: crate::scene_input::SceneBuildingId,
+    },
+    #[error("property {property:?}, member {building} lacks unique {binding:?} support binding")]
     MissingBinding {
         property: CityPropertyId,
-        building: u64,
-        outward: Vec2,
+        building: crate::scene_input::SceneBuildingId,
+        binding: SupportBindingRole,
     },
     #[error("property {property:?}, members {members:?}: source sample absent at {point:?}")]
     SourceSample {
         property: CityPropertyId,
-        members: [u64; 2],
-        point: Vec2,
+        members: [crate::scene_input::SceneBuildingId; 2],
+        point: crate::scene_coordinates::ScenePlanPoint,
     },
     #[error("property {property:?}, members {members:?} lacks unique gate binding at {location:?}")]
     GateBinding {
         property: CityPropertyId,
-        members: [u64; 2],
-        location: Vec2,
+        members: [crate::scene_input::SceneBuildingId; 2],
+        location: SupportDiagnosticLocation,
     },
     #[error("bounded support rejected: {0:?}")]
     Support(SupportDiagnostic),
 }
 
 impl CitySceneLayout {
+    pub(super) fn validate_physical_support_members(&self) -> Result<(), CitySupportError> {
+        let mut members = std::collections::BTreeSet::new();
+        for building in self
+            .playable
+            .iter()
+            .map(|p| p.id)
+            .chain(self.distant.iter().map(|p| p.id))
+        {
+            if !members.insert(building) {
+                return Err(CitySupportError::DuplicateBuilding { building });
+            }
+        }
+        Ok(())
+    }
     /// Plan without changing input terrain or placement. Installing selected
     /// floors and terrain is a separate producer operation. Complete membership
     /// is retained across playable/distant partitioning; no nearest match is used.
@@ -81,6 +111,7 @@ impl CitySceneLayout {
         geographic: &GeographicSurface,
         policy: CompoundGradingPolicy,
     ) -> Result<Vec<CompoundSupportPlan>, CitySupportError> {
+        self.validate_physical_support_members()?;
         let buildings: std::collections::BTreeMap<_, _> = self
             .playable
             .iter()
@@ -114,7 +145,10 @@ impl CitySceneLayout {
 
 fn plan_property(
     property: &CityCompound,
-    buildings: &std::collections::BTreeMap<u64, TacticalBuildingPlacement>,
+    buildings: &std::collections::BTreeMap<
+        crate::scene_input::SceneBuildingId,
+        TacticalBuildingPlacement,
+    >,
     recipes: &mut CityRecipePalette,
     geographic: &GeographicSurface,
     streets: &[CityStreetPatch],
@@ -142,9 +176,10 @@ fn plan_property(
         .ok_or(CitySupportError::MissingBinding {
             property: property.id,
             building: front.building_id,
-            outward: -Vec2::Y,
-        })?
-        .metres();
+            binding: SupportBindingRole::Threshold(
+                adventuresim_building_generator::Direction::South,
+            ),
+        })?;
     front.elevation = sample(property, geographic, threshold)?;
     let (rear, _) = member(
         property,
@@ -153,10 +188,15 @@ fn plan_property(
         recipes,
         geographic,
     )?;
+    let gate =
+        crate::scene_coordinates::ScenePlanPoint::try_from(property.boundary.gate.centre_metres)
+            .map_err(|cause| {
+                CitySupportError::Support(SupportDiagnostic::gate_position(property, cause))
+            })?;
     let mut routes = property
         .access
         .iter()
-        .filter(|r| r.contains_centreline(property.boundary.gate.centre_metres));
+        .filter(|r| r.contains_centreline(gate));
     let passage =
         routes
             .next()
@@ -164,16 +204,18 @@ fn plan_property(
             .ok_or(CitySupportError::GateBinding {
                 property: property.id,
                 members: [front.building_id, rear.building_id],
-                location: property.boundary.gate.centre_metres,
+                location: SupportDiagnosticLocation::from_attempt_metres(
+                    property.boundary.gate.centre_metres,
+                ),
             })?;
     street::select(
         property,
         CompoundSupportLevels {
             front,
             rear,
-            court: sample(property, geographic, property.court.centre_metres)?,
-            gate: sample(property, geographic, property.boundary.gate.centre_metres)?,
-            street: sample(property, geographic, passage.start_metres)?,
+            court: sample(property, geographic, property.court.centre())?,
+            gate: sample(property, geographic, gate)?,
+            street: sample(property, geographic, passage.start())?,
         },
         threshold,
         geographic,
@@ -199,7 +241,7 @@ fn member(
     let binding = || CitySupportError::MissingBinding {
         property: property.id,
         building: placement.id,
-        outward: outward.offset().as_vec2(),
+        binding: SupportBindingRole::Threshold(outward),
     };
     let contact = recipe
         .collision
@@ -210,22 +252,23 @@ fn member(
             issue,
         })?
         .ok_or_else(binding)?;
-    let threshold = recipe
-        .door_point(placement, outward)?
-        .ok_or_else(binding)?
-        .metres();
+    let threshold = recipe.door_point(placement, outward)?.ok_or_else(binding)?;
     Ok((
         MemberSupport {
             building_id: placement.id,
-            contact: CityPlotBounds {
-                centre_metres: placement.centre_metres
-                    + placement.orientation.local_to_world(
-                        contact.centre()?.metres().xz()
-                            - recipe.collision.bounds.centre()?.metres().xz(),
-                    ),
-                dimensions_metres: contact.plan_half_extents()?.metres() * 2.0,
-                orientation: placement.orientation,
-            },
+            contact: CityPlotBounds::new(
+                crate::scene_coordinates::ScenePlanPoint::try_from(
+                    placement.centre_metres.metres()
+                        + placement.orientation.local_to_world(
+                            contact.centre()?.metres().xz()
+                                - recipe.collision.bounds.centre()?.metres().xz(),
+                        ),
+                )?,
+                adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                    contact.plan_half_extents()?.metres() * 2.0,
+                )?,
+                placement.orientation,
+            )?,
             court_threshold_metres: threshold,
             elevation: sample(property, geographic, threshold)?,
         },
@@ -236,7 +279,7 @@ fn member(
 fn sample(
     property: &CityCompound,
     geographic: &GeographicSurface,
-    point: Vec2,
+    point: crate::scene_coordinates::ScenePlanPoint,
 ) -> Result<SupportElevation, CitySupportError> {
     geographic
         .elevation_at(point)

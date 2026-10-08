@@ -3,7 +3,11 @@ name = "adventuresim-stdb-client"
 version.workspace = true
 edition.workspace = true
 
+[lib]
+path = "facade.rs"
+
 [dependencies]
+fabelgeist-determinism.workspace = true
 spacetimedb-sdk.workspace = true
 
 [lints]

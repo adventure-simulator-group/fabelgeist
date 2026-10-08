@@ -8,7 +8,7 @@ pub(super) use roster::SelectedRoster;
 const FRONTAGE_SEARCH_STEP_METRES: f32 = 1.0;
 
 pub(super) fn pack(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     blocks: &[CityBlock],
     extent: DevelopmentExtent,
     services: Vec<CandidateLot>,
@@ -39,7 +39,12 @@ pub(super) fn pack(
     properties.into_values().flatten().collect()
 }
 
-fn pack_frontage(seed: u64, block: CityBlock, edge: usize, accepted: &mut Vec<CandidateLot>) {
+fn pack_frontage(
+    seed: fabelgeist_determinism::Seed,
+    block: CityBlock,
+    edge: usize,
+    accepted: &mut Vec<CandidateLot>,
+) {
     let start = block.corners[edge];
     let end = block.corners[(edge + 1) % 4];
     let tangent = (end - start).normalize();
@@ -48,7 +53,7 @@ fn pack_frontage(seed: u64, block: CityBlock, edge: usize, accepted: &mut Vec<Ca
         &mut row,
         seed,
         StreamId::new("city.frontage-identity")
-            .seed(block.id.0, &[edge as u64])
+            .seed(block.id.0.into(), &[edge as u64])
             .to_u64(),
         block.id,
         start,
