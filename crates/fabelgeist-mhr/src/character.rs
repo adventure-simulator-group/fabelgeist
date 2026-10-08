@@ -13,7 +13,7 @@ use crate::math::{
     Mat4, Quat, Transform, affine_inverse, mat4_from_column_major, quat_from_euler_degrees,
     quat_mul, rotation_order,
 };
-use fabelgeist_fbx::{Object, Scene};
+use fabelgeist_fbx::{FbxClassName, FbxRecordName, Object, Scene};
 
 /// Momentum allows at most eight joint influences per vertex.
 pub const MAX_SKIN_JOINTS: usize = 8;
@@ -223,10 +223,10 @@ fn triangulate(polygon_vertex_index: &[i64]) -> Result<Vec<[u32; 3]>> {
 }
 
 fn parse_uvs(geometry: &Object, polygon_count: usize) -> Result<(Vec<[f32; 2]>, Vec<i64>)> {
-    let Some(layer) = geometry.node.child("LayerElementUV") else {
+    let Some(layer) = geometry.node.child(&FbxRecordName::LAYER_ELEMENT_UV) else {
         return Ok((Vec::new(), Vec::new()));
     };
-    let Some(values) = layer.child("UV").and_then(|n| n.f64_array()) else {
+    let Some(values) = layer.child(&FbxRecordName::UV).and_then(|n| n.f64_array()) else {
         return Ok((Vec::new(), Vec::new()));
     };
     let (uv_pairs, remainder) = values.as_chunks::<2>();
@@ -240,13 +240,13 @@ fn parse_uvs(geometry: &Object, polygon_count: usize) -> Result<(Vec<[f32; 2]>, 
         .collect();
 
     let reference = layer
-        .child("ReferenceInformationType")
+        .child(&FbxRecordName::REFERENCE_INFORMATION_TYPE)
         .and_then(|n| n.str_prop(0))
         .map(|v| v.to_vec())
         .unwrap_or_default();
     let indices = if reference == b"IndexToDirect" {
         layer
-            .child("UVIndex")
+            .child(&FbxRecordName::UV_INDEX)
             .and_then(|n| n.i64_array())
             .unwrap_or_default()
     } else {
@@ -281,23 +281,31 @@ fn parse_blend_shapes(scene: &Scene, geometry: &Object, num_vertices: usize) -> 
 
     let Some(blend_shape) = scene
         .children(geometry.id)
-        .find(|o| o.kind == "Deformer" && o.class == "BlendShape")
+        .find(|o| o.kind == FbxRecordName::DEFORMER && o.class == FbxClassName::BLEND_SHAPE)
     else {
         return BlendShapes::default();
     };
 
     for channel in scene
         .children(blend_shape.id)
-        .filter(|o| o.kind == "Deformer" && o.class == "BlendShapeChannel")
+        .filter(|o| {
+            o.kind == FbxRecordName::DEFORMER && o.class == FbxClassName::BLEND_SHAPE_CHANNEL
+        })
         .collect::<Vec<_>>()
     {
         for shape in scene
             .children(channel.id)
-            .filter(|o| o.kind == "Geometry" && o.class == "Shape")
+            .filter(|o| o.kind == FbxRecordName::GEOMETRY && o.class == FbxClassName::SHAPE)
             .collect::<Vec<_>>()
         {
-            let offsets = shape.node.child("Vertices").and_then(|n| n.f64_array());
-            let indices = shape.node.child("Indexes").and_then(|n| n.i64_array());
+            let offsets = shape
+                .node
+                .child(&FbxRecordName::VERTICES)
+                .and_then(|n| n.f64_array());
+            let indices = shape
+                .node
+                .child(&FbxRecordName::INDEXES)
+                .and_then(|n| n.i64_array());
             let base = vectors.len();
             vectors.resize(base + num_vertices * 3, 0.0);
             if let (Some(offsets), Some(indices)) = (offsets, indices) {
@@ -333,14 +341,14 @@ fn parse_skin(
 
     let Some(skin) = scene
         .children(geometry.id)
-        .find(|o| o.kind == "Deformer" && o.class == "Skin")
+        .find(|o| o.kind == FbxRecordName::DEFORMER && o.class == FbxClassName::SKIN)
     else {
         bail!("geometry '{}' has no skin deformer", geometry.name);
     };
 
     for cluster in scene
         .children(skin.id)
-        .filter(|o| o.kind == "Deformer" && o.class == "Cluster")
+        .filter(|o| o.kind == FbxRecordName::DEFORMER && o.class == FbxClassName::CLUSTER)
         .collect::<Vec<_>>()
     {
         let Some(bone) = scene
@@ -354,7 +362,7 @@ fn parse_skin(
         // The cluster's bind transform overrides the joint's own rest pose.
         if let Some(link) = cluster
             .node
-            .child("TransformLink")
+            .child(&FbxRecordName::TRANSFORM_LINK)
             .and_then(|n| n.f64_array())
             && link.len() == 16
         {
@@ -362,8 +370,14 @@ fn parse_skin(
         }
 
         let (Some(indices), Some(weights)) = (
-            cluster.node.child("Indexes").and_then(|n| n.i64_array()),
-            cluster.node.child("Weights").and_then(|n| n.f64_array()),
+            cluster
+                .node
+                .child(&FbxRecordName::INDEXES)
+                .and_then(|n| n.i64_array()),
+            cluster
+                .node
+                .child(&FbxRecordName::WEIGHTS)
+                .and_then(|n| n.f64_array()),
         ) else {
             continue;
         };
@@ -446,16 +460,16 @@ impl Character {
             .collect();
 
         let mesh_model = scene
-            .objects_of_kind("Model", "Mesh")
+            .objects_of_kind(&FbxRecordName::MODEL, &FbxClassName::MESH)
             .next()
             .context("FBX rig has no mesh")?;
         let geometry = scene
-            .child_of_kind(mesh_model.id, "Geometry", "Mesh")
+            .child_of_kind(mesh_model.id, &FbxRecordName::GEOMETRY, &FbxClassName::MESH)
             .context("mesh model has no geometry")?;
 
         let vertex_values = geometry
             .node
-            .child("Vertices")
+            .child(&FbxRecordName::VERTICES)
             .and_then(|n| n.f64_array())
             .context("mesh geometry has no vertices")?;
         let (vertex_triples, remainder) = vertex_values.as_chunks::<3>();
@@ -468,7 +482,7 @@ impl Character {
             .collect();
         let polygon_vertex_index = geometry
             .node
-            .child("PolygonVertexIndex")
+            .child(&FbxRecordName::POLYGON_VERTEX_INDEX)
             .and_then(|n| n.i64_array())
             .context("mesh geometry has no polygons")?;
 
@@ -526,3 +540,6 @@ mod tests {
         assert!(triangulate(&[0, 1, 2]).is_err());
     }
 }
+
+#[cfg(test)]
+mod selector_tests;

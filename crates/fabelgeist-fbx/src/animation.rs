@@ -16,7 +16,7 @@
 //! any pre/post-rotation — because composing those is a rig question, not a
 //! container question.
 
-use crate::{Prop, Scene};
+use crate::{FbxRecordName, Prop, Scene};
 
 /// FBX stores times as integer ticks of this many per second.
 const TICKS_PER_SECOND: f64 = 46_186_158_000.0;
@@ -171,7 +171,7 @@ impl Scene {
 
         self.objects
             .iter()
-            .filter(|object| object.kind == "AnimationStack")
+            .filter(|object| object.kind == FbxRecordName::ANIMATION_STACK)
             .filter_map(|stack| {
                 let mut nodes: Vec<NodeAnimation> = Vec::new();
 
@@ -179,7 +179,7 @@ impl Scene {
                 // the base layer, which is the first one connected.
                 if let Some(layer) = self
                     .children(stack.id)
-                    .find(|object| object.kind == "AnimationLayer")
+                    .find(|object| object.kind == FbxRecordName::ANIMATION_LAYER)
                 {
                     self.collect_layer(layer.id, &targets, &mut nodes);
                 }
@@ -224,7 +224,7 @@ impl Scene {
     ) {
         for curve_node in self
             .children(layer)
-            .filter(|object| object.kind == "AnimationCurveNode")
+            .filter(|object| object.kind == FbxRecordName::ANIMATION_CURVE_NODE)
         {
             let Some((model, property)) = targets.get(&curve_node.id) else {
                 continue;
@@ -280,19 +280,19 @@ impl Scene {
         }
 
         for (curve, property) in self.children_with_property(curve_node) {
-            if curve.kind != "AnimationCurve" {
+            if curve.kind != FbxRecordName::ANIMATION_CURVE {
                 continue;
             }
             let Some(times) = curve
                 .node
-                .child("KeyTime")
+                .child(&FbxRecordName::KEY_TIME)
                 .and_then(|node| node.i64_array())
             else {
                 continue;
             };
             let Some(values) = curve
                 .node
-                .child("KeyValueFloat")
+                .child(&FbxRecordName::KEY_VALUE_FLOAT)
                 .and_then(|node| node.props.first().and_then(Prop::as_f64_array))
             else {
                 continue;
