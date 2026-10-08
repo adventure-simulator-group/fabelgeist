@@ -41,7 +41,7 @@ impl Workspace<'_> {
         parameters.insert("quantized", self.quantized.clone());
         let hash = gpu
             .cache()
-            .get(gpu.context(), &hash_source())
+            .get(gpu.context(), &hash_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&hash, &parameters, count)
@@ -68,7 +68,7 @@ impl Workspace<'_> {
         parameters.insert("status", self.status.clone());
         let link = gpu
             .cache()
-            .get(gpu.context(), &link_source())
+            .get(gpu.context(), &link_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&link, &parameters, count)

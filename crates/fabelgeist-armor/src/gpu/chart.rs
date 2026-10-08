@@ -250,7 +250,7 @@ impl ChartKernel {
     pub(crate) fn new(gpu: &ArmorGpu, shape: &str) -> Result<Self, GenerateError> {
         Ok(Self(
             gpu.cache()
-                .get(gpu.context(), &source(shape))
+                .get(gpu.context(), &source(shape).into())
                 .map_err(device_error)?,
         ))
     }

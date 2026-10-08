@@ -191,7 +191,10 @@ fn design_words(design: &BracerDesign) -> Vec<f32> {
 
 fn kernel(gpu: &ArmorGpu, entry: &str, binds_status: bool) -> Result<Arc<Kernel>, GenerateError> {
     gpu.cache()
-        .get(gpu.context(), &bracer_wgsl::source(entry, binds_status))
+        .get(
+            gpu.context(),
+            &bracer_wgsl::source(entry, binds_status).into(),
+        )
         .map_err(device_error)
 }
 

@@ -298,7 +298,7 @@ fn record_torso(
         let source = torso_source(entry);
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &source)
+            .get(gpu.context(), &source.as_str().into())
             .map_err(device_error)?;
         let mut bound = parameters.clone();
         for (name, buffer) in buffers {

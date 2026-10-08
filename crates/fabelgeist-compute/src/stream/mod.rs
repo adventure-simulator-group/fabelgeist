@@ -1,6 +1,7 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
+use fabelgeist_gpu::data::gpu::shader::{ShaderSource, parse_naga};
 use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
 
@@ -21,6 +22,8 @@ pub struct StreamDefinition {
     pub code: String,
     pub cache: Arc<RwLock<HashMap<ResourceDescriptor, Arc<ComputePipeline>>>>,
 }
+
+pub struct Stream;
 
 impl Default for StreamDefinition {
     fn default() -> Self {
@@ -270,12 +273,10 @@ impl StreamDefinition {
         full_code.push_str(&format!("    stream({});\n", call_args.join(", ")));
         full_code.push_str("}\n");
 
-        let _module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
-            wgpu::naga::ShaderStage::Compute,
-        )?;
+        let shader_source = ShaderSource::from(full_code);
+        let _module = parse_naga(&shader_source, wgpu::naga::ShaderStage::Compute)?;
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, shader_source)?;
         let pipeline = ComputePipeline::new(context, shader)?;
 
         Ok(pipeline)
@@ -301,8 +302,6 @@ impl StreamDefinition {
         Ok(arc_info)
     }
 }
-
-pub struct Stream;
 
 impl Stream {
     pub fn execute(

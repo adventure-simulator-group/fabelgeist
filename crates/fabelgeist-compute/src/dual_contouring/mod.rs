@@ -524,7 +524,7 @@ fn map(val: u32) -> u32 {
             }
         "#;
         let deinterleave_shader =
-            fabelgeist_gpu::data::gpu::ComputeShader::new(context, deinterleave_wgsl.to_string())?;
+            fabelgeist_gpu::data::gpu::ComputeShader::new(context, deinterleave_wgsl.into())?;
         let deinterleave_pipeline =
             fabelgeist_gpu::data::gpu::ComputePipeline::new(context, deinterleave_shader)?;
 

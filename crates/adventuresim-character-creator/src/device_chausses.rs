@@ -71,7 +71,7 @@ impl DeviceWearer<'_> {
         parameters.insert("carriers", part.carriers().clone());
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &cage_source())
+            .get(gpu.context(), &cage_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, part.carrier_count())

@@ -1,8 +1,12 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
+use fabelgeist_gpu::data::gpu::shader::{ShaderSource, parse_naga};
 use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
+
+type GatherPipelineCache =
+    HashMap<(ResourceDescriptor, ResourceDescriptor), Arc<(ComputePipeline, u64, u64)>>;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GatherSignature {
@@ -14,14 +18,13 @@ pub struct GatherSignature {
     pub param_names: Vec<String>,
 }
 
-type GatherPipelineCache =
-    HashMap<(ResourceDescriptor, ResourceDescriptor), Arc<(ComputePipeline, u64, u64)>>;
-
 #[derive(Clone, Debug)]
 pub struct GatherDefinition {
     pub code: String,
     pub cache: Arc<RwLock<GatherPipelineCache>>,
 }
+
+pub struct Gather;
 
 impl Default for GatherDefinition {
     fn default() -> Self {
@@ -284,10 +287,8 @@ impl GatherDefinition {
         }
         full_code.push_str("}\n");
 
-        let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
-            wgpu::naga::ShaderStage::Compute,
-        )?;
+        let shader_source = ShaderSource::from(full_code);
+        let module = parse_naga(&shader_source, wgpu::naga::ShaderStage::Compute)?;
 
         let mut input_size = 0;
         let mut output_size = 0;
@@ -317,7 +318,7 @@ impl GatherDefinition {
             output_size = calculate_size("output", &module);
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, shader_source)?;
         let pipeline = ComputePipeline::new(context, shader)?;
 
         Ok((pipeline, input_size, output_size))
@@ -344,8 +345,6 @@ impl GatherDefinition {
         Ok(arc_info)
     }
 }
-
-pub struct Gather;
 
 impl Gather {
     pub fn execute(

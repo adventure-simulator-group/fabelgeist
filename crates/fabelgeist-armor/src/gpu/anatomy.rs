@@ -154,7 +154,7 @@ impl DeviceSurface {
         parameters.insert("status", status.clone());
         let kernel = |entry: &str| -> Result<Arc<Kernel>, GenerateError> {
             gpu.cache()
-                .get(gpu.context(), &source(entry))
+                .get(gpu.context(), &source(entry).into())
                 .map_err(device_error)
         };
         batch

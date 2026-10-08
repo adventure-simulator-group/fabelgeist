@@ -111,7 +111,6 @@ impl FastPath {
     /// suit one.
     pub(super) fn new(
         context: &WgpuContext,
-        code: &str,
         module: &wgpu::ShaderModule,
         entry_point: &str,
         reflection: &fabelgeist_gpu::data::gpu::shader::ReflectionData,
@@ -130,7 +129,6 @@ impl FastPath {
         if !group.texture_bindings.is_empty() || !group.sampler_bindings.is_empty() {
             return None;
         }
-        let _ = code;
 
         let mut entries: Vec<wgpu::BindGroupLayoutEntry> = group
             .buffer_bindings

@@ -104,7 +104,7 @@ impl Shell {
             .collect();
         let bend_kernel = cache.get(
             context,
-            &fabelgeist_xpbd::wgsl::constraint_kernel(wgsl::BEND),
+            &fabelgeist_xpbd::wgsl::constraint_kernel(wgsl::BEND).into(),
         )?;
         let mut bending = ConstraintSet::new(
             context,

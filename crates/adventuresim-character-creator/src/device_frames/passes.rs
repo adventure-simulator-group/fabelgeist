@@ -12,7 +12,7 @@ pub(super) const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
 pub(super) fn kernels(gpu: &ArmorGpu) -> Result<[std::sync::Arc<fabelgeist_compute::Kernel>; 4]> {
     let compile = |entry: &str| {
         gpu.cache()
-            .get(gpu.context(), &source(entry))
+            .get(gpu.context(), &source(entry).into())
             .map_err(device_error)
     };
     Ok([

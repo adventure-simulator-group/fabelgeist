@@ -148,9 +148,9 @@ impl MeshQuery {
 
     pub fn with_cache(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
         Ok(Self {
-            nearest_points: cache.get(context, &wgsl::nearest_points())?,
-            closest_triangles: cache.get(context, &wgsl::closest_triangles())?,
-            ray_triangles: cache.get(context, &wgsl::ray_triangles())?,
+            nearest_points: cache.get(context, &wgsl::nearest_points().into())?,
+            closest_triangles: cache.get(context, &wgsl::closest_triangles().into())?,
+            ray_triangles: cache.get(context, &wgsl::ray_triangles().into())?,
             all_targets: Buffer::from_upload(
                 context,
                 BufferUpload::from_elements(&[0u32]),

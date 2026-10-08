@@ -48,7 +48,7 @@ impl Workspace<'_> {
         parameters.insert("shell", shell.clone());
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &layers_source())
+            .get(gpu.context(), &layers_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
@@ -82,7 +82,7 @@ impl Workspace<'_> {
         parameters.insert("status", self.status.clone());
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &skin_source())
+            .get(gpu.context(), &skin_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
