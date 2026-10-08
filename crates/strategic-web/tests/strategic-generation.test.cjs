@@ -134,6 +134,38 @@ test("closing during cache resolution prevents any worker creation or delivery",
   await rejected;
 });
 
+test("a preparation failure prevents a pending cache hit from installing later", async () => {
+  const { createGenerationPool } = await pool;
+  const source = fs.readFileSync(path.join(__dirname, "../static/strategic-generation.js"), "utf8")
+    .replace(/^import .*;\r?\n/gm, "").replace("export async function", "async function");
+  const mock = workers(true), received = [];
+  let finishLookup, closed = false;
+  const jobs = ['{"Building":{"seed":18446744073709551615}}',
+    '{"Building":{"seed":18446744073709551614}}'];
+  const cache = {
+    get: job => job === jobs[0] ? new Promise(resolve => { finishLookup = resolve; }) : undefined,
+    remove() { throw new Error("cancelled lookup must not evict products"); },
+    put() { throw new Error("failed preparation must not persist products"); },
+    close() { closed = true; return Promise.resolve({ status: "flushed" }); },
+  };
+  const prepare = new Function("createGenerationPool", "openGeneratedCache", "window",
+    `${source}\nreturn prepareGeneratedScene;`)(
+    module => createGenerationPool(module, { hardwareConcurrency: 3, createWorker: mock.createWorker }),
+    async () => cache, {});
+  const runtime = { generationModule: {}, generationRevision: "fixture",
+    wasm_begin_generation() {}, wasm_generation_jobs: () => JSON.stringify(jobs),
+    wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
+    wasm_generation_dependencies: () => new Uint8Array(),
+    wasm_receive_job(job) { received.push(job); },
+  };
+  await assert.rejects(prepare(runtime, "opaque scene", []), error => error.code === "generation/building");
+  assert.equal(closed, true);
+  finishLookup(new Uint8Array([1, 2, 3]));
+  await new Promise(resolve => setImmediate(resolve));
+  assert.deepEqual(received, []);
+  assert.ok(mock.instances.every(worker => worker.terminated));
+});
+
 test("a stale dispatch cannot satisfy a later job on the same worker", async () => {
   const { createGenerationPool } = await pool;
   let previousDispatch;

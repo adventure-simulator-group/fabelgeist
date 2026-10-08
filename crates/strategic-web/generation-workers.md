@@ -31,6 +31,9 @@ outstanding exchanges, removes their handlers, terminates workers and releases
 pool references. Checks after awaited cache resolution, worker initialization
 and generation prevent cancelled work from reaching the receiver. A receiver
 already executing when closure occurs remains responsible for its own effects.
+Resolvers receive the pool's abort signal and must check it after awaited work
+before applying effects. The cache resolver checks before receiving cached bytes
+into WebAssembly, including when another job fails while its read is pending.
 A failed phase closes the pool so another phase cannot reuse failed workers.
 
 `GenerationPoolError` carries a stable `code` and retains an available cause.
