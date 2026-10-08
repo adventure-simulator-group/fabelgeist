@@ -1,13 +1,16 @@
 //! Solver, contact and preview settings for each drape stage, and the stage
 //! checkpoints that let a changed stage re-run without repeating earlier ones.
+
 use super::*;
 use anyhow::ensure;
+use fabelgeist_shell::DampingRate;
 use std::ops::RangeInclusive;
+mod damping_serde;
 
 /// Downward acceleration of a garment settling on the wearer, m/s².
 const STANDARD_GRAVITY: f32 = 9.81;
 /// Heavy drag while seams close, so panels meet without overshooting.
-const SEWING_DAMPING_PER_SECOND: f32 = 8.0;
+const SEWING_DAMPING_PER_SECOND: DampingRate = DampingRate::per_second(8.0);
 
 /// Solver and host contact settings for one simulated stage.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
@@ -19,7 +22,8 @@ pub struct StageSettings {
     /// Downward acceleration, m/s².
     pub gravity: f32,
     /// Exponential velocity drag, per second.
-    pub damping: f32,
+    #[serde(with = "damping_serde")]
+    pub damping: DampingRate,
     /// GPU particle self-collision and swept host cloth contacts.
     pub self_collision: bool,
     /// GPU substeps swept by one host contact projection. Zero leaves contact
@@ -32,12 +36,47 @@ pub struct StageSettings {
     pub host_body_contacts: bool,
 }
 
+/// Every drape stage's settings, plus how often previews are published.
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
+pub struct DrapeSettings {
+    pub sewing: StageSettings,
+    pub settling: StageSettings,
+    /// Share of the gap between settled cloth and the body parts it dresses
+    /// that is closed after settling, without stretching the cloth: 0 leaves
+    /// it as it hangs, 1 draws it as close as its cut allows.
+    pub body_fit: f32,
+    /// Simulation steps between preview snapshots.
+    pub preview_interval: u32,
+}
+
+/// Garment state at the completed stage boundaries of one drape, with the
+/// input that produced it.
+#[derive(Clone)]
+pub struct DrapeCheckpoints {
+    input: DrapeInput,
+    sewn: Option<Vec<[f32; 3]>>,
+    settled: Option<DrapedGarment>,
+}
+
+/// Where a drape begins, given the previous drape's checkpoints.
+pub(super) enum DrapeStart {
+    Placement,
+    Settling {
+        sewn: Vec<[f32; 3]>,
+    },
+    Finish {
+        sewn: Vec<[f32; 3]>,
+        settled: DrapedGarment,
+    },
+}
+
 impl StageSettings {
     pub const STEPS: RangeInclusive<u32> = 0..=600;
     pub const SUBSTEPS: RangeInclusive<u32> = 1..=32;
     pub const ITERATIONS: RangeInclusive<u32> = 1..=8;
     pub const GRAVITY: RangeInclusive<f32> = 0.0..=30.0;
-    pub const DAMPING: RangeInclusive<f32> = 0.0..=20.0;
+    pub const DAMPING: RangeInclusive<DampingRate> =
+        DampingRate::per_second(0.0)..=DampingRate::per_second(20.0);
     pub const CONTACT_ITERATIONS: RangeInclusive<u32> = 1..=8;
 
     fn validate(&self, stage: &str) -> Result<()> {
@@ -106,19 +145,6 @@ impl StageSettings {
     }
 }
 
-/// Every drape stage's settings, plus how often previews are published.
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
-pub struct DrapeSettings {
-    pub sewing: StageSettings,
-    pub settling: StageSettings,
-    /// Share of the gap between settled cloth and the body parts it dresses
-    /// that is closed after settling, without stretching the cloth: 0 leaves
-    /// it as it hangs, 1 draws it as close as its cut allows.
-    pub body_fit: f32,
-    /// Simulation steps between preview snapshots.
-    pub preview_interval: u32,
-}
-
 impl DrapeSettings {
     pub const PREVIEW_INTERVAL: RangeInclusive<u32> = 1..=60;
     pub const BODY_FIT: RangeInclusive<f32> = 0.0..=1.0;
@@ -168,27 +194,6 @@ impl DrapeSettings {
         );
         Ok(())
     }
-}
-
-/// Garment state at the completed stage boundaries of one drape, with the
-/// input that produced it.
-#[derive(Clone)]
-pub struct DrapeCheckpoints {
-    input: DrapeInput,
-    sewn: Option<Vec<[f32; 3]>>,
-    settled: Option<DrapedGarment>,
-}
-
-/// Where a drape begins, given the previous drape's checkpoints.
-pub(super) enum DrapeStart {
-    Placement,
-    Settling {
-        sewn: Vec<[f32; 3]>,
-    },
-    Finish {
-        sewn: Vec<[f32; 3]>,
-        settled: DrapedGarment,
-    },
 }
 
 impl DrapeCheckpoints {
@@ -309,7 +314,7 @@ mod tests {
             DrapeStart::Settling { .. }
         ));
         assert!(matches!(
-            start(&|i| i.selection.drape.sewing.damping = 2.0),
+            start(&|i| i.selection.drape.sewing.damping = DampingRate::per_second(2.0)),
             DrapeStart::Placement
         ));
         assert!(matches!(
@@ -344,5 +349,88 @@ mod tests {
         assert!(settings.validate().is_ok());
         settings.settling.host_contact_interval = settings.settling.substeps + 1;
         assert!(settings.validate().is_err());
+    }
+
+    #[test]
+    fn damping_scalar_codec_preserves_zero_sign_and_local_rejection_order() {
+        let mut settings = DrapeSettings::for_fabric(Fabric::COTTON);
+        for native in [-0.0, 0.0, 20.0] {
+            settings.settling.damping = DampingRate::from(native);
+            assert!(settings.validate().is_ok());
+            let encoded = serde_json::to_string(&settings).unwrap();
+            let decoded: DrapeSettings = serde_json::from_str(&encoded).unwrap();
+            assert_eq!(
+                f32::from(decoded.settling.damping).to_bits(),
+                native.to_bits()
+            );
+        }
+        settings.settling.damping = DampingRate::per_second(-1.0);
+        assert_eq!(
+            settings.validate().unwrap_err().to_string(),
+            "settling damping must be within 0.0..=20.0 per second"
+        );
+        settings.sewing.steps = 601;
+        assert_eq!(
+            settings.validate().unwrap_err().to_string(),
+            "sewing steps must be within 0..=600"
+        );
+        settings.sewing.steps = 60;
+        settings.settling.damping = DampingRate::from(f32::NAN);
+        let encoded = serde_json::to_string(&settings).unwrap();
+        assert!(encoded.contains("\"damping\":null"));
+        let error = serde_json::from_str::<DrapeSettings>(&encoded).unwrap_err();
+        assert!(error.to_string().contains("null, expected f32"));
+    }
+
+    #[test]
+    fn applying_a_stage_retains_its_rate_in_solver_settings() -> Result<()> {
+        tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()?
+            .block_on(async {
+                use fabelgeist_math::Vec2;
+                let context = fabelgeist_gpu::prelude::WgpuContext::new_compute().await?;
+                // Authored metre-space triangle with XY texture coordinates.
+                let shell_mesh = fabelgeist_shell::ShellMesh::new(
+                    vec![
+                        Vec3::default(),
+                        Vec3::new(0.1, 0.0, 0.0),
+                        Vec3::new(0.0, 0.1, 0.0),
+                    ],
+                    vec![[0, 1, 2]],
+                    Fabric::COTTON.density,
+                )?;
+                let build = fabelgeist_garment_fit::GarmentBuild {
+                    mesh: fabelgeist_cloth::GarmentMesh {
+                        positions: shell_mesh.positions.clone(),
+                        triangles: shell_mesh.triangles.clone(),
+                        material: vec![Vec2::default(), Vec2::new(0.1, 0.0), Vec2::new(0.0, 0.1)],
+                        edges: shell_mesh.edges.clone(),
+                        rest_lengths: shell_mesh.rest_lengths.clone(),
+                        masses: shell_mesh.masses.clone(),
+                        ..Default::default()
+                    },
+                    skipped: vec![],
+                };
+                let fit_settings = FitSettings {
+                    self_collision: false,
+                    gravity: false,
+                    host_contact_interval: 0,
+                    ..Default::default()
+                };
+                let mut fit = Fit::new(context, &build, Fabric::COTTON, &fit_settings)?;
+                let body = fabelgeist_bvh::TriangleBvh::new(vec![], vec![]);
+                let mut settings = DrapeSettings::for_fabric(Fabric::COTTON).settling;
+                settings.host_body_contacts = false;
+                for native in [-0.0, 2.0, f32::from_bits(0x7fc1_2345)] {
+                    settings.damping = DampingRate::from(native);
+                    settings.apply(&mut fit, &body, 0.0)?;
+                    assert_eq!(
+                        f32::from(fit.solver.settings.damping).to_bits(),
+                        native.to_bits()
+                    );
+                }
+                Ok(())
+            })
     }
 }
