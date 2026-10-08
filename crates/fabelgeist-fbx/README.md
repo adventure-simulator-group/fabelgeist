@@ -19,3 +19,13 @@ parser. Independently encoded wire properties cover all five array kinds with
 zero, one and other nonzero codes; empty, ordinary, short and extra payloads;
 and corrupt compressed streams. The fixture retains exact floating-point bit
 patterns and Boolean bytes when comparing decoded output.
+
+The native `Reader::u32` call reads the serialized encoding word, not a domain
+quantity: FBX array metadata stores element count, encoding and compressed byte
+length as three little-endian 32-bit words. `FbxArrayEncodingCode` derives its
+transparent conversion from that decoded word and remains typed through the
+array decoder. Blender's public reader uses `<III` for this same wire header.
+That reference establishes field width and order; this reader deliberately
+retains its existing zero/raw and every-nonzero/Zlib policy.
+
+[Blender FBX reader, read_array_params](https://github.com/blender/blender-addons/blob/main/io_scene_fbx/parse_fbx.py)
