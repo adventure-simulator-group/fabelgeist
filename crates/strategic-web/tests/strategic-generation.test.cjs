@@ -11,9 +11,12 @@ function workers(fail = false) {
     const worker = { terminated: false, initialized: 0, postMessage(message) {
       queueMicrotask(() => {
         if (this.terminated) return;
-        if (message.module) { this.initialized++; this.onmessage({ data: { ready: true } }); }
-        else this.onmessage({ data: fail ? { error: "generation failed" }
-          : { bytes: new Uint8Array([message.job]), milliseconds: 1 } });
+        if (message.kind === "initialize") {
+          this.initialized++; this.onmessage({ data: { kind: "ready", dispatch: message.dispatch } });
+        } else this.onmessage({ data: fail ? { kind: "failed", dispatch: message.dispatch,
+          error: { code: "generation/building", message: "generation failed" } }
+          : { kind: "generated", dispatch: message.dispatch,
+            bytes: new Uint8Array([Number(message.job)]), milliseconds: 1 } });
       });
     }, terminate() { this.terminated = true; } };
     instances.push(worker); return worker;
@@ -24,10 +27,11 @@ test("bounded workers serve dependent phases without restarting their runtimes",
   const mock = workers(); const results = [];
   const { createGenerationPool } = await pool;
   const generation = createGenerationPool({}, { createWorker: mock.createWorker, hardwareConcurrency: 32 });
-  const receive = (job, bytes) => { assert.equal(bytes[0], job); results.push(job); };
-  assert.equal(await generation.run([1, 2, 3, 4, 5, 6], receive), 4);
-  assert.equal(await generation.run([7], receive), 0);
-  assert.equal(await generation.run([8, 9], receive), 0);
+  const receive = ({ job, bytes }) => { assert.equal(bytes[0], Number(job)); results.push(Number(job)); };
+  assert.deepEqual(await generation.run([1, 2, 3, 4, 5, 6].map(String), receive),
+    { status: "completed", createdWorkers: 4 });
+  assert.equal((await generation.run(["7"], receive)).createdWorkers, 0);
+  assert.equal((await generation.run(["8", "9"], receive)).createdWorkers, 0);
   assert.deepEqual(results.sort((a, b) => a - b), [1, 2, 3, 4, 5, 6, 7, 8, 9]);
   assert.ok(mock.instances.every(worker => worker.initialized === 1 && !worker.terminated));
   generation.close();
@@ -40,7 +44,9 @@ test("generation and installation errors reject readiness and terminate workers"
   for (const fail of [true, false]) {
     const mock = workers(fail);
     const generation = createGenerationPool({}, { createWorker: mock.createWorker, hardwareConcurrency: 3 });
-    await assert.rejects(generation.run([1, 2, 3], () => { throw new Error("install failed"); }), /failed/);
+    await assert.rejects(generation.run(["1", "2", "3"], () => { throw new Error("install failed"); }),
+      error => fail ? error.code === "generation/building" && error.message === "generation failed"
+        : error.message === "install failed");
     assert.ok(mock.instances.every(worker => worker.terminated));
   }
 });
@@ -50,10 +56,10 @@ test("empty and fully cached phases start no workers", async () => {
   const generation = createGenerationPool({}, {
     createWorker() { throw new Error("unnecessary worker"); }, hardwareConcurrency: 1,
   });
-  assert.equal(await generation.run([], () => {}), 0);
-  assert.equal(await generation.run([1, 2], () => { throw Error("cached delivery"); }, {
-    resolveJob: () => null,
-  }), 0);
+  assert.equal((await generation.run([], () => {})).createdWorkers, 0);
+  assert.equal((await generation.run(["1", "2"], () => { throw Error("cached delivery"); }, {
+    resolveJob: () => ({ status: "reused" }),
+  })).createdWorkers, 0);
   generation.close();
 });
 
@@ -64,10 +70,10 @@ test("a miss generates while an unrelated cache read is still pending", async ()
   let releaseRead;
   const reading = new Promise(resolve => { releaseRead = resolve; });
   const results = [];
-  const running = generation.run([1, 2], (job) => {
-    results.push(job); releaseRead(null);
-  }, { resolveJob: job => job === 1 ? job : reading });
-  assert.equal(await running, 1);
+  const running = generation.run(["1", "2"], ({ job }) => {
+    results.push(Number(job)); releaseRead({ status: "reused" });
+  }, { resolveJob: job => job === "1" ? { status: "generate", job } : reading });
+  assert.equal((await running).createdWorkers, 1);
   assert.deepEqual(results, [1]);
   generation.close();
   assert.ok(mock.instances.every(worker => worker.terminated));
@@ -77,10 +83,10 @@ test("dependency failures close the pool and a pending phase cannot overlap anot
   const { createGenerationPool } = await pool;
   const mock = workers();
   const generation = createGenerationPool({}, { createWorker: mock.createWorker, hardwareConcurrency: 3 });
-  const running = generation.run([1], () => {}, {
+  const running = generation.run(["1"], () => {}, {
     dependencies() { throw Error("missing dependency"); },
   });
-  await assert.rejects(generation.run([2], () => {}), /not available/);
+  await assert.rejects(generation.run(["2"], () => {}), error => error.code === "busy");
   await assert.rejects(running, /missing dependency/);
   assert.ok(mock.instances.every(worker => worker.terminated));
 });
@@ -89,9 +95,174 @@ test("a later miss lazily fills worker slots left unused by cached jobs", async 
   const { createGenerationPool } = await pool;
   const mock = workers();
   const generation = createGenerationPool({}, { createWorker: mock.createWorker, hardwareConcurrency: 3 });
-  assert.equal(await generation.run([1, 2], () => {}, { resolveJob: x => x === 1 ? null : x }), 1);
-  assert.equal(await generation.run([3, 4], () => {}), 1);
+  assert.equal((await generation.run(["1", "2"], () => {}, {
+    resolveJob: job => job === "1" ? { status: "reused" } : { status: "generate", job },
+  })).createdWorkers, 1);
+  assert.equal((await generation.run(["3", "4"], () => {})).createdWorkers, 1);
   assert.equal(mock.instances.length, 2);
   generation.close();
   assert.ok(mock.instances.every(worker => worker.terminated));
+});
+
+test("close cancels worker initialization and detaches pending handlers", async () => {
+  const { createGenerationPool } = await pool;
+  const worker = { postMessage() {}, terminate() { this.terminated = true; } };
+  const generation = createGenerationPool({}, { createWorker: () => worker, hardwareConcurrency: 2 });
+  const running = generation.run(["1"], () => { throw new Error("late delivery"); });
+  const rejected = assert.rejects(running, error => error.code === "cancelled");
+  generation.close();
+  await rejected;
+  assert.equal(worker.terminated, true);
+  assert.equal(worker.onmessage, null);
+  assert.equal(worker.onerror, null);
+  assert.equal(worker.onmessageerror, null);
+  await assert.rejects(generation.run([], () => {}), error => error.code === "closed");
+});
+
+test("closing during cache resolution prevents any worker creation or delivery", async () => {
+  const { createGenerationPool } = await pool;
+  let resolve;
+  const generation = createGenerationPool({}, {
+    createWorker() { throw new Error("unnecessary worker"); }, hardwareConcurrency: 2,
+  });
+  const running = generation.run(["1"], () => { throw new Error("late delivery"); }, {
+    resolveJob: () => new Promise(done => { resolve = done; }),
+  });
+  const rejected = assert.rejects(running, error => error.code === "cancelled");
+  generation.close();
+  resolve({ status: "generate", job: "1" });
+  await rejected;
+});
+
+test("a stale dispatch cannot satisfy a later job on the same worker", async () => {
+  const { createGenerationPool } = await pool;
+  let previousDispatch;
+  const worker = { postMessage(message) {
+    queueMicrotask(() => {
+      if (message.kind === "initialize") {
+        previousDispatch = message.dispatch;
+        this.onmessage({ data: { kind: "ready", dispatch: message.dispatch } });
+      } else {
+        this.onmessage({ data: { kind: "generated", dispatch: previousDispatch,
+          bytes: new Uint8Array([99]), milliseconds: 1 } });
+        previousDispatch = message.dispatch;
+        this.onmessage({ data: { kind: "generated", dispatch: message.dispatch,
+          bytes: new Uint8Array([Number(message.job)]), milliseconds: 2 } });
+      }
+    });
+  }, terminate() {} };
+  const generation = createGenerationPool({}, { createWorker: () => worker, hardwareConcurrency: 2 });
+  const delivered = [];
+  await generation.run(["1", "2"], product => delivered.push({ job: product.job,
+    bytes: Array.from(product.bytes), workerMilliseconds: product.workerMilliseconds }));
+  assert.deepEqual(delivered, [
+    { job: "1", bytes: [1], workerMilliseconds: 2 },
+    { job: "2", bytes: [2], workerMilliseconds: 2 },
+  ]);
+  generation.close();
+});
+
+test("invalid capacity, resolution and job addresses fail with stable causes", async () => {
+  const { createGenerationPool } = await pool;
+  for (const hardwareConcurrency of [0, -1, 1.5, NaN, Infinity, "4"]) {
+    assert.throws(() => createGenerationPool({}, { hardwareConcurrency }),
+      error => error.code === "invalid-capacity");
+  }
+  for (const [jobs, resolveJob, expected] of [
+    [42, undefined, "invalid-jobs"], [[1], undefined, "invalid-job"],
+    [["1"], () => null, "invalid-resolution"],
+    [["1"], () => ({ status: "generate", job: 1 }), "invalid-job"],
+    [["1"], () => ({ status: "generate", job: "other" }), "job-address-mismatch"],
+  ]) {
+    const generation = createGenerationPool({}, { hardwareConcurrency: 2,
+      createWorker() { throw new Error("unnecessary worker"); } });
+    await assert.rejects(generation.run(jobs, () => {}, { resolveJob }), error => error.code === expected);
+    generation.close();
+  }
+});
+
+test("malformed results reject readiness and terminate the pool", async () => {
+  const { createGenerationPool } = await pool;
+  for (const malformed of [
+    () => ({ kind: "ready" }),
+    dispatch => ({ kind: "generated", dispatch, bytes: new Uint8Array(), milliseconds: 1 }),
+    dispatch => ({ kind: "failed", dispatch, error: "unstructured" }),
+    dispatch => ({ kind: "ready", dispatch: dispatch + 0.5 }),
+  ]) {
+    const worker = { postMessage(message) {
+      queueMicrotask(() => this.onmessage({ data: malformed(message.dispatch) }));
+    }, terminate() { this.terminated = true; } };
+    const generation = createGenerationPool({}, { hardwareConcurrency: 2, createWorker: () => worker });
+    await assert.rejects(generation.run(["1"], () => {}), error => error.code === "worker-protocol");
+    assert.equal(worker.terminated, true);
+  }
+});
+
+test("dependency transfer consumes its allocation and preserves full-width job text", async () => {
+  const { createGenerationPool } = await pool;
+  const address = '{"seed":18446744073709551615}';
+  const source = new Uint8Array([0, 128, 255]);
+  let actual;
+  const worker = { postMessage(message, transfer) {
+    const owned = structuredClone(message, { transfer });
+    queueMicrotask(() => {
+      if (owned.kind === "initialize") this.onmessage({ data: { kind: "ready", dispatch: owned.dispatch } });
+      else {
+        actual = { job: owned.job, dependencies: Array.from(owned.dependencies) };
+        this.onmessage({ data: { kind: "generated", dispatch: owned.dispatch,
+          bytes: new Uint8Array([7]), milliseconds: 1 } });
+      }
+    });
+  }, terminate() {} };
+  const generation = createGenerationPool({}, { hardwareConcurrency: 2, createWorker: () => worker });
+  await generation.run([address], () => {}, { dependencies: () => source });
+  assert.deepEqual(actual, { job: address, dependencies: [0, 128, 255] });
+  assert.equal(source.byteLength, 0);
+  generation.close();
+});
+
+test("invalid generated bytes and timings are rejected before delivery", async () => {
+  const { createGenerationPool } = await pool;
+  for (const product of [
+    { bytes: [1], milliseconds: 1 },
+    { bytes: new Uint8Array(new SharedArrayBuffer(1)), milliseconds: 1 },
+    { bytes: new Uint8Array([1]), milliseconds: NaN },
+    { bytes: new Uint8Array([1]), milliseconds: -1 },
+    { bytes: new Uint8Array([1]), milliseconds: Infinity },
+  ]) {
+    const worker = { postMessage(message) {
+      queueMicrotask(() => this.onmessage({ data: message.kind === "initialize"
+        ? { kind: "ready", dispatch: message.dispatch }
+        : { kind: "generated", dispatch: message.dispatch, ...product } }));
+    }, terminate() { this.terminated = true; } };
+    const generation = createGenerationPool({}, { hardwareConcurrency: 2, createWorker: () => worker });
+    let delivered = false;
+    await assert.rejects(generation.run(["1"], () => { delivered = true; }), error => error.code === "worker-protocol");
+    assert.equal(delivered, false);
+    assert.equal(worker.terminated, true);
+  }
+});
+
+test("worker startup and dispatch failures preserve their underlying causes", async () => {
+  const { createGenerationPool } = await pool;
+  const cause = new Error("host rejected the operation");
+  const startup = createGenerationPool({}, { hardwareConcurrency: 2, createWorker() { throw cause; } });
+  await assert.rejects(startup.run(["1"], () => {}), error => error.code === "worker-start-failed" && error.cause === cause);
+  const worker = { postMessage() { throw cause; }, terminate() { this.terminated = true; } };
+  const dispatch = createGenerationPool({}, { hardwareConcurrency: 2, createWorker: () => worker });
+  await assert.rejects(dispatch.run(["1"], () => {}), error => error.code === "dispatch-failed" && error.cause === cause);
+  assert.equal(worker.terminated, true);
+  assert.equal(worker.onmessage, null);
+});
+
+test("a worker deadline rejects readiness and terminates its runtime", async () => {
+  const { createGenerationPool } = await pool;
+  const originalTimer = globalThis.setTimeout;
+  const worker = { postMessage() {}, terminate() { this.terminated = true; } };
+  const generation = createGenerationPool({}, { hardwareConcurrency: 2, createWorker: () => worker });
+  globalThis.setTimeout = callback => { queueMicrotask(callback); return 0; };
+  try { await assert.rejects(generation.run(["1"], () => {}), error => error.code === "worker-timeout"); }
+  finally { globalThis.setTimeout = originalTimer; }
+  assert.equal(worker.terminated, true);
+  assert.equal(worker.onmessage, null);
 });
