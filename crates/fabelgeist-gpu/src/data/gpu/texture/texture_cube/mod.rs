@@ -5,7 +5,9 @@ mod image_data;
 use anyhow::Result;
 
 use crate::{
-    data::gpu::texture::{CubeFace, Image, TextureFormat, TextureView},
+    data::gpu::texture::{
+        CubeFace, Image, TextureFormat, TextureView, TextureViewError, TextureViewResult,
+    },
     globals::WgpuContext,
 };
 
@@ -601,14 +603,14 @@ impl TextureCube {
         &self,
         _ctx: &WgpuContext,
         format: TextureFormat,
-    ) -> Result<Arc<wgpu::TextureView>> {
+    ) -> TextureViewResult<Arc<wgpu::TextureView>> {
         if format == self.format {
-            return Ok(self.view.as_ref().unwrap().clone());
+            return self.view.clone().ok_or(TextureViewError::MissingView);
         }
         let texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
 
         let mut requested_format = format;
         if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
@@ -629,12 +631,8 @@ impl TextureCube {
         #[cfg(not(target_arch = "wasm32"))]
         {
             let _ = _ctx.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(err) = pollster::block_on(error_scope.pop()) {
-                return Err(anyhow::anyhow!(
-                    "WGPU TextureCube view_with_format Error (requested {:?}): {}",
-                    format,
-                    err
-                ));
+            if let Some(cause) = pollster::block_on(error_scope.pop()) {
+                return Err(TextureViewError::from_texture_cube_view(format, cause));
             }
         }
 

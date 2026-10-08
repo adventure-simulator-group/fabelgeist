@@ -5,7 +5,11 @@ use std::sync::Arc;
 
 use anyhow::Result;
 
-use crate::{data::gpu::texture::TextureFormat, data::vector::Vec2, globals::WgpuContext};
+use crate::{
+    data::gpu::texture::{TextureFormat, TextureViewError, TextureViewResult},
+    data::vector::Vec2,
+    globals::WgpuContext,
+};
 
 #[derive(Clone, Debug)]
 pub struct Texture2d {
@@ -403,14 +407,14 @@ impl Texture2d {
         &self,
         _context: &WgpuContext,
         format: TextureFormat,
-    ) -> Result<Arc<wgpu::TextureView>> {
+    ) -> TextureViewResult<Arc<wgpu::TextureView>> {
         if format == self.format {
-            return Ok(self.view.as_ref().unwrap().clone());
+            return self.view.clone().ok_or(TextureViewError::MissingView);
         }
         let texture = self
             .texture
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+            .ok_or(TextureViewError::Uninitialized)?;
 
         let mut requested_format = format;
 
@@ -434,12 +438,8 @@ impl Texture2d {
         #[cfg(not(target_arch = "wasm32"))]
         {
             let _ = _context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(err) = pollster::block_on(error_scope.pop()) {
-                return Err(anyhow::anyhow!(
-                    "WGPU Texture2d view_with_format Error (requested {:?}): {}",
-                    format,
-                    err
-                ));
+            if let Some(cause) = pollster::block_on(error_scope.pop()) {
+                return Err(TextureViewError::from_texture_2d_view(format, cause));
             }
         }
 

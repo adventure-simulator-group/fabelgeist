@@ -1,0 +1,19 @@
+{
+  "stored": "R32Float",
+  "requested": "Rgba8UnormSrgb",
+  "uninitialized_request": "Rgba8Unorm",
+  "cases": [
+    {
+      "method": "plane",
+      "native_prefix": "WGPU Texture2d view_with_format Error (requested Rgba8UnormSrgb): "
+    },
+    {
+      "method": "volume",
+      "native_prefix": "WGPU Texture3d view_with_format Error (requested Rgba8UnormSrgb): "
+    },
+    {
+      "method": "cube",
+      "native_prefix": "WGPU TextureCube view_with_format Error (requested Rgba8UnormSrgb): "
+    }
+  ]
+}
