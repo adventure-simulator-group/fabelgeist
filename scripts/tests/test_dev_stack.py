@@ -268,8 +268,11 @@ class WorkflowTests(unittest.TestCase):
             [call.args for call in client.call.call_args_list],
             [
                 ("dev_bootstrap_base",),
-                ("dev_bootstrap_settlement_activity", 0),
-                ("dev_bootstrap_settlement_activity", 1),
+                *(
+                    ("dev_bootstrap_settlement_activity", settlement_index)
+                    for settlement_index in range(2)
+                    for _ in range(dev_stack.DEVELOPMENT_QUEST_BATCHES_PER_SETTLEMENT)
+                ),
                 ("dev_bootstrap_finalize",),
                 ("dev_bootstrap_gallery", 0, 8),
                 ("dev_bootstrap_gallery_validate",),
