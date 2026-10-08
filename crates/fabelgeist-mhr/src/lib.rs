@@ -27,13 +27,6 @@
 //!
 //! Reference implementation: <https://github.com/facebookresearch/MHR>.
 
-pub mod character;
-pub mod correctives;
-pub mod math;
-pub mod model;
-pub mod model_def;
-pub mod skel_state;
-
 pub use character::{BlendShapes, Character, Mesh, Skeleton, SkinWeights};
 pub use correctives::PoseCorrectives;
 pub use model::{
@@ -41,3 +34,9 @@ pub use model::{
     NUM_FACE_EXPRESSION_BLEND_SHAPES, NUM_IDENTITY_BLEND_SHAPES,
 };
 pub use model_def::{ParameterSetName, ParameterTransform, parse_model_definition};
+pub mod character;
+pub mod correctives;
+pub mod math;
+pub mod model;
+pub mod model_def;
+pub mod skel_state;
