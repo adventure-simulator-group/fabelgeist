@@ -98,9 +98,6 @@ fn perimeter_faces(
     height: &impl Fn(Vec2) -> Option<f32>,
 ) -> Result<Option<f64>, QuantityError> {
     let corners = plan.reservation().corners();
-    // The perimeter/volume integration retains its native metre arithmetic;
-    // the shared positive leaf owns admission before this numerical kernel.
-    let assumed_wall_thickness_metres = assumed_wall_thickness.metres();
     let mesh = plan
         .mesh()
         .map_err(|diagnostic| QuantityError::Support { diagnostic })?;
@@ -178,7 +175,6 @@ fn signed_volume(polygon: &[Vec2], differences: &[f32], sign: f32) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use adventuresim_building_generator::spatial_geometry::PositiveLength;
     #[test]
     fn linear_cut_fill_is_split_at_the_zero_line_instead_of_cancelling_out() {
         let square = [Vec2::ZERO, Vec2::X, Vec2::ONE, Vec2::Y];
