@@ -9,7 +9,7 @@ use burn::tensor::{Device, Int, Tensor, TensorData};
 
 use crate::character::{Character, PARAMETERS_PER_JOINT};
 use crate::correctives::PoseCorrectives;
-use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
+use crate::model_def::{ParameterTransform, append_blend_shape_parameters};
 use crate::skel_state;
 
 /// Shape coefficients: 20 body, 20 head, 5 hands.
@@ -221,8 +221,9 @@ impl Mhr {
         correctives: Option<PoseCorrectives>,
         device: &Device,
     ) -> Result<Self> {
-        let mut parameter_transform = parse_model_definition(definition, &character.skeleton)
-            .context("parsing the MHR model definition")?;
+        let mut parameter_transform =
+            ParameterTransform::from_model_definition(definition, &character.skeleton)
+                .context("parsing the MHR model definition")?;
         let num_model_parameters = parameter_transform.num_parameters();
         // momentum appends one model parameter per identity blend shape when a
         // blend shape is attached to the character.

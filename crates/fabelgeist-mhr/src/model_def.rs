@@ -3,7 +3,9 @@
 
 use std::collections::HashMap;
 
-use anyhow::{Result, bail};
+mod error;
+
+pub use error::ModelDefinitionError;
 
 use crate::character::{PARAMETERS_PER_JOINT, Skeleton};
 
@@ -81,7 +83,7 @@ fn strip_comment(line: &str) -> &str {
 }
 
 /// Splits the file into its `[Section]` blocks.
-fn split_sections(text: &str) -> Result<HashMap<String, Vec<String>>> {
+fn split_sections(text: &str) -> Result<HashMap<String, Vec<String>>, ModelDefinitionError> {
     let mut lines = text.lines();
     let mut saw_header = false;
     for line in lines.by_ref() {
@@ -93,10 +95,12 @@ fn split_sections(text: &str) -> Result<HashMap<String, Vec<String>>> {
             saw_header = true;
             break;
         }
-        bail!("invalid model definition file; got {line:?}");
+        return Err(ModelDefinitionError::InvalidHeader {
+            line: line.to_string(),
+        });
     }
     if !saw_header {
-        bail!("invalid model definition file; missing the version header");
+        return Err(ModelDefinitionError::MissingHeader);
     }
 
     let mut sections: HashMap<String, Vec<String>> = HashMap::new();
@@ -134,7 +138,7 @@ fn parse_expression(
     expression: &str,
     row: usize,
     line: &str,
-) -> Result<()> {
+) -> Result<(), ModelDefinitionError> {
     for term in tokenize(expression, "+") {
         let factors = tokenize(term, "*");
         if factors.len() == 1 {
@@ -149,9 +153,13 @@ fn parse_expression(
             continue;
         }
 
-        let Ok(weight) = factors[0].parse::<f32>() else {
-            bail!("could not parse weight in: {line}");
-        };
+        let weight = factors[0].parse::<f32>().map_err(|source| {
+            ModelDefinitionError::InvalidExpressionCoefficient {
+                line: line.to_string(),
+                token: factors[0].to_string(),
+                source,
+            }
+        })?;
         let name = factors[1];
 
         // The right side may name either a model parameter or a joint channel
@@ -187,42 +195,53 @@ fn parse_expression(
     Ok(())
 }
 
-fn parse_parameter_transform(
-    lines: &[String],
-    skeleton: &Skeleton,
-) -> Result<(ParameterTransform, Vec<Triplet>)> {
-    let rows = skeleton.len() * PARAMETERS_PER_JOINT;
-    let mut transform = ParameterTransform {
-        offsets: vec![0.0; rows],
-        active_joint_parameters: vec![false; rows],
-        num_joint_parameters: rows,
-        ..Default::default()
-    };
-    let mut triplets: Vec<Triplet> = Vec::new();
+impl ParameterTransform {
+    fn from_transform_section(
+        lines: &[String],
+        skeleton: &Skeleton,
+    ) -> Result<(Self, Vec<Triplet>), ModelDefinitionError> {
+        let rows = skeleton.len() * PARAMETERS_PER_JOINT;
+        let mut transform = Self {
+            offsets: vec![0.0; rows],
+            active_joint_parameters: vec![false; rows],
+            num_joint_parameters: rows,
+            ..Default::default()
+        };
+        let mut triplets: Vec<Triplet> = Vec::new();
 
-    for line in lines {
-        let Some((left, right)) = line.split_once('=') else {
-            continue;
-        };
-        let Some((joint_name, channel_name)) = left.trim().split_once('.') else {
-            bail!("unknown joint name in expression: {line}");
-        };
-        let Some(joint) = skeleton.joint_index(joint_name.trim()) else {
-            bail!("unknown joint name in expression: {line}");
-        };
-        let Some(channel) = JOINT_PARAMETER_NAMES
-            .iter()
-            .position(|c| *c == channel_name.trim())
-        else {
-            bail!("unknown channel name in expression: {line}");
-        };
+        for line in lines {
+            let Some((left, right)) = line.split_once('=') else {
+                continue;
+            };
+            let Some((joint_name, channel_name)) = left.trim().split_once('.') else {
+                return Err(ModelDefinitionError::InvalidTarget {
+                    line: line.clone(),
+                    target: left.trim().to_string(),
+                });
+            };
+            let Some(joint) = skeleton.joint_index(joint_name.trim()) else {
+                return Err(ModelDefinitionError::UnknownJoint {
+                    line: line.clone(),
+                    joint: joint_name.trim().to_string(),
+                });
+            };
+            let Some(channel) = JOINT_PARAMETER_NAMES
+                .iter()
+                .position(|c| *c == channel_name.trim())
+            else {
+                return Err(ModelDefinitionError::UnknownChannel {
+                    line: line.clone(),
+                    channel: channel_name.trim().to_string(),
+                });
+            };
 
-        let row = joint * PARAMETERS_PER_JOINT + channel;
-        transform.active_joint_parameters[row] = true;
-        parse_expression(&mut triplets, &mut transform, skeleton, right, row, line)?;
+            let row = joint * PARAMETERS_PER_JOINT + channel;
+            transform.active_joint_parameters[row] = true;
+            parse_expression(&mut triplets, &mut transform, skeleton, right, row, line)?;
+        }
+
+        Ok((transform, triplets))
     }
-
-    Ok((transform, triplets))
 }
 
 fn parse_parameter_sets(lines: &[String], transform: &mut ParameterTransform) {
@@ -271,32 +290,40 @@ fn parse_limits(lines: &[String], transform: &mut ParameterTransform) {
     }
 }
 
-/// Parses a `.model` file against a skeleton, producing the parameter transform.
-pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<ParameterTransform> {
-    let sections = split_sections(text)?;
-    let empty = Vec::new();
-    let (mut transform, triplets) = parse_parameter_transform(
-        sections.get("ParameterTransform").unwrap_or(&empty),
-        skeleton,
-    )?;
+impl ParameterTransform {
+    /// Parses Momentum model-definition text against the supplied skeleton.
+    ///
+    /// Returns a structured rejection for a bad header, target or coefficient.
+    /// Unsupported sections and ignored malformed terms retain their skip policy.
+    pub fn from_model_definition(
+        text: &str,
+        skeleton: &Skeleton,
+    ) -> Result<Self, ModelDefinitionError> {
+        let sections = split_sections(text)?;
+        let empty = Vec::new();
+        let (mut transform, triplets) = Self::from_transform_section(
+            sections.get("ParameterTransform").unwrap_or(&empty),
+            skeleton,
+        )?;
 
-    // Densify once the parameter count is final.
-    let columns = transform.num_parameters();
-    transform.transform = vec![0.0; transform.num_joint_parameters * columns];
-    for (row, column, value) in triplets {
-        if value != 0.0 {
-            transform.transform[row * columns + column] += value;
+        // Densify once the parameter count is final.
+        let columns = transform.num_parameters();
+        transform.transform = vec![0.0; transform.num_joint_parameters * columns];
+        for (row, column, value) in triplets {
+            if value != 0.0 {
+                transform.transform[row * columns + column] += value;
+            }
         }
-    }
 
-    if let Some(lines) = sections.get("ParameterSets") {
-        parse_parameter_sets(lines, &mut transform);
-    }
-    if let Some(lines) = sections.get("Limits") {
-        parse_limits(lines, &mut transform);
-    }
+        if let Some(lines) = sections.get("ParameterSets") {
+            parse_parameter_sets(lines, &mut transform);
+        }
+        if let Some(lines) = sections.get("Limits") {
+            parse_limits(lines, &mut transform);
+        }
 
-    Ok(transform)
+        Ok(transform)
+    }
 }
 
 /// Appends one column per blend-shape coefficient, as momentum's
@@ -333,7 +360,7 @@ mod tests {
 
     fn parse(body: &str) -> ParameterTransform {
         let text = format!("Momentum Model Definition V1.0\n[ParameterTransform]\n{body}");
-        parse_model_definition(&text, &skeleton()).unwrap()
+        ParameterTransform::from_model_definition(&text, &skeleton()).unwrap()
     }
 
     #[test]
@@ -378,7 +405,7 @@ mod tests {
              [Limits]\n\
              limit b minmax [-0.5, 1.5]\n\
              limit a minmax [-0.25, 0.25] 0.1\n";
-        let pt = parse_model_definition(text, &skeleton()).unwrap();
+        let pt = ParameterTransform::from_model_definition(text, &skeleton()).unwrap();
         assert_eq!(pt.parameter_sets["rigid"], [true, false]);
         assert_eq!(pt.limits.len(), 2);
         assert_eq!(pt.limits[0].weight, 1.0);

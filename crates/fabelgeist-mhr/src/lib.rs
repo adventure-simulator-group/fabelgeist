@@ -40,4 +40,4 @@ pub use model::{
     MAX_LOD, MIN_LOD, Mhr, MhrConfig, MhrOutput, NUM_BLEND_SHAPES,
     NUM_FACE_EXPRESSION_BLEND_SHAPES, NUM_IDENTITY_BLEND_SHAPES,
 };
-pub use model_def::{ParameterTransform, parse_model_definition};
+pub use model_def::{ModelDefinitionError, ParameterTransform};
