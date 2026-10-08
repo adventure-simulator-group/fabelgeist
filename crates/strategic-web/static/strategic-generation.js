@@ -8,7 +8,8 @@ export async function prepareGeneratedScene(runtime, input, venues) {
   const jobs = JSON.parse(runtime.wasm_generation_jobs(input));
   const metrics = { jobs: jobs.length, workers: 0, bytes: 0, workerMilliseconds: 0,
     receiveMilliseconds: 0, dependencyMilliseconds: 0, dependencyBytes: 0,
-    milliseconds: 0, cacheHits: 0, cacheMisses: 0, cacheLookupMilliseconds: 0 };
+    milliseconds: 0, cacheHits: 0, cacheMisses: 0, cacheLookupMilliseconds: 0,
+    cacheWritesAccepted: 0, cacheWritesReplaced: 0, cacheWriteRejections: {} };
   window.strategicGenerationMetrics = metrics;
   const receive = (job, bytes) => {
     metrics.bytes += bytes.byteLength;
@@ -26,7 +27,14 @@ export async function prepareGeneratedScene(runtime, input, venues) {
       (job, bytes, milliseconds) => {
         receive(job, bytes);
         metrics.workerMilliseconds += milliseconds;
-        cache.put(job, bytes);
+        const admission = cache.put(job, bytes);
+        if (admission.status === "accepted") {
+          metrics.cacheWritesAccepted++;
+          if (admission.disposition === "replaced") metrics.cacheWritesReplaced++;
+        } else {
+          metrics.cacheWriteRejections[admission.reason] =
+            (metrics.cacheWriteRejections[admission.reason] ?? 0) + 1;
+        }
       }, { dependencies(job) {
         const started = performance.now();
         const bytes = runtime.wasm_generation_dependencies(job);

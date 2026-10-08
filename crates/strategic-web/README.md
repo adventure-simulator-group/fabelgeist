@@ -6,6 +6,9 @@ SSR, HATEOAS-style web UI for the Fabelgeist strategic layer.
 
 [Strategic interface construction](ARCHITECTURE.md)
 
+[Generated product persistence](generation-cache.md) describes deferred cache
+writes, buffer ownership, resource budgets and preparation diagnostics.
+
 ```
 ┌─────────────────┐     HTTP     ┌──────────────────┐
 │  Browser        │◄────────────►│  strategic-web   │

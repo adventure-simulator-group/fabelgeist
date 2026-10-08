@@ -12,6 +12,13 @@ const MAX_PRODUCT_BYTES = 128 * 1024 * 1024;
 const MAX_PENDING_WRITE_BYTES = 512 * 1024 * 1024;
 const MAX_PENDING_PRODUCTS = 512;
 const CACHE_WRITE_CONCURRENCY = 2;
+
+class CacheWriteError extends Error {
+  constructor(code, cause) {
+    super(`Generated cache write failed: ${code}`, { cause });
+    this.code = code;
+  }
+}
 const digest = async bytes => Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)),
   byte => byte.toString(16).padStart(2, "0")).join("");
 
@@ -36,7 +43,7 @@ async function decode(record) {
 }
 
 export async function openGeneratedCache(revision, storage) {
-  let database, disabled = false;
+  let database, disabled = false, closing;
   try {
     storage ??= globalThis.indexedDB;
     if (!storage) disabled = true;
@@ -57,9 +64,9 @@ export async function openGeneratedCache(revision, storage) {
   if (database) database.onversionchange = () => { disabled = true; database.close(); };
 
   async function transaction(mode, operation) {
-    if (disabled) return undefined;
+    if (disabled) return { status: "unavailable" };
     try {
-      return await new Promise((resolve, reject) => {
+      const value = await new Promise((resolve, reject) => {
         const tx = database.transaction(STORE, mode);
         const timer = setTimeout(() => {
           try { tx.abort(); }
@@ -81,21 +88,23 @@ export async function openGeneratedCache(revision, storage) {
           reject(error);
         }
       });
+      return { status: "completed", value };
     } catch (error) {
       // A busy frame can exhaust one read's budget without making storage
       // unusable. Let later jobs persist and future reads try again.
       if (error?.name !== "TimeoutError") disabled = true;
-      return undefined;
+      return { status: "failed", cause: error };
     }
   }
   const key = job => digest(new TextEncoder().encode(`${CACHE_FORMAT}\n${revision}\n${job}`));
   // One small inventory avoids serial read transactions for new-city misses.
   // A timed-out inventory leaves normal reads available. Another document's
   // later writes may cause a harmless regeneration until the next opening.
-  const storedKeys = await transaction("readonly", (store, done) => {
+  const inventory = await transaction("readonly", (store, done) => {
     const request = store.getAllKeys();
     request.onsuccess = () => done(new Set(request.result));
   });
+  const storedKeys = inventory.status === "completed" ? inventory.value : undefined;
   async function remove(job) {
     deferred.remove(job);
     const id = await key(job);
@@ -121,16 +130,26 @@ export async function openGeneratedCache(revision, storage) {
     });
   }
   async function write(job, bytes) {
-    if (disabled || bytes.byteLength > MAX_PRODUCT_BYTES) return;
+    if (disabled) throw new CacheWriteError("storage-unavailable");
+    if (bytes.byteLength > MAX_PRODUCT_BYTES) throw new CacheWriteError("product-limit");
     try {
       const compressed = new Uint8Array(await new Response(new Blob([bytes]).stream()
         .pipeThrough(new CompressionStream("gzip"))).arrayBuffer());
       const [id, checksum] = await Promise.all([key(job), digest(compressed)]);
-      await transaction("readwrite", store => store.put({ key: id, revision,
-        bytes: compressed, checksum, size: compressed.byteLength,
-        decodedSize: bytes.byteLength, used: Date.now() }));
+      const result = await transaction("readwrite", (store, done) => {
+        store.put({ key: id, revision, bytes: compressed, checksum,
+          size: compressed.byteLength, decodedSize: bytes.byteLength, used: Date.now() });
+        done("stored");
+      });
+      if (result.status !== "completed") {
+        throw new CacheWriteError(result.status === "unavailable"
+          ? "storage-unavailable" : "transaction-failed", result.cause);
+      }
       storedKeys?.add(id);
-    } catch { disabled = true; }
+    } catch (cause) {
+      if (!(cause instanceof CacheWriteError && cause.cause?.name === "TimeoutError")) disabled = true;
+      throw cause instanceof CacheWriteError ? cause : new CacheWriteError("preparation-failed", cause);
+    }
   }
   const deferred = createDeferredWrites(write, {
     maximumBytes: MAX_PENDING_WRITE_BYTES, maximumProductBytes: MAX_PRODUCT_BYTES,
@@ -141,9 +160,10 @@ export async function openGeneratedCache(revision, storage) {
       if (disabled) return undefined;
       const id = await key(job);
       if (storedKeys && !storedKeys.has(id)) return undefined;
-      const record = await transaction("readonly", (store, done) => {
+      const read = await transaction("readonly", (store, done) => {
         const request = store.get(id); request.onsuccess = () => done(request.result);
       });
+      const record = read.status === "completed" ? read.value : undefined;
       if (!record) return undefined;
       if (record.revision !== revision || !(record.bytes instanceof Uint8Array)
         || record.size !== record.bytes.byteLength || record.size > MAX_PRODUCT_BYTES
@@ -155,10 +175,19 @@ export async function openGeneratedCache(revision, storage) {
       catch { await remove(job); return undefined; }
     },
     // Consumes the transferred worker buffer after authoritative receipt.
-    put(job, bytes) { if (!disabled) deferred.put(job, bytes); },
+    put(job, bytes) {
+      if (closing) return { status: "rejected", reason: "closed" };
+      if (disabled) return { status: "rejected", reason: "storage-unavailable" };
+      return deferred.put(job, bytes);
+    },
     remove,
-    async close() {
-      await deferred.close(); await prune(); database?.close(); disabled = true;
+    close() {
+      if (closing) return closing;
+      closing = deferred.close().then(async result => {
+        try { await prune(); return result; }
+        finally { database?.close(); disabled = true; }
+      });
+      return closing;
     },
   };
 }
