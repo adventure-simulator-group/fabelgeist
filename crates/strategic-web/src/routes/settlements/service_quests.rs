@@ -1,29 +1,4 @@
-pub(crate) fn living_party_members(members: &[CharacterView]) -> Vec<CharacterView> {
-    members
-        .iter()
-        .filter(|member| member.alive)
-        .cloned()
-        .collect()
-}
-
-#[derive(Serialize)]
-pub(super) struct ServiceQuestOffer {
-    id: String,
-    title: String,
-    description: String,
-    service_id: String,
-    npc_name: &'static str,
-    greeting: String,
-    problem: String,
-    follow_up: String,
-    details: String,
-    acceptance: &'static str,
-    state: &'static str,
-    waiting: &'static str,
-    turn_in_response: String,
-    can_accept: bool,
-    can_turn_in: bool,
-}
+use super::service_quest_offers::ServiceQuestOffer;
 
 #[derive(Serialize)]
 pub(super) struct ServiceActivityResponse {
@@ -37,29 +12,35 @@ pub(super) struct ApprenticeshipResult {
     message: &'static str,
 }
 
-fn exact_apprenticeship_representative_present(
-    representative: Option<&db::BackendSettlementResident>,
-    presences: &[db::SettlementResidentPresence],
-    expected_id: u64,
-    settlement_id: &str,
-    organization_id: &str,
-    effective_location_id: &str,
-) -> bool {
-    representative.is_some_and(|representative| {
-        adventuresim_core::organization::exact_representative_fields_match(
-            representative.character_id,
-            expected_id,
-            &representative.home_settlement_id,
-            settlement_id,
-            &representative.organization_id,
-            organization_id,
-            &representative.conversation_id,
-        ) && presences.iter().any(|presence| {
-            presence.character_id == representative.character_id
-                && presence.settlement_id == settlement_id
-                && presence.location_id == effective_location_id
-        })
-    })
+#[derive(Serialize)]
+pub(super) struct ServiceQuestRecruitment {
+    offer_id: String,
+    service_id: &'static str,
+    location_id: String,
+    party_name: String,
+    leader_id: String,
+    leader_name: String,
+    roles: Vec<ServiceQuestRole>,
+}
+
+#[derive(Serialize)]
+pub(super) struct ServiceQuestRole {
+    id: u64,
+    name: String,
+    remaining: u32,
+    requirements: Vec<String>,
+    requirements_summary: String,
+    match_level: &'static str,
+    match_summary: String,
+    left_html: String,
+    right_html: String,
+}
+pub(crate) fn living_party_members(members: &[CharacterView]) -> Vec<CharacterView> {
+    members
+        .iter()
+        .filter(|member| member.alive)
+        .cloned()
+        .collect()
 }
 
 pub(super) async fn begin_service_apprenticeship(
@@ -179,98 +160,6 @@ pub(super) async fn begin_service_apprenticeship(
     }
 }
 
-#[cfg(test)]
-mod apprenticeship_representative_tests {
-    use super::*;
-
-    fn representative(
-        id: u64,
-        settlement_id: &str,
-        organization_id: &str,
-    ) -> db::BackendSettlementResident {
-        db::BackendSettlementResident {
-            character_id: id,
-            home_settlement_id: settlement_id.into(),
-            name: "Guild representative".into(),
-            age_band: db::AgeBand::Adult,
-            presentation: adventuresim_stdb_client::Presentation::Ambiguous,
-            height: String::new(),
-            build: String::new(),
-            hair: String::new(),
-            facial_hair: String::new(),
-            complexion: String::new(),
-            visible_features: String::new(),
-            clothing: String::new(),
-            profession: String::new(),
-            household_kind: String::new(),
-            local_role: String::new(),
-            service_id: String::new(),
-            organization_id: organization_id.into(),
-            conversation_id: "organization-representative".into(),
-        }
-    }
-
-    fn presence(id: u64, settlement_id: &str, location_id: &str) -> db::SettlementResidentPresence {
-        db::SettlementResidentPresence {
-            character_id: id,
-            settlement_id: settlement_id.into(),
-            location_id: location_id.into(),
-            start_minute: 0,
-            end_minute: adventuresim_world_schema::calendar::MINUTES_PER_DAY as u16,
-            is_default: true,
-            context_suppressed: false,
-            health_suppressed: false,
-        }
-    }
-
-    #[test]
-    fn standalone_exact_representative_blocks_direct_apprenticeship() {
-        let id = adventuresim_core::organization::organization_representative_id(
-            "viabundus-0",
-            "physicians_college",
-        );
-        let representative = representative(id, "viabundus-0", "physicians_college");
-        let presences = [presence(
-            id,
-            "viabundus-0",
-            "organization-physicians-college",
-        )];
-        assert!(exact_apprenticeship_representative_present(
-            Some(&representative),
-            &presences,
-            id,
-            "viabundus-0",
-            "physicians_college",
-            "organization-physicians-college",
-        ));
-    }
-
-    #[test]
-    fn missing_or_wrong_presence_keeps_the_direct_fallback_available() {
-        let id = adventuresim_core::organization::organization_representative_id(
-            "viabundus-0",
-            "merchant_guild",
-        );
-        let representative = representative(id, "viabundus-0", "merchant_guild");
-        assert!(!exact_apprenticeship_representative_present(
-            Some(&representative),
-            &[],
-            id,
-            "viabundus-0",
-            "merchant_guild",
-            "market",
-        ));
-        assert!(!exact_apprenticeship_representative_present(
-            Some(&representative),
-            &[presence(id, "viabundus-0", "forge")],
-            id,
-            "viabundus-0",
-            "merchant_guild",
-            "market",
-        ));
-    }
-}
-
 pub(super) async fn update_organization_presentation(
     State(state): State<AppState>,
     Path((id, character_id, organization_id)): Path<(String, u64, String)>,
@@ -312,30 +201,6 @@ pub(super) async fn clear_presented_organization(
     }
 }
 
-#[derive(Serialize)]
-pub(super) struct ServiceQuestRecruitment {
-    offer_id: String,
-    service_id: &'static str,
-    location_id: String,
-    party_name: String,
-    leader_id: String,
-    leader_name: String,
-    roles: Vec<ServiceQuestRole>,
-}
-
-#[derive(Serialize)]
-pub(super) struct ServiceQuestRole {
-    id: u64,
-    name: String,
-    remaining: u32,
-    requirements: Vec<String>,
-    requirements_summary: String,
-    match_level: &'static str,
-    match_summary: String,
-    left_html: String,
-    right_html: String,
-}
-
 pub(super) async fn service_quest_offers(
     State(state): State<AppState>,
     Path(id): Path<String>,
@@ -361,7 +226,7 @@ pub(super) async fn service_quest_offers(
         .await
         .unwrap_or_default();
     let edges = if crate::strategic_map::has_geographic_source(settlement) {
-        cached_travel_edges(&state.db).await
+        TRAVEL_EDGE_CACHE.load(&state.db).await
     } else {
         None
     };
@@ -370,9 +235,9 @@ pub(super) async fn service_quest_offers(
         &settlements,
         edges.as_deref().map_or(&[], Vec::as_slice),
     )
-        .first()
-        .map(|destination| destination.name.clone())
-        .unwrap_or_else(|| "the next settlement".to_string());
+    .first()
+    .map(|destination| destination.name.clone())
+    .unwrap_or_else(|| "the next settlement".to_string());
     let active_character = get_active_character(&state, session.character_id_u64()).await;
     let active_party = if let Some(party_id) = active_character
         .as_ref()
@@ -532,52 +397,18 @@ pub(super) async fn service_quest_offers(
         })
         .collect();
     let quest_offers = quests
-            .iter()
-            .filter_map(|quest| {
-                let is_current = active_party.as_ref().is_some_and(|party| {
-                    party.active_contract_id.as_deref() == Some(quest.id.as_str())
-                        && quest.accepted_by.as_deref() == Some(party.id.as_str())
-                });
-                let state = if quest.status == adventuresim_stdb_client::ContractStatus::Offered {
-                    "available"
-                } else if is_current
-                    && quest.status == adventuresim_stdb_client::ContractStatus::ReadyToReport
-                {
-                    "ready"
-                } else if is_current {
-                    "underway"
-                } else {
-                    return None;
-                };
-                let problem = quest.description.trim_end_matches('.').to_lowercase();
-                let (npc_name, greeting) = service_quest_greeting(&quest.service_id);
-                Some(ServiceQuestOffer {
-                    id: quest.id.clone(),
-                    title: quest.title.clone(),
-                    description: active_contract_tooltip(quest),
-                    service_id: quest.service_id.clone(),
-                    npc_name,
-                    greeting: greeting.to_string(),
-                    follow_up: format!("{problem}?"),
-                    problem,
-                    details: service_quest_details(
-                        &quest.service_id,
-                        quest,
-                        &settlement.name,
-                        &neighboring_name,
-                    ),
-                    acceptance: "Excellent! Yet have a care: ye would not be the first men they have slain.",
-                    state,
-                    waiting: "Well met again; I eagerly await the fruit of these labours.",
-                    turn_in_response: format!(
-                        "Excellent work. Here is the promised sum: {} coin. Ye have earned it.",
-                        quest.gold_reward
-                    ),
-                    can_accept,
-                    can_turn_in: can_turn_in && state == "ready",
-                })
-            })
-            .collect();
+        .iter()
+        .filter_map(|quest| {
+            ServiceQuestOffer::from_contract(
+                quest,
+                settlement,
+                &neighboring_name,
+                active_party.as_ref(),
+                can_accept,
+                can_turn_in,
+            )
+        })
+        .collect();
     Json(ServiceActivityResponse {
         quests: quest_offers,
         recruitment: recruiting_companies,
@@ -632,46 +463,6 @@ pub(super) fn service_quest_details(
         "Yea, {situation}. I believe it toucheth {} {}, yet that account may be false. I would offer {} coin for a resolution well proved. Learn more ere committing to battle. Is the company",
         quest.opposition_count_wording, quest.opposition_wording, quest.gold_reward,
     )
-}
-
-#[cfg(test)]
-mod bestiary_quest_presentation_tests {
-    use super::*;
-
-    fn quest(opposition_wording: &str, description: &str) -> BackendContract {
-        BackendContract {
-            id: "q".into(),
-            case_id: "case:q".into(),
-            title: "Problem".into(),
-            description: description.into(),
-            difficulty: 2,
-            gold_reward: 40,
-            xp_reward: 20,
-            settlement_id: "s".into(),
-            service_id: "inn".into(),
-            issuer_resident_character_id: 0,
-            status: ContractStatus::Offered,
-            accepted_by: None,
-            opposition_wording: opposition_wording.into(),
-            opposition_count_wording: "perhaps several".into(),
-            opposition_count: 0,
-            opposition_combat_power: 0,
-            accepted_at_minute: None,
-            paid_at_minute: None,
-            distance_m: 0,
-        }
-    }
-
-    #[test]
-    fn shared_service_never_substitutes_its_old_fixed_threat_or_location() {
-        let alp = quest("alp", "Sleepers report an unseen visitor.");
-        let hound = quest("spectral_hound", "A black hound haunts the road.");
-        let alp_details = service_quest_details("inn", &alp, "A", "B");
-        let hound_details = service_quest_details("inn", &hound, "A", "B");
-        assert!(alp_details.contains("unseen visitor"));
-        assert!(hound_details.contains("black hound"));
-        assert!(!alp_details.contains("goblin") && !hound_details.contains("goblin"));
-    }
 }
 
 pub(super) fn role_requirement_labels(role: &RecruitmentRoleView) -> Vec<String> {
@@ -775,4 +566,160 @@ pub(super) fn matched_role_requirements(
         }
     }
     matched
+}
+
+fn exact_apprenticeship_representative_present(
+    representative: Option<&db::BackendSettlementResident>,
+    presences: &[db::SettlementResidentPresence],
+    expected_id: u64,
+    settlement_id: &str,
+    organization_id: &str,
+    effective_location_id: &str,
+) -> bool {
+    representative.is_some_and(|representative| {
+        adventuresim_core::organization::exact_representative_fields_match(
+            representative.character_id,
+            expected_id,
+            &representative.home_settlement_id,
+            settlement_id,
+            &representative.organization_id,
+            organization_id,
+            &representative.conversation_id,
+        ) && presences.iter().any(|presence| {
+            presence.character_id == representative.character_id
+                && presence.settlement_id == settlement_id
+                && presence.location_id == effective_location_id
+        })
+    })
+}
+#[cfg(test)]
+mod apprenticeship_representative_tests {
+    use super::*;
+
+    fn representative(
+        id: u64,
+        settlement_id: &str,
+        organization_id: &str,
+    ) -> db::BackendSettlementResident {
+        db::BackendSettlementResident {
+            character_id: id,
+            home_settlement_id: settlement_id.into(),
+            name: "Guild representative".into(),
+            age_band: db::AgeBand::Adult,
+            presentation: adventuresim_stdb_client::Presentation::Ambiguous,
+            height: String::new(),
+            build: String::new(),
+            hair: String::new(),
+            facial_hair: String::new(),
+            complexion: String::new(),
+            visible_features: String::new(),
+            clothing: String::new(),
+            profession: String::new(),
+            household_kind: String::new(),
+            local_role: String::new(),
+            service_id: String::new(),
+            organization_id: organization_id.into(),
+            conversation_id: "organization-representative".into(),
+        }
+    }
+
+    fn presence(id: u64, settlement_id: &str, location_id: &str) -> db::SettlementResidentPresence {
+        db::SettlementResidentPresence {
+            character_id: id,
+            settlement_id: settlement_id.into(),
+            location_id: location_id.into(),
+            start_minute: 0,
+            end_minute: adventuresim_world_schema::calendar::MINUTES_PER_DAY as u16,
+            is_default: true,
+            context_suppressed: false,
+            health_suppressed: false,
+        }
+    }
+
+    #[test]
+    fn standalone_exact_representative_blocks_direct_apprenticeship() {
+        let id = adventuresim_core::organization::organization_representative_id(
+            "viabundus-0",
+            "physicians_college",
+        );
+        let representative = representative(id, "viabundus-0", "physicians_college");
+        let presences = [presence(
+            id,
+            "viabundus-0",
+            "organization-physicians-college",
+        )];
+        assert!(exact_apprenticeship_representative_present(
+            Some(&representative),
+            &presences,
+            id,
+            "viabundus-0",
+            "physicians_college",
+            "organization-physicians-college",
+        ));
+    }
+
+    #[test]
+    fn missing_or_wrong_presence_keeps_the_direct_fallback_available() {
+        let id = adventuresim_core::organization::organization_representative_id(
+            "viabundus-0",
+            "merchant_guild",
+        );
+        let representative = representative(id, "viabundus-0", "merchant_guild");
+        assert!(!exact_apprenticeship_representative_present(
+            Some(&representative),
+            &[],
+            id,
+            "viabundus-0",
+            "merchant_guild",
+            "market",
+        ));
+        assert!(!exact_apprenticeship_representative_present(
+            Some(&representative),
+            &[presence(id, "viabundus-0", "forge")],
+            id,
+            "viabundus-0",
+            "merchant_guild",
+            "market",
+        ));
+    }
+}
+
+#[cfg(test)]
+mod bestiary_quest_presentation_tests {
+    use super::*;
+
+    fn quest(opposition_wording: &str, description: &str) -> BackendContract {
+        BackendContract {
+            id: "q".into(),
+            case_id: "case:q".into(),
+            title: "Problem".into(),
+            description: description.into(),
+            difficulty: 2,
+            gold_reward: 40,
+            xp_reward: 20,
+            settlement_id: "s".into(),
+            service_id: "inn".into(),
+            issuer_resident_character_id: 0,
+            status: ContractStatus::Offered,
+            accepted_by: None,
+            opposition_wording: opposition_wording.into(),
+            opposition_count_wording: "perhaps several".into(),
+            opposition_count: 0,
+            opposition_combat_power: 0,
+            accepted_at_minute: None,
+            paid_at_minute: None,
+            distance_m: 0,
+        }
+    }
+
+    #[test]
+    fn shared_service_never_substitutes_its_old_fixed_threat_or_location() {
+        let alp = quest("alp", "Sleepers report an unseen visitor.");
+        let hound = quest("spectral_hound", "A black hound haunts the road.");
+        let alp_details = service_quest_details("inn", &alp, "A", "B");
+        let hound_details = service_quest_details("inn", &hound, "A", "B");
+        assert!(alp_details.contains("unseen visitor"));
+        assert!(hound_details.contains("black hound"));
+        assert!(!alp_details.contains("goblin") && !hound_details.contains("goblin"));
+    }
 }

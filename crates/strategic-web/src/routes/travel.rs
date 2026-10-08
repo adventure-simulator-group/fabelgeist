@@ -1,16 +1,14 @@
 //! Strategic travel view models and road-network routing.
 
 use std::{
-    collections::{BinaryHeap, HashMap, HashSet, VecDeque},
+    collections::{HashMap, VecDeque},
     sync::{Arc, Mutex},
     time::{Duration, Instant},
 };
 
 use adventuresim_core::{
     strategic_schedule::DailySchedule,
-    strategic_time::{
-        ItineraryMember, ItinerarySegment, OVERLAND_WALKING_SPEED_KM_PER_HOUR, forecast_itinerary,
-    },
+    strategic_time::{ItineraryMember, ItinerarySegment, forecast_itinerary},
 };
 use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::Deserialize;
@@ -18,50 +16,14 @@ use serde::Deserialize;
 use crate::spacetimedb::{
     BackendContract, CharacterAttributes, CharacterLimbs, CharacterStats, CharacterTime,
     CharacterTrainingSchedule, DestinationKnowledgeStage, PartyView, ScheduleAllocation,
-    SettlementView, SpacetimeClient,
+    SettlementView,
 };
+pub(crate) use topology::{TRAVEL_EDGE_CACHE, connected_destinations};
+mod selected_terrain;
+mod topology;
 
 const TERRAIN_PLAN_TIMEOUT: Duration = Duration::from_secs(10);
 const TERRAIN_PLAN_CACHE_ENTRIES: usize = 128;
-static TRAVEL_EDGE_CACHE: tokio::sync::OnceCell<Arc<Vec<TravelEdgeTopology>>> =
-    tokio::sync::OnceCell::const_new();
-
-#[derive(Clone, Copy)]
-pub(crate) struct TravelEdgeTopology {
-    from_node_id: u64,
-    to_node_id: u64,
-    length_m: u32,
-}
-
-pub(crate) async fn cached_travel_edges(
-    db: &SpacetimeClient,
-) -> Option<Arc<Vec<TravelEdgeTopology>>> {
-    match TRAVEL_EDGE_CACHE
-        .get_or_try_init(|| async {
-            db.query_sats::<adventuresim_stdb_client::TravelEdge>("SELECT * FROM travel_edge")
-                .await
-                .map(|edges| {
-                    Arc::new(
-                        edges
-                            .into_iter()
-                            .map(|edge| TravelEdgeTopology {
-                                from_node_id: edge.from_node_id,
-                                to_node_id: edge.to_node_id,
-                                length_m: edge.length_m,
-                            })
-                            .collect(),
-                    )
-                })
-        })
-        .await
-    {
-        Ok(edges) => Some(Arc::clone(edges)),
-        Err(error) => {
-            tracing::warn!(%error, "failed to load travel edge cache");
-            None
-        }
-    }
-}
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 struct TerrainPlanKey {
@@ -72,6 +34,94 @@ struct TerrainPlanKey {
     ground_moisture_bps: u16,
     snow_cover_bps: u16,
     snow_check_millirank: u16,
+}
+
+/// Derived routes for one immutable terrain package. Keys include weather
+/// and skill inputs; bounded eviction or dropping the planner invalidates them.
+#[derive(Default)]
+struct TerrainPlanCache {
+    plans: HashMap<TerrainPlanKey, adventuresim_terrain::RoutePlan>,
+    order: VecDeque<TerrainPlanKey>,
+}
+
+/// Bounded async facade around the CPU-heavy, synchronous terrain planner.
+/// At most two plans run concurrently and successful normalized routes are
+/// cached for the life of the immutable terrain package.
+pub struct TerrainPlanner {
+    pub(super) pack: Arc<adventuresim_terrain::TerrainPack>,
+    permits: Arc<tokio::sync::Semaphore>,
+    cache: Mutex<TerrainPlanCache>,
+}
+
+#[derive(Debug, Default, Deserialize)]
+pub struct TravelForm {}
+
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct TravelProvisionForecast {
+    pub planning_minutes: u64,
+    pub living_members: u32,
+    pub food_days: f32,
+    pub water_days: f32,
+    pub ordinary_water_days: f32,
+    pub emergency_alcohol_days: f32,
+    pub emergency_alcohol_hydration_ml: u32,
+    pub food_reserve_kcal: f32,
+    pub water_reserve_ml: f32,
+    pub ration_count: u32,
+    pub waterskin_count: u32,
+    pub ration_kcal: f32,
+    pub waterskin_capacity_ml: u32,
+    pub rations_to_buy: u32,
+    pub waterskins_to_buy: u32,
+}
+
+#[derive(Clone)]
+pub struct TravelCampForecast {
+    pub fatigue_percent: u8,
+    pub camp_stop_minutes: Vec<u64>,
+}
+
+#[derive(Clone)]
+pub struct TravelDestination {
+    pub id: String,
+    pub name: String,
+    pub description: String,
+    pub summary: Option<String>,
+    pub travel_action: String,
+    pub track_action: Option<String>,
+    pub tracked: bool,
+    pub distance_m: u64,
+    pub journey_minutes: u64,
+    /// Cumulative minutes for server-derived camp forecasts.
+    pub camp_stop_minutes: Vec<u64>,
+    pub camp_forecasts: Vec<TravelCampForecast>,
+    pub departure_minute: StrategicMinute,
+    pub itinerary_total_elapsed_minutes: u64,
+    pub itinerary_segments: Vec<ItinerarySegment>,
+    /// Whether travel planning includes an estimated return to the origin.
+    pub round_trip_destination: bool,
+    pub case_site_knowledge: Option<CaseSiteKnowledgePresentation>,
+    pub active_contract_destination: bool,
+    pub provision_forecast: Option<TravelProvisionForecast>,
+    pub terrain_route: Option<adventuresim_terrain::RoutePlan>,
+    pub return_terrain_route: Option<adventuresim_terrain::RoutePlan>,
+    pub uses_straight_line_estimate: bool,
+}
+
+pub(crate) struct ItineraryForecastSources<'a> {
+    pub(crate) party_members: &'a [u64],
+    pub(crate) attributes: &'a [CharacterAttributes],
+    pub(crate) limbs: &'a [CharacterLimbs],
+    pub(crate) stats: &'a [CharacterStats],
+    pub(crate) times: &'a [CharacterTime],
+    pub(crate) schedules: &'a [CharacterTrainingSchedule],
+    pub(crate) party: &'a PartyView,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CaseSiteKnowledgePresentation {
+    ReportedExactLocation,
+    VisitedCaseSite,
 }
 
 impl TerrainPlanKey {
@@ -98,23 +148,6 @@ impl TerrainPlanKey {
             snow_check_millirank,
         }
     }
-}
-
-/// Derived routes for one immutable terrain package. Keys include weather
-/// and skill inputs; bounded eviction or dropping the planner invalidates them.
-#[derive(Default)]
-struct TerrainPlanCache {
-    plans: HashMap<TerrainPlanKey, adventuresim_terrain::RoutePlan>,
-    order: VecDeque<TerrainPlanKey>,
-}
-
-/// Bounded async facade around the CPU-heavy, synchronous terrain planner.
-/// At most two plans run concurrently and successful normalized routes are
-/// cached for the life of the immutable terrain package.
-pub struct TerrainPlanner {
-    pub(super) pack: Arc<adventuresim_terrain::TerrainPack>,
-    permits: Arc<tokio::sync::Semaphore>,
-    cache: Mutex<TerrainPlanCache>,
 }
 
 impl TerrainPlanner {
@@ -235,61 +268,6 @@ impl TerrainPlanner {
     }
 }
 
-fn river_or_wet_ground(center: adventuresim_terrain::Cell, water_samples: usize) -> bool {
-    center.surface == adventuresim_terrain::Surface::Wetland
-        || center.wetland_fraction_percent > 0
-        || (1..4).contains(&water_samples)
-}
-
-pub(crate) fn active_contract_summary(contract: &BackendContract) -> String {
-    format!(
-        "Active quest · {} {}",
-        contract.opposition_count_wording, contract.opposition_wording
-    )
-}
-
-pub(crate) fn active_contract_tooltip(contract: &BackendContract) -> String {
-    format!(
-        "{}\n{}",
-        contract.description,
-        active_contract_summary(contract)
-    )
-}
-
-#[derive(Debug, Default, Deserialize)]
-pub struct TravelForm {}
-
-#[derive(Clone, Debug, Default, PartialEq)]
-pub struct TravelProvisionForecast {
-    pub planning_minutes: u64,
-    pub living_members: u32,
-    pub food_days: f32,
-    pub water_days: f32,
-    pub ordinary_water_days: f32,
-    pub emergency_alcohol_days: f32,
-    pub emergency_alcohol_hydration_ml: u32,
-    pub food_reserve_kcal: f32,
-    pub water_reserve_ml: f32,
-    pub ration_count: u32,
-    pub waterskin_count: u32,
-    pub ration_kcal: f32,
-    pub waterskin_capacity_ml: u32,
-    pub rations_to_buy: u32,
-    pub waterskins_to_buy: u32,
-}
-
-#[derive(Clone)]
-pub struct TravelCampForecast {
-    pub fatigue_percent: u8,
-    pub camp_stop_minutes: Vec<u64>,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum CaseSiteKnowledgePresentation {
-    ReportedExactLocation,
-    VisitedCaseSite,
-}
-
 impl CaseSiteKnowledgePresentation {
     pub fn from_stage(stage: DestinationKnowledgeStage) -> Option<Self> {
         match stage {
@@ -311,33 +289,6 @@ impl CaseSiteKnowledgePresentation {
     }
 }
 
-#[derive(Clone)]
-pub struct TravelDestination {
-    pub id: String,
-    pub name: String,
-    pub description: String,
-    pub summary: Option<String>,
-    pub travel_action: String,
-    pub track_action: Option<String>,
-    pub tracked: bool,
-    pub distance_m: u64,
-    pub journey_minutes: u64,
-    /// Cumulative minutes for server-derived camp forecasts.
-    pub camp_stop_minutes: Vec<u64>,
-    pub camp_forecasts: Vec<TravelCampForecast>,
-    pub departure_minute: StrategicMinute,
-    pub itinerary_total_elapsed_minutes: u64,
-    pub itinerary_segments: Vec<ItinerarySegment>,
-    /// Whether travel planning includes an estimated return to the origin.
-    pub round_trip_destination: bool,
-    pub case_site_knowledge: Option<CaseSiteKnowledgePresentation>,
-    pub active_contract_destination: bool,
-    pub provision_forecast: Option<TravelProvisionForecast>,
-    pub terrain_route: Option<adventuresim_terrain::RoutePlan>,
-    pub return_terrain_route: Option<adventuresim_terrain::RoutePlan>,
-    pub uses_straight_line_estimate: bool,
-}
-
 impl TravelDestination {
     pub fn forecast_minutes(&self) -> u64 {
         if self.round_trip_destination {
@@ -348,6 +299,21 @@ impl TravelDestination {
             self.journey_minutes
         }
     }
+}
+
+pub(crate) fn active_contract_summary(contract: &BackendContract) -> String {
+    format!(
+        "Active quest · {} {}",
+        contract.opposition_count_wording, contract.opposition_wording
+    )
+}
+
+pub(crate) fn active_contract_tooltip(contract: &BackendContract) -> String {
+    format!(
+        "{}\n{}",
+        contract.description,
+        active_contract_summary(contract)
+    )
 }
 
 pub(crate) fn settlement_destination(
@@ -436,34 +402,6 @@ pub(crate) async fn apply_terrain_route(
     }
 }
 
-/// Calculate a camp forecast from the same pure fatigue function used by the
-/// strategic reducer. The first leg uses current fatigue; later legs assume
-/// the leader takes the recommended full-fatigue camp rest.
-fn camp_schedule(allocation: &ScheduleAllocation) -> DailySchedule {
-    DailySchedule {
-        reading_minutes: 0,
-        combat_training_minutes: allocation.combat_training_minutes,
-        carousing_minutes: allocation.carousing_minutes,
-        socializing_minutes: allocation.socializing_minutes,
-        apprenticeship_minutes: allocation.apprenticeship_minutes,
-        profession_practice_minutes: allocation.profession_practice_minutes,
-        labor: 0,
-        prayer: allocation.prayer_minutes,
-        thievery: 0,
-        raiding: 0,
-    }
-}
-
-pub(crate) struct ItineraryForecastSources<'a> {
-    pub(crate) party_members: &'a [u64],
-    pub(crate) attributes: &'a [CharacterAttributes],
-    pub(crate) limbs: &'a [CharacterLimbs],
-    pub(crate) stats: &'a [CharacterStats],
-    pub(crate) times: &'a [CharacterTime],
-    pub(crate) schedules: &'a [CharacterTrainingSchedule],
-    pub(crate) party: &'a PartyView,
-}
-
 pub(crate) fn populate_itinerary_forecasts(
     destinations: &mut [TravelDestination],
     sources: ItineraryForecastSources<'_>,
@@ -526,85 +464,28 @@ pub(crate) fn populate_itinerary_forecasts(
     }
 }
 
-pub(crate) fn connected_destinations(
-    origin: &SettlementView,
-    settlements: &[SettlementView],
-    edges: &[TravelEdgeTopology],
-) -> Vec<TravelDestination> {
-    let Some(origin_node) = origin.source_node_id else {
-        return settlements
-            .iter()
-            .filter(|settlement| settlement.id != origin.id)
-            .cloned()
-            .map(|settlement| {
-                let distance_km = ((origin.longitude - settlement.longitude).powi(2)
-                    + (origin.latitude - settlement.latitude).powi(2))
-                .sqrt()
-                .ceil() as u64;
-                let distance_m = distance_km.saturating_mul(1_000);
-                settlement_destination(settlement, distance_m, journey_minutes(distance_m))
-            })
-            .collect();
-    };
-    let settlement_nodes: HashSet<u64> = settlements
-        .iter()
-        .filter_map(|settlement| settlement.source_node_id)
-        .collect();
-    let settlements_by_node: HashMap<u64, &SettlementView> = settlements
-        .iter()
-        .filter_map(|settlement| settlement.source_node_id.map(|node| (node, settlement)))
-        .collect();
-    let mut adjacency: HashMap<u64, Vec<(u64, u32)>> = HashMap::new();
-    for edge in edges {
-        adjacency
-            .entry(edge.from_node_id)
-            .or_default()
-            .push((edge.to_node_id, edge.length_m));
-        adjacency
-            .entry(edge.to_node_id)
-            .or_default()
-            .push((edge.from_node_id, edge.length_m));
-    }
-    let mut distances = HashMap::from([(origin_node, 0_u64)]);
-    let mut pending = BinaryHeap::from([std::cmp::Reverse((0_u64, origin_node))]);
-    let mut destinations = Vec::new();
-    while let Some(std::cmp::Reverse((distance_m, node))) = pending.pop() {
-        if distances
-            .get(&node)
-            .is_some_and(|known| *known != distance_m)
-        {
-            continue;
-        }
-        if node != origin_node && settlement_nodes.contains(&node) {
-            if let Some(settlement) = settlements_by_node.get(&node) {
-                destinations.push(settlement_destination(
-                    (*settlement).clone(),
-                    distance_m,
-                    journey_minutes(distance_m),
-                ));
-            }
-            continue;
-        }
-        for (neighbor, edge_length_m) in adjacency.get(&node).into_iter().flatten() {
-            let next_distance = distance_m.saturating_add(u64::from(*edge_length_m));
-            if distances
-                .get(neighbor)
-                .is_none_or(|known| next_distance < *known)
-            {
-                distances.insert(*neighbor, next_distance);
-                pending.push(std::cmp::Reverse((next_distance, *neighbor)));
-            }
-        }
-    }
-    destinations.sort_by_key(|destination| destination.distance_m);
-    destinations
+fn river_or_wet_ground(center: adventuresim_terrain::Cell, water_samples: usize) -> bool {
+    center.surface == adventuresim_terrain::Surface::Wetland
+        || center.wetland_fraction_percent > 0
+        || (1..4).contains(&water_samples)
 }
 
-fn journey_minutes(distance_m: u64) -> u64 {
-    distance_m
-        .saturating_mul(60)
-        .div_ceil(OVERLAND_WALKING_SPEED_KM_PER_HOUR * 1_000)
-        .max(1)
+/// Calculate a camp forecast from the same pure fatigue function used by the
+/// strategic reducer. The first leg uses current fatigue; later legs assume
+/// the leader takes the recommended full-fatigue camp rest.
+fn camp_schedule(allocation: &ScheduleAllocation) -> DailySchedule {
+    DailySchedule {
+        reading_minutes: 0,
+        combat_training_minutes: allocation.combat_training_minutes,
+        carousing_minutes: allocation.carousing_minutes,
+        socializing_minutes: allocation.socializing_minutes,
+        apprenticeship_minutes: allocation.apprenticeship_minutes,
+        profession_practice_minutes: allocation.profession_practice_minutes,
+        labor: 0,
+        prayer: allocation.prayer_minutes,
+        thievery: 0,
+        raiding: 0,
+    }
 }
 
 #[cfg(test)]
@@ -719,8 +600,19 @@ mod tests {
 
     #[test]
     fn walking_time_rounds_up_to_a_minute() {
-        assert_eq!(journey_minutes(1), 1);
-        assert_eq!(journey_minutes(5_000), 60);
+        let origin = settlement("origin", 1);
+        let destination = settlement("destination", 2);
+        for (length_m, expected_minutes) in [(1, 1), (5_000, 60)] {
+            let edges = [topology::TravelEdgeTopology {
+                from_node_id: 1,
+                to_node_id: 2,
+                length_m,
+            }];
+            let destinations =
+                connected_destinations(&origin, std::slice::from_ref(&destination), &edges);
+            assert_eq!(destinations.len(), 1);
+            assert_eq!(destinations[0].journey_minutes, expected_minutes);
+        }
     }
 
     #[test]
