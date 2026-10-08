@@ -1,7 +1,7 @@
 //! The MHR body model: identity, pose and expression parameters in, posed
 //! mesh vertices and a skeleton state out.
 
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 use anyhow::{Context, Result, bail};
 use burn::tensor::ops::IndexingUpdateOp;
@@ -11,6 +11,9 @@ use crate::character::{Character, PARAMETERS_PER_JOINT};
 use crate::correctives::PoseCorrectives;
 use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
 use crate::skel_state;
+
+mod asset_directory;
+pub use asset_directory::MhrAssetDirectoryError;
 
 /// Shape coefficients: 20 body, 20 head, 5 hands.
 pub const NUM_IDENTITY_BLEND_SHAPES: usize = 45;
@@ -97,21 +100,6 @@ pub struct Mhr {
     correctives: Option<PoseCorrectives>,
 }
 
-/// Accepts either the asset directory itself or its parent.
-fn resolve_asset_dir(path: &Path) -> Result<PathBuf> {
-    if path.join(MODEL_DEFINITION).is_file() {
-        return Ok(path.to_path_buf());
-    }
-    let nested = path.join("assets");
-    if nested.join(MODEL_DEFINITION).is_file() {
-        return Ok(nested);
-    }
-    bail!(
-        "no MHR assets in {}: expected {MODEL_DEFINITION} there or under assets/",
-        path.display()
-    )
-}
-
 impl Mhr {
     /// Loads MHR through `fabelgeist-fs`, including `prism://project`, HTTP/blob,
     /// browser File System Access handles, and native filesystem paths.
@@ -159,20 +147,20 @@ impl Mhr {
         if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
             bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
         }
-        let dir = resolve_asset_dir(asset_dir.as_ref())?;
+        let directory = Self::resolve_asset_directory(asset_dir.as_ref())?;
 
-        let fbx_path = dir.join(format!("lod{}.fbx", config.lod));
+        let fbx_path = directory.join(format!("lod{}.fbx", config.lod));
         let fbx =
             std::fs::read(&fbx_path).with_context(|| format!("reading {}", fbx_path.display()))?;
         let character = Character::from_fbx_bytes(&fbx, true)
             .with_context(|| format!("loading {}", fbx_path.display()))?;
-        let definition_path = dir.join(MODEL_DEFINITION);
+        let definition_path = directory.join(MODEL_DEFINITION);
         let definition = std::fs::read_to_string(&definition_path)
             .with_context(|| format!("reading {}", definition_path.display()))?;
         let correctives = if config.pose_correctives {
             PoseCorrectives::load(
-                &dir.join(CORRECTIVE_ACTIVATION),
-                &dir.join(format!("corrective_blendshapes_lod{}.npz", config.lod)),
+                &directory.join(CORRECTIVE_ACTIVATION),
+                &directory.join(format!("corrective_blendshapes_lod{}.npz", config.lod)),
                 character.skeleton.len(),
                 character.mesh.vertices.len(),
                 device,
