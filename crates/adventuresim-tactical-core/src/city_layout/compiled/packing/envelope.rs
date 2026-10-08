@@ -12,20 +12,20 @@ impl super::super::super::packing::MeasuredBuildingEnvelope {
             .collision
             .ground_floor_footprint()
             .map_err(|issue| CityCompileError::Packing {
-                property: CityPropertyId(building.id),
+                property: CityPropertyId(building.id.0),
                 issue: CityPackingIssue::InvalidBearing {
                     building: building.id,
                     issue,
                 },
             })?
             .ok_or(CityCompileError::Packing {
-                property: CityPropertyId(building.id),
+                property: CityPropertyId(building.id.0),
                 issue: CityPackingIssue::MissingBearing {
                     building: building.id,
                 },
             })?;
         let invalid = |issue| CityCompileError::Packing {
-            property: CityPropertyId(building.id),
+            property: CityPropertyId(building.id.0),
             issue: CityPackingIssue::InvalidBearing {
                 building: building.id,
                 issue,
@@ -44,12 +44,16 @@ impl super::super::super::packing::MeasuredBuildingEnvelope {
         Ok(Self {
             building: building.id,
             bearing_outline,
-            body: CityPlotBounds {
-                centre_metres: building.centre_metres
-                    + building.orientation.local_to_world((min + max) * 0.5),
-                dimensions_metres: max - min,
-                orientation: building.orientation,
-            },
+            body: CityPlotBounds::new(
+                crate::scene_coordinates::ScenePlanPoint::try_from(
+                    building.centre_metres.metres()
+                        + building.orientation.local_to_world((min + max) * 0.5),
+                )?,
+                adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                    max - min,
+                )?,
+                building.orientation,
+            )?,
         })
     }
 }

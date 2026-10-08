@@ -15,10 +15,10 @@ values from being interchanged. Existing `ScenePlanPoint`, `PlanDisplacement`,
 `SupportElevation` and `BuildingOrientation` retain their respective plan,
 support and orientation authority.
 
-Orientation decoding requires the existing canonical interval `[-pi, pi)`.
-The frontage constructor retains its normalization and `atan2` arithmetic; its
-exact positive-pi result, possible with a negative-zero component, is changed
-to negative pi. The former result failed `is_valid`. Other admitted represented
+Orientation decoding requires the existing canonical interval `[-pi, pi)`. The
+frontage constructor retains its normalization and `atan2` arithmetic; its exact
+positive-pi result, possible with a negative-zero component, is changed to
+negative pi. The former result failed `is_valid`. Other admitted represented
 orientations retain their bits. Validated orientation reflection is opaque.
 
 | Owner | Coordinates and datum |
@@ -49,12 +49,36 @@ explicit inverse for admitted scene points.
 which preserves opening and source identities, both hinge positions, leaf
 dimensions, directions and signed sweep. Its native rotation preserves the
 established quaternion product at the renderer and physics boundaries. The
-leaf's yaw is the corresponding finite scalar representation. Both values
-are private and exposed through read-only accessors so callers cannot change
-one independently. `SceneDoor` carries the scene pose needed by the transient
+leaf's yaw is the corresponding finite scalar representation. Both values are
+private and exposed through read-only accessors so callers cannot change one
+independently. `SceneDoor` carries the scene pose needed by the transient
 server; decoding validates its point, positive dimensions and normalized
 directions and reports the building/opening identity with the construction
 cause.
+
+`WindowSpec<Architectural>` converts only through
+`CollisionCentreDatum::window`, producing `SceneWindowPose`. Its private leaf
+and native rotation remain paired through read-only accessors, preserving the
+origin subtraction, quaternion product and translation order. Source/opening
+identities, hinge, dimensions, signed swing and fixed bar presence survive
+conversion. Bars remain part of the static building geometry. The replicated
+`SceneWindow` carries admitted scene positions/directions and positive leaf
+dimensions; decoding applies the same leaf admission. Geometry admission errors
+retain the building and opening identity. This is the selected shared conversion
+handoff under #767, coordinated by #765. Physical building and geographic
+support identities follow the [grounding contracts](grounding-contracts.md).
+
+`SceneBuildingId` is the shared identity of an installed physical building and
+its door/window leaves. Opening identities reuse the generator's
+`OpeningAssemblyId`; both keep their native numeric wire representation. Source
+placement numbers are admitted when scene components are installed.
+`WindowBarPresence` describes fixed bars separately from mutable controller
+state and serializes directly as the named `bars` enum. Property, geographic and
+support-query identities follow the [grounding
+contracts](grounding-contracts.md).
+
+Scene input validation and city compilation reuse their owning result aliases.
+Geometry, collision and opening errors keep distinct aliases at shared handoffs.
 
 Boundary walls and caps use ground-relative poses; gate posts use gate-relative
 poses. The member enum declares the datum before rendering or support metadata
@@ -63,10 +87,10 @@ clearance consumers use the same eight-corner/twelve-edge topology in their
 declared frame. Broad-phase placement envelopes retain their original
 arithmetic; exact architectural datum-contact exclusion uses computed corners.
 
-The wider scene identity, geographic source, elevation and support-policy
-inventory in issue #767 consumes these final owners. It must preserve this
-handoff and use explicit admitted conversions for additional producers. The
-generator must remain independent of tactical core.
+Scene identity, geographic source, elevation and support policies reuse these
+owners and explicit admitted conversions. The [grounding
+contracts](grounding-contracts.md) describe the producer handoffs. The generator
+remains independent of tactical core.
 
 Generated browser assets are keyed by the SHA-256 digest of the production
 WebAssembly executable and the cache format. Changes to constructors, adapters

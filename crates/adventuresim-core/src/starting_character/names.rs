@@ -7,13 +7,14 @@ use adventuresim_world_schema::person_names::{
     render_personal_name,
 };
 use adventuresim_world_schema::{Culture, Sex, calendar::StrategicMinute};
+use fabelgeist_determinism::Seed;
 
-const DEFAULT_PERSONAL_NAME_SEED: u64 = 0xd3fa_1544_0000_0001;
+const DEFAULT_PERSONAL_NAME_SEED: Seed = Seed::from_u64(0xd3fa_1544_0000_0001);
 
 fn historical_name(
     sex: Sex,
     age_years: u16,
-    stable_seed: u64,
+    stable_seed: Seed,
     profession: Option<StartingProfession>,
 ) -> PersonalNameIdentity {
     let mut context = NameGenerationContext::german_lutheran(
@@ -31,11 +32,11 @@ fn historical_name(
     ) {
         context.education = NameEducation::Literate;
     }
-    generate_personal_name(context, NameStableSeed::new(stable_seed), None)
+    generate_personal_name(context, NameStableSeed::from(stable_seed), None)
         .expect("the build-validated German repertoire covers the MVP period")
 }
 
-pub(super) fn assign(spec: &mut StartingCharacterSpec, stable_seed: u64) {
+pub(super) fn assign(spec: &mut StartingCharacterSpec, stable_seed: Seed) {
     spec.name_identity = historical_name(
         spec.personality.sex,
         spec.age_years,
@@ -119,7 +120,7 @@ mod tests {
                 recorded_form: "Historical Form".into(),
             },
             native_culture: Culture::German,
-            form_selector: NameFormSelectionSeed::new(0),
+            form_selector: NameFormSelectionSeed::new(fabelgeist_determinism::Seed::from_u64(0)),
             surname_id: None,
         };
         assert_eq!(

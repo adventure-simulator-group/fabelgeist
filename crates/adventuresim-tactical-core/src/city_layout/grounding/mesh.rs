@@ -12,20 +12,99 @@ mod union;
 /// Indexed metre-space surfaces. Each retaining face has distinct vertices on
 /// both levels; no averaging can lift an adjacent occupied floor.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(try_from = "SupportMeshWire")]
 pub struct PropertySupportMesh {
-    pub property_id: CityPropertyId,
-    pub member_building_ids: Vec<u64>,
-    pub positions: Vec<Vec3>,
-    pub support_triangles: Vec<[u32; 3]>,
-    pub retaining_triangles: Vec<[u32; 3]>,
+    pub(super) property_id: CityPropertyId,
+    pub(super) member_building_ids: Vec<crate::scene_input::SceneBuildingId>,
+    pub(super) positions: Vec<Vec3>,
+    pub(super) support_triangles: Vec<[u32; 3]>,
+    pub(super) retaining_triangles: Vec<[u32; 3]>,
     pub(super) contact_tolerance_metres: f32,
 }
 
+#[derive(Deserialize)]
+struct SupportMeshWire {
+    property_id: CityPropertyId,
+    member_building_ids: Vec<crate::scene_input::SceneBuildingId>,
+    positions: Vec<Vec3>,
+    support_triangles: Vec<[u32; 3]>,
+    retaining_triangles: Vec<[u32; 3]>,
+    contact_tolerance_metres: f32,
+}
+
+impl TryFrom<SupportMeshWire> for PropertySupportMesh {
+    type Error = SupportSurfaceAdmissionError;
+    fn try_from(wire: SupportMeshWire) -> Result<Self, Self::Error> {
+        let mesh = Self {
+            property_id: wire.property_id,
+            member_building_ids: wire.member_building_ids,
+            positions: wire.positions,
+            support_triangles: wire.support_triangles,
+            retaining_triangles: wire.retaining_triangles,
+            contact_tolerance_metres: wire.contact_tolerance_metres,
+        };
+        mesh.validate_geometry()
+            .map_err(|issue| SupportSurfaceAdmissionError::for_mesh(&mesh, issue))?;
+        Ok(mesh)
+    }
+}
+
 impl PropertySupportMesh {
+    pub fn property_id(&self) -> CityPropertyId {
+        self.property_id
+    }
+    pub fn member_building_ids(&self) -> &[crate::scene_input::SceneBuildingId] {
+        &self.member_building_ids
+    }
+    /// Finite native scene-metre vertices at the mesh upload/physics boundary.
+    pub fn positions(&self) -> &[Vec3] {
+        &self.positions
+    }
+    pub fn support_triangles(&self) -> &[[u32; 3]] {
+        &self.support_triangles
+    }
+    pub fn retaining_triangles(&self) -> &[[u32; 3]] {
+        &self.retaining_triangles
+    }
+    fn validate_geometry(&self) -> Result<(), SupportSurfaceIssue> {
+        if self.property_id.0 == 0
+            || self.member_building_ids.is_empty()
+            || self
+                .member_building_ids
+                .iter()
+                .enumerate()
+                .any(|(i, id)| id.0 == 0 || self.member_building_ids[..i].contains(id))
+        {
+            return Err(SupportSurfaceIssue::Members);
+        }
+        if !self.contact_tolerance_metres.is_finite()
+            || self.contact_tolerance_metres <= 0.0
+            || self.positions.iter().any(|p| !p.is_finite())
+        {
+            return Err(SupportSurfaceIssue::Bounds);
+        }
+        if self.positions.len() > u32::MAX as usize
+            || self.support_triangles.is_empty()
+            || self
+                .support_triangles
+                .iter()
+                .chain(&self.retaining_triangles)
+                .any(|t| {
+                    t.iter().any(|i| *i as usize >= self.positions.len())
+                        || t[0] == t[1]
+                        || t[1] == t[2]
+                        || t[2] == t[0]
+                })
+        {
+            return Err(SupportSurfaceIssue::Topology);
+        }
+        Ok(())
+    }
+
     /// The same support and retaining triangles used by physical traversal.
     /// This surface collider does not establish a finite foundation volume.
-    pub fn collider(&self) -> avian3d::prelude::Collider {
-        avian3d::prelude::Collider::trimesh(
+    pub fn collider(&self) -> Result<avian3d::prelude::Collider, SupportColliderError> {
+        avian3d::prelude::Collider::try_trimesh(
             self.positions.clone(),
             self.support_triangles
                 .iter()
@@ -33,6 +112,11 @@ impl PropertySupportMesh {
                 .copied()
                 .collect(),
         )
+        .map_err(|cause| SupportColliderError::Surface {
+            property: self.property_id,
+            members: self.member_building_ids.clone(),
+            cause,
+        })
     }
 
     pub(super) fn quad(
@@ -108,8 +192,16 @@ impl PropertySupportMesh {
                 let v = ab.perp_dot(ap) / determinant;
                 let tolerance = self.contact_tolerance_metres * ab.length().max(ac.length())
                     / determinant.abs();
-                (u >= -tolerance && v >= -tolerance && u + v <= 1.0 + tolerance)
-                    .then_some(SupportElevation(a.y + (b.y - a.y) * u + (c.y - a.y) * v))
+                if !(u >= -tolerance && v >= -tolerance && u + v <= 1.0 + tolerance) {
+                    return None;
+                }
+                let height = a.y + (b.y - a.y) * u + (c.y - a.y) * v;
+                SupportElevation::from_metres(height).or_else(|| {
+                    let height = f64::from(a.y)
+                        + (f64::from(b.y) - f64::from(a.y)) * f64::from(u)
+                        + (f64::from(c.y) - f64::from(a.y)) * f64::from(v);
+                    SupportElevation::from_metres(height as f32)
+                })
             })
             .collect::<Vec<_>>();
         heights.sort_by(|a, b| a.metres().total_cmp(&b.metres()));
@@ -142,9 +234,9 @@ impl PropertySupportMesh {
             positions: Vec::new(),
             support_triangles: Vec::new(),
             retaining_triangles: Vec::new(),
-            contact_tolerance_metres: plan.limits.contact_tolerance_metres,
+            contact_tolerance_metres: plan.limits.contact_tolerance_metres.metres(),
         }
     }
 }
 
-mod grid;
+pub(super) mod grid;

@@ -22,7 +22,7 @@ mod terraces;
 #[derive(serde::Deserialize)]
 struct TerrainStages {
     input_digest: String,
-    source_digest: String,
+    source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest,
     ungraded_vista: adventuresim_tactical_core::scene_input::VistaSample,
 }
 
@@ -53,7 +53,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut recipes = GeneratedBuildingRecipes::default();
     let mut records = Vec::new();
     for building in &generated.buildings {
-        if !request.building_id.is_empty() && !request.building_id.contains(&building.placement.id)
+        if !request.building_id.is_empty()
+            && !request.building_id.contains(&building.placement.id.0)
         {
             continue;
         }
@@ -63,16 +64,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             &mut recipes,
             building.placement.id,
             &building.placement.program,
-            building.placement.centre_metres,
+            building.placement.centre_metres.metres(),
             building.placement.orientation,
-            building.placement.base_elevation_metres,
+            building.placement.base_elevation_metres.metres(),
             "playable",
         )?);
     }
     for building in &input.distant_buildings {
-        if (!request.building_id.is_empty() && request.building_id.contains(&building.id))
+        if (!request.building_id.is_empty() && request.building_id.contains(&building.id.0))
             || (request.building_id.is_empty()
-                && building.centre_metres.length() <= request.radius_metres)
+                && building.centre_metres.metres().length() <= request.radius_metres)
         {
             records.push(inspect(
                 &input,
@@ -80,9 +81,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 &mut recipes,
                 building.id,
                 &building.occupied_program(),
-                building.centre_metres,
+                building.centre_metres.metres(),
                 building.orientation,
-                building.base_elevation_metres,
+                building.base_elevation_metres.metres(),
                 "distant",
             )?);
         }
@@ -159,7 +160,7 @@ impl Inspection {
                 rear,
                 height(main).ok_or("main threshold leaves terrain")?,
                 height,
-                adventuresim_tactical_core::scene_input::MAX_PLAYABLE_GRADE,
+                adventuresim_tactical_core::scene::TerrainGradeLimit::PLAYABLE.ratio(),
             )?
             .ok_or_else(|| {
                 format!(
@@ -198,7 +199,7 @@ impl Inspection {
             proposed,
             &footprint::vista_triangles(lod, vista.lods.get(1), &raw, compound.plot.corners()),
             height,
-            adventuresim_tactical_core::scene_input::MAX_PLAYABLE_GRADE,
+            adventuresim_tactical_core::scene::TerrainGradeLimit::PLAYABLE.ratio(),
         )
         .ok_or("missing exact gate route or source coverage for support comparison")?;
         Ok(Some(comparison))
@@ -208,7 +209,7 @@ impl Inspection {
 fn threshold(
     input: &TacticalSceneInput,
     recipes: &mut GeneratedBuildingRecipes,
-    id: u64,
+    id: adventuresim_tactical_core::scene_input::SceneBuildingId,
     outward: Vec2,
 ) -> Result<Vec2, Box<dyn std::error::Error>> {
     let placement = member_placement(input, id)?;
@@ -222,12 +223,12 @@ fn threshold(
     let local = door.hinge_centre.metres().xz()
         + door.tangent.vector() * door.size_metres.metres().x * 0.5
         - recipe.collision.bounds.centre()?.metres().xz();
-    Ok(placement.centre_metres + placement.orientation.local_to_world(local))
+    Ok(placement.centre_metres.metres() + placement.orientation.local_to_world(local))
 }
 
 fn member_placement(
     input: &TacticalSceneInput,
-    id: u64,
+    id: adventuresim_tactical_core::scene_input::SceneBuildingId,
 ) -> Result<TacticalBuildingPlacement, Box<dyn std::error::Error>> {
     input
         .buildings
@@ -252,7 +253,7 @@ fn inspect(
     input: &TacticalSceneInput,
     terrain: &SceneTerrain,
     recipes: &mut GeneratedBuildingRecipes,
-    id: u64,
+    id: adventuresim_tactical_core::scene_input::SceneBuildingId,
     program: &BuildingProgram,
     centre: Vec2,
     orientation: BuildingOrientation,

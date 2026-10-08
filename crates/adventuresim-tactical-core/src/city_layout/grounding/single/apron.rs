@@ -17,38 +17,51 @@ pub(super) fn prepare(
             permitted,
         )
     };
-    if !door.outward.is_finite()
-        || (door.outward.length_squared() - 1.0).abs() > surface.limits.contact_tolerance_metres
+    if !door.outward.vector().is_finite()
+        || (door.outward.vector().length_squared() - 1.0).abs()
+            > surface.limits.contact_tolerance_metres.metres()
     {
         return Err(reject(
             SupportConstraint::ThresholdBinding,
-            door.threshold_metres,
+            door.threshold_metres.metres(),
             1.0,
             0.0,
         ));
     }
-    let direction = door.outward;
+    let direction = door.outward.vector();
     let tangent = Vec2::new(direction.y, -direction.x);
     let outside = planar::distance_outside(
-        door.threshold_metres.as_dvec2(),
+        door.threshold_metres.metres().as_dvec2(),
         &surface.clipping_outlines[0],
     ) as f32;
-    if outside > surface.limits.contact_tolerance_metres {
+    if outside > surface.limits.contact_tolerance_metres.metres() {
         return Err(reject(
             SupportConstraint::ThresholdBearing,
-            door.threshold_metres,
+            door.threshold_metres.metres(),
             outside,
-            surface.limits.contact_tolerance_metres,
+            surface.limits.contact_tolerance_metres.metres(),
         ));
     }
-    let edge = door.threshold_metres;
+    let edge = door.threshold_metres.metres();
     let width = request.policy.doorway_apron.dimensions_metres().x;
     let offset = tangent * width * 0.5;
     let private = vec![
         request.property.plot.corners().map(Vec2::as_dvec2).to_vec(),
         surface.clipping_outlines[0].clone(),
     ];
-    let mut regions = access_regions(request.property.plot, request.streets, edge);
+    let mut regions =
+        access_regions(request.property.plot, request.streets, edge).map_err(|cause| {
+            let mut error = surface.rejection(
+                SupportConstraint::Reservation,
+                SupportBoundary::FrontBearing,
+                edge,
+                1.0,
+                0.0,
+            );
+            error.construction_failure =
+                Some(Box::new(SupportConstructionError::FramedGeometry(cause)));
+            error
+        })?;
     regions.push(surface.clipping_outlines[0].clone());
     let internal_run = available_run(
         edge,
@@ -69,25 +82,19 @@ pub(super) fn prepare(
     // Keep a contact-sized natural strip at the approach boundary. Opposing
     // approaches must not acquire the same street support through f32 rounding.
     let run = (run - request.policy.limits.contact_tolerance_metres()).max(0.0);
-    let landing = request.policy.stairs.minimum_floor_landing_run_metres;
+    let landing = request
+        .policy
+        .stairs
+        .minimum_floor_landing_run_metres
+        .metres();
     if run <= landing {
-        return Err(reject(
-            SupportConstraint::StairClearance,
-            edge,
-            landing,
-            run,
-        ));
+        let mut error = reject(SupportConstraint::StairClearance, edge, run, landing);
+        error.violation = error.violation.with_bound(SupportBound::Minimum);
+        return Err(error);
     }
     let outer = edge + direction * run;
     let points = [outer - offset, outer + offset, edge + offset, edge - offset];
-    let mut source = [0.0; 2];
-    for i in 0..2 {
-        source[i] = request
-            .geographic
-            .elevation_at(points[i])
-            .ok_or_else(|| reject(SupportConstraint::SourceSample, points[i], 1.0, 0.0))?
-            .metres();
-    }
+    let source = source_pair(request, surface, [points[0], points[1]])?;
     Ok(PreparedApron {
         outer,
         direction,
@@ -123,12 +130,12 @@ impl PreparedApron {
         let width = self.offset.length() * 2.0;
         let across = (self.source[0] - self.source[1]).abs() / width;
         let ramp = available
-            * (policy.limits.maximum_grade.powi(2) - across.powi(2))
+            * (policy.limits.maximum_grade.ratio().powi(2) - across.powi(2))
                 .max(0.0)
                 .sqrt();
-        let steps = (available / policy.stairs.minimum_going_metres).floor()
-            * policy.stairs.maximum_riser_metres;
-        let rise = if across <= policy.limits.maximum_grade {
+        let steps = (available / policy.stairs.minimum_going_metres.metres()).floor()
+            * policy.stairs.maximum_riser_metres.metres();
+        let rise = if across <= policy.limits.maximum_grade.ratio() {
             ramp.max(steps)
         } else {
             0.0
@@ -174,12 +181,8 @@ impl PreparedApron {
         )?;
         let tangent = Vec2::new(direction.y, -direction.x);
         let width = offset.length() * 2.0;
-        let region = CityPlotBounds {
-            centre_metres: (outer + edge) * 0.5,
-            dimensions_metres: Vec2::new(width, run),
-            orientation: BuildingOrientation::from_frontage_tangent(tangent)
-                .expect("finite nonzero bound doorway/street axis"),
-        };
+        let region = (|| -> adventuresim_building_generator::spatial_geometry::GeometryResult<CityPlotBounds> { CityPlotBounds::new(crate::scene_coordinates::ScenePlanPoint::try_from((outer + edge) * 0.5)?,adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(Vec2::new(width, run))?,BuildingOrientation::from_frontage_tangent(tangent)
+                .ok_or(adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection)?) })().map_err(|cause| { let mut error = surface.rejection(SupportConstraint::Reservation, SupportBoundary::FrontBearing, outer, 1.0, 0.0); error.construction_failure = Some(Box::new(SupportConstructionError::FramedGeometry(cause))); error })?;
         surface
             .mesh
             .append_outside_floor(&mesh, &surface.clipping_outlines[0])?;
@@ -189,6 +192,39 @@ impl PreparedApron {
             .push(region.corners().map(Vec2::as_dvec2).to_vec());
         Ok(())
     }
+}
+
+/// Native clipping vertices enter the scene point frame before geographic queries.
+fn source_pair(
+    request: &SingleBuildingSupportRequest<'_>,
+    surface: &PropertySupportSurface,
+    points: [Vec2; 2],
+) -> Result<[f32; 2], SupportDiagnostic> {
+    let mut source = [0.0; 2];
+    for (index, point) in points.into_iter().enumerate() {
+        let rejection = || {
+            surface.rejection(
+                SupportConstraint::SourceSample,
+                SupportBoundary::StreetLanding,
+                point,
+                1.0,
+                0.0,
+            )
+        };
+        let admitted =
+            crate::scene_coordinates::ScenePlanPoint::try_from(point).map_err(|cause| {
+                let mut error = rejection();
+                error.construction_failure =
+                    Some(Box::new(SupportConstructionError::FramedGeometry(cause)));
+                error
+            })?;
+        source[index] = request
+            .geographic
+            .elevation_at(admitted)
+            .ok_or_else(rejection)?
+            .metres();
+    }
+    Ok(source)
 }
 
 #[cfg(test)]
@@ -206,8 +242,33 @@ mod constraint_tests {
             edge: Vec2::ZERO,
         };
         let policy = SinglePropertyGradingPolicy {
-            limits: SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
-            stairs: CourtStairLimits::new(0.19, 0.25, 1.0, 1.05, 0.5).unwrap(),
+            limits: SupportLimits::new(
+                crate::city_layout::grounding::SupportGrade::from_ratio(0.65).unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                    .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    0.001,
+                )
+                .unwrap(),
+            ),
+            stairs: CourtStairLimits::new(
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    0.19,
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    0.25,
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.0)
+                    .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    1.05,
+                )
+                .unwrap(),
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+                    .unwrap(),
+            ),
             embedment: FoundationEmbedment::from_metres(0.2).unwrap(),
             doorway_apron: crate::city_layout::StreetApronDimensions::from_metres(Vec2::new(
                 1.0, 4.0,

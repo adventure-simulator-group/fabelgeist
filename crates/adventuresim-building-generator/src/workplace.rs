@@ -12,6 +12,7 @@ use crate::{BuildingProgram, ResolvedItemId, ServiceBuildingSize, WallAssemblyId
 mod admission_tests;
 mod assembly;
 mod brewing;
+mod components;
 mod craft;
 mod envelope;
 mod equipment;

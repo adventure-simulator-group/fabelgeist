@@ -2,15 +2,18 @@ use super::*;
 
 #[test]
 fn approach_crosses_a_shared_street_segment_join_without_requiring_a_single_owner() {
-    let left = CityPlotBounds {
-        centre_metres: Vec2::new(-5.0, 0.0),
-        dimensions_metres: Vec2::new(10.0, 6.0),
-        orientation: BuildingOrientation::IDENTITY,
-    };
-    let right = CityPlotBounds {
-        centre_metres: Vec2::new(5.0, 0.0),
-        ..left
-    };
+    let left = CityPlotBounds::new(
+        crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(-5.0, 0.0)).unwrap(),
+        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(Vec2::new(
+            10.0, 6.0,
+        ))
+        .unwrap(),
+        BuildingOrientation::IDENTITY,
+    )
+    .unwrap();
+    let right = (left)
+        .relocated(crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(5.0, 0.0)).unwrap())
+        .unwrap();
     let outlines = |r: &[CityPlotBounds]| {
         r.iter()
             .map(|b| b.corners().map(Vec2::as_dvec2).to_vec())
@@ -35,10 +38,9 @@ fn approach_crosses_a_shared_street_segment_join_without_requiring_a_single_owne
         available_run(edge, direction, offset, &outlines(&[left]), 2.9, 0.001),
         0.0
     );
-    let gap = CityPlotBounds {
-        centre_metres: Vec2::new(5.1, 0.0),
-        ..right
-    };
+    let gap = (right)
+        .relocated(crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(5.1, 0.0)).unwrap())
+        .unwrap();
     assert_eq!(
         available_run(edge, direction, offset, &outlines(&[left, gap]), 2.9, 0.001),
         0.0
@@ -82,7 +84,7 @@ fn population_6500_seed_42_doorway_join_retains_its_full_near_street_approach() 
     let edge: Vec2 = serde_json::from_value(value["entrances"][0]["threshold"].clone()).unwrap();
     let direction: Vec2 = serde_json::from_value(value["entrances"][0]["outward"].clone()).unwrap();
     let footprint: Vec<Vec2> = serde_json::from_value(value["footprint"].clone()).unwrap();
-    let mut regions = access_regions(property.plot, &streets, edge);
+    let mut regions = access_regions(property.plot, &streets, edge).unwrap();
     regions.push(footprint.into_iter().map(Vec2::as_dvec2).collect());
     let offset = Vec2::new(direction.y, -direction.x) * 0.5;
     let run = available_run(edge, direction, offset, &regions, 4.0, 0.001);

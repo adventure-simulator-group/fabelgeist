@@ -1,4 +1,5 @@
 mod studio_scene;
+use fabelgeist_determinism::Seed;
 use studio_scene::{CreatorPanelRight, orbit_camera, setup};
 mod cli;
 use cli::Args;
@@ -107,7 +108,7 @@ struct Studio {
     status: String,
     recipe_path: String,
     glb_path: String,
-    seed: u64,
+    seed: Seed,
     selected_lod: u8,
     selected_correctives: bool,
     /// Where the catalog default designs are saved.
@@ -133,7 +134,7 @@ impl Studio {
             status: format!("MHR LOD {} ready", args.lod),
             recipe_path: args.recipe.display().to_string(),
             glb_path: args.glb.display().to_string(),
-            seed: 1544,
+            seed: Seed::from_u64(1544),
             selected_lod: args.lod,
             selected_correctives: false,
             design_paths: studio_ui::DesignPathInputs {

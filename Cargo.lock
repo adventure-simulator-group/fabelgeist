@@ -241,6 +241,7 @@ dependencies = [
 name = "adventuresim-stdb-client"
 version = "0.1.0"
 dependencies = [
+ "fabelgeist-determinism",
  "spacetimedb-sdk",
 ]
 
@@ -376,6 +377,7 @@ dependencies = [
  "bevy",
  "bevy_enhanced_input",
  "bevy_replicon",
+ "fabelgeist-determinism",
  "serde",
  "serde_json",
 ]
@@ -449,6 +451,7 @@ dependencies = [
  "bevy_egui",
  "clap",
  "console_error_panic_hook",
+ "fabelgeist-determinism",
  "image",
  "js-sys",
  "serde",
@@ -4914,8 +4917,12 @@ name = "fabelgeist-determinism"
 version = "0.1.0"
 dependencies = [
  "blake3",
+ "rand 0.8.8",
  "rand 0.9.5",
  "rand_xoshiro",
+ "serde",
+ "serde_json",
+ "spacetimedb-sats",
  "wasm-bindgen-test",
 ]
 

@@ -187,7 +187,7 @@ mod tests {
         let program = BuildingProgram::validated_settlement(
             BuildingArchetype::Workplace,
             BuildingUse::Bakehouse,
-            101,
+            fabelgeist_determinism::Seed::from_u64(101),
             Some(ServiceBuildingSize::Small),
         )
         .unwrap();

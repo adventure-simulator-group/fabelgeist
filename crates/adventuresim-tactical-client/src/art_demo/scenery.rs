@@ -50,7 +50,10 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     if id == ExhibitId::Oak {
         spawn_oak(world, &input, &generated, &environment)?;
     }
-    let colliders = generated.terrain.colliders();
+    let colliders = generated
+        .terrain
+        .colliders()
+        .map_err(|error| error.to_string())?;
     world
         .spawn((
             SceneId(input.scene_key.clone()),

@@ -8,7 +8,7 @@ use super::*;
 pub struct CompoundSupportRequest<'a> {
     pub property: &'a CityCompound,
     pub observations: CompoundSupportLevels,
-    pub street_threshold_metres: Vec2,
+    pub street_threshold_metres: crate::scene_coordinates::ScenePlanPoint,
     pub street_apron: CityPlotBounds,
     pub geographic: &'a GeographicSurface,
     pub limits: SupportLimits,
@@ -38,26 +38,36 @@ impl CompoundSupportRequest<'_> {
                 .access
                 .iter()
                 .find(|route| route.ends_at(member.court_threshold_metres))
-                .expect("level plan validated a unique threshold route")
+                .ok_or_else(|| {
+                    SupportDiagnostic::new(
+                        self.property,
+                        SupportConstraint::ThresholdBinding,
+                        SupportBoundary::CourtLanding,
+                        member.court_threshold_metres.metres(),
+                        0.0,
+                        1.0,
+                    )
+                })
         };
         let front_reach = self
             .stairs
-            .maximum_rise_metres(route(self.observations.front), self.limits);
+            .maximum_rise_metres(route(self.observations.front)?, self.limits);
         let rear_reach = self
             .stairs
-            .maximum_rise_metres(route(self.observations.rear), self.limits);
+            .maximum_rise_metres(route(self.observations.rear)?, self.limits);
         if front_reach <= 0.0 || rear_reach <= 0.0 {
             let mut error = SupportDiagnostic::new(
                 self.property,
                 SupportConstraint::AccessGrade,
                 SupportBoundary::CourtLanding,
-                self.property.court.centre_metres,
+                self.property.court.centre_metres(),
                 (self.observations.front.elevation.metres() - self.observations.court.metres())
                     .abs(),
                 front_reach.min(rear_reach).max(0.0),
             );
-            error.attempted_treatment =
-                SupportGradingAttempt::Compound(CourtTreatment::Terraced(self.stairs));
+            error.attempted_treatment = Box::new(SupportGradingAttempt::Compound(
+                CourtTreatment::Terraced(self.stairs),
+            ));
             return Err(error);
         }
         let mut levels = observations;

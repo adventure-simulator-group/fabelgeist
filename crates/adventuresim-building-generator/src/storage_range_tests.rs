@@ -3,7 +3,7 @@ use bevy::math::Vec2;
 
 #[test]
 fn storage_range_has_one_usable_nonresidential_level_and_normal_door() {
-    for seed in [42, 47, 101] {
+    for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
         let program = BuildingProgram::fixture(BuildingArchetype::StorageRange, seed);
         let plan = generate(&program).unwrap();
         assert_eq!(program.usage, None);
@@ -48,7 +48,7 @@ fn storage_range_has_one_usable_nonresidential_level_and_normal_door() {
 
 #[test]
 fn merchant_ground_floor_has_an_operable_court_exit() {
-    for seed in [42, 47, 101] {
+    for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
             seed,

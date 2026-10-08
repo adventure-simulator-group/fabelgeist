@@ -13,19 +13,34 @@ pub(super) fn read(
     };
     let policy = CompoundGradingPolicy {
         limits: SupportLimits::new(
-            number("maximum_grade")?,
-            number("maximum_displacement_m")?,
-            number("contact_tolerance_m")?,
-        )
-        .ok_or("invalid support bounds")?,
+            adventuresim_tactical_core::city_layout::grounding::SupportGrade::from_ratio(number(
+                "maximum_grade",
+            )?)
+            .ok_or("invalid support grade")?,
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                number("maximum_displacement_m")?,
+            )?,
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                number("contact_tolerance_m")?,
+            )?,
+        ),
         stairs: CourtStairLimits::new(
-            number("maximum_riser_m")?,
-            number("minimum_going_m")?,
-            number("clear_stair_width_m")?,
-            number("endpoint_landing_run_m")?,
-            number("court_landing_run_m")?,
-        )
-        .ok_or("invalid stair bounds")?,
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                number("maximum_riser_m")?,
+            )?,
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                number("minimum_going_m")?,
+            )?,
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                number("clear_stair_width_m")?,
+            )?,
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                number("endpoint_landing_run_m")?,
+            )?,
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                number("court_landing_run_m")?,
+            )?,
+        ),
         embedment: FoundationEmbedment::from_metres(number("foundation_embedment_m")?)
             .ok_or("invalid embedment")?,
         street_apron: StreetApronDimensions::from_metres(serde_json::from_value::<Vec2>(

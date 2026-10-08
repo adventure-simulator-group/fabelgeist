@@ -1,3 +1,4 @@
+
 struct IncidentSpec<'a> {
     kind: IncidentKind,
     title: &'a str,
@@ -228,7 +229,7 @@ fn create_strategic_incident(
         id_key: incident_id.value.clone(),
         id: incident_id.clone(),
         source_id,
-        action_token: format!("{:016x}{:016x}", ctx.random::<u64>(), ctx.random::<u64>()),
+        action_token: format!("{:016x}{:016x}", ctx.random::<Seed>(), ctx.random::<Seed>()),
         party_id: party_id.into(),
         settlement_id: settlement.id.clone(),
         instigator_id,
@@ -298,7 +299,7 @@ fn maybe_trigger_religious_incident(
     let Some((instigator_id, instigator_fervor)) = instigator else {
         return Ok(None);
     };
-    let roll = fabelgeist_determinism::StreamId::new("incident.fervor").rng(ctx.random(), &[instigator_id]).unit_f32();
+    let roll = fabelgeist_determinism::StreamId::new("incident.fervor").rng(ctx.random::<Seed>(), &[instigator_id]).unit_f32();
     if !fervor_event_occurs(instigator_fervor, roll) {
         return Ok(None);
     }
@@ -373,7 +374,7 @@ pub(crate) fn maybe_trigger_activity_incident(
     {
         row.seed
     } else {
-        let seed = ctx.random::<u64>();
+        let seed = ctx.random::<Seed>();
         ctx.db
             .activity_incident_entropy()
             .insert(ActivityIncidentEntropy {

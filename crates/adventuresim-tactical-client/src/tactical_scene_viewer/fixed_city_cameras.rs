@@ -43,7 +43,7 @@ struct Document {
     /// Frozen eye-height pose; scene-performance uses its established 80° FOV.
     benchmark: Option<Camera>,
     /// Explicit physical members to inspect with the production playable LODs.
-    playable_building_ids: Vec<u64>,
+    playable_building_ids: Vec<adventuresim_tactical_core::scene_input::SceneBuildingId>,
 }
 
 #[derive(Resource)]

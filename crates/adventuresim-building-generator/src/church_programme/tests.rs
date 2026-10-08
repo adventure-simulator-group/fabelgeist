@@ -1,7 +1,8 @@
 use super::*;
 use crate::*;
+use fabelgeist_determinism::Seed;
 
-fn principal(seed: u64) -> BuildingProgram {
+fn principal(seed: Seed) -> BuildingProgram {
     BuildingProgram::settlement(
         BuildingArchetype::ParishChurch,
         Some(BuildingUse::ParishChurch),
@@ -12,7 +13,7 @@ fn principal(seed: u64) -> BuildingProgram {
 
 #[test]
 fn principal_parish_has_a_distinct_supported_programme_in_every_representation() {
-    for seed in [42, 47, 101] {
+    for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
         let program = principal(seed);
         let validated = BuildingProgram::validated_settlement(
             program.archetype,
@@ -78,7 +79,7 @@ fn principal_parish_has_a_distinct_supported_programme_in_every_representation()
 
 #[test]
 fn principal_programme_rejects_missing_or_corrupt_authority() {
-    let mut programme = principal(42);
+    let mut programme = principal(fabelgeist_determinism::Seed::from_u64(42));
     programme.footprint = Footprint::Rectangle {
         width: 20,
         depth: 14,
@@ -87,25 +88,25 @@ fn principal_programme_rejects_missing_or_corrupt_authority() {
         generate(&programme).unwrap_err(),
         GenerationError::InvalidChurchProgram
     );
-    let mut programme = principal(42);
+    let mut programme = principal(fabelgeist_determinism::Seed::from_u64(42));
     programme.church_program = None;
     assert_eq!(
         generate(&programme).unwrap_err(),
         GenerationError::InvalidChurchProgram
     );
-    let mut programme = principal(42);
+    let mut programme = principal(fabelgeist_determinism::Seed::from_u64(42));
     programme.church_program.as_mut().unwrap().nave_bays = 3;
     assert_eq!(
         generate(&programme).unwrap_err(),
         GenerationError::InvalidChurchProgram
     );
-    let mut programme = principal(42);
+    let mut programme = principal(fabelgeist_determinism::Seed::from_u64(42));
     programme.usage = Some(BuildingUse::Chapel);
     assert_eq!(
         generate(&programme).unwrap_err(),
         GenerationError::InvalidChurchProgram
     );
-    let mut plan = generate(&principal(42)).unwrap();
+    let mut plan = generate(&principal(fabelgeist_determinism::Seed::from_u64(42))).unwrap();
     plan.church = None;
     assert!(
         audit_plan(&plan)
@@ -117,7 +118,7 @@ fn principal_programme_rejects_missing_or_corrupt_authority() {
 
 #[test]
 fn principal_tower_rejects_missing_bearing_and_landing() {
-    let plan = generate(&principal(42)).unwrap();
+    let plan = generate(&principal(fabelgeist_determinism::Seed::from_u64(42))).unwrap();
     let tower = &plan.church.as_ref().unwrap().tower;
     let mut no_bearing = plan.clone();
     no_bearing

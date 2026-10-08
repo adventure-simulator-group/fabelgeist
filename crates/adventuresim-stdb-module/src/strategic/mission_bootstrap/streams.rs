@@ -1,4 +1,5 @@
 //! Named random purposes owned by this generator. Names are part of its replay contract.
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 pub(super) const ACCEPTANCE: StreamId = StreamId::new("quest.acceptance");
@@ -16,7 +17,7 @@ pub(super) const ROLE: StreamId = StreamId::new("recruiting-party.role");
 pub(super) const QUEST_COUNT: StreamId = StreamId::new("settlement.quest-count");
 pub(super) const RECRUITING_PARTY_COUNT: StreamId = StreamId::new("settlement.recruiting-party-count");
 
-pub(super) fn recruiting_role(seed: u64) -> adventuresim_core::capability::RoleRequirements {
+pub(super) fn recruiting_role(seed: Seed) -> adventuresim_core::capability::RoleRequirements {
     let mut requirements = adventuresim_core::capability::RoleRequirements::default();
     let mut random = ROLE.rng(seed, &[]);
     if random.boolean() {
@@ -33,7 +34,7 @@ pub(super) fn recruiting_role(seed: u64) -> adventuresim_core::capability::RoleR
     requirements
 }
 
-pub(super) fn site_bearing(seed: u64, site_id: &str) -> f64 {
+pub(super) fn site_bearing(seed: Seed, site_id: &str) -> f64 {
     fabelgeist_determinism::Seed::derive(
         &seed.to_le_bytes(),
         SITE_BEARING,

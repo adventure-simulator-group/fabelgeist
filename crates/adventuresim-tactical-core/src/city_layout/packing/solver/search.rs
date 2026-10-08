@@ -128,7 +128,7 @@ impl<'a> BlockSearch<'a> {
                     self.domains[candidates[index].domain.index()]
                         .proposed
                         .reservation
-                        .centre_metres
+                        .centre_metres()
                         .as_dvec2()
                         .dot(tangent.as_dvec2())
                 };

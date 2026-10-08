@@ -1,5 +1,6 @@
 //! Pure food-lot, spoilage, meal, and cooking rules.
 
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 pub const MAX_MEAL_FULLNESS_KCAL: f32 = 3_000.0;
@@ -309,7 +310,7 @@ pub fn definition(id: &str) -> Option<&'static FoodDefinition> {
     FOOD_CATALOG.iter().find(|food| food.id == id)
 }
 
-pub fn deterministic_initial_contamination(seed: u64) -> f32 {
+pub fn deterministic_initial_contamination(seed: Seed) -> f32 {
     let unit = fabelgeist_determinism::StreamId::new("food.initial-contamination")
         .rng(seed, &[])
         .unit_f64();
@@ -558,7 +559,7 @@ mod tests {
     use super::*;
     #[test]
     fn starting_load_is_deterministic_log_bounded() {
-        for seed in 0..10_000 {
+        for seed in (0..10_000).map(fabelgeist_determinism::Seed::from_u64) {
             let x = deterministic_initial_contamination(seed);
             assert!((MIN_INITIAL_CONTAMINATION..=MAX_INITIAL_CONTAMINATION).contains(&x));
             assert_eq!(x, deterministic_initial_contamination(seed));

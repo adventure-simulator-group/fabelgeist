@@ -1,3 +1,5 @@
+use fabelgeist_determinism::Seed;
+
 // Owns schedule validation, location eligibility, training, and reading policy.
 #[derive(Clone, Debug)]
 struct ActivityExecutionLocation {
@@ -69,7 +71,7 @@ fn location_activity(activity: ImmediateActivity) -> Option<LocationActivity> {
 pub(crate) fn effective_location_schedule(
     schedule: &ScheduleAllocation,
     location: ActivityLocation,
-    redistribution_seed: u64,
+    redistribution_seed: Seed,
 ) -> ScheduleAllocation {
     let mut effective = schedule.clone();
     let redistributed = adventuresim_core::strategic_schedule::ValidatedSchedule::try_from(core_schedule(schedule))

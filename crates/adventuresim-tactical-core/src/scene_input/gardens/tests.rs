@@ -13,7 +13,10 @@ fn explicit_garden_audit_checks_detailed_geometry() {
     let mut generated = input.generate().unwrap();
     input.audit_garden_clearance(&generated).unwrap();
     generated.buildings[0].placement.centre_metres =
-        input.gardens[0].cultivated_bounds.centre_metres;
+        crate::scene_coordinates::ScenePlanPoint::try_from(
+            input.gardens[0].cultivated_bounds.centre_metres(),
+        )
+        .unwrap();
     assert!(input.audit_garden_clearance(&generated).is_err());
 }
 
@@ -22,22 +25,34 @@ fn garden_input_rejects_missing_ownership_and_escape_from_property() {
     let input = fixture();
     input.validate().unwrap();
     let mut broken = input.clone();
-    broken.gardens[0].front_building_id += 1;
+    broken.gardens[0].front_building_id.0 += 1;
     assert!(broken.validate().is_err());
     let mut broken = input.clone();
-    broken.buildings[0].centre_metres += Vec2::splat(30.0);
+    broken.buildings[0].centre_metres = broken.buildings[0]
+        .centre_metres
+        .translated(
+            crate::scene_coordinates::PlanDisplacement::try_from(Vec2::splat(30.0)).unwrap(),
+        )
+        .unwrap();
     assert!(broken.generate().is_err());
     let mut broken = input.clone();
     let plot = broken.gardens[0].plot;
-    broken.gardens[0].access[0].end_metres.x =
-        plot.centre_metres.x + plot.dimensions_metres.x * 0.5 - 0.01;
+    let route = &mut broken.gardens[0].access[0];
+    route
+        .update_endpoints(
+            route.start(),
+            crate::scene_coordinates::ScenePlanPoint::try_from(bevy::math::Vec2::new(
+                plot.centre_metres().x + plot.dimensions_metres().x * 0.5 - 0.01,
+                route.end_metres().y,
+            ))
+            .unwrap(),
+        )
+        .unwrap();
     assert!(broken.validate().is_err());
     let mut broken = input.clone();
     broken.gardens.push(broken.gardens[0].clone());
     assert!(broken.validate().is_err());
-    let mut broken = input;
-    broken.gardens[0].plants[0].scale = crate::city_layout::GardenPlantScale::new(f32::NAN);
-    assert!(broken.validate().is_err());
+    assert!(crate::city_layout::GardenPlantScale::new(f32::NAN).is_none());
 }
 
 fn rebind(input: TacticalSceneInput) -> TacticalSceneInput {
@@ -99,13 +114,16 @@ fn sloped_garden_preserves_soil_relief_and_binds_each_retained_root() {
     .unwrap();
     let generated = input.generate().unwrap();
     let garden = &generated.gardens[0];
-    assert_eq!(garden.garden, input.gardens[0]);
-    assert_eq!(garden.plant_support.len(), garden.garden.plants.len());
-    for (plant, support) in garden.garden.plants.iter().zip(&garden.plant_support) {
+    assert_eq!(garden.garden(), &input.gardens[0]);
+    assert_eq!(garden.plant_support().len(), garden.garden().plants.len());
+    for (plant, support) in garden.garden().plants.iter().zip(garden.plant_support()) {
         assert_eq!(plant.id, support.plant_id);
         assert!(
             (support.elevation.metres()
-                - generated.terrain.height_at(plant.centre_metres).unwrap())
+                - generated
+                    .terrain
+                    .height_at(plant.centre_metres.metres())
+                    .unwrap())
             .abs()
                 < 0.001
         );
@@ -116,14 +134,24 @@ fn sloped_garden_preserves_soil_relief_and_binds_each_retained_root() {
                 < 0.001
         );
     }
-    assert!(garden.plant_support.iter().any(|root| {
-        (root.elevation.metres() - generated.buildings[0].placement.base_elevation_metres).abs()
+    assert!(garden.plant_support().iter().any(|root| {
+        (root.elevation.metres()
+            - generated.buildings[0]
+                .placement
+                .base_elevation_metres
+                .metres())
+        .abs()
             > 0.1
     }));
-    for point in garden.garden.cultivated_bounds.corners() {
+    for point in garden.garden().cultivated_bounds.corners() {
         assert!(
             (generated.terrain.height_at(point).unwrap()
-                - source.elevation_at(point).unwrap().metres())
+                - source
+                    .elevation_at(
+                        crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()
+                    )
+                    .unwrap()
+                    .metres())
             .abs()
                 < 0.001
         );
@@ -132,10 +160,10 @@ fn sloped_garden_preserves_soil_relief_and_binds_each_retained_root() {
         }
     }
     assert!(generated.furniture.instances.iter().all(|item| {
-        !garden
-            .garden
-            .cultivated_bounds
-            .contains(Vec2::new(item.position_metres.x, item.position_metres.z))
+        !garden.garden.cultivated_bounds.contains(Vec2::new(
+            item.position_metres.metres().x,
+            item.position_metres.metres().z,
+        ))
     }));
     let encoded = serde_json::to_vec(garden).unwrap();
     let restored: SceneGarden = serde_json::from_slice(&encoded).unwrap();
@@ -147,19 +175,57 @@ fn move_first_property(mut input: TacticalSceneInput, offset: Vec2) -> TacticalS
     input.distant_buildings.clear();
     input.streets.truncate(1);
     input.yards.truncate(3);
-    input.buildings[0].centre_metres += offset;
+    input.buildings[0].centre_metres = input.buildings[0]
+        .centre_metres
+        .translated(crate::scene_coordinates::PlanDisplacement::try_from(offset).unwrap())
+        .unwrap();
     let garden = &mut input.gardens[0];
-    garden.plot.centre_metres += offset;
-    garden.cultivated_bounds.centre_metres += offset;
+    garden
+        .plot
+        .relocate(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                garden.plot.centre_metres() + (offset),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+    garden
+        .cultivated_bounds
+        .relocate(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                garden.cultivated_bounds.centre_metres() + (offset),
+            )
+            .unwrap(),
+        )
+        .unwrap();
     for bed in &mut garden.beds {
-        bed.centre_metres += offset;
+        bed.relocate(
+            crate::scene_coordinates::ScenePlanPoint::try_from(bed.centre_metres() + (offset))
+                .unwrap(),
+        )
+        .unwrap();
     }
     for route in &mut garden.access {
-        route.start_metres += offset;
-        route.end_metres += offset;
+        route
+            .update_endpoints(
+                crate::scene_coordinates::ScenePlanPoint::try_from(route.start_metres() + (offset))
+                    .unwrap(),
+                route.end(),
+            )
+            .unwrap();
+        route
+            .update_endpoints(
+                route.start(),
+                crate::scene_coordinates::ScenePlanPoint::try_from(route.end_metres() + (offset))
+                    .unwrap(),
+            )
+            .unwrap();
     }
     for plant in &mut garden.plants {
-        plant.centre_metres += offset;
+        plant.centre_metres = plant
+            .centre_metres
+            .translated(crate::scene_coordinates::PlanDisplacement::try_from(offset).unwrap())
+            .unwrap();
     }
     for yard in &mut input.yards {
         for point in &mut yard.corners_metres {
@@ -189,11 +255,11 @@ fn straddling_garden_roots_follow_the_same_stitched_soil_inside_and_outside_play
             .garden
             .plants
             .iter()
-            .any(|plant| plant.centre_metres.y > 50.0)
+            .any(|plant| plant.centre_metres.metres().y > 50.0)
     );
     let projected = SceneGarden::project(input.gardens[0].clone(), &generated.terrain).unwrap();
     assert_eq!(generated.gardens[0], projected);
-    for support in &projected.plant_support {
+    for support in projected.plant_support() {
         let point = projected
             .garden
             .plants
@@ -202,7 +268,8 @@ fn straddling_garden_roots_follow_the_same_stitched_soil_inside_and_outside_play
             .unwrap()
             .centre_metres;
         assert!(
-            (support.elevation.metres() - generated.terrain.height_at(point).unwrap()).abs()
+            (support.elevation.metres() - generated.terrain.height_at(point.metres()).unwrap())
+                .abs()
                 < 0.001
         );
     }
@@ -243,11 +310,19 @@ fn distant_garden_projection_retains_roots_membership_and_horizontal_geometry() 
         "distant owner retains presentation authority"
     );
     let projected = SceneGarden::project(input.gardens[0].clone(), &generated.terrain).unwrap();
-    assert_eq!(projected.garden, accepted);
-    for (plant, support) in projected.garden.plants.iter().zip(&projected.plant_support) {
+    assert_eq!(projected.garden(), &accepted);
+    for (plant, support) in projected
+        .garden()
+        .plants
+        .iter()
+        .zip(projected.plant_support())
+    {
         assert_eq!(plant.id, support.plant_id);
         assert!(
-            (generated.terrain.height_at(plant.centre_metres).unwrap()
+            (generated
+                .terrain
+                .height_at(plant.centre_metres.metres())
+                .unwrap()
                 - support.elevation.metres())
             .abs()
                 < 0.001

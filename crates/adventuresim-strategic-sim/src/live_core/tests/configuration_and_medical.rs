@@ -3,7 +3,7 @@ fn refuses_non_loopback_and_shared_database() {
     let mut config = CoreLoopConfig {
         host: "https://example.com".into(),
         database: "adventuresim-stdb-module".into(),
-        seed: 1,
+        seed: fabelgeist_determinism::Seed::from_u64(1),
         population: 2,
         cycles: 1,
         duration_days: 1,
@@ -61,7 +61,7 @@ fn dead_or_replaced_leader_is_never_a_policy_actor() {
 
 #[test]
 fn medical_rest_schedule_suspends_but_does_not_replace_profile_policy() {
-    let profile = generate_profile(42, 0);
+    let profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     let saved = live_schedule(&profile);
     let rest = medical_rest_schedule();
     assert_eq!(

@@ -21,7 +21,7 @@ fn production_compound_routes_allow_entry_thresholds_and_return() {
         &scene.obstacles,
         &scene.furniture,
     );
-    let terrain = scene.terrain.colliders();
+    let terrain = scene.terrain.colliders().unwrap();
     let mut buildings = scene.buildings;
     for distant in &input.distant_buildings {
         let placement = crate::scene_input::TacticalBuildingPlacement::from(*distant);
@@ -43,15 +43,19 @@ fn production_compound_routes_allow_entry_thresholds_and_return() {
         if selected.is_some_and(|id| property.id.0 != id) {
             continue;
         }
+        let gate = crate::scene_coordinates::ScenePlanPoint::try_from(
+            property.boundary.gate.centre_metres,
+        )
+        .unwrap();
         let passage = property
             .access
             .iter()
-            .find(|route| route.contains_centreline(property.boundary.gate.centre_metres))
+            .find(|route| route.contains_centreline(gate))
             .unwrap();
         let mut walker = gardens::occupied_walker(
-            passage.start_metres,
-            property.plot.centre_metres,
-            property.plot.dimensions_metres.length() + 6.0,
+            passage.start_metres(),
+            property.plot.centre_metres(),
+            property.plot.dimensions_metres().length() + 6.0,
             &scene.terrain,
             &terrain,
             &buildings,
@@ -61,17 +65,17 @@ fn production_compound_routes_allow_entry_thresholds_and_return() {
         );
         let targets = [
             property.boundary.gate.centre_metres,
-            passage.end_metres,
-            property.access[1].end_metres,
-            property.access[2].end_metres,
-            property.access[2].start_metres,
-            passage.end_metres,
-            property.access[3].end_metres,
-            property.access[4].end_metres,
-            property.access[4].start_metres,
-            passage.end_metres,
+            passage.end_metres(),
+            property.access[1].end_metres(),
+            property.access[2].end_metres(),
+            property.access[2].start_metres(),
+            passage.end_metres(),
+            property.access[3].end_metres(),
+            property.access[4].end_metres(),
+            property.access[4].start_metres(),
+            passage.end_metres(),
             property.boundary.gate.centre_metres,
-            passage.start_metres,
+            passage.start_metres(),
         ];
         let mut visits = Vec::new();
         for (index, target) in targets.into_iter().enumerate() {

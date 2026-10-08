@@ -1,8 +1,9 @@
 //! Canonical candidate ordering and proportional integer-weighted draws.
 use super::*;
+use fabelgeist_determinism::Seed;
 
 pub(super) fn choose<T: Copy>(
-    seed: u64,
+    seed: Seed,
     module: &str,
     relation: &str,
     candidates: &[Candidate<T>],
@@ -57,7 +58,7 @@ pub(super) fn choose<T: Copy>(
 }
 
 pub(super) fn weighted_order<T: Copy>(
-    seed: u64,
+    seed: Seed,
     domain: &str,
     candidates: &[Candidate<T>],
 ) -> Result<Vec<usize>, GenerationError> {
@@ -151,7 +152,7 @@ mod tests {
         ];
         let reverse = [forward[2].clone(), forward[1].clone(), forward[0].clone()];
         let mut common = 0;
-        for seed in 0..4096 {
+        for seed in (0..4096).map(fabelgeist_determinism::Seed::from_u64) {
             let mut left_trace = vec![];
             let mut right_trace = vec![];
             let left = choose(seed, "fixture", "relation", &forward, &mut left_trace).unwrap();
@@ -183,7 +184,11 @@ mod tests {
     fn duplicate_identity_is_an_error_even_when_one_copy_is_excluded() {
         let candidates = [candidate("same", 1), candidate("same", 0)];
         assert!(matches!(
-            weighted_order(7, "fixture", &candidates),
+            weighted_order(
+                fabelgeist_determinism::Seed::from_u64(7),
+                "fixture",
+                &candidates
+            ),
             Err(GenerationError::InvalidManifest(_))
         ));
     }
@@ -195,7 +200,11 @@ mod tests {
                 candidate
             });
         assert!(matches!(
-            weighted_order(7, "fixture", &candidates),
+            weighted_order(
+                fabelgeist_determinism::Seed::from_u64(7),
+                "fixture",
+                &candidates
+            ),
             Err(GenerationError::Sampling(
                 fabelgeist_determinism::SamplingError::WeightOverflow
             ))

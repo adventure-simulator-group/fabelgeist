@@ -52,7 +52,7 @@ pub struct SimulationRun {
     #[unique]
     pub nonce: String,
     pub owner: Identity,
-    pub policy_seed: u64,
+    pub policy_seed: fabelgeist_determinism::Seed,
     pub claimed_micros: i64,
 }
 
@@ -205,7 +205,7 @@ pub fn claim_simulation_run(
     ctx: &ReducerContext,
     bootstrap_token: String,
     nonce: String,
-    policy_seed: u64,
+    policy_seed: fabelgeist_determinism::Seed,
 ) -> Result<(), String> {
     // This check must remain first: a normal production build cannot reveal
     // or depend on database freshness through this public reducer.

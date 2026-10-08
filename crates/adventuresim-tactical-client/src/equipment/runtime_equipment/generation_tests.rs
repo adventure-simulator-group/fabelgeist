@@ -35,7 +35,7 @@ fn character_key(id: u64) -> FitKey {
         shape: BodyShapeKey::new(
             &[],
             Some(id),
-            CharacterProportions::from_character_id(id),
+            CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(id)),
             Default::default(),
         ),
         item: "vambrace".into(),

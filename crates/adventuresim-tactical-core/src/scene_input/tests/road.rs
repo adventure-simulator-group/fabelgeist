@@ -17,9 +17,7 @@ fn goslar_road_rut_preserves_the_cross_runtime_source_vertex() {
         &[],
     )
     .unwrap();
-    let seed = streams::DETAIL
-        .seed(3_918_113_949_425_128_608, &[])
-        .to_u64();
+    let seed = streams::DETAIL.seed(3_918_113_949_425_128_608.into(), &[]);
     let relief = road_surface_relief(
         Vec2::new(-43.5, -39.5),
         &ground,

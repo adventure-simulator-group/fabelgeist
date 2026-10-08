@@ -186,7 +186,7 @@ mod tests {
 
     #[test]
     fn gable_lod_faces_preserve_actual_timber_corners_finish_and_grain() {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let plan = generate(&BuildingProgram::fixture(
                 BuildingArchetype::FachwerkMerchantHouse,
                 seed,
@@ -250,7 +250,11 @@ mod tests {
             BuildingArchetype::FachwerkCottage,
             BuildingArchetype::HallHouse,
         ] {
-            let mut plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+            let mut plan = generate(&BuildingProgram::fixture(
+                archetype,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ))
+            .unwrap();
             let frame = plan.timber_frame.as_mut().unwrap();
             frame.bays.retain(|bay| {
                 plan.wall_assemblies.iter().any(|wall| {
@@ -311,7 +315,11 @@ mod tests {
 
     #[test]
     fn half_hip_does_not_project_its_inset_truss_onto_the_gable() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::HallHouse, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         let mut lod = BuildingLod {
             level: BuildingLodLevel::Shell,
             facade_runs: vec![],

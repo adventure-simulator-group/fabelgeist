@@ -6,7 +6,7 @@ use adventuresim_world_schema::settlement_buildings::ServiceCapacity;
 #[test]
 fn service_capacity_bands_reserve_workplace_plots_before_siting() {
     let graph = CitySite::central_german_market_town()
-        .street_graph(42, DevelopmentExtent::for_population(40_000));
+        .street_graph((42).into(), DevelopmentExtent::for_population(40_000));
     let candidates = graph
         .blocks
         .iter()
@@ -15,7 +15,7 @@ fn service_capacity_bands_reserve_workplace_plots_before_siting() {
             block_is_inside_city(*block, DevelopmentExtent::for_population(40_000))
                 && !block.is_market()
         })
-        .flat_map(|block| block_lots(42, block))
+        .flat_map(|block| block_lots((42).into(), block))
         .collect::<Vec<_>>();
     let mut demand = Vec::new();
     for usage in [BuildingUse::Stable, BuildingUse::Dyer] {
@@ -41,7 +41,7 @@ fn service_capacity_bands_reserve_workplace_plots_before_siting() {
         }
     }
     let (placed, unplaced) =
-        services::place_services(42, 6_500, &graph.blocks, &candidates, &demand);
+        services::place_services((42).into(), 6_500, &graph.blocks, &candidates, &demand);
     assert!(
         unplaced.is_empty(),
         "mixed service requests were lost: {unplaced:?}"
@@ -59,7 +59,7 @@ fn service_capacity_bands_reserve_workplace_plots_before_siting() {
         let program = BuildingProgram::settlement(
             settlement_archetype(request.usage()),
             Some(request.usage()),
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         )
         .with_service_size(size);
         assert_eq!(
@@ -98,7 +98,10 @@ fn service_capacity_bands_reserve_workplace_plots_before_siting() {
 
 #[test]
 fn generated_neighbourhoods_preserve_requested_churches_and_workplaces_with_resident_lots() {
-    for (seed, population) in [(42, 900), (101, 6_500)] {
+    for (seed, population) in [
+        (fabelgeist_determinism::Seed::from_u64(42), 900),
+        (fabelgeist_determinism::Seed::from_u64(101), 6_500),
+    ] {
         let demand = SettlementBuildingDemand::new(seed, population, &economy());
         let city = CitySite::central_german_market_town().generate(seed, population, &economy());
         assert!(city.unplaced_services.is_empty());

@@ -135,7 +135,7 @@ mod tests {
         assert_eq!(studio.revision, revision);
         assert_eq!(studio.applied, Some((revision, BakeResolution::Full)));
         let mut document = studio.document.clone();
-        document.texture.seed += 1;
+        document.texture.seed = document.texture.seed.wrapping_offset(1);
         studio.replace(document, 2.0);
         assert!(studio.revision > revision);
     }

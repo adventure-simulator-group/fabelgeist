@@ -1,8 +1,9 @@
+
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn run(
     archetype: BuildingArchetype,
     view: ViewerView,
-    seed: u64,
+    seed: Seed,
     output: Option<PathBuf>,
     settle_frames: u32,
     projected_kind: ProjectedProofKind,
@@ -12,14 +13,14 @@ pub(crate) fn run(
     player_build_document_path: Option<PathBuf>,
 ) {
     let seed = if view == ViewerView::ArtilleryBridgeDenied {
-        702
+        Seed::from_u64(702)
     } else if projected_view(view) {
         match (projected_kind, view) {
-            (ProjectedProofKind::Breteche, _) => 201,
-            (ProjectedProofKind::Hoarding, ViewerView::ProjectedSockets) => 42,
-            (ProjectedProofKind::Hoarding, _) => 202,
-            (ProjectedProofKind::Bartizan, _) => 203,
-            (ProjectedProofKind::Machicolation, _) => 42,
+            (ProjectedProofKind::Breteche, _) => Seed::from_u64(201),
+            (ProjectedProofKind::Hoarding, ViewerView::ProjectedSockets) => Seed::from_u64(42),
+            (ProjectedProofKind::Hoarding, _) => Seed::from_u64(202),
+            (ProjectedProofKind::Bartizan, _) => Seed::from_u64(203),
+            (ProjectedProofKind::Machicolation, _) => Seed::from_u64(42),
         }
     } else {
         seed

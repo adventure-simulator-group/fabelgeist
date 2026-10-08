@@ -11,20 +11,26 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
     // Reservations and member transforms come from the general geometry-aware
     // packing calculation, rather than obsolete pre-packing rectangles.
     let compiled = CitySite::central_german_market_town()
-        .generate(42, 6500, &crate::city_layout::tests::economy())
-        .compile(42)
+        .generate((42).into(), 6500, &crate::city_layout::tests::economy())
+        .compile((42).into())
         .unwrap();
     let mut layout = compiled.partition(None).unwrap();
     layout.playable.extend(
         layout
             .distant
             .drain(..)
-            .filter(|b| [519, 520, 16903].contains(&b.id))
+            .filter(|b| {
+                [519, 520, 16903]
+                    .map(crate::scene_input::SceneBuildingId)
+                    .contains(&b.id)
+            })
             .map(TacticalBuildingPlacement::from),
     );
-    layout
-        .playable
-        .retain(|b| [519, 520, 16903].contains(&b.id));
+    layout.playable.retain(|b| {
+        [519, 520, 16903]
+            .map(crate::scene_input::SceneBuildingId)
+            .contains(&b.id)
+    });
     layout.compounds.retain(|p| p.id == CityPropertyId(519));
     layout
         .single_properties
@@ -49,10 +55,13 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
         .plan_single_property_support(&source, single_policy)
         .unwrap();
     assert_eq!(layout, original);
-    assert_eq!(singles[0].surface.member_building_ids(), [520]);
+    assert_eq!(
+        singles[0].surface.member_building_ids(),
+        [520].map(crate::scene_input::SceneBuildingId)
+    );
     assert_eq!(
         compounds[0].member_support().map(|m| m.building_id),
-        [519, 16903]
+        [519, 16903].map(crate::scene_input::SceneBuildingId)
     );
     let surfaces: Vec<_> = compounds
         .iter()
@@ -65,13 +74,17 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
         layout
             .playable
             .iter()
-            .find(|b| b.id == 520)
+            .find(|b| b.id == (520).into())
             .unwrap()
             .program
             .clone(),
     )
     .unwrap();
-    let placement = layout.playable.iter().find(|b| b.id == 520).unwrap();
+    let placement = layout
+        .playable
+        .iter()
+        .find(|b| b.id == (520).into())
+        .unwrap();
     use bevy::math::Vec3Swizzles;
     for point in recipe
         .collision
@@ -79,7 +92,7 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
         .iter()
         .flat_map(|c| c.ground_contact().unwrap().points().collect::<Vec<_>>())
     {
-        let world = placement.centre_metres
+        let world = placement.centre_metres.metres()
             + placement.orientation.local_to_world(
                 point.metres() - recipe.collision.bounds.centre().unwrap().metres().xz(),
             );
@@ -98,8 +111,14 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
         );
     }
     let empty_corner = Vec2::new(-105.0, -297.9);
-    assert!(!floor.surface.contains(empty_corner));
-    assert!(!surfaces.iter().any(|s| s.contains(empty_corner)));
+    assert!(
+        !floor
+            .surface
+            .contains(crate::scene_coordinates::ScenePlanPoint::try_from(empty_corner).unwrap())
+    );
+    assert!(!surfaces.iter().any(|s| {
+        s.contains(crate::scene_coordinates::ScenePlanPoint::try_from(empty_corner).unwrap())
+    }));
     {
         assert!(
             (terrain
@@ -109,7 +128,12 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
                 .unwrap()
                 .elevation
                 .metres()
-                - source.elevation_at(empty_corner).unwrap().metres())
+                - source
+                    .elevation_at(
+                        crate::scene_coordinates::ScenePlanPoint::try_from(empty_corner).unwrap()
+                    )
+                    .unwrap()
+                    .metres())
             .abs()
                 < policy.limits.contact_tolerance_metres()
         );

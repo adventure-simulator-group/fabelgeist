@@ -17,7 +17,7 @@ pub(super) fn spawn(commands: &mut Commands, layout: &FurnitureLayout) -> Result
             RigidBody::Static,
             CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
             furniture_collider(instance.scene.key)?,
-            Transform::from_translation(instance.position_metres)
+            Transform::from_translation(instance.position_metres.metres())
                 .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),
         ));
     }
@@ -66,13 +66,13 @@ pub(super) fn setup(
             let offset = instance
                 .orientation
                 .local_to_world(Vec2::new(distance * 0.6, -distance));
-            let point = instance.position_metres.xz() + offset;
+            let point = instance.position_metres.metres().xz() + offset;
             let height = terrain
                 .height_at(point)
                 .expect("furniture camera stays on playable terrain");
             Ok(camera(
                 Vec3::new(point.x, height + EYE_HEIGHT_METRES, point.y),
-                instance.position_metres + Vec3::Y * bounds.centre()?.metres().y,
+                instance.position_metres.metres() + Vec3::Y * bounds.centre()?.metres().y,
             ))
         })
         .collect::<Result<Vec<_>>>()?;
@@ -80,7 +80,7 @@ pub(super) fn setup(
         .groups
         .iter()
         .filter(|group| group.kind == FurnitureGroupKind::Vendor)
-        .map(|group| group.footprint.centre_metres)
+        .map(|group| group.footprint.centre().metres())
         .collect::<Vec<_>>();
     assert!(
         !market.is_empty(),

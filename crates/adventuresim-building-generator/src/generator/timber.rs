@@ -606,7 +606,7 @@ mod wall_infill_tests {
     fn generated_infill_finish_is_millimetres_behind_the_timber_plane() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let mut checked = 0;

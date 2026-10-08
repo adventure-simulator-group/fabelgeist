@@ -6,7 +6,7 @@ pub(super) fn project(
     foundation: &PropertyFoundationMesh,
     limits: SupportLimits,
     embedment: FoundationEmbedment,
-) -> Result<(BoundarySupportMesh, SupportElevation), BoundarySupportError> {
+) -> Result<BoundarySupportProjection, BoundarySupportError> {
     if foundation.property_id != property.id
         || foundation.member_building_ids.len() != 2
         || ![property.front_building_id, property.rear_building_id]
@@ -17,7 +17,7 @@ pub(super) fn project(
             property,
             BoundarySupportElement::Owner,
             BoundarySupportConstraint::OwnerBinding,
-            property.plot.centre_metres,
+            property.plot.centre_metres(),
             1.0,
             0.0,
         ));
@@ -31,7 +31,12 @@ pub(super) fn project(
         .collect();
     triangles.sort_by(GroundTriangle::compare);
     let gate = gate_datum(property, &triangles, limits)?;
-    let mut mesh = BoundarySupportMesh { cells: Vec::new() };
+    let binding = BoundaryOwnerBinding::from_property(property, gate)
+        .map_err(|cause| BoundarySupportError::binding(property, cause))?;
+    let mut mesh = BoundarySupportMesh {
+        binding,
+        cells: Vec::new(),
+    };
     for member in property
         .boundary
         .fixed_members()
@@ -49,7 +54,13 @@ pub(super) fn project(
         }
         .append(&mut mesh)?;
     }
-    Ok((mesh, gate))
+    mesh.binding.validate_cells(&mesh.cells).map_err(|issue| {
+        BoundarySupportError::cell(property, BoundarySupportElement::Owner, issue)
+    })?;
+    Ok(BoundarySupportProjection {
+        mesh,
+        gate_elevation: gate,
+    })
 }
 
 fn gate_datum(
@@ -60,7 +71,7 @@ fn gate_datum(
     let point = property.boundary.gate.centre_metres;
     let mut heights: Vec<_> = triangles
         .iter()
-        .filter(|t| t.contains(point, limits.contact_tolerance_metres))
+        .filter(|t| t.contains(point, limits.contact_tolerance_metres.metres()))
         .map(|t| t.height_at(point))
         .collect();
     heights.sort_by(f32::total_cmp);
@@ -69,16 +80,16 @@ fn gate_datum(
         .zip(heights.last())
         .map(|(low, high)| high - low);
     match range {
-        Some(range) if range <= limits.contact_tolerance_metres => Ok(SupportElevation(
-            *heights.first().expect("measured gate support"),
-        )),
+        Some(range) if range <= limits.contact_tolerance_metres.metres() => {
+            Ok(SupportElevation(heights[0]))
+        }
         Some(range) => Err(BoundarySupportError::new(
             property,
             BoundarySupportElement::GateLanding,
             BoundarySupportConstraint::AmbiguousGateDatum,
             point,
             f64::from(range),
-            f64::from(limits.contact_tolerance_metres),
+            f64::from(limits.contact_tolerance_metres.metres()),
         )),
         None => Err(BoundarySupportError::new(
             property,
@@ -149,7 +160,7 @@ impl MemberProjection<'_> {
             f64::from(member.size_metres.metres().x) * f64::from(member.size_metres.metres().z);
         let permitted = 2.0
             * f64::from(member.size_metres.metres().x + member.size_metres.metres().z)
-            * f64::from(limits.contact_tolerance_metres);
+            * f64::from(limits.contact_tolerance_metres.metres());
         let discrepancy = (covered - expected).abs();
         if discrepancy > permitted {
             return Err(BoundarySupportError::new(
@@ -168,8 +179,8 @@ impl MemberProjection<'_> {
         triangle: &GroundTriangle,
         points: [DVec2; 3],
     ) -> Result<BoundarySupportCell, BoundarySupportError> {
-        let mut top = [Vec3::ZERO; 3];
-        let mut base = [Vec3::ZERO; 3];
+        let mut top = [Position::<GateRelative>::ORIGIN; 3];
+        let mut base = [Position::<GateRelative>::ORIGIN; 3];
         for (j, point) in points.into_iter().enumerate() {
             let soil = triangle.height_f64(point) as f32;
             let construction_error = |cause| {
@@ -200,8 +211,7 @@ impl MemberProjection<'_> {
                 levels.head.metres() - self.gate.metres(),
                 point.y as f32,
             ))
-            .map_err(construction_error)?
-            .metres();
+            .map_err(construction_error)?;
             base[j] = adventuresim_building_generator::spatial_geometry::Position::<
                 crate::scene_coordinates::GateRelative,
             >::from_metres(Vec3::new(
@@ -209,14 +219,14 @@ impl MemberProjection<'_> {
                 levels.base.metres() - self.gate.metres(),
                 point.y as f32,
             ))
-            .map_err(construction_error)?
-            .metres();
+            .map_err(construction_error)?;
         }
-        Ok(BoundarySupportCell {
-            positions_metres: [top[0], top[1], top[2], base[0], base[1], base[2]],
-            material: self.member.material,
-            element: self.element,
-        })
+        BoundarySupportCell::new(
+            [top[0], top[1], top[2], base[0], base[1], base[2]],
+            self.member.material,
+            self.element,
+        )
+        .map_err(|cause| BoundarySupportError::cell(self.property, self.element, cause))
     }
 }
 

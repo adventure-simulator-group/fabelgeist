@@ -1,11 +1,10 @@
 //! Transforms generator-local furnishing and retains its circulation proof.
-use adventuresim_building_generator::interior::{
-    InteriorLayout, InteriorPlacement, furnish, furniture_floor_height,
-};
+use adventuresim_building_generator::interior::{InteriorLayout, InteriorPlacement, furnish};
 use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 use super::*;
+use crate::scene_input::SceneInputResult as Result;
 
 const INTERIOR_INSTANCE_DOMAIN: StreamId = StreamId::new("furniture.interior-identity");
 
@@ -14,14 +13,14 @@ mod tests;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InteriorBuildingLayout {
-    pub building_id: u64,
+    pub building_id: crate::scene_input::SceneBuildingId,
     pub layout: InteriorLayout,
 }
 
 pub(super) fn append(
     furniture: &mut FurnitureLayout,
     buildings: &[GeneratedBuilding],
-) -> Result<(), super::super::SceneInputError> {
+) -> Result<()> {
     for building in buildings {
         let layout = furnish(&building.plan, &building.placement.program).map_err(|cause| {
             super::super::SceneInputError::Interior {
@@ -38,7 +37,7 @@ pub(super) fn install(
     furniture: &mut FurnitureLayout,
     building: &GeneratedBuilding,
     layout: InteriorLayout,
-) -> Result<(), super::super::SceneInputError> {
+) -> Result<()> {
     for placement in &layout.placements {
         furniture.instances.push(instance(building, placement)?);
     }
@@ -52,15 +51,16 @@ pub(super) fn install(
 fn instance(
     building: &GeneratedBuilding,
     placement: &InteriorPlacement,
-) -> Result<GeneratedFurniture, super::super::SceneInputError> {
+) -> Result<GeneratedFurniture> {
     let origin = building.collision.bounds.centre()?.metres();
-    let position = building.placement.centre_metres
+    let position = building.placement.centre_metres.metres()
         + building
             .placement
             .orientation
             .local_to_world(placement.centre_metres.metres() - Vec2::new(origin.x, origin.z));
-    let height = building.placement.base_elevation_metres
-        + furniture_floor_height(&building.plan, placement)
+    let height = building.placement.base_elevation_metres.metres()
+        + placement
+            .floor_height(&building.plan)
             .map_err(|cause| super::super::SceneInputError::Interior {
                 building_id: building.placement.id,
                 cause,
@@ -71,7 +71,7 @@ fn instance(
             id: FurnitureInstanceId(
                 INTERIOR_INSTANCE_DOMAIN
                     .seed(
-                        building.placement.id,
+                        building.placement.id.0.into(),
                         &[
                             u64::from(placement.room_id.serialized_ordinal()),
                             placement.storey.index() as u64,
@@ -86,18 +86,15 @@ fn instance(
             key: placement.key,
             location: FurnitureLocation::Interior {
                 building_id: building.placement.id,
-                room_id: placement.room_id.serialized_ordinal(),
-                storey: placement.storey.serialized_ordinal().map_err(|cause| {
-                    super::super::SceneInputError::Interior {
-                        building_id: building.placement.id,
-                        cause: cause.into(),
-                    }
-                })?,
+                room_id: placement.room_id,
+                storey: placement.storey,
             },
         },
-        position_metres: Vec3::new(position.x, height, position.y),
+        position_metres: adventuresim_building_generator::spatial_geometry::Position::from_metres(
+            Vec3::new(position.x, height, position.y),
+        )?,
         orientation: BuildingOrientation::from_radians(
-            building.placement.orientation.yaw_radians() + placement.yaw_radians(),
+            building.placement.orientation.yaw_radians() + placement.yaw_radians().radians(),
         )
         .ok_or(
             adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection,

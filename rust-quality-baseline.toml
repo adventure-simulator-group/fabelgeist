@@ -16,7 +16,7 @@ ceiling = 1058
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs"
-ceiling = 531
+ceiling = 514
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/roofs.rs"
@@ -595,10 +595,6 @@ path = "crates/adventuresim-tactical-client/src/presentation/sky/mod.rs"
 ceiling = 539
 
 [[files]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-ceiling = 593
-
-[[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
 ceiling = 676
 
@@ -628,7 +624,7 @@ ceiling = 959
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/scene_input.rs"
-ceiling = 838
+ceiling = 834
 
 [[files]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
@@ -796,15 +792,11 @@ ceiling = 696
 
 [[files]]
 path = "crates/strategic-web/src/routes/settlements/service_quests.rs"
-ceiling = 622
-
-[[files]]
-path = "crates/strategic-web/src/routes/travel.rs"
-ceiling = 525
+ceiling = 573
 
 [[files]]
 path = "crates/strategic-web/src/spacetimedb/types.rs"
-ceiling = 1781
+ceiling = 1738
 
 [[files]]
 path = "crates/strategic-web/src/strategic_map.rs"
@@ -889,7 +881,7 @@ ceiling = 1058
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs"
 item = "audit_resolved_geometry"
-ceiling = 531
+ceiling = 514
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/roofs.rs"
@@ -1587,11 +1579,6 @@ ceiling = 393
 path = "crates/adventuresim-stdb-module/src/outbreak.rs"
 item = "materialize_patient_corpse"
 ceiling = 127
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/personality.rs"
-item = "random_personality"
-ceiling = 126
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/relationship/commitments.rs"
@@ -2404,11 +2391,6 @@ item = "pebble_patch_mesh"
 ceiling = 128
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs"
-item = "spawn_ground_foliage"
-ceiling = 114
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
 item = "procedural_beech_skeleton"
 ceiling = 158
@@ -3006,7 +2988,7 @@ ceiling = 203
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/overview.rs"
 item = "settlement_map"
-ceiling = 266
+ceiling = 250
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/containers.rs"
@@ -3071,7 +3053,7 @@ ceiling = 112
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/service_quests.rs"
 item = "service_quest_offers"
-ceiling = 244
+ceiling = 212
 
 [[functions]]
 path = "crates/strategic-web/src/routes/weapon_icons.rs"
@@ -3211,7 +3193,7 @@ ceiling = 417
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/merchant.rs"
 item = "live_merchant_shop_page"
-ceiling = 232
+ceiling = 224
 
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/party_pool.rs"
@@ -13896,13 +13878,6 @@ occurrences = 1
 rule = "semantic-family:e7-coordinates"
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
 item = "<module>"
-fingerprint = "10000000"
-occurrences = 1
-
-[[findings]]
-rule = "semantic-family:e7-coordinates"
-path = "crates/adventuresim-tactical-core/src/scene_input/environment.rs"
-item = "SceneEnvironmentFixture::snapshot"
 fingerprint = "10000000"
 occurrences = 1
 

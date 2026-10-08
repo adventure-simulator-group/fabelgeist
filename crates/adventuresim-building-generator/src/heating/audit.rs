@@ -1,4 +1,5 @@
 //! Independent checks of ownership, smoke continuity, masonry and weather cuts.
+use crate::GenerationResult as Result;
 use crate::*;
 use bevy::math::{Vec2, Vec3};
 use geo::{Area, BooleanOps};
@@ -9,8 +10,9 @@ mod roof;
 pub(super) mod roof_route;
 mod weathering;
 const GEOMETRY_TOLERANCE_METRES: f32 = 0.002;
+const AREA_TOLERANCE_SQUARE_METRES: f32 = 0.00001;
 
-pub(crate) fn audit(plan: &BuildingPlan) -> Result<Vec<AuditIssue>, crate::GenerationError> {
+pub(crate) fn audit(plan: &BuildingPlan) -> Result<Vec<AuditIssue>> {
     let mut issues = Vec::new();
     let Some(h) = &plan.domestic_heating else {
         if plan
@@ -46,7 +48,7 @@ fn ownership(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let room = |r: HeatingRoom| {
         plan.storeys
             .iter()
@@ -112,7 +114,7 @@ fn clearance(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let ids = h.parts.iter().map(|p| p.solid).collect::<BTreeSet<_>>();
     if plan.resolved_geometry.solids.iter().any(|s| {
         crate::solid_overlap::overlaps_bounds(
@@ -199,7 +201,7 @@ fn passages(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     use HeatingPassageKind::*;
     let expected = [
         HearthMouth,
@@ -285,7 +287,7 @@ fn flue_shell(
     h: &DomesticHeatingPlan,
     bore: SpatialBounds<Architectural>,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let flues = h
         .parts
         .iter()
@@ -320,8 +322,8 @@ fn flue_shell(
                 actual = actual.union(&rect(b));
             }
         }
-        if expected.difference(&actual).unsigned_area() > 0.00001
-            || actual.intersection(&rect(bore)).unsigned_area() > 0.00001
+        if expected.difference(&actual).unsigned_area() > AREA_TOLERANCE_SQUARE_METRES
+            || actual.intersection(&rect(bore)).unsigned_area() > AREA_TOLERANCE_SQUARE_METRES
         {
             fail(
                 issues,
@@ -351,7 +353,7 @@ fn bearings(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let _: () = for part in &h.parts {
         let Some(solid) = plan
             .resolved_geometry

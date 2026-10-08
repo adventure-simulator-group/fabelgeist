@@ -1,6 +1,7 @@
 //! Incremental checks retain the architecture proof of the accepted prefix.
 use super::{InteriorLayoutError, InteriorPlacement, navigation::Navigation};
 use crate::BuildingPlan;
+use crate::interior::InteriorResult as Result;
 
 /// `accepted` placements must already have passed this check against this plan.
 /// Use zero when validating an untrusted or edited layout.
@@ -9,7 +10,7 @@ pub(super) fn validate(
     nav: &Navigation,
     placements: &[InteriorPlacement],
     accepted: usize,
-) -> Result<(), InteriorLayoutError> {
+) -> Result<()> {
     for (index, p) in placements.iter().enumerate() {
         // Accepted objects already satisfy static architecture and each other.
         // New objects can still obstruct their usable faces.
@@ -35,7 +36,7 @@ pub(super) fn validate(
         let floor = nav
             .floors
             .iter()
-            .find(|f| crate::StoreyIndex::from_serialized(f.level) == p.storey)
+            .find(|f| f.level == p.storey)
             .ok_or_else(|| error.clone())?;
         let room = plan
             .storeys
@@ -49,14 +50,20 @@ pub(super) fn validate(
             .ok_or_else(|| error.clone())?;
         let footprint = p.footprint()?;
         let elevation = floor
-            .height_at(p.centre_metres.metres())
+            .height_at(p.centre_metres)
             .ok_or_else(|| error.clone())?;
-        if !floor.supports(footprint, elevation)
-            || !floor.placement_clear(footprint, elevation, specification.size_metres.metres().y)
+        if !floor.supports(footprint, elevation)?
+            || !floor.placement_clear(
+                footprint,
+                elevation,
+                crate::spatial_geometry::PositiveLength::from_metres(
+                    specification.size_metres.metres().y,
+                )?,
+            )?
         {
             return Err(error);
         }
-        if !footprint.inside_room(room)
+        if !footprint.inside_room(room)?
             || floor
                 .obstacles
                 .iter()
@@ -71,7 +78,7 @@ pub(super) fn validate(
         }
         for &face in specification.required_faces {
             let access = p.access_rect(face)?;
-            if !access.inside_room(room)
+            if !access.inside_room(room)?
                 || floor.obstacles.iter().any(|o| o.overlaps(access))
                 || overlapping(
                     placements
@@ -92,7 +99,7 @@ pub(super) fn validate(
 fn overlapping<'a>(
     placements: impl Iterator<Item = &'a InteriorPlacement>,
     rect: super::geometry::Rect,
-) -> Result<bool, InteriorLayoutError> {
+) -> Result<bool> {
     for placement in placements {
         if placement.footprint()?.overlaps(rect) {
             return Ok(true);
@@ -115,7 +122,7 @@ mod tests {
             BuildingArchetype::TownHouse,
             BuildingArchetype::FachwerkMerchantHouse,
         ] {
-            for seed in [42, 47] {
+            for seed in [42, 47].map(fabelgeist_determinism::Seed::from_u64) {
                 let program = BuildingProgram::fixture(archetype, seed);
                 let plan = crate::generate(&program).unwrap();
                 let nav = Navigation::new(&plan).unwrap();
@@ -123,8 +130,14 @@ mod tests {
                 for storey in &plan.storeys {
                     for room in &storey.rooms {
                         for budget in furniture_budgets(&program, room) {
-                            for group in
-                                candidates(&plan, &program, room, storey.level, budget).unwrap()
+                            for group in candidates(
+                                &plan,
+                                &program,
+                                room,
+                                crate::StoreyIndex::from_serialized(storey.level),
+                                budget,
+                            )
+                            .unwrap()
                             {
                                 let previous = placements.len();
                                 placements.extend(group);

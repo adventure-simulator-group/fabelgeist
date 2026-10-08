@@ -12,6 +12,7 @@ use adventuresim_world_schema::calendar::StrategicMinute;
 #[cfg(test)]
 use curriculum::focus_training;
 use curriculum::{curriculum_real_hours, deterministic_child_focus};
+use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 
 use crate::{
@@ -158,7 +159,7 @@ pub(crate) fn initialize_child_continuity(
     mother_id: u64,
     father_id: u64,
     birth_minute: StrategicMinute,
-    policy_seed: u64,
+    policy_seed: Seed,
 ) {
     if ctx
         .db

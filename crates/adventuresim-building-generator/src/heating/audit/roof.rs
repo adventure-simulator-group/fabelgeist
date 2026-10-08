@@ -1,9 +1,16 @@
 use super::*;
+use crate::GenerationResult as Result;
+use crate::plan_geometry::ArchitecturalPlanPoint;
+const MIN_OUTLET_CLEARANCE_METRES: f32 = 0.5;
+const MIN_SHEET_NORMAL_ALIGNMENT: f32 = 0.9995;
+const SHEET_PLANE_TOLERANCE_METRES: f32 = 0.035;
+const SHEET_SIDE_TOLERANCE_METRES: f32 = 0.001;
+
 pub(super) fn audit(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let Some(roof) = plan.roof_assemblies.iter().find(|r| r.id == h.roof.roof) else {
         fail(
             issues,
@@ -63,8 +70,8 @@ pub(super) fn audit(
                 + clearance,
         )?);
         Ok::<bool, crate::GenerationError>(
-            p.difference(&required).unsigned_area() < 0.00001
-                && required.difference(&p).unsigned_area() < 0.00001
+            p.difference(&required).unsigned_area() < AREA_TOLERANCE_SQUARE_METRES
+                && required.difference(&p).unsigned_area() < AREA_TOLERANCE_SQUARE_METRES
                 && cut.iter().all(|v| {
                     (face.plane.normal.dot(*v) + face.plane.constant).abs()
                         < GEOMETRY_TOLERANCE_METRES
@@ -74,16 +81,16 @@ pub(super) fn audit(
                 && super::weathering::continuous_pan(plan, h, face, bounds)?,
         )
     })?;
-    let blocked = crate::tessellate_roof_face(face)
-        .iter()
-        .any(|t| polygon(&t.positions).intersection(&shaft).unsigned_area() > 0.00001);
+    let blocked = crate::tessellate_roof_face(face).iter().any(|t| {
+        polygon(&t.positions).intersection(&shaft).unsigned_area() > AREA_TOLERANCE_SQUARE_METRES
+    });
     let edges_valid = edges(roof, face, h, actual_cut);
-    let high = [bounds.min().metres().x, bounds.max().metres().x]
-        .into_iter()
-        .flat_map(|x| [bounds.min().metres().z, bounds.max().metres().z].map(|z| Vec2::new(x, z)))
-        .map(|p| super::super::placement::roof_height(face, p))
-        .fold(0.0_f32, f32::max);
-    let _: () = if !cut_valid || blocked || !edges_valid || bounds.max().metres().y < high + 0.5 {
+    let high = highest_roof_corner(face, bounds)?.metres();
+    let _: () = if !cut_valid
+        || blocked
+        || !edges_valid
+        || bounds.max().metres().y < high + MIN_OUTLET_CLEARANCE_METRES
+    {
         fail(
             issues,
             "invalid_heating_roof_penetration",
@@ -99,7 +106,7 @@ fn weathering(
     face: &RoofFace,
     cut: &[Vec3],
     shaft: SpatialBounds<Architectural>,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     const MINIMUM_WEATHER_LAP_METRES: f32 = 0.02;
     let margin = Vec3::new(MINIMUM_WEATHER_LAP_METRES, 0.0, MINIMUM_WEATHER_LAP_METRES);
     let Some(first) = cut.first() else {
@@ -132,14 +139,20 @@ fn weathering(
             }
         }
     }
-    Ok(required.difference(&coverage).unsigned_area() < 0.00001
-        && coverage.difference(&polygon(&face.polygon)).unsigned_area() < 0.00001
-        && face
-            .cutouts
-            .iter()
-            .enumerate()
-            .filter(|(index, _)| *index != h.roof.cutout_index)
-            .all(|(_, other)| coverage.intersection(&polygon(other)).unsigned_area() < 0.00001))
+    Ok(
+        required.difference(&coverage).unsigned_area() < AREA_TOLERANCE_SQUARE_METRES
+            && coverage.difference(&polygon(&face.polygon)).unsigned_area()
+                < AREA_TOLERANCE_SQUARE_METRES
+            && face
+                .cutouts
+                .iter()
+                .enumerate()
+                .filter(|(index, _)| *index != h.roof.cutout_index)
+                .all(|(_, other)| {
+                    coverage.intersection(&polygon(other)).unsigned_area()
+                        < AREA_TOLERANCE_SQUARE_METRES
+                }),
+    )
 }
 
 fn edges(
@@ -182,7 +195,7 @@ fn sheet_section(
     solid: &ResolvedSolid,
     face: &RoofFace,
     shaft: SpatialBounds<Architectural>,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     let rotation = bevy::math::Quat::from_euler(
         bevy::math::EulerRot::YXZ,
         solid.yaw_radians.radians(),
@@ -196,7 +209,7 @@ fn sheet_section(
     let pan_normal = (roof_normal
         - downhill * roof_normal.y * super::super::roof::PAN_FALL_ADJUSTMENT)
         .normalize();
-    if (rotation * Vec3::Y).dot(pan_normal).abs() < 0.9995 {
+    if (rotation * Vec3::Y).dot(pan_normal).abs() < MIN_SHEET_NORMAL_ALIGNMENT {
         return Ok(false);
     }
     for vertex in compile_solid_detail(plan, solid)?
@@ -206,14 +219,14 @@ fn sheet_section(
     {
         if (face.plane.normal.dot(vertex.position) + face.plane.constant).abs()
             / face.plane.normal.length()
-            > 0.035
+            > SHEET_PLANE_TOLERANCE_METRES
         {
             return Ok(false);
         }
     }
     let distance = (face.plane.normal.dot(solid.centre.metres()) + face.plane.constant).abs()
         / face.plane.normal.length();
-    if distance > 0.035 {
+    if distance > SHEET_PLANE_TOLERANCE_METRES {
         return Ok(false);
     }
     let shaft_centre = (shaft.min().metres() + shaft.max().metres()) * 0.5;
@@ -224,8 +237,29 @@ fn sheet_section(
     // Water leaves the tiles onto the backpan, then runs over the apron.
     // Side strips may sit less than a millimetre above the covering on a
     // shallow roof. Their sign, full-section lap and continuous fall matter.
-    if side.abs() > 0.001 && signed_distance * side <= 0.0 {
+    if side.abs() > SHEET_SIDE_TOLERANCE_METRES && signed_distance * side <= 0.0 {
         return Ok(false);
     }
     Ok(true)
+}
+
+fn highest_roof_corner(
+    face: &RoofFace,
+    bounds: SpatialBounds<Architectural>,
+) -> Result<crate::spatial_geometry::Elevation<Architectural>> {
+    let high = [bounds.min().metres().x, bounds.max().metres().x]
+        .into_iter()
+        .flat_map(|x| [bounds.min().metres().z, bounds.max().metres().z].map(|z| Vec2::new(x, z)))
+        .try_fold(0.0_f32, |high, p| {
+            Ok::<_, crate::GenerationError>(
+                high.max(
+                    super::super::placement::roof_height(
+                        face,
+                        ArchitecturalPlanPoint::from_metres(p)?,
+                    )?
+                    .metres(),
+                ),
+            )
+        })?;
+    Ok(crate::spatial_geometry::Elevation::from_metres(high)?)
 }

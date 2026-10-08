@@ -755,7 +755,7 @@ fn authority_arrest_action_projection_is_gateway_only_exact_and_redacted() {
         .lines()
         .find(|line| line.contains("action_token:"))
         .expect("opaque action token assignment");
-    assert!(token_assignment.contains("ctx.random::<u64>()"));
+    assert!(token_assignment.contains("ctx.random::<Seed>()"));
     assert!(!token_assignment.contains("source_id"));
     assert!(!token_assignment.contains("incident_id"));
 }

@@ -9,10 +9,13 @@ pub(super) fn street_gate_level(
     levels: CompoundSupportLevels,
     limits: SupportLimits,
 ) -> Result<SupportElevation, SupportDiagnostic> {
+    let gate =
+        crate::scene_coordinates::ScenePlanPoint::try_from(property.boundary.gate.centre_metres)
+            .map_err(|cause| SupportDiagnostic::gate_position(property, cause))?;
     let mut routes = property
         .access
         .iter()
-        .filter(|route| route.contains_centreline(property.boundary.gate.centre_metres));
+        .filter(|route| route.contains_centreline(gate));
     let route = routes
         .next()
         .filter(|_| routes.next().is_none())
@@ -26,17 +29,17 @@ pub(super) fn street_gate_level(
                 0.0,
             )
         })?;
-    let delta = route.end_metres - route.start_metres;
-    let station =
-        (property.boundary.gate.centre_metres - route.start_metres).dot(delta.normalize_or_zero());
-    let run = station - route.half_width_metres * 2.0;
-    let reach = run * limits.maximum_grade - limits.contact_tolerance_metres;
+    let delta = route.end_metres() - route.start_metres();
+    let station = (property.boundary.gate.centre_metres - route.start_metres())
+        .dot(delta.normalize_or_zero());
+    let run = station - route.half_width_metres() * 2.0;
+    let reach = run * limits.maximum_grade.ratio() - limits.contact_tolerance_metres.metres();
     if reach < 0.0 {
         return Err(SupportDiagnostic::new(
             property,
             SupportConstraint::AccessGrade,
             SupportBoundary::GateLanding,
-            route.start_metres,
+            route.start_metres(),
             (levels.gate.metres() - levels.street.metres()).abs(),
             0.0,
         ));
@@ -57,6 +60,9 @@ pub(super) fn compile(
         SupportDiagnostic::new(property, constraint, boundary, location, 1.0, 0.0)
     };
     validate_inputs(property, levels)?;
+    let gate =
+        crate::scene_coordinates::ScenePlanPoint::try_from(property.boundary.gate.centre_metres)
+            .map_err(|cause| SupportDiagnostic::gate_position(property, cause))?;
     let route_to = |member: MemberSupport| {
         let mut routes = property
             .access
@@ -66,7 +72,7 @@ pub(super) fn compile(
         first.filter(|_| routes.next().is_none()).ok_or(binding(
             SupportConstraint::ThresholdBinding,
             SupportBoundary::CourtLanding,
-            member.court_threshold_metres,
+            member.court_threshold_metres.metres(),
         ))
     };
     let front_route = route_to(levels.front)?;
@@ -74,7 +80,7 @@ pub(super) fn compile(
     let mut gate_routes = property
         .access
         .iter()
-        .filter(|route| route.contains_centreline(property.boundary.gate.centre_metres));
+        .filter(|route| route.contains_centreline(gate));
     let passage = gate_routes
         .next()
         .filter(|_| gate_routes.next().is_none())
@@ -87,18 +93,18 @@ pub(super) fn compile(
     for route in [front_route, rear_route, &passage] {
         let delta = property
             .plot
-            .orientation
-            .world_to_local(route.end_metres - route.start_metres);
+            .orientation()
+            .world_to_local(route.end_metres() - route.start_metres());
         if !delta.is_finite()
             || delta.x.abs() > CityAccessSegment::JOIN_TOLERANCE_METRES
-            || delta.y.abs() <= route.half_width_metres * 2.0
-            || !route.half_width_metres.is_finite()
-            || route.half_width_metres <= 0.0
+            || delta.y.abs() <= route.half_width_metres() * 2.0
+            || !route.half_width_metres().is_finite()
+            || route.half_width_metres() <= 0.0
         {
             return Err(binding(
                 SupportConstraint::Reservation,
                 SupportBoundary::PropertyReservation,
-                route.start_metres,
+                route.start_metres(),
             ));
         }
     }
@@ -112,11 +118,27 @@ pub(super) fn compile(
     )?;
     let passage_profile = profiles::passage(property, levels, passage, limits)?;
     let split = support_boundary(property, levels.front, limits)?;
+    let passage_region = (|| {
+        CityPlotBounds::new(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                (passage.start_metres() + passage.end_metres()) * 0.5,
+            )?,
+            adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                Vec2::new(
+                    passage.half_width_metres() * 2.0,
+                    passage.start_metres().distance(passage.end_metres()),
+                ),
+            )?,
+            property.plot.orientation(),
+        )
+    })()
+    .map_err(|cause| SupportDiagnostic::framed_geometry(property, passage.start_metres(), cause))?;
     let plan = CompoundSupportPlan {
         property: property.clone(),
         levels,
         limits,
         passage,
+        passage_region,
         split_frontage_metres: split,
         court_profile: court.profile,
         passage_profile,
@@ -141,21 +163,21 @@ fn validate_inputs(
         return Err(binding(
             SupportConstraint::MemberBinding,
             SupportBoundary::PropertyReservation,
-            property.plot.centre_metres,
+            property.plot.centre_metres(),
         ));
     }
     if !property.plot.is_valid()
         || !property.court.is_valid()
-        || property.court.orientation != property.plot.orientation
+        || property.court.orientation() != property.plot.orientation()
         || !levels.front.contact.is_valid()
         || !levels.rear.contact.is_valid()
-        || levels.front.contact.orientation != property.plot.orientation
-        || levels.rear.contact.orientation != property.plot.orientation
+        || levels.front.contact.orientation() != property.plot.orientation()
+        || levels.rear.contact.orientation() != property.plot.orientation()
     {
         return Err(binding(
             SupportConstraint::Reservation,
             SupportBoundary::PropertyReservation,
-            property.plot.centre_metres,
+            property.plot.centre_metres(),
         ));
     }
     Ok(())
@@ -170,8 +192,8 @@ fn support_boundary(
     let local = |point| {
         property
             .plot
-            .orientation
-            .world_to_local(point - property.plot.centre_metres)
+            .orientation()
+            .world_to_local(point - property.plot.centre_metres())
     };
     let post = property
         .boundary
@@ -187,14 +209,14 @@ fn support_boundary(
         .map(|point| local(point).x * side)
         .fold(f32::NEG_INFINITY, f32::max);
     let penetration = contact_edge - split * side;
-    if penetration > limits.contact_tolerance_metres {
+    if penetration > limits.contact_tolerance_metres.metres() {
         return Err(SupportDiagnostic::new(
             property,
             SupportConstraint::Bearing,
             SupportBoundary::FrontBearing,
             post.pose.plan_metres(),
             penetration,
-            limits.contact_tolerance_metres,
+            limits.contact_tolerance_metres.metres(),
         ));
     }
     Ok(split)
@@ -210,8 +232,8 @@ fn validate_bearings(plan: &CompoundSupportPlan) -> Result<(), SupportDiagnostic
         let to_local = |point| {
             plan.property
                 .plot
-                .orientation
-                .world_to_local(point - plan.property.plot.centre_metres)
+                .orientation()
+                .world_to_local(point - plan.property.plot.centre_metres())
         };
         let minimum_z = corners
             .into_iter()
@@ -221,17 +243,17 @@ fn validate_bearings(plan: &CompoundSupportPlan) -> Result<(), SupportDiagnostic
             .into_iter()
             .map(|p| to_local(p).y)
             .fold(f32::NEG_INFINITY, f32::max);
-        let contact_x = to_local(member.contact.centre_metres).x;
+        let contact_x = to_local(member.contact.centre_metres()).x;
         let intersections = plan
             .court_profile
             .points()
             .filter(|p| (minimum_z..=maximum_z).contains(&p.coordinate.metres()))
             .map(|p| {
-                plan.property.plot.centre_metres
+                plan.property.plot.centre_metres()
                     + plan
                         .property
                         .plot
-                        .orientation
+                        .orientation()
                         .local_to_world(Vec2::new(contact_x, p.coordinate.metres()))
             });
         for point in corners.into_iter().chain(intersections) {
@@ -266,14 +288,14 @@ fn validate_bearings(plan: &CompoundSupportPlan) -> Result<(), SupportDiagnostic
                 .iter()
                 .map(|height| (height.metres() - member.elevation.metres()).abs())
                 .fold(f32::INFINITY, f32::min);
-            if error > plan.limits.contact_tolerance_metres {
+            if error > plan.limits.contact_tolerance_metres.metres() {
                 return Err(SupportDiagnostic::new(
                     &plan.property,
                     SupportConstraint::Bearing,
                     boundary,
                     point,
                     error,
-                    plan.limits.contact_tolerance_metres,
+                    plan.limits.contact_tolerance_metres.metres(),
                 ));
             }
         }

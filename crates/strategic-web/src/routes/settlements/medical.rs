@@ -479,7 +479,7 @@ pub(super) async fn show_settlement_location(
             return Html("<h1>Settlement data unavailable</h1>".to_string());
         }
     };
-    super::entry::activate_settlement(&state, &id).await;
+    super::entry::activate_settlement(&state, &id);
     let alias_sql =
         format!("SELECT * FROM settlement_alias WHERE settlement_id = {settlement_literal}");
     let description_sql =

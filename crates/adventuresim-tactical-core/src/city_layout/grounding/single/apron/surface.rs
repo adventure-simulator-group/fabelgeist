@@ -61,7 +61,7 @@ impl ApronSurfaceGeometry {
         };
         let start = edge_at(0.0, source);
         let end = edge_at(flight_run, [floor.metres(); 2]);
-        if along_grade.hypot(across_grade) <= bounds.limits.maximum_grade {
+        if along_grade.hypot(across_grade) <= bounds.limits.maximum_grade.ratio() {
             mesh.quad(
                 [start[1], start[0], end[0], end[1]],
                 SupportFaceRole::Bearing,
@@ -71,10 +71,10 @@ impl ApronSurfaceGeometry {
                 .iter()
                 .map(|h| (floor.metres() - h).abs())
                 .fold(0.0, f32::max);
-            let count = (rise / stairs.maximum_riser_metres).ceil();
-            let required = count * stairs.minimum_going_metres;
+            let count = (rise / stairs.maximum_riser_metres.metres()).ceil();
+            let required = count * stairs.minimum_going_metres.metres();
             if count > f32::from(u16::MAX)
-                || required > flight_run + bounds.limits.contact_tolerance_metres
+                || required > flight_run + bounds.limits.contact_tolerance_metres.metres()
             {
                 return Err(reject(
                     SupportConstraint::StairGoing,
@@ -83,12 +83,12 @@ impl ApronSurfaceGeometry {
                     flight_run,
                 ));
             }
-            if across_grade > bounds.limits.maximum_grade {
+            if across_grade > bounds.limits.maximum_grade.ratio() {
                 return Err(reject(
                     SupportConstraint::AccessGrade,
                     outer,
                     across_grade * width,
-                    bounds.limits.maximum_grade * width,
+                    bounds.limits.maximum_grade.ratio() * width,
                 ));
             }
             for i in 0..count as u16 {
@@ -107,12 +107,12 @@ impl ApronSurfaceGeometry {
             [end[1], end[0], inside[0], inside[1]],
             SupportFaceRole::Bearing,
         )?;
-        if mesh.maximum_grade() > bounds.limits.maximum_grade {
+        if mesh.maximum_grade() > bounds.limits.maximum_grade.ratio() {
             return Err(reject(
                 SupportConstraint::AccessGrade,
                 outer,
                 mesh.maximum_grade() * run,
-                bounds.limits.maximum_grade * run,
+                bounds.limits.maximum_grade.ratio() * run,
             ));
         }
         Ok(mesh)

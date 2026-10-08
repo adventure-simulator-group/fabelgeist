@@ -16,7 +16,7 @@ use adventuresim_core::{
     organization::OrganizationMembershipStatus,
     starting_character::{StartingAgeTier, StartingCharacterSpec, StartingPersonalityTrait},
 };
-use fabelgeist_determinism::StreamId;
+use fabelgeist_determinism::{Seed, StreamId};
 use spacetimedb::{
     Identity, ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view,
 };
@@ -807,7 +807,7 @@ pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> Res
     let tactical_server = tactical_server.expect("checked tactical server");
 
     let names = petname::Petnames::default();
-    let name_seed: u64 = ctx.random();
+    let name_seed: Seed = ctx.random();
     let name = names.nouns[fabelgeist_determinism::StreamId::new("character.temporary-name")
         .rng(name_seed, &[])
         .index(names.nouns.len())];
@@ -1902,7 +1902,7 @@ pub(crate) fn insert_new_character(
             mode,
             create_solo_party: true,
             materialize_generated_carry: true,
-            stable_seed: id,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(id),
             initial_time_minute: None,
             field_actor: false,
             npc_personality: None,
@@ -1946,7 +1946,7 @@ pub(crate) struct CharacterCreationOptions<'a> {
     /// loadout. Bulk settlement residents defer this until they become active
     /// actors so world seeding does not eagerly objectify thousands of items.
     pub materialize_generated_carry: bool,
-    pub stable_seed: u64,
+    pub stable_seed: Seed,
     pub initial_time_minute: Option<StrategicMinute>,
     pub field_actor: bool,
     pub npc_personality: Option<&'a crate::personality::CharacterPersonality>,
@@ -1963,7 +1963,7 @@ impl NpcLifeFacts {
     /// Produce the baseline life facts for a persistent NPC without consulting
     /// reducer RNG. Authored organization and literacy can be overlaid by the
     /// population importer before creation.
-    pub(crate) fn from_stable_seed(stable_seed: u64) -> Self {
+    pub(crate) fn from_stable_seed(stable_seed: Seed) -> Self {
         let draw = NPC_LIFE_AGE_DOMAIN.rng(stable_seed, &[]).index(43);
         Self {
             age_years: 18 + draw as u16,
@@ -1984,7 +1984,7 @@ pub(crate) fn insert_new_npc_character(
     } else {
         CharacterCreationMode::PersistentNpc
     };
-    let life = NpcLifeFacts::from_stable_seed(id);
+    let life = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(id));
     insert_character_with_origin(
         ctx,
         name,
@@ -1994,7 +1994,7 @@ pub(crate) fn insert_new_npc_character(
             mode,
             create_solo_party: temporary,
             materialize_generated_carry: temporary,
-            stable_seed: id,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(id),
             initial_time_minute: None,
             field_actor: false,
             npc_personality: None,
@@ -2015,7 +2015,7 @@ pub(crate) fn insert_persistent_npc_character(
     name: String,
     id: u64,
     origin_settlement_id: &str,
-    stable_seed: u64,
+    stable_seed: Seed,
     initial_time_minute: Option<StrategicMinute>,
     life: &NpcLifeFacts,
     personality: &crate::personality::CharacterPersonality,
@@ -2045,7 +2045,7 @@ pub(crate) fn insert_persistent_field_character(
     ctx: &ReducerContext,
     name: String,
     id: u64,
-    stable_seed: u64,
+    stable_seed: Seed,
     initial_time_minute: Option<StrategicMinute>,
 ) -> Result<(), String> {
     let life = NpcLifeFacts::from_stable_seed(stable_seed);
@@ -2083,7 +2083,7 @@ pub(crate) fn insert_starting_character(
             mode: CharacterCreationMode::Player,
             create_solo_party: true,
             materialize_generated_carry: true,
-            stable_seed: spec.id,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(spec.id),
             initial_time_minute: None,
             field_actor: false,
             npc_personality: None,
@@ -2280,7 +2280,7 @@ pub(crate) fn insert_character_with_origin(
             .and_then(adventuresim_core::organization::organization);
         adventuresim_core::life_simulation::simulate_life(
             adventuresim_core::life_simulation::LifeSimulationInput {
-                stable_seed: options.stable_seed ^ 0x6765_6e65_7269_6300,
+                stable_seed: options.stable_seed.xor_word(0x6765_6e65_7269_6300),
                 age_years: npc_life.map_or(25, |facts| facts.age_years),
                 attributes: &character_attributes,
                 organization,
@@ -3573,9 +3573,9 @@ mod starting_character_boundary_tests {
 
     #[test]
     fn stable_npc_life_is_order_independent_and_adult_bounded() {
-        let first = NpcLifeFacts::from_stable_seed(31);
-        let _unrelated = NpcLifeFacts::from_stable_seed(99);
-        let repeated = NpcLifeFacts::from_stable_seed(31);
+        let first = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(31));
+        let _unrelated = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(99));
+        let repeated = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(31));
         assert_eq!(first, repeated);
         assert!((18..=60).contains(&first.age_years));
     }

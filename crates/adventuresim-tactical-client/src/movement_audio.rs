@@ -97,7 +97,7 @@ fn play_locomotion_audio(
         };
         let position = transform.translation();
         let sequence = StreamId::new("audio.locomotion-event")
-            .seed(character_id.0, &[event.sequence])
+            .seed((character_id.0).into(), &[event.sequence])
             .to_u64();
         match event.kind {
             LocomotionPresentationEventKind::Contact(_) => {
@@ -135,7 +135,7 @@ fn play_locomotion_audio(
                         &mut commands,
                         &asset_server,
                         StreamId::new("audio.understory-rustle")
-                            .seed(sequence, &[])
+                            .seed((sequence).into(), &[])
                             .to_u64(),
                         position,
                         config.movement.bush_rustle_relative_volume,
@@ -192,7 +192,7 @@ fn play_grounded_dive_impacts(
                 &asset_server,
                 "impactSoft_heavy_00",
                 StreamId::new("audio.grounded-dive")
-                    .seed(character_id.0, &[skeleton.locomotion_sample_tick])
+                    .seed((character_id.0).into(), &[skeleton.locomotion_sample_tick])
                     .to_u64(),
                 transform.translation(),
                 config.movement.body_impact_relative_volume,
@@ -302,7 +302,7 @@ fn spawn_spatial_sound(
 
 fn sound_seed(sequence: u64, position: Vec3) -> Seed {
     StreamId::new("audio.spatial-event").seed(
-        sequence,
+        (sequence).into(),
         &[
             u64::from(position.x.to_bits()),
             u64::from(position.y.to_bits()),

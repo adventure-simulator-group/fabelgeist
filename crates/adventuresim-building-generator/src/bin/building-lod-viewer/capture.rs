@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use std::{fs, path::PathBuf, process::Command};
 
 use adventuresim_procedural_textures::{CRENELLATION_ALPHA_CUTOFF, CRENELLATION_MASK_TEXTURE_SIZE};
@@ -57,7 +58,7 @@ pub(super) struct ShellCaptureConfig {
     output: PathBuf,
     settle_frames: u32,
     fixture: String,
-    seed: u64,
+    seed: Seed,
     git_head: String,
     dirty_state: String,
     poses: Vec<CameraPose>,
@@ -81,7 +82,7 @@ impl ShellCaptureConfig {
         output: PathBuf,
         settle_frames: u32,
         fixture: String,
-        seed: u64,
+        seed: Seed,
         dimensions: Vec2,
         maximum_height: f32,
     ) -> Result<Self, String> {
@@ -251,7 +252,7 @@ struct CaptureManifest<'a> {
     pipeline: &'static str,
     status: &'static str,
     fixture: &'a str,
-    seed: u64,
+    seed: Seed,
     lod: &'static str,
     revision: &'a str,
     dirty_state: &'a str,
