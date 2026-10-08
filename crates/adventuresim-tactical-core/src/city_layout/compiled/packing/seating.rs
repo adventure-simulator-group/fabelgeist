@@ -2,7 +2,7 @@
 use super::*;
 
 impl CompiledCityLayout {
-    pub(super) fn seat_single_bearings(&mut self) -> Result<(), CityCompileError> {
+    pub(super) fn seat_single_bearings(&mut self) -> CityCompileResult<()> {
         for property in &self.single_properties {
             let building = self
                 .buildings
@@ -77,7 +77,7 @@ impl CompiledCityLayout {
         self.reconnect_garden_lanes()
     }
 
-    fn reconnect_garden_lanes(&mut self) -> Result<(), CityCompileError> {
+    fn reconnect_garden_lanes(&mut self) -> CityCompileResult<()> {
         for garden in &mut self.gardens {
             let building = self
                 .buildings

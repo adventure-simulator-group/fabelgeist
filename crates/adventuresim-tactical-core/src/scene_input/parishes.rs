@@ -2,8 +2,6 @@
 use super::*;
 use adventuresim_world_schema::settlement_buildings::{BuildingUse, ParishProminence};
 use std::collections::{BTreeMap, BTreeSet};
-#[cfg(test)]
-mod tests;
 
 struct Member {
     usage: Option<BuildingUse>,
@@ -22,7 +20,7 @@ impl Member {
         let resident_capacity = crate::city_layout::CityHouseClass::ALL
             .into_iter()
             .find(|class| class.archetype() == archetype)
-            .map_or(0, |class| class.resident_capacity());
+            .map_or(0, |class| class.resident_capacity().get());
         Self {
             usage,
             size,
@@ -161,3 +159,5 @@ fn validate_members(
     }
     Ok(())
 }
+#[cfg(test)]
+mod tests;

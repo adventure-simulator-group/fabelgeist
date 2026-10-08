@@ -6,6 +6,14 @@ use adventuresim_tactical_core::{
 };
 use serde::Serialize;
 
+// Native scene east/north metres for numerical area comparisons. The index is
+// the source collection ordinal emitted in the diagnostic JSON, not ownership.
+struct GardenRegionOutline {
+    kind: GardenRegion,
+    index: Option<usize>,
+    outline: Vec<Vec2>,
+}
+
 #[derive(Clone, Copy, Serialize)]
 #[serde(rename_all = "snake_case")]
 enum GardenRegion {
@@ -13,14 +21,6 @@ enum GardenRegion {
     Bed,
     Route,
     PlantHull,
-}
-
-// Native scene east/north metres for numerical area comparisons. The index is
-// the source collection ordinal emitted in the diagnostic JSON, not ownership.
-struct GardenRegionOutline {
-    kind: GardenRegion,
-    index: Option<usize>,
-    outline: Vec<Vec2>,
 }
 
 pub(super) fn measure(
@@ -55,6 +55,22 @@ fn outlines(garden: &CityGarden) -> Result<Vec<GardenRegionOutline>, Box<dyn std
                 .ok_or(adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection)?)?;
         Ok(GardenRegionOutline { kind: GardenRegion::Route, index: Some(index), outline: bounds.corners().to_vec() })
     }).collect::<Result<Vec<_>, Box<dyn std::error::Error>>>()?;
+    let plants = garden
+        .plants
+        .iter()
+        .enumerate()
+        .map(|(i, plant)| {
+            Ok(GardenRegionOutline {
+                kind: GardenRegion::PlantHull,
+                index: Some(i),
+                outline: plant
+                    .world_hull()?
+                    .into_iter()
+                    .map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::metres)
+                    .collect(),
+            })
+        })
+        .collect::<Result<Vec<_>, Box<dyn std::error::Error>>>()?;
     Ok(std::iter::once(GardenRegionOutline {
         kind: GardenRegion::SoilEnvelope,
         index: None,
@@ -72,17 +88,7 @@ fn outlines(garden: &CityGarden) -> Result<Vec<GardenRegionOutline>, Box<dyn std
             }),
     )
     .chain(routes)
-    .chain(
-        garden
-            .plants
-            .iter()
-            .enumerate()
-            .map(|(i, plant)| GardenRegionOutline {
-                kind: GardenRegion::PlantHull,
-                index: Some(i),
-                outline: plant.world_hull(),
-            }),
-    )
+    .chain(plants)
     .collect())
 }
 

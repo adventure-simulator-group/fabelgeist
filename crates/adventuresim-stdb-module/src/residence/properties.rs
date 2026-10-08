@@ -1,9 +1,8 @@
 //! Immutable generated homes and transactional physical allocation.
-mod materialization;
+
+pub use households::{BackendHouseholdPropertyOccupancy, backend_household_property_occupancies};
 pub(crate) use materialization::bind_generated_households;
 use materialization::{GeneratedResidentHome, generated_resident_home};
-mod households;
-pub use households::{BackendHouseholdPropertyOccupancy, backend_household_property_occupancies};
 
 use super::occupancy::{property_occupancy_transition, property_occupancy_transition__view};
 use super::*;
@@ -12,6 +11,8 @@ use crate::settlement_population::settlement_resident_profile;
 use adventuresim_core::{
     reputation::effective_population, settlement_property::GeneratedHomeCatalog,
 };
+mod households;
+mod materialization;
 
 #[derive(Clone, Debug)]
 #[table(accessor = settlement_property_manifest, public)]
@@ -153,7 +154,10 @@ pub fn register_settlement_properties(
     catalog
         .validate(
             &settlement.id,
-            effective_population(settlement.population_level, settlement.population_estimate),
+            adventuresim_core::settlement_property::ResidentCount::new(effective_population(
+                settlement.population_level,
+                settlement.population_estimate,
+            )),
         )
         .map_err(|error| error.to_string())?;
     let digest = catalog.digest().map_err(|error| error.to_string())?;
@@ -190,11 +194,14 @@ pub fn register_settlement_properties(
                 .filter(&household.id)
                 .filter(|member| residents.contains(&member.character_id))
                 .count() as u32;
-            (household.id, count)
+            adventuresim_core::settlement_property::HouseholdRequest {
+                household_id: household.id,
+                residents: adventuresim_core::settlement_property::ResidentCount::new(count),
+            }
         })
-        .filter(|(_, count)| *count > 0)
+        .filter(|request| request.residents.get() > 0)
         .collect::<Vec<_>>();
-    families.sort_by(|left, right| left.0.cmp(&right.0));
+    families.sort_by(|left, right| left.household_id.cmp(&right.household_id));
     let allocation = catalog
         .allocate(&families)
         .map_err(|error| error.to_string())?;
@@ -204,7 +211,7 @@ pub fn register_settlement_properties(
             settlement_id: settlement.id.clone(),
             building_id: home.building_id,
             tier: home.tier,
-            resident_capacity: home.resident_capacity,
+            resident_capacity: home.resident_capacity.get(),
             east_metres: home.east_metres,
             north_metres: home.north_metres,
             yaw_radians: home.yaw_radians,
@@ -335,7 +342,7 @@ fn allocate_population(
                 .insert(HouseholdPropertyOccupancy {
                     household_id: assignment.household_id,
                     property_id: assignment.property_id.as_str().to_owned(),
-                    unmaterialized_residents: assignment.residents,
+                    unmaterialized_residents: assignment.residents.get(),
                 });
         } else {
             for member in members {

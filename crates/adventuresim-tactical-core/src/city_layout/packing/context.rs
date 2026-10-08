@@ -14,40 +14,15 @@ pub(super) struct ParcelFrontage {
     tangent: Dir2,
 }
 
-impl CityPackingContext {
-    pub fn from_selected(
-        selected: &[CandidateLot],
-        blocks: &[CityBlock],
-    ) -> Result<Self, CityCompileError> {
-        let blocks: BTreeMap<_, _> = blocks.iter().map(|b| (b.id, *b)).collect();
-        Ok(Self {
-            frontages: selected
-                .iter()
-                .map(|candidate| {
-                    let lot = candidate.lot;
-                    let failure = || CityCompileError::Packing {
-                        property: CityPropertyId(lot.id),
-                        issue: CityPackingIssue::MissingFrontage,
-                    };
-                    let block = *blocks.get(&candidate.block_key).ok_or_else(failure)?;
-                    let edge = (0..4)
-                        .max_by(|&a, &b| {
-                            let alignment = |i: usize| {
-                                lot.orientation.local_to_world(Vec2::X).dot(
-                                    (block.corners[(i + 1) % 4] - block.corners[i]).normalize(),
-                                )
-                            };
-                            alignment(a).total_cmp(&alignment(b)).then(b.cmp(&a))
-                        })
-                        .ok_or_else(failure)?;
-                    Ok((
-                        CityPropertyId(lot.id),
-                        ParcelFrontage::on_edge(lot, block, edge)?,
-                    ))
-                })
-                .collect::<Result<_, CityCompileError>>()?,
-        })
-    }
+/// Ground ownership and elevated building envelopes are different constraints.
+/// Only the private reservation bounds a block fit. Empty corners between a
+/// roof projection and its garden are not occupied building volume.
+#[derive(Clone, Debug)]
+pub(super) struct ParcelGeometry {
+    pub reservation: CityPlotBounds,
+    pub buildings: Vec<CityPlotBounds>,
+    pub bearings: Vec<ScenePlanPolygon>,
+    pub garden: Option<gardens::CityGarden>,
 }
 
 /// Allocation roles in deliberate precedence order, separate from edge ordinals.
@@ -58,27 +33,66 @@ pub(super) enum FrontagePriority {
     Residence,
 }
 
+impl CityPackingContext {
+    pub fn from_selected(
+        selected: &[CandidateLot],
+        blocks: &[CityBlock],
+    ) -> CityCompileResult<Self> {
+        let blocks: BTreeMap<_, _> = blocks.iter().map(|b| (b.id, *b)).collect();
+        Ok(Self {
+            frontages: selected
+                .iter()
+                .map(|candidate| {
+                    let lot = candidate.lot;
+                    let failure = || CityCompileError::Packing {
+                        property: lot.id,
+                        issue: CityPackingIssue::MissingFrontage,
+                    };
+                    let block = *blocks.get(&candidate.block_key).ok_or_else(failure)?;
+                    let edge = (0..4)
+                        .max_by(|&a, &b| {
+                            let alignment = |i: usize| {
+                                lot.orientation.local_to_world(Vec2::X).dot(
+                                    (block.corners_metres()[(i + 1) % 4]
+                                        - block.corners_metres()[i])
+                                        .normalize(),
+                                )
+                            };
+                            alignment(a).total_cmp(&alignment(b)).then(b.cmp(&a))
+                        })
+                        .ok_or_else(failure)?;
+                    Ok((lot.id, ParcelFrontage::on_edge(lot, block, edge)?))
+                })
+                .collect::<CityCompileResult<_>>()?,
+        })
+    }
+}
+
 impl ParcelFrontage {
     pub(super) fn on_edge(
         lot: CityBuildingLot,
         block: CityBlock,
         edge: usize,
-    ) -> Result<Self, CityCompileError> {
+    ) -> CityCompileResult<Self> {
         let failure = || CityCompileError::Packing {
-            property: CityPropertyId(lot.id),
+            property: lot.id,
             issue: CityPackingIssue::MissingFrontage,
         };
-        if block.corners.iter().any(|point| !point.is_finite())
-            || (0..block.corners.len()).any(|i| {
-                (block.corners[(i + 1) % block.corners.len()] - block.corners[i])
+        if block
+            .corners_metres()
+            .iter()
+            .any(|point| !point.is_finite())
+            || (0..block.corners_metres().len()).any(|i| {
+                (block.corners_metres()[(i + 1) % block.corners_metres().len()]
+                    - block.corners_metres()[i])
                     .try_normalize()
                     .is_none()
             })
         {
             return Err(failure());
         }
-        let start = *block.corners.get(edge).ok_or_else(failure)?;
-        let end = block.corners[(edge + 1) % block.corners.len()];
+        let start = *block.corners_metres().get(edge).ok_or_else(failure)?;
+        let end = block.corners_metres()[(edge + 1) % block.corners_metres().len()];
         let tangent = (end - start)
             .try_normalize()
             .map(Dir2::new_unchecked)
@@ -111,15 +125,16 @@ impl ParcelFrontage {
         self,
         layout: &CompiledCityLayout,
         envelopes: &BTreeMap<crate::scene_input::SceneBuildingId, MeasuredBuildingEnvelope>,
-    ) -> Result<ParcelGeometry, CityCompileError> {
-        let id = CityPropertyId(self.lot.id);
-        let reservation = CityPlotBounds::try_from(plots::reservation(self.lot))?;
-        let front = envelopes
-            .get(&crate::scene_input::SceneBuildingId(self.lot.id))
-            .ok_or(CityCompileError::Packing {
-                property: id,
-                issue: CityPackingIssue::MissingFrontage,
-            })?;
+    ) -> CityCompileResult<ParcelGeometry> {
+        let id = self.lot.id;
+        let reservation = plots::reservation(self.lot)?;
+        let front =
+            envelopes
+                .get(&self.lot.front_building_id())
+                .ok_or(CityCompileError::Packing {
+                    property: id,
+                    issue: CityPackingIssue::MissingFrontage,
+                })?;
         let mut buildings = vec![front.body];
         if let Some(compound) = layout.compounds.iter().find(|p| p.id == id) {
             buildings.push(
@@ -143,7 +158,7 @@ impl ParcelFrontage {
                     .map_err(|issue| CityCompileError::Packing {
                         property: id,
                         issue: CityPackingIssue::InvalidBearing {
-                            building: self.lot.id.into(),
+                            building: self.lot.front_building_id(),
                             issue,
                         },
                     })?,
@@ -163,39 +178,39 @@ impl ParcelFrontage {
         })
     }
 
-    pub fn available_displacement(self, envelope: CityPlotBounds) -> Option<FrontageInterval> {
+    pub fn available_displacement(
+        self,
+        envelope: CityPlotBounds,
+    ) -> Result<Option<FrontageInterval>, intervals::FrontageIntervalError> {
         let tangent = self.tangent().as_dvec2();
-        let mut interval = FrontageInterval {
-            minimum_metres: f64::NEG_INFINITY,
-            maximum_metres: f64::INFINITY,
-        };
+        let mut interval = FrontageInterval::unbounded();
         for edge in 0..4 {
-            let start = self.block.corners[edge].as_dvec2();
-            let normal = (self.block.corners[(edge + 1) % 4] - self.block.corners[edge])
+            let start = self.block.corners_metres()[edge].as_dvec2();
+            let normal = (self.block.corners_metres()[(edge + 1) % 4]
+                - self.block.corners_metres()[edge])
                 .normalize()
                 .perp()
                 .as_dvec2();
             for corner in envelope.corners() {
                 let origin = normal.dot(corner.as_dvec2() - start)
-                    - f64::from(self.block.streets[edge].half_width())
+                    - f64::from(
+                        self.block.streets[edge]
+                            .half_width()
+                            .map_err(|_| intervals::FrontageIntervalError::InvalidArithmetic)?
+                            .metres(),
+                    )
                     + f64::from(plots::STREET_EDGE_TOLERANCE_METRES);
-                interval = interval.with_half_plane(origin, normal.dot(tangent))?;
+                let Some(narrowed) = interval.with_half_plane(origin, normal.dot(tangent))? else {
+                    return Ok(None);
+                };
+                interval = narrowed;
             }
         }
-        (interval.minimum_metres.is_finite() && interval.maximum_metres.is_finite())
-            .then_some(interval)
+        if !interval.minimum_metres().is_finite() || !interval.maximum_metres().is_finite() {
+            return Err(intervals::FrontageIntervalError::InvalidArithmetic);
+        }
+        Ok(Some(interval))
     }
-}
-
-/// Ground ownership and elevated building envelopes are different constraints.
-/// Only the private reservation bounds a block fit. Empty corners between a
-/// roof projection and its garden are not occupied building volume.
-#[derive(Clone, Debug)]
-pub(super) struct ParcelGeometry {
-    pub reservation: CityPlotBounds,
-    pub buildings: Vec<CityPlotBounds>,
-    pub bearings: Vec<ScenePlanPolygon>,
-    pub garden: Option<gardens::CityGarden>,
 }
 impl ParcelGeometry {
     pub fn translated(
@@ -204,7 +219,6 @@ impl ParcelGeometry {
         tangent: Dir2,
     ) -> Result<Self, adventuresim_building_generator::plan_geometry::PlanGeometryError> {
         let translation = delta;
-        let delta = translation.metres();
         let mut geometry = self.clone();
         geometry.reservation = geometry.reservation.translated(translation)?;
         for body in &mut geometry.buildings {
@@ -214,17 +228,18 @@ impl ParcelGeometry {
             *bearing = bearing.translated(translation)?;
         }
         if let Some(garden) = &mut geometry.garden {
-            garden.translate(delta, *tangent)?;
+            garden.translate(translation, tangent)?;
         }
         Ok(geometry)
     }
 
-    pub fn clears(&self, other: &Self) -> bool {
-        self.forbidden_displacements(other, Dir2::X, DVec2::ZERO)
+    pub fn clears(&self, other: &Self) -> Result<bool, intervals::FrontageIntervalError> {
+        Ok(self
+            .forbidden_displacements(other, Dir2::X, DVec2::ZERO)?
             .iter()
-            .all(|range| range.minimum_metres >= 0.0 || range.maximum_metres <= 0.0)
+            .all(|range| range.minimum_metres() >= 0.0 || range.maximum_metres() <= 0.0)
             && self.garden_clears(other)
-            && other.garden_clears(self)
+            && other.garden_clears(self))
     }
 
     pub fn garden_clears(&self, other: &Self) -> bool {
@@ -241,11 +256,12 @@ impl ParcelGeometry {
         other: &Self,
         tangent: Dir2,
         other_translation_metres: DVec2,
-    ) -> Vec<FrontageInterval> {
-        self.conflicts(other, tangent, other_translation_metres)
+    ) -> Result<Vec<FrontageInterval>, intervals::FrontageIntervalError> {
+        Ok(self
+            .conflicts(other, tangent, other_translation_metres)?
             .into_iter()
             .flatten()
-            .collect()
+            .collect())
     }
 
     /// Every returned slot names the same geometric pair, including a pair
@@ -257,7 +273,7 @@ impl ParcelGeometry {
         other: &Self,
         tangent: Dir2,
         other_translation_metres: DVec2,
-    ) -> Vec<Option<FrontageInterval>> {
+    ) -> Result<Vec<Option<FrontageInterval>>, intervals::FrontageIntervalError> {
         std::iter::once((
             self.reservation,
             other.reservation,

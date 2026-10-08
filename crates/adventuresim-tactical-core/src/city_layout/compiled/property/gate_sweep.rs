@@ -94,10 +94,10 @@ mod tests {
                 walls: vec![],
                 gate: CityGate {
                     hinge,
-                    centre_metres: Vec2::new(10.0, -4.0),
+                    centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(10.0, -4.0)).unwrap(),
                     orientation: BuildingOrientation::from_radians(yaw).unwrap(),
-                    width_metres: 1.6,
-                    height_metres: 1.8,
+                    width_metres: adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.6).unwrap(),
+                    height_metres: adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.8).unwrap(),
                 },
             };
             let door = boundary.gate.door(CityPropertyId(1)).unwrap();

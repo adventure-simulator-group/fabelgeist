@@ -7,7 +7,7 @@ pub(in crate::city_layout::compiled) fn validate_access(
     rear: &TacticalBuildingPlacement,
     rear_recipe: &Recipe,
     streets: &[CityStreetPatch],
-) -> Result<(), CityCompileError> {
+) -> CityCompileResult<()> {
     let error = |issue| CityCompileError::Compound {
         property: compound.id,
         issue,

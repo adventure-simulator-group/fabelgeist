@@ -3,12 +3,15 @@ use super::*;
 use search::BlockSearch;
 
 impl BlockSearch<'_> {
-    pub(super) fn propagate_domains(&self, candidates: &mut [DomainChoices]) {
+    pub(super) fn propagate_domains(
+        &self,
+        candidates: &mut [DomainChoices],
+    ) -> Result<(), CoupledPackingIssue> {
         // A bounded propagation pass only removes impossible choices. Stopping
         // early can leave extra search work; it never accepts a collision.
         for _ in 0..self.domains.len().saturating_mul(self.domains.len()) {
             let previous = candidates.to_vec();
-            self.propagate_frontage_capacity(candidates);
+            self.propagate_frontage_capacity(candidates)?;
             for first in 0..candidates.len() {
                 for second in 0..candidates.len() {
                     if first == second || candidates[second].intervals.is_empty() {
@@ -16,7 +19,7 @@ impl BlockSearch<'_> {
                     }
                     let a = &self.domains[candidates[first].domain.index()];
                     let b = &self.domains[candidates[second].domain.index()];
-                    for forbidden in a.unavoidable_conflicts(b, &candidates[second].intervals) {
+                    for forbidden in a.unavoidable_conflicts(b, &candidates[second].intervals)? {
                         candidates[first].intervals = candidates[first]
                             .intervals
                             .iter()
@@ -33,6 +36,7 @@ impl BlockSearch<'_> {
                 break;
             }
         }
+        Ok(())
     }
 }
 impl PlacementDomain {
@@ -40,7 +44,7 @@ impl PlacementDomain {
         &self,
         other: &Self,
         ranges: &[FrontageInterval],
-    ) -> Vec<FrontageInterval> {
+    ) -> Result<Vec<FrontageInterval>, CoupledPackingIssue> {
         let at = |frontage_displacement| {
             self.proposed.conflicts(
                 &other.proposed,
@@ -50,9 +54,13 @@ impl PlacementDomain {
         };
         let mut unavoidable: Option<Vec<Option<FrontageInterval>>> = None;
         for range in ranges {
-            let endpoints = at(range.minimum_metres)
+            let endpoints = at(range.minimum_metres())
+                .map_err(|_| CoupledPackingIssue::NumericalFailure)?
                 .into_iter()
-                .zip(at(range.maximum_metres))
+                .zip(
+                    at(range.maximum_metres())
+                        .map_err(|_| CoupledPackingIssue::NumericalFailure)?,
+                )
                 .map(|(a, b)| a.and_then(|first| b.and_then(|second| first.intersection(second))))
                 .collect::<Vec<_>>();
             unavoidable = Some(match unavoidable {
@@ -66,11 +74,11 @@ impl PlacementDomain {
                     .collect(),
             });
         }
-        unavoidable
+        Ok(unavoidable
             .unwrap_or_default()
             .into_iter()
             .flatten()
-            .collect()
+            .collect())
     }
 }
 fn unchanged(previous: &[DomainChoices], current: &[DomainChoices]) -> bool {
@@ -82,9 +90,9 @@ fn unchanged(previous: &[DomainChoices], current: &[DomainChoices]) -> bool {
             let b = &second_choices.intervals;
             a.len() == b.len()
                 && a.iter().zip(b).all(|(first, second)| {
-                    (first.minimum_metres - second.minimum_metres).abs()
+                    (first.minimum_metres() - second.minimum_metres()).abs()
                         <= CityPlotBounds::COORDINATE_TOLERANCE_METRES
-                        && (first.maximum_metres - second.maximum_metres).abs()
+                        && (first.maximum_metres() - second.maximum_metres()).abs()
                             <= CityPlotBounds::COORDINATE_TOLERANCE_METRES
                 })
         })
@@ -97,8 +105,14 @@ mod tests {
 
     #[test]
     fn cross_frontage_propagation_preserves_clear_neighbor_choices() {
-        let generated =
-            CitySite::central_german_market_town().generate((42).into(), 900, &economy());
+        let generated = CitySite::central_german_market_town()
+            .unwrap()
+            .generate(
+                (42).into(),
+                adventuresim_core::settlement_property::ResidentCount::new(900),
+                &economy(),
+            )
+            .unwrap();
         let mut frontage = *generated
             .packing
             .as_ref()
@@ -112,7 +126,8 @@ mod tests {
             Vec2::new(30.0, 0.0),
             Vec2::splat(30.0),
             Vec2::new(0.0, 30.0),
-        ];
+        ]
+        .map(|point| ScenePlanPoint::try_from(point).unwrap());
         let domain = |edge: usize, half_range: f64| {
             let frontage = ParcelFrontage::on_edge(frontage.lot, frontage.block, edge).unwrap();
             let bounds = CityPlotBounds::new(
@@ -134,15 +149,14 @@ mod tests {
                     garden: None,
                 },
                 frontage,
-                allowed: FrontageInterval {
-                    minimum_metres: -half_range,
-                    maximum_metres: half_range,
-                },
+                allowed: FrontageInterval::new(-half_range, half_range).unwrap(),
             }
         };
         let a = domain(0, 8.0);
         let constrained = domain(3, 0.5);
-        let forbidden = a.unavoidable_conflicts(&constrained, &[constrained.allowed]);
+        let forbidden = a
+            .unavoidable_conflicts(&constrained, &[constrained.allowed])
+            .unwrap();
         assert!(
             !forbidden.is_empty(),
             "a corner occupying every neighbour pose must be pruned"
@@ -150,26 +164,22 @@ mod tests {
         assert!(
             forbidden
                 .iter()
-                .all(|range| range.minimum_metres < 0.0 && range.maximum_metres > 0.0)
+                .all(|range| range.minimum_metres() < 0.0 && range.maximum_metres() > 0.0)
         );
         let clear_choice = domain(3, 8.0);
         assert!(
             a.unavoidable_conflicts(&clear_choice, &[clear_choice.allowed])
+                .unwrap()
                 .is_empty(),
             "a neighbour can clear the corner; retain that branch"
         );
         let disjoint_choices = [
-            FrontageInterval {
-                minimum_metres: -8.0,
-                maximum_metres: -7.0,
-            },
-            FrontageInterval {
-                minimum_metres: -0.5,
-                maximum_metres: 0.5,
-            },
+            FrontageInterval::new(-8.0, -7.0).unwrap(),
+            FrontageInterval::new(-0.5, 0.5).unwrap(),
         ];
         assert!(
             a.unavoidable_conflicts(&clear_choice, &disjoint_choices)
+                .unwrap()
                 .is_empty(),
             "one colliding interval must not erase another clear neighbour choice"
         );

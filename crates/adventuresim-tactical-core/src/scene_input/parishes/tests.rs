@@ -4,7 +4,14 @@ use crate::city_layout::CitySite;
 fn fixture() -> TacticalSceneInput {
     let mut economy = adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder();
     economy.services = vec![adventuresim_world_schema::SettlementService::Temple];
-    let city = CitySite::central_german_market_town().generate((42).into(), 6_500, &economy);
+    let city = CitySite::central_german_market_town()
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(6_500),
+            &economy,
+        )
+        .unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/flat-dry-grassland.json"
     ))
@@ -17,7 +24,7 @@ fn fixture() -> TacticalSceneInput {
         .iter()
         .map(|lot| DistantBuildingPlacement {
             prosperity: economy.prosperity_tier,
-            id: (lot.id).into(),
+            id: lot.front_building_id(),
             archetype: lot.archetype(),
             usage: Some(lot.building_use().unwrap_or(BuildingUse::Dwelling)),
             service_size: lot.service_size(),

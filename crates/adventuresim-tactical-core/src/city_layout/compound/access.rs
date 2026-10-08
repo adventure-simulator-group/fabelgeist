@@ -117,22 +117,20 @@ impl CityAccessSegment {
             && point.distance(self.start_metres() + delta * fraction) <= Self::JOIN_TOLERANCE_METRES
     }
 }
-/// Native packing translation is east/north metres; the first hook follows
+/// The admitted packing translation keeps its scene frame; the first hook follows
 /// the original street tangent while every other endpoint follows its owner.
 pub(in crate::city_layout) fn translate_property_access(
     access: &mut [CityAccessSegment],
-    delta: Vec2,
-    tangent: Vec2,
+    delta: PlanDisplacement,
+    tangent: bevy::math::Dir2,
 ) -> Result<(), GeometryError> {
     for (index, segment) in access.iter_mut().enumerate() {
-        *segment = segment.translated(
-            PlanDisplacement::try_from(if index == 0 {
-                tangent * delta.dot(tangent)
-            } else {
-                delta
-            })?,
-            PlanDisplacement::try_from(delta)?,
-        )?;
+        let start_delta = if index == 0 {
+            PlanDisplacement::try_from(*tangent * delta.metres().dot(*tangent))?
+        } else {
+            delta
+        };
+        *segment = segment.translated(start_delta, delta)?;
     }
     Ok(())
 }

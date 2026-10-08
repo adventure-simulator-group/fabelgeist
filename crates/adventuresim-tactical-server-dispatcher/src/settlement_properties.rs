@@ -5,6 +5,16 @@ use adventuresim_core::{
 use adventuresim_tactical_core::city_layout::CitySite;
 use adventuresim_world_schema::SettlementEconomyProfile;
 
+#[derive(Debug, thiserror::Error)]
+pub enum SettlementPropertyProjectionError {
+    #[error("generated settlement property capacity is incomplete")]
+    Capacity,
+    #[error(transparent)]
+    Compile(#[from] adventuresim_tactical_core::city_layout::CityCompileError),
+    #[error(transparent)]
+    Property(#[from] adventuresim_core::settlement_property::PropertyError),
+}
+
 pub fn generated_homes(
     settlement_id: &str,
     population_level: i32,
@@ -13,8 +23,12 @@ pub fn generated_homes(
 ) -> Result<GeneratedHomeCatalog, SettlementPropertyProjectionError> {
     let seed = adventuresim_core::settlement_population::settlement_building_seed(settlement_id);
     let population = effective_population(population_level, population_estimate);
-    let layout = CitySite::central_german_market_town().generate(seed, population, economy);
-    if layout.unhoused_population > 0
+    let layout = CitySite::central_german_market_town()?.generate(
+        seed,
+        adventuresim_core::settlement_property::ResidentCount::new(population),
+        economy,
+    )?;
+    if layout.unhoused_population.get() > 0
         || !layout.unplaced_services.is_empty()
         || !layout.demand_shortfalls.is_empty()
     {
@@ -23,7 +37,10 @@ pub fn generated_homes(
     layout
         .compile(seed)?
         .partition(None)?
-        .generated_homes(settlement_id, population)
+        .generated_homes(
+            settlement_id,
+            adventuresim_core::settlement_property::ResidentCount::new(population),
+        )
         .map_err(SettlementPropertyProjectionError::from)
 }
 
@@ -103,20 +120,10 @@ mod tests {
                     .allocate(&[])
                     .unwrap()
                     .iter()
-                    .map(|home| home.residents)
+                    .map(|home| home.residents.get())
                     .sum::<u32>(),
                 population
             );
         }
     }
-}
-
-#[derive(Debug, thiserror::Error)]
-pub enum SettlementPropertyProjectionError {
-    #[error("generated settlement property capacity is incomplete")]
-    Capacity,
-    #[error(transparent)]
-    Compile(#[from] adventuresim_tactical_core::city_layout::CityCompileError),
-    #[error(transparent)]
-    Property(#[from] adventuresim_core::settlement_property::PropertyError),
 }

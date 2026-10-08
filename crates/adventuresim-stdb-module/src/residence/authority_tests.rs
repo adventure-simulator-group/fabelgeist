@@ -28,7 +28,7 @@ pub fn authority_test_property_setup(
         .ok_or("Seeded world missing")?;
     settlement.id = catalog.settlement_id.clone();
     settlement.name = "Property acceptance town".into();
-    settlement.population_estimate = catalog.population;
+    settlement.population_estimate = catalog.population.get();
     settlement.economy = serde_json::from_str(&economy_json).map_err(|error| error.to_string())?;
     ctx.db.settlement().insert(settlement);
     properties::register_settlement_properties(ctx, catalog_json.clone())?;
@@ -56,7 +56,8 @@ pub fn authority_test_property_setup(
         })
         .map(|row| u64::from(row.unmaterialized_residents))
         .sum();
-    if named + aggregate != u64::from(catalog.population) || named >= u64::from(catalog.population)
+    if named + aggregate != u64::from(catalog.population.get())
+        || named >= u64::from(catalog.population.get())
     {
         return Err(
             "Housing census must preserve population with a bounded character roster".into(),
@@ -213,7 +214,7 @@ pub fn authority_test_property_capacity(
         .ok_or("Cheap home missing")?;
     let cheap_id = acquire_residence_internal(ctx, ACTOR, &cheap.id, ResidenceTenure::Owner)?;
     move_residence_occupant_at(ctx, &owned.id, GUEST, start.saturating_add_minutes(1000))?;
-    for index in 0..cheap.resident_capacity - 1 {
+    for index in 0..cheap.resident_capacity.get() - 1 {
         let actor = 719100 + u64::from(index);
         crate::character::insert_new_character(
             ctx,

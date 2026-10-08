@@ -16,12 +16,12 @@ use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 
 use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
+use establishments::bind_establishments;
+pub use terrain_capture::{ImportedTerrainCapture, SourceElevationSample, TerrainCaptureError};
 
 mod establishments;
 mod geological_landforms;
-use establishments::bind_establishments;
 mod terrain_capture;
-pub use terrain_capture::{ImportedTerrainCapture, SourceElevationSample, TerrainCaptureError};
 
 const PLAYABLE_SIDE: u16 = 101;
 const PLAYABLE_SPACING_METRES: f32 = 1.0;
@@ -50,35 +50,10 @@ struct VistaLodSpec {
     side: u16,
 }
 
-impl VistaLodSpec {
-    const fn new(level: u8, spacing_metres: f32, side: u16) -> Self {
-        Self {
-            level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(level),
-            spacing_metres,
-            side,
-        }
-    }
-}
-
 #[derive(Clone, Copy)]
 struct GridDimensions {
     width: u16,
     depth: u16,
-}
-
-impl GridDimensions {
-    const fn square(side: u16) -> Self {
-        Self {
-            width: side,
-            depth: side,
-        }
-    }
-}
-
-#[derive(Clone, Copy)]
-enum ElevationSampling {
-    AddLocalDetail,
-    PreservePeaks,
 }
 
 #[derive(Clone, Copy)]
@@ -89,6 +64,38 @@ struct GridSampleRequest {
     center_elevation_metres: ElevationMeters,
     elevation_sampling: ElevationSampling,
     seed: fabelgeist_determinism::Seed,
+}
+
+/// Native TerrainPack projection port: continuous WGS84 degrees and scene
+/// east/north metres. Quantizing these intermediate values would move samples.
+struct GeographicSampleCoordinate {
+    latitude_degrees: f64,
+    longitude_degrees: f64,
+}
+
+#[derive(Clone, Copy)]
+enum ElevationSampling {
+    AddLocalDetail,
+    PreservePeaks,
+}
+
+impl VistaLodSpec {
+    const fn new(level: u8, spacing_metres: f32, side: u16) -> Self {
+        Self {
+            level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(level),
+            spacing_metres,
+            side,
+        }
+    }
+}
+
+impl GridDimensions {
+    const fn square(side: u16) -> Self {
+        Self {
+            width: side,
+            depth: side,
+        }
+    }
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -186,6 +193,31 @@ pub fn build_imported_scene(
             adventuresim_tactical_core::city_layout::CompoundGradingPolicy::bounded_settlement(),
         )
         .map_err(|error| error.to_string())
+}
+
+pub fn materialize_scene_input(
+    directory: &Path,
+    mission_id: &str,
+    input: &TacticalSceneInput,
+) -> Result<PathBuf, String> {
+    fs::create_dir_all(directory).map_err(|error| error.to_string())?;
+    let key = Sha256::digest(mission_id.as_bytes())
+        .iter()
+        .take(12)
+        .map(|byte| format!("{byte:02x}"))
+        .collect::<String>();
+    let path = directory.join(format!("scene-{key}.json"));
+    let bytes = serde_json::to_vec(input).map_err(|error| error.to_string())?;
+    if let Ok(existing) = fs::read(&path) {
+        if existing == bytes {
+            return Ok(path);
+        }
+        return Err("existing scene input does not match the deterministic request".into());
+    }
+    let temporary = directory.join(format!("scene-{key}.tmp"));
+    fs::write(&temporary, bytes).map_err(|error| error.to_string())?;
+    fs::rename(&temporary, &path).map_err(|error| error.to_string())?;
+    Ok(path)
 }
 
 fn settlement_building_layout(
@@ -307,31 +339,6 @@ fn scarp_lod(
         .then_some(TerrainLandformLod::Fringe)
 }
 
-pub fn materialize_scene_input(
-    directory: &Path,
-    mission_id: &str,
-    input: &TacticalSceneInput,
-) -> Result<PathBuf, String> {
-    fs::create_dir_all(directory).map_err(|error| error.to_string())?;
-    let key = Sha256::digest(mission_id.as_bytes())
-        .iter()
-        .take(12)
-        .map(|byte| format!("{byte:02x}"))
-        .collect::<String>();
-    let path = directory.join(format!("scene-{key}.json"));
-    let bytes = serde_json::to_vec(input).map_err(|error| error.to_string())?;
-    if let Ok(existing) = fs::read(&path) {
-        if existing == bytes {
-            return Ok(path);
-        }
-        return Err("existing scene input does not match the deterministic request".into());
-    }
-    let temporary = directory.join(format!("scene-{key}.tmp"));
-    fs::write(&temporary, bytes).map_err(|error| error.to_string())?;
-    fs::rename(&temporary, &path).map_err(|error| error.to_string())?;
-    Ok(path)
-}
-
 fn sample_grid(
     pack: &TerrainPack,
     request: GridSampleRequest,
@@ -436,13 +443,6 @@ fn environment_sample(cell: Cell) -> EnvironmentalSample {
         },
     }
 }
-
-/// Native TerrainPack projection port: continuous WGS84 degrees and scene
-/// east/north metres. Quantizing these intermediate values would move samples.
-struct GeographicSampleCoordinate {
-    latitude_degrees: f64,
-    longitude_degrees: f64,
-}
 fn offset_coordinate(
     latitude: f64,
     longitude: f64,
@@ -517,9 +517,11 @@ fn settlement_properties(
             building_layout
                 .generated_homes(
                     &profile.id,
-                    adventuresim_core::reputation::effective_population(
-                        profile.population_level,
-                        profile.population_estimate,
+                    adventuresim_core::settlement_property::ResidentCount::new(
+                        adventuresim_core::reputation::effective_population(
+                            profile.population_level,
+                            profile.population_estimate,
+                        ),
                     ),
                 )
                 .map_err(|error| error.to_string())

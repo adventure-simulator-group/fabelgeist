@@ -23,16 +23,84 @@ pub(super) fn layout() -> Result<CitySceneLayout, Box<dyn std::error::Error>> {
         adventuresim_world_schema::SettlementService::Inn,
         adventuresim_world_schema::SettlementService::Temple,
     ];
-    let mut city = CitySite::central_german_market_town()
-        .generate((42).into(), 900, &economy)
-        .compile((42).into())
-        .expect("garden review city compiles");
-    let mut garden = city.gardens.remove(0);
+    let city = CitySite::central_german_market_town()?
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(900),
+            &economy,
+        )?
+        .compile((42).into())?;
+    let mut garden = city
+        .gardens
+        .into_iter()
+        .next()
+        .ok_or_else(|| std::io::Error::other("review city has no accepted garden"))?;
     let mut front = city
         .buildings
         .into_iter()
         .find(|b| b.id == garden.front_building_id)
-        .unwrap();
+        .ok_or_else(|| std::io::Error::other("review garden lacks its front member"))?;
+    normalize_garden(&mut garden, &mut front)?;
+    let mut yards = vec![CityYardPatch::from_bounds(
+        garden.plot,
+        CityYardSurface::PackedEarth,
+    )?];
+    for bed in &garden.beds {
+        yards.push(CityYardPatch::from_bounds(
+            *bed,
+            CityYardSurface::KitchenGarden,
+        )?);
+    }
+    // The isolated catalogue has a straight frontage street. Seat its near
+    // edge at the retained property edge rather than using an access endpoint
+    // as a street centre, which left an unowned gap before the threshold.
+    let street_half_width = 3.5;
+    let street_depth =
+        garden.plot.centre_metres().y - garden.plot.dimensions_metres().y * 0.5 - street_half_width;
+    let offset = Vec2::new(0.0, 70.0);
+    let mut distant_garden = garden.clone();
+    distant_garden.owner = adventuresim_tactical_core::city_layout::CityPropertyId(10_032);
+    distant_garden.front_building_id =
+        adventuresim_tactical_core::scene_input::SceneBuildingId(distant_garden.owner.0);
+    translate_catalogue_garden(&mut distant_garden, offset)?;
+    let mut distant_yards = yards.clone();
+    for yard in &mut distant_yards {
+        for point in &mut yard.corners_metres {
+            *point = point.translated(
+                adventuresim_tactical_core::scene_coordinates::PlanDisplacement::try_from(offset)?,
+            )?;
+        }
+    }
+    yards.extend(distant_yards);
+    let distant = DistantBuildingPlacement {
+        prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
+        id: distant_garden.front_building_id,
+        archetype: front.program.archetype,
+        usage: front.program.usage,
+        service_size: front.program.service_size,
+        seed: front.program.seed,
+        centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            offset,
+        )?,
+        orientation: front.orientation,
+        base_elevation_metres:
+            adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+    };
+    Ok(CitySceneLayout {
+        playable: vec![front],
+        distant: vec![distant],
+        gardens: vec![garden, distant_garden],
+        yards,
+        streets: catalogue_streets(street_depth, street_half_width, offset)?,
+        ..Default::default()
+    })
+}
+
+/// Rigid normalization preserves the accepted garden's complete member poses.
+fn normalize_garden(
+    garden: &mut adventuresim_tactical_core::city_layout::CityGarden,
+    front: &mut TacticalBuildingPlacement,
+) -> adventuresim_building_generator::spatial_geometry::GeometryResult<()> {
     let origin = front.centre_metres.metres();
     let orientation = front.orientation;
     let local = |p| orientation.world_to_local(p - origin);
@@ -70,55 +138,7 @@ pub(super) fn layout() -> Result<CitySceneLayout, Box<dyn std::error::Error>> {
             ))?;
         plant.orientation = BuildingOrientation::IDENTITY;
     }
-    let mut yards = vec![CityYardPatch {
-        corners_metres: garden.plot.corners(),
-        surface: CityYardSurface::PackedEarth,
-    }];
-    yards.extend(garden.beds.iter().map(|b| CityYardPatch {
-        corners_metres: b.corners(),
-        surface: CityYardSurface::KitchenGarden,
-    }));
-    // The isolated catalogue has a straight frontage street. Seat its near
-    // edge at the retained property edge rather than using an access endpoint
-    // as a street centre, which left an unowned gap before the threshold.
-    let street_half_width = 3.5;
-    let street_depth =
-        garden.plot.centre_metres().y - garden.plot.dimensions_metres().y * 0.5 - street_half_width;
-    let offset = Vec2::new(0.0, 70.0);
-    let mut distant_garden = garden.clone();
-    distant_garden.owner = adventuresim_tactical_core::city_layout::CityPropertyId(10_032);
-    distant_garden.front_building_id =
-        adventuresim_tactical_core::scene_input::SceneBuildingId(distant_garden.owner.0);
-    translate_catalogue_garden(&mut distant_garden, offset)?;
-    let mut distant_yards = yards.clone();
-    for yard in &mut distant_yards {
-        for point in &mut yard.corners_metres {
-            *point += offset;
-        }
-    }
-    yards.extend(distant_yards);
-    let distant = DistantBuildingPlacement {
-        prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
-        id: distant_garden.front_building_id,
-        archetype: front.program.archetype,
-        usage: front.program.usage,
-        service_size: front.program.service_size,
-        seed: front.program.seed,
-        centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
-            offset,
-        )?,
-        orientation: front.orientation,
-        base_elevation_metres:
-            adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
-    };
-    Ok(CitySceneLayout {
-        playable: vec![front],
-        distant: vec![distant],
-        gardens: vec![garden, distant_garden],
-        yards,
-        streets: catalogue_streets(street_depth, street_half_width, offset),
-        ..Default::default()
-    })
+    Ok(())
 }
 
 fn translate_catalogue_garden(
@@ -162,13 +182,25 @@ fn catalogue_streets(
     street_depth: f32,
     street_half_width: f32,
     offset: Vec2,
-) -> Vec<CityStreetPatch> {
+) -> adventuresim_building_generator::spatial_geometry::GeometryResult<Vec<CityStreetPatch>> {
     [0.0, offset.y]
-        .map(|depth| CityStreetPatch::Corridor {
-            start_metres: Vec2::new(-45.0, street_depth + depth),
-            end_metres: Vec2::new(45.0, street_depth + depth),
-            half_width_metres: street_half_width,
-            surface: CityStreetSurface::CompactedEarth,
+        .into_iter()
+        .map(|depth| {
+            Ok(CityStreetPatch::Corridor {
+                start_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(-45.0, street_depth + depth),
+                    )?,
+                end_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(45.0, street_depth + depth),
+                    )?,
+                half_width_metres:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        street_half_width,
+                    )?,
+                surface: CityStreetSurface::CompactedEarth,
+            })
         })
-        .to_vec()
+        .collect()
 }

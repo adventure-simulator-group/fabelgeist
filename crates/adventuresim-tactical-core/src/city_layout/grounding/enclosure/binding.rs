@@ -13,6 +13,49 @@ pub struct BoundaryOwnerBinding {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(transparent)]
 struct BoundaryDescriptorDigest([u8; 32]);
+#[derive(Deserialize)]
+struct BindingWire {
+    property: CityPropertyId,
+    members: PropertyMembers,
+    gate: SupportElevation,
+    descriptor_digest: BoundaryDescriptorDigest,
+    elements: Vec<BoundarySupportElement>,
+}
+#[derive(Clone, Debug, PartialEq)]
+pub struct BoundarySupportProjection {
+    pub mesh: BoundarySupportMesh,
+    pub gate_elevation: SupportElevation,
+}
+#[derive(Clone, Debug, PartialEq, Serialize, thiserror::Error)]
+pub enum BoundaryAdmissionError {
+    #[error(
+        "property {property:?}, front building {front} disagrees with its fixed enclosure owner"
+    )]
+    Owner {
+        property: CityPropertyId,
+        front: crate::scene_input::SceneBuildingId,
+    },
+    #[error("property {property:?} enclosure descriptor disagrees with its fixed geometry")]
+    Descriptor { property: CityPropertyId },
+    #[error("property {property:?} gate datum {actual:?} differs from bound datum {expected:?}")]
+    Datum {
+        property: CityPropertyId,
+        actual: SupportElevation,
+        expected: SupportElevation,
+    },
+    #[error("property {property:?} descriptor geometry: {cause}")]
+    Geometry {
+        property: CityPropertyId,
+        #[source]
+        cause: crate::city_layout::BoundaryGeometryError,
+    },
+    #[error("property {property:?} fixed support: {issue}")]
+    Support {
+        property: CityPropertyId,
+        #[source]
+        issue: SupportGeometryIssue,
+    },
+}
 impl BoundaryDescriptorDigest {
     fn of(boundary: &crate::city_layout::CityBoundary) -> Self {
         // Descriptor hashing is an explicit little-endian scalar boundary;
@@ -21,12 +64,12 @@ impl BoundaryDescriptorDigest {
         digest.update((boundary.walls.len() as u64).to_le_bytes());
         for wall in &boundary.walls {
             for scalar in [
-                wall.start_metres.x,
-                wall.start_metres.y,
-                wall.end_metres.x,
-                wall.end_metres.y,
-                wall.height_metres,
-                wall.thickness_metres,
+                wall.start_metres.metres().x,
+                wall.start_metres.metres().y,
+                wall.end_metres.metres().x,
+                wall.end_metres.metres().y,
+                wall.height_metres.metres(),
+                wall.thickness_metres.metres(),
             ] {
                 digest.update(scalar.to_bits().to_le_bytes());
             }
@@ -37,24 +80,16 @@ impl BoundaryDescriptorDigest {
             crate::city_layout::PropertySide::Right => 1,
         }]);
         for scalar in [
-            gate.centre_metres.x,
-            gate.centre_metres.y,
+            gate.centre_metres.metres().x,
+            gate.centre_metres.metres().y,
             gate.orientation.yaw_radians(),
-            gate.width_metres,
-            gate.height_metres,
+            gate.width_metres.metres(),
+            gate.height_metres.metres(),
         ] {
             digest.update(scalar.to_bits().to_le_bytes());
         }
         Self(digest.finalize().into())
     }
-}
-#[derive(Deserialize)]
-struct BindingWire {
-    property: CityPropertyId,
-    members: PropertyMembers,
-    gate: SupportElevation,
-    descriptor_digest: BoundaryDescriptorDigest,
-    elements: Vec<BoundarySupportElement>,
 }
 impl TryFrom<BindingWire> for BoundaryOwnerBinding {
     type Error = SupportGeometryIssue;
@@ -171,39 +206,4 @@ impl BoundaryOwnerBinding {
         }
         Ok(())
     }
-}
-#[derive(Clone, Debug, PartialEq, Serialize, thiserror::Error)]
-pub enum BoundaryAdmissionError {
-    #[error(
-        "property {property:?}, front building {front} disagrees with its fixed enclosure owner"
-    )]
-    Owner {
-        property: CityPropertyId,
-        front: crate::scene_input::SceneBuildingId,
-    },
-    #[error("property {property:?} enclosure descriptor disagrees with its fixed geometry")]
-    Descriptor { property: CityPropertyId },
-    #[error("property {property:?} gate datum {actual:?} differs from bound datum {expected:?}")]
-    Datum {
-        property: CityPropertyId,
-        actual: SupportElevation,
-        expected: SupportElevation,
-    },
-    #[error("property {property:?} descriptor geometry: {cause}")]
-    Geometry {
-        property: CityPropertyId,
-        #[source]
-        cause: crate::city_layout::BoundaryGeometryError,
-    },
-    #[error("property {property:?} fixed support: {issue}")]
-    Support {
-        property: CityPropertyId,
-        #[source]
-        issue: SupportGeometryIssue,
-    },
-}
-#[derive(Clone, Debug, PartialEq)]
-pub struct BoundarySupportProjection {
-    pub mesh: BoundarySupportMesh,
-    pub gate_elevation: SupportElevation,
 }

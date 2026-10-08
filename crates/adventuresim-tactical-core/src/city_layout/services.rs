@@ -12,6 +12,11 @@ const SERVICE_SPREAD_METRES: f32 = 80.0;
 const REFERENCE_CITY_POPULATION: f32 = 40_000.0;
 const REFERENCE_CITY_RADIUS_METRES: f32 = 500.0;
 
+pub(super) struct ServicePlacement {
+    pub placed: Vec<CandidateLot>,
+    pub unplaced: Vec<BuildingDemand>,
+}
+
 impl CityBuildingLot {
     pub fn building_use(self) -> Option<BuildingUse> {
         self.service.map(|demand| demand.usage())
@@ -28,23 +33,23 @@ impl CityBuildingLot {
     }
 
     pub fn dimensions_metres(self) -> Vec2 {
-        self.footprint_metres
+        self.footprint_metres.metres()
     }
 }
 
 pub(super) fn place_services(
     seed: fabelgeist_determinism::Seed,
-    population: u32,
+    population: ResidentCount,
     blocks: &[CityBlock],
     candidates: &[CandidateLot],
     demand: &[BuildingDemand],
-) -> (Vec<CandidateLot>, Vec<BuildingDemand>) {
+) -> GeometryResult<ServicePlacement> {
     let blocks = blocks
         .iter()
         .copied()
         .map(|block| (block.key(), block))
         .collect::<BTreeMap<_, _>>();
-    let radius = ((population as f32 / REFERENCE_CITY_POPULATION).sqrt()
+    let radius = ((population.get() as f32 / REFERENCE_CITY_POPULATION).sqrt()
         * REFERENCE_CITY_RADIUS_METRES)
         .max(SERVICE_SPREAD_METRES);
     let mut placed = Vec::<CandidateLot>::new();
@@ -58,17 +63,22 @@ pub(super) fn place_services(
         };
         let before = placed.len();
         let mut accepted = false;
-        for first in request_choices(seed, radius, &blocks, candidates, demand[cursor], &placed) {
-            if !fits_placed(first, &placed) {
+        for first in request_choices(seed, radius, &blocks, candidates, demand[cursor], &placed)? {
+            if !fits_placed(first, &placed)? {
                 continue;
             }
             placed.push(first);
             for &request in &demand[cursor + 1..end] {
-                if let Some(candidate) =
-                    request_choices(seed, radius, &blocks, candidates, request, &placed)
-                        .into_iter()
-                        .find(|candidate| fits_placed(*candidate, &placed))
+                let mut chosen = None;
+                for candidate in
+                    request_choices(seed, radius, &blocks, candidates, request, &placed)?
                 {
+                    if fits_placed(candidate, &placed)? {
+                        chosen = Some(candidate);
+                        break;
+                    }
+                }
+                if let Some(candidate) = chosen {
                     placed.push(candidate);
                 } else {
                     break;
@@ -85,7 +95,7 @@ pub(super) fn place_services(
         }
         cursor = end;
     }
-    (placed, unplaced)
+    Ok(ServicePlacement { placed, unplaced })
 }
 
 fn request_choices(
@@ -95,7 +105,7 @@ fn request_choices(
     candidates: &[CandidateLot],
     request: BuildingDemand,
     placed: &[CandidateLot],
-) -> Vec<CandidateLot> {
+) -> GeometryResult<Vec<CandidateLot>> {
     let key = SERVICE_SITING_DOMAIN.seed(
         seed,
         &[request.usage() as u64, u64::from(request.ordinal())],
@@ -110,31 +120,44 @@ fn request_choices(
         program = program.with_service_size(size);
     }
     let footprint = program.plot_dimensions_metres();
-    let mut choices = candidates
+    let mut choices = Vec::new();
+    for candidate in candidates
         .iter()
-        .filter(|candidate| !candidate.rear_court)
-        .map(|candidate| service_candidate(*candidate, request, footprint))
-        .filter(|candidate| inside_block(*candidate, blocks[&candidate.block_key]))
-        .filter(|candidate| {
-            parish_siting_distance(request, candidate.lot.centre_metres, placed, radius).is_some()
-        })
-        .collect::<Vec<_>>();
+        .filter(|candidate| candidate.position == LotPosition::StreetFrontage)
+    {
+        let candidate =
+            service_candidate(*candidate, request, PlanDimensions::from_metres(footprint)?)?;
+        if inside_block(candidate, blocks[&candidate.block_key])?
+            && parish_siting_distance(
+                request,
+                candidate.lot.centre_metres.metres(),
+                placed,
+                radius,
+            )
+            .is_some()
+        {
+            choices.push(candidate);
+        }
+    }
     // Seeded ranks are expensive. Cache each complete key once while retaining
     // the stable ordering of equal ranks and the exact accepted property sites.
     choices.sort_by_cached_key(|candidate| {
-        if let Some(distance) =
-            parish_siting_distance(request, candidate.lot.centre_metres, placed, radius)
-            && matches!(request, BuildingDemand::Parish { .. })
+        if let Some(distance) = parish_siting_distance(
+            request,
+            candidate.lot.centre_metres.metres(),
+            placed,
+            radius,
+        ) && matches!(request, BuildingDemand::Parish { .. })
         {
             return (
                 (distance * 100.0) as u32,
                 StreamId::new("city.service-lot-rank")
-                    .rng(key, &[candidate.lot.id])
+                    .rng(key, &[candidate.lot.id.0])
                     .next_u64(),
                 candidate.lot.id,
             );
         }
-        let distance = candidate.lot.centre_metres.length();
+        let distance = candidate.lot.centre_metres.metres().length();
         let target = match district {
             BuildingDistrict::Market => 0.0,
             BuildingDistrict::Edge => radius,
@@ -149,12 +172,12 @@ fn request_choices(
         (
             band,
             StreamId::new("city.service-lot-rank")
-                .rng(key, &[candidate.lot.id])
+                .rng(key, &[candidate.lot.id.0])
                 .next_u64(),
             candidate.lot.id,
         )
     });
-    choices
+    Ok(choices)
 }
 
 /// Linked support buildings stay near their church; neighbourhood churches
@@ -171,7 +194,7 @@ fn parish_siting_distance(
     if !matches!(role, ParishBuildingRole::Church(_)) {
         let church = placed.iter().find(|candidate| matches!(candidate.lot.service,
             Some(BuildingDemand::Parish { parish: owner, role: ParishBuildingRole::Church(_) }) if owner == parish))?;
-        let distance = centre.distance(church.lot.centre_metres);
+        let distance = centre.distance(church.lot.centre_metres.metres());
         return (distance <= CITY_PARISH_PRECINCT_RADIUS_METRES).then_some(distance);
     }
     if centre.length() > radius {
@@ -188,7 +211,7 @@ fn parish_siting_distance(
                 })
             )
         })
-        .map(|candidate| centre.distance(candidate.lot.centre_metres))
+        .map(|candidate| centre.distance(candidate.lot.centre_metres.metres()))
         .reduce(f32::min);
     Some(separation.map_or(centre.length(), |distance| {
         (radius * 2.0 - distance).max(0.0)
@@ -198,27 +221,34 @@ fn parish_siting_distance(
 fn service_candidate(
     mut candidate: CandidateLot,
     request: BuildingDemand,
-    footprint: Vec2,
-) -> CandidateLot {
+    footprint: PlanDimensions,
+) -> GeometryResult<CandidateLot> {
     let old_depth = candidate.lot.dimensions_metres().y;
     candidate.lot.service = Some(request);
     candidate.lot.footprint_metres = footprint;
     let new_depth = candidate.lot.dimensions_metres().y;
-    candidate.lot.centre_metres += candidate.lot.orientation.local_to_world(Vec2::Y)
-        * ((new_depth - old_depth) * 0.5 + SERVICE_EDGE_CLEARANCE_METRES
-            - ORDINARY_STREET_HALF_WIDTH_METRES);
-    candidate
+    candidate.lot.centre_metres =
+        candidate
+            .lot
+            .centre_metres
+            .translated(PlanDisplacement::try_from(
+                candidate.lot.orientation.local_to_world(Vec2::Y)
+                    * ((new_depth - old_depth) * 0.5 + SERVICE_EDGE_CLEARANCE_METRES
+                        - ORDINARY_STREET_HALF_WIDTH_METRES),
+            )?)?;
+    Ok(candidate)
 }
 
-fn inside_block(candidate: CandidateLot, block: CityBlock) -> bool {
+fn inside_block(candidate: CandidateLot, block: CityBlock) -> GeometryResult<bool> {
     plots::inside_block(candidate.lot, block)
 }
 
-fn fits_placed(candidate: CandidateLot, placed: &[CandidateLot]) -> bool {
-    placed.iter().all(|other| {
-        !plots::lots_overlap(
-            plots::reservation(candidate.lot),
-            plots::reservation(other.lot),
-        )
-    })
+fn fits_placed(candidate: CandidateLot, placed: &[CandidateLot]) -> GeometryResult<bool> {
+    let proposed = plots::reservation(candidate.lot)?;
+    for other in placed {
+        if plots::lots_overlap(proposed, plots::reservation(other.lot)?) {
+            return Ok(false);
+        }
+    }
+    Ok(true)
 }
