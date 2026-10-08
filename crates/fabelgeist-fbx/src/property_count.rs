@@ -1,15 +1,11 @@
 //! Declared property cardinality admitted from a node-header word.
 
+use derive_more::From;
+
 /// The unsigned wire declaration, distinct from offsets and byte lengths.
 /// Zero and all encoded words remain admitted; resource limits are separate.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, From, PartialEq, Eq)]
 pub(super) struct FbxPropertyCount(u64);
-
-impl From<u64> for FbxPropertyCount {
-    fn from(count: u64) -> Self {
-        Self(count)
-    }
-}
 
 impl FbxPropertyCount {
     /// Length for native Vec capacity and reader iteration only.

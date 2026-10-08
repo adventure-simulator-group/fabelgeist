@@ -19,14 +19,14 @@ use std::io::Read;
 use anyhow::{Context, Result, anyhow, bail};
 use flate2::read::ZlibDecoder;
 
-pub mod animation;
-
-mod property_count;
 use property_count::FbxPropertyCount;
-#[cfg(test)]
-mod property_count_tests;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
+
+pub mod animation;
+mod property_count;
+#[cfg(test)]
+mod property_count_tests;
 
 /// A typed FBX property value.
 #[derive(Debug, Clone)]
