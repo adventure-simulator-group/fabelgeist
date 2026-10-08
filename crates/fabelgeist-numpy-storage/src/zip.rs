@@ -8,6 +8,10 @@
 //! Stored members are handed back as borrowed slices of the mapping, so reading
 //! a multi-gigabyte tensor storage costs no copy.
 
+mod names;
+
+pub use names::{ArchiveMemberName, ArchiveMemberPresence};
+
 use std::borrow::Cow;
 use std::io::Read;
 use std::path::Path;
@@ -45,7 +49,7 @@ const ZIP64_END_OF_CENTRAL_DIRECTORY: u32 = 0x0606_4b50;
 const ZIP64_LOCATOR: u32 = 0x0706_4b50;
 
 pub(crate) struct Entry {
-    pub name: String,
+    pub name: ArchiveMemberName,
     compression: u16,
     compressed_size: u64,
     uncompressed_size: u64,
@@ -154,7 +158,7 @@ impl ZipArchive {
             let extra_len = u16_at(&data, base + 30) as usize;
             let comment_len = u16_at(&data, base + 32) as usize;
             let mut entry = Entry {
-                name: String::from_utf8_lossy(&data[base + 46..base + 46 + name_len]).into_owned(),
+                name: ArchiveMemberName::from(&data[base + 46..base + 46 + name_len]),
                 compression: u16_at(&data, base + 10),
                 compressed_size: u32_at(&data, base + 20) as u64,
                 uncompressed_size: u32_at(&data, base + 24) as u64,
@@ -172,32 +176,35 @@ impl ZipArchive {
     }
 
     /// Member names, in central-directory order.
-    pub fn names(&self) -> impl Iterator<Item = &str> {
-        self.entries.iter().map(|entry| entry.name.as_str())
+    pub fn names(&self) -> impl Iterator<Item = &ArchiveMemberName> {
+        self.entries.iter().map(|entry| &entry.name)
     }
 
-    pub fn contains(&self, name: &str) -> bool {
-        self.entries.iter().any(|entry| entry.name == name)
+    pub fn contains(&self, name: &ArchiveMemberName) -> ArchiveMemberPresence {
+        match self.entries.iter().find(|entry| entry.name == *name) {
+            Some(_) => ArchiveMemberPresence::Present,
+            None => ArchiveMemberPresence::Absent,
+        }
     }
 
     /// Size of a member once decoded, without decoding it.
-    pub fn uncompressed_size(&self, name: &str) -> Option<u64> {
+    pub fn uncompressed_size(&self, name: &ArchiveMemberName) -> Option<u64> {
         self.entries
             .iter()
-            .find(|entry| entry.name == name)
+            .find(|entry| entry.name == *name)
             .map(|entry| entry.uncompressed_size)
     }
 
-    pub(crate) fn find(&self, predicate: impl Fn(&str) -> bool) -> Option<&Entry> {
+    pub(crate) fn find(&self, predicate: impl Fn(&ArchiveMemberName) -> bool) -> Option<&Entry> {
         self.entries.iter().find(|entry| predicate(&entry.name))
     }
 
     /// Decodes one member. Stored members borrow from the mapping.
-    pub fn bytes(&self, name: &str) -> Result<Cow<'_, [u8]>> {
+    pub fn bytes(&self, name: &ArchiveMemberName) -> Result<Cow<'_, [u8]>> {
         let entry = self
             .entries
             .iter()
-            .find(|entry| entry.name == name)
+            .find(|entry| entry.name == *name)
             .with_context(|| format!("archive has no member {name:?}"))?;
         self.entry_bytes(entry)
     }
