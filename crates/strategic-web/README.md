@@ -75,6 +75,9 @@ Environment variables:
 | `SPACETIMEDB_HOST` | `http://localhost:3000` | SpacetimeDB HTTP API URL |
 | `SPACETIMEDB_DATABASE` | `adventuresim-stdb-module` | SpacetimeDB database name |
 | `SPACETIMEDB_TOKEN` | (none) | Required auth token for the registered strategic gateway identity |
+| `STRATEGIC_SESSION_SECRET` | required | Exactly 32 random bytes encoded as unpadded base64url |
+| `STRATEGIC_SESSION_COOKIE_SECURE` | `false` | Set `true` behind HTTPS |
+| `TACTICAL_PROXY_ORIGIN` | (none) | HTTPS origin for private mission sockets on ports 6001–6999; requires secure session cookies |
 
 ## Routes
 

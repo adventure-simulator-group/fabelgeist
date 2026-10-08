@@ -12,8 +12,8 @@ Targets:
             Works from Windows: only Python, ssh and scp are needed locally.
 
   game      strategic-web, the tactical dispatcher and SpacetimeDB, cloned and
-            built on the box from the public repository. Restored from the
-            easy-deploy branch; see DEPLOY.md for what it still needs.
+            built on the box from the public repository. A private development world is created for each deployment; previous
+            worlds remain in the database server.
 
 With HCLOUD_TOKEN set (in .env or the environment) a Hetzner server named
 after the domain is created or reused, with your SSH key and a firewall.
@@ -56,7 +56,6 @@ TARGETS = ("showcase", "game")
 SERVER_TYPES = {"showcase": "cpx11", "game": "cpx31"}
 
 GAME_UNITS = ("fabelgeist-stdb", "fabelgeist-web", "fabelgeist-dispatcher")
-GAME_DATABASE = "adventuresim-stdb-module"
 HCLOUD_API = "https://api.hetzner.cloud/v1"
 
 
@@ -215,7 +214,7 @@ def ensure_firewall(name: str) -> dict:
 
 
 def create_server(name: str, ssh_key: dict, firewall: dict, server_type: str) -> dict:
-    location = os.environ.get("HCLOUD_LOCATION", "ash")
+    location = os.environ.get("HCLOUD_LOCATION", "hil" if server_type == SERVER_TYPES["game"] else "ash")
     image = os.environ.get("HCLOUD_IMAGE", "ubuntu-24.04")
     log(f"Creating Hetzner server {name}: {server_type}, {image}, {location}")
     data = hcloud(
@@ -284,7 +283,7 @@ def provision(domain: str, server_type: str) -> str:
 # ssh
 # --------------------------------------------------------------------------
 
-SSH_OPTIONS = ["-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=10"]
+SSH_OPTIONS = ["-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=yes" if os.environ.get("CI") else "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=10"]
 
 
 def ssh_command(target: str, remote: str) -> list[str]:
@@ -345,16 +344,27 @@ remote_root="$1"
 
 command -v apt-get >/dev/null 2>&1 || { echo "This deploy expects a Debian/Ubuntu VPS." >&2; exit 1; }
 export DEBIAN_FRONTEND=noninteractive
-if ! command -v caddy >/dev/null 2>&1 || ! command -v ufw >/dev/null 2>&1; then
-    ${sudo_cmd} apt-get update
-    ${sudo_cmd} apt-get install -y caddy ufw
-fi
+# Ubuntu's distribution package can predate the basic_auth directive. Install
+# the current stable Caddy package from its official repository.
+${sudo_cmd} apt-get update
+${sudo_cmd} apt-get install -y debian-keyring debian-archive-keyring apt-transport-https curl gnupg ufw
+curl -1sLf https://dl.cloudsmith.io/public/caddy/stable/gpg.key \
+    | ${sudo_cmd} gpg --dearmor --yes -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt \
+    | ${sudo_cmd} tee /etc/apt/sources.list.d/caddy-stable.list >/dev/null
+${sudo_cmd} apt-get update
+${sudo_cmd} apt-get install -y caddy
 
 ${sudo_cmd} mkdir -p "${remote_root}"
 ${sudo_cmd} chown "$(id -u):$(id -g)" "${remote_root}"
 
 ssh_port="${SSH_CONNECTION:-}"; ssh_port="${ssh_port##* }"
 printf '%%s\n' "${ssh_port}" | grep -Eq '^[0-9]+$' || ssh_port="22"
+${sudo_cmd} install -d -m 0755 /etc/ssh/sshd_config.d
+printf 'PasswordAuthentication no\nKbdInteractiveAuthentication no\nPermitRootLogin prohibit-password\n' \
+    | ${sudo_cmd} tee /etc/ssh/sshd_config.d/00-fabelgeist-key-only.conf >/dev/null
+${sudo_cmd} sshd -t
+${sudo_cmd} systemctl reload ssh
 ${sudo_cmd} ufw allow "${ssh_port}/tcp"
 ${sudo_cmd} ufw allow 80/tcp
 ${sudo_cmd} ufw allow 443/tcp
@@ -366,10 +376,10 @@ ${sudo_cmd} ufw --force enable
 INSTALL_CADDY_SCRIPT = r"""
 set -euo pipefail
 %(sudo)s
+${sudo_cmd} caddy validate --config /tmp/fabelgeist.Caddyfile --adapter caddyfile
 [ -f /etc/caddy/Caddyfile ] \
     && ${sudo_cmd} cp /etc/caddy/Caddyfile "/etc/caddy/Caddyfile.backup.$(date +%%Y%%m%%d%%H%%M%%S)" || true
 ${sudo_cmd} install -m 0644 /tmp/fabelgeist.Caddyfile /etc/caddy/Caddyfile
-${sudo_cmd} caddy validate --config /etc/caddy/Caddyfile
 ${sudo_cmd} systemctl enable caddy
 ${sudo_cmd} systemctl reload caddy || ${sudo_cmd} systemctl restart caddy
 """ % {"sudo": SUDO}
@@ -520,13 +530,12 @@ def deploy_showcase(target: str, remote_root: str, skip_build: bool) -> None:
 
 
 # --------------------------------------------------------------------------
-# Game target. Restored from the easy-deploy branch (commit d6456c6e): the
-# box clones the public repository, builds strategic-web, the tactical server
-# and dispatcher, publishes the SpacetimeDB module and runs three systemd
-# units. Nothing is built or uploaded from the operator's machine.
+# Private game testing. Build an exact Git revision before stopping services,
+# then publish and seed a new database. No existing database is updated or
+# deleted, and failed builds leave the running services alone.
 # --------------------------------------------------------------------------
 
-GAME_REPO_URL = os.environ.get("DEPLOY_REPO", "https://github.com/adventure-simulator-group/fabelgeist.git")
+GAME_REPO_URL = "https://github.com/adventure-simulator-group/fabelgeist.git"
 
 
 def spacetime_tarball() -> str:
@@ -558,7 +567,8 @@ fi
 
 # clang and mold are not optional: .cargo/config.toml in the repo hardcodes
 # them as the linker for x86_64-unknown-linux-gnu.
-${sudo_cmd} apt-get install -y git build-essential pkg-config libssl-dev clang mold curl unzip
+${sudo_cmd} apt-get update
+${sudo_cmd} apt-get install -y git build-essential pkg-config libssl-dev clang mold curl unzip python3 nodejs npm libasound2-dev libudev-dev libwayland-dev libx11-dev libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev libxrandr-dev libxi-dev
 
 if [ ! -x "${HOME}/.cargo/bin/cargo" ]; then
     echo "Installing rustup..."
@@ -569,36 +579,19 @@ fi
 if [ ! -x /usr/local/bin/spacetimedb-standalone ]; then
     echo "Installing SpacetimeDB..."
     tmp="$(mktemp -d)"
-    curl -sSL -o "${tmp}/spacetime.tar.gz" "${spacetime_tarball}"
+    curl -fsSL -o "${tmp}/spacetime.tar.gz" "${spacetime_tarball}"
     tar xzf "${tmp}/spacetime.tar.gz" -C "${tmp}"
     ${sudo_cmd} install -m 0755 "${tmp}/spacetimedb-standalone" /usr/local/bin/spacetimedb-standalone
-    ${sudo_cmd} install -m 0755 "${tmp}/spacetimedb-cli" /usr/local/bin/spacetimedb-cli
+    ${sudo_cmd} install -m 0755 "${tmp}/spacetimedb-cli" /usr/local/bin/spacetime
     rm -rf "${tmp}"
 fi
 
 id "${service_user}" >/dev/null 2>&1 \
     || ${sudo_cmd} useradd --system --home "${remote_root}" --shell /usr/sbin/nologin "${service_user}"
 
-${sudo_cmd} mkdir -p "${remote_root}/bin" "${remote_root}/stdb" "${remote_root}/src"
+${sudo_cmd} mkdir -p "${remote_root}/bin" "${remote_root}/stdb" "${remote_root}/src" "${remote_root}/mission-scenes"
 ${sudo_cmd} chown "$(id -u):$(id -g)" "${remote_root}/bin" "${remote_root}/src"
-${sudo_cmd} chown "${service_user}" "${remote_root}/stdb"
-""" % {"sudo": SUDO}
-
-GAME_INSTALL_UNITS_SCRIPT = r"""
-set -euo pipefail
-%(sudo)s
-for unit in fabelgeist-stdb fabelgeist-web fabelgeist-dispatcher; do
-    ${sudo_cmd} install -m 0644 "/tmp/${unit}.service" "/etc/systemd/system/${unit}.service"
-done
-${sudo_cmd} systemctl daemon-reload
-${sudo_cmd} systemctl enable fabelgeist-stdb fabelgeist-web fabelgeist-dispatcher
-# `start`, not `restart`: a redeploy must not drop the database out from under
-# the version that is still serving traffic. The swap window restarts it.
-${sudo_cmd} systemctl start fabelgeist-stdb
-for _ in $(seq 1 60); do
-    curl -sf -o /dev/null "http://127.0.0.1:3000/v1/ping" && break
-    sleep 1
-done
+${sudo_cmd} chown "${service_user}" "${remote_root}/stdb" "${remote_root}/mission-scenes"
 """ % {"sudo": SUDO}
 
 # The standalone server signs its own identities, so the whole deploy needs no
@@ -624,10 +617,14 @@ fi
 
 token="$(sed -n 's/^SPACETIMEDB_TOKEN=//p' "${remote_root}/env" 2>/dev/null \
     || ${sudo_cmd} sed -n 's/^SPACETIMEDB_TOKEN=//p' "${remote_root}/env")"
-/usr/local/bin/spacetimedb-cli login --token "${token}" >/dev/null
+if ! ${sudo_cmd} grep -q '^STRATEGIC_SESSION_SECRET=' "${remote_root}/env"; then
+    secret="$(python3 -c 'import secrets; print(secrets.token_urlsafe(32))')"
+    printf 'STRATEGIC_SESSION_SECRET=%%s\n' "${secret}" | ${sudo_cmd} tee -a "${remote_root}/env" >/dev/null
+fi
+/usr/local/bin/spacetime login --token "${token}" >/dev/null
 """ % {"sudo": SUDO}
 
-# Build with the OLD version still serving. Nothing is stopped until the swap.
+# Prepare all outputs while the current world is still serving.
 GAME_BUILD_SCRIPT = r"""
 set -euo pipefail
 remote_root="$1"
@@ -637,6 +634,8 @@ clean="$4"
 src="${remote_root}/src"
 export PATH="${HOME}/.cargo/bin:${PATH}"
 export CARGO_TERM_COLOR=never
+exec 9>"${remote_root}/build.lock"
+flock -n 9 || { echo "another deployment is already building" >&2; exit 1; }
 
 if [ ! -d "${src}/.git" ]; then
     echo "Cloning ${repo_url}..."
@@ -647,7 +646,7 @@ fi
 cd "${src}"
 git remote set-url origin "${repo_url}"
 git fetch --prune origin
-git checkout -q --detach "origin/${ref}" 2>/dev/null || git checkout -q --detach "${ref}"
+git checkout -q --detach "$(git rev-parse --verify "${ref}^{commit}")"
 # -fd, never -fdx: target/ and the generated wasm are gitignored, and keeping
 # them is the difference between a 2-minute deploy and a 30-minute one.
 git clean -fd
@@ -658,7 +657,7 @@ if [ "${clean}" = "1" ]; then
     git clean -fdx
 fi
 
-cargo build --release \
+cargo build --locked --release \
     -p strategic-web \
     -p adventuresim-tactical-server \
     -p adventuresim-tactical-server-dispatcher
@@ -670,96 +669,117 @@ if ! command -v wasm-bindgen >/dev/null 2>&1 \
     cargo install wasm-bindgen-cli --version "${required}" --locked --force
 fi
 
+npm ci
 python3 scripts/build_wasm.py
+python3 scripts/init_world_runtime.py --repository .
+# This token gates development-only seeding, and must never reach browser assets.
+umask 077
+python3 -c 'import secrets; print(secrets.token_hex(32))' > "${remote_root}/build-bootstrap-token"
+export ADVENTURESIM_DEV_BOOTSTRAP_TOKEN="$(cat "${remote_root}/build-bootstrap-token")"
+/usr/local/bin/spacetime build --module-path crates/adventuresim-stdb-module
 """
 
-# Stop, publish, swap, start. This is the only window with downtime.
+# Publish and seed before stopping the live gateway. Every database name is new.
+GAME_PREPARE_WORLD_SCRIPT = r"""
+set -euo pipefail
+remote_root="$1"
+database="$2"
+cd "${remote_root}/src"
+/usr/local/bin/spacetime publish --server http://127.0.0.1:3000 \
+    --bin-path target/wasm32-unknown-unknown/release/adventuresim_stdb_module.wasm \
+    --delete-data=never --yes=skip-login --no-config "${database}"
+export DEPLOY_DATABASE="${database}"
+export ADVENTURESIM_DEV_BOOTSTRAP_TOKEN="$(cat "${remote_root}/build-bootstrap-token")"
+python3 - <<'SEED'
+import os, sys
+sys.path.insert(0, 'scripts')
+import dev_stack
+raise SystemExit(dev_stack.seed('http://127.0.0.1:3000', os.environ['DEPLOY_DATABASE'], os.environ['ADVENTURESIM_DEV_BOOTSTRAP_TOKEN']))
+SEED
+"""
+
+# Stop the old gateway and all its transient mission processes, then install the
+# matching binaries, assets and units. SpacetimeDB and old worlds stay intact.
 GAME_SWAP_SCRIPT = r"""
 set -euo pipefail
 remote_root="$1"
 service_user="$2"
-database="$3"
-load_world="$4"
-src="${remote_root}/src"
-export PATH="${HOME}/.cargo/bin:${PATH}"
 %(sudo)s
-
-# Stopping the dispatcher reaps every tactical server it spawned: they are
-# children in its cgroup, and systemd's default KillMode=control-group takes
-# the whole group down.
+cd "${remote_root}/src"
 ${sudo_cmd} systemctl stop fabelgeist-web fabelgeist-dispatcher
-
-${sudo_cmd} systemctl restart fabelgeist-stdb
-for _ in $(seq 1 60); do
-    curl -sf -o /dev/null "http://127.0.0.1:3000/v1/ping" && break
-    sleep 1
-done
-
-cd "${src}"
-echo "Publishing the SpacetimeDB module..."
-/usr/local/bin/spacetimedb-cli publish \
-    --server http://127.0.0.1:3000 \
-    --module-path crates/adventuresim-stdb-module \
-    --yes=remote,migrate,skip-login%(break_clients)s \
-    "${database}"
-
-if [ "${load_world}" = "1" ]; then
-    echo "Loading the compiled 1544 world..."
-    python3 scripts/init_world_runtime.py --repository .
-    cargo run --release --package adventuresim-world-import \
-        --bin adventuresim-world-import -- \
-        --input target/world-1544.json --load \
-        --server http://127.0.0.1:3000 --database "${database}"
-fi
-
 install -m 0755 target/release/strategic-web "${remote_root}/bin/strategic-web"
 install -m 0755 target/release/adventuresim-tactical-server "${remote_root}/bin/"
 install -m 0755 target/release/adventuresim-tactical-server-dispatcher "${remote_root}/bin/"
-
-# Copy rather than symlink into the source tree: the next build's `git clean`
-# would otherwise pull the served files out from under Caddy.
 swap_tree() {
     [ -d "$1" ] || { echo "missing build output: $1" >&2; return 1; }
-    rm -rf "$2.new" && cp -a "$1" "$2.new" && rm -rf "$2" && mv "$2.new" "$2"
+    rm -rf "$2.new"
+    cp -a "$1" "$2.new"
+    rm -rf "$2.prev"
+    [ ! -d "$2" ] || mv "$2" "$2.prev"
+    mv "$2.new" "$2"
 }
 swap_tree crates/strategic-web/static "${remote_root}/public"
 swap_tree crates/adventuresim-stdb-module/static "${remote_root}/tactical"
-[ -d target/strategic-map ] && swap_tree target/strategic-map "${remote_root}/strategic-map" || true
-
-chmod -R a+rX "${remote_root}/bin" "${remote_root}/public" "${remote_root}/tactical"
-[ -d "${remote_root}/strategic-map" ] && chmod -R a+rX "${remote_root}/strategic-map" || true
-
+swap_tree crates/adventuresim-stdb-module/static/assets "${remote_root}/assets"
+swap_tree content "${remote_root}/content"
+swap_tree target/strategic-map "${remote_root}/strategic-map"
+python3 - <<'STAMP'
+import datetime, json, pathlib, subprocess
+stamp = {'target': 'game', 'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(), 'deployed_at': datetime.datetime.now(datetime.timezone.utc).isoformat()}
+pathlib.Path('../public/deploy.json').write_text(json.dumps(stamp) + '\n')
+STAMP
+chmod -R a+rX "${remote_root}/bin" "${remote_root}/public" "${remote_root}/tactical" "${remote_root}/assets" "${remote_root}/content" "${remote_root}/strategic-map"
+for unit in fabelgeist-stdb fabelgeist-web fabelgeist-dispatcher; do
+    ${sudo_cmd} install -m 0644 "/tmp/${unit}.service" "/etc/systemd/system/${unit}.service"
+done
+${sudo_cmd} systemctl daemon-reload
+${sudo_cmd} systemctl enable fabelgeist-web fabelgeist-dispatcher
 ${sudo_cmd} systemctl start fabelgeist-web fabelgeist-dispatcher
-sleep 3
-${sudo_cmd} systemctl is-active --quiet fabelgeist-web \
-    || { ${sudo_cmd} journalctl -u fabelgeist-web -n 40 --no-pager; exit 1; }
-${sudo_cmd} systemctl is-active --quiet fabelgeist-dispatcher \
-    || { ${sudo_cmd} journalctl -u fabelgeist-dispatcher -n 40 --no-pager; exit 1; }
-"""
+for _ in $(seq 1 60); do
+    if curl -sf -o /dev/null http://127.0.0.1:8080/characters; then
+        ${sudo_cmd} systemctl is-active --quiet fabelgeist-web fabelgeist-dispatcher
+        exit 0
+    fi
+    sleep 1
+done
+${sudo_cmd} journalctl -u fabelgeist-web -n 40 --no-pager
+exit 1
+""" % {"sudo": SUDO}
 
 
-def install_game_units(target: str, values: dict[str, str]) -> None:
+def stage_game_units(target: str, values: dict[str, str]) -> None:
     with tempfile.TemporaryDirectory() as work:
         for unit in GAME_UNITS:
             path = Path(work) / f"{unit}.service"
             path.write_text(render(DEPLOY_DIR / f"{unit}.service", values), encoding="utf-8", newline="\n")
             scp(path, target, f"/tmp/{unit}.service")
-    ssh_script(target, GAME_INSTALL_UNITS_SCRIPT)
 
 
 def deploy_game(target: str, remote_root: str, values: dict[str, str], args: argparse.Namespace) -> None:
     service_user = values["SERVICE_USER"]
     ssh_script(target, GAME_SETUP_SCRIPT, [remote_root, service_user, spacetime_tarball()])
-    install_game_units(target, values)
+    # Initial setup installs the standalone unit only. Redeployment must not
+    # overwrite or restart the running gateway before the new world is ready.
+    standalone = render(DEPLOY_DIR / "fabelgeist-stdb.service", values)
+    ssh_input(target, "cat > /tmp/fabelgeist-stdb.service", standalone.encode())
+    ssh_script(target, "set -euo pipefail\n" + SUDO + r"""
+${sudo_cmd} install -m 0644 /tmp/fabelgeist-stdb.service /etc/systemd/system/fabelgeist-stdb.service
+${sudo_cmd} systemctl daemon-reload
+${sudo_cmd} systemctl enable --now fabelgeist-stdb
+for _ in $(seq 1 60); do
+    curl -sf -o /dev/null http://127.0.0.1:3000/v1/ping && exit 0
+    sleep 1
+done
+exit 1
+""")
     ssh_script(target, GAME_IDENTITY_SCRIPT, [remote_root, service_user])
     if args.setup_only:
         return
     log(f"Building {args.ref} on the VPS (the first build takes a while)...")
-    ssh_script(target, GAME_BUILD_SCRIPT, [remote_root, GAME_REPO_URL, args.ref, "1" if args.clean else "0"])
-    # Deliberately never --yes=delete-data: destroying the live world stays a
-    # decision someone makes by hand.
-    swap = GAME_SWAP_SCRIPT % {"sudo": SUDO, "break_clients": ",break-clients" if args.break_clients else ""}
-    ssh_script(target, swap, [remote_root, service_user, args.database, "1" if args.load_world else "0"])
+    ssh_script(target, GAME_BUILD_SCRIPT, [remote_root, os.environ.get("DEPLOY_REPO", GAME_REPO_URL), args.ref, "1" if args.clean else "0"])
+    ssh_script(target, GAME_PREPARE_WORLD_SCRIPT, [remote_root, values["DATABASE"]])
+    stage_game_units(target, values)
+    ssh_script(target, GAME_SWAP_SCRIPT, [remote_root, service_user])
 
 
 # --------------------------------------------------------------------------
@@ -775,17 +795,22 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--skip-build", action="store_true", help="showcase: upload the existing target/showcase/site")
     parser.add_argument("--rollback", action="store_true", help="showcase: swap the live tree back to the previous upload")
     game = parser.add_argument_group("game target")
-    game.add_argument("--ref", default="main", help="branch, tag or commit the box builds (default: main)")
+    game.add_argument("--ref", default="origin/main", help="branch, tag or commit the box builds (default: origin/main)")
     game.add_argument("--clean", action="store_true", help="discard the box's target/ and rebuild from scratch")
-    game.add_argument("--load-world", action="store_true", help="also load the compiled 1544 world into the database")
-    game.add_argument("--break-clients", action="store_true", help="allow a schema change that invalidates connected clients")
-    game.add_argument("--database", default=os.environ.get("SPACETIMEDB_DATABASE", GAME_DATABASE))
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> int:
     load_env_file()
     args = parse_args(argv)
+    if args.target == "game":
+        password_hash = os.environ.get("TEST_PASSWORD_HASH", "")
+        if not re.fullmatch(r"\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}", password_hash):
+            raise SystemExit("game deployment requires a bcrypt TEST_PASSWORD_HASH (generate with caddy hash-password)")
+        if not re.fullmatch(r"[a-zA-Z0-9_-]+", os.environ.get("TEST_USER", "tester")):
+            raise SystemExit("TEST_USER must contain only letters, digits, underscores and hyphens")
+        if args.plan or args.skip_build or args.rollback:
+            raise SystemExit("--plan, --skip-build and --rollback apply only to the showcase")
 
     if args.plan:
         if not args.skip_build:
@@ -797,6 +822,12 @@ def main(argv: list[str] | None = None) -> int:
         log(f"first upload to {args.domain}: {len(upload)} files, {size / 1e6:.1f} MB; later deploys send only changes")
         return 0
 
+    if not re.fullmatch(r"[a-zA-Z0-9.-]+", args.domain) or ".." in args.domain:
+        raise SystemExit("domain must be a DNS hostname")
+    if not re.fullmatch(r"/[a-zA-Z0-9_./-]+", args.remote_root) or ".." in args.remote_root.split("/"):
+        raise SystemExit("remote root must be an absolute path without spaces or parent traversal")
+    if not re.fullmatch(r"[a-z_][a-z0-9_-]*", os.environ.get("SERVICE_USER", "fabelgeist")):
+        raise SystemExit("SERVICE_USER must be a Unix account name")
     deploy_user = os.environ.get("DEPLOY_USER", "root")
     host = os.environ.get("DEPLOY_HOST")
     if os.environ.get("HCLOUD_TOKEN"):
@@ -813,7 +844,9 @@ def main(argv: list[str] | None = None) -> int:
         "DOMAIN": args.domain,
         "DEPLOY_ROOT": args.remote_root,
         "SERVICE_USER": os.environ.get("SERVICE_USER", "fabelgeist"),
-        "DATABASE": args.database,
+        "DATABASE": "fabelgeist-test-" + dt.datetime.now(dt.timezone.utc).strftime("%Y%m%d%H%M%S") + "-" + os.urandom(6).hex(),
+        "TEST_USER": os.environ.get("TEST_USER", "tester"),
+        "TEST_PASSWORD_HASH": os.environ.get("TEST_PASSWORD_HASH", ""),
     }
     log(f"Configuring {target} for the {args.target}...")
     ssh_script(target, BASE_SETUP_SCRIPT, [args.remote_root])

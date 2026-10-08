@@ -183,7 +183,16 @@ async fn mission_status(
     if !can_view_mission(&viewer, &server) {
         return (StatusCode::FORBIDDEN, "Not authorized for this mission").into_response();
     }
-    present_mission_to_viewer(&mut server, &viewer);
+    if let Err(error) =
+        present_mission_to_viewer(&mut server, &viewer, state.tactical_proxy_origin.as_ref())
+    {
+        tracing::error!(%error, "mission listener cannot be routed through the tactical proxy");
+        return (
+            StatusCode::SERVICE_UNAVAILABLE,
+            "Mission connection is unavailable",
+        )
+            .into_response();
+    }
 
     if query.fragment {
         Html(mission_status_fragment(&server).into_string()).into_response()
@@ -283,9 +292,19 @@ fn can_view_mission(viewer: &CharacterView, server: &MissionServerView) -> bool 
     viewer.party_id.as_deref() == Some(server.party_id.as_str())
 }
 
-fn present_mission_to_viewer(server: &mut MissionServerView, viewer: &CharacterView) {
+fn present_mission_to_viewer(
+    server: &mut MissionServerView,
+    viewer: &CharacterView,
+    proxy: Option<&crate::tactical_proxy::TacticalProxyOrigin>,
+) -> Result<(), &'static str> {
     debug_assert!(can_view_mission(viewer, server));
     server.character_id = Some(viewer.id);
+    if server.status == crate::spacetimedb::MissionStatus::Ready
+        && let Some(proxy) = proxy
+    {
+        server.addr = proxy.mission_url(&server.addr)?;
+    }
+    Ok(())
 }
 
 #[cfg(test)]
@@ -332,7 +351,7 @@ mod tests {
             },
         ] {
             assert_eq!(server.character_id, None);
-            present_mission_to_viewer(&mut server, &viewer);
+            present_mission_to_viewer(&mut server, &viewer, None).unwrap();
             assert_eq!(server.character_id, Some(42));
             assert_eq!(server.party_id, "party-a");
         }

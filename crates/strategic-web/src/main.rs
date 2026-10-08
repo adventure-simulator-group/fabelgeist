@@ -15,6 +15,7 @@ mod schedule;
 mod session;
 mod spacetimedb;
 mod strategic_map;
+mod tactical_proxy;
 mod templates;
 
 use std::collections::BTreeMap;
@@ -37,7 +38,6 @@ use config::Config;
 use live::LiveState;
 use location_urls::local_redirect_path;
 use routes::{AppState, build_router};
-use session::SessionCodec;
 use spacetimedb::{SpacetimeClient, sats_option};
 
 #[tokio::main]
@@ -53,10 +53,7 @@ async fn main() -> anyhow::Result<()> {
 
     // Parse config
     let config = Config::parse();
-    let session_codec = std::sync::Arc::new(SessionCodec::from_base64url(
-        &config.strategic_session_secret,
-        config.strategic_session_cookie_secure,
-    )?);
+    let session_codec = std::sync::Arc::new(config.session_codec()?);
 
     tracing::info!("Starting strategic-web server on {}", config.bind_address);
     tracing::info!(
@@ -131,6 +128,7 @@ async fn main() -> anyhow::Result<()> {
     .await
     .map_err(|error| anyhow::anyhow!("could not register strategic gateway: {error}"))?;
     let state = AppState {
+        tactical_proxy_origin: config.tactical_proxy_origin.clone(),
         db,
         live,
         strategic_map,

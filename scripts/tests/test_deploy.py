@@ -57,7 +57,7 @@ class RenderTests(unittest.TestCase):
         self.assertNotIn("{{", text)
 
     def test_game_templates_render_without_placeholders(self):
-        values = {"DOMAIN": "example.com", "DEPLOY_ROOT": "/opt/x", "SERVICE_USER": "svc", "DATABASE": "db"}
+        values = {"DOMAIN": "example.com", "DEPLOY_ROOT": "/opt/x", "SERVICE_USER": "svc", "DATABASE": "db", "TEST_USER": "tester", "TEST_PASSWORD_HASH": "$2a$14$" + "a" * 53}
         for name in ["Caddyfile.game", *(f"{unit}.service" for unit in deploy.GAME_UNITS)]:
             text = deploy.render(deploy.DEPLOY_DIR / name, values)
             self.assertNotIn("{{", text, name)
@@ -76,7 +76,7 @@ class RemoteSyncTests(unittest.TestCase):
         subprocess.run(["bash", "-s", "--", *args], input=script.encode("utf-8"), check=True)
 
     def test_remote_scripts_carry_no_carriage_returns(self):
-        for name in ("BASE_SETUP_SCRIPT", "INSTALL_CADDY_SCRIPT", "SYNC_BEGIN_SCRIPT", "SYNC_FINISH_SCRIPT", "ROLLBACK_SCRIPT"):
+        for name in ("BASE_SETUP_SCRIPT", "INSTALL_CADDY_SCRIPT", "SYNC_BEGIN_SCRIPT", "SYNC_FINISH_SCRIPT", "ROLLBACK_SCRIPT", "GAME_SETUP_SCRIPT", "GAME_IDENTITY_SCRIPT", "GAME_BUILD_SCRIPT", "GAME_PREPARE_WORLD_SCRIPT", "GAME_SWAP_SCRIPT"):
             self.assertNotIn("\r", getattr(deploy, name), name)
 
     def sync(self, remote_root: Path, files: dict, remote_manifest: dict) -> None:
@@ -133,6 +133,41 @@ class RemoteSyncTests(unittest.TestCase):
             self.assertEqual((remote / "site" / "index.html").read_text(), "v1")
             self.assertEqual((remote / "site.prev" / "index.html").read_text(), "v2")
             self.assertIn("tactical/assets/gone.glb", json.loads((remote / "manifest.json").read_text()))
+
+
+class GameDeploymentTests(unittest.TestCase):
+    def test_missing_authentication_prevents_any_provisioning(self):
+        with mock.patch.dict(deploy.os.environ, {}, clear=True), mock.patch.object(deploy, "load_env_file"), mock.patch.object(deploy, "provision") as provision:
+            with self.assertRaisesRegex(SystemExit, "TEST_PASSWORD_HASH"):
+                deploy.main(["test.fabelgeist.com", "--target", "game"])
+            provision.assert_not_called()
+
+    def test_build_and_seed_failures_never_stop_the_running_world(self):
+        args = deploy.parse_args(["test.fabelgeist.com", "--target", "game"])
+        values = {"SERVICE_USER": "svc", "DATABASE": "fabelgeist-test-new", "DOMAIN": "test.fabelgeist.com", "DEPLOY_ROOT": "/opt/x"}
+        for failure in [deploy.GAME_BUILD_SCRIPT, deploy.GAME_PREPARE_WORLD_SCRIPT]:
+            calls = []
+            def remote(target, script, arguments=None):
+                calls.append(script)
+                if script == failure:
+                    raise SystemExit("injected failure")
+            with mock.patch.object(deploy, "ssh_script", side_effect=remote), mock.patch.object(deploy, "ssh_input"), mock.patch.object(deploy, "scp"):
+                with self.assertRaises(SystemExit):
+                    deploy.deploy_game("root@host", "/opt/x", values, args)
+            self.assertNotIn(deploy.GAME_SWAP_SCRIPT, calls)
+
+    def test_port_capture_cannot_route_database_or_web_ports(self):
+        text = (deploy.DEPLOY_DIR / "Caddyfile.game").read_text()
+        pattern = next(line.split()[-1] for line in text.splitlines() if "path_regexp tactical" in line)
+        import re
+        for port in [6001, 6099, 6100, 6999]:
+            self.assertIsNotNone(re.fullmatch(pattern, f"/t{port}"))
+        for port in [3000, 6000, 7000, 8080]:
+            self.assertIsNone(re.fullmatch(pattern, f"/t{port}"))
+
+    def test_all_remote_game_scripts_parse_as_shell(self):
+        for name in ["GAME_SETUP_SCRIPT", "GAME_IDENTITY_SCRIPT", "GAME_BUILD_SCRIPT", "GAME_PREPARE_WORLD_SCRIPT", "GAME_SWAP_SCRIPT"]:
+            subprocess.run(["bash", "-n"], input=getattr(deploy, name).encode(), check=True)
 
 
 if __name__ == "__main__":

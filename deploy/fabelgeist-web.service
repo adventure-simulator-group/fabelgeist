@@ -16,6 +16,8 @@ Environment=SPACETIMEDB_DATABASE={{DATABASE}}
 # Loopback: Caddy terminates TLS in front. Character selection is not
 # authentication, so this must never bind publicly.
 Environment=BIND_ADDRESS=127.0.0.1:8080
+Environment=TACTICAL_PROXY_ORIGIN=https://{{DOMAIN}}
+Environment=STRATEGIC_SESSION_COOKIE_SECURE=true
 Environment=STATIC_DIR={{DEPLOY_ROOT}}/public
 Environment=TACTICAL_STATIC_DIR={{DEPLOY_ROOT}}/tactical
 Environment=STRATEGIC_MAP_BUNDLE_DIR={{DEPLOY_ROOT}}/strategic-map

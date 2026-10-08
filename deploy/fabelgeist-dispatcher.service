@@ -7,15 +7,17 @@ Wants=fabelgeist-stdb.service
 Type=simple
 User={{SERVICE_USER}}
 WorkingDirectory={{DEPLOY_ROOT}}
-# --host 127.0.0.1 keeps spawned tactical servers off the public interface;
-# --public-url-prefix is what clients are told to dial (see deploy/Caddyfile).
+# Mission servers stay private; strategic-web translates their listener addresses.
 ExecStart={{DEPLOY_ROOT}}/bin/adventuresim-tactical-server-dispatcher \
     --spacetimedb-url http://127.0.0.1:3000 \
     --spacetimedb-module {{DATABASE}} \
     --tactical-server-bin {{DEPLOY_ROOT}}/bin/adventuresim-tactical-server \
-    --base-port 6000 \
+    --base-port 6001 \
     --host 127.0.0.1 \
-    --public-url-prefix wss://{{DOMAIN}}/t
+    --last-port 6999 \
+    --terrain-manifest {{DEPLOY_ROOT}}/strategic-map/terrain-routing-v3.json \
+    --terrain-pack {{DEPLOY_ROOT}}/strategic-map/terrain-routing-v3.pack \
+    --scene-input-dir {{DEPLOY_ROOT}}/mission-scenes
 Restart=always
 RestartSec=2
 Environment=RUST_LOG=info

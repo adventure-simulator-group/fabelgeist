@@ -7,7 +7,7 @@
 use adventuresim_tactical_server_dispatcher::settlement_economy_adapter;
 
 use std::collections::HashSet;
-use std::net::{IpAddr, SocketAddr};
+use std::net::SocketAddr;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::sync::{Arc, Mutex};
@@ -27,46 +27,10 @@ use clap::Parser;
 use sha2::{Digest, Sha256};
 use tracing::{error, info, warn};
 
-#[derive(Parser, Debug)]
-#[command(name = "adventuresim-tactical-server-dispatcher")]
-#[command(about = "Spawns adventuresim-tactical-server processes for pending missions")]
-struct Args {
-    /// SpacetimeDB URL
-    #[arg(long, default_value = "http://localhost:3000")]
-    spacetimedb_url: String,
-
-    /// SpacetimeDB module name
-    #[arg(long, default_value = "adventuresim-stdb-module")]
-    spacetimedb_module: String,
-
-    /// Auth token for the registered strategic gateway identity.
-    #[arg(long, env = "SPACETIMEDB_TOKEN")]
-    spacetimedb_token: String,
-
-    /// Path to tactical-server binary
-    #[arg(long, default_value = "adventuresim-tactical-server")]
-    tactical_server_bin: String,
-
-    /// Base port for tactical servers (incremented for each new server)
-    #[arg(long, default_value = "6000")]
-    base_port: u16,
-
-    /// Public host for clients to connect to
-    #[arg(long, default_value = "0.0.0.0")]
-    host: IpAddr,
-
-    /// Final terrain manifest loaded once by this trusted dispatcher.
-    #[arg(long, default_value = "target/strategic-map/terrain-routing-v3.json")]
-    terrain_manifest: PathBuf,
-
-    /// Final compressed terrain payload paired with `terrain_manifest`.
-    #[arg(long, default_value = "target/strategic-map/terrain-routing-v3.pack")]
-    terrain_pack: PathBuf,
-
-    /// Worktree-local directory for immutable per-mission scene documents.
-    #[arg(long, default_value = "target/tactical-scene-inputs")]
-    scene_input_dir: PathBuf,
-}
+mod config;
+mod ports;
+use config::Args;
+use ports::TacticalPorts;
 
 fn main() {
     tracing_subscriber::fmt()
@@ -97,7 +61,9 @@ fn main() {
     let terrain = Arc::new(terrain);
     // Shared state for tracking spawned missions and port allocation
     let spawned: Arc<Mutex<HashSet<String>>> = Arc::new(Mutex::new(HashSet::new()));
-    let next_port: Arc<Mutex<u16>> = Arc::new(Mutex::new(args.base_port));
+    let next_port = Arc::new(Mutex::new(
+        TacticalPorts::new(args.base_port, args.last_port).expect("invalid tactical port range"),
+    ));
 
     // Connect to SpacetimeDB
     let conn = DbConnection::builder()
@@ -144,11 +110,9 @@ fn main() {
                 return;
             }
 
-            let port = {
-                let mut p = next_port_clone.lock().unwrap();
-                let port = *p;
-                *p += 1;
-                port
+            let Some(port) = next_port_clone.lock().unwrap().allocate() else {
+                error!(mission_id = %request.mission_id, "tactical listener port range exhausted");
+                return;
             };
 
             let claim_bytes: [u8; 32] = rand::random();
