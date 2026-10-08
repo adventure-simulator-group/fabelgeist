@@ -4,6 +4,7 @@ use fabelgeist_bvh::gpu::BvhKernels;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
+use fabelgeist_xpbd::dynamics::DampingRate;
 use fabelgeist_xpbd::{Particles, Solver, SolverSettings};
 
 use crate::collider::{Collider, Shape};
@@ -157,7 +158,7 @@ impl Harness {
 fn settings(substeps: u32) -> SolverSettings {
     SolverSettings {
         substeps,
-        damping: 1.0,
+        damping: DampingRate::per_second(1.0),
         ..Default::default()
     }
 }
@@ -285,7 +286,7 @@ async fn friction_holds_a_particle_on_a_slope() -> Result<()> {
 
         let solver = harness.solver(SolverSettings {
             substeps: 20,
-            damping: 0.0,
+            damping: DampingRate::per_second(0.0),
             ..Default::default()
         })?;
         for _ in 0..120 {
@@ -488,7 +489,7 @@ async fn a_particle_started_inside_is_pushed_out() -> Result<()> {
     let solver = harness.solver(SolverSettings {
         substeps: 20,
         gravity: Vec3::default(),
-        damping: 5.0,
+        damping: DampingRate::per_second(5.0),
         ..Default::default()
     })?;
     for _ in 0..120 {

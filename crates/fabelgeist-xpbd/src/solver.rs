@@ -23,6 +23,7 @@ use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 
 use crate::constraint::ConstraintSet;
+use crate::dynamics::DampingRate;
 use crate::particles::Particles;
 use crate::wgsl;
 
@@ -39,7 +40,7 @@ pub struct SolverSettings {
     pub gravity: Vec3,
     /// Exponential velocity drag, per second. Independent of the substep
     /// count, so changing `substeps` does not change how draggy the cloth is.
-    pub damping: f32,
+    pub damping: DampingRate,
     /// Ceiling on particle speed. It only ever binds when something has
     /// already gone wrong, and it is what turns a blown-up frame into a
     /// recoverable one rather than a garment flung off the screen.
@@ -55,7 +56,7 @@ impl Default for SolverSettings {
             // metres, so a garment in centimetres has to be scaled on the way
             // in.
             gravity: Vec3::new(0.0, -9.81, 0.0),
-            damping: 0.1,
+            damping: DampingRate::per_second(0.1),
             max_speed: 20.0,
         }
     }
@@ -253,7 +254,8 @@ impl Solver {
             ),
         );
         parameters.insert("substep", substep);
-        parameters.insert("damping", self.settings.damping);
+        // The shader uniform consumes a native per-second scalar.
+        parameters.insert("damping", f32::from(self.settings.damping));
         parameters.insert("count", particles.count());
         parameters.insert("max_speed", self.settings.max_speed);
         batch.dispatch_items(&self.predict, &parameters, particles.count())?;

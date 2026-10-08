@@ -1,6 +1,7 @@
 //! The solver, checked against a host implementation of the same equations
 //! and against physics that can be worked out on paper.
 
+use crate::dynamics::DampingRate;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
@@ -48,7 +49,8 @@ impl Reference {
                     continue;
                 }
                 let mut velocity = self.velocities[index] + settings.gravity * substep;
-                velocity *= (-settings.damping * substep).exp();
+                // Native per-second operand in this independent host equation.
+                velocity *= (-f32::from(settings.damping) * substep).exp();
                 let speed = velocity.length();
                 if speed > settings.max_speed && speed > 0.0 {
                     velocity *= settings.max_speed / speed;
@@ -311,7 +313,7 @@ async fn free_fall_matches_the_analytic_drop() -> Result<()> {
         Particles::from_positions(&context, &positions, &vec![1.0.into(); positions.len()])?;
     let settings = SolverSettings {
         substeps: 20,
-        damping: 0.0,
+        damping: DampingRate::per_second(0.0),
         ..Default::default()
     };
     let solver = Solver::with_cache(&context, &cache, settings)?;
@@ -364,7 +366,7 @@ async fn a_stiff_chain_holds_its_length() -> Result<()> {
         &cache,
         SolverSettings {
             substeps: 20,
-            damping: 2.0,
+            damping: DampingRate::per_second(2.0),
             ..Default::default()
         },
     )?;
@@ -417,7 +419,7 @@ async fn compliance_orders_the_stretch() -> Result<()> {
             &cache,
             SolverSettings {
                 substeps: 20,
-                damping: 3.0,
+                damping: DampingRate::per_second(3.0),
                 ..Default::default()
             },
         )?;
@@ -499,7 +501,7 @@ async fn a_colored_grid_solves_without_racing() -> Result<()> {
         &cache,
         SolverSettings {
             substeps: 15,
-            damping: 2.0,
+            damping: DampingRate::per_second(2.0),
             ..Default::default()
         },
     )?;

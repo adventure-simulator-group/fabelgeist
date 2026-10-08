@@ -9,6 +9,7 @@ pub mod surface_contact;
 pub mod topology;
 pub mod wgsl;
 pub use fabelgeist_physics::Collisions;
+pub use fabelgeist_xpbd::dynamics::DampingRate;
 pub use fabelgeist_xpbd::{Solver, SolverSettings};
 pub use mesh::ShellMesh;
 pub use selfcollision::SelfCollision;
@@ -24,7 +25,8 @@ pub struct ShellMaterial {
     pub thickness: f32,
     /// Suggested world-contact coefficient; configure it on physics colliders.
     pub friction: f32,
-    pub damping: f32,
+    /// Exponential velocity drag per second.
+    pub damping: DampingRate,
 }
 impl ShellMaterial {
     pub fn particle_radius(&self) -> f32 {
@@ -37,11 +39,12 @@ impl ShellMaterial {
                 self.bend_compliance,
                 self.seam_compliance,
                 self.thickness,
-                self.friction,
-                self.damping
+                self.friction
             ]
             .iter()
-            .all(|v| v.is_finite() && *v >= 0.0),
+            .all(|v| v.is_finite() && *v >= 0.0)
+                && self.damping.is_finite()
+                && self.damping >= DampingRate::per_second(0.0),
             "invalid shell material"
         );
         anyhow::ensure!(self.thickness > 0.0, "shell thickness must be positive");
