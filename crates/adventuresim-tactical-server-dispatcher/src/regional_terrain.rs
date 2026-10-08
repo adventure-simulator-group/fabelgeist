@@ -1,5 +1,5 @@
 //! Read-only bounded terrain capture, independent of settlements and simulation.
-use crate::terrain_sampling::{environment_sample, offset_coordinate};
+use crate::terrain_sampling::environment_sample;
 use adventuresim_tactical_core::{
     regional_terrain::{
         REGIONAL_TERRAIN_SIDE, REGIONAL_TERRAIN_VERTICES, RegionalTerrain, RegionalTerrainError,
@@ -9,6 +9,7 @@ use adventuresim_tactical_core::{
 };
 use adventuresim_terrain::TerrainPack;
 use adventuresim_world_schema::ElevationMeters;
+use adventuresim_world_schema::coordinates::terrain_projection::NativeTerrainCoordinate;
 
 pub type Result<T> = std::result::Result<T, RegionalTerrainCaptureError>;
 
@@ -28,14 +29,13 @@ pub fn capture(pack: &TerrainPack, request: RegionalTerrainRequest) -> Result<Re
     let source = SourcePackageDigest::from_hex(pack.digest())?;
     let center = (REGIONAL_TERRAIN_SIDE - 1) as f64 * 0.5;
     let spacing = f64::from(request.scale.spacing_metres());
+    let origin = NativeTerrainCoordinate::from(request.origin.to_e7());
     let mut vertices = Vec::with_capacity(REGIONAL_TERRAIN_VERTICES);
     for row in 0..REGIONAL_TERRAIN_SIDE {
         for column in 0..REGIONAL_TERRAIN_SIDE {
             // TerrainPack's native numerical kernel takes continuous degrees and
             // scene-local east/north metres; no intermediate coordinate rounding.
-            let point = offset_coordinate(
-                request.origin.latitude().degrees(),
-                request.origin.longitude().degrees(),
+            let point = origin.at_offset(
                 (column as f64 - center) * spacing,
                 (row as f64 - center) * spacing,
             );

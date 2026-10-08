@@ -15,9 +15,9 @@ use fabelgeist_determinism::{Seed, StreamId};
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 
-use crate::terrain_sampling::{
-    GeographicSampleCoordinate, METRES_PER_LATITUDE_DEGREE, MIN_LONGITUDE_SCALE,
-    environment_sample, offset_coordinate,
+use crate::terrain_sampling::environment_sample;
+use adventuresim_world_schema::coordinates::terrain_projection::{
+    METRES_PER_LATITUDE_DEGREE, MIN_LONGITUDE_SCALE, NativeTerrainCoordinate,
 };
 
 use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
@@ -343,21 +343,14 @@ fn sample_grid(
     let center_z = f64::from(depth - 1) * 0.5;
     let mut heights = Vec::with_capacity(usize::from(width) * usize::from(depth));
     let mut environment = Vec::with_capacity(heights.capacity());
+    let origin = NativeTerrainCoordinate::from(request.center);
     for z in 0..depth {
         for x in 0..width {
             let east = (f64::from(x) - center_x) * f64::from(request.spacing_metres);
             let north = (f64::from(z) - center_z) * f64::from(request.spacing_metres);
-            let GeographicSampleCoordinate {
-                latitude_degrees: sample_latitude,
-                longitude_degrees: sample_longitude,
-            } = offset_coordinate(
-                request.center.latitude().degrees(),
-                request.center.longitude().degrees(),
-                east,
-                north,
-            );
+            let point = origin.at_offset(east, north);
             let cell = pack
-                .cell(sample_latitude, sample_longitude)
+                .cell(point.latitude_degrees, point.longitude_degrees)
                 .map_err(|error| error.to_string())?
                 .ok_or("requested scene window leaves the final terrain pack")?;
             let mut elevation = f32::from(cell.elevation_m);
@@ -373,17 +366,10 @@ fn sample_grid(
                     (0.0, radius),
                     (radius, radius),
                 ] {
-                    let GeographicSampleCoordinate {
-                        latitude_degrees: lat,
-                        longitude_degrees: lon,
-                    } = offset_coordinate(
-                        sample_latitude,
-                        sample_longitude,
-                        sample_east,
-                        sample_north,
-                    );
-                    if let Some(neighbor) =
-                        pack.cell(lat, lon).map_err(|error| error.to_string())?
+                    let sample = point.at_offset(sample_east, sample_north);
+                    if let Some(neighbor) = pack
+                        .cell(sample.latitude_degrees, sample.longitude_degrees)
+                        .map_err(|error| error.to_string())?
                     {
                         elevation = elevation.max(f32::from(neighbor.elevation_m));
                     }
@@ -525,16 +511,24 @@ mod tests {
 
     #[test]
     fn geographic_offsets_are_stable_and_axis_aligned() {
-        let GeographicSampleCoordinate {
+        let origin = NativeTerrainCoordinate::from(
+            Wgs84CoordinateE7::from_longitude_latitude_degrees(10.0, 53.5).unwrap(),
+        );
+        let NativeTerrainCoordinate {
             latitude_degrees: north_lat,
             longitude_degrees: north_lon,
-        } = offset_coordinate(53.5, 10.0, 0.0, 1_000.0);
-        let GeographicSampleCoordinate {
+        } = origin.at_offset(0.0, 1_000.0);
+        let NativeTerrainCoordinate {
             latitude_degrees: east_lat,
             longitude_degrees: east_lon,
-        } = offset_coordinate(53.5, 10.0, 1_000.0, 0.0);
+        } = origin.at_offset(1_000.0, 0.0);
         assert!(north_lat > 53.5 && (north_lon - 10.0).abs() < 1e-12);
         assert!(east_lon > 10.0 && (east_lat - 53.5).abs() < 1e-12);
+        let target = Wgs84CoordinateE7::from_longitude_latitude_degrees(10.01, 53.51).unwrap();
+        let offset = origin.offset_to(target);
+        let recovered = origin.at_offset(offset.east_metres, offset.north_metres);
+        assert!((recovered.latitude_degrees - target.latitude().degrees()).abs() < 1e-12);
+        assert!((recovered.longitude_degrees - target.longitude().degrees()).abs() < 1e-12);
     }
 
     #[test]

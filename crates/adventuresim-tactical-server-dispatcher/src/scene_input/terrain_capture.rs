@@ -70,18 +70,14 @@ impl ImportedTerrainCapture {
         coordinates: Wgs84CoordinateE7,
         points: impl IntoIterator<Item = ScenePlanPoint>,
     ) -> Result<Vec<SourceElevationSample>, TerrainCaptureError> {
+        let origin = NativeTerrainCoordinate::from(coordinates);
         points
             .into_iter()
             .map(|point| {
-                let GeographicSampleCoordinate {
+                let NativeTerrainCoordinate {
                     latitude_degrees: lat,
                     longitude_degrees: lon,
-                } = offset_coordinate(
-                    coordinates.latitude().degrees(),
-                    coordinates.longitude().degrees(),
-                    f64::from(point.metres().x),
-                    f64::from(point.metres().y),
-                );
+                } = origin.at_offset(f64::from(point.metres().x), f64::from(point.metres().y));
                 let cell = pack
                     .cell(lat, lon)?
                     .ok_or(TerrainCaptureError::OutsideSource { point })?;
@@ -99,6 +95,7 @@ impl ImportedTerrainCapture {
     ) -> Result<Self, TerrainCaptureError> {
         const TRANSECT_HALF_LENGTH_METRES: i32 = 3_000;
         const TRANSECT_SPACING_METRES: usize = 25;
+        let origin = NativeTerrainCoordinate::from(coordinates);
         let latitude = coordinates.latitude().degrees();
         let longitude = coordinates.longitude().degrees();
         let centre = pack
@@ -112,15 +109,10 @@ impl ImportedTerrainCapture {
                 .step_by(TRANSECT_SPACING_METRES)
             {
                 let point = ScenePlanPoint::try_from(axis * distance as f32)?;
-                let GeographicSampleCoordinate {
+                let NativeTerrainCoordinate {
                     latitude_degrees: lat,
                     longitude_degrees: lon,
-                } = offset_coordinate(
-                    latitude,
-                    longitude,
-                    f64::from(point.metres().x),
-                    f64::from(point.metres().y),
-                );
+                } = origin.at_offset(f64::from(point.metres().x), f64::from(point.metres().y));
                 let cell = pack
                     .cell(lat, lon)?
                     .ok_or(TerrainCaptureError::OutsideSource { point })?;
