@@ -13,23 +13,22 @@ impl ComputeShader {
     pub fn new(context: &WgpuContext, code: String) -> Result<ComputeShader> {
         // 1. Naga Parse & Deep Validation
         let is_glsl = shader::detect_from_code(&code) == "glsl";
-        let naga_res = parse_naga(&code, wgpu::naga::ShaderStage::Compute)
-            .map_err(|e| anyhow::anyhow!("Compute Shader Parse Error: {}", e))?;
+        let naga_res = parse_naga(&code, wgpu::naga::ShaderStage::Compute).map_err(|error| {
+            let diagnostic = format!("Compute Shader Parse Error: {error}");
+            anyhow::Error::from(error).context(diagnostic)
+        })?;
 
         let mut validator = wgpu::naga::valid::Validator::new(
             wgpu::naga::valid::ValidationFlags::all(),
             wgpu::naga::valid::Capabilities::all(),
         );
 
-        let info = if let Ok(info) = validator.validate(&naga_res) {
-            info
-        } else {
-            let e = validator.validate(&naga_res).unwrap_err();
-            let message = e.emit_to_string(&code);
-            return Err(anyhow::anyhow!(
-                "Compute Shader Validation Error: {}",
-                message
-            ));
+        let info = match validator.validate(&naga_res) {
+            Ok(info) => info,
+            Err(error) => {
+                let message = error.emit_to_string(&code);
+                return Err(anyhow!("Compute Shader Validation Error: {}", message));
+            }
         };
 
         // 2. Convert to WGSL for WGPU compatibility (if it was GLSL)

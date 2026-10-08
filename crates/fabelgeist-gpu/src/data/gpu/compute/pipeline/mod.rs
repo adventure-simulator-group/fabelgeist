@@ -122,8 +122,11 @@ impl ComputePipeline {
     }
 
     pub fn validate_interface(&self) -> anyhow::Result<()> {
-        let naga_res = parse_naga(&self.shader.code, wgpu::naga::ShaderStage::Compute)
-            .map_err(|e| anyhow::anyhow!("Compute Shader Parse Error: {}", e))?;
+        let naga_res =
+            parse_naga(&self.shader.code, wgpu::naga::ShaderStage::Compute).map_err(|error| {
+                let diagnostic = format!("Compute Shader Parse Error: {error}");
+                anyhow::Error::from(error).context(diagnostic)
+            })?;
 
         if !naga_res
             .entry_points
@@ -139,261 +142,258 @@ impl ComputePipeline {
 
 impl ComputePipeline {
     pub fn new(context: &WgpuContext, shader: ComputeShader) -> Result<ComputePipeline> {
-        let mut pipeline = {
-            // --- REFLECTION ---
-            let naga_res = parse_naga(&shader.code, wgpu::naga::ShaderStage::Compute)
-                .map_err(|e| anyhow!("Compute Shader Parse Error for Reflection: {}", e))?;
+        // --- REFLECTION ---
+        let naga_res =
+            parse_naga(&shader.code, wgpu::naga::ShaderStage::Compute).map_err(|error| {
+                let diagnostic = format!("Compute Shader Parse Error for Reflection: {error}");
+                anyhow::Error::from(error).context(diagnostic)
+            })?;
 
-            let entry_point = naga_res
-                .entry_points
-                .iter()
-                .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
-                .map(|ep| ep.name.clone())
-                .ok_or_else(|| anyhow!("Compute Shader missing entry point"))?;
+        let entry_point = naga_res
+            .entry_points
+            .iter()
+            .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
+            .map(|ep| ep.name.clone())
+            .ok_or_else(|| anyhow!("Compute Shader missing entry point"))?;
 
-            let mut bind_groups_map: std::collections::BTreeMap<
-                u32,
-                crate::data::gpu::shader::BindGroupReflection,
-            > = std::collections::BTreeMap::new();
-            let mut bind_group_layouts_data: std::collections::BTreeMap<
-                u32,
-                Vec<wgpu::BindGroupLayoutEntry>,
-            > = std::collections::BTreeMap::new();
+        let mut bind_groups_map: std::collections::BTreeMap<
+            u32,
+            crate::data::gpu::shader::BindGroupReflection,
+        > = std::collections::BTreeMap::new();
+        let mut bind_group_layouts_data: std::collections::BTreeMap<
+            u32,
+            Vec<wgpu::BindGroupLayoutEntry>,
+        > = std::collections::BTreeMap::new();
 
-            // Reflection of bindings
-            for (_, var) in naga_res.global_variables.iter() {
-                if let Some(binding_info) = &var.binding {
-                    let group = binding_info.group;
-                    let binding = binding_info.binding;
-                    let name = var.name.clone().unwrap_or_default();
+        // Reflection of bindings
+        for (_, var) in naga_res.global_variables.iter() {
+            if let Some(binding_info) = &var.binding {
+                let group = binding_info.group;
+                let binding = binding_info.binding;
+                let name = var.name.clone().unwrap_or_default();
 
-                    let group_reflection = bind_groups_map.entry(group).or_insert_with(|| {
-                        crate::data::gpu::shader::BindGroupReflection {
-                            index: group,
-                            ..Default::default()
-                        }
-                    });
-                    let layout_entries = bind_group_layouts_data.entry(group).or_default();
+                let group_reflection = bind_groups_map.entry(group).or_insert_with(|| {
+                    crate::data::gpu::shader::BindGroupReflection {
+                        index: group,
+                        ..Default::default()
+                    }
+                });
+                let layout_entries = bind_group_layouts_data.entry(group).or_default();
 
-                    match var.space {
-                        wgpu::naga::AddressSpace::Uniform => {
-                            let ty = &naga_res.types[var.ty];
-                            if let wgpu::naga::TypeInner::Struct { members, span } = &ty.inner {
-                                group_reflection.uniform_buffer_size = *span;
-                                group_reflection.uniform_binding = Some(binding);
+                match var.space {
+                    wgpu::naga::AddressSpace::Uniform => {
+                        let ty = &naga_res.types[var.ty];
+                        if let wgpu::naga::TypeInner::Struct { members, span } = &ty.inner {
+                            group_reflection.uniform_buffer_size = *span;
+                            group_reflection.uniform_binding = Some(binding);
 
-                                for member in members {
-                                    let member_name = member.name.clone().unwrap_or_default();
-                                    let size =
-                                        naga_res.types[member.ty].inner.size(naga_res.to_ctx());
-                                    group_reflection.uniform_members.push(
-                                        crate::data::shader::UniformMember {
-                                            name: member_name,
-                                            offset: member.offset,
-                                            size,
-                                        },
-                                    );
-                                }
-
-                                layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                    binding,
-                                    visibility: wgpu::ShaderStages::COMPUTE,
-                                    ty: wgpu::BindingType::Buffer {
-                                        ty: wgpu::BufferBindingType::Uniform,
-                                        has_dynamic_offset: false,
-                                        min_binding_size: None,
+                            for member in members {
+                                let member_name = member.name.clone().unwrap_or_default();
+                                let size = naga_res.types[member.ty].inner.size(naga_res.to_ctx());
+                                group_reflection.uniform_members.push(
+                                    crate::data::shader::UniformMember {
+                                        name: member_name,
+                                        offset: member.offset,
+                                        size,
                                     },
-                                    count: None,
-                                });
-                            } else {
-                                // Support non-struct uniforms (primitive scalars or vectors)
-                                group_reflection.uniform_buffer_size =
-                                    ty.inner.size(naga_res.to_ctx());
-                                group_reflection.uniform_binding = Some(binding);
-
-                                layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                    binding,
-                                    visibility: wgpu::ShaderStages::COMPUTE,
-                                    ty: wgpu::BindingType::Buffer {
-                                        ty: wgpu::BufferBindingType::Uniform,
-                                        has_dynamic_offset: false,
-                                        min_binding_size: None,
-                                    },
-                                    count: None,
-                                });
+                                );
                             }
-                        }
-                        wgpu::naga::AddressSpace::Storage { access } => {
-                            let read_only = !access.contains(wgpu::naga::StorageAccess::STORE);
-                            group_reflection.buffer_bindings.push(
-                                crate::data::shader::BufferBinding {
-                                    name: name.clone(),
-                                    binding,
-                                    ty: wgpu::BufferBindingType::Storage { read_only },
-                                },
-                            );
 
                             layout_entries.push(wgpu::BindGroupLayoutEntry {
                                 binding,
                                 visibility: wgpu::ShaderStages::COMPUTE,
                                 ty: wgpu::BindingType::Buffer {
-                                    ty: wgpu::BufferBindingType::Storage { read_only },
+                                    ty: wgpu::BufferBindingType::Uniform,
+                                    has_dynamic_offset: false,
+                                    min_binding_size: None,
+                                },
+                                count: None,
+                            });
+                        } else {
+                            // Support non-struct uniforms (primitive scalars or vectors)
+                            group_reflection.uniform_buffer_size = ty.inner.size(naga_res.to_ctx());
+                            group_reflection.uniform_binding = Some(binding);
+
+                            layout_entries.push(wgpu::BindGroupLayoutEntry {
+                                binding,
+                                visibility: wgpu::ShaderStages::COMPUTE,
+                                ty: wgpu::BindingType::Buffer {
+                                    ty: wgpu::BufferBindingType::Uniform,
                                     has_dynamic_offset: false,
                                     min_binding_size: None,
                                 },
                                 count: None,
                             });
                         }
-                        wgpu::naga::AddressSpace::Handle => {
-                            let ty = &naga_res.types[var.ty];
-                            match &ty.inner {
-                                wgpu::naga::TypeInner::Image { dim, class, .. } => {
-                                    let view_dimension = match dim {
-                                        wgpu::naga::ImageDimension::D1 => {
-                                            wgpu::TextureViewDimension::D1
-                                        }
-                                        wgpu::naga::ImageDimension::D2 => {
-                                            wgpu::TextureViewDimension::D2
-                                        }
-                                        wgpu::naga::ImageDimension::D3 => {
-                                            wgpu::TextureViewDimension::D3
-                                        }
-                                        wgpu::naga::ImageDimension::Cube => {
-                                            wgpu::TextureViewDimension::Cube
-                                        }
-                                    };
+                    }
+                    wgpu::naga::AddressSpace::Storage { access } => {
+                        let read_only = !access.contains(wgpu::naga::StorageAccess::STORE);
+                        group_reflection
+                            .buffer_bindings
+                            .push(crate::data::shader::BufferBinding {
+                                name: name.clone(),
+                                binding,
+                                ty: wgpu::BufferBindingType::Storage { read_only },
+                            });
 
-                                    let storage = match class {
-                                        wgpu::naga::ImageClass::Storage { format, access } => {
-                                            Some((format, access))
-                                        }
-                                        _ => None,
-                                    };
+                        layout_entries.push(wgpu::BindGroupLayoutEntry {
+                            binding,
+                            visibility: wgpu::ShaderStages::COMPUTE,
+                            ty: wgpu::BindingType::Buffer {
+                                ty: wgpu::BufferBindingType::Storage { read_only },
+                                has_dynamic_offset: false,
+                                min_binding_size: None,
+                            },
+                            count: None,
+                        });
+                    }
+                    wgpu::naga::AddressSpace::Handle => {
+                        let ty = &naga_res.types[var.ty];
+                        match &ty.inner {
+                            wgpu::naga::TypeInner::Image { dim, class, .. } => {
+                                let view_dimension = match dim {
+                                    wgpu::naga::ImageDimension::D1 => {
+                                        wgpu::TextureViewDimension::D1
+                                    }
+                                    wgpu::naga::ImageDimension::D2 => {
+                                        wgpu::TextureViewDimension::D2
+                                    }
+                                    wgpu::naga::ImageDimension::D3 => {
+                                        wgpu::TextureViewDimension::D3
+                                    }
+                                    wgpu::naga::ImageDimension::Cube => {
+                                        wgpu::TextureViewDimension::Cube
+                                    }
+                                };
 
-                                    let mut wgpu_format = None;
+                                let storage = match class {
+                                    wgpu::naga::ImageClass::Storage { format, access } => {
+                                        Some((format, access))
+                                    }
+                                    _ => None,
+                                };
 
-                                    if let Some((format, access)) = storage {
-                                        let access =
-                                            if access.contains(wgpu::naga::StorageAccess::STORE) {
-                                                wgpu::StorageTextureAccess::WriteOnly
-                                            } else {
-                                                wgpu::StorageTextureAccess::ReadOnly
-                                            };
+                                let mut wgpu_format = None;
 
-                                        let fmt = TextureFormat::naga_to_wgpu_format(*format);
-                                        wgpu_format = Some(fmt);
-
-                                        layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                            binding,
-                                            visibility: wgpu::ShaderStages::COMPUTE,
-                                            ty: wgpu::BindingType::StorageTexture {
-                                                access,
-                                                format: fmt,
-                                                view_dimension,
-                                            },
-                                            count: None,
-                                        });
-                                    } else {
-                                        let sample_type = match class {
-                                            wgpu::naga::ImageClass::Sampled { kind, .. } => {
-                                                match kind {
-                                                    wgpu::naga::ScalarKind::Float => {
-                                                        wgpu::TextureSampleType::Float {
-                                                            filterable: true,
-                                                        }
-                                                    }
-                                                    wgpu::naga::ScalarKind::Uint => {
-                                                        wgpu::TextureSampleType::Uint
-                                                    }
-                                                    wgpu::naga::ScalarKind::Sint => {
-                                                        wgpu::TextureSampleType::Sint
-                                                    }
-                                                    _ => wgpu::TextureSampleType::Float {
-                                                        filterable: true,
-                                                    },
-                                                }
-                                            }
-                                            wgpu::naga::ImageClass::Depth { .. } => {
-                                                wgpu::TextureSampleType::Depth
-                                            }
-                                            _ => {
-                                                wgpu::TextureSampleType::Float { filterable: true }
-                                            }
+                                if let Some((format, access)) = storage {
+                                    let access =
+                                        if access.contains(wgpu::naga::StorageAccess::STORE) {
+                                            wgpu::StorageTextureAccess::WriteOnly
+                                        } else {
+                                            wgpu::StorageTextureAccess::ReadOnly
                                         };
 
-                                        layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                            binding,
-                                            visibility: wgpu::ShaderStages::COMPUTE,
-                                            ty: wgpu::BindingType::Texture {
-                                                multisampled: false,
-                                                view_dimension,
-                                                sample_type,
-                                            },
-                                            count: None,
-                                        });
-                                    }
+                                    let fmt = TextureFormat::naga_to_wgpu_format(*format);
+                                    wgpu_format = Some(fmt);
 
-                                    group_reflection.texture_bindings.push(
-                                        crate::data::shader::TextureBinding {
-                                            name: name.clone(),
-                                            binding,
-                                            format: wgpu_format,
-                                            dimension: view_dimension,
-                                        },
-                                    );
-                                }
-                                wgpu::naga::TypeInner::Sampler { .. } => {
-                                    group_reflection
-                                        .sampler_bindings
-                                        .push((name.clone(), binding));
                                     layout_entries.push(wgpu::BindGroupLayoutEntry {
                                         binding,
                                         visibility: wgpu::ShaderStages::COMPUTE,
-                                        ty: wgpu::BindingType::Sampler(
-                                            wgpu::SamplerBindingType::Filtering,
-                                        ),
+                                        ty: wgpu::BindingType::StorageTexture {
+                                            access,
+                                            format: fmt,
+                                            view_dimension,
+                                        },
+                                        count: None,
+                                    });
+                                } else {
+                                    let sample_type = match class {
+                                        wgpu::naga::ImageClass::Sampled { kind, .. } => {
+                                            match kind {
+                                                wgpu::naga::ScalarKind::Float => {
+                                                    wgpu::TextureSampleType::Float {
+                                                        filterable: true,
+                                                    }
+                                                }
+                                                wgpu::naga::ScalarKind::Uint => {
+                                                    wgpu::TextureSampleType::Uint
+                                                }
+                                                wgpu::naga::ScalarKind::Sint => {
+                                                    wgpu::TextureSampleType::Sint
+                                                }
+                                                _ => wgpu::TextureSampleType::Float {
+                                                    filterable: true,
+                                                },
+                                            }
+                                        }
+                                        wgpu::naga::ImageClass::Depth { .. } => {
+                                            wgpu::TextureSampleType::Depth
+                                        }
+                                        _ => wgpu::TextureSampleType::Float { filterable: true },
+                                    };
+
+                                    layout_entries.push(wgpu::BindGroupLayoutEntry {
+                                        binding,
+                                        visibility: wgpu::ShaderStages::COMPUTE,
+                                        ty: wgpu::BindingType::Texture {
+                                            multisampled: false,
+                                            view_dimension,
+                                            sample_type,
+                                        },
                                         count: None,
                                     });
                                 }
-                                _ => {}
+
+                                group_reflection.texture_bindings.push(
+                                    crate::data::shader::TextureBinding {
+                                        name: name.clone(),
+                                        binding,
+                                        format: wgpu_format,
+                                        dimension: view_dimension,
+                                    },
+                                );
                             }
+                            wgpu::naga::TypeInner::Sampler { .. } => {
+                                group_reflection
+                                    .sampler_bindings
+                                    .push((name.clone(), binding));
+                                layout_entries.push(wgpu::BindGroupLayoutEntry {
+                                    binding,
+                                    visibility: wgpu::ShaderStages::COMPUTE,
+                                    ty: wgpu::BindingType::Sampler(
+                                        wgpu::SamplerBindingType::Filtering,
+                                    ),
+                                    count: None,
+                                });
+                            }
+                            _ => {}
                         }
-                        _ => {}
                     }
+                    _ => {}
                 }
             }
+        }
 
-            let mut bind_group_layouts = Vec::new();
-            let mut bind_groups_reflection = Vec::new();
+        let mut bind_group_layouts = Vec::new();
+        let mut bind_groups_reflection = Vec::new();
 
-            for (group, mut entries) in bind_group_layouts_data {
-                entries.sort_by_key(|e| e.binding);
-                let layout =
-                    context
-                        .device
-                        .create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
-                            label: Some(&format!("ComputePipeline Bind Layout Group {}", group)),
-                            entries: &entries,
-                        });
-                bind_group_layouts.push(Arc::new(layout));
+        for (group, mut entries) in bind_group_layouts_data {
+            entries.sort_by_key(|e| e.binding);
+            let layout =
+                context
+                    .device
+                    .create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+                        label: Some(&format!("ComputePipeline Bind Layout Group {}", group)),
+                        entries: &entries,
+                    });
+            bind_group_layouts.push(Arc::new(layout));
 
-                if let Some(reflection) = bind_groups_map.remove(&group) {
-                    bind_groups_reflection.push(reflection);
-                }
+            if let Some(reflection) = bind_groups_map.remove(&group) {
+                bind_groups_reflection.push(reflection);
             }
+        }
 
-            let reflection = Arc::new(ReflectionData {
-                bind_groups: bind_groups_reflection,
-                fragment_entry_point: String::new(),
-                vertex_entry_point: entry_point.clone(),
-            });
+        let reflection = Arc::new(ReflectionData {
+            bind_groups: bind_groups_reflection,
+            fragment_entry_point: String::new(),
+            vertex_entry_point: entry_point.clone(),
+        });
 
-            ComputePipeline {
-                shader: shader.clone(),
-                bind_group_layouts,
-                reflection: Some(reflection),
-                ..Default::default()
-            }
+        let mut pipeline = ComputePipeline {
+            shader: shader.clone(),
+            bind_group_layouts,
+            reflection: Some(reflection.clone()),
+            ..Default::default()
         };
 
         // Ensure shader is up to date
@@ -404,7 +404,6 @@ impl ComputePipeline {
         pipeline.validate_interface()?;
 
         // 2. WGPU Bake
-        let reflection = pipeline.reflection.as_ref().unwrap();
         // We stored compute entry in vertex_entry_point for now
         let entry = &reflection.vertex_entry_point;
 
