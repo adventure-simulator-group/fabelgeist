@@ -87,9 +87,11 @@ governed by the repository-root generation rule instead.
 
 ## Modules and files
 
-- After module documentation and inner attributes, put file-level `mod`
-  declarations first, then `use` imports and re-exports, then all other items.
-  Include inline and cfg-gated module declarations in this order.
+- After module documentation and inner attributes, order file-level items as:
+  `use` imports and re-exports; `mod` declarations; constants, statics and type
+  aliases; structs; enums; traits; impl blocks; then functions, public before
+  private. Put the `#[cfg(test)]` module last, whether inline or declared in
+  another file. Keep documentation and attributes attached to their items.
 - Split modules by responsibility, not to satisfy a mechanical line limit.
   Roughly 400 lines of production code is a healthy target and 500 lines is a
   design smell; exclude unit tests from that judgment.

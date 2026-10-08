@@ -7,17 +7,6 @@ use crate::{
 };
 use serde::Serialize;
 
-/// Presentation roles differ from the authoritative backend contract status.
-#[derive(Clone, Copy, Serialize)]
-enum ServiceQuestOfferState {
-    #[serde(rename = "available")]
-    Available,
-    #[serde(rename = "underway")]
-    Underway,
-    #[serde(rename = "ready")]
-    Ready,
-}
-
 #[derive(Serialize)]
 pub(super) struct ServiceQuestOffer {
     id: String,
@@ -35,6 +24,17 @@ pub(super) struct ServiceQuestOffer {
     turn_in_response: String,
     can_accept: bool,
     can_turn_in: bool,
+}
+
+/// Presentation roles differ from the authoritative backend contract status.
+#[derive(Clone, Copy, Serialize)]
+enum ServiceQuestOfferState {
+    #[serde(rename = "available")]
+    Available,
+    #[serde(rename = "underway")]
+    Underway,
+    #[serde(rename = "ready")]
+    Ready,
 }
 
 impl ServiceQuestOffer {

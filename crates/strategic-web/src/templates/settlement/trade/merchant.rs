@@ -1,13 +1,9 @@
 //! Merchant storefront policy, quoted stock, and trade presentation.
 
-mod forge;
-
-#[cfg(test)]
-mod tests;
-
 use super::super::service::service_page;
 use super::*;
 use super::{equipment::*, inventory::*, repairs::*};
+mod forge;
 
 /// Web presentation and inventory-panel policy for canonical storefronts.
 pub trait StorefrontPresentation {
@@ -414,3 +410,6 @@ pub(super) fn merchant_sell_controls(
         button type="button" class="trade-transfer trade-transfer-left" data-dynamic-transfer data-default-transfer-mode="one" data-merchant-sell=(id) data-item-name=(item_id) data-merchant-sell-price=(price) data-transfer-mode="one" data-count=(quantity) data-target=(target) data-label-one=(format!("Sell one {item_name}")) data-label-target=(format!("Sell surplus {item_name}")) data-label-all=(format!("Sell all {item_name}")) aria-label=(format!("Sell one {item_name}")) title=(format!("Sell one {item_name}")) { (transfer_glyph(1)) }
     } }
 }
+
+#[cfg(test)]
+mod tests;

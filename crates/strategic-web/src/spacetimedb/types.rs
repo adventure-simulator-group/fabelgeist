@@ -4,6 +4,1921 @@
 //! defined here are deliberately narrower presentation or joined-query views;
 //! none duplicate a persisted row.
 
+use super::item_kind::catalog_item_kind;
+pub use adventuresim_core::{
+    capability::RoleRequirements,
+    investigation_action::{InvestigationActionAvailability, InvestigationActionUnavailableReason},
+    item_catalog::{
+        EquipmentBodyPart, EquipmentChannel, EquipmentLocation, OccupancyRequirement,
+        ParentRequirement, Slot,
+    },
+    item_classification::CatalogItemKind,
+    personality::{
+        Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
+        Personality, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance,
+        Transparency,
+    },
+    physiology::BodyRegion,
+    strategic_place::CaseSiteId,
+};
+use adventuresim_core::{
+    combat_style::MeleeAttackStyle, equipment::WeaponSkillDistribution,
+    physiology::InterventionRoute, social::PersonalityAxis,
+};
+use adventuresim_stdb_client as sats;
+pub use adventuresim_stdb_client::{
+    AffinityBand, AgeBand, AlcoholConsumption, AutomaticSocialChat, AutoresolveReport,
+    BackendBestiaryDeduction, BackendBrowserCharacterAccess, BackendCaseSitePin, BackendChallenge,
+    BackendCharacterCaseSiteLocation, BackendCharacterRelationshipStatus,
+    BackendCharacterResidenceStatus, BackendContextCharacter, BackendContract, BackendCorpse,
+    BackendDevelopmentQuest, BackendDevelopmentScenario, BackendDialogueEvent,
+    BackendDialogueParticipant, BackendDialoguePrompt, BackendDialogueSession,
+    BackendDialogueTopicOption, BackendDialogueWitnessClaim, BackendFamilyChild,
+    BackendFireplaceDish, BackendFireplaceStation, BackendForageAttemptState, BackendForageReceipt,
+    BackendHostileNegotiation, BackendHostileSurrender, BackendIngredientPreparationPlan,
+    BackendInvestigationAction, BackendInvestigationCaseSummary, BackendInvestigationJournalEntry,
+    BackendInvestigationLead, BackendLocalChatMessage, BackendLocalProblemTradeEffect,
+    BackendOrganizationMembership, BackendPhysicalEvidence, BackendPhysicalEvidenceInspection,
+    BackendPhysiologyAdministration, BackendPhysiologyChart, BackendRoadChallenge,
+    BackendSettlementResident, BackendSettlementResidentRelationship, BackendSocialChatReceipt,
+    BackendTinctureStatus, BattleLootItem, BattleResult, ChallengePresenterCatalogId,
+    CharacterAffinity, CharacterAttributes, CharacterCapability, CharacterCondition,
+    CharacterDeath, CharacterFamiliarity, CharacterFilth, CharacterLimbs, CharacterMoraleSource,
+    CharacterNeeds, CharacterSettlementReputation, CharacterSkills, CharacterStats,
+    CharacterStrategicCondition, CharacterTime, CharacterTrainingSchedule, ChildActivityFocus,
+    ChildStage, ContainerLiquid, ContractStatus, CourtshipKind, DestinationKnowledgeStage,
+    EquipmentAnchorKind, EquipmentOccupancy, FamiliarityBand, FoodLot, HostileSurrenderMode,
+    HousingTier, IngredientPreparationAction, InteractionPresentationDecision,
+    InventoryContainment, InventoryItem, InventoryItemAmount, InventoryLocation, InventoryObject,
+    InventoryQuantityTarget, ItemCondition, JourneyCampInterval, JourneyEndpoint, JourneyRouteLeg,
+    JourneyRoutePoint, JourneyTerrainKind, JourneyTerrainSpan, LimbInjury, MoraleBand,
+    OrganizationMembershipStatus, OrganizationPresentation, PartyInventoryItem, PartyItemAmount,
+    PartyJoinRequest, PartyJourney, PartyLeaderVote, PartyMember, PartyStake, Precipitation,
+    ProjectileKind, RecruitmentOffer, RecruitmentOfferStatus, ReligiousDemand, RepairOrder,
+    ResidenceTenure, RetainedProjectile, SavedRecruitmentRole, ScheduleAllocation, SettlementAlias,
+    SettlementCategory, SettlementDescription, SettlementDescriptionKind,
+    SettlementResidentPresence, SettlementSmith, SocialAddress, SocialBelief, SocialChatOutcome,
+    SocialChatTargetKind, StrategicEncounter, StrategicEncounterStatus, WeaponHolderInstance,
+    WeaponInstance, WorldClock,
+};
+#[cfg(test)]
+pub use adventuresim_stdb_client::{
+    BackendPhysiologyDifferential, FilthOrigin, FilthSubstance, FoodPreparation,
+    JourneyCaseSiteEndpoint, JourneySettlementEndpoint, StrategicEncounterLoss,
+};
+use adventuresim_world_schema::Sex;
+use adventuresim_world_schema::calendar::StrategicMinute;
+use serde::{Deserialize, Serialize, de::DeserializeOwned};
+use serde_json::Value;
+use spacetimedb_sats::{ser::Serialize as SatsSerialize, serde::SerdeWrapper};
+
+pub type QueryResponse = Vec<QueryResult>;
+
+#[derive(Debug, Deserialize)]
+pub struct QueryResult {
+    pub schema: QuerySchema,
+    pub rows: Vec<Value>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct QuerySchema {
+    pub elements: Vec<SchemaElement>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct SchemaElement {
+    pub name: Option<AlgebraicTypeRef>,
+    pub algebraic_type: AlgebraicType,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct AlgebraicTypeRef {
+    pub some: String,
+}
+
+#[derive(Clone, Debug, Serialize)]
+pub struct BestiaryEnemyLoreView {
+    pub id: String,
+    pub name: String,
+    pub is_primary: bool,
+    pub strengths: Vec<String>,
+    pub weaknesses: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct CharacterView {
+    pub id: u64,
+    pub name: String,
+    pub xp: u32,
+    pub level: u32,
+    pub current_settlement_id: Option<String>,
+    pub current_case_site_id: Option<CaseSiteId>,
+    pub party_id: Option<String>,
+    pub age_years: u16,
+    pub alive: bool,
+    pub temporary: bool,
+    pub social_notification_count: usize,
+    pub automatic_social_chat_enabled: bool,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct SettlementView {
+    pub id: String,
+    pub name: String,
+    pub longitude: f64,
+    pub latitude: f64,
+    pub population_level: i32,
+    pub population_estimate: u32,
+    #[serde(
+        serialize_with = "serialize_settlement_category",
+        deserialize_with = "deserialize_settlement_category"
+    )]
+    pub category: SettlementCategory,
+    pub languages: adventuresim_world_schema::SettlementLanguageProfile,
+    pub industries: adventuresim_world_schema::InferredIndustryProfile,
+    pub economy: adventuresim_world_schema::SettlementEconomyProfile,
+    pub religious_status: adventuresim_world_schema::SettlementReligiousStatus,
+    pub scene_key: String,
+    pub religion_id: String,
+    pub currency_id: String,
+    pub source_node_id: Option<u64>,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct CaseBattleView {
+    pub gateway_bucket: u8,
+    pub owner_character_id: u64,
+    pub public_case_id: String,
+    pub party_id: String,
+    pub battle_id: String,
+    pub mission_id: String,
+    pub case_site_id: CaseSiteId,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct PartyView {
+    pub id: String,
+    pub gateway_bucket: u8,
+    pub name: String,
+    pub leader_id: u64,
+    pub current_settlement_id: Option<String>,
+    pub current_case_site_id: Option<CaseSiteId>,
+    pub active_contract_id: Option<String>,
+    pub is_solo: bool,
+    pub camp_fatigue_percent: u8,
+    pub walking_minutes_per_day: u16,
+    pub travel_at_night: bool,
+    pub journey_start_minute_of_day: u16,
+    pub wilderness_canonical_anchor_minute:
+        Option<adventuresim_world_schema::calendar::StrategicMinute>,
+    pub wilderness_elapsed_minutes: u64,
+    pub camp_destination: Option<JourneyEndpoint>,
+    pub camp_remaining_minutes: u64,
+    pub physiology_target: f32,
+    pub command_target: f32,
+    pub religion_target: f32,
+}
+
+#[derive(Debug, Clone, Serialize, PartialEq)]
+pub struct PartyActionRequestView {
+    pub id: u64,
+    pub gateway_bucket: u8,
+    pub party_id: String,
+    pub requester_id: u64,
+    pub action_kind: String,
+    pub summary: String,
+    pub payload: String,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct PartyJourneyRouteView {
+    pub party_id: String,
+    pub gateway_bucket: u8,
+    pub package_digest: String,
+    pub weather_rules_version: u16,
+    pub weather_interval_start: StrategicMinute,
+    pub precipitation: Precipitation,
+    pub intensity_bps: u16,
+    pub ground_moisture_bps: u16,
+    pub snow_cover_bps: u16,
+    pub distance_m: u64,
+    pub minutes: u64,
+    pub points: Vec<JourneyRoutePoint>,
+    pub spans: Vec<JourneyTerrainSpan>,
+    pub return_route: Option<JourneyRouteLeg>,
+}
+
+#[derive(Debug, Clone)]
+pub struct EquippedItemView {
+    pub inventory_item_id: u64,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the generated-row boundary retains the owning character for explicit projection"
+        )
+    )]
+    pub character_id: u64,
+    pub placement_id: String,
+    pub item_name: String,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct RecruitmentRoleView {
+    pub id: u64,
+    pub party_id: String,
+    pub purpose: sats::RecruitmentRolePurpose,
+    pub name: String,
+    pub requirements: RoleRequirements,
+    pub quantity: u32,
+    pub autoresolve_combat_power: u64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct MissionServerView {
+    pub identity: Option<String>,
+    pub gateway_bucket: u8,
+    pub mission_id: String,
+    pub scene_key: String,
+    pub party_id: String,
+    pub status: MissionStatus,
+    pub addr: String,
+    pub cert_digest: String,
+    pub character_id: Option<u64>,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct MissionServerRequestView {
+    pub mission_id: String,
+    pub gateway_bucket: u8,
+    pub scene_key: String,
+    pub party_id: String,
+    pub requested_by: u64,
+    pub required_enemy_kills: u32,
+}
+
+#[derive(Debug, Clone)]
+pub struct CharacterEquipmentGraph {
+    pub _character_id: u64,
+    pub worn_item_ids: Vec<u64>,
+    pub equipment_nodes: Vec<EquippedItemView>,
+    pub equipment_occupancies: Vec<EquipmentOccupancy>,
+    pub attachment_targets: Vec<EquipmentAttachmentTarget>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct EquipmentAttachmentTarget {
+    pub parent_inventory_item_id: u64,
+    pub parent_item_name: String,
+    pub attachment_point_id: String,
+    #[serde(deserialize_with = "deserialize_equipment_channel")]
+    pub channel: EquipmentChannel,
+    pub accepts_tags: Vec<String>,
+    pub free_capacity: u16,
+    pub order: u16,
+}
+
+#[derive(Debug, Clone)]
+pub struct CatalogEquipmentPlacement {
+    pub id: String,
+    pub occupancy: Vec<OccupancyRequirement>,
+    pub parents: Vec<ParentRequirement>,
+    pub protection: Vec<EquipmentBodyPart>,
+}
+
+#[derive(Debug, Clone)]
+pub struct CatalogEquipmentAttachmentPoint {
+    pub id: String,
+    pub channel: EquipmentChannel,
+    pub capacity: u16,
+    pub order: u16,
+    pub accepts_tags: Vec<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct CatalogItemView {
+    pub id: String,
+    pub weight: f32,
+    pub exterior_volume_ml: u32,
+    pub slot: Slot,
+    pub kind: CatalogItemKind,
+    pub equipment_placements: Vec<CatalogEquipmentPlacement>,
+    pub attachment_tags: Vec<String>,
+    pub attachment_points: Vec<CatalogEquipmentAttachmentPoint>,
+    pub repairable: bool,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the catalog projection records persisted combat fields even before presentation consumes them"
+        )
+    )]
+    pub preferred_melee_style: MeleeAttackStyle,
+    pub reach: f32,
+    pub block: f32,
+    pub coverage: f32,
+    pub precision: f32,
+    pub resistance: f32,
+    pub padding: f32,
+    pub flexibility: f32,
+    pub range_of_motion: f32,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the catalog projection records persisted combat fields even before presentation consumes them"
+        )
+    )]
+    pub moment_of_inertia_kg_m_2: f32,
+    pub balance: f32,
+    pub melee: bool,
+    pub ranged: bool,
+    pub weapon_skills: WeaponSkillDistribution,
+    pub base_value: Option<u32>,
+    pub nutrition_kcal: f32,
+    pub water_capacity_ml: u32,
+    pub container_capacity_ml: u32,
+    pub alcohol_serving_ml: u32,
+    pub alcohol_abv_basis_points: u16,
+    pub alcohol_net_hydration_ml: u32,
+    pub alcohol_disinfectant_effectiveness: u16,
+    pub alcohol_disinfectant_focused: bool,
+    pub alcohol_potable: bool,
+    pub quality: u8,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
+        )
+    )]
+    pub durability_yield: f32,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
+        )
+    )]
+    pub durability_fracture: f32,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
+        )
+    )]
+    pub durability_wear: f32,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
+        )
+    )]
+    pub durability_failure_share: f32,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
+        )
+    )]
+    pub edge_sensitivity: f32,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
+        )
+    )]
+    pub handling_sensitivity: f32,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+pub enum AlgebraicType {
+    Value(Value),
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Default)]
+pub enum MissionStatus {
+    #[default]
+    Ready,
+    Pending,
+    Failed,
+    Ended,
+}
+
+pub trait BestiaryDeductionExt {
+    fn provenance(&self) -> Vec<String>;
+}
+
+pub trait JourneyEndpointExt {
+    fn settlement_id(&self) -> Option<&str>;
+    fn case_site_id(&self) -> Option<&str>;
+    fn name(&self) -> &str;
+}
+
+pub trait ItemConditionExt {
+    fn bins(&self) -> [f32; 5];
+    fn total(&self) -> f32;
+    fn repairable(&self, skill: u8) -> f32;
+    fn residual(&self, skill: u8) -> f32;
+}
+
+pub trait ReligionHoursExt {
+    fn direct(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32;
+    fn effective(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32;
+    fn total_direct(&self) -> f32;
+}
+
+pub trait OralLanguageHoursExt {
+    fn direct(&self, language: adventuresim_world_schema::OralLanguage) -> f32;
+    fn effective(&self, language: adventuresim_world_schema::OralLanguage) -> f32;
+}
+
+pub trait WrittenLanguageHoursExt {
+    fn direct(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32;
+    fn effective(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32;
+}
+
+pub trait BestiaryHoursExt {
+    fn direct(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32;
+    fn effective(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32;
+    fn aggregate_effective(&self) -> f32;
+    fn total_direct(&self) -> f32;
+}
+
+impl BestiaryDeductionExt for BackendBestiaryDeduction {
+    fn provenance(&self) -> Vec<String> {
+        serde_json::from_str::<Vec<String>>(&self.provenance_json)
+            .unwrap_or_default()
+            .into_iter()
+            .filter(|item| !item.trim().is_empty() && item.len() <= 1_024)
+            .collect()
+    }
+}
+
+impl From<sats::Character> for CharacterView {
+    fn from(row: sats::Character) -> Self {
+        let sats::Character {
+            id,
+            scan_id: _,
+            name,
+            xp,
+            level,
+            current_settlement_id,
+            party_id,
+            server: _,
+            temporary,
+            age_years,
+            alive,
+            party_treatment_decision: _,
+        } = row;
+        Self {
+            id,
+            name,
+            xp,
+            level,
+            current_settlement_id,
+            current_case_site_id: None,
+            party_id,
+            age_years,
+            alive,
+            temporary,
+            social_notification_count: 0,
+            automatic_social_chat_enabled: false,
+        }
+    }
+}
+
+impl TryFrom<sats::Settlement> for SettlementView {
+    type Error = serde_json::Error;
+
+    fn try_from(row: sats::Settlement) -> Result<Self, Self::Error> {
+        let sats::Settlement {
+            id,
+            name,
+            coord_x,
+            coord_y,
+            population_level,
+            population_estimate,
+            category,
+            elevation: _,
+            land_use: _,
+            forest_cover: _,
+            potential_vegetation: _,
+            historical_vegetation: _,
+            tree_species: _,
+            soil: _,
+            geology: _,
+            religious_status,
+            languages,
+            drought: _,
+            hydrology: _,
+            industries,
+            economy,
+            scene_key,
+            religion_id,
+            currency_id,
+            source_node_id,
+            sources: _,
+        } = row;
+        Ok(Self {
+            id,
+            name,
+            longitude: coord_x,
+            latitude: coord_y,
+            population_level,
+            population_estimate,
+            category,
+            languages: sats_to_serde(&languages)?,
+            industries: sats_to_serde(&industries)?,
+            economy: sats_to_serde(&economy)?,
+            religious_status: core_settlement_religious_status(religious_status),
+            scene_key,
+            religion_id,
+            currency_id,
+            source_node_id,
+        })
+    }
+}
+
+impl TryFrom<sats::BackendCaseBattle> for CaseBattleView {
+    type Error = adventuresim_core::strategic_place::PlaceIdentityError;
+
+    fn try_from(row: sats::BackendCaseBattle) -> Result<Self, Self::Error> {
+        let sats::BackendCaseBattle {
+            gateway_bucket,
+            owner_character_id,
+            public_case_id,
+            party_id,
+            battle_id,
+            mission_id,
+            case_site_id,
+        } = row;
+        Ok(Self {
+            gateway_bucket,
+            owner_character_id,
+            public_case_id,
+            party_id,
+            battle_id,
+            mission_id,
+            case_site_id: CaseSiteId::try_new(case_site_id.value)?,
+        })
+    }
+}
+
+impl TryFrom<sats::Party> for PartyView {
+    type Error = adventuresim_core::strategic_place::PlaceIdentityError;
+
+    fn try_from(row: sats::Party) -> Result<Self, Self::Error> {
+        let sats::Party {
+            id,
+            gateway_bucket,
+            name,
+            leader_id,
+            current_settlement_id,
+            current_case_site_id,
+            active_contract_id,
+            is_solo,
+            camp_fatigue_percent,
+            walking_minutes_per_day,
+            travel_at_night,
+            journey_start_minute_of_day,
+            wilderness_canonical_anchor_minute,
+            wilderness_elapsed_minutes,
+            camp_destination,
+            camp_remaining_minutes,
+            physiology_target,
+            command_target,
+            religion_target,
+        } = row;
+        Ok(Self {
+            id,
+            gateway_bucket,
+            name,
+            leader_id,
+            current_settlement_id,
+            current_case_site_id: current_case_site_id
+                .map(|site| CaseSiteId::try_new(site.value))
+                .transpose()?,
+            active_contract_id,
+            is_solo,
+            camp_fatigue_percent,
+            walking_minutes_per_day,
+            travel_at_night,
+            journey_start_minute_of_day,
+            wilderness_canonical_anchor_minute: wilderness_canonical_anchor_minute.map(|minute| {
+                adventuresim_world_schema::calendar::StrategicMinute::new(minute.minutes)
+            }),
+            wilderness_elapsed_minutes,
+            camp_destination,
+            camp_remaining_minutes,
+            physiology_target,
+            command_target,
+            religion_target,
+        })
+    }
+}
+
+impl From<sats::PartyActionRequest> for PartyActionRequestView {
+    fn from(row: sats::PartyActionRequest) -> Self {
+        let sats::PartyActionRequest {
+            id,
+            gateway_bucket,
+            party_id,
+            requester_id,
+            action_kind,
+            summary,
+            payload,
+        } = row;
+        Self {
+            id,
+            gateway_bucket,
+            party_id,
+            requester_id,
+            action_kind,
+            summary,
+            payload,
+        }
+    }
+}
+
+impl From<sats::PartyJourneyRoute> for PartyJourneyRouteView {
+    fn from(row: sats::PartyJourneyRoute) -> Self {
+        let sats::PartyJourneyRoute {
+            party_id,
+            gateway_bucket,
+            package_digest,
+            weather_rules_version,
+            weather_interval_start,
+            precipitation,
+            intensity_bps,
+            ground_moisture_bps,
+            snow_cover_bps,
+            distance_m,
+            minutes,
+            points,
+            spans,
+            return_route,
+        } = row;
+        Self {
+            party_id,
+            gateway_bucket,
+            package_digest,
+            weather_rules_version,
+            weather_interval_start: StrategicMinute::new(weather_interval_start.minutes),
+            precipitation,
+            intensity_bps,
+            ground_moisture_bps,
+            snow_cover_bps,
+            distance_m,
+            minutes,
+            points,
+            spans,
+            return_route,
+        }
+    }
+}
+
+impl From<sats::CharacterEquippedItem> for EquippedItemView {
+    fn from(row: sats::CharacterEquippedItem) -> Self {
+        let sats::CharacterEquippedItem {
+            inventory_item_id,
+            character_id,
+            placement_id,
+        } = row;
+        Self {
+            inventory_item_id,
+            character_id,
+            placement_id,
+            item_name: String::new(),
+        }
+    }
+}
+
+impl From<sats::PartyRecruitmentRole> for RecruitmentRoleView {
+    fn from(row: sats::PartyRecruitmentRole) -> Self {
+        let sats::PartyRecruitmentRole {
+            id,
+            party_id,
+            purpose,
+            name,
+            requirements,
+            quantity,
+        } = row;
+        Self {
+            id,
+            party_id,
+            purpose,
+            name,
+            requirements: role_requirements(&requirements),
+            quantity,
+            autoresolve_combat_power: 0,
+        }
+    }
+}
+
+impl MissionStatus {
+    pub const fn label(self) -> &'static str {
+        match self {
+            Self::Ready => "Ready",
+            Self::Pending => "Pending",
+            Self::Failed => "Failed",
+            Self::Ended => "Ended",
+        }
+    }
+}
+
+impl MissionServerView {
+    pub fn pending(
+        mission_id: String,
+        gateway_bucket: u8,
+        scene_key: String,
+        party_id: String,
+    ) -> Self {
+        Self {
+            identity: None,
+            gateway_bucket,
+            mission_id,
+            scene_key,
+            party_id,
+            status: MissionStatus::Pending,
+            addr: String::new(),
+            cert_digest: String::new(),
+            character_id: None,
+        }
+    }
+}
+
+impl From<sats::TacticalServer> for MissionServerView {
+    fn from(row: sats::TacticalServer) -> Self {
+        let sats::TacticalServer {
+            identity,
+            gateway_bucket,
+            mission_id,
+            scene_key,
+            party_id,
+            addr,
+            cert_digest,
+            authorized_party_member_ids: _,
+            required_enemy_kills: _,
+            enemy_difficulty: _,
+            enemy_combat_scale_bps: _,
+            countermeasure_multiplier_bps: _,
+            normalized_combat_power: _,
+            enemy_character_ids: _,
+            party_has_surprise: _,
+        } = row;
+        Self {
+            identity: Some(identity.to_string()),
+            gateway_bucket,
+            mission_id,
+            scene_key,
+            party_id,
+            status: MissionStatus::Ready,
+            addr,
+            cert_digest,
+            character_id: None,
+        }
+    }
+}
+
+impl From<sats::TacticalServerRequest> for MissionServerRequestView {
+    fn from(row: sats::TacticalServerRequest) -> Self {
+        let sats::TacticalServerRequest {
+            mission_id,
+            gateway_bucket,
+            scene_key,
+            party_id,
+            requested_by,
+            required_enemy_kills,
+            ..
+        } = row;
+        Self {
+            mission_id,
+            gateway_bucket,
+            scene_key,
+            party_id,
+            requested_by,
+            required_enemy_kills,
+        }
+    }
+}
+
+impl CharacterEquipmentGraph {
+    pub fn contains(&self, inventory_item_id: u64) -> bool {
+        self.worn_item_ids.contains(&inventory_item_id)
+    }
+}
+
+impl From<sats::Item> for CatalogItemView {
+    fn from(row: sats::Item) -> Self {
+        let sats::Item {
+            id,
+            weight,
+            exterior_volume_ml,
+            slot,
+            kind,
+            equipment_placements,
+            attachment_tags,
+            attachment_points,
+            repairable,
+            preferred_melee_style,
+            reach,
+            block,
+            coverage,
+            precision,
+            resistance,
+            padding,
+            flexibility,
+            range_of_motion,
+            moment_of_inertia_kg_m_2,
+            balance,
+            melee,
+            ranged,
+            weapon_skills,
+            base_value,
+            nutrition_kcal,
+            water_capacity_ml,
+            container_capacity_ml,
+            alcohol_serving_ml,
+            alcohol_abv_basis_points,
+            alcohol_net_hydration_ml,
+            alcohol_disinfectant_effectiveness,
+            alcohol_disinfectant_focused,
+            alcohol_potable,
+            quality,
+            durability_yield,
+            durability_fracture,
+            durability_wear,
+            durability_failure_share,
+            edge_sensitivity,
+            handling_sensitivity,
+        } = row;
+        Self {
+            id,
+            weight,
+            exterior_volume_ml,
+            slot: core_slot(slot),
+            kind: catalog_item_kind(kind),
+            equipment_placements: equipment_placements
+                .into_iter()
+                .map(|placement| {
+                    let sats::PersistedEquipmentPlacement {
+                        id,
+                        occupancy,
+                        parents,
+                        protection,
+                    } = placement;
+                    CatalogEquipmentPlacement {
+                        id,
+                        occupancy: occupancy
+                            .into_iter()
+                            .map(|requirement| {
+                                let sats::OccupancyRequirement {
+                                    fit_zone,
+                                    location,
+                                    channel,
+                                    order,
+                                } = requirement;
+                                OccupancyRequirement {
+                                    fit_zone: fit_zone.map(|zone| match zone {
+                                        sats::EquipmentFitZone::UpperArm => adventuresim_core::item_catalog::EquipmentFitZone::UpperArm,
+                                        sats::EquipmentFitZone::Elbow => adventuresim_core::item_catalog::EquipmentFitZone::Elbow,
+                                        sats::EquipmentFitZone::Forearm => adventuresim_core::item_catalog::EquipmentFitZone::Forearm,
+                                        sats::EquipmentFitZone::Thigh => adventuresim_core::item_catalog::EquipmentFitZone::Thigh,
+                                        sats::EquipmentFitZone::Knee => adventuresim_core::item_catalog::EquipmentFitZone::Knee,
+                                        sats::EquipmentFitZone::Shin => adventuresim_core::item_catalog::EquipmentFitZone::Shin,
+                                    }),
+                                    location: core_equipment_location(location),
+                                    channel: core_equipment_channel(channel),
+                                    order,
+                                }
+                            })
+                            .collect(),
+                        parents: parents
+                            .into_iter()
+                            .map(|requirement| {
+                                let sats::ParentRequirement { channel, order, location } = requirement;
+                                ParentRequirement {
+                                    location: location.map(core_equipment_location),
+                                    channel: core_equipment_channel(channel),
+                                    order,
+                                }
+                            })
+                            .collect(),
+                        protection: protection
+                            .into_iter()
+                            .map(core_equipment_body_part)
+                            .collect(),
+                    }
+                })
+                .collect(),
+            attachment_tags,
+            attachment_points: attachment_points
+                .into_iter()
+                .map(|point| {
+                    let sats::PersistedEquipmentAttachmentPoint {
+                        id,
+                        channel,
+                        capacity,
+                        order,
+                        accepts_tags,
+                    } = point;
+                    CatalogEquipmentAttachmentPoint {
+                        id,
+                        channel: core_equipment_channel(channel),
+                        capacity,
+                        order,
+                        accepts_tags,
+                    }
+                })
+                .collect(),
+            repairable,
+            preferred_melee_style: core_melee_style(preferred_melee_style),
+            reach,
+            block,
+            coverage,
+            precision,
+            resistance,
+            padding,
+            flexibility,
+            range_of_motion,
+            moment_of_inertia_kg_m_2,
+            balance,
+            melee,
+            ranged,
+            weapon_skills: core_weapon_skills(weapon_skills),
+            base_value,
+            nutrition_kcal,
+            water_capacity_ml,
+            container_capacity_ml,
+            alcohol_serving_ml,
+            alcohol_abv_basis_points,
+            alcohol_net_hydration_ml,
+            alcohol_disinfectant_effectiveness,
+            alcohol_disinfectant_focused,
+            alcohol_potable,
+            quality,
+            durability_yield,
+            durability_fracture,
+            durability_wear,
+            durability_failure_share,
+            edge_sensitivity,
+            handling_sensitivity,
+        }
+    }
+}
+
+impl Default for CatalogItemView {
+    fn default() -> Self {
+        Self {
+            id: String::new(),
+            weight: 0.0,
+            exterior_volume_ml: 0,
+            slot: Slot::None,
+            kind: CatalogItemKind::Simple,
+            equipment_placements: Vec::new(),
+            attachment_tags: Vec::new(),
+            attachment_points: Vec::new(),
+            repairable: false,
+            preferred_melee_style: MeleeAttackStyle::default(),
+            reach: 0.0,
+            block: 0.0,
+            coverage: 0.0,
+            precision: 0.0,
+            resistance: 0.0,
+            padding: 0.0,
+            flexibility: 0.0,
+            range_of_motion: 0.0,
+            moment_of_inertia_kg_m_2: 0.0,
+            balance: 0.0,
+            melee: false,
+            ranged: false,
+            weapon_skills: WeaponSkillDistribution::default(),
+            base_value: None,
+            nutrition_kcal: 0.0,
+            water_capacity_ml: 0,
+            container_capacity_ml: 0,
+            alcohol_serving_ml: 0,
+            alcohol_abv_basis_points: 0,
+            alcohol_net_hydration_ml: 0,
+            alcohol_disinfectant_effectiveness: 0,
+            alcohol_disinfectant_focused: false,
+            alcohol_potable: false,
+            quality: 0,
+            durability_yield: 0.0,
+            durability_fracture: 0.0,
+            durability_wear: 0.0,
+            durability_failure_share: 0.0,
+            edge_sensitivity: 0.0,
+            handling_sensitivity: 0.0,
+        }
+    }
+}
+
+impl JourneyEndpointExt for JourneyEndpoint {
+    fn settlement_id(&self) -> Option<&str> {
+        match self {
+            Self::Settlement(endpoint) => Some(&endpoint.id),
+            _ => None,
+        }
+    }
+
+    fn case_site_id(&self) -> Option<&str> {
+        match self {
+            Self::CaseSite(endpoint) => Some(&endpoint.id.value),
+            _ => None,
+        }
+    }
+
+    fn name(&self) -> &str {
+        match self {
+            Self::Settlement(endpoint) => &endpoint.name,
+            Self::CaseSite(endpoint) => &endpoint.name,
+            Self::Camp(_) => "Camp",
+        }
+    }
+}
+
+impl ReligionHoursExt for sats::ReligionHours {
+    fn direct(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32 {
+        core_religion_hours(self).direct(religion)
+    }
+
+    fn effective(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32 {
+        core_religion_hours(self).effective(religion)
+    }
+
+    fn total_direct(&self) -> f32 {
+        core_religion_hours(self).total_direct()
+    }
+}
+
+impl OralLanguageHoursExt for sats::OralLanguageHours {
+    fn direct(&self, language: adventuresim_world_schema::OralLanguage) -> f32 {
+        core_oral_language_hours(self).direct(language)
+    }
+
+    fn effective(&self, language: adventuresim_world_schema::OralLanguage) -> f32 {
+        core_oral_language_hours(self).effective(language)
+    }
+}
+
+impl WrittenLanguageHoursExt for sats::WrittenLanguageHours {
+    fn direct(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32 {
+        core_written_language_hours(self).direct(language)
+    }
+
+    fn effective(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32 {
+        core_written_language_hours(self).effective(language)
+    }
+}
+
+impl BestiaryHoursExt for sats::BestiaryHours {
+    fn direct(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32 {
+        core_bestiary_hours(self).direct(category)
+    }
+
+    fn effective(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32 {
+        core_bestiary_hours(self).effective(category)
+    }
+
+    fn aggregate_effective(&self) -> f32 {
+        core_bestiary_hours(self).aggregate_effective()
+    }
+
+    fn total_direct(&self) -> f32 {
+        core_bestiary_hours(self).total_direct()
+    }
+}
+
+impl ItemConditionExt for ItemCondition {
+    fn bins(&self) -> [f32; 5] {
+        [
+            self.tier_1,
+            self.tier_2,
+            self.tier_3,
+            self.tier_4,
+            self.tier_5,
+        ]
+    }
+    fn total(&self) -> f32 {
+        self.bins().iter().sum::<f32>().clamp(0.0, 1.0)
+    }
+    fn repairable(&self, skill: u8) -> f32 {
+        self.bins().iter().take(skill.min(5) as usize).sum()
+    }
+    fn residual(&self, skill: u8) -> f32 {
+        self.bins().iter().skip(skill.min(5) as usize).sum()
+    }
+}
+
+pub(crate) const fn npc_age_band_id(value: AgeBand) -> &'static str {
+    use adventuresim_core::settlement_population::AgeBand as DomainAgeBand;
+    match value {
+        AgeBand::Child => DomainAgeBand::Child,
+        AgeBand::Adolescent => DomainAgeBand::Adolescent,
+        AgeBand::Adult => DomainAgeBand::Adult,
+        AgeBand::Elder => DomainAgeBand::Elder,
+    }
+    .stable_id()
+}
+
+pub fn bestiary_enemy_lore(
+    category: adventuresim_world_schema::BestiaryCategory,
+) -> Vec<BestiaryEnemyLoreView> {
+    adventuresim_core::bestiary::profiles_for_category(category)
+        .into_iter()
+        .map(|categorized| {
+            let profile = categorized.profile;
+            let lore = adventuresim_core::bestiary::implemented_combat_lore(profile);
+            BestiaryEnemyLoreView {
+                id: profile.id.as_str().into(),
+                name: profile.display_name.into(),
+                is_primary: categorized.is_primary,
+                strengths: lore.strengths,
+                weaknesses: lore.weaknesses,
+            }
+        })
+        .collect()
+}
+
+pub fn core_equipment_location(value: sats::EquipmentLocation) -> EquipmentLocation {
+    match value {
+        sats::EquipmentLocation::Head => EquipmentLocation::Head,
+        sats::EquipmentLocation::Face => EquipmentLocation::Face,
+        sats::EquipmentLocation::Neck => EquipmentLocation::Neck,
+        sats::EquipmentLocation::Chest => EquipmentLocation::Chest,
+        sats::EquipmentLocation::Stomach => EquipmentLocation::Stomach,
+        sats::EquipmentLocation::Back => EquipmentLocation::Back,
+        sats::EquipmentLocation::LeftShoulder => EquipmentLocation::LeftShoulder,
+        sats::EquipmentLocation::RightShoulder => EquipmentLocation::RightShoulder,
+        sats::EquipmentLocation::LeftArm => EquipmentLocation::LeftArm,
+        sats::EquipmentLocation::RightArm => EquipmentLocation::RightArm,
+        sats::EquipmentLocation::LeftHand => EquipmentLocation::LeftHand,
+        sats::EquipmentLocation::RightHand => EquipmentLocation::RightHand,
+        sats::EquipmentLocation::LeftLeg => EquipmentLocation::LeftLeg,
+        sats::EquipmentLocation::RightLeg => EquipmentLocation::RightLeg,
+        sats::EquipmentLocation::LeftFoot => EquipmentLocation::LeftFoot,
+        sats::EquipmentLocation::RightFoot => EquipmentLocation::RightFoot,
+        sats::EquipmentLocation::LeftBelt => EquipmentLocation::LeftBelt,
+        sats::EquipmentLocation::RightBelt => EquipmentLocation::RightBelt,
+        sats::EquipmentLocation::FrontBelt => EquipmentLocation::FrontBelt,
+        sats::EquipmentLocation::BackBelt => EquipmentLocation::BackBelt,
+        sats::EquipmentLocation::LeftPocket => EquipmentLocation::LeftPocket,
+        sats::EquipmentLocation::RightPocket => EquipmentLocation::RightPocket,
+        sats::EquipmentLocation::BackLeftPocket => EquipmentLocation::BackLeftPocket,
+        sats::EquipmentLocation::BackRightPocket => EquipmentLocation::BackRightPocket,
+    }
+}
+
+pub fn core_body_region(value: sats::BodyRegion) -> BodyRegion {
+    match value {
+        sats::BodyRegion::LeftArm => BodyRegion::LeftArm,
+        sats::BodyRegion::RightArm => BodyRegion::RightArm,
+        sats::BodyRegion::LeftLeg => BodyRegion::LeftLeg,
+        sats::BodyRegion::RightLeg => BodyRegion::RightLeg,
+        sats::BodyRegion::Chest => BodyRegion::Chest,
+        sats::BodyRegion::Abdomen => BodyRegion::Abdomen,
+        sats::BodyRegion::Head => BodyRegion::Head,
+    }
+}
+
+pub fn core_intervention_route(value: sats::InterventionRoute) -> InterventionRoute {
+    match value {
+        sats::InterventionRoute::Oral => InterventionRoute::Oral,
+        sats::InterventionRoute::Topical => InterventionRoute::Topical,
+        sats::InterventionRoute::Inhaled => InterventionRoute::Inhaled,
+        sats::InterventionRoute::Injected => InterventionRoute::Injected,
+    }
+}
+
+pub fn core_personality_axis(value: sats::PersonalityAxis) -> PersonalityAxis {
+    match value {
+        sats::PersonalityAxis::Nerve => PersonalityAxis::Nerve,
+        sats::PersonalityAxis::Drive => PersonalityAxis::Drive,
+        sats::PersonalityAxis::Outlook => PersonalityAxis::Outlook,
+        sats::PersonalityAxis::Sociability => PersonalityAxis::Sociability,
+        sats::PersonalityAxis::Conscience => PersonalityAxis::Conscience,
+        sats::PersonalityAxis::SelfRegard => PersonalityAxis::SelfRegard,
+        sats::PersonalityAxis::Conviction => PersonalityAxis::Conviction,
+        sats::PersonalityAxis::Hygiene => PersonalityAxis::Hygiene,
+        sats::PersonalityAxis::Temperance => PersonalityAxis::Temperance,
+        sats::PersonalityAxis::Mirth => PersonalityAxis::Mirth,
+        sats::PersonalityAxis::Courtship => PersonalityAxis::Courtship,
+        sats::PersonalityAxis::Transparency => PersonalityAxis::Transparency,
+        sats::PersonalityAxis::SelfKnowledge => PersonalityAxis::SelfKnowledge,
+        sats::PersonalityAxis::Inclination => PersonalityAxis::Inclination,
+        sats::PersonalityAxis::Presentation => PersonalityAxis::Presentation,
+    }
+}
+
+pub fn core_incapacitation_status(
+    value: sats::IncapacitationStatus,
+) -> adventuresim_core::morale::IncapacitationStatus {
+    match value {
+        sats::IncapacitationStatus::Ready => adventuresim_core::morale::IncapacitationStatus::Ready,
+        sats::IncapacitationStatus::Staggered => {
+            adventuresim_core::morale::IncapacitationStatus::Staggered
+        }
+        sats::IncapacitationStatus::Incapacitated => {
+            adventuresim_core::morale::IncapacitationStatus::Incapacitated
+        }
+    }
+}
+
+pub fn core_investigation_action_availability(
+    value: &sats::InvestigationActionAvailability,
+) -> InvestigationActionAvailability {
+    match value {
+        sats::InvestigationActionAvailability::Available => {
+            InvestigationActionAvailability::Available
+        }
+        sats::InvestigationActionAvailability::Unavailable(details) => {
+            let sats::InvestigationActionUnavailableFields {
+                reason,
+                can_travel_to_required_site,
+                wait_minutes,
+            } = details.clone();
+            InvestigationActionAvailability::Unavailable {
+                reason: match reason {
+                    sats::InvestigationActionUnavailableReason::PartyNotReady => {
+                        InvestigationActionUnavailableReason::PartyNotReady
+                    }
+                    sats::InvestigationActionUnavailableReason::TravelRequired => {
+                        InvestigationActionUnavailableReason::TravelRequired
+                    }
+                    sats::InvestigationActionUnavailableReason::NightWindow => {
+                        InvestigationActionUnavailableReason::NightWindow
+                    }
+                    sats::InvestigationActionUnavailableReason::TargetChanged => {
+                        InvestigationActionUnavailableReason::TargetChanged
+                    }
+                    sats::InvestigationActionUnavailableReason::ContactScheduleWindow => {
+                        InvestigationActionUnavailableReason::ContactScheduleWindow
+                    }
+                    sats::InvestigationActionUnavailableReason::ContactNotPresent => {
+                        InvestigationActionUnavailableReason::ContactNotPresent
+                    }
+                    sats::InvestigationActionUnavailableReason::CharacterUnavailable => {
+                        InvestigationActionUnavailableReason::CharacterUnavailable
+                    }
+                    sats::InvestigationActionUnavailableReason::PartyRequired => {
+                        InvestigationActionUnavailableReason::PartyRequired
+                    }
+                },
+                can_travel_to_required_site,
+                wait_minutes,
+            }
+        }
+    }
+}
+
+pub fn core_equipment_channel(value: sats::EquipmentChannel) -> EquipmentChannel {
+    match value {
+        sats::EquipmentChannel::Held => EquipmentChannel::Held,
+        sats::EquipmentChannel::BaseClothing => EquipmentChannel::BaseClothing,
+        sats::EquipmentChannel::Padding => EquipmentChannel::Padding,
+        sats::EquipmentChannel::FlexibleArmor => EquipmentChannel::FlexibleArmor,
+        sats::EquipmentChannel::RigidArmor => EquipmentChannel::RigidArmor,
+        sats::EquipmentChannel::Outerwear => EquipmentChannel::Outerwear,
+        sats::EquipmentChannel::Accessory => EquipmentChannel::Accessory,
+        sats::EquipmentChannel::Mount => EquipmentChannel::Mount,
+        sats::EquipmentChannel::Containment => EquipmentChannel::Containment,
+    }
+}
+
+#[cfg(test)]
+pub(crate) fn generated_character_skills_fixture() -> sats::CharacterSkills {
+    sats::CharacterSkills {
+        character_id: 0,
+        polearm_hours: 0.0,
+        axe_hours: 0.0,
+        bludgeon_hours: 0.0,
+        sword_hours: 0.0,
+        knife_hours: 0.0,
+        dodge_hours: 0.0,
+        block_hours: 0.0,
+        bow_hours: 0.0,
+        crossbow_hours: 0.0,
+        firearm_hours: 0.0,
+        throw_hours: 0.0,
+        will_hours: 0.0,
+        insight_hours: 0.0,
+        charm_hours: 0.0,
+        command_hours: 0.0,
+        deception_hours: 0.0,
+        physiology_hours: 0.0,
+        cooking_hours: 0.0,
+        herbalism_hours: 0.0,
+        religion_hours: sats::ReligionHours {
+            roman_catholic: 0.0,
+            lutheran: 0.0,
+            reformed: 0.0,
+            anglican: 0.0,
+            eastern_orthodox: 0.0,
+            islamic: 0.0,
+            judaism: 0.0,
+        },
+        bestiary_hours: sats::BestiaryHours {
+            beast: 0.0,
+            undead: 0.0,
+            human: 0.0,
+            werekin: 0.0,
+            elf: 0.0,
+            dwarf: 0.0,
+            fey: 0.0,
+            spirit: 0.0,
+            greenskin: 0.0,
+            insectoid: 0.0,
+            draconid: 0.0,
+            construct: 0.0,
+            wildmen: 0.0,
+        },
+        oral_languages: sats::OralLanguageHours {
+            east_central: 0.0,
+            west_central: 0.0,
+            low: 0.0,
+            yiddish: 0.0,
+            latin: 0.0,
+            romani: 0.0,
+            elven: 0.0,
+            dwarfish: 0.0,
+        },
+        written_languages: sats::WrittenLanguageHours {
+            german: 0.0,
+            low: 0.0,
+            latin: 0.0,
+            hebrew: 0.0,
+            yiddish: 0.0,
+            elven: 0.0,
+            dwarfish: 0.0,
+        },
+        stealth_hours: 0.0,
+        balance_hours: 0.0,
+        terrain_plains_hours: 0.0,
+        terrain_forest_hours: 0.0,
+        terrain_hills_hours: 0.0,
+        terrain_wetlands_hours: 0.0,
+        terrain_urban_hours: 0.0,
+        terrain_snow_hours: 0.0,
+        surgery_hours: 0.0,
+        tailoring_hours: 0.0,
+        smithing_hours: 0.0,
+    }
+}
+
+pub fn religion_hours_from_core(
+    value: &adventuresim_world_schema::ReligionHours,
+) -> sats::ReligionHours {
+    sats::ReligionHours {
+        roman_catholic: value.roman_catholic,
+        lutheran: value.lutheran,
+        reformed: value.reformed,
+        anglican: value.anglican,
+        eastern_orthodox: value.eastern_orthodox,
+        islamic: value.islamic,
+        judaism: value.judaism,
+    }
+}
+
+pub fn core_oral_language_hours(
+    value: &sats::OralLanguageHours,
+) -> adventuresim_world_schema::OralLanguageHours {
+    adventuresim_world_schema::OralLanguageHours {
+        east_central: value.east_central,
+        west_central: value.west_central,
+        low: value.low,
+        yiddish: value.yiddish,
+        latin: value.latin,
+        romani: value.romani,
+        elven: value.elven,
+        dwarfish: value.dwarfish,
+    }
+}
+
+pub fn core_morale_source_kind(
+    value: sats::MoraleSourceKind,
+) -> adventuresim_core::morale::MoraleSourceKind {
+    use adventuresim_core::morale::MoraleSourceKind as Core;
+    match value {
+        sats::MoraleSourceKind::Injury => Core::Injury,
+        sats::MoraleSourceKind::Cleanliness => Core::Cleanliness,
+        sats::MoraleSourceKind::Religion => Core::Religion,
+        sats::MoraleSourceKind::ReligiousDiscord => Core::ReligiousDiscord,
+        sats::MoraleSourceKind::Prayer => Core::Prayer,
+        sats::MoraleSourceKind::Meditation => Core::Meditation,
+        sats::MoraleSourceKind::Power => Core::Power,
+        sats::MoraleSourceKind::Ally => Core::Ally,
+        sats::MoraleSourceKind::CorpseHandling => Core::CorpseHandling,
+        sats::MoraleSourceKind::SocialInteraction => Core::SocialInteraction,
+        sats::MoraleSourceKind::WitnessCharm => Core::WitnessCharm,
+        sats::MoraleSourceKind::WitnessCommand => Core::WitnessCommand,
+        sats::MoraleSourceKind::WitnessBluff => Core::WitnessBluff,
+        sats::MoraleSourceKind::Victory => Core::Victory,
+        sats::MoraleSourceKind::Defeat => Core::Defeat,
+        sats::MoraleSourceKind::MasteryEnjoyment => Core::MasteryEnjoyment,
+        sats::MoraleSourceKind::ReligiousObservanceNeglected => Core::ReligiousObservanceNeglected,
+        sats::MoraleSourceKind::HolyDayObserved => Core::HolyDayObserved,
+        sats::MoraleSourceKind::TravelPrayerNeglected => Core::TravelPrayerNeglected,
+        sats::MoraleSourceKind::SpouseLeisure => Core::SpouseLeisure,
+        sats::MoraleSourceKind::Carousing => Core::Carousing,
+        sats::MoraleSourceKind::AlcoholSatisfied => Core::AlcoholSatisfied,
+        sats::MoraleSourceKind::AlcoholUnsatisfied => Core::AlcoholUnsatisfied,
+        sats::MoraleSourceKind::ResidenceLeisure => Core::ResidenceLeisure,
+        sats::MoraleSourceKind::Leisure => Core::Leisure,
+    }
+}
+
+pub fn empty_oral_language_hours() -> sats::OralLanguageHours {
+    sats::OralLanguageHours {
+        east_central: 0.0,
+        west_central: 0.0,
+        low: 0.0,
+        yiddish: 0.0,
+        latin: 0.0,
+        romani: 0.0,
+        elven: 0.0,
+        dwarfish: 0.0,
+    }
+}
+
+pub fn empty_written_language_hours() -> sats::WrittenLanguageHours {
+    sats::WrittenLanguageHours {
+        german: 0.0,
+        low: 0.0,
+        latin: 0.0,
+        hebrew: 0.0,
+        yiddish: 0.0,
+        elven: 0.0,
+        dwarfish: 0.0,
+    }
+}
+
+pub fn bestiary_hours_from_core(
+    value: &adventuresim_world_schema::BestiaryHours,
+) -> sats::BestiaryHours {
+    sats::BestiaryHours {
+        beast: value.beast,
+        undead: value.undead,
+        human: value.human,
+        werekin: value.werekin,
+        elf: value.elf,
+        dwarf: value.dwarf,
+        fey: value.fey,
+        spirit: value.spirit,
+        greenskin: value.greenskin,
+        insectoid: value.insectoid,
+        draconid: value.draconid,
+        construct: value.construct,
+        wildmen: value.wildmen,
+    }
+}
+
+pub fn core_personality(row: &sats::CharacterPersonality) -> Personality {
+    let sats::CharacterPersonality {
+        character_id: _,
+        projection_character_id: _,
+        nerve,
+        drive,
+        outlook,
+        sociability,
+        conscience,
+        self_regard,
+        conviction,
+        hygiene,
+        temperance,
+        mirth,
+        courtship,
+        transparency,
+        self_knowledge,
+        sex,
+        presentation,
+        inclination,
+    } = row.clone();
+    Personality {
+        nerve: match nerve {
+            sats::Nerve::Neutral => Nerve::Neutral,
+            sats::Nerve::Brave => Nerve::Brave,
+            sats::Nerve::Fearful => Nerve::Fearful,
+        },
+        drive: match drive {
+            sats::Drive::Neutral => Drive::Neutral,
+            sats::Drive::Ambitious => Drive::Ambitious,
+            sats::Drive::Content => Drive::Content,
+        },
+        outlook: match outlook {
+            sats::Outlook::Neutral => Outlook::Neutral,
+            sats::Outlook::Sanguine => Outlook::Sanguine,
+            sats::Outlook::Brooding => Outlook::Brooding,
+        },
+        sociability: match sociability {
+            sats::Sociability::Neutral => Sociability::Neutral,
+            sats::Sociability::Gregarious => Sociability::Gregarious,
+            sats::Sociability::Solitary => Sociability::Solitary,
+        },
+        conscience: match conscience {
+            sats::Conscience::Neutral => Conscience::Neutral,
+            sats::Conscience::Compassionate => Conscience::Compassionate,
+            sats::Conscience::Callous => Conscience::Callous,
+            sats::Conscience::Cruel => Conscience::Cruel,
+        },
+        self_regard: match self_regard {
+            sats::SelfRegard::Neutral => SelfRegard::Neutral,
+            sats::SelfRegard::Proud => SelfRegard::Proud,
+            sats::SelfRegard::Humble => SelfRegard::Humble,
+        },
+        conviction: match conviction {
+            sats::Conviction::Neutral => Conviction::Neutral,
+            sats::Conviction::Zealous => Conviction::Zealous,
+            sats::Conviction::Irreverent => Conviction::Irreverent,
+        },
+        hygiene: match hygiene {
+            sats::Hygiene::Neutral => Hygiene::Neutral,
+            sats::Hygiene::Slovenly => Hygiene::Slovenly,
+            sats::Hygiene::Cleanly => Hygiene::Cleanly,
+        },
+        temperance: match temperance {
+            sats::Temperance::Neutral => Temperance::Neutral,
+            sats::Temperance::Temperate => Temperance::Temperate,
+            sats::Temperance::Drunkard => Temperance::Drunkard,
+        },
+        mirth: match mirth {
+            sats::Mirth::Neutral => Mirth::Neutral,
+            sats::Mirth::Merry => Mirth::Merry,
+            sats::Mirth::Grave => Mirth::Grave,
+        },
+        courtship: match courtship {
+            sats::Courtship::Neutral => Courtship::Neutral,
+            sats::Courtship::Amorous => Courtship::Amorous,
+            sats::Courtship::Proper => Courtship::Proper,
+        },
+        transparency: match transparency {
+            sats::Transparency::Neutral => Transparency::Neutral,
+            sats::Transparency::Open => Transparency::Open,
+            sats::Transparency::Guarded => Transparency::Guarded,
+        },
+        self_knowledge: match self_knowledge {
+            sats::SelfKnowledge::Neutral => SelfKnowledge::Neutral,
+            sats::SelfKnowledge::Introspective => SelfKnowledge::Introspective,
+            sats::SelfKnowledge::SelfDeceiving => SelfKnowledge::SelfDeceiving,
+        },
+        inclination: match inclination {
+            sats::Inclination::Men => Inclination::Men,
+            sats::Inclination::Either => Inclination::Either,
+            sats::Inclination::Women => Inclination::Women,
+            sats::Inclination::Neither => Inclination::Neither,
+        },
+        presentation: match presentation {
+            sats::Presentation::Man => Presentation::Man,
+            sats::Presentation::Ambiguous => Presentation::Ambiguous,
+            sats::Presentation::Woman => Presentation::Woman,
+        },
+        sex: match sex {
+            sats::Sex::Female => Sex::Female,
+            sats::Sex::Male => Sex::Male,
+        },
+    }
+}
+
+pub fn role_requirements(row: &sats::RoleRequirements) -> RoleRequirements {
+    let sats::RoleRequirements {
+        melee,
+        ranged,
+        weapon_precision,
+        heavy,
+        quarter_armor,
+        half_armor,
+        three_quarter_armor,
+        full_armor,
+        athletics,
+        endurance,
+        physiology,
+        surgery,
+        command,
+        religion,
+    } = row.clone();
+    RoleRequirements {
+        melee,
+        ranged,
+        weapon_precision,
+        heavy,
+        quarter_armor,
+        half_armor,
+        three_quarter_armor,
+        full_armor,
+        athletics,
+        endurance,
+        physiology,
+        surgery,
+        command,
+        religion,
+    }
+}
+
+fn sats_to_serde<T, U>(value: &T) -> serde_json::Result<U>
+where
+    T: SatsSerialize + ?Sized,
+    U: DeserializeOwned,
+{
+    serde_json::from_value(normalize_sats_serde_value(serde_json::to_value(
+        SerdeWrapper::from_ref(value),
+    )?))
+}
+
+fn normalize_sats_serde_value(value: Value) -> Value {
+    match value {
+        Value::Array(values) => {
+            Value::Array(values.into_iter().map(normalize_sats_serde_value).collect())
+        }
+        Value::Object(object) if object.len() == 1 => {
+            let (name, payload) = object.into_iter().next().expect("one field");
+            if name.eq_ignore_ascii_case("none") && payload.as_array().is_some_and(Vec::is_empty) {
+                return Value::Null;
+            }
+            if name.eq_ignore_ascii_case("some") {
+                return normalize_sats_serde_value(payload);
+            }
+            if payload.as_array().is_some_and(Vec::is_empty) {
+                return Value::String(name);
+            }
+            Value::Object(
+                [(name, normalize_sats_serde_value(payload))]
+                    .into_iter()
+                    .collect(),
+            )
+        }
+        Value::Object(object) => Value::Object(
+            object
+                .into_iter()
+                .map(|(name, value)| (name, normalize_sats_serde_value(value)))
+                .collect(),
+        ),
+        value => value,
+    }
+}
+
+fn core_official_religion(
+    value: sats::OfficialReligion,
+) -> adventuresim_world_schema::OfficialReligion {
+    match value {
+        sats::OfficialReligion::RomanCatholic => {
+            adventuresim_world_schema::OfficialReligion::RomanCatholic
+        }
+        sats::OfficialReligion::Lutheran => adventuresim_world_schema::OfficialReligion::Lutheran,
+        sats::OfficialReligion::Reformed => adventuresim_world_schema::OfficialReligion::Reformed,
+        sats::OfficialReligion::Anglican => adventuresim_world_schema::OfficialReligion::Anglican,
+        sats::OfficialReligion::EasternOrthodox => {
+            adventuresim_world_schema::OfficialReligion::EasternOrthodox
+        }
+        sats::OfficialReligion::Islamic => adventuresim_world_schema::OfficialReligion::Islamic,
+        sats::OfficialReligion::Judaism => adventuresim_world_schema::OfficialReligion::Judaism,
+    }
+}
+
+fn core_western_christian_arrangement(
+    value: sats::WesternChristianArrangement,
+) -> adventuresim_world_schema::WesternChristianArrangement {
+    match value {
+        sats::WesternChristianArrangement::CatholicLutheran(church) => {
+            adventuresim_world_schema::WesternChristianArrangement::CatholicLutheran {
+                church: match church {
+                    sats::CatholicLutheranChurch::RomanCatholic => {
+                        adventuresim_world_schema::CatholicLutheranChurch::RomanCatholic
+                    }
+                    sats::CatholicLutheranChurch::Lutheran => {
+                        adventuresim_world_schema::CatholicLutheranChurch::Lutheran
+                    }
+                },
+            }
+        }
+        sats::WesternChristianArrangement::CatholicReformed(church) => {
+            adventuresim_world_schema::WesternChristianArrangement::CatholicReformed {
+                church: match church {
+                    sats::CatholicReformedChurch::RomanCatholic => {
+                        adventuresim_world_schema::CatholicReformedChurch::RomanCatholic
+                    }
+                    sats::CatholicReformedChurch::Reformed => {
+                        adventuresim_world_schema::CatholicReformedChurch::Reformed
+                    }
+                },
+            }
+        }
+        sats::WesternChristianArrangement::LutheranReformed(church) => {
+            adventuresim_world_schema::WesternChristianArrangement::LutheranReformed {
+                church: match church {
+                    sats::LutheranReformedChurch::Lutheran => {
+                        adventuresim_world_schema::LutheranReformedChurch::Lutheran
+                    }
+                    sats::LutheranReformedChurch::Reformed => {
+                        adventuresim_world_schema::LutheranReformedChurch::Reformed
+                    }
+                },
+            }
+        }
+    }
+}
+
+fn core_settlement_religious_status(
+    value: sats::SettlementReligiousStatus,
+) -> adventuresim_world_schema::SettlementReligiousStatus {
+    match value {
+        sats::SettlementReligiousStatus::Established(religion) => {
+            adventuresim_world_schema::SettlementReligiousStatus::Established {
+                religion: core_official_religion(religion),
+            }
+        }
+        sats::SettlementReligiousStatus::Parity(arrangement) => {
+            adventuresim_world_schema::SettlementReligiousStatus::Parity {
+                arrangement: core_western_christian_arrangement(arrangement),
+            }
+        }
+        sats::SettlementReligiousStatus::MultiConfessional(arrangement) => {
+            adventuresim_world_schema::SettlementReligiousStatus::MultiConfessional {
+                arrangement: core_western_christian_arrangement(arrangement),
+            }
+        }
+        sats::SettlementReligiousStatus::LocallyDetermined(church) => {
+            adventuresim_world_schema::SettlementReligiousStatus::LocallyDetermined {
+                church: core_official_religion(church),
+            }
+        }
+    }
+}
+
+fn sql_unit_variant_name<E: serde::de::Error>(value: Value) -> Result<String, E> {
+    match value {
+        Value::String(name) => Ok(name),
+        Value::Object(variant) if variant.len() == 1 => {
+            Ok(variant.into_iter().next().expect("one variant").0)
+        }
+        _ => Err(E::custom("expected a unit enum variant")),
+    }
+}
+
+fn serialize_settlement_category<S>(
+    value: &SettlementCategory,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: serde::Serializer,
+{
+    serializer.serialize_str(match value {
+        SettlementCategory::Unknown => "Unknown",
+        SettlementCategory::Hamlet => "Hamlet",
+        SettlementCategory::Village => "Village",
+        SettlementCategory::Town => "Town",
+        SettlementCategory::City => "City",
+        SettlementCategory::Capital => "Capital",
+    })
+}
+
+fn deserialize_settlement_category<'de, D>(deserializer: D) -> Result<SettlementCategory, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    match sql_unit_variant_name::<D::Error>(Value::deserialize(deserializer)?)?.as_str() {
+        "Unknown" => Ok(SettlementCategory::Unknown),
+        "Hamlet" => Ok(SettlementCategory::Hamlet),
+        "Village" => Ok(SettlementCategory::Village),
+        "Town" => Ok(SettlementCategory::Town),
+        "City" => Ok(SettlementCategory::City),
+        "Capital" => Ok(SettlementCategory::Capital),
+        _ => Err(serde::de::Error::custom("unknown settlement category")),
+    }
+}
+
+fn deserialize_equipment_channel<'de, D>(deserializer: D) -> Result<EquipmentChannel, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    match sql_unit_variant_name::<D::Error>(Value::deserialize(deserializer)?)?.as_str() {
+        "Held" => Ok(EquipmentChannel::Held),
+        "BaseClothing" => Ok(EquipmentChannel::BaseClothing),
+        "Padding" => Ok(EquipmentChannel::Padding),
+        "FlexibleArmor" => Ok(EquipmentChannel::FlexibleArmor),
+        "RigidArmor" => Ok(EquipmentChannel::RigidArmor),
+        "Outerwear" => Ok(EquipmentChannel::Outerwear),
+        "Accessory" => Ok(EquipmentChannel::Accessory),
+        "Mount" => Ok(EquipmentChannel::Mount),
+        "Containment" => Ok(EquipmentChannel::Containment),
+        _ => Err(serde::de::Error::custom("unknown equipment channel")),
+    }
+}
+
+fn core_slot(value: sats::Slot) -> Slot {
+    match value {
+        sats::Slot::None => Slot::None,
+        sats::Slot::LeftHolding => Slot::LeftHolding,
+        sats::Slot::RightHolding => Slot::RightHolding,
+        sats::Slot::LeftArm => Slot::LeftArm,
+        sats::Slot::RightArm => Slot::RightArm,
+        sats::Slot::LeftLeg => Slot::LeftLeg,
+        sats::Slot::RightLeg => Slot::RightLeg,
+        sats::Slot::Chest => Slot::Chest,
+        sats::Slot::Stomach => Slot::Stomach,
+        sats::Slot::Head => Slot::Head,
+        sats::Slot::AnyHolding => Slot::AnyHolding,
+        sats::Slot::AnyArm => Slot::AnyArm,
+        sats::Slot::AnyLeg => Slot::AnyLeg,
+    }
+}
+
+fn core_equipment_body_part(value: sats::EquipmentBodyPart) -> EquipmentBodyPart {
+    match value {
+        sats::EquipmentBodyPart::LeftArm => EquipmentBodyPart::LeftArm,
+        sats::EquipmentBodyPart::RightArm => EquipmentBodyPart::RightArm,
+        sats::EquipmentBodyPart::LeftLeg => EquipmentBodyPart::LeftLeg,
+        sats::EquipmentBodyPart::RightLeg => EquipmentBodyPart::RightLeg,
+        sats::EquipmentBodyPart::Chest => EquipmentBodyPart::Chest,
+        sats::EquipmentBodyPart::Stomach => EquipmentBodyPart::Stomach,
+        sats::EquipmentBodyPart::Head => EquipmentBodyPart::Head,
+    }
+}
+
+fn core_melee_style(value: sats::MeleeAttackStyle) -> MeleeAttackStyle {
+    match value {
+        sats::MeleeAttackStyle::Swing => MeleeAttackStyle::Swing,
+        sats::MeleeAttackStyle::Stab => MeleeAttackStyle::Stab,
+    }
+}
+
+fn core_weapon_skills(value: sats::WeaponSkillDistribution) -> WeaponSkillDistribution {
+    let sats::WeaponSkillDistribution {
+        polearm,
+        axe,
+        bludgeon,
+        sword,
+        knife,
+        bow,
+        crossbow,
+        firearm,
+        throw,
+    } = value;
+    WeaponSkillDistribution {
+        polearm,
+        axe,
+        bludgeon,
+        sword,
+        knife,
+        bow,
+        crossbow,
+        firearm,
+        throw,
+    }
+}
+
+fn core_religion_hours(value: &sats::ReligionHours) -> adventuresim_world_schema::ReligionHours {
+    adventuresim_world_schema::ReligionHours {
+        roman_catholic: value.roman_catholic,
+        lutheran: value.lutheran,
+        reformed: value.reformed,
+        anglican: value.anglican,
+        eastern_orthodox: value.eastern_orthodox,
+        islamic: value.islamic,
+        judaism: value.judaism,
+    }
+}
+
+fn core_written_language_hours(
+    value: &sats::WrittenLanguageHours,
+) -> adventuresim_world_schema::WrittenLanguageHours {
+    adventuresim_world_schema::WrittenLanguageHours {
+        german: value.german,
+        low: value.low,
+        latin: value.latin,
+        hebrew: value.hebrew,
+        yiddish: value.yiddish,
+        elven: value.elven,
+        dwarfish: value.dwarfish,
+    }
+}
+
+fn core_bestiary_hours(value: &sats::BestiaryHours) -> adventuresim_world_schema::BestiaryHours {
+    adventuresim_world_schema::BestiaryHours {
+        beast: value.beast,
+        undead: value.undead,
+        human: value.human,
+        werekin: value.werekin,
+        elf: value.elf,
+        dwarf: value.dwarf,
+        fey: value.fey,
+        spirit: value.spirit,
+        greenskin: value.greenskin,
+        insectoid: value.insectoid,
+        draconid: value.draconid,
+        construct: value.construct,
+        wildmen: value.wildmen,
+    }
+}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -604,1920 +2519,5 @@ mod tests {
         };
         assert!(can_travel);
         assert_eq!(wait_minutes, 45);
-    }
-}
-use super::item_kind::catalog_item_kind;
-pub use adventuresim_core::{
-    capability::RoleRequirements,
-    investigation_action::{InvestigationActionAvailability, InvestigationActionUnavailableReason},
-    item_catalog::{
-        EquipmentBodyPart, EquipmentChannel, EquipmentLocation, OccupancyRequirement,
-        ParentRequirement, Slot,
-    },
-    item_classification::CatalogItemKind,
-    personality::{
-        Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
-        Personality, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance,
-        Transparency,
-    },
-    physiology::BodyRegion,
-    strategic_place::CaseSiteId,
-};
-use adventuresim_core::{
-    combat_style::MeleeAttackStyle, equipment::WeaponSkillDistribution,
-    physiology::InterventionRoute, social::PersonalityAxis,
-};
-use adventuresim_stdb_client as sats;
-pub use adventuresim_stdb_client::{
-    AffinityBand, AgeBand, AlcoholConsumption, AutomaticSocialChat, AutoresolveReport,
-    BackendBestiaryDeduction, BackendBrowserCharacterAccess, BackendCaseSitePin, BackendChallenge,
-    BackendCharacterCaseSiteLocation, BackendCharacterRelationshipStatus,
-    BackendCharacterResidenceStatus, BackendContextCharacter, BackendContract, BackendCorpse,
-    BackendDevelopmentQuest, BackendDevelopmentScenario, BackendDialogueEvent,
-    BackendDialogueParticipant, BackendDialoguePrompt, BackendDialogueSession,
-    BackendDialogueTopicOption, BackendDialogueWitnessClaim, BackendFamilyChild,
-    BackendFireplaceDish, BackendFireplaceStation, BackendForageAttemptState, BackendForageReceipt,
-    BackendHostileNegotiation, BackendHostileSurrender, BackendIngredientPreparationPlan,
-    BackendInvestigationAction, BackendInvestigationCaseSummary, BackendInvestigationJournalEntry,
-    BackendInvestigationLead, BackendLocalChatMessage, BackendLocalProblemTradeEffect,
-    BackendOrganizationMembership, BackendPhysicalEvidence, BackendPhysicalEvidenceInspection,
-    BackendPhysiologyAdministration, BackendPhysiologyChart, BackendRoadChallenge,
-    BackendSettlementResident, BackendSettlementResidentRelationship, BackendSocialChatReceipt,
-    BackendTinctureStatus, BattleLootItem, BattleResult, ChallengePresenterCatalogId,
-    CharacterAffinity, CharacterAttributes, CharacterCapability, CharacterCondition,
-    CharacterDeath, CharacterFamiliarity, CharacterFilth, CharacterLimbs, CharacterMoraleSource,
-    CharacterNeeds, CharacterSettlementReputation, CharacterSkills, CharacterStats,
-    CharacterStrategicCondition, CharacterTime, CharacterTrainingSchedule, ChildActivityFocus,
-    ChildStage, ContainerLiquid, ContractStatus, CourtshipKind, DestinationKnowledgeStage,
-    EquipmentAnchorKind, EquipmentOccupancy, FamiliarityBand, FoodLot, HostileSurrenderMode,
-    HousingTier, IngredientPreparationAction, InteractionPresentationDecision,
-    InventoryContainment, InventoryItem, InventoryItemAmount, InventoryLocation, InventoryObject,
-    InventoryQuantityTarget, ItemCondition, JourneyCampInterval, JourneyEndpoint, JourneyRouteLeg,
-    JourneyRoutePoint, JourneyTerrainKind, JourneyTerrainSpan, LimbInjury, MoraleBand,
-    OrganizationMembershipStatus, OrganizationPresentation, PartyInventoryItem, PartyItemAmount,
-    PartyJoinRequest, PartyJourney, PartyLeaderVote, PartyMember, PartyStake, Precipitation,
-    ProjectileKind, RecruitmentOffer, RecruitmentOfferStatus, ReligiousDemand, RepairOrder,
-    ResidenceTenure, RetainedProjectile, SavedRecruitmentRole, ScheduleAllocation, SettlementAlias,
-    SettlementCategory, SettlementDescription, SettlementDescriptionKind,
-    SettlementResidentPresence, SettlementSmith, SocialAddress, SocialBelief, SocialChatOutcome,
-    SocialChatTargetKind, StrategicEncounter, StrategicEncounterStatus, WeaponHolderInstance,
-    WeaponInstance, WorldClock,
-};
-#[cfg(test)]
-pub use adventuresim_stdb_client::{
-    BackendPhysiologyDifferential, FilthOrigin, FilthSubstance, FoodPreparation,
-    JourneyCaseSiteEndpoint, JourneySettlementEndpoint, StrategicEncounterLoss,
-};
-use adventuresim_world_schema::Sex;
-use adventuresim_world_schema::calendar::StrategicMinute;
-use serde::{Deserialize, Serialize, de::DeserializeOwned};
-use serde_json::Value;
-use spacetimedb_sats::{ser::Serialize as SatsSerialize, serde::SerdeWrapper};
-
-pub type QueryResponse = Vec<QueryResult>;
-
-#[derive(Debug, Deserialize)]
-pub struct QueryResult {
-    pub schema: QuerySchema,
-    pub rows: Vec<Value>,
-}
-
-#[derive(Debug, Deserialize)]
-pub struct QuerySchema {
-    pub elements: Vec<SchemaElement>,
-}
-
-#[derive(Debug, Deserialize)]
-pub struct SchemaElement {
-    pub name: Option<AlgebraicTypeRef>,
-    pub algebraic_type: AlgebraicType,
-}
-
-#[derive(Debug, Deserialize)]
-pub struct AlgebraicTypeRef {
-    pub some: String,
-}
-
-#[derive(Debug, Deserialize)]
-#[serde(untagged)]
-pub enum AlgebraicType {
-    Value(Value),
-}
-
-pub(crate) const fn npc_age_band_id(value: AgeBand) -> &'static str {
-    use adventuresim_core::settlement_population::AgeBand as DomainAgeBand;
-    match value {
-        AgeBand::Child => DomainAgeBand::Child,
-        AgeBand::Adolescent => DomainAgeBand::Adolescent,
-        AgeBand::Adult => DomainAgeBand::Adult,
-        AgeBand::Elder => DomainAgeBand::Elder,
-    }
-    .stable_id()
-}
-
-fn sats_to_serde<T, U>(value: &T) -> serde_json::Result<U>
-where
-    T: SatsSerialize + ?Sized,
-    U: DeserializeOwned,
-{
-    serde_json::from_value(normalize_sats_serde_value(serde_json::to_value(
-        SerdeWrapper::from_ref(value),
-    )?))
-}
-
-fn normalize_sats_serde_value(value: Value) -> Value {
-    match value {
-        Value::Array(values) => {
-            Value::Array(values.into_iter().map(normalize_sats_serde_value).collect())
-        }
-        Value::Object(object) if object.len() == 1 => {
-            let (name, payload) = object.into_iter().next().expect("one field");
-            if name.eq_ignore_ascii_case("none") && payload.as_array().is_some_and(Vec::is_empty) {
-                return Value::Null;
-            }
-            if name.eq_ignore_ascii_case("some") {
-                return normalize_sats_serde_value(payload);
-            }
-            if payload.as_array().is_some_and(Vec::is_empty) {
-                return Value::String(name);
-            }
-            Value::Object(
-                [(name, normalize_sats_serde_value(payload))]
-                    .into_iter()
-                    .collect(),
-            )
-        }
-        Value::Object(object) => Value::Object(
-            object
-                .into_iter()
-                .map(|(name, value)| (name, normalize_sats_serde_value(value)))
-                .collect(),
-        ),
-        value => value,
-    }
-}
-
-fn core_official_religion(
-    value: sats::OfficialReligion,
-) -> adventuresim_world_schema::OfficialReligion {
-    match value {
-        sats::OfficialReligion::RomanCatholic => {
-            adventuresim_world_schema::OfficialReligion::RomanCatholic
-        }
-        sats::OfficialReligion::Lutheran => adventuresim_world_schema::OfficialReligion::Lutheran,
-        sats::OfficialReligion::Reformed => adventuresim_world_schema::OfficialReligion::Reformed,
-        sats::OfficialReligion::Anglican => adventuresim_world_schema::OfficialReligion::Anglican,
-        sats::OfficialReligion::EasternOrthodox => {
-            adventuresim_world_schema::OfficialReligion::EasternOrthodox
-        }
-        sats::OfficialReligion::Islamic => adventuresim_world_schema::OfficialReligion::Islamic,
-        sats::OfficialReligion::Judaism => adventuresim_world_schema::OfficialReligion::Judaism,
-    }
-}
-
-fn core_western_christian_arrangement(
-    value: sats::WesternChristianArrangement,
-) -> adventuresim_world_schema::WesternChristianArrangement {
-    match value {
-        sats::WesternChristianArrangement::CatholicLutheran(church) => {
-            adventuresim_world_schema::WesternChristianArrangement::CatholicLutheran {
-                church: match church {
-                    sats::CatholicLutheranChurch::RomanCatholic => {
-                        adventuresim_world_schema::CatholicLutheranChurch::RomanCatholic
-                    }
-                    sats::CatholicLutheranChurch::Lutheran => {
-                        adventuresim_world_schema::CatholicLutheranChurch::Lutheran
-                    }
-                },
-            }
-        }
-        sats::WesternChristianArrangement::CatholicReformed(church) => {
-            adventuresim_world_schema::WesternChristianArrangement::CatholicReformed {
-                church: match church {
-                    sats::CatholicReformedChurch::RomanCatholic => {
-                        adventuresim_world_schema::CatholicReformedChurch::RomanCatholic
-                    }
-                    sats::CatholicReformedChurch::Reformed => {
-                        adventuresim_world_schema::CatholicReformedChurch::Reformed
-                    }
-                },
-            }
-        }
-        sats::WesternChristianArrangement::LutheranReformed(church) => {
-            adventuresim_world_schema::WesternChristianArrangement::LutheranReformed {
-                church: match church {
-                    sats::LutheranReformedChurch::Lutheran => {
-                        adventuresim_world_schema::LutheranReformedChurch::Lutheran
-                    }
-                    sats::LutheranReformedChurch::Reformed => {
-                        adventuresim_world_schema::LutheranReformedChurch::Reformed
-                    }
-                },
-            }
-        }
-    }
-}
-
-fn core_settlement_religious_status(
-    value: sats::SettlementReligiousStatus,
-) -> adventuresim_world_schema::SettlementReligiousStatus {
-    match value {
-        sats::SettlementReligiousStatus::Established(religion) => {
-            adventuresim_world_schema::SettlementReligiousStatus::Established {
-                religion: core_official_religion(religion),
-            }
-        }
-        sats::SettlementReligiousStatus::Parity(arrangement) => {
-            adventuresim_world_schema::SettlementReligiousStatus::Parity {
-                arrangement: core_western_christian_arrangement(arrangement),
-            }
-        }
-        sats::SettlementReligiousStatus::MultiConfessional(arrangement) => {
-            adventuresim_world_schema::SettlementReligiousStatus::MultiConfessional {
-                arrangement: core_western_christian_arrangement(arrangement),
-            }
-        }
-        sats::SettlementReligiousStatus::LocallyDetermined(church) => {
-            adventuresim_world_schema::SettlementReligiousStatus::LocallyDetermined {
-                church: core_official_religion(church),
-            }
-        }
-    }
-}
-
-fn sql_unit_variant_name<E: serde::de::Error>(value: Value) -> Result<String, E> {
-    match value {
-        Value::String(name) => Ok(name),
-        Value::Object(variant) if variant.len() == 1 => {
-            Ok(variant.into_iter().next().expect("one variant").0)
-        }
-        _ => Err(E::custom("expected a unit enum variant")),
-    }
-}
-
-fn serialize_settlement_category<S>(
-    value: &SettlementCategory,
-    serializer: S,
-) -> Result<S::Ok, S::Error>
-where
-    S: serde::Serializer,
-{
-    serializer.serialize_str(match value {
-        SettlementCategory::Unknown => "Unknown",
-        SettlementCategory::Hamlet => "Hamlet",
-        SettlementCategory::Village => "Village",
-        SettlementCategory::Town => "Town",
-        SettlementCategory::City => "City",
-        SettlementCategory::Capital => "Capital",
-    })
-}
-
-fn deserialize_settlement_category<'de, D>(deserializer: D) -> Result<SettlementCategory, D::Error>
-where
-    D: serde::Deserializer<'de>,
-{
-    match sql_unit_variant_name::<D::Error>(Value::deserialize(deserializer)?)?.as_str() {
-        "Unknown" => Ok(SettlementCategory::Unknown),
-        "Hamlet" => Ok(SettlementCategory::Hamlet),
-        "Village" => Ok(SettlementCategory::Village),
-        "Town" => Ok(SettlementCategory::Town),
-        "City" => Ok(SettlementCategory::City),
-        "Capital" => Ok(SettlementCategory::Capital),
-        _ => Err(serde::de::Error::custom("unknown settlement category")),
-    }
-}
-
-fn deserialize_equipment_channel<'de, D>(deserializer: D) -> Result<EquipmentChannel, D::Error>
-where
-    D: serde::Deserializer<'de>,
-{
-    match sql_unit_variant_name::<D::Error>(Value::deserialize(deserializer)?)?.as_str() {
-        "Held" => Ok(EquipmentChannel::Held),
-        "BaseClothing" => Ok(EquipmentChannel::BaseClothing),
-        "Padding" => Ok(EquipmentChannel::Padding),
-        "FlexibleArmor" => Ok(EquipmentChannel::FlexibleArmor),
-        "RigidArmor" => Ok(EquipmentChannel::RigidArmor),
-        "Outerwear" => Ok(EquipmentChannel::Outerwear),
-        "Accessory" => Ok(EquipmentChannel::Accessory),
-        "Mount" => Ok(EquipmentChannel::Mount),
-        "Containment" => Ok(EquipmentChannel::Containment),
-        _ => Err(serde::de::Error::custom("unknown equipment channel")),
-    }
-}
-
-#[derive(Clone, Debug, Serialize)]
-pub struct BestiaryEnemyLoreView {
-    pub id: String,
-    pub name: String,
-    pub is_primary: bool,
-    pub strengths: Vec<String>,
-    pub weaknesses: Vec<String>,
-}
-
-pub fn bestiary_enemy_lore(
-    category: adventuresim_world_schema::BestiaryCategory,
-) -> Vec<BestiaryEnemyLoreView> {
-    adventuresim_core::bestiary::profiles_for_category(category)
-        .into_iter()
-        .map(|categorized| {
-            let profile = categorized.profile;
-            let lore = adventuresim_core::bestiary::implemented_combat_lore(profile);
-            BestiaryEnemyLoreView {
-                id: profile.id.as_str().into(),
-                name: profile.display_name.into(),
-                is_primary: categorized.is_primary,
-                strengths: lore.strengths,
-                weaknesses: lore.weaknesses,
-            }
-        })
-        .collect()
-}
-
-pub trait BestiaryDeductionExt {
-    fn provenance(&self) -> Vec<String>;
-}
-
-impl BestiaryDeductionExt for BackendBestiaryDeduction {
-    fn provenance(&self) -> Vec<String> {
-        serde_json::from_str::<Vec<String>>(&self.provenance_json)
-            .unwrap_or_default()
-            .into_iter()
-            .filter(|item| !item.trim().is_empty() && item.len() <= 1_024)
-            .collect()
-    }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(deny_unknown_fields)]
-pub struct CharacterView {
-    pub id: u64,
-    pub name: String,
-    pub xp: u32,
-    pub level: u32,
-    pub current_settlement_id: Option<String>,
-    pub current_case_site_id: Option<CaseSiteId>,
-    pub party_id: Option<String>,
-    pub age_years: u16,
-    pub alive: bool,
-    pub temporary: bool,
-    pub social_notification_count: usize,
-    pub automatic_social_chat_enabled: bool,
-}
-
-impl From<sats::Character> for CharacterView {
-    fn from(row: sats::Character) -> Self {
-        let sats::Character {
-            id,
-            scan_id: _,
-            name,
-            xp,
-            level,
-            current_settlement_id,
-            party_id,
-            server: _,
-            temporary,
-            age_years,
-            alive,
-            party_treatment_decision: _,
-        } = row;
-        Self {
-            id,
-            name,
-            xp,
-            level,
-            current_settlement_id,
-            current_case_site_id: None,
-            party_id,
-            age_years,
-            alive,
-            temporary,
-            social_notification_count: 0,
-            automatic_social_chat_enabled: false,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct SettlementView {
-    pub id: String,
-    pub name: String,
-    pub longitude: f64,
-    pub latitude: f64,
-    pub population_level: i32,
-    pub population_estimate: u32,
-    #[serde(
-        serialize_with = "serialize_settlement_category",
-        deserialize_with = "deserialize_settlement_category"
-    )]
-    pub category: SettlementCategory,
-    pub languages: adventuresim_world_schema::SettlementLanguageProfile,
-    pub industries: adventuresim_world_schema::InferredIndustryProfile,
-    pub economy: adventuresim_world_schema::SettlementEconomyProfile,
-    pub religious_status: adventuresim_world_schema::SettlementReligiousStatus,
-    pub scene_key: String,
-    pub religion_id: String,
-    pub currency_id: String,
-    pub source_node_id: Option<u64>,
-}
-
-impl TryFrom<sats::Settlement> for SettlementView {
-    type Error = serde_json::Error;
-
-    fn try_from(row: sats::Settlement) -> Result<Self, Self::Error> {
-        let sats::Settlement {
-            id,
-            name,
-            coord_x,
-            coord_y,
-            population_level,
-            population_estimate,
-            category,
-            elevation: _,
-            land_use: _,
-            forest_cover: _,
-            potential_vegetation: _,
-            historical_vegetation: _,
-            tree_species: _,
-            soil: _,
-            geology: _,
-            religious_status,
-            languages,
-            drought: _,
-            hydrology: _,
-            industries,
-            economy,
-            scene_key,
-            religion_id,
-            currency_id,
-            source_node_id,
-            sources: _,
-        } = row;
-        Ok(Self {
-            id,
-            name,
-            longitude: coord_x,
-            latitude: coord_y,
-            population_level,
-            population_estimate,
-            category,
-            languages: sats_to_serde(&languages)?,
-            industries: sats_to_serde(&industries)?,
-            economy: sats_to_serde(&economy)?,
-            religious_status: core_settlement_religious_status(religious_status),
-            scene_key,
-            religion_id,
-            currency_id,
-            source_node_id,
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq)]
-pub struct CaseBattleView {
-    pub gateway_bucket: u8,
-    pub owner_character_id: u64,
-    pub public_case_id: String,
-    pub party_id: String,
-    pub battle_id: String,
-    pub mission_id: String,
-    pub case_site_id: CaseSiteId,
-}
-
-impl TryFrom<sats::BackendCaseBattle> for CaseBattleView {
-    type Error = adventuresim_core::strategic_place::PlaceIdentityError;
-
-    fn try_from(row: sats::BackendCaseBattle) -> Result<Self, Self::Error> {
-        let sats::BackendCaseBattle {
-            gateway_bucket,
-            owner_character_id,
-            public_case_id,
-            party_id,
-            battle_id,
-            mission_id,
-            case_site_id,
-        } = row;
-        Ok(Self {
-            gateway_bucket,
-            owner_character_id,
-            public_case_id,
-            party_id,
-            battle_id,
-            mission_id,
-            case_site_id: CaseSiteId::try_new(case_site_id.value)?,
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq)]
-pub struct PartyView {
-    pub id: String,
-    pub gateway_bucket: u8,
-    pub name: String,
-    pub leader_id: u64,
-    pub current_settlement_id: Option<String>,
-    pub current_case_site_id: Option<CaseSiteId>,
-    pub active_contract_id: Option<String>,
-    pub is_solo: bool,
-    pub camp_fatigue_percent: u8,
-    pub walking_minutes_per_day: u16,
-    pub travel_at_night: bool,
-    pub journey_start_minute_of_day: u16,
-    pub wilderness_canonical_anchor_minute:
-        Option<adventuresim_world_schema::calendar::StrategicMinute>,
-    pub wilderness_elapsed_minutes: u64,
-    pub camp_destination: Option<JourneyEndpoint>,
-    pub camp_remaining_minutes: u64,
-    pub physiology_target: f32,
-    pub command_target: f32,
-    pub religion_target: f32,
-}
-
-impl TryFrom<sats::Party> for PartyView {
-    type Error = adventuresim_core::strategic_place::PlaceIdentityError;
-
-    fn try_from(row: sats::Party) -> Result<Self, Self::Error> {
-        let sats::Party {
-            id,
-            gateway_bucket,
-            name,
-            leader_id,
-            current_settlement_id,
-            current_case_site_id,
-            active_contract_id,
-            is_solo,
-            camp_fatigue_percent,
-            walking_minutes_per_day,
-            travel_at_night,
-            journey_start_minute_of_day,
-            wilderness_canonical_anchor_minute,
-            wilderness_elapsed_minutes,
-            camp_destination,
-            camp_remaining_minutes,
-            physiology_target,
-            command_target,
-            religion_target,
-        } = row;
-        Ok(Self {
-            id,
-            gateway_bucket,
-            name,
-            leader_id,
-            current_settlement_id,
-            current_case_site_id: current_case_site_id
-                .map(|site| CaseSiteId::try_new(site.value))
-                .transpose()?,
-            active_contract_id,
-            is_solo,
-            camp_fatigue_percent,
-            walking_minutes_per_day,
-            travel_at_night,
-            journey_start_minute_of_day,
-            wilderness_canonical_anchor_minute: wilderness_canonical_anchor_minute.map(|minute| {
-                adventuresim_world_schema::calendar::StrategicMinute::new(minute.minutes)
-            }),
-            wilderness_elapsed_minutes,
-            camp_destination,
-            camp_remaining_minutes,
-            physiology_target,
-            command_target,
-            religion_target,
-        })
-    }
-}
-
-#[derive(Debug, Clone, Serialize, PartialEq)]
-pub struct PartyActionRequestView {
-    pub id: u64,
-    pub gateway_bucket: u8,
-    pub party_id: String,
-    pub requester_id: u64,
-    pub action_kind: String,
-    pub summary: String,
-    pub payload: String,
-}
-
-impl From<sats::PartyActionRequest> for PartyActionRequestView {
-    fn from(row: sats::PartyActionRequest) -> Self {
-        let sats::PartyActionRequest {
-            id,
-            gateway_bucket,
-            party_id,
-            requester_id,
-            action_kind,
-            summary,
-            payload,
-        } = row;
-        Self {
-            id,
-            gateway_bucket,
-            party_id,
-            requester_id,
-            action_kind,
-            summary,
-            payload,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq)]
-pub struct PartyJourneyRouteView {
-    pub party_id: String,
-    pub gateway_bucket: u8,
-    pub package_digest: String,
-    pub weather_rules_version: u16,
-    pub weather_interval_start: StrategicMinute,
-    pub precipitation: Precipitation,
-    pub intensity_bps: u16,
-    pub ground_moisture_bps: u16,
-    pub snow_cover_bps: u16,
-    pub distance_m: u64,
-    pub minutes: u64,
-    pub points: Vec<JourneyRoutePoint>,
-    pub spans: Vec<JourneyTerrainSpan>,
-    pub return_route: Option<JourneyRouteLeg>,
-}
-
-impl From<sats::PartyJourneyRoute> for PartyJourneyRouteView {
-    fn from(row: sats::PartyJourneyRoute) -> Self {
-        let sats::PartyJourneyRoute {
-            party_id,
-            gateway_bucket,
-            package_digest,
-            weather_rules_version,
-            weather_interval_start,
-            precipitation,
-            intensity_bps,
-            ground_moisture_bps,
-            snow_cover_bps,
-            distance_m,
-            minutes,
-            points,
-            spans,
-            return_route,
-        } = row;
-        Self {
-            party_id,
-            gateway_bucket,
-            package_digest,
-            weather_rules_version,
-            weather_interval_start: StrategicMinute::new(weather_interval_start.minutes),
-            precipitation,
-            intensity_bps,
-            ground_moisture_bps,
-            snow_cover_bps,
-            distance_m,
-            minutes,
-            points,
-            spans,
-            return_route,
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct EquippedItemView {
-    pub inventory_item_id: u64,
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the generated-row boundary retains the owning character for explicit projection"
-        )
-    )]
-    pub character_id: u64,
-    pub placement_id: String,
-    pub item_name: String,
-}
-
-impl From<sats::CharacterEquippedItem> for EquippedItemView {
-    fn from(row: sats::CharacterEquippedItem) -> Self {
-        let sats::CharacterEquippedItem {
-            inventory_item_id,
-            character_id,
-            placement_id,
-        } = row;
-        Self {
-            inventory_item_id,
-            character_id,
-            placement_id,
-            item_name: String::new(),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq)]
-pub struct RecruitmentRoleView {
-    pub id: u64,
-    pub party_id: String,
-    pub purpose: sats::RecruitmentRolePurpose,
-    pub name: String,
-    pub requirements: RoleRequirements,
-    pub quantity: u32,
-    pub autoresolve_combat_power: u64,
-}
-
-impl From<sats::PartyRecruitmentRole> for RecruitmentRoleView {
-    fn from(row: sats::PartyRecruitmentRole) -> Self {
-        let sats::PartyRecruitmentRole {
-            id,
-            party_id,
-            purpose,
-            name,
-            requirements,
-            quantity,
-        } = row;
-        Self {
-            id,
-            party_id,
-            purpose,
-            name,
-            requirements: role_requirements(&requirements),
-            quantity,
-            autoresolve_combat_power: 0,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Default)]
-pub enum MissionStatus {
-    #[default]
-    Ready,
-    Pending,
-    Failed,
-    Ended,
-}
-
-impl MissionStatus {
-    pub const fn label(self) -> &'static str {
-        match self {
-            Self::Ready => "Ready",
-            Self::Pending => "Pending",
-            Self::Failed => "Failed",
-            Self::Ended => "Ended",
-        }
-    }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(deny_unknown_fields)]
-pub struct MissionServerView {
-    pub identity: Option<String>,
-    pub gateway_bucket: u8,
-    pub mission_id: String,
-    pub scene_key: String,
-    pub party_id: String,
-    pub status: MissionStatus,
-    pub addr: String,
-    pub cert_digest: String,
-    pub character_id: Option<u64>,
-}
-
-impl MissionServerView {
-    pub fn pending(
-        mission_id: String,
-        gateway_bucket: u8,
-        scene_key: String,
-        party_id: String,
-    ) -> Self {
-        Self {
-            identity: None,
-            gateway_bucket,
-            mission_id,
-            scene_key,
-            party_id,
-            status: MissionStatus::Pending,
-            addr: String::new(),
-            cert_digest: String::new(),
-            character_id: None,
-        }
-    }
-}
-
-impl From<sats::TacticalServer> for MissionServerView {
-    fn from(row: sats::TacticalServer) -> Self {
-        let sats::TacticalServer {
-            identity,
-            gateway_bucket,
-            mission_id,
-            scene_key,
-            party_id,
-            addr,
-            cert_digest,
-            authorized_party_member_ids: _,
-            required_enemy_kills: _,
-            enemy_difficulty: _,
-            enemy_combat_scale_bps: _,
-            countermeasure_multiplier_bps: _,
-            normalized_combat_power: _,
-            enemy_character_ids: _,
-            party_has_surprise: _,
-        } = row;
-        Self {
-            identity: Some(identity.to_string()),
-            gateway_bucket,
-            mission_id,
-            scene_key,
-            party_id,
-            status: MissionStatus::Ready,
-            addr,
-            cert_digest,
-            character_id: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq)]
-pub struct MissionServerRequestView {
-    pub mission_id: String,
-    pub gateway_bucket: u8,
-    pub scene_key: String,
-    pub party_id: String,
-    pub requested_by: u64,
-    pub required_enemy_kills: u32,
-}
-
-impl From<sats::TacticalServerRequest> for MissionServerRequestView {
-    fn from(row: sats::TacticalServerRequest) -> Self {
-        let sats::TacticalServerRequest {
-            mission_id,
-            gateway_bucket,
-            scene_key,
-            party_id,
-            requested_by,
-            required_enemy_kills,
-            ..
-        } = row;
-        Self {
-            mission_id,
-            gateway_bucket,
-            scene_key,
-            party_id,
-            requested_by,
-            required_enemy_kills,
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct CharacterEquipmentGraph {
-    pub _character_id: u64,
-    pub worn_item_ids: Vec<u64>,
-    pub equipment_nodes: Vec<EquippedItemView>,
-    pub equipment_occupancies: Vec<EquipmentOccupancy>,
-    pub attachment_targets: Vec<EquipmentAttachmentTarget>,
-}
-
-impl CharacterEquipmentGraph {
-    pub fn contains(&self, inventory_item_id: u64) -> bool {
-        self.worn_item_ids.contains(&inventory_item_id)
-    }
-}
-
-#[derive(Debug, Clone, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct EquipmentAttachmentTarget {
-    pub parent_inventory_item_id: u64,
-    pub parent_item_name: String,
-    pub attachment_point_id: String,
-    #[serde(deserialize_with = "deserialize_equipment_channel")]
-    pub channel: EquipmentChannel,
-    pub accepts_tags: Vec<String>,
-    pub free_capacity: u16,
-    pub order: u16,
-}
-
-#[derive(Debug, Clone)]
-pub struct CatalogEquipmentPlacement {
-    pub id: String,
-    pub occupancy: Vec<OccupancyRequirement>,
-    pub parents: Vec<ParentRequirement>,
-    pub protection: Vec<EquipmentBodyPart>,
-}
-
-#[derive(Debug, Clone)]
-pub struct CatalogEquipmentAttachmentPoint {
-    pub id: String,
-    pub channel: EquipmentChannel,
-    pub capacity: u16,
-    pub order: u16,
-    pub accepts_tags: Vec<String>,
-}
-
-#[derive(Debug, Clone)]
-pub struct CatalogItemView {
-    pub id: String,
-    pub weight: f32,
-    pub exterior_volume_ml: u32,
-    pub slot: Slot,
-    pub kind: CatalogItemKind,
-    pub equipment_placements: Vec<CatalogEquipmentPlacement>,
-    pub attachment_tags: Vec<String>,
-    pub attachment_points: Vec<CatalogEquipmentAttachmentPoint>,
-    pub repairable: bool,
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the catalog projection records persisted combat fields even before presentation consumes them"
-        )
-    )]
-    pub preferred_melee_style: MeleeAttackStyle,
-    pub reach: f32,
-    pub block: f32,
-    pub coverage: f32,
-    pub precision: f32,
-    pub resistance: f32,
-    pub padding: f32,
-    pub flexibility: f32,
-    pub range_of_motion: f32,
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the catalog projection records persisted combat fields even before presentation consumes them"
-        )
-    )]
-    pub moment_of_inertia_kg_m_2: f32,
-    pub balance: f32,
-    pub melee: bool,
-    pub ranged: bool,
-    pub weapon_skills: WeaponSkillDistribution,
-    pub base_value: Option<u32>,
-    pub nutrition_kcal: f32,
-    pub water_capacity_ml: u32,
-    pub container_capacity_ml: u32,
-    pub alcohol_serving_ml: u32,
-    pub alcohol_abv_basis_points: u16,
-    pub alcohol_net_hydration_ml: u32,
-    pub alcohol_disinfectant_effectiveness: u16,
-    pub alcohol_disinfectant_focused: bool,
-    pub alcohol_potable: bool,
-    pub quality: u8,
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
-        )
-    )]
-    pub durability_yield: f32,
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
-        )
-    )]
-    pub durability_fracture: f32,
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
-        )
-    )]
-    pub durability_wear: f32,
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
-        )
-    )]
-    pub durability_failure_share: f32,
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
-        )
-    )]
-    pub edge_sensitivity: f32,
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the catalog projection records persisted durability fields even before presentation consumes them"
-        )
-    )]
-    pub handling_sensitivity: f32,
-}
-
-impl From<sats::Item> for CatalogItemView {
-    fn from(row: sats::Item) -> Self {
-        let sats::Item {
-            id,
-            weight,
-            exterior_volume_ml,
-            slot,
-            kind,
-            equipment_placements,
-            attachment_tags,
-            attachment_points,
-            repairable,
-            preferred_melee_style,
-            reach,
-            block,
-            coverage,
-            precision,
-            resistance,
-            padding,
-            flexibility,
-            range_of_motion,
-            moment_of_inertia_kg_m_2,
-            balance,
-            melee,
-            ranged,
-            weapon_skills,
-            base_value,
-            nutrition_kcal,
-            water_capacity_ml,
-            container_capacity_ml,
-            alcohol_serving_ml,
-            alcohol_abv_basis_points,
-            alcohol_net_hydration_ml,
-            alcohol_disinfectant_effectiveness,
-            alcohol_disinfectant_focused,
-            alcohol_potable,
-            quality,
-            durability_yield,
-            durability_fracture,
-            durability_wear,
-            durability_failure_share,
-            edge_sensitivity,
-            handling_sensitivity,
-        } = row;
-        Self {
-            id,
-            weight,
-            exterior_volume_ml,
-            slot: core_slot(slot),
-            kind: catalog_item_kind(kind),
-            equipment_placements: equipment_placements
-                .into_iter()
-                .map(|placement| {
-                    let sats::PersistedEquipmentPlacement {
-                        id,
-                        occupancy,
-                        parents,
-                        protection,
-                    } = placement;
-                    CatalogEquipmentPlacement {
-                        id,
-                        occupancy: occupancy
-                            .into_iter()
-                            .map(|requirement| {
-                                let sats::OccupancyRequirement {
-                                    fit_zone,
-                                    location,
-                                    channel,
-                                    order,
-                                } = requirement;
-                                OccupancyRequirement {
-                                    fit_zone: fit_zone.map(|zone| match zone {
-                                        sats::EquipmentFitZone::UpperArm => adventuresim_core::item_catalog::EquipmentFitZone::UpperArm,
-                                        sats::EquipmentFitZone::Elbow => adventuresim_core::item_catalog::EquipmentFitZone::Elbow,
-                                        sats::EquipmentFitZone::Forearm => adventuresim_core::item_catalog::EquipmentFitZone::Forearm,
-                                        sats::EquipmentFitZone::Thigh => adventuresim_core::item_catalog::EquipmentFitZone::Thigh,
-                                        sats::EquipmentFitZone::Knee => adventuresim_core::item_catalog::EquipmentFitZone::Knee,
-                                        sats::EquipmentFitZone::Shin => adventuresim_core::item_catalog::EquipmentFitZone::Shin,
-                                    }),
-                                    location: core_equipment_location(location),
-                                    channel: core_equipment_channel(channel),
-                                    order,
-                                }
-                            })
-                            .collect(),
-                        parents: parents
-                            .into_iter()
-                            .map(|requirement| {
-                                let sats::ParentRequirement { channel, order, location } = requirement;
-                                ParentRequirement {
-                                    location: location.map(core_equipment_location),
-                                    channel: core_equipment_channel(channel),
-                                    order,
-                                }
-                            })
-                            .collect(),
-                        protection: protection
-                            .into_iter()
-                            .map(core_equipment_body_part)
-                            .collect(),
-                    }
-                })
-                .collect(),
-            attachment_tags,
-            attachment_points: attachment_points
-                .into_iter()
-                .map(|point| {
-                    let sats::PersistedEquipmentAttachmentPoint {
-                        id,
-                        channel,
-                        capacity,
-                        order,
-                        accepts_tags,
-                    } = point;
-                    CatalogEquipmentAttachmentPoint {
-                        id,
-                        channel: core_equipment_channel(channel),
-                        capacity,
-                        order,
-                        accepts_tags,
-                    }
-                })
-                .collect(),
-            repairable,
-            preferred_melee_style: core_melee_style(preferred_melee_style),
-            reach,
-            block,
-            coverage,
-            precision,
-            resistance,
-            padding,
-            flexibility,
-            range_of_motion,
-            moment_of_inertia_kg_m_2,
-            balance,
-            melee,
-            ranged,
-            weapon_skills: core_weapon_skills(weapon_skills),
-            base_value,
-            nutrition_kcal,
-            water_capacity_ml,
-            container_capacity_ml,
-            alcohol_serving_ml,
-            alcohol_abv_basis_points,
-            alcohol_net_hydration_ml,
-            alcohol_disinfectant_effectiveness,
-            alcohol_disinfectant_focused,
-            alcohol_potable,
-            quality,
-            durability_yield,
-            durability_fracture,
-            durability_wear,
-            durability_failure_share,
-            edge_sensitivity,
-            handling_sensitivity,
-        }
-    }
-}
-
-impl Default for CatalogItemView {
-    fn default() -> Self {
-        Self {
-            id: String::new(),
-            weight: 0.0,
-            exterior_volume_ml: 0,
-            slot: Slot::None,
-            kind: CatalogItemKind::Simple,
-            equipment_placements: Vec::new(),
-            attachment_tags: Vec::new(),
-            attachment_points: Vec::new(),
-            repairable: false,
-            preferred_melee_style: MeleeAttackStyle::default(),
-            reach: 0.0,
-            block: 0.0,
-            coverage: 0.0,
-            precision: 0.0,
-            resistance: 0.0,
-            padding: 0.0,
-            flexibility: 0.0,
-            range_of_motion: 0.0,
-            moment_of_inertia_kg_m_2: 0.0,
-            balance: 0.0,
-            melee: false,
-            ranged: false,
-            weapon_skills: WeaponSkillDistribution::default(),
-            base_value: None,
-            nutrition_kcal: 0.0,
-            water_capacity_ml: 0,
-            container_capacity_ml: 0,
-            alcohol_serving_ml: 0,
-            alcohol_abv_basis_points: 0,
-            alcohol_net_hydration_ml: 0,
-            alcohol_disinfectant_effectiveness: 0,
-            alcohol_disinfectant_focused: false,
-            alcohol_potable: false,
-            quality: 0,
-            durability_yield: 0.0,
-            durability_fracture: 0.0,
-            durability_wear: 0.0,
-            durability_failure_share: 0.0,
-            edge_sensitivity: 0.0,
-            handling_sensitivity: 0.0,
-        }
-    }
-}
-
-fn core_slot(value: sats::Slot) -> Slot {
-    match value {
-        sats::Slot::None => Slot::None,
-        sats::Slot::LeftHolding => Slot::LeftHolding,
-        sats::Slot::RightHolding => Slot::RightHolding,
-        sats::Slot::LeftArm => Slot::LeftArm,
-        sats::Slot::RightArm => Slot::RightArm,
-        sats::Slot::LeftLeg => Slot::LeftLeg,
-        sats::Slot::RightLeg => Slot::RightLeg,
-        sats::Slot::Chest => Slot::Chest,
-        sats::Slot::Stomach => Slot::Stomach,
-        sats::Slot::Head => Slot::Head,
-        sats::Slot::AnyHolding => Slot::AnyHolding,
-        sats::Slot::AnyArm => Slot::AnyArm,
-        sats::Slot::AnyLeg => Slot::AnyLeg,
-    }
-}
-
-pub fn core_equipment_location(value: sats::EquipmentLocation) -> EquipmentLocation {
-    match value {
-        sats::EquipmentLocation::Head => EquipmentLocation::Head,
-        sats::EquipmentLocation::Face => EquipmentLocation::Face,
-        sats::EquipmentLocation::Neck => EquipmentLocation::Neck,
-        sats::EquipmentLocation::Chest => EquipmentLocation::Chest,
-        sats::EquipmentLocation::Stomach => EquipmentLocation::Stomach,
-        sats::EquipmentLocation::Back => EquipmentLocation::Back,
-        sats::EquipmentLocation::LeftShoulder => EquipmentLocation::LeftShoulder,
-        sats::EquipmentLocation::RightShoulder => EquipmentLocation::RightShoulder,
-        sats::EquipmentLocation::LeftArm => EquipmentLocation::LeftArm,
-        sats::EquipmentLocation::RightArm => EquipmentLocation::RightArm,
-        sats::EquipmentLocation::LeftHand => EquipmentLocation::LeftHand,
-        sats::EquipmentLocation::RightHand => EquipmentLocation::RightHand,
-        sats::EquipmentLocation::LeftLeg => EquipmentLocation::LeftLeg,
-        sats::EquipmentLocation::RightLeg => EquipmentLocation::RightLeg,
-        sats::EquipmentLocation::LeftFoot => EquipmentLocation::LeftFoot,
-        sats::EquipmentLocation::RightFoot => EquipmentLocation::RightFoot,
-        sats::EquipmentLocation::LeftBelt => EquipmentLocation::LeftBelt,
-        sats::EquipmentLocation::RightBelt => EquipmentLocation::RightBelt,
-        sats::EquipmentLocation::FrontBelt => EquipmentLocation::FrontBelt,
-        sats::EquipmentLocation::BackBelt => EquipmentLocation::BackBelt,
-        sats::EquipmentLocation::LeftPocket => EquipmentLocation::LeftPocket,
-        sats::EquipmentLocation::RightPocket => EquipmentLocation::RightPocket,
-        sats::EquipmentLocation::BackLeftPocket => EquipmentLocation::BackLeftPocket,
-        sats::EquipmentLocation::BackRightPocket => EquipmentLocation::BackRightPocket,
-    }
-}
-
-pub fn core_body_region(value: sats::BodyRegion) -> BodyRegion {
-    match value {
-        sats::BodyRegion::LeftArm => BodyRegion::LeftArm,
-        sats::BodyRegion::RightArm => BodyRegion::RightArm,
-        sats::BodyRegion::LeftLeg => BodyRegion::LeftLeg,
-        sats::BodyRegion::RightLeg => BodyRegion::RightLeg,
-        sats::BodyRegion::Chest => BodyRegion::Chest,
-        sats::BodyRegion::Abdomen => BodyRegion::Abdomen,
-        sats::BodyRegion::Head => BodyRegion::Head,
-    }
-}
-
-pub fn core_intervention_route(value: sats::InterventionRoute) -> InterventionRoute {
-    match value {
-        sats::InterventionRoute::Oral => InterventionRoute::Oral,
-        sats::InterventionRoute::Topical => InterventionRoute::Topical,
-        sats::InterventionRoute::Inhaled => InterventionRoute::Inhaled,
-        sats::InterventionRoute::Injected => InterventionRoute::Injected,
-    }
-}
-
-pub fn core_personality_axis(value: sats::PersonalityAxis) -> PersonalityAxis {
-    match value {
-        sats::PersonalityAxis::Nerve => PersonalityAxis::Nerve,
-        sats::PersonalityAxis::Drive => PersonalityAxis::Drive,
-        sats::PersonalityAxis::Outlook => PersonalityAxis::Outlook,
-        sats::PersonalityAxis::Sociability => PersonalityAxis::Sociability,
-        sats::PersonalityAxis::Conscience => PersonalityAxis::Conscience,
-        sats::PersonalityAxis::SelfRegard => PersonalityAxis::SelfRegard,
-        sats::PersonalityAxis::Conviction => PersonalityAxis::Conviction,
-        sats::PersonalityAxis::Hygiene => PersonalityAxis::Hygiene,
-        sats::PersonalityAxis::Temperance => PersonalityAxis::Temperance,
-        sats::PersonalityAxis::Mirth => PersonalityAxis::Mirth,
-        sats::PersonalityAxis::Courtship => PersonalityAxis::Courtship,
-        sats::PersonalityAxis::Transparency => PersonalityAxis::Transparency,
-        sats::PersonalityAxis::SelfKnowledge => PersonalityAxis::SelfKnowledge,
-        sats::PersonalityAxis::Inclination => PersonalityAxis::Inclination,
-        sats::PersonalityAxis::Presentation => PersonalityAxis::Presentation,
-    }
-}
-
-pub fn core_incapacitation_status(
-    value: sats::IncapacitationStatus,
-) -> adventuresim_core::morale::IncapacitationStatus {
-    match value {
-        sats::IncapacitationStatus::Ready => adventuresim_core::morale::IncapacitationStatus::Ready,
-        sats::IncapacitationStatus::Staggered => {
-            adventuresim_core::morale::IncapacitationStatus::Staggered
-        }
-        sats::IncapacitationStatus::Incapacitated => {
-            adventuresim_core::morale::IncapacitationStatus::Incapacitated
-        }
-    }
-}
-
-pub fn core_investigation_action_availability(
-    value: &sats::InvestigationActionAvailability,
-) -> InvestigationActionAvailability {
-    match value {
-        sats::InvestigationActionAvailability::Available => {
-            InvestigationActionAvailability::Available
-        }
-        sats::InvestigationActionAvailability::Unavailable(details) => {
-            let sats::InvestigationActionUnavailableFields {
-                reason,
-                can_travel_to_required_site,
-                wait_minutes,
-            } = details.clone();
-            InvestigationActionAvailability::Unavailable {
-                reason: match reason {
-                    sats::InvestigationActionUnavailableReason::PartyNotReady => {
-                        InvestigationActionUnavailableReason::PartyNotReady
-                    }
-                    sats::InvestigationActionUnavailableReason::TravelRequired => {
-                        InvestigationActionUnavailableReason::TravelRequired
-                    }
-                    sats::InvestigationActionUnavailableReason::NightWindow => {
-                        InvestigationActionUnavailableReason::NightWindow
-                    }
-                    sats::InvestigationActionUnavailableReason::TargetChanged => {
-                        InvestigationActionUnavailableReason::TargetChanged
-                    }
-                    sats::InvestigationActionUnavailableReason::ContactScheduleWindow => {
-                        InvestigationActionUnavailableReason::ContactScheduleWindow
-                    }
-                    sats::InvestigationActionUnavailableReason::ContactNotPresent => {
-                        InvestigationActionUnavailableReason::ContactNotPresent
-                    }
-                    sats::InvestigationActionUnavailableReason::CharacterUnavailable => {
-                        InvestigationActionUnavailableReason::CharacterUnavailable
-                    }
-                    sats::InvestigationActionUnavailableReason::PartyRequired => {
-                        InvestigationActionUnavailableReason::PartyRequired
-                    }
-                },
-                can_travel_to_required_site,
-                wait_minutes,
-            }
-        }
-    }
-}
-
-pub fn core_equipment_channel(value: sats::EquipmentChannel) -> EquipmentChannel {
-    match value {
-        sats::EquipmentChannel::Held => EquipmentChannel::Held,
-        sats::EquipmentChannel::BaseClothing => EquipmentChannel::BaseClothing,
-        sats::EquipmentChannel::Padding => EquipmentChannel::Padding,
-        sats::EquipmentChannel::FlexibleArmor => EquipmentChannel::FlexibleArmor,
-        sats::EquipmentChannel::RigidArmor => EquipmentChannel::RigidArmor,
-        sats::EquipmentChannel::Outerwear => EquipmentChannel::Outerwear,
-        sats::EquipmentChannel::Accessory => EquipmentChannel::Accessory,
-        sats::EquipmentChannel::Mount => EquipmentChannel::Mount,
-        sats::EquipmentChannel::Containment => EquipmentChannel::Containment,
-    }
-}
-
-fn core_equipment_body_part(value: sats::EquipmentBodyPart) -> EquipmentBodyPart {
-    match value {
-        sats::EquipmentBodyPart::LeftArm => EquipmentBodyPart::LeftArm,
-        sats::EquipmentBodyPart::RightArm => EquipmentBodyPart::RightArm,
-        sats::EquipmentBodyPart::LeftLeg => EquipmentBodyPart::LeftLeg,
-        sats::EquipmentBodyPart::RightLeg => EquipmentBodyPart::RightLeg,
-        sats::EquipmentBodyPart::Chest => EquipmentBodyPart::Chest,
-        sats::EquipmentBodyPart::Stomach => EquipmentBodyPart::Stomach,
-        sats::EquipmentBodyPart::Head => EquipmentBodyPart::Head,
-    }
-}
-
-fn core_melee_style(value: sats::MeleeAttackStyle) -> MeleeAttackStyle {
-    match value {
-        sats::MeleeAttackStyle::Swing => MeleeAttackStyle::Swing,
-        sats::MeleeAttackStyle::Stab => MeleeAttackStyle::Stab,
-    }
-}
-
-fn core_weapon_skills(value: sats::WeaponSkillDistribution) -> WeaponSkillDistribution {
-    let sats::WeaponSkillDistribution {
-        polearm,
-        axe,
-        bludgeon,
-        sword,
-        knife,
-        bow,
-        crossbow,
-        firearm,
-        throw,
-    } = value;
-    WeaponSkillDistribution {
-        polearm,
-        axe,
-        bludgeon,
-        sword,
-        knife,
-        bow,
-        crossbow,
-        firearm,
-        throw,
-    }
-}
-
-pub trait JourneyEndpointExt {
-    fn settlement_id(&self) -> Option<&str>;
-    fn case_site_id(&self) -> Option<&str>;
-    fn name(&self) -> &str;
-}
-
-impl JourneyEndpointExt for JourneyEndpoint {
-    fn settlement_id(&self) -> Option<&str> {
-        match self {
-            Self::Settlement(endpoint) => Some(&endpoint.id),
-            _ => None,
-        }
-    }
-
-    fn case_site_id(&self) -> Option<&str> {
-        match self {
-            Self::CaseSite(endpoint) => Some(&endpoint.id.value),
-            _ => None,
-        }
-    }
-
-    fn name(&self) -> &str {
-        match self {
-            Self::Settlement(endpoint) => &endpoint.name,
-            Self::CaseSite(endpoint) => &endpoint.name,
-            Self::Camp(_) => "Camp",
-        }
-    }
-}
-
-pub trait ItemConditionExt {
-    fn bins(&self) -> [f32; 5];
-    fn total(&self) -> f32;
-    fn repairable(&self, skill: u8) -> f32;
-    fn residual(&self, skill: u8) -> f32;
-}
-
-pub trait ReligionHoursExt {
-    fn direct(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32;
-    fn effective(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32;
-    fn total_direct(&self) -> f32;
-}
-
-#[cfg(test)]
-pub(crate) fn generated_character_skills_fixture() -> sats::CharacterSkills {
-    sats::CharacterSkills {
-        character_id: 0,
-        polearm_hours: 0.0,
-        axe_hours: 0.0,
-        bludgeon_hours: 0.0,
-        sword_hours: 0.0,
-        knife_hours: 0.0,
-        dodge_hours: 0.0,
-        block_hours: 0.0,
-        bow_hours: 0.0,
-        crossbow_hours: 0.0,
-        firearm_hours: 0.0,
-        throw_hours: 0.0,
-        will_hours: 0.0,
-        insight_hours: 0.0,
-        charm_hours: 0.0,
-        command_hours: 0.0,
-        deception_hours: 0.0,
-        physiology_hours: 0.0,
-        cooking_hours: 0.0,
-        herbalism_hours: 0.0,
-        religion_hours: sats::ReligionHours {
-            roman_catholic: 0.0,
-            lutheran: 0.0,
-            reformed: 0.0,
-            anglican: 0.0,
-            eastern_orthodox: 0.0,
-            islamic: 0.0,
-            judaism: 0.0,
-        },
-        bestiary_hours: sats::BestiaryHours {
-            beast: 0.0,
-            undead: 0.0,
-            human: 0.0,
-            werekin: 0.0,
-            elf: 0.0,
-            dwarf: 0.0,
-            fey: 0.0,
-            spirit: 0.0,
-            greenskin: 0.0,
-            insectoid: 0.0,
-            draconid: 0.0,
-            construct: 0.0,
-            wildmen: 0.0,
-        },
-        oral_languages: sats::OralLanguageHours {
-            east_central: 0.0,
-            west_central: 0.0,
-            low: 0.0,
-            yiddish: 0.0,
-            latin: 0.0,
-            romani: 0.0,
-            elven: 0.0,
-            dwarfish: 0.0,
-        },
-        written_languages: sats::WrittenLanguageHours {
-            german: 0.0,
-            low: 0.0,
-            latin: 0.0,
-            hebrew: 0.0,
-            yiddish: 0.0,
-            elven: 0.0,
-            dwarfish: 0.0,
-        },
-        stealth_hours: 0.0,
-        balance_hours: 0.0,
-        terrain_plains_hours: 0.0,
-        terrain_forest_hours: 0.0,
-        terrain_hills_hours: 0.0,
-        terrain_wetlands_hours: 0.0,
-        terrain_urban_hours: 0.0,
-        terrain_snow_hours: 0.0,
-        surgery_hours: 0.0,
-        tailoring_hours: 0.0,
-        smithing_hours: 0.0,
-    }
-}
-
-impl ReligionHoursExt for sats::ReligionHours {
-    fn direct(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32 {
-        core_religion_hours(self).direct(religion)
-    }
-
-    fn effective(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32 {
-        core_religion_hours(self).effective(religion)
-    }
-
-    fn total_direct(&self) -> f32 {
-        core_religion_hours(self).total_direct()
-    }
-}
-
-pub trait OralLanguageHoursExt {
-    fn direct(&self, language: adventuresim_world_schema::OralLanguage) -> f32;
-    fn effective(&self, language: adventuresim_world_schema::OralLanguage) -> f32;
-}
-
-impl OralLanguageHoursExt for sats::OralLanguageHours {
-    fn direct(&self, language: adventuresim_world_schema::OralLanguage) -> f32 {
-        core_oral_language_hours(self).direct(language)
-    }
-
-    fn effective(&self, language: adventuresim_world_schema::OralLanguage) -> f32 {
-        core_oral_language_hours(self).effective(language)
-    }
-}
-
-pub trait WrittenLanguageHoursExt {
-    fn direct(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32;
-    fn effective(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32;
-}
-
-impl WrittenLanguageHoursExt for sats::WrittenLanguageHours {
-    fn direct(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32 {
-        core_written_language_hours(self).direct(language)
-    }
-
-    fn effective(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32 {
-        core_written_language_hours(self).effective(language)
-    }
-}
-
-pub trait BestiaryHoursExt {
-    fn direct(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32;
-    fn effective(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32;
-    fn aggregate_effective(&self) -> f32;
-    fn total_direct(&self) -> f32;
-}
-
-impl BestiaryHoursExt for sats::BestiaryHours {
-    fn direct(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32 {
-        core_bestiary_hours(self).direct(category)
-    }
-
-    fn effective(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32 {
-        core_bestiary_hours(self).effective(category)
-    }
-
-    fn aggregate_effective(&self) -> f32 {
-        core_bestiary_hours(self).aggregate_effective()
-    }
-
-    fn total_direct(&self) -> f32 {
-        core_bestiary_hours(self).total_direct()
-    }
-}
-
-fn core_religion_hours(value: &sats::ReligionHours) -> adventuresim_world_schema::ReligionHours {
-    adventuresim_world_schema::ReligionHours {
-        roman_catholic: value.roman_catholic,
-        lutheran: value.lutheran,
-        reformed: value.reformed,
-        anglican: value.anglican,
-        eastern_orthodox: value.eastern_orthodox,
-        islamic: value.islamic,
-        judaism: value.judaism,
-    }
-}
-
-pub fn religion_hours_from_core(
-    value: &adventuresim_world_schema::ReligionHours,
-) -> sats::ReligionHours {
-    sats::ReligionHours {
-        roman_catholic: value.roman_catholic,
-        lutheran: value.lutheran,
-        reformed: value.reformed,
-        anglican: value.anglican,
-        eastern_orthodox: value.eastern_orthodox,
-        islamic: value.islamic,
-        judaism: value.judaism,
-    }
-}
-
-pub fn core_oral_language_hours(
-    value: &sats::OralLanguageHours,
-) -> adventuresim_world_schema::OralLanguageHours {
-    adventuresim_world_schema::OralLanguageHours {
-        east_central: value.east_central,
-        west_central: value.west_central,
-        low: value.low,
-        yiddish: value.yiddish,
-        latin: value.latin,
-        romani: value.romani,
-        elven: value.elven,
-        dwarfish: value.dwarfish,
-    }
-}
-
-pub fn core_morale_source_kind(
-    value: sats::MoraleSourceKind,
-) -> adventuresim_core::morale::MoraleSourceKind {
-    use adventuresim_core::morale::MoraleSourceKind as Core;
-    match value {
-        sats::MoraleSourceKind::Injury => Core::Injury,
-        sats::MoraleSourceKind::Cleanliness => Core::Cleanliness,
-        sats::MoraleSourceKind::Religion => Core::Religion,
-        sats::MoraleSourceKind::ReligiousDiscord => Core::ReligiousDiscord,
-        sats::MoraleSourceKind::Prayer => Core::Prayer,
-        sats::MoraleSourceKind::Meditation => Core::Meditation,
-        sats::MoraleSourceKind::Power => Core::Power,
-        sats::MoraleSourceKind::Ally => Core::Ally,
-        sats::MoraleSourceKind::CorpseHandling => Core::CorpseHandling,
-        sats::MoraleSourceKind::SocialInteraction => Core::SocialInteraction,
-        sats::MoraleSourceKind::WitnessCharm => Core::WitnessCharm,
-        sats::MoraleSourceKind::WitnessCommand => Core::WitnessCommand,
-        sats::MoraleSourceKind::WitnessBluff => Core::WitnessBluff,
-        sats::MoraleSourceKind::Victory => Core::Victory,
-        sats::MoraleSourceKind::Defeat => Core::Defeat,
-        sats::MoraleSourceKind::MasteryEnjoyment => Core::MasteryEnjoyment,
-        sats::MoraleSourceKind::ReligiousObservanceNeglected => Core::ReligiousObservanceNeglected,
-        sats::MoraleSourceKind::HolyDayObserved => Core::HolyDayObserved,
-        sats::MoraleSourceKind::TravelPrayerNeglected => Core::TravelPrayerNeglected,
-        sats::MoraleSourceKind::SpouseLeisure => Core::SpouseLeisure,
-        sats::MoraleSourceKind::Carousing => Core::Carousing,
-        sats::MoraleSourceKind::AlcoholSatisfied => Core::AlcoholSatisfied,
-        sats::MoraleSourceKind::AlcoholUnsatisfied => Core::AlcoholUnsatisfied,
-        sats::MoraleSourceKind::ResidenceLeisure => Core::ResidenceLeisure,
-        sats::MoraleSourceKind::Leisure => Core::Leisure,
-    }
-}
-
-pub fn empty_oral_language_hours() -> sats::OralLanguageHours {
-    sats::OralLanguageHours {
-        east_central: 0.0,
-        west_central: 0.0,
-        low: 0.0,
-        yiddish: 0.0,
-        latin: 0.0,
-        romani: 0.0,
-        elven: 0.0,
-        dwarfish: 0.0,
-    }
-}
-
-fn core_written_language_hours(
-    value: &sats::WrittenLanguageHours,
-) -> adventuresim_world_schema::WrittenLanguageHours {
-    adventuresim_world_schema::WrittenLanguageHours {
-        german: value.german,
-        low: value.low,
-        latin: value.latin,
-        hebrew: value.hebrew,
-        yiddish: value.yiddish,
-        elven: value.elven,
-        dwarfish: value.dwarfish,
-    }
-}
-
-pub fn empty_written_language_hours() -> sats::WrittenLanguageHours {
-    sats::WrittenLanguageHours {
-        german: 0.0,
-        low: 0.0,
-        latin: 0.0,
-        hebrew: 0.0,
-        yiddish: 0.0,
-        elven: 0.0,
-        dwarfish: 0.0,
-    }
-}
-
-fn core_bestiary_hours(value: &sats::BestiaryHours) -> adventuresim_world_schema::BestiaryHours {
-    adventuresim_world_schema::BestiaryHours {
-        beast: value.beast,
-        undead: value.undead,
-        human: value.human,
-        werekin: value.werekin,
-        elf: value.elf,
-        dwarf: value.dwarf,
-        fey: value.fey,
-        spirit: value.spirit,
-        greenskin: value.greenskin,
-        insectoid: value.insectoid,
-        draconid: value.draconid,
-        construct: value.construct,
-        wildmen: value.wildmen,
-    }
-}
-
-pub fn bestiary_hours_from_core(
-    value: &adventuresim_world_schema::BestiaryHours,
-) -> sats::BestiaryHours {
-    sats::BestiaryHours {
-        beast: value.beast,
-        undead: value.undead,
-        human: value.human,
-        werekin: value.werekin,
-        elf: value.elf,
-        dwarf: value.dwarf,
-        fey: value.fey,
-        spirit: value.spirit,
-        greenskin: value.greenskin,
-        insectoid: value.insectoid,
-        draconid: value.draconid,
-        construct: value.construct,
-        wildmen: value.wildmen,
-    }
-}
-
-impl ItemConditionExt for ItemCondition {
-    fn bins(&self) -> [f32; 5] {
-        [
-            self.tier_1,
-            self.tier_2,
-            self.tier_3,
-            self.tier_4,
-            self.tier_5,
-        ]
-    }
-    fn total(&self) -> f32 {
-        self.bins().iter().sum::<f32>().clamp(0.0, 1.0)
-    }
-    fn repairable(&self, skill: u8) -> f32 {
-        self.bins().iter().take(skill.min(5) as usize).sum()
-    }
-    fn residual(&self, skill: u8) -> f32 {
-        self.bins().iter().skip(skill.min(5) as usize).sum()
-    }
-}
-
-pub fn core_personality(row: &sats::CharacterPersonality) -> Personality {
-    let sats::CharacterPersonality {
-        character_id: _,
-        projection_character_id: _,
-        nerve,
-        drive,
-        outlook,
-        sociability,
-        conscience,
-        self_regard,
-        conviction,
-        hygiene,
-        temperance,
-        mirth,
-        courtship,
-        transparency,
-        self_knowledge,
-        sex,
-        presentation,
-        inclination,
-    } = row.clone();
-    Personality {
-        nerve: match nerve {
-            sats::Nerve::Neutral => Nerve::Neutral,
-            sats::Nerve::Brave => Nerve::Brave,
-            sats::Nerve::Fearful => Nerve::Fearful,
-        },
-        drive: match drive {
-            sats::Drive::Neutral => Drive::Neutral,
-            sats::Drive::Ambitious => Drive::Ambitious,
-            sats::Drive::Content => Drive::Content,
-        },
-        outlook: match outlook {
-            sats::Outlook::Neutral => Outlook::Neutral,
-            sats::Outlook::Sanguine => Outlook::Sanguine,
-            sats::Outlook::Brooding => Outlook::Brooding,
-        },
-        sociability: match sociability {
-            sats::Sociability::Neutral => Sociability::Neutral,
-            sats::Sociability::Gregarious => Sociability::Gregarious,
-            sats::Sociability::Solitary => Sociability::Solitary,
-        },
-        conscience: match conscience {
-            sats::Conscience::Neutral => Conscience::Neutral,
-            sats::Conscience::Compassionate => Conscience::Compassionate,
-            sats::Conscience::Callous => Conscience::Callous,
-            sats::Conscience::Cruel => Conscience::Cruel,
-        },
-        self_regard: match self_regard {
-            sats::SelfRegard::Neutral => SelfRegard::Neutral,
-            sats::SelfRegard::Proud => SelfRegard::Proud,
-            sats::SelfRegard::Humble => SelfRegard::Humble,
-        },
-        conviction: match conviction {
-            sats::Conviction::Neutral => Conviction::Neutral,
-            sats::Conviction::Zealous => Conviction::Zealous,
-            sats::Conviction::Irreverent => Conviction::Irreverent,
-        },
-        hygiene: match hygiene {
-            sats::Hygiene::Neutral => Hygiene::Neutral,
-            sats::Hygiene::Slovenly => Hygiene::Slovenly,
-            sats::Hygiene::Cleanly => Hygiene::Cleanly,
-        },
-        temperance: match temperance {
-            sats::Temperance::Neutral => Temperance::Neutral,
-            sats::Temperance::Temperate => Temperance::Temperate,
-            sats::Temperance::Drunkard => Temperance::Drunkard,
-        },
-        mirth: match mirth {
-            sats::Mirth::Neutral => Mirth::Neutral,
-            sats::Mirth::Merry => Mirth::Merry,
-            sats::Mirth::Grave => Mirth::Grave,
-        },
-        courtship: match courtship {
-            sats::Courtship::Neutral => Courtship::Neutral,
-            sats::Courtship::Amorous => Courtship::Amorous,
-            sats::Courtship::Proper => Courtship::Proper,
-        },
-        transparency: match transparency {
-            sats::Transparency::Neutral => Transparency::Neutral,
-            sats::Transparency::Open => Transparency::Open,
-            sats::Transparency::Guarded => Transparency::Guarded,
-        },
-        self_knowledge: match self_knowledge {
-            sats::SelfKnowledge::Neutral => SelfKnowledge::Neutral,
-            sats::SelfKnowledge::Introspective => SelfKnowledge::Introspective,
-            sats::SelfKnowledge::SelfDeceiving => SelfKnowledge::SelfDeceiving,
-        },
-        inclination: match inclination {
-            sats::Inclination::Men => Inclination::Men,
-            sats::Inclination::Either => Inclination::Either,
-            sats::Inclination::Women => Inclination::Women,
-            sats::Inclination::Neither => Inclination::Neither,
-        },
-        presentation: match presentation {
-            sats::Presentation::Man => Presentation::Man,
-            sats::Presentation::Ambiguous => Presentation::Ambiguous,
-            sats::Presentation::Woman => Presentation::Woman,
-        },
-        sex: match sex {
-            sats::Sex::Female => Sex::Female,
-            sats::Sex::Male => Sex::Male,
-        },
-    }
-}
-
-pub fn role_requirements(row: &sats::RoleRequirements) -> RoleRequirements {
-    let sats::RoleRequirements {
-        melee,
-        ranged,
-        weapon_precision,
-        heavy,
-        quarter_armor,
-        half_armor,
-        three_quarter_armor,
-        full_armor,
-        athletics,
-        endurance,
-        physiology,
-        surgery,
-        command,
-        religion,
-    } = row.clone();
-    RoleRequirements {
-        melee,
-        ranged,
-        weapon_precision,
-        heavy,
-        quarter_armor,
-        half_armor,
-        three_quarter_armor,
-        full_armor,
-        athletics,
-        endurance,
-        physiology,
-        surgery,
-        command,
-        religion,
     }
 }

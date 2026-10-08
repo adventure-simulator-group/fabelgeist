@@ -1,154 +1,3 @@
-#[cfg(test)]
-mod building_query_tests {
-    use super::{BuildingQuery, SETTLEMENTS_SOURCE, merchant_service_location};
-
-    #[test]
-    fn building_query_is_closed_and_preserved_on_redirects() {
-        let economy = adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder();
-        let (_organization, chapter) = adventuresim_core::organization::catalog()
-            .organizations
-            .iter()
-            .find_map(|organization| {
-                organization
-                    .chapters
-                    .iter()
-                    .find(|chapter| {
-                        adventuresim_core::organization::chapter_has_standalone_building(
-                            organization,
-                            chapter,
-                            &economy,
-                        )
-                    })
-                    .map(|chapter| (organization, chapter))
-            })
-            .expect("standalone catalog chapter");
-        let location = crate::templates::settlement::LocationView {
-            kind: crate::location_urls::LocationKind::Settlement,
-            id: chapter.settlement_id.clone(),
-            name: "Place".into(),
-            religion_id: None,
-            category: Some(crate::spacetimedb::SettlementCategory::Village),
-            economy: Some(economy),
-            active_building: None,
-        };
-        let valid = BuildingQuery {
-            building: Some("inn".into()),
-            ..Default::default()
-        };
-        assert_eq!(valid.valid_for(&location), Some("inn"));
-        let unavailable = BuildingQuery {
-            building: Some("books".into()),
-            ..Default::default()
-        };
-        assert_eq!(unavailable.valid_for(&location), None);
-        let organization_query = BuildingQuery {
-            building: Some(chapter.location_id.clone()),
-            ..Default::default()
-        };
-        assert_eq!(
-            organization_query.valid_for(&location),
-            Some(chapter.location_id.as_str())
-        );
-        if let Some(foreign) = adventuresim_core::organization::catalog()
-            .organizations
-            .iter()
-            .flat_map(|organization| &organization.chapters)
-            .find(|foreign| {
-                foreign.settlement_id != location.id
-                    && adventuresim_core::organization::organization_chapter_at(
-                        &location.id,
-                        &foreign.location_id,
-                    )
-                    .is_none()
-            })
-        {
-            let foreign_query = BuildingQuery {
-                building: Some(foreign.location_id.clone()),
-                ..Default::default()
-            };
-            assert_eq!(foreign_query.valid_for(&location), None);
-        }
-        assert_eq!(
-            valid.append_to_location(&location, "/locations/settlement/x/party/1".into()),
-            "/locations/settlement/x/party/1?building=inn"
-        );
-        let non_service = BuildingQuery {
-            building: Some("public-square".into()),
-            ..Default::default()
-        };
-        assert_eq!(
-            non_service.append_to_location(&location, "/locations/settlement/x/party/1".into()),
-            "/locations/settlement/x/party/1?building=public-square"
-        );
-        let invalid = BuildingQuery {
-            building: Some("../religion".into()),
-            ..Default::default()
-        };
-        assert_eq!(invalid.valid_for(&location), None);
-        assert_eq!(
-            invalid.append_to_location(&location, "/locations/settlement/x/party/1".into()),
-            "/locations/settlement/x/party/1"
-        );
-    }
-
-    #[test]
-    fn merchant_offer_routes_accept_only_bound_storefront_services() {
-        assert_eq!(
-            crate::location_urls::place_service("market"),
-            Some("merchants")
-        );
-        assert_eq!(
-            crate::location_urls::place_service("forge"),
-            Some("weapons")
-        );
-        assert_eq!(crate::location_urls::place_service("weapons"), None);
-        assert_eq!(merchant_service_location("merchants"), Some("market"));
-        assert_eq!(merchant_service_location("weapons"), Some("forge"));
-        assert_eq!(merchant_service_location("armor"), Some("armoury"));
-        assert_eq!(merchant_service_location("clothing"), Some("tailor"));
-        assert_eq!(merchant_service_location("inn"), Some("inn"));
-        assert_eq!(merchant_service_location("herbalist"), None);
-        assert_eq!(merchant_service_location("../inn"), None);
-    }
-
-    #[test]
-    fn settlement_entry_activates_activity_without_a_local_server_bypass() {
-        for source in [include_str!("medical.rs"), include_str!("overview.rs")] {
-            assert!(source.contains("entry::activate_settlement(&state, &id);"));
-        }
-        let activation = include_str!("entry.rs");
-        assert!(activation.contains("ensure_settlement_activity"));
-        assert!(!activation.contains("is_local()"));
-
-        let offers = SETTLEMENTS_SOURCE
-            .split("async fn service_quest_offers")
-            .nth(1)
-            .and_then(|tail| tail.split("fn service_quest_greeting").next())
-            .expect("service quest offers route");
-        assert!(!offers.contains("ensure_settlement_activity"));
-    }
-
-    #[test]
-    fn fireplace_pages_use_gateway_views_and_authoritative_locality_inputs() {
-        let source = SETTLEMENTS_SOURCE;
-        assert!(source.contains("SELECT * FROM backend_fireplace_stations"));
-        assert!(source.contains("SELECT * FROM backend_fireplace_dishes"));
-        let private_station = ["SELECT * FROM fireplace_", "station WHERE"].concat();
-        let private_dish = ["SELECT * FROM fireplace_", "dish WHERE"].concat();
-        assert!(!source.contains(&private_station));
-        assert!(!source.contains(&private_dish));
-        assert!(source.contains("party.camp_destination.as_ref() == Some(&journey.destination)"));
-        assert!(
-            source.contains("journey.completed_movement_minutes < journey.total_movement_minutes")
-        );
-        assert!(source.contains("reached_camp_movement_minutes"));
-        assert!(source.contains("service_npc_location_available"));
-        assert!(source.contains("chapter_has_standalone_building"));
-        assert!(source.contains("StrategicFixtureId::fireplace"));
-        assert!(source.contains("StrategicPlaceId::journey_camp"));
-        assert!(!source.contains("format!(\"camp|"));
-    }
-}
 use crate::location_urls::LocationKind;
 use crate::location_urls::patterns as paths;
 use crate::spacetimedb as db;
@@ -260,6 +109,17 @@ impl BuildingQuery {
     }
 }
 
+pub fn routes() -> Router<AppState> {
+    settlement_routes()
+        .merge(camp_routes())
+        .merge(party_routes())
+        .merge(inventory_routes())
+        .merge(commerce_routes())
+        .layer(axum::middleware::from_fn(
+            crate::location_urls::require_canonical_location_path,
+        ))
+}
+
 fn contained_water_ml_for_custody(
     objects: &[InventoryObject],
     containment: &[InventoryContainment],
@@ -305,17 +165,6 @@ fn contained_water_ml_for_custody(
             total
         }
     })
-}
-
-pub fn routes() -> Router<AppState> {
-    settlement_routes()
-        .merge(camp_routes())
-        .merge(party_routes())
-        .merge(inventory_routes())
-        .merge(commerce_routes())
-        .layer(axum::middleware::from_fn(
-            crate::location_urls::require_canonical_location_path,
-        ))
 }
 
 fn settlement_routes() -> Router<AppState> {
@@ -583,4 +432,155 @@ fn commerce_routes() -> Router<AppState> {
         .route(paths::RELIGION.pattern(), get(religion))
         .route(paths::REST.pattern(), post(rest))
         .route(paths::TRAVEL.pattern(), post(travel))
+}
+#[cfg(test)]
+mod building_query_tests {
+    use super::{BuildingQuery, SETTLEMENTS_SOURCE, merchant_service_location};
+
+    #[test]
+    fn building_query_is_closed_and_preserved_on_redirects() {
+        let economy = adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder();
+        let (_organization, chapter) = adventuresim_core::organization::catalog()
+            .organizations
+            .iter()
+            .find_map(|organization| {
+                organization
+                    .chapters
+                    .iter()
+                    .find(|chapter| {
+                        adventuresim_core::organization::chapter_has_standalone_building(
+                            organization,
+                            chapter,
+                            &economy,
+                        )
+                    })
+                    .map(|chapter| (organization, chapter))
+            })
+            .expect("standalone catalog chapter");
+        let location = crate::templates::settlement::LocationView {
+            kind: crate::location_urls::LocationKind::Settlement,
+            id: chapter.settlement_id.clone(),
+            name: "Place".into(),
+            religion_id: None,
+            category: Some(crate::spacetimedb::SettlementCategory::Village),
+            economy: Some(economy),
+            active_building: None,
+        };
+        let valid = BuildingQuery {
+            building: Some("inn".into()),
+            ..Default::default()
+        };
+        assert_eq!(valid.valid_for(&location), Some("inn"));
+        let unavailable = BuildingQuery {
+            building: Some("books".into()),
+            ..Default::default()
+        };
+        assert_eq!(unavailable.valid_for(&location), None);
+        let organization_query = BuildingQuery {
+            building: Some(chapter.location_id.clone()),
+            ..Default::default()
+        };
+        assert_eq!(
+            organization_query.valid_for(&location),
+            Some(chapter.location_id.as_str())
+        );
+        if let Some(foreign) = adventuresim_core::organization::catalog()
+            .organizations
+            .iter()
+            .flat_map(|organization| &organization.chapters)
+            .find(|foreign| {
+                foreign.settlement_id != location.id
+                    && adventuresim_core::organization::organization_chapter_at(
+                        &location.id,
+                        &foreign.location_id,
+                    )
+                    .is_none()
+            })
+        {
+            let foreign_query = BuildingQuery {
+                building: Some(foreign.location_id.clone()),
+                ..Default::default()
+            };
+            assert_eq!(foreign_query.valid_for(&location), None);
+        }
+        assert_eq!(
+            valid.append_to_location(&location, "/locations/settlement/x/party/1".into()),
+            "/locations/settlement/x/party/1?building=inn"
+        );
+        let non_service = BuildingQuery {
+            building: Some("public-square".into()),
+            ..Default::default()
+        };
+        assert_eq!(
+            non_service.append_to_location(&location, "/locations/settlement/x/party/1".into()),
+            "/locations/settlement/x/party/1?building=public-square"
+        );
+        let invalid = BuildingQuery {
+            building: Some("../religion".into()),
+            ..Default::default()
+        };
+        assert_eq!(invalid.valid_for(&location), None);
+        assert_eq!(
+            invalid.append_to_location(&location, "/locations/settlement/x/party/1".into()),
+            "/locations/settlement/x/party/1"
+        );
+    }
+
+    #[test]
+    fn merchant_offer_routes_accept_only_bound_storefront_services() {
+        assert_eq!(
+            crate::location_urls::place_service("market"),
+            Some("merchants")
+        );
+        assert_eq!(
+            crate::location_urls::place_service("forge"),
+            Some("weapons")
+        );
+        assert_eq!(crate::location_urls::place_service("weapons"), None);
+        assert_eq!(merchant_service_location("merchants"), Some("market"));
+        assert_eq!(merchant_service_location("weapons"), Some("forge"));
+        assert_eq!(merchant_service_location("armor"), Some("armoury"));
+        assert_eq!(merchant_service_location("clothing"), Some("tailor"));
+        assert_eq!(merchant_service_location("inn"), Some("inn"));
+        assert_eq!(merchant_service_location("herbalist"), None);
+        assert_eq!(merchant_service_location("../inn"), None);
+    }
+
+    #[test]
+    fn settlement_entry_activates_activity_without_a_local_server_bypass() {
+        for source in [include_str!("medical.rs"), include_str!("overview.rs")] {
+            assert!(source.contains("entry::activate_settlement(&state, &id);"));
+        }
+        let activation = include_str!("entry.rs");
+        assert!(activation.contains("ensure_settlement_activity"));
+        assert!(!activation.contains("is_local()"));
+
+        let offers = SETTLEMENTS_SOURCE
+            .split("async fn service_quest_offers")
+            .nth(1)
+            .and_then(|tail| tail.split("fn service_quest_greeting").next())
+            .expect("service quest offers route");
+        assert!(!offers.contains("ensure_settlement_activity"));
+    }
+
+    #[test]
+    fn fireplace_pages_use_gateway_views_and_authoritative_locality_inputs() {
+        let source = SETTLEMENTS_SOURCE;
+        assert!(source.contains("SELECT * FROM backend_fireplace_stations"));
+        assert!(source.contains("SELECT * FROM backend_fireplace_dishes"));
+        let private_station = ["SELECT * FROM fireplace_", "station WHERE"].concat();
+        let private_dish = ["SELECT * FROM fireplace_", "dish WHERE"].concat();
+        assert!(!source.contains(&private_station));
+        assert!(!source.contains(&private_dish));
+        assert!(source.contains("party.camp_destination.as_ref() == Some(&journey.destination)"));
+        assert!(
+            source.contains("journey.completed_movement_minutes < journey.total_movement_minutes")
+        );
+        assert!(source.contains("reached_camp_movement_minutes"));
+        assert!(source.contains("service_npc_location_available"));
+        assert!(source.contains("chapter_has_standalone_building"));
+        assert!(source.contains("StrategicFixtureId::fireplace"));
+        assert!(source.contains("StrategicPlaceId::journey_camp"));
+        assert!(!source.contains("format!(\"camp|"));
+    }
 }

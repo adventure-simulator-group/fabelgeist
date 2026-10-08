@@ -4,54 +4,6 @@
 //! Routing retains the wire node IDs and metre lengths in its integer kernel.
 //! Heap priority pairs are native distance/node keys, preserving tie ordering.
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use axum::{Router, http::StatusCode, routing::post};
-    use std::sync::atomic::{AtomicUsize, Ordering};
-
-    #[tokio::test]
-    async fn failed_road_query_retries_then_concurrent_loads_share_success() {
-        let requests = Arc::new(AtomicUsize::new(0));
-        let recorded_requests = Arc::clone(&requests);
-        let fixture = Router::new().route(
-            "/v1/database/test/sql",
-            post(move |body: String| {
-                let requests = Arc::clone(&recorded_requests);
-                async move {
-                    assert_eq!(body, "SELECT * FROM travel_edge");
-                    let status = if requests.fetch_add(1, Ordering::SeqCst) == 0 {
-                        StatusCode::SERVICE_UNAVAILABLE
-                    } else {
-                        StatusCode::OK
-                    };
-                    (status, axum::Json(serde_json::json!([])))
-                }
-            }),
-        );
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
-        let address = format!("http://{}", listener.local_addr().unwrap());
-        let server = tokio::spawn(async move {
-            axum::serve(listener, fixture).await.unwrap();
-        });
-        let database = SpacetimeClient::new(address, "test").unwrap();
-        let cache = TravelEdgeCache::new();
-        tokio::time::timeout(std::time::Duration::from_secs(5), async {
-            assert!(cache.load(&database).await.is_none());
-            let (first, second) = tokio::join!(cache.load(&database), cache.load(&database));
-            let first = first.unwrap();
-            let second = second.unwrap();
-            assert!(first.is_empty());
-            assert!(Arc::ptr_eq(&first, &second));
-            assert!(Arc::ptr_eq(&first, &cache.load(&database).await.unwrap()));
-            assert_eq!(requests.load(Ordering::SeqCst), 2);
-            assert_eq!(database.query_metrics().requests, 2);
-        })
-        .await
-        .unwrap();
-        server.abort();
-    }
-}
 use super::{TravelDestination, settlement_destination};
 use crate::spacetimedb::{SettlementView, SpacetimeClient, SqlQuery};
 use adventuresim_core::strategic_time::OVERLAND_WALKING_SPEED_KM_PER_HOUR;
@@ -69,6 +21,11 @@ pub(crate) struct TravelEdgeTopology {
     pub(super) length_m: u32,
 }
 
+/// One successful load is shared; failed initialization may be retried.
+pub(crate) struct TravelEdgeCache {
+    edges: tokio::sync::OnceCell<Arc<Vec<TravelEdgeTopology>>>,
+}
+
 impl From<adventuresim_stdb_client::TravelEdge> for TravelEdgeTopology {
     fn from(edge: adventuresim_stdb_client::TravelEdge) -> Self {
         Self {
@@ -77,11 +34,6 @@ impl From<adventuresim_stdb_client::TravelEdge> for TravelEdgeTopology {
             length_m: edge.length_m,
         }
     }
-}
-
-/// One successful load is shared; failed initialization may be retried.
-pub(crate) struct TravelEdgeCache {
-    edges: tokio::sync::OnceCell<Arc<Vec<TravelEdgeTopology>>>,
 }
 
 impl TravelEdgeCache {
@@ -198,4 +150,52 @@ pub(crate) fn connected_destinations(
     }
     destinations.sort_by_key(|destination| destination.distance_m);
     destinations
+}
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use axum::{Router, http::StatusCode, routing::post};
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
+    #[tokio::test]
+    async fn failed_road_query_retries_then_concurrent_loads_share_success() {
+        let requests = Arc::new(AtomicUsize::new(0));
+        let recorded_requests = Arc::clone(&requests);
+        let fixture = Router::new().route(
+            "/v1/database/test/sql",
+            post(move |body: String| {
+                let requests = Arc::clone(&recorded_requests);
+                async move {
+                    assert_eq!(body, "SELECT * FROM travel_edge");
+                    let status = if requests.fetch_add(1, Ordering::SeqCst) == 0 {
+                        StatusCode::SERVICE_UNAVAILABLE
+                    } else {
+                        StatusCode::OK
+                    };
+                    (status, axum::Json(serde_json::json!([])))
+                }
+            }),
+        );
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let address = format!("http://{}", listener.local_addr().unwrap());
+        let server = tokio::spawn(async move {
+            axum::serve(listener, fixture).await.unwrap();
+        });
+        let database = SpacetimeClient::new(address, "test").unwrap();
+        let cache = TravelEdgeCache::new();
+        tokio::time::timeout(std::time::Duration::from_secs(5), async {
+            assert!(cache.load(&database).await.is_none());
+            let (first, second) = tokio::join!(cache.load(&database), cache.load(&database));
+            let first = first.unwrap();
+            let second = second.unwrap();
+            assert!(first.is_empty());
+            assert!(Arc::ptr_eq(&first, &second));
+            assert!(Arc::ptr_eq(&first, &cache.load(&database).await.unwrap()));
+            assert_eq!(requests.load(Ordering::SeqCst), 2);
+            assert_eq!(database.query_metrics().requests, 2);
+        })
+        .await
+        .unwrap();
+        server.abort();
+    }
 }

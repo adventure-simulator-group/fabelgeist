@@ -1,3 +1,234 @@
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct SqlQuery(String);
+
+impl SqlQuery {
+    /// Select the immutable road topology at the native SQL boundary.
+    pub(crate) fn travel_edges() -> Self {
+        Self::new("SELECT * FROM travel_edge".to_owned())
+    }
+
+    fn new(query: String) -> Self {
+        Self(query)
+    }
+
+    pub(crate) fn as_str(&self) -> &str {
+        &self.0
+    }
+}
+
+impl std::ops::Deref for SqlQuery {
+    type Target = str;
+
+    fn deref(&self) -> &Self::Target {
+        self.as_str()
+    }
+}
+
+pub(crate) fn sql_string_literal(value: &str) -> String {
+    format!("'{}'", value.replace('\'', "''"))
+}
+
+macro_rules! string_key_query {
+    ($name:ident, $prefix:literal) => {
+        pub(crate) fn $name(value: &str) -> SqlQuery {
+            SqlQuery::new(format!(concat!($prefix, "{}"), sql_string_literal(value)))
+        }
+    };
+}
+
+macro_rules! u64_key_query {
+    ($name:ident, $prefix:literal) => {
+        pub(crate) fn $name(value: u64) -> SqlQuery {
+            SqlQuery::new(format!(concat!($prefix, "{}"), value))
+        }
+    };
+}
+
+string_key_query!(settlement_by_id, "SELECT * FROM settlement WHERE id = ");
+string_key_query!(party_by_id, "SELECT * FROM party WHERE id = ");
+string_key_query!(
+    contract_by_id,
+    "SELECT * FROM backend_contracts WHERE id = "
+);
+string_key_query!(
+    party_journey_by_party_id,
+    "SELECT * FROM party_journey WHERE party_id = "
+);
+string_key_query!(
+    party_journey_route_by_party_id,
+    "SELECT * FROM party_journey_route WHERE party_id = "
+);
+string_key_query!(
+    strategic_encounter_by_party_id,
+    "SELECT * FROM strategic_encounter WHERE party_id = "
+);
+string_key_query!(
+    battle_result_by_battle_id,
+    "SELECT * FROM battle_result WHERE battle_id = "
+);
+string_key_query!(
+    autoresolve_report_by_battle_id,
+    "SELECT * FROM autoresolve_report WHERE battle_id = "
+);
+string_key_query!(
+    tactical_server_request_by_mission_id,
+    "SELECT * FROM tactical_server_request WHERE mission_id = "
+);
+string_key_query!(
+    settlement_smith_by_settlement_id,
+    "SELECT * FROM settlement_smith WHERE settlement_id = "
+);
+string_key_query!(item_by_id, "SELECT * FROM item WHERE id = ");
+string_key_query!(
+    fireplace_station_by_key,
+    "SELECT * FROM backend_fireplace_stations WHERE key = "
+);
+string_key_query!(
+    fireplace_dish_by_station_key,
+    "SELECT * FROM backend_fireplace_dishes WHERE station_key = "
+);
+string_key_query!(
+    character_affinity_by_id,
+    "SELECT * FROM backend_character_affinities WHERE id = "
+);
+string_key_query!(
+    character_familiarity_by_id,
+    "SELECT * FROM backend_character_familiarities WHERE id = "
+);
+string_key_query!(
+    automatic_social_chat_by_id,
+    "SELECT * FROM backend_automatic_social_chats WHERE id = "
+);
+string_key_query!(
+    social_address_by_id,
+    "SELECT * FROM backend_social_addresses WHERE id = "
+);
+string_key_query!(
+    case_site_pin_by_case_site_id,
+    "SELECT * FROM backend_case_site_pins WHERE case_site_id = "
+);
+pub(crate) fn case_site_pin_by_case_site_id_and_owner(
+    case_site_id: &str,
+    owner_character_id: u64,
+) -> SqlQuery {
+    SqlQuery::new(format!(
+        "SELECT * FROM backend_case_site_pins WHERE case_site_id = {} AND owner_character_id = {owner_character_id}",
+        sql_string_literal(case_site_id)
+    ))
+}
+string_key_query!(
+    tactical_server_by_mission_id,
+    "SELECT * FROM tactical_server WHERE mission_id = "
+);
+
+u64_key_query!(
+    character_by_id,
+    "SELECT * FROM backend_characters WHERE id = "
+);
+u64_key_query!(
+    character_time_by_character_id,
+    "SELECT * FROM backend_character_times WHERE character_id = "
+);
+u64_key_query!(
+    character_stats_by_character_id,
+    "SELECT * FROM backend_character_stats WHERE character_id = "
+);
+u64_key_query!(
+    character_skills_by_character_id,
+    "SELECT * FROM backend_character_skills WHERE character_id = "
+);
+u64_key_query!(
+    character_attributes_by_character_id,
+    "SELECT * FROM backend_character_attributes WHERE character_id = "
+);
+u64_key_query!(
+    character_capability_by_character_id,
+    "SELECT * FROM backend_character_capabilities WHERE character_id = "
+);
+u64_key_query!(
+    character_limbs_by_character_id,
+    "SELECT * FROM backend_character_limbs WHERE character_id = "
+);
+u64_key_query!(
+    character_condition_by_character_id,
+    "SELECT * FROM backend_character_conditions WHERE character_id = "
+);
+u64_key_query!(
+    character_strategic_condition_by_character_id,
+    "SELECT * FROM backend_character_strategic_conditions WHERE character_id = "
+);
+u64_key_query!(
+    character_death_by_character_id,
+    "SELECT * FROM backend_character_deaths WHERE character_id = "
+);
+u64_key_query!(
+    character_needs_by_character_id,
+    "SELECT * FROM backend_character_needs WHERE character_id = "
+);
+u64_key_query!(
+    character_personality_by_character_id,
+    "SELECT * FROM backend_character_personalities WHERE character_id = "
+);
+u64_key_query!(
+    character_training_schedule_by_character_id,
+    "SELECT * FROM backend_character_training_schedules WHERE character_id = "
+);
+u64_key_query!(
+    character_relationship_status_by_character_id,
+    "SELECT * FROM backend_character_relationship_statuses WHERE character_id = "
+);
+u64_key_query!(
+    character_residence_status_by_character_id,
+    "SELECT * FROM backend_character_residence_statuses WHERE character_id = "
+);
+u64_key_query!(
+    character_case_site_location_by_character_id,
+    "SELECT * FROM backend_character_case_site_locations WHERE character_id = "
+);
+u64_key_query!(
+    organization_presentation_by_character_id,
+    "SELECT * FROM organization_presentation WHERE character_id = "
+);
+u64_key_query!(
+    settlement_resident_by_character_id,
+    "SELECT * FROM backend_settlement_residents WHERE character_id = "
+);
+u64_key_query!(
+    settlement_resident_presence_by_character_id,
+    "SELECT * FROM settlement_resident_presence WHERE character_id = "
+);
+u64_key_query!(
+    forage_attempt_state_by_character_id,
+    "SELECT * FROM backend_forage_attempt_states WHERE character_id = "
+);
+u64_key_query!(
+    inventory_item_by_id,
+    "SELECT * FROM inventory_item WHERE id = "
+);
+u64_key_query!(
+    inventory_object_by_id,
+    "SELECT * FROM inventory_object WHERE id = "
+);
+u64_key_query!(
+    party_action_request_by_id,
+    "SELECT * FROM party_action_request WHERE id = "
+);
+u64_key_query!(
+    party_recruitment_role_by_id,
+    "SELECT * FROM party_recruitment_role WHERE id = "
+);
+u64_key_query!(
+    weapon_instance_by_physical_object_id,
+    "SELECT * FROM backend_weapon_instances WHERE physical_object_id = "
+);
+u64_key_query!(
+    weapon_holder_instance_by_physical_object_id,
+    "SELECT * FROM backend_weapon_holder_instances WHERE physical_object_id = "
+);
+
+pub(crate) fn world_clock_singleton() -> SqlQuery {
+    SqlQuery::new("SELECT * FROM world_clock WHERE id = 0".to_string())
+}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -232,235 +463,4 @@ mod tests {
         assert!(!source.contains(&dynamic_string_helper));
         assert!(!source.contains(&dynamic_numeric_helper));
     }
-}
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub(crate) struct SqlQuery(String);
-
-impl SqlQuery {
-    /// Select the immutable road topology at the native SQL boundary.
-    pub(crate) fn travel_edges() -> Self {
-        Self::new("SELECT * FROM travel_edge".to_owned())
-    }
-
-    fn new(query: String) -> Self {
-        Self(query)
-    }
-
-    pub(crate) fn as_str(&self) -> &str {
-        &self.0
-    }
-}
-
-impl std::ops::Deref for SqlQuery {
-    type Target = str;
-
-    fn deref(&self) -> &Self::Target {
-        self.as_str()
-    }
-}
-
-pub(crate) fn sql_string_literal(value: &str) -> String {
-    format!("'{}'", value.replace('\'', "''"))
-}
-
-macro_rules! string_key_query {
-    ($name:ident, $prefix:literal) => {
-        pub(crate) fn $name(value: &str) -> SqlQuery {
-            SqlQuery::new(format!(concat!($prefix, "{}"), sql_string_literal(value)))
-        }
-    };
-}
-
-macro_rules! u64_key_query {
-    ($name:ident, $prefix:literal) => {
-        pub(crate) fn $name(value: u64) -> SqlQuery {
-            SqlQuery::new(format!(concat!($prefix, "{}"), value))
-        }
-    };
-}
-
-string_key_query!(settlement_by_id, "SELECT * FROM settlement WHERE id = ");
-string_key_query!(party_by_id, "SELECT * FROM party WHERE id = ");
-string_key_query!(
-    contract_by_id,
-    "SELECT * FROM backend_contracts WHERE id = "
-);
-string_key_query!(
-    party_journey_by_party_id,
-    "SELECT * FROM party_journey WHERE party_id = "
-);
-string_key_query!(
-    party_journey_route_by_party_id,
-    "SELECT * FROM party_journey_route WHERE party_id = "
-);
-string_key_query!(
-    strategic_encounter_by_party_id,
-    "SELECT * FROM strategic_encounter WHERE party_id = "
-);
-string_key_query!(
-    battle_result_by_battle_id,
-    "SELECT * FROM battle_result WHERE battle_id = "
-);
-string_key_query!(
-    autoresolve_report_by_battle_id,
-    "SELECT * FROM autoresolve_report WHERE battle_id = "
-);
-string_key_query!(
-    tactical_server_request_by_mission_id,
-    "SELECT * FROM tactical_server_request WHERE mission_id = "
-);
-string_key_query!(
-    settlement_smith_by_settlement_id,
-    "SELECT * FROM settlement_smith WHERE settlement_id = "
-);
-string_key_query!(item_by_id, "SELECT * FROM item WHERE id = ");
-string_key_query!(
-    fireplace_station_by_key,
-    "SELECT * FROM backend_fireplace_stations WHERE key = "
-);
-string_key_query!(
-    fireplace_dish_by_station_key,
-    "SELECT * FROM backend_fireplace_dishes WHERE station_key = "
-);
-string_key_query!(
-    character_affinity_by_id,
-    "SELECT * FROM backend_character_affinities WHERE id = "
-);
-string_key_query!(
-    character_familiarity_by_id,
-    "SELECT * FROM backend_character_familiarities WHERE id = "
-);
-string_key_query!(
-    automatic_social_chat_by_id,
-    "SELECT * FROM backend_automatic_social_chats WHERE id = "
-);
-string_key_query!(
-    social_address_by_id,
-    "SELECT * FROM backend_social_addresses WHERE id = "
-);
-string_key_query!(
-    case_site_pin_by_case_site_id,
-    "SELECT * FROM backend_case_site_pins WHERE case_site_id = "
-);
-pub(crate) fn case_site_pin_by_case_site_id_and_owner(
-    case_site_id: &str,
-    owner_character_id: u64,
-) -> SqlQuery {
-    SqlQuery::new(format!(
-        "SELECT * FROM backend_case_site_pins WHERE case_site_id = {} AND owner_character_id = {owner_character_id}",
-        sql_string_literal(case_site_id)
-    ))
-}
-string_key_query!(
-    tactical_server_by_mission_id,
-    "SELECT * FROM tactical_server WHERE mission_id = "
-);
-
-u64_key_query!(
-    character_by_id,
-    "SELECT * FROM backend_characters WHERE id = "
-);
-u64_key_query!(
-    character_time_by_character_id,
-    "SELECT * FROM backend_character_times WHERE character_id = "
-);
-u64_key_query!(
-    character_stats_by_character_id,
-    "SELECT * FROM backend_character_stats WHERE character_id = "
-);
-u64_key_query!(
-    character_skills_by_character_id,
-    "SELECT * FROM backend_character_skills WHERE character_id = "
-);
-u64_key_query!(
-    character_attributes_by_character_id,
-    "SELECT * FROM backend_character_attributes WHERE character_id = "
-);
-u64_key_query!(
-    character_capability_by_character_id,
-    "SELECT * FROM backend_character_capabilities WHERE character_id = "
-);
-u64_key_query!(
-    character_limbs_by_character_id,
-    "SELECT * FROM backend_character_limbs WHERE character_id = "
-);
-u64_key_query!(
-    character_condition_by_character_id,
-    "SELECT * FROM backend_character_conditions WHERE character_id = "
-);
-u64_key_query!(
-    character_strategic_condition_by_character_id,
-    "SELECT * FROM backend_character_strategic_conditions WHERE character_id = "
-);
-u64_key_query!(
-    character_death_by_character_id,
-    "SELECT * FROM backend_character_deaths WHERE character_id = "
-);
-u64_key_query!(
-    character_needs_by_character_id,
-    "SELECT * FROM backend_character_needs WHERE character_id = "
-);
-u64_key_query!(
-    character_personality_by_character_id,
-    "SELECT * FROM backend_character_personalities WHERE character_id = "
-);
-u64_key_query!(
-    character_training_schedule_by_character_id,
-    "SELECT * FROM backend_character_training_schedules WHERE character_id = "
-);
-u64_key_query!(
-    character_relationship_status_by_character_id,
-    "SELECT * FROM backend_character_relationship_statuses WHERE character_id = "
-);
-u64_key_query!(
-    character_residence_status_by_character_id,
-    "SELECT * FROM backend_character_residence_statuses WHERE character_id = "
-);
-u64_key_query!(
-    character_case_site_location_by_character_id,
-    "SELECT * FROM backend_character_case_site_locations WHERE character_id = "
-);
-u64_key_query!(
-    organization_presentation_by_character_id,
-    "SELECT * FROM organization_presentation WHERE character_id = "
-);
-u64_key_query!(
-    settlement_resident_by_character_id,
-    "SELECT * FROM backend_settlement_residents WHERE character_id = "
-);
-u64_key_query!(
-    settlement_resident_presence_by_character_id,
-    "SELECT * FROM settlement_resident_presence WHERE character_id = "
-);
-u64_key_query!(
-    forage_attempt_state_by_character_id,
-    "SELECT * FROM backend_forage_attempt_states WHERE character_id = "
-);
-u64_key_query!(
-    inventory_item_by_id,
-    "SELECT * FROM inventory_item WHERE id = "
-);
-u64_key_query!(
-    inventory_object_by_id,
-    "SELECT * FROM inventory_object WHERE id = "
-);
-u64_key_query!(
-    party_action_request_by_id,
-    "SELECT * FROM party_action_request WHERE id = "
-);
-u64_key_query!(
-    party_recruitment_role_by_id,
-    "SELECT * FROM party_recruitment_role WHERE id = "
-);
-u64_key_query!(
-    weapon_instance_by_physical_object_id,
-    "SELECT * FROM backend_weapon_instances WHERE physical_object_id = "
-);
-u64_key_query!(
-    weapon_holder_instance_by_physical_object_id,
-    "SELECT * FROM backend_weapon_holder_instances WHERE physical_object_id = "
-);
-
-pub(crate) fn world_clock_singleton() -> SqlQuery {
-    SqlQuery::new("SELECT * FROM world_clock WHERE id = 0".to_string())
 }
