@@ -6,11 +6,14 @@ fn principal_parish_retains_street_access_and_exact_recipe_across_city_partition
     for (seed, population) in [(42, 900), (47_114, 30_000)]
         .map(|(seed, population)| (fabelgeist_determinism::Seed::from_u64(seed), population))
     {
-        let city = CitySite::central_german_market_town().generate(
-            seed,
-            population,
-            &super::super::tests::economy(),
-        );
+        let city = CitySite::central_german_market_town()
+            .unwrap()
+            .generate(
+                seed,
+                adventuresim_core::settlement_property::ResidentCount::new(population),
+                &super::super::tests::economy(),
+            )
+            .unwrap();
         let lots = city.lots.clone();
         let compiled = city.compile(seed).unwrap();
         let principals = compiled
@@ -25,7 +28,10 @@ fn principal_parish_retains_street_access_and_exact_recipe_across_city_partition
                 principal.program.service_size,
                 Some(ServiceBuildingSize::Large)
             );
-            let lot = lots.iter().find(|lot| lot.id == principal.id.0).unwrap();
+            let lot = lots
+                .iter()
+                .find(|lot| lot.front_building_id() == principal.id)
+                .unwrap();
             assert!(
                 principal
                     .orientation
@@ -49,11 +55,14 @@ fn principal_parish_retains_street_access_and_exact_recipe_across_city_partition
 
 #[test]
 fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
-    let city = CitySite::central_german_market_town().generate(
-        (42).into(),
-        900,
-        &super::super::tests::economy(),
-    );
+    let city = CitySite::central_german_market_town()
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(900),
+            &super::super::tests::economy(),
+        )
+        .unwrap();
     let front_count = city.lots.len();
     let merchant_count = city.lots.iter().filter(|lot| lot.has_rear_range()).count();
     let mut compiled = city.compile((42).into()).unwrap();
@@ -145,18 +154,21 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
 
 #[test]
 fn business_keys_survive_compilation_and_playable_partitioning() {
-    let city = CitySite::central_german_market_town().generate(
-        (42).into(),
-        6_500,
-        &super::super::tests::economy(),
-    );
+    let city = CitySite::central_german_market_town()
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(6_500),
+            &super::super::tests::economy(),
+        )
+        .unwrap();
     let expected = city
         .lots
         .iter()
         .filter_map(|lot| {
             lot.service
                 .and_then(BuildingDemand::business_key)
-                .map(|key| (crate::scene_input::SceneBuildingId(lot.id), key))
+                .map(|key| (lot.front_building_id(), key))
         })
         .collect::<Vec<_>>();
     let compiled = city.compile((42).into()).unwrap();
@@ -179,11 +191,14 @@ fn business_keys_survive_compilation_and_playable_partitioning() {
 #[test]
 fn gardens_are_owned_connected_and_preserve_accepted_plants_across_partition() {
     use crate::city_layout::gardens::GardenIssue;
-    let city = CitySite::central_german_market_town().generate(
-        (42).into(),
-        900,
-        &super::super::tests::economy(),
-    );
+    let city = CitySite::central_german_market_town()
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(900),
+            &super::super::tests::economy(),
+        )
+        .unwrap();
     let compiled = city.compile((42).into()).unwrap();
     assert!(
         !compiled.gardens.is_empty(),
@@ -194,10 +209,13 @@ fn gardens_are_owned_connected_and_preserve_accepted_plants_across_partition() {
             .yards
             .iter()
             .filter(|yard| yard.surface == CityYardSurface::KitchenGarden)
-            .all(|yard| compiled.gardens.iter().any(|garden| garden
-                .beds
+            .all(|yard| compiled
+                .gardens
                 .iter()
-                .any(|bed| bed.corners() == yard.corners_metres)))
+                .any(|garden| garden.beds.iter().any(|bed| bed.corners()
+                    == yard
+                        .corners_metres
+                        .map(crate::scene_coordinates::ScenePlanPoint::metres))))
     );
     let mut owners = BTreeSet::new();
     for garden in &compiled.gardens {
@@ -267,7 +285,13 @@ fn gardens_are_owned_connected_and_preserve_accepted_plants_across_partition() {
 #[test]
 fn garden_crossing_playable_edge_promotes_its_owner_without_changing_plants() {
     let mut compiled = CitySite::central_german_market_town()
-        .generate((42).into(), 900, &super::super::tests::economy())
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(900),
+            &super::super::tests::economy(),
+        )
+        .unwrap()
         .compile((42).into())
         .unwrap();
     let (garden, extent) = compiled

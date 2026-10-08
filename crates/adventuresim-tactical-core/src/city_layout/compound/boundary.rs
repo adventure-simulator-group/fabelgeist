@@ -16,6 +16,20 @@ const WALL_CAP_HEIGHT_METRES: f32 = 0.1;
 const WALL_CAP_OVERHANG_METRES: f32 = 0.025;
 const GATE_OPEN_ANGLE_RADIANS: f32 = core::f32::consts::FRAC_PI_2;
 const GATE_HINGE_CLEARANCE_METRES: f32 = 0.025;
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct CityBoundaryMember {
+    pub pose: CityBoundaryPose,
+    pub size_metres: CuboidDimensions,
+    pub orientation: BuildingOrientation,
+    pub material: CityBoundaryMaterial,
+}
+#[derive(Clone, Debug, PartialEq, serde::Serialize, thiserror::Error)]
+#[error("enclosure {element:?}: {cause}")]
+pub struct BoundaryGeometryError {
+    pub element: BoundarySupportElement,
+    #[source]
+    pub cause: GeometryError,
+}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub enum CityBoundaryMaterial {
@@ -71,13 +85,6 @@ impl CityBoundaryPose {
         }
     }
 }
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct CityBoundaryMember {
-    pub pose: CityBoundaryPose,
-    pub size_metres: CuboidDimensions,
-    pub orientation: BuildingOrientation,
-    pub material: CityBoundaryMaterial,
-}
 impl CityBoundaryMember {
     /// Before grading, the packing check explicitly binds every relative height
     /// to the same zero datum. Terrain projection later uses the declared pose.
@@ -115,62 +122,68 @@ impl CityBoundaryMember {
         })
     }
 }
-#[derive(Clone, Debug, PartialEq, serde::Serialize, thiserror::Error)]
-#[error("enclosure {element:?}: {cause}")]
-pub struct BoundaryGeometryError {
-    pub element: BoundarySupportElement,
-    #[source]
-    pub cause: GeometryError,
-}
 impl CityBoundary {
     pub fn fixed_members(&self) -> Result<Vec<CityBoundaryMember>, BoundaryGeometryError> {
         let mut members = Vec::new();
         for (index, wall) in self.walls.iter().enumerate() {
-            let centre = (wall.start_metres + wall.end_metres) * 0.5;
-            let length = wall.start_metres.distance(wall.end_metres);
-            let orientation =
-                BuildingOrientation::from_frontage_tangent(wall.end_metres - wall.start_metres)
-                    .ok_or(BoundaryGeometryError {
-                        element: BoundarySupportElement::Wall(index),
-                        cause: GeometryError::InvalidProjection,
-                    })?;
-            for (cap, height, thickness, elevation) in [
-                (
-                    false,
-                    wall.height_metres,
-                    wall.thickness_metres,
-                    wall.height_metres * 0.5,
-                ),
-                (
-                    true,
-                    WALL_CAP_HEIGHT_METRES,
-                    wall.thickness_metres + WALL_CAP_OVERHANG_METRES * 2.0,
-                    wall.height_metres + WALL_CAP_HEIGHT_METRES * 0.5,
-                ),
-            ] {
-                let element = if cap {
-                    BoundarySupportElement::WallCap(index)
-                } else {
-                    BoundarySupportElement::Wall(index)
-                };
-                let construct = || {
-                    let centre = Position::from_metres(Vec3::new(centre.x, elevation, centre.y))?;
-                    Ok(CityBoundaryMember {
-                        pose: if cap {
-                            CityBoundaryPose::WallCap { index, centre }
-                        } else {
-                            CityBoundaryPose::Wall { index, centre }
-                        },
-                        size_metres: CuboidDimensions::from_metres(Vec3::new(
-                            length, height, thickness,
+            let centre = (wall.start_metres.metres() + wall.end_metres.metres()) * 0.5;
+            let length = wall
+                .start_metres
+                .metres()
+                .distance(wall.end_metres.metres());
+            let orientation = BuildingOrientation::from_frontage_tangent(
+                wall.end_metres.metres() - wall.start_metres.metres(),
+            )
+            .ok_or(BoundaryGeometryError {
+                element: BoundarySupportElement::Wall(index),
+                cause: GeometryError::InvalidProjection,
+            })?;
+            let body = || {
+                Ok(CityBoundaryMember {
+                    pose: CityBoundaryPose::Wall {
+                        index,
+                        centre: Position::from_metres(Vec3::new(
+                            centre.x,
+                            wall.height_metres.metres() * 0.5,
+                            centre.y,
                         ))?,
-                        orientation,
-                        material: CityBoundaryMaterial::Masonry,
-                    })
-                };
-                members
-                    .push(construct().map_err(|cause| BoundaryGeometryError { element, cause })?);
-            }
+                    },
+                    size_metres: CuboidDimensions::from_metres(Vec3::new(
+                        length,
+                        wall.height_metres.metres(),
+                        wall.thickness_metres.metres(),
+                    ))?,
+                    orientation,
+                    material: CityBoundaryMaterial::Masonry,
+                })
+            };
+            members.push(body().map_err(|cause| BoundaryGeometryError {
+                element: BoundarySupportElement::Wall(index),
+                cause,
+            })?);
+            let cap = || {
+                Ok(CityBoundaryMember {
+                    pose: CityBoundaryPose::WallCap {
+                        index,
+                        centre: Position::from_metres(Vec3::new(
+                            centre.x,
+                            wall.height_metres.metres() + WALL_CAP_HEIGHT_METRES * 0.5,
+                            centre.y,
+                        ))?,
+                    },
+                    size_metres: CuboidDimensions::from_metres(Vec3::new(
+                        length,
+                        WALL_CAP_HEIGHT_METRES,
+                        wall.thickness_metres.metres() + WALL_CAP_OVERHANG_METRES * 2.0,
+                    ))?,
+                    orientation,
+                    material: CityBoundaryMaterial::Masonry,
+                })
+            };
+            members.push(cap().map_err(|cause| BoundaryGeometryError {
+                element: BoundarySupportElement::WallCap(index),
+                cause,
+            })?);
         }
         for side in [PropertySide::Left, PropertySide::Right] {
             members.push(self.gate.post(side)?);
@@ -182,11 +195,11 @@ impl CityGate {
     /// Scene X/Z and gate-relative Y; support planning binds the post's head to
     /// the accepted gate datum, with its base embedded in the local surface.
     pub fn post(self, side: PropertySide) -> Result<CityBoundaryMember, BoundaryGeometryError> {
-        let centre = self.centre_metres
+        let centre = self.centre_metres.metres()
             + self.orientation.local_to_world(
-                Vec2::X * side.sign() * (self.width_metres + GATE_POST_WIDTH_METRES) * 0.5,
+                Vec2::X * side.sign() * (self.width_metres.metres() + GATE_POST_WIDTH_METRES) * 0.5,
             );
-        let height = self.height_metres + GATE_POST_HEAD_METRES;
+        let height = self.height_metres.metres() + GATE_POST_HEAD_METRES;
         let construct = || {
             Ok(CityBoundaryMember {
                 pose: CityBoundaryPose::GatePost {
@@ -225,13 +238,13 @@ impl CityGate {
         let opening = OpeningAssemblyId(BOUNDARY_GATE_OPENING_DOMAIN | property.0);
         let tangent = self.orientation.local_to_world(Vec2::X);
         let outward = self.orientation.local_to_world(-Vec2::Y);
-        let leaf_centre = self.centre_metres
+        let leaf_centre = self.centre_metres.metres()
             - outward
                 * ((GATE_POST_WIDTH_METRES + GATE_LEAF_THICKNESS_METRES) * 0.5
                     + GATE_HINGE_CLEARANCE_METRES);
         let closed_centre = Vec3::new(
             leaf_centre.x,
-            self.height_metres * 0.5 + GATE_GROUND_GAP_METRES,
+            self.height_metres.metres() * 0.5 + GATE_GROUND_GAP_METRES,
             leaf_centre.y,
         );
         let construct = || {
@@ -242,13 +255,13 @@ impl CityGate {
                 hinge_centre: Position::from_metres(
                     closed_centre
                         + Vec3::new(tangent.x, 0.0, tangent.y)
-                            * self.width_metres
+                            * self.width_metres.metres()
                             * 0.5
                             * self.hinge.sign(),
                 )?,
                 size_metres: LeafDimensions::from_metres(Vec3::new(
-                    self.width_metres,
-                    self.height_metres,
+                    self.width_metres.metres(),
+                    self.height_metres.metres(),
                     GATE_LEAF_THICKNESS_METRES,
                 ))?,
                 closed_yaw_radians: Radians::new(self.orientation.yaw_radians())?,

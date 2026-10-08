@@ -1,6 +1,9 @@
 //! Rough construction quantities; complete triangle intersections bound cut/fill.
 use super::*;
 use crate::footprint::{clip, height_in_triangle};
+use adventuresim_building_generator::spatial_geometry::PositiveLength;
+
+const PERIMETER_QUANTITY_PROBE_METRES: f32 = 1.0;
 
 #[derive(Debug, serde::Serialize)]
 #[serde(rename_all = "snake_case")]
@@ -16,14 +19,15 @@ pub(super) enum QuantityError {
     },
 }
 
-const PERIMETER_QUANTITY_PROBE_METRES: f32 = 1.0;
-
 pub(super) fn measure(
     plan: &CompoundSupportPlan,
     geographic: &[[Vec3; 3]],
     terrain_height: &impl Fn(Vec2) -> Option<f32>,
-    assumed_wall_thickness_metres: f32,
+    assumed_wall_thickness: PositiveLength,
 ) -> Result<Value, QuantityError> {
+    // The perimeter/volume integration retains its native metre arithmetic;
+    // the shared positive leaf owns admission before this numerical kernel.
+    let assumed_wall_thickness_metres = assumed_wall_thickness.metres();
     let mesh = plan
         .mesh()
         .map_err(|diagnostic| QuantityError::Support { diagnostic })?;

@@ -23,6 +23,14 @@ struct MarketFrame {
     maximum: Vec2,
 }
 
+struct MarketRow {
+    patch_index: usize,
+    patch: CityStreetPatch,
+    y: f32,
+    row: usize,
+    direction: f32,
+}
+
 impl MarketFrame {
     fn new(input: &TacticalSceneInput, corners: [Vec2; 4]) -> Option<Self> {
         let centre = corners.into_iter().sum::<Vec2>() * 0.25;
@@ -69,77 +77,6 @@ impl MarketFrame {
     fn point(&self, local: Vec2) -> Vec2 {
         self.centre + self.orientation.local_to_world(local)
     }
-}
-
-pub(in crate::scene_input::furniture) fn market(
-    input: &TacticalSceneInput,
-) -> Result<MarketCandidates, crate::scene_input::SceneInputError> {
-    let mut result = MarketCandidates {
-        groups: Vec::new(),
-        aisles: Vec::new(),
-    };
-    let mut row_depth = 0.0_f32;
-    for variant in FurnitureVariant::ALL {
-        let LocalReservationBounds {
-            minimum: min,
-            maximum: max,
-        } = reservation_bounds(
-            FurnitureKey::natural(FurnitureKind::CanvasStall, variant).recipe()?,
-        );
-        row_depth = row_depth.max(max.y - min.y);
-    }
-    for (index, patch) in input.streets.iter().enumerate() {
-        let CityStreetPatch::Market { corners_metres, .. } = *patch else {
-            continue;
-        };
-        let Some(frame) = MarketFrame::new(input, corners_metres) else {
-            continue;
-        };
-        for (half, direction) in [-1.0, 1.0].into_iter().enumerate() {
-            let limit = if direction < 0.0 {
-                -frame.minimum.y
-            } else {
-                frame.maximum.y
-            };
-            let mut cursor = reservations::MARKET_AISLE_HALF_WIDTH_METRES + BOUNDARY_MARGIN_METRES;
-            for row in 0..MAX_MARKET_ROWS_PER_HALF {
-                if cursor + row_depth > limit {
-                    break;
-                }
-                let y = direction * (cursor + row_depth * 0.5);
-                MarketRow {
-                    patch_index: index,
-                    patch: *patch,
-                    y,
-                    row: half * MAX_MARKET_ROWS_PER_HALF + row,
-                    direction,
-                }
-                .append(input, &frame, &mut result.groups)?;
-                cursor += row_depth;
-                if row.is_multiple_of(2) {
-                    cursor += ROW_SEPARATION_METRES;
-                } else {
-                    cursor += BOUNDARY_MARGIN_METRES;
-                    let aisle_y = direction * (cursor + CUSTOMER_AISLE_METRES * 0.5);
-                    result.aisles.push(reservations::route(
-                        frame.point(Vec2::new(frame.minimum.x, aisle_y)),
-                        frame.point(Vec2::new(frame.maximum.x, aisle_y)),
-                        CUSTOMER_AISLE_METRES * 0.5,
-                    )?);
-                    cursor += CUSTOMER_AISLE_METRES + BOUNDARY_MARGIN_METRES;
-                }
-            }
-        }
-    }
-    Ok(result)
-}
-
-struct MarketRow {
-    patch_index: usize,
-    patch: CityStreetPatch,
-    y: f32,
-    row: usize,
-    direction: f32,
 }
 impl MarketRow {
     fn append(
@@ -205,4 +142,68 @@ impl MarketRow {
         }
         Ok(())
     }
+}
+
+pub(in crate::scene_input::furniture) fn market(
+    input: &TacticalSceneInput,
+) -> Result<MarketCandidates, crate::scene_input::SceneInputError> {
+    let mut result = MarketCandidates {
+        groups: Vec::new(),
+        aisles: Vec::new(),
+    };
+    let mut row_depth = 0.0_f32;
+    for variant in FurnitureVariant::ALL {
+        let LocalReservationBounds {
+            minimum: min,
+            maximum: max,
+        } = reservation_bounds(
+            FurnitureKey::natural(FurnitureKind::CanvasStall, variant).recipe()?,
+        );
+        row_depth = row_depth.max(max.y - min.y);
+    }
+    for (index, patch) in input.streets.iter().enumerate() {
+        let CityStreetPatch::Market { corners_metres, .. } = *patch else {
+            continue;
+        };
+        let corners_metres = corners_metres.map(crate::scene_coordinates::ScenePlanPoint::metres);
+        let Some(frame) = MarketFrame::new(input, corners_metres) else {
+            continue;
+        };
+        for (half, direction) in [-1.0, 1.0].into_iter().enumerate() {
+            let limit = if direction < 0.0 {
+                -frame.minimum.y
+            } else {
+                frame.maximum.y
+            };
+            let mut cursor = reservations::MARKET_AISLE_HALF_WIDTH_METRES + BOUNDARY_MARGIN_METRES;
+            for row in 0..MAX_MARKET_ROWS_PER_HALF {
+                if cursor + row_depth > limit {
+                    break;
+                }
+                let y = direction * (cursor + row_depth * 0.5);
+                MarketRow {
+                    patch_index: index,
+                    patch: *patch,
+                    y,
+                    row: half * MAX_MARKET_ROWS_PER_HALF + row,
+                    direction,
+                }
+                .append(input, &frame, &mut result.groups)?;
+                cursor += row_depth;
+                if row.is_multiple_of(2) {
+                    cursor += ROW_SEPARATION_METRES;
+                } else {
+                    cursor += BOUNDARY_MARGIN_METRES;
+                    let aisle_y = direction * (cursor + CUSTOMER_AISLE_METRES * 0.5);
+                    result.aisles.push(reservations::route(
+                        frame.point(Vec2::new(frame.minimum.x, aisle_y)),
+                        frame.point(Vec2::new(frame.maximum.x, aisle_y)),
+                        CUSTOMER_AISLE_METRES * 0.5,
+                    )?);
+                    cursor += CUSTOMER_AISLE_METRES + BOUNDARY_MARGIN_METRES;
+                }
+            }
+        }
+    }
+    Ok(result)
 }

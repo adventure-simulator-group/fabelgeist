@@ -28,6 +28,9 @@ mod interior;
 #[path = "generate_scene_fixtures/parish.rs"]
 mod parish;
 
+#[path = "generate_scene_fixtures/support.rs"]
+mod support;
+
 const DEFAULT_TEST_MINUTE: u64 = 339_840 + 10 * 60;
 const MASSIVE_CITY_RESIDENT_POPULATION: u32 = 40_000;
 const MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES: f32 = 50.0;
@@ -292,9 +295,6 @@ const fn fixture(
     }
 }
 
-#[path = "generate_scene_fixtures/support.rs"]
-mod support;
-
 fn build_fixture(fixture: Fixture) -> Result<TacticalSceneInput, Box<dyn std::error::Error>> {
     let mut city = fixture_buildings(fixture.buildings)?;
     support::declare_catalogue_properties(&mut city)?;
@@ -401,11 +401,11 @@ fn fixture_buildings(
         BuildingFixture::GardenReview => garden::layout()?,
         BuildingFixture::Empty => CitySceneLayout::default(),
         BuildingFixture::InteriorFurnitureCatalog => CitySceneLayout {
-            yards: interior::yards(),
+            yards: interior::yards()?,
             ..Default::default()
         },
         BuildingFixture::InteriorFurnitureRooms => CitySceneLayout {
-            yards: interior::yards(),
+            yards: interior::yards()?,
             playable: interior::buildings()?,
             ..Default::default()
         },
@@ -419,28 +419,43 @@ fn fixture_buildings(
             )?],
             ..Default::default()
         },
-        BuildingFixture::MassiveCity => CitySite::central_german_market_town()
+        BuildingFixture::MassiveCity => CitySite::central_german_market_town()?
             .generate(
                 (47_114).into(),
-                MASSIVE_CITY_RESIDENT_POPULATION,
+                adventuresim_core::settlement_property::ResidentCount::new(
+                    MASSIVE_CITY_RESIDENT_POPULATION,
+                ),
                 &massive_city_economy(),
-            )
-            .compile((47_114).into())
-            .expect("city properties must compile")
-            .partition(Some(MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES))
-            .expect("city must fit tactical budget"),
+            )?
+            .compile((47_114).into())?
+            .partition(Some(MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES))?,
         BuildingFixture::ParishReview => CitySceneLayout {
-            yards: parish::yards(),
+            yards: parish::yards()?,
             playable: parish::buildings()?,
             ..Default::default()
         },
         BuildingFixture::FurnitureReview => CitySceneLayout {
-            streets: furniture::streets(),
-            yards: furniture::yards(),
+            streets: furniture::streets()?,
+            yards: furniture::yards()?,
             playable: furniture::buildings()?,
             ..Default::default()
         },
     })
+}
+
+/// Offline authored coordinates enter the shared scene frame before publication.
+fn scene_corners(
+    corners: [Vec2; 4],
+) -> adventuresim_building_generator::spatial_geometry::GeometryResult<
+    [adventuresim_tactical_core::scene_coordinates::ScenePlanPoint; 4],
+> {
+    use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+    Ok([
+        ScenePlanPoint::try_from(corners[0])?,
+        ScenePlanPoint::try_from(corners[1])?,
+        ScenePlanPoint::try_from(corners[2])?,
+        ScenePlanPoint::try_from(corners[3])?,
+    ])
 }
 
 fn building(

@@ -1,30 +1,40 @@
-mod details;
-pub(in crate::presentation) mod grass;
-mod natural;
-use details::*;
-use fabelgeist_determinism::Seed;
-mod pigment;
-use pigment::{VistaVertexColors, vista_sward_coverage};
-#[cfg(test)]
-use pigment::{presented_color, stitch_vista_color_to_playable_edge, vista_sample_color};
-mod ground;
-use ground::{tree_root_height, vista_lod_meshes_with_morph, vista_scatter_transform};
-pub(super) mod owned;
-pub(super) mod pending;
-mod streams;
 use super::ground_scatter::TacticalGrassInstancedMaterial;
 use super::*;
 use adventuresim_tactical_core::scene_input::VistaLevelIndex;
 use adventuresim_tactical_core::vista_surface::*;
+use details::*;
+use fabelgeist_determinism::Seed;
 use grass::spawn_near_vista_scatter;
-
-pub(super) mod streets;
-mod surface;
+use ground::{tree_root_height, vista_lod_meshes_with_morph, vista_scatter_transform};
+use pigment::{VistaVertexColors, vista_sward_coverage};
+#[cfg(test)]
+use pigment::{presented_color, stitch_vista_color_to_playable_edge, vista_sample_color};
 
 pub(crate) use streets::CityGroundMaterial;
 use streets::UrbanGround;
 pub(super) use surface::ActiveVistaSurface;
 pub(crate) use surface::{VistaTerrain, VistaTerrainMesh};
+mod details;
+pub(in crate::presentation) mod grass;
+mod ground;
+mod natural;
+pub(super) mod owned;
+pub(super) mod pending;
+mod pigment;
+mod streams;
+
+pub(super) mod streets;
+mod surface;
+
+const VISTA_GRASS_BOUNDARY_STITCH_METRES: f32 = 12.0;
+
+pub(in crate::presentation) type TacticalVistaMaterial =
+    ExtendedMaterial<StandardMaterial, TacticalVistaExtension>;
+
+// Chunking is a CPU/ECS submission boundary, not a visual tessellation
+// boundary. Thirty-two cells retains the exact terrain vertices while cutting
+// a 50 km three-ring vista to about one sixteenth as many render entities.
+const VISTA_CHUNK_CELLS: usize = 32;
 
 /// Marker for a distant tree billboard spawned as part of a vista ring.
 #[derive(Component)]
@@ -36,6 +46,20 @@ pub(crate) struct VistaGrassPresentation;
 
 #[derive(Component)]
 pub(crate) struct VistaRockPresentation;
+
+#[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
+pub(in crate::presentation) struct TacticalVistaExtension {
+    #[uniform(100)]
+    weather: Vec4,
+    #[uniform(100)]
+    grass_color: Vec4,
+}
+
+impl MaterialExtension for TacticalVistaExtension {
+    fn fragment_shader() -> ShaderRef {
+        "shaders/tactical_vista.wgsl".into()
+    }
+}
 
 #[expect(
     clippy::too_many_arguments,
@@ -160,6 +184,19 @@ pub(super) fn on_scene_vista_bundle(
     log_vista_generation(presented_chunk_count, visible_lods.len(), started);
 }
 
+#[cfg(test)]
+pub(super) fn vista_lod_meshes(lod: &VistaLod, inner_half_extent: Vec2) -> Vec<Mesh> {
+    vista_lod_meshes_with_morph(
+        lod,
+        inner_half_extent,
+        None,
+        None,
+        None,
+        clear_vista_weather(),
+        None,
+    )
+}
+
 fn log_vista_generation(chunks: usize, lods: usize, started: web_time::Instant) {
     info!(
         chunks,
@@ -222,8 +259,6 @@ fn spawn_near_vista_details(
         standard_materials,
     );
 }
-
-const VISTA_GRASS_BOUNDARY_STITCH_METRES: f32 = 12.0;
 fn smoothstep01(value: f32) -> f32 {
     let value = value.clamp(0.0, 1.0);
     value * value * (3.0 - 2.0 * value)
@@ -256,19 +291,6 @@ fn stitched_vista_topology_coverage(
     playable_coverage.lerp(
         vista_coverage,
         smoothstep01(outside / VISTA_GRASS_BOUNDARY_STITCH_METRES),
-    )
-}
-
-#[cfg(test)]
-pub(super) fn vista_lod_meshes(lod: &VistaLod, inner_half_extent: Vec2) -> Vec<Mesh> {
-    vista_lod_meshes_with_morph(
-        lod,
-        inner_half_extent,
-        None,
-        None,
-        None,
-        clear_vista_weather(),
-        None,
     )
 }
 
@@ -306,23 +328,6 @@ fn clear_vista_weather() -> WeatherSnapshot {
     }
 }
 
-#[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
-pub(in crate::presentation) struct TacticalVistaExtension {
-    #[uniform(100)]
-    weather: Vec4,
-    #[uniform(100)]
-    grass_color: Vec4,
-}
-
-impl MaterialExtension for TacticalVistaExtension {
-    fn fragment_shader() -> ShaderRef {
-        "shaders/tactical_vista.wgsl".into()
-    }
-}
-
-pub(in crate::presentation) type TacticalVistaMaterial =
-    ExtendedMaterial<StandardMaterial, TacticalVistaExtension>;
-
 fn vista_material(weather: WeatherSnapshot, grass_color: Color) -> TacticalVistaMaterial {
     TacticalVistaMaterial {
         base: StandardMaterial {
@@ -342,11 +347,6 @@ fn vista_material(weather: WeatherSnapshot, grass_color: Color) -> TacticalVista
         },
     }
 }
-
-// Chunking is a CPU/ECS submission boundary, not a visual tessellation
-// boundary. Thirty-two cells retains the exact terrain vertices while cutting
-// a 50 km three-ring vista to about one sixteenth as many render entities.
-const VISTA_CHUNK_CELLS: usize = 32;
 
 #[cfg(test)]
 mod tests {
@@ -766,9 +766,17 @@ mod tests {
         assert!((vista - vista_sward_coverage(deep_woods)).abs() < 0.01);
 
         let street = [CityStreetPatch::Corridor {
-            start_metres: Vec2::new(12.0, 0.0),
-            end_metres: Vec2::new(28.0, 0.0),
-            half_width_metres: 2.0,
+            start_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::new(12.0, 0.0),
+            )
+            .unwrap(),
+            end_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::new(28.0, 0.0),
+            )
+            .unwrap(),
+            half_width_metres:
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(2.0)
+                    .unwrap(),
             surface: CityStreetSurface::CompactedEarth,
         }];
         assert_eq!(

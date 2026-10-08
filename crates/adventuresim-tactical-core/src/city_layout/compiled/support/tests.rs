@@ -30,13 +30,17 @@ fn required_population_seed_matrix_retains_capacity_and_exact_members_on_gentle_
         })
         .chain([(30000, fabelgeist_determinism::Seed::from_u64(101))]);
     for (population, seed) in cases {
-        let generated = CitySite::central_german_market_town().generate(
-            seed,
-            population,
-            &super::super::super::tests::economy(),
-        );
+        let generated = CitySite::central_german_market_town()
+            .unwrap()
+            .generate(
+                seed,
+                adventuresim_core::settlement_property::ResidentCount::new(population),
+                &super::super::super::tests::economy(),
+            )
+            .unwrap();
         assert_eq!(
-            generated.unhoused_population, 0,
+            generated.unhoused_population,
+            ResidentCount::ZERO,
             "population {population}, seed {seed}"
         );
         assert!(generated.unplaced_services.is_empty());

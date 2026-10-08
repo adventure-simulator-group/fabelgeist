@@ -3,89 +3,31 @@ use super::*;
 use crate::scene_input::{DistantBuildingPlacement, TacticalBuildingPlacement};
 use adventuresim_building_generator::BuildingArchetype;
 use adventuresim_world_schema::settlement_buildings::BusinessKey;
+pub use church::ChurchSitingIssue;
 use fabelgeist_determinism::Seed;
-
-mod assembly;
-mod church;
-mod gardens;
 pub use gardens::GardenClearanceError;
-mod grounded;
-mod homes;
-mod packing;
-mod single_support;
+pub(crate) use gardens::validate_scene_gardens;
 pub use grounded::{
     CityGroundingError, CityGroundingProjection, CityGroundingProjectionError,
     GroundedCitySceneLayout, ProjectionBoundary, ProjectionOwnerContext, SelectedCityGrounding,
 };
-mod support;
-pub(crate) use gardens::validate_scene_gardens;
+pub use recipes::CityRecipePalette;
 pub use single_support::{CitySingleProperty, SinglePropertyGradingPolicy};
 pub use support::{CitySupportError, CompoundGradingPolicy, StreetApronDimensions};
+
+mod assembly;
+mod church;
+mod gardens;
+mod grounded;
+mod homes;
+mod packing;
 mod property;
-pub use church::ChurchSitingIssue;
 mod recipes;
-pub use recipes::CityRecipePalette;
-#[cfg(test)]
-mod tests;
+mod single_support;
+mod support;
 
 /// Accepted city-property compilation preserves its shared error classification.
 pub type CityCompileResult<T> = std::result::Result<T, CityCompileError>;
-
-#[derive(Clone, Debug, PartialEq, thiserror::Error)]
-pub enum CityCompileError {
-    #[error(transparent)]
-    BoundaryGeometry(#[from] crate::city_layout::BoundaryGeometryError),
-    #[error(transparent)]
-    Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
-    #[error(transparent)]
-    Collision(#[from] adventuresim_building_generator::CollisionError),
-    #[error(transparent)]
-    Door(#[from] adventuresim_building_generator::DoorError),
-    #[error(transparent)]
-    Construction(#[from] adventuresim_building_generator::GenerationError),
-    #[error("property {property:?} cannot be packed: {issue:?}")]
-    Packing {
-        property: CityPropertyId,
-        issue: CityPackingIssue,
-    },
-    #[error("church {building} is not buildable: {issue:?}")]
-    Church {
-        building: crate::scene_input::SceneBuildingId,
-        issue: ChurchSitingIssue,
-    },
-    #[error("parish {parish:?} lacks its precinct or resident catchment")]
-    Parish {
-        parish: adventuresim_world_schema::settlement_buildings::ParishId,
-    },
-    #[error("playable city needs {required} building instances, exceeding {maximum}")]
-    PlayableCapacity { required: usize, maximum: usize },
-    #[error("city lacks room for {residents} residents and {services} service buildings")]
-    Capacity { residents: u32, services: usize },
-    #[error("{archetype:?} recipe from seed {seed} failed: {source}")]
-    Recipe {
-        archetype: BuildingArchetype,
-        seed: Seed,
-        source: adventuresim_building_generator::GenerationError,
-    },
-    #[error("property {property:?} is not buildable: {issue:?}")]
-    Compound {
-        property: CityPropertyId,
-        issue: CompoundIssue,
-    },
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum CompoundIssue {
-    MissingCourtDoor,
-    MissingRangeDoor,
-    GeometryOutsidePlot,
-    AccessBlocked {
-        building: crate::scene_input::SceneBuildingId,
-    },
-    GateBlocksOpenPassage,
-    GateSweepBlocked,
-    StreetDisconnected,
-}
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct CompiledCityLayout {
@@ -124,6 +66,67 @@ pub struct CitySceneLayout {
     pub support_recipes: CityRecipePalette,
 }
 
+#[derive(Clone, Debug, PartialEq, thiserror::Error)]
+pub enum CityCompileError {
+    #[error(transparent)]
+    Planning(#[from] CityPlanningIssue),
+    #[error(transparent)]
+    BoundaryGeometry(#[from] crate::city_layout::BoundaryGeometryError),
+    #[error(transparent)]
+    Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
+    #[error(transparent)]
+    Collision(#[from] adventuresim_building_generator::CollisionError),
+    #[error(transparent)]
+    Door(#[from] adventuresim_building_generator::DoorError),
+    #[error(transparent)]
+    Construction(#[from] adventuresim_building_generator::GenerationError),
+    #[error("property {property:?} cannot be packed: {issue:?}")]
+    Packing {
+        property: CityPropertyId,
+        issue: CityPackingIssue,
+    },
+    #[error("church {building} is not buildable: {issue:?}")]
+    Church {
+        building: crate::scene_input::SceneBuildingId,
+        issue: ChurchSitingIssue,
+    },
+    #[error("parish {parish:?} lacks its precinct or resident catchment")]
+    Parish {
+        parish: adventuresim_world_schema::settlement_buildings::ParishId,
+    },
+    #[error("playable city needs {required} building instances, exceeding {maximum}")]
+    PlayableCapacity { required: usize, maximum: usize },
+    #[error("city lacks room for {residents} residents and {services} service buildings")]
+    Capacity {
+        residents: ResidentCount,
+        services: usize,
+    },
+    #[error("{archetype:?} recipe from seed {seed} failed: {source}")]
+    Recipe {
+        archetype: BuildingArchetype,
+        seed: Seed,
+        source: adventuresim_building_generator::GenerationError,
+    },
+    #[error("property {property:?} is not buildable: {issue:?}")]
+    Compound {
+        property: CityPropertyId,
+        issue: CompoundIssue,
+    },
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CompoundIssue {
+    MissingCourtDoor,
+    MissingRangeDoor,
+    GeometryOutsidePlot,
+    AccessBlocked {
+        building: crate::scene_input::SceneBuildingId,
+    },
+    GateBlocksOpenPassage,
+    GateSweepBlocked,
+    StreetDisconnected,
+}
+
 impl GeneratedCityLayout {
     /// Compile the selected roster, then solve its measured physical packing.
     pub fn compile(
@@ -138,40 +141,6 @@ impl GeneratedCityLayout {
         compiled.finalize_packing(&context)?;
         Ok(compiled)
     }
-}
-
-/// Recheck authored scene descriptors against their actual generated members.
-pub(crate) fn validate_scene_compound(
-    compound: &CityCompound,
-    front: &crate::scene_input::GeneratedBuilding,
-    rear: &crate::scene_input::GeneratedBuilding,
-    streets: &[CityStreetPatch],
-) -> CityCompileResult<()> {
-    let front_recipe = recipes::Recipe::from_generated(front)?;
-    let rear_recipe = recipes::Recipe::from_generated(rear)?;
-    if !front_recipe.fits(&front.placement, compound.plot)
-        || !rear_recipe.fits(&rear.placement, compound.plot)
-    {
-        return Err(CityCompileError::Compound {
-            property: compound.id,
-            issue: CompoundIssue::GeometryOutsidePlot,
-        });
-    }
-    property::validate_access(
-        compound,
-        &front.placement,
-        &front_recipe,
-        &rear.placement,
-        &rear_recipe,
-        streets,
-    )?;
-    property::clearance::validate(
-        compound,
-        &front.placement,
-        &front_recipe,
-        &rear.placement,
-        &rear_recipe,
-    )
 }
 
 impl CompiledCityLayout {
@@ -253,3 +222,39 @@ impl CompiledCityLayout {
         Ok(result)
     }
 }
+
+/// Recheck authored scene descriptors against their actual generated members.
+pub(crate) fn validate_scene_compound(
+    compound: &CityCompound,
+    front: &crate::scene_input::GeneratedBuilding,
+    rear: &crate::scene_input::GeneratedBuilding,
+    streets: &[CityStreetPatch],
+) -> CityCompileResult<()> {
+    let front_recipe = recipes::Recipe::from_generated(front)?;
+    let rear_recipe = recipes::Recipe::from_generated(rear)?;
+    if !front_recipe.fits(&front.placement, compound.plot)
+        || !rear_recipe.fits(&rear.placement, compound.plot)
+    {
+        return Err(CityCompileError::Compound {
+            property: compound.id,
+            issue: CompoundIssue::GeometryOutsidePlot,
+        });
+    }
+    property::validate_access(
+        compound,
+        &front.placement,
+        &front_recipe,
+        &rear.placement,
+        &rear_recipe,
+        streets,
+    )?;
+    property::clearance::validate(
+        compound,
+        &front.placement,
+        &front_recipe,
+        &rear.placement,
+        &rear_recipe,
+    )
+}
+#[cfg(test)]
+mod tests;

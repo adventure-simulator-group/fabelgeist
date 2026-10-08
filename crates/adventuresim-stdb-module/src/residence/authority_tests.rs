@@ -28,7 +28,7 @@ pub fn authority_test_property_setup(
         .ok_or("Seeded world missing")?;
     settlement.id = catalog.settlement_id.clone();
     settlement.name = "Property acceptance town".into();
-    settlement.population_estimate = catalog.population;
+    settlement.population_estimate = catalog.population.get();
     settlement.economy = serde_json::from_str(&economy_json).map_err(|error| error.to_string())?;
     ctx.db.settlement().insert(settlement);
     properties::register_settlement_properties(ctx, catalog_json.clone())?;
@@ -56,7 +56,8 @@ pub fn authority_test_property_setup(
         })
         .map(|row| u64::from(row.unmaterialized_residents))
         .sum();
-    if named + aggregate != u64::from(catalog.population) || named >= u64::from(catalog.population)
+    if named + aggregate != u64::from(catalog.population.get())
+        || named >= u64::from(catalog.population.get())
     {
         return Err(
             "Housing census must preserve population with a bounded character roster".into(),

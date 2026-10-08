@@ -10,15 +10,36 @@ pub(super) fn economy() -> SettlementEconomyProfile {
 
 #[test]
 fn city_lots_are_deterministic_and_follow_many_connected_street_segments() {
-    let small = CitySite::central_german_market_town().generate((42).into(), 8_000, &economy());
-    let large = CitySite::central_german_market_town().generate((42).into(), 40_000, &economy());
+    let small = CitySite::central_german_market_town()
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(8_000),
+            &economy(),
+        )
+        .unwrap();
+    let large = CitySite::central_german_market_town()
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(40_000),
+            &economy(),
+        )
+        .unwrap();
     assert_eq!(
         small,
-        CitySite::central_german_market_town().generate((42).into(), 8_000, &economy())
+        CitySite::central_german_market_town()
+            .unwrap()
+            .generate(
+                (42).into(),
+                adventuresim_core::settlement_property::ResidentCount::new(8_000),
+                &economy()
+            )
+            .unwrap()
     );
     assert!(small.lots.len() < large.lots.len());
     assert!(large.unplaced_services.is_empty());
-    assert_eq!(large.unhoused_population, 0);
+    assert_eq!(large.unhoused_population, ResidentCount::ZERO);
     let mut headings = large
         .lots
         .iter()
@@ -33,14 +54,22 @@ fn city_lots_are_deterministic_and_follow_many_connected_street_segments() {
 fn population_is_represented_by_physical_house_capacity() {
     for population in [900, 6_500, 40_000] {
         let lots = CitySite::central_german_market_town()
-            .generate((42).into(), population, &economy())
+            .unwrap()
+            .generate(
+                (42).into(),
+                adventuresim_core::settlement_property::ResidentCount::new(population),
+                &economy(),
+            )
+            .unwrap()
             .lots;
         let mut market = adventuresim_core::settlement_property::HousingMarketReserve::default();
         let capacity = lots
             .iter()
             .filter(|lot| lot.service.is_none())
-            .filter(|lot| !market.reserve(lot.house_class.housing_tier()))
-            .map(|lot| lot.house_class.resident_capacity())
+            .filter(|lot| {
+                market.reserve(lot.house_class.housing_tier()) == HomeSupplyRole::PopulationHousing
+            })
+            .map(|lot| lot.house_class.resident_capacity().get())
             .sum::<u32>();
         assert!(
             capacity >= population,
@@ -55,13 +84,19 @@ fn population_is_represented_by_physical_house_capacity() {
 #[test]
 fn accepted_building_footprints_do_not_overlap() {
     let lots = CitySite::central_german_market_town()
-        .generate((42).into(), 40_000, &economy())
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(40_000),
+            &economy(),
+        )
+        .unwrap()
         .lots;
     for (index, lot) in lots.iter().enumerate() {
         assert!(
             lots[index + 1..]
                 .iter()
-                .all(|other| !lots_overlap(*lot, *other))
+                .all(|other| !lots_overlap(lot.bounds().unwrap(), other.bounds().unwrap()))
         );
     }
 }
@@ -69,9 +104,14 @@ fn accepted_building_footprints_do_not_overlap() {
 #[test]
 fn building_south_side_faces_out_of_its_block() {
     let block = CitySite::central_german_market_town()
-        .street_graph((42).into(), DevelopmentExtent::for_population(40_000))
+        .unwrap()
+        .street_graph(
+            (42).into(),
+            DevelopmentExtent::for_population(ResidentCount::new(40_000)).unwrap(),
+        )
+        .unwrap()
         .blocks[0];
-    let tangent = (block.corners[1] - block.corners[0]).normalize();
+    let tangent = (block.corners_metres()[1] - block.corners_metres()[0]).normalize();
     let inward = Vec2::new(-tangent.y, tangent.x);
     let orientation = BuildingOrientation::from_frontage_tangent(tangent).unwrap();
     assert!(orientation.local_to_world(-Vec2::Y).dot(-inward) > 0.999);
@@ -79,7 +119,14 @@ fn building_south_side_faces_out_of_its_block() {
 
 #[test]
 fn street_surfaces_are_mixed_grass_free_patches_from_the_same_graph() {
-    let city = CitySite::central_german_market_town().generate((42).into(), 40_000, &economy());
+    let city = CitySite::central_german_market_town()
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(40_000),
+            &economy(),
+        )
+        .unwrap();
     assert!(city.streets.len() > 100);
     for surface in [
         CityStreetSurface::CompactedEarth,
@@ -101,8 +148,14 @@ fn street_surfaces_are_mixed_grass_free_patches_from_the_same_graph() {
                 start_metres,
                 end_metres,
                 ..
-            } => (start_metres + end_metres) * 0.5,
+            } => {
+                let start_metres = start_metres.metres();
+                let end_metres = end_metres.metres();
+                (start_metres + end_metres) * 0.5
+            }
             CityStreetPatch::Market { corners_metres, .. } => {
+                let corners_metres =
+                    corners_metres.map(crate::scene_coordinates::ScenePlanPoint::metres);
                 corners_metres.into_iter().sum::<Vec2>() * 0.25
             }
         };
@@ -112,7 +165,14 @@ fn street_surfaces_are_mixed_grass_free_patches_from_the_same_graph() {
 
 #[test]
 fn every_selected_lot_belongs_to_a_deterministic_developed_yard() {
-    let city = CitySite::central_german_market_town().generate((42).into(), 40_000, &economy());
+    let city = CitySite::central_german_market_town()
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(40_000),
+            &economy(),
+        )
+        .unwrap();
     assert!(!city.yards.is_empty());
     assert!(city.yards.iter().all(|yard| yard.is_valid()));
     assert!(
@@ -129,15 +189,21 @@ fn every_selected_lot_belongs_to_a_deterministic_developed_yard() {
     assert!(city.lots.iter().all(|lot| {
         city.yards
             .iter()
-            .any(|yard| yard.contains(lot.centre_metres))
+            .any(|yard| yard.contains(lot.centre_metres.metres()))
     }));
 }
 
 #[test]
 fn every_street_corridor_connects_to_the_market_network() {
     for population in [120, 900, 6_500] {
-        let city =
-            CitySite::central_german_market_town().generate((42).into(), population, &economy());
+        let city = CitySite::central_german_market_town()
+            .unwrap()
+            .generate(
+                (42).into(),
+                adventuresim_core::settlement_property::ResidentCount::new(population),
+                &economy(),
+            )
+            .unwrap();
         let corridors = city
             .streets
             .iter()
@@ -146,7 +212,11 @@ fn every_street_corridor_connects_to_the_market_network() {
                     start_metres,
                     end_metres,
                     ..
-                } => Some((*start_metres, *end_metres)),
+                } => {
+                    let start_metres = start_metres.metres();
+                    let end_metres = end_metres.metres();
+                    Some((start_metres, end_metres))
+                }
                 _ => None,
             })
             .collect::<Vec<_>>();
@@ -173,7 +243,14 @@ fn every_street_corridor_connects_to_the_market_network() {
 
 #[test]
 fn extreme_population_reports_shortfall_without_claiming_capacity() {
-    let city = CitySite::central_german_market_town().generate((42).into(), u32::MAX, &economy());
-    assert_eq!(city.unhoused_population, u32::MAX);
+    let city = CitySite::central_german_market_town()
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(u32::MAX),
+            &economy(),
+        )
+        .unwrap();
+    assert_eq!(city.unhoused_population, ResidentCount::new(u32::MAX));
     assert!(!city.unplaced_services.is_empty());
 }

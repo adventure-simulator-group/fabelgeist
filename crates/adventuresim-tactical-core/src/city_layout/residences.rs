@@ -1,9 +1,9 @@
 //! Pack street rows around the already reserved civic and workplace properties.
 use super::*;
+pub(super) use roster::SelectedRoster;
 use std::collections::BTreeMap;
 
 mod roster;
-pub(super) use roster::SelectedRoster;
 
 const FRONTAGE_SEARCH_STEP_METRES: f32 = 1.0;
 
@@ -12,7 +12,7 @@ pub(super) fn pack(
     blocks: &[CityBlock],
     extent: DevelopmentExtent,
     services: Vec<CandidateLot>,
-) -> Vec<CandidateLot> {
+) -> GeometryResult<Vec<CandidateLot>> {
     let mut properties = BTreeMap::<BlockId, Vec<CandidateLot>>::new();
     for service in services {
         properties
@@ -28,15 +28,17 @@ pub(super) fn pack(
         let accepted = properties.entry(block.id).or_default();
         let mut edges = [0, 1, 2, 3];
         edges.sort_by(|&a, &b| {
-            let length =
-                |edge: usize| block.corners[edge].distance_squared(block.corners[(edge + 1) % 4]);
+            let length = |edge: usize| {
+                block.corners_metres()[edge]
+                    .distance_squared(block.corners_metres()[(edge + 1) % 4])
+            };
             length(b).total_cmp(&length(a)).then(a.cmp(&b))
         });
         for edge in edges {
-            pack_frontage(seed, block, edge, accepted);
+            pack_frontage(seed, block, edge, accepted)?;
         }
     }
-    properties.into_values().flatten().collect()
+    Ok(properties.into_values().flatten().collect())
 }
 
 fn pack_frontage(
@@ -44,43 +46,45 @@ fn pack_frontage(
     block: CityBlock,
     edge: usize,
     accepted: &mut Vec<CandidateLot>,
-) {
-    let start = block.corners[edge];
-    let end = block.corners[(edge + 1) % 4];
+) -> GeometryResult<()> {
+    let start = block.corners_metres()[edge];
+    let end = block.corners_metres()[(edge + 1) % 4];
     let tangent = (end - start).normalize();
     let mut row = Vec::new();
     append_frontage(
         &mut row,
         seed,
-        StreamId::new("city.frontage-identity")
-            .seed(block.id.0.into(), &[edge as u64])
-            .to_u64(),
+        StreamId::new("city.frontage-identity").seed(block.id.0.into(), &[edge as u64]),
         block.id,
-        start,
-        end,
-        block.streets[edge].half_width(),
-    );
+        block.corners[edge],
+        block.corners[(edge + 1) % 4],
+        block.streets[edge].half_width()?,
+    )?;
     let mut cursor = FRONTAGE_CORNER_CLEARANCE_METRES;
     let end = start.distance(end) - FRONTAGE_CORNER_CLEARANCE_METRES;
     for candidate in row {
-        let reservation = plots::reservation(candidate.lot);
+        let reservation = plots::reservation(candidate.lot)?;
         let left = plots::corners(reservation)
             .into_iter()
             .map(|point| (point - start).dot(tangent))
             .fold(f32::INFINITY, f32::min);
-        let width = reservation.footprint_metres.x;
+        let width = reservation.dimensions_metres().x;
         let mut position = cursor;
         while position + width <= end {
             let mut trial = candidate;
-            trial.lot.centre_metres += tangent * (position - left);
-            if plots::inside_block(trial.lot, block)
-                && accepted.iter().all(|other| {
-                    !plots::lots_overlap(
-                        plots::reservation(trial.lot),
-                        plots::reservation(other.lot),
-                    )
-                })
-            {
+            trial.lot.centre_metres = trial
+                .lot
+                .centre_metres
+                .translated(PlanDisplacement::try_from(tangent * (position - left))?)?;
+            let proposed = plots::reservation(trial.lot)?;
+            let mut clears = true;
+            for other in accepted.iter() {
+                if plots::lots_overlap(proposed, plots::reservation(other.lot)?) {
+                    clears = false;
+                    break;
+                }
+            }
+            if plots::inside_block(trial.lot, block)? && clears {
                 accepted.push(trial);
                 cursor = position + width + PARTY_WALL_CLEARANCE_METRES;
                 break;
@@ -90,4 +94,5 @@ fn pack_frontage(
         // If a deep property cannot fit, the next household can still use the
         // remaining frontage. No accepted court or side passage is reduced.
     }
+    Ok(())
 }

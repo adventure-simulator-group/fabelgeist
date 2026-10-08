@@ -43,10 +43,7 @@ fn production_compound_routes_allow_entry_thresholds_and_return() {
         if selected.is_some_and(|id| property.id.0 != id) {
             continue;
         }
-        let gate = crate::scene_coordinates::ScenePlanPoint::try_from(
-            property.boundary.gate.centre_metres,
-        )
-        .unwrap();
+        let gate = property.boundary.gate.centre_metres;
         let passage = property
             .access
             .iter()
@@ -64,7 +61,7 @@ fn production_compound_routes_allow_entry_thresholds_and_return() {
             Some(property.id),
         );
         let targets = [
-            property.boundary.gate.centre_metres,
+            property.boundary.gate.centre_metres.metres(),
             passage.end_metres(),
             property.access[1].end_metres(),
             property.access[2].end_metres(),
@@ -74,7 +71,7 @@ fn production_compound_routes_allow_entry_thresholds_and_return() {
             property.access[4].end_metres(),
             property.access[4].start_metres(),
             passage.end_metres(),
-            property.boundary.gate.centre_metres,
+            property.boundary.gate.centre_metres.metres(),
             passage.start_metres(),
         ];
         let mut visits = Vec::new();

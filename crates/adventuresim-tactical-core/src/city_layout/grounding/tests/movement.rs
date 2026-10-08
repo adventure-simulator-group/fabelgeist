@@ -28,24 +28,6 @@ struct LastDriveVelocity(Vec3);
 #[derive(Component)]
 struct ExactBuildingGeometry(crate::scene_input::GeneratedBuilding);
 
-fn drive(mut walkers: Query<(&Position, &WalkGoal, &mut AccumulatedInput)>) {
-    for (position, goal, mut input) in &mut walkers {
-        let delta = goal.0 - position.0.xz();
-        // A route waypoint asks the pedestrian to arrive and stop. Taper input
-        // over one body radius instead of steering a full-speed U-turn through
-        // a narrow doorway with the real motor's bounded turning acceleration.
-        let movement = delta.normalize_or_zero()
-            * (delta.length() / HUMANOID_COLLISION_RADIUS_METRES).min(1.0);
-        input.last_movement = Some(Vec2::new(movement.x, -movement.y));
-    }
-}
-
-fn capture_drive(mut walkers: Query<(&LinearVelocity, &mut LastDriveVelocity)>) {
-    for (velocity, mut sample) in &mut walkers {
-        sample.0 = velocity.0;
-    }
-}
-
 impl Walker {
     fn on_surface(mesh: &PropertySupportMesh, start: Vec2, elevation: f32) -> Self {
         Self::on_collider(mesh.collider().unwrap(), start, elevation)
@@ -338,6 +320,24 @@ impl Walker {
     }
 }
 
+fn drive(mut walkers: Query<(&Position, &WalkGoal, &mut AccumulatedInput)>) {
+    for (position, goal, mut input) in &mut walkers {
+        let delta = goal.0 - position.0.xz();
+        // A route waypoint asks the pedestrian to arrive and stop. Taper input
+        // over one body radius instead of steering a full-speed U-turn through
+        // a narrow doorway with the real motor's bounded turning acceleration.
+        let movement = delta.normalize_or_zero()
+            * (delta.length() / HUMANOID_COLLISION_RADIUS_METRES).min(1.0);
+        input.last_movement = Some(Vec2::new(movement.x, -movement.y));
+    }
+}
+
+fn capture_drive(mut walkers: Query<(&LinearVelocity, &mut LastDriveVelocity)>) {
+    for (velocity, mut sample) in &mut walkers {
+        sample.0 = velocity.0;
+    }
+}
+
 #[test]
 fn a_riser_above_the_configured_step_limit_remains_blocked() {
     let surface = Collider::compound(vec![
@@ -514,7 +514,7 @@ fn traverse_court(fixture: &Fixture) {
         .find(|r| {
             r.contains_centreline(
                 crate::scene_coordinates::ScenePlanPoint::try_from(
-                    fixture.property.boundary.gate.centre_metres,
+                    fixture.property.boundary.gate.centre_metres.metres(),
                 )
                 .unwrap(),
             )
@@ -567,7 +567,7 @@ fn traverse_court(fixture: &Fixture) {
         Transform::from_translation(open_centre)
             .with_rotation(rotation * Quat::from_rotation_y(door.closed_yaw_radians.radians())),
     ));
-    walker.walk_to(fixture.property.boundary.gate.centre_metres);
+    walker.walk_to(fixture.property.boundary.gate.centre_metres.metres());
     walker.walk_to(passage.end_metres());
     for member in plan.member_support() {
         let route = fixture
@@ -588,7 +588,7 @@ fn traverse_court(fixture: &Fixture) {
         walker.walk_to(route.start_metres());
     }
     walker.walk_to(passage.end_metres());
-    walker.walk_to(fixture.property.boundary.gate.centre_metres);
+    walker.walk_to(fixture.property.boundary.gate.centre_metres.metres());
     walker.walk_to(passage.start_metres());
 }
 

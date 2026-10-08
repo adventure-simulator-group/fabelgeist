@@ -3,15 +3,25 @@ use super::*;
 
 pub(super) struct Search<'a> {
     model: &'a Model<'a>,
-    nodes: usize,
-    maximum: usize,
+    nodes: ExploredSearchNodes,
+    maximum: SearchBudget,
     numerical_failure: bool,
 }
+
+struct SelectedBranch {
+    pair_index: usize,
+    children: Vec<Candidate>,
+}
+
+struct Candidate {
+    problem: Problem,
+    positions: Vec<f64>,
+}
 impl<'a> Search<'a> {
-    pub(super) fn new(model: &'a Model<'a>, maximum: usize) -> Self {
+    pub(super) fn new(model: &'a Model<'a>, maximum: SearchBudget) -> Self {
         Self {
             model,
-            nodes: 0,
+            nodes: ExploredSearchNodes::default(),
             maximum,
             numerical_failure: false,
         }
@@ -29,7 +39,7 @@ impl<'a> Search<'a> {
             });
         CountedSearchOutcome {
             outcome: result.and_then(FrontageDisplacements::from_solver),
-            explored_nodes: ExploredSearchNodes::new(self.nodes),
+            explored_nodes: self.nodes,
         }
     }
     fn visit(
@@ -46,13 +56,12 @@ impl<'a> Search<'a> {
         &mut self,
         problem: &Problem,
     ) -> Result<Option<Vec<f64>>, CoupledPackingIssue> {
-        if self.nodes >= self.maximum {
+        if !self.nodes.attempt(self.maximum) {
             return Err(CoupledPackingIssue::SearchBudget {
                 explored: self.nodes,
                 maximum: self.maximum,
             });
         }
-        self.nodes += 1;
         let solution = match problem.solve() {
             Ok(outcome) => outcome
                 .into_solution()
@@ -93,7 +102,7 @@ impl<'a> Search<'a> {
             })
             .collect::<Vec<_>>();
         conflicts.sort_by_key(|&index| (self.model.pairs[index].conditions.len(), index));
-        let mut selected: Option<(usize, Vec<Candidate>)> = None;
+        let mut selected: Option<SelectedBranch> = None;
         for index in conflicts {
             let pair = &self.model.pairs[index];
             let mut directions = pair.conditions.clone();
@@ -105,11 +114,28 @@ impl<'a> Search<'a> {
             for condition in directions {
                 let mut branch = problem.clone();
                 pair.add(condition, &mut branch, &self.model.variables);
-                if let Some(positions) = self.solve_problem(&branch)? {
-                    children.push(Candidate {
+                match self.solve_problem(&branch) {
+                    Ok(Some(positions)) => children.push(Candidate {
                         problem: branch,
                         positions,
-                    });
+                    }),
+                    Ok(None) => {}
+                    Err(issue) => {
+                        // A later sibling cannot erase an already complete LP
+                        // solution. Rounded world geometry is still verified by
+                        // the caller before accepting this selection.
+                        if let Some(candidate) = children.iter().find(|candidate| {
+                            remaining.iter().all(|&pair_index| {
+                                let pair = &self.model.pairs[pair_index];
+                                pair.conditions.iter().any(|&condition| {
+                                    pair.deficit(condition, &candidate.positions) <= 0.0
+                                })
+                            })
+                        }) {
+                            return Ok(Some(candidate.positions.clone()));
+                        }
+                        return Err(issue);
+                    }
                 }
             }
             if children.is_empty() {
@@ -117,16 +143,23 @@ impl<'a> Search<'a> {
             }
             if selected
                 .as_ref()
-                .is_none_or(|(_, best)| children.len() < best.len())
+                .is_none_or(|best| children.len() < best.children.len())
             {
                 let forced = children.len() == 1;
-                selected = Some((index, children));
+                selected = Some(SelectedBranch {
+                    pair_index: index,
+                    children,
+                });
                 if forced {
                     break;
                 }
             }
         }
-        let Some((index, children)) = selected else {
+        let Some(SelectedBranch {
+            pair_index: index,
+            children,
+        }) = selected
+        else {
             return Ok(Some(positions));
         };
         let remaining = remaining
@@ -142,11 +175,6 @@ impl<'a> Search<'a> {
         }
         Ok(None)
     }
-}
-
-struct Candidate {
-    problem: Problem,
-    positions: Vec<f64>,
 }
 
 #[cfg(test)]
@@ -171,5 +199,61 @@ impl Search<'_> {
             serde_json::json!({"node":self.nodes,"problem":format!("{problem:?}"),"error":message})
         )
         .unwrap();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn model(objective: f64, bounds: (f64, f64)) -> Model<'static> {
+        let mut model = Model::new(&[]);
+        let variable = model.problem.add_var(objective, bounds);
+        model.variables.push(variable);
+        model
+    }
+
+    #[test]
+    fn lp_infinity_is_intermediate_and_selected_displacements_are_finite() {
+        let model = model(0.0, (f64::NEG_INFINITY, f64::INFINITY));
+        let counted = Search::new(&model, SearchBudget::new(1)).solve_counted();
+        let positions = counted.outcome.unwrap();
+        assert!(
+            positions
+                .iter()
+                .all(|position| position.metres().is_finite())
+        );
+        assert_eq!(counted.explored_nodes.count(), 1);
+    }
+
+    #[test]
+    fn completed_infeasibility_and_exhaustion_remain_distinct() {
+        let mut model = model(0.0, (0.0, 1.0));
+        model
+            .problem
+            .add_constraint([(model.variables[0], 1.0)], ComparisonOp::Ge, 2.0);
+        let completed = Search::new(&model, SearchBudget::new(1)).solve_counted();
+        assert!(matches!(
+            completed.outcome,
+            Err(CoupledPackingIssue::SolverRejected)
+        ));
+        assert_eq!(completed.explored_nodes.count(), 1);
+        let denied = Search::new(&model, SearchBudget::new(0)).solve_counted();
+        assert!(matches!(
+            denied.outcome,
+            Err(CoupledPackingIssue::SearchBudget { .. })
+        ));
+        assert_eq!(denied.explored_nodes.count(), 0);
+    }
+
+    #[test]
+    fn unbounded_objective_rejects_an_invalid_planning_model() {
+        let model = model(-1.0, (0.0, f64::INFINITY));
+        let counted = Search::new(&model, SearchBudget::new(2)).solve_counted();
+        assert!(matches!(
+            counted.outcome,
+            Err(CoupledPackingIssue::InvalidModel)
+        ));
+        assert_eq!(counted.explored_nodes.count(), 1);
     }
 }

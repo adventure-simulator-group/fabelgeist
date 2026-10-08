@@ -5,17 +5,14 @@
 //! synthetic fixture. Short-lived servers consume the identical format and
 //! never need access to the continental source pack.
 
-mod terrain_samples;
+use crate::terrain_streams as streams;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+use rock_recipe::{rock_recipe, wrapped_angle_difference};
+use std::{fs, path::Path};
 pub use terrain_samples::{
     EnvironmentalSample, SceneSource, SourcePackageDigest, TacticalSurface, TerrainSampleGrid,
     VistaLevelIndex, VistaLod, VistaSample,
 };
-mod rock_recipe;
-use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
-use rock_recipe::{rock_recipe, wrapped_angle_difference};
-mod rock_streams;
-use crate::terrain_streams as streams;
-use std::{fs, path::Path};
 
 use adventuresim_core::weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot};
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, UnitBasisPoints};
@@ -32,42 +29,51 @@ use crate::{
 use crate::scene_ground::build_scene_ground;
 #[cfg(test)]
 use crate::scene_ground::tree_leaf_litter_probability;
-
-pub(crate) mod buildings;
-mod compounds;
-mod gardens;
-mod urban;
-pub use gardens::{GardenPlantSupport, GardenSupportError, SceneGarden};
-mod environment;
-mod establishments;
-mod parishes;
-mod properties;
 pub use compounds::{GeneratedBoundary, SceneBoundary};
-pub use environment::{SceneEnvironment, SceneEnvironmentFixture};
-pub use establishments::SceneEstablishment;
-mod descriptor;
-mod detail_noise;
-mod detail_obstacles;
 pub use descriptor::{
     MAX_SCENE_INPUT_BYTES, TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
     TacticalSceneInput,
 };
 use detail_noise::{DetailNoise, value_noise};
 use detail_obstacles::{TerrainDetailObstacles, TerrainRockInfluence};
-mod generated;
-mod generation;
-mod validation;
-pub use generation::{SupportedSceneTerrain, UngradedSceneTerrain};
-mod recipes;
+pub use environment::{SceneEnvironment, SceneEnvironmentFixture};
+pub use establishments::SceneEstablishment;
+pub use gardens::{GardenPlantSupport, GardenSupportError, SceneGarden};
 pub use generated::{GeneratedTacticalScene, SceneRepairReport};
+pub use generation::{SupportedSceneTerrain, UngradedSceneTerrain};
 pub use recipes::{GeneratedBuildingRecipe, GeneratedBuildingRecipes, ProgramFurnitureSite};
-pub mod furniture;
 
 pub use buildings::{
     BuildingOrientation, DistantBuildingPlacement, DistantBuildingVariant, GeneratedBuilding,
     SceneBuilding, SceneBuildingId, SceneDoor, SceneDoorError, SceneWindow, SceneWindowError,
     TacticalBuildingPlacement, compile_tactical_building_collider,
 };
+pub use error::{SceneInputError, SceneInputResult};
+pub use validation_error::{SampleGridKind, SceneValidationError};
+mod rock_recipe;
+mod rock_streams;
+mod terrain_samples;
+
+pub(crate) mod buildings;
+mod compounds;
+mod descriptor;
+mod detail_noise;
+mod detail_obstacles;
+mod environment;
+mod establishments;
+pub mod furniture;
+mod gardens;
+mod generated;
+mod generation;
+mod parishes;
+mod properties;
+mod recipes;
+mod urban;
+mod validation;
+
+mod absolute_elevation_wire;
+mod error;
+mod validation_error;
 
 pub const TREE_TRUNK_RADIUS_METRES: f32 = 0.35;
 pub const TREE_TRUNK_HEIGHT_METRES: f32 = 5.0;
@@ -85,6 +91,28 @@ const MAX_SOURCE_ID_BYTES: usize = 128;
 const AUTHORITATIVE_DETAIL_SPACING_METRES: f32 = 0.5;
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
+
+/// Data-only recipe for a client-generated boulder mesh.
+///
+/// Dimensions describe the full local-space bounds in centimetres. The
+/// authoritative server uses only `collision_radius_cm` for a conservative
+/// sphere proxy; it never samples the field or extracts render geometry.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct RockRecipe {
+    pub seed: fabelgeist_determinism::Seed,
+    pub archetype: RockArchetype,
+    pub lithology: RockLithology,
+    pub dimensions_cm: [u16; 3],
+    pub collision_radius_cm: u16,
+}
+
+#[derive(Clone, Copy)]
+struct TerrainShapeSample {
+    downhill: bevy::math::Vec2,
+    slope: f32,
+    concavity: f32,
+}
 
 /// Broad procedural silhouette family for a collider-bearing rock.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -104,32 +132,6 @@ pub enum RockLithology {
     Sandstone,
 }
 
-/// Data-only recipe for a client-generated boulder mesh.
-///
-/// Dimensions describe the full local-space bounds in centimetres. The
-/// authoritative server uses only `collision_radius_cm` for a conservative
-/// sphere proxy; it never samples the field or extracts render geometry.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct RockRecipe {
-    pub seed: fabelgeist_determinism::Seed,
-    pub archetype: RockArchetype,
-    pub lithology: RockLithology,
-    pub dimensions_cm: [u16; 3],
-    pub collision_radius_cm: u16,
-}
-
-impl RockRecipe {
-    pub fn collision_radius_metres(self) -> f32 {
-        f32::from(self.collision_radius_cm) / 100.0
-    }
-
-    pub fn dimensions_metres(self) -> [f32; 3] {
-        self.dimensions_cm
-            .map(|dimension| f32::from(dimension) / 100.0)
-    }
-}
-
 /// Compact replicated identity for a server-authoritative static obstacle.
 /// Its Transform locates the collider center; presentation derives matching
 /// proxy geometry from this recipe on each client.
@@ -147,11 +149,16 @@ pub enum GeneratedObstacle {
     Rock { x: u16, z: u16, recipe: RockRecipe },
 }
 
-mod absolute_elevation_wire;
-mod error;
-mod validation_error;
-pub use error::{SceneInputError, SceneInputResult};
-pub use validation_error::{SampleGridKind, SceneValidationError};
+impl RockRecipe {
+    pub fn collision_radius_metres(self) -> f32 {
+        f32::from(self.collision_radius_cm) / 100.0
+    }
+
+    pub fn dimensions_metres(self) -> [f32; 3] {
+        self.dimensions_cm
+            .map(|dimension| f32::from(dimension) / 100.0)
+    }
+}
 
 impl TacticalSceneInput {
     pub fn load(path: &Path) -> SceneInputResult<Self> {
@@ -210,11 +217,49 @@ impl TacticalSceneInput {
     }
 }
 
-#[derive(Clone, Copy)]
-struct TerrainShapeSample {
-    downhill: bevy::math::Vec2,
-    slope: f32,
-    concavity: f32,
+pub(crate) fn base_ground_surface(sample: EnvironmentalSample) -> GroundSurface {
+    if sample.crossing_bps >= 5_000 || matches!(sample.surface, TacticalSurface::Road) {
+        return GroundSurface {
+            substrate: GroundSubstrate::Road,
+            cover: GroundCover::Bare,
+            cover_density_bps: 0,
+            cover_height_cm: 0,
+        };
+    }
+    if sample.water_bps >= 5_000 || matches!(sample.surface, TacticalSurface::Water) {
+        return GroundSurface {
+            substrate: GroundSubstrate::Water,
+            cover: GroundCover::Bare,
+            cover_density_bps: 0,
+            cover_height_cm: 0,
+        };
+    }
+    if sample.wetland_bps >= 5_000 || matches!(sample.surface, TacticalSurface::Wetland) {
+        return GroundSurface {
+            substrate: GroundSubstrate::Mud,
+            cover: GroundCover::Reeds,
+            cover_density_bps: sample.wetland_bps.max(5_000),
+            cover_height_cm: 110,
+        };
+    }
+    if sample.hilly_bps >= 6_500 {
+        return GroundSurface {
+            substrate: if sample.hilly_bps >= 8_500 {
+                GroundSubstrate::Stone
+            } else {
+                GroundSubstrate::Gravel
+            },
+            cover: GroundCover::LooseStone,
+            cover_density_bps: (sample.hilly_bps / 2).clamp(3_250, 5_000),
+            cover_height_cm: 4,
+        };
+    }
+    GroundSurface {
+        substrate: GroundSubstrate::Soil,
+        cover: GroundCover::TallGrass,
+        cover_density_bps: 9_600u16.saturating_sub(sample.canopy_bps / 5),
+        cover_height_cm: 82,
+    }
 }
 
 /// Builds the one high-resolution surface used by height queries, IK,
@@ -592,51 +637,6 @@ fn detail_smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
     t * t * (3.0 - 2.0 * t)
 }
 
-pub(crate) fn base_ground_surface(sample: EnvironmentalSample) -> GroundSurface {
-    if sample.crossing_bps >= 5_000 || matches!(sample.surface, TacticalSurface::Road) {
-        return GroundSurface {
-            substrate: GroundSubstrate::Road,
-            cover: GroundCover::Bare,
-            cover_density_bps: 0,
-            cover_height_cm: 0,
-        };
-    }
-    if sample.water_bps >= 5_000 || matches!(sample.surface, TacticalSurface::Water) {
-        return GroundSurface {
-            substrate: GroundSubstrate::Water,
-            cover: GroundCover::Bare,
-            cover_density_bps: 0,
-            cover_height_cm: 0,
-        };
-    }
-    if sample.wetland_bps >= 5_000 || matches!(sample.surface, TacticalSurface::Wetland) {
-        return GroundSurface {
-            substrate: GroundSubstrate::Mud,
-            cover: GroundCover::Reeds,
-            cover_density_bps: sample.wetland_bps.max(5_000),
-            cover_height_cm: 110,
-        };
-    }
-    if sample.hilly_bps >= 6_500 {
-        return GroundSurface {
-            substrate: if sample.hilly_bps >= 8_500 {
-                GroundSubstrate::Stone
-            } else {
-                GroundSubstrate::Gravel
-            },
-            cover: GroundCover::LooseStone,
-            cover_density_bps: (sample.hilly_bps / 2).clamp(3_250, 5_000),
-            cover_height_cm: 4,
-        };
-    }
-    GroundSurface {
-        substrate: GroundSubstrate::Soil,
-        cover: GroundCover::TallGrass,
-        cover_density_bps: 9_600u16.saturating_sub(sample.canopy_bps / 5),
-        cover_height_cm: 82,
-    }
-}
-
 fn upsample_playable_grid(
     source: &TerrainSampleGrid,
 ) -> (usize, usize, f32, Vec<f32>, Vec<EnvironmentalSample>) {
@@ -981,15 +981,35 @@ mod tests {
         let mut input = fixture();
         input.streets = vec![
             CityStreetPatch::Corridor {
-                start_metres: bevy::math::Vec2::new(-2.0, 0.0),
-                end_metres: bevy::math::Vec2::new(2.0, 0.0),
-                half_width_metres: 1.0,
+                start_metres: crate::scene_coordinates::ScenePlanPoint::try_from(
+                    bevy::math::Vec2::new(-2.0, 0.0),
+                )
+                .unwrap(),
+                end_metres: crate::scene_coordinates::ScenePlanPoint::try_from(
+                    bevy::math::Vec2::new(2.0, 0.0),
+                )
+                .unwrap(),
+                half_width_metres:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        1.0,
+                    )
+                    .unwrap(),
                 surface: crate::city_layout::CityStreetSurface::CompactedEarth,
             },
             CityStreetPatch::Corridor {
-                start_metres: bevy::math::Vec2::new(-1.0, -2.0),
-                end_metres: bevy::math::Vec2::new(-1.0, 2.0),
-                half_width_metres: 1.0,
+                start_metres: crate::scene_coordinates::ScenePlanPoint::try_from(
+                    bevy::math::Vec2::new(-1.0, -2.0),
+                )
+                .unwrap(),
+                end_metres: crate::scene_coordinates::ScenePlanPoint::try_from(
+                    bevy::math::Vec2::new(-1.0, 2.0),
+                )
+                .unwrap(),
+                half_width_metres:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        1.0,
+                    )
+                    .unwrap(),
                 surface: crate::city_layout::CityStreetSurface::Fieldstone,
             },
         ];
@@ -1019,12 +1039,13 @@ mod tests {
     fn developed_city_yards_replace_meadow_cover_with_bare_soil() {
         let mut input = fixture();
         input.yards.push(CityYardPatch {
-            corners_metres: [
+            corners_metres: ([
                 bevy::math::Vec2::new(-1.0, -1.0),
                 bevy::math::Vec2::new(1.0, -1.0),
                 bevy::math::Vec2::new(1.0, 1.0),
                 bevy::math::Vec2::new(-1.0, 1.0),
-            ],
+            ])
+            .map(|point| crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()),
             surface: crate::city_layout::CityYardSurface::PackedEarth,
         });
 

@@ -1,107 +1,6 @@
 //! Exact clipping retains terraces across the thickness of every wall and post.
 use super::*;
 
-pub(super) fn project(
-    property: &CityCompound,
-    foundation: &PropertyFoundationMesh,
-    limits: SupportLimits,
-    embedment: FoundationEmbedment,
-) -> Result<BoundarySupportProjection, BoundarySupportError> {
-    if foundation.property_id != property.id
-        || foundation.member_building_ids.len() != 2
-        || ![property.front_building_id, property.rear_building_id]
-            .iter()
-            .all(|id| foundation.member_building_ids.contains(id))
-    {
-        return Err(BoundarySupportError::new(
-            property,
-            BoundarySupportElement::Owner,
-            BoundarySupportConstraint::OwnerBinding,
-            property.plot.centre_metres(),
-            1.0,
-            0.0,
-        ));
-    }
-    let mut triangles: Vec<_> = foundation
-        .support_triangles
-        .iter()
-        .filter_map(|indices| {
-            GroundTriangle::new(indices.map(|i| foundation.positions[i as usize]))
-        })
-        .collect();
-    triangles.sort_by(GroundTriangle::compare);
-    let gate = gate_datum(property, &triangles, limits)?;
-    let binding = BoundaryOwnerBinding::from_property(property, gate)
-        .map_err(|cause| BoundarySupportError::binding(property, cause))?;
-    let mut mesh = BoundarySupportMesh {
-        binding,
-        cells: Vec::new(),
-    };
-    for member in property
-        .boundary
-        .fixed_members()
-        .map_err(|cause| BoundarySupportError::construction(property, cause))?
-    {
-        let element = member.pose.element();
-        MemberProjection {
-            property,
-            triangles: &triangles,
-            member,
-            element,
-            gate,
-            limits,
-            embedment,
-        }
-        .append(&mut mesh)?;
-    }
-    mesh.binding.validate_cells(&mesh.cells).map_err(|issue| {
-        BoundarySupportError::cell(property, BoundarySupportElement::Owner, issue)
-    })?;
-    Ok(BoundarySupportProjection {
-        mesh,
-        gate_elevation: gate,
-    })
-}
-
-fn gate_datum(
-    property: &CityCompound,
-    triangles: &[GroundTriangle],
-    limits: SupportLimits,
-) -> Result<SupportElevation, BoundarySupportError> {
-    let point = property.boundary.gate.centre_metres;
-    let mut heights: Vec<_> = triangles
-        .iter()
-        .filter(|t| t.contains(point, limits.contact_tolerance_metres.metres()))
-        .map(|t| t.height_at(point))
-        .collect();
-    heights.sort_by(f32::total_cmp);
-    let range = heights
-        .first()
-        .zip(heights.last())
-        .map(|(low, high)| high - low);
-    match range {
-        Some(range) if range <= limits.contact_tolerance_metres.metres() => {
-            Ok(SupportElevation(heights[0]))
-        }
-        Some(range) => Err(BoundarySupportError::new(
-            property,
-            BoundarySupportElement::GateLanding,
-            BoundarySupportConstraint::AmbiguousGateDatum,
-            point,
-            f64::from(range),
-            f64::from(limits.contact_tolerance_metres.metres()),
-        )),
-        None => Err(BoundarySupportError::new(
-            property,
-            BoundarySupportElement::GateLanding,
-            BoundarySupportConstraint::MissingGateDatum,
-            point,
-            1.0,
-            0.0,
-        )),
-    }
-}
-
 struct MemberProjection<'a> {
     property: &'a CityCompound,
     triangles: &'a [GroundTriangle],
@@ -110,6 +9,11 @@ struct MemberProjection<'a> {
     gate: SupportElevation,
     limits: SupportLimits,
     embedment: FoundationEmbedment,
+}
+
+struct MemberLevels {
+    base: SupportElevation,
+    head: SupportElevation,
 }
 
 impl MemberProjection<'_> {
@@ -230,9 +134,105 @@ impl MemberProjection<'_> {
     }
 }
 
-struct MemberLevels {
-    base: SupportElevation,
-    head: SupportElevation,
+pub(super) fn project(
+    property: &CityCompound,
+    foundation: &PropertyFoundationMesh,
+    limits: SupportLimits,
+    embedment: FoundationEmbedment,
+) -> Result<BoundarySupportProjection, BoundarySupportError> {
+    if foundation.property_id != property.id
+        || foundation.member_building_ids.len() != 2
+        || ![property.front_building_id, property.rear_building_id]
+            .iter()
+            .all(|id| foundation.member_building_ids.contains(id))
+    {
+        return Err(BoundarySupportError::new(
+            property,
+            BoundarySupportElement::Owner,
+            BoundarySupportConstraint::OwnerBinding,
+            property.plot.centre_metres(),
+            1.0,
+            0.0,
+        ));
+    }
+    let mut triangles: Vec<_> = foundation
+        .support_triangles
+        .iter()
+        .filter_map(|indices| {
+            GroundTriangle::new(indices.map(|i| foundation.positions[i as usize]))
+        })
+        .collect();
+    triangles.sort_by(GroundTriangle::compare);
+    let gate = gate_datum(property, &triangles, limits)?;
+    let binding = BoundaryOwnerBinding::from_property(property, gate)
+        .map_err(|cause| BoundarySupportError::binding(property, cause))?;
+    let mut mesh = BoundarySupportMesh {
+        binding,
+        cells: Vec::new(),
+    };
+    for member in property
+        .boundary
+        .fixed_members()
+        .map_err(|cause| BoundarySupportError::construction(property, cause))?
+    {
+        let element = member.pose.element();
+        MemberProjection {
+            property,
+            triangles: &triangles,
+            member,
+            element,
+            gate,
+            limits,
+            embedment,
+        }
+        .append(&mut mesh)?;
+    }
+    mesh.binding.validate_cells(&mesh.cells).map_err(|issue| {
+        BoundarySupportError::cell(property, BoundarySupportElement::Owner, issue)
+    })?;
+    Ok(BoundarySupportProjection {
+        mesh,
+        gate_elevation: gate,
+    })
+}
+
+fn gate_datum(
+    property: &CityCompound,
+    triangles: &[GroundTriangle],
+    limits: SupportLimits,
+) -> Result<SupportElevation, BoundarySupportError> {
+    let point = property.boundary.gate.centre_metres.metres();
+    let mut heights: Vec<_> = triangles
+        .iter()
+        .filter(|t| t.contains(point, limits.contact_tolerance_metres.metres()))
+        .map(|t| t.height_at(point))
+        .collect();
+    heights.sort_by(f32::total_cmp);
+    let range = heights
+        .first()
+        .zip(heights.last())
+        .map(|(low, high)| high - low);
+    match range {
+        Some(range) if range <= limits.contact_tolerance_metres.metres() => {
+            Ok(SupportElevation(heights[0]))
+        }
+        Some(range) => Err(BoundarySupportError::new(
+            property,
+            BoundarySupportElement::GateLanding,
+            BoundarySupportConstraint::AmbiguousGateDatum,
+            point,
+            f64::from(range),
+            f64::from(limits.contact_tolerance_metres.metres()),
+        )),
+        None => Err(BoundarySupportError::new(
+            property,
+            BoundarySupportElement::GateLanding,
+            BoundarySupportConstraint::MissingGateDatum,
+            point,
+            1.0,
+            0.0,
+        )),
+    }
 }
 
 fn member_levels(

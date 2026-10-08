@@ -7,7 +7,7 @@ impl CompiledCityLayout {
     pub(super) fn finalize_packing(
         &mut self,
         context: &super::super::packing::CityPackingContext,
-    ) -> Result<(), CityCompileError> {
+    ) -> CityCompileResult<()> {
         self.seat_single_bearings()?;
         let mut envelopes = Vec::with_capacity(self.buildings.len());
         for building in &self.buildings {

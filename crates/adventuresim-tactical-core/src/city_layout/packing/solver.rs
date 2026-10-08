@@ -1,17 +1,17 @@
 //! Joint measured constraints retain the fixed roster within its street blocks.
 use super::*;
 use context::{ParcelFrontage, ParcelGeometry};
+use records::*;
 mod coupled;
 mod propagation;
 mod records;
 mod search;
-use records::*;
 
 /// Operational cap per independent block, separate from land or access limits.
-const MAX_BLOCK_PACKING_SEARCH_STATES: usize = 100_000;
+const MAX_BLOCK_PACKING_SEARCH_STATES: SearchBudget = SearchBudget::new(100_000);
 
 /// Cheap authored candidates keep their previous independent allocation.
-const MAX_AUTHORED_PACKING_SEARCH_STATES: usize = 5_000;
+const MAX_AUTHORED_PACKING_SEARCH_STATES: SearchBudget = SearchBudget::new(5_000);
 
 #[derive(Clone)]
 struct PlacementDomain {
@@ -26,16 +26,24 @@ impl PlacementDomain {
         frontage: ParcelFrontage,
         layout: &CompiledCityLayout,
         envelopes: &BTreeMap<crate::scene_input::SceneBuildingId, MeasuredBuildingEnvelope>,
-    ) -> Result<Self, CityCompileError> {
-        let owner = CityPropertyId(frontage.lot.id);
+    ) -> CityCompileResult<Self> {
+        let owner = frontage.lot.id;
         let geometry = frontage.geometry(layout, envelopes)?;
         let proposed = geometry;
         let allowed = frontage
             .available_displacement(proposed.reservation)
+            .map_err(|_| CityCompileError::Packing {
+                property: owner,
+                issue: CityPackingIssue::CoupledSearch {
+                    block: frontage.block.id,
+                    members: vec![owner],
+                    issue: CoupledPackingIssue::NumericalFailure,
+                },
+            })?
             .ok_or_else(|| CityCompileError::Packing {
                 property: owner,
                 issue: CityPackingIssue::NoFreeFrontage {
-                    block: frontage.block.id.0,
+                    block: frontage.block.id,
                     envelope: proposed.reservation,
                     available_displacement_metres: None,
                     blocking_properties: Vec::new(),
@@ -67,7 +75,7 @@ impl PlacementDomain {
         CityCompileError::Packing {
             property: self.owner,
             issue: CityPackingIssue::CoupledSearch {
-                block: self.frontage.block.id.0,
+                block: self.frontage.block.id,
                 members: vec![self.owner],
                 issue,
             },
@@ -93,7 +101,7 @@ pub(super) fn solve(
     layout: &CompiledCityLayout,
     context: &CityPackingContext,
     envelopes: &BTreeMap<crate::scene_input::SceneBuildingId, MeasuredBuildingEnvelope>,
-) -> Result<BTreeMap<CityPropertyId, Vec2>, CityCompileError> {
+) -> CityCompileResult<BTreeMap<CityPropertyId, PlanDisplacement>> {
     let mut blocks = BTreeMap::<BlockId, Vec<PlacementDomain>>::new();
     for &frontage in context.frontages.values() {
         blocks
@@ -106,7 +114,7 @@ pub(super) fn solve(
         let selected = search::BlockSearch::new(&domains).solve()?;
         translations.extend(selected.into_iter().map(|selected| {
             let domain = &domains[selected.domain.index()];
-            (domain.owner, selected.displacement.metres())
+            (domain.owner, selected.displacement)
         }));
     }
     Ok(translations)

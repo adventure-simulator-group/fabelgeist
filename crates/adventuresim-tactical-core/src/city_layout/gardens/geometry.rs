@@ -2,48 +2,6 @@
 use super::*;
 use bevy::math::Vec2;
 
-pub(super) fn corridor(segment: CityAccessSegment) -> Option<CityPlotBounds> {
-    let direction = segment.end_metres() - segment.start_metres();
-    CityPlotBounds::new(
-        crate::scene_coordinates::ScenePlanPoint::try_from(
-            (segment.start_metres() + segment.end_metres()) * 0.5,
-        )
-        .ok()?,
-        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(Vec2::new(
-            direction.length() + segment.half_width_metres() * 2.0,
-            segment.half_width_metres() * 2.0,
-        ))
-        .ok()?,
-        BuildingOrientation::from_frontage_tangent(direction)?,
-    )
-    .ok()
-}
-
-pub(super) fn overlaps(first: &[Vec2], second: &[Vec2], margin: f32) -> bool {
-    [first, second]
-        .into_iter()
-        .flat_map(|polygon| {
-            polygon
-                .iter()
-                .zip(polygon.iter().cycle().skip(1))
-                .take(polygon.len())
-        })
-        .all(|(a, b)| {
-            let axis = (*b - *a).perp().normalize_or_zero();
-            let interval = |points: &[Vec2]| {
-                points
-                    .iter()
-                    .fold((f32::INFINITY, f32::NEG_INFINITY), |(min, max), point| {
-                        let p = point.dot(axis);
-                        (min.min(p), max.max(p))
-                    })
-            };
-            let (a, b) = interval(first);
-            let (c, d) = interval(second);
-            b + margin > c && d + margin > a
-        })
-}
-
 const MAX_PROPERTY_EXTENT_METRES: f32 = 100.0;
 const MAX_GARDEN_ELEMENTS: usize = 16;
 const MAX_ACCESS_HALF_WIDTH_METRES: f32 = 2.0;
@@ -53,28 +11,22 @@ const MAX_PLANT_SCALE: f32 = 2.0;
 /// Exact working rectangles and wind-expanded planting hulls, not a plot box.
 pub(in crate::city_layout) struct GardenClearanceGeometry {
     pub working: Vec<CityPlotBounds>,
-    pub plants: Vec<Vec<Vec2>>,
+    pub plants: Vec<Vec<crate::scene_coordinates::ScenePlanPoint>>,
 }
 
 impl CityGarden {
     pub(in crate::city_layout) fn translate(
         &mut self,
-        delta: Vec2,
-        tangent: Vec2,
+        delta: crate::scene_coordinates::PlanDisplacement,
+        tangent: bevy::math::Dir2,
     ) -> adventuresim_building_generator::spatial_geometry::GeometryResult<()> {
-        self.plot = self
-            .plot
-            .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
-        self.cultivated_bounds = self
-            .cultivated_bounds
-            .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
+        self.plot = self.plot.translated(delta)?;
+        self.cultivated_bounds = self.cultivated_bounds.translated(delta)?;
         for bed in &mut self.beds {
-            *bed = bed.translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
+            *bed = bed.translated(delta)?;
         }
         for plant in &mut self.plants {
-            plant.centre_metres = plant
-                .centre_metres
-                .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
+            plant.centre_metres = plant.centre_metres.translated(delta)?;
         }
         super::super::compound::translate_property_access(&mut self.access, delta, tangent)?;
         Ok(())
@@ -89,7 +41,11 @@ impl CityGarden {
         }
         Ok(GardenClearanceGeometry {
             working,
-            plants: self.plants.iter().map(|plant| plant.world_hull()).collect(),
+            plants: self
+                .plants
+                .iter()
+                .map(|plant| plant.world_hull())
+                .collect::<Result<_, _>>()?,
         })
     }
 
@@ -114,11 +70,16 @@ impl CityGarden {
                 .iter()
                 .all(|segment| corridor(*segment).is_some_and(|route| !route.intersects(envelope)))
             && self.plants.iter().all(|plant| {
-                !overlaps(
-                    &plant.world_hull(),
-                    &envelope.corners(),
-                    GARDEN_LEAF_WIND_CLEARANCE_METRES,
-                )
+                plant.world_hull().is_ok_and(|hull| {
+                    !overlaps(
+                        &hull
+                            .into_iter()
+                            .map(crate::scene_coordinates::ScenePlanPoint::metres)
+                            .collect::<Vec<_>>(),
+                        &envelope.corners(),
+                        GARDEN_LEAF_WIND_CLEARANCE_METRES,
+                    )
+                })
             })
     }
 
@@ -220,6 +181,22 @@ impl CityGarden {
     }
 
     fn validate_plants(&self) -> Result<(), GardenIssue> {
+        let routes = self
+            .access
+            .iter()
+            .map(|segment| corridor(*segment).ok_or(GardenIssue::InvalidAccess))
+            .collect::<Result<Vec<_>, _>>()?;
+        let hulls = self
+            .plants
+            .iter()
+            .map(|plant| {
+                plant.world_hull().map(|hull| {
+                    hull.into_iter()
+                        .map(crate::scene_coordinates::ScenePlanPoint::metres)
+                        .collect::<Vec<_>>()
+                })
+            })
+            .collect::<Result<Vec<_>, _>>()?;
         for (index, plant) in self.plants.iter().enumerate() {
             if !plant.centre_metres.metres().is_finite()
                 || !plant.orientation.is_valid()
@@ -228,7 +205,7 @@ impl CityGarden {
             {
                 return Err(GardenIssue::InvalidPlant);
             }
-            let hull = plant.world_hull();
+            let hull = &hulls[index];
             if !hull.iter().all(|point| {
                 let local = self
                     .cultivated_bounds
@@ -243,28 +220,70 @@ impl CityGarden {
             if self
                 .beds
                 .iter()
-                .any(|bed| overlaps(&hull, &bed.corners(), GARDEN_LEAF_WIND_CLEARANCE_METRES))
-                || self.access.iter().any(|segment| {
-                    overlaps(
-                        &hull,
-                        &corridor(*segment).unwrap().corners(),
-                        GARDEN_LEAF_WIND_CLEARANCE_METRES,
-                    )
+                .any(|bed| overlaps(hull, &bed.corners(), GARDEN_LEAF_WIND_CLEARANCE_METRES))
+                || routes.iter().any(|route| {
+                    overlaps(hull, &route.corners(), GARDEN_LEAF_WIND_CLEARANCE_METRES)
                 })
             {
                 return Err(GardenIssue::PlantObstructsWorkingSpace);
             }
-            if self.plants[..index].iter().any(|other| {
-                other.id == plant.id
-                    || overlaps(
-                        &hull,
-                        &other.world_hull(),
-                        GARDEN_LEAF_WIND_CLEARANCE_METRES * 2.0,
-                    )
-            }) {
+            if self.plants[..index]
+                .iter()
+                .enumerate()
+                .any(|(other_index, other)| {
+                    other.id == plant.id
+                        || overlaps(
+                            hull,
+                            &hulls[other_index],
+                            GARDEN_LEAF_WIND_CLEARANCE_METRES * 2.0,
+                        )
+                })
+            {
                 return Err(GardenIssue::OverlappingPlants);
             }
         }
         Ok(())
     }
+}
+
+pub(super) fn corridor(segment: CityAccessSegment) -> Option<CityPlotBounds> {
+    let direction = segment.end_metres() - segment.start_metres();
+    CityPlotBounds::new(
+        crate::scene_coordinates::ScenePlanPoint::try_from(
+            (segment.start_metres() + segment.end_metres()) * 0.5,
+        )
+        .ok()?,
+        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(Vec2::new(
+            direction.length() + segment.half_width_metres() * 2.0,
+            segment.half_width_metres() * 2.0,
+        ))
+        .ok()?,
+        BuildingOrientation::from_frontage_tangent(direction)?,
+    )
+    .ok()
+}
+
+pub(super) fn overlaps(first: &[Vec2], second: &[Vec2], margin: f32) -> bool {
+    [first, second]
+        .into_iter()
+        .flat_map(|polygon| {
+            polygon
+                .iter()
+                .zip(polygon.iter().cycle().skip(1))
+                .take(polygon.len())
+        })
+        .all(|(a, b)| {
+            let axis = (*b - *a).perp().normalize_or_zero();
+            let interval = |points: &[Vec2]| {
+                points
+                    .iter()
+                    .fold((f32::INFINITY, f32::NEG_INFINITY), |(min, max), point| {
+                        let p = point.dot(axis);
+                        (min.min(p), max.max(p))
+                    })
+            };
+            let (a, b) = interval(first);
+            let (c, d) = interval(second);
+            b + margin > c && d + margin > a
+        })
 }

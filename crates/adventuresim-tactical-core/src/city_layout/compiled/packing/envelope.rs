@@ -4,10 +4,10 @@ impl super::super::super::packing::MeasuredBuildingEnvelope {
     pub(super) fn from_recipe(
         building: &TacticalBuildingPlacement,
         recipe: &recipes::Recipe,
-    ) -> Result<Self, CityCompileError> {
+    ) -> CityCompileResult<Self> {
         let half = recipe.collision.bounds.plan_half_extents()?.metres();
-        let min = recipe.render_min.min(-half);
-        let max = recipe.render_max.max(half);
+        let min = recipe.render_min_metres().min(-half);
+        let max = recipe.render_max_metres().max(half);
         let footprint = recipe
             .collision
             .ground_floor_footprint()
