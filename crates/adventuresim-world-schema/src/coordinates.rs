@@ -1,5 +1,7 @@
 //! Strong coordinate units shared across strategic and tactical systems.
 
+pub mod terrain_projection;
+
 const E7_UNITS_PER_COORDINATE_UNIT: i32 = 10_000_000;
 const MILLIONTHS_PER_COORDINATE_UNIT: i32 = 1_000_000;
 
