@@ -214,7 +214,7 @@ pub fn authority_test_property_capacity(
         .ok_or("Cheap home missing")?;
     let cheap_id = acquire_residence_internal(ctx, ACTOR, &cheap.id, ResidenceTenure::Owner)?;
     move_residence_occupant_at(ctx, &owned.id, GUEST, start.saturating_add_minutes(1000))?;
-    for index in 0..cheap.resident_capacity.get() - 1 {
+    for index in 0..cheap.resident_capacity - 1 {
         let actor = 719100 + u64::from(index);
         crate::character::insert_new_character(
             ctx,
