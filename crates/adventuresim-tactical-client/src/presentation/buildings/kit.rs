@@ -68,7 +68,7 @@ pub(super) fn install_facade(
     cache: &mut TacticalBuildingMeshCache,
     prepared: super::super::generation::PreparedFacade,
     meshes: &mut Assets<Mesh>,
-) -> Arc<CompiledBuildingLevels> {
+) -> Result<Arc<CompiledBuildingLevels>> {
     let mut batches = |source: &[LodMesh]| {
         source
             .iter()
@@ -101,7 +101,7 @@ pub(super) fn install_facade(
         .components
         .append(&prepared.instances, &mut compiled, meshes);
     let compiled = Arc::new(compiled);
-    super::super::generation::retain_facade(&compiled.program);
+    super::super::generation::retain_facade(&compiled.program)?;
     cache.levels.push(compiled.clone());
-    compiled
+    Ok(compiled)
 }

@@ -1,5 +1,8 @@
 # Fabelgeist tactical client
 
+[Immutable scene preparation](generation.md) describes shared worker products,
+readiness, residency and typed preparation failures.
+
 ## Runtime equipment fitting
 
 Armor and clothing are generated locally from each wearer's evaluated, unposed

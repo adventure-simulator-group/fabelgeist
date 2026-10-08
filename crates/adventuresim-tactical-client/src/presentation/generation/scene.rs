@@ -25,9 +25,9 @@ impl SceneProduct {
         mut self,
         input: &TacticalSceneInput,
         products: &PreparedProducts,
-    ) -> Result<GeneratedTacticalScene, String> {
+    ) -> PreparationResult<GeneratedTacticalScene> {
         if !self.scene.buildings.is_empty() || self.placements != input.buildings {
-            return Err("scene transfer changed its exact occupied building bindings".into());
+            return Err(PreparationError::SceneBindingsMismatch);
         }
         self.scene.buildings = self
             .placements
@@ -37,14 +37,16 @@ impl SceneProduct {
                     .venues
                     .iter()
                     .find(|venue| venue.recipe.program == placement.program)
-                    .ok_or("scene transfer requires its exact prepared occupied recipe")?;
+                    .ok_or(PreparationError::NotPrepared {
+                        product: ProductKind::Venue,
+                    })?;
                 Ok(GeneratedBuilding {
                     placement,
                     plan: venue.recipe.plan.clone(),
                     collision: venue.recipe.collision.clone(),
                 })
             })
-            .collect::<Result<_, String>>()?;
+            .collect::<PreparationResult<_>>()?;
         Ok(self.scene)
     }
 

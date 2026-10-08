@@ -249,6 +249,8 @@ pub(super) fn present(
         // Drop those temporary CPU plans once all city meshes are resident.
         assets.cache.recipes.clear();
         #[cfg(target_family = "wasm")]
-        super::super::generation::release_unused_facades();
+        if let Err(error) = super::super::generation::release_unused_facades() {
+            warn!(%error, "Could not release temporary generated facades");
+        }
     }
 }

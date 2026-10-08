@@ -1,6 +1,13 @@
 import { createGenerationPool } from "./strategic-generation-pool.js";
 import { openGeneratedCache } from "./strategic-generation-cache.js";
 
+// Rust owns these exception names. Only invalid persisted products warrant
+// eviction and regeneration; unavailable residency or dependencies fail readiness.
+const invalidCachedProductCodes = new Set([
+  "generation/product-decode", "generation/product-mismatch",
+  "generation/scene-bindings-mismatch",
+]);
+
 export async function prepareGeneratedScene(runtime, input, venues) {
   const started = performance.now();
   runtime.wasm_begin_generation();
@@ -48,7 +55,11 @@ export async function prepareGeneratedScene(runtime, input, venues) {
         metrics.cacheLookupMilliseconds += performance.now() - readStarted;
         if (bytes) {
           try { receive(job, bytes); metrics.cacheHits++; return { status: "reused" }; }
-          catch { signal.throwIfAborted(); await cache.remove(job); }
+          catch (error) {
+            signal.throwIfAborted();
+            if (!invalidCachedProductCodes.has(error?.name)) throw error;
+            await cache.remove(job);
+          }
         }
         signal.throwIfAborted();
         metrics.cacheMisses++;

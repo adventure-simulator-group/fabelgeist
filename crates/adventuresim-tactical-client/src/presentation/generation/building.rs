@@ -1,3 +1,4 @@
+use super::PreparationResult;
 use adventuresim_building_generator::{
     BuildingKit, BuildingLodLevel, BuildingProgram, LodMesh, TimberInstance, compile_building_lod,
     compile_program_shell,
@@ -21,15 +22,10 @@ pub(in crate::presentation) struct PreparedFacade {
 }
 
 impl PreparedFacade {
-    pub(super) fn generate(program: BuildingProgram) -> Result<Self, String> {
-        let recipe =
-            GeneratedBuildingRecipe::generate(program.clone()).map_err(|e| e.to_string())?;
-        let kit = BuildingKit::new(&recipe.plan).map_err(|error| error.to_string())?;
-        let local_origin = recipe
-            .collision
-            .bounds
-            .centre()
-            .map_err(|error| error.to_string())?;
+    pub(super) fn generate(program: BuildingProgram) -> PreparationResult<Self> {
+        let recipe = GeneratedBuildingRecipe::generate(program.clone())?;
+        let kit = BuildingKit::new(&recipe.plan)?;
+        let local_origin = recipe.collision.bounds.centre()?;
         let sign_sites = if program
             .usage
             .and_then(adventuresim_building_generator::signs::shop_trade)
@@ -43,15 +39,13 @@ impl PreparedFacade {
             site: adventuresim_tactical_core::scene_input::furniture::FurnitureSiteRecipe::new(
                 &recipe.plan,
                 recipe.collision.bounds,
-            )
-            .map_err(|error| error.to_string())?,
+            )?,
             shell: match compile_program_shell(&program) {
                 Some(shell) => shell,
-                None => compile_building_lod(&recipe.plan, BuildingLodLevel::Shell)
-                    .map_err(|error| error.to_string())?,
+                None => compile_building_lod(&recipe.plan, BuildingLodLevel::Shell)?,
             }
             .meshes,
-            facade: kit.facade().map_err(|error| error.to_string())?.meshes,
+            facade: kit.facade()?.meshes,
             instances: kit
                 .instances
                 .into_iter()

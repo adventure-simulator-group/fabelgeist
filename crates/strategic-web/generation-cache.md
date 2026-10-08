@@ -60,3 +60,13 @@ The browser checks cover persisted byte/identity round trips, corruption,
 replacement, removal, storage failures and timeouts, and cold versus cached
 preparation. A fully cached preparation starts no workers. Unavailable storage
 regenerates the same products without delaying readiness for persistence.
+
+Rust preparation failures use stable JavaScript exception names. The preparation
+consumer removes and regenerates a cached product only for
+`generation/product-decode`, `generation/product-mismatch` or
+`generation/scene-bindings-mismatch`. A poisoned residency, missing dependency,
+invalid source input or unknown installation failure rejects preparation and
+retains the cache entry. This prevents corrupt runtime state from being treated
+as disposable persisted geometry. See the
+[immutable scene preparation contract](../adventuresim-tactical-client/generation.md)
+for the owning Rust errors and readiness state.
