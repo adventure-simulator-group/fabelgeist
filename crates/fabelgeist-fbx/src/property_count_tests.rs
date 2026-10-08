@@ -25,6 +25,39 @@ const NULL_NODE_END_OFFSET: u64 = 0;
 const TRUNCATED_NULL_NAME_DECLARED_BYTES: u8 = 3;
 const TRUNCATED_NULL_NAME_BYTES: &[u8] = b"x";
 
+/// Native wire inputs, deliberately independent of parser admission.
+/// A declared count may disagree with the authored payload in rejection cases.
+struct NativeNodeRecord<'a> {
+    version: u32,
+    offset: usize,
+    name: &'a [u8],
+    declared_property_count: u64,
+    properties: &'a [Vec<u8>],
+    children: &'a [u8],
+}
+
+impl NativeNodeRecord<'_> {
+    fn encode(self) -> Vec<u8> {
+        let payload_len = self.properties.iter().map(Vec::len).sum::<usize>();
+        let end = self.offset
+            + header_width(self.version)
+            + self.name.len()
+            + payload_len
+            + self.children.len();
+        let mut bytes = Vec::new();
+        for value in [end as u64, self.declared_property_count, payload_len as u64] {
+            word(&mut bytes, self.version, value);
+        }
+        bytes.push(self.name.len() as u8);
+        bytes.extend(self.name);
+        for property in self.properties {
+            bytes.extend(property);
+        }
+        bytes.extend(self.children);
+        bytes
+    }
+}
+
 // Counts, versions and offsets below author native serialized fixture fields.
 fn header_width(version: u32) -> usize {
     if version >= FIRST_WIDE_HEADER_VERSION {
@@ -40,29 +73,6 @@ fn word(bytes: &mut Vec<u8>, version: u32, value: u64) {
     } else {
         bytes.extend((value as u32).to_le_bytes());
     }
-}
-
-fn record(
-    version: u32,
-    offset: usize,
-    name: &[u8],
-    count: u64,
-    properties: &[Vec<u8>],
-    children: &[u8],
-) -> Vec<u8> {
-    let payload_len = properties.iter().map(Vec::len).sum::<usize>();
-    let end = offset + header_width(version) + name.len() + payload_len + children.len();
-    let mut bytes = Vec::new();
-    for value in [end as u64, count, payload_len as u64] {
-        word(&mut bytes, version, value);
-    }
-    bytes.push(name.len() as u8);
-    bytes.extend(name);
-    for property in properties {
-        bytes.extend(property);
-    }
-    bytes.extend(children);
-    bytes
 }
 
 fn file(version: u32, record: &[u8]) -> Vec<u8> {
@@ -128,14 +138,15 @@ fn observe() -> String {
             for count in DECLARED_PROPERTY_COUNTS {
                 let bytes = file(
                     version,
-                    &record(
+                    &NativeNodeRecord {
                         version,
-                        FILE_HEADER_BYTES,
-                        ROOT_NODE_NAME,
-                        count,
+                        offset: FILE_HEADER_BYTES,
+                        name: ROOT_NODE_NAME,
+                        declared_property_count: count,
                         properties,
-                        &[],
-                    ),
+                        children: &[],
+                    }
+                    .encode(),
                 );
                 out.push_str(&format!(
                     "{version}-{case}-declared-{count}:{}\n",
@@ -154,22 +165,24 @@ fn observe() -> String {
                 + header_width(version)
                 + ROOT_NODE_NAME.len()
                 + parent_payload_bytes;
-            let child = record(
+            let child = NativeNodeRecord {
                 version,
-                child_offset,
-                CHILD_NODE_NAME,
-                properties.len() as u64,
-                &properties,
-                &[],
-            );
-            let parent = record(
+                offset: child_offset,
+                name: CHILD_NODE_NAME,
+                declared_property_count: properties.len() as u64,
+                properties: &properties,
+                children: &[],
+            }
+            .encode();
+            let parent = NativeNodeRecord {
                 version,
-                FILE_HEADER_BYTES,
-                ROOT_NODE_NAME,
-                parent_props.len() as u64,
-                &parent_props,
-                &child,
-            );
+                offset: FILE_HEADER_BYTES,
+                name: ROOT_NODE_NAME,
+                declared_property_count: parent_props.len() as u64,
+                properties: &parent_props,
+                children: &child,
+            }
+            .encode();
             out.push_str(&format!(
                 "{version}-nested-{case}:{}\n",
                 snapshot(&file(version, &parent))

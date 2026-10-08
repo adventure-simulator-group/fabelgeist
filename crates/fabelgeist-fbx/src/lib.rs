@@ -25,8 +25,60 @@ pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 
 pub mod animation;
 mod property_count;
-#[cfg(test)]
-mod property_count_tests;
+
+/// One node record of the FBX tree.
+#[derive(Debug, Clone)]
+pub struct Node {
+    pub name: String,
+    pub props: Vec<Prop>,
+    pub children: Vec<Node>,
+}
+
+struct Reader<'a> {
+    data: &'a [u8],
+    pos: usize,
+    version: u32,
+}
+
+/// An entry of the `Objects` block.
+#[derive(Debug)]
+pub struct Object {
+    pub id: i64,
+    /// Object name with the `\0\x01Class` suffix and any `namespace:` prefix removed.
+    pub name: String,
+    /// Object name with its namespace intact, e.g. `mixamorig:Hips`.
+    ///
+    /// Rig profiles are usually written against the namespaced name, so an
+    /// importer wants this one even though momentum matches on the stripped one.
+    pub qualified: String,
+    /// The sub-class token, e.g. `LimbNode`, `Mesh`, `Cluster`, `BlendShapeChannel`.
+    pub class: String,
+    /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
+    pub kind: String,
+    pub node: Node,
+}
+
+/// One entry of the connection list.
+#[derive(Debug, Clone)]
+pub struct Link {
+    /// The object being connected in.
+    pub from: i64,
+    /// The property it connects to, for object-property (`OP`) links.
+    ///
+    /// Animation is addressed entirely through these: a curve node connects to
+    /// a model's `Lcl Rotation`, and a curve connects to that node's `d|X`.
+    pub property: Option<String>,
+}
+
+/// The object table plus the connection graph of an FBX file.
+pub struct Scene {
+    pub objects: Vec<Object>,
+    /// The file's top-level records, kept for `GlobalSettings` and friends.
+    pub roots: Vec<Node>,
+    by_id: HashMap<i64, usize>,
+    /// Incoming links per object id, in file order (id 0 is the scene root).
+    links: HashMap<i64, Vec<Link>>,
+}
 
 /// A typed FBX property value.
 #[derive(Debug, Clone)]
@@ -98,14 +150,6 @@ impl Prop {
     }
 }
 
-/// One node record of the FBX tree.
-#[derive(Debug, Clone)]
-pub struct Node {
-    pub name: String,
-    pub props: Vec<Prop>,
-    pub children: Vec<Node>,
-}
-
 impl Node {
     pub fn child(&self, name: &str) -> Option<&Node> {
         self.children.iter().find(|c| c.name == name)
@@ -171,12 +215,6 @@ impl Node {
     }
 }
 
-struct Reader<'a> {
-    data: &'a [u8],
-    pos: usize,
-    version: u32,
-}
-
 impl<'a> Reader<'a> {
     fn take(&mut self, len: usize) -> Result<&'a [u8]> {
         let end = self
@@ -219,6 +257,162 @@ impl<'a> Reader<'a> {
         // 3 header words + the 1-byte name length.
         if self.version >= 7500 { 25 } else { 13 }
     }
+}
+
+impl Object {
+    /// OpenFBX maps `Model::Root` onto a limb node, which is why `body_world`
+    /// becomes joint 0 of the MHR skeleton rather than a plain null node.
+    pub fn is_limb(&self) -> bool {
+        self.kind == "Model" && (self.class == "LimbNode" || self.class == "Root")
+    }
+
+    pub fn is_null_node(&self) -> bool {
+        self.kind == "Model" && self.class == "Null"
+    }
+
+    pub fn is_node(&self) -> bool {
+        self.kind == "Model"
+    }
+}
+
+impl Scene {
+    pub fn from_roots(roots: Vec<Node>) -> Result<Self> {
+        let mut objects = Vec::new();
+        let mut by_id = HashMap::new();
+        let mut links: HashMap<i64, Vec<Link>> = HashMap::new();
+
+        for root in &roots {
+            if root.name != "Objects" {
+                continue;
+            }
+            for node in &root.children {
+                let Some(id) = node.props.first().and_then(Prop::as_i64) else {
+                    continue;
+                };
+                let name = node.str_prop(1).map(object_name).unwrap_or_default();
+                let qualified = node.str_prop(1).map(qualified_name).unwrap_or_default();
+                let class = node
+                    .str_prop(2)
+                    .map(|c| String::from_utf8_lossy(c).into_owned())
+                    .unwrap_or_default();
+                by_id.insert(id, objects.len());
+                objects.push(Object {
+                    id,
+                    name,
+                    qualified,
+                    class,
+                    kind: node.name.clone(),
+                    node: node.clone(),
+                });
+            }
+        }
+
+        for root in &roots {
+            if root.name != "Connections" {
+                continue;
+            }
+            for c in &root.children {
+                // C: [type, from, to, (property name)]
+                let (Some(from), Some(to)) = (
+                    c.props.get(1).and_then(Prop::as_i64),
+                    c.props.get(2).and_then(Prop::as_i64),
+                ) else {
+                    continue;
+                };
+                if from == 0 {
+                    continue;
+                }
+                let property = c
+                    .props
+                    .get(3)
+                    .and_then(Prop::as_str)
+                    .map(|name| String::from_utf8_lossy(name).into_owned());
+                links.entry(to).or_default().push(Link { from, property });
+            }
+        }
+
+        Ok(Self {
+            objects,
+            roots,
+            by_id,
+            links,
+        })
+    }
+
+    pub fn parse(data: &[u8]) -> Result<Self> {
+        Self::from_roots(parse(data)?)
+    }
+
+    pub fn get(&self, id: i64) -> Option<&Object> {
+        self.by_id.get(&id).map(|i| &self.objects[*i])
+    }
+
+    /// A top-level record such as `GlobalSettings` or `Definitions`.
+    pub fn root(&self, name: &str) -> Option<&Node> {
+        self.roots.iter().find(|root| root.name == name)
+    }
+
+    /// Objects connected as children of `id`, in file order. This is OpenFBX's
+    /// `resolveObjectLink` ordering, which fixes the joint order of the rig.
+    pub fn children(&self, id: i64) -> impl Iterator<Item = &Object> {
+        self.incoming(id).filter_map(|link| self.get(link.from))
+    }
+
+    /// As [`Scene::children`], keeping the property each link targets.
+    pub fn children_with_property(&self, id: i64) -> impl Iterator<Item = (&Object, Option<&str>)> {
+        self.incoming(id).filter_map(|link| {
+            self.get(link.from)
+                .map(|object| (object, link.property.as_deref()))
+        })
+    }
+
+    fn incoming(&self, id: i64) -> impl Iterator<Item = &Link> {
+        self.links.get(&id).map(Vec::as_slice).unwrap_or(&[]).iter()
+    }
+
+    /// The first child of `id` whose record name and class match.
+    pub fn child_of_kind(&self, id: i64, kind: &str, class: &str) -> Option<&Object> {
+        self.children(id)
+            .find(|o| o.kind == kind && o.class == class)
+    }
+
+    pub fn objects_of_kind<'a>(
+        &'a self,
+        kind: &'a str,
+        class: &'a str,
+    ) -> impl Iterator<Item = &'a Object> {
+        self.objects
+            .iter()
+            .filter(move |o| o.kind == kind && o.class == class)
+    }
+}
+
+/// Parses the top-level node list of a binary FBX file.
+pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
+    const MAGIC: &[u8] = b"Kaydara FBX Binary  \x00";
+    if data.len() < 27 || &data[..MAGIC.len()] != MAGIC {
+        // ASCII FBX is a different format sharing the extension. Saying so is
+        // more use than "not a binary FBX file", because the fix is a re-export.
+        if data.starts_with(b"; FBX") || data.starts_with(b"\xef\xbb\xbf; FBX") {
+            bail!("this is an ASCII FBX file; re-export it as binary FBX");
+        }
+        bail!("not a binary FBX file");
+    }
+    let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
+    let mut reader = Reader {
+        data,
+        pos: 27,
+        version,
+    };
+
+    let mut roots = Vec::new();
+    while reader.pos + reader.header_size() <= data.len() {
+        match read_node(&mut reader)? {
+            Some(node) => roots.push(node),
+            None => break,
+        }
+    }
+    Ok(roots)
 }
 
 fn decode_array<T: Copy>(
@@ -342,90 +536,6 @@ fn read_node(reader: &mut Reader<'_>) -> Result<Option<Node>> {
     }))
 }
 
-/// Parses the top-level node list of a binary FBX file.
-pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
-    const MAGIC: &[u8] = b"Kaydara FBX Binary  \x00";
-    if data.len() < 27 || &data[..MAGIC.len()] != MAGIC {
-        // ASCII FBX is a different format sharing the extension. Saying so is
-        // more use than "not a binary FBX file", because the fix is a re-export.
-        if data.starts_with(b"; FBX") || data.starts_with(b"\xef\xbb\xbf; FBX") {
-            bail!("this is an ASCII FBX file; re-export it as binary FBX");
-        }
-        bail!("not a binary FBX file");
-    }
-    let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
-    let mut reader = Reader {
-        data,
-        pos: 27,
-        version,
-    };
-
-    let mut roots = Vec::new();
-    while reader.pos + reader.header_size() <= data.len() {
-        match read_node(&mut reader)? {
-            Some(node) => roots.push(node),
-            None => break,
-        }
-    }
-    Ok(roots)
-}
-
-/// An entry of the `Objects` block.
-#[derive(Debug)]
-pub struct Object {
-    pub id: i64,
-    /// Object name with the `\0\x01Class` suffix and any `namespace:` prefix removed.
-    pub name: String,
-    /// Object name with its namespace intact, e.g. `mixamorig:Hips`.
-    ///
-    /// Rig profiles are usually written against the namespaced name, so an
-    /// importer wants this one even though momentum matches on the stripped one.
-    pub qualified: String,
-    /// The sub-class token, e.g. `LimbNode`, `Mesh`, `Cluster`, `BlendShapeChannel`.
-    pub class: String,
-    /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
-    pub kind: String,
-    pub node: Node,
-}
-
-impl Object {
-    /// OpenFBX maps `Model::Root` onto a limb node, which is why `body_world`
-    /// becomes joint 0 of the MHR skeleton rather than a plain null node.
-    pub fn is_limb(&self) -> bool {
-        self.kind == "Model" && (self.class == "LimbNode" || self.class == "Root")
-    }
-
-    pub fn is_null_node(&self) -> bool {
-        self.kind == "Model" && self.class == "Null"
-    }
-
-    pub fn is_node(&self) -> bool {
-        self.kind == "Model"
-    }
-}
-
-/// One entry of the connection list.
-#[derive(Debug, Clone)]
-pub struct Link {
-    /// The object being connected in.
-    pub from: i64,
-    /// The property it connects to, for object-property (`OP`) links.
-    ///
-    /// Animation is addressed entirely through these: a curve node connects to
-    /// a model's `Lcl Rotation`, and a curve connects to that node's `d|X`.
-    pub property: Option<String>,
-}
-
-/// The object table plus the connection graph of an FBX file.
-pub struct Scene {
-    pub objects: Vec<Object>,
-    /// The file's top-level records, kept for `GlobalSettings` and friends.
-    pub roots: Vec<Node>,
-    by_id: HashMap<i64, usize>,
-    /// Incoming links per object id, in file order (id 0 is the scene root).
-    links: HashMap<i64, Vec<Link>>,
-}
-
 fn object_name(raw: &[u8]) -> String {
     let name = match raw.windows(2).position(|w| w == [0, 1]) {
         Some(pos) => &raw[..pos],
@@ -447,115 +557,5 @@ fn qualified_name(raw: &[u8]) -> String {
     };
     String::from_utf8_lossy(name).into_owned()
 }
-
-impl Scene {
-    pub fn from_roots(roots: Vec<Node>) -> Result<Self> {
-        let mut objects = Vec::new();
-        let mut by_id = HashMap::new();
-        let mut links: HashMap<i64, Vec<Link>> = HashMap::new();
-
-        for root in &roots {
-            if root.name != "Objects" {
-                continue;
-            }
-            for node in &root.children {
-                let Some(id) = node.props.first().and_then(Prop::as_i64) else {
-                    continue;
-                };
-                let name = node.str_prop(1).map(object_name).unwrap_or_default();
-                let qualified = node.str_prop(1).map(qualified_name).unwrap_or_default();
-                let class = node
-                    .str_prop(2)
-                    .map(|c| String::from_utf8_lossy(c).into_owned())
-                    .unwrap_or_default();
-                by_id.insert(id, objects.len());
-                objects.push(Object {
-                    id,
-                    name,
-                    qualified,
-                    class,
-                    kind: node.name.clone(),
-                    node: node.clone(),
-                });
-            }
-        }
-
-        for root in &roots {
-            if root.name != "Connections" {
-                continue;
-            }
-            for c in &root.children {
-                // C: [type, from, to, (property name)]
-                let (Some(from), Some(to)) = (
-                    c.props.get(1).and_then(Prop::as_i64),
-                    c.props.get(2).and_then(Prop::as_i64),
-                ) else {
-                    continue;
-                };
-                if from == 0 {
-                    continue;
-                }
-                let property = c
-                    .props
-                    .get(3)
-                    .and_then(Prop::as_str)
-                    .map(|name| String::from_utf8_lossy(name).into_owned());
-                links.entry(to).or_default().push(Link { from, property });
-            }
-        }
-
-        Ok(Self {
-            objects,
-            roots,
-            by_id,
-            links,
-        })
-    }
-
-    pub fn parse(data: &[u8]) -> Result<Self> {
-        Self::from_roots(parse(data)?)
-    }
-
-    pub fn get(&self, id: i64) -> Option<&Object> {
-        self.by_id.get(&id).map(|i| &self.objects[*i])
-    }
-
-    /// A top-level record such as `GlobalSettings` or `Definitions`.
-    pub fn root(&self, name: &str) -> Option<&Node> {
-        self.roots.iter().find(|root| root.name == name)
-    }
-
-    /// Objects connected as children of `id`, in file order. This is OpenFBX's
-    /// `resolveObjectLink` ordering, which fixes the joint order of the rig.
-    pub fn children(&self, id: i64) -> impl Iterator<Item = &Object> {
-        self.incoming(id).filter_map(|link| self.get(link.from))
-    }
-
-    /// As [`Scene::children`], keeping the property each link targets.
-    pub fn children_with_property(&self, id: i64) -> impl Iterator<Item = (&Object, Option<&str>)> {
-        self.incoming(id).filter_map(|link| {
-            self.get(link.from)
-                .map(|object| (object, link.property.as_deref()))
-        })
-    }
-
-    fn incoming(&self, id: i64) -> impl Iterator<Item = &Link> {
-        self.links.get(&id).map(Vec::as_slice).unwrap_or(&[]).iter()
-    }
-
-    /// The first child of `id` whose record name and class match.
-    pub fn child_of_kind(&self, id: i64, kind: &str, class: &str) -> Option<&Object> {
-        self.children(id)
-            .find(|o| o.kind == kind && o.class == class)
-    }
-
-    pub fn objects_of_kind<'a>(
-        &'a self,
-        kind: &'a str,
-        class: &'a str,
-    ) -> impl Iterator<Item = &'a Object> {
-        self.objects
-            .iter()
-            .filter(move |o| o.kind == kind && o.class == class)
-    }
-}
+#[cfg(test)]
+mod property_count_tests;
