@@ -28,7 +28,7 @@ async fn read<T: bytemuck::AnyBitPattern>(
     if u64::from(buffer.size) == 0 {
         Ok(vec![])
     } else {
-        buffer.read(context).await
+        buffer.read(context).await.map_err(anyhow::Error::from)
     }
 }
 
