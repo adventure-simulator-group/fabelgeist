@@ -20,7 +20,7 @@ pub(super) async fn settlement_map(
     super::entry::activate_settlement(&state, &id);
     let map_data_initialized = crate::strategic_map::has_geographic_source(settlement);
     let edges = if map_data_initialized {
-        cached_travel_edges(&state.db).await
+        TRAVEL_EDGE_CACHE.load(&state.db).await
     } else {
         None
     };
@@ -123,36 +123,15 @@ pub(super) async fn settlement_map(
             .iter_mut()
             .find(|destination| destination.id == selected_id)
     {
-        let goal = if let Some(site) = case_sites
-            .iter()
-            .find(|site| site.case_site_id.value == destination.id)
-        {
-            super::super::wgs84_latitude_longitude_degrees(site.latitude_e_7, site.longitude_e_7)
-                .ok()
-        } else {
-            settlements
-                .iter()
-                .find(|candidate| candidate.id == destination.id)
-                .map(|candidate| (candidate.latitude, candidate.longitude))
-        };
-        if let Some(goal) = goal {
-            let terrain_profile = if let Some((character, _)) = active_character.as_ref() {
-                crate::routes::party_terrain_profile(&state, character)
-                    .await
-                    .unwrap_or_default()
-                    .0
-            } else {
-                adventuresim_terrain::TerrainSkillProfile::default()
-            };
-            crate::routes::travel::apply_terrain_route(
-                destination,
-                state.terrain.as_deref(),
-                (settlement.latitude, settlement.longitude),
-                goal,
-                terrain_profile,
+        destination
+            .apply_selected_terrain(
+                &state,
+                settlement,
+                &settlements,
+                &case_sites,
+                active_character.as_ref().map(|(character, _)| character),
             )
             .await;
-        }
     }
     let party_members = get_active_party_members(
         &state,
@@ -297,7 +276,6 @@ pub(super) fn can_abandon_active_contract(
 ) -> bool {
     contract.status == ContractStatus::Accepted && current_case_site_id.is_none()
 }
-
 #[cfg(test)]
 mod map_quest_tests {
     use super::*;
@@ -306,8 +284,8 @@ mod map_quest_tests {
     fn exact_owned_case_sites_use_the_current_settlement_as_the_map_origin() {
         let source = SETTLEMENTS_SOURCE;
         let map = source
-            .split("async fn settlement_map(")
-            .nth(1)
+            .rsplit_once("\npub(super) async fn settlement_map(")
+            .map(|(_, tail)| tail)
             .and_then(|tail| tail.split("fn settlement_html_travel_available").next())
             .expect("settlement map route");
 

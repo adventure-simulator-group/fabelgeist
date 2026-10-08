@@ -87,9 +87,11 @@ governed by the repository-root generation rule instead.
 
 ## Modules and files
 
-- Always put the file-level `use` block at the top of each Rust file, after
-  module documentation and inner attributes, before `mod` declarations and
-  other items. Keep `mod` declarations out of the import block.
+- After module documentation and inner attributes, order file-level items as:
+  `use` imports and re-exports; `mod` declarations; constants, statics and type
+  aliases; structs; enums; traits; impl blocks; then functions, public before
+  private. Put the `#[cfg(test)]` module last, whether inline or declared in
+  another file. Keep documentation and attributes attached to their items.
 - Split modules by responsibility, not to satisfy a mechanical line limit.
   Roughly 400 lines of production code is a healthy target and 500 lines is a
   design smell; exclude unit tests from that judgment.
