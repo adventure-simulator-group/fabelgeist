@@ -14,7 +14,7 @@ pub(super) fn inspect(
     let length = delta.length();
     let direction = delta / length;
     let gate_distance =
-        (compound.boundary.gate.centre_metres - route.start_metres()).dot(direction);
+        (compound.boundary.gate.centre_metres.metres() - route.start_metres()).dot(direction);
     let door = compound.boundary.gate.door(compound.id)?;
     let hinge_distance = (door.hinge_centre.metres().xz() - route.start_metres()).dot(direction);
     let radius = door.horizontal_sweep_radius_metres()?;

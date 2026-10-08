@@ -12,12 +12,9 @@ pub(super) fn inspect(
     terrain_height: impl Fn(Vec2) -> Option<f32>,
     maximum_grade: f32,
 ) -> Result<Option<Value>, adventuresim_building_generator::DoorError> {
-    let gate = compound.boundary.gate.centre_metres;
-    let Some(gate_point) =
-        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(gate)
-    else {
-        return Ok(None);
-    };
+    let gate_point = compound.boundary.gate.centre_metres;
+    // Native endpoint-grade and height-query kernel consumes scene metres.
+    let gate = gate_point.metres();
     let mut crossings = compound
         .access
         .iter()

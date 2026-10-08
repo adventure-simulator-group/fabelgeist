@@ -16,15 +16,6 @@ const COMPARISON_MAXIMUM_RISER_METRES: f32 = 0.19;
 const COMPARISON_MINIMUM_GOING_METRES: f32 = 0.25;
 const COMPARISON_STAIR_CLEAR_WIDTH_METRES: f32 = 1.0;
 const COMPARISON_LANDING_RUN_METRES: f32 = 0.5;
-
-const fn positive_comparison_length(
-    value: f32,
-) -> adventuresim_building_generator::spatial_geometry::PositiveLength {
-    match adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(value) {
-        Ok(length) => length,
-        Err(_) => panic!("authored comparison lengths must be positive"),
-    }
-}
 const COMPARISON_STAIRS: CourtStairLimits = CourtStairLimits::new(
     positive_comparison_length(COMPARISON_MAXIMUM_RISER_METRES),
     positive_comparison_length(COMPARISON_MINIMUM_GOING_METRES),
@@ -32,8 +23,19 @@ const COMPARISON_STAIRS: CourtStairLimits = CourtStairLimits::new(
     positive_comparison_length(COMPARISON_LANDING_RUN_METRES),
     positive_comparison_length(COMPARISON_LANDING_RUN_METRES),
 );
-pub(super) fn stair_limits() -> CourtStairLimits {
-    COMPARISON_STAIRS
+
+pub(super) struct ComparisonMember {
+    pub bearing: CityPlotBounds,
+    pub threshold: ScenePlanPoint,
+}
+pub(super) struct ComparisonMembers {
+    pub front: ComparisonMember,
+    pub rear: ComparisonMember,
+}
+pub(super) struct ProposedCompoundLevels {
+    pub front: SupportElevation,
+    pub court: SupportElevation,
+    pub rear: SupportElevation,
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -42,11 +44,6 @@ pub(super) enum ComparisonInputError {
     NonFiniteThreshold { attempted_metres: Vec2 },
     #[error("comparison requires three finite front/court/rear elevations")]
     InvalidProposedLevels,
-}
-
-pub(super) struct ComparisonMember {
-    pub bearing: CityPlotBounds,
-    pub threshold: ScenePlanPoint,
 }
 impl ComparisonMember {
     pub fn from_measurement(
@@ -62,15 +59,6 @@ impl ComparisonMember {
             )?,
         })
     }
-}
-pub(super) struct ComparisonMembers {
-    pub front: ComparisonMember,
-    pub rear: ComparisonMember,
-}
-pub(super) struct ProposedCompoundLevels {
-    pub front: SupportElevation,
-    pub court: SupportElevation,
-    pub rear: SupportElevation,
 }
 
 impl ProposedCompoundLevels {
@@ -88,6 +76,9 @@ impl ProposedCompoundLevels {
         })
     }
 }
+pub(super) fn stair_limits() -> CourtStairLimits {
+    COMPARISON_STAIRS
+}
 
 pub(super) fn compare(
     property: &CityCompound,
@@ -98,7 +89,7 @@ pub(super) fn compare(
     maximum_grade: f32,
 ) -> Option<Value> {
     let elevation = SupportElevation::from_metres;
-    let gate = ScenePlanPoint::from_metres(property.boundary.gate.centre_metres)?;
+    let gate = property.boundary.gate.centre_metres;
     let mut gate_routes = property
         .access
         .iter()
@@ -120,7 +111,7 @@ pub(super) fn compare(
             elevation: proposed.rear,
         },
         court: proposed.court,
-        gate: elevation(height(property.boundary.gate.centre_metres)?)?,
+        gate: elevation(height(property.boundary.gate.centre_metres.metres())?)?,
         street: elevation(height(route.start_metres())?)?,
     };
     let limits = SupportLimits::new(
@@ -142,7 +133,7 @@ pub(super) fn compare(
         .walls
         .iter()
         .map(|w| w.thickness_metres)
-        .max_by(f32::total_cmp)?;
+        .max_by(|first, second| first.metres().total_cmp(&second.metres()))?;
     let candidates=[CourtTreatment::Level,CourtTreatment::Terraced(stairs)].map(|treatment| {
         match CompoundSupportPlan::compile(property,levels,limits,treatment) {
             Ok(plan)=>{
@@ -167,6 +158,15 @@ pub(super) fn compare(
             "verification_scope":"Bounded construction decision experiment. Six-metre cut/fill and stair dimensions are explicit provisional modelling assumptions, not calibrated runtime limits or historical measurements. No production terrain is changed, no required positive fixture is accepted, and no retaining-wall collision capacity is asserted.",
         }),
     )
+}
+
+const fn positive_comparison_length(
+    value: f32,
+) -> adventuresim_building_generator::spatial_geometry::PositiveLength {
+    match adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(value) {
+        Ok(length) => length,
+        Err(_) => panic!("authored comparison lengths must be positive"),
+    }
 }
 
 #[cfg(test)]
