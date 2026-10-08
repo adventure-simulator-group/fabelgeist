@@ -262,7 +262,10 @@ impl LongitudeMicrodegrees {
 }
 
 /// A validated WGS84 coordinate stored in millionths of a degree.
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(
+    Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde::Serialize, serde::Deserialize,
+)]
+#[serde(deny_unknown_fields)]
 pub struct Wgs84CoordinateMicrodegrees {
     latitude: LatitudeMicrodegrees,
     longitude: LongitudeMicrodegrees,

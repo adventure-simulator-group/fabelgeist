@@ -1,6 +1,7 @@
 //! Reproducible geographic input stages for offline support diagnostics.
 use super::*;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+use adventuresim_terrain::Cell;
 use adventuresim_world_schema::ElevationMeters;
 
 #[derive(Debug, thiserror::Error)]

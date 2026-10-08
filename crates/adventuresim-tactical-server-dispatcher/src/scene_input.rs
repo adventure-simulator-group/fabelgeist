@@ -6,14 +6,19 @@ use std::{
 use adventuresim_building_generator::signs::ShopName;
 use adventuresim_core::weather::{WORLD_WEATHER_SEED, weather_at};
 use adventuresim_tactical_core::prelude::*;
-use adventuresim_terrain::{Cell, Surface, TerrainPack};
-use adventuresim_world_schema::{
-    BASIS_POINTS_PER_WHOLE, ElevationMeters, TerrainFeature, coordinates::Wgs84CoordinateE7,
-};
+use adventuresim_terrain::TerrainPack;
+#[cfg(test)]
+use adventuresim_terrain::{Cell, Surface};
+use adventuresim_world_schema::{ElevationMeters, TerrainFeature, coordinates::Wgs84CoordinateE7};
 use bevy::math::Vec2;
 use fabelgeist_determinism::{Seed, StreamId};
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
+
+use crate::terrain_sampling::{
+    GeographicSampleCoordinate, METRES_PER_LATITUDE_DEGREE, MIN_LONGITUDE_SCALE,
+    environment_sample, offset_coordinate,
+};
 
 use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
 
@@ -26,14 +31,11 @@ pub use terrain_capture::{ImportedTerrainCapture, SourceElevationSample, Terrain
 const PLAYABLE_SIDE: u16 = 101;
 const PLAYABLE_SPACING_METRES: f32 = 1.0;
 const PERCENT_PER_WHOLE: u16 = 100;
-const BASIS_POINTS_PER_PERCENT: u16 = BASIS_POINTS_PER_WHOLE / PERCENT_PER_WHOLE;
 const VISTA_LOD_SPECS: [VistaLodSpec; 3] = [
     VistaLodSpec::new(0, 50.0, 41),
     VistaLodSpec::new(1, 250.0, 17),
     VistaLodSpec::new(2, 1_000.0, 51),
 ];
-const METRES_PER_LATITUDE_DEGREE: f64 = 111_320.0;
-const MIN_LONGITUDE_SCALE: f64 = 0.01;
 const PEAK_SAMPLE_RADIUS_FACTOR: f64 = 0.4;
 const HILLY_DETAIL_AMPLITUDE_METRES: f32 = 0.45;
 const RANDOM_DETAIL_SCALE: u64 = 10_000;
@@ -406,58 +408,6 @@ fn sample_grid(
     })
 }
 
-fn environment_sample(cell: Cell) -> EnvironmentalSample {
-    EnvironmentalSample {
-        canopy_bps: u16::from(cell.canopy_percent) * BASIS_POINTS_PER_PERCENT,
-        wetland_bps: u16::from(cell.wetland_fraction_percent) * BASIS_POINTS_PER_PERCENT,
-        cultivation_bps: if cell.cultivated {
-            BASIS_POINTS_PER_WHOLE
-        } else {
-            0
-        },
-        water_bps: if cell.surface == Surface::Water && !cell.crossing {
-            BASIS_POINTS_PER_WHOLE
-        } else {
-            0
-        },
-        hilly_bps: u16::from(cell.hilly_fraction_percent) * BASIS_POINTS_PER_PERCENT,
-        crossing_bps: if cell.crossing {
-            BASIS_POINTS_PER_WHOLE
-        } else {
-            0
-        },
-        surface: match cell.surface {
-            Surface::Road => TacticalSurface::Road,
-            Surface::Open => TacticalSurface::Open,
-            Surface::SparseWoods => TacticalSurface::SparseWoods,
-            Surface::DeepWoods => TacticalSurface::DeepWoods,
-            Surface::Water => TacticalSurface::Water,
-            Surface::Wetland => TacticalSurface::Wetland,
-        },
-    }
-}
-
-/// Native TerrainPack projection port: continuous WGS84 degrees and scene
-/// east/north metres. Quantizing these intermediate values would move samples.
-struct GeographicSampleCoordinate {
-    latitude_degrees: f64,
-    longitude_degrees: f64,
-}
-fn offset_coordinate(
-    latitude: f64,
-    longitude: f64,
-    east: f64,
-    north: f64,
-) -> GeographicSampleCoordinate {
-    let latitude_delta = north / METRES_PER_LATITUDE_DEGREE;
-    let longitude_scale = latitude.to_radians().cos().abs().max(MIN_LONGITUDE_SCALE);
-    let longitude_delta = east / (METRES_PER_LATITUDE_DEGREE * longitude_scale);
-    GeographicSampleCoordinate {
-        latitude_degrees: latitude + latitude_delta,
-        longitude_degrees: longitude + longitude_delta,
-    }
-}
-
 fn deterministic_seed(mission_id: &str) -> Seed {
     Seed::derive(mission_id.as_bytes(), StreamId::new("scene.mission"), &[])
 }
@@ -698,6 +648,46 @@ mod tests {
                 321
             )
         );
+
+        // Regional presentation samples the same native source without invoking
+        // settlement layout or grading. Coarse windows preserve missing coverage.
+        use adventuresim_tactical_core::regional_terrain::{
+            REGIONAL_TERRAIN_VERTICES, RegionalTerrainRequest, RegionalTerrainScale,
+        };
+        let origin = adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees::
+            from_longitude_latitude_degrees(10.5, 50.5).unwrap();
+        for scale in [
+            RegionalTerrainScale::Neighborhood,
+            RegionalTerrainScale::Continent,
+        ] {
+            let captured =
+                crate::regional_terrain::capture(&pack, RegionalTerrainRequest { origin, scale })
+                    .unwrap();
+            assert_eq!(captured.vertices().len(), REGIONAL_TERRAIN_VERTICES);
+            assert_eq!(captured.source().as_str(), pack.digest());
+            let mut wire = serde_json::to_value(&captured).unwrap();
+            let restored: adventuresim_tactical_core::regional_terrain::RegionalTerrain =
+                serde_json::from_value(wire.clone()).unwrap();
+            assert_eq!(restored, captured);
+            wire["vertices"].as_array_mut().unwrap().pop();
+            assert!(
+                serde_json::from_value::<
+                    adventuresim_tactical_core::regional_terrain::RegionalTerrain,
+                >(wire)
+                .is_err()
+            );
+            let center = captured.vertices()[REGIONAL_TERRAIN_VERTICES / 2].unwrap();
+            assert_eq!(center.elevation.get(), 321);
+            assert_eq!(
+                center.environment,
+                input.playable.environment[50 * 101 + 50]
+            );
+            if scale == RegionalTerrainScale::Continent {
+                assert!(captured.vertices().iter().any(Option::is_none));
+            } else {
+                assert!(captured.vertices().iter().all(Option::is_some));
+            }
+        }
 
         drop(pack);
         fs::remove_dir_all(directory).expect("remove terrain fixture directory");
