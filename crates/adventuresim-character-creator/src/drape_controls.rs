@@ -39,10 +39,12 @@ fn stage(ui: &mut egui::Ui, settings: &mut StageSettings) {
             .text("Constraint iterations"),
     );
     ui.add(egui::Slider::new(&mut settings.gravity, StageSettings::GRAVITY).text("Gravity (m/s²)"));
-    ui.add(
-        egui::Slider::new(&mut settings.damping, StageSettings::DAMPING)
-            .text("Damping (per second)"),
-    );
+    // egui edits a native scalar; the stage retains the per-second rate.
+    let mut damping = f32::from(settings.damping);
+    let damping_range =
+        f32::from(*StageSettings::DAMPING.start())..=f32::from(*StageSettings::DAMPING.end());
+    ui.add(egui::Slider::new(&mut damping, damping_range).text("Damping (per second)"));
+    settings.damping = damping.into();
     ui.checkbox(&mut settings.self_collision, "Self-collision");
     settings.host_contact_interval = settings.host_contact_interval.min(settings.substeps);
     ui.add(
@@ -63,4 +65,22 @@ fn stage(ui: &mut egui::Ui, settings: &mut StageSettings) {
             "Swept contacts against the body",
         );
     });
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn damping_slider_preserves_an_in_range_rate_and_clamps_an_editor_input() {
+        let context = egui::Context::default();
+        let mut settings = DrapeSettings::for_fabric(fabelgeist_cloth::Fabric::COTTON).settling;
+        for native in [5.5f32, 40.0] {
+            settings.damping = native.into();
+            let _ = context.run_ui(egui::RawInput::default(), |ui| {
+                egui::CentralPanel::default().show_inside(ui, |ui| stage(ui, &mut settings));
+            });
+            assert_eq!(f32::from(settings.damping), native.min(20.0));
+        }
+    }
 }
