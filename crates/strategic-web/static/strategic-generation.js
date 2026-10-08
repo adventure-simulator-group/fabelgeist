@@ -24,9 +24,9 @@ export async function prepareGeneratedScene(runtime, input, venues) {
     // not postpone the destination's critical scene job. Workers are lazy, so
     // a completely cached destination never instantiates another Wasm runtime.
     const run = async jobs => pool.run(jobs,
-      (job, bytes, milliseconds) => {
+      ({ job, bytes, workerMilliseconds }) => {
         receive(job, bytes);
-        metrics.workerMilliseconds += milliseconds;
+        metrics.workerMilliseconds += workerMilliseconds;
         const admission = cache.put(job, bytes);
         if (admission.status === "accepted") {
           metrics.cacheWritesAccepted++;
@@ -41,16 +41,18 @@ export async function prepareGeneratedScene(runtime, input, venues) {
         metrics.dependencyMilliseconds += performance.now() - started;
         metrics.dependencyBytes += bytes.byteLength;
         return bytes;
-      }, async resolveJob(job) {
+      }, async resolveJob(job, signal) {
         const readStarted = performance.now();
         const bytes = await cache.get(job);
+        signal.throwIfAborted();
         metrics.cacheLookupMilliseconds += performance.now() - readStarted;
         if (bytes) {
-          try { receive(job, bytes); metrics.cacheHits++; return null; }
-          catch { await cache.remove(job); }
+          try { receive(job, bytes); metrics.cacheHits++; return { status: "reused" }; }
+          catch { signal.throwIfAborted(); await cache.remove(job); }
         }
+        signal.throwIfAborted();
         metrics.cacheMisses++;
-        return job;
+        return { status: "generate", job };
       } });
     const venueJobs = JSON.parse(runtime.wasm_venue_jobs(input, JSON.stringify(venues)));
     metrics.jobs += venueJobs.length;
@@ -58,11 +60,11 @@ export async function prepareGeneratedScene(runtime, input, venues) {
     // Terrain then consumes their prepared plans and compact frontage records.
     // JSON only identifies the enum variant; numeric seeds stay in Rust strings.
     const scenes = jobs.filter(job => Object.hasOwn(JSON.parse(job), "Scene"));
-    metrics.workers = await run([...venueJobs, ...jobs.filter(job => !scenes.includes(job))]);
-    metrics.workers += await run(scenes);
+    metrics.workers = (await run([...venueJobs, ...jobs.filter(job => !scenes.includes(job))])).createdWorkers;
+    metrics.workers += (await run(scenes)).createdWorkers;
     const landscapeJobs = JSON.parse(runtime.wasm_landscape_jobs(input, runtime.generationGraphicsConfig));
     metrics.jobs += landscapeJobs.length;
-    metrics.workers += await run(landscapeJobs);
+    metrics.workers += (await run(landscapeJobs)).createdWorkers;
     metrics.milliseconds = performance.now() - started;
   } finally {
     pool.close();
