@@ -55,6 +55,33 @@ when it refines the regional surface. Regional capture itself does not perform
 that grading or apply weather, so changing weather does not change this static
 geographic product.
 
+## Browser window ownership
+
+`createRegionalTerrainRequests` retains at most four recent windows in the
+strategic document. A request uses the exact source digest, named scale and
+checked origin as its identity. This cache expires with the document; it does
+not persist across sampler deployments. An already-installed window can reopen
+without another HTTP request or renderer installation.
+
+Each controller owns one in-flight request. Replacing the camera window or
+hiding the map aborts obsolete HTTP work; late responses cannot install terrain.
+Identical pending windows share a promise. Installation waits for the existing
+runtime rather than creating a renderer. The response must echo the request and
+source and contain the fixed lattice. Rust performs vertex admission at the
+renderer boundary.
+
+A failed window retains its error until the camera requests a different window
+or the user retries. Repeated frame synchronization cannot repeatedly fetch a
+busy server. Cancellation preserves the last installed window and the recent
+cache. GPU and camera readiness remain renderer responsibilities.
+
+The browser behavior checks cover warm reopening, obsolete replies, cancellation,
+bounded retention, admission and explicit recovery:
+
+```sh
+node --test crates/strategic-web/tests/regional-terrain-request.test.cjs
+```
+
 The existing dispatcher scene-input checks compare regional capture with a known
 native source and verify missing coverage on a coarse window:
 
