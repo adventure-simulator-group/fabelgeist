@@ -1,12 +1,13 @@
 //! Exact identity for named parameter subsets in a Momentum model definition.
 
-use std::fmt;
+use derive_more::{Debug, Display, From};
 
 /// A parameter-set key with exact, case-sensitive text identity.
 ///
 /// Construction preserves arbitrary supplied text, including empty, Unicode
 /// and NUL names. It neither validates model-file grammar nor guarantees that
 /// a transform contains the set. Repeated parsed keys replace the prior mask.
+/// Borrowed text is exposed for serialization and presentation boundaries.
 ///
 /// ```
 /// use fabelgeist_mhr::{ParameterSetName, ParameterTransform};
@@ -28,36 +29,14 @@ use std::fmt;
 /// use fabelgeist_mhr::ParameterTransform;
 /// ParameterTransform::default().parameter_sets.insert(String::from("rigid"), vec![]);
 /// ```
-#[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Clone, Debug, Display, From, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[from(String, &str)]
+#[debug("{_0:?}")]
 pub struct ParameterSetName(String);
 
-impl From<&str> for ParameterSetName {
-    fn from(name: &str) -> Self {
-        Self(name.to_owned())
-    }
-}
-
-impl From<String> for ParameterSetName {
-    fn from(name: String) -> Self {
-        Self(name)
-    }
-}
-
-/// Borrow text only for native serialization or presentation boundaries.
+/// Borrow text only for serialization or presentation boundaries.
 impl<'a> From<&'a ParameterSetName> for &'a str {
     fn from(name: &'a ParameterSetName) -> Self {
         &name.0
-    }
-}
-
-impl fmt::Display for ParameterSetName {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Display::fmt(&self.0, formatter)
-    }
-}
-
-impl fmt::Debug for ParameterSetName {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.0, formatter)
     }
 }
