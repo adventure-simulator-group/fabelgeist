@@ -15,6 +15,9 @@ use fabelgeist_math::transform::Transform;
 use fabelgeist_math::vector::{Vec3, Vec4};
 use serde::{Deserialize, Serialize};
 
+mod clip_name;
+pub use clip_name::AnimationClipName;
+
 pub mod retarget;
 
 /// A joint's local transform, with the rotation kept as a quaternion.
@@ -383,7 +386,7 @@ impl RootMotion {
 /// canonical rig.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct Animation {
-    pub name: String,
+    pub name: AnimationClipName,
     pub duration: f32,
     pub tracks: Vec<JointTrack>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -391,9 +394,9 @@ pub struct Animation {
 }
 
 impl Animation {
-    pub fn new(name: impl Into<String>) -> Self {
+    pub fn new(name: AnimationClipName) -> Self {
         Self {
-            name: name.into(),
+            name,
             ..Default::default()
         }
     }
@@ -558,7 +561,7 @@ mod tests {
 
     #[test]
     fn key_times_merge_every_channel() {
-        let mut clip = Animation::new("test");
+        let mut clip = Animation::new(AnimationClipName::from("test"));
         clip.tracks.push(JointTrack {
             joint: "a".into(),
             rotation: Some(Curve::new(
