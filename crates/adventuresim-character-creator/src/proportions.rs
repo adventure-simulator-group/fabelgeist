@@ -9,7 +9,7 @@ use fabelgeist_mhr::{Mhr, character::PARAMETERS_PER_JOINT};
 const CENTIMETRES_PER_METRE: f32 = 100.0;
 
 pub fn model_parameters(model: &Mhr, proportions: CharacterProportions) -> Result<Vec<f32>> {
-    let mut parameters = vec![0.0; model.num_model_parameters()];
+    let mut parameters = vec![0.0; usize::from(model.pose_parameter_count())];
     for proportion in BodyProportion::ALL {
         let column = model
             .parameter_transform

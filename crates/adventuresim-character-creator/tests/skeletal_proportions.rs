@@ -24,7 +24,7 @@ fn evaluate(
         .forward_with(
             Tensor::from_data(TensorData::new(vec![0.15; 45], [1, 45]), &device),
             Tensor::from_data(
-                TensorData::new(parameters, [1, model.num_model_parameters()]),
+                TensorData::new(parameters, [1, usize::from(model.pose_parameter_count())]),
                 &device,
             ),
             None,
