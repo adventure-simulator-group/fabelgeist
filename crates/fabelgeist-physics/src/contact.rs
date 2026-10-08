@@ -14,10 +14,11 @@ use fabelgeist_gpu::prelude::*;
 use fabelgeist_xpbd::{Particles, SubstepHook};
 
 use crate::collider::{Collider, pack_colliders};
-mod count;
 use crate::mesh::MeshCollider;
 use crate::wgsl;
 use count::{ColliderCapacity, ColliderCapacityFit, ColliderCount};
+
+mod count;
 
 /// Analytic shapes plus at most one triangle mesh.
 ///
