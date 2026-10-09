@@ -756,7 +756,7 @@ ceiling = 599
 
 [[files]]
 path = "crates/strategic-web/src/routes/mod.rs"
-ceiling = 828
+ceiling = 724
 
 [[files]]
 path = "crates/strategic-web/src/routes/parties.rs"
@@ -11389,13 +11389,6 @@ rule = "raw-string-branch"
 path = "crates/strategic-web/src/routes/local_chat.rs"
 item = "send_message"
 fingerprint = "string:send_local_chat_message"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/mod.rs"
-item = "has_same_origin"
-fingerprint = "string:/"
 occurrences = 1
 
 [[findings]]
