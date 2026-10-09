@@ -1,15 +1,13 @@
 //! Read-only bounded terrain capture, independent of settlements and simulation.
 use crate::terrain_sampling::environment_sample;
-use adventuresim_tactical_core::{
-    regional_terrain::{
-        REGIONAL_TERRAIN_SIDE, REGIONAL_TERRAIN_VERTICES, RegionalTerrain, RegionalTerrainError,
-        RegionalTerrainRequest, RegionalTerrainVertex,
-    },
-    scene_input::{SceneValidationError, SourcePackageDigest},
+use adventuresim_tactical_core::regional_terrain::{
+    REGIONAL_TERRAIN_SIDE, REGIONAL_TERRAIN_VERTICES, RegionalTerrain, RegionalTerrainError,
+    RegionalTerrainRequest, RegionalTerrainVertex,
 };
 use adventuresim_terrain::TerrainPack;
 use adventuresim_world_schema::ElevationMeters;
 use adventuresim_world_schema::coordinates::terrain_projection::NativeTerrainCoordinate;
+use adventuresim_world_schema::source_package::{SourcePackageDigest, SourcePackageDigestError};
 
 pub type Result<T> = std::result::Result<T, RegionalTerrainCaptureError>;
 
@@ -20,7 +18,7 @@ pub enum RegionalTerrainCaptureError {
     #[error(transparent)]
     Admission(#[from] RegionalTerrainError),
     #[error(transparent)]
-    Source(#[from] SceneValidationError),
+    Source(#[from] SourcePackageDigestError),
     #[error("terrain source elevation {metres} is outside the supported geographic range")]
     Elevation { metres: i16 },
 }

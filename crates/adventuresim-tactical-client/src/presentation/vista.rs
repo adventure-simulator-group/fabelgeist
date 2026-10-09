@@ -372,8 +372,8 @@ mod tests {
         assert!(!shader.contains("sward_color = color *"));
         assert!(shader.contains("let molded_rock = vec3<f32>(0.31, 0.30, 0.275)"));
         use adventuresim_tactical_core::regional_terrain::*;
-        use adventuresim_tactical_core::scene_input::SourcePackageDigest;
         use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+        use adventuresim_world_schema::source_package::SourcePackageDigest;
         let vertex = RegionalTerrainVertex {
             elevation: adventuresim_world_schema::ElevationMeters::new(321).unwrap(),
             environment: EnvironmentalSample {

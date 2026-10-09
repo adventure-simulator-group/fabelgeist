@@ -3,9 +3,9 @@ use adventuresim_building_generator::spatial_geometry::{GeometryError, Radians};
 use adventuresim_tactical_core::{
     regional_map::{MapOverlay, MapScaleError, MapSpan, MapZoomRatio},
     regional_terrain::RegionalTerrain,
-    scene_input::SourcePackageDigest,
 };
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use bevy::math::Vec2;
 use serde::{Deserialize, Serialize};
 
