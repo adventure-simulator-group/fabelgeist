@@ -1,4 +1,4 @@
-//! Isometric handoff from city east/up/north to geographic east/up/south.
+//! Affine handoff from city east/up/north to geographic east/up/south.
 use super::{CityGpuScenes, PresentationOwner};
 use adventuresim_tactical_core::regional_city::RegionalCityInput;
 use adventuresim_world_schema::coordinates::{
@@ -9,11 +9,12 @@ use bevy::{
     render::{render_resource::ShaderType, storage::ShaderBuffer},
 };
 
-/// The matrix is always an isometry. The sign corrects reflected winding and
+/// The east scale follows the shared sampler projection. The sign corrects winding and
 /// tangent handedness; the remaining vector lanes are GPU alignment padding.
 #[derive(Clone, Copy, Debug, PartialEq, ShaderType)]
 pub(in crate::presentation) struct CityFrame {
     pub(super) world_from_city: Mat4,
+    normal_from_city: Mat4,
     handedness: Vec4,
 }
 
@@ -27,12 +28,18 @@ impl Default for CityFrame {
     fn default() -> Self {
         Self {
             world_from_city: Mat4::IDENTITY,
+            normal_from_city: Mat4::IDENTITY,
             handedness: Vec4::X,
         }
     }
 }
 
 impl CityFrame {
+    /// Conservative radius scale for projected sphere level selection.
+    pub(super) fn radius_scale(self) -> f32 {
+        self.world_from_city.x_axis.x.max(1.0)
+    }
+
     /// Native mesh adapter; columns carry east/up/north city metres into the
     /// current east/up/south map frame. This includes absolute source elevation.
     pub(in crate::presentation) fn world_from_city(self) -> Mat4 {
@@ -43,8 +50,9 @@ impl CityFrame {
         city: &RegionalCityInput,
         window_origin: Wgs84CoordinateMicrodegrees,
     ) -> Self {
-        let offset =
-            NativeTerrainCoordinate::from(window_origin.to_e7()).offset_to(city.origin().into());
+        let projection =
+            NativeTerrainCoordinate::from(window_origin.to_e7()).frame_from(city.origin().into());
+        let offset = projection.origin;
         // Native GPU port: metres relative to the current terrain window,
         // including the city's absolute source elevation. Reflection changes
         // north-positive local Z into the map's south-positive world Z.
@@ -53,12 +61,14 @@ impl CityFrame {
             f32::from(city.input().absolute_elevation_metres.get()),
             -offset.north_metres as f32,
         );
+        let world_from_city = Mat4::from_scale_rotation_translation(
+            Vec3::new(projection.east_scale as f32, 1.0, -1.0),
+            Quat::IDENTITY,
+            translation,
+        );
         Self {
-            world_from_city: Mat4::from_scale_rotation_translation(
-                Vec3::new(1.0, 1.0, -1.0),
-                Quat::IDENTITY,
-                translation,
-            ),
+            world_from_city,
+            normal_from_city: world_from_city.inverse().transpose(),
             handedness: -Vec4::X,
         }
     }

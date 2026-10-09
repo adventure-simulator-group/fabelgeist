@@ -132,7 +132,10 @@ impl OwnerViews {
                             .transform_point3(root_view.view.world_from_view.translation())
                             .extend(view.clip_from_view.w_axis.w),
                         projection: Vec4::new(
-                            view.clip_from_view.y_axis.y.abs() * view.viewport.w as f32 * 0.5,
+                            view.clip_from_view.y_axis.y.abs()
+                                * view.viewport.w as f32
+                                * 0.5
+                                * scene.frame.radius_scale(),
                             FACADE_RADIUS_PIXELS,
                             DETAIL_RADIUS_PIXELS,
                             if previous.is_some() { 1.0 } else { 0.0 },

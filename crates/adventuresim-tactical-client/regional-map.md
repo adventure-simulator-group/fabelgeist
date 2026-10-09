@@ -115,12 +115,14 @@ geographic frame. City refinement must reuse canonical placement and grading
 rather than placing city geometry directly on the ungraded lattice.
 
 GPU city placements remain in their canonical east/up/north frame. A retained
-80-byte frame buffer carries a focused city into the current terrain window's
+144-byte frame buffer carries a focused city into the current terrain window's
 east/up/south coordinates, including its absolute source elevation. Window
 changes update that buffer without repacking placement or geometry buffers.
 Culling uses the inverse frame for camera positions and the matching frame for
 clip and far-plane transforms. Shading corrects reflected face winding and
-tangent handedness. Actor scenery uses the identity frame. The map controller
+tangent handedness, with the inverse transpose for normals and the shared
+latitude-dependent scale for east-west projection. Actor scenery uses the
+identity frame. The map controller
 does not install focused cities yet.
 
 ## Real browser verification
