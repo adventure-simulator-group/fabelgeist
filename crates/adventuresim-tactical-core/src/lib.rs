@@ -16,6 +16,7 @@ mod inventory_armor;
 mod marching_tetrahedra;
 pub mod physics;
 pub mod player;
+pub mod regional_map;
 pub mod regional_terrain;
 pub mod scene;
 pub mod scene_coordinates;

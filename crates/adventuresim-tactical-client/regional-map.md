@@ -51,10 +51,31 @@ pipeline count currently belongs to the
 shared device, so unrelated compilation can delay this initial readiness gate.
 It does not cause additional settlement preparation on warm reopening.
 
-This renderer boundary does not yet replace the strategic map interface. Roads,
-settlement pins and focused city refinement are subsequent consumers of its
-camera and geographic frame. City refinement must reuse canonical placement
-and grading rather than placing city geometry directly on the ungraded lattice.
+`install-overlay` admits a source-matched, bounded collection of canonical
+settlement and case-site identities, checked coordinates and one selected route.
+The producer must already have admitted the observer's knowledge; the renderer
+does not discover locations. Duplicate places, non-map place kinds, mismatched
+marker ranks and unbounded routes are rejected at decoding.
+
+The status includes covered marker positions in absolute logical canvas pixels,
+projected by Bevy's actual cropped camera. HTML owns the corresponding links,
+accessible names and tooltips. Small settlements disappear at wider view spans;
+current, selected and connected places retain priority. Markers outside the
+viewport or on an uncovered triangle have no projected position.
+
+Selected routes use a retained ribbon mesh and the existing unlit material
+pipeline. Each centreline is clipped to the terrain window and split at every
+grid and diagonal triangle edge. Covered pieces follow that triangle's absolute
+elevation plane; missing triangles interrupt the route. Computed routes are
+continuous and estimates have visible gaps. Width follows the physical-pixel
+scale, so pan and rotation reuse geometry while zoom or resize may replace it.
+GPU geometry is bounded to 262,144 route vertices. Excess complexity publishes
+`route-capacity` and does not retry geometry every frame.
+
+This renderer boundary does not yet replace the strategic map interface. Road
+data and focused city refinement are subsequent consumers of its camera and
+geographic frame. City refinement must reuse canonical placement and grading
+rather than placing city geometry directly on the ungraded lattice.
 
 ## Real browser verification
 

@@ -1,10 +1,9 @@
 //! Retained geographic camera pose. Native view X is east, Y is elevation and
 //! Z is south; the source sampler retains its canonical east/north convention.
-use super::protocol::{
-    CanvasRect, MapPointerDisplacement, MapProtocolError, MapSpan, MapZoomRatio,
-};
+use super::protocol::{CanvasRect, MapPointerDisplacement, MapProtocolError};
 use adventuresim_building_generator::spatial_geometry::Radians;
 use adventuresim_tactical_core::{
+    regional_map::{MapSpan, MapZoomRatio},
     regional_terrain::{REGIONAL_TERRAIN_SIDE, RegionalTerrainRequest, RegionalTerrainScale},
     scene_input::SourcePackageDigest,
 };
