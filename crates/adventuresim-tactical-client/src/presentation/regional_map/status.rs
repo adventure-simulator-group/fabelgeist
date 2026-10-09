@@ -7,9 +7,9 @@ use super::{
 use adventuresim_tactical_core::{
     regional_map::{MapScaleError, MapSpan},
     regional_terrain::RegionalTerrainRequest,
-    scene_input::SourcePackageDigest,
 };
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use bevy::prelude::*;
 use serde::Serialize;
 use std::sync::{Mutex, OnceLock};

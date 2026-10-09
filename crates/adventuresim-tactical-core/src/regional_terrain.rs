@@ -1,6 +1,7 @@
 //! Bounded, immutable geographic windows for regional environment presentation.
 //! Missing source samples remain explicit holes, never fabricated terrain.
-use crate::scene_input::{EnvironmentalSample, SourcePackageDigest};
+use crate::scene_input::EnvironmentalSample;
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use adventuresim_world_schema::{ElevationMeters, coordinates::Wgs84CoordinateMicrodegrees};
 use serde::{Deserialize, Serialize};
 

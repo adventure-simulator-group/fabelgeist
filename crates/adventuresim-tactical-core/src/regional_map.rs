@@ -1,9 +1,9 @@
 //! Bounded, observer-admitted geographic overlays for environment presentation.
 //! Producers admit knowledge; this contract carries no discovery authority.
-use crate::scene_input::SourcePackageDigest;
 use adventuresim_building_generator::spatial_geometry::{GeometryError, PositiveLength};
 use adventuresim_core::strategic_place::StrategicPlaceId;
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 

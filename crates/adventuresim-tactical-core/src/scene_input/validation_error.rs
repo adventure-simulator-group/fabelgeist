@@ -16,8 +16,6 @@ impl std::fmt::Display for SampleGridKind {
 
 #[derive(Debug, Error)]
 pub enum SceneValidationError {
-    #[error("imported source identity must be a lowercase SHA-256 digest")]
-    SourceDigest,
     #[error("home catalog: {0}")]
     HomeCatalog(#[source] adventuresim_core::settlement_property::PropertyError),
     #[error("geographic heightmap is invalid")]

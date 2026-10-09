@@ -3,8 +3,8 @@ use super::{MapState, RegionalMapRoot, route_geometry};
 use adventuresim_tactical_core::{
     regional_map::{MapRoute, MapRouteKind},
     regional_terrain::RegionalTerrainRequest,
-    scene_input::SourcePackageDigest,
 };
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use bevy::{camera::visibility::RenderLayers, prelude::*};
 
 const ROUTE_WIDTH_PHYSICAL_PIXELS: f32 = 3.0;
