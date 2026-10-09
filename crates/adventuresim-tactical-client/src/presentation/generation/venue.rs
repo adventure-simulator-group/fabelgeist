@@ -48,21 +48,21 @@ impl VenueRequest {
     }
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub(super) struct PreparedVenue {
     pub recipe: GeneratedBuildingRecipe,
     pub interior: InteriorLayout,
-    pub geometry: Option<VenueGeometry>,
+    pub geometry: Option<Arc<VenueGeometry>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub(in crate::presentation) struct VenueGeometry {
     pub detail: Vec<PreparedBatch>,
     pub facade: Vec<PreparedBatch>,
     pub shell: Vec<PreparedBatch>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub(in crate::presentation) struct PreparedBatch {
     pub material: BuildingLodMaterial,
     #[serde(with = "super::packed")]
@@ -78,6 +78,10 @@ pub(in crate::presentation) struct PreparedBatch {
 }
 
 impl PreparedBatch {
+    pub(in crate::presentation) fn triangle_count(&self) -> usize {
+        self.indices.len() / 3
+    }
+
     fn new(batch: &LodMesh, origin: Vec3) -> Self {
         let mut mesh = super::super::recipe_mesh::recipe_mesh(batch, origin);
         let Some(VertexAttributeValues::Float32x3(positions)) =
@@ -154,7 +158,7 @@ impl PreparedVenue {
         Ok(Self {
             recipe,
             interior,
-            geometry: Some(geometry),
+            geometry: Some(Arc::new(geometry)),
         })
     }
 }

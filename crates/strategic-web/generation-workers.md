@@ -18,6 +18,13 @@ lifetime and are unrelated to persisted product addresses. Replies from an
 earlier dispatch cannot satisfy a later request. Missing or malformed reply
 identities reject the request rather than installing ambiguous data.
 
+The main renderer also checks a Rust-owned preparation ticket at dependency
+capture and product admission. This ticket identifies `scene` or `regional-map`
+residency and its current preparation sequence. It is independent of worker
+dispatch identity and immutable persisted product addresses. Completed products
+become a candidate for Bevy installation; a late result cannot overwrite another
+owner or a newer preparation. See [scene ownership](scene-requests.md).
+
 Dependencies and generated products use transferable `Uint8Array` backing
 buffers. Posting dependencies detaches their caller allocation; delivering
 products transfers their worker allocation. The receiver gets a named record
@@ -35,6 +42,11 @@ Resolvers receive the pool's abort signal and must check it after awaited work
 before applying effects. The cache resolver checks before receiving cached bytes
 into WebAssembly, including when another job fails while its read is pending.
 A failed phase closes the pool so another phase cannot reuse failed workers.
+
+Generation metrics and optional cache completion promises are reported under
+`strategicGenerationMetrics[owner]` and
+`strategicGenerationCacheSettled[owner]`. Overlapping owner preparations do not
+replace each other's diagnostic samples.
 
 `GenerationPoolError` carries a stable `code` and retains an available cause.
 Worker failures preserve the generator's error name and message in a named

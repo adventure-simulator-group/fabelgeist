@@ -40,6 +40,7 @@ enum BrowserCommand {
     PrepareStrategicScene {
         location: String,
         input_json: String,
+        preparation: crate::presentation::generation::PreparationTicket,
     },
     SyncStrategicView {
         view: crate::strategic_scene::protocol::StrategicView,
@@ -211,7 +212,8 @@ fn drain_browser_commands(
             BrowserCommand::PrepareStrategicScene {
                 location,
                 input_json,
-            } => prepare_city(&mut commands, location, input_json),
+                preparation,
+            } => prepare_city(&mut commands, location, input_json, preparation),
             BrowserCommand::SyncStrategicView { view } => {
                 commands.insert_resource(view);
             }
@@ -491,9 +493,15 @@ mod tests {
     }
 }
 
-fn prepare_city(commands: &mut Commands, location: String, input_json: String) {
+fn prepare_city(
+    commands: &mut Commands,
+    location: String,
+    input_json: String,
+    preparation: crate::presentation::generation::PreparationTicket,
+) {
     commands.insert_resource(crate::strategic_scene::SceneDocument::parse(
         location,
         &input_json,
+        preparation,
     ));
 }

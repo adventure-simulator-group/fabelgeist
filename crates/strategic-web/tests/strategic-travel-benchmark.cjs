@@ -5,7 +5,7 @@ const path = require("node:path");
 
 exports.run = async (page, output, ready, profiler) => {
   const results = [];
-  await page.evaluate(() => window.strategicGenerationCacheSettled);
+  await page.evaluate(() => window.strategicGenerationCacheSettled?.scene);
   for (const settlement of ["travel-destination", ...(process.env.STRATEGIC_TRAVEL_SECOND_INPUT ? ["travel-second"] : []), "scene-review"]) {
     const destination = `/locations/settlement/${settlement}/places/inn`;
     await profiler?.start();
@@ -42,12 +42,12 @@ exports.run = async (page, output, ready, profiler) => {
     assert.equal(await page.evaluate(() => window.originalCanvas === document.querySelector("#game-canvas")), true);
     assert.equal(await page.locator("canvas").count(), 1);
     results.push({ settlement, milliseconds: elapsed,
-      ...await page.evaluate(() => { window.travelReadiness.active = false; return ({ generation: window.strategicGenerationMetrics,
+      ...await page.evaluate(() => { window.travelReadiness.active = false; return ({ generation: window.strategicGenerationMetrics?.scene,
         readiness: window.travelReadiness.states,
         navigation: window.strategicRendererMetrics.navigations.at(-1),
         state: window.strategicRendererMetrics.state }); }) });
     fs.writeFileSync(path.join(output, "travel.json"), JSON.stringify(results, null, 2));
     await page.screenshot({ path: path.join(output, `travel-${settlement}.png`) });
-    await page.evaluate(() => window.strategicGenerationCacheSettled);
+    await page.evaluate(() => window.strategicGenerationCacheSettled?.scene);
   }
 };

@@ -106,7 +106,7 @@ async function serve() {
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client.js") {
       response.setHeader("Content-Type", "text/javascript");
       const street = {height: 30, width: services.length * 20, bays: services.map((id, index) => ({id, width: index % 2 ? 18 : 24}))};
-      response.end(`export default async function(){}; export function wasm_begin_generation(){} export function wasm_generation_jobs(){return "[]";} export function wasm_venue_jobs(){return "[]";} export function wasm_landscape_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})} export function wasm_regional_map_status(){const commands=(window.commands||[]).filter(c=>c.type==="regional-map").map(c=>c.command);const open=commands.filter(c=>c.type==="open").at(-1);const overlay=commands.filter(c=>c.type==="install-overlay").at(-1);return JSON.stringify({source:open?.source,home:open?.origin,rect:commands.filter(c=>c.type==="open"||c.type==="resize").at(-1)?.rect,requested:open?{origin:open.origin,scale:"region"}:null,presented:commands.filter(c=>c.type==="install-environment").at(-1)?.terrain.request,overlay_revision:overlay?.revision,presentation_ready:true,ready:true,covered:false,markers:[]});}`); return;
+      response.end(`export default async function(){}; export function wasm_begin_generation(){return JSON.stringify({owner:"scene",sequence:1});} export function wasm_finish_generation(){} export function wasm_cancel_generation(){} export function wasm_generation_jobs(){return "[]";} export function wasm_venue_jobs(){return "[]";} export function wasm_landscape_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})} export function wasm_regional_map_status(){const commands=(window.commands||[]).filter(c=>c.type==="regional-map").map(c=>c.command);const open=commands.filter(c=>c.type==="open").at(-1);const overlay=commands.filter(c=>c.type==="install-overlay").at(-1);return JSON.stringify({source:open?.source,home:open?.origin,rect:commands.filter(c=>c.type==="open"||c.type==="resize").at(-1)?.rect,requested:open?{origin:open.origin,scale:"region"}:null,presented:commands.filter(c=>c.type==="install-environment").at(-1)?.environment.terrain.request,overlay_revision:overlay?.revision,presentation_ready:true,ready:true,covered:false,markers:[]});}`); return;
     }
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client_bg.wasm") {
       response.setHeader("Content-Type", "application/wasm");
@@ -200,7 +200,7 @@ test("one canvas retains street, portraits and character views across warm navig
     await page.goto(`${origin}${town}/places/${process.env.STRATEGIC_PROFILE_PLACE || 'inn'}`);
     await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
     telemetry = setInterval(async () => {
-      const state = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics, generation: window.strategicGenerationMetrics, probe: window.renderProbe?.status?.(),
+      const state = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics, generation: window.strategicGenerationMetrics?.scene, probe: window.renderProbe?.status?.(),
         status: document.querySelector('#strategic-scene-status')?.textContent })).catch(error => ({ error: error.message }));
       fs.writeFileSync(path.join(output, "live-state.json"), JSON.stringify(state, null, 2));
     }, 5000);
@@ -213,9 +213,9 @@ test("one canvas retains street, portraits and character views across warm navig
       return;
     }
     if (process.env.STRATEGIC_RELOAD_BENCHMARK === "1") {
-      await page.evaluate(() => window.strategicGenerationCacheSettled);
+      await page.evaluate(() => window.strategicGenerationCacheSettled?.scene);
       initialLoad = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics,
-        generation: window.strategicGenerationMetrics }));
+        generation: window.strategicGenerationMetrics?.scene }));
       initialLoad.storage = await page.evaluate(() => new Promise((resolve, reject) => {
         const request = indexedDB.open("fabelgeist-generated-assets", 1);
         request.onerror = () => reject(request.error);
@@ -247,7 +247,7 @@ test("one canvas retains street, portraits and character views across warm navig
       await startup?.stop("reload-startup");
       await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
     }
-    const generationAtReady = await page.evaluate(() => window.strategicGenerationMetrics);
+    const generationAtReady = await page.evaluate(() => window.strategicGenerationMetrics?.scene);
     assert.equal(await page.locator("canvas").count(), 1, "all views share one DOM canvas");
     if (!realRenderer) {
       // Forge teardown must not discard the retained strategic view on ordinary
@@ -413,7 +413,7 @@ test("one canvas retains street, portraits and character views across warm navig
       await page.waitForFunction(count => window.commands.filter(command => command.type === "sync-strategic-view").length > count, before);
       assert.equal(await page.evaluate(() => window.originalCanvas === document.querySelector("#game-canvas")), true);
     }
-    const generation = await page.evaluate(() => window.strategicGenerationMetrics);
+    const generation = await page.evaluate(() => window.strategicGenerationMetrics?.scene);
     assert.deepEqual(generation, generationAtReady, "warm navigation schedules no new generation");
     fs.writeFileSync(path.join(output, realRenderer ? "benchmark.json" : "bridge.json"), JSON.stringify({ sceneFixture, samples, steadyFrames, missing, errors, initialLoad, metrics: await page.evaluate(() => window.strategicRendererMetrics), generation }, null, 2));
     const production = path.join(output, "fixtures/inventory.html");
