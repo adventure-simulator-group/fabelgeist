@@ -1,5 +1,6 @@
 //! Distant walls wait for the exact scene support rather than using a house floor.
 use super::*;
+use crate::presentation::ownership::PresentationOwner;
 use adventuresim_tactical_core::{city_layout::CityCompound, prelude::GeneratedBoundary};
 
 #[derive(Component)]
@@ -16,11 +17,13 @@ struct BoundaryProjection {
 pub(super) fn on_vista(
     bundle: On<SceneVistaBundle>,
     mut commands: Commands,
-    existing: Query<Entity, With<DistantBoundaryPresentation>>,
+    existing: Query<(Entity, &PresentationOwner), With<DistantBoundaryPresentation>>,
     mut pending: ResMut<PendingDistantBoundaries>,
 ) {
-    for entity in &existing {
-        commands.entity(entity).despawn();
+    for (entity, owner) in &existing {
+        if *owner == PresentationOwner::Scene {
+            commands.entity(entity).despawn();
+        }
     }
     let compounds = bundle
         .compounds
@@ -54,7 +57,9 @@ impl PendingDistantBoundaries {
         if projection.scene_digest != environment.scene_digest {
             return Ok(None);
         }
-        let projection = self.0.take().expect("exact scene support is present");
+        let Some(projection) = self.0.take() else {
+            return Ok(None);
+        };
         projection
             .compounds
             .iter()
@@ -80,9 +85,9 @@ pub(super) fn project_pending(
     else {
         return Ok(());
     };
-    let boundaries = pending
-        .take_for_scene(terrain, environment)?
-        .expect("the exact pending scene matched");
+    let Some(boundaries) = pending.take_for_scene(terrain, environment)? else {
+        return Ok(());
+    };
     let mut batches = BoundaryBatches::default();
     for boundary in boundaries {
         fixed(
@@ -104,6 +109,7 @@ pub(super) fn project_pending(
         commands
             .spawn((
                 DistantCityBuildingPresentation,
+                PresentationOwner::Scene,
                 DistantBoundaryPresentation,
                 Visibility::default(),
                 Transform::default(),
@@ -134,6 +140,7 @@ pub(super) fn project_pending(
         commands.spawn((
             Name::new("City grounded boundary batch"),
             DistantCityBuildingPresentation,
+            PresentationOwner::Scene,
             DistantBoundaryPresentation,
             Mesh3d(meshes.add(batch.mesh)),
             MeshMaterial3d(batch.material),

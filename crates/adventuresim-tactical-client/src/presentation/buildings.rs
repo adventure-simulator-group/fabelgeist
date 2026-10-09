@@ -6,6 +6,7 @@ use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipe, Generated
 use bevy::ecs::hierarchy::ChildSpawnerCommands;
 use std::sync::Arc;
 
+use super::ownership::PresentationOwner;
 use super::recipe_mesh::recipe_mesh;
 use super::*;
 
@@ -186,13 +187,15 @@ fn on_scene_building_added(
 fn on_scene_vista_buildings(
     bundle: On<SceneVistaBundle>,
     mut commands: Commands,
-    existing: Query<Entity, With<DistantCityBuildingPresentation>>,
+    existing: Query<(Entity, &PresentationOwner), With<DistantCityBuildingPresentation>>,
     streaming: Option<Res<StreamCityTraffic>>,
     mut assets: streaming::CityBuildingAssets,
 ) -> Result {
-    assets.gpu.clear();
-    for entity in &existing {
-        commands.entity(entity).despawn();
+    assets.gpu.owners.get_mut(PresentationOwner::Scene).clear();
+    for (entity, owner) in &existing {
+        if *owner == PresentationOwner::Scene {
+            commands.entity(entity).despawn();
+        }
     }
     if streaming.is_some() {
         commands.insert_resource(PendingCityBuildings::new(
