@@ -71,6 +71,7 @@ fn focused_city_workers_keep_canonical_support_without_actor_preparation() {
     let retained = active.regional_city.as_ref().unwrap();
     assert!(Arc::ptr_eq(&installed, retained));
     assert!(Arc::ptr_eq(&installed.ground, &retained.ground));
+    drop(active);
     assert!(matches!(
         receive(preview, "invalid old job", &[]),
         Err(PreparationError::StalePreparation)
