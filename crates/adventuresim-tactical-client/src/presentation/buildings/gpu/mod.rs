@@ -1,6 +1,6 @@
 //! Client-generated static city geometry, selected and compacted on the GPU.
 use crate::presentation::ownership::{PresentationOwner, PresentationOwners};
-pub(super) use assembly::{PendingGpuBuildings, PendingGpuCities};
+pub(super) use assembly::{BuildingAppearance, PendingGpuBuildings, PendingGpuCities};
 use bevy::{
     prelude::*,
     render::{

@@ -4,7 +4,9 @@ use bevy::{
     camera::{primitives::Aabb, visibility::NoFrustumCulling},
     render::{batching::NoAutomaticBatching, render_resource::ShaderType},
 };
-pub(in crate::presentation::buildings) use input::{PendingGpuBuildings, PendingGpuCities};
+pub(in crate::presentation::buildings) use input::{
+    BuildingAppearance, PendingGpuBuildings, PendingGpuCities,
+};
 use packing::pack;
 pub(super) use ranges::DrawRange;
 use std::collections::HashMap;

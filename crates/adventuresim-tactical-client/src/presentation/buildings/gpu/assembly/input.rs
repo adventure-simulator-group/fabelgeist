@@ -17,8 +17,13 @@ pub(in crate::presentation::buildings) struct PendingGpuBuildings {
 pub(super) struct Placement {
     root: Entity,
     transform: Mat4,
-    appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
+    appearance: BuildingAppearance,
     compiled: Arc<CompiledBuildingLevels>,
+}
+
+pub(in crate::presentation::buildings) enum BuildingAppearance {
+    Primary(adventuresim_tactical_core::scene_input::SceneBuildingId),
+    Distant(adventuresim_tactical_core::scene_input::DistantBuildingPlacement),
 }
 
 impl PendingGpuBuildings {
@@ -31,7 +36,7 @@ impl PendingGpuBuildings {
         &mut self,
         root: Entity,
         transform: &Transform,
-        appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
+        appearance: BuildingAppearance,
         compiled: &Arc<CompiledBuildingLevels>,
     ) {
         self.buildings.push(Placement {
@@ -54,10 +59,11 @@ impl PendingGpuBuildings {
         let mut prototypes = HashMap::new();
         for placement in &self.buildings {
             let materials = materials.ok_or(AssemblyError::MissingMaterials)?;
-            let palette = materials.for_distant_building(
-                placement.appearance.prosperity,
-                placement.appearance.exterior_variant(),
-            );
+            let palette = match &placement.appearance {
+                BuildingAppearance::Primary(id) => materials.for_building(id.0),
+                BuildingAppearance::Distant(placement) => materials
+                    .for_distant_building(placement.prosperity, placement.exterior_variant()),
+            };
             // The palette's infill is unique to each appearance. Geometry and
             // appearance are independent; placements share both before packing.
             let key = (
