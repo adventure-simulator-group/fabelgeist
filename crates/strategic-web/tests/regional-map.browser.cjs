@@ -97,23 +97,42 @@ test("regional terrain reuses one real renderer across camera changes and hiding
       window.mapOpen = {type:"open",source,origin,span:1200,rect};
       const vertices = Array.from({length:65*65}, (_, index) => {
         const x=index%65, y=Math.floor(index/65);
-        if(x<4 && y<4) return null;
+        if((x<4 && y<4) || (x===32 && y===33)) return null;
         return {elevation:{meters:Math.round(300+60*Math.sin(x/8)*Math.cos(y/9))},environment:{
           canopy_bps:0,wetland_bps:0,cultivation_bps:x>32?8000:0,water_bps:0,hilly_bps:6000,
           crossing_bps:0,surface:"open"}};
       });
       window.mapTerrain = {source,request:{origin,scale:"neighborhood"},vertices};
+      window.mapOverlay = {source,markers:[
+        {place:"place:v1:settlement:66697874757265",origin,rank:"town",emphasis:"current"},
+        {place:"place:v1:case-site:666978747572652d73697465",origin:{latitude:50_502_000,longitude:10_503_000},rank:"case-site",emphasis:"selected"},
+        {place:"place:v1:settlement:686f6c65",origin:{latitude:50_492_000,longitude:10_487_000},rank:"village",emphasis:"ordinary"},
+        {place:"place:v1:settlement:64697374616e74",origin:{latitude:51_000_000,longitude:11_000_000},rank:"capital",emphasis:"ordinary"},
+      ],route:{kind:"computed",points:[
+        {latitude:50_496_000,longitude:10_494_000},origin,
+        {latitude:50_504_000,longitude:10_506_000},
+      ]}};
       mapCommand(mapOpen); mapCommand({type:"install-terrain",terrain:mapTerrain});
+      mapCommand({type:"install-overlay",overlay:mapOverlay});
       return mapOpen;
     });
     await page.waitForFunction(() => mapStatus().ready, null, {timeout: 90_000});
     checkpoint("map-ready");
+    const projected = await page.evaluate(() => mapStatus().markers);
+    assert.equal(projected.length,2,"Covered markers project; source holes and distant pins stay hidden");
+    const homeMarker = projected.find(marker => marker.place === "place:v1:settlement:66697874757265");
+    assert(Math.abs(homeMarker.x - 500) < 2 && Math.abs(homeMarker.y - 340) < 2,
+      "The home pin uses the real clipped camera centre and a covered adjacent triangle");
     await page.screenshot({path:path.join(output,"terrain.png")});
     const capture = await page.evaluate(() => renderProbe.capture("gpu", 3));
     checkpoint("terrain-captured");
     assert.deepEqual(capture.failures, []);
-    assert(capture.frames.some(frame => frame.passes.some(pass => pass.draws?.some(draw => draw.triangles > 0))),
+    assert(capture.frames.some(frame => frame.passes.some(pass => pass.draws?.some(draw =>
+      draw.pipeline?.label === "pbr_opaque_mesh_pipeline" && draw.triangles > 4000))),
       "The real WebGPU renderer must draw admitted terrain");
+    assert(capture.frames.some(frame => frame.passes.some(pass => pass.draws?.some(draw =>
+      draw.pipeline?.label === "pbr_opaque_mesh_pipeline" && draw.triangles > 0 && draw.triangles < 1000))),
+      "The selected route must submit its own covered geometry");
     const changed = await page.evaluate(async () => {
       mapCommand({type:"rotate",angle:0.7}); mapCommand({type:"pan",delta:[80,40]});
       mapCommand({type:"zoom",ratio:0.5});
@@ -123,6 +142,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     assert.equal(changed.span, initial.span * 0.5);
     assert(Math.abs(changed.yaw - 0.7) < 0.00001);
     assert.notDeepEqual(changed.origin, initial.origin);
+    assert.notDeepEqual(changed.markers,projected,"Marker projection follows the real camera transform");
     await page.screenshot({path:path.join(output,"rotated.png")});
     checkpoint("rotated");
     await page.evaluate(async () => {
@@ -130,6 +150,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
       await new Promise(requestAnimationFrame);
     });
     assert.equal(await page.evaluate(() => mapStatus().visible), false);
+    assert.deepEqual(await page.evaluate(() => mapStatus().markers), []);
     const warm = await page.evaluate(async () => {
       const started = performance.now(); mapCommand(mapOpen);
       while (!mapStatus().ready) await new Promise(requestAnimationFrame);
@@ -142,16 +163,35 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     assert.deepEqual(warm.status.presented, {origin:initial.origin,scale:"neighborhood"});
     const rejected = await page.evaluate(() => {
       const invalid = [{...mapOpen,span:0}, {...mapOpen,rect:{...mapOpen.rect,full_height:0}},
-        {type:"zoom",ratio:100}, {type:"install-terrain",terrain:{...mapTerrain,vertices:[]}}];
+        {type:"zoom",ratio:100}, {type:"install-terrain",terrain:{...mapTerrain,vertices:[]}},
+        {type:"install-overlay",overlay:{...mapOverlay,markers:[mapOverlay.markers[0],mapOverlay.markers[0]]}},
+        {type:"install-overlay",overlay:{...mapOverlay,markers:[{...mapOverlay.markers[0],rank:"case-site"}]}},
+        {type:"install-overlay",overlay:{...mapOverlay,route:{kind:"computed",points:[]}}},
+        {type:"install-overlay",overlay:{...mapOverlay,markers:mapOverlay.markers.map((marker,index)=>
+          index===3?{...marker,emphasis:"current"}:marker)}},
+        {type:"install-overlay",overlay:{...mapOverlay,markers:mapOverlay.markers.map((marker,index)=>
+          index===3?{...marker,emphasis:"selected"}:marker)}}];
       return invalid.map(command => {try { mapCommand(command); return false; } catch {return true;}});
     });
-    assert.deepEqual(rejected, [true,true,true,true]);
+    assert.deepEqual(rejected, [true,true,true,true,true,true,true,true,true]);
+    await page.evaluate(() => mapCommand({type:"install-overlay",overlay:{...mapOverlay,route:{
+      kind:"computed",points:Array.from({length:600},(_,index)=>index%2
+        ? {latitude:50_508_000,longitude:10_512_000}
+        : {latitude:50_492_000,longitude:10_488_000})}}}));
+    await page.waitForFunction(() => mapStatus().error === "route-capacity", null, {timeout:10_000});
+    await page.evaluate(async () => { for(let frame=0;frame<4;frame++) await new Promise(requestAnimationFrame); });
+    const capacity = await page.evaluate(() => mapStatus());
+    assert.equal(capacity.error,"route-capacity"); assert.equal(capacity.ready,false);
+    assert.equal(capacity.covered,true,"A route capacity failure leaves terrain available");
+    await page.evaluate(() => mapCommand({type:"install-overlay",overlay:mapOverlay}));
+    await page.waitForFunction(() => mapStatus().ready && !mapStatus().error, null, {timeout:10_000});
     await page.evaluate(() => mapCommand({type:"install-terrain",terrain:{
       ...mapTerrain,request:{...mapTerrain.request,origin:{latitude:50_501_000,longitude:10_500_000}},
       vertices:Array(65*65).fill(null)}}));
     await page.waitForFunction(() => mapStatus().ready && !mapStatus().covered, null, {timeout: 10_000});
+    assert.deepEqual(await page.evaluate(() => mapStatus().markers), []);
     await page.screenshot({path:path.join(output,"uncovered.png")});
-    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capture,missing,errors}, null, 2));
+    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,capture,missing,errors}, null, 2));
     assert.deepEqual(missing.filter(url => !unusedMissingMotions.has(url)), []);
     assert.deepEqual(errors.filter(error => {
       try { return !unusedMissingMotions.has(new URL(error.url).pathname); } catch { return true; }

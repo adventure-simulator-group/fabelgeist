@@ -1,7 +1,11 @@
 //! Small geographic status boundary; no city or terrain vertex serialization.
-use super::{MapState, protocol::MapProtocolError, surface::SurfaceCoverage};
+use super::{
+    MapState, RegionalMapCamera, markers, protocol::MapProtocolError, surface::SurfaceCoverage,
+};
 use adventuresim_tactical_core::{
-    regional_terrain::RegionalTerrainRequest, scene_input::SourcePackageDigest,
+    regional_map::{MapScaleError, MapSpan},
+    regional_terrain::RegionalTerrainRequest,
+    scene_input::SourcePackageDigest,
 };
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use bevy::prelude::*;
@@ -20,12 +24,13 @@ struct Status<'a> {
     source: Option<&'a SourcePackageDigest>,
     home: Option<Wgs84CoordinateMicrodegrees>,
     origin: Option<Wgs84CoordinateMicrodegrees>,
-    span: Option<super::protocol::MapSpan>,
+    span: Option<MapSpan>,
     yaw: Option<adventuresim_building_generator::spatial_geometry::Radians>,
     requested: Option<RegionalTerrainRequest>,
     presented: Option<RegionalTerrainRequest>,
     waiting_pipelines: usize,
     error: Option<Failure>,
+    markers: Vec<markers::ProjectedMarker<'a>>,
 }
 
 #[derive(Serialize)]
@@ -36,14 +41,16 @@ enum Failure {
     Pointer,
     Viewport,
     Origin,
+    RouteCapacity,
     Geometry,
 }
 
 impl From<&MapProtocolError> for Failure {
     fn from(error: &MapProtocolError) -> Self {
         match error {
-            MapProtocolError::Span { .. } => Self::Span,
-            MapProtocolError::Zoom { .. } => Self::Zoom,
+            MapProtocolError::Scale(MapScaleError::Span { .. }) => Self::Span,
+            MapProtocolError::Scale(MapScaleError::Zoom { .. }) => Self::Zoom,
+            MapProtocolError::Scale(MapScaleError::Geometry(_)) => Self::Geometry,
             MapProtocolError::Pointer => Self::Pointer,
             MapProtocolError::Viewport => Self::Viewport,
             MapProtocolError::Origin => Self::Origin,
@@ -56,6 +63,7 @@ pub(super) fn publish(
     mut state: ResMut<MapState>,
     sky: Res<crate::presentation::AtmosphereIblCache>,
     settings: Res<crate::presentation::TacticalGraphicsSettings>,
+    cameras: Query<(&Camera, &GlobalTransform), With<RegionalMapCamera>>,
 ) {
     let requested = state
         .pose
@@ -82,7 +90,17 @@ pub(super) fn publish(
             .is_some_and(|surface| matches!(surface.coverage, SurfaceCoverage::Drawn { .. }));
     let waiting = crate::strategic_scene::status::waiting_pipelines();
     let environment_ready = sky.is_ready(&settings);
-    if visible && matched && environment_ready && waiting == 0 && state.failure.is_none() {
+    let route_capacity_exceeded = state
+        .presented_route
+        .as_ref()
+        .is_some_and(|route| route.capacity_exceeded());
+    if visible
+        && matched
+        && environment_ready
+        && waiting == 0
+        && state.failure.is_none()
+        && !route_capacity_exceeded
+    {
         state.settled_frames = state
             .settled_frames
             .saturating_add(1)
@@ -108,7 +126,12 @@ pub(super) fn publish(
             .filter(|_| matched)
             .map(|surface| surface.request),
         waiting_pipelines: waiting,
-        error: state.failure.as_ref().map(Failure::from),
+        error: state
+            .failure
+            .as_ref()
+            .map(Failure::from)
+            .or(route_capacity_exceeded.then_some(Failure::RouteCapacity)),
+        markers: markers::project(&state, &cameras),
     };
     match serde_json::to_string(&status) {
         Ok(json) => match STATUS.get_or_init(|| Mutex::new(String::new())).lock() {
