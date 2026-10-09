@@ -43,7 +43,7 @@ use adventuresim_world_schema::calendar::StrategicMinute;
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use axum::{
     extract::State,
-    http::{StatusCode, Uri},
+    http::Uri,
     response::{Json, Redirect},
 };
 use serde::{Deserialize, Serialize};
