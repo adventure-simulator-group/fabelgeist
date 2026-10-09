@@ -5,9 +5,9 @@
 //! in SpacetimeDB or in one allocation.
 
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, TerrainFeature};
+use digest::{hex_sha, hex_sha_reader, valid_digest};
 use flate2::read::DeflateDecoder;
 use serde::{Deserialize, Serialize};
-use sha2::{Digest, Sha256};
 use std::{
     cmp::{Ordering, Reverse},
     collections::{BinaryHeap, HashMap},
@@ -19,6 +19,8 @@ use std::{
     time::Instant,
 };
 
+mod digest;
+pub mod road_pack;
 mod terrain_feature;
 
 pub const SCHEMA: u32 = 8;
@@ -989,30 +991,6 @@ fn validate_manifest(manifest: &Manifest) -> Result<()> {
         }
     }
     Ok(())
-}
-
-fn valid_digest(value: &str) -> bool {
-    value.len() == 64
-        && value
-            .bytes()
-            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
-}
-fn hex_sha(bytes: &[u8]) -> String {
-    format!("{:x}", Sha256::digest(bytes))
-}
-
-fn hex_sha_reader(mut reader: impl Read) -> Result<String> {
-    let mut hasher = Sha256::new();
-    // Keep the streaming buffer off the small Windows process stack.
-    let mut buffer = vec![0_u8; 1024 * 1024];
-    loop {
-        let read = reader.read(&mut buffer)?;
-        if read == 0 {
-            break;
-        }
-        hasher.update(&buffer[..read]);
-    }
-    Ok(format!("{:x}", hasher.finalize()))
 }
 
 #[derive(Clone, Debug, PartialEq)]
