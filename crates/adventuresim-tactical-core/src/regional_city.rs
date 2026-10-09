@@ -40,7 +40,7 @@ pub enum RegionalCityError {
     #[error("City property catalog belongs to another settlement")]
     Settlement,
     #[error(transparent)]
-    Scene(#[from] SceneInputError),
+    Scene(#[from] Box<SceneInputError>),
 }
 
 impl RegionalCityInput {
@@ -106,5 +106,11 @@ impl TryFrom<RegionalCityWire> for RegionalCityInput {
             origin: wire.origin,
             input: wire.input,
         })
+    }
+}
+
+impl From<SceneInputError> for RegionalCityError {
+    fn from(error: SceneInputError) -> Self {
+        Self::Scene(Box::new(error))
     }
 }
