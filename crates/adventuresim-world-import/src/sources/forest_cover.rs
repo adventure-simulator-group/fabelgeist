@@ -270,29 +270,6 @@ struct ByteRaster {
     pixels: Vec<u8>,
 }
 
-#[cfg(feature = "strategic-map-renderer")]
-pub struct PreparedForestRaster(ByteRaster);
-
-#[cfg(feature = "strategic-map-renderer")]
-pub fn read_prepared_forest_raster(
-    path: &Path,
-    south: i16,
-    west: i16,
-) -> Result<PreparedForestRaster> {
-    ByteRaster::read(path, DegreeTile { south, west }).map(PreparedForestRaster)
-}
-
-#[cfg(feature = "strategic-map-renderer")]
-impl PreparedForestRaster {
-    pub fn pixels(&self) -> &[u8] {
-        &self.0.pixels
-    }
-
-    pub fn has_same_grid(&self, other: &Self) -> bool {
-        self.0.grid == other.0.grid
-    }
-}
-
 impl ByteRaster {
     fn read(path: &Path, tile: DegreeTile) -> Result<Self> {
         let file = File::open(path)?;

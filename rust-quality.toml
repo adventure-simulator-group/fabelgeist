@@ -14,6 +14,12 @@ item = "CargoPackageRole::from"
 reason = "Classifies Cargo lockfile package names in the derived Serde String conversion without admitting non-string values."
 
 [[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-world-schema/src/regional_connection.rs"
+item = "RegionalConnectionKind::from_str"
+reason = "Admits the closed Viabundus CSV connection categories into the shared presentation classification."
+
+[[scopes]]
 kind = "authored_catalog"
 path = "crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs"
 item = "inspect_materials"
