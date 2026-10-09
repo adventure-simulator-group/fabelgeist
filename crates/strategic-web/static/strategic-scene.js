@@ -1,5 +1,6 @@
 // Layout and semantic identity bridge for the single persistent Bevy canvas.
 import { createSceneRequests } from "./strategic-scene-request.js";
+import { createRegionalMapView } from "./regional-map-view.js";
 const kinds = { "public-square": "square", residences: "residence", keep: "keep",
   merchants: "market", weapons: "smith", armor: "armor", clothing: "tailor",
   herbalist: "apothecary", books: "books", inn: "inn", religion: "church",
@@ -62,13 +63,14 @@ function subtract(rect, cover) {
   ].filter(part => part.width > 0 && part.height > 0);
 }
 
-const foregroundSelector = "[data-chat-dock], .settlement-chat, .settlement-location, .top-bar-right, .character-switcher-menu";
+const foregroundSelector = "[data-chat-dock], .settlement-chat, .settlement-location, .top-bar-right, .character-switcher-menu, [data-map-foreground], .strategic-tooltip";
 
 export function installStrategicScene(command, runtimePromise) {
   const surface = document.querySelector("#strategic-render-surface");
   let frame, generation = 0, selected, previewForge = false, roster = [], rosterPending = false, lastPayload;
   let loadedLocation, statusTimer, refreshTimer, runtime, retainedView, changedAt = performance.now();
   let refreshPending = false;
+  let pageMounted = true;
   let revision = 0;
   const equipment = new Map();
   let equipmentPending = false, equipmentEpoch = 0, equipmentError = false;
@@ -81,13 +83,14 @@ export function installStrategicScene(command, runtimePromise) {
   const resize = new ResizeObserver(schedule);
   const observe = new MutationObserver(schedule);
   const fail = error => {
-    status.hidden = false; status.textContent = "Scene unavailable";
+    status.hidden = Boolean(document.querySelector(".settlement-map-main")); status.textContent = "Scene unavailable";
     console.error("strategic scene failed", error);
   };
   const sceneRequests = createSceneRequests({ runtimePromise,
     install: ({ location, input }) => command({ type: "prepare-strategic-scene", location, input_json: input }),
     changed: state => { if (state.phase === "failed") fail(state.cause); schedule(); },
   });
+  const mapView = createRegionalMapView({ runtimePromise, changed: schedule, metrics });
   runtimePromise.then(value => { runtime = value; schedule(); }).catch(fail);
 
   function resetEquipment() {
@@ -131,12 +134,14 @@ export function installStrategicScene(command, runtimePromise) {
   }
 
   function mount() {
+    pageMounted = true;
     document.body.removeAttribute("data-strategic-scene-ready");
     generation++; selected = undefined; previewForge = false; lastPayload = undefined;
     changedAt = performance.now();
     observe.disconnect(); resize.disconnect();
     const page = document.querySelector("#strategic-page");
     if (!page) return;
+    mapView.hide();
     observe.observe(page, { childList: true, subtree: true, attributes: true,
       attributeFilter: ["class", "hidden", "open", "aria-pressed", "data-character-id"] });
     resize.observe(page);
@@ -178,7 +183,7 @@ export function installStrategicScene(command, runtimePromise) {
   }
 
   function hasScene(page) {
-    return page.querySelector('.settlement-services[data-settlement-id], [data-bevy-character], [data-bevy-current-character], .fireplace-stage, .party-member-stage, .npc-description-stage, [data-bevy-scene="forge"]');
+    return page.querySelector('[data-regional-map], .settlement-services[data-settlement-id], [data-bevy-character], [data-bevy-current-character], .fireplace-stage, .party-member-stage, .npc-description-stage, [data-bevy-scene="forge"]');
   }
 
   function hideScene() {
@@ -234,10 +239,13 @@ export function installStrategicScene(command, runtimePromise) {
 
   function sync() {
     frame = undefined;
-    if (document.body.hasAttribute("data-tactical-active")) return;
+    if (!pageMounted || document.body.hasAttribute("data-tactical-active")) return;
     const page = document.querySelector("#strategic-page");
     if (!page) return;
-    if (!hasScene(page)) { hideScene(); return; }
+    if (!hasScene(page)) { mapView.hide(); hideScene(); return; }
+    const mapWindow = mapView.sync(page, canvasRect);
+    if (page.querySelector(".settlement-map-main")) setClip(mapWindow ? [mapWindow] : []);
+    if (mapWindow) { setClip([mapWindow]); status.hidden = true; }
     const nav = page.querySelector(".settlement-services[data-settlement-id]");
     const locationId = nav?.dataset.settlementId || location.pathname.split("/").slice(0, 4).join("/");
     const places = placeList(nav);
@@ -290,7 +298,7 @@ export function installStrategicScene(command, runtimePromise) {
       lastPayload = payload;
       command({ type: "sync-strategic-view", view: { ...view, revision: ++revision } });
     }
-    setClip([street, {rect, element: scene}, ...portraitWindows].filter(view => view?.rect));
+    setClip([mapWindow, street, {rect, element: scene}, ...portraitWindows].filter(view => view?.rect));
     if (!runtime) return;
     clearTimeout(statusTimer);
     checkReady();
@@ -319,7 +327,7 @@ export function installStrategicScene(command, runtimePromise) {
     if (streetChanged) schedule();
     if (state.error) { fail(new Error(state.error)); return; }
     const ready = sceneRequests.state.phase === "prepared" && !rosterPending && !equipmentPending && !equipmentError && state.ready && state.revision === revision;
-    status.hidden = ready || metrics.navigations.length > 0;
+    status.hidden = Boolean(document.querySelector(".settlement-map-main")) || ready || metrics.navigations.length > 0;
     document.body.toggleAttribute("data-strategic-scene-ready", ready);
     if (ready && changedAt !== undefined) {
       metrics.navigations.push({ path: location.pathname, milliseconds: performance.now() - changedAt });
@@ -331,6 +339,8 @@ export function installStrategicScene(command, runtimePromise) {
 
   document.addEventListener("strategic-page-mounted", mount);
   document.addEventListener("strategic-page-unmounting", () => {
+    pageMounted = false;
+    mapView.hide();
     if (sceneRequests.state.phase === "loading") sceneRequests.cancel();
     surface.style.clipPath = "inset(100%)"; clearTimeout(statusTimer);
   });
@@ -340,6 +350,7 @@ export function installStrategicScene(command, runtimePromise) {
   });
   document.addEventListener("strategic-forge-selected", () => { previewForge = true; schedule(); });
   document.addEventListener("strategic-tactical-started", () => {
+    mapView.hide();
     if (sceneRequests.state.phase === "loading") sceneRequests.cancel();
     lastPayload = undefined; clearTimeout(statusTimer); status.hidden = true;
   });

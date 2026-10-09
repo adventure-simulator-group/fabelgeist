@@ -7,9 +7,16 @@ use adventuresim_tactical_core::{
 };
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use bevy::math::Vec2;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 pub(crate) use crate::strategic_scene::protocol::CanvasRect;
+
+const MAX_BROWSER_OVERLAY_REVISION: u64 = (1_u64 << 53) - 1;
+
+/// Document-local overlay publication ordinal, exactly representable by JS.
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(try_from = "u64")]
+pub(crate) struct MapOverlayRevision(u64);
 
 /// Physical canvas pixels, not scene metres or a geographic position.
 #[derive(Clone, Copy, Debug, Deserialize)]
@@ -46,6 +53,7 @@ pub(crate) enum MapCommand {
         terrain: Box<RegionalTerrain>,
     },
     InstallOverlay {
+        revision: MapOverlayRevision,
         overlay: MapOverlay,
     },
 }
@@ -60,8 +68,20 @@ pub(crate) enum MapProtocolError {
     Viewport,
     #[error("map camera origin is outside WGS84")]
     Origin,
+    #[error("map overlay revision must be a positive exact browser integer")]
+    OverlayRevision,
     #[error(transparent)]
     Geometry(#[from] GeometryError),
+}
+
+impl TryFrom<u64> for MapOverlayRevision {
+    type Error = MapProtocolError;
+    fn try_from(revision: u64) -> Result<Self, Self::Error> {
+        (1..=MAX_BROWSER_OVERLAY_REVISION)
+            .contains(&revision)
+            .then_some(Self(revision))
+            .ok_or(MapProtocolError::OverlayRevision)
+    }
 }
 
 impl MapPointerDisplacement {

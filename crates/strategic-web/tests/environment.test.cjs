@@ -89,18 +89,15 @@ test("continuous environment tokens cover night, dawn, noon, sunset, and twiligh
   window.strategicTimeApplyLighting(99);
   for (const token of [
     "--environment-light", "--environment-warmth", "--environment-tint",
-    "--map-light", "--map-saturation", "--map-atmosphere-opacity", "--scene-atmosphere-opacity",
-    "--map-surface-mix", "--map-land-mix",
+    "--scene-atmosphere-opacity",
   ]) assert.ok(appliedStyles.has(token), `${token} was not applied`);
-  assert.ok(Number(appliedStyles.get("--map-light")) >= .62);
 });
 
 test("environmental map treatment is scoped away from semantic overlays and controls", () => {
-  assert.match(strategicCss, /\.map-tile-layer \{[^}]*filter: brightness\(var\(--map-light/);
-  assert.match(strategicCss, /\.map-atmosphere-layer \{[^}]*var\(--environment-tint/);
-  assert.doesNotMatch(strategicCss, /\.map-overlay-layer[^}]*filter:/);
-  assert.doesNotMatch(strategicCss, /\.strategic-map-control[^}]*--map-light/);
-  assert.match(strategicCss, /\.map-pin-link:focus-visible[\s\S]*#fff8dc[\s\S]*drop-shadow/);
+  assert.match(strategicCss, /\.map-place-link \{[^}]*background: #181612;[^}]*color: #f4ead5/);
+  assert.match(strategicCss, /\.strategic-map-controls \{[^}]*background: #181612/);
+  assert.doesNotMatch(strategicCss, /\.map-place-link[^}]*filter:/);
+  assert.match(strategicCss, /\.map-place-link:focus-visible \{[^}]*outline: 2px/);
 });
 
 test("settlement tabs layer tiered tintable buildings and proportional horizons beneath service icons", () => {

@@ -222,6 +222,32 @@ Database transport or row-decoding failures must remain distinct from a
 successful empty query and should produce an explicit unavailable response or
 logged error state.
 
+## Geographic map presentation
+
+Settlement maps use the persistent strategic Bevy renderer and its fullscreen
+canvas. The server supplies observer-admitted canonical place identities,
+geographic coordinates and the selected route; Bevy projects the corresponding
+HTML destination links. Only exactly believed or visited case sites are
+admitted. Their public display title remains distinct from the private name.
+Existing route inspection, provisioning and travel submission remain server
+workflows.
+
+The map's browser owner retains four recent terrain windows and one installed
+window per source and home. Closing a map cancels pending HTTP work and preserves
+the renderer's camera pose and GPU terrain. Camera gestures send semantic
+commands; JavaScript does not perform another geographic projection. The
+compositor reveals a map only after its admitted terrain window is presented
+and its current overlay revision settles. Navigation cannot expose a previous
+observer's overlay. Terrain errors require
+an explicit retry rather than issuing requests every frame.
+
+Startup loads the native final terrain pack used by route planning; there is no
+raster tile loader or tile route. Geographic HTTP products remain read-only and
+do not prepare settlement scenes. Roads and a single focused city exterior are
+subsequent refinements. The native pack, renderer assets and initial strategic
+environment still contribute to startup time. Keeping their owner persistent
+allows later loading improvements without replacing this interface contract.
+
 ## URL validation
 
 Run Rust route and template checks with `cargo test -p strategic-web`, and the

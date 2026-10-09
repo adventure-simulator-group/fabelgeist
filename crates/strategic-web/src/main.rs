@@ -92,7 +92,6 @@ async fn main() -> anyhow::Result<()> {
 
     // Create app state
     let assets = (|| -> anyhow::Result<_> {
-        let map = strategic_map::StrategicMap::load(&config.strategic_map_bundle_dir)?;
         let pack = adventuresim_terrain::TerrainPack::load(
             &config
                 .strategic_map_bundle_dir
@@ -101,24 +100,26 @@ async fn main() -> anyhow::Result<()> {
                 .strategic_map_bundle_dir
                 .join("terrain-routing-v3.pack"),
         )?;
-        map.validate_terrain_identity(&pack)?;
+        anyhow::ensure!(
+            pack.purpose() == adventuresim_terrain::TerrainPurpose::Final,
+            "strategic routing and map presentation require the final terrain source"
+        );
         let digest = pack.digest().to_string();
         Ok((
-            std::sync::Arc::new(map),
             std::sync::Arc::new(routes::travel::TerrainPlanner::new(std::sync::Arc::new(
                 pack,
             ))),
             digest,
         ))
     })();
-    let (strategic_map, terrain) = match assets {
-        Ok((map, terrain, digest)) => {
-            tracing::info!(bundle=%config.strategic_map_bundle_dir.display(),%digest,"loaded coherent final strategic map and terrain bundle");
-            (Some(map), Some(terrain))
+    let terrain = match assets {
+        Ok((terrain, digest)) => {
+            tracing::info!(bundle=%config.strategic_map_bundle_dir.display(),%digest,"loaded final terrain for strategic routing and map presentation");
+            Some(terrain)
         }
         Err(error) => {
-            tracing::warn!(bundle=%config.strategic_map_bundle_dir.display(),%error,"strategic map and terrain bundle unavailable or incoherent; disabling both");
-            (None, None)
+            tracing::warn!(bundle=%config.strategic_map_bundle_dir.display(),%error,"strategic terrain unavailable; disabling terrain routing and map presentation");
+            None
         }
     };
     db.call(
@@ -133,7 +134,6 @@ async fn main() -> anyhow::Result<()> {
     let state = AppState {
         db,
         live,
-        strategic_map,
         terrain,
         session_codec,
     };

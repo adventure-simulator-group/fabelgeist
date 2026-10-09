@@ -27,7 +27,7 @@ test("page lifecycle resets permanent services and remounts idempotent modules",
     "background-fetch", "building-state", "cooking", "dialogue-client",
     "inventory-browser", "live-regions", "local-chat",
     "party-notifications", "party-recruitment", "physical-evidence",
-    "rest-duration", "service-quests", "strategic-map", "strategic-time",
+    "rest-duration", "service-quests", "strategic-scene", "strategic-time",
     "training-schedule", "travel-planner", "chat-resize", "chat-dock",
   ]) {
     assert.match(read(name), /strategic-page-mounted/, `${name} remount`);
