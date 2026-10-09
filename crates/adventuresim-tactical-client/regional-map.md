@@ -146,6 +146,12 @@ invalid command rejection. Optional `REGIONAL_MAP_ASSET_DIR` supplies synchroniz
 browser assets; `REGIONAL_MAP_REVIEW_DIR` selects the ignored screenshot and
 telemetry directory. Without Wasm bindings this check skips explicitly.
 
+Set `REGIONAL_SCENE_FIXTURE_OUTPUT` while capturing the dispatcher fixture to
+also emit its unchanged actor scene document. Passing that file as
+`REGIONAL_MAP_ACTOR_INPUT` prepares a full city instead of woodland, so the real
+browser check also exercises city vertex pulling and shading while the map uses
+its independent terrain view. Both documents remain opaque text in JavaScript.
+
 The fixture has no actors. Four unauthored movement clips currently remain
 unavailable in the repository; the check records those missing URLs while
 rejecting any other missing asset or renderer error. It validates map readiness
