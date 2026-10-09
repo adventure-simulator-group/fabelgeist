@@ -1,14 +1,19 @@
 //! Geographic presentation retained alongside city and tactical scenes.
 //! This owns no strategic authority, collision or replicated tactical state.
 use super::RegionalMapCamera;
+use adventuresim_tactical_core::regional_map::MapOverlay;
 use adventuresim_tactical_core::regional_terrain::RegionalTerrain;
 use bevy::prelude::*;
 use camera::MapPose;
 use protocol::{MapCommand, MapProtocolError};
 
 mod camera;
+mod geographic_surface;
 mod lighting;
+mod markers;
 pub(crate) mod protocol;
+mod route_geometry;
+mod routes;
 pub(crate) mod status;
 mod surface;
 
@@ -22,6 +27,8 @@ struct MapState {
     pose: Option<MapPose>,
     terrain: Option<Box<RegionalTerrain>>,
     presented: Option<surface::PresentedSurface>,
+    overlay: Option<MapOverlay>,
+    presented_route: Option<routes::PresentedRoute>,
     failure: Option<MapProtocolError>,
     settled_frames: usize,
 }
@@ -32,7 +39,8 @@ impl Plugin for RegionalMapPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<MapState>()
             .add_systems(Startup, setup)
-            .add_systems(Update, (surface::present, lighting::sync))
+            .add_systems(Update, (surface::present, routes::present).chain())
+            .add_systems(Update, lighting::sync)
             .add_systems(
                 PostUpdate,
                 surface::sync_camera
@@ -61,6 +69,7 @@ impl MapCommand {
                 } else {
                     state.pose = Some(MapPose::new(source, origin, span, rect));
                     state.terrain = None;
+                    state.overlay = None;
                 }
                 Ok(())
             }
@@ -104,6 +113,16 @@ impl MapCommand {
                     .is_some_and(|pose| pose.source == *terrain.source())
                 {
                     state.terrain = Some(terrain);
+                }
+                Ok(())
+            }
+            Self::InstallOverlay { overlay } => {
+                if state
+                    .pose
+                    .as_ref()
+                    .is_some_and(|pose| &pose.source == overlay.source())
+                {
+                    state.overlay = Some(overlay);
                 }
                 Ok(())
             }

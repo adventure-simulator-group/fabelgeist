@@ -1,25 +1,15 @@
 //! Semantic map commands. Pixel displacements enter only at the canvas port.
-use adventuresim_building_generator::spatial_geometry::{GeometryError, PositiveLength, Radians};
+use adventuresim_building_generator::spatial_geometry::{GeometryError, Radians};
 use adventuresim_tactical_core::{
-    regional_terrain::RegionalTerrain, scene_input::SourcePackageDigest,
+    regional_map::{MapOverlay, MapScaleError, MapSpan, MapZoomRatio},
+    regional_terrain::RegionalTerrain,
+    scene_input::SourcePackageDigest,
 };
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use bevy::math::Vec2;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 pub(crate) use crate::strategic_scene::protocol::CanvasRect;
-pub(super) const MIN_MAP_SPAN_METRES: f32 = 40.0;
-pub(super) const MAX_MAP_SPAN_METRES: f32 = 8_192_000.0;
-const MIN_ZOOM_RATIO: f32 = 0.05;
-const MAX_ZOOM_RATIO: f32 = 20.0;
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(try_from = "PositiveLength")]
-pub(crate) struct MapSpan(PositiveLength);
-
-#[derive(Clone, Copy, Debug, Deserialize)]
-#[serde(try_from = "f32")]
-pub(crate) struct MapZoomRatio(f32);
 
 /// Physical canvas pixels, not scene metres or a geographic position.
 #[derive(Clone, Copy, Debug, Deserialize)]
@@ -54,14 +44,15 @@ pub(crate) enum MapCommand {
     InstallTerrain {
         terrain: Box<RegionalTerrain>,
     },
+    InstallOverlay {
+        overlay: MapOverlay,
+    },
 }
 
 #[derive(Debug, thiserror::Error)]
 pub(crate) enum MapProtocolError {
-    #[error("map span {metres} metres is outside the presentation range")]
-    Span { metres: f32 },
-    #[error("map zoom ratio {ratio} is outside the presentation range")]
-    Zoom { ratio: f32 },
+    #[error(transparent)]
+    Scale(#[from] MapScaleError),
     #[error("map pointer displacement must be finite")]
     Pointer,
     #[error("map canvas rectangle is invalid")]
@@ -70,42 +61,6 @@ pub(crate) enum MapProtocolError {
     Origin,
     #[error(transparent)]
     Geometry(#[from] GeometryError),
-}
-
-impl MapSpan {
-    /// Orthographic camera numerical port, in vertical scene metres.
-    pub(crate) fn metres(self) -> f32 {
-        self.0.metres()
-    }
-
-    pub(super) fn zoomed(self, ratio: MapZoomRatio) -> Result<Self, MapProtocolError> {
-        let metres = (f64::from(self.metres()) * f64::from(ratio.0)).clamp(
-            f64::from(MIN_MAP_SPAN_METRES),
-            f64::from(MAX_MAP_SPAN_METRES),
-        ) as f32;
-        Self::try_from(PositiveLength::from_metres(metres)?)
-    }
-}
-
-impl TryFrom<PositiveLength> for MapSpan {
-    type Error = MapProtocolError;
-    fn try_from(length: PositiveLength) -> Result<Self, Self::Error> {
-        let metres = length.metres();
-        if !(MIN_MAP_SPAN_METRES..=MAX_MAP_SPAN_METRES).contains(&metres) {
-            return Err(MapProtocolError::Span { metres });
-        }
-        Ok(Self(length))
-    }
-}
-
-impl TryFrom<f32> for MapZoomRatio {
-    type Error = MapProtocolError;
-    fn try_from(ratio: f32) -> Result<Self, Self::Error> {
-        if !ratio.is_finite() || !(MIN_ZOOM_RATIO..=MAX_ZOOM_RATIO).contains(&ratio) {
-            return Err(MapProtocolError::Zoom { ratio });
-        }
-        Ok(Self(ratio))
-    }
 }
 
 impl MapPointerDisplacement {
