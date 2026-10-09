@@ -1,6 +1,8 @@
 //! Small geographic status boundary; no city or terrain vertex serialization.
 use super::{
-    MapState, RegionalMapCamera, markers, protocol::MapProtocolError, surface::SurfaceCoverage,
+    MapState, RegionalMapCamera, markers,
+    protocol::{CanvasRect, MapOverlayRevision, MapProtocolError},
+    surface::SurfaceCoverage,
 };
 use adventuresim_tactical_core::{
     regional_map::{MapScaleError, MapSpan},
@@ -18,6 +20,9 @@ const SETTLED_RENDER_FRAMES: usize = 4;
 #[derive(Serialize)]
 struct Status<'a> {
     ready: bool,
+    presentation_ready: bool,
+    overlay_revision: Option<MapOverlayRevision>,
+    rect: Option<CanvasRect>,
     visible: bool,
     covered: bool,
     environment_ready: bool,
@@ -41,6 +46,7 @@ enum Failure {
     Pointer,
     Viewport,
     Origin,
+    OverlayRevision,
     RouteCapacity,
     Geometry,
 }
@@ -54,7 +60,25 @@ impl From<&MapProtocolError> for Failure {
             MapProtocolError::Pointer => Self::Pointer,
             MapProtocolError::Viewport => Self::Viewport,
             MapProtocolError::Origin => Self::Origin,
+            MapProtocolError::OverlayRevision => Self::OverlayRevision,
             MapProtocolError::Geometry(_) => Self::Geometry,
+        }
+    }
+}
+
+impl MapState {
+    fn requested_window(&mut self) -> Option<RegionalTerrainRequest> {
+        match self
+            .pose
+            .as_ref()
+            .map(|pose| pose.requested_window())
+            .transpose()
+        {
+            Ok(requested) => requested.flatten(),
+            Err(error) => {
+                self.failure = Some(error);
+                None
+            }
         }
     }
 }
@@ -65,18 +89,7 @@ pub(super) fn publish(
     settings: Res<crate::presentation::TacticalGraphicsSettings>,
     cameras: Query<(&Camera, &GlobalTransform), With<RegionalMapCamera>>,
 ) {
-    let requested = state
-        .pose
-        .as_ref()
-        .map(|pose| pose.requested_window())
-        .transpose();
-    let requested = match requested {
-        Ok(requested) => requested.flatten(),
-        Err(error) => {
-            state.failure = Some(error);
-            None
-        }
-    };
+    let requested = state.requested_window();
     let visible = state.pose.as_ref().is_some_and(|pose| pose.rect.is_some());
     let matched = state
         .pose
@@ -96,10 +109,10 @@ pub(super) fn publish(
         .is_some_and(|route| route.capacity_exceeded());
     if visible
         && matched
+        && viewport_matches(&state, &cameras)
         && environment_ready
         && waiting == 0
         && state.failure.is_none()
-        && !route_capacity_exceeded
     {
         state.settled_frames = state
             .settled_frames
@@ -110,7 +123,10 @@ pub(super) fn publish(
     }
     let pose = state.pose.as_ref();
     let status = Status {
-        ready: state.settled_frames >= SETTLED_RENDER_FRAMES,
+        ready: state.settled_frames >= SETTLED_RENDER_FRAMES && !route_capacity_exceeded,
+        presentation_ready: state.settled_frames >= SETTLED_RENDER_FRAMES,
+        overlay_revision: state.overlay_revision,
+        rect: pose.and_then(|pose| pose.rect),
         visible,
         covered,
         environment_ready,
@@ -148,4 +164,22 @@ pub(crate) fn json() -> String {
         .lock()
         .map(|snapshot| snapshot.clone())
         .unwrap_or_else(|_| "{\"ready\":false,\"error\":\"status-unavailable\"}".into())
+}
+
+/// Bevy may resize a viewport while processing a display scale-factor event.
+/// Wait for the actual camera to match the browser's physical-pixel rectangle.
+fn viewport_matches(
+    state: &MapState,
+    cameras: &Query<(&Camera, &GlobalTransform), With<RegionalMapCamera>>,
+) -> bool {
+    let Some(rect) = state.pose.as_ref().and_then(|pose| pose.rect) else {
+        return false;
+    };
+    let Ok((camera, _)) = cameras.single() else {
+        return false;
+    };
+    camera.physical_viewport_rect().is_some_and(|viewport| {
+        viewport.min == UVec2::new(rect.x, rect.y)
+            && viewport.size() == UVec2::new(rect.width, rect.height)
+    })
 }

@@ -1,4 +1,4 @@
-import { installStrategicScene } from "./strategic-scene.js?v=generated-assets-1";
+import { installStrategicScene } from "./strategic-scene.js?v=regional-map-1";
 const surface = document.querySelector("#strategic-render-surface");
 const canvas = surface?.querySelector("#game-canvas");
 let runtimePromise;

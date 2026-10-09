@@ -36,7 +36,7 @@ pub fn settlement_map_page(
     settlement: &SettlementView,
     settlements: &[SettlementView],
     case_sites: &[crate::spacetimedb::BackendCaseSitePin],
-    strategic_map: Option<&crate::strategic_map::StrategicMap>,
+    terrain: Option<&crate::routes::travel::TerrainPlanner>,
     destinations: &[TravelDestination],
     selected_id: Option<&str>,
     active_character: Option<&CharacterView>,
@@ -87,12 +87,12 @@ pub fn settlement_map_page(
         ))
         main class="center-content settlement-main settlement-map-main" {
             @if settlement.source_node_id.is_some() {
-                @if let Some(strategic_map) = strategic_map {
+                @if let Some(terrain) = terrain {
                     (crate::strategic_map::strategic_map(
-                        strategic_map,
+                        &terrain.pack,
                         settlements,
                         case_sites,
-                        &settlement.id,
+                        settlement,
                         &connected_ids,
                         selected_id,
                         &base_path,

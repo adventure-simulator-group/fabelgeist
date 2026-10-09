@@ -9,7 +9,7 @@ use adventuresim_tactical_core::{
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use bevy::prelude::*;
 use camera::MapPose;
-use protocol::{MapCommand, MapProtocolError};
+use protocol::{MapCommand, MapOverlayRevision, MapProtocolError};
 
 mod camera;
 mod geographic_surface;
@@ -32,6 +32,7 @@ struct MapState {
     terrain: Option<Box<RegionalTerrain>>,
     presented: Option<surface::PresentedSurface>,
     overlay: Option<MapOverlay>,
+    overlay_revision: Option<MapOverlayRevision>,
     presented_route: Option<routes::PresentedRoute>,
     failure: Option<MapProtocolError>,
     settled_frames: usize,
@@ -69,8 +70,11 @@ impl MapCommand {
                 Ok(())
             }
             Self::Resize { rect } => {
-                if let Some(pose) = state.pose.as_mut() {
+                if let Some(pose) = state.pose.as_mut()
+                    && pose.rect != Some(rect)
+                {
                     pose.rect = Some(rect);
+                    state.settled_frames = 0;
                 }
                 Ok(())
             }
@@ -112,13 +116,18 @@ impl MapCommand {
                 }
                 Ok(())
             }
-            Self::InstallOverlay { overlay } => {
+            Self::InstallOverlay { revision, overlay } => {
                 if state
                     .pose
                     .as_ref()
                     .is_some_and(|pose| &pose.source == overlay.source())
+                    && state
+                        .overlay_revision
+                        .is_none_or(|current| revision > current)
                 {
                     state.overlay = Some(overlay);
+                    state.overlay_revision = Some(revision);
+                    state.settled_frames = 0;
                 }
                 Ok(())
             }
@@ -144,6 +153,7 @@ impl MapState {
             self.pose = Some(MapPose::new(source, origin, span, rect));
             self.terrain = None;
             self.overlay = None;
+            self.overlay_revision = None;
         }
     }
 
