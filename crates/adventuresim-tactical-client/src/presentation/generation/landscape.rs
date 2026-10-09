@@ -39,7 +39,7 @@ impl GroundProduct {
                 &dependencies.terrain,
                 &dependencies.groups,
                 config.rendering.vista.maximum_lods,
-            )),
+            )?),
             graphics,
         })
     }
@@ -50,6 +50,7 @@ pub(super) fn jobs(
     input_json: &str,
     graphics: &str,
 ) -> PreparationResult<Vec<String>> {
+    ticket.require_owner(PresentationOwner::Scene)?;
     crate::presentation::config::TacticalGraphicsConfig::parse(graphics)
         .map_err(|message| PreparationError::GraphicsConfiguration { message })?;
     let input: TacticalSceneInput = serde_json::from_str(input_json)?;

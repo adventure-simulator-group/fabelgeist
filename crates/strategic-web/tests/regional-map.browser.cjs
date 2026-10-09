@@ -7,6 +7,7 @@ const { chromium } = require("playwright");
 
 const root = path.resolve(__dirname, "../../..");
 const wasm = process.env.REGIONAL_MAP_WASM_DIR;
+const cityInput = process.env.REGIONAL_MAP_CITY_INPUT;
 const density = Number(process.env.REGIONAL_MAP_BROWSER_DENSITY || 1);
 assert([1,2].includes(density), "The renderer fixture supports real 1× and 2× display density");
 const output = path.resolve(root, process.env.REGIONAL_MAP_REVIEW_DIR || "target/regional-map-browser");
@@ -22,6 +23,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
   skip: !wasm && "Set REGIONAL_MAP_WASM_DIR to the freshly built Wasm bindings",
   timeout: 360_000,
 }, async () => {
+  assert(cityInput, "Set REGIONAL_MAP_CITY_INPUT to the canonical settlement capture fixture");
   fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, "console.log"), "");
   const missing = [], errors = [];
@@ -38,6 +40,9 @@ test("regional terrain reuses one real renderer across camera changes and hiding
       roots = [path.join(root, "crates/strategic-web/static")]; suffix = relative.slice(8);
     } else if (relative === "/input.json") {
       roots = [root]; suffix = "assets/tactical-scenes/sparse-woodland.json";
+    } else if (relative === "/city.json") {
+      roots = [path.dirname(path.resolve(root, cityInput))];
+      suffix = path.basename(cityInput);
     }
     if (roots) {
       const file = roots.map(directory => path.resolve(directory, suffix))
@@ -54,20 +59,27 @@ test("regional terrain reuses one real renderer across camera changes and hiding
       <div style="width:100vw;height:100vh"><canvas id="game-canvas"></canvas></div>
       <script type="module">
         import init, * as runtime from "/tactical/wasm/adventuresim-tactical-client.js";
-        import {prepareGeneratedScene} from "/static/strategic-generation.js";
+        import {prepareGeneratedScene,prepareRegionalCity} from "/static/strategic-generation.js";
         try {
           const module = await WebAssembly.compileStreaming(fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm"));
           await init({module_or_path:module});
-          const [graphics, audio, input] = await Promise.all([
+          const [graphics, audio, input, city] = await Promise.all([
             fetch("/tactical/assets/config/tactical-graphics.yaml").then(r=>r.text()),
             fetch("/tactical/assets/config/tactical-audio.yaml").then(r=>r.text()),
-            fetch("/input.json").then(r=>r.text())]);
+            fetch("/input.json").then(r=>r.text()),
+            fetch("/city.json").then(r=>r.text())]);
           runtime.wasm_boot(graphics, audio);
           const preparationRuntime={...runtime,generationModule:module,
             generationRevision:"regional-map-browser",generationGraphicsConfig:graphics};
+          const cityJobRoles=[];
+          preparationRuntime.wasm_regional_city_jobs=(...args)=>{
+            const result=runtime.wasm_regional_city_jobs(...args);
+            cityJobRoles.push(...JSON.parse(result).map(job=>Object.keys(JSON.parse(job))[0]));
+            return result;
+          };
           const [preparation,preview]=await Promise.all([
             prepareGeneratedScene(preparationRuntime,input,{places:[],people:[]}),
-            prepareGeneratedScene(preparationRuntime,input,{places:[],people:[]},{owner:"regional-map"}),
+            prepareRegionalCity(preparationRuntime,city),
           ]);
           if(JSON.parse(preparation).sequence===JSON.parse(preview).sequence)
             throw new Error("Concurrent presentation owners reused a preparation identity");
@@ -76,7 +88,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
           runtime.wasm_cancel_generation(preview);
           try {runtime.wasm_generation_jobs(preparation,input);throw new Error("Completed preparation accepted more worker jobs");}
           catch(error){if(error.name!=="generation/stale-preparation")throw error;}
-          window.preparationFixture={scene:JSON.parse(preparation),preview:JSON.parse(preview)};
+          window.preparationFixture={scene:JSON.parse(preparation),preview:JSON.parse(preview),cityJobRoles};
           runtime.wasm_command(JSON.stringify({type:"prepare-strategic-scene", location:"fixture", input_json:input,
             preparation:JSON.parse(preparation)}));
           runtime.wasm_command(JSON.stringify({type:"sync-strategic-view", view:{
@@ -106,6 +118,11 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     assert.equal(await page.evaluate(() => window.bootFailure), undefined);
     assert.equal(await page.evaluate(()=>preparationFixture.scene.owner),"scene");
     assert.equal(await page.evaluate(()=>preparationFixture.preview.owner),"regional-map");
+    const cityRoles=await page.evaluate(()=>preparationFixture.cityJobRoles);
+    assert(cityRoles.includes("RegionalCity"),"The map prepares canonical city support");
+    assert(cityRoles.includes("Building"),"The map prepares exterior facade programmes");
+    assert(cityRoles.every(role=>["RegionalCity","Building"].includes(role)),
+      "Focused city preparation does not generate actor interiors or scatter");
     checkpoint("runtime-prepared");
     const initial = await page.evaluate(() => {
       const source = "a".repeat(64), origin = {latitude: 50_500_000, longitude: 10_500_000};

@@ -6,6 +6,7 @@ pub(super) fn venue_jobs(
     input_json: &str,
     view_json: &str,
 ) -> PreparationResult<Vec<String>> {
+    ticket.require_owner(PresentationOwner::Scene)?;
     let input: TacticalSceneInput = serde_json::from_str(input_json)?;
     let request: venue::VenueRequest = serde_json::from_str(view_json)?;
     let mut products = staged_products(ticket)?;
@@ -40,6 +41,7 @@ pub(super) fn dependencies(
     job_json: &str,
 ) -> PreparationResult<Vec<u8>> {
     let job: GenerationJob = serde_json::from_str(job_json)?;
+    job.require_owner(ticket)?;
     let products = staged_products(ticket)?;
     let mut data = Dependencies::default();
     match job {
@@ -94,7 +96,7 @@ pub(super) fn dependencies(
                     },
                 );
         }
-        GenerationJob::Building(_) => {}
+        GenerationJob::Building(_) | GenerationJob::RegionalCity { .. } => {}
     }
     let mut bytes = Vec::new();
     ciborium::into_writer(&data, &mut bytes).map_err(PreparationError::DependenciesEncode)?;
@@ -102,6 +104,7 @@ pub(super) fn dependencies(
 }
 
 pub(super) fn jobs(ticket: PreparationTicket, input_json: &str) -> PreparationResult<Vec<String>> {
+    ticket.require_owner(PresentationOwner::Scene)?;
     let input: TacticalSceneInput = serde_json::from_str(input_json)?;
     input.validate()?;
     let mut programs = Vec::new();

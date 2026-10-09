@@ -8,7 +8,31 @@ const invalidCachedProductCodes = new Set([
   "generation/scene-bindings-mismatch",
 ]);
 
-export async function prepareGeneratedScene(runtime, input, venues, { signal, owner = "scene" } = {}) {
+export async function prepareGeneratedScene(runtime, input, venues, { signal } = {}) {
+  return prepareProducts(runtime, "scene", signal, async (preparation, run) => {
+    // The strings remain opaque; JSON parsing here only classifies job roles.
+    const jobs = JSON.parse(runtime.wasm_generation_jobs(preparation, input));
+    const venueJobs = JSON.parse(runtime.wasm_venue_jobs(preparation, input, JSON.stringify(venues)));
+    const scenes = jobs.filter(job => Object.hasOwn(JSON.parse(job), "Scene"));
+    // Terrain consumes occupied plans and compact frontage records.
+    await run([...venueJobs, ...jobs.filter(job => !scenes.includes(job))]);
+    await run(scenes);
+    await run(JSON.parse(runtime.wasm_landscape_jobs(preparation, input, runtime.generationGraphicsConfig)));
+  }, preparation => runtime.wasm_finish_generation(preparation, input));
+}
+
+export async function prepareRegionalCity(runtime, document, { signal } = {}) {
+  return prepareProducts(runtime, "regional-map", signal, async (preparation, run) => {
+    const jobs = JSON.parse(runtime.wasm_regional_city_jobs(
+      preparation, document, runtime.generationGraphicsConfig,
+    ));
+    // Supported terrain and facade programmes are independent. Neither phase
+    // requests occupied interiors, landscape scatter or interactive furniture.
+    await run(jobs);
+  }, preparation => runtime.wasm_finish_regional_city(preparation, document));
+}
+
+async function prepareProducts(runtime, owner, signal, prepare, finish) {
   signal?.throwIfAborted();
   const started = performance.now();
   const preparation = runtime.wasm_begin_generation(JSON.stringify(owner));
@@ -16,9 +40,7 @@ export async function prepareGeneratedScene(runtime, input, venues, { signal, ow
   const cancel = () => pool?.close();
   signal?.addEventListener("abort", cancel, { once: true });
   try {
-    // Rust owns numeric parsing: JSON.parse would truncate 64-bit scene seeds.
-    const jobs = JSON.parse(runtime.wasm_generation_jobs(preparation, input));
-    const metrics = { jobs: jobs.length, workers: 0, bytes: 0, workerMilliseconds: 0,
+    const metrics = { jobs: 0, workers: 0, bytes: 0, workerMilliseconds: 0,
       receiveMilliseconds: 0, dependencyMilliseconds: 0, dependencyBytes: 0,
       milliseconds: 0, cacheHits: 0, cacheMisses: 0, cacheLookupMilliseconds: 0,
       cacheWritesAccepted: 0, cacheWritesReplaced: 0, cacheWriteRejections: {} };
@@ -35,7 +57,9 @@ export async function prepareGeneratedScene(runtime, input, venues, { signal, ow
     // A cache miss starts generation immediately; unrelated cache reads must
     // not postpone the destination's critical scene job. Workers are lazy, so
     // a completely cached destination never instantiates another Wasm runtime.
-    const run = async jobs => pool.run(jobs,
+    const run = async jobs => {
+      metrics.jobs += jobs.length;
+      const result = await pool.run(jobs,
       ({ job, bytes, workerMilliseconds }) => {
         receive(job, bytes);
         metrics.workerMilliseconds += workerMilliseconds;
@@ -70,20 +94,12 @@ export async function prepareGeneratedScene(runtime, input, venues, { signal, ow
         metrics.cacheMisses++;
         return { status: "generate", job };
       } });
-    const venueJobs = JSON.parse(runtime.wasm_venue_jobs(preparation, input, JSON.stringify(venues)));
-    metrics.jobs += venueJobs.length;
-    // Occupied plans/interiors/meshes and shared exterior programs are independent.
-    // Terrain then consumes their prepared plans and compact frontage records.
-    // JSON only identifies the enum variant; numeric seeds stay in Rust strings.
-    const scenes = jobs.filter(job => Object.hasOwn(JSON.parse(job), "Scene"));
-    metrics.workers = (await run([...venueJobs, ...jobs.filter(job => !scenes.includes(job))])).createdWorkers;
-    metrics.workers += (await run(scenes)).createdWorkers;
-    const landscapeJobs = JSON.parse(runtime.wasm_landscape_jobs(preparation, input, runtime.generationGraphicsConfig));
-    metrics.jobs += landscapeJobs.length;
-    metrics.workers += (await run(landscapeJobs)).createdWorkers;
+      metrics.workers += result.createdWorkers;
+    };
+    await prepare(preparation, run);
     metrics.milliseconds = performance.now() - started;
     signal?.throwIfAborted();
-    runtime.wasm_finish_generation(preparation, input);
+    finish(preparation);
     completed = true;
     return preparation;
   } finally {
