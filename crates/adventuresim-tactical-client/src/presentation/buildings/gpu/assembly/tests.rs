@@ -211,6 +211,46 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
     let batches = world.query::<&Mesh3d>().iter(&world).count();
     assemble(&mut world);
     assert_eq!(world.query::<&Mesh3d>().iter(&world).count(), batches);
+    if let Some(path) = std::env::var_os("REGIONAL_MAP_CITY_INPUT") {
+        let city: adventuresim_tactical_core::regional_city::RegionalCityInput =
+            serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
+        let origin = city.origin().to_microdegrees();
+        let owner = PresentationOwner::RegionalMap;
+        let scene = world.resource::<CityGpuScenes>().owners.get(owner);
+        let buildings = scene.buildings.id();
+        let geometry = scene.batches[0].vertices.id();
+        let frame_buffer = scene.frame_buffer.id();
+        let frame = CityFrame::from_geographic_city(&city, origin);
+        let local = Vec3::new(1.0, 2.0, 3.0);
+        let world_point = frame.world_from_city().transform_point3(local);
+        assert_eq!(
+            world_point.y,
+            f32::from(city.input().absolute_elevation_metres.get()) + 2.0
+        );
+        assert_eq!(world_point.z, -3.0);
+        frame.install(&mut world, owner).unwrap();
+        let shifted = adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees::new(
+            origin.latitude().get(),
+            origin.longitude().get() + 1000,
+        )
+        .unwrap();
+        let shifted_frame = CityFrame::from_geographic_city(&city, shifted);
+        shifted_frame.install(&mut world, owner).unwrap();
+        let scene = world.resource::<CityGpuScenes>().owners.get(owner);
+        assert_eq!(scene.buildings.id(), buildings);
+        assert_eq!(scene.batches[0].vertices.id(), geometry);
+        assert_eq!(scene.frame_buffer.id(), frame_buffer);
+        assert!(shifted_frame.world_from_city().transform_point3(local).x < world_point.x);
+        assert_eq!(
+            world
+                .resource::<CityGpuScenes>()
+                .owners
+                .get(PresentationOwner::Scene)
+                .frame,
+            CityFrame::default(),
+            "map reanchoring does not move actor scenery"
+        );
+    }
 }
 
 #[test]

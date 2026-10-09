@@ -124,11 +124,12 @@ impl OwnerViews {
                 });
                 for batch in scene.batches.iter() {
                     let offset = self.uniforms.push(&ViewParameters {
-                        clip_from_world: clip,
-                        camera: root_view
-                            .view
-                            .world_from_view
-                            .translation()
+                        clip_from_world: clip * scene.frame.world_from_city,
+                        camera: scene
+                            .frame
+                            .world_from_city
+                            .inverse()
+                            .transform_point3(root_view.view.world_from_view.translation())
                             .extend(view.clip_from_view.w_axis.w),
                         projection: Vec4::new(
                             view.clip_from_view.y_axis.y.abs() * view.viewport.w as f32 * 0.5,
@@ -153,8 +154,10 @@ impl OwnerViews {
                         far_plane: if item.shadow {
                             Vec4::ZERO
                         } else {
-                            item.frustum
-                                .map_or(Vec4::ZERO, |frustum| frustum.half_spaces[5].normal_d())
+                            scene.frame.world_from_city.transpose()
+                                * item
+                                    .frustum
+                                    .map_or(Vec4::ZERO, |frustum| frustum.half_spaces[5].normal_d())
                         },
                     });
                     offsets.push((*root, offset, draw_slot as u32));
