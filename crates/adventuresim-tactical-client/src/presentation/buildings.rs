@@ -224,7 +224,7 @@ fn on_scene_vista_buildings(
 }
 
 fn cached_building_levels(
-    owner: PresentationOwner,
+    _owner: PresentationOwner,
     cache: &mut TacticalBuildingMeshCache,
     program: &BuildingProgram,
     detail: BuildingDetail,
@@ -241,7 +241,7 @@ fn cached_building_levels(
 
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Facade {
-        let prepared = super::generation::take_facade(owner, program)?;
+        let prepared = super::generation::take_facade(_owner, program)?;
         return kit::install_facade(cache, prepared, meshes);
     }
 
@@ -258,7 +258,7 @@ fn cached_building_levels(
     let plan = &geometry.plan;
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Dynamic && prepared.is_some() {
-        let meshes_ready = super::generation::take_venue_geometry(owner, program)?;
+        let meshes_ready = super::generation::take_venue_geometry(_owner, program)?;
         return self::prepared::install(cache, program, meshes_ready, geometry, meshes);
     }
     let collision = &geometry.collision;
