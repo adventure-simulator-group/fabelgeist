@@ -9,8 +9,8 @@ use bevy::{
     render::{render_resource::ShaderType, storage::ShaderBuffer},
 };
 
-/// The east scale follows the shared sampler projection. The sign corrects winding and
-/// tangent handedness; the remaining vector lanes are GPU alignment padding.
+/// The east scale follows the shared sampler projection. The sign corrects
+/// winding and tangent handedness; other vector lanes are alignment padding.
 #[derive(Clone, Copy, Debug, PartialEq, ShaderType)]
 pub(in crate::presentation) struct CityFrame {
     pub(super) world_from_city: Mat4,

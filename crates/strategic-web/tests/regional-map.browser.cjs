@@ -8,6 +8,7 @@ const { chromium } = require("playwright");
 const root = path.resolve(__dirname, "../../..");
 const wasm = process.env.REGIONAL_MAP_WASM_DIR;
 const cityInput = process.env.REGIONAL_MAP_CITY_INPUT;
+const actorInput = process.env.REGIONAL_MAP_ACTOR_INPUT;
 const density = Number(process.env.REGIONAL_MAP_BROWSER_DENSITY || 1);
 assert([1,2].includes(density), "The renderer fixture supports real 1× and 2× display density");
 const output = path.resolve(root, process.env.REGIONAL_MAP_REVIEW_DIR || "target/regional-map-browser");
@@ -39,7 +40,8 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     } else if (relative.startsWith("/static/")) {
       roots = [path.join(root, "crates/strategic-web/static")]; suffix = relative.slice(8);
     } else if (relative === "/input.json") {
-      roots = [root]; suffix = "assets/tactical-scenes/sparse-woodland.json";
+      const file = path.resolve(root, actorInput || "assets/tactical-scenes/sparse-woodland.json");
+      roots = [path.dirname(file)]; suffix = path.basename(file);
     } else if (relative === "/city.json") {
       roots = [path.dirname(path.resolve(root, cityInput))];
       suffix = path.basename(cityInput);
