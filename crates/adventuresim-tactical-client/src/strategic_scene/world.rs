@@ -9,9 +9,16 @@ use bevy::prelude::*;
 pub(crate) struct SceneDocument {
     location: String,
     input: Result<TacticalSceneInput, String>,
+    #[cfg(target_family = "wasm")]
+    preparation: crate::presentation::generation::PreparationTicket,
 }
 impl SceneDocument {
-    pub(crate) fn parse(location: String, json: &str) -> Self {
+    pub(crate) fn parse(
+        location: String,
+        json: &str,
+        #[cfg(target_family = "wasm")]
+        preparation: crate::presentation::generation::PreparationTicket,
+    ) -> Self {
         let input = serde_json::from_str::<TacticalSceneInput>(json)
             .map_err(|error| error.to_string())
             .and_then(|input| {
@@ -20,7 +27,25 @@ impl SceneDocument {
                     .map(|()| input)
                     .map_err(|error| error.to_string())
             });
-        Self { location, input }
+        Self {
+            location,
+            input,
+            #[cfg(target_family = "wasm")]
+            preparation,
+        }
+    }
+
+    fn generated_scene(&self) -> Result<GeneratedTacticalScene, String> {
+        let input = self.input.as_ref().map_err(Clone::clone)?;
+        #[cfg(target_family = "wasm")]
+        let generated = crate::presentation::generation::activate(
+            self.preparation,
+            crate::presentation::generation::GenerationOwner::Scene,
+            input,
+        );
+        #[cfg(not(target_family = "wasm"))]
+        let generated = input.generate();
+        generated.map_err(|error| error.to_string())
     }
 }
 
@@ -48,6 +73,13 @@ pub(super) fn retain_scene(
         return;
     }
     if scene.location != view.location || scene.root.is_none() {
+        let generated = match document.generated_scene() {
+            Ok(generated) => generated,
+            Err(error) => {
+                scene.error = Some(error);
+                return;
+            }
+        };
         if let Some(root) = scene.root {
             commands.entity(root).despawn();
         }
@@ -58,7 +90,7 @@ pub(super) fn retain_scene(
         };
         match &document.input {
             Ok(input) => {
-                if let Err(error) = prepare(&mut commands, input, &view, &mut scene) {
+                if let Err(error) = prepare(&mut commands, input, &view, &mut scene, generated) {
                     scene.error = Some(error);
                 }
             }
@@ -66,8 +98,9 @@ pub(super) fn retain_scene(
         }
     }
     if !scene.pending.is_empty() {
-        let building = scene.pending.pop_front().expect("pending building");
-        let root = scene.root.expect("prepared scene root");
+        let (Some(building), Some(root)) = (scene.pending.pop_front(), scene.root) else {
+            return;
+        };
         if let Err(error) = super::instances::spawn_building(
             &mut commands,
             building,
@@ -84,12 +117,8 @@ fn prepare(
     input: &TacticalSceneInput,
     view: &StrategicView,
     retained: &mut RetainedScene,
+    mut generated: GeneratedTacticalScene,
 ) -> Result<(), String> {
-    #[cfg(target_family = "wasm")]
-    let mut generated =
-        crate::presentation::generation::take_scene(input).map_err(|error| error.to_string())?;
-    #[cfg(not(target_family = "wasm"))]
-    let mut generated = input.generate().map_err(|e| e.to_string())?;
     retained.venues = buildings::prepare_venues(input, view, &mut generated, &mut retained.street)?;
     retained.digest = generated.digest.clone();
     let root = commands

@@ -34,7 +34,7 @@ impl PreparedProducts {
     pub(super) fn retain_scene(&mut self, scene: GeneratedTacticalScene) {
         self.scenes
             .retain(|resident| resident.digest != scene.digest);
-        self.scenes.push(scene);
+        self.scenes.push(Arc::new(scene));
         if self.scenes.len() > RETAINED_SCENE_PRODUCTS {
             self.scenes.remove(0);
         }
@@ -48,7 +48,7 @@ impl PreparedProducts {
         self.scenes
             .iter()
             .find(|scene| scene.digest == digest)
-            .cloned()
+            .map(|scene| (**scene).clone())
             .ok_or(PreparationError::NotPrepared {
                 product: ProductKind::Scene,
             })

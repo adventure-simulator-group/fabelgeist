@@ -12,12 +12,32 @@ the current request's state. Repeated requests for a loading destination share
 the same promise. A failed destination keeps its cause without retrying every
 animation frame; selecting another destination starts a fresh request.
 
-Generation shares one WebAssembly product registry. A replacement can fetch its
-document while the previous preparation settles, but it waits for that
-preparation to release ownership before starting generation. Cancelled
-intermediate destinations never start their own preparation. This prevents a
-new request from clearing residency while an old one is still receiving products.
-Optional cache flushing remains outside that ownership interval.
+Generation has separate `scene` and `regional-map` owners inside the existing
+WebAssembly instance. Each owner retains its installed products, one staged
+preparation and one completed candidate. A checked ticket identifies the owner
+and a positive sequence number. Starting another preparation invalidates the
+previous staged ticket, without changing installed products or the other owner.
+Sequences never repeat, including after a complete presentation reset.
+
+The scene request controller still waits for its cancelled preparation to settle
+before starting another. Cancelled intermediate destinations never prepare.
+Every dependency capture and product reception requires the current ticket.
+Invalidated replies fail with a typed preparation error; they cannot change a
+replacement's bindings. Optional cache flushing is outside this interval.
+
+Successful preparation publishes a candidate and returns its opaque ticket.
+`prepare-strategic-scene` carries that ticket with the scene document. Bevy
+checks the owner, identity and exact document before activating the candidate.
+The installed products remain available to pending mesh consumers while a new
+request is in flight. Cancellation discards only the matching staged or completed
+candidate. Large immutable scene and mesh buffers share references between these
+slots; mutable placement and landscape bindings remain separate.
+
+Each product set retains at most three scenes. Before a preparation, venue
+recipe retention trims to 64; the request then adds its required recipes.
+Temporary facades are released from the installed owner once city assembly
+finishes. These policies govern CPU preparation. GPU city residency remains
+separate work before the regional owner can display city buildings.
 
 Returning to the currently resident document cancels pending destination work
 and reuses preparation. Hiding or unmounting the view and entering tactical play

@@ -105,14 +105,16 @@ fn present_instanced_grass(
         let grass = &settings.config.grass;
         let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
         #[cfg(target_family = "wasm")]
-        let prepared =
-            match crate::presentation::generation::landscape::grass(&environment.scene_digest) {
-                Ok(prepared) => prepared,
-                Err(error) => {
-                    warn!(%error, "Could not access prepared grass");
-                    continue;
-                }
-            };
+        let prepared = match crate::presentation::generation::landscape::grass(
+            crate::presentation::generation::GenerationOwner::Scene,
+            &environment.scene_digest,
+        ) {
+            Ok(prepared) => prepared,
+            Err(error) => {
+                warn!(%error, "Could not access prepared grass");
+                continue;
+            }
+        };
         #[cfg(not(target_family = "wasm"))]
         let prepared: Option<
             std::sync::Arc<crate::presentation::vista::grass::PreparedGrass>,

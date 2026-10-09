@@ -7,19 +7,44 @@ static TEST_PRODUCTS: Mutex<()> = Mutex::new(());
 fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let input_json = include_str!("../../../../../assets/tactical-scenes/sparse-woodland.json");
     let input: TacticalSceneInput = serde_json::from_str(input_json).unwrap();
     let graphics = include_str!("../../../../../assets/config/tactical-graphics.yaml");
-    for job in jobs(input_json).unwrap() {
-        receive(&job, &generate(&job, &dependencies(&job).unwrap()).unwrap()).unwrap();
+    for job in jobs(ticket, input_json).unwrap() {
+        receive(
+            ticket,
+            &job,
+            &generate(&job, &dependencies(ticket, &job).unwrap()).unwrap(),
+        )
+        .unwrap();
     }
-    let requests = landscape::jobs(input_json, graphics).unwrap();
+    let requests = landscape::jobs(ticket, input_json, graphics).unwrap();
     assert_eq!(requests.len(), 2);
     for job in requests {
-        receive(&job, &generate(&job, &dependencies(&job).unwrap()).unwrap()).unwrap();
+        receive(
+            ticket,
+            &job,
+            &generate(&job, &dependencies(ticket, &job).unwrap()).unwrap(),
+        )
+        .unwrap();
     }
     let digest = input.digest().unwrap();
-    let grass = landscape::grass(&digest).unwrap().unwrap();
+    finish(ticket, &input).unwrap();
+    let mut other_document = input.clone();
+    other_document.seed = other_document.seed.wrapping_offset(1);
+    assert!(matches!(
+        activate(ticket, GenerationOwner::Scene, &other_document),
+        Err(PreparationError::PreparationInputMismatch)
+    ));
+    assert!(matches!(
+        activate(ticket, GenerationOwner::RegionalMap, &input),
+        Err(PreparationError::PreparationOwner)
+    ));
+    activate(ticket, GenerationOwner::Scene, &input).unwrap();
+    let grass = landscape::grass(GenerationOwner::Scene, &digest)
+        .unwrap()
+        .unwrap();
     let expected_scene = input.generate().unwrap();
     let expected = crate::presentation::vista::grass::PreparedGrass::new(
         &input,
@@ -38,24 +63,39 @@ fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
             );
         }
     }
-    assert!(landscape::jobs(input_json, graphics).unwrap().is_empty());
+    let ticket = begin(GenerationOwner::Scene).unwrap();
+    assert!(
+        landscape::jobs(ticket, input_json, graphics)
+            .unwrap()
+            .is_empty()
+    );
     let changed = graphics.replace("density_scale: 1.0", "density_scale: 0.5");
     assert_ne!(graphics, changed);
-    assert_eq!(landscape::jobs(input_json, &changed).unwrap().len(), 2);
+    assert_eq!(
+        landscape::jobs(ticket, input_json, &changed).unwrap().len(),
+        2
+    );
     assert!(
-        landscape::grass(&digest).unwrap().is_none(),
-        "old-quality placements must not be used"
+        landscape::grass(GenerationOwner::Scene, &digest)
+            .unwrap()
+            .is_some(),
+        "Preparing different quality must retain the installed scene until activation"
     );
     clear_residency().unwrap();
-    assert!(landscape::ground(&digest).unwrap().is_none());
+    assert!(
+        landscape::ground(GenerationOwner::Scene, &digest)
+            .unwrap()
+            .is_none()
+    );
 }
 
 #[test]
 fn massive_city_workers_prepare_only_shared_exteriors() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
-    let requests = jobs(input).unwrap();
+    let requests = jobs(ticket, input).unwrap();
     assert!(
         requests.len() < 200,
         "the 40,000-person fixture must share facade recipes"
@@ -64,7 +104,7 @@ fn massive_city_workers_prepare_only_shared_exteriors() {
         serde_json::from_str::<GenerationJob>(&requests[0]).unwrap(),
         GenerationJob::Scene(_)
     ));
-    assert_eq!(requests, jobs(input).unwrap());
+    assert_eq!(requests, jobs(ticket, input).unwrap());
     println!("massive city generation jobs: {}", requests.len());
 }
 
@@ -72,34 +112,29 @@ fn massive_city_workers_prepare_only_shared_exteriors() {
 fn worker_products_round_trip_geometry_and_reject_wrong_inputs() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let program = BuildingProgram::fixture(
         BuildingArchetype::FachwerkCottage,
         fabelgeist_determinism::Seed::from_u64(u64::MAX),
     );
     let job = serde_json::to_string(&GenerationJob::Building(Box::new(program.clone()))).unwrap();
-    let bytes = generate(&job, &dependencies(&job).unwrap()).unwrap();
-    receive(&job, &bytes).unwrap();
-    let actual = take_facade(&program).unwrap();
+    let bytes = generate(&job, &dependencies(ticket, &job).unwrap()).unwrap();
+    receive(ticket, &job, &bytes).unwrap();
+    let actual = staged_products(ticket).unwrap().facades.pop().unwrap();
     let expected = PreparedFacade::generate(program.clone()).unwrap();
     assert_eq!(
         serde_json::to_value(&actual).unwrap(),
         serde_json::to_value(&expected).unwrap()
     );
     assert!(matches!(
-        take_facade(&program),
-        Err(PreparationError::NotPrepared {
-            product: ProductKind::Facade
-        })
-    ));
-    assert!(matches!(
-        receive(&job, b"truncated"),
+        receive(ticket, &job, b"truncated"),
         Err(PreparationError::ProductDecode(_))
     ));
     let mut changed = program;
     changed.seed = fabelgeist_determinism::Seed::from_u64(42);
     let changed = serde_json::to_string(&GenerationJob::Building(Box::new(changed))).unwrap();
     assert!(matches!(
-        receive(&changed, &bytes),
+        receive(ticket, &changed, &bytes),
         Err(PreparationError::ProductMismatch)
     ));
 }
@@ -108,46 +143,49 @@ fn worker_products_round_trip_geometry_and_reject_wrong_inputs() {
 fn scene_transport_preserves_static_assets_and_full_width_seed() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
     .unwrap();
     input.seed = u64::MAX.into();
     let request = serde_json::to_string(&input).unwrap();
-    let jobs = jobs(&request).unwrap();
+    let jobs = jobs(ticket, &request).unwrap();
     assert!(jobs[0].contains(&u64::MAX.to_string()));
-    let bytes = generate(&jobs[0], &dependencies(&jobs[0]).unwrap()).unwrap();
-    receive(&jobs[0], &bytes).unwrap();
-    let actual = take_scene(&input).unwrap();
+    let bytes = generate(&jobs[0], &dependencies(ticket, &jobs[0]).unwrap()).unwrap();
+    receive(ticket, &jobs[0], &bytes).unwrap();
+    let actual = prepared_scene(ticket, &input).unwrap();
     let expected = input.generate().unwrap();
     assert_eq!(
         serde_json::to_value(actual).unwrap(),
         serde_json::to_value(expected).unwrap()
     );
-    assert!(take_scene(&input).is_ok());
+    assert!(prepared_scene(ticket, &input).is_ok());
     clear_residency().unwrap();
     assert!(matches!(
-        take_scene(&input),
-        Err(PreparationError::NotPrepared {
-            product: ProductKind::Scene
-        })
+        prepared_scene(ticket, &input),
+        Err(PreparationError::StalePreparation)
     ));
-    assert!(matches!(super::jobs("{}"), Err(PreparationError::Json(_))));
+    assert!(matches!(
+        super::jobs(ticket, "{}"),
+        Err(PreparationError::Json(_))
+    ));
 }
 
 #[test]
 fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
-    let requests = jobs(input).unwrap();
+    let requests = jobs(ticket, input).unwrap();
     for request in requests.iter().skip(1) {
         let GenerationJob::Building(program) = serde_json::from_str(request).unwrap() else {
             panic!("facade job");
         };
         retain_facade(&program).unwrap();
     }
-    assert_eq!(jobs(input).unwrap().len(), 1);
+    assert_eq!(jobs(ticket, input).unwrap().len(), 1);
     let original: TacticalSceneInput = serde_json::from_str(input).unwrap();
     let mut placement = adventuresim_tactical_core::scene_input::TacticalBuildingPlacement::from(
         original.distant_buildings[0],
@@ -169,20 +207,26 @@ fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
     );
     assert_eq!(grounded.buildings[0].program, first.buildings[0].program);
     assert_eq!(
-        jobs(&serde_json::to_string(&grounded).unwrap())
+        jobs(ticket, &serde_json::to_string(&grounded).unwrap())
             .unwrap()
             .len(),
         1,
         "valid new floor/source bindings invalidate the scene without regenerating resident facades"
     );
     clear_residency().unwrap();
-    assert_eq!(jobs(input).unwrap(), requests);
+    assert!(matches!(
+        jobs(ticket, input),
+        Err(PreparationError::StalePreparation)
+    ));
+    let ticket = begin(GenerationOwner::Scene).unwrap();
+    assert_eq!(jobs(ticket, input).unwrap(), requests);
 }
 
 #[test]
 fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let program = BuildingProgram::fixture(
         BuildingArchetype::FachwerkCottage,
         fabelgeist_determinism::Seed::from_u64(47),
@@ -193,11 +237,14 @@ fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
     let expected =
         adventuresim_building_generator::compile_static_building_detail(&recipe.plan).unwrap();
     let job = serde_json::to_string(&GenerationJob::Venue(Box::new(program.clone()))).unwrap();
-    let bytes = generate(&job, &dependencies(&job).unwrap()).unwrap();
-    receive(&job, &bytes).unwrap();
-    let geometry = take_venue_geometry(&program).unwrap();
+    let bytes = generate(&job, &dependencies(ticket, &job).unwrap()).unwrap();
+    receive(ticket, &job, &bytes).unwrap();
+    let geometry = staged_products(ticket).unwrap().venues[0]
+        .geometry
+        .clone()
+        .unwrap();
     assert_eq!(geometry.detail.len(), expected.meshes.len());
-    for (prepared, expected) in geometry.detail.into_iter().zip(&expected.meshes) {
+    for (prepared, expected) in geometry.detail.iter().cloned().zip(&expected.meshes) {
         let expected = super::super::recipe_mesh::recipe_mesh(
             expected,
             recipe.collision.bounds.centre().unwrap().metres(),
@@ -220,7 +267,7 @@ fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
         );
     }
     assert_eq!(
-        products().unwrap().venues[0].interior,
+        staged_products(ticket).unwrap().venues[0].interior,
         adventuresim_building_generator::interior::furnish(&recipe.plan, &program).unwrap()
     );
 }
@@ -229,6 +276,7 @@ fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
 fn parallel_building_products_preserve_the_complete_tactical_scene() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -254,20 +302,49 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
     );
     let input = grounded_test_building(input.buildings.remove(0), 2.0);
     let request = serde_json::to_string(&input).unwrap();
-    let venues = venue_jobs(&request, r#"{"places":[],"people":[]}"#).unwrap();
-    for job in venues.iter().chain(&jobs(&request).unwrap()) {
-        receive(job, &generate(job, &dependencies(job).unwrap()).unwrap()).unwrap();
+    let venues = venue_jobs(ticket, &request, r#"{"places":[],"people":[]}"#).unwrap();
+    for job in venues.iter().chain(&jobs(ticket, &request).unwrap()) {
+        receive(
+            ticket,
+            job,
+            &generate(job, &dependencies(ticket, job).unwrap()).unwrap(),
+        )
+        .unwrap();
     }
-    let actual = take_scene(&input).unwrap();
+    let actual = prepared_scene(ticket, &input).unwrap();
     let expected = input.generate().unwrap();
     assert_eq!(
         serde_json::to_value(actual).unwrap(),
         serde_json::to_value(expected).unwrap()
     );
     assert!(
-        venue_jobs(&request, r#"{"places":[],"people":[]}"#)
+        venue_jobs(ticket, &request, r#"{"places":[],"people":[]}"#)
             .unwrap()
             .is_empty()
+    );
+    finish(ticket, &input).unwrap();
+    activate(ticket, GenerationOwner::Scene, &input).unwrap();
+    let replacement = begin(GenerationOwner::Scene).unwrap();
+    let preview = begin(GenerationOwner::RegionalMap).unwrap();
+    assert!(matches!(
+        staged_products(ticket),
+        Err(PreparationError::StalePreparation)
+    ));
+    let geometry =
+        take_venue_geometry(GenerationOwner::Scene, &input.buildings[0].program).unwrap();
+    assert!(
+        !geometry.detail.is_empty(),
+        "Both preparations retain the installed actor's pending geometry"
+    );
+    cancel(preview).unwrap();
+    cancel(replacement).unwrap();
+    assert_eq!(
+        active_products(GenerationOwner::Scene)
+            .unwrap()
+            .scene_for_installation(&input)
+            .unwrap()
+            .digest,
+        input.digest().unwrap()
     );
 }
 
@@ -276,10 +353,11 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
 fn independent_city_generation_benchmark() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
     let started = std::time::Instant::now();
-    let mut requests = venue_jobs(input, r#"{"places":[],"people":[]}"#).unwrap();
-    let mut scene_and_facades = jobs(input).unwrap();
+    let mut requests = venue_jobs(ticket, input, r#"{"places":[],"people":[]}"#).unwrap();
+    let mut scene_and_facades = jobs(ticket, input).unwrap();
     let scene = scene_and_facades.remove(0);
     requests.extend(scene_and_facades);
     requests.push(scene);
@@ -289,25 +367,25 @@ fn independent_city_generation_benchmark() {
     let mut receive_seconds = 0.0;
     for job in &requests {
         let started = std::time::Instant::now();
-        let product = generate(job, &dependencies(job).unwrap()).unwrap();
+        let product = generate(job, &dependencies(ticket, job).unwrap()).unwrap();
         recipe_seconds += started.elapsed().as_secs_f64();
         bytes += product.len();
         let started = std::time::Instant::now();
-        receive(job, &product).unwrap();
+        receive(ticket, job, &product).unwrap();
         receive_seconds += started.elapsed().as_secs_f64();
         if let GenerationJob::Building(program) = serde_json::from_str(job).unwrap() {
             retain_facade(&program).unwrap();
         }
     }
     let started = std::time::Instant::now();
-    let warm = jobs(input).unwrap();
+    let warm = jobs(ticket, input).unwrap();
     let warm_scheduling_seconds = started.elapsed().as_secs_f64();
     assert!(
         warm.is_empty(),
         "resident scene and facades require no jobs"
     );
     assert!(
-        venue_jobs(input, r#"{"places":[],"people":[]}"#)
+        venue_jobs(ticket, input, r#"{"places":[],"people":[]}"#)
             .unwrap()
             .is_empty()
     );
@@ -369,14 +447,20 @@ fn grounded_test_building(
 fn owned_terrain_survives_scene_and_landscape_worker_transport() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let source = include_str!("../../../../../assets/tactical-scenes/compound-review.json");
     let input: TacticalSceneInput = serde_json::from_str(source).unwrap();
-    for job in venue_jobs(source, r#"{"places":[],"people":[]}"#).unwrap() {
-        receive(&job, &generate(&job, &dependencies(&job).unwrap()).unwrap()).unwrap();
+    for job in venue_jobs(ticket, source, r#"{"places":[],"people":[]}"#).unwrap() {
+        receive(
+            ticket,
+            &job,
+            &generate(&job, &dependencies(ticket, &job).unwrap()).unwrap(),
+        )
+        .unwrap();
     }
-    let job = jobs(source).unwrap().remove(0);
-    let bytes = generate(&job, &dependencies(&job).unwrap()).unwrap();
-    receive(&job, &bytes).unwrap();
+    let job = jobs(ticket, source).unwrap().remove(0);
+    let bytes = generate(&job, &dependencies(ticket, &job).unwrap()).unwrap();
+    receive(ticket, &job, &bytes).unwrap();
     let expected = input.generate_unfurnished(Default::default()).unwrap();
     assert!(
         !expected
@@ -387,9 +471,9 @@ fn owned_terrain_survives_scene_and_landscape_worker_transport() {
             .is_empty()
     );
     let graphics = include_str!("../../../../../assets/config/tactical-graphics.yaml");
-    for request in landscape::jobs(source, graphics).unwrap() {
+    for request in landscape::jobs(ticket, source, graphics).unwrap() {
         let dependencies: Dependencies =
-            ciborium::from_reader(dependencies(&request).unwrap().as_slice()).unwrap();
+            ciborium::from_reader(dependencies(ticket, &request).unwrap().as_slice()).unwrap();
         let actual = match serde_json::from_str::<GenerationJob>(&request).unwrap() {
             GenerationJob::Ground { .. } => dependencies.ground.unwrap().terrain,
             GenerationJob::Grass { .. } => dependencies.grass.unwrap().terrain,
@@ -415,7 +499,7 @@ fn owned_terrain_survives_scene_and_landscape_worker_transport() {
             );
         }
     }
-    let actual = take_scene(&input).unwrap();
+    let actual = prepared_scene(ticket, &input).unwrap();
     assert_eq!(
         serde_json::to_value(actual.terrain).unwrap(),
         serde_json::to_value(expected.terrain).unwrap()
@@ -427,39 +511,54 @@ fn owned_terrain_survives_scene_and_landscape_worker_transport() {
 fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
     .unwrap();
     let request = serde_json::to_string(&input).unwrap();
-    for job in jobs(&request).unwrap() {
-        receive(&job, &generate(&job, &dependencies(&job).unwrap()).unwrap()).unwrap();
+    for job in jobs(ticket, &request).unwrap() {
+        receive(
+            ticket,
+            &job,
+            &generate(&job, &dependencies(ticket, &job).unwrap()).unwrap(),
+        )
+        .unwrap();
     }
-    products().unwrap().begin_generation();
-    assert!(jobs(&request).unwrap().is_empty());
-    let mut installed = take_scene(&input).unwrap();
+    finish(ticket, &input).unwrap();
+    activate(ticket, GenerationOwner::Scene, &input).unwrap();
+    let previous = ticket;
+    let ticket = begin(GenerationOwner::Scene).unwrap();
+    assert!(matches!(
+        jobs(previous, &request),
+        Err(PreparationError::StalePreparation)
+    ));
+    assert!(jobs(ticket, &request).unwrap().is_empty());
+    let mut installed = prepared_scene(ticket, &input).unwrap();
     installed.obstacles.clear();
     installed.repairs.removed_corridor_obstacles = u32::MAX;
-    let untouched = take_scene(&input).unwrap();
+    let untouched = prepared_scene(ticket, &input).unwrap();
     assert_ne!(untouched.repairs.removed_corridor_obstacles, u32::MAX);
     assert_eq!(untouched.digest, input.digest().unwrap());
     input.seed = input.seed.wrapping_offset(1);
     let changed = serde_json::to_string(&input).unwrap();
-    assert_eq!(jobs(&changed).unwrap().len(), 1);
+    assert_eq!(jobs(ticket, &changed).unwrap().len(), 1);
     assert!(matches!(
-        take_scene(&input),
+        prepared_scene(ticket, &input),
         Err(PreparationError::NotPrepared {
             product: ProductKind::Scene
         })
     ));
     clear_residency().unwrap();
-    assert_eq!(jobs(&request).unwrap().len(), 1);
+    let ticket = begin(GenerationOwner::Scene).unwrap();
+    assert_eq!(jobs(ticket, &request).unwrap().len(), 1);
 }
 
 #[test]
 fn immutable_scene_retention_evicts_the_least_recent_input_within_its_bound() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -471,20 +570,23 @@ fn immutable_scene_retention_evicts_the_least_recent_input_within_its_bound() {
     {
         input.seed = seed;
         let scene = input.generate_unfurnished(Default::default()).unwrap();
-        products().unwrap().retain_scene(scene);
+        staged_products(ticket).unwrap().retain_scene(scene);
         inputs.push(input.clone());
         if seed == Seed::from_u64(3) {
             assert_eq!(
-                products().unwrap().scene_readiness(&inputs[0]).unwrap(),
+                staged_products(ticket)
+                    .unwrap()
+                    .scene_readiness(&inputs[0])
+                    .unwrap(),
                 SceneReadiness::Prepared
             );
         }
     }
-    assert_eq!(products().unwrap().scenes.len(), 3);
-    assert!(take_scene(&inputs[0]).is_ok());
-    assert!(take_scene(&inputs[1]).is_err());
-    assert!(take_scene(&inputs[2]).is_ok());
-    assert!(take_scene(&inputs[3]).is_ok());
+    assert_eq!(staged_products(ticket).unwrap().scenes.len(), 3);
+    assert!(prepared_scene(ticket, &inputs[0]).is_ok());
+    assert!(prepared_scene(ticket, &inputs[1]).is_err());
+    assert!(prepared_scene(ticket, &inputs[2]).is_ok());
+    assert!(prepared_scene(ticket, &inputs[3]).is_ok());
     clear_residency().unwrap();
 }
 
@@ -492,6 +594,7 @@ fn immutable_scene_retention_evicts_the_least_recent_input_within_its_bound() {
 fn a_changed_grounding_binding_cannot_reuse_a_resident_scene_with_the_same_programme() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     let original: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/massive-city.json"
     ))
@@ -507,22 +610,31 @@ fn a_changed_grounding_binding_cannot_reuse_a_resident_scene_with_the_same_progr
     let first = grounded_test_building(placement.clone(), 1.5);
     let changed = grounded_test_building(placement, 5.0);
     let scene = first.generate_unfurnished(Default::default()).unwrap();
-    products().unwrap().retain_scene(scene);
+    staged_products(ticket).unwrap().retain_scene(scene);
     assert_eq!(
-        products().unwrap().scene_readiness(&first).unwrap(),
+        staged_products(ticket)
+            .unwrap()
+            .scene_readiness(&first)
+            .unwrap(),
         SceneReadiness::Prepared
     );
     assert_eq!(
-        products().unwrap().scene_readiness(&changed).unwrap(),
+        staged_products(ticket)
+            .unwrap()
+            .scene_readiness(&changed)
+            .unwrap(),
         SceneReadiness::Missing
     );
     assert!(
-        products()
+        staged_products(ticket)
             .unwrap()
             .scene_for_installation(&changed)
             .is_err()
     );
-    let preserved = products().unwrap().scene_for_installation(&first).unwrap();
+    let preserved = staged_products(ticket)
+        .unwrap()
+        .scene_for_installation(&first)
+        .unwrap();
     assert_eq!(preserved.buildings[0].placement, first.buildings[0]);
     assert_eq!(first.buildings[0].program, changed.buildings[0].program);
     assert_ne!(
@@ -530,4 +642,11 @@ fn a_changed_grounding_binding_cannot_reuse_a_resident_scene_with_the_same_progr
         changed.buildings[0].base_elevation_metres.metres()
     );
     clear_residency().unwrap();
+}
+
+fn prepared_scene(
+    ticket: PreparationTicket,
+    input: &TacticalSceneInput,
+) -> PreparationResult<GeneratedTacticalScene> {
+    staged_products(ticket)?.generated_scene(input)
 }

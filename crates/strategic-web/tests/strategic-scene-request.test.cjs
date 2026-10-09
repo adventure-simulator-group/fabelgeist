@@ -16,7 +16,7 @@ const turn = () => new Promise(resolve => setImmediate(resolve));
 
 test("obsolete scene responses cannot prepare or replace the latest destination", async () => {
   const first = deferred(), installed = [], prepared = [], states = [], signals = [];
-  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({}),
+  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({wasm_cancel_generation(){}}),
     fetchScene: (url, { signal }) => {
       signals.push(signal); return url.endsWith("first") ? first.promise : response("new scene");
     }, prepareScene: async (_, input) => prepared.push(input),
@@ -29,14 +29,14 @@ test("obsolete scene responses cannot prepare or replace the latest destination"
   assert.deepEqual(await obsolete, { status: "superseded" });
   assert.equal(signals[0].aborted, true);
   assert.deepEqual(prepared, ["new scene"]);
-  assert.deepEqual(installed, [{ location: "latest", input: "new scene" }]);
+  assert.deepEqual(installed, [{ location: "latest", input: "new scene", preparation: 1 }]);
   assert.deepEqual(scenes.state, { phase: "prepared", location: "latest" });
   assert.ok(Object.isFrozen(states[0]));
 });
 
 test("replacement waits for cancelled generation ownership and drops intermediate requests", async () => {
   const first = deferred(), installed = [], prepared = [], signals = [];
-  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({}),
+  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({wasm_cancel_generation(){}}),
     fetchScene: url => response(url.split("=").at(-1)),
     prepareScene: async (_, input, _venues, { signal }) => {
       prepared.push(input); signals.push(signal); if (input === "first") await first.promise;
@@ -58,7 +58,7 @@ test("replacement waits for cancelled generation ownership and drops intermediat
 test("a failed destination does not retry every frame or disable later destinations", async () => {
   let fetches = 0;
   const cause = Error("Scene source unavailable");
-  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({}),
+  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({wasm_cancel_generation(){}}),
     fetchScene: url => { fetches++; if (url.endsWith("first")) throw cause; return response("new"); },
     prepareScene: async () => {}, install() {}, changed() {},
   });
@@ -72,7 +72,7 @@ test("a failed destination does not retry every frame or disable later destinati
 test("returning to the resident document cancels pending work and reuses preparation", async () => {
   const blocked = deferred(), installed = [];
   let generations = 0;
-  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({}),
+  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({wasm_cancel_generation(){}}),
     fetchScene: url => url.endsWith("first") ? response("resident") : blocked.promise,
     prepareScene: async () => { generations++; }, install: value => installed.push(value), changed() {},
   });
@@ -87,7 +87,7 @@ test("returning to the resident document cancels pending work and reuses prepara
 
 test("hiding the view cancels preparation and suppresses obsolete failures", async () => {
   const blocked = deferred(), states = [];
-  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({}),
+  const scenes = createSceneRequests({ runtimePromise: Promise.resolve({wasm_cancel_generation(){}}),
     fetchScene: () => blocked.promise, prepareScene: async () => {},
     install() { throw Error("Obsolete installation"); }, changed: state => states.push(state),
   });

@@ -63,9 +63,22 @@ test("regional terrain reuses one real renderer across camera changes and hiding
             fetch("/tactical/assets/config/tactical-audio.yaml").then(r=>r.text()),
             fetch("/input.json").then(r=>r.text())]);
           runtime.wasm_boot(graphics, audio);
-          await prepareGeneratedScene({...runtime, generationModule:module,
-            generationRevision:"regional-map-browser", generationGraphicsConfig:graphics}, input, {places:[],people:[]});
-          runtime.wasm_command(JSON.stringify({type:"prepare-strategic-scene", location:"fixture", input_json:input}));
+          const preparationRuntime={...runtime,generationModule:module,
+            generationRevision:"regional-map-browser",generationGraphicsConfig:graphics};
+          const [preparation,preview]=await Promise.all([
+            prepareGeneratedScene(preparationRuntime,input,{places:[],people:[]}),
+            prepareGeneratedScene(preparationRuntime,input,{places:[],people:[]},{owner:"regional-map"}),
+          ]);
+          if(JSON.parse(preparation).sequence===JSON.parse(preview).sequence)
+            throw new Error("Concurrent presentation owners reused a preparation identity");
+          const replacement=runtime.wasm_begin_generation(JSON.stringify("scene"));
+          runtime.wasm_cancel_generation(replacement);
+          runtime.wasm_cancel_generation(preview);
+          try {runtime.wasm_generation_jobs(preparation,input);throw new Error("Completed preparation accepted more worker jobs");}
+          catch(error){if(error.name!=="generation/stale-preparation")throw error;}
+          window.preparationFixture={scene:JSON.parse(preparation),preview:JSON.parse(preview)};
+          runtime.wasm_command(JSON.stringify({type:"prepare-strategic-scene", location:"fixture", input_json:input,
+            preparation:JSON.parse(preparation)}));
           runtime.wasm_command(JSON.stringify({type:"sync-strategic-view", view:{
             revision:1,location:"fixture",places:[],people:[],active_place:null,selected:null,
             street:null,stage:null,forge:null,portraits:[]}}));
@@ -91,6 +104,8 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     checkpoint("booting");
     await page.waitForFunction(() => window.runtime || window.bootFailure, null, {timeout: 180_000});
     assert.equal(await page.evaluate(() => window.bootFailure), undefined);
+    assert.equal(await page.evaluate(()=>preparationFixture.scene.owner),"scene");
+    assert.equal(await page.evaluate(()=>preparationFixture.preview.owner),"regional-map");
     checkpoint("runtime-prepared");
     const initial = await page.evaluate(() => {
       const source = "a".repeat(64), origin = {latitude: 50_500_000, longitude: 10_500_000};

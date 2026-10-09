@@ -66,7 +66,7 @@ impl ComponentCache {
 #[cfg(target_family = "wasm")]
 pub(super) fn install_facade(
     cache: &mut TacticalBuildingMeshCache,
-    prepared: super::super::generation::PreparedFacade,
+    prepared: Arc<super::super::generation::PreparedFacade>,
     meshes: &mut Assets<Mesh>,
 ) -> Result<Arc<CompiledBuildingLevels>> {
     let mut batches = |source: &[LodMesh]| {
@@ -88,11 +88,11 @@ pub(super) fn install_facade(
     let mut compiled = CompiledBuildingLevels {
         facade_openings: Default::default(),
         interior: None,
-        program: prepared.program,
+        program: prepared.program.clone(),
         detail: BuildingDetail::Facade,
 
         local_origin: prepared.local_origin,
-        sign_sites: prepared.sign_sites,
+        sign_sites: prepared.sign_sites.clone(),
         lod0: Vec::new(),
         lod1: batches(&prepared.facade),
         lod2: batches(&prepared.shell),
