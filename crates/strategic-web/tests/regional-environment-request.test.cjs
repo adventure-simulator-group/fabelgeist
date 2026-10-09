@@ -3,16 +3,17 @@ const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");
 
-const source = fs.readFileSync(path.join(__dirname, "../static/regional-terrain-request.js"), "utf8");
-const { createRegionalTerrainRequests, RegionalTerrainLoadError } = Function(
-  `${source.replaceAll("export ", "")}\nreturn { createRegionalTerrainRequests, RegionalTerrainLoadError };`)();
+const source = fs.readFileSync(path.join(__dirname, "../static/regional-environment-request.js"), "utf8");
+const { createRegionalEnvironmentRequests, RegionalEnvironmentLoadError } = Function(
+  `${source.replaceAll("export ", "")}\nreturn { createRegionalEnvironmentRequests, RegionalEnvironmentLoadError };`)();
 const deferred = () => { let resolve;
   const promise = new Promise(yes => { resolve = yes; }); return { promise, resolve }; };
 const turn = () => new Promise(resolve => setImmediate(resolve));
 const request = (latitude = 50_500_000) => ({ source: "a".repeat(64), scale: "neighborhood",
   origin: { latitude, longitude: 10_500_000 } });
-const product = input => ({ source: input.source,
+const terrainProduct = input => ({ source: input.source,
   request: { origin: input.origin, scale: input.scale }, vertices: Array(65 * 65).fill(null) });
+const product = input => ({terrain:terrainProduct(input),connections:[]});
 const response = value => ({ ok: true, json: async () => value });
 const forUrl = url => { const parsed = new URL(url, "https://fixture.invalid");
   return request(Number(parsed.searchParams.get("latitude"))); };
@@ -20,8 +21,8 @@ const forUrl = url => { const parsed = new URL(url, "https://fixture.invalid");
 test("warm reopening reuses the installed terrain without fetching or reinstalling", async () => {
   let fetches = 0;
   const installed = [], states = [];
-  const terrain = createRegionalTerrainRequests({ runtimePromise: Promise.resolve(),
-    fetchTerrain: async () => { fetches++; return response(product(request())); },
+  const terrain = createRegionalEnvironmentRequests({ runtimePromise: Promise.resolve(),
+    fetchEnvironment: async () => { fetches++; return response(product(request())); },
     install: value => installed.push(value), changed: state => states.push(state) });
   assert.equal((await terrain.request(request())).status, "prepared");
   terrain.cancel();
@@ -38,8 +39,8 @@ test("warm reopening reuses the installed terrain without fetching or reinstalli
 test("identical in-flight requests share ownership and wait for the existing runtime", async () => {
   const runtime = deferred(), server = deferred(), installed = [];
   const input = request();
-  const terrain = createRegionalTerrainRequests({ runtimePromise: runtime.promise,
-    fetchTerrain: () => server.promise, install: value => installed.push(value) });
+  const terrain = createRegionalEnvironmentRequests({ runtimePromise: runtime.promise,
+    fetchEnvironment: () => server.promise, install: value => installed.push(value) });
   const first = terrain.request(input);
   assert.equal(terrain.request(request()), first);
   input.origin.latitude = 1; // Caller mutations cannot change the admitted window.
@@ -47,14 +48,14 @@ test("identical in-flight requests share ownership and wait for the existing run
   assert.equal(installed.length, 0); assert.equal(terrain.state.phase, "loading");
   runtime.resolve();
   assert.equal((await first).status, "prepared");
-  assert.equal(installed[0].request.origin.latitude, 50_500_000);
+  assert.equal(installed[0].terrain.request.origin.latitude, 50_500_000);
 });
 
 test("obsolete responses cannot replace the latest camera window", async () => {
   const oldJson = deferred(), installed = [], signals = [];
   const old = request(), latest = request(50_600_000);
-  const terrain = createRegionalTerrainRequests({ runtimePromise: Promise.resolve(),
-    fetchTerrain: (url, { signal }) => { signals.push(signal);
+  const terrain = createRegionalEnvironmentRequests({ runtimePromise: Promise.resolve(),
+    fetchEnvironment: (url, { signal }) => { signals.push(signal);
       return forUrl(url).origin.latitude === old.origin.latitude
         ? { ok: true, json: () => oldJson.promise } : response(product(latest)); },
     install: value => installed.push(value) });
@@ -68,8 +69,8 @@ test("obsolete responses cannot replace the latest camera window", async () => {
 
 test("hiding cancels pending work and retains the last installed window", async () => {
   const pending = deferred(), installed = [], signals = [];
-  const terrain = createRegionalTerrainRequests({ runtimePromise: Promise.resolve(),
-    fetchTerrain: (url, { signal }) => { signals.push(signal);
+  const terrain = createRegionalEnvironmentRequests({ runtimePromise: Promise.resolve(),
+    fetchEnvironment: (url, { signal }) => { signals.push(signal);
       return forUrl(url).origin.latitude === 50_500_000
         ? response(product(request())) : pending.promise; },
     install: value => installed.push(value) });
@@ -86,10 +87,10 @@ test("hiding cancels pending work and retains the last installed window", async 
 
 test("busy terrain does not retry every frame; explicit retry can recover", async () => {
   let fetches = 0;
-  const terrain = createRegionalTerrainRequests({ runtimePromise: Promise.resolve(), install() {},
-    fetchTerrain: () => ++fetches === 1 ? { ok: false, status: 503 } : response(product(request())) });
+  const terrain = createRegionalEnvironmentRequests({ runtimePromise: Promise.resolve(), install() {},
+    fetchEnvironment: () => ++fetches === 1 ? { ok: false, status: 503 } : response(product(request())) });
   const failed = await terrain.request(request());
-  assert.equal(failed.cause.code, "map/terrain-http");
+  assert.equal(failed.cause.code, "map/environment-http");
   assert.equal((await terrain.request(request())).cause, failed.cause);
   assert.equal(fetches, 1);
   assert.equal((await terrain.retry()).status, "prepared");
@@ -98,8 +99,8 @@ test("busy terrain does not retry every frame; explicit retry can recover", asyn
 
 test("recent windows have bounded least-recently-used retention", async () => {
   let fetches = 0;
-  const terrain = createRegionalTerrainRequests({ runtimePromise: Promise.resolve(), install() {},
-    fetchTerrain: url => { fetches++; return response(product(forUrl(url))); } });
+  const terrain = createRegionalEnvironmentRequests({ runtimePromise: Promise.resolve(), install() {},
+    fetchEnvironment: url => { fetches++; return response(product(forUrl(url))); } });
   for (let latitude = 1; latitude <= 4; latitude++) await terrain.request(request(latitude));
   assert.equal((await terrain.request(request(1))).status, "reused");
   await terrain.request(request(5));
@@ -110,20 +111,23 @@ test("recent windows have bounded least-recently-used retention", async () => {
 test("invalid origins and mismatched or truncated windows never reach the renderer", async () => {
   let installations = 0;
   const malformed = [
-    { ...product(request()), source: "b".repeat(64) },
-    { ...product(request()), request: { ...product(request()).request, scale: "country" } },
-    { ...product(request()), request: { ...product(request()).request, origin: request(4).origin } },
-    { ...product(request()), vertices: [null] },
+    {...product(request()),connections:[{kind:"unknown",points:[{latitude:0,longitude:0},{latitude:1,longitude:1}]}]},
+    {...product(request()),connections:[{kind:"land",points:[{latitude:900_000_001,longitude:0},{latitude:1,longitude:1}]}]},
+    {...product(request()),connections:[{kind:"land",points:Array(65_537).fill({latitude:0,longitude:0})}]},
+    {terrain:{ ...terrainProduct(request()), source: "b".repeat(64) },connections:[]},
+    {terrain:{ ...terrainProduct(request()), request: { ...terrainProduct(request()).request, scale: "country" } },connections:[]},
+    {terrain:{ ...terrainProduct(request()), request: { ...terrainProduct(request()).request, origin: request(4).origin } },connections:[]},
+    {terrain:{ ...terrainProduct(request()), vertices: [null] },connections:[]},
   ];
   for (const value of malformed) {
-    const terrain = createRegionalTerrainRequests({ runtimePromise: Promise.resolve(),
-      install() { installations++; }, fetchTerrain: () => response(value) });
-    assert.equal((await terrain.request(request())).cause.code, "map/terrain-response");
+    const terrain = createRegionalEnvironmentRequests({ runtimePromise: Promise.resolve(),
+      install() { installations++; }, fetchEnvironment: () => response(value) });
+    assert.equal((await terrain.request(request())).cause.code, "map/environment-response");
   }
-  const terrain = createRegionalTerrainRequests({ runtimePromise: Promise.resolve(), install() {} });
+  const terrain = createRegionalEnvironmentRequests({ runtimePromise: Promise.resolve(), install() {} });
   for (const value of [request(90_000_001), request(NaN), { ...request(), scale: "city" },
     { ...request(), source: "A".repeat(64) }]) {
-    assert.throws(() => terrain.request(value), RegionalTerrainLoadError);
+    assert.throws(() => terrain.request(value), RegionalEnvironmentLoadError);
   }
   assert.equal(installations, 0); assert.equal(terrain.state.phase, "idle");
 });

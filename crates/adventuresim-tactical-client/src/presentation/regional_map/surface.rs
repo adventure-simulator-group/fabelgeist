@@ -82,7 +82,7 @@ pub(super) fn present(
     if pose.rect.is_none() {
         return;
     }
-    let Some(terrain) = &state.terrain else {
+    let Some(terrain) = state.terrain() else {
         return;
     };
     let Some(environment) = active
@@ -200,8 +200,7 @@ pub(super) fn sync_camera(
     // Only the camera may retain the window datum over a coverage hole. Covered
     // focus positions use the same interpolated source plane as pins and routes.
     let elevation = state
-        .terrain
-        .as_ref()
+        .terrain()
         .filter(|terrain| terrain.request() == surface.request)
         .and_then(|terrain| geographic_surface::position_at_offset(terrain, offset))
         .map_or(f32::from(datum.get()), |point| point.y);

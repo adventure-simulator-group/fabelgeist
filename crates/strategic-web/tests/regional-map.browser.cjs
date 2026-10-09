@@ -7,6 +7,8 @@ const { chromium } = require("playwright");
 
 const root = path.resolve(__dirname, "../../..");
 const wasm = process.env.REGIONAL_MAP_WASM_DIR;
+const density = Number(process.env.REGIONAL_MAP_BROWSER_DENSITY || 1);
+assert([1,2].includes(density), "The renderer fixture supports real 1× and 2× display density");
 const output = path.resolve(root, process.env.REGIONAL_MAP_REVIEW_DIR || "target/regional-map-browser");
 const assetRoots = [path.join(root, "assets"),
   process.env.REGIONAL_MAP_ASSET_DIR || path.join(root, "crates/adventuresim-stdb-module/static/assets")];
@@ -74,10 +76,10 @@ test("regional terrain reuses one real renderer across camera changes and hiding
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
   const browser = await chromium.launch({ headless: true,
     channel: process.platform === "win32" ? "msedge" : undefined,
-    args: ["--enable-unsafe-webgpu"] });
+    args: ["--enable-unsafe-webgpu", `--force-device-scale-factor=${density}`] });
   let page;
   try {
-    page = await browser.newPage({viewport: {width: 1000, height: 700}});
+    page = await browser.newPage({viewport: {width: 1000, height: 700},deviceScaleFactor:density});
     page.setDefaultTimeout(90_000);
     await page.addInitScript({path: path.join(__dirname, "webgpu-probe.js")});
     page.on("pageerror", error => errors.push({text:error.message}));
@@ -92,7 +94,8 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     checkpoint("runtime-prepared");
     const initial = await page.evaluate(() => {
       const source = "a".repeat(64), origin = {latitude: 50_500_000, longitude: 10_500_000};
-      const rect = {x:80,y:60,width:840,height:560,full_width:840,full_height:560,offset_x:0,offset_y:0};
+      const rect = Object.fromEntries(Object.entries({x:80,y:60,width:840,height:560,
+        full_width:840,full_height:560,offset_x:0,offset_y:0}).map(([key,value])=>[key,value*devicePixelRatio]));
       window.overlayRevision = 0;
       window.mapCommand = command => runtime.wasm_command(JSON.stringify({type:"regional-map",command}));
       window.mapStatus = () => JSON.parse(runtime.wasm_regional_map_status());
@@ -105,6 +108,11 @@ test("regional terrain reuses one real renderer across camera changes and hiding
           crossing_bps:0,surface:"open"}};
       });
       window.mapTerrain = {source,request:{origin,scale:"neighborhood"},vertices};
+      window.mapConnections=["land","river","coast","canal","ferry","winter","inferred_walking_link"].map((kind,index)=>({kind,points:[
+        {latitude:505_000_000+(index-3)*20_000,longitude:104_850_000},
+        {latitude:505_000_000+(index-3)*20_000,longitude:105_150_000},
+      ]}));
+      window.mapEnvironment=()=>({terrain:mapTerrain,connections:mapConnections});
       window.mapOverlay = {source,markers:[
         {place:"place:v1:settlement:66697874757265",origin,rank:"town",emphasis:"current"},
         {place:"place:v1:case-site:666978747572652d73697465",origin:{latitude:50_502_000,longitude:10_503_000},rank:"case-site",emphasis:"selected"},
@@ -114,12 +122,13 @@ test("regional terrain reuses one real renderer across camera changes and hiding
         {latitude:50_496_000,longitude:10_494_000},origin,
         {latitude:50_504_000,longitude:10_506_000},
       ]}};
-      mapCommand(mapOpen); mapCommand({type:"install-terrain",terrain:mapTerrain});
+      mapCommand(mapOpen); mapCommand({type:"install-environment",environment:mapEnvironment()});
       mapCommand({type:"install-overlay",revision:++window.overlayRevision,overlay:mapOverlay});
       return mapOpen;
     });
     await page.waitForFunction(() => mapStatus().ready, null, {timeout: 90_000});
     checkpoint("map-ready");
+    assert.equal(await page.evaluate(()=>mapStatus().connection_meshes),7,"All connection classes share the terrain window");
     const acknowledgement = await page.evaluate(async () => {
       const revision = mapStatus().overlay_revision;
       mapCommand({type:"install-overlay",revision,overlay:{...mapOverlay,markers:[],route:null}});
@@ -144,7 +153,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
       draw.pipeline?.label === "pbr_opaque_mesh_pipeline" && draw.triangles > 0 && draw.triangles < 1000))),
       "The selected route must submit its own covered geometry");
     const changed = await page.evaluate(async () => {
-      mapCommand({type:"rotate",angle:0.7}); mapCommand({type:"pan",delta:[80,40]});
+      mapCommand({type:"rotate",angle:0.7}); mapCommand({type:"pan",delta:[80*devicePixelRatio,40*devicePixelRatio]});
       mapCommand({type:"zoom",ratio:0.5});
       await new Promise(requestAnimationFrame); await new Promise(requestAnimationFrame);
       return mapStatus();
@@ -173,7 +182,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     assert.deepEqual(warm.status.presented, {origin:initial.origin,scale:"neighborhood"});
     const rejected = await page.evaluate(() => {
       const invalid = [{...mapOpen,span:0}, {...mapOpen,rect:{...mapOpen.rect,full_height:0}},
-        {type:"zoom",ratio:100}, {type:"install-terrain",terrain:{...mapTerrain,vertices:[]}},
+        {type:"zoom",ratio:100}, {type:"install-environment",environment:{terrain:{...mapTerrain,vertices:[]},connections:[]}},
         {type:"install-overlay",revision:0,overlay:mapOverlay},
         {type:"install-overlay",revision:2**53,overlay:mapOverlay},
         {type:"install-overlay",revision:++window.overlayRevision,overlay:{...mapOverlay,markers:[mapOverlay.markers[0],mapOverlay.markers[0]]}},
@@ -197,6 +206,17 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     assert.equal(capacity.covered,true,"A route capacity failure leaves terrain available");
     await page.evaluate(() => mapCommand({type:"install-overlay",revision:++window.overlayRevision,overlay:mapOverlay}));
     await page.waitForFunction(() => mapStatus().ready && !mapStatus().error, null, {timeout:10_000});
+    await page.evaluate(()=>mapCommand({type:"install-environment",environment:{
+      terrain:{...mapTerrain,request:{...mapTerrain.request,origin:{...mapTerrain.request.origin,latitude:mapTerrain.request.origin.latitude+1}}},
+      connections:Array.from({length:2048},()=>({...mapConnections[0],points:mapConnections[3].points})),
+    }}));
+    await page.waitForFunction(()=>mapStatus().error==="connection-capacity",null,{timeout:10_000});
+    const connectionCapacity=await page.evaluate(()=>mapStatus());
+    assert.equal(connectionCapacity.ready,false);
+    assert.equal(connectionCapacity.covered,true,"Connection capacity keeps the terrain available");
+    assert.equal(connectionCapacity.connection_meshes,0,"Capacity does not publish a partial network");
+    await page.evaluate(()=>mapCommand({type:"install-environment",environment:mapEnvironment()}));
+    await page.waitForFunction(()=>mapStatus().ready&&!mapStatus().error,null,{timeout:10_000});
     const cameraControls = await page.evaluate(async () => {
       const settle = async () => { await new Promise(requestAnimationFrame); await new Promise(requestAnimationFrame); };
       const endpoints = [mapOverlay.route.points[0],mapOverlay.route.points[2]].map((origin,index)=>({
@@ -206,7 +226,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
       mapCommand({type:"frame-route"}); await settle();
       const framed = mapStatus();
       mapCommand({type:"reset"});
-      mapCommand({type:"resize",rect:{...mapOpen.rect,width:560,full_width:560}});
+      mapCommand({type:"resize",rect:{...mapOpen.rect,width:560*devicePixelRatio,full_width:560*devicePixelRatio}});
       mapCommand({type:"zoom",ratio:800/1200}); await settle();
       const square = mapStatus();
       mapCommand({type:"rotate",angle:Math.PI/4}); await settle();
@@ -214,7 +234,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
       mapCommand({type:"resize",rect:mapOpen.rect}); mapCommand({type:"reset"});
       mapCommand({type:"zoom",ratio:0.05}); mapCommand({type:"zoom",ratio:0.5}); await settle();
       const before = mapStatus();
-      for(let index=0;index<20;index++) mapCommand({type:"pan",delta:[0.01,0]});
+      for(let index=0;index<20;index++) mapCommand({type:"pan",delta:[0.01*devicePixelRatio,0]});
       await settle(); const after = mapStatus();
       return {framed,square,rotatedSquare,before,after};
     });
@@ -232,14 +252,15 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     assert(Math.abs(home(after).x-home(before).x-0.2)<0.02,
       "Repeated sub-centimetre drags accumulate in the continuous camera pose");
     checkpoint("camera-controls");
-    await page.evaluate(() => mapCommand({type:"install-terrain",terrain:{
+    await page.evaluate(() => mapCommand({type:"install-environment",environment:{terrain:{
       ...mapTerrain,request:{...mapTerrain.request,origin:{latitude:50_501_000,longitude:10_500_000}},
-      vertices:Array(65*65).fill(null)}}));
+      vertices:Array(65*65).fill(null)},connections:mapConnections}}));
     await page.waitForFunction(() => mapStatus().ready && !mapStatus().covered, null, {timeout: 10_000});
     assert.deepEqual(await page.evaluate(() => mapStatus().markers), []);
     await page.screenshot({path:path.join(output,"uncovered.png")});
     const interfaceResult = await require("./regional-map-interface-check.cjs")(page,output);
-    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,cameraControls,interfaceResult,capture,missing,errors}, null, 2));
+    const realSource=await require("./regional-map-real-source-check.cjs")(page,output,process.env.REGIONAL_MAP_ENVIRONMENT_DIR);
+    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,connectionCapacity,cameraControls,interfaceResult,realSource,capture,missing,errors}, null, 2));
     assert.deepEqual(missing.filter(url => !unusedMissingMotions.has(url)), []);
     assert.deepEqual(errors.filter(error => {
       try { return !unusedMissingMotions.has(new URL(error.url).pathname); } catch { return true; }

@@ -1,8 +1,8 @@
 //! Semantic map commands. Pixel displacements enter only at the canvas port.
 use adventuresim_building_generator::spatial_geometry::{GeometryError, Radians};
 use adventuresim_tactical_core::{
+    regional_environment::RegionalEnvironment,
     regional_map::{MapOverlay, MapScaleError, MapSpan, MapZoomRatio},
-    regional_terrain::RegionalTerrain,
 };
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use adventuresim_world_schema::source_package::SourcePackageDigest;
@@ -49,8 +49,8 @@ pub(crate) enum MapCommand {
     Reset,
     FrameRoute,
     Hide,
-    InstallTerrain {
-        terrain: Box<RegionalTerrain>,
+    InstallEnvironment {
+        environment: Box<RegionalEnvironment>,
     },
     InstallOverlay {
         revision: MapOverlayRevision,
