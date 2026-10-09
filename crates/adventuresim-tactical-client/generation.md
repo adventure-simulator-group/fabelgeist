@@ -5,13 +5,23 @@ Browser workers and the retained renderer share the pure generation jobs in
 not positions, hit points, enemies or other tactical tick state. The transient
 Bevy server continues to own tactical simulation.
 
-Preparation retains at most three scene products. Each venue phase trims older
-occupied recipes to 64 entries before new products arrive. Facade residency
-follows installed mesh recipes; temporary facade products are
+Each presentation owner retains at most three scene products. Each venue phase
+trims older occupied recipes to 64 entries before new products arrive. Facade
+residency follows installed mesh recipes; temporary facade products are
 released after installation. Scene lookup touches its retention order and
 reports an explicit missing or prepared state. Installation clones a retained
 scene, so furnishing or consuming one installation cannot mutate its reusable
 source. Readiness describes the prepared CPU product, not completed GPU upload.
+
+Actor scenes (`scene`) and focused map cities (`regional-map`) use the same
+bespoke owner type for CPU products and city GPU assets. Each CPU owner keeps
+installed products, one staged request and one completed candidate. Opaque
+tickets bind worker reads and receptions to the current request. Starting
+another request leaves the installed products and the other owner unchanged.
+Installation checks the exact scene document before consuming a candidate.
+Cancellation drops only matching staged or completed products, and issued ticket
+sequences never repeat within the retained application, including after a
+complete presentation reset.
 
 Dependencies use the shared `ProgramFurnitureSite` record from tactical core.
 Scene transfer carries exact occupied placements and requires the matching

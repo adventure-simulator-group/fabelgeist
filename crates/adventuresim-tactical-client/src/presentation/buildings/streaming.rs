@@ -172,7 +172,7 @@ pub(super) struct CityBuildingAssets<'w> {
     materials: Res<'w, TacticalBuildingMaterials>,
     cache: ResMut<'w, TacticalBuildingMeshCache>,
     signs: signs::SignAssets<'w>,
-    pub(super) gpu: ResMut<'w, gpu::PendingGpuBuildings>,
+    pub(super) gpu: ResMut<'w, gpu::PendingGpuCities>,
 }
 
 impl CityBuildingAssets<'_> {
@@ -199,6 +199,8 @@ impl CityBuildingAssets<'_> {
             transform,
         ));
         self.gpu
+            .owners
+            .get_mut(crate::presentation::ownership::PresentationOwner::Scene)
             .push(entity.id(), &transform, *placement, &compiled);
         entity.with_children(|parent| {
             let sign = establishment.and_then(|establishment| {
@@ -250,7 +252,7 @@ pub(super) fn present(
         assets.cache.recipes.clear();
         #[cfg(target_family = "wasm")]
         if let Err(error) = super::super::generation::release_unused_facades(
-            crate::presentation::generation::GenerationOwner::Scene,
+            crate::presentation::ownership::PresentationOwner::Scene,
         ) {
             warn!(%error, "Could not release temporary generated facades");
         }

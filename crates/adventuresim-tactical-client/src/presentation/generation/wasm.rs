@@ -1,10 +1,10 @@
 //! Opaque preparation tickets cross JavaScript; Rust admits owner and identity.
-use super::{GenerationOwner, PreparationError, PreparationTicket};
+use super::{PreparationError, PreparationTicket, PresentationOwner};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn wasm_begin_generation(owner_json: &str) -> Result<String, JsValue> {
-    let owner: GenerationOwner = decode(owner_json)?;
+    let owner: PresentationOwner = decode(owner_json)?;
     encode(&super::begin(owner).map_err(JsValue::from)?)
 }
 

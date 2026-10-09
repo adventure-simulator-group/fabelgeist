@@ -101,7 +101,7 @@ impl PreparedProducts {
 }
 
 pub(in crate::presentation) fn ground(
-    owner: GenerationOwner,
+    owner: PresentationOwner,
     digest: &str,
 ) -> PreparationResult<Option<Arc<PreparedCityGround>>> {
     let products = active_products(owner)?;
@@ -154,7 +154,7 @@ impl GrassProduct {
 }
 
 pub(in crate::presentation) fn grass(
-    owner: GenerationOwner,
+    owner: PresentationOwner,
     digest: &str,
 ) -> PreparationResult<Option<Arc<PreparedGrass>>> {
     let products = active_products(owner)?;

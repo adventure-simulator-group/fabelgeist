@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 pub(crate) const FORGE_LAYER: usize = 1;
 pub(crate) const COMPOSITOR_LAYER: usize = 2;
-pub(crate) const REGIONAL_MAP_LAYER: usize = 3;
+use crate::presentation::ownership::REGIONAL_MAP_LAYER;
 pub(crate) const FIRST_PERSON_LAYER: usize = REGIONAL_MAP_LAYER + 1;
 
 pub(crate) use crate::presentation::venues::{Place, PlaceId, PlaceKind, PortraitId};

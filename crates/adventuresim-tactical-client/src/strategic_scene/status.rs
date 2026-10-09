@@ -1,5 +1,6 @@
 //! Bounded readiness and timing telemetry consumed by the browser benchmark.
 use super::{RetainedScene, SceneModel, protocol::StrategicView};
+use crate::presentation::ownership::PresentationOwner;
 use adventuresim_procedural_textures::{PROCEDURAL_TEXTURE_CATALOGUE, ProceduralTextureResidency};
 use bevy::{
     prelude::*,
@@ -165,9 +166,9 @@ pub(super) fn update_status(
     installed_ready.0 = installed;
     let complete = installed
         && waiting == 0
-        && city
-            .as_ref()
-            .is_none_or(|city| city.total == 0 || crate::presentation::city_gpu_ready());
+        && city.as_ref().is_none_or(|city| {
+            city.total == 0 || crate::presentation::city_gpu_ready(PresentationOwner::Scene)
+        });
     assets_ready.0 = complete;
     if complete && cache.is_ready() {
         *settled += 1;

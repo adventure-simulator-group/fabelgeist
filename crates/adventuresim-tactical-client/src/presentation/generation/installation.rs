@@ -58,7 +58,7 @@ impl PreparedProducts {
 }
 
 pub(in crate::presentation) fn take_venue_geometry(
-    owner: GenerationOwner,
+    owner: PresentationOwner,
     program: &BuildingProgram,
 ) -> PreparationResult<Arc<VenueGeometry>> {
     active_products(owner)?
@@ -72,7 +72,7 @@ pub(in crate::presentation) fn take_venue_geometry(
 }
 
 pub(in crate::presentation) fn take_facade(
-    owner: GenerationOwner,
+    owner: PresentationOwner,
     program: &BuildingProgram,
 ) -> PreparationResult<Arc<PreparedFacade>> {
     let mut products = active_products(owner)?;
@@ -87,7 +87,7 @@ pub(in crate::presentation) fn take_facade(
 }
 
 pub(in crate::presentation) fn release_unused_facades(
-    owner: GenerationOwner,
+    owner: PresentationOwner,
 ) -> PreparationResult<()> {
     active_products(owner)?.facades.clear();
     Ok(())

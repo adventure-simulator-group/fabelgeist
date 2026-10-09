@@ -36,8 +36,11 @@ slots; mutable placement and landscape bindings remain separate.
 Each product set retains at most three scenes. Before a preparation, venue
 recipe retention trims to 64; the request then adds its required recipes.
 Temporary facades are released from the installed owner once city assembly
-finishes. These policies govern CPU preparation. GPU city residency remains
-separate work before the regional owner can display city buildings.
+finishes. These policies govern CPU preparation. GPU city storage has the same
+two presentation owners, each with its own pending instances, buffers,
+level-of-detail history, readiness and visibility scratch. Actor scene changes
+reset only the actor owner; a complete presentation reset discards both.
+The regional owner does not yet receive a focused-city document from the map.
 
 Returning to the currently resident document cancels pending destination work
 and reuses preparation. Hiding or unmounting the view and entering tactical play

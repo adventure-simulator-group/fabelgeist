@@ -1,7 +1,7 @@
 //! Separate mutable preparations from installed assets and other scene owners.
 use super::{
     GeneratedTacticalScene, PreparationError, PreparationResult, PreparedProducts,
-    TacticalSceneInput,
+    PresentationOwner, PresentationOwners, TacticalSceneInput,
 };
 use adventuresim_building_generator::BuildingProgram;
 use serde::{Deserialize, Serialize};
@@ -16,14 +16,13 @@ static RESIDENCY: OnceLock<Mutex<GenerationResidency>> = OnceLock::new();
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub(crate) struct PreparationTicket {
-    owner: GenerationOwner,
+    owner: PresentationOwner,
     sequence: NonZeroU32,
 }
 
 #[derive(Default)]
 struct GenerationResidency {
-    scene: OwnerResidency,
-    regional_map: OwnerResidency,
+    owners: PresentationOwners<OwnerResidency>,
     next_sequence: u32,
     resident_facades: Vec<BuildingProgram>,
 }
@@ -51,32 +50,18 @@ pub(super) struct ProductAccess {
     selection: ProductSelection,
 }
 
-/// Actor scenes and regional city previews have independent preparation slots.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub(crate) enum GenerationOwner {
-    Scene,
-    RegionalMap,
-}
-
 enum ProductSelection {
-    Active(GenerationOwner),
+    Active(PresentationOwner),
     Staged(PreparationTicket),
 }
 
 impl GenerationResidency {
-    fn owner(&self, owner: GenerationOwner) -> &OwnerResidency {
-        match owner {
-            GenerationOwner::Scene => &self.scene,
-            GenerationOwner::RegionalMap => &self.regional_map,
-        }
+    fn owner(&self, owner: PresentationOwner) -> &OwnerResidency {
+        self.owners.get(owner)
     }
 
-    fn owner_mut(&mut self, owner: GenerationOwner) -> &mut OwnerResidency {
-        match owner {
-            GenerationOwner::Scene => &mut self.scene,
-            GenerationOwner::RegionalMap => &mut self.regional_map,
-        }
+    fn owner_mut(&mut self, owner: PresentationOwner) -> &mut OwnerResidency {
+        self.owners.get_mut(owner)
     }
 }
 
@@ -113,7 +98,7 @@ impl DerefMut for ProductAccess {
     }
 }
 
-pub(super) fn begin(owner: GenerationOwner) -> PreparationResult<PreparationTicket> {
+pub(super) fn begin(owner: PresentationOwner) -> PreparationResult<PreparationTicket> {
     let mut residency = residency()?;
     let sequence = residency
         .next_sequence
@@ -181,7 +166,7 @@ pub(super) fn cancel(ticket: PreparationTicket) -> PreparationResult<()> {
 /// Starting another request cannot replace dependencies of pending old meshes.
 pub(crate) fn activate(
     ticket: PreparationTicket,
-    owner: GenerationOwner,
+    owner: PresentationOwner,
     input: &TacticalSceneInput,
 ) -> PreparationResult<GeneratedTacticalScene> {
     if ticket.owner != owner {
@@ -215,7 +200,7 @@ pub(super) fn staged_products(ticket: PreparationTicket) -> PreparationResult<Pr
     })
 }
 
-pub(super) fn active_products(owner: GenerationOwner) -> PreparationResult<ProductAccess> {
+pub(super) fn active_products(owner: PresentationOwner) -> PreparationResult<ProductAccess> {
     Ok(ProductAccess {
         residency: residency()?,
         selection: ProductSelection::Active(owner),
