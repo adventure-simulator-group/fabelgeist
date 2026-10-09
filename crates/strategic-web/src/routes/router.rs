@@ -153,10 +153,12 @@ mod onboarding_route_tests {
         let source = include_str!("router.rs");
         let home = source.find(".merge(home::routes())").unwrap();
         let protected = source.find(".merge(dialogue::routes())").unwrap();
+        let city_preview = source.find(".merge(map_city::routes())").unwrap();
         let guard = source
             .find(".layer(middleware::from_fn_with_state(")
             .unwrap();
         assert!(home < protected && protected < guard);
+        assert!(protected < city_preview && city_preview < guard);
     }
 
     fn mutation(

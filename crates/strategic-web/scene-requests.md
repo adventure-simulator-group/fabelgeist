@@ -42,24 +42,6 @@ level-of-detail history, readiness and visibility scratch. Actor scene changes
 reset only the actor owner; a complete presentation reset discards both.
 The regional owner does not yet receive a focused-city document from the map.
 
-## Read-only settlement preview capture
-
-`GET /api/map/city/{source}?place={canonical-place-id}` returns a
-`RegionalCityInput` containing the complete canonical settlement scene input.
-It accepts settlement identities only, checks the selected character and terrain
-package, and captures the same settlement profile and official scene time used
-by actor preparation. The envelope retains the exact source coordinate and
-rejects a different source, origin or property-catalog settlement. The browser
-must carry this document as text to preserve full-width generation seeds.
-
-Two capture permits bound profile lookup and blocking generation. A busy capture
-returns service unavailable immediately. Responses use `private, no-store`;
-renderer residency will govern retained reopening. Capture does not install
-scenery, furnish interiors, call catalog reducers or request a tactical server.
-The actor's `/api/scene-assets` endpoint retains its current-location restriction
-and property-catalog persistence. This preview route is not requested by the map
-controller yet.
-
 Returning to the currently resident document cancels pending destination work
 and reuses preparation. Hiding or unmounting the view and entering tactical play
 cancel unfinished work while retaining the completed document. These transitions
@@ -83,3 +65,21 @@ The strategic scene browser check covers clipped views and navigation in one
 retained canvas. Set `STRATEGIC_STARTUP_PROFILE=1` to include its opt-in readiness
 instrumentation. Without `STRATEGIC_RENDER_BENCHMARK=1`, that check uses a renderer
 fixture and does not measure real WebAssembly generation or graphics performance.
+
+## Read-only settlement preview capture
+
+`GET /api/map/city/{source}?place={canonical-place-id}` returns a
+`RegionalCityInput` containing the complete canonical settlement scene input.
+It accepts settlement identities only, checks the selected character and terrain
+package, and captures the same settlement profile and official scene time used
+by actor preparation. The envelope retains the exact source coordinate and
+rejects a different source, origin or property-catalog settlement. The browser
+must carry this document as text to preserve full-width generation seeds.
+
+Two capture permits bound profile lookup and blocking generation. A busy capture
+returns service unavailable immediately. Responses use `private, no-store`;
+renderer residency will govern retained reopening. Capture does not install
+scenery, furnish interiors, call catalog reducers or request a tactical server.
+The actor's `/api/scene-assets` endpoint retains its current-location restriction
+and property-catalog persistence. This preview route is not requested by the map
+controller yet.
