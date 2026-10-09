@@ -87,7 +87,8 @@ export function installStrategicScene(command, runtimePromise) {
     console.error("strategic scene failed", error);
   };
   const sceneRequests = createSceneRequests({ runtimePromise,
-    install: ({ location, input }) => command({ type: "prepare-strategic-scene", location, input_json: input }),
+    install: ({ location, input, preparation }) => command({ type: "prepare-strategic-scene", location,
+      input_json: input, preparation: JSON.parse(preparation) }),
     changed: state => { if (state.phase === "failed") fail(state.cause); schedule(); },
   });
   const mapView = createRegionalMapView({ runtimePromise, changed: schedule, metrics });

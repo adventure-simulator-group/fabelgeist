@@ -153,10 +153,10 @@ test("a preparation failure prevents a pending cache hit from installing later",
     module => createGenerationPool(module, { hardwareConcurrency: 3, createWorker: mock.createWorker }),
     async () => cache, {});
   const runtime = { generationModule: {}, generationRevision: "fixture",
-    wasm_begin_generation() {}, wasm_generation_jobs: () => JSON.stringify(jobs),
+    wasm_begin_generation() { return JSON.stringify({owner:"scene",sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify(jobs),
     wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
     wasm_generation_dependencies: () => new Uint8Array(),
-    wasm_receive_job(job) { received.push(job); },
+    wasm_receive_job(preparation, job) { received.push(job); },
   };
   await assert.rejects(prepare(runtime, "opaque scene", []), error => error.code === "generation/building");
   assert.equal(closed, true);
@@ -172,7 +172,8 @@ test("cached product rejection regenerates corruption and preserves preparation 
     .replace(/^import .*;\r?\n/gm, "").replace("export async function", "async function");
   for (const code of ["generation/product-decode", "generation/product-mismatch",
     "generation/scene-bindings-mismatch", "generation/residency-poisoned",
-    "generation/not-prepared", "generation/scene-input", "unexpected-host-failure"]) {
+    "generation/not-prepared", "generation/scene-input", "generation/stale-preparation",
+    "generation/preparation-owner", "generation/preparation-input", "unexpected-host-failure"]) {
     const corrupt = ["generation/product-decode", "generation/product-mismatch",
       "generation/scene-bindings-mismatch"].includes(code);
     const rejection = new Error("fixture rejection"); rejection.name = code;
@@ -188,10 +189,10 @@ test("cached product rejection regenerates corruption and preserves preparation 
       module => createGenerationPool(module, { hardwareConcurrency: 2, createWorker: mock.createWorker }),
       async () => cache, state);
     const runtime = { generationModule: {}, generationRevision: "fixture",
-      wasm_begin_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
+      wasm_begin_generation() { return JSON.stringify({owner:"scene",sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
       wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
       wasm_generation_dependencies: () => new Uint8Array(),
-      wasm_receive_job(address, bytes) {
+      wasm_receive_job(preparation, address, bytes) {
         if (bytes[0] === 9) throw rejection;
         installed.push(address);
       } };
@@ -199,8 +200,8 @@ test("cached product rejection regenerates corruption and preserves preparation 
     if (corrupt) {
       await running;
       assert.deepEqual(installed, [job]);
-      assert.equal(state.strategicGenerationMetrics.cacheHits, 0);
-      assert.equal(state.strategicGenerationMetrics.cacheMisses, 1);
+      assert.equal(state.strategicGenerationMetrics.scene.cacheHits, 0);
+      assert.equal(state.strategicGenerationMetrics.scene.cacheMisses, 1);
     } else {
       await assert.rejects(running, error => error === rejection);
       assert.deepEqual(installed, []);
@@ -237,10 +238,10 @@ test("destination cancellation prevents installation during cache open, lookup a
       module => createGenerationPool(module, { hardwareConcurrency: 2, createWorker: () => worker }),
       () => stage === "open" ? new Promise(resolve => { finishOpen = resolve; }) : Promise.resolve(cache), {});
     const runtime = { generationModule: {}, generationRevision: "fixture",
-      wasm_begin_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
+      wasm_begin_generation() { return JSON.stringify({owner:"scene",sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
       wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
       wasm_generation_dependencies: () => new Uint8Array(),
-      wasm_receive_job() { installed++; },
+      wasm_receive_job(preparation) { installed++; },
     };
     const running = prepare(runtime, "opaque scene", [], { signal: controller.signal });
     const rejected = assert.rejects(running, error => error.name === "AbortError" || error.code === "cancelled");

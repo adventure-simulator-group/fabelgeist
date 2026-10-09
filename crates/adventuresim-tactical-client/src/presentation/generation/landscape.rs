@@ -5,13 +5,19 @@ use crate::presentation::vista::streets::prepared::PreparedCityGround;
 use adventuresim_tactical_core::{prelude::SceneTerrain, scene_input::furniture::FurnitureGroup};
 use std::sync::Arc;
 
+#[derive(Clone)]
+pub(super) struct LandscapeIdentity {
+    digest: String,
+    graphics: String,
+}
+
 #[derive(Serialize, Deserialize)]
 pub(super) struct GroundDependencies {
     pub terrain: SceneTerrain,
     pub groups: Vec<FurnitureGroup>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub(super) struct GroundProduct {
     pub digest: String,
     pub graphics: String,
@@ -39,13 +45,20 @@ impl GroundProduct {
     }
 }
 
-pub(super) fn jobs(input_json: &str, graphics: &str) -> PreparationResult<Vec<String>> {
+pub(super) fn jobs(
+    ticket: PreparationTicket,
+    input_json: &str,
+    graphics: &str,
+) -> PreparationResult<Vec<String>> {
     crate::presentation::config::TacticalGraphicsConfig::parse(graphics)
         .map_err(|message| PreparationError::GraphicsConfiguration { message })?;
     let input: TacticalSceneInput = serde_json::from_str(input_json)?;
     let digest = input.digest()?;
-    let mut products = products()?;
-    products.active_ground = Some((digest.clone(), graphics.to_owned()));
+    let mut products = staged_products(ticket)?;
+    products.active_ground = Some(LandscapeIdentity {
+        digest: digest.clone(),
+        graphics: graphics.to_owned(),
+    });
     let mut jobs = Vec::new();
     if let Some(index) = products
         .ground
@@ -78,30 +91,31 @@ pub(super) fn jobs(input_json: &str, graphics: &str) -> PreparationResult<Vec<St
         .collect()
 }
 
-pub(super) fn retain(ground: GroundProduct) -> PreparationResult<()> {
-    let mut products = products()?;
-    products.ground.push(ground);
-    if products.ground.len() > RETAINED_SCENE_PRODUCTS {
-        products.ground.remove(0);
+impl PreparedProducts {
+    pub(super) fn retain_ground(&mut self, ground: GroundProduct) {
+        self.ground.push(ground);
+        if self.ground.len() > RETAINED_SCENE_PRODUCTS {
+            self.ground.remove(0);
+        }
     }
-    Ok(())
 }
 
 pub(in crate::presentation) fn ground(
+    owner: GenerationOwner,
     digest: &str,
 ) -> PreparationResult<Option<Arc<PreparedCityGround>>> {
-    let products = products()?;
-    let Some((_, graphics)) = products
+    let products = active_products(owner)?;
+    let Some(identity) = products
         .active_ground
         .as_ref()
-        .filter(|(active, _)| active == digest)
+        .filter(|identity| identity.digest == digest)
     else {
         return Ok(None);
     };
     Ok(products
         .ground
         .iter()
-        .find(|p| p.digest == digest && p.graphics == *graphics)
+        .find(|p| p.digest == digest && p.graphics == identity.graphics)
         .map(|p| p.ground.clone()))
 }
 
@@ -111,7 +125,7 @@ pub(super) struct GrassDependencies {
     pub ground: adventuresim_tactical_core::prelude::SceneGround,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub(super) struct GrassProduct {
     pub digest: String,
     pub graphics: String,
@@ -140,19 +154,20 @@ impl GrassProduct {
 }
 
 pub(in crate::presentation) fn grass(
+    owner: GenerationOwner,
     digest: &str,
 ) -> PreparationResult<Option<Arc<PreparedGrass>>> {
-    let products = products()?;
-    let Some((_, graphics)) = products
+    let products = active_products(owner)?;
+    let Some(identity) = products
         .active_ground
         .as_ref()
-        .filter(|(active, _)| active == digest)
+        .filter(|identity| identity.digest == digest)
     else {
         return Ok(None);
     };
     Ok(products
         .grass
         .iter()
-        .find(|p| p.digest == digest && p.graphics == *graphics)
+        .find(|p| p.digest == digest && p.graphics == identity.graphics)
         .map(|p| p.grass.clone()))
 }

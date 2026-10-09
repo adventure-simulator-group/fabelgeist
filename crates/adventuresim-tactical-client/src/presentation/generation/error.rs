@@ -20,6 +20,14 @@ pub(crate) enum ProductKind {
 
 #[derive(Debug, Error)]
 pub(crate) enum PreparationError {
+    #[error("preparation identity sequence is exhausted")]
+    SequenceExhausted,
+    #[error("preparation no longer owns its product slot")]
+    StalePreparation,
+    #[error("preparation belongs to another presentation owner")]
+    PreparationOwner,
+    #[error("completed preparation belongs to another scene document")]
+    PreparationInputMismatch,
     #[error("generation product residency is poisoned")]
     ResidencyPoisoned,
     #[error("generation JSON is invalid: {0}")]
@@ -63,6 +71,10 @@ impl PreparationError {
     #[cfg(target_family = "wasm")]
     pub(super) fn code(&self) -> &'static str {
         match self {
+            Self::SequenceExhausted => "generation/sequence-exhausted",
+            Self::StalePreparation => "generation/stale-preparation",
+            Self::PreparationOwner => "generation/preparation-owner",
+            Self::PreparationInputMismatch => "generation/preparation-input",
             Self::ResidencyPoisoned => "generation/residency-poisoned",
             Self::Json(_) => "generation/json",
             Self::DependenciesDecode(_) => "generation/dependencies-decode",
