@@ -1,12 +1,10 @@
 //! Geographic presentation retained alongside city and tactical scenes.
 //! This owns no strategic authority, collision or replicated tactical state.
 use super::RegionalMapCamera;
+use adventuresim_tactical_core::regional_map::{MapOverlay, MapSpan};
 use adventuresim_tactical_core::regional_terrain::RegionalTerrain;
-use adventuresim_tactical_core::{
-    regional_map::{MapOverlay, MapSpan},
-    scene_input::SourcePackageDigest,
-};
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use bevy::prelude::*;
 use camera::MapPose;
 use protocol::{MapCommand, MapOverlayRevision, MapProtocolError};

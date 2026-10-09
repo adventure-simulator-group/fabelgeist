@@ -9,7 +9,7 @@ use crate::presentation::{
 };
 use adventuresim_core::weather::WeatherSnapshot;
 use adventuresim_tactical_core::regional_terrain::{RegionalTerrain, RegionalTerrainRequest};
-use adventuresim_tactical_core::scene_input::SourcePackageDigest;
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use adventuresim_world_schema::{
     ElevationMeters, coordinates::terrain_projection::NativeTerrainCoordinate,
 };

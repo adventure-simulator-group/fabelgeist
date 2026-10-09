@@ -154,7 +154,7 @@ pub fn build_imported_scene(
         seed,
         scene_key: scene_key.into(),
         source: SceneSource::ImportedPackage(
-            adventuresim_tactical_core::scene_input::SourcePackageDigest::from_hex(pack.digest())
+            adventuresim_world_schema::source_package::SourcePackageDigest::from_hex(pack.digest())
                 .map_err(|cause| cause.to_string())?,
         ),
         latitude_microdegrees: coordinates.latitude().to_microdegrees(),

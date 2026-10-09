@@ -1,11 +1,11 @@
 //! Read-only regional terrain windows for the persistent environment renderer.
 use super::AppState;
-use adventuresim_tactical_core::{
-    regional_terrain::{RegionalTerrain, RegionalTerrainRequest, RegionalTerrainScale},
-    scene_input::SourcePackageDigest,
+use adventuresim_tactical_core::regional_terrain::{
+    RegionalTerrain, RegionalTerrainRequest, RegionalTerrainScale,
 };
 use adventuresim_tactical_server_dispatcher::regional_terrain::capture;
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use axum::{
     Json, Router,
     extract::{Path, Query, State},

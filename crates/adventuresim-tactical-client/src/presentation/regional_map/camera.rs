@@ -5,12 +5,12 @@ use adventuresim_building_generator::spatial_geometry::{PositiveLength, Radians}
 use adventuresim_tactical_core::{
     regional_map::{MAX_MAP_SPAN_METRES, MIN_MAP_SPAN_METRES, MapRoute, MapSpan, MapZoomRatio},
     regional_terrain::{REGIONAL_TERRAIN_SIDE, RegionalTerrainRequest, RegionalTerrainScale},
-    scene_input::SourcePackageDigest,
 };
 use adventuresim_world_schema::coordinates::{
     LatitudeMicrodegrees, LongitudeMicrodegrees, Wgs84CoordinateMicrodegrees,
     terrain_projection::NativeTerrainCoordinate,
 };
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use bevy::{math::DVec2, prelude::*};
 
 pub(super) const MAP_PITCH_RADIANS: f32 = std::f32::consts::PI / 3.0;

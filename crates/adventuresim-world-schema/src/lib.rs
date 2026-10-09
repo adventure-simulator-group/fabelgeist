@@ -17,6 +17,7 @@ mod geologic_window;
 mod geology;
 pub mod person_names;
 pub mod settlement_buildings;
+pub mod source_package;
 pub use {economy::*, geology::*};
 mod language;
 mod terrain_feature;

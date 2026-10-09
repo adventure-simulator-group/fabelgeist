@@ -6,15 +6,13 @@ use crate::{
 };
 use adventuresim_building_generator::spatial_geometry::{GeometryError, PositiveLength};
 use adventuresim_core::strategic_place::{PlaceIdentityError, StrategicPlaceId};
-use adventuresim_tactical_core::{
-    regional_map::{
-        MapMarker, MapMarkerEmphasis, MapMarkerRank, MapOverlay, MapOverlayError, MapRoute,
-        MapRouteKind, MapScaleError, MapSpan,
-    },
-    scene_input::{SceneValidationError, SourcePackageDigest},
+use adventuresim_tactical_core::regional_map::{
+    MapMarker, MapMarkerEmphasis, MapMarkerRank, MapOverlay, MapOverlayError, MapRoute,
+    MapRouteKind, MapScaleError, MapSpan,
 };
 use adventuresim_terrain::{RoutePlan, TerrainPack};
 use adventuresim_world_schema::coordinates::{Wgs84CoordinateE7, Wgs84CoordinateMicrodegrees};
+use adventuresim_world_schema::source_package::{SourcePackageDigest, SourcePackageDigestError};
 use serde::Serialize;
 use std::collections::BTreeSet;
 
@@ -53,7 +51,7 @@ pub(super) enum MapBuildError {
     #[error(transparent)]
     Identity(#[from] PlaceIdentityError),
     #[error(transparent)]
-    Source(#[from] SceneValidationError),
+    Source(#[from] SourcePackageDigestError),
     #[error(transparent)]
     Overlay(#[from] MapOverlayError),
     #[error(transparent)]

@@ -1,7 +1,7 @@
 use super::*;
 use crate::spacetimedb::DestinationKnowledgeStage;
-use adventuresim_tactical_core::scene_input::SourcePackageDigest;
 use adventuresim_world_schema::coordinates::Wgs84CoordinateE7;
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 fn settlement(id: &str, name: &str, longitude: f64, latitude: f64) -> SettlementView {
     SettlementView {
         id: id.into(),
