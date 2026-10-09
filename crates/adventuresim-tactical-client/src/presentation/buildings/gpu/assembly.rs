@@ -183,6 +183,10 @@ fn upload(
         return Err(AssemblyError::MissingMaterial);
     }
     let count = buildings.len() as u32;
+    let frame = world.resource::<CityGpuScenes>().owners.get(owner).frame;
+    let frame_buffer = world
+        .resource_mut::<Assets<ShaderBuffer>>()
+        .add(ShaderBuffer::from(frame));
     let geometry_bytes: usize = geometry
         .pages
         .iter()
@@ -239,6 +243,8 @@ fn upload(
         "GPU city resident"
     );
     Ok(CityGpuScene {
+        frame,
+        frame_buffer,
         buildings,
         selection,
         count,
