@@ -2,11 +2,14 @@
 // to the persistent renderer; this controller does not prepare settlement jobs.
 const WINDOW_VERTICES = 65 * 65;
 const RECENT_WINDOW_LIMIT = 4;
+const MAX_CONNECTIONS = 8192;
+const MAX_CONNECTION_POINTS = 65536;
+const connectionKinds = new Set(["land","river","coast","canal","ferry","winter","inferred_walking_link"]);
 const scales = new Set(["neighborhood", "district", "region", "country", "continent"]);
 
-export class RegionalTerrainLoadError extends Error {
+export class RegionalEnvironmentLoadError extends Error {
   constructor(code, message, cause) {
-    super(message, { cause }); this.name = "RegionalTerrainLoadError"; this.code = code;
+    super(message, { cause }); this.name = "RegionalEnvironmentLoadError"; this.code = code;
   }
 }
 
@@ -15,7 +18,7 @@ function admitRequest({ source, origin, scale }) {
     || !scales.has(scale) || !Number.isInteger(origin?.latitude)
     || !Number.isInteger(origin?.longitude) || Math.abs(origin.latitude) > 90_000_000
     || Math.abs(origin.longitude) > 180_000_000) {
-    throw new RegionalTerrainLoadError("map/terrain-request", "Invalid regional terrain request");
+    throw new RegionalEnvironmentLoadError("map/environment-request", "Invalid regional environment request");
   }
   return Object.freeze({ source, scale, origin: Object.freeze({
     latitude: origin.latitude, longitude: origin.longitude,
@@ -26,18 +29,29 @@ function keyFor(request) {
   return `${request.source}/${request.scale}/${request.origin.latitude}/${request.origin.longitude}`;
 }
 
-function admitWindow(window, request) {
-  if (window?.source !== request.source || window?.request?.scale !== request.scale
-    || window?.request?.origin?.latitude !== request.origin.latitude
-    || window?.request?.origin?.longitude !== request.origin.longitude
-    || !Array.isArray(window.vertices) || window.vertices.length !== WINDOW_VERTICES) {
-    throw new RegionalTerrainLoadError("map/terrain-response", "Terrain response does not match its window");
+function admitWindow(environment, request) {
+  const terrain=environment?.terrain;
+  if (terrain?.source !== request.source || terrain?.request?.scale !== request.scale
+    || terrain?.request?.origin?.latitude !== request.origin.latitude
+    || terrain?.request?.origin?.longitude !== request.origin.longitude
+    || !Array.isArray(terrain?.vertices) || terrain.vertices.length !== WINDOW_VERTICES
+    || !Array.isArray(environment.connections) || environment.connections.length>MAX_CONNECTIONS) {
+    throw new RegionalEnvironmentLoadError("map/environment-response", "Environment response does not match its window");
   }
-  return window;
+  let count=0;
+  for(const line of environment.connections) {
+    if(!connectionKinds.has(line?.kind) || !Array.isArray(line.points) || line.points.length<2
+      || (count+=line.points.length)>MAX_CONNECTION_POINTS || line.points.some(point=>
+        !Number.isInteger(point?.latitude) || Math.abs(point.latitude)>900_000_000
+        || !Number.isInteger(point?.longitude) || Math.abs(point.longitude)>1_800_000_000)) {
+      throw new RegionalEnvironmentLoadError("map/environment-response", "Invalid regional connections");
+    }
+  }
+  return environment;
 }
 
-export function createRegionalTerrainRequests({ runtimePromise, install, changed = () => {},
-  fetchTerrain = (...args) => (window.strategicFetch || fetch)(...args) }) {
+export function createRegionalEnvironmentRequests({ runtimePromise, install, changed = () => {},
+  fetchEnvironment = (...args) => (window.strategicFetch || fetch)(...args) }) {
   const recent = new Map();
   let state = Object.freeze({ phase: "idle" });
   let current, resident;
@@ -53,11 +67,11 @@ export function createRegionalTerrainRequests({ runtimePromise, install, changed
       if (!reused) {
         const query = new URLSearchParams({ latitude: request.origin.latitude,
           longitude: request.origin.longitude, scale: request.scale });
-        const response = await fetchTerrain(`/api/map/terrain/${request.source}?${query}`,
+        const response = await fetchEnvironment(`/api/map/environment/${request.source}?${query}`,
           { headers: { Accept: "application/json" }, cache: "no-store", signal });
         signal.throwIfAborted();
-        if (!response.ok) throw new RegionalTerrainLoadError("map/terrain-http",
-          `Could not load terrain (${response.status})`);
+        if (!response.ok) throw new RegionalEnvironmentLoadError("map/environment-http",
+          `Could not load map environment (${response.status})`);
         product = admitWindow(await response.json(), request);
         signal.throwIfAborted();
       }

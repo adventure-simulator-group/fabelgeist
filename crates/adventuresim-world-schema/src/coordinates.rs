@@ -56,7 +56,8 @@ impl UnboundedCoordinateE7 {
 }
 
 /// A validated WGS84 latitude stored in ten-millionths of a degree.
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde::Serialize)]
+#[serde(transparent)]
 pub struct LatitudeE7(i32);
 
 impl LatitudeE7 {
@@ -96,7 +97,8 @@ impl LatitudeE7 {
 }
 
 /// A validated WGS84 longitude stored in ten-millionths of a degree.
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde::Serialize)]
+#[serde(transparent)]
 pub struct LongitudeE7(i32);
 
 impl LongitudeE7 {
@@ -136,7 +138,10 @@ impl LongitudeE7 {
 }
 
 /// A validated WGS84 coordinate stored in ten-millionths of a degree.
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(
+    Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde::Serialize, serde::Deserialize,
+)]
+#[serde(deny_unknown_fields)]
 pub struct Wgs84CoordinateE7 {
     latitude: LatitudeE7,
     longitude: LongitudeE7,
@@ -328,6 +333,20 @@ impl Wgs84CoordinateMicrodegrees {
 
     pub fn longitude_latitude_degrees(self) -> (f64, f64) {
         (self.longitude.degrees(), self.latitude.degrees())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for LatitudeE7 {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        Self::new(<i32 as serde::Deserialize>::deserialize(d)?)
+            .ok_or_else(|| serde::de::Error::custom("LatitudeE7 is outside WGS84 bounds"))
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for LongitudeE7 {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        Self::new(<i32 as serde::Deserialize>::deserialize(d)?)
+            .ok_or_else(|| serde::de::Error::custom("LongitudeE7 is outside WGS84 bounds"))
     }
 }
 

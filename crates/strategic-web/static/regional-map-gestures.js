@@ -3,6 +3,7 @@
 export function installMapGestures(host, send, changed) {
   const listeners = new AbortController(), pointers = new Map();
   const options = {signal:listeners.signal};
+  const foreground = "[data-map-foreground],a,button,input,select,textarea,summary";
   let travelled = 0;
   const emit = command => { send(command); changed(); };
   const pan = (x,y) => emit({type:"pan",delta:[x*devicePixelRatio,y*devicePixelRatio]});
@@ -16,7 +17,7 @@ export function installMapGestures(host, send, changed) {
       angle:Math.atan2(second.y-first.y,second.x-first.x)};
   };
   host.addEventListener("pointerdown",event=>{
-    if (event.target.closest("a,button,input,select,textarea")) {travelled=0;return;}
+    if (event.target.closest(foreground)) {travelled=0;return;}
     if (pointers.size>=2) return;
     if (event.pointerType!=="touch" && ![0,1,2].includes(event.button)) return;
     event.preventDefault(); host.focus({preventScroll:true});
@@ -50,10 +51,10 @@ export function installMapGestures(host, send, changed) {
     }
   },{...options,capture:true});
   host.addEventListener("contextmenu",event=>{
-    if (!event.target.closest("a,button")) event.preventDefault();
+    if (!event.target.closest(foreground)) event.preventDefault();
   },options);
   host.addEventListener("wheel",event=>{
-    if (event.target.closest("button,input,select,textarea")) return;
+    if (event.target.closest(foreground)) return;
     event.preventDefault();
     const pixels=event.deltaY*(event.deltaMode===1 ? 16 : event.deltaMode===2 ? host.clientHeight : 1);
     zoom(Math.exp(Math.max(-2,Math.min(2,pixels*0.002))));

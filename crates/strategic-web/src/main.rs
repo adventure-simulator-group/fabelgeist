@@ -10,6 +10,7 @@ mod config;
 mod live;
 mod location_urls;
 mod medical;
+mod regional_source;
 mod routes;
 mod schedule;
 mod session;
@@ -90,38 +91,7 @@ async fn main() -> anyhow::Result<()> {
         config.spacetimedb_token.clone(),
     )?;
 
-    // Create app state
-    let assets = (|| -> anyhow::Result<_> {
-        let pack = adventuresim_terrain::TerrainPack::load(
-            &config
-                .strategic_map_bundle_dir
-                .join("terrain-routing-v3.json"),
-            &config
-                .strategic_map_bundle_dir
-                .join("terrain-routing-v3.pack"),
-        )?;
-        anyhow::ensure!(
-            pack.purpose() == adventuresim_terrain::TerrainPurpose::Final,
-            "strategic routing and map presentation require the final terrain source"
-        );
-        let digest = pack.digest().to_string();
-        Ok((
-            std::sync::Arc::new(routes::travel::TerrainPlanner::new(std::sync::Arc::new(
-                pack,
-            ))),
-            digest,
-        ))
-    })();
-    let terrain = match assets {
-        Ok((terrain, digest)) => {
-            tracing::info!(bundle=%config.strategic_map_bundle_dir.display(),%digest,"loaded final terrain for strategic routing and map presentation");
-            Some(terrain)
-        }
-        Err(error) => {
-            tracing::warn!(bundle=%config.strategic_map_bundle_dir.display(),%error,"strategic terrain unavailable; disabling terrain routing and map presentation");
-            None
-        }
-    };
+    let terrain = regional_source::load_terrain(&config.strategic_map_bundle_dir);
     db.call(
         "register_strategic_gateway",
         &[
@@ -135,6 +105,9 @@ async fn main() -> anyhow::Result<()> {
         db,
         live,
         terrain,
+        regional_roads: std::sync::Arc::new(routes::RegionalRoadSource::new(
+            config.strategic_map_bundle_dir.clone(),
+        )),
         session_codec,
     };
 
