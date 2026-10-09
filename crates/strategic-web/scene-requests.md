@@ -83,3 +83,10 @@ scenery, furnish interiors, call catalog reducers or request a tactical server.
 The actor's `/api/scene-assets` endpoint retains its current-location restriction
 and property-catalog persistence. This preview route is not requested by the map
 controller yet.
+
+`prepareRegionalCity` prepares that opaque capture under a regional-map ticket.
+It schedules supported terrain and all exterior facade programmes in the shared
+worker protocol, then publishes a completed candidate. It does not invoke the
+actor scene, venue, grass or furniture phases. A superseded request closes its
+workers and cancels only its ticket; installed actor and city products survive.
+The map renderer and camera controller do not consume this candidate yet.

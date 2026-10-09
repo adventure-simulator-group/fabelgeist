@@ -1,5 +1,6 @@
 //! Pure street clipping and retained upload-ready city-ground batches.
 use super::*;
+use adventuresim_tactical_core::scene_input::SceneInputResult;
 use std::sync::OnceLock;
 
 type InstalledGround = Vec<(traffic::TrafficTile, CityGroundKind, Handle<Mesh>, usize)>;
@@ -65,9 +66,9 @@ impl PreparedCityGround {
         terrain: &SceneTerrain,
         groups: &[FurnitureGroup],
         maximum_lods: usize,
-    ) -> Self {
+    ) -> SceneInputResult<Self> {
         let mut support = GroundSupport::default();
-        let environment = input.environment_snapshot(input.digest().expect("validated scene"));
+        let environment = input.environment_snapshot(input.digest()?);
         let lods = input
             .vista
             .lods
@@ -117,7 +118,7 @@ impl PreparedCityGround {
                 * lod.spacing_metres
                 * 0.5;
         }
-        Self::new(&input.streets, &input.yards, groups, &support)
+        Ok(Self::new(&input.streets, &input.yards, groups, &support))
     }
 
     pub(super) fn meshes(&self, meshes: &mut Assets<Mesh>) -> &InstalledGround {

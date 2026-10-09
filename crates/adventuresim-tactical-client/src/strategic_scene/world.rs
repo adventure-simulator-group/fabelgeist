@@ -38,11 +38,7 @@ impl SceneDocument {
     fn generated_scene(&self) -> Result<GeneratedTacticalScene, String> {
         let input = self.input.as_ref().map_err(Clone::clone)?;
         #[cfg(target_family = "wasm")]
-        let generated = crate::presentation::generation::activate(
-            self.preparation,
-            crate::presentation::ownership::PresentationOwner::Scene,
-            input,
-        );
+        let generated = crate::presentation::generation::activate(self.preparation, input);
         #[cfg(not(target_family = "wasm"))]
         let generated = input.generate();
         generated.map_err(|error| error.to_string())

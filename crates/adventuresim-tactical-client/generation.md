@@ -23,6 +23,16 @@ Cancellation drops only matching staged or completed products, and issued ticket
 sequences never repeat within the retained application, including after a
 complete presentation reset.
 
+Focused cities prepare a `RegionalCity` worker product from the complete checked
+settlement capture. The producer reuses canonical supported terrain, including
+building pads, compounds and distant property grounding. Exterior facade jobs
+cover primary and distant placements. City preparation requests no occupied
+interiors, furniture, landscape scatter or actors; actor jobs accept actor
+tickets only. Each map product set retains one city, with immutable terrain and
+ground batches shared across installed and staged residency. Installation checks
+the complete source, settlement, origin and scene document before activation.
+The worker API prepares products; the map controller does not request them yet.
+
 Dependencies use the shared `ProgramFurnitureSite` record from tactical core.
 Scene transfer carries exact occupied placements and requires the matching
 prepared venue recipes to restore them. Promotion of a distant building retains
@@ -66,3 +76,11 @@ scheduling for the massive-city fixture. Set `GENERATION_BENCHMARK_OUTPUT` to an
 output JSON path and select that check with `--ignored --exact`. Native serial
 generation timing is separate from browser worker startup, transfer and GPU
 installation; it does not establish regional-map loading time.
+
+For the focused-city workflow check, first run the dispatcher's
+`imported_settlement_keeps_distant_properties_on_the_relative_datum` behavior
+with `REGIONAL_CITY_FIXTURE_OUTPUT` pointing to an ignored local JSON file.
+Pass that file as `REGIONAL_MAP_CITY_INPUT` to the client's ignored
+`focused_city_workers_keep_canonical_support_without_actor_preparation` check
+and to the real regional-map browser check. These exercise the actual imported
+producer, full-width seeds, worker transfer, actor isolation and retained support.

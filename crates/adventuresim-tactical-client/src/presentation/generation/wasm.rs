@@ -14,6 +14,23 @@ pub fn wasm_finish_generation(ticket_json: &str, input_json: &str) -> Result<(),
 }
 
 #[wasm_bindgen]
+pub fn wasm_regional_city_jobs(
+    ticket_json: &str,
+    document_json: &str,
+    graphics: &str,
+) -> Result<String, JsValue> {
+    encode(
+        &super::city::jobs(decode(ticket_json)?, document_json, graphics).map_err(JsValue::from)?,
+    )
+}
+
+#[wasm_bindgen]
+pub fn wasm_finish_regional_city(ticket_json: &str, document_json: &str) -> Result<(), JsValue> {
+    super::ownership::finish_city(decode(ticket_json)?, &decode(document_json)?)
+        .map_err(JsValue::from)
+}
+
+#[wasm_bindgen]
 pub fn wasm_cancel_generation(ticket_json: &str) -> Result<(), JsValue> {
     super::cancel(decode(ticket_json)?).map_err(JsValue::from)
 }

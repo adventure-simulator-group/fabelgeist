@@ -4,6 +4,7 @@ use super::{
     PresentationOwner, PresentationOwners, TacticalSceneInput,
 };
 use adventuresim_building_generator::BuildingProgram;
+use adventuresim_tactical_core::regional_city::RegionalCityInput;
 use serde::{Deserialize, Serialize};
 use std::{
     num::NonZeroU32,
@@ -43,7 +44,10 @@ struct PreparedSnapshot {
 
 /// Admitted from the canonical scene input digest, never an arbitrary string.
 #[derive(PartialEq)]
-struct PreparationInputIdentity(String);
+enum PreparationInputIdentity {
+    Scene(String),
+    RegionalCity(Box<RegionalCityInput>),
+}
 
 pub(super) struct ProductAccess {
     residency: MutexGuard<'static, GenerationResidency>,
@@ -65,10 +69,62 @@ impl GenerationResidency {
     }
 }
 
+impl PreparationTicket {
+    pub(super) fn require_owner(self, owner: PresentationOwner) -> PreparationResult<()> {
+        if self.owner != owner {
+            return Err(PreparationError::PreparationOwner);
+        }
+        Ok(())
+    }
+}
+
 impl PreparationInputIdentity {
     fn from_input(input: &TacticalSceneInput) -> PreparationResult<Self> {
         input.validate()?;
-        Ok(Self(input.digest()?))
+        Ok(Self::Scene(input.digest()?))
+    }
+
+    fn product_kind(&self) -> super::ProductKind {
+        match self {
+            Self::Scene(_) => super::ProductKind::Scene,
+            Self::RegionalCity(_) => super::ProductKind::RegionalCity,
+        }
+    }
+}
+
+impl OwnerResidency {
+    fn finish(
+        &mut self,
+        ticket: PreparationTicket,
+        input: PreparationInputIdentity,
+    ) -> PreparationResult<()> {
+        if self.preparing != Some(ticket) {
+            return Err(PreparationError::StalePreparation);
+        }
+        let prepared = match &input {
+            PreparationInputIdentity::Scene(digest) => self
+                .staged
+                .scenes
+                .iter()
+                .any(|scene| scene.digest == *digest),
+            PreparationInputIdentity::RegionalCity(document) => self
+                .staged
+                .regional_city
+                .as_ref()
+                .is_some_and(|city| city.document == **document),
+        };
+        if !prepared {
+            return Err(PreparationError::NotPrepared {
+                product: input.product_kind(),
+            });
+        }
+        self.completed = Some(PreparedSnapshot {
+            ticket,
+            input,
+            products: std::mem::take(&mut self.staged),
+        });
+        self.preparing = None;
+        Ok(())
     }
 }
 
@@ -120,29 +176,21 @@ pub(super) fn finish(
     ticket: PreparationTicket,
     input: &TacticalSceneInput,
 ) -> PreparationResult<()> {
+    ticket.require_owner(PresentationOwner::Scene)?;
     let input = PreparationInputIdentity::from_input(input)?;
     let mut residency = residency()?;
-    let slot = residency.owner_mut(ticket.owner);
-    if slot.preparing != Some(ticket) {
-        return Err(PreparationError::StalePreparation);
-    }
-    if !slot
-        .staged
-        .scenes
-        .iter()
-        .any(|scene| scene.digest == input.0)
-    {
-        return Err(PreparationError::NotPrepared {
-            product: super::ProductKind::Scene,
-        });
-    }
-    slot.completed = Some(PreparedSnapshot {
+    residency.owner_mut(ticket.owner).finish(ticket, input)
+}
+
+pub(super) fn finish_city(
+    ticket: PreparationTicket,
+    document: &RegionalCityInput,
+) -> PreparationResult<()> {
+    ticket.require_owner(PresentationOwner::RegionalMap)?;
+    residency()?.owner_mut(ticket.owner).finish(
         ticket,
-        input,
-        products: std::mem::take(&mut slot.staged),
-    });
-    slot.preparing = None;
-    Ok(())
+        PreparationInputIdentity::RegionalCity(Box::new(document.clone())),
+    )
 }
 
 pub(super) fn cancel(ticket: PreparationTicket) -> PreparationResult<()> {
@@ -166,14 +214,11 @@ pub(super) fn cancel(ticket: PreparationTicket) -> PreparationResult<()> {
 /// Starting another request cannot replace dependencies of pending old meshes.
 pub(crate) fn activate(
     ticket: PreparationTicket,
-    owner: PresentationOwner,
     input: &TacticalSceneInput,
 ) -> PreparationResult<GeneratedTacticalScene> {
-    if ticket.owner != owner {
-        return Err(PreparationError::PreparationOwner);
-    }
+    ticket.require_owner(PresentationOwner::Scene)?;
     let mut residency = residency()?;
-    let slot = residency.owner_mut(owner);
+    let slot = residency.owner_mut(PresentationOwner::Scene);
     let snapshot = slot
         .completed
         .as_ref()
@@ -187,6 +232,38 @@ pub(crate) fn activate(
         slot.active = snapshot.products;
     }
     Ok(scene)
+}
+
+pub(in crate::presentation) fn activate_city(
+    ticket: PreparationTicket,
+    document: &RegionalCityInput,
+) -> PreparationResult<std::sync::Arc<super::city::PreparedCityProduct>> {
+    ticket.require_owner(PresentationOwner::RegionalMap)?;
+    let mut residency = residency()?;
+    let slot = residency.owner_mut(ticket.owner);
+    let snapshot = slot
+        .completed
+        .as_ref()
+        .filter(|snapshot| snapshot.ticket == ticket)
+        .ok_or(PreparationError::StalePreparation)?;
+    if !matches!(&snapshot.input,
+        PreparationInputIdentity::RegionalCity(input) if **input == *document)
+    {
+        return Err(PreparationError::PreparationInputMismatch);
+    }
+    let city =
+        snapshot
+            .products
+            .regional_city
+            .as_ref()
+            .cloned()
+            .ok_or(PreparationError::NotPrepared {
+                product: super::ProductKind::RegionalCity,
+            })?;
+    if let Some(snapshot) = slot.completed.take() {
+        slot.active = snapshot.products;
+    }
+    Ok(city)
 }
 
 pub(super) fn staged_products(ticket: PreparationTicket) -> PreparationResult<ProductAccess> {
